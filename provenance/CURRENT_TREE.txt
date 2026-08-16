@@ -269,6 +269,8 @@ configs/ncaa_contest_outcome_reference_adapter_contract.json
 configs/ncaa_contest_reconciliation_contract.json
 configs/ncaa_contest_reconciliation_expansion_policy.json
 configs/ncaa_official_gamebook_contract.json
+configs/ncaa_official_outcome_crosscheck_contract.json
+configs/ncaa_official_outcome_crosscheck_retraining_request.json
 configs/noaa_gfs_issued_run_pilot_contract.json
 configs/noaa_gfs_multigame_selection_contract.json
 configs/noaa_isd_alternate_station_recovery_contract.json
@@ -3069,6 +3071,7 @@ src/aggie_analytics/data/http.py
 src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 src/aggie_analytics/data/ncaa_contest_reconciliation.py
 src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
+src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py
 src/aggie_analytics/data/open_source.py
 src/aggie_analytics/data/play_drive.py
 src/aggie_analytics/data/roster_reconciliation.py
@@ -3286,6 +3289,7 @@ tests/test_ncaa_contest_reconciliation.py
 tests/test_ncaa_contest_reconciliation_expansion.py
 tests/test_ncaa_official_discovery_validation.py
 tests/test_ncaa_official_gamebooks.py
+tests/test_ncaa_official_outcome_crosscheck.py
 tests/test_noaa_gfs_issued_run_pilot.py
 tests/test_noaa_gfs_multigame_selection.py
 tests/test_noaa_isd_alternate_station_recovery.py
@@ -3393,6 +3397,7 @@ tools/build_jira_control_plane.py
 tools/build_ncaa_contest_outcome_reference_adapter.py
 tools/build_ncaa_contest_reconciliation.py
 tools/build_ncaa_contest_reconciliation_expansion.py
+tools/build_ncaa_official_outcome_crosscheck.py
 tools/build_noaa_gfs_issued_run_pilot.py
 tools/build_noaa_gfs_multigame_selection.py
 tools/build_noaa_isd_alternate_station_recovery.py
@@ -3537,6 +3542,7 @@ tools/validate_ncaa_contest_outcome_reference_adapter.py
 tools/validate_ncaa_contest_reconciliation.py
 tools/validate_ncaa_official_discovery.py
 tools/validate_ncaa_official_gamebooks.py
+tools/validate_ncaa_official_outcome_crosscheck.py
 tools/validate_noaa_gfs_issued_run_pilot.py
 tools/validate_noaa_gfs_multigame_selection.py
 tools/validate_noaa_isd_alternate_station_recovery.py

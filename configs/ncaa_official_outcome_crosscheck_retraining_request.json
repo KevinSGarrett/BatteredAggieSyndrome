@@ -1,0 +1,64 @@
+{
+  "old_dataset_identity": "367fb0df9e7b9a7e39a40b6acb71d930d594c3d5482558a3298a4975d25df888",
+  "new_dataset_identity": "ac45b2fca510d92f9f1d651296c19250442da8573be1ee5056bd1fc66bac34a3",
+  "training_eligible": false,
+  "observed_deltas": {
+    "eligible_seasons_before": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "eligible_seasons_after": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "eligible_games_before": 13356,
+    "eligible_games_after": 13356,
+    "domain_coverage_deltas": {
+      "official_outcome_crosscheck_mapping_rows": 1536,
+      "official_linescore_comparisons": 1044,
+      "official_canonical_agreements": 1043,
+      "official_canonical_conflicts": 1,
+      "missing_official_linescores": 492,
+      "training_domains_added": []
+    },
+    "missingness_deltas": {
+      "2022": "30 of 761 exact mappings lack a validated official linescore; all 731 available comparisons remain explicit.",
+      "2023": "462 of 775 exact mappings lack a validated official linescore; all 313 available comparisons remain explicit.",
+      "training_population": "UNCHANGED"
+    },
+    "schema_or_reconciliation_deltas": {
+      "candidate_crosscheck_schema_added": "BAT-554-NCAA-OFFICIAL-OUTCOME-CROSSCHECK-2022-2023-V1",
+      "canonical_training_population": "UNCHANGED",
+      "conflict_requiring_separate_correction": "NCAA contest 2276794 / canonical game_ec817315eece552e8b5d2bede5aaeb60"
+    },
+    "pit_safe_feature_family_deltas": {
+      "candidate_only_added": ["NCAA_OFFICIAL_POSTGAME_OUTCOME_CROSSCHECK_2022_2023"],
+      "protected_eligible_added": []
+    },
+    "consequential_defect_deltas": {
+      "detected_not_corrected": "One exact-mapped 2022 contest has reversed canonical-versus-official final-score orientation; it remains quarantined pending source-lineage correction.",
+      "crosscheck_validation_identity": "72409b8eea38a00f518c01841bb252752a9dc9e9cd46b47b3191f46ce848519f",
+      "training_population_affected": false
+    }
+  },
+  "material_changes": [
+    {
+      "kind": "MATERIAL_DOMAIN_COVERAGE_INCREASE",
+      "material": true,
+      "evidence_identity": "ac45b2fca510d92f9f1d651296c19250442da8573be1ee5056bd1fc66bac34a3",
+      "rationale": "The exact 2022-2023 reconciliation population now has 1044 independently parsed NCAA-official score comparisons, with agreement, conflict, and missingness partitioned by season and contest."
+    },
+    {
+      "kind": "CONSEQUENTIAL_DATA_DEFECT_CORRECTION",
+      "material": false,
+      "evidence_identity": "ac45b2fca510d92f9f1d651296c19250442da8573be1ee5056bd1fc66bac34a3",
+      "rationale": "A consequential score-orientation conflict was detected and quarantined but has not yet changed canonical or training data."
+    },
+    {
+      "kind": "ADDITIONAL_ELIGIBLE_SEASONS_OR_GAMES",
+      "material": false,
+      "evidence_identity": "ac45b2fca510d92f9f1d651296c19250442da8573be1ee5056bd1fc66bac34a3",
+      "rationale": "No season or game became training-eligible from candidate-only postgame corroboration."
+    },
+    {
+      "kind": "TRAINING_POPULATION_RECONCILIATION_CHANGE",
+      "material": false,
+      "evidence_identity": "ac45b2fca510d92f9f1d651296c19250442da8573be1ee5056bd1fc66bac34a3",
+      "rationale": "Canonical mappings, outcomes, PIT state, features, targets, splits, and training rows remain unchanged."
+    }
+  ]
+}

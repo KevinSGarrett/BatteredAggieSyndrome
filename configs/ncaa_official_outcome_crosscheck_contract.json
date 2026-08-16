@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-554-NCAA-OFFICIAL-OUTCOME-CROSSCHECK-2022-2023-V1",
+  "decision_unit": "POST-SUBTASK-197",
+  "jira_key": "BAT-554",
+  "classification": "CANDIDATE_ONLY_OFFICIAL_POSTGAME_OUTCOME_CROSSCHECK",
+  "source_seasons": [
+    {
+      "season": 2022,
+      "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+      "reconciliation_manifest_sha256": "281109c4aa1332c2b1e09fd6921c5fb957d86e7c7425dce54daa345f073140ab",
+      "expected_mapping_count": 761,
+      "expected_acquisition_rollup_identity": "8fec73c945bcc3491c8af1621d909f1243a26c250f83e9d67ad0cb855fae5171",
+      "expected_linescore_contest_count": 731
+    },
+    {
+      "season": 2023,
+      "reconciliation_dataset_identity": "f8f15b9ea8191ba39c9a28ced7172b77978ca796d9a6b096e7c122777e90bbe6",
+      "reconciliation_manifest_sha256": "0ca8b549c672b6dfced4aa86a276a3ed4d85f682c58643988a89d97703c50cd1",
+      "expected_mapping_count": 775,
+      "expected_acquisition_rollup_identity": "4f2f6fff9d218611f3e5fceb1a50933e42f92bfce5c83b0c6cc4dd9080d60348",
+      "expected_linescore_contest_count": 313
+    }
+  ],
+  "identity": {
+    "required_mapping_method": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT",
+    "name_only_promotion_allowed": false,
+    "contest_id_inference_allowed": false,
+    "team_identity_inference_allowed": false
+  },
+  "score_rules": {
+    "endpoint_id": "box_score",
+    "domain": "linescore_game_info",
+    "required_sides": ["away", "home"],
+    "require_one_distinct_final_per_side": true,
+    "require_one_distinct_team_label_per_side": true,
+    "require_nonnegative_integer_finals": true,
+    "require_period_sum_equals_final": true,
+    "missing_score_inference_allowed": false,
+    "conflicts_preserved_not_overwritten": true
+  },
+  "acceptance": {
+    "expected_mapping_rows": 1536,
+    "expected_linescore_contests": 1044,
+    "require_complete_status_partition": true,
+    "fabricated_completeness_thresholds": false
+  },
+  "authority": {
+    "official_postgame_crosscheck_candidate": true,
+    "canonical_entity_mutation": false,
+    "canonical_outcome_mutation": false,
+    "historical_pit_admission": false,
+    "same_game_pregame_admission": false,
+    "training_admission": false,
+    "protected_evaluation_admission": false,
+    "production_admission": false,
+    "champion_promotion": false,
+    "forecast_publication": false
+  }
+}

@@ -101,6 +101,21 @@
     "retraining_action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
     "authority": "CANDIDATE_ONLY_PARTIAL_DOMAIN_EVIDENCE_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
   },
+  "ncaa_official_outcome_crosscheck_2022_2023": {
+    "dataset_identity": "ac45b2fca510d92f9f1d651296c19250442da8573be1ee5056bd1fc66bac34a3",
+    "manifest_sha256": "0f5da632beb8152b8b55e5d1760cd88fd2c82d860b3d8467233f381799e142e3",
+    "mapping_rows": 1536,
+    "valid_official_comparisons": 1044,
+    "agreements": 1043,
+    "conflicts": 1,
+    "missing_official_linescores": 492,
+    "preserved_conflict": "NCAA_CONTEST_2276794_FLORIDA_STATE_24_LSU_23_CANONICAL_SCORE_ORIENTATION_REVERSED_QUARANTINED_PENDING_LINEAGE_CORRECTION",
+    "validation_identity": "72409b8eea38a00f518c01841bb252752a9dc9e9cd46b47b3191f46ce848519f",
+    "validation_report_sha256": "62dfe97a69012e754a4b0c22efd6751b0a2e71b40f6734c05c4484e2307aa5df",
+    "retraining_decision_identity": "619b05f53a62de8e9a99431a8f093c9fe867b660dc85472b31d33bd1370d2d30",
+    "retraining_action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+    "authority": "OFFICIAL_POSTGAME_CROSSCHECK_CANDIDATE_ONLY_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
+  },
   "active_independent_discovery": [],
   "discovery_program_checkpoint": {
     "seasons_with_discovery_and_reconciliation_manifests": "2010-2025",
@@ -125,6 +140,7 @@
     "Four NCAA contest aliases describe two canonical 2020 games; every duplicate source alias is quarantined rather than arbitrarily promoted.",
     "The 2020 official NCAA reconciliation remains partial: 403 of 889 considered contest identities are unresolved.",
     "The 2022 official acquisition remains partial: 55 of 630 unique contest-endpoint requests are technically unavailable; all failures remain independently preserved without invalidating other captured domains.",
+    "The exact 2022-2023 official outcome cross-check found one quarantined score-orientation conflict: NCAA contest 2276794 records Florida State 24 and LSU 23, while the bound canonical record assigns those scores to the opposite teams.",
     "The twenty newly acquired offsets 85-104 add 6,820 deterministically parsed candidate rows through immutable-cache replay; parser replay recovered thirty-eight first-pass gaps, but no historical PIT, training, protected-evaluation, champion, or production authority was granted.",
     "The expanded outcome spine does not replace or broaden the separately accepted 2010-2022 historical-known-at replay identity.",
     "Inspected 2024-2025 evidence is development/unprotected and is not untouched protected evidence."

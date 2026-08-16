@@ -68,6 +68,8 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 - configs/historical_game_outcome_spine_expansion_contract.json
 - configs/ncaa_contest_outcome_reference_adapter_contract.json
 - configs/ncaa_contest_reconciliation_expansion_policy.json
+- configs/ncaa_official_outcome_crosscheck_contract.json
+- configs/ncaa_official_outcome_crosscheck_retraining_request.json
 - configs/feature_source_research_program.json
 - artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 - artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
@@ -77,17 +79,21 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 - src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
 - src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 - src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
+- src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py
 - tools/acquire_ncaa_official_gamebooks.py
 - tools/build_historical_game_outcome_spine_expansion.py
 - tools/build_ncaa_contest_outcome_reference_adapter.py
 - tools/build_ncaa_contest_reconciliation_expansion.py
+- tools/build_ncaa_official_outcome_crosscheck.py
 - tools/validate_historical_game_outcome_spine_expansion.py
 - tools/validate_ncaa_contest_outcome_reference_adapter.py
 - tools/validate_ncaa_contest_reconciliation.py
+- tools/validate_ncaa_official_outcome_crosscheck.py
 - tools/validate_ncaa_official_gamebooks.py
 - tests/test_historical_game_outcome_spine_expansion.py
 - tests/test_ncaa_contest_outcome_reference_adapter.py
 - tests/test_ncaa_contest_reconciliation_expansion.py
+- tests/test_ncaa_official_outcome_crosscheck.py
 - tests/test_ncaa_official_gamebooks.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
@@ -119,6 +125,8 @@ Produce and validate these outputs within this atomic work unit:
 - configs/historical_game_outcome_spine_expansion_contract.json
 - configs/ncaa_contest_outcome_reference_adapter_contract.json
 - configs/ncaa_contest_reconciliation_expansion_policy.json
+- configs/ncaa_official_outcome_crosscheck_contract.json
+- configs/ncaa_official_outcome_crosscheck_retraining_request.json
 - configs/feature_source_research_program.json
 - artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 - artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
@@ -127,17 +135,21 @@ Produce and validate these outputs within this atomic work unit:
 - src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
 - src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 - src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
+- src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py
 - tools/acquire_ncaa_official_gamebooks.py
 - tools/build_historical_game_outcome_spine_expansion.py
 - tools/build_ncaa_contest_outcome_reference_adapter.py
 - tools/build_ncaa_contest_reconciliation_expansion.py
+- tools/build_ncaa_official_outcome_crosscheck.py
 - tools/validate_ncaa_official_gamebooks.py
 - tools/validate_historical_game_outcome_spine_expansion.py
 - tools/validate_ncaa_contest_outcome_reference_adapter.py
 - tools/validate_ncaa_contest_reconciliation.py
+- tools/validate_ncaa_official_outcome_crosscheck.py
 - tests/test_historical_game_outcome_spine_expansion.py
 - tests/test_ncaa_contest_outcome_reference_adapter.py
 - tests/test_ncaa_contest_reconciliation_expansion.py
+- tests/test_ncaa_official_outcome_crosscheck.py
 - tests/test_ncaa_official_gamebooks.py
 
 ## Acceptance criteria
@@ -153,6 +165,7 @@ Produce and validate these outputs within this atomic work unit:
 
 - NEW_AUTOMATED_TEST_REQUIRED / SOURCE_SCHEMA_AND_NEGATIVE_PATHS: tests/test_ncaa_official_gamebooks.py — Deterministic parser fixtures cover every NCAA contest tab, missing tabs, schema drift, malformed HTML, anti-bot/interstitial payload rejection, and no-fabrication behavior.
 - END_TO_END / REAL_DATA_REPRODUCIBILITY: artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json — A bounded real official-contest sample is fetched, hashed, parsed, reconciled, domain-gated, rebuilt byte-identically, and rejected under unsafe identity/PIT/provenance mutations.
+- END_TO_END / OFFICIAL_OUTCOME_CROSS_SOURCE_RECONCILIATION: tests/test_ncaa_official_outcome_crosscheck.py — Every exact 2022-2023 mapping is partitioned into official-score agreement, preserved conflict, or explicit missing/invalid linescore; normalized payload hashes and identities are verified; the artifact rebuilds byte-identically and fails closed under authority, rollup, and mapping-method mutations.
 
 ## Evidence to return
 

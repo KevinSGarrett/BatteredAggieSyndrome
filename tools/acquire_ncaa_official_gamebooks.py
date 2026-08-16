@@ -1,8 +1,11 @@
-from __future__ import annotations
-
 """Acquire bounded official NCAA contest evidence into the immutable external lake."""
 
+from __future__ import annotations
+
 import argparse
+import base64
+import concurrent.futures
+import functools
 import hashlib
 import html
 import importlib.metadata
@@ -13,6 +16,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -426,15 +430,17 @@ def load_reconciled_contests(
     if stable_hash(core) != identity:
         raise ValueError("reconciliation manifest content identity mismatch")
     authority = manifest.get("authority", {})
-    for field in (
+    for authority_field in (
         "canonical_registry_write",
         "historical_pit_eligible",
         "training_eligible",
         "protected_evaluation_eligible",
         "production_eligible",
     ):
-        if authority.get(field) is not False:
-            raise ValueError(f"reconciliation authority must remain false: {field}")
+        if authority.get(authority_field) is not False:
+            raise ValueError(
+                f"reconciliation authority must remain false: {authority_field}"
+            )
     mappings = core.get("mapping_records")
     if not isinstance(mappings, list) or not mappings:
         raise ValueError("reconciliation manifest has no mapping records")
@@ -450,9 +456,16 @@ def load_reconciled_contests(
             raise ValueError("reconciliation mapping method is not admitted")
         if mapping.get("name_only_promotion") is not False:
             raise ValueError("name-only reconciliation promotion is forbidden")
-        for field in ("historical_pit_eligible", "training_eligible", "protected_eligible"):
-            if mapping.get(field) is not False:
-                raise ValueError(f"reconciliation mapping authority must remain false: {field}")
+        for authority_field in (
+            "historical_pit_eligible",
+            "training_eligible",
+            "protected_eligible",
+        ):
+            if mapping.get(authority_field) is not False:
+                raise ValueError(
+                    "reconciliation mapping authority must remain false: "
+                    f"{authority_field}"
+                )
         if contest_id in contest_ids or canonical_game_id in canonical_game_ids:
             raise ValueError("reconciliation mappings must be one-to-one for acquisition")
         contest_ids.add(contest_id)
@@ -588,6 +601,91 @@ class ScrapflyTransport:
 
 
 @dataclass(frozen=True)
+class ScraperAPIAccountCapacity:
+    state: str
+    request_limit: int | None = None
+    request_count: int | None = None
+    credits_left: int | None = None
+    concurrency_limit: int | None = None
+    pay_as_you_go_enabled: bool | None = None
+    auto_upgrade_enabled: bool | None = None
+
+    @property
+    def exhausted(self) -> bool:
+        return self.state == "EXHAUSTED"
+
+
+@functools.lru_cache(maxsize=8)
+def scraperapi_account_capacity(
+    access_token: str,
+    *,
+    timeout_seconds: float = 30.0,
+) -> ScraperAPIAccountCapacity:
+    """Return only non-secret capacity fields; unknown status never blocks a request."""
+
+    if not access_token:
+        raise ValueError("ScraperAPI credential must be nonempty")
+    wire_url = "https://api.scraperapi.com/account?" + urllib.parse.urlencode(
+        {"api_key": access_token}
+    )
+    try:
+        with urllib.request.urlopen(
+            urllib.request.Request(wire_url, headers={"Accept": "application/json"}),
+            timeout=timeout_seconds,
+        ) as response:
+            if not 200 <= int(response.status) < 300:
+                return ScraperAPIAccountCapacity(state="UNKNOWN")
+            envelope = json.loads(response.read())
+    except (
+        TimeoutError,
+        urllib.error.HTTPError,
+        urllib.error.URLError,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+    ):
+        return ScraperAPIAccountCapacity(state="UNKNOWN")
+    if not isinstance(envelope, Mapping):
+        return ScraperAPIAccountCapacity(state="UNKNOWN")
+    try:
+        request_limit = int(envelope["requestLimit"])
+        request_count = int(envelope["requestCount"])
+        credits_left = int(envelope["creditsLeft"])
+        concurrency_limit = int(envelope["concurrencyLimit"])
+        pay_as_you_go_enabled = envelope["payAsYouGoEnabled"]
+        auto_upgrade_enabled = envelope["autoUpgradeEnabled"]
+    except (KeyError, TypeError, ValueError):
+        return ScraperAPIAccountCapacity(state="UNKNOWN")
+    if not isinstance(pay_as_you_go_enabled, bool) or not isinstance(
+        auto_upgrade_enabled, bool
+    ):
+        return ScraperAPIAccountCapacity(state="UNKNOWN")
+    exhausted = (
+        request_count >= request_limit
+        and credits_left <= 0
+        and not pay_as_you_go_enabled
+        and not auto_upgrade_enabled
+    )
+    return ScraperAPIAccountCapacity(
+        state="EXHAUSTED" if exhausted else "AVAILABLE",
+        request_limit=request_limit,
+        request_count=request_count,
+        credits_left=credits_left,
+        concurrency_limit=concurrency_limit,
+        pay_as_you_go_enabled=pay_as_you_go_enabled,
+        auto_upgrade_enabled=auto_upgrade_enabled,
+    )
+
+
+def require_scraperapi_capacity(access_token: str) -> None:
+    capacity = scraperapi_account_capacity(access_token)
+    if capacity.exhausted:
+        raise AcquisitionFailure(
+            "RATE_LIMITED",
+            "ScraperAPI account request allowance is exhausted",
+        )
+
+
+@dataclass(frozen=True)
 class ScraperAPITransport:
     access_token: str = field(repr=False)
     api_url: str = "https://api.scraperapi.com/"
@@ -599,6 +697,7 @@ class ScraperAPITransport:
 
     def __call__(self, request: AcquisitionRequest) -> FetchResponse:
         validate_official_uri(request.source_uri)
+        require_scraperapi_capacity(self.access_token)
         wire_url = self.api_url + "?" + urllib.parse.urlencode(
             {
                 "api_key": self.access_token,
@@ -618,6 +717,117 @@ class ScraperAPITransport:
             raise AcquisitionFailure("TIMEOUT", "ScraperAPI request timed out") from error
         except urllib.error.URLError as error:
             raise AcquisitionFailure("CONNECTION_ERROR", "ScraperAPI connection failed") from error
+
+
+@dataclass(frozen=True)
+class ScraperAPIAsyncTransport:
+    """Submit one render job and poll its credential-free status URL."""
+
+    access_token: str = field(repr=False)
+    api_url: str = "https://async.scraperapi.com/jobs"
+    timeout_seconds: float = 60.0
+    poll_interval_seconds: float = 2.0
+    maximum_poll_seconds: float = 600.0
+
+    def __post_init__(self) -> None:
+        if not self.access_token:
+            raise ValueError("ScraperAPI credential must be nonempty")
+        if self.poll_interval_seconds < 0 or self.maximum_poll_seconds <= 0:
+            raise ValueError("ScraperAPI async polling bounds must be positive")
+
+    @staticmethod
+    def _read_json(wire: urllib.request.Request | str, *, timeout_seconds: float) -> dict[str, Any]:
+        try:
+            with urllib.request.urlopen(wire, timeout=timeout_seconds) as response:
+                status = int(response.status)
+                payload = response.read()
+        except urllib.error.HTTPError as error:
+            raise _status_failure(int(error.code)) from error
+        except TimeoutError as error:
+            raise AcquisitionFailure("TIMEOUT", "ScraperAPI async request timed out") from error
+        except urllib.error.URLError as error:
+            raise AcquisitionFailure("CONNECTION_ERROR", "ScraperAPI async connection failed") from error
+        if not 200 <= status < 300:
+            raise _status_failure(status)
+        try:
+            envelope = json.loads(payload)
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise AcquisitionFailure("SCHEMA_INCOMPATIBLE", "ScraperAPI async envelope was invalid") from error
+        if not isinstance(envelope, dict):
+            raise AcquisitionFailure("SCHEMA_INCOMPATIBLE", "ScraperAPI async envelope was not an object")
+        return envelope
+
+    @staticmethod
+    def _validate_status_url(value: str) -> None:
+        parsed = urlsplit(value)
+        if (
+            parsed.scheme != "https"
+            or (parsed.hostname or "").lower() != "async.scraperapi.com"
+            or not re.fullmatch(r"/jobs/[0-9a-f-]{36}", parsed.path)
+            or parsed.username
+            or parsed.password
+            or parsed.query
+            or parsed.fragment
+        ):
+            raise AcquisitionFailure("SCHEMA_INCOMPATIBLE", "ScraperAPI returned an unsafe status URL")
+
+    def __call__(self, request: AcquisitionRequest) -> FetchResponse:
+        validate_official_uri(request.source_uri)
+        require_scraperapi_capacity(self.access_token)
+        payload = canonical_json_bytes(
+            {
+                "apiKey": self.access_token,
+                "url": request.source_uri,
+                "apiParams": {"country_code": "us", "render": True},
+                "meta": {"request_identity": request.identity_sha256},
+            }
+        )
+        submit = self._read_json(
+            urllib.request.Request(
+                self.api_url,
+                data=payload,
+                headers={"Accept": "application/json", "Content-Type": "application/json"},
+                method="POST",
+            ),
+            timeout_seconds=self.timeout_seconds,
+        )
+        status_url = str(submit.get("statusUrl", ""))
+        self._validate_status_url(status_url)
+        deadline = time.monotonic() + self.maximum_poll_seconds
+        while True:
+            job = self._read_json(status_url, timeout_seconds=self.timeout_seconds)
+            state = str(job.get("status", "")).lower()
+            if state == "finished":
+                response = job.get("response")
+                if not isinstance(response, Mapping):
+                    raise AcquisitionFailure("SCHEMA_INCOMPATIBLE", "ScraperAPI async result was absent")
+                status_code = int(response.get("statusCode", 0))
+                raw_body = response.get("body")
+                encoded_body = response.get("base64EncodedBody")
+                if isinstance(raw_body, str):
+                    body = raw_body.encode("utf-8")
+                elif isinstance(encoded_body, str):
+                    try:
+                        body = base64.b64decode(encoded_body, validate=True)
+                    except ValueError as error:
+                        raise AcquisitionFailure(
+                            "SCHEMA_INCOMPATIBLE", "ScraperAPI async body was not valid base64"
+                        ) from error
+                else:
+                    raise AcquisitionFailure("SCHEMA_INCOMPATIBLE", "ScraperAPI async body was absent")
+                headers = response.get("headers")
+                return FetchResponse(
+                    body=body,
+                    status_code=status_code,
+                    headers=_safe_headers(headers) if isinstance(headers, Mapping) else {},
+                )
+            if state in {"failed", "cancelled", "canceled"}:
+                raise AcquisitionFailure("SERVER_ERROR", f"ScraperAPI async job ended as {state}")
+            if state not in {"running", "pending"}:
+                raise AcquisitionFailure("SCHEMA_INCOMPATIBLE", "ScraperAPI async job state was invalid")
+            if time.monotonic() >= deadline:
+                raise AcquisitionFailure("TIMEOUT", "ScraperAPI async job exceeded its polling deadline")
+            time.sleep(self.poll_interval_seconds)
 
 
 @dataclass(frozen=True)
@@ -1276,7 +1486,11 @@ def build_routes(
         states.append(
             {"route_id": "local_patchright_chrome", "availability": "UNAVAILABLE_BROWSER_ABSENT", "credential_state": "NOT_REQUIRED"}
         )
-    for route_id, transport_type in (("scrapfly", ScrapflyTransport), ("scraperapi", ScraperAPITransport)):
+    for route_id, transport_type in (
+        ("scrapfly", ScrapflyTransport),
+        ("scraperapi_async", ScraperAPIAsyncTransport),
+        ("scraperapi", ScraperAPITransport),
+    ):
         route_config = contract["transport"][route_id]
         variable = route_config["credential_environment_variable"]
         credential = load_optional_dotenv_value(env_file, variable)
@@ -1290,8 +1504,15 @@ def build_routes(
                     rendering_wait_milliseconds=int(route_config["rendering_wait_milliseconds"]),
                     cost_budget=int(route_config["cost_budget"]),
                 )
-            else:
+            elif route_id == "scraperapi":
                 available[route_id] = transport_type(credential, api_url=route_config["api_url"])
+            else:
+                available[route_id] = transport_type(
+                    credential,
+                    api_url=route_config["api_url"],
+                    poll_interval_seconds=float(route_config["poll_interval_seconds"]),
+                    maximum_poll_seconds=float(route_config["maximum_poll_seconds"]),
+                )
             states.append(
                 {"route_id": route_id, "availability": "AVAILABLE", "credential_state": "CONFIGURED_NONEMPTY"}
             )
@@ -1461,6 +1682,73 @@ def acquire_one(
     }
 
 
+def acquire_contest_endpoint(
+    *,
+    store: RawSnapshotStore,
+    contest: Mapping[str, Any],
+    endpoint: Mapping[str, Any],
+    contract: Mapping[str, Any],
+    env_file: Path,
+    runtime_root: Path,
+    data_root: Path,
+    retrieved_at: datetime,
+    maximum_attempts: int,
+    selected_route_ids: list[str],
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Acquire and normalize one independent contest/endpoint decision."""
+
+    contest_id = str(contest["contest_id"])
+    endpoint_id = str(endpoint["endpoint_id"])
+    request = request_for(contract, contest, endpoint)
+    routes, route_states = build_routes(
+        contract=contract,
+        env_file=env_file,
+        runtime_root=runtime_root,
+        contest_id=contest_id,
+        endpoint_id=endpoint_id,
+    )
+    if selected_route_ids:
+        routes = [row for row in routes if row[0] in selected_route_ids]
+    result = acquire_one(
+        store=store,
+        request=request,
+        routes=routes,
+        retrieved_at=retrieved_at,
+        maximum_attempts=maximum_attempts,
+    )
+    normalization: list[dict[str, Any]] = []
+    if result["state"] == "CAPTURED":
+        normalization = normalize_ncaa_capture(
+            raw_path=data_root / result["raw_relative_path"],
+            raw_sha256=result["raw_sha256"],
+            contest_id=contest_id,
+            endpoint_id=endpoint_id,
+            source_uri=request.source_uri,
+            retrieved_at_utc=result["capture_retrieved_at_utc"],
+            contract=contract,
+            data_root=data_root,
+        )
+    capture = {
+        **result,
+        "normalization": normalization,
+        "contest_id": contest_id,
+        "season": contest["season"],
+        "season_type": contest["season_type"],
+        "observed_matchup": contest["observed_matchup"],
+        "observed_game_date": contest["observed_game_date"],
+        "canonical_game_id": contest["canonical_game_id"],
+        "identity_state": contest["identity_state"],
+        "mapping_method": contest.get("mapping_method"),
+        "reconciliation_dataset_identity": contest.get("reconciliation_dataset_identity"),
+        "endpoint_id": endpoint_id,
+        "domains": list(endpoint["domains"]),
+        "domain_grains": {domain: contract["domain_grain"][domain] for domain in endpoint["domains"]},
+        "source_uri": request.source_uri,
+        "retrieved_at_utc": result.get("capture_retrieved_at_utc", iso_utc(retrieved_at)),
+    }
+    return capture, route_states
+
+
 def acquisition_core(
     *,
     contract: Mapping[str, Any],
@@ -1623,6 +1911,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--route-id", action="append", default=[])
     result.add_argument("--maximum-requests", type=int)
     result.add_argument("--maximum-attempts", type=int, default=2)
+    result.add_argument("--request-workers", type=int, default=1)
     result.add_argument("--discover-season", type=int, action="append", default=[])
     result.add_argument("--discovery-only", action="store_true")
     result.add_argument("--maximum-discovery-teams", type=int)
@@ -1639,12 +1928,13 @@ def main() -> int:
         raise ValueError("contract must be versioned in the repository")
     if (
         args.maximum_attempts < 1
+        or not 1 <= args.request_workers <= 64
         or (args.maximum_requests is not None and args.maximum_requests < 1)
         or args.contest_offset < 0
         or (args.maximum_contests is not None and args.maximum_contests < 1)
         or (args.maximum_discovery_teams is not None and args.maximum_discovery_teams < 1)
     ):
-        raise ValueError("attempt and request limits must be positive")
+        raise ValueError("attempt/request limits and request workers must be within bounds")
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
     unknown_routes = sorted(set(args.route_id) - set(contract["transport"]["route_order"]))
     if unknown_routes:
@@ -1765,78 +2055,60 @@ def main() -> int:
         work = work[: args.maximum_requests]
     captures: list[dict[str, Any]] = []
     route_state_map: dict[str, dict[str, Any]] = {}
-    for work_index, (contest, endpoint) in enumerate(work, start=1):
-        contest_id = str(contest["contest_id"])
-        endpoint_id = endpoint["endpoint_id"]
-        request = request_for(contract, contest, endpoint)
-        routes, route_states = build_routes(
+
+    def execute(item: tuple[Mapping[str, Any], Mapping[str, Any]]):
+        contest, endpoint = item
+        return acquire_contest_endpoint(
+            store=store,
+            contest=contest,
+            endpoint=endpoint,
             contract=contract,
             env_file=args.env_file.resolve(),
             runtime_root=runtime_root,
-            contest_id=contest_id,
-            endpoint_id=endpoint_id,
-        )
-        for state in route_states:
-            route_state_map[state["route_id"]] = state
-        if args.route_id:
-            routes = [row for row in routes if row[0] in args.route_id]
-        result = acquire_one(
-            store=store,
-            request=request,
-            routes=routes,
+            data_root=data_root,
             retrieved_at=retrieved_at,
             maximum_attempts=args.maximum_attempts,
+            selected_route_ids=args.route_id,
         )
-        normalization: list[dict[str, Any]] = []
-        if result["state"] == "CAPTURED":
-            normalization = normalize_ncaa_capture(
-                raw_path=data_root / result["raw_relative_path"],
-                raw_sha256=result["raw_sha256"],
-                contest_id=contest_id,
-                endpoint_id=endpoint_id,
-                source_uri=request.source_uri,
-                retrieved_at_utc=result["capture_retrieved_at_utc"],
-                contract=contract,
-                data_root=data_root,
+
+    if args.request_workers == 1:
+        completed = map(execute, work)
+        executor = None
+    else:
+        executor = concurrent.futures.ThreadPoolExecutor(
+            max_workers=args.request_workers,
+            thread_name_prefix="ncaa-acquisition",
+        )
+        completed = executor.map(execute, work)
+    try:
+        for work_index, (capture, route_states) in enumerate(completed, start=1):
+            contest_id = str(capture["contest_id"])
+            endpoint_id = str(capture["endpoint_id"])
+            normalization = capture["normalization"]
+            for state in route_states:
+                route_state_map[state["route_id"]] = state
+            captures.append(capture)
+            print(
+                json.dumps(
+                    {
+                        "event": "NCAA_RECONCILED_CONTEST_ACQUISITION_PROGRESS",
+                        "completed_requests": work_index,
+                        "total_requests": len(work),
+                        "contest_id": contest_id,
+                        "endpoint_id": endpoint_id,
+                        "state": capture["state"],
+                        "route_id": capture.get("route_id"),
+                        "normalization_states": sorted(
+                            {row["state"] for row in normalization}
+                        ),
+                    },
+                    sort_keys=True,
+                ),
+                flush=True,
             )
-        captures.append(
-            {
-                **result,
-                "normalization": normalization,
-                "contest_id": contest_id,
-                "season": contest["season"],
-                "season_type": contest["season_type"],
-                "observed_matchup": contest["observed_matchup"],
-                "observed_game_date": contest["observed_game_date"],
-                "canonical_game_id": contest["canonical_game_id"],
-                "identity_state": contest["identity_state"],
-                "mapping_method": contest.get("mapping_method"),
-                "reconciliation_dataset_identity": contest.get("reconciliation_dataset_identity"),
-                "endpoint_id": endpoint_id,
-                "domains": list(endpoint["domains"]),
-                "domain_grains": {domain: contract["domain_grain"][domain] for domain in endpoint["domains"]},
-                "source_uri": request.source_uri,
-                "retrieved_at_utc": result.get("capture_retrieved_at_utc", iso_utc(retrieved_at)),
-            }
-        )
-        print(
-            json.dumps(
-                {
-                    "event": "NCAA_RECONCILED_CONTEST_ACQUISITION_PROGRESS",
-                    "completed_requests": work_index,
-                    "total_requests": len(work),
-                    "contest_id": contest_id,
-                    "endpoint_id": endpoint_id,
-                    "state": result["state"],
-                    "route_id": result.get("route_id"),
-                    "normalization_states": sorted(
-                        {row["state"] for row in normalization}
-                    ),
-                },
-                sort_keys=True,
-            ),
-            flush=True,
-        )
+    finally:
+        if executor is not None:
+            executor.shutdown(wait=True, cancel_futures=False)
     captures.sort(key=lambda row: (int(row["contest_id"]), row["endpoint_id"]))
     core = acquisition_core(
         contract=contract,

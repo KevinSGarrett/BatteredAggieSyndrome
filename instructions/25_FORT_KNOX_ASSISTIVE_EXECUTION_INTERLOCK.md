@@ -1,6 +1,16 @@
 # Fort Knox Assistive-Execution Interlock
 
-**Policy version:** `3.0.0`
+## Current operational disposition
+
+This contract is preserved as historical governance evidence but is inactive
+under the user's later standing direction to stop building the assistive pipeline
+and work only on the Battered Aggie Syndrome / Aggie Analytics Engine project.
+Until the user explicitly reactivates pipeline work, pipeline incompleteness does
+not block direct BAS execution, and this file must not be used to redirect a
+session into pipeline repair. Existing pipeline evidence remains honestly
+`NOT_OPERATIONAL`.
+
+**Policy version:** `3.2.0`
 **Machine companion:** `instructions/policies/assistive_execution_interlock.json`
 **Runtime state at adoption:** `NOT_OPERATIONAL`
 

@@ -2577,6 +2577,97 @@
     },
     "authority": "CANDIDATE_REFERENCE_ONLY_PARTIAL_OFFICIAL_DOMAIN_COVERAGE_NO_CANONICAL_REGISTRY_WRITE_NO_PIT_TRAINING_PROTECTED_PRODUCTION_OR_COMPLETENESS_PROMOTION"
   },
+  "historical_spine_2023_complete_official_endpoint_decision_checkpoint": {
+    "recorded_at_utc": "2026-08-16T01:20:00Z",
+    "population": {
+      "season": 2023,
+      "season_type": "REGULAR_AND_POSTSEASON_COMBINED",
+      "exact_reconciled_contests": 775,
+      "canonical_teams": 192,
+      "official_endpoints_per_contest": 6,
+      "endpoint_decisions": 4650,
+      "captured_endpoints": 1795,
+      "technical_failures": 2855,
+      "unresolved_reconciliation_contests_preserved_separately": 2907,
+      "selection_identity": "7b01631ad6a3a67aa24402b64420fdfafa161ebaba0f4aac779bab41bbb7db23",
+      "reconciliation_dataset_identity": "f8f15b9ea8191ba39c9a28ced7172b77978ca796d9a6b096e7c122777e90bbe6",
+      "reconciliation_manifest_sha256": "0ca8b549c672b6dfced4aa86a276a3ed4d85f682c58643988a89d97703c50cd1"
+    },
+    "acquisition": {
+      "identity": "e7f4a53090924f3662ea6cbbcd1c8c1877903218282e4d35a005705b92e86b42",
+      "manifest_path": "C:\\BatteredAggieSyndrome.data\\manifests\\acquisition\\BAT-554-NCAA-OFFICIAL-BOUNDED-V1\\sha256\\e7f4a53090924f3662ea6cbbcd1c8c1877903218282e4d35a005705b92e86b42\\ncaa_official_gamebook_acquisition_manifest.json",
+      "manifest_sha256": "82660400dea1dd1f655fbe2d850ffe2bb20e6bae53f42874422294f7f3133a85",
+      "manifest_bytes": 10883126,
+      "gate_path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\historical_expansion\\gates\\BAT-554-2023-COMPLETE-DIRECT-20260816T011300Z.json",
+      "gate_sha256": "4b2909ef4388b60e7b4259602eaa2beb74eca7bf5d2820e3fa0dff50e910b6e2",
+      "raw_bytes": 159705591,
+      "credentials_logged_or_persisted": false
+    },
+    "domain_coverage": {
+      "attendance": {"contests": 313, "rows": 313},
+      "drives": {"contests": 300, "rows": 7157},
+      "linescore_game_info": {"contests": 313, "rows": 2548},
+      "officials": {"contests": 285, "rows": 287},
+      "play_by_play": {"contests": 302, "rows": 63179},
+      "player_stats": {"contests": 295, "rows": 45385},
+      "team_stats_by_period": {"contests": 296, "rows": 35856},
+      "venue": {"contests": 313, "rows": 313},
+      "normalized_rows_total": 155038,
+      "partial_domains_independently_admitted": true
+    },
+    "source_route_disposition": {
+      "scraperapi_async": "CAPTURE_ROUTE_EXHAUSTED_ACCOUNT_REQUEST_ALLOWANCE_ZERO_CREDITS_REMAINING_PAY_AS_YOU_GO_DISABLED",
+      "scraperapi_account_request_limit": 100000,
+      "scraperapi_account_request_count_at_detection": 100270,
+      "scraperapi_concurrency_limit": 20,
+      "scrapfly": "HTTP_429_ON_UNCACHED_EXACT_ENDPOINT_PROBE",
+      "direct_http": "HTTP_403_FOR_UNRESOLVED_ENDPOINTS",
+      "immutable_request_cache": "PRESERVED_AND_REPLAYED",
+      "future_exhaustion_preflight": {
+        "acquisition_identity": "75782b954e485ae1c9acae4fb7e5533651155d556bb92455a14a07084cd25a29",
+        "manifest_sha256": "5fd51a9450255acf5703b36750d872af49b5713d1ce8c7753717d827b3393d36",
+        "terminal_condition": "RATE_LIMITED",
+        "elapsed_seconds": 1.058,
+        "remote_job_submitted": false,
+        "targeted_tests": "26_PASS",
+        "ruff": "PASS"
+      },
+      "credential_values_exposed": false,
+      "unrelated_sources_or_domains_globally_blocked": false
+    },
+    "validation": {
+      "identity": "35fc32aad2157f76efb98db3bf9f41bfd4433449829ed47cbd380a73e9c49f25",
+      "report_path": "C:\\BatteredAggieSyndrome.data\\validation\\POST-SUBTASK-197\\ncaa-official-gamebooks\\e7f4a53090924f3662ea6cbbcd1c8c1877903218282e4d35a005705b92e86b42\\runs\\35fc32aad2157f76efb98db3bf9f41bfd4433449829ed47cbd380a73e9c49f25\\report.json",
+      "report_sha256": "0ffddf685879eda1abd9cf2b5c5e8dd63fa91bf12fb9316891a2b9b665a312ee",
+      "checks": 52564,
+      "mutation_controls": 6,
+      "failures": 0,
+      "byte_identical_rebuild": "PASS"
+    },
+    "coverage_matrix": {
+      "identity": "367fb0df9e7b9a7e39a40b6acb71d930d594c3d5482558a3298a4975d25df888",
+      "sha256": "8f224f2c221fb00529bb85c5fb2c0e59d0e7ede06461777723e1e4257882b49f",
+      "rows": 51
+    },
+    "retraining_admission": {
+      "decision_identity": "2ff6899de09a20084a4bad094f6239ae23f0bad59c626a0269268dd167bcf554",
+      "decision_sha256": "83ab6fba4465ef13cb6b01500fd6661b78c0fdfbfd7d97b464c1f8540501cf39",
+      "request_sha256": "bc7336e4e117650df37a696a5c7c3f416f88b13d17a960ee8a2a7c4ae38227fc",
+      "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "full_ladder_required": false,
+      "protected_promotion_authority": false
+    },
+    "cleanup": {
+      "reconstructible_rebuild_root": "C:\\BatteredAggieSyndrome.data\\validation\\POST-SUBTASK-197\\ncaa-official-gamebooks\\rebuild-2023-e7f4a530-20260816T011700Z",
+      "reconstructible_files": 4218,
+      "reconstructible_bytes": 288157279,
+      "state": "PENDING_HOST_POLICY_ALLOWED_EXACT_PATH_CLEANUP",
+      "finding": "The rebuild is validated and reconstructible. The host policy rejected the verified exact-path recursive cleanup operation, so no bypass or false deletion claim is made."
+    },
+    "authority": "CANDIDATE_ONLY_PARTIAL_OFFICIAL_DOMAIN_COVERAGE_NO_CANONICAL_PIT_TRAINING_PROTECTED_PRODUCTION_OR_HISTORICAL_COMPLETENESS_PROMOTION"
+  },
   "next_actions": [
     "Investigate the preserved 2012 and 2013 unresolved populations by exact reason without weakening reciprocal evidence, alias, chronology, or score-context gates.",
     "Attach independently useful official domains to the reconciled 2010-2025 outcome spine while retaining separate season, endpoint, domain, grain, missingness, schema, provenance, and PIT eligibility.",

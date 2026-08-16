@@ -27,7 +27,8 @@
     "Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.",
     "No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.",
     "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.",
-    "The complete exact-reconciled 2022 candidate population covers 761 contests and 4,566 endpoint identities; 4,394 are captured, 172 remain technical failures, and 296,574 parsed rows remain candidate-only under coverage identity 07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f."
+    "The complete exact-reconciled 2022 candidate population covers 761 contests and 4,566 endpoint identities; 4,394 are captured, 172 remain technical failures, and 296,574 parsed rows remain candidate-only under coverage identity 07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f.",
+    "The complete exact-reconciled 2023 decision population covers 775 contests and all 4,650 endpoint identities; 1,795 official captures produced 155,038 normalized candidate rows across eight independently gated domains, 2,855 endpoint failures remain explicit after ScraperAPI allowance exhaustion, Scrapfly HTTP 429, and direct NCAA HTTP 403, and no canonical, PIT, training, protected, production, or completeness authority was granted."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",
@@ -207,7 +208,7 @@
     "partial-domain-admission",
     "local-id-post-subtask-197"
   ],
-  "last_content_audit": "2026-08-15",
+  "last_content_audit": "2026-08-16",
   "local_id": "POST-SUBTASK-197",
   "maturity_before": "SOURCE_ROUTE_AND_PARSER_CONTRACT_VERIFIED_NO_NATIONAL_OFFICIAL_POPULATION",
   "objective": "Acquire and independently gate the maximum quality-supported national NCAA official football gamebook-equivalent evidence without discarding partial domains or broadening protected authority.",
@@ -589,3 +590,4 @@ Rebuild discovery from pinned source routes; refetch a bounded deterministic sam
 - No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.
 - Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.
 - The complete exact-reconciled 2022 candidate population covers 761 contests and 4,566 endpoint identities; 4,394 are captured, 172 remain technical failures, and 296,574 parsed rows remain candidate-only under coverage identity 07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f.
+- The complete exact-reconciled 2023 decision population covers 775 contests and all 4,650 endpoint identities; 1,795 official captures produced 155,038 normalized candidate rows across eight independently gated domains, 2,855 endpoint failures remain explicit after ScraperAPI allowance exhaustion, Scrapfly HTTP 429, and direct NCAA HTTP 403, and no canonical, PIT, training, protected, production, or completeness authority was granted.

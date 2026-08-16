@@ -1,5 +1,12 @@
 # Instruction Pack Changelog
 
+## 3.2.0 — 2026-08-16
+
+Aligned the human interlock with the existing machine-readable scoped user
+reservation. The user's later standing direction makes the historical
+pipeline-first restriction inactive for direct Aggie Analytics Engine work
+without promoting the assistive plane beyond `NOT_OPERATIONAL`.
+
 ## 3.0.0 — 2026-08-13
 
 Fail-closed assistive-execution release prompted by repeated finite-queue

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V1",
+  "decision_unit": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
+  "jira_key": "BAT-566",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": ["BAT-523", "BAT-565", "BAT-400", "BAT-401"],
+  "classification": "DEVELOPMENT_ONLY_2023_LABELED_WALK_FORWARD",
+  "purpose": "Join verified 2023 pregame priors, eligible 2010-2022 play/drive aggregates, and BAT-565 2023 labels into a 2023-only development matrix, then run an expanding-window labeled walk-forward. Metrics are development-only and grant no protected, champion, or promotion authority.",
+  "input_identities": {
+    "bat523_prior_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "bat523_prior_manifest_relative_path": "manifests/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/known_at_replay_manifest.json",
+    "bat523_pregame_prior_rows_sha256": "23db814da58cfbf0975e99b32130c531ae8e4f26867f0ac1e5207ba36bd6d140",
+    "bat523_pregame_prior_rows": 5528,
+    "play_drive_dataset_identity": "1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d",
+    "play_drive_manifest_relative_path": "manifests/historical_known_at/sha256/1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d/play_drive_pit_aggregate_manifest.json",
+    "play_drive_feature_sha256": "d24f0d9f9726886b5771739c7b704ca05fd964a16826673c5a5a5dd73cc75db9",
+    "play_drive_feature_rows": 5528,
+    "bat565_label_dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+    "bat565_label_manifest_relative_path": "manifests/development_outcomes/sha256/902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2/development_2023_outcome_manifest.json",
+    "bat565_team_outcome_sha256": "7ea39024bde3575e4e31f100f014b5d51adada6dda2a6e0050279723420d77f8",
+    "bat565_team_outcome_rows": 1820,
+    "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
+  },
+  "acceptance": {
+    "allowed_seasons": [2023],
+    "forbidden_seasons": [2024, 2025],
+    "expected_feature_rows": 1820,
+    "expected_label_rows": 1820,
+    "expected_games": 910,
+    "expected_cold_start_rows": 4,
+    "expected_protected_eligible_rows": 0,
+    "expected_join_anti_rows": 0,
+    "required_rows_per_game": 2
+  },
+  "authority": {
+    "development_2023_labeled_evaluation": true,
+    "development_metric_reporting": true,
+    "pregame_feature_use_of_labels": false,
+    "same_game_feature_join": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "protected_performance_claims": false,
+    "forecast_publication": false,
+    "tamu_specialization_lift_claims": false,
+    "bas_or_aggie_excess_claims": false
+  },
+  "label_semantics": {
+    "rows_are_labels_only": true,
+    "not_a_pregame_feature": true,
+    "available_only_after_completion": true,
+    "completion_bound": "LABEL_AVAILABLE_AFTER_UTC_IS_GAME_START_LOWER_BOUND; FINAL_WHISTLE_TIME_UNKNOWN",
+    "train_eligibility": "label_available_after_utc < fold.min_cutoff_utc AND target_game excluded"
+  },
+  "model": {
+    "prior_only": "IDENTITY_PRIOR_WIN_RATE_NO_FIT",
+    "prior_plus_play_drive": "FOLD_LOCAL_LINEAR_PROBABILITY_ON_EPA_MEAN_RESIDUAL",
+    "first_fold": "HISTORICAL_ONLY_IDENTITY_OR_ABSTAIN",
+    "complexity_rationale": "One fold-local coefficient on historical play/drive EPA is the smallest comparison that can show incremental value without a 2023-fitted stacker."
+  },
+  "negative_findings": [
+    "2023 development metrics grant no protected-performance, champion, promotion, production, A&M-lift, or BAS-effect authority.",
+    "Label availability uses game start as a lower bound because final-whistle time is unknown.",
+    "Play/drive profiles are static 2010-2022 historical aggregates; they are not same-game or 2023 in-season play evidence.",
+    "Null or negative incremental results are preserved and are not a promotion threshold."
+  ]
+}

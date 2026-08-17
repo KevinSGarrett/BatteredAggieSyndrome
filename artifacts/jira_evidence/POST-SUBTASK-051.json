@@ -1,30 +1,31 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T18:50:00Z",
+  "created_at_utc": "2026-08-17T19:20:00Z",
   "jira_key": "BAT-401",
   "local_issue_id": "POST-SUBTASK-051",
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Cycle #5 Phase 3 rebound BAT-401 to the current BAT-526 audit identity after 2023 development-label surfaces entered the discovered inventory. BAT-400 remains db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402. The issue stays DONE/VERIFIED because the gate was re-executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. No protected metrics were republished.",
-  "supersedes_artifact_identity": "5da7e995b340464491db23c8e805564e0da77ec595e638573f169337011818d4",
+  "observable_outcome": "Cycle #5 Phase 4 rebound BAT-401 to the current BAT-526 audit identity after 2023 labeled-replay surfaces entered the discovered inventory. BAT-400 remains db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402. The issue stays DONE/VERIFIED because the gate was re-executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. No protected metrics were republished.",
+  "supersedes_artifact_identity": "cb78bd426927b079b35901d62da5dc95d9682d6a52f0c691a5cdee57e7ca0bc1",
   "prior_superseded_identities": [
     "6b4f85a9f5422ba05ea400fe39795f18ddaa3d37469d781d42d3b43725e9f31f",
-    "5da7e995b340464491db23c8e805564e0da77ec595e638573f169337011818d4"
+    "5da7e995b340464491db23c8e805564e0da77ec595e638573f169337011818d4",
+    "cb78bd426927b079b35901d62da5dc95d9682d6a52f0c691a5cdee57e7ca0bc1"
   ],
   "outputs": [
     {
       "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
       "bytes": 5142,
-      "sha256": "06ed9071efa2fb884a6da9aa3a53f1c18fbb9a7b9d43430f6419df5b78e5ce65",
+      "sha256": "dcc2d86fd0da417a2972d116858b6bb7c66f223a5fe0fa214fdbea22b62c2037",
       "schema_version": "aggie.pit.replay_readiness.v1",
-      "artifact_identity": "cb78bd426927b079b35901d62da5dc95d9682d6a52f0c691a5cdee57e7ca0bc1"
+      "artifact_identity": "feb1adbdc0db93d22799e0d16002039494ff432572efbf42d06fb47a5fcd7853"
     },
     {
       "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
       "bytes": 12921,
-      "sha256": "cd0ea84bf5fb3ae69d22735ebee31e8dd1c833b29a6f58b35e11df5ea9553e55"
+      "sha256": "71b53e204775119ab1d7e888a59c36afd52229a6915dc7589de183c3113f7ca4"
     },
     {
       "path": "tools/evaluate_pit_replay_readiness.py",
@@ -37,7 +38,7 @@
       "sha256": "03a5d42cfdc248d87465c99f1451d5f05a337aac77c25bcdc979b0d12f55dc10"
     }
   ],
-  "consumed_bat526_audit_identity": "937f42ee9b44b16008caa26cfa55248d6c771d20c2c7912647b51a9e61af5e12",
+  "consumed_bat526_audit_identity": "93dccc329d2d3caeae62fa09430eef57d7307b16a860653da97f5887c38e1588",
   "consumed_bat400_identity": "db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402",
   "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
   "acceptance_matrix": [

@@ -940,12 +940,13 @@
   "validated_roster_domain_completeness": {
     "child_jira_key": "BAT-567",
     "local_id": "POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001",
-    "gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c",
+    "gate_identity": "53fd14a5ea8f43aaf51c9998141c90d13ac371e43c3f1ec502e871a185c35aa9",
+    "supersedes_gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c",
     "classification": "ROSTER_DOMAIN_COMPLETENESS_AVAILABILITY_BLOCKED",
     "repository_gate": {
       "path": "artifacts/pit/roster_domain_completeness_gate.json",
-      "sha256": "2e3b5e8d2a6ff968473159d3e19bb5bc68c643847e3a036aaf2463600acc766e",
-      "bytes": 6716
+      "sha256": "c2aeae595aaca67bdd1db5a5a7cc61d6ddffe5cf3b72d6345d8f429068dfb782",
+      "bytes": 8466
     },
     "tamu_admitted_membership_rows_2004_2022": 1326,
     "tamu_gamebook_availability_rows": 0,

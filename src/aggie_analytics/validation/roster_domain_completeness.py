@@ -7,10 +7,52 @@ from typing import Any, Mapping
 
 from aggie_analytics.validation.protected_split_authority import sha256_file
 
-SCHEMA_VERSION = "aggie.validation.roster_domain_completeness.v1"
+SCHEMA_VERSION = "aggie.validation.roster_domain_completeness.v2"
 CONTRACT_RELATIVE = "configs/roster_domain_completeness_contract.json"
 GATE_RELATIVE = "artifacts/pit/roster_domain_completeness_gate.json"
+CONTRACT_ID = "BAT-567-ROSTER-DOMAIN-COMPLETENESS-V2"
+PASS_RESULT = "PASS_ROSTER_DOMAIN_COMPLETENESS_AVAILABILITY_BLOCKED"
+PASS_CLASSIFICATION = "ROSTER_DOMAIN_COMPLETENESS_AVAILABILITY_BLOCKED"
+SUPERSEDED_GATE_IDENTITY = "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c"
 PROTECTED_SEASONS = frozenset({2024, 2025})
+NON_AUTHORITATIVE_METADATA = ("issued_at_utc",)
+RECONSTRUCTED_COUNT_INTERPRETATION = (
+    "reconstructed exact-membership rows matching the existing BAT-546 admission"
+)
+EXACT_MEMBERSHIP_FILTER_SPEC = {
+    "reconciliation_disposition": (
+        "CANDIDATE_CROSS_ROUTE_IDENTITY_EXACT_ROSTER_CANONICAL_PLAYER_MEMBERSHIP"
+    ),
+    "canonical_player_id_not_null": True,
+    "canonical_team_id_not_null": True,
+    "canonical_player_id_equals_canonical_membership_player_id": True,
+    "canonical_membership_resolution_state": "AUTO_ACCEPTED_VERIFIED",
+    "team_label_exact_match": True,
+    "canonical_membership_exact_team_option_count": 1,
+    "canonical_membership_ambiguous": False,
+    "athlete_id_occurrence": 0,
+}
+GATE_IDENTITY_FIELDS = (
+    "schema_version",
+    "artifact_type",
+    "result",
+    "classification",
+    "contract_id",
+    "decision_unit",
+    "jira_key",
+    "input_identities",
+    "parent_identities",
+    "payload_probe",
+    "reconstructed",
+    "admissions",
+    "missing_availability_evidence",
+    "remaining_blockers",
+    "exact_membership_filter_identity",
+    "authority",
+    "scientific_nonclaims",
+    "issue_completion",
+    "supersession",
+)
 
 
 class AvailabilityAdmissionDenied(RuntimeError):
@@ -34,12 +76,18 @@ def stable_hash(value: Any) -> str:
 def load_contract(repo_root: Path) -> dict[str, Any]:
     path = repo_root / CONTRACT_RELATIVE
     contract = json.loads(path.read_text(encoding="utf-8"))
-    if contract.get("contract_id") != "BAT-567-ROSTER-DOMAIN-COMPLETENESS-V1":
+    if contract.get("contract_id") != CONTRACT_ID:
         raise ValueError("roster completeness contract identity drift")
     if contract.get("authority", {}).get("availability_admission") is not False:
         raise AvailabilityAdmissionDenied("contract must fail-close availability admission")
+    if contract.get("authority", {}).get("protected_evaluation_admission") is not False:
+        raise AvailabilityAdmissionDenied("contract must fail-close protected evaluation admission")
+    if contract.get("authority", {}).get("champion_or_production_promotion") is not False:
+        raise AvailabilityAdmissionDenied("contract must fail-close champion or production promotion")
     if contract.get("authority", {}).get("new_membership_layer_materialization") is not False:
         raise PayloadMountRequired("contract must not authorize a new membership layer")
+    if contract.get("exact_membership_filter_spec") != EXACT_MEMBERSHIP_FILTER_SPEC:
+        raise ValueError("exact-membership filter spec drifted from the bound implementation")
     return contract
 
 
@@ -326,7 +374,9 @@ def inspect_tamu_versus_national(data_root: Path, contract: Mapping[str, Any]) -
         "tamu_admitted_membership_seasons": sorted(tamu["season"].unique().to_list()),
         "tamu_post2022_exact_membership_candidates": post_tamu_exact.height,
         "tamu_membership_rows_independently_reconstructed": True,
-        "count_source": "CANDIDATE_PAYLOADS_WITH_BAT546_EXACT_MEMBERSHIP_FILTER",
+        "count_source": "RECONSTRUCTED_EXACT_MEMBERSHIP_ROWS_MATCHING_EXISTING_BAT546_ADMISSION",
+        "count_interpretation": RECONSTRUCTED_COUNT_INTERPRETATION,
+        "new_membership_layer_created": False,
         "tamu_gamebook_player_rows": contract["acceptance"]["tamu_gamebook_player_rows"],
         "tamu_gamebook_availability_rows": 0,
     }
@@ -387,6 +437,129 @@ def missing_availability_evidence() -> list[dict[str, str]]:
     ]
 
 
+def exact_membership_filter_identity() -> str:
+    return stable_hash(EXACT_MEMBERSHIP_FILTER_SPEC)
+
+
+def expected_parent_identities(contract: Mapping[str, Any]) -> dict[str, str]:
+    identities = contract["identities"]
+    return {
+        "BAT-546_admitted_dataset": identities["bat546_admitted_dataset_identity"],
+        "BAT-547_admitted_dataset": identities["bat547_admitted_dataset_identity"],
+        "roster_history_dataset": identities["roster_history_dataset_identity"],
+        "post2022_dataset": identities["post2022_dataset_identity"],
+        "team_membership_dataset": identities["team_membership_dataset_identity"],
+        "tamu_gamebook_dataset": identities["tamu_gamebook_dataset_identity"],
+        "protected_split_registry": identities["protected_split_registry_sha256"],
+    }
+
+
+def expected_input_identities(contract: Mapping[str, Any]) -> dict[str, str]:
+    identities = contract["identities"]
+    return {
+        key: identities[key]
+        for key in (
+            "roster_history_dataset_identity",
+            "roster_history_manifest_sha256",
+            "post2022_dataset_identity",
+            "post2022_manifest_sha256",
+            "team_membership_dataset_identity",
+            "team_membership_manifest_sha256",
+            "tamu_gamebook_dataset_identity",
+            "tamu_gamebook_manifest_sha256",
+            "bat546_admitted_dataset_identity",
+            "bat547_admitted_dataset_identity",
+            "protected_split_registry_sha256",
+        )
+    }
+
+
+def expected_scientific_nonclaims() -> dict[str, bool]:
+    return {
+        "historical_population_ready": False,
+        "gap_002_resolved": False,
+        "availability_admitted": False,
+        "pregame_availability_admitted": False,
+        "new_membership_layer_materialized": False,
+        "protected_lane_opened": False,
+        "protected_evaluation_admitted": False,
+        "protected_performance_claimed": False,
+        "champion_or_production_promotion": False,
+        "tamu_specialization_lift_claimed": False,
+        "bas_or_aggie_excess_result_claimed": False,
+        "trained_production_champion": False,
+    }
+
+
+def expected_issue_completion(contract: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "jira_key": contract["jira_key"],
+        "workflow_state": "DONE",
+        "logical_state": "DONE",
+        "maturity": "IMPLEMENTED",
+        "evidence_state": "VERIFIED",
+        "issue_complete": True,
+        "pregame_availability_still_blocked": True,
+    }
+
+
+def expected_supersession() -> dict[str, Any]:
+    return {
+        "supersedes_gate_identity": SUPERSEDED_GATE_IDENTITY,
+        "superseded_reason": "V1_GATE_IDENTITY_DID_NOT_BIND_ALL_AUTHORITY_BEARING_SEMANTICS",
+        "active": True,
+    }
+
+
+def expected_remaining_blockers() -> list[str]:
+    return [row["code"] for row in missing_availability_evidence()]
+
+
+def derive_authority_from_evidence(
+    contract: Mapping[str, Any],
+    reconstructed: Mapping[str, Any],
+    payload_probe: Mapping[str, Any],
+) -> dict[str, bool]:
+    authority = dict(contract["authority"])
+    gamebook = reconstructed.get("tamu_gamebook", {})
+    versus = reconstructed.get("a_and_m_versus_national", {})
+    if gamebook.get("availability_rows", 0) != 0 or gamebook.get("availability_domain_present"):
+        raise AvailabilityAdmissionDenied("availability evidence appeared without a pregame contract")
+    if versus.get("new_membership_layer_created") is True:
+        raise PayloadMountRequired("reconstructed counts must not create a new membership layer")
+    if payload_probe.get("mount_state") == "PRESENT":
+        raise PayloadMountRequired("payloads are mounted; rematerialization must be an explicit later unit")
+    for key in (
+        "availability_admission",
+        "protected_evaluation_admission",
+        "champion_or_production_promotion",
+        "protected_training_admission",
+        "new_membership_layer_materialization",
+    ):
+        if authority.get(key) is not False:
+            raise AvailabilityAdmissionDenied(f"contract authority {key} is not fail-closed")
+    return authority
+
+
+def derive_admissions_from_evidence(
+    payload_probe: Mapping[str, Any],
+    reconstructed: Mapping[str, Any],
+) -> dict[str, str]:
+    admissions = decide_admissions(payload_probe)
+    gamebook = reconstructed.get("tamu_gamebook", {})
+    if gamebook.get("availability_rows", 0) != 0:
+        raise AvailabilityAdmissionDenied("gamebook availability rows cannot admit pregame availability")
+    if admissions["pregame_availability"] != "BLOCKED":
+        raise AvailabilityAdmissionDenied("pregame availability must remain blocked")
+    if admissions["protected_lane"] != "RETAIN_PROTECTED_LANE_BLOCKED":
+        raise AvailabilityAdmissionDenied("protected lane must remain blocked")
+    return admissions
+
+
+def compute_gate_identity(gate: Mapping[str, Any]) -> str:
+    return stable_hash({key: gate[key] for key in GATE_IDENTITY_FIELDS if key in gate})
+
+
 def identity_core(
     *,
     contract_sha256: str,
@@ -396,14 +569,48 @@ def identity_core(
     admissions: Mapping[str, str],
 ) -> dict[str, Any]:
     return {
-        "classification": "ROSTER_DOMAIN_COMPLETENESS_AND_ADMISSION_GATE",
+        "classification": PASS_CLASSIFICATION,
         "contract_sha256": contract_sha256,
         "input_identities": dict(input_identities),
         "payload_mount_state": payload_mount_state,
         "reconstructed_counts": reconstructed_counts,
         "admissions": dict(admissions),
         "availability_admission": False,
+        "protected_evaluation_admission": False,
+        "champion_or_production_promotion": False,
     }
+
+
+def expected_gate_document(expected: Mapping[str, Any]) -> dict[str, Any]:
+    contract = expected["contract"]
+    reconstructed = expected["reconstructed"]
+    payload_probe = expected["payload_probe"]
+    admissions = derive_admissions_from_evidence(payload_probe, reconstructed)
+    authority = derive_authority_from_evidence(contract, reconstructed, payload_probe)
+    blockers = missing_availability_evidence()
+    gate = {
+        "schema_version": SCHEMA_VERSION,
+        "artifact_type": "ROSTER_DOMAIN_COMPLETENESS_AND_ADMISSION_GATE",
+        "classification": PASS_CLASSIFICATION,
+        "contract_id": contract["contract_id"],
+        "decision_unit": contract["decision_unit"],
+        "jira_key": contract["jira_key"],
+        "result": PASS_RESULT,
+        "input_identities": expected_input_identities(contract),
+        "parent_identities": expected_parent_identities(contract),
+        "payload_probe": payload_probe,
+        "reconstructed": reconstructed,
+        "admissions": admissions,
+        "missing_availability_evidence": blockers,
+        "remaining_blockers": [row["code"] for row in blockers],
+        "exact_membership_filter_identity": exact_membership_filter_identity(),
+        "authority": authority,
+        "scientific_nonclaims": expected_scientific_nonclaims(),
+        "issue_completion": expected_issue_completion(contract),
+        "supersession": expected_supersession(),
+    }
+    gate["gate_identity"] = compute_gate_identity(gate)
+    return gate
 
 
 def rebuild_expected(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
@@ -420,7 +627,6 @@ def rebuild_expected(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
     tamu_gamebook = inspect_tamu_gamebook(data_root, contract)
     existing_membership = inspect_existing_membership_admission(repo_root, contract)
     tamu_versus_national = inspect_tamu_versus_national(data_root, contract)
-    admissions = decide_admissions(payload_probe)
     reconstructed = {
         "roster_history": roster_history,
         "existing_membership_admission": existing_membership,
@@ -429,111 +635,135 @@ def rebuild_expected(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
         "tamu_gamebook": tamu_gamebook,
         "a_and_m_versus_national": tamu_versus_national,
     }
-    input_identities = {
-        key: contract["identities"][key]
-        for key in (
-            "roster_history_dataset_identity",
-            "roster_history_manifest_sha256",
-            "post2022_dataset_identity",
-            "post2022_manifest_sha256",
-            "team_membership_dataset_identity",
-            "team_membership_manifest_sha256",
-            "tamu_gamebook_dataset_identity",
-            "tamu_gamebook_manifest_sha256",
-            "bat546_admitted_dataset_identity",
-            "bat547_admitted_dataset_identity",
-            "protected_split_registry_sha256",
-        )
-    }
+    admissions = derive_admissions_from_evidence(payload_probe, reconstructed)
+    authority = derive_authority_from_evidence(contract, reconstructed, payload_probe)
     contract_sha256 = sha256_file(repo_root / CONTRACT_RELATIVE)
-    return {
+    expected = {
         "contract": contract,
         "contract_sha256": contract_sha256,
         "registry": registry,
         "payload_probe": payload_probe,
         "reconstructed": reconstructed,
         "admissions": admissions,
+        "authority": authority,
         "missing_availability_evidence": missing_availability_evidence(),
-        "input_identities": input_identities,
-        "gate_identity": stable_hash(
-            identity_core(
-                contract_sha256=contract_sha256,
-                input_identities=input_identities,
-                payload_mount_state=payload_probe["mount_state"],
-                reconstructed_counts=reconstructed,
-                admissions=admissions,
-            )
-        ),
+        "remaining_blockers": expected_remaining_blockers(),
+        "input_identities": expected_input_identities(contract),
+        "parent_identities": expected_parent_identities(contract),
+        "exact_membership_filter_identity": exact_membership_filter_identity(),
+        "scientific_nonclaims": expected_scientific_nonclaims(),
+        "issue_completion": expected_issue_completion(contract),
+        "supersession": expected_supersession(),
         "code_identity": sha256_file(Path(__file__).resolve()),
     }
+    expected["gate_identity"] = expected_gate_document(expected)["gate_identity"]
+    return expected
 
 
 def materialize(*, data_root: Path, repo_root: Path, issued_at_utc: str) -> dict[str, Any]:
     expected = rebuild_expected(data_root=data_root, repo_root=repo_root)
-    gate = {
-        "schema_version": SCHEMA_VERSION,
-        "artifact_type": "ROSTER_DOMAIN_COMPLETENESS_AND_ADMISSION_GATE",
-        "classification": "ROSTER_DOMAIN_COMPLETENESS_AVAILABILITY_BLOCKED",
-        "contract_id": expected["contract"]["contract_id"],
-        "decision_unit": expected["contract"]["decision_unit"],
-        "jira_key": expected["contract"]["jira_key"],
-        "issued_at_utc": issued_at_utc,
-        "result": "PASS_ROSTER_DOMAIN_COMPLETENESS_AVAILABILITY_BLOCKED",
-        "gate_identity": expected["gate_identity"],
-        "input_identities": expected["input_identities"],
-        "payload_probe": expected["payload_probe"],
-        "reconstructed": expected["reconstructed"],
-        "admissions": expected["admissions"],
-        "missing_availability_evidence": expected["missing_availability_evidence"],
-        "authority": expected["contract"]["authority"],
-        "scientific_nonclaims": {
-            "historical_population_ready": False,
-            "gap_002_resolved": False,
-            "availability_admitted": False,
-            "new_membership_layer_materialized": False,
-            "protected_lane_opened": False,
-            "protected_performance_claimed": False,
-            "tamu_specialization_lift_claimed": False,
-            "bas_or_aggie_excess_result_claimed": False,
-            "trained_production_champion": False,
-        },
-    }
+    gate = expected_gate_document(expected)
+    gate["issued_at_utc"] = issued_at_utc
     path = repo_root / GATE_RELATIVE
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(canonical_json_bytes(gate) + b"\n")
     return {
-        "gate_identity": expected["gate_identity"],
+        "gate_identity": gate["gate_identity"],
         "gate_path": str(path),
         "payload_mount_state": expected["payload_probe"]["mount_state"],
         "admissions": expected["admissions"],
+        "supersedes": SUPERSEDED_GATE_IDENTITY,
     }
 
 
-def validate_artifact(*, data_root: Path, repo_root: Path, require_rebuild: bool = True) -> dict[str, Any]:
+def validate_artifact(
+    *,
+    data_root: Path,
+    repo_root: Path,
+    require_rebuild: bool = True,
+    gate: Mapping[str, Any] | None = None,
+    expected: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     gate_path = repo_root / GATE_RELATIVE
-    gate = load_json(gate_path)
-    if gate.get("result") != "PASS_ROSTER_DOMAIN_COMPLETENESS_AVAILABILITY_BLOCKED":
-        raise ValueError("gate result is not a roster-completeness pass with availability blocked")
-    if gate.get("admissions", {}).get("pregame_availability") != "BLOCKED":
-        raise AvailabilityAdmissionDenied("gate lost the blocked availability admission")
+    loaded_gate = dict(gate) if gate is not None else load_json(gate_path)
     if not require_rebuild:
-        return {"result": "PASS", "mode": "gate_schema_only", "gate_identity": gate.get("gate_identity")}
-    expected = rebuild_expected(data_root=data_root, repo_root=repo_root)
+        if loaded_gate.get("result") != PASS_RESULT:
+            raise ValueError("gate result is not a roster-completeness pass with availability blocked")
+        return {"result": "PASS", "mode": "gate_schema_only", "gate_identity": loaded_gate.get("gate_identity")}
+    rebuilt = expected or rebuild_expected(data_root=data_root, repo_root=repo_root)
+    expected_gate = expected_gate_document(rebuilt)
     errors: list[str] = []
-    if gate.get("gate_identity") != expected["gate_identity"]:
-        errors.append("gate identity does not match independently rebuilt identity")
-    if gate.get("payload_probe") != expected["payload_probe"]:
-        errors.append("payload probe drifted")
-    if gate.get("reconstructed") != expected["reconstructed"]:
+    derived_parents = expected_parent_identities(rebuilt["contract"])
+    if loaded_gate.get("parent_identities") != derived_parents:
+        errors.append("parent identities were not derived from the authoritative contract")
+    if loaded_gate.get("input_identities") != expected_input_identities(rebuilt["contract"]):
+        errors.append("input identities were not derived from the authoritative contract")
+    if loaded_gate.get("exact_membership_filter_identity") != exact_membership_filter_identity():
+        errors.append("exact-membership filter identity drifted")
+    derived_admissions = derive_admissions_from_evidence(rebuilt["payload_probe"], rebuilt["reconstructed"])
+    derived_authority = derive_authority_from_evidence(
+        rebuilt["contract"], rebuilt["reconstructed"], rebuilt["payload_probe"]
+    )
+    if loaded_gate.get("admissions") != derived_admissions:
+        errors.append("admission decisions were accepted from the gate instead of derived from evidence")
+    if loaded_gate.get("authority") != derived_authority:
+        errors.append("authority fields were accepted from the gate instead of derived from evidence")
+    if loaded_gate.get("payload_probe") != rebuilt["payload_probe"]:
+        errors.append("payload-probe state drifted")
+    if loaded_gate.get("reconstructed") != rebuilt["reconstructed"]:
         errors.append("reconstructed counts drifted")
-    if gate.get("admissions") != expected["admissions"]:
-        errors.append("admission decisions drifted")
+    if loaded_gate.get("missing_availability_evidence") != missing_availability_evidence():
+        errors.append("missing availability evidence drifted")
+    if loaded_gate.get("remaining_blockers") != expected_remaining_blockers():
+        errors.append("remaining blockers drifted")
+    if loaded_gate.get("scientific_nonclaims") != expected_scientific_nonclaims():
+        errors.append("scientific nonclaims drifted")
+    if loaded_gate.get("issue_completion") != expected_issue_completion(rebuilt["contract"]):
+        errors.append("issue completion state drifted")
+    if loaded_gate.get("supersession") != expected_supersession():
+        errors.append("supersession metadata drifted")
+    if loaded_gate.get("result") != PASS_RESULT:
+        errors.append("altered result/classification")
+    if loaded_gate.get("classification") != PASS_CLASSIFICATION:
+        errors.append("altered result/classification")
+    if loaded_gate.get("admissions", {}).get("pregame_availability") != "BLOCKED":
+        errors.append("pregame availability admitted")
+    if loaded_gate.get("authority", {}).get("availability_admission") is not False:
+        errors.append("pregame availability admitted")
+    if loaded_gate.get("authority", {}).get("protected_evaluation_admission") is not False:
+        errors.append("protected evaluation admission forged")
+    if loaded_gate.get("authority", {}).get("champion_or_production_promotion") is not False:
+        errors.append("champion or production promotion forged")
+    if loaded_gate.get("scientific_nonclaims", {}).get("protected_performance_claimed") is not False:
+        errors.append("protected-performance claim forged")
+    if "MEMBERSHIP_IS_NOT_AVAILABILITY" not in loaded_gate.get("remaining_blockers", []):
+        errors.append("missing availability blocker removed")
+    if loaded_gate.get("gate_identity") == SUPERSEDED_GATE_IDENTITY:
+        errors.append("superseded V1 gate identity is still active")
+    for key in GATE_IDENTITY_FIELDS:
+        if loaded_gate.get(key) != expected_gate.get(key):
+            errors.append(f"gate.{key} is not independently reconstructed")
+    independently_recomputed = compute_gate_identity(
+        {key: loaded_gate[key] for key in GATE_IDENTITY_FIELDS if key in loaded_gate}
+    )
+    if loaded_gate.get("gate_identity") != expected_gate["gate_identity"]:
+        errors.append("gate identity does not match independently reconstructed authority")
+    if independently_recomputed == expected_gate["gate_identity"] and loaded_gate.get("result") != PASS_RESULT:
+        errors.append("forged terminal state survived outer identity recomputation")
+    if loaded_gate.get("gate_identity") != independently_recomputed:
+        errors.append("claimed gate identity does not match recomputed outer identity")
+    extra_authoritative = set(loaded_gate) - set(GATE_IDENTITY_FIELDS) - {"gate_identity"} - set(
+        NON_AUTHORITATIVE_METADATA
+    )
+    if extra_authoritative:
+        errors.append(f"undeclared authoritative keys {sorted(extra_authoritative)}")
     if errors:
-        raise ValueError("independent roster-completeness validation failed: " + "; ".join(errors))
+        raise ValueError("independent roster-completeness validation failed: " + "; ".join(errors[:16]))
     return {
         "result": "PASS",
         "mode": "independent_rebuild",
-        "gate_identity": expected["gate_identity"],
-        "payload_mount_state": expected["payload_probe"]["mount_state"],
-        "admissions": expected["admissions"],
+        "gate_identity": expected_gate["gate_identity"],
+        "payload_mount_state": rebuilt["payload_probe"]["mount_state"],
+        "admissions": derived_admissions,
+        "supersedes": SUPERSEDED_GATE_IDENTITY,
     }

@@ -1,7 +1,7 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T20:05:00Z",
+  "created_at_utc": "2026-08-17T21:30:00Z",
   "jira_key": "BAT-567",
   "local_issue_id": "POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001",
   "parent_jira_key": "BAT-523",
@@ -9,23 +9,23 @@
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Cycle #5 Phase 5 independently hashed the four roster-domain identities and produced an executable completeness/admission gate. 2004-2022 season membership remains the existing BAT-546 development-only admission. Pregame availability is blocked. No new membership layer was materialized. The protected lane remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress.",
+  "observable_outcome": "Cycle #6 Phase 3 hardened the BAT-567 roster-domain completeness gate so every authority-bearing field is independently reconstructed. Roster membership still does not establish pregame availability. A&M versus national counts remain reconstructed exact-membership rows matching the existing BAT-546 admission, not a newly admitted payload or new membership layer. Protected evaluation remains closed. The protected lane remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress.",
   "outputs": [
     {
       "path": "artifacts/pit/roster_domain_completeness_gate.json",
-      "bytes": 6716,
-      "sha256": "2e3b5e8d2a6ff968473159d3e19bb5bc68c643847e3a036aaf2463600acc766e",
-      "gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c"
+      "bytes": 8466,
+      "sha256": "c2aeae595aaca67bdd1db5a5a7cc61d6ddffe5cf3b72d6345d8f429068dfb782",
+      "gate_identity": "53fd14a5ea8f43aaf51c9998141c90d13ac371e43c3f1ec502e871a185c35aa9"
     },
     {
       "path": "configs/roster_domain_completeness_contract.json",
-      "bytes": 6519,
-      "sha256": "84a7a73eb71fbdc6170eb1b73beee2b3d5b8b7d299355b5de975b209e297e39f"
+      "bytes": 7426,
+      "sha256": "1874bf6cad3812658af41af27e89f7d59d37619da326791a40b9c3c1a8de6129"
     },
     {
       "path": "src/aggie_analytics/validation/roster_domain_completeness.py",
-      "bytes": 26777,
-      "sha256": "2837fa72abf917e7474e67de230aae7aafc31230947b7743892106185f72e174"
+      "bytes": 38182,
+      "sha256": "6d8e7a0cd09cca597576ae6a778b836251928b0f66de8136d4788ea90489afd7"
     },
     {
       "path": "tools/build_roster_domain_completeness.py",
@@ -34,24 +34,30 @@
     },
     {
       "path": "tools/validate_roster_domain_completeness.py",
-      "bytes": 2951,
-      "sha256": "28d6be5fb731258a9e4569383c3e1e5abcc338e32268bc580dc5dca1c56541eb"
+      "bytes": 6540,
+      "sha256": "8eee582d8e29196d47186e8841d4cc7f050d508fed2265c4b5552232e0b3f820"
     },
     {
       "path": "tests/test_roster_domain_completeness.py",
-      "bytes": 4928,
-      "sha256": "aeb8ccabcc008eb74a131e55157a718acff60aceabcb443d2733bbfc2cebe363"
+      "bytes": 13220,
+      "sha256": "19efc54b9d5d95cd8b3ebd0e05e93285c3ec6bdaa4c815e6151816d1de969923"
     }
   ],
-  "gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c",
+  "gate_identity": "53fd14a5ea8f43aaf51c9998141c90d13ac371e43c3f1ec502e871a185c35aa9",
+  "supersedes_gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c",
+  "exact_membership_filter_identity": "765359fb1e9baabb30e725b477593a76b7947eafe38816721cd8f13f1b7a25e2",
   "verified_identities": {
     "roster_history_dataset_identity": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
     "post2022_dataset_identity": "151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242",
     "team_membership_dataset_identity": "964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024",
-    "tamu_gamebook_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
+    "tamu_gamebook_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "bat546_admitted_dataset_identity": "3e3da7de2f58870301a5917274024b2752523ba4b6097501def636d464be24cb",
+    "bat547_admitted_dataset_identity": "de2d6f4519b84d2b09431245ec6f4090265e91cba38cebfdc1bdd8e03c4292cf"
   },
   "payload_mount_state": "PARTIAL",
   "reconstructed_counts": {
+    "interpretation": "reconstructed exact-membership rows matching the existing BAT-546 admission",
+    "new_membership_layer_created": false,
     "roster_history_source_rows": 206773,
     "exact_membership_candidates_2004_2022": 154387,
     "national_admitted_players": 53089,
@@ -74,6 +80,8 @@
   },
   "protected_nonclaims": {
     "availability_admitted": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
     "protected_performance_claimed": false,
     "champion_or_production_promotion": false,
     "tamu_specialization_lift_claimed": false,

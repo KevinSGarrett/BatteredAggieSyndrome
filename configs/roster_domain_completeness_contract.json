@@ -1,12 +1,25 @@
 {
-  "schema_version": "1.0.0",
-  "contract_id": "BAT-567-ROSTER-DOMAIN-COMPLETENESS-V1",
+  "schema_version": "2.0.0",
+  "contract_id": "BAT-567-ROSTER-DOMAIN-COMPLETENESS-V2",
   "decision_unit": "POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001",
   "jira_key": "BAT-567",
   "parent_jira_key": "BAT-523",
   "related_jira_keys": ["BAT-523", "BAT-546", "BAT-547", "BAT-566"],
   "classification": "ROSTER_DOMAIN_COMPLETENESS_AND_ADMISSION_GATE",
-  "purpose": "Independently verify the four roster-domain identities, reconstruct authority-bearing counts from pinned manifests and Git gates, and decide whether any new membership or availability layer may be admitted. Do not infer availability from membership or postgame participation.",
+  "purpose": "Independently verify the four roster-domain identities, reconstruct exact-membership rows matching the existing BAT-546 admission from pinned manifests and Git gates, and decide whether any new membership or availability layer may be admitted. Do not infer availability from membership or postgame participation. Candidate payload counts do not create a new admission layer.",
+  "supersedes_contract_id": "BAT-567-ROSTER-DOMAIN-COMPLETENESS-V1",
+  "supersedes_gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c",
+  "exact_membership_filter_spec": {
+    "reconciliation_disposition": "CANDIDATE_CROSS_ROUTE_IDENTITY_EXACT_ROSTER_CANONICAL_PLAYER_MEMBERSHIP",
+    "canonical_player_id_not_null": true,
+    "canonical_team_id_not_null": true,
+    "canonical_player_id_equals_canonical_membership_player_id": true,
+    "canonical_membership_resolution_state": "AUTO_ACCEPTED_VERIFIED",
+    "team_label_exact_match": true,
+    "canonical_membership_exact_team_option_count": 1,
+    "canonical_membership_ambiguous": false,
+    "athlete_id_occurrence": 0
+  },
   "identities": {
     "roster_history_dataset_identity": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
     "roster_history_manifest_relative_path": "manifests/historical_known_at/sha256/17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda/roster_history_reconciliation.json",
@@ -79,7 +92,7 @@
     "bas_or_aggie_excess_claims": false
   },
   "negative_findings": [
-    "The BAT-546 admitted membership parquet is not mounted. A&M versus national membership counts are independently reconstructed from the 2004-2022 candidate payloads using the BAT-546 exact-membership filter, not from the missing admitted file.",
+    "The BAT-546 admitted membership parquet is not mounted. A&M versus national membership counts are reconstructed exact-membership rows matching the existing BAT-546 admission, produced from the 2004-2022 candidate payloads using the BAT-546 exact-membership filter. They are not a newly admitted payload or a new membership layer.",
     "BAT-546 already admitted 2004-2022 season membership for development PIT only. That admission is preserved and is not rematerialized here.",
     "Post-2022 roster release timestamps occur in 2026 and are not historical pregame known-at evidence.",
     "The TAMU official gamebook route provides postgame player/participation candidates and zero availability rows. Historical first-public availability is unknown.",

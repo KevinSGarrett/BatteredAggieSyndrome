@@ -1,40 +1,41 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T16:20:00Z",
+  "created_at_utc": "2026-08-17T18:20:00Z",
   "jira_key": "BAT-400",
   "local_issue_id": "POST-SUBTASK-050",
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "BAT-400 executed a real chronological walk-forward on 1,820 verified 2023 BAT-523 feature rows across 16 expanding-window folds. Transforms were fold-local. Protected 2024/2025 outcomes were inaccessible to tuning code. 2023 outcome labels are absent from BAT-523 outcome payloads and were not fabricated. No protected metrics were produced.",
+  "observable_outcome": "Cycle #5 hardened BAT-400 same-game and fold-membership proofs. same_game_excluded is derived from observed train/eval game and row sets. prove_target_game_exclusion compares game IDs to game IDs and row IDs to row IDs. The independent validator reconstructs membership from pinned BAT-523 payloads when the external data root is present. 1,820 verified 2023 feature rows across 16 folds. No 2023 labels were fabricated. No protected metrics were produced.",
+  "supersedes_artifact_identity": "14a85cbed528f43a8e5fd2f576cd408b1357d3aa61003b1258dd6514331a1e74",
   "outputs": [
     {
       "path": "artifacts/pit/protected_replay_dry_run.json",
-      "bytes": 51876,
-      "sha256": "1a905c232a201febecee75a8ce685e63bc4ef7059ff50e99c0ac54f34240afc5",
-      "schema_version": "aggie.experimentation.walk_forward_dry_run.v1",
-      "artifact_identity": "14a85cbed528f43a8e5fd2f576cd408b1357d3aa61003b1258dd6514331a1e74"
+      "bytes": 2028904,
+      "sha256": "25e97092732fdd82016eebf3354e8de9c88095bf3bc048e7d32beb34d3e1a3f4",
+      "schema_version": "aggie.experimentation.walk_forward_dry_run.v2",
+      "artifact_identity": "db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402"
     },
     {
       "path": "src/aggie_analytics/experimentation/walk_forward.py",
-      "bytes": 46595,
-      "sha256": "4009bc46e001746c4e1eaf1a5bf3cf034187dd9ba57b92d2f3af25f98a56f897"
+      "bytes": 59606,
+      "sha256": "c16fb0c1ee32d689b450c5814fe9473a1642962fd1372a004f0e1c05aada888a"
     },
     {
       "path": "tools/run_protected_replay_dry_run.py",
-      "bytes": 2233,
-      "sha256": "f004acf51576e45399845080bc550c1febbdb30c892d86cca9f9c6b966a8a314"
+      "bytes": 2263,
+      "sha256": "d5f40f340ff10c712006308d901476c32f54c7dcdb86ed6d9ba1c7ea884d34c4"
     },
     {
       "path": "tests/test_protected_replay_dry_run.py",
-      "bytes": 9894,
-      "sha256": "339c18a223f471285495109e26b0359bda8e2f689eb0e2e69677e63f0f93d0b0"
+      "bytes": 15460,
+      "sha256": "aaa1a56baf98ebeee348618d7aa4132f8ec1682653344cf23785f85aa1a7c64a"
     }
   ],
   "input_identities": {
     "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
-    "run_identity": "7cf95e4aeebe6b967662b89fbd421fa18cc46b4469ddb9602599564ce932720d",
+    "run_identity": "410d27d3bc0e312cb202f2c92f88d5c3da1634634d93030ca71b4a6f07cb2a20",
     "payloads": [
       {
         "name": "accepted_game_outcomes.parquet",
@@ -72,7 +73,7 @@
     {
       "criterion": "The declared output artifacts/pit/protected_replay_dry_run.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
       "disposition": "PASS",
-      "evidence": "artifact_identity 14a85cbed528f43a8e5fd2f576cd408b1357d3aa61003b1258dd6514331a1e74"
+      "evidence": "artifact_identity db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402"
     },
     {
       "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
@@ -111,7 +112,7 @@
     "protected_metrics_produced": false
   },
   "external_checkpoints": {
-    "root": "C:\\BatteredAggieSyndrome.data\\checkpoints\\walk_forward\\7cf95e4aeebe6b967662b89fbd421fa18cc46b4469ddb9602599564ce932720d",
+    "root": "C:\\BatteredAggieSyndrome.data\\checkpoints\\walk_forward\\410d27d3bc0e312cb202f2c92f88d5c3da1634634d93030ca71b4a6f07cb2a20",
     "retained": true
   }
 }

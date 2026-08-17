@@ -35,7 +35,7 @@ def main() -> int:
         output = repo_root / output
     if args.validate_only:
         payload = json.loads(output.read_text(encoding="utf-8"))
-        validate_walk_forward_artifact(payload, repo_root)
+        validate_walk_forward_artifact(payload, repo_root, require_payload_rebuild=True)
         if payload.get("artifact_identity") != compute_artifact_identity(payload):
             raise SystemExit("artifact identity mismatch")
         print(f"PASS validate-only identity={payload['artifact_identity']}")

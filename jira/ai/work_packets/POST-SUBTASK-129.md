@@ -42,14 +42,14 @@ Execute the atomic 3 of 3 step in Story POST-STORY-043 (Structured observability
 
 ## Current gate state
 
-- Workflow: `DONE`
+- Workflow: `IN_PROGRESS`
 - Ready: `false`
 - Priority: `P2`
 - Critical path: `false`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `PRODUCTION_READY`
-- Evidence state: `VERIFIED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-132`
 
 ## Read first
@@ -85,6 +85,8 @@ Execute the atomic 3 of 3 step in Story POST-STORY-043 (Structured observability
 - artifacts/operations/drift_incident_game_day.json
 - artifacts/jira_evidence/POST-SUBTASK-129.json
 - tests/test_drift_incident_game_day.py
+- src/aggie_analytics/operations/incidents.py
+- tools/run_drift_incident_game_day.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -109,6 +111,8 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 Produce and validate these outputs within this atomic work unit:
 
 - artifacts/operations/drift_incident_game_day.json
+- src/aggie_analytics/operations/incidents.py
+- tools/run_drift_incident_game_day.py
 
 ## Acceptance criteria
 

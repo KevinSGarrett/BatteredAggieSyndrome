@@ -3165,6 +3165,7 @@ src/aggie_analytics/operations/benchmark.py
 src/aggie_analytics/operations/cleanup.py
 src/aggie_analytics/operations/drift_alerts.py
 src/aggie_analytics/operations/environment.py
+src/aggie_analytics/operations/incidents.py
 src/aggie_analytics/operations/observability.py
 src/aggie_analytics/operations/retention.py
 src/aggie_analytics/orchestration/__init__.py
@@ -3467,6 +3468,7 @@ tools/refresh_openrouter_usage.py
 tools/render_task_context.py
 tools/repo_integrity.py
 tools/restore_state.py
+tools/run_drift_incident_game_day.py
 tools/run_expanded_event_chronology_preliminary.py
 tools/run_local_benchmark.py
 tools/run_local_coder_shadow.py

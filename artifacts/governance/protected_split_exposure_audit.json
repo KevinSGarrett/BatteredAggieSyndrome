@@ -1,0 +1,1612 @@
+{
+  "schema_version": "aggie.governance.protected_split_exposure_audit.v1",
+  "artifact_type": "PROTECTED_SPLIT_EXPOSURE_AUDIT",
+  "decision_unit": "POST-SUBTASK-169",
+  "jira_key": "BAT-526",
+  "registry_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+  "registry_unaltered": true,
+  "classification": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY",
+  "surfaces": [
+    {
+      "path": "configs/preliminary_unprotected_baseline_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY",
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+          "bucket": "2025_unprotected",
+          "family": "elo_rating",
+          "metrics": {
+            "rows": 934,
+            "brier": 0.17893887818892096,
+            "log_loss": 0.5319473434763387,
+            "calibrated_brier": 0.17871879604337015
+          },
+          "seasons_implied": [
+            2024,
+            2025
+          ]
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+          "bucket": "2025_unprotected",
+          "family": "naive_historical_average",
+          "metrics": {
+            "rows": 934,
+            "brier": 0.22950107399620726,
+            "log_loss": 0.651627506300982
+          },
+          "seasons_implied": [
+            2024,
+            2025
+          ]
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+          "bucket": "2025_unprotected",
+          "family": "home_field_empirical",
+          "metrics": {
+            "rows": 934,
+            "brier": 0.2287181961195838,
+            "log_loss": 0.649956245779467
+          },
+          "seasons_implied": [
+            2024,
+            2025
+          ]
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+          "bucket": "2025_unprotected",
+          "family": "regularized_logistic",
+          "metrics": {
+            "rows": 934,
+            "brier": 0.20891650788045746,
+            "log_loss": 0.6026278230276828
+          },
+          "seasons_implied": [
+            2024,
+            2025
+          ]
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+          "bucket": "2025_unprotected",
+          "family": "regularized_linear_margin",
+          "metrics": {
+            "rows": 934,
+            "brier": 0.2090219570746723,
+            "calibrated_brier": 0.20846182504800953,
+            "margin_mae": 15.589559026103393
+          },
+          "seasons_implied": [
+            2024,
+            2025
+          ]
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+          "bucket": "2025_unprotected",
+          "family": "poisson_skellam_score_distribution",
+          "metrics": {
+            "rows": 934,
+            "brier": 0.24063280779698384,
+            "calibrated_brier": 0.20846106675933634,
+            "margin_mae": 15.591037446572495,
+            "total_mae": 13.140077183475224
+          },
+          "seasons_implied": [
+            2024,
+            2025
+          ]
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+          "bucket": "2025_unprotected",
+          "family": "hist_gradient_boosting",
+          "metrics": {
+            "rows": 934,
+            "brier": 0.20788151057675214,
+            "log_loss": 0.6019957788662077
+          },
+          "seasons_implied": [
+            2024,
+            2025
+          ]
+        }
+      ],
+      "contamination_status": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY",
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_rankings_augmented_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+          "bucket": "selected_2025_metrics",
+          "family": "elo_rating",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.17893887818892096,
+            "log_loss": 0.5319473434763387
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+          "bucket": "selected_2025_metrics",
+          "family": "regularized_logistic",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.18847909169391652,
+            "log_loss": 0.5543430838910608
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+          "bucket": "selected_2025_metrics",
+          "family": "regularized_linear_margin",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.18990684440639527,
+            "log_loss": 0.5593933701429279,
+            "margin_mae": 14.505210074376143
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+          "bucket": "selected_2025_metrics",
+          "family": "poisson_skellam_score_distribution",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.20927353247777034,
+            "log_loss": 0.7304012863234544,
+            "margin_mae": 14.510466835495063,
+            "total_mae": 13.083376783747905
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+          "bucket": "selected_2025_metrics",
+          "family": "hist_gradient_boosting",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.19015484775178876,
+            "log_loss": 0.5595146097882671
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+          "bucket": "paired_2025_findings",
+          "family": null,
+          "season": 2025,
+          "metrics": {
+            "controls_unchanged": [
+              "naive_historical_average",
+              "home_field_empirical",
+              "elo_rating"
+            ],
+            "feature_using_models_improved_brier_and_log_loss": true,
+            "best_brier_delta": -0.03135927531921351,
+            "best_log_loss_delta": -0.09360369850831485,
+            "disposition": "PROMISING_PRELIMINARY_DIAGNOSTIC_REQUIRES_EXPANDED_HISTORY_AND_PROTECTED_VALIDATION"
+          }
+        }
+      ],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/expanded_event_chronology_preliminary_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2010,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2011,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2012,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2013,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2014,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2015,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2016,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2017,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2018,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2019,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2020,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2021,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2022,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-HIST",
+          "registry_role": "DEVELOPMENT",
+          "contradiction": false
+        },
+        {
+          "season": 2023,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "naive_historical_average",
+          "season": 2024,
+          "metrics": {
+            "brier": 0.23269295733951903,
+            "log_loss": 0.6581362683505357
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "naive_historical_average",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.22950107399620726,
+            "log_loss": 0.651627506300982,
+            "calibrated_brier": 0.229014212477662
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "home_field_empirical",
+          "season": 2024,
+          "metrics": {
+            "brier": 0.2309648014080719,
+            "log_loss": 0.6545518291351797
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "home_field_empirical",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.2291508595159696,
+            "log_loss": 0.6508760774512359,
+            "calibrated_brier": 0.22871398862909326
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "elo_rating_week_batched",
+          "season": 2024,
+          "metrics": {
+            "brier": 0.19371060698706058,
+            "log_loss": 0.5653004896657797
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "elo_rating_week_batched",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.1773816341133053,
+            "log_loss": 0.5265935990956604,
+            "calibrated_brier": 0.17634973159232756
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "regularized_logistic",
+          "season": 2024,
+          "metrics": {
+            "brier": 0.1932079190034659,
+            "log_loss": 0.5579178679639398
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "regularized_logistic",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.18280281837900456,
+            "log_loss": 0.5401279619622474,
+            "calibrated_brier": 0.1826922313018518
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "regularized_linear_margin",
+          "season": 2024,
+          "metrics": {
+            "brier": 0.19373232273599772,
+            "log_loss": 0.5640818100488485,
+            "margin_mae": 14.527682224928835
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "regularized_linear_margin",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.1858720438048867,
+            "log_loss": 0.5500190081600885,
+            "calibrated_brier": 0.18281486177405887,
+            "margin_mae": 14.004411275306122
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "poisson_skellam_score_distribution",
+          "season": 2024,
+          "metrics": {
+            "brier": 0.21937737897856752,
+            "log_loss": 0.6821000347105536,
+            "margin_mae": 14.538696257881215,
+            "total_mae": 13.379676929671826
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "poisson_skellam_score_distribution",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.19780155638353808,
+            "log_loss": 0.6688912362004261,
+            "calibrated_brier": 0.18383162277005885,
+            "margin_mae": 14.042065570486141,
+            "total_mae": 13.336126692738656
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "hist_gradient_boosting",
+          "season": 2024,
+          "metrics": {
+            "brier": 0.19389715249370837,
+            "log_loss": 0.5599894755295226
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "metrics_all_games",
+          "family": "hist_gradient_boosting",
+          "season": 2025,
+          "metrics": {
+            "brier": 0.18231985576432813,
+            "log_loss": 0.5397423879650297,
+            "calibrated_brier": 0.18228360459146664
+          }
+        },
+        {
+          "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+          "bucket": "relevant_slice_2025_texas_am",
+          "family": "regularized_logistic",
+          "metrics": {
+            "best_observed_brier": 0.14795605956044783,
+            "best_observed_calibrated_brier": 0.14446087342389446,
+            "rows_per_model": 13
+          },
+          "season": 2025
+        }
+      ],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_play_drive_augmented_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_play_enrichment_replay_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_dense_play_drive_replay_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_possession_pace_contract.json",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    },
+    {
+      "path": "configs/preliminary_possession_pace_ablation_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_sustainability_contract.json",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    },
+    {
+      "path": "configs/preliminary_sustainability_ablation_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_schedule_stress_contract.json",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    },
+    {
+      "path": "configs/preliminary_schedule_stress_ablation_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_wmt_tamu_shadow_contract.json",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_A_AND_M_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_A_AND_M_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "EXACT_FROZEN_NATIONAL_REFERENCE_FALLBACK_NO_A_AND_M_MODEL_FIT",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "FIT_ONLY_2023_A_AND_M_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "FIT_ONLY_2023_AND_2024_A_AND_M_OUTCOMES",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true
+        }
+      ],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "configs/preliminary_postgame_collapse_taxonomy_contract.json",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "contamination_status": null,
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    },
+    {
+      "path": "src/aggie_analytics/modeling/preliminary.py",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "literals": [
+        {
+          "kind": "literal",
+          "value": "PRELIMINARY_UNPROTECTED",
+          "lineno": 13
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_FIT",
+          "lineno": 116
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_TUNE",
+          "lineno": 117
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "lineno": 118
+        }
+      ],
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    },
+    {
+      "path": "tools/validate_preliminary_unprotected_baselines.py",
+      "exists": true,
+      "contradictions": [
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true,
+          "lineno": 79
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true,
+          "lineno": 80
+        }
+      ],
+      "assignments": [
+        {
+          "season": 2023,
+          "artifact_assignment": "DEVELOPMENT_FIT",
+          "registry_split_id": "SPLIT-DEV-SEL",
+          "registry_role": "DEVELOPMENT_SELECTION",
+          "contradiction": false,
+          "lineno": 78
+        },
+        {
+          "season": 2024,
+          "artifact_assignment": "DEVELOPMENT_TUNE",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true,
+          "lineno": 79
+        },
+        {
+          "season": 2025,
+          "artifact_assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "registry_split_id": "SPLIT-PROTECTED",
+          "registry_role": "PROTECTED_TEST",
+          "contradiction": true,
+          "lineno": 80
+        }
+      ],
+      "exposed_results": [],
+      "literals": [
+        {
+          "kind": "season_assignment",
+          "season": 2023,
+          "assignment": "DEVELOPMENT_FIT",
+          "lineno": 78
+        },
+        {
+          "kind": "season_assignment",
+          "season": 2024,
+          "assignment": "DEVELOPMENT_TUNE",
+          "lineno": 79
+        },
+        {
+          "kind": "season_assignment",
+          "season": 2025,
+          "assignment": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "lineno": 80
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_FIT",
+          "lineno": 78
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_TUNE",
+          "lineno": 79
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "lineno": 80
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_FIT",
+          "lineno": 140
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_TUNE",
+          "lineno": 141
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "lineno": 142
+        }
+      ],
+      "disposition": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+    },
+    {
+      "path": "tools/validate_preliminary_elo_uncertainty.py",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "literals": [
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_FIT",
+          "lineno": 91
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_TUNE",
+          "lineno": 92
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "lineno": 93
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_UNPROTECTED_EXPOSED_CANDIDATE_ONLY",
+          "lineno": 235
+        }
+      ],
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    },
+    {
+      "path": "tools/validate_preliminary_elo_offense_defense.py",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "literals": [
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_UNPROTECTED_EXPOSED_CANDIDATE_ONLY",
+          "lineno": 90
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_FIT",
+          "lineno": 69
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_TUNE",
+          "lineno": 69
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "lineno": 69
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_UNPROTECTED_EXPOSED_CANDIDATE_ONLY",
+          "lineno": 80
+        }
+      ],
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    },
+    {
+      "path": "tools/validate_expanded_event_chronology_preliminary.py",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "literals": [
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "lineno": 116
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_FIT",
+          "lineno": 117
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_TUNE",
+          "lineno": 118
+        }
+      ],
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    },
+    {
+      "path": "tools/run_expanded_event_chronology_preliminary.py",
+      "exists": true,
+      "contradictions": [],
+      "assignments": [],
+      "exposed_results": [],
+      "literals": [
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_FIT",
+          "lineno": 64
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_TUNE",
+          "lineno": 66
+        },
+        {
+          "kind": "literal",
+          "value": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+          "lineno": 68
+        }
+      ],
+      "disposition": "NO_PROTECTED_EXPOSURE"
+    }
+  ],
+  "contradiction_count": 24,
+  "exposed_result_count": 28,
+  "exposed_results": [
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "bucket": "2025_unprotected",
+      "family": "elo_rating",
+      "metrics": {
+        "rows": 934,
+        "brier": 0.17893887818892096,
+        "log_loss": 0.5319473434763387,
+        "calibrated_brier": 0.17871879604337015
+      },
+      "seasons_implied": [
+        2024,
+        2025
+      ]
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "bucket": "2025_unprotected",
+      "family": "naive_historical_average",
+      "metrics": {
+        "rows": 934,
+        "brier": 0.22950107399620726,
+        "log_loss": 0.651627506300982
+      },
+      "seasons_implied": [
+        2024,
+        2025
+      ]
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "bucket": "2025_unprotected",
+      "family": "home_field_empirical",
+      "metrics": {
+        "rows": 934,
+        "brier": 0.2287181961195838,
+        "log_loss": 0.649956245779467
+      },
+      "seasons_implied": [
+        2024,
+        2025
+      ]
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "bucket": "2025_unprotected",
+      "family": "regularized_logistic",
+      "metrics": {
+        "rows": 934,
+        "brier": 0.20891650788045746,
+        "log_loss": 0.6026278230276828
+      },
+      "seasons_implied": [
+        2024,
+        2025
+      ]
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "bucket": "2025_unprotected",
+      "family": "regularized_linear_margin",
+      "metrics": {
+        "rows": 934,
+        "brier": 0.2090219570746723,
+        "calibrated_brier": 0.20846182504800953,
+        "margin_mae": 15.589559026103393
+      },
+      "seasons_implied": [
+        2024,
+        2025
+      ]
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "bucket": "2025_unprotected",
+      "family": "poisson_skellam_score_distribution",
+      "metrics": {
+        "rows": 934,
+        "brier": 0.24063280779698384,
+        "calibrated_brier": 0.20846106675933634,
+        "margin_mae": 15.591037446572495,
+        "total_mae": 13.140077183475224
+      },
+      "seasons_implied": [
+        2024,
+        2025
+      ]
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "bucket": "2025_unprotected",
+      "family": "hist_gradient_boosting",
+      "metrics": {
+        "rows": 934,
+        "brier": 0.20788151057675214,
+        "log_loss": 0.6019957788662077
+      },
+      "seasons_implied": [
+        2024,
+        2025
+      ]
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+      "bucket": "selected_2025_metrics",
+      "family": "elo_rating",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.17893887818892096,
+        "log_loss": 0.5319473434763387
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+      "bucket": "selected_2025_metrics",
+      "family": "regularized_logistic",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.18847909169391652,
+        "log_loss": 0.5543430838910608
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+      "bucket": "selected_2025_metrics",
+      "family": "regularized_linear_margin",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.18990684440639527,
+        "log_loss": 0.5593933701429279,
+        "margin_mae": 14.505210074376143
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+      "bucket": "selected_2025_metrics",
+      "family": "poisson_skellam_score_distribution",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.20927353247777034,
+        "log_loss": 0.7304012863234544,
+        "margin_mae": 14.510466835495063,
+        "total_mae": 13.083376783747905
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+      "bucket": "selected_2025_metrics",
+      "family": "hist_gradient_boosting",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.19015484775178876,
+        "log_loss": 0.5595146097882671
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-171.json",
+      "bucket": "paired_2025_findings",
+      "family": null,
+      "season": 2025,
+      "metrics": {
+        "controls_unchanged": [
+          "naive_historical_average",
+          "home_field_empirical",
+          "elo_rating"
+        ],
+        "feature_using_models_improved_brier_and_log_loss": true,
+        "best_brier_delta": -0.03135927531921351,
+        "best_log_loss_delta": -0.09360369850831485,
+        "disposition": "PROMISING_PRELIMINARY_DIAGNOSTIC_REQUIRES_EXPANDED_HISTORY_AND_PROTECTED_VALIDATION"
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "naive_historical_average",
+      "season": 2024,
+      "metrics": {
+        "brier": 0.23269295733951903,
+        "log_loss": 0.6581362683505357
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "naive_historical_average",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.22950107399620726,
+        "log_loss": 0.651627506300982,
+        "calibrated_brier": 0.229014212477662
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "home_field_empirical",
+      "season": 2024,
+      "metrics": {
+        "brier": 0.2309648014080719,
+        "log_loss": 0.6545518291351797
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "home_field_empirical",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.2291508595159696,
+        "log_loss": 0.6508760774512359,
+        "calibrated_brier": 0.22871398862909326
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "elo_rating_week_batched",
+      "season": 2024,
+      "metrics": {
+        "brier": 0.19371060698706058,
+        "log_loss": 0.5653004896657797
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "elo_rating_week_batched",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.1773816341133053,
+        "log_loss": 0.5265935990956604,
+        "calibrated_brier": 0.17634973159232756
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "regularized_logistic",
+      "season": 2024,
+      "metrics": {
+        "brier": 0.1932079190034659,
+        "log_loss": 0.5579178679639398
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "regularized_logistic",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.18280281837900456,
+        "log_loss": 0.5401279619622474,
+        "calibrated_brier": 0.1826922313018518
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "regularized_linear_margin",
+      "season": 2024,
+      "metrics": {
+        "brier": 0.19373232273599772,
+        "log_loss": 0.5640818100488485,
+        "margin_mae": 14.527682224928835
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "regularized_linear_margin",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.1858720438048867,
+        "log_loss": 0.5500190081600885,
+        "calibrated_brier": 0.18281486177405887,
+        "margin_mae": 14.004411275306122
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "poisson_skellam_score_distribution",
+      "season": 2024,
+      "metrics": {
+        "brier": 0.21937737897856752,
+        "log_loss": 0.6821000347105536,
+        "margin_mae": 14.538696257881215,
+        "total_mae": 13.379676929671826
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "poisson_skellam_score_distribution",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.19780155638353808,
+        "log_loss": 0.6688912362004261,
+        "calibrated_brier": 0.18383162277005885,
+        "margin_mae": 14.042065570486141,
+        "total_mae": 13.336126692738656
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "hist_gradient_boosting",
+      "season": 2024,
+      "metrics": {
+        "brier": 0.19389715249370837,
+        "log_loss": 0.5599894755295226
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "metrics_all_games",
+      "family": "hist_gradient_boosting",
+      "season": 2025,
+      "metrics": {
+        "brier": 0.18231985576432813,
+        "log_loss": 0.5397423879650297,
+        "calibrated_brier": 0.18228360459146664
+      }
+    },
+    {
+      "source_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "bucket": "relevant_slice_2025_texas_am",
+      "family": "regularized_logistic",
+      "metrics": {
+        "best_observed_brier": 0.14795605956044783,
+        "best_observed_calibrated_brier": 0.14446087342389446,
+        "rows_per_model": 13
+      },
+      "season": 2025
+    }
+  ],
+  "authority_revoked_for": [
+    "model_selection",
+    "feature_selection",
+    "calibration_selection",
+    "threshold_setting",
+    "champion_selection",
+    "promotion",
+    "protected_performance_claims"
+  ],
+  "successor_contract": "configs/preliminary_development_safe_baseline_contract.json",
+  "historical_contracts_preserved": [
+    "configs/preliminary_unprotected_baseline_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-169.json"
+  ],
+  "protected_nonclaims": {
+    "replacement_protected_period_defined": false,
+    "protected_split_registry_altered": false,
+    "historical_metrics_deleted": false,
+    "selection_or_promotion_authority_granted": false
+  },
+  "acceptance": {
+    "contradiction_contained": true,
+    "historical_evidence_retained": true,
+    "successor_contract_authoritative": true
+  },
+  "artifact_identity": "95b3eeb5c376a01833a3a6eee486de52edf0a9063f6176b675b13c119382c6c7"
+}

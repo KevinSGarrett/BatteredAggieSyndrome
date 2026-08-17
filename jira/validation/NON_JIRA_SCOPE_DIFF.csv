@@ -6,8 +6,9 @@ ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/14941346074623245537
-ADDED,.ruff_cache/0.6.9/17474484774756465766
+ADDED,.ruff_cache/0.6.9/10245643271880217417
+ADDED,.ruff_cache/0.6.9/1757304385062943256
+ADDED,.ruff_cache/0.6.9/3429676745931047749
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -38,6 +39,7 @@ ADDED,artifacts/entities/registry_validation.json
 ADDED,artifacts/entities/resolution_results.parquet
 ADDED,artifacts/entities/schema_readiness_gate.json
 ADDED,artifacts/entities/schema_reconciliation.csv
+ADDED,artifacts/governance/protected_split_exposure_audit.json
 ADDED,artifacts/implementation_preflight/credential_inventory.redacted.json
 ADDED,artifacts/implementation_preflight/data_root_activation.json
 ADDED,artifacts/implementation_preflight/hydration_binding_supersession.json
@@ -275,6 +277,7 @@ ADDED,configs/openai_task_registry.json
 ADDED,configs/openrouter_assist_policy.json
 ADDED,configs/openrouter_task_registry.json
 ADDED,configs/preliminary_dense_play_drive_replay_contract.json
+ADDED,configs/preliminary_development_safe_baseline_contract.json
 ADDED,configs/preliminary_play_drive_augmented_contract.json
 ADDED,configs/preliminary_play_enrichment_replay_contract.json
 ADDED,configs/preliminary_possession_pace_ablation_contract.json
@@ -534,6 +537,7 @@ ADDED,src/aggie_analytics/temporal/weather_previous_runs_snapshot.py
 ADDED,src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
 ADDED,src/aggie_analytics/validation/evaluation_exposure.py
+ADDED,src/aggie_analytics/validation/protected_split_authority.py
 ADDED,src/aggie_analytics/validation/retraining_admission.py
 ADDED,tests/test_acquisition_resilience.py
 ADDED,tests/test_action_play_summary.py
@@ -609,6 +613,7 @@ ADDED,tests/test_preliminary_sustainability_ablation.py
 ADDED,tests/test_preliminary_unprotected_baselines.py
 ADDED,tests/test_preliminary_wmt_tamu_shadow.py
 ADDED,tests/test_product_supply_chain.py
+ADDED,tests/test_protected_split_exposure.py
 ADDED,tests/test_queue_cpu_worker_manifest_work.py
 ADDED,tests/test_queue_openai_gamebook_candidate_work.py
 ADDED,tests/test_restore_drill.py
@@ -629,8 +634,6 @@ ADDED,tests/test_unified_runtime_inventory_dispatch.py
 ADDED,tests/test_useful_work_accounting.py
 ADDED,tests/test_wmt_provider_timestamp_pit.py
 ADDED,tests/test_wmt_tamu_specialization_feature_pit.py
-ADDED,tools/__pycache__/__init__.cpython-311.pyc
-ADDED,tools/__pycache__/repo_integrity.cpython-311.pyc
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py
@@ -641,6 +644,7 @@ ADDED,tools/activate_unified_assistive_release.py
 ADDED,tools/adopt_unified_enforcement_package.py
 ADDED,tools/apply_private_research_acquisition_policy.py
 ADDED,tools/audit_control_plane.py
+ADDED,tools/audit_protected_split_exposure.py
 ADDED,tools/build_action_derived_play_summary.py
 ADDED,tools/build_backup_catalog_and_integrity.py
 ADDED,tools/build_drift_alert_validation.py

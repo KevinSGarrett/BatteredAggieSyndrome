@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "preliminary-development-safe-baselines-bat398-scoped-team-outcome-v2",
+  "classification": "DEVELOPMENT_SAFE_NO_PROTECTED_ACCESS",
+  "decision_unit": "POST-SUBTASK-169",
+  "jira_key": "BAT-526",
+  "supersedes": {
+    "contract_id": "preliminary-unprotected-baselines-bat398-scoped-team-outcome-v1",
+    "path": "configs/preliminary_unprotected_baseline_contract.json",
+    "disposition": "HISTORICAL_CONTAMINATED_EVIDENCE_RETAINED",
+    "contamination_status": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+  },
+  "authorized_inputs": {
+    "bat523_scoped_replay_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "development_selection_season": [2023],
+    "protected_seasons": [2024, 2025],
+    "domains": ["TEAM_OUTCOME_CONTEXT", "OFFICIAL_COMPLETED_OUTCOME_TARGETS"],
+    "eligibility": "DEVELOPMENT_HISTORY_AND_2023_SELECTION_ONLY"
+  },
+  "split_policy": {
+    "2010": "DEVELOPMENT_HISTORY",
+    "2011": "DEVELOPMENT_HISTORY",
+    "2012": "DEVELOPMENT_HISTORY",
+    "2013": "DEVELOPMENT_HISTORY",
+    "2014": "DEVELOPMENT_HISTORY",
+    "2015": "DEVELOPMENT_HISTORY",
+    "2016": "DEVELOPMENT_HISTORY",
+    "2017": "DEVELOPMENT_HISTORY",
+    "2018": "DEVELOPMENT_HISTORY",
+    "2019": "DEVELOPMENT_HISTORY",
+    "2020": "DEVELOPMENT_HISTORY",
+    "2021": "DEVELOPMENT_HISTORY",
+    "2022": "DEVELOPMENT_HISTORY",
+    "2023": "DEVELOPMENT_FIT_SELECTION_CALIBRATION",
+    "2024": "PROTECTED_TEST_INACCESSIBLE",
+    "2025": "PROTECTED_TEST_INACCESSIBLE",
+    "protected_split_opened": false,
+    "tuning_on_2024_2025": false,
+    "threshold_setting_on_2024_2025": false,
+    "evaluation_metrics_on_2024_2025": false
+  },
+  "authority_denials": {
+    "model_selection": "DENIED_FOR_2024_2025_AND_CONTAMINATED_PRELIMINARY_METRICS",
+    "feature_selection": "DENIED_FOR_2024_2025_AND_CONTAMINATED_PRELIMINARY_METRICS",
+    "calibration_selection": "DENIED_FOR_2024_2025_AND_CONTAMINATED_PRELIMINARY_METRICS",
+    "threshold_setting": "DENIED_FOR_2024_2025_AND_CONTAMINATED_PRELIMINARY_METRICS",
+    "champion_selection": "DENIED",
+    "promotion": "DENIED",
+    "protected_performance_claims": "DENIED"
+  },
+  "label_override_rule": "Protected status follows canonical-game identity and governance/PROTECTED_SPLIT_REGISTRY.csv. Later artifact labels such as PRELIMINARY_UNPROTECTED or DEVELOPMENT_EVALUATION_UNPROTECTED have no authority.",
+  "replacement_protected_period": null,
+  "nonclaims": [
+    "No replacement protected period is defined.",
+    "No production champion or production readiness.",
+    "No protected performance.",
+    "No Texas A&M specialization lift.",
+    "No BAS or Aggie Excess result.",
+    "No final historical-population readiness or GAP-002 resolution.",
+    "Historical 2024/2025 preliminary metrics remain ineligible for selection or promotion."
+  ]
+}

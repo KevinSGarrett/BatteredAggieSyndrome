@@ -19,6 +19,8 @@ BAT399_IDENTITY = "2be6b713722382b2c0ea5e86f89a6e6ed57533bab3adbb0bc3cf3a77b46df
 BAT400_IDENTITY = "db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402"
 BAT398_SHA256 = "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a1208"
 BAT526_IDENTITY = "13c18600b5dfd4ce24422d1aae058fc0ae177057e72334f37b726e27840059d5"
+BAT566_SUPERSEDED_KICKOFF_LABEL = "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
+BAT566_SUPERSEDED_REPLAY = "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
 AUTHORITY_FIELDS = (
     "schema_version",
     "artifact_type",
@@ -100,10 +102,12 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
     bat399_path = repo_root / "artifacts" / "pit" / "leakage_battery_results.json"
     bat400_path = repo_root / "artifacts" / "pit" / "protected_replay_dry_run.json"
     bat526_path = repo_root / "artifacts" / "governance" / "protected_split_exposure_audit.json"
+    bat566_path = repo_root / "artifacts" / "pit" / "development_walk_forward_2023.json"
     bat398 = _load_json(bat398_path)
     bat399 = _load_json(bat399_path)
     bat400 = _load_json(bat400_path)
     bat526 = _load_json(bat526_path)
+    bat566 = _load_json(bat566_path)
     if sha256_file(bat398_path) != BAT398_SHA256:
         raise ValueError("BAT-398 decision hash mismatch")
     if bat398.get("gate_decision", {}).get("decision") != "BLOCK":
@@ -118,6 +122,16 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
         raise ValueError("BAT-400 identity mismatch")
     if bat526.get("artifact_identity") != BAT526_IDENTITY:
         raise ValueError("BAT-526 audit identity mismatch")
+    if bat566.get("input_identities", {}).get("bat565_label_dataset_identity") == BAT566_SUPERSEDED_KICKOFF_LABEL:
+        raise ValueError("BAT-566 still consumes the superseded kickoff-time label identity")
+    if bat566.get("replay_identity") == BAT566_SUPERSEDED_REPLAY:
+        raise ValueError("BAT-566 still publishes the superseded kickoff-time replay identity")
+    if bat566.get("authority", {}).get("protected_evaluation_admission") is not False:
+        raise ValueError("BAT-566 unexpectedly opened protected evaluation")
+    if bat566.get("authority", {}).get("champion_or_production_promotion") is not False:
+        raise ValueError("BAT-566 unexpectedly granted promotion authority")
+    if (bat566.get("incremental_play_drive_result") or {}).get("promotion_authority") is not False:
+        raise ValueError("BAT-566 incremental result granted promotion authority")
     if "2024" in json.dumps(bat400.get("development_metrics")) or "2025" in json.dumps(
         bat400.get("development_metrics")
     ):
@@ -154,6 +168,20 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
             "artifact_identity": BAT526_IDENTITY,
             "classification": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY",
             "metrics_republished": False,
+        },
+        "BAT-566": {
+            "path": "artifacts/pit/development_walk_forward_2023.json",
+            "artifact_identity": bat566.get("artifact_identity"),
+            "matrix_identity": bat566.get("matrix_identity"),
+            "replay_identity": bat566.get("replay_identity"),
+            "gate_identity": bat566.get("gate_identity"),
+            "bat565_label_dataset_identity": bat566.get("input_identities", {}).get(
+                "bat565_label_dataset_identity"
+            ),
+            "classification": bat566.get("classification"),
+            "protected_performance": False,
+            "promotion_authority": False,
+            "supersedes_replay_identity": BAT566_SUPERSEDED_REPLAY,
         },
     }
 
@@ -279,6 +307,10 @@ def validate_readiness_artifact(payload: Mapping[str, Any], repo_root: Path) -> 
         raise ValueError("BAT-400 identity not bound")
     if prereqs.get("BAT-523", {}).get("dataset_identity") != DATASET_IDENTITY:
         raise ValueError("BAT-523 identity not bound")
+    if prereqs.get("BAT-566", {}).get("bat565_label_dataset_identity") == BAT566_SUPERSEDED_KICKOFF_LABEL:
+        raise ValueError("BAT-401 still binds the superseded kickoff-time BAT-566 parent")
+    if prereqs.get("BAT-566", {}).get("promotion_authority") is not False:
+        raise ValueError("BAT-566 promotion authority must remain false")
     freeze_split_boundaries(repo_root)
 
 

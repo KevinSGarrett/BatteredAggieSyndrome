@@ -31823,7 +31823,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-130_finalize_authority_retention_frequency_encryption_access_rights_deletion_rules_f.json",To Do,Medium,actionable;core-release;operations;post-wave;shared-contract;subtask;local-id-post-subtask-130,operations-security,POST-SUBTASK-130,HANDOFF-012,PHASE-4,READY,IMPLEMENTED,PLANNED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-130_finalize_authority_retention_frequency_encryption_access_rights_deletion_rules_f.json",Done,Medium,actionable;core-release;operations;post-wave;shared-contract;subtask;local-id-post-subtask-130,operations-security,POST-SUBTASK-130,HANDOFF-012,PHASE-4,DONE,IMPLEMENTED,VERIFIED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-481,100435,"[POST-SUBTASK-131] Implement content-hashed verified backups, catalog, integrity checking, last-known-good protection, and restricted-destination enforcement",100094,"Local ID: POST-SUBTASK-131
 
 Objective
@@ -31916,7 +31916,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-131_implement_content_hashed_verified_backups_catalog_integrity_checking_last_known_.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-131,operations-security,POST-SUBTASK-131,HANDOFF-012,PHASE-4,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-131_implement_content_hashed_verified_backups_catalog_integrity_checking_last_known_.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-131,operations-security,POST-SUBTASK-131,HANDOFF-012,PHASE-4,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-482,100436,[POST-SUBTASK-132] Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps,100094,"Local ID: POST-SUBTASK-132
 
 Objective

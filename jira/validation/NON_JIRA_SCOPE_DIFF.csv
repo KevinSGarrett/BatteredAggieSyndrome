@@ -622,6 +622,8 @@ ADDED,tests/test_unified_runtime_inventory_dispatch.py
 ADDED,tests/test_useful_work_accounting.py
 ADDED,tests/test_wmt_provider_timestamp_pit.py
 ADDED,tests/test_wmt_tamu_specialization_feature_pit.py
+ADDED,tools/__pycache__/__init__.cpython-311.pyc
+ADDED,tools/__pycache__/repo_integrity.cpython-311.pyc
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py

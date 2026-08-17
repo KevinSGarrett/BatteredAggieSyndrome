@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-17T05:40:34.510425+00:00",
+  "generated_at": "2026-08-17T05:46:08.871677+00:00",
   "metrics": {
     "aggregate_count": 76,
     "atomic_count": 177,
@@ -650,6 +650,8 @@
         "tests/test_useful_work_accounting.py",
         "tests/test_wmt_provider_timestamp_pit.py",
         "tests/test_wmt_tamu_specialization_feature_pit.py",
+        "tools/__pycache__/__init__.cpython-311.pyc",
+        "tools/__pycache__/repo_integrity.cpython-311.pyc",
         "tools/acquire_cfbd_historical.py",
         "tools/acquire_ncaa_official_gamebooks.py",
         "tools/acquire_noaa_isd_observed_coverage_pilot.py",
@@ -907,7 +909,7 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1668,
+      "current_non_jira_files": 1670,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],

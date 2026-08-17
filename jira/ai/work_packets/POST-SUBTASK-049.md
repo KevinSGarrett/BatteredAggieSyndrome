@@ -39,14 +39,14 @@ Execute the atomic 1 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `BLOCKED`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `IMPLEMENTED`
-- Evidence state: `PLANNED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-051`
 
 ## Read first
@@ -75,6 +75,8 @@ Execute the atomic 1 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 
 ## Files I may modify or create
 
+- tools/run_leakage_battery.py
+- tests/test_leakage_battery_results.py
 - artifacts/pit/leakage_battery_results.json
 - artifacts/jira_evidence/POST-SUBTASK-049.json
 

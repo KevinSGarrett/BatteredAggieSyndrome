@@ -5,6 +5,10 @@ ADDED,.pytest_cache/.gitignore
 ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
 ADDED,.pytest_cache/v/cache/nodeids
+ADDED,.ruff_cache/.gitignore
+ADDED,.ruff_cache/0.6.9/14941346074623245537
+ADDED,.ruff_cache/0.6.9/17474484774756465766
+ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
 ADDED,artifacts/benchmarks/ac038_gate_decision.json
@@ -89,6 +93,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-045.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-046.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-047.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-048.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-049.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-124.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-125.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-126.json
@@ -186,6 +191,7 @@ ADDED,artifacts/pit/historical_venue_assignment_reconciliation_gate.json
 ADDED,artifacts/pit/historical_weather_previous_runs_reconciliation_gate.json
 ADDED,artifacts/pit/historical_weather_previous_runs_snapshot_gate.json
 ADDED,artifacts/pit/known_at_gate.json
+ADDED,artifacts/pit/leakage_battery_results.json
 ADDED,artifacts/pit/matrix_gate_decision.json
 ADDED,artifacts/pit/pregame_matrix_manifest.json
 ADDED,artifacts/pit/preliminary_dense_play_drive_replay_gate.json
@@ -565,6 +571,7 @@ ADDED,tests/test_instructions_pack.py
 ADDED,tests/test_jira_control_plane.py
 ADDED,tests/test_jira_evidence_state_mapping.py
 ADDED,tests/test_jira_operational_status_policy.py
+ADDED,tests/test_leakage_battery_results.py
 ADDED,tests/test_local_qwen_qualification.py
 ADDED,tests/test_ncaa_contest_outcome_reference_adapter.py
 ADDED,tests/test_ncaa_contest_reconciliation.py
@@ -715,6 +722,7 @@ ADDED,tools/refresh_openrouter_usage.py
 ADDED,tools/render_task_context.py
 ADDED,tools/run_drift_incident_game_day.py
 ADDED,tools/run_expanded_event_chronology_preliminary.py
+ADDED,tools/run_leakage_battery.py
 ADDED,tools/run_local_coder_shadow.py
 ADDED,tools/run_local_embedding_shadow.py
 ADDED,tools/run_local_qwen_qualification.py

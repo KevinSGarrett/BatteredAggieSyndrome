@@ -23971,7 +23971,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json",To Do,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-049,pit-temporal,POST-SUBTASK-049,GAP-005;HANDOFF-004,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json",To Do,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-049,pit-temporal,POST-SUBTASK-049,GAP-005;HANDOFF-004,PHASE-1,BLOCKED,IMPLEMENTED,PARTIAL,POST_W25,true,PROTECTED_GATE
 Sub-task,BAT-400,100354,"[POST-SUBTASK-050] Implement deterministic walk-forward replay with frozen train/tune/protected boundaries, fold-local transforms, checkpoint/resume, and evidence identities",100067,"Local ID: POST-SUBTASK-050
 
 Objective

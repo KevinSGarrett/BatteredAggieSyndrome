@@ -1,2 +1,1 @@
-rank,local_id,summary,priority,critical_path,dependency_unlock_count,execution_lane,execution_mode,component,parent,dependencies,source_refs,canonical_record
-1,POST-SUBTASK-049,"[POST-SUBTASK-049] Run static, future-append, value-mutation, same-game, normalization, entity-correction, weather, market, roster, and label leakage tests on real matrices",P0,true,3,PROTECTED_GATE,ATOMIC_EXECUTION,pit-temporal,POST-STORY-017,POST-SUBTASK-048,SRCREF-02025;SRCREF-02026;SRCREF-02027;SRCREF-02028;SRCREF-02029;SRCREF-02030;SRCREF-02031;SRCREF-02032,jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json
+

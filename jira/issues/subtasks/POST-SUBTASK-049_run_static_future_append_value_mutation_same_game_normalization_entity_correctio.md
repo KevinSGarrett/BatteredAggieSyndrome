@@ -19,10 +19,12 @@
     "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
   ],
   "allowed_modification_paths": [
+    "tools/run_leakage_battery.py",
+    "tests/test_leakage_battery_results.py",
     "artifacts/pit/leakage_battery_results.json",
     "artifacts/jira_evidence/POST-SUBTASK-049.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE: scoped BAT-523 gate provides matrix identities and counts but row-level matrix payload paths remain unresolved placeholders under <external-data-root>; append/mutation invariance checks cannot execute truthfully.",
   "blocks": [
     "POST-SUBTASK-050",
     "POST-SUBTASK-051",
@@ -77,7 +79,7 @@
   "end_to_end_validation": "Validate that `artifacts/pit/leakage_battery_results.json` can be parsed and consumed by `POST-SUBTASK-050` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-005",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-049.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -98,7 +100,10 @@
     "docs/21_LEAKAGE_AND_REPLAY_TEST_SPEC.md",
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
-  "files_expected_to_be_touched": [],
+  "files_expected_to_be_touched": [
+    "tools/run_leakage_battery.py",
+    "tests/test_leakage_battery_results.py"
+  ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
     "docs/final/CODEX_HANDOFF.md",
@@ -145,8 +150,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24539",
-    "jira_updated_at": "2026-08-17T00:39:09.938-0500",
-    "last_synced_at": "2026-08-17T05:39:34.826534+00:00",
+    "jira_updated_at": "2026-08-17T00:56:44.395-0500",
+    "last_synced_at": "2026-08-17T05:57:09.613545+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
@@ -204,7 +209,7 @@
     "docs/21_LEAKAGE_AND_REPLAY_TEST_SPEC.md",
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
@@ -323,7 +328,7 @@
     "POST-SUBTASK-051"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Provide accessible content-addressed row-level matrix payloads for the scoped BAT-523-approved matrix identities, then rerun append/mutation leakage invariance checks and complete remaining BAT-399 scenarios.",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",
@@ -334,7 +339,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-017: Leakage battery and chronological replay infrastructure.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-049.md",
-  "workflow_state": "READY"
+  "workflow_state": "BLOCKED"
 }
 ```
 
@@ -400,7 +405,8 @@ Execute the atomic 1 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 
 ## Files Expected To Be Modified
 
-- None.
+- tools/run_leakage_battery.py
+- tests/test_leakage_battery_results.py
 
 ## Components Expected To Be Touched
 

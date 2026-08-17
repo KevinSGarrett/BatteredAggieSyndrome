@@ -46,6 +46,21 @@
       "critical_path": true,
       "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-565",
+      "local_id": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
+      "summary": "Materialize verified 2023-only development outcome labels from the existing SRC-002 capture",
+      "issue_type": "Task",
+      "status": "In Progress",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "CONTRACT_DEFINED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

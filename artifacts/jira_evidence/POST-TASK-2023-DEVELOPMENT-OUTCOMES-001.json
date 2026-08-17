@@ -1,0 +1,183 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-17T18:40:00Z",
+  "jira_key": "BAT-565",
+  "local_issue_id": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
+  "parent_jira_key": "BAT-523",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED_SCOPED",
+  "issue_complete": false,
+  "observable_outcome": "Cycle #5 Phase 3 materialized a verified 2023-only development-label identity from the existing SRC-002 capture cap_2c82aa5161f3ad63b5abb3c3. 910 completed 2023 games and 1,820 paired team observations were accepted. Quarantine is empty. NCAA official linescores agree on 313 games; 462 mapped comparisons lack validated official linescores; 135 games have no NCAA comparison row. Missing NCAA confirmation is reported, not treated as a silent score choice. No 2024 or 2025 outcomes entered the identity. Labels are post-completion observations and are never pregame features. BAT-523 remains In Progress. The protected lane remains sealed.",
+  "outputs": [
+    {
+      "path": "artifacts/pit/development_2023_outcome_gate.json",
+      "bytes": 4504,
+      "sha256": "2612efad2762adb3df1805341062de4be1de2d52b01d64cde287b19597d1926c",
+      "schema_version": "aggie.data.development_2023_outcomes.v1",
+      "dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
+    },
+    {
+      "path": "configs/development_2023_outcome_identity_contract.json",
+      "bytes": 5973,
+      "sha256": "a22484966133d09b2802af3695bdadc18555ae5266540d583e4186982e689bc7"
+    },
+    {
+      "path": "src/aggie_analytics/data/development_2023_outcomes.py",
+      "bytes": 48164,
+      "sha256": "2c027fdb4f9fa01fd837c2a0c755b3b903162f99626c0447af42121be4e0a83a"
+    },
+    {
+      "path": "tools/build_development_2023_outcomes.py",
+      "bytes": 1384,
+      "sha256": "7e97d68eeeca18ad7189672333b11cc711959ca3d1d37ad19e32b6af68afef59"
+    },
+    {
+      "path": "tools/validate_development_2023_outcomes.py",
+      "bytes": 4122,
+      "sha256": "fb8ae5a1504b74be4fcedf422e2c0438cad4ee14888e430e906eb8e95a37776f"
+    },
+    {
+      "path": "tests/test_development_2023_outcomes.py",
+      "bytes": 13064,
+      "sha256": "904a490c51f12aaa04932c4fd3e539c4739dc8c9d7252acdecae2cf94b3085af"
+    }
+  ],
+  "dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+  "external_manifest": {
+    "path": "<external-data-root>/manifests/development_outcomes/sha256/902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2/development_2023_outcome_manifest.json",
+    "sha256": "bf47807195a3b554f22048fe96cdfe0c62a60c0894fb6b0a43de666ccf82d17e"
+  },
+  "input_identities": {
+    "source_table_identity": "SRC-002:2023:schedules_games_official_outcomes",
+    "capture_id": "cap_2c82aa5161f3ad63b5abb3c3",
+    "source_payload_sha256": "ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03",
+    "source_payload_bytes": 713155,
+    "source_row_count": 910,
+    "capture_manifest_sha256": "6598b949b38fc707831002bc202bbf060ff7faeaceea178fb1748b8d8dbea4f3",
+    "source_field_schema_sha256": "5430d7160e8733eac2cccd26e13168fa5af3e25e374e2f955603a8f0f33cec62",
+    "observed_schema_reconciliation_fingerprint": "5504b379090074b266e3b2eb2bd2f1d1a8ec3571b1c7a7edd7062b2aac0a1615",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "ncaa_crosscheck_identity": "783f24eb89e0adbb5397cf0c799e4785af8adc31c0f7dfad556cae074ba82b2a",
+    "ncaa_comparisons_sha256": "15516932cbdbd070577b8eac9c5565314bfe75d69cf3dc1889b4da0521e5bbd7",
+    "outcome_spine_identity": "cc808f4ececfc98c79940bf04c4794294281c5fbeeb4e9ad2d09b98f0c860f69",
+    "outcome_spine_completed_sha256": "75b6a30d7d79d83e78834c6c026e0dcc7e2310d4c29f9bfe8069522e007ecf94",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "protected_split_exposure_audit_identity": "937f42ee9b44b16008caa26cfa55248d6c771d20c2c7912647b51a9e61af5e12",
+    "parent_identities": {
+      "BAT-523_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+      "BAT-554_outcome_spine": "cc808f4ececfc98c79940bf04c4794294281c5fbeeb4e9ad2d09b98f0c860f69",
+      "BAT-554_ncaa_crosscheck": "783f24eb89e0adbb5397cf0c799e4785af8adc31c0f7dfad556cae074ba82b2a"
+    }
+  },
+  "external_payloads": [
+    {
+      "name": "accepted_game_outcomes.parquet",
+      "rows": 910,
+      "bytes": 161774,
+      "sha256": "de02f33d8530256a6924c81d4ce96c7715f34a602e478b9664b86624e136fc3a",
+      "record_sha256": "6f11171eef53f338f1ca9367fde25b677339492b0e5b84d463ce93153eb461d0"
+    },
+    {
+      "name": "team_outcome_observations.parquet",
+      "rows": 1820,
+      "bytes": 196610,
+      "sha256": "7ea39024bde3575e4e31f100f014b5d51adada6dda2a6e0050279723420d77f8",
+      "record_sha256": "4e9bb1db19913b97dc33ae5c7f41ed60baa98dc60d4a4385b0bf9cd4dff90467"
+    },
+    {
+      "name": "quarantine.jsonl",
+      "rows": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "record_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ncaa_crosscheck.jsonl",
+      "rows": 910,
+      "bytes": 260990,
+      "sha256": "acadb0f145735f18dd8fa51170d0331c05499542f7b6475c16f056122c4b77ca",
+      "record_sha256": "acadb0f145735f18dd8fa51170d0331c05499542f7b6475c16f056122c4b77ca"
+    }
+  ],
+  "population": {
+    "source_rows": 910,
+    "accepted_games": 910,
+    "team_observations": 1820,
+    "quarantine_rows": 0,
+    "ties": 0,
+    "seasons": [2023],
+    "forbidden_seasons_present": [],
+    "season_types": {"regular": 868, "postseason": 42},
+    "ncaa_agreements": 313,
+    "ncaa_missing_official_linescore": 462,
+    "ncaa_no_comparison_row": 135,
+    "ncaa_score_conflicts": 0,
+    "spine_score_conflicts": 0,
+    "unmapped_games": 0,
+    "orientation_mismatches": 0,
+    "incomplete_games": 0,
+    "missing_scores": 0,
+    "duplicate_games": 0
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Source capture, file, schema, and row identities are independently hashed and match repository evidence.",
+      "disposition": "PASS",
+      "evidence": "capture cap_2c82aa5161f3ad63b5abb3c3; payload ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03; 910 rows; 713155 bytes"
+    },
+    {
+      "criterion": "Accepted rows are 2023-only completed games with canonical IDs, non-null finals, paired team observations, and provenance.",
+      "disposition": "PASS",
+      "evidence": "910 accepted games; 1820 team observations; quarantine 0"
+    },
+    {
+      "criterion": "Any 2024/2025 outcome or protected-registry override fails closed.",
+      "disposition": "PASS",
+      "evidence": "tests/test_development_2023_outcomes.py protected-year and registry-override cases; live seasons=[2023]"
+    },
+    {
+      "criterion": "Discrepancies are quarantined, not silently resolved.",
+      "disposition": "PASS",
+      "evidence": "NCAA missing linescore 462 and no-comparison 135 are reported statuses; score conflicts would quarantine; observed conflicts 0"
+    },
+    {
+      "criterion": "Independent validation rebuilds authority-bearing results from pinned payloads.",
+      "disposition": "PASS",
+      "evidence": "tools/validate_development_2023_outcomes.py --validate-only result PASS; identity 902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
+    }
+  ],
+  "authority": {
+    "development_2023_label_use": true,
+    "pregame_feature_use": false,
+    "same_game_feature_join": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "protected_performance_claims": false
+  },
+  "label_semantics": {
+    "rows_are_labels_only": true,
+    "not_a_pregame_feature": true,
+    "available_only_after_completion": true,
+    "outcome_observed_at": "2026-08-09T16:57:56Z",
+    "outcome_effective_at": "GAME_START_UTC_LOWER_BOUND_NOT_FINAL_WHISTLE",
+    "historical_known_at_state": "CAPTURE_TIME_KNOWN; FINAL_WHISTLE_AND_SOURCE_PUBLICATION_TIMES_UNKNOWN"
+  },
+  "negative_findings": [
+    "The 2023 source capture was retrieved on 2026-08-09; capture time is not a 2023 historical publication or final-whistle time.",
+    "NCAA official linescores provide exact canonical score agreement for 313 of 910 games; 462 mapped comparisons lack validated official linescores and 135 games have no NCAA comparison row.",
+    "Missing NCAA confirmation is reported, not treated as a silent score choice.",
+    "These labels grant no protected-performance, champion, promotion, production, A&M-lift, or BAS-effect authority.",
+    "BAT-523 historical-domain recovery remains incomplete; this is a verified scoped expansion only."
+  ],
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "protected_performance_claimed": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "tamu_specialization_lift_claimed": false,
+    "historical_population_ready": false,
+    "protected_lane_opened": false
+  }
+}

@@ -1,5 +1,15 @@
 {
-  "files_to_inspect": [],
+  "files_to_inspect": [
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "configs/preliminary_unprotected_baseline_contract.json",
+    "configs/preliminary_rankings_augmented_contract.json",
+    "configs/expanded_event_chronology_preliminary_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-169.json",
+    "artifacts/jira_evidence/POST-SUBTASK-171.json",
+    "artifacts/jira_evidence/POST-SUBTASK-172.json",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "docs/60_W17_EXPERIMENT_BOUNDARIES_AND_W18_HANDOFF.md"
+  ],
   "governance_traceability_gate": "TASK-036",
   "issue_id": "POST-SUBTASK-169",
   "retrieval_protocol": [

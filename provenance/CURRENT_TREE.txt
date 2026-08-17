@@ -48,6 +48,7 @@ artifacts/entities/registry_validation.json
 artifacts/entities/resolution_results.parquet
 artifacts/entities/schema_readiness_gate.json
 artifacts/entities/schema_reconciliation.csv
+artifacts/governance/protected_split_exposure_audit.json
 artifacts/implementation_preflight/credential_inventory.redacted.json
 artifacts/implementation_preflight/data_root_activation.json
 artifacts/implementation_preflight/hydration_binding_supersession.json
@@ -301,6 +302,7 @@ configs/openrouter_assist_policy.json
 configs/openrouter_task_registry.json
 configs/player_intelligence_registry.json
 configs/preliminary_dense_play_drive_replay_contract.json
+configs/preliminary_development_safe_baseline_contract.json
 configs/preliminary_play_drive_augmented_contract.json
 configs/preliminary_play_enrichment_replay_contract.json
 configs/preliminary_possession_pace_ablation_contract.json
@@ -3231,6 +3233,7 @@ src/aggie_analytics/validation/evaluation_exposure.py
 src/aggie_analytics/validation/metrics.py
 src/aggie_analytics/validation/promotion.py
 src/aggie_analytics/validation/protected.py
+src/aggie_analytics/validation/protected_split_authority.py
 src/aggie_analytics/validation/retraining_admission.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
@@ -3334,6 +3337,7 @@ tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
+tests/test_protected_split_exposure.py
 tests/test_queue_cpu_worker_manifest_work.py
 tests/test_queue_openai_gamebook_candidate_work.py
 tests/test_replay_adoption.py
@@ -3384,6 +3388,7 @@ tools/activate_unified_assistive_release.py
 tools/adopt_unified_enforcement_package.py
 tools/apply_private_research_acquisition_policy.py
 tools/audit_control_plane.py
+tools/audit_protected_split_exposure.py
 tools/backup_state.py
 tools/bootstrap_readiness.py
 tools/build_action_derived_play_summary.py

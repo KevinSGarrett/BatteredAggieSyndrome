@@ -75,5 +75,22 @@
     "No Texas A&M specialization lift.",
     "No BAS or Aggie Excess result.",
     "No final historical-population readiness or GAP-002 resolution."
-  ]
+  ],
+  "contamination": {
+    "status": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY",
+    "superseded_by": "configs/preliminary_development_safe_baseline_contract.json",
+    "successor_contract_id": "preliminary-development-safe-baselines-bat398-scoped-team-outcome-v2",
+    "authority_revoked_for": [
+      "model_selection",
+      "feature_selection",
+      "calibration_selection",
+      "threshold_setting",
+      "champion_selection",
+      "promotion",
+      "protected_performance_claims"
+    ],
+    "preserved_as": "HISTORICAL_CONTAMINATED_EVIDENCE",
+    "split_labels_retained_without_rewrite": true,
+    "reason": "2024 DEVELOPMENT_TUNE and 2025 DEVELOPMENT_EVALUATION_UNPROTECTED labels contradict governance/PROTECTED_SPLIT_REGISTRY.csv. Calling those years unprotected does not override sealed canonical-game membership."
+  }
 }

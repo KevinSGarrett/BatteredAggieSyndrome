@@ -1,5 +1,12 @@
 # Instruction Pack Changelog
 
+## 3.2.2 — 2026-08-17
+
+Added an exact-SHA historical classification-correction record for PR #440's
+immutable squash commit after its reviewed material BAT-399 head was merged
+with a subject that omitted `[material]`. Future unclassified commits remain
+fail-closed.
+
 ## 3.2.1 — 2026-08-16
 
 Added an exact-SHA historical classification-correction record for PR #418's

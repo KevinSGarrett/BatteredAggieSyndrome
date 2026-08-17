@@ -35516,7 +35516,7 @@ Objective
 Use only the exact BAT-398/BAT-399 scoped team-outcome replay and pinned contemporary completed outcomes to exercise a fully lineaged preliminary modeling pipeline while final historical expansion continues independently.
 
 Why This Exists
-Final expanded-history and protected-promotion gates must remain binding without preventing an explicitly unprotected pipeline and baseline proof on the already approved scoped population.
+Final expanded-history and protected-promotion gates must remain binding. The historical preliminary run is retained as contaminated evidence after its 2024/2025 unprotected labels contradicted the sealed protected-split registry.
 
 Scope
 Materialize separate feature, target, split, and training identities; train the simple baseline ladder; permit tree boosting only after the simple pipeline passes; persist and replay immutable external artifacts; and report preliminary metrics and negative findings without a champion or protected claim.
@@ -35542,9 +35542,14 @@ Prerequisites / Dependencies
 Acceptance Criteria
 1. Every input identity matches the exact BAT-523 scoped replay and approved contemporary outcome payload; eligibility is not broadened.
 2. Feature, target, split, training, model, forecast, and run identities are immutable, reproducible, external-storage-only, and independently rehashed.
-3. The 2023/2024/2025 fit/tune/unprotected-evaluation chronology passes target-game, future-feature, duplicate, missing-label, and protected-split checks.
+3. The historical 2023/2024/2025 fit/tune/unprotected-evaluation chronology remains preserved as contaminated evidence and is not rewritten.
 4. All six simple baselines serialize and replay before histogram tree boosting is admitted.
 5. Every metric and conclusion is labeled PRELIMINARY_UNPROTECTED and all production/protected/A&M/BAS nonclaims remain false.
+6. Every 2024/2025 result published by this unit is classified HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY.
+7. No current contract may label a protected canonical season as DEVELOPMENT_TUNE, DEVELOPMENT_EVALUATION_UNPROTECTED, or an equivalent development role.
+8. Artifact labels cannot override sealed canonical-game membership in governance/PROTECTED_SPLIT_REGISTRY.csv.
+9. The successor development-safe contract uses 2010-2022 as historical development inputs, 2023 only for development fit/selection/calibration, and 2024-2025 as protected and inaccessible to tuning/evaluation code.
+10. The protected split registry is not altered and no replacement protected period is defined.
 
 Definition of Done
 1. The immutable dataset contains separate feature, outcome-target, split-assignment, and joined training payloads with exact hashes.
@@ -35552,10 +35557,12 @@ Definition of Done
 3. Per-season and relevant-slice probability, calibration, and score diagnostics are preserved with missingness and exclusions.
 4. The independent validator passes artifact hashes, rows, classification, chronology, target isolation, bounded probabilities, model replay, and mutation controls.
 5. Protected promotion still depends on expanded quality-supported history and W17 validation; no champion is promoted.
+6. The protected-split contradiction is audited, historical 2024/2025 metrics retain no selection or promotion authority, and the successor development-safe contract is the current contract.
 
 Required Tests / Validation
 - NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_preliminary_unprotected_baselines.py — Synthetic feature pairing, cold start, imputation-fit boundary, leakage failure, Elo determinism, metric, and scoped-contract tests pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-169.json — The external run manifest and every data/model/forecast artifact pass the independent preliminary validator.
+- NEW_AUTOMATED_TEST_REQUIRED / PROTECTED_SPLIT: tests/test_protected_split_exposure.py — Current contracts that assign development roles to protected canonical seasons are rejected; labels cannot override registry membership; historical contaminated evidence is preserved without authority.
+- END_TO_END / END_TO_END: artifacts/governance/protected_split_exposure_audit.json — The historical contaminated run identities remain preserved and the independent protected-split audit plus successor contract pass.
 
 Required Evidence
 - Exact BAT-398/BAT-399 scoped input identities and hashes.
@@ -35563,9 +35570,11 @@ Required Evidence
 - Season/game/row/feature/missingness/exclusion counts and chronological leakage results.
 - Per-season and relevant-slice metrics with PRELIMINARY_UNPROTECTED classification and protected nonclaims.
 - Deterministic rebuild, serialization replay, cleanup, focused/full tests, repository, provenance, and Jira validation.
+- Protected-split exposure audit recording every contradictory 2024/2025 assignment and every exposed metric without deleting historical results.
+- Successor development-safe contract plus tests proving labels cannot override protected canonical-game membership.
 
 End-to-End Validation
-Rebuild the same immutable training and forecast identities, independently rehash all payloads and models, replay serialized artifacts, and verify 2025 unprotected evaluation uses only 2023-2024 fitting and 2024 calibration evidence.
+Preserve the historical contaminated run identities, independently audit every 2024/2025 split assignment against governance/PROTECTED_SPLIT_REGISTRY.csv, prove labels cannot override protected membership, and verify the successor contract denies protected-season tuning, evaluation, selection, and promotion.
 
 Stop Conditions
 - Stop this lane if an input hash or approved scope drifts.

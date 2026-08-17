@@ -3,9 +3,14 @@
   "acceptance_criteria": [
     "Every input identity matches the exact BAT-523 scoped replay and approved contemporary outcome payload; eligibility is not broadened.",
     "Feature, target, split, training, model, forecast, and run identities are immutable, reproducible, external-storage-only, and independently rehashed.",
-    "The 2023/2024/2025 fit/tune/unprotected-evaluation chronology passes target-game, future-feature, duplicate, missing-label, and protected-split checks.",
+    "The historical 2023/2024/2025 fit/tune/unprotected-evaluation chronology remains preserved as contaminated evidence and is not rewritten.",
     "All six simple baselines serialize and replay before histogram tree boosting is admitted.",
-    "Every metric and conclusion is labeled PRELIMINARY_UNPROTECTED and all production/protected/A&M/BAS nonclaims remain false."
+    "Every metric and conclusion is labeled PRELIMINARY_UNPROTECTED and all production/protected/A&M/BAS nonclaims remain false.",
+    "Every 2024/2025 result published by this unit is classified HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY.",
+    "No current contract may label a protected canonical season as DEVELOPMENT_TUNE, DEVELOPMENT_EVALUATION_UNPROTECTED, or an equivalent development role.",
+    "Artifact labels cannot override sealed canonical-game membership in governance/PROTECTED_SPLIT_REGISTRY.csv.",
+    "The successor development-safe contract uses 2010-2022 as historical development inputs, 2023 only for development fit/selection/calibration, and 2024-2025 as protected and inaccessible to tuning/evaluation code.",
+    "The protected split registry is not altered and no replacement protected period is defined."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -43,7 +48,8 @@
     "Naive, home-field, Elo, regularized logistic/linear, and Poisson/Skellam models train and replay; tree boosting runs only after the simple gate passes.",
     "Per-season and relevant-slice probability, calibration, and score diagnostics are preserved with missingness and exclusions.",
     "The independent validator passes artifact hashes, rows, classification, chronology, target isolation, bounded probabilities, model replay, and mutation controls.",
-    "Protected promotion still depends on expanded quality-supported history and W17 validation; no champion is promoted."
+    "Protected promotion still depends on expanded quality-supported history and W17 validation; no champion is promoted.",
+    "The protected-split contradiction is audited, historical 2024/2025 metrics retain no selection or promotion authority, and the successor development-safe contract is the current contract."
   ],
   "dependencies": [
     "POST-SUBTASK-048",
@@ -59,7 +65,7 @@
     "protected_downstream_dependency_satisfied_by_this_unit": false,
     "protected_downstream_requires_expanded_quality_supported_history": true
   },
-  "end_to_end_validation": "Rebuild the same immutable training and forecast identities, independently rehash all payloads and models, replay serialized artifacts, and verify 2025 unprotected evaluation uses only 2023-2024 fitting and 2024 calibration evidence.",
+  "end_to_end_validation": "Preserve the historical contaminated run identities, independently audit every 2024/2025 split assignment against governance/PROTECTED_SPLIT_REGISTRY.csv, prove labels cannot override protected membership, and verify the successor contract denies protected-season tuning, evaluation, selection, and promotion.",
   "epic_id": "POST-EPIC-008",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
   "evidence_state": "VERIFIED",
@@ -68,6 +74,8 @@
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
   "expected_outputs": [
     "configs/preliminary_unprotected_baseline_contract.json",
+    "configs/preliminary_development_safe_baseline_contract.json",
+    "artifacts/governance/protected_split_exposure_audit.json",
     "artifacts/jira_evidence/POST-SUBTASK-169.json",
     "<external-data-root>/training/preliminary_unprotected/sha256/<dataset_identity>",
     "<external-data-root>/model_artifacts/preliminary_unprotected/sha256/<model_identity>",
@@ -77,16 +85,34 @@
   "files_expected_to_be_read": [
     "artifacts/pit/historical_known_at_replay_gate.json",
     "configs/preliminary_unprotected_baseline_contract.json",
+    "configs/preliminary_rankings_augmented_contract.json",
+    "configs/expanded_event_chronology_preliminary_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-169.json",
+    "artifacts/jira_evidence/POST-SUBTASK-171.json",
+    "artifacts/jira_evidence/POST-SUBTASK-172.json",
     "governance/PROTECTED_SPLIT_REGISTRY.csv",
     "docs/60_W17_EXPERIMENT_BOUNDARIES_AND_W18_HANDOFF.md"
   ],
   "files_expected_to_be_touched": [
     "configs/preliminary_unprotected_baseline_contract.json",
-    "src/aggie_analytics/modeling/preliminary.py",
-    "tools/run_preliminary_unprotected_baselines.py",
-    "tools/validate_preliminary_unprotected_baselines.py",
-    "tests/test_preliminary_unprotected_baselines.py",
-    "artifacts/jira_evidence/POST-SUBTASK-169.json"
+    "configs/preliminary_development_safe_baseline_contract.json",
+    "src/aggie_analytics/validation/protected_split_authority.py",
+    "tools/audit_protected_split_exposure.py",
+    "tests/test_protected_split_exposure.py",
+    "artifacts/governance/protected_split_exposure_audit.json",
+    "artifacts/jira_evidence/POST-SUBTASK-169.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json"
+  ],
+  "files_to_inspect": [
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "configs/preliminary_unprotected_baseline_contract.json",
+    "configs/preliminary_rankings_augmented_contract.json",
+    "configs/expanded_event_chronology_preliminary_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-169.json",
+    "artifacts/jira_evidence/POST-SUBTASK-171.json",
+    "artifacts/jira_evidence/POST-SUBTASK-172.json",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "docs/60_W17_EXPERIMENT_BOUNDARIES_AND_W18_HANDOFF.md"
   ],
   "gap_ids": [
     "GAP-003",
@@ -112,15 +138,15 @@
     "baseline-modeling",
     "chronological-replay"
   ],
-  "last_content_audit": "2026-08-10",
+  "last_content_audit": "2026-08-17",
   "local_id": "POST-SUBTASK-169",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Use only the exact BAT-398/BAT-399 scoped team-outcome replay and pinned contemporary completed outcomes to exercise a fully lineaged preliminary modeling pipeline while final historical expansion continues independently.",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24666",
-    "jira_updated_at": "2026-08-11T17:04:27.118-0500",
-    "last_synced_at": "2026-08-11T22:04:38.502338+00:00",
+    "jira_updated_at": "2026-08-17T09:41:37.175-0500",
+    "last_synced_at": "2026-08-17T14:42:06.327856+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -161,7 +187,9 @@
     "Dataset, feature, target, split, model, forecast, and run identities with external paths and SHA-256 values.",
     "Season/game/row/feature/missingness/exclusion counts and chronological leakage results.",
     "Per-season and relevant-slice metrics with PRELIMINARY_UNPROTECTED classification and protected nonclaims.",
-    "Deterministic rebuild, serialization replay, cleanup, focused/full tests, repository, provenance, and Jira validation."
+    "Deterministic rebuild, serialization replay, cleanup, focused/full tests, repository, provenance, and Jira validation.",
+    "Protected-split exposure audit recording every contradictory 2024/2025 assignment and every exposed metric without deleting historical results.",
+    "Successor development-safe contract plus tests proving labels cannot override protected canonical-game membership."
   ],
   "required_tests": [
     {
@@ -171,9 +199,15 @@
       "validation_class": "PIT_LEAKAGE"
     },
     {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Current contracts that assign development roles to protected canonical seasons are rejected; labels cannot override registry membership; historical contaminated evidence is preserved without authority.",
+      "path": "tests/test_protected_split_exposure.py",
+      "validation_class": "PROTECTED_SPLIT"
+    },
+    {
       "classification": "END_TO_END",
-      "expectation": "The external run manifest and every data/model/forecast artifact pass the independent preliminary validator.",
-      "path": "artifacts/jira_evidence/POST-SUBTASK-169.json",
+      "expectation": "The historical contaminated run identities remain preserved and the independent protected-split audit plus successor contract pass.",
+      "path": "artifacts/governance/protected_split_exposure_audit.json",
       "validation_class": "END_TO_END"
     }
   ],
@@ -182,6 +216,7 @@
     "Any target-game or future outcome appears in feature evidence.",
     "Any candidate-only historical domain is silently admitted as a feature.",
     "Any protected split, metric, promotion, champion, A&M lift, BAS, or Aggie Excess claim is opened.",
+    "Any later artifact label is treated as authority to tune, select, threshold, promote, or claim protected performance on 2024-2025 canonical games.",
     "Any missing target or feature is fabricated rather than excluded, imputed by the declared training-only rule, or retained as missing."
   ],
   "risk_ids": [
@@ -221,10 +256,9 @@
   "validation_classes": [
     "END_TO_END",
     "PIT_LEAKAGE",
-    "PROVENANCE",
-    "REPRODUCIBILITY"
+    "PROTECTED_SPLIT"
   ],
-  "why_this_exists": "Final expanded-history and protected-promotion gates must remain binding without preventing an explicitly unprotected pipeline and baseline proof on the already approved scoped population.",
+  "why_this_exists": "Final expanded-history and protected-promotion gates must remain binding. The historical preliminary run is retained as contaminated evidence after its 2024/2025 unprotected labels contradicted the sealed protected-split registry.",
   "work_packet_path": "",
   "workflow_state": "DONE"
 }

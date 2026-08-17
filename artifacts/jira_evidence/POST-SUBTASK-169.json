@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "artifact_type": "JIRA_COMPLETION_EVIDENCE",
   "local_id": "POST-SUBTASK-169",
-  "jira_key": "PENDING_LIVE_SYNCHRONIZATION",
+  "jira_key": "BAT-526",
   "classification": "PRELIMINARY_UNPROTECTED",
-  "issue_disposition": "DONE_VERIFIED_LOCAL_PENDING_LIVE_JIRA_SYNC",
+  "issue_disposition": "DONE_VERIFIED_PROTECTED_SPLIT_CONTAINED",
   "achieved_maturity": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
   "evidence_state": "VERIFIED",
   "input_identities": {
@@ -137,5 +137,30 @@
   "rollback": {
     "backup_set": "<external-data-root>/backups/POST-TASK-preliminary-unprotected-baselines/20260810T231923Z",
     "bundle_sha256": "b47f2cffa19ad1c4373cd1732aa1a8e3022e43ec610e8228117d7495aca9e58b"
+  },
+  "contamination": {
+    "status": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY",
+    "superseded_by": "configs/preliminary_development_safe_baseline_contract.json",
+    "audit_path": "artifacts/governance/protected_split_exposure_audit.json",
+    "authority_revoked_for": [
+      "model_selection",
+      "feature_selection",
+      "calibration_selection",
+      "threshold_setting",
+      "champion_selection",
+      "promotion",
+      "protected_performance_claims"
+    ],
+    "preserved_as": "HISTORICAL_CONTAMINATED_EVIDENCE",
+    "historical_metrics_retained": true,
+    "split_labels_retained_without_rewrite": true,
+    "reason": "2024 DEVELOPMENT_TUNE and 2025 DEVELOPMENT_EVALUATION_UNPROTECTED labels contradict governance/PROTECTED_SPLIT_REGISTRY.csv. Published 2025 metrics remain recorded but have no selection, threshold, champion, promotion, or protected-performance authority."
+  },
+  "governance_correction": {
+    "cycle": "CURSOR_CYCLE_4",
+    "successor_contract": "configs/preliminary_development_safe_baseline_contract.json",
+    "protected_split_registry_altered": false,
+    "replacement_protected_period_defined": false,
+    "current_authority": "SUCCESSOR_DEVELOPMENT_SAFE_CONTRACT_PLUS_SEALED_REGISTRY"
   }
 }

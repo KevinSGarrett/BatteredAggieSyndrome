@@ -109,6 +109,7 @@ artifacts/jira_evidence/POST-SUBTASK-126.json
 artifacts/jira_evidence/POST-SUBTASK-127.json
 artifacts/jira_evidence/POST-SUBTASK-128.json
 artifacts/jira_evidence/POST-SUBTASK-129.json
+artifacts/jira_evidence/POST-SUBTASK-130.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
 artifacts/jira_evidence/POST-SUBTASK-161.json
 artifacts/jira_evidence/POST-SUBTASK-162.json
@@ -223,6 +224,7 @@ configs/assistive_downstream_adoptions.json
 configs/assistive_provider_registry.json
 configs/assistive_route_readiness.json
 configs/backlog_policy.json
+configs/backup_retention_policy.json
 configs/bas_science_registry.json
 configs/cfbd_post2022_roster_acquisition.json
 configs/codex_usage_interlock_change_manifest.json

@@ -1,0 +1,67 @@
+{
+  "schema_version": "aggie.jira_evidence.v1",
+  "issue": {
+    "jira_key": "BAT-480",
+    "local_id": "POST-SUBTASK-130"
+  },
+  "generated_at_utc": "2026-08-17T01:53:04Z",
+  "artifact": {
+    "path": "configs/backup_retention_policy.json",
+    "sha256": "6bef04e7f2f0832284c1c94db2be27826c8fef6083cb2b119cd38e4f3bdedb03",
+    "bytes": 56505
+  },
+  "acceptance_matrix": [
+    {
+      "criterion_id": "AC1",
+      "criterion": "Read-only validation-root inventory with exact paths/bytes/identities/worktree/recovery classification",
+      "disposition": "PASS",
+      "evidence": "validation_root_inventory"
+    },
+    {
+      "criterion_id": "AC2",
+      "criterion": "Unique evidence preserved; no recursive deletion of dirty/unverified worktrees",
+      "disposition": "PASS",
+      "evidence": "validation_root_inventory.summary.deletion_actions_executed=0"
+    },
+    {
+      "criterion_id": "AC3",
+      "criterion": "Immutability and raw third-party publication boundary enforced",
+      "disposition": "PASS",
+      "evidence": "classification_policy + credential_and_access_controls"
+    },
+    {
+      "criterion_id": "AC4",
+      "criterion": "Deterministic policy artifact generated with provenance",
+      "disposition": "PASS",
+      "evidence": "schema_version + generated_at_utc + content_sha256"
+    },
+    {
+      "criterion_id": "AC5",
+      "criterion": "No fabricated readiness/performance/source claims",
+      "disposition": "PASS",
+      "evidence": "policy_authority.protected_nonclaims"
+    }
+  ],
+  "validation_commands": [
+    "python -B -m pytest tests/test_w23_operations.py -q",
+    "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
+    "python -B tools/validate_w25_final.py --repo-root .",
+    "python -B tools/validate_repository.py --repo-root . --strict",
+    "python -B tools/validate_jira_control_plane.py --repo-root . --strict"
+  ],
+  "protected_nonclaims": [
+    "no_fabricated_source_availability",
+    "no_fabricated_empirical_performance",
+    "no_fabricated_operational_readiness"
+  ],
+  "issue_completion_manifest": {
+    "status": "DONE",
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED",
+    "remaining_blockers": [],
+    "downstream_reevaluated": [
+      "POST-SUBTASK-131",
+      "POST-SUBTASK-132"
+    ]
+  }
+}

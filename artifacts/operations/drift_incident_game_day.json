@@ -1,9 +1,9 @@
 {
-  "schema_version": "aggie.operations.incident_drill.v1",
-  "created_at_utc": "2026-08-17T04:51:34+00:00",
+  "schema_version": "aggie.operations.incident_drill.v2",
+  "created_at_utc": "2026-08-17T15:48:24+00:00",
   "execution_window": {
-    "started_at_utc": "2026-08-17T04:51:34+00:00",
-    "completed_at_utc": "2026-08-17T04:51:34+00:00"
+    "started_at_utc": "2026-08-17T15:48:24+00:00",
+    "completed_at_utc": "2026-08-17T15:48:24+00:00"
   },
   "maturity": "DETERMINISTIC_LOCAL_INCIDENT_DRILL_VERIFIED",
   "eligibility": "EXTERNAL_DELIVERY_NOT_CONFIGURED",
@@ -18,27 +18,60 @@
     "python -B tools/run_drift_incident_game_day.py --output artifacts/operations/drift_incident_game_day.json"
   ],
   "runtime_identities": {
-    "event_sink_path": "C:\\Users\\kevin\\AppData\\Local\\Temp\\incident-drill-5hsvh77i\\runtime\\events.jsonl",
-    "state_path": "C:\\Users\\kevin\\AppData\\Local\\Temp\\incident-drill-5hsvh77i\\runtime\\last_known_good.json",
-    "baseline_backup_sha256": "c40dfeecf518e1e0a4bb5d7f1e4db7638d3723f219ba802ddee229df8da251d8"
+    "event_sink_path": "C:\\Users\\kevin\\AppData\\Local\\Temp\\incident-drill-hp305k1h\\runtime\\events.jsonl",
+    "state_path": "C:\\Users\\kevin\\AppData\\Local\\Temp\\incident-drill-hp305k1h\\runtime\\last_known_good.json",
+    "baseline_backup_sha256": "ea9e8aa319b6fb4c6ca24846def5dc147bd4356b2a1ea195e1f515e13a1b6684"
   },
   "executed_incidents": [
     {
       "scenario_id": "outage",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T04:51:34+00:00",
+      "started_at_utc": "2026-08-17T15:48:24+00:00",
       "detected_failure": "simulated upstream outage",
+      "control_observations": [
+        {
+          "request": "TRAIN",
+          "upstream_available": false,
+          "evidence_hash": "e35dde43adff62bca0437408047f25d594040a149013f00e7b1e2c4ec2006e18",
+          "approved_recovery_hash": "6e6b5f09367169d39d4d1fd94764719ce7e59f6bdb205352002f79e63dc4ae31",
+          "decision": "REJECT_UNSAFE_WORK",
+          "allowed": false,
+          "external_delivery": false
+        },
+        {
+          "request": "RECOVER",
+          "upstream_available": true,
+          "evidence_hash": "e35dde43adff62bca0437408047f25d594040a149013f00e7b1e2c4ec2006e18",
+          "approved_recovery_hash": "6e6b5f09367169d39d4d1fd94764719ce7e59f6bdb205352002f79e63dc4ae31",
+          "decision": "REJECT_SAME_EVIDENCE",
+          "allowed": false,
+          "external_delivery": false
+        },
+        {
+          "request": "RECOVER",
+          "upstream_available": true,
+          "evidence_hash": "6e6b5f09367169d39d4d1fd94764719ce7e59f6bdb205352002f79e63dc4ae31",
+          "approved_recovery_hash": "6e6b5f09367169d39d4d1fd94764719ce7e59f6bdb205352002f79e63dc4ae31",
+          "decision": "ALLOW_LOCAL_RECOVERY_ONLY",
+          "allowed": true,
+          "external_delivery": false
+        }
+      ],
       "unsafe_training_blocked": true,
       "unsafe_publication_blocked": true,
       "substitute_route_reevaluated": true,
       "recovery_requires_changed_evidence": true,
-      "recovered_after_evidence_change": true
+      "recovered_after_evidence_change": true,
+      "external_delivery_claimed": false
     },
     {
       "scenario_id": "schema",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T04:51:34+00:00",
+      "started_at_utc": "2026-08-17T15:48:24+00:00",
       "detected_failure": "schema_incompatible_payload",
+      "rejection_exception": "schema_incompatible_payload",
+      "state_hash_before": "274838b884ed17fcb4fe13712a9fc43f8bd4d7009cd4eb35ab9b84bf0d0f2500",
+      "state_hash_after": "274838b884ed17fcb4fe13712a9fc43f8bd4d7009cd4eb35ab9b84bf0d0f2500",
       "validator_rejected_payload": true,
       "silent_coercion_performed": false,
       "unaffected_scopes_preserved": true
@@ -46,8 +79,8 @@
     {
       "scenario_id": "stale_forecast",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T04:51:34+00:00",
-      "forecast_timestamp_utc": "2026-08-16T16:51:34+00:00",
+      "started_at_utc": "2026-08-17T15:48:24+00:00",
+      "forecast_timestamp_utc": "2026-08-17T03:48:24+00:00",
       "freshness_cutoff_hours": 4,
       "freshness_gate_rejected": true,
       "last_known_good_remained_active": true
@@ -55,8 +88,12 @@
     {
       "scenario_id": "disk",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T04:51:34+00:00",
+      "started_at_utc": "2026-08-17T15:48:24+00:00",
       "detected_failure": "simulated write failure",
+      "lkg_hash_before": "88902605fd045c01426fe107642a601522200edbfab8568322f623cc5486fafd",
+      "lkg_hash_after": "88902605fd045c01426fe107642a601522200edbfab8568322f623cc5486fafd",
+      "recovery_write_path": "C:\\Users\\kevin\\AppData\\Local\\Temp\\incident-drill-hp305k1h\\runtime\\recovered_state.json",
+      "recovery_write_sha256": "f34a6344247ed839000c139c4f711e1ec1923985330acbefb70d3ea33a3e3899",
       "partial_output_promoted": false,
       "last_known_good_unchanged": true,
       "recovery_path_observed": true
@@ -64,23 +101,45 @@
     {
       "scenario_id": "corrupt_artifact",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T04:51:34+00:00",
+      "started_at_utc": "2026-08-17T15:48:24+00:00",
       "detected_failure": "backup payload/manifest coverage mismatch",
+      "rejection_exception": "backup payload/manifest coverage mismatch",
+      "corrupt_archive_sha256": "ec3504d881e17f7a8a9e9f22faba03cd112be823552014f06264dfed9c5edab0",
+      "baseline_backup_sha256": "ea9e8aa319b6fb4c6ca24846def5dc147bd4356b2a1ea195e1f515e13a1b6684",
+      "lkg_hash_before": "88902605fd045c01426fe107642a601522200edbfab8568322f623cc5486fafd",
+      "lkg_hash_after": "88902605fd045c01426fe107642a601522200edbfab8568322f623cc5486fafd",
       "verification_rejected_corruption": true,
       "last_known_good_unchanged": true
     },
     {
       "scenario_id": "model",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T04:51:34+00:00",
+      "started_at_utc": "2026-08-17T15:48:24+00:00",
       "model_id": "model-unregistered",
+      "eligible_models": [
+        "model-prod-a",
+        "model-prod-b"
+      ],
+      "protocol_sealed": true,
+      "required_artifacts_present": true,
+      "required_threshold_ids": [
+        "THR-001"
+      ],
+      "threshold_values": {
+        "THR-001": null
+      },
+      "protected_results_available": false,
+      "precommitted_criteria_passed": null,
       "publication_failed_closed": true,
-      "champion_substitution_fabricated": false
+      "champion_substitution_fabricated": false,
+      "publication_decision": "REJECT_UNREGISTERED_MODEL",
+      "promotion_decision": "BLOCKED_THRESHOLD_UNSET"
     },
     {
       "scenario_id": "security",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T04:51:34+00:00",
+      "started_at_utc": "2026-08-17T15:48:24+00:00",
+      "persisted_event_text": "{\"blocker_code\":\"SECRET_METADATA_REDACTED\",\"component\":\"operations-security\",\"count\":null,\"duration_ms\":null,\"event\":\"INCIDENT_SECURITY_TEST\",\"event_identity\":\"f28ce8bad7357282133a7f2dcc77c587c5f061a8c72f7a23b8f2bcda0a3bba53\",\"identities\":{\"correlation_id\":\"security-001\",\"entity_id\":null,\"feature_set_id\":null,\"matrix_id\":null,\"model_id\":null,\"product_id\":null,\"run_id\":\"incident-run-001\",\"snapshot_id\":null,\"source_id\":null,\"stage_id\":null},\"level\":\"INFO\",\"metadata\":{\"api_key\":\"[REDACTED]\",\"note\":\"token=[REDACTED]\"},\"missingness\":\"NOT_APPLICABLE\",\"run_id\":\"incident-run-001\",\"schema_version\":\"aggie.operations.observability.v2\",\"status\":\"BLOCKED\",\"timestamp_utc\":\"2026-08-17T15:48:24+00:00\"}\n",
       "raw_secret_present": false,
       "redaction_token_present": true,
       "persisted_events_redacted_only": true
@@ -88,10 +147,18 @@
     {
       "scenario_id": "governance_conflict",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T04:51:34+00:00",
+      "started_at_utc": "2026-08-17T15:48:24+00:00",
+      "proposed_contract": {
+        "split_policy": {
+          "2023": "DEVELOPMENT_FIT_SELECTION_CALIBRATION",
+          "2024": "DEVELOPMENT_TUNE",
+          "2025": "DEVELOPMENT_EVALUATION_UNPROTECTED"
+        }
+      },
       "governance_conflict_detected": true,
       "registry_weakened": false,
-      "execution_rejected": true
+      "execution_rejected": true,
+      "rejection_exception": "season 2024 is SPLIT-PROTECTED PROTECTED_TEST and cannot be labeled DEVELOPMENT_TUNE; season 2024 forbids tuning; assignment DEVELOPMENT_TUNE is invalid; season 2025 is SPLIT-PROTECTED PROTECTED_TEST and cannot be labeled DEVELOPMENT_EVALUATION_UNPROTECTED"
     }
   ],
   "issue_completion_manifest": {
@@ -103,5 +170,5 @@
       "TARGET_HARDWARE_AUTHORITY_PENDING"
     ]
   },
-  "artifact_identity": "95ab33f73b1e4d5ade02f6905a4362c468c0486d08da7c8248b5c487c8b3292d"
+  "artifact_identity": "e3845f731ce60e8e5bc3fcf79ebe268eb8369ae7a69efa3b8d1d1a850ebedd35"
 }

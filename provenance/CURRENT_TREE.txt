@@ -110,6 +110,7 @@ artifacts/jira_evidence/POST-SUBTASK-127.json
 artifacts/jira_evidence/POST-SUBTASK-128.json
 artifacts/jira_evidence/POST-SUBTASK-129.json
 artifacts/jira_evidence/POST-SUBTASK-130.json
+artifacts/jira_evidence/POST-SUBTASK-131.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
 artifacts/jira_evidence/POST-SUBTASK-161.json
 artifacts/jira_evidence/POST-SUBTASK-162.json
@@ -166,6 +167,7 @@ artifacts/openai_assist/gamebook_pilot.json
 artifacts/openai_assist/model_comparison.json
 artifacts/openai_assist/quarantine_schema_pilot.json
 artifacts/openai_assist/router_rebalance.json
+artifacts/operations/backup_catalog_and_integrity.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/ci_security_gate.json
 artifacts/operations/drift_alert_validation.json
@@ -3236,6 +3238,7 @@ tests/test_artifact_policy_full.py
 tests/test_assistive_downstream_review.py
 tests/test_autonomous_control_tools.py
 tests/test_backlog_governance.py
+tests/test_backup_catalog_integrity.py
 tests/test_bas_science_governance.py
 tests/test_cfbd_historical_acquisition.py
 tests/test_codex_usage_interlock.py
@@ -3379,6 +3382,7 @@ tools/backup_state.py
 tools/bootstrap_readiness.py
 tools/build_action_derived_play_summary.py
 tools/build_artifact_record.py
+tools/build_backup_catalog_and_integrity.py
 tools/build_drift_alert_validation.py
 tools/build_evaluation_exposure_ledger.py
 tools/build_historical_advanced_game_snapshot.py

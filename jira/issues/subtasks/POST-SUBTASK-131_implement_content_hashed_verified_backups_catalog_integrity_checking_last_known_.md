@@ -23,9 +23,11 @@
   "allowed_modification_paths": [
     "src/aggie_analytics/operations/backup.py",
     "artifacts/operations/backup_catalog_and_integrity.json",
-    "artifacts/jira_evidence/POST-SUBTASK-131.json"
+    "artifacts/jira_evidence/POST-SUBTASK-131.json",
+    "tools/build_backup_catalog_and_integrity.py",
+    "tests/test_backup_catalog_integrity.py"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-129",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-132"
   ],
@@ -79,12 +81,14 @@
   "end_to_end_validation": "Validate that `artifacts/operations/backup_catalog_and_integrity.json` can be parsed and consumed by `POST-SUBTASK-132` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-131.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "OPERATIONS",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
   "expected_outputs": [
-    "artifacts/operations/backup_catalog_and_integrity.json"
+    "artifacts/operations/backup_catalog_and_integrity.json",
+    "tools/build_backup_catalog_and_integrity.py",
+    "tests/test_backup_catalog_integrity.py"
   ],
   "files_expected_to_be_read": [
     "governance/DO_NOT_DRIFT.md",
@@ -101,7 +105,9 @@
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md"
   ],
   "files_expected_to_be_touched": [
-    "src/aggie_analytics/operations/backup.py"
+    "src/aggie_analytics/operations/backup.py",
+    "tools/build_backup_catalog_and_integrity.py",
+    "tests/test_backup_catalog_integrity.py"
   ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
@@ -148,11 +154,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24621",
-    "jira_updated_at": "2026-08-16T21:50:04.449-0500",
-    "last_synced_at": "2026-08-17T02:50:29.363517+00:00",
+    "jira_updated_at": "2026-08-16T22:23:14.755-0500",
+    "last_synced_at": "2026-08-17T03:23:38.846268+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -320,7 +326,7 @@
     "POST-SUBTASK-132"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "INTEGRATION",
     "NEW_AUTOMATED_TEST_REQUIRED",
@@ -332,7 +338,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-044: Rights-aware backup, restore, retention, and disaster recovery.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-131.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "DONE"
 }
 ```
 
@@ -398,6 +404,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 ## Files Expected To Be Modified
 
 - src/aggie_analytics/operations/backup.py
+- tools/build_backup_catalog_and_integrity.py
+- tests/test_backup_catalog_integrity.py
 
 ## Components Expected To Be Touched
 
@@ -418,6 +426,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 ## Expected Outputs / Artifacts
 
 - artifacts/operations/backup_catalog_and_integrity.json
+- tools/build_backup_catalog_and_integrity.py
+- tests/test_backup_catalog_integrity.py
 
 ## Direct Requirements
 

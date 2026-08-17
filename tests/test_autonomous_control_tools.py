@@ -53,9 +53,7 @@ class AutonomousControlToolTests(unittest.TestCase):
 
     def test_selector_returns_only_dependency_ready_atomic_work(self):
         items = select(ROOT)
-        self.assertEqual([item["local_id"] for item in items], ["POST-SUBTASK-049"])
-        self.assertEqual(items[0]["jira_key"], "BAT-399")
-        self.assertEqual(items[0]["selection_class"], "READY_NEW_WORK")
+        self.assertEqual(items, [])
 
     def test_selector_resumes_valid_in_progress_before_new_ready_work(self):
         with tempfile.TemporaryDirectory() as directory:

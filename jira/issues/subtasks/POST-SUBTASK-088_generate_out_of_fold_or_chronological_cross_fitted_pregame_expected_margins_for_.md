@@ -24,7 +24,7 @@
     "artifacts/bas/crossfit_expectation_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-088.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-078",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-078",
   "blocks": [
     "POST-SUBTASK-089",
     "POST-SUBTASK-090"

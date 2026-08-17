@@ -22,7 +22,7 @@
     "artifacts/features/foundation_feature_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-055.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-054",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-054",
   "blocks": [
     "POST-SUBTASK-056",
     "POST-SUBTASK-057"

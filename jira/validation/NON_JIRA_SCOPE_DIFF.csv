@@ -4,12 +4,11 @@ ADDED,.github/dependabot.yml
 ADDED,.pytest_cache/.gitignore
 ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
-ADDED,.pytest_cache/v/cache/lastfailed
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/11138787825114366715
-ADDED,.ruff_cache/0.6.9/15598419723086864809
-ADDED,.ruff_cache/0.6.9/9490864991092221296
+ADDED,.ruff_cache/0.6.9/16959899666683742546
+ADDED,.ruff_cache/0.6.9/17595350207457174950
+ADDED,.ruff_cache/0.6.9/3620519184232482050
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -98,6 +97,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-047.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-048.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-049.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-050.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-051.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-124.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-125.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-126.json
@@ -171,6 +171,7 @@ ADDED,artifacts/operations/drift_incident_game_day.json
 ADDED,artifacts/operations/observability_contract_test.json
 ADDED,artifacts/operations/restore_drill.json
 ADDED,artifacts/operations/security_supply_chain_report.json
+ADDED,artifacts/pit/PIT_REPLAY_READINESS.json
 ADDED,artifacts/pit/asof_state_manifest.json
 ADDED,artifacts/pit/historical_action_derived_play_summary_gate.json
 ADDED,artifacts/pit/historical_advanced_game_reconciliation_gate.json
@@ -541,6 +542,7 @@ ADDED,src/aggie_analytics/temporal/weather_previous_runs_snapshot.py
 ADDED,src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
 ADDED,src/aggie_analytics/validation/evaluation_exposure.py
+ADDED,src/aggie_analytics/validation/pit_replay_readiness.py
 ADDED,src/aggie_analytics/validation/protected_split_authority.py
 ADDED,src/aggie_analytics/validation/retraining_admission.py
 ADDED,tests/test_acquisition_resilience.py
@@ -601,6 +603,7 @@ ADDED,tests/test_openrouter_assist.py
 ADDED,tests/test_openrouter_campaign_summary.py
 ADDED,tests/test_operations_drift_alerts.py
 ADDED,tests/test_people_registry.py
+ADDED,tests/test_pit_replay_readiness.py
 ADDED,tests/test_postgame_collapse_taxonomy.py
 ADDED,tests/test_preliminary_elo_challengers.py
 ADDED,tests/test_preliminary_elo_offense_defense.py
@@ -698,6 +701,7 @@ ADDED,tools/capture_unified_live_service.py
 ADDED,tools/cpu_worker_minimal_init.py
 ADDED,tools/cpu_worker_service.py
 ADDED,tools/cursor_assist.py
+ADDED,tools/evaluate_pit_replay_readiness.py
 ADDED,tools/evaluate_retraining_admission.py
 ADDED,tools/generate_instruction_manifest.py
 ADDED,tools/hydrate_jira_mirror.py

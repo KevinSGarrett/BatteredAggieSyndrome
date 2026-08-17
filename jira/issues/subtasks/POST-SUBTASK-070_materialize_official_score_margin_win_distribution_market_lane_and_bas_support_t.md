@@ -22,7 +22,7 @@
     "artifacts/modeling/target_dataset_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-070.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-060",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-060",
   "blocks": [
     "POST-SUBTASK-071",
     "POST-SUBTASK-072"

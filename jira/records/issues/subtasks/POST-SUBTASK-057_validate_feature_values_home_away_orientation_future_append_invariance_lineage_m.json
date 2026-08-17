@@ -17,7 +17,7 @@
     "artifacts/features/feature_materialization_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-057.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-054;POST-SUBTASK-055;POST-SUBTASK-056",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-054;POST-SUBTASK-055;POST-SUBTASK-056",
   "blocks": [
     "POST-STORY-020",
     "POST-SUBTASK-058",

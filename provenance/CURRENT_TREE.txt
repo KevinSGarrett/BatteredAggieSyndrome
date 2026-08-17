@@ -106,6 +106,7 @@ artifacts/jira_evidence/POST-SUBTASK-047.json
 artifacts/jira_evidence/POST-SUBTASK-048.json
 artifacts/jira_evidence/POST-SUBTASK-049.json
 artifacts/jira_evidence/POST-SUBTASK-050.json
+artifacts/jira_evidence/POST-SUBTASK-051.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-126.json
@@ -179,6 +180,7 @@ artifacts/operations/drift_incident_game_day.json
 artifacts/operations/observability_contract_test.json
 artifacts/operations/restore_drill.json
 artifacts/operations/security_supply_chain_report.json
+artifacts/pit/PIT_REPLAY_READINESS.json
 artifacts/pit/asof_state_manifest.json
 artifacts/pit/historical_action_derived_play_summary_gate.json
 artifacts/pit/historical_advanced_game_reconciliation_gate.json
@@ -3234,6 +3236,7 @@ src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
 src/aggie_analytics/validation/__init__.py
 src/aggie_analytics/validation/evaluation_exposure.py
 src/aggie_analytics/validation/metrics.py
+src/aggie_analytics/validation/pit_replay_readiness.py
 src/aggie_analytics/validation/promotion.py
 src/aggie_analytics/validation/protected.py
 src/aggie_analytics/validation/protected_split_authority.py
@@ -3322,6 +3325,7 @@ tests/test_openrouter_campaign_summary.py
 tests/test_operations_drift_alerts.py
 tests/test_package_scaffold.py
 tests/test_people_registry.py
+tests/test_pit_replay_readiness.py
 tests/test_player_intelligence_governance.py
 tests/test_postgame_collapse_taxonomy.py
 tests/test_preliminary_elo_challengers.py
@@ -3449,6 +3453,7 @@ tools/cpu_worker_service.py
 tools/create_experiment.py
 tools/create_research_packet.py
 tools/cursor_assist.py
+tools/evaluate_pit_replay_readiness.py
 tools/evaluate_retraining_admission.py
 tools/experiment_store_cli.py
 tools/freeze_experiment_spec.py

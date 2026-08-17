@@ -22,7 +22,7 @@
     "artifacts/modeling/model_split_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-071.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-060;POST-SUBTASK-070",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-060;POST-SUBTASK-070",
   "blocks": [
     "POST-SUBTASK-072"
   ],

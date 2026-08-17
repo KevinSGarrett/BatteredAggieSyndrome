@@ -24167,7 +24167,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-051_open_or_retain_blocked_the_protected_experimentation_lane_through_the_pit_replay.json",To Do,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-051,pit-temporal,POST-SUBTASK-051,GAP-003;GAP-005;HANDOFF-004;HANDOFF-005;ISSUE-041,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-051_open_or_retain_blocked_the_protected_experimentation_lane_through_the_pit_replay.json",Done,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-051,pit-temporal,POST-SUBTASK-051,GAP-003;GAP-005;HANDOFF-004;HANDOFF-005;ISSUE-041,PHASE-1,DONE,PRODUCTION_READY,VERIFIED,POST_W25,true,PROTECTED_GATE
 Sub-task,BAT-402,100356,"[POST-SUBTASK-052] Reconcile feature IDs, source fields, transformations, temporal classes, missingness, code paths, aliases, duplicates, and lifecycle states",100068,"Local ID: POST-SUBTASK-052
 
 Objective

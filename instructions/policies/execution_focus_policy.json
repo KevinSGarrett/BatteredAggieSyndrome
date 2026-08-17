@@ -29,8 +29,8 @@
         "commit_sha": "e6104fcb089b2c9af56dfe371ec258dc11cf17c8",
         "pull_request": 430,
         "head_sha": "e6104fcb089b2c9af56dfe371ec258dc11cf17c8",
-        "classification": "[process]",
-        "reason": "This BAT-554 branch commit reconciles completion evidence/provenance state but the immutable subject omitted the required execution-focus marker. The correction preserves history and keeps classification enforcement unchanged for all other commits."
+        "classification": "[material]",
+        "reason": "This BAT-554 reconciliation commit updates authoritative completion evidence from contradictory IN_PROGRESS to terminal DONE/VERIFIED with explicit acceptance/limitation boundaries; it is classified material to reflect downstream governance-consumable state correction while preserving immutable history."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

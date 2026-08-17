@@ -521,8 +521,20 @@ class Development2023LabeledReplayMutationTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
         gate_path = ROOT / "artifacts" / "pit" / "development_walk_forward_2023.json"
-        if not gate_path.is_file():
-            raise unittest.SkipTest("labeled replay gate has not been materialized yet")
+        label_payload = (
+            cls.data_root
+            / "pit_state"
+            / "development_outcomes"
+            / "sha256"
+            / "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8"
+            / "team_outcome_observations.parquet"
+        )
+        if not gate_path.is_file() or not label_payload.is_file():
+            raise unittest.SkipTest("external BAT-566 payloads or gate are not mounted")
+        try:
+            import polars  # noqa: F401
+        except ImportError as exc:
+            raise unittest.SkipTest("optional data-engineering environment is not installed") from exc
         cls.gate = json.loads(gate_path.read_text(encoding="utf-8"))
         if cls.gate.get("input_identities", {}).get("bat565_label_dataset_identity") == SUPERSEDED_KICKOFF_LABEL_IDENTITY:
             raise unittest.SkipTest("corrected BAT-566 identity has not been rematerialized yet")

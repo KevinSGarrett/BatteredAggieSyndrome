@@ -58,8 +58,8 @@
     },
     {
       "path": "tests/test_development_2023_labeled_replay.py",
-      "bytes": 26954,
-      "sha256": "3d8db952435d83a0af9277d17f8613c60fbaabc457e133068e61a041b0839be2"
+      "bytes": 27467,
+      "sha256": "a3438f02cf2350ea9d336c2f8d67acfd135705952f4769fbbcc85b36a370d386"
     },
     {
       "path": "tests/test_pit_replay_readiness.py",

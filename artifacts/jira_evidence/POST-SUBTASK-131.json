@@ -1,7 +1,7 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T03:22:15+00:00",
+  "created_at_utc": "2026-08-17T05:04:12+00:00",
   "jira_key": "BAT-481",
   "local_issue_id": "POST-SUBTASK-131",
   "workflow_state": "DONE",
@@ -11,22 +11,22 @@
   "outputs": [
     {
       "path": "artifacts/operations/backup_catalog_and_integrity.json",
-      "bytes": 4037,
-      "sha256": "87e6a953fd748b1a62a4babe1322c09d8857e1a69bdb32430a011ff93455e0b6",
+      "bytes": 4479,
+      "sha256": "9bd8498214ac6d9e4498cf44637323d7a1b2ff74cefa61ce79fe7c6f47f722b2",
       "schema_version": "aggie.operations.backup_catalog_integrity.v1",
-      "artifact_identity": "e5ac1684a9decf4567c96c020a8d89ec26c14e88c6f810f429dd3b17aa47afb3"
+      "artifact_identity": "a2224a2cba4cc2266204a61a966839b6852face8aa231866b67bcb6a7cff08ca"
     },
     {
       "path": "src/aggie_analytics/operations/backup.py",
-      "sha256": "669e7e42e71e19f042c512c034a4f57866e19d5ca54945c54c3eb4213be7c6b8"
+      "sha256": "583c16ef3ce852ff5d5688627ed48de17b4aae2627fcfd07bf30417dd08b2725"
     },
     {
       "path": "tools/build_backup_catalog_and_integrity.py",
-      "sha256": "9d2da7ad801068ad2eefc09b18f59c30140e17e632119a8c40469bece33ec3cc"
+      "sha256": "858e32aa945fc63dd23eebd6a986bb2983d864b46419bb8457ab607c0b87dbba"
     },
     {
       "path": "tests/test_backup_catalog_integrity.py",
-      "sha256": "8ab68120591ed3753f1aae1d36116141b118e01aad35de6a1c36dacfb326fc38"
+      "sha256": "2abfcf865fcd8d3da6be0ccff6dc550927e1a18b3f82b9cfbf1e0ce92b4ba10f"
     }
   ],
   "acceptance_matrix": [

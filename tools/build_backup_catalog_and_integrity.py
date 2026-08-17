@@ -16,6 +16,7 @@ if __package__ in {None, ""}:
 from aggie_analytics.operations.backup import (  # noqa: E402
     create_backup,
     enforce_backup_destination_policy,
+    promote_last_known_good_atomic,
     verify_backup,
 )
 
@@ -128,8 +129,8 @@ def build_catalog(*, repo_root: Path, output_path: Path) -> dict:
 
     final_backup = backups / f"backup-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.zip"
     os.replace(temp_backup, final_backup)
-    shutil.copy2(final_backup, lkg)
-    new_lkg_sha = _sha_file(lkg)
+    promotion = promote_last_known_good_atomic(final_backup, lkg)
+    new_lkg_sha = promotion["promoted_last_known_good_sha256"]
 
     payload = {
         "schema_version": "aggie.operations.backup_catalog_integrity.v1",
@@ -159,7 +160,10 @@ def build_catalog(*, repo_root: Path, output_path: Path) -> dict:
             "restricted_destination_error": policy_rejection,
             "previous_last_known_good_sha256": previous_lkg_sha,
             "new_last_known_good_sha256": new_lkg_sha,
-            "last_known_good_updated_only_after_verification": previous_lkg_sha != new_lkg_sha,
+            "last_known_good_atomic_promotion": promotion,
+            "last_known_good_updated_only_after_verification": promotion[
+                "verified_before_promotion"
+            ],
         },
         "backup_identity": {
             "archive_sha256": verified["archive_sha256"],

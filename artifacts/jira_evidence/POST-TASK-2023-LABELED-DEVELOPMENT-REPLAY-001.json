@@ -1,32 +1,45 @@
 {
-  "schema_version": "2.1.0",
+  "schema_version": "2.2.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T19:20:00Z",
+  "created_at_utc": "2026-08-17T21:45:00Z",
   "jira_key": "BAT-566",
   "local_issue_id": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
   "parent_jira_key": "BAT-523",
-  "related_jira_keys": ["BAT-523", "BAT-565", "BAT-400", "BAT-401"],
-  "workflow_state": "IN_PROGRESS",
-  "evidence_state": "VERIFIED_SCOPED",
-  "issue_complete": false,
-  "observable_outcome": "Cycle #5 Phase 4 built a 2023-only development matrix from BAT-523 priors, 2010-2022 play/drive aggregates, and BAT-565 labels, then ran an expanding-window labeled walk-forward. Prior-only development accuracy was 0.600 and Brier 0.231. Adding one fold-local play/drive EPA coefficient made development Brier worse by 0.0046. That negative incremental result is preserved. No 2024/2025 outcomes entered the matrix. The protected lane remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress.",
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-565",
+    "BAT-400",
+    "BAT-401"
+  ],
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "correction": "CORRECTED_LABEL_CHRONOLOGY_REPLAY",
+  "observable_outcome": "Cycle #6 Phase 2 rebuilt BAT-566 from the corrected BAT-565 identity bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8. Training membership now uses timezone-aware label_available_after_utc < fold_evaluation_cutoff_utc. 2023 week-fold train and eval counts did not change versus the superseded kickoff-time parent because every prior-week conservative start+24h bound remained strictly before the next fold cutoff. Team-row prior_only accuracy 0.600 and Brier 0.23135 are unchanged. prior_plus_play_drive remains worse by Brier +0.00463; the negative incremental result is preserved. Unique-game metrics are now reported separately (910 games; prior_only Brier 0.23954). No 2024/2025 outcomes entered the matrix. BAT-401 was rebound and remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress.",
   "outputs": [
     {
       "path": "artifacts/pit/development_walk_forward_2023.json",
-      "bytes": 26231,
-      "sha256": "6e519584b8ce6216f6639c64ea775322709becc6323884b7a1f784f8a57ef572",
-      "matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
-      "replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
+      "bytes": 38536,
+      "sha256": "31e8eb241b56d8584cf1fcf7d714e7aad0adc21094c20280262bb9d8d7f2002b",
+      "schema_version": "aggie.experimentation.development_2023_labeled_replay.v2",
+      "matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+      "replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+      "gate_identity": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2"
     },
     {
       "path": "configs/development_2023_labeled_replay_contract.json",
-      "bytes": 4268,
-      "sha256": "029d2fe4cef9c70069fdc76b5247bc92ceac7f3e4a00bff7ce0fb2ea7b5e7faa"
+      "bytes": 5005,
+      "sha256": "f2b95401037701d4a6b8281fb43aeb6f353180b9f2a80cd377f0dc7fbda09d0f"
     },
     {
       "path": "src/aggie_analytics/experimentation/development_2023_labeled_replay.py",
-      "bytes": 61881,
-      "sha256": "9644093ab4098a98aa381a17172da4a609d30b507d891fc46298534e17b7201d"
+      "bytes": 85390,
+      "sha256": "8652acee83d26e819b8d4ca68eac6db7712f87c80cb16f64e2c3f3f2ff2c1cab"
+    },
+    {
+      "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
+      "bytes": 15187,
+      "sha256": "f6a9896be26ce3255b0efa4c8e31578e81091c49269b3ed9f7a165a624b9fa86"
     },
     {
       "path": "tools/build_development_2023_labeled_replay.py",
@@ -35,93 +48,188 @@
     },
     {
       "path": "tools/validate_development_2023_labeled_replay.py",
-      "bytes": 3993,
-      "sha256": "ed1b0ce8c507cc21d28f96c5a317b4f4a9bef456522243e95b7e529707bffe3e"
+      "bytes": 8718,
+      "sha256": "4539de5a57a5a60181f153db9a8d3fca8de3552dc1803ae209678ace1aaf0a60"
+    },
+    {
+      "path": "tools/evaluate_pit_replay_readiness.py",
+      "bytes": 1814,
+      "sha256": "91de19106314fdb827a1643342e051e0fa8c5de61a97a18e24b6c2d65a2f0502"
     },
     {
       "path": "tests/test_development_2023_labeled_replay.py",
-      "bytes": 12509,
-      "sha256": "58769a4a5880c1a4e8d5b84cb0bd68c8e53ad860fc77bac45d39846d0f12a8bf"
+      "bytes": 27467,
+      "sha256": "a3438f02cf2350ea9d336c2f8d67acfd135705952f4769fbbcc85b36a370d386"
+    },
+    {
+      "path": "tests/test_pit_replay_readiness.py",
+      "bytes": 3263,
+      "sha256": "03a5d42cfdc248d87465c99f1451d5f05a337aac77c25bcdc979b0d12f55dc10"
+    },
+    {
+      "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
+      "bytes": 5867,
+      "sha256": "86a5e658ca73ee99b845127a6a331ca4567665f304d915ab31bd2e1740549af6",
+      "artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+      "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED"
     }
   ],
-  "matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
-  "replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7",
-  "supersedes_matrix_identity": "d04db5487893a73f1bed0ab9ed37743965e74f0d29bbe80fd316f2372e3aad2b",
-  "supersedes_replay_identity": "1cc4debf345e0baade91a46e6eb5047ce46424b09235f1722a55de6f5c10d318",
+  "matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+  "replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+  "gate_identity": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2",
+  "run_identity": "056fa0d36678f547fa2f2f0e5e24bc6ee5f11a7b4af71d08a4707bf05977ec43",
+  "code_identity": "8652acee83d26e819b8d4ca68eac6db7712f87c80cb16f64e2c3f3f2ff2c1cab",
+  "supersedes_matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
+  "supersedes_replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7",
   "external_manifest": {
-    "path": "<external-data-root>/manifests/development_2023_matrix/sha256/84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a/development_2023_labeled_replay_manifest.json",
-    "sha256": "e5aec7deecb303ecec5cb7852b05c0060055fd7ce3544147206717bb04457591"
+    "path": "<external-data-root>/manifests/development_2023_matrix/sha256/04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68/development_2023_labeled_replay_manifest.json",
+    "sha256": "4885266e5142ab4de74be1c4055e2a2ec0fc175a16ed2b7c93c412f260ca87c4"
   },
   "input_identities": {
-    "bat523_prior_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "bat523_pregame_prior_rows": 5528,
     "bat523_pregame_prior_rows_sha256": "23db814da58cfbf0975e99b32130c531ae8e4f26867f0ac1e5207ba36bd6d140",
+    "bat523_prior_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "bat523_prior_manifest_relative_path": "manifests/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/known_at_replay_manifest.json",
+    "bat565_label_dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "bat565_label_manifest_relative_path": "manifests/development_outcomes/sha256/bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8/development_2023_outcome_manifest.json",
+    "bat565_team_outcome_rows": 1820,
+    "bat565_team_outcome_sha256": "c3adbb1536de475ba019c7dcd24f722c1a13a04ec44343abbc44eb6288c45116",
     "play_drive_dataset_identity": "1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d",
+    "play_drive_feature_rows": 5528,
     "play_drive_feature_sha256": "d24f0d9f9726886b5771739c7b704ca05fd964a16826673c5a5a5dd73cc75db9",
-    "bat565_label_dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
-    "bat565_team_outcome_sha256": "7ea39024bde3575e4e31f100f014b5d51adada6dda2a6e0050279723420d77f8",
+    "play_drive_manifest_relative_path": "manifests/historical_known_at/sha256/1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d/play_drive_pit_aggregate_manifest.json",
+    "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
   },
   "external_payloads": [
     {
-      "name": "development_2023_matrix_features.parquet",
-      "rows": 1820,
       "bytes": 276372,
-      "sha256": "a8f126af23b5c24635a305a8f58fa89be092a15a0673bf6ff75b83579bf6f124",
-      "record_sha256": "198108f91e3be233b3986f969206bf8a933b963cc4a7c0a59e916344fc8af0cd"
+      "name": "development_2023_matrix_features.parquet",
+      "record_sha256": "198108f91e3be233b3986f969206bf8a933b963cc4a7c0a59e916344fc8af0cd",
+      "role": "DEVELOPMENT_ONLY_2023_FEATURE_MATRIX",
+      "rows": 1820,
+      "sha256": "a8f126af23b5c24635a305a8f58fa89be092a15a0673bf6ff75b83579bf6f124"
     },
     {
+      "bytes": 126035,
       "name": "development_2023_matrix_labels.parquet",
+      "record_sha256": "770e91f9cc470bd7a76b91e2a008d6bfe9da7f15acea3e2492960eb5a1b747a6",
+      "role": "DEVELOPMENT_ONLY_2023_LABELS_NOT_FEATURES",
       "rows": 1820,
-      "bytes": 126088,
-      "sha256": "67d60e63b75f094004b131301849052f50f222b3d4c3bf0c67ce7a9bf94786b9",
-      "record_sha256": "4d5fe6d47bbe93416cce8dbfddd93d995c76fe3a1d35b47eb3574047809ddc8b"
+      "sha256": "b3801310d15a6e8bc3619be222dfd1d897cb63e03ec5c30cf2dd86ccf670fceb"
     }
   ],
   "population": {
     "feature_rows": 1820,
     "label_rows": 1820,
     "games": 910,
+    "unique_games": 910,
     "cold_start_rows": 4,
-    "seasons": [2023],
-    "feature_domains": ["bat523_pregame_priors", "historical_play_drive_2010_2022"]
+    "seasons": [
+      2023
+    ],
+    "feature_domains": [
+      "bat523_pregame_priors",
+      "historical_play_drive_2010_2022"
+    ],
+    "pairing": {
+      "complementary_labels": true,
+      "game_counted_once_in_game_metrics": true,
+      "orientation": "HOME_THEN_TEAM_ID",
+      "required_rows_per_game": 2,
+      "team_rows": 1820,
+      "unique_games": 910
+    }
+  },
+  "fold_membership_versus_kickoff_parent": {
+    "train_row_counts_changed": false,
+    "eval_row_counts_changed": false,
+    "reason": "Every prior-week conservative start+24h availability bound remained strictly before the next 2023 fold_evaluation_cutoff_utc."
   },
   "metrics": {
     "classification": "DEVELOPMENT_ONLY_2023",
     "prior_only": {
-      "evaluated_rows": 1820,
-      "evaluated_folds": 16,
+      "abstained_folds": 0,
       "accuracy": 0.6,
       "brier": 0.23135006789663434,
+      "evaluated_folds": 16,
+      "evaluated_rows": 1820,
       "log_loss": 0.6486314252527969,
       "margin_mae": 16.898011032389398
     },
     "prior_plus_play_drive": {
-      "evaluated_rows": 1632,
-      "evaluated_folds": 15,
       "abstained_folds": 1,
       "accuracy": 0.5888480392156863,
       "brier": 0.235975185943878,
+      "evaluated_folds": 15,
+      "evaluated_rows": 1632,
       "log_loss": 0.6597298527223004,
       "margin_mae": 16.5181493181106
+    },
+    "unique_game_prior_only": {
+      "abstained_folds": 0,
+      "accuracy": 0.5989010989010989,
+      "brier": 0.23953968807009565,
+      "evaluated_folds": 16,
+      "evaluated_rows": 910,
+      "log_loss": 0.6726192269591,
+      "margin_mae": 17.42417179614516
+    },
+    "unique_game_prior_plus_play_drive": {
+      "abstained_folds": 1,
+      "accuracy": 0.5906862745098039,
+      "brier": 0.2401941689451712,
+      "evaluated_folds": 15,
+      "evaluated_rows": 816,
+      "log_loss": 0.6742885220457245,
+      "margin_mae": 16.817777202287374
     },
     "incremental_play_drive_result": {
       "accuracy_delta_plus_minus_prior": -0.011151960784313686,
       "brier_delta_plus_minus_prior": 0.004625118047243665,
       "promotion_authority": false,
-      "interpretation": "The play/drive EPA residual did not improve 2023 development Brier or accuracy. The negative result is preserved."
+      "interpretation": "The play/drive EPA residual did not improve 2023 development Brier or accuracy after the corrected label chronology. The negative result is preserved."
+    },
+    "old_versus_corrected_team_row_metrics": {
+      "prior_only_accuracy": {
+        "old": 0.6,
+        "corrected": 0.6
+      },
+      "prior_only_brier": {
+        "old": 0.23135006789663434,
+        "corrected": 0.23135006789663434
+      },
+      "prior_plus_play_drive_accuracy": {
+        "old": 0.5888480392156863,
+        "corrected": 0.5888480392156863
+      },
+      "prior_plus_play_drive_brier": {
+        "old": 0.235975185943878,
+        "corrected": 0.235975185943878
+      },
+      "incremental_brier_delta": {
+        "old": 0.004625118047243665,
+        "corrected": 0.004625118047243665
+      }
     }
   },
   "proofs_passed": [
-    "deterministic_full_rerun",
     "crash_resume_equivalence",
-    "future_append_invariance",
-    "postgame_append_invariance",
-    "same_game_exclusion",
+    "deterministic_full_rerun",
     "fold_local_fitting",
-    "stale_checkpoint_rejection",
+    "future_append_invariance",
+    "label_availability_after_completion",
+    "postgame_append_invariance",
     "protected_outcome_denial",
-    "label_availability_after_completion"
+    "same_game_exclusion",
+    "stale_checkpoint_rejection",
+    "unique_game_pairing"
   ],
+  "bat401_rebind": {
+    "artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+    "supersedes_artifact_identity": "fee092379479569e5c654d58bcc9bf4df53a70e10ca49cfae71c6d74a7b0cab2",
+    "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
   "protected_nonclaims": {
     "protected_performance_claimed": false,
     "champion_or_production_promotion": false,

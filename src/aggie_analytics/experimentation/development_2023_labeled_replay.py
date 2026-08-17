@@ -15,12 +15,18 @@ from typing import Any, Mapping, Sequence
 # Labels are post-completion observations. They are never pregame features.
 # Metrics are development-only and grant no protected or promotion authority.
 
-SCHEMA_VERSION = "aggie.experimentation.development_2023_labeled_replay.v1"
-CHECKPOINT_SCHEMA = "aggie.experimentation.development_2023_labeled_checkpoint.v1"
+SCHEMA_VERSION = "aggie.experimentation.development_2023_labeled_replay.v2"
+CHECKPOINT_SCHEMA = "aggie.experimentation.development_2023_labeled_checkpoint.v2"
 CONTRACT_RELATIVE = "configs/development_2023_labeled_replay_contract.json"
 GATE_RELATIVE = "artifacts/pit/development_walk_forward_2023.json"
+CONTRACT_ID = "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V2"
+PASS_RESULT = "PASS_DEVELOPMENT_ONLY_2023_LABELED_REPLAY"
 PROTECTED_SEASONS = frozenset({2024, 2025})
 DEVELOPMENT_SEASON = 2023
+SUPERSEDED_KICKOFF_LABEL_IDENTITY = "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
+SUPERSEDED_MATRIX_IDENTITY = "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a"
+SUPERSEDED_REPLAY_IDENTITY = "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
+NON_AUTHORITATIVE_METADATA = frozenset({"issued_at_utc", "producer"})
 FORBIDDEN_FEATURE_FIELDS = frozenset(
     {
         "result",
@@ -102,19 +108,30 @@ LABEL_ROW_FIELDS = (
 AUTHORITY_GATE_FIELDS = (
     "schema_version",
     "artifact_type",
+    "result",
     "classification",
     "contract_id",
     "decision_unit",
     "jira_key",
     "matrix_identity",
     "replay_identity",
+    "run_identity",
+    "code_identity",
+    "manifest",
     "input_identities",
     "population",
+    "pairing",
     "folds",
     "metrics",
+    "incremental_play_drive_result",
     "proofs",
+    "payloads",
     "authority",
+    "label_semantics",
     "scientific_nonclaims",
+    "issue_completion",
+    "supersession",
+    "protected_period_exclusions",
 )
 
 
@@ -179,8 +196,11 @@ def clip_probability(value: float) -> float:
 def load_contract(repo_root: Path) -> dict[str, Any]:
     path = repo_root / CONTRACT_RELATIVE
     contract = json.loads(path.read_text(encoding="utf-8"))
-    if contract.get("contract_id") != "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V1":
+    if contract.get("contract_id") != CONTRACT_ID:
         raise ValueError("unexpected 2023 labeled-replay contract identity")
+    pinned = contract["input_identities"]["bat565_label_dataset_identity"]
+    if pinned == SUPERSEDED_KICKOFF_LABEL_IDENTITY:
+        raise ValueError("active BAT-566 contract still pins superseded kickoff-time BAT-565 identity")
     authority = contract["authority"]
     if authority.get("development_2023_labeled_evaluation") is not True:
         raise ValueError("2023 labeled evaluation authority is not explicitly enabled")
@@ -250,6 +270,69 @@ def assert_feature_surface(rows: Sequence[Mapping[str, Any]]) -> None:
             raise ProtectedOutcomeDenied("protected-season row entered the feature surface")
 
 
+def complementary_results(left: str, right: str) -> bool:
+    if left == "TIE" and right == "TIE":
+        return True
+    return {left, right} == {"WIN", "LOSS"}
+
+
+def canonical_game_orientation(rows: Sequence[Mapping[str, Any]]) -> Mapping[str, Any]:
+    if len(rows) != 2:
+        raise ValueError("canonical orientation requires exactly two opposing team rows")
+    homes = [row for row in rows if str(row.get("site", "")).upper() == "HOME"]
+    if len(homes) == 1:
+        return homes[0]
+    return sorted(rows, key=lambda item: (str(item["team_id"]), str(item["row_id"])))[0]
+
+
+def assert_unique_game_pairing(
+    feature_rows: Sequence[Mapping[str, Any]],
+    label_rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    labels_by_row = {str(row["row_id"]): row for row in label_rows}
+    grouped: dict[str, list[Mapping[str, Any]]] = {}
+    for row in feature_rows:
+        grouped.setdefault(str(row["target_game_id"]), []).append(row)
+    for game_id, rows in grouped.items():
+        if len(rows) != 2:
+            raise ValueError(f"game {game_id} does not have exactly two opposing team rows")
+        left, right = rows
+        if str(left["team_id"]) == str(right["team_id"]):
+            raise ValueError(f"game {game_id} has duplicate team identity")
+        if str(left["opponent_id"]) != str(right["team_id"]) or str(right["opponent_id"]) != str(left["team_id"]):
+            raise ValueError(f"game {game_id} opponent pairing is not complementary")
+        left_label = labels_by_row[str(left["row_id"])]
+        right_label = labels_by_row[str(right["row_id"])]
+        if not complementary_results(str(left_label["result"]), str(right_label["result"])):
+            raise ValueError(f"game {game_id} team/opponent labels are not complementary")
+        if int(left_label["points_for"]) != int(right_label["points_against"]) or int(
+            left_label["points_against"]
+        ) != int(right_label["points_for"]):
+            raise ValueError(f"game {game_id} paired scores are not complementary")
+        canonical_game_orientation(rows)
+    return {
+        "unique_games": len(grouped),
+        "team_rows": len(feature_rows),
+        "required_rows_per_game": 2,
+        "orientation": "HOME_THEN_TEAM_ID",
+        "complementary_labels": True,
+        "game_counted_once_in_game_metrics": True,
+    }
+
+
+def unique_game_eval_rows(eval_rows: Sequence[Mapping[str, Any]]) -> list[Mapping[str, Any]]:
+    grouped: dict[str, list[Mapping[str, Any]]] = {}
+    for row in eval_rows:
+        grouped.setdefault(str(row["target_game_id"]), []).append(row)
+    selected: list[Mapping[str, Any]] = []
+    for game_id, rows in grouped.items():
+        if len(rows) != 2:
+            raise ValueError(f"evaluation game {game_id} is not a unique complementary pair")
+        selected.append(canonical_game_orientation(rows))
+    selected.sort(key=lambda item: (str(item["cutoff_utc"]), str(item["row_id"])))
+    return selected
+
+
 def load_verified_inputs(data_root: Path, contract: Mapping[str, Any]) -> dict[str, Any]:
     pl = _polars()
     source = contract["input_identities"]
@@ -265,6 +348,10 @@ def load_verified_inputs(data_root: Path, contract: Mapping[str, Any]) -> dict[s
         raise ValueError("play/drive identity drift")
     if label_manifest.get("dataset_identity") != source["bat565_label_dataset_identity"]:
         raise ValueError("BAT-565 label identity drift")
+    if source["bat565_label_dataset_identity"] == SUPERSEDED_KICKOFF_LABEL_IDENTITY:
+        raise ValueError("active BAT-566 artifact consumes superseded kickoff-time label identity")
+    if label_manifest.get("dataset_identity") == SUPERSEDED_KICKOFF_LABEL_IDENTITY:
+        raise ValueError("active BAT-566 manifest still binds the superseded kickoff-time label identity")
     prior_listed = next(
         item for item in prior_manifest["payloads"] if item["name"] == "pregame_prior_rows.parquet"
     )
@@ -432,9 +519,9 @@ def build_matrix(inputs: Mapping[str, Any], contract: Mapping[str, Any]) -> dict
         if int(label["season"]) in PROTECTED_SEASONS:
             raise ProtectedOutcomeDenied("protected-year label entered the 2023 matrix")
         if parse_utc(str(label["label_available_after_utc"])) <= parse_utc(str(feature["cutoff_utc"])):
-            # Labels become available at game start, which is after the 24h pregame cutoff.
-            # Equality would mean a label was treated as a pregame feature.
             raise ValueError("label availability is not strictly after the pregame cutoff")
+        if parse_utc(str(label["label_available_after_utc"])) <= parse_utc(str(feature["target_start_utc"])):
+            raise ValueError("label availability is not strictly after kickoff")
         feature_rows.append(feature)
         label_rows.append(label)
     feature_rows.sort(key=lambda item: (item["cutoff_utc"], item["row_id"]))
@@ -443,10 +530,13 @@ def build_matrix(inputs: Mapping[str, Any], contract: Mapping[str, Any]) -> dict
     assert_feature_surface(feature_rows)
     assert_no_protected_outcomes(feature_rows, context="matrix features")
     assert_no_protected_outcomes(label_rows, context="matrix labels")
+    pairing = assert_unique_game_pairing(feature_rows, label_rows)
     population = {
         "feature_rows": len(feature_rows),
         "label_rows": len(label_rows),
-        "games": len({row["target_game_id"] for row in feature_rows}),
+        "games": pairing["unique_games"],
+        "unique_games": pairing["unique_games"],
+        "team_rows": pairing["team_rows"],
         "cold_start_rows": sum(1 for row in feature_rows if row["cold_start"]),
         "protected_eligible_rows": sum(1 for row in feature_rows if row["play_drive_protected_eligible"]),
         "join_anti_rows": 0,
@@ -455,6 +545,7 @@ def build_matrix(inputs: Mapping[str, Any], contract: Mapping[str, Any]) -> dict
         "results": dict(sorted(Counter(row["result"] for row in label_rows).items())),
         "feature_domains": ["bat523_pregame_priors", "historical_play_drive_2010_2022"],
         "label_domain": "bat565_2023_development_outcomes",
+        "pairing": pairing,
     }
     for key, expected in (
         ("feature_rows", "expected_feature_rows"),
@@ -486,6 +577,7 @@ def build_folds(feature_rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any
                 "week": week,
                 "min_cutoff_utc": min(cutoffs).isoformat().replace("+00:00", "Z"),
                 "max_cutoff_utc": max(cutoffs).isoformat().replace("+00:00", "Z"),
+                "fold_evaluation_cutoff_utc": min(cutoffs).isoformat().replace("+00:00", "Z"),
                 "rows": rows,
             }
         )
@@ -524,34 +616,37 @@ def fold_membership(
     eval_rows = list(fold["rows"])
     eval_game_ids = {str(row["target_game_id"]) for row in eval_rows}
     eval_row_ids = {str(row["row_id"]) for row in eval_rows}
-    cutoff = str(fold["min_cutoff_utc"])
+    cutoff = parse_utc(str(fold.get("fold_evaluation_cutoff_utc") or fold["min_cutoff_utc"]))
     train_rows: list[Mapping[str, Any]] = []
     excluded_candidates: list[dict[str, Any]] = []
+    availability_exclusions: list[dict[str, Any]] = []
     for row in feature_rows:
         row_id = str(row["row_id"])
         game_id = str(row["target_game_id"])
         label = label_by_row[row_id]
         reasons: list[str] = []
-        if str(label["label_available_after_utc"]) >= cutoff:
+        if parse_utc(str(label["label_available_after_utc"])) >= cutoff:
             reasons.append("LABEL_NOT_AVAILABLE_BEFORE_CUTOFF")
         if game_id in eval_game_ids:
             reasons.append("SAME_GAME_EXCLUDED")
         if row_id in eval_row_ids:
             reasons.append("SAME_ROW_EXCLUDED")
         if reasons:
-            if "LABEL_NOT_AVAILABLE_BEFORE_CUTOFF" not in reasons:
-                excluded_candidates.append(
-                    {
-                        "row_id": row_id,
-                        "target_game_id": game_id,
-                        "label_available_after_utc": label["label_available_after_utc"],
-                        "reasons": reasons,
-                    }
-                )
+            record = {
+                "row_id": row_id,
+                "target_game_id": game_id,
+                "label_available_after_utc": label["label_available_after_utc"],
+                "reasons": reasons,
+            }
+            if "LABEL_NOT_AVAILABLE_BEFORE_CUTOFF" in reasons:
+                availability_exclusions.append(record)
+            else:
+                excluded_candidates.append(record)
             continue
         train_rows.append(row)
     train_rows.sort(key=lambda item: (str(item["cutoff_utc"]), str(item["row_id"])))
     excluded_candidates.sort(key=lambda item: (item["label_available_after_utc"], item["row_id"]))
+    availability_exclusions.sort(key=lambda item: (item["label_available_after_utc"], item["row_id"]))
     train_membership = [
         {"row_id": str(row["row_id"]), "target_game_id": str(row["target_game_id"])} for row in train_rows
     ]
@@ -560,6 +655,7 @@ def fold_membership(
     ]
     proof = derive_membership_proof(train_membership, eval_membership)
     proof["excluded_candidates"] = excluded_candidates
+    proof["availability_exclusions"] = availability_exclusions
     proof["same_game_excluded"] = (
         not proof["game_id_intersection"]
         and not proof["row_id_intersection"]
@@ -709,8 +805,10 @@ def execute_fold(
         raise ProtectedOutcomeDenied("protected season entered fold membership")
     for row in eval_rows:
         label = label_by_row[str(row["row_id"])]
-        if str(label["label_available_after_utc"]) <= str(row["cutoff_utc"]):
+        if parse_utc(str(label["label_available_after_utc"])) <= parse_utc(str(row["cutoff_utc"])):
             raise LabelUnavailable("evaluation label is not strictly after the pregame cutoff")
+        if parse_utc(str(label["label_available_after_utc"])) <= parse_utc(str(row["target_start_utc"])):
+            raise LabelUnavailable("evaluation label is not strictly after kickoff")
     prior_plus = fit_prior_plus(train_rows, label_by_row)
     first_fold = int(fold["fold_index"]) == 0
     if first_fold and train_rows:
@@ -736,6 +834,35 @@ def execute_fold(
             plus_probs.append(prior_plus_probability(row, prior_plus))
             plus_true_m.append(y_m)
             plus_pred_m.append(prior_only_margin(row))
+    game_eval_rows = unique_game_eval_rows(eval_rows)
+    game_prior_labels: list[float] = []
+    game_prior_probs: list[float] = []
+    game_plus_labels: list[float] = []
+    game_plus_probs: list[float] = []
+    game_prior_true_m: list[float | None] = []
+    game_prior_pred_m: list[float | None] = []
+    game_plus_true_m: list[float | None] = []
+    game_plus_pred_m: list[float | None] = []
+    paired_probability_sums: list[float] = []
+    for row in game_eval_rows:
+        label = label_by_row[str(row["row_id"])]
+        y = 1.0 if label["result"] == "WIN" else 0.0
+        y_m = None if label.get("margin") is None else float(label["margin"])
+        game_prior_labels.append(y)
+        game_prior_probs.append(prior_only_probability(row))
+        game_prior_true_m.append(y_m)
+        game_prior_pred_m.append(prior_only_margin(row))
+        mate = next(
+            item
+            for item in eval_rows
+            if str(item["target_game_id"]) == str(row["target_game_id"]) and str(item["row_id"]) != str(row["row_id"])
+        )
+        paired_probability_sums.append(prior_only_probability(row) + prior_only_probability(mate))
+        if prior_plus["kind"] != "HISTORICAL_ONLY_IDENTITY_OR_ABSTAIN":
+            game_plus_labels.append(y)
+            game_plus_probs.append(prior_plus_probability(row, prior_plus))
+            game_plus_true_m.append(y_m)
+            game_plus_pred_m.append(prior_only_margin(row))
     result = {
         "fold_id": fold["fold_id"],
         "fold_index": fold["fold_index"],
@@ -744,8 +871,11 @@ def execute_fold(
         "week": fold["week"],
         "min_cutoff_utc": fold["min_cutoff_utc"],
         "max_cutoff_utc": fold["max_cutoff_utc"],
+        "fold_evaluation_cutoff_utc": fold.get("fold_evaluation_cutoff_utc") or fold["min_cutoff_utc"],
         "eval_row_count": len(eval_rows),
+        "eval_unique_games": len(game_eval_rows),
         "train_row_count": len(train_rows),
+        "train_unique_games": len({str(row["target_game_id"]) for row in train_rows}),
         "train_row_ids": [str(row["row_id"]) for row in train_rows],
         "eval_row_ids": [str(row["row_id"]) for row in eval_rows],
         "train_game_ids": list(membership["train_game_ids"]),
@@ -778,6 +908,29 @@ def execute_fold(
             "margin_mae": None,
             "calibration": {"omitted": True, "reason": "ABSTAIN_NO_FIT"},
             "abstained": True,
+        },
+        "unique_game_prior_only": classification_metrics(
+            game_prior_labels, game_prior_probs, game_prior_true_m, game_prior_pred_m
+        ),
+        "unique_game_prior_plus_play_drive": classification_metrics(
+            game_plus_labels, game_plus_probs, game_plus_true_m, game_plus_pred_m
+        )
+        if game_plus_labels
+        else {
+            "rows": 0,
+            "accuracy": None,
+            "brier": None,
+            "log_loss": None,
+            "margin_mae": None,
+            "calibration": {"omitted": True, "reason": "ABSTAIN_NO_FIT"},
+            "abstained": True,
+        },
+        "paired_probability": {
+            "orientation": "HOME_THEN_TEAM_ID",
+            "games": len(paired_probability_sums),
+            "mean_home_plus_away": None
+            if not paired_probability_sums
+            else sum(paired_probability_sums) / float(len(paired_probability_sums)),
         },
     }
     result["fold_result_hash"] = stable_hash(
@@ -856,7 +1009,7 @@ def validate_checkpoint(
         raise CheckpointRejected("stale checkpoint code identity")
     if checkpoint.get("fold_id") != fold["fold_id"]:
         raise CheckpointRejected("checkpoint fold identity mismatch")
-    if str(checkpoint.get("train_cutoff_utc")) > fold["min_cutoff_utc"]:
+    if parse_utc(str(checkpoint.get("train_cutoff_utc"))) > parse_utc(str(fold["min_cutoff_utc"])):
         raise CheckpointRejected("future-fitted checkpoint")
 
 
@@ -1081,8 +1234,17 @@ def identity_core(
         "record_hashes": dict(record_hashes),
         "population": {
             key: population[key]
-            for key in ("feature_rows", "label_rows", "games", "cold_start_rows", "seasons")
+            for key in (
+                "feature_rows",
+                "label_rows",
+                "games",
+                "unique_games",
+                "team_rows",
+                "cold_start_rows",
+                "seasons",
+            )
         },
+        "pairing": population.get("pairing"),
         "fold_hashes": list(fold_hashes),
         "metrics": metrics,
     }
@@ -1169,6 +1331,10 @@ def materialize(
     metrics = {
         "prior_only": summarize_metrics(fold_results, "prior_only"),
         "prior_plus_play_drive": summarize_metrics(fold_results, "prior_plus_play_drive"),
+        "unique_game_prior_only": summarize_metrics(fold_results, "unique_game_prior_only"),
+        "unique_game_prior_plus_play_drive": summarize_metrics(
+            fold_results, "unique_game_prior_plus_play_drive"
+        ),
     }
     incremental = None
     if (
@@ -1211,16 +1377,29 @@ def materialize(
         "protected_outcome_denial": prove_protected_outcome_denial(repo_root),
         "label_availability_after_completion": {
             "pass": all(
-                str(expected["label_by_row"][row_id]["label_available_after_utc"]) < fold["min_cutoff_utc"]
+                parse_utc(str(expected["label_by_row"][row_id]["label_available_after_utc"]))
+                < parse_utc(str(fold.get("fold_evaluation_cutoff_utc") or fold["min_cutoff_utc"]))
                 for fold in fold_results
                 for row_id in fold["train_row_ids"]
             )
             and all(
-                str(expected["label_by_row"][row_id]["label_available_after_utc"]) > row["cutoff_utc"]
+                parse_utc(str(expected["label_by_row"][str(row["row_id"])]["label_available_after_utc"]))
+                > parse_utc(str(row["cutoff_utc"]))
                 for fold in expected["folds"]
                 for row in fold["rows"]
-                for row_id in [str(row["row_id"])]
             )
+            and all(
+                parse_utc(str(expected["label_by_row"][str(row["row_id"])]["label_available_after_utc"]))
+                > parse_utc(str(row["target_start_utc"]))
+                for fold in expected["folds"]
+                for row in fold["rows"]
+            )
+        },
+        "unique_game_pairing": {
+            "pass": expected["matrix"]["population"]["pairing"]["complementary_labels"] is True
+            and expected["matrix"]["population"]["unique_games"]
+            == expected["matrix"]["population"]["games"]
+            and all(int(fold["eval_row_count"]) == 2 * int(fold["eval_unique_games"]) for fold in fold_results)
         },
     }
     if not all(item.get("pass") for item in proofs.values()):
@@ -1275,13 +1454,19 @@ def materialize(
             "week": fold["week"],
             "min_cutoff_utc": fold["min_cutoff_utc"],
             "max_cutoff_utc": fold["max_cutoff_utc"],
+            "fold_evaluation_cutoff_utc": fold["fold_evaluation_cutoff_utc"],
             "eval_row_count": fold["eval_row_count"],
+            "eval_unique_games": fold["eval_unique_games"],
             "train_row_count": fold["train_row_count"],
+            "train_unique_games": fold["train_unique_games"],
             "same_game_excluded": fold["same_game_excluded"],
             "first_fold_no_fit": fold["first_fold_no_fit"],
             "prior_plus_model": fold["prior_plus_model"],
             "prior_only": fold["prior_only"],
             "prior_plus_play_drive": fold["prior_plus_play_drive"],
+            "unique_game_prior_only": fold["unique_game_prior_only"],
+            "unique_game_prior_plus_play_drive": fold["unique_game_prior_plus_play_drive"],
+            "paired_probability": fold["paired_probability"],
             "fold_result_hash": fold["fold_result_hash"],
             "membership": {
                 "train_membership_sha256": fold["membership"]["train_membership_sha256"],
@@ -1316,15 +1501,11 @@ def materialize(
         "authority": expected["contract"]["authority"],
         "label_semantics": expected["contract"]["label_semantics"],
         "negative_findings": expected["contract"]["negative_findings"],
-        "scientific_nonclaims": {
-            "bas_or_aggie_excess_result_claimed": False,
-            "protected_performance_claimed": False,
-            "production_model_ready": False,
-            "trained_production_champion": False,
-            "tamu_specialization_lift_claimed": False,
-            "historical_population_ready": False,
-            "protected_lane_opened": False,
-        },
+        "scientific_nonclaims": expected_scientific_nonclaims(),
+        "issue_completion": expected_issue_completion(),
+        "supersession": expected_supersession(),
+        "protected_period_exclusions": sorted(PROTECTED_SEASONS),
+        "pairing": expected["matrix"]["population"]["pairing"],
     }
     manifest_path = manifest_root / "development_2023_labeled_replay_manifest.json"
     _write_bytes(manifest_path, canonical_json_bytes(manifest) + b"\n")
@@ -1335,16 +1516,18 @@ def materialize(
         "contract_id": expected["contract"]["contract_id"],
         "decision_unit": expected["contract"]["decision_unit"],
         "jira_key": expected["contract"]["jira_key"],
-        "result": "PASS_DEVELOPMENT_ONLY_2023_LABELED_REPLAY",
+        "result": PASS_RESULT,
         "matrix_identity": matrix_identity,
         "replay_identity": replay_identity,
         "run_identity": run_identity,
+        "code_identity": expected["code_identity"],
         "manifest": {
             "relative_path": str(manifest_path.relative_to(output_root)).replace("\\", "/"),
             "sha256": sha256_file(manifest_path),
         },
         "input_identities": expected["contract"]["input_identities"],
         "population": expected["matrix"]["population"],
+        "pairing": expected["matrix"]["population"]["pairing"],
         "folds": compact_folds,
         "metrics": metrics,
         "incremental_play_drive_result": incremental,
@@ -1354,9 +1537,14 @@ def materialize(
             for item in payloads
         ],
         "authority": expected["contract"]["authority"],
-        "scientific_nonclaims": manifest["scientific_nonclaims"],
+        "label_semantics": expected["contract"]["label_semantics"],
+        "scientific_nonclaims": expected_scientific_nonclaims(),
+        "issue_completion": expected_issue_completion(),
+        "supersession": expected_supersession(),
+        "protected_period_exclusions": sorted(PROTECTED_SEASONS),
         "issued_at_utc": issued_at_utc,
     }
+    gate["gate_identity"] = compute_gate_identity(gate)
     gate["artifact_identity"] = replay_identity
     _write_bytes(repo_root / GATE_RELATIVE, canonical_json_bytes(gate) + b"\n")
     return {
@@ -1368,6 +1556,97 @@ def materialize(
         "metrics": metrics,
         "incremental_play_drive_result": incremental,
         "proofs": {name: item["pass"] for name, item in proofs.items()},
+    }
+
+
+def expected_scientific_nonclaims() -> dict[str, bool]:
+    return {
+        "bas_or_aggie_excess_result_claimed": False,
+        "protected_performance_claimed": False,
+        "production_model_ready": False,
+        "trained_production_champion": False,
+        "tamu_specialization_lift_claimed": False,
+        "historical_population_ready": False,
+        "protected_lane_opened": False,
+    }
+
+
+def expected_issue_completion() -> dict[str, Any]:
+    return {
+        "issue_complete": True,
+        "logical_state": "DONE",
+        "maturity": "IMPLEMENTED",
+        "evidence_state": "VERIFIED",
+        "protected_lane_opened": False,
+        "promotion_authority": False,
+    }
+
+
+def expected_supersession() -> dict[str, str]:
+    return {
+        "matrix_identity": SUPERSEDED_MATRIX_IDENTITY,
+        "replay_identity": SUPERSEDED_REPLAY_IDENTITY,
+        "bat565_label_dataset_identity": SUPERSEDED_KICKOFF_LABEL_IDENTITY,
+        "reason": "KICKOFF_TIME_LABEL_PARENT_INVALID",
+    }
+
+
+def compute_gate_identity(gate: Mapping[str, Any]) -> str:
+    return stable_hash({key: gate[key] for key in AUTHORITY_GATE_FIELDS if key in gate})
+
+
+def expected_incremental(metrics: Mapping[str, Any]) -> dict[str, Any] | None:
+    prior = metrics.get("prior_only") or {}
+    plus = metrics.get("prior_plus_play_drive") or {}
+    if prior.get("brier") is None or plus.get("brier") is None:
+        return None
+    return {
+        "brier_delta_plus_minus_prior": plus["brier"] - prior["brier"],
+        "accuracy_delta_plus_minus_prior": plus["accuracy"] - prior["accuracy"],
+        "promotion_authority": False,
+    }
+
+
+def rebuild_metrics(fold_results: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    return {
+        "prior_only": summarize_metrics(fold_results, "prior_only"),
+        "prior_plus_play_drive": summarize_metrics(fold_results, "prior_plus_play_drive"),
+        "unique_game_prior_only": summarize_metrics(fold_results, "unique_game_prior_only"),
+        "unique_game_prior_plus_play_drive": summarize_metrics(
+            fold_results, "unique_game_prior_plus_play_drive"
+        ),
+    }
+
+
+def compact_fold_summary(fold: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "fold_id": fold["fold_id"],
+        "fold_index": fold["fold_index"],
+        "season_type": fold["season_type"],
+        "week": fold["week"],
+        "min_cutoff_utc": fold["min_cutoff_utc"],
+        "max_cutoff_utc": fold["max_cutoff_utc"],
+        "fold_evaluation_cutoff_utc": fold["fold_evaluation_cutoff_utc"],
+        "eval_row_count": fold["eval_row_count"],
+        "eval_unique_games": fold["eval_unique_games"],
+        "train_row_count": fold["train_row_count"],
+        "train_unique_games": fold["train_unique_games"],
+        "same_game_excluded": fold["same_game_excluded"],
+        "first_fold_no_fit": fold["first_fold_no_fit"],
+        "prior_plus_model": fold["prior_plus_model"],
+        "prior_only": fold["prior_only"],
+        "prior_plus_play_drive": fold["prior_plus_play_drive"],
+        "unique_game_prior_only": fold["unique_game_prior_only"],
+        "unique_game_prior_plus_play_drive": fold["unique_game_prior_plus_play_drive"],
+        "paired_probability": fold["paired_probability"],
+        "fold_result_hash": fold["fold_result_hash"],
+        "membership": {
+            "train_membership_sha256": fold["membership"]["train_membership_sha256"],
+            "eval_membership_sha256": fold["membership"]["eval_membership_sha256"],
+            "game_id_intersection": fold["membership"]["game_id_intersection"],
+            "row_id_intersection": fold["membership"]["row_id_intersection"],
+            "excluded_candidate_count": len(fold["membership"]["excluded_candidates"]),
+        },
     }
 
 
@@ -1404,57 +1683,234 @@ def validate_artifact(
     data_root: Path,
     repo_root: Path,
     require_rebuild: bool = True,
+    gate: Mapping[str, Any] | None = None,
+    manifest: Mapping[str, Any] | None = None,
+    expected: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     gate_path = repo_root / GATE_RELATIVE
-    gate = json.loads(gate_path.read_text(encoding="utf-8"))
+    loaded_gate = dict(gate) if gate is not None else json.loads(gate_path.read_text(encoding="utf-8"))
     if not require_rebuild:
-        if gate.get("result") != "PASS_DEVELOPMENT_ONLY_2023_LABELED_REPLAY":
+        if loaded_gate.get("result") != PASS_RESULT:
             raise ValueError("gate result is not a 2023 labeled-replay pass")
-        return {"result": "PASS", "mode": "gate_schema_only", "replay_identity": gate.get("replay_identity")}
-    expected = rebuild_expected(data_root=data_root, repo_root=repo_root)
-    rebuilt = [
-        execute_fold(fold, expected["matrix"]["feature_rows"], expected["label_by_row"])
-        for fold in expected["folds"]
+        return {
+            "result": "PASS",
+            "mode": "gate_schema_only",
+            "replay_identity": loaded_gate.get("replay_identity"),
+        }
+    rebuilt = expected or rebuild_expected(data_root=data_root, repo_root=repo_root)
+    fold_results = [
+        execute_fold(fold, rebuilt["matrix"]["feature_rows"], rebuilt["label_by_row"])
+        for fold in rebuilt["folds"]
     ]
-    metrics = {
-        "prior_only": summarize_metrics(rebuilt, "prior_only"),
-        "prior_plus_play_drive": summarize_metrics(rebuilt, "prior_plus_play_drive"),
-    }
+    metrics = rebuild_metrics(fold_results)
+    incremental = expected_incremental(metrics)
     replay_identity = stable_hash(
         identity_core(
-            contract_sha256=expected["contract_sha256"],
-            input_identities=expected["contract"]["input_identities"],
-            record_hashes=expected["record_hashes"],
-            population=expected["matrix"]["population"],
-            fold_hashes=[row["fold_result_hash"] for row in rebuilt],
+            contract_sha256=rebuilt["contract_sha256"],
+            input_identities=rebuilt["contract"]["input_identities"],
+            record_hashes=rebuilt["record_hashes"],
+            population=rebuilt["matrix"]["population"],
+            fold_hashes=[row["fold_result_hash"] for row in fold_results],
             metrics=metrics,
         )
     )
+    run_identity = stable_hash(
+        {"matrix_identity": rebuilt["matrix_identity"], "code_identity": rebuilt["code_identity"]}
+    )
+    identity = rebuilt["matrix_identity"]
+    manifest_path = (
+        data_root / "manifests" / "development_2023_matrix" / "sha256" / identity
+        / "development_2023_labeled_replay_manifest.json"
+    )
+    loaded_manifest = (
+        dict(manifest)
+        if manifest is not None
+        else json.loads(manifest_path.read_text(encoding="utf-8"))
+        if manifest_path.is_file()
+        else {}
+    )
     errors: list[str] = []
-    if gate.get("matrix_identity") != expected["matrix_identity"]:
+    if rebuilt["contract"]["input_identities"]["bat565_label_dataset_identity"] == SUPERSEDED_KICKOFF_LABEL_IDENTITY:
+        errors.append("corrected BAT-565 identity is not bound")
+    if loaded_gate.get("input_identities", {}).get("bat565_label_dataset_identity") == SUPERSEDED_KICKOFF_LABEL_IDENTITY:
+        errors.append("altered BAT-565 parent identity")
+    if loaded_gate.get("input_identities", {}).get("bat565_label_dataset_identity") != rebuilt["contract"][
+        "input_identities"
+    ]["bat565_label_dataset_identity"]:
+        errors.append("altered BAT-565 parent identity")
+    if loaded_gate.get("matrix_identity") != identity:
         errors.append("gate matrix identity does not match independently rebuilt identity")
-    if gate.get("replay_identity") != replay_identity:
+    if loaded_gate.get("replay_identity") != replay_identity:
         errors.append("gate replay identity does not match independently rebuilt identity")
-    if gate.get("population") != expected["matrix"]["population"]:
+    if loaded_gate.get("run_identity") != run_identity:
+        errors.append("gate run identity does not match independently rebuilt identity")
+    if loaded_gate.get("code_identity") != rebuilt["code_identity"]:
+        errors.append("gate code identity does not match independently rebuilt identity")
+    if loaded_gate.get("population") != rebuilt["matrix"]["population"]:
         errors.append("gate population does not match rebuilt population")
-    if gate.get("metrics") != metrics:
+    if loaded_gate.get("pairing") != rebuilt["matrix"]["population"]["pairing"]:
+        errors.append("unique-game pairing was not independently reconstructed")
+    if loaded_gate.get("metrics") != metrics:
         errors.append("gate metrics do not match independently rebuilt metrics")
-    if gate.get("authority") != expected["contract"]["authority"]:
+    if loaded_gate.get("incremental_play_drive_result") != incremental:
+        errors.append("changed incremental result")
+    if loaded_gate.get("authority") != rebuilt["contract"]["authority"]:
         errors.append("gate authority drift")
-    rebuilt_fold_hashes = [row["fold_result_hash"] for row in rebuilt]
-    actual_fold_hashes = [row.get("fold_result_hash") for row in gate.get("folds", [])]
+    if loaded_gate.get("authority", {}).get("champion_or_production_promotion") is not False:
+        errors.append("promotion authority changed to true")
+    if loaded_gate.get("scientific_nonclaims") != expected_scientific_nonclaims():
+        errors.append("protected-performance claim changed to true")
+    if loaded_gate.get("scientific_nonclaims", {}).get("protected_performance_claimed") is not False:
+        errors.append("protected-performance claim changed to true")
+    if loaded_gate.get("result") != PASS_RESULT:
+        errors.append("altered result/classification")
+    if loaded_gate.get("classification") != rebuilt["contract"]["classification"]:
+        errors.append("altered result/classification")
+    if loaded_gate.get("label_semantics") != rebuilt["contract"]["label_semantics"]:
+        errors.append("altered label semantics")
+    if loaded_gate.get("issue_completion") != expected_issue_completion():
+        errors.append("altered issue completion state")
+    if loaded_gate.get("supersession") != expected_supersession():
+        errors.append("missing supersession record")
+    if loaded_gate.get("protected_period_exclusions") != sorted(PROTECTED_SEASONS):
+        errors.append("protected-period exclusions drifted")
+    if loaded_gate.get("matrix_identity") == SUPERSEDED_MATRIX_IDENTITY:
+        errors.append("superseded kickoff-time matrix identity is still active")
+    if loaded_gate.get("replay_identity") == SUPERSEDED_REPLAY_IDENTITY:
+        errors.append("superseded kickoff-time replay identity is still active")
+    rebuilt_fold_hashes = [row["fold_result_hash"] for row in fold_results]
+    actual_fold_hashes = [row.get("fold_result_hash") for row in loaded_gate.get("folds", [])]
     if rebuilt_fold_hashes != actual_fold_hashes:
-        errors.append("fold hashes do not match independently rebuilt folds")
-    for fold in gate.get("folds", []):
-        if fold.get("same_game_excluded") is not True:
-            errors.append(f"{fold.get('fold_id')} same_game_excluded was not derived true")
+        errors.append("changed fold membership")
+    expected_compacts = [compact_fold_summary(row) for row in fold_results]
+    if loaded_gate.get("folds") != expected_compacts:
+        errors.append("fold summaries do not match independently rebuilt folds")
+    for expected_fold, actual_fold in zip(expected_compacts, loaded_gate.get("folds", []), strict=False):
+        if actual_fold.get("train_row_count") != expected_fold["train_row_count"]:
+            errors.append("changed train-row count")
+        if actual_fold.get("fold_evaluation_cutoff_utc") != expected_fold["fold_evaluation_cutoff_utc"]:
+            errors.append("changed fold cutoff")
+        if actual_fold.get("membership", {}).get("train_membership_sha256") != expected_fold["membership"][
+            "train_membership_sha256"
+        ]:
+            errors.append("changed fold membership")
+        if actual_fold.get("same_game_excluded") is not True:
+            errors.append("changed same-game proof")
+        if expected_fold["same_game_excluded"] is not True:
+            errors.append("same-game exclusion was not independently derived")
+        if actual_fold.get("membership", {}).get("game_id_intersection"):
+            errors.append("target-game exclusion proof failed")
+    same_game = prove_same_game_exclusion(
+        rebuilt["folds"][0], rebuilt["matrix"]["feature_rows"], rebuilt["label_by_row"]
+    )
+    if same_game.get("pass") is not True:
+        errors.append("changed same-game proof")
+    availability_ok = all(
+        parse_utc(str(rebuilt["label_by_row"][row_id]["label_available_after_utc"]))
+        < parse_utc(str(fold.get("fold_evaluation_cutoff_utc") or fold["min_cutoff_utc"]))
+        for fold in fold_results
+        for row_id in fold["train_row_ids"]
+    ) and all(
+        parse_utc(str(rebuilt["label_by_row"][str(row["row_id"])]["label_available_after_utc"]))
+        > parse_utc(str(row["cutoff_utc"]))
+        for fold in rebuilt["folds"]
+        for row in fold["rows"]
+    )
+    if not availability_ok:
+        errors.append("availability-boundary proof failed")
+    if loaded_gate.get("proofs", {}).get("deterministic_full_rerun", {}).get("pass") is not True:
+        errors.append("full-rerun determinism proof missing")
+    if loaded_gate.get("proofs", {}).get("crash_resume_equivalence", {}).get("pass") is not True:
+        errors.append("crash/resume proof missing")
+    if loaded_gate.get("proofs", {}).get("future_append_invariance", {}).get("pass") is not True:
+        errors.append("future-append invariance proof missing")
+    feature_payload = (
+        data_root / "features" / "development_2023_matrix" / "sha256" / identity
+        / "development_2023_matrix_features.parquet"
+    )
+    label_payload = (
+        data_root / "features" / "development_2023_matrix" / "sha256" / identity
+        / "development_2023_matrix_labels.parquet"
+    )
+    expected_payloads = [
+        {
+            "name": "development_2023_matrix_features.parquet",
+            "path": feature_payload,
+            "record_sha256": rebuilt["record_hashes"]["features"],
+        },
+        {
+            "name": "development_2023_matrix_labels.parquet",
+            "path": label_payload,
+            "record_sha256": rebuilt["record_hashes"]["labels"],
+        },
+    ]
+    listed = {item.get("name"): item for item in loaded_manifest.get("payloads", [])}
+    gate_listed = {item.get("name"): item for item in loaded_gate.get("payloads", [])}
+    for item in expected_payloads:
+        if item["name"] not in listed:
+            errors.append("omitted payload")
+            continue
+        if not item["path"].is_file():
+            errors.append("omitted payload")
+            continue
+        digest = sha256_file(item["path"])
+        if listed[item["name"]].get("sha256") != digest:
+            errors.append("substituted matrix payload")
+        if listed[item["name"]].get("record_sha256") != item["record_sha256"]:
+            errors.append("substituted matrix payload")
+        if gate_listed.get(item["name"], {}).get("sha256") != digest:
+            errors.append("substituted matrix payload")
+    if not loaded_manifest:
+        errors.append("omitted payload")
+    independently_recomputed = compute_gate_identity(
+        {key: loaded_gate[key] for key in AUTHORITY_GATE_FIELDS if key in loaded_gate}
+    )
+    expected_gate_identity = compute_gate_identity(
+        {
+            **{key: loaded_gate.get(key) for key in AUTHORITY_GATE_FIELDS},
+            "result": PASS_RESULT,
+            "classification": rebuilt["contract"]["classification"],
+            "matrix_identity": identity,
+            "replay_identity": replay_identity,
+            "run_identity": run_identity,
+            "code_identity": rebuilt["code_identity"],
+            "input_identities": rebuilt["contract"]["input_identities"],
+            "population": rebuilt["matrix"]["population"],
+            "pairing": rebuilt["matrix"]["population"]["pairing"],
+            "folds": expected_compacts,
+            "metrics": metrics,
+            "incremental_play_drive_result": incremental,
+            "payloads": loaded_gate.get("payloads"),
+            "authority": rebuilt["contract"]["authority"],
+            "label_semantics": rebuilt["contract"]["label_semantics"],
+            "scientific_nonclaims": expected_scientific_nonclaims(),
+            "issue_completion": expected_issue_completion(),
+            "supersession": expected_supersession(),
+            "protected_period_exclusions": sorted(PROTECTED_SEASONS),
+            "schema_version": SCHEMA_VERSION,
+            "artifact_type": "DEVELOPMENT_2023_LABELED_WALK_FORWARD",
+            "contract_id": rebuilt["contract"]["contract_id"],
+            "decision_unit": rebuilt["contract"]["decision_unit"],
+            "jira_key": rebuilt["contract"]["jira_key"],
+            "manifest": loaded_gate.get("manifest"),
+            "proofs": loaded_gate.get("proofs"),
+        }
+    )
+    if loaded_gate.get("gate_identity") != independently_recomputed:
+        errors.append("gate identity does not match independently reconstructed authority")
+    if independently_recomputed == expected_gate_identity and loaded_gate.get("result") != PASS_RESULT:
+        errors.append("forged terminal state survived outer identity recomputation")
+    if loaded_gate.get("result") != PASS_RESULT and independently_recomputed != expected_gate_identity:
+        errors.append("forged terminal state after identity recomputation")
     if errors:
-        raise ValueError("independent 2023 labeled-replay validation failed: " + "; ".join(errors[:12]))
+        raise ValueError("independent 2023 labeled-replay validation failed: " + "; ".join(errors[:16]))
     return {
         "result": "PASS",
         "mode": "independent_rebuild",
-        "matrix_identity": expected["matrix_identity"],
+        "matrix_identity": identity,
         "replay_identity": replay_identity,
-        "population": expected["matrix"]["population"],
+        "gate_identity": independently_recomputed,
+        "population": rebuilt["matrix"]["population"],
         "metrics": metrics,
+        "supersedes": SUPERSEDED_REPLAY_IDENTITY,
     }

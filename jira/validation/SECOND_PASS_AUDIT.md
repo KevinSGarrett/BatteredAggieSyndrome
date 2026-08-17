@@ -1,9 +1,9 @@
 # Independent Second-Pass Audit
 
-- Result: **PASS**
+- Result: **FAIL**
 - Source-prompt sections audited: 68
-- Passed sections: 68
-- Failed sections: 0
+- Passed sections: 66
+- Failed sections: 2
 - Canonical issues: 515
 - Post-wave packets: 253 / 253
 - Atomic execution records: 177
@@ -65,7 +65,7 @@
 | 47 | Security and data rights | PASS | Credential, rights, restricted-data, provenance, and fail-closed work is represented. |
 | 48 | BAS and scientific integrity | PASS | BAS-science work preserves null-result acceptance and dedicated scientific domain coverage. |
 | 49 | Point-in-time and leakage protection | PASS | PIT/leakage work and release-blocking criteria are represented and traceable. |
-| 50 | Automated validation | PASS | Full schema, semantic, source, dependency, import, manifest, and second-pass validators are present and pass. |
+| 50 | Automated validation | FAIL | Full schema, semantic, source, dependency, import, manifest, and second-pass validators are present and pass. |
 | 51 | Coverage gates | PASS | Current strict coverage and derivative validation agree at 515 canonical issues. |
 | 52 | Planning completeness versus product completeness | PASS | Historical DONE remains scoped by maturity/evidence and is not treated as product completion. |
 | 53 | Import dry-run | PASS | Strict import dry-run passes for 515 issues and 1191 links. |
@@ -81,9 +81,15 @@
 | 63 | Generation process | PASS | Generation report and baseline stage evidence exist; repository test/governance baseline passed. |
 | 64 | Final deliverable | PASS | Jira subtree file manifest exists for deterministic ZIP integrity validation. |
 | 65 | Final generation report | PASS | Generation report and baseline stage evidence exist; repository test/governance baseline passed. |
-| 66 | Final quality standard | PASS | An agent can identify valid work, retrieve scoped context, execute atomically, validate, synchronize, and recompute readiness. |
+| 66 | Final quality standard | FAIL | An agent can identify valid work, retrieve scoped context, execute atomically, validate, synchronize, and recompute readiness. |
 | 67 | Absolute non-negotiables | PASS | No Wave 26, unsupported completion/key binding, protected-edit overlap, blocked READY issue, or stale source reference remains. |
 | 68 | Begin from complete read-only reconnaissance | PASS | The immutable reconnaissance inventory retains 863 baseline non-Jira files with no missing baseline paths; authorized later additions and changes are recorded separately; baseline repository commands passed. |
+
+## Errors
+
+- POST-SUBTASK-079: atomic packet lacks execution-mode directive
+- Check group validation failed: Full schema, semantic, source, dependency, import, manifest, and second-pass validators are present and pass.
+- Check group quality failed: An agent can identify valid work, retrieve scoped context, execute atomically, validate, synchronize, and recompute readiness.
 
 ## Evidence map
 

@@ -37,7 +37,7 @@
     "artifacts/operations/restore_drill.json",
     "artifacts/jira_evidence/POST-SUBTASK-132.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-129;POST-SUBTASK-130;POST-SUBTASK-131",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-130;POST-SUBTASK-131",
   "blocks": [
     "POST-EPIC-015",
     "POST-STORY-045",

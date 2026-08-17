@@ -31733,7 +31733,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",To Do,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,READY,PRODUCTION_READY,PARTIAL,POST_W25,false,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",Done,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,DONE,PRODUCTION_READY,VERIFIED,POST_W25,false,PROTECTED_GATE
 Sub-task,BAT-480,100434,"[POST-SUBTASK-130] Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata",100094,"Local ID: POST-SUBTASK-130
 
 Objective
@@ -31823,7 +31823,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-130_finalize_authority_retention_frequency_encryption_access_rights_deletion_rules_f.json",To Do,Medium,actionable;core-release;operations;post-wave;shared-contract;subtask;local-id-post-subtask-130,operations-security,POST-SUBTASK-130,HANDOFF-012,PHASE-4,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,false,SHARED_CONTRACT
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-130_finalize_authority_retention_frequency_encryption_access_rights_deletion_rules_f.json",To Do,Medium,actionable;core-release;operations;post-wave;shared-contract;subtask;local-id-post-subtask-130,operations-security,POST-SUBTASK-130,HANDOFF-012,PHASE-4,READY,IMPLEMENTED,PLANNED,POST_W25,false,SHARED_CONTRACT
 Sub-task,BAT-481,100435,"[POST-SUBTASK-131] Implement content-hashed verified backups, catalog, integrity checking, last-known-good protection, and restricted-destination enforcement",100094,"Local ID: POST-SUBTASK-131
 
 Objective

@@ -1,26 +1,36 @@
 from __future__ import annotations
 
 import json
+import sys
+import tempfile
 import unittest
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 
-ARTIFACT_PATH = (
-    Path(__file__).resolve().parents[1]
-    / "artifacts"
-    / "operations"
-    / "drift_incident_game_day.json"
+from aggie_analytics.operations.incidents import (  # noqa: E402
+    run_incident_drill,
+    validate_incident_artifact,
 )
 
 
-def _load_artifact() -> dict:
-    return json.loads(ARTIFACT_PATH.read_text(encoding="utf-8"))
+class DriftIncidentGameDayExecutionTests(unittest.TestCase):
+    def _run(self) -> tuple[dict, Path]:
+        tempdir = tempfile.TemporaryDirectory()
+        self.addCleanup(tempdir.cleanup)
+        root = Path(tempdir.name)
+        artifact = root / "drift_incident_game_day.json"
+        payload = run_incident_drill(output_path=artifact, work_root=root / "work")
+        return payload, artifact
 
-
-class DriftIncidentGameDayArtifactTests(unittest.TestCase):
-    def test_contains_all_required_contract_fixtures(self) -> None:
-        payload = _load_artifact()
-        scenarios = payload["incident_contract_fixtures"]
+    def test_runner_executes_all_required_scenarios(self) -> None:
+        payload, artifact = self._run()
+        validate_incident_artifact(payload)
+        loaded = json.loads(artifact.read_text(encoding="utf-8"))
+        self.assertEqual(loaded["artifact_identity"], payload["artifact_identity"])
+        self.assertEqual(loaded["maturity"], "DETERMINISTIC_LOCAL_INCIDENT_DRILL_VERIFIED")
+        self.assertFalse(loaded["live_incident_execution_completed"])
         expected = {
             "outage",
             "schema",
@@ -31,90 +41,27 @@ class DriftIncidentGameDayArtifactTests(unittest.TestCase):
             "security",
             "governance_conflict",
         }
-        self.assertEqual({item["scenario_id"] for item in scenarios}, expected)
-        self.assertEqual(payload["maturity"], "PRODUCTION_READY")
-        self.assertTrue(payload["live_incident_execution_completed"])
-        self.assertEqual(payload["issue_completion_manifest"]["status"], "DONE")
+        self.assertEqual({row["scenario_id"] for row in loaded["executed_incidents"]}, expected)
 
-    def test_substitution_contract_uses_current_private_research_policy(self) -> None:
-        payload = _load_artifact()
-        policy = payload["source_substitution_policy"]
-        self.assertEqual(
-            policy["licensing_or_redistribution_ambiguity"],
-            "RECORD_AS_METADATA_NOT_A_PRIVATE_ACQUISITION_BLOCKER",
-        )
-        serialized = json.dumps(payload, sort_keys=True)
-        self.assertNotIn("rights_gate", serialized)
-        for scenario in payload["incident_contract_fixtures"]:
-            self.assertEqual(
-                set(scenario["substitution_gates"]),
-                {"access", "safety", "pit", "schema", "coverage", "provenance"},
-            )
+    def test_fail_closed_guards_are_observed_not_attested(self) -> None:
+        payload, _ = self._run()
+        by_id = {row["scenario_id"]: row for row in payload["executed_incidents"]}
+        self.assertTrue(by_id["outage"]["unsafe_training_blocked"])
+        self.assertTrue(by_id["schema"]["validator_rejected_payload"])
+        self.assertTrue(by_id["stale_forecast"]["freshness_gate_rejected"])
+        self.assertTrue(by_id["disk"]["last_known_good_unchanged"])
+        self.assertTrue(by_id["corrupt_artifact"]["verification_rejected_corruption"])
+        self.assertTrue(by_id["model"]["publication_failed_closed"])
+        self.assertTrue(by_id["security"]["persisted_events_redacted_only"])
+        self.assertTrue(by_id["governance_conflict"]["execution_rejected"])
+        self.assertFalse(by_id["security"]["raw_secret_present"])
 
-    def test_controller_routing_and_provider_evidence_are_exact(self) -> None:
-        producer = _load_artifact()["producer"]
-        self.assertEqual(producer["dispatch_origin"], "PERSISTENT_CONTROLLER")
-        self.assertEqual(producer["provider"], "cursor")
-        self.assertEqual(producer["model"], "gpt-5.3-codex")
-        self.assertEqual(producer["reasoning_effort"], "medium")
-        self.assertEqual(producer["retained_authority_disposition"], "CODEX_REVIEW_MODIFIED")
-        for field in (
-            "pre_routing_decision_sha256",
-            "packet_sha256",
-            "provider_result_sha256",
-            "provider_review_sha256",
-            "candidate_validation_sha256",
-        ):
-            self.assertRegex(producer[field], r"^[0-9a-f]{64}$")
-
-    def test_no_placeholder_or_synthetic_completion_claim_survives_review(self) -> None:
-        payload = _load_artifact()
-        serialized = json.dumps(payload, sort_keys=True)
-        self.assertNotIn("REFER_TO_", serialized)
-        self.assertFalse(payload["honesty_boundary"]["synthetic_fixture_is_live_incident_evidence"])
-        self.assertEqual(
-            payload["downstream_gate_decision"]["decision"],
-            "APPROVED_FOR_DOWNSTREAM_REEVALUATION",
-        )
-        dispositions = {row["disposition"] for row in payload["acceptance_evidence_matrix"]}
-        self.assertEqual(dispositions, {"PASS"})
-
-    def test_useful_work_credit_remains_zero_without_measured_savings(self) -> None:
-        accounting = _load_artifact()["useful_work_accounting"]
-        self.assertTrue(accounting["provider_result_reviewed"])
-        self.assertTrue(accounting["provider_result_modified"])
-        self.assertTrue(accounting["downstream_project_artifact_changed"])
-        self.assertGreater(accounting["direct_baseline_seconds"], 0.0)
-        self.assertGreaterEqual(accounting["measured_net_time_saved_seconds"], 0.0)
-        self.assertGreaterEqual(accounting["accepted_useful_offload_credit"], 0)
-
-    def test_chronology_security_and_scope_boundaries_fail_closed(self) -> None:
-        payload = _load_artifact()
-        negative = payload["negative_tests"]
-        for requirement in (
-            "future_record_rejected",
-            "same_game_outcome_rejected",
-            "postgame_record_rejected",
-            "credential_value_persistence_rejected",
-            "restricted_payload_persistence_rejected",
-            "unaffected_scope_global_block_rejected",
-            "file_creation_as_completion_rejected",
-        ):
-            self.assertTrue(negative[requirement])
-
-    def test_incident_records_include_required_governance_fields(self) -> None:
-        payload = _load_artifact()
-        for row in payload["executed_incidents"]:
-            self.assertIn("correlation_id", row)
-            self.assertIn("timing", row)
-            self.assertIn("affected_scope", row)
-            self.assertIn("missingness_classification", row)
-            self.assertIn("baseline_and_threshold", row)
-            self.assertIn("alert", row)
-            self.assertIn("decision", row)
-            self.assertIn("training_publication_impact", row)
-            self.assertIn("recovery_evidence", row)
-            self.assertIn("source_substitution_reevaluation", row)
+    def test_artifact_identity_rejects_fabricated_mutation(self) -> None:
+        payload, _ = self._run()
+        mutated = json.loads(json.dumps(payload))
+        mutated["executed_incidents"][0]["unsafe_training_blocked"] = False
+        with self.assertRaisesRegex(ValueError, "identity mismatch"):
+            validate_incident_artifact(mutated)
 
 
 if __name__ == "__main__":

@@ -38,8 +38,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `BLOCKED`
+- Ready: `false`
 - Priority: `P2`
 - Critical path: `false`
 - Execution lane: `OPERATIONS`

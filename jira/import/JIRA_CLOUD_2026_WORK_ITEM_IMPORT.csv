@@ -31733,7 +31733,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",Done,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,DONE,PRODUCTION_READY,VERIFIED,POST_W25,false,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",In Progress,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,IN_PROGRESS,PRODUCTION_READY,PARTIAL,POST_W25,false,PROTECTED_GATE
 Sub-task,BAT-480,100434,"[POST-SUBTASK-130] Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata",100094,"Local ID: POST-SUBTASK-130
 
 Objective
@@ -31916,7 +31916,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-131_implement_content_hashed_verified_backups_catalog_integrity_checking_last_known_.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-131,operations-security,POST-SUBTASK-131,HANDOFF-012,PHASE-4,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,OPERATIONS
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-131_implement_content_hashed_verified_backups_catalog_integrity_checking_last_known_.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-131,operations-security,POST-SUBTASK-131,HANDOFF-012,PHASE-4,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,OPERATIONS
 Sub-task,BAT-482,100436,[POST-SUBTASK-132] Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps,100094,"Local ID: POST-SUBTASK-132
 
 Objective

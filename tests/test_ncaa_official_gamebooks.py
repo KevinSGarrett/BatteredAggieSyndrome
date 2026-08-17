@@ -798,6 +798,28 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
             gate["bounded_population"]["selection_evidence"]["dataset_identity"],
         )
 
+    def test_gate_preserves_raw_domain_counts_when_parser_runtime_is_unavailable(self) -> None:
+        manifest = {
+            "acquisition_identity": "d" * 64,
+            "request_count": 1,
+            "captured_count": 1,
+            "technical_failure_count": 0,
+            "domain_capture_counts": {"play_by_play": 1},
+            "normalized_domain_counts": {},
+            "normalized_row_counts": {},
+            "captures": [
+                {"state": "CAPTURED", "contest_id": "5362283", "endpoint_id": "play_by_play"},
+            ],
+        }
+        gate = build_gate(
+            contract=self.contract,
+            manifest=manifest,
+            manifest_path=Path("external/manifest.json"),
+            manifest_sha256="e" * 64,
+        )
+        self.assertEqual(["play_by_play"], gate["bounded_population"]["captured_domains"])
+        self.assertNotIn("play_by_play", gate["bounded_population"]["missing_domains"])
+
     @unittest.skipUnless(importlib.util.find_spec("sportsdataverse"), "pinned parser runtime is optional")
     def test_pinned_parsers_normalize_every_domain_without_identity_or_pit_promotion(self) -> None:
         fixtures = {

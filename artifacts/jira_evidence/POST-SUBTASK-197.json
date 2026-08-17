@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "local_id": "POST-SUBTASK-197",
   "jira_key": "BAT-554",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "classification": "NATIONAL_NCAA_OFFICIAL_GAMEBOOK_EQUIVALENT_CANDIDATE_ONLY",
   "objective": "Acquire and independently gate national official NCAA MFB contest evidence across every available gamebook-equivalent domain.",
   "activation": {
@@ -25,7 +25,11 @@
     ]
   },
   "pinned_source": {
-    "source_ids": ["SRC-014", "SRC-015", "SRC-048"],
+    "source_ids": [
+      "SRC-014",
+      "SRC-015",
+      "SRC-048"
+    ],
     "repository": "sportsdataverse/sportsdataverse-py",
     "repository_commit": "357fd18788680f3442dd22f86befbc33e52fb013",
     "parser_paths": [
@@ -34,7 +38,16 @@
     ],
     "official_host": "stats.ncaa.org",
     "sport_code": "MFB",
-    "domains": ["linescore_game_info", "venue", "attendance", "officials", "drives", "team_stats_by_period", "player_stats", "play_by_play"]
+    "domains": [
+      "linescore_game_info",
+      "venue",
+      "attendance",
+      "officials",
+      "drives",
+      "team_stats_by_period",
+      "player_stats",
+      "play_by_play"
+    ]
   },
   "authority": {
     "candidate_only": true,
@@ -100,7 +113,10 @@
     "cleanup": {
       "reconstructible_paths_removed": 7,
       "bytes_recovered": 90657606,
-      "removed_classes": ["byte-identical validation rebuilds", "abandoned Patchright browser profiles"],
+      "removed_classes": [
+        "byte-identical validation rebuilds",
+        "abandoned Patchright browser profiles"
+      ],
       "immutable_raw_or_manifest_payloads_removed": false,
       "parser_environment_or_browser_installation_removed": false
     }
@@ -115,7 +131,11 @@
     "reconciled_2020_contests": 486,
     "unresolved_2020_contests": 403,
     "duplicate_alias_contest_ids_quarantined": 4,
-    "active_discovery_seasons": [2018, 2019, 2021],
+    "active_discovery_seasons": [
+      2018,
+      2019,
+      2021
+    ],
     "validation": {
       "outcome_spine": "91_PASS_5_FAIL_CLOSED_MUTATIONS",
       "outcome_adapter": "25_PASS_1_FAIL_CLOSED_MUTATION",
@@ -162,9 +182,18 @@
       "matrix_identity": "33020321ab0ac66b3775f078939a11ab6f0a6c43dcaa171670263be279304800",
       "manifest_sha256": "1795c17639aea0f76d0ed5b2903d534066d25a0da59f613dfd02b79dc9e9c318",
       "schema_version": "1.2.0",
-      "reconciled_seasons": [2020, 2022, 2023]
+      "reconciled_seasons": [
+        2020,
+        2022,
+        2023
+      ]
     },
-    "active_discovery_seasons": [2010, 2011, 2012, 2013],
+    "active_discovery_seasons": [
+      2010,
+      2011,
+      2012,
+      2013
+    ],
     "authority": "CANDIDATE_REFERENCE_ONLY_NO_NAME_ONLY_PROMOTION_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
   "reconciled_contest_acquisition_pilot": {
@@ -178,7 +207,9 @@
     "manifest_sha256": "5aca94c5b3a283a368062663b81ed67ef80575ba3b378e7adde102932f52d0fd",
     "gate_sha256": "3750ed2c8b7829356208d7cfed5d6e8e0e4427b2f5951dd9b949cb8748d949c2",
     "raw_bytes": 36768,
-    "captured_endpoints": ["box_score"],
+    "captured_endpoints": [
+      "box_score"
+    ],
     "normalized_domains": {
       "attendance": 1,
       "linescore_game_info": 1,
@@ -306,7 +337,20 @@
       "schema_version": "1.3.0",
       "matrix_identity": "12d92605aebe791016d59122177bdd371a78244db2cb79aa8c695ced945ddb64",
       "manifest_sha256": "1a92bcdc8cbc298111e4a8b18cddb8e811922aec5cabb93b7318587ac2214844",
-      "reconciled_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+      "reconciled_seasons": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
       "captured_team_pages": 7205,
       "page_parse_failures": 124,
       "reconciled_contests": 8747,
@@ -376,7 +420,17 @@
       "targets_or_splits_changed": false
     },
     "candidate_reconciliation_delta": {
-      "seasons_added": [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2024, 2025],
+      "seasons_added": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2024,
+        2025
+      ],
       "exact_game_mappings_added": 8747,
       "coverage_matrix_identity": "12d92605aebe791016d59122177bdd371a78244db2cb79aa8c695ced945ddb64",
       "coverage_matrix_sha256": "1a92bcdc8cbc298111e4a8b18cddb8e811922aec5cabb93b7318587ac2214844"
@@ -1273,7 +1327,9 @@
       "raw_bytes": 5145024,
       "validation_checks": 1859,
       "mutation_controls": 120,
-      "routes": ["scraperapi"]
+      "routes": [
+        "scraperapi"
+      ]
     },
     "pinned_parser_replay": {
       "runtime": "sportsdataverse-0.0.75",
@@ -1284,7 +1340,11 @@
       "normalized_rows": 6820,
       "validation_checks": 3582,
       "mutation_controls": 120,
-      "routes": ["IMMUTABLE_REQUEST_CACHE", "scrapfly", "scraperapi"]
+      "routes": [
+        "IMMUTABLE_REQUEST_CACHE",
+        "scrapfly",
+        "scraperapi"
+      ]
     },
     "technical_failure_scope": [
       "2276829/officials RATE_LIMITED_SERVER_ERROR",
@@ -1360,7 +1420,9 @@
       "validation_checks": 2242,
       "mutation_controls": 120,
       "validation_report_bundle_identity": "a7850e7f0d7850f7a701df7575bbd6697b9133c2751e670935d5e917a597fb39",
-      "routes": ["scraperapi"]
+      "routes": [
+        "scraperapi"
+      ]
     },
     "pinned_parser_replay": {
       "runtime": "sportsdataverse-0.0.75",
@@ -1374,7 +1436,11 @@
       "validation_checks": 3800,
       "mutation_controls": 120,
       "validation_report_bundle_identity": "82ca1e0eafedbe0cedd68ca8002690054e067ec34d9e20a355d3fe9051b2d537",
-      "routes": ["IMMUTABLE_REQUEST_CACHE", "scrapfly", "scraperapi"]
+      "routes": [
+        "IMMUTABLE_REQUEST_CACHE",
+        "scrapfly",
+        "scraperapi"
+      ]
     },
     "first_pass_technical_failure_scope": [
       "2276977/box_score CONTENT_TOO_SMALL",
@@ -1458,7 +1524,9 @@
       "validation_checks": 2104,
       "mutation_controls": 120,
       "validation_report_bundle_identity": "c2617c03051da953ac82bf3ccc0b8c0cb523b22a0f8d8d35bfa5f89e6cb473f8",
-      "routes": ["scraperapi"]
+      "routes": [
+        "scraperapi"
+      ]
     },
     "pinned_parser_replay": {
       "runtime": "sportsdataverse-0.0.75",
@@ -1472,7 +1540,11 @@
       "validation_checks": 3674,
       "mutation_controls": 120,
       "validation_report_bundle_identity": "8426dfe6cff382886aec7a203e0426c74f5fafee95389232f9d977792d09be1f",
-      "routes": ["IMMUTABLE_REQUEST_CACHE", "scrapfly", "scraperapi"]
+      "routes": [
+        "IMMUTABLE_REQUEST_CACHE",
+        "scrapfly",
+        "scraperapi"
+      ]
     },
     "parser_replay_recovered_first_pass_gaps": 21,
     "final_technical_failure_scope": [
@@ -1553,7 +1625,9 @@
       "validation_report_bundle_identity": "145db29b8fd95700c6277d2bc1487e8963633d16ca39af054284908634a16a56",
       "passed_manifests": 19,
       "expected_fail_closed_manifests": 1,
-      "routes": ["scraperapi"]
+      "routes": [
+        "scraperapi"
+      ]
     },
     "pinned_parser_replay": {
       "runtime": "sportsdataverse-0.0.75",
@@ -1567,7 +1641,10 @@
       "validation_checks": 3580,
       "mutation_controls": 120,
       "validation_report_bundle_identity": "200d7c49ecf7d5a37af1a0ad9785e12cce52525c1649c68250a8af35928c599f",
-      "routes": ["IMMUTABLE_REQUEST_CACHE", "scraperapi"]
+      "routes": [
+        "IMMUTABLE_REQUEST_CACHE",
+        "scraperapi"
+      ]
     },
     "parser_replay_recovered_first_pass_gaps": 29,
     "final_technical_failure_scope": [
@@ -1636,10 +1713,26 @@
     "selected_reconciled_contests": 20,
     "contest_identity": "2650b310181f17a6132437412db5782aeb8a097f4197d4d1254a48ba90ab786f",
     "contest_ids": [
-      "2277309", "2277310", "2277312", "2277313", "2277318",
-      "2277319", "2277324", "2277325", "2277328", "2277329",
-      "2277331", "2277338", "2277362", "2277363", "2277367",
-      "2277381", "2277382", "2277385", "2277388", "2277389"
+      "2277309",
+      "2277310",
+      "2277312",
+      "2277313",
+      "2277318",
+      "2277319",
+      "2277324",
+      "2277325",
+      "2277328",
+      "2277329",
+      "2277331",
+      "2277338",
+      "2277362",
+      "2277363",
+      "2277367",
+      "2277381",
+      "2277382",
+      "2277385",
+      "2277388",
+      "2277389"
     ],
     "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
     "reconciliation_manifest_sha256": "281109c4aa1332c2b1e09fd6921c5fb957d86e7c7425dce54daa345f073140ab",
@@ -1657,7 +1750,9 @@
       "mutation_controls": 120,
       "validation_report_bundle_identity": "aa244efe17394cb218e2afa3ec213d12d43b99923d6ccddefb130c8e307922db",
       "passed_manifests": 20,
-      "routes": ["scraperapi"]
+      "routes": [
+        "scraperapi"
+      ]
     },
     "pinned_parser_replay": {
       "runtime": "sportsdataverse-0.0.75",
@@ -1673,7 +1768,10 @@
       "validation_checks": 3746,
       "mutation_controls": 120,
       "validation_report_bundle_identity": "1a6abcb9c38e3c7bab3a78e1fc6423af96517a67ff1d564b37495fd63f56cefd",
-      "routes": ["IMMUTABLE_REQUEST_CACHE", "scraperapi"]
+      "routes": [
+        "IMMUTABLE_REQUEST_CACHE",
+        "scraperapi"
+      ]
     },
     "parser_replay_recovered_first_pass_gaps": 20,
     "final_technical_failure_scope": [
@@ -1734,10 +1832,26 @@
     "selected_reconciled_contests": 20,
     "contest_identity": "cef53479a9dd866363dfdd90f386253b3b8caaa0b8d24dc745028c382a3cf0ca",
     "contest_ids": [
-      "2277391", "2277395", "2277396", "2277400", "2277414",
-      "2277415", "2277420", "2277421", "2277422", "2277423",
-      "2277425", "2277426", "2277427", "2277428", "2277430",
-      "2277432", "2277433", "2277434", "2277436", "2277437"
+      "2277391",
+      "2277395",
+      "2277396",
+      "2277400",
+      "2277414",
+      "2277415",
+      "2277420",
+      "2277421",
+      "2277422",
+      "2277423",
+      "2277425",
+      "2277426",
+      "2277427",
+      "2277428",
+      "2277430",
+      "2277432",
+      "2277433",
+      "2277434",
+      "2277436",
+      "2277437"
     ],
     "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
     "reconciliation_manifest_sha256": "281109c4aa1332c2b1e09fd6921c5fb957d86e7c7425dce54daa345f073140ab",
@@ -1755,7 +1869,9 @@
       "mutation_controls": 120,
       "validation_report_bundle_identity": "e30f7543faf1d67397b9e7f01eac2e070cf215487984c3f90b1f61cbdaf82c6f",
       "passed_manifests": 20,
-      "routes": ["scraperapi"]
+      "routes": [
+        "scraperapi"
+      ]
     },
     "pinned_parser_replay": {
       "runtime": "sportsdataverse-0.0.75",
@@ -1771,7 +1887,10 @@
       "validation_checks": 3800,
       "mutation_controls": 120,
       "validation_report_bundle_identity": "7f5de4adef24857302b2c03b46a8afc8d0a5daf4d910eb9de48e356566dcf940",
-      "routes": ["IMMUTABLE_REQUEST_CACHE", "scraperapi"]
+      "routes": [
+        "IMMUTABLE_REQUEST_CACHE",
+        "scraperapi"
+      ]
     },
     "parser_replay_recovered_first_pass_gaps": 8,
     "final_technical_failure_scope": [],
@@ -2162,7 +2281,7 @@
       "requested": 1236,
       "captured": 1193,
       "technical_failures": 43,
-      "capture_rate_percent": 96.5210,
+      "capture_rate_percent": 96.521,
       "first_pass_failures_recovered": 290,
       "normalized_rows": 81162,
       "raw_bytes": 87202728,
@@ -2604,14 +2723,38 @@
       "credentials_logged_or_persisted": false
     },
     "domain_coverage": {
-      "attendance": {"contests": 313, "rows": 313},
-      "drives": {"contests": 300, "rows": 7157},
-      "linescore_game_info": {"contests": 313, "rows": 2548},
-      "officials": {"contests": 285, "rows": 287},
-      "play_by_play": {"contests": 302, "rows": 63179},
-      "player_stats": {"contests": 295, "rows": 45385},
-      "team_stats_by_period": {"contests": 296, "rows": 35856},
-      "venue": {"contests": 313, "rows": 313},
+      "attendance": {
+        "contests": 313,
+        "rows": 313
+      },
+      "drives": {
+        "contests": 300,
+        "rows": 7157
+      },
+      "linescore_game_info": {
+        "contests": 313,
+        "rows": 2548
+      },
+      "officials": {
+        "contests": 285,
+        "rows": 287
+      },
+      "play_by_play": {
+        "contests": 302,
+        "rows": 63179
+      },
+      "player_stats": {
+        "contests": 295,
+        "rows": 45385
+      },
+      "team_stats_by_period": {
+        "contests": 296,
+        "rows": 35856
+      },
+      "venue": {
+        "contests": 313,
+        "rows": 313
+      },
       "normalized_rows_total": 155038,
       "partial_domains_independently_admitted": true
     },
@@ -2678,8 +2821,18 @@
     "conflicts": 0,
     "missing_official_linescores": 492,
     "by_season": {
-      "2022": {"mapping_rows": 761, "agreements": 731, "conflicts": 0, "missing": 30},
-      "2023": {"mapping_rows": 775, "agreements": 313, "conflicts": 0, "missing": 462}
+      "2022": {
+        "mapping_rows": 761,
+        "agreements": 731,
+        "conflicts": 0,
+        "missing": 30
+      },
+      "2023": {
+        "mapping_rows": 775,
+        "agreements": 313,
+        "conflicts": 0,
+        "missing": 462
+      }
     },
     "corrected_orientation_finding": {
       "ncaa_contest_id": "2276794",
@@ -2731,5 +2884,47 @@
     "protected_performance_claimed": false,
     "tamu_specialization_lift_claimed": false,
     "bas_or_aggie_excess_claimed": false
+  },
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "terminal_reconciliation": {
+    "recorded_at_utc": "2026-08-17T02:35:00Z",
+    "decision": "DONE_CANDIDATE_ONLY_MAXIMUM_TECHNICALLY_SUPPORTED_UNDER_EXHAUSTED_ROUTES",
+    "achieved_maturity": "EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY",
+    "evidence_basis": [
+      "PR_423_material_domain_gate_fix_merged",
+      "PR_424_canonical_live_sync_merged",
+      "crosscheck_2022_2023_1044_of_1044_valid_linescore_agreements",
+      "2022_exact_reconciled_population_761_contests_4578_endpoint_requests_172_failures_preserved",
+      "2023_exact_reconciled_population_775_contests_4650_endpoint_decisions_2855_rate_limit_or_access_failures_preserved"
+    ],
+    "acceptance_matrix": {
+      "ac1_discovery_and_identity_pinning": "PASS_MAXIMUM_SUPPORTED_ROUTE_EXHAUSTED_2010_2025",
+      "ac2_immutable_capture_domains": "PASS_PARTIAL_DOMAIN_COVERAGE_PRESERVED_WITHOUT_FABRICATION",
+      "ac3_deterministic_reconciliation": "PASS_CANDIDATE_ONLY_NAME_ONLY_PROMOTION_FORBIDDEN",
+      "ac4_independent_gating_and_provenance": "PASS_WITH_PER_DIMENSION_GATES_AND_IDENTITIES",
+      "ac5_partial_and_negative_preservation": "PASS_TECHNICAL_FAILURES_AND_MISSING_LINESCORES_EXPLICIT",
+      "ac6_validation_and_boundary_controls": "PASS_CANDIDATE_ONLY_WITH_PROTECTED_AUTHORITY_BOUNDARIES"
+    },
+    "remaining_limitations": [
+      "No GAP-002 resolution or full historical population completeness claim.",
+      "Historical PIT admission, training admission, protected evaluation admission, and production promotion remain denied.",
+      "2022 preserved technical endpoint failures remain unresolved follow-up scope.",
+      "2023 endpoint failures under route/rate constraints remain unresolved follow-up scope."
+    ],
+    "blocked_source_routes": [
+      "Direct NCAA HTTP 403 for portions of 2023 endpoint acquisition.",
+      "Scrapfly HTTP 429/rate-limited responses for portions of 2023 acquisition.",
+      "ScraperAPI route exhaustion in bounded allowance windows for portions of 2023 acquisition."
+    ],
+    "protected_nonclaims": {
+      "gap_002_resolved": false,
+      "full_historical_lake_ready": false,
+      "pit_training_authority": false,
+      "production_complete": false,
+      "protected_performance_claimed": false,
+      "tamu_specialization_lift_claimed": false,
+      "bas_or_aggie_excess_claimed": false
+    }
   }
 }

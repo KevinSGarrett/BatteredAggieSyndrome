@@ -4,10 +4,11 @@ ADDED,.github/dependabot.yml
 ADDED,.pytest_cache/.gitignore
 ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
+ADDED,.pytest_cache/v/cache/lastfailed
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/10954517896629206455
-ADDED,.ruff_cache/0.6.9/8443640793185250086
+ADDED,.ruff_cache/0.6.9/17617163834768671573
+ADDED,.ruff_cache/0.6.9/2313798628273622633
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json

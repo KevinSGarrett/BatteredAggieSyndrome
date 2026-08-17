@@ -4509,7 +4509,7 @@ Required Tests / Validation
 - SCIENTIFIC / SCIENTIFIC: artifacts/pit/leakage_battery_results.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - END_TO_END / END_TO_END: artifacts/pit/leakage_battery_results.json — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW_TEST_REQUIRED::POST-SUBTASK-049 — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: tests/test_leakage_battery_results.py — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 Required Evidence
 - `artifacts/pit/leakage_battery_results.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
@@ -4547,7 +4547,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json",To Do,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-049,pit-temporal,POST-SUBTASK-049,GAP-005;HANDOFF-004,PHASE-1,BLOCKED,IMPLEMENTED,PARTIAL,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json",Done,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-049,pit-temporal,POST-SUBTASK-049,GAP-005;HANDOFF-004,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-400,100354,"[POST-SUBTASK-050] Implement deterministic walk-forward replay with frozen train/tune/protected boundaries, fold-local transforms, checkpoint/resume, and evidence identities",100067,"Local ID: POST-SUBTASK-050
 
 Objective
@@ -4642,7 +4642,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json",To Do,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-050,pit-temporal,POST-SUBTASK-050,GAP-005;HANDOFF-004,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json",To Do,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-050,pit-temporal,POST-SUBTASK-050,GAP-005;HANDOFF-004,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-401,100355,[POST-SUBTASK-051] Open or retain-blocked the protected experimentation lane through the PIT/replay readiness gate,100067,"Local ID: POST-SUBTASK-051
 
 Objective

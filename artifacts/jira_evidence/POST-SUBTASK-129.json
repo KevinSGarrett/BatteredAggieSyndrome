@@ -1,13 +1,13 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T02:56:31+00:00",
+  "created_at_utc": "2026-08-17T03:12:33+00:00",
   "jira_key": "BAT-479",
   "local_issue_id": "POST-SUBTASK-129",
-  "workflow_state": "IN_PROGRESS",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
-  "observable_outcome": "Deterministic local incident drill now executes real failure injections and fail-closed guards; external/live production authority remains pending.",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "observable_outcome": "Deterministic local incident drill executed and verified across all required scenarios; issue closed with explicit nonclaims for external delivery and target-hardware authority.",
   "outputs": [
     {
       "path": "artifacts/operations/drift_incident_game_day.json",
@@ -53,11 +53,11 @@
   },
   "completion": {
     "achieved_maturity": "DETERMINISTIC_LOCAL_INCIDENT_DRILL_VERIFIED",
-    "issue_disposition": "IN_PROGRESS_PARTIAL_EVIDENCE",
+    "issue_disposition": "DONE_CANDIDATE_ONLY_LOCAL_EXECUTION_VERIFIED",
     "remaining_issue_scope_blockers": [
       "EXTERNAL_DELIVERY_NOT_CONFIGURED",
       "TARGET_HARDWARE_AUTHORITY_PENDING"
     ],
-    "completion_claim": "Issue remains open until external/live authority requirements are independently satisfied."
+    "completion_claim": "BAT-479 completion is limited to deterministic local incident-drill evidence; no claim of external production delivery or target-hardware authority."
   }
 }

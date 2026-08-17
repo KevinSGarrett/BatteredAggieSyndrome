@@ -1,0 +1,75 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-17T03:22:15+00:00",
+  "jira_key": "BAT-481",
+  "local_issue_id": "POST-SUBTASK-131",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "observable_outcome": "Executable backup catalog/integrity producer generated content-hashed verified backup evidence with atomic promotion and last-known-good protection.",
+  "outputs": [
+    {
+      "path": "artifacts/operations/backup_catalog_and_integrity.json",
+      "bytes": 4037,
+      "sha256": "87e6a953fd748b1a62a4babe1322c09d8857e1a69bdb32430a011ff93455e0b6",
+      "schema_version": "aggie.operations.backup_catalog_integrity.v1",
+      "artifact_identity": "e5ac1684a9decf4567c96c020a8d89ec26c14e88c6f810f429dd3b17aa47afb3"
+    },
+    {
+      "path": "src/aggie_analytics/operations/backup.py",
+      "sha256": "669e7e42e71e19f042c512c034a4f57866e19d5ca54945c54c3eb4213be7c6b8"
+    },
+    {
+      "path": "tools/build_backup_catalog_and_integrity.py",
+      "sha256": "9d2da7ad801068ad2eefc09b18f59c30140e17e632119a8c40469bece33ec3cc"
+    },
+    {
+      "path": "tests/test_backup_catalog_integrity.py",
+      "sha256": "8ab68120591ed3753f1aae1d36116141b118e01aad35de6a1c36dacfb326fc38"
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "Outside-Git cleanup/inventory evidence retained with exact paths/bytes and preserve-only decisions.",
+      "disposition": "PASS",
+      "evidence_location": "artifacts/operations/backup_catalog_and_integrity.json#paths"
+    },
+    {
+      "criterion": "Strict repository/provenance/Jira/secret/full validation pass.",
+      "disposition": "PASS",
+      "evidence_location": "validation command log + strict validators"
+    },
+    {
+      "criterion": "Backups independently verified, content-hashed, cataloged, and corruption blocked from replacing LKG.",
+      "disposition": "PASS",
+      "evidence_location": "artifacts/operations/backup_catalog_and_integrity.json#verification"
+    },
+    {
+      "criterion": "Declared artifact produced with deterministic identity and provenance metadata.",
+      "disposition": "PASS",
+      "evidence_location": "artifacts/operations/backup_catalog_and_integrity.json#artifact_identity"
+    },
+    {
+      "criterion": "No fabricated readiness/performance/source claims introduced.",
+      "disposition": "PASS",
+      "evidence_location": "artifacts/operations/backup_catalog_and_integrity.json#authority_classification"
+    }
+  ],
+  "validation": {
+    "producer_command": "python -B tools/build_backup_catalog_and_integrity.py --output artifacts/operations/backup_catalog_and_integrity.json",
+    "new_test_command": "python -B -m pytest tests/test_backup_catalog_integrity.py -q",
+    "w23_test_command": "python -B -m pytest tests/test_w23_operations.py -q",
+    "w23_validator_command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
+    "lint_command": "python -B -m ruff check src/aggie_analytics/operations/backup.py tools/build_backup_catalog_and_integrity.py tests/test_backup_catalog_integrity.py",
+    "jira_validator_command": "python -B tools/validate_jira_control_plane.py --repo-root . --strict",
+    "second_pass_command": "python -B jira/tools/validate_second_pass.py --repo-root .",
+    "repository_validator_command": "python -B tools/validate_repository.py --repo-root . --strict"
+  },
+  "completion": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "issue_disposition": "DONE_VERIFIED",
+    "remaining_issue_scope_blockers": [],
+    "completion_claim": "BAT-481 is complete for deterministic local backup/catalog/integrity scope; downstream clean-location restore authority remains BAT-482 scope."
+  }
+}

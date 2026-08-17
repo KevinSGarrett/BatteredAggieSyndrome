@@ -38,14 +38,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P2`
 - Critical path: `false`
 - Execution lane: `OPERATIONS`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-132`
 
 ## Read first
@@ -78,6 +78,9 @@ Execute the atomic 2 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 - src/aggie_analytics/operations/backup.py
 - artifacts/operations/backup_catalog_and_integrity.json
 - artifacts/jira_evidence/POST-SUBTASK-131.json
+- tools/build_backup_catalog_and_integrity.py
+- tests/test_backup_catalog_integrity.py
+- tests/test_autonomous_control_tools.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -102,6 +105,8 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 Produce and validate these outputs within this atomic work unit:
 
 - artifacts/operations/backup_catalog_and_integrity.json
+- tools/build_backup_catalog_and_integrity.py
+- tests/test_backup_catalog_integrity.py
 
 ## Acceptance criteria
 

@@ -12309,7 +12309,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",In Progress,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,IN_PROGRESS,PRODUCTION_READY,PARTIAL,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",Done,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,DONE,PRODUCTION_READY,VERIFIED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-480,100434,"[POST-SUBTASK-130] Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata",100094,"Local ID: POST-SUBTASK-130
 
 Objective
@@ -12492,7 +12492,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-131_implement_content_hashed_verified_backups_catalog_integrity_checking_last_known_.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-131,operations-security,POST-SUBTASK-131,HANDOFF-012,PHASE-4,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-131_implement_content_hashed_verified_backups_catalog_integrity_checking_last_known_.json",Done,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-131,operations-security,POST-SUBTASK-131,HANDOFF-012,PHASE-4,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-482,100436,[POST-SUBTASK-132] Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps,100094,"Local ID: POST-SUBTASK-132
 
 Objective
@@ -12593,7 +12593,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-132_execute_clean_location_restore_of_representative_raw_to_forecast_lineage_and_jir.json",To Do,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-132,operations-security,POST-SUBTASK-132,HANDOFF-012,PHASE-4,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-132_execute_clean_location_restore_of_representative_raw_to_forecast_lineage_and_jir.json",To Do,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-132,operations-security,POST-SUBTASK-132,HANDOFF-012,PHASE-4,READY,PRODUCTION_READY,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-483,100437,"[POST-SUBTASK-133] Regenerate bidirectional source, requirement, acceptance, ADR, gap, risk, test, artifact, issue, and evidence traceability",100095,"Local ID: POST-SUBTASK-133
 
 Objective

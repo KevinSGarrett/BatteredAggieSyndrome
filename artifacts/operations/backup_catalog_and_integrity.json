@@ -1,0 +1,87 @@
+{
+  "schema_version": "aggie.operations.backup_catalog_integrity.v1",
+  "created_at_utc": "2026-08-17T03:21:03+00:00",
+  "issue": {
+    "jira_key": "BAT-481",
+    "local_id": "POST-SUBTASK-131"
+  },
+  "authority_classification": [
+    "REPRESENTATIVE_OPERATING_PATH",
+    "EXTERNAL_DELIVERY_NOT_CONFIGURED",
+    "TARGET_HARDWARE_AUTHORITY_PENDING"
+  ],
+  "commands_executed": [
+    "python -B tools/build_backup_catalog_and_integrity.py --output artifacts/operations/backup_catalog_and_integrity.json"
+  ],
+  "paths": {
+    "external_work_root": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity",
+    "staging_source": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source",
+    "backup_directory": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives",
+    "final_backup": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives\\backup-20260817T032103Z.zip",
+    "last_known_good": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives\\last_known_good.zip"
+  },
+  "jira_metadata_copied": [
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source\\jira_metadata\\POST_IMPORT_KEY_MAP.csv",
+      "bytes": 37572,
+      "sha256": "4e290185701cfe293f9d0425be625e4fe15df42eeb7d8d36d98eaf599dfdbf57"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source\\jira_metadata\\ISSUE_CHANGE_LOG.jsonl",
+      "bytes": 5235869,
+      "sha256": "a606042c80bfe3d6441a5f5c4bc8d447592d0b038ee96dd26ea22eb7272543ad"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source\\jira_metadata\\ISSUE_INDEX.csv",
+      "bytes": 325482,
+      "sha256": "23dfaddf282ec6cdca7ff11c80ac95f062b9f370494a3141115abf1663cf9ffc"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source\\jira_metadata\\POST-SUBTASK-131.json",
+      "bytes": 19403,
+      "sha256": "44831da10ca75282e6db19ccba1745e705792deae5b16ce4167a3dfb4d4e10ec"
+    }
+  ],
+  "verification": {
+    "temp_backup_verified": true,
+    "corruption_rejected": true,
+    "corruption_error": "backup payload/manifest coverage mismatch",
+    "restricted_destination_rejected": true,
+    "restricted_destination_error": "restricted destination rejected: repository path forbidden",
+    "previous_last_known_good_sha256": "efa31a7bda6527673b90d9ab2e3dd2b8579259e2e35517c3fcf6041d02972673",
+    "new_last_known_good_sha256": "a2b9feb5b1d335fc2d2ea621f6577f73ef3246e6395b1a35f6822de5b8be49ff",
+    "last_known_good_updated_only_after_verification": true
+  },
+  "backup_identity": {
+    "archive_sha256": "a2b9feb5b1d335fc2d2ea621f6577f73ef3246e6395b1a35f6822de5b8be49ff",
+    "content_identity": "d7b0961fe98488355e9449d5594eec854cc56693cbf7a11b6d56ef2fb4f90a58",
+    "entry_count": 5
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Backups are readable/content-hashed/cataloged and partial/corrupt copies do not replace good state.",
+      "disposition": "PASS",
+      "evidence": "verification + backup_identity"
+    },
+    {
+      "criterion": "Deterministic identity/provenance metadata are present in output artifact.",
+      "disposition": "PASS",
+      "evidence": "schema_version + commands_executed + backup_identity"
+    },
+    {
+      "criterion": "Restricted destination policy is enforced fail-closed.",
+      "disposition": "PASS",
+      "evidence": "verification.restricted_destination_error"
+    }
+  ],
+  "issue_completion_manifest": {
+    "status": "DONE",
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "evidence_state": "VERIFIED",
+    "remaining_blockers": [],
+    "downstream_reevaluated": [
+      "POST-SUBTASK-132"
+    ]
+  },
+  "artifact_identity": "e5ac1684a9decf4567c96c020a8d89ec26c14e88c6f810f429dd3b17aa47afb3"
+}

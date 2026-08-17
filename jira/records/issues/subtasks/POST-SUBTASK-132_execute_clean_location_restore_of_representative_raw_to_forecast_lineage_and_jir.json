@@ -37,7 +37,7 @@
     "artifacts/operations/restore_drill.json",
     "artifacts/jira_evidence/POST-SUBTASK-132.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-129;POST-SUBTASK-131",
+  "blocked_reason": "",
   "blocks": [
     "POST-EPIC-015",
     "POST-STORY-045",
@@ -169,9 +169,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24622",
-    "jira_updated_at": "2026-08-09T23:24:12.897-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-16T22:23:11.908-0500",
+    "last_synced_at": "2026-08-17T03:23:38.846268+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
   },
@@ -233,7 +233,7 @@
     "docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md",
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -398,7 +398,7 @@
   "title": "[POST-SUBTASK-132] Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "BENCHMARK",
     "END_TO_END",
@@ -409,5 +409,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-044: Rights-aware backup, restore, retention, and disaster recovery.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-132.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }

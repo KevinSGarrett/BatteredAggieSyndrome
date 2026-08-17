@@ -15,21 +15,39 @@ from aggie_analytics.validation.protected_split_authority import (  # noqa: E402
     CONTAMINATION_STATUS,
     assert_current_contract_respects_protected_splits,
     assert_labels_cannot_override_protected_membership,
+    compute_artifact_identity,
     is_historical_contaminated_contract,
     protected_role_ignoring_label,
     registry_role_for_season,
+    sha256_file,
     validate_current_contract,
 )
-from tools.audit_protected_split_exposure import build_audit, validate_audit  # noqa: E402
+from tools.audit_protected_split_exposure import (  # noqa: E402
+    SCHEMA_VERSION,
+    build_audit,
+    validate_audit,
+)
 
 
 class ProtectedSplitExposureTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.canonical_audit = build_audit(ROOT)
+
     def setUp(self) -> None:
         self.original = json.loads(
             (ROOT / "configs/preliminary_unprotected_baseline_contract.json").read_text(encoding="utf-8")
         )
         self.successor = json.loads(
             (ROOT / "configs/preliminary_development_safe_baseline_contract.json").read_text(encoding="utf-8")
+        )
+        self.play_drive = json.loads(
+            (ROOT / "configs/historical_play_drive_pit_aggregate_contract.json").read_text(encoding="utf-8")
+        )
+        self.play_drive_successor = json.loads(
+            (
+                ROOT / "configs/historical_play_drive_pit_aggregate_development_safe_contract.json"
+            ).read_text(encoding="utf-8")
         )
 
     def test_registry_matches_hardcoded_classifier_and_seals_2024_2025(self) -> None:
@@ -45,7 +63,10 @@ class ProtectedSplitExposureTests(unittest.TestCase):
             self.assertEqual(registry_role_for_season(ROOT, season)["role"], expected)
         self.assertFalse(registry_role_for_season(ROOT, 2024)["tuning_allowed"])
         self.assertFalse(registry_role_for_season(ROOT, 2025)["threshold_setting_allowed"])
-        self.assertEqual(registry_role_for_season(ROOT, 2024)["protected_result_access"], "SEALED_UNTIL_PROTOCOL_AND_ARTIFACT_READY")
+        self.assertEqual(
+            registry_role_for_season(ROOT, 2024)["protected_result_access"],
+            "SEALED_UNTIL_PROTOCOL_AND_ARTIFACT_READY",
+        )
 
     def test_labels_cannot_override_protected_canonical_membership(self) -> None:
         for label in (
@@ -53,6 +74,7 @@ class ProtectedSplitExposureTests(unittest.TestCase):
             "DEVELOPMENT_EVALUATION_UNPROTECTED",
             "PRELIMINARY_UNPROTECTED",
             "UNPROTECTED",
+            "DEVELOPMENT_ONLY",
         ):
             self.assertEqual(protected_role_ignoring_label(ROOT, 2024, label), "PROTECTED_TEST")
             self.assertEqual(protected_role_ignoring_label(ROOT, 2025, label), "PROTECTED_TEST")
@@ -60,7 +82,9 @@ class ProtectedSplitExposureTests(unittest.TestCase):
 
     def test_current_successor_contract_is_authoritative_and_safe(self) -> None:
         self.assertFalse(is_historical_contaminated_contract(self.successor))
-        assert_current_contract_respects_protected_splits(ROOT, self.successor)
+        assert_current_contract_respects_protected_splits(
+            ROOT, self.successor, relative_path="configs/preliminary_development_safe_baseline_contract.json"
+        )
         self.assertEqual(self.successor["split_policy"]["2023"], "DEVELOPMENT_FIT_SELECTION_CALIBRATION")
         self.assertEqual(self.successor["split_policy"]["2024"], "PROTECTED_TEST_INACCESSIBLE")
         self.assertEqual(self.successor["split_policy"]["2025"], "PROTECTED_TEST_INACCESSIBLE")
@@ -70,38 +94,203 @@ class ProtectedSplitExposureTests(unittest.TestCase):
         self.assertTrue(is_historical_contaminated_contract(self.original))
         self.assertEqual(self.original["split_policy"]["2024"], "DEVELOPMENT_TUNE")
         self.assertEqual(self.original["split_policy"]["2025"], "DEVELOPMENT_EVALUATION_UNPROTECTED")
-        assert_current_contract_respects_protected_splits(ROOT, self.original)
+        assert_current_contract_respects_protected_splits(
+            ROOT,
+            self.original,
+            relative_path="configs/preliminary_unprotected_baseline_contract.json",
+        )
         self.assertEqual(self.original["contamination"]["status"], CONTAMINATION_STATUS)
         self.assertTrue(self.original["contamination"]["split_labels_retained_without_rewrite"])
+
+    def test_contamination_marker_cannot_self_exempt_a_new_contract(self) -> None:
+        forged = {
+            "contract_id": "malicious-self-exempt-v1",
+            "split_policy": {
+                "2024": "DEVELOPMENT_TUNE",
+                "2025": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+            },
+            "contamination": {
+                "status": CONTAMINATION_STATUS,
+                "preserved_as": "HISTORICAL_CONTAMINATED_EVIDENCE",
+                "authority_revoked_for": [
+                    "model_selection",
+                    "feature_selection",
+                    "calibration_selection",
+                    "threshold_setting",
+                    "champion_selection",
+                    "promotion",
+                    "protected_performance_claims",
+                ],
+            },
+        }
+        errors = validate_current_contract(ROOT, forged)
+        self.assertTrue(any("self-exempt" in item for item in errors))
+        with self.assertRaisesRegex(ValueError, "self-exempt"):
+            assert_current_contract_respects_protected_splits(ROOT, forged)
 
     def test_rejects_current_contract_labeling_protected_season_as_development_tune(self) -> None:
         forged = copy.deepcopy(self.successor)
         forged["split_policy"]["2024"] = "DEVELOPMENT_TUNE"
         with self.assertRaisesRegex(ValueError, "SPLIT-PROTECTED"):
-            assert_current_contract_respects_protected_splits(ROOT, forged)
+            assert_current_contract_respects_protected_splits(
+                ROOT, forged, relative_path="configs/preliminary_development_safe_baseline_contract.json"
+            )
 
     def test_rejects_current_contract_labeling_protected_season_as_unprotected_evaluation(self) -> None:
         forged = copy.deepcopy(self.successor)
         forged["split_policy"]["2025"] = "DEVELOPMENT_EVALUATION_UNPROTECTED"
-        errors = validate_current_contract(ROOT, forged)
+        errors = validate_current_contract(
+            ROOT, forged, relative_path="configs/preliminary_development_safe_baseline_contract.json"
+        )
         self.assertTrue(any("2025" in item and "DEVELOPMENT_EVALUATION_UNPROTECTED" in item for item in errors))
 
-    def test_audit_records_exposed_2024_2025_results_and_revokes_authority(self) -> None:
-        payload = build_audit(ROOT)
-        validate_audit(payload)
+    def test_play_drive_successor_is_feature_only_for_protected_seasons(self) -> None:
+        assert_current_contract_respects_protected_splits(
+            ROOT,
+            self.play_drive_successor,
+            relative_path="configs/historical_play_drive_pit_aggregate_development_safe_contract.json",
+        )
+        for season in ("2024", "2025"):
+            item = self.play_drive_successor["season_authority"][season]
+            self.assertEqual(item["role"], "PROTECTED_FEATURE_ONLY")
+            self.assertFalse(item["outcomes_included"])
+            self.assertFalse(item["metrics_included"])
+            self.assertFalse(item["development_training"])
+        self.assertEqual(self.play_drive["source_contract"]["target_seasons"], [2023, 2024, 2025])
+        self.assertTrue(self.play_drive["authority"]["development_feature_admission"])
+
+    def test_audit_records_omitted_play_drive_surfaces_and_revokes_authority(self) -> None:
+        payload = copy.deepcopy(self.canonical_audit)
+        validate_audit(payload, ROOT, expected=self.canonical_audit)
+        self.assertEqual(payload["schema_version"], SCHEMA_VERSION)
+        paths = {row["path"] for row in payload["surfaces"]}
+        for required in (
+            "configs/preliminary_unprotected_baseline_contract.json",
+            "configs/historical_play_drive_pit_aggregate_contract.json",
+            "configs/historical_play_drive_pit_extension_contract.json",
+            "artifacts/pit/historical_play_drive_pit_aggregate_gate.json",
+            "artifacts/jira_evidence/POST-SUBTASK-176.json",
+            "artifacts/jira_evidence/POST-SUBTASK-183.json",
+        ):
+            self.assertIn(required, paths)
         self.assertGreaterEqual(payload["contradiction_count"], 1)
         self.assertGreaterEqual(payload["exposed_result_count"], 1)
+        self.assertEqual(payload["contradiction_count"], sum(len(row["contradictions"]) for row in payload["surfaces"]))
+        self.assertEqual(payload["exposed_result_count"], len(payload["exposed_results"]))
+        self.assertEqual(payload["surface_count"], len(payload["surfaces"]))
         families = {row.get("family") for row in payload["exposed_results"]}
         self.assertIn("elo_rating", families)
         self.assertIn("model_selection", payload["authority_revoked_for"])
         self.assertFalse(payload["protected_nonclaims"]["historical_metrics_deleted"])
+        self.assertEqual(
+            payload["registry_sha256"],
+            sha256_file(ROOT / "governance/PROTECTED_SPLIT_REGISTRY.csv"),
+        )
+
+    def _rehash(self, payload: dict) -> dict:
+        mutated = copy.deepcopy(payload)
+        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        return mutated
+
+    def test_validate_rejects_forged_empty_surfaces_after_rehash(self) -> None:
+        payload = self._rehash(
+            {
+                **self.canonical_audit,
+                "surfaces": [],
+                "exposed_results": [],
+                "exposed_result_count": 0,
+                "contradiction_count": 1,
+            }
+        )
+        with self.assertRaisesRegex(ValueError, "surfaces|exposed historical"):
+            validate_audit(payload, ROOT, expected=self.canonical_audit)
+
+    def test_validate_rejects_removed_exposed_result_after_rehash(self) -> None:
+        payload = copy.deepcopy(self.canonical_audit)
+        mutated = copy.deepcopy(payload)
+        mutated["exposed_results"] = mutated["exposed_results"][1:]
+        mutated["exposed_result_count"] = len(mutated["exposed_results"])
+        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "exposed_results|independent reconstruction"):
+            validate_audit(mutated, ROOT, expected=self.canonical_audit)
+
+    def test_validate_rejects_forged_counts_after_rehash(self) -> None:
+        payload = copy.deepcopy(self.canonical_audit)
+        mutated = copy.deepcopy(payload)
+        mutated["contradiction_count"] = 0
+        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "contradiction"):
+            validate_audit(mutated, ROOT, expected=self.canonical_audit)
+
+    def test_validate_rejects_forged_registry_hash_after_rehash(self) -> None:
+        payload = copy.deepcopy(self.canonical_audit)
+        mutated = copy.deepcopy(payload)
+        mutated["registry_sha256"] = "0" * 64
+        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "registry_sha256|independent reconstruction"):
+            validate_audit(mutated, ROOT, expected=self.canonical_audit)
+
+    def test_validate_rejects_successor_substitution_after_rehash(self) -> None:
+        payload = copy.deepcopy(self.canonical_audit)
+        mutated = copy.deepcopy(payload)
+        mutated["successor_contract"] = "configs/preliminary_unprotected_baseline_contract.json"
+        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "successor_contract|independent reconstruction"):
+            validate_audit(mutated, ROOT, expected=self.canonical_audit)
+
+    def test_validate_rejects_incomplete_authority_denials_after_rehash(self) -> None:
+        payload = copy.deepcopy(self.canonical_audit)
+        mutated = copy.deepcopy(payload)
+        mutated["authority_revoked_for"] = ["model_selection"]
+        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "authority denials"):
+            validate_audit(mutated, ROOT, expected=self.canonical_audit)
+
+    def test_validate_rejects_classification_forged_after_rehash(self) -> None:
+        payload = copy.deepcopy(self.canonical_audit)
         mutated = copy.deepcopy(payload)
         mutated["classification"] = "CLEAN"
-        mutated["artifact_identity"] = __import__(
-            "aggie_analytics.validation.protected_split_authority", fromlist=["compute_artifact_identity"]
-        ).compute_artifact_identity(mutated)
+        mutated["artifact_identity"] = compute_artifact_identity(mutated)
         with self.assertRaisesRegex(ValueError, "exposure disposition"):
             validate_audit(mutated)
+
+    def test_omitted_relevant_file_is_discovered(self) -> None:
+        extra_path = ROOT / "configs" / "omitted_protected_tune_contract.json"
+        extra_path.write_text(
+            json.dumps(
+                {
+                    "contract_id": "omitted-protected-tune-v1",
+                    "split_policy": {
+                        "2024": "DEVELOPMENT_TUNE",
+                        "2025": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+                    },
+                },
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        try:
+            rebuilt = build_audit(ROOT)
+            self.assertIn("configs/omitted_protected_tune_contract.json", rebuilt["discovered_inventory"])
+            self.assertIn(
+                "configs/omitted_protected_tune_contract.json",
+                [row["path"] for row in rebuilt["surfaces"]],
+            )
+            with self.assertRaisesRegex(ValueError, "current contracts retain protected development authority"):
+                validate_audit(rebuilt, ROOT)
+        finally:
+            extra_path.unlink(missing_ok=True)
+
+    def test_protected_feature_surface_cannot_gain_outcome_access(self) -> None:
+        forged = copy.deepcopy(self.play_drive_successor)
+        forged["season_authority"]["2024"]["outcomes_included"] = True
+        errors = validate_current_contract(
+            ROOT,
+            forged,
+            relative_path="configs/historical_play_drive_pit_aggregate_development_safe_contract.json",
+        )
+        self.assertTrue(any("outcomes" in item or "2024" in item for item in errors))
 
 
 if __name__ == "__main__":

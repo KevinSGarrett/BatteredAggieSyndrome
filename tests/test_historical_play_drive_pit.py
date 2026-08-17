@@ -102,6 +102,22 @@ class HistoricalPlayDrivePitTests(unittest.TestCase):
         self.assertFalse(authority["protected_evaluation_admission"])
         self.assertFalse(authority["champion_or_production_promotion"])
 
+    def test_successor_contract_revokes_2024_2025_development_authority(self) -> None:
+        successor = json.loads(
+            (
+                ROOT / "configs" / "historical_play_drive_pit_aggregate_development_safe_contract.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(successor["season_authority"]["2023"]["role"], "DEVELOPMENT_FIT_SELECTION_CALIBRATION")
+        for season in ("2024", "2025"):
+            item = successor["season_authority"][season]
+            self.assertEqual(item["role"], "PROTECTED_FEATURE_ONLY")
+            self.assertFalse(item["outcomes_included"])
+            self.assertFalse(item["metrics_included"])
+            self.assertFalse(item["development_training"])
+        self.assertFalse(successor["authority"]["preliminary_unprotected_training_candidate"])
+        self.assertIsNone(successor["replacement_protected_period"])
+
 
 if __name__ == "__main__":
     unittest.main()

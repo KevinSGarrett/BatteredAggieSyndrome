@@ -162,5 +162,20 @@
     "protected_split_registry_altered": false,
     "replacement_protected_period_defined": false,
     "current_authority": "SUCCESSOR_DEVELOPMENT_SAFE_CONTRACT_PLUS_SEALED_REGISTRY"
+  },
+  "cycle5_hardening": {
+    "cycle": "CURSOR_CYCLE_5",
+    "independent_reconstruction_required": true,
+    "self_exemption_rejected": true,
+    "omitted_play_drive_surfaces_reconciled": [
+      "configs/historical_play_drive_pit_aggregate_contract.json",
+      "configs/historical_play_drive_pit_extension_contract.json",
+      "artifacts/pit/historical_play_drive_pit_aggregate_gate.json",
+      "artifacts/jira_evidence/POST-SUBTASK-176.json",
+      "artifacts/jira_evidence/POST-SUBTASK-183.json"
+    ],
+    "historical_metrics_retained": true,
+    "protected_split_registry_altered": false,
+    "replacement_protected_period_defined": false
   }
 }

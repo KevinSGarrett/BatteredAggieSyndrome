@@ -110,6 +110,9 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-126.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-127.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-128.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-129.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-130.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-131.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-132.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-160.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-161.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-162.json
@@ -166,11 +169,13 @@ ADDED,artifacts/openai_assist/gamebook_pilot.json
 ADDED,artifacts/openai_assist/model_comparison.json
 ADDED,artifacts/openai_assist/quarantine_schema_pilot.json
 ADDED,artifacts/openai_assist/router_rebalance.json
+ADDED,artifacts/operations/backup_catalog_and_integrity.json
 ADDED,artifacts/operations/ci_pipeline_validation.json
 ADDED,artifacts/operations/ci_security_gate.json
 ADDED,artifacts/operations/drift_alert_validation.json
 ADDED,artifacts/operations/drift_incident_game_day.json
 ADDED,artifacts/operations/observability_contract_test.json
+ADDED,artifacts/operations/restore_drill.json
 ADDED,artifacts/operations/security_supply_chain_report.json
 ADDED,artifacts/pit/asof_state_manifest.json
 ADDED,artifacts/pit/historical_action_derived_play_summary_gate.json
@@ -221,6 +226,7 @@ ADDED,configs/action_derived_play_summary_contract.json
 ADDED,configs/assistive_downstream_adoptions.json
 ADDED,configs/assistive_provider_registry.json
 ADDED,configs/assistive_route_readiness.json
+ADDED,configs/backup_retention_policy.json
 ADDED,configs/cfbd_post2022_roster_acquisition.json
 ADDED,configs/codex_usage_interlock_change_manifest.json
 ADDED,configs/cpu_worker_qualification.json
@@ -548,6 +554,7 @@ ADDED,src/aggie_analytics/openai_assist/schemas.py
 ADDED,src/aggie_analytics/openai_assist/storage.py
 ADDED,src/aggie_analytics/operations/cleanup.py
 ADDED,src/aggie_analytics/operations/drift_alerts.py
+ADDED,src/aggie_analytics/operations/incidents.py
 ADDED,src/aggie_analytics/temporal/advanced_game_snapshot.py
 ADDED,src/aggie_analytics/temporal/expanded_event_chronology.py
 ADDED,src/aggie_analytics/temporal/historical_recovery.py
@@ -590,6 +597,7 @@ ADDED,tests/test_acquisition_resilience.py
 ADDED,tests/test_action_play_summary.py
 ADDED,tests/test_assistive_downstream_review.py
 ADDED,tests/test_autonomous_control_tools.py
+ADDED,tests/test_backup_catalog_integrity.py
 ADDED,tests/test_cfbd_historical_acquisition.py
 ADDED,tests/test_codex_usage_interlock.py
 ADDED,tests/test_core_registry.py
@@ -660,6 +668,7 @@ ADDED,tests/test_preliminary_wmt_tamu_shadow.py
 ADDED,tests/test_product_supply_chain.py
 ADDED,tests/test_queue_cpu_worker_manifest_work.py
 ADDED,tests/test_queue_openai_gamebook_candidate_work.py
+ADDED,tests/test_restore_drill.py
 ADDED,tests/test_retrospective_returning_production.py
 ADDED,tests/test_sec_tamu_availability.py
 ADDED,tests/test_source_access_smoke_results.py
@@ -697,6 +706,7 @@ ADDED,tools/adopt_unified_enforcement_package.py
 ADDED,tools/apply_private_research_acquisition_policy.py
 ADDED,tools/audit_control_plane.py
 ADDED,tools/build_action_derived_play_summary.py
+ADDED,tools/build_backup_catalog_and_integrity.py
 ADDED,tools/build_drift_alert_validation.py
 ADDED,tools/build_evaluation_exposure_ledger.py
 ADDED,tools/build_historical_advanced_game_snapshot.py
@@ -774,6 +784,7 @@ ADDED,tools/refresh_openai_assist_lock.py
 ADDED,tools/refresh_openrouter_model_catalog.py
 ADDED,tools/refresh_openrouter_usage.py
 ADDED,tools/render_task_context.py
+ADDED,tools/run_drift_incident_game_day.py
 ADDED,tools/run_expanded_event_chronology_preliminary.py
 ADDED,tools/run_local_coder_shadow.py
 ADDED,tools/run_local_embedding_shadow.py
@@ -793,6 +804,7 @@ ADDED,tools/run_preliminary_play_drive_augmented.py
 ADDED,tools/run_preliminary_rankings_augmented_baselines.py
 ADDED,tools/run_preliminary_unprotected_baselines.py
 ADDED,tools/run_preliminary_wmt_tamu_shadow.py
+ADDED,tools/run_restore_drill.py
 ADDED,tools/run_unified_assistive_controller.py
 ADDED,tools/run_unified_assistive_watchdog.py
 ADDED,tools/select_next_work.py
@@ -921,6 +933,7 @@ CHANGED,src/aggie_analytics/data/snapshots.py
 CHANGED,src/aggie_analytics/entities/__init__.py
 CHANGED,src/aggie_analytics/entities/resolution.py
 CHANGED,src/aggie_analytics/operations/__init__.py
+CHANGED,src/aggie_analytics/operations/backup.py
 CHANGED,src/aggie_analytics/operations/environment.py
 CHANGED,src/aggie_analytics/operations/observability.py
 CHANGED,src/aggie_analytics/product/repository.py

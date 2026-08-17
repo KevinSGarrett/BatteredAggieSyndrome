@@ -4,11 +4,12 @@ ADDED,.github/dependabot.yml
 ADDED,.pytest_cache/.gitignore
 ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
+ADDED,.pytest_cache/v/cache/lastfailed
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/1220103620977522032
-ADDED,.ruff_cache/0.6.9/17710490957746711537
-ADDED,.ruff_cache/0.6.9/440739214396883654
+ADDED,.ruff_cache/0.6.9/14824649901355980116
+ADDED,.ruff_cache/0.6.9/15441664364198424171
+ADDED,.ruff_cache/0.6.9/5620967877478438182
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -150,6 +151,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-201.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-202.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-203.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-204.json
+ADDED,artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
 ADDED,artifacts/open_source/integration_validation_manifest.json
@@ -173,6 +175,7 @@ ADDED,artifacts/operations/restore_drill.json
 ADDED,artifacts/operations/security_supply_chain_report.json
 ADDED,artifacts/pit/PIT_REPLAY_READINESS.json
 ADDED,artifacts/pit/asof_state_manifest.json
+ADDED,artifacts/pit/development_2023_outcome_gate.json
 ADDED,artifacts/pit/historical_action_derived_play_summary_gate.json
 ADDED,artifacts/pit/historical_advanced_game_reconciliation_gate.json
 ADDED,artifacts/pit/historical_advanced_game_snapshot_gate.json
@@ -227,6 +230,7 @@ ADDED,configs/backup_retention_policy.json
 ADDED,configs/cfbd_post2022_roster_acquisition.json
 ADDED,configs/codex_usage_interlock_change_manifest.json
 ADDED,configs/cpu_worker_qualification.json
+ADDED,configs/development_2023_outcome_identity_contract.json
 ADDED,configs/elo_challenger_research_contract.json
 ADDED,configs/elo_offense_defense_challenger_contract.json
 ADDED,configs/elo_uncertainty_challenger_contract.json
@@ -481,6 +485,7 @@ ADDED,src/aggie_analytics/assistive_plane/watchdog.py
 ADDED,src/aggie_analytics/assistive_plane/worker.py
 ADDED,src/aggie_analytics/data/action_play_summary.py
 ADDED,src/aggie_analytics/data/cfbd.py
+ADDED,src/aggie_analytics/data/development_2023_outcomes.py
 ADDED,src/aggie_analytics/data/historical_game_outcome_spine.py
 ADDED,src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
 ADDED,src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
@@ -557,6 +562,7 @@ ADDED,tests/test_codex_usage_interlock.py
 ADDED,tests/test_core_registry.py
 ADDED,tests/test_cpu_worker_backend.py
 ADDED,tests/test_cursor_review_disposition.py
+ADDED,tests/test_development_2023_outcomes.py
 ADDED,tests/test_drift_incident_game_day.py
 ADDED,tests/test_evaluation_exposure.py
 ADDED,tests/test_execution_focus.py
@@ -657,6 +663,7 @@ ADDED,tools/audit_control_plane.py
 ADDED,tools/audit_protected_split_exposure.py
 ADDED,tools/build_action_derived_play_summary.py
 ADDED,tools/build_backup_catalog_and_integrity.py
+ADDED,tools/build_development_2023_outcomes.py
 ADDED,tools/build_drift_alert_validation.py
 ADDED,tools/build_evaluation_exposure_ledger.py
 ADDED,tools/build_historical_advanced_game_snapshot.py
@@ -770,6 +777,7 @@ ADDED,tools/validate_action_derived_play_summary.py
 ADDED,tools/validate_autonomous_controls.py
 ADDED,tools/validate_codex_usage_interlock.py
 ADDED,tools/validate_cpu_worker_readiness.py
+ADDED,tools/validate_development_2023_outcomes.py
 ADDED,tools/validate_drift_alerts.py
 ADDED,tools/validate_execution_focus.py
 ADDED,tools/validate_expanded_event_chronology_preliminary.py

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "POST183-HISTORICAL-PLAY-DRIVE-PIT-EXTENSION-DEVELOPMENT-SAFE-V2",
+  "decision_unit": "POST-SUBTASK-169",
+  "jira_key": "BAT-526",
+  "classification": "DEVELOPMENT_SAFE_2023_PLUS_PROTECTED_FEATURE_ONLY_2024_2025",
+  "supersedes": {
+    "path": "configs/historical_play_drive_pit_extension_contract.json",
+    "contract_id": "POST183-HISTORICAL-PLAY-DRIVE-PIT-EXTENSION-V1",
+    "decision_unit": "POST-SUBTASK-183",
+    "historical_file_sha256": "f1c1ec431023955cd45d23d93e0f7a41ecc07dbce5ba918825c5621d3b373591",
+    "admitted_dataset_identity": "1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d",
+    "disposition": "HISTORICAL_CONTAMINATED_EVIDENCE_RETAINED",
+    "contamination_status": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY"
+  },
+  "source_contract": {
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "missing_source_seasons": [],
+    "development_target_seasons": [2023],
+    "protected_feature_only_seasons": [2024, 2025],
+    "target_or_outcome_fields": "PROHIBITED"
+  },
+  "season_authority": {
+    "2023": {
+      "role": "DEVELOPMENT_FIT_SELECTION_CALIBRATION",
+      "feature_admission": true,
+      "development_training": true,
+      "development_tuning": false,
+      "outcomes_included": false,
+      "metrics_included": false
+    },
+    "2024": {
+      "role": "PROTECTED_FEATURE_ONLY",
+      "feature_admission": "PROTECTED_FEATURE_ONLY",
+      "development_training": false,
+      "development_tuning": false,
+      "outcomes_included": false,
+      "metrics_included": false
+    },
+    "2025": {
+      "role": "PROTECTED_FEATURE_ONLY",
+      "feature_admission": "PROTECTED_FEATURE_ONLY",
+      "development_training": false,
+      "development_tuning": false,
+      "outcomes_included": false,
+      "metrics_included": false
+    }
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "pit_state_admission": true,
+    "development_feature_admission": "2023_ONLY",
+    "preliminary_unprotected_training_candidate": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "authority_denials": {
+    "model_selection": "DENIED_FOR_2024_2025_AND_CONTAMINATED_PRELIMINARY_METRICS",
+    "feature_selection": "DENIED_FOR_2024_2025_AND_CONTAMINATED_PRELIMINARY_METRICS",
+    "calibration_selection": "DENIED_FOR_2024_2025_AND_CONTAMINATED_PRELIMINARY_METRICS",
+    "threshold_setting": "DENIED_FOR_2024_2025_AND_CONTAMINATED_PRELIMINARY_METRICS",
+    "champion_selection": "DENIED",
+    "promotion": "DENIED",
+    "protected_performance_claims": "DENIED"
+  },
+  "label_override_rule": "Protected status follows canonical-game identity and governance/PROTECTED_SPLIT_REGISTRY.csv. DEVELOPMENT_ONLY or preliminary_unprotected labels have no authority over 2024-2025.",
+  "replacement_protected_period": null,
+  "historical_metrics_retained": true
+}

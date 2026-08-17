@@ -118,5 +118,25 @@
     "protected_performance_claimed": false,
     "tamu_specialization_lift_claimed": false,
     "bas_or_aggie_excess_result_claimed": false
+  },
+  "protected_split_containment": {
+    "status": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY",
+    "historical_file_sha256_before_containment": "bc878be713a7079158d53f6bc8e4795a135e4a1abbb9f4db29773ed6816829a1",
+    "successor_contract": "configs/historical_play_drive_pit_aggregate_development_safe_contract.json",
+    "metrics_retained_without_rewrite": true,
+    "authority_revoked_for": [
+      "model_selection",
+      "feature_selection",
+      "calibration_selection",
+      "threshold_setting",
+      "champion_selection",
+      "promotion",
+      "protected_performance_claims"
+    ],
+    "season_authority": {
+      "2023": {"role": "DEVELOPMENT_FIT_SELECTION_CALIBRATION", "outcomes_included": false, "metrics_included": false},
+      "2024": {"role": "PROTECTED_FEATURE_ONLY", "outcomes_included": false, "metrics_included": false},
+      "2025": {"role": "PROTECTED_FEATURE_ONLY", "outcomes_included": false, "metrics_included": false}
+    }
   }
 }

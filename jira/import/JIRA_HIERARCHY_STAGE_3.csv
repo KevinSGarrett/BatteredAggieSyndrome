@@ -15905,7 +15905,7 @@ Source References
 
 Governance Traceability Gate: TASK-036
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;baseline-modeling;chronological-replay;local-id-post-subtask-169,modeling,POST-SUBTASK-169,TASK-036;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json",In Progress,Highest,actionable;post-wave;subtask;preliminary-unprotected;baseline-modeling;chronological-replay;local-id-post-subtask-169,modeling,POST-SUBTASK-169,TASK-036;GAP-003;GAP-005,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE
 Sub-task,BAT-527,100478,[POST-SUBTASK-170] Admit exact dated weekly rankings as development-only PIT features,100060,"Local ID: POST-SUBTASK-170
 
 Objective

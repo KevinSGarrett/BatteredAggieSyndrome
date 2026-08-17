@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-17T14:41:28.764219+00:00"
+      "verified_at": "2026-08-17T16:27:23.784636+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-17T14:41:28.978005+00:00"
+      "verified_at": "2026-08-17T16:27:23.986687+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-17T14:41:29.184760+00:00"
+      "verified_at": "2026-08-17T16:27:24.202255+00:00"
     }
   ],
   "backup": {
@@ -32,22 +32,23 @@
   },
   "canonical_spec_sync": {
     "backup": {
-      "bytes": 43993,
-      "issue_count": 1,
-      "path": "reconciliation/jira/canonical-spec-sync/20260817T144141Z/pre-update.json",
-      "sha256": "1aef2a3c2b892fb2ea4948347e32082c51e04a9aea100b0ffd390c97372d7f80",
+      "bytes": 118736,
+      "issue_count": 2,
+      "path": "reconciliation/jira/canonical-spec-sync/20260817T162736Z/pre-update.json",
+      "sha256": "86f21bbbf650bd9bc92e134cd191e012b1bf98d85d69fe534c326731bc04c0a8",
       "storage_root": "EXTERNAL_DATA_ROOT"
     },
-    "changed_issues": 1,
-    "completed_at": "2026-08-17T14:41:42.127356+00:00",
+    "changed_issues": 2,
+    "completed_at": "2026-08-17T16:27:36.983964+00:00",
     "completed_local_ids": [
-      "POST-SUBTASK-169"
+      "POST-SUBTASK-050",
+      "POST-SUBTASK-051"
     ],
     "errors": [],
-    "started_at": "2026-08-17T14:41:41.421624+00:00",
+    "started_at": "2026-08-17T16:27:36.346625+00:00",
     "status": "COMPLETE"
   },
-  "completed_at": "2026-08-17T14:42:44.865611+00:00",
+  "completed_at": "2026-08-17T16:28:32.882814+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -55,8 +56,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-17T14:41:48.711053+00:00",
-    "verified_at": "2026-08-17T14:41:50.901158+00:00",
+    "updated_at": "2026-08-17T16:27:43.477198+00:00",
+    "verified_at": "2026-08-17T16:27:45.542091+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -453,7 +454,7 @@
     }
   ],
   "historical_done_operationally_overridden": 221,
-  "historical_done_requested": 90,
+  "historical_done_requested": 93,
   "issues": {
     "EPIC-001": "BAT-1",
     "EPIC-002": "BAT-2",
@@ -977,7 +978,7 @@
     "missing_canonical_links": 12,
     "preserved_auxiliary_links": 4,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-17T14:42:05.689001+00:00"
+    "verified_at": "2026-08-17T16:27:59.533951+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2179,21 +2180,21 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation"
+          "C:\\BatteredAggieSyndrome"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 253,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 99,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 515\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 76,\n      \"ATOMIC_EXECUTION\": 177,\n      \"HISTORICAL_REFERENCE\": 262\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 515,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 0,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2121\n    },\n    \"subtask_count\": 183,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 243,\n      \"EXISTING_AUTOMATED_TEST\": 1189,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 80,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 252,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-17\",\n    \"work_packet_count\": 253\n  }\n}\n"
+        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 253,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 96,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 515\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 76,\n      \"ATOMIC_EXECUTION\": 177,\n      \"HISTORICAL_REFERENCE\": 262\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 515,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 0,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2121\n    },\n    \"subtask_count\": 183,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 243,\n      \"EXISTING_AUTOMATED_TEST\": 1189,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 80,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 252,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-17\",\n    \"work_packet_count\": 253\n  }\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation"
+          "C:\\BatteredAggieSyndrome"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2203,7 +2204,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2213,9 +2214,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation"
+          "C:\\BatteredAggieSyndrome"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2225,13 +2226,13 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-526-protected-split-reconciliation"
+          "C:\\BatteredAggieSyndrome"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"actionable_count\": 253,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 99,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 515\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 76,\n    \"ATOMIC_EXECUTION\": 177,\n    \"HISTORICAL_REFERENCE\": 262\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 515,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 0,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2121\n  },\n  \"subtask_count\": 183,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 243,\n    \"EXISTING_AUTOMATED_TEST\": 1189,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 80,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 252,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-17\",\n  \"work_packet_count\": 253\n}\n"
+        "stdout": "{\n  \"actionable_count\": 253,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 96,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 515\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 76,\n    \"ATOMIC_EXECUTION\": 177,\n    \"HISTORICAL_REFERENCE\": 262\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 515,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 0,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2121\n  },\n  \"subtask_count\": 183,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 243,\n    \"EXISTING_AUTOMATED_TEST\": 1189,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 80,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 252,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-17\",\n  \"work_packet_count\": 253\n}\n"
       }
     ],
     "result": "PASS"
@@ -2373,8 +2374,8 @@
   "operational_status_reconciliation": {
     "changed_count": 0,
     "changes": [],
-    "completed_at": "2026-08-17T14:41:46.449368+00:00",
-    "inspected_non_done_issues": 425,
+    "completed_at": "2026-08-17T16:27:41.328452+00:00",
+    "inspected_non_done_issues": 422,
     "status": "COMPLETE"
   },
   "permission_remediation": {
@@ -2411,13 +2412,13 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 1,
+      "changes": 4,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
       "rows": 515
     },
     "live": {
-      "changed_issues": 1,
+      "changed_issues": 4,
       "conflict_count": 0,
       "result": "PASS",
       "rows": 515,
@@ -2467,7 +2468,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-17T14:42:44.865611+00:00",
+  "updated_at": "2026-08-17T16:28:32.882814+00:00",
   "verification": {
     "actual_expected_link_count": 1191,
     "board": {
@@ -2526,10 +2527,10 @@
     "result": "PASS",
     "schema_version": 1,
     "status_counts": {
-      "Done": 90,
-      "To Do": 425
+      "Done": 93,
+      "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-17T14:42:05.689001+00:00"
+    "verified_at": "2026-08-17T16:27:59.533951+00:00"
   }
 }

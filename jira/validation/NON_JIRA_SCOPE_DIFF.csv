@@ -4,11 +4,12 @@ ADDED,.github/dependabot.yml
 ADDED,.pytest_cache/.gitignore
 ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
+ADDED,.pytest_cache/v/cache/lastfailed
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/16959899666683742546
-ADDED,.ruff_cache/0.6.9/17595350207457174950
-ADDED,.ruff_cache/0.6.9/3620519184232482050
+ADDED,.ruff_cache/0.6.9/11794021950924835220
+ADDED,.ruff_cache/0.6.9/1346775499789890023
+ADDED,.ruff_cache/0.6.9/7949729820325527684
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -239,7 +240,9 @@ ADDED,configs/historical_game_outcome_spine_contract.json
 ADDED,configs/historical_game_outcome_spine_expansion_contract.json
 ADDED,configs/historical_known_at_recovery_contract.json
 ADDED,configs/historical_play_drive_pit_aggregate_contract.json
+ADDED,configs/historical_play_drive_pit_aggregate_development_safe_contract.json
 ADDED,configs/historical_play_drive_pit_extension_contract.json
+ADDED,configs/historical_play_drive_pit_extension_development_safe_contract.json
 ADDED,configs/historical_play_enrichment_pit_contract.json
 ADDED,configs/historical_player_box_snapshot_contract.json
 ADDED,configs/historical_player_event_metric_pit_contract.json

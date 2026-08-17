@@ -149,11 +149,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24539",
-    "jira_updated_at": "2026-08-17T00:56:44.395-0500",
-    "last_synced_at": "2026-08-17T05:57:09.613545+00:00",
+    "jira_updated_at": "2026-08-17T10:29:30.548-0500",
+    "last_synced_at": "2026-08-17T15:29:57.825302+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",

@@ -75,6 +75,8 @@
   "expected_outputs": [
     "configs/preliminary_unprotected_baseline_contract.json",
     "configs/preliminary_development_safe_baseline_contract.json",
+    "configs/historical_play_drive_pit_aggregate_development_safe_contract.json",
+    "configs/historical_play_drive_pit_extension_development_safe_contract.json",
     "artifacts/governance/protected_split_exposure_audit.json",
     "artifacts/jira_evidence/POST-SUBTASK-169.json",
     "<external-data-root>/training/preliminary_unprotected/sha256/<dataset_identity>",
@@ -96,11 +98,19 @@
   "files_expected_to_be_touched": [
     "configs/preliminary_unprotected_baseline_contract.json",
     "configs/preliminary_development_safe_baseline_contract.json",
+    "configs/historical_play_drive_pit_aggregate_development_safe_contract.json",
+    "configs/historical_play_drive_pit_extension_development_safe_contract.json",
     "src/aggie_analytics/validation/protected_split_authority.py",
+    "src/aggie_analytics/validation/pit_replay_readiness.py",
+    "src/aggie_analytics/experimentation/walk_forward.py",
     "tools/audit_protected_split_exposure.py",
     "tests/test_protected_split_exposure.py",
+    "tests/test_historical_play_drive_pit.py",
     "artifacts/governance/protected_split_exposure_audit.json",
     "artifacts/jira_evidence/POST-SUBTASK-169.json",
+    "artifacts/jira_evidence/POST-SUBTASK-176.json",
+    "artifacts/jira_evidence/POST-SUBTASK-183.json",
+    "artifacts/pit/historical_play_drive_pit_aggregate_gate.json",
     "jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json"
   ],
   "files_to_inspect": [
@@ -260,5 +270,5 @@
   ],
   "why_this_exists": "Final expanded-history and protected-promotion gates must remain binding. The historical preliminary run is retained as contaminated evidence after its 2024/2025 unprotected labels contradicted the sealed protected-split registry.",
   "work_packet_path": "",
-  "workflow_state": "DONE"
+  "workflow_state": "IN_PROGRESS"
 }

@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -19,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 from aggie_analytics.operations.backup import (  # noqa: E402
     create_backup,
     enforce_backup_destination_policy,
+    promote_last_known_good_atomic,
     restore_backup,
     verify_backup,
 )
@@ -83,7 +85,62 @@ class BackupCatalogIntegrityTests(unittest.TestCase):
             with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
                 zf.writestr("payload/../escape.txt", "x")
                 zf.writestr("BACKUP_MANIFEST.json", json.dumps(manifest))
-            with self.assertRaisesRegex(ValueError, "unsafe backup member|unsafe manifest entry path"):
+            with self.assertRaisesRegex(ValueError, "unsafe path component|unsafe manifest entry path"):
+                verify_backup(archive)
+
+    def test_symlink_member_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            archive = root / "bad_symlink.zip"
+            manifest = {
+                "schema_version": "aggie.backup.v2",
+                "created_at_utc": "2026-01-01T00:00:00+00:00",
+                "source_name": "bad",
+                "entries": [{"path": "a.txt", "bytes": 1, "sha256": "2d711642b726b04401627ca9fbac32f5da7e5f6e8f7f16f8cb7614f2a6f16f84"}],
+            }
+            with zipfile.ZipFile(archive, "w") as zf:
+                info = zipfile.ZipInfo("payload/a.txt")
+                info.create_system = 3
+                info.external_attr = (stat.S_IFLNK | 0o777) << 16
+                zf.writestr(info, b"x")
+                zf.writestr("BACKUP_MANIFEST.json", json.dumps(manifest))
+            with self.assertRaisesRegex(ValueError, "symlink backup member"):
+                verify_backup(archive)
+
+    def test_case_colliding_members_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            archive = root / "case_collision.zip"
+            manifest = {
+                "schema_version": "aggie.backup.v2",
+                "created_at_utc": "2026-01-01T00:00:00+00:00",
+                "source_name": "bad",
+                "entries": [
+                    {"path": "A.txt", "bytes": 1, "sha256": "2d711642b726b04401627ca9fbac32f5da7e5f6e8f7f16f8cb7614f2a6f16f84"},
+                    {"path": "a.txt", "bytes": 1, "sha256": "2d711642b726b04401627ca9fbac32f5da7e5f6e8f7f16f8cb7614f2a6f16f84"},
+                ],
+            }
+            with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
+                zf.writestr("payload/A.txt", b"x")
+                zf.writestr("payload/a.txt", b"x")
+                zf.writestr("BACKUP_MANIFEST.json", json.dumps(manifest))
+            with self.assertRaisesRegex(ValueError, "case-colliding"):
+                verify_backup(archive)
+
+    def test_backslash_alias_member_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            archive = root / "alias.zip"
+            manifest = {
+                "schema_version": "aggie.backup.v2",
+                "created_at_utc": "2026-01-01T00:00:00+00:00",
+                "source_name": "bad",
+                "entries": [{"path": "a\\b.txt", "bytes": 1, "sha256": "2d711642b726b04401627ca9fbac32f5da7e5f6e8f7f16f8cb7614f2a6f16f84"}],
+            }
+            with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
+                zf.writestr("payload/a.txt", b"x")
+                zf.writestr("BACKUP_MANIFEST.json", json.dumps(manifest))
+            with self.assertRaisesRegex(ValueError, "unsafe path separator alias"):
                 verify_backup(archive)
 
     def test_last_known_good_not_replaced_on_corruption(self) -> None:
@@ -101,6 +158,52 @@ class BackupCatalogIntegrityTests(unittest.TestCase):
                 zf.writestr("payload/tampered.txt", "tampered")
             with self.assertRaises(ValueError):
                 verify_backup(corrupt)
+            self.assertEqual(before, lkg.read_bytes())
+
+    def test_atomic_promotion_preserves_previous_lkg_on_pre_replace_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            lkg_src = root / "lkg_src"
+            lkg_src.mkdir()
+            (lkg_src / "baseline.txt").write_text("baseline", encoding="utf-8")
+            lkg = root / "last_known_good.zip"
+            create_backup(lkg_src, lkg)
+            before = lkg.read_bytes()
+            candidate_src = root / "candidate_src"
+            candidate_src.mkdir()
+            (candidate_src / "next.txt").write_text("next", encoding="utf-8")
+            candidate = root / "candidate.zip"
+            create_backup(candidate_src, candidate)
+
+            def fail_after_copy(step: str) -> None:
+                if step == "after_copy":
+                    raise OSError("simulated copy failure")
+
+            with self.assertRaisesRegex(OSError, "simulated copy failure"):
+                promote_last_known_good_atomic(candidate, lkg, failure_injector=fail_after_copy)
+            self.assertEqual(before, lkg.read_bytes())
+
+    def test_atomic_promotion_rolls_back_on_post_replace_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            lkg_src = root / "lkg_src"
+            lkg_src.mkdir()
+            (lkg_src / "baseline.txt").write_text("baseline", encoding="utf-8")
+            lkg = root / "last_known_good.zip"
+            create_backup(lkg_src, lkg)
+            before = lkg.read_bytes()
+            candidate_src = root / "candidate_src"
+            candidate_src.mkdir()
+            (candidate_src / "next.txt").write_text("next", encoding="utf-8")
+            candidate = root / "candidate.zip"
+            create_backup(candidate_src, candidate)
+
+            def fail_after_replace(step: str) -> None:
+                if step == "after_replace":
+                    raise OSError("simulated post-replace failure")
+
+            with self.assertRaisesRegex(OSError, "simulated post-replace failure"):
+                promote_last_known_good_atomic(candidate, lkg, failure_injector=fail_after_replace)
             self.assertEqual(before, lkg.read_bytes())
 
     def test_restricted_destination_rejected(self) -> None:

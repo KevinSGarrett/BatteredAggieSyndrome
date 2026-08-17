@@ -1,6 +1,6 @@
 {
   "schema_version": "aggie.operations.backup_catalog_integrity.v1",
-  "created_at_utc": "2026-08-17T03:21:03+00:00",
+  "created_at_utc": "2026-08-17T05:03:58+00:00",
   "issue": {
     "jira_key": "BAT-481",
     "local_id": "POST-SUBTASK-131"
@@ -17,29 +17,29 @@
     "external_work_root": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity",
     "staging_source": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source",
     "backup_directory": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives",
-    "final_backup": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives\\backup-20260817T032103Z.zip",
+    "final_backup": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives\\backup-20260817T050358Z.zip",
     "last_known_good": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives\\last_known_good.zip"
   },
   "jira_metadata_copied": [
     {
       "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source\\jira_metadata\\POST_IMPORT_KEY_MAP.csv",
       "bytes": 37572,
-      "sha256": "4e290185701cfe293f9d0425be625e4fe15df42eeb7d8d36d98eaf599dfdbf57"
+      "sha256": "eb771297ff10663c36ee135bb44c8ae9804386ad10be8b2eb5fa4235f766fe07"
     },
     {
       "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source\\jira_metadata\\ISSUE_CHANGE_LOG.jsonl",
-      "bytes": 5235869,
-      "sha256": "a606042c80bfe3d6441a5f5c4bc8d447592d0b038ee96dd26ea22eb7272543ad"
+      "bytes": 5240758,
+      "sha256": "f248f2eb4d26f40d536f3ef4205d7ec10ca99215318ebbd0f829030f76a4b1ac"
     },
     {
       "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source\\jira_metadata\\ISSUE_INDEX.csv",
-      "bytes": 325482,
-      "sha256": "23dfaddf282ec6cdca7ff11c80ac95f062b9f370494a3141115abf1663cf9ffc"
+      "bytes": 325481,
+      "sha256": "7706991d9c148f7c36d5ee4900bbf6b5e24af09494120a2f735de1e87f62e1d7"
     },
     {
       "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\staging_source\\jira_metadata\\POST-SUBTASK-131.json",
-      "bytes": 19403,
-      "sha256": "44831da10ca75282e6db19ccba1745e705792deae5b16ce4167a3dfb4d4e10ec"
+      "bytes": 19497,
+      "sha256": "f643863193a82f3fdc4e1751250ec7650fe588ef087f36210555a6205d6c10fe"
     }
   ],
   "verification": {
@@ -48,13 +48,20 @@
     "corruption_error": "backup payload/manifest coverage mismatch",
     "restricted_destination_rejected": true,
     "restricted_destination_error": "restricted destination rejected: repository path forbidden",
-    "previous_last_known_good_sha256": "efa31a7bda6527673b90d9ab2e3dd2b8579259e2e35517c3fcf6041d02972673",
-    "new_last_known_good_sha256": "a2b9feb5b1d335fc2d2ea621f6577f73ef3246e6395b1a35f6822de5b8be49ff",
+    "previous_last_known_good_sha256": "dee6a45698c17140c7e50c73c90b8094311615ef436f9e9db0e3550b5ec25286",
+    "new_last_known_good_sha256": "62c17e99452d0fcc18f45d74d8ec9810dee57c5cfd875b133bfc53b99f8a65ff",
+    "last_known_good_atomic_promotion": {
+      "verified_before_promotion": true,
+      "candidate_sha256": "62c17e99452d0fcc18f45d74d8ec9810dee57c5cfd875b133bfc53b99f8a65ff",
+      "previous_last_known_good_sha256": "dee6a45698c17140c7e50c73c90b8094311615ef436f9e9db0e3550b5ec25286",
+      "promoted_last_known_good_sha256": "62c17e99452d0fcc18f45d74d8ec9810dee57c5cfd875b133bfc53b99f8a65ff",
+      "rollback_available": true
+    },
     "last_known_good_updated_only_after_verification": true
   },
   "backup_identity": {
-    "archive_sha256": "a2b9feb5b1d335fc2d2ea621f6577f73ef3246e6395b1a35f6822de5b8be49ff",
-    "content_identity": "d7b0961fe98488355e9449d5594eec854cc56693cbf7a11b6d56ef2fb4f90a58",
+    "archive_sha256": "62c17e99452d0fcc18f45d74d8ec9810dee57c5cfd875b133bfc53b99f8a65ff",
+    "content_identity": "a31d5fd141b56b80482a3e037fa4a2bd3976dd5d2b611d27c6fa1f00d34244f6",
     "entry_count": 5
   },
   "acceptance_matrix": [
@@ -83,5 +90,5 @@
       "POST-SUBTASK-132"
     ]
   },
-  "artifact_identity": "e5ac1684a9decf4567c96c020a8d89ec26c14e88c6f810f429dd3b17aa47afb3"
+  "artifact_identity": "a2224a2cba4cc2266204a61a966839b6852face8aa231866b67bcb6a7cff08ca"
 }

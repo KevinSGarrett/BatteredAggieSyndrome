@@ -103,6 +103,7 @@ artifacts/jira_evidence/POST-SUBTASK-045.json
 artifacts/jira_evidence/POST-SUBTASK-046.json
 artifacts/jira_evidence/POST-SUBTASK-047.json
 artifacts/jira_evidence/POST-SUBTASK-048.json
+artifacts/jira_evidence/POST-SUBTASK-049.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-126.json
@@ -200,6 +201,7 @@ artifacts/pit/historical_venue_assignment_reconciliation_gate.json
 artifacts/pit/historical_weather_previous_runs_reconciliation_gate.json
 artifacts/pit/historical_weather_previous_runs_snapshot_gate.json
 artifacts/pit/known_at_gate.json
+artifacts/pit/leakage_battery_results.json
 artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json
 artifacts/pit/preliminary_dense_play_drive_replay_gate.json
@@ -3285,6 +3287,7 @@ tests/test_instructions_pack.py
 tests/test_jira_control_plane.py
 tests/test_jira_evidence_state_mapping.py
 tests/test_jira_operational_status_policy.py
+tests/test_leakage_battery_results.py
 tests/test_lineage_full.py
 tests/test_local_qwen_qualification.py
 tests/test_local_tracker_full.py
@@ -3477,6 +3480,7 @@ tools/repo_integrity.py
 tools/restore_state.py
 tools/run_drift_incident_game_day.py
 tools/run_expanded_event_chronology_preliminary.py
+tools/run_leakage_battery.py
 tools/run_local_benchmark.py
 tools/run_local_coder_shadow.py
 tools/run_local_embedding_shadow.py

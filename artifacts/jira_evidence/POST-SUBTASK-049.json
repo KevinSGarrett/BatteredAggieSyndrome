@@ -1,0 +1,64 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-17T05:54:55Z",
+  "jira_key": "BAT-399",
+  "local_issue_id": "POST-SUBTASK-049",
+  "workflow_state": "BLOCKED",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "observable_outcome": "Scoped BAT-399 leakage battery executed against available BAT-523 gate evidence and fail-closed controls, but row-level matrix payloads required for append and mutation invariance scenarios remain unavailable.",
+  "outputs": [
+    {
+      "path": "artifacts/pit/leakage_battery_results.json",
+      "bytes": 15469,
+      "sha256": "4b6f6d7ae780b57d34439530ea25b39e34fcbc027b19674965dd580f80e30913",
+      "schema_version": "aggie.pit.leakage_battery.v1",
+      "artifact_identity": "c5e0a4b51ff2aa2a90f625dc4e1b35374ef0e892c5a76a195a82deec82353262"
+    },
+    {
+      "path": "tools/run_leakage_battery.py",
+      "bytes": 18825,
+      "sha256": "23faddc7ecbd2f46f2659e833411142581aaad1e6971eb07bfe25257d06a2124"
+    },
+    {
+      "path": "tests/test_leakage_battery_results.py",
+      "bytes": 1775,
+      "sha256": "91149ddf19953f2c21231b3725c20bf5167f0520c7fdc3145d33637600bc41f0"
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "All required leakage scenarios execute on row-level matrix payloads or are explicitly blocked with deterministic evidence.",
+      "disposition": "BLOCKED",
+      "evidence": "artifacts/pit/leakage_battery_results.json: external_payload_validation"
+    },
+    {
+      "criterion": "Known-at, cutoff, same-game, label exclusion, weather substitution, and roster revision fail-closed controls remain enforced.",
+      "disposition": "PASS",
+      "evidence": "artifacts/pit/leakage_battery_results.json: scenarios"
+    },
+    {
+      "criterion": "Protected and production claims remain out of scope for this scoped BAT-399 execution.",
+      "disposition": "PASS",
+      "evidence": "artifacts/pit/leakage_battery_results.json: scoped_gate_context"
+    }
+  ],
+  "validation": {
+    "producer_command": "python -B tools/run_leakage_battery.py --repo-root . --output artifacts/pit/leakage_battery_results.json",
+    "validator_command": "python -B tools/run_leakage_battery.py --repo-root . --output artifacts/pit/leakage_battery_results.json --validate-only",
+    "focused_test_command": "python -B -m pytest tests/test_leakage_battery_results.py -q",
+    "regression_tests_command": "python -B -m pytest tests/test_temporal_governance.py tests/test_w24_readiness.py -q",
+    "w24_validator_command": "python -B tools/validate_w24_readiness.py",
+    "lint_command": "python -B -m ruff check tools/run_leakage_battery.py tests/test_leakage_battery_results.py",
+    "jira_validator_command": "python -B tools/validate_jira_control_plane.py --repo-root . --strict"
+  },
+  "completion": {
+    "achieved_maturity": "FUNCTIONAL_STARTER",
+    "issue_disposition": "BLOCKED_SCOPED_BAT523_MATRIX_ROW_PAYLOAD_UNAVAILABLE",
+    "remaining_issue_scope_blockers": [
+      "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE"
+    ],
+    "completion_claim": "BAT-399 cannot be truthfully marked done until scoped row-level matrix payloads are available for append and mutation invariance checks."
+  }
+}

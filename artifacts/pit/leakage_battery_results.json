@@ -1,0 +1,288 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "All required leakage scenarios executed on row-level payloads or explicitly blocked with deterministic evidence.",
+      "disposition": "BLOCKED",
+      "evidence": "external_payload_validation.payloads"
+    },
+    {
+      "criterion": "Same-game, known-at, cutoff, label exclusion, weather, and roster cutoff constraints remain fail-closed.",
+      "disposition": "PASS",
+      "evidence": "scenarios"
+    },
+    {
+      "criterion": "Protected and production claims remain explicitly out of scope.",
+      "disposition": "PASS",
+      "evidence": "scoped_gate_context + scenarios"
+    }
+  ],
+  "artifact_identity": "c5e0a4b51ff2aa2a90f625dc4e1b35374ef0e892c5a76a195a82deec82353262",
+  "artifact_type": "REAL_SCOPED_LEAKAGE_BATTERY_RESULTS",
+  "decision_unit": "POST-SUBTASK-049",
+  "downstream_eligibility": {
+    "BAT-400": "BLOCKED_UNTIL_BAT399_DONE",
+    "reason": "BAT-399 remains blocked until row-level matrix payloads are available for append/mutation invariance checks."
+  },
+  "external_payload_validation": {
+    "payloads": [
+      {
+        "bytes": 1225,
+        "exists": false,
+        "path": "<external-data-root>/features/BAT-397/sha256/7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1/pregame_matrix_rows.parquet",
+        "role": "PREGAME_MATRIX_ROWS",
+        "sha256": "aa3c0b3239658a72b9f8a8165d43660c0e463a458758828c90af402f6be47b19",
+        "status": "UNAVAILABLE_PLACEHOLDER_PATH"
+      },
+      {
+        "bytes": 954,
+        "exists": false,
+        "path": "<external-data-root>/features/BAT-397/sha256/7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1/pregame_matrix_cell_lineage.parquet",
+        "role": "PREGAME_MATRIX_CELL_LINEAGE",
+        "sha256": "84f5a76c1bdba443787a933e14a8b2e4d93b56d49f4ae510eec5ca36104479b4",
+        "status": "UNAVAILABLE_PLACEHOLDER_PATH"
+      }
+    ],
+    "row_level_payloads_unavailable": true
+  },
+  "input_identities": {
+    "historical_known_at_replay_gate_path": "artifacts/pit/historical_known_at_replay_gate.json",
+    "historical_known_at_replay_gate_sha256": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+    "matrix_gate_decision_path": "artifacts/pit/matrix_gate_decision.json",
+    "matrix_gate_decision_sha256": "a4c159fbea071c88789427adaaabe0d16b06f53b4d85c51281ba67326c692de1",
+    "pregame_matrix_manifest_path": "artifacts/pit/pregame_matrix_manifest.json",
+    "pregame_matrix_manifest_sha256": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe"
+  },
+  "issued_at_utc": "2026-08-17T05:53:41Z",
+  "jira_key": "BAT-399",
+  "remaining_blockers": [
+    "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE"
+  ],
+  "scenarios": [
+    {
+      "affected_row_identities": [],
+      "blocked_reason": null,
+      "disposition": "PASS",
+      "expected_fail_closed_behavior": "Protected/prod fields remain denied for scoped BAT-399 execution.",
+      "mutation_injection": "none",
+      "observed_result": "PASS",
+      "post_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "pre_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "static_prohibited_field_scan",
+      "source_field": "approval_scope.not_allowed",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "expected_fail_closed_behavior": "Appending future records must not alter earlier eligible rows.",
+      "mutation_injection": "append future rows after cutoff and compare historical hashes",
+      "observed_result": "NOT_EXECUTED_EXTERNAL_ROW_PAYLOAD_MISSING",
+      "post_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "pre_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "future_record_append_invariance",
+      "source_field": "external_dataset.payloads",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "expected_fail_closed_behavior": "Appending postgame revisions cannot alter prior pregame outputs.",
+      "mutation_injection": "append postgame rows and recompute matrix row hashes",
+      "observed_result": "NOT_EXECUTED_EXTERNAL_ROW_PAYLOAD_MISSING",
+      "post_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "pre_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "postgame_record_append_invariance",
+      "source_field": "external_dataset.payloads",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "expected_fail_closed_behavior": "One-row value mutation only impacts the mutated row lineage.",
+      "mutation_injection": "mutate one eligible row value then diff row-level hashes",
+      "observed_result": "NOT_EXECUTED_EXTERNAL_ROW_PAYLOAD_MISSING",
+      "post_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "pre_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "value_mutation_isolation",
+      "source_field": "external_dataset.payloads",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": null,
+      "disposition": "PASS",
+      "expected_fail_closed_behavior": "Target-game outcomes must never appear in pregame feature rows.",
+      "mutation_injection": "inject target-game outcome rows",
+      "observed_result": "PASS",
+      "post_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "pre_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "same_game_target_outcome_exclusion",
+      "source_field": "gate_reexecution.BAT-397.target_game_outcome_used_rows",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": null,
+      "disposition": "PASS",
+      "expected_fail_closed_behavior": "All observations after cutoff are rejected fail-closed.",
+      "mutation_injection": "shift eligible rows to after cutoff",
+      "observed_result": "PASS",
+      "post_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "pre_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "prediction_cutoff_enforcement",
+      "source_field": "chronological_replay.prediction_cutoff",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": null,
+      "disposition": "PASS",
+      "expected_fail_closed_behavior": "Observation known-at must be <= cutoff to remain eligible.",
+      "mutation_injection": "set known-at after cutoff for eligible rows",
+      "observed_result": "PASS",
+      "post_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "pre_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "known_at_timestamp_enforcement",
+      "source_field": "chronological_replay.source_known_at_rule",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "expected_fail_closed_behavior": "Normalization metadata published after cutoff must be excluded.",
+      "mutation_injection": "inject late normalization timestamp into row metadata",
+      "observed_result": "NOT_EXECUTED_EXTERNAL_ROW_PAYLOAD_MISSING",
+      "post_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "pre_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "normalization_time_leakage",
+      "source_field": "external_dataset.payloads",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "expected_fail_closed_behavior": "Late entity corrections cannot retroactively change prior cutoffs.",
+      "mutation_injection": "inject post-cutoff entity correction revision",
+      "observed_result": "NOT_EXECUTED_EXTERNAL_ROW_PAYLOAD_MISSING",
+      "post_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "pre_hash": "671c8201abaec6bc70701a8924cb284b82e648c9bd445f2fcea226653ad416fe",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "entity_correction_leakage",
+      "source_field": "external_dataset.payloads",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": null,
+      "disposition": "PASS",
+      "expected_fail_closed_behavior": "Observed/reanalysis weather substitution remains prohibited.",
+      "mutation_injection": "replace issued forecast with observed weather values",
+      "observed_result": "PASS",
+      "post_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "pre_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "weather_known_at_missingness_behavior",
+      "source_field": "parallel_weather_previous_runs_checkpoint.observed_or_reanalysis_weather_substitution_allowed",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": "MARKET_DOMAIN_SCOPED_EVIDENCE_NOT_MATERIALIZED",
+      "disposition": "BLOCKED",
+      "expected_fail_closed_behavior": "Market observations after cutoff remain ineligible with explicit missingness.",
+      "mutation_injection": "inject market line updates after cutoff",
+      "observed_result": "NOT_EXECUTED_MARKET_DOMAIN_NOT_MATERIALIZED_IN_SCOPED_GATE",
+      "post_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "pre_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "market_cutoff_missingness_behavior",
+      "source_field": "parallel_wmt_provider_timestamp_pit_checkpoint.coverage_diagnostic_only",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": null,
+      "disposition": "PASS",
+      "expected_fail_closed_behavior": "Roster future revision fields are excluded and no availability inferred.",
+      "mutation_injection": "inject post-cutoff roster revision and availability flags",
+      "observed_result": "PASS",
+      "post_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "pre_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "roster_availability_revision_cutoff_behavior",
+      "source_field": "parallel_post2022_roster_checkpoint.future_draft_fields_admitted",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": null,
+      "disposition": "PASS",
+      "expected_fail_closed_behavior": "Labels and derived labels from target outcomes stay excluded.",
+      "mutation_injection": "inject target labels into feature set",
+      "observed_result": "PASS",
+      "post_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "pre_hash": "fa0ce00796b9293697ba0db9fc769cda689ef69dd77d37cca38c9e657e6c1dc2",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "label_and_derived_label_leakage",
+      "source_field": "chronological_replay.target_labels_used",
+      "unaffected_row_identities": []
+    },
+    {
+      "affected_row_identities": [],
+      "blocked_reason": "FOLD_LEVEL_REPLAY_ARTIFACT_NOT_MATERIALIZED_UNTIL_BAT400",
+      "disposition": "BLOCKED",
+      "expected_fail_closed_behavior": "Transforms fit only on fold-local training history.",
+      "mutation_injection": "fit transform on full dataset and compare fold outputs",
+      "observed_result": "NOT_EXECUTED_REPLAY_FOLD_ARTIFACT_NOT_MATERIALIZED_IN_BAT399",
+      "post_hash": "a4c159fbea071c88789427adaaabe0d16b06f53b4d85c51281ba67326c692de1",
+      "pre_hash": "a4c159fbea071c88789427adaaabe0d16b06f53b4d85c51281ba67326c692de1",
+      "remediation_on_failure": "Preserve deterministic evidence and unblock only with content-addressed row-level matrix payloads.",
+      "scenario_id": "fold_local_transformation_enforcement",
+      "source_field": "matrix_gate_decision.gate_decision.feature_model_experimentation",
+      "unaffected_row_identities": []
+    }
+  ],
+  "schema_version": "aggie.pit.leakage_battery.v1",
+  "scoped_gate_context": {
+    "bat398_predecessor_decision_id": "bat398-matrix-gate-decision-v1",
+    "bat398_predecessor_disposition": "BLOCK",
+    "bat523_decision_id": "bat523-known-at-replay-gate-2010-2022-v2",
+    "bat523_gate_disposition": "APPROVE_EXPANDED_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+    "bat523_matrix_cells": 22112,
+    "bat523_matrix_rows": 5528,
+    "bat523_source_seasons": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "bat523_target_seasons": [
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "status": "BLOCKED"
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T03:36:36+00:00",
+  "created_at_utc": "2026-08-17T05:24:33+00:00",
   "jira_key": "BAT-482",
   "local_issue_id": "POST-SUBTASK-132",
   "workflow_state": "DONE",
@@ -11,18 +11,18 @@
   "outputs": [
     {
       "path": "artifacts/operations/restore_drill.json",
-      "bytes": 4279,
-      "sha256": "2d0253efe4aa7d3c4219a771e2da5ee052d593106111aa0e5ebb89104aa1d580",
+      "bytes": 5481,
+      "sha256": "a3527f5a970d57afa2ca01af41617d0b27e3e85a46a73da50698c9cf69bf8fba",
       "schema_version": "aggie.operations.restore_drill.v1",
-      "artifact_identity": "c298c7e49ecf1bc06d657d8687fdc0eab3c4e5633e79ea294723b6bfa62167ab"
+      "artifact_identity": "3ff57974aa4cb142c488ac743087c4e25fd3381a49703e6e6f4e3250041f89e5"
     },
     {
       "path": "tools/run_restore_drill.py",
-      "sha256": "b259f02ebd0d3a459b4eb46c43cfc8edb5caea4ee9074a076b310e48b49bebf3"
+      "sha256": "996435069288e1cf800296f5f0261adc3b3b508c419982068d5959cef87d1b6c"
     },
     {
       "path": "tests/test_restore_drill.py",
-      "sha256": "933758b3a53fb7755e7668ca9083e5c9bf59472228e0a284195dbfe81281c38e"
+      "sha256": "163e39f65d9b6a76d09dad20475888c9a1c913f4205f8a7e4538f58baffafa62"
     }
   ],
   "acceptance_matrix": [
@@ -52,7 +52,7 @@
     "restore_test_command": "python -B -m pytest tests/test_restore_drill.py -q",
     "w23_test_command": "python -B -m pytest tests/test_w23_operations.py -q",
     "w23_validator_command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
-    "lint_command": "python -B -m ruff check tools/run_restore_drill.py tests/test_restore_drill.py",
+    "lint_command": "python -B -m ruff check tools/run_restore_drill.py tests/test_restore_drill.py src/aggie_analytics/operations/backup.py",
     "jira_validator_command": "python -B tools/validate_jira_control_plane.py --repo-root . --strict",
     "second_pass_command": "python -B jira/tools/validate_second_pass.py --repo-root .",
     "w25_validator_command": "python -B tools/validate_w25_final.py --repo-root .",

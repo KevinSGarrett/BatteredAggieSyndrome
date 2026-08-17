@@ -31,6 +31,13 @@
         "head_sha": "360acbf637945677ad8226e8a6f731ef5bc9bc4d",
         "classification": "[material]",
         "reason": "The BAT-479 reviewed branch head was classified as material, but the immutable GitHub squash commit subject omitted the required execution-focus marker. This correction is scoped to the exact integration commit only."
+      },
+      {
+        "commit_sha": "c8b4e8e36dcc0d22cda6fe69dd43be04d5643531",
+        "pull_request": 437,
+        "head_sha": "f37ca25d2d99d80cb19d47d06aaacff3391d3e56",
+        "classification": "[material]",
+        "reason": "The BAT-481 reviewed branch head was classified as material, but the immutable GitHub squash commit subject omitted the required execution-focus marker. This correction is scoped to the exact integration commit only."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

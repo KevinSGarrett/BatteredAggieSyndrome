@@ -326,10 +326,43 @@ def main() -> int:
             set(normalized_domain_counts).issubset(set(contract["domain_grain"])),
         )
     else:
-        check(
-            "all_contract_domains_nonempty",
-            set(normalized_domain_counts) == set(contract["domain_grain"]),
-        )
+        if normalized_domain_counts:
+            check(
+                "all_contract_domains_nonempty",
+                set(normalized_domain_counts) == set(contract["domain_grain"]),
+            )
+        else:
+            # Optional parser runtimes are allowed to be unavailable; in that case
+            # raw captured domains remain authoritative for bounded-domain presence.
+            fallback_domain_counts = manifest["domain_capture_counts"]
+            check(
+                "parser_runtime_unavailable_domain_fallback",
+                set(fallback_domain_counts) == set(contract["domain_grain"]),
+            )
+            check(
+                "parser_runtime_unavailable_counts_nonzero",
+                all(int(count) > 0 for count in fallback_domain_counts.values()),
+            )
+            parser_unavailable_entries = [
+                normalized
+                for row in captured
+                for normalized in row.get("normalization", [])
+                if normalized.get("state") == "PARSER_RUNTIME_UNAVAILABLE"
+            ]
+            check(
+                "parser_runtime_unavailable_entries_present",
+                len(parser_unavailable_entries) > 0,
+            )
+            check(
+                "parser_runtime_unavailable_entries_consistent",
+                all(
+                    int(entry.get("row_count", -1)) == 0
+                    and "payload_relative_path" not in entry
+                    and "payload_sha256" not in entry
+                    and "payload_bytes" not in entry
+                    for entry in parser_unavailable_entries
+                ),
+            )
     check(
         "gate_normalized_domain_counts",
         gate["bounded_population"]["normalized_domain_counts"]

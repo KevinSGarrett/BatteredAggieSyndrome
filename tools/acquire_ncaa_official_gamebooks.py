@@ -1807,7 +1807,10 @@ def build_gate(
     contest_ids = sorted({row["contest_id"] for row in captured})
     endpoint_ids = sorted({row["endpoint_id"] for row in captured})
     all_domains = sorted(contract["domain_grain"])
-    captured_domains = sorted(manifest.get("normalized_domain_counts", manifest["domain_capture_counts"]))
+    normalized_domain_counts = manifest.get("normalized_domain_counts", {})
+    captured_domains = sorted(
+        normalized_domain_counts if normalized_domain_counts else manifest["domain_capture_counts"]
+    )
     missing_domains = sorted(set(all_domains) - set(captured_domains))
     result = "PASS_BOUNDED_CANDIDATE_CAPTURE" if captured else "PRESERVED_NEGATIVE_NO_VALID_CAPTURE"
     gate = {

@@ -869,16 +869,22 @@
   "validated_2023_development_outcomes": {
     "child_jira_key": "BAT-565",
     "local_id": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
-    "dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+    "dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "gate_identity": "90c5765ae14c7c668387bc2efa78e0e2d05a6e5c9c1f58c0d5ca2e572273a1d4",
     "classification": "DEVELOPMENT_ONLY_2023_OUTCOME_LABELS",
+    "label_availability_policy": "CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE",
+    "supersedes": {
+      "dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+      "reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID"
+    },
     "repository_gate": {
       "path": "artifacts/pit/development_2023_outcome_gate.json",
-      "sha256": "2612efad2762adb3df1805341062de4be1de2d52b01d64cde287b19597d1926c",
-      "bytes": 4504
+      "sha256": "23682edeabfe21b101c87780c428cdee4e86580acc46957cd31b57d275a98df9",
+      "bytes": 6197
     },
     "manifest": {
-      "path": "<external-data-root>/manifests/development_outcomes/sha256/902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2/development_2023_outcome_manifest.json",
-      "sha256": "bf47807195a3b554f22048fe96cdfe0c62a60c0894fb6b0a43de666ccf82d17e"
+      "path": "<external-data-root>/manifests/development_outcomes/sha256/bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8/development_2023_outcome_manifest.json",
+      "sha256": "6f5b248ec6cbc39a0028cc349222f31a9a473adcc7c08832be45dab1375fbfe5"
     },
     "source": {
       "capture_id": "cap_2c82aa5161f3ad63b5abb3c3",

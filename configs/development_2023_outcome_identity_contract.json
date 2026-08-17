@@ -1,11 +1,11 @@
 {
-  "schema_version": "1.0.0",
-  "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V1",
+  "schema_version": "2.0.0",
+  "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V2",
   "decision_unit": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
   "jira_key": "BAT-565",
   "parent_jira_key": "BAT-523",
   "classification": "DEVELOPMENT_ONLY_2023_OUTCOME_LABELS",
-  "purpose": "Materialize a 2023-only content-addressed development-label identity from the already captured SRC-002 schedule/outcome payload. Labels are available only after game completion and are never pregame features.",
+  "purpose": "Materialize a 2023-only content-addressed development-label identity from the already captured SRC-002 schedule/outcome payload. Labels become eligible only after a precommitted conservative post-start bound because the capture has no verified final-whistle or publication timestamp. Labels are never pregame features.",
   "source_contract": {
     "source_id": "SRC-002",
     "source_table_identity": "SRC-002:2023:schedules_games_official_outcomes",
@@ -21,6 +21,8 @@
     "source_field_schema_sha256": "5430d7160e8733eac2cccd26e13168fa5af3e25e374e2f955603a8f0f33cec62",
     "observed_schema_reconciliation_fingerprint": "5504b379090074b266e3b2eb2bd2f1d1a8ec3571b1c7a7edd7062b2aac0a1615",
     "capture_known_at_utc": "2026-08-09T16:57:56Z",
+    "verified_completion_or_publication_timestamp_fields": [],
+    "completion_timestamp_investigation": "SRC-002 2023 games payload fields were inspected. Time-bearing fields are only startDate and the completed boolean. No endDate, finalWhistle, publishedAt, or equivalent verified completion/publication timestamp exists. Do not invent one.",
     "parameters": {
       "classification": "fbs",
       "year": "2023"
@@ -45,6 +47,17 @@
     "raw_storage_policy": "ALLOW_IMMUTABLE_RAW_AND_NORMALIZED_DATA_OUTSIDE_GIT",
     "bulk_payloads_in_git": false
   },
+  "parent_identities": {
+    "BAT-523_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "BAT-554_outcome_spine": "cc808f4ececfc98c79940bf04c4794294281c5fbeeb4e9ad2d09b98f0c860f69",
+    "BAT-554_ncaa_crosscheck": "783f24eb89e0adbb5397cf0c799e4785af8adc31c0f7dfad556cae074ba82b2a"
+  },
+  "supersedes": {
+    "dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+    "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V1",
+    "reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID",
+    "detail": "V1 set label_available_after_utc and outcome_effective_at_utc equal to start_time_utc. A final result cannot be historically available at kickoff."
+  },
   "acceptance": {
     "allowed_seasons": [2023],
     "forbidden_seasons": [2024, 2025],
@@ -64,7 +77,9 @@
     "expected_season_types": {
       "regular": 868,
       "postseason": 42
-    }
+    },
+    "label_available_after_must_be_strictly_after_kickoff": true,
+    "team_opponent_labels_must_be_complementary": true
   },
   "authority": {
     "development_2023_label_use": true,
@@ -80,19 +95,44 @@
     "protected_performance_claims": false,
     "forecast_publication": false
   },
+  "label_availability_policy": {
+    "policy_id": "CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE",
+    "kind": "POLICY_BOUNDARY_NOT_OBSERVED_TIMESTAMP",
+    "offset_hours": 24,
+    "comparison": "label_available_after_utc = start_time_utc + 24h; fold eligibility requires label_available_after_utc < fold_evaluation_cutoff_utc",
+    "invented_observed_timestamp": false
+  },
   "label_semantics": {
     "rows_are_labels_only": true,
     "not_a_pregame_feature": true,
     "available_only_after_completion": true,
-    "completion_bound": "COMPLETED_TRUE_AND_START_UTC_IS_LOWER_BOUND; FINAL_WHISTLE_TIME_UNKNOWN",
+    "completed_final_required": true,
+    "availability_boundary_strictly_after_kickoff": true,
+    "label_availability_policy": "CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE",
+    "completion_bound": "COMPLETED_TRUE_AND_CONSERVATIVE_START_PLUS_24H_ELIGIBILITY_BOUND; FINAL_WHISTLE_TIME_UNKNOWN",
     "outcome_observed_at": "SOURCE_CAPTURE_KNOWN_AT_UTC",
-    "outcome_effective_at": "GAME_START_UTC_LOWER_BOUND_NOT_FINAL_WHISTLE",
-    "historical_known_at_state": "CAPTURE_TIME_KNOWN; FINAL_WHISTLE_AND_SOURCE_PUBLICATION_TIMES_UNKNOWN"
+    "outcome_effective_at": "UNAVAILABLE_NO_VERIFIED_COMPLETION_OR_PUBLICATION_TIMESTAMP",
+    "historical_known_at_state": "CAPTURE_TIME_KNOWN; FINAL_WHISTLE_AND_SOURCE_PUBLICATION_TIMES_UNKNOWN",
+    "downstream_eligibility": "LABEL_NOT_ELIGIBLE_FOR_A_FOLD_BEFORE_LABEL_AVAILABLE_AFTER_UTC"
   },
+  "issue_completion": {
+    "jira_key": "BAT-565",
+    "local_issue_id": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
+    "completion_requires_corrected_chronology": true,
+    "kickoff_availability_forbidden": true
+  },
+  "non_authoritative_metadata": [
+    "issued_at_utc",
+    "producer.python",
+    "producer.platform",
+    "producer.polars"
+  ],
   "negative_findings": [
     "The 2023 source capture was retrieved on 2026-08-09; capture time is not a 2023 historical publication or final-whistle time.",
+    "SRC-002 2023 games rows contain no verified completion, final-whistle, or result-publication timestamp. The +24h bound is a conservative eligibility policy, not an observed end time.",
     "NCAA official linescores provide exact canonical score agreement for 313 of 910 games; 462 mapped comparisons lack validated official linescores and 135 games have no NCAA comparison row.",
     "Missing NCAA confirmation is reported, not treated as a silent score choice.",
-    "These labels grant no protected-performance, champion, promotion, production, A&M-lift, or BAS-effect authority."
+    "These labels grant no protected-performance, champion, promotion, production, A&M-lift, or BAS-effect authority.",
+    "Identity 902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2 is superseded and must not be consumed by active downstream artifacts."
   ]
 }

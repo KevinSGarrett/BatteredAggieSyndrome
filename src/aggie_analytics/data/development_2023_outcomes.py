@@ -7,7 +7,7 @@ import json
 import os
 import platform
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -15,13 +15,24 @@ from typing import Any, Iterable, Mapping, Sequence
 # Labels are post-completion observations. They are never pregame features and
 # grant no protected, champion, or promotion authority.
 
-SCHEMA_VERSION = "aggie.data.development_2023_outcomes.v1"
+SCHEMA_VERSION = "aggie.data.development_2023_outcomes.v2"
 CONTRACT_RELATIVE = "configs/development_2023_outcome_identity_contract.json"
 GATE_RELATIVE = "artifacts/pit/development_2023_outcome_gate.json"
+EVIDENCE_RELATIVE = "artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json"
 HISTORICAL_KNOWN_AT_STATE = (
     "CAPTURE_TIME_KNOWN; FINAL_WHISTLE_AND_SOURCE_PUBLICATION_TIMES_UNKNOWN"
 )
+LABEL_AVAILABILITY_POLICY = (
+    "CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE"
+)
+OUTCOME_EFFECTIVE_UNAVAILABLE_REASON = (
+    "UNAVAILABLE_NO_VERIFIED_COMPLETION_OR_PUBLICATION_TIMESTAMP"
+)
+SUPERSEDED_KICKOFF_IDENTITY = (
+    "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
+)
 PROTECTED_SEASONS = frozenset({2024, 2025})
+PASS_RESULT = "PASS_DEVELOPMENT_ONLY_2023_LABELS"
 REQUIRED_SOURCE_FIELDS = (
     "id",
     "season",
@@ -53,7 +64,10 @@ ACCEPTED_GAME_FIELDS = (
     "completed",
     "outcome_observed_at_utc",
     "outcome_effective_at_utc",
+    "outcome_effective_unavailable_reason",
     "label_available_after_utc",
+    "conservative_eligibility_bound_utc",
+    "label_availability_policy",
     "source_capture_id",
     "source_payload_sha256",
     "source_record_evidence_sha256",
@@ -87,7 +101,10 @@ TEAM_OBSERVATION_FIELDS = (
     "result",
     "outcome_observed_at_utc",
     "outcome_effective_at_utc",
+    "outcome_effective_unavailable_reason",
     "label_available_after_utc",
+    "conservative_eligibility_bound_utc",
+    "label_availability_policy",
     "source_capture_id",
     "source_payload_sha256",
     "source_record_evidence_sha256",
@@ -125,8 +142,19 @@ AUTHORITY_BEARING_MANIFEST_FIELDS = (
     "population",
     "authority",
     "label_semantics",
+    "label_availability_policy",
     "payloads",
     "scientific_nonclaims",
+    "downstream_eligibility",
+    "issue_completion",
+    "supersession",
+    "protected_period_exclusions",
+)
+NON_AUTHORITATIVE_METADATA = (
+    "issued_at_utc",
+    "producer.python",
+    "producer.platform",
+    "producer.polars",
 )
 
 
@@ -183,6 +211,73 @@ def iso_z(value: datetime) -> str:
     return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
+def conservative_eligibility_bound(start_time_utc: str, offset_hours: int = 24) -> str:
+    start = parse_utc(start_time_utc)
+    bound = start + timedelta(hours=int(offset_hours))
+    if bound <= start:
+        raise ValueError("conservative eligibility bound is not strictly after kickoff")
+    return iso_z(bound)
+
+
+def expected_parent_identities(contract: Mapping[str, Any]) -> dict[str, str]:
+    declared = dict(contract["parent_identities"])
+    source = contract["source_contract"]
+    derived = {
+        "BAT-523_replay": declared["BAT-523_replay"],
+        "BAT-554_outcome_spine": source["outcome_spine_identity"],
+        "BAT-554_ncaa_crosscheck": source["ncaa_crosscheck_identity"],
+    }
+    if derived != declared:
+        raise ValueError("contract parent identities are not independently derivable from admitted sources")
+    return derived
+
+
+def expected_scientific_nonclaims() -> dict[str, bool]:
+    return {
+        "bas_or_aggie_excess_result_claimed": False,
+        "protected_performance_claimed": False,
+        "production_model_ready": False,
+        "trained_production_champion": False,
+        "tamu_specialization_lift_claimed": False,
+        "historical_population_ready": False,
+    }
+
+
+def expected_downstream_eligibility() -> dict[str, Any]:
+    return {
+        "fold_eligible_only_after": "label_available_after_utc",
+        "comparison": "label_available_after_utc < fold_evaluation_cutoff_utc",
+        "kickoff_eligibility_forbidden": True,
+        "protected_years_forbidden": [2024, 2025],
+    }
+
+
+def expected_issue_completion(contract: Mapping[str, Any]) -> dict[str, Any]:
+    completion = dict(contract["issue_completion"])
+    return {
+        "jira_key": completion["jira_key"],
+        "local_issue_id": completion["local_issue_id"],
+        "completion_requires_corrected_chronology": True,
+        "kickoff_availability_forbidden": True,
+        "issue_complete": True,
+        "workflow_state": "DONE",
+        "evidence_state": "VERIFIED",
+        "correction": "LABEL_CHRONOLOGY_HARDENED",
+    }
+
+
+def expected_supersession(contract: Mapping[str, Any]) -> dict[str, Any]:
+    supersedes = dict(contract["supersedes"])
+    if supersedes.get("dataset_identity") != SUPERSEDED_KICKOFF_IDENTITY:
+        raise ValueError("contract lost the superseded kickoff-time identity")
+    return {
+        "dataset_identity": SUPERSEDED_KICKOFF_IDENTITY,
+        "contract_id": supersedes["contract_id"],
+        "reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID",
+        "active_downstream_use_forbidden": True,
+    }
+
+
 def outcome_result(home_points: int, away_points: int) -> str:
     if home_points > away_points:
         return "HOME_WIN"
@@ -202,8 +297,19 @@ def team_result(points_for: int, points_against: int) -> str:
 def load_contract(repo_root: Path) -> dict[str, Any]:
     path = repo_root / CONTRACT_RELATIVE
     contract = json.loads(path.read_text(encoding="utf-8"))
-    if contract.get("contract_id") != "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V1":
+    if contract.get("contract_id") != "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V2":
         raise ValueError("unexpected 2023 development-outcome contract identity")
+    policy = contract.get("label_availability_policy", {})
+    if policy.get("policy_id") != LABEL_AVAILABILITY_POLICY:
+        raise ValueError("label availability policy is not the precommitted conservative bound")
+    if int(policy.get("offset_hours", 0)) != 24:
+        raise ValueError("conservative eligibility offset drifted")
+    if policy.get("invented_observed_timestamp") is not False:
+        raise ValueError("contract must not invent an observed final-whistle timestamp")
+    if contract.get("source_contract", {}).get("verified_completion_or_publication_timestamp_fields") != []:
+        raise ValueError("contract invented a verified completion timestamp field")
+    expected_parent_identities(contract)
+    expected_supersession(contract)
     authority = contract["authority"]
     if authority.get("development_2023_label_use") is not True:
         raise ValueError("2023 development label authority is not explicitly enabled")
@@ -535,6 +641,10 @@ def classify_source_row(
                 ), ncaa_row
     start_time_utc = mapping["start_time_utc"]
     parse_utc(start_time_utc)
+    offset_hours = int(source.get("conservative_offset_hours", 24))
+    bound = conservative_eligibility_bound(start_time_utc, offset_hours)
+    if parse_utc(bound) <= parse_utc(start_time_utc):
+        raise ValueError("label availability boundary is not strictly after kickoff")
     accepted = {
         "observation_id": "dev2023_outcome_" + stable_hash(
             {
@@ -558,8 +668,11 @@ def classify_source_row(
         "outcome_result": outcome_result(home_points, away_points),
         "completed": True,
         "outcome_observed_at_utc": source["capture_known_at_utc"],
-        "outcome_effective_at_utc": start_time_utc,
-        "label_available_after_utc": start_time_utc,
+        "outcome_effective_at_utc": None,
+        "outcome_effective_unavailable_reason": OUTCOME_EFFECTIVE_UNAVAILABLE_REASON,
+        "label_available_after_utc": bound,
+        "conservative_eligibility_bound_utc": bound,
+        "label_availability_policy": LABEL_AVAILABILITY_POLICY,
         "source_capture_id": source["capture_id"],
         "source_payload_sha256": source["source_payload_sha256"],
         "source_record_evidence_sha256": record_sha,
@@ -608,7 +721,10 @@ def materialize_team_observations(accepted: Iterable[Mapping[str, Any]]) -> list
                 "result": team_result(points_for, points_against),
                 "outcome_observed_at_utc": game["outcome_observed_at_utc"],
                 "outcome_effective_at_utc": game["outcome_effective_at_utc"],
+                "outcome_effective_unavailable_reason": game["outcome_effective_unavailable_reason"],
                 "label_available_after_utc": game["label_available_after_utc"],
+                "conservative_eligibility_bound_utc": game["conservative_eligibility_bound_utc"],
+                "label_availability_policy": game["label_availability_policy"],
                 "source_capture_id": game["source_capture_id"],
                 "source_payload_sha256": game["source_payload_sha256"],
                 "source_record_evidence_sha256": game["source_record_evidence_sha256"],
@@ -629,7 +745,8 @@ def build_rows(
     ncaa: Mapping[str, Mapping[str, Any]],
     contract: Mapping[str, Any],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
-    source = contract["source_contract"]
+    source = dict(contract["source_contract"])
+    source["conservative_offset_hours"] = int(contract["label_availability_policy"]["offset_hours"])
     accepted: list[dict[str, Any]] = []
     quarantined: list[dict[str, Any]] = []
     ncaa_rows: list[dict[str, Any]] = []
@@ -656,6 +773,8 @@ def build_rows(
     accepted.sort(key=lambda row: (row["start_time_utc"], row["canonical_game_id"]))
     observations = materialize_team_observations(accepted)
     observations.sort(key=lambda row: (row["start_time_utc"], row["canonical_game_id"], row["site"]))
+    assert_label_chronology(accepted, observations, contract)
+    assert_complementary_team_labels(accepted, observations)
     return accepted, observations, quarantined, ncaa_rows
 
 
@@ -719,6 +838,81 @@ def assert_population(population: Mapping[str, Any], contract: Mapping[str, Any]
         raise ValueError("team observations are not two-per-accepted-game")
 
 
+def assert_label_chronology(
+    accepted: Sequence[Mapping[str, Any]],
+    observations: Sequence[Mapping[str, Any]],
+    contract: Mapping[str, Any],
+) -> None:
+    capture_known = contract["source_contract"]["capture_known_at_utc"]
+    offset_hours = int(contract["label_availability_policy"]["offset_hours"])
+    seen_game_team: set[tuple[str, str]] = set()
+    for row in (*accepted, *observations):
+        if int(row["season"]) in PROTECTED_SEASONS:
+            raise ValueError("protected 2024/2025 outcome entered accepted labels")
+        if int(row["season"]) != 2023:
+            raise ValueError("non-2023 season entered accepted labels")
+        start = parse_utc(str(row["start_time_utc"]))
+        available = parse_utc(str(row["label_available_after_utc"]))
+        bound = parse_utc(str(row["conservative_eligibility_bound_utc"]))
+        if available <= start or bound <= start:
+            raise ValueError("label availability boundary is not strictly after kickoff")
+        expected_bound = conservative_eligibility_bound(str(row["start_time_utc"]), offset_hours)
+        if str(row["label_available_after_utc"]) != expected_bound:
+            raise ValueError("label_available_after_utc is not the precommitted conservative bound")
+        if str(row["conservative_eligibility_bound_utc"]) != expected_bound:
+            raise ValueError("conservative eligibility bound drifted")
+        if row.get("outcome_effective_at_utc") is not None:
+            raise ValueError("outcome_effective_at_utc must remain unavailable without a verified completion timestamp")
+        if row.get("outcome_effective_unavailable_reason") != OUTCOME_EFFECTIVE_UNAVAILABLE_REASON:
+            raise ValueError("outcome_effective unavailable reason drifted")
+        if row.get("outcome_observed_at_utc") != capture_known:
+            raise ValueError("outcome_observed_at_utc is not the source capture known-at")
+        if row.get("label_availability_policy") != LABEL_AVAILABILITY_POLICY:
+            raise ValueError("label availability policy drifted")
+        if row.get("completed") is False:
+            raise ValueError("non-final game received a development label")
+    for row in accepted:
+        if row.get("completed") is not True:
+            raise ValueError("accepted game is not completed/final")
+    for row in observations:
+        key = (str(row["canonical_game_id"]), str(row["team_id"]))
+        if key in seen_game_team:
+            raise ValueError(f"duplicate game-team label row: {key}")
+        seen_game_team.add(key)
+
+
+def assert_complementary_team_labels(
+    accepted: Sequence[Mapping[str, Any]],
+    observations: Sequence[Mapping[str, Any]],
+) -> None:
+    by_game: dict[str, list[Mapping[str, Any]]] = {}
+    for row in observations:
+        by_game.setdefault(str(row["canonical_game_id"]), []).append(row)
+    if len(by_game) != len(accepted):
+        raise ValueError("team observations do not cover exactly the accepted games")
+    for game in accepted:
+        rows = by_game.get(str(game["canonical_game_id"]), [])
+        if len(rows) != 2:
+            raise ValueError(f"game {game['canonical_game_id']} does not have exactly two team rows")
+        home = next((row for row in rows if row["site"] == "HOME"), None)
+        away = next((row for row in rows if row["site"] == "AWAY"), None)
+        if home is None or away is None:
+            raise ValueError("team rows are not a HOME/AWAY pair")
+        if home["team_id"] != game["home_team_id"] or away["team_id"] != game["away_team_id"]:
+            raise ValueError("team-row orientation drifted from the accepted game")
+        if home["opponent_id"] != away["team_id"] or away["opponent_id"] != home["team_id"]:
+            raise ValueError("team/opponent identifiers are not complementary")
+        if home["points_for"] != away["points_against"] or away["points_for"] != home["points_against"]:
+            raise ValueError("team/opponent scores are not complementary")
+        complementary = {
+            ("WIN", "LOSS"),
+            ("LOSS", "WIN"),
+            ("TIE", "TIE"),
+        }
+        if (home["result"], away["result"]) not in complementary:
+            raise ValueError("team/opponent results are not complementary")
+
+
 def identity_core(
     *,
     contract_sha256: str,
@@ -726,6 +920,7 @@ def identity_core(
     record_hashes: Mapping[str, str],
     population: Mapping[str, Any],
     classification: str,
+    parent_identities: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     return {
         "classification": classification,
@@ -736,6 +931,8 @@ def identity_core(
         "ncaa_comparisons_sha256": source["ncaa_comparisons_sha256"],
         "outcome_spine_completed_sha256": source["outcome_spine_completed_sha256"],
         "record_hashes": dict(record_hashes),
+        "label_availability_policy": LABEL_AVAILABILITY_POLICY,
+        "parent_identities": dict(parent_identities or {}),
         "population": {
             key: population[key]
             for key in (
@@ -799,6 +996,7 @@ def rebuild_expected(
         "ncaa_crosscheck": dataframe_record_sha256(ncaa_frame),
     }
     contract_sha256 = sha256_file(repo_root / CONTRACT_RELATIVE)
+    parents = expected_parent_identities(contract)
     identity = stable_hash(
         identity_core(
             contract_sha256=contract_sha256,
@@ -806,6 +1004,7 @@ def rebuild_expected(
             record_hashes=record_hashes,
             population=population,
             classification=contract["classification"],
+            parent_identities=parents,
         )
     )
     return {
@@ -823,6 +1022,7 @@ def rebuild_expected(
         "record_hashes": record_hashes,
         "contract_sha256": contract_sha256,
         "dataset_identity": identity,
+        "parent_identities": parents,
         "code_identity": sha256_file(Path(__file__).resolve()),
     }
 
@@ -915,11 +1115,7 @@ def materialize(
             "outcome_spine_completed_sha256": expected["contract"]["source_contract"]["outcome_spine_completed_sha256"],
             "protected_split_registry_sha256": expected["contract"]["source_contract"]["protected_split_registry_sha256"],
             "contract_sha256": expected["contract_sha256"],
-            "parent_identities": {
-                "BAT-523_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
-                "BAT-554_outcome_spine": expected["contract"]["source_contract"]["outcome_spine_identity"],
-                "BAT-554_ncaa_crosscheck": expected["contract"]["source_contract"]["ncaa_crosscheck_identity"],
-            },
+            "parent_identities": expected["parent_identities"],
         },
         "producer": {
             "python": sys.version.split()[0],
@@ -931,26 +1127,30 @@ def materialize(
         "population": expected["population"],
         "authority": expected["contract"]["authority"],
         "label_semantics": expected["contract"]["label_semantics"],
+        "label_availability_policy": expected["contract"]["label_availability_policy"],
         "payloads": payloads,
         "negative_findings": expected["contract"]["negative_findings"],
-        "scientific_nonclaims": {
-            "bas_or_aggie_excess_result_claimed": False,
-            "protected_performance_claimed": False,
-            "production_model_ready": False,
-            "trained_production_champion": False,
-            "tamu_specialization_lift_claimed": False,
-            "historical_population_ready": False,
-        },
+        "scientific_nonclaims": expected_scientific_nonclaims(),
+        "downstream_eligibility": expected_downstream_eligibility(),
+        "issue_completion": expected_issue_completion(expected["contract"]),
+        "supersession": expected_supersession(expected["contract"]),
+        "protected_period_exclusions": sorted(PROTECTED_SEASONS),
     }
     manifest_path = manifest_root / "development_2023_outcome_manifest.json"
     _write_bytes(manifest_path, canonical_json_bytes(manifest) + b"\n")
+    gate_payloads = [
+        {key: item[key] for key in ("name", "role", "rows", "bytes", "sha256", "record_sha256")}
+        for item in payloads
+    ]
     gate = {
         "schema_version": SCHEMA_VERSION,
+        "artifact_type": "DEVELOPMENT_2023_OUTCOME_IDENTITY",
         "decision_unit": expected["contract"]["decision_unit"],
         "jira_key": expected["contract"]["jira_key"],
         "parent_jira_key": expected["contract"]["parent_jira_key"],
-        "result": "PASS_DEVELOPMENT_ONLY_2023_LABELS",
+        "result": PASS_RESULT,
         "classification": expected["contract"]["classification"],
+        "contract_id": expected["contract"]["contract_id"],
         "dataset_identity": identity,
         "manifest": {
             "relative_path": str(manifest_path.relative_to(output_root)).replace("\\", "/"),
@@ -958,25 +1158,199 @@ def materialize(
         },
         "input_identities": manifest["input_identities"],
         "population": expected["population"],
+        "payloads": gate_payloads,
+        "authority": expected["contract"]["authority"],
+        "label_semantics": expected["contract"]["label_semantics"],
+        "label_availability_policy": expected["contract"]["label_availability_policy"],
+        "scientific_nonclaims": manifest["scientific_nonclaims"],
+        "downstream_eligibility": manifest["downstream_eligibility"],
+        "issue_completion": manifest["issue_completion"],
+        "supersession": manifest["supersession"],
+        "protected_period_exclusions": sorted(PROTECTED_SEASONS),
+        "issued_at_utc": issued_at_utc,
+    }
+    gate["gate_identity"] = compute_gate_identity(gate)
+    gate_path = repo_root / GATE_RELATIVE
+    _write_bytes(gate_path, canonical_json_bytes(gate) + b"\n")
+    return {
+        "dataset_identity": identity,
+        "gate_identity": gate["gate_identity"],
+        "manifest_path": str(manifest_path),
+        "gate_path": str(gate_path),
+        "population": expected["population"],
+        "manifest_sha256": sha256_file(manifest_path),
+        "gate_sha256": sha256_file(gate_path),
+        "supersedes": SUPERSEDED_KICKOFF_IDENTITY,
+    }
+
+
+GATE_IDENTITY_FIELDS = (
+    "schema_version",
+    "artifact_type",
+    "result",
+    "classification",
+    "contract_id",
+    "decision_unit",
+    "jira_key",
+    "dataset_identity",
+    "manifest",
+    "input_identities",
+    "population",
+    "payloads",
+    "authority",
+    "label_semantics",
+    "label_availability_policy",
+    "scientific_nonclaims",
+    "downstream_eligibility",
+    "issue_completion",
+    "supersession",
+    "protected_period_exclusions",
+)
+
+
+def compute_gate_identity(gate: Mapping[str, Any]) -> str:
+    return stable_hash({key: gate[key] for key in GATE_IDENTITY_FIELDS if key in gate})
+
+
+def expected_payload_inventory(
+    expected: Mapping[str, Any],
+    data_root: Path,
+    manifest_payloads: Sequence[Mapping[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    identity = expected["dataset_identity"]
+    inventory = [
+        {
+            "name": "accepted_game_outcomes.parquet",
+            "role": "ACCEPTED_2023_DEVELOPMENT_GAME_LABELS",
+            "relative_path": f"pit_state/development_outcomes/sha256/{identity}/accepted_game_outcomes.parquet",
+            "rows": expected["population"]["accepted_games"],
+            "record_sha256": expected["record_hashes"]["accepted_game_outcomes"],
+            "columns": list(ACCEPTED_GAME_FIELDS),
+        },
+        {
+            "name": "team_outcome_observations.parquet",
+            "role": "ACCEPTED_2023_DEVELOPMENT_TEAM_LABELS",
+            "relative_path": f"pit_state/development_outcomes/sha256/{identity}/team_outcome_observations.parquet",
+            "rows": expected["population"]["team_observations"],
+            "record_sha256": expected["record_hashes"]["team_outcome_observations"],
+            "columns": list(TEAM_OBSERVATION_FIELDS),
+        },
+        {
+            "name": "quarantine.jsonl",
+            "role": "QUARANTINED_2023_DEVELOPMENT_OUTCOMES",
+            "relative_path": f"pit_state/development_outcomes/sha256/{identity}/quarantine.jsonl",
+            "rows": expected["population"]["quarantine_rows"],
+            "record_sha256": expected["record_hashes"]["quarantine"],
+            "columns": list(QUARANTINE_FIELDS),
+        },
+        {
+            "name": "ncaa_crosscheck.jsonl",
+            "role": "NCAA_OFFICIAL_CROSSCHECK_STATUS",
+            "relative_path": f"pit_state/development_outcomes/sha256/{identity}/ncaa_crosscheck.jsonl",
+            "rows": expected["population"]["source_rows"],
+            "record_sha256": expected["record_hashes"]["ncaa_crosscheck"],
+            "columns": list(NCAA_FIELDS),
+        },
+    ]
+    by_name = {item["name"]: item for item in (manifest_payloads or inventory)}
+    rebuilt: list[dict[str, Any]] = []
+    for item in inventory:
+        relative = by_name.get(item["name"], item).get("relative_path", item["relative_path"])
+        path = data_root / relative
+        rebuilt.append(
+            {
+                **item,
+                "relative_path": relative,
+                "bytes": path.stat().st_size if path.is_file() else None,
+                "sha256": sha256_file(path) if path.is_file() else None,
+            }
+        )
+    return rebuilt
+
+
+def expected_input_identities(expected: Mapping[str, Any]) -> dict[str, Any]:
+    source = expected["contract"]["source_contract"]
+    return {
+        "source_table_identity": source["source_table_identity"],
+        "capture_id": source["capture_id"],
+        "source_payload_sha256": source["source_payload_sha256"],
+        "capture_manifest_sha256": source["capture_manifest_sha256"],
+        "source_field_schema_sha256": source["source_field_schema_sha256"],
+        "canonical_registry_sha256": source["canonical_registry_sha256"],
+        "ncaa_crosscheck_identity": source["ncaa_crosscheck_identity"],
+        "ncaa_comparisons_sha256": source["ncaa_comparisons_sha256"],
+        "outcome_spine_identity": source["outcome_spine_identity"],
+        "outcome_spine_completed_sha256": source["outcome_spine_completed_sha256"],
+        "protected_split_registry_sha256": source["protected_split_registry_sha256"],
+        "contract_sha256": expected["contract_sha256"],
+        "parent_identities": expected_parent_identities(expected["contract"]),
+    }
+
+
+def expected_manifest_authority(
+    expected: Mapping[str, Any],
+    payloads: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "artifact_type": "DEVELOPMENT_2023_OUTCOME_IDENTITY",
+        "classification": expected["contract"]["classification"],
+        "contract_id": expected["contract"]["contract_id"],
+        "decision_unit": expected["contract"]["decision_unit"],
+        "jira_key": expected["contract"]["jira_key"],
+        "dataset_identity": expected["dataset_identity"],
+        "input_identities": expected_input_identities(expected),
+        "population": expected["population"],
+        "authority": expected["contract"]["authority"],
+        "label_semantics": expected["contract"]["label_semantics"],
+        "label_availability_policy": expected["contract"]["label_availability_policy"],
+        "payloads": list(payloads),
+        "scientific_nonclaims": expected_scientific_nonclaims(),
+        "downstream_eligibility": expected_downstream_eligibility(),
+        "issue_completion": expected_issue_completion(expected["contract"]),
+        "supersession": expected_supersession(expected["contract"]),
+        "protected_period_exclusions": sorted(PROTECTED_SEASONS),
+    }
+
+
+def expected_gate_document(
+    expected: Mapping[str, Any],
+    *,
+    manifest_relative_path: str,
+    manifest_sha256: str,
+    payloads: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    gate = {
+        "schema_version": SCHEMA_VERSION,
+        "artifact_type": "DEVELOPMENT_2023_OUTCOME_IDENTITY",
+        "decision_unit": expected["contract"]["decision_unit"],
+        "jira_key": expected["contract"]["jira_key"],
+        "parent_jira_key": expected["contract"]["parent_jira_key"],
+        "result": PASS_RESULT,
+        "classification": expected["contract"]["classification"],
+        "contract_id": expected["contract"]["contract_id"],
+        "dataset_identity": expected["dataset_identity"],
+        "manifest": {
+            "relative_path": manifest_relative_path,
+            "sha256": manifest_sha256,
+        },
+        "input_identities": expected_input_identities(expected),
+        "population": expected["population"],
         "payloads": [
             {key: item[key] for key in ("name", "role", "rows", "bytes", "sha256", "record_sha256")}
             for item in payloads
         ],
         "authority": expected["contract"]["authority"],
         "label_semantics": expected["contract"]["label_semantics"],
-        "scientific_nonclaims": manifest["scientific_nonclaims"],
-        "issued_at_utc": issued_at_utc,
+        "label_availability_policy": expected["contract"]["label_availability_policy"],
+        "scientific_nonclaims": expected_scientific_nonclaims(),
+        "downstream_eligibility": expected_downstream_eligibility(),
+        "issue_completion": expected_issue_completion(expected["contract"]),
+        "supersession": expected_supersession(expected["contract"]),
+        "protected_period_exclusions": sorted(PROTECTED_SEASONS),
     }
-    gate_path = repo_root / GATE_RELATIVE
-    _write_bytes(gate_path, canonical_json_bytes(gate) + b"\n")
-    return {
-        "dataset_identity": identity,
-        "manifest_path": str(manifest_path),
-        "gate_path": str(gate_path),
-        "population": expected["population"],
-        "manifest_sha256": sha256_file(manifest_path),
-        "gate_sha256": sha256_file(gate_path),
-    }
+    gate["gate_identity"] = compute_gate_identity(gate)
+    return gate
 
 
 def _compare(expected: Any, actual: Any, path: str, errors: list[str]) -> None:
@@ -1012,105 +1386,92 @@ def validate_artifact(
     data_root: Path,
     repo_root: Path,
     require_rebuild: bool = True,
+    gate: Mapping[str, Any] | None = None,
+    manifest: Mapping[str, Any] | None = None,
+    expected: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     gate_path = repo_root / GATE_RELATIVE
-    gate = json.loads(gate_path.read_text(encoding="utf-8"))
+    loaded_gate = dict(gate) if gate is not None else json.loads(gate_path.read_text(encoding="utf-8"))
     if not require_rebuild:
-        if gate.get("result") != "PASS_DEVELOPMENT_ONLY_2023_LABELS":
+        if loaded_gate.get("result") != PASS_RESULT:
             raise ValueError("gate result is not a 2023 development-label pass")
-        return {"result": "PASS", "mode": "gate_schema_only", "dataset_identity": gate["dataset_identity"]}
-    expected = rebuild_expected(data_root=data_root, repo_root=repo_root)
-    identity = expected["dataset_identity"]
-    if gate.get("dataset_identity") != identity:
-        raise ValueError("gate dataset identity does not match independently rebuilt identity")
+        return {"result": "PASS", "mode": "gate_schema_only", "dataset_identity": loaded_gate["dataset_identity"]}
+    rebuilt = expected or rebuild_expected(data_root=data_root, repo_root=repo_root)
+    identity = rebuilt["dataset_identity"]
     manifest_path = (
         data_root / "manifests" / "development_outcomes" / "sha256" / identity
         / "development_2023_outcome_manifest.json"
     )
-    if not manifest_path.is_file():
-        raise FileNotFoundError(f"missing rebuilt manifest: {manifest_path}")
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    loaded_manifest = (
+        dict(manifest)
+        if manifest is not None
+        else json.loads(manifest_path.read_text(encoding="utf-8"))
+        if manifest_path.is_file()
+        else {}
+    )
     errors: list[str] = []
-    expected_manifest_authority = {
-        "schema_version": SCHEMA_VERSION,
-        "artifact_type": "DEVELOPMENT_2023_OUTCOME_IDENTITY",
-        "classification": expected["contract"]["classification"],
-        "contract_id": expected["contract"]["contract_id"],
-        "decision_unit": expected["contract"]["decision_unit"],
-        "jira_key": expected["contract"]["jira_key"],
-        "dataset_identity": identity,
-        "input_identities": {
-            "source_table_identity": expected["contract"]["source_contract"]["source_table_identity"],
-            "capture_id": expected["contract"]["source_contract"]["capture_id"],
-            "source_payload_sha256": expected["contract"]["source_contract"]["source_payload_sha256"],
-            "capture_manifest_sha256": expected["contract"]["source_contract"]["capture_manifest_sha256"],
-            "source_field_schema_sha256": expected["contract"]["source_contract"]["source_field_schema_sha256"],
-            "canonical_registry_sha256": expected["contract"]["source_contract"]["canonical_registry_sha256"],
-            "ncaa_crosscheck_identity": expected["contract"]["source_contract"]["ncaa_crosscheck_identity"],
-            "ncaa_comparisons_sha256": expected["contract"]["source_contract"]["ncaa_comparisons_sha256"],
-            "outcome_spine_identity": expected["contract"]["source_contract"]["outcome_spine_identity"],
-            "outcome_spine_completed_sha256": expected["contract"]["source_contract"]["outcome_spine_completed_sha256"],
-            "protected_split_registry_sha256": expected["contract"]["source_contract"]["protected_split_registry_sha256"],
-            "contract_sha256": expected["contract_sha256"],
-            "parent_identities": manifest["input_identities"]["parent_identities"],
-        },
-        "population": expected["population"],
-        "authority": expected["contract"]["authority"],
-        "label_semantics": expected["contract"]["label_semantics"],
-        "payloads": [],
-        "scientific_nonclaims": {
-            "bas_or_aggie_excess_result_claimed": False,
-            "protected_performance_claimed": False,
-            "production_model_ready": False,
-            "trained_production_champion": False,
-            "tamu_specialization_lift_claimed": False,
-            "historical_population_ready": False,
-        },
-    }
-    rebuilt_payloads = []
-    for item in manifest.get("payloads", []):
-        path = data_root / item["relative_path"]
-        rebuilt_payloads.append(
-            {
-                "name": item["name"],
-                "role": item["role"],
-                "relative_path": item["relative_path"],
-                "rows": {
-                    "accepted_game_outcomes.parquet": expected["population"]["accepted_games"],
-                    "team_outcome_observations.parquet": expected["population"]["team_observations"],
-                    "quarantine.jsonl": expected["population"]["quarantine_rows"],
-                    "ncaa_crosscheck.jsonl": expected["population"]["source_rows"],
-                }[item["name"]],
-                "bytes": path.stat().st_size if path.is_file() else None,
-                "sha256": sha256_file(path) if path.is_file() else None,
-                "record_sha256": expected["record_hashes"][
-                    {
-                        "accepted_game_outcomes.parquet": "accepted_game_outcomes",
-                        "team_outcome_observations.parquet": "team_outcome_observations",
-                        "quarantine.jsonl": "quarantine",
-                        "ncaa_crosscheck.jsonl": "ncaa_crosscheck",
-                    }[item["name"]]
-                ],
-                "columns": {
-                    "accepted_game_outcomes.parquet": list(ACCEPTED_GAME_FIELDS),
-                    "team_outcome_observations.parquet": list(TEAM_OBSERVATION_FIELDS),
-                    "quarantine.jsonl": list(QUARANTINE_FIELDS),
-                    "ncaa_crosscheck.jsonl": list(NCAA_FIELDS),
-                }[item["name"]],
-            }
-        )
-    expected_manifest_authority["payloads"] = rebuilt_payloads
-    actual_authority = {key: manifest.get(key) for key in AUTHORITY_BEARING_MANIFEST_FIELDS}
-    _compare(expected_manifest_authority, actual_authority, "manifest", errors)
-    if gate.get("population") != expected["population"]:
-        errors.append("gate population does not match rebuilt population")
-    if gate.get("authority") != expected["contract"]["authority"]:
-        errors.append("gate authority drift")
+    if loaded_gate.get("dataset_identity") != identity:
+        errors.append("gate dataset identity does not match independently rebuilt identity")
+    if loaded_manifest.get("dataset_identity") != identity:
+        errors.append("manifest dataset identity does not match independently rebuilt identity")
+    if not loaded_manifest:
+        errors.append("missing rebuilt manifest")
+    rebuilt_payloads = expected_payload_inventory(rebuilt, data_root, loaded_manifest.get("payloads"))
+    for item in rebuilt_payloads:
+        if item["sha256"] is None:
+            errors.append(f"missing payload: {item['name']}")
+        if item["name"] not in {row.get("name") for row in loaded_manifest.get("payloads", [])}:
+            errors.append(f"payload inventory omitted {item['name']}")
+    expected_authority = expected_manifest_authority(rebuilt, rebuilt_payloads)
+    actual_authority = {key: loaded_manifest.get(key) for key in AUTHORITY_BEARING_MANIFEST_FIELDS}
+    _compare(expected_authority, actual_authority, "manifest", errors)
+    expected_gate = expected_gate_document(
+        rebuilt,
+        manifest_relative_path=str(manifest_path.relative_to(data_root)).replace("\\", "/")
+        if manifest_path.is_file()
+        else loaded_gate.get("manifest", {}).get("relative_path", ""),
+        manifest_sha256=sha256_file(manifest_path) if manifest_path.is_file() else "",
+        payloads=rebuilt_payloads,
+    )
+    for key in GATE_IDENTITY_FIELDS:
+        if key == "manifest":
+            continue
+        if loaded_gate.get(key) != expected_gate.get(key):
+            errors.append(f"gate.{key} is not independently reconstructed")
+    if loaded_gate.get("input_identities", {}).get("parent_identities") != expected_parent_identities(
+        rebuilt["contract"]
+    ):
+        errors.append("gate parent identities were not derived from the authoritative contract")
+    if loaded_gate.get("result") != PASS_RESULT:
+        errors.append("altered result/classification")
+    if loaded_gate.get("classification") != rebuilt["contract"]["classification"]:
+        errors.append("altered result/classification")
+    if loaded_gate.get("label_semantics") != rebuilt["contract"]["label_semantics"]:
+        errors.append("altered completion semantics")
+    if loaded_gate.get("scientific_nonclaims") != expected_scientific_nonclaims():
+        errors.append("altered protected nonclaims")
+    if loaded_gate.get("issue_completion") != expected_issue_completion(rebuilt["contract"]):
+        errors.append("altered issue completion state")
+    if loaded_gate.get("supersession") != expected_supersession(rebuilt["contract"]):
+        errors.append("supersession metadata drift")
+    if loaded_gate.get("protected_period_exclusions") != sorted(PROTECTED_SEASONS):
+        errors.append("protected-period exclusions drifted")
+    if loaded_gate.get("dataset_identity") == SUPERSEDED_KICKOFF_IDENTITY:
+        errors.append("superseded kickoff-time identity is still active")
+    independently_recomputed = compute_gate_identity(
+        {key: loaded_gate[key] for key in GATE_IDENTITY_FIELDS if key in loaded_gate}
+    )
+    if loaded_gate.get("gate_identity") != expected_gate["gate_identity"]:
+        errors.append("gate identity does not match independently reconstructed authority")
+    if independently_recomputed == expected_gate["gate_identity"] and loaded_gate.get("result") != PASS_RESULT:
+        errors.append("forged terminal state survived outer identity recomputation")
     if errors:
-        raise ValueError("independent 2023 outcome validation failed: " + "; ".join(errors[:12]))
+        raise ValueError("independent 2023 outcome validation failed: " + "; ".join(errors[:16]))
     return {
         "result": "PASS",
         "mode": "independent_rebuild",
         "dataset_identity": identity,
-        "population": expected["population"],
+        "gate_identity": expected_gate["gate_identity"],
+        "population": rebuilt["population"],
+        "supersedes": SUPERSEDED_KICKOFF_IDENTITY,
     }

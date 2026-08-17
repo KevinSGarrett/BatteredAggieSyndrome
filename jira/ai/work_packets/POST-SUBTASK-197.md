@@ -35,14 +35,14 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `DATA_MATERIALIZATION`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `SOURCE_ROUTE_AND_PARSER_CONTRACT_VERIFIED_NO_NATIONAL_OFFICIAL_POPULATION` → `EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY`
-- Evidence state: `PARTIAL`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-069`
 
 ## Read first

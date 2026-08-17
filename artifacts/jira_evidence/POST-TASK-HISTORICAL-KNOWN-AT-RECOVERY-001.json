@@ -14,7 +14,7 @@
     "evidence_state": "VERIFIED_SCOPED",
     "parent": "BAT-32",
     "blocks": ["BAT-399"],
-    "relates_to": ["BAT-398", "BAT-565"]
+    "relates_to": ["BAT-398", "BAT-565", "BAT-566"]
   },
   "trigger_evidence": [
     {
@@ -898,6 +898,32 @@
     "authority": "DEVELOPMENT_2023_LABELS_ONLY; NOT_PREGAME_FEATURES; NO_PROTECTED_ADMISSION",
     "closes_BAT-523": false
   },
+  "validated_2023_labeled_development_replay": {
+    "child_jira_key": "BAT-566",
+    "local_id": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
+    "matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
+    "replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7",
+    "classification": "DEVELOPMENT_ONLY_2023_LABELED_WALK_FORWARD",
+    "repository_gate": {
+      "path": "artifacts/pit/development_walk_forward_2023.json",
+      "sha256": "6e519584b8ce6216f6639c64ea775322709becc6323884b7a1f784f8a57ef572",
+      "bytes": 26231
+    },
+    "manifest": {
+      "path": "<external-data-root>/manifests/development_2023_matrix/sha256/84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a/development_2023_labeled_replay_manifest.json",
+      "sha256": "e5aec7deecb303ecec5cb7852b05c0060055fd7ce3544147206717bb04457591"
+    },
+    "population": {
+      "feature_rows": 1820,
+      "label_rows": 1820,
+      "games": 910,
+      "seasons": [2023]
+    },
+    "development_metrics_only": true,
+    "play_drive_incremental_brier_delta": 0.004625118047243665,
+    "promotion_authority": false,
+    "closes_BAT-523": false
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -954,6 +980,8 @@
     "other_domain_expansion_continues": true,
     "development_2023_outcome_labels_materialized": true,
     "development_2023_outcome_protected_admission": false,
+    "development_2023_labeled_walk_forward_materialized": true,
+    "development_2023_labeled_walk_forward_protected_admission": false,
     "full_historical_population_ready": false,
     "gap_002_resolved": false,
     "protected_model_promotion_eligible": false,

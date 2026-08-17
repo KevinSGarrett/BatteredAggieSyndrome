@@ -1,0 +1,132 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-17T19:20:00Z",
+  "jira_key": "BAT-566",
+  "local_issue_id": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": ["BAT-523", "BAT-565", "BAT-400", "BAT-401"],
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED_SCOPED",
+  "issue_complete": false,
+  "observable_outcome": "Cycle #5 Phase 4 built a 2023-only development matrix from BAT-523 priors, 2010-2022 play/drive aggregates, and BAT-565 labels, then ran an expanding-window labeled walk-forward. Prior-only development accuracy was 0.600 and Brier 0.231. Adding one fold-local play/drive EPA coefficient made development Brier worse by 0.0046. That negative incremental result is preserved. No 2024/2025 outcomes entered the matrix. The protected lane remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress.",
+  "outputs": [
+    {
+      "path": "artifacts/pit/development_walk_forward_2023.json",
+      "bytes": 26231,
+      "sha256": "6e519584b8ce6216f6639c64ea775322709becc6323884b7a1f784f8a57ef572",
+      "matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
+      "replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
+    },
+    {
+      "path": "configs/development_2023_labeled_replay_contract.json",
+      "bytes": 4268,
+      "sha256": "029d2fe4cef9c70069fdc76b5247bc92ceac7f3e4a00bff7ce0fb2ea7b5e7faa"
+    },
+    {
+      "path": "src/aggie_analytics/experimentation/development_2023_labeled_replay.py",
+      "bytes": 61881,
+      "sha256": "9644093ab4098a98aa381a17172da4a609d30b507d891fc46298534e17b7201d"
+    },
+    {
+      "path": "tools/build_development_2023_labeled_replay.py",
+      "bytes": 1475,
+      "sha256": "c6778ac9a7bb2292042fec1ec00f424f9eb4be5e89d80dfec50ee56e7f1a7726"
+    },
+    {
+      "path": "tools/validate_development_2023_labeled_replay.py",
+      "bytes": 3993,
+      "sha256": "ed1b0ce8c507cc21d28f96c5a317b4f4a9bef456522243e95b7e529707bffe3e"
+    },
+    {
+      "path": "tests/test_development_2023_labeled_replay.py",
+      "bytes": 12509,
+      "sha256": "58769a4a5880c1a4e8d5b84cb0bd68c8e53ad860fc77bac45d39846d0f12a8bf"
+    }
+  ],
+  "matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
+  "replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7",
+  "supersedes_matrix_identity": "d04db5487893a73f1bed0ab9ed37743965e74f0d29bbe80fd316f2372e3aad2b",
+  "supersedes_replay_identity": "1cc4debf345e0baade91a46e6eb5047ce46424b09235f1722a55de6f5c10d318",
+  "external_manifest": {
+    "path": "<external-data-root>/manifests/development_2023_matrix/sha256/84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a/development_2023_labeled_replay_manifest.json",
+    "sha256": "e5aec7deecb303ecec5cb7852b05c0060055fd7ce3544147206717bb04457591"
+  },
+  "input_identities": {
+    "bat523_prior_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "bat523_pregame_prior_rows_sha256": "23db814da58cfbf0975e99b32130c531ae8e4f26867f0ac1e5207ba36bd6d140",
+    "play_drive_dataset_identity": "1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d",
+    "play_drive_feature_sha256": "d24f0d9f9726886b5771739c7b704ca05fd964a16826673c5a5a5dd73cc75db9",
+    "bat565_label_dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+    "bat565_team_outcome_sha256": "7ea39024bde3575e4e31f100f014b5d51adada6dda2a6e0050279723420d77f8",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
+  },
+  "external_payloads": [
+    {
+      "name": "development_2023_matrix_features.parquet",
+      "rows": 1820,
+      "bytes": 276372,
+      "sha256": "a8f126af23b5c24635a305a8f58fa89be092a15a0673bf6ff75b83579bf6f124",
+      "record_sha256": "198108f91e3be233b3986f969206bf8a933b963cc4a7c0a59e916344fc8af0cd"
+    },
+    {
+      "name": "development_2023_matrix_labels.parquet",
+      "rows": 1820,
+      "bytes": 126088,
+      "sha256": "67d60e63b75f094004b131301849052f50f222b3d4c3bf0c67ce7a9bf94786b9",
+      "record_sha256": "4d5fe6d47bbe93416cce8dbfddd93d995c76fe3a1d35b47eb3574047809ddc8b"
+    }
+  ],
+  "population": {
+    "feature_rows": 1820,
+    "label_rows": 1820,
+    "games": 910,
+    "cold_start_rows": 4,
+    "seasons": [2023],
+    "feature_domains": ["bat523_pregame_priors", "historical_play_drive_2010_2022"]
+  },
+  "metrics": {
+    "classification": "DEVELOPMENT_ONLY_2023",
+    "prior_only": {
+      "evaluated_rows": 1820,
+      "evaluated_folds": 16,
+      "accuracy": 0.6,
+      "brier": 0.23135006789663434,
+      "log_loss": 0.6486314252527969,
+      "margin_mae": 16.898011032389398
+    },
+    "prior_plus_play_drive": {
+      "evaluated_rows": 1632,
+      "evaluated_folds": 15,
+      "abstained_folds": 1,
+      "accuracy": 0.5888480392156863,
+      "brier": 0.235975185943878,
+      "log_loss": 0.6597298527223004,
+      "margin_mae": 16.5181493181106
+    },
+    "incremental_play_drive_result": {
+      "accuracy_delta_plus_minus_prior": -0.011151960784313686,
+      "brier_delta_plus_minus_prior": 0.004625118047243665,
+      "promotion_authority": false,
+      "interpretation": "The play/drive EPA residual did not improve 2023 development Brier or accuracy. The negative result is preserved."
+    }
+  },
+  "proofs_passed": [
+    "deterministic_full_rerun",
+    "crash_resume_equivalence",
+    "future_append_invariance",
+    "postgame_append_invariance",
+    "same_game_exclusion",
+    "fold_local_fitting",
+    "stale_checkpoint_rejection",
+    "protected_outcome_denial",
+    "label_availability_after_completion"
+  ],
+  "protected_nonclaims": {
+    "protected_performance_claimed": false,
+    "champion_or_production_promotion": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "protected_lane_opened": false
+  }
+}

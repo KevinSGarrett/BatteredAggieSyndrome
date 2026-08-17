@@ -45,6 +45,13 @@
         "head_sha": "18dc2ef347b601faa685cc77bf77c9806201e0a1",
         "classification": "[material]",
         "reason": "The BAT-523 reconciliation branch implemented a material control-plane and selector-state correction, but the immutable GitHub squash subject omitted the required execution-focus marker. This correction applies only to the exact integration commit."
+      },
+      {
+        "commit_sha": "5baf80d46491cbcda1ec1dfbd3f879f0f37379fb",
+        "pull_request": 440,
+        "head_sha": "4cd0d281c0181a4d64df2eeb6cd73dfb342d5153",
+        "classification": "[material]",
+        "reason": "The BAT-399 reviewed branch head was classified as material, but the immutable GitHub squash commit subject omitted the required execution-focus marker. This correction is scoped to the exact integration commit only."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

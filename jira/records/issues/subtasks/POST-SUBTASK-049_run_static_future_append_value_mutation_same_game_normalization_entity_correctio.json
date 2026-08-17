@@ -16,7 +16,7 @@
     "artifacts/pit/leakage_battery_results.json",
     "artifacts/jira_evidence/POST-SUBTASK-049.json"
   ],
-  "blocked_reason": "QUALITY_GATE_BLOCKED_MATRIX_IDENTITY: 7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1; BAT-398 decision BLOCK; zero accepted rows/cells",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-050",
     "POST-SUBTASK-051",
@@ -139,8 +139,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24539",
-    "jira_updated_at": "2026-08-11T07:08:42.297-0500",
-    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "jira_updated_at": "2026-08-17T00:39:09.938-0500",
+    "last_synced_at": "2026-08-17T05:39:34.826534+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
@@ -198,7 +198,7 @@
     "docs/21_LEAKAGE_AND_REPLAY_TEST_SPEC.md",
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
@@ -317,7 +317,7 @@
     "POST-SUBTASK-051"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Produce a new nonempty content-addressed national pregame matrix with evidence-backed game/cutoff rows, then rerun BAT-398 and obtain an explicit APPROVE decision.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",
@@ -328,5 +328,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-017: Leakage battery and chronological replay infrastructure.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-049.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }

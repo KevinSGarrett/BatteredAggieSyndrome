@@ -5,31 +5,37 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-17T19:28:25.278822+00:00"
+      "verified_at": "2026-08-17T20:06:14.138380+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-17T19:28:25.619409+00:00"
+      "verified_at": "2026-08-17T20:06:14.591968+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-17T19:28:25.832737+00:00"
+      "verified_at": "2026-08-17T20:06:14.904602+00:00"
     },
     {
       "jira_key": "BAT-565",
       "local_id": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
       "updated_fields": [],
-      "verified_at": "2026-08-17T19:28:26.062497+00:00"
+      "verified_at": "2026-08-17T20:06:15.160034+00:00"
     },
     {
       "jira_key": "BAT-566",
       "local_id": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-17T19:28:26.284866+00:00"
+      "verified_at": "2026-08-17T20:06:15.399068+00:00"
+    },
+    {
+      "jira_key": "BAT-567",
+      "local_id": "POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001",
+      "updated_fields": [],
+      "verified_at": "2026-08-17T20:06:15.619212+00:00"
     }
   ],
   "backup": {
@@ -45,9 +51,9 @@
   "canonical_spec_sync": {
     "changed_issues": 0,
     "status": "EXACT_NO_UPDATES_REQUIRED",
-    "verified_at": "2026-08-17T19:28:44.357412+00:00"
+    "verified_at": "2026-08-17T20:06:32.384809+00:00"
   },
-  "completed_at": "2026-08-17T19:29:47.788963+00:00",
+  "completed_at": "2026-08-17T20:07:50.966285+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -55,8 +61,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-17T19:28:50.233279+00:00",
-    "verified_at": "2026-08-17T19:28:52.407565+00:00",
+    "updated_at": "2026-08-17T20:06:40.747169+00:00",
+    "verified_at": "2026-08-17T20:06:43.379244+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -977,7 +983,7 @@
     "missing_canonical_links": 12,
     "preserved_auxiliary_links": 4,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-17T19:29:06.376365+00:00"
+    "verified_at": "2026-08-17T20:06:59.155329+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2179,9 +2185,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2191,9 +2197,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2203,7 +2209,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2213,9 +2219,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2225,9 +2231,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-2023-labeled-development-replay"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-roster-completeness-gate"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2373,7 +2379,7 @@
   "operational_status_reconciliation": {
     "changed_count": 0,
     "changes": [],
-    "completed_at": "2026-08-17T19:28:48.251199+00:00",
+    "completed_at": "2026-08-17T20:06:37.889412+00:00",
     "inspected_non_done_issues": 422,
     "status": "COMPLETE"
   },
@@ -2467,7 +2473,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-17T19:29:47.788963+00:00",
+  "updated_at": "2026-08-17T20:07:50.966285+00:00",
   "verification": {
     "actual_expected_link_count": 1191,
     "board": {
@@ -2508,7 +2514,7 @@
     },
     "discrepancies": [],
     "expected_link_count": 1191,
-    "issue_count": 520,
+    "issue_count": 521,
     "issue_type_counts": {
       "Epic": 51,
       "Story": 58,
@@ -2530,6 +2536,6 @@
       "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-17T19:29:06.376365+00:00"
+    "verified_at": "2026-08-17T20:06:59.155329+00:00"
   }
 }

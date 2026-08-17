@@ -111,6 +111,7 @@
     "artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json",
     "artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json",
     "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+    "artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json",
     "artifacts/pit/PIT_REPLAY_READINESS.json",
     "artifacts/pit/asof_state_manifest.json",
     "artifacts/pit/development_2023_outcome_gate.json",
@@ -146,6 +147,7 @@
     "artifacts/pit/preliminary_play_enrichment_replay_gate.json",
     "artifacts/pit/preliminary_wmt_tamu_shadow_gate.json",
     "artifacts/pit/protected_replay_dry_run.json",
+    "artifacts/pit/roster_domain_completeness_gate.json",
     "artifacts/pit/timestamp_normalization_report.json",
     "artifacts/pit/wmt_provider_timestamp_pit_gate.json",
     "artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json",
@@ -251,6 +253,7 @@
     "configs/result_comparison_policy.json",
     "configs/retraining_admission_policy.json",
     "configs/retrospective_returning_production_contract.json",
+    "configs/roster_domain_completeness_contract.json",
     "configs/sec_tamu_availability_recovery_contract.json",
     "configs/source_acquisition_registry.json",
     "configs/source_drift_registry.json",
@@ -477,6 +480,7 @@
     "src/aggie_analytics/validation/protected.py",
     "src/aggie_analytics/validation/protected_split_authority.py",
     "src/aggie_analytics/validation/retraining_admission.py",
+    "src/aggie_analytics/validation/roster_domain_completeness.py",
     "tools/__init__.py",
     "tools/acquire_cfbd_historical.py",
     "tools/acquire_ncaa_official_gamebooks.py",
@@ -529,6 +533,7 @@
     "tools/build_preliminary_schedule_stress.py",
     "tools/build_preliminary_sustainability.py",
     "tools/build_retrospective_returning_production.py",
+    "tools/build_roster_domain_completeness.py",
     "tools/build_sec_tamu_availability_candidates.py",
     "tools/build_supplemental_play_drive_gap.py",
     "tools/build_tamu_availability_evidence_pages.py",
@@ -692,6 +697,7 @@
     "tools/validate_product_supply_chain.py",
     "tools/validate_repository.py",
     "tools/validate_retrospective_returning_production.py",
+    "tools/validate_roster_domain_completeness.py",
     "tools/validate_sec_tamu_availability_candidates.py",
     "tools/validate_supplemental_play_drive_gap.py",
     "tools/validate_tamu_availability_evidence_pages.py",
@@ -5565,5 +5571,5 @@
     "independent_reconstruction_required": true,
     "self_exemption_rejected": true
   },
-  "artifact_identity": "93dccc329d2d3caeae62fa09430eef57d7307b16a860653da97f5887c38e1588"
+  "artifact_identity": "13c18600b5dfd4ce24422d1aae058fc0ae177057e72334f37b726e27840059d5"
 }

@@ -1,0 +1,83 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-17T20:05:00Z",
+  "jira_key": "BAT-567",
+  "local_issue_id": "POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": ["BAT-523", "BAT-546", "BAT-547", "BAT-566"],
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED_SCOPED",
+  "issue_complete": false,
+  "observable_outcome": "Cycle #5 Phase 5 independently hashed the four roster-domain identities and produced an executable completeness/admission gate. 2004-2022 season membership remains the existing BAT-546 development-only admission. Pregame availability is blocked. No new membership layer was materialized. The protected lane remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress.",
+  "outputs": [
+    {
+      "path": "artifacts/pit/roster_domain_completeness_gate.json",
+      "bytes": 6716,
+      "sha256": "2e3b5e8d2a6ff968473159d3e19bb5bc68c643847e3a036aaf2463600acc766e",
+      "gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c"
+    },
+    {
+      "path": "configs/roster_domain_completeness_contract.json",
+      "bytes": 6519,
+      "sha256": "84a7a73eb71fbdc6170eb1b73beee2b3d5b8b7d299355b5de975b209e297e39f"
+    },
+    {
+      "path": "src/aggie_analytics/validation/roster_domain_completeness.py",
+      "bytes": 26777,
+      "sha256": "2837fa72abf917e7474e67de230aae7aafc31230947b7743892106185f72e174"
+    },
+    {
+      "path": "tools/build_roster_domain_completeness.py",
+      "bytes": 1309,
+      "sha256": "56f6cb2162cdf24e4e107aa4226d62e4bcc589f2bde5cd27db0b2cffc1c910f4"
+    },
+    {
+      "path": "tools/validate_roster_domain_completeness.py",
+      "bytes": 2951,
+      "sha256": "28d6be5fb731258a9e4569383c3e1e5abcc338e32268bc580dc5dca1c56541eb"
+    },
+    {
+      "path": "tests/test_roster_domain_completeness.py",
+      "bytes": 4928,
+      "sha256": "aeb8ccabcc008eb74a131e55157a718acff60aceabcb443d2733bbfc2cebe363"
+    }
+  ],
+  "gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c",
+  "verified_identities": {
+    "roster_history_dataset_identity": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
+    "post2022_dataset_identity": "151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242",
+    "team_membership_dataset_identity": "964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024",
+    "tamu_gamebook_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
+  },
+  "payload_mount_state": "PARTIAL",
+  "reconstructed_counts": {
+    "roster_history_source_rows": 206773,
+    "exact_membership_candidates_2004_2022": 154387,
+    "national_admitted_players": 53089,
+    "national_admitted_teams": 127,
+    "tamu_admitted_membership_rows_2004_2022": 1326,
+    "tamu_admitted_membership_players_2004_2022": 496,
+    "post2022_source_rows": 79832,
+    "tamu_post2022_exact_membership_candidates": 405,
+    "tamu_gamebook_player_rows": 18497,
+    "tamu_gamebook_availability_rows": 0
+  },
+  "admissions": {
+    "season_membership_2004_2022": "PRESERVE_EXISTING_BAT546_DEVELOPMENT_ONLY_ADMISSION",
+    "team_membership_2001_2020": "PRESERVE_EXISTING_BAT547_DEVELOPMENT_ONLY_ADMISSION",
+    "post2022_membership": "RETAIN_CANDIDATE_ONLY",
+    "tamu_official_gamebook": "RETAIN_CANDIDATE_ONLY",
+    "new_development_membership_layer": "NOT_MATERIALIZED_EXISTING_BAT546_ADMISSION_PRESERVED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "protected_nonclaims": {
+    "availability_admitted": false,
+    "protected_performance_claimed": false,
+    "champion_or_production_promotion": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "protected_lane_opened": false
+  }
+}

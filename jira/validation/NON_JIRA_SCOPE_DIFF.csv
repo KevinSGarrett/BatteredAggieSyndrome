@@ -4,11 +4,12 @@ ADDED,.github/dependabot.yml
 ADDED,.pytest_cache/.gitignore
 ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
+ADDED,.pytest_cache/v/cache/lastfailed
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/1211747718044744043
-ADDED,.ruff_cache/0.6.9/3849994709406550803
-ADDED,.ruff_cache/0.6.9/9193659845506193698
+ADDED,.ruff_cache/0.6.9/11138787825114366715
+ADDED,.ruff_cache/0.6.9/15598419723086864809
+ADDED,.ruff_cache/0.6.9/9490864991092221296
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -96,6 +97,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-046.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-047.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-048.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-049.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-050.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-124.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-125.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-126.json
@@ -200,6 +202,7 @@ ADDED,artifacts/pit/preliminary_dense_play_drive_replay_gate.json
 ADDED,artifacts/pit/preliminary_play_drive_augmented_gate.json
 ADDED,artifacts/pit/preliminary_play_enrichment_replay_gate.json
 ADDED,artifacts/pit/preliminary_wmt_tamu_shadow_gate.json
+ADDED,artifacts/pit/protected_replay_dry_run.json
 ADDED,artifacts/pit/timestamp_normalization_report.json
 ADDED,artifacts/pit/wmt_provider_timestamp_pit_gate.json
 ADDED,artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
@@ -490,6 +493,7 @@ ADDED,src/aggie_analytics/data/sec_availability.py
 ADDED,src/aggie_analytics/entities/candidates.py
 ADDED,src/aggie_analytics/entities/people_registry.py
 ADDED,src/aggie_analytics/entities/registry_artifacts.py
+ADDED,src/aggie_analytics/experimentation/walk_forward.py
 ADDED,src/aggie_analytics/features/alternate_station_recovery.py
 ADDED,src/aggie_analytics/features/gfs_issued_run.py
 ADDED,src/aggie_analytics/features/gfs_multigame_selection.py
@@ -613,6 +617,7 @@ ADDED,tests/test_preliminary_sustainability_ablation.py
 ADDED,tests/test_preliminary_unprotected_baselines.py
 ADDED,tests/test_preliminary_wmt_tamu_shadow.py
 ADDED,tests/test_product_supply_chain.py
+ADDED,tests/test_protected_replay_dry_run.py
 ADDED,tests/test_protected_split_exposure.py
 ADDED,tests/test_queue_cpu_worker_manifest_work.py
 ADDED,tests/test_queue_openai_gamebook_candidate_work.py
@@ -745,6 +750,7 @@ ADDED,tools/run_preliminary_play_drive_augmented.py
 ADDED,tools/run_preliminary_rankings_augmented_baselines.py
 ADDED,tools/run_preliminary_unprotected_baselines.py
 ADDED,tools/run_preliminary_wmt_tamu_shadow.py
+ADDED,tools/run_protected_replay_dry_run.py
 ADDED,tools/run_restore_drill.py
 ADDED,tools/run_unified_assistive_controller.py
 ADDED,tools/run_unified_assistive_watchdog.py

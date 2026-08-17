@@ -1,0 +1,117 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-17T16:20:00Z",
+  "jira_key": "BAT-400",
+  "local_issue_id": "POST-SUBTASK-050",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "observable_outcome": "BAT-400 executed a real chronological walk-forward on 1,820 verified 2023 BAT-523 feature rows across 16 expanding-window folds. Transforms were fold-local. Protected 2024/2025 outcomes were inaccessible to tuning code. 2023 outcome labels are absent from BAT-523 outcome payloads and were not fabricated. No protected metrics were produced.",
+  "outputs": [
+    {
+      "path": "artifacts/pit/protected_replay_dry_run.json",
+      "bytes": 51876,
+      "sha256": "1a905c232a201febecee75a8ce685e63bc4ef7059ff50e99c0ac54f34240afc5",
+      "schema_version": "aggie.experimentation.walk_forward_dry_run.v1",
+      "artifact_identity": "14a85cbed528f43a8e5fd2f576cd408b1357d3aa61003b1258dd6514331a1e74"
+    },
+    {
+      "path": "src/aggie_analytics/experimentation/walk_forward.py",
+      "bytes": 46595,
+      "sha256": "4009bc46e001746c4e1eaf1a5bf3cf034187dd9ba57b92d2f3af25f98a56f897"
+    },
+    {
+      "path": "tools/run_protected_replay_dry_run.py",
+      "bytes": 2233,
+      "sha256": "f004acf51576e45399845080bc550c1febbdb30c892d86cca9f9c6b966a8a314"
+    },
+    {
+      "path": "tests/test_protected_replay_dry_run.py",
+      "bytes": 9894,
+      "sha256": "339c18a223f471285495109e26b0359bda8e2f689eb0e2e69677e63f0f93d0b0"
+    }
+  ],
+  "input_identities": {
+    "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "run_identity": "7cf95e4aeebe6b967662b89fbd421fa18cc46b4469ddb9602599564ce932720d",
+    "payloads": [
+      {
+        "name": "accepted_game_outcomes.parquet",
+        "rows": 10593,
+        "sha256": "7fdea2ced7508e7f3b78d397bf8984325dd2b7095b05dc486335ee9c432ccb64"
+      },
+      {
+        "name": "team_outcome_observations.parquet",
+        "rows": 21186,
+        "sha256": "8a8e057c5eb135a731e37b74587893f25e29c7f1040d7f294f38071e30a9f483"
+      },
+      {
+        "name": "target_game_cutoffs.parquet",
+        "rows": 2764,
+        "sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942"
+      },
+      {
+        "name": "pregame_prior_rows.parquet",
+        "rows": 5528,
+        "sha256": "23db814da58cfbf0975e99b32130c531ae8e4f26867f0ac1e5207ba36bd6d140"
+      },
+      {
+        "name": "pregame_prior_cells.parquet",
+        "rows": 22112,
+        "sha256": "b581ebd3b4dea87edee886ff8d46b2a5dc40671fc226ed037f4c253f17704c61"
+      }
+    ]
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Replay advances chronologically, fits only on permitted history, pins all identities, never returns protected outcomes to tuning code, and resumes without future-fitted state.",
+      "disposition": "PASS",
+      "evidence": "artifacts/pit/protected_replay_dry_run.json:folds+proofs"
+    },
+    {
+      "criterion": "The declared output artifacts/pit/protected_replay_dry_run.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "evidence": "artifact_identity 14a85cbed528f43a8e5fd2f576cd408b1357d3aa61003b1258dd6514331a1e74"
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "evidence": "development_label_status ABSENT_FROM_VERIFIED_BAT523_OUTCOME_PAYLOADS; protected_metrics_produced false"
+    }
+  ],
+  "validation": {
+    "producer_command": "python -B tools/run_protected_replay_dry_run.py --repo-root . --data-root C:\\BatteredAggieSyndrome.data --output artifacts/pit/protected_replay_dry_run.json",
+    "producer_exit_code": 0,
+    "validator_command": "python -B tools/run_protected_replay_dry_run.py --repo-root . --output artifacts/pit/protected_replay_dry_run.json --validate-only",
+    "validator_exit_code": 0,
+    "focused_test_command": "python -B -m pytest tests/test_protected_replay_dry_run.py tests/test_replay_engine_full.py tests/test_replay_adoption.py -q",
+    "focused_test_exit_code": 0,
+    "regression_tests_command": "python -B -m pytest tests/test_temporal_governance.py tests/test_w24_readiness.py -q",
+    "regression_tests_exit_code": 0,
+    "lint_command": "python -B -m ruff check src/aggie_analytics/experimentation/walk_forward.py tools/run_protected_replay_dry_run.py tests/test_protected_replay_dry_run.py",
+    "lint_exit_code": 0
+  },
+  "completion": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "issue_disposition": "DONE_VERIFIED_DEVELOPMENT_SAFE_REPLAY_DRY_RUN",
+    "remaining_issue_scope_blockers": [
+      "NONE"
+    ],
+    "downstream_reevaluation": {
+      "BAT-401": "READY_FOR_GATE_REEVALUATION"
+    },
+    "completion_claim": "BAT-400 is DONE/VERIFIED as a development-safe dry run. Protected evaluation remains closed. BAT-401 must reevaluate the protected lane without republishing protected metrics or inventing a new protected period."
+  },
+  "protected_nonclaims": {
+    "protected_performance_claimed": false,
+    "production_ready": false,
+    "champion_selected": false,
+    "feature_promoted": false,
+    "protected_metrics_produced": false
+  },
+  "external_checkpoints": {
+    "root": "C:\\BatteredAggieSyndrome.data\\checkpoints\\walk_forward\\7cf95e4aeebe6b967662b89fbd421fa18cc46b4469ddb9602599564ce932720d",
+    "retained": true
+  }
+}

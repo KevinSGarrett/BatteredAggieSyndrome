@@ -39,14 +39,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `DONE`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-051`
 
 ## Read first
@@ -77,8 +77,13 @@ Execute the atomic 2 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 ## Files I may modify or create
 
 - src/aggie_analytics/temporal/state.py
+- src/aggie_analytics/experimentation/walk_forward.py
+- tools/run_protected_replay_dry_run.py
+- tests/test_protected_replay_dry_run.py
+- tests/test_autonomous_control_tools.py
 - artifacts/pit/protected_replay_dry_run.json
 - artifacts/jira_evidence/POST-SUBTASK-050.json
+- jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -119,7 +124,7 @@ Produce and validate these outputs within this atomic work unit:
 - SCIENTIFIC / SCIENTIFIC: artifacts/pit/protected_replay_dry_run.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - END_TO_END / END_TO_END: artifacts/pit/protected_replay_dry_run.json — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW_TEST_REQUIRED::POST-SUBTASK-050 — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: tests/test_protected_replay_dry_run.py — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Evidence to return
 

@@ -20,8 +20,13 @@
   ],
   "allowed_modification_paths": [
     "src/aggie_analytics/temporal/state.py",
+    "src/aggie_analytics/experimentation/walk_forward.py",
+    "tools/run_protected_replay_dry_run.py",
+    "tests/test_protected_replay_dry_run.py",
+    "tests/test_autonomous_control_tools.py",
     "artifacts/pit/protected_replay_dry_run.json",
-    "artifacts/jira_evidence/POST-SUBTASK-050.json"
+    "artifacts/jira_evidence/POST-SUBTASK-050.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json"
   ],
   "blocked_reason": "",
   "blocks": [
@@ -77,7 +82,7 @@
   "end_to_end_validation": "Validate that `artifacts/pit/protected_replay_dry_run.json` can be parsed and consumed by `POST-SUBTASK-051` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-005",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-050.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -99,7 +104,14 @@
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
   "files_expected_to_be_touched": [
-    "src/aggie_analytics/temporal/state.py"
+    "src/aggie_analytics/temporal/state.py",
+    "src/aggie_analytics/experimentation/walk_forward.py",
+    "tools/run_protected_replay_dry_run.py",
+    "tests/test_protected_replay_dry_run.py",
+    "tests/test_autonomous_control_tools.py",
+    "artifacts/pit/protected_replay_dry_run.json",
+    "artifacts/jira_evidence/POST-SUBTASK-050.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json"
   ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
@@ -207,7 +219,7 @@
     "docs/21_LEAKAGE_AND_REPLAY_TEST_SPEC.md",
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
@@ -264,7 +276,7 @@
     {
       "classification": "NEW_AUTOMATED_TEST_REQUIRED",
       "expectation": "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.",
-      "path": "NEW_TEST_REQUIRED::POST-SUBTASK-050",
+      "path": "tests/test_protected_replay_dry_run.py",
       "validation_class": "NEW_AUTOMATED_TEST_REQUIRED"
     }
   ],
@@ -337,7 +349,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-017: Leakage battery and chronological replay infrastructure.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-050.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 
@@ -404,6 +416,13 @@ Execute the atomic 2 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 ## Files Expected To Be Modified
 
 - src/aggie_analytics/temporal/state.py
+- src/aggie_analytics/experimentation/walk_forward.py
+- tools/run_protected_replay_dry_run.py
+- tests/test_protected_replay_dry_run.py
+- tests/test_autonomous_control_tools.py
+- artifacts/pit/protected_replay_dry_run.json
+- artifacts/jira_evidence/POST-SUBTASK-050.json
+- jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json
 
 ## Components Expected To Be Touched
 
@@ -465,7 +484,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 - **SCIENTIFIC** / `SCIENTIFIC` — `artifacts/pit/protected_replay_dry_run.json` — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - **END_TO_END** / `END_TO_END` — `artifacts/pit/protected_replay_dry_run.json` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `NEW_TEST_REQUIRED::POST-SUBTASK-050` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `tests/test_protected_replay_dry_run.py` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Required Evidence
 

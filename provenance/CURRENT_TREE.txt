@@ -105,6 +105,7 @@ artifacts/jira_evidence/POST-SUBTASK-046.json
 artifacts/jira_evidence/POST-SUBTASK-047.json
 artifacts/jira_evidence/POST-SUBTASK-048.json
 artifacts/jira_evidence/POST-SUBTASK-049.json
+artifacts/jira_evidence/POST-SUBTASK-050.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-126.json
@@ -209,6 +210,7 @@ artifacts/pit/preliminary_dense_play_drive_replay_gate.json
 artifacts/pit/preliminary_play_drive_augmented_gate.json
 artifacts/pit/preliminary_play_enrichment_replay_gate.json
 artifacts/pit/preliminary_wmt_tamu_shadow_gate.json
+artifacts/pit/protected_replay_dry_run.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/pit/wmt_provider_timestamp_pit_gate.json
 artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
@@ -3119,6 +3121,7 @@ src/aggie_analytics/experimentation/replay_engine.py
 src/aggie_analytics/experimentation/scheduler.py
 src/aggie_analytics/experimentation/store.py
 src/aggie_analytics/experimentation/tournaments.py
+src/aggie_analytics/experimentation/walk_forward.py
 src/aggie_analytics/experimentation/worktree.py
 src/aggie_analytics/features/__init__.py
 src/aggie_analytics/features/alternate_station_recovery.py
@@ -3337,6 +3340,7 @@ tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
+tests/test_protected_replay_dry_run.py
 tests/test_protected_split_exposure.py
 tests/test_queue_cpu_worker_manifest_work.py
 tests/test_queue_openai_gamebook_candidate_work.py
@@ -3506,6 +3510,7 @@ tools/run_preliminary_rankings_augmented_baselines.py
 tools/run_preliminary_unprotected_baselines.py
 tools/run_preliminary_wmt_tamu_shadow.py
 tools/run_product.py
+tools/run_protected_replay_dry_run.py
 tools/run_reference_feature_tournament.py
 tools/run_reference_hpo_grid.py
 tools/run_restore_drill.py

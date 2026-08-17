@@ -23,7 +23,7 @@
     "artifacts/pit/protected_replay_dry_run.json",
     "artifacts/jira_evidence/POST-SUBTASK-050.json"
   ],
-  "blocked_reason": "QUALITY_GATE_BLOCKED_MATRIX_IDENTITY: 7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1; BAT-398 decision BLOCK; zero accepted rows/cells",
+  "blocked_reason": "DEPENDENCY_BLOCKED_POST-SUBTASK-049_NOT_DONE: scoped BAT-398 replay gate is approved for preliminary/unprotected integration only, but BAT-400 remains blocked until BAT-399 produces verified leakage battery evidence.",
   "blocks": [
     "POST-SUBTASK-051"
   ],
@@ -326,7 +326,7 @@
     "POST-SUBTASK-051"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Produce a new nonempty content-addressed national pregame matrix with evidence-backed game/cutoff rows, then rerun BAT-398 and obtain an explicit APPROVE decision.",
+  "unblock_condition": "Complete POST-SUBTASK-049 at required maturity/evidence using the scoped approved BAT-398 gate inputs, then proceed with deterministic replay under the same protected and production nonclaim boundaries.",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",

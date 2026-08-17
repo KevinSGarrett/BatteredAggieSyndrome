@@ -1,6 +1,6 @@
 {
   "schema_version": "aggie.operations.restore_drill.v1",
-  "created_at_utc": "2026-08-17T03:34:36+00:00",
+  "created_at_utc": "2026-08-17T05:24:19+00:00",
   "issue": {
     "jira_key": "BAT-482",
     "local_id": "POST-SUBTASK-132"
@@ -15,10 +15,11 @@
   ],
   "input_identities": {
     "catalog_path": "artifacts\\operations\\backup_catalog_and_integrity.json",
-    "catalog_artifact_identity": "e5ac1684a9decf4567c96c020a8d89ec26c14e88c6f810f429dd3b17aa47afb3",
-    "backup_path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives\\backup-20260817T032103Z.zip",
-    "backup_archive_sha256": "a2b9feb5b1d335fc2d2ea621f6577f73ef3246e6395b1a35f6822de5b8be49ff",
-    "backup_content_identity": "d7b0961fe98488355e9449d5594eec854cc56693cbf7a11b6d56ef2fb4f90a58"
+    "catalog_artifact_identity": "a2224a2cba4cc2266204a61a966839b6852face8aa231866b67bcb6a7cff08ca",
+    "backup_path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives\\backup-20260817T050358Z.zip",
+    "backup_archive_sha256": "62c17e99452d0fcc18f45d74d8ec9810dee57c5cfd875b133bfc53b99f8a65ff",
+    "backup_content_identity": "a31d5fd141b56b80482a3e037fa4a2bd3976dd5d2b611d27c6fa1f00d34244f6",
+    "backup_entry_count": 5
   },
   "destination_validation": {
     "destination_absolute_path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-482-clean-restore-drill\\restore_target",
@@ -30,29 +31,29 @@
     {
       "iteration": 1,
       "classification": "cold",
-      "started_at_utc": "2026-08-17T03:34:36+00:00",
-      "ended_at_utc": "2026-08-17T03:34:36+00:00",
-      "elapsed_seconds": 0.034354,
+      "started_at_utc": "2026-08-17T05:24:18+00:00",
+      "ended_at_utc": "2026-08-17T05:24:18+00:00",
+      "elapsed_seconds": 0.024178,
       "restored": {
         "file_count": 5,
-        "bytes": 5618394
+        "bytes": 5623376
       }
     },
     {
       "iteration": 2,
       "classification": "warm",
-      "started_at_utc": "2026-08-17T03:34:36+00:00",
-      "ended_at_utc": "2026-08-17T03:34:36+00:00",
-      "elapsed_seconds": 0.032612,
+      "started_at_utc": "2026-08-17T05:24:18+00:00",
+      "ended_at_utc": "2026-08-17T05:24:18+00:00",
+      "elapsed_seconds": 0.02653,
       "restored": {
         "file_count": 5,
-        "bytes": 5618394
+        "bytes": 5623376
       }
     }
   ],
   "measurement": {
-    "rpo_seconds": 813.634,
-    "rto_seconds": 0.032612,
+    "rpo_seconds": 1221.064,
+    "rto_seconds": 0.024178,
     "manual_steps": [
       "Reconfigure credentials outside repository runtime for downstream systems.",
       "Reconfirm rights/authorization tokens before external publication or delivery."
@@ -62,7 +63,7 @@
       "python": "3.11.9",
       "cpu_count": 16,
       "disk_total_bytes": 1021821579264,
-      "disk_free_bytes": 108925083648
+      "disk_free_bytes": 87272542208
     },
     "non_authoritative_for_target_host": true
   },
@@ -73,8 +74,40 @@
     "schema_mismatch_error": "backup manifest schema mismatch"
   },
   "consumer_validation": {
-    "jira_metadata_restored": true,
-    "lineage_file_restored": true,
+    "required_files": {
+      "jira_key_map_csv": {
+        "relative_path": "jira_metadata/POST_IMPORT_KEY_MAP.csv",
+        "exists": true,
+        "sha256": "eb771297ff10663c36ee135bb44c8ae9804386ad10be8b2eb5fa4235f766fe07",
+        "bytes": 37572,
+        "row_count": 515,
+        "parse_success": true
+      },
+      "jira_change_log_jsonl": {
+        "relative_path": "jira_metadata/ISSUE_CHANGE_LOG.jsonl",
+        "exists": true,
+        "sha256": "f248f2eb4d26f40d536f3ef4205d7ec10ca99215318ebbd0f829030f76a4b1ac",
+        "bytes": 5240758,
+        "record_count": 5124,
+        "parse_success": true
+      },
+      "jira_issue_manifest_json": {
+        "relative_path": "jira_metadata/POST-SUBTASK-131.json",
+        "exists": true,
+        "sha256": "f643863193a82f3fdc4e1751250ec7650fe588ef087f36210555a6205d6c10fe",
+        "bytes": 19497,
+        "field_count": 77,
+        "parse_success": true
+      },
+      "lineage_forecast_json": {
+        "relative_path": "representative/forecast.json",
+        "exists": true,
+        "sha256": "067af8ca7dd0b7d6099899d429d7fd8f66cb9705e31e344b5628f19f6df0f975",
+        "bytes": 68,
+        "field_count": 2,
+        "parse_success": true
+      }
+    },
     "readable_without_manual_repair": true
   },
   "acceptance_matrix": [
@@ -114,5 +147,5 @@
       "POST-SUBTASK-135"
     ]
   },
-  "artifact_identity": "c298c7e49ecf1bc06d657d8687fdc0eab3c4e5633e79ea294723b6bfa62167ab"
+  "artifact_identity": "3ff57974aa4cb142c488ac743087c4e25fd3381a49703e6e6f4e3250041f89e5"
 }

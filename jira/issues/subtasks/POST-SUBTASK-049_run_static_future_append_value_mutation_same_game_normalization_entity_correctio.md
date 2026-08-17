@@ -22,9 +22,10 @@
     "tools/run_leakage_battery.py",
     "tests/test_leakage_battery_results.py",
     "artifacts/pit/leakage_battery_results.json",
-    "artifacts/jira_evidence/POST-SUBTASK-049.json"
+    "artifacts/jira_evidence/POST-SUBTASK-049.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json"
   ],
-  "blocked_reason": "ROW_LEVEL_MATRIX_PAYLOADS_UNAVAILABLE: scoped BAT-523 gate provides matrix identities and counts but row-level matrix payload paths remain unresolved placeholders under <external-data-root>; append/mutation invariance checks cannot execute truthfully.",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-050",
     "POST-SUBTASK-051",
@@ -79,7 +80,7 @@
   "end_to_end_validation": "Validate that `artifacts/pit/leakage_battery_results.json` can be parsed and consumed by `POST-SUBTASK-050` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-005",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-049.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -102,7 +103,11 @@
   ],
   "files_expected_to_be_touched": [
     "tools/run_leakage_battery.py",
-    "tests/test_leakage_battery_results.py"
+    "tests/test_leakage_battery_results.py",
+    "artifacts/pit/leakage_battery_results.json",
+    "artifacts/jira_evidence/POST-SUBTASK-049.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json"
   ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
@@ -143,7 +148,7 @@
     "protected-gate",
     "subtask"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-17",
   "local_id": "POST-SUBTASK-049",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Run static, future-append, value-mutation, same-game, normalization, entity-correction, weather, market, roster, and label leakage tests on real matrices",
@@ -266,7 +271,7 @@
     {
       "classification": "NEW_AUTOMATED_TEST_REQUIRED",
       "expectation": "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.",
-      "path": "NEW_TEST_REQUIRED::POST-SUBTASK-049",
+      "path": "tests/test_leakage_battery_results.py",
       "validation_class": "NEW_AUTOMATED_TEST_REQUIRED"
     }
   ],
@@ -328,7 +333,7 @@
     "POST-SUBTASK-051"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Provide accessible content-addressed row-level matrix payloads for the scoped BAT-523-approved matrix identities, then rerun append/mutation leakage invariance checks and complete remaining BAT-399 scenarios.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",
@@ -339,7 +344,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-017: Leakage battery and chronological replay infrastructure.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-049.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "DONE"
 }
 ```
 
@@ -407,6 +412,10 @@ Execute the atomic 1 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 
 - tools/run_leakage_battery.py
 - tests/test_leakage_battery_results.py
+- artifacts/pit/leakage_battery_results.json
+- artifacts/jira_evidence/POST-SUBTASK-049.json
+- jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json
+- jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json
 
 ## Components Expected To Be Touched
 
@@ -468,7 +477,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 - **SCIENTIFIC** / `SCIENTIFIC` — `artifacts/pit/leakage_battery_results.json` — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - **END_TO_END** / `END_TO_END` — `artifacts/pit/leakage_battery_results.json` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `NEW_TEST_REQUIRED::POST-SUBTASK-049` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `tests/test_leakage_battery_results.py` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Required Evidence
 

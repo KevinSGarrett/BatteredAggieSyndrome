@@ -6,9 +6,8 @@ ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/10245643271880217417
-ADDED,.ruff_cache/0.6.9/1757304385062943256
-ADDED,.ruff_cache/0.6.9/3429676745931047749
+ADDED,.ruff_cache/0.6.9/10954517896629206455
+ADDED,.ruff_cache/0.6.9/8443640793185250086
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json

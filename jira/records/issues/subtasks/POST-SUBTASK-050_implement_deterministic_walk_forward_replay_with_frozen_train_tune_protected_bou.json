@@ -17,7 +17,7 @@
     "artifacts/pit/protected_replay_dry_run.json",
     "artifacts/jira_evidence/POST-SUBTASK-050.json"
   ],
-  "blocked_reason": "DEPENDENCY_BLOCKED_POST-SUBTASK-049_NOT_DONE: scoped BAT-398 replay gate is approved for preliminary/unprotected integration only, but BAT-400 remains blocked until BAT-399 produces verified leakage battery evidence.",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-051"
   ],
@@ -201,7 +201,7 @@
     "docs/21_LEAKAGE_AND_REPLAY_TEST_SPEC.md",
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
@@ -320,7 +320,7 @@
     "POST-SUBTASK-051"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete POST-SUBTASK-049 at required maturity/evidence using the scoped approved BAT-398 gate inputs, then proceed with deterministic replay under the same protected and production nonclaim boundaries.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",
@@ -331,5 +331,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-017: Leakage battery and chronological replay infrastructure.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-050.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }

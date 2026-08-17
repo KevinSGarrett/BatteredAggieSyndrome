@@ -1,3 +1,3 @@
 # Compact READY Queue
 
-1. `POST-SUBTASK-130` | P2 | normal | SHARED_CONTRACT | [POST-SUBTASK-130] Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata
+1. `POST-SUBTASK-131` | P2 | normal | OPERATIONS | [POST-SUBTASK-131] Implement content-hashed verified backups, catalog, integrity checking, last-known-good protection, and restricted-destination enforcement

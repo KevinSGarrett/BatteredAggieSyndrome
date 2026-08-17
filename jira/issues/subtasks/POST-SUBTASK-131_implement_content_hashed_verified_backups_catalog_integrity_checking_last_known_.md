@@ -25,7 +25,7 @@
     "artifacts/operations/backup_catalog_and_integrity.json",
     "artifacts/jira_evidence/POST-SUBTASK-131.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-130",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-132"
   ],
@@ -148,8 +148,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24621",
-    "jira_updated_at": "2026-08-12T11:13:58.624-0500",
-    "last_synced_at": "2026-08-12T16:21:58.376101+00:00",
+    "jira_updated_at": "2026-08-16T21:06:09.204-0500",
+    "last_synced_at": "2026-08-17T02:06:36.184218+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
@@ -207,7 +207,7 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
@@ -320,7 +320,7 @@
     "POST-SUBTASK-132"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "INTEGRATION",
     "NEW_AUTOMATED_TEST_REQUIRED",
@@ -332,7 +332,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-044: Rights-aware backup, restore, retention, and disaster recovery.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-131.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

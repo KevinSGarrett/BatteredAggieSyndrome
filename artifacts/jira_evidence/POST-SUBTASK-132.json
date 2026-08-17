@@ -1,28 +1,28 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T05:24:33+00:00",
+  "created_at_utc": "2026-08-17T15:35:00+00:00",
   "jira_key": "BAT-482",
   "local_issue_id": "POST-SUBTASK-132",
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Executable clean-location restore drill validated backup integrity, destination safety, lineage restoration, and measured RPO/RTO with explicit non-authoritative host classification.",
+  "observable_outcome": "Restore-drill acceptance and DONE/VERIFIED completion are now derived from consumer parse results, backup-manifest binding, and negative-path observations. An independent validator rejects forged completion after artifact_identity recomputation.",
   "outputs": [
     {
       "path": "artifacts/operations/restore_drill.json",
-      "bytes": 5481,
-      "sha256": "a3527f5a970d57afa2ca01af41617d0b27e3e85a46a73da50698c9cf69bf8fba",
-      "schema_version": "aggie.operations.restore_drill.v1",
-      "artifact_identity": "3ff57974aa4cb142c488ac743087c4e25fd3381a49703e6e6f4e3250041f89e5"
+      "bytes": 8218,
+      "sha256": "0b7482355092e61ce4f2df8ab99a53b3808eb526901098d5a2766407c809dbdf",
+      "schema_version": "aggie.operations.restore_drill.v2",
+      "artifact_identity": "3540df660e454cd43933a79d93501bb68ccf2e941e102858dcc42bfca30ff36c"
     },
     {
       "path": "tools/run_restore_drill.py",
-      "sha256": "996435069288e1cf800296f5f0261adc3b3b508c419982068d5959cef87d1b6c"
+      "sha256": "3e013caa3cb18417cba1e0811312ec88551d2435bd9ae828bf0ae10918e1a97b"
     },
     {
       "path": "tests/test_restore_drill.py",
-      "sha256": "163e39f65d9b6a76d09dad20475888c9a1c913f4205f8a7e4538f58baffafa62"
+      "sha256": "e3cdd0e0c5d095753dbf07b80e511e21ea81c6a2e88befab2ac41b4153ca1f8b"
     }
   ],
   "acceptance_matrix": [
@@ -49,12 +49,14 @@
   ],
   "validation": {
     "producer_command": "python -B tools/run_restore_drill.py --output artifacts/operations/restore_drill.json",
+    "validate_only_command": "python -B tools/run_restore_drill.py --output artifacts/operations/restore_drill.json --validate-only",
     "restore_test_command": "python -B -m pytest tests/test_restore_drill.py -q",
+    "catalog_test_command": "python -B -m pytest tests/test_backup_catalog_integrity.py tests/test_restore_drill.py -q",
     "w23_test_command": "python -B -m pytest tests/test_w23_operations.py -q",
     "w23_validator_command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
-    "lint_command": "python -B -m ruff check tools/run_restore_drill.py tests/test_restore_drill.py src/aggie_analytics/operations/backup.py",
+    "lint_command": "python -B -m ruff check tools/run_restore_drill.py tests/test_restore_drill.py",
     "jira_validator_command": "python -B tools/validate_jira_control_plane.py --repo-root . --strict",
-    "second_pass_command": "python -B jira/tools/validate_second_pass.py --repo-root .",
+    "second_pass_command": "python -B jira/tools/run_second_pass_audit.py --repo-root .",
     "w25_validator_command": "python -B tools/validate_w25_final.py --repo-root .",
     "repository_validator_command": "python -B tools/validate_repository.py --repo-root . --strict"
   },
@@ -64,6 +66,6 @@
     "remaining_issue_scope_blockers": [
       "TARGET_HARDWARE_AUTHORITY_PENDING"
     ],
-    "completion_claim": "BAT-482 restore drill completed with deterministic local evidence; target-host authority claims remain explicitly non-authoritative."
+    "completion_claim": "BAT-482 restore drill now fail-closes on unreadable consumers and forged completion; target-host authority claims remain explicitly non-authoritative."
   }
 }

@@ -59,11 +59,18 @@ class RestoreDrillTests(unittest.TestCase):
 
     def test_restore_drill_executes_and_records_negative_paths(self) -> None:
         payload = self._run_drill(dict(self.catalog_payload))
-        self.assertEqual(payload["schema_version"], "aggie.operations.restore_drill.v1")
+        self.assertEqual(payload["schema_version"], "aggie.operations.restore_drill.v2")
         self.assertEqual(len(payload["artifact_identity"]), 64)
         self.assertTrue(payload["negative_paths"]["corrupt_backup_rejected"])
         self.assertTrue(payload["negative_paths"]["schema_mismatch_rejected"])
         self.assertTrue(payload["consumer_validation"]["readable_without_manual_repair"])
+        self.assertTrue(payload["consumer_validation"]["backup_manifest_binding"]["all_bound"])
+        self.assertEqual(payload["issue_completion_manifest"]["status"], "DONE")
+        self.assertEqual(payload["acceptance_matrix"][0]["disposition"], "PASS")
+        run_restore_drill_module.validate_restore_drill_artifact(
+            payload,
+            catalog_path=self.catalog_path,
+        )
         self.assertGreater(
             payload["consumer_validation"]["required_files"]["jira_key_map_csv"]["row_count"],
             0,
@@ -218,6 +225,109 @@ class RestoreDrillTests(unittest.TestCase):
         self.assertFalse(result["readable_without_manual_repair"])
         self.assertFalse(result["required_files"]["jira_change_log_jsonl"]["parse_success"])
 
+    def test_acceptance_and_completion_fail_closed_when_consumer_unreadable(self) -> None:
+        unreadable = {
+            "required_files": {
+                key: {
+                    "relative_path": relpath.as_posix(),
+                    "exists": False,
+                    "parse_success": False,
+                    "error": "missing required file",
+                }
+                for key, relpath in run_restore_drill_module.REQUIRED_CONSUMER_RELPATHS.items()
+            },
+            "readable_without_manual_repair": False,
+        }
+        with mock.patch.object(
+            run_restore_drill_module,
+            "validate_restored_consumers",
+            return_value=unreadable,
+        ):
+            payload = self._run_drill(dict(self.catalog_payload))
+        self.assertFalse(payload["consumer_validation"]["readable_without_manual_repair"])
+        self.assertEqual(payload["acceptance_matrix"][0]["disposition"], "FAIL")
+        self.assertEqual(payload["issue_completion_manifest"]["status"], "BLOCKED")
+        self.assertEqual(payload["issue_completion_manifest"]["evidence_state"], "UNVERIFIED")
+        self.assertIn("CONSUMER_OR_ACCEPTANCE_FAILURE", payload["issue_completion_manifest"]["remaining_blockers"])
+        run_restore_drill_module.validate_restore_drill_artifact(payload, catalog_path=self.catalog_path)
+
+    def test_validator_rejects_forged_done_after_rehash(self) -> None:
+        unreadable = {
+            "required_files": {
+                key: {
+                    "relative_path": relpath.as_posix(),
+                    "exists": False,
+                    "parse_success": False,
+                    "error": "missing required file",
+                }
+                for key, relpath in run_restore_drill_module.REQUIRED_CONSUMER_RELPATHS.items()
+            },
+            "readable_without_manual_repair": False,
+        }
+        with mock.patch.object(
+            run_restore_drill_module,
+            "validate_restored_consumers",
+            return_value=unreadable,
+        ):
+            payload = self._run_drill(dict(self.catalog_payload))
+        forged = json.loads(json.dumps(payload))
+        forged["acceptance_matrix"][0]["disposition"] = "PASS"
+        forged["issue_completion_manifest"]["status"] = "DONE"
+        forged["issue_completion_manifest"]["evidence_state"] = "VERIFIED"
+        forged["issue_completion_manifest"]["remaining_blockers"] = ["TARGET_HARDWARE_AUTHORITY_PENDING"]
+        forged["artifact_identity"] = run_restore_drill_module._compute_artifact_identity(forged)
+        with self.assertRaisesRegex(ValueError, "acceptance matrix is not derived"):
+            run_restore_drill_module.validate_restore_drill_artifact(forged, catalog_path=self.catalog_path)
+
+    def test_validator_rejects_forged_consumer_status_after_rehash(self) -> None:
+        payload = self._run_drill(dict(self.catalog_payload))
+        forged = json.loads(json.dumps(payload))
+        forged["consumer_validation"]["readable_without_manual_repair"] = False
+        forged["artifact_identity"] = run_restore_drill_module._compute_artifact_identity(forged)
+        with self.assertRaisesRegex(ValueError, "readable_without_manual_repair"):
+            run_restore_drill_module.validate_restore_drill_artifact(forged, catalog_path=self.catalog_path)
+
+    def test_validator_rejects_forged_catalog_binding_after_rehash(self) -> None:
+        payload = self._run_drill(dict(self.catalog_payload))
+        forged = json.loads(json.dumps(payload))
+        forged["input_identities"]["backup_archive_sha256"] = "f" * 64
+        forged["artifact_identity"] = run_restore_drill_module._compute_artifact_identity(forged)
+        with self.assertRaisesRegex(ValueError, "backup archive sha is not bound to catalog"):
+            run_restore_drill_module.validate_restore_drill_artifact(forged, catalog_path=self.catalog_path)
+
+    def test_validator_rejects_forged_negative_path_after_rehash(self) -> None:
+        payload = self._run_drill(dict(self.catalog_payload))
+        forged = json.loads(json.dumps(payload))
+        forged["negative_paths"]["corrupt_backup_rejected"] = False
+        forged["artifact_identity"] = run_restore_drill_module._compute_artifact_identity(forged)
+        with self.assertRaisesRegex(ValueError, "acceptance matrix is not derived"):
+            run_restore_drill_module.validate_restore_drill_artifact(forged, catalog_path=self.catalog_path)
+
+    def test_validator_rejects_forged_manifest_binding_after_rehash(self) -> None:
+        payload = self._run_drill(dict(self.catalog_payload))
+        forged = json.loads(json.dumps(payload))
+        forged["consumer_validation"]["backup_manifest_binding"]["all_bound"] = False
+        forged["consumer_validation"]["backup_manifest_binding"]["entries"][0]["bound"] = False
+        forged["artifact_identity"] = run_restore_drill_module._compute_artifact_identity(forged)
+        with self.assertRaisesRegex(ValueError, "consumer hashes are not bound"):
+            run_restore_drill_module.validate_restore_drill_artifact(forged, catalog_path=self.catalog_path)
+
+    def test_temporary_restore_files_removed_on_exception(self) -> None:
+        original = run_restore_drill_module.restore_backup
+
+        def flaky(backup_path, destination, require_empty=True):
+            if Path(backup_path).name == "corrupt_backup.zip":
+                raise RuntimeError("injected after corrupt archive created")
+            return original(backup_path, destination, require_empty=require_empty)
+
+        with mock.patch.object(run_restore_drill_module, "restore_backup", side_effect=flaky):
+            with self.assertRaisesRegex(RuntimeError, "injected after corrupt archive created"):
+                self._run_drill(dict(self.catalog_payload))
+        restore_root = self.external / "validation" / "BAT-482-clean-restore-drill"
+        self.assertFalse((restore_root / "corrupt_backup.zip").exists())
+        self.assertFalse((restore_root / "schema_mismatch.zip").exists())
+
 
 if __name__ == "__main__":
     unittest.main()
+

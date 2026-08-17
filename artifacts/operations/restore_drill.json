@@ -1,6 +1,6 @@
 {
-  "schema_version": "aggie.operations.restore_drill.v1",
-  "created_at_utc": "2026-08-17T05:24:19+00:00",
+  "schema_version": "aggie.operations.restore_drill.v2",
+  "created_at_utc": "2026-08-17T15:34:37+00:00",
   "issue": {
     "jira_key": "BAT-482",
     "local_id": "POST-SUBTASK-132"
@@ -31,9 +31,9 @@
     {
       "iteration": 1,
       "classification": "cold",
-      "started_at_utc": "2026-08-17T05:24:18+00:00",
-      "ended_at_utc": "2026-08-17T05:24:18+00:00",
-      "elapsed_seconds": 0.024178,
+      "started_at_utc": "2026-08-17T15:34:37+00:00",
+      "ended_at_utc": "2026-08-17T15:34:37+00:00",
+      "elapsed_seconds": 0.040117,
       "restored": {
         "file_count": 5,
         "bytes": 5623376
@@ -42,9 +42,9 @@
     {
       "iteration": 2,
       "classification": "warm",
-      "started_at_utc": "2026-08-17T05:24:18+00:00",
-      "ended_at_utc": "2026-08-17T05:24:18+00:00",
-      "elapsed_seconds": 0.02653,
+      "started_at_utc": "2026-08-17T15:34:37+00:00",
+      "ended_at_utc": "2026-08-17T15:34:37+00:00",
+      "elapsed_seconds": 0.042714,
       "restored": {
         "file_count": 5,
         "bytes": 5623376
@@ -52,8 +52,8 @@
     }
   ],
   "measurement": {
-    "rpo_seconds": 1221.064,
-    "rto_seconds": 0.024178,
+    "rpo_seconds": 37839.205,
+    "rto_seconds": 0.040117,
     "manual_steps": [
       "Reconfigure credentials outside repository runtime for downstream systems.",
       "Reconfirm rights/authorization tokens before external publication or delivery."
@@ -63,7 +63,7 @@
       "python": "3.11.9",
       "cpu_count": 16,
       "disk_total_bytes": 1021821579264,
-      "disk_free_bytes": 87272542208
+      "disk_free_bytes": 86321094656
     },
     "non_authoritative_for_target_host": true
   },
@@ -108,8 +108,76 @@
         "parse_success": true
       }
     },
-    "readable_without_manual_repair": true
+    "readable_without_manual_repair": true,
+    "backup_manifest_binding": {
+      "entries": [
+        {
+          "consumer_key": "jira_key_map_csv",
+          "relative_path": "jira_metadata/POST_IMPORT_KEY_MAP.csv",
+          "consumer_sha256": "eb771297ff10663c36ee135bb44c8ae9804386ad10be8b2eb5fa4235f766fe07",
+          "consumer_bytes": 37572,
+          "manifest_sha256": "eb771297ff10663c36ee135bb44c8ae9804386ad10be8b2eb5fa4235f766fe07",
+          "manifest_bytes": 37572,
+          "bound": true
+        },
+        {
+          "consumer_key": "jira_change_log_jsonl",
+          "relative_path": "jira_metadata/ISSUE_CHANGE_LOG.jsonl",
+          "consumer_sha256": "f248f2eb4d26f40d536f3ef4205d7ec10ca99215318ebbd0f829030f76a4b1ac",
+          "consumer_bytes": 5240758,
+          "manifest_sha256": "f248f2eb4d26f40d536f3ef4205d7ec10ca99215318ebbd0f829030f76a4b1ac",
+          "manifest_bytes": 5240758,
+          "bound": true
+        },
+        {
+          "consumer_key": "jira_issue_manifest_json",
+          "relative_path": "jira_metadata/POST-SUBTASK-131.json",
+          "consumer_sha256": "f643863193a82f3fdc4e1751250ec7650fe588ef087f36210555a6205d6c10fe",
+          "consumer_bytes": 19497,
+          "manifest_sha256": "f643863193a82f3fdc4e1751250ec7650fe588ef087f36210555a6205d6c10fe",
+          "manifest_bytes": 19497,
+          "bound": true
+        },
+        {
+          "consumer_key": "lineage_forecast_json",
+          "relative_path": "representative/forecast.json",
+          "consumer_sha256": "067af8ca7dd0b7d6099899d429d7fd8f66cb9705e31e344b5628f19f6df0f975",
+          "consumer_bytes": 68,
+          "manifest_sha256": "067af8ca7dd0b7d6099899d429d7fd8f66cb9705e31e344b5628f19f6df0f975",
+          "manifest_bytes": 68,
+          "bound": true
+        }
+      ],
+      "all_bound": true
+    }
   },
+  "backup_manifest_entries": [
+    {
+      "path": "jira_metadata/ISSUE_CHANGE_LOG.jsonl",
+      "sha256": "f248f2eb4d26f40d536f3ef4205d7ec10ca99215318ebbd0f829030f76a4b1ac",
+      "bytes": 5240758
+    },
+    {
+      "path": "jira_metadata/ISSUE_INDEX.csv",
+      "sha256": "7706991d9c148f7c36d5ee4900bbf6b5e24af09494120a2f735de1e87f62e1d7",
+      "bytes": 325481
+    },
+    {
+      "path": "jira_metadata/POST-SUBTASK-131.json",
+      "sha256": "f643863193a82f3fdc4e1751250ec7650fe588ef087f36210555a6205d6c10fe",
+      "bytes": 19497
+    },
+    {
+      "path": "jira_metadata/POST_IMPORT_KEY_MAP.csv",
+      "sha256": "eb771297ff10663c36ee135bb44c8ae9804386ad10be8b2eb5fa4235f766fe07",
+      "bytes": 37572
+    },
+    {
+      "path": "representative/forecast.json",
+      "sha256": "067af8ca7dd0b7d6099899d429d7fd8f66cb9705e31e344b5628f19f6df0f975",
+      "bytes": 68
+    }
+  ],
   "acceptance_matrix": [
     {
       "criterion": "Immutability and rights boundaries preserved while restoring representative lineage and Jira metadata.",
@@ -147,5 +215,5 @@
       "POST-SUBTASK-135"
     ]
   },
-  "artifact_identity": "3ff57974aa4cb142c488ac743087c4e25fd3381a49703e6e6f4e3250041f89e5"
+  "artifact_identity": "3540df660e454cd43933a79d93501bb68ccf2e941e102858dcc42bfca30ff36c"
 }

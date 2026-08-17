@@ -111,6 +111,7 @@ artifacts/jira_evidence/POST-SUBTASK-128.json
 artifacts/jira_evidence/POST-SUBTASK-129.json
 artifacts/jira_evidence/POST-SUBTASK-130.json
 artifacts/jira_evidence/POST-SUBTASK-131.json
+artifacts/jira_evidence/POST-SUBTASK-132.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
 artifacts/jira_evidence/POST-SUBTASK-161.json
 artifacts/jira_evidence/POST-SUBTASK-162.json
@@ -173,6 +174,7 @@ artifacts/operations/ci_security_gate.json
 artifacts/operations/drift_alert_validation.json
 artifacts/operations/drift_incident_game_day.json
 artifacts/operations/observability_contract_test.json
+artifacts/operations/restore_drill.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
 artifacts/pit/historical_action_derived_play_summary_gate.json
@@ -3335,6 +3337,7 @@ tests/test_replay_adoption.py
 tests/test_replay_engine_full.py
 tests/test_repo_integrity_tools.py
 tests/test_resource_scheduler_full.py
+tests/test_restore_drill.py
 tests/test_result_comparison_full.py
 tests/test_retrospective_returning_production.py
 tests/test_sec_tamu_availability.py
@@ -3496,6 +3499,7 @@ tools/run_preliminary_wmt_tamu_shadow.py
 tools/run_product.py
 tools/run_reference_feature_tournament.py
 tools/run_reference_hpo_grid.py
+tools/run_restore_drill.py
 tools/run_tournament_reference.py
 tools/run_unified_assistive_controller.py
 tools/run_unified_assistive_watchdog.py

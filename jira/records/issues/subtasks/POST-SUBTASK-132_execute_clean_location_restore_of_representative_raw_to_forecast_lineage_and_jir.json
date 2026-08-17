@@ -35,7 +35,11 @@
   ],
   "allowed_modification_paths": [
     "artifacts/operations/restore_drill.json",
-    "artifacts/jira_evidence/POST-SUBTASK-132.json"
+    "artifacts/jira_evidence/POST-SUBTASK-132.json",
+    "tools/run_restore_drill.py",
+    "tests/test_restore_drill.py",
+    "tests/test_autonomous_control_tools.py",
+    "tests/test_backup_catalog_integrity.py"
   ],
   "blocked_reason": "",
   "blocks": [
@@ -96,12 +100,14 @@
   "end_to_end_validation": "A verified backup can restore selected canonical lineage and Jira execution state into a clean location without rewriting history or violating data rights. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-015, POST-STORY-045, POST-SUBTASK-133, POST-SUBTASK-134, POST-SUBTASK-135.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-132.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
   "expected_outputs": [
-    "artifacts/operations/restore_drill.json"
+    "artifacts/operations/restore_drill.json",
+    "tools/run_restore_drill.py",
+    "tests/test_restore_drill.py"
   ],
   "files_expected_to_be_read": [
     "governance/DO_NOT_DRIFT.md",
@@ -119,7 +125,12 @@
     "docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md",
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md"
   ],
-  "files_expected_to_be_touched": [],
+  "files_expected_to_be_touched": [
+    "tools/run_restore_drill.py",
+    "tests/test_restore_drill.py",
+    "tests/test_autonomous_control_tools.py",
+    "tests/test_backup_catalog_integrity.py"
+  ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
     "docs/final/CODEX_HANDOFF.md",
@@ -169,11 +180,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24622",
-    "jira_updated_at": "2026-08-16T22:23:11.908-0500",
-    "last_synced_at": "2026-08-17T03:23:38.846268+00:00",
+    "jira_updated_at": "2026-08-16T22:37:35.247-0500",
+    "last_synced_at": "2026-08-17T03:37:59.804169+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -233,7 +244,7 @@
     "docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md",
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -409,5 +420,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-044: Rights-aware backup, restore, retention, and disaster recovery.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-132.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }

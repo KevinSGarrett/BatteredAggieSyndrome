@@ -32017,7 +32017,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-132_execute_clean_location_restore_of_representative_raw_to_forecast_lineage_and_jir.json",To Do,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-132,operations-security,POST-SUBTASK-132,HANDOFF-012,PHASE-4,READY,PRODUCTION_READY,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-132_execute_clean_location_restore_of_representative_raw_to_forecast_lineage_and_jir.json",Done,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-132,operations-security,POST-SUBTASK-132,HANDOFF-012,PHASE-4,DONE,PRODUCTION_READY,VERIFIED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-483,100437,"[POST-SUBTASK-133] Regenerate bidirectional source, requirement, acceptance, ADR, gap, risk, test, artifact, issue, and evidence traceability",100095,"Local ID: POST-SUBTASK-133
 
 Objective

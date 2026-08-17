@@ -22,7 +22,7 @@
     "artifacts/release/maturity_evidence_audit.csv",
     "artifacts/jira_evidence/POST-SUBTASK-134.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-105;POST-SUBTASK-114;POST-SUBTASK-123;POST-SUBTASK-132;POST-SUBTASK-133",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-105;POST-SUBTASK-114;POST-SUBTASK-123;POST-SUBTASK-133",
   "blocks": [
     "POST-SUBTASK-135"
   ],

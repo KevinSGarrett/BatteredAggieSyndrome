@@ -1,0 +1,69 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-17T03:36:36+00:00",
+  "jira_key": "BAT-482",
+  "local_issue_id": "POST-SUBTASK-132",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "observable_outcome": "Executable clean-location restore drill validated backup integrity, destination safety, lineage restoration, and measured RPO/RTO with explicit non-authoritative host classification.",
+  "outputs": [
+    {
+      "path": "artifacts/operations/restore_drill.json",
+      "bytes": 4279,
+      "sha256": "2d0253efe4aa7d3c4219a771e2da5ee052d593106111aa0e5ebb89104aa1d580",
+      "schema_version": "aggie.operations.restore_drill.v1",
+      "artifact_identity": "c298c7e49ecf1bc06d657d8687fdc0eab3c4e5633e79ea294723b6bfa62167ab"
+    },
+    {
+      "path": "tools/run_restore_drill.py",
+      "sha256": "b259f02ebd0d3a459b4eb46c43cfc8edb5caea4ee9074a076b310e48b49bebf3"
+    },
+    {
+      "path": "tests/test_restore_drill.py",
+      "sha256": "933758b3a53fb7755e7668ca9083e5c9bf59472228e0a284195dbfe81281c38e"
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "Immutability and rights boundaries preserved while restoring representative lineage and Jira metadata.",
+      "disposition": "PASS",
+      "evidence": "destination_validation + consumer_validation"
+    },
+    {
+      "criterion": "Backup integrity and fail-closed negative-path behavior are verified before restore use.",
+      "disposition": "PASS",
+      "evidence": "negative_paths + input_identities"
+    },
+    {
+      "criterion": "Clean-location restore measured with explicit RPO/RTO and host telemetry.",
+      "disposition": "PASS",
+      "evidence": "restore_repetitions + measurement"
+    },
+    {
+      "criterion": "Prerequisite BAT-481 evidence consumed without hidden reconstruction.",
+      "disposition": "PASS",
+      "evidence": "input_identities.catalog_artifact_identity"
+    }
+  ],
+  "validation": {
+    "producer_command": "python -B tools/run_restore_drill.py --output artifacts/operations/restore_drill.json",
+    "restore_test_command": "python -B -m pytest tests/test_restore_drill.py -q",
+    "w23_test_command": "python -B -m pytest tests/test_w23_operations.py -q",
+    "w23_validator_command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
+    "lint_command": "python -B -m ruff check tools/run_restore_drill.py tests/test_restore_drill.py",
+    "jira_validator_command": "python -B tools/validate_jira_control_plane.py --repo-root . --strict",
+    "second_pass_command": "python -B jira/tools/validate_second_pass.py --repo-root .",
+    "w25_validator_command": "python -B tools/validate_w25_final.py --repo-root .",
+    "repository_validator_command": "python -B tools/validate_repository.py --repo-root . --strict"
+  },
+  "completion": {
+    "achieved_maturity": "DETERMINISTIC_LOCAL_RESTORE_DRILL_VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_WITH_TARGET_HOST_NONCLAIM",
+    "remaining_issue_scope_blockers": [
+      "TARGET_HARDWARE_AUTHORITY_PENDING"
+    ],
+    "completion_claim": "BAT-482 restore drill completed with deterministic local evidence; target-host authority claims remain explicitly non-authoritative."
+  }
+}

@@ -22,7 +22,7 @@
     "artifacts/release/final_traceability_audit.json",
     "artifacts/jira_evidence/POST-SUBTASK-133.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-105;POST-SUBTASK-114;POST-SUBTASK-123;POST-SUBTASK-132",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-105;POST-SUBTASK-114;POST-SUBTASK-123",
   "blocks": [
     "POST-SUBTASK-134",
     "POST-SUBTASK-135"

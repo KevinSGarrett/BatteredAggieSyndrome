@@ -41,14 +41,14 @@ Execute the atomic 3 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `DONE`
+- Ready: `false`
 - Priority: `P2`
 - Critical path: `false`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `PRODUCTION_READY`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-132`
 
 ## Read first
@@ -83,6 +83,10 @@ Execute the atomic 3 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 - artifacts/operations/restore_drill.json
 - artifacts/jira_evidence/POST-SUBTASK-132.json
+- tools/run_restore_drill.py
+- tests/test_restore_drill.py
+- tests/test_autonomous_control_tools.py
+- tests/test_backup_catalog_integrity.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -107,6 +111,8 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 Produce and validate these outputs within this atomic work unit:
 
 - artifacts/operations/restore_drill.json
+- tools/run_restore_drill.py
+- tests/test_restore_drill.py
 
 ## Acceptance criteria
 

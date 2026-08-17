@@ -4,12 +4,11 @@ ADDED,.github/dependabot.yml
 ADDED,.pytest_cache/.gitignore
 ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
-ADDED,.pytest_cache/v/cache/lastfailed
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/14468014431132264975
-ADDED,.ruff_cache/0.6.9/364226422059576394
-ADDED,.ruff_cache/0.6.9/7222950479279371053
+ADDED,.ruff_cache/0.6.9/1018721614705327596
+ADDED,.ruff_cache/0.6.9/11568308415119265437
+ADDED,.ruff_cache/0.6.9/4558961495541788700
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -154,6 +153,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-204.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
 ADDED,artifacts/open_source/integration_validation_manifest.json
 ADDED,artifacts/open_source/repository_review_decisions.csv
@@ -209,6 +209,7 @@ ADDED,artifacts/pit/preliminary_play_drive_augmented_gate.json
 ADDED,artifacts/pit/preliminary_play_enrichment_replay_gate.json
 ADDED,artifacts/pit/preliminary_wmt_tamu_shadow_gate.json
 ADDED,artifacts/pit/protected_replay_dry_run.json
+ADDED,artifacts/pit/roster_domain_completeness_gate.json
 ADDED,artifacts/pit/timestamp_normalization_report.json
 ADDED,artifacts/pit/wmt_provider_timestamp_pit_gate.json
 ADDED,artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
@@ -305,6 +306,7 @@ ADDED,configs/preliminary_unprotected_baseline_contract.json
 ADDED,configs/preliminary_wmt_tamu_shadow_contract.json
 ADDED,configs/retraining_admission_policy.json
 ADDED,configs/retrospective_returning_production_contract.json
+ADDED,configs/roster_domain_completeness_contract.json
 ADDED,configs/sec_tamu_availability_recovery_contract.json
 ADDED,configs/source_acquisition_registry.json
 ADDED,configs/source_drift_registry.json
@@ -556,6 +558,7 @@ ADDED,src/aggie_analytics/validation/evaluation_exposure.py
 ADDED,src/aggie_analytics/validation/pit_replay_readiness.py
 ADDED,src/aggie_analytics/validation/protected_split_authority.py
 ADDED,src/aggie_analytics/validation/retraining_admission.py
+ADDED,src/aggie_analytics/validation/roster_domain_completeness.py
 ADDED,tests/test_acquisition_resilience.py
 ADDED,tests/test_action_play_summary.py
 ADDED,tests/test_assistive_downstream_review.py
@@ -639,6 +642,7 @@ ADDED,tests/test_queue_cpu_worker_manifest_work.py
 ADDED,tests/test_queue_openai_gamebook_candidate_work.py
 ADDED,tests/test_restore_drill.py
 ADDED,tests/test_retrospective_returning_production.py
+ADDED,tests/test_roster_domain_completeness.py
 ADDED,tests/test_sec_tamu_availability.py
 ADDED,tests/test_source_access_smoke_results.py
 ADDED,tests/test_supplemental_play_drive.py
@@ -703,6 +707,7 @@ ADDED,tools/build_preliminary_postgame_collapse_taxonomy.py
 ADDED,tools/build_preliminary_schedule_stress.py
 ADDED,tools/build_preliminary_sustainability.py
 ADDED,tools/build_retrospective_returning_production.py
+ADDED,tools/build_roster_domain_completeness.py
 ADDED,tools/build_sec_tamu_availability_candidates.py
 ADDED,tools/build_supplemental_play_drive_gap.py
 ADDED,tools/build_tamu_availability_evidence_pages.py
@@ -835,6 +840,7 @@ ADDED,tools/validate_preliminary_unprotected_baselines.py
 ADDED,tools/validate_preliminary_wmt_tamu_shadow.py
 ADDED,tools/validate_product_supply_chain.py
 ADDED,tools/validate_retrospective_returning_production.py
+ADDED,tools/validate_roster_domain_completeness.py
 ADDED,tools/validate_sec_tamu_availability_candidates.py
 ADDED,tools/validate_supplemental_play_drive_gap.py
 ADDED,tools/validate_tamu_availability_evidence_pages.py

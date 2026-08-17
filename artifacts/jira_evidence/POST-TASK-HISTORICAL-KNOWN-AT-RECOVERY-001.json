@@ -14,7 +14,7 @@
     "evidence_state": "VERIFIED_SCOPED",
     "parent": "BAT-32",
     "blocks": ["BAT-399"],
-    "relates_to": ["BAT-398", "BAT-565", "BAT-566"]
+    "relates_to": ["BAT-398", "BAT-565", "BAT-566", "BAT-567"]
   },
   "trigger_evidence": [
     {
@@ -924,6 +924,22 @@
     "promotion_authority": false,
     "closes_BAT-523": false
   },
+  "validated_roster_domain_completeness": {
+    "child_jira_key": "BAT-567",
+    "local_id": "POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001",
+    "gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c",
+    "classification": "ROSTER_DOMAIN_COMPLETENESS_AVAILABILITY_BLOCKED",
+    "repository_gate": {
+      "path": "artifacts/pit/roster_domain_completeness_gate.json",
+      "sha256": "2e3b5e8d2a6ff968473159d3e19bb5bc68c643847e3a036aaf2463600acc766e",
+      "bytes": 6716
+    },
+    "tamu_admitted_membership_rows_2004_2022": 1326,
+    "tamu_gamebook_availability_rows": 0,
+    "availability_admission": false,
+    "new_membership_layer_materialized": false,
+    "closes_BAT-523": false
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -944,6 +960,8 @@
     "play_drive_pit_aggregate_protected_training_or_evaluation_admission": false,
     "roster_candidate_layer_validated": true,
     "roster_canonical_pit_or_availability_admission": false,
+    "roster_domain_completeness_gate_materialized": true,
+    "roster_pregame_availability_admission": false,
     "player_event_metric_candidate_layer_validated": true,
     "player_event_metric_canonical_or_pit_admission": false,
     "play_enrichment_candidate_layer_validated": true,

@@ -1,0 +1,118 @@
+{
+  "schema_version": "aggie.operations.restore_drill.v1",
+  "created_at_utc": "2026-08-17T03:34:36+00:00",
+  "issue": {
+    "jira_key": "BAT-482",
+    "local_id": "POST-SUBTASK-132"
+  },
+  "authority_classification": [
+    "DETERMINISTIC_LOCAL_RESTORE_DRILL",
+    "REPRESENTATIVE_OPERATING_PATH",
+    "TARGET_HARDWARE_AUTHORITY_PENDING"
+  ],
+  "commands_executed": [
+    "python -B tools/run_restore_drill.py --output artifacts/operations/restore_drill.json"
+  ],
+  "input_identities": {
+    "catalog_path": "artifacts\\operations\\backup_catalog_and_integrity.json",
+    "catalog_artifact_identity": "e5ac1684a9decf4567c96c020a8d89ec26c14e88c6f810f429dd3b17aa47afb3",
+    "backup_path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-481-backup-integrity\\backup_archives\\backup-20260817T032103Z.zip",
+    "backup_archive_sha256": "a2b9feb5b1d335fc2d2ea621f6577f73ef3246e6395b1a35f6822de5b8be49ff",
+    "backup_content_identity": "d7b0961fe98488355e9449d5594eec854cc56693cbf7a11b6d56ef2fb4f90a58"
+  },
+  "destination_validation": {
+    "destination_absolute_path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-482-clean-restore-drill\\restore_target",
+    "destination_disjoint_from_repo": true,
+    "destination_disjoint_from_authoritative_root": true,
+    "destination_precleaned": true
+  },
+  "restore_repetitions": [
+    {
+      "iteration": 1,
+      "classification": "cold",
+      "started_at_utc": "2026-08-17T03:34:36+00:00",
+      "ended_at_utc": "2026-08-17T03:34:36+00:00",
+      "elapsed_seconds": 0.034354,
+      "restored": {
+        "file_count": 5,
+        "bytes": 5618394
+      }
+    },
+    {
+      "iteration": 2,
+      "classification": "warm",
+      "started_at_utc": "2026-08-17T03:34:36+00:00",
+      "ended_at_utc": "2026-08-17T03:34:36+00:00",
+      "elapsed_seconds": 0.032612,
+      "restored": {
+        "file_count": 5,
+        "bytes": 5618394
+      }
+    }
+  ],
+  "measurement": {
+    "rpo_seconds": 813.634,
+    "rto_seconds": 0.032612,
+    "manual_steps": [
+      "Reconfigure credentials outside repository runtime for downstream systems.",
+      "Reconfirm rights/authorization tokens before external publication or delivery."
+    ],
+    "telemetry": {
+      "os": "Windows-10-10.0.26200-SP0",
+      "python": "3.11.9",
+      "cpu_count": 16,
+      "disk_total_bytes": 1021821579264,
+      "disk_free_bytes": 108925083648
+    },
+    "non_authoritative_for_target_host": true
+  },
+  "negative_paths": {
+    "corrupt_backup_rejected": true,
+    "corrupt_backup_error": "backup payload/manifest coverage mismatch",
+    "schema_mismatch_rejected": true,
+    "schema_mismatch_error": "backup manifest schema mismatch"
+  },
+  "consumer_validation": {
+    "jira_metadata_restored": true,
+    "lineage_file_restored": true,
+    "readable_without_manual_repair": true
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Immutability and rights boundaries preserved while restoring representative lineage and Jira metadata.",
+      "disposition": "PASS",
+      "evidence": "destination_validation + consumer_validation"
+    },
+    {
+      "criterion": "Backup integrity and fail-closed negative-path behavior are verified before restore use.",
+      "disposition": "PASS",
+      "evidence": "negative_paths + input_identities"
+    },
+    {
+      "criterion": "Clean-location restore measured with explicit RPO/RTO and host telemetry.",
+      "disposition": "PASS",
+      "evidence": "restore_repetitions + measurement"
+    },
+    {
+      "criterion": "Prerequisite BAT-481 evidence consumed without hidden reconstruction.",
+      "disposition": "PASS",
+      "evidence": "input_identities.catalog_artifact_identity"
+    }
+  ],
+  "issue_completion_manifest": {
+    "status": "DONE",
+    "achieved_maturity": "DETERMINISTIC_LOCAL_RESTORE_DRILL_VERIFIED",
+    "evidence_state": "VERIFIED",
+    "remaining_blockers": [
+      "TARGET_HARDWARE_AUTHORITY_PENDING"
+    ],
+    "downstream_reevaluated": [
+      "POST-EPIC-015",
+      "POST-STORY-045",
+      "POST-SUBTASK-133",
+      "POST-SUBTASK-134",
+      "POST-SUBTASK-135"
+    ]
+  },
+  "artifact_identity": "c298c7e49ecf1bc06d657d8687fdc0eab3c4e5633e79ea294723b6bfa62167ab"
+}

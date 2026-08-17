@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import warnings
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,8 +33,10 @@ class BackupCatalogIntegrityTests(unittest.TestCase):
             (source / "a.txt").write_text("alpha", encoding="utf-8")
             archive = root / "backup.zip"
             create_backup(source, archive)
-            with zipfile.ZipFile(archive, "a") as zf:
-                zf.writestr("payload/a.txt", "duplicate")
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", category=UserWarning)
+                with zipfile.ZipFile(archive, "a") as zf:
+                    zf.writestr("payload/a.txt", "duplicate")
             with self.assertRaisesRegex(ValueError, "duplicate ZIP member"):
                 verify_backup(archive)
 

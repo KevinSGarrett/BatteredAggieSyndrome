@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.operations.incidents import (  # noqa: E402
+    compute_incident_artifact_identity,
     run_incident_drill,
     validate_incident_artifact,
 )
@@ -56,11 +57,38 @@ class DriftIncidentGameDayExecutionTests(unittest.TestCase):
         self.assertTrue(by_id["governance_conflict"]["execution_rejected"])
         self.assertFalse(by_id["security"]["raw_secret_present"])
 
-    def test_artifact_identity_rejects_fabricated_mutation(self) -> None:
+    def test_semantic_contract_rejects_fabricated_mutation_even_with_new_identity(self) -> None:
         payload, _ = self._run()
         mutated = json.loads(json.dumps(payload))
         mutated["executed_incidents"][0]["unsafe_training_blocked"] = False
-        with self.assertRaisesRegex(ValueError, "identity mismatch"):
+        mutated["artifact_identity"] = compute_incident_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "must be True"):
+            validate_incident_artifact(mutated)
+
+    def test_validation_rejects_missing_scenario(self) -> None:
+        payload, _ = self._run()
+        mutated = json.loads(json.dumps(payload))
+        mutated["executed_incidents"] = [
+            row for row in mutated["executed_incidents"] if row["scenario_id"] != "model"
+        ]
+        mutated["artifact_identity"] = compute_incident_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "scenario coverage mismatch"):
+            validate_incident_artifact(mutated)
+
+    def test_validation_rejects_duplicate_scenario(self) -> None:
+        payload, _ = self._run()
+        mutated = json.loads(json.dumps(payload))
+        mutated["executed_incidents"].append(dict(mutated["executed_incidents"][0]))
+        mutated["artifact_identity"] = compute_incident_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "duplicate scenario_id"):
+            validate_incident_artifact(mutated)
+
+    def test_validation_rejects_unknown_scenario(self) -> None:
+        payload, _ = self._run()
+        mutated = json.loads(json.dumps(payload))
+        mutated["executed_incidents"][0]["scenario_id"] = "unknown_scenario"
+        mutated["artifact_identity"] = compute_incident_artifact_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "unknown scenario_id"):
             validate_incident_artifact(mutated)
 
 

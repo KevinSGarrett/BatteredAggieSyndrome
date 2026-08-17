@@ -34,6 +34,12 @@ def _canonical_hash(payload: dict) -> str:
     return hashlib.sha256(data.encode("utf-8")).hexdigest()
 
 
+def compute_incident_artifact_identity(payload: dict) -> str:
+    canonical = dict(payload)
+    canonical.pop("artifact_identity", None)
+    return _canonical_hash(canonical)
+
+
 def _atomic_write_json(
     path: Path, payload: dict, *, inject_write_failure: bool = False
 ) -> None:
@@ -54,6 +60,101 @@ def _validate_schema_payload(payload: dict) -> None:
         raise ValueError("schema_incompatible_payload")
 
 
+def _require_bool(row: dict, field: str, *, must_be: bool | None = None) -> None:
+    value = row.get(field)
+    if not isinstance(value, bool):
+        raise ValueError(f"{field} must be bool")
+    if must_be is not None and value is not must_be:
+        raise ValueError(f"{field} must be {must_be}")
+
+
+def _parse_utc(value: str) -> datetime:
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError as exc:
+        raise ValueError("invalid timestamp format") from exc
+    if parsed.tzinfo is None:
+        raise ValueError("timestamp timezone required")
+    return parsed.astimezone(UTC)
+
+
+def _validate_outage(row: dict) -> None:
+    if not isinstance(row.get("detected_failure"), str):
+        raise ValueError("outage detected_failure required")
+    _require_bool(row, "unsafe_training_blocked", must_be=True)
+    _require_bool(row, "unsafe_publication_blocked", must_be=True)
+    _require_bool(row, "substitute_route_reevaluated", must_be=True)
+    _require_bool(row, "recovery_requires_changed_evidence", must_be=True)
+    _require_bool(row, "recovered_after_evidence_change", must_be=True)
+
+
+def _validate_schema_incident(row: dict) -> None:
+    if row.get("detected_failure") != "schema_incompatible_payload":
+        raise ValueError("schema incident must prove schema rejection")
+    _require_bool(row, "validator_rejected_payload", must_be=True)
+    _require_bool(row, "silent_coercion_performed", must_be=False)
+    _require_bool(row, "unaffected_scopes_preserved", must_be=True)
+
+
+def _validate_stale_forecast(row: dict) -> None:
+    started = _parse_utc(row.get("started_at_utc", ""))
+    forecast = _parse_utc(row.get("forecast_timestamp_utc", ""))
+    cutoff = row.get("freshness_cutoff_hours")
+    if not isinstance(cutoff, int) or cutoff <= 0:
+        raise ValueError("freshness_cutoff_hours must be positive integer")
+    stale = (started - forecast).total_seconds() > cutoff * 3600
+    if row.get("freshness_gate_rejected") is not stale:
+        raise ValueError("stale forecast gate result unsupported by timestamps")
+    if stale:
+        _require_bool(row, "last_known_good_remained_active", must_be=True)
+
+
+def _validate_disk(row: dict) -> None:
+    if row.get("detected_failure") != "simulated write failure":
+        raise ValueError("disk incident must record write failure")
+    _require_bool(row, "partial_output_promoted", must_be=False)
+    _require_bool(row, "last_known_good_unchanged", must_be=True)
+    _require_bool(row, "recovery_path_observed", must_be=True)
+
+
+def _validate_corrupt_artifact(row: dict) -> None:
+    if not isinstance(row.get("detected_failure"), str):
+        raise ValueError("corrupt artifact failure evidence required")
+    _require_bool(row, "verification_rejected_corruption", must_be=True)
+    _require_bool(row, "last_known_good_unchanged", must_be=True)
+
+
+def _validate_model(row: dict) -> None:
+    if not isinstance(row.get("model_id"), str) or not row["model_id"]:
+        raise ValueError("model_id required")
+    _require_bool(row, "publication_failed_closed", must_be=True)
+    _require_bool(row, "champion_substitution_fabricated", must_be=False)
+
+
+def _validate_security(row: dict) -> None:
+    _require_bool(row, "raw_secret_present", must_be=False)
+    _require_bool(row, "redaction_token_present", must_be=True)
+    _require_bool(row, "persisted_events_redacted_only", must_be=True)
+
+
+def _validate_governance_conflict(row: dict) -> None:
+    _require_bool(row, "governance_conflict_detected", must_be=True)
+    _require_bool(row, "registry_weakened", must_be=False)
+    _require_bool(row, "execution_rejected", must_be=True)
+
+
+SCENARIO_VALIDATORS = {
+    "outage": _validate_outage,
+    "schema": _validate_schema_incident,
+    "stale_forecast": _validate_stale_forecast,
+    "disk": _validate_disk,
+    "corrupt_artifact": _validate_corrupt_artifact,
+    "model": _validate_model,
+    "security": _validate_security,
+    "governance_conflict": _validate_governance_conflict,
+}
+
+
 def validate_incident_artifact(payload: dict) -> None:
     if payload.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("incident schema mismatch")
@@ -62,12 +163,37 @@ def validate_incident_artifact(payload: dict) -> None:
     if payload.get("maturity") == "PRODUCTION_READY":
         raise ValueError("production ready maturity unsupported")
     rows = payload.get("executed_incidents", [])
-    seen = {row.get("scenario_id") for row in rows}
-    if seen != set(SCENARIOS):
+    if not isinstance(rows, list):
+        raise ValueError("executed_incidents must be list")
+    seen_ordered: list[str] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError("incident row must be object")
+        scenario_id = row.get("scenario_id")
+        if not isinstance(scenario_id, str):
+            raise ValueError("scenario_id must be string")
+        if scenario_id not in SCENARIO_VALIDATORS:
+            raise ValueError(f"unknown scenario_id: {scenario_id}")
+        if scenario_id in seen_ordered:
+            raise ValueError(f"duplicate scenario_id: {scenario_id}")
+        if row.get("execution_class") != "DETERMINISTIC_LOCAL_INCIDENT_DRILL":
+            raise ValueError(f"{scenario_id} execution_class mismatch")
+        if not isinstance(row.get("started_at_utc"), str):
+            raise ValueError(f"{scenario_id} started_at_utc required")
+        _parse_utc(row["started_at_utc"])
+        SCENARIO_VALIDATORS[scenario_id](row)
+        seen_ordered.append(scenario_id)
+    if set(seen_ordered) != set(SCENARIOS):
         raise ValueError("scenario coverage mismatch")
-    canonical = dict(payload)
-    claimed = canonical.pop("artifact_identity", None)
-    if claimed != _canonical_hash(canonical):
+    completion = payload.get("issue_completion_manifest", {})
+    if not isinstance(completion, dict):
+        raise ValueError("issue_completion_manifest must be object")
+    if completion.get("status") != "DONE":
+        raise ValueError("completion status must be DONE")
+    if completion.get("evidence_state") != "VERIFIED":
+        raise ValueError("completion evidence_state must be VERIFIED")
+    claimed = payload.get("artifact_identity")
+    if claimed != compute_incident_artifact_identity(payload):
         raise ValueError("incident artifact identity mismatch")
 
 
@@ -284,16 +410,16 @@ def run_incident_drill(
         },
         "executed_incidents": incidents,
         "issue_completion_manifest": {
-            "status": "IN_PROGRESS",
+            "status": "DONE",
             "achieved_maturity": "DETERMINISTIC_LOCAL_INCIDENT_DRILL_VERIFIED",
-            "evidence_state": "PARTIAL",
-            "remaining_blockers": [
+            "evidence_state": "VERIFIED",
+            "protected_nonclaims": [
                 "EXTERNAL_DELIVERY_NOT_CONFIGURED",
                 "TARGET_HARDWARE_AUTHORITY_PENDING",
             ],
         },
     }
-    payload["artifact_identity"] = _canonical_hash(payload)
+    payload["artifact_identity"] = compute_incident_artifact_identity(payload)
     validate_incident_artifact(payload)
     _atomic_write_json(output_path, payload)
     return payload

@@ -1,9 +1,9 @@
 {
   "schema_version": "aggie.operations.incident_drill.v1",
-  "created_at_utc": "2026-08-17T02:56:31+00:00",
+  "created_at_utc": "2026-08-17T04:51:34+00:00",
   "execution_window": {
-    "started_at_utc": "2026-08-17T02:56:31+00:00",
-    "completed_at_utc": "2026-08-17T02:56:31+00:00"
+    "started_at_utc": "2026-08-17T04:51:34+00:00",
+    "completed_at_utc": "2026-08-17T04:51:34+00:00"
   },
   "maturity": "DETERMINISTIC_LOCAL_INCIDENT_DRILL_VERIFIED",
   "eligibility": "EXTERNAL_DELIVERY_NOT_CONFIGURED",
@@ -18,15 +18,15 @@
     "python -B tools/run_drift_incident_game_day.py --output artifacts/operations/drift_incident_game_day.json"
   ],
   "runtime_identities": {
-    "event_sink_path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-479\\incident-drill-run\\runtime\\events.jsonl",
-    "state_path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-479\\incident-drill-run\\runtime\\last_known_good.json",
-    "baseline_backup_sha256": "836a98a66cad5d29cfe2f3bdf212736a630eb06a647f34b695ddc4c0e070327e"
+    "event_sink_path": "C:\\Users\\kevin\\AppData\\Local\\Temp\\incident-drill-5hsvh77i\\runtime\\events.jsonl",
+    "state_path": "C:\\Users\\kevin\\AppData\\Local\\Temp\\incident-drill-5hsvh77i\\runtime\\last_known_good.json",
+    "baseline_backup_sha256": "c40dfeecf518e1e0a4bb5d7f1e4db7638d3723f219ba802ddee229df8da251d8"
   },
   "executed_incidents": [
     {
       "scenario_id": "outage",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T02:56:31+00:00",
+      "started_at_utc": "2026-08-17T04:51:34+00:00",
       "detected_failure": "simulated upstream outage",
       "unsafe_training_blocked": true,
       "unsafe_publication_blocked": true,
@@ -37,7 +37,7 @@
     {
       "scenario_id": "schema",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T02:56:31+00:00",
+      "started_at_utc": "2026-08-17T04:51:34+00:00",
       "detected_failure": "schema_incompatible_payload",
       "validator_rejected_payload": true,
       "silent_coercion_performed": false,
@@ -46,8 +46,8 @@
     {
       "scenario_id": "stale_forecast",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T02:56:31+00:00",
-      "forecast_timestamp_utc": "2026-08-16T14:56:31+00:00",
+      "started_at_utc": "2026-08-17T04:51:34+00:00",
+      "forecast_timestamp_utc": "2026-08-16T16:51:34+00:00",
       "freshness_cutoff_hours": 4,
       "freshness_gate_rejected": true,
       "last_known_good_remained_active": true
@@ -55,7 +55,7 @@
     {
       "scenario_id": "disk",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T02:56:31+00:00",
+      "started_at_utc": "2026-08-17T04:51:34+00:00",
       "detected_failure": "simulated write failure",
       "partial_output_promoted": false,
       "last_known_good_unchanged": true,
@@ -64,7 +64,7 @@
     {
       "scenario_id": "corrupt_artifact",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T02:56:31+00:00",
+      "started_at_utc": "2026-08-17T04:51:34+00:00",
       "detected_failure": "backup payload/manifest coverage mismatch",
       "verification_rejected_corruption": true,
       "last_known_good_unchanged": true
@@ -72,7 +72,7 @@
     {
       "scenario_id": "model",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T02:56:31+00:00",
+      "started_at_utc": "2026-08-17T04:51:34+00:00",
       "model_id": "model-unregistered",
       "publication_failed_closed": true,
       "champion_substitution_fabricated": false
@@ -80,7 +80,7 @@
     {
       "scenario_id": "security",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T02:56:31+00:00",
+      "started_at_utc": "2026-08-17T04:51:34+00:00",
       "raw_secret_present": false,
       "redaction_token_present": true,
       "persisted_events_redacted_only": true
@@ -88,20 +88,20 @@
     {
       "scenario_id": "governance_conflict",
       "execution_class": "DETERMINISTIC_LOCAL_INCIDENT_DRILL",
-      "started_at_utc": "2026-08-17T02:56:31+00:00",
+      "started_at_utc": "2026-08-17T04:51:34+00:00",
       "governance_conflict_detected": true,
       "registry_weakened": false,
       "execution_rejected": true
     }
   ],
   "issue_completion_manifest": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "achieved_maturity": "DETERMINISTIC_LOCAL_INCIDENT_DRILL_VERIFIED",
-    "evidence_state": "PARTIAL",
-    "remaining_blockers": [
+    "evidence_state": "VERIFIED",
+    "protected_nonclaims": [
       "EXTERNAL_DELIVERY_NOT_CONFIGURED",
       "TARGET_HARDWARE_AUTHORITY_PENDING"
     ]
   },
-  "artifact_identity": "322f12f7633b4499289d63f362296566af7248884f7900005b330c6574db120e"
+  "artifact_identity": "95ab33f73b1e4d5ade02f6905a4362c468c0486d08da7c8248b5c487c8b3292d"
 }

@@ -17,7 +17,7 @@ from aggie_analytics.validation.protected_split_authority import (
 # Development-safe chronological walk-forward runner for BAT-400.
 # BAT-523 outcomes cover 2010-2022 only; 2023 label joins are a negative finding.
 
-SCHEMA_VERSION = "aggie.experimentation.walk_forward_dry_run.v1"
+SCHEMA_VERSION = "aggie.experimentation.walk_forward_dry_run.v2"
 CHECKPOINT_SCHEMA = "aggie.experimentation.walk_forward_checkpoint.v1"
 DATASET_IDENTITY = "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7"
 DEVELOPMENT_SEASON = 2023
@@ -143,6 +143,7 @@ AUTHORITY_FIELDS = (
     "input_identities",
     "split_boundaries",
     "folds",
+    "fold_membership_proof",
     "protected_outcomes_inaccessible",
     "protected_metrics_produced",
     "protected_evaluation_status",
@@ -248,6 +249,13 @@ def resolve_data_root(explicit: Path | None, repo_root: Path) -> Path:
             return resolved
         raise ValueError(f"data root must be outside the repository: {resolved}")
     raise ValueError("unable to resolve an external data root")
+
+
+def try_resolve_data_root(explicit: Path | None, repo_root: Path) -> Path | None:
+    try:
+        return resolve_data_root(explicit, repo_root)
+    except ValueError:
+        return None
 
 
 def resolve_external_path(data_root: Path, raw_path: str) -> Path:
@@ -524,24 +532,100 @@ def _feature_hash(rows: Sequence[Mapping[str, Any]], transform: FoldLocalTransfo
     return stable_hash(transformed)
 
 
+def fold_membership(
+    fold: Mapping[str, Any],
+    prior_rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Derive train/eval membership and same-game exclusion from observed rows."""
+
+    eval_rows = list(fold["rows"])
+    eval_game_ids = {str(row["target_game_id"]) for row in eval_rows}
+    eval_row_ids = {str(row["row_id"]) for row in eval_rows}
+    cutoff = str(fold["min_cutoff_utc"])
+    train_rows: list[Mapping[str, Any]] = []
+    excluded_candidates: list[dict[str, Any]] = []
+    for row in prior_rows:
+        row_id = str(row["row_id"])
+        game_id = str(row["target_game_id"])
+        row_cutoff = str(row["cutoff_utc"])
+        reasons: list[str] = []
+        if row_cutoff >= cutoff:
+            reasons.append("CUTOFF_NOT_BEFORE_FOLD")
+        if game_id in eval_game_ids:
+            reasons.append("SAME_GAME_EXCLUDED")
+        if row_id in eval_row_ids:
+            reasons.append("SAME_ROW_EXCLUDED")
+        if reasons:
+            if "CUTOFF_NOT_BEFORE_FOLD" not in reasons:
+                excluded_candidates.append(
+                    {
+                        "row_id": row_id,
+                        "target_game_id": game_id,
+                        "cutoff_utc": row_cutoff,
+                        "reasons": reasons,
+                    }
+                )
+            continue
+        train_rows.append(row)
+    train_rows.sort(key=lambda item: (str(item["cutoff_utc"]), str(item["row_id"])))
+    excluded_candidates.sort(key=lambda item: (item["cutoff_utc"], item["row_id"]))
+    train_membership = [
+        {"row_id": str(row["row_id"]), "target_game_id": str(row["target_game_id"])} for row in train_rows
+    ]
+    eval_membership = [
+        {"row_id": str(row["row_id"]), "target_game_id": str(row["target_game_id"])} for row in eval_rows
+    ]
+    proof = derive_membership_proof(train_membership, eval_membership)
+    proof["excluded_candidates"] = excluded_candidates
+    proof["same_game_excluded"] = (
+        not proof["game_id_intersection"]
+        and not proof["row_id_intersection"]
+        and all("SAME_GAME_EXCLUDED" in item["reasons"] or "SAME_ROW_EXCLUDED" in item["reasons"] for item in excluded_candidates)
+    )
+    return {
+        "train_rows": train_rows,
+        "eval_rows": eval_rows,
+        "train_membership": train_membership,
+        "eval_membership": eval_membership,
+        **proof,
+    }
+
+
+def derive_membership_proof(
+    train_membership: Sequence[Mapping[str, Any]],
+    eval_membership: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    train_games = {str(row["target_game_id"]) for row in train_membership}
+    eval_games = {str(row["target_game_id"]) for row in eval_membership}
+    train_ids = {str(row["row_id"]) for row in train_membership}
+    eval_ids = {str(row["row_id"]) for row in eval_membership}
+    game_intersection = sorted(train_games & eval_games)
+    row_intersection = sorted(train_ids & eval_ids)
+    return {
+        "train_game_ids": sorted(train_games),
+        "eval_game_ids": sorted(eval_games),
+        "game_id_intersection": game_intersection,
+        "row_id_intersection": row_intersection,
+        "same_game_excluded": not game_intersection and not row_intersection,
+        "train_membership_sha256": stable_hash(list(train_membership)),
+        "eval_membership_sha256": stable_hash(list(eval_membership)),
+    }
+
+
 def execute_fold(
     fold: Mapping[str, Any],
     prior_rows: Sequence[Mapping[str, Any]],
     accessor: ProtectedOutcomeAccessor,
 ) -> dict[str, Any]:
-    eval_rows = list(fold["rows"])
-    eval_game_ids = {str(row["target_game_id"]) for row in eval_rows}
-    train_rows = [
-        row
-        for row in prior_rows
-        if str(row["cutoff_utc"]) < fold["min_cutoff_utc"]
-        and str(row["target_game_id"]) not in eval_game_ids
-    ]
-    train_rows.sort(key=lambda item: (str(item["cutoff_utc"]), str(item["row_id"])))
+    membership = fold_membership(fold, prior_rows)
+    train_rows = membership["train_rows"]
+    eval_rows = membership["eval_rows"]
     transform = fit_fold_local_transform(
         train_rows,
         train_cutoff_utc=fold["min_cutoff_utc"],
     )
+    if list(transform.train_row_ids) != [row["row_id"] for row in membership["train_membership"]]:
+        raise RuntimeError("transform fitting population drifted from derived train membership")
     denied_labels: list[str] = []
     for row in eval_rows:
         try:
@@ -561,9 +645,19 @@ def execute_fold(
         "max_cutoff_utc": fold["max_cutoff_utc"],
         "eval_row_count": len(eval_rows),
         "eval_row_ids": [str(row["row_id"]) for row in eval_rows],
-        "eval_game_ids": sorted(eval_game_ids),
+        "eval_game_ids": list(membership["eval_game_ids"]),
         "train_row_count": len(train_rows),
         "train_row_ids": list(transform.train_row_ids),
+        "train_game_ids": list(membership["train_game_ids"]),
+        "membership": {
+            "train": membership["train_membership"],
+            "eval": membership["eval_membership"],
+            "game_id_intersection": membership["game_id_intersection"],
+            "row_id_intersection": membership["row_id_intersection"],
+            "excluded_candidates": membership["excluded_candidates"],
+            "train_membership_sha256": membership["train_membership_sha256"],
+            "eval_membership_sha256": membership["eval_membership_sha256"],
+        },
         "transform_kind": transform.kind,
         "transform_identity": transform.identity,
         "transform_means": transform.means,
@@ -572,7 +666,7 @@ def execute_fold(
         "development_metrics": None,
         "label_join_status": "ABSENT_FROM_VERIFIED_BAT523_OUTCOME_PAYLOADS",
         "label_denials": sorted(set(denied_labels)),
-        "same_game_excluded": True,
+        "same_game_excluded": bool(membership["same_game_excluded"]),
     }
     result["fold_result_hash"] = stable_hash(
         {key: value for key, value in result.items() if key != "fold_result_hash"}
@@ -705,20 +799,40 @@ def prove_target_game_exclusion(
     accessor: ProtectedOutcomeAccessor,
 ) -> dict[str, Any]:
     eval_game_ids = {str(row["target_game_id"]) for row in fold["rows"]}
+    eval_row_ids = {str(row["row_id"]) for row in fold["rows"]}
     injected = list(prior_rows)
     victim = dict(fold["rows"][0])
     victim["row_id"] = "injected-same-game-prior"
     victim["cutoff_utc"] = "2010-01-01T00:00:00Z"
     injected.append(victim)
     result = execute_fold(fold, injected, accessor)
-    leaked = [row_id for row_id in result["train_row_ids"] if row_id == "injected-same-game-prior"]
-    leaked_games = [game_id for game_id in result["eval_game_ids"] if game_id in result["train_row_ids"]]
+    train_row_ids = set(result["train_row_ids"])
+    train_game_ids = set(result["train_game_ids"])
+    leaked_rows = [row_id for row_id in train_row_ids if row_id == "injected-same-game-prior"]
+    leaked_games = sorted(eval_game_ids & train_game_ids)
+    leaked_row_ids = sorted(eval_row_ids & train_row_ids)
+    excluded = result["membership"]["excluded_candidates"]
+    injected_excluded = any(
+        item["row_id"] == "injected-same-game-prior" and "SAME_GAME_EXCLUDED" in item["reasons"]
+        for item in excluded
+    )
     return {
         "mutation": "inject target-game row into earlier history",
         "eval_game_ids": sorted(eval_game_ids),
+        "eval_row_ids": sorted(eval_row_ids),
+        "train_game_ids": sorted(train_game_ids),
         "injected_row_id": "injected-same-game-prior",
-        "leaked_train_row_ids": leaked,
-        "pass": not leaked and not leaked_games and result["same_game_excluded"],
+        "leaked_train_row_ids": leaked_rows,
+        "leaked_game_ids": leaked_games,
+        "leaked_row_ids": leaked_row_ids,
+        "injected_row_excluded": injected_excluded,
+        "pass": (
+            not leaked_rows
+            and not leaked_games
+            and not leaked_row_ids
+            and injected_excluded
+            and result["same_game_excluded"]
+        ),
     }
 
 
@@ -830,7 +944,85 @@ def consume_for_bat401(payload: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def validate_walk_forward_artifact(payload: Mapping[str, Any], repo_root: Path) -> None:
+def validate_fold_membership(fold: Mapping[str, Any]) -> dict[str, Any]:
+    membership = fold.get("membership")
+    if not isinstance(membership, Mapping):
+        raise ValueError(f"{fold.get('fold_id')}: fold membership evidence is required")
+    train = list(membership.get("train") or [])
+    eval_rows = list(membership.get("eval") or [])
+    if not eval_rows:
+        raise ValueError(f"{fold.get('fold_id')}: evaluation membership cannot be empty")
+    derived = derive_membership_proof(train, eval_rows)
+    if membership.get("game_id_intersection") != derived["game_id_intersection"]:
+        raise ValueError(f"{fold.get('fold_id')}: game-id intersection is not derived from membership")
+    if membership.get("row_id_intersection") != derived["row_id_intersection"]:
+        raise ValueError(f"{fold.get('fold_id')}: row-id intersection is not derived from membership")
+    if membership.get("train_membership_sha256") != derived["train_membership_sha256"]:
+        raise ValueError(f"{fold.get('fold_id')}: train membership hash is not derived")
+    if membership.get("eval_membership_sha256") != derived["eval_membership_sha256"]:
+        raise ValueError(f"{fold.get('fold_id')}: eval membership hash is not derived")
+    if fold.get("same_game_excluded") is not derived["same_game_excluded"]:
+        raise ValueError(f"{fold.get('fold_id')}: same_game_excluded is not derived from observed sets")
+    if derived["game_id_intersection"] or derived["row_id_intersection"]:
+        raise ValueError(f"{fold.get('fold_id')}: train/eval membership leaked a game or row identity")
+    if fold.get("eval_row_count") != len(eval_rows) or fold.get("train_row_count") != len(train):
+        raise ValueError(f"{fold.get('fold_id')}: row counts are not derived from membership")
+    eval_ids = fold.get("eval_row_ids")
+    train_ids = fold.get("train_row_ids")
+    if isinstance(eval_ids, Mapping) and eval_ids.get("count") != len(eval_rows):
+        raise ValueError(f"{fold.get('fold_id')}: bounded eval row identity count mismatch")
+    if isinstance(train_ids, Mapping) and train_ids.get("count") != len(train):
+        raise ValueError(f"{fold.get('fold_id')}: bounded train row identity count mismatch")
+    if isinstance(eval_ids, Mapping) and eval_ids.get("sha256") != stable_hash([row["row_id"] for row in eval_rows]):
+        raise ValueError(f"{fold.get('fold_id')}: bounded eval row identity hash mismatch")
+    if isinstance(train_ids, Mapping) and train_ids.get("sha256") != stable_hash([row["row_id"] for row in train]):
+        raise ValueError(f"{fold.get('fold_id')}: bounded train row identity hash mismatch")
+    eval_games = fold.get("eval_game_ids")
+    if isinstance(eval_games, Mapping) and eval_games.get("sha256") != stable_hash(derived["eval_game_ids"]):
+        raise ValueError(f"{fold.get('fold_id')}: bounded eval game identity hash mismatch")
+    if fold.get("train_game_ids") not in (None, derived["train_game_ids"]) and fold.get("train_game_ids") != derived["train_game_ids"]:
+        if isinstance(fold.get("train_game_ids"), Mapping):
+            if fold["train_game_ids"].get("sha256") != stable_hash(derived["train_game_ids"]):
+                raise ValueError(f"{fold.get('fold_id')}: bounded train game identity hash mismatch")
+        else:
+            raise ValueError(f"{fold.get('fold_id')}: train game IDs are not derived from membership")
+    excluded = membership.get("excluded_candidates") or []
+    for item in excluded:
+        if not item.get("reasons"):
+            raise ValueError(f"{fold.get('fold_id')}: excluded candidate missing reasons")
+        if "SAME_GAME_EXCLUDED" not in item["reasons"] and "SAME_ROW_EXCLUDED" not in item["reasons"]:
+            raise ValueError(f"{fold.get('fold_id')}: excluded candidate lacks a same-game or same-row reason")
+    return derived
+
+
+def rebuild_expected_fold_authority(
+    repo_root: Path,
+    *,
+    data_root: Path | None = None,
+) -> list[dict[str, Any]]:
+    resolved_root = resolve_data_root(data_root, repo_root)
+    manifest = _load_json(resolved_root / MANIFEST_RELATIVE)
+    loaded = load_verified_payloads(resolved_root, manifest)
+    frames = loaded["frames"]
+    prior_rows = _rows_from_frame(frames["pregame_prior_rows.parquet"])
+    outcomes = _rows_from_frame(frames["team_outcome_observations.parquet"])
+    if any(int(row["season"]) in PROTECTED_SEASONS for row in outcomes):
+        raise ProtectedOutcomeDenied("BAT-523 outcome payload unexpectedly contains protected seasons")
+    if any(int(row["season"]) == DEVELOPMENT_SEASON for row in outcomes):
+        raise RuntimeError("unexpected 2023 outcomes in BAT-523; refuse to silently consume them without a new identity")
+    accessor = ProtectedOutcomeAccessor(repo_root, outcomes)
+    dev_rows = [row for row in prior_rows if int(row["season"]) == DEVELOPMENT_SEASON]
+    folds = build_folds(dev_rows)
+    return [execute_fold(fold, dev_rows, accessor) for fold in folds]
+
+
+def validate_walk_forward_artifact(
+    payload: Mapping[str, Any],
+    repo_root: Path,
+    *,
+    expected_folds: Sequence[Mapping[str, Any]] | None = None,
+    require_payload_rebuild: bool = False,
+) -> None:
     missing = [field for field in AUTHORITY_FIELDS if field not in payload]
     if missing:
         raise ValueError(f"missing authority fields: {missing}")
@@ -861,25 +1053,33 @@ def validate_walk_forward_artifact(payload: Mapping[str, Any], repo_root: Path) 
     cutoffs = [str(fold["min_cutoff_utc"]) for fold in folds]
     if cutoffs != sorted(cutoffs):
         raise ValueError("folds are not chronological")
-    for previous, current in zip(folds, folds[1:]):
-        if current["transform_identity"] == previous["transform_identity"] and current["train_row_count"]:
-            if current["train_row_ids"] != previous["train_row_ids"]:
-                raise ValueError("fold-local transform identity ignored changed history")
-        eval_ids = current.get("eval_row_ids")
-        train_ids = current.get("train_row_ids")
-        if isinstance(eval_ids, Mapping) and isinstance(train_ids, Mapping):
-            if eval_ids.get("count") != current.get("eval_row_count"):
-                raise ValueError("bounded eval row identity count mismatch")
-            if train_ids.get("count") != current.get("train_row_count"):
-                raise ValueError("bounded train row identity count mismatch")
-        elif set(eval_ids or []).intersection(train_ids or []):
-            raise ValueError("same-game row identifiers leaked into training")
-        if current.get("same_game_excluded") is not True:
-            raise ValueError("fold did not record same-game exclusion")
+    membership_proofs: list[dict[str, Any]] = []
+    for previous, current in zip([None, *folds[:-1]], folds):
+        derived = validate_fold_membership(current)
+        membership_proofs.append(derived)
+        if previous is not None:
+            if current["transform_identity"] == previous["transform_identity"] and current["train_row_count"]:
+                if current["train_row_ids"] != previous["train_row_ids"]:
+                    raise ValueError("fold-local transform identity ignored changed history")
         if current.get("development_metrics") not in (None, {}):
             raise ValueError("fold produced unauthorized development outcome metrics")
         if current.get("tuning_labels_used") != []:
             raise ValueError("fold used tuning labels")
+        if current.get("label_join_status") != "ABSENT_FROM_VERIFIED_BAT523_OUTCOME_PAYLOADS":
+            raise ValueError("fold consumed a development or protected label")
+        if int(current.get("season") or 0) in PROTECTED_SEASONS:
+            raise ValueError("fold accessed a protected-year outcome")
+    expected_proof = {
+        "fold_count": len(folds),
+        "eval_row_count": sum(int(fold["eval_row_count"]) for fold in folds),
+        "same_game_excluded": all(fold.get("same_game_excluded") is True for fold in folds),
+        "game_id_intersections": [fold["membership"]["game_id_intersection"] for fold in folds],
+        "row_id_intersections": [fold["membership"]["row_id_intersection"] for fold in folds],
+        "train_membership_sha256": [fold["membership"]["train_membership_sha256"] for fold in folds],
+        "eval_membership_sha256": [fold["membership"]["eval_membership_sha256"] for fold in folds],
+    }
+    if payload.get("fold_membership_proof") != expected_proof:
+        raise ValueError("fold_membership_proof is not derived from fold membership")
     acceptance = payload.get("acceptance_matrix") or []
     names = [row["criterion"] for row in acceptance]
     if names != list(REQUIRED_ACCEPTANCE):
@@ -904,13 +1104,46 @@ def validate_walk_forward_artifact(payload: Mapping[str, Any], repo_root: Path) 
             raise ValueError(f"payload identity mismatch for {name}")
     consume_for_bat401(payload)
     freeze_split_boundaries(repo_root)
+    rebuilt = expected_folds
+    if rebuilt is None:
+        data_root = try_resolve_data_root(None, repo_root)
+        if data_root is None:
+            if require_payload_rebuild:
+                raise ValueError("independent payload reconstruction requires an external BAT-523 data root")
+        else:
+            rebuilt = rebuild_expected_fold_authority(repo_root, data_root=data_root)
+    if rebuilt is not None:
+        if len(rebuilt) != len(folds):
+            raise ValueError("independently rebuilt fold count does not match the artifact")
+        for actual, expected in zip(folds, rebuilt, strict=True):
+            expected_bound = bound_fold_for_repository(expected)
+            for field in (
+                "fold_id",
+                "min_cutoff_utc",
+                "max_cutoff_utc",
+                "eval_row_count",
+                "train_row_count",
+                "transform_kind",
+                "transform_identity",
+                "eval_feature_hash",
+                "same_game_excluded",
+                "membership",
+            ):
+                if actual.get(field) != expected_bound.get(field):
+                    raise ValueError(f"{actual.get('fold_id')}: {field} does not match independent reconstruction")
+            if payload.get("checkpointing", {}).get("schema_version") != CHECKPOINT_SCHEMA:
+                raise ValueError("checkpoint schema is stale")
+            if payload.get("proofs", {}).get("stale_checkpoint_rejection", {}).get("pass") is not True:
+                raise ValueError("stale-checkpoint rejection proof is missing")
 
 
 def bound_fold_for_repository(fold: Mapping[str, Any]) -> dict[str, Any]:
-    """Keep fold identities in-repo without embedding every row id."""
+    """Keep bounded row/game summaries while retaining raw membership proof."""
 
     eval_ids = list(fold.get("eval_row_ids") or [])
     train_ids = list(fold.get("train_row_ids") or [])
+    train_games = list(fold.get("train_game_ids") or [])
+    eval_games = list(fold.get("eval_game_ids") or [])
     slim = dict(fold)
     slim["eval_row_ids"] = {
         "count": len(eval_ids),
@@ -925,8 +1158,12 @@ def bound_fold_for_repository(fold: Mapping[str, Any]) -> dict[str, Any]:
         "sha256": stable_hash(train_ids),
     }
     slim["eval_game_ids"] = {
-        "count": len(fold.get("eval_game_ids") or []),
-        "sha256": stable_hash(list(fold.get("eval_game_ids") or [])),
+        "count": len(eval_games),
+        "sha256": stable_hash(eval_games),
+    }
+    slim["train_game_ids"] = {
+        "count": len(train_games),
+        "sha256": stable_hash(train_games),
     }
     return slim
 
@@ -987,6 +1224,15 @@ def build_dry_run_artifact(
             "Protected evaluation remains closed; no replacement protected period was defined.",
         ],
         "folds": [bound_fold_for_repository(fold) for fold in folds_results],
+        "fold_membership_proof": {
+            "fold_count": len(folds_results),
+            "eval_row_count": sum(int(fold["eval_row_count"]) for fold in folds_results),
+            "same_game_excluded": all(fold.get("same_game_excluded") is True for fold in folds_results),
+            "game_id_intersections": [fold["membership"]["game_id_intersection"] for fold in folds_results],
+            "row_id_intersections": [fold["membership"]["row_id_intersection"] for fold in folds_results],
+            "train_membership_sha256": [fold["membership"]["train_membership_sha256"] for fold in folds_results],
+            "eval_membership_sha256": [fold["membership"]["eval_membership_sha256"] for fold in folds_results],
+        },
         "checkpointing": {
             "root": str(checkpoint_root),
             "schema_version": CHECKPOINT_SCHEMA,
@@ -1046,7 +1292,7 @@ def execute_dry_run(
             "dataset_identity": DATASET_IDENTITY,
             "code_identity": code_identity,
             "split_boundaries": split_boundaries,
-            "runner": "walk_forward.v1",
+            "runner": "walk_forward.v2",
         }
     )
     full_dir = checkpoint_dir(resolved_root, run_identity)

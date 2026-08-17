@@ -161,8 +161,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24666",
-    "jira_updated_at": "2026-08-17T09:41:37.175-0500",
-    "last_synced_at": "2026-08-17T14:42:06.327856+00:00",
+    "jira_updated_at": "2026-08-17T13:08:28.909-0500",
+    "last_synced_at": "2026-08-17T18:09:09.037885+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -276,7 +276,7 @@
   ],
   "why_this_exists": "Final expanded-history and protected-promotion gates must remain binding. The historical preliminary run is retained as contaminated evidence after its 2024/2025 unprotected labels contradicted the sealed protected-split registry.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

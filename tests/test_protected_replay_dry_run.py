@@ -15,16 +15,20 @@ from aggie_analytics.experimentation.walk_forward import (  # noqa: E402
     DEVELOPMENT_SEASON,
     REQUIRED_ACCEPTANCE,
     REQUIRED_PAYLOADS,
+    SCHEMA_VERSION,
     CheckpointRejected,
     DevelopmentLabelUnavailable,
     ProtectedOutcomeAccessor,
     ProtectedOutcomeDenied,
     compute_artifact_identity,
     consume_for_bat401,
+    derive_membership_proof,
     derive_terminal_state,
     execute_fold,
     fit_fold_local_transform,
     prove_stale_checkpoint_rejection,
+    prove_target_game_exclusion,
+    try_resolve_data_root,
     validate_checkpoint,
     validate_walk_forward_artifact,
 )
@@ -105,7 +109,31 @@ class WalkForwardUnitTests(unittest.TestCase):
         injected = _row("injected-same-game-prior", "2010-01-01T00:00:00Z", "game-x", 1, 0.9)
         result = execute_fold(_fold(1, [eval_row]), [injected], ProtectedOutcomeAccessor(ROOT, []))
         self.assertNotIn("injected-same-game-prior", result["train_row_ids"])
+        self.assertNotIn("game-x", result["train_game_ids"])
+        self.assertEqual(result["membership"]["game_id_intersection"], [])
+        self.assertEqual(result["membership"]["row_id_intersection"], [])
         self.assertTrue(result["same_game_excluded"])
+        self.assertEqual(result["membership"]["excluded_candidates"][0]["row_id"], "injected-same-game-prior")
+        self.assertIn("SAME_GAME_EXCLUDED", result["membership"]["excluded_candidates"][0]["reasons"])
+
+    def test_same_game_excluded_is_derived_from_observed_sets(self) -> None:
+        eval_row = _row("r-eval", "2023-09-08T00:00:00Z", "game-x", 2, 0.5)
+        earlier = _row("r-train", "2023-09-01T00:00:00Z", "game-y", 1, 0.4)
+        result = execute_fold(_fold(1, [eval_row]), [earlier], ProtectedOutcomeAccessor(ROOT, []))
+        self.assertTrue(result["same_game_excluded"])
+        result["same_game_excluded"] = False
+        self.assertFalse(result["same_game_excluded"])
+        self.assertEqual(result["membership"]["game_id_intersection"], [])
+
+    def test_target_game_exclusion_compares_games_to_games_and_rows_to_rows(self) -> None:
+        eval_row = _row("r-eval", "2023-09-08T00:00:00Z", "game-x", 2, 0.5)
+        earlier = _row("r-train", "2023-09-01T00:00:00Z", "game-y", 1, 0.4)
+        proof = prove_target_game_exclusion(_fold(1, [eval_row]), [earlier], ProtectedOutcomeAccessor(ROOT, []))
+        self.assertTrue(proof["pass"])
+        self.assertTrue(proof["injected_row_excluded"])
+        self.assertEqual(proof["leaked_game_ids"], [])
+        self.assertEqual(proof["leaked_row_ids"], [])
+        self.assertNotIn("game-x", proof["train_game_ids"])
 
     def test_stale_and_future_fitted_checkpoints_are_rejected(self) -> None:
         fold = _fold(0, [_row("r1", "2023-09-01T00:00:00Z", "g1", 1, 0.2)])
@@ -129,6 +157,21 @@ class WalkForwardUnitTests(unittest.TestCase):
                 fold=fold,
             )
 
+    def test_membership_proof_derives_same_game_from_game_and_row_sets(self) -> None:
+        leaked = derive_membership_proof(
+            [{"row_id": "train-1", "target_game_id": "game-x"}],
+            [{"row_id": "eval-1", "target_game_id": "game-x"}],
+        )
+        self.assertEqual(leaked["game_id_intersection"], ["game-x"])
+        self.assertFalse(leaked["same_game_excluded"])
+        clean = derive_membership_proof(
+            [{"row_id": "train-1", "target_game_id": "game-y"}],
+            [{"row_id": "eval-1", "target_game_id": "game-x"}],
+        )
+        self.assertEqual(clean["game_id_intersection"], [])
+        self.assertEqual(clean["row_id_intersection"], [])
+        self.assertTrue(clean["same_game_excluded"])
+
     def test_identity_transform_on_empty_history(self) -> None:
         transform = fit_fold_local_transform([], train_cutoff_utc="2023-09-01T00:00:00Z")
         self.assertEqual(transform.kind, "IDENTITY_NO_PRIOR_FOLD_ROWS")
@@ -140,11 +183,16 @@ class WalkForwardArtifactTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.payload = json.loads(ARTIFACT.read_text(encoding="utf-8"))
 
+    def _rehash(self, payload: dict[str, object]) -> dict[str, object]:
+        payload["artifact_identity"] = compute_artifact_identity(payload)
+        return payload
+
     def test_artifact_validates_and_is_consumable_by_bat401(self) -> None:
-        validate_walk_forward_artifact(self.payload, ROOT)
+        validate_walk_forward_artifact(self.payload, ROOT, require_payload_rebuild=bool(try_resolve_data_root(None, ROOT)))
         consumer = consume_for_bat401(self.payload)
         self.assertTrue(consumer["consumable"])
         self.assertTrue(consumer["protected_lane_still_closed"])
+        self.assertEqual(self.payload["schema_version"], SCHEMA_VERSION)
 
     def test_chronological_real_2023_folds(self) -> None:
         folds = self.payload["folds"]
@@ -217,6 +265,59 @@ class WalkForwardArtifactTests(unittest.TestCase):
         self.assertEqual(derived["status"], "BLOCKED")
         self.assertEqual(derived["bat401"], "BLOCKED")
         self.assertIn("ACCEPTANCE_FAILED:fold_local_fitting", derived["remaining_blockers"])
+
+    def test_forged_same_game_excluded_is_rejected_after_rehash(self) -> None:
+        forged = self._rehash(copy.deepcopy(self.payload))
+        forged["folds"][1]["same_game_excluded"] = False
+        self._rehash(forged)
+        with self.assertRaises(ValueError):
+            validate_walk_forward_artifact(forged, ROOT, require_payload_rebuild=False)
+
+    def test_forged_training_game_id_is_rejected_after_rehash(self) -> None:
+        forged = copy.deepcopy(self.payload)
+        eval_game = forged["folds"][1]["membership"]["eval"][0]["target_game_id"]
+        forged["folds"][1]["membership"]["train"][0]["target_game_id"] = eval_game
+        self._rehash(forged)
+        with self.assertRaises(ValueError):
+            validate_walk_forward_artifact(forged, ROOT, require_payload_rebuild=False)
+
+    def test_forged_train_eval_membership_is_rejected_after_rehash(self) -> None:
+        forged = copy.deepcopy(self.payload)
+        stolen = copy.deepcopy(forged["folds"][1]["membership"]["eval"][0])
+        forged["folds"][1]["membership"]["train"].append(stolen)
+        self._rehash(forged)
+        with self.assertRaises(ValueError):
+            validate_walk_forward_artifact(forged, ROOT, require_payload_rebuild=False)
+
+    def test_forged_cutoff_is_rejected_after_rehash(self) -> None:
+        forged = copy.deepcopy(self.payload)
+        forged["folds"][1]["min_cutoff_utc"] = "2099-01-01T00:00:00Z"
+        self._rehash(forged)
+        with self.assertRaises(ValueError):
+            validate_walk_forward_artifact(forged, ROOT, require_payload_rebuild=False)
+
+    def test_forged_transform_population_is_rejected_after_rehash(self) -> None:
+        forged = copy.deepcopy(self.payload)
+        forged["folds"][1]["train_row_count"] = int(forged["folds"][1]["train_row_count"]) + 7
+        self._rehash(forged)
+        with self.assertRaises(ValueError):
+            validate_walk_forward_artifact(forged, ROOT, require_payload_rebuild=False)
+
+    def test_forged_exclusion_evidence_is_rejected_after_rehash(self) -> None:
+        forged = copy.deepcopy(self.payload)
+        forged["folds"][1]["membership"]["excluded_candidates"] = [
+            {"row_id": "forged", "target_game_id": "forged-game", "cutoff_utc": "2010-01-01T00:00:00Z", "reasons": []}
+        ]
+        self._rehash(forged)
+        with self.assertRaises(ValueError):
+            validate_walk_forward_artifact(forged, ROOT, require_payload_rebuild=False)
+
+    def test_forged_bounded_identity_summary_is_rejected_after_rehash(self) -> None:
+        forged = copy.deepcopy(self.payload)
+        forged["folds"][1]["eval_row_ids"]["sha256"] = "0" * 64
+        self._rehash(forged)
+        with self.assertRaises(ValueError):
+            validate_walk_forward_artifact(forged, ROOT, require_payload_rebuild=False)
 
 
 if __name__ == "__main__":

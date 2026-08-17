@@ -1,25 +1,26 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T16:25:00Z",
+  "created_at_utc": "2026-08-17T18:22:00Z",
   "jira_key": "BAT-401",
   "local_issue_id": "POST-SUBTASK-051",
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "BAT-401 performed the PIT/replay readiness gate. The issue is DONE/VERIFIED because the gate decision was executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. Stale zero-row blocking language is superseded. No protected metrics were republished.",
+  "observable_outcome": "Cycle #5 independently reran the BAT-401 PIT/replay readiness gate after the new BAT-400 identity. The issue is DONE/VERIFIED because the gate decision was executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. Proof hardening is not permission for protected evaluation. No protected metrics were republished.",
+  "supersedes_artifact_identity": "6b4f85a9f5422ba05ea400fe39795f18ddaa3d37469d781d42d3b43725e9f31f",
   "outputs": [
     {
       "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
       "bytes": 5142,
-      "sha256": "5d9329910e09f61b0c6321e89304773250fe891e8d8f45c2806f5a6488d8eeed",
+      "sha256": "509190b3fffcd02e45def26cac179426198efd79938567f44b023acc15290a21",
       "schema_version": "aggie.pit.replay_readiness.v1",
-      "artifact_identity": "6b4f85a9f5422ba05ea400fe39795f18ddaa3d37469d781d42d3b43725e9f31f"
+      "artifact_identity": "5da7e995b340464491db23c8e805564e0da77ec595e638573f169337011818d4"
     },
     {
       "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
       "bytes": 12921,
-      "sha256": "bf78a8f49e892dc9769e0dd79310787dfa3534b0475310f456c7a7e4d530ce65"
+      "sha256": "d9b4cf8ba4e020d642225a6b1ff7dd8fe916a49ae0b89717ddeecd4e2a7153ae"
     },
     {
       "path": "tools/evaluate_pit_replay_readiness.py",
@@ -42,7 +43,7 @@
     {
       "criterion": "Replay advances chronologically, fits only on permitted history, and never returns protected outcomes to tuning code.",
       "disposition": "PASS",
-      "evidence": "BAT-400 artifact_identity 14a85cbed528f43a8e5fd2f576cd408b1357d3aa61003b1258dd6514331a1e74"
+      "evidence": "BAT-400 artifact_identity db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402"
     },
     {
       "criterion": "GAP-005 remains open until real historical replay passes with approved matrix, split, seal, entity, source, and runner hashes.",

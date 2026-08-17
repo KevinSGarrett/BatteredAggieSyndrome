@@ -53,8 +53,8 @@ class AutonomousControlToolTests(unittest.TestCase):
 
     def test_selector_returns_only_dependency_ready_atomic_work(self):
         items = select(ROOT)
-        self.assertEqual(items[0]["jira_key"], "BAT-479")
-        self.assertEqual(items[0]["selection_class"], "RESUME_IN_PROGRESS")
+        self.assertEqual(items[0]["jira_key"], "BAT-482")
+        self.assertEqual(items[0]["selection_class"], "READY_NEW_WORK")
         for item in items:
             self.assertTrue(item["local_id"].startswith("POST-SUBTASK-"))
             self.assertIn(item["priority"], {"P0", "P1", "P2", "P3"})

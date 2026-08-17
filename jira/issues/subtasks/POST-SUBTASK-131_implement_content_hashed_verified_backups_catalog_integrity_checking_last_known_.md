@@ -25,7 +25,8 @@
     "artifacts/operations/backup_catalog_and_integrity.json",
     "artifacts/jira_evidence/POST-SUBTASK-131.json",
     "tools/build_backup_catalog_and_integrity.py",
-    "tests/test_backup_catalog_integrity.py"
+    "tests/test_backup_catalog_integrity.py",
+    "tests/test_autonomous_control_tools.py"
   ],
   "blocked_reason": "",
   "blocks": [
@@ -107,7 +108,8 @@
   "files_expected_to_be_touched": [
     "src/aggie_analytics/operations/backup.py",
     "tools/build_backup_catalog_and_integrity.py",
-    "tests/test_backup_catalog_integrity.py"
+    "tests/test_backup_catalog_integrity.py",
+    "tests/test_autonomous_control_tools.py"
   ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
@@ -406,6 +408,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 - src/aggie_analytics/operations/backup.py
 - tools/build_backup_catalog_and_integrity.py
 - tests/test_backup_catalog_integrity.py
+- tests/test_autonomous_control_tools.py
 
 ## Components Expected To Be Touched
 

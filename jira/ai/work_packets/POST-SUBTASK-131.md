@@ -80,6 +80,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 - artifacts/jira_evidence/POST-SUBTASK-131.json
 - tools/build_backup_catalog_and_integrity.py
 - tests/test_backup_catalog_integrity.py
+- tests/test_autonomous_control_tools.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 

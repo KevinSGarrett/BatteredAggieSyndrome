@@ -24,6 +24,13 @@
         "head_sha": "3e657330fb1a49e25ffa3ee2443620a287a26b97",
         "classification": "[material]",
         "reason": "This BAT-554 integration commit is materially scoped, but the local commit subject omitted the required execution-focus marker. The correction preserves immutable history while keeping classifier rigor unchanged for all other commits."
+      },
+      {
+        "commit_sha": "e6104fcb089b2c9af56dfe371ec258dc11cf17c8",
+        "pull_request": 430,
+        "head_sha": "e6104fcb089b2c9af56dfe371ec258dc11cf17c8",
+        "classification": "[process]",
+        "reason": "This BAT-554 branch commit reconciles completion evidence/provenance state but the immutable subject omitted the required execution-focus marker. The correction preserves history and keeps classification enforcement unchanged for all other commits."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

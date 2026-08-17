@@ -19,7 +19,7 @@
     "artifacts/operations/backup_catalog_and_integrity.json",
     "artifacts/jira_evidence/POST-SUBTASK-131.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-129;POST-SUBTASK-130",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-130",
   "blocks": [
     "POST-SUBTASK-132"
   ],

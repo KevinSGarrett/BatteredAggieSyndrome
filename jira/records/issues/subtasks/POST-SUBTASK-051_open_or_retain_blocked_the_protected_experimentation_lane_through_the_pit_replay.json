@@ -25,10 +25,14 @@
     "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
   ],
   "allowed_modification_paths": [
+    "src/aggie_analytics/validation/pit_replay_readiness.py",
+    "tools/evaluate_pit_replay_readiness.py",
+    "tests/test_pit_replay_readiness.py",
     "artifacts/pit/PIT_REPLAY_READINESS.json",
-    "artifacts/jira_evidence/POST-SUBTASK-051.json"
+    "artifacts/jira_evidence/POST-SUBTASK-051.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-051_open_or_retain_blocked_the_protected_experimentation_lane_through_the_pit_replay.json"
   ],
-  "blocked_reason": "QUALITY_GATE_BLOCKED_MATRIX_IDENTITY: 7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1; BAT-398 decision BLOCK; zero accepted rows/cells",
+  "blocked_reason": "PROTECTED_LANE_RETAINED_BLOCKED: prior 2024/2025 exposure; historical-domain incompleteness; BAT-400 is development-safe only; no new protected period authorized",
   "blocks": [
     "POST-EPIC-008",
     "POST-STORY-019",
@@ -95,7 +99,7 @@
   "end_to_end_validation": "A sealed chronological run can rebuild every pregame matrix and demonstrate future/postgame mutations cannot alter earlier state or predictions. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-008, POST-STORY-019, POST-STORY-024, POST-STORY-030, POST-SUBTASK-055, POST-SUBTASK-056, POST-SUBTASK-057, POST-SUBTASK-070, POST-SUBTASK-071, POST-SUBTASK-072, POST-SUBTASK-088, POST-SUBTASK-089….",
   "epic_id": "POST-EPIC-005",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-051.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -118,7 +122,14 @@
     "src/aggie_analytics/temporal/state.py",
     "tests/test_w24_readiness.py"
   ],
-  "files_expected_to_be_touched": [],
+  "files_expected_to_be_touched": [
+    "src/aggie_analytics/validation/pit_replay_readiness.py",
+    "tools/evaluate_pit_replay_readiness.py",
+    "tests/test_pit_replay_readiness.py",
+    "artifacts/pit/PIT_REPLAY_READINESS.json",
+    "artifacts/jira_evidence/POST-SUBTASK-051.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-051_open_or_retain_blocked_the_protected_experimentation_lane_through_the_pit_replay.json"
+  ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
     "docs/final/CODEX_HANDOFF.md",
@@ -375,7 +386,7 @@
   "title": "[POST-SUBTASK-051] Open or retain-blocked the protected experimentation lane through the PIT/replay readiness gate",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Produce a new nonempty content-addressed national pregame matrix with evidence-backed game/cutoff rows, then rerun BAT-398 and obtain an explicit APPROVE decision.",
+  "unblock_condition": "User/governance authority for any new protected period; independently validated historical-domain completeness; a protected-evaluation protocol and artifact. Do not treat BAT-400 or BAT-523 as protected-lane approval.",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",
@@ -384,5 +395,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-017: Leakage battery and chronological replay infrastructure.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-051.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "DONE"
 }

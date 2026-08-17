@@ -1,0 +1,91 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-17T16:25:00Z",
+  "jira_key": "BAT-401",
+  "local_issue_id": "POST-SUBTASK-051",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "observable_outcome": "BAT-401 performed the PIT/replay readiness gate. The issue is DONE/VERIFIED because the gate decision was executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. Stale zero-row blocking language is superseded. No protected metrics were republished.",
+  "outputs": [
+    {
+      "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
+      "bytes": 5142,
+      "sha256": "5d9329910e09f61b0c6321e89304773250fe891e8d8f45c2806f5a6488d8eeed",
+      "schema_version": "aggie.pit.replay_readiness.v1",
+      "artifact_identity": "6b4f85a9f5422ba05ea400fe39795f18ddaa3d37469d781d42d3b43725e9f31f"
+    },
+    {
+      "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
+      "bytes": 12921,
+      "sha256": "bf78a8f49e892dc9769e0dd79310787dfa3534b0475310f456c7a7e4d530ce65"
+    },
+    {
+      "path": "tools/evaluate_pit_replay_readiness.py",
+      "bytes": 1814,
+      "sha256": "91de19106314fdb827a1643342e051e0fa8c5de61a97a18e24b6c2d65a2f0502"
+    },
+    {
+      "path": "tests/test_pit_replay_readiness.py",
+      "bytes": 3263,
+      "sha256": "03a5d42cfdc248d87465c99f1451d5f05a337aac77c25bcdc979b0d12f55dc10"
+    }
+  ],
+  "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "acceptance_matrix": [
+    {
+      "criterion": "Future/postgame injections or appended records cannot change earlier eligible matrix hashes/predictions.",
+      "disposition": "PASS",
+      "evidence": "BAT-399 artifact_identity 2be6b713722382b2c0ea5e86f89a6e6ed57533bab3adbb0bc3cf3a77b46df13a"
+    },
+    {
+      "criterion": "Replay advances chronologically, fits only on permitted history, and never returns protected outcomes to tuning code.",
+      "disposition": "PASS",
+      "evidence": "BAT-400 artifact_identity 14a85cbed528f43a8e5fd2f576cd408b1357d3aa61003b1258dd6514331a1e74"
+    },
+    {
+      "criterion": "GAP-005 remains open until real historical replay passes with approved matrix, split, seal, entity, source, and runner hashes.",
+      "disposition": "PASS",
+      "evidence": "gap_005 OPEN; protected evaluation CLOSED"
+    },
+    {
+      "criterion": "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
+      "disposition": "PASS",
+      "evidence": "remaining_lane_blockers in artifacts/pit/PIT_REPLAY_READINESS.json"
+    }
+  ],
+  "validation": {
+    "producer_command": "python -B tools/evaluate_pit_replay_readiness.py --repo-root .",
+    "producer_exit_code": 0,
+    "validator_command": "python -B tools/evaluate_pit_replay_readiness.py --repo-root . --validate-only",
+    "validator_exit_code": 0,
+    "focused_test_command": "python -B -m pytest tests/test_pit_replay_readiness.py -q",
+    "focused_test_exit_code": 0,
+    "regression_tests_command": "python -B -m pytest tests/test_temporal_governance.py tests/test_w24_readiness.py -q",
+    "regression_tests_exit_code": 0,
+    "lint_command": "python -B -m ruff check src/aggie_analytics/validation/pit_replay_readiness.py tools/evaluate_pit_replay_readiness.py tests/test_pit_replay_readiness.py",
+    "lint_exit_code": 0
+  },
+  "completion": {
+    "achieved_maturity": "GATE_PERFORMED_LANE_REMAINS_BLOCKED",
+    "issue_disposition": "DONE_VERIFIED_GATE_RETAIN_PROTECTED_LANE_BLOCKED",
+    "remaining_issue_scope_blockers": [
+      "NONE"
+    ],
+    "remaining_lane_blockers": [
+      "PRIOR_PROTECTED_RESULT_EXPOSURE",
+      "HISTORICAL_DOMAIN_COMPLETENESS_UNRESOLVED",
+      "BAT400_IS_DEVELOPMENT_SAFE_DRY_RUN_ONLY",
+      "NO_NEW_PROTECTED_PERIOD_AUTHORIZED",
+      "PROTECTED_EVALUATION_SEALED"
+    ],
+    "completion_claim": "BAT-401 completed the required gate decision. The protected experimentation lane remains blocked. No new protected period was defined."
+  },
+  "protected_nonclaims": {
+    "protected_performance_claimed": false,
+    "production_ready": false,
+    "champion_selected": false,
+    "protected_metrics_republished": false
+  }
+}

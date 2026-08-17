@@ -39,14 +39,14 @@ Execute the atomic 3 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `PRODUCTION_READY`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-051`
 
 ## Read first
@@ -79,8 +79,12 @@ Execute the atomic 3 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 
 ## Files I may modify or create
 
+- src/aggie_analytics/validation/pit_replay_readiness.py
+- tools/evaluate_pit_replay_readiness.py
+- tests/test_pit_replay_readiness.py
 - artifacts/pit/PIT_REPLAY_READINESS.json
 - artifacts/jira_evidence/POST-SUBTASK-051.json
+- jira/records/issues/subtasks/POST-SUBTASK-051_open_or_retain_blocked_the_protected_experimentation_lane_through_the_pit_replay.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 

@@ -18,7 +18,7 @@
     "artifacts/bas/bas_label_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-089.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-078;POST-SUBTASK-088",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-078;POST-SUBTASK-088",
   "blocks": [
     "POST-SUBTASK-090"
   ],

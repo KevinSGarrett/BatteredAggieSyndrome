@@ -25,7 +25,7 @@
     "artifacts/bas/bas_label_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-090.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-078;POST-SUBTASK-088;POST-SUBTASK-089",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-078;POST-SUBTASK-088;POST-SUBTASK-089",
   "blocks": [
     "POST-EPIC-011",
     "POST-STORY-031",

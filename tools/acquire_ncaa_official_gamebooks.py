@@ -152,6 +152,8 @@ def validate_official_uri(value: str) -> None:
         re.fullmatch(r"/contests/[0-9]+/[a-z_]+", parsed.path)
         or re.fullmatch(r"/teams/[0-9]+", parsed.path)
         or re.fullmatch(r"/teams/[0-9]+/(roster|season_to_date_stats)", parsed.path)
+        or re.fullmatch(r"/players/[0-9]+", parsed.path)
+        or re.fullmatch(r"/team/[0-9]+/stats/[0-9]+", parsed.path)
     ):
         raise ValueError("source URI is not an allowed NCAA official endpoint")
 

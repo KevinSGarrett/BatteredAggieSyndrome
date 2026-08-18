@@ -55,9 +55,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
-  "issue_complete": false,
+  "issue_complete": true,
   "jira_key": "BAT-575",
   "local_issue_id": "POST-TASK-TAMU-2010-2011-SEASON-RECONCILIATION-001",
   "manifest_identity": "5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4",
@@ -151,5 +151,7 @@
     "validator_command": "python -B tools/validate_tamu_2010_2011_season_reconciliation.py --repo-root .",
     "validator_exit_code": 0
   },
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE",
+  "merge_sha": "a35ead88d69898b3af96869716acd0e9ab0387ef",
+  "pr_number": 467
 }

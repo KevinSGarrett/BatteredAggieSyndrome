@@ -1,0 +1,144 @@
+{
+  "admissions": {
+    "disposition": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+    "per_game_official_completion": false,
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "counts": {
+    "blocked_routes": 34,
+    "candidate_routes": 36,
+    "contest_endpoint_attempts": 0,
+    "contest_ids_discovered": 0,
+    "games_target": 26,
+    "id_range_sweeps": 0,
+    "inspected_http_200": 2,
+    "inspections": 36,
+    "live_attempts": 40
+  },
+  "disposition": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned bounded NCAA contest-ID route discovery beyond Cycle #7 team-page scrape. BAT-571 remains the completed team-page/contest-endpoint unit with LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS. This unit inspects opponent team-season pages and 2011 extra official nav derived from the official TAMU team pages.",
+    "reviewed_keys": [
+      "BAT-523",
+      "BAT-526",
+      "BAT-546",
+      "BAT-547",
+      "BAT-554",
+      "BAT-567",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-574",
+      "BAT-575",
+      "POST-STORY-027",
+      "POST-SUBTASK-016",
+      "POST-SUBTASK-022",
+      "POST-SUBTASK-037",
+      "POST-SUBTASK-063",
+      "POST-SUBTASK-066",
+      "POST-SUBTASK-069",
+      "POST-SUBTASK-070",
+      "POST-SUBTASK-081",
+      "POST-SUBTASK-190",
+      "POST-SUBTASK-197",
+      "TASK-193"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "extra_official_routes_2011": [
+    "https://stats.ncaa.org/players/3766567",
+    "https://stats.ncaa.org/team/697/stats/11262",
+    "https://stats.ncaa.org/team/team_game_highs?org_id=697&sport_year_ctl_id=11262",
+    "https://stats.ncaa.org/team/conf_game_highs?org_id=697&sport_year_ctl_id=11262"
+  ],
+  "gate_identity": "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb",
+  "issue_complete": false,
+  "jira_key": "BAT-576",
+  "local_issue_id": "POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001",
+  "manifest_identity": "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb",
+  "modern_comparison": {
+    "method": "href_/contests/{id}/box_score_on_official_team_page",
+    "link_schema": "MODERN_CONTEST_ROW"
+  },
+  "new_issue_decision": "CREATE",
+  "next_authority_requirement": "An official page or official mapping table that emits /contests/{id}/box_score for the 2010-2011 TAMU games, or successful retrieval of the blocked official player/team-stat/game-highs routes already derived from the 2011 team page.",
+  "observable_outcome": "Cycle #8 Phase 4 derived 36 official candidate routes from cached TAMU 2010/2011 team pages: 26 opponent team-season pages, 4 TAMU optional page-family routes, and 4 2011 extra official nav routes (/players/3766567, /team/697/stats/11262, team/conf game highs). Cached TAMU team pages remain inspectable HTTP 200 with zero /contests/{id}/box_score hrefs. 40 live attempts (34 direct HTTP 403, 4 Chrome 403, 2 Chrome transport failures) discovered zero contest IDs and therefore performed zero contest-endpoint attempts. Disposition OFFICIAL_ROUTE_ACCESS_BLOCKED. 2022/2023 IDs were obtained only from modern team-page contest hrefs, which these legacy pages do not emit. Candidate-only. Not per-game official completion.",
+  "outputs": [
+    {
+      "bytes": 3966,
+      "path": "configs/tamu_2010_2011_ncaa_contest_route_discovery_contract.json",
+      "sha256": "cf513ee87ec7592b7134304e8d9449f33eacdea18d8d45a61612d26ee80b6079"
+    },
+    {
+      "bytes": 31509,
+      "path": "src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py",
+      "sha256": "480e36f5c607b5f681fc797bbfe8772ac91d132b3cd6d5ee09dee707eb531be8"
+    },
+    {
+      "bytes": 1465,
+      "path": "tools/build_tamu_2010_2011_ncaa_contest_route_discovery.py",
+      "sha256": "ac7ec8570aff274933e6d941d729a9ce2bd479b6d289d113b646a8ece128a890"
+    },
+    {
+      "bytes": 4513,
+      "path": "tools/validate_tamu_2010_2011_ncaa_contest_route_discovery.py",
+      "sha256": "80c61a263fb807ad04184573c953edfe47599c889fcc71ba905cea111618f9bd"
+    },
+    {
+      "bytes": 5540,
+      "path": "tests/test_tamu_2010_2011_ncaa_contest_route_discovery.py",
+      "sha256": "072eaf99064a0d767d9f1590dbd8866539b49a5c6a97be237aaa91c47f8a236d"
+    },
+    {
+      "bytes": 5012,
+      "path": "artifacts/data_lake/tamu_2010_2011_ncaa_contest_route_discovery_gate.json",
+      "sha256": "aef4c7f908140bbdff22eac9ad4789617fe95f1ac89a636d86738651b78e5bca"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "payload": {
+    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_ncaa_contest_route_discovery\\sha256\\0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb\\tamu_2010_2011_ncaa_contest_route_discovery_manifest.json",
+    "manifest_sha256": "38a800beb942d8d8241bfccda9f0343be840199d1f1d4a6d293b805256e55aae",
+    "rows_sha256": "f4ba0dd698c71e05b19819bf0d1b85a124e2646fdd01b500a5ed8b002bd6500f"
+  },
+  "phase": 4,
+  "protected_nonclaims": {
+    "availability_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "id_range_swept": false,
+    "per_game_official_completion_claimed": false,
+    "protected_lane_opened": false,
+    "third_party_promoted_as_ncaa_id": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-571",
+    "BAT-574",
+    "BAT-575"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "a35ead88d69898b3af96869716acd0e9ab0387ef",
+  "tamu_seeds": {
+    "2010": "137387",
+    "2011": "137872"
+  },
+  "validation": {
+    "focused_test_command": "python -B -m pytest tests/test_tamu_2010_2011_ncaa_contest_route_discovery.py -q",
+    "focused_test_exit_code": 0,
+    "producer_command": "python -B tools/build_tamu_2010_2011_ncaa_contest_route_discovery.py --repo-root . --issued-at-utc 2026-08-18T20:00:00Z",
+    "producer_exit_code": 0,
+    "validator_command": "python -B tools/validate_tamu_2010_2011_ncaa_contest_route_discovery.py --repo-root .",
+    "validator_exit_code": 0
+  },
+  "workflow_state": "IN_PROGRESS"
+}

@@ -27,10 +27,12 @@
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "evidence_state": "PARTIAL",
+  "implementation_sha": "7226ae07bc045e3f63a9f6ade45573af9104105b",
   "issue_complete": false,
   "jira_key": "BAT-578",
   "local_issue_id": "POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001",
   "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #9 Phase 1 binds independent reconstruction into the BAT-574 and BAT-576 validators so the three confirmed Cycle #8 bypasses fail closed after outer-identity rehash. Committed BAT-574 gate identity remains dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e. Committed BAT-576 gate identity remains 73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb. BAT-575 and BAT-572 were not rebuilt because their pinned upstream identities did not change. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays closed. No champion, protected performance, production feature set, A&M lift, Aggie Excess effect, or forecast publication is claimed.",
   "outputs": [
     {
       "bytes": 68560,
@@ -43,14 +45,14 @@
       "sha256": "f6e3c39bc2e82a8db483d3ef1bf49d23af54d58a888d2e413ca1a98c628e7398"
     },
     {
-      "bytes": 11885,
+      "bytes": 13271,
       "path": "tests/test_tamu_2010_2011_ncaa_team_season_evidence.py",
-      "sha256": "e9befc9ba40e1aea19286ad4295a93b4a1f1bc28eb791e4f3fcdfaeb5b9f573e"
+      "sha256": "e0a6693dc4ad589f472715920198f159212fc30782887eadd92f2de75a80d563"
     },
     {
-      "bytes": 9590,
+      "bytes": 10737,
       "path": "tests/test_tamu_2010_2011_ncaa_contest_route_discovery.py",
-      "sha256": "5f1670baea72f83732b12e0e63118883b7c6a32b4f26b903c86bbcc369ff458e"
+      "sha256": "97df518df9295c5911cd9756124be295dd3d4a7b9d8b26e33bfecb4ca27b9f27"
     },
     {
       "bytes": 6374,
@@ -68,12 +70,11 @@
       "sha256": "aebf911c1857e72d7fee7f2b8a9acc7422c4b7a91645d42d4b963a6709a57e4c"
     },
     {
-      "bytes": 9780,
+      "bytes": 9773,
       "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
-      "sha256": "b933ace707ac1774e8695fbaea679333d2d91fdb75ea73256b951d21d20171b0"
+      "sha256": "21c19ac8f052e8c83ecffa8cd6fd525e74fefd12ef2ddf180d861b175c57e150"
     }
   ],
-  "observable_outcome": "Cycle #9 Phase 1 binds independent reconstruction into the BAT-574 and BAT-576 validators so the three confirmed Cycle #8 bypasses fail closed after outer-identity rehash. Committed BAT-574 gate identity remains dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e. Committed BAT-576 gate identity remains 73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb. BAT-575 and BAT-572 were not rebuilt because their pinned upstream identities did not change. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays closed. No champion, protected performance, production feature set, A&M lift, Aggie Excess effect, or forecast publication is claimed.",
   "parent_jira_key": "BAT-523",
   "protected_nonclaims": {
     "bas_or_aggie_excess_result_claimed": false,
@@ -98,5 +99,5 @@
   ],
   "schema_version": "2.1.0",
   "starting_sha": "2b230a63d04eba3e546acc718cd8c6261793f768",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "REVIEW"
 }

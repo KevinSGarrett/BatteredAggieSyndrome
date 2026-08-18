@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -31,6 +32,9 @@ from aggie_analytics.data.tamu_ncaa_team_season_evidence import (  # noqa: E402
 )
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+LAKE_READY = (DATA_ROOT / "raw/SRC-015/ncaa_team_season_discovery").is_dir() and (
+    DATA_ROOT / "features/tamu_2010_2011_ncaa_team_season_evidence"
+).is_dir()
 
 
 def _team_page(season: int = 2010, seed: str = "137387") -> bytes:
@@ -163,15 +167,36 @@ class TeamSeasonEvidenceTests(unittest.TestCase):
 
     def _reject(self, gate: dict) -> None:
         with self.assertRaises(AuthorityViolation):
-            validate_artifact(data_root=DATA_ROOT, repo_root=ROOT, require_rebuild=True, gate=gate)
+            validate_artifact(
+                data_root=DATA_ROOT,
+                repo_root=ROOT,
+                require_rebuild=LAKE_READY,
+                gate=gate,
+            )
 
     def test_truthful_committed_gate_passes_independent_reconstruction(self) -> None:
-        result = validate_artifact(data_root=DATA_ROOT, repo_root=ROOT, require_rebuild=True)
+        result = validate_artifact(data_root=DATA_ROOT, repo_root=ROOT, require_rebuild=LAKE_READY)
         self.assertEqual("PASS", result["result"])
         self.assertEqual(
             "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
             result["gate_identity"],
         )
+        self.assertEqual("MOUNTED" if LAKE_READY else "NOT_MOUNTED", result["external_reconstruction"])
+
+    def test_unmounted_compact_validation_still_rejects_bypasses(self) -> None:
+        empty = Path(tempfile.mkdtemp(prefix="bas-no-lake-"))
+        result = validate_artifact(data_root=empty, repo_root=ROOT, require_rebuild=False)
+        self.assertEqual("PASS", result["result"])
+        self.assertEqual("NOT_MOUNTED", result["external_reconstruction"])
+        mutated = self._rehashed(self._committed_gate(), lambda gate: gate["counts"].__setitem__("official_routes_attempted", 999))
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=empty, repo_root=ROOT, require_rebuild=False, gate=mutated)
+        mutated = self._rehashed(
+            self._committed_gate(),
+            lambda gate: gate["domains"]["points_for_against"]["2010"]["value"].__setitem__("points_for", 999),
+        )
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=empty, repo_root=ROOT, require_rebuild=False, gate=mutated)
 
     def test_bypass_a_changed_official_routes_attempted_after_rehash(self) -> None:
         def mutate(gate: dict) -> None:

@@ -14,7 +14,7 @@
     "evidence_state": "VERIFIED_SCOPED",
     "parent": "BAT-32",
     "blocks": ["BAT-399"],
-    "relates_to": ["BAT-398", "BAT-565", "BAT-566", "BAT-567", "BAT-568", "BAT-569"]
+    "relates_to": ["BAT-398", "BAT-565", "BAT-566", "BAT-567", "BAT-568", "BAT-569", "BAT-578", "BAT-579", "BAT-580", "BAT-581", "BAT-582"]
   },
   "trigger_evidence": [
     {
@@ -777,6 +777,33 @@
     "player_identity_state": "PROVIDER_ID_CANDIDATE_ONLY_NO_NAME_ONLY_CANONICAL_MERGE",
     "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED",
     "domain_gate_disposition": "VALIDATED_OFFICIAL_PRIMARY_CANDIDATE_LAYER_ONLY_DOMAIN_COVERAGE_PLAYER_IDENTITY_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
+  },
+  "cycle9_official_school_union_supersession": {
+    "status": "IN_PROGRESS_PARENT_NOT_CLOSED",
+    "note": "Cycle #9 added an immutable SRC-014 official-school union beside the preserved WMT 177-game payload. 2010/2011 official box scores are now captured as school evidence. This does not complete BAT-523: historical publication time remains unknown, NCAA contest IDs remain absent, pregame availability remains blocked, and the parent known-at recovery contract is not satisfied.",
+    "wmt_payload_preserved": true,
+    "wmt_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "wmt_target_games": 177,
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+    "union_target_games": 203,
+    "union_captured_games": 203,
+    "official_2010_2011_added": 26,
+    "duplicates_detected": 0,
+    "child_issues": [
+      {"jira_key": "BAT-578", "phase": "PHASE-1", "status": "Done"},
+      {"jira_key": "BAT-579", "phase": "PHASE-2", "status": "Done"},
+      {"jira_key": "BAT-580", "phase": "PHASE-3", "status": "Done"},
+      {"jira_key": "BAT-581", "phase": "PHASE-4", "status": "Done"},
+      {"jira_key": "BAT-582", "phase": "PHASE-5", "status": "In Review"}
+    ],
+    "remaining_parent_gaps": [
+      "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",
+      "NCAA_CONTEST_ROUTE_STILL_BLOCKED",
+      "PREGAME_AVAILABILITY_NOT_ESTABLISHED",
+      "NATIONAL_GAMEBOOK_POPULATION_INCOMPLETE",
+      "NO_PIT_OR_PROTECTED_ADMISSION"
+    ]
   },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",

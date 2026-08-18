@@ -275,6 +275,48 @@ def main() -> int:
                         )()
                     )
 
+        season_gate = root / "artifacts" / "data_lake" / "tamu_2010_2011_season_reconciliation_gate.json"
+        season_module = root / "src" / "aggie_analytics" / "data" / "tamu_season_reconciliation.py"
+        if season_gate.is_file() and season_module.is_file():
+            import importlib.util
+            import os
+
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_season_reconciliation_strict",
+                season_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_season_reconciliation",
+                            "path": "src/aggie_analytics/data/tamu_season_reconciliation.py",
+                            "detail": "unable to load season reconciliation validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = (data_root / "features/tamu_2010_2011_season_reconciliation").is_dir()
+                try:
+                    module.validate_artifact(data_root=data_root, repo_root=root, require_rebuild=lake_ready)
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_season_reconciliation",
+                                "path": "artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

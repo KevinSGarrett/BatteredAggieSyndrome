@@ -55,9 +55,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
-  "issue_complete": false,
+  "issue_complete": true,
   "jira_key": "BAT-574",
   "local_issue_id": "POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001",
   "manifest_identity": "db8283a2f7a164d18380744851d71b43f747f9f22c06c29b2fb350f08ff6bd51",
@@ -141,5 +141,7 @@
     "validator_command": "python -B tools/validate_tamu_2010_2011_ncaa_team_season_evidence.py --repo-root .",
     "validator_exit_code": 0
   },
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE",
+  "merge_sha": "6117fb81587d392cb94374bc83560635e663c5b6",
+  "pr_number": 466
 }

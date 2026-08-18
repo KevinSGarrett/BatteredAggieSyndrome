@@ -1,0 +1,155 @@
+{
+  "admissions": {
+    "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "reconciliation_admission": "CANDIDATE_ONLY",
+    "texas_2011": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED"
+  },
+  "counts": {
+    "availability_features": 0,
+    "by_classification": {
+      "CONFLICT_REVIEW_REQUIRED": 3,
+      "NOT_APPLICABLE_TO_SEASON_SUMMARY": 4,
+      "OFFICIAL_ROUTE_ACCESS_BLOCKED": 6,
+      "SOURCE_EVIDENCE_ABSENT": 8,
+      "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE": 2,
+      "VERIFIED_CROSS_SOURCE": 3,
+      "VERIFIED_OFFICIAL_SEASON_LEVEL": 4
+    },
+    "comparison_rows": 30,
+    "contest_ids_fabricated": 0,
+    "domains": 15,
+    "name_only_promotions": 0,
+    "seasons": 2,
+    "texas_2011_conflicts": 1
+  },
+  "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned season-level 2010-2011 Texas A&M cross-source reconciliation. BAT-572 owns the Cycle #7 per-game domain gate and will be rebound in Phase 5. BAT-570 owns the gap matrix. BAT-574 owns team-season page-family acquisition. BAT-523 remains the parent known-at recovery issue.",
+    "reviewed_keys": [
+      "BAT-523",
+      "BAT-526",
+      "BAT-546",
+      "BAT-547",
+      "BAT-554",
+      "BAT-567",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-574",
+      "POST-STORY-027",
+      "POST-SUBTASK-016",
+      "POST-SUBTASK-022",
+      "POST-SUBTASK-037",
+      "POST-SUBTASK-063",
+      "POST-SUBTASK-066",
+      "POST-SUBTASK-069",
+      "POST-SUBTASK-070",
+      "POST-SUBTASK-081",
+      "POST-SUBTASK-190",
+      "POST-SUBTASK-197",
+      "TASK-193"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
+  "issue_complete": false,
+  "jira_key": "BAT-575",
+  "local_issue_id": "POST-TASK-TAMU-2010-2011-SEASON-RECONCILIATION-001",
+  "manifest_identity": "5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #8 Phase 3 produced a 30-row season-level reconciliation for Texas A&M 2010 and 2011 from verified BAT-574 NCAA team-page evidence plus existing BAT-570/571/572 and Sidearm schedule identities. Schedule game counts agree 13/13/13 as VERIFIED_CROSS_SOURCE. 2010 W-L 9-4 and both seasons' scoring totals are VERIFIED_OFFICIAL_SEASON_LEVEL. 2011 header (0-0) versus score-derived 7-6 remains CONFLICT_REVIEW_REQUIRED. The 2011 Texas date conflict NCAA 2011-11-24 versus Sidearm/gap-matrix 2011-11-25 remains UNRESOLVED_NAME_ONLY_NOT_PROMOTED. Roster and season-stat pages remain OFFICIAL_ROUTE_ACCESS_BLOCKED. Pregame availability remains TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE. Candidate-only. BAT-523 stays In Progress. BAT-429 stays blocked.",
+  "outputs": [
+    {
+      "bytes": 3958,
+      "path": "configs/tamu_2010_2011_season_reconciliation_contract.json",
+      "sha256": "800ac610d6fde74b1139bd0f54762b166c29ddb4a89c8d7542bf57b2e1282879"
+    },
+    {
+      "bytes": 27130,
+      "path": "src/aggie_analytics/data/tamu_season_reconciliation.py",
+      "sha256": "151041e356fda3c49b3bb9fbe608a7bd10b1e09832fe19826f2bb526aad22af6"
+    },
+    {
+      "bytes": 1264,
+      "path": "tools/build_tamu_2010_2011_season_reconciliation.py",
+      "sha256": "c48b6fd2e97e8f46e1b0d68e2543281bc05641829522e67d9eb4f0ddfeadb0b6"
+    },
+    {
+      "bytes": 4961,
+      "path": "tools/validate_tamu_2010_2011_season_reconciliation.py",
+      "sha256": "846ad5961bc25d89b27504a34d6947a14b7af651cdcf4399380993d9c27e49f8"
+    },
+    {
+      "bytes": 6384,
+      "path": "tests/test_tamu_2010_2011_season_reconciliation.py",
+      "sha256": "0964ac3bef47255377b8cd9917bc97ca8cb7c5a0915831e8be8c268f9fca9938"
+    },
+    {
+      "bytes": 32278,
+      "path": "artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json",
+      "sha256": "20b7aa07d5671e266f929eb3c08e670e1ba07eaa30bbaa581dd8bfcebbeaefca"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "payload": {
+    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_season_reconciliation\\sha256\\5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4\\tamu_2010_2011_season_reconciliation_manifest.json",
+    "manifest_sha256": "3d6977c1e778ddee78518b03738fa36d71208d450f40f2acd60c13d22ae5961e",
+    "row_count": 30,
+    "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_season_reconciliation\\sha256\\5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4\\season_reconciliation_rows.json",
+    "rows_sha256": "8aafff16cec75086d44f94c35b65bd09ab679795995b74183ac0e3de206af14e"
+  },
+  "phase": 3,
+  "protected_nonclaims": {
+    "availability_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "name_only_promoted": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "season_total_promoted_to_per_game_official": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-570",
+    "BAT-571",
+    "BAT-572",
+    "BAT-574"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "6117fb81587d392cb94374bc83560635e663c5b6",
+  "tamu_seeds": {
+    "2010": "137387",
+    "2011": "137872"
+  },
+  "texas_2011_conflict": {
+    "disposition": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
+    "ncaa_official_date": "2011-11-24",
+    "ncaa_opponent_team_season_id": "137876",
+    "sidearm_or_gap_matrix_date": "2011-11-25"
+  },
+  "validation": {
+    "focused_test_command": "python -B -m pytest tests/test_tamu_2010_2011_season_reconciliation.py -q",
+    "focused_test_exit_code": 0,
+    "producer_command": "python -B tools/build_tamu_2010_2011_season_reconciliation.py --repo-root . --issued-at-utc 2026-08-18T19:00:00Z",
+    "producer_exit_code": 0,
+    "validator_command": "python -B tools/validate_tamu_2010_2011_season_reconciliation.py --repo-root .",
+    "validator_exit_code": 0
+  },
+  "workflow_state": "IN_PROGRESS"
+}

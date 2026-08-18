@@ -120,12 +120,16 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
     def test_official_uri_allowlist_rejects_queries_credentials_and_other_hosts(self) -> None:
         validate_official_uri("https://stats.ncaa.org/contests/5362283/box_score")
         validate_official_uri("https://stats.ncaa.org/teams/589027")
+        validate_official_uri("https://stats.ncaa.org/teams/137387/roster")
+        validate_official_uri("https://stats.ncaa.org/teams/137387/season_to_date_stats")
         for value in (
             "http://stats.ncaa.org/contests/5362283/box_score",
             "https://example.com/contests/5362283/box_score",
             "https://user:password@stats.ncaa.org/contests/5362283/box_score",
             "https://stats.ncaa.org/contests/5362283/box_score?token=secret",
             "https://stats.ncaa.org/team/1",
+            "https://stats.ncaa.org/teams/137387/box_score",
+            "https://stats.ncaa.org/teams/137387/roster/extra",
         ):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 validate_official_uri(value)

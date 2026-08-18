@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-574-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-V1",
+  "decision_unit": "POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001",
+  "jira_key": "BAT-574",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": ["BAT-523", "BAT-570", "BAT-571", "BAT-572"],
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_2010_2011_NCAA_TEAM_SEASON_EVIDENCE_CANDIDATE_ONLY",
+  "run_id": "BAT-574-TAMU-2010-2011-NCAA-TEAM-SEASON-V1",
+  "purpose": "Acquire and gate official NCAA team-season page families for Texas A&M 2010 and 2011 using only deterministic official routes derived from the official team pages. Roster membership is not pregame availability. Season-to-date statistics are retrospective unless a verified historical known-at timestamp exists.",
+  "season_min": 2010,
+  "season_max": 2011,
+  "official_host": "stats.ncaa.org",
+  "tamu_seeds": {
+    "2010": "137387",
+    "2011": "137872"
+  },
+  "page_families": {
+    "team": "/teams/{team_season_id}",
+    "roster": "/teams/{team_season_id}/roster",
+    "season_to_date_stats": "/teams/{team_season_id}/season_to_date_stats"
+  },
+  "lake_html": {
+    "2010": {
+      "team_season_id": "137387",
+      "page_family": "team",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_discovery/3cdb205a98242b335cc742a81ddbc66f4352bf0ce68387130d17534e5f3712d7.html",
+      "raw_sha256": "3cdb205a98242b335cc742a81ddbc66f4352bf0ce68387130d17534e5f3712d7",
+      "source_uri": "https://stats.ncaa.org/teams/137387"
+    },
+    "2011": {
+      "team_season_id": "137872",
+      "page_family": "team",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_discovery/aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3.html",
+      "raw_sha256": "aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3",
+      "source_uri": "https://stats.ncaa.org/teams/137872"
+    }
+  },
+  "transport_reuse": {
+    "contract_relative_path": "configs/ncaa_official_gamebook_contract.json",
+    "policy": "READ_ONLY_DO_NOT_MUTATE",
+    "allowed_routes": ["direct_http", "local_patchright_chrome"],
+    "forbidden_routes": ["scrapfly", "scraperapi", "scraperapi_async"]
+  },
+  "bat_554_policy": "RELATES_ONLY_DO_NOT_REOPEN",
+  "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+  "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+  "payloads": {
+    "acquisition_root": "manifests/acquisition/BAT-574-TAMU-2010-2011-NCAA-TEAM-SEASON-V1",
+    "normalized_root": "features/tamu_2010_2011_ncaa_team_season_evidence/sha256",
+    "raw_root": "raw/SRC-015/ncaa_team_season_evidence"
+  },
+  "content_validation": {
+    "minimum_html_bytes": 1024,
+    "reject_case_insensitive_markers": [
+      "bm-verify",
+      "_abck",
+      "access denied",
+      "reference #",
+      "captcha",
+      "enable javascript and cookies to continue",
+      "sign in",
+      "log in"
+    ],
+    "required_markers": ["ncaa", "texas a&m"]
+  },
+  "authority": {
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "name_only_promotion": false,
+    "national_crawl": false,
+    "id_range_sweep": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "preliminary_training_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "availability_claim": false,
+    "membership_as_availability": false,
+    "participation_as_availability": false,
+    "season_total_as_per_game_official": false,
+    "tamu_specialization_lift_claims": false,
+    "bas_or_aggie_excess_claims": false,
+    "bat_554_reopen": false
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "acquisition_gaps_remain": true,
+  "admissions": {
+    "acquisition_admission": "CANDIDATE_ONLY",
+    "disposition": "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "roster_authority": "OFFICIAL_TEAM_SEASON_MEMBERSHIP_ONLY",
+    "season_statistics_authority": "RETROSPECTIVE_UNLESS_HISTORICAL_KNOWN_AT_PROVEN"
+  },
+  "blocked_response_identities": {
+    "2010_roster": "4d27d1fea45d8169cb80a7e9b099c9732a15fdb2e26b8b53714230d8a9dded8d",
+    "2010_season_to_date_stats": "3ee7103a76ff2fe01a67a6932cdf7e90d432fb1fb9f828b1e1631509200ffddd",
+    "2011_roster": "55ff11ef54f44bb8541602ed86bb8ac6f9645778be41bc3f872d3073b3d073bb",
+    "2011_season_to_date_stats": "db2e729a75aaa998b17f847a16d9e7208930a2831db27a9859040d5c916e2c91"
+  },
+  "counts": {
+    "availability_features": 0,
+    "contest_ids_fabricated": 0,
+    "official_routes_attempted": 8,
+    "roster_pages_captured": 0,
+    "schedule_rows_2010": 13,
+    "schedule_rows_2011": 13,
+    "season_stat_pages_captured": 0,
+    "team_pages_reused": 2
+  },
+  "disposition": "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned NCAA TAMU 2010-2011 team-season summary and roster page-family acquisition. BAT-571 owns team-page plus contest-endpoint discovery only. BAT-554 remains closed/relates-only. BAT-523 remains the parent known-at recovery issue.",
+    "reviewed_keys": [
+      "BAT-523",
+      "BAT-526",
+      "BAT-546",
+      "BAT-547",
+      "BAT-554",
+      "BAT-567",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "POST-STORY-027",
+      "POST-SUBTASK-016",
+      "POST-SUBTASK-022",
+      "POST-SUBTASK-037",
+      "POST-SUBTASK-063",
+      "POST-SUBTASK-066",
+      "POST-SUBTASK-069",
+      "POST-SUBTASK-070",
+      "POST-SUBTASK-081",
+      "POST-SUBTASK-190",
+      "POST-SUBTASK-197",
+      "TASK-193"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+  "issue_complete": false,
+  "jira_key": "BAT-574",
+  "local_issue_id": "POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001",
+  "manifest_identity": "db8283a2f7a164d18380744851d71b43f747f9f22c06c29b2fb350f08ff6bd51",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #8 Phase 2 reused verified official NCAA team pages for seeds 137387 and 137872, parsed both 13-game Schedule/Results tables by headers, and derived official roster and season_to_date_stats routes from those pages. Direct HTTP and stateful local Chrome both returned HTTP 403 Access Denied for all four optional routes. 2010 header record agrees 9-4. 2011 header displays (0-0) while schedule scores derive 7-6, recorded as CONFLICT_REVIEW_REQUIRED. Roster membership is not availability. Season totals are not per-game official. No contest IDs were invented. Candidate-only.",
+  "outputs": [
+    {
+      "bytes": 3915,
+      "path": "configs/tamu_2010_2011_ncaa_team_season_evidence_contract.json",
+      "sha256": "f20ecf326d4edbe1818f4f01bd9ad528a1a55b59009b06bdaca5481e16d694b4"
+    },
+    {
+      "bytes": 51856,
+      "path": "src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py",
+      "sha256": "c67d16faf0e2c8370b4ab0256a1a4dc67c5064509e536428157307de0a5cf830"
+    },
+    {
+      "bytes": 1456,
+      "path": "tools/build_tamu_2010_2011_ncaa_team_season_evidence.py",
+      "sha256": "be85b686d2eb6c4803c68f515ca80eacf5ff062e4b1ff0335f9b875795700179"
+    },
+    {
+      "bytes": 4281,
+      "path": "tools/validate_tamu_2010_2011_ncaa_team_season_evidence.py",
+      "sha256": "8d862725ccb65c19a5db3d64a5b7d0d9364dca7971dc2848209ad71fbc83bc9f"
+    },
+    {
+      "bytes": 7143,
+      "path": "tests/test_tamu_2010_2011_ncaa_team_season_evidence.py",
+      "sha256": "d23902ade1f4e29f6dd03bfcfe38707eead2cf91356da6e123389b8ee1b6473c"
+    },
+    {
+      "bytes": 12862,
+      "path": "artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json",
+      "sha256": "fc100c8cc906e45a2089ba4e73579e1a4eba281bc53745866242d1f8bf8645e3"
+    }
+  ],
+  "page_identities": {
+    "2010_team": "3cdb205a98242b335cc742a81ddbc66f4352bf0ce68387130d17534e5f3712d7",
+    "2011_team": "aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3"
+  },
+  "parent_jira_key": "BAT-523",
+  "payload": {
+    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_ncaa_team_season_evidence\\sha256\\db8283a2f7a164d18380744851d71b43f747f9f22c06c29b2fb350f08ff6bd51\\tamu_2010_2011_ncaa_team_season_evidence_manifest.json",
+    "manifest_sha256": "da86af84cbe34d3f6633f043749447093d17e75525e513c4338602380d38a725"
+  },
+  "phase": 2,
+  "protected_nonclaims": {
+    "availability_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "season_total_promoted_to_per_game_official": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-571",
+    "BAT-570"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "cd495faed243ac2de1634d2ed3210ef0d993e7ab",
+  "tamu_seeds": {
+    "2010": "137387",
+    "2011": "137872"
+  },
+  "validation": {
+    "focused_test_command": "python -B -m pytest tests/test_tamu_2010_2011_ncaa_team_season_evidence.py -q",
+    "focused_test_exit_code": 0,
+    "producer_command": "python -B tools/build_tamu_2010_2011_ncaa_team_season_evidence.py --repo-root . --issued-at-utc 2026-08-18T18:45:00Z",
+    "producer_exit_code": 0,
+    "validator_command": "python -B tools/validate_tamu_2010_2011_ncaa_team_season_evidence.py --repo-root .",
+    "validator_exit_code": 0
+  },
+  "workflow_state": "IN_PROGRESS"
+}

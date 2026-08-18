@@ -35,8 +35,8 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
   "jira_key": "BAT-573",
   "local_issue_id": "POST-TASK-ARTIFACT-BINDING-VALIDATOR-001",
   "new_issue_decision": "CREATE",
@@ -115,5 +115,7 @@
     "validator_command": "python -B tools/validate_artifact_bindings.py --repo-root .",
     "validator_exit_code": 0
   },
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE",
+  "merge_sha": "cd495faed243ac2de1634d2ed3210ef0d993e7ab",
+  "pr_number": 465
 }

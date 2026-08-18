@@ -1,0 +1,141 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "gate_admission": "CANDIDATE_ONLY",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "ncaa_official": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "sidearm_schedule": "CANDIDATE_ONLY",
+    "wmt_gamebook": "SOURCE_EVIDENCE_ABSENT_GAP_SEASONS"
+  },
+  "bat_429": {
+    "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-063;POST-SUBTASK-066;POST-SUBTASK-069",
+    "jira_key": "BAT-429",
+    "local_id": "POST-SUBTASK-079",
+    "ready_or_done": false,
+    "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+    "workflow_state": "BLOCKED"
+  },
+  "completeness_claimed": false,
+  "coverage": {
+    "by_decision": {
+      "CANDIDATE_ONLY": 61,
+      "CONFLICT_REVIEW_REQUIRED": 17,
+      "NOT_APPLICABLE": 0,
+      "SOURCE_EVIDENCE_ABSENT": 260,
+      "TECHNICAL_ROUTE_BLOCKED": 0,
+      "VERIFIED_CROSS_SOURCE_POSTGAME_FACT": 0,
+      "VERIFIED_OFFICIAL_POSTGAME_FACT": 0
+    },
+    "domain_rows": 338,
+    "games": 26,
+    "missing_domains": [
+      "attendance",
+      "officials",
+      "team_statistics",
+      "team_statistics_by_period",
+      "player_statistics",
+      "drives",
+      "play_by_play",
+      "scoring_summary",
+      "participation",
+      "pregame_availability"
+    ],
+    "recovered_domains": [
+      "linescore_game_info",
+      "venue",
+      "roster_membership"
+    ],
+    "seasons": [
+      2010,
+      2011
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+  "issue_complete": true,
+  "jira_key": "BAT-572",
+  "local_issue_id": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
+  "ncaa_official_national_acquisition_identity": "3e7163624cb05c77a9ac6e8ec089c8bacd4d8bd360693aa8b473ca1ec174bebf",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #7 Phase 5 produced an identity-bound 2010-2011 Texas A&M field-grain domain admission gate over 26 scheduled games. Phase 4 remains LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS with contest counts 0/0. No VERIFIED_OFFICIAL rows. Protected lane stays RETAIN_PROTECTED_LANE_BLOCKED. BAT-429 stays blocked. BAT-523 stays In Progress.",
+  "outputs": [
+    {
+      "bytes": 30265,
+      "path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
+      "sha256": "61c52b864348199c4b2d096de79ca006f0514c4b46bea456269cee731defd4b5"
+    },
+    {
+      "bytes": 5100,
+      "path": "configs/tamu_cross_source_domain_gate_contract.json",
+      "sha256": "505c4c7f59e56b8c1ee7f1d45e8a2f19a8bf454216f7c95af7f9b206d3fdec70"
+    },
+    {
+      "bytes": 34424,
+      "path": "src/aggie_analytics/data/tamu_cross_source_domain_gate.py",
+      "sha256": "a06cf58b3e830006c718c5dfa8ea89eff47620a9a5d9af76ca66b9e5d08be68b"
+    },
+    {
+      "bytes": 1315,
+      "path": "tools/build_tamu_cross_source_domain_gate.py",
+      "sha256": "15c60b78b42e5fe8da4d4480765dfa33103b539bc33d17523eb221e344bf2152"
+    },
+    {
+      "bytes": 4495,
+      "path": "tools/validate_tamu_cross_source_domain_gate.py",
+      "sha256": "9af1349e82a49b3ef717873d253dde0e81d199bddee6a33d16507ae650ceeaa1"
+    },
+    {
+      "bytes": 11150,
+      "path": "tests/test_tamu_cross_source_domain_gate.py",
+      "sha256": "670a03dc0160898949fe84c38bb7304fdb3c3bd411eb1933c5f9fd681e540450"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "phase3_identities": {
+    "gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+    "matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa"
+  },
+  "phase4_identities": {
+    "acquisition_identity": "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd94ed6b83f21ae8f",
+    "disposition": "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS"
+  },
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_ready_or_done": false,
+    "bat_523_closed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "membership_used_as_availability": false,
+    "name_only_promoted": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_outcome_authority": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "verified_cross_source_claimed": false,
+    "verified_official_claimed": false
+  },
+  "related_jira_keys": [
+    "BAT-570",
+    "BAT-571",
+    "BAT-523",
+    "BAT-429",
+    "BAT-548",
+    "BAT-550",
+    "BAT-554",
+    "BAT-567"
+  ],
+  "schema_version": "2.1.0",
+  "verified_official_claimed": false,
+  "workflow_state": "IN_PROGRESS"
+}

@@ -23,6 +23,10 @@ BAT526_IDENTITY = "587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c46
 BAT566_SUPERSEDED_KICKOFF_LABEL = "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
 BAT566_SUPERSEDED_REPLAY = "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
 BAT568_GATE_IDENTITY = "24c78874c69dd1fe0e84875451c7ef4a50e74d5381139194d7eee25ff05c969e"
+BAT570_MATRIX_IDENTITY = "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa"
+BAT570_GATE_IDENTITY = "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93"
+BAT571_ACQUISITION_IDENTITY = "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd94ed6b83f21ae8f"
+BAT571_DISPOSITION = "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS"
 FORBIDDEN_LEDGER_STATES = (
     "PRODUCTION_CHAMPION",
     "PROTECTED_WINNER",
@@ -112,6 +116,9 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
     bat566_path = repo_root / "artifacts" / "pit" / "development_walk_forward_2023.json"
     bat568_path = repo_root / "artifacts" / "pit" / "development_rankings_walk_forward_2023.json"
     bat569_path = repo_root / "artifacts" / "experimentation" / "development_candidate_evidence_ledger.json"
+    bat570_path = repo_root / "artifacts" / "data_lake" / "tamu_official_evidence_gap_matrix_gate.json"
+    bat571_path = repo_root / "artifacts" / "data_lake" / "tamu_2010_2011_ncaa_official_acquisition_gate.json"
+    bat572_path = repo_root / "artifacts" / "data_lake" / "tamu_cross_source_domain_gate.json"
     bat398 = _load_json(bat398_path)
     bat399 = _load_json(bat399_path)
     bat400 = _load_json(bat400_path)
@@ -119,6 +126,9 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
     bat566 = _load_json(bat566_path)
     bat568 = _load_json(bat568_path)
     bat569 = _load_json(bat569_path)
+    bat570 = _load_json(bat570_path)
+    bat571 = _load_json(bat571_path)
+    bat572 = _load_json(bat572_path)
     if sha256_file(bat398_path) != BAT398_SHA256:
         raise ValueError("BAT-398 decision hash mismatch")
     if bat398.get("gate_decision", {}).get("decision") != "BLOCK":
@@ -173,6 +183,32 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
     ledger_states = [entry.get("state") for entry in bat569.get("entries") or []]
     if any(state in FORBIDDEN_LEDGER_STATES for state in ledger_states):
         raise ValueError("BAT-569 ledger contains forbidden production or protected states")
+    if bat570.get("matrix_identity") != BAT570_MATRIX_IDENTITY:
+        raise ValueError("BAT-570 matrix identity mismatch")
+    if bat570.get("gate_identity") != BAT570_GATE_IDENTITY:
+        raise ValueError("BAT-570 gate identity mismatch")
+    if bat570.get("admissions", {}).get("protected_lane") != LANE_DECISION:
+        raise ValueError("BAT-570 unexpectedly opened the protected lane")
+    if bat571.get("acquisition_identity") != BAT571_ACQUISITION_IDENTITY:
+        raise ValueError("BAT-571 acquisition identity mismatch")
+    if bat571.get("disposition") != BAT571_DISPOSITION:
+        raise ValueError("BAT-571 disposition drift")
+    if bat571.get("protected_lane") != LANE_DECISION:
+        raise ValueError("BAT-571 unexpectedly opened the protected lane")
+    if int((bat571.get("counts") or {}).get("contest_ids_present", -1)) != 0:
+        raise ValueError("BAT-571 contest IDs drifted")
+    if bat572.get("protected_lane") != LANE_DECISION:
+        raise ValueError("BAT-572 unexpectedly opened the protected lane")
+    if bat572.get("counts", {}).get("verified_official"):
+        raise ValueError("BAT-572 inflated VERIFIED_OFFICIAL")
+    if bat572.get("input_identities", {}).get("phase3_matrix_identity") != BAT570_MATRIX_IDENTITY:
+        raise ValueError("BAT-572 missing Phase 3 bind")
+    if bat572.get("input_identities", {}).get("phase4_acquisition_identity") != BAT571_ACQUISITION_IDENTITY:
+        raise ValueError("BAT-572 missing Phase 4 bind")
+    if bat572.get("authority", {}).get("protected_outcome_authority") is not False:
+        raise ValueError("BAT-572 unexpectedly granted protected outcome authority")
+    if bat572.get("bat_429", {}).get("ready_or_done") is not False:
+        raise ValueError("BAT-429 marked Ready")
     if "2024" in json.dumps(bat400.get("development_metrics")) or "2025" in json.dumps(
         bat400.get("development_metrics")
     ):
@@ -242,6 +278,28 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
             "classification": bat569.get("classification"),
             "protected_performance": False,
             "promotion_authority": False,
+        },
+        "BAT-570": {
+            "path": "artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json",
+            "matrix_identity": bat570.get("matrix_identity"),
+            "gate_identity": bat570.get("gate_identity"),
+            "classification": bat570.get("classification"),
+            "protected_lane": LANE_DECISION,
+        },
+        "BAT-571": {
+            "path": "artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json",
+            "acquisition_identity": bat571.get("acquisition_identity"),
+            "disposition": bat571.get("disposition"),
+            "gate_identity": bat571.get("gate_identity"),
+            "protected_lane": LANE_DECISION,
+        },
+        "BAT-572": {
+            "path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
+            "gate_identity": bat572.get("gate_identity"),
+            "classification": bat572.get("classification"),
+            "phase4_disposition": bat572.get("phase4_disposition"),
+            "verified_official": False,
+            "protected_lane": LANE_DECISION,
         },
     }
 
@@ -379,6 +437,18 @@ def validate_readiness_artifact(payload: Mapping[str, Any], repo_root: Path) -> 
         raise ValueError("BAT-569 ledger identity not bound")
     if prereqs.get("BAT-569", {}).get("promotion_authority") is not False:
         raise ValueError("BAT-569 promotion authority must remain false")
+    if prereqs.get("BAT-570", {}).get("matrix_identity") != BAT570_MATRIX_IDENTITY:
+        raise ValueError("BAT-570 identity not bound")
+    if prereqs.get("BAT-571", {}).get("acquisition_identity") != BAT571_ACQUISITION_IDENTITY:
+        raise ValueError("BAT-571 identity not bound")
+    if prereqs.get("BAT-571", {}).get("disposition") != BAT571_DISPOSITION:
+        raise ValueError("BAT-571 disposition not bound")
+    if not prereqs.get("BAT-572", {}).get("gate_identity"):
+        raise ValueError("BAT-572 gate identity not bound")
+    if prereqs.get("BAT-572", {}).get("protected_lane") != LANE_DECISION:
+        raise ValueError("BAT-572 must retain the blocked protected lane")
+    if prereqs.get("BAT-572", {}).get("verified_official") is not False:
+        raise ValueError("BAT-572 verified-official claim is not fail-closed")
     freeze_split_boundaries(repo_root)
 
 

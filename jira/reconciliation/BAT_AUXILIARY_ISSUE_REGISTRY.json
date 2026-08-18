@@ -151,6 +151,21 @@
       "critical_path": true,
       "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-572",
+      "local_id": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
+      "summary": "Produce an identity-bound 2010–2011 Texas A&M cross-source domain admission gate",
+      "issue_type": "Task",
+      "status": "In Progress",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "VERIFIED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-5",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

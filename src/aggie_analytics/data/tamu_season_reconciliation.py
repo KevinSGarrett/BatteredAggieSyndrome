@@ -16,6 +16,9 @@ GATE_RELATIVE = "artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.j
 CONTRACT_ID = "BAT-575-TAMU-2010-2011-SEASON-RECONCILIATION-V1"
 PASS_CLASSIFICATION = "TAMU_2010_2011_SEASON_RECONCILIATION_CANDIDATE_ONLY"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
+TEXAS_DISPOSITION = "RESOLVED_OFFICIAL_STRONG_TUPLE_SIDEARM_DATE_CONFLICT_PRESERVED"
+PASS_RESULT = "PASS_SEASON_LEVEL_RECONCILED_WITH_PRESERVED_TEXAS_SIDEARM_DATE_CONFLICT"
+SEASON_DISPOSITION = "SEASON_LEVEL_RECONCILED_WITH_PRESERVED_TEXAS_SIDEARM_DATE_CONFLICT"
 TAMU_SEEDS = {"2010": "137387", "2011": "137872"}
 DOMAINS = (
     "schedule_game_count",
@@ -123,6 +126,8 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
         raise AuthorityViolation("TAMU seeds drifted")
     if contract.get("texas_2011_conflict", {}).get("name_only_promotion") is not False:
         raise AuthorityViolation("2011 Texas name-only promotion is forbidden")
+    if contract.get("texas_2011_conflict", {}).get("disposition") != TEXAS_DISPOSITION:
+        raise AuthorityViolation("2011 Texas official strong-tuple disposition drifted")
     if contract.get("bat_554_policy") != "RELATES_ONLY_DO_NOT_REOPEN":
         raise AuthorityViolation("BAT-554 reopen is forbidden")
     for key, expected in expected_authority().items():
@@ -143,8 +148,6 @@ def _require_bat572_cycle7_or_rebound(gate: Mapping[str, Any], expected_cycle7: 
     superseded = (gate.get("input_identities") or {}).get("supersedes_cycle7_gate_identity")
     if superseded != expected_cycle7:
         raise AuthorityViolation(f"BAT-572 gate identity drifted: {gate.get('gate_identity')}")
-    if gate.get("counts", {}).get("verified_official"):
-        raise AuthorityViolation("rebound BAT-572 inflated VERIFIED_OFFICIAL")
     if int((gate.get("counts") or {}).get("contest_ids_present", -1)) != 0:
         raise AuthorityViolation("rebound BAT-572 fabricated contest IDs")
     if gate.get("protected_lane") != PROTECTED_LANE:
@@ -206,6 +209,25 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
     _require_identity(bat571, "gate_identity", identities["bat571_gate_identity"], "BAT-571 gate")
     _require_identity(bat571, "acquisition_identity", identities["bat571_acquisition_identity"], "BAT-571 acquisition")
     _require_bat572_cycle7_or_rebound(bat572, identities["bat572_gate_identity"])
+    official_box = load_json(repo_root / identities["official_boxscore_gate_relative_path"])
+    _require_identity(official_box, "gate_identity", identities["official_boxscore_gate_identity"], "BAT-580 boxscore")
+    if official_box.get("dataset_identity") != identities["official_boxscore_dataset_identity"]:
+        raise AuthorityViolation("BAT-580 dataset identity drifted")
+    official_texas = next(
+        (
+            item
+            for item in official_box.get("games") or []
+            if item.get("source_season") == 2011
+            and item.get("opponent_normalized") == "texas"
+            and item.get("calendar_date") == "2011-11-24"
+            and item.get("tamu_points") == 25
+            and item.get("opponent_points") == 27
+            and item.get("venue_state") == "HOME"
+        ),
+        None,
+    )
+    if official_texas is None:
+        raise AuthorityViolation("2011 Texas official-school strong tuple is missing")
     registry = repo_root / "governance/PROTECTED_SPLIT_REGISTRY.csv"
     if hashlib.sha256(registry.read_bytes()).hexdigest() != identities["protected_split_registry_sha256"]:
         raise AuthorityViolation("protected-split registry identity drift")
@@ -309,21 +331,37 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
         ncaa_opponents = [row["opponent_normalized"] for row in ncaa_rows]
         ncaa_dates = [row["game_date"] for row in ncaa_rows]
         texas = next((row for row in ncaa_rows if row["opponent_normalized"] == "Texas"), None)
-        texas_conflict = season == 2011 and texas is not None and texas["game_date"] == "2011-11-24" and gap_2011_texas == "2011-11-25"
+        texas_sidearm_conflict = (
+            season == 2011
+            and texas is not None
+            and texas["game_date"] == "2011-11-24"
+            and gap_2011_texas == "2011-11-25"
+        )
+        texas_official_binds = (
+            texas_sidearm_conflict
+            and official_texas["calendar_date"] == "2011-11-24"
+            and official_texas["tamu_points"] == 25
+            and official_texas["opponent_points"] == 27
+            and official_texas["venue_state"] == "HOME"
+        )
         rows.append(
             _comparison(
                 season=season,
                 domain="opponent_identity",
-                sources={"ncaa_phase2": phase2["gate_identity"], "bat570": bat570["gate_identity"]},
+                sources={
+                    "ncaa_phase2": phase2["gate_identity"],
+                    "bat570": bat570["gate_identity"],
+                    "official_boxscore": official_box["gate_identity"],
+                },
                 raw_values={"ncaa_opponents": ncaa_opponents, "ncaa_opponent_team_season_ids": [row.get("opponent_team_season_id") for row in ncaa_rows]},
                 normalized=ncaa_opponents,
                 agreement_rule="official_opponent_link_or_exact_date_score_not_name_only",
-                result="CONFLICT" if texas_conflict else "AGREE_WITH_OFFICIAL_LINKS",
-                classification="CONFLICT_REVIEW_REQUIRED" if texas_conflict else "VERIFIED_OFFICIAL_SEASON_LEVEL",
+                result="AGREE_WITH_OFFICIAL_LINKS",
+                classification="VERIFIED_OFFICIAL_SEASON_LEVEL",
                 authority="NCAA_OFFICIAL_OPPONENT_TEAM_SEASON_LINKS",
-                unresolved=["2011_Texas_date_UNRESOLVED_NAME_ONLY_NOT_PROMOTED"] if texas_conflict else [],
+                unresolved=[],
                 bat523=True,
-                development_pit=not texas_conflict,
+                development_pit=True,
                 pregame=False,
             )
         )
@@ -331,16 +369,20 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
             _comparison(
                 season=season,
                 domain="dates",
-                sources={"ncaa_phase2": phase2["gate_identity"], "bat570_special_path": bat570["gate_identity"]},
+                sources={
+                    "ncaa_phase2": phase2["gate_identity"],
+                    "bat570_special_path": bat570["gate_identity"],
+                    "official_boxscore": official_box["gate_identity"],
+                },
                 raw_values={"ncaa_dates": ncaa_dates, "gap_special_path_dates": [item for item in gap_dates if item.startswith(str(season)) or (season == 2010 and item == "2011-01-07")]},
                 normalized=ncaa_dates,
-                agreement_rule="exact_iso_date_plus_canonical_game_identity_required_to_resolve_conflict",
-                result="CONFLICT" if texas_conflict else "AGREE",
-                classification="CONFLICT_REVIEW_REQUIRED" if texas_conflict else "VERIFIED_CROSS_SOURCE",
-                authority="NCAA_OFFICIAL_DATES_NOT_PROMOTED_OVER_SIDEARM_BY_NAME",
-                unresolved=["2011_Texas_NCAA_2011-11-24_vs_gap_matrix_2011-11-25"] if texas_conflict else [],
+                agreement_rule="official_school_box_plus_ncaa_legacy_plus_official_index_not_name_only",
+                result="AGREE_WITH_PRESERVED_SIDEARM_CONFLICT" if texas_official_binds else ("CONFLICT" if texas_sidearm_conflict else "AGREE"),
+                classification="VERIFIED_CROSS_SOURCE" if (texas_official_binds or not texas_sidearm_conflict) else "CONFLICT_REVIEW_REQUIRED",
+                authority="OFFICIAL_SCHOOL_BOX_PLUS_NCAA_LEGACY_SIDEARM_DATE_PRESERVED",
+                unresolved=["2011_Texas_SIDEARM_2011-11-25_LOST_AUTHORITY_PRESERVED"] if texas_official_binds else (["2011_Texas_NCAA_2011-11-24_vs_gap_matrix_2011-11-25"] if texas_sidearm_conflict else []),
                 bat523=True,
-                development_pit=not texas_conflict,
+                development_pit=True,
                 pregame=False,
             )
         )
@@ -374,11 +416,19 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
         "opponent": "Texas",
         "ncaa_official_date": "2011-11-24",
         "ncaa_opponent_team_season_id": "137876",
+        "official_school_date": "2011-11-24",
+        "official_season_index_date": "2011-11-24",
         "sidearm_or_gap_matrix_date": "2011-11-25",
-        "disposition": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
+        "disposition": TEXAS_DISPOSITION,
         "name_only_promotion": False,
+        "lost_authority": "SIDEARM_SCHEDULE_DATE",
+        "winning_authority": "OFFICIAL_SCHOOL_BOX_PLUS_NCAA_LEGACY_PLUS_OFFICIAL_SEASON_INDEX",
         "canonical_game_identity": None,
-        "resolved": False,
+        "ncaa_contest_id": None,
+        "discrepancy_erased": False,
+        "resolved": True,
+        "source_url": official_texas.get("url"),
+        "source_sha256": official_texas.get("source_sha256"),
     }
     by_class: dict[str, int] = {}
     for row in rows:
@@ -396,7 +446,7 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
         "contract_id": CONTRACT_ID,
         "run_id": contract["run_id"],
         "tamu_seeds": dict(TAMU_SEEDS),
-        "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+        "disposition": SEASON_DISPOSITION,
         "input_identities": {
             "phase2_gate_identity": phase2["gate_identity"],
             "phase2_manifest_identity": phase2["manifest_identity"],
@@ -407,6 +457,8 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
             "bat572_gate_identity": identities["bat572_gate_identity"],
             "sidearm_schedule_html_2010_sha256": identities["sidearm_schedule_html_2010_sha256"],
             "sidearm_schedule_html_2011_sha256": identities["sidearm_schedule_html_2011_sha256"],
+            "official_boxscore_gate_identity": identities["official_boxscore_gate_identity"],
+            "official_boxscore_dataset_identity": identities["official_boxscore_dataset_identity"],
             "protected_split_registry_sha256": identities["protected_split_registry_sha256"],
         },
         "counts": {
@@ -426,13 +478,13 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
         "rows": rows,
         "admissions": {
             "reconciliation_admission": "CANDIDATE_ONLY",
-            "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+            "disposition": SEASON_DISPOSITION,
             "pregame_availability": "BLOCKED",
             "protected_lane": PROTECTED_LANE,
             "bat_523": "IN_PROGRESS",
             "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
             "bat_554": "RELATES_ONLY_DO_NOT_REOPEN",
-            "texas_2011": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
+            "texas_2011": TEXAS_DISPOSITION,
         },
         "authority": expected_authority(),
         "scientific_nonclaims": expected_nonclaims(),
@@ -453,7 +505,7 @@ def expected_gate_document(core: Mapping[str, Any], payload: Mapping[str, Any]) 
     gate = {
         "schema_version": SCHEMA_VERSION,
         "artifact_type": "TAMU_2010_2011_SEASON_RECONCILIATION_GATE",
-        "result": "PASS_SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+        "result": PASS_RESULT,
         "classification": PASS_CLASSIFICATION,
         "contract_id": CONTRACT_ID,
         "decision_unit": core["decision_unit"],
@@ -521,6 +573,8 @@ def validate_artifact(
         "bat572_gate_identity": contract["input_identities"]["bat572_gate_identity"],
         "sidearm_schedule_html_2010_sha256": contract["input_identities"]["sidearm_schedule_html_2010_sha256"],
         "sidearm_schedule_html_2011_sha256": contract["input_identities"]["sidearm_schedule_html_2011_sha256"],
+        "official_boxscore_gate_identity": contract["input_identities"]["official_boxscore_gate_identity"],
+        "official_boxscore_dataset_identity": contract["input_identities"]["official_boxscore_dataset_identity"],
         "protected_split_registry_sha256": contract["input_identities"]["protected_split_registry_sha256"],
     }
     if committed.get("input_identities") != expected_inputs:
@@ -531,7 +585,7 @@ def validate_artifact(
         raise AuthorityViolation("2011 Texas conflict count drifted")
     if committed.get("classification") != PASS_CLASSIFICATION:
         raise AuthorityViolation("classification drifted")
-    if committed.get("result") != "PASS_SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE":
+    if committed.get("result") != PASS_RESULT:
         raise AuthorityViolation("result drifted")
     if committed["tamu_seeds"] != TAMU_SEEDS:
         raise AuthorityViolation("seeds drifted")
@@ -541,10 +595,19 @@ def validate_artifact(
         raise AuthorityViolation("nonclaims drifted")
     if committed["protected_lane"] != PROTECTED_LANE:
         raise AuthorityViolation("protected lane drifted")
-    if committed["texas_2011_conflict"].get("resolved"):
-        raise AuthorityViolation("2011 Texas conflict was falsely resolved")
-    if committed["texas_2011_conflict"].get("name_only_promotion"):
+    texas = committed["texas_2011_conflict"]
+    if texas.get("resolved") is not True:
+        raise AuthorityViolation("2011 Texas official strong tuple was left unresolved")
+    if texas.get("name_only_promotion"):
         raise AuthorityViolation("2011 Texas was name-only promoted")
+    if texas.get("disposition") != TEXAS_DISPOSITION:
+        raise AuthorityViolation("2011 Texas disposition drifted")
+    if texas.get("sidearm_or_gap_matrix_date") != "2011-11-25":
+        raise AuthorityViolation("incorrect Sidearm 2011-11-25 value was discarded")
+    if texas.get("official_school_date") != "2011-11-24":
+        raise AuthorityViolation("official 2011 Texas date drifted")
+    if texas.get("discrepancy_erased"):
+        raise AuthorityViolation("2011 Texas historical discrepancy was erased")
     if committed["counts"]["contest_ids_fabricated"] != 0:
         raise AuthorityViolation("contest IDs were fabricated")
     if committed["counts"]["availability_features"] != 0:

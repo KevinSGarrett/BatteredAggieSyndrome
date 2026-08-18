@@ -456,6 +456,55 @@ def main() -> int:
                         )()
                     )
 
+        union_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_gate.json"
+        union_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union.py"
+        if union_gate.is_file() and union_module.is_file():
+            import importlib.util
+            import os
+
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_gamebook_union_strict",
+                union_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_gamebook_union",
+                            "path": "src/aggie_analytics/data/tamu_official_gamebook_union.py",
+                            "detail": "unable to load official gamebook-union validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = (
+                    data_root
+                    / "quarantine/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebooks/domain=game/candidate_records.parquet"
+                ).is_file()
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=lake_ready,
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_gamebook_union",
+                                "path": "artifacts/data_lake/tamu_official_gamebook_union_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

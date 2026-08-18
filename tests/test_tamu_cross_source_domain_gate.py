@@ -145,6 +145,36 @@ class DecisionTests(unittest.TestCase):
         self.assertTrue(all(row["decision"] in ADMITTED_DECISIONS for row in rows))
         self.assertFalse(any(row["decision"].startswith("VERIFIED") for row in rows))
 
+    def test_official_box_is_verified_postgame_not_availability(self) -> None:
+        official = {
+            "domain_coverage": {
+                "scores": "PRESENT",
+                "game_identity_metadata": "PRESENT",
+                "played_date": "PRESENT",
+                "site_venue": "PRESENT",
+                "attendance": "PRESENT",
+                "officials": "PRESENT",
+                "team_statistics": "PRESENT",
+                "quarter_scoring": "PRESENT",
+                "individual_player_statistics": "PRESENT",
+                "drives": "PRESENT",
+                "play_by_play": "PRESENT",
+                "scoring_summary": "PRESENT",
+                "participation": "PRESENT",
+            },
+            "ncaa_contest_id": None,
+        }
+        game = _game(official_box=official, official_match_status="MATCHED_SEASON_DATE_NOT_NAME_ONLY")
+        linescore = decide_domain(game, "linescore_game_info")
+        participation = decide_domain(game, "participation")
+        availability = decide_domain(game, "pregame_availability")
+        self.assertEqual(linescore["decision"], "VERIFIED_OFFICIAL_POSTGAME_FACT")
+        self.assertTrue(linescore["verified_official"])
+        self.assertEqual(participation["decision"], "VERIFIED_OFFICIAL_POSTGAME_FACT")
+        self.assertFalse(participation["pregame_available"])
+        self.assertEqual(availability["decision"], "SOURCE_EVIDENCE_ABSENT")
+        self.assertFalse(availability["pregame_available"])
+
 
 class MutationTests(unittest.TestCase):
     @classmethod
@@ -275,7 +305,7 @@ class LiveArtifactTests(unittest.TestCase):
 
         expected = rebuild_expected(data_root=data_root, repo_root=ROOT)
         self.assertEqual(expected["gate"]["counts"]["scheduled_games"], 26)
-        self.assertEqual(expected["gate"]["counts"]["verified_official"], 0)
+        self.assertGreater(expected["gate"]["counts"]["verified_official"], 0)
         self.assertEqual(expected["gate"]["phase4_disposition"], PHASE4_DISPOSITION)
         self.assertEqual(expected["gate"]["contest_route_disposition"], CONTEST_ROUTE_DISPOSITION)
         self.assertEqual(
@@ -294,15 +324,15 @@ class LiveArtifactTests(unittest.TestCase):
             and row["domain"] == "linescore_game_info"
         ]
         self.assertEqual(len(texas), 1)
-        self.assertTrue(texas[0]["name_only_unpromoted"])
-        self.assertEqual(texas[0]["decision"], "CANDIDATE_ONLY")
+        self.assertEqual(texas[0]["decision"], "VERIFIED_CROSS_SOURCE_POSTGAME_FACT")
+        self.assertIn("official_src014", texas[0]["sources"])
         gate = ROOT / "artifacts" / "data_lake" / "tamu_cross_source_domain_gate.json"
         if not gate.is_file():
             self.skipTest("domain gate has not been materialized yet")
         validated = validate_artifact(data_root=data_root, repo_root=ROOT, require_rebuild=True)
         self.assertEqual(validated["result"], "PASS")
         self.assertEqual(validated["protected_lane"], PROTECTED_LANE)
-        self.assertEqual(validated["counts"]["verified_official"], 0)
+        self.assertGreater(validated["counts"]["verified_official"], 0)
 
 
 if __name__ == "__main__":

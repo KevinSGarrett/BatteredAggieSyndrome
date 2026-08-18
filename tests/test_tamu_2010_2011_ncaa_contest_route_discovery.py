@@ -150,7 +150,7 @@ class ContestRouteDiscoveryTests(unittest.TestCase):
         result = validate_artifact(data_root=DATA_ROOT, repo_root=ROOT, require_rebuild=LAKE_READY)
         self.assertEqual("PASS", result["result"])
         self.assertEqual(
-            "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb",
+            "d0a2c7218bf9892dfc468f534e41555ab880cb3d41c2d77413dd10ecc923c039",
             result["gate_identity"],
         )
         self.assertEqual("MOUNTED" if LAKE_READY else "NOT_MOUNTED", result["external_reconstruction"])

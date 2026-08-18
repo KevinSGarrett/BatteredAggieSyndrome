@@ -43,6 +43,7 @@ artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json
 artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
 artifacts/data_lake/tamu_cross_source_domain_gate.json
 artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json
+artifacts/data_lake/tamu_official_gamebook_union_gate.json
 artifacts/data_lake/tamu_official_historical_archive_gate.json
 artifacts/data_lake/tamu_official_historical_boxscore_gate.json
 artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
@@ -175,6 +176,7 @@ artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-8-DEPENDENT-GATE-REBOUND-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-BOXSCORE-NORMALIZATION-001.json
+artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-GAMEBOOK-UNION-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001.json
 artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
@@ -377,6 +379,7 @@ configs/tamu_availability_source_sample.json
 configs/tamu_cross_source_domain_gate_contract.json
 configs/tamu_no_adjustment_reference.json
 configs/tamu_official_evidence_gap_matrix_contract.json
+configs/tamu_official_gamebook_union_contract.json
 configs/tamu_official_historical_archive_contract.json
 configs/tamu_official_historical_boxscore_contract.json
 configs/tamu_specialization_registry.json
@@ -3142,6 +3145,7 @@ src/aggie_analytics/data/tamu_cross_source_domain_gate.py
 src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
 src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
+src/aggie_analytics/data/tamu_official_gamebook_union.py
 src/aggie_analytics/data/tamu_official_historical_archive.py
 src/aggie_analytics/data/tamu_official_historical_boxscores.py
 src/aggie_analytics/data/tamu_season_reconciliation.py
@@ -3430,6 +3434,7 @@ tests/test_tamu_2010_2011_ncaa_team_season_evidence.py
 tests/test_tamu_2010_2011_season_reconciliation.py
 tests/test_tamu_cross_source_domain_gate.py
 tests/test_tamu_official_evidence_gap_matrix.py
+tests/test_tamu_official_gamebook_union.py
 tests/test_tamu_official_historical_archive.py
 tests/test_tamu_official_historical_boxscores.py
 tests/test_tamu_specialization_governance.py
@@ -3525,6 +3530,7 @@ tools/build_tamu_availability_evidence_pages.py
 tools/build_tamu_cross_source_domain_gate.py
 tools/build_tamu_depth_chart_noncoverage_review.py
 tools/build_tamu_official_evidence_gap_matrix.py
+tools/build_tamu_official_gamebook_union.py
 tools/build_unified_assistive_release.py
 tools/build_versioned_play_drive_gap.py
 tools/build_wmt_provider_timestamp_pit.py
@@ -3704,6 +3710,7 @@ tools/validate_tamu_availability_source_sample.py
 tools/validate_tamu_cross_source_domain_gate.py
 tools/validate_tamu_depth_chart_noncoverage_review.py
 tools/validate_tamu_official_evidence_gap_matrix.py
+tools/validate_tamu_official_gamebook_union.py
 tools/validate_tamu_official_historical_archive.py
 tools/validate_tamu_official_historical_boxscores.py
 tools/validate_tamu_specialization.py

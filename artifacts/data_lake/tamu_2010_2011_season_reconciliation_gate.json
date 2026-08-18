@@ -3,11 +3,11 @@
     "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
     "bat_523": "IN_PROGRESS",
     "bat_554": "RELATES_ONLY_DO_NOT_REOPEN",
-    "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+    "disposition": "SEASON_LEVEL_RECONCILED_WITH_PRESERVED_TEXAS_SIDEARM_DATE_CONFLICT",
     "pregame_availability": "BLOCKED",
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
     "reconciliation_admission": "CANDIDATE_ONLY",
-    "texas_2011": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED"
+    "texas_2011": "RESOLVED_OFFICIAL_STRONG_TUPLE_SIDEARM_DATE_CONFLICT_PRESERVED"
   },
   "artifact_type": "TAMU_2010_2011_SEASON_RECONCILIATION_GATE",
   "authority": {
@@ -36,13 +36,13 @@
   "counts": {
     "availability_features": 0,
     "by_classification": {
-      "CONFLICT_REVIEW_REQUIRED": 3,
+      "CONFLICT_REVIEW_REQUIRED": 1,
       "NOT_APPLICABLE_TO_SEASON_SUMMARY": 4,
       "OFFICIAL_ROUTE_ACCESS_BLOCKED": 6,
       "SOURCE_EVIDENCE_ABSENT": 8,
       "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE": 2,
-      "VERIFIED_CROSS_SOURCE": 3,
-      "VERIFIED_OFFICIAL_SEASON_LEVEL": 4
+      "VERIFIED_CROSS_SOURCE": 4,
+      "VERIFIED_OFFICIAL_SEASON_LEVEL": 5
     },
     "comparison_rows": 30,
     "contest_ids_fabricated": 0,
@@ -52,7 +52,7 @@
     "texas_2011_conflicts": 1
   },
   "decision_unit": "POST-TASK-TAMU-2010-2011-SEASON-RECONCILIATION-001",
-  "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+  "disposition": "SEASON_LEVEL_RECONCILED_WITH_PRESERVED_TEXAS_SIDEARM_DATE_CONFLICT",
   "domains": {
     "attendance": [
       {
@@ -100,8 +100,8 @@
     ],
     "dates": [
       {
-        "agreement_rule": "exact_iso_date_plus_canonical_game_identity_required_to_resolve_conflict",
-        "authority": "NCAA_OFFICIAL_DATES_NOT_PROMOTED_OVER_SIDEARM_BY_NAME",
+        "agreement_rule": "official_school_box_plus_ncaa_legacy_plus_official_index_not_name_only",
+        "authority": "OFFICIAL_SCHOOL_BOX_PLUS_NCAA_LEGACY_SIDEARM_DATE_PRESERVED",
         "bat523_consumable": true,
         "classification": "VERIFIED_CROSS_SOURCE",
         "development_pit_eligible": true,
@@ -127,16 +127,17 @@
         "season": 2010,
         "source_identities": {
           "bat570_special_path": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
-          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+          "official_boxscore": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5"
         },
         "unresolved_conflicts": []
       },
       {
-        "agreement_rule": "exact_iso_date_plus_canonical_game_identity_required_to_resolve_conflict",
-        "authority": "NCAA_OFFICIAL_DATES_NOT_PROMOTED_OVER_SIDEARM_BY_NAME",
+        "agreement_rule": "official_school_box_plus_ncaa_legacy_plus_official_index_not_name_only",
+        "authority": "OFFICIAL_SCHOOL_BOX_PLUS_NCAA_LEGACY_SIDEARM_DATE_PRESERVED",
         "bat523_consumable": true,
-        "classification": "CONFLICT_REVIEW_REQUIRED",
-        "development_pit_eligible": false,
+        "classification": "VERIFIED_CROSS_SOURCE",
+        "development_pit_eligible": true,
         "domain": "dates",
         "normalized_key": "2011:dates",
         "normalized_values": [
@@ -155,14 +156,15 @@
           "2011-12-31"
         ],
         "pregame_availability_eligible": false,
-        "result": "CONFLICT",
+        "result": "AGREE_WITH_PRESERVED_SIDEARM_CONFLICT",
         "season": 2011,
         "source_identities": {
           "bat570_special_path": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
-          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+          "official_boxscore": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5"
         },
         "unresolved_conflicts": [
-          "2011_Texas_NCAA_2011-11-24_vs_gap_matrix_2011-11-25"
+          "2011_Texas_SIDEARM_2011-11-25_LOST_AUTHORITY_PRESERVED"
         ]
       }
     ],
@@ -283,7 +285,8 @@
         "season": 2010,
         "source_identities": {
           "bat570": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
-          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+          "official_boxscore": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5"
         },
         "unresolved_conflicts": []
       },
@@ -291,8 +294,8 @@
         "agreement_rule": "official_opponent_link_or_exact_date_score_not_name_only",
         "authority": "NCAA_OFFICIAL_OPPONENT_TEAM_SEASON_LINKS",
         "bat523_consumable": true,
-        "classification": "CONFLICT_REVIEW_REQUIRED",
-        "development_pit_eligible": false,
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "development_pit_eligible": true,
         "domain": "opponent_identity",
         "normalized_key": "2011:opponent_identity",
         "normalized_values": [
@@ -311,15 +314,14 @@
           "Northwestern"
         ],
         "pregame_availability_eligible": false,
-        "result": "CONFLICT",
+        "result": "AGREE_WITH_OFFICIAL_LINKS",
         "season": 2011,
         "source_identities": {
           "bat570": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
-          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+          "official_boxscore": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5"
         },
-        "unresolved_conflicts": [
-          "2011_Texas_date_UNRESOLVED_NAME_ONLY_NOT_PROMOTED"
-        ]
+        "unresolved_conflicts": []
       }
     ],
     "participation": [
@@ -747,31 +749,33 @@
       }
     ]
   },
-  "gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
+  "gate_identity": "c8ee22b6ba8a5ad1bb7a84fdc74f9c2fb6dd703f5108a953205377798c33b066",
   "input_identities": {
     "bat570_gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
     "bat570_matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa",
     "bat571_acquisition_identity": "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd94ed6b83f21ae8f",
     "bat571_gate_identity": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
     "bat572_gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+    "official_boxscore_dataset_identity": "46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa",
+    "official_boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",
     "phase2_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
     "phase2_manifest_identity": "db8283a2f7a164d18380744851d71b43f747f9f22c06c29b2fb350f08ff6bd51",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
     "sidearm_schedule_html_2010_sha256": "4fb8159c477531e7ee653125198085f96e60719ec9050355a4e2d998a08f095b",
     "sidearm_schedule_html_2011_sha256": "143d46bf93aa8a8ebb0818451c6ebf520af058fc0bf0f8f563c6dd808f99ca8f"
   },
-  "issued_at_utc": "2026-08-18T19:00:00Z",
+  "issued_at_utc": "2026-08-18T21:00:00Z",
   "jira_key": "BAT-575",
-  "manifest_identity": "5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4",
+  "manifest_identity": "10ba4dce5b46b9223094e9f4d9680ef044081f78cc6e3c3fd1421ac437a96c3c",
   "payload": {
-    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_season_reconciliation\\sha256\\5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4\\tamu_2010_2011_season_reconciliation_manifest.json",
-    "manifest_sha256": "3d6977c1e778ddee78518b03738fa36d71208d450f40f2acd60c13d22ae5961e",
+    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_season_reconciliation\\sha256\\10ba4dce5b46b9223094e9f4d9680ef044081f78cc6e3c3fd1421ac437a96c3c\\tamu_2010_2011_season_reconciliation_manifest.json",
+    "manifest_sha256": "2ec8ddc08da2d683a5d85463a4b25418bebbf1d1ff403ec9da8594bd55c38c37",
     "row_count": 30,
-    "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_season_reconciliation\\sha256\\5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4\\season_reconciliation_rows.json",
-    "rows_sha256": "8aafff16cec75086d44f94c35b65bd09ab679795995b74183ac0e3de206af14e"
+    "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_season_reconciliation\\sha256\\10ba4dce5b46b9223094e9f4d9680ef044081f78cc6e3c3fd1421ac437a96c3c\\season_reconciliation_rows.json",
+    "rows_sha256": "b896eaab92fb5130810c69d04e1b5b5414085c7f06e485accecdd11852b38267"
   },
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "result": "PASS_SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+  "result": "PASS_SEASON_LEVEL_RECONCILED_WITH_PRESERVED_TEXAS_SIDEARM_DATE_CONFLICT",
   "schema_version": "aggie.data.tamu_2010_2011_season_reconciliation.v1",
   "scientific_nonclaims": {
     "bas_or_aggie_excess_result_claimed": false,
@@ -799,12 +803,20 @@
   },
   "texas_2011_conflict": {
     "canonical_game_identity": null,
-    "disposition": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
+    "discrepancy_erased": false,
+    "disposition": "RESOLVED_OFFICIAL_STRONG_TUPLE_SIDEARM_DATE_CONFLICT_PRESERVED",
+    "lost_authority": "SIDEARM_SCHEDULE_DATE",
     "name_only_promotion": false,
+    "ncaa_contest_id": null,
     "ncaa_official_date": "2011-11-24",
     "ncaa_opponent_team_season_id": "137876",
+    "official_school_date": "2011-11-24",
+    "official_season_index_date": "2011-11-24",
     "opponent": "Texas",
-    "resolved": false,
-    "sidearm_or_gap_matrix_date": "2011-11-25"
+    "resolved": true,
+    "sidearm_or_gap_matrix_date": "2011-11-25",
+    "source_sha256": "2d3674fead0c05826ef1aa0a3b7b8b3613e3c9646b01d7a4dce9362b52a378bc",
+    "source_url": "https://files.12thman.com/history/football/stats/2011-2012/ta12-ut.htm",
+    "winning_authority": "OFFICIAL_SCHOOL_BOX_PLUS_NCAA_LEGACY_PLUS_OFFICIAL_SEASON_INDEX"
   }
 }

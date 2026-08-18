@@ -64,8 +64,14 @@ def main() -> int:
         counts["comparison_rows"] = int(counts["comparison_rows"]) + 1
         mutations.append(expect_rejection("altered_total", lambda: _validate(_mutated(gate, counts=counts))))
         conflict = json.loads(json.dumps(gate["texas_2011_conflict"]))
-        conflict["resolved"] = True
+        conflict["resolved"] = False
         mutations.append(expect_rejection("dropped_conflict", lambda: _validate(_mutated(gate, texas_2011_conflict=conflict))))
+        conflict = json.loads(json.dumps(gate["texas_2011_conflict"]))
+        conflict["discrepancy_erased"] = True
+        mutations.append(expect_rejection("erased_sidearm_conflict", lambda: _validate(_mutated(gate, texas_2011_conflict=conflict))))
+        conflict = json.loads(json.dumps(gate["texas_2011_conflict"]))
+        conflict["sidearm_or_gap_matrix_date"] = "2011-11-24"
+        mutations.append(expect_rejection("erased_sidearm_date", lambda: _validate(_mutated(gate, texas_2011_conflict=conflict))))
         conflict = json.loads(json.dumps(gate["texas_2011_conflict"]))
         conflict["name_only_promotion"] = True
         mutations.append(expect_rejection("name_only_promotion", lambda: _validate(_mutated(gate, texas_2011_conflict=conflict))))

@@ -29,9 +29,10 @@ BAT571_ACQUISITION_IDENTITY = "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd
 BAT571_DISPOSITION = "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS"
 BAT574_GATE_IDENTITY = "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
 BAT574_DISPOSITION = "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED"
-BAT575_GATE_IDENTITY = "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e"
-BAT575_DISPOSITION = "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE"
-BAT576_GATE_IDENTITY = "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb"
+BAT575_GATE_IDENTITY = "c8ee22b6ba8a5ad1bb7a84fdc74f9c2fb6dd703f5108a953205377798c33b066"
+BAT575_DISPOSITION = "SEASON_LEVEL_RECONCILED_WITH_PRESERVED_TEXAS_SIDEARM_DATE_CONFLICT"
+BAT575_TEXAS = "RESOLVED_OFFICIAL_STRONG_TUPLE_SIDEARM_DATE_CONFLICT_PRESERVED"
+BAT576_GATE_IDENTITY = "d0a2c7218bf9892dfc468f534e41555ab880cb3d41c2d77413dd10ecc923c039"
 BAT576_DISPOSITION = "OFFICIAL_ROUTE_ACCESS_BLOCKED"
 FORBIDDEN_LEDGER_STATES = (
     "PRODUCTION_CHAMPION",
@@ -211,8 +212,10 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
         raise ValueError("BAT-571 contest IDs drifted")
     if bat572.get("protected_lane") != LANE_DECISION:
         raise ValueError("BAT-572 unexpectedly opened the protected lane")
-    if bat572.get("counts", {}).get("verified_official"):
-        raise ValueError("BAT-572 inflated VERIFIED_OFFICIAL")
+    if bat572.get("scientific_nonclaims", {}).get("verified_official_claimed"):
+        raise ValueError("BAT-572 inflated a verified-official population claim")
+    if bat572.get("season_level_admissions", {}).get("per_game_verified_official"):
+        raise ValueError("BAT-572 season totals were promoted to per-game official")
     if bat572.get("input_identities", {}).get("phase3_matrix_identity") != BAT570_MATRIX_IDENTITY:
         raise ValueError("BAT-572 missing Phase 3 bind")
     if bat572.get("input_identities", {}).get("phase4_acquisition_identity") != BAT571_ACQUISITION_IDENTITY:
@@ -235,8 +238,8 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
         raise ValueError("BAT-575 gate identity mismatch")
     if bat575.get("disposition") != BAT575_DISPOSITION:
         raise ValueError("BAT-575 disposition drift")
-    if bat575.get("admissions", {}).get("texas_2011") != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
-        raise ValueError("BAT-575 silently promoted the 2011 Texas date conflict")
+    if bat575.get("admissions", {}).get("texas_2011") != BAT575_TEXAS:
+        raise ValueError("BAT-575 2011 Texas official strong tuple was not bound")
     if bat575.get("protected_lane") != LANE_DECISION:
         raise ValueError("BAT-575 unexpectedly opened the protected lane")
     if bat576.get("gate_identity") != BAT576_GATE_IDENTITY:
@@ -513,7 +516,7 @@ def validate_readiness_artifact(payload: Mapping[str, Any], repo_root: Path) -> 
         raise ValueError("BAT-574 identity not bound")
     if prereqs.get("BAT-575", {}).get("gate_identity") != BAT575_GATE_IDENTITY:
         raise ValueError("BAT-575 identity not bound")
-    if prereqs.get("BAT-575", {}).get("texas_2011") != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
+    if prereqs.get("BAT-575", {}).get("texas_2011") != BAT575_TEXAS:
         raise ValueError("BAT-575 Texas conflict not bound")
     if prereqs.get("BAT-576", {}).get("gate_identity") != BAT576_GATE_IDENTITY:
         raise ValueError("BAT-576 identity not bound")

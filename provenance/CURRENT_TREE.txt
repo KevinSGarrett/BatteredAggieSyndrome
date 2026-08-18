@@ -44,6 +44,7 @@ artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
 artifacts/data_lake/tamu_cross_source_domain_gate.json
 artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json
 artifacts/data_lake/tamu_official_historical_archive_gate.json
+artifacts/data_lake/tamu_official_historical_boxscore_gate.json
 artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
 artifacts/entities/canonical_core_registry.csv
 artifacts/entities/canonical_core_registry_manifest.json
@@ -173,6 +174,7 @@ artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
 artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-8-DEPENDENT-GATE-REBOUND-001.json
+artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-BOXSCORE-NORMALIZATION-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001.json
 artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
@@ -376,6 +378,7 @@ configs/tamu_cross_source_domain_gate_contract.json
 configs/tamu_no_adjustment_reference.json
 configs/tamu_official_evidence_gap_matrix_contract.json
 configs/tamu_official_historical_archive_contract.json
+configs/tamu_official_historical_boxscore_contract.json
 configs/tamu_specialization_registry.json
 configs/team_state_registry.json
 configs/temporal_registry.json
@@ -3140,6 +3143,7 @@ src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
 src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
 src/aggie_analytics/data/tamu_official_historical_archive.py
+src/aggie_analytics/data/tamu_official_historical_boxscores.py
 src/aggie_analytics/data/tamu_season_reconciliation.py
 src/aggie_analytics/entities/__init__.py
 src/aggie_analytics/entities/candidates.py
@@ -3427,6 +3431,7 @@ tests/test_tamu_2010_2011_season_reconciliation.py
 tests/test_tamu_cross_source_domain_gate.py
 tests/test_tamu_official_evidence_gap_matrix.py
 tests/test_tamu_official_historical_archive.py
+tests/test_tamu_official_historical_boxscores.py
 tests/test_tamu_specialization_governance.py
 tests/test_team_state_governance.py
 tests/test_temporal_governance.py
@@ -3545,6 +3550,7 @@ tools/install_cpu_worker_service.ps1
 tools/install_unified_assistive_services.ps1
 tools/launch_unified_assistive_service.py
 tools/materialize_unified_assistive_inventory.py
+tools/normalize_tamu_official_historical_boxscores.py
 tools/openai_assist.py
 tools/openrouter_assist.py
 tools/package_instructions.py
@@ -3699,6 +3705,7 @@ tools/validate_tamu_cross_source_domain_gate.py
 tools/validate_tamu_depth_chart_noncoverage_review.py
 tools/validate_tamu_official_evidence_gap_matrix.py
 tools/validate_tamu_official_historical_archive.py
+tools/validate_tamu_official_historical_boxscores.py
 tools/validate_tamu_specialization.py
 tools/validate_team_state.py
 tools/validate_temporal.py

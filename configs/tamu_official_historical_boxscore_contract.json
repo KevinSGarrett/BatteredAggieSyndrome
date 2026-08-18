@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-580-TAMU-OFFICIAL-HISTORICAL-BOXSCORES-V1",
+  "decision_unit": "POST-TASK-CYCLE-9-OFFICIAL-BOXSCORE-NORMALIZATION-001",
+  "jira_key": "BAT-580",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": ["BAT-523", "BAT-429", "BAT-570", "BAT-572", "BAT-574", "BAT-575", "BAT-576", "BAT-579"],
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_2010_2011_OFFICIAL_SCHOOL_BOXSCORE_CANDIDATE_ONLY",
+  "run_id": "BAT-580-TAMU-OFFICIAL-HISTORICAL-BOXSCORES-V1",
+  "purpose": "Parse and normalize the 26 official Texas A&M 2010 and 2011 box-score pages captured by BAT-579 as SRC-014 official-school evidence. This is not NCAA contest evidence and does not establish availability, historical known-at, or PIT admission.",
+  "source_id": "SRC-014",
+  "season_min": 2010,
+  "season_max": 2011,
+  "parser_version": "tamu.official.historical.boxscore.v1",
+  "rights_decision_id": "PRIVATE-RESEARCH-SRC-014",
+  "raw_storage_policy": "ALLOW_IMMUTABLE_RAW_AND_NORMALIZED_DATA_OUTSIDE_GIT",
+  "derived_export_allowed": false,
+  "raw_export_allowed": false,
+  "wmt_payload_policy": "DO_NOT_REWRITE_IN_PLACE",
+  "upstream_identities": {
+    "archive_acquisition_identity": "535e278e4c0a9a9abbd2fac8e6e44f74eb8cbe0ba4cd26ff9692ae9b622280be",
+    "discovered_box_urls_identity": "b84868121549673b3c0dbe763e74d33832b6a2dd34b87c2a5ed6e42e7841fb00",
+    "wmt_acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "wmt_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
+  },
+  "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+  "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+  "payloads": {
+    "acquisition_manifest": "manifests/acquisition/BAT-580-TAMU-OFFICIAL-HISTORICAL-BOXSCORES-V1/manifest.json",
+    "normalized_root": "features/tamu_official_historical_boxscores/sha256",
+    "raw_root": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive"
+  },
+  "authority": {
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "ncaa_contest_identity": false,
+    "historical_known_at_from_capture_time": false,
+    "availability_claim": false,
+    "membership_as_availability": false,
+    "participation_as_availability": false,
+    "name_only_player_merge": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false,
+    "protected_outcome_authority": false,
+    "champion_or_production_promotion": false
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "player_identity": "SOURCE_PLAYER_CANDIDATE",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "same_game_pregame_features": "BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "wmt_payload": "PRESERVED_IMMUTABLE"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owns the new immutable official-school box-score normalization identity. BAT-579 owns archive acquisition only. BAT-523 owns parent known-at recovery and the existing WMT/Sidearm candidate layer, which must not be rewritten in place. BAT-570 through BAT-578 are Done and do not own this parser/normalizer. BAT-429 remains blocked on POST-SUBTASK-063/066/069.",
+    "reviewed_keys": [
+      "BAT-429",
+      "BAT-431",
+      "BAT-523",
+      "BAT-554",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-574",
+      "BAT-575",
+      "BAT-576",
+      "BAT-577",
+      "BAT-578",
+      "BAT-579"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "b5b8ca6cd87e73abcb17efa0cac3527991d21637",
+  "issue_complete": false,
+  "jira_key": "BAT-580",
+  "local_issue_id": "POST-TASK-CYCLE-9-OFFICIAL-BOXSCORE-NORMALIZATION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #9 Phase 3 parsed and normalized all 26 official Texas A&M 2010-2011 box-score pages captured by BAT-579 as SRC-014 official-school evidence. 25 games matched the official season-index strong tuple. The 2010 LSU postseason date conflict is preserved: football season 2010, box played date 2011-01-07, season-index date Dec 31. 2011 Texas binds Nov 24, Kyle Field, Texas 27 Texas A&M 25. No NCAA contest IDs were created. Roster and participation rows remain source-player candidates with availability NOT_ESTABLISHED. Gate identity 29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5. Dataset identity 46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa. Games identity 4b07b23cd0e4bef16d4a8eb7bf67d0f0d20f7d9f7ab94116fdee57239910d0e5.",
+  "outputs": [
+    {
+      "bytes": 56121,
+      "path": "src/aggie_analytics/data/tamu_official_historical_boxscores.py",
+      "sha256": "96b76e4fc7c402d8103e3dda003e0cad7367c7752019f411791156c4c003b3b5"
+    },
+    {
+      "bytes": 2639,
+      "path": "configs/tamu_official_historical_boxscore_contract.json",
+      "sha256": "37c04b956d3295dd1bfc592b32a1ba35cc0cec64376c6e0944a443febc8a3407"
+    },
+    {
+      "bytes": 65802,
+      "path": "artifacts/data_lake/tamu_official_historical_boxscore_gate.json",
+      "sha256": "25ee9eb88591ac93e0193f279d2a005ab9bda7c20d508e510f683e9d70dfaa7a"
+    },
+    {
+      "bytes": 17609,
+      "path": "tests/test_tamu_official_historical_boxscores.py",
+      "sha256": "ee8b6a756b520ab6f39a61903fbf4d3ccc0b296b56705fe1114161391b736528"
+    },
+    {
+      "bytes": 5700,
+      "path": "tools/validate_tamu_official_historical_boxscores.py",
+      "sha256": "d9b912bf38f33c9cbd9102914f0caf7c3b3c4db09ea748766b829bf8415412e3"
+    },
+    {
+      "bytes": 1349,
+      "path": "tools/normalize_tamu_official_historical_boxscores.py",
+      "sha256": "1264c487bf5ba6354142d5805c1ff3f396ce947e14c206c9297c87dc59ca7650"
+    },
+    {
+      "bytes": 23319,
+      "path": "tools/validate_repository.py",
+      "sha256": "9bfe5894751abaa60342e28206206c6488eec3e380ca32e27f102769b0cc4c2d"
+    },
+    {
+      "bytes": 10891,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+      "sha256": "e80da0abae8eede06c7033f93c0c384e9eaea7a92dce797f3d46c9a8b3adaf94"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "same_game_pregame_features_admitted": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-429",
+    "BAT-570",
+    "BAT-574",
+    "BAT-575",
+    "BAT-579"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "b5b8ca6cd87e73abcb17efa0cac3527991d21637",
+  "workflow_state": "REVIEW"
+}

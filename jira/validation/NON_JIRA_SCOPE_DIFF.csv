@@ -1,6 +1,15 @@
 change_type,repo_relative_path
 ADDED,.githooks/pre-commit
 ADDED,.github/dependabot.yml
+ADDED,.pytest_cache/.gitignore
+ADDED,.pytest_cache/CACHEDIR.TAG
+ADDED,.pytest_cache/README.md
+ADDED,.pytest_cache/v/cache/nodeids
+ADDED,.ruff_cache/.gitignore
+ADDED,.ruff_cache/0.6.9/102814948199208294
+ADDED,.ruff_cache/0.6.9/16602661116655223837
+ADDED,.ruff_cache/0.6.9/736887216315305763
+ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
 ADDED,artifacts/benchmarks/ac038_gate_decision.json
@@ -25,6 +34,8 @@ ADDED,artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json
 ADDED,artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
 ADDED,artifacts/data_lake/tamu_cross_source_domain_gate.json
 ADDED,artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json
+ADDED,artifacts/data_lake/tamu_official_historical_archive_gate.json
+ADDED,artifacts/data_lake/tamu_official_historical_boxscore_gate.json
 ADDED,artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
 ADDED,artifacts/entities/canonical_core_registry.csv
 ADDED,artifacts/entities/canonical_core_registry_manifest.json
@@ -154,6 +165,9 @@ ADDED,artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.jso
 ADDED,artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-8-DEPENDENT-GATE-REBOUND-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-BOXSCORE-NORMALIZATION-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
@@ -333,6 +347,8 @@ ADDED,configs/tamu_availability_source_sample.json
 ADDED,configs/tamu_cross_source_domain_gate_contract.json
 ADDED,configs/tamu_no_adjustment_reference.json
 ADDED,configs/tamu_official_evidence_gap_matrix_contract.json
+ADDED,configs/tamu_official_historical_archive_contract.json
+ADDED,configs/tamu_official_historical_boxscore_contract.json
 ADDED,configs/unified_assistive_acceptance_ownership.json
 ADDED,configs/unified_assistive_change_routing_binding.json
 ADDED,configs/unified_assistive_operational_claims.json
@@ -526,6 +542,8 @@ ADDED,src/aggie_analytics/data/tamu_cross_source_domain_gate.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
 ADDED,src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
+ADDED,src/aggie_analytics/data/tamu_official_historical_archive.py
+ADDED,src/aggie_analytics/data/tamu_official_historical_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_season_reconciliation.py
 ADDED,src/aggie_analytics/entities/candidates.py
 ADDED,src/aggie_analytics/entities/people_registry.py
@@ -683,6 +701,8 @@ ADDED,tests/test_tamu_2010_2011_ncaa_team_season_evidence.py
 ADDED,tests/test_tamu_2010_2011_season_reconciliation.py
 ADDED,tests/test_tamu_cross_source_domain_gate.py
 ADDED,tests/test_tamu_official_evidence_gap_matrix.py
+ADDED,tests/test_tamu_official_historical_archive.py
+ADDED,tests/test_tamu_official_historical_boxscores.py
 ADDED,tests/test_unified_assistive_completeness.py
 ADDED,tests/test_unified_assistive_plane.py
 ADDED,tests/test_unified_controller_service.py
@@ -702,6 +722,7 @@ ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py
 ADDED,tools/acquire_sec_tamu_availability.py
 ADDED,tools/acquire_sportsdataverse_rosters.py
+ADDED,tools/acquire_tamu_official_historical_archive.py
 ADDED,tools/activate_codex_usage_interlock.py
 ADDED,tools/activate_unified_assistive_release.py
 ADDED,tools/adopt_unified_enforcement_package.py
@@ -774,6 +795,7 @@ ADDED,tools/install_cpu_worker_service.ps1
 ADDED,tools/install_unified_assistive_services.ps1
 ADDED,tools/launch_unified_assistive_service.py
 ADDED,tools/materialize_unified_assistive_inventory.py
+ADDED,tools/normalize_tamu_official_historical_boxscores.py
 ADDED,tools/openai_assist.py
 ADDED,tools/openrouter_assist.py
 ADDED,tools/package_instructions.py
@@ -901,6 +923,8 @@ ADDED,tools/validate_tamu_availability_source_sample.py
 ADDED,tools/validate_tamu_cross_source_domain_gate.py
 ADDED,tools/validate_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/validate_tamu_official_evidence_gap_matrix.py
+ADDED,tools/validate_tamu_official_historical_archive.py
+ADDED,tools/validate_tamu_official_historical_boxscores.py
 ADDED,tools/validate_unified_acceptance_ownership.py
 ADDED,tools/validate_unified_assistive_completeness.py
 ADDED,tools/validate_unified_assistive_plane.py

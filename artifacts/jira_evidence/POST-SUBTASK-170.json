@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "artifact_type": "JIRA_COMPLETION_EVIDENCE",
   "local_id": "POST-SUBTASK-170",
-  "jira_key": "PENDING_LIVE_SYNCHRONIZATION",
+  "jira_key": "BAT-527",
   "classification": "HISTORICAL_PIT_DOMAIN_ELIGIBLE_DEVELOPMENT_ONLY",
-  "issue_disposition": "DONE_VERIFIED_LOCAL_PENDING_LIVE_JIRA_SYNC",
+  "issue_disposition": "DONE_VERIFIED_LIVE_JIRA_SYNCHRONIZED",
   "achieved_maturity": "EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY",
   "evidence_state": "VERIFIED",
   "input_identities": {
@@ -98,6 +98,13 @@
     "Teams absent from the latest eligible poll retain null ranks and explicit missingness.",
     "Protected evaluation and production promotion remain closed."
   ],
+  "live_jira_reconciliation": {
+    "jira_key": "BAT-527",
+    "workflow_state": "Done",
+    "logical_state": "DONE",
+    "reopened": false,
+    "reason": "Cycle #6 Phase 4 reconciled the stale PENDING_LIVE_SYNCHRONIZATION evidence pointer. BAT-527 remains Done; no BAT-527 implementation defect was proven."
+  },
   "protected_nonclaims": {
     "historical_population_ready": false,
     "gap_002_resolved": false,

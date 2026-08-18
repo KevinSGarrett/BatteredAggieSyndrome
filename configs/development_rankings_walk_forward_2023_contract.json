@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V1",
+  "decision_unit": "POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001",
+  "jira_key": "BAT-568",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": ["BAT-523", "BAT-566", "BAT-527", "BAT-565"],
+  "new_issue_decision": "CREATE",
+  "classification": "DEVELOPMENT_ONLY_2023_RANKINGS_AUGMENTED_WALK_FORWARD",
+  "purpose": "Precommit and evaluate four development-only 2023 walk-forward candidates that join corrected BAT-565 labels, corrected BAT-566 folds, and admitted BAT-527 rankings PIT features. Do not use 2024/2025 outcomes. Do not grant protected, champion, or production authority.",
+  "input_identities": {
+    "bat565_label_dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "bat566_matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+    "bat566_replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+    "bat566_feature_payload_sha256": "a8f126af23b5c24635a305a8f58fa89be092a15a0673bf6ff75b83579bf6f124",
+    "bat566_label_payload_sha256": "b3801310d15a6e8bc3619be222dfd1d897cb63e03ec5c30cf2dd86ccf670fceb",
+    "bat566_manifest_relative_path": "manifests/development_2023_matrix/sha256/04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68/development_2023_labeled_replay_manifest.json",
+    "bat527_rankings_run_identity": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+    "bat527_rankings_state_identity": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
+    "bat527_rankings_feature_identity": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "bat527_rankings_feature_payload_sha256": "f7bade2b2653df3c4f82927beaf3ba7dc254c6bb8487849f980a2eac6f0c3a4e",
+    "bat527_rankings_manifest_relative_path": "manifests/historical_rankings_pit/sha256/a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e/rankings_pit_manifest.json",
+    "bat527_jira_key": "BAT-527",
+    "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
+  },
+  "acceptance": {
+    "allowed_seasons": [2023],
+    "forbidden_seasons": [2024, 2025],
+    "expected_team_rows": 1820,
+    "expected_unique_games": 910,
+    "required_rows_per_game": 2,
+    "predeclared_candidate_count": 4,
+    "train_eligibility": "label_available_after_utc < fold_evaluation_cutoff_utc",
+    "rankings_eligibility": "poll_first_eligible_at_utc <= prediction_cutoff_utc"
+  },
+  "candidates": [
+    "prior_only",
+    "prior_plus_play_drive",
+    "prior_plus_rankings",
+    "prior_plus_play_drive_plus_rankings"
+  ],
+  "transforms": {
+    "prior_only": "IDENTITY_PRIOR_WIN_RATE_NO_FIT",
+    "prior_plus_play_drive": "FOLD_LOCAL_LINEAR_PROBABILITY_ON_EPA_MEAN_RESIDUAL",
+    "rank_signal": "RANKED_ONLY_(13-rank)/12_ELSE_ZERO_NOT_RANK_26",
+    "receiving_votes_flag": "BINARY_ONE_IF_RECEIVING_VOTES_ELSE_ZERO",
+    "explicitly_unranked_flag": "RECORDED_NOT_USED_AS_NUMERIC_RANK",
+    "no_eligible_poll_flag": "RECORDED_NOT_USED_AS_NUMERIC_RANK",
+    "not_listed_flag": "RECORDED_NOT_USED_AS_NUMERIC_RANK",
+    "unresolved_identity_flag": "RECORDED_NOT_USED_AS_NUMERIC_RANK",
+    "prior_plus_rankings": "FOLD_LOCAL_OLS_RESIDUAL_ON_RANK_SIGNAL_AND_RECEIVING_VOTES",
+    "prior_plus_play_drive_plus_rankings": "FOLD_LOCAL_OLS_RESIDUAL_ON_EPA_CENTERED_RANK_SIGNAL_AND_RECEIVING_VOTES",
+    "first_fold": "HISTORICAL_ONLY_IDENTITY_OR_ABSTAIN",
+    "unranked_as_26": false,
+    "future_poll_use": false
+  },
+  "ranking_states": [
+    "RANKED_NUMERIC",
+    "RECEIVING_VOTES",
+    "EXPLICITLY_UNRANKED",
+    "NOT_LISTED_IN_ELIGIBLE_POLL",
+    "NO_ELIGIBLE_POLL",
+    "UNRESOLVED_IDENTITY"
+  ],
+  "decision_rules": {
+    "prior_only": "CORE_REFERENCE",
+    "prior_plus_play_drive": "REJECTED_DEVELOPMENT_IF_TEAM_ROW_BRIER_NOT_STRICTLY_LESS_THAN_PRIOR_ONLY_ELSE_RETAIN_DEVELOPMENT_CANDIDATE",
+    "prior_plus_rankings": "RETAIN_DEVELOPMENT_CANDIDATE_IF_TEAM_ROW_BRIER_STRICTLY_LESS_THAN_PRIOR_ONLY_ELSE_REJECTED_DEVELOPMENT",
+    "prior_plus_play_drive_plus_rankings": "RETAIN_DEVELOPMENT_CANDIDATE_IF_TEAM_ROW_BRIER_STRICTLY_LESS_THAN_PRIOR_ONLY_AND_PRIOR_PLUS_PLAY_DRIVE_ELSE_REJECTED_DEVELOPMENT"
+  },
+  "authority": {
+    "development_2023_labeled_evaluation": true,
+    "development_metric_reporting": true,
+    "retain_development_candidate": true,
+    "pregame_feature_use_of_labels": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "protected_performance_claims": false,
+    "forecast_publication": false,
+    "tamu_specialization_lift_claims": false,
+    "bas_or_aggie_excess_claims": false
+  }
+}

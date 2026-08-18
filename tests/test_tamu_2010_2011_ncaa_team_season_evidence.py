@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import json
+import os
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -9,11 +12,14 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.data.tamu_ncaa_team_season_evidence import (  # noqa: E402
     AuthorityViolation,
+    GATE_RELATIVE,
     PASS_CLASSIFICATION,
     PROTECTED_LANE,
     TAMU_SEEDS,
     bind_team_season,
+    compute_gate_identity,
     extract_official_nav_routes,
+    load_json,
     official_page_uri,
     parse_header_record,
     parse_roster_tables,
@@ -21,8 +27,14 @@ from aggie_analytics.data.tamu_ncaa_team_season_evidence import (  # noqa: E402
     parse_stat_tables,
     parse_tables,
     reject_interstitial,
+    validate_artifact,
     validate_seeded_official_uri,
 )
+
+DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+LAKE_READY = (DATA_ROOT / "raw/SRC-015/ncaa_team_season_discovery").is_dir() and (
+    DATA_ROOT / "features/tamu_2010_2011_ncaa_team_season_evidence"
+).is_dir()
 
 
 def _team_page(season: int = 2010, seed: str = "137387") -> bytes:
@@ -140,6 +152,132 @@ class TeamSeasonEvidenceTests(unittest.TestCase):
         self.assertEqual(PROTECTED_LANE, "RETAIN_PROTECTED_LANE_BLOCKED")
         self.assertEqual(TAMU_SEEDS["2010"], "137387")
         self.assertEqual(PASS_CLASSIFICATION.endswith("CANDIDATE_ONLY"), True)
+
+    def _committed_gate(self) -> dict:
+        path = ROOT / GATE_RELATIVE
+        if not path.is_file():
+            self.skipTest("team-season gate is not present")
+        return load_json(path)
+
+    def _rehashed(self, gate: dict, mutator) -> dict:
+        tampered = json.loads(json.dumps(gate))
+        mutator(tampered)
+        tampered["gate_identity"] = compute_gate_identity(tampered)
+        return tampered
+
+    def _reject(self, gate: dict) -> None:
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(
+                data_root=DATA_ROOT,
+                repo_root=ROOT,
+                require_rebuild=LAKE_READY,
+                gate=gate,
+            )
+
+    def test_truthful_committed_gate_passes_independent_reconstruction(self) -> None:
+        result = validate_artifact(data_root=DATA_ROOT, repo_root=ROOT, require_rebuild=LAKE_READY)
+        self.assertEqual("PASS", result["result"])
+        self.assertEqual(
+            "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+            result["gate_identity"],
+        )
+        self.assertEqual("MOUNTED" if LAKE_READY else "NOT_MOUNTED", result["external_reconstruction"])
+
+    def test_unmounted_compact_validation_still_rejects_bypasses(self) -> None:
+        empty = Path(tempfile.mkdtemp(prefix="bas-no-lake-"))
+        result = validate_artifact(data_root=empty, repo_root=ROOT, require_rebuild=False)
+        self.assertEqual("PASS", result["result"])
+        self.assertEqual("NOT_MOUNTED", result["external_reconstruction"])
+        mutated = self._rehashed(self._committed_gate(), lambda gate: gate["counts"].__setitem__("official_routes_attempted", 999))
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=empty, repo_root=ROOT, require_rebuild=False, gate=mutated)
+        mutated = self._rehashed(
+            self._committed_gate(),
+            lambda gate: gate["domains"]["points_for_against"]["2010"]["value"].__setitem__("points_for", 999),
+        )
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=empty, repo_root=ROOT, require_rebuild=False, gate=mutated)
+
+    def test_bypass_a_changed_official_routes_attempted_after_rehash(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["counts"]["official_routes_attempted"] = 999
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_bypass_b_changed_2010_points_for_after_rehash(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["domains"]["points_for_against"]["2010"]["value"]["points_for"] = 999
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_status_403_to_200_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["attempts"][0]["status"] = 200
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_attempt_url_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["attempts"][0]["url"] = "https://stats.ncaa.org/teams/137387/box_score"
+            gate["attempts"][0]["final_url"] = gate["attempts"][0]["url"]
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_attempt_timestamp_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["attempts"][0]["timestamp"] = "1999-01-01T00:00:00Z"
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_raw_hash_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            digest = "00" * 32
+            gate["attempts"][0]["raw_sha256"] = digest
+            gate["attempts"][0]["response_sha256"] = digest
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_missing_raw_payload_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["attempts"][0]["raw_relative_path"] = (
+                "raw/SRC-015/ncaa_team_season_evidence/" + ("ab" * 32) + ".html"
+            )
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_season_total_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["domains"]["points_for_against"]["2011"]["value"]["points_against"] = 1
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_wlt_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["domains"]["wins_losses_ties"]["2010"]["value"]["wins"] = 13
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_team_season_seed_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["tamu_seeds"]["2010"] = "000000"
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_protected_lane_opened_after_rehash_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["protected_lane"] = "OPEN"
+            gate["scientific_nonclaims"]["protected_lane_opened"] = True
+            gate["authority"]["protected_outcome_authority"] = True
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_completion_forged_after_rehash_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["result"] = "FORGED_DONE"
+            gate["classification"] = "PRODUCTION_CHAMPION"
+            gate["admissions"]["per_game_official_completion"] = True
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
 
 
 if __name__ == "__main__":

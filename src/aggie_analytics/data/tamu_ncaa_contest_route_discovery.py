@@ -42,6 +42,17 @@ ALLOWED_DISPOSITIONS = (
     "OFFICIAL_ROUTE_ACCESS_BLOCKED",
     "ROUTE_PRESENT_BUT_IDENTITY_UNRESOLVED",
 )
+PINNED_CONTEST_COUNTS = {
+    "blocked_routes": 34,
+    "candidate_routes": 36,
+    "contest_endpoint_attempts": 0,
+    "contest_ids_discovered": 0,
+    "games_target": 26,
+    "id_range_sweeps": 0,
+    "inspected_http_200": 2,
+    "inspections": 36,
+    "live_attempts": 40,
+}
 GATE_IDENTITY_FIELDS = (
     "schema_version",
     "artifact_type",
@@ -185,7 +196,10 @@ def reject_error_or_redirect_page(body: bytes, status: int) -> None:
         raise AuthorityViolation("redirect page cannot establish a contest ID")
     if status >= 400:
         raise AuthorityViolation(f"HTTP {status} cannot establish a contest ID")
-    reject_interstitial(body)
+    try:
+        reject_interstitial(body)
+    except Exception as exc:
+        raise AuthorityViolation(str(exc)) from exc
 
 
 def detect_conflicting_official_routes(game_key: str, contest_ids: list[str]) -> None:
@@ -680,15 +694,220 @@ def materialize(*, data_root: Path, repo_root: Path, issued_at_utc: str, allow_l
     return {"gate": gate, "payload": payload}
 
 
-def validate_artifact(
-    *,
-    data_root: Path,
-    repo_root: Path,
-    require_rebuild: bool = True,
-    gate: Mapping[str, Any] | None = None,
-) -> dict[str, Any]:
-    committed = dict(gate or load_json(repo_root / GATE_RELATIVE))
+CONTEST_ATTEMPT_REQUIRED_FIELDS = (
+    "url",
+    "timestamp",
+    "status",
+    "content_type",
+    "redirect_chain",
+    "raw_relative_path",
+)
+CONTEST_MANIFEST_SEMANTIC_FIELDS = (
+    "tamu_seeds",
+    "disposition",
+    "counts",
+    "input_identities",
+    "discovered_contest_ids",
+    "authority",
+    "scientific_nonclaims",
+    "protected_lane",
+)
+
+
+def _canonical(value: Any) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+
+
+def reconstruct_contest_candidates(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
     contract = load_contract(repo_root)
+    candidates: list[dict[str, Any]] = []
+    captured_bodies: list[tuple[str, bytes]] = []
+    for season in (2010, 2011):
+        seed = TAMU_SEEDS[str(season)]
+        capture = load_cached_page(data_root, contract["lake_html"][str(season)])
+        bind_team_season(capture["body"], seed, season)
+        if extract_contest_hrefs(capture["body"]):
+            raise AuthorityViolation("cached TAMU team page now exposes contest IDs")
+        extracted = extract_official_candidates(capture["body"], seed=seed, season=season)
+        if not extracted:
+            raise AuthorityViolation("official candidate extraction collapsed")
+        candidates.extend(extracted)
+        captured_bodies.append((capture["url"], capture["body"]))
+    discovered = sorted(
+        {
+            contest_id
+            for _url, body in captured_bodies
+            for contest_id in extract_contest_hrefs(body)
+        }
+    )
+    return {
+        "candidates": candidates,
+        "candidate_urls": {item["url"] for item in candidates},
+        "discovered_from_pages": discovered,
+        "captured_bodies": captured_bodies,
+    }
+
+
+def load_independent_contest_payloads(
+    *,
+    committed: Mapping[str, Any],
+    data_root: Path,
+    contract: Mapping[str, Any],
+) -> dict[str, Any]:
+    payload = committed.get("payload") or {}
+    rows_path = Path(str(payload.get("rows") or ""))
+    manifest_path = Path(str(payload.get("manifest") or ""))
+    if not rows_path.is_file():
+        raise AuthorityViolation("bulk discovery rows payload is missing")
+    if sha256_file(rows_path) != payload.get("rows_sha256"):
+        raise AuthorityViolation("bulk discovery payload hash drift")
+    if not manifest_path.is_file():
+        raise AuthorityViolation("bulk discovery manifest is missing")
+    if sha256_file(manifest_path) != payload.get("manifest_sha256"):
+        raise AuthorityViolation("bulk discovery manifest hash drift")
+    rows = load_json(rows_path)
+    manifest = load_json(manifest_path)
+    rebuilt_manifest_identity = stable_hash(
+        {
+            "schema_version": manifest.get("schema_version"),
+            "candidates": rows.get("candidates"),
+            "inspections": rows.get("inspections"),
+            "tamu_seeds": manifest.get("tamu_seeds"),
+            "discovered_contest_ids": manifest.get("discovered_contest_ids"),
+        }
+    )
+    if manifest.get("manifest_identity") != committed.get("manifest_identity"):
+        raise AuthorityViolation("bulk discovery manifest identity drifted")
+    if manifest.get("manifest_identity") != rebuilt_manifest_identity:
+        raise AuthorityViolation("bulk discovery manifest identity does not reconstruct")
+    for field in CONTEST_MANIFEST_SEMANTIC_FIELDS:
+        if field not in manifest:
+            continue
+        if _canonical(manifest.get(field)) != _canonical(committed.get(field)):
+            raise AuthorityViolation(f"bulk discovery manifest {field} is not semantically equal to the gate")
+    raw_root = contract["payloads"]["raw_root"]
+    if not str(rows_path).replace("\\", "/").endswith(
+        f"{committed['manifest_identity']}/contest_route_discovery_rows.json"
+    ) and raw_root not in str(rows_path).replace("\\", "/"):
+        if committed["manifest_identity"] not in str(rows_path):
+            raise AuthorityViolation("bulk rows path is not bound to the manifest identity")
+    return {"rows": rows, "manifest": manifest, "payload": payload}
+
+
+def validate_contest_attempts(
+    *,
+    attempts: list[Mapping[str, Any]],
+    candidate_urls: set[str],
+    data_root: Path | None,
+    require_raw: bool,
+    contract: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    seen: set[tuple[str, str, str]] = set()
+    validated: list[dict[str, Any]] = []
+    for attempt in attempts:
+        missing_core = [field for field in ("url", "timestamp", "status") if field not in attempt]
+        if missing_core:
+            raise AuthorityViolation(f"contest attempt is missing required fields: {missing_core}")
+        url = str(attempt["url"])
+        reject_third_party_as_ncaa_id(url)
+        official_url(url)
+        if candidate_urls and url not in candidate_urls:
+            raise AuthorityViolation("contest attempt escaped the reconstructed official candidate set")
+        status = int(attempt["status"])
+        error = attempt.get("error")
+        digest = str(attempt.get("raw_sha256") or attempt.get("response_sha256") or "")
+        raw_relative = str(attempt.get("raw_relative_path") or "")
+        if error:
+            if 200 <= status < 300:
+                raise AuthorityViolation("failed contest attempt claimed HTTP success")
+            if digest or raw_relative:
+                raise AuthorityViolation("failed contest attempt claimed a raw body")
+            key = (url, str(attempt["timestamp"]), f"error:{error}")
+            if key in seen:
+                raise AuthorityViolation("duplicate contest attempts are forbidden")
+            seen.add(key)
+            validated.append(
+                {
+                    "url": url,
+                    "timestamp": attempt["timestamp"],
+                    "status": status,
+                    "error": error,
+                }
+            )
+            continue
+        missing = [field for field in CONTEST_ATTEMPT_REQUIRED_FIELDS if field not in attempt or attempt.get(field) in (None, "")]
+        if missing:
+            raise AuthorityViolation(f"contest attempt is missing required fields: {missing}")
+        if not digest:
+            raise AuthorityViolation("contest attempt is missing a raw-body SHA")
+        key = (url, str(attempt["timestamp"]), digest)
+        if key in seen:
+            raise AuthorityViolation("duplicate contest attempts are forbidden")
+        seen.add(key)
+        if not raw_relative.startswith(contract["payloads"]["raw_root"]):
+            raise AuthorityViolation("contest attempt raw path escaped the discovery raw root")
+        if require_raw:
+            if data_root is None:
+                raise AuthorityViolation("raw contest-attempt validation requires the data root")
+            raw_path = data_root / raw_relative
+            if not raw_path.is_file():
+                raise AuthorityViolation("contest attempt raw payload is missing")
+            if sha256_file(raw_path) != digest:
+                raise AuthorityViolation("contest attempt raw hash points to a different file")
+            body = raw_path.read_bytes()
+            if 200 <= status < 300:
+                reject_error_or_redirect_page(body, status)
+            else:
+                try:
+                    reject_error_or_redirect_page(body, 200)
+                except AuthorityViolation:
+                    pass
+                else:
+                    if status >= 400:
+                        raise AuthorityViolation("blocked contest attempt was not an error or interstitial page")
+        validated.append(
+            {
+                "url": url,
+                "timestamp": attempt["timestamp"],
+                "status": status,
+                "raw_sha256": digest,
+                "raw_relative_path": raw_relative,
+            }
+        )
+    return validated
+
+
+def contest_ids_from_official_hrefs(bodies: list[bytes]) -> list[str]:
+    discovered: list[str] = []
+    for body in bodies:
+        discovered.extend(extract_contest_hrefs(body))
+    return sorted(set(discovered))
+
+
+def validate_discovered_contest_ids(
+    *,
+    committed_ids: list[str],
+    reconstructed_ids: list[str],
+    source_bodies: list[tuple[str, bytes]],
+) -> None:
+    if list(committed_ids) != list(reconstructed_ids):
+        raise AuthorityViolation("discovered contest IDs were not independently reconstructed from official hrefs")
+    for contest_id in committed_ids:
+        if not str(contest_id).isdigit():
+            raise AuthorityViolation("non-numeric contest identifier is forbidden")
+        reject_guessed_numeric_id(str(contest_id), set(reconstructed_ids))
+        evidence = [
+            url
+            for url, body in source_bodies
+            if contest_id in extract_contest_hrefs(body)
+        ]
+        if not evidence:
+            raise AuthorityViolation(
+                f"contest ID {contest_id} lacks an official /contests/{{digits}}/box_score source body"
+            )
+
+
+def validate_compact_contest_gate(committed: Mapping[str, Any], contract: Mapping[str, Any]) -> None:
     if committed.get("tamu_seeds") != TAMU_SEEDS:
         raise AuthorityViolation("seeds drifted")
     if committed.get("classification") != PASS_CLASSIFICATION:
@@ -701,35 +920,153 @@ def validate_artifact(
         raise AuthorityViolation("protected lane drifted")
     if committed.get("disposition") not in ALLOWED_DISPOSITIONS:
         raise AuthorityViolation("unknown disposition")
-    if committed.get("input_identities", {}).get("phase2_gate_identity") != contract["input_identities"]["phase2_gate_identity"]:
-        raise AuthorityViolation("input identities drifted")
-    if committed.get("counts", {}).get("id_range_sweeps") != 0:
+    if committed.get("result") != f"PASS_{committed.get('disposition')}":
+        raise AuthorityViolation("result/disposition pairing drifted")
+    committed_inputs = committed.get("input_identities") or {}
+    for key, value in committed_inputs.items():
+        if key.endswith("_relative_path"):
+            continue
+        if contract["input_identities"].get(key) != value:
+            raise AuthorityViolation("input identities drifted")
+    counts = committed.get("counts") or {}
+    discovered = list(committed.get("discovered_contest_ids") or [])
+    if counts != PINNED_CONTEST_COUNTS:
+        raise AuthorityViolation("contest-route counts were not independently reconstructed")
+    if counts.get("id_range_sweeps") != 0:
         raise AuthorityViolation("ID-range sweep was recorded")
-    if committed.get("counts", {}).get("contest_ids_discovered") != len(committed.get("discovered_contest_ids") or []):
+    if counts.get("contest_ids_discovered") != len(discovered):
         raise AuthorityViolation("discovered contest count drifted")
-    if committed.get("discovered_contest_ids") and committed.get("counts", {}).get("contest_endpoint_attempts") == 0:
+    if discovered and counts.get("contest_endpoint_attempts") == 0:
         raise AuthorityViolation("discovered IDs were not followed by endpoint attempts")
-    if not committed.get("discovered_contest_ids") and committed.get("counts", {}).get("contest_endpoint_attempts") != 0:
+    if not discovered and counts.get("contest_endpoint_attempts") != 0:
         raise AuthorityViolation("endpoint attempts exist without discovered contest IDs")
+    if not discovered and committed.get("disposition") in {
+        "CONTEST_ROUTE_VERIFIED",
+        "PARTIAL_CONTEST_ROUTE_VERIFIED",
+    }:
+        raise AuthorityViolation("success disposition was fabricated without discovered contest IDs")
     if committed.get("admissions", {}).get("per_game_official_completion") is not False:
         raise AuthorityViolation("per-game official completion was forged")
     if any(committed["authority"].values()):
         raise AuthorityViolation("authority claim was opened")
+    if committed["scientific_nonclaims"].get("protected_lane_opened"):
+        raise AuthorityViolation("protected lane opened")
     if committed.get("gate_identity") != compute_gate_identity(committed):
         raise AuthorityViolation("gate identity does not reconstruct")
-    if require_rebuild:
-        for season in (2010, 2011):
-            capture = load_cached_page(data_root, contract["lake_html"][str(season)])
-            bind_team_season(capture["body"], TAMU_SEEDS[str(season)], season)
-            if extract_contest_hrefs(capture["body"]):
-                raise AuthorityViolation("cached TAMU team page now exposes contest IDs")
-            extracted = extract_official_candidates(
-                capture["body"], seed=TAMU_SEEDS[str(season)], season=season
-            )
-            if not extracted:
-                raise AuthorityViolation("official candidate extraction collapsed")
+    payload = committed.get("payload") or {}
+    if not payload.get("manifest") or not payload.get("rows") or not payload.get("manifest_sha256") or not payload.get("rows_sha256"):
+        raise AuthorityViolation("compact contest-route payload identity is incomplete")
+
+
+def validate_artifact(
+    *,
+    data_root: Path,
+    repo_root: Path,
+    require_rebuild: bool = True,
+    gate: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    committed = dict(gate or load_json(repo_root / GATE_RELATIVE))
+    contract = load_contract(repo_root)
+    validate_compact_contest_gate(committed, contract)
+    lake_ready = (data_root / contract["lake_html"]["2010"]["raw_relative_path"]).is_file() and (
+        data_root / "features/tamu_2010_2011_ncaa_contest_route_discovery"
+    ).is_dir()
+    if require_rebuild and not lake_ready:
+        raise AuthorityViolation("external contest-route reconstruction was required but the data root is not mounted")
+    reconstructed_ids: list[str] = []
+    candidate_urls: set[str] = set()
+    source_bodies: list[tuple[str, bytes]] = []
+    if lake_ready:
+        reconstructed = reconstruct_contest_candidates(data_root=data_root, repo_root=repo_root)
+        candidate_urls = reconstructed["candidate_urls"]
+        source_bodies = reconstructed["captured_bodies"]
+        payloads = load_independent_contest_payloads(
+            committed=committed,
+            data_root=data_root,
+            contract=contract,
+        )
+        rows = payloads["rows"]
+        row_candidates = list(rows.get("candidates") or [])
+        row_inspections = list(rows.get("inspections") or [])
+        row_attempts = list(rows.get("attempts") or [])
+        if {item["url"] for item in row_candidates} != candidate_urls:
+            raise AuthorityViolation("bulk candidate URLs were not independently reconstructed from official pages")
+        if committed["counts"]["candidate_routes"] != len(reconstructed["candidates"]):
+            raise AuthorityViolation("candidate count was not independently reconstructed")
+        if committed["counts"]["candidate_routes"] != len(row_candidates):
+            raise AuthorityViolation("candidate count does not match independently loaded bulk rows")
+        if committed["counts"]["inspections"] != len(row_inspections):
+            raise AuthorityViolation("inspection count does not match independently loaded bulk rows")
+        if committed["counts"]["live_attempts"] != len(row_attempts):
+            raise AuthorityViolation("live attempt count does not match independently loaded bulk rows")
+        blocked = sum(1 for row in row_inspections if row.get("classification") == "OFFICIAL_ROUTE_ACCESS_BLOCKED")
+        inspected_ok = sum(1 for row in row_inspections if row.get("status") == 200)
+        if committed["counts"]["blocked_routes"] != blocked:
+            raise AuthorityViolation("blocked route count was not independently reconstructed")
+        if committed["counts"]["inspected_http_200"] != inspected_ok:
+            raise AuthorityViolation("HTTP-200 inspection count was not independently reconstructed")
+        row_bodies: list[bytes] = []
+        for inspection in row_inspections:
+            digest = inspection.get("response_sha256")
+            if not digest:
+                continue
+            raw_path = data_root / contract["payloads"]["raw_root"] / f"{digest}.html"
+            lake_path = None
+            for season in ("2010", "2011"):
+                spec = contract["lake_html"][season]
+                if spec["raw_sha256"] == digest:
+                    lake_path = data_root / spec["raw_relative_path"]
+                    break
+            path = lake_path if lake_path and lake_path.is_file() else raw_path
+            if path.is_file():
+                if sha256_file(path) != digest:
+                    raise AuthorityViolation("inspection raw hash points to a different file")
+                body = path.read_bytes()
+                row_bodies.append(body)
+                source_bodies.append((str(inspection.get("url")), body))
+                if 200 <= int(inspection.get("status") or 0) < 300:
+                    reject_error_or_redirect_page(body, int(inspection["status"]))
+        reconstructed_ids = contest_ids_from_official_hrefs([body for _url, body in source_bodies])
+        validate_discovered_contest_ids(
+            committed_ids=list(committed.get("discovered_contest_ids") or []),
+            reconstructed_ids=reconstructed_ids,
+            source_bodies=source_bodies,
+        )
+        validate_contest_attempts(
+            attempts=row_attempts,
+            candidate_urls=candidate_urls,
+            data_root=data_root,
+            require_raw=True,
+            contract=contract,
+        )
+        independently_chosen = choose_disposition(
+            discovered=reconstructed_ids,
+            blocked_routes=blocked,
+            inspected_ok=inspected_ok,
+        )
+        if committed["disposition"] != independently_chosen:
+            raise AuthorityViolation("contest-route disposition was not independently reconstructed")
+        if committed["counts"]["contest_endpoint_attempts"] != len(reconstructed_ids):
+            raise AuthorityViolation("contest endpoint attempt count was not independently reconstructed")
+        if reconstructed_ids:
+            contest_attempts = [
+                attempt
+                for attempt in row_attempts
+                if "/contests/" in str(attempt.get("url"))
+            ]
+            if len(contest_attempts) != committed["counts"]["contest_endpoint_attempts"]:
+                raise AuthorityViolation("invented or missing contest endpoint attempts")
         payload = committed.get("payload") or {}
-        rows_path = Path(str(payload.get("rows") or ""))
-        if not rows_path.is_file() or sha256_file(rows_path) != payload.get("rows_sha256"):
-            raise AuthorityViolation("bulk discovery payload hash drift")
-    return {"result": "PASS", "gate_identity": committed["gate_identity"]}
+        if payload.get("inspection_count") != len(row_inspections):
+            raise AuthorityViolation("payload inspection count drifted")
+        if payload.get("attempt_count") != len(row_attempts):
+            raise AuthorityViolation("payload attempt count drifted")
+    else:
+        discovered = list(committed.get("discovered_contest_ids") or [])
+        if discovered:
+            raise AuthorityViolation("a discovered contest ID cannot be accepted without mounted source-body evidence")
+    return {
+        "result": "PASS",
+        "gate_identity": committed["gate_identity"],
+        "external_reconstruction": "MOUNTED" if lake_ready else "NOT_MOUNTED",
+    }

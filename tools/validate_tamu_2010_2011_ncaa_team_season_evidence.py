@@ -89,6 +89,31 @@ def main() -> int:
         counts = json.loads(json.dumps(gate["counts"]))
         counts["contest_ids_fabricated"] = 1
         mutations.append(expect_rejection("fabricated_contest_ids", lambda: _validate(_mutated_gate(gate, counts=counts))))
+        counts = json.loads(json.dumps(gate["counts"]))
+        counts["official_routes_attempted"] = 999
+        mutations.append(expect_rejection("bypass_a_changed_official_routes_attempted", lambda: _validate(_mutated_gate(gate, counts=counts))))
+        domains = json.loads(json.dumps(gate["domains"]))
+        domains["points_for_against"]["2010"]["value"]["points_for"] = 999
+        mutations.append(expect_rejection("bypass_b_changed_2010_points_for", lambda: _validate(_mutated_gate(gate, domains=domains))))
+        domains = json.loads(json.dumps(gate["domains"]))
+        domains["wins_losses_ties"]["2010"]["value"]["wins"] = 13
+        mutations.append(expect_rejection("changed_wlt", lambda: _validate(_mutated_gate(gate, domains=domains))))
+        attempts = json.loads(json.dumps(gate["attempts"]))
+        attempts[0]["status"] = 200
+        mutations.append(expect_rejection("changed_status_403_to_200", lambda: _validate(_mutated_gate(gate, attempts=attempts))))
+        attempts = json.loads(json.dumps(gate["attempts"]))
+        attempts[0]["url"] = "https://stats.ncaa.org/teams/137387/box_score"
+        mutations.append(expect_rejection("changed_attempt_url", lambda: _validate(_mutated_gate(gate, attempts=attempts))))
+        attempts = json.loads(json.dumps(gate["attempts"]))
+        attempts[0]["timestamp"] = "1999-01-01T00:00:00Z"
+        mutations.append(expect_rejection("changed_attempt_timestamp", lambda: _validate(_mutated_gate(gate, attempts=attempts))))
+        attempts = json.loads(json.dumps(gate["attempts"]))
+        attempts[0]["raw_sha256"] = "00" * 32
+        attempts[0]["response_sha256"] = "00" * 32
+        mutations.append(expect_rejection("changed_raw_hash", lambda: _validate(_mutated_gate(gate, attempts=attempts))))
+        attempts = json.loads(json.dumps(gate["attempts"]))
+        attempts[0]["raw_relative_path"] = "raw/SRC-015/ncaa_team_season_evidence/" + ("ab" * 32) + ".html"
+        mutations.append(expect_rejection("missing_raw_payload", lambda: _validate(_mutated_gate(gate, attempts=attempts))))
         forged = _mutated_gate(gate, result="FORGED_DONE", classification="PRODUCTION_CHAMPION")
         mutations.append(expect_rejection("forged_completion_after_rehash", lambda: _validate(forged)))
     print(json.dumps({"validation": result, "mutations": mutations}, indent=2, sort_keys=True))

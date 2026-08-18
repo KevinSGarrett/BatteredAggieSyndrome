@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -31,6 +32,7 @@ from aggie_analytics.data.tamu_ncaa_contest_route_discovery import (  # noqa: E4
 )
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+LAKE_READY = (DATA_ROOT / "features/tamu_2010_2011_ncaa_contest_route_discovery").is_dir()
 
 
 MODERN_FIXTURE = b"""<html><body>NCAA Texas A&amp;M 2022
@@ -122,6 +124,117 @@ class ContestRouteDiscoveryTests(unittest.TestCase):
     def test_official_url_rejects_non_official_host(self) -> None:
         with self.assertRaises(AuthorityViolation):
             official_url("https://example.com/contests/1/box_score")
+
+    def _committed_gate(self) -> dict:
+        path = ROOT / GATE_RELATIVE
+        if not path.is_file():
+            self.skipTest("contest-route gate is not present")
+        return load_json(path)
+
+    def _rehashed(self, gate: dict, mutator) -> dict:
+        tampered = json.loads(json.dumps(gate))
+        mutator(tampered)
+        tampered["gate_identity"] = compute_gate_identity(tampered)
+        return tampered
+
+    def _reject(self, gate: dict) -> None:
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(
+                data_root=DATA_ROOT,
+                repo_root=ROOT,
+                require_rebuild=LAKE_READY,
+                gate=gate,
+            )
+
+    def test_truthful_committed_gate_passes_independent_reconstruction(self) -> None:
+        result = validate_artifact(data_root=DATA_ROOT, repo_root=ROOT, require_rebuild=LAKE_READY)
+        self.assertEqual("PASS", result["result"])
+        self.assertEqual(
+            "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb",
+            result["gate_identity"],
+        )
+        self.assertEqual("MOUNTED" if LAKE_READY else "NOT_MOUNTED", result["external_reconstruction"])
+
+    def test_unmounted_compact_validation_still_rejects_bypass_c(self) -> None:
+        empty = Path(tempfile.mkdtemp(prefix="bas-no-lake-"))
+        result = validate_artifact(data_root=empty, repo_root=ROOT, require_rebuild=False)
+        self.assertEqual("PASS", result["result"])
+        self.assertEqual("NOT_MOUNTED", result["external_reconstruction"])
+        mutated = self._rehashed(self._committed_gate(), lambda gate: None)
+        mutated["discovered_contest_ids"] = ["999999"]
+        mutated["counts"]["contest_ids_discovered"] = 1
+        mutated["counts"]["contest_endpoint_attempts"] = 1
+        mutated["gate_identity"] = compute_gate_identity(mutated)
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=empty, repo_root=ROOT, require_rebuild=False, gate=mutated)
+
+    def test_bypass_c_fabricated_contest_id_after_rehash(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["discovered_contest_ids"] = ["999999"]
+            gate["counts"]["contest_ids_discovered"] = 1
+            gate["counts"]["contest_endpoint_attempts"] = 1
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_discovered_contest_id_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["discovered_contest_ids"] = ["312610245"]
+            gate["counts"]["contest_ids_discovered"] = 1
+            gate["counts"]["contest_endpoint_attempts"] = 1
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_endpoint_attempt_count_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["counts"]["contest_endpoint_attempts"] = 4
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_candidate_count_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["counts"]["candidate_routes"] = 99
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_changed_inspection_count_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["counts"]["inspections"] = 99
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_inserted_id_range_sweep_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["counts"]["id_range_sweeps"] = 1
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_fabricated_success_disposition_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["disposition"] = "CONTEST_ROUTE_VERIFIED"
+            gate["result"] = "PASS_CONTEST_ROUTE_VERIFIED"
+            gate["discovered_contest_ids"] = ["999999"]
+            gate["counts"]["contest_ids_discovered"] = 1
+            gate["counts"]["contest_endpoint_attempts"] = 1
+            gate["admissions"]["per_game_official_completion"] = True
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_protected_lane_opened_after_rehash_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["protected_lane"] = "OPEN"
+            gate["scientific_nonclaims"]["protected_lane_opened"] = True
+            gate["authority"]["protected_outcome_authority"] = True
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
+
+    def test_completion_forged_after_gate_and_manifest_rehash_is_rejected(self) -> None:
+        def mutate(gate: dict) -> None:
+            gate["result"] = "FORGED_DONE"
+            gate["classification"] = "PRODUCTION_CHAMPION"
+            gate["manifest_identity"] = "ff" * 32
+            gate["payload"]["manifest_sha256"] = "ee" * 32
+
+        self._reject(self._rehashed(self._committed_gate(), mutate))
 
 
 if __name__ == "__main__":

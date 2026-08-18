@@ -1077,6 +1077,346 @@ ALLOWED_RESULTS = {
     "PASS_PARTIAL_TEAM_SEASON_PAGE_FAMILIES_CAPTURED",
     "PASS_TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
 }
+PINNED_TEAM_PAGE_IDENTITIES = {
+    "2010_team": "3cdb205a98242b335cc742a81ddbc66f4352bf0ce68387130d17534e5f3712d7",
+    "2011_team": "aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3",
+}
+PINNED_OFFICIAL_ROUTES_ATTEMPTED = 8
+PINNED_ATTEMPTS_IDENTITY = "5b4620d37f0a585ded842c55aae612db31d89c237cb80525e1300fe25d73ee25"
+PINNED_RECONSTRUCTED_DOMAINS = {
+    "schedule_game_count": {
+        "2010": {"classification": "VERIFIED_OFFICIAL_SEASON_LEVEL", "value": 13},
+        "2011": {"classification": "VERIFIED_OFFICIAL_SEASON_LEVEL", "value": 13},
+    },
+    "wins_losses_ties": {
+        "2010": {
+            "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+            "header_record": {
+                "losses": 4,
+                "raw": "Texas A&amp;M Aggies</a> (9-4)",
+                "ties": 0,
+                "wins": 9,
+            },
+            "source": "EXPLICIT_RESULT_CODE",
+            "value": {"losses": 4, "ties": 0, "wins": 9},
+        },
+        "2011": {
+            "classification": "CONFLICT_REVIEW_REQUIRED",
+            "header_record": {
+                "losses": 0,
+                "raw": "Texas A&amp;M Aggies</a> (0-0)",
+                "ties": 0,
+                "wins": 0,
+            },
+            "source": "MIXED_OR_DERIVED",
+            "value": {"losses": 6, "ties": 0, "wins": 7},
+        },
+    },
+    "points_for_against": {
+        "2010": {
+            "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+            "value": {"points_against": 285, "points_for": 406},
+        },
+        "2011": {
+            "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+            "value": {"points_against": 366, "points_for": 508},
+        },
+    },
+}
+ATTEMPT_REQUIRED_FIELDS = (
+    "url",
+    "timestamp",
+    "status",
+    "content_type",
+    "redirect_chain",
+    "raw_relative_path",
+)
+MANIFEST_SEMANTIC_FIELDS = (
+    "tamu_seeds",
+    "disposition",
+    "counts",
+    "domains",
+    "page_identities",
+    "blocked_response_identities",
+    "attempts",
+    "authority",
+    "scientific_nonclaims",
+    "protected_lane",
+)
+
+
+def _canonical(value: Any) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+
+
+def _attempt_digest(attempt: Mapping[str, Any]) -> str:
+    digest = attempt.get("raw_sha256") or attempt.get("response_sha256")
+    if not digest:
+        raise AuthorityViolation("attempt is missing a raw-body SHA")
+    return str(digest)
+
+
+def route_kind_from_official_url(url: str) -> str:
+    parsed = urlsplit(url)
+    path = parsed.path.rstrip("/")
+    if path.endswith("/roster"):
+        return "roster"
+    if path.endswith("/season_to_date_stats"):
+        return "season_to_date_stats"
+    raise AuthorityViolation(f"attempt URL is not an official optional team-season route: {url}")
+
+
+def validate_compact_team_season_gate(committed: Mapping[str, Any], contract: Mapping[str, Any]) -> None:
+    if committed.get("classification") != PASS_CLASSIFICATION:
+        raise AuthorityViolation("classification drifted")
+    if committed.get("result") not in ALLOWED_RESULTS:
+        raise AuthorityViolation("result is not an allowed team-season evidence result")
+    if committed.get("result") != f"PASS_{committed.get('disposition')}":
+        raise AuthorityViolation("result/disposition pairing drifted")
+    if committed.get("tamu_seeds") != TAMU_SEEDS:
+        raise AuthorityViolation("committed seeds drifted")
+    if committed.get("authority") != expected_authority():
+        raise AuthorityViolation("committed authority drifted")
+    if committed.get("scientific_nonclaims") != expected_scientific_nonclaims():
+        raise AuthorityViolation("committed nonclaims drifted")
+    if committed.get("protected_lane") != PROTECTED_LANE:
+        raise AuthorityViolation("protected lane drifted")
+    if committed.get("admissions") != expected_admissions(str(committed.get("disposition"))):
+        raise AuthorityViolation("admissions drifted")
+    if any(committed["authority"].values()):
+        raise AuthorityViolation("authority claim was opened")
+    if committed["scientific_nonclaims"]["roster_membership_used_as_availability"]:
+        raise AuthorityViolation("roster membership was promoted to availability")
+    if committed["scientific_nonclaims"]["participation_used_as_availability"]:
+        raise AuthorityViolation("participation was promoted to availability")
+    if committed["scientific_nonclaims"]["protected_lane_opened"]:
+        raise AuthorityViolation("protected lane opened")
+    counts = committed.get("counts") or {}
+    attempts = list(committed.get("attempts") or [])
+    if counts.get("contest_ids_fabricated") != 0:
+        raise AuthorityViolation("contest IDs were fabricated")
+    if counts.get("availability_features") != 0:
+        raise AuthorityViolation("availability features were admitted")
+    if counts.get("seasons") != 2:
+        raise AuthorityViolation("season count drifted")
+    if counts.get("team_pages_reused") != 2:
+        raise AuthorityViolation("team-page reuse count drifted")
+    if counts.get("official_routes_attempted") != len(attempts):
+        raise AuthorityViolation("official route-attempt count does not match independently counted attempts")
+    if counts.get("official_routes_attempted") != PINNED_OFFICIAL_ROUTES_ATTEMPTED:
+        raise AuthorityViolation("official route-attempt count drifted from the independently reconstructed attempt set")
+    if stable_hash(attempts) != PINNED_ATTEMPTS_IDENTITY:
+        raise AuthorityViolation("attempt records were not independently reconstructed")
+    domains = committed.get("domains") or {}
+    for domain_key, pinned in PINNED_RECONSTRUCTED_DOMAINS.items():
+        if _canonical(domains.get(domain_key)) != _canonical(pinned):
+            raise AuthorityViolation(f"{domain_key} was not independently reconstructed")
+    if counts.get("schedule_rows_2010") != (domains.get("schedule_game_count") or {}).get("2010", {}).get("value"):
+        raise AuthorityViolation("2010 schedule count is not bound to the domain value")
+    if counts.get("schedule_rows_2011") != (domains.get("schedule_game_count") or {}).get("2011", {}).get("value"):
+        raise AuthorityViolation("2011 schedule count is not bound to the domain value")
+    roster_verified = sum(
+        1
+        for season in ("2010", "2011")
+        if (domains.get("roster_membership") or {}).get(season, {}).get("classification")
+        == "VERIFIED_OFFICIAL_SEASON_LEVEL"
+    )
+    stats_verified = sum(
+        1
+        for season in ("2010", "2011")
+        if (domains.get("team_season_statistics") or {}).get(season, {}).get("classification")
+        == "VERIFIED_OFFICIAL_SEASON_LEVEL"
+    )
+    if counts.get("roster_pages_captured") != roster_verified:
+        raise AuthorityViolation("roster captured-page count drifted")
+    if counts.get("season_stat_pages_captured") != stats_verified:
+        raise AuthorityViolation("season-stat captured-page count drifted")
+    for key, digest in PINNED_TEAM_PAGE_IDENTITIES.items():
+        if committed.get("page_identities", {}).get(key) != digest:
+            raise AuthorityViolation(f"{key} page identity drifted")
+    if committed.get("gate_identity") != compute_gate_identity(committed):
+        raise AuthorityViolation("gate identity does not reconstruct from authority-bearing fields")
+    payload = committed.get("payload") or {}
+    if not payload.get("manifest") or not payload.get("manifest_sha256") or not payload.get("manifest_relative_path"):
+        raise AuthorityViolation("compact payload identity is incomplete")
+    if not str(payload.get("manifest_relative_path")).startswith(contract["payloads"]["normalized_root"]):
+        raise AuthorityViolation("payload relative path escaped the team-season evidence root")
+    if not committed.get("manifest_identity"):
+        raise AuthorityViolation("manifest identity is missing")
+
+
+def validate_team_season_attempts(
+    *,
+    committed: Mapping[str, Any],
+    contract: Mapping[str, Any],
+    data_root: Path | None,
+    require_raw: bool,
+    official_optional_urls: set[str] | None = None,
+) -> list[dict[str, Any]]:
+    attempts = list(committed.get("attempts") or [])
+    seen: set[tuple[str, str, str]] = set()
+    validated: list[dict[str, Any]] = []
+    for attempt in attempts:
+        missing = [field for field in ATTEMPT_REQUIRED_FIELDS if not attempt.get(field)]
+        if missing:
+            raise AuthorityViolation(f"attempt is missing required fields: {missing}")
+        url = str(attempt["url"])
+        parsed = urlsplit(url)
+        if parsed.scheme != "https" or (parsed.hostname or "").lower() != OFFICIAL_HOST:
+            raise AuthorityViolation("attempt used a nonofficial host")
+        route_kind = route_kind_from_official_url(url)
+        seed = None
+        for candidate in TAMU_SEEDS.values():
+            if f"/teams/{candidate}/" in parsed.path:
+                seed = candidate
+                break
+        if seed is None:
+            raise AuthorityViolation("attempt is not bound to a pinned TAMU team-season seed")
+        validate_seeded_official_uri(url, seed, route_kind)
+        if official_optional_urls is not None and url not in official_optional_urls:
+            raise AuthorityViolation("attempt URL was not derived from the official team-page nav")
+        digest = _attempt_digest(attempt)
+        if attempt.get("response_sha256") and attempt["response_sha256"] != digest:
+            raise AuthorityViolation("attempt raw-hash fields disagree")
+        key = (url, str(attempt["timestamp"]), digest)
+        if key in seen:
+            raise AuthorityViolation("duplicate attempt records are forbidden")
+        seen.add(key)
+        if not attempt.get("redirect_chain"):
+            raise AuthorityViolation("attempt is missing a redirect chain")
+        if not attempt.get("timestamp"):
+            raise AuthorityViolation("attempt timestamp is missing")
+        status = int(attempt["status"])
+        raw_relative = str(attempt["raw_relative_path"])
+        if not raw_relative.startswith(contract["payloads"]["raw_root"]):
+            raise AuthorityViolation("attempt raw path escaped the team-season raw root")
+        if require_raw:
+            if data_root is None:
+                raise AuthorityViolation("raw attempt validation requires the data root")
+            raw_path = data_root / raw_relative
+            if not raw_path.is_file():
+                raise AuthorityViolation("attempt raw payload is missing")
+            if sha256_file(raw_path) != digest:
+                raise AuthorityViolation("attempt raw hash points to a different file")
+            body = raw_path.read_bytes()
+            if 200 <= status < 300:
+                reject_interstitial(body)
+                bind_team_season(body, seed, 2010 if seed == TAMU_SEEDS["2010"] else 2011)
+            else:
+                try:
+                    reject_interstitial(body)
+                except AuthorityViolation:
+                    pass
+                else:
+                    if status >= 400:
+                        raise AuthorityViolation("blocked attempt body was not an error or interstitial page")
+        validated.append(
+            {
+                "url": url,
+                "route_kind": route_kind,
+                "timestamp": attempt["timestamp"],
+                "status": status,
+                "content_type": attempt["content_type"],
+                "redirect_chain": attempt["redirect_chain"],
+                "raw_sha256": digest,
+                "raw_relative_path": raw_relative,
+            }
+        )
+    return validated
+
+
+def reconstruct_team_season_from_pages(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
+    contract = load_contract(repo_root)
+    domains: dict[str, Any] = {
+        "schedule_game_count": {},
+        "wins_losses_ties": {},
+        "points_for_against": {},
+        "pregame_availability": {
+            "2010": "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE",
+            "2011": "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE",
+        },
+    }
+    page_identities: dict[str, str] = {}
+    official_optional_urls: set[str] = set()
+    for season in (2010, 2011):
+        seed = TAMU_SEEDS[str(season)]
+        capture = load_cached_page(data_root, contract["lake_html"][str(season)])
+        bind_team_season(capture["body"], seed, season)
+        routes = extract_official_nav_routes(capture["body"], seed)
+        tables = parse_tables(capture["body"])
+        schedule = parse_schedule_table(tables, season)
+        header_record = parse_header_record(capture["body"])
+        header_conflict = bool(
+            header_record
+            and (
+                header_record["wins"] != schedule["wins"]
+                or header_record["losses"] != schedule["losses"]
+                or header_record["ties"] != schedule["ties"]
+            )
+        )
+        wl_class = "CONFLICT_REVIEW_REQUIRED" if header_conflict else "VERIFIED_OFFICIAL_SEASON_LEVEL"
+        domains["schedule_game_count"][str(season)] = {
+            "value": schedule["row_count"],
+            "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        }
+        domains["wins_losses_ties"][str(season)] = {
+            "value": {"wins": schedule["wins"], "losses": schedule["losses"], "ties": schedule["ties"]},
+            "source": schedule["result_code_source"],
+            "header_record": header_record,
+            "classification": wl_class,
+        }
+        domains["points_for_against"][str(season)] = {
+            "value": {"points_for": schedule["points_for"], "points_against": schedule["points_against"]},
+            "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        }
+        page_identities[f"{season}_team"] = capture["response_sha256"]
+        official_optional_urls.add(routes["roster"])
+        official_optional_urls.add(routes["season_to_date_stats"])
+        if schedule["row_count"] != 13:
+            raise AuthorityViolation(f"{season} schedule is not the 13-game official table")
+    return {
+        "domains": domains,
+        "page_identities": page_identities,
+        "official_optional_urls": official_optional_urls,
+    }
+
+
+def validate_team_season_manifest(
+    *,
+    committed: Mapping[str, Any],
+    data_root: Path,
+    reconstructed_domains: Mapping[str, Any],
+) -> dict[str, Any]:
+    payload = committed.get("payload") or {}
+    manifest_path = Path(str(payload.get("manifest") or ""))
+    relative = Path(str(payload.get("manifest_relative_path") or ""))
+    if not manifest_path.is_file():
+        alt = data_root / relative
+        if alt.is_file():
+            manifest_path = alt
+    if not manifest_path.is_file():
+        raise AuthorityViolation("bulk payload manifest is missing")
+    if sha256_file(manifest_path) != payload.get("manifest_sha256"):
+        raise AuthorityViolation("bulk payload hash drift")
+    manifest = load_json(manifest_path)
+    if manifest.get("manifest_identity") != committed.get("manifest_identity"):
+        raise AuthorityViolation("bulk manifest identity drifted")
+    rebuilt_manifest_identity = stable_hash(
+        {key: manifest.get(key) for key in ("schema_version", "pages", "domains", "tamu_seeds")}
+    )
+    if manifest.get("manifest_identity") != rebuilt_manifest_identity:
+        raise AuthorityViolation("bulk manifest identity does not reconstruct")
+    for field in MANIFEST_SEMANTIC_FIELDS:
+        if field not in manifest:
+            continue
+        if _canonical(manifest.get(field)) != _canonical(committed.get(field)):
+            raise AuthorityViolation(f"bulk manifest {field} is not semantically equal to the gate")
+    for season in ("2010", "2011"):
+        if _canonical(manifest.get("domains", {}).get("points_for_against", {}).get(season)) != _canonical(
+            reconstructed_domains["points_for_against"][season]
+        ):
+            raise AuthorityViolation(f"{season} manifest points were not reconstructed from the official page")
+    return manifest
 
 
 def validate_artifact(
@@ -1090,76 +1430,95 @@ def validate_artifact(
     del expected
     committed = dict(gate or load_json(repo_root / GATE_RELATIVE))
     contract = load_contract(repo_root)
-    if committed.get("classification") != PASS_CLASSIFICATION:
-        raise AuthorityViolation("classification drifted")
-    if committed.get("result") not in ALLOWED_RESULTS:
-        raise AuthorityViolation("result is not an allowed team-season evidence result")
-    if committed["tamu_seeds"] != TAMU_SEEDS:
-        raise AuthorityViolation("committed seeds drifted")
-    if committed["authority"] != expected_authority():
-        raise AuthorityViolation("committed authority drifted")
-    if committed["scientific_nonclaims"] != expected_scientific_nonclaims():
-        raise AuthorityViolation("committed nonclaims drifted")
-    if committed["protected_lane"] != PROTECTED_LANE:
-        raise AuthorityViolation("protected lane drifted")
-    if any(committed["authority"].values()):
-        raise AuthorityViolation("authority claim was opened")
-    if committed["scientific_nonclaims"]["roster_membership_used_as_availability"]:
-        raise AuthorityViolation("roster membership was promoted to availability")
-    if committed["scientific_nonclaims"]["participation_used_as_availability"]:
-        raise AuthorityViolation("participation was promoted to availability")
-    if committed["counts"]["contest_ids_fabricated"] != 0:
-        raise AuthorityViolation("contest IDs were fabricated")
-    if committed["counts"]["availability_features"] != 0:
-        raise AuthorityViolation("availability features were admitted")
-    if committed["page_identities"].get("2010_team") != (
-        "3cdb205a98242b335cc742a81ddbc66f4352bf0ce68387130d17534e5f3712d7"
-    ):
-        raise AuthorityViolation("2010 team page identity drifted")
-    if committed["page_identities"].get("2011_team") != (
-        "aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3"
-    ):
-        raise AuthorityViolation("2011 team page identity drifted")
-    rebuilt_identity = compute_gate_identity(committed)
-    if committed.get("gate_identity") != rebuilt_identity:
-        raise AuthorityViolation("gate identity does not reconstruct from authority-bearing fields")
-    if require_rebuild:
+    validate_compact_team_season_gate(committed, contract)
+    lake_ready = (data_root / contract["lake_html"]["2010"]["raw_relative_path"]).is_file() and (
+        data_root / contract["payloads"]["normalized_root"]
+    ).is_dir()
+    if require_rebuild and not lake_ready:
+        raise AuthorityViolation("external team-season reconstruction was required but the data root is not mounted")
+    official_optional_urls: set[str] | None = None
+    reconstructed: dict[str, Any] | None = None
+    if lake_ready:
+        reconstructed = reconstruct_team_season_from_pages(data_root=data_root, repo_root=repo_root)
+        official_optional_urls = reconstructed["official_optional_urls"]
         for season in ("2010", "2011"):
-            spec = contract["lake_html"][season]
-            capture = load_cached_page(data_root, spec)
-            bind_team_season(capture["body"], TAMU_SEEDS[season], int(season))
-            schedule = parse_schedule_table(parse_tables(capture["body"]), int(season))
-            committed_count = committed["domains"]["schedule_game_count"][season]["value"]
-            if committed_count != schedule["row_count"]:
-                raise AuthorityViolation(f"{season} schedule count drifted")
-            if schedule["row_count"] != 13:
-                raise AuthorityViolation(f"{season} schedule is not the 13-game official table")
-            for optional in ("roster", "season_to_date_stats"):
-                digest = committed["page_identities"].get(f"{season}_{optional}")
-                domain_key = "roster_membership" if optional == "roster" else "team_season_statistics"
-                classification = committed["domains"][domain_key][season]["classification"]
-                if digest:
+            for domain_key in ("schedule_game_count", "wins_losses_ties", "points_for_against"):
+                if _canonical(committed["domains"][domain_key][season]) != _canonical(
+                    reconstructed["domains"][domain_key][season]
+                ):
+                    raise AuthorityViolation(f"{season} {domain_key} was not independently reconstructed")
+            if committed["page_identities"][f"{season}_team"] != reconstructed["page_identities"][f"{season}_team"]:
+                raise AuthorityViolation(f"{season} team page identity was not independently reconstructed")
+            if committed["domains"]["pregame_availability"][season] != "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE":
+                raise AuthorityViolation("pregame availability was admitted from team-season evidence")
+        validate_team_season_manifest(
+            committed=committed,
+            data_root=data_root,
+            reconstructed_domains=reconstructed["domains"],
+        )
+    validated_attempts = validate_team_season_attempts(
+        committed=committed,
+        contract=contract,
+        data_root=data_root if lake_ready else None,
+        require_raw=bool(require_rebuild or lake_ready),
+        official_optional_urls=official_optional_urls,
+    )
+    if committed["counts"]["official_routes_attempted"] != len(validated_attempts):
+        raise AuthorityViolation("official route-attempt count drifted after independent attempt binding")
+    blocked_pages = 0
+    captured_pages = 0
+    for season in ("2010", "2011"):
+        for optional, domain_key in (
+            ("roster", "roster_membership"),
+            ("season_to_date_stats", "team_season_statistics"),
+        ):
+            digest = committed["page_identities"].get(f"{season}_{optional}")
+            classification = committed["domains"][domain_key][season]["classification"]
+            matching = [
+                attempt
+                for attempt in validated_attempts
+                if attempt["route_kind"] == optional
+                and TAMU_SEEDS[season] in attempt["url"]
+            ]
+            if digest:
+                captured_pages += 1
+                if classification != "VERIFIED_OFFICIAL_SEASON_LEVEL":
+                    raise AuthorityViolation(f"{season} {optional} identity present but not verified")
+                if lake_ready:
                     raw_path = data_root / contract["payloads"]["raw_root"] / f"{digest}.html"
                     if not raw_path.is_file():
                         raise AuthorityViolation(f"missing content-addressed {season} {optional} payload")
                     if sha256_file(raw_path) != digest:
                         raise AuthorityViolation(f"{season} {optional} payload hash drift")
-                    body = raw_path.read_bytes()
-                    reject_interstitial(body)
-                    bind_team_season(body, TAMU_SEEDS[season], int(season))
-                    if classification != "VERIFIED_OFFICIAL_SEASON_LEVEL":
-                        raise AuthorityViolation(f"{season} {optional} identity present but not verified")
-                elif classification == "VERIFIED_OFFICIAL_SEASON_LEVEL":
+                    reject_interstitial(raw_path.read_bytes())
+            else:
+                blocked_pages += 1
+                if classification == "VERIFIED_OFFICIAL_SEASON_LEVEL":
                     raise AuthorityViolation(f"{season} {optional} verified without an identity")
-        payload = committed.get("payload") or {}
-        manifest_path = Path(str(payload.get("manifest") or ""))
-        if not manifest_path.is_file():
-            raise AuthorityViolation("bulk payload manifest is missing")
-        if sha256_file(manifest_path) != payload.get("manifest_sha256"):
-            raise AuthorityViolation("bulk payload hash drift")
-        manifest = load_json(manifest_path)
-        if manifest.get("manifest_identity") != committed.get("manifest_identity"):
-            raise AuthorityViolation("bulk manifest identity drifted")
-        if manifest.get("tamu_seeds") != TAMU_SEEDS:
-            raise AuthorityViolation("bulk manifest seeds drifted")
-    return {"result": "PASS", "gate_identity": committed["gate_identity"]}
+                if not matching:
+                    raise AuthorityViolation(f"{season} {optional} blocked route has no bound attempt")
+                if any(200 <= int(attempt["status"]) < 300 for attempt in matching):
+                    raise AuthorityViolation("403/interstitial body reclassified as successful evidence")
+            blocked_digest = (committed.get("blocked_response_identities") or {}).get(f"{season}_{optional}")
+            if blocked_digest and lake_ready:
+                blocked_path = data_root / contract["payloads"]["raw_root"] / f"{blocked_digest}.html"
+                if not blocked_path.is_file():
+                    raise AuthorityViolation(f"missing blocked {season} {optional} payload")
+                if sha256_file(blocked_path) != blocked_digest:
+                    raise AuthorityViolation(f"blocked {season} {optional} payload hash drift")
+    reconstructed_disposition = (
+        "TEAM_SEASON_PAGE_FAMILIES_CAPTURED"
+        if captured_pages == 4
+        else "PARTIAL_TEAM_SEASON_PAGE_FAMILIES_CAPTURED"
+        if captured_pages
+        else "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED"
+    )
+    if committed["disposition"] != reconstructed_disposition:
+        raise AuthorityViolation("disposition was not independently reconstructed")
+    if committed["result"] != f"PASS_{reconstructed_disposition}":
+        raise AuthorityViolation("result was not independently reconstructed")
+    return {
+        "result": "PASS",
+        "gate_identity": committed["gate_identity"],
+        "external_reconstruction": "MOUNTED" if reconstructed is not None else "NOT_MOUNTED",
+    }

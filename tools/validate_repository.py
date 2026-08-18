@@ -364,6 +364,52 @@ def main() -> int:
                         )()
                     )
 
+        archive_gate = root / "artifacts" / "data_lake" / "tamu_official_historical_archive_gate.json"
+        archive_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_historical_archive.py"
+        if archive_gate.is_file() and archive_module.is_file():
+            import importlib.util
+            import os
+
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_historical_archive_strict",
+                archive_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_historical_archive",
+                            "path": "src/aggie_analytics/data/tamu_official_historical_archive.py",
+                            "detail": "unable to load official historical-archive validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = (data_root / "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/season_index").is_dir()
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=lake_ready,
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_historical_archive",
+                                "path": "artifacts/data_lake/tamu_official_historical_archive_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

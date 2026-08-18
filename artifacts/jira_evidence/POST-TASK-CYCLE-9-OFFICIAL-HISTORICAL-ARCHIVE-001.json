@@ -1,0 +1,107 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_554": "RELATES_ONLY_DO_NOT_REOPEN",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "wmt_payload": "PRESERVED_IMMUTABLE"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owns the new immutable files.12thman.com historical-archive acquisition identity. BAT-523 owns the parent known-at recovery and the existing WMT/Sidearm candidate layer, which must not be rewritten in place. BAT-570 through BAT-578 are Done Cycle #8/#9 units that do not own this archive capture. BAT-429/POST-SUBTASK-079 remain blocked on 063/066/069.",
+    "reviewed_keys": [
+      "BAT-429",
+      "BAT-431",
+      "BAT-523",
+      "BAT-554",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-574",
+      "BAT-575",
+      "BAT-576",
+      "BAT-577",
+      "BAT-578"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "3a8509daafb2347aed6622548bd619c7f42f8ca7",
+  "issue_complete": false,
+  "jira_key": "BAT-579",
+  "local_issue_id": "POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #9 Phase 2 captured the official Texas A&M historical football archive as SRC-014 official-school evidence. 13 official 2010 box-score hrefs and 13 official 2011 box-score hrefs were parsed from the official season indexes and captured. Official PDF routes returned HTML wrappers and were not admitted as PDF content. No NCAA contest IDs were created. The existing BAT-523 WMT candidate payload was not rewritten. Acquisition identity 535e278e4c0a9a9abbd2fac8e6e44f74eb8cbe0ba4cd26ff9692ae9b622280be. Gate identity 7c54754eab279b7718c0c3da48dc75cfb891d8f49f2f9e1236152d2b9779bc2b.",
+  "outputs": [
+    {
+      "bytes": 41050,
+      "path": "src/aggie_analytics/data/tamu_official_historical_archive.py",
+      "sha256": "6dd5f561c5a4c8ab86c9ce8b34f9d016553454aff2ad0e3c84b71a027c9a030a"
+    },
+    {
+      "bytes": 2379,
+      "path": "configs/tamu_official_historical_archive_contract.json",
+      "sha256": "558c883c928fc73c02be94a4591d49fab81ec2d739df31ecac70ab45ee08d083"
+    },
+    {
+      "bytes": 84950,
+      "path": "artifacts/data_lake/tamu_official_historical_archive_gate.json",
+      "sha256": "8f80df1aa4e2f86cc56deb116d34c7861869f89dc5cb79834ef71d7a0748337f"
+    },
+    {
+      "bytes": 9971,
+      "path": "tests/test_tamu_official_historical_archive.py",
+      "sha256": "4a9d7ef6def59a93add2813f8f0505963a24e6b294e664cd7fd96e5e0d87eb7b"
+    },
+    {
+      "bytes": 3938,
+      "path": "tools/validate_tamu_official_historical_archive.py",
+      "sha256": "832c66fcec2546a182cf9935309a844670ff0e779376110e3350d148fb33c740"
+    },
+    {
+      "bytes": 1128,
+      "path": "tools/acquire_tamu_official_historical_archive.py",
+      "sha256": "ec8e41d078e08a793ea373e866e500529af00aa95b7d10a828d87759f44bf6ac"
+    },
+    {
+      "bytes": 21087,
+      "path": "tools/validate_repository.py",
+      "sha256": "35247d7e4d4591e4f1a1c6ca5e56762d018c3e47c35300a7c8813d6b5add512d"
+    },
+    {
+      "bytes": 10333,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+      "sha256": "175ad4dd6cc28bb76cd3dd715059eaa9db64d344838c2dab735c1b04d7dcddb2"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-429",
+    "BAT-570",
+    "BAT-574",
+    "BAT-576",
+    "BAT-578"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "3a8509daafb2347aed6622548bd619c7f42f8ca7",
+  "workflow_state": "REVIEW"
+}

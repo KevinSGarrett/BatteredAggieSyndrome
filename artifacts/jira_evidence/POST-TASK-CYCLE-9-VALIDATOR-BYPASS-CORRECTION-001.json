@@ -26,9 +26,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "7226ae07bc045e3f63a9f6ade45573af9104105b",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "3a8509daafb2347aed6622548bd619c7f42f8ca7",
+  "issue_complete": true,
   "jira_key": "BAT-578",
   "local_issue_id": "POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001",
   "new_issue_decision": "CREATE",
@@ -99,5 +99,5 @@
   ],
   "schema_version": "2.1.0",
   "starting_sha": "2b230a63d04eba3e546acc718cd8c6261793f768",
-  "workflow_state": "REVIEW"
+  "workflow_state": "DONE"
 }

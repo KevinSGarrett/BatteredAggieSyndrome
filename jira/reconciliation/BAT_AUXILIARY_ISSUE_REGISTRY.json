@@ -247,14 +247,29 @@
       "local_id": "POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001",
       "summary": "Correct Cycle #8 BAT-574/BAT-576 validator bypasses and bind independent reconstruction",
       "issue_type": "Task",
+      "status": "Done",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "VERIFIED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "critical_path": true,
+      "execution_lane": "SHARED_CONTRACT",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-579",
+      "local_id": "POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001",
+      "summary": "Acquire official Texas A&M 2010-2011 historical archive as SRC-014 school evidence",
+      "issue_type": "Task",
       "status": "In Review",
       "logical_state": "REVIEW",
       "maturity": "IMPLEMENTED",
       "evidence_state": "PARTIAL",
       "owner_wave": "POST_W25",
-      "phase": "PHASE-1",
+      "phase": "PHASE-2",
       "critical_path": true,
-      "execution_lane": "SHARED_CONTRACT",
+      "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]

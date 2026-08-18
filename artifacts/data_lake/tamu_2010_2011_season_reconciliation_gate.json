@@ -1,0 +1,810 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_554": "RELATES_ONLY_DO_NOT_REOPEN",
+    "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "reconciliation_admission": "CANDIDATE_ONLY",
+    "texas_2011": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED"
+  },
+  "artifact_type": "TAMU_2010_2011_SEASON_RECONCILIATION_GATE",
+  "authority": {
+    "bas_or_aggie_excess_claims": false,
+    "bat_429_ready_or_done": false,
+    "bat_523_closed": false,
+    "bat_554_reopen": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_promotion": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "season_total_as_per_game_official": false,
+    "tamu_specialization_lift_claims": false
+  },
+  "classification": "TAMU_2010_2011_SEASON_RECONCILIATION_CANDIDATE_ONLY",
+  "contract_id": "BAT-575-TAMU-2010-2011-SEASON-RECONCILIATION-V1",
+  "counts": {
+    "availability_features": 0,
+    "by_classification": {
+      "CONFLICT_REVIEW_REQUIRED": 3,
+      "NOT_APPLICABLE_TO_SEASON_SUMMARY": 4,
+      "OFFICIAL_ROUTE_ACCESS_BLOCKED": 6,
+      "SOURCE_EVIDENCE_ABSENT": 8,
+      "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE": 2,
+      "VERIFIED_CROSS_SOURCE": 3,
+      "VERIFIED_OFFICIAL_SEASON_LEVEL": 4
+    },
+    "comparison_rows": 30,
+    "contest_ids_fabricated": 0,
+    "domains": 15,
+    "name_only_promotions": 0,
+    "seasons": 2,
+    "texas_2011_conflicts": 1
+  },
+  "decision_unit": "POST-TASK-TAMU-2010-2011-SEASON-RECONCILIATION-001",
+  "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+  "domains": {
+    "attendance": [
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "attendance_is_per_game_and_contest_endpoints_absent",
+        "bat523_consumable": true,
+        "classification": "NOT_APPLICABLE_TO_SEASON_SUMMARY",
+        "development_pit_eligible": false,
+        "domain": "attendance",
+        "normalized_key": "2010:attendance",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "attendance_is_per_game_and_contest_endpoints_absent"
+        ]
+      },
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "attendance_is_per_game_and_contest_endpoints_absent",
+        "bat523_consumable": true,
+        "classification": "NOT_APPLICABLE_TO_SEASON_SUMMARY",
+        "development_pit_eligible": false,
+        "domain": "attendance",
+        "normalized_key": "2011:attendance",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "attendance_is_per_game_and_contest_endpoints_absent"
+        ]
+      }
+    ],
+    "dates": [
+      {
+        "agreement_rule": "exact_iso_date_plus_canonical_game_identity_required_to_resolve_conflict",
+        "authority": "NCAA_OFFICIAL_DATES_NOT_PROMOTED_OVER_SIDEARM_BY_NAME",
+        "bat523_consumable": true,
+        "classification": "VERIFIED_CROSS_SOURCE",
+        "development_pit_eligible": true,
+        "domain": "dates",
+        "normalized_key": "2010:dates",
+        "normalized_values": [
+          "2010-09-04",
+          "2010-09-11",
+          "2010-09-18",
+          "2010-09-30",
+          "2010-10-09",
+          "2010-10-16",
+          "2010-10-23",
+          "2010-10-30",
+          "2010-11-06",
+          "2010-11-13",
+          "2010-11-20",
+          "2010-11-25",
+          "2011-01-07"
+        ],
+        "pregame_availability_eligible": false,
+        "result": "AGREE",
+        "season": 2010,
+        "source_identities": {
+          "bat570_special_path": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": []
+      },
+      {
+        "agreement_rule": "exact_iso_date_plus_canonical_game_identity_required_to_resolve_conflict",
+        "authority": "NCAA_OFFICIAL_DATES_NOT_PROMOTED_OVER_SIDEARM_BY_NAME",
+        "bat523_consumable": true,
+        "classification": "CONFLICT_REVIEW_REQUIRED",
+        "development_pit_eligible": false,
+        "domain": "dates",
+        "normalized_key": "2011:dates",
+        "normalized_values": [
+          "2011-09-04",
+          "2011-09-17",
+          "2011-09-24",
+          "2011-10-01",
+          "2011-10-08",
+          "2011-10-15",
+          "2011-10-22",
+          "2011-10-29",
+          "2011-11-05",
+          "2011-11-12",
+          "2011-11-19",
+          "2011-11-24",
+          "2011-12-31"
+        ],
+        "pregame_availability_eligible": false,
+        "result": "CONFLICT",
+        "season": 2011,
+        "source_identities": {
+          "bat570_special_path": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2011_Texas_NCAA_2011-11-24_vs_gap_matrix_2011-11-25"
+        ]
+      }
+    ],
+    "drives": [
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "zero_ncaa_contest_ids",
+        "bat523_consumable": true,
+        "classification": "SOURCE_EVIDENCE_ABSENT",
+        "development_pit_eligible": false,
+        "domain": "drives",
+        "normalized_key": "2010:drives",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "zero_ncaa_contest_ids"
+        ]
+      },
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "zero_ncaa_contest_ids",
+        "bat523_consumable": true,
+        "classification": "SOURCE_EVIDENCE_ABSENT",
+        "development_pit_eligible": false,
+        "domain": "drives",
+        "normalized_key": "2011:drives",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "zero_ncaa_contest_ids"
+        ]
+      }
+    ],
+    "officials": [
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "officials_are_per_game_and_contest_endpoints_absent",
+        "bat523_consumable": true,
+        "classification": "NOT_APPLICABLE_TO_SEASON_SUMMARY",
+        "development_pit_eligible": false,
+        "domain": "officials",
+        "normalized_key": "2010:officials",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "officials_are_per_game_and_contest_endpoints_absent"
+        ]
+      },
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "officials_are_per_game_and_contest_endpoints_absent",
+        "bat523_consumable": true,
+        "classification": "NOT_APPLICABLE_TO_SEASON_SUMMARY",
+        "development_pit_eligible": false,
+        "domain": "officials",
+        "normalized_key": "2011:officials",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "officials_are_per_game_and_contest_endpoints_absent"
+        ]
+      }
+    ],
+    "opponent_identity": [
+      {
+        "agreement_rule": "official_opponent_link_or_exact_date_score_not_name_only",
+        "authority": "NCAA_OFFICIAL_OPPONENT_TEAM_SEASON_LINKS",
+        "bat523_consumable": true,
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "development_pit_eligible": true,
+        "domain": "opponent_identity",
+        "normalized_key": "2010:opponent_identity",
+        "normalized_values": [
+          "SFA",
+          "Louisiana Tech",
+          "FIU",
+          "Oklahoma St.",
+          "Arkansas",
+          "Missouri",
+          "Kansas",
+          "Texas Tech",
+          "Oklahoma",
+          "Baylor",
+          "Nebraska",
+          "Texas",
+          "LSU"
+        ],
+        "pregame_availability_eligible": false,
+        "result": "AGREE_WITH_OFFICIAL_LINKS",
+        "season": 2010,
+        "source_identities": {
+          "bat570": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": []
+      },
+      {
+        "agreement_rule": "official_opponent_link_or_exact_date_score_not_name_only",
+        "authority": "NCAA_OFFICIAL_OPPONENT_TEAM_SEASON_LINKS",
+        "bat523_consumable": true,
+        "classification": "CONFLICT_REVIEW_REQUIRED",
+        "development_pit_eligible": false,
+        "domain": "opponent_identity",
+        "normalized_key": "2011:opponent_identity",
+        "normalized_values": [
+          "SMU",
+          "Idaho",
+          "Oklahoma St.",
+          "Arkansas",
+          "Texas Tech",
+          "Baylor",
+          "Iowa St.",
+          "Missouri",
+          "Oklahoma",
+          "Kansas St.",
+          "Kansas",
+          "Texas",
+          "Northwestern"
+        ],
+        "pregame_availability_eligible": false,
+        "result": "CONFLICT",
+        "season": 2011,
+        "source_identities": {
+          "bat570": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2011_Texas_date_UNRESOLVED_NAME_ONLY_NOT_PROMOTED"
+        ]
+      }
+    ],
+    "participation": [
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "zero_ncaa_contest_ids",
+        "bat523_consumable": true,
+        "classification": "SOURCE_EVIDENCE_ABSENT",
+        "development_pit_eligible": false,
+        "domain": "participation",
+        "normalized_key": "2010:participation",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "zero_ncaa_contest_ids"
+        ]
+      },
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "zero_ncaa_contest_ids",
+        "bat523_consumable": true,
+        "classification": "SOURCE_EVIDENCE_ABSENT",
+        "development_pit_eligible": false,
+        "domain": "participation",
+        "normalized_key": "2011:participation",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "zero_ncaa_contest_ids"
+        ]
+      }
+    ],
+    "play_by_play": [
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "zero_ncaa_contest_ids",
+        "bat523_consumable": true,
+        "classification": "SOURCE_EVIDENCE_ABSENT",
+        "development_pit_eligible": false,
+        "domain": "play_by_play",
+        "normalized_key": "2010:play_by_play",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "zero_ncaa_contest_ids"
+        ]
+      },
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "zero_ncaa_contest_ids",
+        "bat523_consumable": true,
+        "classification": "SOURCE_EVIDENCE_ABSENT",
+        "development_pit_eligible": false,
+        "domain": "play_by_play",
+        "normalized_key": "2011:play_by_play",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "zero_ncaa_contest_ids"
+        ]
+      }
+    ],
+    "player_season_statistics": [
+      {
+        "agreement_rule": "optional_page_family_must_be_captured_to_admit",
+        "authority": "NO_VERIFIED_OPTIONAL_PAGE",
+        "bat523_consumable": true,
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "development_pit_eligible": false,
+        "domain": "player_season_statistics",
+        "normalized_key": "2010:player_season_statistics",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2010_player_season_statistics_official_page_403"
+        ]
+      },
+      {
+        "agreement_rule": "optional_page_family_must_be_captured_to_admit",
+        "authority": "NO_VERIFIED_OPTIONAL_PAGE",
+        "bat523_consumable": true,
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "development_pit_eligible": false,
+        "domain": "player_season_statistics",
+        "normalized_key": "2011:player_season_statistics",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2011_player_season_statistics_official_page_403"
+        ]
+      }
+    ],
+    "points_for_against": [
+      {
+        "agreement_rule": "sum_of_official_schedule_scores",
+        "authority": "NCAA_OFFICIAL_TEAM_PAGE_SCHEDULE_TABLE",
+        "bat523_consumable": true,
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "development_pit_eligible": true,
+        "domain": "points_for_against",
+        "normalized_key": "2010:points_for_against",
+        "normalized_values": {
+          "points_against": 285,
+          "points_for": 406
+        },
+        "pregame_availability_eligible": false,
+        "result": "AGREE",
+        "season": 2010,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": []
+      },
+      {
+        "agreement_rule": "sum_of_official_schedule_scores",
+        "authority": "NCAA_OFFICIAL_TEAM_PAGE_SCHEDULE_TABLE",
+        "bat523_consumable": true,
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "development_pit_eligible": true,
+        "domain": "points_for_against",
+        "normalized_key": "2011:points_for_against",
+        "normalized_values": {
+          "points_against": 366,
+          "points_for": 508
+        },
+        "pregame_availability_eligible": false,
+        "result": "AGREE",
+        "season": 2011,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": []
+      }
+    ],
+    "pregame_availability": [
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "membership_and_participation_are_not_availability",
+        "bat523_consumable": false,
+        "classification": "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE",
+        "development_pit_eligible": false,
+        "domain": "pregame_availability",
+        "normalized_key": "2010:pregame_availability",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "membership_and_participation_are_not_availability"
+        ]
+      },
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "membership_and_participation_are_not_availability",
+        "bat523_consumable": false,
+        "classification": "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE",
+        "development_pit_eligible": false,
+        "domain": "pregame_availability",
+        "normalized_key": "2011:pregame_availability",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "membership_and_participation_are_not_availability"
+        ]
+      }
+    ],
+    "roster_membership": [
+      {
+        "agreement_rule": "optional_page_family_must_be_captured_to_admit",
+        "authority": "NO_VERIFIED_OPTIONAL_PAGE",
+        "bat523_consumable": true,
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "development_pit_eligible": false,
+        "domain": "roster_membership",
+        "normalized_key": "2010:roster_membership",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2010_roster_membership_official_page_403"
+        ]
+      },
+      {
+        "agreement_rule": "optional_page_family_must_be_captured_to_admit",
+        "authority": "NO_VERIFIED_OPTIONAL_PAGE",
+        "bat523_consumable": true,
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "development_pit_eligible": false,
+        "domain": "roster_membership",
+        "normalized_key": "2011:roster_membership",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2011_roster_membership_official_page_403"
+        ]
+      }
+    ],
+    "schedule_game_count": [
+      {
+        "agreement_rule": "exact_integer_count",
+        "authority": "NCAA_OFFICIAL_TEAM_PAGE_PLUS_GOVERNED_SCHEDULE_COUNTS",
+        "bat523_consumable": true,
+        "classification": "VERIFIED_CROSS_SOURCE",
+        "development_pit_eligible": true,
+        "domain": "schedule_game_count",
+        "normalized_key": "2010:schedule_game_count",
+        "normalized_values": 13,
+        "pregame_availability_eligible": false,
+        "result": "AGREE",
+        "season": 2010,
+        "source_identities": {
+          "bat570": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": []
+      },
+      {
+        "agreement_rule": "exact_integer_count",
+        "authority": "NCAA_OFFICIAL_TEAM_PAGE_PLUS_GOVERNED_SCHEDULE_COUNTS",
+        "bat523_consumable": true,
+        "classification": "VERIFIED_CROSS_SOURCE",
+        "development_pit_eligible": true,
+        "domain": "schedule_game_count",
+        "normalized_key": "2011:schedule_game_count",
+        "normalized_values": 13,
+        "pregame_availability_eligible": false,
+        "result": "AGREE",
+        "season": 2011,
+        "source_identities": {
+          "bat570": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": []
+      }
+    ],
+    "team_season_statistics": [
+      {
+        "agreement_rule": "optional_page_family_must_be_captured_to_admit",
+        "authority": "NO_VERIFIED_OPTIONAL_PAGE",
+        "bat523_consumable": true,
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "development_pit_eligible": false,
+        "domain": "team_season_statistics",
+        "normalized_key": "2010:team_season_statistics",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2010_team_season_statistics_official_page_403"
+        ]
+      },
+      {
+        "agreement_rule": "optional_page_family_must_be_captured_to_admit",
+        "authority": "NO_VERIFIED_OPTIONAL_PAGE",
+        "bat523_consumable": true,
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "development_pit_eligible": false,
+        "domain": "team_season_statistics",
+        "normalized_key": "2011:team_season_statistics",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2011_team_season_statistics_official_page_403"
+        ]
+      }
+    ],
+    "venues": [
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "no_official_venue_table_on_team_page",
+        "bat523_consumable": true,
+        "classification": "SOURCE_EVIDENCE_ABSENT",
+        "development_pit_eligible": false,
+        "domain": "venues",
+        "normalized_key": "2010:venues",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2010,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "no_official_venue_table_on_team_page"
+        ]
+      },
+      {
+        "agreement_rule": "absent_or_temporally_ineligible_fail_closed",
+        "authority": "no_official_venue_table_on_team_page",
+        "bat523_consumable": true,
+        "classification": "SOURCE_EVIDENCE_ABSENT",
+        "development_pit_eligible": false,
+        "domain": "venues",
+        "normalized_key": "2011:venues",
+        "normalized_values": null,
+        "pregame_availability_eligible": false,
+        "result": "MISSING",
+        "season": 2011,
+        "source_identities": {
+          "bat571": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+          "bat572": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "no_official_venue_table_on_team_page"
+        ]
+      }
+    ],
+    "wins_losses_ties": [
+      {
+        "agreement_rule": "header_versus_schedule_table",
+        "authority": "NCAA_OFFICIAL_TEAM_PAGE_SCHEDULE_TABLE",
+        "bat523_consumable": true,
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "development_pit_eligible": true,
+        "domain": "wins_losses_ties",
+        "normalized_key": "2010:wins_losses_ties",
+        "normalized_values": {
+          "losses": 4,
+          "ties": 0,
+          "wins": 9
+        },
+        "pregame_availability_eligible": false,
+        "result": "AGREE",
+        "season": 2010,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": []
+      },
+      {
+        "agreement_rule": "header_versus_schedule_table",
+        "authority": "NCAA_OFFICIAL_TEAM_PAGE_SCHEDULE_TABLE",
+        "bat523_consumable": true,
+        "classification": "CONFLICT_REVIEW_REQUIRED",
+        "development_pit_eligible": false,
+        "domain": "wins_losses_ties",
+        "normalized_key": "2011:wins_losses_ties",
+        "normalized_values": {
+          "losses": 6,
+          "ties": 0,
+          "wins": 7
+        },
+        "pregame_availability_eligible": false,
+        "result": "CONFLICT",
+        "season": 2011,
+        "source_identities": {
+          "ncaa_phase2": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+        },
+        "unresolved_conflicts": [
+          "2011_header_0-0_versus_score_derived_7-6"
+        ]
+      }
+    ]
+  },
+  "gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
+  "input_identities": {
+    "bat570_gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+    "bat570_matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa",
+    "bat571_acquisition_identity": "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd94ed6b83f21ae8f",
+    "bat571_gate_identity": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+    "bat572_gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+    "phase2_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+    "phase2_manifest_identity": "db8283a2f7a164d18380744851d71b43f747f9f22c06c29b2fb350f08ff6bd51",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "sidearm_schedule_html_2010_sha256": "4fb8159c477531e7ee653125198085f96e60719ec9050355a4e2d998a08f095b",
+    "sidearm_schedule_html_2011_sha256": "143d46bf93aa8a8ebb0818451c6ebf520af058fc0bf0f8f563c6dd808f99ca8f"
+  },
+  "issued_at_utc": "2026-08-18T19:00:00Z",
+  "jira_key": "BAT-575",
+  "manifest_identity": "5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4",
+  "payload": {
+    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_season_reconciliation\\sha256\\5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4\\tamu_2010_2011_season_reconciliation_manifest.json",
+    "manifest_sha256": "3d6977c1e778ddee78518b03738fa36d71208d450f40f2acd60c13d22ae5961e",
+    "row_count": 30,
+    "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_season_reconciliation\\sha256\\5c57ba58817f05d0b7631797ea8752cebe59d06a2447b14d624e2c16080ddfb4\\season_reconciliation_rows.json",
+    "rows_sha256": "8aafff16cec75086d44f94c35b65bd09ab679795995b74183ac0e3de206af14e"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+  "schema_version": "aggie.data.tamu_2010_2011_season_reconciliation.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "name_only_promoted": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_outcome_authority": false,
+    "roster_membership_used_as_availability": false,
+    "season_total_promoted_to_per_game_official": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false
+  },
+  "tamu_seeds": {
+    "2010": "137387",
+    "2011": "137872"
+  },
+  "texas_2011_conflict": {
+    "canonical_game_identity": null,
+    "disposition": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
+    "name_only_promotion": false,
+    "ncaa_official_date": "2011-11-24",
+    "ncaa_opponent_team_season_id": "137876",
+    "opponent": "Texas",
+    "resolved": false,
+    "sidearm_or_gap_matrix_date": "2011-11-25"
+  }
+}

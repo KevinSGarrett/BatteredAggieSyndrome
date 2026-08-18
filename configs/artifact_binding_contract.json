@@ -1,0 +1,119 @@
+{
+  "schema_version": "aggie.validation.artifact_binding.v1",
+  "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",
+  "jira_key": "BAT-573",
+  "local_issue_id": "POST-TASK-ARTIFACT-BINDING-VALIDATOR-001",
+  "purpose": "Fail-closed cross-surface binding of canonical artifact identities to authority-bearing Jira evidence. Current identity is independently recomputed from the declared canonical path. Superseded identities may appear only when explicitly labeled. An outer evidence hash is never treated as proof of an inner identity.",
+  "bindings": [
+    {
+      "binding_id": "BAT-401-PIT-REPLAY-READINESS",
+      "jira_key": "BAT-401",
+      "local_issue_id": "POST-SUBTASK-051",
+      "canonical_artifact_path": "artifacts/pit/PIT_REPLAY_READINESS.json",
+      "identity_field": "artifact_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "issue_status": "DONE",
+        "gap_005": "OPEN"
+      },
+      "forbidden_true_paths": [
+        "claims.protected_performance",
+        "claims.production_readiness",
+        "claims.champion_selection",
+        "protected_metrics_republished"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-SUBTASK-051.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "outputs[path=artifacts/pit/PIT_REPLAY_READINESS.json].artifact_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "independently reconstructed identity ([0-9a-f]{64})",
+            "current identity (?:is )?([0-9a-f]{64})",
+            "(?<!previous )rebound to ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [
+            "supersedes_artifact_identity",
+            "prior_superseded_identities[]"
+          ],
+          "lane_decision_paths": [
+            "lane_decision"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_performance_claimed",
+            "protected_nonclaims.production_ready",
+            "protected_nonclaims.champion_selected"
+          ]
+        },
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "expected_jira_key": "BAT-569",
+          "expected_local_issue_id": "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001",
+          "current_identity_paths": [
+            "outputs[path=artifacts/pit/PIT_REPLAY_READINESS.json].artifact_identity",
+            "bat401_rebound.artifact_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "BAT-401 current identity is ([0-9a-f]{64})",
+            "(?<!previous )rebound to ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [
+            "bat401_rebound.previous_artifact_identity",
+            "bat401_rebound.superseded_identities[]"
+          ],
+          "lane_decision_paths": [
+            "bat401_rebound.lane_decision"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_performance_claimed",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.protected_lane_opened"
+          ]
+        },
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json",
+          "role": "historical",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "expected_jira_key": "BAT-566",
+          "expected_local_issue_id": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
+          "current_identity_paths": [],
+          "narrative_paths": [],
+          "narrative_current_patterns": [],
+          "superseded_identity_paths": [
+            "outputs[path=artifacts/pit/PIT_REPLAY_READINESS.json].artifact_identity",
+            "bat401_rebind.artifact_identity"
+          ],
+          "lane_decision_paths": [
+            "outputs[path=artifacts/pit/PIT_REPLAY_READINESS.json].lane_decision",
+            "bat401_rebind.lane_decision"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_performance_claimed",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.protected_lane_opened"
+          ]
+        }
+      ]
+    }
+  ]
+}

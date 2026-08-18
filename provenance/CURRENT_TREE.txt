@@ -166,6 +166,7 @@ artifacts/jira_evidence/POST-SUBTASK-204.json
 artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json
 artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
 artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
+artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
@@ -247,6 +248,7 @@ artifacts/source_governance/tier1_rights_decisions.csv
 configs/acceptance_registry.json
 configs/action_derived_play_summary_contract.json
 configs/architecture_registry.json
+configs/artifact_binding_contract.json
 configs/assistive_downstream_adoptions.json
 configs/assistive_provider_registry.json
 configs/assistive_route_readiness.json
@@ -3267,6 +3269,7 @@ src/aggie_analytics/temporal/weather_previous_runs_snapshot.py
 src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
 src/aggie_analytics/validation/__init__.py
+src/aggie_analytics/validation/artifact_binding.py
 src/aggie_analytics/validation/evaluation_exposure.py
 src/aggie_analytics/validation/metrics.py
 src/aggie_analytics/validation/pit_replay_readiness.py
@@ -3281,6 +3284,7 @@ tests/test_acquisition_resilience.py
 tests/test_action_play_summary.py
 tests/test_advanced_challenger_full.py
 tests/test_architecture.py
+tests/test_artifact_bindings.py
 tests/test_artifact_manifest.py
 tests/test_artifact_policy_full.py
 tests/test_assistive_downstream_review.py
@@ -3585,6 +3589,7 @@ tools/sync_unified_assistive_jira_graph.py
 tools/validate_acceptance.py
 tools/validate_action_derived_play_summary.py
 tools/validate_architecture.py
+tools/validate_artifact_bindings.py
 tools/validate_autonomous_controls.py
 tools/validate_backlog.py
 tools/validate_bas_science.py

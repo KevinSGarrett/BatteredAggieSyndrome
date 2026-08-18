@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.7.0",
+  "schema_version": "1.8.0",
   "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-tamu-official-gamebook-candidate",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
@@ -14,7 +14,7 @@
     "evidence_state": "VERIFIED_SCOPED",
     "parent": "BAT-32",
     "blocks": ["BAT-399"],
-    "relates_to": ["BAT-398", "BAT-565", "BAT-566", "BAT-567"]
+    "relates_to": ["BAT-398", "BAT-565", "BAT-566", "BAT-567", "BAT-568"]
   },
   "trigger_evidence": [
     {
@@ -954,6 +954,40 @@
     "new_membership_layer_materialized": false,
     "closes_BAT-523": false
   },
+  "validated_2023_rankings_development_replay": {
+    "child_jira_key": "BAT-568",
+    "local_id": "POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001",
+    "contract_id": "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V1",
+    "joined_matrix_identity": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
+    "run_identity": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
+    "code_identity": "8ad369f16938d220c7c2fbadea72a7f3a7c00217fff7515030818ecb906a55ae",
+    "gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
+    "classification": "DEVELOPMENT_ONLY_2023_RANKINGS_AUGMENTED_WALK_FORWARD",
+    "parent_identities": {
+      "BAT-565_label_dataset": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+      "BAT-566_matrix": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+      "BAT-566_replay": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+      "BAT-527_rankings_run": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+      "BAT-527_rankings_state": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
+      "BAT-527_rankings_feature": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274"
+    },
+    "repository_gate": {
+      "path": "artifacts/pit/development_rankings_walk_forward_2023.json",
+      "sha256": "d3170d987c0a3176d4b2941e78f3756064e1eb877f07419ca04ddff114fba2db",
+      "bytes": 7340
+    },
+    "population": {
+      "team_rows": 1820,
+      "unique_games": 910,
+      "fold_count": 16,
+      "seasons": [2023]
+    },
+    "predeclared_candidate_count": 4,
+    "any_candidate_improved_brier_vs_prior_only": false,
+    "development_metrics_only": true,
+    "promotion_authority": false,
+    "closes_BAT-523": false
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -1014,6 +1048,9 @@
     "development_2023_outcome_protected_admission": false,
     "development_2023_labeled_walk_forward_materialized": true,
     "development_2023_labeled_walk_forward_protected_admission": false,
+    "development_2023_rankings_walk_forward_materialized": true,
+    "development_2023_rankings_walk_forward_protected_admission": false,
+    "development_2023_rankings_brier_improved_vs_prior_only": false,
     "full_historical_population_ready": false,
     "gap_002_resolved": false,
     "protected_model_promotion_eligible": false,

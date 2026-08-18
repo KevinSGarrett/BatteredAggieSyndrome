@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-18T03:10:00Z",
+  "jira_key": "BAT-568",
+  "local_issue_id": "POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-566",
+    "BAT-527",
+    "BAT-565"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "observable_outcome": "Cycle #6 Phase 4 created BAT-568 and ran the predeclared 2023-only rankings-augmented development walk-forward on corrected BAT-565 labels, corrected BAT-566 folds, and admitted BAT-527 rankings PIT features. Four candidates were evaluated. No candidate improved team-row Brier versus prior_only. prior_plus_rankings Brier +0.00511 and prior_plus_play_drive_plus_rankings Brier +0.00478 versus prior_only; both are REJECTED_DEVELOPMENT. The negative play/drive result is preserved. Unranked teams were not encoded as rank 26. No 2024/2025 outcomes entered the experiment. BAT-527 was not reopened. BAT-523 remains In Progress. No promotion, protected, champion, or production authority is granted.",
+  "outputs": [
+    {
+      "path": "artifacts/pit/development_rankings_walk_forward_2023.json",
+      "bytes": 7340,
+      "sha256": "d3170d987c0a3176d4b2941e78f3756064e1eb877f07419ca04ddff114fba2db",
+      "schema_version": "aggie.experimentation.development_rankings_walk_forward_2023.v1",
+      "joined_matrix_identity": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
+      "run_identity": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
+      "code_identity": "8ad369f16938d220c7c2fbadea72a7f3a7c00217fff7515030818ecb906a55ae",
+      "gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275"
+    },
+    {
+      "path": "configs/development_rankings_walk_forward_2023_contract.json",
+      "bytes": 4954,
+      "sha256": "bc6926ec817f054f8afa1b5b60ed317d023b4a559e4cd0bf57b38862f946a228"
+    },
+    {
+      "path": "src/aggie_analytics/experimentation/development_rankings_walk_forward_2023.py",
+      "bytes": 33587,
+      "sha256": "8ad369f16938d220c7c2fbadea72a7f3a7c00217fff7515030818ecb906a55ae"
+    },
+    {
+      "path": "tools/build_development_rankings_walk_forward_2023.py",
+      "bytes": 1340,
+      "sha256": "b4836e1f6e4332151565692f131c2a404493052eba03d30e33f868c07630cf18"
+    },
+    {
+      "path": "tools/run_development_rankings_walk_forward_2023.py",
+      "bytes": 1340,
+      "sha256": "b4836e1f6e4332151565692f131c2a404493052eba03d30e33f868c07630cf18"
+    },
+    {
+      "path": "tools/validate_development_rankings_walk_forward_2023.py",
+      "bytes": 6141,
+      "sha256": "c3a26f74d37aae6153dc436850fca68af52d11df16135f2a3e16894ca525faa3"
+    },
+    {
+      "path": "tests/test_development_rankings_walk_forward_2023.py",
+      "bytes": 12038,
+      "sha256": "f0fe3072e904df91b3308922802adaeb7a8fead1d4947aba8a6ccdc3d1a45907"
+    }
+  ],
+  "contract_id": "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V1",
+  "joined_matrix_identity": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
+  "run_identity": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
+  "code_identity": "8ad369f16938d220c7c2fbadea72a7f3a7c00217fff7515030818ecb906a55ae",
+  "gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
+  "external_manifest": {
+    "path": "<external-data-root>/manifests/development_rankings_2023/sha256/a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a/development_rankings_walk_forward_2023_manifest.json",
+    "sha256": "3471c5d99ce4273b73dbf41626646755e77717beaa238787df3c0946e9070997",
+    "bytes": 1322
+  },
+  "external_payloads": [
+    {
+      "bytes": 288970,
+      "name": "development_rankings_2023_joined_rows.parquet",
+      "record_sha256": "9e46c5099a30bc706a791cd18f23587b457d6cb5dbb487a96bc0ce656435a8c3",
+      "role": "DEVELOPMENT_ONLY_2023_RANKINGS_JOINED_ROWS",
+      "rows": 1820,
+      "sha256": "3e10318e4b69bbd8a65455ce6f96b3fcec7c945918a2fbf129aec231cfef7ec3"
+    }
+  ],
+  "parent_identities": {
+    "BAT-565_label_dataset": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "BAT-566_matrix": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+    "BAT-566_replay": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+    "BAT-527_rankings_run": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+    "BAT-527_rankings_state": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
+    "BAT-527_rankings_feature": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "BAT-527_rankings_feature_payload_sha256": "f7bade2b2653df3c4f82927beaf3ba7dc254c6bb8487849f980a2eac6f0c3a4e",
+    "protected_split_registry": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
+  },
+  "population": {
+    "season": 2023,
+    "team_rows": 1820,
+    "unique_games": 910,
+    "fold_count": 16,
+    "protected_seasons_excluded": [2024, 2025]
+  },
+  "coverage": {
+    "eligible_rankings_rows": 531,
+    "ranked_numeric_rows": 305,
+    "receiving_votes_rows": 148,
+    "explicitly_unranked_rows": 78,
+    "not_listed_in_eligible_poll_rows": 1099,
+    "no_eligible_poll_rows": 190,
+    "unresolved_identity_rows": 0,
+    "missing_or_unlisted_rows": 1289,
+    "unranked_encoded_as_26": false
+  },
+  "predeclared_candidates": [
+    "prior_only",
+    "prior_plus_play_drive",
+    "prior_plus_rankings",
+    "prior_plus_play_drive_plus_rankings"
+  ],
+  "metrics": {
+    "classification": "DEVELOPMENT_ONLY_2023",
+    "prior_only": {
+      "abstained_folds": 0,
+      "accuracy": 0.6,
+      "brier": 0.23135006789663434,
+      "evaluated_folds": 16,
+      "evaluated_rows": 1820,
+      "log_loss": 0.6486314252527969,
+      "margin_mae": 16.898011032389398
+    },
+    "prior_plus_play_drive": {
+      "abstained_folds": 1,
+      "accuracy": 0.5888480392156863,
+      "brier": 0.235975185943878,
+      "evaluated_folds": 15,
+      "evaluated_rows": 1632,
+      "log_loss": 0.6597298527223004,
+      "margin_mae": 16.5181493181106
+    },
+    "prior_plus_rankings": {
+      "abstained_folds": 1,
+      "accuracy": 0.585171568627451,
+      "brier": 0.2364552355091559,
+      "evaluated_folds": 15,
+      "evaluated_rows": 1632,
+      "log_loss": 0.6616465021465794,
+      "margin_mae": 16.5181493181106
+    },
+    "prior_plus_play_drive_plus_rankings": {
+      "abstained_folds": 1,
+      "accuracy": 0.5900735294117647,
+      "brier": 0.23613132832013484,
+      "evaluated_folds": 15,
+      "evaluated_rows": 1632,
+      "log_loss": 0.660378152645248,
+      "margin_mae": 16.5181493181106
+    },
+    "unique_game_prior_only": {
+      "abstained_folds": 0,
+      "accuracy": 0.5989010989010989,
+      "brier": 0.23953968807009565,
+      "evaluated_folds": 16,
+      "evaluated_rows": 910
+    },
+    "comparisons": {
+      "predeclared_candidate_count": 4,
+      "brier_delta_vs_prior_only": {
+        "prior_plus_play_drive": 0.004625118047243665,
+        "prior_plus_rankings": 0.005105167612521555,
+        "prior_plus_play_drive_plus_rankings": 0.004781260423500494
+      }
+    }
+  },
+  "candidate_decisions": {
+    "prior_only": "CORE_REFERENCE",
+    "prior_plus_play_drive": "REJECTED_DEVELOPMENT",
+    "prior_plus_rankings": "REJECTED_DEVELOPMENT",
+    "prior_plus_play_drive_plus_rankings": "REJECTED_DEVELOPMENT",
+    "any_candidate_improved_brier_vs_prior_only": false,
+    "result_uncertain": true,
+    "uncertainty_reason": "DEVELOPMENT_ONLY_NO_STATISTICAL_TEST_NO_PROTECTED_REPLICATION"
+  },
+  "post_subtask_170_reconciliation": {
+    "stale_jira_key": "PENDING_LIVE_SYNCHRONIZATION",
+    "reconciled_jira_key": "BAT-527",
+    "reopened": false
+  },
+  "protected_nonclaims": {
+    "protected_performance_claimed": false,
+    "champion_or_production_promotion": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "protected_lane_opened": false,
+    "unranked_encoded_as_26": false
+  }
+}

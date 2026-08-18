@@ -4,12 +4,11 @@ ADDED,.github/dependabot.yml
 ADDED,.pytest_cache/.gitignore
 ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
-ADDED,.pytest_cache/v/cache/lastfailed
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/10174355976400837346
-ADDED,.ruff_cache/0.6.9/1319163324065215964
-ADDED,.ruff_cache/0.6.9/5170630857487289964
+ADDED,.ruff_cache/0.6.9/14803640408486621192
+ADDED,.ruff_cache/0.6.9/503342725760675956
+ADDED,.ruff_cache/0.6.9/6545287523541625748
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -153,6 +152,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-203.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-204.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
@@ -178,6 +178,7 @@ ADDED,artifacts/operations/security_supply_chain_report.json
 ADDED,artifacts/pit/PIT_REPLAY_READINESS.json
 ADDED,artifacts/pit/asof_state_manifest.json
 ADDED,artifacts/pit/development_2023_outcome_gate.json
+ADDED,artifacts/pit/development_rankings_walk_forward_2023.json
 ADDED,artifacts/pit/development_walk_forward_2023.json
 ADDED,artifacts/pit/historical_action_derived_play_summary_gate.json
 ADDED,artifacts/pit/historical_advanced_game_reconciliation_gate.json
@@ -236,6 +237,7 @@ ADDED,configs/codex_usage_interlock_change_manifest.json
 ADDED,configs/cpu_worker_qualification.json
 ADDED,configs/development_2023_labeled_replay_contract.json
 ADDED,configs/development_2023_outcome_identity_contract.json
+ADDED,configs/development_rankings_walk_forward_2023_contract.json
 ADDED,configs/elo_challenger_research_contract.json
 ADDED,configs/elo_offense_defense_challenger_contract.json
 ADDED,configs/elo_uncertainty_challenger_contract.json
@@ -508,6 +510,7 @@ ADDED,src/aggie_analytics/entities/candidates.py
 ADDED,src/aggie_analytics/entities/people_registry.py
 ADDED,src/aggie_analytics/entities/registry_artifacts.py
 ADDED,src/aggie_analytics/experimentation/development_2023_labeled_replay.py
+ADDED,src/aggie_analytics/experimentation/development_rankings_walk_forward_2023.py
 ADDED,src/aggie_analytics/experimentation/walk_forward.py
 ADDED,src/aggie_analytics/features/alternate_station_recovery.py
 ADDED,src/aggie_analytics/features/gfs_issued_run.py
@@ -572,6 +575,7 @@ ADDED,tests/test_cpu_worker_backend.py
 ADDED,tests/test_cursor_review_disposition.py
 ADDED,tests/test_development_2023_labeled_replay.py
 ADDED,tests/test_development_2023_outcomes.py
+ADDED,tests/test_development_rankings_walk_forward_2023.py
 ADDED,tests/test_drift_incident_game_day.py
 ADDED,tests/test_evaluation_exposure.py
 ADDED,tests/test_execution_focus.py
@@ -675,6 +679,7 @@ ADDED,tools/build_action_derived_play_summary.py
 ADDED,tools/build_backup_catalog_and_integrity.py
 ADDED,tools/build_development_2023_labeled_replay.py
 ADDED,tools/build_development_2023_outcomes.py
+ADDED,tools/build_development_rankings_walk_forward_2023.py
 ADDED,tools/build_drift_alert_validation.py
 ADDED,tools/build_evaluation_exposure_ledger.py
 ADDED,tools/build_historical_advanced_game_snapshot.py
@@ -754,6 +759,7 @@ ADDED,tools/refresh_openai_assist_lock.py
 ADDED,tools/refresh_openrouter_model_catalog.py
 ADDED,tools/refresh_openrouter_usage.py
 ADDED,tools/render_task_context.py
+ADDED,tools/run_development_rankings_walk_forward_2023.py
 ADDED,tools/run_drift_incident_game_day.py
 ADDED,tools/run_expanded_event_chronology_preliminary.py
 ADDED,tools/run_leakage_battery.py
@@ -791,6 +797,7 @@ ADDED,tools/validate_codex_usage_interlock.py
 ADDED,tools/validate_cpu_worker_readiness.py
 ADDED,tools/validate_development_2023_labeled_replay.py
 ADDED,tools/validate_development_2023_outcomes.py
+ADDED,tools/validate_development_rankings_walk_forward_2023.py
 ADDED,tools/validate_drift_alerts.py
 ADDED,tools/validate_execution_focus.py
 ADDED,tools/validate_expanded_event_chronology_preliminary.py

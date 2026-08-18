@@ -161,6 +161,7 @@ artifacts/jira_evidence/POST-SUBTASK-203.json
 artifacts/jira_evidence/POST-SUBTASK-204.json
 artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json
 artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
+artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 artifacts/open_source/integration_negative_findings.json
@@ -186,6 +187,7 @@ artifacts/operations/security_supply_chain_report.json
 artifacts/pit/PIT_REPLAY_READINESS.json
 artifacts/pit/asof_state_manifest.json
 artifacts/pit/development_2023_outcome_gate.json
+artifacts/pit/development_rankings_walk_forward_2023.json
 artifacts/pit/development_walk_forward_2023.json
 artifacts/pit/historical_action_derived_play_summary_gate.json
 artifacts/pit/historical_advanced_game_reconciliation_gate.json
@@ -249,6 +251,7 @@ configs/context_intelligence_registry.json
 configs/cpu_worker_qualification.json
 configs/development_2023_labeled_replay_contract.json
 configs/development_2023_outcome_identity_contract.json
+configs/development_rankings_walk_forward_2023_contract.json
 configs/elo_challenger_research_contract.json
 configs/elo_offense_defense_challenger_contract.json
 configs/elo_uncertainty_challenger_contract.json
@@ -3119,6 +3122,7 @@ src/aggie_analytics/experimentation/artifacts_v2.py
 src/aggie_analytics/experimentation/comparison.py
 src/aggie_analytics/experimentation/contracts.py
 src/aggie_analytics/experimentation/development_2023_labeled_replay.py
+src/aggie_analytics/experimentation/development_rankings_walk_forward_2023.py
 src/aggie_analytics/experimentation/feature_tournament.py
 src/aggie_analytics/experimentation/governance.py
 src/aggie_analytics/experimentation/hpo.py
@@ -3276,6 +3280,7 @@ tests/test_cursor_review_disposition.py
 tests/test_data_research.py
 tests/test_development_2023_labeled_replay.py
 tests/test_development_2023_outcomes.py
+tests/test_development_rankings_walk_forward_2023.py
 tests/test_drift_incident_game_day.py
 tests/test_entity_governance.py
 tests/test_evaluation_exposure.py
@@ -3421,6 +3426,7 @@ tools/build_artifact_record.py
 tools/build_backup_catalog_and_integrity.py
 tools/build_development_2023_labeled_replay.py
 tools/build_development_2023_outcomes.py
+tools/build_development_rankings_walk_forward_2023.py
 tools/build_drift_alert_validation.py
 tools/build_evaluation_exposure_ledger.py
 tools/build_historical_advanced_game_snapshot.py
@@ -3512,6 +3518,7 @@ tools/refresh_openrouter_usage.py
 tools/render_task_context.py
 tools/repo_integrity.py
 tools/restore_state.py
+tools/run_development_rankings_walk_forward_2023.py
 tools/run_drift_incident_game_day.py
 tools/run_expanded_event_chronology_preliminary.py
 tools/run_leakage_battery.py
@@ -3563,6 +3570,7 @@ tools/validate_data_research.py
 tools/validate_dependency_policy.py
 tools/validate_development_2023_labeled_replay.py
 tools/validate_development_2023_outcomes.py
+tools/validate_development_rankings_walk_forward_2023.py
 tools/validate_drift_alerts.py
 tools/validate_entities.py
 tools/validate_execution_focus.py

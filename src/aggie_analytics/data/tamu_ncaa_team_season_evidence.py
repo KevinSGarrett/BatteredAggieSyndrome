@@ -1082,6 +1082,7 @@ PINNED_TEAM_PAGE_IDENTITIES = {
     "2011_team": "aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3",
 }
 PINNED_OFFICIAL_ROUTES_ATTEMPTED = 8
+PINNED_ATTEMPTS_IDENTITY = "5b4620d37f0a585ded842c55aae612db31d89c237cb80525e1300fe25d73ee25"
 PINNED_RECONSTRUCTED_DOMAINS = {
     "schedule_game_count": {
         "2010": {"classification": "VERIFIED_OFFICIAL_SEASON_LEVEL", "value": 13},
@@ -1204,6 +1205,8 @@ def validate_compact_team_season_gate(committed: Mapping[str, Any], contract: Ma
         raise AuthorityViolation("official route-attempt count does not match independently counted attempts")
     if counts.get("official_routes_attempted") != PINNED_OFFICIAL_ROUTES_ATTEMPTED:
         raise AuthorityViolation("official route-attempt count drifted from the independently reconstructed attempt set")
+    if stable_hash(attempts) != PINNED_ATTEMPTS_IDENTITY:
+        raise AuthorityViolation("attempt records were not independently reconstructed")
     domains = committed.get("domains") or {}
     for domain_key, pinned in PINNED_RECONSTRUCTED_DOMAINS.items():
         if _canonical(domains.get(domain_key)) != _canonical(pinned):

@@ -35,9 +35,9 @@
   "observable_outcome": "Cycle #9 Phase 1 binds independent reconstruction into the BAT-574 and BAT-576 validators so the three confirmed Cycle #8 bypasses fail closed after outer-identity rehash. Committed BAT-574 gate identity remains dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e. Committed BAT-576 gate identity remains 73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb. BAT-575 and BAT-572 were not rebuilt because their pinned upstream identities did not change. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays closed. No champion, protected performance, production feature set, A&M lift, Aggie Excess effect, or forecast publication is claimed.",
   "outputs": [
     {
-      "bytes": 68560,
+      "bytes": 68804,
       "path": "src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py",
-      "sha256": "adb282c1ec4602c6e49287054d1f96ad5560e7e9b07cf93bfbdb96c1c90d8cd6"
+      "sha256": "4e25334cf2855ecb4ff37c0320a07ec23fe5644ef9c55809cf4d792256087e98"
     },
     {
       "bytes": 47064,

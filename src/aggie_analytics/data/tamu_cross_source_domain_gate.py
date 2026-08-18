@@ -27,6 +27,14 @@ PHASE3_MATRIX_IDENTITY = "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b1
 PHASE3_GATE_IDENTITY = "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93"
 PHASE4_ACQUISITION_IDENTITY = "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd94ed6b83f21ae8f"
 PHASE4_DISPOSITION = "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS"
+TEAM_SEASON_GATE_IDENTITY = "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+TEAM_SEASON_DISPOSITION = "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED"
+SEASON_RECON_GATE_IDENTITY = "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e"
+SEASON_RECON_DISPOSITION = "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE"
+CONTEST_ROUTE_GATE_IDENTITY = "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb"
+CONTEST_ROUTE_DISPOSITION = "OFFICIAL_ROUTE_ACCESS_BLOCKED"
+CONTEST_ROUTE_MANIFEST_IDENTITY = "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb"
+CYCLE7_GATE_IDENTITY = "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3"
 NCAA_NATIONAL_IDENTITY = "3e7163624cb05c77a9ac6e8ec089c8bacd4d8bd360693aa8b473ca1ec174bebf"
 WMT_ACQUISITION_IDENTITY = "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3"
 WMT_RECONCILIATION_IDENTITY = "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
@@ -102,8 +110,10 @@ GATE_IDENTITY_FIELDS = (
     "jira_key",
     "input_identities",
     "phase4_disposition",
+    "contest_route_disposition",
     "counts",
     "admissions",
+    "season_level_admissions",
     "authority",
     "scientific_nonclaims",
     "remaining_blockers",
@@ -138,6 +148,12 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
         "phase3_gate_identity": PHASE3_GATE_IDENTITY,
         "phase4_acquisition_identity": PHASE4_ACQUISITION_IDENTITY,
         "phase4_disposition": PHASE4_DISPOSITION,
+        "team_season_gate_identity": TEAM_SEASON_GATE_IDENTITY,
+        "team_season_disposition": TEAM_SEASON_DISPOSITION,
+        "season_reconciliation_gate_identity": SEASON_RECON_GATE_IDENTITY,
+        "season_reconciliation_disposition": SEASON_RECON_DISPOSITION,
+        "contest_route_gate_identity": CONTEST_ROUTE_GATE_IDENTITY,
+        "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
         "wmt_acquisition_identity": WMT_ACQUISITION_IDENTITY,
         "wmt_reconciliation_dataset_identity": WMT_RECONCILIATION_IDENTITY,
         "team_box_snapshot_dataset_identity": TEAM_BOX_IDENTITY,
@@ -230,6 +246,10 @@ def expected_admissions() -> dict[str, str]:
     return {
         "gate_admission": "CANDIDATE_ONLY",
         "ncaa_official": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
+        "ncaa_official_per_game": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
+        "ncaa_team_season": TEAM_SEASON_DISPOSITION,
+        "season_reconciliation": SEASON_RECON_DISPOSITION,
+        "contest_route": CONTEST_ROUTE_DISPOSITION,
         "wmt_gamebook": "SOURCE_EVIDENCE_ABSENT_GAP_SEASONS",
         "sidearm_schedule": "CANDIDATE_ONLY",
         "pregame_availability": "BLOCKED",
@@ -244,6 +264,9 @@ def expected_remaining_blockers() -> list[str]:
     return [
         "NCAA_CONTEST_IDS_EMPTY_FOR_TAMU_2010_2011",
         "NCAA_CONTEST_ENDPOINTS_NOT_ATTEMPTED",
+        "NCAA_CONTEST_ROUTE_ACCESS_BLOCKED",
+        "SEASON_LEVEL_NOT_PER_GAME_OFFICIAL",
+        "TEXAS_2011_DATE_UNRESOLVED_NAME_ONLY",
         "WMT_GAMEBOOK_ABSENT_FOR_2010_2011",
         "NO_VERIFIED_OFFICIAL_POSTGAME_FACT",
         "NO_PREGAME_AVAILABILITY_EVIDENCE",
@@ -268,6 +291,9 @@ def verify_protected_registry(repo_root: Path, contract: Mapping[str, Any]) -> N
 def verify_upstream_gates(repo_root: Path) -> dict[str, Any]:
     phase3 = load_json(repo_root / "artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json")
     phase4 = load_json(repo_root / "artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json")
+    team_season = load_json(repo_root / "artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json")
+    season_recon = load_json(repo_root / "artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json")
+    contest_route = load_json(repo_root / "artifacts/data_lake/tamu_2010_2011_ncaa_contest_route_discovery_gate.json")
     ncaa = load_json(repo_root / "artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json")
     roster = load_json(repo_root / "artifacts/pit/roster_domain_completeness_gate.json")
     team_box = load_json(repo_root / "artifacts/pit/historical_team_box_snapshot_gate.json")
@@ -284,6 +310,24 @@ def verify_upstream_gates(repo_root: Path) -> dict[str, Any]:
         raise AuthorityViolation("Phase 4 2010 contest count drifted")
     if int((phase4.get("counts") or {}).get("contest_ids_2011", -1)) != 0:
         raise AuthorityViolation("Phase 4 2011 contest count drifted")
+    if team_season.get("gate_identity") != TEAM_SEASON_GATE_IDENTITY:
+        raise AuthorityViolation("missing BAT-574 team-season bind")
+    if team_season.get("disposition") != TEAM_SEASON_DISPOSITION:
+        raise AuthorityViolation("BAT-574 disposition drift")
+    if season_recon.get("gate_identity") != SEASON_RECON_GATE_IDENTITY:
+        raise AuthorityViolation("missing BAT-575 season-reconciliation bind")
+    if season_recon.get("disposition") != SEASON_RECON_DISPOSITION:
+        raise AuthorityViolation("BAT-575 disposition drift")
+    if season_recon.get("admissions", {}).get("texas_2011") != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
+        raise AuthorityViolation("2011 Texas date conflict was silently promoted")
+    if contest_route.get("gate_identity") != CONTEST_ROUTE_GATE_IDENTITY:
+        raise AuthorityViolation("missing BAT-576 contest-route bind")
+    if contest_route.get("disposition") != CONTEST_ROUTE_DISPOSITION:
+        raise AuthorityViolation("BAT-576 disposition drift")
+    if int((contest_route.get("counts") or {}).get("contest_ids_discovered", -1)) != 0:
+        raise AuthorityViolation("BAT-576 contest-ID count drifted")
+    if int((contest_route.get("counts") or {}).get("contest_endpoint_attempts", -1)) != 0:
+        raise AuthorityViolation("BAT-576 contest-endpoint attempt count drifted")
     ncaa_identity = (ncaa.get("manifest") or {}).get("acquisition_identity") or ncaa.get(
         "acquisition_identity"
     )
@@ -298,6 +342,9 @@ def verify_upstream_gates(repo_root: Path) -> dict[str, Any]:
     return {
         "phase3": phase3,
         "phase4": phase4,
+        "team_season": team_season,
+        "season_recon": season_recon,
+        "contest_route": contest_route,
         "ncaa": ncaa,
         "roster": roster,
         "team_box": team_box,
@@ -534,11 +581,50 @@ def load_phase3_games(data_root: Path, repo_root: Path) -> list[dict[str, Any]]:
     return games
 
 
+def expected_season_level_admissions(season_recon: Mapping[str, Any]) -> dict[str, Any]:
+    domains: dict[str, dict[str, str]] = {}
+    for domain, rows in (season_recon.get("domains") or {}).items():
+        by_season: dict[str, str] = {}
+        for row in rows:
+            season = str(row.get("season"))
+            classification = str(row.get("classification") or "")
+            if classification == "VERIFIED_OFFICIAL":
+                raise AuthorityViolation("season summary promoted to per-game VERIFIED_OFFICIAL")
+            if bool(row.get("pregame_availability_eligible")):
+                raise AuthorityViolation("retrospective season evidence marked pregame-eligible")
+            by_season[season] = classification
+        domains[str(domain)] = by_season
+    by_classification = dict((season_recon.get("counts") or {}).get("by_classification") or {})
+    admissions = {
+        "grain": "SEASON_LEVEL_NOT_PER_GAME",
+        "disposition": SEASON_RECON_DISPOSITION,
+        "texas_2011": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
+        "by_classification": by_classification,
+        "domains": domains,
+        "per_game_verified_official": False,
+        "development_pit_eligible_season_dates_2010": True,
+        "pregame_availability_admitted": False,
+        "membership_as_availability": False,
+        "participation_as_availability": False,
+    }
+    if admissions["texas_2011"] != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
+        raise AuthorityViolation("2011 Texas date conflict was silently promoted")
+    if admissions["per_game_verified_official"]:
+        raise AuthorityViolation("season total falsely promoted to per-game official")
+    if admissions["pregame_availability_admitted"]:
+        raise AuthorityViolation("participation must not be relabeled availability")
+    return admissions
+
+
 def expected_input_identities() -> dict[str, str]:
     return {
         "phase3_matrix_identity": PHASE3_MATRIX_IDENTITY,
         "phase3_gate_identity": PHASE3_GATE_IDENTITY,
         "phase4_acquisition_identity": PHASE4_ACQUISITION_IDENTITY,
+        "team_season_gate_identity": TEAM_SEASON_GATE_IDENTITY,
+        "season_reconciliation_gate_identity": SEASON_RECON_GATE_IDENTITY,
+        "contest_route_gate_identity": CONTEST_ROUTE_GATE_IDENTITY,
+        "contest_route_manifest_identity": CONTEST_ROUTE_MANIFEST_IDENTITY,
         "ncaa_official_national_acquisition_identity": NCAA_NATIONAL_IDENTITY,
         "wmt_acquisition_identity": WMT_ACQUISITION_IDENTITY,
         "wmt_reconciliation_dataset_identity": WMT_RECONCILIATION_IDENTITY,
@@ -546,6 +632,7 @@ def expected_input_identities() -> dict[str, str]:
         "player_box_snapshot_dataset_identity": PLAYER_BOX_IDENTITY,
         "roster_gate_identity": ROSTER_GATE_IDENTITY,
         "protected_split_registry_sha256": REGISTRY_SHA256,
+        "supersedes_cycle7_gate_identity": CYCLE7_GATE_IDENTITY,
     }
 
 
@@ -554,6 +641,7 @@ def expected_gate_document(
     contract: Mapping[str, Any],
     rows: list[Mapping[str, Any]],
     bat_429: Mapping[str, Any],
+    season_recon: Mapping[str, Any],
 ) -> dict[str, Any]:
     counts = summarize_rows(rows)
     if counts["scheduled_games"] != 26:
@@ -568,6 +656,7 @@ def expected_gate_document(
         raise AuthorityViolation("contest IDs were fabricated")
     if counts["pregame_availability_true"]:
         raise AuthorityViolation("participation must not be relabeled availability")
+    season_level = expected_season_level_admissions(season_recon)
     gate = {
         "schema_version": SCHEMA_VERSION,
         "artifact_type": "TAMU_CROSS_SOURCE_DOMAIN_GATE",
@@ -576,10 +665,13 @@ def expected_gate_document(
         "contract_id": contract["contract_id"],
         "decision_unit": contract["decision_unit"],
         "jira_key": "BAT-572",
+        "rebound_jira_key": "BAT-577",
         "input_identities": expected_input_identities(),
         "phase4_disposition": PHASE4_DISPOSITION,
+        "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
         "counts": counts,
         "admissions": expected_admissions(),
+        "season_level_admissions": season_level,
         "authority": expected_authority(),
         "scientific_nonclaims": expected_scientific_nonclaims(),
         "remaining_blockers": expected_remaining_blockers(),
@@ -597,8 +689,21 @@ def rebuild_expected(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
     games = load_phase3_games(data_root, repo_root)
     rows = build_domain_rows(games)
     bat_429 = inspect_bat429(repo_root)
-    gate = expected_gate_document(contract=contract, rows=rows, bat_429=bat_429)
-    return {"contract": contract, "games": games, "rows": rows, "gate": gate, "bat_429": bat_429}
+    season_recon = load_json(repo_root / "artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json")
+    gate = expected_gate_document(
+        contract=contract,
+        rows=rows,
+        bat_429=bat_429,
+        season_recon=season_recon,
+    )
+    return {
+        "contract": contract,
+        "games": games,
+        "rows": rows,
+        "gate": gate,
+        "bat_429": bat_429,
+        "season_recon": season_recon,
+    }
 
 
 def materialize(*, data_root: Path, repo_root: Path, issued_at_utc: str) -> dict[str, Any]:
@@ -616,6 +721,7 @@ def materialize(*, data_root: Path, repo_root: Path, issued_at_utc: str) -> dict
         "artifact_type": "TAMU_CROSS_SOURCE_DOMAIN_ROWS",
         "gate_identity": expected["gate"]["gate_identity"],
         "phase4_disposition": PHASE4_DISPOSITION,
+        "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
         "rows": expected["rows"],
         "protected_lane": PROTECTED_LANE,
     }
@@ -679,19 +785,28 @@ def _evidence_packet(repo_root: Path, gate: Mapping[str, Any]) -> dict[str, Any]
             "BAT-550",
             "BAT-554",
             "BAT-567",
+            "BAT-574",
+            "BAT-575",
+            "BAT-576",
+            "BAT-577",
         ],
+        "rebound_jira_key": "BAT-577",
         "new_issue_decision": "CREATE",
-        "workflow_state": "IN_PROGRESS",
+        "workflow_state": "DONE",
         "evidence_state": "VERIFIED",
         "issue_complete": True,
         "completeness_claimed": False,
         "verified_official_claimed": False,
         "observable_outcome": (
-            "Cycle #7 Phase 5 produced an identity-bound 2010-2011 Texas A&M field-grain domain "
-            "admission gate over 26 scheduled games. Phase 4 remains "
-            f"{PHASE4_DISPOSITION} with contest counts 0/0. No VERIFIED_OFFICIAL rows. "
-            "Protected lane stays RETAIN_PROTECTED_LANE_BLOCKED. BAT-429 stays blocked. "
-            "BAT-523 stays In Progress."
+            "Cycle #8 Phase 5 rebound of the BAT-572 per-game domain gate bound BAT-574 "
+            f"{TEAM_SEASON_GATE_IDENTITY}, BAT-575 {SEASON_RECON_GATE_IDENTITY}, and BAT-576 "
+            f"{CONTEST_ROUTE_GATE_IDENTITY}. Per-game NCAA domains remain "
+            "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS. Season-level admissions are recorded "
+            f"separately as {SEASON_RECON_DISPOSITION} and are not VERIFIED_OFFICIAL per-game "
+            f"facts. Contest-route disposition is {CONTEST_ROUTE_DISPOSITION} with 0 contest IDs "
+            "and 0 contest-endpoint attempts. Cycle #7 identity "
+            f"{CYCLE7_GATE_IDENTITY} is superseded. Protected lane stays "
+            "RETAIN_PROTECTED_LANE_BLOCKED. BAT-429 stays blocked. BAT-523 stays In Progress."
         ),
         "outputs": outputs,
         "gate_identity": gate["gate_identity"],
@@ -703,6 +818,13 @@ def _evidence_packet(repo_root: Path, gate: Mapping[str, Any]) -> dict[str, Any]
             "acquisition_identity": PHASE4_ACQUISITION_IDENTITY,
             "disposition": PHASE4_DISPOSITION,
         },
+        "cycle8_identities": {
+            "team_season_gate_identity": TEAM_SEASON_GATE_IDENTITY,
+            "season_reconciliation_gate_identity": SEASON_RECON_GATE_IDENTITY,
+            "contest_route_gate_identity": CONTEST_ROUTE_GATE_IDENTITY,
+            "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
+        },
+        "supersedes_gate_identity": CYCLE7_GATE_IDENTITY,
         "ncaa_official_national_acquisition_identity": NCAA_NATIONAL_IDENTITY,
         "coverage": {
             "seasons": [2010, 2011],
@@ -737,6 +859,7 @@ def validate_artifact(
         contract=expected["contract"],
         rows=expected["rows"],
         bat_429=expected["bat_429"],
+        season_recon=expected["season_recon"],
     )
     live_artifact = gate is None
     if live_artifact:
@@ -770,10 +893,29 @@ def validate_artifact(
         raise AuthorityViolation("missing Phase 3 gate bind")
     if identities.get("phase4_acquisition_identity") != PHASE4_ACQUISITION_IDENTITY:
         raise AuthorityViolation("missing Phase 4 acquisition bind")
+    if identities.get("team_season_gate_identity") != TEAM_SEASON_GATE_IDENTITY:
+        raise AuthorityViolation("missing BAT-574 team-season bind")
+    if identities.get("season_reconciliation_gate_identity") != SEASON_RECON_GATE_IDENTITY:
+        raise AuthorityViolation("missing BAT-575 season-reconciliation bind")
+    if identities.get("contest_route_gate_identity") != CONTEST_ROUTE_GATE_IDENTITY:
+        raise AuthorityViolation("missing BAT-576 contest-route bind")
     if identities.get("ncaa_official_national_acquisition_identity") != NCAA_NATIONAL_IDENTITY:
         raise AuthorityViolation("missing BAT-554 national NCAA bind")
     if gate.get("phase4_disposition") != PHASE4_DISPOSITION:
         raise AuthorityViolation("Phase 4 disposition drift")
+    if gate.get("contest_route_disposition") != CONTEST_ROUTE_DISPOSITION:
+        raise AuthorityViolation("contest-route disposition drift")
+    season_level = gate.get("season_level_admissions") or {}
+    if season_level.get("grain") != "SEASON_LEVEL_NOT_PER_GAME":
+        raise AuthorityViolation("season-level grain missing")
+    if season_level.get("per_game_verified_official"):
+        raise AuthorityViolation("season total falsely promoted to per-game official")
+    if season_level.get("texas_2011") != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
+        raise AuthorityViolation("2011 Texas date conflict was silently promoted")
+    if season_level.get("pregame_availability_admitted"):
+        raise AuthorityViolation("participation must not be relabeled availability")
+    if season_level.get("membership_as_availability"):
+        raise AuthorityViolation("membership must not be relabeled availability")
     if require_rebuild and expected["gate"]["gate_identity"] != rebuilt["gate_identity"]:
         raise AuthorityViolation("gate identity rebuild mismatch")
     return {

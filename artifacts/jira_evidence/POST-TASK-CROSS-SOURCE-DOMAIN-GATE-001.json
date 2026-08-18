@@ -2,11 +2,15 @@
   "admissions": {
     "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
     "bat_523": "IN_PROGRESS",
+    "contest_route": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
     "gate_admission": "CANDIDATE_ONLY",
     "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
     "ncaa_official": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
+    "ncaa_official_per_game": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
+    "ncaa_team_season": "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
     "pregame_availability": "BLOCKED",
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "season_reconciliation": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
     "sidearm_schedule": "CANDIDATE_ONLY",
     "wmt_gamebook": "SOURCE_EVIDENCE_ABSENT_GAP_SEASONS"
   },
@@ -53,30 +57,36 @@
       2011
     ]
   },
+  "cycle8_identities": {
+    "contest_route_disposition": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+    "contest_route_gate_identity": "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb",
+    "season_reconciliation_gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
+    "team_season_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+  },
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "evidence_state": "VERIFIED",
-  "gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+  "gate_identity": "b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678",
   "issue_complete": true,
   "jira_key": "BAT-572",
   "local_issue_id": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
   "ncaa_official_national_acquisition_identity": "3e7163624cb05c77a9ac6e8ec089c8bacd4d8bd360693aa8b473ca1ec174bebf",
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Cycle #7 Phase 5 produced an identity-bound 2010-2011 Texas A&M field-grain domain admission gate over 26 scheduled games. Phase 4 remains LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS with contest counts 0/0. No VERIFIED_OFFICIAL rows. Protected lane stays RETAIN_PROTECTED_LANE_BLOCKED. BAT-429 stays blocked. BAT-523 stays In Progress.",
+  "observable_outcome": "Cycle #8 Phase 5 rebound of the BAT-572 per-game domain gate bound BAT-574 dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e, BAT-575 6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e, and BAT-576 73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb. Per-game NCAA domains remain SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS. Season-level admissions are recorded separately as SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE and are not VERIFIED_OFFICIAL per-game facts. Contest-route disposition is OFFICIAL_ROUTE_ACCESS_BLOCKED with 0 contest IDs and 0 contest-endpoint attempts. Cycle #7 identity 418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3 is superseded. Protected lane stays RETAIN_PROTECTED_LANE_BLOCKED. BAT-429 stays blocked. BAT-523 stays In Progress.",
   "outputs": [
     {
-      "bytes": 30265,
+      "bytes": 33988,
       "path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
-      "sha256": "61c52b864348199c4b2d096de79ca006f0514c4b46bea456269cee731defd4b5"
+      "sha256": "2b493399fdd0cfe9087af8cce563e9e64341b341e9637b3f19962e9f50ea8d1a"
     },
     {
-      "bytes": 5100,
+      "bytes": 6605,
       "path": "configs/tamu_cross_source_domain_gate_contract.json",
-      "sha256": "505c4c7f59e56b8c1ee7f1d45e8a2f19a8bf454216f7c95af7f9b206d3fdec70"
+      "sha256": "cf3fc7dee3e4672a89f6ee97735ba8fffced8f8aa6dcf6d0a9f4d04f034c8f57"
     },
     {
-      "bytes": 34424,
+      "bytes": 42994,
       "path": "src/aggie_analytics/data/tamu_cross_source_domain_gate.py",
-      "sha256": "a06cf58b3e830006c718c5dfa8ea89eff47620a9a5d9af76ca66b9e5d08be68b"
+      "sha256": "6f1ed7a3d99e85d7dc7e7695e949930e464af241c04cef103e8b9ec76e3281cc"
     },
     {
       "bytes": 1315,
@@ -89,9 +99,9 @@
       "sha256": "9af1349e82a49b3ef717873d253dde0e81d199bddee6a33d16507ae650ceeaa1"
     },
     {
-      "bytes": 11150,
+      "bytes": 13614,
       "path": "tests/test_tamu_cross_source_domain_gate.py",
-      "sha256": "670a03dc0160898949fe84c38bb7304fdb3c3bd411eb1933c5f9fd681e540450"
+      "sha256": "dc0d9a381755a5bd0d7ed37db15f1ed8cbec3511b5fc7c94cad244442c1b003a"
     }
   ],
   "parent_jira_key": "BAT-523",
@@ -125,6 +135,7 @@
     "verified_cross_source_claimed": false,
     "verified_official_claimed": false
   },
+  "rebound_jira_key": "BAT-577",
   "related_jira_keys": [
     "BAT-570",
     "BAT-571",
@@ -133,9 +144,14 @@
     "BAT-548",
     "BAT-550",
     "BAT-554",
-    "BAT-567"
+    "BAT-567",
+    "BAT-574",
+    "BAT-575",
+    "BAT-576",
+    "BAT-577"
   ],
   "schema_version": "2.1.0",
+  "supersedes_gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
   "verified_official_claimed": false,
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

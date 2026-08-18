@@ -48,7 +48,7 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "extra_official_routes_2011": [
     "https://stats.ncaa.org/players/3766567",
     "https://stats.ncaa.org/team/697/stats/11262",
@@ -56,7 +56,7 @@
     "https://stats.ncaa.org/team/conf_game_highs?org_id=697&sport_year_ctl_id=11262"
   ],
   "gate_identity": "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb",
-  "issue_complete": false,
+  "issue_complete": true,
   "jira_key": "BAT-576",
   "local_issue_id": "POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001",
   "manifest_identity": "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb",
@@ -140,5 +140,5 @@
     "validator_command": "python -B tools/validate_tamu_2010_2011_ncaa_contest_route_discovery.py --repo-root .",
     "validator_exit_code": 0
   },
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

@@ -27,6 +27,12 @@ BAT570_MATRIX_IDENTITY = "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b1
 BAT570_GATE_IDENTITY = "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93"
 BAT571_ACQUISITION_IDENTITY = "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd94ed6b83f21ae8f"
 BAT571_DISPOSITION = "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS"
+BAT574_GATE_IDENTITY = "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+BAT574_DISPOSITION = "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED"
+BAT575_GATE_IDENTITY = "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e"
+BAT575_DISPOSITION = "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE"
+BAT576_GATE_IDENTITY = "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb"
+BAT576_DISPOSITION = "OFFICIAL_ROUTE_ACCESS_BLOCKED"
 FORBIDDEN_LEDGER_STATES = (
     "PRODUCTION_CHAMPION",
     "PROTECTED_WINNER",
@@ -119,6 +125,9 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
     bat570_path = repo_root / "artifacts" / "data_lake" / "tamu_official_evidence_gap_matrix_gate.json"
     bat571_path = repo_root / "artifacts" / "data_lake" / "tamu_2010_2011_ncaa_official_acquisition_gate.json"
     bat572_path = repo_root / "artifacts" / "data_lake" / "tamu_cross_source_domain_gate.json"
+    bat574_path = repo_root / "artifacts" / "data_lake" / "tamu_2010_2011_ncaa_team_season_evidence_gate.json"
+    bat575_path = repo_root / "artifacts" / "data_lake" / "tamu_2010_2011_season_reconciliation_gate.json"
+    bat576_path = repo_root / "artifacts" / "data_lake" / "tamu_2010_2011_ncaa_contest_route_discovery_gate.json"
     bat398 = _load_json(bat398_path)
     bat399 = _load_json(bat399_path)
     bat400 = _load_json(bat400_path)
@@ -129,6 +138,9 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
     bat570 = _load_json(bat570_path)
     bat571 = _load_json(bat571_path)
     bat572 = _load_json(bat572_path)
+    bat574 = _load_json(bat574_path)
+    bat575 = _load_json(bat575_path)
+    bat576 = _load_json(bat576_path)
     if sha256_file(bat398_path) != BAT398_SHA256:
         raise ValueError("BAT-398 decision hash mismatch")
     if bat398.get("gate_decision", {}).get("decision") != "BLOCK":
@@ -209,6 +221,32 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
         raise ValueError("BAT-572 unexpectedly granted protected outcome authority")
     if bat572.get("bat_429", {}).get("ready_or_done") is not False:
         raise ValueError("BAT-429 marked Ready")
+    if bat572.get("season_level_admissions", {}).get("per_game_verified_official"):
+        raise ValueError("BAT-572 season totals were promoted to per-game official")
+    if bat572.get("contest_route_disposition") != BAT576_DISPOSITION:
+        raise ValueError("BAT-572 missing BAT-576 contest-route disposition")
+    if bat574.get("gate_identity") != BAT574_GATE_IDENTITY:
+        raise ValueError("BAT-574 gate identity mismatch")
+    if bat574.get("disposition") != BAT574_DISPOSITION:
+        raise ValueError("BAT-574 disposition drift")
+    if bat574.get("protected_lane") != LANE_DECISION:
+        raise ValueError("BAT-574 unexpectedly opened the protected lane")
+    if bat575.get("gate_identity") != BAT575_GATE_IDENTITY:
+        raise ValueError("BAT-575 gate identity mismatch")
+    if bat575.get("disposition") != BAT575_DISPOSITION:
+        raise ValueError("BAT-575 disposition drift")
+    if bat575.get("admissions", {}).get("texas_2011") != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
+        raise ValueError("BAT-575 silently promoted the 2011 Texas date conflict")
+    if bat575.get("protected_lane") != LANE_DECISION:
+        raise ValueError("BAT-575 unexpectedly opened the protected lane")
+    if bat576.get("gate_identity") != BAT576_GATE_IDENTITY:
+        raise ValueError("BAT-576 gate identity mismatch")
+    if bat576.get("disposition") != BAT576_DISPOSITION:
+        raise ValueError("BAT-576 disposition drift")
+    if int((bat576.get("counts") or {}).get("contest_ids_discovered", -1)) != 0:
+        raise ValueError("BAT-576 contest-ID count drifted")
+    if bat576.get("protected_lane") != LANE_DECISION:
+        raise ValueError("BAT-576 unexpectedly opened the protected lane")
     if "2024" in json.dumps(bat400.get("development_metrics")) or "2025" in json.dumps(
         bat400.get("development_metrics")
     ):
@@ -298,7 +336,29 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
             "gate_identity": bat572.get("gate_identity"),
             "classification": bat572.get("classification"),
             "phase4_disposition": bat572.get("phase4_disposition"),
+            "contest_route_disposition": bat572.get("contest_route_disposition"),
+            "season_level_grain": (bat572.get("season_level_admissions") or {}).get("grain"),
             "verified_official": False,
+            "protected_lane": LANE_DECISION,
+        },
+        "BAT-574": {
+            "path": "artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json",
+            "gate_identity": bat574.get("gate_identity"),
+            "disposition": bat574.get("disposition"),
+            "protected_lane": LANE_DECISION,
+        },
+        "BAT-575": {
+            "path": "artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json",
+            "gate_identity": bat575.get("gate_identity"),
+            "disposition": bat575.get("disposition"),
+            "texas_2011": (bat575.get("admissions") or {}).get("texas_2011"),
+            "protected_lane": LANE_DECISION,
+        },
+        "BAT-576": {
+            "path": "artifacts/data_lake/tamu_2010_2011_ncaa_contest_route_discovery_gate.json",
+            "gate_identity": bat576.get("gate_identity"),
+            "disposition": bat576.get("disposition"),
+            "contest_ids_discovered": 0,
             "protected_lane": LANE_DECISION,
         },
     }
@@ -449,6 +509,16 @@ def validate_readiness_artifact(payload: Mapping[str, Any], repo_root: Path) -> 
         raise ValueError("BAT-572 must retain the blocked protected lane")
     if prereqs.get("BAT-572", {}).get("verified_official") is not False:
         raise ValueError("BAT-572 verified-official claim is not fail-closed")
+    if prereqs.get("BAT-574", {}).get("gate_identity") != BAT574_GATE_IDENTITY:
+        raise ValueError("BAT-574 identity not bound")
+    if prereqs.get("BAT-575", {}).get("gate_identity") != BAT575_GATE_IDENTITY:
+        raise ValueError("BAT-575 identity not bound")
+    if prereqs.get("BAT-575", {}).get("texas_2011") != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
+        raise ValueError("BAT-575 Texas conflict not bound")
+    if prereqs.get("BAT-576", {}).get("gate_identity") != BAT576_GATE_IDENTITY:
+        raise ValueError("BAT-576 identity not bound")
+    if prereqs.get("BAT-576", {}).get("disposition") != BAT576_DISPOSITION:
+        raise ValueError("BAT-576 disposition not bound")
     freeze_split_boundaries(repo_root)
 
 

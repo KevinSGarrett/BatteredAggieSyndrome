@@ -125,7 +125,7 @@ PREREQUISITE_IDENTITIES = {
     },
     "BAT-526": {
         "path": "artifacts/governance/protected_split_exposure_audit.json",
-        "artifact_identity": "c8667b02cd515f2689d3c298a58d00d25dbada254146a116187f9c488dc314e8",
+        "artifact_identity": "587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd",
         "classification": "HISTORICAL_PROTECTED_RESULT_EXPOSED_NO_SELECTION_OR_PROMOTION_AUTHORITY",
         "authority": "revoked_for_selection_tuning_threshold_promotion_and_protected_claims",
     },

@@ -152,6 +152,28 @@ def main() -> int:
         for ref in set(re.findall(r"ADR-\d{3}", text)) - known_adr:
             findings.append(type("F", (), {"kind":"dangling_adr_ref", "path":str(path.relative_to(root)), "detail":ref})())
 
+    if args.strict:
+        from tools.audit_protected_split_exposure import AUDIT_PATH, validate_audit
+
+        audit_path = root / AUDIT_PATH
+        try:
+            if not audit_path.is_file():
+                raise FileNotFoundError(f"missing committed audit: {AUDIT_PATH}")
+            committed = json.loads(audit_path.read_text(encoding="utf-8"))
+            validate_audit(committed, root)
+        except (ValueError, FileNotFoundError, OSError, json.JSONDecodeError) as exc:
+            findings.append(
+                type(
+                    "F",
+                    (),
+                    {
+                        "kind": "protected_split_audit",
+                        "path": str(AUDIT_PATH),
+                        "detail": str(exc),
+                    },
+                )()
+            )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

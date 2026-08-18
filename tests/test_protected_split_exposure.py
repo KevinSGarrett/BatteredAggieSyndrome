@@ -15,7 +15,7 @@ from aggie_analytics.validation.protected_split_authority import (  # noqa: E402
     CONTAMINATION_STATUS,
     assert_current_contract_respects_protected_splits,
     assert_labels_cannot_override_protected_membership,
-    compute_artifact_identity,
+    compute_audit_identity,
     is_historical_contaminated_contract,
     protected_role_ignoring_label,
     registry_role_for_season,
@@ -24,15 +24,20 @@ from aggie_analytics.validation.protected_split_authority import (  # noqa: E402
 )
 from tools.audit_protected_split_exposure import (  # noqa: E402
     SCHEMA_VERSION,
+    SUPERSEDED_V2_IDENTITY,
+    SUPERSESSION_REASON,
     build_audit,
     validate_audit,
 )
+
+COMMITTED_AUDIT = ROOT / "artifacts/governance/protected_split_exposure_audit.json"
+STALE_V2_AUDIT = ROOT / "tests/fixtures/protected_split_exposure_audit.v2.stale.json"
 
 
 class ProtectedSplitExposureTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.canonical_audit = build_audit(ROOT)
+        cls.canonical_audit = json.loads(COMMITTED_AUDIT.read_text(encoding="utf-8"))
 
     def setUp(self) -> None:
         self.original = json.loads(
@@ -189,8 +194,28 @@ class ProtectedSplitExposureTests(unittest.TestCase):
 
     def _rehash(self, payload: dict) -> dict:
         mutated = copy.deepcopy(payload)
-        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        mutated["artifact_identity"] = compute_audit_identity(mutated)
         return mutated
+
+    def test_committed_audit_reconstructs_independently(self) -> None:
+        validate_audit(self.canonical_audit, ROOT)
+        rebuilt = build_audit(ROOT)
+        self.assertEqual(self.canonical_audit["schema_version"], SCHEMA_VERSION)
+        self.assertEqual(self.canonical_audit["classification"], CONTAMINATION_STATUS)
+        self.assertEqual(
+            self.canonical_audit["successor_contract_sha256"],
+            sha256_file(ROOT / "configs/preliminary_development_safe_baseline_contract.json"),
+        )
+        self.assertEqual(self.canonical_audit["artifact_identity"], rebuilt["artifact_identity"])
+        self.assertNotEqual(self.canonical_audit["artifact_identity"], SUPERSEDED_V2_IDENTITY)
+        self.assertEqual(
+            self.canonical_audit["superseded_identities"][0]["artifact_identity"],
+            SUPERSEDED_V2_IDENTITY,
+        )
+        self.assertEqual(
+            self.canonical_audit["superseded_identities"][0]["supersession_reason"],
+            SUPERSESSION_REASON,
+        )
 
     def test_validate_rejects_forged_empty_surfaces_after_rehash(self) -> None:
         payload = self._rehash(
@@ -210,7 +235,7 @@ class ProtectedSplitExposureTests(unittest.TestCase):
         mutated = copy.deepcopy(payload)
         mutated["exposed_results"] = mutated["exposed_results"][1:]
         mutated["exposed_result_count"] = len(mutated["exposed_results"])
-        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        mutated["artifact_identity"] = compute_audit_identity(mutated)
         with self.assertRaisesRegex(ValueError, "exposed_results|independent reconstruction"):
             validate_audit(mutated, ROOT, expected=self.canonical_audit)
 
@@ -218,7 +243,7 @@ class ProtectedSplitExposureTests(unittest.TestCase):
         payload = copy.deepcopy(self.canonical_audit)
         mutated = copy.deepcopy(payload)
         mutated["contradiction_count"] = 0
-        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        mutated["artifact_identity"] = compute_audit_identity(mutated)
         with self.assertRaisesRegex(ValueError, "contradiction"):
             validate_audit(mutated, ROOT, expected=self.canonical_audit)
 
@@ -226,7 +251,7 @@ class ProtectedSplitExposureTests(unittest.TestCase):
         payload = copy.deepcopy(self.canonical_audit)
         mutated = copy.deepcopy(payload)
         mutated["registry_sha256"] = "0" * 64
-        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        mutated["artifact_identity"] = compute_audit_identity(mutated)
         with self.assertRaisesRegex(ValueError, "registry_sha256|independent reconstruction"):
             validate_audit(mutated, ROOT, expected=self.canonical_audit)
 
@@ -234,7 +259,7 @@ class ProtectedSplitExposureTests(unittest.TestCase):
         payload = copy.deepcopy(self.canonical_audit)
         mutated = copy.deepcopy(payload)
         mutated["successor_contract"] = "configs/preliminary_unprotected_baseline_contract.json"
-        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        mutated["artifact_identity"] = compute_audit_identity(mutated)
         with self.assertRaisesRegex(ValueError, "successor_contract|independent reconstruction"):
             validate_audit(mutated, ROOT, expected=self.canonical_audit)
 
@@ -242,7 +267,7 @@ class ProtectedSplitExposureTests(unittest.TestCase):
         payload = copy.deepcopy(self.canonical_audit)
         mutated = copy.deepcopy(payload)
         mutated["authority_revoked_for"] = ["model_selection"]
-        mutated["artifact_identity"] = compute_artifact_identity(mutated)
+        mutated["artifact_identity"] = compute_audit_identity(mutated)
         with self.assertRaisesRegex(ValueError, "authority denials"):
             validate_audit(mutated, ROOT, expected=self.canonical_audit)
 
@@ -250,8 +275,8 @@ class ProtectedSplitExposureTests(unittest.TestCase):
         payload = copy.deepcopy(self.canonical_audit)
         mutated = copy.deepcopy(payload)
         mutated["classification"] = "CLEAN"
-        mutated["artifact_identity"] = compute_artifact_identity(mutated)
-        with self.assertRaisesRegex(ValueError, "exposure disposition"):
+        mutated["artifact_identity"] = compute_audit_identity(mutated)
+        with self.assertRaisesRegex(ValueError, "CLEAN|exposure disposition"):
             validate_audit(mutated)
 
     def test_omitted_relevant_file_is_discovered(self) -> None:
@@ -272,7 +297,7 @@ class ProtectedSplitExposureTests(unittest.TestCase):
         )
         try:
             rebuilt = build_audit(ROOT)
-            self.assertIn("configs/omitted_protected_tune_contract.json", rebuilt["discovered_inventory"])
+            self.assertIn("configs/omitted_protected_tune_contract.json", rebuilt["relevant_inventory"])
             self.assertIn(
                 "configs/omitted_protected_tune_contract.json",
                 [row["path"] for row in rebuilt["surfaces"]],
@@ -291,6 +316,59 @@ class ProtectedSplitExposureTests(unittest.TestCase):
             relative_path="configs/historical_play_drive_pit_aggregate_development_safe_contract.json",
         )
         self.assertTrue(any("outcomes" in item or "2024" in item for item in errors))
+
+    def test_irrelevant_file_does_not_change_identity(self) -> None:
+        extra_path = ROOT / "configs" / "irrelevant_unrelated_scan_noise.json"
+        extra_path.write_text('{"note":"no protected seasons"}\n', encoding="utf-8")
+        try:
+            rebuilt = build_audit(ROOT)
+            self.assertEqual(rebuilt["artifact_identity"], self.canonical_audit["artifact_identity"])
+            self.assertNotIn("configs/irrelevant_unrelated_scan_noise.json", rebuilt["relevant_inventory"])
+            validate_audit(self.canonical_audit, ROOT)
+        finally:
+            extra_path.unlink(missing_ok=True)
+
+    def test_stale_v2_audit_is_rejected(self) -> None:
+        stale = json.loads(STALE_V2_AUDIT.read_text(encoding="utf-8"))
+        self.assertEqual(stale["artifact_identity"], SUPERSEDED_V2_IDENTITY)
+        with self.assertRaisesRegex(ValueError, "v2 schema|not current authority|unexpected protected-split audit schema"):
+            validate_audit(stale, ROOT)
+
+    def test_validate_rejects_missing_superseded_v2_identity(self) -> None:
+        mutated = self._rehash({**self.canonical_audit, "superseded_identities": []})
+        with self.assertRaisesRegex(ValueError, "missing superseded v2 identity"):
+            validate_audit(mutated)
+
+    def test_validate_rejects_v2_identity_as_current(self) -> None:
+        mutated = copy.deepcopy(self.canonical_audit)
+        mutated["artifact_identity"] = SUPERSEDED_V2_IDENTITY
+        with self.assertRaisesRegex(ValueError, "v2 identity is not current authority"):
+            validate_audit(mutated)
+        stale_schema = self._rehash({**self.canonical_audit, "schema_version": "aggie.governance.protected_split_exposure_audit.v2"})
+        with self.assertRaisesRegex(ValueError, "v2 schema is not current authority"):
+            validate_audit(stale_schema)
+
+    def test_validate_rejects_omitted_supersession_reason(self) -> None:
+        mutated = copy.deepcopy(self.canonical_audit)
+        mutated["superseded_identities"] = [
+            {
+                "artifact_identity": SUPERSEDED_V2_IDENTITY,
+                "schema_version": "aggie.governance.protected_split_exposure_audit.v2",
+                "preserved_as": "SUPERSEDED_SCHEMA_V2_EVIDENCE",
+            }
+        ]
+        mutated = self._rehash(mutated)
+        with self.assertRaisesRegex(ValueError, "omitting supersession_reason"):
+            validate_audit(mutated)
+
+    def test_validate_rejects_clean_forgery_with_superseded_v2(self) -> None:
+        mutated = self._rehash({**self.canonical_audit, "classification": "CLEAN"})
+        self.assertEqual(
+            mutated["superseded_identities"][0]["artifact_identity"],
+            SUPERSEDED_V2_IDENTITY,
+        )
+        with self.assertRaisesRegex(ValueError, "CLEAN classification cannot coexist with superseded v2"):
+            validate_audit(mutated)
 
 
 if __name__ == "__main__":

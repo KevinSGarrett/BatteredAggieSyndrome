@@ -335,6 +335,42 @@ def compute_artifact_identity(payload: Mapping[str, Any]) -> str:
     return stable_hash(canonical)
 
 
+AUDIT_AUTHORITY_BEARING_FIELDS = (
+    "schema_version",
+    "artifact_type",
+    "decision_unit",
+    "jira_key",
+    "registry_path",
+    "registry_sha256",
+    "registry_unaltered",
+    "classification",
+    "relevant_inventory",
+    "surfaces",
+    "surface_count",
+    "relevant_surface_count",
+    "contradiction_count",
+    "exposed_result_count",
+    "exposed_results",
+    "authority_revoked_for",
+    "successor_contract",
+    "successor_contract_sha256",
+    "historical_contracts_preserved",
+    "historical_allowlist",
+    "protected_nonclaims",
+    "acceptance",
+    "scan_policy",
+    "scan_roots",
+    "scan_suffixes",
+    "scanner_code_identity",
+    "supersedes_artifact_identity",
+    "superseded_identities",
+)
+
+
+def compute_audit_identity(payload: Mapping[str, Any]) -> str:
+    return stable_hash({field: payload.get(field) for field in AUDIT_AUTHORITY_BEARING_FIELDS})
+
+
 def load_protected_split_registry(repo_root: Path) -> list[dict[str, str]]:
     path = repo_root / REGISTRY_RELATIVE
     with path.open("r", encoding="utf-8", newline="") as handle:

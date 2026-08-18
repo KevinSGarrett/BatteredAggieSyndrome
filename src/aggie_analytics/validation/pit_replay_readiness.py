@@ -21,6 +21,12 @@ BAT398_SHA256 = "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a120
 BAT526_IDENTITY = "13c18600b5dfd4ce24422d1aae058fc0ae177057e72334f37b726e27840059d5"
 BAT566_SUPERSEDED_KICKOFF_LABEL = "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
 BAT566_SUPERSEDED_REPLAY = "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
+BAT568_GATE_IDENTITY = "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275"
+FORBIDDEN_LEDGER_STATES = (
+    "PRODUCTION_CHAMPION",
+    "PROTECTED_WINNER",
+    "PROMOTED_FEATURE_SET",
+)
 AUTHORITY_FIELDS = (
     "schema_version",
     "artifact_type",
@@ -103,11 +109,15 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
     bat400_path = repo_root / "artifacts" / "pit" / "protected_replay_dry_run.json"
     bat526_path = repo_root / "artifacts" / "governance" / "protected_split_exposure_audit.json"
     bat566_path = repo_root / "artifacts" / "pit" / "development_walk_forward_2023.json"
+    bat568_path = repo_root / "artifacts" / "pit" / "development_rankings_walk_forward_2023.json"
+    bat569_path = repo_root / "artifacts" / "experimentation" / "development_candidate_evidence_ledger.json"
     bat398 = _load_json(bat398_path)
     bat399 = _load_json(bat399_path)
     bat400 = _load_json(bat400_path)
     bat526 = _load_json(bat526_path)
     bat566 = _load_json(bat566_path)
+    bat568 = _load_json(bat568_path)
+    bat569 = _load_json(bat569_path)
     if sha256_file(bat398_path) != BAT398_SHA256:
         raise ValueError("BAT-398 decision hash mismatch")
     if bat398.get("gate_decision", {}).get("decision") != "BLOCK":
@@ -132,6 +142,25 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
         raise ValueError("BAT-566 unexpectedly granted promotion authority")
     if (bat566.get("incremental_play_drive_result") or {}).get("promotion_authority") is not False:
         raise ValueError("BAT-566 incremental result granted promotion authority")
+    if bat568.get("gate_identity") != BAT568_GATE_IDENTITY:
+        raise ValueError("BAT-568 gate identity mismatch")
+    if bat568.get("authority", {}).get("protected_evaluation_admission") is not False:
+        raise ValueError("BAT-568 unexpectedly opened protected evaluation")
+    if bat568.get("authority", {}).get("champion_or_production_promotion") is not False:
+        raise ValueError("BAT-568 unexpectedly granted promotion authority")
+    if bat568.get("candidate_decisions", {}).get("any_candidate_improved_brier_vs_prior_only") is not False:
+        raise ValueError("BAT-568 cannot be rebound as an improved protected candidate")
+    if bat569.get("result") != "PASS_DEVELOPMENT_CANDIDATE_EVIDENCE_LEDGER":
+        raise ValueError("BAT-569 ledger is not in the verified development-inventory state")
+    if bat569.get("comparison_count") != 4:
+        raise ValueError("BAT-569 comparison count drifted")
+    if bat569.get("authority", {}).get("champion_or_production_promotion") is not False:
+        raise ValueError("BAT-569 unexpectedly granted promotion authority")
+    if bat569.get("authority", {}).get("protected_evaluation_admission") is not False:
+        raise ValueError("BAT-569 unexpectedly opened protected evaluation")
+    ledger_states = [entry.get("state") for entry in bat569.get("entries") or []]
+    if any(state in FORBIDDEN_LEDGER_STATES for state in ledger_states):
+        raise ValueError("BAT-569 ledger contains forbidden production or protected states")
     if "2024" in json.dumps(bat400.get("development_metrics")) or "2025" in json.dumps(
         bat400.get("development_metrics")
     ):
@@ -182,6 +211,25 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
             "protected_performance": False,
             "promotion_authority": False,
             "supersedes_replay_identity": BAT566_SUPERSEDED_REPLAY,
+        },
+        "BAT-568": {
+            "path": "artifacts/pit/development_rankings_walk_forward_2023.json",
+            "gate_identity": bat568.get("gate_identity"),
+            "joined_matrix_identity": bat568.get("joined_matrix_identity"),
+            "run_identity": bat568.get("run_identity"),
+            "classification": bat568.get("classification"),
+            "any_candidate_improved_brier_vs_prior_only": False,
+            "protected_performance": False,
+            "promotion_authority": False,
+        },
+        "BAT-569": {
+            "path": "artifacts/experimentation/development_candidate_evidence_ledger.json",
+            "ledger_identity": bat569.get("ledger_identity"),
+            "fold_definition_identity": bat569.get("fold_definition_identity"),
+            "comparison_count": bat569.get("comparison_count"),
+            "classification": bat569.get("classification"),
+            "protected_performance": False,
+            "promotion_authority": False,
         },
     }
 
@@ -311,6 +359,14 @@ def validate_readiness_artifact(payload: Mapping[str, Any], repo_root: Path) -> 
         raise ValueError("BAT-401 still binds the superseded kickoff-time BAT-566 parent")
     if prereqs.get("BAT-566", {}).get("promotion_authority") is not False:
         raise ValueError("BAT-566 promotion authority must remain false")
+    if prereqs.get("BAT-568", {}).get("gate_identity") != BAT568_GATE_IDENTITY:
+        raise ValueError("BAT-568 identity not bound")
+    if prereqs.get("BAT-568", {}).get("promotion_authority") is not False:
+        raise ValueError("BAT-568 promotion authority must remain false")
+    if not prereqs.get("BAT-569", {}).get("ledger_identity"):
+        raise ValueError("BAT-569 ledger identity not bound")
+    if prereqs.get("BAT-569", {}).get("promotion_authority") is not False:
+        raise ValueError("BAT-569 promotion authority must remain false")
     freeze_split_boundaries(repo_root)
 
 

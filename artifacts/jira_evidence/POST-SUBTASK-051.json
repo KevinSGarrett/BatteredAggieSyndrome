@@ -7,27 +7,28 @@
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Cycle #6 Phase 2 rebound BAT-401 after the corrected BAT-566 labeled replay 09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2 replaced kickoff-time replay 584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7. BAT-400 remains db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402. The issue stays DONE/VERIFIED because the gate was re-executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. No protected metrics were republished.",
-  "supersedes_artifact_identity": "fee092379479569e5c654d58bcc9bf4df53a70e10ca49cfae71c6d74a7b0cab2",
+  "observable_outcome": "Cycle #6 Phase 5 rebound BAT-401 after the BAT-569 development candidate evidence ledger b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43 and BAT-568 rankings walk-forward 8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275 were bound. The previous readiness identity 1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066 is superseded. The issue stays DONE/VERIFIED because the gate was re-executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. No protected metrics were republished.",
+  "supersedes_artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
   "prior_superseded_identities": [
     "6b4f85a9f5422ba05ea400fe39795f18ddaa3d37469d781d42d3b43725e9f31f",
     "5da7e995b340464491db23c8e805564e0da77ec595e638573f169337011818d4",
     "cb78bd426927b079b35901d62da5dc95d9682d6a52f0c691a5cdee57e7ca0bc1",
     "feb1adbdc0db93d22799e0d16002039494ff432572efbf42d06fb47a5fcd7853",
-    "fee092379479569e5c654d58bcc9bf4df53a70e10ca49cfae71c6d74a7b0cab2"
+    "fee092379479569e5c654d58bcc9bf4df53a70e10ca49cfae71c6d74a7b0cab2",
+    "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066"
   ],
   "outputs": [
     {
       "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
-      "bytes": 5867,
-      "sha256": "86a5e658ca73ee99b845127a6a331ca4567665f304d915ab31bd2e1740549af6",
+      "bytes": 6795,
+      "sha256": "ddf6c37efa21503934c072f8d154864e12b4d8e35a55205eb2d2b42ff7a7b2ae",
       "schema_version": "aggie.pit.replay_readiness.v1",
-      "artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066"
+      "artifact_identity": "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3"
     },
     {
       "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
-      "bytes": 15187,
-      "sha256": "f6a9896be26ce3255b0efa4c8e31578e81091c49269b3ed9f7a165a624b9fa86"
+      "bytes": 18715,
+      "sha256": "40f38e51707d102f536735e3a25ccb8748f16615bbaa8bbd93aa7ef7842b7aee"
     },
     {
       "path": "tools/evaluate_pit_replay_readiness.py",
@@ -99,5 +100,7 @@
     "protected_metrics_republished": false
   },
   "consumed_bat566_replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
-  "consumed_bat566_matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68"
+  "consumed_bat566_matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+  "consumed_bat568_gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
+  "consumed_bat569_ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43"
 }

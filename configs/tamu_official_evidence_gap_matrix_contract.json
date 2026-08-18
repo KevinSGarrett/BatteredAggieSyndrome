@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-570-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-V1",
+  "decision_unit": "POST-TASK-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-001",
+  "jira_key": "BAT-570",
+  "parent_jira_key": "BAT-77",
+  "parent_local_id": "POST-STORY-027",
+  "related_jira_keys": ["BAT-523", "BAT-429", "BAT-548", "BAT-550", "BAT-554", "BAT-567"],
+  "classification": "TAMU_OFFICIAL_EVIDENCE_GAP_MATRIX_NO_COMPLETENESS_CLAIM",
+  "purpose": "Build an identity-bound completeness matrix for Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint evidence for scheduled games 2010-2025, with a special 2010-2011 Sidearm/WMT parse. The matrix documents gaps honestly and does not claim completeness.",
+  "season_min": 2010,
+  "season_max": 2025,
+  "identities": {
+    "wmt_acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "wmt_acquisition_manifest_relative_path": "manifests/acquisition/bat523-tamu-official-gamebook-equivalent-2010-2025-v1/sha256/d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3/tamu_official_gamebook_acquisition_manifest.json",
+    "wmt_reconciliation_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "wmt_reconciliation_manifest_relative_path": "manifests/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebook_reconciliation.json",
+    "wmt_reconciliation_manifest_sha256": "9cd644376253e278fc833b6b58c717ea4889b6243671c15bc078623ba822da0e",
+    "team_box_snapshot_dataset_identity": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
+    "team_box_snapshot_gate_relative_path": "artifacts/pit/historical_team_box_snapshot_gate.json",
+    "player_box_snapshot_dataset_identity": "3df499e8f6d448624fc62af2a95505546483cc01aba84f19078ad72fd0d36af5",
+    "player_box_snapshot_gate_relative_path": "artifacts/pit/historical_player_box_snapshot_gate.json",
+    "ncaa_official_acquisition_identity": "3e7163624cb05c77a9ac6e8ec089c8bacd4d8bd360693aa8b473ca1ec174bebf",
+    "ncaa_official_acquisition_gate_relative_path": "artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json",
+    "ncaa_official_acquisition_classification": "NATIONAL_SAMPLE_NOT_TAMU_2010_2011_TRANCHE",
+    "roster_gate_identity": "53fd14a5ea8f43aaf51c9998141c90d13ac371e43c3f1ec502e871a185c35aa9",
+    "roster_gate_relative_path": "artifacts/pit/roster_domain_completeness_gate.json",
+    "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "sidearm_schedule_html_2010_sha256": "4fb8159c477531e7ee653125198085f96e60719ec9050355a4e2d998a08f095b",
+    "sidearm_schedule_html_2011_sha256": "143d46bf93aa8a8ebb0818451c6ebf520af058fc0bf0f8f563c6dd808f99ca8f",
+    "ncaa_discovery_2010_identity": "585b753325dc15cd2662f2d74b34a586d000be3c7d54df6abb9321d53ff195aa",
+    "ncaa_discovery_2011_identity": "fb3ad5a2aa08606a5a263e19267e7aa341a87eef7f86c2998f59c77b67f58fac"
+  },
+  "sidearm_schedule_html": {
+    "2010": "raw/SRC-014/tamu_official_gamebook_equivalent/schedule_html/sha256_4fb8159c477531e7ee653125198085f96e60719ec9050355a4e2d998a08f095b.html",
+    "2011": "raw/SRC-014/tamu_official_gamebook_equivalent/schedule_html/sha256_143d46bf93aa8a8ebb0818451c6ebf520af058fc0bf0f8f563c6dd808f99ca8f.html"
+  },
+  "ncaa_lake_notes": {
+    "tamu_2011_team_season_id": "137872",
+    "tamu_2011_discovery_state": "DEDICATED_TEAM_PAGE_CAPTURE_IN_2011_DISCOVERY_MANIFEST",
+    "tamu_2010_team_season_id": "137387",
+    "tamu_2010_discovery_state": "DEDICATED_TEAM_PAGE_CAPTURE_IN_2010_DISCOVERY_MANIFEST",
+    "auburn_contract_seed_2010": "136982",
+    "auburn_contract_seed_2011": "16591",
+    "auburn_seed_rule": "NEVER_TREAT_CONTRACT_SEEDS_AS_TAMU",
+    "phase_4_tamu_tranche_acquisition": "NOT_STARTED"
+  },
+  "expected_ncaa_endpoints": [
+    "box_score",
+    "play_by_play",
+    "drives",
+    "team_stats",
+    "individual_stats",
+    "officials"
+  ],
+  "domain_columns": [
+    "linescore_game_info",
+    "venue",
+    "attendance",
+    "officials",
+    "team_statistics",
+    "team_statistics_by_period",
+    "player_statistics",
+    "drives",
+    "play_by_play",
+    "scoring_summary",
+    "participation",
+    "roster_membership",
+    "pregame_availability"
+  ],
+  "payloads": {
+    "gamebook_root": "quarantine/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebooks",
+    "matrix_root": "features/tamu_official_evidence_gap_matrix/sha256"
+  },
+  "authority": {
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "name_only_promotion": false,
+    "historical_known_at_from_capture_time": false,
+    "participation_as_availability": false,
+    "membership_as_availability": false,
+    "historical_pit_admission": false,
+    "preliminary_training_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "tamu_specialization_lift_claims": false,
+    "bas_or_aggie_excess_claims": false
+  },
+  "negative_findings": [
+    "2010 and 2011 official schedule pages expose zero boxscore links. Contest IDs and boxscore IDs remain null.",
+    "NCAA 2010 team-season 137387 and 2011 team-season 137872 have dedicated discovery captures with empty contest_ids. That is not a Phase 4 acquisition.",
+    "Contract seeds 136982 and 16591 are Auburn and must never be treated as Texas A&M.",
+    "BAT-554 is a national sample of three non-TAMU contests and is not the TAMU 2010-2011 tranche.",
+    "Pregame availability remains unknown. Roster membership and postgame participation are not availability.",
+    "Capture time is not historical known-at.",
+    "Name-only opponent matches are not promoted to exact NCAA contest identity.",
+    "The matrix may be verified while acquisition gaps remain."
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-18T06:20:00Z",
+  "jira_key": "BAT-570",
+  "local_issue_id": "POST-TASK-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-001",
+  "parent_jira_key": "BAT-77",
+  "parent_local_id": "POST-STORY-027",
+  "related_jira_keys": ["BAT-523", "BAT-429", "BAT-548", "BAT-550", "BAT-554", "BAT-567"],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "acquisition_gaps_remain": true,
+  "completeness_claimed": false,
+  "contest_ids_fabricated": false,
+  "observable_outcome": "Cycle #7 Phase 3 built an identity-bound Texas A&M official-evidence gap matrix for scheduled games 2010-2025. 2010 and 2011 were parsed from cached Sidearm/WMT schedule HTML with zero boxscore links and zero contest IDs. NCAA 2010 team-season 137387 and 2011 team-season 137872 are dedicated discovery captures with empty contest_ids; contract seeds 136982 and 16591 remain Auburn. The 2011 Texas date conflict stayed UNRESOLVED_NAME_ONLY_NOT_PROMOTED. Pregame availability remains unknown. The matrix is verified while acquisition gaps remain. The protected lane remains RETAIN_PROTECTED_LANE_BLOCKED. Phase 4 TAMU NCAA tranche acquisition was not started.",
+  "outputs": [
+    {
+      "path": "artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json",
+      "bytes": 7274,
+      "sha256": "1d77603246d0f04f3e8f7cf3b8daabcc2cc037981511dbc4c36cc6e093472eb2",
+      "gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+      "matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa"
+    },
+    {
+      "path": "configs/tamu_official_evidence_gap_matrix_contract.json",
+      "bytes": 6194,
+      "sha256": "46ecc440235e79acc7b36a6a16e61dba4afb41f1b33b2d3bc9532b45e11419b5"
+    },
+    {
+      "path": "src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py",
+      "bytes": 40504,
+      "sha256": "83486013e17e5db7a3d6bc67b1fa105ad0672b2fb34bbe721ba2ff999cc6d128"
+    },
+    {
+      "path": "src/aggie_analytics/data/ncaa_contest_reconciliation.py",
+      "bytes": 42919,
+      "sha256": "d9322c7c42afa01b95faf2b828c41efa4871a4dc32ae22c0ea9a0882d0cb1368"
+    },
+    {
+      "path": "tools/build_tamu_official_evidence_gap_matrix.py",
+      "bytes": 1318,
+      "sha256": "5c6ac7d425905cfba4c5a0ad4184aa1f7d87287090234d89233290bb70e3bab6"
+    },
+    {
+      "path": "tools/validate_tamu_official_evidence_gap_matrix.py",
+      "bytes": 6224,
+      "sha256": "fe04ddb8e5a1ea333176692448192635a22fb381ca0417506968e8e9a22f71bf"
+    },
+    {
+      "path": "tests/test_tamu_official_evidence_gap_matrix.py",
+      "bytes": 15554,
+      "sha256": "a4abf5e4b6a5c2e3c63453728a42c57fd6cc444c38177c2f772af97042ca1114"
+    }
+  ],
+  "gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+  "matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa",
+  "payload_identity": "7b05afa89882158d14bf5145a9ffc511947a91d8919bb0b7ebf80d948328df6e",
+  "payload_location": "C:\\BatteredAggieSyndrome.data\\features\\tamu_official_evidence_gap_matrix\\sha256\\1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa\\game_rows.parquet",
+  "verified_identities": {
+    "wmt_acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "wmt_reconciliation_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "team_box_snapshot_dataset_identity": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
+    "player_box_snapshot_dataset_identity": "3df499e8f6d448624fc62af2a95505546483cc01aba84f19078ad72fd0d36af5",
+    "ncaa_official_acquisition_identity": "3e7163624cb05c77a9ac6e8ec089c8bacd4d8bd360693aa8b473ca1ec174bebf",
+    "roster_gate_identity": "53fd14a5ea8f43aaf51c9998141c90d13ac371e43c3f1ec502e871a185c35aa9",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "sidearm_schedule_html_2010_sha256": "4fb8159c477531e7ee653125198085f96e60719ec9050355a4e2d998a08f095b",
+    "sidearm_schedule_html_2011_sha256": "143d46bf93aa8a8ebb0818451c6ebf520af058fc0bf0f8f563c6dd808f99ca8f",
+    "ncaa_discovery_2010_identity": "585b753325dc15cd2662f2d74b34a586d000be3c7d54df6abb9321d53ff195aa",
+    "ncaa_discovery_2011_identity": "fb3ad5a2aa08606a5a263e19267e7aa341a87eef7f86c2998f59c77b67f58fac"
+  },
+  "reconstructed_counts": {
+    "scheduled_games_2010_2025": 203,
+    "games_2010": 13,
+    "games_2011": 13,
+    "games_2012_2025": 177,
+    "contest_ids_present": 0,
+    "contest_ids_fabricated": 0,
+    "name_only_promotions": 0,
+    "exact_2010_2011_candidates": 8,
+    "unresolved_or_conflict_2010_2011": 18,
+    "missing_ncaa_endpoints": 1218,
+    "pregame_availability_true": 0
+  },
+  "special_path_honesty": {
+    "sidearm_2010_boxscore_links": 0,
+    "sidearm_2011_boxscore_links": 0,
+    "january_2010_cotton_bowl_date": "2011-01-07",
+    "texas_2011_date_conflict": {
+      "sidearm_date": "2011-11-25",
+      "ncaa_legacy_date": "2011-11-24",
+      "reconciliation_state": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
+      "name_only_promotion": false,
+      "contest_id": null
+    },
+    "ncaa_site_hint_away_conflicts_recorded": true,
+    "tamu_2010_team_season_id": "137387",
+    "tamu_2011_team_season_id": "137872",
+    "auburn_contract_seeds": ["136982", "16591"],
+    "auburn_seeds_treated_as_tamu": false,
+    "phase_4_tamu_tranche_acquisition": "NOT_STARTED"
+  },
+  "admissions": {
+    "matrix_admission": "CANDIDATE_GAP_MATRIX_ONLY",
+    "ncaa_tamu_2010_2011_tranche": "NOT_ACQUIRED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY"
+  },
+  "protected_nonclaims": {
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_performance_claimed": false,
+    "champion_or_production_promotion": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "protected_lane_opened": false,
+    "contest_ids_fabricated": false
+  }
+}

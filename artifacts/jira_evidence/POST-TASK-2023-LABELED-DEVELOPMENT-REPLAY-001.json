@@ -71,6 +71,8 @@
       "bytes": 5867,
       "sha256": "86a5e658ca73ee99b845127a6a331ca4567665f304d915ab31bd2e1740549af6",
       "artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+      "identity_role": "superseded",
+      "superseded_by_current_identity": "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d",
       "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED"
     }
   ],
@@ -227,6 +229,8 @@
   ],
   "bat401_rebind": {
     "artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+    "identity_role": "superseded",
+    "superseded_by_current_identity": "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d",
     "supersedes_artifact_identity": "fee092379479569e5c654d58bcc9bf4df53a70e10ca49cfae71c6d74a7b0cab2",
     "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED"
   },

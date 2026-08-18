@@ -174,6 +174,58 @@ def main() -> int:
                 )()
             )
 
+        contract_path = root / "configs" / "artifact_binding_contract.json"
+        module_path = root / "src" / "aggie_analytics" / "validation" / "artifact_binding.py"
+        if contract_path.is_file() or module_path.is_file():
+            if not module_path.is_file():
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "artifact_binding",
+                            "path": "src/aggie_analytics/validation/artifact_binding.py",
+                            "detail": "missing artifact-binding validator module",
+                        },
+                    )()
+                )
+            else:
+                import importlib.util
+
+                spec = importlib.util.spec_from_file_location(
+                    "aggie_analytics_artifact_binding_strict",
+                    module_path,
+                )
+                if spec is None or spec.loader is None:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "artifact_binding",
+                                "path": str(module_path.relative_to(root)),
+                                "detail": "unable to load artifact-binding validator module",
+                            },
+                        )()
+                    )
+                else:
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    try:
+                        module.validate_artifact_bindings(root)
+                    except module.ArtifactBindingError as exc:
+                        findings.append(
+                            type(
+                                "F",
+                                (),
+                                {
+                                    "kind": "artifact_binding",
+                                    "path": exc.path or "configs/artifact_binding_contract.json",
+                                    "detail": str(exc),
+                                },
+                            )()
+                        )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

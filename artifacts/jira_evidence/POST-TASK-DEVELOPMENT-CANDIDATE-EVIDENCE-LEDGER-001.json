@@ -17,7 +17,7 @@
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Cycle #7 Phase 2 wrote generation-2 BAT-569 after the paired-game probability correction. Prior ledger b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43 is bound. Team-row Brier remains the decision authority. Unique-game metrics are SUPPORTING evidence only. prior_only stays CORE_REFERENCE (team-row Brier 0.23135006789663434). All previous negative development results are preserved. BAT-401 was rebound to 4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c and remains RETAIN_PROTECTED_LANE_BLOCKED. decide_candidates was not changed after seeing unique-game numbers.",
+  "observable_outcome": "Cycle #7 Phase 2 wrote generation-2 BAT-569 after the paired-game probability correction. Prior ledger b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43 is bound. Team-row Brier remains the decision authority. Unique-game metrics are SUPPORTING evidence only. prior_only stays CORE_REFERENCE (team-row Brier 0.23135006789663434). All previous negative development results are preserved. Cycle #8 Phase 1 corrected the BAT-401 bind: BAT-401 current identity is 2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d and remains RETAIN_PROTECTED_LANE_BLOCKED. Superseded BAT-401 identities 4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c and 3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3 are retained as historical only. decide_candidates was not changed after seeing unique-game numbers.",
   "outputs": [
     {
       "path": "artifacts/experimentation/development_candidate_evidence_ledger.json",
@@ -54,9 +54,9 @@
     },
     {
       "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
-      "bytes": 6795,
-      "sha256": "62364f8865ec0fd019ba9438f789fead5d15b69998419682746afdc7d548b431",
-      "artifact_identity": "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c"
+      "bytes": 7912,
+      "sha256": "be514e215666874783ce08a55f67a1efe33396990e743110dc53f60479d5715c",
+      "artifact_identity": "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d"
     }
   ],
   "contract_id": "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V2",
@@ -108,8 +108,13 @@
     "kickoff_time_bat566_replay": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
   },
   "bat401_rebound": {
-    "previous_artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
-    "artifact_identity": "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3",
+    "previous_artifact_identity": "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c",
+    "artifact_identity": "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d",
+    "superseded_identities": [
+      "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+      "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3",
+      "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c"
+    ],
     "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
     "issue_reopened": false
   },

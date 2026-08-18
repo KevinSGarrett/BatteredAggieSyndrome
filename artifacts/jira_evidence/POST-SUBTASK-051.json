@@ -1,14 +1,14 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-18T05:45:00Z",
+  "created_at_utc": "2026-08-18T17:40:00Z",
   "jira_key": "BAT-401",
   "local_issue_id": "POST-SUBTASK-051",
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Cycle #7 Phase 2 rebound BAT-401 after BAT-569 ledger 656032ff3fc9bdc90b359c4e8e0c801fb5847177052c17d125602c4eb57c7888 and BAT-568 rankings walk-forward 24c78874c69dd1fe0e84875451c7ef4a50e74d5381139194d7eee25ff05c969e were bound. The previous readiness identity 8c02e64b26b5aa2a8164b655b2056b4a9d1d41de6825fa0430551fd4104309dc is superseded. The issue stays DONE/VERIFIED because the gate was re-executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. No protected metrics were republished.",
-  "supersedes_artifact_identity": "8c02e64b26b5aa2a8164b655b2056b4a9d1d41de6825fa0430551fd4104309dc",
+  "observable_outcome": "Cycle #8 Phase 1 corrected BAT-401 authority-bearing evidence to the independently reconstructed identity 2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d. Cycle #7 current-claim 4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c and Cycle #6 rebound 3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3 are superseded. The previous readiness identity 8c02e64b26b5aa2a8164b655b2056b4a9d1d41de6825fa0430551fd4104309dc remains superseded. The issue stays DONE/VERIFIED because the gate was already performed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. No protected metrics were republished.",
+  "supersedes_artifact_identity": "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c",
   "prior_superseded_identities": [
     "6b4f85a9f5422ba05ea400fe39795f18ddaa3d37469d781d42d3b43725e9f31f",
     "5da7e995b340464491db23c8e805564e0da77ec595e638573f169337011818d4",
@@ -17,15 +17,16 @@
     "fee092379479569e5c654d58bcc9bf4df53a70e10ca49cfae71c6d74a7b0cab2",
     "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
     "8c02e64b26b5aa2a8164b655b2056b4a9d1d41de6825fa0430551fd4104309dc",
-    "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3"
+    "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3",
+    "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c"
   ],
   "outputs": [
     {
       "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
-      "bytes": 6795,
-      "sha256": "62364f8865ec0fd019ba9438f789fead5d15b69998419682746afdc7d548b431",
+      "bytes": 7912,
+      "sha256": "be514e215666874783ce08a55f67a1efe33396990e743110dc53f60479d5715c",
       "schema_version": "aggie.pit.replay_readiness.v1",
-      "artifact_identity": "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c"
+      "artifact_identity": "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d"
     },
     {
       "path": "src/aggie_analytics/validation/pit_replay_readiness.py",

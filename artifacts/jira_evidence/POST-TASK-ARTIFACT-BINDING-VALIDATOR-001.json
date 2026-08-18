@@ -1,0 +1,119 @@
+{
+  "bat401_bind": {
+    "artifact_identity": "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d",
+    "canonical_path": "artifacts/pit/PIT_REPLAY_READINESS.json",
+    "canonical_sha256": "be514e215666874783ce08a55f67a1efe33396990e743110dc53f60479d5715c",
+    "gap_005": "OPEN",
+    "issue_status": "DONE",
+    "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "producer": "python -B tools/evaluate_pit_replay_readiness.py --repo-root . --validate-only",
+    "protected_lane_admission": false,
+    "supersession_chain": [
+      "6b4f85a9f5422ba05ea400fe39795f18ddaa3d37469d781d42d3b43725e9f31f",
+      "5da7e995b340464491db23c8e805564e0da77ec595e638573f169337011818d4",
+      "cb78bd426927b079b35901d62da5dc95d9682d6a52f0c691a5cdee57e7ca0bc1",
+      "feb1adbdc0db93d22799e0d16002039494ff432572efbf42d06fb47a5fcd7853",
+      "fee092379479569e5c654d58bcc9bf4df53a70e10ca49cfae71c6d74a7b0cab2",
+      "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+      "8c02e64b26b5aa2a8164b655b2056b4a9d1d41de6825fa0430551fd4104309dc",
+      "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3",
+      "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c",
+      "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d"
+    ]
+  },
+  "created_at_utc": "2026-08-18T17:50:00Z",
+  "cycle": 8,
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned the Cycle #7 BAT-401/BAT-569 cross-surface identity contradiction repair or a general artifact-binding validator. BAT-401 remains the completed readiness gate. BAT-569 remains the development-candidate ledger.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-569",
+      "BAT-566",
+      "BAT-526"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-573",
+  "local_issue_id": "POST-TASK-ARTIFACT-BINDING-VALIDATOR-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #8 Phase 1 independently reconstructed BAT-401 identity 2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d and corrected authority-bearing BAT-401/BAT-569 evidence. A general cross-surface artifact-binding validator now fails closed on stale current, narrative, nested, superseded, missing, forged-outer, lane-open, and production-claim contradictions. BAT-401 stays DONE/VERIFIED. Lane stays RETAIN_PROTECTED_LANE_BLOCKED. GAP-005 stays OPEN.",
+  "outputs": [
+    {
+      "bytes": 4967,
+      "path": "configs/artifact_binding_contract.json",
+      "sha256": "c3e55526b1a919eac0055e7e5c39c730d306eba9296e642f187c7f35a2e92779"
+    },
+    {
+      "bytes": 16079,
+      "path": "src/aggie_analytics/validation/artifact_binding.py",
+      "sha256": "2bf1ad50a092042adbc82b2cfcf43a570856fd8854bb69c3a6fecf96de1b20a7"
+    },
+    {
+      "bytes": 857,
+      "path": "tools/validate_artifact_bindings.py",
+      "sha256": "a045626785f19036ff0cef8191f8e2ab0639bdca44ac0358417b7860f111524f"
+    },
+    {
+      "bytes": 11981,
+      "path": "tools/validate_repository.py",
+      "sha256": "1d05ec1bc1fcfdb4f0cf101c8646ef12386f63f099732aed4e9df3140d09ff05"
+    },
+    {
+      "bytes": 8739,
+      "path": "tests/test_artifact_bindings.py",
+      "sha256": "d494bf480ee9858a2fbd6b38c1a4138d7adc56e06c44c508a3fbe22812fdcb9e"
+    },
+    {
+      "artifact_identity": "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d",
+      "bytes": 7912,
+      "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
+      "sha256": "be514e215666874783ce08a55f67a1efe33396990e743110dc53f60479d5715c"
+    },
+    {
+      "bytes": 6137,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-051.json",
+      "sha256": "04405165d284133ee4f27e6b95303359b0464d5f4886361929fc708b8761088c"
+    },
+    {
+      "bytes": 6630,
+      "path": "artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json",
+      "sha256": "4e97c8146fc18fd7624b16dab24cc24eed13bc7551fcee9b07e164303eec7729"
+    },
+    {
+      "bytes": 11076,
+      "path": "artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json",
+      "sha256": "c331bb7b06a52d4f070fbfdc97989d94aa05441bbae22b6365167509f7909f90"
+    }
+  ],
+  "parent_jira_key": "BAT-401",
+  "phase": 1,
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "protected_lane_admission": false,
+    "protected_lane_opened": false,
+    "protected_metrics_republished": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false
+  },
+  "related_jira_keys": [
+    "BAT-401",
+    "BAT-569",
+    "BAT-566"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "9aab811cc20b129cbeabe64e9a5ab8894aa653ee",
+  "validation": {
+    "focused_test_command": "python -B -m pytest tests/test_artifact_bindings.py -q",
+    "focused_test_exit_code": 0,
+    "producer_command": "python -B tools/evaluate_pit_replay_readiness.py --repo-root . --validate-only",
+    "producer_exit_code": 0,
+    "validator_command": "python -B tools/validate_artifact_bindings.py --repo-root .",
+    "validator_exit_code": 0
+  },
+  "workflow_state": "IN_PROGRESS"
+}

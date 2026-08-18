@@ -41,6 +41,27 @@ LEGACY_OPPONENT_RE = re.compile(
     r'<a\b[^>]*href=["\']/teams/(\d+)["\'][^>]*>(.*?)</a>',
     re.DOTALL | re.IGNORECASE,
 )
+SIDEARM_TABLE_RE = re.compile(
+    r'<table\b[^>]*class="[^"]*schedule-events-table__table[^"]*"[^>]*>(.*?)</table>',
+    re.DOTALL | re.IGNORECASE,
+)
+SIDEARM_TBODY_RE = re.compile(r"<tbody\b[^>]*>(.*?)</tbody>", re.DOTALL | re.IGNORECASE)
+SIDEARM_ROW_RE = re.compile(r"<tr\b[^>]*>.*?</tr>", re.DOTALL | re.IGNORECASE)
+SIDEARM_NAME_RE = re.compile(
+    r'<strong class="([^"]*schedule-event-default__name[^"]*)"[^>]*>(.*?)</strong>',
+    re.DOTALL | re.IGNORECASE,
+)
+SIDEARM_DIVIDER_RE = re.compile(
+    r'<strong class="[^"]*schedule-event-default__divider[^"]*"[^>]*>(.*?)</strong>',
+    re.DOTALL | re.IGNORECASE,
+)
+SIDEARM_RECAP_RE = re.compile(
+    r'href="(/news/(\d{4})/(\d{1,2})/(\d{1,2})/[^"]+)"',
+    re.IGNORECASE,
+)
+SIDEARM_SCORE_RE = re.compile(r"\b(\d+)\s*-\s*(\d+)\b")
+SIDEARM_BOXSCORE_RE = re.compile(r'href="[^"]*box[_-]?score[^"]*"', re.IGNORECASE)
+SIDEARM_RANKING_PREFIX_RE = re.compile(r"^\(\s*#\s*\d+\s*\)\s*")
 
 
 def _polars() -> Any:
@@ -304,6 +325,113 @@ def parse_legacy_team_page(
         "source_team_name_normalized": normalize_team_name(owner_name),
         "legacy_scored_schedule_rows": len(rows),
         "source_page_raw_sha256": raw_sha256,
+    }, rows
+
+
+def parse_tamu_sidearm_schedule_page(
+    payload: str, *, season_title_year: int, raw_sha256: str
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Parse cached Sidearm/WMT schedule HTML without inventing contest IDs."""
+
+    rows: list[dict[str, Any]] = []
+    selected_table: str | None = None
+    for table in SIDEARM_TABLE_RE.findall(payload):
+        tbody = SIDEARM_TBODY_RE.search(table)
+        if tbody is None:
+            continue
+        body_rows = SIDEARM_ROW_RE.findall(tbody.group(1))
+        if body_rows:
+            selected_table = tbody.group(1)
+            break
+    if selected_table is None:
+        return {
+            "season_title_year": season_title_year,
+            "source_page_raw_sha256": raw_sha256,
+            "parsed_schedule_rows": 0,
+            "boxscore_link_count": 0,
+            "contest_ids_fabricated": False,
+        }, []
+
+    for block in SIDEARM_ROW_RE.findall(selected_table):
+        if SIDEARM_BOXSCORE_RE.search(block):
+            continue
+        recap = SIDEARM_RECAP_RE.search(block)
+        divider_match = SIDEARM_DIVIDER_RE.search(block)
+        if recap is None or divider_match is None:
+            continue
+        opponent_name = None
+        for classes, inner in SIDEARM_NAME_RE.findall(block):
+            if "schedule-event-default__name--current" in classes:
+                continue
+            opponent_name = _fragment_text(inner)
+            if opponent_name:
+                break
+        if not opponent_name:
+            continue
+        opponent_name = SIDEARM_RANKING_PREFIX_RE.sub("", opponent_name).strip()
+        if not opponent_name:
+            continue
+        recap_path, year_text, month_text, day_text = recap.groups()
+        # January bowls keep the recap URL year; do not inherit the title year.
+        observed_date = date(int(year_text), int(month_text), int(day_text)).isoformat()
+        divider = _fragment_text(divider_match.group(1)).lower().strip(".")
+        if divider == "at":
+            venue_state = "AWAY"
+        elif divider == "vs":
+            venue_state = "HOME_OR_NEUTRAL_UNKNOWN"
+        else:
+            venue_state = "VENUE_MARKER_UNKNOWN"
+        if re.search(r"schedule-event-item-result__win", block, re.IGNORECASE):
+            source_result = "W"
+        elif re.search(r"schedule-event-item-result__loss", block, re.IGNORECASE):
+            source_result = "L"
+        elif re.search(r"schedule-event-item-result__tie", block, re.IGNORECASE):
+            source_result = "T"
+        else:
+            source_result = None
+        label = re.search(
+            r'class="[^"]*schedule-event-item-result__label[^"]*"[^>]*>(.*?)</div>',
+            block,
+            re.DOTALL | re.IGNORECASE,
+        )
+        score = SIDEARM_SCORE_RE.search(_fragment_text(label.group(1)) if label else "")
+        if score is None:
+            continue
+        source_points = int(score.group(1))
+        opponent_points = int(score.group(2))
+        source_row_sha256 = hashlib.sha256(block.encode("utf-8")).hexdigest()
+        rows.append(
+            {
+                "legacy_source_row_identity": stable_hash(
+                    {
+                        "source_page_raw_sha256": raw_sha256,
+                        "source_row_sha256": source_row_sha256,
+                    }
+                ),
+                "source_row_sha256": source_row_sha256,
+                "contest_id": None,
+                "boxscore_id": None,
+                "season_title_year": season_title_year,
+                "source_team_name": "Texas A&M",
+                "source_team_name_normalized": normalize_team_name("Texas A&M"),
+                "opponent_team_name": opponent_name,
+                "opponent_team_name_normalized": normalize_team_name(opponent_name),
+                "source_schedule_date": observed_date,
+                "recap_path": recap_path,
+                "venue_state": venue_state,
+                "source_result": source_result,
+                "source_team_points": source_points,
+                "opponent_points": opponent_points,
+                "source_page_raw_sha256": raw_sha256,
+                "contest_id_fabricated": False,
+            }
+        )
+    return {
+        "season_title_year": season_title_year,
+        "source_page_raw_sha256": raw_sha256,
+        "parsed_schedule_rows": len(rows),
+        "boxscore_link_count": len(SIDEARM_BOXSCORE_RE.findall(selected_table)),
+        "contest_ids_fabricated": False,
     }, rows
 
 

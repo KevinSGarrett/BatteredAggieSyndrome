@@ -121,6 +121,21 @@
       "critical_path": true,
       "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-570",
+      "local_id": "POST-TASK-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-001",
+      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010–2011 official-evidence gaps.",
+      "issue_type": "Task",
+      "status": "In Progress",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "VERIFIED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

@@ -37,6 +37,7 @@ artifacts/data_lake/immutability_and_correction_test.json
 artifacts/data_lake/national_lake_readiness.json
 artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
+artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json
 artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
 artifacts/entities/canonical_core_registry.csv
 artifacts/entities/canonical_core_registry_manifest.json
@@ -166,6 +167,7 @@ artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
 artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
+artifacts/jira_evidence/POST-TASK-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
 artifacts/open_source/repository_review_decisions.csv
@@ -351,6 +353,7 @@ configs/sportsdataverse_post2022_roster_acquisition.json
 configs/supplemental_play_drive_gap_contract.json
 configs/tamu_availability_source_sample.json
 configs/tamu_no_adjustment_reference.json
+configs/tamu_official_evidence_gap_matrix_contract.json
 configs/tamu_specialization_registry.json
 configs/team_state_registry.json
 configs/temporal_registry.json
@@ -3109,6 +3112,7 @@ src/aggie_analytics/data/play_drive.py
 src/aggie_analytics/data/roster_reconciliation.py
 src/aggie_analytics/data/sec_availability.py
 src/aggie_analytics/data/snapshots.py
+src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
 src/aggie_analytics/entities/__init__.py
 src/aggie_analytics/entities/candidates.py
 src/aggie_analytics/entities/contracts.py
@@ -3386,6 +3390,7 @@ tests/test_roster_domain_completeness.py
 tests/test_sec_tamu_availability.py
 tests/test_source_access_smoke_results.py
 tests/test_supplemental_play_drive.py
+tests/test_tamu_official_evidence_gap_matrix.py
 tests/test_tamu_specialization_governance.py
 tests/test_team_state_governance.py
 tests/test_temporal_governance.py
@@ -3472,6 +3477,7 @@ tools/build_sec_tamu_availability_candidates.py
 tools/build_supplemental_play_drive_gap.py
 tools/build_tamu_availability_evidence_pages.py
 tools/build_tamu_depth_chart_noncoverage_review.py
+tools/build_tamu_official_evidence_gap_matrix.py
 tools/build_unified_assistive_release.py
 tools/build_versioned_play_drive_gap.py
 tools/build_wmt_provider_timestamp_pit.py
@@ -3643,6 +3649,7 @@ tools/validate_supplemental_play_drive_gap.py
 tools/validate_tamu_availability_evidence_pages.py
 tools/validate_tamu_availability_source_sample.py
 tools/validate_tamu_depth_chart_noncoverage_review.py
+tools/validate_tamu_official_evidence_gap_matrix.py
 tools/validate_tamu_specialization.py
 tools/validate_team_state.py
 tools/validate_temporal.py

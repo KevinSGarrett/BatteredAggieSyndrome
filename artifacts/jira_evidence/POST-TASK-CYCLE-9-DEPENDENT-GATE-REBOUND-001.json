@@ -1,0 +1,135 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_526": "REBUILT_IDENTITY_UNCHANGED",
+    "gap_005": "OPEN",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "bat401": {
+    "current_identity": "c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc",
+    "gap_005": "OPEN",
+    "issue_status": "DONE",
+    "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "supersedes_identity": "48147cf410bb0f6a23bca2c8387b533e636d63013b7bbf8603cf7edcd88f33f5"
+  },
+  "bat429_evaluation": {
+    "hard_dependencies": [
+      "POST-SUBTASK-063",
+      "POST-SUBTASK-066",
+      "POST-SUBTASK-069"
+    ],
+    "hard_dependency_states": {
+      "POST-SUBTASK-063": "BLOCKED",
+      "POST-SUBTASK-066": "BLOCKED",
+      "POST-SUBTASK-069": "BLOCKED"
+    },
+    "jira_key": "BAT-429",
+    "local_id": "POST-SUBTASK-079",
+    "ready_or_done": false,
+    "reason": "Official 2010/2011 school box scores do not satisfy POST-SUBTASK-063/066/069.",
+    "workflow_state": "BLOCKED"
+  },
+  "bat523": {
+    "jira_key": "BAT-523",
+    "status": "In Progress",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+    "wmt_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "parent_contract_satisfied": false
+  },
+  "bat526": {
+    "artifact_identity": "587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd",
+    "file_sha256": "6c66297accf4d365ef6bf158d8d17481c5955bc49ec6fe4a9cf28495f25fed1e",
+    "registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "registry_unaltered": true,
+    "rebuilt": true,
+    "identity_changed": false
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned Cycle #9 Phase 5 dependent-gate rebound plus Jira convergence. BAT-577 is Cycle #8 only. BAT-578 through BAT-581 own Phases 1-4. BAT-523 remains In Progress. BAT-429 remains blocked. BAT-401 remains DONE/VERIFIED. BAT-526 remains the protected-split audit owner.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-526",
+      "BAT-570",
+      "BAT-572",
+      "BAT-577",
+      "BAT-578",
+      "BAT-579",
+      "BAT-580",
+      "BAT-581",
+      "POST-SUBTASK-063",
+      "POST-SUBTASK-066",
+      "POST-SUBTASK-069",
+      "POST-SUBTASK-079"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "c7a4e67522a8097a777bfb0eada97509b36598c9",
+  "issue_complete": false,
+  "jira_key": "BAT-582",
+  "local_issue_id": "POST-TASK-CYCLE-9-DEPENDENT-GATE-REBOUND-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #9 Phase 5 rebound/consistency-checked dependent gates from clean origin/main c7a4e675 after BAT-581 merge. BAT-401 current identity is c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc and remains RETAIN_PROTECTED_LANE_BLOCKED. GAP-005 stays OPEN. BAT-526 independently reconstructed as 587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd with unchanged identity. Protected registry SHA is unchanged. BAT-523 stays In Progress after adding Cycle #9 child identities. BAT-429 stays blocked because POST-SUBTASK-063/066/069 remain BLOCKED. Live Jira import completed: 515 canonical + 21 auxiliary = 536 live issues, 1191 canonical links.",
+  "outputs": [
+    {
+      "bytes": 65438,
+      "path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "sha256": "23291642168d3a0e57ad8a65c377b99cc0a6214a40f938dfe3ca5fb1078714a0"
+    },
+    {
+      "bytes": 3666,
+      "path": "jira/project/JIRA_TARGET_PROFILE.yaml",
+      "sha256": "00641ce25cfc282b7721fa108f9172f04d6b7ac35af520c8412e713c62bf433f"
+    },
+    {
+      "bytes": 11997,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+      "sha256": "63bbe72f2b3e7042b3321e39d7539c2bec2d00de6e62eed8b60021098fc3a7ae"
+    },
+    {
+      "bytes": 106182,
+      "path": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+      "sha256": "4c1dd09107f68b3727df3477fa10a5d62356d5e3c3b067e4d68ddf8aa7355e80"
+    },
+    {
+      "bytes": 1884,
+      "path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+      "sha256": "c858b2f500ca0ab7df3a867f423b20d1a9c4ff7a4ec349a9deeb70079768806d"
+    },
+    {
+      "bytes": 175846,
+      "path": "artifacts/governance/protected_split_exposure_audit.json",
+      "sha256": "6c66297accf4d365ef6bf158d8d17481c5955bc49ec6fe4a9cf28495f25fed1e"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-581",
+    "BAT-401",
+    "BAT-526",
+    "BAT-429"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "c7a4e67522a8097a777bfb0eada97509b36598c9",
+  "workflow_state": "REVIEW"
+}

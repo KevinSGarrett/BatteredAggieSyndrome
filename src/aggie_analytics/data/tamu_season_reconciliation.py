@@ -137,6 +137,20 @@ def _require_identity(gate: Mapping[str, Any], field: str, expected: str, label:
         raise AuthorityViolation(f"{label} identity drifted: {observed}")
 
 
+def _require_bat572_cycle7_or_rebound(gate: Mapping[str, Any], expected_cycle7: str) -> None:
+    if gate.get("gate_identity") == expected_cycle7:
+        return
+    superseded = (gate.get("input_identities") or {}).get("supersedes_cycle7_gate_identity")
+    if superseded != expected_cycle7:
+        raise AuthorityViolation(f"BAT-572 gate identity drifted: {gate.get('gate_identity')}")
+    if gate.get("counts", {}).get("verified_official"):
+        raise AuthorityViolation("rebound BAT-572 inflated VERIFIED_OFFICIAL")
+    if int((gate.get("counts") or {}).get("contest_ids_present", -1)) != 0:
+        raise AuthorityViolation("rebound BAT-572 fabricated contest IDs")
+    if gate.get("protected_lane") != PROTECTED_LANE:
+        raise AuthorityViolation("rebound BAT-572 opened the protected lane")
+
+
 def _ncaa_schedule(phase2_manifest: Mapping[str, Any], season: int) -> list[dict[str, Any]]:
     for page in phase2_manifest.get("pages") or []:
         if page.get("season") == season and page.get("page_family") == "team":
@@ -191,7 +205,7 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
     _require_identity(bat570, "matrix_identity", identities["bat570_matrix_identity"], "BAT-570 matrix")
     _require_identity(bat571, "gate_identity", identities["bat571_gate_identity"], "BAT-571 gate")
     _require_identity(bat571, "acquisition_identity", identities["bat571_acquisition_identity"], "BAT-571 acquisition")
-    _require_identity(bat572, "gate_identity", identities["bat572_gate_identity"], "BAT-572 gate")
+    _require_bat572_cycle7_or_rebound(bat572, identities["bat572_gate_identity"])
     registry = repo_root / "governance/PROTECTED_SPLIT_REGISTRY.csv"
     if hashlib.sha256(registry.read_bytes()).hexdigest() != identities["protected_split_registry_sha256"]:
         raise AuthorityViolation("protected-split registry identity drift")
@@ -343,7 +357,7 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
                 _comparison(
                     season=season,
                     domain=domain,
-                    sources={"ncaa_phase2": phase2["gate_identity"], "bat571": bat571["gate_identity"], "bat572": bat572["gate_identity"]},
+                    sources={"ncaa_phase2": phase2["gate_identity"], "bat571": bat571["gate_identity"], "bat572": identities["bat572_gate_identity"]},
                     raw_values={"contest_ids": 0, "wmt_2010_2011": "SOURCE_EVIDENCE_ABSENT_GAP_SEASONS"},
                     normalized=None,
                     agreement_rule="absent_or_temporally_ineligible_fail_closed",
@@ -390,7 +404,7 @@ def rebuild_expected(*, data_root: Path, repo_root: Path, issued_at_utc: str) ->
             "bat570_matrix_identity": bat570["matrix_identity"],
             "bat571_gate_identity": bat571["gate_identity"],
             "bat571_acquisition_identity": bat571["acquisition_identity"],
-            "bat572_gate_identity": bat572["gate_identity"],
+            "bat572_gate_identity": identities["bat572_gate_identity"],
             "sidearm_schedule_html_2010_sha256": identities["sidearm_schedule_html_2010_sha256"],
             "sidearm_schedule_html_2011_sha256": identities["sidearm_schedule_html_2011_sha256"],
             "protected_split_registry_sha256": identities["protected_split_registry_sha256"],

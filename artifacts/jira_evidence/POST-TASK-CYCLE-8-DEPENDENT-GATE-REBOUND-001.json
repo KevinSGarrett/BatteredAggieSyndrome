@@ -1,0 +1,153 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_526": "REBUILT_IDENTITY_UNCHANGED",
+    "bat_572": "REBOUND_PER_GAME_CANDIDATE_ONLY",
+    "contest_route": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "bat401": {
+    "current_identity": "48147cf410bb0f6a23bca2c8387b533e636d63013b7bbf8603cf7edcd88f33f5",
+    "file_sha256": "b418678b15ad7f0c7ea5b4db94f812cf3bf843e9d3987217ab1d7ea26674d5d6",
+    "gap_005": "OPEN",
+    "issue_status": "DONE",
+    "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "supersedes_identity": "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d"
+  },
+  "bat429_evaluation": {
+    "hard_dependencies": [
+      "POST-SUBTASK-063",
+      "POST-SUBTASK-066",
+      "POST-SUBTASK-069"
+    ],
+    "hard_dependency_states": {
+      "POST-SUBTASK-063": "BLOCKED",
+      "POST-SUBTASK-066": "BLOCKED",
+      "POST-SUBTASK-069": "BLOCKED"
+    },
+    "jira_key": "BAT-429",
+    "local_id": "POST-SUBTASK-079",
+    "ready_or_done": false,
+    "workflow_state": "BLOCKED"
+  },
+  "bat526": {
+    "artifact_identity": "587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd",
+    "file_sha256": "6c66297accf4d365ef6bf158d8d17481c5955bc49ec6fe4a9cf28495f25fed1e",
+    "registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "registry_unaltered": true
+  },
+  "bat572": {
+    "contest_route_disposition": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+    "gate_identity": "b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678",
+    "payload_sha256": "bcf662d21f3a7bcc70bf2382efe595f5be89065cacad68f344b2cbbe47e23ef0",
+    "per_game_verified_official": 0,
+    "season_level_grain": "SEASON_LEVEL_NOT_PER_GAME",
+    "supersedes_gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned Cycle #8 Phase 5 rebound of dependent gates plus Jira convergence. BAT-572 remains the Cycle #7 per-game domain-gate owner; this unit rebounds that artifact from independently validated BAT-574/575/576 inputs without reopening BAT-572 as the work owner. BAT-401 remains DONE/VERIFIED. BAT-526 remains the protected-split audit owner. BAT-523 remains In Progress. BAT-429 remains blocked.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-526",
+      "BAT-546",
+      "BAT-547",
+      "BAT-554",
+      "BAT-567",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-573",
+      "BAT-574",
+      "BAT-575",
+      "BAT-576",
+      "POST-STORY-027",
+      "POST-SUBTASK-016",
+      "POST-SUBTASK-022",
+      "POST-SUBTASK-037",
+      "POST-SUBTASK-063",
+      "POST-SUBTASK-066",
+      "POST-SUBTASK-069",
+      "POST-SUBTASK-070",
+      "POST-SUBTASK-081",
+      "POST-SUBTASK-190",
+      "POST-SUBTASK-197",
+      "TASK-193"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-577",
+  "local_issue_id": "POST-TASK-CYCLE-8-DEPENDENT-GATE-REBOUND-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #8 Phase 5 rebound the BAT-572 per-game domain gate to identity b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678 from independently validated BAT-574/BAT-575/BAT-576 inputs. Per-game NCAA domains remain SOURCE_EVIDENCE_ABSENT with 0 contest IDs and 0 contest-endpoint attempts. Season-level admissions remain SEASON_LEVEL_NOT_PER_GAME. BAT-401 current identity is 48147cf410bb0f6a23bca2c8387b533e636d63013b7bbf8603cf7edcd88f33f5 and remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-526 independently reconstructed as 587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd. Protected registry SHA is unchanged. BAT-523 stays In Progress. BAT-429 stays blocked because POST-SUBTASK-063/066/069 are not DONE/VERIFIED.",
+  "outputs": [
+    {
+      "bytes": 6605,
+      "path": "configs/tamu_cross_source_domain_gate_contract.json",
+      "sha256": "cf3fc7dee3e4672a89f6ee97735ba8fffced8f8aa6dcf6d0a9f4d04f034c8f57"
+    },
+    {
+      "bytes": 42994,
+      "path": "src/aggie_analytics/data/tamu_cross_source_domain_gate.py",
+      "sha256": "6f1ed7a3d99e85d7dc7e7695e949930e464af241c04cef103e8b9ec76e3281cc"
+    },
+    {
+      "bytes": 28318,
+      "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
+      "sha256": "054630f7eefc02f0ea3c8b900d7a0093146c6b5fbd603d9d1ee6d3a1653733c7"
+    },
+    {
+      "bytes": 33988,
+      "path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
+      "sha256": "2b493399fdd0cfe9087af8cce563e9e64341b341e9637b3f19962e9f50ea8d1a"
+    },
+    {
+      "artifact_identity": "48147cf410bb0f6a23bca2c8387b533e636d63013b7bbf8603cf7edcd88f33f5",
+      "bytes": 8938,
+      "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
+      "sha256": "b418678b15ad7f0c7ea5b4db94f812cf3bf843e9d3987217ab1d7ea26674d5d6"
+    },
+    {
+      "artifact_identity": "587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd",
+      "bytes": 175846,
+      "path": "artifacts/governance/protected_split_exposure_audit.json",
+      "sha256": "6c66297accf4d365ef6bf158d8d17481c5955bc49ec6fe4a9cf28495f25fed1e"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "per_game_official_completion_claimed": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "season_total_promoted_to_per_game_official": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-572",
+    "BAT-401",
+    "BAT-526",
+    "BAT-429",
+    "BAT-574",
+    "BAT-575",
+    "BAT-576"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "404cde608ae0abe01cc81d048cba0b17f82624c6",
+  "workflow_state": "IN_PROGRESS"
+}

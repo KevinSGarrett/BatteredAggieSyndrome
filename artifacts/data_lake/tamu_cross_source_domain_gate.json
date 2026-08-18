@@ -2,11 +2,15 @@
   "admissions": {
     "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
     "bat_523": "IN_PROGRESS",
+    "contest_route": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
     "gate_admission": "CANDIDATE_ONLY",
     "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
     "ncaa_official": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
+    "ncaa_official_per_game": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
+    "ncaa_team_season": "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
     "pregame_availability": "BLOCKED",
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "season_reconciliation": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
     "sidearm_schedule": "CANDIDATE_ONLY",
     "wmt_gamebook": "SOURCE_EVIDENCE_ABSENT_GAP_SEASONS"
   },
@@ -43,6 +47,7 @@
     "workflow_state": "BLOCKED"
   },
   "classification": "TAMU_2010_2011_CROSS_SOURCE_DOMAIN_CANDIDATE_ONLY",
+  "contest_route_disposition": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
   "contract_id": "BAT-572-TAMU-CROSS-SOURCE-DOMAIN-GATE-V1",
   "counts": {
     "by_decision": {
@@ -73,8 +78,10 @@
     "verified_official": 0
   },
   "decision_unit": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
-  "gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+  "gate_identity": "b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678",
   "input_identities": {
+    "contest_route_gate_identity": "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb",
+    "contest_route_manifest_identity": "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb",
     "ncaa_official_national_acquisition_identity": "3e7163624cb05c77a9ac6e8ec089c8bacd4d8bd360693aa8b473ca1ec174bebf",
     "phase3_gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
     "phase3_matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa",
@@ -82,22 +89,29 @@
     "player_box_snapshot_dataset_identity": "3df499e8f6d448624fc62af2a95505546483cc01aba84f19078ad72fd0d36af5",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
     "roster_gate_identity": "53fd14a5ea8f43aaf51c9998141c90d13ac371e43c3f1ec502e871a185c35aa9",
+    "season_reconciliation_gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
+    "supersedes_cycle7_gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
     "team_box_snapshot_dataset_identity": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
+    "team_season_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
     "wmt_acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
     "wmt_reconciliation_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
   },
-  "issued_at_utc": "2026-08-18T07:30:00Z",
+  "issued_at_utc": "2026-08-18T21:00:00Z",
   "jira_key": "BAT-572",
   "payload": {
     "row_count": 338,
-    "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_cross_source_domain_gate\\sha256\\418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3\\domain_rows.json",
-    "sha256": "443fa927960b67e20d46bc2282029815f3e34d56b09b71e284bd8099858fb950"
+    "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_cross_source_domain_gate\\sha256\\b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678\\domain_rows.json",
+    "sha256": "bcf662d21f3a7bcc70bf2382efe595f5be89065cacad68f344b2cbbe47e23ef0"
   },
   "phase4_disposition": "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "rebound_jira_key": "BAT-577",
   "remaining_blockers": [
     "NCAA_CONTEST_IDS_EMPTY_FOR_TAMU_2010_2011",
     "NCAA_CONTEST_ENDPOINTS_NOT_ATTEMPTED",
+    "NCAA_CONTEST_ROUTE_ACCESS_BLOCKED",
+    "SEASON_LEVEL_NOT_PER_GAME_OFFICIAL",
+    "TEXAS_2011_DATE_UNRESOLVED_NAME_ONLY",
     "WMT_GAMEBOOK_ABSENT_FOR_2010_2011",
     "NO_VERIFIED_OFFICIAL_POSTGAME_FACT",
     "NO_PREGAME_AVAILABILITY_EVIDENCE",
@@ -471,5 +485,86 @@
     "trained_production_champion": false,
     "verified_cross_source_claimed": false,
     "verified_official_claimed": false
+  },
+  "season_level_admissions": {
+    "by_classification": {
+      "CONFLICT_REVIEW_REQUIRED": 3,
+      "NOT_APPLICABLE_TO_SEASON_SUMMARY": 4,
+      "OFFICIAL_ROUTE_ACCESS_BLOCKED": 6,
+      "SOURCE_EVIDENCE_ABSENT": 8,
+      "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE": 2,
+      "VERIFIED_CROSS_SOURCE": 3,
+      "VERIFIED_OFFICIAL_SEASON_LEVEL": 4
+    },
+    "development_pit_eligible_season_dates_2010": true,
+    "disposition": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+    "domains": {
+      "attendance": {
+        "2010": "NOT_APPLICABLE_TO_SEASON_SUMMARY",
+        "2011": "NOT_APPLICABLE_TO_SEASON_SUMMARY"
+      },
+      "dates": {
+        "2010": "VERIFIED_CROSS_SOURCE",
+        "2011": "CONFLICT_REVIEW_REQUIRED"
+      },
+      "drives": {
+        "2010": "SOURCE_EVIDENCE_ABSENT",
+        "2011": "SOURCE_EVIDENCE_ABSENT"
+      },
+      "officials": {
+        "2010": "NOT_APPLICABLE_TO_SEASON_SUMMARY",
+        "2011": "NOT_APPLICABLE_TO_SEASON_SUMMARY"
+      },
+      "opponent_identity": {
+        "2010": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "2011": "CONFLICT_REVIEW_REQUIRED"
+      },
+      "participation": {
+        "2010": "SOURCE_EVIDENCE_ABSENT",
+        "2011": "SOURCE_EVIDENCE_ABSENT"
+      },
+      "play_by_play": {
+        "2010": "SOURCE_EVIDENCE_ABSENT",
+        "2011": "SOURCE_EVIDENCE_ABSENT"
+      },
+      "player_season_statistics": {
+        "2010": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "2011": "OFFICIAL_ROUTE_ACCESS_BLOCKED"
+      },
+      "points_for_against": {
+        "2010": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "2011": "VERIFIED_OFFICIAL_SEASON_LEVEL"
+      },
+      "pregame_availability": {
+        "2010": "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE",
+        "2011": "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE"
+      },
+      "roster_membership": {
+        "2010": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "2011": "OFFICIAL_ROUTE_ACCESS_BLOCKED"
+      },
+      "schedule_game_count": {
+        "2010": "VERIFIED_CROSS_SOURCE",
+        "2011": "VERIFIED_CROSS_SOURCE"
+      },
+      "team_season_statistics": {
+        "2010": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "2011": "OFFICIAL_ROUTE_ACCESS_BLOCKED"
+      },
+      "venues": {
+        "2010": "SOURCE_EVIDENCE_ABSENT",
+        "2011": "SOURCE_EVIDENCE_ABSENT"
+      },
+      "wins_losses_ties": {
+        "2010": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "2011": "CONFLICT_REVIEW_REQUIRED"
+      }
+    },
+    "grain": "SEASON_LEVEL_NOT_PER_GAME",
+    "membership_as_availability": false,
+    "participation_as_availability": false,
+    "per_game_verified_official": false,
+    "pregame_availability_admitted": false,
+    "texas_2011": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED"
   }
 }

@@ -14,6 +14,8 @@ from aggie_analytics.data.tamu_cross_source_domain_gate import (  # noqa: E402
     ADMITTED_DECISIONS,
     BAT429_BLOCKED_REASON,
     BAT429_UNBLOCK,
+    CONTEST_ROUTE_DISPOSITION,
+    CONTEST_ROUTE_GATE_IDENTITY,
     CONTRACT_ID,
     DOMAIN_COLUMNS,
     NCAA_NATIONAL_IDENTITY,
@@ -22,6 +24,8 @@ from aggie_analytics.data.tamu_cross_source_domain_gate import (  # noqa: E402
     PHASE4_ACQUISITION_IDENTITY,
     PHASE4_DISPOSITION,
     PROTECTED_LANE,
+    SEASON_RECON_GATE_IDENTITY,
+    TEAM_SEASON_GATE_IDENTITY,
     AuthorityViolation,
     build_domain_rows,
     compute_gate_identity,
@@ -31,6 +35,7 @@ from aggie_analytics.data.tamu_cross_source_domain_gate import (  # noqa: E402
     expected_scientific_nonclaims,
     inspect_bat429,
     load_contract,
+    load_json,
     validate_artifact,
 )
 
@@ -84,12 +89,19 @@ def _synthetic_expected() -> dict[str, object]:
     games = _synthetic_games()
     rows = build_domain_rows(games)
     bat_429 = inspect_bat429(ROOT)
+    season_recon = load_json(ROOT / "artifacts" / "data_lake" / "tamu_2010_2011_season_reconciliation_gate.json")
     return {
         "contract": contract,
         "games": games,
         "rows": rows,
         "bat_429": bat_429,
-        "gate": expected_gate_document(contract=contract, rows=rows, bat_429=bat_429),
+        "season_recon": season_recon,
+        "gate": expected_gate_document(
+            contract=contract,
+            rows=rows,
+            bat_429=bat_429,
+            season_recon=season_recon,
+        ),
     }
 
 
@@ -193,6 +205,29 @@ class MutationTests(unittest.TestCase):
     def test_protected_lane_opened_rejected(self) -> None:
         self._reject(self._mutated_gate(protected_lane="OPEN_PROTECTED_LANE"))
 
+    def test_missing_cycle8_bind_rejected(self) -> None:
+        identities = dict(self.gate["input_identities"])
+        identities.pop("contest_route_gate_identity")
+        self._reject(self._mutated_gate(input_identities=identities))
+
+    def test_season_total_promoted_to_per_game_official_rejected(self) -> None:
+        season_level = dict(self.gate["season_level_admissions"])
+        season_level["per_game_verified_official"] = True
+        self._reject(self._mutated_gate(season_level_admissions=season_level))
+
+    def test_membership_promoted_to_availability_rejected(self) -> None:
+        season_level = dict(self.gate["season_level_admissions"])
+        season_level["membership_as_availability"] = True
+        self._reject(self._mutated_gate(season_level_admissions=season_level))
+
+    def test_name_only_texas_promotion_rejected(self) -> None:
+        season_level = dict(self.gate["season_level_admissions"])
+        season_level["texas_2011"] = "VERIFIED_CROSS_SOURCE"
+        self._reject(self._mutated_gate(season_level_admissions=season_level))
+
+    def test_forged_completion_after_rehash_rejected(self) -> None:
+        self._reject(self._mutated_gate(result="FORGED_PER_GAME_OFFICIAL_COMPLETE"))
+
 
 class LiveArtifactTests(unittest.TestCase):
     def test_contract_and_bat429_classification(self) -> None:
@@ -206,6 +241,13 @@ class LiveArtifactTests(unittest.TestCase):
             NCAA_NATIONAL_IDENTITY,
         )
         self.assertEqual(contract["identities"]["phase4_disposition"], PHASE4_DISPOSITION)
+        self.assertEqual(contract["identities"]["team_season_gate_identity"], TEAM_SEASON_GATE_IDENTITY)
+        self.assertEqual(
+            contract["identities"]["season_reconciliation_gate_identity"],
+            SEASON_RECON_GATE_IDENTITY,
+        )
+        self.assertEqual(contract["identities"]["contest_route_gate_identity"], CONTEST_ROUTE_GATE_IDENTITY)
+        self.assertEqual(contract["identities"]["contest_route_disposition"], CONTEST_ROUTE_DISPOSITION)
         self.assertFalse(contract["authority"]["verified_official_inflation"])
         bat_429 = inspect_bat429(ROOT)
         self.assertEqual(bat_429["blocked_reason"], BAT429_BLOCKED_REASON)
@@ -235,6 +277,12 @@ class LiveArtifactTests(unittest.TestCase):
         self.assertEqual(expected["gate"]["counts"]["scheduled_games"], 26)
         self.assertEqual(expected["gate"]["counts"]["verified_official"], 0)
         self.assertEqual(expected["gate"]["phase4_disposition"], PHASE4_DISPOSITION)
+        self.assertEqual(expected["gate"]["contest_route_disposition"], CONTEST_ROUTE_DISPOSITION)
+        self.assertEqual(
+            expected["gate"]["season_level_admissions"]["grain"],
+            "SEASON_LEVEL_NOT_PER_GAME",
+        )
+        self.assertFalse(expected["gate"]["season_level_admissions"]["per_game_verified_official"])
         self.assertEqual(expected["gate"]["protected_lane"], PROTECTED_LANE)
         self.assertEqual(expected["gate"]["authority"], expected_authority())
         self.assertEqual(expected["gate"]["scientific_nonclaims"], expected_scientific_nonclaims())

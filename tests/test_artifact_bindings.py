@@ -28,7 +28,7 @@ EVIDENCE_401 = Path("artifacts") / "jira_evidence" / "POST-SUBTASK-051.json"
 EVIDENCE_569 = Path("artifacts") / "jira_evidence" / "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json"
 EVIDENCE_566 = Path("artifacts") / "jira_evidence" / "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json"
 CONTRACT = Path("configs") / "artifact_binding_contract.json"
-CURRENT = "2c757e66e1d7d70a1146c3162058561ea4f0b7af520ed6b8eb95bc2badc1116d"
+CURRENT = "48147cf410bb0f6a23bca2c8387b533e636d63013b7bbf8603cf7edcd88f33f5"
 STALE_NARRATIVE = "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c"
 STALE_REBOUND = "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3"
 

@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-571-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-V1",
+  "decision_unit": "POST-TASK-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-001",
+  "jira_key": "BAT-571",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": ["BAT-570", "BAT-523", "BAT-429", "BAT-554"],
+  "bat_554_policy": "RELATES_ONLY_DO_NOT_REOPEN",
+  "classification": "TAMU_2010_2011_NCAA_OFFICIAL_CANDIDATE_ONLY",
+  "run_id": "BAT-571-TAMU-2010-2011-NCAA-OFFICIAL-V1",
+  "purpose": "Acquire first-class dedicated 2010-2011 Texas A&M NCAA official team-page evidence, reconcile every target to the Phase 3 scheduled-game population, and attempt contest endpoints only when official contest IDs are present. Invented contest IDs are forbidden. Honest-negative LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS is allowed.",
+  "season_min": 2010,
+  "season_max": 2011,
+  "tamu_seeds": {
+    "2010": "137387",
+    "2011": "137872"
+  },
+  "excluded_auburn_seeds": ["136982", "16591"],
+  "phase3": {
+    "jira_key": "BAT-570",
+    "decision_unit": "POST-TASK-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-001",
+    "matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa",
+    "gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+    "gate_relative_path": "artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json",
+    "payload_relative_path": "features/tamu_official_evidence_gap_matrix/sha256/1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa/game_rows.parquet"
+  },
+  "transport_reuse": {
+    "contract_relative_path": "configs/ncaa_official_gamebook_contract.json",
+    "policy": "READ_ONLY_DO_NOT_MUTATE",
+    "national_run_id": "BAT-554-NCAA-OFFICIAL-BOUNDED-V1",
+    "national_jira_key": "BAT-554"
+  },
+  "lake_html": {
+    "2010": {
+      "team_season_id": "137387",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_discovery/3cdb205a98242b335cc742a81ddbc66f4352bf0ce68387130d17534e5f3712d7.html",
+      "raw_sha256": "3cdb205a98242b335cc742a81ddbc66f4352bf0ce68387130d17534e5f3712d7",
+      "prior_graph_discovery_identity": "585b753325dc15cd2662f2d74b34a586d000be3c7d54df6abb9321d53ff195aa",
+      "prior_capture_class": "MEMBER_OF_AUBURN_SEEDED_GRAPH_NOT_DEDICATED_TAMU_MANIFEST",
+      "first_class_required": true
+    },
+    "2011": {
+      "team_season_id": "137872",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_discovery/aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3.html",
+      "raw_sha256": "aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3",
+      "prior_graph_discovery_identity": "fb3ad5a2aa08606a5a263e19267e7aa341a87eef7f86c2998f59c77b67f58fac",
+      "prior_capture_class": "EXISTING_LAKE_DISCOVERY_REUSED_INTO_DEDICATED_TAMU_MANIFEST",
+      "first_class_required": false
+    }
+  },
+  "expected_ncaa_endpoints": [
+    "box_score",
+    "play_by_play",
+    "drives",
+    "team_stats",
+    "individual_stats",
+    "officials"
+  ],
+  "honest_negative_disposition": "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS",
+  "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+  "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+  "payloads": {
+    "acquisition_root": "manifests/acquisition/BAT-571-TAMU-2010-2011-NCAA-OFFICIAL-V1",
+    "normalized_root": "features/tamu_2010_2011_ncaa_official_acquisition/sha256"
+  },
+  "authority": {
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "name_only_promotion": false,
+    "national_crawl": false,
+    "id_range_sweep": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "preliminary_training_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "availability_claim": false,
+    "tamu_specialization_lift_claims": false,
+    "bas_or_aggie_excess_claims": false,
+    "bat_554_reopen": false
+  },
+  "negative_findings": [
+    "Auburn contract seeds 136982 and 16591 are excluded and must never be treated as Texas A&M.",
+    "BAT-554 remains RELATES_ONLY_DO_NOT_REOPEN. This unit does not mutate the national NCAA contract or reopen that issue.",
+    "2010 team-season 137387 is acquired as a dedicated TAMU-seeded capture. Membership inside the Auburn-seeded 2010 graph is not a dedicated TAMU discovery manifest.",
+    "2011 team-season 137872 already has lake discovery with empty contest_ids and is reused into a dedicated TAMU-seeded manifest.",
+    "If official team pages remain LEGACY_SCHEDULE_RESULT_ROW with empty contest_ids after governed routes, disposition is LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS and contest IDs stay null.",
+    "Name-only opponent matches are not promoted to contest identity.",
+    "Capture time is not historical known-at. This acquisition is candidate-only."
+  ]
+}

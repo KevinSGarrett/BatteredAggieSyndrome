@@ -1,0 +1,100 @@
+{
+  "acquisition_gaps_remain": true,
+  "acquisition_identity": "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd94ed6b83f21ae8f",
+  "admissions": {
+    "acquisition_admission": "CANDIDATE_ONLY",
+    "bat_554": "RELATES_ONLY_DO_NOT_REOPEN",
+    "disposition": "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "completeness_claimed": false,
+  "contest_ids_fabricated": false,
+  "counts": {
+    "contest_ids_2010": 0,
+    "contest_ids_2011": 0,
+    "contest_ids_fabricated": 0,
+    "contest_ids_present": 0,
+    "disposition": "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS",
+    "endpoint_attempts": 0,
+    "games_2010": 13,
+    "games_2011": 13,
+    "legacy_schedule_records_2010": 13,
+    "legacy_schedule_records_2011": 13,
+    "name_only_promotions": 0,
+    "name_only_unpromoted": 1,
+    "phase3_targets": 26
+  },
+  "disposition": "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "gate_identity": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
+  "issue_complete": true,
+  "jira_key": "BAT-571",
+  "local_issue_id": "POST-TASK-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #7 Phase 4 acquired dedicated 2010-2011 Texas A&M NCAA official team-page evidence for seeds 137387 and 137872, reconciled all 26 Phase 3 scheduled games, and did not invent contest IDs. Disposition LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS. BAT-554 remains relates-only. Protected lane stays RETAIN_PROTECTED_LANE_BLOCKED. Candidate-only.",
+  "outputs": [
+    {
+      "bytes": 4677,
+      "path": "artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json",
+      "sha256": "0b1fbc4789e5b1d9f61257ba1b19e01c7b13eed83160c93873d9cffb33d09f38"
+    },
+    {
+      "bytes": 5121,
+      "path": "configs/tamu_2010_2011_ncaa_official_acquisition_contract.json",
+      "sha256": "3e0573937d42ca2731f5ea0374c16da03b784b16790f8d684b1d591e213eb676"
+    },
+    {
+      "bytes": 37301,
+      "path": "src/aggie_analytics/data/tamu_2010_2011_ncaa_official_acquisition.py",
+      "sha256": "f30cfbaa4a1a76cd32418503b47b8b9b91e4689f02620f6934c4c596addfdc3f"
+    },
+    {
+      "bytes": 1422,
+      "path": "tools/build_tamu_2010_2011_ncaa_official_acquisition.py",
+      "sha256": "e8db7d0b7a9572a79cd265e55e373e5b14c0ffc621ba092bfc2fd36fcec1451b"
+    },
+    {
+      "bytes": 4551,
+      "path": "tools/validate_tamu_2010_2011_ncaa_official_acquisition.py",
+      "sha256": "9f573f9e378122463f7b253a162111f1e4ee4e45117205cbbe5fe4c6fba24b05"
+    },
+    {
+      "bytes": 12726,
+      "path": "tests/test_tamu_2010_2011_ncaa_official_acquisition.py",
+      "sha256": "473fa823ff4ed5697d0982d968bbadf6886edfe3eb95273840d527c1049b3033"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "phase3_identities": {
+    "gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+    "matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa"
+  },
+  "protected_nonclaims": {
+    "availability_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_outcome_authority": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false
+  },
+  "related_jira_keys": [
+    "BAT-570",
+    "BAT-523",
+    "BAT-429",
+    "BAT-554"
+  ],
+  "schema_version": "2.1.0",
+  "workflow_state": "IN_PROGRESS"
+}

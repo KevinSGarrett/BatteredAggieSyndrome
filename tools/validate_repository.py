@@ -226,6 +226,55 @@ def main() -> int:
                             )()
                         )
 
+        team_season_gate = root / "artifacts" / "data_lake" / "tamu_2010_2011_ncaa_team_season_evidence_gate.json"
+        team_season_module = root / "src" / "aggie_analytics" / "data" / "tamu_ncaa_team_season_evidence.py"
+        if team_season_gate.is_file() and team_season_module.is_file():
+            import importlib.util
+            import os
+
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_team_season_evidence_strict",
+                team_season_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_team_season_evidence",
+                            "path": "src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py",
+                            "detail": "unable to load team-season evidence validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = (
+                    (data_root / "raw/SRC-015/ncaa_team_season_discovery").is_dir()
+                    and (data_root / "features/tamu_2010_2011_ncaa_team_season_evidence").is_dir()
+                )
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=lake_ready,
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_team_season_evidence",
+                                "path": "artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

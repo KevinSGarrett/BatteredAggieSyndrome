@@ -1,0 +1,317 @@
+{
+  "admissions": {
+    "acquisition_admission": "CANDIDATE_ONLY",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_554": "RELATES_ONLY_DO_NOT_REOPEN",
+    "disposition": "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "roster_authority": "OFFICIAL_TEAM_SEASON_MEMBERSHIP_ONLY",
+    "season_statistics_authority": "RETROSPECTIVE_UNLESS_HISTORICAL_KNOWN_AT_PROVEN"
+  },
+  "artifact_type": "TAMU_2010_2011_NCAA_TEAM_SEASON_EVIDENCE_GATE",
+  "attempts": [
+    {
+      "content_type": "text/html",
+      "final_url": "https://stats.ncaa.org/teams/137387/roster",
+      "method": "GET",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_evidence/1c08dc1724e53221d68efd021a47869b271d7cc084572110d0eb89b7e17448be.html",
+      "raw_sha256": "1c08dc1724e53221d68efd021a47869b271d7cc084572110d0eb89b7e17448be",
+      "redirect_chain": [
+        "https://stats.ncaa.org/teams/137387/roster"
+      ],
+      "response_sha256": "1c08dc1724e53221d68efd021a47869b271d7cc084572110d0eb89b7e17448be",
+      "retrieval_route": "direct_http",
+      "status": 403,
+      "timestamp": "2026-08-18T18:10:26.685366Z",
+      "url": "https://stats.ncaa.org/teams/137387/roster"
+    },
+    {
+      "content_type": "text/html",
+      "final_url": "https://stats.ncaa.org/teams/137387/roster",
+      "method": "GET",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_evidence/4d27d1fea45d8169cb80a7e9b099c9732a15fdb2e26b8b53714230d8a9dded8d.html",
+      "raw_sha256": "4d27d1fea45d8169cb80a7e9b099c9732a15fdb2e26b8b53714230d8a9dded8d",
+      "redirect_chain": [
+        "https://stats.ncaa.org/teams/137387/roster"
+      ],
+      "response_sha256": "4d27d1fea45d8169cb80a7e9b099c9732a15fdb2e26b8b53714230d8a9dded8d",
+      "retrieval_route": "stateful_patchright_chrome",
+      "status": 403,
+      "timestamp": "2026-08-18T18:10:52.085981Z",
+      "url": "https://stats.ncaa.org/teams/137387/roster"
+    },
+    {
+      "content_type": "text/html",
+      "final_url": "https://stats.ncaa.org/teams/137387/season_to_date_stats",
+      "method": "GET",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_evidence/2918f6001bd476bd33957edf02679e4e841218ec27219840aadfaf5529003011.html",
+      "raw_sha256": "2918f6001bd476bd33957edf02679e4e841218ec27219840aadfaf5529003011",
+      "redirect_chain": [
+        "https://stats.ncaa.org/teams/137387/season_to_date_stats"
+      ],
+      "response_sha256": "2918f6001bd476bd33957edf02679e4e841218ec27219840aadfaf5529003011",
+      "retrieval_route": "direct_http",
+      "status": 403,
+      "timestamp": "2026-08-18T18:10:52.188995Z",
+      "url": "https://stats.ncaa.org/teams/137387/season_to_date_stats"
+    },
+    {
+      "content_type": "text/html",
+      "final_url": "https://stats.ncaa.org/teams/137387/season_to_date_stats",
+      "method": "GET",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_evidence/3ee7103a76ff2fe01a67a6932cdf7e90d432fb1fb9f828b1e1631509200ffddd.html",
+      "raw_sha256": "3ee7103a76ff2fe01a67a6932cdf7e90d432fb1fb9f828b1e1631509200ffddd",
+      "redirect_chain": [
+        "https://stats.ncaa.org/teams/137387/season_to_date_stats"
+      ],
+      "response_sha256": "3ee7103a76ff2fe01a67a6932cdf7e90d432fb1fb9f828b1e1631509200ffddd",
+      "retrieval_route": "stateful_patchright_chrome",
+      "status": 403,
+      "timestamp": "2026-08-18T18:11:16.381197Z",
+      "url": "https://stats.ncaa.org/teams/137387/season_to_date_stats"
+    },
+    {
+      "content_type": "text/html",
+      "final_url": "https://stats.ncaa.org/teams/137872/roster",
+      "method": "GET",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_evidence/47258f688724c1592a992709b94abe0b4acfe94cb3698c963d0135122d78c102.html",
+      "raw_sha256": "47258f688724c1592a992709b94abe0b4acfe94cb3698c963d0135122d78c102",
+      "redirect_chain": [
+        "https://stats.ncaa.org/teams/137872/roster"
+      ],
+      "response_sha256": "47258f688724c1592a992709b94abe0b4acfe94cb3698c963d0135122d78c102",
+      "retrieval_route": "direct_http",
+      "status": 403,
+      "timestamp": "2026-08-18T18:11:16.498459Z",
+      "url": "https://stats.ncaa.org/teams/137872/roster"
+    },
+    {
+      "content_type": "text/html",
+      "final_url": "https://stats.ncaa.org/teams/137872/roster",
+      "method": "GET",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_evidence/55ff11ef54f44bb8541602ed86bb8ac6f9645778be41bc3f872d3073b3d073bb.html",
+      "raw_sha256": "55ff11ef54f44bb8541602ed86bb8ac6f9645778be41bc3f872d3073b3d073bb",
+      "redirect_chain": [
+        "https://stats.ncaa.org/teams/137872/roster"
+      ],
+      "response_sha256": "55ff11ef54f44bb8541602ed86bb8ac6f9645778be41bc3f872d3073b3d073bb",
+      "retrieval_route": "stateful_patchright_chrome",
+      "status": 403,
+      "timestamp": "2026-08-18T18:11:40.778612Z",
+      "url": "https://stats.ncaa.org/teams/137872/roster"
+    },
+    {
+      "content_type": "text/html",
+      "final_url": "https://stats.ncaa.org/teams/137872/season_to_date_stats",
+      "method": "GET",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_evidence/9869091bfaef848f51daafd889c4f9288edfe477549128ac249b17ef12de2aa1.html",
+      "raw_sha256": "9869091bfaef848f51daafd889c4f9288edfe477549128ac249b17ef12de2aa1",
+      "redirect_chain": [
+        "https://stats.ncaa.org/teams/137872/season_to_date_stats"
+      ],
+      "response_sha256": "9869091bfaef848f51daafd889c4f9288edfe477549128ac249b17ef12de2aa1",
+      "retrieval_route": "direct_http",
+      "status": 403,
+      "timestamp": "2026-08-18T18:11:40.874298Z",
+      "url": "https://stats.ncaa.org/teams/137872/season_to_date_stats"
+    },
+    {
+      "content_type": "text/html",
+      "final_url": "https://stats.ncaa.org/teams/137872/season_to_date_stats",
+      "method": "GET",
+      "raw_relative_path": "raw/SRC-015/ncaa_team_season_evidence/db2e729a75aaa998b17f847a16d9e7208930a2831db27a9859040d5c916e2c91.html",
+      "raw_sha256": "db2e729a75aaa998b17f847a16d9e7208930a2831db27a9859040d5c916e2c91",
+      "redirect_chain": [
+        "https://stats.ncaa.org/teams/137872/season_to_date_stats"
+      ],
+      "response_sha256": "db2e729a75aaa998b17f847a16d9e7208930a2831db27a9859040d5c916e2c91",
+      "retrieval_route": "stateful_patchright_chrome",
+      "status": 403,
+      "timestamp": "2026-08-18T18:12:05.058811Z",
+      "url": "https://stats.ncaa.org/teams/137872/season_to_date_stats"
+    }
+  ],
+  "authority": {
+    "availability_claim": false,
+    "bas_or_aggie_excess_claims": false,
+    "bat_554_reopen": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "id_range_sweep": false,
+    "membership_as_availability": false,
+    "name_only_promotion": false,
+    "national_crawl": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "season_total_as_per_game_official": false,
+    "tamu_specialization_lift_claims": false
+  },
+  "blocked_response_identities": {
+    "2010_roster": "4d27d1fea45d8169cb80a7e9b099c9732a15fdb2e26b8b53714230d8a9dded8d",
+    "2010_season_to_date_stats": "3ee7103a76ff2fe01a67a6932cdf7e90d432fb1fb9f828b1e1631509200ffddd",
+    "2011_roster": "55ff11ef54f44bb8541602ed86bb8ac6f9645778be41bc3f872d3073b3d073bb",
+    "2011_season_to_date_stats": "db2e729a75aaa998b17f847a16d9e7208930a2831db27a9859040d5c916e2c91"
+  },
+  "classification": "TAMU_2010_2011_NCAA_TEAM_SEASON_EVIDENCE_CANDIDATE_ONLY",
+  "contract_id": "BAT-574-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-V1",
+  "counts": {
+    "availability_features": 0,
+    "contest_ids_fabricated": 0,
+    "official_routes_attempted": 8,
+    "roster_pages_captured": 0,
+    "schedule_rows_2010": 13,
+    "schedule_rows_2011": 13,
+    "season_stat_pages_captured": 0,
+    "seasons": 2,
+    "team_pages_reused": 2
+  },
+  "decision_unit": "POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001",
+  "disposition": "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
+  "domains": {
+    "player_season_statistics": {
+      "2010": {
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "row_count": 0
+      },
+      "2011": {
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "row_count": 0
+      }
+    },
+    "points_for_against": {
+      "2010": {
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "value": {
+          "points_against": 285,
+          "points_for": 406
+        }
+      },
+      "2011": {
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "value": {
+          "points_against": 366,
+          "points_for": 508
+        }
+      }
+    },
+    "pregame_availability": {
+      "2010": "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE",
+      "2011": "TEMPORALLY_INELIGIBLE_FOR_PREGAME_USE"
+    },
+    "roster_membership": {
+      "2010": {
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "row_count": 0
+      },
+      "2011": {
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "row_count": 0
+      }
+    },
+    "schedule_game_count": {
+      "2010": {
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "value": 13
+      },
+      "2011": {
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "value": 13
+      }
+    },
+    "team_season_statistics": {
+      "2010": {
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "row_count": 0
+      },
+      "2011": {
+        "classification": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
+        "row_count": 0
+      }
+    },
+    "wins_losses_ties": {
+      "2010": {
+        "classification": "VERIFIED_OFFICIAL_SEASON_LEVEL",
+        "header_record": {
+          "losses": 4,
+          "raw": "Texas A&amp;M Aggies</a> (9-4)",
+          "ties": 0,
+          "wins": 9
+        },
+        "source": "EXPLICIT_RESULT_CODE",
+        "value": {
+          "losses": 4,
+          "ties": 0,
+          "wins": 9
+        }
+      },
+      "2011": {
+        "classification": "CONFLICT_REVIEW_REQUIRED",
+        "header_record": {
+          "losses": 0,
+          "raw": "Texas A&amp;M Aggies</a> (0-0)",
+          "ties": 0,
+          "wins": 0
+        },
+        "source": "MIXED_OR_DERIVED",
+        "value": {
+          "losses": 6,
+          "ties": 0,
+          "wins": 7
+        }
+      }
+    }
+  },
+  "gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+  "issued_at_utc": "2026-08-18T18:45:00Z",
+  "jira_key": "BAT-574",
+  "manifest_identity": "db8283a2f7a164d18380744851d71b43f747f9f22c06c29b2fb350f08ff6bd51",
+  "page_identities": {
+    "2010_roster": null,
+    "2010_season_to_date_stats": null,
+    "2010_team": "3cdb205a98242b335cc742a81ddbc66f4352bf0ce68387130d17534e5f3712d7",
+    "2011_roster": null,
+    "2011_season_to_date_stats": null,
+    "2011_team": "aa332e8213295ca49a09899d72e5549484d81c1dc566599064c9ac0d0096dac3"
+  },
+  "payload": {
+    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_ncaa_team_season_evidence\\sha256\\db8283a2f7a164d18380744851d71b43f747f9f22c06c29b2fb350f08ff6bd51\\tamu_2010_2011_ncaa_team_season_evidence_manifest.json",
+    "manifest_relative_path": "features/tamu_2010_2011_ncaa_team_season_evidence/sha256/db8283a2f7a164d18380744851d71b43f747f9f22c06c29b2fb350f08ff6bd51/tamu_2010_2011_ncaa_team_season_evidence_manifest.json",
+    "manifest_sha256": "da86af84cbe34d3f6633f043749447093d17e75525e513c4338602380d38a725"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
+  "schema_version": "aggie.data.tamu_2010_2011_ncaa_team_season_evidence.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_outcome_authority": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "season_total_promoted_to_per_game_official": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false
+  },
+  "tamu_seeds": {
+    "2010": "137387",
+    "2011": "137872"
+  }
+}

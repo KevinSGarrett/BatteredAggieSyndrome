@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import sys
 import unittest
@@ -12,6 +13,7 @@ sys.path.insert(0, str(ROOT))
 
 from aggie_analytics.experimentation.development_2023_labeled_replay import (  # noqa: E402
     ProtectedOutcomeDenied,
+    normalize_pair_probabilities as replay_normalize_pair_probabilities,
 )
 from aggie_analytics.experimentation.development_rankings_walk_forward_2023 import (  # noqa: E402
     CANDIDATES,
@@ -25,8 +27,10 @@ from aggie_analytics.experimentation.development_rankings_walk_forward_2023 impo
     expected_parent_identities,
     join_rankings,
     load_contract,
+    normalize_pair_probabilities,
     rank_signal,
     validate_artifact,
+    validate_ranking_row_semantics,
 )
 
 
@@ -129,6 +133,9 @@ class DevelopmentRankingsUnitTests(unittest.TestCase):
         self.assertEqual(rank_signal({"ranking_state": "EXPLICITLY_UNRANKED", "rank": None}), 0.0)
         self.assertEqual(rank_signal({"ranking_state": "NOT_LISTED_IN_ELIGIBLE_POLL", "rank": 26}), 0.0)
         self.assertEqual(rank_signal({"ranking_state": "RANKED_NUMERIC", "rank": 1}), (13.0 - 1.0) / 12.0)
+
+    def test_bat568_reuses_bat566_pair_helper(self) -> None:
+        self.assertIs(normalize_pair_probabilities, replay_normalize_pair_probabilities)
 
     def test_decision_rules_are_predeclared(self) -> None:
         metrics = {
@@ -258,15 +265,177 @@ class DevelopmentRankingsMutationTests(unittest.TestCase):
             )
 
 
+def _ranking_fixture(**overrides: object) -> dict[str, object]:
+    row = {
+        "target_game_id": "game-a",
+        "canonical_team_id": "team-a",
+        "season": 2023,
+        "rank_state": "RANKED",
+        "rank": 4,
+        "poll_first_eligible_at_utc": "2023-09-01T00:00:00Z",
+        "missingness_disposition": "OBSERVED_SOURCE_ROW",
+        "poll_available": True,
+        "team_listed_in_poll": True,
+    }
+    row.update(overrides)
+    return row
+
+
+def _join_ranking(**overrides: object) -> None:
+    feature = {
+        "row_id": "row-a",
+        "target_game_id": "game-a",
+        "team_id": "team-a",
+        "season": 2023,
+        "cutoff_utc": "2023-09-10T00:00:00Z",
+        "target_start_utc": "2023-09-11T00:00:00Z",
+    }
+    label = {
+        "row_id": "row-a",
+        "result": "WIN",
+        "margin": 7,
+        "label_available_after_utc": "2023-09-12T00:00:00Z",
+    }
+    join_rankings(
+        feature_rows=[feature],
+        label_rows=[label],
+        rankings_rows=[_ranking_fixture(**overrides)],
+        feature_identity="0" * 64,
+        feature_payload_sha256="1" * 64,
+    )
+
+
+class DevelopmentRankingsSemanticsTests(unittest.TestCase):
+    def _reject(self, **overrides: object) -> None:
+        with self.assertRaises(RankingsJoinDenied):
+            validate_ranking_row_semantics(_ranking_fixture(**overrides), cutoff_utc="2023-09-10T00:00:00Z")
+        with self.assertRaises(RankingsJoinDenied):
+            _join_ranking(**overrides)
+
+    def test_rank_zero(self) -> None:
+        self._reject(rank=0)
+
+    def test_negative_rank(self) -> None:
+        self._reject(rank=-1)
+
+    def test_unranked_as_26(self) -> None:
+        self._reject(rank=26)
+
+    def test_rank_above_25(self) -> None:
+        self._reject(rank=27)
+
+    def test_fractional_rank(self) -> None:
+        self._reject(rank=4.5)
+
+    def test_nan_rank(self) -> None:
+        self._reject(rank=math.nan)
+
+    def test_inf_rank(self) -> None:
+        self._reject(rank=math.inf)
+
+    def test_rank_on_receiving_votes(self) -> None:
+        self._reject(rank_state="RECEIVING_VOTES", rank=12)
+
+    def test_rank_on_not_ranked(self) -> None:
+        self._reject(rank_state="NOT_RANKED", rank=12)
+
+    def test_ranked_null_rank(self) -> None:
+        self._reject(rank=None)
+
+    def test_ranked_null_eligible_timestamp(self) -> None:
+        self._reject(poll_first_eligible_at_utc=None)
+
+    def test_receiving_votes_null_eligible_timestamp(self) -> None:
+        self._reject(rank_state="RECEIVING_VOTES", rank=None, poll_first_eligible_at_utc=None)
+
+    def test_explicitly_unranked_null_eligible_timestamp(self) -> None:
+        self._reject(rank_state="NOT_RANKED", rank=None, poll_first_eligible_at_utc=None)
+
+    def test_not_listed_null_eligible_timestamp(self) -> None:
+        self._reject(
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL",
+            rank=None,
+            poll_first_eligible_at_utc=None,
+            team_listed_in_poll=False,
+        )
+
+    def test_no_eligible_poll_with_timestamp(self) -> None:
+        self._reject(
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="NO_POLL_ELIGIBLE_AT_TARGET_CUTOFF",
+            rank=None,
+            poll_available=False,
+            team_listed_in_poll=False,
+            poll_first_eligible_at_utc="2023-09-01T00:00:00Z",
+        )
+
+    def test_no_poll_with_poll_available_true(self) -> None:
+        self._reject(
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="NO_POLL_ELIGIBLE_AT_TARGET_CUTOFF",
+            rank=None,
+            poll_first_eligible_at_utc=None,
+            poll_available=True,
+            team_listed_in_poll=False,
+        )
+
+    def test_observed_with_poll_available_false(self) -> None:
+        self._reject(poll_available=False)
+
+    def test_team_not_listed_with_poll_available_false(self) -> None:
+        self._reject(
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL",
+            rank=None,
+            poll_available=False,
+            team_listed_in_poll=False,
+        )
+
+    def test_poll_unavailable_with_timestamp(self) -> None:
+        self._reject(
+            rank_state="RECEIVING_VOTES",
+            rank=None,
+            missingness_disposition="",
+            poll_available=False,
+            poll_first_eligible_at_utc="2023-09-01T00:00:00Z",
+        )
+
+    def test_observed_with_team_not_listed_false(self) -> None:
+        self._reject(team_listed_in_poll=False)
+
+    def test_team_not_listed_with_team_listed_true(self) -> None:
+        self._reject(
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL",
+            rank=None,
+            team_listed_in_poll=True,
+        )
+
+    def test_no_poll_with_team_listed_true(self) -> None:
+        self._reject(
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="NO_POLL_ELIGIBLE_AT_TARGET_CUTOFF",
+            rank=None,
+            poll_first_eligible_at_utc=None,
+            poll_available=False,
+            team_listed_in_poll=True,
+        )
+
+    def test_rank_without_team_listed(self) -> None:
+        self._reject(missingness_disposition="", team_listed_in_poll=False)
+
+
 class DevelopmentRankingsLiveTests(unittest.TestCase):
     def test_live_rebuild_when_payloads_present(self) -> None:
         data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+        contract = load_contract(ROOT)
         feature = (
             data_root
             / "features"
             / "development_2023_matrix"
             / "sha256"
-            / "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68"
+            / contract["input_identities"]["bat566_matrix_identity"]
             / "development_2023_matrix_features.parquet"
         )
         rankings = (

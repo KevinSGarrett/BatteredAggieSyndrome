@@ -1,7 +1,7 @@
 {
   "schema_version": "2.2.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T21:00:00Z",
+  "created_at_utc": "2026-08-18T05:45:00Z",
   "jira_key": "BAT-565",
   "local_issue_id": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
   "parent_jira_key": "BAT-523",
@@ -9,25 +9,25 @@
   "evidence_state": "VERIFIED",
   "issue_complete": true,
   "correction": "LABEL_CHRONOLOGY_HARDENED",
-  "observable_outcome": "Cycle #6 Phase 1 corrected BAT-565 label chronology. SRC-002 2023 games contain no verified completion, final-whistle, or publication timestamp, so labels now use the precommitted conservative start_time_utc + 24h eligibility bound CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE. outcome_effective_at_utc is unavailable rather than kickoff. outcome_observed_at_utc remains the source capture known-at 2026-08-09T16:57:56Z. Population is unchanged: 910 completed 2023 games and 1,820 paired team observations; quarantine 0. Kickoff-time identity 902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2 is superseded and must not be consumed by active downstream artifacts. Local BAT-567 auxiliary status is reconciled to live Done/DONE/IMPLEMENTED/VERIFIED without changing its blocked-availability conclusion. BAT-523 remains In Progress. The protected lane remains sealed.",
+  "observable_outcome": "Cycle #7 Phase 2 corrected BAT-565 label-availability truth. available_only_after_completion is removed. Labels remain bound to the precommitted start_time_utc+24h policy boundary PRECOMMITTED_RETROSPECTIVE_POLICY_BOUND; verified completion and historical publication timestamps are unavailable. Cycle #6 identity bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8 is superseded. Kickoff identity 902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2 stays forbidden. Population is unchanged: 910 completed 2023 games and 1,820 paired team observations; quarantine 0. Canceled/incomplete/suspended/non-final source rows fail closed. The protected lane remains sealed.",
   "outputs": [
     {
       "path": "artifacts/pit/development_2023_outcome_gate.json",
-      "bytes": 6197,
-      "sha256": "23682edeabfe21b101c87780c428cdee4e86580acc46957cd31b57d275a98df9",
-      "schema_version": "aggie.data.development_2023_outcomes.v2",
-      "dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
-      "gate_identity": "90c5765ae14c7c668387bc2efa78e0e2d05a6e5c9c1f58c0d5ca2e572273a1d4"
+      "bytes": 6828,
+      "sha256": "114374b2abb72e613ecafc46384f25560af055575b7a6a0d4c1d914f3f7f1f47",
+      "schema_version": "aggie.data.development_2023_outcomes.v3",
+      "dataset_identity": "b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff",
+      "gate_identity": "af0606c3fdf1a6cfc6a83375b5900045cee5d6bf1725e1085b95a9e41d4fd37e"
     },
     {
       "path": "configs/development_2023_outcome_identity_contract.json",
-      "bytes": 8689,
-      "sha256": "4c71ca5dab71fc84bdc5304de62c5dcf4082543b05138a55bd6d6e127a5bf4c3"
+      "bytes": 9837,
+      "sha256": "012bc2694326af0ab9684d3201c482a3e22bb6e22222fd38c513577837c17a26"
     },
     {
       "path": "src/aggie_analytics/data/development_2023_outcomes.py",
-      "bytes": 64729,
-      "sha256": "f9b5a8ebded6c15a0ae203fa4cc38065cf0c96279c559bf69c31e29bbee1fed1"
+      "bytes": 67480,
+      "sha256": "e5e2965854f94f2b45b0651beddc1993ef5e00ddeb0e1f1a9bad7f6fb6cce01e"
     },
     {
       "path": "tools/build_development_2023_outcomes.py",
@@ -41,20 +41,22 @@
     },
     {
       "path": "tests/test_development_2023_outcomes.py",
-      "bytes": 23685,
-      "sha256": "2039f9accd8874894de4fffc6862d8a20c4f30e0205a89d3f35b84308608b913"
+      "bytes": 25020,
+      "sha256": "b38856b0f22d89780a18bdf7f8be3be9a9d99bf554eabc24c8d73bc5f4b71dd2"
     }
   ],
-  "dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
-  "gate_identity": "90c5765ae14c7c668387bc2efa78e0e2d05a6e5c9c1f58c0d5ca2e572273a1d4",
+  "dataset_identity": "b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff",
+  "gate_identity": "af0606c3fdf1a6cfc6a83375b5900045cee5d6bf1725e1085b95a9e41d4fd37e",
   "supersedes": {
-    "dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
-    "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V1",
-    "reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID"
+    "dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V2",
+    "reason": "LABEL_AVAILABILITY_CLAIMED_OBSERVED_COMPLETION",
+    "kickoff_dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+    "kickoff_contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V1"
   },
   "external_manifest": {
-    "path": "<external-data-root>/manifests/development_outcomes/sha256/bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8/development_2023_outcome_manifest.json",
-    "sha256": "6f5b248ec6cbc39a0028cc349222f31a9a473adcc7c08832be45dab1375fbfe5"
+    "path": "<external-data-root>/manifests/development_outcomes/sha256/b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff/development_2023_outcome_manifest.json",
+    "sha256": "a9c5d179d0a72c02c8525108ae5e397a0a85d0e212b58310d015d69b959887d6"
   },
   "input_identities": {
     "source_table_identity": "SRC-002:2023:schedules_games_official_outcomes",
@@ -113,9 +115,14 @@
     "team_observations": 1820,
     "quarantine_rows": 0,
     "ties": 0,
-    "seasons": [2023],
+    "seasons": [
+      2023
+    ],
     "forbidden_seasons_present": [],
-    "season_types": {"regular": 868, "postseason": 42},
+    "season_types": {
+      "regular": 868,
+      "postseason": 42
+    },
     "ncaa_agreements": 313,
     "ncaa_missing_official_linescore": 462,
     "ncaa_no_comparison_row": 135,

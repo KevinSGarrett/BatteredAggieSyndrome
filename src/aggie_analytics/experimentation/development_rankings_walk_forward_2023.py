@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -14,6 +15,8 @@ from aggie_analytics.experimentation.development_2023_labeled_replay import (
     clip_probability,
     dataframe_record_sha256,
     fold_membership,
+    normalize_pair_probabilities,
+    pair_probability_diagnostics,
     parse_utc,
     prior_only_margin,
     prior_only_probability,
@@ -24,10 +27,10 @@ from aggie_analytics.experimentation.development_2023_labeled_replay import (
 )
 from aggie_analytics.validation.protected_split_authority import sha256_file as registry_sha256_file
 
-SCHEMA_VERSION = "aggie.experimentation.development_rankings_walk_forward_2023.v1"
+SCHEMA_VERSION = "aggie.experimentation.development_rankings_walk_forward_2023.v2"
 CONTRACT_RELATIVE = "configs/development_rankings_walk_forward_2023_contract.json"
 GATE_RELATIVE = "artifacts/pit/development_rankings_walk_forward_2023.json"
-CONTRACT_ID = "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V1"
+CONTRACT_ID = "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V2"
 PASS_RESULT = "PASS_DEVELOPMENT_ONLY_2023_RANKINGS_WALK_FORWARD"
 PASS_CLASSIFICATION = "DEVELOPMENT_ONLY_2023_RANKINGS_AUGMENTED_WALK_FORWARD"
 DEVELOPMENT_SEASON = 2023
@@ -102,6 +105,10 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
         raise ValueError("contract must fail-close protected evaluation")
     if contract.get("authority", {}).get("champion_or_production_promotion") is not False:
         raise ValueError("contract must fail-close champion or production promotion")
+    if not contract.get("ranking_row_semantics"):
+        raise ValueError("ranking row semantics must be predeclared")
+    if contract.get("pair_probability", {}).get("reuse_required") is not True:
+        raise ValueError("BAT-568 must reuse the BAT-566 pair-normalization helper")
     return contract
 
 
@@ -181,6 +188,80 @@ def classify_ranking_state(row: Mapping[str, Any]) -> str:
     if source == "NOT_LISTED_OR_NO_ELIGIBLE_POLL" or missing == "TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL":
         return "NOT_LISTED_IN_ELIGIBLE_POLL"
     raise RankingsJoinDenied(f"unclassified rankings state: {source}/{missing}")
+
+
+def _finite_integer_rank(value: Any) -> int:
+    if isinstance(value, bool):
+        raise RankingsJoinDenied("rank cannot be boolean")
+    try:
+        number = float(value)
+    except (TypeError, ValueError) as exc:
+        raise RankingsJoinDenied("rank is not numeric") from exc
+    if not math.isfinite(number):
+        raise RankingsJoinDenied("rank is not finite")
+    if number != int(number):
+        raise RankingsJoinDenied("fractional rank")
+    return int(number)
+
+
+def validate_ranking_row_semantics(
+    row: Mapping[str, Any],
+    *,
+    cutoff_utc: str | None = None,
+) -> str:
+    state = str(row.get("ranking_state") or "")
+    if not state:
+        state = classify_ranking_state(row)
+    rank = row.get("rank")
+    timestamp = row.get("poll_first_eligible_at_utc")
+    poll_available = row.get("poll_available")
+    team_listed = row.get("team_listed_in_poll")
+    missing = str(row.get("missingness_disposition") or "")
+    timestamp_required = state in {
+        "RANKED_NUMERIC",
+        "RECEIVING_VOTES",
+        "EXPLICITLY_UNRANKED",
+        "NOT_LISTED_IN_ELIGIBLE_POLL",
+    }
+    if timestamp_required and timestamp in (None, ""):
+        raise RankingsJoinDenied(f"{state} requires an eligible poll timestamp")
+    if state == "NO_ELIGIBLE_POLL" and timestamp not in (None, ""):
+        raise RankingsJoinDenied("NO_ELIGIBLE_POLL may not carry an eligible poll timestamp")
+    if state == "RANKED_NUMERIC":
+        if rank is None:
+            raise RankingsJoinDenied("RANKED_NUMERIC missing numeric rank")
+        parsed = _finite_integer_rank(rank)
+        if parsed < 1:
+            raise RankingsJoinDenied("rank below 1")
+        if parsed > 25:
+            raise RankingsJoinDenied("rank above 25")
+        if parsed == 26:
+            raise RankingsJoinDenied("unranked-as-26 encoding is forbidden")
+    else:
+        if rank is not None:
+            raise RankingsJoinDenied(f"{state} must not carry a numeric rank")
+    if cutoff_utc is not None and timestamp not in (None, ""):
+        if parse_utc(str(timestamp)) > parse_utc(str(cutoff_utc)):
+            raise RankingsJoinDenied("eligibility timestamp after prediction cutoff")
+    if state == "NO_ELIGIBLE_POLL" and poll_available is True:
+        raise RankingsJoinDenied("NO_ELIGIBLE_POLL contradicts poll_available=true")
+    if state == "NO_ELIGIBLE_POLL" and team_listed is True:
+        raise RankingsJoinDenied("NO_ELIGIBLE_POLL contradicts team_listed_in_poll=true")
+    if missing == "OBSERVED_SOURCE_ROW" and poll_available is False:
+        raise RankingsJoinDenied("observed ranking contradicts poll_available=false")
+    if missing == "OBSERVED_SOURCE_ROW" and team_listed is False:
+        raise RankingsJoinDenied("observed ranking contradicts team_listed_in_poll=false")
+    if missing == "TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL" and poll_available is False:
+        raise RankingsJoinDenied("team-not-listed contradicts poll_available=false")
+    if missing == "TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL" and team_listed is True:
+        raise RankingsJoinDenied("team-not-listed contradicts team_listed_in_poll=true")
+    if poll_available is False and timestamp not in (None, "") and state != "NO_ELIGIBLE_POLL":
+        raise RankingsJoinDenied("poll unavailable with eligibility timestamp")
+    if rank is not None and team_listed is False:
+        raise RankingsJoinDenied("numeric rank without team listed in poll")
+    if state == "RANKED_NUMERIC" and team_listed is False:
+        raise RankingsJoinDenied("ranked row is not listed in poll")
+    return state
 
 
 def rank_signal(row: Mapping[str, Any]) -> float:
@@ -412,16 +493,23 @@ def join_rankings(
         if eligible is not None and parse_utc(str(eligible)) > cutoff:
             raise RankingsJoinDenied("ineligible future poll used at prediction cutoff")
         state = classify_ranking_state(ranking)
-        if state == "RANKED_NUMERIC" and ranking.get("rank") is None:
-            raise RankingsJoinDenied("ranked row missing numeric rank")
-        if state == "RANKED_NUMERIC" and float(ranking["rank"]) == 26:
-            raise RankingsJoinDenied("unranked-as-26 encoding is forbidden")
+        semantics_row = {
+            **dict(ranking),
+            "ranking_state": state,
+            "rank": ranking.get("rank"),
+            "poll_first_eligible_at_utc": ranking.get("poll_first_eligible_at_utc"),
+            "poll_available": ranking.get("poll_available"),
+            "team_listed_in_poll": ranking.get("team_listed_in_poll"),
+            "missingness_disposition": ranking.get("missingness_disposition"),
+        }
+        validate_ranking_row_semantics(semantics_row, cutoff_utc=str(feature["cutoff_utc"]))
+        rank_value = None if ranking.get("rank") is None else float(_finite_integer_rank(ranking["rank"]))
         label = labels[str(feature["row_id"])]
         joined.append(
             {
                 **dict(feature),
                 "ranking_state": state,
-                "rank": None if ranking.get("rank") is None else float(ranking["rank"]),
+                "rank": rank_value,
                 "poll_available": bool(ranking.get("poll_available")),
                 "team_listed_in_poll": bool(ranking.get("team_listed_in_poll")),
                 "poll_first_eligible_at_utc": ranking.get("poll_first_eligible_at_utc"),
@@ -481,9 +569,12 @@ def execute_rankings_fold(
         "same_game_excluded": True,
         "model": {key: model[key] for key in model if key != "train_row_ids"},
     }
-    game_eval = unique_game_eval_rows(eval_rows)
     for name in CANDIDATES:
         abstain = first_fold and name != "prior_only"
+
+        def _probability(row: Mapping[str, Any], candidate: str = name) -> float:
+            return candidate_probability(candidate, row, model)
+
         labels: list[float] = []
         probs: list[float] = []
         true_m: list[float | None] = []
@@ -492,27 +583,73 @@ def execute_rankings_fold(
             for row in eval_rows:
                 label = label_by_row[str(row["row_id"])]
                 labels.append(1.0 if label["result"] == "WIN" else 0.0)
-                probs.append(candidate_probability(name, row, model))
+                probs.append(_probability(row))
                 true_m.append(None if label.get("margin") is None else float(label["margin"]))
                 pred_m.append(prior_only_margin(row))
         metrics = classification_metrics(labels, probs, true_m, pred_m)
         metrics["abstained"] = abstain
+        metrics["perspective"] = "CORRELATED_TEAM_ROW"
+        metrics["authoritative_for_decisions"] = True
         game_labels: list[float] = []
         game_probs: list[float] = []
         game_true: list[float | None] = []
         game_pred: list[float | None] = []
+        pair_record: dict[str, Any] = {}
         if not abstain:
+            game_eval = unique_game_eval_rows(eval_rows, _probability)
+            pair_record = pair_probability_diagnostics(eval_rows, _probability)
             for row in game_eval:
                 label = label_by_row[str(row["row_id"])]
                 game_labels.append(1.0 if label["result"] == "WIN" else 0.0)
-                game_probs.append(candidate_probability(name, row, model))
+                game_probs.append(float(row["p_game"]))
                 game_true.append(None if label.get("margin") is None else float(label["margin"]))
                 game_pred.append(prior_only_margin(row))
         game_metrics = classification_metrics(game_labels, game_probs, game_true, game_pred)
         game_metrics["abstained"] = abstain
+        game_metrics["perspective"] = "COHERENT_UNIQUE_GAME"
+        game_metrics["authoritative_for_decisions"] = False
+        game_metrics.update(pair_record)
         result[name] = metrics
         result[f"unique_game_{name}"] = game_metrics
+        result[f"pair_probability_{name}"] = pair_record
     return result
+
+
+def _summarize_pair_records(fold_results: Sequence[Mapping[str, Any]], name: str) -> dict[str, Any]:
+    records = [fold.get(f"pair_probability_{name}") or {} for fold in fold_results]
+    records = [record for record in records if record]
+    if not records:
+        return {
+            "raw_pair_count": 0,
+            "normalized_pair_count": 0,
+            "raw_pair_sum_min": None,
+            "raw_pair_sum_max": None,
+            "raw_pair_sum_mean": None,
+            "mean_abs_deviation_from_1": None,
+            "max_normalized_complement_error": None,
+            "canonical_orientation_identity": None,
+        }
+    raw_counts = [int(record["raw_pair_count"]) for record in records]
+    return {
+        "raw_pair_count": sum(raw_counts),
+        "normalized_pair_count": sum(int(record["normalized_pair_count"]) for record in records),
+        "raw_pair_sum_min": min(float(record["raw_pair_sum_min"]) for record in records),
+        "raw_pair_sum_max": max(float(record["raw_pair_sum_max"]) for record in records),
+        "raw_pair_sum_mean": sum(
+            float(record["raw_pair_sum_mean"]) * int(record["raw_pair_count"]) for record in records
+        )
+        / float(sum(raw_counts)),
+        "mean_abs_deviation_from_1": sum(
+            float(record["mean_abs_deviation_from_1"]) * int(record["raw_pair_count"]) for record in records
+        )
+        / float(sum(raw_counts)),
+        "max_normalized_complement_error": max(
+            float(record["max_normalized_complement_error"]) for record in records
+        ),
+        "canonical_orientation_identity": stable_hash(
+            [record["canonical_orientation_identity"] for record in records]
+        ),
+    }
 
 
 def apply_decision_rules(metrics: Mapping[str, Any]) -> dict[str, Any]:
@@ -543,7 +680,13 @@ def rebuild_expected(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
     label_by_row = {str(row["row_id"]): row for row in labels}
     fold_results = [execute_rankings_fold(fold, joined, label_by_row) for fold in folds]
     metrics = {name: summarize_metrics(fold_results, name) for name in CANDIDATES}
-    unique_metrics = {f"unique_game_{name}": summarize_metrics(fold_results, f"unique_game_{name}") for name in CANDIDATES}
+    unique_metrics = {
+        f"unique_game_{name}": {
+            **summarize_metrics(fold_results, f"unique_game_{name}"),
+            **_summarize_pair_records(fold_results, name),
+        }
+        for name in CANDIDATES
+    }
     decisions = apply_decision_rules(metrics)
     coverage = coverage_summary(joined)
     joined_identity = stable_hash(

@@ -1,11 +1,11 @@
 {
-  "schema_version": "2.0.0",
-  "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V2",
+  "schema_version": "3.0.0",
+  "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V3",
   "decision_unit": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
   "jira_key": "BAT-565",
   "parent_jira_key": "BAT-523",
   "classification": "DEVELOPMENT_ONLY_2023_OUTCOME_LABELS",
-  "purpose": "Materialize a 2023-only content-addressed development-label identity from the already captured SRC-002 schedule/outcome payload. Labels become eligible only after a precommitted conservative post-start bound because the capture has no verified final-whistle or publication timestamp. Labels are never pregame features.",
+  "purpose": "Materialize a 2023-only content-addressed development-label identity from the already captured SRC-002 schedule/outcome payload. Source completed=true is required, but the capture has no verified final-whistle or historical publication timestamp. The start+24h bound is a precommitted retrospective policy, not observed completion. Labels are never pregame features.",
   "source_contract": {
     "source_id": "SRC-002",
     "source_table_identity": "SRC-002:2023:schedules_games_official_outcomes",
@@ -53,10 +53,13 @@
     "BAT-554_ncaa_crosscheck": "783f24eb89e0adbb5397cf0c799e4785af8adc31c0f7dfad556cae074ba82b2a"
   },
   "supersedes": {
-    "dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
-    "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V1",
-    "reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID",
-    "detail": "V1 set label_available_after_utc and outcome_effective_at_utc equal to start_time_utc. A final result cannot be historically available at kickoff."
+    "dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V2",
+    "reason": "LABEL_AVAILABILITY_CLAIMED_OBSERVED_COMPLETION",
+    "detail": "V2 set available_only_after_completion true and treated the precommitted start+24h bound as if completion had been observed. The capture has no verified completion or historical publication timestamp.",
+    "kickoff_dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+    "kickoff_contract_id": "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V1",
+    "kickoff_reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID"
   },
   "acceptance": {
     "allowed_seasons": [2023],
@@ -105,13 +108,20 @@
   "label_semantics": {
     "rows_are_labels_only": true,
     "not_a_pregame_feature": true,
-    "available_only_after_completion": true,
+    "source_completed_final_required": true,
+    "verified_completion_timestamp_available": false,
+    "verified_historical_publication_timestamp_available": false,
+    "historical_label_availability_proven": false,
+    "label_eligibility_basis": "PRECOMMITTED_RETROSPECTIVE_POLICY_BOUND",
+    "policy_boundary_not_observed_timestamp": true,
     "completed_final_required": true,
     "availability_boundary_strictly_after_kickoff": true,
     "label_availability_policy": "CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE",
     "completion_bound": "COMPLETED_TRUE_AND_CONSERVATIVE_START_PLUS_24H_ELIGIBILITY_BOUND; FINAL_WHISTLE_TIME_UNKNOWN",
     "outcome_observed_at": "SOURCE_CAPTURE_KNOWN_AT_UTC",
+    "outcome_observed_at_utc": "2026-08-09T16:57:56Z",
     "outcome_effective_at": "UNAVAILABLE_NO_VERIFIED_COMPLETION_OR_PUBLICATION_TIMESTAMP",
+    "outcome_effective_at_utc": null,
     "historical_known_at_state": "CAPTURE_TIME_KNOWN; FINAL_WHISTLE_AND_SOURCE_PUBLICATION_TIMES_UNKNOWN",
     "downstream_eligibility": "LABEL_NOT_ELIGIBLE_FOR_A_FOLD_BEFORE_LABEL_AVAILABLE_AFTER_UTC"
   },
@@ -129,10 +139,13 @@
   ],
   "negative_findings": [
     "The 2023 source capture was retrieved on 2026-08-09; capture time is not a 2023 historical publication or final-whistle time.",
-    "SRC-002 2023 games rows contain no verified completion, final-whistle, or result-publication timestamp. The +24h bound is a conservative eligibility policy, not an observed end time.",
+    "SRC-002 2023 games rows contain no verified completion, final-whistle, or result-publication timestamp. The +24h bound is a conservative eligibility policy, not an observed end time. Do not treat start+24h as observed completion.",
+    "available_only_after_completion is forbidden because historical label availability is not proven.",
+    "Canceled, incomplete, suspended, or non-final source records fail closed.",
     "NCAA official linescores provide exact canonical score agreement for 313 of 910 games; 462 mapped comparisons lack validated official linescores and 135 games have no NCAA comparison row.",
     "Missing NCAA confirmation is reported, not treated as a silent score choice.",
     "These labels grant no protected-performance, champion, promotion, production, A&M-lift, or BAS-effect authority.",
-    "Identity 902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2 is superseded and must not be consumed by active downstream artifacts."
+    "Identity 902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2 is superseded and must not be consumed by active downstream artifacts.",
+    "Identity bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8 is the superseded Cycle #6 v2 dataset and must not be consumed by active downstream artifacts."
   ]
 }

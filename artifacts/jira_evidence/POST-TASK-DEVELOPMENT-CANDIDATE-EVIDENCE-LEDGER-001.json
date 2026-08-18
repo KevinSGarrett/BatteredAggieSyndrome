@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-18T04:20:00Z",
+  "created_at_utc": "2026-08-18T05:45:00Z",
   "jira_key": "BAT-569",
   "local_issue_id": "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001",
   "parent_jira_key": "BAT-523",
@@ -17,25 +17,25 @@
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Cycle #6 Phase 5 created BAT-569 and persisted an identity-bound 2023 development candidate evidence ledger. Four predeclared candidates remain inventoried. prior_only stays CORE_REFERENCE (team-row Brier 0.23135). prior_plus_play_drive, prior_plus_rankings, and prior_plus_play_drive_plus_rankings remain REJECTED_DEVELOPMENT with negative Brier deltas +0.00463, +0.00511, and +0.00478. No candidate is hidden, retuned, or promoted. Kickoff-time BAT-565/BAT-566 identities are recorded as superseded parent-experiment history. BAT-401 was rebound to 3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3 and remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress. No production, protected, champion, or availability authority is granted.",
+  "observable_outcome": "Cycle #7 Phase 2 wrote generation-2 BAT-569 after the paired-game probability correction. Prior ledger b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43 is bound. Team-row Brier remains the decision authority. Unique-game metrics are SUPPORTING evidence only. prior_only stays CORE_REFERENCE (team-row Brier 0.23135006789663434). All previous negative development results are preserved. BAT-401 was rebound to 4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c and remains RETAIN_PROTECTED_LANE_BLOCKED. decide_candidates was not changed after seeing unique-game numbers.",
   "outputs": [
     {
       "path": "artifacts/experimentation/development_candidate_evidence_ledger.json",
-      "bytes": 7853,
-      "sha256": "261e9c6810aa027d4e94196059d15060f8eb64d728a9739d18e757c45a68f5f9",
-      "schema_version": "aggie.experimentation.development_candidate_evidence_ledger.v1",
-      "ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+      "bytes": 8742,
+      "sha256": "323a5a23d5887e47ea167edc58781d00e931228d9085bd2407c5d95c395f3682",
+      "schema_version": "aggie.experimentation.development_candidate_evidence_ledger.v2",
+      "ledger_identity": "656032ff3fc9bdc90b359c4e8e0c801fb5847177052c17d125602c4eb57c7888",
       "fold_definition_identity": "21d2e562eeeddae628ec99b43c4e8c1187b53950ce4a7742066b7df3c106932a"
     },
     {
       "path": "configs/development_candidate_feature_registry.json",
-      "bytes": 3334,
-      "sha256": "93f1b5273a80d6d6022bbe1ff8630b7558cbf1953b5a11cf89996db0d7445e55"
+      "bytes": 4257,
+      "sha256": "d8096527c21c1ed9d77d7f76ef76e8f9336e34a50ace2ce59876da12e2164d0f"
     },
     {
       "path": "src/aggie_analytics/experimentation/development_candidate_evidence_ledger.py",
-      "bytes": 23757,
-      "sha256": "8006e670a2b6685a7f55ad6a83d6a6a54a8a41ecec9358e2034308f895e94f41"
+      "bytes": 25523,
+      "sha256": "bfd1b1022da4381402612bc6e15b19b9b83398fe172724d15701f79c48c491ea"
     },
     {
       "path": "tools/write_development_candidate_evidence_ledger.py",
@@ -44,36 +44,36 @@
     },
     {
       "path": "tools/validate_development_candidate_evidence_ledger.py",
-      "bytes": 5468,
-      "sha256": "03163fe269561b8d78648a4e5ca55c200d8a8c509fda8111e880469b728f0122"
+      "bytes": 6160,
+      "sha256": "6ecb333f8dea1de1423532be8f80214b4deec39d84936ce1122fb488e0622d5a"
     },
     {
       "path": "tests/test_development_candidate_evidence_ledger.py",
-      "bytes": 14129,
-      "sha256": "3373f879eee366f6dbc717aa48c476ba78cc4d7e374fe3abae16fff3655f1eeb"
+      "bytes": 14549,
+      "sha256": "4051ca83a9dc653e63bcefac3dc4cd139ae66e1b1a34367f4894601ce7bb87e3"
     },
     {
       "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
       "bytes": 6795,
-      "sha256": "ddf6c37efa21503934c072f8d154864e12b4d8e35a55205eb2d2b42ff7a7b2ae",
-      "artifact_identity": "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3"
+      "sha256": "62364f8865ec0fd019ba9438f789fead5d15b69998419682746afdc7d548b431",
+      "artifact_identity": "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c"
     }
   ],
-  "contract_id": "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V1",
-  "ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
-  "code_identity": "8006e670a2b6685a7f55ad6a83d6a6a54a8a41ecec9358e2034308f895e94f41",
+  "contract_id": "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V2",
+  "ledger_identity": "656032ff3fc9bdc90b359c4e8e0c801fb5847177052c17d125602c4eb57c7888",
+  "code_identity": "bfd1b1022da4381402612bc6e15b19b9b83398fe172724d15701f79c48c491ea",
   "fold_definition_identity": "21d2e562eeeddae628ec99b43c4e8c1187b53950ce4a7742066b7df3c106932a",
   "parent_identities": {
-    "BAT-565_label_dataset": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
-    "BAT-566_matrix": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
-    "BAT-566_replay": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
-    "BAT-566_gate": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2",
-    "BAT-568_joined_matrix": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
-    "BAT-568_run": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
-    "BAT-568_gate": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
+    "BAT-527_rankings_feature": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
     "BAT-527_rankings_run": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
     "BAT-527_rankings_state": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
-    "BAT-527_rankings_feature": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "BAT-565_label_dataset": "b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff",
+    "BAT-566_gate": "bebc731d2cef8b79376a26ad7cf5010b174a76fc9e08d250855680b8f9afeb11",
+    "BAT-566_matrix": "f9f866b0921b0f02e5ada7ac90cc27ef2d8594d75d29c0bb4a01e940161c617d",
+    "BAT-566_replay": "05dec4084c00a18ac3b708ecadb64caf4df3b9cc3fd0268d9fe71b58baf31570",
+    "BAT-568_gate": "24c78874c69dd1fe0e84875451c7ef4a50e74d5381139194d7eee25ff05c969e",
+    "BAT-568_joined_matrix": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
+    "BAT-568_run": "3c1b7dc41541fa37fbe430836e5bfa8a33eece0c0d1799ecc3cb2fd6b2c6d225",
     "protected_split_registry": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
   },
   "population": {
@@ -81,7 +81,10 @@
     "team_rows": 1820,
     "unique_games": 910,
     "fold_count": 16,
-    "protected_seasons_excluded": [2024, 2025]
+    "protected_seasons_excluded": [
+      2024,
+      2025
+    ]
   },
   "predeclared_candidates": [
     "prior_only",

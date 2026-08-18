@@ -52,11 +52,16 @@ class SeasonReconciliationContractTests(unittest.TestCase):
         self.assertEqual(expected_authority(), contract["authority"])
         self.assertFalse(expected_nonclaims()["name_only_promoted"])
 
-    def test_texas_conflict_stays_unresolved_in_contract(self) -> None:
+    def test_texas_conflict_is_resolved_without_erasing_sidearm(self) -> None:
+        from aggie_analytics.data.tamu_season_reconciliation import TEXAS_DISPOSITION
+
         conflict = load_contract(ROOT)["texas_2011_conflict"]
         self.assertEqual("2011-11-24", conflict["ncaa_official_date"])
         self.assertEqual("2011-11-25", conflict["sidearm_or_gap_matrix_date"])
-        self.assertEqual("UNRESOLVED_NAME_ONLY_NOT_PROMOTED", conflict["disposition"])
+        self.assertEqual("2011-11-24", conflict["official_school_date"])
+        self.assertEqual(TEXAS_DISPOSITION, conflict["disposition"])
+        self.assertTrue(conflict["resolved"])
+        self.assertFalse(conflict["name_only_promotion"])
 
 
 class SeasonReconciliationMutationTests(unittest.TestCase):
@@ -69,7 +74,7 @@ class SeasonReconciliationMutationTests(unittest.TestCase):
     def test_current_gate_validates_without_rebuild(self) -> None:
         result = _validate(self.gate, require_rebuild=False)
         self.assertEqual("PASS", result["result"])
-        self.assertEqual("6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e", result["gate_identity"])
+        self.assertEqual(self.gate["gate_identity"], result["gate_identity"])
 
     def test_changed_source_hash_is_rejected(self) -> None:
         identities = json.loads(json.dumps(self.gate["input_identities"]))
@@ -91,7 +96,13 @@ class SeasonReconciliationMutationTests(unittest.TestCase):
 
     def test_dropped_conflict_is_rejected(self) -> None:
         conflict = json.loads(json.dumps(self.gate["texas_2011_conflict"]))
-        conflict["resolved"] = True
+        conflict["resolved"] = False
+        with self.assertRaises(AuthorityViolation):
+            _validate(_mutated(self.gate, texas_2011_conflict=conflict))
+
+    def test_erased_sidearm_date_is_rejected(self) -> None:
+        conflict = json.loads(json.dumps(self.gate["texas_2011_conflict"]))
+        conflict["sidearm_or_gap_matrix_date"] = "2011-11-24"
         with self.assertRaises(AuthorityViolation):
             _validate(_mutated(self.gate, texas_2011_conflict=conflict))
 

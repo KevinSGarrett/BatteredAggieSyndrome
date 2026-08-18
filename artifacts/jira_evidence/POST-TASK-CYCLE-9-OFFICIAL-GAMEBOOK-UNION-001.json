@@ -1,0 +1,176 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "lsu_2010": "SEASON_INDEX_DATE_VS_BOX_PLAYED_DATE",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "player_identity": "SOURCE_PLAYER_CANDIDATE",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "texas_2011": "RESOLVED_OFFICIAL_STRONG_TUPLE_SIDEARM_DATE_CONFLICT_PRESERVED",
+    "union_admission": "CANDIDATE_ONLY",
+    "wmt_payload": "PRESERVED_IMMUTABLE",
+    "bat570_parquet": "PRESERVED_IMMUTABLE"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owns the new immutable official-school plus WMT gamebook union identity. BAT-523 owns the parent known-at recovery and the existing WMT/Sidearm candidate layer, which must not be rewritten in place. BAT-570 owns the Sidearm/NCAA gap matrix and remains unchanged. BAT-572/BAT-575 own rebound gates but not the union payload. BAT-579 owns archive acquisition. BAT-580 owns box-score normalization. BAT-429 remains blocked on POST-SUBTASK-063/066/069.",
+    "reviewed_keys": [
+      "BAT-429",
+      "BAT-431",
+      "BAT-523",
+      "BAT-554",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-574",
+      "BAT-575",
+      "BAT-576",
+      "BAT-577",
+      "BAT-578",
+      "BAT-579",
+      "BAT-580",
+      "POST-SUBTASK-079",
+      "POST-SUBTASK-081",
+      "POST-SUBTASK-175",
+      "POST-SUBTASK-197",
+      "POST-STORY-027"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "8c0f4a84a00acdc09588bb7b5eb7b3c5242cafc9",
+  "issue_complete": false,
+  "jira_key": "BAT-581",
+  "local_issue_id": "POST-TASK-CYCLE-9-OFFICIAL-GAMEBOOK-UNION-001",
+  "new_issue_decision": "CREATE",
+  "identities": {
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+    "historical_wmt_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",
+    "boxscore_dataset_identity": "46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa",
+    "bat570_matrix_identity": "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa",
+    "bat570_gate_identity": "6a88922c727a34772224ef176aebd4930815dde533893204cbca42402376da93",
+    "bat574_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+    "bat575_gate_identity": "c8ee22b6ba8a5ad1bb7a84fdc74f9c2fb6dd703f5108a953205377798c33b066",
+    "bat576_gate_identity": "d0a2c7218bf9892dfc468f534e41555ab880cb3d41c2d77413dd10ecc923c039",
+    "bat576_manifest_identity": "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb",
+    "bat572_gate_identity": "3dafa09d5b2332cd4c1b6317478560f0f2a661ddd1e5ad441524e7f915bee918",
+    "bat401_identity": "c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc",
+    "bat526_identity": "587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
+  },
+  "observable_outcome": "Cycle #9 Phase 4 created an immutable official-school plus WMT gamebook union. WMT 177 games preserved. Official 2010/2011 added 13+13 with 0 duplicates. Union 203 captured/target games. Rich-structured 190. Metadata-only 13 remaining WMT-only years. 2011 Texas resolved from official 2011-11-24 / Texas 27 Texas A&M 25 / Kyle Field strong tuple; Sidearm 2011-11-25 preserved as a lost-authority source conflict. 2010 LSU keeps football season 2010, box played date 2011-01-07, and season-index date 2010-12-31. BAT-570 parquet unchanged. BAT-576 discovery manifest identity unchanged; bind-only copy updates the BAT-575 input pin. No NCAA contest IDs created. Roster/participation remain non-availability. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays closed.",
+  "outputs": [
+    {
+      "bytes": 35078,
+      "path": "src/aggie_analytics/data/tamu_official_gamebook_union.py",
+      "sha256": "e4ee1bfc8e0224806cfec0e7a491dac8973c36d0fed4c99c55ee22dcdead0c48"
+    },
+    {
+      "bytes": 2223,
+      "path": "configs/tamu_official_gamebook_union_contract.json",
+      "sha256": "1a51c42e04af07b8c45e8bffe0633749a4a289c2da4205edb86ee59e958bf842"
+    },
+    {
+      "bytes": 54334,
+      "path": "artifacts/data_lake/tamu_official_gamebook_union_gate.json",
+      "sha256": "c63c792cf1d681b65101d11b79f2db37169f514cfe8a813424c4f610eb1a2761"
+    },
+    {
+      "bytes": 7511,
+      "path": "tests/test_tamu_official_gamebook_union.py",
+      "sha256": "0dff3a948e8c386c6e40225223688eba2ebc10c2b29e10cd5e33bd4247d94681"
+    },
+    {
+      "bytes": 1356,
+      "path": "tools/build_tamu_official_gamebook_union.py",
+      "sha256": "53aad2c3e459adbeb1a049ce437698b84aaa308ae6172c90994b6dbdf71d0bde"
+    },
+    {
+      "bytes": 4289,
+      "path": "tools/validate_tamu_official_gamebook_union.py",
+      "sha256": "a17afac41dde10c2d02babc39958cb256cc462d5661e33643718168e2a849060"
+    },
+    {
+      "bytes": 25639,
+      "path": "tools/validate_repository.py",
+      "sha256": "cdf41f30c3476549b44c2254c746d73034e9a8c2552b780b759ca408b943b64d"
+    },
+    {
+      "bytes": 45624,
+      "path": "src/aggie_analytics/data/tamu_cross_source_domain_gate.py",
+      "sha256": "1f39deccd6e5e5b32aee5fed9aac6cd9b524b0b6b3d8f15d505e8219c21433c1"
+    },
+    {
+      "bytes": 31119,
+      "path": "src/aggie_analytics/data/tamu_season_reconciliation.py",
+      "sha256": "34f77f1f274e5035ba935d2f8d76348bf87640f5075b4cb428e8b529fc5f68ba"
+    },
+    {
+      "bytes": 28578,
+      "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
+      "sha256": "338eeac664a3f78f8a58fce07ed15fddf23df847fd97de41e5b4f74e261b4c2c"
+    },
+    {
+      "bytes": 34327,
+      "path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
+      "sha256": "2ba42d054dbcf7465400e4bd1d92a6caf7b68168240becf34ed718c6aa838217"
+    },
+    {
+      "bytes": 33455,
+      "path": "artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json",
+      "sha256": "f8a541f91ac412c40bccd1024bcb04da8885cd8722cf56d73b862cfa3931699d"
+    },
+    {
+      "bytes": 5024,
+      "path": "artifacts/data_lake/tamu_2010_2011_ncaa_contest_route_discovery_gate.json",
+      "sha256": "08c57930d5aa9089d9fa65a3e1a64784cba6d6df241f542db4e8a55bc3b05185"
+    },
+    {
+      "bytes": 8983,
+      "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
+      "sha256": "1c76ae0f581ede9a1edd59684d95403d16f50e24239a5cd3376835af5a5b9b28"
+    },
+    {
+      "bytes": 11450,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+      "sha256": "79797465c2e10c449f86399004ffd449f82208fbc8c4981d6f0b66f548f4e5d4"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "same_game_pregame_features_admitted": false,
+    "wmt_candidate_payload_rewritten": false,
+    "bat570_parquet_rewritten": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-429",
+    "BAT-570",
+    "BAT-571",
+    "BAT-572",
+    "BAT-574",
+    "BAT-575",
+    "BAT-576",
+    "BAT-579",
+    "BAT-580"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "8c0f4a84a00acdc09588bb7b5eb7b3c5242cafc9",
+  "workflow_state": "REVIEW"
+}

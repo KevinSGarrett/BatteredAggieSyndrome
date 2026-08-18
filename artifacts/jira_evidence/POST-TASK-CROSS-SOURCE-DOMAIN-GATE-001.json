@@ -8,9 +8,10 @@
     "ncaa_official": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
     "ncaa_official_per_game": "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS",
     "ncaa_team_season": "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED",
+    "official_src014": "VERIFIED_OFFICIAL_POSTGAME_FACT_PER_DOMAIN",
     "pregame_availability": "BLOCKED",
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-    "season_reconciliation": "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE",
+    "season_reconciliation": "SEASON_LEVEL_RECONCILED_WITH_PRESERVED_TEXAS_SIDEARM_DATE_CONFLICT",
     "sidearm_schedule": "CANDIDATE_ONLY",
     "wmt_gamebook": "SOURCE_EVIDENCE_ABSENT_GAP_SEASONS"
   },
@@ -25,17 +26,25 @@
   "completeness_claimed": false,
   "coverage": {
     "by_decision": {
-      "CANDIDATE_ONLY": 61,
-      "CONFLICT_REVIEW_REQUIRED": 17,
+      "CANDIDATE_ONLY": 26,
+      "CONFLICT_REVIEW_REQUIRED": 0,
       "NOT_APPLICABLE": 0,
-      "SOURCE_EVIDENCE_ABSENT": 260,
+      "SOURCE_EVIDENCE_ABSENT": 26,
       "TECHNICAL_ROUTE_BLOCKED": 0,
-      "VERIFIED_CROSS_SOURCE_POSTGAME_FACT": 0,
-      "VERIFIED_OFFICIAL_POSTGAME_FACT": 0
+      "VERIFIED_CROSS_SOURCE_POSTGAME_FACT": 1,
+      "VERIFIED_OFFICIAL_POSTGAME_FACT": 285
     },
     "domain_rows": 338,
     "games": 26,
     "missing_domains": [
+      "pregame_availability"
+    ],
+    "ncaa_contest_domains_still_absent": [
+      "ncaa_contest_identity"
+    ],
+    "recovered_domains": [
+      "linescore_game_info",
+      "venue",
       "attendance",
       "officials",
       "team_statistics",
@@ -44,49 +53,47 @@
       "drives",
       "play_by_play",
       "scoring_summary",
-      "participation",
-      "pregame_availability"
+      "participation"
     ],
-    "recovered_domains": [
-      "linescore_game_info",
-      "venue",
-      "roster_membership"
-    ],
+    "roster_membership": "CANDIDATE_ONLY_NOT_AVAILABILITY",
     "seasons": [
       2010,
       2011
     ]
   },
-  "cycle8_identities": {
+  "cycle9_identities": {
     "contest_route_disposition": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
-    "contest_route_gate_identity": "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb",
-    "season_reconciliation_gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
-    "team_season_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
+    "contest_route_gate_identity": "d0a2c7218bf9892dfc468f534e41555ab880cb3d41c2d77413dd10ecc923c039",
+    "contest_route_manifest_identity": "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb",
+    "season_reconciliation_gate_identity": "c8ee22b6ba8a5ad1bb7a84fdc74f9c2fb6dd703f5108a953205377798c33b066",
+    "team_season_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "evidence_state": "VERIFIED",
-  "gate_identity": "b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678",
+  "gate_identity": "3dafa09d5b2332cd4c1b6317478560f0f2a661ddd1e5ad441524e7f915bee918",
   "issue_complete": true,
   "jira_key": "BAT-572",
   "local_issue_id": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
   "ncaa_official_national_acquisition_identity": "3e7163624cb05c77a9ac6e8ec089c8bacd4d8bd360693aa8b473ca1ec174bebf",
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Cycle #8 Phase 5 rebound of the BAT-572 per-game domain gate bound BAT-574 dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e, BAT-575 6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e, and BAT-576 73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb. Per-game NCAA domains remain SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS. Season-level admissions are recorded separately as SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE and are not VERIFIED_OFFICIAL per-game facts. Contest-route disposition is OFFICIAL_ROUTE_ACCESS_BLOCKED with 0 contest IDs and 0 contest-endpoint attempts. Cycle #7 identity 418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3 is superseded. Protected lane stays RETAIN_PROTECTED_LANE_BLOCKED. BAT-429 stays blocked. BAT-523 stays In Progress.",
+  "observable_outcome": "Cycle #9 Phase 4 rebound of the BAT-572 per-game domain gate bound official Texas A&M 2010-2011 box scores as SRC-014 postgame facts without creating NCAA contest IDs. Gate identity 3dafa09d5b2332cd4c1b6317478560f0f2a661ddd1e5ad441524e7f915bee918. Counts: 285 VERIFIED_OFFICIAL_POSTGAME_FACT, 1 VERIFIED_CROSS_SOURCE_POSTGAME_FACT (2011 Texas linescore), 26 roster CANDIDATE_ONLY, 26 pregame SOURCE_EVIDENCE_ABSENT. NCAA contest IDs remain 0. Contest-route disposition remains OFFICIAL_ROUTE_ACCESS_BLOCKED with manifest identity 0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb. Cycle #8 identity b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678 and Cycle #7 identity 418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3 are superseded. BAT-570 parquet was not rewritten. Protected lane stays RETAIN_PROTECTED_LANE_BLOCKED. BAT-429 stays blocked. BAT-523 stays In Progress.",
   "outputs": [
     {
-      "bytes": 33988,
+      "bytes": 34327,
       "path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
-      "sha256": "2b493399fdd0cfe9087af8cce563e9e64341b341e9637b3f19962e9f50ea8d1a"
+      "sha256": "2ba42d054dbcf7465400e4bd1d92a6caf7b68168240becf34ed718c6aa838217"
     },
     {
-      "bytes": 6605,
+      "bytes": 6952,
       "path": "configs/tamu_cross_source_domain_gate_contract.json",
-      "sha256": "cf3fc7dee3e4672a89f6ee97735ba8fffced8f8aa6dcf6d0a9f4d04f034c8f57"
+      "sha256": "436e60bd684a95ae03fde81b36e4f629b10d5756d573713b9025034fb1066437"
     },
     {
-      "bytes": 42994,
+      "bytes": 45624,
       "path": "src/aggie_analytics/data/tamu_cross_source_domain_gate.py",
-      "sha256": "6f1ed7a3d99e85d7dc7e7695e949930e464af241c04cef103e8b9ec76e3281cc"
+      "sha256": "1f39deccd6e5e5b32aee5fed9aac6cd9b524b0b6b3d8f15d505e8219c21433c1"
     },
     {
       "bytes": 1315,
@@ -99,9 +106,9 @@
       "sha256": "9af1349e82a49b3ef717873d253dde0e81d199bddee6a33d16507ae650ceeaa1"
     },
     {
-      "bytes": 13614,
+      "bytes": 15162,
       "path": "tests/test_tamu_cross_source_domain_gate.py",
-      "sha256": "dc0d9a381755a5bd0d7ed37db15f1ed8cbec3511b5fc7c94cad244442c1b003a"
+      "sha256": "397f3c9ee73d2b52ce898d49f9458f4dd7ff582bb5a7a93cc03ac6f0a61abd29"
     }
   ],
   "parent_jira_key": "BAT-523",

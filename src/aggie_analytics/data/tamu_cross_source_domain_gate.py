@@ -13,6 +13,12 @@ from aggie_analytics.data.ncaa_contest_reconciliation import (
     sha256_file,
     stable_hash,
 )
+from aggie_analytics.data.tamu_official_gamebook_union import (
+    TEXAS_DISPOSITION,
+    attach_official_boxes,
+    load_official_compact_games,
+    official_domain_present,
+)
 
 
 SCHEMA_VERSION = "aggie.data.tamu_cross_source_domain_gate.v1"
@@ -20,7 +26,7 @@ CONTRACT_RELATIVE = "configs/tamu_cross_source_domain_gate_contract.json"
 GATE_RELATIVE = "artifacts/data_lake/tamu_cross_source_domain_gate.json"
 EVIDENCE_RELATIVE = "artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json"
 CONTRACT_ID = "BAT-572-TAMU-CROSS-SOURCE-DOMAIN-GATE-V1"
-PASS_RESULT = "PASS_IDENTITY_BOUND_DOMAIN_GATE_NO_VERIFIED_OFFICIAL"
+PASS_RESULT = "PASS_IDENTITY_BOUND_DOMAIN_GATE_SRC014_POSTGAME_FACTS_NO_NCAA_CONTEST"
 PASS_CLASSIFICATION = "TAMU_2010_2011_CROSS_SOURCE_DOMAIN_CANDIDATE_ONLY"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 PHASE3_MATRIX_IDENTITY = "1e191204aea9c008e708f367fd36352298a3af8b129af6d0fb03b11247c3fffa"
@@ -29,9 +35,11 @@ PHASE4_ACQUISITION_IDENTITY = "349654307f5d46b979e65b12128da50f99e91c1f75627b9bd
 PHASE4_DISPOSITION = "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS"
 TEAM_SEASON_GATE_IDENTITY = "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e"
 TEAM_SEASON_DISPOSITION = "TEAM_PAGE_REUSED_OPTIONAL_ROUTES_BLOCKED"
-SEASON_RECON_GATE_IDENTITY = "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e"
-SEASON_RECON_DISPOSITION = "SEASON_LEVEL_RECONCILED_WITH_UNRESOLVED_TEXAS_DATE"
-CONTEST_ROUTE_GATE_IDENTITY = "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb"
+SEASON_RECON_GATE_IDENTITY = "c8ee22b6ba8a5ad1bb7a84fdc74f9c2fb6dd703f5108a953205377798c33b066"
+SEASON_RECON_DISPOSITION = "SEASON_LEVEL_RECONCILED_WITH_PRESERVED_TEXAS_SIDEARM_DATE_CONFLICT"
+OFFICIAL_BOXSCORE_GATE_IDENTITY = "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5"
+OFFICIAL_BOXSCORE_DATASET_IDENTITY = "46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa"
+CONTEST_ROUTE_GATE_IDENTITY = "d0a2c7218bf9892dfc468f534e41555ab880cb3d41c2d77413dd10ecc923c039"
 CONTEST_ROUTE_DISPOSITION = "OFFICIAL_ROUTE_ACCESS_BLOCKED"
 CONTEST_ROUTE_MANIFEST_IDENTITY = "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb"
 CYCLE7_GATE_IDENTITY = "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3"
@@ -154,6 +162,8 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
         "season_reconciliation_disposition": SEASON_RECON_DISPOSITION,
         "contest_route_gate_identity": CONTEST_ROUTE_GATE_IDENTITY,
         "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
+        "official_boxscore_gate_identity": OFFICIAL_BOXSCORE_GATE_IDENTITY,
+        "official_boxscore_dataset_identity": OFFICIAL_BOXSCORE_DATASET_IDENTITY,
         "wmt_acquisition_identity": WMT_ACQUISITION_IDENTITY,
         "wmt_reconciliation_dataset_identity": WMT_RECONCILIATION_IDENTITY,
         "team_box_snapshot_dataset_identity": TEAM_BOX_IDENTITY,
@@ -251,6 +261,7 @@ def expected_admissions() -> dict[str, str]:
         "season_reconciliation": SEASON_RECON_DISPOSITION,
         "contest_route": CONTEST_ROUTE_DISPOSITION,
         "wmt_gamebook": "SOURCE_EVIDENCE_ABSENT_GAP_SEASONS",
+        "official_src014": "VERIFIED_OFFICIAL_POSTGAME_FACT_PER_DOMAIN",
         "sidearm_schedule": "CANDIDATE_ONLY",
         "pregame_availability": "BLOCKED",
         "protected_lane": PROTECTED_LANE,
@@ -266,9 +277,8 @@ def expected_remaining_blockers() -> list[str]:
         "NCAA_CONTEST_ENDPOINTS_NOT_ATTEMPTED",
         "NCAA_CONTEST_ROUTE_ACCESS_BLOCKED",
         "SEASON_LEVEL_NOT_PER_GAME_OFFICIAL",
-        "TEXAS_2011_DATE_UNRESOLVED_NAME_ONLY",
         "WMT_GAMEBOOK_ABSENT_FOR_2010_2011",
-        "NO_VERIFIED_OFFICIAL_POSTGAME_FACT",
+        "OFFICIAL_SCHOOL_BOXSCORES_ARE_NOT_NCAA_CONTEST_IDS",
         "NO_PREGAME_AVAILABILITY_EVIDENCE",
         "MEMBERSHIP_IS_NOT_AVAILABILITY",
         "PARTICIPATION_IS_NOT_AVAILABILITY",
@@ -318,8 +328,8 @@ def verify_upstream_gates(repo_root: Path) -> dict[str, Any]:
         raise AuthorityViolation("missing BAT-575 season-reconciliation bind")
     if season_recon.get("disposition") != SEASON_RECON_DISPOSITION:
         raise AuthorityViolation("BAT-575 disposition drift")
-    if season_recon.get("admissions", {}).get("texas_2011") != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
-        raise AuthorityViolation("2011 Texas date conflict was silently promoted")
+    if season_recon.get("admissions", {}).get("texas_2011") != TEXAS_DISPOSITION:
+        raise AuthorityViolation("2011 Texas official strong tuple was not bound")
     if contest_route.get("gate_identity") != CONTEST_ROUTE_GATE_IDENTITY:
         raise AuthorityViolation("missing BAT-576 contest-route bind")
     if contest_route.get("disposition") != CONTEST_ROUTE_DISPOSITION:
@@ -410,7 +420,7 @@ def _decision(
         "reason": reason,
         "sources": sources,
         "ncaa_http": ncaa_http,
-        "verified_official": False,
+        "verified_official": decision in VERIFIED_DECISIONS,
         "pregame_available": False,
     }
 
@@ -426,17 +436,13 @@ def decide_domain(game: Mapping[str, Any], domain: str) -> dict[str, Any]:
         raise AuthorityViolation("participation must not be relabeled availability")
     conflicts = list(game.get("conflicts") or [])
     recon = str(game.get("reconciliation_state") or "")
+    official = game.get("official_box")
+    official_status = str(game.get("official_match_status") or "")
     if domain == "pregame_availability":
         return _decision(
             decision="SOURCE_EVIDENCE_ABSENT",
             reason="NO_TIMESTAMPED_PREGAME_EVIDENCE",
             sources=["none"],
-        )
-    if domain == "participation":
-        return _decision(
-            decision="SOURCE_EVIDENCE_ABSENT",
-            reason="NO_2010_2011_GAMEBOOK_PARTICIPATION",
-            sources=["wmt_gap"],
         )
     if domain == "roster_membership":
         return _decision(
@@ -444,12 +450,36 @@ def decide_domain(game: Mapping[str, Any], domain: str) -> dict[str, Any]:
             reason="SEASON_MEMBERSHIP_NOT_GAME_AVAILABILITY",
             sources=["bat567_roster_gate"],
         )
+    if domain == "participation" and official_domain_present(official, "participation"):
+        return _decision(
+            decision="VERIFIED_OFFICIAL_POSTGAME_FACT",
+            reason="OFFICIAL_SCHOOL_PARTICIPATION_IS_NOT_AVAILABILITY",
+            sources=["official_src014"],
+        )
+    if domain == "participation":
+        return _decision(
+            decision="SOURCE_EVIDENCE_ABSENT",
+            reason="NO_2010_2011_GAMEBOOK_PARTICIPATION",
+            sources=["wmt_gap"],
+        )
     if domain == "linescore_game_info":
         if "DATE_SCORE_MATCH_OPPONENT_NAME_CONFLICT" in conflicts:
             return _decision(
                 decision="CONFLICT_REVIEW_REQUIRED",
                 reason="DATE_SCORE_MATCH_OPPONENT_NAME_CONFLICT",
                 sources=["sidearm", "ncaa_legacy"],
+            )
+        if official_status == TEXAS_DISPOSITION and official_domain_present(official, domain):
+            return _decision(
+                decision="VERIFIED_CROSS_SOURCE_POSTGAME_FACT",
+                reason="OFFICIAL_SCHOOL_BOX_PLUS_NCAA_LEGACY_SIDEARM_DATE_LOST_AUTHORITY",
+                sources=["official_src014", "ncaa_legacy", "sidearm"],
+            )
+        if official_domain_present(official, domain):
+            return _decision(
+                decision="VERIFIED_OFFICIAL_POSTGAME_FACT",
+                reason="OFFICIAL_SCHOOL_BOXSCORE_LINESCORE",
+                sources=["official_src014"],
             )
         if recon == "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
             return _decision(
@@ -463,6 +493,12 @@ def decide_domain(game: Mapping[str, Any], domain: str) -> dict[str, Any]:
             sources=["sidearm"],
         )
     if domain == "venue":
+        if official_domain_present(official, domain):
+            return _decision(
+                decision="VERIFIED_OFFICIAL_POSTGAME_FACT",
+                reason="OFFICIAL_SCHOOL_BOXSCORE_VENUE",
+                sources=["official_src014"],
+            )
         if "NCAA_SITE_HINT_AWAY_CONFLICTS_WITH_SIDEARM_VENUE" in conflicts:
             return _decision(
                 decision="CONFLICT_REVIEW_REQUIRED",
@@ -475,6 +511,18 @@ def decide_domain(game: Mapping[str, Any], domain: str) -> dict[str, Any]:
             sources=["sidearm"],
         )
     if domain in NCAA_CONTEST_DOMAINS:
+        if official_domain_present(official, domain):
+            reason = "OFFICIAL_SCHOOL_BOXSCORE_POSTGAME_FACT"
+            if domain == "team_statistics_by_period":
+                reason = "OFFICIAL_QUARTER_SCORES_NOT_FULL_PERIOD_TEAM_STATS"
+            if domain == "player_statistics":
+                reason = "OFFICIAL_PLAYER_STAT_CANDIDATES_IDENTITY_NOT_CANONICAL"
+            return _decision(
+                decision="VERIFIED_OFFICIAL_POSTGAME_FACT",
+                reason=reason,
+                sources=["official_src014"],
+                ncaa_http="NOT_ATTEMPTED_NO_CONTEST_ID",
+            )
         return _decision(
             decision="SOURCE_EVIDENCE_ABSENT",
             reason="NCAA_CONTEST_ID_ABSENT_AND_WMT_GAMEBOOK_GAP",
@@ -492,8 +540,6 @@ def build_domain_rows(games: list[Mapping[str, Any]]) -> list[dict[str, Any]]:
             raise AuthorityViolation("gate population is 2010-2011 only")
         for domain in DOMAIN_COLUMNS:
             admitted = decide_domain(game, domain)
-            if admitted["decision"] in VERIFIED_DECISIONS:
-                raise AuthorityViolation("verified official inflation")
             if admitted["pregame_available"]:
                 raise AuthorityViolation("participation must not be relabeled availability")
             row = {
@@ -578,7 +624,8 @@ def load_phase3_games(data_root: Path, repo_root: Path) -> list[dict[str, Any]]:
             raise AuthorityViolation("silent name-only merge")
         if game.get("contest_id") or game.get("contest_id_fabricated"):
             raise AuthorityViolation("Phase 3 row unexpectedly carries a contest ID")
-    return games
+    official_games = load_official_compact_games(repo_root)
+    return attach_official_boxes(games, official_games)
 
 
 def expected_season_level_admissions(season_recon: Mapping[str, Any]) -> dict[str, Any]:
@@ -598,7 +645,7 @@ def expected_season_level_admissions(season_recon: Mapping[str, Any]) -> dict[st
     admissions = {
         "grain": "SEASON_LEVEL_NOT_PER_GAME",
         "disposition": SEASON_RECON_DISPOSITION,
-        "texas_2011": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
+        "texas_2011": TEXAS_DISPOSITION,
         "by_classification": by_classification,
         "domains": domains,
         "per_game_verified_official": False,
@@ -607,8 +654,8 @@ def expected_season_level_admissions(season_recon: Mapping[str, Any]) -> dict[st
         "membership_as_availability": False,
         "participation_as_availability": False,
     }
-    if admissions["texas_2011"] != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
-        raise AuthorityViolation("2011 Texas date conflict was silently promoted")
+    if admissions["texas_2011"] != TEXAS_DISPOSITION:
+        raise AuthorityViolation("2011 Texas official strong tuple was not bound")
     if admissions["per_game_verified_official"]:
         raise AuthorityViolation("season total falsely promoted to per-game official")
     if admissions["pregame_availability_admitted"]:
@@ -625,6 +672,8 @@ def expected_input_identities() -> dict[str, str]:
         "season_reconciliation_gate_identity": SEASON_RECON_GATE_IDENTITY,
         "contest_route_gate_identity": CONTEST_ROUTE_GATE_IDENTITY,
         "contest_route_manifest_identity": CONTEST_ROUTE_MANIFEST_IDENTITY,
+        "official_boxscore_gate_identity": OFFICIAL_BOXSCORE_GATE_IDENTITY,
+        "official_boxscore_dataset_identity": OFFICIAL_BOXSCORE_DATASET_IDENTITY,
         "ncaa_official_national_acquisition_identity": NCAA_NATIONAL_IDENTITY,
         "wmt_acquisition_identity": WMT_ACQUISITION_IDENTITY,
         "wmt_reconciliation_dataset_identity": WMT_RECONCILIATION_IDENTITY,
@@ -648,8 +697,10 @@ def expected_gate_document(
         raise AuthorityViolation("not every 2010-2011 scheduled game was classified")
     if counts["domain_rows"] != 26 * len(DOMAIN_COLUMNS):
         raise AuthorityViolation("domain-row cardinality drifted")
-    if counts["verified_official"] or counts["verified_cross_source"]:
-        raise AuthorityViolation("verified official inflation")
+    if counts["verified_official"] and not any(
+        row.get("sources") and "official_src014" in row.get("sources") for row in rows
+    ):
+        raise AuthorityViolation("verified official inflation without official-school evidence")
     if counts["technical_route_blocked"]:
         raise AuthorityViolation("TECHNICAL_ROUTE_BLOCKED claimed without HTTP evidence")
     if counts["contest_ids_present"]:
@@ -665,7 +716,7 @@ def expected_gate_document(
         "contract_id": contract["contract_id"],
         "decision_unit": contract["decision_unit"],
         "jira_key": "BAT-572",
-        "rebound_jira_key": "BAT-577",
+        "rebound_jira_key": "BAT-581",
         "input_identities": expected_input_identities(),
         "phase4_disposition": PHASE4_DISPOSITION,
         "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
@@ -872,8 +923,6 @@ def validate_artifact(
         raise AuthorityViolation("forged terminal state after rehash")
     if gate.get("protected_lane") != PROTECTED_LANE:
         raise AuthorityViolation("protected lane must remain blocked")
-    if gate.get("counts", {}).get("verified_official"):
-        raise AuthorityViolation("verified official inflation")
     if gate.get("scientific_nonclaims", {}).get("verified_official_claimed"):
         raise AuthorityViolation("verified official inflation")
     if gate.get("scientific_nonclaims", {}).get("pregame_availability_admitted"):
@@ -910,8 +959,8 @@ def validate_artifact(
         raise AuthorityViolation("season-level grain missing")
     if season_level.get("per_game_verified_official"):
         raise AuthorityViolation("season total falsely promoted to per-game official")
-    if season_level.get("texas_2011") != "UNRESOLVED_NAME_ONLY_NOT_PROMOTED":
-        raise AuthorityViolation("2011 Texas date conflict was silently promoted")
+    if season_level.get("texas_2011") != TEXAS_DISPOSITION:
+        raise AuthorityViolation("2011 Texas official strong tuple was not bound")
     if season_level.get("pregame_availability_admitted"):
         raise AuthorityViolation("participation must not be relabeled availability")
     if season_level.get("membership_as_availability"):

@@ -49,10 +49,10 @@
   "decision_unit": "POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001",
   "discovered_contest_ids": [],
   "disposition": "OFFICIAL_ROUTE_ACCESS_BLOCKED",
-  "gate_identity": "73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb",
+  "gate_identity": "d0a2c7218bf9892dfc468f534e41555ab880cb3d41c2d77413dd10ecc923c039",
   "input_identities": {
     "bat571_gate_identity": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
-    "bat575_gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
+    "bat575_gate_identity": "c8ee22b6ba8a5ad1bb7a84fdc74f9c2fb6dd703f5108a953205377798c33b066",
     "phase2_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
   },
@@ -71,8 +71,8 @@
   "payload": {
     "attempt_count": 40,
     "inspection_count": 36,
-    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_ncaa_contest_route_discovery\\sha256\\0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb\\tamu_2010_2011_ncaa_contest_route_discovery_manifest.json",
-    "manifest_sha256": "38a800beb942d8d8241bfccda9f0343be840199d1f1d4a6d293b805256e55aae",
+    "manifest": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_ncaa_contest_route_discovery\\sha256\\0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb\\tamu_2010_2011_ncaa_contest_route_discovery_manifest.bat581_bind.json",
+    "manifest_sha256": "4f94e374b5ad48bde6c638a74ca0293ea2ade30db0451acde63d03a737f4af21",
     "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_2010_2011_ncaa_contest_route_discovery\\sha256\\0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb\\contest_route_discovery_rows.json",
     "rows_sha256": "f4ba0dd698c71e05b19819bf0d1b85a124e2646fdd01b500a5ed8b002bd6500f"
   },

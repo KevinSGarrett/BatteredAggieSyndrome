@@ -25,7 +25,7 @@
     "phase2_gate_relative_path": "artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json",
     "bat571_gate_identity": "ce233685043ed3a8895cfcc8cdb08b6c3baba39f9e7a0869dc92fb96447cb1a7",
     "bat571_gate_relative_path": "artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json",
-    "bat575_gate_identity": "6d1704db9025d556aaf5861ba55a52ce56590820960928f4648f28fa54a7018e",
+    "bat575_gate_identity": "c8ee22b6ba8a5ad1bb7a84fdc74f9c2fb6dd703f5108a953205377798c33b066",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
   },
   "lake_html": {

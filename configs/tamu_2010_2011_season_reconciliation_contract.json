@@ -26,6 +26,9 @@
     "bat572_gate_relative_path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
     "sidearm_schedule_html_2010_sha256": "4fb8159c477531e7ee653125198085f96e60719ec9050355a4e2d998a08f095b",
     "sidearm_schedule_html_2011_sha256": "143d46bf93aa8a8ebb0818451c6ebf520af058fc0bf0f8f563c6dd808f99ca8f",
+    "official_boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",
+    "official_boxscore_dataset_identity": "46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa",
+    "official_boxscore_gate_relative_path": "artifacts/data_lake/tamu_official_historical_boxscore_gate.json",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
   },
   "domains": [
@@ -49,8 +52,10 @@
     "opponent": "Texas",
     "ncaa_official_date": "2011-11-24",
     "sidearm_or_gap_matrix_date": "2011-11-25",
-    "disposition": "UNRESOLVED_NAME_ONLY_NOT_PROMOTED",
-    "name_only_promotion": false
+    "disposition": "RESOLVED_OFFICIAL_STRONG_TUPLE_SIDEARM_DATE_CONFLICT_PRESERVED",
+    "name_only_promotion": false,
+    "official_school_date": "2011-11-24",
+    "resolved": true
   },
   "bat_554_policy": "RELATES_ONLY_DO_NOT_REOPEN",
   "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",

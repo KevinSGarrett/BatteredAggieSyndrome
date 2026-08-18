@@ -29,9 +29,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "3a8509daafb2347aed6622548bd619c7f42f8ca7",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "b5b8ca6cd87e73abcb17efa0cac3527991d21637",
+  "issue_complete": true,
   "jira_key": "BAT-579",
   "local_issue_id": "POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001",
   "new_issue_decision": "CREATE",
@@ -103,5 +103,5 @@
   ],
   "schema_version": "2.1.0",
   "starting_sha": "3a8509daafb2347aed6622548bd619c7f42f8ca7",
-  "workflow_state": "REVIEW"
+  "workflow_state": "DONE"
 }

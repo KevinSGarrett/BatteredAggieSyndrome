@@ -1,13 +1,18 @@
 {
-  "schema_version": "1.0.0",
-  "contract_id": "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V1",
+  "schema_version": "2.0.0",
+  "contract_id": "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V2",
   "decision_unit": "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001",
   "jira_key": "BAT-569",
   "parent_jira_key": "BAT-523",
   "related_jira_keys": ["BAT-523", "BAT-568", "BAT-566", "BAT-565", "BAT-527", "BAT-401"],
   "new_issue_decision": "CREATE",
   "classification": "DEVELOPMENT_ONLY_CANDIDATE_EVIDENCE_LEDGER",
-  "purpose": "Persist an identity-bound inventory of empirically evaluated 2023 development candidates so later cycles cannot silently discard negative results, change comparison counts, or retune against the same cohort without an audit trail. This is not a production feature registry.",
+  "purpose": "Persist an identity-bound inventory of empirically evaluated 2023 development candidates so later cycles cannot silently discard negative results, change comparison counts, or retune against the same cohort without an audit trail. Generation 2 records the paired-game probability correction: raw team-row scores remain correlated team-perspective evidence and remain authoritative for decide_candidates; coherent unique-game metrics from normalize-then-orient pairs are supporting evidence only. This is not a production feature registry.",
+  "ledger_generation": 2,
+  "prior_ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+  "metrics_authority": "TEAM_ROW_BRIER",
+  "unique_game_metrics_role": "SUPPORTING",
+  "paired_game_correction": "NORMALIZE_PAIR_PROBABILITIES_THEN_CANONICAL_ORIENTATION",
   "required_candidates": [
     "prior_only",
     "prior_plus_play_drive",
@@ -33,13 +38,13 @@
     "protected_split_registry": "governance/PROTECTED_SPLIT_REGISTRY.csv"
   },
   "expected_identities": {
-    "bat565_label_dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
-    "bat566_matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
-    "bat566_replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
-    "bat566_gate_identity": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2",
+    "bat565_label_dataset_identity": "b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff",
+    "bat566_matrix_identity": "f9f866b0921b0f02e5ada7ac90cc27ef2d8594d75d29c0bb4a01e940161c617d",
+    "bat566_replay_identity": "05dec4084c00a18ac3b708ecadb64caf4df3b9cc3fd0268d9fe71b58baf31570",
+    "bat566_gate_identity": "bebc731d2cef8b79376a26ad7cf5010b174a76fc9e08d250855680b8f9afeb11",
     "bat568_joined_matrix_identity": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
-    "bat568_run_identity": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
-    "bat568_gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
+    "bat568_run_identity": "3c1b7dc41541fa37fbe430836e5bfa8a33eece0c0d1799ecc3cb2fd6b2c6d225",
+    "bat568_gate_identity": "24c78874c69dd1fe0e84875451c7ef4a50e74d5381139194d7eee25ff05c969e",
     "bat527_rankings_run_identity": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
     "bat527_rankings_state_identity": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
     "bat527_rankings_feature_identity": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
@@ -49,7 +54,10 @@
     "kickoff_time_bat565_label_dataset": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
     "kickoff_time_bat566_matrix": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
     "kickoff_time_bat566_replay": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7",
-    "prior_ledger_identity": null
+    "prior_ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+    "cycle6_bat565_label_dataset": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "cycle6_bat566_matrix": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+    "cycle6_bat566_replay": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2"
   },
   "authority": {
     "development_evidence_inventory": true,

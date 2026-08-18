@@ -1,34 +1,36 @@
 {
   "schema_version": "2.1.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T21:45:00Z",
+  "created_at_utc": "2026-08-18T05:45:00Z",
   "jira_key": "BAT-401",
   "local_issue_id": "POST-SUBTASK-051",
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Cycle #6 Phase 5 rebound BAT-401 after the BAT-569 development candidate evidence ledger b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43 and BAT-568 rankings walk-forward 8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275 were bound. The previous readiness identity 1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066 is superseded. The issue stays DONE/VERIFIED because the gate was re-executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. No protected metrics were republished.",
-  "supersedes_artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+  "observable_outcome": "Cycle #7 Phase 2 rebound BAT-401 after BAT-569 ledger 656032ff3fc9bdc90b359c4e8e0c801fb5847177052c17d125602c4eb57c7888 and BAT-568 rankings walk-forward 24c78874c69dd1fe0e84875451c7ef4a50e74d5381139194d7eee25ff05c969e were bound. The previous readiness identity 8c02e64b26b5aa2a8164b655b2056b4a9d1d41de6825fa0430551fd4104309dc is superseded. The issue stays DONE/VERIFIED because the gate was re-executed. The protected experimentation lane remains RETAIN_PROTECTED_LANE_BLOCKED. No protected metrics were republished.",
+  "supersedes_artifact_identity": "8c02e64b26b5aa2a8164b655b2056b4a9d1d41de6825fa0430551fd4104309dc",
   "prior_superseded_identities": [
     "6b4f85a9f5422ba05ea400fe39795f18ddaa3d37469d781d42d3b43725e9f31f",
     "5da7e995b340464491db23c8e805564e0da77ec595e638573f169337011818d4",
     "cb78bd426927b079b35901d62da5dc95d9682d6a52f0c691a5cdee57e7ca0bc1",
     "feb1adbdc0db93d22799e0d16002039494ff432572efbf42d06fb47a5fcd7853",
     "fee092379479569e5c654d58bcc9bf4df53a70e10ca49cfae71c6d74a7b0cab2",
-    "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066"
+    "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+    "8c02e64b26b5aa2a8164b655b2056b4a9d1d41de6825fa0430551fd4104309dc",
+    "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3"
   ],
   "outputs": [
     {
       "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
       "bytes": 6795,
-      "sha256": "ddf6c37efa21503934c072f8d154864e12b4d8e35a55205eb2d2b42ff7a7b2ae",
+      "sha256": "62364f8865ec0fd019ba9438f789fead5d15b69998419682746afdc7d548b431",
       "schema_version": "aggie.pit.replay_readiness.v1",
-      "artifact_identity": "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3"
+      "artifact_identity": "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c"
     },
     {
       "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
-      "bytes": 18715,
-      "sha256": "40f38e51707d102f536735e3a25ccb8748f16615bbaa8bbd93aa7ef7842b7aee"
+      "bytes": 19415,
+      "sha256": "41374b940783086c049468b3911172b48f357164c36b2e07599ea80076c89149"
     },
     {
       "path": "tools/evaluate_pit_replay_readiness.py",
@@ -41,7 +43,7 @@
       "sha256": "03a5d42cfdc248d87465c99f1451d5f05a337aac77c25bcdc979b0d12f55dc10"
     }
   ],
-  "consumed_bat526_audit_identity": "13c18600b5dfd4ce24422d1aae058fc0ae177057e72334f37b726e27840059d5",
+  "consumed_bat526_audit_identity": "587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd",
   "consumed_bat400_identity": "db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402",
   "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
   "acceptance_matrix": [
@@ -99,8 +101,8 @@
     "champion_selected": false,
     "protected_metrics_republished": false
   },
-  "consumed_bat566_replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
-  "consumed_bat566_matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
-  "consumed_bat568_gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
-  "consumed_bat569_ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43"
+  "consumed_bat566_replay_identity": "05dec4084c00a18ac3b708ecadb64caf4df3b9cc3fd0268d9fe71b58baf31570",
+  "consumed_bat566_matrix_identity": "f9f866b0921b0f02e5ada7ac90cc27ef2d8594d75d29c0bb4a01e940161c617d",
+  "consumed_bat568_gate_identity": "24c78874c69dd1fe0e84875451c7ef4a50e74d5381139194d7eee25ff05c969e",
+  "consumed_bat569_ledger_identity": "656032ff3fc9bdc90b359c4e8e0c801fb5847177052c17d125602c4eb57c7888"
 }

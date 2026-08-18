@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import sys
 import unittest
@@ -14,12 +15,14 @@ from aggie_analytics.experimentation.development_2023_labeled_replay import (  #
     CONTRACT_RELATIVE,
     CheckpointRejected,
     LabelUnavailable,
+    PairProbabilityDenied,
     ProtectedOutcomeDenied,
     SUPERSEDED_KICKOFF_LABEL_IDENTITY,
     assert_feature_surface,
     assert_no_protected_outcomes,
     assert_unique_game_pairing,
     build_folds,
+    canonical_game_orientation,
     compute_gate_identity,
     derive_membership_proof,
     execute_fold,
@@ -27,12 +30,17 @@ from aggie_analytics.experimentation.development_2023_labeled_replay import (  #
     fold_membership,
     identity_core,
     load_contract,
+    normalize_pair_probabilities,
     prior_only_probability,
     prove_stale_checkpoint_rejection,
     stable_hash,
+    unique_game_eval_rows,
     validate_artifact,
     validate_checkpoint,
     verify_protected_registry,
+)
+from aggie_analytics.experimentation.development_rankings_walk_forward_2023 import (  # noqa: E402
+    normalize_pair_probabilities as rankings_normalize_pair_probabilities,
 )
 from aggie_analytics.validation.protected_split_authority import (  # noqa: E402
     assert_labels_cannot_override_protected_membership,
@@ -471,7 +479,7 @@ class Development2023LabeledReplayUnitTests(unittest.TestCase):
             contract["input_identities"]["bat565_label_dataset_identity"],
             SUPERSEDED_KICKOFF_LABEL_IDENTITY,
         )
-        self.assertEqual(contract["contract_id"], "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V2")
+        self.assertEqual(contract["contract_id"], "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V3")
         self.assertEqual(
             contract["label_semantics"]["completion_bound"],
             "CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE",
@@ -521,12 +529,13 @@ class Development2023LabeledReplayMutationTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
         gate_path = ROOT / "artifacts" / "pit" / "development_walk_forward_2023.json"
+        label_id = load_contract(ROOT)["input_identities"]["bat565_label_dataset_identity"]
         label_payload = (
             cls.data_root
             / "pit_state"
             / "development_outcomes"
             / "sha256"
-            / "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8"
+            / label_id
             / "team_outcome_observations.parquet"
         )
         if not gate_path.is_file() or not label_payload.is_file():
@@ -630,6 +639,73 @@ class Development2023LabeledReplayMutationTests(unittest.TestCase):
         forged = self._mutated_gate(result="FORGED_DONE", classification="PRODUCTION_CHAMPION")
         self.assertNotEqual(forged["gate_identity"], self.gate["gate_identity"])
         self._reject(forged)
+
+
+class Development2023PairNormalizationUnitTests(unittest.TestCase):
+    def test_complement(self) -> None:
+        norm = normalize_pair_probabilities(0.7, 0.3)
+        self.assertAlmostEqual(norm["p_a_game"], 0.7)
+        self.assertAlmostEqual(norm["p_b_game"], 0.3)
+        self.assertAlmostEqual(norm["raw_sum"], 1.0)
+        self.assertAlmostEqual(norm["p_a_game"] + norm["p_b_game"], 1.0)
+        self.assertLessEqual(norm["complement_error"], 1e-12)
+
+    def test_non_complementary_raw_pair_normalizes_to_0_6_over_1_1(self) -> None:
+        norm = normalize_pair_probabilities(0.6, 0.5)
+        self.assertEqual(norm["p_a_game"], 0.6 / 1.1)
+        self.assertEqual(norm["p_b_game"], 1.0 - (0.6 / 1.1))
+        self.assertEqual(norm["raw_sum"], 1.1)
+        self.assertEqual(norm["p_a_game"] + norm["p_b_game"], 1.0)
+
+    def test_fail_closed_invalid(self) -> None:
+        for left, right in (
+            (0.0, 0.5),
+            (0.5, 0.0),
+            (0.0, 0.0),
+            (-0.1, 0.5),
+            (0.5, -0.1),
+            (math.nan, 0.5),
+            (0.5, math.nan),
+            (math.inf, 0.5),
+            (0.5, math.inf),
+        ):
+            with self.subTest(left=left, right=right):
+                with self.assertRaises(PairProbabilityDenied):
+                    normalize_pair_probabilities(left, right)
+
+    def test_team_row_versus_unique_game_are_distinct(self) -> None:
+        rows, _labels = _pair()
+        rows[1]["prior_win_rate"] = 0.5
+        team_probs = [prior_only_probability(row) for row in rows]
+        selected = unique_game_eval_rows(rows, prior_only_probability)[0]
+        self.assertAlmostEqual(team_probs[0], 0.6)
+        self.assertAlmostEqual(team_probs[1], 0.5)
+        self.assertAlmostEqual(selected["p_game"], 0.6 / 1.1)
+        self.assertNotEqual(selected["p_game"], selected["p_raw"])
+        self.assertNotIn(selected["p_game"], team_probs)
+
+    def test_orientation_after_normalize(self) -> None:
+        rows, _labels = _pair()
+        away, home = rows[1], rows[0]
+        away["prior_win_rate"] = 0.6
+        home["prior_win_rate"] = 0.5
+        selected = unique_game_eval_rows([away, home], prior_only_probability)[0]
+        self.assertEqual(selected["site"], "HOME")
+        self.assertEqual(selected["row_id"], home["row_id"])
+        self.assertAlmostEqual(selected["p_raw"], 0.5)
+        self.assertAlmostEqual(selected["p_game"], 0.5 / 1.1)
+        oriented_first = canonical_game_orientation([away, home])
+        self.assertEqual(oriented_first["row_id"], home["row_id"])
+        self.assertNotAlmostEqual(prior_only_probability(oriented_first), selected["p_game"])
+
+    def test_bat568_reuses_same_helper(self) -> None:
+        self.assertIs(rankings_normalize_pair_probabilities, normalize_pair_probabilities)
+
+    def test_zero_sum_and_negative_are_rejected(self) -> None:
+        with self.assertRaises(PairProbabilityDenied):
+            normalize_pair_probabilities(0.0, 0.0)
+        with self.assertRaises(PairProbabilityDenied):
+            normalize_pair_probabilities(-0.2, 0.2)
 
 
 if __name__ == "__main__":

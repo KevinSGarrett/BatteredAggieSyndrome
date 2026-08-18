@@ -117,6 +117,22 @@ def main() -> int:
                 lambda: _validate(_mutated_ledger(ledger, supersession={})),
             )
         )
+        drifted_generation = json.loads(json.dumps(ledger["supersession"]))
+        drifted_generation["ledger_generation"] = 1
+        mutations.append(
+            expect_rejection(
+                "ledger_generation",
+                lambda: _validate(_mutated_ledger(ledger, supersession=drifted_generation)),
+            )
+        )
+        drifted_prior = json.loads(json.dumps(ledger["supersession"]))
+        drifted_prior["prior_ledger_identity"] = "0" * 64
+        mutations.append(
+            expect_rejection(
+                "prior_ledger_identity",
+                lambda: _validate(_mutated_ledger(ledger, supersession=drifted_prior)),
+            )
+        )
         mutations.append(
             expect_rejection(
                 "forged_ledger_completion_after_identity_recompute",

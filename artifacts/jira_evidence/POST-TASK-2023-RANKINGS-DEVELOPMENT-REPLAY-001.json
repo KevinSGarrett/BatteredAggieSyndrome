@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-18T03:10:00Z",
+  "created_at_utc": "2026-08-18T05:45:00Z",
   "jira_key": "BAT-568",
   "local_issue_id": "POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001",
   "parent_jira_key": "BAT-523",
@@ -15,27 +15,27 @@
   "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "issue_complete": true,
-  "observable_outcome": "Cycle #6 Phase 4 created BAT-568 and ran the predeclared 2023-only rankings-augmented development walk-forward on corrected BAT-565 labels, corrected BAT-566 folds, and admitted BAT-527 rankings PIT features. Four candidates were evaluated. No candidate improved team-row Brier versus prior_only. prior_plus_rankings Brier +0.00511 and prior_plus_play_drive_plus_rankings Brier +0.00478 versus prior_only; both are REJECTED_DEVELOPMENT. The negative play/drive result is preserved. Unranked teams were not encoded as rank 26. No 2024/2025 outcomes entered the experiment. BAT-527 was not reopened. BAT-523 remains In Progress. No promotion, protected, champion, or production authority is granted.",
+  "observable_outcome": "Cycle #7 Phase 2 rebound BAT-568 with ranking-row eligibility semantics and reused BAT-566 normalize_pair_probabilities. RANKED_NUMERIC requires a timestamp and finite integer rank 1-25. RECEIVING_VOTES / EXPLICITLY_UNRANKED / NOT_LISTED_IN_ELIGIBLE_POLL require a timestamp and null rank. NO_ELIGIBLE_POLL may carry a null timestamp. Team-row Brier remains authoritative; no candidate improved versus prior_only. Unique-game metrics are supporting evidence only. Unranked teams were not encoded as rank 26. No 2024/2025 outcomes entered the experiment.",
   "outputs": [
     {
       "path": "artifacts/pit/development_rankings_walk_forward_2023.json",
-      "bytes": 7340,
-      "sha256": "d3170d987c0a3176d4b2941e78f3756064e1eb877f07419ca04ddff114fba2db",
-      "schema_version": "aggie.experimentation.development_rankings_walk_forward_2023.v1",
+      "bytes": 8752,
+      "sha256": "d34193244efe7f9769378f6e2e880356afc36f4ad3d089bacbb974edb75fa48d",
+      "schema_version": "aggie.experimentation.development_rankings_walk_forward_2023.v2",
       "joined_matrix_identity": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
-      "run_identity": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
-      "code_identity": "8ad369f16938d220c7c2fbadea72a7f3a7c00217fff7515030818ecb906a55ae",
-      "gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275"
+      "run_identity": "3c1b7dc41541fa37fbe430836e5bfa8a33eece0c0d1799ecc3cb2fd6b2c6d225",
+      "code_identity": "3f53d2f64630e9d45e5c026a3adb54b13e6d486531ff56e714e8d79e570875ee",
+      "gate_identity": "24c78874c69dd1fe0e84875451c7ef4a50e74d5381139194d7eee25ff05c969e"
     },
     {
       "path": "configs/development_rankings_walk_forward_2023_contract.json",
-      "bytes": 4954,
-      "sha256": "bc6926ec817f054f8afa1b5b60ed317d023b4a559e4cd0bf57b38862f946a228"
+      "bytes": 5656,
+      "sha256": "214c104e238f716984b7e2f86a50e30a1f5cd44bc24e964c4c069182be996ea5"
     },
     {
       "path": "src/aggie_analytics/experimentation/development_rankings_walk_forward_2023.py",
-      "bytes": 33587,
-      "sha256": "8ad369f16938d220c7c2fbadea72a7f3a7c00217fff7515030818ecb906a55ae"
+      "bytes": 40356,
+      "sha256": "3f53d2f64630e9d45e5c026a3adb54b13e6d486531ff56e714e8d79e570875ee"
     },
     {
       "path": "tools/build_development_rankings_walk_forward_2023.py",
@@ -49,23 +49,23 @@
     },
     {
       "path": "tools/validate_development_rankings_walk_forward_2023.py",
-      "bytes": 6141,
-      "sha256": "c3a26f74d37aae6153dc436850fca68af52d11df16135f2a3e16894ca525faa3"
+      "bytes": 11248,
+      "sha256": "a98bb4f3160e0d868d85fe93bae7f0a8971cb03e9bcb28b9673027efadcfcc13"
     },
     {
       "path": "tests/test_development_rankings_walk_forward_2023.py",
-      "bytes": 12038,
-      "sha256": "f0fe3072e904df91b3308922802adaeb7a8fead1d4947aba8a6ccdc3d1a45907"
+      "bytes": 17995,
+      "sha256": "3946df82da87038f512d3c25a17d1126ee7510610dc8d2628b1a858d8f370a10"
     }
   ],
-  "contract_id": "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V1",
+  "contract_id": "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V2",
   "joined_matrix_identity": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
-  "run_identity": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
-  "code_identity": "8ad369f16938d220c7c2fbadea72a7f3a7c00217fff7515030818ecb906a55ae",
-  "gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
+  "run_identity": "3c1b7dc41541fa37fbe430836e5bfa8a33eece0c0d1799ecc3cb2fd6b2c6d225",
+  "code_identity": "3f53d2f64630e9d45e5c026a3adb54b13e6d486531ff56e714e8d79e570875ee",
+  "gate_identity": "24c78874c69dd1fe0e84875451c7ef4a50e74d5381139194d7eee25ff05c969e",
   "external_manifest": {
     "path": "<external-data-root>/manifests/development_rankings_2023/sha256/a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a/development_rankings_walk_forward_2023_manifest.json",
-    "sha256": "3471c5d99ce4273b73dbf41626646755e77717beaa238787df3c0946e9070997",
+    "sha256": "71c3f1fc2eae1e85f2d0f3edcd655f8483bc0d06f9a7c202ade843b52541dccb",
     "bytes": 1322
   },
   "external_payloads": [
@@ -93,7 +93,10 @@
     "team_rows": 1820,
     "unique_games": 910,
     "fold_count": 16,
-    "protected_seasons_excluded": [2024, 2025]
+    "protected_seasons_excluded": [
+      2024,
+      2025
+    ]
   },
   "coverage": {
     "eligible_rankings_rows": 531,

@@ -9,23 +9,29 @@ import platform
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 # 2023-only labeled development matrix and expanding-window walk-forward.
 # Labels are post-completion observations. They are never pregame features.
 # Metrics are development-only and grant no protected or promotion authority.
 
-SCHEMA_VERSION = "aggie.experimentation.development_2023_labeled_replay.v2"
-CHECKPOINT_SCHEMA = "aggie.experimentation.development_2023_labeled_checkpoint.v2"
+SCHEMA_VERSION = "aggie.experimentation.development_2023_labeled_replay.v3"
+CHECKPOINT_SCHEMA = "aggie.experimentation.development_2023_labeled_checkpoint.v3"
 CONTRACT_RELATIVE = "configs/development_2023_labeled_replay_contract.json"
 GATE_RELATIVE = "artifacts/pit/development_walk_forward_2023.json"
-CONTRACT_ID = "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V2"
+CONTRACT_ID = "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V3"
 PASS_RESULT = "PASS_DEVELOPMENT_ONLY_2023_LABELED_REPLAY"
 PROTECTED_SEASONS = frozenset({2024, 2025})
 DEVELOPMENT_SEASON = 2023
 SUPERSEDED_KICKOFF_LABEL_IDENTITY = "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
 SUPERSEDED_MATRIX_IDENTITY = "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a"
 SUPERSEDED_REPLAY_IDENTITY = "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
+SUPERSEDED_CYCLE6_LABEL_IDENTITY = "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8"
+SUPERSEDED_CYCLE6_MATRIX_IDENTITY = "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68"
+SUPERSEDED_CYCLE6_REPLAY_IDENTITY = "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2"
+AUTHORITATIVE_PRIOR_ONLY_BRIER = 0.23135006789663434
+AUTHORITATIVE_PRIOR_ONLY_ROWS = 1820
+PAIR_COMPLEMENT_TOLERANCE = 1e-12
 NON_AUTHORITATIVE_METADATA = frozenset({"issued_at_utc", "producer"})
 FORBIDDEN_FEATURE_FIELDS = frozenset(
     {
@@ -201,6 +207,13 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
     pinned = contract["input_identities"]["bat565_label_dataset_identity"]
     if pinned == SUPERSEDED_KICKOFF_LABEL_IDENTITY:
         raise ValueError("active BAT-566 contract still pins superseded kickoff-time BAT-565 identity")
+    semantics = contract.get("label_semantics") or {}
+    if "available_only_after_completion" in semantics:
+        raise ValueError("available_only_after_completion claims observed completion and is forbidden")
+    if semantics.get("label_eligibility_basis") != "PRECOMMITTED_RETROSPECTIVE_POLICY_BOUND":
+        raise ValueError("label eligibility basis is not the precommitted retrospective policy")
+    if semantics.get("historical_label_availability_proven") is not False:
+        raise ValueError("contract must not claim proven historical label availability")
     authority = contract["authority"]
     if authority.get("development_2023_labeled_evaluation") is not True:
         raise ValueError("2023 labeled evaluation authority is not explicitly enabled")
@@ -320,7 +333,42 @@ def assert_unique_game_pairing(
     }
 
 
-def unique_game_eval_rows(eval_rows: Sequence[Mapping[str, Any]]) -> list[Mapping[str, Any]]:
+class PairProbabilityDenied(ValueError):
+    """Raised when raw pair probabilities cannot be normalized fail-closed."""
+
+
+def normalize_pair_probabilities(p_a_raw: float, p_b_raw: float) -> dict[str, float]:
+    try:
+        p_a = float(p_a_raw)
+        p_b = float(p_b_raw)
+    except (TypeError, ValueError) as exc:
+        raise PairProbabilityDenied("raw pair probability is not numeric") from exc
+    if not math.isfinite(p_a) or not math.isfinite(p_b):
+        raise PairProbabilityDenied("raw pair probability is NaN or infinite")
+    if p_a < 0.0 or p_b < 0.0:
+        raise PairProbabilityDenied("raw pair probability is negative")
+    if p_a == 0.0 or p_b == 0.0:
+        raise PairProbabilityDenied("raw pair probability is zero")
+    raw_sum = p_a + p_b
+    if raw_sum == 0.0:
+        raise PairProbabilityDenied("raw pair probability sum is zero")
+    p_a_game = p_a / raw_sum
+    p_b_game = 1.0 - p_a_game
+    complement_error = abs((p_a_game + p_b_game) - 1.0)
+    if complement_error > PAIR_COMPLEMENT_TOLERANCE:
+        raise PairProbabilityDenied("normalized pair is not complementary")
+    return {
+        "p_a_game": p_a_game,
+        "p_b_game": p_b_game,
+        "raw_sum": raw_sum,
+        "complement_error": complement_error,
+    }
+
+
+def unique_game_eval_rows(
+    eval_rows: Sequence[Mapping[str, Any]],
+    probability_fn: Callable[[Mapping[str, Any]], float] | None = None,
+) -> list[Mapping[str, Any]]:
     grouped: dict[str, list[Mapping[str, Any]]] = {}
     for row in eval_rows:
         grouped.setdefault(str(row["target_game_id"]), []).append(row)
@@ -328,9 +376,62 @@ def unique_game_eval_rows(eval_rows: Sequence[Mapping[str, Any]]) -> list[Mappin
     for game_id, rows in grouped.items():
         if len(rows) != 2:
             raise ValueError(f"evaluation game {game_id} is not a unique complementary pair")
-        selected.append(canonical_game_orientation(rows))
-    selected.sort(key=lambda item: (str(item["cutoff_utc"]), str(item["row_id"])))
+        if probability_fn is None:
+            selected.append(canonical_game_orientation(rows))
+            continue
+        left, right = rows[0], rows[1]
+        p_left = float(probability_fn(left))
+        p_right = float(probability_fn(right))
+        norm = normalize_pair_probabilities(p_left, p_right)
+        enriched = [
+            {**dict(left), "p_raw": p_left, "p_game": norm["p_a_game"], "pair_normalization": norm},
+            {**dict(right), "p_raw": p_right, "p_game": norm["p_b_game"], "pair_normalization": norm},
+        ]
+        selected.append(canonical_game_orientation(enriched))
+    selected.sort(key=lambda item: (str(item.get("cutoff_utc", "")), str(item["row_id"])))
     return selected
+
+
+def pair_probability_diagnostics(
+    eval_rows: Sequence[Mapping[str, Any]],
+    probability_fn: Callable[[Mapping[str, Any]], float],
+) -> dict[str, Any]:
+    grouped: dict[str, list[Mapping[str, Any]]] = {}
+    for row in eval_rows:
+        grouped.setdefault(str(row["target_game_id"]), []).append(row)
+    raw_sums: list[float] = []
+    complement_errors: list[float] = []
+    selected_ids: list[str] = []
+    for game_id, rows in grouped.items():
+        if len(rows) != 2:
+            raise ValueError(f"evaluation game {game_id} is not a unique complementary pair")
+        p_a = float(probability_fn(rows[0]))
+        p_b = float(probability_fn(rows[1]))
+        raw_sums.append(p_a + p_b)
+        norm = normalize_pair_probabilities(p_a, p_b)
+        complement_errors.append(abs(float(norm["complement_error"])))
+        selected = canonical_game_orientation(
+            [
+                {**dict(rows[0]), "p_game": norm["p_a_game"]},
+                {**dict(rows[1]), "p_game": norm["p_b_game"]},
+            ]
+        )
+        selected_ids.append(str(selected["row_id"]))
+    return {
+        "raw_pair_count": len(raw_sums),
+        "raw_pair_sum_min": None if not raw_sums else min(raw_sums),
+        "raw_pair_sum_max": None if not raw_sums else max(raw_sums),
+        "raw_pair_sum_mean": None if not raw_sums else sum(raw_sums) / float(len(raw_sums)),
+        "mean_abs_deviation_from_1": None
+        if not raw_sums
+        else sum(abs(value - 1.0) for value in raw_sums) / float(len(raw_sums)),
+        "normalized_pair_count": len(complement_errors),
+        "max_normalized_complement_error": None if not complement_errors else max(complement_errors),
+        "canonical_orientation_identity": stable_hash(
+            {"rule": "HOME_THEN_TEAM_ID", "selected_row_ids": selected_ids}
+        ),
+        "orientation": "HOME_THEN_TEAM_ID",
+    }
 
 
 def load_verified_inputs(data_root: Path, contract: Mapping[str, Any]) -> dict[str, Any]:
@@ -834,7 +935,13 @@ def execute_fold(
             plus_probs.append(prior_plus_probability(row, prior_plus))
             plus_true_m.append(y_m)
             plus_pred_m.append(prior_only_margin(row))
-    game_eval_rows = unique_game_eval_rows(eval_rows)
+    game_eval_rows = unique_game_eval_rows(eval_rows, prior_only_probability)
+    plus_fn = None if prior_plus["kind"] == "HISTORICAL_ONLY_IDENTITY_OR_ABSTAIN" else (
+        lambda row, model=prior_plus: prior_plus_probability(row, model)
+    )
+    game_plus_eval_rows = (
+        [] if plus_fn is None else unique_game_eval_rows(eval_rows, plus_fn)
+    )
     game_prior_labels: list[float] = []
     game_prior_probs: list[float] = []
     game_plus_labels: list[float] = []
@@ -843,26 +950,28 @@ def execute_fold(
     game_prior_pred_m: list[float | None] = []
     game_plus_true_m: list[float | None] = []
     game_plus_pred_m: list[float | None] = []
-    paired_probability_sums: list[float] = []
     for row in game_eval_rows:
         label = label_by_row[str(row["row_id"])]
         y = 1.0 if label["result"] == "WIN" else 0.0
         y_m = None if label.get("margin") is None else float(label["margin"])
         game_prior_labels.append(y)
-        game_prior_probs.append(prior_only_probability(row))
+        game_prior_probs.append(float(row["p_game"]))
         game_prior_true_m.append(y_m)
         game_prior_pred_m.append(prior_only_margin(row))
-        mate = next(
-            item
-            for item in eval_rows
-            if str(item["target_game_id"]) == str(row["target_game_id"]) and str(item["row_id"]) != str(row["row_id"])
-        )
-        paired_probability_sums.append(prior_only_probability(row) + prior_only_probability(mate))
-        if prior_plus["kind"] != "HISTORICAL_ONLY_IDENTITY_OR_ABSTAIN":
-            game_plus_labels.append(y)
-            game_plus_probs.append(prior_plus_probability(row, prior_plus))
-            game_plus_true_m.append(y_m)
-            game_plus_pred_m.append(prior_only_margin(row))
+    for row in game_plus_eval_rows:
+        label = label_by_row[str(row["row_id"])]
+        y = 1.0 if label["result"] == "WIN" else 0.0
+        y_m = None if label.get("margin") is None else float(label["margin"])
+        game_plus_labels.append(y)
+        game_plus_probs.append(float(row["p_game"]))
+        game_plus_true_m.append(y_m)
+        game_plus_pred_m.append(prior_only_margin(row))
+    prior_pair = pair_probability_diagnostics(eval_rows, prior_only_probability)
+    plus_pair = (
+        None
+        if plus_fn is None
+        else pair_probability_diagnostics(eval_rows, plus_fn)
+    )
     result = {
         "fold_id": fold["fold_id"],
         "fold_index": fold["fold_index"],
@@ -897,41 +1006,57 @@ def execute_fold(
             "epa_mean": prior_plus["epa_mean"],
             "identity": stable_hash(prior_plus),
         },
-        "prior_only": classification_metrics(prior_labels, prior_probs, prior_true_m, prior_pred_m),
-        "prior_plus_play_drive": classification_metrics(plus_labels, plus_probs, plus_true_m, plus_pred_m)
-        if plus_labels
-        else {
-            "rows": 0,
-            "accuracy": None,
-            "brier": None,
-            "log_loss": None,
-            "margin_mae": None,
-            "calibration": {"omitted": True, "reason": "ABSTAIN_NO_FIT"},
-            "abstained": True,
+        "prior_only": {
+            **classification_metrics(prior_labels, prior_probs, prior_true_m, prior_pred_m),
+            "perspective": "CORRELATED_TEAM_ROW",
+            "authoritative_for_decisions": True,
         },
-        "unique_game_prior_only": classification_metrics(
-            game_prior_labels, game_prior_probs, game_prior_true_m, game_prior_pred_m
-        ),
-        "unique_game_prior_plus_play_drive": classification_metrics(
-            game_plus_labels, game_plus_probs, game_plus_true_m, game_plus_pred_m
-        )
-        if game_plus_labels
-        else {
-            "rows": 0,
-            "accuracy": None,
-            "brier": None,
-            "log_loss": None,
-            "margin_mae": None,
-            "calibration": {"omitted": True, "reason": "ABSTAIN_NO_FIT"},
-            "abstained": True,
+        "prior_plus_play_drive": {
+            **(
+                classification_metrics(plus_labels, plus_probs, plus_true_m, plus_pred_m)
+                if plus_labels
+                else {
+                    "rows": 0,
+                    "accuracy": None,
+                    "brier": None,
+                    "log_loss": None,
+                    "margin_mae": None,
+                    "calibration": {"omitted": True, "reason": "ABSTAIN_NO_FIT"},
+                    "abstained": True,
+                }
+            ),
+            "perspective": "CORRELATED_TEAM_ROW",
+            "authoritative_for_decisions": True,
         },
-        "paired_probability": {
-            "orientation": "HOME_THEN_TEAM_ID",
-            "games": len(paired_probability_sums),
-            "mean_home_plus_away": None
-            if not paired_probability_sums
-            else sum(paired_probability_sums) / float(len(paired_probability_sums)),
+        "unique_game_prior_only": {
+            **classification_metrics(
+                game_prior_labels, game_prior_probs, game_prior_true_m, game_prior_pred_m
+            ),
+            **prior_pair,
+            "perspective": "COHERENT_UNIQUE_GAME",
+            "authoritative_for_decisions": False,
         },
+        "unique_game_prior_plus_play_drive": {
+            **(
+                classification_metrics(
+                    game_plus_labels, game_plus_probs, game_plus_true_m, game_plus_pred_m
+                )
+                if game_plus_labels
+                else {
+                    "rows": 0,
+                    "accuracy": None,
+                    "brier": None,
+                    "log_loss": None,
+                    "margin_mae": None,
+                    "calibration": {"omitted": True, "reason": "ABSTAIN_NO_FIT"},
+                    "abstained": True,
+                }
+            ),
+            **(plus_pair or {}),
+            "perspective": "COHERENT_UNIQUE_GAME",
+            "authoritative_for_decisions": False,
+        },
+        "paired_probability": prior_pair,
     }
     result["fold_result_hash"] = stable_hash(
         {key: value for key, value in result.items() if key != "fold_result_hash"}
@@ -1584,10 +1709,14 @@ def expected_issue_completion() -> dict[str, Any]:
 
 def expected_supersession() -> dict[str, str]:
     return {
-        "matrix_identity": SUPERSEDED_MATRIX_IDENTITY,
-        "replay_identity": SUPERSEDED_REPLAY_IDENTITY,
-        "bat565_label_dataset_identity": SUPERSEDED_KICKOFF_LABEL_IDENTITY,
-        "reason": "KICKOFF_TIME_LABEL_PARENT_INVALID",
+        "matrix_identity": SUPERSEDED_CYCLE6_MATRIX_IDENTITY,
+        "replay_identity": SUPERSEDED_CYCLE6_REPLAY_IDENTITY,
+        "bat565_label_dataset_identity": SUPERSEDED_CYCLE6_LABEL_IDENTITY,
+        "reason": "PAIR_PROBABILITY_AND_LABEL_AVAILABILITY_TRUTH",
+        "kickoff_matrix_identity": SUPERSEDED_MATRIX_IDENTITY,
+        "kickoff_replay_identity": SUPERSEDED_REPLAY_IDENTITY,
+        "kickoff_bat565_label_dataset_identity": SUPERSEDED_KICKOFF_LABEL_IDENTITY,
+        "kickoff_reason": "KICKOFF_TIME_LABEL_PARENT_INVALID",
     }
 
 
@@ -1752,6 +1881,14 @@ def validate_artifact(
         errors.append("unique-game pairing was not independently reconstructed")
     if loaded_gate.get("metrics") != metrics:
         errors.append("gate metrics do not match independently rebuilt metrics")
+    prior = metrics.get("prior_only") or {}
+    unique = metrics.get("unique_game_prior_only") or {}
+    if prior.get("evaluated_rows") != AUTHORITATIVE_PRIOR_ONLY_ROWS:
+        errors.append("authoritative prior_only row count drifted")
+    if prior.get("brier") != AUTHORITATIVE_PRIOR_ONLY_BRIER:
+        errors.append("authoritative prior_only team-row Brier drifted")
+    if unique.get("evaluated_rows") == prior.get("evaluated_rows"):
+        errors.append("unique-game metrics silently replaced team-row metrics")
     if loaded_gate.get("incremental_play_drive_result") != incremental:
         errors.append("changed incremental result")
     if loaded_gate.get("authority") != rebuilt["contract"]["authority"]:

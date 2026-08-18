@@ -21,6 +21,7 @@ from aggie_analytics.experimentation.development_candidate_evidence_ledger impor
     compute_fold_definition_identity,
     compute_ledger_identity,
     expected_ledger_document,
+    expected_supersession,
     load_contract,
     validate_artifact,
 )
@@ -53,6 +54,8 @@ def _synthetic_expected() -> dict[str, object]:
             },
             "brier_delta_vs_prior_only": 0.0,
             "negative_result_preserved": True,
+            "metrics_authority": "TEAM_ROW_BRIER",
+            "unique_game_metrics_role": "SUPPORTING",
         },
         {
             "candidate": "prior_plus_play_drive",
@@ -78,6 +81,8 @@ def _synthetic_expected() -> dict[str, object]:
             },
             "brier_delta_vs_prior_only": 0.02,
             "negative_result_preserved": True,
+            "metrics_authority": "TEAM_ROW_BRIER",
+            "unique_game_metrics_role": "SUPPORTING",
         },
         {
             "candidate": "prior_plus_rankings",
@@ -103,6 +108,8 @@ def _synthetic_expected() -> dict[str, object]:
             },
             "brier_delta_vs_prior_only": 0.03,
             "negative_result_preserved": True,
+            "metrics_authority": "TEAM_ROW_BRIER",
+            "unique_game_metrics_role": "SUPPORTING",
         },
         {
             "candidate": "prior_plus_play_drive_plus_rankings",
@@ -128,6 +135,8 @@ def _synthetic_expected() -> dict[str, object]:
             },
             "brier_delta_vs_prior_only": 0.025,
             "negative_result_preserved": True,
+            "metrics_authority": "TEAM_ROW_BRIER",
+            "unique_game_metrics_role": "SUPPORTING",
         },
     ]
     return {
@@ -168,20 +177,7 @@ def _synthetic_expected() -> dict[str, object]:
         "candidates": list(CANDIDATES),
         "entries": entries,
         "comparison_count": 4,
-        "supersession": {
-            "ledger_generation": 1,
-            "prior_ledger_identity": None,
-            "supersession_kind": "FIRST_LEDGER_VERSION",
-            "reason": "NO_PRIOR_IDENTITY_BOUND_DEVELOPMENT_CANDIDATE_LEDGER",
-            "parent_experiment_history": {
-                "kickoff_time_bat565_label_dataset": contract["superseded_identities"][
-                    "kickoff_time_bat565_label_dataset"
-                ],
-                "kickoff_time_bat566_matrix": contract["superseded_identities"]["kickoff_time_bat566_matrix"],
-                "kickoff_time_bat566_replay": contract["superseded_identities"]["kickoff_time_bat566_replay"],
-                "active_use_forbidden": True,
-            },
-        },
+        "supersession": expected_supersession(contract),
         "code_identity": "c" * 64,
         "any_candidate_improved_brier_vs_prior_only": False,
         "uncertainty_reason": "DEVELOPMENT_ONLY_NO_STATISTICAL_TEST_NO_PROTECTED_REPLICATION",
@@ -248,7 +244,11 @@ class DevelopmentCandidateLedgerMutationTests(unittest.TestCase):
         self.assertEqual(self.ledger["result"], PASS_RESULT)
         self.assertEqual(self.ledger["classification"], PASS_CLASSIFICATION)
         self.assertEqual(self.ledger["comparison_count"], 4)
-        self.assertIsNone(self.ledger["supersession"]["prior_ledger_identity"])
+        self.assertEqual(
+            self.ledger["supersession"]["prior_ledger_identity"],
+            "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+        )
+        self.assertEqual(self.ledger["supersession"]["ledger_generation"], 2)
         self.assertNotIn("PRODUCTION_CHAMPION", json.dumps(self.ledger["entries"]))
 
     def test_changed_metrics_are_rejected(self) -> None:
@@ -317,6 +317,13 @@ class DevelopmentCandidateLedgerLiveTests(unittest.TestCase):
         self.assertTrue(all(entry["negative_result_preserved"] for entry in ledger["entries"]))
         self.assertTrue(all(entry["state"] in ALLOWED_STATES for entry in ledger["entries"]))
         self.assertFalse(any(entry["state"] in FORBIDDEN_STATES for entry in ledger["entries"]))
+        self.assertEqual(ledger["supersession"]["ledger_generation"], 2)
+        self.assertEqual(
+            ledger["supersession"]["prior_ledger_identity"],
+            "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+        )
+        self.assertTrue(all(entry["unique_game_metrics_role"] == "SUPPORTING" for entry in ledger["entries"]))
+        self.assertTrue(all(entry["metrics_authority"] == "TEAM_ROW_BRIER" for entry in ledger["entries"]))
 
 
 if __name__ == "__main__":

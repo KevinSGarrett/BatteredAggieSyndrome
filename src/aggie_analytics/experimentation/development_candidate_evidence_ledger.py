@@ -5,10 +5,12 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-SCHEMA_VERSION = "aggie.experimentation.development_candidate_evidence_ledger.v1"
+SCHEMA_VERSION = "aggie.experimentation.development_candidate_evidence_ledger.v2"
 CONTRACT_RELATIVE = "configs/development_candidate_feature_registry.json"
 LEDGER_RELATIVE = "artifacts/experimentation/development_candidate_evidence_ledger.json"
-CONTRACT_ID = "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V1"
+CONTRACT_ID = "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V2"
+PRIOR_LEDGER_IDENTITY = "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43"
+LEDGER_GENERATION = 2
 PASS_RESULT = "PASS_DEVELOPMENT_CANDIDATE_EVIDENCE_LEDGER"
 PASS_CLASSIFICATION = "DEVELOPMENT_ONLY_CANDIDATE_EVIDENCE_LEDGER"
 DEVELOPMENT_SEASON = 2023
@@ -105,6 +107,16 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
         raise LedgerValidationDenied("contract must fail-close champion or production promotion")
     if contract.get("authority", {}).get("production_feature_registry") is not False:
         raise LedgerValidationDenied("contract must not claim production feature-registry authority")
+    if int(contract.get("ledger_generation") or 0) != LEDGER_GENERATION:
+        raise LedgerValidationDenied("ledger generation must be 2")
+    if contract.get("prior_ledger_identity") != PRIOR_LEDGER_IDENTITY and contract.get(
+        "superseded_identities", {}
+    ).get("prior_ledger_identity") != PRIOR_LEDGER_IDENTITY:
+        raise LedgerValidationDenied("generation-2 ledger must bind the prior ledger identity")
+    if contract.get("metrics_authority") != "TEAM_ROW_BRIER":
+        raise LedgerValidationDenied("team-row Brier must remain the decision authority")
+    if contract.get("unique_game_metrics_role") != "SUPPORTING":
+        raise LedgerValidationDenied("unique-game metrics must remain supporting evidence")
     return contract
 
 
@@ -316,6 +328,8 @@ def _build_entries(rankings_gate: Mapping[str, Any]) -> list[dict[str, Any]]:
                 },
                 "brier_delta_vs_prior_only": brier_delta,
                 "negative_result_preserved": name == "prior_only" or brier_delta > 0,
+                "metrics_authority": "TEAM_ROW_BRIER",
+                "unique_game_metrics_role": "SUPPORTING",
             }
         )
     if rankings_gate["candidate_decisions"].get("any_candidate_improved_brier_vs_prior_only") is not False:
@@ -330,14 +344,25 @@ def _build_entries(rankings_gate: Mapping[str, Any]) -> list[dict[str, Any]]:
 def expected_supersession(contract: Mapping[str, Any]) -> dict[str, Any]:
     superseded = contract["superseded_identities"]
     return {
-        "ledger_generation": 1,
-        "prior_ledger_identity": superseded.get("prior_ledger_identity"),
-        "supersession_kind": "FIRST_LEDGER_VERSION",
-        "reason": "NO_PRIOR_IDENTITY_BOUND_DEVELOPMENT_CANDIDATE_LEDGER",
+        "ledger_generation": LEDGER_GENERATION,
+        "prior_ledger_identity": PRIOR_LEDGER_IDENTITY,
+        "supersession_kind": "PAIRED_GAME_PROBABILITY_CORRECTION",
+        "reason": (
+            "GENERATION_2_RECORDS_COHERENT_UNIQUE_GAME_METRICS_AS_SUPPORTING_EVIDENCE_"
+            "WITHOUT_CHANGING_TEAM_ROW_DECIDE_CANDIDATES"
+        ),
+        "paired_game_correction": contract.get(
+            "paired_game_correction", "NORMALIZE_PAIR_PROBABILITIES_THEN_CANONICAL_ORIENTATION"
+        ),
+        "metrics_authority": "TEAM_ROW_BRIER",
+        "unique_game_metrics_role": "SUPPORTING",
         "parent_experiment_history": {
             "kickoff_time_bat565_label_dataset": superseded["kickoff_time_bat565_label_dataset"],
             "kickoff_time_bat566_matrix": superseded["kickoff_time_bat566_matrix"],
             "kickoff_time_bat566_replay": superseded["kickoff_time_bat566_replay"],
+            "cycle6_bat565_label_dataset": superseded.get("cycle6_bat565_label_dataset"),
+            "cycle6_bat566_matrix": superseded.get("cycle6_bat566_matrix"),
+            "cycle6_bat566_replay": superseded.get("cycle6_bat566_replay"),
             "active_use_forbidden": True,
         },
     }
@@ -473,8 +498,10 @@ def validate_artifact(
         errors.append("fold definition identity drift")
     if loaded.get("supersession") != expected_supersession(rebuilt["contract"]):
         errors.append("missing or altered supersession record")
-    if loaded.get("supersession", {}).get("ledger_generation") != 1:
-        errors.append("missing supersession record")
+    if loaded.get("supersession", {}).get("ledger_generation") != LEDGER_GENERATION:
+        errors.append("missing or drifted ledger generation")
+    if loaded.get("supersession", {}).get("prior_ledger_identity") != PRIOR_LEDGER_IDENTITY:
+        errors.append("prior ledger identity drifted")
     if loaded.get("authority") != expected_authority():
         errors.append("authority fields were accepted from the ledger instead of derived")
     if loaded.get("scientific_nonclaims") != expected_scientific_nonclaims():

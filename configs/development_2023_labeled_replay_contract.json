@@ -1,6 +1,6 @@
 {
-  "schema_version": "2.0.0",
-  "contract_id": "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V2",
+  "schema_version": "3.0.0",
+  "contract_id": "BAT-566-2023-LABELED-DEVELOPMENT-REPLAY-V3",
   "decision_unit": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
   "jira_key": "BAT-566",
   "parent_jira_key": "BAT-523",
@@ -16,8 +16,8 @@
     "play_drive_manifest_relative_path": "manifests/historical_known_at/sha256/1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d/play_drive_pit_aggregate_manifest.json",
     "play_drive_feature_sha256": "d24f0d9f9726886b5771739c7b704ca05fd964a16826673c5a5a5dd73cc75db9",
     "play_drive_feature_rows": 5528,
-    "bat565_label_dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
-    "bat565_label_manifest_relative_path": "manifests/development_outcomes/sha256/bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8/development_2023_outcome_manifest.json",
+    "bat565_label_dataset_identity": "b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff",
+    "bat565_label_manifest_relative_path": "manifests/development_outcomes/sha256/b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff/development_2023_outcome_manifest.json",
     "bat565_team_outcome_sha256": "c3adbb1536de475ba019c7dcd24f722c1a13a04ec44343abbc44eb6288c45116",
     "bat565_team_outcome_rows": 1820,
     "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
@@ -37,10 +37,14 @@
     "train_eligibility": "label_available_after_utc < fold_evaluation_cutoff_utc"
   },
   "supersedes": {
-    "matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
-    "replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7",
-    "bat565_label_dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
-    "reason": "KICKOFF_TIME_LABEL_PARENT_INVALID"
+    "matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+    "replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+    "bat565_label_dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "reason": "PAIR_PROBABILITY_AND_LABEL_AVAILABILITY_TRUTH",
+    "kickoff_matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
+    "kickoff_replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7",
+    "kickoff_bat565_label_dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+    "kickoff_reason": "KICKOFF_TIME_LABEL_PARENT_INVALID"
   },
   "authority": {
     "development_2023_labeled_evaluation": true,
@@ -58,10 +62,24 @@
   "label_semantics": {
     "rows_are_labels_only": true,
     "not_a_pregame_feature": true,
-    "available_only_after_completion": true,
+    "source_completed_final_required": true,
+    "verified_completion_timestamp_available": false,
+    "verified_historical_publication_timestamp_available": false,
+    "historical_label_availability_proven": false,
+    "label_eligibility_basis": "PRECOMMITTED_RETROSPECTIVE_POLICY_BOUND",
+    "policy_boundary_not_observed_timestamp": true,
     "completion_bound": "CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE",
     "train_eligibility": "label_available_after_utc < fold_evaluation_cutoff_utc AND target_game excluded",
     "timestamp_comparison": "TIMEZONE_AWARE_DATETIME_NOT_LEXICAL_STRING"
+  },
+  "pair_probability": {
+    "method": "NORMALIZE_THEN_ORIENT",
+    "formula": "p_a_game = p_a_raw / (p_a_raw + p_b_raw); p_b_game = 1 - p_a_game",
+    "orientation": "HOME_THEN_TEAM_ID_AFTER_NORMALIZATION",
+    "team_row_metrics": "CORRELATED_TEAM_PERSPECTIVE_AUTHORITATIVE_FOR_DECISIONS",
+    "unique_game_metrics": "COHERENT_SUPPORTING_EVIDENCE",
+    "authoritative_prior_only_team_row_brier": 0.23135006789663434,
+    "authoritative_prior_only_team_row_rows": 1820
   },
   "model": {
     "prior_only": "IDENTITY_PRIOR_WIN_RATE_NO_FIT",
@@ -73,6 +91,9 @@
     "2023 development metrics grant no protected-performance, champion, promotion, production, A&M-lift, or BAS-effect authority.",
     "Label availability uses the corrected BAT-565 conservative start+24h policy bound, not an observed final whistle.",
     "Identity 902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2 is superseded and must not be consumed by active BAT-566 artifacts.",
+    "Cycle #6 identities 04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68 and 09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2 are superseded after pair-probability correction.",
+    "Team-row probabilities are correlated team-perspective scores and are not complements. Unique-game metrics use normalize-then-orient pair probabilities as supporting evidence only.",
+    "Authoritative prior_only team-row Brier remains 0.23135006789663434 on 1820 rows. decide_candidates is not retuned from unique-game numbers.",
     "Play/drive profiles are static 2010-2022 historical aggregates; they are not same-game or 2023 in-season play evidence.",
     "Null or negative incremental results are preserved and are not a promotion threshold."
   ]

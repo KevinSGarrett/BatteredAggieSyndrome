@@ -14,6 +14,7 @@ from aggie_analytics.data.development_2023_outcomes import (  # noqa: E402
     CONTRACT_RELATIVE,
     LABEL_AVAILABILITY_POLICY,
     OUTCOME_EFFECTIVE_UNAVAILABLE_REASON,
+    SUPERSEDED_CYCLE6_IDENTITY,
     SUPERSEDED_KICKOFF_IDENTITY,
     assert_complementary_team_labels,
     assert_label_chronology,
@@ -120,6 +121,15 @@ class Development2023OutcomeUnitTests(unittest.TestCase):
         self.assertFalse(contract["authority"]["champion_or_production_promotion"])
         self.assertEqual(contract["acceptance"]["allowed_seasons"], [2023])
         self.assertEqual(contract["acceptance"]["forbidden_seasons"], [2024, 2025])
+        self.assertEqual(contract["contract_id"], "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V3")
+        self.assertNotIn("available_only_after_completion", contract["label_semantics"])
+        self.assertTrue(contract["label_semantics"]["source_completed_final_required"])
+        self.assertFalse(contract["label_semantics"]["verified_completion_timestamp_available"])
+        self.assertFalse(contract["label_semantics"]["historical_label_availability_proven"])
+        self.assertEqual(
+            contract["label_semantics"]["label_eligibility_basis"],
+            "PRECOMMITTED_RETROSPECTIVE_POLICY_BOUND",
+        )
 
     def test_protected_registry_pin_and_label_override_fail_closed(self) -> None:
         contract = load_contract(ROOT)
@@ -192,6 +202,16 @@ class Development2023OutcomeUnitTests(unittest.TestCase):
         self.assertIsNone(accepted)
         assert quarantine is not None
         self.assertEqual(quarantine["reason_code"], "INCOMPLETE_GAME")
+
+    def test_canceled_or_suspended_game_is_quarantined(self) -> None:
+        accepted, quarantine, _ = _classify(_source_row(notes="canceled"))
+        self.assertIsNone(accepted)
+        assert quarantine is not None
+        self.assertEqual(quarantine["reason_code"], "NON_FINAL_GAME")
+        accepted, quarantine, _ = _classify(_source_row(status="suspended"))
+        self.assertIsNone(accepted)
+        assert quarantine is not None
+        self.assertEqual(quarantine["reason_code"], "NON_FINAL_GAME")
 
     def test_missing_scores_are_quarantined(self) -> None:
         accepted, quarantine, _ = _classify(_source_row(homePoints=None))
@@ -435,7 +455,9 @@ class Development2023OutcomeLiveRebuildTests(unittest.TestCase):
         validated = validate_artifact(data_root=data_root, repo_root=ROOT, require_rebuild=True)
         self.assertEqual(validated["result"], "PASS")
         self.assertNotEqual(validated["dataset_identity"], SUPERSEDED_KICKOFF_IDENTITY)
-        self.assertEqual(validated["supersedes"], SUPERSEDED_KICKOFF_IDENTITY)
+        self.assertNotEqual(validated["dataset_identity"], SUPERSEDED_CYCLE6_IDENTITY)
+        self.assertEqual(validated["supersedes"], SUPERSEDED_CYCLE6_IDENTITY)
+        self.assertEqual(validated["also_forbids"], SUPERSEDED_KICKOFF_IDENTITY)
         self.assertEqual(expected["parent_identities"], expected_parent_identities(load_contract(ROOT)))
         for row in expected["accepted"]:
             self.assertGreater(row["label_available_after_utc"], row["start_time_utc"])

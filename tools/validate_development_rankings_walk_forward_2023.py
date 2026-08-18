@@ -21,6 +21,7 @@ from aggie_analytics.experimentation.development_rankings_walk_forward_2023 impo
     join_rankings,
     rebuild_expected,
     validate_artifact,
+    validate_ranking_row_semantics,
 )
 
 
@@ -154,6 +155,124 @@ def main() -> int:
             expect_rejection(
                 "recomputed_outer_identity",
                 lambda: _validate(forged),
+            )
+        )
+
+        def _ranking_case(**overrides: Any) -> dict[str, Any]:
+            row = {
+                "canonical_team_id": "team-a",
+                "season": 2023,
+                "rank_state": "RANKED",
+                "rank": 4,
+                "poll_first_eligible_at_utc": "2023-09-01T00:00:00Z",
+                "missingness_disposition": "OBSERVED_SOURCE_ROW",
+                "poll_available": True,
+                "team_listed_in_poll": True,
+            }
+            row.update(overrides)
+            return row
+
+        def _reject_semantics(name: str, **overrides: Any) -> None:
+            mutations.append(
+                expect_rejection(
+                    name,
+                    lambda overrides=overrides: validate_ranking_row_semantics(
+                        _ranking_case(**overrides),
+                        cutoff_utc="2023-09-10T00:00:00Z",
+                    ),
+                )
+            )
+
+        _reject_semantics("rank_zero", rank=0)
+        _reject_semantics("negative_rank", rank=-1)
+        _reject_semantics("unranked_as_26", rank=26)
+        _reject_semantics("rank_above_25", rank=27)
+        _reject_semantics("fractional_rank", rank=4.5)
+        _reject_semantics("nan_rank", rank=float("nan"))
+        _reject_semantics("inf_rank", rank=float("inf"))
+        _reject_semantics("rank_on_receiving_votes", rank_state="RECEIVING_VOTES", rank=12)
+        _reject_semantics("rank_on_not_ranked", rank_state="NOT_RANKED", rank=12)
+        _reject_semantics("ranked_null_rank", rank=None)
+        _reject_semantics("ranked_null_eligible_timestamp", poll_first_eligible_at_utc=None)
+        _reject_semantics(
+            "receiving_votes_null_eligible_timestamp",
+            rank_state="RECEIVING_VOTES",
+            rank=None,
+            poll_first_eligible_at_utc=None,
+        )
+        _reject_semantics(
+            "explicitly_unranked_null_eligible_timestamp",
+            rank_state="NOT_RANKED",
+            rank=None,
+            poll_first_eligible_at_utc=None,
+        )
+        _reject_semantics(
+            "not_listed_null_eligible_timestamp",
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL",
+            rank=None,
+            poll_first_eligible_at_utc=None,
+            team_listed_in_poll=False,
+        )
+        _reject_semantics(
+            "no_eligible_poll_with_timestamp",
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="NO_POLL_ELIGIBLE_AT_TARGET_CUTOFF",
+            rank=None,
+            poll_available=False,
+            team_listed_in_poll=False,
+            poll_first_eligible_at_utc="2023-09-01T00:00:00Z",
+        )
+        _reject_semantics(
+            "no_poll_with_poll_available_true",
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="NO_POLL_ELIGIBLE_AT_TARGET_CUTOFF",
+            rank=None,
+            poll_first_eligible_at_utc=None,
+            poll_available=True,
+            team_listed_in_poll=False,
+        )
+        _reject_semantics("observed_with_poll_available_false", poll_available=False)
+        _reject_semantics(
+            "team_not_listed_with_poll_available_false",
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL",
+            rank=None,
+            poll_available=False,
+            team_listed_in_poll=False,
+        )
+        _reject_semantics(
+            "poll_unavailable_with_timestamp",
+            rank_state="RECEIVING_VOTES",
+            rank=None,
+            missingness_disposition="",
+            poll_available=False,
+            poll_first_eligible_at_utc="2023-09-01T00:00:00Z",
+        )
+        _reject_semantics("observed_with_team_not_listed_false", team_listed_in_poll=False)
+        _reject_semantics(
+            "team_not_listed_with_team_listed_true",
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="TEAM_NOT_LISTED_IN_LATEST_ELIGIBLE_POLL",
+            rank=None,
+            team_listed_in_poll=True,
+        )
+        _reject_semantics(
+            "no_poll_with_team_listed_true",
+            rank_state="NOT_LISTED_OR_NO_ELIGIBLE_POLL",
+            missingness_disposition="NO_POLL_ELIGIBLE_AT_TARGET_CUTOFF",
+            rank=None,
+            poll_first_eligible_at_utc=None,
+            poll_available=False,
+            team_listed_in_poll=True,
+        )
+        _reject_semantics("rank_without_team_listed", missingness_disposition="", team_listed_in_poll=False)
+        unique_metrics = json.loads(json.dumps(gate["metrics"]))
+        unique_metrics["unique_game_prior_only"]["brier"] = 0.01
+        mutations.append(
+            expect_rejection(
+                "unique_game_metric",
+                lambda: _validate(_mutated_gate(gate, metrics=unique_metrics)),
             )
         )
     print(json.dumps({"validation": result, "mutations": mutations}, indent=2, sort_keys=True, default=str))

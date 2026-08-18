@@ -1,7 +1,7 @@
 {
   "schema_version": "2.2.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "created_at_utc": "2026-08-17T21:45:00Z",
+  "created_at_utc": "2026-08-18T05:45:00Z",
   "jira_key": "BAT-566",
   "local_issue_id": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
   "parent_jira_key": "BAT-523",
@@ -15,31 +15,31 @@
   "evidence_state": "VERIFIED",
   "issue_complete": true,
   "correction": "CORRECTED_LABEL_CHRONOLOGY_REPLAY",
-  "observable_outcome": "Cycle #6 Phase 2 rebuilt BAT-566 from the corrected BAT-565 identity bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8. Training membership now uses timezone-aware label_available_after_utc < fold_evaluation_cutoff_utc. 2023 week-fold train and eval counts did not change versus the superseded kickoff-time parent because every prior-week conservative start+24h bound remained strictly before the next fold cutoff. Team-row prior_only accuracy 0.600 and Brier 0.23135 are unchanged. prior_plus_play_drive remains worse by Brier +0.00463; the negative incremental result is preserved. Unique-game metrics are now reported separately (910 games; prior_only Brier 0.23954). No 2024/2025 outcomes entered the matrix. BAT-401 was rebound and remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress.",
+  "observable_outcome": "Cycle #7 Phase 2 rebuilt BAT-566 from corrected BAT-565 identity b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff. Team-row probabilities remain correlated team-perspective scores and stay authoritative. Authoritative prior_only team-row Brier remains 0.23135006789663434 on 1820 rows. Coherent unique-game metrics use normalize-then-orient pair probabilities as supporting evidence only (910 games; prior_only unique-game Brier 0.20977794297528923). prior_plus_play_drive remains worse on team-row Brier; the negative incremental result is preserved. decide_candidates is not retuned from unique-game numbers. BAT-401 was rebound and remains RETAIN_PROTECTED_LANE_BLOCKED.",
   "outputs": [
     {
       "path": "artifacts/pit/development_walk_forward_2023.json",
-      "bytes": 38536,
-      "sha256": "31e8eb241b56d8584cf1fcf7d714e7aad0adc21094c20280262bb9d8d7f2002b",
-      "schema_version": "aggie.experimentation.development_2023_labeled_replay.v2",
-      "matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
-      "replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
-      "gate_identity": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2"
+      "bytes": 60947,
+      "sha256": "49e18a300934817bad9ed5d1a5ddb30bc26bb9f3b2cb29242614523851efa407",
+      "schema_version": "aggie.experimentation.development_2023_labeled_replay.v3",
+      "matrix_identity": "f9f866b0921b0f02e5ada7ac90cc27ef2d8594d75d29c0bb4a01e940161c617d",
+      "replay_identity": "05dec4084c00a18ac3b708ecadb64caf4df3b9cc3fd0268d9fe71b58baf31570",
+      "gate_identity": "bebc731d2cef8b79376a26ad7cf5010b174a76fc9e08d250855680b8f9afeb11"
     },
     {
       "path": "configs/development_2023_labeled_replay_contract.json",
-      "bytes": 5005,
-      "sha256": "f2b95401037701d4a6b8281fb43aeb6f353180b9f2a80cd377f0dc7fbda09d0f"
+      "bytes": 6725,
+      "sha256": "e5acf1f7f9d1700e86168972f1233a97dda43fbefe7b1f532d06f2943ca591fd"
     },
     {
       "path": "src/aggie_analytics/experimentation/development_2023_labeled_replay.py",
-      "bytes": 85390,
-      "sha256": "8652acee83d26e819b8d4ca68eac6db7712f87c80cb16f64e2c3f3f2ff2c1cab"
+      "bytes": 91937,
+      "sha256": "7b419931304ca7aef059cc12c7870782c9a21443e5f5f55b9eb589fdd839a54e"
     },
     {
       "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
-      "bytes": 15187,
-      "sha256": "f6a9896be26ce3255b0efa4c8e31578e81091c49269b3ed9f7a165a624b9fa86"
+      "bytes": 19415,
+      "sha256": "41374b940783086c049468b3911172b48f357164c36b2e07599ea80076c89149"
     },
     {
       "path": "tools/build_development_2023_labeled_replay.py",
@@ -74,9 +74,9 @@
       "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED"
     }
   ],
-  "matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
-  "replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
-  "gate_identity": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2",
+  "matrix_identity": "f9f866b0921b0f02e5ada7ac90cc27ef2d8594d75d29c0bb4a01e940161c617d",
+  "replay_identity": "05dec4084c00a18ac3b708ecadb64caf4df3b9cc3fd0268d9fe71b58baf31570",
+  "gate_identity": "bebc731d2cef8b79376a26ad7cf5010b174a76fc9e08d250855680b8f9afeb11",
   "run_identity": "056fa0d36678f547fa2f2f0e5e24bc6ee5f11a7b4af71d08a4707bf05977ec43",
   "code_identity": "8652acee83d26e819b8d4ca68eac6db7712f87c80cb16f64e2c3f3f2ff2c1cab",
   "supersedes_matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",

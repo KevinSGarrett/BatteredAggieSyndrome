@@ -15,8 +15,9 @@ from typing import Any, Iterable, Mapping, Sequence
 # Labels are post-completion observations. They are never pregame features and
 # grant no protected, champion, or promotion authority.
 
-SCHEMA_VERSION = "aggie.data.development_2023_outcomes.v2"
+SCHEMA_VERSION = "aggie.data.development_2023_outcomes.v3"
 CONTRACT_RELATIVE = "configs/development_2023_outcome_identity_contract.json"
+CONTRACT_ID = "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V3"
 GATE_RELATIVE = "artifacts/pit/development_2023_outcome_gate.json"
 EVIDENCE_RELATIVE = "artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json"
 HISTORICAL_KNOWN_AT_STATE = (
@@ -31,6 +32,28 @@ OUTCOME_EFFECTIVE_UNAVAILABLE_REASON = (
 SUPERSEDED_KICKOFF_IDENTITY = (
     "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
 )
+SUPERSEDED_CYCLE6_IDENTITY = (
+    "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8"
+)
+NON_FINAL_TOKENS = (
+    "canceled",
+    "cancelled",
+    "incomplete",
+    "suspended",
+    "postponed",
+    "non-final",
+    "non_final",
+)
+REQUIRED_LABEL_SEMANTICS = {
+    "source_completed_final_required": True,
+    "verified_completion_timestamp_available": False,
+    "verified_historical_publication_timestamp_available": False,
+    "historical_label_availability_proven": False,
+    "label_eligibility_basis": "PRECOMMITTED_RETROSPECTIVE_POLICY_BOUND",
+    "policy_boundary_not_observed_timestamp": True,
+    "outcome_effective_at_utc": None,
+    "outcome_observed_at_utc": "2026-08-09T16:57:56Z",
+}
 PROTECTED_SEASONS = frozenset({2024, 2025})
 PASS_RESULT = "PASS_DEVELOPMENT_ONLY_2023_LABELS"
 REQUIRED_SOURCE_FIELDS = (
@@ -268,13 +291,19 @@ def expected_issue_completion(contract: Mapping[str, Any]) -> dict[str, Any]:
 
 def expected_supersession(contract: Mapping[str, Any]) -> dict[str, Any]:
     supersedes = dict(contract["supersedes"])
-    if supersedes.get("dataset_identity") != SUPERSEDED_KICKOFF_IDENTITY:
+    if supersedes.get("dataset_identity") != SUPERSEDED_CYCLE6_IDENTITY:
+        raise ValueError("contract lost the superseded Cycle #6 identity")
+    if supersedes.get("kickoff_dataset_identity") != SUPERSEDED_KICKOFF_IDENTITY:
         raise ValueError("contract lost the superseded kickoff-time identity")
     return {
-        "dataset_identity": SUPERSEDED_KICKOFF_IDENTITY,
+        "dataset_identity": SUPERSEDED_CYCLE6_IDENTITY,
         "contract_id": supersedes["contract_id"],
-        "reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID",
+        "reason": "LABEL_AVAILABILITY_CLAIMED_OBSERVED_COMPLETION",
         "active_downstream_use_forbidden": True,
+        "kickoff_dataset_identity": SUPERSEDED_KICKOFF_IDENTITY,
+        "kickoff_contract_id": supersedes["kickoff_contract_id"],
+        "kickoff_reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID",
+        "kickoff_active_downstream_use_forbidden": True,
     }
 
 
@@ -297,8 +326,14 @@ def team_result(points_for: int, points_against: int) -> str:
 def load_contract(repo_root: Path) -> dict[str, Any]:
     path = repo_root / CONTRACT_RELATIVE
     contract = json.loads(path.read_text(encoding="utf-8"))
-    if contract.get("contract_id") != "BAT-565-2023-DEVELOPMENT-OUTCOME-IDENTITY-V2":
+    if contract.get("contract_id") != CONTRACT_ID:
         raise ValueError("unexpected 2023 development-outcome contract identity")
+    semantics = contract.get("label_semantics") or {}
+    if "available_only_after_completion" in semantics:
+        raise ValueError("available_only_after_completion claims observed completion and is forbidden")
+    for key, expected in REQUIRED_LABEL_SEMANTICS.items():
+        if semantics.get(key) != expected:
+            raise ValueError(f"label availability truth drifted: {key}")
     policy = contract.get("label_availability_policy", {})
     if policy.get("policy_id") != LABEL_AVAILABILITY_POLICY:
         raise ValueError("label availability policy is not the precommitted conservative bound")
@@ -508,6 +543,21 @@ def _quarantine(
     }
 
 
+def source_row_non_final_reason(raw: Mapping[str, Any]) -> tuple[str, str] | None:
+    if raw.get("completed") is not True:
+        return "INCOMPLETE_GAME", str(raw.get("completed"))
+    blobs: list[str] = []
+    for key in ("notes", "status", "gameStatus", "contestStatus", "statusText"):
+        value = raw.get(key)
+        if value not in (None, ""):
+            blobs.append(str(value).lower())
+    text = " ".join(blobs)
+    for token in NON_FINAL_TOKENS:
+        if token in text:
+            return "NON_FINAL_GAME", token
+    return None
+
+
 def classify_source_row(
     raw: Mapping[str, Any],
     *,
@@ -552,10 +602,10 @@ def classify_source_row(
             source_game_id, season, "DUPLICATE_SOURCE_GAME", source_game_id, record_sha
         ), ncaa_row
     seen_source.add(source_game_id)
-    if raw.get("completed") is not True:
-        return None, _quarantine(
-            source_game_id, season, "INCOMPLETE_GAME", str(raw.get("completed")), record_sha
-        ), ncaa_row
+    non_final = source_row_non_final_reason(raw)
+    if non_final is not None:
+        reason_code, detail = non_final
+        return None, _quarantine(source_game_id, season, reason_code, detail, record_sha), ncaa_row
     if raw.get("homePoints") is None or raw.get("awayPoints") is None:
         return None, _quarantine(
             source_game_id, season, "MISSING_SCORES", "homePoints/awayPoints", record_sha
@@ -1180,7 +1230,8 @@ def materialize(
         "population": expected["population"],
         "manifest_sha256": sha256_file(manifest_path),
         "gate_sha256": sha256_file(gate_path),
-        "supersedes": SUPERSEDED_KICKOFF_IDENTITY,
+        "supersedes": SUPERSEDED_CYCLE6_IDENTITY,
+        "also_forbids": SUPERSEDED_KICKOFF_IDENTITY,
     }
 
 
@@ -1458,6 +1509,13 @@ def validate_artifact(
         errors.append("protected-period exclusions drifted")
     if loaded_gate.get("dataset_identity") == SUPERSEDED_KICKOFF_IDENTITY:
         errors.append("superseded kickoff-time identity is still active")
+    if loaded_gate.get("dataset_identity") == SUPERSEDED_CYCLE6_IDENTITY:
+        errors.append("superseded Cycle #6 identity is still active")
+    if "available_only_after_completion" in (loaded_gate.get("label_semantics") or {}):
+        errors.append("available_only_after_completion claims observed completion")
+    for key, expected in REQUIRED_LABEL_SEMANTICS.items():
+        if (loaded_gate.get("label_semantics") or {}).get(key) != expected:
+            errors.append(f"altered label availability truth: {key}")
     independently_recomputed = compute_gate_identity(
         {key: loaded_gate[key] for key in GATE_IDENTITY_FIELDS if key in loaded_gate}
     )
@@ -1473,5 +1531,6 @@ def validate_artifact(
         "dataset_identity": identity,
         "gate_identity": expected_gate["gate_identity"],
         "population": rebuilt["population"],
-        "supersedes": SUPERSEDED_KICKOFF_IDENTITY,
+        "supersedes": SUPERSEDED_CYCLE6_IDENTITY,
+        "also_forbids": SUPERSEDED_KICKOFF_IDENTITY,
     }

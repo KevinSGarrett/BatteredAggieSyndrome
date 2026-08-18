@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.0.0",
-  "contract_id": "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V1",
+  "schema_version": "2.0.0",
+  "contract_id": "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V2",
   "decision_unit": "POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001",
   "jira_key": "BAT-568",
   "parent_jira_key": "BAT-523",
@@ -9,12 +9,12 @@
   "classification": "DEVELOPMENT_ONLY_2023_RANKINGS_AUGMENTED_WALK_FORWARD",
   "purpose": "Precommit and evaluate four development-only 2023 walk-forward candidates that join corrected BAT-565 labels, corrected BAT-566 folds, and admitted BAT-527 rankings PIT features. Do not use 2024/2025 outcomes. Do not grant protected, champion, or production authority.",
   "input_identities": {
-    "bat565_label_dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
-    "bat566_matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
-    "bat566_replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+    "bat565_label_dataset_identity": "b4ffdbf1b42acedf951e2ba098b6e4cb9236ca72020fdf6e5b9c3388004d56ff",
+    "bat566_matrix_identity": "f9f866b0921b0f02e5ada7ac90cc27ef2d8594d75d29c0bb4a01e940161c617d",
+    "bat566_replay_identity": "05dec4084c00a18ac3b708ecadb64caf4df3b9cc3fd0268d9fe71b58baf31570",
     "bat566_feature_payload_sha256": "a8f126af23b5c24635a305a8f58fa89be092a15a0673bf6ff75b83579bf6f124",
     "bat566_label_payload_sha256": "b3801310d15a6e8bc3619be222dfd1d897cb63e03ec5c30cf2dd86ccf670fceb",
-    "bat566_manifest_relative_path": "manifests/development_2023_matrix/sha256/04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68/development_2023_labeled_replay_manifest.json",
+    "bat566_manifest_relative_path": "manifests/development_2023_matrix/sha256/f9f866b0921b0f02e5ada7ac90cc27ef2d8594d75d29c0bb4a01e940161c617d/development_2023_labeled_replay_manifest.json",
     "bat527_rankings_run_identity": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
     "bat527_rankings_state_identity": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
     "bat527_rankings_feature_identity": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
@@ -53,7 +53,21 @@
     "prior_plus_play_drive_plus_rankings": "FOLD_LOCAL_OLS_RESIDUAL_ON_EPA_CENTERED_RANK_SIGNAL_AND_RECEIVING_VOTES",
     "first_fold": "HISTORICAL_ONLY_IDENTITY_OR_ABSTAIN",
     "unranked_as_26": false,
-    "future_poll_use": false
+    "future_poll_use": false,
+    "pair_probability": "REUSE_BAT566_normalize_pair_probabilities_THEN_ORIENT"
+  },
+  "ranking_row_semantics": {
+    "RANKED_NUMERIC": "timestamp_required_finite_integer_rank_1_to_25",
+    "RECEIVING_VOTES": "timestamp_required_rank_null",
+    "EXPLICITLY_UNRANKED": "timestamp_required_rank_null",
+    "NOT_LISTED_IN_ELIGIBLE_POLL": "timestamp_required_rank_null",
+    "NO_ELIGIBLE_POLL": "timestamp_may_be_null_rank_null"
+  },
+  "pair_probability": {
+    "helper": "aggie_analytics.experimentation.development_2023_labeled_replay.normalize_pair_probabilities",
+    "reuse_required": true,
+    "team_row_metrics": "AUTHORITATIVE_FOR_DECISIONS",
+    "unique_game_metrics": "SUPPORTING"
   },
   "ranking_states": [
     "RANKED_NUMERIC",

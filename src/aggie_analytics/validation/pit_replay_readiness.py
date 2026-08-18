@@ -18,7 +18,8 @@ STALE_ZERO_ROW_IDENTITY = "7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bb
 BAT399_IDENTITY = "2be6b713722382b2c0ea5e86f89a6e6ed57533bab3adbb0bc3cf3a77b46df13a"
 BAT400_IDENTITY = "db1aca47c24b86e71f5669cc2aa8b707a686bf6e2fb9154d85642a5aaacdd402"
 BAT398_SHA256 = "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a1208"
-BAT526_IDENTITY = "13c18600b5dfd4ce24422d1aae058fc0ae177057e72334f37b726e27840059d5"
+BAT526_SUPERSEDED_V2_IDENTITY = "13c18600b5dfd4ce24422d1aae058fc0ae177057e72334f37b726e27840059d5"
+BAT526_IDENTITY = "587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd"
 BAT566_SUPERSEDED_KICKOFF_LABEL = "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2"
 BAT566_SUPERSEDED_REPLAY = "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
 BAT568_GATE_IDENTITY = "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275"
@@ -132,6 +133,17 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
         raise ValueError("BAT-400 identity mismatch")
     if bat526.get("artifact_identity") != BAT526_IDENTITY:
         raise ValueError("BAT-526 audit identity mismatch")
+    if bat526.get("artifact_identity") == BAT526_SUPERSEDED_V2_IDENTITY:
+        raise ValueError("BAT-526 still publishes the superseded v2 identity")
+    if bat526.get("supersedes_artifact_identity") != BAT526_SUPERSEDED_V2_IDENTITY:
+        raise ValueError("BAT-526 must supersede the stale v2 identity")
+    superseded_ids = {
+        item.get("artifact_identity")
+        for item in (bat526.get("superseded_identities") or [])
+        if isinstance(item, dict)
+    }
+    if BAT526_SUPERSEDED_V2_IDENTITY not in superseded_ids:
+        raise ValueError("BAT-526 missing superseded v2 identity")
     if bat566.get("input_identities", {}).get("bat565_label_dataset_identity") == BAT566_SUPERSEDED_KICKOFF_LABEL:
         raise ValueError("BAT-566 still consumes the superseded kickoff-time label identity")
     if bat566.get("replay_identity") == BAT566_SUPERSEDED_REPLAY:

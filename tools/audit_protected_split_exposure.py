@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT_DEFAULT / "src"))
 
 from aggie_analytics.validation.protected_split_authority import (  # noqa: E402
     ALLOWED_PROTECTED_LABELS,
+    AUDIT_AUTHORITY_BEARING_FIELDS,
     AUTHORITY_DENIALS,
     CONTAMINATION_STATUS,
     FORBIDDEN_PROTECTED_DEVELOPMENT_ROLES,
@@ -19,7 +20,7 @@ from aggie_analytics.validation.protected_split_authority import (  # noqa: E402
     HISTORICAL_SURFACE_ALLOWLIST,
     PROTECTED_SEASONS,
     SUCCESSOR_CONTRACT_RELATIVE,
-    compute_artifact_identity,
+    compute_audit_identity,
     historical_surface_entry,
     is_protected_canonical_season,
     iter_season_assignments,
@@ -29,8 +30,10 @@ from aggie_analytics.validation.protected_split_authority import (  # noqa: E402
     validate_current_contract,
 )
 
-SCHEMA_VERSION = "aggie.governance.protected_split_exposure_audit.v2"
+SCHEMA_VERSION = "aggie.governance.protected_split_exposure_audit.v3"
 AUDIT_PATH = Path("artifacts/governance/protected_split_exposure_audit.json")
+SCANNER_RELATIVE = "tools/audit_protected_split_exposure.py"
+SUPERSEDED_V2_IDENTITY = "13c18600b5dfd4ce24422d1aae058fc0ae177057e72334f37b726e27840059d5"
 SCAN_ROOTS = (
     "configs",
     "artifacts/governance",
@@ -46,29 +49,33 @@ LIST_SPLIT_KEYS = {
     "development_fit": "DEVELOPMENT_FIT",
     "development_fit_selection_calibration": "DEVELOPMENT_FIT_SELECTION_CALIBRATION",
 }
-AUTHORITY_BEARING_FIELDS = (
-    "schema_version",
-    "artifact_type",
-    "decision_unit",
-    "jira_key",
-    "registry_path",
-    "registry_sha256",
-    "registry_unaltered",
-    "classification",
-    "discovered_inventory",
-    "surfaces",
-    "surface_count",
-    "contradiction_count",
-    "exposed_result_count",
-    "exposed_results",
-    "authority_revoked_for",
-    "successor_contract",
-    "successor_contract_sha256",
-    "historical_contracts_preserved",
-    "historical_allowlist",
-    "protected_nonclaims",
-    "acceptance",
-)
+AUTHORITY_BEARING_FIELDS = AUDIT_AUTHORITY_BEARING_FIELDS
+SUPERSEDED_V2_SCHEMA = "aggie.governance.protected_split_exposure_audit.v2"
+SUPERSEDED_V2_PRESERVED_AS = "SUPERSEDED_SCHEMA_V2_EVIDENCE"
+SUPERSESSION_REASON = "AUTHORITY_BOUND_TO_IRRELEVANT_FULL_TREE_INVENTORY"
+assert "diagnostic_scan_count" not in AUTHORITY_BEARING_FIELDS
+assert "discovered_inventory" not in AUTHORITY_BEARING_FIELDS
+assert "relevant_inventory" in AUTHORITY_BEARING_FIELDS
+assert "scan_policy" in AUTHORITY_BEARING_FIELDS
+assert "superseded_identities" in AUTHORITY_BEARING_FIELDS
+
+
+def scan_policy() -> dict[str, Any]:
+    return {
+        "scan_roots": list(SCAN_ROOTS),
+        "scan_suffixes": sorted(SCAN_SUFFIXES),
+    }
+
+
+def superseded_identities() -> list[dict[str, str]]:
+    return [
+        {
+            "artifact_identity": SUPERSEDED_V2_IDENTITY,
+            "schema_version": SUPERSEDED_V2_SCHEMA,
+            "preserved_as": SUPERSEDED_V2_PRESERVED_AS,
+            "supersession_reason": SUPERSESSION_REASON,
+        }
+    ]
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -483,8 +490,8 @@ def build_audit(repo_root: Path) -> dict[str, Any]:
         "configs/historical_play_drive_pit_extension_development_safe_contract.json",
     )
     for successor_relative in successor_paths:
-        successor = repo_root / successor_relative
-        successor_payload = _load_json(successor)
+        successor_file = repo_root / successor_relative
+        successor_payload = _load_json(successor_file)
         successor_errors = validate_current_contract(
             repo_root,
             successor_payload,
@@ -492,6 +499,9 @@ def build_audit(repo_root: Path) -> dict[str, Any]:
         )
         if successor_errors:
             raise ValueError(f"successor contract {successor_relative} is not current-safe: {successor_errors}")
+    successor_contract = repo_root / SUCCESSOR_CONTRACT_RELATIVE
+    policy = scan_policy()
+    relevant_inventory = [record["path"] for record in surfaces]
     historical_allowlist = []
     for entry in HISTORICAL_SURFACE_ALLOWLIST:
         item = dict(entry)
@@ -517,17 +527,25 @@ def build_audit(repo_root: Path) -> dict[str, Any]:
         "registry_sha256": registry_sha256(repo_root),
         "registry_unaltered": True,
         "classification": CONTAMINATION_STATUS,
-        "discovered_inventory": inventory,
+        "relevant_inventory": relevant_inventory,
         "surfaces": surfaces,
         "surface_count": len(surfaces),
+        "relevant_surface_count": len(relevant_inventory),
         "contradiction_count": len(contradictions),
         "exposed_result_count": len(exposed_results),
         "exposed_results": exposed_results,
         "authority_revoked_for": list(AUTHORITY_DENIALS),
         "successor_contract": SUCCESSOR_CONTRACT_RELATIVE,
-        "successor_contract_sha256": sha256_file(successor),
+        "successor_contract_sha256": sha256_file(successor_contract),
         "historical_contracts_preserved": [entry["path"] for entry in HISTORICAL_CONTRACT_ALLOWLIST],
         "historical_allowlist": historical_allowlist,
+        "scan_policy": policy,
+        "scan_roots": list(policy["scan_roots"]),
+        "scan_suffixes": list(policy["scan_suffixes"]),
+        "scanner_code_identity": sha256_file(repo_root / SCANNER_RELATIVE),
+        "diagnostic_scan_count": len(inventory),
+        "supersedes_artifact_identity": SUPERSEDED_V2_IDENTITY,
+        "superseded_identities": superseded_identities(),
         "protected_nonclaims": {
             "replacement_protected_period_defined": False,
             "protected_split_registry_altered": False,
@@ -543,7 +561,7 @@ def build_audit(repo_root: Path) -> dict[str, Any]:
             "self_exemption_rejected": True,
         },
     }
-    payload["artifact_identity"] = compute_artifact_identity(payload)
+    payload["artifact_identity"] = compute_audit_identity(payload)
     return payload
 
 
@@ -558,11 +576,35 @@ def validate_audit(
     *,
     expected: dict[str, Any] | None = None,
 ) -> None:
+    if payload.get("schema_version") == SUPERSEDED_V2_SCHEMA:
+        raise ValueError("v2 schema is not current authority")
     if payload.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("unexpected protected-split audit schema")
+    if payload.get("artifact_identity") == SUPERSEDED_V2_IDENTITY:
+        raise ValueError("v2 identity is not current authority")
+    superseded = [
+        item for item in (payload.get("superseded_identities") or []) if isinstance(item, dict)
+    ]
+    superseded_ids = {item.get("artifact_identity") for item in superseded}
+    if SUPERSEDED_V2_IDENTITY not in superseded_ids:
+        raise ValueError("missing superseded v2 identity")
+    v2_entry = next(
+        (item for item in superseded if item.get("artifact_identity") == SUPERSEDED_V2_IDENTITY),
+        {},
+    )
+    if not v2_entry.get("supersession_reason"):
+        raise ValueError("omitting supersession_reason")
+    if v2_entry.get("supersession_reason") != SUPERSESSION_REASON:
+        raise ValueError("supersession_reason must remain AUTHORITY_BOUND_TO_IRRELEVANT_FULL_TREE_INVENTORY")
+    if v2_entry.get("preserved_as") != SUPERSEDED_V2_PRESERVED_AS:
+        raise ValueError("superseded v2 must remain SUPERSEDED_SCHEMA_V2_EVIDENCE")
+    if payload.get("supersedes_artifact_identity") != SUPERSEDED_V2_IDENTITY:
+        raise ValueError("audit must supersede the committed v2 identity")
+    if payload.get("classification") == "CLEAN" and SUPERSEDED_V2_IDENTITY in superseded_ids:
+        raise ValueError("CLEAN classification cannot coexist with superseded v2")
     if payload.get("classification") != CONTAMINATION_STATUS:
         raise ValueError("audit classification must remain the exposure disposition")
-    if payload.get("artifact_identity") != compute_artifact_identity(payload):
+    if payload.get("artifact_identity") != compute_audit_identity(payload):
         raise ValueError("protected-split audit identity mismatch")
     if payload.get("registry_unaltered") is not True:
         raise ValueError("audit must not claim a registry rewrite")
@@ -577,12 +619,24 @@ def validate_audit(
         raise ValueError("audit must record exposed historical protected results")
     if int(payload.get("surface_count") or 0) != len(payload.get("surfaces") or []):
         raise ValueError("surface_count must be derived from surfaces")
+    if int(payload.get("relevant_surface_count") or 0) != len(payload.get("relevant_inventory") or []):
+        raise ValueError("relevant_surface_count must be derived from relevant_inventory")
+    if int(payload.get("relevant_surface_count") or 0) != int(payload.get("surface_count") or 0):
+        raise ValueError("relevant_surface_count must match surface_count")
+    if list(payload.get("relevant_inventory") or []) != [
+        surface.get("path") for surface in payload.get("surfaces") or []
+    ]:
+        raise ValueError("relevant_inventory must match surface paths")
     if int(payload.get("contradiction_count") or 0) != sum(
         len(surface.get("contradictions") or []) for surface in payload.get("surfaces") or []
     ):
         raise ValueError("contradiction_count must be derived from surface contradictions")
     if int(payload.get("exposed_result_count") or 0) != len(payload.get("exposed_results") or []):
         raise ValueError("exposed_result_count must be derived from exposed_results")
+    if "diagnostic_scan_count" not in payload:
+        raise ValueError("audit must record diagnostic_scan_count")
+    if int(payload.get("diagnostic_scan_count") or 0) < int(payload.get("relevant_surface_count") or 0):
+        raise ValueError("diagnostic_scan_count cannot be smaller than relevant_surface_count")
     if not payload.get("surfaces"):
         raise ValueError("audit surfaces cannot be empty")
     if not payload.get("exposed_results"):

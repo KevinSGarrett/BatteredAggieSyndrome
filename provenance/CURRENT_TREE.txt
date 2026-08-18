@@ -3263,6 +3263,7 @@ src/aggie_analytics/validation/protected.py
 src/aggie_analytics/validation/protected_split_authority.py
 src/aggie_analytics/validation/retraining_admission.py
 src/aggie_analytics/validation/roster_domain_completeness.py
+tests/fixtures/protected_split_exposure_audit.v2.stale.json
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
 tests/test_action_play_summary.py
@@ -3399,6 +3400,7 @@ tests/test_unified_live_service.py
 tests/test_unified_provider_adapters.py
 tests/test_unified_runtime_inventory_dispatch.py
 tests/test_useful_work_accounting.py
+tests/test_validate_repository_strict.py
 tests/test_validation_science_governance.py
 tests/test_w18_full_gate.py
 tests/test_w19_foundation.py

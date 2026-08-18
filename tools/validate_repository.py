@@ -257,6 +257,9 @@ def main() -> int:
                     and (data_root / "features/tamu_2010_2011_ncaa_team_season_evidence").is_dir()
                 )
                 try:
+                    # Compact semantic binding always runs. External reconstruction
+                    # is required when the data root is mounted and is reported as
+                    # not mounted otherwise; it is never silently skipped.
                     module.validate_artifact(
                         data_root=data_root,
                         repo_root=root,
@@ -345,6 +348,8 @@ def main() -> int:
                 data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
                 lake_ready = (data_root / "features/tamu_2010_2011_ncaa_contest_route_discovery").is_dir()
                 try:
+                    # Compact identities, counts, and nonclaims are always bound.
+                    # External reconstruction runs whenever the data root is mounted.
                     module.validate_artifact(data_root=data_root, repo_root=root, require_rebuild=lake_ready)
                 except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
                     findings.append(

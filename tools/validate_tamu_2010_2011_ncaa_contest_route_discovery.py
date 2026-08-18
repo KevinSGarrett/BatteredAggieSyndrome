@@ -80,6 +80,26 @@ def main() -> int:
         counts = json.loads(json.dumps(gate["counts"]))
         counts["contest_endpoint_attempts"] = int(counts["contest_endpoint_attempts"]) + 3
         mutations.append(expect_rejection("zero_attempt_semantics", lambda: _validate(_mutated(gate, counts=counts))))
+        mutated = json.loads(json.dumps(gate))
+        mutated["discovered_contest_ids"] = ["999999"]
+        mutated["counts"]["contest_ids_discovered"] = 1
+        mutated["counts"]["contest_endpoint_attempts"] = 1
+        mutated["gate_identity"] = compute_gate_identity(mutated)
+        mutations.append(expect_rejection("bypass_c_fabricated_contest_id", lambda: _validate(mutated)))
+        counts = json.loads(json.dumps(gate["counts"]))
+        counts["candidate_routes"] = 99
+        mutations.append(expect_rejection("changed_candidate_count", lambda: _validate(_mutated(gate, counts=counts))))
+        counts = json.loads(json.dumps(gate["counts"]))
+        counts["inspections"] = 99
+        mutations.append(expect_rejection("changed_inspection_count", lambda: _validate(_mutated(gate, counts=counts))))
+        success = json.loads(json.dumps(gate))
+        success["disposition"] = "CONTEST_ROUTE_VERIFIED"
+        success["result"] = "PASS_CONTEST_ROUTE_VERIFIED"
+        success["discovered_contest_ids"] = ["999999"]
+        success["counts"]["contest_ids_discovered"] = 1
+        success["counts"]["contest_endpoint_attempts"] = 1
+        success["gate_identity"] = compute_gate_identity(success)
+        mutations.append(expect_rejection("fabricated_success_disposition", lambda: _validate(success)))
         forged = _mutated(gate, result="FORGED_DONE", classification="PRODUCTION_CHAMPION")
         mutations.append(expect_rejection("forged_success_after_rehash", lambda: _validate(forged)))
         authority = json.loads(json.dumps(gate["authority"]))

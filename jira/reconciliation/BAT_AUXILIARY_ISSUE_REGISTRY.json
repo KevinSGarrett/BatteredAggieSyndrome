@@ -241,6 +241,21 @@
       "critical_path": true,
       "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-578",
+      "local_id": "POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001",
+      "summary": "Correct Cycle #8 BAT-574/BAT-576 validator bypasses and bind independent reconstruction",
+      "issue_type": "Task",
+      "status": "In Progress",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "critical_path": true,
+      "execution_lane": "SHARED_CONTRACT",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

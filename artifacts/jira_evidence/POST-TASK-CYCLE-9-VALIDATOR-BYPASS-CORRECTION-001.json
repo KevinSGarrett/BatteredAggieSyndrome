@@ -1,0 +1,102 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_554": "RELATES_ONLY_DO_NOT_REOPEN",
+    "bat_574_gate_identity_unchanged": true,
+    "bat_576_gate_identity_unchanged": true,
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "BAT-574 and BAT-576 own the Cycle #8 team-season and contest-route evidence, which remains truthful. They do not own the Cycle #9 acceptance defect that their validators accepted rehashed gates after authority-bearing counts, totals, or invented contest IDs were changed. BAT-575, BAT-572, BAT-573, and BAT-577 are Done rebound/reconciliation units and do not own this validator-correction work.",
+    "reviewed_keys": [
+      "BAT-429",
+      "BAT-523",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-573",
+      "BAT-574",
+      "BAT-575",
+      "BAT-576",
+      "BAT-577"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-578",
+  "local_issue_id": "POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001",
+  "new_issue_decision": "CREATE",
+  "outputs": [
+    {
+      "bytes": 68560,
+      "path": "src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py",
+      "sha256": "adb282c1ec4602c6e49287054d1f96ad5560e7e9b07cf93bfbdb96c1c90d8cd6"
+    },
+    {
+      "bytes": 47064,
+      "path": "src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py",
+      "sha256": "f6e3c39bc2e82a8db483d3ef1bf49d23af54d58a888d2e413ca1a98c628e7398"
+    },
+    {
+      "bytes": 11885,
+      "path": "tests/test_tamu_2010_2011_ncaa_team_season_evidence.py",
+      "sha256": "e9befc9ba40e1aea19286ad4295a93b4a1f1bc28eb791e4f3fcdfaeb5b9f573e"
+    },
+    {
+      "bytes": 9590,
+      "path": "tests/test_tamu_2010_2011_ncaa_contest_route_discovery.py",
+      "sha256": "5f1670baea72f83732b12e0e63118883b7c6a32b4f26b903c86bbcc369ff458e"
+    },
+    {
+      "bytes": 6374,
+      "path": "tools/validate_tamu_2010_2011_ncaa_team_season_evidence.py",
+      "sha256": "d63caf03e90a19517438a16186856493595c7a49f7841264bfff59ebdafd2e6e"
+    },
+    {
+      "bytes": 5853,
+      "path": "tools/validate_tamu_2010_2011_ncaa_contest_route_discovery.py",
+      "sha256": "adfbb9c4bb243872a0b3e51a1b2447dd5ccc05f5a812047e77d9a92ddcdf0087"
+    },
+    {
+      "bytes": 18871,
+      "path": "tools/validate_repository.py",
+      "sha256": "aebf911c1857e72d7fee7f2b8a9acc7422c4b7a91645d42d4b963a6709a57e4c"
+    },
+    {
+      "bytes": 9780,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+      "sha256": "b933ace707ac1774e8695fbaea679333d2d91fdb75ea73256b951d21d20171b0"
+    }
+  ],
+  "observable_outcome": "Cycle #9 Phase 1 binds independent reconstruction into the BAT-574 and BAT-576 validators so the three confirmed Cycle #8 bypasses fail closed after outer-identity rehash. Committed BAT-574 gate identity remains dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e. Committed BAT-576 gate identity remains 73c65b36880c433a5aea07c8defb4005d0bc54de5b68e12558c554509cd1e2bb. BAT-575 and BAT-572 were not rebuilt because their pinned upstream identities did not change. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays closed. No champion, protected performance, production feature set, A&M lift, Aggie Excess effect, or forecast publication is claimed.",
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "bat_554_reopened": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "per_game_official_completion_claimed": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-574",
+    "BAT-576",
+    "BAT-575",
+    "BAT-572",
+    "BAT-429"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "2b230a63d04eba3e546acc718cd8c6261793f768",
+  "workflow_state": "IN_PROGRESS"
+}

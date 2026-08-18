@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.8.0",
+  "schema_version": "1.9.0",
   "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-tamu-official-gamebook-candidate",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
@@ -14,7 +14,7 @@
     "evidence_state": "VERIFIED_SCOPED",
     "parent": "BAT-32",
     "blocks": ["BAT-399"],
-    "relates_to": ["BAT-398", "BAT-565", "BAT-566", "BAT-567", "BAT-568"]
+    "relates_to": ["BAT-398", "BAT-565", "BAT-566", "BAT-567", "BAT-568", "BAT-569"]
   },
   "trigger_evidence": [
     {
@@ -988,6 +988,41 @@
     "promotion_authority": false,
     "closes_BAT-523": false
   },
+  "validated_development_candidate_evidence_ledger": {
+    "child_jira_key": "BAT-569",
+    "local_id": "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001",
+    "contract_id": "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V1",
+    "ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+    "fold_definition_identity": "21d2e562eeeddae628ec99b43c4e8c1187b53950ce4a7742066b7df3c106932a",
+    "classification": "DEVELOPMENT_ONLY_CANDIDATE_EVIDENCE_LEDGER",
+    "predeclared_candidate_count": 4,
+    "any_candidate_improved_brier_vs_prior_only": false,
+    "development_metrics_only": true,
+    "promotion_authority": false,
+    "closes_BAT-523": false,
+    "repository_ledger": {
+      "path": "artifacts/experimentation/development_candidate_evidence_ledger.json",
+      "identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43"
+    },
+    "parent_identities": {
+      "BAT-565_label_dataset": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+      "BAT-566_matrix": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+      "BAT-566_replay": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+      "BAT-566_gate": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2",
+      "BAT-568_joined_matrix": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
+      "BAT-568_run": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
+      "BAT-568_gate": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275"
+    }
+  },
+  "remaining_historical_domain_gaps": [
+    "Full historical population is not ready; BAT-523 remains a scoped 2010-2022 team-outcome / 2023-2025 prior-feature recovery.",
+    "Official team and player box scores are not materialized.",
+    "National gamebook population is incomplete; TAMU official gamebook history is not complete.",
+    "Roster membership still does not establish pregame availability.",
+    "No protected-evaluation protocol, production champion, or promoted feature set exists.",
+    "No 2023 development candidate improved team-row Brier versus prior_only; negative results are ledger-bound and must not be silently discarded.",
+    "Protected years 2024 and 2025 remain excluded from development tuning, selection, and promotion."
+  ],
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -1051,6 +1086,8 @@
     "development_2023_rankings_walk_forward_materialized": true,
     "development_2023_rankings_walk_forward_protected_admission": false,
     "development_2023_rankings_brier_improved_vs_prior_only": false,
+    "development_candidate_evidence_ledger_materialized": true,
+    "development_candidate_promoted": false,
     "full_historical_population_ready": false,
     "gap_002_resolved": false,
     "protected_model_promotion_eligible": false,

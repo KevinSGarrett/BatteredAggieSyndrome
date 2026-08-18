@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-18T04:20:00Z",
+  "jira_key": "BAT-569",
+  "local_issue_id": "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-568",
+    "BAT-566",
+    "BAT-565",
+    "BAT-527",
+    "BAT-401"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "observable_outcome": "Cycle #6 Phase 5 created BAT-569 and persisted an identity-bound 2023 development candidate evidence ledger. Four predeclared candidates remain inventoried. prior_only stays CORE_REFERENCE (team-row Brier 0.23135). prior_plus_play_drive, prior_plus_rankings, and prior_plus_play_drive_plus_rankings remain REJECTED_DEVELOPMENT with negative Brier deltas +0.00463, +0.00511, and +0.00478. No candidate is hidden, retuned, or promoted. Kickoff-time BAT-565/BAT-566 identities are recorded as superseded parent-experiment history. BAT-401 was rebound to 3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3 and remains RETAIN_PROTECTED_LANE_BLOCKED. BAT-523 remains In Progress. No production, protected, champion, or availability authority is granted.",
+  "outputs": [
+    {
+      "path": "artifacts/experimentation/development_candidate_evidence_ledger.json",
+      "bytes": 7853,
+      "sha256": "261e9c6810aa027d4e94196059d15060f8eb64d728a9739d18e757c45a68f5f9",
+      "schema_version": "aggie.experimentation.development_candidate_evidence_ledger.v1",
+      "ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+      "fold_definition_identity": "21d2e562eeeddae628ec99b43c4e8c1187b53950ce4a7742066b7df3c106932a"
+    },
+    {
+      "path": "configs/development_candidate_feature_registry.json",
+      "bytes": 3334,
+      "sha256": "93f1b5273a80d6d6022bbe1ff8630b7558cbf1953b5a11cf89996db0d7445e55"
+    },
+    {
+      "path": "src/aggie_analytics/experimentation/development_candidate_evidence_ledger.py",
+      "bytes": 23757,
+      "sha256": "8006e670a2b6685a7f55ad6a83d6a6a54a8a41ecec9358e2034308f895e94f41"
+    },
+    {
+      "path": "tools/write_development_candidate_evidence_ledger.py",
+      "bytes": 991,
+      "sha256": "62594057ab5c8ad37c19cdcce29a25cfc92d065f27daba9774df10347d4cb764"
+    },
+    {
+      "path": "tools/validate_development_candidate_evidence_ledger.py",
+      "bytes": 5468,
+      "sha256": "03163fe269561b8d78648a4e5ca55c200d8a8c509fda8111e880469b728f0122"
+    },
+    {
+      "path": "tests/test_development_candidate_evidence_ledger.py",
+      "bytes": 14129,
+      "sha256": "3373f879eee366f6dbc717aa48c476ba78cc4d7e374fe3abae16fff3655f1eeb"
+    },
+    {
+      "path": "artifacts/pit/PIT_REPLAY_READINESS.json",
+      "bytes": 6795,
+      "sha256": "ddf6c37efa21503934c072f8d154864e12b4d8e35a55205eb2d2b42ff7a7b2ae",
+      "artifact_identity": "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3"
+    }
+  ],
+  "contract_id": "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V1",
+  "ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+  "code_identity": "8006e670a2b6685a7f55ad6a83d6a6a54a8a41ecec9358e2034308f895e94f41",
+  "fold_definition_identity": "21d2e562eeeddae628ec99b43c4e8c1187b53950ce4a7742066b7df3c106932a",
+  "parent_identities": {
+    "BAT-565_label_dataset": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "BAT-566_matrix": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+    "BAT-566_replay": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+    "BAT-566_gate": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2",
+    "BAT-568_joined_matrix": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
+    "BAT-568_run": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
+    "BAT-568_gate": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
+    "BAT-527_rankings_run": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+    "BAT-527_rankings_state": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
+    "BAT-527_rankings_feature": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "protected_split_registry": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
+  },
+  "population": {
+    "season": 2023,
+    "team_rows": 1820,
+    "unique_games": 910,
+    "fold_count": 16,
+    "protected_seasons_excluded": [2024, 2025]
+  },
+  "predeclared_candidates": [
+    "prior_only",
+    "prior_plus_play_drive",
+    "prior_plus_rankings",
+    "prior_plus_play_drive_plus_rankings"
+  ],
+  "candidate_decisions": {
+    "prior_only": "CORE_REFERENCE",
+    "prior_plus_play_drive": "REJECTED_DEVELOPMENT",
+    "prior_plus_rankings": "REJECTED_DEVELOPMENT",
+    "prior_plus_play_drive_plus_rankings": "REJECTED_DEVELOPMENT",
+    "any_candidate_improved_brier_vs_prior_only": false
+  },
+  "supersession": {
+    "ledger_generation": 1,
+    "prior_ledger_identity": null,
+    "supersession_kind": "FIRST_LEDGER_VERSION",
+    "kickoff_time_bat565_label_dataset": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+    "kickoff_time_bat566_matrix": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
+    "kickoff_time_bat566_replay": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7"
+  },
+  "bat401_rebound": {
+    "previous_artifact_identity": "1887ed47829cbd48b575faf21f0eb16fc3a1221a77b9ffa13e65e55c5e085066",
+    "artifact_identity": "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3",
+    "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "issue_reopened": false
+  },
+  "protected_nonclaims": {
+    "protected_performance_claimed": false,
+    "champion_or_production_promotion": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "protected_lane_opened": false,
+    "pregame_availability_inferred": false,
+    "production_feature_registry": false
+  }
+}

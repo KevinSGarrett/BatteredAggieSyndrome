@@ -6,9 +6,9 @@ ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/14803640408486621192
-ADDED,.ruff_cache/0.6.9/503342725760675956
-ADDED,.ruff_cache/0.6.9/6545287523541625748
+ADDED,.ruff_cache/0.6.9/13084104306302393742
+ADDED,.ruff_cache/0.6.9/16925381896113165160
+ADDED,.ruff_cache/0.6.9/4428631834215195823
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -39,6 +39,7 @@ ADDED,artifacts/entities/registry_validation.json
 ADDED,artifacts/entities/resolution_results.parquet
 ADDED,artifacts/entities/schema_readiness_gate.json
 ADDED,artifacts/entities/schema_reconciliation.csv
+ADDED,artifacts/experimentation/development_candidate_evidence_ledger.json
 ADDED,artifacts/governance/protected_split_exposure_audit.json
 ADDED,artifacts/implementation_preflight/credential_inventory.redacted.json
 ADDED,artifacts/implementation_preflight/data_root_activation.json
@@ -153,6 +154,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-204.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
@@ -237,6 +239,7 @@ ADDED,configs/codex_usage_interlock_change_manifest.json
 ADDED,configs/cpu_worker_qualification.json
 ADDED,configs/development_2023_labeled_replay_contract.json
 ADDED,configs/development_2023_outcome_identity_contract.json
+ADDED,configs/development_candidate_feature_registry.json
 ADDED,configs/development_rankings_walk_forward_2023_contract.json
 ADDED,configs/elo_challenger_research_contract.json
 ADDED,configs/elo_offense_defense_challenger_contract.json
@@ -510,6 +513,7 @@ ADDED,src/aggie_analytics/entities/candidates.py
 ADDED,src/aggie_analytics/entities/people_registry.py
 ADDED,src/aggie_analytics/entities/registry_artifacts.py
 ADDED,src/aggie_analytics/experimentation/development_2023_labeled_replay.py
+ADDED,src/aggie_analytics/experimentation/development_candidate_evidence_ledger.py
 ADDED,src/aggie_analytics/experimentation/development_rankings_walk_forward_2023.py
 ADDED,src/aggie_analytics/experimentation/walk_forward.py
 ADDED,src/aggie_analytics/features/alternate_station_recovery.py
@@ -575,6 +579,7 @@ ADDED,tests/test_cpu_worker_backend.py
 ADDED,tests/test_cursor_review_disposition.py
 ADDED,tests/test_development_2023_labeled_replay.py
 ADDED,tests/test_development_2023_outcomes.py
+ADDED,tests/test_development_candidate_evidence_ledger.py
 ADDED,tests/test_development_rankings_walk_forward_2023.py
 ADDED,tests/test_drift_incident_game_day.py
 ADDED,tests/test_evaluation_exposure.py
@@ -797,6 +802,7 @@ ADDED,tools/validate_codex_usage_interlock.py
 ADDED,tools/validate_cpu_worker_readiness.py
 ADDED,tools/validate_development_2023_labeled_replay.py
 ADDED,tools/validate_development_2023_outcomes.py
+ADDED,tools/validate_development_candidate_evidence_ledger.py
 ADDED,tools/validate_development_rankings_walk_forward_2023.py
 ADDED,tools/validate_drift_alerts.py
 ADDED,tools/validate_execution_focus.py
@@ -859,6 +865,7 @@ ADDED,tools/validate_unified_assistive_completeness.py
 ADDED,tools/validate_unified_assistive_plane.py
 ADDED,tools/validate_wmt_provider_timestamp_pit.py
 ADDED,tools/validate_wmt_tamu_specialization_feature_pit.py
+ADDED,tools/write_development_candidate_evidence_ledger.py
 CHANGED,.codex/README.md
 CHANGED,.gitattributes
 CHANGED,.github/pull_request_template.md

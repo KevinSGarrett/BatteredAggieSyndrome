@@ -106,6 +106,21 @@
       "critical_path": true,
       "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-569",
+      "local_id": "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001",
+      "summary": "Create an identity-bound development candidate evidence ledger",
+      "issue_type": "Task",
+      "status": "Done",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "VERIFIED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

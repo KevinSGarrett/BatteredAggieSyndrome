@@ -317,6 +317,48 @@ def main() -> int:
                         )()
                     )
 
+        contest_gate = root / "artifacts" / "data_lake" / "tamu_2010_2011_ncaa_contest_route_discovery_gate.json"
+        contest_module = root / "src" / "aggie_analytics" / "data" / "tamu_ncaa_contest_route_discovery.py"
+        if contest_gate.is_file() and contest_module.is_file():
+            import importlib.util
+            import os
+
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_contest_route_discovery_strict",
+                contest_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_contest_route_discovery",
+                            "path": "src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py",
+                            "detail": "unable to load contest-route discovery validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = (data_root / "features/tamu_2010_2011_ncaa_contest_route_discovery").is_dir()
+                try:
+                    module.validate_artifact(data_root=data_root, repo_root=root, require_rebuild=lake_ready)
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_contest_route_discovery",
+                                "path": "artifacts/data_lake/tamu_2010_2011_ncaa_contest_route_discovery_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

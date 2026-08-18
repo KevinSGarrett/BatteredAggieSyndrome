@@ -6,9 +6,9 @@ ADDED,.pytest_cache/CACHEDIR.TAG
 ADDED,.pytest_cache/README.md
 ADDED,.pytest_cache/v/cache/nodeids
 ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/13366793315448029799
-ADDED,.ruff_cache/0.6.9/14141640774161527003
-ADDED,.ruff_cache/0.6.9/1774441490686741911
+ADDED,.ruff_cache/0.6.9/3649591184067865704
+ADDED,.ruff_cache/0.6.9/4745359164621689273
+ADDED,.ruff_cache/0.6.9/6860335734697604585
 ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
@@ -28,6 +28,7 @@ ADDED,artifacts/data_lake/immutability_and_correction_test.json
 ADDED,artifacts/data_lake/national_lake_readiness.json
 ADDED,artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 ADDED,artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
+ADDED,artifacts/data_lake/tamu_2010_2011_ncaa_contest_route_discovery_gate.json
 ADDED,artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json
 ADDED,artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json
 ADDED,artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
@@ -164,6 +165,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-SEASON-RECONCILIATION-001.json
@@ -331,6 +333,7 @@ ADDED,configs/source_drift_registry.json
 ADDED,configs/source_rights_registry.json
 ADDED,configs/sportsdataverse_post2022_roster_acquisition.json
 ADDED,configs/supplemental_play_drive_gap_contract.json
+ADDED,configs/tamu_2010_2011_ncaa_contest_route_discovery_contract.json
 ADDED,configs/tamu_2010_2011_ncaa_official_acquisition_contract.json
 ADDED,configs/tamu_2010_2011_ncaa_team_season_evidence_contract.json
 ADDED,configs/tamu_2010_2011_season_reconciliation_contract.json
@@ -528,6 +531,7 @@ ADDED,src/aggie_analytics/data/roster_reconciliation.py
 ADDED,src/aggie_analytics/data/sec_availability.py
 ADDED,src/aggie_analytics/data/tamu_2010_2011_ncaa_official_acquisition.py
 ADDED,src/aggie_analytics/data/tamu_cross_source_domain_gate.py
+ADDED,src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
 ADDED,src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
 ADDED,src/aggie_analytics/data/tamu_season_reconciliation.py
@@ -681,6 +685,7 @@ ADDED,tests/test_roster_domain_completeness.py
 ADDED,tests/test_sec_tamu_availability.py
 ADDED,tests/test_source_access_smoke_results.py
 ADDED,tests/test_supplemental_play_drive.py
+ADDED,tests/test_tamu_2010_2011_ncaa_contest_route_discovery.py
 ADDED,tests/test_tamu_2010_2011_ncaa_official_acquisition.py
 ADDED,tests/test_tamu_2010_2011_ncaa_team_season_evidence.py
 ADDED,tests/test_tamu_2010_2011_season_reconciliation.py
@@ -752,6 +757,7 @@ ADDED,tools/build_retrospective_returning_production.py
 ADDED,tools/build_roster_domain_completeness.py
 ADDED,tools/build_sec_tamu_availability_candidates.py
 ADDED,tools/build_supplemental_play_drive_gap.py
+ADDED,tools/build_tamu_2010_2011_ncaa_contest_route_discovery.py
 ADDED,tools/build_tamu_2010_2011_ncaa_official_acquisition.py
 ADDED,tools/build_tamu_2010_2011_ncaa_team_season_evidence.py
 ADDED,tools/build_tamu_2010_2011_season_reconciliation.py
@@ -894,6 +900,7 @@ ADDED,tools/validate_retrospective_returning_production.py
 ADDED,tools/validate_roster_domain_completeness.py
 ADDED,tools/validate_sec_tamu_availability_candidates.py
 ADDED,tools/validate_supplemental_play_drive_gap.py
+ADDED,tools/validate_tamu_2010_2011_ncaa_contest_route_discovery.py
 ADDED,tools/validate_tamu_2010_2011_ncaa_official_acquisition.py
 ADDED,tools/validate_tamu_2010_2011_ncaa_team_season_evidence.py
 ADDED,tools/validate_tamu_2010_2011_season_reconciliation.py

@@ -13,9 +13,10 @@ if __package__ in {None, ""}:
 
 from aggie_analytics.validation.roster_domain_completeness import (  # noqa: E402
     AvailabilityAdmissionDenied,
+    GATE_RELATIVE,
     PayloadMountRequired,
-    identity_core,
-    stable_hash,
+    compute_gate_identity,
+    rebuild_expected,
     validate_artifact,
 )
 
@@ -24,8 +25,20 @@ def expect_rejection(name: str, operation: Callable[[], Any]) -> dict[str, Any]:
     try:
         operation()
     except (ValueError, AvailabilityAdmissionDenied, PayloadMountRequired, AssertionError) as exc:
-        return {"name": name, "result": "PASS_FAIL_CLOSED", "exception": type(exc).__name__}
+        return {
+            "name": name,
+            "result": "PASS_FAIL_CLOSED",
+            "exception": type(exc).__name__,
+            "message": str(exc)[:240],
+        }
     raise AssertionError(f"mutation control did not reject: {name}")
+
+
+def _mutated_gate(gate: dict[str, Any], **changes: Any) -> dict[str, Any]:
+    tampered = json.loads(json.dumps(gate))
+    tampered.update(changes)
+    tampered["gate_identity"] = compute_gate_identity(tampered)
+    return tampered
 
 
 def main() -> int:
@@ -40,38 +53,114 @@ def main() -> int:
     )
     parser.add_argument("--validate-only", action="store_true")
     args = parser.parse_args()
-    result = validate_artifact(
-        data_root=args.data_root.resolve(),
-        repo_root=args.repo_root.resolve(),
-        require_rebuild=True,
-    )
+    repo_root = args.repo_root.resolve()
+    data_root = args.data_root.resolve()
+    result = validate_artifact(data_root=data_root, repo_root=repo_root, require_rebuild=True)
     mutations: list[dict[str, Any]] = []
     if not args.validate_only:
+        expected = rebuild_expected(data_root=data_root, repo_root=repo_root)
+        gate = json.loads((repo_root / GATE_RELATIVE).read_text(encoding="utf-8"))
+
+        def _validate(tampered_gate: dict[str, Any]) -> Any:
+            return validate_artifact(
+                data_root=data_root,
+                repo_root=repo_root,
+                require_rebuild=True,
+                gate=tampered_gate,
+                expected=expected,
+            )
+
+        authority = json.loads(json.dumps(gate["authority"]))
+        authority["protected_evaluation_admission"] = True
         mutations.append(
             expect_rejection(
-                "availability_inferred_from_membership",
-                lambda: (_ for _ in ()).throw(
-                    AvailabilityAdmissionDenied("membership is not availability")
+                "protected_evaluation_admission_true",
+                lambda: _validate(_mutated_gate(gate, authority=authority)),
+            )
+        )
+        champion = json.loads(json.dumps(gate["authority"]))
+        champion["champion_or_production_promotion"] = True
+        mutations.append(
+            expect_rejection(
+                "champion_or_production_promotion_true",
+                lambda: _validate(_mutated_gate(gate, authority=champion)),
+            )
+        )
+        nonclaims = json.loads(json.dumps(gate["scientific_nonclaims"]))
+        nonclaims["protected_performance_claimed"] = True
+        mutations.append(
+            expect_rejection(
+                "protected_performance_claim_true",
+                lambda: _validate(_mutated_gate(gate, scientific_nonclaims=nonclaims)),
+            )
+        )
+        admissions = json.loads(json.dumps(gate["admissions"]))
+        admissions["pregame_availability"] = "ADMITTED"
+        mutations.append(
+            expect_rejection(
+                "pregame_availability_admitted",
+                lambda: _validate(_mutated_gate(gate, admissions=admissions)),
+            )
+        )
+        blockers = [code for code in gate["remaining_blockers"] if code != "MEMBERSHIP_IS_NOT_AVAILABILITY"]
+        mutations.append(
+            expect_rejection(
+                "missing_availability_blocker_removed",
+                lambda: _validate(_mutated_gate(gate, remaining_blockers=blockers)),
+            )
+        )
+        mutations.append(
+            expect_rejection(
+                "altered_classification",
+                lambda: _validate(
+                    _mutated_gate(gate, classification="ROSTER_AVAILABILITY_ADMITTED")
                 ),
             )
         )
-        core = identity_core(
-            contract_sha256="a" * 64,
-            input_identities={"roster_history_dataset_identity": "b" * 64},
-            payload_mount_state="ABSENT",
-            reconstructed_counts={"roster_history": {"source_rows": 1}},
-            admissions={"pregame_availability": "BLOCKED"},
-        )
-        tampered = dict(core)
-        tampered["availability_admission"] = True
+        reconstructed = json.loads(json.dumps(gate["reconstructed"]))
+        reconstructed["a_and_m_versus_national"]["tamu_admitted_membership_rows_2004_2022"] = 999999
         mutations.append(
             expect_rejection(
-                "recomputed_outer_identity_after_availability_tamper",
-                lambda: (_ for _ in ()).throw(
-                    ValueError("outer identity changed")
-                    if stable_hash(core) != stable_hash(tampered)
-                    else AssertionError("identity collision")
-                ),
+                "altered_reconstructed_counts",
+                lambda: _validate(_mutated_gate(gate, reconstructed=reconstructed)),
+            )
+        )
+        mutations.append(
+            expect_rejection(
+                "altered_membership_filter_identity",
+                lambda: _validate(_mutated_gate(gate, exact_membership_filter_identity="0" * 64)),
+            )
+        )
+        parents = json.loads(json.dumps(gate["parent_identities"]))
+        parents["BAT-546_admitted_dataset"] = "1" * 64
+        mutations.append(
+            expect_rejection(
+                "altered_bat546_parent_identity",
+                lambda: _validate(_mutated_gate(gate, parent_identities=parents)),
+            )
+        )
+        parents_547 = json.loads(json.dumps(gate["parent_identities"]))
+        parents_547["BAT-547_admitted_dataset"] = "2" * 64
+        mutations.append(
+            expect_rejection(
+                "altered_bat547_parent_identity",
+                lambda: _validate(_mutated_gate(gate, parent_identities=parents_547)),
+            )
+        )
+        forged = _mutated_gate(
+            gate,
+            result="FORGED_DONE",
+            classification="PRODUCTION_CHAMPION",
+            issue_completion={
+                **gate["issue_completion"],
+                "issue_complete": True,
+                "pregame_availability_still_blocked": False,
+            },
+        )
+        mutations.append(
+            expect_rejection(
+                "forged_terminal_state_after_identity_recompute",
+                lambda: _validate(forged),
             )
         )
     print(json.dumps({"validation": result, "mutations": mutations}, indent=2, sort_keys=True, default=str))

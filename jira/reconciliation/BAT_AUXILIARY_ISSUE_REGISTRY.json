@@ -584,6 +584,21 @@
       "phase": "PHASE-3",
       "status": "Done",
       "summary": "Acquire and normalize official SRC-014 2005 Texas A&M box scores from the BAT-599 captured index"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PARTIAL",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-601",
+      "local_id": "POST-TASK-SRC014-2005-STRUCTURED-DOMAINS-001",
+      "logical_state": "REVIEW",
+      "maturity": "CONTRACT_DEFINED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-4",
+      "status": "In Review",
+      "summary": "Parse official SRC-014 2005 structured domains and classify Cycle #12 HTML tables"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

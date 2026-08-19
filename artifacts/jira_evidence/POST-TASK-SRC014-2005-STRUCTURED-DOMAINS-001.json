@@ -1,0 +1,61 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_591_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_595_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_596_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_600_payload": "CONSUMED_CAPTURES_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14519",
+    "done_after_merge": "",
+    "in_review_after_validation": "14520"
+  },
+  "current_identities": {
+    "gate_identity": "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d",
+    "msu_html_rows_identity": "373eeb73e0b0c7156137184740a2239e4d88f5eba0c081241b2d2df43a5ccdf8",
+    "payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
+    "texas_html_rows_identity": "79eb10a856c65b9659b35e20fda28242fa4d0dd19fbf5977ed504aebfdbd6f83"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of official 2005 structured-domain parsing and an independent HTML-table classifier. BAT-596 owns 2006 structured domains and only serialized 2007-09-01 HTML rows. BAT-591 owns 2007-2009 StatCrew preformatted domains. BAT-600 owns 2005 acquisition only. Live JQL for 2005 structured returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-523",
+      "BAT-585",
+      "BAT-586",
+      "BAT-589",
+      "BAT-591",
+      "BAT-594",
+      "BAT-595",
+      "BAT-596",
+      "BAT-597",
+      "BAT-599",
+      "BAT-600"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-601",
+  "local_issue_id": "POST-TASK-SRC014-2005-STRUCTURED-DOMAINS-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Official 2005 labeled domains parsed from the 11 BAT-600 captures: 11/11 rich with team, player, drives, and play-by-play PRESENT. Cycle #12 HTML tables classified from headers only: texas.htm and ta01-msu.htm each have 44 tables, 9 unknown, play-by-play ABSENT. Participation PRESENT does not establish availability. Gate identity b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d. BAT-591, BAT-595, and BAT-596 identities were not rewritten. BAT-523 stays In Progress.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

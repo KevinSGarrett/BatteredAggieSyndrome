@@ -44,8 +44,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "212979511b54c854100dde1268ded2fca2c4b9fb",
+  "issue_complete": true,
   "jira_key": "BAT-586",
   "local_issue_id": "POST-TASK-CYCLE-10-SRC014-PRE2010-OFFICIAL-ACQUISITION-001",
   "new_issue_decision": "CREATE",
@@ -106,6 +107,7 @@
     2009,
     2008
   ],
-  "status": "In Review",
+  "starting_sha": "c8ba709919ebae809af6ce14320abd7fb1e3141e",
+  "status": "Done",
   "work_unit": "CYCLE_10_PHASE_4_SRC014_PRE2010_OFFICIAL_ACQUISITION"
 }

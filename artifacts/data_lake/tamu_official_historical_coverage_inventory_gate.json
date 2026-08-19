@@ -1,0 +1,76 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "inventory_admission": "CANDIDATE_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "wmt_payload": "PRESERVED_IMMUTABLE"
+  },
+  "artifact_type": "TAMU_OFFICIAL_HISTORICAL_COVERAGE_INVENTORY_GATE",
+  "authority": {
+    "availability_claim": false,
+    "bas_or_aggie_excess_claims": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "guessed_season_url": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "protected_outcome_authority": false,
+    "tamu_specialization_lift_claims": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_HISTORICAL_COVERAGE_INVENTORY_CANDIDATE_ONLY",
+  "contract_id": "BAT-585-TAMU-OFFICIAL-HISTORICAL-COVERAGE-INVENTORY-V1",
+  "counts": {
+    "ncaa_contest_ids_created": 0,
+    "official_index_seasons": 129,
+    "pre2010_official_index_seasons": 115,
+    "selected_box_score_urls": 25,
+    "selected_pre2010_seasons": 2
+  },
+  "decision_unit": "POST-TASK-CYCLE-10-SRC014-HISTORICAL-COVERAGE-INVENTORY-001",
+  "disposition": "INVENTORY_ONLY_NO_UNION_MUTATION",
+  "gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+  "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-585",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "rejected_seasons": [],
+  "result": "PASS_OFFICIAL_INDEX_INVENTORY_TWO_PRE2010_SEASONS_SELECTED",
+  "schema_version": "aggie.data.tamu_official_historical_coverage_inventory.v1",
+  "scientific_nonclaims": {
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "guessed_year_urls": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "numeric_ncaa_contest_id_sweep": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "retrieval_time_used_as_historical_known_at": false
+  },
+  "selected_seasons": [
+    2009,
+    2008
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "archive_gate_identity": "7c54754eab279b7718c0c3da48dc75cfb891d8f49f2f9e1236152d2b9779bc2b",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+    "wmt_acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "wmt_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
+  }
+}

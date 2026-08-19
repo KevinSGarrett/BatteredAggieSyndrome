@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-585-TAMU-OFFICIAL-HISTORICAL-COVERAGE-INVENTORY-V1",
+  "decision_unit": "POST-TASK-CYCLE-10-SRC014-HISTORICAL-COVERAGE-INVENTORY-001",
+  "jira_key": "BAT-585",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-429",
+    "BAT-401",
+    "BAT-570",
+    "BAT-579",
+    "BAT-580",
+    "BAT-581",
+    "BAT-584"
+  ],
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_SRC014_OFFICIAL_HISTORICAL_COVERAGE_INVENTORY_CANDIDATE_ONLY",
+  "purpose": "Parse the captured official Texas A&M history index independently, inventory every officially linked football season-index URL, and select the next two most recent pre-2010 seasons that are not already in the immutable union and whose official season indexes expose box-score URLs. Season URLs are never guessed by year substitution.",
+  "source_id": "SRC-014",
+  "official_hosts": ["files.12thman.com", "12thman.com", "www.12thman.com"],
+  "rights_decision_id": "PRIVATE-RESEARCH-SRC-014",
+  "raw_storage_policy": "ALLOW_IMMUTABLE_RAW_AND_NORMALIZED_DATA_OUTSIDE_GIT",
+  "derived_export_allowed": false,
+  "raw_export_allowed": false,
+  "wmt_payload_policy": "DO_NOT_REWRITE_IN_PLACE",
+  "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+  "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+  "payloads": {
+    "normalized_root": "features/tamu_official_historical_coverage_inventory/sha256",
+    "capture_index": "features/tamu_official_historical_coverage_inventory/season_index_capture_index.json",
+    "raw_root": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive"
+  },
+  "authority": {
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "guessed_season_url": false,
+    "ncaa_contest_identity": false,
+    "historical_known_at_from_capture_time": false,
+    "availability_claim": false,
+    "wmt_payload_mutated_in_place": false,
+    "protected_outcome_authority": false,
+    "champion_or_production_promotion": false
+  }
+}

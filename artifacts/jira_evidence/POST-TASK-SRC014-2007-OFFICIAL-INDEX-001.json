@@ -42,8 +42,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "IMPLEMENTED_PENDING_REVIEW",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "5ea3832e31549999d0fcf8def5f6909eaaf997d0",
+  "issue_complete": true,
   "jira_key": "BAT-588",
   "local_issue_id": "POST-TASK-SRC014-2007-OFFICIAL-INDEX-001",
   "new_issue_decision": "CREATE",
@@ -52,5 +53,6 @@
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
-  }
+  },
+  "status": "Done"
 }

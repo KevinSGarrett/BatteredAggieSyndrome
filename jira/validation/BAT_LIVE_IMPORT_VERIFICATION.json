@@ -1,11 +1,15 @@
 {
   "actual_expected_link_count": 1191,
+  "auxiliary_actual_count": 29,
+  "auxiliary_expected_count": 29,
   "board": {
     "filter_id": "10134",
     "id": "134",
     "jql": "project = BAT AND labels = post-wave ORDER BY Rank ASC",
     "name": "BAT board"
   },
+  "canonical_actual_count": 515,
+  "canonical_expected_count": 515,
   "completion_assurance_policy_count": 221,
   "components": {
     "advanced-challengers": "10160",
@@ -38,7 +42,7 @@
   },
   "discrepancies": [],
   "expected_link_count": 1191,
-  "issue_count": 541,
+  "issue_count": 544,
   "issue_type_counts": {
     "Epic": 51,
     "Story": 58,
@@ -46,6 +50,7 @@
     "Task": 201
   },
   "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
+  "missing_auxiliary_keys": [],
   "missing_link_count": 0,
   "parent_count": 464,
   "project": {
@@ -59,6 +64,9 @@
     "Done": 93,
     "To Do": 422
   },
+  "total_actual_issue_count": 544,
+  "total_expected_issue_count": 544,
+  "unexpected_issue_keys": [],
   "unexpected_link_count": 0,
-  "verified_at": "2026-08-19T03:13:55.883971+00:00"
+  "verified_at": "2026-08-19T06:32:50.129091+00:00"
 }

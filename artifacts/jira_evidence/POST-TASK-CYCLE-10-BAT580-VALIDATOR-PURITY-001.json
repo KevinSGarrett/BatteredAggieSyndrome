@@ -1,0 +1,91 @@
+{
+  "admissions": {
+    "archive_validator_writes": false,
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_580_identities_preserved": true,
+    "union_validator_writes": false
+  },
+  "current_identities": {
+    "dataset_identity": "46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa",
+    "games_identity": "4b07b23cd0e4bef16d4a8eb7bf67d0f0d20f7d9f7ab94116fdee57239910d0e5",
+    "gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "BAT-580 owns the original official box-score normalization identity and remains Done. It does not own the Cycle #10 validator-purity defect that reconstruct_from_pages() called write-capable normalize_boxscores(). BAT-579, BAT-581, BAT-583, BAT-578, BAT-523, BAT-429, and BAT-401 do not own this correction.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-578",
+      "BAT-579",
+      "BAT-580",
+      "BAT-581",
+      "BAT-583"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-584",
+  "local_issue_id": "POST-TASK-CYCLE-10-BAT580-VALIDATOR-PURITY-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #10 Phase 2 separates BAT-580 reconstruction from materialization. reconstruct_boxscores() returns in-memory gate/manifest/payload objects. materialize_boxscores() performs explicit writes. validate_artifact() and reconstruct_from_pages() use only the pure reconstruction path. Isolated temporary repository/data-root copies prove passing validation, tampered-score failure, missing-raw-file failure, changed-domain-coverage failure, and forged-completion failure leave all relevant repository and external files byte-identical. Archive and union validators already reconstruct without writes and were not changed. BAT-580 gate identity 29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5, dataset identity 46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa, and games identity 4b07b23cd0e4bef16d4a8eb7bf67d0f0d20f7d9f7ab94116fdee57239910d0e5 are preserved. Code identity changed; data identity did not.",
+  "outputs": [
+    {
+      "bytes": 56667,
+      "path": "src/aggie_analytics/data/tamu_official_historical_boxscores.py",
+      "sha256": "11eb2ff3e2db4e417a6743f112d46f9760ba0faad521f9da9fc9b98815cbadaa"
+    },
+    {
+      "bytes": 23068,
+      "path": "tests/test_tamu_official_historical_boxscores.py",
+      "sha256": "695942ea81b02008951cfe0551fe5abdfba072a96d8a0675977312a208ab733a"
+    },
+    {
+      "bytes": 5700,
+      "path": "tools/validate_tamu_official_historical_boxscores.py",
+      "sha256": "d9b912bf38f33c9cbd9102914f0caf7c3b3c4db09ea748766b829bf8415412e3"
+    },
+    {
+      "bytes": 65802,
+      "path": "artifacts/data_lake/tamu_official_historical_boxscore_gate.json",
+      "sha256": "25ee9eb88591ac93e0193f279d2a005ab9bda7c20d508e510f683e9d70dfaa7a"
+    },
+    {
+      "bytes": 13087,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+      "sha256": "1fd5a48d3f8cb6497308f394bdbbefccba1cd34fc951aabf3731a69a2d73c8e9"
+    },
+    {
+      "bytes": 3666,
+      "path": "jira/project/JIRA_TARGET_PROFILE.yaml",
+      "sha256": "1236d7383e880b006838f8a3226d0faa8131b470619dc9749e47844db89e07d7"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "data_identity_churned": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-580",
+    "BAT-579",
+    "BAT-581",
+    "BAT-429"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "581ed61bb75a3e4d47fee906305bb787af965d59",
+  "workflow_state": "IN_REVIEW"
+}

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import shutil
 import sys
 import tempfile
 import unittest
@@ -356,6 +358,120 @@ class OfficialHistoricalBoxscoreTests(unittest.TestCase):
                 require_rebuild=False,
                 gate=_mutated(gate, result="FORGED_DONE", classification="PRODUCTION_CHAMPION"),
             )
+
+
+REPO_SENTINELS = (
+    GATE_RELATIVE,
+    "artifacts/data_lake/tamu_official_historical_archive_gate.json",
+    "artifacts/pit/historical_tamu_official_gamebook_reconciliation_gate.json",
+    "configs/tamu_official_historical_boxscore_contract.json",
+    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+)
+DATA_SENTINELS = (
+    "manifests/acquisition/BAT-580-TAMU-OFFICIAL-HISTORICAL-BOXSCORES-V1/manifest.json",
+    "features/tamu_official_historical_boxscores/sha256/normalized.json",
+    "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive",
+)
+
+
+def _file_fingerprint(path: Path) -> str:
+    digest = hashlib.sha256()
+    digest.update(str(path.stat().st_size).encode("ascii"))
+    digest.update(b"\0")
+    digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+def _snapshot_relevant(repo_root: Path, data_root: Path) -> dict[str, str]:
+    snapshot: dict[str, str] = {}
+    for relative in REPO_SENTINELS:
+        path = repo_root / relative
+        snapshot[f"repo:{relative}"] = _file_fingerprint(path)
+    for relative in DATA_SENTINELS:
+        path = data_root / relative
+        if path.is_file():
+            snapshot[f"data:{relative}"] = _file_fingerprint(path)
+            continue
+        for child in sorted(path.rglob("*")):
+            if child.is_file():
+                snapshot[f"data:{child.relative_to(data_root).as_posix()}"] = _file_fingerprint(child)
+    return snapshot
+
+
+def _copy_isolated_roots() -> tuple[Path, Path]:
+    repo = Path(tempfile.mkdtemp(prefix="bat584-repo-"))
+    data = Path(tempfile.mkdtemp(prefix="bat584-data-"))
+    for relative in REPO_SENTINELS:
+        dest = repo / relative
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / relative, dest)
+    for relative in DATA_SENTINELS:
+        source = DATA_ROOT / relative
+        dest = data / relative
+        if source.is_file():
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, dest)
+        else:
+            shutil.copytree(source, dest)
+    return repo, data
+
+
+@unittest.skipUnless(LAKE_READY, "external BAT-580 payloads are not mounted")
+class ValidatorPurityTests(unittest.TestCase):
+    def _assert_byte_identical(self, before: dict[str, str], after: dict[str, str]) -> None:
+        self.assertEqual(before, after)
+
+    def test_passing_validation_does_not_mutate_files(self) -> None:
+        repo, data = _copy_isolated_roots()
+        before = _snapshot_relevant(repo, data)
+        result = validate_artifact(data_root=data, repo_root=repo, require_rebuild=True)
+        self.assertEqual("PASS", result["result"])
+        self.assertEqual("MOUNTED", result["external_reconstruction"])
+        self._assert_byte_identical(before, _snapshot_relevant(repo, data))
+
+    def test_tampered_score_failure_does_not_mutate_files(self) -> None:
+        repo, data = _copy_isolated_roots()
+        gate = load_json(repo / GATE_RELATIVE)
+        games = json.loads(json.dumps(gate["games"]))
+        games[0]["tamu_points"] = 999
+        (repo / GATE_RELATIVE).write_text(json.dumps(_mutated(gate, games=games), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        before = _snapshot_relevant(repo, data)
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=data, repo_root=repo, require_rebuild=True)
+        self._assert_byte_identical(before, _snapshot_relevant(repo, data))
+
+    def test_missing_raw_file_failure_does_not_mutate_files(self) -> None:
+        repo, data = _copy_isolated_roots()
+        raw_dir = data / "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores"
+        victim = next(raw_dir.rglob("*.html"))
+        victim.unlink()
+        before = _snapshot_relevant(repo, data)
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=data, repo_root=repo, require_rebuild=True)
+        self._assert_byte_identical(before, _snapshot_relevant(repo, data))
+
+    def test_changed_domain_coverage_failure_does_not_mutate_files(self) -> None:
+        repo, data = _copy_isolated_roots()
+        gate = load_json(repo / GATE_RELATIVE)
+        games = json.loads(json.dumps(gate["games"]))
+        games[0]["domain_coverage"]["officials"] = "ABSENT"
+        (repo / GATE_RELATIVE).write_text(json.dumps(_mutated(gate, games=games), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        before = _snapshot_relevant(repo, data)
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=data, repo_root=repo, require_rebuild=True)
+        self._assert_byte_identical(before, _snapshot_relevant(repo, data))
+
+    def test_forged_completion_failure_does_not_mutate_files(self) -> None:
+        repo, data = _copy_isolated_roots()
+        gate = load_json(repo / GATE_RELATIVE)
+        (repo / GATE_RELATIVE).write_text(
+            json.dumps(_mutated(gate, result="FORGED_DONE", classification="PRODUCTION_CHAMPION"), indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        before = _snapshot_relevant(repo, data)
+        with self.assertRaises(AuthorityViolation):
+            validate_artifact(data_root=data, repo_root=repo, require_rebuild=True)
+        self._assert_byte_identical(before, _snapshot_relevant(repo, data))
 
 
 if __name__ == "__main__":

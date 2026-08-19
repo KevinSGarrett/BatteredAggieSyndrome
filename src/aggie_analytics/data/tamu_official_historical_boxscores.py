@@ -971,7 +971,7 @@ def _archive_capture(archive_gate: Mapping[str, Any], url: str) -> dict[str, Any
     raise AuthorityViolation(f"BAT-579 archive gate is missing capture for {url}")
 
 
-def normalize_boxscores(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
+def reconstruct_boxscores(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
     contract = load_contract(repo_root)
     archive_gate = load_json(repo_root / ARCHIVE_GATE_RELATIVE)
     if archive_gate.get("acquisition_identity") != ARCHIVE_ACQUISITION_IDENTITY:
@@ -1088,10 +1088,20 @@ def normalize_boxscores(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
         "rows": rows,
         "scientific_nonclaims": expected_scientific_nonclaims(),
     }
-    write_json(data_root / contract["payloads"]["acquisition_manifest"], manifest)
-    write_json(data_root / contract["payloads"]["normalized_root"] / "normalized.json", payload)
-    write_json(repo_root / GATE_RELATIVE, gate)
-    return gate
+    return {"gate": gate, "manifest": manifest, "payload": payload, "contract": contract}
+
+
+def materialize_boxscores(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
+    reconstructed = reconstruct_boxscores(data_root=data_root, repo_root=repo_root)
+    contract = reconstructed["contract"]
+    write_json(data_root / contract["payloads"]["acquisition_manifest"], reconstructed["manifest"])
+    write_json(data_root / contract["payloads"]["normalized_root"] / "normalized.json", reconstructed["payload"])
+    write_json(repo_root / GATE_RELATIVE, reconstructed["gate"])
+    return reconstructed["gate"]
+
+
+def normalize_boxscores(*, data_root: Path, repo_root: Path) -> dict[str, Any]:
+    return materialize_boxscores(data_root=data_root, repo_root=repo_root)
 
 
 def validate_compact_boxscore_gate(committed: Mapping[str, Any], contract: Mapping[str, Any]) -> None:
@@ -1166,7 +1176,7 @@ def validate_compact_boxscore_gate(committed: Mapping[str, Any], contract: Mappi
 
 
 def reconstruct_from_pages(*, data_root: Path, repo_root: Path, committed: Mapping[str, Any]) -> dict[str, Any]:
-    rebuilt = normalize_boxscores(data_root=data_root, repo_root=repo_root)
+    rebuilt = reconstruct_boxscores(data_root=data_root, repo_root=repo_root)["gate"]
     if rebuilt["games"] != committed["games"]:
         raise AuthorityViolation("compact games were not independently reconstructed from official pages")
     if rebuilt["counts"] != committed["counts"]:

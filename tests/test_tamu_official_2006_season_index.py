@@ -163,6 +163,19 @@ class Compact2006GateTests(unittest.TestCase):
                 require_rebuild=False,
             )
 
+    def test_ci_path_validates_without_external_history_index(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            result = validate_artifact(
+                repo_root=REPO_ROOT,
+                data_root=Path(tmp),
+                require_rebuild=False,
+            )
+        self.assertEqual(result["result"], "PASS")
+        self.assertEqual(
+            result["gate_identity"],
+            "d1f765a73abf0107fcf200562590bfd0212a521df47f9c6b27bb336ad737635c",
+        )
+
     def test_invented_ncaa_id_fails_without_rebuild(self) -> None:
         rows = json.loads(json.dumps(self.gate["game_rows"]))
         rows[0]["ncaa_contest_id"] = "1234567"

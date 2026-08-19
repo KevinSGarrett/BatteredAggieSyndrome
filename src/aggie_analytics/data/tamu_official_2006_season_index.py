@@ -44,6 +44,7 @@ JIRA_KEY = "BAT-594"
 SOURCE_ID = "SRC-014"
 SEASON = 2006
 DISCOVERY_PARENT_URL = "https://files.12thman.com/history/football/history/index.html"
+OFFICIAL_SEASON_INDEX_URL = "https://files.12thman.com/history/football/years/2006.html"
 PINNED_INVENTORY_IDENTITY = "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
 PINNED_INVENTORY_GATE_IDENTITY = "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851"
 PINNED_HISTORY_INDEX_SHA256 = "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a"
@@ -557,11 +558,17 @@ def validate_artifact(
     require_rebuild: bool = True,
 ) -> dict[str, Any]:
     committed = dict(gate or load_json(repo_root / GATE_RELATIVE))
-    discovered = discover_official_2006_url(data_root)
     if committed.get("protected_lane") != PROTECTED_LANE:
         raise AuthorityViolation("protected lane opened")
-    if committed.get("official_index_url") != discovered["official_index_url"]:
+    if committed.get("official_index_url") != OFFICIAL_SEASON_INDEX_URL:
         raise AuthorityViolation("guessed or substituted 2006 official URL")
+    history_path = data_root / HISTORY_INDEX_RELATIVE
+    if history_path.is_file():
+        discovered = discover_official_2006_url(data_root)
+        if discovered["official_index_url"] != OFFICIAL_SEASON_INDEX_URL:
+            raise AuthorityViolation("history index no longer emits the pinned 2006 official URL")
+    elif require_rebuild:
+        raise AuthorityViolation("verified official history index capture is missing")
     if committed.get("inventory_identity") != PINNED_INVENTORY_IDENTITY:
         raise AuthorityViolation("BAT-585 inventory identity rewritten")
     if (committed.get("upstream_identities") or {}).get("inventory_identity") != PINNED_INVENTORY_IDENTITY:

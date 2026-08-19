@@ -863,6 +863,48 @@ def main() -> int:
                         )()
                     )
 
+        box_2005_gate = root / "artifacts" / "data_lake" / "tamu_official_2005_boxscore_gate.json"
+        box_2005_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2005_boxscores.py"
+        if box_2005_gate.is_file() and box_2005_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_2005_boxscores_strict",
+                box_2005_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_2005_boxscores",
+                            "path": "src/aggie_analytics/data/tamu_official_2005_boxscores.py",
+                            "detail": "unable to load official 2005 box-score validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=module.lake_is_ready(data_root),
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_2005_boxscores",
+                                "path": "artifacts/data_lake/tamu_official_2005_boxscore_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
         box_2006_gate = root / "artifacts" / "data_lake" / "tamu_official_2006_boxscore_gate.json"
         box_2006_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2006_boxscores.py"
         if box_2006_gate.is_file() and box_2006_module.is_file():

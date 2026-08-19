@@ -649,6 +649,7 @@ def parse_official_box_page(
     source_season: int,
     raw_sha256: str,
     allowed_urls: frozenset[str] | None = None,
+    allow_season_header_conflict: bool = False,
 ) -> dict[str, Any]:
     validate_official_url(url)
     if allowed_urls is not None:
@@ -677,11 +678,17 @@ def parse_official_box_page(
     season_match = SEASON_RE.search(text)
     if season_match is None and allowed_urls is None:
         raise AuthorityViolation("box page missing official football-season header")
-    football_season = int(season_match.group(1)) if season_match is not None else source_season
+    page_header_season = int(season_match.group(1)) if season_match is not None else source_season
+    football_season = page_header_season
+    season_header_conflict = False
     if football_season != source_season:
-        raise AuthorityViolation(
-            f"calendar-year/season-year confusion or wrong-season page: header {football_season} vs source {source_season}"
-        )
+        if allow_season_header_conflict and football_season == source_season + 1:
+            season_header_conflict = True
+            football_season = source_season
+        else:
+            raise AuthorityViolation(
+                f"calendar-year/season-year confusion or wrong-season page: header {football_season} vs source {source_season}"
+            )
     head = HEAD_RE.search(text)
     date_match = DATE_RE.search(text)
     if head is None or date_match is None:
@@ -772,7 +779,7 @@ def parse_official_box_page(
         "penalties": "PRESENT" if penalties_present else "ABSENT",
         "turnovers": "PRESENT" if turnovers_present else "ABSENT",
     }
-    return {
+    payload = {
         "url": url,
         "source_sha256": raw_sha256,
         "source_season": source_season,
@@ -817,6 +824,10 @@ def parse_official_box_page(
         "canonical_game_id": None,
         "availability_claim": False,
     }
+    if allow_season_header_conflict:
+        payload["page_header_season"] = page_header_season
+        payload["season_header_conflict"] = season_header_conflict
+    return payload
 
 
 def match_to_official_index(parsed: Mapping[str, Any], index_rows: list[Mapping[str, Any]]) -> dict[str, Any]:

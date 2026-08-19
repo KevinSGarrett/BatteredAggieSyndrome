@@ -1,0 +1,60 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_595_2006_boxscores": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_599_2005_index": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14516",
+    "done_after_merge": "",
+    "in_review_after_validation": "14517"
+  },
+  "current_identities": {
+    "acquisition_identity": "56aa050f4bf12c2e02a93915e03125f6cf782ea5b5cfd8b9bab63d724c3e5b59",
+    "dataset_identity": "e063378e564a3dcdbb09e42ea63cc0a843e9db8918130ecffd02f796c3805dbb",
+    "game_row_identity": "7bb39a7eaad39fa1b1c3ce640c78f309935c307c18d8498e6143cc35009153aa",
+    "gate_identity": "c999af29522096e4ae3a9cdc558679321095c8cf11247ef1ccd23b3114ee18cc"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of official 2005 box-score acquisition. BAT-595 owns 2006 boxes. BAT-589 owns 2007. BAT-586 owns pre-2010 2008/2009. BAT-599 owns only the 2005 index. Live JQL for 2005 acquisition returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-523",
+      "BAT-585",
+      "BAT-586",
+      "BAT-588",
+      "BAT-589",
+      "BAT-594",
+      "BAT-595",
+      "BAT-596",
+      "BAT-597",
+      "BAT-598",
+      "BAT-599"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-600",
+  "local_issue_id": "POST-TASK-SRC014-2005-OFFICIAL-ACQUISITION-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Official 2005 box scores acquired from the 11 BAT-599 index URLs only. 11/11 HTTP 200, 11 normalized, 0 rich, 11 metadata-only, 11 scoring-summary, 0 team/player/PBP structured domains, 1 SMU page-header-season conflict (header 2006 vs index 2005). Gate identity c999af29522096e4ae3a9cdc558679321095c8cf11247ef1ccd23b3114ee18cc. BAT-595 2006 identities were not rewritten. NCAA IDs created 0. Union admission 0. Pregame availability blocked. BAT-523 stays In Progress.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

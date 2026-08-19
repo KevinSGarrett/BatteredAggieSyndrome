@@ -409,6 +409,21 @@ def parse_quarter_scores(sum_block: str) -> list[dict[str, Any]]:
             scores.append({"team_raw": match.group(1).strip(), "periods": periods, "points": int(match.group(3))})
             if len(scores) >= 2:
                 break
+    if len(scores) < 2 and "score by quarters" in sum_block.lower():
+        # Long StatCrew names are padded with a single trailing dot
+        # ("Louisiana-Lafayette.  0  7  0  0  -  7"). Require the labeled
+        # Score-by-Quarters header so narrative periods are not invented.
+        padded_re = re.compile(r"(?m)^([A-Za-z0-9 .#'&;()-]+?)\.+\s+((?:\d+\s+)+)(?:\[[\d\s]+\]\s+)?-\s+(\d+)")
+        seen = {item["team_raw"].casefold() for item in scores}
+        for match in padded_re.finditer(sum_block.replace("&amp;", "&")):
+            team = match.group(1).strip()
+            if team.casefold() in seen:
+                continue
+            periods = [int(item) for item in match.group(2).split()]
+            scores.append({"team_raw": team, "periods": periods, "points": int(match.group(3))})
+            seen.add(team.casefold())
+            if len(scores) >= 2:
+                break
     if len(scores) < 2:
         raise AuthorityViolation("box score is missing labeled quarter/score rows")
     return scores
@@ -640,7 +655,7 @@ def parse_official_box_page(
         if url not in allowed_urls:
             raise AuthorityViolation(f"box URL was not emitted by the bound official inventory: {url}")
         folder_match = re.match(
-            r"^/history/football/stats/(\d{4}-\d{4})/(?:mfb_\d+_)?(?:ta\d{2}-[a-z0-9]+|alamo)\.html?$",
+            r"^/history/football/stats/(\d{4}-\d{4})/[A-Za-z0-9._-]+\.html?$",
             urlsplit(url).path,
             re.IGNORECASE,
         )

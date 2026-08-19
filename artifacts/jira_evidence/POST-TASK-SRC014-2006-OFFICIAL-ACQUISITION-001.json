@@ -1,0 +1,63 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_585_inventory": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_586": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_589": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_594": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14499",
+    "in_review_after_validation": "14500"
+  },
+  "current_identities": {
+    "acquisition_identity": "1ed988f759f383b62625d582ac70ee306a36c84d92ccded9f70c9fd11bfed269",
+    "dataset_identity": "05ac9ce54a107007b433e52d7a52f85d7e20726d9aaf7ca204332a75f88cd697",
+    "games_identity": "40e37b3ac4a015def27682bc994a6b222567a84ed4745594cd9d56f7ebf0621b",
+    "gate_identity": "2a9c56a10b14cf5fec4dff1c3cd55d0b4440afdb9520fb308317a9ae59c47ed7",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of official 2006 box-score acquisition. BAT-594 owns only the 2006 index. BAT-589 owns 2007 acquisition. BAT-586 owns 2008/2009 acquisition. Live JQL summary ~ 2006 returned only BAT-594. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-585",
+      "BAT-586",
+      "BAT-587",
+      "BAT-588",
+      "BAT-589",
+      "BAT-590",
+      "BAT-591",
+      "BAT-592",
+      "BAT-593",
+      "BAT-594"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "implementation_sha": null,
+  "issue_complete": false,
+  "jira_key": "BAT-595",
+  "local_issue_id": "POST-TASK-SRC014-2006-OFFICIAL-ACQUISITION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Acquired and normalized the 13 official 2006 box URLs discovered by BAT-594 from https://files.12thman.com/history/football/years/2006.html. Acquisition identity 1ed988f759f383b62625d582ac70ee306a36c84d92ccded9f70c9fd11bfed269, dataset identity 05ac9ce54a107007b433e52d7a52f85d7e20726d9aaf7ca204332a75f88cd697, games identity 40e37b3ac4a015def27682bc994a6b222567a84ed4745594cd9d56f7ebf0621b, and gate identity 2a9c56a10b14cf5fec4dff1c3cd55d0b4440afdb9520fb308317a9ae59c47ed7. Counts: expected_box_urls=13, acquired_responses=13, rejected_responses=0, failures=0, ambiguous_pages=2, normalized_games=13, rich_structured_games=1, metadata_only_games=12, scoring_summary_present_games=13, ncaa_contest_ids_created=0, games_admitted_to_union=0, pregame_availability_present=0. Scoring-summary presence alone is not rich structure. The only independently rich page is texas.htm. Two source date conflicts were preserved, not resolved: Nebraska box 2006-11-11 vs index 2006-11-10, Holiday/California box 2006-12-28 vs index 2006-12-29. Retrieval time only. BAT-594/BAT-589/BAT-586 identities were not rewritten. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

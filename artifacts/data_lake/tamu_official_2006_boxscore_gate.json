@@ -1,0 +1,206 @@
+{
+  "acquisition_identity": "1ed988f759f383b62625d582ac70ee306a36c84d92ccded9f70c9fd11bfed269",
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_594": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "normalization_admission": "CANDIDATE_ONLY",
+    "player_identity": "SOURCE_PLAYER_CANDIDATE",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "rights_disposition": "DERIVED_ONLY_OR_REVIEW_PRIVATE_RESEARCH",
+    "same_game_pregame_features": "BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED",
+    "wmt_payload": "PRESERVED_IMMUTABLE"
+  },
+  "artifact_type": "TAMU_OFFICIAL_2006_BOXSCORE_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_2006_BOXSCORE_CANDIDATE_ONLY",
+  "contract_id": "BAT-595-TAMU-OFFICIAL-2006-BOXSCORES-V1",
+  "counts": {
+    "acquired_responses": 13,
+    "ambiguous_pages": 2,
+    "blocked_or_partial_pages": 0,
+    "captured_pages_total": 13,
+    "date_conflicts": 2,
+    "expected_box_urls": 13,
+    "failures": 0,
+    "games_admitted_to_union": 0,
+    "matched_strong_tuple": 11,
+    "metadata_only_games": 12,
+    "name_only_insufficient": 0,
+    "ncaa_contest_ids_created": 0,
+    "normalized_games": 13,
+    "normalized_games_2006": 13,
+    "participation_candidates": 678,
+    "player_stat_candidates": 20,
+    "pregame_availability_present": 0,
+    "rejected_responses": 0,
+    "rich_structured_games": 1,
+    "scoring_summary_present_games": 13,
+    "target_games_2006": 13,
+    "target_games_total": 13,
+    "unmatched_strong_tuple": 0,
+    "verified_official_pages": 13
+  },
+  "dataset_identity": "05ac9ce54a107007b433e52d7a52f85d7e20726d9aaf7ca204332a75f88cd697",
+  "decision_unit": "POST-TASK-SRC014-2006-OFFICIAL-ACQUISITION-001",
+  "disposition": "NORMALIZED_CANDIDATE_ONLY_NO_UNION_MUTATION",
+  "domain_coverage": {
+    "attendance": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "drives": {
+      "absent_games": 12,
+      "present_games": 1
+    },
+    "duration": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "end_time": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "game_identity_metadata": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "individual_player_statistics": {
+      "absent_games": 12,
+      "present_games": 1
+    },
+    "kickoff_time": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "officials": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "participation": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "penalties": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "play_by_play": {
+      "absent_games": 12,
+      "present_games": 1
+    },
+    "played_date": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "quarter_scoring": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "scores": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "scoring_summary": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "season": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "site_venue": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "starters": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "team_statistics": {
+      "absent_games": 12,
+      "present_games": 1
+    },
+    "teams": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "turnovers": {
+      "absent_games": 0,
+      "present_games": 13
+    },
+    "weather": {
+      "absent_games": 0,
+      "present_games": 13
+    }
+  },
+  "games_identity": "40e37b3ac4a015def27682bc994a6b222567a84ed4745594cd9d56f7ebf0621b",
+  "gate_identity": "2a9c56a10b14cf5fec4dff1c3cd55d0b4440afdb9520fb308317a9ae59c47ed7",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-595",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_2006_BOXSCORES_NORMALIZED",
+  "schema_version": "aggie.data.tamu_official_2006_boxscores.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    2006
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat586_gate_identity": "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006",
+    "bat589_gate_identity": "f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51",
+    "bat594_box_url_identity": "57ee217fa34eeb041681ad9552933c4da505ab448ab43cac95bbf73ad6b4bf07",
+    "bat594_capture_identity": "c4a13a9b96b6b885732b32e7a9d2dc95321c89b604a3b90d69e342316c240aa2",
+    "bat594_gate_identity": "d1f765a73abf0107fcf200562590bfd0212a521df47f9c6b27bb336ad737635c",
+    "cycle9_boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",
+    "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+    "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
+  }
+}

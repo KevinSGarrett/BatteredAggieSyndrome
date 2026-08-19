@@ -71,38 +71,38 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "c7a4e67522a8097a777bfb0eada97509b36598c9",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "3e59fe9684fc4897ba48089a4ea7634a25959f83",
+  "issue_complete": true,
   "jira_key": "BAT-582",
   "local_issue_id": "POST-TASK-CYCLE-9-DEPENDENT-GATE-REBOUND-001",
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Cycle #9 Phase 5 rebound/consistency-checked dependent gates from clean origin/main c7a4e675 after BAT-581 merge. BAT-401 current identity is c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc and remains RETAIN_PROTECTED_LANE_BLOCKED. GAP-005 stays OPEN. BAT-526 independently reconstructed as 587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd with unchanged identity. Protected registry SHA is unchanged. BAT-523 stays In Progress after adding Cycle #9 child identities. BAT-429 stays blocked because POST-SUBTASK-063/066/069 remain BLOCKED. Live Jira import completed: 515 canonical + 21 auxiliary = 536 live issues, 1191 canonical links.",
+  "observable_outcome": "Cycle #9 Phase 5 accepted from clean origin/main 3e59fe9684fc4897ba48089a4ea7634a25959f83 after PR #475. BAT-401 current identity is c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc and remains RETAIN_PROTECTED_LANE_BLOCKED. GAP-005 stays OPEN. BAT-526 independently reconstructed as 587725fe3396ca73e94ebf3647b4db8ad95e7c25d44b684a9231eceba3c465bd with unchanged identity. Protected registry SHA is unchanged. BAT-523 stays In Progress after adding Cycle #9 child identities. BAT-429 stays blocked because POST-SUBTASK-063/066/069 remain BLOCKED. Live BAT-582 is Done. Live Jira import completed: 515 canonical + 21 auxiliary = 536 live issues, 1191 canonical links.",
   "outputs": [
     {
-      "bytes": 65438,
+      "bytes": 65433,
       "path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
-      "sha256": "23291642168d3a0e57ad8a65c377b99cc0a6214a40f938dfe3ca5fb1078714a0"
+      "sha256": "c1e60522f83f8244aba95b7acd05698f95b7e1fb3dbe48b8f378eb549ec89c5a"
     },
     {
       "bytes": 3666,
       "path": "jira/project/JIRA_TARGET_PROFILE.yaml",
-      "sha256": "00641ce25cfc282b7721fa108f9172f04d6b7ac35af520c8412e713c62bf433f"
+      "sha256": "76753cd3fed200bceb9b3631a0a5c41bf27b76614038b2c4f9cfb0cc08b89bb3"
     },
     {
-      "bytes": 11997,
+      "bytes": 11991,
       "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
-      "sha256": "63bbe72f2b3e7042b3321e39d7539c2bec2d00de6e62eed8b60021098fc3a7ae"
+      "sha256": "5d4b728863d979eda07110018b4cc12d12124ad31d5f7166d03b2a28df88b9e2"
     },
     {
-      "bytes": 106182,
+      "bytes": 106158,
       "path": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
-      "sha256": "4c1dd09107f68b3727df3477fa10a5d62356d5e3c3b067e4d68ddf8aa7355e80"
+      "sha256": "c26757d939e9fd303f0afc6b2eb511503f152ee21cfe4fcc7558215817986cc6"
     },
     {
       "bytes": 1884,
       "path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
-      "sha256": "c858b2f500ca0ab7df3a867f423b20d1a9c4ff7a4ec349a9deeb70079768806d"
+      "sha256": "02225ef7946efad5bdc79823c0853e26553e5851cf932b4f2695b79a62eb4a94"
     },
     {
       "bytes": 175846,
@@ -131,5 +131,5 @@
   ],
   "schema_version": "2.1.0",
   "starting_sha": "c7a4e67522a8097a777bfb0eada97509b36598c9",
-  "workflow_state": "REVIEW"
+  "workflow_state": "DONE"
 }

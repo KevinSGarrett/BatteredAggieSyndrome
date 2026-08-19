@@ -1,0 +1,40 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_585_inventory": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_587_226_union": "PRESERVED_IMMUTABLE_SUPERSEDED_AS_PRIOR_LAYER",
+    "bat_589": "CONSUMED_NORMALIZED_2007_BOXES_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "current_identities": {
+    "gate_identity": "df9cbb5588743881520c986b6b667096596fcf3391b4b7eed0ef02aef326408f",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "prior_union_identity": "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e",
+    "union_identity": "d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned a new union identity admitting independently matched BAT-589 official 2007 games. BAT-587 owns the preserved 226-game prior layer.",
+    "reviewed_keys": ["BAT-401", "BAT-429", "BAT-523", "BAT-581", "BAT-585", "BAT-586", "BAT-587", "BAT-588", "BAT-589"]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "IMPLEMENTED_PENDING_REVIEW",
+  "issue_complete": false,
+  "jira_key": "BAT-590",
+  "local_issue_id": "POST-TASK-SRC014-2007-OFFICIAL-UNION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Created a new immutable SRC-014 union identity d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31 that preserves BAT-587 union a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e and admits 11 independently matched official 2007 games. Two unmatched games rejected (Miami Fla, Oklahoma). Gate identity df9cbb5588743881520c986b6b667096596fcf3391b4b7eed0ef02aef326408f. Inventory d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37 not rewritten. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  }
+}

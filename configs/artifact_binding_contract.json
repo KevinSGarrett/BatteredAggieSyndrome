@@ -350,6 +350,45 @@
           ]
         }
       ]
+    },
+    {
+      "binding_id": "BAT-590-OFFICIAL-2007-GAMEBOOK-UNION",
+      "jira_key": "BAT-590",
+      "local_issue_id": "POST-TASK-SRC014-2007-OFFICIAL-UNION-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_gamebook_union_2007_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_IMMUTABLE_PRIOR_UNION_PRESERVED_OFFICIAL_2007_ADDED",
+        "prior_union_identity": "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e",
+        "union_identity": "d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31"
+      },
+      "forbidden_true_paths": [
+        "authority.historical_known_at_from_capture_time",
+        "authority.champion_or_production_promotion",
+        "authority.prior_union_mutated_in_place",
+        "scientific_nonclaims.protected_lane_opened"
+      ],
+      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-UNION-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": ["current_identities.gate_identity"],
+          "narrative_paths": ["observable_outcome"],
+          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": ["admissions.protected_lane"],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ]
+        }
+      ]
     }
   ]
 }

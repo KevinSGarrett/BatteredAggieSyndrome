@@ -795,7 +795,7 @@
       {"jira_key": "BAT-579", "phase": "PHASE-2", "status": "Done"},
       {"jira_key": "BAT-580", "phase": "PHASE-3", "status": "Done"},
       {"jira_key": "BAT-581", "phase": "PHASE-4", "status": "Done"},
-      {"jira_key": "BAT-582", "phase": "PHASE-5", "status": "In Review"}
+      {"jira_key": "BAT-582", "phase": "PHASE-5", "status": "Done"}
     ],
     "remaining_parent_gaps": [
       "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",

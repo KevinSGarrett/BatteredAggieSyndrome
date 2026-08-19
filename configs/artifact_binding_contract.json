@@ -389,6 +389,43 @@
           ]
         }
       ]
+    },
+    {
+      "binding_id": "BAT-591-OFFICIAL-STATCREW-PREFORMATTED",
+      "jira_key": "BAT-591",
+      "local_issue_id": "POST-TASK-SRC014-STATCREW-PREFORMATTED-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_statcrew_preformatted_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_STATCREW_PREFORMATTED_DOMAINS_PARSED",
+        "payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d"
+      },
+      "forbidden_true_paths": [
+        "authority.historical_known_at_from_capture_time",
+        "authority.champion_or_production_promotion",
+        "scientific_nonclaims.protected_lane_opened"
+      ],
+      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-STATCREW-PREFORMATTED-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": ["current_identities.gate_identity"],
+          "narrative_paths": ["observable_outcome"],
+          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": ["admissions.protected_lane"],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ]
+        }
+      ]
     }
   ]
 }

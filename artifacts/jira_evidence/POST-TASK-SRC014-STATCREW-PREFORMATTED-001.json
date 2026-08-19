@@ -1,0 +1,42 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_586_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_589_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_590_union": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "name_only_player_merge": "REJECTED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "participation_as_availability": "REJECTED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "current_identities": {
+    "bat586_dataset_identity": "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59",
+    "bat589_dataset_identity": "8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0",
+    "gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned an independent StatCrew preformatted-domain parser over already-captured official 2008, 2009, and 2007 pages. BAT-586 and BAT-589 own HTML-table acquisition identities that must not be rewritten. BAT-590 owns the 237-game union identity and must not be overwritten in this unit.",
+    "reviewed_keys": ["BAT-401", "BAT-429", "BAT-523", "BAT-585", "BAT-586", "BAT-587", "BAT-588", "BAT-589", "BAT-590"]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "IMPLEMENTED_PENDING_REVIEW",
+  "issue_complete": false,
+  "jira_key": "BAT-591",
+  "local_issue_id": "POST-TASK-SRC014-STATCREW-PREFORMATTED-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Created a new immutable StatCrew preformatted enriched payload identity ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d from already-captured official 2007-2009 pages. Gate identity 9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16. Parsed 38 games. Per-domain present counts: team_statistics 38, individual_player_statistics 38, drives 37, play_by_play 37. The 2007-09-01 page keeps drives and play-by-play absent in this preformatted identity because those domains exist only as HTML tables on that page. BAT-586 dataset 1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59 and BAT-589 dataset 8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0 were not rewritten. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  }
+}

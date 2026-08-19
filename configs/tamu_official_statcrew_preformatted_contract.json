@@ -1,0 +1,14 @@
+{
+  "schema_version": "aggie.data.tamu_official_statcrew_preformatted.v1",
+  "contract_id": "BAT-591-TAMU-OFFICIAL-STATCREW-PREFORMATTED-V1",
+  "jira_key": "BAT-591",
+  "local_issue_id": "POST-TASK-SRC014-STATCREW-PREFORMATTED-001",
+  "purpose": "Independently parse StatCrew preformatted team statistics, individual player statistics, drives, and play-by-play from already-captured official 2008, 2009, and 2007 pages. Produce a new enriched payload identity. Do not rewrite BAT-586, BAT-589, or prior union payloads.",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "bat586_dataset_identity": "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59",
+  "bat589_dataset_identity": "8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0",
+  "payloads": {
+    "enriched_root": "features/tamu_official_statcrew_preformatted/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

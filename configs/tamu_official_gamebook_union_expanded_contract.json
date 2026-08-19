@@ -1,0 +1,15 @@
+{
+  "schema_version": "aggie.data.tamu_official_gamebook_union_expanded.v1",
+  "contract_id": "BAT-587-TAMU-OFFICIAL-GAMEBOOK-UNION-EXPANDED-V1",
+  "jira_key": "BAT-587",
+  "local_issue_id": "POST-TASK-CYCLE-10-SRC014-EXPANDED-GAMEBOOK-UNION-001",
+  "purpose": "Create a new immutable SRC-014 union identity that preserves the WMT 177-game payload, the Cycle #9 26-game official payload, and the Cycle #9 203-game union identity, then admits only independently matched, nonduplicated BAT-586 2008/2009 official games. Validation reconstructs in memory and never writes.",
+  "prior_union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+  "prior_union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "pre2010_gate_identity": "b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa",
+  "payloads": {
+    "union_root": "features/tamu_official_gamebook_union_expanded/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

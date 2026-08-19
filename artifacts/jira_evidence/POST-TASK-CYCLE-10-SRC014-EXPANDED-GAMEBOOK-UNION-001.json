@@ -1,0 +1,110 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "selected_seasons": [
+      2009,
+      2008
+    ]
+  },
+  "current_identities": {
+    "gate_identity": "7cfbadf85caa8b3c9333717cf8dedf2b4eb47e45de0ad39d17dbf4f52fd09880",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "pre2010_dataset_identity": "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59",
+    "pre2010_gate_identity": "b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa",
+    "prior_union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "prior_union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+    "union_identity": "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owns the Cycle #10 expanded immutable SRC-014 gamebook union that admits independently matched BAT-586 pre-2010 official games under a new identity. BAT-581 owns the immutable 203-game Cycle #9 union and must not receive new facts. BAT-586 owns acquisition/normalization only. BAT-572 remains the 2010-2011 domain gate and was not rebound because its bound 203-game union input identity did not change.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-526",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-574",
+      "BAT-575",
+      "BAT-576",
+      "BAT-579",
+      "BAT-580",
+      "BAT-581",
+      "BAT-582",
+      "BAT-583",
+      "BAT-584",
+      "BAT-585",
+      "BAT-586"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-587",
+  "local_issue_id": "POST-TASK-CYCLE-10-SRC014-EXPANDED-GAMEBOOK-UNION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #10 Phase 5 creates a new immutable union identity a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e and gate identity 7cfbadf85caa8b3c9333717cf8dedf2b4eb47e45de0ad39d17dbf4f52fd09880. The WMT 177-game payload, Cycle #9 26-game official payload, and Cycle #9 203-game union identity 050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672 remain preserved. 23 independently matched official 2008/2009 games are admitted (12 from 2009, 11 from 2008). Two unmatched strong tuples are rejected (2009 Georgia, 2008 Miami). Date conflicts are preserved for 2009 Baylor and 2009 Texas. Total union games: 226. Rich structured games remain 190. Metadata-only games: 36. NCAA contest IDs remain zero. Historical known-at remains unresolved. Pregame availability remains blocked. BAT-572 evidence producer was re-run and still binds rebound owner BAT-581 with gate 89598903d6d0202b868b884480d2e799530a2294a2d407f3dbba7ac6593f7c67; it does not regress to BAT-577 or Cycle #8. BAT-401 readiness identity c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc is unchanged. BAT-575 and BAT-576 identities are unchanged. BAT-523 stays In Progress. BAT-429 stays blocked because POST-SUBTASK-063/066/069 remain To Do.",
+  "outputs": [
+    {
+      "bytes": 23580,
+      "path": "src/aggie_analytics/data/tamu_official_gamebook_union_expanded.py",
+      "sha256": "8e11562298b7041fbf5be606639a6d79bf2ab32a9b887c89536e9075c3765905"
+    },
+    {
+      "bytes": 968,
+      "path": "tools/build_tamu_official_gamebook_union_expanded.py",
+      "sha256": "7a9c7b621bc61e2251679a0635e0bed9406e6fb096fe5f64e60025dcfa14885b"
+    },
+    {
+      "bytes": 3293,
+      "path": "tools/validate_tamu_official_gamebook_union_expanded.py",
+      "sha256": "a3d56cf677711c3706dbb40f3036ff38dd7564fe33c70d9aa4eef3590141eda3"
+    },
+    {
+      "bytes": 4072,
+      "path": "tests/test_tamu_official_gamebook_union_expanded.py",
+      "sha256": "f24b5ab4a00f5851696cc7997841c96455ca8c76b58bb1f1b19e775091be4c95"
+    },
+    {
+      "bytes": 1116,
+      "path": "configs/tamu_official_gamebook_union_expanded_contract.json",
+      "sha256": "efc1eb08b8ae61fbd61ee285f90c5dc0c242cd2ff932d42828b06c17229b4c1a"
+    },
+    {
+      "bytes": 50549,
+      "path": "artifacts/data_lake/tamu_official_gamebook_union_expanded_gate.json",
+      "sha256": "c1362da4dec827ffb0aeb6431543a08eb3f7b24fd4e6e71c6b6f716d9ab84ff4"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "historical_known_at_established": false,
+    "pregame_availability_admitted": false,
+    "prior_203_union_rewritten": false,
+    "protected_lane_opened": false,
+    "wmt_payload_mutated": false
+  },
+  "schema_version": "aggie.jira.evidence.v1",
+  "selected_seasons": [
+    2009,
+    2008
+  ],
+  "status": "In Review",
+  "work_unit": "CYCLE_10_PHASE_5_SRC014_EXPANDED_GAMEBOOK_UNION"
+}

@@ -376,6 +376,21 @@
       "critical_path": true,
       "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-587",
+      "local_id": "POST-TASK-CYCLE-10-SRC014-EXPANDED-GAMEBOOK-UNION-001",
+      "summary": "Expand the immutable SRC-014 gamebook union with independently matched 2008-2009 official games",
+      "issue_type": "Task",
+      "status": "In Review",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-5",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

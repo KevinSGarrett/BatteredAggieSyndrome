@@ -17,7 +17,10 @@ from aggie_analytics.data.tamu_cross_source_domain_gate import (  # noqa: E402
     CONTEST_ROUTE_DISPOSITION,
     CONTEST_ROUTE_GATE_IDENTITY,
     CONTRACT_ID,
+    CORRECTION_JIRA_KEY,
     DOMAIN_COLUMNS,
+    EVIDENCE_RELATIVE,
+    GATE_RELATIVE,
     NCAA_NATIONAL_IDENTITY,
     PHASE3_GATE_IDENTITY,
     PHASE3_MATRIX_IDENTITY,
@@ -28,7 +31,9 @@ from aggie_analytics.data.tamu_cross_source_domain_gate import (  # noqa: E402
     TEAM_SEASON_GATE_IDENTITY,
     AuthorityViolation,
     build_domain_rows,
+    build_evidence_packet,
     compute_gate_identity,
+    current_evidence_owner,
     decide_domain,
     expected_authority,
     expected_gate_document,
@@ -37,6 +42,7 @@ from aggie_analytics.data.tamu_cross_source_domain_gate import (  # noqa: E402
     load_contract,
     load_json,
     validate_artifact,
+    validate_evidence,
 )
 
 
@@ -258,6 +264,34 @@ class MutationTests(unittest.TestCase):
     def test_forged_completion_after_rehash_rejected(self) -> None:
         self._reject(self._mutated_gate(result="FORGED_PER_GAME_OFFICIAL_COMPLETE"))
 
+    def test_stale_rebound_owner_rejected(self) -> None:
+        self._reject(self._mutated_gate(rebound_jira_key="BAT-577"))
+
+    def test_superseded_owner_presented_as_current_rejected(self) -> None:
+        self._reject(self._mutated_gate(rebound_jira_key="BAT-577"))
+
+    def test_verified_official_count_change_rejected(self) -> None:
+        counts = dict(self.gate["counts"])
+        counts["verified_official"] = counts["verified_official"] + 1
+        self._reject(self._mutated_gate(counts=counts))
+
+    def test_official_fact_presence_change_rejected(self) -> None:
+        scope = dict(self.gate["official_fact_scope"])
+        scope["verified_official_postgame_facts_present"] = not scope[
+            "verified_official_postgame_facts_present"
+        ]
+        self._reject(self._mutated_gate(official_fact_scope=scope))
+
+    def test_full_historical_completeness_forged_rejected(self) -> None:
+        scope = dict(self.gate["official_fact_scope"])
+        scope["full_historical_official_completeness_claimed"] = True
+        self._reject(self._mutated_gate(official_fact_scope=scope))
+
+    def test_ncaa_contest_authority_forged_rejected(self) -> None:
+        scope = dict(self.gate["official_fact_scope"])
+        scope["ncaa_contest_official_evidence_claimed"] = True
+        self._reject(self._mutated_gate(official_fact_scope=scope))
+
 
 class LiveArtifactTests(unittest.TestCase):
     def test_contract_and_bat429_classification(self) -> None:
@@ -315,7 +349,18 @@ class LiveArtifactTests(unittest.TestCase):
         self.assertFalse(expected["gate"]["season_level_admissions"]["per_game_verified_official"])
         self.assertEqual(expected["gate"]["protected_lane"], PROTECTED_LANE)
         self.assertEqual(expected["gate"]["authority"], expected_authority())
-        self.assertEqual(expected["gate"]["scientific_nonclaims"], expected_scientific_nonclaims())
+        self.assertEqual(
+            expected["gate"]["scientific_nonclaims"],
+            expected_scientific_nonclaims(expected["gate"]["counts"]),
+        )
+        self.assertEqual(expected["gate"]["rebound_jira_key"], "BAT-581")
+        self.assertTrue(expected["gate"]["official_fact_scope"]["verified_official_postgame_facts_present"])
+        self.assertEqual(
+            expected["gate"]["official_fact_scope"]["verified_official_postgame_fact_count"],
+            expected["gate"]["counts"]["verified_official"],
+        )
+        self.assertFalse(expected["gate"]["official_fact_scope"]["full_historical_official_completeness_claimed"])
+        self.assertFalse(expected["gate"]["official_fact_scope"]["ncaa_contest_official_evidence_claimed"])
         texas = [
             row
             for row in expected["rows"]
@@ -333,6 +378,85 @@ class LiveArtifactTests(unittest.TestCase):
         self.assertEqual(validated["result"], "PASS")
         self.assertEqual(validated["protected_lane"], PROTECTED_LANE)
         self.assertGreater(validated["counts"]["verified_official"], 0)
+        self.assertEqual(validated["rebound_jira_key"], "BAT-581")
+
+
+class EvidenceReproducibilityTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+        cls.contract = load_contract(ROOT)
+        cls.owner = current_evidence_owner(cls.contract)
+        cls.gate = load_json(ROOT / GATE_RELATIVE)
+
+    def test_producer_from_current_gate_is_byte_stable_and_current(self) -> None:
+        first = build_evidence_packet(repo_root=ROOT, gate=self.gate, owner=self.owner, contract=self.contract)
+        second = build_evidence_packet(repo_root=ROOT, gate=self.gate, owner=self.owner, contract=self.contract)
+        self.assertEqual(json.dumps(first, sort_keys=True), json.dumps(second, sort_keys=True))
+        self.assertEqual(first["rebound_jira_key"], "BAT-581")
+        self.assertNotEqual(first["rebound_jira_key"], "BAT-577")
+        self.assertIn("BAT-581", first["current_relationship_set"])
+        self.assertIn("BAT-582", first["current_relationship_set"])
+        self.assertIn("BAT-581", first["related_jira_keys"])
+        self.assertIn("BAT-582", first["related_jira_keys"])
+        self.assertNotIn("BAT-577", first["related_jira_keys"])
+        self.assertNotIn("BAT-577", first["current_relationship_set"])
+        self.assertEqual(first["correction_jira_key"], CORRECTION_JIRA_KEY)
+        self.assertNotIn("Cycle #8", first["observable_outcome"])
+        self.assertTrue(any(row.get("jira_key") == "BAT-577" for row in first["supersession_history"]))
+        self.assertTrue(all(row.get("current") is False for row in first["supersession_history"]))
+        validate_evidence(repo_root=ROOT, gate=self.gate, evidence=first, owner=self.owner, contract=self.contract)
+
+    def test_stale_rebound_owner_rejected(self) -> None:
+        tampered = dict(self.gate)
+        tampered["rebound_jira_key"] = "BAT-577"
+        tampered["gate_identity"] = compute_gate_identity(tampered)
+        with self.assertRaises(AuthorityViolation):
+            build_evidence_packet(repo_root=ROOT, gate=tampered, owner=self.owner, contract=self.contract)
+
+    def test_cycle8_narrative_rejected_after_outer_identity_recompute(self) -> None:
+        packet = build_evidence_packet(repo_root=ROOT, gate=self.gate, owner=self.owner, contract=self.contract)
+        packet["observable_outcome"] = "Cycle #8 Phase 5 rebound owned by BAT-577"
+        packet["gate_identity"] = compute_gate_identity(self.gate)
+        with self.assertRaises(AuthorityViolation):
+            validate_evidence(
+                repo_root=ROOT,
+                gate=self.gate,
+                evidence=packet,
+                owner=self.owner,
+                contract=self.contract,
+            )
+
+    def test_bat581_removed_from_current_relationships_rejected(self) -> None:
+        packet = build_evidence_packet(repo_root=ROOT, gate=self.gate, owner=self.owner, contract=self.contract)
+        packet["related_jira_keys"] = [key for key in packet["related_jira_keys"] if key != "BAT-581"]
+        packet["current_relationship_set"] = [key for key in packet["current_relationship_set"] if key != "BAT-581"]
+        with self.assertRaises(AuthorityViolation):
+            validate_evidence(
+                repo_root=ROOT,
+                gate=self.gate,
+                evidence=packet,
+                owner=self.owner,
+                contract=self.contract,
+            )
+
+    def test_superseded_owner_as_current_rejected(self) -> None:
+        packet = build_evidence_packet(repo_root=ROOT, gate=self.gate, owner=self.owner, contract=self.contract)
+        packet["rebound_jira_key"] = "BAT-577"
+        with self.assertRaises(AuthorityViolation):
+            validate_evidence(
+                repo_root=ROOT,
+                gate=self.gate,
+                evidence=packet,
+                owner=self.owner,
+                contract=self.contract,
+            )
+
+    def test_live_evidence_matches_producer(self) -> None:
+        evidence = load_json(ROOT / EVIDENCE_RELATIVE)
+        validate_evidence(repo_root=ROOT, gate=self.gate, evidence=evidence, owner=self.owner, contract=self.contract)
+        self.assertEqual(evidence["rebound_jira_key"], "BAT-581")
+        self.assertNotIn("Cycle #8", evidence["observable_outcome"])
 
 
 if __name__ == "__main__":

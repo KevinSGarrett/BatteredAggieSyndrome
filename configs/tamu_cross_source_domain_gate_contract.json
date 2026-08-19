@@ -1,13 +1,48 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "contract_id": "BAT-572-TAMU-CROSS-SOURCE-DOMAIN-GATE-V1",
   "decision_unit": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
   "jira_key": "BAT-572",
   "parent_jira_key": "BAT-523",
-  "related_jira_keys": ["BAT-570", "BAT-571", "BAT-523", "BAT-429", "BAT-548", "BAT-550", "BAT-554", "BAT-567", "BAT-574", "BAT-575", "BAT-576", "BAT-577"],
+  "correction_jira_key": "BAT-583",
+  "correction_local_issue_id": "POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001",
+  "related_jira_keys": [
+    "BAT-570",
+    "BAT-571",
+    "BAT-523",
+    "BAT-429",
+    "BAT-548",
+    "BAT-550",
+    "BAT-554",
+    "BAT-567",
+    "BAT-574",
+    "BAT-575",
+    "BAT-576",
+    "BAT-581",
+    "BAT-582",
+    "BAT-583"
+  ],
   "rebound_jira_key": "BAT-581",
+  "current_relationship_set": ["BAT-581", "BAT-582"],
+  "superseded_rebound_owners": ["BAT-577"],
+  "supersession_history": [
+    {
+      "role": "superseded_gate_identity",
+      "cycle": 7,
+      "gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+      "current": false
+    },
+    {
+      "role": "superseded_rebound_owner",
+      "cycle": 8,
+      "jira_key": "BAT-577",
+      "local_issue_id": "POST-TASK-CYCLE-8-DEPENDENT-GATE-REBOUND-001",
+      "gate_identity": "b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678",
+      "current": false
+    }
+  ],
   "classification": "TAMU_2010_2011_CROSS_SOURCE_DOMAIN_CANDIDATE_ONLY",
-  "purpose": "Admit every 2010-2011 Texas A&M scheduled game at field-grain domain resolution. One decision per game-domain row. Season-level official evidence from BAT-574/BAT-575 is recorded separately and is not VERIFIED_OFFICIAL per-game. No blanket gamebook admission. No completeness, availability, or VERIFIED_OFFICIAL inflation from Cycle #7 Phase 4 or Cycle #8 contest-route honest-negatives.",
+  "purpose": "Admit every 2010-2011 Texas A&M scheduled game at field-grain domain resolution. One decision per game-domain row. Season-level official evidence from BAT-574/BAT-575 is recorded separately and is not VERIFIED_OFFICIAL per-game. Official school postgame facts may be present without implying full historical official completeness or NCAA contest authority. Evidence ownership and counts are derived from the current gate and explicit current owner inputs.",
   "season_min": 2010,
   "season_max": 2011,
   "identities": {
@@ -29,7 +64,10 @@
     "official_boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",
     "official_boxscore_dataset_identity": "46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa",
     "official_boxscore_gate_relative_path": "artifacts/data_lake/tamu_official_historical_boxscore_gate.json",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
     "supersedes_cycle7_gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
+    "supersedes_cycle8_gate_identity": "b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678",
     "wmt_acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
     "wmt_reconciliation_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
     "team_box_snapshot_dataset_identity": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
@@ -64,6 +102,15 @@
     "SOURCE_EVIDENCE_ABSENT",
     "NOT_APPLICABLE"
   ],
+  "official_fact_semantics": {
+    "verified_official_postgame_facts_present": "True when one or more game-domain rows are VERIFIED_OFFICIAL_POSTGAME_FACT.",
+    "verified_official_postgame_fact_count": "Exact admitted VERIFIED_OFFICIAL_POSTGAME_FACT row count from the current gate.",
+    "full_historical_official_completeness_claimed": "False unless a later unit independently proves complete official history.",
+    "ncaa_contest_official_evidence_claimed": "False unless official NCAA contest IDs/endpoints are independently discovered.",
+    "historical_population_ready": "False until historical population admission is independently proven.",
+    "historical_known_at_established": "False until historically published known-at timestamps are independently proven.",
+    "deprecated_verified_official_claimed": "Retained for compatibility. False means full historical official completeness and NCAA contest official evidence are not claimed. It does not deny admitted VERIFIED_OFFICIAL_POSTGAME_FACT rows."
+  },
   "bat_429_policy": "CLASSIFICATION_ONLY_DO_NOT_MARK_READY_OR_DONE",
   "bat_429_blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-063;POST-SUBTASK-066;POST-SUBTASK-069",
   "bat_429_unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
@@ -71,6 +118,8 @@
   "authority": {
     "completeness_claim": false,
     "verified_official_inflation": false,
+    "full_historical_official_completeness": false,
+    "ncaa_contest_official_evidence": false,
     "blanket_gamebook_admission": false,
     "same_lineage_as_independent_corroboration": false,
     "name_only_promotion": false,
@@ -92,13 +141,14 @@
     "bat_523_closed": false
   },
   "negative_findings": [
-    "Cycle #7 Phase 4 disposition remains LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS with contest counts 0/0. NCAA contest-tied per-game domains are SOURCE_EVIDENCE_ABSENT, not VERIFIED_OFFICIAL.",
-    "Cycle #8 BAT-576 contest-route disposition is OFFICIAL_ROUTE_ACCESS_BLOCKED. 0 contest IDs were discovered, so contest endpoints were still not attempted. Season-level official facts are not per-game VERIFIED_OFFICIAL.",
+    "Cycle #7 Phase 4 disposition remains LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS with contest counts 0/0. NCAA contest-tied per-game domains are SOURCE_EVIDENCE_ABSENT unless an official school box independently supplies that domain.",
+    "BAT-576 contest-route disposition is OFFICIAL_ROUTE_ACCESS_BLOCKED. 0 contest IDs were discovered, so contest endpoints were still not attempted. Season-level official facts are not per-game VERIFIED_OFFICIAL.",
     "NCAA contest endpoints were not attempted because contest IDs are empty. TECHNICAL_ROUTE_BLOCKED is not claimed on per-game contest domains.",
     "WMT official gamebooks have no 2010-2011 rows. Sidearm schedule HTML is not a postgame gamebook.",
     "Name-only NCAA opponent matches are not independent corroboration and are not promoted.",
     "Team-box and player-box snapshots are not joined without a shared canonical game ID.",
     "Season membership and postgame participation are not pregame availability.",
+    "Admitted VERIFIED_OFFICIAL_POSTGAME_FACT rows are scoped postgame facts. They do not establish full historical official completeness, NCAA contest authority, historical known-at, or population readiness.",
     "BAT-554 remains a national sample, not the TAMU 2010-2011 tranche.",
     "BAT-429 remains blocked on unsatisfied hard dependencies. It is not Ready or Done.",
     "Protected lane remains RETAIN_PROTECTED_LANE_BLOCKED."

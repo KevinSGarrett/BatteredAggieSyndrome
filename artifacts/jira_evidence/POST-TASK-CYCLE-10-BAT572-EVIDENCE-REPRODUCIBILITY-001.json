@@ -1,0 +1,136 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_572_current_rebound_owner": "BAT-581",
+    "bat_577_current": false,
+    "gap_005": "OPEN",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "correction_jira_key": "BAT-583",
+  "current_identities": {
+    "gate_identity": "89598903d6d0202b868b884480d2e799530a2294a2d407f3dbba7ac6593f7c67",
+    "rebound_jira_key": "BAT-581",
+    "superseded_rebound_jira_key": "BAT-577",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "BAT-572 owns the original domain-gate unit and remains Done. BAT-577 owns the superseded Cycle #8 rebound. BAT-581 owns the current Cycle #9 union rebound identity, not the stale evidence-producer/authority-semantics defect. BAT-578, BAT-580, BAT-582, BAT-573, BAT-523, BAT-429, and BAT-401 do not own this Cycle #10 correction.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-572",
+      "BAT-573",
+      "BAT-577",
+      "BAT-578",
+      "BAT-580",
+      "BAT-581",
+      "BAT-582"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-583",
+  "local_issue_id": "POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #10 Phase 1 makes the BAT-572 evidence producer derive authority-bearing values from the current gate 89598903d6d0202b868b884480d2e799530a2294a2d407f3dbba7ac6593f7c67 and explicit current owner inputs. Current rebound owner is BAT-581. Current relationships include BAT-581 and BAT-582. BAT-577 remains only in supersession_history. Official-fact fields are scoped: 285 VERIFIED_OFFICIAL_POSTGAME_FACT rows are present, full historical official completeness is not claimed, and NCAA contest official evidence is not claimed. Regenerating evidence is byte-stable and does not regress to Cycle #8/BAT-577 current metadata. BAT-523 stays In Progress. BAT-429 stays blocked. BAT-401 stays RETAIN_PROTECTED_LANE_BLOCKED. GAP-005 stays OPEN.",
+  "official_fact_scope": {
+    "deprecated_verified_official_claimed": false,
+    "full_historical_official_completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_official_evidence_claimed": false,
+    "verified_official_postgame_fact_count": 285,
+    "verified_official_postgame_facts_present": true
+  },
+  "outputs": [
+    {
+      "bytes": 58790,
+      "path": "src/aggie_analytics/data/tamu_cross_source_domain_gate.py",
+      "sha256": "caf57b5cdd1d6f41bce5b63c230b45cd93b00e051bc7683cdb1ed4713b31c6fa"
+    },
+    {
+      "bytes": 1315,
+      "path": "tools/build_tamu_cross_source_domain_gate.py",
+      "sha256": "15c60b78b42e5fe8da4d4480765dfa33103b539bc33d17523eb221e344bf2152"
+    },
+    {
+      "bytes": 9168,
+      "path": "tools/validate_tamu_cross_source_domain_gate.py",
+      "sha256": "2fa77e81eb837df11c065371fe6c8bce97b3db7ac4da0ecc27d52d18b78b403d"
+    },
+    {
+      "bytes": 21797,
+      "path": "tests/test_tamu_cross_source_domain_gate.py",
+      "sha256": "1b75532dc12cd9b8cb71e2bc4d0d01029e3f39b594be3f2ea73a7824e9ba0247"
+    },
+    {
+      "bytes": 9534,
+      "path": "configs/tamu_cross_source_domain_gate_contract.json",
+      "sha256": "4aebd52496064bde69e9eb8c9e50bcaa3d568ffbcfabe51a4d7fdef5294f6dc5"
+    },
+    {
+      "bytes": 35654,
+      "path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
+      "sha256": "6e2f2bdf4c38ea765bd860efdd1ccc34476454022d2ecdf004c1165cc2b7e90e"
+    },
+    {
+      "bytes": 8736,
+      "path": "artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json",
+      "sha256": "456d4a535d70d6f71db14ee87204836a81fb91baf71703240fada135c5173b5f"
+    },
+    {
+      "bytes": 12553,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+      "sha256": "134e23b555eb8be4abe64ac8e3930583bc633f1a57680c0befe976a9615bb0cd"
+    },
+    {
+      "bytes": 29280,
+      "path": "src/aggie_analytics/validation/pit_replay_readiness.py",
+      "sha256": "d9e2c1e6f6c4ce80a3bbb69d20394e278099b33bd27c31a199569fb7e80b8f80"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "full_historical_official_completeness_claimed": false,
+    "historical_known_at_established": false,
+    "ncaa_contest_official_evidence_claimed": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-572",
+    "BAT-581",
+    "BAT-582",
+    "BAT-577",
+    "BAT-429",
+    "BAT-401"
+  ],
+  "schema_version": "2.1.0",
+  "starting_sha": "93049610df49a7943807098964a13634bc49bb2b",
+  "supersession_history": [
+    {
+      "current": false,
+      "cycle": 8,
+      "jira_key": "BAT-577",
+      "local_issue_id": "POST-TASK-CYCLE-8-DEPENDENT-GATE-REBOUND-001",
+      "role": "superseded_rebound_owner"
+    }
+  ],
+  "workflow_state": "IN_REVIEW"
+}

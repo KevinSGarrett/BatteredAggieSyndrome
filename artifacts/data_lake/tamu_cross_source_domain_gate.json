@@ -25,10 +25,12 @@
     "completeness_claim": false,
     "contest_id_fabrication": false,
     "forecast_publication": false,
+    "full_historical_official_completeness": false,
     "historical_known_at_from_capture_time": false,
     "historical_pit_admission": false,
     "membership_as_availability": false,
     "name_only_promotion": false,
+    "ncaa_contest_official_evidence": false,
     "participation_as_availability": false,
     "postgame_as_pregame_feature": false,
     "preliminary_training_admission": false,
@@ -79,7 +81,7 @@
     "verified_official": 285
   },
   "decision_unit": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
-  "gate_identity": "3dafa09d5b2332cd4c1b6317478560f0f2a661ddd1e5ad441524e7f915bee918",
+  "gate_identity": "89598903d6d0202b868b884480d2e799530a2294a2d407f3dbba7ac6593f7c67",
   "input_identities": {
     "contest_route_gate_identity": "d0a2c7218bf9892dfc468f534e41555ab880cb3d41c2d77413dd10ecc923c039",
     "contest_route_manifest_identity": "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb",
@@ -96,15 +98,29 @@
     "supersedes_cycle7_gate_identity": "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3",
     "team_box_snapshot_dataset_identity": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
     "team_season_gate_identity": "dc06984fa17285abf6e9d32a362dd1515ff528fed82eff77254fb8abb702d91e",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
     "wmt_acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
     "wmt_reconciliation_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
   },
-  "issued_at_utc": "2026-08-18T21:00:00Z",
+  "issued_at_utc": "2026-08-19T01:00:00Z",
   "jira_key": "BAT-572",
+  "official_fact_scope": {
+    "deprecated_verified_official_claimed": false,
+    "deprecated_verified_official_claimed_meaning": "FALSE means full historical official completeness and NCAA contest official evidence are not claimed. It does not deny admitted VERIFIED_OFFICIAL_POSTGAME_FACT rows.",
+    "full_historical_official_completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_official_evidence_claimed": false,
+    "verified_cross_source_postgame_fact_count": 1,
+    "verified_cross_source_postgame_facts_present": true,
+    "verified_official_postgame_fact_count": 285,
+    "verified_official_postgame_facts_present": true
+  },
   "payload": {
     "row_count": 338,
-    "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_cross_source_domain_gate\\sha256\\3dafa09d5b2332cd4c1b6317478560f0f2a661ddd1e5ad441524e7f915bee918\\domain_rows.json",
-    "sha256": "ad4b187b90bbb53dbe4af113749903dc3c864b014ffca6686fd2288dbf47d502"
+    "rows": "C:\\BatteredAggieSyndrome.data\\features\\tamu_cross_source_domain_gate\\sha256\\89598903d6d0202b868b884480d2e799530a2294a2d407f3dbba7ac6593f7c67\\domain_rows.json",
+    "sha256": "16056399540b875aabb9b0ffa9a124eaff2ed0cff0ce739ee0971f63b3f3dc5c"
   },
   "phase4_disposition": "LEGACY_SCHEDULE_ONLY_NO_CONTEST_ENDPOINTS",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
@@ -465,7 +481,7 @@
     "94b3388535bec3b4d213ff6194ca204f994911840b8e2ca44cd22b27cc2ffa8b",
     "ea9c089dc359257ce12487791b5464fd5b33656d0a58539c2ed293ae9962412a"
   ],
-  "schema_version": "aggie.data.tamu_cross_source_domain_gate.v1",
+  "schema_version": "aggie.data.tamu_cross_source_domain_gate.v2",
   "scientific_nonclaims": {
     "bas_or_aggie_excess_result_claimed": false,
     "bat_429_ready_or_done": false,
@@ -473,10 +489,12 @@
     "champion_or_production_promotion": false,
     "completeness_claimed": false,
     "contest_ids_fabricated": false,
+    "full_historical_official_completeness_claimed": false,
     "historical_known_at_established": false,
     "historical_population_ready": false,
     "membership_used_as_availability": false,
     "name_only_promoted": false,
+    "ncaa_contest_official_evidence_claimed": false,
     "participation_used_as_availability": false,
     "pregame_availability_admitted": false,
     "protected_evaluation_admitted": false,
@@ -486,7 +504,11 @@
     "tamu_specialization_lift_claimed": false,
     "trained_production_champion": false,
     "verified_cross_source_claimed": false,
-    "verified_official_claimed": false
+    "verified_cross_source_postgame_fact_count": 1,
+    "verified_cross_source_postgame_facts_present": true,
+    "verified_official_claimed": false,
+    "verified_official_postgame_fact_count": 285,
+    "verified_official_postgame_facts_present": true
   },
   "season_level_admissions": {
     "by_classification": {

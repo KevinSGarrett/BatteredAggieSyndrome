@@ -21,11 +21,15 @@ from aggie_analytics.data.tamu_official_gamebook_union import (
 )
 
 
-SCHEMA_VERSION = "aggie.data.tamu_cross_source_domain_gate.v1"
+SCHEMA_VERSION = "aggie.data.tamu_cross_source_domain_gate.v2"
+CONTRACT_SCHEMA_VERSION = "2.0.0"
+EVIDENCE_SCHEMA_VERSION = "2.2.0"
 CONTRACT_RELATIVE = "configs/tamu_cross_source_domain_gate_contract.json"
 GATE_RELATIVE = "artifacts/data_lake/tamu_cross_source_domain_gate.json"
 EVIDENCE_RELATIVE = "artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json"
 CONTRACT_ID = "BAT-572-TAMU-CROSS-SOURCE-DOMAIN-GATE-V1"
+CORRECTION_JIRA_KEY = "BAT-583"
+CORRECTION_LOCAL_ID = "POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001"
 PASS_RESULT = "PASS_IDENTITY_BOUND_DOMAIN_GATE_SRC014_POSTGAME_FACTS_NO_NCAA_CONTEST"
 PASS_CLASSIFICATION = "TAMU_2010_2011_CROSS_SOURCE_DOMAIN_CANDIDATE_ONLY"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
@@ -43,6 +47,9 @@ CONTEST_ROUTE_GATE_IDENTITY = "d0a2c7218bf9892dfc468f534e41555ab880cb3d41c2d7741
 CONTEST_ROUTE_DISPOSITION = "OFFICIAL_ROUTE_ACCESS_BLOCKED"
 CONTEST_ROUTE_MANIFEST_IDENTITY = "0af578e834efdb78cc1710d3a2690311315f829f9b7f0bfb3353dd4ab2abf9cb"
 CYCLE7_GATE_IDENTITY = "418995882f3c2aa7951b38672a3cf0b8dd93ddd883f682b08683b8777aeef3f3"
+CYCLE8_GATE_IDENTITY = "b13f4d8954d660211a2393303fbb118dc459455f854ef31a757e3c16476da678"
+UNION_GATE_IDENTITY = "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106"
+UNION_IDENTITY = "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
 NCAA_NATIONAL_IDENTITY = "3e7163624cb05c77a9ac6e8ec089c8bacd4d8bd360693aa8b473ca1ec174bebf"
 WMT_ACQUISITION_IDENTITY = "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3"
 WMT_RECONCILIATION_IDENTITY = "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
@@ -122,12 +129,18 @@ GATE_IDENTITY_FIELDS = (
     "counts",
     "admissions",
     "season_level_admissions",
+    "rebound_jira_key",
     "authority",
+    "official_fact_scope",
     "scientific_nonclaims",
     "remaining_blockers",
     "bat_429",
     "protected_lane",
     "row_identities",
+)
+DEPRECATED_VERIFIED_OFFICIAL_CLAIMED_MEANING = (
+    "FALSE means full historical official completeness and NCAA contest official "
+    "evidence are not claimed. It does not deny admitted VERIFIED_OFFICIAL_POSTGAME_FACT rows."
 )
 
 
@@ -146,10 +159,17 @@ def write_json(path: Path, value: object) -> None:
 
 def load_contract(repo_root: Path) -> dict[str, Any]:
     contract = load_json(repo_root / CONTRACT_RELATIVE)
+    if contract.get("schema_version") != CONTRACT_SCHEMA_VERSION:
+        raise AuthorityViolation("cross-source domain-gate contract schema drift")
     if contract.get("contract_id") != CONTRACT_ID:
         raise AuthorityViolation("cross-source domain-gate contract identity drift")
     if contract.get("jira_key") != "BAT-572":
         raise AuthorityViolation("contract jira key drift")
+    if contract.get("correction_jira_key") != CORRECTION_JIRA_KEY:
+        raise AuthorityViolation("contract correction owner drift")
+    if contract.get("correction_local_issue_id") != CORRECTION_LOCAL_ID:
+        raise AuthorityViolation("contract correction local-id drift")
+    _validate_owner_inputs(contract)
     identities = contract["identities"]
     expected = {
         "phase3_matrix_identity": PHASE3_MATRIX_IDENTITY,
@@ -164,6 +184,8 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
         "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
         "official_boxscore_gate_identity": OFFICIAL_BOXSCORE_GATE_IDENTITY,
         "official_boxscore_dataset_identity": OFFICIAL_BOXSCORE_DATASET_IDENTITY,
+        "union_gate_identity": UNION_GATE_IDENTITY,
+        "union_identity": UNION_IDENTITY,
         "wmt_acquisition_identity": WMT_ACQUISITION_IDENTITY,
         "wmt_reconciliation_dataset_identity": WMT_RECONCILIATION_IDENTITY,
         "team_box_snapshot_dataset_identity": TEAM_BOX_IDENTITY,
@@ -179,6 +201,8 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
     for key in (
         "completeness_claim",
         "verified_official_inflation",
+        "full_historical_official_completeness",
+        "ncaa_contest_official_evidence",
         "blanket_gamebook_admission",
         "same_lineage_as_independent_corroboration",
         "name_only_promotion",
@@ -193,6 +217,48 @@ def load_contract(repo_root: Path) -> dict[str, Any]:
     return contract
 
 
+def _validate_owner_inputs(contract: Mapping[str, Any]) -> dict[str, Any]:
+    rebound = str(contract.get("rebound_jira_key") or "")
+    related = list(contract.get("related_jira_keys") or [])
+    current = list(contract.get("current_relationship_set") or [])
+    superseded = list(contract.get("superseded_rebound_owners") or [])
+    history = list(contract.get("supersession_history") or [])
+    if not rebound:
+        raise AuthorityViolation("current rebound owner is missing")
+    if rebound in superseded:
+        raise AuthorityViolation("superseded owner presented as current")
+    if rebound not in current:
+        raise AuthorityViolation("current rebound owner missing from current relationship set")
+    missing_current = [key for key in current if key not in related]
+    if missing_current:
+        raise AuthorityViolation(f"current relationship missing from related keys: {missing_current}")
+    if any(key in related for key in superseded):
+        raise AuthorityViolation("superseded owner presented as current")
+    for row in history:
+        if row.get("current") is True:
+            raise AuthorityViolation("superseded owner presented as current")
+        if row.get("jira_key") == rebound:
+            raise AuthorityViolation("current rebound owner listed as superseded")
+    if CORRECTION_JIRA_KEY not in related:
+        raise AuthorityViolation("correction owner missing from current relationship set")
+    return {
+        "gate_jira_key": contract["jira_key"],
+        "local_issue_id": contract["decision_unit"],
+        "parent_jira_key": contract["parent_jira_key"],
+        "correction_jira_key": contract["correction_jira_key"],
+        "correction_local_issue_id": contract["correction_local_issue_id"],
+        "related_jira_keys": related,
+        "current_relationship_set": current,
+        "superseded_rebound_owners": superseded,
+        "rebound_jira_key": rebound,
+        "supersession_history": history,
+    }
+
+
+def current_evidence_owner(contract: Mapping[str, Any]) -> dict[str, Any]:
+    return _validate_owner_inputs(contract)
+
+
 def verify_file(path: Path, expected_sha256: str, context: str) -> None:
     if not path.is_file():
         raise FileNotFoundError(f"{context} is missing: {path}")
@@ -205,6 +271,8 @@ def expected_authority() -> dict[str, bool]:
     return {
         "completeness_claim": False,
         "verified_official_inflation": False,
+        "full_historical_official_completeness": False,
+        "ncaa_contest_official_evidence": False,
         "blanket_gamebook_admission": False,
         "same_lineage_as_independent_corroboration": False,
         "name_only_promotion": False,
@@ -227,9 +295,34 @@ def expected_authority() -> dict[str, bool]:
     }
 
 
-def expected_scientific_nonclaims() -> dict[str, bool]:
+def expected_official_fact_scope(counts: Mapping[str, Any] | None = None) -> dict[str, Any]:
+    verified_official = int((counts or {}).get("verified_official") or 0)
+    verified_cross = int((counts or {}).get("verified_cross_source") or 0)
+    present = verified_official > 0
+    return {
+        "verified_official_postgame_facts_present": present,
+        "verified_official_postgame_fact_count": verified_official,
+        "verified_cross_source_postgame_facts_present": verified_cross > 0,
+        "verified_cross_source_postgame_fact_count": verified_cross,
+        "full_historical_official_completeness_claimed": False,
+        "ncaa_contest_official_evidence_claimed": False,
+        "historical_population_ready": False,
+        "historical_known_at_established": False,
+        "deprecated_verified_official_claimed": False,
+        "deprecated_verified_official_claimed_meaning": DEPRECATED_VERIFIED_OFFICIAL_CLAIMED_MEANING,
+    }
+
+
+def expected_scientific_nonclaims(counts: Mapping[str, Any] | None = None) -> dict[str, Any]:
+    scope = expected_official_fact_scope(counts)
     return {
         "completeness_claimed": False,
+        "verified_official_postgame_facts_present": scope["verified_official_postgame_facts_present"],
+        "verified_official_postgame_fact_count": scope["verified_official_postgame_fact_count"],
+        "verified_cross_source_postgame_facts_present": scope["verified_cross_source_postgame_facts_present"],
+        "verified_cross_source_postgame_fact_count": scope["verified_cross_source_postgame_fact_count"],
+        "full_historical_official_completeness_claimed": False,
+        "ncaa_contest_official_evidence_claimed": False,
         "verified_official_claimed": False,
         "verified_cross_source_claimed": False,
         "historical_known_at_established": False,
@@ -674,6 +767,8 @@ def expected_input_identities() -> dict[str, str]:
         "contest_route_manifest_identity": CONTEST_ROUTE_MANIFEST_IDENTITY,
         "official_boxscore_gate_identity": OFFICIAL_BOXSCORE_GATE_IDENTITY,
         "official_boxscore_dataset_identity": OFFICIAL_BOXSCORE_DATASET_IDENTITY,
+        "union_gate_identity": UNION_GATE_IDENTITY,
+        "union_identity": UNION_IDENTITY,
         "ncaa_official_national_acquisition_identity": NCAA_NATIONAL_IDENTITY,
         "wmt_acquisition_identity": WMT_ACQUISITION_IDENTITY,
         "wmt_reconciliation_dataset_identity": WMT_RECONCILIATION_IDENTITY,
@@ -708,6 +803,21 @@ def expected_gate_document(
     if counts["pregame_availability_true"]:
         raise AuthorityViolation("participation must not be relabeled availability")
     season_level = expected_season_level_admissions(season_recon)
+    owner = current_evidence_owner(contract)
+    official_scope = expected_official_fact_scope(counts)
+    nonclaims = expected_scientific_nonclaims(counts)
+    if official_scope["verified_official_postgame_facts_present"] != (
+        counts["verified_official"] > 0
+    ):
+        raise AuthorityViolation("official-fact presence drifted from admitted count")
+    if official_scope["verified_official_postgame_fact_count"] != counts["verified_official"]:
+        raise AuthorityViolation("official-fact count drifted from admitted rows")
+    if official_scope["full_historical_official_completeness_claimed"]:
+        raise AuthorityViolation("full historical official completeness forged")
+    if official_scope["ncaa_contest_official_evidence_claimed"]:
+        raise AuthorityViolation("NCAA contest official evidence forged")
+    if nonclaims["verified_official_claimed"] or official_scope["deprecated_verified_official_claimed"]:
+        raise AuthorityViolation("deprecated verified-official claim opened")
     gate = {
         "schema_version": SCHEMA_VERSION,
         "artifact_type": "TAMU_CROSS_SOURCE_DOMAIN_GATE",
@@ -716,7 +826,7 @@ def expected_gate_document(
         "contract_id": contract["contract_id"],
         "decision_unit": contract["decision_unit"],
         "jira_key": "BAT-572",
-        "rebound_jira_key": "BAT-581",
+        "rebound_jira_key": owner["rebound_jira_key"],
         "input_identities": expected_input_identities(),
         "phase4_disposition": PHASE4_DISPOSITION,
         "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
@@ -724,7 +834,8 @@ def expected_gate_document(
         "admissions": expected_admissions(),
         "season_level_admissions": season_level,
         "authority": expected_authority(),
-        "scientific_nonclaims": expected_scientific_nonclaims(),
+        "official_fact_scope": official_scope,
+        "scientific_nonclaims": nonclaims,
         "remaining_blockers": expected_remaining_blockers(),
         "bat_429": dict(bat_429),
         "protected_lane": PROTECTED_LANE,
@@ -791,7 +902,15 @@ def materialize(*, data_root: Path, repo_root: Path, issued_at_utc: str) -> dict
         "row_count": len(expected["rows"]),
     }
     write_json(repo_root / GATE_RELATIVE, gate)
-    write_json(repo_root / EVIDENCE_RELATIVE, _evidence_packet(repo_root, gate))
+    write_json(
+        repo_root / EVIDENCE_RELATIVE,
+        build_evidence_packet(
+            repo_root=repo_root,
+            gate=gate,
+            owner=current_evidence_owner(expected["contract"]),
+            contract=expected["contract"],
+        ),
+    )
     return {
         "gate_path": str(repo_root / GATE_RELATIVE),
         "gate_identity": gate["gate_identity"],
@@ -800,7 +919,7 @@ def materialize(*, data_root: Path, repo_root: Path, issued_at_utc: str) -> dict
     }
 
 
-def _evidence_packet(repo_root: Path, gate: Mapping[str, Any]) -> dict[str, Any]:
+def _evidence_outputs(repo_root: Path) -> list[dict[str, Any]]:
     outputs = []
     for relative in (
         GATE_RELATIVE,
@@ -819,47 +938,101 @@ def _evidence_packet(repo_root: Path, gate: Mapping[str, Any]) -> dict[str, Any]
                     "sha256": sha256_file(path),
                 }
             )
-    recovered = ["linescore_game_info", "venue", "roster_membership"]
+    return outputs
+
+
+def _recovered_domains(gate: Mapping[str, Any]) -> list[str]:
+    by_decision = (gate.get("counts") or {}).get("by_decision") or {}
+    recovered: list[str] = []
+    if int(by_decision.get("VERIFIED_OFFICIAL_POSTGAME_FACT") or 0) or int(
+        by_decision.get("VERIFIED_CROSS_SOURCE_POSTGAME_FACT") or 0
+    ):
+        recovered.extend(
+            [
+                "linescore_game_info",
+                "venue",
+                "attendance",
+                "officials",
+                "team_statistics",
+                "team_statistics_by_period",
+                "player_statistics",
+                "drives",
+                "play_by_play",
+                "scoring_summary",
+                "participation",
+            ]
+        )
+    if "roster_membership" not in recovered:
+        recovered.append("roster_membership")
+    return recovered
+
+
+def build_observable_outcome(gate: Mapping[str, Any], owner: Mapping[str, Any]) -> str:
+    counts = gate["counts"]
+    identities = gate.get("input_identities") or {}
+    outcome = (
+        f"BAT-572 evidence is derived from the current domain gate {gate['gate_identity']} "
+        f"with current rebound owner {owner['rebound_jira_key']}. Correction owner "
+        f"{owner['correction_jira_key']} binds current relationships "
+        f"{','.join(owner['current_relationship_set'])}. "
+        f"Counts: {counts['verified_official']} VERIFIED_OFFICIAL_POSTGAME_FACT, "
+        f"{counts['verified_cross_source']} VERIFIED_CROSS_SOURCE_POSTGAME_FACT, "
+        f"{counts['candidate_only']} CANDIDATE_ONLY, "
+        f"{counts['source_evidence_absent']} SOURCE_EVIDENCE_ABSENT. "
+        f"NCAA contest IDs remain {counts['contest_ids_present']}. "
+        f"Contest-route disposition remains {gate['contest_route_disposition']} "
+        f"with manifest identity {identities.get('contest_route_manifest_identity')}. "
+        f"Superseded owners remain only in supersession_history. "
+        f"Protected lane stays {gate['protected_lane']}. BAT-429 stays blocked. "
+        f"BAT-523 stays In Progress."
+    )
+    if "Cycle #8" in outcome:
+        raise AuthorityViolation("stale Cycle #8 narrative")
+    return outcome
+
+
+def build_evidence_packet(
+    *,
+    repo_root: Path,
+    gate: Mapping[str, Any],
+    owner: Mapping[str, Any],
+    contract: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    if contract is not None:
+        owner = current_evidence_owner(contract)
+    rebound = str(gate.get("rebound_jira_key") or "")
+    if rebound != owner["rebound_jira_key"]:
+        raise AuthorityViolation("current gate/evidence ownership mismatch")
+    if rebound in owner["superseded_rebound_owners"]:
+        raise AuthorityViolation("superseded owner presented as current")
+    missing_current = [
+        key for key in owner["current_relationship_set"] if key not in owner["related_jira_keys"]
+    ]
+    if missing_current:
+        raise AuthorityViolation("BAT-581 removed from the current relationship set")
+    recovered = _recovered_domains(gate)
     missing = [domain for domain in DOMAIN_COLUMNS if domain not in recovered]
-    return {
-        "schema_version": "2.1.0",
+    packet = {
+        "schema_version": EVIDENCE_SCHEMA_VERSION,
         "evidence_manifest_type": "jira_issue_completion_evidence",
-        "jira_key": "BAT-572",
-        "local_issue_id": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
-        "parent_jira_key": "BAT-523",
-        "related_jira_keys": [
-            "BAT-570",
-            "BAT-571",
-            "BAT-523",
-            "BAT-429",
-            "BAT-548",
-            "BAT-550",
-            "BAT-554",
-            "BAT-567",
-            "BAT-574",
-            "BAT-575",
-            "BAT-576",
-            "BAT-577",
-        ],
-        "rebound_jira_key": "BAT-577",
+        "jira_key": owner["gate_jira_key"],
+        "local_issue_id": owner["local_issue_id"],
+        "parent_jira_key": owner["parent_jira_key"],
+        "correction_jira_key": owner["correction_jira_key"],
+        "correction_local_issue_id": owner["correction_local_issue_id"],
+        "related_jira_keys": list(owner["related_jira_keys"]),
+        "current_relationship_set": list(owner["current_relationship_set"]),
+        "rebound_jira_key": rebound,
+        "supersession_history": list(owner["supersession_history"]),
         "new_issue_decision": "CREATE",
         "workflow_state": "DONE",
         "evidence_state": "VERIFIED",
         "issue_complete": True,
         "completeness_claimed": False,
         "verified_official_claimed": False,
-        "observable_outcome": (
-            "Cycle #8 Phase 5 rebound of the BAT-572 per-game domain gate bound BAT-574 "
-            f"{TEAM_SEASON_GATE_IDENTITY}, BAT-575 {SEASON_RECON_GATE_IDENTITY}, and BAT-576 "
-            f"{CONTEST_ROUTE_GATE_IDENTITY}. Per-game NCAA domains remain "
-            "SOURCE_EVIDENCE_ABSENT_NO_CONTEST_IDS. Season-level admissions are recorded "
-            f"separately as {SEASON_RECON_DISPOSITION} and are not VERIFIED_OFFICIAL per-game "
-            f"facts. Contest-route disposition is {CONTEST_ROUTE_DISPOSITION} with 0 contest IDs "
-            "and 0 contest-endpoint attempts. Cycle #7 identity "
-            f"{CYCLE7_GATE_IDENTITY} is superseded. Protected lane stays "
-            "RETAIN_PROTECTED_LANE_BLOCKED. BAT-429 stays blocked. BAT-523 stays In Progress."
-        ),
-        "outputs": outputs,
+        "official_fact_scope": dict(gate["official_fact_scope"]),
+        "observable_outcome": build_observable_outcome(gate, owner),
+        "outputs": _evidence_outputs(repo_root),
         "gate_identity": gate["gate_identity"],
         "phase3_identities": {
             "matrix_identity": PHASE3_MATRIX_IDENTITY,
@@ -869,13 +1042,17 @@ def _evidence_packet(repo_root: Path, gate: Mapping[str, Any]) -> dict[str, Any]
             "acquisition_identity": PHASE4_ACQUISITION_IDENTITY,
             "disposition": PHASE4_DISPOSITION,
         },
-        "cycle8_identities": {
+        "current_identities": {
             "team_season_gate_identity": TEAM_SEASON_GATE_IDENTITY,
             "season_reconciliation_gate_identity": SEASON_RECON_GATE_IDENTITY,
             "contest_route_gate_identity": CONTEST_ROUTE_GATE_IDENTITY,
             "contest_route_disposition": CONTEST_ROUTE_DISPOSITION,
+            "contest_route_manifest_identity": CONTEST_ROUTE_MANIFEST_IDENTITY,
+            "official_boxscore_gate_identity": OFFICIAL_BOXSCORE_GATE_IDENTITY,
+            "official_boxscore_dataset_identity": OFFICIAL_BOXSCORE_DATASET_IDENTITY,
+            "union_gate_identity": UNION_GATE_IDENTITY,
+            "union_identity": UNION_IDENTITY,
         },
-        "supersedes_gate_identity": CYCLE7_GATE_IDENTITY,
         "ncaa_official_national_acquisition_identity": NCAA_NATIONAL_IDENTITY,
         "coverage": {
             "seasons": [2010, 2011],
@@ -883,12 +1060,55 @@ def _evidence_packet(repo_root: Path, gate: Mapping[str, Any]) -> dict[str, Any]
             "domain_rows": gate["counts"]["domain_rows"],
             "recovered_domains": recovered,
             "missing_domains": missing,
+            "ncaa_contest_domains_still_absent": ["ncaa_contest_identity"],
+            "roster_membership": "CANDIDATE_ONLY_NOT_AVAILABILITY",
             "by_decision": gate["counts"]["by_decision"],
         },
         "admissions": gate["admissions"],
         "protected_nonclaims": gate["scientific_nonclaims"],
         "bat_429": gate["bat_429"],
     }
+    if "Cycle #8" in packet["observable_outcome"]:
+        raise AuthorityViolation("stale Cycle #8 narrative")
+    return packet
+
+
+def validate_evidence(
+    *,
+    repo_root: Path,
+    gate: Mapping[str, Any],
+    evidence: Mapping[str, Any] | None = None,
+    owner: Mapping[str, Any] | None = None,
+    contract: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    if contract is None:
+        contract = load_contract(repo_root)
+    if owner is None:
+        owner = current_evidence_owner(contract)
+    rebuilt = build_evidence_packet(repo_root=repo_root, gate=gate, owner=owner, contract=contract)
+    live = evidence
+    if live is None:
+        live = load_json(repo_root / EVIDENCE_RELATIVE)
+    if live.get("rebound_jira_key") != rebuilt["rebound_jira_key"]:
+        raise AuthorityViolation("current gate/evidence ownership mismatch")
+    if live.get("rebound_jira_key") in owner["superseded_rebound_owners"]:
+        raise AuthorityViolation("superseded owner presented as current")
+    if "Cycle #8" in str(live.get("observable_outcome") or ""):
+        raise AuthorityViolation("stale Cycle #8 narrative")
+    for key in owner["current_relationship_set"]:
+        if key not in (live.get("related_jira_keys") or []) and key not in (
+            live.get("current_relationship_set") or []
+        ):
+            raise AuthorityViolation(f"{key} removed from the current relationship set")
+    if live.get("official_fact_scope") != rebuilt["official_fact_scope"]:
+        raise AuthorityViolation("official-fact scope drifted from current gate")
+    if live.get("gate_identity") != gate.get("gate_identity"):
+        raise AuthorityViolation("current gate/evidence ownership mismatch")
+    comparable_live = {key: live[key] for key in rebuilt if key != "outputs"}
+    comparable_rebuilt = {key: rebuilt[key] for key in rebuilt if key != "outputs"}
+    if comparable_live != comparable_rebuilt:
+        raise AuthorityViolation("evidence packet drifted from current gate and owner inputs")
+    return {"result": "PASS", "rebound_jira_key": rebuilt["rebound_jira_key"]}
 
 
 def validate_artifact(
@@ -923,7 +1143,29 @@ def validate_artifact(
         raise AuthorityViolation("forged terminal state after rehash")
     if gate.get("protected_lane") != PROTECTED_LANE:
         raise AuthorityViolation("protected lane must remain blocked")
-    if gate.get("scientific_nonclaims", {}).get("verified_official_claimed"):
+    owner = current_evidence_owner(contract)
+    if gate.get("rebound_jira_key") != owner["rebound_jira_key"]:
+        raise AuthorityViolation("current gate/evidence ownership mismatch")
+    if gate.get("rebound_jira_key") in owner["superseded_rebound_owners"]:
+        raise AuthorityViolation("superseded owner presented as current")
+    scope = gate.get("official_fact_scope") or {}
+    counts = gate.get("counts") or {}
+    if scope.get("verified_official_postgame_fact_count") != counts.get("verified_official"):
+        raise AuthorityViolation("official-fact count drifted from admitted rows")
+    if bool(scope.get("verified_official_postgame_facts_present")) != (
+        int(counts.get("verified_official") or 0) > 0
+    ):
+        raise AuthorityViolation("official-fact presence drifted from admitted count")
+    if scope.get("full_historical_official_completeness_claimed"):
+        raise AuthorityViolation("full historical official completeness forged")
+    if scope.get("ncaa_contest_official_evidence_claimed"):
+        raise AuthorityViolation("NCAA contest official evidence forged")
+    nonclaims = gate.get("scientific_nonclaims") or {}
+    if nonclaims.get("full_historical_official_completeness_claimed"):
+        raise AuthorityViolation("full historical official completeness forged")
+    if nonclaims.get("ncaa_contest_official_evidence_claimed"):
+        raise AuthorityViolation("NCAA contest official evidence forged")
+    if nonclaims.get("verified_official_claimed"):
         raise AuthorityViolation("verified official inflation")
     if gate.get("scientific_nonclaims", {}).get("pregame_availability_admitted"):
         raise AuthorityViolation("participation must not be relabeled availability")
@@ -967,9 +1209,12 @@ def validate_artifact(
         raise AuthorityViolation("membership must not be relabeled availability")
     if require_rebuild and expected["gate"]["gate_identity"] != rebuilt["gate_identity"]:
         raise AuthorityViolation("gate identity rebuild mismatch")
+    if live_artifact:
+        validate_evidence(repo_root=repo_root, gate=gate, contract=contract, owner=owner)
     return {
         "result": "PASS",
         "gate_identity": rebuilt["gate_identity"],
         "counts": rebuilt["counts"],
         "protected_lane": PROTECTED_LANE,
+        "rebound_jira_key": owner["rebound_jira_key"],
     }

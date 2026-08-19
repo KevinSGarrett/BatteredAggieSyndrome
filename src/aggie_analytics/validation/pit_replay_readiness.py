@@ -214,6 +214,14 @@ def load_prerequisites(repo_root: Path) -> dict[str, Any]:
         raise ValueError("BAT-572 unexpectedly opened the protected lane")
     if bat572.get("scientific_nonclaims", {}).get("verified_official_claimed"):
         raise ValueError("BAT-572 inflated a verified-official population claim")
+    if bat572.get("scientific_nonclaims", {}).get("full_historical_official_completeness_claimed"):
+        raise ValueError("BAT-572 forged full historical official completeness")
+    if bat572.get("scientific_nonclaims", {}).get("ncaa_contest_official_evidence_claimed"):
+        raise ValueError("BAT-572 forged NCAA contest official evidence")
+    if (bat572.get("official_fact_scope") or {}).get("full_historical_official_completeness_claimed"):
+        raise ValueError("BAT-572 forged full historical official completeness")
+    if (bat572.get("official_fact_scope") or {}).get("ncaa_contest_official_evidence_claimed"):
+        raise ValueError("BAT-572 forged NCAA contest official evidence")
     if bat572.get("season_level_admissions", {}).get("per_game_verified_official"):
         raise ValueError("BAT-572 season totals were promoted to per-game official")
     if bat572.get("input_identities", {}).get("phase3_matrix_identity") != BAT570_MATRIX_IDENTITY:

@@ -481,6 +481,21 @@
       "critical_path": true,
       "execution_lane": "GOVERNANCE",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-594",
+      "local_id": "POST-TASK-SRC014-2006-OFFICIAL-INDEX-001",
+      "summary": "Capture the official SRC-014 2006 Texas A&M season index and discover box URLs from that page",
+      "issue_type": "Task",
+      "status": "In Review",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "VERIFIED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-2",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

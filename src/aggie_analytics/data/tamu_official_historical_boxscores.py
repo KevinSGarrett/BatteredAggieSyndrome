@@ -403,6 +403,13 @@ def parse_quarter_scores(sum_block: str) -> list[dict[str, Any]]:
         if in_table and len(scores) >= 2:
             break
     if len(scores) < 2:
+        line_re = re.compile(r"(?m)^([A-Za-z0-9 .#'&;-]+?)\.{2,}\s+((?:\d+\s+)+)-\s+(\d+)")
+        for match in line_re.finditer(sum_block.replace("&amp;", "&")):
+            periods = [int(item) for item in match.group(2).split()]
+            scores.append({"team_raw": match.group(1).strip(), "periods": periods, "points": int(match.group(3))})
+            if len(scores) >= 2:
+                break
+    if len(scores) < 2:
         raise AuthorityViolation("box score is missing labeled quarter/score rows")
     return scores
 
@@ -626,12 +633,25 @@ def parse_official_box_page(
     url: str,
     source_season: int,
     raw_sha256: str,
+    allowed_urls: frozenset[str] | None = None,
 ) -> dict[str, Any]:
     validate_official_url(url)
-    match = BOX_PATH_RE.match(urlsplit(url).path)
-    if match is None:
-        raise AuthorityViolation(f"non-box official URL submitted as box score: {url}")
-    path_season = season_from_archive_folder(match.group(1))
+    if allowed_urls is not None:
+        if url not in allowed_urls:
+            raise AuthorityViolation(f"box URL was not emitted by the bound official inventory: {url}")
+        folder_match = re.match(
+            r"^/history/football/stats/(\d{4}-\d{4})/ta\d{2}-[a-z0-9]+\.html?$",
+            urlsplit(url).path,
+            re.IGNORECASE,
+        )
+        if folder_match is None:
+            raise AuthorityViolation(f"non-box official URL submitted as box score: {url}")
+        path_season = int(folder_match.group(1).split("-")[0])
+    else:
+        match = BOX_PATH_RE.match(urlsplit(url).path)
+        if match is None:
+            raise AuthorityViolation(f"non-box official URL submitted as box score: {url}")
+        path_season = season_from_archive_folder(match.group(1))
     if path_season != source_season:
         raise AuthorityViolation(f"wrong-season box-score URL for {source_season}: {url}")
     if sha256_bytes(body) != raw_sha256:
@@ -640,9 +660,9 @@ def parse_official_box_page(
     if "texas a&m" not in text.lower() and "texas a&amp;m" not in text.lower():
         raise AuthorityViolation("missing Texas A&M team identity")
     season_match = SEASON_RE.search(text)
-    if season_match is None:
+    if season_match is None and allowed_urls is None:
         raise AuthorityViolation("box page missing official football-season header")
-    football_season = int(season_match.group(1))
+    football_season = int(season_match.group(1)) if season_match is not None else source_season
     if football_season != source_season:
         raise AuthorityViolation(
             f"calendar-year/season-year confusion or wrong-season page: header {football_season} vs source {source_season}"

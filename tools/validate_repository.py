@@ -843,6 +843,48 @@ def main() -> int:
                         )()
                     )
 
+        enriched_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_enriched_gate.json"
+        enriched_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union_enriched.py"
+        if enriched_gate.is_file() and enriched_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_gamebook_union_enriched_strict",
+                enriched_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_gamebook_union_enriched",
+                            "path": "src/aggie_analytics/data/tamu_official_gamebook_union_enriched.py",
+                            "detail": "unable to load enriched-union validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=module.lake_is_ready(data_root),
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_gamebook_union_enriched",
+                                "path": "artifacts/data_lake/tamu_official_gamebook_union_enriched_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

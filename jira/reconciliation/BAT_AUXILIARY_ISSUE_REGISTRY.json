@@ -133,7 +133,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010–2011 official-evidence gaps."
+      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010\u20132011 official-evidence gaps."
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -148,7 +148,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-4",
       "status": "Done",
-      "summary": "Recover missing 2010–2011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
+      "summary": "Recover missing 2010\u20132011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -163,7 +163,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-5",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010–2011 Texas A&M cross-source domain admission gate"
+      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M cross-source domain admission gate"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -193,7 +193,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-2",
       "status": "Done",
-      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010–2011"
+      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010\u20132011"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -208,7 +208,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010–2011 Texas A&M season-level cross-source reconciliation"
+      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M season-level cross-source reconciliation"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -558,16 +558,16 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "PARTIAL",
+      "evidence_state": "VERIFIED",
       "execution_lane": "DATA_MATERIALIZATION",
       "issue_type": "Task",
       "jira_key": "BAT-599",
       "local_id": "POST-TASK-SRC014-2005-OFFICIAL-INDEX-001",
-      "logical_state": "REVIEW",
-      "maturity": "CONTRACT_DEFINED",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
       "owner_wave": "POST_W25",
       "phase": "PHASE-2",
-      "status": "In Review",
+      "status": "Done",
       "summary": "Capture the official SRC-014 2005 Texas A&M season index and discover box URLs from that page"
     }
   ],

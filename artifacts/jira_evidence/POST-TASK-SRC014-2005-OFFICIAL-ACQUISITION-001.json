@@ -15,7 +15,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14516",
-    "done_after_merge": "",
+    "done_after_merge": "14518",
     "in_review_after_validation": "14517"
   },
   "current_identities": {
@@ -43,18 +43,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "9f7c32977dcd52970811cbf79b57e0efd9bdf6e8",
+  "issue_complete": true,
   "jira_key": "BAT-600",
   "local_issue_id": "POST-TASK-SRC014-2005-OFFICIAL-ACQUISITION-001",
-  "material_pr": null,
+  "material_pr": 514,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Official 2005 box scores acquired from the 11 BAT-599 index URLs only. 11/11 HTTP 200, 11 normalized, 0 rich, 11 metadata-only, 11 scoring-summary, 0 team/player/PBP structured domains, 1 SMU page-header-season conflict (header 2006 vs index 2005). Gate identity c999af29522096e4ae3a9cdc558679321095c8cf11247ef1ccd23b3114ee18cc. BAT-595 2006 identities were not rewritten. NCAA IDs created 0. Union admission 0. Pregame availability blocked. BAT-523 stays In Progress.",
+  "observable_outcome": "Material PR #514 merged as 9f7c32977dcd52970811cbf79b57e0efd9bdf6e8. Official 2005 box scores acquired from the 11 BAT-599 index URLs only. 11/11 HTTP 200, 11 normalized, 0 rich, 11 metadata-only, 11 scoring-summary, 0 team/player/PBP structured domains, 1 SMU page-header-season conflict. Gate identity c999af29522096e4ae3a9cdc558679321095c8cf11247ef1ccd23b3114ee18cc. BAT-595 2006 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

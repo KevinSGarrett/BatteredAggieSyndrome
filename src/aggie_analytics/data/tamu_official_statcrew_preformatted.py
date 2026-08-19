@@ -120,8 +120,8 @@ def compute_gate_identity(gate: Mapping[str, Any]) -> str:
 
 
 def strip_markup(text: str) -> str:
-    text = re.sub(r"(?is)<script\b[^>]*>.*?</script\s*>", " ", text)
-    text = re.sub(r"(?is)<style\b[^>]*>.*?</style\s*>", " ", text)
+    text = re.sub(r"(?is)<script\b[^>]*>.*?</script\b[^>]*>", " ", text)
+    text = re.sub(r"(?is)<style\b[^>]*>.*?</style\b[^>]*>", " ", text)
     text = re.sub(r"(?is)<br\s*/?>", "\n", text)
     text = re.sub(r"(?is)</(?:p|div|tr|h\d)>", "\n", text)
     text = re.sub(r"(?is)<[^>]+>", " ", text)

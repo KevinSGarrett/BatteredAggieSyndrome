@@ -97,7 +97,7 @@ Scoring Summary:
 class PreformattedParserUnitTests(unittest.TestCase):
     def test_spaced_script_end_tag_is_filtered(self) -> None:
         html = (
-            "<script>injected();</script >\n"
+            "<script>injected();</script\t\n bar>\n"
             "<pre>\nTeam Statistics (Final)\nFIRST DOWNS................... 23 16\n</pre>\n"
         )
         parsed = parse_preformatted_page(

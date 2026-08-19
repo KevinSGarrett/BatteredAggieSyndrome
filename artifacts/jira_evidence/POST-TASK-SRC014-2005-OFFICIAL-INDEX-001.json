@@ -1,0 +1,72 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_585_inventory": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_588_2007_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_594_2006_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14513",
+    "done_after_merge": "",
+    "in_review_after_validation": "14514"
+  },
+  "current_identities": {
+    "box_url_identity": "7564d90c3ada13353b8242fd8891642778abd99c32e1f31fa8f2c389a495544d",
+    "capture_identity": "18d1e502de0032bc4c0e1e3d36aed0c3814c4612e68201dcf7675ca5c39c899a",
+    "gate_identity": "17868efadbc5cc6ec04869d194b8b8a205089c3050b069eec3e5ba9c1d25c301",
+    "game_row_identity": "5579a38aee221d8d46b7e70342a1c63768b4deb8b36473002ea83f9d688a2272",
+    "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+    "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "payload_identity": "71b57040514f4d61f89809fc7bd15270b993ddcd4728ba981c6f1cbdfac015cb",
+    "raw_sha256": "074f138edfaec81d79a6e732e258553841f750adc2a3aeef55a49400e32cd83f"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of the official 2005 season index. BAT-594 owns only the 2006 index and must not be reused. BAT-588 owns 2007. BAT-585 inventoried later seasons and was not rewritten. Live JQL summary ~ 2005 index returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-585",
+      "BAT-586",
+      "BAT-587",
+      "BAT-588",
+      "BAT-589",
+      "BAT-590",
+      "BAT-591",
+      "BAT-592",
+      "BAT-593",
+      "BAT-594",
+      "BAT-595",
+      "BAT-596",
+      "BAT-597",
+      "BAT-598"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-599",
+  "local_issue_id": "POST-TASK-SRC014-2005-OFFICIAL-INDEX-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Official 2005 season index captured from the history-index authority chain as https://files.12thman.com/history/football/years/2005.html (raw sha256 074f138edfaec81d79a6e732e258553841f750adc2a3aeef55a49400e32cd83f). Counts: 11 scheduled games, 11 box-score URLs, 0 duplicate/malformed/missing links. Gate identity 17868efadbc5cc6ec04869d194b8b8a205089c3050b069eec3e5ba9c1d25c301. BAT-594 2006 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

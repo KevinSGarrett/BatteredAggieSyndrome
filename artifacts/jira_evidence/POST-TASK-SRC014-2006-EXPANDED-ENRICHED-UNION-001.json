@@ -14,6 +14,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14505",
+    "done_after_merge": "14507",
     "in_review_after_validation": "14506"
   },
   "current_identities": {
@@ -43,16 +44,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "9e41c2a99ebf72f14c9f34f5c71e3616f5aa05f5",
+  "issue_complete": true,
   "jira_key": "BAT-597",
   "local_issue_id": "POST-TASK-SRC014-2006-EXPANDED-ENRICHED-UNION-001",
+  "material_pr": 508,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Created a new immutable 2006-expanded union identity cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98 from the preserved BAT-592 union 00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31. Gate identity 6a3a276087d3341b3826dec9c58391d54eaa42055149d7d7705e9e1a1d1601ff. Admitted 13 official 2006 games only when official index + box URL + raw SHA matched. Preserved the four rejected games. Counts: union_captured_games=250, new_games_added=13, rich_structured_games=237, metadata_only_games=13, unmatched_rejected=4, date_conflicts=4, ncaa_contest_ids_created=0. BAT-592/BAT-591/BAT-595/BAT-596 identities were not rewritten. Retrieval time only. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #508 merged as 9e41c2a99ebf72f14c9f34f5c71e3616f5aa05f5. Created a new immutable 2006-expanded union identity cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98 from the preserved BAT-592 union 00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31. Gate identity 6a3a276087d3341b3826dec9c58391d54eaa42055149d7d7705e9e1a1d1601ff. Admitted 13 official 2006 games only when official index + box URL + raw SHA matched. Preserved the four rejected games. Counts: union_captured_games=250, new_games_added=13, rich_structured_games=237, metadata_only_games=13, unmatched_rejected=4, date_conflicts=4, ncaa_contest_ids_created=0. BAT-592/BAT-591/BAT-595/BAT-596 identities were not rewritten. Retrieval time only. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

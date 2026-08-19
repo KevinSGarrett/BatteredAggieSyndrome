@@ -23,6 +23,7 @@ PRESENT = "PRESENT"
 ACQUISITION_GATE_RELATIVES: tuple[str, ...] = (
     "artifacts/data_lake/tamu_official_pre2010_boxscore_gate.json",
     "artifacts/data_lake/tamu_official_2007_boxscore_gate.json",
+    "artifacts/data_lake/tamu_official_2006_boxscore_gate.json",
 )
 UNION_GATE_RELATIVES: tuple[str, ...] = (
     "artifacts/data_lake/tamu_official_gamebook_union_gate.json",

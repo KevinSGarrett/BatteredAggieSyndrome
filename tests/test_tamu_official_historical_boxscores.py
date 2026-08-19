@@ -25,6 +25,7 @@ from aggie_analytics.data.tamu_official_historical_boxscores import (  # noqa: E
     compute_gate_identity,
     load_json,
     parse_official_box_page,
+    parse_quarter_scores,
     parse_season_index_rows,
     refuse_name_only_player_merge,
     sha256_bytes,
@@ -357,6 +358,25 @@ class OfficialHistoricalBoxscoreTests(unittest.TestCase):
                 repo_root=ROOT,
                 require_rebuild=False,
                 gate=_mutated(gate, result="FORGED_DONE", classification="PRODUCTION_CHAMPION"),
+            )
+
+    def test_statcrew_single_dot_score_rows_require_score_by_quarters_header(self) -> None:
+        labeled = (
+            "Score by Quarters     1  2  3  4   Score\n"
+            "-----------------    -- -- -- --   -----\n"
+            "Louisiana-Lafayette.  0  7  0  0  -  7\n"
+            "Texas A&amp;M........... 14 17 20  0  - 51\n"
+        )
+        scores = parse_quarter_scores(labeled)
+        by_team = {item["team_raw"]: item for item in scores}
+        self.assertEqual(set(by_team), {"Louisiana-Lafayette", "Texas A&M"})
+        self.assertEqual(by_team["Louisiana-Lafayette"]["periods"], [0, 7, 0, 0])
+        self.assertEqual(by_team["Louisiana-Lafayette"]["points"], 7)
+        self.assertEqual(by_team["Texas A&M"]["periods"], [14, 17, 20, 0])
+        self.assertEqual(by_team["Texas A&M"]["points"], 51)
+        with self.assertRaises(AuthorityViolation):
+            parse_quarter_scores(
+                "Louisiana-Lafayette.  0  7  0  0  -  7\nTexas A&M........... 14 17 20  0  - 51\n"
             )
 
 

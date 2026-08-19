@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-595-TAMU-OFFICIAL-2006-BOXSCORES-V1",
+  "decision_unit": "POST-TASK-SRC014-2006-OFFICIAL-ACQUISITION-001",
+  "jira_key": "BAT-595",
+  "parent_jira_key": "BAT-594",
+  "related_jira_keys": ["BAT-594", "BAT-589", "BAT-586", "BAT-523", "BAT-585", "BAT-429", "BAT-401"],
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_SRC014_OFFICIAL_2006_BOXSCORE_CANDIDATE_ONLY",
+  "purpose": "Acquire and normalize only the 13 official 2006 Texas A&M box-score URLs discovered from the captured BAT-594 season index. Do not guess URLs, rewrite BAT-589 or BAT-586 identities, admit games into a union, or claim historical known-at.",
+  "source_id": "SRC-014",
+  "official_index_url": "https://files.12thman.com/history/football/years/2006.html",
+  "pinned_bat594_gate_identity": "d1f765a73abf0107fcf200562590bfd0212a521df47f9c6b27bb336ad737635c",
+  "pinned_bat589_gate_identity": "f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51",
+  "pinned_bat586_gate_identity": "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006",
+  "pinned_inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "rights_decision_id": "PRIVATE-RESEARCH-SRC-014",
+  "raw_storage_policy": "ALLOW_IMMUTABLE_RAW_AND_NORMALIZED_DATA_OUTSIDE_GIT",
+  "derived_export_allowed": false,
+  "raw_export_allowed": false,
+  "inventory_identity_policy": "DO_NOT_REWRITE_BAT_585_INVENTORY_IDENTITY",
+  "union_policy": "DO_NOT_ADMIT_2006_GAMES",
+  "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+  "payloads": {
+    "normalized_root": "features/tamu_official_2006_boxscores/sha256",
+    "capture_index": "features/tamu_official_2006_boxscores/capture_index.json",
+    "raw_root": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive"
+  }
+}

@@ -31,8 +31,9 @@
     "reviewed_keys": ["BAT-401", "BAT-429", "BAT-523", "BAT-581", "BAT-585", "BAT-586", "BAT-587", "BAT-588", "BAT-589"]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "IMPLEMENTED_PENDING_REVIEW",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "35061231d4196d91e5e99f7b71aab6640d394351",
+  "issue_complete": true,
   "jira_key": "BAT-590",
   "local_issue_id": "POST-TASK-SRC014-2007-OFFICIAL-UNION-001",
   "new_issue_decision": "CREATE",
@@ -41,5 +42,6 @@
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
-  }
+  },
+  "status": "Done"
 }

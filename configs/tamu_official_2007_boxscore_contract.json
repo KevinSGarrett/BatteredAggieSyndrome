@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-589-TAMU-OFFICIAL-2007-BOXSCORES-V1",
+  "decision_unit": "POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001",
+  "jira_key": "BAT-589",
+  "parent_jira_key": "BAT-588",
+  "related_jira_keys": ["BAT-588", "BAT-523", "BAT-586", "BAT-585", "BAT-587", "BAT-429", "BAT-401"],
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_SRC014_OFFICIAL_2007_BOXSCORE_CANDIDATE_ONLY",
+  "purpose": "Acquire and normalize only the 13 official 2007 Texas A&M box-score URLs discovered from the captured BAT-588 season index. Do not guess URLs, rewrite the BAT-585 inventory, admit games into a union, or claim historical known-at.",
+  "source_id": "SRC-014",
+  "official_index_url": "https://files.12thman.com/history/football/years/2007.html",
+  "pinned_bat588_gate_identity": "60fc69c136332de876d511f2020ffbd08282bc4e02256e547d3bcb46222c5ea9",
+  "pinned_inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "rights_decision_id": "PRIVATE-RESEARCH-SRC-014",
+  "raw_storage_policy": "ALLOW_IMMUTABLE_RAW_AND_NORMALIZED_DATA_OUTSIDE_GIT",
+  "derived_export_allowed": false,
+  "raw_export_allowed": false,
+  "inventory_identity_policy": "DO_NOT_REWRITE_BAT_585_INVENTORY_IDENTITY",
+  "union_policy": "DO_NOT_ADMIT_2007_GAMES",
+  "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+  "payloads": {
+    "normalized_root": "features/tamu_official_2007_boxscores/sha256",
+    "capture_index": "features/tamu_official_2007_boxscores/capture_index.json",
+    "raw_root": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive"
+  }
+}

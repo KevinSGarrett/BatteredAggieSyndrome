@@ -48,7 +48,7 @@ class CompactPre2010BoxscoreTests(unittest.TestCase):
             require_rebuild=LAKE_READY,
         )
         self.assertEqual(result["result"], "PASS")
-        self.assertEqual(result["gate_identity"], "b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa")
+        self.assertEqual(result["gate_identity"], "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006")
         self.assertEqual(result["selected_seasons"], [2009, 2008])
 
 
@@ -67,6 +67,9 @@ class Pre2010BoxscoreLakeTests(unittest.TestCase):
         self.assertEqual(self.gate["counts"]["ncaa_contest_ids_created"], 0)
         self.assertEqual(self.gate["counts"]["date_conflicts"], 2)
         self.assertEqual(self.gate["counts"]["matched_strong_tuple"], 21)
+        self.assertEqual(self.gate["counts"]["rich_structured_games"], 0)
+        self.assertEqual(self.gate["counts"]["metadata_only_games"], 25)
+        self.assertEqual(self.gate["counts"]["scoring_summary_present_games"], 25)
 
     def test_preserves_conflicts_and_missing_domains(self) -> None:
         self.assertEqual(self.gate["domain_coverage"]["play_by_play"]["present_games"], 0)

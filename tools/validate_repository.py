@@ -681,6 +681,84 @@ def main() -> int:
                         )()
                     )
 
+        rich_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_rich_structure.py"
+        if rich_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_rich_structure_strict",
+                rich_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_rich_structure",
+                            "path": "src/aggie_analytics/data/tamu_official_rich_structure.py",
+                            "detail": "unable to load official rich-structure validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                try:
+                    module.validate_rich_structure_artifacts(repo_root=root)
+                except (module.RichStructureViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_rich_structure",
+                                "path": "src/aggie_analytics/data/tamu_official_rich_structure.py",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
+        box_2007_gate = root / "artifacts" / "data_lake" / "tamu_official_2007_boxscore_gate.json"
+        box_2007_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2007_boxscores.py"
+        if box_2007_gate.is_file() and box_2007_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_2007_boxscores_strict",
+                box_2007_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_2007_boxscores",
+                            "path": "src/aggie_analytics/data/tamu_official_2007_boxscores.py",
+                            "detail": "unable to load official 2007 box-score validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=module.lake_is_ready(data_root),
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_2007_boxscores",
+                                "path": "artifacts/data_lake/tamu_official_2007_boxscore_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

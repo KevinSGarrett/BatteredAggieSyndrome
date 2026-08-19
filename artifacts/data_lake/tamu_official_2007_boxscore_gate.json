@@ -1,8 +1,9 @@
 {
-  "acquisition_identity": "58c44cc252a6139a7618a779e9fc9b353949cf942ac93eeb08c38b6c697a62af",
+  "acquisition_identity": "d49d84a0d61e9046cfcc3b39f69d92ceb6d9efa46e36d49d26b9c832c20c2fa5",
   "admissions": {
     "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
     "bat_523": "IN_PROGRESS",
+    "bat_588": "CONSUMED_INDEX_CAPTURE_ONLY",
     "gap_005": "OPEN",
     "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
     "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
@@ -14,9 +15,10 @@
     "rights_disposition": "DERIVED_ONLY_OR_REVIEW_PRIVATE_RESEARCH",
     "same_game_pregame_features": "BLOCKED",
     "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED",
     "wmt_payload": "PRESERVED_IMMUTABLE"
   },
-  "artifact_type": "TAMU_OFFICIAL_PRE2010_BOXSCORE_GATE",
+  "artifact_type": "TAMU_OFFICIAL_2007_BOXSCORE_GATE",
   "authority": {
     "availability_claim": false,
     "champion_or_production_promotion": false,
@@ -37,129 +39,128 @@
     "same_game_pregame_feature_admission": false,
     "wmt_payload_mutated_in_place": false
   },
-  "classification": "TAMU_SRC014_OFFICIAL_PRE2010_BOXSCORE_CANDIDATE_ONLY",
-  "contract_id": "BAT-586-TAMU-OFFICIAL-PRE2010-BOXSCORES-V1",
+  "classification": "TAMU_SRC014_OFFICIAL_2007_BOXSCORE_CANDIDATE_ONLY",
+  "contract_id": "BAT-589-TAMU-OFFICIAL-2007-BOXSCORES-V1",
   "counts": {
     "blocked_or_partial_pages": 0,
-    "captured_pages_total": 25,
-    "date_conflicts": 2,
-    "matched_strong_tuple": 21,
-    "metadata_only_games": 25,
+    "captured_pages_total": 13,
+    "date_conflicts": 0,
+    "games_admitted_to_union": 0,
+    "matched_strong_tuple": 11,
+    "metadata_only_games": 12,
     "name_only_insufficient": 0,
     "ncaa_contest_ids_created": 0,
-    "normalized_games": 25,
-    "normalized_games_2008": 12,
-    "normalized_games_2009": 13,
-    "participation_candidates": 1345,
-    "player_stat_candidates": 0,
-    "rich_structured_games": 0,
-    "scoring_summary_present_games": 25,
-    "target_games_2008": 12,
-    "target_games_2009": 13,
-    "target_games_total": 25,
+    "normalized_games": 13,
+    "normalized_games_2007": 13,
+    "participation_candidates": 670,
+    "player_stat_candidates": 26,
+    "rich_structured_games": 1,
+    "scoring_summary_present_games": 13,
+    "target_games_2007": 13,
+    "target_games_total": 13,
     "unmatched_strong_tuple": 2,
-    "verified_official_pages": 25
+    "verified_official_pages": 13
   },
-  "dataset_identity": "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59",
-  "decision_unit": "POST-TASK-CYCLE-10-SRC014-PRE2010-OFFICIAL-ACQUISITION-001",
+  "dataset_identity": "8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0",
+  "decision_unit": "POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001",
   "disposition": "NORMALIZED_CANDIDATE_ONLY_NO_UNION_MUTATION",
   "domain_coverage": {
     "attendance": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "drives": {
-      "absent_games": 25,
-      "present_games": 0
+      "absent_games": 12,
+      "present_games": 1
     },
     "duration": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "end_time": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "game_identity_metadata": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "individual_player_statistics": {
-      "absent_games": 25,
-      "present_games": 0
+      "absent_games": 12,
+      "present_games": 1
     },
     "kickoff_time": {
-      "absent_games": 1,
-      "present_games": 24
+      "absent_games": 0,
+      "present_games": 13
     },
     "officials": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "participation": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "penalties": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "play_by_play": {
-      "absent_games": 25,
-      "present_games": 0
+      "absent_games": 12,
+      "present_games": 1
     },
     "played_date": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "quarter_scoring": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "scores": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "scoring_summary": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "season": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "site_venue": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "starters": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "team_statistics": {
-      "absent_games": 25,
-      "present_games": 0
+      "absent_games": 12,
+      "present_games": 1
     },
     "teams": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "turnovers": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     },
     "weather": {
       "absent_games": 0,
-      "present_games": 25
+      "present_games": 13
     }
   },
-  "games_identity": "176ae7a0f6f93de591c850cd49da280682ac328c4ebf7a0b0d0beb78b24d4b7a",
-  "gate_identity": "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006",
+  "games_identity": "616f28229fa56e8f8b76c6385d357bc7350594bdc484750f0326fc4ced685f46",
+  "gate_identity": "f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
-  "jira_key": "BAT-586",
+  "jira_key": "BAT-589",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "result": "PASS_OFFICIAL_PRE2010_BOXSCORES_NORMALIZED",
-  "schema_version": "aggie.data.tamu_official_pre2010_boxscores.v1",
+  "result": "PASS_OFFICIAL_2007_BOXSCORES_NORMALIZED",
+  "schema_version": "aggie.data.tamu_official_2007_boxscores.v1",
   "scientific_nonclaims": {
     "bas_or_aggie_excess_result_claimed": false,
     "champion_or_production_promotion": false,
@@ -179,11 +180,13 @@
     "wmt_candidate_payload_rewritten": false
   },
   "selected_seasons": [
-    2009,
-    2008
+    2007
   ],
   "source_id": "SRC-014",
   "upstream_identities": {
+    "bat588_box_url_identity": "09a18a20976ba739e3463ceb043d47d2ae2c973ff0bfc384e953023473de48af",
+    "bat588_capture_identity": "628218e89ad3cc3631cbc105149ced8179c5e2ece4cc275ad67f39f808ccdd2c",
+    "bat588_gate_identity": "60fc69c136332de876d511f2020ffbd08282bc4e02256e547d3bcb46222c5ea9",
     "cycle9_boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",
     "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
     "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",

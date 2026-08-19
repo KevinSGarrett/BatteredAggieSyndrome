@@ -15,6 +15,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14502",
+    "done_after_merge": "14504",
     "in_review_after_validation": "14503"
   },
   "current_identities": {
@@ -45,16 +46,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "7fda3b164d8eb77fc5c8b919508fa27ffc15fe9c",
+  "issue_complete": true,
   "jira_key": "BAT-596",
   "local_issue_id": "POST-TASK-SRC014-2006-STRUCTURED-DOMAINS-001",
+  "material_pr": 506,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Parsed source-labeled 2006 official domains from the 13 BAT-595 captures without rewriting BAT-591 or BAT-595 identities. Payload identity 039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea and gate identity 57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4. Counts: parsed_games=13, rich_structured_games=13, metadata_only_games=0, team/player present=13, drives/pbp present=12, ncaa_contest_ids_created=0, games_admitted_to_union=0. texas.htm is rich on team+player with drives and play-by-play ABSENT in this preformatted parser; this does not rewrite BAT-595 HTML-table richness of 1. The already-captured 2007-09-01 page ta01-msu.htm has 364 serialized HTML table rows with rows identity 579f89802cb1ccb5d10b40728d378baed787ce5699243b23d5d63f4859521f98. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #506 merged as 7fda3b164d8eb77fc5c8b919508fa27ffc15fe9c. Parsed source-labeled 2006 official domains from the 13 BAT-595 captures without rewriting BAT-591 or BAT-595 identities. Payload identity 039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea and gate identity 57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4. Counts: parsed_games=13, rich_structured_games=13, metadata_only_games=0, team/player present=13, drives/pbp present=12, ncaa_contest_ids_created=0, games_admitted_to_union=0. texas.htm is rich on team+player with drives and play-by-play ABSENT in this preformatted parser; this does not rewrite BAT-595 HTML-table richness of 1. The already-captured 2007-09-01 page ta01-msu.htm has 364 serialized HTML table rows with rows identity 579f89802cb1ccb5d10b40728d378baed787ce5699243b23d5d63f4859521f98. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

@@ -175,6 +175,146 @@ class JiraLiveAuxiliaryVerificationTests(unittest.TestCase):
         self.assertEqual([], coverage["unexpected_issue_keys"])
         self.assertEqual([], coverage["missing_auxiliary_keys"])
 
+    def test_mixed_canonical_and_auxiliary_histograms(self) -> None:
+        key_map = {"CANON-001": "BAT-1", "CANON-002": "BAT-2"}
+        first = _auxiliary_item("BAT-523", "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001", status="In Progress")
+        second = _auxiliary_item("BAT-588", "POST-TASK-SRC014-2007-OFFICIAL-INDEX-001", status="Done")
+        issues = [
+            _live_issue("BAT-1", None, **{"issuetype": {"name": "Epic"}, "status": {"name": "To Do"}}),
+            _live_issue("BAT-2", None, **{"issuetype": {"name": "Story"}, "status": {"name": "Done"}}),
+            _live_issue("BAT-523", first, **{"issuetype": {"name": "Task"}}),
+            _live_issue("BAT-588", second, **{"issuetype": {"name": "Task"}}),
+        ]
+        histograms = import_bat_live.build_live_issue_histograms(
+            issues,
+            set(key_map.values()),
+            {"BAT-523", "BAT-588"},
+        )
+        self.assertEqual({"To Do": 1, "Done": 1}, histograms["canonical_status_counts"])
+        self.assertEqual({"In Progress": 1, "Done": 1}, histograms["auxiliary_status_counts"])
+        self.assertEqual({"To Do": 1, "Done": 2, "In Progress": 1}, histograms["total_status_counts"])
+        self.assertEqual(histograms["status_counts"], histograms["total_status_counts"])
+        self.assertEqual({"Epic": 1, "Story": 1}, histograms["canonical_issue_type_counts"])
+        self.assertEqual({"Task": 2}, histograms["auxiliary_issue_type_counts"])
+        self.assertEqual({"Epic": 1, "Story": 1, "Task": 2}, histograms["total_issue_type_counts"])
+        self.assertEqual(histograms["issue_type_counts"], histograms["total_issue_type_counts"])
+        self.assertEqual("auxiliary", histograms["classifications"]["BAT-523"])
+        self.assertEqual(
+            [],
+            import_bat_live.histogram_invariant_findings(
+                histograms,
+                canonical_actual_count=2,
+                auxiliary_actual_count=2,
+                unexpected_actual_count=0,
+                total_actual_issue_count=4,
+            ),
+        )
+
+    def test_histogram_arithmetic_rejects_canonical_only_aliases(self) -> None:
+        histograms = {
+            "canonical_status_counts": {"Done": 93, "To Do": 422},
+            "auxiliary_status_counts": {"Done": 30, "In Progress": 1},
+            "total_status_counts": {"Done": 93, "To Do": 422},
+            "status_counts": {"Done": 93, "To Do": 422},
+            "canonical_issue_type_counts": {"Epic": 51, "Story": 58, "Sub-task": 205, "Task": 201},
+            "auxiliary_issue_type_counts": {"Task": 31},
+            "total_issue_type_counts": {"Epic": 51, "Story": 58, "Sub-task": 205, "Task": 201},
+            "issue_type_counts": {"Epic": 51, "Story": 58, "Sub-task": 205, "Task": 201},
+        }
+        findings = import_bat_live.histogram_invariant_findings(
+            histograms,
+            canonical_actual_count=515,
+            auxiliary_actual_count=31,
+            unexpected_actual_count=0,
+            total_actual_issue_count=546,
+        )
+        self.assertTrue(any("total_status_counts sum" in item for item in findings))
+        self.assertTrue(any("total_issue_type_counts sum" in item for item in findings))
+        self.assertTrue(any("canonical_status_counts + auxiliary_status_counts" in item for item in findings))
+
+    def test_unexpected_issue_appears_in_total_not_canonical_or_auxiliary(self) -> None:
+        extra = _live_issue("BAT-999", _auxiliary_item("BAT-999", "UNEXPECTED-001"))
+        histograms = import_bat_live.build_live_issue_histograms([extra], set(), set())
+        self.assertEqual({}, histograms["canonical_status_counts"])
+        self.assertEqual({}, histograms["auxiliary_status_counts"])
+        self.assertEqual({"In Review": 1}, histograms["unexpected_status_counts"])
+        self.assertEqual({"In Review": 1}, histograms["total_status_counts"])
+        self.assertEqual("unexpected", histograms["classifications"]["BAT-999"])
+        self.assertEqual(
+            [],
+            import_bat_live.histogram_invariant_findings(
+                histograms,
+                canonical_actual_count=0,
+                auxiliary_actual_count=0,
+                unexpected_actual_count=1,
+                total_actual_issue_count=1,
+            ),
+        )
+
+    def test_regression_515_canonical_31_auxiliary_without_live_site(self) -> None:
+        board = import_bat_live.build_regression_515_31_histogram_board()
+        histograms = board["histograms"]
+        self.assertEqual(515, len(board["key_map"]))
+        self.assertEqual(31, len(board["auxiliary"]))
+        self.assertEqual(546, len(board["issues"]))
+        self.assertEqual({"Done": 93, "To Do": 422}, histograms["canonical_status_counts"])
+        self.assertEqual({"Done": 30, "In Progress": 1}, histograms["auxiliary_status_counts"])
+        self.assertEqual({"Done": 123, "To Do": 422, "In Progress": 1}, histograms["total_status_counts"])
+        self.assertEqual(histograms["status_counts"], histograms["total_status_counts"])
+        self.assertEqual(
+            {"Epic": 51, "Story": 58, "Sub-task": 205, "Task": 201},
+            histograms["canonical_issue_type_counts"],
+        )
+        self.assertEqual({"Task": 30, "Story": 1}, histograms["auxiliary_issue_type_counts"])
+        self.assertEqual(
+            {"Epic": 51, "Story": 59, "Sub-task": 205, "Task": 231},
+            histograms["total_issue_type_counts"],
+        )
+        self.assertEqual(histograms["issue_type_counts"], histograms["total_issue_type_counts"])
+        self.assertEqual("auxiliary", histograms["classifications"]["BAT-523"])
+        self.assertEqual(1, histograms["auxiliary_status_counts"]["In Progress"])
+        self.assertEqual(1, histograms["total_status_counts"]["In Progress"])
+        self.assertEqual(
+            [],
+            import_bat_live.histogram_invariant_findings(
+                histograms,
+                canonical_actual_count=515,
+                auxiliary_actual_count=31,
+                unexpected_actual_count=0,
+                total_actual_issue_count=546,
+            ),
+        )
+        self.assertEqual([], import_bat_live.validate_static_live_verification_histogram_surface())
+
+    def test_closeout_summary_is_explicitly_total_and_canonical(self) -> None:
+        summary = import_bat_live.live_verification_closeout_summary(
+            {
+                "total_status_counts": {"Done": 123, "In Progress": 1},
+                "canonical_status_counts": {"Done": 93},
+                "auxiliary_status_counts": {"Done": 30, "In Progress": 1},
+            }
+        )
+        self.assertIn("operational_done_total=123", summary)
+        self.assertIn("operational_done_canonical=93", summary)
+        self.assertIn("operational_done_auxiliary=30", summary)
+        self.assertIn("operational_in_progress_total=1", summary)
+        self.assertNotIn("operational_done=123", summary)
+
+    def test_schema_1_artifact_without_split_histograms_fails(self) -> None:
+        findings = import_bat_live.validate_live_verification_histogram_artifact(
+            {
+                "schema_version": 1,
+                "issue_count": 546,
+                "canonical_actual_count": 515,
+                "auxiliary_actual_count": 31,
+                "total_actual_issue_count": 546,
+                "unexpected_issue_keys": [],
+                "status_counts": {"Done": 93, "To Do": 422},
+                "issue_type_counts": {"Epic": 51, "Story": 58, "Sub-task": 205, "Task": 201},
+            }
+        )
+        self.assertTrue(any("missing histogram fields" in item for item in findings))
+
 
 if __name__ == "__main__":
     unittest.main()

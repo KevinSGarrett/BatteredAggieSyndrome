@@ -1,0 +1,41 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_587_226_union": "PRESERVED_IMMUTABLE",
+    "bat_590_237_union": "PRESERVED_IMMUTABLE_SUPERSEDED_AS_PRIOR_LAYER",
+    "bat_591_statcrew": "CONSUMED_PREFORMATTED_DOMAINS_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "current_identities": {
+    "cycle9_union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+    "gate_identity": "3b546b12b3d50098bec457a010b47168f472449e8475c397ee44cd26ff1edc6a",
+    "prior_226_union_identity": "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e",
+    "prior_237_union_identity": "d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31",
+    "statcrew_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+    "union_identity": "00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owned an immutable enriched-union identity consuming preserved WMT 177, Cycle #9 203, BAT-587 226, BAT-590 237, and BAT-591 StatCrew identities. Those owners remain intact and were not reused.",
+    "reviewed_keys": ["BAT-401", "BAT-429", "BAT-523", "BAT-585", "BAT-586", "BAT-587", "BAT-588", "BAT-589", "BAT-590", "BAT-591"]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "IMPLEMENTED_PENDING_REVIEW",
+  "issue_complete": false,
+  "jira_key": "BAT-592",
+  "local_issue_id": "POST-TASK-SRC014-ENRICHED-UNION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Created a new immutable enriched-union identity 00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31. Gate identity 3b546b12b3d50098bec457a010b47168f472449e8475c397ee44cd26ff1edc6a. Overlayed BAT-591 StatCrew domains onto 34 already admitted official 2007-2009 games matched by URL and raw SHA-256. 33 games became rich. Full union remains 237 games / 224 rich / 13 metadata-only. Four previously rejected games stay rejected even though StatCrew parsed those pages. BAT-590 union d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31, BAT-587 union a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e, Cycle #9 union 050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672, and BAT-591 payload ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d were not rewritten. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  }
+}

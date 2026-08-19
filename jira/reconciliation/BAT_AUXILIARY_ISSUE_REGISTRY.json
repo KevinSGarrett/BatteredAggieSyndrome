@@ -554,6 +554,21 @@
       "phase": "PHASE-1",
       "status": "Done",
       "summary": "Reconcile the authorized BAT-to-BATQ assistive-pipeline retirement and restore true Jira convergence"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PARTIAL",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-599",
+      "local_id": "POST-TASK-SRC014-2005-OFFICIAL-INDEX-001",
+      "logical_state": "REVIEW",
+      "maturity": "CONTRACT_DEFINED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-2",
+      "status": "In Review",
+      "summary": "Capture the official SRC-014 2005 Texas A&M season index and discover box URLs from that page"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

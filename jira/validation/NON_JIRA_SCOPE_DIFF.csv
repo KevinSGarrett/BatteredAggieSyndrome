@@ -1,11 +1,6 @@
 change_type,repo_relative_path
 ADDED,.githooks/pre-commit
 ADDED,.github/dependabot.yml
-ADDED,.ruff_cache/.gitignore
-ADDED,.ruff_cache/0.6.9/1139982791036386825
-ADDED,.ruff_cache/0.6.9/17238730786135658771
-ADDED,.ruff_cache/0.6.9/9625689821144867819
-ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
 ADDED,artifacts/benchmarks/ac038_gate_decision.json

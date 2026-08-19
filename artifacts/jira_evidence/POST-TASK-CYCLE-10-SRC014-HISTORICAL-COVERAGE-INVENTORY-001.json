@@ -50,8 +50,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "04d023afd571f69183fe1ef804ef3ba89eb5e782",
+  "issue_complete": true,
   "jira_key": "BAT-585",
   "local_issue_id": "POST-TASK-CYCLE-10-SRC014-HISTORICAL-COVERAGE-INVENTORY-001",
   "new_issue_decision": "CREATE",
@@ -114,6 +115,7 @@
     "2008": "https://files.12thman.com/history/football/years/2008.html",
     "2009": "https://files.12thman.com/history/football/years/2009.html"
   },
-  "status": "In Review",
+  "starting_sha": "8f91a9a361bca0d2b70af5eba84088dde3147429",
+  "status": "Done",
   "work_unit": "CYCLE_10_PHASE_3_SRC014_HISTORICAL_COVERAGE_INVENTORY"
 }

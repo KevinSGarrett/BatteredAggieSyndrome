@@ -346,6 +346,21 @@
       "critical_path": true,
       "execution_lane": "SHARED_CONTRACT",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-585",
+      "local_id": "POST-TASK-CYCLE-10-SRC014-HISTORICAL-COVERAGE-INVENTORY-001",
+      "summary": "Build official SRC-014 historical coverage inventory and select next pre-2010 seasons",
+      "issue_type": "Task",
+      "status": "In Review",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

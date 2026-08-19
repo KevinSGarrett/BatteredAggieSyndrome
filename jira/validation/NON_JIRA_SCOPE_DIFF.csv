@@ -1,7 +1,11 @@
 change_type,repo_relative_path
 ADDED,.githooks/pre-commit
 ADDED,.github/dependabot.yml
-ADDED,_tmp_done_rehash.py
+ADDED,.ruff_cache/.gitignore
+ADDED,.ruff_cache/0.6.9/1139982791036386825
+ADDED,.ruff_cache/0.6.9/17238730786135658771
+ADDED,.ruff_cache/0.6.9/9625689821144867819
+ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
 ADDED,artifacts/benchmarks/ac038_gate_decision.json
@@ -29,6 +33,7 @@ ADDED,artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json
 ADDED,artifacts/data_lake/tamu_official_gamebook_union_gate.json
 ADDED,artifacts/data_lake/tamu_official_historical_archive_gate.json
 ADDED,artifacts/data_lake/tamu_official_historical_boxscore_gate.json
+ADDED,artifacts/data_lake/tamu_official_historical_coverage_inventory_gate.json
 ADDED,artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
 ADDED,artifacts/entities/canonical_core_registry.csv
 ADDED,artifacts/entities/canonical_core_registry_manifest.json
@@ -157,6 +162,9 @@ ADDED,artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-10-BAT580-VALIDATOR-PURITY-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-10-SRC014-HISTORICAL-COVERAGE-INVENTORY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-8-DEPENDENT-GATE-REBOUND-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-DEPENDENT-GATE-REBOUND-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-BOXSCORE-NORMALIZATION-001.json
@@ -345,6 +353,7 @@ ADDED,configs/tamu_official_evidence_gap_matrix_contract.json
 ADDED,configs/tamu_official_gamebook_union_contract.json
 ADDED,configs/tamu_official_historical_archive_contract.json
 ADDED,configs/tamu_official_historical_boxscore_contract.json
+ADDED,configs/tamu_official_historical_coverage_inventory_contract.json
 ADDED,configs/unified_assistive_acceptance_ownership.json
 ADDED,configs/unified_assistive_change_routing_binding.json
 ADDED,configs/unified_assistive_operational_claims.json
@@ -541,6 +550,7 @@ ADDED,src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
 ADDED,src/aggie_analytics/data/tamu_official_gamebook_union.py
 ADDED,src/aggie_analytics/data/tamu_official_historical_archive.py
 ADDED,src/aggie_analytics/data/tamu_official_historical_boxscores.py
+ADDED,src/aggie_analytics/data/tamu_official_historical_coverage_inventory.py
 ADDED,src/aggie_analytics/data/tamu_season_reconciliation.py
 ADDED,src/aggie_analytics/entities/candidates.py
 ADDED,src/aggie_analytics/entities/people_registry.py
@@ -701,6 +711,7 @@ ADDED,tests/test_tamu_official_evidence_gap_matrix.py
 ADDED,tests/test_tamu_official_gamebook_union.py
 ADDED,tests/test_tamu_official_historical_archive.py
 ADDED,tests/test_tamu_official_historical_boxscores.py
+ADDED,tests/test_tamu_official_historical_coverage_inventory.py
 ADDED,tests/test_unified_assistive_completeness.py
 ADDED,tests/test_unified_assistive_plane.py
 ADDED,tests/test_unified_controller_service.py
@@ -777,6 +788,7 @@ ADDED,tools/build_tamu_cross_source_domain_gate.py
 ADDED,tools/build_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/build_tamu_official_evidence_gap_matrix.py
 ADDED,tools/build_tamu_official_gamebook_union.py
+ADDED,tools/build_tamu_official_historical_coverage_inventory.py
 ADDED,tools/build_unified_assistive_release.py
 ADDED,tools/build_versioned_play_drive_gap.py
 ADDED,tools/build_wmt_provider_timestamp_pit.py
@@ -925,6 +937,7 @@ ADDED,tools/validate_tamu_official_evidence_gap_matrix.py
 ADDED,tools/validate_tamu_official_gamebook_union.py
 ADDED,tools/validate_tamu_official_historical_archive.py
 ADDED,tools/validate_tamu_official_historical_boxscores.py
+ADDED,tools/validate_tamu_official_historical_coverage_inventory.py
 ADDED,tools/validate_unified_acceptance_ownership.py
 ADDED,tools/validate_unified_assistive_completeness.py
 ADDED,tools/validate_unified_assistive_plane.py

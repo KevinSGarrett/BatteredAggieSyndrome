@@ -1,0 +1,119 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "inventory_admission": "CANDIDATE_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "selected_seasons": [
+      2009,
+      2008
+    ],
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE"
+  },
+  "current_identities": {
+    "archive_gate_identity": "7c54754eab279b7718c0c3da48dc75cfb891d8f49f2f9e1236152d2b9779bc2b",
+    "gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+    "wmt_acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "wmt_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing issue owns the exact official SRC-014 historical coverage-inventory decision that independently parses the captured official history index, inventories official season-index links without guessing year URLs, and selects the next two most recent pre-2010 official seasons that are not already in the immutable union. BAT-523 owns parent official-school coverage work and remains In Progress. BAT-570 through BAT-582 own archive capture, 2010/2011 box scores, union, domain-gate, and Cycle #9 rebound units. BAT-579 owns the official history-index capture, not this inventory-and-selection decision. BAT-584, BAT-583, BAT-429, and BAT-401 do not own this unit.",
+    "reviewed_keys": [
+      "BAT-365",
+      "BAT-379",
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-570",
+      "BAT-571",
+      "BAT-572",
+      "BAT-574",
+      "BAT-575",
+      "BAT-576",
+      "BAT-579",
+      "BAT-580",
+      "BAT-581",
+      "BAT-582",
+      "BAT-583",
+      "BAT-584"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-585",
+  "local_issue_id": "POST-TASK-CYCLE-10-SRC014-HISTORICAL-COVERAGE-INVENTORY-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Cycle #10 Phase 3 independently parses the captured official Texas A&M football history index 1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a and builds a content-addressed official season-index inventory with inventory identity d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37 and gate identity f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851. Official Results hrefs are used exactly as emitted; year-number URL guessing is rejected. The two most recent pre-2010 official-index seasons not already in the immutable 203-game union are 2009 and 2008, with official season indexes https://files.12thman.com/history/football/years/2009.html and https://files.12thman.com/history/football/years/2008.html and 13 plus 12 official box-score links. No NCAA contest IDs, canonical game IDs, or historical publication timestamps are invented. Retrieval time is not historical known-at. The protected lane remains blocked. BAT-523 stays In Progress. BAT-429 stays blocked. BAT-401 stays RETAIN_PROTECTED_LANE_BLOCKED. GAP-005 stays OPEN.",
+  "outputs": [
+    {
+      "bytes": 30719,
+      "path": "src/aggie_analytics/data/tamu_official_historical_coverage_inventory.py",
+      "sha256": "f4f5b517eae7384b5fd5549ed989c9d990707dfb378c26d99e5fd2e030c5d2c2"
+    },
+    {
+      "bytes": 1113,
+      "path": "tools/build_tamu_official_historical_coverage_inventory.py",
+      "sha256": "1db41c1d90982bfb4224c47a771746123287ee1eee221fda755a31fdda777986"
+    },
+    {
+      "bytes": 3875,
+      "path": "tools/validate_tamu_official_historical_coverage_inventory.py",
+      "sha256": "49c85bd9e2c127ef4fabd8405f008bb9894ede77e9e632af75a9681deda944ed"
+    },
+    {
+      "bytes": 8937,
+      "path": "tests/test_tamu_official_historical_coverage_inventory.py",
+      "sha256": "96719582be49986e1a983999b9ed11b5fd85fad163f2121a4230dc074c17ef4f"
+    },
+    {
+      "bytes": 2132,
+      "path": "configs/tamu_official_historical_coverage_inventory_contract.json",
+      "sha256": "1d8215c67c4dba2176beaf5dd94f5b7cf75d0aa3533195e55e64a1781f7a3654"
+    },
+    {
+      "bytes": 3372,
+      "path": "artifacts/data_lake/tamu_official_historical_coverage_inventory_gate.json",
+      "sha256": "65d8096c1af8867f27609af3363ae9a1987e2a32f0b1f4b2eb7f0eacaec9cad8"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "protected_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "bat_429_advanced": false,
+    "bat_523_closed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "contest_ids_fabricated": false,
+    "guessed_year_urls": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "numeric_ncaa_contest_id_sweep": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "retrieval_time_used_as_historical_known_at": false
+  },
+  "rejected_seasons": [],
+  "schema_version": "aggie.jira.evidence.v1",
+  "selected_seasons": [
+    2009,
+    2008
+  ],
+  "selected_season_urls": {
+    "2008": "https://files.12thman.com/history/football/years/2008.html",
+    "2009": "https://files.12thman.com/history/football/years/2009.html"
+  },
+  "status": "In Review",
+  "work_unit": "CYCLE_10_PHASE_3_SRC014_HISTORICAL_COVERAGE_INVENTORY"
+}

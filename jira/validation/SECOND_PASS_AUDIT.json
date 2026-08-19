@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-19T08:55:55.098826+00:00",
+  "generated_at": "2026-08-19T15:47:13.406843+00:00",
   "metrics": {
     "aggregate_count": 76,
     "atomic_count": 177,
@@ -205,6 +205,7 @@
         "artifacts/jira_evidence/POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001.json",
         "artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json",
         "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+        "artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json",
         "artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json",
         "artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001.json",
         "artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-INDEX-001.json",
@@ -1095,7 +1096,7 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1856,
+      "current_non_jira_files": 1857,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],

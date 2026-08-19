@@ -1,4 +1,9 @@
 {
+  "comment_ids": {
+    "claimed_in_progress": "14493",
+    "done_after_merge": "14495",
+    "in_review_after_validation": "14494"
+  },
   "duplicate_audit": {
     "decision": "CREATE",
     "new_issue_decision": "CREATE",
@@ -17,17 +22,58 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "9463677554b9b3de9eacafbaa7d0a6f965583700",
+  "issue_complete": true,
   "jira_key": "BAT-593",
+  "live_histogram_snapshot": {
+    "auxiliary_actual_count": 32,
+    "auxiliary_expected_count": 32,
+    "auxiliary_issue_type_counts": {
+      "Task": 32
+    },
+    "auxiliary_status_counts": {
+      "Done": 31,
+      "In Progress": 1
+    },
+    "canonical_actual_count": 494,
+    "canonical_expected_count": 515,
+    "canonical_issue_type_counts": {
+      "Epic": 50,
+      "Story": 53,
+      "Sub-task": 190,
+      "Task": 201
+    },
+    "canonical_status_counts": {
+      "Done": 86,
+      "To Do": 408
+    },
+    "histogram_invariants": [],
+    "missing_auxiliary_keys": [],
+    "total_actual_issue_count": 526,
+    "total_expected_issue_count": 547,
+    "total_issue_type_counts": {
+      "Epic": 50,
+      "Story": 53,
+      "Sub-task": 190,
+      "Task": 233
+    },
+    "total_status_counts": {
+      "Done": 117,
+      "In Progress": 1,
+      "To Do": 408
+    },
+    "unexpected_issue_keys": []
+  },
+  "live_verification_note": "Read-only --verify-live remains blocked by a pre-existing live BAT versus origin/main corpus desync: assistive-pipeline issues were moved from BAT to BATQ. Cycle #12 does not restore those issues and does not rewrite the committed verification artifact to a failing schema-2 snapshot. Histogram invariants still hold on the 526-issue live board.",
   "local_issue_id": "POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001",
+  "material_pr": 500,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Implemented schema v2 live-verifier histograms that independently classify every live BAT issue as canonical, auxiliary, or unexpected. status_counts and issue_type_counts are documented total aliases. Invariants require canonical, auxiliary, and total histogram sums to match actual counts. Closeout prints explicit operational_done_total and operational_done_canonical. Read-only histogram surface is bound into validate_repository.py --strict. Cycle #11 clean worktrees were removed non-forcibly; preservation refs remain.",
+  "observable_outcome": "Material PR #500 merged as 9463677554b9b3de9eacafbaa7d0a6f965583700. Schema v2 independently classifies every live BAT issue as canonical, auxiliary, or unexpected. status_counts and issue_type_counts are documented total aliases. Histogram arithmetic is enforced. Closeout prints explicit operational_done_total and operational_done_canonical. validate_repository.py --strict binds the read-only histogram surface. Cycle #11 clean worktrees were removed non-forcibly; preservation refs remain.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review",
-  "worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-593-jira-live-verifier-histograms"
+  "status": "Done"
 }

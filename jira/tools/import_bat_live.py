@@ -43,7 +43,9 @@ HISTOGRAM_ALIAS_SEMANTICS = {
 }
 COMPLETION_POLICY_PATH = JIRA_ROOT / "project" / "HISTORICAL_COMPLETION_ASSURANCE_POLICY.json"
 AUXILIARY_ISSUES_PATH = JIRA_ROOT / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
+RETIRED_CANONICAL_REGISTRY_PATH = JIRA_ROOT / "reconciliation" / "BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json"
 RECORDS_ROOT = JIRA_ROOT / "records" / "issues"
+STALE_AUXILIARY_SEMANTICS_COUNT = 31
 
 ISSUES_CSV = JIRA_ROOT / "import" / "JIRA_ISSUES_MASTER.csv"
 CREATE_PAYLOADS = JIRA_ROOT / "import" / "JIRA_API_CREATE_PAYLOADS.jsonl"
@@ -1983,6 +1985,91 @@ def create_links(
     write_json_atomic(LEDGER_PATH, ledger)
 
 
+def load_retired_canonical_registry() -> dict[str, Any]:
+    if not RETIRED_CANONICAL_REGISTRY_PATH.is_file():
+        raise RuntimeError("Committed retirement/quarantine registry is missing")
+    registry = load_json(RETIRED_CANONICAL_REGISTRY_PATH, {})
+    issues = registry.get("issues") or []
+    if int(registry.get("retired_count") or 0) != 21 or len(issues) != 21:
+        raise RuntimeError("Retirement registry must contain exactly 21 retired canonical issues")
+    return registry
+
+
+def remove_retired_board_links(
+    client: JiraClient,
+    ledger: dict[str, Any],
+    local_field_id: str,
+) -> None:
+    registry = load_retired_canonical_registry()
+    retired_keys = {
+        str(item.get("current_batq_key") or "")
+        for item in registry.get("issues") or []
+        if str(item.get("current_batq_key") or "").startswith("BATQ-")
+    }
+    retired_keys.update(
+        str(item.get("former_bat_key") or "")
+        for item in registry.get("issues") or []
+        if str(item.get("former_bat_key") or "").startswith("BAT-")
+    )
+    issues = search_issues(client, ["issuelinks", local_field_id, "summary"])
+    candidates: dict[str, dict[str, str]] = {}
+    for issue in issues:
+        current = issue["key"]
+        for link in issue.get("fields", {}).get("issuelinks", []) or []:
+            link_id = str(link.get("id") or "")
+            if not link_id:
+                continue
+            other = ""
+            if "outwardIssue" in link:
+                other = link["outwardIssue"]["key"]
+            elif "inwardIssue" in link:
+                other = link["inwardIssue"]["key"]
+            if other in retired_keys:
+                candidates[link_id] = {
+                    "id": link_id,
+                    "bat_key": current,
+                    "retired_key": other,
+                    "type": str(link.get("type", {}).get("name") or ""),
+                }
+    existing = ledger.get("retired_board_link_cleanup") or {}
+    if not candidates and existing.get("status") in {"NO_RETIRED_BOARD_LINKS", "RETIRED_BOARD_LINKS_REMOVED_VERIFIED"}:
+        return
+    if not existing:
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        snapshot_path = JIRA_ROOT / "snapshots" / f"BAT_RETIRED_BOARD_LINKS_{stamp}.json"
+        snapshot = {
+            "schema_version": 1,
+            "captured_at": utc_now(),
+            "reason": "Remove leftover BAT-board links whose other end is an authorized retired BATQ issue.",
+            "links": sorted(candidates.values(), key=lambda item: int(item["id"])),
+        }
+        write_json_atomic(snapshot_path, snapshot)
+        existing = {
+            "status": "DELETE_RETIRED_BOARD_LINKS_IN_PROGRESS",
+            "backup": {"path": str(snapshot_path.relative_to(ROOT)), "sha256": sha256_file(snapshot_path)},
+            "candidate_link_ids": sorted(candidates, key=int),
+            "deleted_link_ids": [],
+            "started_at": utc_now(),
+        }
+        ledger["retired_board_link_cleanup"] = existing
+        ledger["updated_at"] = utc_now()
+        write_json_atomic(LEDGER_PATH, ledger)
+    deleted = set(existing.get("deleted_link_ids") or [])
+    for link_id in sorted(set(candidates) - deleted, key=int):
+        client.delete(f"/rest/api/3/issueLink/{link_id}")
+        deleted.add(link_id)
+        existing["deleted_link_ids"] = sorted(deleted, key=int)
+        ledger["updated_at"] = utc_now()
+        write_json_atomic(LEDGER_PATH, ledger)
+    if candidates or deleted:
+        existing.update({"status": "RETIRED_BOARD_LINKS_REMOVED_VERIFIED", "removed_at": utc_now()})
+    else:
+        existing.update({"status": "NO_RETIRED_BOARD_LINKS", "verified_at": utc_now()})
+    ledger["retired_board_link_cleanup"] = existing
+    ledger["updated_at"] = utc_now()
+    write_json_atomic(LEDGER_PATH, ledger)
+
+
 def configure_filters(client: JiraClient, ledger: dict[str, Any], field_ids: dict[str, str]) -> None:
     board_filter = client.get(f"/rest/api/3/filter/{BOARD_FILTER_ID}")
     client.put(
@@ -2243,18 +2330,23 @@ def build_regression_515_31_histogram_board() -> dict[str, Any]:
 def validate_live_verification_histogram_artifact(payload: Mapping[str, Any]) -> list[str]:
     required = (
         "auxiliary_actual_count",
+        "auxiliary_expected_count",
         "auxiliary_issue_type_counts",
         "auxiliary_status_counts",
         "canonical_actual_count",
+        "canonical_expected_count",
         "canonical_issue_type_counts",
         "canonical_status_counts",
         "issue_count",
         "issue_type_counts",
         "status_counts",
         "total_actual_issue_count",
+        "total_expected_issue_count",
         "total_issue_type_counts",
         "total_status_counts",
         "unexpected_issue_keys",
+        "unexpected_issue_type_counts",
+        "unexpected_status_counts",
     )
     missing = [name for name in required if name not in payload]
     if missing:
@@ -2281,7 +2373,7 @@ def validate_live_verification_histogram_artifact(payload: Mapping[str, Any]) ->
 
 
 def validate_static_live_verification_histogram_surface(repo_root: Path | None = None) -> list[str]:
-    """Read-only histogram contract: 515+31 fixture plus schema>=2 committed artifact."""
+    """Read-only histogram contract: 515+31 fixture plus the committed live artifact."""
     board = build_regression_515_31_histogram_board()
     histograms = board["histograms"]
     findings = histogram_invariant_findings(
@@ -2301,8 +2393,9 @@ def validate_static_live_verification_histogram_surface(repo_root: Path | None =
         artifact_path = Path(repo_root) / "jira" / "validation" / "BAT_LIVE_IMPORT_VERIFICATION.json"
         if artifact_path.is_file():
             payload = json.loads(artifact_path.read_text(encoding="utf-8"))
-            if int(payload.get("schema_version") or 0) >= LIVE_VERIFICATION_SCHEMA_VERSION:
-                findings.extend(validate_live_verification_histogram_artifact(payload))
+            findings.extend(validate_live_verification_histogram_artifact(payload))
+            if payload.get("result") == "PASS" and int(payload.get("auxiliary_expected_count") or 0) == STALE_AUXILIARY_SEMANTICS_COUNT:
+                findings.append("PASS artifact retains stale 31-auxiliary semantics")
     return findings
 
 
@@ -2823,6 +2916,7 @@ def main() -> int:
     enforce_completion_assurance_policy(client, ledger, key_map, fields)
     remediate_reversed_importer_links(client, ledger, link_payloads, key_map, fields["Local Issue ID"])
     create_links(client, ledger, link_payloads, key_map, fields["Local Issue ID"])
+    remove_retired_board_links(client, ledger, fields["Local Issue ID"])
     configure_filters(client, ledger, fields)
     verification, live_issues = verify_live(
         client,

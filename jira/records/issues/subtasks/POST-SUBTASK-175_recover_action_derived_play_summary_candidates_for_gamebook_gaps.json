@@ -9,9 +9,10 @@
   ],
   "adr_ids": [],
   "ai_context_notes": [
-    "POST-SUBTASK-168 established the source schema distinction and candidate-only action/play mapping evidence; this unit converts only the deterministic defensible subset.",
+    "Retired POST-SUBTASK-168 (now BATQ-54; see jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json) historically established the source schema distinction and candidate-only action/play mapping evidence; it is not an active BAT dependency. This unit converts only the deterministic defensible subset.",
     "No OpenAI output or model-generated fact is used in the recovered payloads.",
-    "This gamebook gap recovery runs independently from the already completed preliminary unprotected baseline and does not change its identities."
+    "This gamebook gap recovery runs independently from the already completed preliminary unprotected baseline and does not change its identities.",
+    "Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links."
   ],
   "blocked_reason": "",
   "blocks": [
@@ -35,7 +36,6 @@
     "Historical expansion proceeds to the next independently useful gamebook, availability, roster, play, drive, or other domain gap without declaring final population readiness."
   ],
   "dependencies": [
-    "POST-SUBTASK-168",
     "POST-SUBTASK-029"
   ],
   "end_to_end_validation": "Re-scan the exact source actions and native plays payloads, independently verify every pair and source lineage, rebuild the full candidate and exclusion layer under a bounded short external path, compare all ten Parquet payloads and the manifest byte-for-byte, and remove the reconstructible rebuild.",
@@ -103,9 +103,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24672",
-    "jira_updated_at": "2026-08-11T02:25:41.084-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-19T16:55:38.642-0500",
+    "last_synced_at": "2026-08-19T21:55:44.924476+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -119,7 +119,6 @@
   "phase": "PHASE-1",
   "prerequisites": [
     "Pinned SRC-014 official gamebook source dataset, manifest, actions, and plays payload hashes.",
-    "Validated POST-SUBTASK-168 action/play schema-mapping checkpoint.",
     "Configured standardized external data root and immutable candidate-layer contract."
   ],
   "primary_source_refs": [

@@ -16,7 +16,8 @@
   "ai_context_notes": [
     "Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-SUBTASK-167.json` before execution.",
     "Never include an API key, .env content, cookie, authorization header, or whole data lake in prompts, artifacts, logs, worktrees, commits, or Jira.",
-    "OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision."
+    "OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision.",
+    "Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links."
   ],
   "allowed_modification_paths": [
     "configs/openai_depth_chart_pilot.json",
@@ -34,8 +35,6 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-STORY-056",
-    "POST-SUBTASK-166",
     "POST-SUBTASK-181"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.json",
@@ -77,7 +76,6 @@
     "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
   ],
   "dependencies": [
-    "POST-SUBTASK-162",
     "POST-SUBTASK-028"
   ],
   "effective_traceability_counts": {
@@ -89,7 +87,7 @@
   },
   "effective_traceability_total": 0,
   "end_to_end_validation": "Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.",
-  "epic_id": "POST-EPIC-018",
+  "epic_id": "POST-EPIC-009",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-167.json",
   "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
@@ -156,8 +154,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24664",
-    "jira_updated_at": "2026-08-11T04:28:38.046-0500",
-    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "jira_updated_at": "2026-08-19T16:55:38.082-0500",
+    "last_synced_at": "2026-08-19T21:55:44.924476+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -169,10 +167,9 @@
     "Blocking historical expansion or deterministic/local work when the optional provider is unavailable."
   ],
   "owner_wave": "POST_W25",
-  "parent_id": "POST-STORY-055",
+  "parent_id": "POST-STORY-027",
   "phase": "PHASE-1",
   "prerequisites": [
-    "Dependency POST-SUBTASK-162 complete at required maturity",
     "Dependency POST-SUBTASK-028 complete at required maturity"
   ],
   "primary_source_refs": [
@@ -297,18 +294,14 @@ Execute POST-SUBTASK-167 within the optional OpenAI assistive plane. Consume `PO
 
 ## Prerequisites
 
-- Dependency POST-SUBTASK-162 complete at required maturity
 - Dependency POST-SUBTASK-028 complete at required maturity
 
 ## Hard Dependencies
 
-- POST-SUBTASK-162
 - POST-SUBTASK-028
 
 ## Blocks
 
-- POST-STORY-056
-- POST-SUBTASK-166
 - POST-SUBTASK-181
 
 ## Read / Inspect First
@@ -454,3 +447,4 @@ Prepare and independently bind a seven-case official depth-chart gold corpus, pr
 - Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-SUBTASK-167.json` before execution.
 - Never include an API key, .env content, cookie, authorization header, or whole data lake in prompts, artifacts, logs, worktrees, commits, or Jira.
 - OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision.
+- Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links.

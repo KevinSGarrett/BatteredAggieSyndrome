@@ -1,6 +1,11 @@
 change_type,repo_relative_path
 ADDED,.githooks/pre-commit
 ADDED,.github/dependabot.yml
+ADDED,.ruff_cache/.gitignore
+ADDED,.ruff_cache/0.6.9/10924516468529614218
+ADDED,.ruff_cache/0.6.9/14266939247700198813
+ADDED,.ruff_cache/0.6.9/2497632055397649108
+ADDED,.ruff_cache/CACHEDIR.TAG
 ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
 ADDED,artifacts/benchmarks/ac038_gate_decision.json
@@ -30,6 +35,7 @@ ADDED,artifacts/data_lake/tamu_official_2006_structured_domains_gate.json
 ADDED,artifacts/data_lake/tamu_official_2007_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_2007_season_index_gate.json
 ADDED,artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json
+ADDED,artifacts/data_lake/tamu_official_gamebook_union_2006_expanded_gate.json
 ADDED,artifacts/data_lake/tamu_official_gamebook_union_2007_gate.json
 ADDED,artifacts/data_lake/tamu_official_gamebook_union_enriched_gate.json
 ADDED,artifacts/data_lake/tamu_official_gamebook_union_expanded_gate.json
@@ -182,6 +188,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-00
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2006-EXPANDED-ENRICHED-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2006-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2006-OFFICIAL-INDEX-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2006-STRUCTURED-DOMAINS-001.json
@@ -371,6 +378,7 @@ ADDED,configs/tamu_official_2006_structured_domains_contract.json
 ADDED,configs/tamu_official_2007_boxscore_contract.json
 ADDED,configs/tamu_official_2007_season_index_contract.json
 ADDED,configs/tamu_official_evidence_gap_matrix_contract.json
+ADDED,configs/tamu_official_gamebook_union_2006_expanded_contract.json
 ADDED,configs/tamu_official_gamebook_union_2007_contract.json
 ADDED,configs/tamu_official_gamebook_union_contract.json
 ADDED,configs/tamu_official_gamebook_union_enriched_contract.json
@@ -579,6 +587,7 @@ ADDED,src/aggie_analytics/data/tamu_official_2007_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_2007_season_index.py
 ADDED,src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
 ADDED,src/aggie_analytics/data/tamu_official_gamebook_union.py
+ADDED,src/aggie_analytics/data/tamu_official_gamebook_union_2006_expanded.py
 ADDED,src/aggie_analytics/data/tamu_official_gamebook_union_2007.py
 ADDED,src/aggie_analytics/data/tamu_official_gamebook_union_enriched.py
 ADDED,src/aggie_analytics/data/tamu_official_gamebook_union_expanded.py
@@ -752,6 +761,7 @@ ADDED,tests/test_tamu_official_2007_boxscores.py
 ADDED,tests/test_tamu_official_2007_season_index.py
 ADDED,tests/test_tamu_official_evidence_gap_matrix.py
 ADDED,tests/test_tamu_official_gamebook_union.py
+ADDED,tests/test_tamu_official_gamebook_union_2006_expanded.py
 ADDED,tests/test_tamu_official_gamebook_union_2007.py
 ADDED,tests/test_tamu_official_gamebook_union_enriched.py
 ADDED,tests/test_tamu_official_gamebook_union_expanded.py
@@ -844,6 +854,7 @@ ADDED,tools/build_tamu_official_2007_boxscores.py
 ADDED,tools/build_tamu_official_2007_season_index.py
 ADDED,tools/build_tamu_official_evidence_gap_matrix.py
 ADDED,tools/build_tamu_official_gamebook_union.py
+ADDED,tools/build_tamu_official_gamebook_union_2006_expanded.py
 ADDED,tools/build_tamu_official_gamebook_union_2007.py
 ADDED,tools/build_tamu_official_gamebook_union_enriched.py
 ADDED,tools/build_tamu_official_gamebook_union_expanded.py
@@ -1001,6 +1012,7 @@ ADDED,tools/validate_tamu_official_2007_boxscores.py
 ADDED,tools/validate_tamu_official_2007_season_index.py
 ADDED,tools/validate_tamu_official_evidence_gap_matrix.py
 ADDED,tools/validate_tamu_official_gamebook_union.py
+ADDED,tools/validate_tamu_official_gamebook_union_2006_expanded.py
 ADDED,tools/validate_tamu_official_gamebook_union_2007.py
 ADDED,tools/validate_tamu_official_gamebook_union_enriched.py
 ADDED,tools/validate_tamu_official_gamebook_union_expanded.py

@@ -76,13 +76,14 @@ def _capture(url: str, body: bytes, relative: str = "raw/fixture.html") -> dict:
 
 class Official2006UrlAndFixtureTests(unittest.TestCase):
     def test_guessed_year_url_is_rejected(self) -> None:
-        with self.assertRaisesRegex(AuthorityViolation, "guessed|non-official"):
-            build_objects(
-                body=FIXTURE_HTML,
-                capture=_capture("https://files.12thman.com/history/football/years/2007.html", FIXTURE_HTML),
-                repo_root=REPO_ROOT,
-                data_root=DATA_ROOT,
-            )
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(AuthorityViolation, "guessed|non-official"):
+                build_objects(
+                    body=FIXTURE_HTML,
+                    capture=_capture("https://files.12thman.com/history/football/years/2007.html", FIXTURE_HTML),
+                    repo_root=REPO_ROOT,
+                    data_root=Path(tmp),
+                )
 
     def test_fixture_discovers_source_ordered_rows_and_box_urls(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -98,7 +99,7 @@ class Official2006UrlAndFixtureTests(unittest.TestCase):
                 body=FIXTURE_HTML,
                 capture=stored,
                 repo_root=REPO_ROOT,
-                data_root=DATA_ROOT,
+                data_root=Path(tmp),
             )
             self.assertEqual(
                 objects["gate"]["box_score_urls"],

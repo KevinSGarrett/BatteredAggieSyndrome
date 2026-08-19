@@ -366,8 +366,12 @@ def build_objects(*, body: bytes, capture: Mapping[str, Any], repo_root: Path, d
     if inventory_gate.get("gate_identity") != PINNED_INVENTORY_GATE_IDENTITY:
         raise AuthorityViolation("BAT-585 inventory gate identity changed; refusing rewrite")
     _assert_preserved_2007_index(repo_root)
-    discovered = discover_official_2006_url(data_root)
-    url = assert_official_2006_url(str(capture.get("url") or ""), discovered["official_index_url"])
+    url = assert_official_2006_url(str(capture.get("url") or ""), OFFICIAL_SEASON_INDEX_URL)
+    history_path = data_root / HISTORY_INDEX_RELATIVE
+    if history_path.is_file():
+        discovered = discover_official_2006_url(data_root)
+        if discovered["official_index_url"] != url:
+            raise AuthorityViolation("history index no longer emits the pinned 2006 official URL")
     if capture.get("parent_url") != DISCOVERY_PARENT_URL:
         raise AuthorityViolation("2006 capture parent is not the official history index")
     if int(capture.get("source_season") or 0) != SEASON:

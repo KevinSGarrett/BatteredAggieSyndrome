@@ -28,8 +28,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "30d83468d2c98c65bbc1bbe837e24c88f4e8d22c",
+  "issue_complete": true,
   "jira_key": "BAT-584",
   "local_issue_id": "POST-TASK-CYCLE-10-BAT580-VALIDATOR-PURITY-001",
   "new_issue_decision": "CREATE",
@@ -87,5 +88,5 @@
   ],
   "schema_version": "2.1.0",
   "starting_sha": "581ed61bb75a3e4d47fee906305bb787af965d59",
-  "workflow_state": "IN_REVIEW"
+  "workflow_state": "DONE"
 }

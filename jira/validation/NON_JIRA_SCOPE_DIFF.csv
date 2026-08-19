@@ -28,6 +28,7 @@ ADDED,artifacts/data_lake/tamu_official_2007_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_2007_season_index_gate.json
 ADDED,artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json
 ADDED,artifacts/data_lake/tamu_official_gamebook_union_2007_gate.json
+ADDED,artifacts/data_lake/tamu_official_gamebook_union_enriched_gate.json
 ADDED,artifacts/data_lake/tamu_official_gamebook_union_expanded_gate.json
 ADDED,artifacts/data_lake/tamu_official_gamebook_union_gate.json
 ADDED,artifacts/data_lake/tamu_official_historical_archive_gate.json
@@ -180,6 +181,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-INDEX-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-UNION-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-SRC014-ENRICHED-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-STATCREW-PREFORMATTED-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-001.json
@@ -361,6 +363,7 @@ ADDED,configs/tamu_official_2007_season_index_contract.json
 ADDED,configs/tamu_official_evidence_gap_matrix_contract.json
 ADDED,configs/tamu_official_gamebook_union_2007_contract.json
 ADDED,configs/tamu_official_gamebook_union_contract.json
+ADDED,configs/tamu_official_gamebook_union_enriched_contract.json
 ADDED,configs/tamu_official_gamebook_union_expanded_contract.json
 ADDED,configs/tamu_official_historical_archive_contract.json
 ADDED,configs/tamu_official_historical_boxscore_contract.json
@@ -564,6 +567,7 @@ ADDED,src/aggie_analytics/data/tamu_official_2007_season_index.py
 ADDED,src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
 ADDED,src/aggie_analytics/data/tamu_official_gamebook_union.py
 ADDED,src/aggie_analytics/data/tamu_official_gamebook_union_2007.py
+ADDED,src/aggie_analytics/data/tamu_official_gamebook_union_enriched.py
 ADDED,src/aggie_analytics/data/tamu_official_gamebook_union_expanded.py
 ADDED,src/aggie_analytics/data/tamu_official_historical_archive.py
 ADDED,src/aggie_analytics/data/tamu_official_historical_boxscores.py
@@ -733,6 +737,7 @@ ADDED,tests/test_tamu_official_2007_season_index.py
 ADDED,tests/test_tamu_official_evidence_gap_matrix.py
 ADDED,tests/test_tamu_official_gamebook_union.py
 ADDED,tests/test_tamu_official_gamebook_union_2007.py
+ADDED,tests/test_tamu_official_gamebook_union_enriched.py
 ADDED,tests/test_tamu_official_gamebook_union_expanded.py
 ADDED,tests/test_tamu_official_historical_archive.py
 ADDED,tests/test_tamu_official_historical_boxscores.py
@@ -819,6 +824,7 @@ ADDED,tools/build_tamu_official_2007_season_index.py
 ADDED,tools/build_tamu_official_evidence_gap_matrix.py
 ADDED,tools/build_tamu_official_gamebook_union.py
 ADDED,tools/build_tamu_official_gamebook_union_2007.py
+ADDED,tools/build_tamu_official_gamebook_union_enriched.py
 ADDED,tools/build_tamu_official_gamebook_union_expanded.py
 ADDED,tools/build_tamu_official_historical_coverage_inventory.py
 ADDED,tools/build_tamu_official_pre2010_boxscores.py
@@ -972,6 +978,7 @@ ADDED,tools/validate_tamu_official_2007_season_index.py
 ADDED,tools/validate_tamu_official_evidence_gap_matrix.py
 ADDED,tools/validate_tamu_official_gamebook_union.py
 ADDED,tools/validate_tamu_official_gamebook_union_2007.py
+ADDED,tools/validate_tamu_official_gamebook_union_enriched.py
 ADDED,tools/validate_tamu_official_gamebook_union_expanded.py
 ADDED,tools/validate_tamu_official_historical_archive.py
 ADDED,tools/validate_tamu_official_historical_boxscores.py

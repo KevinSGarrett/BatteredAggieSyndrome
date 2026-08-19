@@ -1,7 +1,7 @@
 {
   "actual_expected_link_count": 1191,
-  "auxiliary_actual_count": 30,
-  "auxiliary_expected_count": 30,
+  "auxiliary_actual_count": 31,
+  "auxiliary_expected_count": 31,
   "board": {
     "filter_id": "10134",
     "id": "134",
@@ -42,7 +42,7 @@
   },
   "discrepancies": [],
   "expected_link_count": 1191,
-  "issue_count": 545,
+  "issue_count": 546,
   "issue_type_counts": {
     "Epic": 51,
     "Story": 58,
@@ -64,9 +64,9 @@
     "Done": 93,
     "To Do": 422
   },
-  "total_actual_issue_count": 545,
-  "total_expected_issue_count": 545,
+  "total_actual_issue_count": 546,
+  "total_expected_issue_count": 546,
   "unexpected_issue_keys": [],
   "unexpected_link_count": 0,
-  "verified_at": "2026-08-19T08:33:16.523048+00:00"
+  "verified_at": "2026-08-19T08:54:48.282779+00:00"
 }

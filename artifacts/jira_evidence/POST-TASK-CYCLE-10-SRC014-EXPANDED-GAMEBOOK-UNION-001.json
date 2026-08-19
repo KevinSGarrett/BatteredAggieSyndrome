@@ -48,8 +48,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "21cea8493715cde2676a739404b118fb0ec3016a",
+  "issue_complete": true,
   "jira_key": "BAT-587",
   "local_issue_id": "POST-TASK-CYCLE-10-SRC014-EXPANDED-GAMEBOOK-UNION-001",
   "new_issue_decision": "CREATE",
@@ -105,6 +106,7 @@
     2009,
     2008
   ],
-  "status": "In Review",
+  "starting_sha": "05e173242d2c19c8892c5a5cb96a2721543489a8",
+  "status": "Done",
   "work_unit": "CYCLE_10_PHASE_5_SRC014_EXPANDED_GAMEBOOK_UNION"
 }

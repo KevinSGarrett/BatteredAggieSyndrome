@@ -32,7 +32,7 @@ class JiraOperationalStatusPolicyTests(unittest.TestCase):
 
         verification = {"result": "PASS", "issue_count": 1}
         with (
-            patch.object(import_bat_live, "load_auxiliary_issues", return_value=[]),
+            patch.object(import_bat_live, "load_auxiliary_issues", return_value={}),
             patch.object(import_bat_live, "load_inputs", return_value=(rows, payloads, links, link_payloads)),
             patch.object(import_bat_live, "load_operational_status_policies", return_value={}),
             patch.object(import_bat_live, "validate_inputs", return_value={"result": "PASS", "issues": 1, "links": 0}),
@@ -48,6 +48,7 @@ class JiraOperationalStatusPolicyTests(unittest.TestCase):
 
         verify.assert_called_once()
         self.assertFalse(verify.call_args.kwargs["persist"])
+        self.assertEqual({}, verify.call_args.args[8])
         persist.assert_not_called()
 
     def _write_record(self, root: Path, *, target_status: str = "In Progress") -> None:

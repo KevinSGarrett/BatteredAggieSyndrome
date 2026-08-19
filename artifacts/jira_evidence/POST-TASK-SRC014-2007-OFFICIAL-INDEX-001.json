@@ -1,0 +1,56 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_585_inventory": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "current_identities": {
+    "box_url_identity": "09a18a20976ba739e3463ceb043d47d2ae2c973ff0bfc384e953023473de48af",
+    "capture_identity": "628218e89ad3cc3631cbc105149ced8179c5e2ece4cc275ad67f39f808ccdd2c",
+    "gate_identity": "60fc69c136332de876d511f2020ffbd08282bc4e02256e547d3bcb46222c5ea9",
+    "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+    "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "payload_identity": "a5abf4326d3429ba580d74d3f9d36aaa8267ea0b789af8966ab54f3b55ea792a",
+    "raw_sha256": "5d270d9c389ddc6905c547c3207ae28fa5701585e34bf8217b154a2be799985d"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "JiraBot stamped NEW_ISSUE_DECISION=CREATE. No existing issue owned official 2007 season-index capture. BAT-585 inventoried 2007 as SEASON_INDEX_NOT_CAPTURED and was not rewritten.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-572",
+      "BAT-575",
+      "BAT-576",
+      "BAT-579",
+      "BAT-580",
+      "BAT-581",
+      "BAT-585",
+      "BAT-586",
+      "BAT-587"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "IMPLEMENTED_PENDING_REVIEW",
+  "issue_complete": false,
+  "jira_key": "BAT-588",
+  "local_issue_id": "POST-TASK-SRC014-2007-OFFICIAL-INDEX-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Captured the official 2007 Texas A&M season index https://files.12thman.com/history/football/years/2007.html (raw sha256 5d270d9c389ddc6905c547c3207ae28fa5701585e34bf8217b154a2be799985d) from the BAT-585 history-index parent and discovered 13 box-score URLs only from that page. New identities: capture 628218e89ad3cc3631cbc105149ced8179c5e2ece4cc275ad67f39f808ccdd2c, box URLs 09a18a20976ba739e3463ceb043d47d2ae2c973ff0bfc384e953023473de48af, payload a5abf4326d3429ba580d74d3f9d36aaa8267ea0b789af8966ab54f3b55ea792a, gate identity 60fc69c136332de876d511f2020ffbd08282bc4e02256e547d3bcb46222c5ea9. Retrieval time only. No historical known-at. BAT-585 inventory identity d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37 was not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  }
+}

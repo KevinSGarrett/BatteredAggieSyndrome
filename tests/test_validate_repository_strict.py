@@ -20,7 +20,7 @@ class ValidateRepositoryStrictTests(unittest.TestCase):
         committed = json.loads((ROOT / AUDIT_PATH).read_text(encoding="utf-8"))
         stdout = io.StringIO()
         with mock.patch(
-            "tools.audit_protected_split_exposure.validate_audit",
+            "tools.validate_repository.validate_audit",
             wraps=validate_audit,
         ) as mocked:
             with mock.patch.object(sys, "argv", ["validate_repository.py", "--repo-root", str(ROOT), "--strict"]):
@@ -35,7 +35,7 @@ class ValidateRepositoryStrictTests(unittest.TestCase):
 
     def test_strict_missing_audit_becomes_a_finding(self) -> None:
         stdout = io.StringIO()
-        with mock.patch("tools.audit_protected_split_exposure.AUDIT_PATH", Path("missing_protected_split_exposure_audit.json")):
+        with mock.patch("tools.validate_repository.AUDIT_PATH", Path("missing_protected_split_exposure_audit.json")):
             with mock.patch.object(sys, "argv", ["validate_repository.py", "--repo-root", str(ROOT), "--strict"]):
                 with mock.patch("sys.stdout", stdout):
                     exit_code = validate_repository.main()
@@ -46,7 +46,7 @@ class ValidateRepositoryStrictTests(unittest.TestCase):
     def test_strict_validate_audit_error_becomes_a_finding(self) -> None:
         stdout = io.StringIO()
         with mock.patch(
-            "tools.audit_protected_split_exposure.validate_audit",
+            "tools.validate_repository.validate_audit",
             side_effect=ValueError("forced audit failure"),
         ):
             with mock.patch.object(sys, "argv", ["validate_repository.py", "--repo-root", str(ROOT), "--strict"]):

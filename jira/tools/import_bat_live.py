@@ -2021,6 +2021,102 @@ def normalize_custom(value: Any) -> str:
     return "" if value is None else str(value)
 
 
+def auxiliary_expected_custom_fields(item: dict[str, Any]) -> dict[str, str]:
+    return {
+        "Local Issue ID": item["local_id"],
+        "Logical Workflow State": item["logical_state"],
+        "Implementation Maturity": item["maturity"],
+        "Evidence State": item["evidence_state"],
+        "Owner Historical Wave": item["owner_wave"],
+        "Phase": item["phase"],
+        "Critical Path": str(item["critical_path"]).lower(),
+        "Execution Lane": item["execution_lane"],
+    }
+
+
+def collect_auxiliary_live_coverage(
+    issues: list[dict[str, Any]],
+    key_map: dict[str, str],
+    auxiliary_issues: dict[str, dict[str, Any]],
+    field_ids: dict[str, str],
+) -> tuple[list[str], dict[str, Any]]:
+    by_key = {issue["key"]: issue for issue in issues}
+    canonical_keys = set(key_map.values())
+    auxiliary_keys = set(auxiliary_issues)
+    canonical_expected_count = len(key_map)
+    canonical_actual_count = sum(key in by_key for key in canonical_keys)
+    auxiliary_expected_count = len(auxiliary_issues)
+    auxiliary_actual_count = sum(key in by_key for key in auxiliary_keys)
+    total_expected_issue_count = canonical_expected_count + auxiliary_expected_count
+    total_actual_issue_count = len(by_key)
+    unexpected_issue_keys = sorted(
+        key for key in by_key if key not in canonical_keys and key not in auxiliary_keys
+    )
+    missing_auxiliary_keys = sorted(key for key in auxiliary_keys if key not in by_key)
+    discrepancies: list[str] = []
+    if total_actual_issue_count != total_expected_issue_count:
+        discrepancies.append(
+            f"live total count {total_actual_issue_count} != {total_expected_issue_count}"
+        )
+    if unexpected_issue_keys:
+        discrepancies.append(f"unknown extra BAT issues: {unexpected_issue_keys}")
+    if missing_auxiliary_keys:
+        discrepancies.append(f"missing auxiliary issues: {missing_auxiliary_keys}")
+
+    auxiliary_local_ids = [item["local_id"] for item in auxiliary_issues.values()]
+    if len(set(auxiliary_local_ids)) != len(auxiliary_local_ids):
+        discrepancies.append("duplicate auxiliary Local Issue IDs")
+    canonical_local_ids = set(key_map)
+    for item in auxiliary_issues.values():
+        if item["local_id"] in canonical_local_ids:
+            discrepancies.append(
+                f"auxiliary Local Issue ID overlaps canonical: {item['local_id']}"
+            )
+
+    local_field_id = field_ids.get("Local Issue ID")
+    seen_local_ids: dict[str, str] = {}
+    for issue in issues:
+        raw = issue.get("fields", {}).get(local_field_id) if local_field_id else None
+        local_id = raw.strip() if isinstance(raw, str) and raw.strip() else ""
+        if not local_id:
+            continue
+        prior = seen_local_ids.get(local_id)
+        if prior and prior != issue["key"]:
+            discrepancies.append(f"duplicate Local Issue ID {local_id}: {prior} and {issue['key']}")
+        seen_local_ids[local_id] = issue["key"]
+
+    for key, item in sorted(auxiliary_issues.items()):
+        issue = by_key.get(key)
+        if not issue:
+            continue
+        fields = issue.get("fields", {})
+        if fields.get("summary") != item["summary"]:
+            discrepancies.append(f"{key}: auxiliary summary drift")
+        if fields.get("issuetype", {}).get("name") != item["issue_type"]:
+            discrepancies.append(f"{key}: auxiliary issue type drift")
+        if fields.get("status", {}).get("name") != item["status"]:
+            discrepancies.append(f"{key}: auxiliary status drift")
+        for name, expected_value in auxiliary_expected_custom_fields(item).items():
+            field_id = field_ids[name]
+            actual_value = normalize_custom(fields.get(field_id))
+            mapped_expected = jira_custom_scalar(name, expected_value)
+            if actual_value != mapped_expected:
+                discrepancies.append(
+                    f"{key}: auxiliary {name} {actual_value!r} != {mapped_expected!r}"
+                )
+
+    return discrepancies, {
+        "canonical_expected_count": canonical_expected_count,
+        "canonical_actual_count": canonical_actual_count,
+        "auxiliary_expected_count": auxiliary_expected_count,
+        "auxiliary_actual_count": auxiliary_actual_count,
+        "total_expected_issue_count": total_expected_issue_count,
+        "total_actual_issue_count": total_actual_issue_count,
+        "unexpected_issue_keys": unexpected_issue_keys,
+        "missing_auxiliary_keys": missing_auxiliary_keys,
+    }
+
+
 def verify_live(
     client: JiraClient,
     rows: list[dict[str, str]],
@@ -2030,6 +2126,7 @@ def verify_live(
     component_ids: dict[str, str],
     key_map: dict[str, str],
     operational_status_policies: dict[str, dict[str, Any]],
+    auxiliary_issues: dict[str, dict[str, Any]],
     *,
     persist: bool = True,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
@@ -2044,6 +2141,13 @@ def verify_live(
     by_key = {issue["key"]: issue for issue in issues}
     payload_by_id = {item["local_id"]: item for item in payloads}
     discrepancies: list[str] = []
+    auxiliary_findings, auxiliary_coverage = collect_auxiliary_live_coverage(
+        issues,
+        key_map,
+        auxiliary_issues,
+        field_ids,
+    )
+    discrepancies.extend(auxiliary_findings)
     canonical_live_count = sum(key in by_key for key in key_map.values())
     if canonical_live_count != len(rows):
         discrepancies.append(f"canonical issue count {canonical_live_count} != {len(rows)}")
@@ -2125,6 +2229,14 @@ def verify_live(
         "project": {"key": PROJECT_KEY, "id": PROJECT_ID, "base_url": BASE_URL},
         "board": {"id": BOARD_ID, "name": board.get("name"), "filter_id": BOARD_FILTER_ID, "jql": board_filter.get("jql")},
         "issue_count": len(issues),
+        "canonical_expected_count": auxiliary_coverage["canonical_expected_count"],
+        "canonical_actual_count": auxiliary_coverage["canonical_actual_count"],
+        "auxiliary_expected_count": auxiliary_coverage["auxiliary_expected_count"],
+        "auxiliary_actual_count": auxiliary_coverage["auxiliary_actual_count"],
+        "total_expected_issue_count": auxiliary_coverage["total_expected_issue_count"],
+        "total_actual_issue_count": auxiliary_coverage["total_actual_issue_count"],
+        "unexpected_issue_keys": auxiliary_coverage["unexpected_issue_keys"],
+        "missing_auxiliary_keys": auxiliary_coverage["missing_auxiliary_keys"],
         "issue_type_counts": type_counts,
         "status_counts": status_counts,
         "parent_count": sum(bool(row["Parent"]) for row in rows),
@@ -2362,6 +2474,7 @@ def main() -> int:
             components,
             key_map,
             operational_status_policies,
+            auxiliary,
             persist=False,
         )
         print(json.dumps(verification, indent=2, sort_keys=True))
@@ -2417,6 +2530,7 @@ def main() -> int:
         components,
         key_map,
         operational_status_policies,
+        auxiliary,
     )
     if ledger.get("link_direction_remediation"):
         ledger["link_direction_remediation"].update(

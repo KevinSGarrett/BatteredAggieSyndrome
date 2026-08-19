@@ -391,6 +391,51 @@
       "critical_path": true,
       "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-588",
+      "local_id": "POST-TASK-SRC014-2007-OFFICIAL-INDEX-001",
+      "summary": "Capture the official SRC-014 2007 Texas A&M season index and discover box URLs from that page",
+      "issue_type": "Task",
+      "status": "In Review",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-589",
+      "local_id": "POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001",
+      "summary": "Acquire and normalize official SRC-014 2007 Texas A&M box scores from the BAT-588 captured index",
+      "issue_type": "Task",
+      "status": "In Review",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-2",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-590",
+      "local_id": "POST-TASK-SRC014-2007-OFFICIAL-UNION-001",
+      "summary": "Expand the immutable SRC-014 gamebook union with independently matched 2007 official games",
+      "issue_type": "Task",
+      "status": "In Review",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

@@ -2,26 +2,26 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-19T20:50:34.853955+00:00",
+  "generated_at": "2026-08-19T22:15:07.836511+00:00",
   "metrics": {
-    "aggregate_count": 76,
-    "atomic_count": 177,
+    "aggregate_count": 70,
+    "atomic_count": 162,
     "baseline_repository_validation_pass": true,
-    "blocked_count": 96,
+    "blocked_count": 88,
     "core_validator_error_count": 0,
     "historical_count": 234,
     "import": {
-      "issue_rows": 515,
-      "link_rows": 1191,
-      "modern_issue_rows": 515
+      "issue_rows": 494,
+      "link_rows": 1151,
+      "modern_issue_rows": 494
     },
     "import_error_count": 0,
-    "issue_count": 515,
+    "issue_count": 494,
     "issue_types": {
-      "Epic": 51,
-      "Story": 58,
+      "Epic": 50,
+      "Story": 53,
       "Sub-task": 22,
-      "Subtask": 183,
+      "Subtask": 168,
       "Task": 201
     },
     "manifest_error_count_at_audit_time": 0,
@@ -29,6 +29,11 @@
       "added": [
         ".githooks/pre-commit",
         ".github/dependabot.yml",
+        ".ruff_cache/.gitignore",
+        ".ruff_cache/0.6.9/12681112929127239503",
+        ".ruff_cache/0.6.9/13880337615891737251",
+        ".ruff_cache/0.6.9/16791264097528541981",
+        ".ruff_cache/CACHEDIR.TAG",
         "artifacts/assistive/cpu_worker_readiness.json",
         "artifacts/assistive/local_qwen_qualification.json",
         "artifacts/benchmarks/ac038_gate_decision.json",
@@ -210,6 +215,7 @@
         "artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json",
         "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
         "artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json",
+        "artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.json",
         "artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json",
         "artifacts/jira_evidence/POST-TASK-SRC014-2006-EXPANDED-ENRICHED-UNION-001.json",
         "artifacts/jira_evidence/POST-TASK-SRC014-2006-OFFICIAL-ACQUISITION-001.json",
@@ -722,7 +728,9 @@
         "tests/test_jira_control_plane.py",
         "tests/test_jira_evidence_state_mapping.py",
         "tests/test_jira_live_auxiliary_verification.py",
+        "tests/test_jira_live_convergence_contract.py",
         "tests/test_jira_operational_status_policy.py",
+        "tests/test_jira_retired_canonical_registry.py",
         "tests/test_leakage_battery_results.py",
         "tests/test_local_qwen_qualification.py",
         "tests/test_ncaa_contest_outcome_reference_adapter.py",
@@ -808,8 +816,6 @@
         "tests/test_validate_repository_strict.py",
         "tests/test_wmt_provider_timestamp_pit.py",
         "tests/test_wmt_tamu_specialization_feature_pit.py",
-        "tools/__pycache__/__init__.cpython-311.pyc",
-        "tools/__pycache__/repo_integrity.cpython-311.pyc",
         "tools/acquire_cfbd_historical.py",
         "tools/acquire_ncaa_official_gamebooks.py",
         "tools/acquire_noaa_isd_observed_coverage_pilot.py",
@@ -1126,13 +1132,13 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1887,
+      "current_non_jira_files": 1893,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],
       "pass": true
     },
-    "post_wave_count": 253,
+    "post_wave_count": 232,
     "protected_touch_overlap_count": 0,
     "ready_count": 0,
     "repository_inventory_count": 863,
@@ -1145,7 +1151,7 @@
       "requirements": 745,
       "risks": 310
     },
-    "work_packet_count": 253
+    "work_packet_count": 232
   },
   "passed_sections": 68,
   "result": "PASS",
@@ -1244,7 +1250,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 515 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 494 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -1277,7 +1283,7 @@
     },
     {
       "check_group": "granularity",
-      "detail": "All 177 atomic Subtasks have criterion/output-specific scope; generic v1 boilerplate is absent.",
+      "detail": "All 162 atomic Subtasks have criterion/output-specific scope; generic v1 boilerplate is absent.",
       "evidence_files": [
         "index/WORK_PACKET_INDEX.csv",
         "validation/SECOND_PASS_FINDINGS_AND_REMEDIATION.md"
@@ -1454,7 +1460,7 @@
     },
     {
       "check_group": "packets",
-      "detail": "Packet coverage is 253/253 post-wave records; modes prevent aggregate direct execution.",
+      "detail": "Packet coverage is 232/232 post-wave records; modes prevent aggregate direct execution.",
       "evidence_files": [
         "ai/work_packets/",
         "index/WORK_PACKET_INDEX.csv"
@@ -1509,7 +1515,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 515 issues and 1191 links.",
+      "detail": "Strict import dry-run passes for 494 issues and 1151 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"
@@ -1703,7 +1709,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 515 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 494 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -1725,7 +1731,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 515 issues and 1191 links.",
+      "detail": "Strict import dry-run passes for 494 issues and 1151 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"

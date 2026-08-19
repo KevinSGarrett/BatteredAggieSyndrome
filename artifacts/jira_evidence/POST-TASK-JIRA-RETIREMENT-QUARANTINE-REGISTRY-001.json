@@ -1,0 +1,45 @@
+{
+  "comment_ids": {
+    "claimed_in_progress": "14510",
+    "done_after_merge": "14512",
+    "in_review_after_validation": "14511"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of authorized BAT-to-BATQ retirement/quarantine reconciliation. BAT-593 owns only live-verifier histograms. BAT-594 through BAT-597 own 2006 official history identities and must not be reused. Quarantine hits were data-quarantine, not this retirement registry. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-351",
+      "BAT-447",
+      "BAT-489",
+      "BAT-523",
+      "BAT-586",
+      "BAT-587",
+      "BAT-588",
+      "BAT-589",
+      "BAT-590",
+      "BAT-591",
+      "BAT-592",
+      "BAT-593",
+      "BAT-594",
+      "BAT-595",
+      "BAT-596",
+      "BAT-597"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "fd55becbbfc77b6e6f21c49b2f9a20693e9a61ea",
+  "issue_complete": true,
+  "jira_key": "BAT-598",
+  "local_issue_id": "POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001",
+  "material_pr": 510,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Material PR #510 merged as fd55becbbfc77b6e6f21c49b2f9a20693e9a61ea. Removed 21 retired assistive Local Issue IDs from the active BAT corpus, archived their history, and restored live verification at 494 canonical + 37 auxiliary = 531 with 1151 links. All 21 remain in BATQ and absent from BAT. The stale schema-v1 515+31 PASS artifact was replaced. BAT-593 through BAT-597 identities were not rewritten.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "Done"
+}

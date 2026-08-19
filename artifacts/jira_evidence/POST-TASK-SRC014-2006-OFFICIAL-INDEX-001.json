@@ -15,6 +15,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14496",
+    "done_after_merge": "14498",
     "in_review_after_validation": "14497"
   },
   "current_identities": {
@@ -49,16 +50,17 @@
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "evidence_state": "VERIFIED",
-  "implementation_sha": null,
-  "issue_complete": false,
+  "implementation_sha": "c7f2a01c8a7cb8d818759e7ed954e4e1e3c72fd9",
+  "issue_complete": true,
   "jira_key": "BAT-594",
   "local_issue_id": "POST-TASK-SRC014-2006-OFFICIAL-INDEX-001",
+  "material_pr": 502,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Discovered the official 2006 season index from the already-verified history index (raw sha256 1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a) as https://files.12thman.com/history/football/years/2006.html. Captured that page (HTTP 200, text/html, 8055 bytes, retrieval 2026-08-19T16:13:10.933106Z, raw sha256 f9d753272ee8305efe799be83cc6751d09bab2a9c7c08b8cd1b3f938c3bfd658) and discovered 13 scheduled games and 13 box-score URLs in source order with 0 duplicate, malformed, or missing links. New identities: capture c4a13a9b96b6b885732b32e7a9d2dc95321c89b604a3b90d69e342316c240aa2, box URLs 57ee217fa34eeb041681ad9552933c4da505ab448ab43cac95bbf73ad6b4bf07, game rows 95458591af3ee92f0dcac886f460d53e1bfb47ae97b2e9708e09b3055103dd12, payload 8fd30b3275af348b84c49f90e01fa0e9594c652ecccd5be75154a8e496638b3e, gate identity d1f765a73abf0107fcf200562590bfd0212a521df47f9c6b27bb336ad737635c. Retrieval time only. No historical known-at. BAT-588 2007 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #502 merged as c7f2a01c8a7cb8d818759e7ed954e4e1e3c72fd9. Official 2006 season index captured from the history-index authority chain as https://files.12thman.com/history/football/years/2006.html (raw sha256 f9d753272ee8305efe799be83cc6751d09bab2a9c7c08b8cd1b3f938c3bfd658). Counts: 13 scheduled games, 13 box-score URLs, 0 duplicate/malformed/missing links. Gate identity d1f765a73abf0107fcf200562590bfd0212a521df47f9c6b27bb336ad737635c. BAT-588 2007 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

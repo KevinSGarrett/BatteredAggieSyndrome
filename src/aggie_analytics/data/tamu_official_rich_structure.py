@@ -27,6 +27,7 @@ ACQUISITION_GATE_RELATIVES: tuple[str, ...] = (
 UNION_GATE_RELATIVES: tuple[str, ...] = (
     "artifacts/data_lake/tamu_official_gamebook_union_gate.json",
     "artifacts/data_lake/tamu_official_gamebook_union_expanded_gate.json",
+    "artifacts/data_lake/tamu_official_gamebook_union_2007_gate.json",
 )
 
 
@@ -127,7 +128,12 @@ def validate_acquisition_gate(path: Path, gate: Mapping[str, Any]) -> list[str]:
 
 
 def _union_game_lists(gate: Mapping[str, Any]) -> list[Mapping[str, Any]]:
-    for key in ("admitted_pre2010_games", "official_games", "official_school_games"):
+    for key in (
+        "admitted_official_2007_games",
+        "admitted_pre2010_games",
+        "official_games",
+        "official_school_games",
+    ):
         rows = gate.get(key)
         if isinstance(rows, list) and rows:
             return [item for item in rows if isinstance(item, Mapping)]

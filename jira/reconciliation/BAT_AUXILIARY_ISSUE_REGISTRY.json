@@ -511,6 +511,21 @@
       "critical_path": true,
       "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-596",
+      "local_id": "POST-TASK-SRC014-2006-STRUCTURED-DOMAINS-001",
+      "summary": "Parse source-labeled 2006 official structured domains and audit the 2007-09-01 HTML table page",
+      "issue_type": "Task",
+      "status": "In Review",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-4",
+      "critical_path": true,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

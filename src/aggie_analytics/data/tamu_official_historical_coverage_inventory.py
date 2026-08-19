@@ -622,16 +622,16 @@ def materialize_inventory(*, repo_root: Path, data_root: Path) -> dict[str, Any]
     }
 
 
-def validate_artifact(
-    *,
-    repo_root: Path,
-    data_root: Path,
-    gate: Mapping[str, Any] | None = None,
-) -> dict[str, Any]:
-    reconstructed = reconstruct_inventory(repo_root=repo_root, data_root=data_root)
-    expected_gate = reconstructed["gate"]
-    expected_payload = reconstructed["payload"]
-    committed = dict(gate) if gate is not None else load_json(repo_root / GATE_RELATIVE)
+def lake_is_ready(data_root: Path) -> bool:
+    history = (
+        data_root
+        / "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/history_index"
+        / f"sha256_{HISTORY_INDEX_SHA256}.html"
+    )
+    return history.is_file() and (data_root / CAPTURE_INDEX_RELATIVE).is_file()
+
+
+def validate_compact_inventory_gate(committed: Mapping[str, Any]) -> None:
     if committed.get("protected_lane") != PROTECTED_LANE:
         raise AuthorityViolation("protected lane opened")
     if committed.get("authority", {}).get("historical_known_at_from_capture_time"):
@@ -640,10 +640,38 @@ def validate_artifact(
         raise AuthorityViolation("historical known-at forged")
     if committed.get("counts", {}).get("ncaa_contest_ids_created"):
         raise AuthorityViolation("NCAA contest IDs fabricated")
-    if committed.get("result") != expected_gate["result"] or committed.get("classification") != expected_gate["classification"]:
+    if committed.get("result") != PASS_RESULT or committed.get("classification") != PASS_CLASSIFICATION:
         raise AuthorityViolation("completion or classification forged")
     if committed.get("gate_identity") != compute_gate_identity(committed):
         raise AuthorityViolation("gate identity does not recompute")
+    selected = [int(item) for item in committed.get("selected_seasons") or []]
+    if selected != sorted(selected, reverse=True) or any(season >= 2010 for season in selected) or len(selected) != 2:
+        raise AuthorityViolation("selected seasons are not the two most recent qualifying pre-2010 seasons")
+
+
+def validate_artifact(
+    *,
+    repo_root: Path,
+    data_root: Path,
+    gate: Mapping[str, Any] | None = None,
+    require_rebuild: bool = True,
+) -> dict[str, Any]:
+    committed = dict(gate) if gate is not None else load_json(repo_root / GATE_RELATIVE)
+    validate_compact_inventory_gate(committed)
+    ready = lake_is_ready(data_root)
+    if require_rebuild and not ready:
+        raise AuthorityViolation("external historical-coverage inventory reconstruction was required but the data root is not mounted")
+    if not ready:
+        return {
+            "result": "PASS",
+            "gate_identity": committed["gate_identity"],
+            "inventory_identity": committed["inventory_identity"],
+            "selected_seasons": [int(item) for item in committed["selected_seasons"]],
+            "external_reconstruction": "NOT_MOUNTED",
+        }
+    reconstructed = reconstruct_inventory(repo_root=repo_root, data_root=data_root)
+    expected_gate = reconstructed["gate"]
+    expected_payload = reconstructed["payload"]
     if committed != expected_gate:
         raise AuthorityViolation("committed inventory gate does not match independent reconstruction")
     payload_path = (
@@ -681,6 +709,7 @@ def validate_artifact(
         "gate_identity": expected_gate["gate_identity"],
         "inventory_identity": expected_payload["inventory_identity"],
         "selected_seasons": selected,
+        "external_reconstruction": "MOUNTED",
     }
 
 

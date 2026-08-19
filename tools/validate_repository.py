@@ -531,10 +531,15 @@ def main() -> int:
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
                 data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = (
+                    data_root
+                    / "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/history_index"
+                ).is_dir()
                 try:
                     module.validate_artifact(
                         data_root=data_root,
                         repo_root=root,
+                        require_rebuild=lake_ready,
                     )
                 except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
                     findings.append(

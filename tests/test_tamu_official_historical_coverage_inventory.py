@@ -14,12 +14,14 @@ from aggie_analytics.data.tamu_official_historical_coverage_inventory import (  
     AuthorityViolation,
     GATE_RELATIVE,
     compute_gate_identity,
+    lake_is_ready,
     reconstruct_inventory,
     validate_artifact,
 )
 
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+LAKE_READY = lake_is_ready(DATA_ROOT)
 
 
 def _sha256(path: Path) -> str:
@@ -37,6 +39,31 @@ def _mutated(gate: dict, **changes):
     return tampered
 
 
+class CompactInventoryGateTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8"))
+
+    def test_committed_gate_identity_recomputes(self) -> None:
+        result = validate_artifact(
+            repo_root=REPO_ROOT,
+            data_root=DATA_ROOT if LAKE_READY else REPO_ROOT,
+            require_rebuild=LAKE_READY,
+        )
+        self.assertEqual(result["result"], "PASS")
+        self.assertEqual(result["gate_identity"], "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851")
+        self.assertEqual(result["selected_seasons"], [2009, 2008])
+
+    def test_protected_lane_opened_fails_without_lake(self) -> None:
+        with self.assertRaisesRegex(AuthorityViolation, "protected lane"):
+            validate_artifact(
+                repo_root=REPO_ROOT,
+                data_root=DATA_ROOT if LAKE_READY else REPO_ROOT,
+                gate=_mutated(self.gate, protected_lane="OPEN"),
+                require_rebuild=False,
+            )
+
+
+@unittest.skipUnless(LAKE_READY, "external BAT-585 inventory payloads are not mounted")
 class OfficialCoverageInventoryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -144,6 +171,7 @@ class OfficialCoverageInventoryTests(unittest.TestCase):
         self.assertEqual(before, after)
 
 
+@unittest.skipUnless(LAKE_READY, "external BAT-585 inventory payloads are not mounted")
 class InventoryPayloadMutationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.repo_root = REPO_ROOT

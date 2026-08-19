@@ -58,9 +58,9 @@
   "observable_outcome": "Cycle #10 Phase 3 independently parses the captured official Texas A&M football history index 1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a and builds a content-addressed official season-index inventory with inventory identity d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37 and gate identity f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851. Official Results hrefs are used exactly as emitted; year-number URL guessing is rejected. The two most recent pre-2010 official-index seasons not already in the immutable 203-game union are 2009 and 2008, with official season indexes https://files.12thman.com/history/football/years/2009.html and https://files.12thman.com/history/football/years/2008.html and 13 plus 12 official box-score links. No NCAA contest IDs, canonical game IDs, or historical publication timestamps are invented. Retrieval time is not historical known-at. The protected lane remains blocked. BAT-523 stays In Progress. BAT-429 stays blocked. BAT-401 stays RETAIN_PROTECTED_LANE_BLOCKED. GAP-005 stays OPEN.",
   "outputs": [
     {
-      "bytes": 30719,
+      "bytes": 32091,
       "path": "src/aggie_analytics/data/tamu_official_historical_coverage_inventory.py",
-      "sha256": "f4f5b517eae7384b5fd5549ed989c9d990707dfb378c26d99e5fd2e030c5d2c2"
+      "sha256": "13987d671c3851d0af1e241aee10bb5f507e529f8d77188ceafe5d6560f9158d"
     },
     {
       "bytes": 1113,
@@ -73,9 +73,9 @@
       "sha256": "49c85bd9e2c127ef4fabd8405f008bb9894ede77e9e632af75a9681deda944ed"
     },
     {
-      "bytes": 8937,
+      "bytes": 10247,
       "path": "tests/test_tamu_official_historical_coverage_inventory.py",
-      "sha256": "96719582be49986e1a983999b9ed11b5fd85fad163f2121a4230dc074c17ef4f"
+      "sha256": "3bd1b6578f78cdb57d77cc4f6a6a9f31b64955e27dbc2f7c85889cbcd8a04403"
     },
     {
       "bytes": 2132,

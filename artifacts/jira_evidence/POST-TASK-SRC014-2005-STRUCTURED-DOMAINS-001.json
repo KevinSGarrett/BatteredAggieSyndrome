@@ -16,7 +16,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14519",
-    "done_after_merge": "",
+    "done_after_merge": "14521",
     "in_review_after_validation": "14520"
   },
   "current_identities": {
@@ -44,18 +44,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "ab5c5d513099a709ffe4b847351131c622a9e38f",
+  "issue_complete": true,
   "jira_key": "BAT-601",
   "local_issue_id": "POST-TASK-SRC014-2005-STRUCTURED-DOMAINS-001",
-  "material_pr": null,
+  "material_pr": 516,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Official 2005 labeled domains parsed from the 11 BAT-600 captures: 11/11 rich with team, player, drives, and play-by-play PRESENT. Cycle #12 HTML tables classified from headers only: texas.htm and ta01-msu.htm each have 44 tables, 9 unknown, play-by-play ABSENT. Participation PRESENT does not establish availability. Gate identity b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d. BAT-591, BAT-595, and BAT-596 identities were not rewritten. BAT-523 stays In Progress.",
+  "observable_outcome": "Material PR #516 merged as ab5c5d513099a709ffe4b847351131c622a9e38f. Official 2005 labeled domains parsed from 11/11 BAT-600 captures as rich team/player/drives/PBP. Cycle #12 HTML tables classified from headers only: texas.htm and ta01-msu.htm each have 44 tables, 9 unknown, play-by-play ABSENT. Participation PRESENT does not establish availability. Gate identity b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d. BAT-591, BAT-595, and BAT-596 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

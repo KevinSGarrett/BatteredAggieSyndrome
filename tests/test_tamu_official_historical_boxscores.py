@@ -442,8 +442,18 @@ class ValidatorPurityTests(unittest.TestCase):
 
     def test_missing_raw_file_failure_does_not_mutate_files(self) -> None:
         repo, data = _copy_isolated_roots()
-        raw_dir = data / "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores"
-        victim = next(raw_dir.rglob("*.html"))
+        archive_gate = load_json(repo / "artifacts/data_lake/tamu_official_historical_archive_gate.json")
+        victim = None
+        for capture in archive_gate.get("captures") or []:
+            relative = capture.get("raw_relative_path") or ""
+            if capture.get("page_family") != "box_scores" or not relative:
+                continue
+            path = data / relative
+            if path.is_file():
+                victim = path
+                break
+        if victim is None:
+            raise AssertionError("isolated BAT-580 copy is missing a referenced official box-score raw file")
         victim.unlink()
         before = _snapshot_relevant(repo, data)
         with self.assertRaises(AuthorityViolation):

@@ -1,0 +1,194 @@
+{
+  "acquisition_identity": "58c44cc252a6139a7618a779e9fc9b353949cf942ac93eeb08c38b6c697a62af",
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "normalization_admission": "CANDIDATE_ONLY",
+    "player_identity": "SOURCE_PLAYER_CANDIDATE",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "rights_disposition": "DERIVED_ONLY_OR_REVIEW_PRIVATE_RESEARCH",
+    "same_game_pregame_features": "BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "wmt_payload": "PRESERVED_IMMUTABLE"
+  },
+  "artifact_type": "TAMU_OFFICIAL_PRE2010_BOXSCORE_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_PRE2010_BOXSCORE_CANDIDATE_ONLY",
+  "contract_id": "BAT-586-TAMU-OFFICIAL-PRE2010-BOXSCORES-V1",
+  "counts": {
+    "blocked_or_partial_pages": 0,
+    "captured_pages_total": 25,
+    "date_conflicts": 2,
+    "matched_strong_tuple": 21,
+    "metadata_only_games": 0,
+    "name_only_insufficient": 0,
+    "ncaa_contest_ids_created": 0,
+    "normalized_games": 25,
+    "normalized_games_2008": 12,
+    "normalized_games_2009": 13,
+    "participation_candidates": 1345,
+    "player_stat_candidates": 0,
+    "rich_structured_games": 25,
+    "target_games_2008": 12,
+    "target_games_2009": 13,
+    "target_games_total": 25,
+    "unmatched_strong_tuple": 2,
+    "verified_official_pages": 25
+  },
+  "dataset_identity": "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59",
+  "decision_unit": "POST-TASK-CYCLE-10-SRC014-PRE2010-OFFICIAL-ACQUISITION-001",
+  "disposition": "NORMALIZED_CANDIDATE_ONLY_NO_UNION_MUTATION",
+  "domain_coverage": {
+    "attendance": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "drives": {
+      "absent_games": 25,
+      "present_games": 0
+    },
+    "duration": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "end_time": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "game_identity_metadata": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "individual_player_statistics": {
+      "absent_games": 25,
+      "present_games": 0
+    },
+    "kickoff_time": {
+      "absent_games": 1,
+      "present_games": 24
+    },
+    "officials": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "participation": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "penalties": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "play_by_play": {
+      "absent_games": 25,
+      "present_games": 0
+    },
+    "played_date": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "quarter_scoring": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "scores": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "scoring_summary": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "season": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "site_venue": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "starters": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "team_statistics": {
+      "absent_games": 25,
+      "present_games": 0
+    },
+    "teams": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "turnovers": {
+      "absent_games": 0,
+      "present_games": 25
+    },
+    "weather": {
+      "absent_games": 0,
+      "present_games": 25
+    }
+  },
+  "games_identity": "176ae7a0f6f93de591c850cd49da280682ac328c4ebf7a0b0d0beb78b24d4b7a",
+  "gate_identity": "b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-586",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_PRE2010_BOXSCORES_NORMALIZED",
+  "schema_version": "aggie.data.tamu_official_pre2010_boxscores.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    2009,
+    2008
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "cycle9_boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",
+    "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+    "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
+  }
+}

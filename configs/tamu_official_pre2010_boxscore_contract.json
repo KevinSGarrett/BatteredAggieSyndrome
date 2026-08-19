@@ -1,0 +1,13 @@
+{
+  "schema_version": "aggie.data.tamu_official_pre2010_boxscores.v1",
+  "contract_id": "BAT-586-TAMU-OFFICIAL-PRE2010-BOXSCORES-V1",
+  "jira_key": "BAT-586",
+  "local_issue_id": "POST-TASK-CYCLE-10-SRC014-PRE2010-OFFICIAL-ACQUISITION-001",
+  "purpose": "Acquire and normalize only official box-score URLs emitted by the BAT-585 selected pre-2010 season indexes. Validation reconstructs in memory and never writes.",
+  "bound_inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "payloads": {
+    "normalized_root": "features/tamu_official_pre2010_boxscores/sha256",
+    "capture_index": "features/tamu_official_pre2010_boxscores/capture_index.json"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

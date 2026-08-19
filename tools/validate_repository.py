@@ -554,6 +554,54 @@ def main() -> int:
                         )()
                     )
 
+        pre2010_gate = root / "artifacts" / "data_lake" / "tamu_official_pre2010_boxscore_gate.json"
+        pre2010_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_pre2010_boxscores.py"
+        if pre2010_gate.is_file() and pre2010_module.is_file():
+            import importlib.util
+            import os
+
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_pre2010_boxscores_strict",
+                pre2010_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_pre2010_boxscores",
+                            "path": "src/aggie_analytics/data/tamu_official_pre2010_boxscores.py",
+                            "detail": "unable to load official pre-2010 box-score validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = (
+                    data_root / "features/tamu_official_pre2010_boxscores/capture_index.json"
+                ).is_file()
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=lake_ready,
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_pre2010_boxscores",
+                                "path": "artifacts/data_lake/tamu_official_pre2010_boxscore_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

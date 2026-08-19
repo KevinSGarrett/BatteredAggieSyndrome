@@ -13,10 +13,14 @@ if __package__ in {None, ""}:
 
 from aggie_analytics.data.tamu_cross_source_domain_gate import (  # noqa: E402
     AuthorityViolation,
+    EVIDENCE_RELATIVE,
     GATE_RELATIVE,
+    build_evidence_packet,
     compute_gate_identity,
+    current_evidence_owner,
     rebuild_expected,
     validate_artifact,
+    validate_evidence,
 )
 
 
@@ -105,6 +109,109 @@ def main() -> int:
         )
         forged = _mutated_gate(gate, result="FORGED_VERIFIED_OFFICIAL", classification="VERIFIED_OFFICIAL")
         mutations.append(expect_rejection("forged_verified_after_rehash", lambda: _validate(forged)))
+        mutations.append(
+            expect_rejection(
+                "current_gate_with_stale_rebound_owner",
+                lambda: _validate(_mutated_gate(gate, rebound_jira_key="BAT-577")),
+            )
+        )
+        owner = current_evidence_owner(expected["contract"])
+        evidence = json.loads((repo_root / EVIDENCE_RELATIVE).read_text(encoding="utf-8"))
+        stale_narrative = json.loads(json.dumps(evidence))
+        stale_narrative["observable_outcome"] = "Cycle #8 Phase 5 rebound owned by BAT-577"
+        mutations.append(
+            expect_rejection(
+                "cycle8_narrative_after_outer_identity",
+                lambda: validate_evidence(
+                    repo_root=repo_root,
+                    gate=gate,
+                    evidence=stale_narrative,
+                    owner=owner,
+                    contract=expected["contract"],
+                ),
+            )
+        )
+        missing_581 = json.loads(json.dumps(evidence))
+        missing_581["related_jira_keys"] = [key for key in missing_581["related_jira_keys"] if key != "BAT-581"]
+        missing_581["current_relationship_set"] = [
+            key for key in missing_581["current_relationship_set"] if key != "BAT-581"
+        ]
+        mutations.append(
+            expect_rejection(
+                "bat581_removed_from_current_relationships",
+                lambda: validate_evidence(
+                    repo_root=repo_root,
+                    gate=gate,
+                    evidence=missing_581,
+                    owner=owner,
+                    contract=expected["contract"],
+                ),
+            )
+        )
+        superseded = json.loads(json.dumps(evidence))
+        superseded["rebound_jira_key"] = "BAT-577"
+        mutations.append(
+            expect_rejection(
+                "superseded_owner_presented_as_current",
+                lambda: validate_evidence(
+                    repo_root=repo_root,
+                    gate=gate,
+                    evidence=superseded,
+                    owner=owner,
+                    contract=expected["contract"],
+                ),
+            )
+        )
+        counts = json.loads(json.dumps(gate["counts"]))
+        counts["verified_official"] = int(counts["verified_official"]) + 7
+        mutations.append(
+            expect_rejection(
+                "verified_official_fact_count_changed",
+                lambda: _validate(_mutated_gate(gate, counts=counts)),
+            )
+        )
+        scope = json.loads(json.dumps(gate["official_fact_scope"]))
+        scope["verified_official_postgame_facts_present"] = not scope["verified_official_postgame_facts_present"]
+        mutations.append(
+            expect_rejection(
+                "official_fact_presence_changed",
+                lambda: _validate(_mutated_gate(gate, official_fact_scope=scope)),
+            )
+        )
+        scope = json.loads(json.dumps(gate["official_fact_scope"]))
+        scope["full_historical_official_completeness_claimed"] = True
+        mutations.append(
+            expect_rejection(
+                "full_historical_completeness_forged",
+                lambda: _validate(_mutated_gate(gate, official_fact_scope=scope)),
+            )
+        )
+        scope = json.loads(json.dumps(gate["official_fact_scope"]))
+        scope["ncaa_contest_official_evidence_claimed"] = True
+        mutations.append(
+            expect_rejection(
+                "ncaa_contest_authority_forged",
+                lambda: _validate(_mutated_gate(gate, official_fact_scope=scope)),
+            )
+        )
+        mutations.append(
+            expect_rejection(
+                "protected_lane_opened_again",
+                lambda: _validate(_mutated_gate(gate, protected_lane="OPEN_PROTECTED_LANE")),
+            )
+        )
+        forged_complete = _mutated_gate(gate, result="FORGED_PER_GAME_OFFICIAL_COMPLETE")
+        mutations.append(expect_rejection("forged_completion_after_rehash", lambda: _validate(forged_complete)))
+        rebuilt_evidence = build_evidence_packet(
+            repo_root=repo_root,
+            gate=gate,
+            owner=owner,
+            contract=expected["contract"],
+        )
+        if rebuilt_evidence["rebound_jira_key"] != "BAT-581":
+            raise AssertionError("producer regressed current rebound owner")
+        if "Cycle #8" in rebuilt_evidence["observable_outcome"]:
+            raise AssertionError("producer regressed to Cycle #8 narrative")
     print(json.dumps({"validation": result, "mutations": mutations}, indent=2, sort_keys=True))
     return 0
 

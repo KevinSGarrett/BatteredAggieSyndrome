@@ -1,0 +1,16 @@
+{
+  "schema_version": "aggie.data.tamu_official_gamebook_union_2006_expanded.v1",
+  "contract_id": "BAT-597-TAMU-OFFICIAL-GAMEBOOK-UNION-2006-EXPANDED-V1",
+  "jira_key": "BAT-597",
+  "local_issue_id": "POST-TASK-SRC014-2006-EXPANDED-ENRICHED-UNION-001",
+  "purpose": "Create a new immutable SRC-014 union identity that preserves the BAT-592 enriched union and admits official 2006 games only when the BAT-594 index URL, BAT-595 box URL, and raw SHA all match. Overlay BAT-596 domains. Do not rewrite BAT-586 through BAT-596 identities.",
+  "prior_union_identity": "00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31",
+  "prior_union_gate_identity": "3b546b12b3d50098bec457a010b47168f472449e8475c397ee44cd26ff1edc6a",
+  "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+  "bat596_payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "payloads": {
+    "union_root": "features/tamu_official_gamebook_union_2006_expanded/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

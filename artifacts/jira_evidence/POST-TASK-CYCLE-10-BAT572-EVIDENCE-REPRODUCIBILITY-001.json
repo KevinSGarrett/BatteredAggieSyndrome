@@ -35,8 +35,9 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "7870bd65c2f955b75b6221c3aeff22c3a4101a60",
+  "issue_complete": true,
   "jira_key": "BAT-583",
   "local_issue_id": "POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001",
   "new_issue_decision": "CREATE",
@@ -87,9 +88,9 @@
       "sha256": "456d4a535d70d6f71db14ee87204836a81fb91baf71703240fada135c5173b5f"
     },
     {
-      "bytes": 12553,
+      "bytes": 12547,
       "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
-      "sha256": "134e23b555eb8be4abe64ac8e3930583bc633f1a57680c0befe976a9615bb0cd"
+      "sha256": "8daf6330c9c7a9b9f8b14fdd84efc4a0444af7fcbe6e99bb9f39939be8a61e79"
     },
     {
       "bytes": 29280,
@@ -132,5 +133,5 @@
       "role": "superseded_rebound_owner"
     }
   ],
-  "workflow_state": "IN_REVIEW"
+  "workflow_state": "DONE"
 }

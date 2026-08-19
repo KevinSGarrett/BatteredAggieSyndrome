@@ -34,6 +34,7 @@ ADDED,artifacts/data_lake/tamu_official_historical_archive_gate.json
 ADDED,artifacts/data_lake/tamu_official_historical_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_historical_coverage_inventory_gate.json
 ADDED,artifacts/data_lake/tamu_official_pre2010_boxscore_gate.json
+ADDED,artifacts/data_lake/tamu_official_statcrew_preformatted_gate.json
 ADDED,artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
 ADDED,artifacts/entities/canonical_core_registry.csv
 ADDED,artifacts/entities/canonical_core_registry_manifest.json
@@ -179,6 +180,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-INDEX-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-UNION-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-SRC014-STATCREW-PREFORMATTED-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001.json
@@ -364,6 +366,7 @@ ADDED,configs/tamu_official_historical_archive_contract.json
 ADDED,configs/tamu_official_historical_boxscore_contract.json
 ADDED,configs/tamu_official_historical_coverage_inventory_contract.json
 ADDED,configs/tamu_official_pre2010_boxscore_contract.json
+ADDED,configs/tamu_official_statcrew_preformatted_contract.json
 ADDED,configs/unified_assistive_acceptance_ownership.json
 ADDED,configs/unified_assistive_change_routing_binding.json
 ADDED,configs/unified_assistive_operational_claims.json
@@ -567,6 +570,7 @@ ADDED,src/aggie_analytics/data/tamu_official_historical_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_historical_coverage_inventory.py
 ADDED,src/aggie_analytics/data/tamu_official_pre2010_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_rich_structure.py
+ADDED,src/aggie_analytics/data/tamu_official_statcrew_preformatted.py
 ADDED,src/aggie_analytics/data/tamu_season_reconciliation.py
 ADDED,src/aggie_analytics/entities/candidates.py
 ADDED,src/aggie_analytics/entities/people_registry.py
@@ -735,6 +739,7 @@ ADDED,tests/test_tamu_official_historical_boxscores.py
 ADDED,tests/test_tamu_official_historical_coverage_inventory.py
 ADDED,tests/test_tamu_official_pre2010_boxscores.py
 ADDED,tests/test_tamu_official_rich_structure.py
+ADDED,tests/test_tamu_official_statcrew_preformatted.py
 ADDED,tests/test_unified_assistive_completeness.py
 ADDED,tests/test_unified_assistive_plane.py
 ADDED,tests/test_unified_controller_service.py
@@ -817,6 +822,7 @@ ADDED,tools/build_tamu_official_gamebook_union_2007.py
 ADDED,tools/build_tamu_official_gamebook_union_expanded.py
 ADDED,tools/build_tamu_official_historical_coverage_inventory.py
 ADDED,tools/build_tamu_official_pre2010_boxscores.py
+ADDED,tools/build_tamu_official_statcrew_preformatted.py
 ADDED,tools/build_unified_assistive_release.py
 ADDED,tools/build_versioned_play_drive_gap.py
 ADDED,tools/build_wmt_provider_timestamp_pit.py
@@ -972,6 +978,7 @@ ADDED,tools/validate_tamu_official_historical_boxscores.py
 ADDED,tools/validate_tamu_official_historical_coverage_inventory.py
 ADDED,tools/validate_tamu_official_pre2010_boxscores.py
 ADDED,tools/validate_tamu_official_rich_structure.py
+ADDED,tools/validate_tamu_official_statcrew_preformatted.py
 ADDED,tools/validate_unified_acceptance_ownership.py
 ADDED,tools/validate_unified_assistive_completeness.py
 ADDED,tools/validate_unified_assistive_plane.py

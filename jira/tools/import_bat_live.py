@@ -18,7 +18,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 
 BASE_URL = "https://kevinsgarrett.atlassian.net"
@@ -33,6 +33,14 @@ JIRA_ROOT = ROOT / "jira"
 LEDGER_PATH = JIRA_ROOT / "reconciliation" / "BAT_LIVE_IMPORT_LEDGER.json"
 EXPORT_PATH = JIRA_ROOT / "reconciliation" / "BAT_JIRA_EXPORT.csv"
 VERIFY_PATH = JIRA_ROOT / "validation" / "BAT_LIVE_IMPORT_VERIFICATION.json"
+LIVE_VERIFICATION_SCHEMA_VERSION = 2
+ISSUE_CLASS_CANONICAL = "canonical"
+ISSUE_CLASS_AUXILIARY = "auxiliary"
+ISSUE_CLASS_UNEXPECTED = "unexpected"
+HISTOGRAM_ALIAS_SEMANTICS = {
+    "issue_type_counts": "alias of total_issue_type_counts covering every live BAT issue",
+    "status_counts": "alias of total_status_counts covering every live BAT issue",
+}
 COMPLETION_POLICY_PATH = JIRA_ROOT / "project" / "HISTORICAL_COMPLETION_ASSURANCE_POLICY.json"
 AUXILIARY_ISSUES_PATH = JIRA_ROOT / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
 RECORDS_ROOT = JIRA_ROOT / "records" / "issues"
@@ -2034,6 +2042,282 @@ def auxiliary_expected_custom_fields(item: dict[str, Any]) -> dict[str, str]:
     }
 
 
+def classify_live_bat_issue(
+    key: str,
+    canonical_keys: set[str],
+    auxiliary_keys: set[str],
+) -> str:
+    if key in canonical_keys:
+        return ISSUE_CLASS_CANONICAL
+    if key in auxiliary_keys:
+        return ISSUE_CLASS_AUXILIARY
+    return ISSUE_CLASS_UNEXPECTED
+
+
+def increment_histogram(counts: dict[str, int], label: str) -> None:
+    key = label if label else "UNKNOWN"
+    counts[key] = counts.get(key, 0) + 1
+
+
+def add_histograms(*parts: Mapping[str, int]) -> dict[str, int]:
+    merged: dict[str, int] = {}
+    for part in parts:
+        for key, value in part.items():
+            merged[key] = merged.get(key, 0) + int(value)
+    return merged
+
+
+def build_live_issue_histograms(
+    issues: list[dict[str, Any]],
+    canonical_keys: set[str],
+    auxiliary_keys: set[str],
+) -> dict[str, Any]:
+    canonical_status: dict[str, int] = {}
+    auxiliary_status: dict[str, int] = {}
+    unexpected_status: dict[str, int] = {}
+    canonical_types: dict[str, int] = {}
+    auxiliary_types: dict[str, int] = {}
+    unexpected_types: dict[str, int] = {}
+    classifications: dict[str, str] = {}
+    for issue in issues:
+        key = str(issue.get("key") or "")
+        klass = classify_live_bat_issue(key, canonical_keys, auxiliary_keys)
+        classifications[key] = klass
+        fields = issue.get("fields") or {}
+        status = str((fields.get("status") or {}).get("name") or "")
+        issue_type = str((fields.get("issuetype") or {}).get("name") or "")
+        if klass == ISSUE_CLASS_CANONICAL:
+            increment_histogram(canonical_status, status)
+            increment_histogram(canonical_types, issue_type)
+        elif klass == ISSUE_CLASS_AUXILIARY:
+            increment_histogram(auxiliary_status, status)
+            increment_histogram(auxiliary_types, issue_type)
+        else:
+            increment_histogram(unexpected_status, status)
+            increment_histogram(unexpected_types, issue_type)
+    total_status = add_histograms(canonical_status, auxiliary_status, unexpected_status)
+    total_types = add_histograms(canonical_types, auxiliary_types, unexpected_types)
+    return {
+        "auxiliary_issue_type_counts": auxiliary_types,
+        "auxiliary_status_counts": auxiliary_status,
+        "canonical_issue_type_counts": canonical_types,
+        "canonical_status_counts": canonical_status,
+        "classifications": classifications,
+        "issue_type_counts": dict(total_types),
+        "status_counts": dict(total_status),
+        "total_issue_type_counts": total_types,
+        "total_status_counts": total_status,
+        "unexpected_issue_type_counts": unexpected_types,
+        "unexpected_status_counts": unexpected_status,
+    }
+
+
+def histogram_invariant_findings(
+    histograms: Mapping[str, Any],
+    *,
+    canonical_actual_count: int,
+    auxiliary_actual_count: int,
+    unexpected_actual_count: int,
+    total_actual_issue_count: int,
+) -> list[str]:
+    findings: list[str] = []
+
+    def _sum(name: str) -> int:
+        return sum(int(value) for value in (histograms.get(name) or {}).values())
+
+    checks = (
+        ("canonical_status_counts", canonical_actual_count),
+        ("auxiliary_status_counts", auxiliary_actual_count),
+        ("total_status_counts", total_actual_issue_count),
+        ("canonical_issue_type_counts", canonical_actual_count),
+        ("auxiliary_issue_type_counts", auxiliary_actual_count),
+        ("total_issue_type_counts", total_actual_issue_count),
+    )
+    for name, expected in checks:
+        actual = _sum(name)
+        if actual != expected:
+            findings.append(f"{name} sum {actual} != {expected}")
+    combined_status = add_histograms(
+        histograms.get("canonical_status_counts") or {},
+        histograms.get("auxiliary_status_counts") or {},
+    )
+    combined_types = add_histograms(
+        histograms.get("canonical_issue_type_counts") or {},
+        histograms.get("auxiliary_issue_type_counts") or {},
+    )
+    if unexpected_actual_count:
+        combined_status = add_histograms(
+            combined_status,
+            histograms.get("unexpected_status_counts") or {},
+        )
+        combined_types = add_histograms(
+            combined_types,
+            histograms.get("unexpected_issue_type_counts") or {},
+        )
+        status_label = "total_status_counts != canonical + auxiliary + unexpected status counts"
+        type_label = "total_issue_type_counts != canonical + auxiliary + unexpected issue type counts"
+    else:
+        status_label = "total_status_counts != canonical_status_counts + auxiliary_status_counts"
+        type_label = "total_issue_type_counts != canonical_issue_type_counts + auxiliary_issue_type_counts"
+    if combined_status != dict(histograms.get("total_status_counts") or {}):
+        findings.append(status_label)
+    if combined_types != dict(histograms.get("total_issue_type_counts") or {}):
+        findings.append(type_label)
+    if dict(histograms.get("status_counts") or {}) != dict(histograms.get("total_status_counts") or {}):
+        findings.append("status_counts is not a total_status_counts alias")
+    if dict(histograms.get("issue_type_counts") or {}) != dict(histograms.get("total_issue_type_counts") or {}):
+        findings.append("issue_type_counts is not a total_issue_type_counts alias")
+    return findings
+
+
+def build_regression_515_31_histogram_board() -> dict[str, Any]:
+    """Reproduce 515 canonical + 31 auxiliary semantics without the live site."""
+    key_map = {f"CANON-{index:03d}": f"BAT-{index}" for index in range(1, 516)}
+    auxiliary: dict[str, dict[str, Any]] = {}
+    issues: list[dict[str, Any]] = []
+    for offset, (local_id, key) in enumerate(key_map.items()):
+        if offset < 51:
+            issue_type = "Epic"
+        elif offset < 109:
+            issue_type = "Story"
+        elif offset < 314:
+            issue_type = "Sub-task"
+        else:
+            issue_type = "Task"
+        status = "Done" if offset < 93 else "To Do"
+        issues.append(
+            {
+                "key": key,
+                "fields": {
+                    "issuetype": {"name": issue_type},
+                    "status": {"name": status},
+                    "summary": f"Canonical {key}",
+                },
+            }
+        )
+    auxiliary_keys = [f"BAT-{index}" for index in range(600, 630)]
+    auxiliary_keys.append("BAT-523")
+    for key in auxiliary_keys:
+        status = "In Progress" if key == "BAT-523" else "Done"
+        issue_type = "Story" if key == "BAT-629" else "Task"
+        local_id = (
+            "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001"
+            if key == "BAT-523"
+            else f"AUX-{key}"
+        )
+        item = {
+            "jira_key": key,
+            "local_id": local_id,
+            "summary": f"Auxiliary {key}",
+            "issue_type": issue_type,
+            "status": status,
+            "logical_state": "IN_PROGRESS" if status == "In Progress" else "DONE",
+            "maturity": "IMPLEMENTED",
+            "evidence_state": "VERIFIED" if status == "Done" else "PARTIAL",
+            "owner_wave": "POST_W25",
+            "phase": "PHASE-1",
+            "critical_path": True,
+            "execution_lane": "DATA_MATERIALIZATION",
+            "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+        }
+        auxiliary[key] = item
+        issues.append(
+            {
+                "key": key,
+                "fields": {
+                    "issuetype": {"name": issue_type},
+                    "status": {"name": status},
+                    "summary": item["summary"],
+                },
+            }
+        )
+    histograms = build_live_issue_histograms(issues, set(key_map.values()), set(auxiliary))
+    return {
+        "auxiliary": auxiliary,
+        "histograms": histograms,
+        "issues": issues,
+        "key_map": key_map,
+    }
+
+
+def validate_live_verification_histogram_artifact(payload: Mapping[str, Any]) -> list[str]:
+    required = (
+        "auxiliary_actual_count",
+        "auxiliary_issue_type_counts",
+        "auxiliary_status_counts",
+        "canonical_actual_count",
+        "canonical_issue_type_counts",
+        "canonical_status_counts",
+        "issue_count",
+        "issue_type_counts",
+        "status_counts",
+        "total_actual_issue_count",
+        "total_issue_type_counts",
+        "total_status_counts",
+        "unexpected_issue_keys",
+    )
+    missing = [name for name in required if name not in payload]
+    if missing:
+        return [f"live verification missing histogram fields: {missing}"]
+    findings: list[str] = []
+    if int(payload.get("schema_version") or 0) < LIVE_VERIFICATION_SCHEMA_VERSION:
+        findings.append(
+            f"live verification schema_version {payload.get('schema_version')!r} "
+            f"< {LIVE_VERIFICATION_SCHEMA_VERSION}"
+        )
+    if int(payload["issue_count"]) != int(payload["total_actual_issue_count"]):
+        findings.append("issue_count != total_actual_issue_count")
+    unexpected = list(payload.get("unexpected_issue_keys") or [])
+    findings.extend(
+        histogram_invariant_findings(
+            payload,
+            canonical_actual_count=int(payload["canonical_actual_count"]),
+            auxiliary_actual_count=int(payload["auxiliary_actual_count"]),
+            unexpected_actual_count=len(unexpected),
+            total_actual_issue_count=int(payload["total_actual_issue_count"]),
+        )
+    )
+    return findings
+
+
+def validate_static_live_verification_histogram_surface(repo_root: Path | None = None) -> list[str]:
+    """Read-only histogram contract: 515+31 fixture plus schema>=2 committed artifact."""
+    board = build_regression_515_31_histogram_board()
+    histograms = board["histograms"]
+    findings = histogram_invariant_findings(
+        histograms,
+        canonical_actual_count=515,
+        auxiliary_actual_count=31,
+        unexpected_actual_count=0,
+        total_actual_issue_count=546,
+    )
+    if histograms["classifications"].get("BAT-523") != ISSUE_CLASS_AUXILIARY:
+        findings.append("BAT-523 was not classified auxiliary in the 515+31 fixture")
+    if histograms["auxiliary_status_counts"].get("In Progress") != 1:
+        findings.append("515+31 fixture omitted auxiliary In Progress")
+    if histograms["total_status_counts"].get("In Progress") != 1:
+        findings.append("515+31 fixture omitted total In Progress")
+    if repo_root is not None:
+        artifact_path = Path(repo_root) / "jira" / "validation" / "BAT_LIVE_IMPORT_VERIFICATION.json"
+        if artifact_path.is_file():
+            payload = json.loads(artifact_path.read_text(encoding="utf-8"))
+            if int(payload.get("schema_version") or 0) >= LIVE_VERIFICATION_SCHEMA_VERSION:
+                findings.extend(validate_live_verification_histogram_artifact(payload))
+    return findings
+
+
+def live_verification_closeout_summary(verification: Mapping[str, Any]) -> str:
+    total_status = verification.get("total_status_counts") or verification.get("status_counts") or {}
+    canonical_status = verification.get("canonical_status_counts") or {}
+    auxiliary_status = verification.get("auxiliary_status_counts") or {}
+    return (
+        f"operational_done_total={total_status.get('Done', 0)} "
+        f"operational_done_canonical={canonical_status.get('Done', 0)} "
+        f"operational_done_auxiliary={auxiliary_status.get('Done', 0)} "
+        f"operational_in_progress_total={total_status.get('In Progress', 0)}"
+    )
+
+
 def collect_auxiliary_live_coverage(
     issues: list[dict[str, Any]],
     key_map: dict[str, str],
@@ -2151,8 +2435,20 @@ def verify_live(
     canonical_live_count = sum(key in by_key for key in key_map.values())
     if canonical_live_count != len(rows):
         discrepancies.append(f"canonical issue count {canonical_live_count} != {len(rows)}")
-    type_counts: dict[str, int] = {}
-    status_counts: dict[str, int] = {}
+    histograms = build_live_issue_histograms(
+        issues,
+        set(key_map.values()),
+        set(auxiliary_issues),
+    )
+    discrepancies.extend(
+        histogram_invariant_findings(
+            histograms,
+            canonical_actual_count=auxiliary_coverage["canonical_actual_count"],
+            auxiliary_actual_count=auxiliary_coverage["auxiliary_actual_count"],
+            unexpected_actual_count=len(auxiliary_coverage["unexpected_issue_keys"]),
+            total_actual_issue_count=auxiliary_coverage["total_actual_issue_count"],
+        )
+    )
     for row in rows:
         local_id = row["Local Issue ID"]
         key = key_map.get(local_id, "")
@@ -2163,9 +2459,7 @@ def verify_live(
         fields = issue["fields"]
         expected = payload_by_id[local_id]["payload_template"]["fields"]
         actual_type = fields["issuetype"]["name"]
-        type_counts[actual_type] = type_counts.get(actual_type, 0) + 1
         actual_status = fields["status"]["name"]
-        status_counts[actual_status] = status_counts.get(actual_status, 0) + 1
         if fields["summary"] != row["Summary"]:
             discrepancies.append(f"{local_id}: summary mismatch")
         if fields["description"] != expected["description"]:
@@ -2223,7 +2517,7 @@ def verify_live(
     board = client.get(f"/rest/agile/1.0/board/{BOARD_ID}/configuration")
     board_filter = client.get(f"/rest/api/3/filter/{BOARD_FILTER_ID}")
     verification = {
-        "schema_version": 1,
+        "schema_version": LIVE_VERIFICATION_SCHEMA_VERSION,
         "verified_at": utc_now(),
         "result": "PASS" if not discrepancies else "FAIL",
         "project": {"key": PROJECT_KEY, "id": PROJECT_ID, "base_url": BASE_URL},
@@ -2237,8 +2531,17 @@ def verify_live(
         "total_actual_issue_count": auxiliary_coverage["total_actual_issue_count"],
         "unexpected_issue_keys": auxiliary_coverage["unexpected_issue_keys"],
         "missing_auxiliary_keys": auxiliary_coverage["missing_auxiliary_keys"],
-        "issue_type_counts": type_counts,
-        "status_counts": status_counts,
+        "canonical_status_counts": histograms["canonical_status_counts"],
+        "auxiliary_status_counts": histograms["auxiliary_status_counts"],
+        "unexpected_status_counts": histograms["unexpected_status_counts"],
+        "total_status_counts": histograms["total_status_counts"],
+        "status_counts": histograms["status_counts"],
+        "canonical_issue_type_counts": histograms["canonical_issue_type_counts"],
+        "auxiliary_issue_type_counts": histograms["auxiliary_issue_type_counts"],
+        "unexpected_issue_type_counts": histograms["unexpected_issue_type_counts"],
+        "total_issue_type_counts": histograms["total_issue_type_counts"],
+        "issue_type_counts": histograms["issue_type_counts"],
+        "histogram_semantics": HISTOGRAM_ALIAS_SEMANTICS,
         "parent_count": sum(bool(row["Parent"]) for row in rows),
         "expected_link_count": len(expected_links),
         "actual_expected_link_count": len(actual_links & expected_links),
@@ -2557,7 +2860,7 @@ def main() -> int:
     print(
         "BAT LIVE IMPORT COMPLETE: "
         f"issues={expected['issues']} parents={expected['parents']} links={expected['links']} "
-        f"operational_done={verification['status_counts'].get('Done', 0)} "
+        f"{live_verification_closeout_summary(verification)} "
         f"active_post_wave={expected['active_post_wave']}",
         flush=True,
     )

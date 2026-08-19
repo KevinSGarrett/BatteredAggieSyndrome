@@ -35,6 +35,20 @@ from tools.validate_team_state import validate as validate_team_state  # noqa: E
 from tools.validate_temporal import validate as validate_temporal  # noqa: E402
 
 
+def validate_live_verification_histogram_surface(root: Path) -> list[str]:
+    """Read-only live-verifier histogram contract; does not call Jira."""
+    module_path = root / "jira" / "tools" / "import_bat_live.py"
+    spec = importlib.util.spec_from_file_location(
+        "aggie_analytics_jira_live_verification_histograms_strict",
+        module_path,
+    )
+    if spec is None or spec.loader is None:
+        return ["unable to load jira/tools/import_bat_live.py for histogram validation"]
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return list(module.validate_static_live_verification_histogram_surface(root))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate the canonical Aggie Analytics Engine repository.")
     parser.add_argument("--repo-root", type=Path, default=Path.cwd())
@@ -156,6 +170,31 @@ def main() -> int:
             findings.append(type("F", (), {"kind":"dangling_adr_ref", "path":str(path.relative_to(root)), "detail":ref})())
 
     if args.strict:
+        try:
+            for detail in validate_live_verification_histogram_surface(root):
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "jira_live_verification_histograms",
+                            "path": "jira/tools/import_bat_live.py",
+                            "detail": detail,
+                        },
+                    )()
+                )
+        except (ValueError, FileNotFoundError, OSError, json.JSONDecodeError, AttributeError) as exc:
+            findings.append(
+                type(
+                    "F",
+                    (),
+                    {
+                        "kind": "jira_live_verification_histograms",
+                        "path": "jira/tools/import_bat_live.py",
+                        "detail": str(exc),
+                    },
+                )()
+            )
 
         audit_path = root / AUDIT_PATH
         try:

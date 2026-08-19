@@ -1,0 +1,33 @@
+{
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No local or live issue owned independent canonical/auxiliary/total live-verifier histograms. BAT-588 through BAT-592 own 2007 identities. BAT-489 is operator/Jira maintenance documentation.",
+    "reviewed_keys": [
+      "BAT-351",
+      "BAT-447",
+      "BAT-481",
+      "BAT-489",
+      "BAT-523",
+      "BAT-588",
+      "BAT-589",
+      "BAT-590",
+      "BAT-591",
+      "BAT-592"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-593",
+  "local_issue_id": "POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Implemented schema v2 live-verifier histograms that independently classify every live BAT issue as canonical, auxiliary, or unexpected. status_counts and issue_type_counts are documented total aliases. Invariants require canonical, auxiliary, and total histogram sums to match actual counts. Closeout prints explicit operational_done_total and operational_done_canonical. Read-only histogram surface is bound into validate_repository.py --strict. Cycle #11 clean worktrees were removed non-forcibly; preservation refs remain.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review",
+  "worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-593-jira-live-verifier-histograms"
+}

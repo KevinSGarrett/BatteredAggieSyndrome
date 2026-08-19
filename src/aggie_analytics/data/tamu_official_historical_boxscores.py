@@ -98,7 +98,7 @@ CELL_RE = re.compile(r"(?is)<t[hd]\b[^>]*>(.*?)</t[hd]>")
 SEASON_RE = re.compile(r"(\d{4})\s+Texas A&(?:amp;)?M Football", re.IGNORECASE)
 DATE_RE = re.compile(r"Date:\s*([A-Za-z]{3}\s+\d{1,2},\s+\d{4})", re.IGNORECASE)
 HEAD_RE = re.compile(
-    r"(?:#\d+\s+)?([A-Za-z0-9 .&';-]+?)\s+vs\.?\s+(?:#\d+\s+)?([A-Za-z0-9 .&';-]+?)\s+\(([A-Za-z]{3}\s+\d{1,2},\s+\d{4})(?:\s+at\s+([^)]+))?\)",
+    r"(?:#\d+\s+)?([A-Za-z0-9 .&';-]+?(?:\s*\([A-Za-z0-9 .&';-]+\))?)\s+vs\.?\s+(?:#\d+\s+)?([A-Za-z0-9 .&';-]+?(?:\s*\([A-Za-z0-9 .&';-]+\))?)\s+\(([A-Za-z]{3}\s+\d{1,2},\s+\d{4})(?:\s+at\s+([^)]+))?\)",
     re.IGNORECASE,
 )
 SITE_RE = re.compile(r"Site:\s*([^<\n]+?)(?:Stadium:|Attendance:|$)", re.IGNORECASE)
@@ -403,7 +403,7 @@ def parse_quarter_scores(sum_block: str) -> list[dict[str, Any]]:
         if in_table and len(scores) >= 2:
             break
     if len(scores) < 2:
-        line_re = re.compile(r"(?m)^([A-Za-z0-9 .#'&;-]+?)\.{2,}\s+((?:\d+\s+)+)-\s+(\d+)")
+        line_re = re.compile(r"(?m)^([A-Za-z0-9 .#'&;()-]+?)\.{2,}\s+((?:\d+\s+)+)(?:\[[\d\s]+\]\s+)?-\s+(\d+)")
         for match in line_re.finditer(sum_block.replace("&amp;", "&")):
             periods = [int(item) for item in match.group(2).split()]
             scores.append({"team_raw": match.group(1).strip(), "periods": periods, "points": int(match.group(3))})
@@ -640,7 +640,7 @@ def parse_official_box_page(
         if url not in allowed_urls:
             raise AuthorityViolation(f"box URL was not emitted by the bound official inventory: {url}")
         folder_match = re.match(
-            r"^/history/football/stats/(\d{4}-\d{4})/ta\d{2}-[a-z0-9]+\.html?$",
+            r"^/history/football/stats/(\d{4}-\d{4})/(?:mfb_\d+_)?(?:ta\d{2}-[a-z0-9]+|alamo)\.html?$",
             urlsplit(url).path,
             re.IGNORECASE,
         )

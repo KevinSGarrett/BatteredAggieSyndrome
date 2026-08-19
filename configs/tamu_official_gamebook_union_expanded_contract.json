@@ -7,7 +7,7 @@
   "prior_union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
   "prior_union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
-  "pre2010_gate_identity": "b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa",
+  "pre2010_gate_identity": "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006",
   "payloads": {
     "union_root": "features/tamu_official_gamebook_union_expanded/sha256"
   },

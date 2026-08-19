@@ -48,7 +48,7 @@ class CompactExpandedUnionTests(unittest.TestCase):
             require_rebuild=LAKE_READY,
         )
         self.assertEqual(result["result"], "PASS")
-        self.assertEqual(result["gate_identity"], "7cfbadf85caa8b3c9333717cf8dedf2b4eb47e45de0ad39d17dbf4f52fd09880")
+        self.assertEqual(result["gate_identity"], "77043db845ea4089e7530509b29489c3b76455e6db7eaea299854f316b6febe9")
         self.assertEqual(result["union_identity"], "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e")
 
 
@@ -66,6 +66,8 @@ class ExpandedUnionLakeTests(unittest.TestCase):
         self.assertEqual(self.gate["counts"]["new_games_added"], 23)
         self.assertEqual(self.gate["counts"]["unmatched_rejected"], 2)
         self.assertEqual(self.gate["counts"]["union_captured_games"], 226)
+        self.assertEqual(self.gate["counts"]["rich_structured_games"], 190)
+        self.assertEqual(self.gate["counts"]["metadata_only_games"], 36)
         self.assertEqual(self.gate["counts"]["ncaa_contest_ids_created"], 0)
         rejected = {item["opponent_candidate"] for item in self.gate["rejected_pre2010_games"]}
         self.assertEqual(rejected, {"Georgia", "Miami"})

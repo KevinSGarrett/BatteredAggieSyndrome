@@ -14,13 +14,17 @@
     ]
   },
   "current_identities": {
-    "gate_identity": "7cfbadf85caa8b3c9333717cf8dedf2b4eb47e45de0ad39d17dbf4f52fd09880",
+    "gate_identity": "77043db845ea4089e7530509b29489c3b76455e6db7eaea299854f316b6febe9",
     "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
     "pre2010_dataset_identity": "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59",
-    "pre2010_gate_identity": "b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa",
+    "pre2010_gate_identity": "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006",
     "prior_union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
     "prior_union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
     "union_identity": "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e"
+  },
+  "superseded_identities": {
+    "gate_identity": "7cfbadf85caa8b3c9333717cf8dedf2b4eb47e45de0ad39d17dbf4f52fd09880",
+    "pre2010_gate_identity": "b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa"
   },
   "duplicate_audit": {
     "decision": "CREATE",
@@ -54,7 +58,7 @@
   "jira_key": "BAT-587",
   "local_issue_id": "POST-TASK-CYCLE-10-SRC014-EXPANDED-GAMEBOOK-UNION-001",
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Cycle #10 Phase 5 creates a new immutable union identity a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e and gate identity 7cfbadf85caa8b3c9333717cf8dedf2b4eb47e45de0ad39d17dbf4f52fd09880. The WMT 177-game payload, Cycle #9 26-game official payload, and Cycle #9 203-game union identity 050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672 remain preserved. 23 independently matched official 2008/2009 games are admitted (12 from 2009, 11 from 2008). Two unmatched strong tuples are rejected (2009 Georgia, 2008 Miami). Date conflicts are preserved for 2009 Baylor and 2009 Texas. Total union games: 226. Rich structured games remain 190. Metadata-only games: 36. NCAA contest IDs remain zero. Historical known-at remains unresolved. Pregame availability remains blocked. BAT-572 evidence producer was re-run and still binds rebound owner BAT-581 with gate 89598903d6d0202b868b884480d2e799530a2294a2d407f3dbba7ac6593f7c67; it does not regress to BAT-577 or Cycle #8. BAT-401 readiness identity c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc is unchanged. BAT-575 and BAT-576 identities are unchanged. BAT-523 stays In Progress. BAT-429 stays blocked because POST-SUBTASK-063/066/069 remain To Do.",
+  "observable_outcome": "Cycle #10 Phase 5 creates a new immutable union identity a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e and gate identity 77043db845ea4089e7530509b29489c3b76455e6db7eaea299854f316b6febe9. Cycle #11 rebound this gate to the corrected BAT-586 identity c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006 and superseded prior identities 7cfbadf85caa8b3c9333717cf8dedf2b4eb47e45de0ad39d17dbf4f52fd09880 and b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa. Union counts remain 190 rich / 36 metadata-only / 226 total. The WMT 177-game payload, Cycle #9 26-game official payload, and Cycle #9 203-game union identity 050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672 remain preserved. 23 independently matched official 2008/2009 games are admitted (12 from 2009, 11 from 2008). Two unmatched strong tuples are rejected (2009 Georgia, 2008 Miami). Date conflicts are preserved for 2009 Baylor and 2009 Texas. Total union games: 226. Rich structured games remain 190. Metadata-only games: 36. NCAA contest IDs remain zero. Historical known-at remains unresolved. Pregame availability remains blocked. BAT-572 evidence producer was re-run and still binds rebound owner BAT-581 with gate 89598903d6d0202b868b884480d2e799530a2294a2d407f3dbba7ac6593f7c67; it does not regress to BAT-577 or Cycle #8. BAT-401 readiness identity c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc is unchanged. BAT-575 and BAT-576 identities are unchanged. BAT-523 stays In Progress. BAT-429 stays blocked because POST-SUBTASK-063/066/069 remain To Do.",
   "outputs": [
     {
       "bytes": 23580,
@@ -79,12 +83,12 @@
     {
       "bytes": 1116,
       "path": "configs/tamu_official_gamebook_union_expanded_contract.json",
-      "sha256": "efc1eb08b8ae61fbd61ee285f90c5dc0c242cd2ff932d42828b06c17229b4c1a"
+      "sha256": "a134f38d89434d657607111cbc0c094440478e95301ad3bf3a733fd6c0b57cc4"
     },
     {
       "bytes": 50549,
       "path": "artifacts/data_lake/tamu_official_gamebook_union_expanded_gate.json",
-      "sha256": "c1362da4dec827ffb0aeb6431543a08eb3f7b24fd4e6e71c6b6f716d9ab84ff4"
+      "sha256": "61d7164143289e308aa3187c47dbdf496e248823d6d555afb93dde3a4c12dc4c"
     }
   ],
   "parent_jira_key": "BAT-523",

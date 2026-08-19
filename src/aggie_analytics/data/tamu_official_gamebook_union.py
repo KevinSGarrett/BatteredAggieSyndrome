@@ -18,6 +18,9 @@ from aggie_analytics.data.tamu_official_historical_boxscores import (
     load_json,
     write_json,
 )
+from aggie_analytics.data.tamu_official_rich_structure import (
+    is_rich_structured,
+)
 
 
 SCHEMA_VERSION = "aggie.data.tamu_official_gamebook_union.v1"
@@ -395,10 +398,7 @@ def coverage_by_season(official_games: list[Mapping[str, Any]]) -> dict[str, Any
             },
         )
         bucket["official_school_games"] += 1
-        if any(
-            official_domain_present(game, domain)
-            for domain in ("team_statistics", "player_statistics", "play_by_play")
-        ):
+        if is_rich_structured(game):
             bucket["rich_structured_games"] += 1
         else:
             bucket["metadata_only_games"] += 1

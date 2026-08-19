@@ -1,0 +1,43 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_585_inventory": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_588": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "current_identities": {
+    "acquisition_identity": "d49d84a0d61e9046cfcc3b39f69d92ceb6d9efa46e36d49d26b9c832c20c2fa5",
+    "dataset_identity": "8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0",
+    "games_identity": "616f28229fa56e8f8b76c6385d357bc7350594bdc484750f0326fc4ced685f46",
+    "gate_identity": "f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
+  },
+  "superseded_identities": {
+    "gate_identity": "afac40b0975e0d109f5d2516d1d89426e83620626e8c30cafff97c63293d2025"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "JiraBot stamped CREATE. BAT-588 is discovery only. BAT-586 is 2008-2009 only. This unit acquires the 13 official 2007 box URLs.",
+    "reviewed_keys": ["BAT-401", "BAT-429", "BAT-523", "BAT-585", "BAT-586", "BAT-587", "BAT-588"]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "IMPLEMENTED_PENDING_REVIEW",
+  "issue_complete": false,
+  "jira_key": "BAT-589",
+  "local_issue_id": "POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Acquired and normalized the 13 official 2007 box URLs discovered by BAT-588 from https://files.12thman.com/history/football/years/2007.html. Acquisition identity d49d84a0d61e9046cfcc3b39f69d92ceb6d9efa46e36d49d26b9c832c20c2fa5, dataset identity 8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0, games identity 616f28229fa56e8f8b76c6385d357bc7350594bdc484750f0326fc4ced685f46, and gate identity f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51. Canonical rich structure counts: rich_structured_games=1, metadata_only_games=12, scoring_summary_present_games=13. Scoring-summary presence alone is not rich structure. Retrieval time only. BAT-585 inventory d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37 not rewritten. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  }
+}

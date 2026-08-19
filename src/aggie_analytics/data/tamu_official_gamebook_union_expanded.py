@@ -21,11 +21,13 @@ from aggie_analytics.data.tamu_official_gamebook_union import (
     WMT_METADATA_ONLY,
     WMT_RICH_GAMES,
     WMT_TARGET_GAMES,
-    official_domain_present,
 )
 from aggie_analytics.data.tamu_official_pre2010_boxscores import (
     CONTRACT_RELATIVE as PRE2010_CONTRACT_RELATIVE,
     GATE_RELATIVE as PRE2010_GATE_RELATIVE,
+)
+from aggie_analytics.data.tamu_official_rich_structure import (
+    is_rich_structured,
 )
 
 
@@ -40,7 +42,7 @@ PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 PRIOR_UNION_IDENTITY = "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
 PRIOR_UNION_GATE_IDENTITY = "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106"
 INVENTORY_IDENTITY = "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
-PRE2010_GATE_IDENTITY = "b98d712cd0e9c6bd3f685de8a8c6305a7fc9bf2f24a02ede4f47d27a3cefa8fa"
+PRE2010_GATE_IDENTITY = "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006"
 PRE2010_DATASET_IDENTITY = "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59"
 PRE2010_GAMES_IDENTITY = "176ae7a0f6f93de591c850cd49da280682ac328c4ebf7a0b0d0beb78b24d4b7a"
 PRE2010_ACQUISITION_IDENTITY = "58c44cc252a6139a7618a779e9fc9b353949cf942ac93eeb08c38b6c697a62af"
@@ -285,7 +287,7 @@ def coverage_by_season(admitted: list[Mapping[str, Any]]) -> dict[str, Any]:
             },
         )
         bucket["official_school_games"] += 1
-        if any(official_domain_present(game, domain) for domain in ("team_statistics", "player_statistics", "play_by_play")):
+        if is_rich_structured(game):
             bucket["rich_structured_games"] += 1
         else:
             bucket["metadata_only_games"] += 1
@@ -349,11 +351,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     admitted_2008 = [item for item in admitted if int(item["source_season"]) == 2008]
     prior_rich = int(prior["counts"]["rich_structured_games"])
     prior_meta = int(prior["counts"]["metadata_only_games"])
-    new_rich = sum(
-        1
-        for item in admitted
-        if any(official_domain_present(item, domain) for domain in ("team_statistics", "player_statistics", "play_by_play"))
-    )
+    new_rich = sum(1 for item in admitted if is_rich_structured(item))
     new_meta = len(admitted) - new_rich
     counts = {
         "wmt_games_preserved": WMT_TARGET_GAMES,

@@ -1,7 +1,8 @@
-"""Acquire and normalize official SRC-014 box scores for BAT-585 selected pre-2010 seasons."""
+"""Acquire and normalize official SRC-014 2007 box scores from the BAT-588 captured index."""
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -49,15 +50,15 @@ from aggie_analytics.data.tamu_official_rich_structure import (
 )
 
 
-SCHEMA_VERSION = "aggie.data.tamu_official_pre2010_boxscores.v1"
-CONTRACT_RELATIVE = "configs/tamu_official_pre2010_boxscore_contract.json"
-GATE_RELATIVE = "artifacts/data_lake/tamu_official_pre2010_boxscore_gate.json"
-CONTRACT_ID = "BAT-586-TAMU-OFFICIAL-PRE2010-BOXSCORES-V1"
+SCHEMA_VERSION = "aggie.data.tamu_official_2007_boxscores.v1"
+CONTRACT_RELATIVE = "configs/tamu_official_2007_boxscore_contract.json"
+GATE_RELATIVE = "artifacts/data_lake/tamu_official_2007_boxscore_gate.json"
+CONTRACT_ID = "BAT-589-TAMU-OFFICIAL-2007-BOXSCORES-V1"
 SOURCE_ID = "SRC-014"
-PASS_CLASSIFICATION = "TAMU_SRC014_OFFICIAL_PRE2010_BOXSCORE_CANDIDATE_ONLY"
-PASS_RESULT = "PASS_OFFICIAL_PRE2010_BOXSCORES_NORMALIZED"
+PASS_CLASSIFICATION = "TAMU_SRC014_OFFICIAL_2007_BOXSCORE_CANDIDATE_ONLY"
+PASS_RESULT = "PASS_OFFICIAL_2007_BOXSCORES_NORMALIZED"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
-CAPTURE_INDEX_RELATIVE = "features/tamu_official_pre2010_boxscores/capture_index.json"
+CAPTURE_INDEX_RELATIVE = "features/tamu_official_2007_boxscores/capture_index.json"
 INVENTORY_IDENTITY = "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
 INVENTORY_GATE_IDENTITY = "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851"
 BOXSCORE_GATE_IDENTITY = "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5"
@@ -88,7 +89,7 @@ GATE_IDENTITY_FIELDS = (
 
 
 def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
@@ -97,40 +98,52 @@ def write_json(path: Path, payload: Mapping[str, Any]) -> None:
 
 
 def compute_gate_identity(gate: Mapping[str, Any]) -> str:
-    return stable_hash({key: gate[key] for key in GATE_IDENTITY_FIELDS})
+    mutable = {key: value for key, value in gate.items() if key != "gate_identity"}
+    return hashlib.sha256(
+        json.dumps(mutable, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode("utf-8")
+    ).hexdigest()
 
 
-def load_inventory(repo_root: Path, data_root: Path) -> dict[str, Any]:
-    gate = load_json(repo_root / INVENTORY_GATE_RELATIVE)
-    if gate.get("inventory_identity") != INVENTORY_IDENTITY or gate.get("gate_identity") != INVENTORY_GATE_IDENTITY:
-        raise AuthorityViolation("BAT-585 inventory identity is not the bound Phase 3 identity")
-    contract = load_json(repo_root / "configs/tamu_official_historical_coverage_inventory_contract.json")
-    payload = load_json(data_root / contract["payloads"]["normalized_root"] / INVENTORY_IDENTITY / "inventory.json")
-    if payload.get("inventory_identity") != INVENTORY_IDENTITY:
-        raise AuthorityViolation("external inventory payload identity drifted")
-    return {"gate": gate, "payload": payload, "contract": contract}
+BAT588_GATE_RELATIVE = "artifacts/data_lake/tamu_official_2007_season_index_gate.json"
+PINNED_BAT588_GATE_IDENTITY = "60fc69c136332de876d511f2020ffbd08282bc4e02256e547d3bcb46222c5ea9"
+PINNED_BAT588_CAPTURE_IDENTITY = "628218e89ad3cc3631cbc105149ced8179c5e2ece4cc275ad67f39f808ccdd2c"
+PINNED_BAT588_BOX_URL_IDENTITY = "09a18a20976ba739e3463ceb043d47d2ae2c973ff0bfc384e953023473de48af"
+OFFICIAL_2007_INDEX_URL = "https://files.12thman.com/history/football/years/2007.html"
+SEASON = 2007
 
 
-def selected_targets(inventory: Mapping[str, Any]) -> list[dict[str, Any]]:
-    targets: list[dict[str, Any]] = []
-    for row in inventory["payload"]["selected_seasons"]:
-        season = int(row["season"])
-        if season >= 2010:
-            raise AuthorityViolation(f"inventory selected a non-pre-2010 season: {season}")
-        parent = validate_official_url(row["official_index_url"])
-        for url in row["box_score_urls"]:
-            official = validate_official_url(url)
-            targets.append(
-                {
-                    "season": season,
-                    "official_index_url": parent,
-                    "box_url": official,
-                }
-            )
-    if not targets:
-        raise AuthorityViolation("inventory selected no official box-score URLs")
-    return targets
+def load_source_index(repo_root: Path, data_root: Path) -> dict[str, Any]:
+    inventory_gate = load_json(repo_root / INVENTORY_GATE_RELATIVE)
+    if inventory_gate.get("inventory_identity") != INVENTORY_IDENTITY or inventory_gate.get("gate_identity") != INVENTORY_GATE_IDENTITY:
+        raise AuthorityViolation("BAT-585 inventory identity rewritten")
+    gate = load_json(repo_root / BAT588_GATE_RELATIVE)
+    if gate.get("gate_identity") != PINNED_BAT588_GATE_IDENTITY:
+        raise AuthorityViolation("BAT-588 gate identity drifted")
+    if gate.get("inventory_identity") != INVENTORY_IDENTITY:
+        raise AuthorityViolation("BAT-585 inventory identity rewritten")
+    if gate.get("official_index_url") != OFFICIAL_2007_INDEX_URL:
+        raise AuthorityViolation("guessed or substituted 2007 official URL")
+    urls = [validate_official_url(str(url)) for url in (gate.get("box_score_urls") or [])]
+    if len(urls) != 13:
+        raise AuthorityViolation(f"BAT-588 allowlist is not the 13 official 2007 box URLs: {len(urls)}")
+    capture = gate.get("capture") or {}
+    return {
+        "gate": gate,
+        "inventory_gate": inventory_gate,
+        "season": SEASON,
+        "official_index_url": OFFICIAL_2007_INDEX_URL,
+        "box_score_urls": urls,
+        "season_index_raw_sha256": capture.get("raw_sha256"),
+        "season_index_raw_relative_path": capture.get("raw_relative_path"),
+    }
 
+
+def selected_targets(source: Mapping[str, Any]) -> list[dict[str, Any]]:
+    parent = validate_official_url(str(source["official_index_url"]))
+    return [
+        {"season": SEASON, "official_index_url": parent, "box_url": validate_official_url(str(url))}
+        for url in source["box_score_urls"]
+    ]
 
 def parse_allowlisted_season_index(body: bytes, season: int, parent_url: str, allowed: frozenset[str]) -> list[dict[str, Any]]:
     text = body.decode("latin-1", errors="replace")
@@ -236,9 +249,9 @@ def acquire_missing(
 
 
 def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
-    inventory = load_inventory(repo_root, data_root)
+    source = load_source_index(repo_root, data_root)
     contract = load_json(repo_root / CONTRACT_RELATIVE)
-    targets = selected_targets(inventory)
+    targets = selected_targets(source)
     allowed = frozenset(item["box_url"] for item in targets)
     selected_seasons = []
     seen_seasons: list[int] = []
@@ -251,7 +264,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     if any(item["box_url"] not in captures for item in targets):
         raise AuthorityViolation("capture index is missing one or more inventory box-score URLs")
     season_index_by_year: dict[int, dict[str, Any]] = {}
-    for row in inventory["payload"]["selected_seasons"]:
+    for row in [{"season": source["season"], "official_index_url": source["official_index_url"], "season_index_raw_sha256": source["season_index_raw_sha256"], "season_index_raw_relative_path": source["season_index_raw_relative_path"]}]:
         season = int(row["season"])
         digest = row.get("season_index_raw_sha256")
         if not digest:
@@ -340,10 +353,10 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     richness = classify_games(games)
     payload = {
         "schema_version": SCHEMA_VERSION,
-        "artifact_type": "TAMU_OFFICIAL_PRE2010_BOXSCORES",
+        "artifact_type": "TAMU_OFFICIAL_2007_BOXSCORES",
         "contract_id": CONTRACT_ID,
-        "decision_unit": "POST-TASK-CYCLE-10-SRC014-PRE2010-OFFICIAL-ACQUISITION-001",
-        "jira_key": "BAT-586",
+        "decision_unit": "POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001",
+        "jira_key": "BAT-589",
         "source_id": SOURCE_ID,
         "inventory_identity": INVENTORY_IDENTITY,
         "selected_seasons": selected_seasons,
@@ -352,7 +365,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "normalized_rows": normalized_rows,
         "blocked_or_partial": blocked,
         "conflicts": conflicts,
-        "admissions": expected_admissions() | {"inventory_identity": INVENTORY_IDENTITY, "gap_005": "OPEN"},
+        "admissions": expected_admissions() | {"inventory_identity": INVENTORY_IDENTITY, "gap_005": "OPEN", "bat_523": "IN_PROGRESS", "union_admission": "NOT_ADMITTED", "bat_588": "CONSUMED_INDEX_CAPTURE_ONLY"},
         "authority": expected_authority(),
         "scientific_nonclaims": expected_scientific_nonclaims(),
         "protected_lane": PROTECTED_LANE,
@@ -374,6 +387,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "metadata_only_games": richness["metadata_only_games"],
         "scoring_summary_present_games": richness["scoring_summary_present_games"],
         "ncaa_contest_ids_created": 0,
+        "games_admitted_to_union": 0,
         "player_stat_candidates": sum(len(row["player_stat_candidates"]) for row in normalized_rows),
         "participation_candidates": sum(len(row["participation"]) for row in normalized_rows),
     }
@@ -382,12 +396,12 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         counts[f"normalized_games_{season}"] = int(season_counts.get(season, 0))
     gate = {
         "schema_version": SCHEMA_VERSION,
-        "artifact_type": "TAMU_OFFICIAL_PRE2010_BOXSCORE_GATE",
-        "result": PASS_RESULT if not blocked and counts["normalized_games"] == counts["target_games_total"] else "PARTIAL_OFFICIAL_PRE2010_BOXSCORES",
+        "artifact_type": "TAMU_OFFICIAL_2007_BOXSCORE_GATE",
+        "result": PASS_RESULT if not blocked and counts["normalized_games"] == counts["target_games_total"] else "PARTIAL_OFFICIAL_2007_BOXSCORES",
         "classification": PASS_CLASSIFICATION,
         "contract_id": CONTRACT_ID,
-        "decision_unit": "POST-TASK-CYCLE-10-SRC014-PRE2010-OFFICIAL-ACQUISITION-001",
-        "jira_key": "BAT-586",
+        "decision_unit": "POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001",
+        "jira_key": "BAT-589",
         "disposition": "NORMALIZED_CANDIDATE_ONLY_NO_UNION_MUTATION",
         "source_id": SOURCE_ID,
         "inventory_identity": INVENTORY_IDENTITY,
@@ -409,6 +423,9 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
             "inventory_gate_identity": INVENTORY_GATE_IDENTITY,
             "history_index_sha256": HISTORY_INDEX_SHA256,
             "cycle9_boxscore_gate_identity": BOXSCORE_GATE_IDENTITY,
+            "bat588_gate_identity": PINNED_BAT588_GATE_IDENTITY,
+            "bat588_capture_identity": PINNED_BAT588_CAPTURE_IDENTITY,
+            "bat588_box_url_identity": PINNED_BAT588_BOX_URL_IDENTITY,
             "union_gate_identity": UNION_GATE_IDENTITY,
             "union_identity": UNION_IDENTITY,
             "protected_split_registry_sha256": REGISTRY_SHA256,
@@ -427,8 +444,8 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
 
 
 def materialize_boxscores(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
-    inventory = load_inventory(repo_root, data_root)
-    targets = selected_targets(inventory)
+    source = load_source_index(repo_root, data_root)
+    targets = selected_targets(source)
     existing = capture_map(load_capture_index(data_root))
     captures = acquire_missing(data_root=data_root, targets=targets, existing=existing)
     write_json(data_root / CAPTURE_INDEX_RELATIVE, {"schema_version": SCHEMA_VERSION, "captures": captures})
@@ -458,7 +475,7 @@ def validate_compact_gate(committed: Mapping[str, Any]) -> None:
         raise AuthorityViolation("retrieval time promoted to historical known-at")
     if committed.get("counts", {}).get("ncaa_contest_ids_created"):
         raise AuthorityViolation("NCAA contest IDs fabricated")
-    if committed.get("result") not in {PASS_RESULT, "PARTIAL_OFFICIAL_PRE2010_BOXSCORES"}:
+    if committed.get("result") not in {PASS_RESULT, "PARTIAL_OFFICIAL_2007_BOXSCORES"}:
         raise AuthorityViolation("completion or classification forged")
     if committed.get("classification") != PASS_CLASSIFICATION:
         raise AuthorityViolation("completion or classification forged")

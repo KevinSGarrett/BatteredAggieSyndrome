@@ -543,16 +543,16 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "PARTIAL",
+      "evidence_state": "VERIFIED",
       "execution_lane": "GOVERNANCE",
       "issue_type": "Task",
       "jira_key": "BAT-598",
       "local_id": "POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001",
-      "logical_state": "REVIEW",
-      "maturity": "CONTRACT_DEFINED",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
       "owner_wave": "POST_W25",
       "phase": "PHASE-1",
-      "status": "In Review",
+      "status": "Done",
       "summary": "Reconcile the authorized BAT-to-BATQ assistive-pipeline retirement and restore true Jira convergence"
     }
   ],

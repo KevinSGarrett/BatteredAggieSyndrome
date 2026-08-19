@@ -2,22 +2,37 @@ from __future__ import annotations
 
 import argparse
 import csv
+import importlib.util
 import json
+import os
 import re
 import sys
-sys.dont_write_bytecode = True
 from pathlib import Path
 
+sys.dont_write_bytecode = True
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from tools.repo_integrity import (
+from tools.audit_protected_split_exposure import AUDIT_PATH, validate_audit  # noqa: E402
+from tools.repo_integrity import (  # noqa: E402
     INTRINSIC_VCS_METADATA,
     scan_forbidden,
     scan_secrets,
     validate_manifest,
     validate_required_structure,
 )
+from tools.validate_acceptance import validate as validate_acceptance  # noqa: E402
+from tools.validate_architecture import validate_registry  # noqa: E402
+from tools.validate_entities import validate as validate_entities  # noqa: E402
+from tools.validate_execution_focus import validate as validate_execution_focus  # noqa: E402
+from tools.validate_external_storage_policy import validate as validate_external_storage_policy  # noqa: E402
+from tools.validate_feature_lifecycle import validate as validate_feature_lifecycle  # noqa: E402
+from tools.validate_feature_registry import validate as validate_feature_registry  # noqa: E402
+from tools.validate_model_architecture import validate as validate_model_architecture  # noqa: E402
+from tools.validate_openai_assist import validate as validate_openai_assist  # noqa: E402
+from tools.validate_openrouter_assist import validate as validate_openrouter_assist  # noqa: E402
+from tools.validate_team_state import validate as validate_team_state  # noqa: E402
+from tools.validate_temporal import validate as validate_temporal  # noqa: E402
 
 
 def main() -> int:
@@ -35,74 +50,62 @@ def main() -> int:
 
     architecture_registry = root / "configs/architecture_registry.json"
     if architecture_registry.exists():
-        from tools.validate_architecture import validate_registry
         architecture_findings = validate_registry(json.loads(architecture_registry.read_text(encoding="utf-8")))
         for detail in architecture_findings:
             findings.append(type("F", (), {"kind":"architecture", "path":str(architecture_registry.relative_to(root)), "detail":detail})())
 
     entity_registry = root / "configs/entity_registry.json"
     if entity_registry.exists():
-        from tools.validate_entities import validate as validate_entities
         for detail in validate_entities(root):
             findings.append(type("F", (), {"kind":"entity_contract", "path":str(entity_registry.relative_to(root)), "detail":detail})())
 
     temporal_registry = root / "configs/temporal_registry.json"
     if temporal_registry.exists():
-        from tools.validate_temporal import validate as validate_temporal
         for detail in validate_temporal(root):
             findings.append(type("F", (), {"kind":"temporal_contract", "path":str(temporal_registry.relative_to(root)), "detail":detail})())
 
     feature_registry = root / "configs/raw_feature_registry.json"
     if feature_registry.exists():
-        from tools.validate_feature_registry import validate as validate_feature_registry
         for detail in validate_feature_registry(root):
             findings.append(type("F", (), {"kind":"feature_registry", "path":str(feature_registry.relative_to(root)), "detail":detail})())
 
     feature_lifecycle_registry = root / "configs/feature_lifecycle_registry.json"
     if feature_lifecycle_registry.exists():
-        from tools.validate_feature_lifecycle import validate as validate_feature_lifecycle
         for detail in validate_feature_lifecycle(root):
             findings.append(type("F", (), {"kind":"feature_lifecycle", "path":str(feature_lifecycle_registry.relative_to(root)), "detail":detail})())
 
     team_state_registry = root / "configs/team_state_registry.json"
     if team_state_registry.exists():
-        from tools.validate_team_state import validate as validate_team_state
         for detail in validate_team_state(root):
             findings.append(type("F", (), {"kind":"team_state", "path":str(team_state_registry.relative_to(root)), "detail":detail})())
 
     acceptance_registry = root / "configs/acceptance_registry.json"
     if acceptance_registry.exists():
-        from tools.validate_acceptance import validate as validate_acceptance
         for detail in validate_acceptance(root):
             findings.append(type("F", (), {"kind":"acceptance", "path":str(acceptance_registry.relative_to(root)), "detail":detail})())
 
     model_architecture_registry = root / "configs/model_architecture_registry.json"
     if model_architecture_registry.exists():
-        from tools.validate_model_architecture import validate as validate_model_architecture
         for detail in validate_model_architecture(root):
             findings.append(type("F", (), {"kind":"model_architecture", "path":str(model_architecture_registry.relative_to(root)), "detail":detail})())
 
     external_storage_policy = root / "configs/external_storage_policy.json"
     if external_storage_policy.exists():
-        from tools.validate_external_storage_policy import validate as validate_external_storage_policy
         for detail in validate_external_storage_policy(root):
             findings.append(type("F", (), {"kind":"external_storage", "path":str(external_storage_policy.relative_to(root)), "detail":detail})())
 
     openai_assist_policy = root / "configs/openai_assist_policy.json"
     if openai_assist_policy.exists():
-        from tools.validate_openai_assist import validate as validate_openai_assist
         for detail in validate_openai_assist(root):
             findings.append(type("F", (), {"kind":"openai_assist", "path":str(openai_assist_policy.relative_to(root)), "detail":detail})())
 
     openrouter_assist_policy = root / "configs/openrouter_assist_policy.json"
     if openrouter_assist_policy.exists():
-        from tools.validate_openrouter_assist import validate as validate_openrouter_assist
         for detail in validate_openrouter_assist(root):
             findings.append(type("F", (), {"kind":"openrouter_assist", "path":str(openrouter_assist_policy.relative_to(root)), "detail":detail})())
 
     execution_focus_policy = root / "instructions/policies/execution_focus_policy.json"
     if execution_focus_policy.exists():
-        from tools.validate_execution_focus import validate as validate_execution_focus
         for detail in validate_execution_focus(root):
             findings.append(type("F", (), {"kind":"execution_focus", "path":str(execution_focus_policy.relative_to(root)), "detail":detail})())
 
@@ -153,7 +156,6 @@ def main() -> int:
             findings.append(type("F", (), {"kind":"dangling_adr_ref", "path":str(path.relative_to(root)), "detail":ref})())
 
     if args.strict:
-        from tools.audit_protected_split_exposure import AUDIT_PATH, validate_audit
 
         audit_path = root / AUDIT_PATH
         try:
@@ -190,7 +192,6 @@ def main() -> int:
                     )()
                 )
             else:
-                import importlib.util
 
                 spec = importlib.util.spec_from_file_location(
                     "aggie_analytics_artifact_binding_strict",
@@ -229,8 +230,6 @@ def main() -> int:
         team_season_gate = root / "artifacts" / "data_lake" / "tamu_2010_2011_ncaa_team_season_evidence_gate.json"
         team_season_module = root / "src" / "aggie_analytics" / "data" / "tamu_ncaa_team_season_evidence.py"
         if team_season_gate.is_file() and team_season_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_team_season_evidence_strict",
@@ -281,8 +280,6 @@ def main() -> int:
         season_gate = root / "artifacts" / "data_lake" / "tamu_2010_2011_season_reconciliation_gate.json"
         season_module = root / "src" / "aggie_analytics" / "data" / "tamu_season_reconciliation.py"
         if season_gate.is_file() and season_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_season_reconciliation_strict",
@@ -323,8 +320,6 @@ def main() -> int:
         contest_gate = root / "artifacts" / "data_lake" / "tamu_2010_2011_ncaa_contest_route_discovery_gate.json"
         contest_module = root / "src" / "aggie_analytics" / "data" / "tamu_ncaa_contest_route_discovery.py"
         if contest_gate.is_file() and contest_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_contest_route_discovery_strict",
@@ -367,8 +362,6 @@ def main() -> int:
         archive_gate = root / "artifacts" / "data_lake" / "tamu_official_historical_archive_gate.json"
         archive_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_historical_archive.py"
         if archive_gate.is_file() and archive_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_official_historical_archive_strict",
@@ -413,8 +406,6 @@ def main() -> int:
         boxscore_gate = root / "artifacts" / "data_lake" / "tamu_official_historical_boxscore_gate.json"
         boxscore_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_historical_boxscores.py"
         if boxscore_gate.is_file() and boxscore_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_official_historical_boxscores_strict",
@@ -459,8 +450,6 @@ def main() -> int:
         union_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_gate.json"
         union_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union.py"
         if union_gate.is_file() and union_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_official_gamebook_union_strict",
@@ -508,8 +497,6 @@ def main() -> int:
         inventory_gate = root / "artifacts" / "data_lake" / "tamu_official_historical_coverage_inventory_gate.json"
         inventory_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_historical_coverage_inventory.py"
         if inventory_gate.is_file() and inventory_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_official_historical_coverage_inventory_strict",
@@ -557,8 +544,6 @@ def main() -> int:
         pre2010_gate = root / "artifacts" / "data_lake" / "tamu_official_pre2010_boxscore_gate.json"
         pre2010_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_pre2010_boxscores.py"
         if pre2010_gate.is_file() and pre2010_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_official_pre2010_boxscores_strict",
@@ -605,8 +590,6 @@ def main() -> int:
         expanded_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_expanded_gate.json"
         expanded_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union_expanded.py"
         if expanded_gate.is_file() and expanded_module.is_file():
-            import importlib.util
-            import os
 
             spec = importlib.util.spec_from_file_location(
                 "aggie_analytics_tamu_official_gamebook_union_expanded_strict",
@@ -648,6 +631,51 @@ def main() -> int:
                             {
                                 "kind": "tamu_official_gamebook_union_expanded",
                                 "path": "artifacts/data_lake/tamu_official_gamebook_union_expanded_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
+
+        season_2007_gate = root / "artifacts" / "data_lake" / "tamu_official_2007_season_index_gate.json"
+        season_2007_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2007_season_index.py"
+        if season_2007_gate.is_file() and season_2007_module.is_file():
+
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_2007_season_index_strict",
+                season_2007_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_2007_season_index",
+                            "path": "src/aggie_analytics/data/tamu_official_2007_season_index.py",
+                            "detail": "unable to load official 2007 season-index validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = module.lake_is_ready(data_root, root)
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=lake_ready,
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_2007_season_index",
+                                "path": "artifacts/data_lake/tamu_official_2007_season_index_gate.json",
                                 "detail": str(exc),
                             },
                         )()

@@ -296,10 +296,15 @@ class UnifiedControllerServiceTests(unittest.TestCase):
             thread = threading.Thread(target=lambda: results.append(service.run(stop)))
             thread.start()
             self.assertTrue(refresh_entered.wait(timeout=3))
-            time.sleep(0.16)
-            heartbeat = json.loads(
-                (self.runtime / "evidence/current/controller-heartbeat.json").read_text(encoding="utf-8")
-            )
+            heartbeat_path = self.runtime / "evidence/current/controller-heartbeat.json"
+            heartbeat = {}
+            deadline = time.time() + 2.0
+            while time.time() < deadline:
+                if heartbeat_path.is_file():
+                    heartbeat = json.loads(heartbeat_path.read_text(encoding="utf-8"))
+                    if int(heartbeat.get("heartbeat_sequence", 0)) >= 2:
+                        break
+                time.sleep(0.03)
             release_refresh.set()
             stop.set()
             thread.join(timeout=3)

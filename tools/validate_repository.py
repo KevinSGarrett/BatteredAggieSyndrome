@@ -602,6 +602,57 @@ def main() -> int:
                         )()
                     )
 
+        expanded_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_expanded_gate.json"
+        expanded_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union_expanded.py"
+        if expanded_gate.is_file() and expanded_module.is_file():
+            import importlib.util
+            import os
+
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_gamebook_union_expanded_strict",
+                expanded_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_gamebook_union_expanded",
+                            "path": "src/aggie_analytics/data/tamu_official_gamebook_union_expanded.py",
+                            "detail": "unable to load expanded official gamebook-union validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = (
+                    data_root
+                    / "features/tamu_official_pre2010_boxscores/sha256"
+                    / "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59"
+                    / "payload.json"
+                ).is_file()
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=lake_ready,
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_gamebook_union_expanded",
+                                "path": "artifacts/data_lake/tamu_official_gamebook_union_expanded_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

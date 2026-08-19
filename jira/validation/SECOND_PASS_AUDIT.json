@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-19T16:21:33.606952+00:00",
+  "generated_at": "2026-08-19T17:27:39.161580+00:00",
   "metrics": {
     "aggregate_count": 76,
     "atomic_count": 177,
@@ -29,11 +29,6 @@
       "added": [
         ".githooks/pre-commit",
         ".github/dependabot.yml",
-        ".ruff_cache/.gitignore",
-        ".ruff_cache/0.6.9/13771315068716907270",
-        ".ruff_cache/0.6.9/5978351702850084177",
-        ".ruff_cache/0.6.9/6602781498896802668",
-        ".ruff_cache/CACHEDIR.TAG",
         "artifacts/assistive/cpu_worker_readiness.json",
         "artifacts/assistive/local_qwen_qualification.json",
         "artifacts/benchmarks/ac038_gate_decision.json",
@@ -1108,7 +1103,7 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1869,
+      "current_non_jira_files": 1864,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],

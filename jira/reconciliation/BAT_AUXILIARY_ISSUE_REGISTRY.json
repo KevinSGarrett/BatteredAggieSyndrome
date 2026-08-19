@@ -331,6 +331,21 @@
       "critical_path": true,
       "execution_lane": "SHARED_CONTRACT",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-584",
+      "local_id": "POST-TASK-CYCLE-10-BAT580-VALIDATOR-PURITY-001",
+      "summary": "Make BAT-580 official box-score validation pure and non-mutating",
+      "issue_type": "Task",
+      "status": "In Review",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-2",
+      "critical_path": true,
+      "execution_lane": "SHARED_CONTRACT",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]
 }

@@ -95,6 +95,20 @@ Scoring Summary:
 
 
 class PreformattedParserUnitTests(unittest.TestCase):
+    def test_spaced_script_end_tag_is_filtered(self) -> None:
+        html = (
+            "<script>injected();</script >\n"
+            "<pre>\nTeam Statistics (Final)\nFIRST DOWNS................... 23 16\n</pre>\n"
+        )
+        parsed = parse_preformatted_page(
+            html.encode("utf-8"),
+            url=MSU_URL,
+            source_season=2007,
+            raw_sha256=sha256_bytes(html.encode("utf-8")),
+        )
+        self.assertEqual(parsed["domain_coverage"]["team_statistics"], "PRESENT")
+        self.assertTrue(all("injected" not in row["stat_raw"] for row in parsed["team_statistics"]))
+
     def test_team_statistics_require_source_labels(self) -> None:
         rows = parse_team_statistics(
             "Team Statistics (Final)\nMSU TAMU\nFIRST DOWNS................... 23 16\nNET YARDS RUSHING............. 99 261\n"

@@ -58,7 +58,6 @@ Execute POST-SUBTASK-167 within the optional OpenAI assistive plane. Consume `PO
 
 ## Dependencies that must already be complete
 
-- POST-SUBTASK-162
 - POST-SUBTASK-028
 
 ## Files I may modify or create

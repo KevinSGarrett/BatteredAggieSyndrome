@@ -1,22 +1,22 @@
 {
-  "actionable_count": 253,
+  "actionable_count": 232,
   "blank_e2e_count": 0,
-  "blocked_count": 96,
+  "blocked_count": 88,
   "deferred_count": 37,
   "derivative_result_counts": {
-    "PASS": 515
+    "PASS": 494
   },
   "error_count": 0,
   "errors": [],
   "execution_mode_counts": {
-    "AGGREGATE_GATE": 76,
-    "ATOMIC_EXECUTION": 177,
+    "AGGREGATE_GATE": 70,
+    "ATOMIC_EXECUTION": 162,
     "HISTORICAL_REFERENCE": 262
   },
   "forced_new_automated_on_publication_boundary_count": 0,
   "generic_scope_count": 0,
   "invalid_traceability_gate_count": 0,
-  "issue_count": 515,
+  "issue_count": 494,
   "master_prompt_compliance_section_count": 68,
   "ready_count": 0,
   "registry_coverage": {
@@ -46,23 +46,23 @@
   "source_anchor_result_counts": {
     "PASS": 2121
   },
-  "subtask_count": 183,
+  "subtask_count": 168,
   "test_class_counts": {
     "BENCHMARK": 24,
     "CALIBRATION": 39,
     "CHRONOLOGICAL_REPLAY": 65,
-    "END_TO_END": 243,
-    "EXISTING_AUTOMATED_TEST": 1189,
+    "END_TO_END": 222,
+    "EXISTING_AUTOMATED_TEST": 1168,
     "INTEGRATION": 44,
     "MANUAL": 7,
     "NEW_AUTOMATED_TEST_REQUIRED": 80,
     "OPERATIONS": 42,
     "PUBLICATION_BOUNDARY_REVIEW": 7,
-    "REPRODUCIBILITY": 252,
+    "REPRODUCIBILITY": 231,
     "SCIENTIFIC": 124,
     "SECURITY": 30,
     "STATIC_VALIDATION": 31
   },
   "validated_at": "2026-08-19",
-  "work_packet_count": 253
+  "work_packet_count": 232
 }

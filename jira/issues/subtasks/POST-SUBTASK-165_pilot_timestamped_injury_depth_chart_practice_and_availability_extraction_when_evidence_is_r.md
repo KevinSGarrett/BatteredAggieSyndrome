@@ -15,7 +15,8 @@
   "ai_context_notes": [
     "Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-SUBTASK-165.json` before execution.",
     "Never include an API key, .env content, cookie, authorization header, or whole data lake in prompts, artifacts, logs, worktrees, commits, or Jira.",
-    "OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision."
+    "OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision.",
+    "Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links."
   ],
   "allowed_modification_paths": [
     "configs/openai_task_registry.json",
@@ -65,7 +66,6 @@
     "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
   ],
   "dependencies": [
-    "POST-SUBTASK-161",
     "POST-SUBTASK-028"
   ],
   "effective_traceability_counts": {
@@ -77,7 +77,7 @@
   },
   "effective_traceability_total": 0,
   "end_to_end_validation": "When timestamped evidence is ready, run a bounded shadow extraction and prove every accepted availability fact is evidence-backed and cutoff-eligible; otherwise retain the exact deferred finding.",
-  "epic_id": "POST-EPIC-018",
+  "epic_id": "POST-EPIC-009",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-165.json",
   "evidence_state": "PLANNED",
   "execution_lane": "RESEARCH_LANE",
@@ -135,9 +135,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24661",
-    "jira_updated_at": "2026-08-11T01:07:02.535-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-19T16:55:36.687-0500",
+    "last_synced_at": "2026-08-19T21:55:44.924476+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
   },
@@ -148,10 +148,9 @@
     "Blocking historical expansion or deterministic/local work when the optional provider is unavailable."
   ],
   "owner_wave": "POST_W25",
-  "parent_id": "POST-STORY-055",
+  "parent_id": "POST-STORY-027",
   "phase": "PHASE-1",
   "prerequisites": [
-    "Dependency POST-SUBTASK-161 complete at required maturity",
     "Dependency POST-SUBTASK-028 complete at required maturity"
   ],
   "primary_source_refs": [
@@ -276,12 +275,10 @@ Execute POST-SUBTASK-165 within the optional OpenAI assistive plane. Consume `PO
 
 ## Prerequisites
 
-- Dependency POST-SUBTASK-161 complete at required maturity
 - Dependency POST-SUBTASK-028 complete at required maturity
 
 ## Hard Dependencies
 
-- POST-SUBTASK-161
 - POST-SUBTASK-028
 
 ## Blocks
@@ -421,3 +418,4 @@ When timestamped evidence is ready, run a bounded shadow extraction and prove ev
 - Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-SUBTASK-165.json` before execution.
 - Never include an API key, .env content, cookie, authorization header, or whole data lake in prompts, artifacts, logs, worktrees, commits, or Jira.
 - OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision.
+- Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links.

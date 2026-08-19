@@ -23,7 +23,8 @@
     "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.",
     "The complete exact-reconciled 2022 candidate population covers 761 contests and 4,566 endpoint identities; 4,394 are captured, 172 remain technical failures, and 296,574 parsed rows remain candidate-only under coverage identity 07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f.",
     "The complete exact-reconciled 2023 decision population covers 775 contests and all 4,650 endpoint identities; 1,795 official captures produced 155,038 normalized candidate rows across eight independently gated domains, 2,855 endpoint failures remain explicit after ScraperAPI allowance exhaustion, Scrapfly HTTP 429, and direct NCAA HTTP 403, and no canonical, PIT, training, protected, production, or completeness authority was granted.",
-    "The corrected deterministic 2022-2023 official outcome cross-check compares 1,044 validated NCAA linescores against 1,536 exact mappings by context-reconciled team identity: all 1,044 available finals agree and 492 mappings lack validated linescores. NCAA contest 2276794 preserves opposite neutral-site side labels while both sources agree on Florida State 24, LSU 23."
+    "The corrected deterministic 2022-2023 official outcome cross-check compares 1,044 validated NCAA linescores against 1,536 exact mappings by context-reconciled team identity: all 1,044 available finals agree and 492 mappings lack validated linescores. NCAA contest 2276794 preserves opposite neutral-site side labels while both sources agree on Florida State 24, LSU 23.",
+    "Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",
@@ -222,8 +223,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24947",
-    "jira_updated_at": "2026-08-18T02:19:35.444-0500",
-    "last_synced_at": "2026-08-18T16:11:36.073484+00:00",
+    "jira_updated_at": "2026-08-19T16:55:39.110-0500",
+    "last_synced_at": "2026-08-19T21:55:44.924476+00:00",
     "resolution": "",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
@@ -262,7 +263,6 @@
   "ready": false,
   "record_revision": "2.0",
   "related_to": [
-    "POST-SUBTASK-162",
     "POST-SUBTASK-178",
     "POST-SUBTASK-191",
     "POST-SUBTASK-193"

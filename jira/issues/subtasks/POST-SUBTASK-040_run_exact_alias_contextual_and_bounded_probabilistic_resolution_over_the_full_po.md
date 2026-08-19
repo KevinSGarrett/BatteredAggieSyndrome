@@ -16,7 +16,8 @@
     "Canonical parent Story: POST-STORY-014. Governance traceability gate: POST-SUBTASK-042. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.",
     "Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-040.json`; inspect only the listed implementation files and prerequisite outputs.",
     "May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.",
-    "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
+    "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient.",
+    "Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links."
   ],
   "allowed_modification_paths": [
     "artifacts/entities/resolution_results.parquet",
@@ -24,12 +25,8 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-EPIC-018",
-    "POST-STORY-054",
     "POST-SUBTASK-041",
-    "POST-SUBTASK-042",
-    "POST-SUBTASK-160",
-    "POST-SUBTASK-163"
+    "POST-SUBTASK-042"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-040_run_exact_alias_contextual_and_bounded_probabilistic_resolution_over_the_full_po.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -145,9 +142,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24530",
-    "jira_updated_at": "2026-08-09T23:24:03.203-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-19T16:55:35.974-0500",
+    "last_synced_at": "2026-08-19T21:55:44.924476+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -368,12 +365,8 @@ Execute the atomic 1 of 3 step in Story POST-STORY-014 (Population resolution, r
 
 ## Blocks
 
-- POST-EPIC-018
-- POST-STORY-054
 - POST-SUBTASK-041
 - POST-SUBTASK-042
-- POST-SUBTASK-160
-- POST-SUBTASK-163
 
 ## Read / Inspect First
 
@@ -529,3 +522,4 @@ Validate that `artifacts/entities/resolution_results.parquet` can be parsed and 
 - Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-040.json`; inspect only the listed implementation files and prerequisite outputs.
 - May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.
 - Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient.
+- Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links.

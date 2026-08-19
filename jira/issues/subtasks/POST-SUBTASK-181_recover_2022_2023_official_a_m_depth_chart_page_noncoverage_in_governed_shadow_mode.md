@@ -18,7 +18,8 @@
   "ai_context_notes": [
     "POST-SUBTASK-167 validated extraction only where a deterministic depth-chart page existed and recorded 25 noncovered documents: 12 in 2022 and 13 in 2023.",
     "The suspected page in each noncovered document is explicitly headed STARTING LINEUPS and lists completed opponents by row; it is historical lineup evidence, not an upcoming-game ordered depth chart.",
-    "GPT-4o Mini is admitted only for bounded visual/layout QA because deterministic text and local visual inspection already establish the full-population negative finding; Nano, Luna, Terra, and Sol are not used merely to increase utilization."
+    "GPT-4o Mini is admitted only for bounded visual/layout QA because deterministic text and local visual inspection already establish the full-population negative finding; Nano, Luna, Terra, and Sol are not used merely to increase utilization.",
+    "Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links."
   ],
   "allowed_modification_paths": [
     "configs/openai_depth_chart_noncoverage_review.json",
@@ -92,7 +93,7 @@
     "POST-SUBTASK-167"
   ],
   "end_to_end_validation": "Rejoin POST-SUBTASK-167 noncoverage rows to the exact acquisition manifest and immutable PDFs; verify 25 documents, 12/13 season counts, one STARTING LINEUPS page per document, zero explicit depth-chart headings, deterministic rendering, payload/image identities, mutation rejection, byte-identical replay, strict OpenAI visual schema behavior, budget settlement, candidate-only authority, and no canonical/PIT/training/protected writes.",
-  "epic_id": "POST-EPIC-018",
+  "epic_id": "POST-EPIC-009",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-181.json",
   "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
@@ -176,8 +177,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24928",
-    "jira_updated_at": "2026-08-11T07:10:20.582-0500",
-    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "jira_updated_at": "2026-08-19T10:11:02.535-0500",
+    "last_synced_at": "2026-08-19T21:55:44.924476+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -188,7 +189,7 @@
     "Automatic Batch scale-out, canonical/PIT/training/protected admission, production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific claim."
   ],
   "owner_wave": "POST_W25",
-  "parent_id": "POST-STORY-055",
+  "parent_id": "POST-STORY-027",
   "phase": "PHASE-1",
   "prerequisites": [
     "POST-SUBTASK-167 exact 25-document noncoverage population and source bindings.",
@@ -459,3 +460,4 @@ Rejoin POST-SUBTASK-167 noncoverage rows to the exact acquisition manifest and i
 - POST-SUBTASK-167 validated extraction only where a deterministic depth-chart page existed and recorded 25 noncovered documents: 12 in 2022 and 13 in 2023.
 - The suspected page in each noncovered document is explicitly headed STARTING LINEUPS and lists completed opponents by row; it is historical lineup evidence, not an upcoming-game ordered depth chart.
 - GPT-4o Mini is admitted only for bounded visual/layout QA because deterministic text and local visual inspection already establish the full-population negative finding; Nano, Luna, Terra, and Sol are not used merely to increase utilization.
+- Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links.

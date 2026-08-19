@@ -1,0 +1,73 @@
+{
+  "captured_at": "2026-08-19T21:55:30.222405+00:00",
+  "links": [
+    {
+      "bat_key": "BAT-390",
+      "id": "17388",
+      "retired_key": "BATQ-67",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-378",
+      "id": "17390",
+      "retired_key": "BATQ-49",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-390",
+      "id": "17391",
+      "retired_key": "BATQ-65",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-390",
+      "id": "17392",
+      "retired_key": "BATQ-48",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-390",
+      "id": "17393",
+      "retired_key": "BATQ-56",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-521",
+      "id": "17399",
+      "retired_key": "BATQ-55",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-524",
+      "id": "17417",
+      "retired_key": "BATQ-49",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-524",
+      "id": "17419",
+      "retired_key": "BATQ-62",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-524",
+      "id": "17420",
+      "retired_key": "BATQ-53",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-532",
+      "id": "17422",
+      "retired_key": "BATQ-54",
+      "type": "Blocks"
+    },
+    {
+      "bat_key": "BAT-554",
+      "id": "17553",
+      "retired_key": "BATQ-49",
+      "type": "Relates"
+    }
+  ],
+  "reason": "Remove leftover BAT-board links whose other end is an authorized retired BATQ issue.",
+  "schema_version": 1
+}

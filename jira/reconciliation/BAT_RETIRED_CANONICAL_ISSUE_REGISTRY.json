@@ -1,0 +1,575 @@
+{
+  "archive_root": "jira/reconciliation/retired_canonical_archive",
+  "authority": {
+    "ledger_pointer": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json#assistive_pipeline_retirement",
+    "new_issue_decision": "CREATE",
+    "owner_jira_key": "BAT-598",
+    "owner_local_id": "POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001",
+    "user_direction": "User directed removal of Fort Knox / Cursor / Codex / OpenRouter / GPU-laptop / CPU-computer assistive pipeline from local Jira and the live BAT board."
+  },
+  "backup": {
+    "directory": "C:\\BatteredAggieSyndrome.backups\\assistive-pipeline-retirement-20260819T151301Z",
+    "directory_sha256": "3936e06b6154b56489d563d0ba4d841e08d4341460ae82394bffec35697003ce",
+    "file_count": 91
+  },
+  "identity_payload_sha256": "a03cfca4a827728e0c6d0a8acf81642251deeb64605e9e92c355874e1ae41035",
+  "issues": [
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/epics/POST-EPIC-018_governed_optional_openai_assistive_research_and_data_engineering_plane.json",
+      "archive_sha256": "1589d61b9b83ec8fd50d9446247af90d797fdb22444323465f54b85be4ae1230",
+      "current_batq_key": "BATQ-67",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-512",
+      "issue_type_at_retirement": "Epic",
+      "jira_issue_id": "24652",
+      "local_id": "POST-EPIC-018",
+      "moved_at": "2026-08-19T10:13:22.370-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "",
+        "former_parent_local_id": "",
+        "surviving_children_reparented": [
+          {
+            "epic_id": "POST-EPIC-009",
+            "former_epic_id": "POST-EPIC-018",
+            "former_parent_id": "POST-STORY-055",
+            "local_id": "POST-SUBTASK-165",
+            "parent_id": "POST-STORY-027"
+          },
+          {
+            "epic_id": "POST-EPIC-009",
+            "former_epic_id": "POST-EPIC-018",
+            "former_parent_id": "POST-STORY-055",
+            "local_id": "POST-SUBTASK-167",
+            "parent_id": "POST-STORY-027"
+          },
+          {
+            "epic_id": "POST-EPIC-009",
+            "former_epic_id": "POST-EPIC-018",
+            "former_parent_id": "POST-STORY-055",
+            "local_id": "POST-SUBTASK-181",
+            "parent_id": "POST-STORY-027"
+          },
+          {
+            "epic_id": "POST-EPIC-009",
+            "former_epic_id": "POST-EPIC-018",
+            "former_parent_id": "POST-STORY-055",
+            "local_id": "POST-SUBTASK-182",
+            "parent_id": "POST-STORY-027"
+          }
+        ]
+      },
+      "rollback_snapshot_identity": "1589d61b9b83ec8fd50d9446247af90d797fdb22444323465f54b85be4ae1230",
+      "summary": "[POST-EPIC-018] Governed optional OpenAI assistive research and data engineering plane"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/stories/POST-STORY-054_governance_storage_budget_controller_and_local_evaluation_foundation.json",
+      "archive_sha256": "fe2b78b16e20114edd54ffc01214b7e135838047491bdf2e6d3db0cb07c68a29",
+      "current_batq_key": "BATQ-65",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-513",
+      "issue_type_at_retirement": "Story",
+      "jira_issue_id": "24653",
+      "local_id": "POST-STORY-054",
+      "moved_at": "2026-08-19T10:13:25.418-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-EPIC-018",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "fe2b78b16e20114edd54ffc01214b7e135838047491bdf2e6d3db0cb07c68a29",
+      "summary": "[POST-STORY-054] Governance, storage, budget, controller, and local evaluation foundation"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json",
+      "archive_sha256": "9053496bca25e06cab9917c0590f8d3eced79227f0c78c7d93267c3a8dfd1edb",
+      "current_batq_key": "BATQ-64",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-514",
+      "issue_type_at_retirement": "Story",
+      "jira_issue_id": "24654",
+      "local_id": "POST-STORY-055",
+      "moved_at": "2026-08-19T10:13:23.187-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-EPIC-018",
+        "surviving_children_reparented": [
+          {
+            "epic_id": "POST-EPIC-009",
+            "former_epic_id": "POST-EPIC-018",
+            "former_parent_id": "POST-STORY-055",
+            "local_id": "POST-SUBTASK-165",
+            "parent_id": "POST-STORY-027"
+          },
+          {
+            "epic_id": "POST-EPIC-009",
+            "former_epic_id": "POST-EPIC-018",
+            "former_parent_id": "POST-STORY-055",
+            "local_id": "POST-SUBTASK-167",
+            "parent_id": "POST-STORY-027"
+          },
+          {
+            "epic_id": "POST-EPIC-009",
+            "former_epic_id": "POST-EPIC-018",
+            "former_parent_id": "POST-STORY-055",
+            "local_id": "POST-SUBTASK-181",
+            "parent_id": "POST-STORY-027"
+          },
+          {
+            "epic_id": "POST-EPIC-009",
+            "former_epic_id": "POST-EPIC-018",
+            "former_parent_id": "POST-STORY-055",
+            "local_id": "POST-SUBTASK-182",
+            "parent_id": "POST-STORY-027"
+          }
+        ]
+      },
+      "rollback_snapshot_identity": "9053496bca25e06cab9917c0590f8d3eced79227f0c78c7d93267c3a8dfd1edb",
+      "summary": "[POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/stories/POST-STORY-056_empirical_openai_scale_out_continuing_operations_usage_accounting_cleanup_and_handoff.json",
+      "archive_sha256": "abb03347de1d4cf2b955154c0a03b8d68c4384249b05a1a5db9cf6c899e04ec0",
+      "current_batq_key": "BATQ-62",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-515",
+      "issue_type_at_retirement": "Story",
+      "jira_issue_id": "24655",
+      "local_id": "POST-STORY-056",
+      "moved_at": "2026-08-19T10:13:24.421-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-EPIC-018",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "abb03347de1d4cf2b955154c0a03b8d68c4384249b05a1a5db9cf6c899e04ec0",
+      "summary": "[POST-STORY-056] Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/stories/POST-STORY-057_governed_complementary_openrouter_assistive_development_plane_with_isolated_budget_and_candi.json",
+      "archive_sha256": "8b134331a711b5b7619041996ea59b1e966e228491a6952528e36b0a200e0682",
+      "current_batq_key": "BATQ-66",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-555",
+      "issue_type_at_retirement": "Story",
+      "jira_issue_id": "24948",
+      "local_id": "POST-STORY-057",
+      "moved_at": "2026-08-19T10:13:24.906-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-EPIC-018",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "8b134331a711b5b7619041996ea59b1e966e228491a6952528e36b0a200e0682",
+      "summary": "[POST-STORY-057] Governed complementary OpenRouter assistive development plane with isolated budget and candidate-only authority"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/stories/POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.json",
+      "archive_sha256": "d00cc97fc844a8fd7f5ebbd9097ce62a01ca6425bb21accd49115701bc3aa8a7",
+      "current_batq_key": "BATQ-63",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-559",
+      "issue_type_at_retirement": "Story",
+      "jira_issue_id": "24952",
+      "local_id": "POST-STORY-058",
+      "moved_at": "2026-08-19T10:13:23.911-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-EPIC-018",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "d00cc97fc844a8fd7f5ebbd9097ce62a01ca6425bb21accd49115701bc3aa8a7",
+      "summary": "[POST-STORY-058] Operate one unified assistive execution plane across deterministic, OpenAI, OpenRouter, Cursor, local Qwen, and private CPU worker routes"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-160_implement_the_governed_openai_controller_storage_budget_provenance_schema_security_and_clean.json",
+      "archive_sha256": "ac19a02b7eda7351a20e8f33114661e6cd17d624aee5a3064d63daf011482cfa",
+      "current_batq_key": "BATQ-56",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "Done",
+      "former_bat_key": "BAT-516",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24656",
+      "local_id": "POST-SUBTASK-160",
+      "moved_at": "2026-08-19T10:12:35.477-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-054",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "ac19a02b7eda7351a20e8f33114661e6cd17d624aee5a3064d63daf011482cfa",
+      "summary": "[POST-SUBTASK-160] Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-161_build_the_local_gold_corpus_and_evaluation_harness_and_compare_luna_terra_and_sol.json",
+      "archive_sha256": "73c4565bf6cf1e0de08d5c083bc721a77d3e38251a452bd8e9073afebe6d5818",
+      "current_batq_key": "BATQ-55",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "Done",
+      "former_bat_key": "BAT-517",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24657",
+      "local_id": "POST-SUBTASK-161",
+      "moved_at": "2026-08-19T10:12:34.615-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-054",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "73c4565bf6cf1e0de08d5c083bc721a77d3e38251a452bd8e9073afebe6d5818",
+      "summary": "[POST-SUBTASK-161] Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-162_pilot_historical_gamebook_equivalent_extraction_in_shadow_candidate_mode.json",
+      "archive_sha256": "6c9ae6273c1b81293a6943366ff14ff4f6f35d20d423e998d2b3cb87fd6a1047",
+      "current_batq_key": "BATQ-49",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "Done",
+      "former_bat_key": "BAT-518",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24658",
+      "local_id": "POST-SUBTASK-162",
+      "moved_at": "2026-08-19T10:12:29.218-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-055",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "6c9ae6273c1b81293a6943366ff14ff4f6f35d20d423e998d2b3cb87fd6a1047",
+      "summary": "[POST-SUBTASK-162] Pilot historical gamebook-equivalent extraction in shadow candidate mode"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-163_pilot_unresolved_entity_candidate_ranking_and_evidence_explanation_without_merge_authority.json",
+      "archive_sha256": "1331b1bd681375a7c037ee32a25383ae705921a1793e29bd5c4d223e10012309",
+      "current_batq_key": "BATQ-48",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "Done",
+      "former_bat_key": "BAT-519",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24659",
+      "local_id": "POST-SUBTASK-163",
+      "moved_at": "2026-08-19T10:12:28.338-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-055",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "1331b1bd681375a7c037ee32a25383ae705921a1793e29bd5c4d223e10012309",
+      "summary": "[POST-SUBTASK-163] Pilot unresolved entity candidate ranking and evidence explanation without merge authority"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_classification_with_deterministic_remediation_routing.json",
+      "archive_sha256": "7c6227d30d5837ce62b47e8580ac7a09ee9f2ac78fc93beaa5467d98dc0a53b0",
+      "current_batq_key": "BATQ-47",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "Done",
+      "former_bat_key": "BAT-520",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24660",
+      "local_id": "POST-SUBTASK-164",
+      "moved_at": "2026-08-19T10:12:27.218-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-055",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "7c6227d30d5837ce62b47e8580ac7a09ee9f2ac78fc93beaa5467d98dc0a53b0",
+      "summary": "[POST-SUBTASK-164] Pilot quarantine and schema-drift classification with deterministic remediation routing"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",
+      "archive_sha256": "2e9915d7be671ecad6535dfc818db0cb137b496ddf5c527ea1a177a319ba348c",
+      "current_batq_key": "BATQ-53",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "Done",
+      "former_bat_key": "BAT-522",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24662",
+      "local_id": "POST-SUBTASK-166",
+      "moved_at": "2026-08-19T10:12:32.885-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-056",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "2e9915d7be671ecad6535dfc818db0cb137b496ddf5c527ea1a177a319ba348c",
+      "summary": "[POST-SUBTASK-166] Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json",
+      "archive_sha256": "3254319d318cf93686361e95c0aca293b77b26f3d6227e9f6d9db2f322edbcbc",
+      "current_batq_key": "BATQ-54",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-525",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24665",
+      "local_id": "POST-SUBTASK-168",
+      "moved_at": "2026-08-19T10:12:33.731-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-056",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "3254319d318cf93686361e95c0aca293b77b26f3d6227e9f6d9db2f322edbcbc",
+      "summary": "[POST-SUBTASK-168] Operate continuing governed OpenAI candidate assistance on dependency-ready real project work"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-198_implement_the_non_billable_provider_neutral_openrouter_foundation_usd_0_hard_stop_privacy_co.json",
+      "archive_sha256": "aa36bbb5249074794b468b4dc9a66bbfc6abfe009bba890ab9236596cd5d7861",
+      "current_batq_key": "BATQ-51",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "Done",
+      "former_bat_key": "BAT-556",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24949",
+      "local_id": "POST-SUBTASK-198",
+      "moved_at": "2026-08-19T10:12:31.125-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-057",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "aa36bbb5249074794b468b4dc9a66bbfc6abfe009bba890ab9236596cd5d7861",
+      "summary": "[POST-SUBTASK-198] Implement the non-billable provider-neutral OpenRouter foundation, USD 0 hard stop, privacy controls, storage, schemas, and worker isolation"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.json",
+      "archive_sha256": "81807655d58405fa0eb24373efc63e1e64de97daa89a92a45dda7bc2968cbff6",
+      "current_batq_key": "BATQ-50",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-557",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24950",
+      "local_id": "POST-SUBTASK-199",
+      "moved_at": "2026-08-19T10:12:30.073-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-057",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "81807655d58405fa0eb24373efc63e1e64de97daa89a92a45dda7bc2968cbff6",
+      "summary": "[POST-SUBTASK-199] Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-200_operate_empirically_admitted_openrouter_assistive_routes_with_independent_usage_provenance_c.json",
+      "archive_sha256": "713065c91bf8aa40e122be410080021289cc6fee4dd29b414fdeed01dc18f1bd",
+      "current_batq_key": "BATQ-52",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-558",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24951",
+      "local_id": "POST-SUBTASK-200",
+      "moved_at": "2026-08-19T10:12:31.938-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-057",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "713065c91bf8aa40e122be410080021289cc6fee4dd29b414fdeed01dc18f1bd",
+      "summary": "[POST-SUBTASK-200] Operate empirically admitted OpenRouter assistive routes with independent usage, provenance, cleanup, and handoff evidence"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json",
+      "archive_sha256": "82c04bc411d45372e2f690a92d20cc5c6f780d79be903b7ea6b7d186e0f7efc7",
+      "current_batq_key": "BATQ-61",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-560",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24953",
+      "local_id": "POST-SUBTASK-201",
+      "moved_at": "2026-08-19T10:13:13.457-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-058",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "82c04bc411d45372e2f690a92d20cc5c6f780d79be903b7ea6b7d186e0f7efc7",
+      "summary": "[POST-SUBTASK-201] Implement the unified ready-work inventory, routing, readiness, budget, provenance, bypass, utilization, and completeness foundation"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.json",
+      "archive_sha256": "3223ce6533f024e031af4cd227fb938822c6b03dda3cb85736a507c3250cd30a",
+      "current_batq_key": "BATQ-60",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-561",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24954",
+      "local_id": "POST-SUBTASK-202",
+      "moved_at": "2026-08-19T10:13:12.619-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-058",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "3223ce6533f024e031af4cd227fb938822c6b03dda3cb85736a507c3250cd30a",
+      "summary": "[POST-SUBTASK-202] Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.json",
+      "archive_sha256": "97c038f16b85832896495736eaf8306c9492bcb1e7e1c3b7939d278c3a1a6679",
+      "current_batq_key": "BATQ-59",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-562",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24955",
+      "local_id": "POST-SUBTASK-203",
+      "moved_at": "2026-08-19T10:13:11.813-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-058",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "97c038f16b85832896495736eaf8306c9492bcb1e7e1c3b7939d278c3a1a6679",
+      "summary": "[POST-SUBTASK-203] Qualify and operate local models on exact evidence-backed task formats"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json",
+      "archive_sha256": "124ff53e944e00f7dcaa1206d6cc2ac7173fbcb6a833148d3b8c1c00495a7474",
+      "current_batq_key": "BATQ-58",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-563",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24956",
+      "local_id": "POST-SUBTASK-204",
+      "moved_at": "2026-08-19T10:13:10.908-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-058",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "124ff53e944e00f7dcaa1206d6cc2ac7173fbcb6a833148d3b8c1c00495a7474",
+      "summary": "[POST-SUBTASK-204] Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance"
+    },
+    {
+      "archive_path": "jira/reconciliation/retired_canonical_archive/subtasks/POST-SUBTASK-205_run_cross_plane_comparison_utilization_floors_21_scheduler_cycles_restart_outage_exercises_a.json",
+      "archive_sha256": "00881128cb9314b1d1d036fd75c03d3f09b0d511b66fcbfadf83b10137fa71da",
+      "current_batq_key": "BATQ-57",
+      "current_issue_type": "Task",
+      "current_project": "BATQ",
+      "current_status": "To Do",
+      "former_bat_key": "BAT-564",
+      "issue_type_at_retirement": "Subtask",
+      "jira_issue_id": "24957",
+      "local_id": "POST-SUBTASK-205",
+      "moved_at": "2026-08-19T10:13:09.838-0500",
+      "parent_disposition": {
+        "active_bat_parent": null,
+        "current_project": "BATQ",
+        "former_epic_local_id": "POST-EPIC-018",
+        "former_parent_local_id": "POST-STORY-058",
+        "surviving_children_reparented": []
+      },
+      "rollback_snapshot_identity": "00881128cb9314b1d1d036fd75c03d3f09b0d511b66fcbfadf83b10137fa71da",
+      "summary": "[POST-SUBTASK-205] Run cross-plane comparison, utilization floors, 21 scheduler cycles, restart/outage exercises, and seven-day sustained assurance"
+    }
+  ],
+  "purpose": "Committed quarantine registry for the user-authorized move of 21 assistive-pipeline canonical issues from live BAT to BATQ. Historical records are archived, not erased.",
+  "recorded_at": "2026-08-19T21:53:02.643755+00:00",
+  "registry_id": "BAT-RETIRED-CANONICAL-ASSISTIVE-PIPELINE-20260819",
+  "registry_identity_sha256": "a03cfca4a827728e0c6d0a8acf81642251deeb64605e9e92c355874e1ae41035",
+  "retired_at": "2026-08-19T15:13:30.352812+00:00",
+  "retired_count": 21,
+  "schema_version": 1,
+  "surviving_parent_corrections": [
+    {
+      "epic_id": "POST-EPIC-009",
+      "former_epic_id": "POST-EPIC-018",
+      "former_parent_id": "POST-STORY-055",
+      "local_id": "POST-SUBTASK-165",
+      "parent_id": "POST-STORY-027"
+    },
+    {
+      "epic_id": "POST-EPIC-009",
+      "former_epic_id": "POST-EPIC-018",
+      "former_parent_id": "POST-STORY-055",
+      "local_id": "POST-SUBTASK-167",
+      "parent_id": "POST-STORY-027"
+    },
+    {
+      "epic_id": "POST-EPIC-009",
+      "former_epic_id": "POST-EPIC-018",
+      "former_parent_id": "POST-STORY-055",
+      "local_id": "POST-SUBTASK-181",
+      "parent_id": "POST-STORY-027"
+    },
+    {
+      "epic_id": "POST-EPIC-009",
+      "former_epic_id": "POST-EPIC-018",
+      "former_parent_id": "POST-STORY-055",
+      "local_id": "POST-SUBTASK-182",
+      "parent_id": "POST-STORY-027"
+    }
+  ]
+}

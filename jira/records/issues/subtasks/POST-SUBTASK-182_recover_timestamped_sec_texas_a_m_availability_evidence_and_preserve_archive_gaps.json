@@ -20,7 +20,8 @@
   "ai_context_notes": [
     "The official SEC archive shell and public client endpoint are reachable, but the archive endpoint returned an empty JSON array during the bounded 2026-08-11 probe.",
     "Timestamped public reproductions exist for Texas A&M availability-report versions in both 2024 and 2025 and may be retained as lower-authority candidate evidence while the official archive gap is explicit.",
-    "Deterministic extraction is preferred for structured tables; governed OpenAI assistance is eligible only for evidence-present ambiguous layouts and remains candidate-only."
+    "Deterministic extraction is preferred for structured tables; governed OpenAI assistance is eligible only for evidence-present ambiguous layouts and remains candidate-only.",
+    "Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links."
   ],
   "allowed_modification_paths": [
     "configs/sec_tamu_availability_recovery_contract.json",
@@ -83,7 +84,7 @@
     "POST-SUBTASK-181"
   ],
   "end_to_end_validation": "Replay the exact bounded immutable source captures independently; verify source URLs, HTTP outcomes, hashes, publication and capture timestamps, game/report-version ordering, normalized player-status candidates, explicit archive noncoverage, no absence-to-health inference, no name-only canonical merge, candidate-only authority, byte-identical rows, and cleanup.",
-  "epic_id": "POST-EPIC-018",
+  "epic_id": "POST-EPIC-009",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-182.json",
   "evidence_state": "VERIFIED",
   "execution_lane": "DATA",
@@ -165,8 +166,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24930",
-    "jira_updated_at": "2026-08-11T07:09:32.159-0500",
-    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "jira_updated_at": "2026-08-19T10:11:03.486-0500",
+    "last_synced_at": "2026-08-19T21:55:44.924476+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -177,7 +178,7 @@
     "Canonical/PIT/training/protected admission, champion or production promotion, forecast publication, final historical readiness, protected A&M lift, BAS, Aggie Excess, or any scientific claim."
   ],
   "owner_wave": "POST_W25",
-  "parent_id": "POST-STORY-055",
+  "parent_id": "POST-STORY-027",
   "phase": "PHASE-1",
   "prerequisites": [
     "TASK-191 availability report version and policy-scope PIT contract is Done with verified evidence.",

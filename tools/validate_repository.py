@@ -183,6 +183,27 @@ def main() -> int:
                         },
                     )()
                 )
+            convergence_path = root / "jira" / "tools" / "validate_jira_live_convergence.py"
+            convergence_spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_jira_live_convergence_strict",
+                convergence_path,
+            )
+            if convergence_spec is None or convergence_spec.loader is None:
+                raise FileNotFoundError("unable to load jira/tools/validate_jira_live_convergence.py")
+            convergence_module = importlib.util.module_from_spec(convergence_spec)
+            convergence_spec.loader.exec_module(convergence_module)
+            for detail in convergence_module.validate_committed_jira_live_convergence(root):
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "jira_live_convergence",
+                            "path": "jira/tools/validate_jira_live_convergence.py",
+                            "detail": detail,
+                        },
+                    )()
+                )
         except (ValueError, FileNotFoundError, OSError, json.JSONDecodeError, AttributeError) as exc:
             findings.append(
                 type(

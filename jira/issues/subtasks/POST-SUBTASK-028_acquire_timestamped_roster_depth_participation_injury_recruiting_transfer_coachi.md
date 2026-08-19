@@ -16,7 +16,8 @@
     "Canonical parent Story: POST-STORY-010. Governance traceability gate: POST-SUBTASK-033. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.",
     "Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-028.json`; inspect only the listed implementation files and prerequisite outputs.",
     "May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.",
-    "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
+    "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient.",
+    "Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links."
   ],
   "allowed_modification_paths": [
     "artifacts/data_lake/historical_expansion_acquisition_manifest.json",
@@ -26,7 +27,6 @@
   "blocks": [
     "POST-SUBTASK-029",
     "POST-SUBTASK-030",
-    "POST-SUBTASK-162",
     "POST-SUBTASK-165",
     "POST-SUBTASK-167",
     "POST-SUBTASK-195"
@@ -147,8 +147,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24518",
-    "jira_updated_at": "2026-08-11T17:04:26.586-0500",
-    "last_synced_at": "2026-08-11T22:04:38.502338+00:00",
+    "jira_updated_at": "2026-08-19T16:55:34.271-0500",
+    "last_synced_at": "2026-08-19T21:55:44.924476+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -378,7 +378,6 @@ Execute the atomic 1 of 3 step in Story POST-STORY-010 (Historical expansion acr
 
 - POST-SUBTASK-029
 - POST-SUBTASK-030
-- POST-SUBTASK-162
 - POST-SUBTASK-165
 - POST-SUBTASK-167
 - POST-SUBTASK-195
@@ -541,3 +540,4 @@ Validate that `artifacts/data_lake/historical_expansion_acquisition_manifest.jso
 - Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-028.json`; inspect only the listed implementation files and prerequisite outputs.
 - May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.
 - Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient.
+- Retired assistive-pipeline Local Issue IDs previously linked here are recorded in jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json and now live in BATQ; they are not active BAT parents, dependencies, or expected board links.

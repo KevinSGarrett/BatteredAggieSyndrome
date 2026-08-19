@@ -1,0 +1,364 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_591_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_595_payload": "CONSUMED_CAPTURES_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "name_only_player_merge": "REJECTED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "participation_as_availability": "REJECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "artifact_type": "TAMU_OFFICIAL_2006_STRUCTURED_DOMAINS_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_2006_STRUCTURED_DOMAIN_CANDIDATE_ONLY",
+  "contract_id": "BAT-596-TAMU-OFFICIAL-2006-STRUCTURED-DOMAINS-V1",
+  "counts": {
+    "ambiguous_boundary_games": 0,
+    "availability_claims": 0,
+    "drives_absent_games": 1,
+    "drives_present_games": 12,
+    "games_2006": 13,
+    "games_admitted_to_union": 0,
+    "html_table_audit_present": 1,
+    "html_table_audit_rows": 364,
+    "individual_player_statistics_absent_games": 0,
+    "individual_player_statistics_present_games": 13,
+    "metadata_only_games": 0,
+    "name_only_player_merges": 0,
+    "ncaa_contest_ids_created": 0,
+    "parsed_games": 13,
+    "play_by_play_absent_games": 1,
+    "play_by_play_present_games": 12,
+    "pregame_availability_present": 0,
+    "rich_structured_games": 13,
+    "target_games_total": 13,
+    "team_statistics_absent_games": 0,
+    "team_statistics_present_games": 13
+  },
+  "decision_unit": "POST-TASK-SRC014-2006-STRUCTURED-DOMAINS-001",
+  "disposition": "NEW_ENRICHED_PAYLOAD_PRIOR_IDENTITIES_PRESERVED",
+  "games": [
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 22,
+        "individual_player_statistics": 25,
+        "play_by_play": 357,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "2ae7747659606ddaf9de9a73d633d9a6846f87cc4f163839b4b94c704899bc6e",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_137_army.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 22,
+        "individual_player_statistics": 26,
+        "play_by_play": 346,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "38859542937503c0357b3f898d287ca2ced51ba78accef483bff5b6b3717db5e",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_2145_tech.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 28,
+        "individual_player_statistics": 25,
+        "play_by_play": 364,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "304d1b068a32d1c8409f52fcd270a666fa9f8b83c0c99d6131b7e0ac52f76153",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_2146_kansas.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 24,
+        "individual_player_statistics": 28,
+        "play_by_play": 367,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "e52f72b3ddcbaf41a483f66fa938f7c9d45ee030912da8c2655f32a4195493e5",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_2147_mizzou.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 22,
+        "individual_player_statistics": 26,
+        "play_by_play": 329,
+        "team_statistics": 46
+      },
+      "source_season": 2006,
+      "source_sha256": "2e006939e56a5b2c40bea15d36c7de3eae00b5015069bc0ed55cb6073b5e3b9d",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_2148_osu.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 23,
+        "individual_player_statistics": 31,
+        "play_by_play": 330,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "100b2078b24a3a00e335b2a555794ce418bed2949dc7949041905f74a4142e25",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_2149_baylor.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 22,
+        "individual_player_statistics": 20,
+        "play_by_play": 322,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "1eecb5d5152e1388ec8335a7fedbbde973f555d506add7de9eabe81d3b08e2e9",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_2150_ou.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 27,
+        "individual_player_statistics": 30,
+        "play_by_play": 376,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "aefd079393b240ed28b373455f65ea600e2fbfd6eb0e20e2ca1da58d7265273e",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_2151_nebraska.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 29,
+        "individual_player_statistics": 28,
+        "play_by_play": 365,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "40cb3a7f38d5077e245408a52e6334b63ffcf555bb4c09702c33b461d10aaca8",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_5040_citadel.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 23,
+        "individual_player_statistics": 36,
+        "play_by_play": 322,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "e8fce03795473e675749e7cb2a77dade21d0919dede97e19dd85a31026dae768",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_6737_ull.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 14,
+        "individual_player_statistics": 34,
+        "play_by_play": 380,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "b7f2a41d0f51b6d57a43ec7edd43f9f1582b333456dab9abbae7ae9045b3f86c",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_6738_latech.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 22,
+        "individual_player_statistics": 37,
+        "play_by_play": 308,
+        "team_statistics": 45
+      },
+      "source_season": 2006,
+      "source_sha256": "53fd310a16992b6e558de1600e5409602616dd9b554b89525f2368864a4349d4",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/mfb_7907_holiday.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 25,
+        "play_by_play": 0,
+        "team_statistics": 27
+      },
+      "source_season": 2006,
+      "source_sha256": "c7d4433fb068340b9e1cdb56b77f8a59117c54a92cbac9e446529e01fbe67bc9",
+      "url": "https://files.12thman.com/history/football/stats/2006-2007/texas.htm",
+      "warnings": []
+    }
+  ],
+  "gate_identity": "57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4",
+  "html_table_audit": {
+    "calendar_date_label": "2007-09-01",
+    "domain_coverage": {
+      "html_tables": "PRESENT"
+    },
+    "html_table_row_count": 364,
+    "rewrote_bat591": false,
+    "rows_identity": "579f89802cb1ccb5d10b40728d378baed787ce5699243b23d5d63f4859521f98",
+    "source_sha256": "a28f8c250713bab3efa3ee24ab4546c4c1d38d65d0ad64f7b4351e2127121ff9",
+    "url": "https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm"
+  },
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-596",
+  "payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_2006_STRUCTURED_DOMAINS_PARSED",
+  "schema_version": "aggie.data.tamu_official_2006_structured_domains.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    2006
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat586_gate_identity": "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006",
+    "bat589_gate_identity": "f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51",
+    "bat591_gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+    "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+    "bat595_acquisition_identity": "1ed988f759f383b62625d582ac70ee306a36c84d92ccded9f70c9fd11bfed269",
+    "bat595_dataset_identity": "05ac9ce54a107007b433e52d7a52f85d7e20726d9aaf7ca204332a75f88cd697",
+    "bat595_gate_identity": "2a9c56a10b14cf5fec4dff1c3cd55d0b4440afdb9520fb308317a9ae59c47ed7",
+    "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
+  }
+}

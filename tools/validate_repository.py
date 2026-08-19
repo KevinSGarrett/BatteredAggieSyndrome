@@ -925,6 +925,48 @@ def main() -> int:
                         )()
                     )
 
+        domains_2006_gate = root / "artifacts" / "data_lake" / "tamu_official_2006_structured_domains_gate.json"
+        domains_2006_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2006_structured_domains.py"
+        if domains_2006_gate.is_file() and domains_2006_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_2006_structured_domains_strict",
+                domains_2006_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_2006_structured_domains",
+                            "path": "src/aggie_analytics/data/tamu_official_2006_structured_domains.py",
+                            "detail": "unable to load official 2006 structured-domain validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=module.lake_is_ready(data_root),
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_2006_structured_domains",
+                                "path": "artifacts/data_lake/tamu_official_2006_structured_domains_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
         statcrew_gate = root / "artifacts" / "data_lake" / "tamu_official_statcrew_preformatted_gate.json"
         statcrew_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_statcrew_preformatted.py"
         if statcrew_gate.is_file() and statcrew_module.is_file():

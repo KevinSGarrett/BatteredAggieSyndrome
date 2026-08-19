@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-596-TAMU-OFFICIAL-2006-STRUCTURED-DOMAINS-V1",
+  "decision_unit": "POST-TASK-SRC014-2006-STRUCTURED-DOMAINS-001",
+  "jira_key": "BAT-596",
+  "parent_jira_key": "BAT-595",
+  "related_jira_keys": ["BAT-595", "BAT-591", "BAT-589", "BAT-586", "BAT-523", "BAT-429", "BAT-401"],
+  "new_issue_decision": "CREATE",
+  "purpose": "Parse only independently present source-labeled 2006 official domains from BAT-595 captures. PRESENT requires serialized, hash-bound, reconstructible rows. Separately audit the already-captured 2007-09-01 HTML table page without rewriting BAT-591.",
+  "official_html_audit_url": "https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm",
+  "pinned_bat595_gate_identity": "2a9c56a10b14cf5fec4dff1c3cd55d0b4440afdb9520fb308317a9ae59c47ed7",
+  "pinned_bat591_gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+  "pinned_bat589_gate_identity": "f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51",
+  "payloads": {
+    "enriched_root": "features/tamu_official_2006_structured_domains/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "union_policy": "DO_NOT_ADMIT_2006_GAMES"
+}

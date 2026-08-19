@@ -38,7 +38,7 @@
   },
   "discrepancies": [],
   "expected_link_count": 1191,
-  "issue_count": 538,
+  "issue_count": 539,
   "issue_type_counts": {
     "Epic": 51,
     "Story": 58,
@@ -60,5 +60,5 @@
     "To Do": 422
   },
   "unexpected_link_count": 0,
-  "verified_at": "2026-08-19T01:36:49.336454+00:00"
+  "verified_at": "2026-08-19T02:10:57.338307+00:00"
 }

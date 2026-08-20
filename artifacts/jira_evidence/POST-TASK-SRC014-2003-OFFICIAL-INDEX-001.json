@@ -1,0 +1,52 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_604_2004_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14548"
+  },
+  "current_identities": {
+    "box_url_identity": "169ecef65490a5a07889ccd06816fda94db5215e6f1eacf6cb22204286800a99",
+    "capture_identity": "253a1065192f2e4aa1fa366d967b5c37c0c9586d9b664a3bf0f16079c5105921",
+    "game_row_identity": "9e1558bf9897bfc7abe70e971d5fa9eb1a4e6f4ac811dfe124080902238fb34d",
+    "gate_identity": "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e",
+    "payload_identity": "9f58c220fe44e8c75835d0dced6dc6571ee7592249eaa6fa209fa181f25fdfa6"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of an official SRC-014 2003 season-index capture. BAT-604 owns only the 2004 index and is immutable. BAT-608 owns the integrity-complete union successor, not a 2003 index. Live JQL for 2003 official index returned no owner. NEW_ISSUE_DECISION=CREATE as BAT-609.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-588",
+      "BAT-594",
+      "BAT-599",
+      "BAT-604",
+      "BAT-608"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "IN_PROGRESS",
+  "issue_complete": false,
+  "jira_key": "BAT-609",
+  "local_issue_id": "POST-TASK-SRC014-2003-OFFICIAL-INDEX-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Proved the captured official history index emits ../years/2003.html and captured https://files.12thman.com/history/football/years/2003.html. Scheduled games 12, box-score URLs 12, NCAA IDs created 0, union admissions 0. Capture identity 253a1065192f2e4aa1fa366d967b5c37c0c9586d9b664a3bf0f16079c5105921. Gate identity 1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

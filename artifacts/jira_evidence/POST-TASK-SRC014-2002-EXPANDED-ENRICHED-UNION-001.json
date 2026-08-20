@@ -20,7 +20,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14578",
-    "done_after_merge": "",
+    "done_after_merge": "14580",
     "in_review_after_validation": "14579"
   },
   "current_identities": {
@@ -46,17 +46,17 @@
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "evidence_state": "VERIFIED",
-  "implementation_sha": "",
-  "issue_complete": false,
+  "implementation_sha": "35d948623efcd00a40bef4baa976cc550fbc7512",
+  "issue_complete": true,
   "jira_key": "BAT-618",
   "local_issue_id": "POST-TASK-SRC014-2002-EXPANDED-ENRICHED-UNION-001",
-  "material_pr": null,
+  "material_pr": 549,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently validated BAT-612 plus BAT-613/BAT-615/BAT-617. 11 official 2002 games admitted; Oklahoma mfb_43_ou.html remains UNMATCHED_STRONG_TUPLE and is not admitted. Derived union captured 296, rich 283, metadata 13, scoring-summary 93, enriched official 93. Gate identity f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7. Union identity a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1. BAT-618 union manifest file SHA-256 07ec65650bfbb1a213a6b633187d919be3a90b0c9538ed17754d6a49622a9cd1. Predecessor is BAT-612, not BAT-608. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #549 merged as 35d948623efcd00a40bef4baa976cc550fbc7512. Independently validated BAT-612 plus BAT-613/BAT-615/BAT-617. 11 official 2002 games admitted; Oklahoma mfb_43_ou.html remains UNMATCHED_STRONG_TUPLE and is not admitted. Derived union captured 296, rich 283, metadata 13, scoring-summary 93, enriched official 93. Gate identity f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7. Union identity a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1. BAT-618 union manifest file SHA-256 07ec65650bfbb1a213a6b633187d919be3a90b0c9538ed17754d6a49622a9cd1. Predecessor is BAT-612, not BAT-608. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

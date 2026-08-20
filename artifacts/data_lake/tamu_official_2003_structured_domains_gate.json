@@ -1,0 +1,373 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_591_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_596_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_601_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_604_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_605_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_606_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_609_payload": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "bat_610_payload": "CONSUMED_CAPTURES_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "html_table_classifier": "PINNED_NOT_MUTATED",
+    "name_only_player_merge": "REJECTED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "participation_as_availability": "REJECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "artifact_type": "TAMU_OFFICIAL_2003_STRUCTURED_DOMAINS_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_2003_STRUCTURED_DOMAIN_CANDIDATE_ONLY",
+  "contract_id": "BAT-611-TAMU-OFFICIAL-2003-STRUCTURED-DOMAINS-V1",
+  "counts": {
+    "ambiguous_boundary_games": 0,
+    "availability_claims": 0,
+    "drives_absent_games": 0,
+    "drives_present_games": 12,
+    "drives_serialized_rows": 349,
+    "games_2003": 12,
+    "games_admitted_to_union": 0,
+    "html_play_by_play_present_pages": 0,
+    "html_tables_classified_pages": 0,
+    "individual_player_statistics_absent_games": 0,
+    "individual_player_statistics_present_games": 12,
+    "individual_player_statistics_serialized_rows": 340,
+    "metadata_only_games": 0,
+    "name_only_player_merges": 0,
+    "ncaa_contest_ids_created": 0,
+    "parsed_games": 12,
+    "play_by_play_absent_games": 0,
+    "play_by_play_present_games": 12,
+    "play_by_play_serialized_rows": 4515,
+    "pregame_availability_present": 0,
+    "rich_structured_games": 12,
+    "serialized_rows_total": 5528,
+    "target_games_total": 12,
+    "team_statistics_absent_games": 0,
+    "team_statistics_present_games": 12,
+    "team_statistics_serialized_rows": 324
+  },
+  "decision_unit": "POST-TASK-SRC014-2003-STRUCTURED-DOMAINS-001",
+  "disposition": "NEW_ENRICHED_PAYLOAD_PRIOR_IDENTITIES_PRESERVED",
+  "games": [
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 25,
+        "individual_player_statistics": 25,
+        "play_by_play": 307,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "3ff5b4faadb5a53f9a1655e0a0e8e09e3f562ebc54c562939b33352eb530d450",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_102_asu.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 34,
+        "individual_player_statistics": 25,
+        "play_by_play": 416,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "be232d8a5adce9dee51adaacc16a9ed9f376e140a81add31746980f4a874580e",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_779_utah.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 23,
+        "individual_player_statistics": 25,
+        "play_by_play": 375,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "420b2d2ed4bac30c911da23f74876c4515d273a08bced23b3e37afb5da223e03",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_780_vt.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 30,
+        "individual_player_statistics": 24,
+        "play_by_play": 392,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "d3a08f3e447fad758c4bf6a3352eee0aa476e8196856e504e2feef0968fc1bb1",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_781_pitt.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 28,
+        "individual_player_statistics": 41,
+        "play_by_play": 403,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "7343e0a8bb6e7ceef023112ff18a1d83a14a14c8e8273d97c5f2d921ffea9b8c",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_106_tech.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 35,
+        "individual_player_statistics": 33,
+        "play_by_play": 414,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "224c157ccd87b058b24af195100da79b8feb5b95a3cac730d27737425b2cfdd0",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_782_baylor.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 38,
+        "individual_player_statistics": 34,
+        "play_by_play": 403,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "306c7941b208105cc8a8c0142cbd6269b44efd43fcfc7d12f8fd17bc96fa8e85",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_783_neb.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 23,
+        "individual_player_statistics": 24,
+        "play_by_play": 334,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "84777ea913a76d752f6f16f8b3fa615a3d4c1753fa5b4f88af0f718ffcdb23c5",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_109_osu.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 27,
+        "individual_player_statistics": 28,
+        "play_by_play": 385,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "809ce09ff1eb0c4dbaace11657269306e1d6b32452debabcf04abe7bffff439d",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_110_kansas.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 29,
+        "individual_player_statistics": 24,
+        "play_by_play": 324,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "ab339ea25e3ae0f9eb03abce7e5565528075807a31982f98823e81e4c5e371e6",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_111_ou.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 25,
+        "individual_player_statistics": 30,
+        "play_by_play": 391,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "f9cde675721f85ea0c1ae40081bad57ad482c23dd441bbfc0d2db85f954a93df",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_112_mizzou.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 32,
+        "individual_player_statistics": 27,
+        "play_by_play": 371,
+        "team_statistics": 27
+      },
+      "source_season": 2003,
+      "source_sha256": "f089245811890a4c2b6c67e982d3b752fa3ba7cabec2dd771886ccab9efa4288",
+      "url": "https://files.12thman.com/history/football/stats/2003-2004/mfb_113_texas.html",
+      "warnings": []
+    }
+  ],
+  "gate_identity": "758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-611",
+  "payload_identity": "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_2003_STRUCTURED_DOMAINS_PARSED",
+  "schema_version": "aggie.data.tamu_official_2003_structured_domains.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    2003
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat591_gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+    "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+    "bat596_gate_identity": "57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4",
+    "bat596_payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
+    "bat601_gate_identity": "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d",
+    "bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
+    "bat604_gate_identity": "3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836",
+    "bat605_acquisition_identity": "7fa30d842696f0e73cc23f53daff1638326d58ce5636b354741eca9cf4c21ad9",
+    "bat605_dataset_identity": "6670084e2578fa0e0339668a8b4f47eeaba5c1368d91043203ecfeda38f6c96b",
+    "bat605_games_identity": "6f7f6505f8e863daeb8d8b7f662fb0ce455a7cb388379815d7d33734cd97ac9b",
+    "bat605_gate_identity": "c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70",
+    "bat606_gate_identity": "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6",
+    "bat606_payload_identity": "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0",
+    "bat609_box_url_identity": "169ecef65490a5a07889ccd06816fda94db5215e6f1eacf6cb22204286800a99",
+    "bat609_capture_identity": "253a1065192f2e4aa1fa366d967b5c37c0c9586d9b664a3bf0f16079c5105921",
+    "bat609_gate_identity": "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e",
+    "bat609_payload_identity": "9f58c220fe44e8c75835d0dced6dc6571ee7592249eaa6fa209fa181f25fdfa6",
+    "bat610_acquisition_identity": "f5c0a2824381669501b7bccaeac18ced85f7c14b570d03e56ea4ebb1e4e08ee0",
+    "bat610_dataset_identity": "741f92a8b0d3c19fe7fd51033e9ddfb797052a9da4e63a2115839a4617e2c0c5",
+    "bat610_games_identity": "17a9daed972a0fa91e554b33adeaf5027aefa206188fec949a4450e2f8971772",
+    "bat610_gate_identity": "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13",
+    "html_table_classifier_identity": "tamu.official.html.table.classifier.v1",
+    "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
+  }
+}

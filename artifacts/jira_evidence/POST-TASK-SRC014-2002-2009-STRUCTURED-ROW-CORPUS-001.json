@@ -1,0 +1,58 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "scoring_summary": "ABSENT_NO_SERIALIZED_ROWS",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14581",
+    "done_after_merge": "",
+    "in_review_after_validation": ""
+  },
+  "current_identities": {
+    "dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
+    "gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, BATQ, GitHub, contracts, and modules were searched for an owner of POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001. No same-scope owner exists. BAT-618 owns only the 2002-expanded union. BAT-617/611/606/601/596/591 own season-scoped structured payloads. BAT-608 is union-consumer integrity. BATQ-68 and BATQ-69 remain quarantined. NEW_ISSUE_DECISION=CREATE as BAT-619.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-591",
+      "BAT-596",
+      "BAT-601",
+      "BAT-606",
+      "BAT-608",
+      "BAT-611",
+      "BAT-617",
+      "BAT-618",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-619",
+  "local_issue_id": "POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently recomputed BAT-591/596/601/606/611/617 payload identities and BAT-618 union membership. Derived corpus dataset identity 35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50 and gate identity 5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af. 93 admitted 2002-2009 games; 43233 serialized rows; scoring/summary child has 0 rows; Oklahoma 2002 unmatched and four preserved rejections excluded. NCAA contest IDs were not created. Availability remains NOT_ESTABLISHED.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

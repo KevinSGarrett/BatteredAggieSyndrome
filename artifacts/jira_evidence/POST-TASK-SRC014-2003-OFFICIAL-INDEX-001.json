@@ -12,7 +12,9 @@
     "union_admission": "NOT_ADMITTED"
   },
   "comment_ids": {
-    "claimed_in_progress": "14548"
+    "claimed_in_progress": "14548",
+    "done_after_merge": "14550",
+    "in_review_after_validation": "14549"
   },
   "current_identities": {
     "box_url_identity": "169ecef65490a5a07889ccd06816fda94db5215e6f1eacf6cb22204286800a99",
@@ -37,16 +39,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "IN_PROGRESS",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "f89a3120b9745b68260c3f02283b68e0458ac598",
+  "issue_complete": true,
   "jira_key": "BAT-609",
   "local_issue_id": "POST-TASK-SRC014-2003-OFFICIAL-INDEX-001",
+  "material_pr": 532,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Proved the captured official history index emits ../years/2003.html and captured https://files.12thman.com/history/football/years/2003.html. Scheduled games 12, box-score URLs 12, NCAA IDs created 0, union admissions 0. Capture identity 253a1065192f2e4aa1fa366d967b5c37c0c9586d9b664a3bf0f16079c5105921. Gate identity 1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY.",
+  "observable_outcome": "Material PR #532 merged as f89a3120b9745b68260c3f02283b68e0458ac598. Proved the captured official history index emits ../years/2003.html and captured https://files.12thman.com/history/football/years/2003.html. Scheduled games 12, box-score URLs 12, NCAA IDs created 0, union admissions 0. Capture identity 253a1065192f2e4aa1fa366d967b5c37c0c9586d9b664a3bf0f16079c5105921. Gate identity 1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

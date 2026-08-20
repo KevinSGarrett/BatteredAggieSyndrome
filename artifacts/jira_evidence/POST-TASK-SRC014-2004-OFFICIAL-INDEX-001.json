@@ -1,0 +1,63 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_585_inventory": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_588_2007_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_594_2006_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_599_2005_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14531",
+    "in_review_after_validation": "14532"
+  },
+  "current_identities": {
+    "box_url_identity": "9bda3096e9715f574d235b9e2bf96c84e52784695dd3cfea35943f2663a01e84",
+    "capture_identity": "5a0d8d549c98405a22f891421df7b4513a81132572695da7bdfeb11234f48830",
+    "game_row_identity": "36ec1969bfdefa14af39509b534cc8b8fe2d81623bb95674902f5e41f967552e",
+    "gate_identity": "3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836",
+    "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "payload_identity": "65b6c83d9946eadc3db5fede73bed7e64b620406ca5655ad93d75346dcbe6422",
+    "raw_sha256": "db64496a98fb15ff3bed222901269c5901ba78443db4b7a581865157c5e4f17c"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of the official 2004 season index. BAT-599 owns only the 2005 index and must not be reused. BAT-594 owns 2006. BAT-588 owns 2007. BAT-585 inventoried later seasons and was not rewritten. Live JQL for 2004 official season index returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-585",
+      "BAT-588",
+      "BAT-594",
+      "BAT-599",
+      "BAT-600",
+      "BAT-601",
+      "BAT-602",
+      "BAT-603"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-604",
+  "local_issue_id": "POST-TASK-SRC014-2004-OFFICIAL-INDEX-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Captured the official 2004 Texas A&M season index emitted by the history-index authority chain as https://files.12thman.com/history/football/years/2004.html (raw sha256 db64496a98fb15ff3bed222901269c5901ba78443db4b7a581865157c5e4f17c). Counts: 12 scheduled games, 12 box-score URLs, 0 duplicate/malformed/missing links. Gate identity 3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836. BAT-599 2005 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

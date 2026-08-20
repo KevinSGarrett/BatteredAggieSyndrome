@@ -26,6 +26,7 @@ ADDED,artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
 ADDED,artifacts/data_lake/tamu_cross_source_domain_gate.json
 ADDED,artifacts/data_lake/tamu_official_2002_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_2002_season_index_gate.json
+ADDED,artifacts/data_lake/tamu_official_2002_structured_domains_gate.json
 ADDED,artifacts/data_lake/tamu_official_2003_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_2003_season_index_gate.json
 ADDED,artifacts/data_lake/tamu_official_2003_structured_domains_gate.json
@@ -202,6 +203,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2002-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2002-OFFICIAL-INDEX-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2002-STRUCTURED-DOMAINS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2003-EXPANDED-ENRICHED-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2003-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2003-OFFICIAL-INDEX-001.json
@@ -402,6 +404,7 @@ ADDED,configs/tamu_cross_source_domain_gate_contract.json
 ADDED,configs/tamu_no_adjustment_reference.json
 ADDED,configs/tamu_official_2002_boxscore_contract.json
 ADDED,configs/tamu_official_2002_season_index_contract.json
+ADDED,configs/tamu_official_2002_structured_domains_contract.json
 ADDED,configs/tamu_official_2003_boxscore_contract.json
 ADDED,configs/tamu_official_2003_season_index_contract.json
 ADDED,configs/tamu_official_2003_structured_domains_contract.json
@@ -581,6 +584,7 @@ ADDED,schemas/openai/assistive_candidate.schema.json
 ADDED,schemas/openai/assistive_evaluation.schema.json
 ADDED,schemas/openai/depth_chart_noncoverage_visual.schema.json
 ADDED,scripts/audit_control_plane.ps1
+ADDED,src/aggie_analytics/__pycache__/__init__.cpython-311.pyc
 ADDED,src/aggie_analytics/assistive_plane/__init__.py
 ADDED,src/aggie_analytics/assistive_plane/backend.py
 ADDED,src/aggie_analytics/assistive_plane/budget.py
@@ -626,6 +630,7 @@ ADDED,src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
 ADDED,src/aggie_analytics/data/tamu_official_2002_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_2002_season_index.py
+ADDED,src/aggie_analytics/data/tamu_official_2002_structured_domains.py
 ADDED,src/aggie_analytics/data/tamu_official_2003_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_2003_season_index.py
 ADDED,src/aggie_analytics/data/tamu_official_2003_structured_domains.py
@@ -712,6 +717,11 @@ ADDED,src/aggie_analytics/temporal/venue_assignment_pit.py
 ADDED,src/aggie_analytics/temporal/weather_previous_runs_snapshot.py
 ADDED,src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
+ADDED,src/aggie_analytics/validation/__pycache__/__init__.cpython-311.pyc
+ADDED,src/aggie_analytics/validation/__pycache__/artifact_binding.cpython-311.pyc
+ADDED,src/aggie_analytics/validation/__pycache__/metrics.cpython-311.pyc
+ADDED,src/aggie_analytics/validation/__pycache__/promotion.cpython-311.pyc
+ADDED,src/aggie_analytics/validation/__pycache__/protected.cpython-311.pyc
 ADDED,src/aggie_analytics/validation/artifact_binding.py
 ADDED,src/aggie_analytics/validation/evaluation_exposure.py
 ADDED,src/aggie_analytics/validation/pit_replay_readiness.py
@@ -819,6 +829,7 @@ ADDED,tests/test_tamu_2010_2011_season_reconciliation.py
 ADDED,tests/test_tamu_cross_source_domain_gate.py
 ADDED,tests/test_tamu_official_2002_boxscores.py
 ADDED,tests/test_tamu_official_2002_season_index.py
+ADDED,tests/test_tamu_official_2002_structured_domains.py
 ADDED,tests/test_tamu_official_2003_boxscores.py
 ADDED,tests/test_tamu_official_2003_season_index.py
 ADDED,tests/test_tamu_official_2003_structured_domains.py
@@ -926,6 +937,7 @@ ADDED,tools/build_tamu_cross_source_domain_gate.py
 ADDED,tools/build_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/build_tamu_official_2002_boxscores.py
 ADDED,tools/build_tamu_official_2002_season_index.py
+ADDED,tools/build_tamu_official_2002_structured_domains.py
 ADDED,tools/build_tamu_official_2003_boxscores.py
 ADDED,tools/build_tamu_official_2003_season_index.py
 ADDED,tools/build_tamu_official_2003_structured_domains.py
@@ -1100,6 +1112,7 @@ ADDED,tools/validate_tamu_cross_source_domain_gate.py
 ADDED,tools/validate_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/validate_tamu_official_2002_boxscores.py
 ADDED,tools/validate_tamu_official_2002_season_index.py
+ADDED,tools/validate_tamu_official_2002_structured_domains.py
 ADDED,tools/validate_tamu_official_2003_boxscores.py
 ADDED,tools/validate_tamu_official_2003_season_index.py
 ADDED,tools/validate_tamu_official_2003_structured_domains.py

@@ -15,7 +15,10 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14567",
-    "in_review_after_validation": "14570"
+    "done_after_merge": "14572",
+    "done_duplicate": "14573",
+    "in_review_after_validation": "14570",
+    "in_review_duplicate": "14571"
   },
   "current_identities": {
     "acquisition_identity": "c62b407583647b88e884ef59e90c5644cf64a63d077e4d128f7f3405611eb4b3",
@@ -39,16 +42,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "7d3dc97c1d73f5a799e9a6e40432d9d738adb72d",
+  "issue_complete": true,
   "jira_key": "BAT-615",
   "local_issue_id": "POST-TASK-SRC014-2002-OFFICIAL-ACQUISITION-001",
+  "material_pr": 543,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently reconstructed BAT-613 and acquired only those official 2002 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 11 strong-tuple matches, 1 unmatched strong-tuple on Oklahoma because the official box site text is College Staion, TX and is not rewritten. Pittsburgh dotted-month identity Sep. 7, 2002 parsed as 2002-09-07. Gate identity d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #543 merged as 7d3dc97c1d73f5a799e9a6e40432d9d738adb72d. Independently reconstructed BAT-613 and acquired only those official 2002 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 11 strong-tuple matches, 1 unmatched strong-tuple on Oklahoma because the official box site text is College Staion, TX and is not rewritten. Pittsburgh dotted-month identity Sep. 7, 2002 parsed as 2002-09-07. Gate identity d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

@@ -734,6 +734,21 @@
       "phase": "PHASE-3",
       "status": "Done",
       "summary": "Acquire official SRC-014 2003 box scores from the BAT-609 reconstructed season index"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-611",
+      "local_id": "POST-TASK-SRC014-2003-STRUCTURED-DOMAINS-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-4",
+      "status": "Done",
+      "summary": "Parse official SRC-014 2003 structured domains from BAT-610 captured box scores"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

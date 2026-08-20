@@ -18,7 +18,9 @@
     "union_admission": "NOT_ADMITTED"
   },
   "comment_ids": {
-    "claimed_in_progress": "14554"
+    "claimed_in_progress": "14554",
+    "done_after_merge": "14556",
+    "in_review_after_validation": "14555"
   },
   "current_identities": {
     "gate_identity": "758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9",
@@ -41,16 +43,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PLANNED",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "5cd7579820af1108bbbcf6ac869a50fb67ef65a9",
+  "issue_complete": true,
   "jira_key": "BAT-611",
   "local_issue_id": "POST-TASK-SRC014-2003-STRUCTURED-DOMAINS-001",
+  "material_pr": 536,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Official 2003 structured domains parsed from the 12 reconstructed BAT-610 captures only. 12/12 rich, 5528 serialized rows (team 324, individual 340, drives 349, play-by-play 4515). Gate identity 758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9. Payload identity 8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8. BAT-591/BAT-596/BAT-601/BAT-606 identities were not rewritten. HTML-table classifier identity remained tamu.official.html.table.classifier.v1. Participation did not become availability. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #536 merged as 5cd7579820af1108bbbcf6ac869a50fb67ef65a9. Independently reconstructed BAT-609/BAT-610 and parsed only those official 2003 box URLs. 12/12 rich, 5528 serialized rows (team 324, individual 340, drives 349, play-by-play 4515). Gate identity 758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9. Payload identity 8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8. BAT-591/BAT-596/BAT-601/BAT-606 identities were not rewritten. HTML-table classifier identity remained tamu.official.html.table.classifier.v1. Participation did not become availability. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

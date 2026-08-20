@@ -83,7 +83,7 @@ FIELD_SPECS = [
         "name": "Phase",
         "column": "Phase",
         "kind": "select",
-        "options": ["PHASE-1", "PHASE-2", "PHASE-3", "PHASE-4", "PHASE-5"],
+        "options": ["PHASE-1", "PHASE-2", "PHASE-3", "PHASE-4", "PHASE-5", "PHASE-6", "PHASE-7", "PHASE-8", "PHASE-9", "PHASE-10"],
         "description": "Portable project phase metadata; no unsupported hierarchy above Epic is implied.",
     },
     {

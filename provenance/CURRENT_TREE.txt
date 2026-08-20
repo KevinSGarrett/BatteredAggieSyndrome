@@ -3023,10 +3023,6 @@ prompts/openai_assist/quarantine_schema_v1.txt
 provenance/INPUT_ARTIFACTS.csv
 provenance/MANIFEST_POLICY.md
 provenance/PROJECT_FILE_HASHES.sha256
-provenance/PROJECT_FILE_HASHES.sha256
-provenance/PROJECT_FILE_HASHES.sha256
-provenance/PROJECT_FILE_MANIFEST.csv
-provenance/PROJECT_FILE_MANIFEST.csv
 provenance/PROJECT_FILE_MANIFEST.csv
 provenance/RECONNAISSANCE_FILE_INDEX.csv
 provenance/RECON_REQUIRED_READING_STATUS.csv

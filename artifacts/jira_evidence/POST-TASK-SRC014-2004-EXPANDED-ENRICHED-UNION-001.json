@@ -15,7 +15,10 @@
     "union_admission": "CANDIDATE_ONLY"
   },
   "comment_ids": {
+    "bat_429_reevaluation": "14544",
+    "bat_523_progress": "14543",
     "claimed_in_progress": "14540",
+    "done_after_merge": "14542",
     "in_review_after_validation": "14541"
   },
   "current_identities": {
@@ -39,18 +42,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "4df891757e06da1a632d24907ac9fef9e8aa6b20",
+  "issue_complete": true,
   "jira_key": "BAT-607",
   "local_issue_id": "POST-TASK-SRC014-2004-EXPANDED-ENRICHED-UNION-001",
-  "material_pr": null,
+  "material_pr": 528,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Implemented the 2004-expanded official enriched union from the BAT-603 integrity-bound predecessor. Admitted 12 official 2004 games by official-index URL plus capture SHA, not opponent name. Union identity 0bd42472491241967a2f562ea32561f5c7ee726a7146d2699728988e212a98f7. Gate identity 525706ab4273443ca36e4c65ee386e6e2d9870644de16565ca16820bffcc98a9. Final union 273 games, 70 official-school games, 260 rich, 13 metadata-only, 70 scoring-summary, four unmatched rejections preserved. BAT-602 and BAT-603 identities were not rewritten. Pregame availability remains blocked. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #528 merged as 4df891757e06da1a632d24907ac9fef9e8aa6b20. Created the 2004-expanded official enriched union from the BAT-603 integrity-bound predecessor. Independently recomputed BAT-605 and BAT-606 external payload identities before overlay. Admitted 12 official 2004 games by official-index URL plus capture SHA. Union identity 0bd42472491241967a2f562ea32561f5c7ee726a7146d2699728988e212a98f7. Gate identity 525706ab4273443ca36e4c65ee386e6e2d9870644de16565ca16820bffcc98a9. Final union 273 games, 70 official-school games, 260 rich, 13 metadata-only, 70 scoring-summary, four unmatched rejections preserved. BAT-602 and BAT-603 identities were not rewritten. Pregame availability remains blocked. BAT-429 stays To Do because POST-SUBTASK-063/066/069 remain To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

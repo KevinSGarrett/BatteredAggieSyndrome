@@ -1,0 +1,55 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_605_2004_boxscores": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_609_2003_index": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14551"
+  },
+  "current_identities": {
+    "acquisition_identity": "f5c0a2824381669501b7bccaeac18ced85f7c14b570d03e56ea4ebb1e4e08ee0",
+    "dataset_identity": "741f92a8b0d3c19fe7fd51033e9ddfb797052a9da4e63a2115839a4617e2c0c5",
+    "game_row_identity": "17a9daed972a0fa91e554b33adeaf5027aefa206188fec949a4450e2f8971772",
+    "gate_identity": "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of official SRC-014 2003 box-score acquisition. BAT-609 owns only the 2003 index. BAT-605 owns only the 2004 acquisition and is immutable. Live JQL for 2003 official acquisition returned no owner. NEW_ISSUE_DECISION=CREATE as BAT-610.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-586",
+      "BAT-589",
+      "BAT-595",
+      "BAT-600",
+      "BAT-605",
+      "BAT-608",
+      "BAT-609"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "IN_PROGRESS",
+  "issue_complete": false,
+  "jira_key": "BAT-610",
+  "local_issue_id": "POST-TASK-SRC014-2003-OFFICIAL-ACQUISITION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently reconstructed BAT-609 and acquired only those official 2003 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary, 11 strong-tuple matches, 1 date conflict on Utah because the index text Sept 6 does not parse to an index_date_candidate. Gate identity 45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

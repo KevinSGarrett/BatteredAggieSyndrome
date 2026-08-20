@@ -15,6 +15,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14528",
+    "done_after_merge": "14530",
     "in_review_after_validation": "14529"
   },
   "current_identities": {
@@ -45,16 +46,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "b4b9b4c53cffdd3f68b4a128441fe0936f31e6b4",
+  "issue_complete": true,
   "jira_key": "BAT-603",
   "local_issue_id": "POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001",
+  "material_pr": 520,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Created the integrity-bound successor to BAT-602 with union identity 51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459 and gate identity ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580. Independently recomputed BAT-600 acquisition/games/dataset identities and BAT-601 payload identity from external payloads, rebound every 2005 game to the BAT-599 official index URL without the hardcoded parent_url fallback, and verified serialized BAT-601 rows before overlay. Preserved the 261-game union count, 58 official-school games, four unmatched rejections, and all recorded date/season-header conflicts. new_games_added=0. BAT-586 through BAT-602 identities were not rewritten. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #520 merged as b4b9b4c53cffdd3f68b4a128441fe0936f31e6b4. Created the integrity-bound successor to BAT-602 with union identity 51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459 and gate identity ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580. Independently recomputed BAT-600 acquisition/games/dataset identities and BAT-601 payload identity from external payloads, rebound every 2005 game to the BAT-599 official index URL without the hardcoded parent_url fallback, and verified serialized BAT-601 rows before overlay. Preserved the 261-game union count, 58 official-school games, four unmatched rejections, and all recorded date/season-header conflicts. new_games_added=0. BAT-586 through BAT-602 identities were not rewritten. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

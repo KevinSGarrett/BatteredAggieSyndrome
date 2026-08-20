@@ -1,0 +1,25 @@
+{
+  "schema_version": "aggie.data.tamu_official_gamebook_union_2004_expanded.v1",
+  "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2004_expanded.v1",
+  "contract_id": "BAT-607-TAMU-OFFICIAL-GAMEBOOK-UNION-2004-EXPANDED-V1",
+  "jira_key": "BAT-607",
+  "local_issue_id": "POST-TASK-SRC014-2004-EXPANDED-ENRICHED-UNION-001",
+  "new_issue_decision": "CREATE",
+  "purpose": "Create a new immutable official enriched union that starts from the BAT-603 integrity-bound 261-game successor and admits only independently validated official 2004 games. Do not rewrite BAT-602 or BAT-603. Opponent name alone is not admission.",
+  "predecessor_union_identity": "51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459",
+  "predecessor_gate_identity": "ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580",
+  "pinned_bat604_gate_identity": "3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836",
+  "pinned_bat604_box_url_identity": "9bda3096e9715f574d235b9e2bf96c84e52784695dd3cfea35943f2663a01e84",
+  "pinned_bat605_gate_identity": "c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70",
+  "pinned_bat605_dataset_identity": "6670084e2578fa0e0339668a8b4f47eeaba5c1368d91043203ecfeda38f6c96b",
+  "pinned_bat605_acquisition_identity": "7fa30d842696f0e73cc23f53daff1638326d58ce5636b354741eca9cf4c21ad9",
+  "pinned_bat605_games_identity": "6f7f6505f8e863daeb8d8b7f662fb0ce455a7cb388379815d7d33734cd97ac9b",
+  "pinned_bat606_gate_identity": "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6",
+  "pinned_bat606_payload_identity": "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0",
+  "official_index_url": "https://files.12thman.com/history/football/years/2004.html",
+  "parent_url_fallback_forbidden": true,
+  "payloads": {
+    "union_root": "features/tamu_official_gamebook_union_2004_expanded/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

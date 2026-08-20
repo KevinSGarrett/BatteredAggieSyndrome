@@ -34,6 +34,7 @@ UNION_GATE_RELATIVES: tuple[str, ...] = (
     "artifacts/data_lake/tamu_official_gamebook_union_2006_expanded_gate.json",
     "artifacts/data_lake/tamu_official_gamebook_union_2005_expanded_gate.json",
     "artifacts/data_lake/tamu_official_gamebook_union_2005_integrity_bound_gate.json",
+    "artifacts/data_lake/tamu_official_gamebook_union_2004_expanded_gate.json",
 )
 
 

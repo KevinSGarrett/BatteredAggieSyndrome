@@ -1,0 +1,56 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_602_union": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_603_union": "CONSUMED_AS_INTEGRITY_BOUND_PREDECESSOR_ONLY",
+    "bat_605_boxscores": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_PAYLOAD",
+    "bat_606_domains": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_ROW_PAYLOAD",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14540",
+    "in_review_after_validation": "14541"
+  },
+  "current_identities": {
+    "gate_identity": "525706ab4273443ca36e4c65ee386e6e2d9870644de16565ca16820bffcc98a9",
+    "union_identity": "0bd42472491241967a2f562ea32561f5c7ee726a7146d2699728988e212a98f7"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of a 2004-expanded official enriched union. BAT-602 owns only the 2005-expanded union and is immutable. BAT-603 is the integrity-bound 261-game predecessor, not a reusable 2004 owner. Live JQL for 2004 union/enriched returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-597",
+      "BAT-602",
+      "BAT-603",
+      "BAT-604",
+      "BAT-605",
+      "BAT-606"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-607",
+  "local_issue_id": "POST-TASK-SRC014-2004-EXPANDED-ENRICHED-UNION-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Implemented the 2004-expanded official enriched union from the BAT-603 integrity-bound predecessor. Admitted 12 official 2004 games by official-index URL plus capture SHA, not opponent name. Union identity 0bd42472491241967a2f562ea32561f5c7ee726a7146d2699728988e212a98f7. Gate identity 525706ab4273443ca36e4c65ee386e6e2d9870644de16565ca16820bffcc98a9. Final union 273 games, 70 official-school games, 260 rich, 13 metadata-only, 70 scoring-summary, four unmatched rejections preserved. BAT-602 and BAT-603 identities were not rewritten. Pregame availability remains blocked. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

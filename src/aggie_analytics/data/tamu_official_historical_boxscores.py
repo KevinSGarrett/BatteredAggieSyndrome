@@ -96,9 +96,9 @@ TABLE_RE = re.compile(r"(?is)<table\b[^>]*>(.*?)</table>")
 ROW_RE = re.compile(r"(?is)<tr\b[^>]*>(.*?)</tr>")
 CELL_RE = re.compile(r"(?is)<t[hd]\b[^>]*>(.*?)</t[hd]>")
 SEASON_RE = re.compile(r"(\d{4})\s+Texas A&(?:amp;)?M Football", re.IGNORECASE)
-DATE_RE = re.compile(r"Date:\s*([A-Za-z]{3}\s+\d{1,2},\s+\d{4})", re.IGNORECASE)
+DATE_RE = re.compile(r"Date:\s*([A-Za-z]{3}\.?\s+\d{1,2},\s+\d{4})", re.IGNORECASE)
 HEAD_RE = re.compile(
-    r"(?:#\d+\s+)?([A-Za-z0-9 .&';-]+?(?:\s*\([A-Za-z0-9 .&';-]+\))?)\s+vs\.?\s+(?:#\d+\s+)?([A-Za-z0-9 .&';-]+?(?:\s*\([A-Za-z0-9 .&';-]+\))?)\s+\(([A-Za-z]{3}\s+\d{1,2},\s+\d{4})(?:\s+at\s+([^)]+))?\)",
+    r"(?:#\d+\s+)?([A-Za-z0-9 .&';-]+?(?:\s*\([A-Za-z0-9 .&';-]+\))?)\s+vs\.?\s+(?:#\d+\s+)?([A-Za-z0-9 .&';-]+?(?:\s*\([A-Za-z0-9 .&';-]+\))?)\s+\(([A-Za-z]{3}\.?\s+\d{1,2},\s+\d{4})(?:\s+at\s+([^)]+))?\)",
     re.IGNORECASE,
 )
 SITE_RE = re.compile(r"Site:\s*([^<\n]+?)(?:Stadium:|Attendance:|$)", re.IGNORECASE)
@@ -182,7 +182,7 @@ def site_token(value: str) -> str:
 
 
 def parse_statcrew_date(raw: str) -> str:
-    match = re.match(r"([A-Za-z]{3})\s+(\d{1,2}),\s+(\d{4})$", clean_text(raw))
+    match = re.match(r"([A-Za-z]{3})\.?\s+(\d{1,2}),\s+(\d{4})$", clean_text(raw))
     if match is None:
         raise AuthorityViolation(f"unparseable official box date: {raw}")
     month = MONTHS.get(match.group(1).lower())

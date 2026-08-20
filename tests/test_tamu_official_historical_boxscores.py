@@ -170,6 +170,27 @@ class OfficialHistoricalBoxscoreTests(unittest.TestCase):
                 raw_sha256=sha256_bytes(body),
             )
 
+    def test_dotted_month_abbrev_is_accepted_as_identity(self) -> None:
+        body = _box_page(
+            season=2002,
+            visitor="Texas A&M",
+            home="Pittsburgh",
+            date="Sep. 7, 2002",
+            site="Pittsburgh, PA",
+            visitor_points=14,
+            home_points=38,
+        )
+        parsed = parse_official_box_page(
+            body,
+            url="https://files.12thman.com/history/football/stats/2002-2003/mfb_412_pit.html",
+            source_season=2002,
+            raw_sha256=sha256_bytes(body),
+            allowed_urls=frozenset({"https://files.12thman.com/history/football/stats/2002-2003/mfb_412_pit.html"}),
+        )
+        self.assertEqual("2002-09-07", parsed["calendar_date"])
+        self.assertEqual("visitor", parsed["tamu_side"])
+        self.assertEqual("Pittsburgh", parsed["opponent_candidate"])
+
     def test_swapped_team_orientation_does_not_reassign_tamu_score(self) -> None:
         body = _box_page()
         parsed = parse_official_box_page(

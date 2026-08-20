@@ -1,0 +1,54 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_610_2003_boxscores": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_613_2002_index": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14567",
+    "in_review_after_validation": "14570"
+  },
+  "current_identities": {
+    "acquisition_identity": "c62b407583647b88e884ef59e90c5644cf64a63d077e4d128f7f3405611eb4b3",
+    "dataset_identity": "331c64a2855fb6936755e32e71c693985b37da708d526cc980d09192afac5c1a",
+    "game_row_identity": "69d969340bfc88fe89e02949f18c9cdd046b066bc702cc3fac6587eb0745cd83",
+    "gate_identity": "d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e"
+  },
+  "duplicate_audit": {
+    "decision": "REUSE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of official SRC-014 2002 box-score acquisition. BAT-613 owns only the 2002 index. BAT-610 owns only 2003 acquisition. BAT-615 was the first same-scope CREATE. Duplicate BAT-616 was moved off the BAT board to BATQ-69 and is not an auxiliary owner. NEW_ISSUE_DECISION=CREATE as BAT-615.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-610",
+      "BAT-613",
+      "BAT-616",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-615",
+  "local_issue_id": "POST-TASK-SRC014-2002-OFFICIAL-ACQUISITION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently reconstructed BAT-613 and acquired only those official 2002 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 11 strong-tuple matches, 1 unmatched strong-tuple on Oklahoma because the official box site text is College Staion, TX and is not rewritten. Pittsburgh dotted-month identity Sep. 7, 2002 parsed as 2002-09-07. Gate identity d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

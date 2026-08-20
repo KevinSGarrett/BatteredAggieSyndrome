@@ -1,0 +1,61 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_600_2005_boxscores": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_604_2004_index": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14534",
+    "in_review_after_validation": "14535"
+  },
+  "current_identities": {
+    "acquisition_identity": "7fa30d842696f0e73cc23f53daff1638326d58ce5636b354741eca9cf4c21ad9",
+    "dataset_identity": "6670084e2578fa0e0339668a8b4f47eeaba5c1368d91043203ecfeda38f6c96b",
+    "game_row_identity": "6f7f6505f8e863daeb8d8b7f662fb0ce455a7cb388379815d7d33734cd97ac9b",
+    "gate_identity": "c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of official 2004 box-score acquisition. BAT-600 owns only 2005 boxes and must not be reused. BAT-595 owns 2006. BAT-589 owns 2007. BAT-586 owns 2008/2009. BAT-604 owns only the 2004 index. Live JQL for 2004 acquisition returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-585",
+      "BAT-586",
+      "BAT-588",
+      "BAT-589",
+      "BAT-594",
+      "BAT-595",
+      "BAT-599",
+      "BAT-600",
+      "BAT-601",
+      "BAT-602",
+      "BAT-603",
+      "BAT-604"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-605",
+  "local_issue_id": "POST-TASK-SRC014-2004-OFFICIAL-ACQUISITION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Official 2004 box scores acquired from the 12 BAT-604 index URLs only. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary, 0 team/player/PBP structured domains, 0 date or season-header conflicts, 12 strong-tuple matches. Gate identity c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70. BAT-600 2005 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

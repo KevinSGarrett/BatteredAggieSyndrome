@@ -599,6 +599,21 @@
       "phase": "PHASE-4",
       "status": "Done",
       "summary": "Parse official SRC-014 2005 structured domains and classify Cycle #12 HTML tables"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PARTIAL",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-602",
+      "local_id": "POST-TASK-SRC014-2005-EXPANDED-ENRICHED-UNION-001",
+      "logical_state": "REVIEW",
+      "maturity": "CONTRACT_DEFINED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-5",
+      "status": "In Review",
+      "summary": "Create the next immutable official enriched union admitting SRC-014 2005 games"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

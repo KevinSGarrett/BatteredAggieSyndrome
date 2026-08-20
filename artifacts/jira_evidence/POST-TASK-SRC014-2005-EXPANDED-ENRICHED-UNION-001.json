@@ -1,0 +1,58 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_597_union": "PRESERVED_IMMUTABLE_SUPERSEDED_AS_PRIOR_LAYER",
+    "bat_601_payload": "CONSUMED_2005_STRUCTURED_ROW_PAYLOAD_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14522",
+    "done_after_merge": "",
+    "in_review_after_validation": "14524"
+  },
+  "current_identities": {
+    "gate_identity": "d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "prior_union_identity": "cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98",
+    "structured_row_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
+    "union_identity": "c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of a 2005-expanded enriched union. BAT-597 owns only the 2006-expanded union and must not be rewritten. BAT-592 owns the prior enriched union. Live JQL for 2005 union returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-590",
+      "BAT-592",
+      "BAT-597",
+      "BAT-599",
+      "BAT-600",
+      "BAT-601"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-602",
+  "local_issue_id": "POST-TASK-SRC014-2005-EXPANDED-ENRICHED-UNION-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Created a new immutable 2005-expanded union identity c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200 from the preserved BAT-597 union cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98. Gate identity d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8. Admitted 11 official 2005 games only when official index + box URL + raw SHA matched. Overlay bound to BAT-601 structured-row payload 5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc. Preserved the four rejected games and the SMU page-header-season conflict. Counts: prior 250, admitted 11, union 261, rich 248, metadata 13, scoring-summary 58, unmatched_rejected 4, date_conflicts 4, ncaa_contest_ids_created 0. BAT-597/BAT-601/BAT-600 identities were not rewritten. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

@@ -14,7 +14,9 @@
     "union_admission": "CANDIDATE_ONLY_NO_NEW_GAMES"
   },
   "comment_ids": {
-    "claimed_in_progress": "14545"
+    "claimed_in_progress": "14545",
+    "done_after_merge": "14547",
+    "in_review_after_validation": "14546"
   },
   "current_identities": {
     "gate_identity": "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f",
@@ -34,16 +36,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "IN_PROGRESS",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
   "jira_key": "BAT-608",
   "local_issue_id": "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001",
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Created the integrity-complete official union successor to BAT-607. Hardened BAT-603 and BAT-607 so strict mounted validation fails if the authoritative union manifest is missing, renamed, truncated, substituted, or accompanied by extra files. Independently raw-reconstructed every BAT-606 serialized row and bound BAT-603/BAT-607 manifest file SHA-256 values. Preserved 273 union games, 70 official-school games, four unmatched rejections, existing conflicts, availability blocked, NCAA IDs created = 0, and new_games_added = 0. Union identity 5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd. Gate identity f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f. BAT-603 and BAT-607 payload identities were not rewritten.",
+  "observable_outcome": "Material PR #530 merged as 19425fa38a52bd01003c58545ef33ff03fe9862b. Created the integrity-complete official union successor to BAT-607. Hardened BAT-603 and BAT-607 so strict mounted validation fails if the authoritative union manifest is missing, renamed, truncated, substituted, or accompanied by extra files. Independently raw-reconstructed every BAT-606 serialized row and bound BAT-603/BAT-607 manifest file SHA-256 values. Preserved 273 union games, 70 official-school games, four unmatched rejections, existing conflicts, availability blocked, NCAA IDs created = 0, and new_games_added = 0. Union identity 5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd. Gate identity f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f. BAT-603 and BAT-607 payload identities were not rewritten. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done",
+  "implementation_sha": "19425fa38a52bd01003c58545ef33ff03fe9862b",
+  "material_pr": 530
 }

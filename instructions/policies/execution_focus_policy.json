@@ -52,6 +52,13 @@
         "head_sha": "4cd0d281c0181a4d64df2eeb6cd73dfb342d5153",
         "classification": "[material]",
         "reason": "The BAT-399 reviewed branch head was classified as material, but the immutable GitHub squash commit subject omitted the required execution-focus marker. This correction is scoped to the exact integration commit only."
+      },
+      {
+        "commit_sha": "19425fa38a52bd01003c58545ef33ff03fe9862b",
+        "pull_request": 530,
+        "head_sha": "1350ef6283ef5adacc9246a01fc9fca3b0dacd16",
+        "classification": "[material]",
+        "reason": "The reviewed PR head was classified as material, but the GitHub squash subject supplied during merge omitted the marker. This immutable exact-commit correction preserves history without weakening classification for any other commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

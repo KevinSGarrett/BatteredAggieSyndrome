@@ -45,6 +45,7 @@ ADDED,artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
 ADDED,artifacts/data_lake/tamu_cross_source_domain_gate.json
 ADDED,artifacts/data_lake/tamu_official_2004_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_2004_season_index_gate.json
+ADDED,artifacts/data_lake/tamu_official_2004_structured_domains_gate.json
 ADDED,artifacts/data_lake/tamu_official_2005_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_2005_season_index_gate.json
 ADDED,artifacts/data_lake/tamu_official_2005_structured_domains_gate.json
@@ -212,6 +213,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2004-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2004-OFFICIAL-INDEX-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2004-STRUCTURED-DOMAINS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2005-EXPANDED-ENRICHED-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2005-OFFICIAL-ACQUISITION-001.json
@@ -403,6 +405,7 @@ ADDED,configs/tamu_cross_source_domain_gate_contract.json
 ADDED,configs/tamu_no_adjustment_reference.json
 ADDED,configs/tamu_official_2004_boxscore_contract.json
 ADDED,configs/tamu_official_2004_season_index_contract.json
+ADDED,configs/tamu_official_2004_structured_domains_contract.json
 ADDED,configs/tamu_official_2005_boxscore_contract.json
 ADDED,configs/tamu_official_2005_season_index_contract.json
 ADDED,configs/tamu_official_2005_structured_domains_contract.json
@@ -629,6 +632,7 @@ ADDED,src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
 ADDED,src/aggie_analytics/data/tamu_official_2004_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_2004_season_index.py
+ADDED,src/aggie_analytics/data/tamu_official_2004_structured_domains.py
 ADDED,src/aggie_analytics/data/tamu_official_2005_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_2005_season_index.py
 ADDED,src/aggie_analytics/data/tamu_official_2005_structured_domains.py
@@ -852,6 +856,7 @@ ADDED,tests/test_tamu_2010_2011_season_reconciliation.py
 ADDED,tests/test_tamu_cross_source_domain_gate.py
 ADDED,tests/test_tamu_official_2004_boxscores.py
 ADDED,tests/test_tamu_official_2004_season_index.py
+ADDED,tests/test_tamu_official_2004_structured_domains.py
 ADDED,tests/test_tamu_official_2005_boxscores.py
 ADDED,tests/test_tamu_official_2005_season_index.py
 ADDED,tests/test_tamu_official_2005_structured_domains.py
@@ -899,7 +904,6 @@ ADDED,tools/__pycache__/run_preliminary_unprotected_baselines.cpython-311.pyc
 ADDED,tools/__pycache__/select_next_work.cpython-312.pyc
 ADDED,tools/__pycache__/validate_acceptance.cpython-311.pyc
 ADDED,tools/__pycache__/validate_architecture.cpython-311.pyc
-ADDED,tools/_persist_live_cycle14.py
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py
@@ -962,6 +966,7 @@ ADDED,tools/build_tamu_cross_source_domain_gate.py
 ADDED,tools/build_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/build_tamu_official_2004_boxscores.py
 ADDED,tools/build_tamu_official_2004_season_index.py
+ADDED,tools/build_tamu_official_2004_structured_domains.py
 ADDED,tools/build_tamu_official_2005_boxscores.py
 ADDED,tools/build_tamu_official_2005_season_index.py
 ADDED,tools/build_tamu_official_2005_structured_domains.py
@@ -1127,6 +1132,7 @@ ADDED,tools/validate_tamu_cross_source_domain_gate.py
 ADDED,tools/validate_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/validate_tamu_official_2004_boxscores.py
 ADDED,tools/validate_tamu_official_2004_season_index.py
+ADDED,tools/validate_tamu_official_2004_structured_domains.py
 ADDED,tools/validate_tamu_official_2005_boxscores.py
 ADDED,tools/validate_tamu_official_2005_season_index.py
 ADDED,tools/validate_tamu_official_2005_structured_domains.py

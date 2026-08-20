@@ -948,6 +948,48 @@ def main() -> int:
                         )()
                     )
 
+        box_2004_structured_gate = root / "artifacts" / "data_lake" / "tamu_official_2004_structured_domains_gate.json"
+        box_2004_structured_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2004_structured_domains.py"
+        if box_2004_structured_gate.is_file() and box_2004_structured_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_2004_structured_domains_strict",
+                box_2004_structured_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_2004_structured_domains",
+                            "path": "src/aggie_analytics/data/tamu_official_2004_structured_domains.py",
+                            "detail": "unable to load official 2004 structured-domain validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=module.lake_is_ready(data_root),
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_2004_structured_domains",
+                                "path": "artifacts/data_lake/tamu_official_2004_structured_domains_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
         box_2005_gate = root / "artifacts" / "data_lake" / "tamu_official_2005_boxscore_gate.json"
         box_2005_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2005_boxscores.py"
         if box_2005_gate.is_file() and box_2005_module.is_file():

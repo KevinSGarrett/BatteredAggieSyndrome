@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-606-TAMU-OFFICIAL-2004-STRUCTURED-DOMAINS-V1",
+  "decision_unit": "POST-TASK-SRC014-2004-STRUCTURED-DOMAINS-001",
+  "jira_key": "BAT-606",
+  "parent_jira_key": "BAT-605",
+  "related_jira_keys": [
+    "BAT-605",
+    "BAT-604",
+    "BAT-601",
+    "BAT-596",
+    "BAT-591",
+    "BAT-523",
+    "BAT-429",
+    "BAT-401"
+  ],
+  "new_issue_decision": "CREATE",
+  "purpose": "Parse only independently labeled 2004 official team, player, drive, and play-by-play domains from BAT-605 captures. Do not rewrite BAT-591, BAT-596, or BAT-601. Do not mutate the Cycle #13 HTML-table classifier identity.",
+  "pinned_bat605_gate_identity": "c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70",
+  "pinned_bat604_gate_identity": "3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836",
+  "pinned_bat601_gate_identity": "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d",
+  "pinned_bat596_gate_identity": "57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4",
+  "pinned_bat591_gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+  "pinned_html_table_classifier_identity": "tamu.official.html.table.classifier.v1",
+  "payloads": {
+    "enriched_root": "features/tamu_official_2004_structured_domains/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "union_policy": "DO_NOT_ADMIT_2004_GAMES"
+}

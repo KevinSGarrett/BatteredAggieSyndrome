@@ -52,6 +52,7 @@ artifacts/data_lake/tamu_official_2007_boxscore_gate.json
 artifacts/data_lake/tamu_official_2007_season_index_gate.json
 artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json
 artifacts/data_lake/tamu_official_gamebook_union_2005_expanded_gate.json
+artifacts/data_lake/tamu_official_gamebook_union_2005_integrity_bound_gate.json
 artifacts/data_lake/tamu_official_gamebook_union_2006_expanded_gate.json
 artifacts/data_lake/tamu_official_gamebook_union_2007_gate.json
 artifacts/data_lake/tamu_official_gamebook_union_enriched_gate.json
@@ -207,6 +208,7 @@ artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
 artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.json
 artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-2005-EXPANDED-ENRICHED-UNION-001.json
+artifacts/jira_evidence/POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-2005-OFFICIAL-ACQUISITION-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-2005-OFFICIAL-INDEX-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-2005-STRUCTURED-DOMAINS-001.json
@@ -425,6 +427,7 @@ configs/tamu_official_2007_boxscore_contract.json
 configs/tamu_official_2007_season_index_contract.json
 configs/tamu_official_evidence_gap_matrix_contract.json
 configs/tamu_official_gamebook_union_2005_expanded_contract.json
+configs/tamu_official_gamebook_union_2005_integrity_bound_contract.json
 configs/tamu_official_gamebook_union_2006_expanded_contract.json
 configs/tamu_official_gamebook_union_2007_contract.json
 configs/tamu_official_gamebook_union_contract.json
@@ -3211,6 +3214,7 @@ src/aggie_analytics/data/tamu_official_2007_season_index.py
 src/aggie_analytics/data/tamu_official_evidence_gap_matrix.py
 src/aggie_analytics/data/tamu_official_gamebook_union.py
 src/aggie_analytics/data/tamu_official_gamebook_union_2005_expanded.py
+src/aggie_analytics/data/tamu_official_gamebook_union_2005_integrity_bound.py
 src/aggie_analytics/data/tamu_official_gamebook_union_2006_expanded.py
 src/aggie_analytics/data/tamu_official_gamebook_union_2007.py
 src/aggie_analytics/data/tamu_official_gamebook_union_enriched.py
@@ -3521,6 +3525,7 @@ tests/test_tamu_official_2007_season_index.py
 tests/test_tamu_official_evidence_gap_matrix.py
 tests/test_tamu_official_gamebook_union.py
 tests/test_tamu_official_gamebook_union_2005_expanded.py
+tests/test_tamu_official_gamebook_union_2005_integrity_bound.py
 tests/test_tamu_official_gamebook_union_2006_expanded.py
 tests/test_tamu_official_gamebook_union_2007.py
 tests/test_tamu_official_gamebook_union_enriched.py
@@ -3634,6 +3639,7 @@ tools/build_tamu_official_2007_season_index.py
 tools/build_tamu_official_evidence_gap_matrix.py
 tools/build_tamu_official_gamebook_union.py
 tools/build_tamu_official_gamebook_union_2005_expanded.py
+tools/build_tamu_official_gamebook_union_2005_integrity_bound.py
 tools/build_tamu_official_gamebook_union_2006_expanded.py
 tools/build_tamu_official_gamebook_union_2007.py
 tools/build_tamu_official_gamebook_union_enriched.py
@@ -3830,6 +3836,7 @@ tools/validate_tamu_official_2007_season_index.py
 tools/validate_tamu_official_evidence_gap_matrix.py
 tools/validate_tamu_official_gamebook_union.py
 tools/validate_tamu_official_gamebook_union_2005_expanded.py
+tools/validate_tamu_official_gamebook_union_2005_integrity_bound.py
 tools/validate_tamu_official_gamebook_union_2006_expanded.py
 tools/validate_tamu_official_gamebook_union_2007.py
 tools/validate_tamu_official_gamebook_union_enriched.py

@@ -614,6 +614,21 @@
       "phase": "PHASE-5",
       "status": "Done",
       "summary": "Create the next immutable official enriched union admitting SRC-014 2005 games"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PARTIAL",
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Task",
+      "jira_key": "BAT-603",
+      "local_id": "POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "In Review",
+      "summary": "Harden independent BAT-600/BAT-601 consumer bindings for the 2005-expanded union successor"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

@@ -13,7 +13,10 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14560",
-    "in_review_after_validation": "14563"
+    "done_after_merge": "14565",
+    "done_after_merge_duplicate": "14566",
+    "in_review_after_validation": "14563",
+    "in_review_duplicate": "14564"
   },
   "current_identities": {
     "box_url_identity": "15ed208e59794975b1e28fd0ce9b3c8cda731d5438aedca3fb49328586cd74ac",
@@ -40,16 +43,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "565837ffca9fe9fe22e922e7ce51cd084ccaff92",
+  "issue_complete": true,
   "jira_key": "BAT-613",
   "local_issue_id": "POST-TASK-SRC014-2002-OFFICIAL-INDEX-001",
+  "material_pr": 540,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently proved the captured official history index emits ../years/2002.html (url_directly_emitted_by_official_page=true) and captured https://files.12thman.com/history/football/years/2002.html. Derived scheduled games 12, box-score URLs 12, NCAA IDs created 0, union admissions 0. Capture identity e9c3d170873a4b1d5cd26fa9e2a4a179d6346444cfba71cfaf40cdf48358222a. Gate identity 07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #540 merged as 565837ffca9fe9fe22e922e7ce51cd084ccaff92. Independently proved the official history index emits ../years/2002.html and captured https://files.12thman.com/history/football/years/2002.html. Derived scheduled games 12, box-score URLs 12, NCAA IDs created 0, union admissions 0. Capture identity e9c3d170873a4b1d5cd26fa9e2a4a179d6346444cfba71cfaf40cdf48358222a. Gate identity 07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a. Payload identity 71e518cabe070defa9f5a4551f22d97434a4ff1a9ba13c00159f37cbb3f6d46a. Duplicate BAT-614 was moved off the BAT board to BATQ-68 and is not an auxiliary owner. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

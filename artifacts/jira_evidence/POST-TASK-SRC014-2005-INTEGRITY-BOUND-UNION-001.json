@@ -1,0 +1,60 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_600_payload": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_PAYLOAD",
+    "bat_601_payload": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_ROW_PAYLOAD",
+    "bat_602_union": "PRESERVED_IMMUTABLE_SUPERSEDED_AS_PREDECESSOR",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "CANDIDATE_ONLY_NO_NEW_GAMES"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14528",
+    "in_review_after_validation": "14529"
+  },
+  "current_identities": {
+    "bat600_dataset_identity": "e063378e564a3dcdbb09e42ea63cc0a843e9db8918130ecffd02f796c3805dbb",
+    "bat600_payload_file_sha256": "57e5cf78d7141698874e93985aa8eb13a78d7dade91808942ebe0478136acec9",
+    "bat601_payload_file_sha256": "752bd4631289fa35ae40bd11f481d520cb14c0dd7a082814055a80c2fec876c6",
+    "bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
+    "gate_identity": "ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580",
+    "predecessor_gate_identity": "d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8",
+    "predecessor_union_identity": "c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200",
+    "union_identity": "51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459",
+    "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2005_integrity_bound.v1",
+    "validator_code_identity": "83725d839c13d560563b55c8224da90b28f0e0bd7af3d5109f6b276884e38cc4"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of an integrity-bound BAT-602 successor that independently recomputes BAT-600 and BAT-601 external payload semantics. BAT-602 owns the 2005-expanded union and must not be rewritten. Live JQL for integrity-bound 2005 union returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-597",
+      "BAT-599",
+      "BAT-600",
+      "BAT-601",
+      "BAT-602"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-603",
+  "local_issue_id": "POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Created the integrity-bound successor to BAT-602 with union identity 51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459 and gate identity ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580. Independently recomputed BAT-600 acquisition/games/dataset identities and BAT-601 payload identity from external payloads, rebound every 2005 game to the BAT-599 official index URL without the hardcoded parent_url fallback, and verified serialized BAT-601 rows before overlay. Preserved the 261-game union count, 58 official-school games, four unmatched rejections, and all recorded date/season-header conflicts. new_games_added=0. BAT-586 through BAT-602 identities were not rewritten. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

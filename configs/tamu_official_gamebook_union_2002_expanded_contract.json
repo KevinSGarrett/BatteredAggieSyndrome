@@ -1,0 +1,26 @@
+{
+  "schema_version": "aggie.data.tamu_official_gamebook_union_2002_expanded.v1",
+  "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2002_expanded.v1",
+  "contract_id": "BAT-618-TAMU-OFFICIAL-GAMEBOOK-UNION-2002-EXPANDED-V1",
+  "jira_key": "BAT-618",
+  "local_issue_id": "POST-TASK-SRC014-2002-EXPANDED-ENRICHED-UNION-001",
+  "new_issue_decision": "CREATE",
+  "purpose": "Create a new immutable official enriched union that starts from the BAT-612 2003-expanded predecessor and admits only independently validated official 2002 games. Do not rewrite BAT-612, BAT-608, BAT-607, or BAT-603. Opponent name alone is not admission. Oklahoma unmatched strong-tuple is not admitted. Fail closed if the BAT-612 union manifest is missing.",
+  "predecessor_union_identity": "22ab52efad425074ddab75593c882ca7d1fb0fab6e99df160af1681cfc26f5aa",
+  "predecessor_gate_identity": "50e92663d6dbfd8c6770746c99c857cc9db2f1761714e5124a8334eff384f99f",
+  "pinned_bat612_union_manifest_file_sha256": "1bfcdb27d14f01a7e98a903d430af4a732740226eb7fb4d48fa7ea90041b7302",
+  "pinned_bat613_gate_identity": "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a",
+  "pinned_bat613_box_url_identity": "15ed208e59794975b1e28fd0ce9b3c8cda731d5438aedca3fb49328586cd74ac",
+  "pinned_bat615_gate_identity": "d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e",
+  "pinned_bat615_dataset_identity": "331c64a2855fb6936755e32e71c693985b37da708d526cc980d09192afac5c1a",
+  "pinned_bat615_acquisition_identity": "c62b407583647b88e884ef59e90c5644cf64a63d077e4d128f7f3405611eb4b3",
+  "pinned_bat615_games_identity": "69d969340bfc88fe89e02949f18c9cdd046b066bc702cc3fac6587eb0745cd83",
+  "pinned_bat617_gate_identity": "d6eca244760bba8963130e070d9ac707cb36af7e715b53e2c3bc60a5bbbed014",
+  "pinned_bat617_payload_identity": "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2",
+  "official_index_url": "https://files.12thman.com/history/football/years/2002.html",
+  "parent_url_fallback_forbidden": true,
+  "payloads": {
+    "union_root": "features/tamu_official_gamebook_union_2002_expanded/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

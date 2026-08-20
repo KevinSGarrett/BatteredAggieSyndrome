@@ -62,6 +62,7 @@ artifacts/data_lake/tamu_official_gamebook_union_2007_gate.json
 artifacts/data_lake/tamu_official_gamebook_union_enriched_gate.json
 artifacts/data_lake/tamu_official_gamebook_union_expanded_gate.json
 artifacts/data_lake/tamu_official_gamebook_union_gate.json
+artifacts/data_lake/tamu_official_gamebook_union_integrity_complete_gate.json
 artifacts/data_lake/tamu_official_historical_archive_gate.json
 artifacts/data_lake/tamu_official_historical_boxscore_gate.json
 artifacts/data_lake/tamu_official_historical_coverage_inventory_gate.json
@@ -229,6 +230,7 @@ artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-INDEX-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-UNION-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-ENRICHED-UNION-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-STATCREW-PREFORMATTED-001.json
+artifacts/jira_evidence/POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001.json
 artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001.json
 artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-001.json
 artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001.json
@@ -445,6 +447,7 @@ configs/tamu_official_gamebook_union_2007_contract.json
 configs/tamu_official_gamebook_union_contract.json
 configs/tamu_official_gamebook_union_enriched_contract.json
 configs/tamu_official_gamebook_union_expanded_contract.json
+configs/tamu_official_gamebook_union_integrity_complete_contract.json
 configs/tamu_official_historical_archive_contract.json
 configs/tamu_official_historical_boxscore_contract.json
 configs/tamu_official_historical_coverage_inventory_contract.json
@@ -3235,6 +3238,7 @@ src/aggie_analytics/data/tamu_official_gamebook_union_2006_expanded.py
 src/aggie_analytics/data/tamu_official_gamebook_union_2007.py
 src/aggie_analytics/data/tamu_official_gamebook_union_enriched.py
 src/aggie_analytics/data/tamu_official_gamebook_union_expanded.py
+src/aggie_analytics/data/tamu_official_gamebook_union_integrity_complete.py
 src/aggie_analytics/data/tamu_official_historical_archive.py
 src/aggie_analytics/data/tamu_official_historical_boxscores.py
 src/aggie_analytics/data/tamu_official_historical_coverage_inventory.py
@@ -3550,6 +3554,7 @@ tests/test_tamu_official_gamebook_union_2006_expanded.py
 tests/test_tamu_official_gamebook_union_2007.py
 tests/test_tamu_official_gamebook_union_enriched.py
 tests/test_tamu_official_gamebook_union_expanded.py
+tests/test_tamu_official_gamebook_union_integrity_complete.py
 tests/test_tamu_official_historical_archive.py
 tests/test_tamu_official_historical_boxscores.py
 tests/test_tamu_official_historical_coverage_inventory.py
@@ -3668,6 +3673,7 @@ tools/build_tamu_official_gamebook_union_2006_expanded.py
 tools/build_tamu_official_gamebook_union_2007.py
 tools/build_tamu_official_gamebook_union_enriched.py
 tools/build_tamu_official_gamebook_union_expanded.py
+tools/build_tamu_official_gamebook_union_integrity_complete.py
 tools/build_tamu_official_historical_coverage_inventory.py
 tools/build_tamu_official_pre2010_boxscores.py
 tools/build_tamu_official_statcrew_preformatted.py
@@ -3869,6 +3875,7 @@ tools/validate_tamu_official_gamebook_union_2006_expanded.py
 tools/validate_tamu_official_gamebook_union_2007.py
 tools/validate_tamu_official_gamebook_union_enriched.py
 tools/validate_tamu_official_gamebook_union_expanded.py
+tools/validate_tamu_official_gamebook_union_integrity_complete.py
 tools/validate_tamu_official_historical_archive.py
 tools/validate_tamu_official_historical_boxscores.py
 tools/validate_tamu_official_historical_coverage_inventory.py

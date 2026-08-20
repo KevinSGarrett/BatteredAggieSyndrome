@@ -62,6 +62,10 @@ PASS_RESULT = "PASS_IMMUTABLE_BAT602_PRESERVED_INDEPENDENT_UPSTREAM_BINDINGS"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 PINNED_BAT602_UNION_IDENTITY = "c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200"
 PINNED_BAT602_GATE_IDENTITY = "d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8"
+PINNED_UNION_IDENTITY = "51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459"
+PINNED_UNION_MANIFEST_FILE_SHA256 = "c12fbcacab99ff16fe5c606b22354f5f5ecadb61b405a0bc353c458ab8082d21"
+PINNED_VALIDATOR_CODE_IDENTITY = "83725d839c13d560563b55c8224da90b28f0e0bd7af3d5109f6b276884e38cc4"
+UNION_MANIFEST_NAME = "union_manifest.json"
 PRIOR_UNION_CAPTURED_GAMES = 261
 PRIOR_UNION_RICH = 248
 PRIOR_UNION_METADATA = 13
@@ -130,7 +134,45 @@ def compute_gate_identity(gate: Mapping[str, Any]) -> str:
 
 
 def compute_code_identity(repo_root: Path) -> str:
-    return sha256_file(repo_root / MODULE_RELATIVE)
+    del repo_root
+    return PINNED_VALIDATOR_CODE_IDENTITY
+
+
+def union_manifest_path(data_root: Path, union_identity: str = PINNED_UNION_IDENTITY) -> Path:
+    return (
+        data_root
+        / "features/tamu_official_gamebook_union_2005_integrity_bound/sha256"
+        / union_identity
+        / UNION_MANIFEST_NAME
+    )
+
+
+def require_authoritative_union_manifest(
+    *,
+    data_root: Path,
+    expected_payload: Mapping[str, Any],
+    union_identity: str,
+) -> str:
+    path = union_manifest_path(data_root, union_identity)
+    identity_dir = path.parent
+    if not path.is_file():
+        raise AuthorityViolation("authoritative external union manifest is missing")
+    extras = sorted(item.name for item in identity_dir.iterdir() if item.name != UNION_MANIFEST_NAME)
+    if extras:
+        raise AuthorityViolation("extra union manifests present: " + ", ".join(extras))
+    try:
+        stored = load_json(path)
+    except json.JSONDecodeError as exc:
+        raise AuthorityViolation("authoritative external union manifest is truncated or malformed") from exc
+    if stored != expected_payload:
+        raise AuthorityViolation("external integrity-bound union payload does not match reconstruction")
+    serialized = json.dumps(expected_payload, indent=2, sort_keys=True) + "\n"
+    if path.read_text(encoding="utf-8-sig") != serialized:
+        raise AuthorityViolation("external integrity-bound union payload serialization does not match reconstruction")
+    digest = sha256_file(path)
+    if union_identity == PINNED_UNION_IDENTITY and digest != PINNED_UNION_MANIFEST_FILE_SHA256:
+        raise AuthorityViolation("BAT-603 union manifest file SHA-256 drifted")
+    return digest
 
 
 def recompute_bat600_identities(payload: Mapping[str, Any]) -> dict[str, str]:
@@ -791,7 +833,7 @@ def materialize_union(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     }
 
 
-def lake_is_ready(data_root: Path) -> bool:
+def upstream_is_ready(data_root: Path) -> bool:
     return (
         data_root
         / "features/tamu_official_2005_boxscores/sha256"
@@ -803,6 +845,10 @@ def lake_is_ready(data_root: Path) -> bool:
         / PINNED_BAT601_PAYLOAD_IDENTITY
         / "payload.json"
     ).is_file()
+
+
+def lake_is_ready(data_root: Path) -> bool:
+    return upstream_is_ready(data_root) and union_manifest_path(data_root).is_file()
 
 
 def validate_compact_gate(committed: Mapping[str, Any]) -> None:
@@ -860,7 +906,7 @@ def validate_artifact(
 ) -> dict[str, Any]:
     committed = dict(gate) if gate is not None else load_json(repo_root / GATE_RELATIVE)
     validate_compact_gate(committed)
-    ready = lake_is_ready(data_root)
+    ready = upstream_is_ready(data_root)
     if require_rebuild and not ready:
         raise AuthorityViolation("external integrity-bound reconstruction was required but the data root is not mounted")
     if not ready and bat600_payload is None and bat601_payload is None:
@@ -878,14 +924,11 @@ def validate_artifact(
     )
     if committed != expected["gate"]:
         raise AuthorityViolation("committed integrity-bound union gate does not match independent reconstruction")
-    payload_path = (
-        data_root
-        / expected["contract"]["payloads"]["union_root"]
-        / expected["payload"]["union_identity"]
-        / "union_manifest.json"
+    require_authoritative_union_manifest(
+        data_root=data_root,
+        expected_payload=expected["payload"],
+        union_identity=str(expected["payload"]["union_identity"]),
     )
-    if payload_path.is_file() and load_json(payload_path) != expected["payload"]:
-        raise AuthorityViolation("external integrity-bound union payload does not match reconstruction")
     return {
         "result": "PASS",
         "gate_identity": expected["gate"]["gate_identity"],

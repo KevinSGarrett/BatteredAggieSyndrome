@@ -1395,7 +1395,7 @@ def main() -> int:
                     module.validate_artifact(
                         data_root=data_root,
                         repo_root=root,
-                        require_rebuild=module.lake_is_ready(data_root),
+                        require_rebuild=module.upstream_is_ready(data_root),
                     )
                 except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
                     findings.append(
@@ -1437,7 +1437,7 @@ def main() -> int:
                     module.validate_artifact(
                         data_root=data_root,
                         repo_root=root,
-                        require_rebuild=module.lake_is_ready(data_root),
+                        require_rebuild=module.upstream_is_ready(data_root),
                     )
                 except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
                     findings.append(
@@ -1447,6 +1447,48 @@ def main() -> int:
                             {
                                 "kind": "tamu_official_gamebook_union_2004_expanded",
                                 "path": "artifacts/data_lake/tamu_official_gamebook_union_2004_expanded_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
+        integrity_complete_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_integrity_complete_gate.json"
+        integrity_complete_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union_integrity_complete.py"
+        if integrity_complete_gate.is_file() and integrity_complete_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_gamebook_union_integrity_complete_strict",
+                integrity_complete_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_gamebook_union_integrity_complete",
+                            "path": "src/aggie_analytics/data/tamu_official_gamebook_union_integrity_complete.py",
+                            "detail": "unable to load integrity-complete union validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=module.upstream_is_ready(data_root),
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_gamebook_union_integrity_complete",
+                                "path": "artifacts/data_lake/tamu_official_gamebook_union_integrity_complete_gate.json",
                                 "detail": str(exc),
                             },
                         )()

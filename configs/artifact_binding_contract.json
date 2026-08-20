@@ -1056,6 +1056,61 @@
           ]
         }
       ]
+    },
+    {
+      "binding_id": "BAT-608-OFFICIAL-UNION-CONSUMER-INTEGRITY-COMPLETE",
+      "jira_key": "BAT-608",
+      "local_issue_id": "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_gamebook_union_integrity_complete_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_IMMUTABLE_BAT607_PRESERVED_INDEPENDENT_BAT606_RAW_BINDINGS",
+        "predecessor_union_identity": "0bd42472491241967a2f562ea32561f5c7ee726a7146d2699728988e212a98f7",
+        "validation_contract_version": "aggie.data.tamu_official_gamebook_union_integrity_complete.v1"
+      },
+      "forbidden_true_paths": [
+        "authority.historical_known_at_from_capture_time",
+        "authority.champion_or_production_promotion",
+        "authority.opponent_name_only_admission",
+        "authority.trusted_declared_upstream_identity_only",
+        "scientific_nonclaims.protected_lane_opened",
+        "scientific_nonclaims.bat603_union_rewritten",
+        "scientific_nonclaims.bat607_union_rewritten",
+        "scientific_nonclaims.pregame_availability_admitted"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ]
+        }
+      ]
     }
 
   ]

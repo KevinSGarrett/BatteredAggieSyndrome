@@ -1,0 +1,49 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_603_union": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_606_domains": "INDEPENDENTLY_RAW_RECONSTRUCTED_EXTERNAL_ROW_PAYLOAD",
+    "bat_607_union": "PRESERVED_IMMUTABLE_SUPERSEDED_AS_PREDECESSOR",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "CANDIDATE_ONLY_NO_NEW_GAMES"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14545"
+  },
+  "current_identities": {
+    "gate_identity": "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f",
+    "union_identity": "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of a BAT-607 integrity-complete successor that fail-closes missing union manifests and independently raw-reconstructs BAT-606. BAT-603 and BAT-607 are immutable predecessors, not reusable owners. NEW_ISSUE_DECISION=CREATE as BAT-608.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-603",
+      "BAT-606",
+      "BAT-607"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "IN_PROGRESS",
+  "issue_complete": false,
+  "jira_key": "BAT-608",
+  "local_issue_id": "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Created the integrity-complete official union successor to BAT-607. Hardened BAT-603 and BAT-607 so strict mounted validation fails if the authoritative union manifest is missing, renamed, truncated, substituted, or accompanied by extra files. Independently raw-reconstructed every BAT-606 serialized row and bound BAT-603/BAT-607 manifest file SHA-256 values. Preserved 273 union games, 70 official-school games, four unmatched rejections, existing conflicts, availability blocked, NCAA IDs created = 0, and new_games_added = 0. Union identity 5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd. Gate identity f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f. BAT-603 and BAT-607 payload identities were not rewritten.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

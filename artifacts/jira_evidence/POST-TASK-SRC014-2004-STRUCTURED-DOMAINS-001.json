@@ -1,0 +1,52 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_591_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_596_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_601_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "html_table_classifier": "PINNED_NOT_MUTATED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "participation_as_availability": "REJECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14537",
+    "in_review_after_validation": "14538"
+  },
+  "current_identities": {
+    "gate_identity": "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6",
+    "payload_identity": "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira were searched for an owner of official 2004 structured-domain parsing. BAT-601 owns only 2005. BAT-596 owns 2006. BAT-591 owns StatCrew identity and must not be rewritten. Live JQL for 2004 structured domains returned no owner. NEW_ISSUE_DECISION=CREATE.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-591",
+      "BAT-596",
+      "BAT-601",
+      "BAT-605"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-606",
+  "local_issue_id": "POST-TASK-SRC014-2004-STRUCTURED-DOMAINS-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Official 2004 structured domains parsed from the 12 BAT-605 captures only. 12/12 rich, 5747 serialized rows (team 543, individual 341, drives 325, play-by-play 4538). Gate identity bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6. Payload identity 3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0. BAT-591/BAT-596/BAT-601 identities were not rewritten. HTML-table classifier identity remained tamu.official.html.table.classifier.v1. Participation did not become availability. No NCAA contest IDs. No union admission.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

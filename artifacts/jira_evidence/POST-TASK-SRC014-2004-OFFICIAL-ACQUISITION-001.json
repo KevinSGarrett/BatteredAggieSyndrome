@@ -15,6 +15,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14534",
+    "done_after_merge": "14536",
     "in_review_after_validation": "14535"
   },
   "current_identities": {
@@ -46,16 +47,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "d9c7b265bc2e675ecc52efa3302ffae9383c1a39",
+  "issue_complete": true,
   "jira_key": "BAT-605",
   "local_issue_id": "POST-TASK-SRC014-2004-OFFICIAL-ACQUISITION-001",
+  "material_pr": 524,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Official 2004 box scores acquired from the 12 BAT-604 index URLs only. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary, 0 team/player/PBP structured domains, 0 date or season-header conflicts, 12 strong-tuple matches. Gate identity c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70. BAT-600 2005 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #524 merged as d9c7b265bc2e675ecc52efa3302ffae9383c1a39. Official 2004 box scores acquired from the 12 BAT-604 index URLs only. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary, 0 team/player/PBP structured domains, 0 date or season-header conflicts, 12 strong-tuple matches. Gate identity c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70. BAT-600 2005 identities were not rewritten. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

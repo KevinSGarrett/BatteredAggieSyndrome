@@ -13,8 +13,10 @@
     "union_admission": "CANDIDATE_ONLY"
   },
   "comment_ids": {
+    "bat_429_reevaluation": "14527",
+    "bat_523_progress": "14526",
     "claimed_in_progress": "14522",
-    "done_after_merge": "",
+    "done_after_merge": "14525",
     "in_review_after_validation": "14524"
   },
   "current_identities": {
@@ -41,18 +43,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "56ae0a923541e3392d059c1d0a612e535f8f6393",
+  "issue_complete": true,
   "jira_key": "BAT-602",
   "local_issue_id": "POST-TASK-SRC014-2005-EXPANDED-ENRICHED-UNION-001",
-  "material_pr": null,
+  "material_pr": 518,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Created a new immutable 2005-expanded union identity c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200 from the preserved BAT-597 union cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98. Gate identity d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8. Admitted 11 official 2005 games only when official index + box URL + raw SHA matched. Overlay bound to BAT-601 structured-row payload 5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc. Preserved the four rejected games and the SMU page-header-season conflict. Counts: prior 250, admitted 11, union 261, rich 248, metadata 13, scoring-summary 58, unmatched_rejected 4, date_conflicts 4, ncaa_contest_ids_created 0. BAT-597/BAT-601/BAT-600 identities were not rewritten. BAT-523 stays In Progress. BAT-429 stays blocked. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #518 merged as 56ae0a923541e3392d059c1d0a612e535f8f6393. Created the 2005-expanded official enriched union c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200 from the preserved BAT-597 union cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98. Gate identity d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8. Admitted 11 official 2005 games only when official index + box URL + raw SHA matched. Overlay bound to BAT-601 structured-row payload 5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc. Preserved the four rejected games and the SMU page-header-season conflict. Counts: prior 250, admitted 11, union 261, rich 248, metadata 13, scoring-summary 58, unmatched_rejected 4, date_conflicts 4, ncaa_contest_ids_created 0. BAT-597/BAT-601/BAT-600 identities were not rewritten. BAT-523 stays In Progress. BAT-429 stays blocked. BAT-401 stays DONE/VERIFIED with RETAIN_PROTECTED_LANE_BLOCKED. GAP-005 stays OPEN. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

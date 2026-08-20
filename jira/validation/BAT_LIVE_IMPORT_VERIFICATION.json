@@ -6,9 +6,8 @@
     "Task": 41
   },
   "auxiliary_status_counts": {
-    "Done": 39,
-    "In Progress": 1,
-    "In Review": 1
+    "Done": 40,
+    "In Progress": 1
   },
   "board": {
     "filter_id": "10134",
@@ -83,9 +82,8 @@
   "result": "PASS",
   "schema_version": 2,
   "status_counts": {
-    "Done": 125,
+    "Done": 126,
     "In Progress": 1,
-    "In Review": 1,
     "To Do": 408
   },
   "total_actual_issue_count": 535,
@@ -97,14 +95,13 @@
     "Task": 242
   },
   "total_status_counts": {
-    "Done": 125,
+    "Done": 126,
     "In Progress": 1,
-    "In Review": 1,
     "To Do": 408
   },
   "unexpected_issue_keys": [],
   "unexpected_issue_type_counts": {},
   "unexpected_link_count": 0,
   "unexpected_status_counts": {},
-  "verified_at": "2026-08-20T00:24:14.363925+00:00"
+  "verified_at": "2026-08-20T00:33:50.858846+00:00"
 }

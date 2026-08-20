@@ -16,6 +16,7 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14537",
+    "done_after_merge": "14539",
     "in_review_after_validation": "14538"
   },
   "current_identities": {
@@ -37,16 +38,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "8cfb9817b1e479690c0bf4374b6a9622776b8ea3",
+  "issue_complete": true,
   "jira_key": "BAT-606",
   "local_issue_id": "POST-TASK-SRC014-2004-STRUCTURED-DOMAINS-001",
+  "material_pr": 526,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Official 2004 structured domains parsed from the 12 BAT-605 captures only. 12/12 rich, 5747 serialized rows (team 543, individual 341, drives 325, play-by-play 4538). Gate identity bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6. Payload identity 3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0. BAT-591/BAT-596/BAT-601 identities were not rewritten. HTML-table classifier identity remained tamu.official.html.table.classifier.v1. Participation did not become availability. No NCAA contest IDs. No union admission.",
+  "observable_outcome": "Material PR #526 merged as 8cfb9817b1e479690c0bf4374b6a9622776b8ea3. Official 2004 structured domains parsed from the 12 BAT-605 captures only. 12/12 rich, 5747 serialized rows (team 543, individual 341, drives 325, play-by-play 4538). Gate identity bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6. Payload identity 3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0. BAT-591/BAT-596/BAT-601 identities were not rewritten. HTML-table classifier identity remained tamu.official.html.table.classifier.v1. Participation did not become availability. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Review"
+  "status": "Done"
 }

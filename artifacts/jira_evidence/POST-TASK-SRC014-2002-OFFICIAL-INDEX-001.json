@@ -1,0 +1,55 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_609_2003_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14560",
+    "in_review_after_validation": "14563"
+  },
+  "current_identities": {
+    "box_url_identity": "15ed208e59794975b1e28fd0ce9b3c8cda731d5438aedca3fb49328586cd74ac",
+    "capture_identity": "e9c3d170873a4b1d5cd26fa9e2a4a179d6346444cfba71cfaf40cdf48358222a",
+    "game_row_identity": "04281c2ca4465eab5506658cf63554d829082fa7e83a1556a077ad2fa4dd8b0a",
+    "gate_identity": "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a",
+    "payload_identity": "71e518cabe070defa9f5a4551f22d97434a4ff1a9ba13c00159f37cbb3f6d46a"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of an official SRC-014 2002 season-index capture. BAT-609 owns only the 2003 index and is immutable. BAT-604 owns only 2004. The official history index emits ../years/2002.html but that href is not itself a 2002 capture owner. Live JQL for 2002 official index returned no owner. NEW_ISSUE_DECISION=CREATE as BAT-613.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-588",
+      "BAT-594",
+      "BAT-599",
+      "BAT-604",
+      "BAT-608",
+      "BAT-609",
+      "BAT-612"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-613",
+  "local_issue_id": "POST-TASK-SRC014-2002-OFFICIAL-INDEX-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently proved the captured official history index emits ../years/2002.html (url_directly_emitted_by_official_page=true) and captured https://files.12thman.com/history/football/years/2002.html. Derived scheduled games 12, box-score URLs 12, NCAA IDs created 0, union admissions 0. Capture identity e9c3d170873a4b1d5cd26fa9e2a4a179d6346444cfba71cfaf40cdf48358222a. Gate identity 07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Review"
+}

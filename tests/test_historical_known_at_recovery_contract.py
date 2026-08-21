@@ -119,6 +119,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "historical_sec_tamu_availability_evidence_gate.json"
             ).read_text(encoding="utf-8")
         )
+        cls.src014_2000_2009_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "data_lake"
+                / "tamu_official_2000_2009_structured_row_corpus_gate.json"
+            ).read_text(encoding="utf-8")
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -995,6 +1003,73 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "VALIDATED_TIMESTAMPED_CANDIDATE_NOT_ADMITTED")
         self.assertFalse(self.sec_tamu_availability_gate["historical_known_at_gate"]["pit_state_admission"])
         self.assertFalse(self.sec_tamu_availability_gate["scientific_nonclaims"]["gap_008_resolved"])
+
+    def test_tamu_official_2000_2009_row_corpus_is_not_historical_known_at(self) -> None:
+        corpus = self.contract["latest_validated_tamu_official_2000_2009_structured_row_corpus"]
+        self.assertEqual(
+            corpus["dataset_identity"],
+            "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420",
+        )
+        self.assertEqual(
+            corpus["gate_identity"],
+            "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78",
+        )
+        self.assertEqual(
+            corpus["membership_union_identity"],
+            "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
+        )
+        self.assertEqual(corpus["source_season_min"], 2000)
+        self.assertEqual(corpus["source_season_max"], 2009)
+        self.assertEqual(corpus["games"], 114)
+        self.assertEqual(corpus["serialized_rows_total"], 54406)
+        self.assertEqual(corpus["domain_rows"]["team_statistics"], 4356)
+        self.assertEqual(corpus["domain_rows"]["individual_player_statistics"], 3220)
+        self.assertEqual(corpus["domain_rows"]["drives"], 2958)
+        self.assertEqual(corpus["domain_rows"]["play_by_play"], 41790)
+        self.assertEqual(corpus["domain_rows"]["scoring_summary"], 2082)
+        self.assertEqual(corpus["drives_games_present"], 111)
+        self.assertEqual(corpus["play_by_play_games_present"], 112)
+        self.assertEqual(corpus["scoring_summary_games_present"], 114)
+        self.assertEqual(corpus["union_present_without_serialized_drive_or_pbp_pages"], 2)
+        self.assertEqual(len(corpus["gap_inspections"]), 2)
+        self.assertEqual(corpus["gap_inspections"][0]["corpus_drive_rows"], 0)
+        self.assertEqual(corpus["gap_inspections"][0]["corpus_play_by_play_rows"], 0)
+        self.assertEqual(corpus["gap_inspections"][1]["corpus_drive_rows"], 0)
+        self.assertEqual(corpus["gap_inspections"][1]["corpus_play_by_play_rows"], 0)
+        self.assertFalse(corpus["gap_inspections"][0]["independently_reconstructible_drives"])
+        self.assertFalse(corpus["gap_inspections"][0]["independently_reconstructible_play_by_play"])
+        self.assertIn("RETRIEVAL", corpus["historical_known_at_basis"])
+        self.assertIn("NOT_HISTORICAL_KNOWN_AT", corpus["historical_known_at_basis"])
+        self.assertEqual(corpus["pregame_availability"], "NOT_ESTABLISHED")
+        self.assertFalse(corpus["ncaa_contest_ids_created"])
+        self.assertFalse(corpus["pit_state_admission"])
+        self.assertFalse(corpus["training_feature_admission"])
+        self.assertFalse(corpus["protected_evaluation_admission"])
+        self.assertEqual(corpus["protected_lane"], "RETAIN_PROTECTED_LANE_BLOCKED")
+        self.assertEqual(
+            corpus["admission_state"],
+            "STRUCTURED_ROW_CORPUS_CANDIDATE_NOT_HISTORICAL_KNOWN_AT",
+        )
+        self.assertEqual(
+            self.src014_2000_2009_gate["dataset_identity"],
+            corpus["dataset_identity"],
+        )
+        self.assertEqual(self.src014_2000_2009_gate["gate_identity"], corpus["gate_identity"])
+        self.assertEqual(
+            self.src014_2000_2009_gate["admissions"]["historical_known_at"],
+            "UNKNOWN_RETRIEVAL_TIME_ONLY",
+        )
+        self.assertFalse(
+            self.src014_2000_2009_gate["authority"]["historical_known_at_from_capture_time"]
+        )
+        self.assertFalse(
+            self.src014_2000_2009_gate["scientific_nonclaims"]["historical_known_at_established"]
+        )
+        claim = self.evidence["completion_claim"]
+        self.assertTrue(claim["tamu_official_2000_2009_structured_row_corpus_materialized"])
+        self.assertFalse(claim["tamu_official_2000_2009_historical_known_at_from_retrieval_time"])
+        self.assertFalse(claim["tamu_official_2000_2009_pit_feature_or_protected_admission"])
+        self.assertIn("retrieval_time_as_historical_known_at", self.contract["prohibited_substitutions"])
 
 
 if __name__ == "__main__":

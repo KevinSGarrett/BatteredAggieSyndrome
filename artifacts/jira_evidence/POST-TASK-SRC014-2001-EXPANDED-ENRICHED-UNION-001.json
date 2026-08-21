@@ -22,8 +22,8 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14597",
-    "done_after_merge": "",
-    "in_review_after_validation": ""
+    "done_after_merge": "14599",
+    "in_review_after_validation": "14598"
   },
   "current_identities": {
     "gate_identity": "6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710",
@@ -52,18 +52,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "8198f5e2b9132d74da04e81172dcd7a585f788d8",
+  "issue_complete": true,
   "jira_key": "BAT-624",
   "local_issue_id": "POST-TASK-SRC014-2001-EXPANDED-ENRICHED-UNION-001",
-  "material_pr": null,
+  "material_pr": 561,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently validated BAT-618 plus BAT-620/BAT-621/BAT-622/BAT-623. 12 official 2001 games admitted through official index + URL + raw SHA + parent + season + strong tuple. Oklahoma mfb_43_ou.html and the four historical unmatched URLs remain forbidden and are not admitted. Derived union captured 308, rich 295, metadata 13, scoring-summary 105, enriched official 105, matched_strong_tuple 100. Gate identity 6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710. Union identity cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8. BAT-624 union manifest file SHA-256 a8242ab742acf76f2f0805920b264d62e1beabefa10878aed4d590494e1b5d10. Validator code-bundle identity 077d5d106e1927abbfa19c2ad4ab98a4646da23c76b375bdc43794e28a7fa63c. Predecessor is BAT-618, not BAT-612. BAT-620 remains the structured-consumer authority. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #561 merged as 8198f5e2b9132d74da04e81172dcd7a585f788d8. Actual headRefName was codex/BAT-624-2001-expanded-union. Independently validated BAT-618 plus BAT-620/BAT-621/BAT-622/BAT-623. 12 official 2001 games admitted through official index + URL + raw SHA + parent + season + strong tuple. Oklahoma mfb_43_ou.html and the four historical unmatched URLs remain forbidden and are not admitted. Derived union captured 308, rich 295, metadata 13, scoring-summary 105, enriched official 105, matched_strong_tuple 100. Gate identity 6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710. Union identity cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8. BAT-624 union manifest file SHA-256 a8242ab742acf76f2f0805920b264d62e1beabefa10878aed4d590494e1b5d10. Validator code-bundle identity 077d5d106e1927abbfa19c2ad4ab98a4646da23c76b375bdc43794e28a7fa63c. Predecessor is BAT-618, not BAT-612. BAT-620 remains the structured-consumer authority. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. Retrieval time is not historical known-at. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

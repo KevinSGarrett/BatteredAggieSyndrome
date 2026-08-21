@@ -15,8 +15,8 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14603",
-    "done_after_merge": null,
-    "in_review_after_validation": null
+    "done_after_merge": "14605",
+    "in_review_after_validation": "14604"
   },
   "current_identities": {
     "acquisition_identity": "3a8092ce4c2fbf5ffc4b7af572f9a6ba8cdc360dec2cb538d55dbf7b3ed5f926",
@@ -41,18 +41,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": null,
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "c3dc9717b0606a311cb9ca973b3cbc78e6b4be88",
+  "issue_complete": true,
   "jira_key": "BAT-626",
   "local_issue_id": "POST-TASK-SRC014-2000-OFFICIAL-ACQUISITION-001",
-  "material_pr": null,
+  "material_pr": 565,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently reconstructed BAT-625 and acquired only those official 2000 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 9 strong-tuple matches, 3 unmatched preserved (Notre Dame site South Bend vs Notre Dame; Texas Tech Colllege typo; Iowa State vs Iowa State Cyclones). Notre Dame page uses numeric Date 9/2/00 with capture SHA e91c31f506538a05523bc6f3a7275a9d539c6a4c47ba2324b13793fde9de59a4. Gate identity 3f7dbc60a7d21359637d04597629a982180d7f97e4d479ad92134567ceec9f8a. Validator code-bundle identity 833644fc015332971bb3374f2ef8b6a43d8b978f4558cbb4345457714a351255. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked. BAT-622 and BAT-625 were not rewritten.",
+  "observable_outcome": "Material PR #565 merged as c3dc9717b0606a311cb9ca973b3cbc78e6b4be88. Actual headRefName was codex/BAT-626-2000-official-acquisition. Independently reconstructed BAT-625 and acquired only those official 2000 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 9 strong-tuple matches, 3 unmatched preserved (Notre Dame site South Bend vs Notre Dame; Texas Tech Colllege typo; Iowa State vs Iowa State Cyclones). Notre Dame page uses numeric Date 9/2/00 with capture SHA e91c31f506538a05523bc6f3a7275a9d539c6a4c47ba2324b13793fde9de59a4. Gate identity 3f7dbc60a7d21359637d04597629a982180d7f97e4d479ad92134567ceec9f8a. Validator code-bundle identity 833644fc015332971bb3374f2ef8b6a43d8b978f4558cbb4345457714a351255. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked. BAT-622 and BAT-625 were not rewritten.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

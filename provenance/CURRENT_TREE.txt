@@ -42,6 +42,7 @@ artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json
 artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json
 artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
 artifacts/data_lake/tamu_cross_source_domain_gate.json
+artifacts/data_lake/tamu_official_2000_2009_structured_row_corpus_gate.json
 artifacts/data_lake/tamu_official_2000_boxscore_gate.json
 artifacts/data_lake/tamu_official_2000_season_index_gate.json
 artifacts/data_lake/tamu_official_2000_structured_domains_gate.json
@@ -230,6 +231,7 @@ artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
 artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.json
 artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
+artifacts/jira_evidence/POST-TASK-SRC014-2000-2009-STRUCTURED-ROW-CORPUS-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-2000-EXPANDED-ENRICHED-UNION-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-2000-OFFICIAL-ACQUISITION-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-2000-OFFICIAL-INDEX-001.json
@@ -463,6 +465,7 @@ configs/tamu_2010_2011_season_reconciliation_contract.json
 configs/tamu_availability_source_sample.json
 configs/tamu_cross_source_domain_gate_contract.json
 configs/tamu_no_adjustment_reference.json
+configs/tamu_official_2000_2009_structured_row_corpus_contract.json
 configs/tamu_official_2000_boxscore_contract.json
 configs/tamu_official_2000_season_index_contract.json
 configs/tamu_official_2000_structured_domains_contract.json
@@ -3274,6 +3277,7 @@ src/aggie_analytics/data/tamu_2010_2011_ncaa_official_acquisition.py
 src/aggie_analytics/data/tamu_cross_source_domain_gate.py
 src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
+src/aggie_analytics/data/tamu_official_2000_2009_structured_row_corpus.py
 src/aggie_analytics/data/tamu_official_2000_boxscores.py
 src/aggie_analytics/data/tamu_official_2000_season_index.py
 src/aggie_analytics/data/tamu_official_2000_structured_domains.py
@@ -3610,6 +3614,7 @@ tests/test_tamu_2010_2011_ncaa_official_acquisition.py
 tests/test_tamu_2010_2011_ncaa_team_season_evidence.py
 tests/test_tamu_2010_2011_season_reconciliation.py
 tests/test_tamu_cross_source_domain_gate.py
+tests/test_tamu_official_2000_2009_structured_row_corpus.py
 tests/test_tamu_official_2000_boxscores.py
 tests/test_tamu_official_2000_season_index.py
 tests/test_tamu_official_2000_structured_domains.py
@@ -3747,6 +3752,7 @@ tools/build_tamu_2010_2011_season_reconciliation.py
 tools/build_tamu_availability_evidence_pages.py
 tools/build_tamu_cross_source_domain_gate.py
 tools/build_tamu_depth_chart_noncoverage_review.py
+tools/build_tamu_official_2000_2009_structured_row_corpus.py
 tools/build_tamu_official_2000_boxscores.py
 tools/build_tamu_official_2000_season_index.py
 tools/build_tamu_official_2000_structured_domains.py
@@ -3967,6 +3973,7 @@ tools/validate_tamu_availability_evidence_pages.py
 tools/validate_tamu_availability_source_sample.py
 tools/validate_tamu_cross_source_domain_gate.py
 tools/validate_tamu_depth_chart_noncoverage_review.py
+tools/validate_tamu_official_2000_2009_structured_row_corpus.py
 tools/validate_tamu_official_2000_boxscores.py
 tools/validate_tamu_official_2000_season_index.py
 tools/validate_tamu_official_2000_structured_domains.py

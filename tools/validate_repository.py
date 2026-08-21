@@ -2128,6 +2128,48 @@ def main() -> int:
                         )()
                     )
 
+        corpus_2000_2009_gate = root / "artifacts" / "data_lake" / "tamu_official_2000_2009_structured_row_corpus_gate.json"
+        corpus_2000_2009_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2000_2009_structured_row_corpus.py"
+        if corpus_2000_2009_gate.is_file() and corpus_2000_2009_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_2000_2009_structured_row_corpus_strict",
+                corpus_2000_2009_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_2000_2009_structured_row_corpus",
+                            "path": "src/aggie_analytics/data/tamu_official_2000_2009_structured_row_corpus.py",
+                            "detail": "unable to load 2000-2009 structured row-corpus validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=module.upstream_is_ready(data_root, root),
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_2000_2009_structured_row_corpus",
+                                "path": "artifacts/data_lake/tamu_official_2000_2009_structured_row_corpus_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
         expanded_2000_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_2000_expanded_gate.json"
         expanded_2000_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union_2000_expanded.py"
         if expanded_2000_gate.is_file() and expanded_2000_module.is_file():

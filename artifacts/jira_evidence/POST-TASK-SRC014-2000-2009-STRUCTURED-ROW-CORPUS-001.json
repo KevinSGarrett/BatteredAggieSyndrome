@@ -1,0 +1,59 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_619_corpus": "PRESERVED_IMMUTABLE_THROUGH_BAT620_PREDECESSOR",
+    "bat_620_corpus": "PRESERVED_IMMUTABLE_SUPERSEDED_AS_PREDECESSOR",
+    "bat_623_domains": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_ROW_PAYLOAD",
+    "bat_627_domains": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_ROW_PAYLOAD",
+    "bat_628_union": "CONSUMED_AS_2000_EXPANDED_MEMBERSHIP_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14612"
+  },
+  "current_identities": {
+    "dataset_identity": "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420",
+    "gate_identity": "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78",
+    "manifest_file_sha256": "555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0",
+    "validator_code_identity": "462183d079f1af7cfbd9208614b1c0e817c7609a69680f0f987f25a745e8b182"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of a 2000-2009 official SRC-014 structured row corpus with scoring reconciliation. BAT-620 owns only the 2002-2009 integrity successor. BAT-628 owns only the 2000-expanded union. BATQ-68 and BATQ-69 remain quarantined. NEW_ISSUE_DECISION=CREATE as BAT-629.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-619",
+      "BAT-620",
+      "BAT-623",
+      "BAT-627",
+      "BAT-628",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-629",
+  "local_issue_id": "POST-TASK-SRC014-2000-2009-STRUCTURED-ROW-CORPUS-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "BAT-629 creates a new immutable 2000-2009 official structured row-corpus successor to BAT-620 from the BAT-628 union. Independently raw-validated BAT-591, BAT-596, BAT-601, BAT-606, BAT-611, BAT-617, BAT-623, and BAT-627. 114 admitted games. 54406 serialized rows including 2082 independently reconstructible scoring_summary rows. Gap pages texas.htm and ta01-msu.htm keep 0 drive and 0 play-by-play rows and serialize 3 and 7 scoring rows. Gate identity 7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78. Dataset identity 35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420. Manifest file SHA-256 555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0. Validator code-bundle identity 462183d079f1af7cfbd9208614b1c0e817c7609a69680f0f987f25a745e8b182. BAT-620 remains the immutable predecessor. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. Retrieval time is not historical known-at. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

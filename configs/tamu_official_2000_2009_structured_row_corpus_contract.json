@@ -1,0 +1,40 @@
+{
+  "schema_version": "aggie.data.tamu_official_2000_2009_structured_row_corpus.v1",
+  "validation_contract_version": "aggie.data.tamu_official_2000_2009_structured_row_corpus.v1",
+  "contract_id": "BAT-629-TAMU-OFFICIAL-2000-2009-STRUCTURED-ROW-CORPUS-V1",
+  "jira_key": "BAT-629",
+  "local_issue_id": "POST-TASK-SRC014-2000-2009-STRUCTURED-ROW-CORPUS-001",
+  "new_issue_decision": "CREATE",
+  "purpose": "Create a new immutable 2000-2009 official SRC-014 structured row-corpus successor to BAT-620 from the BAT-628 union. Independently raw-validate every upstream structured payload. Serialize scoring_summary only when independently reconstructible. Inspect the 2006 Texas and 2007 MSU gap pages and do not invent drive/PBP rows. Do not rewrite BAT-620, BAT-619, BAT-628, BAT-627, or BAT-623.",
+  "pinned_bat628_union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
+  "pinned_bat628_gate_identity": "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2",
+  "pinned_bat628_union_manifest_file_sha256": "98fa6919315b37726e8aa1cfd373ebcdfe3e9653135c11e72577ea2fafbd5882",
+  "pinned_bat620_dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+  "pinned_bat620_gate_identity": "c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4",
+  "pinned_bat620_manifest_file_sha256": "2f8af86ff4e5fab9de99ad6677c12daef2412d98c54b165c4511d89949b669f1",
+  "pinned_code_bundle_identity": "462183d079f1af7cfbd9208614b1c0e817c7609a69680f0f987f25a745e8b182",
+  "pinned_dataset_identity": "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420",
+  "pinned_gate_identity": "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78",
+  "pinned_manifest_file_sha256": "555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0",
+  "expected_games": 114,
+  "expected_serialized_rows": 54406,
+  "expected_domain_rows": {
+    "team_statistics": 4356,
+    "individual_player_statistics": 3220,
+    "drives": 2958,
+    "play_by_play": 41790,
+    "scoring_summary": 2082
+  },
+  "selected_seasons": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009],
+  "child_domains": [
+    "team_statistics",
+    "individual_player_statistics",
+    "drives",
+    "play_by_play",
+    "scoring_summary"
+  ],
+  "payloads": {
+    "corpus_root": "features/tamu_official_2000_2009_structured_row_corpus/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

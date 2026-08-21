@@ -16,7 +16,9 @@
     "union_admission": "CANDIDATE_ONLY"
   },
   "comment_ids": {
-    "claimed_in_progress": "14612"
+    "claimed_in_progress": "14612",
+    "done_after_merge": "14614",
+    "in_review_after_validation": "14613"
   },
   "current_identities": {
     "dataset_identity": "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420",
@@ -42,18 +44,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "866eb613e7a8b476ebd2e4632ea132cde4a20f3c",
+  "issue_complete": true,
   "jira_key": "BAT-629",
   "local_issue_id": "POST-TASK-SRC014-2000-2009-STRUCTURED-ROW-CORPUS-001",
-  "material_pr": null,
+  "material_pr": 571,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "BAT-629 creates a new immutable 2000-2009 official structured row-corpus successor to BAT-620 from the BAT-628 union. Independently raw-validated BAT-591, BAT-596, BAT-601, BAT-606, BAT-611, BAT-617, BAT-623, and BAT-627. 114 admitted games. 54406 serialized rows including 2082 independently reconstructible scoring_summary rows. Gap pages texas.htm and ta01-msu.htm keep 0 drive and 0 play-by-play rows and serialize 3 and 7 scoring rows. Gate identity 7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78. Dataset identity 35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420. Manifest file SHA-256 555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0. Validator code-bundle identity 462183d079f1af7cfbd9208614b1c0e817c7609a69680f0f987f25a745e8b182. BAT-620 remains the immutable predecessor. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. Retrieval time is not historical known-at. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #571 merged as 866eb613e7a8b476ebd2e4632ea132cde4a20f3c. Actual headRefName was codex/BAT-629-2000-2009-row-corpus. Independently raw-validated BAT-591, BAT-596, BAT-601, BAT-606, BAT-611, BAT-617, BAT-623, and BAT-627. Consumed BAT-628 as membership union and BAT-620 as immutable predecessor. 114 admitted games and 54406 serialized rows including 2082 independently reconstructible scoring_summary rows. Gap pages texas.htm and ta01-msu.htm keep 0 drive and 0 play-by-play rows and serialize 3 and 7 scoring rows. Gate identity 7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78. Dataset identity 35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420. Manifest file SHA-256 555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0. Validator code-bundle identity 462183d079f1af7cfbd9208614b1c0e817c7609a69680f0f987f25a745e8b182. BAT-620 remains the immutable predecessor. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. Retrieval time is not historical known-at. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

@@ -1,0 +1,58 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_621_2001_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_622_2001_boxscores": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_625_2000_index": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14603",
+    "done_after_merge": null,
+    "in_review_after_validation": null
+  },
+  "current_identities": {
+    "acquisition_identity": "3a8092ce4c2fbf5ffc4b7af572f9a6ba8cdc360dec2cb538d55dbf7b3ed5f926",
+    "dataset_identity": "5d37f54a95c6c3846aa392e2efc860bf2e3aeb6e1b3d02fee3d698c4473b733c",
+    "game_row_identity": "e997834aaa8f32685f933e8a1e682cb86b57911405dafad84b5447221aaedf22",
+    "gate_identity": "3f7dbc60a7d21359637d04597629a982180d7f97e4d479ad92134567ceec9f8a",
+    "validator_code_identity": "833644fc015332971bb3374f2ef8b6a43d8b978f4558cbb4345457714a351255"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of official SRC-014 2000 box-score acquisition. BAT-625 owns only the 2000 index. BAT-622 owns only 2001 acquisition. BAT-621 owns only the 2001 index. NEW_ISSUE_DECISION=CREATE as BAT-626.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-621",
+      "BAT-622",
+      "BAT-625",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": null,
+  "issue_complete": false,
+  "jira_key": "BAT-626",
+  "local_issue_id": "POST-TASK-SRC014-2000-OFFICIAL-ACQUISITION-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently reconstructed BAT-625 and acquired only those official 2000 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 9 strong-tuple matches, 3 unmatched preserved (Notre Dame site South Bend vs Notre Dame; Texas Tech Colllege typo; Iowa State vs Iowa State Cyclones). Notre Dame page uses numeric Date 9/2/00 with capture SHA e91c31f506538a05523bc6f3a7275a9d539c6a4c47ba2324b13793fde9de59a4. Gate identity 3f7dbc60a7d21359637d04597629a982180d7f97e4d479ad92134567ceec9f8a. Validator code-bundle identity 833644fc015332971bb3374f2ef8b6a43d8b978f4558cbb4345457714a351255. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked. BAT-622 and BAT-625 were not rewritten.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

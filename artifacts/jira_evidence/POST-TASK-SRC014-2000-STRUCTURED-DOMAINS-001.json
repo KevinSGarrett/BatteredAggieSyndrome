@@ -23,8 +23,8 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14606",
-    "done_after_merge": null,
-    "in_review_after_validation": null
+    "done_after_merge": "14608",
+    "in_review_after_validation": "14607"
   },
   "current_identities": {
     "gate_identity": "cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268",
@@ -49,18 +49,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": null,
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "a5e6d9c8864b2062d3226965e681dadcfa49ae9a",
+  "issue_complete": true,
   "jira_key": "BAT-627",
   "local_issue_id": "POST-TASK-SRC014-2000-STRUCTURED-DOMAINS-001",
-  "material_pr": null,
+  "material_pr": 567,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently reconstructed BAT-625/BAT-626 and parsed only those official 2000 box URLs. Markup inspection confirmed StatCrew preformatted labels plus Scoring Summary (Final). Shared 2001 drive regex would treat Wyoming possession-summary lines as a drive row; BAT-627 locally requires a spot-and-clock drive line. 12/12 rich, 5479 serialized rows (team 312, individual 342, drives 294, play-by-play 4329, scoring_summary 202). Wyoming drive chart is labeled without reconstructible drive rows (ABSENT, 0 rows). Gate identity cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268. Payload identity 6a806655c2bf1ce33200bdd52e77d7f0423a97306d0042edf9384851dc1d8e06. Validator code-bundle identity 3d52296b41bc1da35a1d3dbc10eee02790f81a410df087316555d30682bd14fe. BAT-623/BAT-622/BAT-621 identities were not rewritten. No URL/SHA fallback. Participation did not become availability. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #567 merged as a5e6d9c8864b2062d3226965e681dadcfa49ae9a. Actual headRefName was codex/BAT-627-2000-structured-domains. Independently reconstructed BAT-625/BAT-626 and parsed only those official 2000 box URLs. Markup inspection confirmed StatCrew preformatted labels plus Scoring Summary (Final). Shared 2001 drive regex would treat Wyoming possession-summary lines as a drive row; BAT-627 locally requires a spot-and-clock drive line. 12/12 rich, 5479 serialized rows (team 312, individual 342, drives 294, play-by-play 4329, scoring_summary 202). Wyoming drive chart is labeled without reconstructible drive rows (ABSENT, 0 rows). Gate identity cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268. Payload identity 6a806655c2bf1ce33200bdd52e77d7f0423a97306d0042edf9384851dc1d8e06. Validator code-bundle identity 3d52296b41bc1da35a1d3dbc10eee02790f81a410df087316555d30682bd14fe. BAT-623/BAT-622/BAT-621 identities were not rewritten. No URL/SHA fallback. Participation did not become availability. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

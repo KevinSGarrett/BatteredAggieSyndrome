@@ -1,0 +1,55 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_618_union": "CONSUMED_AS_PHASE_9_MEMBERSHIP_ONLY",
+    "bat_619_corpus": "PRESERVED_IMMUTABLE_SUPERSEDED_AS_PREDECESSOR",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "scoring_summary": "ABSENT_NO_SERIALIZED_ROWS",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14585"
+  },
+  "current_identities": {
+    "code_bundle_identity": "55ee726753ba80df3714ff2836f4223e30d8cd7a226767f393c9998af66abced",
+    "dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+    "gate_identity": "c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4",
+    "manifest_file_sha256": "2f8af86ff4e5fab9de99ad6677c12daef2412d98c54b165c4511d89949b669f1",
+    "predecessor_dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
+    "predecessor_gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local Jira, live BAT, BATQ, GitHub, contracts, and modules were searched for an owner of POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001. No same-scope owner exists. BAT-619 owns the immutable 2002-2009 structured row corpus and is not rewritten. BAT-608 owns union-consumer integrity, not corpus-consumer integrity. BATQ-68 and BATQ-69 remain quarantined. NEW_ISSUE_DECISION=CREATE as BAT-620.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-608",
+      "BAT-618",
+      "BAT-619",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "issue_complete": false,
+  "jira_key": "BAT-620",
+  "local_issue_id": "POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Created integrity-complete successor to BAT-619. Independently invoked raw-source validators for BAT-591/596/601/606/611/617, required stored payload equality, required explicit row source_url/source_sha256 with no union fallback, bound BAT-618 union and BAT-619 corpus manifests plus five child file SHAs, compared the full stored BAT-619 manifest with independent reconstruction, and computed code-bundle identity 55ee726753ba80df3714ff2836f4223e30d8cd7a226767f393c9998af66abced from an enumerated source bundle. Preserved 93 games and 43233 serialized rows. Dataset identity 15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481. Gate identity c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4. Corpus manifest file SHA-256 2f8af86ff4e5fab9de99ad6677c12daef2412d98c54b165c4511d89949b669f1. NCAA contest IDs were not created. Availability remains NOT_ESTABLISHED. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

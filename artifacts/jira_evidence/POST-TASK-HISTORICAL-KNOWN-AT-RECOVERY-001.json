@@ -805,6 +805,112 @@
       "NO_PIT_OR_PROTECTED_ADMISSION"
     ]
   },
+  "cycle15_src014_2002_2009_progress": {
+    "status": "IN_PROGRESS_PARENT_NOT_CLOSED",
+    "cycle": 15,
+    "live_progress_comment_id": "14584",
+    "live_progress_comment_recorded_in_ledger": true,
+    "note": "Cycle #15 completed official SRC-014 2003 and 2002 index/acquisition/structured-domains/union work and materialized the BAT-619 2002-2009 structured row corpus. Retrieval and capture timestamps remain retrieval time only and are not historical known-at. This does not close BAT-523.",
+    "exclusions": {
+      "oklahoma_2002_unmatched_excluded": true,
+      "four_preserved_rejected_urls_excluded": true,
+      "ncaa_contest_ids_created": false,
+      "availability_established": false,
+      "protected_lane_opened": false,
+      "historical_known_at_from_retrieval_time": false
+    },
+    "child_issues": [
+      {
+        "jira_key": "BAT-608",
+        "local_issue_id": "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001",
+        "status": "Done",
+        "gate_identity": "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f",
+        "union_identity": "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd"
+      },
+      {
+        "jira_key": "BAT-609",
+        "local_issue_id": "POST-TASK-SRC014-2003-OFFICIAL-INDEX-001",
+        "status": "Done",
+        "gate_identity": "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e",
+        "payload_identity": "9f58c220fe44e8c75835d0dced6dc6571ee7592249eaa6fa209fa181f25fdfa6"
+      },
+      {
+        "jira_key": "BAT-610",
+        "local_issue_id": "POST-TASK-SRC014-2003-OFFICIAL-ACQUISITION-001",
+        "status": "Done",
+        "gate_identity": "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13",
+        "dataset_identity": "741f92a8b0d3c19fe7fd51033e9ddfb797052a9da4e63a2115839a4617e2c0c5"
+      },
+      {
+        "jira_key": "BAT-611",
+        "local_issue_id": "POST-TASK-SRC014-2003-STRUCTURED-DOMAINS-001",
+        "status": "Done",
+        "gate_identity": "758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9",
+        "payload_identity": "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8"
+      },
+      {
+        "jira_key": "BAT-612",
+        "local_issue_id": "POST-TASK-SRC014-2003-EXPANDED-ENRICHED-UNION-001",
+        "status": "Done",
+        "gate_identity": "50e92663d6dbfd8c6770746c99c857cc9db2f1761714e5124a8334eff384f99f",
+        "union_identity": "22ab52efad425074ddab75593c882ca7d1fb0fab6e99df160af1681cfc26f5aa"
+      },
+      {
+        "jira_key": "BAT-613",
+        "local_issue_id": "POST-TASK-SRC014-2002-OFFICIAL-INDEX-001",
+        "status": "Done",
+        "gate_identity": "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a",
+        "payload_identity": "71e518cabe070defa9f5a4551f22d97434a4ff1a9ba13c00159f37cbb3f6d46a"
+      },
+      {
+        "jira_key": "BAT-615",
+        "local_issue_id": "POST-TASK-SRC014-2002-OFFICIAL-ACQUISITION-001",
+        "status": "Done",
+        "gate_identity": "d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e",
+        "dataset_identity": "331c64a2855fb6936755e32e71c693985b37da708d526cc980d09192afac5c1a"
+      },
+      {
+        "jira_key": "BAT-617",
+        "local_issue_id": "POST-TASK-SRC014-2002-STRUCTURED-DOMAINS-001",
+        "status": "Done",
+        "gate_identity": "d6eca244760bba8963130e070d9ac707cb36af7e715b53e2c3bc60a5bbbed014",
+        "payload_identity": "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2"
+      },
+      {
+        "jira_key": "BAT-618",
+        "local_issue_id": "POST-TASK-SRC014-2002-EXPANDED-ENRICHED-UNION-001",
+        "status": "Done",
+        "gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
+        "union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1"
+      },
+      {
+        "jira_key": "BAT-619",
+        "local_issue_id": "POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001",
+        "status": "Done",
+        "dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
+        "gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af",
+        "manifest_file_sha256": "e79bec11165482fa06dbb2dbc10d9ad4da630c0d84e8bcfc37c111c62cb4b620",
+        "games": 93,
+        "serialized_rows_total": 43233,
+        "scoring_summary_rows": 0
+      }
+    ],
+    "quarantined_duplicate_attempts": [
+      {"current_batq_key": "BATQ-68", "former_bat_key": "BAT-614", "canonical_owner": "BAT-613"},
+      {"current_batq_key": "BATQ-69", "former_bat_key": "BAT-616", "canonical_owner": "BAT-615"}
+    ],
+    "remaining_parent_gaps": [
+      "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",
+      "NCAA_CONTEST_ROUTE_STILL_BLOCKED",
+      "PREGAME_AVAILABILITY_NOT_ESTABLISHED",
+      "SCORING_SUMMARY_NOT_SERIALIZED",
+      "UNION_PRESENT_WITHOUT_SERIALIZED_DRIVE_OR_PBP_ON_SOME_PAGES",
+      "OFFICIAL_SEASONS_BEFORE_2002_NOT_IN_UNION",
+      "GAP_005_OPEN",
+      "BAT_429_BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+      "NO_PIT_OR_PROTECTED_ADMISSION"
+    ]
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"

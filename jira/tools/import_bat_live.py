@@ -18,7 +18,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 
 BASE_URL = "https://kevinsgarrett.atlassian.net"
@@ -44,6 +44,18 @@ HISTOGRAM_ALIAS_SEMANTICS = {
 COMPLETION_POLICY_PATH = JIRA_ROOT / "project" / "HISTORICAL_COMPLETION_ASSURANCE_POLICY.json"
 AUXILIARY_ISSUES_PATH = JIRA_ROOT / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
 RETIRED_CANONICAL_REGISTRY_PATH = JIRA_ROOT / "reconciliation" / "BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json"
+AUTHORITY_PROGRESS_COMMENT_LEDGER_PATH = JIRA_ROOT / "reconciliation" / "BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json"
+AUXILIARY_QUARANTINE_REGISTRY_PATH = JIRA_ROOT / "reconciliation" / "BAT_AUXILIARY_QUARANTINE_REGISTRY.json"
+AUTHORITY_PROGRESS_BODY_RE = re.compile(r"^Cycle #\d+ progress \(factual\):")
+REQUIRED_PROGRESS_COMMENT_FIELDS = (
+    "jira_key",
+    "local_issue_id",
+    "comment_id",
+    "comment_body_sha256",
+    "material_merge_sha",
+    "local_evidence_identity",
+    "cycle",
+)
 RECORDS_ROOT = JIRA_ROOT / "records" / "issues"
 STALE_AUXILIARY_SEMANTICS_COUNT = 31
 
@@ -64,6 +76,8 @@ SOURCE_FILES = [
     JIRA_ROOT / "project" / "PRIORITY_MAPPING.yaml",
     JIRA_ROOT / "project" / "WORKFLOW_MAPPING.yaml",
     AUXILIARY_ISSUES_PATH,
+    AUTHORITY_PROGRESS_COMMENT_LEDGER_PATH,
+    AUXILIARY_QUARANTINE_REGISTRY_PATH,
 ]
 
 FIELD_SPECS = [
@@ -2494,6 +2508,165 @@ def collect_auxiliary_live_coverage(
     }
 
 
+def adf_or_text_to_plain(body: Any) -> str:
+    if body is None:
+        return ""
+    if isinstance(body, str):
+        return body
+    if isinstance(body, list):
+        return "".join(adf_or_text_to_plain(item) for item in body)
+    if not isinstance(body, dict):
+        return str(body)
+    node_type = str(body.get("type") or "")
+    if node_type == "text":
+        return str(body.get("text") or "")
+    if node_type == "hardBreak":
+        return "\n"
+    parts = adf_or_text_to_plain(body.get("content") or [])
+    if node_type in {"paragraph", "heading"}:
+        return parts + "\n"
+    return parts
+
+
+def canonicalize_comment_body(body: Any) -> str:
+    text = adf_or_text_to_plain(body).replace("\r\n", "\n").replace("\r", "\n")
+    lines = [line.rstrip() for line in text.split("\n")]
+    return "\n".join(lines).strip() + "\n"
+
+
+def comment_body_sha256(body: Any) -> str:
+    return sha256_bytes(canonicalize_comment_body(body).encode("utf-8"))
+
+
+def is_authority_bearing_progress_comment(body: Any) -> bool:
+    return bool(AUTHORITY_PROGRESS_BODY_RE.match(canonicalize_comment_body(body)))
+
+
+def load_authority_progress_comment_ledger(path: Path | None = None) -> dict[str, Any]:
+    ledger_path = path or AUTHORITY_PROGRESS_COMMENT_LEDGER_PATH
+    if not ledger_path.is_file():
+        raise RuntimeError("Authority-bearing progress-comment ledger is missing")
+    return load_json(ledger_path, {})
+
+
+def load_auxiliary_quarantine_registry(path: Path | None = None) -> dict[str, Any]:
+    registry_path = path or AUXILIARY_QUARANTINE_REGISTRY_PATH
+    if not registry_path.is_file():
+        raise RuntimeError("Auxiliary quarantine registry is missing")
+    registry = load_json(registry_path, {})
+    issues = registry.get("issues") or []
+    if int(registry.get("quarantined_count") or 0) != len(issues):
+        raise RuntimeError("Auxiliary quarantine registry count drifted")
+    return registry
+
+
+def collect_authority_progress_comment_findings(
+    ledger: Mapping[str, Any],
+    live_comments_by_key: Mapping[str, list[Mapping[str, Any]]],
+    *,
+    repo_root: Path | None = None,
+) -> list[str]:
+    findings: list[str] = []
+    recorded = list(ledger.get("comments") or [])
+    live_index: dict[tuple[str, str], Mapping[str, Any]] = {}
+    for key, comments in live_comments_by_key.items():
+        for comment in comments:
+            live_index[(str(key), str(comment.get("id") or ""))] = comment
+    recorded_ids: set[tuple[str, str]] = set()
+    for entry in recorded:
+        missing_fields = [field for field in REQUIRED_PROGRESS_COMMENT_FIELDS if not str(entry.get(field) or "").strip()]
+        comment_id = str(entry.get("comment_id") or "")
+        jira_key = str(entry.get("jira_key") or "")
+        identity = (jira_key, comment_id)
+        if missing_fields:
+            findings.append(
+                f"unbound progress comment {jira_key}/{comment_id}: missing {', '.join(missing_fields)}"
+            )
+        recorded_ids.add(identity)
+        live = live_index.get(identity)
+        if live is None:
+            findings.append(f"missing live progress comment {jira_key}/{comment_id}")
+            continue
+        actual_sha = comment_body_sha256(live.get("body"))
+        expected_sha = str(entry.get("comment_body_sha256") or "")
+        if expected_sha and actual_sha != expected_sha:
+            findings.append(f"changed progress comment {jira_key}/{comment_id}")
+        evidence_path = str(entry.get("local_evidence_path") or "")
+        evidence_identity = str(entry.get("local_evidence_identity") or "")
+        if evidence_path and evidence_identity and repo_root is not None:
+            path = repo_root / evidence_path
+            if not path.is_file():
+                findings.append(f"missing local evidence for progress comment {jira_key}/{comment_id}")
+            elif sha256_file(path) != evidence_identity:
+                findings.append(f"local evidence identity drifted for progress comment {jira_key}/{comment_id}")
+    tracked_keys = {str(entry.get("jira_key") or "") for entry in recorded if entry.get("jira_key")}
+    for key in tracked_keys:
+        for comment in live_comments_by_key.get(key, []):
+            identity = (key, str(comment.get("id") or ""))
+            if identity in recorded_ids:
+                continue
+            if is_authority_bearing_progress_comment(comment.get("body")):
+                findings.append(f"extra live progress comment {key}/{comment.get('id')}")
+    return findings
+
+
+def collect_auxiliary_quarantine_findings(
+    registry: Mapping[str, Any],
+    retired_registry: Mapping[str, Any],
+    live_issues: Mapping[str, Mapping[str, Any]],
+) -> list[str]:
+    findings: list[str] = []
+    retired_keys = {
+        str(item.get("current_batq_key") or "")
+        for item in retired_registry.get("issues") or []
+    }
+    retired_keys.update(
+        str(item.get("former_bat_key") or "")
+        for item in retired_registry.get("issues") or []
+    )
+    for item in registry.get("issues") or []:
+        key = str(item.get("current_batq_key") or "")
+        former = str(item.get("former_bat_key") or "")
+        if key in retired_keys or former in retired_keys:
+            findings.append(f"{key} must not be recorded in the retired canonical registry")
+        live = live_issues.get(key)
+        if not live:
+            findings.append(f"missing quarantined auxiliary issue {key}")
+            continue
+        fields = live.get("fields") or {}
+        project_key = str((fields.get("project") or {}).get("key") or live.get("project_key") or "")
+        if project_key != "BATQ":
+            findings.append(f"{key} restored off BATQ into {project_key or 'UNKNOWN'}")
+        expected_summary = str(item.get("summary") or "")
+        actual_summary = str(fields.get("summary") or "")
+        if expected_summary and actual_summary != expected_summary:
+            findings.append(f"{key} summary drift")
+        if item.get("restore_to_bat") or not item.get("never_canonical_owner", True):
+            findings.append(f"{key} quarantine flags drifted")
+    return findings
+
+
+def fetch_live_comments_by_key(client: JiraClient, keys: Iterable[str]) -> dict[str, list[dict[str, Any]]]:
+    live: dict[str, list[dict[str, Any]]] = {}
+    for key in sorted(set(keys)):
+        issue = client.get(f"/rest/api/3/issue/{key}?fields=comment")
+        comments = ((issue.get("fields") or {}).get("comment") or {}).get("comments") or []
+        live[key] = list(comments)
+    return live
+
+
+def fetch_live_issues_by_key(client: JiraClient, keys: Iterable[str], fields: str) -> dict[str, dict[str, Any]]:
+    live: dict[str, dict[str, Any]] = {}
+    for key in sorted(set(keys)):
+        try:
+            live[key] = client.get(f"/rest/api/3/issue/{key}?fields={fields}")
+        except JiraError as exc:
+            if exc.status == 404:
+                continue
+            raise
+    return live
+
+
 def verify_live(
     client: JiraClient,
     rows: list[dict[str, str]],
@@ -2525,6 +2698,39 @@ def verify_live(
         field_ids,
     )
     discrepancies.extend(auxiliary_findings)
+    progress_ledger = load_authority_progress_comment_ledger()
+    tracked_comment_keys = [
+        str(item.get("jira_key") or "")
+        for item in progress_ledger.get("comments") or []
+        if item.get("jira_key")
+    ]
+    live_progress_comments = fetch_live_comments_by_key(client, tracked_comment_keys)
+    discrepancies.extend(
+        collect_authority_progress_comment_findings(
+            progress_ledger,
+            live_progress_comments,
+            repo_root=ROOT,
+        )
+    )
+    quarantine_registry = load_auxiliary_quarantine_registry()
+    retired_registry = load_retired_canonical_registry()
+    quarantine_keys = [
+        str(item.get("current_batq_key") or "")
+        for item in quarantine_registry.get("issues") or []
+        if item.get("current_batq_key")
+    ]
+    live_quarantine_issues = fetch_live_issues_by_key(
+        client,
+        quarantine_keys,
+        "summary,status,project",
+    )
+    discrepancies.extend(
+        collect_auxiliary_quarantine_findings(
+            quarantine_registry,
+            retired_registry,
+            live_quarantine_issues,
+        )
+    )
     canonical_live_count = sum(key in by_key for key in key_map.values())
     if canonical_live_count != len(rows):
         discrepancies.append(f"canonical issue count {canonical_live_count} != {len(rows)}")

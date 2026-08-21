@@ -23,8 +23,8 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14594",
-    "done_after_merge": null,
-    "in_review_after_validation": null
+    "done_after_merge": "14596",
+    "in_review_after_validation": "14595"
   },
   "current_identities": {
     "gate_identity": "efbd7b1e0d52b99d49066878cd45e9b7768a9288f8ed2fe94891cb402b02a666",
@@ -56,18 +56,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": null,
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "4abcf588eb81dfc05095a5f75075be1333c392b6",
+  "issue_complete": true,
   "jira_key": "BAT-623",
   "local_issue_id": "POST-TASK-SRC014-2001-STRUCTURED-DOMAINS-001",
-  "material_pr": null,
+  "material_pr": 559,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently reconstructed BAT-621/BAT-622 and parsed only those official 2001 box URLs. Markup inspection confirmed StatCrew preformatted labels plus Scoring Summary (Final). 12/12 rich, 5249 serialized rows (team 312, individual 328, drives 288, play-by-play 4165, scoring_summary 156). Oklahoma State and Oklahoma each honestly have 1 reconstructible drive row. TCU gallery mfb_1899_gallery.html is fully labeled. Gate identity efbd7b1e0d52b99d49066878cd45e9b7768a9288f8ed2fe94891cb402b02a666. Payload identity b26370bb6e369a9f0106407461fd647bae7d5a39ef9a5229b6d1283977b857c6. Validator code-bundle identity a1711813cbf891d333678f089f5b9f516674a753af1805b93ff9e1f87a5d6aa3. BAT-617/BAT-615/BAT-613 identities were not rewritten. No URL/SHA fallback. Participation did not become availability. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #559 merged as 4abcf588eb81dfc05095a5f75075be1333c392b6. Actual headRefName was codex/BAT-623-2001-structured-domains. Independently reconstructed BAT-621/BAT-622 and parsed only those official 2001 box URLs. Markup inspection confirmed StatCrew preformatted labels plus Scoring Summary (Final). 12/12 rich, 5249 serialized rows (team 312, individual 328, drives 288, play-by-play 4165, scoring_summary 156). Oklahoma State and Oklahoma each honestly have 1 reconstructible drive row. TCU gallery mfb_1899_gallery.html is fully labeled. Gate identity efbd7b1e0d52b99d49066878cd45e9b7768a9288f8ed2fe94891cb402b02a666. Payload identity b26370bb6e369a9f0106407461fd647bae7d5a39ef9a5229b6d1283977b857c6. Validator code-bundle identity a1711813cbf891d333678f089f5b9f516674a753af1805b93ff9e1f87a5d6aa3. BAT-617/BAT-615/BAT-613 identities were not rewritten. No URL/SHA fallback. Participation did not become availability. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

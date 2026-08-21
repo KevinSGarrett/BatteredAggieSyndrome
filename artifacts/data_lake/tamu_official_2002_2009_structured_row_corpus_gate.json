@@ -1,0 +1,209 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_618_union": "CONSUMED_AS_PHASE_9_MEMBERSHIP_ONLY",
+    "classification": "POSTGAME_OFFICIAL_STRUCTURED_EVIDENCE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "scoring_summary": "ABSENT_NO_SERIALIZED_ROWS",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "artifact_type": "TAMU_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "child_payloads": {
+    "drives": {
+      "filename": "drives.jsonl",
+      "row_count": 2457,
+      "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
+      "sha256": "128d69aafbe0481961d03027f8379e00bcf1d146d4e679b7319605b88e4f5bca"
+    },
+    "individual_player_statistics": {
+      "filename": "individual_player_statistics.jsonl",
+      "row_count": 2638,
+      "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
+      "sha256": "79b6b0558b69cc2dd6c765f616f4e6bf1493d8c9376a0f82c5f5c2231e20d0e5"
+    },
+    "play_by_play": {
+      "filename": "play_by_play.jsonl",
+      "row_count": 34328,
+      "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
+      "sha256": "0e20b7dbe41412a32377ed57c93aaf52be69ae5eab3337ef8707ee4c7a679d77"
+    },
+    "scoring_summary": {
+      "filename": "scoring_summary.jsonl",
+      "row_count": 0,
+      "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "team_statistics": {
+      "filename": "team_statistics.jsonl",
+      "row_count": 3810,
+      "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
+      "sha256": "df1e89aebf81a28acfe8a77d79b260ea778bd326d9113e805f1d13609dde96e0"
+    }
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY",
+  "contract_id": "BAT-619-TAMU-OFFICIAL-2002-2009-STRUCTURED-ROW-CORPUS-V1",
+  "counts": {
+    "availability_claims": 0,
+    "drives_games_present": 91,
+    "drives_rows": 2457,
+    "games": 93,
+    "individual_player_statistics_games_present": 93,
+    "individual_player_statistics_rows": 2638,
+    "name_only_player_merges": 0,
+    "ncaa_contest_ids_created": 0,
+    "oklahoma_2002_excluded": 1,
+    "play_by_play_games_present": 91,
+    "play_by_play_rows": 34328,
+    "rejected_urls_excluded": 5,
+    "scoring_summary_games_present": 0,
+    "scoring_summary_rows": 0,
+    "scoring_summary_serialized_rows": 0,
+    "seasons": 8,
+    "serialized_rows_total": 43233,
+    "team_statistics_games_present": 93,
+    "team_statistics_rows": 3810
+  },
+  "coverage_summary": {
+    "all_present_claim": false,
+    "by_domain": {
+      "drives": {
+        "corpus_present": 91,
+        "games": 93,
+        "serialized_rows": 2457,
+        "union_present": 93,
+        "union_present_without_serialized_rows": 2
+      },
+      "individual_player_statistics": {
+        "corpus_present": 93,
+        "games": 93,
+        "serialized_rows": 2638,
+        "union_present": 93,
+        "union_present_without_serialized_rows": 0
+      },
+      "play_by_play": {
+        "corpus_present": 91,
+        "games": 93,
+        "serialized_rows": 34328,
+        "union_present": 93,
+        "union_present_without_serialized_rows": 2
+      },
+      "scoring_summary": {
+        "corpus_present": 0,
+        "games": 93,
+        "serialized_rows": 0,
+        "union_present": 93,
+        "union_present_without_serialized_rows": 93
+      },
+      "team_statistics": {
+        "corpus_present": 93,
+        "games": 93,
+        "serialized_rows": 3810,
+        "union_present": 93,
+        "union_present_without_serialized_rows": 0
+      }
+    },
+    "coverage_matrix_identity": "f869d918b06044a964eb4d95ec6543610ae22e635c9989cb3c5194d95c1e7509",
+    "games": 93,
+    "seasons": [
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009
+    ]
+  },
+  "dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
+  "decision_unit": "POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001",
+  "disposition": "NEW_CONTENT_ADDRESSED_ROW_CORPUS_FROM_SERIALIZED_PAYLOADS",
+  "gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af",
+  "jira_key": "BAT-619",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS",
+  "schema_version": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
+  "scientific_nonclaims": {
+    "all_present_70_70_claim": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "national_completeness": false,
+    "ncaa_contest_ids_created": false,
+    "oklahoma_2002_admitted": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "production_readiness": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "rejected_urls_admitted": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "scoring_summary_serialized_from_union_flags": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009
+  ],
+  "source_id": "SRC-014",
+  "union_gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
+  "union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
+  "upstream_identities": {
+    "bat591_payload_file_sha256": "cb7fc0b293f15ee8d98058daa38fa9abba02d9506b28dd6845dfb2682272ab3a",
+    "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+    "bat596_payload_file_sha256": "38bfcaf9b89dcc82d68a3cb78767db19fe011294d0858993692ace3ec55eebb5",
+    "bat596_payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
+    "bat601_payload_file_sha256": "752bd4631289fa35ae40bd11f481d520cb14c0dd7a082814055a80c2fec876c6",
+    "bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
+    "bat606_payload_file_sha256": "e56fadea242c9d06a4154415411ad9b1ed8c04ba2eef225fac44c6873e1c3aef",
+    "bat606_payload_identity": "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0",
+    "bat611_payload_file_sha256": "6e21fabf1df2fb7f5b5066de55026d5841802092349192a19f6278b682ea5cf2",
+    "bat611_payload_identity": "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8",
+    "bat617_payload_file_sha256": "a411e25e81335ae8570f8452f65303f4533f47fb38bb1d7a615daebf99d22981",
+    "bat617_payload_identity": "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2",
+    "bat618_gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
+    "bat618_union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
+    "bat618_union_manifest_file_sha256": "07ec65650bfbb1a213a6b633187d919be3a90b0c9538ed17754d6a49622a9cd1",
+    "validator_code_identity": "abaad66cbc05c9f98d8388e42e3195164458391b2458d9a79491f8ca0b2636c8"
+  },
+  "validation_contract_version": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
+  "validator_code_identity": "abaad66cbc05c9f98d8388e42e3195164458391b2458d9a79491f8ca0b2636c8"
+}

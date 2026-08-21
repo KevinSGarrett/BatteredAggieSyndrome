@@ -1,0 +1,31 @@
+{
+  "schema_version": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1",
+  "validation_contract_version": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1",
+  "contract_id": "BAT-620-TAMU-OFFICIAL-2002-2009-STRUCTURED-ROW-CORPUS-INTEGRITY-V1",
+  "jira_key": "BAT-620",
+  "local_issue_id": "POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001",
+  "new_issue_decision": "CREATE",
+  "purpose": "Create an integrity-complete successor to the immutable BAT-619 2002-2009 structured row corpus. Preserve the 93-game / 43233-row corpus unless independent raw reconstruction proves different. Invoke each upstream structured payload's mounted raw-source validator, require exact stored-vs-raw payload equality, require explicit row source_url/source_sha256 with no union fallback, bind BAT-618/BAT-619 manifests and child file SHAs, compare the full stored BAT-619 manifest with independent reconstruction, and compute a deterministic non-recursive code-bundle identity.",
+  "pinned_bat618_union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
+  "pinned_bat618_gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
+  "pinned_bat618_union_manifest_file_sha256": "07ec65650bfbb1a213a6b633187d919be3a90b0c9538ed17754d6a49622a9cd1",
+  "pinned_bat619_dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
+  "pinned_bat619_gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af",
+  "pinned_bat619_manifest_file_sha256": "e79bec11165482fa06dbb2dbc10d9ad4da630c0d84e8bcfc37c111c62cb4b620",
+  "pinned_code_bundle_identity": "55ee726753ba80df3714ff2836f4223e30d8cd7a226767f393c9998af66abced",
+  "pinned_dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+  "pinned_gate_identity": "c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4",
+  "pinned_manifest_file_sha256": "2f8af86ff4e5fab9de99ad6677c12daef2412d98c54b165c4511d89949b669f1",
+  "selected_seasons": [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009],
+  "child_domains": [
+    "team_statistics",
+    "individual_player_statistics",
+    "drives",
+    "play_by_play",
+    "scoring_summary"
+  ],
+  "payloads": {
+    "corpus_root": "features/tamu_official_2002_2009_structured_row_corpus_integrity/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

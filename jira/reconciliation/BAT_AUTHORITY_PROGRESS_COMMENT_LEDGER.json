@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "purpose": "Local authority-bearing parent progress-comment ledger. Recorded comments must match live Jira comment ID and canonicalized body SHA. No live-only parent progress is allowed after the recording cycle.",
+  "authority_bearing_pattern": "^Cycle #\\d+ progress \\(factual\\):",
+  "comments": [
+    {
+      "jira_key": "BAT-523",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "comment_id": "14584",
+      "comment_body_sha256": "256d9afc406bb937d681984e1e72a15bf12404b4922b773624f6faf719e525a3",
+      "material_merge_sha": "d77c17bc978247b3189cc2069fa3cd6941a95401",
+      "local_evidence_identity": "3987396107d211b995513a386a6c011989c211f456bd1edae10e37b9d7401638",
+      "local_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "cycle": 15,
+      "kind": "parent_progress"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "purpose": "Register duplicate/quarantined auxiliary CREATE attempts that were never canonical owners and must remain in BATQ. These keys must not be restored to BAT and must not be added to the retired canonical registry.",
+  "owner_jira_key": "BAT-620",
+  "owner_local_id": "POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001",
+  "quarantined_count": 2,
+  "issues": [
+    {
+      "current_batq_key": "BATQ-68",
+      "current_project": "BATQ",
+      "current_status": "In Progress",
+      "former_bat_key": "BAT-614",
+      "jira_issue_id": "25416",
+      "classification": "AUXILIARY_DUPLICATE_QUARANTINE",
+      "canonical_owner": "BAT-613",
+      "local_id_attempted": "POST-TASK-SRC014-2002-OFFICIAL-INDEX-001",
+      "never_canonical_owner": true,
+      "restore_to_bat": false,
+      "summary": "DUPLICATE VOID of BAT-613 official 2002 season index"
+    },
+    {
+      "current_batq_key": "BATQ-69",
+      "current_project": "BATQ",
+      "current_status": "In Progress",
+      "former_bat_key": "BAT-616",
+      "jira_issue_id": "25418",
+      "classification": "AUXILIARY_DUPLICATE_QUARANTINE",
+      "canonical_owner": "BAT-615",
+      "local_id_attempted": "POST-TASK-SRC014-2002-OFFICIAL-ACQUISITION-001",
+      "never_canonical_owner": true,
+      "restore_to_bat": false,
+      "summary": "DUPLICATE VOID of BAT-615 official 2002 box-score acquisition"
+    }
+  ]
+}

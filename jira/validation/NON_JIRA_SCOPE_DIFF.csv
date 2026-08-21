@@ -25,6 +25,7 @@ ADDED,artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json
 ADDED,artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
 ADDED,artifacts/data_lake/tamu_cross_source_domain_gate.json
 ADDED,artifacts/data_lake/tamu_official_2002_2009_structured_row_corpus_gate.json
+ADDED,artifacts/data_lake/tamu_official_2002_2009_structured_row_corpus_integrity_gate.json
 ADDED,artifacts/data_lake/tamu_official_2002_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_2002_season_index_gate.json
 ADDED,artifacts/data_lake/tamu_official_2002_structured_domains_gate.json
@@ -229,6 +230,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001.jso
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-INDEX-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-ENRICHED-UNION-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-STATCREW-PREFORMATTED-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001.json
@@ -407,6 +409,7 @@ ADDED,configs/tamu_availability_source_sample.json
 ADDED,configs/tamu_cross_source_domain_gate_contract.json
 ADDED,configs/tamu_no_adjustment_reference.json
 ADDED,configs/tamu_official_2002_2009_structured_row_corpus_contract.json
+ADDED,configs/tamu_official_2002_2009_structured_row_corpus_integrity_contract.json
 ADDED,configs/tamu_official_2002_boxscore_contract.json
 ADDED,configs/tamu_official_2002_season_index_contract.json
 ADDED,configs/tamu_official_2002_structured_domains_contract.json
@@ -634,6 +637,7 @@ ADDED,src/aggie_analytics/data/tamu_cross_source_domain_gate.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
 ADDED,src/aggie_analytics/data/tamu_official_2002_2009_structured_row_corpus.py
+ADDED,src/aggie_analytics/data/tamu_official_2002_2009_structured_row_corpus_integrity.py
 ADDED,src/aggie_analytics/data/tamu_official_2002_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_2002_season_index.py
 ADDED,src/aggie_analytics/data/tamu_official_2002_structured_domains.py
@@ -769,6 +773,8 @@ ADDED,tests/test_historical_team_membership_pit.py
 ADDED,tests/test_historical_venue_assignment_pit.py
 ADDED,tests/test_historical_weather_previous_runs_snapshot.py
 ADDED,tests/test_instructions_pack.py
+ADDED,tests/test_jira_authority_progress_comments.py
+ADDED,tests/test_jira_auxiliary_quarantine_registry.py
 ADDED,tests/test_jira_control_plane.py
 ADDED,tests/test_jira_evidence_state_mapping.py
 ADDED,tests/test_jira_live_auxiliary_verification.py
@@ -830,6 +836,7 @@ ADDED,tests/test_tamu_2010_2011_ncaa_team_season_evidence.py
 ADDED,tests/test_tamu_2010_2011_season_reconciliation.py
 ADDED,tests/test_tamu_cross_source_domain_gate.py
 ADDED,tests/test_tamu_official_2002_2009_structured_row_corpus.py
+ADDED,tests/test_tamu_official_2002_2009_structured_row_corpus_integrity.py
 ADDED,tests/test_tamu_official_2002_boxscores.py
 ADDED,tests/test_tamu_official_2002_season_index.py
 ADDED,tests/test_tamu_official_2002_structured_domains.py
@@ -940,6 +947,7 @@ ADDED,tools/build_tamu_availability_evidence_pages.py
 ADDED,tools/build_tamu_cross_source_domain_gate.py
 ADDED,tools/build_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/build_tamu_official_2002_2009_structured_row_corpus.py
+ADDED,tools/build_tamu_official_2002_2009_structured_row_corpus_integrity.py
 ADDED,tools/build_tamu_official_2002_boxscores.py
 ADDED,tools/build_tamu_official_2002_season_index.py
 ADDED,tools/build_tamu_official_2002_structured_domains.py
@@ -1117,6 +1125,7 @@ ADDED,tools/validate_tamu_availability_source_sample.py
 ADDED,tools/validate_tamu_cross_source_domain_gate.py
 ADDED,tools/validate_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/validate_tamu_official_2002_2009_structured_row_corpus.py
+ADDED,tools/validate_tamu_official_2002_2009_structured_row_corpus_integrity.py
 ADDED,tools/validate_tamu_official_2002_boxscores.py
 ADDED,tools/validate_tamu_official_2002_season_index.py
 ADDED,tools/validate_tamu_official_2002_structured_domains.py

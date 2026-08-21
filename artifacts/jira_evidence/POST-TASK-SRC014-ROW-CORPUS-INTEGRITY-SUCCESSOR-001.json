@@ -14,7 +14,9 @@
     "union_admission": "CANDIDATE_ONLY"
   },
   "comment_ids": {
-    "claimed_in_progress": "14585"
+    "claimed_in_progress": "14585",
+    "done_after_merge": "14587",
+    "in_review_after_validation": "14586"
   },
   "current_identities": {
     "code_bundle_identity": "55ee726753ba80df3714ff2836f4223e30d8cd7a226767f393c9998af66abced",
@@ -40,16 +42,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "386098f3b971e4133883754fe33185208e60a757",
+  "issue_complete": true,
   "jira_key": "BAT-620",
   "local_issue_id": "POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001",
+  "material_pr": 553,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Created integrity-complete successor to BAT-619. Independently invoked raw-source validators for BAT-591/596/601/606/611/617, required stored payload equality, required explicit row source_url/source_sha256 with no union fallback, bound BAT-618 union and BAT-619 corpus manifests plus five child file SHAs, compared the full stored BAT-619 manifest with independent reconstruction, and computed code-bundle identity 55ee726753ba80df3714ff2836f4223e30d8cd7a226767f393c9998af66abced from an enumerated source bundle. Preserved 93 games and 43233 serialized rows. Dataset identity 15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481. Gate identity c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4. Corpus manifest file SHA-256 2f8af86ff4e5fab9de99ad6677c12daef2412d98c54b165c4511d89949b669f1. NCAA contest IDs were not created. Availability remains NOT_ESTABLISHED. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #553 merged as 386098f3b971e4133883754fe33185208e60a757. Actual headRefName codex/BAT-620-row-corpus-integrity. Integrity-complete successor invoked raw-source validators for BAT-591/596/601/606/611/617, required stored-vs-raw payload equality, required explicit row source_url/source_sha256 with no union fallback, bound BAT-618/BAT-619 manifests and child file SHAs, compared the full stored BAT-619 manifest with independent reconstruction, and computed code-bundle identity 55ee726753ba80df3714ff2836f4223e30d8cd7a226767f393c9998af66abced from an enumerated source bundle. Preserved 93 games and 43233 serialized rows. Dataset identity 15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481. Gate identity c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4. Corpus manifest file SHA-256 2f8af86ff4e5fab9de99ad6677c12daef2412d98c54b165c4511d89949b669f1. NCAA contest IDs were not created. Availability remains NOT_ESTABLISHED. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

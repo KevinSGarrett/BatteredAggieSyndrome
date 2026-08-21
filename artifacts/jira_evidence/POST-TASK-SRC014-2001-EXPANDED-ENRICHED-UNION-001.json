@@ -1,0 +1,69 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_602_union": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_603_union": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_607_union": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_608_union": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_612_union": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_618_union": "CONSUMED_AS_2002_EXPANDED_PREDECESSOR_ONLY",
+    "bat_620_corpus": "CONSUMED_AS_STRUCTURED_CONSUMER_AUTHORITY_ONLY",
+    "bat_621_index": "CONSUMED_OFFICIAL_INDEX_URLS_ONLY",
+    "bat_622_boxscores": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_PAYLOAD",
+    "bat_623_domains": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_ROW_PAYLOAD",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14597",
+    "done_after_merge": "",
+    "in_review_after_validation": ""
+  },
+  "current_identities": {
+    "gate_identity": "6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710",
+    "union_identity": "cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8",
+    "union_manifest_file_sha256": "a8242ab742acf76f2f0805920b264d62e1beabefa10878aed4d590494e1b5d10",
+    "validator_code_identity": "077d5d106e1927abbfa19c2ad4ab98a4646da23c76b375bdc43794e28a7fa63c"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of official 2001 expanded enriched-union admission. BAT-618 owns only 2002 expansion. BAT-620 is the integrity-complete corpus consumer and does not admit 2001 games. BAT-623 owns only 2001 structured domains. BATQ-68 and BATQ-69 remain quarantined and are not restored. NEW_ISSUE_DECISION=CREATE as BAT-624.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-608",
+      "BAT-612",
+      "BAT-618",
+      "BAT-619",
+      "BAT-620",
+      "BAT-621",
+      "BAT-622",
+      "BAT-623",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-624",
+  "local_issue_id": "POST-TASK-SRC014-2001-EXPANDED-ENRICHED-UNION-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently validated BAT-618 plus BAT-620/BAT-621/BAT-622/BAT-623. 12 official 2001 games admitted through official index + URL + raw SHA + parent + season + strong tuple. Oklahoma mfb_43_ou.html and the four historical unmatched URLs remain forbidden and are not admitted. Derived union captured 308, rich 295, metadata 13, scoring-summary 105, enriched official 105, matched_strong_tuple 100. Gate identity 6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710. Union identity cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8. BAT-624 union manifest file SHA-256 a8242ab742acf76f2f0805920b264d62e1beabefa10878aed4d590494e1b5d10. Validator code-bundle identity 077d5d106e1927abbfa19c2ad4ab98a4646da23c76b375bdc43794e28a7fa63c. Predecessor is BAT-618, not BAT-612. BAT-620 remains the structured-consumer authority. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

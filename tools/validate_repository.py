@@ -2001,6 +2001,48 @@ def main() -> int:
                         )()
                     )
 
+        expanded_2001_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_2001_expanded_gate.json"
+        expanded_2001_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union_2001_expanded.py"
+        if expanded_2001_gate.is_file() and expanded_2001_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_gamebook_union_2001_expanded_strict",
+                expanded_2001_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_gamebook_union_2001_expanded",
+                            "path": "src/aggie_analytics/data/tamu_official_gamebook_union_2001_expanded.py",
+                            "detail": "unable to load 2001-expanded union validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=module.upstream_is_ready(data_root),
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_gamebook_union_2001_expanded",
+                                "path": "artifacts/data_lake/tamu_official_gamebook_union_2001_expanded_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
         expanded_2002_gate = root / "artifacts" / "data_lake" / "tamu_official_gamebook_union_2002_expanded_gate.json"
         expanded_2002_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_gamebook_union_2002_expanded.py"
         if expanded_2002_gate.is_file() and expanded_2002_module.is_file():

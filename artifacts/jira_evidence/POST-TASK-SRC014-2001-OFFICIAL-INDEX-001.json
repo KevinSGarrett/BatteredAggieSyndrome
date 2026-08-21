@@ -12,7 +12,9 @@
     "union_admission": "NOT_ADMITTED"
   },
   "comment_ids": {
-    "claimed_in_progress": "14588"
+    "claimed_in_progress": "14588",
+    "done_after_merge": "14590",
+    "in_review_after_validation": "14589"
   },
   "current_identities": {
     "box_url_identity": "49c561fd8e27abd0e2f1283013cb748e34f7cafe5ed4d91a25a43e9335b07fc9",
@@ -40,16 +42,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "35c902aff17957f387a5e6a3cadded45d9e99be4",
+  "issue_complete": true,
   "jira_key": "BAT-621",
   "local_issue_id": "POST-TASK-SRC014-2001-OFFICIAL-INDEX-001",
+  "material_pr": 555,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently re-parsed the captured official history index (SHA-256 1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a) and observed ../years/2001.html at line 293 with url_directly_emitted_by_official_page=true. Captured https://files.12thman.com/history/football/years/2001.html as immutable raw SHA-256 dc0e00887bf2505ebc4ad0d24c4cac3307f3acd1939584eff9b1d9dc88c5aba1. Derived scheduled games 12, box-score URLs 12, duplicate/malformed/missing 0, NCAA IDs created 0, union admissions 0. Capture identity aa583efac1716168ac9153c0a56a37df48fa1faf75f9b318c86cd4716a4b7efa. Gate identity 24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094. Validator code-bundle identity b191ebc7983c65569ba061daafb685c5202b8d3d464982319a2f4f386b83b511. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked. BAT-613 was not rewritten.",
+  "observable_outcome": "Material PR #555 merged as 35c902aff17957f387a5e6a3cadded45d9e99be4. Actual headRefName was codex/BAT-621-2001-official-index. Independently re-parsed the captured official history index (SHA-256 1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a) and observed ../years/2001.html at line 293 with url_directly_emitted_by_official_page=true. Captured https://files.12thman.com/history/football/years/2001.html as immutable raw SHA-256 dc0e00887bf2505ebc4ad0d24c4cac3307f3acd1939584eff9b1d9dc88c5aba1. Derived scheduled games 12, box-score URLs 12, duplicate/malformed/missing 0, NCAA IDs created 0, union admissions 0. Capture identity aa583efac1716168ac9153c0a56a37df48fa1faf75f9b318c86cd4716a4b7efa. Gate identity 24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094. Validator code-bundle identity b191ebc7983c65569ba061daafb685c5202b8d3d464982319a2f4f386b83b511. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked. BAT-613 was not rewritten.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

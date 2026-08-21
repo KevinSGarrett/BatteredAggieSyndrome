@@ -13,8 +13,8 @@
   },
   "comment_ids": {
     "claimed_in_progress": "14581",
-    "done_after_merge": "",
-    "in_review_after_validation": ""
+    "done_after_merge": "14583",
+    "in_review_after_validation": "14582"
   },
   "current_identities": {
     "dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
@@ -41,18 +41,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": "",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "d77c17bc978247b3189cc2069fa3cd6941a95401",
+  "issue_complete": true,
   "jira_key": "BAT-619",
   "local_issue_id": "POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001",
-  "material_pr": null,
+  "material_pr": 551,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently recomputed BAT-591/596/601/606/611/617 payload identities and BAT-618 union membership. Derived corpus dataset identity 35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50 and gate identity 5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af. 93 admitted 2002-2009 games; 43233 serialized rows; scoring/summary child has 0 rows; Oklahoma 2002 unmatched and four preserved rejections excluded. NCAA contest IDs were not created. Availability remains NOT_ESTABLISHED.",
+  "observable_outcome": "Material PR #551 merged as d77c17bc978247b3189cc2069fa3cd6941a95401. Actual headRefName codex/BAT-619-2002-2009-row-corpus. Independently recomputed BAT-591/596/601/606/611/617 payload identities and BAT-618 union membership. Derived 93 admitted 2002-2009 games, 43233 serialized rows, scoring/summary child 0 rows. Oklahoma 2002 unmatched and four preserved rejections excluded. Dataset identity 35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50. Gate identity 5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af. Corpus manifest file SHA-256 e79bec11165482fa06dbb2dbc10d9ad4da630c0d84e8bcfc37c111c62cb4b620. NCAA contest IDs were not created. Availability remains NOT_ESTABLISHED. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

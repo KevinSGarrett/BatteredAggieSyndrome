@@ -956,6 +956,49 @@ def main() -> int:
                         )()
                     )
 
+        season_2001_gate = root / "artifacts" / "data_lake" / "tamu_official_2001_season_index_gate.json"
+        season_2001_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2001_season_index.py"
+        if season_2001_gate.is_file() and season_2001_module.is_file():
+            spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_tamu_official_2001_season_index_strict",
+                season_2001_module,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "tamu_official_2001_season_index",
+                            "path": "src/aggie_analytics/data/tamu_official_2001_season_index.py",
+                            "detail": "unable to load official 2001 season-index validator",
+                        },
+                    )()
+                )
+            else:
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+                lake_ready = module.lake_is_ready(data_root, root)
+                try:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=lake_ready,
+                    )
+                except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                    findings.append(
+                        type(
+                            "F",
+                            (),
+                            {
+                                "kind": "tamu_official_2001_season_index",
+                                "path": "artifacts/data_lake/tamu_official_2001_season_index_gate.json",
+                                "detail": str(exc),
+                            },
+                        )()
+                    )
+
         box_2002_gate = root / "artifacts" / "data_lake" / "tamu_official_2002_boxscore_gate.json"
         box_2002_module = root / "src" / "aggie_analytics" / "data" / "tamu_official_2002_boxscores.py"
         if box_2002_gate.is_file() and box_2002_module.is_file():

@@ -1,0 +1,66 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_591_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_596_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_601_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_606_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_621_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_622_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_623_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_625_payload": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "bat_626_payload": "CONSUMED_CAPTURES_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "html_table_classifier": "PINNED_NOT_MUTATED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "name_only_player_merge": "REJECTED",
+    "participation_as_availability": "REJECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14606",
+    "done_after_merge": null,
+    "in_review_after_validation": null
+  },
+  "current_identities": {
+    "gate_identity": "cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268",
+    "payload_identity": "6a806655c2bf1ce33200bdd52e77d7f0423a97306d0042edf9384851dc1d8e06",
+    "validator_code_identity": "3d52296b41bc1da35a1d3dbc10eee02790f81a410df087316555d30682bd14fe"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of official SRC-014 2000 structured-domain parsing. BAT-626 owns only 2000 acquisition. BAT-625 owns only the 2000 index. BAT-623 owns only 2001 structured domains. BATQ-68 and BATQ-69 remain quarantined and are not restored. NEW_ISSUE_DECISION=CREATE as BAT-627.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-621",
+      "BAT-622",
+      "BAT-623",
+      "BAT-625",
+      "BAT-626",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": null,
+  "issue_complete": false,
+  "jira_key": "BAT-627",
+  "local_issue_id": "POST-TASK-SRC014-2000-STRUCTURED-DOMAINS-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently reconstructed BAT-625/BAT-626 and parsed only those official 2000 box URLs. Markup inspection confirmed StatCrew preformatted labels plus Scoring Summary (Final). Shared 2001 drive regex would treat Wyoming possession-summary lines as a drive row; BAT-627 locally requires a spot-and-clock drive line. 12/12 rich, 5479 serialized rows (team 312, individual 342, drives 294, play-by-play 4329, scoring_summary 202). Wyoming drive chart is labeled without reconstructible drive rows (ABSENT, 0 rows). Gate identity cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268. Payload identity 6a806655c2bf1ce33200bdd52e77d7f0423a97306d0042edf9384851dc1d8e06. Validator code-bundle identity 3d52296b41bc1da35a1d3dbc10eee02790f81a410df087316555d30682bd14fe. BAT-623/BAT-622/BAT-621 identities were not rewritten. No URL/SHA fallback. Participation did not become availability. No NCAA contest IDs. No union admission. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

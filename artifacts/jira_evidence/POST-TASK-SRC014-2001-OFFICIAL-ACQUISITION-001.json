@@ -14,7 +14,9 @@
     "union_admission": "NOT_ADMITTED"
   },
   "comment_ids": {
-    "claimed_in_progress": "14591"
+    "claimed_in_progress": "14591",
+    "done_after_merge": "14593",
+    "in_review_after_validation": "14592"
   },
   "current_identities": {
     "acquisition_identity": "26865dfd41b05af43883c5f27236cfb7bf62f25fe8f894d6ffde6dd9ad7b55eb",
@@ -43,18 +45,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_completion_evidence",
-  "evidence_state": "PARTIAL",
-  "implementation_sha": null,
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "ff7a12af7b0d5fe84aee74783857a20a01af6b61",
+  "issue_complete": true,
   "jira_key": "BAT-622",
   "local_issue_id": "POST-TASK-SRC014-2001-OFFICIAL-ACQUISITION-001",
-  "material_pr": null,
+  "material_pr": 557,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently reconstructed BAT-621 and acquired only those official 2001 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 12 strong-tuple matches, 0 unmatched. TCU gallery URL mfb_1899_gallery.html matched as TCU on 2001-12-28. Oklahoma 2001 matched; the 2002 Oklahoma site-text conflict is not this season. Gate identity 127bea505729cece69c778255c9090486bb31ad66a014d382df134f027fcef8f. Validator code-bundle identity e192137de1da0a711f895e84234ca5a618086650e069ee380088da32800ebbf9. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked. BAT-615 and BAT-621 were not rewritten.",
+  "observable_outcome": "Material PR #557 merged as ff7a12af7b0d5fe84aee74783857a20a01af6b61. Actual headRefName was codex/BAT-622-2001-official-acquisition. Independently reconstructed BAT-621 and acquired only those official 2001 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 12 strong-tuple matches, 0 unmatched. TCU gallery URL mfb_1899_gallery.html matched as TCU on 2001-12-28. Oklahoma 2001 matched. Gate identity 127bea505729cece69c778255c9090486bb31ad66a014d382df134f027fcef8f. Validator code-bundle identity e192137de1da0a711f895e84234ca5a618086650e069ee380088da32800ebbf9. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked. BAT-615 and BAT-621 were not rewritten.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

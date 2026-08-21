@@ -1,0 +1,62 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_618_union": "PRESERVED_IMMUTABLE_THROUGH_BAT624_PREDECESSOR",
+    "bat_620_corpus": "CONSUMED_AS_STRUCTURED_CONSUMER_AUTHORITY_ONLY",
+    "bat_624_union": "CONSUMED_AS_2001_EXPANDED_PREDECESSOR_ONLY",
+    "bat_625_index": "CONSUMED_OFFICIAL_INDEX_URLS_ONLY",
+    "bat_626_boxscores": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_PAYLOAD",
+    "bat_627_domains": "INDEPENDENTLY_RECOMPUTED_EXTERNAL_ROW_PAYLOAD",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14609"
+  },
+  "current_identities": {
+    "gate_identity": "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2",
+    "union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
+    "union_manifest_file_sha256": "98fa6919315b37726e8aa1cfd373ebcdfe3e9653135c11e72577ea2fafbd5882",
+    "validator_code_identity": "a632bc7723288bc6c48df19af3b7a4e99461f6514cddb68c72299531477bd1ab"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of official 2000 expanded enriched-union admission. BAT-624 owns only 2001 expansion. BAT-627 owns only 2000 structured domains. BATQ-68 and BATQ-69 remain quarantined and are not restored. NEW_ISSUE_DECISION=CREATE as BAT-628.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-618",
+      "BAT-619",
+      "BAT-620",
+      "BAT-624",
+      "BAT-625",
+      "BAT-626",
+      "BAT-627",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": "",
+  "issue_complete": false,
+  "jira_key": "BAT-628",
+  "local_issue_id": "POST-TASK-SRC014-2000-EXPANDED-ENRICHED-UNION-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "BAT-628 creates a new immutable 2000-expanded official union from the BAT-624 predecessor. Independently raw-validated BAT-625/BAT-626/BAT-627 plus BAT-620 as structured-consumer authority. 9 official 2000 games admitted through official index + URL + raw SHA + parent + season + strong tuple. 3 unmatched 2000 strong-tuple conflicts remain non-union: Notre Dame mfb_426_nd.html, Texas Tech mfb_429_tech.html, Iowa State mfb_432_isu.html. Oklahoma mfb_43_ou.html and the four historical unmatched URLs remain forbidden. Derived union captured 317, rich 304, metadata 13, scoring-summary 114, enriched official 114, matched_strong_tuple 109. Official-school membership 2000-2009: 9+12+11+12+12+11+13+11+11+12 = 114. Gate identity 8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2. Union identity de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35. Union manifest file SHA-256 98fa6919315b37726e8aa1cfd373ebcdfe3e9653135c11e72577ea2fafbd5882. Validator code-bundle identity a632bc7723288bc6c48df19af3b7a4e99461f6514cddb68c72299531477bd1ab. Predecessor is BAT-624, not BAT-618. BAT-620 remains the structured-consumer authority. No NCAA contest IDs. Availability remains NOT_ESTABLISHED. Retrieval time is not historical known-at. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

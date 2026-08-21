@@ -1,0 +1,33 @@
+{
+  "schema_version": "aggie.data.tamu_official_gamebook_union_2000_expanded.v1",
+  "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2000_expanded.v1",
+  "contract_id": "BAT-628-TAMU-OFFICIAL-GAMEBOOK-UNION-2000-EXPANDED-V1",
+  "jira_key": "BAT-628",
+  "local_issue_id": "POST-TASK-SRC014-2000-EXPANDED-ENRICHED-UNION-001",
+  "new_issue_decision": "CREATE",
+  "purpose": "Create a new immutable official enriched union that starts from the BAT-624 2001-expanded predecessor and admits only independently validated official 2000 games through official index + URL + raw SHA + parent + season + strong tuple. Require the BAT-620 integrity successor as structured-consumer authority and independently raw-validate BAT-625/BAT-626/BAT-627. Do not rewrite BAT-624, BAT-620, BAT-619, BAT-618, BAT-612, BAT-608, BAT-607, or BAT-603. Opponent name alone is not admission. Preserve the four historical unmatched URLs, Oklahoma 2002, and the three unmatched 2000 strong-tuple conflicts. Fail closed if the BAT-624 union manifest is missing.",
+  "predecessor_union_identity": "cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8",
+  "predecessor_gate_identity": "6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710",
+  "pinned_bat618_union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
+  "pinned_bat618_gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
+  "pinned_bat624_union_manifest_file_sha256": "a8242ab742acf76f2f0805920b264d62e1beabefa10878aed4d590494e1b5d10",
+  "pinned_bat620_gate_identity": "c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4",
+  "pinned_bat620_dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+  "pinned_bat625_gate_identity": "38cf419510306d17c203a660051f96da9e186e275833bb763a517cf735b07546",
+  "pinned_bat625_box_url_identity": "bf18094298462f7aa06ab63aec47aee89f10797c6fc16d4d3d968c63474aaddc",
+  "pinned_bat626_gate_identity": "3f7dbc60a7d21359637d04597629a982180d7f97e4d479ad92134567ceec9f8a",
+  "pinned_bat626_dataset_identity": "5d37f54a95c6c3846aa392e2efc860bf2e3aeb6e1b3d02fee3d698c4473b733c",
+  "pinned_bat626_acquisition_identity": "3a8092ce4c2fbf5ffc4b7af572f9a6ba8cdc360dec2cb538d55dbf7b3ed5f926",
+  "pinned_bat626_games_identity": "e997834aaa8f32685f933e8a1e682cb86b57911405dafad84b5447221aaedf22",
+  "pinned_bat627_gate_identity": "cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268",
+  "pinned_bat627_payload_identity": "6a806655c2bf1ce33200bdd52e77d7f0423a97306d0042edf9384851dc1d8e06",
+  "official_index_url": "https://files.12thman.com/history/football/years/2000.html",
+  "parent_url_fallback_forbidden": true,
+  "pinned_union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
+  "pinned_union_manifest_file_sha256": "98fa6919315b37726e8aa1cfd373ebcdfe3e9653135c11e72577ea2fafbd5882",
+  "pinned_gate_identity": "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2",
+  "payloads": {
+    "union_root": "features/tamu_official_gamebook_union_2000_expanded/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

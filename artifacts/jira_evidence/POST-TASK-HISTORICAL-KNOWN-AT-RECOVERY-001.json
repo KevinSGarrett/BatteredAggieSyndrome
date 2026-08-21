@@ -13,8 +13,32 @@
     "implementation_maturity": "SCOPED_IMPLEMENTED_EXPANSION_CONTINUES",
     "evidence_state": "VERIFIED_SCOPED",
     "parent": "BAT-32",
-    "blocks": ["BAT-399"],
-    "relates_to": ["BAT-398", "BAT-565", "BAT-566", "BAT-567", "BAT-568", "BAT-569", "BAT-578", "BAT-579", "BAT-580", "BAT-581", "BAT-582"]
+    "blocks": [
+      "BAT-399"
+    ],
+    "relates_to": [
+      "BAT-398",
+      "BAT-565",
+      "BAT-566",
+      "BAT-567",
+      "BAT-568",
+      "BAT-569",
+      "BAT-578",
+      "BAT-579",
+      "BAT-580",
+      "BAT-581",
+      "BAT-582",
+      "BAT-620",
+      "BAT-621",
+      "BAT-622",
+      "BAT-623",
+      "BAT-624",
+      "BAT-625",
+      "BAT-626",
+      "BAT-627",
+      "BAT-628",
+      "BAT-629"
+    ]
   },
   "trigger_evidence": [
     {
@@ -44,7 +68,12 @@
   ],
   "contract": {
     "path": "configs/historical_known_at_recovery_contract.json",
-    "required_reexecution_order": ["BAT-395", "BAT-396", "BAT-397", "BAT-398"],
+    "required_reexecution_order": [
+      "BAT-395",
+      "BAT-396",
+      "BAT-397",
+      "BAT-398"
+    ],
     "fabricated_known_at_permitted": false,
     "domain_scoped_eligibility_required": true,
     "independent_work_may_continue": true
@@ -71,7 +100,20 @@
       "repository_rows": 10250,
       "accepted_cross_source_exact": 9699,
       "quarantined": 551,
-      "seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+      "seasons": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ]
     },
     "quarantine": {
       "independent_cfbd_game_not_found": 546,
@@ -113,8 +155,26 @@
       "rows_with_priors": 5514,
       "rows_source_missing": 14,
       "target_game_outcome_used_rows": 0,
-      "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
-      "target_seasons": [2023, 2024, 2025]
+      "source_seasons": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "target_seasons": [
+        2023,
+        2024,
+        2025
+      ]
     },
     "gate_disposition": "APPROVE_EXPANDED_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
     "full_historical_population_disposition": "BLOCKED_OTHER_DOMAINS_AND_COVERAGE_GATES_INCOMPLETE",
@@ -149,8 +209,29 @@
       "manifest_and_17_payloads_byte_identical": true
     },
     "population": {
-      "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
-      "absent_repository_seasons": [2011, 2020],
+      "repository_seasons": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "absent_repository_seasons": [
+        2011,
+        2020
+      ],
       "repository_rows": 2432416,
       "cross_route_exact_canonical_game_candidates": 1606094,
       "outside_current_cfbd_fbs_scope_candidates": 58586,
@@ -190,8 +271,29 @@
       "manifest_and_17_payloads_byte_identical": true
     },
     "population": {
-      "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
-      "absent_repository_seasons": [2011, 2020],
+      "repository_seasons": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "absent_repository_seasons": [
+        2011,
+        2020
+      ],
       "repository_drive_rows": 351990,
       "versioned_play_rows": 2432416,
       "versioned_play_rows_without_drive_id": 1148,
@@ -210,8 +312,14 @@
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
   },
   "validated_supplemental_play_drive_candidate": {
-    "domains": ["plays", "drives"],
-    "grains": ["PLAY", "DRIVE"],
+    "domains": [
+      "plays",
+      "drives"
+    ],
+    "grains": [
+      "PLAY",
+      "DRIVE"
+    ],
     "dataset_identity": "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
     "manifest": {
       "path": "<external-data-root>/manifests/historical_known_at/sha256/813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f/supplemental_play_drive_reconciliation.json",
@@ -230,7 +338,13 @@
       "rebuild_root_removed": true
     },
     "population": {
-      "source_seasons": [2011, 2020, 2023, 2024, 2025],
+      "source_seasons": [
+        2011,
+        2020,
+        2023,
+        2024,
+        2025
+      ],
       "captures": 88,
       "play_rows": 737580,
       "drive_rows": 100341,
@@ -238,7 +352,24 @@
       "exact_canonical_game_and_play_link_drive_candidates": 100315,
       "exact_canonical_game_drive_without_play_rows_candidates": 26,
       "quarantined_rows": 0,
-      "dense_2010_2025_candidate_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+      "dense_2010_2025_candidate_seasons": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
       "missingness": {
         "drive_result": 0,
         "drive_without_play_rows": 26,
@@ -279,7 +410,13 @@
       "rebuild_root_removed": true
     },
     "population": {
-      "source_seasons": [2013, 2014, 2015, 2016, 2017],
+      "source_seasons": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
       "source_action_only_games": 50,
       "source_action_rows": 48598,
       "non_summary_action_rows": 25400,
@@ -321,7 +458,27 @@
       "manifest_and_19_payloads_byte_identical": true
     },
     "population": {
-      "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      "repository_seasons": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
       "repository_rows": 206773,
       "cross_route_exact_canonical_membership_candidates": 154387,
       "source_level_only_candidates": 44637,
@@ -372,7 +529,11 @@
       "rebuild_root_removed": true
     },
     "population": {
-      "source_seasons": [2023, 2024, 2025],
+      "source_seasons": [
+        2023,
+        2024,
+        2025
+      ],
       "source_rows": 79832,
       "exact_source_id_name_and_canonical_membership_candidates": 46586,
       "canonical_person_membership_pending_candidates": 5214,
@@ -413,7 +574,17 @@
       "manifest_and_9_payloads_byte_identical": true
     },
     "population": {
-      "repository_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      "repository_seasons": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
       "repository_source_rows": 921136,
       "source_event_rows_represented": 1677488,
       "derived_metric_rows": 354082,
@@ -459,7 +630,17 @@
       "manifest_and_9_payloads_byte_identical": true
     },
     "population": {
-      "repository_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      "repository_seasons": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
       "repository_rows": 1426487,
       "rows_with_any_position": 915021,
       "rows_with_any_source_player_id": 921613,
@@ -505,7 +686,28 @@
       "manifest_and_20_payloads_byte_identical": true
     },
     "population": {
-      "repository_seasons": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "repository_seasons": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
       "repository_rows": 2462,
       "exact_source_id_canonical_team_candidates": 2462,
       "conference_or_division_transitions": 158,
@@ -549,7 +751,24 @@
     "gate_artifact": "artifacts/pit/historical_team_box_reconciliation_gate.json",
     "dataset_identity": "3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b",
     "manifest_sha256": "7ca71666e49787cf09bee955102192b169a36d226d3772f94958b2a7f41540d5",
-    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "source_seasons": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
     "captured_partitions": 261,
     "captured_raw_bytes": 36394032,
     "distinct_source_games": 13670,
@@ -574,7 +793,33 @@
     "dataset_identity": "8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc",
     "manifest_sha256": "fd47fe331173946912fb5a2ed262e2d06a648b14fb83db82c89176e5ee5dc62b",
     "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc/advanced_game_history_reconciliation.json",
-    "source_seasons": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "source_seasons": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
     "captured_partitions": 25,
     "captured_raw_bytes": 78113625,
     "source_rows": 42190,
@@ -687,7 +932,13 @@
     "dataset_identity": "67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb",
     "manifest_sha256": "4164a6f9ed7fbc760496f712f96e8a5646f79f86584340d842398cfff0adfad0",
     "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb/weather_previous_runs_reconciliation.json",
-    "source_seasons": [2021, 2022, 2023, 2024, 2025],
+    "source_seasons": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
     "target_games_with_kickoff_and_coordinates": 4545,
     "captured_games": 4545,
     "source_evidence_gap_games": 2,
@@ -735,7 +986,10 @@
     "source_season_max": 2025,
     "official_schedule_seasons_captured": 16,
     "seasons_with_gamebook_targets": 14,
-    "source_evidence_gap_seasons": [2010, 2011],
+    "source_evidence_gap_seasons": [
+      2010,
+      2011
+    ],
     "target_games": 177,
     "captured_games": 177,
     "technical_route_gap_games": 0,
@@ -791,11 +1045,31 @@
     "official_2010_2011_added": 26,
     "duplicates_detected": 0,
     "child_issues": [
-      {"jira_key": "BAT-578", "phase": "PHASE-1", "status": "Done"},
-      {"jira_key": "BAT-579", "phase": "PHASE-2", "status": "Done"},
-      {"jira_key": "BAT-580", "phase": "PHASE-3", "status": "Done"},
-      {"jira_key": "BAT-581", "phase": "PHASE-4", "status": "Done"},
-      {"jira_key": "BAT-582", "phase": "PHASE-5", "status": "Done"}
+      {
+        "jira_key": "BAT-578",
+        "phase": "PHASE-1",
+        "status": "Done"
+      },
+      {
+        "jira_key": "BAT-579",
+        "phase": "PHASE-2",
+        "status": "Done"
+      },
+      {
+        "jira_key": "BAT-580",
+        "phase": "PHASE-3",
+        "status": "Done"
+      },
+      {
+        "jira_key": "BAT-581",
+        "phase": "PHASE-4",
+        "status": "Done"
+      },
+      {
+        "jira_key": "BAT-582",
+        "phase": "PHASE-5",
+        "status": "Done"
+      }
     ],
     "remaining_parent_gaps": [
       "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",
@@ -896,8 +1170,16 @@
       }
     ],
     "quarantined_duplicate_attempts": [
-      {"current_batq_key": "BATQ-68", "former_bat_key": "BAT-614", "canonical_owner": "BAT-613"},
-      {"current_batq_key": "BATQ-69", "former_bat_key": "BAT-616", "canonical_owner": "BAT-615"}
+      {
+        "current_batq_key": "BATQ-68",
+        "former_bat_key": "BAT-614",
+        "canonical_owner": "BAT-613"
+      },
+      {
+        "current_batq_key": "BATQ-69",
+        "former_bat_key": "BAT-616",
+        "canonical_owner": "BAT-615"
+      }
     ],
     "remaining_parent_gaps": [
       "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",
@@ -906,6 +1188,122 @@
       "SCORING_SUMMARY_NOT_SERIALIZED",
       "UNION_PRESENT_WITHOUT_SERIALIZED_DRIVE_OR_PBP_ON_SOME_PAGES",
       "OFFICIAL_SEASONS_BEFORE_2002_NOT_IN_UNION",
+      "GAP_005_OPEN",
+      "BAT_429_BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+      "NO_PIT_OR_PROTECTED_ADMISSION"
+    ]
+  },
+  "cycle16_src014_2000_2009_progress": {
+    "status": "IN_PROGRESS_PARENT_NOT_CLOSED",
+    "cycle": 16,
+    "live_progress_comment_id": "14615",
+    "live_progress_comment_recorded_in_ledger": true,
+    "note": "Cycle #16 completed BAT-620 integrity successor, official SRC-014 2001 and 2000 index/acquisition/structured-domains/union work, and materialized the BAT-629 2000-2009 structured row corpus from the BAT-628 union. Retrieval and capture timestamps remain retrieval time only and are not historical known-at. This does not close BAT-523.",
+    "exclusions": {
+      "oklahoma_2002_unmatched_excluded": true,
+      "four_preserved_rejected_urls_excluded": true,
+      "unmatched_2000_notre_dame_texas_tech_iowa_state_excluded": true,
+      "ncaa_contest_ids_created": false,
+      "availability_established": false,
+      "protected_lane_opened": false,
+      "historical_known_at_from_retrieval_time": false,
+      "gap_drive_or_pbp_rows_invented": false
+    },
+    "child_issues": [
+      {
+        "jira_key": "BAT-620",
+        "local_issue_id": "POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001",
+        "status": "Done",
+        "dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+        "gate_identity": "c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4",
+        "games": 93,
+        "serialized_rows_total": 43233
+      },
+      {
+        "jira_key": "BAT-621",
+        "local_issue_id": "POST-TASK-SRC014-2001-OFFICIAL-INDEX-001",
+        "status": "Done",
+        "gate_identity": "24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094",
+        "payload_identity": "e04f7d3e3700729d63d805be95e934aa211f9233e2c69d234b95691d63a8ab6a"
+      },
+      {
+        "jira_key": "BAT-622",
+        "local_issue_id": "POST-TASK-SRC014-2001-OFFICIAL-ACQUISITION-001",
+        "status": "Done",
+        "gate_identity": "127bea505729cece69c778255c9090486bb31ad66a014d382df134f027fcef8f",
+        "dataset_identity": "289352b9ddee68d2a137542fbb622dffc76340fb33eb0693a794eb60030e194e"
+      },
+      {
+        "jira_key": "BAT-623",
+        "local_issue_id": "POST-TASK-SRC014-2001-STRUCTURED-DOMAINS-001",
+        "status": "Done",
+        "gate_identity": "efbd7b1e0d52b99d49066878cd45e9b7768a9288f8ed2fe94891cb402b02a666",
+        "payload_identity": "b26370bb6e369a9f0106407461fd647bae7d5a39ef9a5229b6d1283977b857c6"
+      },
+      {
+        "jira_key": "BAT-624",
+        "local_issue_id": "POST-TASK-SRC014-2001-EXPANDED-ENRICHED-UNION-001",
+        "status": "Done",
+        "gate_identity": "6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710",
+        "union_identity": "cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8"
+      },
+      {
+        "jira_key": "BAT-625",
+        "local_issue_id": "POST-TASK-SRC014-2000-OFFICIAL-INDEX-001",
+        "status": "Done",
+        "gate_identity": "38cf419510306d17c203a660051f96da9e186e275833bb763a517cf735b07546",
+        "payload_identity": "37257a291547283225fac0f9771607557a789d65f40d64ba7b2fefecfbb0a616"
+      },
+      {
+        "jira_key": "BAT-626",
+        "local_issue_id": "POST-TASK-SRC014-2000-OFFICIAL-ACQUISITION-001",
+        "status": "Done",
+        "gate_identity": "3f7dbc60a7d21359637d04597629a982180d7f97e4d479ad92134567ceec9f8a",
+        "dataset_identity": "5d37f54a95c6c3846aa392e2efc860bf2e3aeb6e1b3d02fee3d698c4473b733c"
+      },
+      {
+        "jira_key": "BAT-627",
+        "local_issue_id": "POST-TASK-SRC014-2000-STRUCTURED-DOMAINS-001",
+        "status": "Done",
+        "gate_identity": "cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268",
+        "payload_identity": "6a806655c2bf1ce33200bdd52e77d7f0423a97306d0042edf9384851dc1d8e06"
+      },
+      {
+        "jira_key": "BAT-628",
+        "local_issue_id": "POST-TASK-SRC014-2000-EXPANDED-ENRICHED-UNION-001",
+        "status": "Done",
+        "gate_identity": "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2",
+        "union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35"
+      },
+      {
+        "jira_key": "BAT-629",
+        "local_issue_id": "POST-TASK-SRC014-2000-2009-STRUCTURED-ROW-CORPUS-001",
+        "status": "Done",
+        "dataset_identity": "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420",
+        "gate_identity": "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78",
+        "manifest_file_sha256": "555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0",
+        "games": 114,
+        "serialized_rows_total": 54406,
+        "scoring_summary_rows": 2082
+      }
+    ],
+    "quarantined_duplicate_attempts": [
+      {
+        "current_batq_key": "BATQ-68",
+        "former_bat_key": "BAT-614",
+        "canonical_owner": "BAT-613"
+      },
+      {
+        "current_batq_key": "BATQ-69",
+        "former_bat_key": "BAT-616",
+        "canonical_owner": "BAT-615"
+      }
+    ],
+    "remaining_parent_gaps": [
+      "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",
+      "NCAA_CONTEST_ROUTE_STILL_BLOCKED",
+      "PREGAME_AVAILABILITY_NOT_ESTABLISHED",
+      "UNION_PRESENT_WITHOUT_SERIALIZED_DRIVE_OR_PBP_ON_TWO_GAP_PAGES",
       "GAP_005_OPEN",
       "BAT_429_BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
       "NO_PIT_OR_PROTECTED_ADMISSION"
@@ -1029,7 +1427,9 @@
       "accepted_games": 910,
       "team_observations": 1820,
       "quarantine_rows": 0,
-      "seasons": [2023],
+      "seasons": [
+        2023
+      ],
       "ncaa_agreements": 313,
       "ncaa_missing_official_linescore": 462,
       "ncaa_no_comparison_row": 135
@@ -1063,7 +1463,9 @@
       "label_rows": 1820,
       "games": 910,
       "unique_games": 910,
-      "seasons": [2023]
+      "seasons": [
+        2023
+      ]
     },
     "development_metrics_only": true,
     "play_drive_incremental_brier_delta": 0.004625118047243665,
@@ -1113,7 +1515,9 @@
       "team_rows": 1820,
       "unique_games": 910,
       "fold_count": 16,
-      "seasons": [2023]
+      "seasons": [
+        2023
+      ]
     },
     "predeclared_candidate_count": 4,
     "any_candidate_improved_brier_vs_prior_only": false,

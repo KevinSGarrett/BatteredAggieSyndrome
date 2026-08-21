@@ -850,7 +850,18 @@ def validate_artifact(
         raise AuthorityViolation("participation promoted to availability")
     if authority.get("name_only_player_merge"):
         raise AuthorityViolation("name-only player merge")
+    if committed.get("gate_identity") != compute_gate_identity(committed):
+        raise AuthorityViolation("gate identity does not independently recompute")
     dataset_identity = str(committed.get("dataset_identity") or "")
+    ready = lake_is_ready(data_root, repo_root)
+    if require_rebuild and not ready and corpus_root is None:
+        raise AuthorityViolation("external row-corpus reconstruction was required but the data root is not mounted")
+    if not ready and corpus_root is None:
+        return {
+            "dataset_identity": dataset_identity,
+            "external_reconstruction": "NOT_MOUNTED",
+            "gate": committed,
+        }
     root = corpus_root if corpus_root is not None else corpus_dir(data_root, dataset_identity)
     manifest_path = root / MANIFEST_NAME
     if not manifest_path.is_file():
@@ -873,8 +884,6 @@ def validate_artifact(
         validate_bound_rows(children[domain], union_urls, union_shas)
     if children["scoring_summary"]:
         raise AuthorityViolation("scoring/summary rows were invented")
-    if committed.get("gate_identity") != compute_gate_identity(committed):
-        raise AuthorityViolation("gate identity does not independently recompute")
     if PINNED_MANIFEST_FILE_SHA256:
         actual_manifest_sha = sha256_file(manifest_path)
         if actual_manifest_sha != PINNED_MANIFEST_FILE_SHA256 and corpus_root is None:

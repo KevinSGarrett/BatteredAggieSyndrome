@@ -81,6 +81,20 @@ class Official20022009RowCorpusUnitTests(unittest.TestCase):
     def test_selected_seasons_are_2002_through_2009(self) -> None:
         self.assertEqual(tuple(SELECTED_SEASONS), tuple(range(2002, 2010)))
 
+    def test_unmounted_data_root_validates_compact_gate_only(self) -> None:
+        path = REPO_ROOT / GATE_RELATIVE
+        if not path.is_file():
+            self.skipTest("2002-2009 structured row-corpus gate not materialized yet")
+        empty = Path(tempfile.mkdtemp(prefix="bat619-empty-"))
+        result = validate_artifact(
+            repo_root=REPO_ROOT,
+            data_root=empty,
+            require_rebuild=False,
+        )
+        self.assertEqual(result["external_reconstruction"], "NOT_MOUNTED")
+        with self.assertRaisesRegex(AuthorityViolation, "data root is not mounted"):
+            validate_artifact(repo_root=REPO_ROOT, data_root=empty, require_rebuild=True)
+
 
 @unittest.skipUnless(LAKE_READY, "mounted 2002-2009 structured payloads and BAT-618 union are required")
 class Official20022009RowCorpusMaterialTests(unittest.TestCase):

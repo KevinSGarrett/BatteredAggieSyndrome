@@ -1,0 +1,236 @@
+{
+  "acquisition_identity": "26865dfd41b05af43883c5f27236cfb7bf62f25fe8f894d6ffde6dd9ad7b55eb",
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_599": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_600": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_604": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_605": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_610": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_613": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_615": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_621": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "normalization_admission": "CANDIDATE_ONLY",
+    "player_identity": "SOURCE_PLAYER_CANDIDATE",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "rights_disposition": "DERIVED_ONLY_OR_REVIEW_PRIVATE_RESEARCH",
+    "same_game_pregame_features": "BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED",
+    "wmt_payload": "PRESERVED_IMMUTABLE"
+  },
+  "artifact_type": "TAMU_OFFICIAL_2001_BOXSCORE_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_2001_BOXSCORE_CANDIDATE_ONLY",
+  "contract_id": "BAT-622-TAMU-OFFICIAL-2001-BOXSCORES-V1",
+  "counts": {
+    "acquired_responses": 12,
+    "ambiguous_pages": 0,
+    "blocked_or_partial_pages": 0,
+    "captured_pages_total": 12,
+    "date_conflicts": 0,
+    "expected_box_urls": 12,
+    "failures": 0,
+    "games_admitted_to_union": 0,
+    "matched_strong_tuple": 12,
+    "metadata_only_games": 12,
+    "name_only_insufficient": 0,
+    "ncaa_contest_ids_created": 0,
+    "normalized_games": 12,
+    "normalized_games_2001": 12,
+    "participation_candidates": 562,
+    "player_stat_candidates": 0,
+    "pregame_availability_present": 0,
+    "rejected_responses": 0,
+    "rich_structured_games": 0,
+    "scoring_summary_present_games": 12,
+    "season_header_conflicts": 0,
+    "target_games_2001": 12,
+    "target_games_total": 12,
+    "unmatched_strong_tuple": 0,
+    "verified_official_pages": 12
+  },
+  "dataset_identity": "289352b9ddee68d2a137542fbb622dffc76340fb33eb0693a794eb60030e194e",
+  "decision_unit": "POST-TASK-SRC014-2001-OFFICIAL-ACQUISITION-001",
+  "disposition": "NORMALIZED_CANDIDATE_ONLY_NO_UNION_MUTATION",
+  "domain_coverage": {
+    "attendance": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "drives": {
+      "absent_games": 12,
+      "present_games": 0
+    },
+    "duration": {
+      "absent_games": 1,
+      "present_games": 11
+    },
+    "end_time": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "game_identity_metadata": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "individual_player_statistics": {
+      "absent_games": 12,
+      "present_games": 0
+    },
+    "kickoff_time": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "officials": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "participation": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "penalties": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "play_by_play": {
+      "absent_games": 12,
+      "present_games": 0
+    },
+    "played_date": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "quarter_scoring": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "scores": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "scoring_summary": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "season": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "site_venue": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "starters": {
+      "absent_games": 3,
+      "present_games": 9
+    },
+    "team_statistics": {
+      "absent_games": 12,
+      "present_games": 0
+    },
+    "teams": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "turnovers": {
+      "absent_games": 0,
+      "present_games": 12
+    },
+    "weather": {
+      "absent_games": 0,
+      "present_games": 12
+    }
+  },
+  "games_identity": "baeffdc0fe09fa0d90438ceaf797515a02d683a9bc81bada702e7128b274d55b",
+  "gate_identity": "127bea505729cece69c778255c9090486bb31ad66a014d382df134f027fcef8f",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-622",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_2001_BOXSCORES_NORMALIZED",
+  "schema_version": "aggie.data.tamu_official_2001_boxscores.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    2001
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat586_gate_identity": "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006",
+    "bat589_gate_identity": "f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51",
+    "bat594_box_url_identity": "57ee217fa34eeb041681ad9552933c4da505ab448ab43cac95bbf73ad6b4bf07",
+    "bat594_capture_identity": "c4a13a9b96b6b885732b32e7a9d2dc95321c89b604a3b90d69e342316c240aa2",
+    "bat594_gate_identity": "d1f765a73abf0107fcf200562590bfd0212a521df47f9c6b27bb336ad737635c",
+    "bat595_gate_identity": "2a9c56a10b14cf5fec4dff1c3cd55d0b4440afdb9520fb308317a9ae59c47ed7",
+    "bat599_box_url_identity": "7564d90c3ada13353b8242fd8891642778abd99c32e1f31fa8f2c389a495544d",
+    "bat599_capture_identity": "18d1e502de0032bc4c0e1e3d36aed0c3814c4612e68201dcf7675ca5c39c899a",
+    "bat599_gate_identity": "17868efadbc5cc6ec04869d194b8b8a205089c3050b069eec3e5ba9c1d25c301",
+    "bat599_payload_identity": "71b57040514f4d61f89809fc7bd15270b993ddcd4728ba981c6f1cbdfac015cb",
+    "bat600_gate_identity": "c999af29522096e4ae3a9cdc558679321095c8cf11247ef1ccd23b3114ee18cc",
+    "bat604_box_url_identity": "9bda3096e9715f574d235b9e2bf96c84e52784695dd3cfea35943f2663a01e84",
+    "bat604_capture_identity": "5a0d8d549c98405a22f891421df7b4513a81132572695da7bdfeb11234f48830",
+    "bat604_gate_identity": "3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836",
+    "bat604_payload_identity": "65b6c83d9946eadc3db5fede73bed7e64b620406ca5655ad93d75346dcbe6422",
+    "bat605_gate_identity": "c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70",
+    "bat610_gate_identity": "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13",
+    "bat613_box_url_identity": "15ed208e59794975b1e28fd0ce9b3c8cda731d5438aedca3fb49328586cd74ac",
+    "bat613_capture_identity": "e9c3d170873a4b1d5cd26fa9e2a4a179d6346444cfba71cfaf40cdf48358222a",
+    "bat613_gate_identity": "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a",
+    "bat613_payload_identity": "71e518cabe070defa9f5a4551f22d97434a4ff1a9ba13c00159f37cbb3f6d46a",
+    "bat615_gate_identity": "d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e",
+    "bat621_box_url_identity": "49c561fd8e27abd0e2f1283013cb748e34f7cafe5ed4d91a25a43e9335b07fc9",
+    "bat621_capture_identity": "aa583efac1716168ac9153c0a56a37df48fa1faf75f9b318c86cd4716a4b7efa",
+    "bat621_gate_identity": "24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094",
+    "bat621_payload_identity": "e04f7d3e3700729d63d805be95e934aa211f9233e2c69d234b95691d63a8ab6a",
+    "cycle9_boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",
+    "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+    "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
+  },
+  "validator_code_identity": "e192137de1da0a711f895e84234ca5a618086650e069ee380088da32800ebbf9"
+}

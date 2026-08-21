@@ -1,0 +1,60 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_613_2002_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_615_2002_boxscores": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_621_2001_index": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "comment_ids": {
+    "claimed_in_progress": "14591"
+  },
+  "current_identities": {
+    "acquisition_identity": "26865dfd41b05af43883c5f27236cfb7bf62f25fe8f894d6ffde6dd9ad7b55eb",
+    "dataset_identity": "289352b9ddee68d2a137542fbb622dffc76340fb33eb0693a794eb60030e194e",
+    "game_row_identity": "baeffdc0fe09fa0d90438ceaf797515a02d683a9bc81bada702e7128b274d55b",
+    "gate_identity": "127bea505729cece69c778255c9090486bb31ad66a014d382df134f027fcef8f",
+    "validator_code_identity": "e192137de1da0a711f895e84234ca5a618086650e069ee380088da32800ebbf9"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "Local and live Jira, GitHub issues/PRs, and existing contracts were searched for an owner of official SRC-014 2001 box-score acquisition. BAT-621 owns only the 2001 index. BAT-615 owns only 2002 acquisition. BAT-613 owns only the 2002 index. NEW_ISSUE_DECISION=CREATE as BAT-622.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-613",
+      "BAT-615",
+      "BAT-617",
+      "BAT-618",
+      "BAT-619",
+      "BAT-620",
+      "BAT-621",
+      "BATQ-68",
+      "BATQ-69"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "PARTIAL",
+  "implementation_sha": null,
+  "issue_complete": false,
+  "jira_key": "BAT-622",
+  "local_issue_id": "POST-TASK-SRC014-2001-OFFICIAL-ACQUISITION-001",
+  "material_pr": null,
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently reconstructed BAT-621 and acquired only those official 2001 box URLs. 12/12 HTTP 200, 12 normalized, 0 rich, 12 metadata-only, 12 scoring-summary present, 12 strong-tuple matches, 0 unmatched. TCU gallery URL mfb_1899_gallery.html matched as TCU on 2001-12-28. Oklahoma 2001 matched; the 2002 Oklahoma site-text conflict is not this season. Gate identity 127bea505729cece69c778255c9090486bb31ad66a014d382df134f027fcef8f. Validator code-bundle identity e192137de1da0a711f895e84234ca5a618086650e069ee380088da32800ebbf9. NCAA IDs created 0. Union admissions 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY. Pregame availability remains blocked. BAT-429 stays To Do. BAT-523 stays In Progress. Protected lane stays blocked. BAT-615 and BAT-621 were not rewritten.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

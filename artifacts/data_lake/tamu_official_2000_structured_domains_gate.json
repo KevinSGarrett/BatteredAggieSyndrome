@@ -1,0 +1,436 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_591_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_596_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_601_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_604_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_605_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_606_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_609_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_610_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_611_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_612_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_613_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_615_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_617_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_621_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_622_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_623_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_625_payload": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "bat_626_payload": "CONSUMED_CAPTURES_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "html_table_classifier": "PINNED_NOT_MUTATED",
+    "name_only_player_merge": "REJECTED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "participation_as_availability": "REJECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "artifact_type": "TAMU_OFFICIAL_2000_STRUCTURED_DOMAINS_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_2000_STRUCTURED_DOMAIN_CANDIDATE_ONLY",
+  "contract_id": "BAT-627-TAMU-OFFICIAL-2000-STRUCTURED-DOMAINS-V1",
+  "counts": {
+    "ambiguous_boundary_games": 1,
+    "availability_claims": 0,
+    "drives_absent_games": 1,
+    "drives_present_games": 11,
+    "drives_serialized_rows": 294,
+    "games_2000": 12,
+    "games_admitted_to_union": 0,
+    "html_play_by_play_present_pages": 0,
+    "html_tables_classified_pages": 0,
+    "individual_player_statistics_absent_games": 0,
+    "individual_player_statistics_present_games": 12,
+    "individual_player_statistics_serialized_rows": 342,
+    "metadata_only_games": 0,
+    "name_only_player_merges": 0,
+    "ncaa_contest_ids_created": 0,
+    "parsed_games": 12,
+    "play_by_play_absent_games": 0,
+    "play_by_play_present_games": 12,
+    "play_by_play_serialized_rows": 4329,
+    "pregame_availability_present": 0,
+    "rich_structured_games": 12,
+    "scoring_summary_absent_games": 0,
+    "scoring_summary_present_games": 12,
+    "scoring_summary_serialized_rows": 202,
+    "serialized_rows_total": 5479,
+    "target_games_total": 12,
+    "team_statistics_absent_games": 0,
+    "team_statistics_present_games": 12,
+    "team_statistics_serialized_rows": 312
+  },
+  "decision_unit": "POST-TASK-SRC014-2000-STRUCTURED-DOMAINS-001",
+  "disposition": "NEW_ENRICHED_PAYLOAD_PRIOR_IDENTITIES_PRESERVED",
+  "games": [
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 23,
+        "individual_player_statistics": 25,
+        "play_by_play": 320,
+        "scoring_summary": 12,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "e91c31f506538a05523bc6f3a7275a9d539c6a4c47ba2324b13793fde9de59a4",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_426_nd.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 40,
+        "play_by_play": 372,
+        "scoring_summary": 18,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "e84a9b9fc79b83ac3aab02e1149357554462b00817c7422579858d8806907efb",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_427_wyo.html",
+      "warnings": [
+        "drive_chart_labeled_without_reconstructible_rows"
+      ]
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 24,
+        "individual_player_statistics": 28,
+        "play_by_play": 371,
+        "scoring_summary": 20,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "4f1a18358f7035b37807dbd474009a0b49805fc8f0457c03f9de9d63a7f315eb",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_428_utep.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 29,
+        "individual_player_statistics": 34,
+        "play_by_play": 359,
+        "scoring_summary": 16,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "267fa450aec189f7cc1dcda3b7a69f7e62482f982b26ab58394085f70d6394d0",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_429_tech.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 24,
+        "individual_player_statistics": 29,
+        "play_by_play": 368,
+        "scoring_summary": 18,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "3c6dd7aaf14305971fe56e19d9d8300ebbca20084f39b8fd0fcf07cc8fd26837",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_430_buffs.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 29,
+        "individual_player_statistics": 33,
+        "play_by_play": 370,
+        "scoring_summary": 8,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "c571293357b958b438cb58e177072844f20d20682e43c1402e33d1c4987084f2",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_431_bu.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 29,
+        "individual_player_statistics": 29,
+        "play_by_play": 353,
+        "scoring_summary": 14,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "6d041e3ca31f37f6fa8d47bf63416fe52baebbf9a51a825f62ec900180009a79",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_432_isu.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 24,
+        "individual_player_statistics": 21,
+        "play_by_play": 343,
+        "scoring_summary": 14,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "e85e237589e94d7f9e582ca4c5e04c2c57ab2e621d16ea8ffb3ee78c11637229",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_433_kstate.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 25,
+        "individual_player_statistics": 31,
+        "play_by_play": 343,
+        "scoring_summary": 12,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "350672f1293069e78000dc9762ffe593aac1918185e55af4c0b749c2b9f5b8e8",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_434_osu.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 31,
+        "individual_player_statistics": 26,
+        "play_by_play": 376,
+        "scoring_summary": 22,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "cea6db238430048080151ce53a522b0b5782b0054d56395d63236523149a712a",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_435_ou.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 27,
+        "individual_player_statistics": 25,
+        "play_by_play": 370,
+        "scoring_summary": 22,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "395221d5a10abfa8d5bd5a1dd45f5d417f6aec405732ce895342af9a646e0d26",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_436_texas.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "rich_structured": true,
+      "row_counts": {
+        "drives": 29,
+        "individual_player_statistics": 21,
+        "play_by_play": 384,
+        "scoring_summary": 26,
+        "team_statistics": 26
+      },
+      "source_season": 2000,
+      "source_sha256": "7f1e7b38d1f07760ea7fd3d7eae6ee0634125de78208857d0396d98d12933809",
+      "url": "https://files.12thman.com/history/football/stats/2000-2001/mfb_1898_indep.html",
+      "warnings": []
+    }
+  ],
+  "gate_identity": "cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-627",
+  "payload_identity": "6a806655c2bf1ce33200bdd52e77d7f0423a97306d0042edf9384851dc1d8e06",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_2000_STRUCTURED_DOMAINS_PARSED",
+  "schema_version": "aggie.data.tamu_official_2000_structured_domains.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    2000
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat591_gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+    "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+    "bat596_gate_identity": "57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4",
+    "bat596_payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
+    "bat601_gate_identity": "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d",
+    "bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
+    "bat604_gate_identity": "3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836",
+    "bat605_gate_identity": "c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70",
+    "bat606_gate_identity": "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6",
+    "bat606_payload_identity": "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0",
+    "bat609_gate_identity": "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e",
+    "bat610_gate_identity": "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13",
+    "bat611_gate_identity": "758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9",
+    "bat611_payload_identity": "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8",
+    "bat612_gate_identity": "50e92663d6dbfd8c6770746c99c857cc9db2f1761714e5124a8334eff384f99f",
+    "bat612_union_identity": "22ab52efad425074ddab75593c882ca7d1fb0fab6e99df160af1681cfc26f5aa",
+    "bat613_box_url_identity": "15ed208e59794975b1e28fd0ce9b3c8cda731d5438aedca3fb49328586cd74ac",
+    "bat613_capture_identity": "e9c3d170873a4b1d5cd26fa9e2a4a179d6346444cfba71cfaf40cdf48358222a",
+    "bat613_gate_identity": "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a",
+    "bat613_payload_identity": "71e518cabe070defa9f5a4551f22d97434a4ff1a9ba13c00159f37cbb3f6d46a",
+    "bat615_acquisition_identity": "c62b407583647b88e884ef59e90c5644cf64a63d077e4d128f7f3405611eb4b3",
+    "bat615_dataset_identity": "331c64a2855fb6936755e32e71c693985b37da708d526cc980d09192afac5c1a",
+    "bat615_games_identity": "69d969340bfc88fe89e02949f18c9cdd046b066bc702cc3fac6587eb0745cd83",
+    "bat615_gate_identity": "d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e",
+    "bat617_gate_identity": "d6eca244760bba8963130e070d9ac707cb36af7e715b53e2c3bc60a5bbbed014",
+    "bat617_payload_identity": "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2",
+    "bat621_box_url_identity": "49c561fd8e27abd0e2f1283013cb748e34f7cafe5ed4d91a25a43e9335b07fc9",
+    "bat621_capture_identity": "aa583efac1716168ac9153c0a56a37df48fa1faf75f9b318c86cd4716a4b7efa",
+    "bat621_gate_identity": "24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094",
+    "bat621_payload_identity": "e04f7d3e3700729d63d805be95e934aa211f9233e2c69d234b95691d63a8ab6a",
+    "bat622_acquisition_identity": "26865dfd41b05af43883c5f27236cfb7bf62f25fe8f894d6ffde6dd9ad7b55eb",
+    "bat622_dataset_identity": "289352b9ddee68d2a137542fbb622dffc76340fb33eb0693a794eb60030e194e",
+    "bat622_games_identity": "baeffdc0fe09fa0d90438ceaf797515a02d683a9bc81bada702e7128b274d55b",
+    "bat622_gate_identity": "127bea505729cece69c778255c9090486bb31ad66a014d382df134f027fcef8f",
+    "bat623_gate_identity": "efbd7b1e0d52b99d49066878cd45e9b7768a9288f8ed2fe94891cb402b02a666",
+    "bat623_payload_identity": "b26370bb6e369a9f0106407461fd647bae7d5a39ef9a5229b6d1283977b857c6",
+    "bat625_box_url_identity": "bf18094298462f7aa06ab63aec47aee89f10797c6fc16d4d3d968c63474aaddc",
+    "bat625_capture_identity": "9a8066e8877b24490d1911c7d01452ae121b11f08e889e2431f76eb65a942cd9",
+    "bat625_gate_identity": "38cf419510306d17c203a660051f96da9e186e275833bb763a517cf735b07546",
+    "bat625_payload_identity": "37257a291547283225fac0f9771607557a789d65f40d64ba7b2fefecfbb0a616",
+    "bat626_acquisition_identity": "3a8092ce4c2fbf5ffc4b7af572f9a6ba8cdc360dec2cb538d55dbf7b3ed5f926",
+    "bat626_dataset_identity": "5d37f54a95c6c3846aa392e2efc860bf2e3aeb6e1b3d02fee3d698c4473b733c",
+    "bat626_games_identity": "e997834aaa8f32685f933e8a1e682cb86b57911405dafad84b5447221aaedf22",
+    "bat626_gate_identity": "3f7dbc60a7d21359637d04597629a982180d7f97e4d479ad92134567ceec9f8a",
+    "html_table_classifier_identity": "tamu.official.html.table.classifier.v1",
+    "inventory_gate_identity": "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
+  },
+  "validator_code_identity": "3d52296b41bc1da35a1d3dbc10eee02790f81a410df087316555d30682bd14fe"
+}

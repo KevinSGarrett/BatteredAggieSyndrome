@@ -274,6 +274,8 @@ artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-001.j
 artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001.json
 artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-SEASON-RECONCILIATION-001.json
 artifacts/jira_evidence/POST-TASK-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-001.json
+artifacts/jira_evidence/immutable/sha256/3987396107d211b995513a386a6c011989c211f456bd1edae10e37b9d7401638/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
+artifacts/jira_evidence/immutable/sha256/c1e60522f83f8244aba95b7acd05698f95b7e1fb3dbe48b8f378eb549ec89c5a/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
 artifacts/open_source/repository_review_decisions.csv

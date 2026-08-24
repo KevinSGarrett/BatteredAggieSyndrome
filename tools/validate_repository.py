@@ -2617,6 +2617,77 @@ def main() -> int:
                         )()
                     )
 
+        # Cycle 17's last two data artifacts are deliberately included in the
+        # strict path.  A compact gate and an independently rehashed evidence
+        # packet are not sufficient evidence of a reconstruction on their own.
+        for strict_artifact in (
+            {
+                "kind": "tamu_official_gamebook_union_1998_expanded",
+                "gate": "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json",
+                "module": "src/aggie_analytics/data/tamu_official_gamebook_union_1998_expanded.py",
+                "readiness": "upstream_is_ready",
+            },
+            {
+                "kind": "tamu_official_1998_2009_structured_row_corpus",
+                "gate": "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json",
+                "module": "src/aggie_analytics/data/tamu_official_1998_2009_structured_row_corpus.py",
+                # GitHub runners intentionally do not mount the external
+                # predecessor corpus.  The committed compact gate still goes
+                # through artifact binding in every strict run; full payload
+                # reconstruction remains mandatory whenever this manifest is
+                # mounted (as it is for release validation).
+                "readiness": "external_predecessor_manifest",
+            },
+        ):
+            gate_path = root / strict_artifact["gate"]
+            module_path = root / strict_artifact["module"]
+            if not gate_path.is_file() or not module_path.is_file():
+                continue
+            spec = importlib.util.spec_from_file_location(
+                f"aggie_analytics_{strict_artifact['kind']}_strict",
+                module_path,
+            )
+            if spec is None or spec.loader is None:
+                findings.append(
+                    type("F", (), {
+                        "kind": strict_artifact["kind"],
+                        "path": str(strict_artifact["module"]),
+                        "detail": "unable to load Cycle 17 validator",
+                    })()
+                )
+                continue
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            data_root = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\\BatteredAggieSyndrome.data"))
+            try:
+                readiness = strict_artifact["readiness"]
+                if readiness == "external_predecessor_manifest":
+                    predecessor_manifest = (
+                        data_root
+                        / "features/tamu_official_2000_2009_structured_row_corpus/sha256"
+                        / "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420"
+                        / "corpus_manifest.json"
+                    )
+                    if not predecessor_manifest.is_file():
+                        continue
+                    module.validate_artifact(data_root=data_root, repo_root=root)
+                elif readiness:
+                    module.validate_artifact(
+                        data_root=data_root,
+                        repo_root=root,
+                        require_rebuild=getattr(module, readiness)(data_root, root),
+                    )
+                else:
+                    module.validate_artifact(data_root=data_root, repo_root=root)
+            except (module.AuthorityViolation, FileNotFoundError, OSError, ValueError) as exc:
+                findings.append(
+                    type("F", (), {
+                        "kind": strict_artifact["kind"],
+                        "path": str(strict_artifact["gate"]),
+                        "detail": str(exc),
+                    })()
+                )
+
     if findings:
         print(f"FAIL: {len(findings)} finding(s)")
         for finding in findings:

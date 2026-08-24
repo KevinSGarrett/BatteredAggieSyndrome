@@ -2099,23 +2099,84 @@
         "authority.ncaa_contest_identity",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
-      "evidence_surfaces": [{
-        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-OFFICIAL-INDEX-001.json",
-        "role": "current",
-        "jira_key_path": "jira_key",
-        "local_issue_id_path": "local_issue_id",
-        "current_identity_paths": ["current_identities.gate_identity"],
-        "narrative_paths": ["observable_outcome"],
-        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
-        "superseded_identity_paths": [],
-        "lane_decision_paths": ["admissions.protected_lane"],
-        "forbidden_true_paths": [
-          "protected_nonclaims.protected_lane_opened",
-          "protected_nonclaims.champion_or_production_promotion",
-          "protected_nonclaims.historical_known_at_established"
-        ]
-      }]
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-OFFICIAL-INDEX-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            },
+            {
+              "canonical_path": "authority.availability_claim",
+              "evidence_path": "availability_authority_claim"
+            }
+          ],
+          "required_evidence_equal": {
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
     },
     {
       "binding_id": "BAT-631-OFFICIAL-1999-BOXSCORES",
@@ -2136,23 +2197,88 @@
         "authority.ncaa_contest_identity",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
-      "evidence_surfaces": [{
-        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001.json",
-        "role": "current",
-        "jira_key_path": "jira_key",
-        "local_issue_id_path": "local_issue_id",
-        "current_identity_paths": ["current_identities.gate_identity"],
-        "narrative_paths": ["observable_outcome"],
-        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
-        "superseded_identity_paths": [],
-        "lane_decision_paths": ["admissions.protected_lane"],
-        "forbidden_true_paths": [
-          "protected_nonclaims.protected_lane_opened",
-          "protected_nonclaims.champion_or_production_promotion",
-          "protected_nonclaims.historical_known_at_established"
-        ]
-      }]
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "dataset_identity",
+              "evidence_path": "current_identities.dataset_identity"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            },
+            {
+              "canonical_path": "authority.availability_claim",
+              "evidence_path": "availability_authority_claim"
+            }
+          ],
+          "required_evidence_equal": {
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
     },
     {
       "binding_id": "BAT-632-OFFICIAL-1999-STRUCTURED-DOMAINS",
@@ -2174,23 +2300,84 @@
         "authority.participation_as_availability",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
-      "evidence_surfaces": [{
-        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001.json",
-        "role": "current",
-        "jira_key_path": "jira_key",
-        "local_issue_id_path": "local_issue_id",
-        "current_identity_paths": ["current_identities.gate_identity"],
-        "narrative_paths": ["observable_outcome"],
-        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
-        "superseded_identity_paths": [],
-        "lane_decision_paths": ["admissions.protected_lane"],
-        "forbidden_true_paths": [
-          "protected_nonclaims.protected_lane_opened",
-          "protected_nonclaims.champion_or_production_promotion",
-          "protected_nonclaims.historical_known_at_established"
-        ]
-      }]
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            },
+            {
+              "canonical_path": "authority.availability_claim",
+              "evidence_path": "availability_authority_claim"
+            }
+          ],
+          "required_evidence_equal": {
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
     },
     {
       "binding_id": "BAT-633-OFFICIAL-1999-EXPANDED-UNION",
@@ -2212,23 +2399,88 @@
         "scientific_nonclaims.ncaa_contest_ids_invented",
         "scientific_nonclaims.participation_used_as_availability"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
-      "evidence_surfaces": [{
-        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001.json",
-        "role": "current",
-        "jira_key_path": "jira_key",
-        "local_issue_id_path": "local_issue_id",
-        "current_identity_paths": ["current_identities.gate_identity"],
-        "narrative_paths": ["observable_outcome"],
-        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
-        "superseded_identity_paths": [],
-        "lane_decision_paths": ["admissions.protected_lane"],
-        "forbidden_true_paths": [
-          "protected_nonclaims.protected_lane_opened",
-          "protected_nonclaims.champion_or_production_promotion",
-          "protected_nonclaims.historical_known_at_established"
-        ]
-      }]
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "union_identity",
+              "evidence_path": "current_identities.union_identity"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            },
+            {
+              "canonical_path": "authority.availability_claim",
+              "evidence_path": "availability_authority_claim"
+            }
+          ],
+          "required_evidence_equal": {
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
     },
     {
       "binding_id": "BAT-634-OFFICIAL-1998-SEASON-INDEX",
@@ -2253,23 +2505,84 @@
         "scientific_nonclaims.historical_known_at_established",
         "scientific_nonclaims.pregame_availability_admitted"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
-      "evidence_surfaces": [{
-        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-OFFICIAL-INDEX-001.json",
-        "role": "current",
-        "jira_key_path": "jira_key",
-        "local_issue_id_path": "local_issue_id",
-        "current_identity_paths": ["current_identities.gate_identity"],
-        "narrative_paths": ["observable_outcome"],
-        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
-        "superseded_identity_paths": [],
-        "lane_decision_paths": ["admissions.protected_lane"],
-        "forbidden_true_paths": [
-          "protected_nonclaims.protected_lane_opened",
-          "protected_nonclaims.champion_or_production_promotion",
-          "protected_nonclaims.historical_known_at_established"
-        ]
-      }]
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-OFFICIAL-INDEX-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            },
+            {
+              "canonical_path": "authority.availability_claim",
+              "evidence_path": "availability_authority_claim"
+            }
+          ],
+          "required_evidence_equal": {
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
     },
     {
       "binding_id": "BAT-635-OFFICIAL-1998-BOXSCORES-PARTIAL",
@@ -2294,23 +2607,88 @@
         "scientific_nonclaims.historical_known_at_established",
         "scientific_nonclaims.pregame_availability_admitted"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
-      "evidence_surfaces": [{
-        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json",
-        "role": "current",
-        "jira_key_path": "jira_key",
-        "local_issue_id_path": "local_issue_id",
-        "current_identity_paths": ["current_identities.gate_identity"],
-        "narrative_paths": ["observable_outcome"],
-        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
-        "superseded_identity_paths": [],
-        "lane_decision_paths": ["admissions.protected_lane"],
-        "forbidden_true_paths": [
-          "protected_nonclaims.protected_lane_opened",
-          "protected_nonclaims.champion_or_production_promotion",
-          "protected_nonclaims.historical_known_at_established"
-        ]
-      }]
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "dataset_identity",
+              "evidence_path": "current_identities.dataset_identity"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            },
+            {
+              "canonical_path": "authority.availability_claim",
+              "evidence_path": "availability_authority_claim"
+            }
+          ],
+          "required_evidence_equal": {
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
     },
     {
       "binding_id": "BAT-636-OFFICIAL-1998-STRUCTURED-DOMAINS",
@@ -2335,24 +2713,292 @@
         "scientific_nonclaims.historical_known_at_established",
         "scientific_nonclaims.pregame_availability_admitted"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
-      "evidence_surfaces": [{
-        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001.json",
-        "role": "current",
-        "jira_key_path": "jira_key",
-        "local_issue_id_path": "local_issue_id",
-        "current_identity_paths": ["current_identities.gate_identity"],
-        "narrative_paths": ["observable_outcome"],
-        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
-        "superseded_identity_paths": [],
-        "lane_decision_paths": ["admissions.protected_lane"],
-        "forbidden_true_paths": [
-          "protected_nonclaims.protected_lane_opened",
-          "protected_nonclaims.champion_or_production_promotion",
-          "protected_nonclaims.historical_known_at_established"
-        ]
-      }]
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            },
+            {
+              "canonical_path": "authority.availability_claim",
+              "evidence_path": "availability_authority_claim"
+            }
+          ],
+          "required_evidence_equal": {
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
     }
-
+,
+    {
+      "binding_id": "BAT-637-OFFICIAL-1998-EXPANDED-UNION",
+      "jira_key": "BAT-637",
+      "local_issue_id": "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001",
+        "jira_key": "BAT-637",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "TAMU_OFFICIAL_GAMEBOOK_UNION_1998_EXPANDED_CANDIDATE_ONLY",
+        "result": "PASS_IMMUTABLE_BAT633_PRESERVED_OFFICIAL_1998_ADDED"
+      },
+      "forbidden_true_paths": [
+        "authority.historical_known_at_from_capture_time",
+        "authority.champion_or_production_promotion",
+        "authority.ncaa_contest_identity",
+        "scientific_nonclaims.protected_lane_opened",
+        "scientific_nonclaims.historical_known_at_established",
+        "scientific_nonclaims.pregame_availability_admitted"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "canonical gate ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established",
+            "protected_nonclaims.availability_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "union_identity",
+              "evidence_path": "current_identities.union_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            }
+          ],
+          "required_evidence_equal": {
+            "availability_authority_claim": false,
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
+    },
+    {
+      "binding_id": "BAT-638-OFFICIAL-1998-2009-STRUCTURED-ROW-CORPUS",
+      "jira_key": "BAT-638",
+      "local_issue_id": "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001",
+        "jira_key": "BAT-638",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY",
+        "result": "PASS_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS"
+      },
+      "forbidden_true_paths": [
+        "authority.historical_known_at_from_capture_time",
+        "authority.name_only_player_merge",
+        "authority.ncaa_contest_identity"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": [
+        {
+          "path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001.json",
+          "role": "current",
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "canonical gate ([0-9a-f]{64})"
+          ],
+          "superseded_identity_paths": [],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
+          "forbidden_true_paths": [
+            "protected_nonclaims.protected_lane_opened",
+            "protected_nonclaims.champion_or_production_promotion",
+            "protected_nonclaims.historical_known_at_established",
+            "protected_nonclaims.availability_established"
+          ],
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "decision_unit",
+              "evidence_path": "local_issue_id"
+            },
+            {
+              "canonical_path": "jira_key",
+              "evidence_path": "jira_key"
+            },
+            {
+              "canonical_path": "result",
+              "evidence_path": "result"
+            },
+            {
+              "canonical_path": "classification",
+              "evidence_path": "classification"
+            },
+            {
+              "canonical_path": "gate_identity",
+              "evidence_path": "current_identities.gate_identity"
+            },
+            {
+              "canonical_path": "dataset_identity",
+              "evidence_path": "current_identities.dataset_identity"
+            },
+            {
+              "canonical_path": "union_identity",
+              "evidence_path": "current_identities.union_identity"
+            },
+            {
+              "canonical_path": "counts",
+              "evidence_path": "counts"
+            },
+            {
+              "canonical_path": "protected_lane",
+              "evidence_path": "admissions.protected_lane"
+            },
+            {
+              "canonical_path": "admissions.historical_known_at",
+              "evidence_path": "known_at_state"
+            },
+            {
+              "canonical_path": "authority.historical_known_at_from_capture_time",
+              "evidence_path": "protected_nonclaims.historical_known_at_established"
+            }
+          ],
+          "required_evidence_equal": {
+            "availability_authority_claim": false,
+            "evidence_state": "VERIFIED",
+            "issue_complete": true,
+            "status": "Done"
+          }
+        }
+      ]
+    }
   ]
 }

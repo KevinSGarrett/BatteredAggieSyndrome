@@ -35,6 +35,20 @@
       "cycle": 16,
       "parent_progress_kind": "parent_progress",
       "kind": "parent_progress"
+    },
+    {
+      "jira_key": "BAT-523",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "comment_id": "14671",
+      "comment_body_sha256": "d5ef9e0deb318d2bd22a9bc4d2475db8717ae1ea9b4efbb3473031eb5240edd2",
+      "material_merge_sha": "2a85490f1ab5852213020e8d58b08ec77d2cb309",
+      "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/901992b48c28097bb7ba4262ee2c7405da465bf47f794c252cb3c08f16da6ec9/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_sha256": "901992b48c28097bb7ba4262ee2c7405da465bf47f794c252cb3c08f16da6ec9",
+      "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001.json",
+      "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
+      "cycle": 17,
+      "parent_progress_kind": "parent_progress",
+      "kind": "parent_progress"
     }
   ]
 }

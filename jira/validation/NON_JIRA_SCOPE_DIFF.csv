@@ -24,6 +24,7 @@ ADDED,artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json
 ADDED,artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json
 ADDED,artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
 ADDED,artifacts/data_lake/tamu_cross_source_domain_gate.json
+ADDED,artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json
 ADDED,artifacts/data_lake/tamu_official_1998_boxscore_gate.json
 ADDED,artifacts/data_lake/tamu_official_1998_season_index_gate.json
 ADDED,artifacts/data_lake/tamu_official_1998_structured_domains_gate.json
@@ -221,6 +222,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-1998-OFFICIAL-INDEX-001.json
@@ -273,6 +275,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-2010-2011-SEASON-RECONCILIATION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-001.json
 ADDED,artifacts/jira_evidence/immutable/sha256/3987396107d211b995513a386a6c011989c211f456bd1edae10e37b9d7401638/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
+ADDED,artifacts/jira_evidence/immutable/sha256/901992b48c28097bb7ba4262ee2c7405da465bf47f794c252cb3c08f16da6ec9/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/immutable/sha256/c1e60522f83f8244aba95b7acd05698f95b7e1fb3dbe48b8f378eb549ec89c5a/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
 ADDED,artifacts/open_source/integration_validation_manifest.json
@@ -444,6 +447,7 @@ ADDED,configs/tamu_2010_2011_season_reconciliation_contract.json
 ADDED,configs/tamu_availability_source_sample.json
 ADDED,configs/tamu_cross_source_domain_gate_contract.json
 ADDED,configs/tamu_no_adjustment_reference.json
+ADDED,configs/tamu_official_1998_2009_structured_row_corpus_contract.json
 ADDED,configs/tamu_official_1998_boxscore_contract.json
 ADDED,configs/tamu_official_1998_season_index_contract.json
 ADDED,configs/tamu_official_1998_structured_domains_contract.json
@@ -689,6 +693,7 @@ ADDED,src/aggie_analytics/data/tamu_2010_2011_ncaa_official_acquisition.py
 ADDED,src/aggie_analytics/data/tamu_cross_source_domain_gate.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 ADDED,src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
+ADDED,src/aggie_analytics/data/tamu_official_1998_2009_structured_row_corpus.py
 ADDED,src/aggie_analytics/data/tamu_official_1998_boxscores.py
 ADDED,src/aggie_analytics/data/tamu_official_1998_season_index.py
 ADDED,src/aggie_analytics/data/tamu_official_1998_structured_domains.py
@@ -798,12 +803,15 @@ ADDED,src/aggie_analytics/temporal/venue_assignment_pit.py
 ADDED,src/aggie_analytics/temporal/weather_previous_runs_snapshot.py
 ADDED,src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
+ADDED,src/aggie_analytics/validation/__pycache__/artifact_binding.cpython-311.pyc
 ADDED,src/aggie_analytics/validation/artifact_binding.py
 ADDED,src/aggie_analytics/validation/evaluation_exposure.py
 ADDED,src/aggie_analytics/validation/pit_replay_readiness.py
 ADDED,src/aggie_analytics/validation/protected_split_authority.py
 ADDED,src/aggie_analytics/validation/retraining_admission.py
 ADDED,src/aggie_analytics/validation/roster_domain_completeness.py
+ADDED,tests/__pycache__/test_artifact_bindings.cpython-311.pyc
+ADDED,tests/__pycache__/test_jira_authority_progress_comments.cpython-311.pyc
 ADDED,tests/fixtures/protected_split_exposure_audit.v2.stale.json
 ADDED,tests/test_acquisition_resilience.py
 ADDED,tests/test_action_play_summary.py
@@ -905,6 +913,7 @@ ADDED,tests/test_tamu_2010_2011_ncaa_official_acquisition.py
 ADDED,tests/test_tamu_2010_2011_ncaa_team_season_evidence.py
 ADDED,tests/test_tamu_2010_2011_season_reconciliation.py
 ADDED,tests/test_tamu_cross_source_domain_gate.py
+ADDED,tests/test_tamu_official_1998_2009_structured_row_corpus.py
 ADDED,tests/test_tamu_official_1998_boxscores.py
 ADDED,tests/test_tamu_official_1998_season_index.py
 ADDED,tests/test_tamu_official_1998_structured_domains.py
@@ -973,6 +982,7 @@ ADDED,tests/test_useful_work_accounting.py
 ADDED,tests/test_validate_repository_strict.py
 ADDED,tests/test_wmt_provider_timestamp_pit.py
 ADDED,tests/test_wmt_tamu_specialization_feature_pit.py
+ADDED,tools/__pycache__/validate_repository.cpython-311.pyc
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py
@@ -1033,6 +1043,7 @@ ADDED,tools/build_tamu_2010_2011_season_reconciliation.py
 ADDED,tools/build_tamu_availability_evidence_pages.py
 ADDED,tools/build_tamu_cross_source_domain_gate.py
 ADDED,tools/build_tamu_depth_chart_noncoverage_review.py
+ADDED,tools/build_tamu_official_1998_2009_structured_row_corpus.py
 ADDED,tools/build_tamu_official_1998_boxscores.py
 ADDED,tools/build_tamu_official_1998_season_index.py
 ADDED,tools/build_tamu_official_1998_structured_domains.py
@@ -1228,6 +1239,7 @@ ADDED,tools/validate_tamu_availability_evidence_pages.py
 ADDED,tools/validate_tamu_availability_source_sample.py
 ADDED,tools/validate_tamu_cross_source_domain_gate.py
 ADDED,tools/validate_tamu_depth_chart_noncoverage_review.py
+ADDED,tools/validate_tamu_official_1998_2009_structured_row_corpus.py
 ADDED,tools/validate_tamu_official_1998_boxscores.py
 ADDED,tools/validate_tamu_official_1998_season_index.py
 ADDED,tools/validate_tamu_official_1998_structured_domains.py

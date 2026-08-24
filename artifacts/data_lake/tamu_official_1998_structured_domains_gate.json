@@ -1,0 +1,400 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_635_payload": "CONSUMED_CAPTURES_ONLY",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "name_only_player_merge": "REJECTED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "participation_as_availability": "REJECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "artifact_type": "TAMU_OFFICIAL_1998_STRUCTURED_DOMAINS_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_1998_STRUCTURED_DOMAIN_CANDIDATE_ONLY",
+  "contract_id": "BAT-636-TAMU-OFFICIAL-1998-STRUCTURED-DOMAINS-V1",
+  "counts": {
+    "ambiguous_games": 0,
+    "availability_claims": 0,
+    "drives_absent_games": 2,
+    "drives_present_games": 12,
+    "drives_serialized_rows": 229,
+    "games_1998": 14,
+    "games_admitted_to_union": 0,
+    "individual_player_statistics_absent_games": 0,
+    "individual_player_statistics_present_games": 14,
+    "individual_player_statistics_serialized_rows": 213,
+    "name_only_player_merges": 0,
+    "ncaa_contest_ids_created": 0,
+    "parsed_games": 14,
+    "play_by_play_absent_games": 6,
+    "play_by_play_present_games": 8,
+    "play_by_play_serialized_rows": 2674,
+    "pregame_availability_present": 0,
+    "scoring_summary_absent_games": 7,
+    "scoring_summary_present_games": 7,
+    "scoring_summary_serialized_rows": 80,
+    "serialized_rows_total": 3549,
+    "target_games_total": 14,
+    "team_statistics_absent_games": 0,
+    "team_statistics_present_games": 14,
+    "team_statistics_serialized_rows": 353
+  },
+  "decision_unit": "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001",
+  "disposition": "NEW_ENRICHED_PAYLOAD_PRIOR_IDENTITIES_PRESERVED",
+  "games": [
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 15
+      },
+      "source_season": 1998,
+      "source_sha256": "ac7ca632a2a0ccbe3c1055e9434e0e86179f1c69cdad3700d00460a951bda2f3",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1900_fsu_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 24,
+        "individual_player_statistics": 15,
+        "play_by_play": 404,
+        "scoring_summary": 0,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "12e8446f44ea1f10b4da5026946a884b70a96ac83078cdeb064aadb80a7da3b3",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1901_lat_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 32,
+        "individual_player_statistics": 25,
+        "play_by_play": 375,
+        "scoring_summary": 12,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "297b383e215c8d233f29f6dec66705acb2aca896e7a6090a829f02d871938ab9",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1902_usm_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 25,
+        "individual_player_statistics": 13,
+        "play_by_play": 335,
+        "scoring_summary": 12,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "9e719ac08e6b8b49886d01dd0f65f8fb2ea2781329b5cf91e57ea157ace387b8",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1903_unt_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 1,
+        "individual_player_statistics": 13,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "92d8809b14d19d5fd626022bbf506c6b4b9add26547038afbc0a03ebcb168e59",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1904_ku_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 30,
+        "individual_player_statistics": 10,
+        "play_by_play": 331,
+        "scoring_summary": 14,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "e1ec4680f4883bef9c0ee7985f7494ad65653fd151686214fd5967028aa9cc66",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1905_neb_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 1,
+        "individual_player_statistics": 20,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "72335b198cc0f9675998bd1d0443f0fbf5d101f91a8c18b2dd76e2cb5c18cc7d",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1906_bu_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 31,
+        "individual_player_statistics": 19,
+        "play_by_play": 321,
+        "scoring_summary": 10,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "7150809aa616fc120c5294cf637acba850d3aee17735d0cc46ead16071ee004c",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1907_tech_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 27,
+        "individual_player_statistics": 15,
+        "play_by_play": 298,
+        "scoring_summary": 10,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "5c72dc6d247f2bc306af36c7606412839f879de5ec8a25be600abbf23ee61cba",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1908_osu_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 31,
+        "individual_player_statistics": 14,
+        "play_by_play": 332,
+        "scoring_summary": 10,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "f5b3c877f683f592e0ee23ec016486b7ea590aa4d6ae2c57f09b4b6c6fa0a7e4",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1909_ou_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 25,
+        "individual_player_statistics": 12,
+        "play_by_play": 278,
+        "scoring_summary": 12,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "32c71c886a36c5eb3366666cf260bb6790a0e847350ca2bc874ce47826006467",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1910_mu_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 1,
+        "individual_player_statistics": 22,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "4d4ce89f80a7da5dbfaf1e540890af1cc451bf003784c7605d820f366050f62c",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1911_tex_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 1,
+        "individual_player_statistics": 15,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "18f36a827e6dcf2e434987bff3e1dd4263280f77d9b44d6ebf0316ae71c26d91",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1912_ksu_box.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 14,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 26
+      },
+      "source_season": 1998,
+      "source_sha256": "b4e82db8830affef9019715297bef98da9884b05b0446fc857d874ad38b8fa34",
+      "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1913_sugar_box.html",
+      "warnings": []
+    }
+  ],
+  "gate_identity": "ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-636",
+  "payload_identity": "d3f07d927c82b538a25695d297596c46624ca4ed178166a451c03dab9b478d5f",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_1998_STRUCTURED_DOMAINS_PARSED",
+  "schema_version": "aggie.data.tamu_official_1998_structured_domains.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    1998
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat634_gate_identity": "f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306",
+    "bat635_acquisition_identity": "6dc742a6d359d3800f1474e436734ab523ea17d389e81bca9e9f8c01200f18f7",
+    "bat635_dataset_identity": "94d5fe1182a65c35b59f9b2a10d8de1ee561f92a4d6e6e06a53b0a2eded49c15",
+    "bat635_gate_identity": "ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "parser_identity": "tamu.official.statcrew.preformatted.v1"
+  },
+  "validator_code_identity": "aa243c65adf9fcfe90b056d6ad01cb5d68f1ff76096c7916dcebe50fe9ec3418"
+}

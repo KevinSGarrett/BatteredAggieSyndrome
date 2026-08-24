@@ -47,6 +47,10 @@ CYCLE17_P7_BINDING_ID = "BAT-635-OFFICIAL-1998-BOXSCORES-PARTIAL"
 CYCLE17_P7_GATE = Path("artifacts") / "data_lake" / "tamu_official_1998_boxscore_gate.json"
 CYCLE17_P7_EVIDENCE = Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json"
 CYCLE17_P7_STALE_GATE = "723ac49208afb8549bcc900b90b71eb353295bf664462308f04a7bab636f6f5b"
+CYCLE17_P8_BINDING_ID = "BAT-636-OFFICIAL-1998-STRUCTURED-DOMAINS"
+CYCLE17_P8_GATE = Path("artifacts") / "data_lake" / "tamu_official_1998_structured_domains_gate.json"
+CYCLE17_P8_EVIDENCE = Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001.json"
+CYCLE17_P8_STALE_GATE = "8349103f87c7109af2833904618b7a1c965bf60a3e68dc67506c34b073b9b408"
 
 
 def _write(path: Path, payload: object) -> None:
@@ -124,6 +128,20 @@ class ArtifactBindingTests(unittest.TestCase):
             {"schema_version": contract["schema_version"], "bindings": [binding]},
         )
         for relative in (CYCLE17_P7_GATE, CYCLE17_P7_EVIDENCE):
+            destination = self.temp / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(ROOT / relative, destination)
+
+    def _prepare_cycle17_p8_binding_fixture(self) -> None:
+        contract = _load(ROOT / CONTRACT)
+        binding = next(
+            item for item in contract["bindings"] if item["binding_id"] == CYCLE17_P8_BINDING_ID
+        )
+        _write(
+            self.temp / CONTRACT,
+            {"schema_version": contract["schema_version"], "bindings": [binding]},
+        )
+        for relative in (CYCLE17_P8_GATE, CYCLE17_P8_EVIDENCE):
             destination = self.temp / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / relative, destination)
@@ -276,6 +294,16 @@ class ArtifactBindingTests(unittest.TestCase):
         evidence = _load(self.temp / CYCLE17_P7_EVIDENCE)
         evidence["current_identities"]["gate_identity"] = CYCLE17_P7_STALE_GATE
         _write(self.temp / CYCLE17_P7_EVIDENCE, evidence)
+        with self.assertRaises(ArtifactBindingError) as raised:
+            validate_artifact_bindings(self.temp)
+        self.assertIn("current_identities.gate_identity", str(raised.exception))
+        self.assertIn("stale current identity", str(raised.exception))
+
+    def test_cycle17_stale_1998_structured_domain_evidence_is_rejected(self) -> None:
+        self._prepare_cycle17_p8_binding_fixture()
+        evidence = _load(self.temp / CYCLE17_P8_EVIDENCE)
+        evidence["current_identities"]["gate_identity"] = CYCLE17_P8_STALE_GATE
+        _write(self.temp / CYCLE17_P8_EVIDENCE, evidence)
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
         self.assertIn("current_identities.gate_identity", str(raised.exception))

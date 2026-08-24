@@ -1,12 +1,12 @@
 {
   "actual_expected_link_count": 1151,
-  "auxiliary_actual_count": 66,
-  "auxiliary_expected_count": 66,
+  "auxiliary_actual_count": 67,
+  "auxiliary_expected_count": 67,
   "auxiliary_issue_type_counts": {
-    "Task": 66
+    "Task": 67
   },
   "auxiliary_status_counts": {
-    "Done": 65,
+    "Done": 66,
     "In Progress": 1
   },
   "board": {
@@ -63,12 +63,12 @@
     "issue_type_counts": "alias of total_issue_type_counts covering every live BAT issue",
     "status_counts": "alias of total_status_counts covering every live BAT issue"
   },
-  "issue_count": 560,
+  "issue_count": 561,
   "issue_type_counts": {
     "Epic": 50,
     "Story": 53,
     "Sub-task": 190,
-    "Task": 267
+    "Task": 268
   },
   "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
   "missing_auxiliary_keys": [],
@@ -82,20 +82,20 @@
   "result": "PASS",
   "schema_version": 2,
   "status_counts": {
-    "Done": 151,
+    "Done": 152,
     "In Progress": 1,
     "To Do": 408
   },
-  "total_actual_issue_count": 560,
-  "total_expected_issue_count": 560,
+  "total_actual_issue_count": 561,
+  "total_expected_issue_count": 561,
   "total_issue_type_counts": {
     "Epic": 50,
     "Story": 53,
     "Sub-task": 190,
-    "Task": 267
+    "Task": 268
   },
   "total_status_counts": {
-    "Done": 151,
+    "Done": 152,
     "In Progress": 1,
     "To Do": 408
   },
@@ -103,5 +103,5 @@
   "unexpected_issue_type_counts": {},
   "unexpected_link_count": 0,
   "unexpected_status_counts": {},
-  "verified_at": "2026-08-24T08:25:09.430769+00:00"
+  "verified_at": "2026-08-24T08:54:47.321551+00:00"
 }

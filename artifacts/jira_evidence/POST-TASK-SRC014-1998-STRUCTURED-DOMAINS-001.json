@@ -22,12 +22,13 @@
     "reason": "No dedicated local, live Jira, Git branch, commit, or GitHub PR owner existed for the 1998 structured-domain parsing after Phase 7 process reconciliation merged."
   },
   "evidence_manifest_type": "jira_issue_progress_evidence",
-  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "752d8012428cc9eef24e769a7aaf665bceb33796",
+  "issue_complete": true,
   "jira_key": "BAT-636",
   "local_issue_id": "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001",
-  "material_pr": null,
-  "observable_outcome": "Independent reconstruction parsed 14 official 1998 captured pages into source-labeled structured domains. Gate identity ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28 reports 3,549 serialized rows: 353 team-statistics rows, 213 individual-player-statistics rows, 229 drives rows, 2,674 play-by-play rows, and 80 scoring-summary rows. Zero games entered a union, zero NCAA contest IDs were created, name-only player merges were rejected, availability remains unestablished, historical known-at remains retrieval-time-only, and the protected lane remains blocked.",
+  "material_pr": 589,
+  "observable_outcome": "Material PR #589 merged as 752d8012428cc9eef24e769a7aaf665bceb33796 after all hosted checks and local strict validation passed. Gate identity ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28 parsed 14 official 1998 pages into 3,549 source-labeled structured rows: 353 team-statistics rows, 213 individual-player-statistics rows, 229 drives rows, 2,674 play-by-play rows, and 80 scoring-summary rows. Zero games entered a union, zero NCAA contest IDs were created, name-only player merges were rejected, availability remains unestablished, historical known-at remains retrieval-time-only, and the protected lane remains blocked.",
   "protected_nonclaims": {
     "availability_established": false,
     "champion_or_production_promotion": false,
@@ -37,5 +38,5 @@
     "union_admission": false
   },
   "result": "PASS_OFFICIAL_1998_STRUCTURED_DOMAINS_PARSED",
-  "status": "In Progress"
+  "status": "Done"
 }

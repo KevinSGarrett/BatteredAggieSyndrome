@@ -1,0 +1,51 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_621": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_625": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_630": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "normalization_admission": "CANDIDATE_ONLY",
+    "player_identity": "SOURCE_PLAYER_CANDIDATE",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "current_identities": {
+    "acquisition_identity": "a4c27c5583f94c1a5de5de17e748569dbd042d33037b8dfa0380fa22e269d86d",
+    "dataset_identity": "36c348e7c5650174798fd241afc0e65e5afdd8868e4033616e04dced31296c8d",
+    "games_identity": "7f79f89e1eeba4fff8466586ed975e6febbf3400821582af32e138dcd57f6149",
+    "gate_identity": "f1a236d97f3ecf93fd91d35ecad9a5bf1c54cd591d6e07bd80875329a426aa22",
+    "validator_code_identity": "29314971a7552001391329996eb66e3fddcc7c06d217301c2ea01d7a03477a55"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No dedicated owner existed for 1999 official box-score acquisition/normalization from the BAT-630 allowlist; BAT-630 owns only season-index discovery. A new owner is required for acquisition and reconstruction validation.",
+    "reviewed_keys": [
+      "BAT-523",
+      "BAT-585",
+      "BAT-621",
+      "BAT-625",
+      "BAT-630"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
+  "issue_complete": false,
+  "jira_key": "BAT-631",
+  "local_issue_id": "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Using only BAT-630 allowlisted official URLs, acquired and/or verified 12 content-addressed raw captures with independent raw SHA verification. Normalized from verified official pages only, reconstructed consumer outputs from Phase 2 plus raw captures, and validated fail-closed mutation controls. Results: target games 12, normalized games 12, failures 0, blocked pages 0, matched strong tuples 7, unmatched strong tuples 5, date conflicts 0, name-only-insufficient 0, season-header conflicts 0, NCAA contest IDs created 0, union admissions 0, availability/pregame admissions 0.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

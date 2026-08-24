@@ -195,6 +195,7 @@ def _validate_surface(
     repo_root: Path,
     binding: Mapping[str, Any],
     surface: Mapping[str, Any],
+    canonical: Mapping[str, Any],
     current_identity: str,
 ) -> None:
     relative = str(surface["path"])
@@ -227,6 +228,55 @@ def _validate_surface(
                 f"local_issue_id mismatch {actual_local!r} expected {expected_local!r}",
                 path=relative,
                 json_path=str(surface["local_issue_id_path"]),
+            )
+
+    # A matching outer evidence hash only proves that the evidence document was
+    # rehashed.  The phase bindings declare the semantic fields that must
+    # independently agree with their canonical gate, including all counts and
+    # authority boundaries that are easy to misstate in a narrative.
+    for comparison in surface.get("canonical_to_evidence_paths") or []:
+        if not isinstance(comparison, Mapping):
+            raise ArtifactBindingError(
+                "canonical-to-evidence comparison must be an object",
+                path=str(CONTRACT_RELATIVE),
+                json_path=f"bindings[binding_id={binding['binding_id']}].canonical_to_evidence_paths",
+            )
+        canonical_path = str(comparison.get("canonical_path") or "")
+        evidence_path_name = str(comparison.get("evidence_path") or "")
+        if not canonical_path or not evidence_path_name:
+            raise ArtifactBindingError(
+                "canonical-to-evidence comparison requires canonical_path and evidence_path",
+                path=str(CONTRACT_RELATIVE),
+                json_path=f"bindings[binding_id={binding['binding_id']}].canonical_to_evidence_paths",
+            )
+        canonical_value = _require_one(
+            resolve_path(canonical, canonical_path),
+            path=str(binding["canonical_artifact_path"]),
+            json_path=canonical_path,
+        )
+        evidence_value = _require_one(
+            resolve_path(document, evidence_path_name),
+            path=relative,
+            json_path=evidence_path_name,
+        )
+        if evidence_value != canonical_value:
+            raise ArtifactBindingError(
+                f"canonical field {canonical_path}={canonical_value!r} does not match evidence",
+                path=relative,
+                json_path=evidence_path_name,
+            )
+
+    for evidence_path_name, expected in (surface.get("required_evidence_equal") or {}).items():
+        actual = _require_one(
+            resolve_path(document, str(evidence_path_name)),
+            path=relative,
+            json_path=str(evidence_path_name),
+        )
+        if actual != expected:
+            raise ArtifactBindingError(
+                f"required evidence field {evidence_path_name}={actual!r} expected {expected!r}",
+                path=relative,
+                json_path=str(evidence_path_name),
             )
 
     current_nodes = _collect_values(
@@ -373,9 +423,9 @@ def validate_artifact_bindings(repo_root: Path, contract: Mapping[str, Any] | No
     contract = dict(contract or load_contract(repo_root))
     report: dict[str, Any] = {"bindings": [], "result": "PASS"}
     for binding in contract.get("bindings") or []:
-        _payload, identity = _validate_canonical(repo_root, binding)
+        payload, identity = _validate_canonical(repo_root, binding)
         for surface in binding.get("evidence_surfaces") or []:
-            _validate_surface(repo_root, binding, surface, identity)
+            _validate_surface(repo_root, binding, surface, payload, identity)
         report["bindings"].append(
             {
                 "binding_id": binding.get("binding_id"),

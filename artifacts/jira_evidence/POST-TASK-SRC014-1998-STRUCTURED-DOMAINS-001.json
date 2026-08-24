@@ -1,5 +1,6 @@
 {
   "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
     "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
     "bat_523": "IN_PROGRESS",
     "bat_635_payload": "CONSUMED_CAPTURES_ONLY",
@@ -10,12 +11,37 @@
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
     "union_admission": "NOT_ADMITTED"
   },
+  "availability_authority_claim": false,
+  "classification": "TAMU_SRC014_OFFICIAL_1998_STRUCTURED_DOMAIN_CANDIDATE_ONLY",
+  "counts": {
+    "ambiguous_games": 0,
+    "availability_claims": 0,
+    "drives_absent_games": 2,
+    "drives_present_games": 12,
+    "drives_serialized_rows": 229,
+    "games_1998": 14,
+    "games_admitted_to_union": 0,
+    "individual_player_statistics_absent_games": 0,
+    "individual_player_statistics_present_games": 14,
+    "individual_player_statistics_serialized_rows": 213,
+    "name_only_player_merges": 0,
+    "ncaa_contest_ids_created": 0,
+    "parsed_games": 14,
+    "play_by_play_absent_games": 6,
+    "play_by_play_present_games": 8,
+    "play_by_play_serialized_rows": 2674,
+    "pregame_availability_present": 0,
+    "scoring_summary_absent_games": 7,
+    "scoring_summary_present_games": 7,
+    "scoring_summary_serialized_rows": 80,
+    "serialized_rows_total": 3549,
+    "target_games_total": 14,
+    "team_statistics_absent_games": 0,
+    "team_statistics_present_games": 14,
+    "team_statistics_serialized_rows": 353
+  },
   "current_identities": {
-    "gate_identity": "ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28",
-    "payload_identity": "d3f07d927c82b538a25695d297596c46624ca4ed178166a451c03dab9b478d5f",
-    "upstream_bat634_gate_identity": "f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306",
-    "upstream_bat635_gate_identity": "ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260",
-    "validator_code_identity": "aa243c65adf9fcfe90b056d6ad01cb5d68f1ff76096c7916dcebe50fe9ec3418"
+    "gate_identity": "ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28"
   },
   "duplicate_audit": {
     "decision": "CREATE",
@@ -26,16 +52,16 @@
   "implementation_sha": "752d8012428cc9eef24e769a7aaf665bceb33796",
   "issue_complete": true,
   "jira_key": "BAT-636",
+  "known_at_state": "UNKNOWN_RETRIEVAL_TIME_ONLY",
   "local_issue_id": "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001",
   "material_pr": 589,
-  "observable_outcome": "Material PR #589 merged as 752d8012428cc9eef24e769a7aaf665bceb33796 after all hosted checks and local strict validation passed. Gate identity ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28 parsed 14 official 1998 pages into 3,549 source-labeled structured rows: 353 team-statistics rows, 213 individual-player-statistics rows, 229 drives rows, 2,674 play-by-play rows, and 80 scoring-summary rows. Zero games entered a union, zero NCAA contest IDs were created, name-only player merges were rejected, availability remains unestablished, historical known-at remains retrieval-time-only, and the protected lane remains blocked.",
+  "observable_outcome": "Material PR #589 merged as 752d8012428cc9eef24e769a7aaf665bceb33796. This final evidence packet is regenerated from the canonical gate ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28 with result PASS_OFFICIAL_1998_STRUCTURED_DOMAINS_PARSED and the complete authoritative counts object. Historical known-at remains retrieval/capture-time-only, availability is not established, no NCAA contest IDs were created, and the protected lane remains blocked.",
   "protected_nonclaims": {
     "availability_established": false,
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "ncaa_contest_ids_created": false,
-    "protected_lane_opened": false,
-    "union_admission": false
+    "protected_lane_opened": false
   },
   "result": "PASS_OFFICIAL_1998_STRUCTURED_DOMAINS_PARSED",
   "status": "Done"

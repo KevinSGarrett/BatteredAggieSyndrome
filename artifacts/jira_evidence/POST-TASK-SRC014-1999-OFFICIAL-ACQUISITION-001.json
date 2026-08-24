@@ -13,15 +13,37 @@
     "player_identity": "SOURCE_PLAYER_CANDIDATE",
     "pregame_availability": "BLOCKED",
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "rights_disposition": "DERIVED_ONLY_OR_REVIEW_PRIVATE_RESEARCH",
+    "same_game_pregame_features": "BLOCKED",
     "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
-    "union_admission": "NOT_ADMITTED"
+    "union_admission": "NOT_ADMITTED",
+    "wmt_payload": "PRESERVED_IMMUTABLE"
+  },
+  "availability_authority_claim": false,
+  "classification": "TAMU_SRC014_OFFICIAL_1999_BOXSCORE_CANDIDATE_ONLY",
+  "counts": {
+    "acquired_responses": 12,
+    "ambiguous_pages": 0,
+    "blocked_or_partial_pages": 0,
+    "captured_pages_total": 12,
+    "date_conflicts": 0,
+    "expected_box_urls": 12,
+    "failures": 0,
+    "games_admitted_to_union": 0,
+    "matched_strong_tuple": 7,
+    "name_only_insufficient": 0,
+    "ncaa_contest_ids_created": 0,
+    "normalized_games": 12,
+    "pregame_availability_present": 0,
+    "rejected_responses": 0,
+    "season_header_conflicts": 0,
+    "target_games_total": 12,
+    "unmatched_strong_tuple": 5,
+    "verified_official_pages": 12
   },
   "current_identities": {
-    "acquisition_identity": "a4c27c5583f94c1a5de5de17e748569dbd042d33037b8dfa0380fa22e269d86d",
     "dataset_identity": "36c348e7c5650174798fd241afc0e65e5afdd8868e4033616e04dced31296c8d",
-    "games_identity": "7f79f89e1eeba4fff8466586ed975e6febbf3400821582af32e138dcd57f6149",
-    "gate_identity": "f1a236d97f3ecf93fd91d35ecad9a5bf1c54cd591d6e07bd80875329a426aa22",
-    "validator_code_identity": "29314971a7552001391329996eb66e3fddcc7c06d217301c2ea01d7a03477a55"
+    "gate_identity": "f1a236d97f3ecf93fd91d35ecad9a5bf1c54cd591d6e07bd80875329a426aa22"
   },
   "duplicate_audit": {
     "decision": "CREATE",
@@ -36,16 +58,21 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_progress_evidence",
-  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "eebd4786c5e6dbf5991371e75231b51651a73911",
+  "issue_complete": true,
   "jira_key": "BAT-631",
+  "known_at_state": "UNKNOWN_CAPTURE_TIME_ONLY",
   "local_issue_id": "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001",
-  "new_issue_decision": "CREATE",
-  "observable_outcome": "Using only BAT-630 allowlisted official URLs, acquired and/or verified 12 content-addressed raw captures with independent raw SHA verification. Normalized from verified official pages only, reconstructed consumer outputs from Phase 2 plus raw captures, and validated fail-closed mutation controls. Results: target games 12, normalized games 12, failures 0, blocked pages 0, matched strong tuples 7, unmatched strong tuples 5, date conflicts 0, name-only-insufficient 0, season-header conflicts 0, NCAA contest IDs created 0, union admissions 0, availability/pregame admissions 0.",
+  "material_pr": 579,
+  "observable_outcome": "Material PR #579 merged as eebd4786c5e6dbf5991371e75231b51651a73911. This final evidence packet is regenerated from the canonical gate f1a236d97f3ecf93fd91d35ecad9a5bf1c54cd591d6e07bd80875329a426aa22 with result PASS_OFFICIAL_1999_BOXSCORES_NORMALIZED and the complete authoritative counts object. Historical known-at remains retrieval/capture-time-only, availability is not established, no NCAA contest IDs were created, and the protected lane remains blocked.",
   "protected_nonclaims": {
+    "availability_established": false,
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
+    "ncaa_contest_ids_created": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "result": "PASS_OFFICIAL_1999_BOXSCORES_NORMALIZED",
+  "status": "Done"
 }

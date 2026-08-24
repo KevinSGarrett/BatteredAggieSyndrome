@@ -51,6 +51,32 @@ CYCLE17_P8_BINDING_ID = "BAT-636-OFFICIAL-1998-STRUCTURED-DOMAINS"
 CYCLE17_P8_GATE = Path("artifacts") / "data_lake" / "tamu_official_1998_structured_domains_gate.json"
 CYCLE17_P8_EVIDENCE = Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001.json"
 CYCLE17_P8_STALE_GATE = "8349103f87c7109af2833904618b7a1c965bf60a3e68dc67506c34b073b9b408"
+CYCLE17_FINAL_CASES = {
+    "BAT-630-OFFICIAL-1999-SEASON-INDEX": (
+        Path("artifacts") / "data_lake" / "tamu_official_1999_season_index_gate.json",
+        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1999-OFFICIAL-INDEX-001.json",
+    ),
+    "BAT-631-OFFICIAL-1999-BOXSCORES": (
+        Path("artifacts") / "data_lake" / "tamu_official_1999_boxscore_gate.json",
+        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001.json",
+    ),
+    "BAT-633-OFFICIAL-1999-EXPANDED-UNION": (
+        Path("artifacts") / "data_lake" / "tamu_official_gamebook_union_1999_expanded_gate.json",
+        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001.json",
+    ),
+    "BAT-635-OFFICIAL-1998-BOXSCORES-PARTIAL": (
+        Path("artifacts") / "data_lake" / "tamu_official_1998_boxscore_gate.json",
+        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json",
+    ),
+    "BAT-637-OFFICIAL-1998-EXPANDED-UNION": (
+        Path("artifacts") / "data_lake" / "tamu_official_gamebook_union_1998_expanded_gate.json",
+        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001.json",
+    ),
+    "BAT-638-OFFICIAL-1998-2009-STRUCTURED-ROW-CORPUS": (
+        Path("artifacts") / "data_lake" / "tamu_official_1998_2009_structured_row_corpus_gate.json",
+        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001.json",
+    ),
+}
 
 
 def _write(path: Path, payload: object) -> None:
@@ -145,6 +171,34 @@ class ArtifactBindingTests(unittest.TestCase):
             destination = self.temp / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / relative, destination)
+
+    def _prepare_cycle17_final_binding_fixture(self, binding_id: str) -> tuple[Path, Path]:
+        contract = _load(ROOT / CONTRACT)
+        binding = next(item for item in contract["bindings"] if item["binding_id"] == binding_id)
+        _write(
+            self.temp / CONTRACT,
+            {"schema_version": contract["schema_version"], "bindings": [binding]},
+        )
+        canonical, evidence = CYCLE17_FINAL_CASES[binding_id]
+        for relative in (canonical, evidence):
+            destination = self.temp / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(ROOT / relative, destination)
+        return canonical, evidence
+
+    def _assert_cycle17_final_mutation_rejected(
+        self,
+        binding_id: str,
+        mutate,
+        expected: str,
+    ) -> None:
+        _canonical, evidence_path = self._prepare_cycle17_final_binding_fixture(binding_id)
+        evidence = _load(self.temp / evidence_path)
+        mutate(evidence)
+        _write(self.temp / evidence_path, evidence)
+        with self.assertRaises(ArtifactBindingError) as raised:
+            validate_artifact_bindings(self.temp)
+        self.assertIn(expected, str(raised.exception))
 
     def test_current_identity_matches_everywhere(self) -> None:
         report = validate_artifact_bindings(ROOT)
@@ -267,7 +321,7 @@ class ArtifactBindingTests(unittest.TestCase):
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
         self.assertIn("current_identities.gate_identity", str(raised.exception))
-        self.assertIn("stale current identity", str(raised.exception))
+        self.assertIn("canonical field gate_identity", str(raised.exception))
 
     def test_cycle17_stale_expanded_union_evidence_is_rejected(self) -> None:
         self._prepare_cycle17_p5_binding_fixture()
@@ -277,7 +331,7 @@ class ArtifactBindingTests(unittest.TestCase):
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
         self.assertIn("current_identities.gate_identity", str(raised.exception))
-        self.assertIn("stale current identity", str(raised.exception))
+        self.assertIn("canonical field gate_identity", str(raised.exception))
 
     def test_cycle17_stale_1998_index_evidence_is_rejected(self) -> None:
         self._prepare_cycle17_p6_binding_fixture()
@@ -287,7 +341,7 @@ class ArtifactBindingTests(unittest.TestCase):
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
         self.assertIn("current_identities.gate_identity", str(raised.exception))
-        self.assertIn("stale current identity", str(raised.exception))
+        self.assertIn("canonical field gate_identity", str(raised.exception))
 
     def test_cycle17_stale_1998_boxscore_evidence_is_rejected(self) -> None:
         self._prepare_cycle17_p7_binding_fixture()
@@ -297,7 +351,7 @@ class ArtifactBindingTests(unittest.TestCase):
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
         self.assertIn("current_identities.gate_identity", str(raised.exception))
-        self.assertIn("stale current identity", str(raised.exception))
+        self.assertIn("canonical field gate_identity", str(raised.exception))
 
     def test_cycle17_stale_1998_structured_domain_evidence_is_rejected(self) -> None:
         self._prepare_cycle17_p8_binding_fixture()
@@ -307,7 +361,44 @@ class ArtifactBindingTests(unittest.TestCase):
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
         self.assertIn("current_identities.gate_identity", str(raised.exception))
-        self.assertIn("stale current identity", str(raised.exception))
+        self.assertIn("canonical field gate_identity", str(raised.exception))
+
+    def test_cycle17_final_evidence_mutations_are_rejected(self) -> None:
+        cases = (
+            (
+                "BAT-630-OFFICIAL-1999-SEASON-INDEX",
+                lambda evidence: evidence.__setitem__("status", "In Progress"),
+                "required evidence field status",
+            ),
+            (
+                "BAT-631-OFFICIAL-1999-BOXSCORES",
+                lambda evidence: evidence.__setitem__("issue_complete", False),
+                "required evidence field issue_complete",
+            ),
+            (
+                "BAT-633-OFFICIAL-1999-EXPANDED-UNION",
+                lambda evidence: evidence["current_identities"].__setitem__("union_identity", "0" * 64),
+                "canonical field union_identity",
+            ),
+            (
+                "BAT-635-OFFICIAL-1998-BOXSCORES-PARTIAL",
+                lambda evidence: evidence["counts"].__setitem__("matched_strong_tuple", 10),
+                "canonical field counts",
+            ),
+            (
+                "BAT-637-OFFICIAL-1998-EXPANDED-UNION",
+                lambda evidence: evidence["current_identities"].__setitem__("gate_identity", "0" * 64),
+                "canonical field gate_identity",
+            ),
+            (
+                "BAT-638-OFFICIAL-1998-2009-STRUCTURED-ROW-CORPUS",
+                lambda evidence: evidence["current_identities"].__setitem__("dataset_identity", "0" * 64),
+                "canonical field dataset_identity",
+            ),
+        )
+        for binding_id, mutate, expected in cases:
+            with self.subTest(binding_id=binding_id):
+                self._assert_cycle17_final_mutation_rejected(binding_id, mutate, expected)
 
 
 if __name__ == "__main__":

@@ -27,18 +27,20 @@
     "reviewed_keys": ["BAT-401", "BAT-429", "BAT-523", "BAT-628", "BAT-630", "BAT-631", "BAT-632"]
   },
   "evidence_manifest_type": "jira_issue_progress_evidence",
-  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "35913e8df4d64721f278158797d7c16fec57f173",
+  "issue_complete": true,
   "jira_key": "BAT-633",
   "local_issue_id": "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001",
+  "material_pr": 583,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently rebuilt the immutable 1999 enriched official-union successor against corrected BAT-631 and BAT-632 gates. The source-verified union preserves 317 predecessor games, admits 7 of 12 1999 official candidates, retains 5 1999 rejections, and contains 324 captured games (311 rich structured, 13 metadata-only). Gate identity a8d0a6594cfdf4557e2ef743983d64531474410fde6795fe4400441d11555403; union identity c213761531a3b8f8605e2cd3a00afdb7993c9cbedeb1c383cf1429167f0fc53c. No availability, historical known-at, NCAA contest ID, protected-lane, production, or name-only player-merge claim is made.",
+  "observable_outcome": "Material PR #583 merged as 35913e8df4d64721f278158797d7c16fec57f173 after all hosted checks and local strict validation passed. It independently rebuilt the immutable 1999 enriched official-union successor against corrected BAT-631 and BAT-632 gates: 317 predecessor games preserved, 7 of 12 1999 official candidates admitted, 5 rejected, 324 captured games total (311 rich structured, 13 metadata-only). Gate identity a8d0a6594cfdf4557e2ef743983d64531474410fde6795fe4400441d11555403; union identity c213761531a3b8f8605e2cd3a00afdb7993c9cbedeb1c383cf1429167f0fc53c. No availability, historical known-at, NCAA contest ID, protected-lane, production, or name-only player-merge claim is made.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress",
+  "status": "Done",
   "upstream_identities": {
     "bat628_gate_identity": "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2",
     "bat628_union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",

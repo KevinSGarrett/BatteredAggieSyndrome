@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-635-TAMU-OFFICIAL-1998-BOXSCORES-V1",
+  "decision_unit": "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001",
+  "jira_key": "BAT-635",
+  "source_id": "SRC-014",
+  "season": 1998,
+  "official_index_url": "https://files.12thman.com/history/football/years/1998.html",
+  "upstream_1998_index_gate_identity": "f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306",
+  "payloads": {
+    "normalized_root": "features/tamu_official_1998_boxscores/sha256"
+  },
+  "capture_index_relative": "features/tamu_official_1998_boxscores/capture_index.json",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

@@ -1,0 +1,42 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_634": "CONSUMED_INDEX_CAPTURE_ONLY",
+    "historical_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "normalization_admission": "CANDIDATE_ONLY",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "current_identities": {
+    "acquisition_identity": "6dc742a6d359d3800f1474e436734ab523ea17d389e81bca9e9f8c01200f18f7",
+    "dataset_identity": "94d5fe1182a65c35b59f9b2a10d8de1ee561f92a4d6e6e06a53b0a2eded49c15",
+    "gate_identity": "ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260",
+    "games_identity": "9b633d78f759321f72826c2c6e64767e04a9decba8f4b98c729d366587454dc4",
+    "upstream_bat634_gate_identity": "f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306",
+    "validator_code_identity": "f8039ffc0d828588231a2b25a843bdbec126c9265460685fe7680079b540e239"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "reason": "No dedicated local, live Jira, Git branch, commit, or GitHub PR owner existed for the bounded 1998 official box-score acquisition after Phase 6 merged."
+  },
+  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
+  "issue_complete": false,
+  "jira_key": "BAT-635",
+  "local_issue_id": "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001",
+  "material_pr": null,
+  "observable_outcome": "Independent reconstruction completed the bounded official 1998 acquisition. Gate identity ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260 reports PARTIAL_OFFICIAL_1998_BOXSCORES: 14 expected official URLs, 12 normalized candidates, two blocked or partial pages and two failures, six strong-tuple matches, and six unmatched strong tuples. Zero games entered any union and zero NCAA contest IDs were created. This truthful partial result establishes neither historical known-at nor availability and does not open the protected lane.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "ncaa_contest_ids_created": false,
+    "pregame_availability_admitted": false,
+    "protected_lane_opened": false,
+    "union_admission": false
+  },
+  "result": "PARTIAL_OFFICIAL_1998_BOXSCORES",
+  "status": "In Progress"
+}

@@ -23,12 +23,13 @@
     "reason": "No dedicated local, live Jira, Git branch, commit, or GitHub PR owner existed for the bounded 1998 official box-score acquisition after Phase 6 merged."
   },
   "evidence_manifest_type": "jira_issue_progress_evidence",
-  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "b30848ebaa19a4998af6f98ab46742c2014427a5",
+  "issue_complete": true,
   "jira_key": "BAT-635",
   "local_issue_id": "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001",
-  "material_pr": null,
-  "observable_outcome": "Independent reconstruction completed the bounded official 1998 acquisition. Gate identity ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260 reports PARTIAL_OFFICIAL_1998_BOXSCORES: 14 expected official URLs, 12 normalized candidates, two blocked or partial pages and two failures, six strong-tuple matches, and six unmatched strong tuples. Zero games entered any union and zero NCAA contest IDs were created. This truthful partial result establishes neither historical known-at nor availability and does not open the protected lane.",
+  "material_pr": 587,
+  "observable_outcome": "Material PR #587 merged as b30848ebaa19a4998af6f98ab46742c2014427a5 after all hosted checks and local strict validation passed. Its gate identity ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260 remains PARTIAL_OFFICIAL_1998_BOXSCORES under the explicitly bounded acceptance to perform and truthfully classify the official acquisition: 14 expected official URLs, 12 normalized candidates, two blocked or partial pages/failures, six strong-tuple matches, and six unmatched strong tuples. Zero games entered a union and zero NCAA contest IDs were created. Historical known-at, availability, and the protected lane remain unresolved/blocked; Done does not convert this partial result into PASS.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
@@ -38,5 +39,5 @@
     "union_admission": false
   },
   "result": "PARTIAL_OFFICIAL_1998_BOXSCORES",
-  "status": "In Progress"
+  "status": "Done"
 }

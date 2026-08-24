@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-634-TAMU-OFFICIAL-1998-SEASON-INDEX-V1",
+  "decision_unit": "POST-TASK-SRC014-1998-OFFICIAL-INDEX-001",
+  "jira_key": "BAT-634",
+  "source_id": "SRC-014",
+  "season": 1998,
+  "discovery_parent_url": "https://files.12thman.com/history/football/history/index.html",
+  "official_season_index_url": "https://files.12thman.com/history/football/years/1998.html",
+  "history_href_proof_required": "../years/1998.html",
+  "payloads": {
+    "capture_root": "features/tamu_official_1998_season_index/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

@@ -50,12 +50,19 @@ AUTHORITY_PROGRESS_BODY_RE = re.compile(r"^Cycle #\d+ progress \(factual\):")
 REQUIRED_PROGRESS_COMMENT_FIELDS = (
     "jira_key",
     "local_issue_id",
+    "cycle",
     "comment_id",
     "comment_body_sha256",
     "material_merge_sha",
-    "local_evidence_identity",
-    "cycle",
+    "immutable_evidence_snapshot_path",
+    "immutable_evidence_snapshot_sha256",
+    "evidence_classification",
+    "parent_progress_kind",
 )
+LEGACY_PROGRESS_COMMENT_FIELDS = ("local_evidence_path", "local_evidence_identity")
+V2_HISTORICAL_SNAPSHOT_AUTHORITY = "IMMUTABLE_EVIDENCE_SNAPSHOT_PATH_AND_SHA256"
+V2_EVOLVING_EVIDENCE_AUTHORITY = "NON_AUTHORITATIVE_REFERENCE_ONLY"
+V2_LEGACY_MUTABLE_FIELDS_AUTHORITY = "NON_AUTHORITATIVE_IGNORED"
 RECORDS_ROOT = JIRA_ROOT / "records" / "issues"
 STALE_AUXILIARY_SEMANTICS_COUNT = 31
 
@@ -2404,6 +2411,7 @@ def validate_static_live_verification_histogram_surface(repo_root: Path | None =
     if histograms["total_status_counts"].get("In Progress") != 1:
         findings.append("515+31 fixture omitted total In Progress")
     if repo_root is not None:
+        findings.extend(validate_authority_progress_comment_ledger_static(Path(repo_root)))
         artifact_path = Path(repo_root) / "jira" / "validation" / "BAT_LIVE_IMPORT_VERIFICATION.json"
         if artifact_path.is_file():
             payload = json.loads(artifact_path.read_text(encoding="utf-8"))
@@ -2542,6 +2550,135 @@ def is_authority_bearing_progress_comment(body: Any) -> bool:
     return bool(AUTHORITY_PROGRESS_BODY_RE.match(canonicalize_comment_body(body)))
 
 
+def _is_hex(value: str, length: int) -> bool:
+    return bool(re.fullmatch(rf"[0-9a-f]{{{length}}}", value.lower()))
+
+
+def _progress_kind(entry: Mapping[str, Any]) -> str:
+    return str(entry.get("parent_progress_kind") or entry.get("kind") or "").strip()
+
+
+def _evolving_evidence_path(entry: Mapping[str, Any]) -> str:
+    return str(entry.get("evolving_evidence_path") or entry.get("local_evidence_path") or "").strip()
+
+
+def _entry_cycle_int(entry: Mapping[str, Any]) -> int | None:
+    try:
+        cycle = int(entry.get("cycle"))
+    except (TypeError, ValueError):
+        return None
+    return cycle if cycle > 0 else None
+
+
+def _merge_sha_reachable_from_head(repo_root: Path, merge_sha: str) -> bool:
+    if not _is_hex(merge_sha, 40):
+        return False
+    probe = subprocess.run(
+        ["git", "-C", str(repo_root), "merge-base", "--is-ancestor", merge_sha, "HEAD"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return probe.returncode == 0
+
+
+def validate_authority_progress_comment_ledger_static(
+    repo_root: Path,
+    ledger: Mapping[str, Any] | None = None,
+) -> list[str]:
+    findings: list[str] = []
+    working_ledger: Mapping[str, Any] = ledger or load_authority_progress_comment_ledger()
+    if int(working_ledger.get("schema_version") or 0) < 2:
+        findings.append("authority progress ledger schema_version must be >= 2")
+    v2_authority = working_ledger.get("v2_evidence_authority")
+    if not isinstance(v2_authority, Mapping):
+        findings.append("authority progress ledger v2 evidence-authority rule is missing")
+    elif (
+        str(v2_authority.get("historical_snapshot") or "")
+        != V2_HISTORICAL_SNAPSHOT_AUTHORITY
+        or str(v2_authority.get("evolving_evidence_path") or "")
+        != V2_EVOLVING_EVIDENCE_AUTHORITY
+        or str(v2_authority.get("legacy_mutable_fields") or "")
+        != V2_LEGACY_MUTABLE_FIELDS_AUTHORITY
+    ):
+        findings.append("authority progress ledger v2 evidence-authority rule is invalid")
+    comments = list(working_ledger.get("comments") or [])
+    seen_comment_ids: set[str] = set()
+    seen_cycles: set[tuple[str, str, int]] = set()
+    seen_snapshot_ids: set[tuple[str, str, str]] = set()
+    previous_cycle_by_parent: dict[tuple[str, str, str], int] = {}
+    owner_cache: dict[Path, tuple[str, str]] = {}
+    for entry in comments:
+        jira_key = str(entry.get("jira_key") or "").strip()
+        local_issue_id = str(entry.get("local_issue_id") or "").strip()
+        comment_id = str(entry.get("comment_id") or "").strip()
+        cycle = _entry_cycle_int(entry)
+        merge_sha = str(entry.get("material_merge_sha") or "").strip().lower()
+        immutable_path = str(entry.get("immutable_evidence_snapshot_path") or "").strip()
+        immutable_sha = str(entry.get("immutable_evidence_snapshot_sha256") or "").strip().lower()
+        classification = str(entry.get("evidence_classification") or "").strip()
+        kind = _progress_kind(entry)
+        missing_fields = [
+            field
+            for field in REQUIRED_PROGRESS_COMMENT_FIELDS
+            if not str(entry.get(field) or "").strip()
+        ]
+        if missing_fields:
+            findings.append(
+                f"unbound progress comment {jira_key}/{comment_id}: missing {', '.join(missing_fields)}"
+            )
+            continue
+        if cycle is None:
+            findings.append(f"invalid cycle for progress comment {jira_key}/{comment_id}")
+            continue
+        if comment_id in seen_comment_ids:
+            findings.append(f"duplicate progress comment ID {comment_id}")
+        seen_comment_ids.add(comment_id)
+        cycle_key = (jira_key, local_issue_id, cycle)
+        if cycle_key in seen_cycles:
+            findings.append(f"duplicate cycle {cycle} for {jira_key}/{local_issue_id}")
+        seen_cycles.add(cycle_key)
+        snapshot_key = (jira_key, local_issue_id, immutable_sha)
+        if snapshot_key in seen_snapshot_ids:
+            findings.append(f"duplicate immutable snapshot for {jira_key}/{local_issue_id}")
+        seen_snapshot_ids.add(snapshot_key)
+        parent_key = (jira_key, local_issue_id, kind)
+        previous_cycle = previous_cycle_by_parent.get(parent_key)
+        if previous_cycle is not None and cycle <= previous_cycle:
+            findings.append(f"non-monotonic cycle order for {jira_key}/{local_issue_id}")
+        previous_cycle_by_parent[parent_key] = cycle
+        if not _is_hex(merge_sha, 40):
+            findings.append(f"invalid material merge SHA for progress comment {jira_key}/{comment_id}")
+        elif not _merge_sha_reachable_from_head(repo_root, merge_sha):
+            findings.append(f"unreachable material merge SHA for progress comment {jira_key}/{comment_id}")
+        if not _is_hex(immutable_sha, 64):
+            findings.append(f"invalid immutable snapshot SHA for progress comment {jira_key}/{comment_id}")
+        if immutable_sha and immutable_sha not in immutable_path.lower():
+            findings.append(f"immutable snapshot path does not include SHA for progress comment {jira_key}/{comment_id}")
+        if classification != "IMMUTABLE_CYCLE_SNAPSHOT":
+            findings.append(f"unexpected evidence classification for progress comment {jira_key}/{comment_id}")
+        evolving_path = _evolving_evidence_path(entry)
+        if evolving_path and immutable_path and Path(evolving_path) == Path(immutable_path):
+            findings.append(f"historical entry points at mutable evidence path {jira_key}/{comment_id}")
+        immutable_full_path = repo_root / immutable_path
+        if not immutable_full_path.is_file():
+            findings.append(f"missing immutable snapshot file for progress comment {jira_key}/{comment_id}")
+            continue
+        actual_snapshot_sha = sha256_file(immutable_full_path)
+        if actual_snapshot_sha != immutable_sha:
+            findings.append(f"immutable snapshot SHA drift for progress comment {jira_key}/{comment_id}")
+        if immutable_full_path not in owner_cache:
+            snapshot_payload = load_json(immutable_full_path, {})
+            owner_cache[immutable_full_path] = (
+                str(snapshot_payload.get("jira_key") or ""),
+                str(snapshot_payload.get("decision_unit") or ""),
+            )
+        snapshot_jira_key, snapshot_local_issue_id = owner_cache[immutable_full_path]
+        if snapshot_jira_key != jira_key or snapshot_local_issue_id != local_issue_id:
+            findings.append(f"snapshot owner mismatch for progress comment {jira_key}/{comment_id}")
+    return findings
+
+
 def load_authority_progress_comment_ledger(path: Path | None = None) -> dict[str, Any]:
     ledger_path = path or AUTHORITY_PROGRESS_COMMENT_LEDGER_PATH
     if not ledger_path.is_file():
@@ -2567,6 +2704,8 @@ def collect_authority_progress_comment_findings(
     repo_root: Path | None = None,
 ) -> list[str]:
     findings: list[str] = []
+    if repo_root is not None:
+        findings.extend(validate_authority_progress_comment_ledger_static(repo_root, ledger))
     recorded = list(ledger.get("comments") or [])
     live_index: dict[tuple[str, str], Mapping[str, Any]] = {}
     for key, comments in live_comments_by_key.items():
@@ -2591,14 +2730,6 @@ def collect_authority_progress_comment_findings(
         expected_sha = str(entry.get("comment_body_sha256") or "")
         if expected_sha and actual_sha != expected_sha:
             findings.append(f"changed progress comment {jira_key}/{comment_id}")
-        evidence_path = str(entry.get("local_evidence_path") or "")
-        evidence_identity = str(entry.get("local_evidence_identity") or "")
-        if evidence_path and evidence_identity and repo_root is not None:
-            path = repo_root / evidence_path
-            if not path.is_file():
-                findings.append(f"missing local evidence for progress comment {jira_key}/{comment_id}")
-            elif sha256_file(path) != evidence_identity:
-                findings.append(f"local evidence identity drifted for progress comment {jira_key}/{comment_id}")
     tracked_keys = {str(entry.get("jira_key") or "") for entry in recorded if entry.get("jira_key")}
     for key in tracked_keys:
         for comment in live_comments_by_key.get(key, []):

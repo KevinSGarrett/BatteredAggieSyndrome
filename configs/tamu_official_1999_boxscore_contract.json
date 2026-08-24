@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-631-TAMU-OFFICIAL-1999-BOXSCORES-V1",
+  "decision_unit": "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001",
+  "jira_key": "BAT-631",
+  "parent_jira_key": "BAT-630",
+  "related_jira_keys": [
+    "BAT-630",
+    "BAT-625",
+    "BAT-621",
+    "BAT-585",
+    "BAT-523",
+    "BAT-429",
+    "BAT-401"
+  ],
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_SRC014_OFFICIAL_1999_BOXSCORE_CANDIDATE_ONLY",
+  "purpose": "Acquire and normalize only official 1999 box-score URLs independently reconstructed from BAT-630. Preserve failures/conflicts, create no NCAA contest IDs, and do not admit union membership in this phase.",
+  "source_id": "SRC-014",
+  "official_index_url": "https://files.12thman.com/history/football/years/1999.html",
+  "rights_decision_id": "PRIVATE-RESEARCH-SRC-014",
+  "raw_storage_policy": "ALLOW_IMMUTABLE_RAW_AND_NORMALIZED_DATA_OUTSIDE_GIT",
+  "derived_export_allowed": false,
+  "raw_export_allowed": false,
+  "inventory_identity_policy": "DO_NOT_REWRITE_BAT_585_INVENTORY_IDENTITY",
+  "union_policy": "DO_NOT_ADMIT_1999_GAMES",
+  "pinned_inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "pinned_bat630_gate_identity": "53726e12b28dcb250bac1327a894f623d094a5d365ee60a2f6af965a35defc3a",
+  "pinned_bat630_payload_identity": "7673dbf5f053dcc0b747e70c0562265e53046806e9c21d269968ae53e785edd8",
+  "pinned_bat625_gate_identity": "38cf419510306d17c203a660051f96da9e186e275833bb763a517cf735b07546",
+  "pinned_bat621_gate_identity": "24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094",
+  "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+  "payloads": {
+    "normalized_root": "features/tamu_official_1999_boxscores/sha256",
+    "capture_index": "features/tamu_official_1999_boxscores/capture_index.json",
+    "raw_root": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "aggie.data.tamu_official_gamebook_union_1998_expanded.v1",
+  "validation_contract_version": "aggie.data.tamu_official_gamebook_union_1998_expanded.v1",
+  "contract_id": "BAT-637-TAMU-OFFICIAL-GAMEBOOK-UNION-1998-EXPANDED-V1",
+  "jira_key": "BAT-637",
+  "local_issue_id": "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001",
+  "new_issue_decision": "CREATE",
+  "predecessor_union_identity": "c213761531a3b8f8605e2cd3a00afdb7993c9cbedeb1c383cf1429167f0fc53c",
+  "predecessor_gate_identity": "a8d0a6594cfdf4557e2ef743983d64531474410fde6795fe4400441d11555403",
+  "pinned_bat634_gate_identity": "f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306",
+  "pinned_bat635_gate_identity": "ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260",
+  "pinned_bat635_dataset_identity": "94d5fe1182a65c35b59f9b2a10d8de1ee561f92a4d6e6e06a53b0a2eded49c15",
+  "pinned_bat635_acquisition_identity": "6dc742a6d359d3800f1474e436734ab523ea17d389e81bca9e9f8c01200f18f7",
+  "pinned_bat636_gate_identity": "ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28",
+  "pinned_bat636_payload_identity": "d3f07d927c82b538a25695d297596c46624ca4ed178166a451c03dab9b478d5f",
+  "pinned_union_identity": "",
+  "pinned_union_manifest_file_sha256": "",
+  "pinned_gate_identity": "",
+  "payloads": {
+    "union_root": "features/tamu_official_gamebook_union_1998_expanded/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

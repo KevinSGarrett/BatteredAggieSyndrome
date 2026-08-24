@@ -33,16 +33,18 @@
     ]
   },
   "evidence_manifest_type": "jira_issue_progress_evidence",
-  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "d8fbd785a03d0b9c7be1d613cd41d95be11a308c",
+  "issue_complete": true,
   "jira_key": "BAT-632",
   "local_issue_id": "POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001",
+  "material_pr": 581,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently reconstructed only the 12 mounted BAT-631 official captures and parsed provenance-bound structured domains: 4,887 serialized rows (team statistics 312, individual player statistics 337, drives 160, play-by-play 3,996, scoring summary 82). All 12 games parsed; drives and play-by-play are truthfully ABSENT for one game each. Gate identity a3773196da81aa1d94e01d633ff68e6a7ddd2c603c41eb2c0ab9c26f8ddc1e93; payload identity 736cdd338d3097d02ca6c5a05c434e8b36366caac30db55d574c872b2ca892a1; validator code identity a6c0a3c6fd580084b51fbd10d134d5534d5eee12c5b3d91fe154b6a4c47770e1. No union admission, availability, historical known-at, NCAA contest ID, or name-only player merge claim is made.",
+  "observable_outcome": "Material PR #581 merged as d8fbd785a03d0b9c7be1d613cd41d95be11a308c after local and hosted validation. Independently reconstructed only the 12 mounted BAT-631 official captures and parsed provenance-bound structured domains: 4,887 serialized rows (team statistics 312, individual player statistics 337, drives 160, play-by-play 3,996, scoring summary 82). All 12 games parsed; drives and play-by-play are truthfully ABSENT for one game each. Gate identity a3773196da81aa1d94e01d633ff68e6a7ddd2c603c41eb2c0ab9c26f8ddc1e93; payload identity 736cdd338d3097d02ca6c5a05c434e8b36366caac30db55d574c872b2ca892a1; validator code identity a6c0a3c6fd580084b51fbd10d134d5534d5eee12c5b3d91fe154b6a4c47770e1. No union admission, availability, historical known-at, NCAA contest ID, or name-only player merge claim is made.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

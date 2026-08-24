@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-632-TAMU-OFFICIAL-1999-STRUCTURED-DOMAINS-V1",
+  "decision_unit": "POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001",
+  "jira_key": "BAT-632",
+  "parent_jira_key": "BAT-631",
+  "related_jira_keys": [
+    "BAT-631",
+    "BAT-630",
+    "BAT-625",
+    "BAT-621",
+    "BAT-585",
+    "BAT-523",
+    "BAT-429",
+    "BAT-401"
+  ],
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_SRC014_OFFICIAL_1999_STRUCTURED_DOMAIN_CANDIDATE_ONLY",
+  "purpose": "Parse only independently reconstructed 1999 official box-score captures into bound structured domains with explicit provenance. Preserve ambiguities and conflicts, fail closed on conflicting authoritative blocks, and do not admit availability, known-at, NCAA identity, or union membership.",
+  "source_id": "SRC-014",
+  "official_index_url": "https://files.12thman.com/history/football/years/1999.html",
+  "pinned_inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "pinned_bat631_gate_identity": "f1a236d97f3ecf93fd91d35ecad9a5bf1c54cd591d6e07bd80875329a426aa22",
+  "pinned_bat631_dataset_identity": "36c348e7c5650174798fd241afc0e65e5afdd8868e4033616e04dced31296c8d",
+  "pinned_bat631_acquisition_identity": "a4c27c5583f94c1a5de5de17e748569dbd042d33037b8dfa0380fa22e269d86d",
+  "pinned_bat630_gate_identity": "53726e12b28dcb250bac1327a894f623d094a5d365ee60a2f6af965a35defc3a",
+  "pinned_bat625_gate_identity": "38cf419510306d17c203a660051f96da9e186e275833bb763a517cf735b07546",
+  "pinned_bat621_gate_identity": "24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094",
+  "pinned_parser_identity": "tamu.official.statcrew.preformatted.v1",
+  "payloads": {
+    "enriched_root": "features/tamu_official_1999_structured_domains/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "union_policy": "DO_NOT_ADMIT_1999_GAMES"
+}

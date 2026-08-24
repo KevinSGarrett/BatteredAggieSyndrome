@@ -2079,6 +2079,118 @@
           ]
         }
       ]
+    },
+    {
+      "binding_id": "BAT-630-OFFICIAL-1999-SEASON-INDEX",
+      "jira_key": "BAT-630",
+      "local_issue_id": "POST-TASK-SRC014-1999-OFFICIAL-INDEX-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1999_season_index_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1999-OFFICIAL-INDEX-001",
+        "jira_key": "BAT-630",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_OFFICIAL_1999_SEASON_INDEX_CAPTURED_BOX_URLS_DISCOVERED"
+      },
+      "forbidden_true_paths": [
+        "authority.historical_known_at_from_capture_time",
+        "authority.champion_or_production_promotion",
+        "authority.ncaa_contest_identity",
+        "scientific_nonclaims.protected_lane_opened"
+      ],
+      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "evidence_surfaces": [{
+        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-OFFICIAL-INDEX-001.json",
+        "role": "current",
+        "jira_key_path": "jira_key",
+        "local_issue_id_path": "local_issue_id",
+        "current_identity_paths": ["current_identities.gate_identity"],
+        "narrative_paths": ["observable_outcome"],
+        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+        "superseded_identity_paths": [],
+        "lane_decision_paths": ["admissions.protected_lane"],
+        "forbidden_true_paths": [
+          "protected_nonclaims.protected_lane_opened",
+          "protected_nonclaims.champion_or_production_promotion",
+          "protected_nonclaims.historical_known_at_established"
+        ]
+      }]
+    },
+    {
+      "binding_id": "BAT-631-OFFICIAL-1999-BOXSCORES",
+      "jira_key": "BAT-631",
+      "local_issue_id": "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1999_boxscore_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001",
+        "jira_key": "BAT-631",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_OFFICIAL_1999_BOXSCORES_NORMALIZED"
+      },
+      "forbidden_true_paths": [
+        "authority.historical_known_at_from_capture_time",
+        "authority.champion_or_production_promotion",
+        "authority.ncaa_contest_identity",
+        "scientific_nonclaims.protected_lane_opened"
+      ],
+      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "evidence_surfaces": [{
+        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001.json",
+        "role": "current",
+        "jira_key_path": "jira_key",
+        "local_issue_id_path": "local_issue_id",
+        "current_identity_paths": ["current_identities.gate_identity"],
+        "narrative_paths": ["observable_outcome"],
+        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+        "superseded_identity_paths": [],
+        "lane_decision_paths": ["admissions.protected_lane"],
+        "forbidden_true_paths": [
+          "protected_nonclaims.protected_lane_opened",
+          "protected_nonclaims.champion_or_production_promotion",
+          "protected_nonclaims.historical_known_at_established"
+        ]
+      }]
+    },
+    {
+      "binding_id": "BAT-632-OFFICIAL-1999-STRUCTURED-DOMAINS",
+      "jira_key": "BAT-632",
+      "local_issue_id": "POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1999_structured_domains_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001",
+        "jira_key": "BAT-632",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_OFFICIAL_1999_STRUCTURED_DOMAINS_PARSED"
+      },
+      "forbidden_true_paths": [
+        "authority.historical_known_at_from_capture_time",
+        "authority.champion_or_production_promotion",
+        "authority.ncaa_contest_identity",
+        "authority.participation_as_availability",
+        "scientific_nonclaims.protected_lane_opened"
+      ],
+      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "evidence_surfaces": [{
+        "path": "artifacts/jira_evidence/POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001.json",
+        "role": "current",
+        "jira_key_path": "jira_key",
+        "local_issue_id_path": "local_issue_id",
+        "current_identity_paths": ["current_identities.gate_identity"],
+        "narrative_paths": ["observable_outcome"],
+        "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+        "superseded_identity_paths": [],
+        "lane_decision_paths": ["admissions.protected_lane"],
+        "forbidden_true_paths": [
+          "protected_nonclaims.protected_lane_opened",
+          "protected_nonclaims.champion_or_production_promotion",
+          "protected_nonclaims.historical_known_at_established"
+        ]
+      }]
     }
 
   ]

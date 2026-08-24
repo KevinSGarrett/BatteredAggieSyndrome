@@ -1,0 +1,361 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_630_payload": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_631_payload": "CONSUMED_CAPTURES_ONLY",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "name_only_player_merge": "REJECTED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "participation_as_availability": "REJECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "artifact_type": "TAMU_OFFICIAL_1999_STRUCTURED_DOMAINS_GATE",
+  "authority": {
+    "availability_claim": false,
+    "champion_or_production_promotion": false,
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "forecast_publication": false,
+    "historical_known_at_from_capture_time": false,
+    "historical_pit_admission": false,
+    "membership_as_availability": false,
+    "name_only_player_merge": false,
+    "name_only_promotion": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false,
+    "preliminary_training_admission": false,
+    "protected_evaluation_admission": false,
+    "protected_outcome_authority": false,
+    "protected_training_admission": false,
+    "same_game_pregame_feature_admission": false,
+    "wmt_payload_mutated_in_place": false
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_1999_STRUCTURED_DOMAIN_CANDIDATE_ONLY",
+  "contract_id": "BAT-632-TAMU-OFFICIAL-1999-STRUCTURED-DOMAINS-V1",
+  "counts": {
+    "ambiguous_games": 0,
+    "availability_claims": 0,
+    "drives_absent_games": 1,
+    "drives_present_games": 11,
+    "drives_serialized_rows": 160,
+    "games_1999": 12,
+    "games_admitted_to_union": 0,
+    "individual_player_statistics_absent_games": 0,
+    "individual_player_statistics_present_games": 12,
+    "individual_player_statistics_serialized_rows": 337,
+    "name_only_player_merges": 0,
+    "ncaa_contest_ids_created": 0,
+    "parsed_games": 12,
+    "play_by_play_absent_games": 1,
+    "play_by_play_present_games": 11,
+    "play_by_play_serialized_rows": 3996,
+    "pregame_availability_present": 0,
+    "scoring_summary_absent_games": 0,
+    "scoring_summary_present_games": 12,
+    "scoring_summary_serialized_rows": 82,
+    "serialized_rows_total": 4887,
+    "target_games_total": 12,
+    "team_statistics_absent_games": 0,
+    "team_statistics_present_games": 12,
+    "team_statistics_serialized_rows": 312
+  },
+  "decision_unit": "POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001",
+  "disposition": "NEW_ENRICHED_PAYLOAD_PRIOR_IDENTITIES_PRESERVED",
+  "games": [
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 27,
+        "play_by_play": 0,
+        "scoring_summary": 6,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "e187b338bebdda32c5c89268cdbdea56e0cb54a82826fa5153b984eb807ceb56",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_437_latech.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 20,
+        "individual_player_statistics": 32,
+        "play_by_play": 404,
+        "scoring_summary": 4,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "23590d4e795af8d18d5702d4f06a765ead79f4c9df2f35e0632cd646f555aeb0",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_438_tulsa.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 17,
+        "individual_player_statistics": 24,
+        "play_by_play": 358,
+        "scoring_summary": 2,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "18a86c923640af2b93ca227c25978db78d38b4aa9f569a8ae126ac9f3622aae6",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_439_somiss.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 15,
+        "individual_player_statistics": 30,
+        "play_by_play": 376,
+        "scoring_summary": 6,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "e6e62a36063685e9ff44e99136dd6d7b1a569f56e1ceda315fcc0d0c876f92d5",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_440_ttech.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 15,
+        "individual_player_statistics": 29,
+        "play_by_play": 350,
+        "scoring_summary": 6,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "4c11770b31be074f6237b497a43ce4411442805eba7624a999bb9198426a282b",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_441_baylor.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 15,
+        "individual_player_statistics": 29,
+        "play_by_play": 369,
+        "scoring_summary": 6,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "ffa08c84af9e7c525909766e6085c9c2dd4b291c37f61eef38e5cff2b0597929",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_442_kansas.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 14,
+        "individual_player_statistics": 37,
+        "play_by_play": 376,
+        "scoring_summary": 18,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "218cc73053e53697bf257bd426638171b46056b3a66910dafaeabae43dd94628",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_443_oklahoma.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 1,
+        "individual_player_statistics": 22,
+        "play_by_play": 317,
+        "scoring_summary": 2,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "f02f29b04d8ff6344b262f6490bfa016746a92f9e181b5ce3c0efbd7d0c00d15",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_444_osu.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 16,
+        "individual_player_statistics": 28,
+        "play_by_play": 381,
+        "scoring_summary": 14,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "53a7701f34135883b0547e5a8803b0f22535915d74700ab99c39567f45966f55",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_445_nebraska.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 17,
+        "individual_player_statistics": 29,
+        "play_by_play": 376,
+        "scoring_summary": 4,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "174b01c1cef807e988b6ef7488b93fbfaf1a1dd125c49bea6a657a92ecc56bb6",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_446_missouri.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 17,
+        "individual_player_statistics": 22,
+        "play_by_play": 376,
+        "scoring_summary": 6,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "4b11efa187b316cda239bfbf98ca62bf32b0b83e41ee6d2ae7e78203801d1d3b",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_447_texas.html",
+      "warnings": []
+    },
+    {
+      "domain_coverage": {
+        "drives": "PRESENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.statcrew.preformatted.v1",
+      "row_counts": {
+        "drives": 13,
+        "individual_player_statistics": 28,
+        "play_by_play": 313,
+        "scoring_summary": 8,
+        "team_statistics": 26
+      },
+      "source_season": 1999,
+      "source_sha256": "a3ee5f643c38287334ae519d41624e4df8e2c64f60a742f0d616d7c0e12af304",
+      "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_1897_alamo.html",
+      "warnings": []
+    }
+  ],
+  "gate_identity": "a3773196da81aa1d94e01d633ff68e6a7ddd2c603c41eb2c0ab9c26f8ddc1e93",
+  "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "jira_key": "BAT-632",
+  "payload_identity": "736cdd338d3097d02ca6c5a05c434e8b36366caac30db55d574c872b2ca892a1",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_1999_STRUCTURED_DOMAINS_PARSED",
+  "schema_version": "aggie.data.tamu_official_1999_structured_domains.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "champion_or_production_promotion": false,
+    "completeness_claimed": false,
+    "historical_known_at_established": false,
+    "historical_population_ready": false,
+    "ncaa_contest_ids_created": false,
+    "participation_used_as_availability": false,
+    "pregame_availability_admitted": false,
+    "protected_evaluation_admitted": false,
+    "protected_lane_opened": false,
+    "protected_performance_claimed": false,
+    "roster_membership_used_as_availability": false,
+    "same_game_pregame_features_admitted": false,
+    "tamu_specialization_lift_claimed": false,
+    "trained_production_champion": false,
+    "wmt_candidate_payload_rewritten": false
+  },
+  "selected_seasons": [
+    1999
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat621_gate_identity": "24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094",
+    "bat625_gate_identity": "38cf419510306d17c203a660051f96da9e186e275833bb763a517cf735b07546",
+    "bat630_gate_identity": "53726e12b28dcb250bac1327a894f623d094a5d365ee60a2f6af965a35defc3a",
+    "bat631_acquisition_identity": "a4c27c5583f94c1a5de5de17e748569dbd042d33037b8dfa0380fa22e269d86d",
+    "bat631_dataset_identity": "36c348e7c5650174798fd241afc0e65e5afdd8868e4033616e04dced31296c8d",
+    "bat631_gate_identity": "f1a236d97f3ecf93fd91d35ecad9a5bf1c54cd591d6e07bd80875329a426aa22",
+    "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+    "parser_identity": "tamu.official.statcrew.preformatted.v1"
+  },
+  "validator_code_identity": "a6c0a3c6fd580084b51fbd10d134d5534d5eee12c5b3d91fe154b6a4c47770e1"
+}

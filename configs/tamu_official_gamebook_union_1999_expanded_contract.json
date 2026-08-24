@@ -1,0 +1,29 @@
+{
+  "schema_version": "aggie.data.tamu_official_gamebook_union_1999_expanded.v1",
+  "validation_contract_version": "aggie.data.tamu_official_gamebook_union_1999_expanded.v1",
+  "contract_id": "BAT-633-TAMU-OFFICIAL-GAMEBOOK-UNION-1999-EXPANDED-V1",
+  "jira_key": "BAT-633",
+  "local_issue_id": "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001",
+  "new_issue_decision": "CREATE",
+  "purpose": "Create a new immutable official enriched union successor from BAT-628 that admits 1999 only through official index membership + box URL + raw SHA + season + independently reconstructed BAT-631 acquisition and BAT-632 structured payload evidence. Preserve all predecessor rejections/conflicts and separate source-surface observation from reconstructible rows.",
+  "predecessor_union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
+  "predecessor_gate_identity": "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2",
+  "pinned_bat630_gate_identity": "53726e12b28dcb250bac1327a894f623d094a5d365ee60a2f6af965a35defc3a",
+  "pinned_bat631_gate_identity": "f1a236d97f3ecf93fd91d35ecad9a5bf1c54cd591d6e07bd80875329a426aa22",
+  "pinned_bat631_dataset_identity": "36c348e7c5650174798fd241afc0e65e5afdd8868e4033616e04dced31296c8d",
+  "pinned_bat631_acquisition_identity": "a4c27c5583f94c1a5de5de17e748569dbd042d33037b8dfa0380fa22e269d86d",
+  "pinned_bat632_gate_identity": "a3773196da81aa1d94e01d633ff68e6a7ddd2c603c41eb2c0ab9c26f8ddc1e93",
+  "pinned_bat632_payload_identity": "736cdd338d3097d02ca6c5a05c434e8b36366caac30db55d574c872b2ca892a1",
+  "official_index_url": "https://files.12thman.com/history/football/years/1999.html",
+  "known_gap_urls": [
+    "https://files.12thman.com/history/football/stats/2006-2007/texas.htm",
+    "https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm"
+  ],
+  "pinned_union_identity": "c213761531a3b8f8605e2cd3a00afdb7993c9cbedeb1c383cf1429167f0fc53c",
+  "pinned_union_manifest_file_sha256": "a12e632e7442a7d4448b7005aa6a6e0e80cd2b102bd486fdef417cc446771196",
+  "pinned_gate_identity": "a8d0a6594cfdf4557e2ef743983d64531474410fde6795fe4400441d11555403",
+  "payloads": {
+    "union_root": "features/tamu_official_gamebook_union_1999_expanded/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

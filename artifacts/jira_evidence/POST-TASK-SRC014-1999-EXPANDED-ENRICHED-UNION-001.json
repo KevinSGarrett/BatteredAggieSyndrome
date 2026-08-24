@@ -1,0 +1,52 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_628_union": "CONSUMED_IMMUTABLE_PREDECESSOR_ONLY",
+    "bat_630_index": "CONSUMED_OFFICIAL_INDEX_URLS_ONLY",
+    "bat_631_boxscores": "INDEPENDENTLY_RECONSTRUCTED_EXTERNAL_PAYLOAD",
+    "bat_632_structured_domains": "INDEPENDENTLY_RECONSTRUCTED_EXTERNAL_ROWS",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "CANDIDATE_ONLY"
+  },
+  "current_identities": {
+    "gate_identity": "a8d0a6594cfdf4557e2ef743983d64531474410fde6795fe4400441d11555403",
+    "union_identity": "c213761531a3b8f8605e2cd3a00afdb7993c9cbedeb1c383cf1429167f0fc53c",
+    "union_manifest_file_sha256": "a12e632e7442a7d4448b7005aa6a6e0e80cd2b102bd486fdef417cc446771196",
+    "validator_code_identity": "e68dd6a4d0b2a12228f754ff7a10a6e720dd8e55040107ae850519c48c03bdf1"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No dedicated owner existed for a 1999 successor union sourced from the independently reconstructed BAT-631 acquisition and BAT-632 structured-domain evidence; BAT-628 is immutable predecessor-only.",
+    "reviewed_keys": ["BAT-401", "BAT-429", "BAT-523", "BAT-628", "BAT-630", "BAT-631", "BAT-632"]
+  },
+  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
+  "issue_complete": false,
+  "jira_key": "BAT-633",
+  "local_issue_id": "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently rebuilt the immutable 1999 enriched official-union successor against corrected BAT-631 and BAT-632 gates. The source-verified union preserves 317 predecessor games, admits 7 of 12 1999 official candidates, retains 5 1999 rejections, and contains 324 captured games (311 rich structured, 13 metadata-only). Gate identity a8d0a6594cfdf4557e2ef743983d64531474410fde6795fe4400441d11555403; union identity c213761531a3b8f8605e2cd3a00afdb7993c9cbedeb1c383cf1429167f0fc53c. No availability, historical known-at, NCAA contest ID, protected-lane, production, or name-only player-merge claim is made.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress",
+  "upstream_identities": {
+    "bat628_gate_identity": "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2",
+    "bat628_union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
+    "bat630_gate_identity": "53726e12b28dcb250bac1327a894f623d094a5d365ee60a2f6af965a35defc3a",
+    "bat631_acquisition_identity": "a4c27c5583f94c1a5de5de17e748569dbd042d33037b8dfa0380fa22e269d86d",
+    "bat631_dataset_identity": "36c348e7c5650174798fd241afc0e65e5afdd8868e4033616e04dced31296c8d",
+    "bat631_gate_identity": "f1a236d97f3ecf93fd91d35ecad9a5bf1c54cd591d6e07bd80875329a426aa22",
+    "bat632_gate_identity": "a3773196da81aa1d94e01d633ff68e6a7ddd2c603c41eb2c0ab9c26f8ddc1e93",
+    "bat632_payload_identity": "736cdd338d3097d02ca6c5a05c434e8b36366caac30db55d574c872b2ca892a1"
+  }
+}

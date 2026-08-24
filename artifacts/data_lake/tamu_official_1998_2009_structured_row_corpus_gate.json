@@ -1,0 +1,98 @@
+{
+  "admissions": {
+    "bat_523": "IN_PROGRESS",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "pit_training_protected_admission": false,
+    "retrieval_time_used_as_known_at": false
+  },
+  "artifact_type": "TAMU_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_GATE",
+  "authority": {
+    "historical_known_at_from_capture_time": false,
+    "name_only_player_merge": false,
+    "ncaa_contest_identity": false,
+    "participation_as_availability": false
+  },
+  "child_payloads": {
+    "drives": {
+      "filename": "drives.jsonl",
+      "row_count": 3142,
+      "schema": "aggie.data.tamu_official_1998_2009_structured_row_corpus.v1",
+      "sha256": "098ec77c7f55b73a092ea331946e2a08e9db724052389b382ee1fced7a3db1dd"
+    },
+    "individual_player_statistics": {
+      "filename": "individual_player_statistics.jsonl",
+      "row_count": 3475,
+      "schema": "aggie.data.tamu_official_1998_2009_structured_row_corpus.v1",
+      "sha256": "73b0ff8e29065534384abe4391b1da5dd332d9746c111bb203b1390a043f02a4"
+    },
+    "play_by_play": {
+      "filename": "play_by_play.jsonl",
+      "row_count": 45348,
+      "schema": "aggie.data.tamu_official_1998_2009_structured_row_corpus.v1",
+      "sha256": "291ff1d8a4313f11d6e7fea8e45be7587e747fa8f80ce65ab90efbe6562fa4b1"
+    },
+    "scoring_summary": {
+      "filename": "scoring_summary.jsonl",
+      "row_count": 2150,
+      "schema": "aggie.data.tamu_official_1998_2009_structured_row_corpus.v1",
+      "sha256": "bfd9175590dbe5e8eece5e752352b07c8730bc56d53e46082639c70f8617783a"
+    },
+    "team_statistics": {
+      "filename": "team_statistics.jsonl",
+      "row_count": 4638,
+      "schema": "aggie.data.tamu_official_1998_2009_structured_row_corpus.v1",
+      "sha256": "84c7aee65f3b7ccf1fde9839685f1eb068f03b8624fcfe7fcfe61bc40f84a9a8"
+    }
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY",
+  "contract_id": "BAT-638-TAMU-OFFICIAL-1998-2009-STRUCTURED-ROW-CORPUS-V1",
+  "counts": {
+    "availability_claims": 0,
+    "drives_games_present": 124,
+    "drives_rows": 3142,
+    "games": 127,
+    "individual_player_statistics_games_present": 125,
+    "individual_player_statistics_rows": 3475,
+    "name_only_player_merges": 0,
+    "ncaa_contest_ids_created": 0,
+    "play_by_play_games_present": 122,
+    "play_by_play_rows": 45348,
+    "rejected_urls_excluded": 8,
+    "scoring_summary_games_present": 122,
+    "scoring_summary_rows": 2150,
+    "seasons": 12,
+    "serialized_rows_total": 58753,
+    "team_statistics_games_present": 125,
+    "team_statistics_rows": 4638
+  },
+  "dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
+  "decision_unit": "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001",
+  "disposition": "NEW_IMMUTABLE_SUCCESSOR_FROM_BAT629_AND_BAT637",
+  "gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
+  "jira_key": "BAT-638",
+  "predecessor_dataset_identity": "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420",
+  "predecessor_gate_identity": "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78",
+  "predecessor_manifest_file_sha256": "555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS",
+  "schema_version": "aggie.data.tamu_official_1998_2009_structured_row_corpus.v1",
+  "selected_seasons": [
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009
+  ],
+  "source_id": "SRC-014",
+  "union_gate_identity": "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a",
+  "union_identity": "e526499dab658992bb528799621833a0cb9dbaf538755ceb4b8b1df37053f069",
+  "validation_contract_version": "aggie.data.tamu_official_1998_2009_structured_row_corpus.v1",
+  "validator_code_identity": "b91679af12e7af17b4163667b714e17353977262ac3fc342032eda9192345bcf"
+}

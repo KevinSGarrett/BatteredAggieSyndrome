@@ -1,0 +1,41 @@
+{
+  "admissions": {
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_635_payload": "CONSUMED_CAPTURES_ONLY",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "name_only_player_merge": "REJECTED",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "participation_as_availability": "REJECTED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "current_identities": {
+    "gate_identity": "ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28",
+    "payload_identity": "d3f07d927c82b538a25695d297596c46624ca4ed178166a451c03dab9b478d5f",
+    "upstream_bat634_gate_identity": "f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306",
+    "upstream_bat635_gate_identity": "ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260",
+    "validator_code_identity": "aa243c65adf9fcfe90b056d6ad01cb5d68f1ff76096c7916dcebe50fe9ec3418"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "reason": "No dedicated local, live Jira, Git branch, commit, or GitHub PR owner existed for the 1998 structured-domain parsing after Phase 7 process reconciliation merged."
+  },
+  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
+  "issue_complete": false,
+  "jira_key": "BAT-636",
+  "local_issue_id": "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001",
+  "material_pr": null,
+  "observable_outcome": "Independent reconstruction parsed 14 official 1998 captured pages into source-labeled structured domains. Gate identity ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28 reports 3,549 serialized rows: 353 team-statistics rows, 213 individual-player-statistics rows, 229 drives rows, 2,674 play-by-play rows, and 80 scoring-summary rows. Zero games entered a union, zero NCAA contest IDs were created, name-only player merges were rejected, availability remains unestablished, historical known-at remains retrieval-time-only, and the protected lane remains blocked.",
+  "protected_nonclaims": {
+    "availability_established": false,
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "ncaa_contest_ids_created": false,
+    "protected_lane_opened": false,
+    "union_admission": false
+  },
+  "result": "PASS_OFFICIAL_1998_STRUCTURED_DOMAINS_PARSED",
+  "status": "In Progress"
+}

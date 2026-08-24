@@ -26,16 +26,18 @@
     "reviewed_keys": ["BAT-401", "BAT-429", "BAT-523", "BAT-585", "BAT-621", "BAT-625", "BAT-633"]
   },
   "evidence_manifest_type": "jira_issue_progress_evidence",
-  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
-  "issue_complete": false,
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "3ed8059a4c3253f14bf7e228f53941e59131e02e",
+  "issue_complete": true,
   "jira_key": "BAT-634",
   "local_issue_id": "POST-TASK-SRC014-1998-OFFICIAL-INDEX-001",
+  "material_pr": 585,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Independently captured the official 1998 season page linked from the verified history index and recovered 14 official box-score URLs. The capture contains one preserved ambiguous schedule row, zero duplicate/malformed/missing links, zero union admissions, and zero NCAA contest IDs. Gate identity f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306; payload identity 25cf06fb9507aaac6f6211e6c59ad4d51e045f944da8c7fb7b530620d8e03b23; raw SHA-256 60b0688f43f2718666bcbaeda64884bc77b948b3d07112ce60269d2581213181. No historical known-at, availability, NCAA identity, player identity, protected-lane, or production claim is made.",
+  "observable_outcome": "Material PR #585 merged as 3ed8059a4c3253f14bf7e228f53941e59131e02e after all hosted checks and local strict validation passed. It independently captured the official 1998 season page linked from the verified history index and recovered 14 official box-score URLs. The capture contains one preserved ambiguous schedule row, zero duplicate/malformed/missing links, zero union admissions, and zero NCAA contest IDs. Gate identity f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306; payload identity 25cf06fb9507aaac6f6211e6c59ad4d51e045f944da8c7fb7b530620d8e03b23; raw SHA-256 60b0688f43f2718666bcbaeda64884bc77b948b3d07112ce60269d2581213181. No historical known-at, availability, NCAA identity, player identity, protected-lane, or production claim is made.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,
     "protected_lane_opened": false
   },
-  "status": "In Progress"
+  "status": "Done"
 }

@@ -1,0 +1,52 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "bat_585_inventory": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_621_2001_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "bat_625_2000_index": "PRESERVED_IMMUTABLE_NOT_REWRITTEN",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE",
+    "union_admission": "NOT_ADMITTED"
+  },
+  "current_identities": {
+    "box_url_identity": "9df5ebafab229c43948efd56fbfc4aed7ffbb87a89ef2fedc3174ec2c8c8d12b",
+    "capture_identity": "58b419e4aca0b93bb5cfb1331fbb00cbafca2f7bf389d201082408740988462e",
+    "game_row_identity": "89f7110eaa624932a7d56f88efdbe50331aeaf65f25b587928578c91ed34bbfd",
+    "gate_identity": "53726e12b28dcb250bac1327a894f623d094a5d365ee60a2f6af965a35defc3a",
+    "payload_identity": "7673dbf5f053dcc0b747e70c0562265e53046806e9c21d269968ae53e785edd8",
+    "raw_sha256": "fed753c1879627d72e02a3f364b8547142c51000799bd6f2f0b338c89f296a51",
+    "validator_code_identity": "e4a8ffbf5539567bc829f88884ef8f72f215e5e2bf21f69739663100f2fc7b2c"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing owner was found for a dedicated official SRC-014 1999 season-index capture after searching local Jira artifacts and existing implementation surfaces. BAT-621 owns 2001 and BAT-625 owns 2000; neither can be reused for 1999 ownership.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-585",
+      "BAT-621",
+      "BAT-625"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "evidence_state": "VERIFIED_LOCAL_PREMERGE",
+  "issue_complete": false,
+  "jira_key": "BAT-630",
+  "local_issue_id": "POST-TASK-SRC014-1999-OFFICIAL-INDEX-001",
+  "new_issue_decision": "CREATE",
+  "observable_outcome": "Independently re-parsed the captured official history index (SHA-256 1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a) and resolved ../years/1999.html to the official URL https://files.12thman.com/history/football/years/1999.html. Captured and persisted immutable raw page SHA-256 fed753c1879627d72e02a3f364b8547142c51000799bd6f2f0b338c89f296a51 with status 200 and source season 1999. Parsed source-ordered schedule rows: 12 scheduled games, emitted box-score links discovered: 12, admitted box-score URLs: 12, duplicate links: 0, malformed links: 0, missing links: 0, ambiguous rows: 1 (legend/footnote row excluded from scheduled games), NCAA contest IDs created: 0, union admissions: 0. Historical known-at remains UNKNOWN_RETRIEVAL_TIME_ONLY.",
+  "protected_nonclaims": {
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "protected_lane_opened": false
+  },
+  "status": "In Progress"
+}

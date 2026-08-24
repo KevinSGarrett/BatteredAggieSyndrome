@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-630-TAMU-OFFICIAL-1999-SEASON-INDEX-V1",
+  "decision_unit": "POST-TASK-SRC014-1999-OFFICIAL-INDEX-001",
+  "jira_key": "BAT-630",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-585",
+    "BAT-621",
+    "BAT-625",
+    "BAT-429",
+    "BAT-401"
+  ],
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_SRC014_OFFICIAL_1999_SEASON_INDEX_CAPTURE_CANDIDATE_ONLY",
+  "purpose": "Capture the official 1999 Texas A&M football season index emitted by the SRC-014 history index and discover source-ordered box-score URLs only from that captured page. Do not fabricate NCAA contest IDs, do not invent known-at timestamps from retrieval time, and do not admit games into a union.",
+  "source_id": "SRC-014",
+  "official_index_url": "https://files.12thman.com/history/football/years/1999.html",
+  "discovery_parent_url": "https://files.12thman.com/history/football/history/index.html",
+  "official_hosts": [
+    "files.12thman.com",
+    "12thman.com",
+    "www.12thman.com"
+  ],
+  "rights_decision_id": "PRIVATE-RESEARCH-SRC-014",
+  "raw_storage_policy": "ALLOW_IMMUTABLE_RAW_AND_NORMALIZED_DATA_OUTSIDE_GIT",
+  "derived_export_allowed": false,
+  "raw_export_allowed": false,
+  "pinned_inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
+  "pinned_bat621_gate_identity": "24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094",
+  "pinned_bat621_payload_identity": "e04f7d3e3700729d63d805be95e934aa211f9233e2c69d234b95691d63a8ab6a",
+  "pinned_bat625_gate_identity": "38cf419510306d17c203a660051f96da9e186e275833bb763a517cf735b07546",
+  "pinned_bat625_payload_identity": "37257a291547283225fac0f9771607557a789d65f40d64ba7b2fefecfbb0a616",
+  "pinned_history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
+  "protected_split_registry_relative_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+  "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+  "payloads": {
+    "normalized_root": "features/tamu_official_1999_season_index/sha256",
+    "raw_root": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive"
+  },
+  "authority": {
+    "completeness_claim": false,
+    "contest_id_fabrication": false,
+    "guessed_season_url": false,
+    "ncaa_contest_identity": false,
+    "historical_known_at_from_capture_time": false,
+    "availability_claim": false,
+    "union_admission": false,
+    "wmt_payload_mutated_in_place": false,
+    "protected_outcome_authority": false,
+    "champion_or_production_promotion": false
+  }
+}

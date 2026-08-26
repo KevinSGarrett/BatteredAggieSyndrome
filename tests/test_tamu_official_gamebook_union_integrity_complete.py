@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 import sys
 import unittest
 from contextlib import contextmanager
@@ -45,7 +44,7 @@ from aggie_analytics.data.tamu_official_gamebook_union_integrity_complete import
 )
 
 
-DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
 LAKE_READY = upstream_is_ready(DATA_ROOT)
 EXPECTED_GATE_IDENTITY = "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f"
 EXPECTED_UNION_IDENTITY = "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd"

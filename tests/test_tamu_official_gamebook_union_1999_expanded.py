@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 import sys
 import unittest
 from pathlib import Path
@@ -21,9 +20,7 @@ from aggie_analytics.data.tamu_official_gamebook_union_1999_expanded import (  #
     validate_artifact,
  )  # pylint: disable=import-error
 
-DATA_ROOT = Path(
-    os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
-)
+DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
 LAKE_READY = lake_is_ready(DATA_ROOT, REPO_ROOT)
 
 

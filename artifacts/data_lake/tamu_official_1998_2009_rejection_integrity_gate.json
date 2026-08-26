@@ -1,0 +1,48 @@
+{
+  "admitted_row_gap_urls": [
+    "https://files.12thman.com/history/football/stats/2006-2007/texas.htm",
+    "https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm"
+  ],
+  "artifact_type": "TAMU_OFFICIAL_1998_2009_REJECTION_INTEGRITY_GATE",
+  "classification": "TAMU_SRC014_OFFICIAL_1998_2009_REJECTION_INTEGRITY_CANDIDATE_ONLY",
+  "complete_rejection_count": 17,
+  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1998-2009-REJECTION-INTEGRITY-V1",
+  "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
+  "disposition": "NEW_IMMUTABLE_REJECTION_LEDGER_SUCCESSOR",
+  "gate_identity": "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e",
+  "jira_key": "BAT-XXX",
+  "ledger_identity": "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051",
+  "predecessor_corpus_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
+  "predecessor_corpus_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
+  "predecessor_union_gate_identity": "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a",
+  "predecessor_union_identity": "e526499dab658992bb528799621833a0cb9dbaf538755ceb4b8b1df37053f069",
+  "proofs": {
+    "dropped_bat633_1999_urls_in_bat637_surfaces": [
+      "https://files.12thman.com/history/football/stats/1999-2000/mfb_1897_alamo.html",
+      "https://files.12thman.com/history/football/stats/1999-2000/mfb_437_latech.html",
+      "https://files.12thman.com/history/football/stats/1999-2000/mfb_445_nebraska.html",
+      "https://files.12thman.com/history/football/stats/1999-2000/mfb_446_missouri.html",
+      "https://files.12thman.com/history/football/stats/1999-2000/mfb_447_texas.html"
+    ],
+    "none_in_admitted_union_membership": true,
+    "none_in_bat638_child_payloads": true,
+    "rejected_rows_by_domain": {
+      "drives": 0,
+      "individual_player_statistics": 0,
+      "play_by_play": 0,
+      "scoring_summary": 0,
+      "team_statistics": 0
+    }
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_REJECTION_LEDGER_COMPLETE_AND_CORPUS_EXCLUDED",
+  "schema_version": "aggie.data.tamu_official_1998_2009_rejection_integrity.v1",
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat633_gate_identity": "a8d0a6594cfdf4557e2ef743983d64531474410fde6795fe4400441d11555403",
+    "bat637_gate_identity": "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a",
+    "bat638_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
+    "bat638_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54"
+  },
+  "validation_contract_version": "aggie.data.tamu_official_1998_2009_rejection_integrity.v1"
+}

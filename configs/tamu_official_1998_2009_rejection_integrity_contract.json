@@ -1,0 +1,22 @@
+{
+  "schema_version": "aggie.data.tamu_official_1998_2009_rejection_integrity.contract.v1",
+  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1998-2009-REJECTION-INTEGRITY-V1",
+  "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
+  "jira_key": "BAT-XXX",
+  "source_id": "SRC-014",
+  "payloads": {
+    "rejection_ledger_root": "features/tamu_official_1998_2009_rejection_integrity/sha256"
+  },
+  "upstream": {
+    "bat633_gate_relative": "artifacts/data_lake/tamu_official_gamebook_union_1999_expanded_gate.json",
+    "bat637_gate_relative": "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json",
+    "bat638_gate_relative": "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json"
+  },
+  "authoritative_constraints": {
+    "membership_admitted": false,
+    "availability_established": false,
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_ids_created": 0,
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  }
+}

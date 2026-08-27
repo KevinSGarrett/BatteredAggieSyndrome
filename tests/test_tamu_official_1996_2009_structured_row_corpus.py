@@ -23,6 +23,7 @@ from aggie_analytics.data.tamu_official_1996_2009_structured_row_corpus import (
 )
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and DATA_ROOT.exists()
 
 
 def _mutated(gate: dict, **changes):
@@ -32,6 +33,7 @@ def _mutated(gate: dict, **changes):
     return tampered
 
 
+@unittest.skipUnless(LAKE_READY, "external Cycle #18 data root is not mounted")
 class Corpus19962009Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:

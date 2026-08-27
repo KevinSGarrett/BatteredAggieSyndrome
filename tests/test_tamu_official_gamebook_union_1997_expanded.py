@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -22,6 +23,7 @@ from aggie_analytics.data.tamu_official_gamebook_union_1997_expanded import (  #
 )
 
 DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and DATA_ROOT.exists()
 
 
 def _mutated(gate: dict, **changes):
@@ -31,6 +33,7 @@ def _mutated(gate: dict, **changes):
     return tampered
 
 
+@unittest.skipUnless(LAKE_READY, "external Cycle #18 data root is not mounted")
 class Official1997ExpandedUnionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:

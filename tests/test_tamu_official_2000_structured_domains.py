@@ -55,7 +55,7 @@ from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: 
 DATA_ROOT = Path(
     os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
 )
-LAKE_READY = lake_is_ready(DATA_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 PIT_URL = "https://files.12thman.com/history/football/stats/2000-2001/mfb_426_nd.html"
 EXPECTED_GATE_IDENTITY = (
     "cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268"

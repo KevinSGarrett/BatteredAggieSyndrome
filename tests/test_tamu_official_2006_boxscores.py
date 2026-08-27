@@ -24,7 +24,7 @@ from aggie_analytics.data.tamu_official_2006_boxscores import (  # noqa: E402
 
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
-LAKE_READY = lake_is_ready(DATA_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 
 
 def _mutated(gate: dict, **changes):

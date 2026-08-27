@@ -28,7 +28,7 @@ from aggie_analytics.data.tamu_official_historical_archive import persist_captur
 DATA_ROOT = Path(
     os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
 )
-LAKE_READY = lake_is_ready(DATA_ROOT, REPO_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT, REPO_ROOT)
 
 FIXTURE_HTML = (
     "<html><body><table id='yearly-stats'>"

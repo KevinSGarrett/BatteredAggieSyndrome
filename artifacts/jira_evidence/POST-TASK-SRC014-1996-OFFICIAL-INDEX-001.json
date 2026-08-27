@@ -1,0 +1,61 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE"
+  },
+  "availability_authority_claim": false,
+  "classification": "TAMU_SRC014_OFFICIAL_1996_SEASON_INDEX_CAPTURE_CANDIDATE_ONLY",
+  "counts": {
+    "ambiguous_rows": 1,
+    "box_score_urls": 11,
+    "duplicate_links": 0,
+    "games_admitted_to_union": 0,
+    "malformed_links": 0,
+    "missing_links": 1,
+    "ncaa_contest_ids_created": 0,
+    "scheduled_games": 12,
+    "seasons_captured": 1
+  },
+  "current_identities": {
+    "gate_identity": "629b7613f9bc4d020d810e4fc8b488724e5260fd91909725a20583514febc436",
+    "payload_identity": "18a0a4a898d7a6be398434941e20888fa64f3bd3a38c68ca398bd742ed4cbee9"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing owner was found for this exact Cycle #18 authority unit before implementation; dedicated auxiliary ownership was created.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-633",
+      "BAT-637",
+      "BAT-638"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "cb7ab3bb183ed9eabcf9dbd6740f3703c624198e",
+  "issue_complete": true,
+  "jira_key": "BAT-644",
+  "known_at_state": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+  "local_issue_id": "POST-TASK-SRC014-1996-OFFICIAL-INDEX-001",
+  "material_pr": 595,
+  "observable_outcome": "Material PR #595 merged as cb7ab3bb183ed9eabcf9dbd6740f3703c624198e. Evidence packet regenerated from artifacts/data_lake/tamu_official_1996_season_index_gate.json with immutable identities and preserved nonclaims.",
+  "protected_nonclaims": {
+    "availability_established": false,
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "ncaa_contest_ids_created": false,
+    "protected_lane_opened": false
+  },
+  "result": "PASS_OFFICIAL_1996_SEASON_INDEX_CAPTURED_BOX_URLS_DISCOVERED",
+  "status": "Done"
+}

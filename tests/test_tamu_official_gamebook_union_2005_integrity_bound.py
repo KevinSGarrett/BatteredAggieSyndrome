@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -40,7 +41,7 @@ from aggie_analytics.data.tamu_official_2005_boxscores import (  # noqa: E402
 
 
 DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
-LAKE_READY = lake_is_ready(DATA_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 EXPECTED_GATE_IDENTITY = "ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580"
 EXPECTED_UNION_IDENTITY = "51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459"
 

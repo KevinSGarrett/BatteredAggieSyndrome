@@ -1,0 +1,84 @@
+{
+  "admitted_row_gap_urls": [
+    "https://files.12thman.com/history/football/stats/2006-2007/texas.htm",
+    "https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm"
+  ],
+  "artifact_type": "TAMU_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_GATE",
+  "child_payloads": {
+    "drives": {
+      "filename": "drives.jsonl",
+      "row_count": 3142,
+      "sha256": "098ec77c7f55b73a092ea331946e2a08e9db724052389b382ee1fced7a3db1dd"
+    },
+    "individual_player_statistics": {
+      "filename": "individual_player_statistics.jsonl",
+      "row_count": 3475,
+      "sha256": "73b0ff8e29065534384abe4391b1da5dd332d9746c111bb203b1390a043f02a4"
+    },
+    "play_by_play": {
+      "filename": "play_by_play.jsonl",
+      "row_count": 45348,
+      "sha256": "291ff1d8a4313f11d6e7fea8e45be7587e747fa8f80ce65ab90efbe6562fa4b1"
+    },
+    "scoring_summary": {
+      "filename": "scoring_summary.jsonl",
+      "row_count": 2150,
+      "sha256": "bfd9175590dbe5e8eece5e752352b07c8730bc56d53e46082639c70f8617783a"
+    },
+    "team_statistics": {
+      "filename": "team_statistics.jsonl",
+      "row_count": 4638,
+      "sha256": "84c7aee65f3b7ccf1fde9839685f1eb068f03b8624fcfe7fcfe61bc40f84a9a8"
+    }
+  },
+  "classification": "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY",
+  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1998-2009-ROW-CORPUS-INTEGRITY-V1",
+  "counts": {
+    "complete_rejection_count": 17,
+    "games": 127,
+    "ncaa_contest_ids_created": 0,
+    "seasons": 12,
+    "serialized_rows_total": 58753
+  },
+  "dataset_identity": "2f2b18b06451e4cd4ea370cc630dab467b7a2063790c5ec87552b33a60d67c9c",
+  "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
+  "disposition": "NEW_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR",
+  "gate_identity": "d9cf6ad1ee2cd12a4a0d7c592e7a5bd4072fb3a78a199c6dc07455026bec47bb",
+  "jira_key": "BAT-XXX",
+  "predecessor_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
+  "predecessor_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "rejected_rows_by_domain": {
+    "drives": 0,
+    "individual_player_statistics": 0,
+    "play_by_play": 0,
+    "scoring_summary": 0,
+    "team_statistics": 0
+  },
+  "rejection_integrity_gate_identity": "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e",
+  "rejection_ledger_identity": "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051",
+  "result": "PASS_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR",
+  "schema_version": "aggie.data.tamu_official_1998_2009_structured_row_corpus_integrity.v1",
+  "selected_seasons": [
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009
+  ],
+  "source_id": "SRC-014",
+  "upstream_identities": {
+    "bat638_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
+    "bat638_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
+    "rejection_integrity_gate_identity": "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e",
+    "rejection_ledger_identity": "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051"
+  },
+  "validation_contract_version": "aggie.data.tamu_official_1998_2009_structured_row_corpus_integrity.v1"
+}

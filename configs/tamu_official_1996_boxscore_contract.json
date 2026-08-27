@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1996-BOXSCORES-V1",
+  "decision_unit": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-001",
+  "jira_key": "BAT-XXX",
+  "source_id": "SRC-014",
+  "season": 1996,
+  "official_index_url": "https://files.12thman.com/history/football/years/1996.html",
+  "payloads": {
+    "normalized_root": "features/tamu_official_1996_boxscores/sha256"
+  },
+  "capture_index_relative": "features/tamu_official_1996_boxscores/capture_index.json",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

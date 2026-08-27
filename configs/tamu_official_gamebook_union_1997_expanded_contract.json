@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1997-EXPANDED-UNION-V1",
+  "decision_unit": "POST-TASK-SRC014-1997-EXPANDED-ENRICHED-UNION-001",
+  "jira_key": "BAT-XXX",
+  "source_id": "SRC-014",
+  "upstream": {
+    "boxscore_root": "features/tamu_official_1997_boxscores/sha256"
+  },
+  "payloads": {
+    "union_root": "features/tamu_official_gamebook_union_1997_expanded/sha256"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

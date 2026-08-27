@@ -37,7 +37,18 @@ def canonical_json(value: object) -> bytes:
 def compute_identity(payload: Mapping[str, Any], identity_field: str) -> str:
     mutable = dict(payload)
     mutable.pop(identity_field, None)
-    return hashlib.sha256(canonical_json(mutable)).hexdigest()
+    # Stream the canonical JSON into the digest to avoid peak-memory spikes
+    # when strict validators hash large payloads.
+    encoder = json.JSONEncoder(
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    )
+    digest = hashlib.sha256()
+    for chunk in encoder.iterencode(mutable):
+        digest.update(chunk.encode("utf-8"))
+    return digest.hexdigest()
 
 
 def sha256_file(path: Path) -> str:

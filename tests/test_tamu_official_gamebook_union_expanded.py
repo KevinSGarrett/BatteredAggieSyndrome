@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import sys
 import unittest
 from pathlib import Path
@@ -21,7 +20,7 @@ from aggie_analytics.data.tamu_official_gamebook_union_expanded import (  # noqa
 )
 
 
-DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
 LAKE_READY = lake_is_ready(DATA_ROOT)
 
 

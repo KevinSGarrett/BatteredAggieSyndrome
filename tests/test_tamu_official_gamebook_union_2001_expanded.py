@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 import sys
 import unittest
 from pathlib import Path
@@ -57,9 +56,7 @@ from aggie_analytics.data.tamu_official_gamebook_union_2001_expanded import (  #
 )
 
 
-DATA_ROOT = Path(
-    os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
-)
+DATA_ROOT = Path(r"C:\BatteredAggieSyndrome.data")
 LAKE_READY = lake_is_ready(DATA_ROOT, REPO_ROOT)
 EXPECTED_GATE_IDENTITY = "6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710"
 EXPECTED_UNION_IDENTITY = "cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8"

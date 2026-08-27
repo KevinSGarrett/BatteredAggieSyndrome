@@ -1,0 +1,10 @@
+{
+  "schema_version": "aggie.data.tamu_official_1996_2009_structured_row_corpus.contract.v1",
+  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1996-2009-ROW-CORPUS-V1",
+  "decision_unit": "POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001",
+  "jira_key": "BAT-XXX",
+  "source_id": "SRC-014",
+  "payloads": {
+    "corpus_root": "features/tamu_official_1996_2009_structured_row_corpus/sha256"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "artifact_type": "TAMU_OFFICIAL_1997_STRUCTURED_DOMAINS_GATE",
+  "classification": "TAMU_SRC014_OFFICIAL_1997_STRUCTURED_DOMAINS_CANDIDATE_ONLY",
+  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1997-STRUCTURED-DOMAINS-V1",
+  "counts": {
+    "drives_rows": 0,
+    "games_total": 0,
+    "games_with_structured_rows": 0,
+    "individual_player_statistics_rows": 0,
+    "ncaa_contest_ids_created": 0,
+    "play_by_play_rows": 0,
+    "scoring_summary_rows": 0,
+    "serialized_rows_total": 0,
+    "team_statistics_rows": 0
+  },
+  "decision_unit": "POST-TASK-SRC014-1997-STRUCTURED-DOMAINS-001",
+  "gate_identity": "52f84f7bc0cf4de9fe07409db4037ee065176aec526efe7a1d995ccacf31a592",
+  "jira_key": "BAT-XXX",
+  "payload_identity": "7afc28d1a3aa18b251801e358f696635086e98918b183eaf2f465096cc243dad",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PARTIAL_OFFICIAL_1997_STRUCTURED_DOMAINS",
+  "schema_version": "aggie.data.tamu_official_1997_structured_domains.v1",
+  "source_id": "SRC-014",
+  "upstream_boxscore_dataset_identity": "ca7bbf2e78dd028d647ff3abc77392c91d956c96ab7d9a93b2ca6f5e8953598a",
+  "upstream_boxscore_gate_identity": "09a0c2cc295c1b8c5cb03e392e7bb38d637f48b4d7090b69766e69b89ca808f3",
+  "validator_code_identity": "d1cf7cfdcdfa8981e8b03673b7dfb480235b1f432dc83551a0bbc1f24969e7c9"
+}

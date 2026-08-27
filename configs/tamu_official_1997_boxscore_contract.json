@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1997-BOXSCORES-V1",
+  "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-001",
+  "jira_key": "BAT-XXX",
+  "source_id": "SRC-014",
+  "season": 1997,
+  "official_index_url": "https://files.12thman.com/history/football/years/1997.html",
+  "payloads": {
+    "normalized_root": "features/tamu_official_1997_boxscores/sha256"
+  },
+  "capture_index_relative": "features/tamu_official_1997_boxscores/capture_index.json",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+}

@@ -261,8 +261,7 @@
           ]
         }
       ]
-    }
-    ,
+    },
     {
       "binding_id": "BAT-588-OFFICIAL-2007-SEASON-INDEX",
       "jira_key": "BAT-588",
@@ -949,18 +948,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2002-OFFICIAL-ACQUISITION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1036,18 +1047,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2003-OFFICIAL-ACQUISITION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1174,18 +1197,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2004-OFFICIAL-ACQUISITION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1211,18 +1246,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2005-OFFICIAL-ACQUISITION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1347,18 +1394,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2006-OFFICIAL-ACQUISITION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1384,18 +1443,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2006-STRUCTURED-DOMAINS-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1421,18 +1492,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1460,18 +1543,30 @@
         "authority.prior_union_mutated_in_place",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2007-OFFICIAL-UNION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1497,18 +1592,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-STATCREW-PREFORMATTED-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1534,18 +1641,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-ENRICHED-UNION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -1571,18 +1690,30 @@
         "authority.champion_or_production_promotion",
         "scientific_nonclaims.protected_lane_opened"
       ],
-      "forbidden_lane_values": ["OPEN", "OPEN_PROTECTED_LANE", "PRODUCTION_READY"],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
       "evidence_surfaces": [
         {
           "path": "artifacts/jira_evidence/POST-TASK-SRC014-2006-EXPANDED-ENRICHED-UNION-001.json",
           "role": "current",
           "jira_key_path": "jira_key",
           "local_issue_id_path": "local_issue_id",
-          "current_identity_paths": ["current_identities.gate_identity"],
-          "narrative_paths": ["observable_outcome"],
-          "narrative_current_patterns": ["gate identity ([0-9a-f]{64})"],
+          "current_identity_paths": [
+            "current_identities.gate_identity"
+          ],
+          "narrative_paths": [
+            "observable_outcome"
+          ],
+          "narrative_current_patterns": [
+            "gate identity ([0-9a-f]{64})"
+          ],
           "superseded_identity_paths": [],
-          "lane_decision_paths": ["admissions.protected_lane"],
+          "lane_decision_paths": [
+            "admissions.protected_lane"
+          ],
           "forbidden_true_paths": [
             "protected_nonclaims.protected_lane_opened",
             "protected_nonclaims.champion_or_production_promotion",
@@ -2791,8 +2922,7 @@
           }
         }
       ]
-    }
-,
+    },
     {
       "binding_id": "BAT-637-OFFICIAL-1998-EXPANDED-UNION",
       "jira_key": "BAT-637",
@@ -2999,6 +3129,134 @@
           }
         }
       ]
+    },
+    {
+      "binding_id": "BAT-XXX-OFFICIAL-1998-REJECTION-INTEGRITY",
+      "jira_key": "BAT-XXX",
+      "local_issue_id": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1998_2009_rejection_integrity_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
+        "jira_key": "BAT-XXX",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "TAMU_SRC014_OFFICIAL_1998_2009_REJECTION_INTEGRITY_CANDIDATE_ONLY",
+        "result": "PASS_REJECTION_LEDGER_COMPLETE_AND_CORPUS_EXCLUDED"
+      },
+      "forbidden_true_paths": [],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-XXX-OFFICIAL-1998-CORPUS-INTEGRITY",
+      "jira_key": "BAT-XXX",
+      "local_issue_id": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_integrity_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
+        "jira_key": "BAT-XXX",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY",
+        "result": "PASS_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR"
+      },
+      "forbidden_true_paths": [],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-XXX-OFFICIAL-1996-BOXSCORES",
+      "jira_key": "BAT-XXX",
+      "local_issue_id": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1996_boxscore_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-001",
+        "jira_key": "BAT-XXX",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "TAMU_SRC014_OFFICIAL_1996_BOXSCORE_CANDIDATE_ONLY"
+      },
+      "forbidden_true_paths": [],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-XXX-OFFICIAL-1996-STRUCTURED-DOMAINS",
+      "jira_key": "BAT-XXX",
+      "local_issue_id": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1996_structured_domains_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-001",
+        "jira_key": "BAT-XXX",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "TAMU_SRC014_OFFICIAL_1996_STRUCTURED_DOMAINS_CANDIDATE_ONLY"
+      },
+      "forbidden_true_paths": [],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-XXX-OFFICIAL-1996-EXPANDED-UNION",
+      "jira_key": "BAT-XXX",
+      "local_issue_id": "POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_gamebook_union_1996_expanded_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001",
+        "jira_key": "BAT-XXX",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "TAMU_OFFICIAL_GAMEBOOK_UNION_1996_EXPANDED_CANDIDATE_ONLY"
+      },
+      "forbidden_true_paths": [],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-XXX-OFFICIAL-1996-2009-CORPUS",
+      "jira_key": "BAT-XXX",
+      "local_issue_id": "POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001",
+      "canonical_artifact_path": "artifacts/data_lake/tamu_official_1996_2009_structured_row_corpus_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001",
+        "jira_key": "BAT-XXX",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "TAMU_SRC014_OFFICIAL_1996_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY"
+      },
+      "forbidden_true_paths": [],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

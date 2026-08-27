@@ -25,7 +25,7 @@ from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: 
 )
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
-LAKE_READY = lake_is_ready(DATA_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 MSU_SHA = "a28f8c250713bab3efa3ee24ab4546c4c1d38d65d0ad64f7b4351e2127121ff9"
 MSU_URL = "https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm"
 

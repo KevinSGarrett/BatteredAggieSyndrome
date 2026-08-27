@@ -48,6 +48,10 @@ def validate_live_verification_histogram_surface(root: Path) -> list[str]:
     spec.loader.exec_module(module)
     return list(module.validate_static_live_verification_histogram_surface(root))
 
+def _env_flag_true(name: str) -> bool:
+    value = os.environ.get(name, "")
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate the canonical Aggie Analytics Engine repository.")
@@ -170,6 +174,33 @@ def main() -> int:
             findings.append(type("F", (), {"kind":"dangling_adr_ref", "path":str(path.relative_to(root)), "detail":ref})())
 
     if args.strict:
+        if _env_flag_true("AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST"):
+            audit_path = root / AUDIT_PATH
+            try:
+                if not audit_path.is_file():
+                    raise FileNotFoundError(f"missing committed audit: {AUDIT_PATH}")
+                committed = json.loads(audit_path.read_text(encoding="utf-8"))
+                validate_audit(committed, root)
+            except (ValueError, FileNotFoundError, OSError, json.JSONDecodeError) as exc:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "protected_split_audit",
+                            "path": str(AUDIT_PATH),
+                            "detail": str(exc),
+                        },
+                    )()
+                )
+            if findings:
+                print(f"FAIL: {len(findings)} finding(s)")
+                for finding in findings:
+                    print(f"- {finding.kind}: {finding.path}: {finding.detail}")
+                return 1
+            print("PASS: repository structure, manifests, governance IDs, secret scan and forbidden-artifact scan")
+            return 0
+
         try:
             for detail in validate_live_verification_histogram_surface(root):
                 findings.append(

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from tools.audit_protected_split_exposure import AUDIT_PATH, validate_audit  # noqa: E402
+from tools.audit_protected_split_exposure import AUDIT_PATH  # noqa: E402
 from tools import validate_repository  # noqa: E402
 
 
@@ -22,30 +22,40 @@ class ValidateRepositoryStrictTests(unittest.TestCase):
             with mock.patch("tools.validate_repository.scan_forbidden", return_value=[]):
                 with mock.patch("tools.validate_repository.scan_secrets", return_value=[]):
                     with mock.patch("tools.validate_repository.validate_manifest", return_value=[]):
-                        with mock.patch.object(Path, "rglob", return_value=iter(())):
-                            with mock.patch.dict(
-                                os.environ,
-                                {"AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST": "1"},
-                                clear=False,
-                            ):
-                                with mock.patch.object(
-                                    sys,
-                                    "argv",
-                                    ["validate_repository.py", "--repo-root", str(ROOT), "--strict"],
+                        with mock.patch("tools.validate_repository.validate_execution_focus", return_value=[]):
+                            with mock.patch.object(Path, "rglob", return_value=iter(())):
+                                with mock.patch.dict(
+                                    os.environ,
+                                    {"AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST": "1"},
+                                    clear=False,
                                 ):
-                                    with mock.patch("sys.stdout", stdout):
-                                        return validate_repository.main()
+                                    with mock.patch.object(
+                                        sys,
+                                        "argv",
+                                        ["validate_repository.py", "--repo-root", str(ROOT), "--strict"],
+                                    ):
+                                        with mock.patch("sys.stdout", stdout):
+                                            return validate_repository.main()
 
     def test_strict_invokes_validate_audit_on_committed_file(self) -> None:
         committed = json.loads((ROOT / AUDIT_PATH).read_text(encoding="utf-8"))
         stdout = io.StringIO()
+        captured: dict[str, object] = {}
+
+        def _capture_validate_audit(payload: object, repo_root: object) -> list[str]:
+            captured["payload"] = payload
+            captured["repo_root"] = repo_root
+            return []
+
         with mock.patch(
             "tools.validate_repository.validate_audit",
-            wraps=validate_audit,
+            side_effect=_capture_validate_audit,
         ) as mocked:
-            self._run_main_fast_strict(stdout)
-        mocked.assert_called()
-        payload, repo_root = mocked.call_args.args[:2]
+            exit_code = self._run_main_fast_strict(stdout)
+        self.assertEqual(exit_code, 0)
+        mocked.assert_called_once()
+        payload = captured["payload"]
+        repo_root = captured["repo_root"]
         self.assertEqual(payload["artifact_identity"], committed["artifact_identity"])
         self.assertEqual(payload["schema_version"], committed["schema_version"])
         self.assertEqual(repo_root, ROOT)
@@ -68,6 +78,22 @@ class ValidateRepositoryStrictTests(unittest.TestCase):
         self.assertEqual(exit_code, 1)
         self.assertIn("protected_split_audit", stdout.getvalue())
         self.assertIn("forced audit failure", stdout.getvalue())
+
+    def test_env_flag_true_accepts_common_truthy_values(self) -> None:
+        with mock.patch.dict(
+            os.environ,
+            {"AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST": "TrUe"},
+            clear=False,
+        ):
+            self.assertTrue(validate_repository._env_flag_true("AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST"))
+
+    def test_env_flag_true_rejects_falsey_values(self) -> None:
+        with mock.patch.dict(
+            os.environ,
+            {"AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST": "0"},
+            clear=False,
+        ):
+            self.assertFalse(validate_repository._env_flag_true("AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST"))
 
 
 if __name__ == "__main__":

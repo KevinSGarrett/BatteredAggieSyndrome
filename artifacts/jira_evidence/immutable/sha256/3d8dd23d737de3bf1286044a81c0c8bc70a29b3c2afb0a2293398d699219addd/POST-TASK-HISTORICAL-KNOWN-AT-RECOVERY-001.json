@@ -1,0 +1,47 @@
+{
+  "cycle": 18,
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "final_corpus": {
+    "counts": {
+      "complete_rejection_count": 40,
+      "games": 127,
+      "ncaa_contest_ids_created": 0,
+      "new_admissions": 0,
+      "new_rejections": 11,
+      "seasons": 12,
+      "serialized_rows_total": 58753
+    },
+    "dataset_identity": "0f3fb2c1dc7270b07a1198201fff1103321721880991334a17f2b4be348326f3",
+    "gate_identity": "964a51eecc8c592451bfe7724abfc91a73536dda70516e8d0affe0460bfea037",
+    "union_identity": "e85b9b1d420f07204c55a8f82989f4cde99e8a2c151e1bce4ca5ae68ef3f6fe8"
+  },
+  "jira_key": "BAT-523",
+  "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "material_merge_sha": "cb7ab3bb183ed9eabcf9dbd6740f3703c624198e",
+  "nonclaims": {
+    "availability": "NOT_ESTABLISHED",
+    "bat_523_status": "IN_PROGRESS",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  },
+  "phase1": {
+    "complete_rejection_count": 17,
+    "corpus_integrity_gate_identity": "d9cf6ad1ee2cd12a4a0d7c592e7a5bd4072fb3a78a199c6dc07455026bec47bb",
+    "rejection_complete_union_gate_identity": "c7d92b31a78a966af97be71845665486b7a9d5009a4943e6256f97c6faff1ba6",
+    "rejection_integrity_gate_identity": "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e"
+  },
+  "phase1996": {
+    "blocked_or_partial_pages": 11,
+    "normalized_games": 0,
+    "rejected_urls_complete": 40,
+    "result": "PARTIAL_OFFICIAL_1996_EXPANDED_UNION_NO_NEW_ADMISSIONS",
+    "union_gate_identity": "a6ac7c237333febc5822a467b60be944af20190ddc203f8027f5aeaa61af7f90"
+  },
+  "phase1997": {
+    "blocked_or_partial_pages": 12,
+    "normalized_games": 0,
+    "rejected_urls_complete": 29,
+    "result": "PARTIAL_OFFICIAL_1997_EXPANDED_UNION_NO_NEW_ADMISSIONS",
+    "union_gate_identity": "848a397545dd8a047588daea1da4dd40a097e9799d719abec6554141d9922a2f"
+  }
+}

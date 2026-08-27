@@ -1,0 +1,63 @@
+{
+  "admissions": {
+    "bat_401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat_429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "bat_523": "IN_PROGRESS",
+    "gap_005": "OPEN",
+    "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "ncaa_contest_identity": "NOT_CREATED",
+    "pregame_availability": "BLOCKED",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "source_authority": "SRC-014_OFFICIAL_SCHOOL_EVIDENCE"
+  },
+  "availability_authority_claim": false,
+  "classification": "TAMU_SRC014_OFFICIAL_1996_BOXSCORE_CANDIDATE_ONLY",
+  "counts": {
+    "blocked_or_partial_pages": 11,
+    "captured_pages_total": 11,
+    "date_conflicts": 0,
+    "games_admitted_to_union": 0,
+    "matched_strong_tuple": 0,
+    "name_only_insufficient": 0,
+    "ncaa_contest_ids_created": 0,
+    "normalized_games": 0,
+    "target_games_total": 11,
+    "unmatched_strong_tuple": 0,
+    "verified_official_pages": 11
+  },
+  "current_identities": {
+    "gate_identity": "77997c43e9939a269501e73950487dca26af18de0c331275f2cc56e1c23b9399",
+    "dataset_identity": "cfe8af8d3bca4afca15dffcca4514d85626cfadb191af769a69bac8fb2d8b9d7"
+  },
+  "duplicate_audit": {
+    "decision": "CREATE",
+    "new_issue_decision": "CREATE",
+    "reason": "No existing owner was found for this exact Cycle #18 authority unit before implementation; dedicated auxiliary ownership was created.",
+    "reviewed_keys": [
+      "BAT-401",
+      "BAT-429",
+      "BAT-523",
+      "BAT-633",
+      "BAT-637",
+      "BAT-638"
+    ]
+  },
+  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "evidence_state": "VERIFIED",
+  "implementation_sha": "cb7ab3bb183ed9eabcf9dbd6740f3703c624198e",
+  "issue_complete": true,
+  "jira_key": "BAT-645",
+  "known_at_state": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+  "local_issue_id": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-001",
+  "material_pr": 595,
+  "observable_outcome": "Material PR #595 merged as cb7ab3bb183ed9eabcf9dbd6740f3703c624198e. Evidence packet regenerated from artifacts/data_lake/tamu_official_1996_boxscore_gate.json with immutable identities and preserved nonclaims.",
+  "protected_nonclaims": {
+    "availability_established": false,
+    "champion_or_production_promotion": false,
+    "historical_known_at_established": false,
+    "ncaa_contest_ids_created": false,
+    "protected_lane_opened": false
+  },
+  "result": "PARTIAL_OFFICIAL_1996_BOXSCORES",
+  "status": "Done"
+}

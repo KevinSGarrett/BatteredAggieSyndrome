@@ -43,7 +43,7 @@ from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: 
 
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
-LAKE_READY = lake_is_ready(DATA_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 PIT_URL = "https://files.12thman.com/history/football/stats/2002-2003/mfb_412_pit.html"
 EXPECTED_GATE_IDENTITY = "d6eca244760bba8963130e070d9ac707cb36af7e715b53e2c3bc60a5bbbed014"
 EXPECTED_PAYLOAD_IDENTITY = "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2"

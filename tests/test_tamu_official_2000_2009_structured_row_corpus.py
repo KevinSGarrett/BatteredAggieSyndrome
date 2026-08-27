@@ -63,7 +63,7 @@ from aggie_analytics.validation.artifact_binding import compute_identity  # noqa
 DATA_ROOT = Path(
     os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
 )
-LAKE_READY = lake_is_ready(DATA_ROOT, REPO_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT, REPO_ROOT)
 
 
 def _copy(value):

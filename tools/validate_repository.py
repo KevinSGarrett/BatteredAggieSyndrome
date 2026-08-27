@@ -48,6 +48,10 @@ def validate_live_verification_histogram_surface(root: Path) -> list[str]:
     spec.loader.exec_module(module)
     return list(module.validate_static_live_verification_histogram_surface(root))
 
+def _env_flag_true(name: str) -> bool:
+    value = os.environ.get(name, "")
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate the canonical Aggie Analytics Engine repository.")
@@ -170,7 +174,7 @@ def main() -> int:
             findings.append(type("F", (), {"kind":"dangling_adr_ref", "path":str(path.relative_to(root)), "detail":ref})())
 
     if args.strict:
-        if bool(os.environ.get("AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST")):
+        if _env_flag_true("AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST"):
             audit_path = root / AUDIT_PATH
             try:
                 if not audit_path.is_file():

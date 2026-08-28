@@ -25,7 +25,7 @@
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "tools/validate_execution_focus.py"
+    "tests/test_execution_focus.py"
   ],
-  "decision_sha256": "e8f2fb297e123963cc77c7316fc7750bb7a0c656371fcec7a9bd11e1fd5456ae"
+  "decision_sha256": "7c0c04b01e450161fc3a6ece4f09d4bfce974e0c381cb6f202a48d979788e94c"
 }

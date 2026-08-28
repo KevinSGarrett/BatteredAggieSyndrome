@@ -132,6 +132,10 @@ class ExecutionFocusPolicyTests(unittest.TestCase):
             validate_execution_focus,
             "_git_commit_changed_paths",
             return_value=["src/aggie_analytics/data/example.py"],
+        ), patch.object(
+            validate_execution_focus,
+            "_git_commits_unique_to_head",
+            return_value={"a" * 40},
         ), patch.dict("os.environ", {"AGGIE_ANALYTICS_ENFORCE_PATH_CLASSIFICATION": "1"}, clear=False):
             findings = validate_execution_focus._validate_history(ROOT, policy)
         self.assertTrue(any(item.startswith("PROCESS_COMMIT_TOUCHES_MATERIAL_PATHS") for item in findings))

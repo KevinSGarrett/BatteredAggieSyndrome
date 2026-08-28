@@ -1272,4 +1272,3 @@ private-resource proxy semantics/experiment,TASK-198,Task,true,CONTRACT_DEFINED,
 W24 delta against W06 data universe,TASK-199,Task,true,INTEGRATED,,VERIFIED
 transfer/recruiting source provenance decision,TASK-200,Task,true,CONTRACT_DEFINED,,VERIFIED
 officiating source/gap decision,TASK-201,Task,true,CONTRACT_DEFINED,,VERIFIED
-artifacts/data_lake/national_foundation_reconciliation_gate.json,POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001,Task,true,VALIDATED_RECONCILED_CANDIDATE_ONLY,,VERIFIED

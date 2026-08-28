@@ -1,40 +1,38 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-651-CYCLE20-PHASE2-NATIONAL-FOUNDATION",
+  "work_unit_id": "BAT-651-CYCLE20-PHASE2-JIRA-CONVERGENCE",
   "jira_identity": "BAT-651",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20",
-  "source_commit": "9c65a1a62fbf57d344d543ac5cc409da5374ba7b",
+  "source_commit": "9200dcdf48029fc674f32eb410ea661bb261f6b1",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "scope": "Independently reconcile the national capture foundation from external payloads and materialize a deterministic normalized national game successor with an explicit GAP-002 verdict.",
-  "downstream_consumer": "Cycle #20 Phase 3 national game and team-observation spine",
+  "scope": "Record BAT-651 as Done after its material merge and reconverge local Jira, auxiliary registry, derivatives, and verification evidence with live Jira for Cycle #20 Phase 2.",
+  "downstream_consumer": "Cycle #20 Phase 3 duplicate audit and issue creation",
   "user_explicit_waiver": {
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20\nExecute all Cycle #20 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "instruction_sha256": "6e81eee45c595b372801312c8b1c8f4ee359ddab17de13a2f9aa6258914c6533",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
-    "work_unit_id": "BAT-651-CYCLE20-PHASE2-NATIONAL-FOUNDATION"
+    "work_unit_id": "BAT-651-CYCLE20-PHASE2-JIRA-CONVERGENCE"
   },
   "allowed_paths": [
-    "artifacts/data_lake/national_foundation_reconciliation_gate.json",
-    "artifacts/jira_evidence/POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001.json",
-    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/national_foundation_reconciliation_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
     "jira/index/ARTIFACT_TRACEABILITY.csv",
+    "jira/project/JIRA_TARGET_PROFILE.yaml",
+    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+    "jira/validation/JIRA_FILE_HASHES.sha256",
+    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/national_foundation_reconciliation.py",
-    "tests/test_national_foundation_reconciliation.py",
-    "tools/build_national_foundation_reconciliation.py",
-    "tools/validate_national_foundation_reconciliation.py"
+    "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
-  "decision_sha256": "b878971a81b78589ad96779fda1012096235a42e46ddc54133bab5884fe6046b"
+  "decision_sha256": "5c96afa56dd9550f51e9ef0c26150b78fdc16e6160b615925536e31a9544edf9"
 }

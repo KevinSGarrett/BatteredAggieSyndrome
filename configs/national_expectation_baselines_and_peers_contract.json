@@ -1,0 +1,213 @@
+{
+  "schema_version": "aggie.models.national_expectation_baselines_and_peers.v1",
+  "contract_id": "BAT-655-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-V1",
+  "decision_unit": "POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001",
+  "local_issue_id": "POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001",
+  "jira_key": "BAT-655",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "NATIONAL_EXPECTATION_BASELINES_PEER_COHORT_AND_DEVELOPMENT_RESIDUAL_TEST",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Freeze a small predeclared set of simple national expectation baselines, evaluate them exactly once on the frozen 2023 development cohort carried by the BAT-654 matrix, derive a peer-program cohort from a declared measurable rule rather than reputation, and run a development-only Texas A&M residual pipeline test. BAT-139, BAT-143, and BAT-195 remain the completed contract-definition predecessors and are not rewritten.",
+  "source_contract": {
+    "matrix_gate_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+    "matrix_gate_sha256": "1968c2837d6555a1c9baefb3f3e17c77fbeee8a7bd9018052bb453ee4ef3ae75",
+    "matrix_dataset_identity": "725c4adb1bdec227265833def1f1fa4d27412eb22cca67745a9c67e93a158155",
+    "bulk_payloads_in_git": false
+  },
+  "preserved_predecessor_result": {
+    "ledger_relative_path": "artifacts/experimentation/development_candidate_evidence_ledger.json",
+    "ledger_sha256": "323a5a23d5887e47ea167edc58781d00e931228d9085bd2407c5d95c395f3682",
+    "ledger_identity": "656032ff3fc9bdc90b359c4e8e0c801fb5847177052c17d125602c4eb57c7888",
+    "preserved_prior_only_team_row_brier": 0.23135006789663434,
+    "preserved_negative_candidates": [
+      "prior_plus_play_drive",
+      "prior_plus_rankings",
+      "prior_plus_play_drive_plus_rankings"
+    ],
+    "predecessor_is_preserved_not_superseded": true,
+    "predecessor_used_a_different_feature_population": true,
+    "cross_population_metric_comparison_is_reported_not_authoritative": true
+  },
+  "precommitment": {
+    "candidate_set_frozen_before_evaluation": true,
+    "post_hoc_candidate_insertion": false,
+    "post_hoc_feature_shopping": false,
+    "hyperparameter_search_on_the_evaluation_season": false,
+    "boosting_neural_sequence_or_graph_models": false,
+    "champion_promotion": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "national_base_rate",
+      "family": "UNFITTED_REFERENCE",
+      "description": "Fold-local training win rate applied to every evaluation row.",
+      "feature_scope": "NONE",
+      "hyperparameters": {},
+      "emits_margin": false
+    },
+    {
+      "candidate_id": "prior_only",
+      "family": "REGULARIZED_LOGISTIC",
+      "description": "L2 logistic restricted to the admitted team-outcome prior domain, the site indicators, and their missingness indicators.",
+      "feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+      "hyperparameters": { "l2_lambda": 1.0, "newton_iterations": 25, "tolerance": 1e-10 },
+      "emits_margin": false
+    },
+    {
+      "candidate_id": "national_elo",
+      "family": "ELO",
+      "description": "Chronological Elo replay over the fold training partition with a fixed rating scale, home advantage, and between-season regression to the mean.",
+      "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+      "hyperparameters": {
+        "initial_rating": 1500.0,
+        "k_factor": 20.0,
+        "home_advantage_rating": 65.0,
+        "rating_scale": 400.0,
+        "between_season_regression": 0.25
+      },
+      "emits_margin": false
+    },
+    {
+      "candidate_id": "national_logistic_l2",
+      "family": "REGULARIZED_LOGISTIC",
+      "description": "L2 logistic over every admitted numeric feature in fold-local standardized space plus the boolean features and missingness indicators.",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "hyperparameters": { "l2_lambda": 1.0, "newton_iterations": 25, "tolerance": 1e-10 },
+      "emits_margin": false
+    },
+    {
+      "candidate_id": "national_margin_ridge",
+      "family": "RIDGE_MARGIN",
+      "description": "Ridge regression on the signed point margin in fold-local standardized space, converted to a win probability through a logistic link whose scale is the fold training residual standard deviation.",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "hyperparameters": { "l2_lambda": 1.0, "logistic_link_scale_divisor": 1.7013016167040798 },
+      "emits_margin": true
+    }
+  ],
+  "evaluation": {
+    "cohort": "FROZEN_2023_NATIONAL_DEVELOPMENT_PARTITION",
+    "unit_of_authority": "TEAM_ROW",
+    "expected_evaluation_rows": 1820,
+    "expected_evaluation_games": 910,
+    "expected_folds": 16,
+    "probability_clip": [0.001, 0.999],
+    "tie_target_value": 0.5,
+    "calibration_bin_count": 10,
+    "bootstrap_resamples": 1000,
+    "bootstrap_seed": 20260828,
+    "bootstrap_unit": "GAME",
+    "metrics": [
+      "brier",
+      "log_loss",
+      "accuracy",
+      "calibration_bins",
+      "calibration_slope",
+      "calibration_intercept",
+      "margin_mae",
+      "margin_rmse"
+    ],
+    "slice_dimensions": [
+      "national",
+      "conference",
+      "site",
+      "ranking_state",
+      "favorite_state",
+      "data_coverage"
+    ],
+    "minimum_slice_rows_for_reported_metric": 20
+  },
+  "peer_cohort_rule": {
+    "rule_id": "STANDARDIZED_PROGRAM_PROFILE_NEAREST_NEIGHBOUR_V1",
+    "reference_team": "SRC-002:TEAM:245",
+    "reference_window_seasons": [2000, 2022],
+    "population": "TRAINING_PARTITION_ONLY",
+    "minimum_reference_window_games": 100,
+    "cohort_size": 20,
+    "distance": "EUCLIDEAN_OVER_STANDARDIZED_CRITERIA",
+    "tie_break": "CANONICAL_TEAM_ID_ASCENDING",
+    "seeded_from_famous_programs": false,
+    "criteria": [
+      {
+        "criterion_id": "long_run_win_expectation",
+        "source": "SPINE_DERIVED_LABELS",
+        "definition": "Mean win rate over the reference window, ties counted as one half."
+      },
+      {
+        "criterion_id": "historical_ranking_exposure",
+        "source": "ADMITTED_RANKINGS_DOMAIN",
+        "definition": "Share of reference-window team rows carrying an AP poll rank."
+      },
+      {
+        "criterion_id": "schedule_strength",
+        "source": "SPINE_DERIVED_PRIORS",
+        "definition": "Mean opponent prior win rate over the reference window."
+      },
+      {
+        "criterion_id": "power_conference_share",
+        "source": "ADMITTED_TEAM_SEASON_CONTEXT_DOMAIN",
+        "definition": "Share of reference-window team rows whose declared conference is a power-resource conference."
+      }
+    ],
+    "unavailable_criteria": [
+      {
+        "criterion_id": "recruiting_or_talent_level",
+        "reason": "SOURCE_ABSENT"
+      },
+      {
+        "criterion_id": "program_investment_proxy",
+        "reason": "SOURCE_ABSENT"
+      },
+      {
+        "criterion_id": "coaching_transition_frequency",
+        "reason": "SOURCE_ABSENT"
+      },
+      {
+        "criterion_id": "national_title_or_major_bowl_opportunity",
+        "reason": "SOURCE_ABSENT"
+      }
+    ],
+    "power_conferences": [
+      "ACC",
+      "American Athletic",
+      "Big 12",
+      "Big East",
+      "Big Ten",
+      "Pac-10",
+      "Pac-12",
+      "SEC"
+    ]
+  },
+  "residual_test": {
+    "test_id": "DEVELOPMENT_ONLY_TAMU_RESIDUAL_PIPELINE_TEST",
+    "reference_candidate": "prior_only",
+    "residual_definition": "OBSERVED_WIN_MINUS_PREDICTED_WIN_PROBABILITY",
+    "comparison_groups": ["NATIONAL", "PEER_COHORT", "TEXAS_AM"],
+    "baseline_is_unchanged_by_the_residual_test": true,
+    "claims_bas_or_aggie_excess": false,
+    "claims_tamu_lift_or_specialization_benefit": false,
+    "claims_statistical_persistence": false,
+    "null_or_unremarkable_result_is_acceptable": true
+  },
+  "authority": {
+    "national_baseline_development_evaluation": true,
+    "peer_cohort_reference_use": true,
+    "shadow_forecast_candidate_source": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "protected_performance_claims": false,
+    "forecast_publication": false,
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false
+  },
+  "negative_findings": {
+    "evaluation_season_is_unprotected_and_small": true,
+    "no_candidate_is_promoted_to_production": true,
+    "peer_cohort_uses_only_admitted_evidence_and_omits_absent_criteria": true,
+    "tamu_residuals_are_a_pipeline_test_not_a_finding": true,
+    "cross_cycle_brier_comparisons_span_different_feature_populations": true
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": "aggie.data.national_tiered_game_spine.v1",
+  "contract_id": "BAT-652-NATIONAL-TIERED-GAME-SPINE-1963-2023-V1",
+  "decision_unit": "POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001",
+  "local_issue_id": "POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001",
+  "jira_key": "BAT-652",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "NATIONAL_TIERED_GAME_OUTCOME_AND_TEAM_OBSERVATION_SPINE_CANDIDATE",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Build a tiered immutable national game, outcome, and team-observation spine for 1963-2023 that preserves chronology and authority instead of flattening them. BAT-552 remains the completed 1963-2009 predecessor and BAT-59 remains an untouched canonical story container.",
+  "source_contract": {
+    "foundation_gate_relative_path": "artifacts/data_lake/national_foundation_reconciliation_gate.json",
+    "foundation_gate_sha256": "badd2d877dd74f6d78dd97d98a21965d049d404024b3cfe7f6b517ab85f9adb2",
+    "foundation_dataset_identity": "d2af2bab981f8e7b33a6823e3e4b4b65eb2f96593a0eeafd56dedce1b84fd477",
+    "bulk_payloads_in_git": false
+  },
+  "cross_check_authorities": {
+    "historical_spine_gate_relative_path": "artifacts/data/historical_game_outcome_spine_gate.json",
+    "historical_spine_gate_sha256": "f1e6231ad783075b2b715f4e67b89e413fc65c2b2b87d9ba32544a40560fe437",
+    "replay_gate_relative_path": "artifacts/pit/historical_known_at_replay_gate.json",
+    "replay_gate_sha256": "8b513e9983592cd031d87119d1fa981ab2a274f1b1c9adbb59ceb6245a8e8629",
+    "development_2023_gate_relative_path": "artifacts/pit/development_2023_outcome_gate.json",
+    "development_2023_gate_sha256": "114374b2abb72e613ecafc46384f25560af055575b7a6a0d4c1d914f3f7f1f47",
+    "reconciliation_is_reported_not_enforced": true
+  },
+  "tiers": [
+    {
+      "tier_id": "TIER_1_LONG_RUN_REFERENCE_CANDIDATE",
+      "season_range": [1963, 2009],
+      "label_eligible": true,
+      "authority": "OUTCOME_REFERENCE_CANDIDATE_ONLY"
+    },
+    {
+      "tier_id": "TIER_2_ACCEPTED_SCOPED_REPLAY",
+      "season_range": [2010, 2022],
+      "label_eligible": true,
+      "authority": "SCOPED_UNPROTECTED_PRELIMINARY_BASELINE_ONLY"
+    },
+    {
+      "tier_id": "TIER_3_DEVELOPMENT_ONLY_LABELS",
+      "season_range": [2023, 2023],
+      "label_eligible": true,
+      "authority": "DEVELOPMENT_ONLY_2023_LABELS"
+    },
+    {
+      "tier_id": "TIER_4_PROTECTED_SEALED",
+      "season_range": [2024, 2025],
+      "label_eligible": false,
+      "authority": "SEALED_EXCLUDED_NOT_EVALUATED"
+    },
+    {
+      "tier_id": "TIER_5_PROSPECTIVE_ABSENT",
+      "season_range": [2026, 2026],
+      "label_eligible": false,
+      "authority": "PROSPECTIVE_OUTCOMES_ABSENT_UNTIL_OFFICIAL_FINAL"
+    }
+  ],
+  "label_policy": {
+    "policy_id": "CONSERVATIVE_COMPLETION_REQUIRED_NOT_OBSERVED_FINAL_WHISTLE",
+    "source_completed_final_required": true,
+    "verified_completion_timestamp_available": false,
+    "capture_timestamp_treated_as_publication_time": false,
+    "canceled_or_schedule_only_excluded_from_labels": true,
+    "target_game_outcome_use_admitted": false
+  },
+  "team_observation_policy": {
+    "observations_per_labeled_game": 2,
+    "orientation_field": "is_home",
+    "complementary_orientation_required": true,
+    "outcome_stored_separately_from_features": true
+  },
+  "authority": {
+    "national_tiered_spine_use": true,
+    "outcome_reference_use": true,
+    "historical_pit_admission": false,
+    "pregame_feature_use": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "protected_performance_claims": false,
+    "forecast_publication": false,
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false
+  },
+  "negative_findings": {
+    "tier_counts_are_recomputed_not_summed_from_predecessor_gates": true,
+    "predecessor_gate_disagreement_is_reported_not_silently_reconciled": true,
+    "protected_seasons_carry_no_labels_and_no_team_observations": true,
+    "prospective_2026_outcomes_are_absent_by_construction": true
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

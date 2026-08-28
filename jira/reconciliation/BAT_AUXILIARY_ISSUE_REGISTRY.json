@@ -1394,6 +1394,21 @@
       "phase": "PHASE-7",
       "status": "Done",
       "summary": "[POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001] National 2026 prospective shadow cohort and real pregame snapshot eligibility ledger"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-657",
+      "local_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-8",
+      "status": "Done",
+      "summary": "[POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001] Freeze national 2026 shadow forecasts from the frozen Phase 6 candidates and add an independent postgame scorer"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

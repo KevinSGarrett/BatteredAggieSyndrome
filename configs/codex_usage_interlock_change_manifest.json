@@ -1,24 +1,27 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-655-PROCESS",
-  "jira_identity": "BAT-655",
+  "work_unit_id": "BAT-656-PROSPECTIVE-2026-NATIONAL-SHADOW-COHORT",
+  "jira_identity": "BAT-656",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "8bbce5191c96e9013070493f6ddb2645e4c6cd3c",
-  "pre_routing_decision_sha256": "a93b374c207fc47e9851426afcb095563af26203e3a10909bbbd472097909f39",
+  "base_commit": "b828349ab6c8feec8d8468338a486f2c940f1fcd",
+  "pre_routing_decision_sha256": "e84ae6c5d13241c1b6468fb8f0dae5b15e9883ae67b770378d76c4717a1c6a17",
   "changed_paths": [
+    "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+    "artifacts/shadow/prospective_2026_shadow_cohort_replay.json",
+    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
+    "configs/prospective_2026_shadow_cohort_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "jira/project/JIRA_TARGET_PROFILE.yaml",
-    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
-    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
-    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
-    "jira/validation/JIRA_FILE_HASHES.sha256",
-    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv"
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "src/aggie_analytics/data/prospective_shadow_cohort.py",
+    "tests/test_prospective_shadow_cohort.py",
+    "tools/acquire_2026_prospective_schedule.py",
+    "tools/build_prospective_2026_shadow_cohort.py",
+    "tools/validate_prospective_2026_shadow_cohort.py"
   ],
-  "manifest_identity": "0f6c5dc20c94f4504011185651e93a42abb08394efd1bcdb4b1b83dfae16c8be"
+  "manifest_identity": "0d9b09a0b7e26871dc7954820300427babe4c5fe96b763754165bb4ff2eb82cf"
 }

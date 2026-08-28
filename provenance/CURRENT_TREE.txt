@@ -388,6 +388,8 @@ artifacts/pit/roster_domain_completeness_gate.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/pit/wmt_provider_timestamp_pit_gate.json
 artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
+artifacts/shadow/prospective_2026_shadow_cohort_gate.json
+artifacts/shadow/prospective_2026_shadow_cohort_replay.json
 artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/private_research_policy_migration.json
@@ -506,6 +508,7 @@ configs/preliminary_sustainability_ablation_contract.json
 configs/preliminary_sustainability_contract.json
 configs/preliminary_unprotected_baseline_contract.json
 configs/preliminary_wmt_tamu_shadow_contract.json
+configs/prospective_2026_shadow_cohort_contract.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
 configs/research_execution_registry.json
@@ -3358,6 +3361,7 @@ src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
 src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py
 src/aggie_analytics/data/open_source.py
 src/aggie_analytics/data/play_drive.py
+src/aggie_analytics/data/prospective_shadow_cohort.py
 src/aggie_analytics/data/roster_reconciliation.py
 src/aggie_analytics/data/sec_availability.py
 src/aggie_analytics/data/snapshots.py
@@ -3713,6 +3717,7 @@ tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
+tests/test_prospective_shadow_cohort.py
 tests/test_protected_replay_dry_run.py
 tests/test_protected_split_exposure.py
 tests/test_queue_cpu_worker_manifest_work.py
@@ -3830,6 +3835,7 @@ tests/test_wmt_provider_timestamp_pit.py
 tests/test_wmt_tamu_specialization_feature_pit.py
 tests/test_worktree_resource_policy.py
 tools/__init__.py
+tools/acquire_2026_prospective_schedule.py
 tools/acquire_cfbd_historical.py
 tools/acquire_ncaa_official_gamebooks.py
 tools/acquire_noaa_isd_observed_coverage_pilot.py
@@ -3887,6 +3893,7 @@ tools/build_preliminary_possession_pace.py
 tools/build_preliminary_postgame_collapse_taxonomy.py
 tools/build_preliminary_schedule_stress.py
 tools/build_preliminary_sustainability.py
+tools/build_prospective_2026_shadow_cohort.py
 tools/build_retrospective_returning_production.py
 tools/build_roster_domain_completeness.py
 tools/build_sec_tamu_availability_candidates.py
@@ -4135,6 +4142,7 @@ tools/validate_preliminary_sustainability.py
 tools/validate_preliminary_unprotected_baselines.py
 tools/validate_preliminary_wmt_tamu_shadow.py
 tools/validate_product_supply_chain.py
+tools/validate_prospective_2026_shadow_cohort.py
 tools/validate_repository.py
 tools/validate_retrospective_returning_production.py
 tools/validate_roster_domain_completeness.py

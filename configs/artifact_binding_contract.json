@@ -3584,6 +3584,53 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-656-PROSPECTIVE-2026-NATIONAL-SHADOW-COHORT",
+      "jira_key": "BAT-656",
+      "local_issue_id": "POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001",
+      "canonical_artifact_path": "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001",
+        "jira_key": "BAT-656",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "classification": "PROSPECTIVE_2026_NATIONAL_SHADOW_COHORT_AND_PREGAME_SNAPSHOT_ELIGIBILITY",
+        "result": "PASS_PROSPECTIVE_2026_NATIONAL_SHADOW_COHORT"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.gap_002_resolved",
+        "scientific_nonclaims.protected_evaluation_opened",
+        "scientific_nonclaims.production_champion_declared",
+        "scientific_nonclaims.tamu_specialization_lift_claimed",
+        "scientific_nonclaims.bas_or_aggie_excess_claimed",
+        "scientific_nonclaims.forecast_published",
+        "scientific_nonclaims.entity_resolution_benchmark_claimed",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.model_selection_or_tuning",
+        "authority.champion_or_production_promotion",
+        "authority.forecast_publication",
+        "authority.canonical_entity_mutation",
+        "authority.immutable_raw_capture_mutation",
+        "outcome_exclusion.outcome_fields_extracted",
+        "outcome_exclusion.outcome_accessible_before_forecast_freeze",
+        "eligibility_gate.retroactive_pregame_snapshot_created",
+        "eligibility_gate.retroactive_forecast_created",
+        "eligibility_gate.backfilled_after_cutoff",
+        "eligibility_gate.games_already_started_forecast",
+        "manifest.bulk_payloads_in_git",
+        "kickoff_time_basis.official_kickoff_utc_independently_confirmed"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

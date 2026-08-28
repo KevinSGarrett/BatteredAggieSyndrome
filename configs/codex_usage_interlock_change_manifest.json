@@ -1,26 +1,24 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-652-CYCLE20-PHASE3-NATIONAL-SPINE",
+  "work_unit_id": "BAT-652-CYCLE20-PHASE3-JIRA-CONVERGENCE",
   "jira_identity": "BAT-652",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "e84190be1fe452912e730be98b8b51dae327d7c5",
-  "pre_routing_decision_sha256": "242103c8b57f0c99020a7ba1e641ad6eda75f0b8b31140b7b17a19cf3cd2d265",
+  "base_commit": "6b3936cafde2141e63eb72ced327dea946d6e4b9",
+  "pre_routing_decision_sha256": "2ff645c01de77ecfe3bc265f25847b67cbab9b5c4fd8d46b7cbf3896808faff3",
   "changed_paths": [
-    "artifacts/data_lake/national_tiered_game_spine_gate.json",
-    "artifacts/jira_evidence/POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001.json",
-    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/national_tiered_game_spine_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml",
+    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+    "jira/validation/JIRA_FILE_HASHES.sha256",
+    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/national_tiered_game_spine.py",
-    "tests/test_national_tiered_game_spine.py",
-    "tools/build_national_tiered_game_spine.py",
-    "tools/validate_national_tiered_game_spine.py"
+    "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
-  "manifest_identity": "57075da125da56e90ec103482305bfce26356e240897a2b42f0ea7c483ac262e"
+  "manifest_identity": "2bf687d6997ca49e2727e013218e520182bb1e5863a826f0560d53df418e4256"
 }

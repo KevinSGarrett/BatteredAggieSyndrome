@@ -3423,6 +3423,37 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-652-NATIONAL-TIERED-GAME-SPINE",
+      "jira_key": "BAT-652",
+      "local_issue_id": "POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001",
+      "canonical_artifact_path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001",
+        "jira_key": "BAT-652",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "NATIONAL_TIERED_GAME_OUTCOME_AND_TEAM_OBSERVATION_SPINE_CANDIDATE",
+        "result": "PASS_NATIONAL_TIERED_SPINE_REFERENCE_CANDIDATE_ONLY"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.gap_002_resolved",
+        "scientific_nonclaims.historical_population_ready",
+        "scientific_nonclaims.production_model_ready",
+        "authority.historical_pit_admission",
+        "authority.protected_evaluation_admission",
+        "authority.champion_or_production_promotion",
+        "label_policy.target_game_outcome_use_admitted",
+        "label_policy.capture_timestamp_treated_as_publication_time"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

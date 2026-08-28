@@ -1,0 +1,55 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-28T19:13:38Z",
+  "jira_key": "BAT-652",
+  "local_issue_id": "POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-552",
+    "BAT-565",
+    "BAT-651"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "completeness_claimed": false,
+  "observable_outcome": "Cycle #20 Phase 3 built a tiered immutable national game, outcome, and team-observation spine for 1963-2023 from the Phase 2 normalized foundation. 46953 canonical game membership rows carry exactly one row per game across five tiers: 33272 label-eligible games in 1963-2009, 10917 in 2010-2022, 910 in 2023, 1854 sealed 2024-2025 games with zero labels and zero team observations, and zero prospective 2026 rows. 45099 label-eligible games produce exactly 90198 team observations and 90198 outcome label rows, two per game with complementary home and away orientation and consistent opponent references. Outcome labels are stored in a separate payload from the pregame observation row and the builder fails closed if any postgame field appears on an observation. 344 canonical teams and 344 source alias rows are preserved. Counts were independently recomputed rather than summed from predecessor gates. The 2023 tier agrees exactly with BAT-565 at 910 games and 1820 team observations. The 1963-2009 tier agrees exactly with the BAT-552 CFBD row count of 33272 and its 490 ties, and the residual difference against the BAT-552 completed-outcome total of 33276 is fully explained by the four SportsDataverse supplement-only rows that this CFBD-route spine does not consume. The 2010-2022 tier differs from the BAT-523 replay population by 324 games and that scope difference is recorded as unexplained rather than reconciled away. No PIT admission, protected evaluation, champion, specialization or BAS claim is made and the protected lane remains RETAIN_PROTECTED_LANE_BLOCKED.",
+  "outputs": [
+    {
+      "path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
+      "bytes": 7202,
+      "sha256": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5",
+      "gate_identity": "675960bccf51a63a55e3155d1d3f6a02baa0d7c4e238f50987199397c7e1c50c",
+      "binding_identity": "f40a31f4b02accad82cb837639fb4c15e3eeb0a94784a6ecd26e2c0ec3cd9726",
+      "dataset_identity": "777dce822d5f02455ef2c47b1e482a45dbf5b3b84300885a608ac845946a03f8"
+    },
+    {
+      "path": "configs/national_tiered_game_spine_contract.json",
+      "bytes": 4319,
+      "sha256": "5d2242cfff755eab41b0d651252d62b7a03466d9da5cb389767c4c96552178db"
+    },
+    {
+      "path": "src/aggie_analytics/data/national_tiered_game_spine.py",
+      "bytes": 32086,
+      "sha256": "f32bf2bff1a45e82e546460626b48cb04792a392af00db48be8763011fcd56d3"
+    },
+    {
+      "path": "tools/build_national_tiered_game_spine.py",
+      "bytes": 1667,
+      "sha256": "8baf1d74376a8dcf48e2ddc548d47a34489e979078b146ada6fd4bbe97a9bffb"
+    },
+    {
+      "path": "tools/validate_national_tiered_game_spine.py",
+      "bytes": 1255,
+      "sha256": "7ec68c0caadeba670d3389536b5bba51063d3029fb3bfddcbd002991a08179e6"
+    },
+    {
+      "path": "tests/test_national_tiered_game_spine.py",
+      "bytes": 15229,
+      "sha256": "dfbdb608464a387d0cf2c15bf5caa623ebd1a99ffee36bf86abb29b739439a0f"
+    }
+  ]
+}

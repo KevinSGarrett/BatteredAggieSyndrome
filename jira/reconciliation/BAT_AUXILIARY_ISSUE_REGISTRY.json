@@ -1304,6 +1304,21 @@
       "phase": "PHASE-1",
       "status": "Done",
       "summary": "Replace placeholder ownership identities in authority-bearing contracts and enforce placeholder rejection"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-651",
+      "local_id": "POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-2",
+      "status": "Done",
+      "summary": "Independently reconcile the national capture foundation and materialize a normalized national game successor"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

@@ -6,7 +6,7 @@
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "base_commit": "c5b129ca3392d0019a69463b47f7d612e3a0b6cc",
-  "pre_routing_decision_sha256": "9cdc42eb1dedce61e571633669b9864ee10542eda0226efece846d5d7a854827",
+  "pre_routing_decision_sha256": "135d37367844e69574c502997289286a2add6c4bba99b5dbf5c51097feef13a9",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/tamu_official_1996_season_index_contract.json",
@@ -14,6 +14,12 @@
     "configs/tamu_official_1998_2009_structured_row_corpus_integrity_contract.json",
     "configs/tamu_official_gamebook_union_1998_rejection_complete_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml",
+    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+    "jira/validation/JIRA_FILE_HASHES.sha256",
+    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
@@ -21,5 +27,5 @@
     "tests/test_authority_placeholders.py",
     "tools/validate_authority_placeholders.py"
   ],
-  "manifest_identity": "7402c3a909105fa361163c96ff2dfae8ccdb1d18d3175c13db782cd9686c2b87"
+  "manifest_identity": "73a1ee9397a7039752f77bc1595ff0693c07ce2d4d09379cb6ba17105ff9a803"
 }

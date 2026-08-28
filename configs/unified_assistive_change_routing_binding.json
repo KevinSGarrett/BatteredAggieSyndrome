@@ -10,7 +10,7 @@
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "scope": "Replace authority-bearing BAT-XXX placeholders in four SRC-014 contracts with owners proven by each contract declared decision_unit, and add a strict placeholder-rejection validator with zero-skip tests.",
+  "scope": "Replace placeholder ownership identities in four SRC-014 contracts with owners proven by each contract declared decision_unit, and add a strict placeholder-rejection validator with zero-skip tests.",
   "downstream_consumer": "Cycle #20 Phase 1 authority-ownership integrity and placeholder rejection gate",
   "user_explicit_waiver": {
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20\nExecute all Cycle #20 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
@@ -27,6 +27,12 @@
     "configs/tamu_official_1998_2009_structured_row_corpus_integrity_contract.json",
     "configs/tamu_official_gamebook_union_1998_rejection_complete_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml",
+    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+    "jira/validation/JIRA_FILE_HASHES.sha256",
+    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
@@ -34,5 +40,5 @@
     "tests/test_authority_placeholders.py",
     "tools/validate_authority_placeholders.py"
   ],
-  "decision_sha256": "9cdc42eb1dedce61e571633669b9864ee10542eda0226efece846d5d7a854827"
+  "decision_sha256": "135d37367844e69574c502997289286a2add6c4bba99b5dbf5c51097feef13a9"
 }

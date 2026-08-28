@@ -86,6 +86,20 @@ def _git_commit_changed_paths(root: Path, commit_sha: str) -> list[str]:
     return paths
 
 
+def _git_commits_unique_to_head(root: Path) -> set[str]:
+    completed = subprocess.run(
+        ["git", "rev-list", "origin/main..HEAD"],
+        cwd=root,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    if completed.returncode != 0:
+        raise RuntimeError(completed.stderr.strip() or "git rev-list failed")
+    return {line.strip() for line in completed.stdout.splitlines() if line.strip()}
+
+
 def _touches_material_paths(changed_paths: list[str]) -> bool:
     for path in changed_paths:
         if path in MATERIAL_PATH_EXACT:
@@ -197,9 +211,17 @@ def _validate_history(root: Path, policy: dict[str, Any]) -> list[str]:
 
     process_run = 0
     limit = int(classification["max_consecutive_process_only_commits"])
-    enforce_path_classification = shallow_mode or os.environ.get("GITHUB_EVENT_NAME") == "pull_request" or _env_flag(
+    pr_mode = os.environ.get("GITHUB_EVENT_NAME") == "pull_request"
+    enforce_path_classification = shallow_mode or pr_mode or _env_flag(
         "AGGIE_ANALYTICS_ENFORCE_PATH_CLASSIFICATION"
     )
+    unique_commits: set[str] = set()
+    if enforce_path_classification and pr_mode and not shallow_mode:
+        try:
+            unique_commits = _git_commits_unique_to_head(root)
+        except RuntimeError as exc:
+            findings.append(f"EXECUTION_FOCUS_UNIQUE_COMMIT_SET_UNAVAILABLE:{exc}")
+            unique_commits = set()
     corrections = {
         row["commit_sha"]: row["classification"].casefold()
         for row in classification.get("historical_integration_corrections", [])
@@ -225,13 +247,18 @@ def _validate_history(root: Path, policy: dict[str, Any]) -> list[str]:
             findings.append(f"COMMIT_CLASSIFICATION_INVALID:{subject}")
             continue
         if enforce_path_classification:
-            try:
-                changed_paths = _git_commit_changed_paths(root, commit_sha)
-            except RuntimeError as exc:
-                findings.append(f"EXECUTION_FOCUS_CHANGED_PATHS_UNAVAILABLE:{commit_sha}:{exc}")
-                continue
-            if has_process and _touches_material_paths(changed_paths):
-                findings.append(f"PROCESS_COMMIT_TOUCHES_MATERIAL_PATHS:{subject}")
+            if pr_mode and not shallow_mode and commit_sha not in unique_commits:
+                # PR checks should enforce changed-path classification only for
+                # commits introduced by the PR branch, not immutable mainline history.
+                pass
+            else:
+                try:
+                    changed_paths = _git_commit_changed_paths(root, commit_sha)
+                except RuntimeError as exc:
+                    findings.append(f"EXECUTION_FOCUS_CHANGED_PATHS_UNAVAILABLE:{commit_sha}:{exc}")
+                    continue
+                if has_process and _touches_material_paths(changed_paths):
+                    findings.append(f"PROCESS_COMMIT_TOUCHES_MATERIAL_PATHS:{subject}")
         if has_process:
             process_run += 1
             if process_run > limit:

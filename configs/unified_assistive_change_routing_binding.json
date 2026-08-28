@@ -1,39 +1,37 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-652-CYCLE20-PHASE3-NATIONAL-SPINE",
+  "work_unit_id": "BAT-652-CYCLE20-PHASE3-JIRA-CONVERGENCE",
   "jira_identity": "BAT-652",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20",
-  "source_commit": "e84190be1fe452912e730be98b8b51dae327d7c5",
+  "source_commit": "6b3936cafde2141e63eb72ced327dea946d6e4b9",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "scope": "Build a tiered immutable national game, outcome, and team-observation spine for 1963-2023 with recomputed counts and disclosed predecessor scope differences.",
-  "downstream_consumer": "Cycle #20 Phase 4 national domain coverage and PIT admission matrix",
+  "scope": "Record BAT-652 as Done after its material merge and reconverge local Jira, auxiliary registry, derivatives, and verification evidence with live Jira for Cycle #20 Phase 3.",
+  "downstream_consumer": "Cycle #20 Phase 4 duplicate audit and issue creation",
   "user_explicit_waiver": {
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20\nExecute all Cycle #20 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "instruction_sha256": "6e81eee45c595b372801312c8b1c8f4ee359ddab17de13a2f9aa6258914c6533",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
-    "work_unit_id": "BAT-652-CYCLE20-PHASE3-NATIONAL-SPINE"
+    "work_unit_id": "BAT-652-CYCLE20-PHASE3-JIRA-CONVERGENCE"
   },
   "allowed_paths": [
-    "artifacts/data_lake/national_tiered_game_spine_gate.json",
-    "artifacts/jira_evidence/POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001.json",
-    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/national_tiered_game_spine_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml",
+    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+    "jira/validation/JIRA_FILE_HASHES.sha256",
+    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/national_tiered_game_spine.py",
-    "tests/test_national_tiered_game_spine.py",
-    "tools/build_national_tiered_game_spine.py",
-    "tools/validate_national_tiered_game_spine.py"
+    "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
-  "decision_sha256": "242103c8b57f0c99020a7ba1e641ad6eda75f0b8b31140b7b17a19cf3cd2d265"
+  "decision_sha256": "2ff645c01de77ecfe3bc265f25847b67cbab9b5c4fd8d46b7cbf3896808faff3"
 }

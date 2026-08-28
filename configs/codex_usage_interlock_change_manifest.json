@@ -1,29 +1,31 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-649-CYCLE20-PHASE1-PROCESS-RECONCILIATION",
-  "jira_identity": "BAT-649",
+  "work_unit_id": "BAT-650-CYCLE20-PHASE1-AUTHORITY-PLACEHOLDER-OWNERSHIP",
+  "jira_identity": "BAT-650",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "85e531f08cb0cf7279c70ae17292e069edf78a08",
-  "pre_routing_decision_sha256": "2f0d7582039304f42024d2ff842a88ccfebae67904e091144680c9e1da7d3877",
+  "base_commit": "c5b129ca3392d0019a69463b47f7d612e3a0b6cc",
+  "pre_routing_decision_sha256": "135d37367844e69574c502997289286a2add6c4bba99b5dbf5c51097feef13a9",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
+    "configs/tamu_official_1996_season_index_contract.json",
+    "configs/tamu_official_1997_season_index_contract.json",
+    "configs/tamu_official_1998_2009_structured_row_corpus_integrity_contract.json",
+    "configs/tamu_official_gamebook_union_1998_rejection_complete_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
     "jira/project/JIRA_TARGET_PROFILE.yaml",
     "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
     "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
-    "jira/snapshots/20260828T042327Z/STATE.json",
     "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
     "jira/validation/JIRA_FILE_HASHES.sha256",
     "jira/validation/JIRA_FILE_MANIFEST.csv",
-    "jira/validation/NON_JIRA_SCOPE_DIFF.csv",
-    "jira/validation/NON_JIRA_SCOPE_DIFF.json",
-    "jira/validation/SECOND_PASS_AUDIT.json",
-    "jira/validation/SECOND_PASS_AUDIT_RESULTS.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv"
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "tests/fixtures/stale_placeholder_contract.json",
+    "tests/test_authority_placeholders.py",
+    "tools/validate_authority_placeholders.py"
   ],
-  "manifest_identity": "0716b0007f4643ac58d56da45a80877b58cdc1316ca16f7f86ebf2eb65443797"
+  "manifest_identity": "73a1ee9397a7039752f77bc1595ff0693c07ce2d4d09379cb6ba17105ff9a803"
 }

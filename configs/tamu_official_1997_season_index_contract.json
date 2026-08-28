@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1997-SEASON-INDEX-V1",
+  "contract_id": "BAT-640-TAMU-OFFICIAL-1997-SEASON-INDEX-V1",
   "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-INDEX-001",
-  "jira_key": "BAT-XXX",
+  "jira_key": "BAT-640",
   "source_id": "SRC-014",
   "season": 1997,
   "discovery_parent_url": "https://files.12thman.com/history/football/history/index.html",

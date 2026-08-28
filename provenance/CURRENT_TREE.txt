@@ -390,6 +390,8 @@ artifacts/source_governance/source_priority_decisions.json
 artifacts/source_governance/source_rights_gate_test.json
 artifacts/source_governance/supplemental_rights_decisions.csv
 artifacts/source_governance/tier1_rights_decisions.csv
+artifacts/validation/cycle19_final_evidence_snapshot.json
+artifacts/validation/mounted_acceptance_gate.json
 configs/acceptance_registry.json
 configs/action_derived_play_summary_contract.json
 configs/architecture_registry.json
@@ -447,6 +449,7 @@ configs/local_coder_shadow_qualification_v2.json
 configs/local_embedding_shadow_qualification.json
 configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
+configs/mounted_acceptance_contract.json
 configs/ncaa_contest_outcome_reference_adapter_contract.json
 configs/ncaa_contest_reconciliation_contract.json
 configs/ncaa_contest_reconciliation_expansion_policy.json
@@ -3407,6 +3410,7 @@ src/aggie_analytics/data/tamu_official_historical_archive.py
 src/aggie_analytics/data/tamu_official_historical_boxscores.py
 src/aggie_analytics/data/tamu_official_historical_coverage_inventory.py
 src/aggie_analytics/data/tamu_official_html_table_classifier.py
+src/aggie_analytics/data/tamu_official_legacy_h2_game_identity.py
 src/aggie_analytics/data/tamu_official_pre2010_boxscores.py
 src/aggie_analytics/data/tamu_official_rich_structure.py
 src/aggie_analytics/data/tamu_official_statcrew_preformatted.py
@@ -3640,6 +3644,7 @@ tests/test_locks_full.py
 tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
+tests/test_mounted_data_acceptance.py
 tests/test_ncaa_contest_outcome_reference_adapter.py
 tests/test_ncaa_contest_reconciliation.py
 tests/test_ncaa_contest_reconciliation_expansion.py
@@ -3764,6 +3769,7 @@ tests/test_tamu_official_gamebook_union_integrity_complete.py
 tests/test_tamu_official_historical_archive.py
 tests/test_tamu_official_historical_boxscores.py
 tests/test_tamu_official_historical_coverage_inventory.py
+tests/test_tamu_official_legacy_h2_game_identity.py
 tests/test_tamu_official_pre2010_boxscores.py
 tests/test_tamu_official_rich_structure.py
 tests/test_tamu_official_statcrew_preformatted.py
@@ -3985,6 +3991,7 @@ tools/run_local_benchmark.py
 tools/run_local_coder_shadow.py
 tools/run_local_embedding_shadow.py
 tools/run_local_qwen_qualification.py
+tools/run_mounted_data_acceptance.py
 tools/run_openai_assist_eval.py
 tools/run_openai_availability_source_triage.py
 tools/run_openai_depth_chart_noncoverage_visual_review.py
@@ -4060,6 +4067,7 @@ tools/validate_jira_mirror.py
 tools/validate_local_qwen_qualification.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
+tools/validate_mounted_acceptance_gate.py
 tools/validate_ncaa_contest_outcome_reference_adapter.py
 tools/validate_ncaa_contest_reconciliation.py
 tools/validate_ncaa_official_discovery.py

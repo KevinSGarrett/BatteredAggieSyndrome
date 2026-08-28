@@ -37,29 +37,30 @@
     "wmt_payload_mutated_in_place": false
   },
   "classification": "TAMU_SRC014_OFFICIAL_1996_BOXSCORE_CANDIDATE_ONLY",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1996-BOXSCORES-V1",
+  "contract_id": "BAT-649-TAMU-OFFICIAL-1996-BOXSCORES-V1",
   "counts": {
-    "blocked_or_partial_pages": 11,
+    "blocked_or_partial_pages": 0,
     "captured_pages_total": 11,
     "date_conflicts": 0,
     "games_admitted_to_union": 0,
-    "matched_strong_tuple": 0,
+    "matched_strong_tuple": 11,
     "name_only_insufficient": 0,
     "ncaa_contest_ids_created": 0,
-    "normalized_games": 0,
+    "normalized_games": 11,
     "target_games_total": 11,
     "unmatched_strong_tuple": 0,
     "verified_official_pages": 11
   },
-  "dataset_identity": "cfe8af8d3bca4afca15dffcca4514d85626cfadb191af769a69bac8fb2d8b9d7",
-  "decision_unit": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-001",
+  "dataset_identity": "3bb72015157ae542958527ee9c43ec5e58133a475c175378dcd020724506686f",
+  "decision_unit": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-SUCCESSOR-001",
   "disposition": "NORMALIZED_CANDIDATE_ONLY_NO_UNION_MUTATION",
-  "games_identity": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-  "gate_identity": "77997c43e9939a269501e73950487dca26af18de0c331275f2cc56e1c23b9399",
+  "games_identity": "9d0e6ffc9c25ac0fc6df190f190ffc03ec6fdfc30f8a0833c1ee8cd463fe75c4",
+  "gate_identity": "b2fa428f09f593b9314e583ec9efc68827b13e86245e4bc9ef8700388ae2f752",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
-  "jira_key": "BAT-XXX",
+  "jira_key": "BAT-649",
+  "parser_identity": "tamu.official.legacy_h2.v1",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "result": "PARTIAL_OFFICIAL_1996_BOXSCORES",
+  "result": "PASS_OFFICIAL_1996_BOXSCORES_NORMALIZED",
   "schema_version": "aggie.data.tamu_official_1996_boxscores.v1",
   "scientific_nonclaims": {
     "bas_or_aggie_excess_result_claimed": false,
@@ -85,7 +86,10 @@
   "source_id": "SRC-014",
   "upstream_identities": {
     "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
-    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
+    "predecessor_dataset_identity": "cfe8af8d3bca4afca15dffcca4514d85626cfadb191af769a69bac8fb2d8b9d7",
+    "predecessor_gate_identity": "77997c43e9939a269501e73950487dca26af18de0c331275f2cc56e1c23b9399",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "season_index_gate_identity": "8309deed62ee75c5435b761df8c8c1155014516ee5238c49e3de484ed9cf9f13"
   },
-  "validator_code_identity": "0ceb6cf674df5478a89f4b210fcc24a11c96e704d834e0456fb650e5401bbcd1"
+  "validator_code_identity": "0815d25a63b3164e0ce2bc1b1dc06cc3a138041aac3cb6668294ad1bc324ecc4"
 }

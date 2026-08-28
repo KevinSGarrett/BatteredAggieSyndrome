@@ -14,6 +14,18 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 POLICY_PATH = ROOT / "instructions" / "policies" / "execution_focus_policy.json"
 INSTRUCTION_PATH = ROOT / "instructions" / "06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
+MATERIAL_PATH_PREFIXES = (
+    "src/",
+    "tests/",
+    "tools/",
+    "configs/",
+    "artifacts/data_lake/",
+    "artifacts/pit/",
+    "artifacts/validation/",
+)
+MATERIAL_PATH_EXACT = {
+    "governance/EXPERIMENT_RESULT_EVIDENCE_CONTRACT.csv",
+}
 
 
 def _git_commits(root: Path, revision_range: str) -> list[tuple[str, str]]:
@@ -48,6 +60,39 @@ def _git_is_shallow(root: Path) -> bool:
         encoding="utf-8",
     )
     return completed.returncode == 0 and completed.stdout.strip() == "true"
+
+
+def _env_flag(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _git_commit_changed_paths(root: Path, commit_sha: str) -> list[str]:
+    completed = subprocess.run(
+        ["git", "show", "--name-only", "--pretty=format:", commit_sha],
+        cwd=root,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    if completed.returncode != 0:
+        raise RuntimeError(completed.stderr.strip() or "git show failed")
+    paths: list[str] = []
+    for raw in completed.stdout.splitlines():
+        path = raw.strip().replace("\\", "/")
+        if not path:
+            continue
+        paths.append(path)
+    return paths
+
+
+def _touches_material_paths(changed_paths: list[str]) -> bool:
+    for path in changed_paths:
+        if path in MATERIAL_PATH_EXACT:
+            return True
+        if any(path.startswith(prefix) for prefix in MATERIAL_PATH_PREFIXES):
+            return True
+    return False
 
 
 def _validate_policy(policy: dict[str, Any]) -> list[str]:
@@ -152,6 +197,9 @@ def _validate_history(root: Path, policy: dict[str, Any]) -> list[str]:
 
     process_run = 0
     limit = int(classification["max_consecutive_process_only_commits"])
+    enforce_path_classification = shallow_mode or os.environ.get("GITHUB_EVENT_NAME") == "pull_request" or _env_flag(
+        "AGGIE_ANALYTICS_ENFORCE_PATH_CLASSIFICATION"
+    )
     corrections = {
         row["commit_sha"]: row["classification"].casefold()
         for row in classification.get("historical_integration_corrections", [])
@@ -176,6 +224,14 @@ def _validate_history(root: Path, policy: dict[str, Any]) -> list[str]:
         if has_material == has_process:
             findings.append(f"COMMIT_CLASSIFICATION_INVALID:{subject}")
             continue
+        if enforce_path_classification:
+            try:
+                changed_paths = _git_commit_changed_paths(root, commit_sha)
+            except RuntimeError as exc:
+                findings.append(f"EXECUTION_FOCUS_CHANGED_PATHS_UNAVAILABLE:{commit_sha}:{exc}")
+                continue
+            if has_process and _touches_material_paths(changed_paths):
+                findings.append(f"PROCESS_COMMIT_TOUCHES_MATERIAL_PATHS:{subject}")
         if has_process:
             process_run += 1
             if process_run > limit:

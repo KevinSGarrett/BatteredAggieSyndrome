@@ -1,4 +1,4 @@
-"""Materialize immutable 1996-2009 structured-row corpus successor."""
+"""Materialize immutable recovered 1996-2009 structured-row corpus successor."""
 
 from __future__ import annotations
 
@@ -16,22 +16,16 @@ from aggie_analytics.validation.artifact_binding import compute_identity
 SCHEMA_VERSION = "aggie.data.tamu_official_1996_2009_structured_row_corpus.v1"
 CONTRACT_RELATIVE = "configs/tamu_official_1996_2009_structured_row_corpus_contract.json"
 GATE_RELATIVE = "artifacts/data_lake/tamu_official_1996_2009_structured_row_corpus_gate.json"
-CONTRACT_ID = "BAT-XXX-TAMU-OFFICIAL-1996-2009-ROW-CORPUS-V1"
-DECISION_UNIT = "POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001"
-JIRA_KEY = "BAT-XXX"
+CONTRACT_ID = "BAT-649-TAMU-OFFICIAL-1996-2009-ROW-CORPUS-V1"
+DECISION_UNIT = "POST-TASK-SRC014-1996-2009-RECOVERED-STRUCTURED-ROW-CORPUS-001"
+JIRA_KEY = "BAT-649"
 SOURCE_ID = "SRC-014"
 PASS_CLASSIFICATION = "TAMU_SRC014_OFFICIAL_1996_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY"
 PASS_RESULT = "PASS_OFFICIAL_1996_2009_STRUCTURED_ROW_CORPUS_SUCCESSOR"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
-PINNED_BAT638_GATE_IDENTITY = "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54"
-PINNED_BAT638_DATASET_IDENTITY = "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8"
-PINNED_REJECTION_GATE_IDENTITY = "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e"
-PINNED_REJECTION_LEDGER_IDENTITY = "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051"
-PINNED_UNION_1996_GATE_IDENTITY = "a6ac7c237333febc5822a467b60be944af20190ddc203f8027f5aeaa61af7f90"
-PINNED_STRUCTURED_1997_GATE_IDENTITY = "52f84f7bc0cf4de9fe07409db4037ee065176aec526efe7a1d995ccacf31a592"
-PINNED_STRUCTURED_1996_GATE_IDENTITY = "2070b2816c6f01bded88dbd353a08cb4468fc4aa95338499ca7f2f0656a01661"
 MANIFEST_NAME = "corpus_manifest.json"
 SERIALIZED_DOMAINS = ("team_statistics", "individual_player_statistics", "drives", "play_by_play", "scoring_summary")
+PREDECESSOR_1998_2009_DATASET_IDENTITY = "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8"
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -72,34 +66,108 @@ def _season_set(admitted_games: list[Mapping[str, Any]]) -> list[int]:
     return sorted(values)
 
 
+def _row_identity(row: Mapping[str, Any]) -> str:
+    return stable_hash(
+        {
+            "domain": row.get("domain"),
+            "source_url": row.get("source_url"),
+            "source_sha256": row.get("source_sha256"),
+            "source_row_order": row.get("source_row_order"),
+            "raw": row.get("raw"),
+        }
+    )
+
+
+def _append_structured_rows(
+    *,
+    out_rows: dict[str, list[dict[str, Any]]],
+    structured_payload: Mapping[str, Any],
+    payload_identity: str,
+    union_identity: str,
+    admitted_urls: set[str],
+    active_rejected_urls: set[str],
+) -> None:
+    for game_rows in structured_payload.get("rows") or []:
+        for row in game_rows:
+            domain = str(row.get("domain") or "")
+            if domain not in SERIALIZED_DOMAINS:
+                continue
+            source_url = str(row.get("source_url") or "")
+            if not source_url or source_url in active_rejected_urls or source_url not in admitted_urls:
+                continue
+            normalized = {
+                "admitted_final_union_membership": True,
+                "availability": "NOT_ESTABLISHED",
+                "availability_claim": False,
+                "classification": "POSTGAME_OFFICIAL_STRUCTURED_EVIDENCE_ONLY",
+                "domain": domain,
+                "domain_row_order": int(row.get("row_order") or 0),
+                "identity_status": "SOURCE_TEXT_ONLY",
+                "name_raw": None,
+                "original_text": str(row.get("original_text") or ""),
+                "parser_identity": str(row.get("parser_identity") or ""),
+                "parser_identity_source": "ROW",
+                "player_identity": "SOURCE_PLAYER_CANDIDATE",
+                "quarter_raw": None,
+                "season": int(row.get("source_season") or 0),
+                "source_block": str(row.get("block_index") or "0"),
+                "source_row_order": int(row.get("source_row_order") or 0),
+                "source_sha256": str(row.get("source_sha256") or ""),
+                "source_table": str(row.get("source_domain") or domain),
+                "source_url": source_url,
+                "stat_group": None,
+                "team_raw": None,
+                "union_identity": union_identity,
+                "upstream_jira_key": JIRA_KEY,
+                "upstream_payload_identity": payload_identity,
+                "raw": dict(row.get("raw") or {}),
+            }
+            normalized["row_identity"] = _row_identity(normalized)
+            out_rows[domain].append(normalized)
+
+
 def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     contract = load_json(repo_root / CONTRACT_RELATIVE)
     g638 = load_json(repo_root / "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json")
-    if g638.get("gate_identity") != PINNED_BAT638_GATE_IDENTITY or g638.get("dataset_identity") != PINNED_BAT638_DATASET_IDENTITY:
-        raise AuthorityViolation("BAT-638 corpus identities drifted")
+    predecessor_gate_identity = str(g638.get("gate_identity") or "")
+    predecessor_dataset_identity = str(g638.get("dataset_identity") or "")
+    if not predecessor_gate_identity or not predecessor_dataset_identity:
+        raise AuthorityViolation("predecessor corpus identities missing")
     rej_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_1998_2009_rejection_integrity_gate.json")
-    if rej_gate.get("gate_identity") != PINNED_REJECTION_GATE_IDENTITY or rej_gate.get("ledger_identity") != PINNED_REJECTION_LEDGER_IDENTITY:
-        raise AuthorityViolation("rejection-integrity identities drifted")
+    rejection_gate_identity = str(rej_gate.get("gate_identity") or "")
+    rejection_ledger_identity = str(rej_gate.get("ledger_identity") or "")
+    if not rejection_gate_identity or not rejection_ledger_identity:
+        raise AuthorityViolation("rejection ledger identities missing")
     union_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_gamebook_union_1996_expanded_gate.json")
-    if union_gate.get("gate_identity") != PINNED_UNION_1996_GATE_IDENTITY:
-        raise AuthorityViolation("1996-expanded union gate identity drifted")
+    union_gate_identity = str(union_gate.get("gate_identity") or "")
+    union_identity = str(union_gate.get("union_identity") or "")
+    if not union_gate_identity or not union_identity:
+        raise AuthorityViolation("final recovered union identities missing")
     structured_1997 = load_json(repo_root / "artifacts/data_lake/tamu_official_1997_structured_domains_gate.json")
-    if structured_1997.get("gate_identity") != PINNED_STRUCTURED_1997_GATE_IDENTITY:
-        raise AuthorityViolation("1997 structured identity drifted")
+    structured_1997_gate_identity = str(structured_1997.get("gate_identity") or "")
+    structured_1997_payload_identity = str(structured_1997.get("payload_identity") or "")
+    if not structured_1997_gate_identity or not structured_1997_payload_identity:
+        raise AuthorityViolation("1997 structured identities missing")
     structured_1996 = load_json(repo_root / "artifacts/data_lake/tamu_official_1996_structured_domains_gate.json")
-    if structured_1996.get("gate_identity") != PINNED_STRUCTURED_1996_GATE_IDENTITY:
-        raise AuthorityViolation("1996 structured identity drifted")
-    union_root = data_root / "features/tamu_official_gamebook_union_1996_expanded/sha256" / str(union_gate.get("union_identity") or "") / "union_manifest.json"
+    structured_1996_gate_identity = str(structured_1996.get("gate_identity") or "")
+    structured_1996_payload_identity = str(structured_1996.get("payload_identity") or "")
+    if not structured_1996_gate_identity or not structured_1996_payload_identity:
+        raise AuthorityViolation("1996 structured identities missing")
+    union_root = data_root / "features/tamu_official_gamebook_union_1996_expanded/sha256" / union_identity / "union_manifest.json"
     if not union_root.is_file():
         raise AuthorityViolation("1996-expanded union manifest missing")
     union_payload = load_json(union_root)
     admitted_games = list(union_payload.get("enriched_official_games") or [])
     admitted_urls = {str(item.get("url") or "") for item in admitted_games if str(item.get("url") or "")}
-    rejection_ledger = list(union_payload.get("complete_rejection_ledger") or [])
-    rejected_urls = {str(item.get("url") or "") for item in rejection_ledger if str(item.get("url") or "")}
+    rejection_payload_path = data_root / "features/tamu_official_1998_2009_rejection_integrity/sha256" / rejection_ledger_identity / "rejection_ledger.json"
+    if not rejection_payload_path.is_file():
+        raise AuthorityViolation("rejection-ledger payload missing")
+    rejection_payload = load_json(rejection_payload_path)
+    active_rejections = list(rejection_payload.get("active_rejections") or [])
+    rejected_urls = {str(item.get("url") or "") for item in active_rejections if str(item.get("url") or "")}
     if admitted_urls & rejected_urls:
         raise AuthorityViolation("rejection/admission overlap in final corpus predecessor")
-    source_root = data_root / "features/tamu_official_1998_2009_structured_row_corpus/sha256" / PINNED_BAT638_DATASET_IDENTITY
+    source_root = data_root / "features/tamu_official_1998_2009_structured_row_corpus/sha256" / predecessor_dataset_identity
     child_payloads: dict[str, dict[str, Any]] = {}
     rows_per_domain: dict[str, int] = {}
     games_present_by_domain: dict[str, int] = {}
@@ -129,10 +197,33 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
             "filename": filename,
             "row_count": len(kept),
             "source_filename": filename,
-            "source_dataset_identity": PINNED_BAT638_DATASET_IDENTITY,
+            "source_dataset_identity": predecessor_dataset_identity,
         }
+    payload_1997_path = data_root / "features/tamu_official_1997_structured_domains/sha256" / structured_1997_payload_identity / "payload.json"
+    payload_1996_path = data_root / "features/tamu_official_1996_structured_domains/sha256" / structured_1996_payload_identity / "payload.json"
+    if not payload_1997_path.is_file() or not payload_1996_path.is_file():
+        raise AuthorityViolation("recovered structured payload missing")
+    _append_structured_rows(
+        out_rows=output_rows_by_domain,
+        structured_payload=load_json(payload_1997_path),
+        payload_identity=structured_1997_payload_identity,
+        union_identity=union_identity,
+        admitted_urls=admitted_urls,
+        active_rejected_urls=rejected_urls,
+    )
+    _append_structured_rows(
+        out_rows=output_rows_by_domain,
+        structured_payload=load_json(payload_1996_path),
+        payload_identity=structured_1996_payload_identity,
+        union_identity=union_identity,
+        admitted_urls=admitted_urls,
+        active_rejected_urls=rejected_urls,
+    )
+    for domain in SERIALIZED_DOMAINS:
+        rows_per_domain[domain] = len(output_rows_by_domain[domain])
+        games_present_by_domain[domain] = len({str(row.get("source_url") or "") for row in output_rows_by_domain[domain] if str(row.get("source_url") or "")})
     if any(rejected_rows_by_domain.values()):
-        raise AuthorityViolation("rejected URLs leaked into child payload rows")
+        raise AuthorityViolation("active rejected URLs leaked into child payload rows")
     selected_seasons = _season_set(admitted_games)
     total_rows = sum(rows_per_domain.values())
     absent_domain_games = {domain: len(admitted_urls) - games_present_by_domain[domain] for domain in SERIALIZED_DOMAINS}
@@ -142,14 +233,14 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "decision_unit": DECISION_UNIT,
         "jira_key": JIRA_KEY,
         "source_id": SOURCE_ID,
-        "predecessor_dataset_identity": PINNED_BAT638_DATASET_IDENTITY,
-        "predecessor_gate_identity": PINNED_BAT638_GATE_IDENTITY,
-        "union_identity": str(union_gate.get("union_identity") or ""),
-        "union_gate_identity": PINNED_UNION_1996_GATE_IDENTITY,
-        "rejection_integrity_gate_identity": PINNED_REJECTION_GATE_IDENTITY,
-        "rejection_ledger_identity": PINNED_REJECTION_LEDGER_IDENTITY,
-        "upstream_structured_1997_gate_identity": PINNED_STRUCTURED_1997_GATE_IDENTITY,
-        "upstream_structured_1996_gate_identity": PINNED_STRUCTURED_1996_GATE_IDENTITY,
+        "predecessor_dataset_identity": predecessor_dataset_identity,
+        "predecessor_gate_identity": predecessor_gate_identity,
+        "union_identity": union_identity,
+        "union_gate_identity": union_gate_identity,
+        "rejection_integrity_gate_identity": rejection_gate_identity,
+        "rejection_ledger_identity": rejection_ledger_identity,
+        "upstream_structured_1997_gate_identity": structured_1997_gate_identity,
+        "upstream_structured_1996_gate_identity": structured_1996_gate_identity,
         "selected_seasons": selected_seasons,
         "admitted_row_gap_urls": list(union_payload.get("admitted_row_gap_urls") or []),
         "child_payloads": child_payloads,
@@ -161,10 +252,13 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
             "seasons": len(selected_seasons),
             "games": len(admitted_urls),
             "serialized_rows_total": total_rows,
-            "complete_rejection_count": len(rejected_urls),
+            "complete_rejection_count": int(rej_gate.get("complete_rejection_count") or len(rejection_payload.get("historical_rejection_records") or [])),
+            "active_rejection_count": len(rejected_urls),
+            "superseded_rejection_count": int(rej_gate.get("superseded_rejection_count") or 0),
             "ncaa_contest_ids_created": 0,
-            "new_admissions": 0,
-            "new_rejections": int((union_payload.get("counts") or {}).get("official_1996_rejected", 0)),
+            "new_admissions": int((union_payload.get("counts") or {}).get("official_1996_admitted", 0)
+                                  + (union_payload.get("counts") or {}).get("official_1997_admitted", 0)),
+            "new_rejections": len(rejected_urls),
         },
         "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
         "availability_state": "NOT_ESTABLISHED",
@@ -197,13 +291,13 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "source_id": SOURCE_ID,
         "dataset_identity": manifest["dataset_identity"],
         "union_identity": manifest["union_identity"],
-        "predecessor_dataset_identity": PINNED_BAT638_DATASET_IDENTITY,
-        "predecessor_gate_identity": PINNED_BAT638_GATE_IDENTITY,
-        "union_gate_identity": PINNED_UNION_1996_GATE_IDENTITY,
-        "rejection_integrity_gate_identity": PINNED_REJECTION_GATE_IDENTITY,
-        "rejection_ledger_identity": PINNED_REJECTION_LEDGER_IDENTITY,
-        "upstream_structured_1997_gate_identity": PINNED_STRUCTURED_1997_GATE_IDENTITY,
-        "upstream_structured_1996_gate_identity": PINNED_STRUCTURED_1996_GATE_IDENTITY,
+        "predecessor_dataset_identity": predecessor_dataset_identity,
+        "predecessor_gate_identity": predecessor_gate_identity,
+        "union_gate_identity": union_gate_identity,
+        "rejection_integrity_gate_identity": rejection_gate_identity,
+        "rejection_ledger_identity": rejection_ledger_identity,
+        "upstream_structured_1997_gate_identity": structured_1997_gate_identity,
+        "upstream_structured_1996_gate_identity": structured_1996_gate_identity,
         "selected_seasons": selected_seasons,
         "counts": manifest["counts"],
         "rows_per_domain": rows_per_domain,

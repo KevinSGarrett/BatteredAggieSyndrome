@@ -68,6 +68,7 @@ HARD_INTERSTITIAL_MARKERS = (
     "enable javascript and cookies to continue",
 )
 SOFT_LOGIN_MARKERS = ("sign in", "log in")
+NETWORK_ACCESS_FORBIDDEN_ERROR = "NETWORK_ACCESS_FORBIDDEN_IN_ACCEPTANCE_TEST"
 SEED_URLS = (
     ("history_index", None, "https://files.12thman.com/history/football/history/index.html"),
     ("season_index", 2010, "https://files.12thman.com/history/football/years/2010.html"),
@@ -459,6 +460,8 @@ def content_addressed_path(family: str, digest: str, extension: str) -> str:
 
 
 def direct_http_get(url: str, timeout_seconds: float = 45.0) -> dict[str, Any]:
+    if os.environ.get("AGGIE_ANALYTICS_NETWORK_FORBIDDEN", "").strip().lower() in {"1", "true", "yes", "on"}:
+        raise AuthorityViolation(f"{NETWORK_ACCESS_FORBIDDEN_ERROR}: {url}")
     validate_official_url(url)
     request = urllib.request.Request(
         url,

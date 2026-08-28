@@ -39,6 +39,10 @@ class Official1996StructuredDomainsTests(unittest.TestCase):
         result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT)
         self.assertEqual(result["result"], "PASS")
         self.assertIn("payload_identity", result)
+        self.assertEqual(int(self.gate["counts"]["team_statistics_rows"]), 171)
+        self.assertEqual(int(self.gate["counts"]["individual_player_statistics_rows"]), 66)
+        self.assertEqual(int(self.gate["counts"]["drives_rows"]), 0)
+        self.assertEqual(int(self.gate["counts"]["play_by_play_rows"]), 2194)
 
     def test_protected_lane_opened_fails(self) -> None:
         with self.assertRaisesRegex(AuthorityViolation, "does not match independent reconstruction"):

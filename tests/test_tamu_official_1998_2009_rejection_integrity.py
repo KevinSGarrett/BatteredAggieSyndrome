@@ -39,7 +39,9 @@ class RejectionIntegrityGateTests(unittest.TestCase):
     def test_gate_reconstructs(self) -> None:
         result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT)
         self.assertEqual(result["result"], "PASS")
-        self.assertEqual(int(self.gate["complete_rejection_count"]), 17)
+        self.assertEqual(int(self.gate["complete_rejection_count"]), 40)
+        self.assertEqual(int(self.gate["active_rejection_count"]), 17)
+        self.assertEqual(int(self.gate["superseded_rejection_count"]), 23)
 
     def test_protected_lane_open_fails(self) -> None:
         with self.assertRaisesRegex(AuthorityViolation, "does not match independent reconstruction"):

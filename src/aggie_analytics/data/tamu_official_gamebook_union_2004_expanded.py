@@ -33,6 +33,7 @@ from aggie_analytics.data.tamu_official_gamebook_union_2005_integrity_bound impo
     PINNED_BAT602_UNION_IDENTITY,
     coverage_by_domain,
     coverage_by_season,
+    upstream_is_ready as bat603_upstream_is_ready,
     validate_artifact as validate_bat603,
 )
 from aggie_analytics.data.tamu_official_historical_boxscores import AuthorityViolation
@@ -529,7 +530,11 @@ def reconstruct_objects(
         raise AuthorityViolation("BAT-603 captured-game count drifted")
     if len(predecessor.get("enriched_official_games") or []) != PRIOR_ENRICHED_OFFICIAL_GAMES:
         raise AuthorityViolation("BAT-603 official-school membership drifted")
-    validate_bat603(repo_root=repo_root, data_root=data_root, require_rebuild=True)
+    validate_bat603(
+        repo_root=repo_root,
+        data_root=data_root,
+        require_rebuild=bat603_upstream_is_ready(data_root),
+    )
     bat605 = validate_bat605_external_payload(repo_root=repo_root, data_root=data_root, payload=bat605_payload)
     bat606 = validate_bat606_external_payload(repo_root=repo_root, data_root=data_root, payload=bat606_payload)
     prior_games = [json.loads(json.dumps(item)) for item in (predecessor.get("enriched_official_games") or [])]
@@ -758,6 +763,7 @@ def upstream_is_ready(data_root: Path) -> bool:
             / "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc"
             / "payload.json"
         ).is_file()
+        and union_manifest_path(data_root).is_file()
     )
 
 

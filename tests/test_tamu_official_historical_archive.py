@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -14,12 +15,14 @@ from aggie_analytics.data.ncaa_contest_reconciliation import stable_hash  # noqa
 from aggie_analytics.data.tamu_official_historical_archive import (  # noqa: E402
     AuthorityViolation,
     GATE_RELATIVE,
+    NETWORK_ACCESS_FORBIDDEN_ERROR,
     PASS_CLASSIFICATION,
     PROTECTED_LANE,
     SOURCE_ID,
     WMT_ACQUISITION_IDENTITY,
     compute_gate_identity,
     discover_box_score_urls,
+    direct_http_get,
     load_json,
     parse_roster_rows,
     pdf_capture_disposition,
@@ -216,6 +219,11 @@ class OfficialHistoricalArchiveTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             result = validate_artifact(data_root=Path(tmp), repo_root=ROOT, require_rebuild=False)
         self.assertEqual("NOT_MOUNTED", result["external_reconstruction"])
+
+    def test_network_forbidden_env_blocks_live_http(self) -> None:
+        with self.assertRaisesRegex(AuthorityViolation, NETWORK_ACCESS_FORBIDDEN_ERROR):
+            with patch.dict(os.environ, {"AGGIE_ANALYTICS_NETWORK_FORBIDDEN": "1"}, clear=False):
+                direct_http_get("https://files.12thman.com/history/football/years/2010.html")
 
 
 if __name__ == "__main__":

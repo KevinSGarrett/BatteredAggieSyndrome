@@ -1,27 +1,27 @@
 {
   "artifact_type": "TAMU_OFFICIAL_1996_STRUCTURED_DOMAINS_GATE",
   "classification": "TAMU_SRC014_OFFICIAL_1996_STRUCTURED_DOMAINS_CANDIDATE_ONLY",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1996-STRUCTURED-DOMAINS-V1",
+  "contract_id": "BAT-649-TAMU-OFFICIAL-1996-STRUCTURED-DOMAINS-V1",
   "counts": {
     "drives_rows": 0,
-    "games_total": 0,
-    "games_with_structured_rows": 0,
-    "individual_player_statistics_rows": 0,
+    "games_total": 11,
+    "games_with_structured_rows": 11,
+    "individual_player_statistics_rows": 66,
     "ncaa_contest_ids_created": 0,
-    "play_by_play_rows": 0,
-    "scoring_summary_rows": 0,
-    "serialized_rows_total": 0,
-    "team_statistics_rows": 0
+    "play_by_play_rows": 2194,
+    "scoring_summary_rows": 50,
+    "serialized_rows_total": 2481,
+    "team_statistics_rows": 171
   },
-  "decision_unit": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-001",
-  "gate_identity": "2070b2816c6f01bded88dbd353a08cb4468fc4aa95338499ca7f2f0656a01661",
-  "jira_key": "BAT-XXX",
-  "payload_identity": "6e77811b9d92ec4690493f0c9d6528d9a341f597974f2486c83f772ae2a11494",
+  "decision_unit": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-SUCCESSOR-001",
+  "gate_identity": "75091e2c7cf39500def3def761c4ea96525c4fc1e91a9a848e46fd93ea4642f3",
+  "jira_key": "BAT-649",
+  "payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "result": "PARTIAL_OFFICIAL_1996_STRUCTURED_DOMAINS",
+  "result": "PASS_OFFICIAL_1996_STRUCTURED_DOMAINS",
   "schema_version": "aggie.data.tamu_official_1996_structured_domains.v1",
   "source_id": "SRC-014",
-  "upstream_boxscore_dataset_identity": "cfe8af8d3bca4afca15dffcca4514d85626cfadb191af769a69bac8fb2d8b9d7",
-  "upstream_boxscore_gate_identity": "77997c43e9939a269501e73950487dca26af18de0c331275f2cc56e1c23b9399",
-  "validator_code_identity": "157c3bf544cc29dab9efa22dbec02578944e00da46024ded4d2a8d8d7b0a0bd3"
+  "upstream_boxscore_dataset_identity": "3bb72015157ae542958527ee9c43ec5e58133a475c175378dcd020724506686f",
+  "upstream_boxscore_gate_identity": "b2fa428f09f593b9314e583ec9efc68827b13e86245e4bc9ef8700388ae2f752",
+  "validator_code_identity": "feba31a1eaad6cf375af690b88488363ea14174155ea2b02376a77fff5224431"
 }

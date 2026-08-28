@@ -39,7 +39,9 @@ class Official1997BoxscoreTests(unittest.TestCase):
     def test_gate_reconstructs(self) -> None:
         result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT)
         self.assertEqual(result["result"], "PASS")
-        self.assertGreaterEqual(int(self.gate["counts"]["target_games_total"]), 1)
+        self.assertEqual(int(self.gate["counts"]["target_games_total"]), 12)
+        self.assertEqual(int(self.gate["counts"]["normalized_games"]), 12)
+        self.assertEqual(int(self.gate["counts"]["blocked_or_partial_pages"]), 0)
 
     def test_protected_lane_opened_fails(self) -> None:
         with self.assertRaisesRegex(AuthorityViolation, "does not recompute|classification|protected lane"):

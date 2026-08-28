@@ -55,12 +55,12 @@ def main() -> int:
             return validate_artifact(repo_root=repo_root, data_root=data_root, gate=tampered)
 
         mutations.append(expect_rejection("protected_lane_opened", lambda: _validate(_mutated_gate(gate, protected_lane="OPEN"))))
-        counts_tamper = _mutated_gate(gate, complete_rejection_count=16)
+        counts_tamper = _mutated_gate(gate, complete_rejection_count=max(int(gate["complete_rejection_count"]) - 1, 0))
         mutations.append(expect_rejection("rejection_count_mismatch", lambda: _validate(counts_tamper)))
         gap_tamper = _mutated_gate(gate, admitted_row_gap_urls=[gate["admitted_row_gap_urls"][0]])
         mutations.append(expect_rejection("admitted_gap_dropped", lambda: _validate(gap_tamper)))
         upstream = json.loads(json.dumps(gate["upstream_identities"]))
-        upstream["bat637_gate_identity"] = "0" * 64
+        upstream["final_union_gate_identity"] = "0" * 64
         mutations.append(expect_rejection("origin_identity_rewritten", lambda: _validate(_mutated_gate(gate, upstream_identities=upstream))))
     print(json.dumps({"validation": result, "mutations": mutations}, indent=2, sort_keys=True))
     return 0

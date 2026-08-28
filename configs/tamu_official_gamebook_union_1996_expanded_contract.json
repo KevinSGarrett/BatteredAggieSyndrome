@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1996-EXPANDED-UNION-V1",
-  "decision_unit": "POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001",
-  "jira_key": "BAT-XXX",
+  "contract_id": "BAT-649-TAMU-OFFICIAL-1996-EXPANDED-UNION-V1",
+  "decision_unit": "POST-TASK-SRC014-1996-RECOVERED-UNION-001",
+  "jira_key": "BAT-649",
   "source_id": "SRC-014",
   "upstream": {
     "boxscore_root": "features/tamu_official_1996_boxscores/sha256"

@@ -32,19 +32,20 @@
     }
   },
   "classification": "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1998-2009-ROW-CORPUS-INTEGRITY-V1",
+  "contract_id": "BAT-649-TAMU-OFFICIAL-1998-2009-ROW-CORPUS-INTEGRITY-V1",
   "counts": {
-    "complete_rejection_count": 17,
+    "active_rejection_count": 17,
+    "complete_rejection_count": 40,
     "games": 127,
     "ncaa_contest_ids_created": 0,
     "seasons": 12,
     "serialized_rows_total": 58753
   },
-  "dataset_identity": "2f2b18b06451e4cd4ea370cc630dab467b7a2063790c5ec87552b33a60d67c9c",
+  "dataset_identity": "7d839faee647e7996c32c66c5a38f218e53760ff280bead3ad9c66ff59bf4e0e",
   "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
   "disposition": "NEW_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR",
-  "gate_identity": "d9cf6ad1ee2cd12a4a0d7c592e7a5bd4072fb3a78a199c6dc07455026bec47bb",
-  "jira_key": "BAT-XXX",
+  "gate_identity": "0215dcb634b50d2c1d7e3422097888803f836c763dc0bcfdce8aa051e2eef92a",
+  "jira_key": "BAT-649",
   "predecessor_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
   "predecessor_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
@@ -55,8 +56,8 @@
     "scoring_summary": 0,
     "team_statistics": 0
   },
-  "rejection_integrity_gate_identity": "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e",
-  "rejection_ledger_identity": "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051",
+  "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
+  "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81",
   "result": "PASS_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR",
   "schema_version": "aggie.data.tamu_official_1998_2009_structured_row_corpus_integrity.v1",
   "selected_seasons": [
@@ -77,8 +78,8 @@
   "upstream_identities": {
     "bat638_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
     "bat638_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
-    "rejection_integrity_gate_identity": "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e",
-    "rejection_ledger_identity": "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051"
+    "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
+    "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81"
   },
   "validation_contract_version": "aggie.data.tamu_official_1998_2009_structured_row_corpus_integrity.v1"
 }

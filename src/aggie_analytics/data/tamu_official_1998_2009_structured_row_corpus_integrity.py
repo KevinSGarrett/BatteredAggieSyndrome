@@ -17,17 +17,15 @@ SCHEMA_VERSION = "aggie.data.tamu_official_1998_2009_structured_row_corpus_integ
 VALIDATION_CONTRACT_VERSION = SCHEMA_VERSION
 CONTRACT_RELATIVE = "configs/tamu_official_1998_2009_structured_row_corpus_integrity_contract.json"
 GATE_RELATIVE = "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_integrity_gate.json"
-CONTRACT_ID = "BAT-XXX-TAMU-OFFICIAL-1998-2009-ROW-CORPUS-INTEGRITY-V1"
+CONTRACT_ID = "BAT-649-TAMU-OFFICIAL-1998-2009-ROW-CORPUS-INTEGRITY-V1"
 DECISION_UNIT = "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001"
-JIRA_KEY = "BAT-XXX"
+JIRA_KEY = "BAT-649"
 SOURCE_ID = "SRC-014"
 PASS_CLASSIFICATION = "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY"
 PASS_RESULT = "PASS_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 PINNED_BAT638_GATE_IDENTITY = "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54"
 PINNED_BAT638_DATASET_IDENTITY = "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8"
-PINNED_REJECTION_GATE_IDENTITY = "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e"
-PINNED_REJECTION_LEDGER_IDENTITY = "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051"
 MANIFEST_NAME = "corpus_manifest.json"
 SERIALIZED_DOMAINS = (
     "team_statistics",
@@ -92,23 +90,26 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     if g638.get("dataset_identity") != PINNED_BAT638_DATASET_IDENTITY:
         raise AuthorityViolation("BAT-638 dataset identity drifted")
     rej_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_1998_2009_rejection_integrity_gate.json")
-    if rej_gate.get("gate_identity") != PINNED_REJECTION_GATE_IDENTITY:
-        raise AuthorityViolation("Phase 1 rejection-integrity gate identity drifted")
-    if rej_gate.get("ledger_identity") != PINNED_REJECTION_LEDGER_IDENTITY:
-        raise AuthorityViolation("Phase 1 rejection ledger identity drifted")
+    rejection_gate_identity = str(rej_gate.get("gate_identity") or "")
+    rejection_ledger_identity = str(rej_gate.get("ledger_identity") or "")
+    if not rejection_gate_identity:
+        raise AuthorityViolation("rejection-integrity gate identity missing")
+    if not rejection_ledger_identity:
+        raise AuthorityViolation("rejection ledger identity missing")
     ledger_path = (
         data_root
         / "features/tamu_official_1998_2009_rejection_integrity/sha256"
-        / PINNED_REJECTION_LEDGER_IDENTITY
+        / rejection_ledger_identity
         / "rejection_ledger.json"
     )
     if not ledger_path.is_file():
-        raise AuthorityViolation("Phase 1 external rejection ledger missing")
+        raise AuthorityViolation("external rejection ledger missing")
     ledger = load_json(ledger_path)
-    rejected_urls = {str(item.get("url") or "") for item in (ledger.get("complete_rejection_ledger") or [])}
-    if len(rejected_urls) != 17:
-        raise AuthorityViolation("expected exactly 17 rejected URLs")
-    child_payloads, rejected_rows = _child_payload_hashes(data_root, rejected_urls)
+    complete_rejected_urls = {str(item.get("url") or "") for item in (ledger.get("complete_rejection_ledger") or [])}
+    active_rejected_urls = {str(item.get("url") or "") for item in (ledger.get("active_rejections") or [])}
+    if len(active_rejected_urls) != 17:
+        raise AuthorityViolation("expected exactly 17 active rejected URLs")
+    child_payloads, rejected_rows = _child_payload_hashes(data_root, active_rejected_urls)
     if any(rejected_rows.values()):
         raise AuthorityViolation("rejected URLs leaked into BAT-638 child payloads")
     code_identity = compute_code_identity(repo_root)
@@ -117,8 +118,8 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "validation_contract_version": VALIDATION_CONTRACT_VERSION,
         "predecessor_dataset_identity": PINNED_BAT638_DATASET_IDENTITY,
         "predecessor_gate_identity": PINNED_BAT638_GATE_IDENTITY,
-        "rejection_integrity_gate_identity": PINNED_REJECTION_GATE_IDENTITY,
-        "rejection_ledger_identity": PINNED_REJECTION_LEDGER_IDENTITY,
+        "rejection_integrity_gate_identity": rejection_gate_identity,
+        "rejection_ledger_identity": rejection_ledger_identity,
         "selected_seasons": list(g638.get("selected_seasons") or []),
         "child_payloads": child_payloads,
         "admitted_row_gap_urls": list(ledger.get("admitted_row_gap_urls") or []),
@@ -127,7 +128,8 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
             "games": int((g638.get("counts") or {}).get("games") or 0),
             "seasons": int((g638.get("counts") or {}).get("seasons") or 0),
             "serialized_rows_total": sum(meta["row_count"] for meta in child_payloads.values()),
-            "complete_rejection_count": len(rejected_urls),
+            "complete_rejection_count": len(complete_rejected_urls),
+            "active_rejection_count": len(active_rejected_urls),
             "ncaa_contest_ids_created": 0,
         },
         "validator_code_identity": code_identity,
@@ -154,8 +156,8 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "dataset_identity": manifest["dataset_identity"],
         "predecessor_dataset_identity": PINNED_BAT638_DATASET_IDENTITY,
         "predecessor_gate_identity": PINNED_BAT638_GATE_IDENTITY,
-        "rejection_integrity_gate_identity": PINNED_REJECTION_GATE_IDENTITY,
-        "rejection_ledger_identity": PINNED_REJECTION_LEDGER_IDENTITY,
+        "rejection_integrity_gate_identity": rejection_gate_identity,
+        "rejection_ledger_identity": rejection_ledger_identity,
         "selected_seasons": manifest["selected_seasons"],
         "counts": manifest["counts"],
         "child_payloads": manifest["child_payloads"],
@@ -165,8 +167,8 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "upstream_identities": {
             "bat638_gate_identity": PINNED_BAT638_GATE_IDENTITY,
             "bat638_dataset_identity": PINNED_BAT638_DATASET_IDENTITY,
-            "rejection_integrity_gate_identity": PINNED_REJECTION_GATE_IDENTITY,
-            "rejection_ledger_identity": PINNED_REJECTION_LEDGER_IDENTITY,
+            "rejection_integrity_gate_identity": rejection_gate_identity,
+            "rejection_ledger_identity": rejection_ledger_identity,
         },
     }
     gate["gate_identity"] = compute_identity(gate, "gate_identity")

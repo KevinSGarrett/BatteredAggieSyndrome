@@ -36,7 +36,7 @@
     "url": "https://files.12thman.com/history/football/years/1996.html"
   },
   "classification": "TAMU_SRC014_OFFICIAL_1996_SEASON_INDEX_CAPTURE_CANDIDATE_ONLY",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1996-SEASON-INDEX-V1",
+  "contract_id": "BAT-649-TAMU-OFFICIAL-1996-SEASON-INDEX-V1",
   "counts": {
     "ambiguous_rows": 1,
     "box_score_urls": 11,
@@ -210,13 +210,13 @@
       "source_row_order": 12
     }
   ],
-  "gate_identity": "629b7613f9bc4d020d810e4fc8b488724e5260fd91909725a20583514febc436",
+  "gate_identity": "8309deed62ee75c5435b761df8c8c1155014516ee5238c49e3de484ed9cf9f13",
   "history_href_proof": "../years/1996.html",
   "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
-  "jira_key": "BAT-XXX",
+  "jira_key": "BAT-649",
   "official_index_url": "https://files.12thman.com/history/football/years/1996.html",
-  "payload_identity": "18a0a4a898d7a6be398434941e20888fa64f3bd3a38c68ca398bd742ed4cbee9",
+  "payload_identity": "07521fcef5c58ed0b2535463fae1e077086ab1afa569a80f5eeb9ac49786e92f",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "result": "PASS_OFFICIAL_1996_SEASON_INDEX_CAPTURED_BOX_URLS_DISCOVERED",
   "schema_version": "aggie.data.tamu_official_1996_season_index.v1",
@@ -227,5 +227,5 @@
     "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
   },
-  "validator_code_identity": "6093b183cecb6db0fd0dac2061ad060d14fb8ba543d7249d43d2ada2cc59b5b2"
+  "validator_code_identity": "74ad4656a66243d039de65fc98efc24e025378f0975653a2935130ff82cc2723"
 }

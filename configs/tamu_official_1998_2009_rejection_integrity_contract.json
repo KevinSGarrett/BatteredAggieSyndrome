@@ -1,8 +1,8 @@
 {
   "schema_version": "aggie.data.tamu_official_1998_2009_rejection_integrity.contract.v1",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1998-2009-REJECTION-INTEGRITY-V1",
-  "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
-  "jira_key": "BAT-XXX",
+  "contract_id": "BAT-649-TAMU-OFFICIAL-1998-2009-REJECTION-INTEGRITY-V1",
+  "decision_unit": "POST-TASK-SRC014-1996-2009-REJECTION-SUPERSESSION-001",
+  "jira_key": "BAT-649",
   "source_id": "SRC-014",
   "payloads": {
     "rejection_ledger_root": "features/tamu_official_1998_2009_rejection_integrity/sha256"

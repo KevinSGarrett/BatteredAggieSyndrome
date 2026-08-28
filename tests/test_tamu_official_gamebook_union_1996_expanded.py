@@ -43,7 +43,8 @@ class Official1996ExpandedUnionTests(unittest.TestCase):
     def test_gate_reconstructs(self) -> None:
         result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT)
         self.assertEqual(result["result"], "PASS")
-        self.assertGreaterEqual(int(self.gate["counts"]["rejected_urls_complete"]), 29)
+        self.assertEqual(int(self.gate["counts"]["official_1996_admitted"]), 11)
+        self.assertEqual(int(self.gate["counts"]["games_admitted_to_union"]), 150)
 
     def test_protected_lane_opened_fails(self) -> None:
         with self.assertRaisesRegex(AuthorityViolation, "does not match independent reconstruction"):

@@ -1,4 +1,4 @@
-"""Parse source-labeled structured domains from normalized official 1996 boxscore payloads."""
+"""Parse source-labeled structured domains from admitted official 1996 games."""
 
 from __future__ import annotations
 
@@ -15,14 +15,12 @@ from aggie_analytics.validation.artifact_binding import compute_identity
 SCHEMA_VERSION = "aggie.data.tamu_official_1996_structured_domains.v1"
 CONTRACT_RELATIVE = "configs/tamu_official_1996_structured_domains_contract.json"
 GATE_RELATIVE = "artifacts/data_lake/tamu_official_1996_structured_domains_gate.json"
-CONTRACT_ID = "BAT-XXX-TAMU-OFFICIAL-1996-STRUCTURED-DOMAINS-V1"
-DECISION_UNIT = "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-001"
-JIRA_KEY = "BAT-XXX"
+CONTRACT_ID = "BAT-649-TAMU-OFFICIAL-1996-STRUCTURED-DOMAINS-V1"
+DECISION_UNIT = "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-SUCCESSOR-001"
+JIRA_KEY = "BAT-649"
 SOURCE_ID = "SRC-014"
 SEASON = 1996
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
-PINNED_1996_BOXSCORE_GATE_IDENTITY = "77997c43e9939a269501e73950487dca26af18de0c331275f2cc56e1c23b9399"
-PINNED_1996_BOXSCORE_DATASET_IDENTITY = "cfe8af8d3bca4afca15dffcca4514d85626cfadb191af769a69bac8fb2d8b9d7"
 DOMAINS = ("team_statistics", "individual_player_statistics", "drives", "play_by_play", "scoring_summary")
 
 
@@ -36,12 +34,20 @@ def write_json(path: Path, payload: Mapping[str, Any]) -> None:
 
 
 def compute_code_identity(repo_root: Path) -> str:
-    path = repo_root / "src/aggie_analytics/data/tamu_official_1996_structured_domains.py"
-    if not path.is_file():
-        raise AuthorityViolation("code bundle member missing")
+    members = (
+        "src/aggie_analytics/data/tamu_official_1996_structured_domains.py",
+        "src/aggie_analytics/data/tamu_official_1996_boxscores.py",
+    )
     hasher = hashlib.sha256()
-    hasher.update(b"aggie.1996.structured_domains.code_bundle.v1\n")
-    hasher.update(path.read_bytes())
+    hasher.update(b"aggie.1996.structured_domains.code_bundle.v2\n")
+    for relative in members:
+        path = repo_root / relative
+        if not path.is_file():
+            raise AuthorityViolation("code bundle member missing")
+        hasher.update(relative.encode("utf-8"))
+        hasher.update(b"\n")
+        hasher.update(path.read_bytes())
+        hasher.update(b"\n")
     return hasher.hexdigest()
 
 
@@ -55,7 +61,7 @@ def _row(domain: str, source_row: Mapping[str, Any], game: Mapping[str, Any], ro
         "source_row_order": row_order,
         "row_order": row_order,
         "block_index": 0,
-        "parser_identity": str(game.get("parser_identity") or "tamu.official.statcrew.preformatted.v1"),
+        "parser_identity": str(game.get("parser_identity") or ""),
         "availability": "NOT_ESTABLISHED",
         "availability_claim": False,
         "player_identity": "SOURCE_PLAYER_CANDIDATE",
@@ -68,17 +74,24 @@ def _row(domain: str, source_row: Mapping[str, Any], game: Mapping[str, Any], ro
 def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     contract = load_json(repo_root / CONTRACT_RELATIVE)
     gate1996 = load_json(repo_root / "artifacts/data_lake/tamu_official_1996_boxscore_gate.json")
-    if gate1996.get("gate_identity") != PINNED_1996_BOXSCORE_GATE_IDENTITY:
-        raise AuthorityViolation("1996 boxscore gate identity drifted")
-    if gate1996.get("dataset_identity") != PINNED_1996_BOXSCORE_DATASET_IDENTITY:
-        raise AuthorityViolation("1996 boxscore dataset identity drifted")
-    payload_path = data_root / contract["upstream"]["normalized_root"] / PINNED_1996_BOXSCORE_DATASET_IDENTITY / "payload.json"
+    dataset_identity = str(gate1996.get("dataset_identity") or "")
+    if not dataset_identity:
+        raise AuthorityViolation("1996 boxscore dataset identity missing")
+    payload_path = data_root / contract["upstream"]["normalized_root"] / dataset_identity / "payload.json"
     if not payload_path.is_file():
         raise AuthorityViolation("1996 normalized payload missing")
     payload = load_json(payload_path)
     normalized_rows = list(payload.get("normalized_rows") or [])
     games = list(payload.get("games") or [])
-    by_url = {str(game.get("url") or ""): game for game in games}
+    admitted_games = [
+        game
+        for game in games
+        if str(game.get("canonical_game_match_status") or "")
+        in {"MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE", "OFFICIAL_INDEX_DATE_CONFLICT"}
+        and str(game.get("conflict_status") or "")
+        in {"NONE", "SEASON_INDEX_DATE_VS_BOX_PLAYED_DATE"}
+    ]
+    admitted_urls = {str(game.get("url") or "") for game in admitted_games}
     rows_groups: list[list[dict[str, Any]]] = []
     game_surfaces: list[dict[str, Any]] = []
     domain_totals = {domain: 0 for domain in DOMAINS}
@@ -87,15 +100,20 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         if not game:
             continue
         url = str(game.get("url") or "")
-        if url not in by_url:
-            raise AuthorityViolation("normalized game missing from payload games list")
+        if url not in admitted_urls:
+            continue
         domain_rows: list[dict[str, Any]] = []
         coverage: dict[str, str] = {}
         for domain in DOMAINS:
-            source_rows = entry.get(domain) or []
-            for idx, source_row in enumerate(source_rows):
-                domain_rows.append(_row(domain, source_row, game, idx))
+            source_rows = list(entry.get(domain) or [])
+            if not source_rows and domain == "individual_player_statistics":
+                source_rows = list(entry.get("player_stat_candidates") or [])
+            if source_rows:
+                for idx, source_row in enumerate(source_rows):
+                    domain_rows.append(_row(domain, source_row, game, idx))
             coverage[domain] = "PRESENT" if source_rows else "ABSENT"
+            if coverage[domain] == "PRESENT" and not source_rows:
+                raise AuthorityViolation(f"PRESENT coverage without serialized rows for {domain}")
             domain_totals[domain] += len(source_rows)
         rows_groups.append(domain_rows)
         game_surfaces.append(
@@ -104,17 +122,19 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
                 "source_sha256": str(game.get("source_sha256") or ""),
                 "source_season": SEASON,
                 "domain_coverage": coverage,
-                "row_counts": {domain: len(entry.get(domain) or []) for domain in DOMAINS},
+                "row_counts": {domain: len([row for row in domain_rows if row["domain"] == domain]) for domain in DOMAINS},
                 "warnings": list(game.get("warnings") or []),
-                "parser_identity": str(game.get("parser_identity") or "tamu.official.statcrew.preformatted.v1"),
+                "parser_identity": str(game.get("parser_identity") or ""),
             }
         )
+    if len(game_surfaces) != len(admitted_games):
+        raise AuthorityViolation("admitted game/structured row mismatch")
     for group in rows_groups:
-        for r in group:
-            if r["availability"] != "NOT_ESTABLISHED" or r["availability_claim"]:
+        for row in group:
+            if row["availability"] != "NOT_ESTABLISHED" or row["availability_claim"]:
                 raise AuthorityViolation("participation promoted to availability")
     counts = {
-        "games_total": len(games),
+        "games_total": len(admitted_games),
         "games_with_structured_rows": len(game_surfaces),
         "serialized_rows_total": sum(domain_totals.values()),
         "ncaa_contest_ids_created": 0,
@@ -126,8 +146,8 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "jira_key": JIRA_KEY,
         "source_id": SOURCE_ID,
         "season": SEASON,
-        "upstream_boxscore_gate_identity": PINNED_1996_BOXSCORE_GATE_IDENTITY,
-        "upstream_boxscore_dataset_identity": PINNED_1996_BOXSCORE_DATASET_IDENTITY,
+        "upstream_boxscore_gate_identity": str(gate1996.get("gate_identity") or ""),
+        "upstream_boxscore_dataset_identity": dataset_identity,
         "games": game_surfaces,
         "rows": rows_groups,
         "counts": counts,
@@ -137,7 +157,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     payload_out["payload_identity"] = stable_hash(
         {
             "season": SEASON,
-            "upstream_boxscore_dataset_identity": PINNED_1996_BOXSCORE_DATASET_IDENTITY,
+            "upstream_boxscore_dataset_identity": dataset_identity,
             "games": game_surfaces,
             "counts": counts,
         }
@@ -152,8 +172,8 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "jira_key": JIRA_KEY,
         "source_id": SOURCE_ID,
         "payload_identity": payload_out["payload_identity"],
-        "upstream_boxscore_gate_identity": PINNED_1996_BOXSCORE_GATE_IDENTITY,
-        "upstream_boxscore_dataset_identity": PINNED_1996_BOXSCORE_DATASET_IDENTITY,
+        "upstream_boxscore_gate_identity": payload_out["upstream_boxscore_gate_identity"],
+        "upstream_boxscore_dataset_identity": payload_out["upstream_boxscore_dataset_identity"],
         "counts": counts,
         "protected_lane": PROTECTED_LANE,
         "validator_code_identity": payload_out["validator_code_identity"],

@@ -1,0 +1,139 @@
+{
+  "schema_version": "aggie.shadow.prospective_2026_cohort.v1",
+  "contract_id": "BAT-656-PROSPECTIVE-2026-NATIONAL-SHADOW-COHORT-V1",
+  "decision_unit": "POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001",
+  "local_issue_id": "POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001",
+  "jira_key": "BAT-656",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "PROSPECTIVE_2026_NATIONAL_SHADOW_COHORT_AND_PREGAME_SNAPSHOT_ELIGIBILITY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "purpose": "Re-fetch official current 2026 Division I football schedule evidence at execution time, enumerate every game in the declared Week Zero and Week One window, resolve each participant against the national spine alias population, and record a per-game pregame snapshot eligibility decision with conservative kickoff bounds, T-24H and T-90M checkpoints, and explicit missed-cutoff states. No forecast is produced here and no outcome field is ever read.",
+  "duplicate_audit": {
+    "searched_terms": ["2026", "shadow", "prospective", "pregame snapshot", "kickoff", "week zero", "week one"],
+    "inspected_candidates": [
+      {"jira_key": "BAT-88", "status": "To Do", "verdict": "NOT_AN_EXACT_OWNER_BROAD_FUTURE_SHADOW_DRILL_STORY"},
+      {"jira_key": "BAT-462", "status": "To Do", "verdict": "NOT_AN_EXACT_OWNER_BROAD_FUTURE_WEEKLY_RUN_SUBTASK"},
+      {"jira_key": "BAT-537", "status": "Done", "verdict": "NOT_AN_EXACT_OWNER_COMPLETED_TAMU_SCOPED_SHADOW_REPLAY"},
+      {"jira_key": "BAT-538", "status": "Done", "verdict": "NOT_AN_EXACT_OWNER_COMPLETED_TAMU_DEPTH_CHART_RECOVERY"}
+    ],
+    "decision": "CREATE"
+  },
+  "official_source": {
+    "source_id": "SRC-NCAA-OFFICIAL-STATS",
+    "official_host": "stats.ncaa.org",
+    "path": "/contests/livestream_scoreboards",
+    "sport_code": "MFB",
+    "academic_year": "2027",
+    "division": "1",
+    "dataset": "ncaa_prospective_2026_scoreboard",
+    "refetched_at_execution_time": true,
+    "cached_capture_reuse_permitted": true,
+    "minimum_html_bytes": 20000,
+    "empty_scoreboard_is_a_valid_observation": true,
+    "reject_case_insensitive_markers": [
+      "bm-verify",
+      "akamai_validation",
+      "request_quota_reached",
+      "_abck"
+    ]
+  },
+  "schedule_window": {
+    "window_id": "2026_WEEK_ZERO_AND_WEEK_ONE",
+    "season": 2026,
+    "game_dates": [
+      "2026-08-22",
+      "2026-08-23",
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-29",
+      "2026-08-30",
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-05",
+      "2026-09-06",
+      "2026-09-07"
+    ],
+    "week_zero_dates": ["2026-08-22", "2026-08-23"],
+    "week_one_dates": [
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-29",
+      "2026-08-30",
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-05",
+      "2026-09-06",
+      "2026-09-07"
+    ]
+  },
+  "kickoff_time_basis": {
+    "source_published_clock_timezone": "AMERICA_NEW_YORK",
+    "declared_offset_seconds_for_window": -14400,
+    "corroboration": "The published clock for NCAA contest 6607349 reads 07:00 PM, which equals the independently stated 6:00 p.m. Central kickoff for Texas A&M versus Missouri State on 2026-09-05.",
+    "conservative_lower_bound_rule": "A published local clock is converted with the earliest continental United States offset in the window, which yields the earliest possible coordinated universal time instant for that clock and therefore the most conservative eligibility cutoff.",
+    "official_kickoff_utc_independently_confirmed": false,
+    "unpublished_clock_token": "TBA"
+  },
+  "eligibility": {
+    "checkpoints": [
+      {"checkpoint_id": "T_MINUS_24H", "seconds_before_kickoff_lower_bound": 86400},
+      {"checkpoint_id": "T_MINUS_90M", "seconds_before_kickoff_lower_bound": 5400}
+    ],
+    "snapshot_cutoff_checkpoint_id": "T_MINUS_90M",
+    "retroactive_pregame_snapshot_permitted": false,
+    "retroactive_forecast_permitted": false,
+    "backfill_after_cutoff_permitted": false
+  },
+  "supported_scope": {
+    "population": "NATIONAL_SPINE_ALIAS_RESOLVED_TEAMS",
+    "resolution_method": "EXACT_NORMALIZED_DISPLAY_NAME_MATCH",
+    "fuzzy_or_partial_name_promotion": false,
+    "minimum_most_recent_observed_season": 2020,
+    "unresolved_participant_state": "UNSUPPORTED_ENTITY",
+    "entity_resolution_benchmark_claimed": false
+  },
+  "states": {
+    "progress_states": ["PRECOMMITTED", "SNAPSHOT_ELIGIBLE"],
+    "terminal_or_side_states": [
+      "MISSED_CUTOFF_NO_BACKFILL",
+      "UNSUPPORTED_ENTITY",
+      "MISSING_REQUIRED_FEATURES_ABSTAIN",
+      "FAIL_CLOSED_IDENTITY_MISMATCH"
+    ]
+  },
+  "outcome_exclusion": {
+    "outcome_fields_extracted": false,
+    "score_linescore_period_clock_or_attendance_fields_extracted": false,
+    "outcome_accessible_before_forecast_freeze": false
+  },
+  "authority": {
+    "prospective_shadow_observation": true,
+    "pregame_snapshot_identity_issuance": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "model_selection_or_tuning": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "canonical_entity_mutation": false,
+    "immutable_raw_capture_mutation": false
+  },
+  "negative_findings": {
+    "official_kickoff_clock_is_source_published_not_independently_measured": true,
+    "unresolved_participants_are_reported_not_guessed": true,
+    "week_zero_and_early_week_one_games_are_expected_to_be_past_cutoff": true,
+    "a_capture_time_is_not_a_historical_publication_time": true,
+    "cohort_membership_is_not_a_forecast": true,
+    "a_source_substituted_date_is_recorded_rather_than_accepted": true,
+    "a_date_with_no_division_one_contest_is_an_observation_not_a_failure": true
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

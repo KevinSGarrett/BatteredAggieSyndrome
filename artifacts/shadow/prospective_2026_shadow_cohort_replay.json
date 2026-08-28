@@ -1,0 +1,29 @@
+{
+  "artifact_type": "PROSPECTIVE_2026_NATIONAL_SHADOW_COHORT_REPLAY",
+  "capture_identity": "1d74f77b33d5867ce4cb9e343b157819e16824ae343857ad5d33b432c67366a0",
+  "contract_id": "BAT-656-PROSPECTIVE-2026-NATIONAL-SHADOW-COHORT-V1",
+  "decision_unit": "POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001",
+  "execution_time_utc": "2026-08-28T22:07:04Z",
+  "gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+  "independent_validation": {
+    "findings": [],
+    "gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+    "result": "PASS",
+    "row_count": 99,
+    "runtime": {
+      "platform": "Windows-10-10.0.26200-SP0",
+      "python": "3.11.9"
+    },
+    "state_counts": {
+      "FAIL_CLOSED_IDENTITY_MISMATCH": 0,
+      "MISSED_CUTOFF_NO_BACKFILL": 0,
+      "MISSING_REQUIRED_FEATURES_ABSTAIN": 0,
+      "PRECOMMITTED": 79,
+      "SNAPSHOT_ELIGIBLE": 3,
+      "UNSUPPORTED_ENTITY": 17
+    }
+  },
+  "issued_at_utc": "2026-08-28T22:07:04Z",
+  "jira_key": "BAT-656",
+  "schema_version": "aggie.shadow.prospective_2026_cohort.v1"
+}

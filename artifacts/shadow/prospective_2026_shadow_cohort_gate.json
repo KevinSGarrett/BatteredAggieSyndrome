@@ -1,0 +1,403 @@
+{
+  "artifact_type": "PROSPECTIVE_2026_NATIONAL_SHADOW_COHORT_GATE",
+  "authority": {
+    "canonical_entity_mutation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "historical_pit_admission": false,
+    "immutable_raw_capture_mutation": false,
+    "model_selection_or_tuning": false,
+    "pregame_snapshot_identity_issuance": true,
+    "prospective_shadow_observation": true,
+    "protected_evaluation_admission": false,
+    "protected_training_admission": false
+  },
+  "bound_predecessors": {
+    "national_chronological_development_matrix_gate_sha256": "1968c2837d6555a1c9baefb3f3e17c77fbeee8a7bd9018052bb453ee4ef3ae75",
+    "national_expectation_baselines_gate_sha256": "5e8d14429a7fb04c7b9437ccd3448f243a54c9b555e60d0cc42dc47dd8885158",
+    "national_tiered_game_spine_gate_sha256": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5"
+  },
+  "capture_inventory": [
+    {
+      "game_date": "2026-08-22",
+      "raw_bytes": 74268,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/dfd6b6c301d89e986054c6b9dca07bccdf3b1857255987e2c31f8b973dad0e16.html",
+      "raw_sha256": "dfd6b6c301d89e986054c6b9dca07bccdf3b1857255987e2c31f8b973dad0e16",
+      "request_identity_sha256": "788c92948ba4a87d920c5aefa7abafcf77a285cf1dbc115607c8b8371e9f3ef4",
+      "retrieved_at_utc": "2026-08-28T22:03:37Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F22%2F2026"
+    },
+    {
+      "game_date": "2026-08-23",
+      "raw_bytes": 74438,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/69b9f9ac87338f012a23ee35a66a360b67410fcf41e393fb8d87909c646bb0e5.html",
+      "raw_sha256": "69b9f9ac87338f012a23ee35a66a360b67410fcf41e393fb8d87909c646bb0e5",
+      "request_identity_sha256": "8ae7a3c59d899709e4e27238a19c246c33e461d0312c3fdbc9882af8ba66072c",
+      "retrieved_at_utc": "2026-08-28T22:03:37Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F23%2F2026"
+    },
+    {
+      "game_date": "2026-08-27",
+      "raw_bytes": 74267,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/894e8e625fde566749c1eddf2575f62397de44c5b639bb8be6350adba4a66758.html",
+      "raw_sha256": "894e8e625fde566749c1eddf2575f62397de44c5b639bb8be6350adba4a66758",
+      "request_identity_sha256": "3520626861927b4b6baf27a3099fe31c8b4fce6804a9d81b380a23b9af435fb4",
+      "retrieved_at_utc": "2026-08-28T22:03:37Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F27%2F2026"
+    },
+    {
+      "game_date": "2026-08-28",
+      "raw_bytes": 74439,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/65c1261856d101afd405755d47285f9fbe07543919509af48606473fb4c47e30.html",
+      "raw_sha256": "65c1261856d101afd405755d47285f9fbe07543919509af48606473fb4c47e30",
+      "request_identity_sha256": "73d1fe509346411d8b7c755ff10216cbbb5fe377b4cc3c0d73ff903d1a3af178",
+      "retrieved_at_utc": "2026-08-28T22:03:37Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F28%2F2026"
+    },
+    {
+      "game_date": "2026-08-29",
+      "raw_bytes": 74438,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/91961ccbaea7319098e512ca4696ba415ddbc5c00b52aac033d152f8e7cf8966.html",
+      "raw_sha256": "91961ccbaea7319098e512ca4696ba415ddbc5c00b52aac033d152f8e7cf8966",
+      "request_identity_sha256": "a136f63137c57eceb47eea352f7e7298608ca29660bed4163be6412f88dbb709",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F29%2F2026"
+    },
+    {
+      "game_date": "2026-08-30",
+      "raw_bytes": 31604,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/e31b4eaa024511a89788035a01992c40e633b3954edf2a84d89d54d8f33571fe.html",
+      "raw_sha256": "e31b4eaa024511a89788035a01992c40e633b3954edf2a84d89d54d8f33571fe",
+      "request_identity_sha256": "5fcf4d923daa01e9a62d408d143b7fe11a96027166f04ae948a8a1dafabe6ee7",
+      "retrieved_at_utc": "2026-08-28T21:58:15Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F30%2F2026"
+    },
+    {
+      "game_date": "2026-08-31",
+      "raw_bytes": 30865,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/246ae936ea4fbb3d2c2c6102d0a976b463e07346158aa7581f7bc54362c2d8b6.html",
+      "raw_sha256": "246ae936ea4fbb3d2c2c6102d0a976b463e07346158aa7581f7bc54362c2d8b6",
+      "request_identity_sha256": "85939d50159a059a59fde6a12b24661a4b311322ff305782a2034aec9e706acd",
+      "retrieved_at_utc": "2026-08-28T21:58:15Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F31%2F2026"
+    },
+    {
+      "game_date": "2026-09-01",
+      "raw_bytes": 31035,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/925b3cf43fb519fb5bbf782445f41a8e113f3048c9f33c9f822ff882457183eb.html",
+      "raw_sha256": "925b3cf43fb519fb5bbf782445f41a8e113f3048c9f33c9f822ff882457183eb",
+      "request_identity_sha256": "d8ada2049a5285ca94170cdebe4c5c56d0f25df29f04b8fc65082af7084d0b77",
+      "retrieved_at_utc": "2026-08-28T21:58:15Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F01%2F2026"
+    },
+    {
+      "game_date": "2026-09-02",
+      "raw_bytes": 30866,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/7ac97c7c66cca453ba53e37d325367f3bac646cb79e152282f353ee16e09b723.html",
+      "raw_sha256": "7ac97c7c66cca453ba53e37d325367f3bac646cb79e152282f353ee16e09b723",
+      "request_identity_sha256": "e4d344d80c83c457f85ddafa09068815fe7065f3a10f7b3ff6d3da9e56964f23",
+      "retrieved_at_utc": "2026-08-28T21:58:15Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F02%2F2026"
+    },
+    {
+      "game_date": "2026-09-03",
+      "raw_bytes": 90172,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/8739aa2e7382d5a138371e66c3979fefdd658722a4dc88e4d30dfd061c7c0732.html",
+      "raw_sha256": "8739aa2e7382d5a138371e66c3979fefdd658722a4dc88e4d30dfd061c7c0732",
+      "request_identity_sha256": "502f73a09c1f2322fb108e77616f18a1b3cd21b628a9a66a669207d183455a5a",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F03%2F2026"
+    },
+    {
+      "game_date": "2026-09-04",
+      "raw_bytes": 74231,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/8deffe95369cad6b5bcac799db7e3bd5dba42f9d99690429fa7c40856f5a3f85.html",
+      "raw_sha256": "8deffe95369cad6b5bcac799db7e3bd5dba42f9d99690429fa7c40856f5a3f85",
+      "request_identity_sha256": "1b72913dec3b7caa9cdfb8fa4f55011f24218ba81fcd5786c1ca2f9f4aa9ad92",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F04%2F2026"
+    },
+    {
+      "game_date": "2026-09-05",
+      "raw_bytes": 395720,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/0e58734a2b6806115bf4e2dee152c46f1f9b0fb4c9eba6efd24b1740737e763d.html",
+      "raw_sha256": "0e58734a2b6806115bf4e2dee152c46f1f9b0fb4c9eba6efd24b1740737e763d",
+      "request_identity_sha256": "927f9a6ca1c8d73ae72f8636e54af7551aa80a6aee409a49a4a0dacb5a648b92",
+      "retrieved_at_utc": "2026-08-28T21:47:40Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F05%2F2026"
+    },
+    {
+      "game_date": "2026-09-06",
+      "raw_bytes": 47603,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/0b0a20aeedba62994aefc21840a88cc41069575868864fd280be7b72e8ccd7ad.html",
+      "raw_sha256": "0b0a20aeedba62994aefc21840a88cc41069575868864fd280be7b72e8ccd7ad",
+      "request_identity_sha256": "b04adc6b1c33237905052eb2a33828e0f5589d5ce6dbedac3987a48bb24ca32a",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026"
+    },
+    {
+      "game_date": "2026-09-07",
+      "raw_bytes": 36799,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/7d04bd1943a92cf2ec494a5ed075485da18a3179e5379ed78b64935c3b659e6a.html",
+      "raw_sha256": "7d04bd1943a92cf2ec494a5ed075485da18a3179e5379ed78b64935c3b659e6a",
+      "request_identity_sha256": "8e4bcb7da6fd5c9134b529b6b4d71dbedc4b93d85dfdd47fd7fafb9aa97d209a",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F07%2F2026"
+    }
+  ],
+  "classification": "PROSPECTIVE_2026_NATIONAL_SHADOW_COHORT_AND_PREGAME_SNAPSHOT_ELIGIBILITY",
+  "contract_id": "BAT-656-PROSPECTIVE-2026-NATIONAL-SHADOW-COHORT-V1",
+  "contract_sha256": "416c44ee9210fad4766699649776f40c2786bcbab3a25f5938921a7555f0e641",
+  "date_observations": [
+    {
+      "cohort_rows_admitted": false,
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-22",
+      "official_contests_enumerated": 0,
+      "source_echoed_game_date": "2026-08-29"
+    },
+    {
+      "cohort_rows_admitted": false,
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-23",
+      "official_contests_enumerated": 0,
+      "source_echoed_game_date": "2026-08-29"
+    },
+    {
+      "cohort_rows_admitted": false,
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-27",
+      "official_contests_enumerated": 0,
+      "source_echoed_game_date": "2026-08-29"
+    },
+    {
+      "cohort_rows_admitted": false,
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-28",
+      "official_contests_enumerated": 0,
+      "source_echoed_game_date": "2026-08-29"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-08-29",
+      "official_contests_enumerated": 8,
+      "source_echoed_game_date": "2026-08-29"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-08-30",
+      "official_contests_enumerated": 0,
+      "source_echoed_game_date": "2026-08-30"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-08-31",
+      "official_contests_enumerated": 0,
+      "source_echoed_game_date": "2026-08-31"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-09-01",
+      "official_contests_enumerated": 0,
+      "source_echoed_game_date": "2026-09-01"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-09-02",
+      "official_contests_enumerated": 0,
+      "source_echoed_game_date": "2026-09-02"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-03",
+      "official_contests_enumerated": 11,
+      "source_echoed_game_date": "2026-09-03"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-04",
+      "official_contests_enumerated": 8,
+      "source_echoed_game_date": "2026-09-04"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-05",
+      "official_contests_enumerated": 68,
+      "source_echoed_game_date": "2026-09-05"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-06",
+      "official_contests_enumerated": 3,
+      "source_echoed_game_date": "2026-09-06"
+    },
+    {
+      "cohort_rows_admitted": true,
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-07",
+      "official_contests_enumerated": 1,
+      "source_echoed_game_date": "2026-09-07"
+    }
+  ],
+  "decision_unit": "POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001",
+  "eligibility_gate": {
+    "backfilled_after_cutoff": false,
+    "checkpoint_ids": [
+      "T_MINUS_24H",
+      "T_MINUS_90M"
+    ],
+    "games_already_started_forecast": false,
+    "retroactive_forecast_created": false,
+    "retroactive_pregame_snapshot_created": false,
+    "snapshot_cutoff_checkpoint_id": "T_MINUS_90M"
+  },
+  "eligible_contest_ids": [
+    "6597632",
+    "6603618",
+    "6616111"
+  ],
+  "execution_time_utc": "2026-08-28T22:07:04Z",
+  "gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+  "issued_at_utc": "2026-08-28T22:07:04Z",
+  "jira_key": "BAT-656",
+  "kickoff_time_basis": {
+    "conservative_lower_bound_rule": "A published local clock is converted with the earliest continental United States offset in the window, which yields the earliest possible coordinated universal time instant for that clock and therefore the most conservative eligibility cutoff.",
+    "corroboration": "The published clock for NCAA contest 6607349 reads 07:00 PM, which equals the independently stated 6:00 p.m. Central kickoff for Texas A&M versus Missouri State on 2026-09-05.",
+    "declared_offset_seconds_for_window": -14400,
+    "official_kickoff_utc_independently_confirmed": false,
+    "source_published_clock_timezone": "AMERICA_NEW_YORK",
+    "unpublished_clock_token": "TBA"
+  },
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001",
+  "manifest": {
+    "bulk_payloads_in_git": false,
+    "dataset_identity": "c23de3b28ec4578581dfc673e43b4d99290e43966dd6b3f72ef64c9e477165e6",
+    "relative_path": "manifests/prospective_2026_shadow_cohort/sha256/c23de3b28ec4578581dfc673e43b4d99290e43966dd6b3f72ef64c9e477165e6/prospective_2026_shadow_cohort_manifest.json",
+    "sha256": "03615799b9dbaf6c609ae53628d4490bbcce3d81315d52bdf90d87f5e98dc48a"
+  },
+  "missingness": {
+    "kickoff_utc_conservative_lower_bound": 0,
+    "neutral_site_text": 95,
+    "source_published_broadcast_text": 39,
+    "source_published_clock_text": 0,
+    "unresolved_participant": 17
+  },
+  "negative_findings": {
+    "a_capture_time_is_not_a_historical_publication_time": true,
+    "a_date_with_no_division_one_contest_is_an_observation_not_a_failure": true,
+    "a_source_substituted_date_is_recorded_rather_than_accepted": true,
+    "cohort_is_a_census_not_a_forecast": true,
+    "cohort_membership_is_not_a_forecast": true,
+    "no_eligible_game_is_not_a_failure": false,
+    "official_kickoff_clock_is_source_published_not_independently_measured": true,
+    "official_source_substituted_some_requested_dates": true,
+    "substituted_dates_contribute_no_rows_rather_than_another_dates_games": true,
+    "unresolved_participants_are_reported_not_guessed": true,
+    "unsupported_or_unpublished_games_remain_explicit": true,
+    "week_zero_and_early_week_one_games_are_expected_to_be_past_cutoff": true
+  },
+  "outcome_exclusion": {
+    "forbidden_outcome_markers_absent": true,
+    "outcome_accessible_before_forecast_freeze": false,
+    "outcome_fields_extracted": false,
+    "prior_record_suffix_discarded": true
+  },
+  "parent_jira_key": "BAT-523",
+  "population_counts": {
+    "declared_game_dates": 14,
+    "distinct_resolved_canonical_teams": 171,
+    "game_dates_carrying_official_contests": 6,
+    "game_dates_the_source_substituted": 4,
+    "game_dates_with_no_official_contest": 4,
+    "official_contests_enumerated": 99,
+    "snapshot_eligible_contests": 3,
+    "spine_alias_population_size": 241
+  },
+  "producer": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_PROSPECTIVE_2026_NATIONAL_SHADOW_COHORT",
+  "row_count": 99,
+  "schedule_window": {
+    "game_dates": [
+      "2026-08-22",
+      "2026-08-23",
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-29",
+      "2026-08-30",
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-05",
+      "2026-09-06",
+      "2026-09-07"
+    ],
+    "season": 2026,
+    "week_one_dates": [
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-29",
+      "2026-08-30",
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-05",
+      "2026-09-06",
+      "2026-09-07"
+    ],
+    "week_zero_dates": [
+      "2026-08-22",
+      "2026-08-23"
+    ],
+    "window_id": "2026_WEEK_ZERO_AND_WEEK_ONE"
+  },
+  "schema_version": "aggie.shadow.prospective_2026_cohort.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_claimed": false,
+    "entity_resolution_benchmark_claimed": false,
+    "forecast_published": false,
+    "gap_002_resolved": false,
+    "production_champion_declared": false,
+    "protected_evaluation_opened": false,
+    "tamu_specialization_lift_claimed": false
+  },
+  "state_counts": {
+    "FAIL_CLOSED_IDENTITY_MISMATCH": 0,
+    "MISSED_CUTOFF_NO_BACKFILL": 0,
+    "MISSING_REQUIRED_FEATURES_ABSTAIN": 0,
+    "PRECOMMITTED": 79,
+    "SNAPSHOT_ELIGIBLE": 3,
+    "UNSUPPORTED_ENTITY": 17
+  }
+}

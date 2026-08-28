@@ -254,6 +254,7 @@ artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
 artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.json
+artifacts/jira_evidence/POST-TASK-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-001.json
 artifacts/jira_evidence/POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001.json
 artifacts/jira_evidence/POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001.json
 artifacts/jira_evidence/POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001.json
@@ -374,6 +375,7 @@ artifacts/pit/historical_weather_previous_runs_snapshot_gate.json
 artifacts/pit/known_at_gate.json
 artifacts/pit/leakage_battery_results.json
 artifacts/pit/matrix_gate_decision.json
+artifacts/pit/national_chronological_development_matrix_gate.json
 artifacts/pit/pregame_matrix_manifest.json
 artifacts/pit/preliminary_dense_play_drive_replay_gate.json
 artifacts/pit/preliminary_play_drive_augmented_gate.json
@@ -456,6 +458,7 @@ configs/local_embedding_shadow_qualification.json
 configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
 configs/mounted_acceptance_contract.json
+configs/national_chronological_development_matrix_contract.json
 configs/national_foundation_reconciliation_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
 configs/national_tiered_game_spine_contract.json
@@ -3342,6 +3345,7 @@ src/aggie_analytics/data/historical_game_outcome_spine.py
 src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
 src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
 src/aggie_analytics/data/http.py
+src/aggie_analytics/data/national_chronological_development_matrix.py
 src/aggie_analytics/data/national_foundation_reconciliation.py
 src/aggie_analytics/data/national_pit_domain_admission_matrix.py
 src/aggie_analytics/data/national_tiered_game_spine.py
@@ -3660,6 +3664,7 @@ tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
 tests/test_mounted_data_acceptance.py
+tests/test_national_chronological_development_matrix.py
 tests/test_national_foundation_reconciliation.py
 tests/test_national_pit_domain_admission_matrix.py
 tests/test_national_tiered_game_spine.py
@@ -3858,6 +3863,7 @@ tools/build_historical_team_membership_pit.py
 tools/build_historical_venue_assignment_pit.py
 tools/build_historical_weather_previous_runs_snapshot.py
 tools/build_jira_control_plane.py
+tools/build_national_chronological_development_matrix.py
 tools/build_national_foundation_reconciliation.py
 tools/build_national_pit_domain_admission_matrix.py
 tools/build_national_tiered_game_spine.py
@@ -4090,6 +4096,7 @@ tools/validate_local_qwen_qualification.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_mounted_acceptance_gate.py
+tools/validate_national_chronological_development_matrix.py
 tools/validate_national_foundation_reconciliation.py
 tools/validate_national_pit_domain_admission_matrix.py
 tools/validate_national_tiered_game_spine.py

@@ -1,0 +1,86 @@
+{
+  "schema_version": "aggie.data.national_chronological_development_matrix.v1",
+  "contract_id": "BAT-654-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-V1",
+  "decision_unit": "POST-TASK-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-001",
+  "local_issue_id": "POST-TASK-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-001",
+  "jira_key": "BAT-654",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "NATIONAL_CHRONOLOGICAL_DEVELOPMENT_MATRIX_UNPROTECTED_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Assemble a nationally scoped chronological development matrix from the BAT-653 admitted point-in-time domains alone, with expanding folds, fold-local transforms, and append invariance. BAT-397 and BAT-398 remain completed matrix-infrastructure predecessors and are not rewritten.",
+  "source_contract": {
+    "domain_matrix_gate_relative_path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+    "domain_matrix_gate_sha256": "7fdad9a4ae3c445f1c8b10416b13f2333c46c2a29de86cbf6bc019f055440123",
+    "domain_matrix_dataset_identity": "a14c859165249d008c3853f6fd8193a89df578abe6ba57cfdeeae4fdc18f280c",
+    "spine_gate_relative_path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
+    "spine_gate_sha256": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5",
+    "spine_dataset_identity": "777dce822d5f02455ef2c47b1e482a45dbf5b3b84300885a608ac845946a03f8",
+    "bulk_payloads_in_git": false
+  },
+  "chronology": {
+    "training_season_min": 1963,
+    "training_season_max": 2022,
+    "development_evaluation_season": 2023,
+    "excluded_protected_seasons": [2024, 2025],
+    "excluded_prospective_seasons": [2026],
+    "fold_scheme": "EXPANDING_CHRONOLOGICAL_BY_2023_WEEK_ORDINAL",
+    "expected_matrix_rows": 90198,
+    "expected_evaluation_rows": 1820
+  },
+  "policy": {
+    "admitted_domains_only": true,
+    "fold_local_transformations_only": true,
+    "globally_fitted_scaling_or_imputation": false,
+    "same_game_target_outcome_excluded": true,
+    "future_append_invariance_required": true,
+    "missingness_indicated_never_filled": true,
+    "unranked_imputed_as_a_rank": false,
+    "availability_inferred": false,
+    "tamu_rows_are_ordinary_national_rows": true,
+    "tamu_adapter_or_specialization_feature": false,
+    "protected_seasons_present_in_any_fold": false
+  },
+  "opponent_features": [
+    "opponent_prior_win_rate",
+    "opponent_prior_margin_mean",
+    "opponent_prior_games_played",
+    "opponent_ap_poll_rank",
+    "opponent_prior_season_win_rate"
+  ],
+  "slice_dimensions": [
+    "national",
+    "season",
+    "conference",
+    "site",
+    "favorite_state",
+    "ranking_state",
+    "data_coverage"
+  ],
+  "favorite_rule": {
+    "rule_id": "PRIOR_WIN_RATE_DIFFERENTIAL_STRICT",
+    "basis": "prior_win_rate minus opponent_prior_win_rate over strictly earlier completed games",
+    "even_when_equal_or_missing": true,
+    "uses_market_or_postgame_evidence": false
+  },
+  "authority": {
+    "national_development_matrix_use": true,
+    "unprotected_development_evaluation": true,
+    "baseline_candidate_input": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "protected_performance_claims": false,
+    "forecast_publication": false,
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false
+  },
+  "negative_findings": {
+    "matrix_is_development_scoped_not_production": true,
+    "admitted_domain_coverage_is_partial": true,
+    "fold_transforms_are_not_reusable_across_folds": true,
+    "evaluation_season_is_unprotected_and_small": true
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

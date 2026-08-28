@@ -1,18 +1,14 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-650-CYCLE20-PHASE1-AUTHORITY-PLACEHOLDER-OWNERSHIP",
+  "work_unit_id": "BAT-650-CYCLE20-PHASE1-FINAL-CONVERGENCE",
   "jira_identity": "BAT-650",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "c5b129ca3392d0019a69463b47f7d612e3a0b6cc",
-  "pre_routing_decision_sha256": "135d37367844e69574c502997289286a2add6c4bba99b5dbf5c51097feef13a9",
+  "base_commit": "63be7d7626f30f0bfd147d2edf2c5df35a6fef96",
+  "pre_routing_decision_sha256": "bb6434cfa9e1f974adc904c2c78953296dbade5ca386d8ea6d2f363bdc24fd1d",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/tamu_official_1996_season_index_contract.json",
-    "configs/tamu_official_1997_season_index_contract.json",
-    "configs/tamu_official_1998_2009_structured_row_corpus_integrity_contract.json",
-    "configs/tamu_official_gamebook_union_1998_rejection_complete_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
     "jira/project/JIRA_TARGET_PROFILE.yaml",
     "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
@@ -22,10 +18,7 @@
     "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv",
-    "tests/fixtures/stale_placeholder_contract.json",
-    "tests/test_authority_placeholders.py",
-    "tools/validate_authority_placeholders.py"
+    "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
-  "manifest_identity": "73a1ee9397a7039752f77bc1595ff0693c07ce2d4d09379cb6ba17105ff9a803"
+  "manifest_identity": "620f2ef2feb4f67862440516174e6f2e068a3113141bcacd88b97f77560716cd"
 }

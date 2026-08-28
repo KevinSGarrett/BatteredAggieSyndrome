@@ -5,7 +5,7 @@
   ],
   "artifact_type": "TAMU_OFFICIAL_GAMEBOOK_UNION_1998_REJECTION_COMPLETE_GATE",
   "classification": "TAMU_OFFICIAL_GAMEBOOK_UNION_1998_REJECTION_COMPLETE_CANDIDATE_ONLY",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1998-UNION-REJECTION-COMPLETE-V1",
+  "contract_id": "BAT-649-TAMU-OFFICIAL-1998-UNION-REJECTION-COMPLETE-V1",
   "counts": {
     "cycle9_official_games_preserved": 26,
     "cycle9_union_games_preserved": 203,
@@ -65,7 +65,7 @@
     "prior_250_union_games_preserved": 250,
     "prior_261_union_games_preserved": 261,
     "prior_enriched_union_games_preserved": 237,
-    "rejected_urls_complete": 17,
+    "rejected_urls_complete": 40,
     "rich_structured_games": 317,
     "scoring_summary_present_games": 124,
     "season_header_conflicts": 1,
@@ -78,21 +78,21 @@
   },
   "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
   "disposition": "NEW_IMMUTABLE_REJECTION_COMPLETE_UNION_SUCCESSOR",
-  "gate_identity": "c7d92b31a78a966af97be71845665486b7a9d5009a4943e6256f97c6faff1ba6",
-  "jira_key": "BAT-XXX",
+  "gate_identity": "b4e01cba59586b35e18c7ff567dab828d896c9700a1ba582905a4e2fd8b6213b",
+  "jira_key": "BAT-649",
   "predecessor_gate_identity": "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a",
   "predecessor_union_identity": "e526499dab658992bb528799621833a0cb9dbaf538755ceb4b8b1df37053f069",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "rejection_integrity_gate_identity": "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e",
-  "rejection_ledger_identity": "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051",
+  "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
+  "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81",
   "result": "PASS_IMMUTABLE_REJECTION_COMPLETE_UNION_SUCCESSOR",
   "schema_version": "aggie.data.tamu_official_gamebook_union_1998_rejection_complete.v1",
   "source_id": "SRC-014",
-  "union_identity": "8b9859388d2c46b934e11175775d528dde47352ecc1787189cd632b21bd6f842",
+  "union_identity": "d404d1f92d9836619bd0019f8da48438a9be82add6ad654d33854757736c60a1",
   "upstream_identities": {
     "bat637_gate_identity": "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a",
-    "rejection_integrity_gate_identity": "326dae867a39852d51d7b6f6a87a8557a950f74cf498b81e44956b71e4d6378e",
-    "rejection_ledger_identity": "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051"
+    "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
+    "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81"
   },
   "validation_contract_version": "aggie.data.tamu_official_gamebook_union_1998_rejection_complete.v1"
 }

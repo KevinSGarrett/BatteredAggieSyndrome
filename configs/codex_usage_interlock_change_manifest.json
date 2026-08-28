@@ -1,36 +1,18 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "4be4544138523040128b80c37f396393d7c1de2296b5100121a767aa95ef30e1",
-  "work_unit_id": "BAT-554-OFFICIAL-OUTCOME-TEAM-IDENTITY-CORRECTION",
-  "jira_identity": "BAT-554",
+  "work_unit_id": "BAT-649-CYCLE20-PHASE1-CYCLE19-INTEGRATION",
+  "jira_identity": "BAT-649",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "2fb530a0b5d96840ca377d50b443c4d1285a0559",
-  "pre_routing_decision_sha256": "dca52b8d36c1f6555605b3a786c7ab1e0ddcfaaa4912bfe79904d32293b39c17",
+  "base_commit": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
+  "pre_routing_decision_sha256": "7c0c04b01e450161fc3a6ece4f09d4bfce974e0c381cb6f202a48d979788e94c",
   "changed_paths": [
-    "artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json",
-    "artifacts/jira_evidence/POST-SUBTASK-197.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/ncaa_official_outcome_crosscheck_contract.json",
-    "configs/ncaa_official_outcome_crosscheck_retraining_request.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "jira/history/ISSUE_CHANGE_LOG.jsonl",
-    "jira/import/POST_IMPORT_KEY_MAP.csv",
-    "jira/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.md",
-    "jira/project/JIRA_TARGET_PROFILE.yaml",
-    "jira/reconciliation/BAT_JIRA_EXPORT.csv",
-    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
-    "jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.json",
-    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
-    "jira/validation/JIRA_FILE_HASHES.sha256",
-    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py",
-    "tests/test_autonomous_control_tools.py",
-    "tests/test_ncaa_official_outcome_crosscheck.py",
-    "tools/select_next_work.py",
-    "tools/validate_ncaa_official_outcome_crosscheck.py"
-  ]
+    "tests/test_execution_focus.py"
+  ],
+  "manifest_identity": "134ddebfb7f55535edb464f312311173100e7678391b79a0fbc7e045116bdfcd"
 }

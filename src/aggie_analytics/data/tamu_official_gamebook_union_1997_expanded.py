@@ -1,4 +1,4 @@
-"""Immutable 1997-expanded union successor from Phase 1 rejection-complete predecessor."""
+"""Immutable 1997 recovered-union successor from Cycle #18 predecessor."""
 
 from __future__ import annotations
 
@@ -14,16 +14,13 @@ from aggie_analytics.validation.artifact_binding import compute_identity
 SCHEMA_VERSION = "aggie.data.tamu_official_gamebook_union_1997_expanded.v1"
 CONTRACT_RELATIVE = "configs/tamu_official_gamebook_union_1997_expanded_contract.json"
 GATE_RELATIVE = "artifacts/data_lake/tamu_official_gamebook_union_1997_expanded_gate.json"
-CONTRACT_ID = "BAT-XXX-TAMU-OFFICIAL-1997-EXPANDED-UNION-V1"
-DECISION_UNIT = "POST-TASK-SRC014-1997-EXPANDED-ENRICHED-UNION-001"
-JIRA_KEY = "BAT-XXX"
+CONTRACT_ID = "BAT-649-TAMU-OFFICIAL-1997-EXPANDED-UNION-V1"
+DECISION_UNIT = "POST-TASK-SRC014-1997-RECOVERED-UNION-001"
+JIRA_KEY = "BAT-649"
 SOURCE_ID = "SRC-014"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
-PINNED_PREDECESSOR_GATE_IDENTITY = "c7d92b31a78a966af97be71845665486b7a9d5009a4943e6256f97c6faff1ba6"
-PINNED_PREDECESSOR_UNION_IDENTITY = "8b9859388d2c46b934e11175775d528dde47352ecc1787189cd632b21bd6f842"
-PINNED_REJECTION_LEDGER_IDENTITY = "d88ccffcabb70cd218b0aa40d395dba49c5dca3bcbf9c9ed139422fe20dc3051"
-PINNED_1997_BOXSCORE_DATASET_IDENTITY = "ca7bbf2e78dd028d647ff3abc77392c91d956c96ab7d9a93b2ca6f5e8953598a"
-PINNED_1997_BOXSCORE_GATE_IDENTITY = "09a0c2cc295c1b8c5cb03e392e7bb38d637f48b4d7090b69766e69b89ca808f3"
+PINNED_CYCLE18_PREDECESSOR_UNION_IDENTITY = "e85b9b1d420f07204c55a8f82989f4cde99e8a2c151e1bce4ca5ae68ef3f6fe8"
+PINNED_CYCLE18_PREDECESSOR_GATE_IDENTITY = "a6ac7c237333febc5822a467b60be944af20190ddc203f8027f5aeaa61af7f90"
 UNION_MANIFEST_NAME = "union_manifest.json"
 
 
@@ -36,86 +33,140 @@ def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 
 
+def _build_enriched_from_recovered(game: Mapping[str, Any], structured: Mapping[str, Any]) -> dict[str, Any]:
+    coverage = dict(structured.get("domain_coverage") or {})
+    coverage.update(
+        {
+            "game_identity_metadata": "PRESENT",
+            "season": "PRESENT",
+            "played_date": "PRESENT",
+            "teams": "PRESENT",
+            "scores": "PRESENT",
+            "site_venue": "PRESENT" if game.get("site") else "ABSENT",
+            "quarter_scoring": "PRESENT",
+        }
+    )
+    return {
+        "availability_claim": False,
+        "calendar_date": game.get("calendar_date"),
+        "canonical_game_id": None,
+        "canonical_game_match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+        "conflict_status": "NONE",
+        "domain_coverage": coverage,
+        "football_season": game.get("football_season"),
+        "historical_publication_time": None,
+        "index_date_candidate": game.get("index_date_candidate"),
+        "ncaa_contest_id": None,
+        "opponent_candidate": game.get("opponent_candidate"),
+        "opponent_normalized": game.get("opponent_normalized"),
+        "opponent_points": game.get("opponent_points"),
+        "overlay_applied": True,
+        "overlay_source": "POST-TASK-SRC014-1997-STRUCTURED-DOMAINS-SUCCESSOR-001",
+        "prior_rich_structured": False,
+        "rich_structured": bool((structured.get("row_counts") or {}).get("team_statistics", 0)),
+        "site": game.get("site"),
+        "source_season": 1997,
+        "source_sha256": game.get("source_sha256"),
+        "stadium": game.get("stadium"),
+        "tamu_points": game.get("tamu_points"),
+        "url": game.get("url"),
+        "venue_state": game.get("venue_state"),
+    }
+
+
 def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     contract = load_json(repo_root / CONTRACT_RELATIVE)
-    predecessor_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_gamebook_union_1998_rejection_complete_gate.json")
-    if predecessor_gate.get("gate_identity") != PINNED_PREDECESSOR_GATE_IDENTITY:
-        raise AuthorityViolation("predecessor rejection-complete union gate identity drifted")
-    if predecessor_gate.get("union_identity") != PINNED_PREDECESSOR_UNION_IDENTITY:
-        raise AuthorityViolation("predecessor rejection-complete union identity drifted")
     predecessor_manifest = (
-        data_root
-        / "features/tamu_official_gamebook_union_1998_rejection_complete/sha256"
-        / PINNED_PREDECESSOR_UNION_IDENTITY
-        / UNION_MANIFEST_NAME
+        data_root / "features/tamu_official_gamebook_union_1996_expanded/sha256" / PINNED_CYCLE18_PREDECESSOR_UNION_IDENTITY / UNION_MANIFEST_NAME
     )
     if not predecessor_manifest.is_file():
-        raise AuthorityViolation("predecessor rejection-complete union manifest missing")
+        raise AuthorityViolation("cycle18 predecessor union manifest missing")
     predecessor_payload = load_json(predecessor_manifest)
-    if predecessor_payload.get("union_identity") != PINNED_PREDECESSOR_UNION_IDENTITY:
+    if predecessor_payload.get("union_identity") != PINNED_CYCLE18_PREDECESSOR_UNION_IDENTITY:
         raise AuthorityViolation("predecessor union payload identity drifted")
     boxscore_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_1997_boxscore_gate.json")
-    if boxscore_gate.get("gate_identity") != PINNED_1997_BOXSCORE_GATE_IDENTITY:
-        raise AuthorityViolation("1997 boxscore gate identity drifted")
-    if boxscore_gate.get("dataset_identity") != PINNED_1997_BOXSCORE_DATASET_IDENTITY:
-        raise AuthorityViolation("1997 boxscore dataset identity drifted")
-    boxscore_payload_path = data_root / contract["upstream"]["boxscore_root"] / PINNED_1997_BOXSCORE_DATASET_IDENTITY / "payload.json"
+    boxscore_gate_identity = str(boxscore_gate.get("gate_identity") or "")
+    boxscore_dataset_identity = str(boxscore_gate.get("dataset_identity") or "")
+    if not boxscore_gate_identity or not boxscore_dataset_identity:
+        raise AuthorityViolation("1997 boxscore gate identities missing")
+    boxscore_payload_path = data_root / contract["upstream"]["boxscore_root"] / boxscore_dataset_identity / "payload.json"
     if not boxscore_payload_path.is_file():
         raise AuthorityViolation("1997 boxscore payload missing")
     boxscore_payload = load_json(boxscore_payload_path)
-    rejected_ledger = list(predecessor_payload.get("complete_rejection_ledger") or [])
-    existing_rejected = {str(item.get("url") or "") for item in rejected_ledger}
-    captures = list(boxscore_payload.get("captures") or [])
-    appended_1997: list[dict[str, Any]] = []
-    for capture in captures:
-        url = str(capture.get("url") or "")
-        if not url or url in existing_rejected:
+    structured_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_1997_structured_domains_gate.json")
+    structured_gate_identity = str(structured_gate.get("gate_identity") or "")
+    structured_payload_identity = str(structured_gate.get("payload_identity") or "")
+    if not structured_gate_identity or not structured_payload_identity:
+        raise AuthorityViolation("1997 structured gate identities missing")
+    structured_payload_path = data_root / "features/tamu_official_1997_structured_domains/sha256" / structured_payload_identity / "payload.json"
+    if not structured_payload_path.is_file():
+        raise AuthorityViolation("1997 structured payload missing")
+    structured_payload = load_json(structured_payload_path)
+    structured_games = {str(item.get("url") or ""): item for item in (structured_payload.get("games") or [])}
+    recovered_1997_games: list[dict[str, Any]] = []
+    for game in boxscore_payload.get("games") or []:
+        if str(game.get("canonical_game_match_status") or "") not in {
+            "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+            "OFFICIAL_INDEX_DATE_CONFLICT",
+        }:
             continue
-        appended_1997.append(
-            {
-                "url": url,
-                "origin_issue": "BAT-XXX",
-                "origin_gate_identity": PINNED_1997_BOXSCORE_GATE_IDENTITY,
-                "source_season": 1997,
-                "source_url": url,
-                "source_sha256": str(capture.get("raw_sha256") or "") or None,
-                "match_status": "UNMATCHED_STRONG_TUPLE",
-                "rejection_reason": "PHASE3_PARSE_REJECTED_OR_UNMATCHED",
-                "rejection_source": "BAT-XXX.rejected_official_1997_games",
-                "capture_disposition": str(capture.get("parser_disposition") or "UNCLASSIFIED"),
-                "membership_admitted": False,
-                "availability": "NOT_ESTABLISHED",
-                "availability_claim": False,
-                "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
-                "ncaa_contest_id": None,
-            }
-        )
-    complete_rejection_ledger = sorted(rejected_ledger + appended_1997, key=lambda row: row["url"])
-    unique_urls = {row["url"] for row in complete_rejection_ledger}
-    if len(unique_urls) != len(complete_rejection_ledger):
-        raise AuthorityViolation("duplicate rejected URLs in 1997 union successor")
-    admitted_games = list(predecessor_payload.get("enriched_official_games") or [])
-    admitted_urls = {str(item.get("url") or "") for item in admitted_games}
-    if admitted_urls & unique_urls:
-        raise AuthorityViolation("rejection/admission overlap in 1997 union successor")
+        if str(game.get("conflict_status") or "") not in {"NONE", "SEASON_INDEX_DATE_VS_BOX_PLAYED_DATE"}:
+            continue
+        url = str(game.get("url") or "")
+        structured = structured_games.get(url)
+        if structured is None:
+            raise AuthorityViolation(f"1997 structured payload missing admitted game {url}")
+        recovered_1997_games.append(_build_enriched_from_recovered(game, structured))
+    if len(recovered_1997_games) != 12:
+        raise AuthorityViolation(f"expected 12 recovered 1997 games, found {len(recovered_1997_games)}")
+    preserved_members = list(predecessor_payload.get("enriched_official_games") or [])
+    combined_members = sorted(preserved_members + recovered_1997_games, key=lambda row: (str(row.get("calendar_date") or ""), str(row.get("url") or "")))
+    combined_urls = [str(item.get("url") or "") for item in combined_members]
+    if len(set(combined_urls)) != len(combined_urls):
+        raise AuthorityViolation("duplicate admitted URLs in 1997 recovered union")
+
+    historical_ledger = list(predecessor_payload.get("complete_rejection_ledger") or [])
+    recovered_urls = {str(item.get("url") or "") for item in recovered_1997_games}
+    active_rejections: list[dict[str, Any]] = []
+    superseded_count = 0
+    for row in historical_ledger:
+        if str(row.get("source_season") or "") == "1997" and str(row.get("url") or "") in recovered_urls:
+            row["rejection_reason"] = "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY"
+            row["superseded"] = True
+            superseded_count += 1
+            continue
+        active_rejections.append(row)
+    active_rejections = sorted(active_rejections, key=lambda row: str(row.get("url") or ""))
+    admitted_urls = set(combined_urls)
+    active_urls = {str(item.get("url") or "") for item in active_rejections}
+    if admitted_urls & active_urls:
+        raise AuthorityViolation("active rejection/admission overlap in 1997 recovered union")
+    for gap_url in predecessor_payload.get("admitted_row_gap_urls") or []:
+        if str(gap_url) in active_urls:
+            raise AuthorityViolation("admitted row-gap URL cannot be active rejection")
+
     counts = dict(predecessor_payload.get("counts") or {})
-    counts["official_1997_admitted"] = 0
-    counts["official_1997_rejected"] = len(appended_1997)
-    counts["new_games_added"] = 0
-    counts["unmatched_rejected"] = len(complete_rejection_ledger)
-    counts["rejected_urls_complete"] = len(complete_rejection_ledger)
+    counts["predecessor_membership_preserved"] = len(preserved_members)
+    counts["official_1997_admitted"] = len(recovered_1997_games)
+    counts["official_1997_rejected"] = len(active_rejections)
+    counts["new_games_added"] = len(recovered_1997_games)
+    counts["games_admitted_to_union"] = len(combined_members)
+    counts["superseded_rejections"] = superseded_count
+    counts["active_rejections"] = len(active_rejections)
+    counts["rejected_urls_complete"] = len(historical_ledger)
+    counts["unmatched_rejected"] = len(active_rejections)
     counts["ncaa_contest_ids_created"] = 0
     payload = {
         "schema_version": SCHEMA_VERSION,
-        "predecessor_union_identity": PINNED_PREDECESSOR_UNION_IDENTITY,
-        "predecessor_gate_identity": PINNED_PREDECESSOR_GATE_IDENTITY,
-        "rejection_ledger_identity": PINNED_REJECTION_LEDGER_IDENTITY,
-        "upstream_1997_boxscore_gate_identity": PINNED_1997_BOXSCORE_GATE_IDENTITY,
-        "upstream_1997_boxscore_dataset_identity": PINNED_1997_BOXSCORE_DATASET_IDENTITY,
-        "enriched_official_games": admitted_games,
-        "admitted_official_1997_games": [],
-        "rejected_official_1997_games": appended_1997,
-        "complete_rejection_ledger": complete_rejection_ledger,
+        "predecessor_union_identity": PINNED_CYCLE18_PREDECESSOR_UNION_IDENTITY,
+        "predecessor_gate_identity": PINNED_CYCLE18_PREDECESSOR_GATE_IDENTITY,
+        "upstream_1997_boxscore_gate_identity": boxscore_gate_identity,
+        "upstream_1997_boxscore_dataset_identity": boxscore_dataset_identity,
+        "upstream_1997_structured_gate_identity": structured_gate_identity,
+        "enriched_official_games": combined_members,
+        "admitted_official_1997_games": recovered_1997_games,
+        "active_rejections": active_rejections,
+        "complete_rejection_ledger": historical_ledger,
         "admitted_row_gap_urls": list(predecessor_payload.get("admitted_row_gap_urls") or []),
         "counts": counts,
         "protected_lane": PROTECTED_LANE,
@@ -124,28 +175,31 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         {
             "predecessor_union_identity": payload["predecessor_union_identity"],
             "admitted_urls": sorted(admitted_urls),
-            "rejected_urls": sorted(unique_urls),
+            "active_rejections": sorted(active_urls),
+            "historical_rejections": sorted({str(row.get("url") or "") for row in historical_ledger}),
             "counts": counts,
         }
     )
     gate = {
         "schema_version": SCHEMA_VERSION,
         "artifact_type": "TAMU_OFFICIAL_GAMEBOOK_UNION_1997_EXPANDED_GATE",
-        "result": "PARTIAL_OFFICIAL_1997_EXPANDED_UNION_NO_NEW_ADMISSIONS",
+        "result": "PASS_OFFICIAL_1997_RECOVERED_UNION_SUCCESSOR",
         "classification": "TAMU_OFFICIAL_GAMEBOOK_UNION_1997_EXPANDED_CANDIDATE_ONLY",
         "contract_id": CONTRACT_ID,
         "decision_unit": DECISION_UNIT,
         "jira_key": JIRA_KEY,
         "source_id": SOURCE_ID,
-        "disposition": "PRESERVE_MEMBERSHIP_APPEND_1997_REJECTIONS_ONLY",
-        "predecessor_union_identity": PINNED_PREDECESSOR_UNION_IDENTITY,
-        "predecessor_gate_identity": PINNED_PREDECESSOR_GATE_IDENTITY,
+        "disposition": "PRESERVE_PREDECESSOR_MEMBERS_AND_ADMIT_RECOVERED_1997_GAMES",
+        "predecessor_union_identity": PINNED_CYCLE18_PREDECESSOR_UNION_IDENTITY,
+        "predecessor_gate_identity": PINNED_CYCLE18_PREDECESSOR_GATE_IDENTITY,
         "union_identity": payload["union_identity"],
         "counts": counts,
         "admitted_row_gap_urls": payload["admitted_row_gap_urls"],
-        "rejection_ledger_identity": PINNED_REJECTION_LEDGER_IDENTITY,
-        "upstream_1997_boxscore_gate_identity": PINNED_1997_BOXSCORE_GATE_IDENTITY,
-        "upstream_1997_boxscore_dataset_identity": PINNED_1997_BOXSCORE_DATASET_IDENTITY,
+        "active_rejection_count": len(active_rejections),
+        "historical_rejection_count": len(historical_ledger),
+        "upstream_1997_boxscore_gate_identity": boxscore_gate_identity,
+        "upstream_1997_boxscore_dataset_identity": boxscore_dataset_identity,
+        "upstream_1997_structured_gate_identity": structured_gate_identity,
         "protected_lane": PROTECTED_LANE,
         "validation_contract_version": SCHEMA_VERSION,
     }

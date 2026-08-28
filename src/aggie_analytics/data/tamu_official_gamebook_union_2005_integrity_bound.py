@@ -844,7 +844,7 @@ def upstream_is_ready(data_root: Path) -> bool:
         / "features/tamu_official_2005_structured_domains/sha256"
         / PINNED_BAT601_PAYLOAD_IDENTITY
         / "payload.json"
-    ).is_file()
+    ).is_file() and union_manifest_path(data_root).is_file()
 
 
 def lake_is_ready(data_root: Path) -> bool:

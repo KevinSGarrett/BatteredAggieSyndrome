@@ -1,0 +1,90 @@
+{
+  "acceptance_result_identity": "2d31effd290c34b78df87281ccce544d883fea5eded136bafa52ec94536577d0",
+  "acceptance_result_relative_path": "validation/mounted_acceptance/sha256/2d31effd290c34b78df87281ccce544d883fea5eded136bafa52ec94536577d0/acceptance_result.json",
+  "artifact_type": "MOUNTED_ACCEPTANCE_GATE",
+  "classification": "CYCLE18_19_CRITICAL_MOUNTED_ACCEPTANCE",
+  "code_identity": "522436d4cb55ee02cfa5b5cdf87abfec124cd3256a3ce1e5aed6ab2d6a8cd69d",
+  "contract_id": "BAT-649-CYCLE19-MOUNTED-ACCEPTANCE-V1",
+  "counts": {
+    "errored": 0,
+    "executed": 29,
+    "failed": 0,
+    "passed": 29,
+    "skipped": 0
+  },
+  "critical_suite": [
+    "test_tamu_official_1998_2009_rejection_integrity.py",
+    "test_tamu_official_gamebook_union_1998_rejection_complete.py",
+    "test_tamu_official_1998_2009_structured_row_corpus_integrity.py",
+    "test_tamu_official_1997_season_index.py",
+    "test_tamu_official_1997_boxscores.py",
+    "test_tamu_official_1997_structured_domains.py",
+    "test_tamu_official_gamebook_union_1997_expanded.py",
+    "test_tamu_official_1996_season_index.py",
+    "test_tamu_official_1996_boxscores.py",
+    "test_tamu_official_1996_structured_domains.py",
+    "test_tamu_official_gamebook_union_1996_expanded.py",
+    "test_tamu_official_1996_2009_structured_row_corpus.py"
+  ],
+  "data_root_manifest_identities": {
+    "features/tamu_official_1996_boxscores/capture_index.json": "cef84d56f3f1b6561422d8d03fda4ce23ff70f51fb88146da5c6e9d72da7fc29",
+    "features/tamu_official_1997_boxscores/capture_index.json": "c65f5c16cbde1776dff446537c6803b70e8efe4891de0ce19dfcd744bc514aba"
+  },
+  "error_tests": [],
+  "expected_full_suite_skips": [],
+  "failure_tests": [],
+  "gate_identity": "01eac310c475df753eca94256ce9221eb07c959e0380a8e9eb7fd851ac7e3ad1",
+  "network_error_marker": "NETWORK_ACCESS_FORBIDDEN_IN_ACCEPTANCE_TEST",
+  "repo_head_sha": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
+  "required_raw_manifest": [
+    {
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/season_index/sha256_c7e447bad869680b7207917eb5295d6a45fdc55a8190df26c00b7126a0844c3a.html",
+      "raw_sha256": "c7e447bad869680b7207917eb5295d6a45fdc55a8190df26c00b7126a0844c3a",
+      "source_gate": "artifacts/data_lake/tamu_official_1997_season_index_gate.json"
+    },
+    {
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/season_index/sha256_fa68d1abca612aab0fe9bb60670ce5e577c20ac37cfce029718b87a45cd5e202.html",
+      "raw_sha256": "fa68d1abca612aab0fe9bb60670ce5e577c20ac37cfce029718b87a45cd5e202",
+      "source_gate": "artifacts/data_lake/tamu_official_1996_season_index_gate.json"
+    }
+  ],
+  "required_raw_manifest_identity": "b8e3028b71c3841a4b58883c0e8f74e8ba4b39807ae7cb5b631a0c928733af96",
+  "result": "PASS",
+  "schema_version": "aggie.validation.mounted_acceptance_gate.v1",
+  "skip_budget": {
+    "critical_suite_allowed_skips": 0
+  },
+  "skipped_tests": [],
+  "test_inventory": [
+    "test_tamu_official_1996_2009_structured_row_corpus.Corpus19962009Tests.test_gate_reconstructs",
+    "test_tamu_official_1996_2009_structured_row_corpus.Corpus19962009Tests.test_open_protected_lane_fails",
+    "test_tamu_official_1996_boxscores.Official1996BoxscoreTests.test_gate_reconstructs",
+    "test_tamu_official_1996_boxscores.Official1996BoxscoreTests.test_protected_lane_opened_fails",
+    "test_tamu_official_1996_boxscores.Official1996BoxscoreTests.test_stale_code_identity_fails",
+    "test_tamu_official_1996_season_index.Official1996SeasonIndexTests.test_gate_reconstructs",
+    "test_tamu_official_1996_season_index.Official1996SeasonIndexTests.test_history_href_removed_fails",
+    "test_tamu_official_1996_season_index.Official1996SeasonIndexTests.test_stale_code_identity_fails",
+    "test_tamu_official_1996_structured_domains.Official1996StructuredDomainsTests.test_gate_reconstructs",
+    "test_tamu_official_1996_structured_domains.Official1996StructuredDomainsTests.test_protected_lane_opened_fails",
+    "test_tamu_official_1997_boxscores.Official1997BoxscoreTests.test_gate_reconstructs",
+    "test_tamu_official_1997_boxscores.Official1997BoxscoreTests.test_protected_lane_opened_fails",
+    "test_tamu_official_1997_boxscores.Official1997BoxscoreTests.test_stale_code_identity_fails",
+    "test_tamu_official_1997_season_index.Official1997SeasonIndexTests.test_gate_reconstructs",
+    "test_tamu_official_1997_season_index.Official1997SeasonIndexTests.test_history_href_removed_fails",
+    "test_tamu_official_1997_season_index.Official1997SeasonIndexTests.test_stale_code_identity_fails",
+    "test_tamu_official_1997_structured_domains.Official1997StructuredDomainsTests.test_gate_reconstructs",
+    "test_tamu_official_1997_structured_domains.Official1997StructuredDomainsTests.test_protected_lane_opened_fails",
+    "test_tamu_official_1998_2009_rejection_integrity.RejectionIntegrityGateTests.test_gap_url_relabel_fails",
+    "test_tamu_official_1998_2009_rejection_integrity.RejectionIntegrityGateTests.test_gate_reconstructs",
+    "test_tamu_official_1998_2009_rejection_integrity.RejectionIntegrityGateTests.test_protected_lane_open_fails",
+    "test_tamu_official_1998_2009_structured_row_corpus_integrity.CorpusIntegrityTests.test_gate_reconstructs",
+    "test_tamu_official_1998_2009_structured_row_corpus_integrity.CorpusIntegrityTests.test_open_protected_lane_fails",
+    "test_tamu_official_gamebook_union_1996_expanded.Official1996ExpandedUnionTests.test_gate_reconstructs",
+    "test_tamu_official_gamebook_union_1996_expanded.Official1996ExpandedUnionTests.test_protected_lane_opened_fails",
+    "test_tamu_official_gamebook_union_1997_expanded.Official1997ExpandedUnionTests.test_gate_reconstructs",
+    "test_tamu_official_gamebook_union_1997_expanded.Official1997ExpandedUnionTests.test_protected_lane_opened_fails",
+    "test_tamu_official_gamebook_union_1998_rejection_complete.RejectionCompleteUnionTests.test_gate_reconstructs",
+    "test_tamu_official_gamebook_union_1998_rejection_complete.RejectionCompleteUnionTests.test_protected_lane_open_fails"
+  ],
+  "test_inventory_identity": "b4f0236f9f359d4adbcdcee64d5e94f9efaa5d8901b39d173d37237184af8b52"
+}

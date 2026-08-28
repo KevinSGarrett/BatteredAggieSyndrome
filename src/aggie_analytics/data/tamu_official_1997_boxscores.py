@@ -1,4 +1,4 @@
-"""Acquire and normalize official SRC-014 1997 box scores from Phase 2 allowlist."""
+"""Acquire and normalize official SRC-014 1997 box scores from mounted captures."""
 
 from __future__ import annotations
 
@@ -12,10 +12,7 @@ from typing import Any, Mapping
 
 from aggie_analytics.data.ncaa_contest_reconciliation import normalize_team_name, stable_hash
 from aggie_analytics.data.tamu_official_historical_archive import (
-    classify_capture,
     compact_capture,
-    direct_http_get,
-    persist_capture,
     sha256_file,
     validate_official_url,
 )
@@ -23,12 +20,13 @@ from aggie_analytics.data.tamu_official_historical_boxscores import (
     AuthorityViolation,
     INDEX_RESULT_RE,
     compact_game,
+    decode_page,
     expected_admissions,
     expected_authority,
     expected_scientific_nonclaims,
     match_to_official_index,
     opponent_candidate,
-    parse_official_box_page,
+    parse_scoring_plays,
     reconstruct_index_date,
     site_token,
 )
@@ -36,12 +34,17 @@ from aggie_analytics.data.tamu_official_historical_coverage_inventory import (
     GATE_RELATIVE as INVENTORY_GATE_RELATIVE,
     REGISTRY_SHA256,
 )
+from aggie_analytics.data.tamu_official_legacy_h2_game_identity import (
+    LEGACY_H2_PARSER_VERSION,
+    parse_legacy_game_identity,
+)
+from aggie_analytics.data.tamu_official_statcrew_preformatted import parse_preformatted_page
 
 SCHEMA_VERSION = "aggie.data.tamu_official_1997_boxscores.v1"
 CONTRACT_RELATIVE = "configs/tamu_official_1997_boxscore_contract.json"
 GATE_RELATIVE = "artifacts/data_lake/tamu_official_1997_boxscore_gate.json"
-CONTRACT_ID = "BAT-XXX-TAMU-OFFICIAL-1997-BOXSCORES-V1"
-JIRA_KEY = "BAT-XXX"
+CONTRACT_ID = "BAT-649-TAMU-OFFICIAL-1997-BOXSCORES-V1"
+JIRA_KEY = "BAT-649"
 SOURCE_ID = "SRC-014"
 SEASON = 1997
 OFFICIAL_1997_INDEX_URL = "https://files.12thman.com/history/football/years/1997.html"
@@ -52,7 +55,12 @@ PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 INVENTORY_IDENTITY = "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
 BAT1997_GATE_RELATIVE = "artifacts/data_lake/tamu_official_1997_season_index_gate.json"
 MODULE_RELATIVE = "src/aggie_analytics/data/tamu_official_1997_boxscores.py"
-CODE_BUNDLE_RELATIVE = (MODULE_RELATIVE,)
+LEGACY_PARSER_RELATIVE = "src/aggie_analytics/data/tamu_official_legacy_h2_game_identity.py"
+CODE_BUNDLE_RELATIVE = (MODULE_RELATIVE, LEGACY_PARSER_RELATIVE)
+PREDECESSOR_GATE_IDENTITY = "09a0c2cc295c1b8c5cb03e392e7bb38d637f48b4d7090b69766e69b89ca808f3"
+PREDECESSOR_DATASET_IDENTITY = "ca7bbf2e78dd028d647ff3abc77392c91d956c96ab7d9a93b2ca6f5e8953598a"
+PREDECESSOR_ACQUISITION_IDENTITY = "fd163b0e35a1836a9f3775fafc77671c4a016d9a9aadb8841393a875db04721d"
+PREDECESSOR_GAMES_IDENTITY = "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
 RESULT_FALLBACK_RE = re.compile(r"\b([WL])\s*,?\s*(\d+)\s*-\s*(\d+)\b", re.IGNORECASE)
 
 
@@ -125,47 +133,43 @@ def capture_map(index: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
 def compact_capture_row(record: Mapping[str, Any], *, source_order: int) -> dict[str, Any]:
     compact = compact_capture(record)
     compact["response_sha256"] = str(record.get("response_sha256") or compact.get("response_sha256") or "")
+    response_status = int(record.get("response_status") or record.get("status") or 0)
+    if response_status <= 0 and str(record.get("parser_disposition") or "") == "VERIFIED_OFFICIAL_SCHOOL_PAGE":
+        response_status = 200
+    compact["response_status"] = response_status
+    compact["parser_disposition"] = str(record.get("parser_disposition") or compact.get("parser_disposition") or "")
+    compact["raw_relative_path"] = str(record.get("raw_relative_path") or compact.get("raw_relative_path") or "")
     compact["source_order"] = int(source_order)
     if not compact["response_sha256"] or compact["response_sha256"] != compact.get("raw_sha256"):
         raise AuthorityViolation(f"response SHA mismatch for {compact.get('url')}")
     return compact
 
 
-def acquire_missing(*, data_root: Path, targets: list[Mapping[str, Any]], existing: Mapping[str, Mapping[str, Any]]) -> list[dict[str, Any]]:
+def required_capture_rows(*, targets: list[Mapping[str, Any]], existing: Mapping[str, Mapping[str, Any]]) -> list[dict[str, Any]]:
     order_by_url = {item["box_url"]: idx for idx, item in enumerate(targets, start=1)}
     allowed = frozenset(order_by_url)
     extra = sorted(set(existing) - allowed)
     if extra:
         raise AuthorityViolation(f"invented or non-allowlisted capture URL: {extra}")
+    missing = sorted(url for url in allowed if url not in existing)
+    if missing:
+        raise AuthorityViolation(f"capture index missing allowlisted URLs: {missing}")
     captures: list[dict[str, Any]] = []
     for target in targets:
         url = target["box_url"]
-        source_order = order_by_url[url]
-        if url in existing:
-            row = dict(existing[url])
-            row["source_order"] = source_order
-            captures.append(row)
-            continue
-        fetched = direct_http_get(url)
-        body = fetched.pop("body")
-        fetched["parent_url"] = target["official_index_url"]
-        fetched["page_family"] = "box_scores"
-        fetched["source_season"] = target["season"]
-        fetched["rights_disposition"] = "PRIVATE_RESEARCH_METADATA_ONLY_NONBLOCKING"
-        try:
-            fetched["parser_disposition"] = classify_capture(url, body, fetched.get("content_type"), int(fetched["status"]))
-        except AuthorityViolation as exc:
-            fetched["parser_disposition"] = f"REJECTED:{exc}"
-        stored = persist_capture(data_root, fetched, body)
-        captures.append(compact_capture_row(stored, source_order=source_order))
+        row = dict(existing[url])
+        row["source_order"] = int(order_by_url[url])
+        captures.append(compact_capture_row(row, source_order=int(row["source_order"])))
     return sorted(captures, key=lambda item: int(item["source_order"]))
 
 
-def index_rows_from_phase2(source: Mapping[str, Any], allowed: frozenset[str]) -> list[dict[str, Any]]:
+def index_rows_from_phase2(source: Mapping[str, Any], allowed: frozenset[str]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     rows: list[dict[str, Any]] = []
+    missing_or_malformed: list[dict[str, Any]] = []
     for row in source["game_rows"]:
         box_url = row.get("box_score_url")
         if not box_url:
+            missing_or_malformed.append(dict(row))
             continue
         box_url = validate_official_url(str(box_url))
         if box_url not in allowed:
@@ -197,7 +201,107 @@ def index_rows_from_phase2(source: Mapping[str, Any], allowed: frozenset[str]) -
     missing = sorted(allowed - found)
     if missing:
         raise AuthorityViolation(f"phase2 rows omitted allowlisted box URLs: {missing}")
-    return sorted(rows, key=lambda item: int(item["schedule_sequence"]))
+    return sorted(rows, key=lambda item: int(item["schedule_sequence"])), missing_or_malformed
+
+
+def _rejected_record(*, record: Mapping[str, Any], reason: str) -> dict[str, Any]:
+    return {
+        "url": str(record.get("url") or ""),
+        "source_url": str(record.get("url") or ""),
+        "source_sha256": str(record.get("raw_sha256") or "") or None,
+        "source_season": SEASON,
+        "source_order": int(record.get("source_order") or 0),
+        "capture_disposition": str(record.get("parser_disposition") or "UNCLASSIFIED"),
+        "rejection_reason": reason,
+        "rejection_source": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-SUCCESSOR-001.rejected_official_1997_games",
+        "membership_admitted": False,
+        "availability": "NOT_ESTABLISHED",
+        "availability_claim": False,
+        "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+        "ncaa_contest_id": None,
+    }
+
+
+def _compose_game_surface(
+    *,
+    identity: Mapping[str, Any],
+    structured: Mapping[str, Any],
+    scoring_rows: list[dict[str, Any]],
+    record: Mapping[str, Any],
+) -> dict[str, Any]:
+    coverage = {
+        "game_identity_metadata": "PRESENT",
+        "season": "PRESENT",
+        "played_date": "PRESENT",
+        "teams": "PRESENT",
+        "scores": "PRESENT",
+        "quarter_scoring": "PRESENT",
+        "site_venue": "PRESENT" if identity.get("site") else "ABSENT",
+        "attendance": "ABSENT",
+        "kickoff_time": "ABSENT",
+        "end_time": "ABSENT",
+        "duration": "ABSENT",
+        "weather": "ABSENT",
+        "officials": "ABSENT",
+        "team_statistics": "PRESENT" if structured.get("team_statistics") else "ABSENT",
+        "individual_player_statistics": "PRESENT" if structured.get("individual_player_statistics") else "ABSENT",
+        "scoring_summary": "PRESENT" if scoring_rows else "ABSENT",
+        "drives": "PRESENT" if structured.get("drives") else "ABSENT",
+        "play_by_play": "PRESENT" if structured.get("play_by_play") else "ABSENT",
+        "participation": "ABSENT",
+        "starters": "ABSENT",
+        "penalties": "ABSENT",
+        "turnovers": "ABSENT",
+    }
+    return {
+        "url": identity["resolved_official_url"],
+        "source_sha256": identity["raw_sha256"],
+        "source_season": SEASON,
+        "football_season": identity["football_season"],
+        "calendar_date": identity["calendar_date"],
+        "raw_date": identity["raw_date"],
+        "raw_game_label": identity["raw_game_label"],
+        "visitor_name": identity["visitor_name"],
+        "home_name": identity["home_name"],
+        "tamu_side": identity["tamu_side"],
+        "opponent_candidate": identity["opponent_candidate"],
+        "opponent_normalized": identity["opponent_normalized"],
+        "tamu_points": identity["tamu_points"],
+        "opponent_points": identity["opponent_points"],
+        "visitor_points": identity["visitor_points"],
+        "home_points": identity["home_points"],
+        "site": identity["site"],
+        "site_token": identity["site_token"],
+        "stadium": None,
+        "attendance": None,
+        "kickoff_time": None,
+        "end_time": None,
+        "duration": None,
+        "weather": None,
+        "officials": [],
+        "team_statistics": list(structured.get("team_statistics") or []),
+        "player_stat_candidates": list(structured.get("individual_player_statistics") or []),
+        "scoring_plays": scoring_rows,
+        "drives": list(structured.get("drives") or []),
+        "play_by_play": list(structured.get("play_by_play") or []),
+        "starters": [],
+        "participation": [],
+        "domain_coverage": coverage,
+        "parser_version": LEGACY_H2_PARSER_VERSION,
+        "parser_identity": LEGACY_H2_PARSER_VERSION,
+        "temporal_authority": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+        "historical_publication_time": None,
+        "ncaa_contest_id": None,
+        "canonical_game_id": None,
+        "availability_claim": False,
+        "parent_url": str(record.get("parent_url") or OFFICIAL_1997_INDEX_URL),
+        "raw_relative_path": str(record.get("raw_relative_path") or ""),
+        "response_status": int(record.get("response_status") or 0),
+        "response_sha256": str(record.get("response_sha256") or ""),
+        "content_type": str(record.get("content_type") or ""),
+        "retrieved_at": record.get("timestamp"),
+        "source_order": int(record.get("source_order") or 0),
+    }
 
 
 def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
@@ -206,80 +310,116 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     targets = selected_targets(source)
     allowed = frozenset(item["box_url"] for item in targets)
     captures_by_url = capture_map(load_capture_index(data_root))
-    if sorted(set(captures_by_url) - allowed):
-        raise AuthorityViolation("capture index contains non-allowlisted URLs")
-    if any(item["box_url"] not in captures_by_url for item in targets):
-        raise AuthorityViolation("capture index missing allowlisted URLs")
-    index_rows = index_rows_from_phase2(source, allowed)
+    captures = required_capture_rows(targets=targets, existing=captures_by_url)
+    index_rows, missing_rows = index_rows_from_phase2(source, allowed)
     games: list[dict[str, Any]] = []
     normalized_rows: list[dict[str, Any]] = []
-    blocked: list[dict[str, Any]] = []
+    rejected: list[dict[str, Any]] = []
     conflicts: list[dict[str, Any]] = []
     match_statuses: Counter[str] = Counter()
-    for source_order, target in enumerate(targets, start=1):
+    for target in targets:
         record = dict(captures_by_url[target["box_url"]])
-        raw_path = data_root / str(record.get("raw_relative_path") or "")
+        source_order = int(record.get("source_order") or 0)
+        raw_path = data_root / str(record["raw_relative_path"])
         if not raw_path.is_file():
-            blocked.append({**record, "disposition": "RAW_FILE_MISSING"})
+            rejected.append(_rejected_record(record=record, reason="RAW_FILE_MISSING"))
             continue
-        if sha256_file(raw_path) != record.get("raw_sha256"):
+        raw_file_sha256 = sha256_file(raw_path)
+        if raw_file_sha256 != record.get("raw_sha256"):
             raise AuthorityViolation(f"raw box-score hash drifted: {target['box_url']}")
         if int(record.get("response_status") or 0) != 200 or record.get("parser_disposition") != "VERIFIED_OFFICIAL_SCHOOL_PAGE":
-            blocked.append({**record, "disposition": "OFFICIAL_ROUTE_ACCESS_BLOCKED_OR_REJECTED"})
+            rejected.append(_rejected_record(record=record, reason="OFFICIAL_ROUTE_ACCESS_BLOCKED_OR_REJECTED"))
             continue
+        body = raw_path.read_bytes()
         try:
-            parsed = parse_official_box_page(
-                raw_path.read_bytes(),
+            identity = parse_legacy_game_identity(
+                body=body,
                 url=target["box_url"],
                 source_season=SEASON,
+                source_order=source_order,
                 raw_sha256=str(record["raw_sha256"]),
+                raw_file_sha256=raw_file_sha256,
                 allowed_urls=allowed,
-                allow_season_header_conflict=True,
+                official_index_url=OFFICIAL_1997_INDEX_URL,
+                parent_url=str(record.get("parent_url") or OFFICIAL_1997_INDEX_URL),
             )
         except AuthorityViolation as exc:
-            blocked.append({**record, "disposition": "PARSE_REJECTED", "parse_error": str(exc)})
+            rejected.append(_rejected_record(record=record, reason=f"PARSE_REJECTED:{exc}"))
             continue
+        structured = parse_preformatted_page(
+            body,
+            url=validate_official_url(str(record["url"])),
+            source_season=SEASON,
+            raw_sha256=str(record["raw_sha256"]),
+        )
+        parsed = _compose_game_surface(
+            identity=identity,
+            structured=structured,
+            scoring_rows=parse_scoring_plays(decode_page(body)),
+            record=record,
+        )
         match = match_to_official_index(parsed, index_rows)
         match_statuses[str(match["canonical_game_match_status"])] += 1
+        if match["conflict_status"] not in {None, "NONE"}:
+            conflicts.append({"url": parsed["url"], "match_status": match["canonical_game_match_status"], "conflict_status": match["conflict_status"]})
+        if match["canonical_game_match_status"] not in {
+            "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+            "OFFICIAL_INDEX_DATE_CONFLICT",
+        }:
+            rejected.append(_rejected_record(record=record, reason=f"{match['canonical_game_match_status']}:{match['conflict_status']}"))
+            continue
         compact = compact_game(parsed, match)
-        compact["parent_url"] = target["official_index_url"]
-        compact["response_status"] = record.get("response_status")
-        compact["raw_relative_path"] = record.get("raw_relative_path")
+        compact["parent_url"] = OFFICIAL_1997_INDEX_URL
+        compact["response_status"] = int(record.get("response_status") or 0)
+        compact["raw_relative_path"] = str(record.get("raw_relative_path") or "")
         compact["source_order"] = source_order
-        compact["response_sha256"] = record.get("response_sha256")
-        compact["raw_sha256"] = record.get("raw_sha256")
-        compact["content_type"] = record.get("content_type")
+        compact["response_sha256"] = str(record.get("response_sha256") or "")
+        compact["raw_sha256"] = str(record.get("raw_sha256") or "")
+        compact["content_type"] = str(record.get("content_type") or "")
         compact["retrieved_at"] = record.get("timestamp")
+        compact["resolved_official_url"] = str(identity["resolved_official_url"])
+        compact["official_season_index_url"] = str(identity["official_season_index_url"])
+        compact["emitted_box_href"] = str(identity["emitted_box_href"])
+        compact["raw_file_sha256"] = raw_file_sha256
+        compact["parser_identity"] = LEGACY_H2_PARSER_VERSION
         games.append(compact)
         normalized_rows.append(
             {
                 "game": compact,
-                "officials": parsed["officials"],
+                "officials": [],
                 "team_statistics": parsed["team_statistics"],
+                "individual_player_statistics": parsed["player_stat_candidates"],
                 "player_stat_candidates": parsed["player_stat_candidates"],
-                "scoring_plays": parsed["scoring_plays"],
+                "scoring_summary": parsed["scoring_plays"],
                 "drives": parsed["drives"],
                 "play_by_play": parsed["play_by_play"],
-                "starters": parsed["starters"],
-                "participation": parsed["participation"],
+                "starters": [],
+                "participation": [],
                 "domain_coverage": parsed["domain_coverage"],
+                "parser_identity": LEGACY_H2_PARSER_VERSION,
             }
         )
     games = sorted(games, key=lambda item: (item["calendar_date"], item["url"]))
+    rejected = sorted(rejected, key=lambda item: item["url"])
     payload = {
         "schema_version": SCHEMA_VERSION,
         "artifact_type": "TAMU_OFFICIAL_1997_BOXSCORES",
         "contract_id": CONTRACT_ID,
-        "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-001",
+        "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-SUCCESSOR-001",
         "jira_key": JIRA_KEY,
         "source_id": SOURCE_ID,
         "inventory_identity": INVENTORY_IDENTITY,
         "selected_seasons": [SEASON],
-        "captures": [captures_by_url[item["box_url"]] for item in targets],
+        "captures": captures,
         "games": games,
         "normalized_rows": normalized_rows,
-        "blocked_or_partial": blocked,
+        "rejected_official_1997_games": rejected,
+        "malformed_or_missing_index_rows": missing_rows,
         "conflicts": conflicts,
+        "predecessor_gate_identity": PREDECESSOR_GATE_IDENTITY,
+        "predecessor_dataset_identity": PREDECESSOR_DATASET_IDENTITY,
+        "predecessor_acquisition_identity": PREDECESSOR_ACQUISITION_IDENTITY,
+        "predecessor_games_identity": PREDECESSOR_GAMES_IDENTITY,
         "admissions": expected_admissions() | {"union_admission": "NOT_ADMITTED", "bat_523": "IN_PROGRESS"},
         "authority": expected_authority(),
         "scientific_nonclaims": expected_scientific_nonclaims(),
@@ -293,7 +433,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "captured_pages_total": sum(1 for item in payload["captures"] if item.get("response_status") == 200),
         "verified_official_pages": sum(1 for item in payload["captures"] if item.get("parser_disposition") == "VERIFIED_OFFICIAL_SCHOOL_PAGE"),
         "normalized_games": len(games),
-        "blocked_or_partial_pages": len(blocked),
+        "blocked_or_partial_pages": len(rejected),
         "matched_strong_tuple": int(match_statuses.get("MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE", 0)),
         "date_conflicts": int(match_statuses.get("OFFICIAL_INDEX_DATE_CONFLICT", 0)),
         "name_only_insufficient": int(match_statuses.get("NAME_ONLY_INSUFFICIENT", 0)),
@@ -304,10 +444,10 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     gate = {
         "schema_version": SCHEMA_VERSION,
         "artifact_type": "TAMU_OFFICIAL_1997_BOXSCORE_GATE",
-        "result": PASS_RESULT if not blocked and counts["normalized_games"] == counts["target_games_total"] else "PARTIAL_OFFICIAL_1997_BOXSCORES",
+        "result": PASS_RESULT if not rejected and counts["normalized_games"] == counts["target_games_total"] else "PARTIAL_OFFICIAL_1997_BOXSCORES",
         "classification": PASS_CLASSIFICATION,
         "contract_id": CONTRACT_ID,
-        "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-001",
+        "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-SUCCESSOR-001",
         "jira_key": JIRA_KEY,
         "disposition": "NORMALIZED_CANDIDATE_ONLY_NO_UNION_MUTATION",
         "source_id": SOURCE_ID,
@@ -321,8 +461,15 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "authority": payload["authority"],
         "scientific_nonclaims": payload["scientific_nonclaims"],
         "protected_lane": PROTECTED_LANE,
+        "parser_identity": LEGACY_H2_PARSER_VERSION,
         "validator_code_identity": compute_code_identity(repo_root),
-        "upstream_identities": {"inventory_identity": INVENTORY_IDENTITY, "protected_split_registry_sha256": REGISTRY_SHA256},
+        "upstream_identities": {
+            "inventory_identity": INVENTORY_IDENTITY,
+            "protected_split_registry_sha256": REGISTRY_SHA256,
+            "season_index_gate_identity": source["gate"]["gate_identity"],
+            "predecessor_gate_identity": PREDECESSOR_GATE_IDENTITY,
+            "predecessor_dataset_identity": PREDECESSOR_DATASET_IDENTITY,
+        },
     }
     gate["gate_identity"] = compute_gate_identity(gate)
     return {"contract": contract, "gate": gate, "payload": payload}
@@ -331,7 +478,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
 def materialize_boxscores(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     source = load_source_index(repo_root)
     targets = selected_targets(source)
-    captures = acquire_missing(data_root=data_root, targets=targets, existing=capture_map(load_capture_index(data_root)))
+    captures = required_capture_rows(targets=targets, existing=capture_map(load_capture_index(data_root)))
     write_json(data_root / CAPTURE_INDEX_RELATIVE, {"schema_version": SCHEMA_VERSION, "captures": captures})
     objects = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     payload = objects["payload"]

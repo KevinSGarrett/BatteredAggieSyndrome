@@ -31,9 +31,9 @@ from aggie_analytics.data.tamu_official_historical_coverage_inventory import par
 SCHEMA_VERSION = "aggie.data.tamu_official_1996_season_index.v1"
 CONTRACT_RELATIVE = "configs/tamu_official_1996_season_index_contract.json"
 GATE_RELATIVE = "artifacts/data_lake/tamu_official_1996_season_index_gate.json"
-CONTRACT_ID = "BAT-XXX-TAMU-OFFICIAL-1996-SEASON-INDEX-V1"
+CONTRACT_ID = "BAT-649-TAMU-OFFICIAL-1996-SEASON-INDEX-V1"
 DECISION_UNIT = "POST-TASK-SRC014-1996-OFFICIAL-INDEX-001"
-JIRA_KEY = "BAT-XXX"
+JIRA_KEY = "BAT-649"
 SOURCE_ID = "SRC-014"
 SEASON = 1996
 DISCOVERY_PARENT_URL = "https://files.12thman.com/history/football/history/index.html"
@@ -49,6 +49,14 @@ PASS_CLASSIFICATION = "TAMU_SRC014_OFFICIAL_1996_SEASON_INDEX_CAPTURE_CANDIDATE_
 PASS_RESULT = "PASS_OFFICIAL_1996_SEASON_INDEX_CAPTURED_BOX_URLS_DISCOVERED"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 HISTORY_HREF_PROOF = "../years/1996.html"
+
+
+def _env_truthy(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _reconstruct_from_lake_only() -> bool:
+    return _env_truthy("AGGIE_ANALYTICS_RECONSTRUCT_FROM_LAKE_ONLY")
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -124,8 +132,19 @@ def fetch_official_1996_season_index(data_root: Path) -> dict[str, Any]:
     }
 
 
-def build_objects(*, body: bytes, capture: Mapping[str, Any], repo_root: Path, data_root: Path) -> dict[str, Any]:
-    discovered = discover_official_1996_url(data_root)
+def build_objects(
+    *,
+    body: bytes,
+    capture: Mapping[str, Any],
+    repo_root: Path,
+    data_root: Path,
+    discovered: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    resolved_discovery = dict(discovered) if discovered is not None else discover_official_1996_url(data_root)
+    if validate_official_url(str(resolved_discovery.get("official_index_url") or OFFICIAL_SEASON_INDEX_URL)) != OFFICIAL_SEASON_INDEX_URL:
+        raise AuthorityViolation("resolved official 1996 URL drifted from expected authority chain")
+    if str(resolved_discovery.get("history_href_proof") or HISTORY_HREF_PROOF) != HISTORY_HREF_PROOF:
+        raise AuthorityViolation("1996 history href proof missing or changed")
     compact = compact_capture(capture)
     compact["historical_publication_time"] = None
     compact["parent_url"] = DISCOVERY_PARENT_URL
@@ -145,7 +164,7 @@ def build_objects(*, body: bytes, capture: Mapping[str, Any], repo_root: Path, d
         "official_index_url": OFFICIAL_SEASON_INDEX_URL,
         "discovery_parent_url": DISCOVERY_PARENT_URL,
         "history_index_sha256": PINNED_HISTORY_INDEX_SHA256,
-        "history_href_proof": discovered["history_href_proof"],
+        "history_href_proof": HISTORY_HREF_PROOF,
         "inventory_identity": PINNED_INVENTORY_IDENTITY,
         "capture": compact,
         "capture_identity": compute_capture_identity(compact),
@@ -182,7 +201,7 @@ def build_objects(*, body: bytes, capture: Mapping[str, Any], repo_root: Path, d
         "official_index_url": OFFICIAL_SEASON_INDEX_URL,
         "discovery_parent_url": DISCOVERY_PARENT_URL,
         "history_index_sha256": PINNED_HISTORY_INDEX_SHA256,
-        "history_href_proof": discovered["history_href_proof"],
+        "history_href_proof": HISTORY_HREF_PROOF,
         "inventory_identity": PINNED_INVENTORY_IDENTITY,
         "capture": compact,
         "box_score_urls": parsed["box_score_urls"],
@@ -202,6 +221,45 @@ def build_objects(*, body: bytes, capture: Mapping[str, Any], repo_root: Path, d
 
 
 def materialize(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
+    if _reconstruct_from_lake_only():
+        committed = load_json(repo_root / GATE_RELATIVE)
+        raw_rel = (committed.get("capture") or {}).get("raw_relative_path")
+        if not raw_rel:
+            raise AuthorityViolation("committed 1996 gate missing raw capture path")
+        raw_path = data_root / str(raw_rel)
+        if not raw_path.is_file():
+            raise AuthorityViolation("1996 raw capture missing")
+        if sha256_file(raw_path) != str((committed.get("capture") or {}).get("raw_sha256") or ""):
+            raise AuthorityViolation("1996 raw capture hash drifted")
+        capture = dict(committed["capture"])
+        capture["response_status"] = int(capture.get("response_status") or 0)
+        capture["status"] = capture["response_status"]
+        capture["content_type"] = str(capture.get("content_type") or "text/html")
+        objects = build_objects(
+            body=raw_path.read_bytes(),
+            capture=capture,
+            repo_root=repo_root,
+            data_root=data_root,
+            discovered={
+                "official_index_url": OFFICIAL_SEASON_INDEX_URL,
+                "history_index_sha256": committed.get("history_index_sha256") or PINNED_HISTORY_INDEX_SHA256,
+                "history_href_proof": committed.get("history_href_proof") or HISTORY_HREF_PROOF,
+            },
+        )
+        payload = objects["payload"]
+        gate = objects["gate"]
+        payload_root = data_root / PAYLOAD_ROOT / payload["payload_identity"]
+        write_json(payload_root / "payload.json", payload)
+        write_json(repo_root / GATE_RELATIVE, gate)
+        return {
+            "gate_path": GATE_RELATIVE,
+            "gate_identity": gate["gate_identity"],
+            "payload_identity": payload["payload_identity"],
+            "payload_path": str(payload_root / "payload.json"),
+            "raw_sha256": capture["raw_sha256"],
+            "scheduled_games": gate["counts"]["scheduled_games"],
+            "box_score_urls": gate["box_score_urls"],
+        }
     fetched = fetch_official_1996_season_index(data_root)
     body = fetched.pop("body")
     stored = persist_capture(data_root, fetched, body)
@@ -245,7 +303,21 @@ def validate_artifact(*, repo_root: Path, data_root: Path, gate: Mapping[str, An
         capture["response_status"] = int(capture.get("response_status") or 0)
         capture["status"] = capture["response_status"]
         capture["content_type"] = "text/html"
-        rebuilt = build_objects(body=raw_path.read_bytes(), capture=capture, repo_root=repo_root, data_root=data_root)
+        rebuilt = build_objects(
+            body=raw_path.read_bytes(),
+            capture=capture,
+            repo_root=repo_root,
+            data_root=data_root,
+            discovered=(
+                {
+                    "official_index_url": OFFICIAL_SEASON_INDEX_URL,
+                    "history_index_sha256": committed.get("history_index_sha256") or PINNED_HISTORY_INDEX_SHA256,
+                    "history_href_proof": committed.get("history_href_proof") or HISTORY_HREF_PROOF,
+                }
+                if _reconstruct_from_lake_only()
+                else None
+            ),
+        )
         if rebuilt["gate"] != committed:
             raise AuthorityViolation("committed 1996 gate does not match reconstruction")
     return {

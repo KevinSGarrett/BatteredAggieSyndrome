@@ -1,0 +1,1479 @@
+{
+  "captures": [
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_09eaa7c37657dc70338b834e1f6b9be645d9a382451e6194bd45637c3ca4899d.html",
+      "calendar_date": "1996-08-24",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 41,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_09eaa7c37657dc70338b834e1f6b9be645d9a382451e6194bd45637c3ca4899d.html",
+      "raw_sha256": "09eaa7c37657dc70338b834e1f6b9be645d9a382451e6194bd45637c3ca4899d",
+      "season": 1996,
+      "tamu_points": 37,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2067_byu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_bcc5320ef601a110184b5bac20dfa9f8b74ee81751d49aa174eefcfb53f1d825.html",
+      "calendar_date": "1996-09-14",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 29,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_bcc5320ef601a110184b5bac20dfa9f8b74ee81751d49aa174eefcfb53f1d825.html",
+      "raw_sha256": "bcc5320ef601a110184b5bac20dfa9f8b74ee81751d49aa174eefcfb53f1d825",
+      "season": 1996,
+      "tamu_points": 22,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2068_usl.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_0acc3e22e090f77089b3b46e5d067caf66b1d73a9bde0787228e8046bad9ae87.html",
+      "calendar_date": "1996-09-21",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 0,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_0acc3e22e090f77089b3b46e5d067caf66b1d73a9bde0787228e8046bad9ae87.html",
+      "raw_sha256": "0acc3e22e090f77089b3b46e5d067caf66b1d73a9bde0787228e8046bad9ae87",
+      "season": 1996,
+      "tamu_points": 55,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2069_unt.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_2f71209566428f65f3d38b9e5af36b2152b4bafb9e00426955874d4106acfb13.html",
+      "calendar_date": "1996-09-28",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 24,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_2f71209566428f65f3d38b9e5af36b2152b4bafb9e00426955874d4106acfb13.html",
+      "raw_sha256": "2f71209566428f65f3d38b9e5af36b2152b4bafb9e00426955874d4106acfb13",
+      "season": 1996,
+      "tamu_points": 10,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2070_cu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_558812a93a0c8232104d451cc0f64c58c80730fc95d74e139c7f769364d79bf7.html",
+      "calendar_date": "1996-10-05",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 13,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_558812a93a0c8232104d451cc0f64c58c80730fc95d74e139c7f769364d79bf7.html",
+      "raw_sha256": "558812a93a0c8232104d451cc0f64c58c80730fc95d74e139c7f769364d79bf7",
+      "season": 1996,
+      "tamu_points": 63,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2071_latech.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_8be38b7963db3ea2620b50e6c2dfca246afe565388f054dd1e2bfefcc8036975.html",
+      "calendar_date": "1996-10-12",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 21,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_8be38b7963db3ea2620b50e6c2dfca246afe565388f054dd1e2bfefcc8036975.html",
+      "raw_sha256": "8be38b7963db3ea2620b50e6c2dfca246afe565388f054dd1e2bfefcc8036975",
+      "season": 1996,
+      "tamu_points": 24,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2072_isu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_d455f7cd8394fe9e662751bd9cb541e4ff8e775e5f90a7358bcca4b6e9d8206f.html",
+      "calendar_date": "1996-10-19",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 23,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_d455f7cd8394fe9e662751bd9cb541e4ff8e775e5f90a7358bcca4b6e9d8206f.html",
+      "raw_sha256": "d455f7cd8394fe9e662751bd9cb541e4ff8e775e5f90a7358bcca4b6e9d8206f",
+      "season": 1996,
+      "tamu_points": 20,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2073_ksu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_885ac2a7dadb4ecf6bed64407109e71022b59f0456f14653e23adbf5d04cb24b.html",
+      "calendar_date": "1996-10-26",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 13,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_885ac2a7dadb4ecf6bed64407109e71022b59f0456f14653e23adbf5d04cb24b.html",
+      "raw_sha256": "885ac2a7dadb4ecf6bed64407109e71022b59f0456f14653e23adbf5d04cb24b",
+      "season": 1996,
+      "tamu_points": 10,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2074_ttu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_0ad52e92c9015edb4c2cde67c8704f571e51cc6b2decf811c96ba50409672ce7.html",
+      "calendar_date": "1996-11-02",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 19,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_0ad52e92c9015edb4c2cde67c8704f571e51cc6b2decf811c96ba50409672ce7.html",
+      "raw_sha256": "0ad52e92c9015edb4c2cde67c8704f571e51cc6b2decf811c96ba50409672ce7",
+      "season": 1996,
+      "tamu_points": 38,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2075_osu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_f551f2f30b838776a826e0128bbd9a8748687f879998cdaa7e338db97d99276d.html",
+      "calendar_date": "1996-11-09",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 7,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_f551f2f30b838776a826e0128bbd9a8748687f879998cdaa7e338db97d99276d.html",
+      "raw_sha256": "f551f2f30b838776a826e0128bbd9a8748687f879998cdaa7e338db97d99276d",
+      "season": 1996,
+      "tamu_points": 24,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2076_bu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_ae79fcaccd59ebd9aa3f3b81328294afbd37f876c1c6d1c78f72b78186c49cdc.html",
+      "calendar_date": "1996-11-16",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 16,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_ae79fcaccd59ebd9aa3f3b81328294afbd37f876c1c6d1c78f72b78186c49cdc.html",
+      "raw_sha256": "ae79fcaccd59ebd9aa3f3b81328294afbd37f876c1c6d1c78f72b78186c49cdc",
+      "season": 1996,
+      "tamu_points": 33,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2077_ou.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_6ea9f8c413258a4420cd77d8f416e128baa6164a3b398183be50b601af1615b2.html",
+      "calendar_date": "1997-09-06",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 6,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_6ea9f8c413258a4420cd77d8f416e128baa6164a3b398183be50b601af1615b2.html",
+      "raw_sha256": "6ea9f8c413258a4420cd77d8f416e128baa6164a3b398183be50b601af1615b2",
+      "season": 1997,
+      "tamu_points": 59,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1914_97_shsu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_6fe662cd87945186a300db68b66d027b1956b29282ec625d4a74886c998b2ae6.html",
+      "calendar_date": "1997-09-20",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 0,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_6fe662cd87945186a300db68b66d027b1956b29282ec625d4a74886c998b2ae6.html",
+      "raw_sha256": "6fe662cd87945186a300db68b66d027b1956b29282ec625d4a74886c998b2ae6",
+      "season": 1997,
+      "tamu_points": 66,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1915_97_usl.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_c4c022c6c5e2c7d36cf4eda1badce62c8d53c9ffe3f3fcfe1432cb8b0e27093e.html",
+      "calendar_date": "1997-09-27",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 10,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_c4c022c6c5e2c7d36cf4eda1badce62c8d53c9ffe3f3fcfe1432cb8b0e27093e.html",
+      "raw_sha256": "c4c022c6c5e2c7d36cf4eda1badce62c8d53c9ffe3f3fcfe1432cb8b0e27093e",
+      "season": 1997,
+      "tamu_points": 36,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1916_97_unt.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_f7446014c8d08adf9bee64bc74da49969b020e43ec39bdf9c0fe028998af3687.html",
+      "calendar_date": "1997-10-04",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 10,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_f7446014c8d08adf9bee64bc74da49969b020e43ec39bdf9c0fe028998af3687.html",
+      "raw_sha256": "f7446014c8d08adf9bee64bc74da49969b020e43ec39bdf9c0fe028998af3687",
+      "season": 1997,
+      "tamu_points": 16,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1917_97_cu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_32d258ea0f35b867bf98475330b08ee261932f1943dac82b84da264ecd6602bb.html",
+      "calendar_date": "1997-10-11",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 17,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_32d258ea0f35b867bf98475330b08ee261932f1943dac82b84da264ecd6602bb.html",
+      "raw_sha256": "32d258ea0f35b867bf98475330b08ee261932f1943dac82b84da264ecd6602bb",
+      "season": 1997,
+      "tamu_points": 56,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1918_97_isu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_778e0d27177e4221c7c8a804646f5b3d0b37978a3e7d9428812318c30ff13699.html",
+      "calendar_date": "1997-10-18",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 36,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_778e0d27177e4221c7c8a804646f5b3d0b37978a3e7d9428812318c30ff13699.html",
+      "raw_sha256": "778e0d27177e4221c7c8a804646f5b3d0b37978a3e7d9428812318c30ff13699",
+      "season": 1997,
+      "tamu_points": 17,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1919_97_ksu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_017fc18be0893f16c73ef07507bb72f64a30cd3e4bb8d83378aafdc98502c890.html",
+      "calendar_date": "1997-11-01",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 25,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_017fc18be0893f16c73ef07507bb72f64a30cd3e4bb8d83378aafdc98502c890.html",
+      "raw_sha256": "017fc18be0893f16c73ef07507bb72f64a30cd3e4bb8d83378aafdc98502c890",
+      "season": 1997,
+      "tamu_points": 28,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1921_97_osu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_4dc4bb77fecbc35928292861b674f93d4a110d3acc21c0347353bb003f4695a2.html",
+      "calendar_date": "1997-11-08",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 10,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_4dc4bb77fecbc35928292861b674f93d4a110d3acc21c0347353bb003f4695a2.html",
+      "raw_sha256": "4dc4bb77fecbc35928292861b674f93d4a110d3acc21c0347353bb003f4695a2",
+      "season": 1997,
+      "tamu_points": 38,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1922_97_bu.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_c7feaec3b0f442c89515bd979165b6312410d5f7241f7422fb5eb495c13dd0e1.html",
+      "calendar_date": "1997-11-15",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 7,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_c7feaec3b0f442c89515bd979165b6312410d5f7241f7422fb5eb495c13dd0e1.html",
+      "raw_sha256": "c7feaec3b0f442c89515bd979165b6312410d5f7241f7422fb5eb495c13dd0e1",
+      "season": 1997,
+      "tamu_points": 51,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1923_97_ou.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_680a4e5a5593bb8ac805c453561de890f66316147969ad1eca9bf5395b37572a.html",
+      "calendar_date": "1997-11-28",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 16,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_680a4e5a5593bb8ac805c453561de890f66316147969ad1eca9bf5395b37572a.html",
+      "raw_sha256": "680a4e5a5593bb8ac805c453561de890f66316147969ad1eca9bf5395b37572a",
+      "season": 1997,
+      "tamu_points": 27,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1924_97_texas.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_0deb21a299d8dc32a34e31d707521be35ab27745e962fbcf0425d519f012ff82.html",
+      "calendar_date": "1997-12-06",
+      "conflict_status": "SEASON_INDEX_DATE_VS_BOX_PLAYED_DATE",
+      "match_status": "OFFICIAL_INDEX_DATE_CONFLICT",
+      "opponent_points": 54,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_0deb21a299d8dc32a34e31d707521be35ab27745e962fbcf0425d519f012ff82.html",
+      "raw_sha256": "0deb21a299d8dc32a34e31d707521be35ab27745e962fbcf0425d519f012ff82",
+      "season": 1997,
+      "tamu_points": 15,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1925_97_neb.html"
+    },
+    {
+      "absolute_raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-014\\tamu_official_gamebook_equivalent\\historical_archive\\box_scores\\sha256_f2e540230a5574b848a6b5104c4c272f3528d1f52ea4b5f3cd5618bb09141542.html",
+      "calendar_date": "1998-01-01",
+      "conflict_status": "NONE",
+      "match_status": "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE",
+      "opponent_points": 29,
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/box_scores/sha256_f2e540230a5574b848a6b5104c4c272f3528d1f52ea4b5f3cd5618bb09141542.html",
+      "raw_sha256": "f2e540230a5574b848a6b5104c4c272f3528d1f52ea4b5f3cd5618bb09141542",
+      "season": 1997,
+      "tamu_points": 23,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1926_97_ucla.html"
+    }
+  ],
+  "gates": {
+    "box1996": {
+      "acquisition_identity": "76a5923573b9e8bbb094c7a526d22f2357580acb9093e05cec3f6df4aa4a0816",
+      "counts": {
+        "blocked_or_partial_pages": 0,
+        "captured_pages_total": 11,
+        "date_conflicts": 0,
+        "games_admitted_to_union": 0,
+        "matched_strong_tuple": 11,
+        "name_only_insufficient": 0,
+        "ncaa_contest_ids_created": 0,
+        "normalized_games": 11,
+        "target_games_total": 11,
+        "unmatched_strong_tuple": 0,
+        "verified_official_pages": 11
+      },
+      "dataset_identity": "3bb72015157ae542958527ee9c43ec5e58133a475c175378dcd020724506686f",
+      "games_identity": "9d0e6ffc9c25ac0fc6df190f190ffc03ec6fdfc30f8a0833c1ee8cd463fe75c4",
+      "gate_identity": "e8bc79dc08563de1fe29a25cb15ddcac0449a706eeb5034ae51894cc77376ea3",
+      "predecessor_dataset_identity": "cfe8af8d3bca4afca15dffcca4514d85626cfadb191af769a69bac8fb2d8b9d7",
+      "predecessor_gate_identity": "77997c43e9939a269501e73950487dca26af18de0c331275f2cc56e1c23b9399"
+    },
+    "box1997": {
+      "acquisition_identity": "fd163b0e35a1836a9f3775fafc77671c4a016d9a9aadb8841393a875db04721d",
+      "counts": {
+        "blocked_or_partial_pages": 0,
+        "captured_pages_total": 12,
+        "date_conflicts": 1,
+        "games_admitted_to_union": 0,
+        "matched_strong_tuple": 11,
+        "name_only_insufficient": 0,
+        "ncaa_contest_ids_created": 0,
+        "normalized_games": 12,
+        "target_games_total": 12,
+        "unmatched_strong_tuple": 0,
+        "verified_official_pages": 12
+      },
+      "dataset_identity": "3fd339c3f45cf577ea13729fbdf9d393d02776e28a860b0fbc664f687bef3427",
+      "games_identity": "940f9336499a2aacb19324d65ed1f9094d5c7d5f639f091d8ce0210c45af9276",
+      "gate_identity": "0902a9e7d88a5d20dc6a3bdebf6c501d66d6823b8446bebcd072c11c4eb7ba7c",
+      "predecessor_dataset_identity": "ca7bbf2e78dd028d647ff3abc77392c91d956c96ab7d9a93b2ca6f5e8953598a",
+      "predecessor_gate_identity": "09a0c2cc295c1b8c5cb03e392e7bb38d637f48b4d7090b69766e69b89ca808f3"
+    },
+    "corpus19962009": {
+      "counts": {
+        "active_rejection_count": 17,
+        "complete_rejection_count": 40,
+        "games": 150,
+        "ncaa_contest_ids_created": 0,
+        "new_admissions": 23,
+        "new_rejections": 17,
+        "seasons": 14,
+        "serialized_rows_total": 61556,
+        "superseded_rejection_count": 23
+      },
+      "dataset_identity": "7162585b8cffef93be31721f8d40122d132c97d1243cdcf9ec23d7e46c7646a8",
+      "gate_identity": "7725199d7e67697fe33478de8d8a1ba8fcfebfde75ecef33f59663b5311d6ec2",
+      "predecessor_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
+      "predecessor_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
+      "rows_per_domain": {
+        "drives": 3142,
+        "individual_player_statistics": 3613,
+        "play_by_play": 47542,
+        "scoring_summary": 2252,
+        "team_statistics": 5007
+      },
+      "union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f"
+    },
+    "corpus19982009Integrity": {
+      "counts": {
+        "active_rejection_count": 17,
+        "complete_rejection_count": 40,
+        "games": 127,
+        "ncaa_contest_ids_created": 0,
+        "seasons": 12,
+        "serialized_rows_total": 58753
+      },
+      "dataset_identity": "7d839faee647e7996c32c66c5a38f218e53760ff280bead3ad9c66ff59bf4e0e",
+      "gate_identity": "f5f006b20e6bb2917d65d1c5a93161d81cb7d74bfad4389e357f9b85657664d5",
+      "predecessor_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
+      "predecessor_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54"
+    },
+    "mountedAcceptance": {
+      "acceptance_result_identity": "f490cf573d76273e7a772e94fe5137985acb6d36ad633b5b64ed117c0749d537",
+      "counts": {
+        "errored": 0,
+        "executed": 29,
+        "failed": 0,
+        "passed": 29,
+        "skipped": 0
+      },
+      "gate_identity": "7442e2ef85c0992a99f8af027b49fb662909390a2e4b7d0253b58a956c7c8e80",
+      "required_raw_manifest": [
+        {
+          "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/season_index/sha256_c7e447bad869680b7207917eb5295d6a45fdc55a8190df26c00b7126a0844c3a.html",
+          "raw_sha256": "c7e447bad869680b7207917eb5295d6a45fdc55a8190df26c00b7126a0844c3a",
+          "source_gate": "artifacts/data_lake/tamu_official_1997_season_index_gate.json"
+        },
+        {
+          "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/season_index/sha256_fa68d1abca612aab0fe9bb60670ce5e577c20ac37cfce029718b87a45cd5e202.html",
+          "raw_sha256": "fa68d1abca612aab0fe9bb60670ce5e577c20ac37cfce029718b87a45cd5e202",
+          "source_gate": "artifacts/data_lake/tamu_official_1996_season_index_gate.json"
+        }
+      ]
+    },
+    "rejectionCompleteUnion": {
+      "gate_identity": "6262b66511df17320c993078efd27976be6b6be9ab2b53b64114c8472348b241",
+      "union_identity": "d404d1f92d9836619bd0019f8da48438a9be82add6ad654d33854757736c60a1",
+      "counts": {
+        "cycle9_official_games_preserved": 26,
+        "cycle9_union_games_preserved": 203,
+        "date_conflicts": 5,
+        "duplicates_rejected": 0,
+        "games_admitted_to_union": 0,
+        "matched_strong_tuple": 122,
+        "metadata_only_games": 13,
+        "name_only_player_merges": 0,
+        "ncaa_contest_ids_created": 0,
+        "new_games_added": 6,
+        "official_1998_admitted": 6,
+        "official_1998_rejected": 8,
+        "official_1998_target_games": 14,
+        "official_1999_admitted": 7,
+        "official_1999_rejected": 5,
+        "official_1999_target_games": 12,
+        "official_2000_added": 9,
+        "official_2000_admitted": 9,
+        "official_2000_rejected": 3,
+        "official_2000_target_games": 12,
+        "official_2001_added": 12,
+        "official_2001_admitted": 12,
+        "official_2001_rejected": 0,
+        "official_2001_target_games": 12,
+        "official_2002_added": 11,
+        "official_2002_admitted": 11,
+        "official_2002_rejected": 1,
+        "official_2002_target_games": 12,
+        "official_2003_added": 12,
+        "official_2003_admitted": 12,
+        "official_2003_rejected": 0,
+        "official_2003_target_games": 12,
+        "official_2004_added": 0,
+        "official_2004_admitted": 12,
+        "official_2004_preserved": 12,
+        "official_2004_rejected": 0,
+        "official_2004_revalidated": 12,
+        "official_2004_target_games": 12,
+        "official_2005_added": 0,
+        "official_2005_preserved": 11,
+        "official_2005_revalidated": 11,
+        "official_2005_target_games": 11,
+        "overlays_applied": 58,
+        "overlays_applied_this_phase": 9,
+        "overlays_became_rich": 56,
+        "overlays_became_rich_this_phase": 9,
+        "overlays_revalidated": 11,
+        "predecessor_261_union_games_preserved": 261,
+        "predecessor_273_union_games_preserved": 273,
+        "predecessor_285_union_games_preserved": 285,
+        "predecessor_296_union_games_preserved": 296,
+        "predecessor_308_union_games_preserved": 308,
+        "predecessor_union_games_preserved": 324,
+        "prior_226_union_games_preserved": 226,
+        "prior_237_union_games_preserved": 237,
+        "prior_250_union_games_preserved": 250,
+        "prior_261_union_games_preserved": 261,
+        "prior_enriched_union_games_preserved": 237,
+        "rejected_urls_complete": 40,
+        "rich_structured_games": 317,
+        "scoring_summary_present_games": 124,
+        "season_header_conflicts": 1,
+        "union_captured_games": 330,
+        "union_target_games": 330,
+        "unmatched_rejected": 17,
+        "wmt_games_preserved": 177,
+        "wmt_metadata_only_games": 13,
+        "wmt_rich_structured_games": 164
+      }
+    },
+    "rejectionIntegrity": {
+      "active_rejection_count": 17,
+      "complete_rejection_count": 40,
+      "gate_identity": "634750d0740264514c47480f0e86f2ce730d2dac6efb3589ca8e8298958ab66d",
+      "ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81",
+      "superseded_rejection_count": 23
+    },
+    "structured1996": {
+      "counts": {
+        "drives_rows": 0,
+        "games_total": 11,
+        "games_with_structured_rows": 11,
+        "individual_player_statistics_rows": 66,
+        "ncaa_contest_ids_created": 0,
+        "play_by_play_rows": 2194,
+        "scoring_summary_rows": 50,
+        "serialized_rows_total": 2481,
+        "team_statistics_rows": 171
+      },
+      "gate_identity": "2e65dedebfacfb0f3e723718aef84d9f8feb48ac216e72a9a993a8391b16572f",
+      "payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746"
+    },
+    "structured1997": {
+      "counts": {
+        "drives_rows": 0,
+        "games_total": 12,
+        "games_with_structured_rows": 12,
+        "individual_player_statistics_rows": 72,
+        "ncaa_contest_ids_created": 0,
+        "play_by_play_rows": 0,
+        "scoring_summary_rows": 52,
+        "serialized_rows_total": 322,
+        "team_statistics_rows": 198
+      },
+      "gate_identity": "5b97ccc6cabc82a3aa0d0f7bb8a95d13863d542f32eee16e6cfdecc28530dd01",
+      "payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c"
+    },
+    "union1996": {
+      "counts": {
+        "active_rejections": 17,
+        "cycle9_official_games_preserved": 26,
+        "cycle9_union_games_preserved": 203,
+        "date_conflicts": 5,
+        "duplicates_rejected": 0,
+        "games_admitted_to_union": 150,
+        "matched_strong_tuple": 122,
+        "metadata_only_games": 13,
+        "name_only_player_merges": 0,
+        "ncaa_contest_ids_created": 0,
+        "new_games_added": 11,
+        "official_1996_admitted": 11,
+        "official_1996_rejected": 17,
+        "official_1997_admitted": 12,
+        "official_1997_rejected": 28,
+        "official_1998_admitted": 6,
+        "official_1998_rejected": 8,
+        "official_1998_target_games": 14,
+        "official_1999_admitted": 7,
+        "official_1999_rejected": 5,
+        "official_1999_target_games": 12,
+        "official_2000_added": 9,
+        "official_2000_admitted": 9,
+        "official_2000_rejected": 3,
+        "official_2000_target_games": 12,
+        "official_2001_added": 12,
+        "official_2001_admitted": 12,
+        "official_2001_rejected": 0,
+        "official_2001_target_games": 12,
+        "official_2002_added": 11,
+        "official_2002_admitted": 11,
+        "official_2002_rejected": 1,
+        "official_2002_target_games": 12,
+        "official_2003_added": 12,
+        "official_2003_admitted": 12,
+        "official_2003_rejected": 0,
+        "official_2003_target_games": 12,
+        "official_2004_added": 0,
+        "official_2004_admitted": 12,
+        "official_2004_preserved": 12,
+        "official_2004_rejected": 0,
+        "official_2004_revalidated": 12,
+        "official_2004_target_games": 12,
+        "official_2005_added": 0,
+        "official_2005_preserved": 11,
+        "official_2005_revalidated": 11,
+        "official_2005_target_games": 11,
+        "overlays_applied": 58,
+        "overlays_applied_this_phase": 9,
+        "overlays_became_rich": 56,
+        "overlays_became_rich_this_phase": 9,
+        "overlays_revalidated": 11,
+        "predecessor_261_union_games_preserved": 261,
+        "predecessor_273_union_games_preserved": 273,
+        "predecessor_285_union_games_preserved": 285,
+        "predecessor_296_union_games_preserved": 296,
+        "predecessor_308_union_games_preserved": 308,
+        "predecessor_membership_preserved": 139,
+        "predecessor_union_games_preserved": 324,
+        "prior_226_union_games_preserved": 226,
+        "prior_237_union_games_preserved": 237,
+        "prior_250_union_games_preserved": 250,
+        "prior_261_union_games_preserved": 261,
+        "prior_enriched_union_games_preserved": 237,
+        "rejected_urls_complete": 40,
+        "rich_structured_games": 317,
+        "scoring_summary_present_games": 124,
+        "season_header_conflicts": 1,
+        "superseded_rejections": 11,
+        "union_captured_games": 330,
+        "union_target_games": 330,
+        "unmatched_rejected": 17,
+        "wmt_games_preserved": 177,
+        "wmt_metadata_only_games": 13,
+        "wmt_rich_structured_games": 164
+      },
+      "gate_identity": "35d9719380980ec2dc162c3b991097480ba1607ea9c8e4e75a24aeacdc623022",
+      "predecessor_gate_identity": "a36e0f6335a04fccf5b5c1a9f490c4c1c73d0738a0204c316deb025b0bde1771",
+      "predecessor_union_identity": "0a3311aa9915299403e650c47bc9a24e7e8f54c5f18e1762916b4418201294e6",
+      "union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+      "active_rejection_count": 17
+    },
+    "union1997": {
+      "counts": {
+        "active_rejections": 28,
+        "cycle9_official_games_preserved": 26,
+        "cycle9_union_games_preserved": 203,
+        "date_conflicts": 5,
+        "duplicates_rejected": 0,
+        "games_admitted_to_union": 139,
+        "matched_strong_tuple": 122,
+        "metadata_only_games": 13,
+        "name_only_player_merges": 0,
+        "ncaa_contest_ids_created": 0,
+        "new_games_added": 12,
+        "official_1996_admitted": 0,
+        "official_1996_rejected": 11,
+        "official_1997_admitted": 12,
+        "official_1997_rejected": 28,
+        "official_1998_admitted": 6,
+        "official_1998_rejected": 8,
+        "official_1998_target_games": 14,
+        "official_1999_admitted": 7,
+        "official_1999_rejected": 5,
+        "official_1999_target_games": 12,
+        "official_2000_added": 9,
+        "official_2000_admitted": 9,
+        "official_2000_rejected": 3,
+        "official_2000_target_games": 12,
+        "official_2001_added": 12,
+        "official_2001_admitted": 12,
+        "official_2001_rejected": 0,
+        "official_2001_target_games": 12,
+        "official_2002_added": 11,
+        "official_2002_admitted": 11,
+        "official_2002_rejected": 1,
+        "official_2002_target_games": 12,
+        "official_2003_added": 12,
+        "official_2003_admitted": 12,
+        "official_2003_rejected": 0,
+        "official_2003_target_games": 12,
+        "official_2004_added": 0,
+        "official_2004_admitted": 12,
+        "official_2004_preserved": 12,
+        "official_2004_rejected": 0,
+        "official_2004_revalidated": 12,
+        "official_2004_target_games": 12,
+        "official_2005_added": 0,
+        "official_2005_preserved": 11,
+        "official_2005_revalidated": 11,
+        "official_2005_target_games": 11,
+        "overlays_applied": 58,
+        "overlays_applied_this_phase": 9,
+        "overlays_became_rich": 56,
+        "overlays_became_rich_this_phase": 9,
+        "overlays_revalidated": 11,
+        "predecessor_261_union_games_preserved": 261,
+        "predecessor_273_union_games_preserved": 273,
+        "predecessor_285_union_games_preserved": 285,
+        "predecessor_296_union_games_preserved": 296,
+        "predecessor_308_union_games_preserved": 308,
+        "predecessor_membership_preserved": 127,
+        "predecessor_union_games_preserved": 324,
+        "prior_226_union_games_preserved": 226,
+        "prior_237_union_games_preserved": 237,
+        "prior_250_union_games_preserved": 250,
+        "prior_261_union_games_preserved": 261,
+        "prior_enriched_union_games_preserved": 237,
+        "rejected_urls_complete": 40,
+        "rich_structured_games": 317,
+        "scoring_summary_present_games": 124,
+        "season_header_conflicts": 1,
+        "superseded_rejections": 12,
+        "union_captured_games": 330,
+        "union_target_games": 330,
+        "unmatched_rejected": 28,
+        "wmt_games_preserved": 177,
+        "wmt_metadata_only_games": 13,
+        "wmt_rich_structured_games": 164
+      },
+      "gate_identity": "32d6febb6e6fc88e443fbbad1b27cfac6a645e9954d2b90f88283e947f900d33",
+      "predecessor_gate_identity": "a6ac7c237333febc5822a467b60be944af20190ddc203f8027f5aeaa61af7f90",
+      "predecessor_union_identity": "e85b9b1d420f07204c55a8f82989f4cde99e8a2c151e1bce4ca5ae68ef3f6fe8",
+      "union_identity": "0a3311aa9915299403e650c47bc9a24e7e8f54c5f18e1762916b4418201294e6",
+      "active_rejection_count": 28
+    }
+  },
+  "head_sha": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
+  "malformed_or_missing_rows": {
+    "1996": [
+      {
+        "box_score_url": null,
+        "link_disposition": "MISSING",
+        "ncaa_contest_id": null,
+        "page_url": "https://files.12thman.com/history/football/years/1996.html",
+        "raw_sha256": "fa68d1abca612aab0fe9bb60670ce5e577c20ac37cfce029718b87a45cd5e202",
+        "source_date": "Fri, Nov 29",
+        "source_location": "Austin, Texas",
+        "source_opponent": "@ Texas *",
+        "source_result": "L 15-51",
+        "source_row_order": 12
+      }
+    ],
+    "1997": [
+      {
+        "box_score_url": null,
+        "link_disposition": "MALFORMED",
+        "ncaa_contest_id": null,
+        "page_url": "https://files.12thman.com/history/football/years/1997.html",
+        "raw_sha256": "c7e447bad869680b7207917eb5295d6a45fdc55a8190df26c00b7126a0844c3a",
+        "source_date": "Sat, Oct 25",
+        "source_location": "Lubbock, Texas",
+        "source_opponent": "@ Texas Tech *",
+        "source_result": "L 13-16",
+        "source_row_order": 7
+      }
+    ]
+  },
+  "origin_main_sha": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
+  "rejection_ledger": {
+    "active_count": 17,
+    "active_rejections": [
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-637",
+        "reason": "PARSE_REJECTED_OR_PARTIAL",
+        "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1900_fsu_box.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-637",
+        "reason": "PARSE_REJECTED_OR_PARTIAL",
+        "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1901_lat_box.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-637",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1905_neb_box.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-637",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1907_tech_box.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-637",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1909_ou_box.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-637",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1910_mu_box.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-637",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1912_ksu_box.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-637",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1998-1999/mfb_1913_sugar_box.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_1897_alamo.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_437_latech.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_445_nebraska.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_446_missouri.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/1999-2000/mfb_447_texas.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/2007-2008/mfb_148_ta04-mia.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/2007-2008/mfb_2158_ta10-ou.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/2008-2009/ta03-mia.html"
+      },
+      {
+        "match_status": "UNMATCHED_STRONG_TUPLE",
+        "origin_issue": "BAT-633",
+        "reason": "INSUFFICIENT_TUPLE",
+        "url": "https://files.12thman.com/history/football/stats/2009-2010/ta13-uga.html"
+      }
+    ],
+    "gate_identity": "634750d0740264514c47480f0e86f2ce730d2dac6efb3589ca8e8298958ab66d",
+    "historical_count": 40,
+    "ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81",
+    "supersession_count": 23,
+    "supersessions": [
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "dd28fa8eb2c8ed56dd88644d16e7196d17dc9bbe84a26230473ed1c93f6ef33f",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "4000530756041031e84232333be3520e975f543e188c795e99be8ddb82bd059b",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2067_byu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "ae9d8efe4817d20cd47d5ae489ce514faf1215dd4818dba6d18e90d023886e22",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "5237349a38c80c3a3f1f858de170e17dc153ff523718f7c370035d9b89539016",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2068_usl.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "4b934960d08087ee9c18902e1644eb5dd439e06fdd45ffb1713d2e524c04c8f6",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "f41fc10b8b95b08ebdb253587c002bf8cb6db2f3f1a3612570f900fccb181da3",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2069_unt.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "f759ddbac6e1754d4d3733fdf659ce9964b65e7660be2c5387e5c349d1f8e065",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "08f5f6ecae29a218acaa13e52b8bfcf0a0d7a16ce935162ac8c5da8f5ff19d82",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2070_cu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "67f0f4e0dc3f135f62eaadecfca67c6b8a51d36591eb534e310bc986ba1ba297",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "f45f80d0a47f6ef7cc42e12cd8a563c8a7a5988e4fbf24205f56b3d481e75f25",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2071_latech.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "ed536a5bb7cb4a4570f60bfbbac315c52228d5cfbcd41d4033c1fa208d40e020",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "ea577f33699b4bdec2113e87766e6978fc6fa8a45c1327f5a934d9e0720af7ed",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2072_isu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "0e8dce9d32b2a148ec7b015d975b2fa9d15dd68b7c6397be6fac5233e3d2444c",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "896bf6862976d3c198ee078d834463278521d54c5ec397405f105f6293808246",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2073_ksu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "973302d34d10e6659723665178b01efaff2bdda8eea83064ffa19d53d90ffa0b",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "b7196575f1ce8b0ea54dbac4a10f0dd304ada45cc859db3a894c23a588c0fc43",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2074_ttu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "4da3c28a0a523d33e5c3805b24c440fb184add8b4310ccdaefe55390faf7da41",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "c76b0a7fb56c653f810b05a615dcd96d9836cb75ba16b64e30090b09774587ae",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2075_osu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "0874085ccbc6b2c8961567f3621a7687c30b546631f9f9a771f1ea1b5fe63a9f",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "6491ef4a7dca3e44f9f1493715bb30598f60782a3bc2e36a528cc0bb5f32eb37",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2076_bu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "85d2d9ac98834668fc35e36017049bf275318f9fc0d4830db523dba3476707d2",
+        "new_structured_payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "8e0c9cc35ddbca911c11b643de81da2dc9747a1d239f24ce18bd5913d11fc8de",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2077_ou.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "dc35a86e59ba28065b2283c54ffd1d5b606eb1cf84f444a9eddc8fdef1aee275",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "9d8573ea201e3ff465eeba30c7018f0781712a42f9cb253ac99a9d2cda88126b",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1914_97_shsu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "4e5536c07c17c75dc3178b70260a93395a48a518322831b2b454582672e96166",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "9949655d25eff05eff5fcd2b038e0e9e60896a6760df3507cab534334737544c",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1915_97_usl.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "883561820cbffb2bfc8a757151a3cc2b178203e8544b256d4830a3efd69d8cf1",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "c35f47a93a4d0195f7d664af8803703ab6ed7c86d6a3d81eb125e24d8055d05b",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1916_97_unt.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "a63a80f00c800429dd151d346a087d455cd3f23bafa1bda445b01460477ee2cf",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "bd9d170418e38d7caab48b6d00a43f8762635f6f07bb252a4f3a0401fcd2850e",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1917_97_cu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "72eb14015db04a18986d62b45c561231e0fe6f27c6c284a0e968fccb2265fa94",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "4451ee33d6be7a3ee9139a48ba4c31ec92e7ed3ec8f7cf0f4205d17faaff6754",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1918_97_isu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "adc73c77cf3c0cd4426ba303467fa49cba86a84f52bb5e5ad783b43a5761d9a6",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "06b1fef80c27a1ccd471f34641848638da2f1020e80569aff8daa40e8c5b511f",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1919_97_ksu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "17f524022642baec2cab95263c52c7fe9db34ba7132e7ac3b4a60746076e4d37",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "269a53a70a24653e84bba2ada2c9915119c8d695aae840d8c3c5437352f3a063",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1921_97_osu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "3cb2a491e61ec3f240d3ec20280c0144f40db188d4449c21d1dacb624bf50ffd",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "b10c3704fd9819519a9d43879668bd101ea1e75fc7c39d3bdd0dcca31e512220",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1922_97_bu.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "5a0f20060f91a787474058491baa33a50cccdbb39e82bac08baa7af86d81c4c5",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "d653767f972ac7a83548c59eb183a230084adf9e47a4e8ce3a15dc59fc11d70d",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1923_97_ou.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "d455a971972980925f389859748214d1c61592f3d91966c99f53244b1c7663cc",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "08906b55162fb8a6a73ad468f61eff6cf228cb6104dd8dc04988e7a3faa7ec25",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1924_97_texas.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "c38d7d0293a662bd20a543e8f452d2f022fb05a7308ed68fa86cad45d0e85a65",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "290d6990bc83c306ac8bdc714108b822050230d4ee6c2eb12708c6829bf6865f",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1925_97_neb.html"
+      },
+      {
+        "material_merge_sha": null,
+        "new_normalized_game_identity": "d47ce62789c58eb072995d4c8051abde295a45f1c21b472defd4ee689dc1b1d0",
+        "new_structured_payload_identity": "896d4f30c819a6c1df5b59d4d15baee953e4ecfa3062d4e00e1b0523c4cc535c",
+        "new_union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
+        "old_rejection_identity": "3f1c293d1cab6b25ae5ef68aa640d3213bc6ef1dae8c566cc373750ac911ca6d",
+        "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
+        "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1926_97_ucla.html"
+      }
+    ]
+  },
+  "structured_rows_by_game": [
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 16
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2067_byu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 15
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2068_usl.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 345,
+        "scoring_summary": 9,
+        "team_statistics": 16
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2069_unt.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 373,
+        "scoring_summary": 6,
+        "team_statistics": 15
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2070_cu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 413,
+        "scoring_summary": 12,
+        "team_statistics": 15
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2071_latech.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 16
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2072_isu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 364,
+        "scoring_summary": 8,
+        "team_statistics": 16
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2073_ksu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 338,
+        "scoring_summary": 5,
+        "team_statistics": 15
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2074_ttu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 16
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2075_osu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 16
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2076_bu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "PRESENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 361,
+        "scoring_summary": 10,
+        "team_statistics": 15
+      },
+      "season": 1996,
+      "url": "https://files.12thman.com/history/football/stats/1996-1997/mfb_2077_ou.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 11,
+        "team_statistics": 15
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1914_97_shsu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 10,
+        "team_statistics": 15
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1915_97_usl.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 16
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1916_97_unt.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 15
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1917_97_cu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 15
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1918_97_isu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 16
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1919_97_ksu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 9,
+        "team_statistics": 21
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1921_97_osu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 6,
+        "team_statistics": 20
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1922_97_bu.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 15
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1923_97_ou.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 8,
+        "team_statistics": 20
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1924_97_texas.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "ABSENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 0,
+        "team_statistics": 15
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1925_97_neb.html"
+    },
+    {
+      "domain_coverage": {
+        "drives": "ABSENT",
+        "individual_player_statistics": "PRESENT",
+        "play_by_play": "ABSENT",
+        "scoring_summary": "PRESENT",
+        "team_statistics": "PRESENT"
+      },
+      "parser_identity": "tamu.official.legacy_h2.v1",
+      "row_counts": {
+        "drives": 0,
+        "individual_player_statistics": 6,
+        "play_by_play": 0,
+        "scoring_summary": 8,
+        "team_statistics": 15
+      },
+      "season": 1997,
+      "url": "https://files.12thman.com/history/football/stats/1997-1998/mfb_1926_97_ucla.html"
+    }
+  ]
+}

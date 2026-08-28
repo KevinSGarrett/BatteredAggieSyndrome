@@ -3133,13 +3133,13 @@
     {
       "binding_id": "BAT-639-OFFICIAL-1998-REJECTION-INTEGRITY",
       "jira_key": "BAT-639",
-      "local_issue_id": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
+      "local_issue_id": "POST-TASK-SRC014-1996-2009-REJECTION-SUPERSESSION-001",
       "canonical_artifact_path": "artifacts/data_lake/tamu_official_1998_2009_rejection_integrity_gate.json",
       "identity_field": "gate_identity",
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
-        "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
-        "jira_key": "BAT-XXX",
+        "decision_unit": "POST-TASK-SRC014-1996-2009-REJECTION-SUPERSESSION-001",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1998_2009_REJECTION_INTEGRITY_CANDIDATE_ONLY",
         "result": "PASS_REJECTION_LEDGER_COMPLETE_AND_CORPUS_EXCLUDED"
@@ -3161,7 +3161,7 @@
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
         "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
-        "jira_key": "BAT-XXX",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY",
         "result": "PASS_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR"
@@ -3177,16 +3177,16 @@
     {
       "binding_id": "BAT-645-OFFICIAL-1996-BOXSCORES",
       "jira_key": "BAT-645",
-      "local_issue_id": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-001",
+      "local_issue_id": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-SUCCESSOR-001",
       "canonical_artifact_path": "artifacts/data_lake/tamu_official_1996_boxscore_gate.json",
       "identity_field": "gate_identity",
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
-        "decision_unit": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-001",
-        "jira_key": "BAT-XXX",
+        "decision_unit": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-SUCCESSOR-001",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1996_BOXSCORE_CANDIDATE_ONLY",
-        "result": "PARTIAL_OFFICIAL_1996_BOXSCORES"
+        "result": "PASS_OFFICIAL_1996_BOXSCORES_NORMALIZED"
       },
       "forbidden_true_paths": [],
       "forbidden_lane_values": [
@@ -3199,16 +3199,16 @@
     {
       "binding_id": "BAT-646-OFFICIAL-1996-STRUCTURED-DOMAINS",
       "jira_key": "BAT-646",
-      "local_issue_id": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-001",
+      "local_issue_id": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-SUCCESSOR-001",
       "canonical_artifact_path": "artifacts/data_lake/tamu_official_1996_structured_domains_gate.json",
       "identity_field": "gate_identity",
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
-        "decision_unit": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-001",
-        "jira_key": "BAT-XXX",
+        "decision_unit": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-SUCCESSOR-001",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1996_STRUCTURED_DOMAINS_CANDIDATE_ONLY",
-        "result": "PARTIAL_OFFICIAL_1996_STRUCTURED_DOMAINS"
+        "result": "PASS_OFFICIAL_1996_STRUCTURED_DOMAINS"
       },
       "forbidden_true_paths": [],
       "forbidden_lane_values": [
@@ -3221,16 +3221,16 @@
     {
       "binding_id": "BAT-647-OFFICIAL-1996-EXPANDED-UNION",
       "jira_key": "BAT-647",
-      "local_issue_id": "POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001",
+      "local_issue_id": "POST-TASK-SRC014-1996-RECOVERED-UNION-001",
       "canonical_artifact_path": "artifacts/data_lake/tamu_official_gamebook_union_1996_expanded_gate.json",
       "identity_field": "gate_identity",
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
-        "decision_unit": "POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001",
-        "jira_key": "BAT-XXX",
+        "decision_unit": "POST-TASK-SRC014-1996-RECOVERED-UNION-001",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_OFFICIAL_GAMEBOOK_UNION_1996_EXPANDED_CANDIDATE_ONLY",
-        "result": "PARTIAL_OFFICIAL_1996_EXPANDED_UNION_NO_NEW_ADMISSIONS"
+        "result": "PASS_OFFICIAL_1996_RECOVERED_UNION_SUCCESSOR"
       },
       "forbidden_true_paths": [],
       "forbidden_lane_values": [
@@ -3243,13 +3243,13 @@
     {
       "binding_id": "BAT-648-OFFICIAL-1996-2009-CORPUS",
       "jira_key": "BAT-648",
-      "local_issue_id": "POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001",
+      "local_issue_id": "POST-TASK-SRC014-1996-2009-RECOVERED-STRUCTURED-ROW-CORPUS-001",
       "canonical_artifact_path": "artifacts/data_lake/tamu_official_1996_2009_structured_row_corpus_gate.json",
       "identity_field": "gate_identity",
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
-        "decision_unit": "POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001",
-        "jira_key": "BAT-XXX",
+        "decision_unit": "POST-TASK-SRC014-1996-2009-RECOVERED-STRUCTURED-ROW-CORPUS-001",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1996_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY",
         "result": "PASS_OFFICIAL_1996_2009_STRUCTURED_ROW_CORPUS_SUCCESSOR"
@@ -3271,7 +3271,7 @@
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
         "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
-        "jira_key": "BAT-XXX",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_OFFICIAL_GAMEBOOK_UNION_1998_REJECTION_COMPLETE_CANDIDATE_ONLY",
         "result": "PASS_IMMUTABLE_REJECTION_COMPLETE_UNION_SUCCESSOR"
@@ -3293,7 +3293,7 @@
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
         "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-INDEX-001",
-        "jira_key": "BAT-XXX",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1997_SEASON_INDEX_CAPTURE_CANDIDATE_ONLY",
         "result": "PASS_OFFICIAL_1997_SEASON_INDEX_CAPTURED_BOX_URLS_DISCOVERED"
@@ -3309,16 +3309,16 @@
     {
       "binding_id": "BAT-641-OFFICIAL-1997-BOXSCORES",
       "jira_key": "BAT-641",
-      "local_issue_id": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-001",
+      "local_issue_id": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-SUCCESSOR-001",
       "canonical_artifact_path": "artifacts/data_lake/tamu_official_1997_boxscore_gate.json",
       "identity_field": "gate_identity",
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
-        "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-001",
-        "jira_key": "BAT-XXX",
+        "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-SUCCESSOR-001",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1997_BOXSCORE_CANDIDATE_ONLY",
-        "result": "PARTIAL_OFFICIAL_1997_BOXSCORES"
+        "result": "PASS_OFFICIAL_1997_BOXSCORES_NORMALIZED"
       },
       "forbidden_true_paths": [],
       "forbidden_lane_values": [
@@ -3331,16 +3331,16 @@
     {
       "binding_id": "BAT-642-OFFICIAL-1997-STRUCTURED-DOMAINS",
       "jira_key": "BAT-642",
-      "local_issue_id": "POST-TASK-SRC014-1997-STRUCTURED-DOMAINS-001",
+      "local_issue_id": "POST-TASK-SRC014-1997-STRUCTURED-DOMAINS-SUCCESSOR-001",
       "canonical_artifact_path": "artifacts/data_lake/tamu_official_1997_structured_domains_gate.json",
       "identity_field": "gate_identity",
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
-        "decision_unit": "POST-TASK-SRC014-1997-STRUCTURED-DOMAINS-001",
-        "jira_key": "BAT-XXX",
+        "decision_unit": "POST-TASK-SRC014-1997-STRUCTURED-DOMAINS-SUCCESSOR-001",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1997_STRUCTURED_DOMAINS_CANDIDATE_ONLY",
-        "result": "PARTIAL_OFFICIAL_1997_STRUCTURED_DOMAINS"
+        "result": "PASS_OFFICIAL_1997_STRUCTURED_DOMAINS"
       },
       "forbidden_true_paths": [],
       "forbidden_lane_values": [
@@ -3353,16 +3353,16 @@
     {
       "binding_id": "BAT-643-OFFICIAL-1997-EXPANDED-UNION",
       "jira_key": "BAT-643",
-      "local_issue_id": "POST-TASK-SRC014-1997-EXPANDED-ENRICHED-UNION-001",
+      "local_issue_id": "POST-TASK-SRC014-1997-RECOVERED-UNION-001",
       "canonical_artifact_path": "artifacts/data_lake/tamu_official_gamebook_union_1997_expanded_gate.json",
       "identity_field": "gate_identity",
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
-        "decision_unit": "POST-TASK-SRC014-1997-EXPANDED-ENRICHED-UNION-001",
-        "jira_key": "BAT-XXX",
+        "decision_unit": "POST-TASK-SRC014-1997-RECOVERED-UNION-001",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_OFFICIAL_GAMEBOOK_UNION_1997_EXPANDED_CANDIDATE_ONLY",
-        "result": "PARTIAL_OFFICIAL_1997_EXPANDED_UNION_NO_NEW_ADMISSIONS"
+        "result": "PASS_OFFICIAL_1997_RECOVERED_UNION_SUCCESSOR"
       },
       "forbidden_true_paths": [],
       "forbidden_lane_values": [
@@ -3381,7 +3381,7 @@
       "identity_mode": "canonical_json_excluding_identity_field",
       "required_equal": {
         "decision_unit": "POST-TASK-SRC014-1996-OFFICIAL-INDEX-001",
-        "jira_key": "BAT-XXX",
+        "jira_key": "BAT-649",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "classification": "TAMU_SRC014_OFFICIAL_1996_SEASON_INDEX_CAPTURE_CANDIDATE_ONLY",
         "result": "PASS_OFFICIAL_1996_SEASON_INDEX_CAPTURED_BOX_URLS_DISCOVERED"

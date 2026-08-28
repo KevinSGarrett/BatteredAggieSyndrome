@@ -118,6 +118,14 @@ SCORE_PLAY_RE = re.compile(
 )
 STARTER_RE = re.compile(r"^([A-Z0-9]{1,4})\s+(\d+[A-Z]?)\s+(.+)$")
 PART_RE = re.compile(r"(\d+[A-Z]?)-([A-Za-z][A-Za-z .'-]+)")
+OPPONENT_NAME_ALIASES = {
+    "brigham young": "byu",
+    "southwest louisiana": "southwestern louisiana",
+    "colorado buffaloes": "colorado",
+    "usl ragin cajuns": "southwestern louisiana",
+    "ul lafayette": "southwestern louisiana",
+    "louisiana lafayette": "southwestern louisiana",
+}
 PLAYER_NAME_RE = re.compile(r"^[A-Za-z][A-Za-z .'-]+$")
 GATE_IDENTITY_FIELDS = (
     "schema_version",
@@ -174,6 +182,14 @@ def opponent_candidate(value: str) -> str:
     cleaned = re.sub(r"^\(?#?\d+\)\s*", "", cleaned)
     cleaned = re.sub(r"^#?\d+\s+", "", cleaned)
     return cleaned.strip(" .")
+
+
+def canonical_opponent_name(value: str) -> str:
+    normalized = normalize_team_name(opponent_candidate(value))
+    normalized = OPPONENT_NAME_ALIASES.get(normalized, normalized)
+    normalized = re.sub(r"\b(university|univ|ot)\b", " ", normalized)
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    return normalized
 
 
 def site_token(value: str) -> str:
@@ -837,7 +853,15 @@ def match_to_official_index(parsed: Mapping[str, Any], index_rows: list[Mapping[
     if len(url_matches) > 1:
         raise AuthorityViolation(f"duplicate official season-index box URL: {parsed['url']}")
     row = url_matches[0]
-    name_only = normalize_team_name(parsed["opponent_candidate"]) == row["opponent_normalized"]
+    source_season = int(parsed.get("source_season") or 0)
+    if source_season in {1996, 1997}:
+        parsed_opponent = canonical_opponent_name(str(parsed.get("opponent_candidate") or ""))
+        row_opponent = canonical_opponent_name(str(row.get("opponent_raw") or row.get("opponent_candidate") or ""))
+        name_only = parsed_opponent == row_opponent or (
+            bool(parsed_opponent) and bool(row_opponent) and (parsed_opponent in row_opponent or row_opponent in parsed_opponent)
+        )
+    else:
+        name_only = normalize_team_name(str(parsed.get("opponent_candidate") or "")) == str(row.get("opponent_normalized") or "")
     score_match = parsed["tamu_points"] == row["tamu_points"] and parsed["opponent_points"] == row["opponent_points"]
     season_match = int(parsed["football_season"]) == int(row["source_season"])
     site_match = bool(parsed["site_token"]) and (

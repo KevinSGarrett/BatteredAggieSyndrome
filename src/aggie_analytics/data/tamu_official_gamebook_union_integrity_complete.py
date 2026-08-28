@@ -620,7 +620,12 @@ def materialize_union(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
 
 
 def upstream_is_ready(data_root: Path) -> bool:
-    return bat607_upstream_is_ready(data_root) and (data_root / CAPTURE_INDEX_RELATIVE).is_file()
+    return (
+        bat607_upstream_is_ready(data_root)
+        and (data_root / CAPTURE_INDEX_RELATIVE).is_file()
+        and bat603_union_manifest_path(data_root).is_file()
+        and bat607_union_manifest_path(data_root).is_file()
+    )
 
 
 def lake_is_ready(data_root: Path) -> bool:

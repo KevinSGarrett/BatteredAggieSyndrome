@@ -1,0 +1,47 @@
+{
+  "artifact_type": "MOUNTED_ACCEPTANCE_CONTRACT",
+  "classification": "CYCLE18_19_CRITICAL_MOUNTED_SUITE",
+  "contract_id": "BAT-649-CYCLE19-MOUNTED-ACCEPTANCE-V1",
+  "critical_suite": [
+    "test_tamu_official_1998_2009_rejection_integrity.py",
+    "test_tamu_official_gamebook_union_1998_rejection_complete.py",
+    "test_tamu_official_1998_2009_structured_row_corpus_integrity.py",
+    "test_tamu_official_1997_season_index.py",
+    "test_tamu_official_1997_boxscores.py",
+    "test_tamu_official_1997_structured_domains.py",
+    "test_tamu_official_gamebook_union_1997_expanded.py",
+    "test_tamu_official_1996_season_index.py",
+    "test_tamu_official_1996_boxscores.py",
+    "test_tamu_official_1996_structured_domains.py",
+    "test_tamu_official_gamebook_union_1996_expanded.py",
+    "test_tamu_official_1996_2009_structured_row_corpus.py"
+  ],
+  "capture_index_hydration": [
+    {
+      "capture_index_relative": "features/tamu_official_1997_boxscores/capture_index.json",
+      "gate_relative": "artifacts/data_lake/tamu_official_1997_boxscore_gate.json"
+    },
+    {
+      "capture_index_relative": "features/tamu_official_1996_boxscores/capture_index.json",
+      "gate_relative": "artifacts/data_lake/tamu_official_1996_boxscore_gate.json"
+    }
+  ],
+  "data_root_manifests": [
+    "features/tamu_official_1997_boxscores/capture_index.json",
+    "features/tamu_official_1996_boxscores/capture_index.json"
+  ],
+  "expected_full_suite_skips": [],
+  "network_error_marker": "NETWORK_ACCESS_FORBIDDEN_IN_ACCEPTANCE_TEST",
+  "network_forbidden_env": "AGGIE_ANALYTICS_NETWORK_FORBIDDEN",
+  "reconstruct_only_env": "AGGIE_ANALYTICS_RECONSTRUCT_FROM_LAKE_ONLY",
+  "required_gates": [
+    "artifacts/data_lake/tamu_official_1997_season_index_gate.json",
+    "artifacts/data_lake/tamu_official_1996_season_index_gate.json",
+    "artifacts/data_lake/tamu_official_1997_boxscore_gate.json",
+    "artifacts/data_lake/tamu_official_1996_boxscore_gate.json"
+  ],
+  "schema_version": "aggie.validation.mounted_acceptance_contract.v1",
+  "skip_budget": {
+    "critical_suite_allowed_skips": 0
+  }
+}

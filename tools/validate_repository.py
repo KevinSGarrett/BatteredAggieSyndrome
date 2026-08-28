@@ -29,6 +29,7 @@ from tools.validate_external_storage_policy import validate as validate_external
 from tools.validate_feature_lifecycle import validate as validate_feature_lifecycle  # noqa: E402
 from tools.validate_feature_registry import validate as validate_feature_registry  # noqa: E402
 from tools.validate_model_architecture import validate as validate_model_architecture  # noqa: E402
+from tools.validate_mounted_acceptance_gate import validate as validate_mounted_acceptance_gate  # noqa: E402
 from tools.validate_openai_assist import validate as validate_openai_assist  # noqa: E402
 from tools.validate_openrouter_assist import validate as validate_openrouter_assist  # noqa: E402
 from tools.validate_team_state import validate as validate_team_state  # noqa: E402
@@ -174,6 +175,20 @@ def main() -> int:
             findings.append(type("F", (), {"kind":"dangling_adr_ref", "path":str(path.relative_to(root)), "detail":ref})())
 
     if args.strict:
+        mounted_acceptance_contract = root / "configs/mounted_acceptance_contract.json"
+        if mounted_acceptance_contract.exists():
+            for detail in validate_mounted_acceptance_gate(root):
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "mounted_acceptance",
+                            "path": "artifacts/validation/mounted_acceptance_gate.json",
+                            "detail": detail,
+                        },
+                    )()
+                )
         if _env_flag_true("AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST"):
             audit_path = root / AUDIT_PATH
             try:

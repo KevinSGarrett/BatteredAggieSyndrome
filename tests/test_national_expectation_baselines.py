@@ -7,7 +7,12 @@ import sys
 import unittest
 from pathlib import Path
 
-import numpy as np
+try:
+    import numpy as np
+except ModuleNotFoundError as exc:  # pragma: no cover - exercised by core-only CI
+    raise unittest.SkipTest(
+        "national baseline tests require the optional modeling dependencies"
+    ) from exc
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))

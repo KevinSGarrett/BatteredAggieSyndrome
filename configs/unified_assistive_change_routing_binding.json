@@ -1,39 +1,37 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-655",
+  "work_unit_id": "BAT-655-PROCESS",
   "jira_identity": "BAT-655",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20",
-  "source_commit": "7fcb10486209200a71e8c0bb14cb167a5c1d207e",
+  "source_commit": "8bbce5191c96e9013070493f6ddb2645e4c6cd3c",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "scope": "National expectation baseline evaluation, peer cohort derivation, and development-only Texas A and M residual pipeline test",
-  "downstream_consumer": "BAT-655 national expectation baseline and peer cohort gate",
+  "scope": "Jira reconciliation recording BAT-655 as Done after its material merge",
+  "downstream_consumer": "BAT-655 Jira convergence evidence",
   "user_explicit_waiver": {
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20\nExecute all Cycle #20 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "instruction_sha256": "6e81eee45c595b372801312c8b1c8f4ee359ddab17de13a2f9aa6258914c6533",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
-    "work_unit_id": "BAT-655"
+    "work_unit_id": "BAT-655-PROCESS"
   },
   "allowed_paths": [
-    "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
-    "artifacts/jira_evidence/POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001.json",
-    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/national_expectation_baselines_and_peers_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml",
+    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+    "jira/validation/JIRA_FILE_HASHES.sha256",
+    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/modeling/national_expectation_baselines.py",
-    "tests/test_national_expectation_baselines.py",
-    "tools/build_national_expectation_baselines.py",
-    "tools/validate_national_expectation_baselines.py"
+    "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
-  "decision_sha256": "aeeee53295ccd72123aa4a98ea6398650686cf4a4d0300880aeec064567f9b57"
+  "decision_sha256": "a93b374c207fc47e9851426afcb095563af26203e3a10909bbbd472097909f39"
 }

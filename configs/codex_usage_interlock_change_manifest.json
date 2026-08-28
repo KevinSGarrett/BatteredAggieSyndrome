@@ -1,27 +1,29 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-656-PROSPECTIVE-2026-NATIONAL-SHADOW-COHORT",
-  "jira_identity": "BAT-656",
+  "work_unit_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "jira_identity": "BAT-657",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "b828349ab6c8feec8d8468338a486f2c940f1fcd",
-  "pre_routing_decision_sha256": "e84ae6c5d13241c1b6468fb8f0dae5b15e9883ae67b770378d76c4717a1c6a17",
+  "base_commit": "7e4a8e5ee52654e8263f0c599d48529ac883f829",
+  "pre_routing_decision_sha256": "54319b43c82fcef421b6dfee7ac339b75a705d09e0dfae1249302c8dde5ca76c",
   "changed_paths": [
-    "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
-    "artifacts/shadow/prospective_2026_shadow_cohort_replay.json",
+    "artifacts/jira_evidence/POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001.json",
+    "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+    "artifacts/shadow/prospective_2026_shadow_forecast_replay.json",
+    "artifacts/shadow/prospective_2026_shadow_scoring_gate.json",
     "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/prospective_2026_shadow_cohort_contract.json",
+    "configs/prospective_2026_shadow_forecast_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/prospective_shadow_cohort.py",
-    "tests/test_prospective_shadow_cohort.py",
-    "tools/acquire_2026_prospective_schedule.py",
-    "tools/build_prospective_2026_shadow_cohort.py",
-    "tools/validate_prospective_2026_shadow_cohort.py"
+    "src/aggie_analytics/modeling/prospective_shadow_forecasts.py",
+    "tests/test_prospective_shadow_forecasts.py",
+    "tools/build_prospective_2026_shadow_forecasts.py",
+    "tools/score_prospective_2026_shadow_forecasts.py",
+    "tools/validate_prospective_2026_shadow_forecasts.py"
   ],
-  "manifest_identity": "0d9b09a0b7e26871dc7954820300427babe4c5fe96b763754165bb4ff2eb82cf"
+  "manifest_identity": "6e9435e97388cd39d1046a2d9eb27e9d5c3a8b8aa73e5703a2f4399b7b19fb96"
 }

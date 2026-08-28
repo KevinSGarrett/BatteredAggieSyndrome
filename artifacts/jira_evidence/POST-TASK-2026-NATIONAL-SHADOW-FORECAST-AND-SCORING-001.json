@@ -1,0 +1,36 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-28T23:36:30Z",
+  "jira_key": "BAT-657",
+  "local_issue_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-655",
+    "BAT-656"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "completeness_claimed": false,
+  "observable_outcome": "Eighty-two still-eligible 2026 Week Zero and Week One contests carry a frozen pregame snapshot and one hundred sixty-four frozen shadow forecasts from the two Phase 6 candidates whose feature scope is satisfiable before kickoff; the other three frozen candidates abstain explicitly, and the independent scorer reports AWAITING_ELIGIBLE_OFFICIAL_FINALS because no official final exists yet.",
+  "outputs": [
+    {
+      "path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+      "bytes": 15080,
+      "sha256": "934ca226808b56f34fe0217eb6f0dc8411ec9f305fec8d044fe1e4f51c010bc8",
+      "gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016"
+    },
+    {
+      "path": "artifacts/shadow/prospective_2026_shadow_scoring_gate.json",
+      "bytes": 2411,
+      "sha256": "ca713f82d5057da3b802f704db5d823e0a04ccc439c06d657c182fcd173d0f2d"
+    },
+    {
+      "path": "configs/prospective_2026_shadow_forecast_contract.json",
+      "bytes": 7830,
+      "sha256": "2108365b71e2e5b3eb7402e6fd87d106386bf97cae60f74737ab711ea6acb430"
+    }
+  ]
+}

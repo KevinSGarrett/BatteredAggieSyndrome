@@ -1,0 +1,365 @@
+{
+  "artifact_type": "PROSPECTIVE_2026_NATIONAL_SHADOW_FORECAST_GATE",
+  "authority": {
+    "canonical_entity_mutation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "historical_pit_admission": false,
+    "immutable_raw_capture_mutation": false,
+    "independent_postgame_scoring": true,
+    "model_selection_or_tuning": false,
+    "pregame_snapshot_identity_issuance": true,
+    "prospective_shadow_observation": true,
+    "protected_evaluation_admission": false,
+    "protected_training_admission": false,
+    "shadow_forecast_freeze": true
+  },
+  "bound_predecessors": {
+    "baseline_gate_sha256": "5e8d14429a7fb04c7b9437ccd3448f243a54c9b555e60d0cc42dc47dd8885158",
+    "cohort_gate_sha256": "5e8e14bbfeeebdcb47c195bf363a071184e07704769764be13f83e69f3199176",
+    "matrix_gate_sha256": "1968c2837d6555a1c9baefb3f3e17c77fbeee8a7bd9018052bb453ee4ef3ae75",
+    "spine_gate_sha256": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5"
+  },
+  "candidate_admissibility": [
+    {
+      "admissibility": "ADMISSIBLE_FOR_PROSPECTIVE_SHADOW_USE",
+      "candidate_id": "national_base_rate",
+      "reason": "The candidate consumes no features, so it is satisfiable from schedule evidence alone and serves as the uninformative reference.",
+      "required_feature_scope": "NONE"
+    },
+    {
+      "admissibility": "ADMISSIBLE_FOR_PROSPECTIVE_SHADOW_USE",
+      "candidate_id": "national_elo",
+      "declared_rating_staleness": "RATINGS_END_AT_THE_LAST_ADMITTED_SEASON_BECAUSE_2024_AND_2025_ARE_SEALED",
+      "reason": "The candidate needs only a rating carried out of the admitted outcome sequence plus the site indicator, both of which exist for a 2026 contest without reading any 2026 outcome.",
+      "required_feature_scope": "OUTCOME_SEQUENCE_AND_SITE"
+    },
+    {
+      "admissibility": "NOT_ADMISSIBLE_MISSING_REQUIRED_FEATURES",
+      "candidate_id": "prior_only",
+      "reason": "The prior-outcome domain requires prior-season and season-to-date team outcome aggregates for the 2026 participants, which would have to come from the sealed 2024 and 2025 seasons or from 2026 results that do not exist before kickoff.",
+      "required_feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE"
+    },
+    {
+      "admissibility": "NOT_ADMISSIBLE_MISSING_REQUIRED_FEATURES",
+      "candidate_id": "national_logistic_l2",
+      "reason": "The full admitted feature set includes the prior-outcome domain, poll ranks, and venue attributes that are not materialized for the 2026 population.",
+      "required_feature_scope": "ALL_ADMITTED_FEATURES"
+    },
+    {
+      "admissibility": "NOT_ADMISSIBLE_MISSING_REQUIRED_FEATURES",
+      "candidate_id": "national_margin_ridge",
+      "reason": "The margin candidate consumes the same unmaterialized 2026 feature set as the full logistic candidate.",
+      "required_feature_scope": "ALL_ADMITTED_FEATURES"
+    }
+  ],
+  "capture_identity": "a02cb55b5c84bc0e0d9aa1cb8c16899c14d6e9f65b203477a85e7ced9472c032",
+  "capture_inventory": [
+    {
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-22",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/dfd6b6c301d89e986054c6b9dca07bccdf3b1857255987e2c31f8b973dad0e16.html",
+      "raw_sha256": "dfd6b6c301d89e986054c6b9dca07bccdf3b1857255987e2c31f8b973dad0e16",
+      "retrieved_at_utc": "2026-08-28T22:03:37Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-23",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/69b9f9ac87338f012a23ee35a66a360b67410fcf41e393fb8d87909c646bb0e5.html",
+      "raw_sha256": "69b9f9ac87338f012a23ee35a66a360b67410fcf41e393fb8d87909c646bb0e5",
+      "retrieved_at_utc": "2026-08-28T22:03:37Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-27",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/894e8e625fde566749c1eddf2575f62397de44c5b639bb8be6350adba4a66758.html",
+      "raw_sha256": "894e8e625fde566749c1eddf2575f62397de44c5b639bb8be6350adba4a66758",
+      "retrieved_at_utc": "2026-08-28T22:03:37Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-28",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/65c1261856d101afd405755d47285f9fbe07543919509af48606473fb4c47e30.html",
+      "raw_sha256": "65c1261856d101afd405755d47285f9fbe07543919509af48606473fb4c47e30",
+      "retrieved_at_utc": "2026-08-28T22:03:37Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-08-29",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/91961ccbaea7319098e512ca4696ba415ddbc5c00b52aac033d152f8e7cf8966.html",
+      "raw_sha256": "91961ccbaea7319098e512ca4696ba415ddbc5c00b52aac033d152f8e7cf8966",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-08-30",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/e31b4eaa024511a89788035a01992c40e633b3954edf2a84d89d54d8f33571fe.html",
+      "raw_sha256": "e31b4eaa024511a89788035a01992c40e633b3954edf2a84d89d54d8f33571fe",
+      "retrieved_at_utc": "2026-08-28T21:58:15Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-08-31",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/246ae936ea4fbb3d2c2c6102d0a976b463e07346158aa7581f7bc54362c2d8b6.html",
+      "raw_sha256": "246ae936ea4fbb3d2c2c6102d0a976b463e07346158aa7581f7bc54362c2d8b6",
+      "retrieved_at_utc": "2026-08-28T21:58:15Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-09-01",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/925b3cf43fb519fb5bbf782445f41a8e113f3048c9f33c9f822ff882457183eb.html",
+      "raw_sha256": "925b3cf43fb519fb5bbf782445f41a8e113f3048c9f33c9f822ff882457183eb",
+      "retrieved_at_utc": "2026-08-28T21:58:15Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-09-02",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/7ac97c7c66cca453ba53e37d325367f3bac646cb79e152282f353ee16e09b723.html",
+      "raw_sha256": "7ac97c7c66cca453ba53e37d325367f3bac646cb79e152282f353ee16e09b723",
+      "retrieved_at_utc": "2026-08-28T21:58:15Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-03",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/8739aa2e7382d5a138371e66c3979fefdd658722a4dc88e4d30dfd061c7c0732.html",
+      "raw_sha256": "8739aa2e7382d5a138371e66c3979fefdd658722a4dc88e4d30dfd061c7c0732",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-04",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/8deffe95369cad6b5bcac799db7e3bd5dba42f9d99690429fa7c40856f5a3f85.html",
+      "raw_sha256": "8deffe95369cad6b5bcac799db7e3bd5dba42f9d99690429fa7c40856f5a3f85",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-05",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/0e58734a2b6806115bf4e2dee152c46f1f9b0fb4c9eba6efd24b1740737e763d.html",
+      "raw_sha256": "0e58734a2b6806115bf4e2dee152c46f1f9b0fb4c9eba6efd24b1740737e763d",
+      "retrieved_at_utc": "2026-08-28T21:47:40Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-06",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/0b0a20aeedba62994aefc21840a88cc41069575868864fd280be7b72e8ccd7ad.html",
+      "raw_sha256": "0b0a20aeedba62994aefc21840a88cc41069575868864fd280be7b72e8ccd7ad",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    },
+    {
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-07",
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_prospective_2026_scoreboard/7d04bd1943a92cf2ec494a5ed075485da18a3179e5379ed78b64935c3b659e6a.html",
+      "raw_sha256": "7d04bd1943a92cf2ec494a5ed075485da18a3179e5379ed78b64935c3b659e6a",
+      "retrieved_at_utc": "2026-08-28T21:49:31Z",
+      "route_id": "IMMUTABLE_REQUEST_CACHE"
+    }
+  ],
+  "classification": "PROSPECTIVE_2026_NATIONAL_SHADOW_FORECAST_FREEZE_AND_INDEPENDENT_POSTGAME_SCORING",
+  "contest_state_counts": {
+    "AWAITING_OFFICIAL_FINAL": 0,
+    "CANCELED_OR_SUSPENDED": 0,
+    "FAIL_CLOSED_IDENTITY_MISMATCH": 0,
+    "FORECAST_FROZEN": 0,
+    "MISSED_CUTOFF_NO_BACKFILL": 0,
+    "MISSING_REQUIRED_FEATURES_ABSTAIN": 0,
+    "OFFICIAL_FINAL_UNAVAILABLE": 0,
+    "PRECOMMITTED": 0,
+    "SCORED": 0,
+    "SNAPSHOT_ELIGIBLE": 0,
+    "SNAPSHOT_FROZEN": 82,
+    "UNSUPPORTED_ENTITY": 17
+  },
+  "contract_id": "BAT-657-PROSPECTIVE-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-V1",
+  "contract_sha256": "2108365b71e2e5b3eb7402e6fd87d106386bf97cae60f74737ab711ea6acb430",
+  "decision_unit": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "eligibility_gate": {
+    "backfilled_after_cutoff": false,
+    "checkpoint_ids": [
+      "T_MINUS_24H",
+      "T_MINUS_90M"
+    ],
+    "games_already_started_forecast": false,
+    "outcome_accessible_before_forecast_freeze": false,
+    "retroactive_forecast_created": false,
+    "snapshot_cutoff_checkpoint_id": "T_MINUS_90M"
+  },
+  "execution_time_utc": "2026-08-28T23:34:57Z",
+  "fitted_candidates": {
+    "national_base_rate": {
+      "training_rows": 90198,
+      "training_win_rate": 0.5
+    },
+    "national_elo": {
+      "hyperparameters": {
+        "between_season_regression": 0.25,
+        "home_advantage_rating": 65.0,
+        "initial_rating": 1500.0,
+        "k_factor": 20.0,
+        "rating_scale": 400.0
+      },
+      "rated_teams": 343,
+      "rating_basis": "RATINGS_END_AT_THE_LAST_ADMITTED_SEASON_BECAUSE_2024_AND_2025_ARE_SEALED",
+      "training_rows": 90198
+    }
+  },
+  "forecast_state_counts": {
+    "AWAITING_OFFICIAL_FINAL": 0,
+    "CANCELED_OR_SUSPENDED": 0,
+    "FAIL_CLOSED_IDENTITY_MISMATCH": 0,
+    "FORECAST_FROZEN": 164,
+    "MISSED_CUTOFF_NO_BACKFILL": 0,
+    "MISSING_REQUIRED_FEATURES_ABSTAIN": 246,
+    "OFFICIAL_FINAL_UNAVAILABLE": 0,
+    "PRECOMMITTED": 0,
+    "SCORED": 0,
+    "SNAPSHOT_ELIGIBLE": 0,
+    "SNAPSHOT_FROZEN": 0,
+    "UNSUPPORTED_ENTITY": 85
+  },
+  "frozen_forecast_contest_ids": [
+    "6582887",
+    "6582933",
+    "6583172",
+    "6583220",
+    "6583331",
+    "6583392",
+    "6584486",
+    "6585877",
+    "6586106",
+    "6586325",
+    "6586326",
+    "6586572",
+    "6587284",
+    "6587672",
+    "6587707",
+    "6587775",
+    "6588730",
+    "6589595",
+    "6589809",
+    "6589953",
+    "6590386",
+    "6590505",
+    "6590855",
+    "6591259",
+    "6591589",
+    "6592568",
+    "6592700",
+    "6592887",
+    "6593153",
+    "6593392",
+    "6593811",
+    "6594109",
+    "6594325",
+    "6594366",
+    "6594398",
+    "6594400",
+    "6594883",
+    "6596114",
+    "6596257",
+    "6597632",
+    "6598117",
+    "6600254",
+    "6600846",
+    "6601384",
+    "6601465",
+    "6602046",
+    "6602874",
+    "6603305",
+    "6603568",
+    "6603618",
+    "6604408",
+    "6605119",
+    "6605164",
+    "6607271",
+    "6607349",
+    "6607433",
+    "6608932",
+    "6609172",
+    "6609567",
+    "6610894",
+    "6611346",
+    "6611692",
+    "6611873",
+    "6612588",
+    "6613128",
+    "6614741",
+    "6616111",
+    "6616987",
+    "6617023",
+    "6618350",
+    "6618489",
+    "6618687",
+    "6618941",
+    "6619544",
+    "6620092",
+    "6620218",
+    "6620448",
+    "6620458",
+    "6620478",
+    "6620581",
+    "6620636",
+    "6620944"
+  ],
+  "gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+  "identities": {
+    "code_identity": "5b9b07d1be215738c771c678eaaf651d40970272828c7164b28db3be4ca2e791",
+    "feature_identity": "9659e43d8a11bb12cfaac3a49173e300e01094cba05b44a990aca2ec625567e4",
+    "model_identity": "fceccb666ef15d15a25db4f5f120b800ca580e56db2a80bd817fcae11a5642f9"
+  },
+  "issued_at_utc": "2026-08-28T23:34:57Z",
+  "jira_key": "BAT-657",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "manifest": {
+    "bulk_payloads_in_git": false,
+    "dataset_identity": "da5317916ad58d10e1e431591f048d262dd1915bab7b485a5737ea09fdf5b226",
+    "relative_path": "manifests/prospective_2026_shadow_forecasts/sha256/da5317916ad58d10e1e431591f048d262dd1915bab7b485a5737ea09fdf5b226/prospective_2026_shadow_forecast_manifest.json",
+    "sha256": "34b4f404b8d49724e185368e3bc679410504c15e4352970544c5b2dc87273e08"
+  },
+  "negative_findings": {
+    "an_unresolved_participant_is_an_abstention_not_a_guess": true,
+    "elo_ratings_are_two_seasons_stale_because_2024_and_2025_are_sealed": true,
+    "kickoff_instants_remain_conservative_lower_bounds_not_confirmed_official_times": true,
+    "no_official_final_exists_inside_this_cycle_for_a_frozen_forecast": true,
+    "some_capture_routes_were_immutable_same_day_cache_hits_rather_than_new_network_reads": true,
+    "three_of_five_frozen_candidates_cannot_be_evaluated_prospectively": true
+  },
+  "parent_jira_key": "BAT-523",
+  "population_counts": {
+    "abstaining_candidates": 3,
+    "admissible_candidates": 2,
+    "contests_observed": 99,
+    "forecast_rows_emitted": 495,
+    "forecast_rows_frozen": 164,
+    "snapshots_frozen": 82
+  },
+  "producer": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_PROSPECTIVE_2026_NATIONAL_SHADOW_FORECAST_FREEZE",
+  "schema_version": "aggie.shadow.prospective_2026_forecast.v1",
+  "scientific_nonclaims": {
+    "claims_bas_or_aggie_excess": false,
+    "claims_forecast_accuracy": false,
+    "claims_production_champion": false,
+    "claims_protected_performance": false,
+    "claims_public_forecast_publication": false,
+    "claims_tamu_specialization_lift": false
+  }
+}

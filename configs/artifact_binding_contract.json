@@ -3454,6 +3454,41 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-653-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX",
+      "jira_key": "BAT-653",
+      "local_issue_id": "POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001",
+      "canonical_artifact_path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001",
+        "jira_key": "BAT-653",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "NATIONAL_DOMAIN_COVERAGE_AND_PIT_ADMISSION_MATRIX",
+        "result": "PASS_NATIONAL_PIT_DOMAIN_ADMISSION_MATRIX_PARTIAL_ADMISSION"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.all_domains_admitted",
+        "scientific_nonclaims.gap_004_resolved",
+        "scientific_nonclaims.gap_008_resolved",
+        "scientific_nonclaims.production_feature_set_declared",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.champion_or_production_promotion",
+        "leakage_checks.capture_timestamp_used_as_known_at",
+        "leakage_checks.membership_treated_as_availability",
+        "leakage_checks.unranked_imputed_as_a_rank",
+        "leakage_checks.missing_values_filled"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

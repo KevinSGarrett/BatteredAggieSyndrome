@@ -1,24 +1,26 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-652-CYCLE20-PHASE3-JIRA-CONVERGENCE",
-  "jira_identity": "BAT-652",
+  "work_unit_id": "BAT-653-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX",
+  "jira_identity": "BAT-653",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "6b3936cafde2141e63eb72ced327dea946d6e4b9",
-  "pre_routing_decision_sha256": "2ff645c01de77ecfe3bc265f25847b67cbab9b5c4fd8d46b7cbf3896808faff3",
+  "base_commit": "8680650db8031ffafd9be253c26436f8def72d4b",
+  "pre_routing_decision_sha256": "ca4f5c9e4860a96e633b22ea0e02e1d9e5de29ebb7616d94730b51d7771e9c88",
   "changed_paths": [
+    "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+    "artifacts/jira_evidence/POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001.json",
+    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
+    "configs/national_pit_domain_admission_matrix_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "jira/project/JIRA_TARGET_PROFILE.yaml",
-    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
-    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
-    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
-    "jira/validation/JIRA_FILE_HASHES.sha256",
-    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv"
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "src/aggie_analytics/data/national_pit_domain_admission_matrix.py",
+    "tests/test_national_pit_domain_admission_matrix.py",
+    "tools/build_national_pit_domain_admission_matrix.py",
+    "tools/validate_national_pit_domain_admission_matrix.py"
   ],
-  "manifest_identity": "2bf687d6997ca49e2727e013218e520182bb1e5863a826f0560d53df418e4256"
+  "manifest_identity": "158a01f1220d610892d6f7d0ab4287cff796c094e12eec9f76207b12b62e78a3"
 }

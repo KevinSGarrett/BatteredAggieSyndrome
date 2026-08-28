@@ -1,0 +1,54 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-28T20:16:50Z",
+  "jira_key": "BAT-654",
+  "local_issue_id": "POST-TASK-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-397",
+    "BAT-398",
+    "BAT-653"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "completeness_claimed": false,
+  "observable_outcome": "The nationally scoped chronological development matrix binds 90198 identity-matched feature and label rows across 1963-2023 into 16 expanding folds with fold-local transforms and a proven future-append invariance.",
+  "outputs": [
+    {
+      "path": "configs/national_chronological_development_matrix_contract.json",
+      "bytes": 3883,
+      "sha256": "b2aabca39d08f55f1d1bc3c908fad649c14af0f9d8331ea710c77960624f5809"
+    },
+    {
+      "path": "src/aggie_analytics/data/national_chronological_development_matrix.py",
+      "bytes": 43905,
+      "sha256": "1d5e2338d6f479062c1e6b2d870040a356b7f85c0a4d9cbf5d955fdac7fdd3d3"
+    },
+    {
+      "path": "tools/build_national_chronological_development_matrix.py",
+      "bytes": 1514,
+      "sha256": "84e4696a84d760eb5ece0ce5d5961cb11c2d33a8ba7d16070efd327e8b11de36"
+    },
+    {
+      "path": "tools/validate_national_chronological_development_matrix.py",
+      "bytes": 1411,
+      "sha256": "cd7f9bfdcbb6222f9d934a3a8386dc2499ddbbdd45a881d2bad4dd68e4d871c2"
+    },
+    {
+      "path": "tests/test_national_chronological_development_matrix.py",
+      "bytes": 20385,
+      "sha256": "47b6c49c99d23fd6d9b737b5fe08887ec5921622e8d2db8907acb257c2f9622d"
+    },
+    {
+      "path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+      "bytes": 19402,
+      "sha256": "1968c2837d6555a1c9baefb3f3e17c77fbeee8a7bd9018052bb453ee4ef3ae75",
+      "gate_identity": "3e9289ee0a67b3ca32854cdf7eafad1ab99378ef1d0e3cd4a9d6913c165eb9b2",
+      "binding_identity": "96c07c339d05712ec550c911a780af54656c244c684bf19e86471cc2fcf0a49d",
+      "dataset_identity": "725c4adb1bdec227265833def1f1fa4d27412eb22cca67745a9c67e93a158155"
+    }
+  ]
+}

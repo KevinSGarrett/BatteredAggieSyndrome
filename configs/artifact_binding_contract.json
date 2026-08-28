@@ -3489,6 +3489,45 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-654-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX",
+      "jira_key": "BAT-654",
+      "local_issue_id": "POST-TASK-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-001",
+      "canonical_artifact_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-001",
+        "jira_key": "BAT-654",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "NATIONAL_CHRONOLOGICAL_DEVELOPMENT_MATRIX_UNPROTECTED_ONLY",
+        "result": "PASS_NATIONAL_DEVELOPMENT_MATRIX_UNPROTECTED_DEVELOPMENT_ONLY"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.production_matrix_declared",
+        "scientific_nonclaims.gap_003_resolved",
+        "scientific_nonclaims.gap_004_resolved",
+        "scientific_nonclaims.gap_005_resolved",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.champion_or_production_promotion",
+        "leakage_checks.globally_fitted_scaling_or_imputation",
+        "leakage_checks.protected_season_row_present",
+        "leakage_checks.prospective_season_row_present",
+        "leakage_checks.unranked_imputed_as_a_rank",
+        "leakage_checks.availability_inferred",
+        "leakage_checks.tamu_adapter_present",
+        "policy.globally_fitted_scaling_or_imputation",
+        "policy.tamu_adapter_or_specialization_feature"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

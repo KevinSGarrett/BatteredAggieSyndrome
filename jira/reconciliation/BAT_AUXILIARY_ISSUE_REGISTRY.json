@@ -1289,6 +1289,21 @@
       "phase": "PHASE-1",
       "status": "Done",
       "summary": "Integrate preserved Cycle #19 mounted-acceptance and legacy H2 recovery into main"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-650",
+      "local_id": "POST-TASK-AUTHORITY-PLACEHOLDER-OWNERSHIP-VALIDATION-001",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "status": "In Progress",
+      "summary": "Replace authority-bearing BAT-XXX placeholders with audited owners and enforce placeholder rejection"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

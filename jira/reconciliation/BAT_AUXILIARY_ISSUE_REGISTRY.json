@@ -1303,7 +1303,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-1",
       "status": "In Progress",
-      "summary": "Replace authority-bearing BAT-XXX placeholders with audited owners and enforce placeholder rejection"
+      "summary": "Replace placeholder ownership identities in authority-bearing contracts and enforce placeholder rejection"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

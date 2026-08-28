@@ -1,0 +1,364 @@
+{
+  "schema_version": "aggie.data.national_pit_domain_admission_matrix.v1",
+  "contract_id": "BAT-653-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-V1",
+  "decision_unit": "POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001",
+  "local_issue_id": "POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001",
+  "jira_key": "BAT-653",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "NATIONAL_DOMAIN_COVERAGE_AND_PIT_ADMISSION_MATRIX",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Score every candidate national feature domain against the BAT-652 tiered spine population, admit only the domains whose known-at basis is provable without a capture timestamp, and materialize real point-in-time pregame feature payloads for the admitted domains alone. BAT-527 remains the completed rankings-only predecessor and is not rewritten.",
+  "source_contract": {
+    "spine_gate_relative_path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
+    "spine_gate_sha256": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5",
+    "spine_dataset_identity": "777dce822d5f02455ef2c47b1e482a45dbf5b3b84300885a608ac845946a03f8",
+    "master_manifest_relative_path": "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+    "master_manifest_sha256": "5c80a38be430ef7451c76668d0f03e417be251747d57ad2e549ee528e318a4a5",
+    "weather_candidate_gate_relative_path": "artifacts/pit/historical_weather_previous_runs_snapshot_gate.json",
+    "weather_candidate_gate_sha256": "abaf358edc6735881194160b508b0735b36ac2b3da541d2c2b15b8501d0b1102",
+    "tamu_official_corpus_gate_relative_path": "artifacts/data_lake/tamu_official_1996_2009_structured_row_corpus_gate.json",
+    "tamu_official_corpus_gate_sha256": "7965d99fd6e42690f9a37df521c5b5cccfda48b73a97e4727b7537667968fc12",
+    "bulk_payloads_in_git": false
+  },
+  "population_scope": {
+    "label_eligible_tiers": [
+      "TIER_1_LONG_RUN_REFERENCE_CANDIDATE",
+      "TIER_2_ACCEPTED_SCOPED_REPLAY",
+      "TIER_3_DEVELOPMENT_ONLY_LABELS"
+    ],
+    "excluded_tiers": ["TIER_4_PROTECTED_SEALED", "TIER_5_PROSPECTIVE_ABSENT"],
+    "expected_population_games": 45099,
+    "expected_population_team_observations": 90198
+  },
+  "admission_rules": {
+    "capture_timestamp_is_never_a_known_at_basis": true,
+    "membership_is_never_availability": true,
+    "postgame_grain_is_never_pregame_evidence": true,
+    "unranked_is_never_imputed_as_a_rank": true,
+    "missingness_is_always_indicated_never_filled": true,
+    "same_game_evidence_is_always_excluded_from_that_game": true,
+    "partial_domain_admission_is_allowed_and_explicit": true
+  },
+  "known_at_bases": [
+    "DERIVED_FROM_STRICTLY_EARLIER_COMPLETED_GAMES_IN_SPINE",
+    "POLL_WEEK_ORDINAL_STRICTLY_BEFORE_GAME_WEEK_ORDINAL",
+    "SEASON_SCOPED_MEMBERSHIP_DECLARED_BEFORE_SEASON",
+    "STRUCTURAL_TIME_INVARIANT_REFERENCE",
+    "CURRENT_STATE_NOT_VINTAGED",
+    "POSTGAME_ONLY",
+    "UNKNOWN_RETRIEVAL_TIME_ONLY",
+    "SOURCE_ABSENT"
+  ],
+  "decisions": ["ADMITTED", "CANDIDATE", "QUARANTINED", "SOURCE_ABSENT"],
+  "domains": [
+    {
+      "domain_id": "team_outcome_priors",
+      "label": "Team outcomes and priors",
+      "evidence_route": "SPINE_DERIVED",
+      "known_at_basis": "DERIVED_FROM_STRICTLY_EARLIER_COMPLETED_GAMES_IN_SPINE",
+      "decision": "ADMITTED"
+    },
+    {
+      "domain_id": "rankings",
+      "label": "Rankings",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "rankings",
+      "known_at_basis": "POLL_WEEK_ORDINAL_STRICTLY_BEFORE_GAME_WEEK_ORDINAL",
+      "decision": "ADMITTED"
+    },
+    {
+      "domain_id": "venues",
+      "label": "Venues",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "venues",
+      "known_at_basis": "STRUCTURAL_TIME_INVARIANT_REFERENCE",
+      "decision": "ADMITTED"
+    },
+    {
+      "domain_id": "team_season_context",
+      "label": "Team season conference and classification context",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "teams",
+      "known_at_basis": "SEASON_SCOPED_MEMBERSHIP_DECLARED_BEFORE_SEASON",
+      "decision": "ADMITTED"
+    },
+    {
+      "domain_id": "plays",
+      "label": "Plays",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "plays",
+      "known_at_basis": "POSTGAME_ONLY",
+      "decision": "CANDIDATE"
+    },
+    {
+      "domain_id": "drives",
+      "label": "Drives",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "drives",
+      "known_at_basis": "POSTGAME_ONLY",
+      "decision": "CANDIDATE"
+    },
+    {
+      "domain_id": "team_box_scores",
+      "label": "Team box scores",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "team_box_scores",
+      "known_at_basis": "POSTGAME_ONLY",
+      "decision": "CANDIDATE"
+    },
+    {
+      "domain_id": "player_box_scores",
+      "label": "Player box scores",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "player_box_scores",
+      "known_at_basis": "POSTGAME_ONLY",
+      "decision": "CANDIDATE"
+    },
+    {
+      "domain_id": "advanced_game_statistics",
+      "label": "Advanced game statistics",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "advanced_game_statistics",
+      "known_at_basis": "POSTGAME_ONLY",
+      "decision": "CANDIDATE"
+    },
+    {
+      "domain_id": "roster_membership",
+      "label": "Roster membership",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "rosters",
+      "known_at_basis": "SEASON_SCOPED_MEMBERSHIP_DECLARED_BEFORE_SEASON",
+      "decision": "CANDIDATE"
+    },
+    {
+      "domain_id": "structured_gamebook_equivalent",
+      "label": "National structured gamebook-equivalent evidence",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "structured_gamebook_equivalent",
+      "known_at_basis": "POSTGAME_ONLY",
+      "decision": "CANDIDATE"
+    },
+    {
+      "domain_id": "provider_pregame_elo",
+      "label": "Provider-supplied pregame Elo carried on game rows",
+      "evidence_route": "RAW_CAPTURE",
+      "manifest_domain_use": "schedules_games_official_outcomes",
+      "known_at_basis": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+      "decision": "QUARANTINED"
+    },
+    {
+      "domain_id": "tamu_official_structured_archive",
+      "label": "Texas A and M official structured archive",
+      "evidence_route": "GATE_REFERENCE",
+      "gate_key": "tamu_official_corpus_gate_relative_path",
+      "known_at_basis": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+      "decision": "QUARANTINED"
+    },
+    {
+      "domain_id": "weather_forecast_vintages",
+      "label": "Weather forecasts and vintages",
+      "evidence_route": "GATE_REFERENCE",
+      "gate_key": "weather_candidate_gate_relative_path",
+      "known_at_basis": "UNKNOWN_RETRIEVAL_TIME_ONLY",
+      "decision": "CANDIDATE"
+    },
+    {
+      "domain_id": "pregame_availability",
+      "label": "Pregame availability",
+      "evidence_route": "ABSENT",
+      "known_at_basis": "SOURCE_ABSENT",
+      "decision": "SOURCE_ABSENT"
+    },
+    {
+      "domain_id": "recruiting_talent",
+      "label": "Recruiting and talent",
+      "evidence_route": "ABSENT",
+      "known_at_basis": "SOURCE_ABSENT",
+      "decision": "SOURCE_ABSENT"
+    },
+    {
+      "domain_id": "coaching_staff",
+      "label": "Coaching and staff",
+      "evidence_route": "ABSENT",
+      "known_at_basis": "SOURCE_ABSENT",
+      "decision": "SOURCE_ABSENT"
+    },
+    {
+      "domain_id": "market_context",
+      "label": "Market context",
+      "evidence_route": "ABSENT",
+      "known_at_basis": "SOURCE_ABSENT",
+      "decision": "SOURCE_ABSENT"
+    }
+  ],
+  "admitted_feature_registry": [
+    {
+      "feature_id": "prior_games_played",
+      "domain_id": "team_outcome_priors",
+      "dtype": "INT",
+      "missing_indicator": null
+    },
+    {
+      "feature_id": "prior_win_rate",
+      "domain_id": "team_outcome_priors",
+      "dtype": "FLOAT",
+      "missing_indicator": "prior_win_rate_missing"
+    },
+    {
+      "feature_id": "prior_points_for_mean",
+      "domain_id": "team_outcome_priors",
+      "dtype": "FLOAT",
+      "missing_indicator": "prior_points_for_mean_missing"
+    },
+    {
+      "feature_id": "prior_points_against_mean",
+      "domain_id": "team_outcome_priors",
+      "dtype": "FLOAT",
+      "missing_indicator": "prior_points_against_mean_missing"
+    },
+    {
+      "feature_id": "prior_margin_mean",
+      "domain_id": "team_outcome_priors",
+      "dtype": "FLOAT",
+      "missing_indicator": "prior_margin_mean_missing"
+    },
+    {
+      "feature_id": "prior_season_win_rate",
+      "domain_id": "team_outcome_priors",
+      "dtype": "FLOAT",
+      "missing_indicator": "prior_season_win_rate_missing"
+    },
+    {
+      "feature_id": "season_to_date_games",
+      "domain_id": "team_outcome_priors",
+      "dtype": "INT",
+      "missing_indicator": null
+    },
+    {
+      "feature_id": "season_to_date_win_rate",
+      "domain_id": "team_outcome_priors",
+      "dtype": "FLOAT",
+      "missing_indicator": "season_to_date_win_rate_missing"
+    },
+    {
+      "feature_id": "ap_poll_rank",
+      "domain_id": "rankings",
+      "dtype": "INT",
+      "missing_indicator": "ap_poll_rank_missing"
+    },
+    {
+      "feature_id": "coaches_poll_rank",
+      "domain_id": "rankings",
+      "dtype": "INT",
+      "missing_indicator": "coaches_poll_rank_missing"
+    },
+    {
+      "feature_id": "rankings_source_available",
+      "domain_id": "rankings",
+      "dtype": "BOOL",
+      "missing_indicator": null
+    },
+    {
+      "feature_id": "venue_dome",
+      "domain_id": "venues",
+      "dtype": "BOOL",
+      "missing_indicator": "venue_dome_missing"
+    },
+    {
+      "feature_id": "venue_grass",
+      "domain_id": "venues",
+      "dtype": "BOOL",
+      "missing_indicator": "venue_grass_missing"
+    },
+    {
+      "feature_id": "venue_elevation_m",
+      "domain_id": "venues",
+      "dtype": "FLOAT",
+      "missing_indicator": "venue_elevation_m_missing"
+    },
+    {
+      "feature_id": "venue_latitude",
+      "domain_id": "venues",
+      "dtype": "FLOAT",
+      "missing_indicator": "venue_latitude_missing"
+    },
+    {
+      "feature_id": "venue_longitude",
+      "domain_id": "venues",
+      "dtype": "FLOAT",
+      "missing_indicator": "venue_longitude_missing"
+    },
+    {
+      "feature_id": "team_conference",
+      "domain_id": "team_season_context",
+      "dtype": "CATEGORICAL",
+      "missing_indicator": "team_conference_missing"
+    },
+    {
+      "feature_id": "team_is_fbs",
+      "domain_id": "team_season_context",
+      "dtype": "BOOL",
+      "missing_indicator": "team_is_fbs_missing"
+    }
+  ],
+  "quarantined_fields": [
+    {
+      "field": "venue_capacity",
+      "domain_id": "venues",
+      "reason": "CURRENT_STATE_NOT_VINTAGED"
+    },
+    {
+      "field": "venue_construction_year",
+      "domain_id": "venues",
+      "reason": "CURRENT_STATE_NOT_VINTAGED"
+    },
+    {
+      "field": "homePregameElo",
+      "domain_id": "provider_pregame_elo",
+      "reason": "PROVIDER_RECOMPUTED_WITHOUT_PUBLICATION_VINTAGE"
+    },
+    {
+      "field": "awayPregameElo",
+      "domain_id": "provider_pregame_elo",
+      "reason": "PROVIDER_RECOMPUTED_WITHOUT_PUBLICATION_VINTAGE"
+    },
+    {
+      "field": "homePostgameWinProbability",
+      "domain_id": "provider_pregame_elo",
+      "reason": "POSTGAME_ONLY"
+    },
+    {
+      "field": "excitementIndex",
+      "domain_id": "provider_pregame_elo",
+      "reason": "POSTGAME_ONLY"
+    }
+  ],
+  "tamu_reference": {
+    "canonical_team_id": "SRC-002:TEAM:245",
+    "source_team_name": "Texas A&M",
+    "overrepresentation_is_reported_not_a_reason_to_discard": true
+  },
+  "authority": {
+    "national_domain_matrix_use": true,
+    "admitted_pregame_feature_use": true,
+    "development_matrix_input": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "protected_performance_claims": false,
+    "forecast_publication": false,
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false
+  },
+  "negative_findings": {
+    "most_candidate_domains_remain_unadmitted": true,
+    "postgame_grain_domains_carry_no_pregame_authority": true,
+    "roster_membership_does_not_establish_availability": true,
+    "provider_pregame_elo_is_quarantined_not_admitted": true,
+    "tamu_official_archive_is_one_hundred_percent_tamu_by_construction": true,
+    "admitted_domain_coverage_does_not_span_the_whole_population": true
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

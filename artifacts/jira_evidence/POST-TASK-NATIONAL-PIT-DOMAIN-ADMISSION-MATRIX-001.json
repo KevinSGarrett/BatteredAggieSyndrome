@@ -1,0 +1,53 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-28T19:44:02Z",
+  "jira_key": "BAT-653",
+  "local_issue_id": "POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-527",
+    "BAT-652"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "completeness_claimed": false,
+  "observable_outcome": "The national domain coverage and PIT admission matrix scores 18 candidate domains against the 45099-game, 90198-team-row BAT-652 population, admits 4 of them, and materializes 90198 real pregame feature rows over 18 admitted features.",
+  "outputs": [
+    {
+      "path": "configs/national_pit_domain_admission_matrix_contract.json",
+      "bytes": 12981,
+      "sha256": "320f9336cea019b0ea8fdb4d21fa6f177545bea791e919d98da55e7bbbb8ffb8"
+    },
+    {
+      "path": "src/aggie_analytics/data/national_pit_domain_admission_matrix.py",
+      "bytes": 51553,
+      "sha256": "d43ed994507a14a0f97b5e260aa0aeb877924deded71516285c884d89622f018"
+    },
+    {
+      "path": "tools/build_national_pit_domain_admission_matrix.py",
+      "bytes": 1455,
+      "sha256": "c38f9cc10d958450fb5be8b9fecfaca02b560bfe51973b3da1be8ce6022d4ed5"
+    },
+    {
+      "path": "tools/validate_national_pit_domain_admission_matrix.py",
+      "bytes": 1405,
+      "sha256": "557d0dcb7c729045be39e8ac96727c1fdf12c170c921b2fc4bce28a6a7de54f1"
+    },
+    {
+      "path": "tests/test_national_pit_domain_admission_matrix.py",
+      "bytes": 21585,
+      "sha256": "7be4b42230390d1da2115362ae3dd0544de848699f3c88306c2a7843d5de00aa"
+    },
+    {
+      "path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+      "bytes": 40822,
+      "sha256": "7fdad9a4ae3c445f1c8b10416b13f2333c46c2a29de86cbf6bc019f055440123",
+      "gate_identity": "9587189f975615f64b8c637019b9cd58d5bab59fe553cc2f6418e2bd8bb8657e",
+      "binding_identity": "b2ef97a3b870908f840e540d61ea5c75f08ced5b8c7bd6ba2594d295f893c8b7",
+      "dataset_identity": "a14c859165249d008c3853f6fd8193a89df578abe6ba57cfdeeae4fdc18f280c"
+    }
+  ]
+}

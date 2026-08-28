@@ -3528,6 +3528,62 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-655-NATIONAL-EXPECTATION-BASELINES-AND-PEERS",
+      "jira_key": "BAT-655",
+      "local_issue_id": "POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001",
+      "canonical_artifact_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001",
+        "jira_key": "BAT-655",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "NATIONAL_EXPECTATION_BASELINES_PEER_COHORT_AND_DEVELOPMENT_RESIDUAL_TEST",
+        "result": "PASS_NATIONAL_EXPECTATION_BASELINES_DEVELOPMENT_ONLY_NO_CHAMPION"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.champion_promoted",
+        "scientific_nonclaims.production_model_declared",
+        "scientific_nonclaims.protected_evaluation_opened",
+        "scientific_nonclaims.protected_performance_claimed",
+        "scientific_nonclaims.tamu_specialization_lift_claimed",
+        "scientific_nonclaims.bas_or_aggie_excess_result_claimed",
+        "scientific_nonclaims.tamu_residual_persistence_claimed",
+        "scientific_nonclaims.forecast_published",
+        "scientific_nonclaims.gap_004_resolved",
+        "scientific_nonclaims.gap_005_resolved",
+        "scientific_nonclaims.gap_006_resolved",
+        "scientific_nonclaims.gap_007_resolved",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.champion_or_production_promotion",
+        "authority.protected_performance_claims",
+        "authority.forecast_publication",
+        "precommitment.post_hoc_candidate_insertion",
+        "precommitment.post_hoc_feature_shopping",
+        "precommitment.champion_promotion",
+        "leakage_checks.evaluation_rows_influenced_their_own_fit",
+        "leakage_checks.fold_transforms_reused_across_folds",
+        "leakage_checks.protected_season_row_scored",
+        "leakage_checks.prospective_season_row_scored",
+        "leakage_checks.peer_cohort_used_evaluation_season_rows",
+        "leakage_checks.peer_cohort_hardcoded_program_names",
+        "leakage_checks.residual_test_refit_the_baseline",
+        "residual_test.claims.bas_or_aggie_excess",
+        "residual_test.claims.tamu_lift_or_specialization_benefit",
+        "residual_test.claims.statistical_persistence",
+        "residual_test.claims.tamu_result_is_unusual",
+        "peer_cohort.seeded_from_famous_programs"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

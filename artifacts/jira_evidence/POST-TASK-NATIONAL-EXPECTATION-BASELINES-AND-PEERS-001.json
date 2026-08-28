@@ -1,0 +1,55 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-28T21:02:31Z",
+  "jira_key": "BAT-655",
+  "local_issue_id": "POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-139",
+    "BAT-143",
+    "BAT-195",
+    "BAT-654"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "completeness_claimed": false,
+  "observable_outcome": "Five predeclared national expectation baselines were refitted inside all sixteen expanding folds and scored once on the frozen 1820-row 2023 development cohort. The regularized national logistic reached a team-row Brier of 0.17773941 against an uninformative floor of 0.25, no candidate was promoted, a twenty-program peer cohort was derived from a declared four-criterion standardized profile rule over 2000-2022 training rows, and the development-only Texas A and M residual read-out over 13 rows returned a bootstrap interval spanning zero.",
+  "outputs": [
+    {
+      "path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+      "bytes": 49916,
+      "sha256": "5e8d14429a7fb04c7b9437ccd3448f243a54c9b555e60d0cc42dc47dd8885158",
+      "gate_identity": "3436940b13e329a2f6b546cb53011b2137248d3ec077b5f861d5bb4d7b5d41b3",
+      "binding_identity": "4fa43e604d8955e5041dba7a385e0ef4bfd1dd35d7e9adb5261b0e2190b869fc",
+      "dataset_identity": "418d86a1355e08ffec1367185126628fef3748abe60acdc518c5e040bda7874c"
+    },
+    {
+      "path": "configs/national_expectation_baselines_and_peers_contract.json",
+      "bytes": 8932,
+      "sha256": "9ed99666cc0afbae068dd59e5015cd0e1711b2d6e053d0d802f4ef246a6291fe"
+    },
+    {
+      "path": "src/aggie_analytics/modeling/national_expectation_baselines.py",
+      "bytes": 61681,
+      "sha256": "a5d6aaeaa9c9fa16ffdf2d98c8b65f9d03ebceda9fde929f7d128bed598a65f7"
+    },
+    {
+      "path": "tools/build_national_expectation_baselines.py",
+      "bytes": 2423,
+      "sha256": "4ac36314afd55eb5b6cc51a03892d6975730fed4ea056acb5f7e4b442ce74af3"
+    },
+    {
+      "path": "tools/validate_national_expectation_baselines.py",
+      "bytes": 1171,
+      "sha256": "232709bef529ae9ec01b85f1dabcb35e33791aaa7bb0378ef9ee453a9b9f7e5a"
+    },
+    {
+      "path": "tests/test_national_expectation_baselines.py",
+      "bytes": 31854,
+      "sha256": "017446d1700d2a0fb4c9d0a4239c9464fbf6cfcf8c37e588d2cce238688e2c8e"
+    }
+  ]
+}

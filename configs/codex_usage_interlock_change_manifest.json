@@ -1,24 +1,26 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-654-CYCLE20-PHASE5-JIRA-CONVERGENCE",
-  "jira_identity": "BAT-654",
+  "work_unit_id": "BAT-655",
+  "jira_identity": "BAT-655",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "d9e5f77bd6f56659472762b97a63b75c8741a55a",
-  "pre_routing_decision_sha256": "32344de8f31998f86320d2d84dab7221afb3db2ffd744d82159266a0ab5ca3fa",
+  "base_commit": "7fcb10486209200a71e8c0bb14cb167a5c1d207e",
+  "pre_routing_decision_sha256": "aeeee53295ccd72123aa4a98ea6398650686cf4a4d0300880aeec064567f9b57",
   "changed_paths": [
+    "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+    "artifacts/jira_evidence/POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001.json",
+    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
+    "configs/national_expectation_baselines_and_peers_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "jira/project/JIRA_TARGET_PROFILE.yaml",
-    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
-    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
-    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
-    "jira/validation/JIRA_FILE_HASHES.sha256",
-    "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv"
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "src/aggie_analytics/modeling/national_expectation_baselines.py",
+    "tests/test_national_expectation_baselines.py",
+    "tools/build_national_expectation_baselines.py",
+    "tools/validate_national_expectation_baselines.py"
   ],
-  "manifest_identity": "8ceb4711b69bca4dcabcbea9ce130d1b848fda1d1c13fcbbcab9cc5ec847d6fd"
+  "manifest_identity": "907574085df4159433b803921ed65c6ffde53433c1ae15bd15d91ce5b2d945dd"
 }

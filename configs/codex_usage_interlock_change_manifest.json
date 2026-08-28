@@ -1,24 +1,27 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-650-CYCLE20-PHASE1-FINAL-CONVERGENCE",
-  "jira_identity": "BAT-650",
+  "work_unit_id": "BAT-651-CYCLE20-PHASE2-NATIONAL-FOUNDATION",
+  "jira_identity": "BAT-651",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "63be7d7626f30f0bfd147d2edf2c5df35a6fef96",
-  "pre_routing_decision_sha256": "bb6434cfa9e1f974adc904c2c78953296dbade5ca386d8ea6d2f363bdc24fd1d",
+  "base_commit": "9c65a1a62fbf57d344d543ac5cc409da5374ba7b",
+  "pre_routing_decision_sha256": "b878971a81b78589ad96779fda1012096235a42e46ddc54133bab5884fe6046b",
   "changed_paths": [
+    "artifacts/data_lake/national_foundation_reconciliation_gate.json",
+    "artifacts/jira_evidence/POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001.json",
+    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
+    "configs/national_foundation_reconciliation_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "jira/project/JIRA_TARGET_PROFILE.yaml",
-    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
-    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
-    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
-    "jira/validation/JIRA_FILE_HASHES.sha256",
-    "jira/validation/JIRA_FILE_MANIFEST.csv",
+    "jira/index/ARTIFACT_TRACEABILITY.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv"
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "src/aggie_analytics/data/national_foundation_reconciliation.py",
+    "tests/test_national_foundation_reconciliation.py",
+    "tools/build_national_foundation_reconciliation.py",
+    "tools/validate_national_foundation_reconciliation.py"
   ],
-  "manifest_identity": "620f2ef2feb4f67862440516174e6f2e068a3113141bcacd88b97f77560716cd"
+  "manifest_identity": "b40c81ab217b94540a962f0df162bb277eafa71d8d59f1f743ef7bd8990f171e"
 }

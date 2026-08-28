@@ -1,0 +1,75 @@
+{
+  "schema_version": "aggie.data.national_foundation_reconciliation.v1",
+  "contract_id": "BAT-651-NATIONAL-FOUNDATION-RECONCILIATION-V2",
+  "decision_unit": "POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001",
+  "local_issue_id": "POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001",
+  "jira_key": "BAT-651",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "NATIONAL_FOUNDATION_RECONCILIATION_AND_NORMALIZED_GAME_CANDIDATE",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Independently reconstruct the national capture foundation from the actual external payloads and manifests, tier every capture by consumer eligibility, and materialize one deterministic normalized national game successor. BAT-383 remains the completed historical readiness-decision owner and is not rewritten.",
+  "source_contract": {
+    "master_manifest_relative_path": "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+    "master_manifest_sha256": "5c80a38be430ef7451c76668d0f03e417be251747d57ad2e549ee528e318a4a5",
+    "cfbd_acquisition_manifest_relative_path": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/historical_expansion_acquisition_manifest.full.json",
+    "cfbd_acquisition_manifest_sha256": "bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7",
+    "sportsdataverse_manifest_relative_path": "manifests/acquisition/bat378-sportsdataverse-supplement-v1/sportsdataverse_supplement_manifest.full.json",
+    "sportsdataverse_manifest_sha256": "b8716531c152d664a36d448b4d306104c4266b3b3445a00a034235f3ce35b07e",
+    "source_acquisition_registry_relative_path": "configs/source_acquisition_registry.json",
+    "source_acquisition_registry_sha256": "94fa9e7fed7d1e8a91abe5d1947d15285bb2504fbde4670628a4b89240b9d75b",
+    "source_acquisition_registry_sha256_recorded_in_master_manifest": "f956797cff67f4cd0c4922aab9c1892a53a910c967b7f908c8d988e7dbaff5e5",
+    "raw_storage_policy": "EXTERNAL_CONTENT_ADDRESSED_IMMUTABLE",
+    "bulk_payloads_in_git": false
+  },
+  "acceptance": {
+    "expected_snapshot_count": 990,
+    "expected_payload_bytes": 2550148419,
+    "expected_source_ids": ["SRC-001", "SRC-002"],
+    "expected_season_range": [1963, 2025],
+    "expected_game_grain_captures": 63,
+    "expected_game_grain_source_rows": 46954,
+    "rehash_every_declared_payload": true
+  },
+  "eligibility_states": [
+    "RAW_CAPTURED",
+    "NORMALIZED_CANDIDATE",
+    "CANONICAL_ENTITY_RESOLVED",
+    "OUTCOME_REFERENCE_ELIGIBLE",
+    "PIT_FEATURE_ELIGIBLE",
+    "DEVELOPMENT_MATRIX_ELIGIBLE",
+    "PROTECTED_ELIGIBLE",
+    "QUARANTINED",
+    "SOURCE_ABSENT"
+  ],
+  "protected_seasons": [2024, 2025],
+  "development_season": 2023,
+  "normalized_successor": {
+    "name": "NATIONAL_NORMALIZED_GAME_CANDIDATE",
+    "grain": "GAME",
+    "built_from_grain": "GAME",
+    "canonical_game_id_basis": "SRC-002 provider game id namespaced by source id",
+    "outcome_label_separated_from_features": true
+  },
+  "authority": {
+    "national_foundation_reconciliation_use": true,
+    "normalized_candidate_reference_use": true,
+    "historical_pit_admission": false,
+    "pregame_feature_use": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "protected_performance_claims": false,
+    "forecast_publication": false,
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false
+  },
+  "negative_findings": {
+    "raw_capture_inventory_does_not_prove_national_completeness": true,
+    "capture_timestamp_is_not_historical_publication_time": true,
+    "normalized_candidate_is_not_pit_admitted": true,
+    "protected_seasons_are_excluded_not_evaluated": true,
+    "source_acquisition_registry_drifted_since_master_manifest_was_sealed": true
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

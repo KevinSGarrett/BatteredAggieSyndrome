@@ -34,6 +34,7 @@ artifacts/data_lake/historical_expansion_acquisition_manifest.json
 artifacts/data_lake/historical_expansion_eligibility_gate.json
 artifacts/data_lake/historical_expansion_population_profile.json
 artifacts/data_lake/immutability_and_correction_test.json
+artifacts/data_lake/national_foundation_reconciliation_gate.json
 artifacts/data_lake/national_lake_readiness.json
 artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
@@ -251,6 +252,7 @@ artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
 artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.json
+artifacts/jira_evidence/POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001.json
 artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001.json
@@ -450,6 +452,7 @@ configs/local_embedding_shadow_qualification.json
 configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
 configs/mounted_acceptance_contract.json
+configs/national_foundation_reconciliation_contract.json
 configs/ncaa_contest_outcome_reference_adapter_contract.json
 configs/ncaa_contest_reconciliation_contract.json
 configs/ncaa_contest_reconciliation_expansion_policy.json
@@ -3333,6 +3336,7 @@ src/aggie_analytics/data/historical_game_outcome_spine.py
 src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
 src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
 src/aggie_analytics/data/http.py
+src/aggie_analytics/data/national_foundation_reconciliation.py
 src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 src/aggie_analytics/data/ncaa_contest_reconciliation.py
 src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
@@ -3648,6 +3652,7 @@ tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
 tests/test_mounted_data_acceptance.py
+tests/test_national_foundation_reconciliation.py
 tests/test_ncaa_contest_outcome_reference_adapter.py
 tests/test_ncaa_contest_reconciliation.py
 tests/test_ncaa_contest_reconciliation_expansion.py
@@ -3843,6 +3848,7 @@ tools/build_historical_team_membership_pit.py
 tools/build_historical_venue_assignment_pit.py
 tools/build_historical_weather_previous_runs_snapshot.py
 tools/build_jira_control_plane.py
+tools/build_national_foundation_reconciliation.py
 tools/build_ncaa_contest_outcome_reference_adapter.py
 tools/build_ncaa_contest_reconciliation.py
 tools/build_ncaa_contest_reconciliation_expansion.py
@@ -4072,6 +4078,7 @@ tools/validate_local_qwen_qualification.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_mounted_acceptance_gate.py
+tools/validate_national_foundation_reconciliation.py
 tools/validate_ncaa_contest_outcome_reference_adapter.py
 tools/validate_ncaa_contest_reconciliation.py
 tools/validate_ncaa_official_discovery.py

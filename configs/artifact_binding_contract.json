@@ -3393,6 +3393,36 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-651-NATIONAL-FOUNDATION-RECONCILIATION",
+      "jira_key": "BAT-651",
+      "local_issue_id": "POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001",
+      "canonical_artifact_path": "artifacts/data_lake/national_foundation_reconciliation_gate.json",
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001",
+        "jira_key": "BAT-651",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "classification": "NATIONAL_FOUNDATION_RECONCILIATION_AND_NORMALIZED_GAME_CANDIDATE",
+        "result": "PASS_NATIONAL_FOUNDATION_RECONCILED_NORMALIZED_CANDIDATE_ONLY"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.gap_002_resolved",
+        "scientific_nonclaims.historical_population_ready",
+        "scientific_nonclaims.production_model_ready",
+        "scientific_nonclaims.trained_production_champion",
+        "authority.historical_pit_admission",
+        "authority.protected_evaluation_admission",
+        "authority.champion_or_production_promotion"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

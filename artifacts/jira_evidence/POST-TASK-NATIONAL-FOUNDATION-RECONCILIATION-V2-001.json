@@ -1,0 +1,54 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-28T18:45:13Z",
+  "jira_key": "BAT-651",
+  "local_issue_id": "POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-383",
+    "BAT-523",
+    "BAT-565"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "completeness_claimed": false,
+  "observable_outcome": "Cycle #20 Phase 2 independently reconciled the national capture foundation. All 990 declared captures were rehashed from the external data root with zero absent and zero tampered payloads, totalling 2550148419 bytes across SRC-001 and SRC-002 over observed seasons 1963-2025. A deterministic normalized national game successor was materialized from the 63 GAME-grain captures: 46954 source rows produced 46953 normalized candidate games and 1 quarantined postponed 2011 game, with 344 distinct source team identities, zero unresolved team identities, zero alias-ambiguous teams and zero duplicate canonical game ids. Outcome labels are stored separately from the game row; 46952 outcome rows were emitted and 45099 are outcome-reference eligible after excluding the 1854 sealed 2024 and 2025 rows. PIT_FEATURE_ELIGIBLE and PROTECTED_ELIGIBLE remain zero because historical source-publication and final-whistle times are still unproven. The independently derived 2023 development-eligible count of 910 matches the existing BAT-565 label population. The source acquisition registry has drifted since the master lake manifest was sealed and that drift is recorded rather than absorbed. GAP-002 materially advanced but remains OPEN. The protected lane remains RETAIN_PROTECTED_LANE_BLOCKED and no completeness, PIT admission, champion, specialization or BAS claim is made.",
+  "outputs": [
+    {
+      "path": "artifacts/data_lake/national_foundation_reconciliation_gate.json",
+      "bytes": 8632,
+      "sha256": "badd2d877dd74f6d78dd97d98a21965d049d404024b3cfe7f6b517ab85f9adb2",
+      "gate_identity": "31dcd4ffe5289f1a8f336bc7a915e6853accd9de5f855001c93da379d59ecccb",
+      "binding_identity": "a28dde34b555e14b1aa3096bc1b969739163b52bc932434bc1929f0b5fd5ef93",
+      "dataset_identity": "d2af2bab981f8e7b33a6823e3e4b4b65eb2f96593a0eeafd56dedce1b84fd477"
+    },
+    {
+      "path": "configs/national_foundation_reconciliation_contract.json",
+      "bytes": 3960,
+      "sha256": "35cae902fc7c06ebeddf8180b101c6d1a7815d7589523a65bdcb59de7b2dbf15"
+    },
+    {
+      "path": "src/aggie_analytics/data/national_foundation_reconciliation.py",
+      "bytes": 39179,
+      "sha256": "de7160efa19f73da12b53b843bd4dcc5cad6060df8ac49dd6a0c11c228007e76"
+    },
+    {
+      "path": "tools/build_national_foundation_reconciliation.py",
+      "bytes": 1878,
+      "sha256": "33fb8fd496168ff863a2cbe612de3d3b8ae53ebd7d4ea55e7642438de29e3e35"
+    },
+    {
+      "path": "tools/validate_national_foundation_reconciliation.py",
+      "bytes": 1391,
+      "sha256": "ba92705c31089caaf9aa1d1f712d2297cba8acf4822332f5b6f208d674c4905c"
+    },
+    {
+      "path": "tests/test_national_foundation_reconciliation.py",
+      "bytes": 15768,
+      "sha256": "fd573396d63d13cb29056e473142643bfe926e8f1d3eca8dabddf2cd5366f2d4"
+    }
+  ]
+}

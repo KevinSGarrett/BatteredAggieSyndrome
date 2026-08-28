@@ -1,8 +1,8 @@
 {
   "schema_version": "aggie.data.tamu_official_gamebook_union_1998_rejection_complete.contract.v1",
-  "contract_id": "BAT-XXX-TAMU-OFFICIAL-1998-UNION-REJECTION-COMPLETE-V1",
+  "contract_id": "BAT-639-TAMU-OFFICIAL-1998-UNION-REJECTION-COMPLETE-V1",
   "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
-  "jira_key": "BAT-XXX",
+  "jira_key": "BAT-639",
   "source_id": "SRC-014",
   "payloads": {
     "union_root": "features/tamu_official_gamebook_union_1998_rejection_complete/sha256"

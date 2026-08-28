@@ -1,42 +1,38 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-649-CYCLE20-PHASE1-PROCESS-RECONCILIATION",
-  "jira_identity": "BAT-649",
+  "work_unit_id": "BAT-650-CYCLE20-PHASE1-AUTHORITY-PLACEHOLDER-OWNERSHIP",
+  "jira_identity": "BAT-650",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20",
-  "source_commit": "85e531f08cb0cf7279c70ae17292e069edf78a08",
+  "source_commit": "c5b129ca3392d0019a69463b47f7d612e3a0b6cc",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "scope": "Bind the real Cycle #19 material merge SHA 85e531f08cb0cf7279c70ae17292e069edf78a08 and synchronize local Jira, auxiliary registry, derivatives, and verification evidence with live Jira for Cycle #20 Phase 1.",
-  "downstream_consumer": "Cycle #20 Phase 1 Jira convergence evidence",
+  "scope": "Replace authority-bearing BAT-XXX placeholders in four SRC-014 contracts with owners proven by each contract declared decision_unit, and add a strict placeholder-rejection validator with zero-skip tests.",
+  "downstream_consumer": "Cycle #20 Phase 1 authority-ownership integrity and placeholder rejection gate",
   "user_explicit_waiver": {
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20\nExecute all Cycle #20 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "instruction_sha256": "6e81eee45c595b372801312c8b1c8f4ee359ddab17de13a2f9aa6258914c6533",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
-    "work_unit_id": "BAT-649-CYCLE20-PHASE1-PROCESS-RECONCILIATION"
+    "work_unit_id": "BAT-650-CYCLE20-PHASE1-AUTHORITY-PLACEHOLDER-OWNERSHIP"
   },
   "allowed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
+    "configs/tamu_official_1996_season_index_contract.json",
+    "configs/tamu_official_1997_season_index_contract.json",
+    "configs/tamu_official_1998_2009_structured_row_corpus_integrity_contract.json",
+    "configs/tamu_official_gamebook_union_1998_rejection_complete_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "jira/project/JIRA_TARGET_PROFILE.yaml",
-    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
-    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
-    "jira/snapshots/20260828T042327Z/STATE.json",
-    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
-    "jira/validation/JIRA_FILE_HASHES.sha256",
-    "jira/validation/JIRA_FILE_MANIFEST.csv",
-    "jira/validation/NON_JIRA_SCOPE_DIFF.csv",
-    "jira/validation/NON_JIRA_SCOPE_DIFF.json",
-    "jira/validation/SECOND_PASS_AUDIT.json",
-    "jira/validation/SECOND_PASS_AUDIT_RESULTS.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv"
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "tests/fixtures/stale_placeholder_contract.json",
+    "tests/test_authority_placeholders.py",
+    "tools/validate_authority_placeholders.py"
   ],
-  "decision_sha256": "2f0d7582039304f42024d2ff842a88ccfebae67904e091144680c9e1da7d3877"
+  "decision_sha256": "9cdc42eb1dedce61e571633669b9864ee10542eda0226efece846d5d7a854827"
 }

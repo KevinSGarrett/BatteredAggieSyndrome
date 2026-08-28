@@ -1,0 +1,7 @@
+{
+  "schema_version": "aggie.test.stale_placeholder_contract.v1",
+  "purpose": "Stale fixture retained so validate_authority_placeholders can prove it rejects placeholder ownership. This contract is never consumed by project code.",
+  "contract_id": "BAT-XXX-STALE-PLACEHOLDER-FIXTURE-V1",
+  "jira_key": "BAT-XXX",
+  "authority": "NONE_TEST_FIXTURE_ONLY"
+}

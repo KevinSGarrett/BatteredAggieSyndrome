@@ -238,6 +238,7 @@ artifacts/jira_evidence/POST-SUBTASK-204.json
 artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json
 artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
 artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
+artifacts/jira_evidence/POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001.json
 artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001.json
@@ -390,6 +391,9 @@ artifacts/pit/wmt_provider_timestamp_pit_gate.json
 artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
 artifacts/shadow/prospective_2026_shadow_cohort_gate.json
 artifacts/shadow/prospective_2026_shadow_cohort_replay.json
+artifacts/shadow/prospective_2026_shadow_forecast_gate.json
+artifacts/shadow/prospective_2026_shadow_forecast_replay.json
+artifacts/shadow/prospective_2026_shadow_scoring_gate.json
 artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/private_research_policy_migration.json
@@ -509,6 +513,7 @@ configs/preliminary_sustainability_contract.json
 configs/preliminary_unprotected_baseline_contract.json
 configs/preliminary_wmt_tamu_shadow_contract.json
 configs/prospective_2026_shadow_cohort_contract.json
+configs/prospective_2026_shadow_forecast_contract.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
 configs/research_execution_registry.json
@@ -3507,6 +3512,7 @@ src/aggie_analytics/modeling/play_enrichment_augmented.py
 src/aggie_analytics/modeling/possession_pace_augmented.py
 src/aggie_analytics/modeling/preliminary.py
 src/aggie_analytics/modeling/preliminary_rankings.py
+src/aggie_analytics/modeling/prospective_shadow_forecasts.py
 src/aggie_analytics/modeling/registry.py
 src/aggie_analytics/modeling/runtime.py
 src/aggie_analytics/modeling/schedule_stress_augmented.py
@@ -3718,6 +3724,7 @@ tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
 tests/test_prospective_shadow_cohort.py
+tests/test_prospective_shadow_forecasts.py
 tests/test_protected_replay_dry_run.py
 tests/test_protected_split_exposure.py
 tests/test_queue_cpu_worker_manifest_work.py
@@ -3894,6 +3901,7 @@ tools/build_preliminary_postgame_collapse_taxonomy.py
 tools/build_preliminary_schedule_stress.py
 tools/build_preliminary_sustainability.py
 tools/build_prospective_2026_shadow_cohort.py
+tools/build_prospective_2026_shadow_forecasts.py
 tools/build_retrospective_returning_production.py
 tools/build_roster_domain_completeness.py
 tools/build_sec_tamu_availability_candidates.py
@@ -4057,6 +4065,7 @@ tools/run_unified_assistive_controller.py
 tools/run_unified_assistive_watchdog.py
 tools/schedule_research_queue.py
 tools/schema_discovery.py
+tools/score_prospective_2026_shadow_forecasts.py
 tools/select_next_work.py
 tools/summarize_openrouter_campaign.py
 tools/switch_unified_assistive_services.ps1
@@ -4143,6 +4152,7 @@ tools/validate_preliminary_unprotected_baselines.py
 tools/validate_preliminary_wmt_tamu_shadow.py
 tools/validate_product_supply_chain.py
 tools/validate_prospective_2026_shadow_cohort.py
+tools/validate_prospective_2026_shadow_forecasts.py
 tools/validate_repository.py
 tools/validate_retrospective_returning_production.py
 tools/validate_roster_domain_completeness.py

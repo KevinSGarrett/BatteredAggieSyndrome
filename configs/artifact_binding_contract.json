@@ -3631,6 +3631,87 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-657-PROSPECTIVE-2026-NATIONAL-SHADOW-FORECAST",
+      "jira_key": "BAT-657",
+      "local_issue_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+      "canonical_artifact_path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+        "jira_key": "BAT-657",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "classification": "PROSPECTIVE_2026_NATIONAL_SHADOW_FORECAST_FREEZE_AND_INDEPENDENT_POSTGAME_SCORING",
+        "result": "PASS_PROSPECTIVE_2026_NATIONAL_SHADOW_FORECAST_FREEZE"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.claims_production_champion",
+        "scientific_nonclaims.claims_protected_performance",
+        "scientific_nonclaims.claims_forecast_accuracy",
+        "scientific_nonclaims.claims_bas_or_aggie_excess",
+        "scientific_nonclaims.claims_tamu_specialization_lift",
+        "scientific_nonclaims.claims_public_forecast_publication",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.model_selection_or_tuning",
+        "authority.champion_or_production_promotion",
+        "authority.forecast_publication",
+        "authority.canonical_entity_mutation",
+        "authority.immutable_raw_capture_mutation",
+        "eligibility_gate.retroactive_forecast_created",
+        "eligibility_gate.games_already_started_forecast",
+        "eligibility_gate.backfilled_after_cutoff",
+        "eligibility_gate.outcome_accessible_before_forecast_freeze",
+        "manifest.bulk_payloads_in_git"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-657-PROSPECTIVE-2026-NATIONAL-SHADOW-SCORING",
+      "jira_key": "BAT-657",
+      "local_issue_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+      "canonical_artifact_path": "artifacts/shadow/prospective_2026_shadow_scoring_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+        "jira_key": "BAT-657",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.claims_production_champion",
+        "scientific_nonclaims.claims_protected_performance",
+        "scientific_nonclaims.claims_forecast_accuracy",
+        "scientific_nonclaims.claims_bas_or_aggie_excess",
+        "scientific_nonclaims.claims_tamu_specialization_lift",
+        "scientific_nonclaims.claims_public_forecast_publication",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.model_selection_or_tuning",
+        "authority.champion_or_production_promotion",
+        "authority.forecast_publication",
+        "authority.canonical_entity_mutation",
+        "authority.immutable_raw_capture_mutation",
+        "scorer_controls.tuning_performed",
+        "scorer_controls.promotion_performed"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

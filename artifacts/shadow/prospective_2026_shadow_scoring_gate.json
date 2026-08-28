@@ -1,0 +1,58 @@
+{
+  "artifact_type": "PROSPECTIVE_2026_NATIONAL_SHADOW_SCORING_GATE",
+  "authority": {
+    "canonical_entity_mutation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "historical_pit_admission": false,
+    "immutable_raw_capture_mutation": false,
+    "independent_postgame_scoring": true,
+    "model_selection_or_tuning": false,
+    "pregame_snapshot_identity_issuance": true,
+    "prospective_shadow_observation": true,
+    "protected_evaluation_admission": false,
+    "protected_training_admission": false,
+    "shadow_forecast_freeze": true
+  },
+  "bound_forecast_gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+  "classification": "PROSPECTIVE_2026_NATIONAL_SHADOW_FORECAST_FREEZE_AND_INDEPENDENT_POSTGAME_SCORING",
+  "contract_id": "BAT-657-PROSPECTIVE-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-V1",
+  "contract_sha256": "2108365b71e2e5b3eb7402e6fd87d106386bf97cae60f74737ab711ea6acb430",
+  "decision_unit": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "frozen_forecast_count": 164,
+  "gate_identity": "0cbb91075f162690c9e253b503eb77b1455ae9f5468615f42e595ed3a3310d82",
+  "jira_key": "BAT-657",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "metrics": {},
+  "official_final_count": 0,
+  "official_final_source": "NO_OFFICIAL_FINAL_PAYLOAD_SUPPLIED",
+  "parent_jira_key": "BAT-523",
+  "producer": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "AWAITING_ELIGIBLE_OFFICIAL_FINALS",
+  "schema_version": "aggie.shadow.prospective_2026_forecast.v1",
+  "scientific_nonclaims": {
+    "claims_bas_or_aggie_excess": false,
+    "claims_forecast_accuracy": false,
+    "claims_production_champion": false,
+    "claims_protected_performance": false,
+    "claims_public_forecast_publication": false,
+    "claims_tamu_specialization_lift": false
+  },
+  "scored_at_utc": "2026-08-28T23:36:17Z",
+  "scorer_controls": {
+    "canceled_or_suspended_state_preserved": true,
+    "forecast_created_after_kickoff_rejected": true,
+    "official_final_required": true,
+    "outcome_load_before_forecast_freeze_rejected": true,
+    "promotion_performed": false,
+    "tuning_performed": false
+  },
+  "state_counts": {
+    "AWAITING_OFFICIAL_FINAL": 164
+  }
+}

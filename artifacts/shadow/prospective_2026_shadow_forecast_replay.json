@@ -1,0 +1,15 @@
+{
+  "artifact_type": "PROSPECTIVE_2026_NATIONAL_SHADOW_FORECAST_REPLAY",
+  "capture_identity": "a02cb55b5c84bc0e0d9aa1cb8c16899c14d6e9f65b203477a85e7ced9472c032",
+  "contract_id": "BAT-657-PROSPECTIVE-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-V1",
+  "decision_unit": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "execution_time_utc": "2026-08-28T23:34:57Z",
+  "gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+  "independent_validation": {
+    "findings": [],
+    "result": "PASS"
+  },
+  "issued_at_utc": "2026-08-28T23:34:57Z",
+  "jira_key": "BAT-657",
+  "schema_version": "aggie.shadow.prospective_2026_forecast.v1"
+}

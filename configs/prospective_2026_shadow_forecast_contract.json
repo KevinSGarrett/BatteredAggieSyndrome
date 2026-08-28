@@ -1,0 +1,145 @@
+{
+  "schema_version": "aggie.shadow.prospective_2026_forecast.v1",
+  "contract_id": "BAT-657-PROSPECTIVE-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-V1",
+  "decision_unit": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "local_issue_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
+  "jira_key": "BAT-657",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "PROSPECTIVE_2026_NATIONAL_SHADOW_FORECAST_FREEZE_AND_INDEPENDENT_POSTGAME_SCORING",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Freeze pregame shadow forecasts for the 2026 Week Zero and Week One contests that are still eligible at execution time, using only the candidate set frozen in the BAT-655 contract, and provide an independent postgame scorer that can neither read an outcome before a forecast is frozen nor promote a model. A candidate whose admitted feature scope cannot be satisfied from point-in-time 2026 pregame evidence abstains explicitly instead of receiving invented features.",
+  "bound_predecessors": {
+    "cohort_gate_relative_path": "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+    "baseline_gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+    "baseline_contract_relative_path": "configs/national_expectation_baselines_and_peers_contract.json",
+    "matrix_gate_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+    "spine_gate_relative_path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
+    "predecessors_are_bound_not_superseded": true
+  },
+  "snapshot": {
+    "source": "SRC-NCAA-OFFICIAL-STATS",
+    "reacquired_at_execution_time": true,
+    "capture_route_recorded_per_date": true,
+    "an_immutable_same_day_cache_hit_is_recorded_as_such": true,
+    "network_access_confined_to_the_acquisition_command": true,
+    "snapshot_cutoff_checkpoint_id": "T_MINUS_90M",
+    "checkpoint_ids": ["T_MINUS_24H", "T_MINUS_90M"],
+    "retroactive_snapshot_permitted": false,
+    "outcome_accessible_before_forecast_freeze": false,
+    "kickoff_time_basis": {
+      "source_published_clock_timezone": "AMERICA_NEW_YORK",
+      "declared_offset_seconds_for_window": -14400,
+      "conservative_lower_bound_rule": "A published local clock is converted with the earliest continental United States offset in the window, which yields the earliest possible coordinated universal time instant for that clock and therefore refuses more contests than a best-guess conversion would.",
+      "official_kickoff_utc_independently_confirmed": false,
+      "unpublished_clock_token": "TBA"
+    }
+  },
+  "forecast": {
+    "unit_of_authority": "TEAM_ROW_PAIR_PER_CONTEST",
+    "orientation": "PROBABILITY_IS_STATED_FOR_THE_HOME_OR_FIRST_LISTED_CANONICAL_TEAM",
+    "probability_clip": [0.001, 0.999],
+    "candidate_source": "BAT-655-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-V1",
+    "post_hoc_candidate_insertion": false,
+    "post_hoc_feature_addition": false,
+    "hyperparameter_change": false,
+    "one_probability_per_identity": true,
+    "training_population": "NATIONAL_DEVELOPMENT_MATRIX_ROWS_THROUGH_THE_LAST_ADMITTED_SEASON",
+    "last_admitted_training_season": 2023,
+    "sealed_seasons_excluded_from_training": [2024, 2025],
+    "candidate_admissibility": [
+      {
+        "candidate_id": "national_base_rate",
+        "admissibility": "ADMISSIBLE_FOR_PROSPECTIVE_SHADOW_USE",
+        "required_feature_scope": "NONE",
+        "reason": "The candidate consumes no features, so it is satisfiable from schedule evidence alone and serves as the uninformative reference."
+      },
+      {
+        "candidate_id": "national_elo",
+        "admissibility": "ADMISSIBLE_FOR_PROSPECTIVE_SHADOW_USE",
+        "required_feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+        "reason": "The candidate needs only a rating carried out of the admitted outcome sequence plus the site indicator, both of which exist for a 2026 contest without reading any 2026 outcome.",
+        "declared_rating_staleness": "RATINGS_END_AT_THE_LAST_ADMITTED_SEASON_BECAUSE_2024_AND_2025_ARE_SEALED"
+      },
+      {
+        "candidate_id": "prior_only",
+        "admissibility": "NOT_ADMISSIBLE_MISSING_REQUIRED_FEATURES",
+        "required_feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+        "reason": "The prior-outcome domain requires prior-season and season-to-date team outcome aggregates for the 2026 participants, which would have to come from the sealed 2024 and 2025 seasons or from 2026 results that do not exist before kickoff."
+      },
+      {
+        "candidate_id": "national_logistic_l2",
+        "admissibility": "NOT_ADMISSIBLE_MISSING_REQUIRED_FEATURES",
+        "required_feature_scope": "ALL_ADMITTED_FEATURES",
+        "reason": "The full admitted feature set includes the prior-outcome domain, poll ranks, and venue attributes that are not materialized for the 2026 population."
+      },
+      {
+        "candidate_id": "national_margin_ridge",
+        "admissibility": "NOT_ADMISSIBLE_MISSING_REQUIRED_FEATURES",
+        "required_feature_scope": "ALL_ADMITTED_FEATURES",
+        "reason": "The margin candidate consumes the same unmaterialized 2026 feature set as the full logistic candidate."
+      }
+    ]
+  },
+  "states": {
+    "progress_states": [
+      "PRECOMMITTED",
+      "SNAPSHOT_ELIGIBLE",
+      "SNAPSHOT_FROZEN",
+      "FORECAST_FROZEN",
+      "AWAITING_OFFICIAL_FINAL",
+      "SCORED"
+    ],
+    "terminal_or_side_states": [
+      "MISSED_CUTOFF_NO_BACKFILL",
+      "UNSUPPORTED_ENTITY",
+      "MISSING_REQUIRED_FEATURES_ABSTAIN",
+      "CANCELED_OR_SUSPENDED",
+      "OFFICIAL_FINAL_UNAVAILABLE",
+      "FAIL_CLOSED_IDENTITY_MISMATCH"
+    ]
+  },
+  "scoring": {
+    "scorer_is_independent_of_the_forecast_producer": true,
+    "outcome_load_permitted_before_forecast_freeze": false,
+    "official_final_required": true,
+    "forecast_created_after_kickoff_is_rejected": true,
+    "canceled_or_suspended_state_preserved": true,
+    "metrics": ["brier", "log_loss", "accuracy", "calibration_support"],
+    "may_tune_a_model": false,
+    "may_promote_a_model": false,
+    "no_eligible_official_final_result": "AWAITING_ELIGIBLE_OFFICIAL_FINALS"
+  },
+  "authority": {
+    "prospective_shadow_observation": true,
+    "pregame_snapshot_identity_issuance": true,
+    "shadow_forecast_freeze": true,
+    "independent_postgame_scoring": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "model_selection_or_tuning": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "canonical_entity_mutation": false,
+    "immutable_raw_capture_mutation": false
+  },
+  "negative_findings": {
+    "three_of_five_frozen_candidates_cannot_be_evaluated_prospectively": true,
+    "elo_ratings_are_two_seasons_stale_because_2024_and_2025_are_sealed": true,
+    "kickoff_instants_remain_conservative_lower_bounds_not_confirmed_official_times": true,
+    "an_unresolved_participant_is_an_abstention_not_a_guess": true,
+    "no_official_final_exists_inside_this_cycle_for_a_frozen_forecast": true,
+    "some_capture_routes_were_immutable_same_day_cache_hits_rather_than_new_network_reads": true
+  },
+  "scientific_nonclaims": {
+    "claims_production_champion": false,
+    "claims_protected_performance": false,
+    "claims_forecast_accuracy": false,
+    "claims_bas_or_aggie_excess": false,
+    "claims_tamu_specialization_lift": false,
+    "claims_public_forecast_publication": false
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

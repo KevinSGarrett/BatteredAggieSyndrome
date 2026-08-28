@@ -1,18 +1,29 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "BAT-649-CYCLE20-PHASE1-CYCLE19-INTEGRATION",
+  "work_unit_id": "BAT-649-CYCLE20-PHASE1-PROCESS-RECONCILIATION",
   "jira_identity": "BAT-649",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
-  "pre_routing_decision_sha256": "7c0c04b01e450161fc3a6ece4f09d4bfce974e0c381cb6f202a48d979788e94c",
+  "base_commit": "85e531f08cb0cf7279c70ae17292e069edf78a08",
+  "pre_routing_decision_sha256": "2f0d7582039304f42024d2ff842a88ccfebae67904e091144680c9e1da7d3877",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml",
+    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+    "jira/snapshots/20260828T042327Z/STATE.json",
+    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+    "jira/validation/JIRA_FILE_HASHES.sha256",
+    "jira/validation/JIRA_FILE_MANIFEST.csv",
+    "jira/validation/NON_JIRA_SCOPE_DIFF.csv",
+    "jira/validation/NON_JIRA_SCOPE_DIFF.json",
+    "jira/validation/SECOND_PASS_AUDIT.json",
+    "jira/validation/SECOND_PASS_AUDIT_RESULTS.json",
+    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv",
-    "tests/test_execution_focus.py"
+    "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
-  "manifest_identity": "134ddebfb7f55535edb464f312311173100e7678391b79a0fbc7e045116bdfcd"
+  "manifest_identity": "0716b0007f4643ac58d56da45a80877b58cdc1316ca16f7f86ebf2eb65443797"
 }

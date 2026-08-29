@@ -1,27 +1,19 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
-  "jira_identity": "BAT-659",
+  "work_unit_id": "POST-TASK-SHADOW-FORECAST-LINT-CORRECTION-001",
+  "jira_identity": "BAT-660",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "20e4fc2afabee7c9a0e0e72a3e3ca9e7d2d5b5ac",
-  "pre_routing_decision_sha256": "db3f7cb7e86607d23d47c94721215f975d36a928ada08c0c51936ea26f357459",
+  "base_commit": "d571bbabe5d0751a9eb47e8e7cb075d49701e56b",
+  "pre_routing_decision_sha256": "eca1c3ff8e87591c79ce8d1b0034f1c7907d2c8353419baa7e0a03f7fb7bada5",
   "changed_paths": [
-    "artifacts/jira_evidence/POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001.json",
-    "artifacts/shadow/national_shadow_operations_gate.json",
-    "artifacts/shadow/national_shadow_operations_replay.json",
-    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/national_shadow_operations_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/modeling/national_shadow_state_machine.py",
-    "tests/test_national_shadow_state_machine.py",
-    "tools/build_national_shadow_operations.py",
-    "tools/validate_national_shadow_operations.py"
+    "src/aggie_analytics/modeling/prospective_shadow_forecasts.py"
   ],
-  "manifest_identity": "d9a57e58b18329ceb81d4b10f941eae522619d52520dc5def9a9b67d457dc404"
+  "manifest_identity": "cb9b6770f070de2115922c84210660768bf8447f0541776c1b8ec475a795db88"
 }

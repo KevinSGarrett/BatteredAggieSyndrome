@@ -1,0 +1,58 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T15:39:20Z",
+ "jira_key": "BAT-667",
+ "local_issue_id": "POST-TASK-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-652",
+  "BAT-653",
+  "BAT-666"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "cf14823e6d773f4577a17c1de99497361bdec81c",
+ "observable_outcome": "Materialized the first nonzero national PIT-eligible feature slice: 89855 eligible team rows across 1963-2023 plus 343 no-prior-information rows, with every prior recomputed from bound-admissible evidence only. Future-append invariance proven on 74894 real rows and the bound measured to remove zero priors against a 237592-prior control. GAP-002 remains open because rankings and mutable venue attributes stay blocked.",
+ "outputs": [
+  {
+   "path": "artifacts/data_lake/national_pit_eligible_slice_gate.json",
+   "bytes": 9231,
+   "sha256": "34bff0d6f92d00a84ae6c50786204e7f72d0e87c3045a99c7cb284fca5ec5e47",
+   "gate_identity": "27d369100fc5dfb4b738e4c394b3c898004d50741e129c9d48df11c6df95059a"
+  },
+  {
+   "path": "artifacts/data_lake/national_pit_eligible_slice_replay.json",
+   "bytes": 856,
+   "sha256": "e5561d9c355305008a8d22fbfdfdfb79bf763436083b4db932ef51b982974ddf"
+  },
+  {
+   "path": "configs/national_pit_eligible_slice_contract.json",
+   "bytes": 4838,
+   "sha256": "49c16ad010450791d1c649643ee55505307109c5a0bd21bc4d4ea41cd7ca5482"
+  },
+  {
+   "path": "src/aggie_analytics/data/national_pit_eligible_slice.py",
+   "bytes": 21097,
+   "sha256": "0fdc56a8f4cdd6014c191e0daae67d9dff71e5b4fa793c66d66115b2a21d47fd"
+  },
+  {
+   "path": "tools/build_national_pit_eligible_slice.py",
+   "bytes": 5694,
+   "sha256": "9413ef92dfdb37161c2388422af57c101b6eb6051ea0bdc637c974e430737baf"
+  },
+  {
+   "path": "tools/validate_national_pit_eligible_slice.py",
+   "bytes": 4577,
+   "sha256": "d975689d1efcaf4fc2aaa5cc4c80f5867d2e91f32a8c4100edff1d8e7fc0d312"
+  },
+  {
+   "path": "tests/test_national_pit_eligible_slice.py",
+   "bytes": 16635,
+   "sha256": "c18ab788c9e82ec83353b7a77694d7aa64ea32bba0ab2822ccfcf75d7a506907"
+  }
+ ]
+}

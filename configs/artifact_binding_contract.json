@@ -3851,6 +3851,36 @@
       "evidence_surfaces": []
     },
     {
+      "binding_id": "BAT-667-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE",
+      "jira_key": "BAT-667",
+      "local_issue_id": "POST-TASK-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-001",
+      "canonical_artifact_path": "artifacts/data_lake/national_pit_eligible_slice_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-001",
+        "jira_key": "BAT-667",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "HISTORICAL_DEVELOPMENT_OBSERVATION_ONLY",
+        "classification": "FIRST_NONZERO_NATIONAL_POINT_IN_TIME_ELIGIBLE_FEATURE_SLICE"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.gap_002_closed_by_this_slice",
+        "scientific_nonclaims.protected_lane_opened",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.rankings_or_venue_admission",
+        "scientific_nonclaims.specialization_lift"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
       "binding_id": "BAT-666-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT",
       "jira_key": "BAT-666",
       "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",

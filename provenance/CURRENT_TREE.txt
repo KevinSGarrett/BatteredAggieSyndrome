@@ -128,6 +128,8 @@ artifacts/entities/schema_readiness_gate.json
 artifacts/entities/schema_reconciliation.csv
 artifacts/experimentation/development_candidate_evidence_ledger.json
 artifacts/experimentation/national_expectation_baselines_and_peers_gate.json
+artifacts/experimentation/national_multi_year_walk_forward_gate.json
+artifacts/experimentation/national_multi_year_walk_forward_replay.json
 artifacts/governance/protected_split_exposure_audit.json
 artifacts/implementation_preflight/credential_inventory.redacted.json
 artifacts/implementation_preflight/data_root_activation.json
@@ -493,6 +495,7 @@ configs/mounted_acceptance_contract.json
 configs/national_chronological_development_matrix_contract.json
 configs/national_expectation_baselines_and_peers_contract.json
 configs/national_foundation_reconciliation_contract.json
+configs/national_multi_year_walk_forward_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
 configs/national_pit_eligible_slice_contract.json
 configs/national_shadow_operations_contract.json
@@ -3543,6 +3546,7 @@ src/aggie_analytics/modeling/ensemble.py
 src/aggie_analytics/modeling/forecast.py
 src/aggie_analytics/modeling/joint.py
 src/aggie_analytics/modeling/national_expectation_baselines.py
+src/aggie_analytics/modeling/national_multi_year_walk_forward.py
 src/aggie_analytics/modeling/national_shadow_state_machine.py
 src/aggie_analytics/modeling/play_drive_augmented.py
 src/aggie_analytics/modeling/play_enrichment_augmented.py
@@ -3723,6 +3727,7 @@ tests/test_mounted_data_acceptance.py
 tests/test_national_chronological_development_matrix.py
 tests/test_national_expectation_baselines.py
 tests/test_national_foundation_reconciliation.py
+tests/test_national_multi_year_walk_forward.py
 tests/test_national_pit_domain_admission_matrix.py
 tests/test_national_pit_eligible_slice.py
 tests/test_national_shadow_state_machine.py
@@ -3938,6 +3943,7 @@ tools/build_jira_control_plane.py
 tools/build_national_chronological_development_matrix.py
 tools/build_national_expectation_baselines.py
 tools/build_national_foundation_reconciliation.py
+tools/build_national_multi_year_walk_forward.py
 tools/build_national_pit_domain_admission_matrix.py
 tools/build_national_pit_eligible_slice.py
 tools/build_national_shadow_operations.py
@@ -4182,6 +4188,7 @@ tools/validate_mounted_acceptance_gate.py
 tools/validate_national_chronological_development_matrix.py
 tools/validate_national_expectation_baselines.py
 tools/validate_national_foundation_reconciliation.py
+tools/validate_national_multi_year_walk_forward.py
 tools/validate_national_pit_domain_admission_matrix.py
 tools/validate_national_pit_eligible_slice.py
 tools/validate_national_shadow_operations.py

@@ -1,0 +1,14 @@
+{
+  "artifact_type": "NATIONAL_MULTI_YEAR_WALK_FORWARD_REPLAY",
+  "candidate_set_sha256": "f592c4ea69b99200c182acb5c069a7fa5b480926e49072ddb71440e11b6f7f20",
+  "contract_id": "BAT-668-NATIONAL-MULTI-YEAR-WALK-FORWARD-V1",
+  "gate_identity": "1112becc65f78a25b0843588fd5eba5ddcec6009b0ec58f0cb299c343188bcda",
+  "gate_relative_path": "artifacts/experimentation/national_multi_year_walk_forward_gate.json",
+  "payload_relative_path": "canonical/national_multi_year_walk_forward/sha256/1112becc65f78a25b0843588fd5eba5ddcec6009b0ec58f0cb299c343188bcda/national_multi_year_walk_forward_predictions.jsonl",
+  "payload_sha256": "c380eb08ee42c7b4eeed32436ccfc4f035f88e43048f327ea9c0d5d28fb4e6d6",
+  "reproduction": [
+    "python tools/build_national_multi_year_walk_forward.py --repo-root . --data-root <data-root>",
+    "python tools/validate_national_multi_year_walk_forward.py --repo-root . --data-root <data-root>"
+  ],
+  "schema_version": "aggie.models.national_multi_year_walk_forward_replay.v1"
+}

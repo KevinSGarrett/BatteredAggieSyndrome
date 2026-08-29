@@ -1,0 +1,1062 @@
+{
+  "artifact_type": "NATIONAL_MULTI_YEAR_WALK_FORWARD_GATE",
+  "authority": {
+    "champion_or_production_promotion": false,
+    "hyperparameter_search_on_any_evaluation_season": false,
+    "national_multi_year_development_evaluation": true,
+    "protected_evaluation_admission": false,
+    "protected_training_admission": false
+  },
+  "bound_predecessor_identities": {
+    "historical_known_at_authority_gate_identity": "9bc7606a91ed985cd3f4ad3f0035ddd63962596d6fed22ebb9f1260d186dfd14",
+    "national_chronological_development_matrix_gate_identity": "3e9289ee0a67b3ca32854cdf7eafad1ab99378ef1d0e3cd4a9d6913c165eb9b2"
+  },
+  "candidate_metrics": [
+    {
+      "abstained_rows": 0,
+      "aggregate": {
+        "accuracy": 0.5,
+        "brier": 0.25,
+        "calibration_bins": [
+          {
+            "bin_index": 0,
+            "lower": 0.0,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 0.1
+          },
+          {
+            "bin_index": 1,
+            "lower": 0.1,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 0.2
+          },
+          {
+            "bin_index": 2,
+            "lower": 0.2,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 0.3
+          },
+          {
+            "bin_index": 3,
+            "lower": 0.3,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 0.4
+          },
+          {
+            "bin_index": 4,
+            "lower": 0.4,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 0.5
+          },
+          {
+            "bin_index": 5,
+            "lower": 0.5,
+            "mean_predicted": 0.5,
+            "observed_rate": 0.5,
+            "rows": 10070,
+            "upper": 0.6
+          },
+          {
+            "bin_index": 6,
+            "lower": 0.6,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 0.7
+          },
+          {
+            "bin_index": 7,
+            "lower": 0.7,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 0.8
+          },
+          {
+            "bin_index": 8,
+            "lower": 0.8,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 0.9
+          },
+          {
+            "bin_index": 9,
+            "lower": 0.9,
+            "mean_predicted": null,
+            "observed_rate": null,
+            "rows": 0,
+            "upper": 1.0
+          }
+        ],
+        "calibration_intercept": null,
+        "calibration_slope": null,
+        "log_loss": 0.69314718,
+        "mean_predicted": 0.5,
+        "observed_rate": 0.5,
+        "rows": 10070
+      },
+      "authority": "PIT_ELIGIBLE_DOMAINS_ONLY",
+      "brier_bootstrap": {
+        "bootstrap_unit": "GAME",
+        "percentile_2_5": 0.25,
+        "percentile_97_5": 0.25,
+        "point_estimate": 0.25,
+        "resamples": 1000
+      },
+      "candidate_id": "national_base_rate",
+      "family": "UNFITTED_REFERENCE",
+      "feature_scope": "NONE",
+      "per_season": [
+        {
+          "accuracy": 0.5,
+          "brier": 0.25,
+          "calibration_intercept": null,
+          "calibration_slope": null,
+          "evaluation_season": 2018,
+          "log_loss": 0.69314718,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1768
+        },
+        {
+          "accuracy": 0.5,
+          "brier": 0.25,
+          "calibration_intercept": null,
+          "calibration_slope": null,
+          "evaluation_season": 2019,
+          "log_loss": 0.69314718,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1776
+        },
+        {
+          "accuracy": 0.5,
+          "brier": 0.25,
+          "calibration_intercept": null,
+          "calibration_slope": null,
+          "evaluation_season": 2020,
+          "log_loss": 0.69314718,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1140
+        },
+        {
+          "accuracy": 0.5,
+          "brier": 0.25,
+          "calibration_intercept": null,
+          "calibration_slope": null,
+          "evaluation_season": 2021,
+          "log_loss": 0.69314718,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1774
+        },
+        {
+          "accuracy": 0.5,
+          "brier": 0.25,
+          "calibration_intercept": null,
+          "calibration_slope": null,
+          "evaluation_season": 2022,
+          "log_loss": 0.69314718,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1792
+        },
+        {
+          "accuracy": 0.5,
+          "brier": 0.25,
+          "calibration_intercept": null,
+          "calibration_slope": null,
+          "evaluation_season": 2023,
+          "log_loss": 0.69314718,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1820
+        }
+      ],
+      "seasons_evaluated": 6
+    },
+    {
+      "abstained_rows": 0,
+      "aggregate": {
+        "accuracy": 0.67924528,
+        "brier": 0.20551684,
+        "calibration_bins": [
+          {
+            "bin_index": 0,
+            "lower": 0.0,
+            "mean_predicted": 0.08973497,
+            "observed_rate": 0.0,
+            "rows": 12,
+            "upper": 0.1
+          },
+          {
+            "bin_index": 1,
+            "lower": 0.1,
+            "mean_predicted": 0.16664603,
+            "observed_rate": 0.09375,
+            "rows": 288,
+            "upper": 0.2
+          },
+          {
+            "bin_index": 2,
+            "lower": 0.2,
+            "mean_predicted": 0.25693304,
+            "observed_rate": 0.1817279,
+            "rows": 1007,
+            "upper": 0.3
+          },
+          {
+            "bin_index": 3,
+            "lower": 0.3,
+            "mean_predicted": 0.3530335,
+            "observed_rate": 0.29926178,
+            "rows": 1761,
+            "upper": 0.4
+          },
+          {
+            "bin_index": 4,
+            "lower": 0.4,
+            "mean_predicted": 0.44977417,
+            "observed_rate": 0.44636502,
+            "rows": 1967,
+            "upper": 0.5
+          },
+          {
+            "bin_index": 5,
+            "lower": 0.5,
+            "mean_predicted": 0.55022583,
+            "observed_rate": 0.55363498,
+            "rows": 1967,
+            "upper": 0.6
+          },
+          {
+            "bin_index": 6,
+            "lower": 0.6,
+            "mean_predicted": 0.6469665,
+            "observed_rate": 0.70073822,
+            "rows": 1761,
+            "upper": 0.7
+          },
+          {
+            "bin_index": 7,
+            "lower": 0.7,
+            "mean_predicted": 0.74306696,
+            "observed_rate": 0.8182721,
+            "rows": 1007,
+            "upper": 0.8
+          },
+          {
+            "bin_index": 8,
+            "lower": 0.8,
+            "mean_predicted": 0.83335397,
+            "observed_rate": 0.90625,
+            "rows": 288,
+            "upper": 0.9
+          },
+          {
+            "bin_index": 9,
+            "lower": 0.9,
+            "mean_predicted": 0.91026503,
+            "observed_rate": 1.0,
+            "rows": 12,
+            "upper": 1.0
+          }
+        ],
+        "calibration_intercept": 0.0,
+        "calibration_slope": 1.40755949,
+        "log_loss": 0.59819105,
+        "mean_predicted": 0.5,
+        "observed_rate": 0.5,
+        "rows": 10070
+      },
+      "authority": "PIT_ELIGIBLE_DOMAINS_ONLY",
+      "brier_bootstrap": {
+        "bootstrap_unit": "GAME",
+        "percentile_2_5": 0.20204594,
+        "percentile_97_5": 0.20888959,
+        "point_estimate": 0.20551684,
+        "resamples": 1000
+      },
+      "candidate_id": "national_elo",
+      "family": "ELO",
+      "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+      "per_season": [
+        {
+          "accuracy": 0.6821267,
+          "brier": 0.20049774,
+          "calibration_intercept": 0.0,
+          "calibration_slope": 1.5372723,
+          "evaluation_season": 2018,
+          "log_loss": 0.58713763,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1768
+        },
+        {
+          "accuracy": 0.72072072,
+          "brier": 0.19551075,
+          "calibration_intercept": 0.0,
+          "calibration_slope": 1.64876799,
+          "evaluation_season": 2019,
+          "log_loss": 0.57627038,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1776
+        },
+        {
+          "accuracy": 0.65964912,
+          "brier": 0.2111896,
+          "calibration_intercept": 0.0,
+          "calibration_slope": 1.24302904,
+          "evaluation_season": 2020,
+          "log_loss": 0.61046407,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1140
+        },
+        {
+          "accuracy": 0.67643743,
+          "brier": 0.20542949,
+          "calibration_intercept": 0.0,
+          "calibration_slope": 1.46002836,
+          "evaluation_season": 2021,
+          "log_loss": 0.59743399,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1774
+        },
+        {
+          "accuracy": 0.65178571,
+          "brier": 0.21540929,
+          "calibration_intercept": -0.0,
+          "calibration_slope": 1.11000367,
+          "evaluation_season": 2022,
+          "log_loss": 0.62015926,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1792
+        },
+        {
+          "accuracy": 0.67802198,
+          "brier": 0.20694836,
+          "calibration_intercept": 0.0,
+          "calibration_slope": 1.45904166,
+          "evaluation_season": 2023,
+          "log_loss": 0.60173955,
+          "mean_predicted": 0.5,
+          "observed_rate": 0.5,
+          "rows": 1820
+        }
+      ],
+      "seasons_evaluated": 6
+    },
+    {
+      "abstained_rows": 0,
+      "aggregate": {
+        "accuracy": 0.71350546,
+        "brier": 0.18396814,
+        "calibration_bins": [
+          {
+            "bin_index": 0,
+            "lower": 0.0,
+            "mean_predicted": 0.05055678,
+            "observed_rate": 0.05387205,
+            "rows": 891,
+            "upper": 0.1
+          },
+          {
+            "bin_index": 1,
+            "lower": 0.1,
+            "mean_predicted": 0.15071341,
+            "observed_rate": 0.17324561,
+            "rows": 912,
+            "upper": 0.2
+          },
+          {
+            "bin_index": 2,
+            "lower": 0.2,
+            "mean_predicted": 0.25080196,
+            "observed_rate": 0.29919679,
+            "rows": 996,
+            "upper": 0.3
+          },
+          {
+            "bin_index": 3,
+            "lower": 0.3,
+            "mean_predicted": 0.35001671,
+            "observed_rate": 0.36719478,
+            "rows": 1073,
+            "upper": 0.4
+          },
+          {
+            "bin_index": 4,
+            "lower": 0.4,
+            "mean_predicted": 0.44843566,
+            "observed_rate": 0.46754386,
+            "rows": 1140,
+            "upper": 0.5
+          },
+          {
+            "bin_index": 5,
+            "lower": 0.5,
+            "mean_predicted": 0.54875166,
+            "observed_rate": 0.52534965,
+            "rows": 1144,
+            "upper": 0.6
+          },
+          {
+            "bin_index": 6,
+            "lower": 0.6,
+            "mean_predicted": 0.64816423,
+            "observed_rate": 0.63552266,
+            "rows": 1081,
+            "upper": 0.7
+          },
+          {
+            "bin_index": 7,
+            "lower": 0.7,
+            "mean_predicted": 0.74754875,
+            "observed_rate": 0.72164948,
+            "rows": 1067,
+            "upper": 0.8
+          },
+          {
+            "bin_index": 8,
+            "lower": 0.8,
+            "mean_predicted": 0.84939614,
+            "observed_rate": 0.80269058,
+            "rows": 892,
+            "upper": 0.9
+          },
+          {
+            "bin_index": 9,
+            "lower": 0.9,
+            "mean_predicted": 0.95042837,
+            "observed_rate": 0.94965675,
+            "rows": 874,
+            "upper": 1.0
+          }
+        ],
+        "calibration_intercept": 0.00091031,
+        "calibration_slope": 0.89361842,
+        "log_loss": 0.54070636,
+        "mean_predicted": 0.49984983,
+        "observed_rate": 0.5,
+        "rows": 10070
+      },
+      "authority": "DEVELOPMENT_CHRONOLOGY_PROXY_ONLY",
+      "brier_bootstrap": {
+        "bootstrap_unit": "GAME",
+        "percentile_2_5": 0.17892665,
+        "percentile_97_5": 0.18940819,
+        "point_estimate": 0.18396814,
+        "resamples": 1000
+      },
+      "candidate_id": "national_logistic_l2",
+      "family": "REGULARIZED_LOGISTIC",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "per_season": [
+        {
+          "accuracy": 0.72680995,
+          "brier": 0.17746575,
+          "calibration_intercept": -0.01044727,
+          "calibration_slope": 0.95634976,
+          "evaluation_season": 2018,
+          "log_loss": 0.52317115,
+          "mean_predicted": 0.50192309,
+          "observed_rate": 0.5,
+          "rows": 1768
+        },
+        {
+          "accuracy": 0.73592342,
+          "brier": 0.16847519,
+          "calibration_intercept": -0.00873375,
+          "calibration_slope": 1.09298427,
+          "evaluation_season": 2019,
+          "log_loss": 0.49959991,
+          "mean_predicted": 0.50141704,
+          "observed_rate": 0.5,
+          "rows": 1776
+        },
+        {
+          "accuracy": 0.70438596,
+          "brier": 0.19712164,
+          "calibration_intercept": 0.07411815,
+          "calibration_slope": 0.81010831,
+          "evaluation_season": 2020,
+          "log_loss": 0.58034113,
+          "mean_predicted": 0.48360001,
+          "observed_rate": 0.5,
+          "rows": 1140
+        },
+        {
+          "accuracy": 0.69222097,
+          "brier": 0.1903511,
+          "calibration_intercept": -0.01414008,
+          "calibration_slope": 0.80326758,
+          "evaluation_season": 2021,
+          "log_loss": 0.55747707,
+          "mean_predicted": 0.50321224,
+          "observed_rate": 0.5,
+          "rows": 1774
+        },
+        {
+          "accuracy": 0.6875,
+          "brier": 0.19725781,
+          "calibration_intercept": -0.00191605,
+          "calibration_slope": 0.76150699,
+          "evaluation_season": 2022,
+          "log_loss": 0.57413531,
+          "mean_predicted": 0.50047705,
+          "observed_rate": 0.5,
+          "rows": 1792
+        },
+        {
+          "accuracy": 0.73076923,
+          "brier": 0.17785732,
+          "calibration_intercept": -0.01452348,
+          "calibration_slope": 0.96823898,
+          "evaluation_season": 2023,
+          "log_loss": 0.52376557,
+          "mean_predicted": 0.50258991,
+          "observed_rate": 0.5,
+          "rows": 1820
+        }
+      ],
+      "seasons_evaluated": 6
+    },
+    {
+      "abstained_rows": 0,
+      "aggregate": {
+        "accuracy": 0.71489573,
+        "brier": 0.18391458,
+        "calibration_bins": [
+          {
+            "bin_index": 0,
+            "lower": 0.0,
+            "mean_predicted": 0.05233532,
+            "observed_rate": 0.04941482,
+            "rows": 769,
+            "upper": 0.1
+          },
+          {
+            "bin_index": 1,
+            "lower": 0.1,
+            "mean_predicted": 0.15179913,
+            "observed_rate": 0.15969163,
+            "rows": 908,
+            "upper": 0.2
+          },
+          {
+            "bin_index": 2,
+            "lower": 0.2,
+            "mean_predicted": 0.25088852,
+            "observed_rate": 0.28043912,
+            "rows": 1002,
+            "upper": 0.3
+          },
+          {
+            "bin_index": 3,
+            "lower": 0.3,
+            "mean_predicted": 0.35062942,
+            "observed_rate": 0.3608156,
+            "rows": 1128,
+            "upper": 0.4
+          },
+          {
+            "bin_index": 4,
+            "lower": 0.4,
+            "mean_predicted": 0.45031981,
+            "observed_rate": 0.45905707,
+            "rows": 1209,
+            "upper": 0.5
+          },
+          {
+            "bin_index": 5,
+            "lower": 0.5,
+            "mean_predicted": 0.54945293,
+            "observed_rate": 0.53871774,
+            "rows": 1201,
+            "upper": 0.6
+          },
+          {
+            "bin_index": 6,
+            "lower": 0.6,
+            "mean_predicted": 0.64938114,
+            "observed_rate": 0.63850174,
+            "rows": 1148,
+            "upper": 0.7
+          },
+          {
+            "bin_index": 7,
+            "lower": 0.7,
+            "mean_predicted": 0.74702237,
+            "observed_rate": 0.74039363,
+            "rows": 1067,
+            "upper": 0.8
+          },
+          {
+            "bin_index": 8,
+            "lower": 0.8,
+            "mean_predicted": 0.84782375,
+            "observed_rate": 0.80882353,
+            "rows": 884,
+            "upper": 0.9
+          },
+          {
+            "bin_index": 9,
+            "lower": 0.9,
+            "mean_predicted": 0.94857978,
+            "observed_rate": 0.9602122,
+            "rows": 754,
+            "upper": 1.0
+          }
+        ],
+        "calibration_intercept": -0.00070807,
+        "calibration_slope": 0.95062571,
+        "log_loss": 0.5405304,
+        "mean_predicted": 0.50015662,
+        "observed_rate": 0.5,
+        "rows": 10070
+      },
+      "authority": "DEVELOPMENT_CHRONOLOGY_PROXY_ONLY",
+      "brier_bootstrap": {
+        "bootstrap_unit": "GAME",
+        "percentile_2_5": 0.17907385,
+        "percentile_97_5": 0.18912458,
+        "point_estimate": 0.18391458,
+        "resamples": 1000
+      },
+      "candidate_id": "national_margin_ridge",
+      "family": "RIDGE_MARGIN",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "per_season": [
+        {
+          "accuracy": 0.72737557,
+          "brier": 0.17679176,
+          "calibration_intercept": -0.01035484,
+          "calibration_slope": 1.0340966,
+          "evaluation_season": 2018,
+          "log_loss": 0.52204667,
+          "mean_predicted": 0.50174566,
+          "observed_rate": 0.5,
+          "rows": 1768
+        },
+        {
+          "accuracy": 0.73704955,
+          "brier": 0.1694504,
+          "calibration_intercept": -0.00947518,
+          "calibration_slope": 1.15528244,
+          "evaluation_season": 2019,
+          "log_loss": 0.50307181,
+          "mean_predicted": 0.50144869,
+          "observed_rate": 0.5,
+          "rows": 1776
+        },
+        {
+          "accuracy": 0.70438596,
+          "brier": 0.19708597,
+          "calibration_intercept": 0.06217913,
+          "calibration_slope": 0.86530475,
+          "evaluation_season": 2020,
+          "log_loss": 0.57873826,
+          "mean_predicted": 0.48669183,
+          "observed_rate": 0.5,
+          "rows": 1140
+        },
+        {
+          "accuracy": 0.69052988,
+          "brier": 0.19024998,
+          "calibration_intercept": -0.01197747,
+          "calibration_slope": 0.84971938,
+          "evaluation_season": 2021,
+          "log_loss": 0.55647025,
+          "mean_predicted": 0.50265277,
+          "observed_rate": 0.5,
+          "rows": 1774
+        },
+        {
+          "accuracy": 0.69308036,
+          "brier": 0.19650929,
+          "calibration_intercept": -0.00135592,
+          "calibration_slope": 0.81057112,
+          "evaluation_season": 2022,
+          "log_loss": 0.57139292,
+          "mean_predicted": 0.50037473,
+          "observed_rate": 0.5,
+          "rows": 1792
+        },
+        {
+          "accuracy": 0.73296703,
+          "brier": 0.17812198,
+          "calibration_intercept": -0.01790598,
+          "calibration_slope": 1.02131903,
+          "evaluation_season": 2023,
+          "log_loss": 0.52518195,
+          "mean_predicted": 0.50313832,
+          "observed_rate": 0.5,
+          "rows": 1820
+        }
+      ],
+      "seasons_evaluated": 6
+    },
+    {
+      "abstained_rows": 0,
+      "aggregate": {
+        "accuracy": 0.70178749,
+        "brier": 0.18915848,
+        "calibration_bins": [
+          {
+            "bin_index": 0,
+            "lower": 0.0,
+            "mean_predicted": 0.05030127,
+            "observed_rate": 0.04031008,
+            "rows": 645,
+            "upper": 0.1
+          },
+          {
+            "bin_index": 1,
+            "lower": 0.1,
+            "mean_predicted": 0.15168661,
+            "observed_rate": 0.18472906,
+            "rows": 812,
+            "upper": 0.2
+          },
+          {
+            "bin_index": 2,
+            "lower": 0.2,
+            "mean_predicted": 0.25172707,
+            "observed_rate": 0.26583408,
+            "rows": 1121,
+            "upper": 0.3
+          },
+          {
+            "bin_index": 3,
+            "lower": 0.3,
+            "mean_predicted": 0.35068008,
+            "observed_rate": 0.3575,
+            "rows": 1200,
+            "upper": 0.4
+          },
+          {
+            "bin_index": 4,
+            "lower": 0.4,
+            "mean_predicted": 0.45050783,
+            "observed_rate": 0.47568882,
+            "rows": 1234,
+            "upper": 0.5
+          },
+          {
+            "bin_index": 5,
+            "lower": 0.5,
+            "mean_predicted": 0.54931864,
+            "observed_rate": 0.51781473,
+            "rows": 1263,
+            "upper": 0.6
+          },
+          {
+            "bin_index": 6,
+            "lower": 0.6,
+            "mean_predicted": 0.64890875,
+            "observed_rate": 0.64104661,
+            "rows": 1223,
+            "upper": 0.7
+          },
+          {
+            "bin_index": 7,
+            "lower": 0.7,
+            "mean_predicted": 0.74833244,
+            "observed_rate": 0.73876404,
+            "rows": 1068,
+            "upper": 0.8
+          },
+          {
+            "bin_index": 8,
+            "lower": 0.8,
+            "mean_predicted": 0.84817212,
+            "observed_rate": 0.81578947,
+            "rows": 836,
+            "upper": 0.9
+          },
+          {
+            "bin_index": 9,
+            "lower": 0.9,
+            "mean_predicted": 0.95405137,
+            "observed_rate": 0.95209581,
+            "rows": 668,
+            "upper": 1.0
+          }
+        ],
+        "calibration_intercept": -0.00675124,
+        "calibration_slope": 0.93175873,
+        "log_loss": 0.55394889,
+        "mean_predicted": 0.50124575,
+        "observed_rate": 0.5,
+        "rows": 10070
+      },
+      "authority": "PIT_ELIGIBLE_DOMAINS_ONLY",
+      "brier_bootstrap": {
+        "bootstrap_unit": "GAME",
+        "percentile_2_5": 0.18458312,
+        "percentile_97_5": 0.1941194,
+        "point_estimate": 0.18915848,
+        "resamples": 1000
+      },
+      "candidate_id": "prior_only",
+      "family": "REGULARIZED_LOGISTIC",
+      "feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+      "per_season": [
+        {
+          "accuracy": 0.71776018,
+          "brier": 0.18048353,
+          "calibration_intercept": -0.00911763,
+          "calibration_slope": 1.03390783,
+          "evaluation_season": 2018,
+          "log_loss": 0.53238424,
+          "mean_predicted": 0.50165478,
+          "observed_rate": 0.5,
+          "rows": 1768
+        },
+        {
+          "accuracy": 0.72353604,
+          "brier": 0.17548307,
+          "calibration_intercept": -0.0175306,
+          "calibration_slope": 1.12264764,
+          "evaluation_season": 2019,
+          "log_loss": 0.5182541,
+          "mean_predicted": 0.50298095,
+          "observed_rate": 0.5,
+          "rows": 1776
+        },
+        {
+          "accuracy": 0.68684211,
+          "brier": 0.20498014,
+          "calibration_intercept": 0.0499465,
+          "calibration_slope": 0.84021746,
+          "evaluation_season": 2020,
+          "log_loss": 0.5957148,
+          "mean_predicted": 0.48844922,
+          "observed_rate": 0.5,
+          "rows": 1140
+        },
+        {
+          "accuracy": 0.6848929,
+          "brier": 0.1956569,
+          "calibration_intercept": -0.0190023,
+          "calibration_slope": 0.82407776,
+          "evaluation_season": 2021,
+          "log_loss": 0.57046939,
+          "mean_predicted": 0.50401192,
+          "observed_rate": 0.5,
+          "rows": 1774
+        },
+        {
+          "accuracy": 0.68247768,
+          "brier": 0.19987881,
+          "calibration_intercept": -0.01127755,
+          "calibration_slope": 0.80363516,
+          "evaluation_season": 2022,
+          "log_loss": 0.57962133,
+          "mean_predicted": 0.50237627,
+          "observed_rate": 0.5,
+          "rows": 1792
+        },
+        {
+          "accuracy": 0.70989011,
+          "brier": 0.18413051,
+          "calibration_intercept": -0.01824635,
+          "calibration_slope": 0.99045677,
+          "evaluation_season": 2023,
+          "log_loss": 0.54218774,
+          "mean_predicted": 0.50336121,
+          "observed_rate": 0.5,
+          "rows": 1820
+        }
+      ],
+      "seasons_evaluated": 6
+    }
+  ],
+  "candidate_set_sha256": "f592c4ea69b99200c182acb5c069a7fa5b480926e49072ddb71440e11b6f7f20",
+  "candidates_requiring_a_chronology_proxy_label": [
+    "national_logistic_l2",
+    "national_margin_ridge"
+  ],
+  "classification": "EXPANDING_CHRONOLOGICAL_NATIONAL_DEVELOPMENT_WALK_FORWARD_2018_THROUGH_2023",
+  "contract_id": "BAT-668-NATIONAL-MULTI-YEAR-WALK-FORWARD-V1",
+  "contract_sha256": "9eae391eb63a92b18d440cc835cc0168755d76bc81cab0c366666c9642a00406",
+  "decision_unit": "POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001",
+  "evaluation_seasons": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "folds": [
+    {
+      "evaluation_rows": 1768,
+      "evaluation_season": 2018,
+      "fold_id": "SEASON-2018",
+      "training_rows": 80128,
+      "training_seasons": [
+        1963,
+        2017
+      ],
+      "transform_scope": "FITTED_ON_THIS_FOLD_TRAINING_PARTITION_ONLY"
+    },
+    {
+      "evaluation_rows": 1776,
+      "evaluation_season": 2019,
+      "fold_id": "SEASON-2019",
+      "training_rows": 81896,
+      "training_seasons": [
+        1963,
+        2018
+      ],
+      "transform_scope": "FITTED_ON_THIS_FOLD_TRAINING_PARTITION_ONLY"
+    },
+    {
+      "evaluation_rows": 1140,
+      "evaluation_season": 2020,
+      "fold_id": "SEASON-2020",
+      "training_rows": 83672,
+      "training_seasons": [
+        1963,
+        2019
+      ],
+      "transform_scope": "FITTED_ON_THIS_FOLD_TRAINING_PARTITION_ONLY"
+    },
+    {
+      "evaluation_rows": 1774,
+      "evaluation_season": 2021,
+      "fold_id": "SEASON-2021",
+      "training_rows": 84812,
+      "training_seasons": [
+        1963,
+        2020
+      ],
+      "transform_scope": "FITTED_ON_THIS_FOLD_TRAINING_PARTITION_ONLY"
+    },
+    {
+      "evaluation_rows": 1792,
+      "evaluation_season": 2022,
+      "fold_id": "SEASON-2022",
+      "training_rows": 86586,
+      "training_seasons": [
+        1963,
+        2021
+      ],
+      "transform_scope": "FITTED_ON_THIS_FOLD_TRAINING_PARTITION_ONLY"
+    },
+    {
+      "evaluation_rows": 1820,
+      "evaluation_season": 2023,
+      "fold_id": "SEASON-2023",
+      "training_rows": 88378,
+      "training_seasons": [
+        1963,
+        2022
+      ],
+      "transform_scope": "FITTED_ON_THIS_FOLD_TRAINING_PARTITION_ONLY"
+    }
+  ],
+  "gate_identity": "1112becc65f78a25b0843588fd5eba5ddcec6009b0ec58f0cb299c343188bcda",
+  "jira_key": "BAT-668",
+  "known_at_authority_separation": {
+    "best_point_in_time_eligible_candidate": "prior_only",
+    "interpretation": "The leading candidate consumes rankings and venue features, which the BAT-666 audit found to have retrieval-time authority only. A negative interval excluding zero would mean the unauthorized domains buy a separable improvement.",
+    "leading_candidate": "national_margin_ridge",
+    "leading_candidate_authority": "DEVELOPMENT_CHRONOLOGY_PROXY_ONLY",
+    "mean_paired_brier_difference": -0.00524389,
+    "paired_bootstrap": {
+      "bootstrap_unit": "GAME",
+      "percentile_2_5": -0.00630744,
+      "percentile_97_5": -0.00410309,
+      "point_estimate": -0.00524389,
+      "resamples": 1000
+    },
+    "paired_rows": 10070,
+    "the_leader_is_separably_better": true
+  },
+  "lane": "NATIONAL_DEVELOPMENT_EVALUATION_ONLY",
+  "leakage_checks": {
+    "any_fold_trained_on_its_own_season": false,
+    "calibration_fitted_outside_the_training_fold": false,
+    "candidate_set_changed_after_reading_a_result": false,
+    "forbidden_season_scored": false,
+    "transforms_reused_across_folds": false
+  },
+  "local_issue_id": "POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001",
+  "parent_jira_key": "BAT-523",
+  "payload": {
+    "name": "national_multi_year_walk_forward_predictions.jsonl",
+    "rows": 50350,
+    "sha256": "c380eb08ee42c7b4eeed32436ccfc4f035f88e43048f327ea9c0d5d28fb4e6d6"
+  },
+  "precommitment": {
+    "boosting_neural_sequence_or_graph_models": false,
+    "candidate_set_frozen_before_evaluation": true,
+    "champion_promotion": false,
+    "hyperparameter_search_on_any_evaluation_season": false,
+    "negative_candidates_preserved": true,
+    "post_hoc_candidate_insertion": false,
+    "post_hoc_feature_shopping": false
+  },
+  "producer": "tools/build_national_multi_year_walk_forward.py",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_NATIONAL_MULTI_YEAR_WALK_FORWARD_DEVELOPMENT_ONLY_NO_CHAMPION",
+  "schema_version": "aggie.models.national_multi_year_walk_forward.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "champion_or_production_selection": false,
+    "gap_002_closed_by_this_walk_forward": false,
+    "protected_evaluation_opened": false,
+    "protected_performance": false,
+    "specialization_lift": false,
+    "tamu_residual_persistence_claimed": false
+  },
+  "stability": {
+    "aggregate_brier_ranking": [
+      "national_margin_ridge",
+      "national_logistic_l2",
+      "prior_only",
+      "national_elo",
+      "national_base_rate"
+    ],
+    "distinct_seasonal_leaders": [
+      "national_logistic_l2",
+      "national_margin_ridge"
+    ],
+    "interpretation": "The lowest-Brier candidate per season is reported to show whether the ordering is stable across years. This is a stability observation, not a selection: no candidate is promoted, tuned or declared a champion by this phase.",
+    "lowest_brier_candidate_by_season": {
+      "2018": "national_margin_ridge",
+      "2019": "national_logistic_l2",
+      "2020": "national_margin_ridge",
+      "2021": "national_margin_ridge",
+      "2022": "national_margin_ridge",
+      "2023": "national_logistic_l2"
+    },
+    "ordering_is_stable_across_every_season": false,
+    "seasons_evaluated": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ]
+  }
+}

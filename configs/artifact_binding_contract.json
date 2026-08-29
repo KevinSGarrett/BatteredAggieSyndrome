@@ -3851,6 +3851,44 @@
       "evidence_surfaces": []
     },
     {
+      "binding_id": "BAT-668-NATIONAL-MULTI-YEAR-WALK-FORWARD",
+      "jira_key": "BAT-668",
+      "local_issue_id": "POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001",
+      "canonical_artifact_path": "artifacts/experimentation/national_multi_year_walk_forward_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001",
+        "jira_key": "BAT-668",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "NATIONAL_DEVELOPMENT_EVALUATION_ONLY",
+        "classification": "EXPANDING_CHRONOLOGICAL_NATIONAL_DEVELOPMENT_WALK_FORWARD_2018_THROUGH_2023"
+      },
+      "forbidden_true_paths": [
+        "authority.champion_or_production_promotion",
+        "authority.protected_evaluation_admission",
+        "authority.protected_training_admission",
+        "leakage_checks.any_fold_trained_on_its_own_season",
+        "leakage_checks.calibration_fitted_outside_the_training_fold",
+        "leakage_checks.candidate_set_changed_after_reading_a_result",
+        "leakage_checks.forbidden_season_scored",
+        "leakage_checks.transforms_reused_across_folds",
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.gap_002_closed_by_this_walk_forward",
+        "scientific_nonclaims.protected_evaluation_opened",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.specialization_lift",
+        "scientific_nonclaims.tamu_residual_persistence_claimed"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
       "binding_id": "BAT-667-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE",
       "jira_key": "BAT-667",
       "local_issue_id": "POST-TASK-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-001",

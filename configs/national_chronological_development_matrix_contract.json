@@ -11,8 +11,11 @@
   "purpose": "Assemble a nationally scoped chronological development matrix from the BAT-653 admitted point-in-time domains alone, with expanding folds, fold-local transforms, and append invariance. BAT-397 and BAT-398 remain completed matrix-infrastructure predecessors and are not rewritten.",
   "source_contract": {
     "domain_matrix_gate_relative_path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
-    "domain_matrix_gate_sha256": "7fdad9a4ae3c445f1c8b10416b13f2333c46c2a29de86cbf6bc019f055440123",
-    "domain_matrix_dataset_identity": "a14c859165249d008c3853f6fd8193a89df578abe6ba57cfdeeae4fdc18f280c",
+    "domain_matrix_gate_sha256": "e718637243ac6fd24781c8bf975dd1813180245d9b158a542282bbdb17a3e592",
+    "domain_matrix_dataset_identity": "019081fd4a7dd1cf18eaf73f34a2b356a57c4d77af8300507bf51a5e6afb10b8",
+    "domain_matrix_gate_sha256_superseded": "7fdad9a4ae3c445f1c8b10416b13f2333c46c2a29de86cbf6bc019f055440123",
+    "domain_matrix_dataset_identity_superseded": "a14c859165249d008c3853f6fd8193a89df578abe6ba57cfdeeae4fdc18f280c",
+    "domain_matrix_supersession_reason": "BAT-672 rebound the admission matrix to the BAT-663 corpus gate; only the corpus-gate input pin and the identities derived from it changed, and no admission decision, coverage metric or population count moved",
     "spine_gate_relative_path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
     "spine_gate_sha256": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5",
     "spine_dataset_identity": "777dce822d5f02455ef2c47b1e482a45dbf5b3b84300885a608ac845946a03f8",

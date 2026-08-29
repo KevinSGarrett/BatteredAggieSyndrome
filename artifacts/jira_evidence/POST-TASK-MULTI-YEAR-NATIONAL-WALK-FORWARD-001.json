@@ -1,0 +1,59 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T16:35:03Z",
+ "jira_key": "BAT-668",
+ "local_issue_id": "POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-654",
+  "BAT-655",
+  "BAT-666",
+  "BAT-667"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "281357e6355ae521e6cba4ab4c5272219d6a3c90",
+ "observable_outcome": "Extended the national development evaluation to an expanding chronological walk-forward over 2018-2023, 10070 evaluation rows per candidate, with the Cycle #20 candidate list loaded verbatim and hashed. Candidate ordering is not stable across seasons. A game-level paired bootstrap shows the two leading candidates beat the best point-in-time eligible candidate by -0.00524 Brier, 95 percent interval [-0.00631, -0.00410], but that advantage rests entirely on rankings and venue domains that lack known-at authority. No champion or production selection.",
+ "outputs": [
+  {
+   "path": "artifacts/experimentation/national_multi_year_walk_forward_gate.json",
+   "bytes": 30875,
+   "sha256": "d3c938d3d6c1b13a01aa11033ecb8876fa4e7a09e65a2935763f0eac8cadc390",
+   "gate_identity": "1112becc65f78a25b0843588fd5eba5ddcec6009b0ec58f0cb299c343188bcda"
+  },
+  {
+   "path": "artifacts/experimentation/national_multi_year_walk_forward_replay.json",
+   "bytes": 996,
+   "sha256": "b2462ef2fd54d082817ce49ade604e24430a3802fa486b7e3203c799b92be173"
+  },
+  {
+   "path": "configs/national_multi_year_walk_forward_contract.json",
+   "bytes": 3890,
+   "sha256": "a7d8e1ed3449a45f5d33c613ef24d19da7f4c90ad85773424b544dae7f814059"
+  },
+  {
+   "path": "src/aggie_analytics/modeling/national_multi_year_walk_forward.py",
+   "bytes": 28574,
+   "sha256": "7d277bd3171170ea51d39926203ea3c6ea50b535d66387e0bec37a9388e87deb"
+  },
+  {
+   "path": "tools/build_national_multi_year_walk_forward.py",
+   "bytes": 5177,
+   "sha256": "db2e3253ad75b53bd68c24548762b04c3655e70d7e988b815a3d1bacf5733c74"
+  },
+  {
+   "path": "tools/validate_national_multi_year_walk_forward.py",
+   "bytes": 4430,
+   "sha256": "6d618efe514d316385ae8da1d3c201647cd69934fd667129b512357b85bfc105"
+  },
+  {
+   "path": "tests/test_national_multi_year_walk_forward.py",
+   "bytes": 13615,
+   "sha256": "1b71b3223c023f98a59e78625109ec55ea1cfa436a54317b16bab4082ba001c6"
+  }
+ ]
+}

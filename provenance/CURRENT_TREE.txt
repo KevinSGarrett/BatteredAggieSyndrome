@@ -3676,6 +3676,7 @@ tests/test_bas_science_governance.py
 tests/test_cfbd_historical_acquisition.py
 tests/test_codex_usage_interlock.py
 tests/test_context_intelligence_governance.py
+tests/test_contract_input_pins.py
 tests/test_core_registry.py
 tests/test_cpu_worker_backend.py
 tests/test_cursor_review_disposition.py
@@ -4164,6 +4165,7 @@ tools/validate_backlog.py
 tools/validate_bas_science.py
 tools/validate_codex_usage_interlock.py
 tools/validate_context_intelligence.py
+tools/validate_contract_input_pins.py
 tools/validate_cpu_worker_readiness.py
 tools/validate_data_research.py
 tools/validate_dependency_policy.py

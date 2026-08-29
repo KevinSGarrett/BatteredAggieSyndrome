@@ -18,7 +18,9 @@
     "weather_candidate_gate_relative_path": "artifacts/pit/historical_weather_previous_runs_snapshot_gate.json",
     "weather_candidate_gate_sha256": "abaf358edc6735881194160b508b0735b36ac2b3da541d2c2b15b8501d0b1102",
     "tamu_official_corpus_gate_relative_path": "artifacts/data_lake/tamu_official_1996_2009_structured_row_corpus_gate.json",
-    "tamu_official_corpus_gate_sha256": "7965d99fd6e42690f9a37df521c5b5cccfda48b73a97e4727b7537667968fc12",
+    "tamu_official_corpus_gate_sha256": "086c5a461846009e104b8a023a9af94196b50d120d8eaea3434aa758271b33e0",
+    "tamu_official_corpus_gate_sha256_superseded": "7965d99fd6e42690f9a37df521c5b5cccfda48b73a97e4727b7537667968fc12",
+    "tamu_official_corpus_gate_supersession_reason": "BAT-663 superseded the corpus gate dataset, union, rejection and upstream structured identities; the pinned input is rebound to that superseding state and the matrix semantics are unchanged",
     "bulk_payloads_in_git": false
   },
   "population_scope": {

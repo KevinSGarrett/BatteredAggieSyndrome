@@ -11,8 +11,11 @@
   "purpose": "Freeze a small predeclared set of simple national expectation baselines, evaluate them exactly once on the frozen 2023 development cohort carried by the BAT-654 matrix, derive a peer-program cohort from a declared measurable rule rather than reputation, and run a development-only Texas A&M residual pipeline test. BAT-139, BAT-143, and BAT-195 remain the completed contract-definition predecessors and are not rewritten.",
   "source_contract": {
     "matrix_gate_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
-    "matrix_gate_sha256": "1968c2837d6555a1c9baefb3f3e17c77fbeee8a7bd9018052bb453ee4ef3ae75",
-    "matrix_dataset_identity": "725c4adb1bdec227265833def1f1fa4d27412eb22cca67745a9c67e93a158155",
+    "matrix_gate_sha256": "e5e09d93b638a27669d7097e506e0e3341a15a9a2fd9c03f026b591f2a3b071d",
+    "matrix_dataset_identity": "874865034d36d5f7bd385485eeeb5e308c2463cdf0145bf9eaba7efa50c33861",
+    "matrix_gate_sha256_superseded": "1968c2837d6555a1c9baefb3f3e17c77fbeee8a7bd9018052bb453ee4ef3ae75",
+    "matrix_dataset_identity_superseded": "725c4adb1bdec227265833def1f1fa4d27412eb22cca67745a9c67e93a158155",
+    "matrix_supersession_reason": "BAT-672 rebound the BAT-653 corpus-gate input pin that BAT-663 superseded; the change propagates through derived identities only and no expectation, baseline or peer result moves",
     "bulk_payloads_in_git": false
   },
   "preserved_predecessor_result": {

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
+import re
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -46,18 +46,25 @@ def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 
 
-def _git_head_sha(repo_root: Path) -> str:
-    completed = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        cwd=repo_root,
-        check=False,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-    )
-    if completed.returncode != 0:
-        raise AuthorityViolation(completed.stderr.strip() or "git rev-parse HEAD failed")
-    return completed.stdout.strip()
+def supersession_material_merge_sha(contract: Mapping[str, Any]) -> str:
+    """Return the precommitted merge SHA that materialized the supersession ledger.
+
+    This is read from the contract rather than sampled from the working checkout. Every
+    other field of the ledger is derived from committed content, so sampling HEAD here
+    would make the ledger and gate identities a function of whichever commit happens to
+    be checked out, and the gate would self-invalidate on the following commit.
+    """
+    value = contract.get("supersession_material_merge_sha")
+    if not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{40}", value):
+        raise AuthorityViolation(
+            "contract must predeclare supersession_material_merge_sha as a 40-character lowercase hex commit SHA"
+        )
+    if (
+        contract.get("supersession_material_merge_sha_authority")
+        != "PRECOMMITTED_MATERIALIZATION_COMMIT_NOT_SAMPLED_FROM_CHECKOUT"
+    ):
+        raise AuthorityViolation("supersession merge SHA authority label missing or altered")
+    return value
 
 
 def _rejecteds_absent_from_corpus(
@@ -126,6 +133,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     if not structured_1997_payload_identity or not structured_1996_payload_identity:
         raise AuthorityViolation("structured payload identities missing for supersession ledger")
     admitted_by_url = {str(item.get("url") or ""): item for item in admitted_games}
+    merge_sha = supersession_material_merge_sha(contract)
     supersessions: list[dict[str, Any]] = []
     for row in historical_records:
         if not row.get("superseded"):
@@ -158,7 +166,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
                 ),
                 "new_structured_payload_identity": structured_1997_payload_identity if source_season == 1997 else structured_1996_payload_identity,
                 "new_union_identity": union_identity,
-                "material_merge_sha": _git_head_sha(repo_root),
+                "material_merge_sha": merge_sha,
                 "reason_code": "SUPERSEDED_BY_VERIFIED_LEGACY_H2_FORMAT_RECOVERY",
             }
         )

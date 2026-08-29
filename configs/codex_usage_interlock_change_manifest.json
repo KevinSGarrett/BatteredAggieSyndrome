@@ -1,19 +1,27 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "POST-TASK-SHADOW-FORECAST-LINT-CORRECTION-001",
-  "jira_identity": "BAT-660",
+  "work_unit_id": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+  "jira_identity": "BAT-661",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "d571bbabe5d0751a9eb47e8e7cb075d49701e56b",
-  "pre_routing_decision_sha256": "eca1c3ff8e87591c79ce8d1b0034f1c7907d2c8353419baa7e0a03f7fb7bada5",
+  "base_commit": "862b4ff5cfdb1c0c9ac67a10182f1da3131eefcc",
+  "pre_routing_decision_sha256": "f6198fbb70d59142670fe001f072aafa7221781ac0b4d18aee76955f66c8632c",
   "changed_paths": [
+    "artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json",
+    "artifacts/shadow/week_zero_2026_calendar_and_t7d_replay.json",
+    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "configs/week_zero_2026_calendar_and_t7d_contract.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/modeling/prospective_shadow_forecasts.py"
+    "src/aggie_analytics/data/week_zero_2026_calendar.py",
+    "tests/test_week_zero_2026_calendar_and_t7d.py",
+    "tools/acquire_2026_week_zero_t7d_evidence.py",
+    "tools/build_week_zero_2026_calendar_and_t7d_authority.py",
+    "tools/validate_week_zero_2026_calendar_and_t7d_authority.py"
   ],
-  "manifest_identity": "cb9b6770f070de2115922c84210660768bf8447f0541776c1b8ec475a795db88"
+  "manifest_identity": "7f7c5ac2bd5726dbcc3815d31e135b50a4e03bbdfcbe7e1c49b46a0848da5ee8"
 }

@@ -1,32 +1,40 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "POST-TASK-SHADOW-FORECAST-LINT-CORRECTION-001",
-  "jira_identity": "BAT-660",
+  "work_unit_id": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+  "jira_identity": "BAT-661",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20",
-  "source_commit": "d571bbabe5d0751a9eb47e8e7cb075d49701e56b",
+  "source_commit": "862b4ff5cfdb1c0c9ac67a10182f1da3131eefcc",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "scope": "Cycle 20 lint correction of the prospective shadow forecast module",
-  "downstream_consumer": "national 2026 prospective shadow forecast and scoring lane",
+  "scope": "Correct the 2026 Week Zero season taxonomy and freeze the Texas A&M T-7D checkpoint authority",
+  "downstream_consumer": "Cycle 21 Phase 1 prospective shadow lane",
   "user_explicit_waiver": {
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20\nExecute all Cycle #20 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "instruction_sha256": "6e81eee45c595b372801312c8b1c8f4ee359ddab17de13a2f9aa6258914c6533",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
-    "work_unit_id": "POST-TASK-SHADOW-FORECAST-LINT-CORRECTION-001"
+    "work_unit_id": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001"
   },
   "allowed_paths": [
+    "artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json",
+    "artifacts/shadow/week_zero_2026_calendar_and_t7d_replay.json",
+    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "configs/week_zero_2026_calendar_and_t7d_contract.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/modeling/prospective_shadow_forecasts.py"
+    "src/aggie_analytics/data/week_zero_2026_calendar.py",
+    "tests/test_week_zero_2026_calendar_and_t7d.py",
+    "tools/acquire_2026_week_zero_t7d_evidence.py",
+    "tools/build_week_zero_2026_calendar_and_t7d_authority.py",
+    "tools/validate_week_zero_2026_calendar_and_t7d_authority.py"
   ],
-  "decision_sha256": "eca1c3ff8e87591c79ce8d1b0034f1c7907d2c8353419baa7e0a03f7fb7bada5"
+  "decision_sha256": "f6198fbb70d59142670fe001f072aafa7221781ac0b4d18aee76955f66c8632c"
 }

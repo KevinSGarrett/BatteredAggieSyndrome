@@ -3805,6 +3805,50 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-661-WEEK-ZERO-2026-CALENDAR-AND-TAMU-T7D-AUTHORITY",
+      "jira_key": "BAT-661",
+      "local_issue_id": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+      "canonical_artifact_path": "artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+        "jira_key": "BAT-661",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "classification": "WEEK_ZERO_2026_SEASON_TAXONOMY_CORRECTION_AND_TAMU_T7D_CHECKPOINT_AUTHORITY"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.specialization_lift",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.public_forecast_publication",
+        "scientific_nonclaims.entity_resolution_benchmark",
+        "authority.frozen_forecast_revision",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.model_selection_or_tuning",
+        "authority.champion_or_production_promotion",
+        "authority.forecast_publication",
+        "authority.immutable_raw_capture_mutation",
+        "outcome_exclusion.outcome_fields_extracted",
+        "outcome_exclusion.outcome_accessible_before_forecast_freeze",
+        "frozen_forecast_preservation.revision_performed",
+        "frozen_forecast_preservation.candidate_set_changed",
+        "frozen_forecast_preservation.adjustment_applied",
+        "official_kickoff_confirmation.retrieval_time_used_as_kickoff_time",
+        "supersession.predecessor_gates_are_rewritten"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

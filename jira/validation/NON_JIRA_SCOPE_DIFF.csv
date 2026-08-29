@@ -15,6 +15,8 @@ ADDED,artifacts/data_lake/core_normalization_report.json
 ADDED,artifacts/data_lake/historical_expansion_acquisition_manifest.json
 ADDED,artifacts/data_lake/historical_expansion_eligibility_gate.json
 ADDED,artifacts/data_lake/historical_expansion_population_profile.json
+ADDED,artifacts/data_lake/historical_known_at_authority_gate.json
+ADDED,artifacts/data_lake/historical_known_at_authority_replay.json
 ADDED,artifacts/data_lake/immutability_and_correction_test.json
 ADDED,artifacts/data_lake/national_foundation_reconciliation_gate.json
 ADDED,artifacts/data_lake/national_lake_readiness.json
@@ -239,6 +241,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-GAMEBOOK-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.json
@@ -430,6 +433,7 @@ ADDED,configs/feature_source_research_program.json
 ADDED,configs/historical_advanced_game_snapshot_contract.json
 ADDED,configs/historical_game_outcome_spine_contract.json
 ADDED,configs/historical_game_outcome_spine_expansion_contract.json
+ADDED,configs/historical_known_at_authority_contract.json
 ADDED,configs/historical_known_at_recovery_contract.json
 ADDED,configs/historical_play_drive_pit_aggregate_contract.json
 ADDED,configs/historical_play_drive_pit_aggregate_development_safe_contract.json
@@ -764,6 +768,7 @@ ADDED,src/aggie_analytics/data/development_2023_outcomes.py
 ADDED,src/aggie_analytics/data/historical_game_outcome_spine.py
 ADDED,src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
 ADDED,src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
+ADDED,src/aggie_analytics/data/historical_known_at_authority.py
 ADDED,src/aggie_analytics/data/http.py
 ADDED,src/aggie_analytics/data/national_chronological_development_matrix.py
 ADDED,src/aggie_analytics/data/national_foundation_reconciliation.py
@@ -947,6 +952,7 @@ ADDED,tests/test_external_storage_policy.py
 ADDED,tests/test_historical_advanced_game_snapshot.py
 ADDED,tests/test_historical_game_outcome_spine.py
 ADDED,tests/test_historical_game_outcome_spine_expansion.py
+ADDED,tests/test_historical_known_at_authority.py
 ADDED,tests/test_historical_known_at_recovery_contract.py
 ADDED,tests/test_historical_known_at_replay.py
 ADDED,tests/test_historical_play_drive_pit.py
@@ -1125,6 +1131,7 @@ ADDED,tools/acquire_2026_prospective_schedule.py
 ADDED,tools/acquire_2026_week_zero_live_execution_evidence.py
 ADDED,tools/acquire_2026_week_zero_t7d_evidence.py
 ADDED,tools/acquire_cfbd_historical.py
+ADDED,tools/acquire_historical_known_at_publication_routes.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py
 ADDED,tools/acquire_sec_tamu_availability.py
@@ -1146,6 +1153,7 @@ ADDED,tools/build_evaluation_exposure_ledger.py
 ADDED,tools/build_historical_advanced_game_snapshot.py
 ADDED,tools/build_historical_game_outcome_spine.py
 ADDED,tools/build_historical_game_outcome_spine_expansion.py
+ADDED,tools/build_historical_known_at_authority_audit.py
 ADDED,tools/build_historical_play_drive_pit.py
 ADDED,tools/build_historical_play_drive_pit_extension.py
 ADDED,tools/build_historical_play_enrichment_pit.py
@@ -1353,6 +1361,7 @@ ADDED,tools/validate_external_storage_policy.py
 ADDED,tools/validate_historical_advanced_game_snapshot.py
 ADDED,tools/validate_historical_game_outcome_spine.py
 ADDED,tools/validate_historical_game_outcome_spine_expansion.py
+ADDED,tools/validate_historical_known_at_authority_audit.py
 ADDED,tools/validate_historical_play_drive_pit.py
 ADDED,tools/validate_historical_play_drive_pit_extension.py
 ADDED,tools/validate_historical_play_enrichment_pit.py

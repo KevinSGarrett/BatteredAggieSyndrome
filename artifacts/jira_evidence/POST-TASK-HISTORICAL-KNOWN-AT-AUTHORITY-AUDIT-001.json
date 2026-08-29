@@ -1,0 +1,62 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T07:42:34Z",
+ "jira_key": "BAT-666",
+ "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-560",
+  "BAT-653"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "7741a6cf71950cdc20ec035e6bb0a7e6040d76aa",
+ "observable_outcome": "Audited the known-at authority behind every admitted historical domain, investigated and bound two national publication-time-bearing routes, and established a precommitted bifurcated completion bound tested against the spine's real start evidence. Three domains gained authority; rankings and the mutable venue attributes remain retrieval-time only, so GAP-002 remains open.",
+ "outputs": [
+  {
+   "path": "artifacts/data_lake/historical_known_at_authority_gate.json",
+   "bytes": 22584,
+   "sha256": "fcfbeea8e7dba47acfe892431fc62fa0d4d10baf8e7cd702112561b91758a1a3",
+   "gate_identity": "9bc7606a91ed985cd3f4ad3f0035ddd63962596d6fed22ebb9f1260d186dfd14"
+  },
+  {
+   "path": "artifacts/data_lake/historical_known_at_authority_replay.json",
+   "bytes": 1136,
+   "sha256": "f8b0e84e656a5e9099eee17f6e20fc2ec601d893a10fe5de3776b03a255614f8"
+  },
+  {
+   "path": "configs/historical_known_at_authority_contract.json",
+   "bytes": 5621,
+   "sha256": "524a4623821c4b5290b36f3f3fcfc64e3d3444e8b4508aa14d3d93e94fed8276"
+  },
+  {
+   "path": "src/aggie_analytics/data/historical_known_at_authority.py",
+   "bytes": 22790,
+   "sha256": "9623bf5d8cd1f1ac71c7095cf0ce5e81558d154ab7b98e2c7a1c607598622da8"
+  },
+  {
+   "path": "tools/acquire_historical_known_at_publication_routes.py",
+   "bytes": 8676,
+   "sha256": "957e8933a676b963c4928ed547cb93da07bdba4b587c81287f80eecc143cbb7c"
+  },
+  {
+   "path": "tools/build_historical_known_at_authority_audit.py",
+   "bytes": 4925,
+   "sha256": "c40a446a8e84c868f5148457b55fdadffb38a32bf8d96583cd718086e2b1a7cb"
+  },
+  {
+   "path": "tools/validate_historical_known_at_authority_audit.py",
+   "bytes": 3228,
+   "sha256": "ad87a829786a83ddeefc5c1f88f1096fd1d743b9e0b4e9a79f1d8242b3de316b"
+  },
+  {
+   "path": "tests/test_historical_known_at_authority.py",
+   "bytes": 15482,
+   "sha256": "e9a317b0ae238da0703b5406494f963b84741ca73f8f9b7e90b951e88ecbbe04"
+  }
+ ]
+}

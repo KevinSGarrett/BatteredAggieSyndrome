@@ -222,6 +222,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001.json
@@ -245,6 +246,8 @@ ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-00
 ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-OFFLINE-DETERMINISTIC-TEST-REPAIR-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-PURE-BYTE-STABLE-GATE-MATERIALIZATION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001.json
@@ -572,6 +575,7 @@ ADDED,configs/tamu_official_historical_boxscore_contract.json
 ADDED,configs/tamu_official_historical_coverage_inventory_contract.json
 ADDED,configs/tamu_official_pre2010_boxscore_contract.json
 ADDED,configs/tamu_official_statcrew_preformatted_contract.json
+ADDED,configs/tracked_line_ending_baseline.json
 ADDED,configs/unified_assistive_acceptance_ownership.json
 ADDED,configs/unified_assistive_change_routing_binding.json
 ADDED,configs/unified_assistive_operational_claims.json
@@ -761,10 +765,12 @@ ADDED,src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 ADDED,src/aggie_analytics/data/ncaa_contest_reconciliation.py
 ADDED,src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
 ADDED,src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py
+ADDED,src/aggie_analytics/data/offline_reconstruction.py
 ADDED,src/aggie_analytics/data/open_source.py
 ADDED,src/aggie_analytics/data/play_drive.py
 ADDED,src/aggie_analytics/data/prospective_shadow_cohort.py
 ADDED,src/aggie_analytics/data/roster_reconciliation.py
+ADDED,src/aggie_analytics/data/season_index_offline_reconstruction.py
 ADDED,src/aggie_analytics/data/sec_availability.py
 ADDED,src/aggie_analytics/data/tamu_2010_2011_ncaa_official_acquisition.py
 ADDED,src/aggie_analytics/data/tamu_cross_source_domain_gate.py
@@ -904,6 +910,7 @@ ADDED,src/aggie_analytics/validation/pit_replay_readiness.py
 ADDED,src/aggie_analytics/validation/protected_split_authority.py
 ADDED,src/aggie_analytics/validation/retraining_admission.py
 ADDED,src/aggie_analytics/validation/roster_domain_completeness.py
+ADDED,src/aggie_analytics/validation/tracked_file_purity.py
 ADDED,tests/fixtures/protected_split_exposure_audit.v2.stale.json
 ADDED,tests/fixtures/stale_placeholder_contract.json
 ADDED,tests/test_acquisition_resilience.py
@@ -974,6 +981,7 @@ ADDED,tests/test_noaa_isd_alternate_station_recovery.py
 ADDED,tests/test_noaa_isd_game_observation_shadow.py
 ADDED,tests/test_noaa_isd_observed_coverage_pilot.py
 ADDED,tests/test_noaa_isd_station_matching.py
+ADDED,tests/test_offline_reconstruction_guard.py
 ADDED,tests/test_open_source_adapters.py
 ADDED,tests/test_open_source_integration_registry.py
 ADDED,tests/test_open_source_properties.py
@@ -1085,6 +1093,7 @@ ADDED,tests/test_tamu_official_pre2010_boxscores.py
 ADDED,tests/test_tamu_official_rich_structure.py
 ADDED,tests/test_tamu_official_statcrew_preformatted.py
 ADDED,tests/test_tamu_week1_rehearsal.py
+ADDED,tests/test_tracked_file_purity.py
 ADDED,tests/test_unified_assistive_completeness.py
 ADDED,tests/test_unified_assistive_plane.py
 ADDED,tests/test_unified_controller_service.py
@@ -1460,6 +1469,7 @@ ADDED,tools/validate_tamu_official_historical_coverage_inventory.py
 ADDED,tools/validate_tamu_official_pre2010_boxscores.py
 ADDED,tools/validate_tamu_official_rich_structure.py
 ADDED,tools/validate_tamu_official_statcrew_preformatted.py
+ADDED,tools/validate_tracked_file_purity.py
 ADDED,tools/validate_unified_acceptance_ownership.py
 ADDED,tools/validate_unified_assistive_completeness.py
 ADDED,tools/validate_unified_assistive_plane.py

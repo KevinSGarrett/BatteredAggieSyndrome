@@ -265,6 +265,7 @@ artifacts/jira_evidence/POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001.json
 artifacts/jira_evidence/POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001.json
 artifacts/jira_evidence/POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001.json
 artifacts/jira_evidence/POST-TASK-OFFLINE-DETERMINISTIC-TEST-REPAIR-001.json
+artifacts/jira_evidence/POST-TASK-PURE-BYTE-STABLE-GATE-MATERIALIZATION-001.json
 artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001.json
@@ -3182,10 +3183,6 @@ prompts/openai_assist/quarantine_schema_v1.txt
 provenance/INPUT_ARTIFACTS.csv
 provenance/MANIFEST_POLICY.md
 provenance/PROJECT_FILE_HASHES.sha256
-provenance/PROJECT_FILE_HASHES.sha256
-provenance/PROJECT_FILE_HASHES.sha256
-provenance/PROJECT_FILE_MANIFEST.csv
-provenance/PROJECT_FILE_MANIFEST.csv
 provenance/PROJECT_FILE_MANIFEST.csv
 provenance/RECONNAISSANCE_FILE_INDEX.csv
 provenance/RECON_REQUIRED_READING_STATUS.csv

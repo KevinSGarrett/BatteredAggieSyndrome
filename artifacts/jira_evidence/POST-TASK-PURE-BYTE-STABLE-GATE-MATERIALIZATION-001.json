@@ -1,0 +1,17 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T06:13:18Z",
+ "jira_key": "BAT-663",
+ "local_issue_id": "POST-TASK-PURE-BYTE-STABLE-GATE-MATERIALIZATION-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "cef927a9b1ff263dc932aac63007de7a85e3e225",
+ "observable_outcome": "Validators and tests are read-only: a repository-strict tracked-file mutation detector and an independent validator now fingerprint tracked files before and after any command, five legacy suites that rewrote tracked artifacts/data_lake gates were repointed to read-only reconstruction, the five affected gates were re-materialized offline to clear stale identity fields, a disclosed 43-file mixed line-ending baseline was recorded so new violations fail closed, and mounted acceptance ran twice from the same clean commit and data root with 31/31 passed, zero skips, identical identity and a clean git status after each run.",
+ "outputs": []
+}

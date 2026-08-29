@@ -1,0 +1,73 @@
+{
+  "contract_id": "BAT-664-PROSPECTIVE-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-V1",
+  "schema_version": "aggie.shadow.prospective_2026_temporal_audit.v1",
+  "classification": "INDEPENDENT_TEMPORAL_PROOF_AUDIT_OF_FROZEN_2026_SHADOW_FORECASTS",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "jira_key": "BAT-664",
+  "parent_jira_key": "BAT-523",
+  "local_issue_id": "POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001",
+  "purpose": "Reconstruct the Cycle 20 prospective 2026 shadow population and independently prove, row by row, that every FORECAST_FROZEN probability was issued strictly before its contest kickoff bound and strictly before its declared pregame cutoff. The audit never regenerates a forecast, never revises a probability and never reads an outcome.",
+  "audited_predecessors": [
+    {
+      "artifact_relative_path": "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+      "jira_key": "BAT-656",
+      "role": "CONTEST_POPULATION_AND_KICKOFF_BOUND_AUTHORITY"
+    },
+    {
+      "artifact_relative_path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+      "jira_key": "BAT-657",
+      "role": "SNAPSHOT_AND_FORECAST_ROW_AUTHORITY"
+    },
+    {
+      "artifact_relative_path": "artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json",
+      "jira_key": "BAT-661",
+      "role": "CORRECTED_SEASON_TAXONOMY_AUTHORITY"
+    }
+  ],
+  "expected_population": {
+    "contests_observed": 99,
+    "snapshots_frozen": 82,
+    "forecast_rows_emitted": 495,
+    "forecast_rows_frozen": 164,
+    "unsupported_contests": 17,
+    "unsupported_candidate_rows": 85,
+    "abstaining_candidate_rows": 246
+  },
+  "required_bindings": [
+    "official_contest_identity",
+    "official_game_date",
+    "kickoff_bound_utc",
+    "snapshot_identity",
+    "snapshot_frozen_at_utc",
+    "forecast_issued_at_utc",
+    "candidate_identity",
+    "model_identity",
+    "probability_identity"
+  ],
+  "ordering_requirements": [
+    "capture_retrieved_at_utc <= snapshot_frozen_at_utc",
+    "snapshot_frozen_at_utc <= forecast_issued_at_utc",
+    "forecast_issued_at_utc <= declared_pregame_cutoff_deadline_utc",
+    "forecast_issued_at_utc < kickoff_bound_utc"
+  ],
+  "verdicts": {
+    "TEMPORAL_PROOF_COMPLETE": "Every required binding is present and every ordering requirement holds strictly. The row remains scorable.",
+    "MISSED_CUTOFF_NO_BACKFILL": "The row carries every required binding but was issued at or after its declared pregame cutoff deadline, or at or after its kickoff bound. The row is permanently non-scorable and must never be regenerated.",
+    "FAIL_CLOSED_INSUFFICIENT_TEMPORAL_PROOF": "At least one required binding is absent, unparseable or inconsistent with the reconstructed population. The row fails closed into the truthful non-scored state."
+  },
+  "non_frozen_row_explanations": {
+    "UNSUPPORTED_ENTITY": "At least one participant of the contest does not resolve to the national spine, so no probability was ever emitted and there is nothing to prove temporally.",
+    "MISSING_REQUIRED_FEATURES_ABSTAIN": "The candidate abstained because a required feature was unavailable at snapshot time. The row carries a null probability and is not a forecast."
+  },
+  "probability_identity_rule": "sha256 over the canonical JSON tuple of ncaa_contest_id, candidate_id, model_identity, feature_identity, code_identity, snapshot_identity and the probability rounded to eight decimal places.",
+  "kickoff_bound_rule": "The audit consumes the predecessor conservative lower bound verbatim. It never recomputes, relaxes or advances a kickoff instant, because relaxing a bound would retroactively make a late forecast look timely.",
+  "taxonomy_correction_rule": "Each audited contest receives the corrected Week Zero or Week One label published by the BAT-661 calendar gate, keyed on the official published game date. Membership is never changed by relabeling; a label change with a membership change is a hard failure.",
+  "outcome_exclusion": "NO_OUTCOME_FIELD_IS_READ_BY_THIS_AUDIT",
+  "scientific_nonclaims": {
+    "a_complete_temporal_proof_is_not_a_correct_forecast": true,
+    "no_probability_is_revised_added_or_removed_by_this_audit": true,
+    "the_kickoff_bound_remains_a_conservative_lower_bound_not_a_confirmed_official_instant": true,
+    "this_audit_makes_no_bas_or_champion_claim": true
+  }
+}

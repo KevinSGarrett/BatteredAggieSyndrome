@@ -3849,6 +3849,35 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-664-PROSPECTIVE-2026-SHADOW-FORECAST-TEMPORAL-AUDIT",
+      "jira_key": "BAT-664",
+      "local_issue_id": "POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001",
+      "canonical_artifact_path": "artifacts/shadow/prospective_2026_shadow_temporal_audit_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001",
+        "jira_key": "BAT-664",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "classification": "INDEPENDENT_TEMPORAL_PROOF_AUDIT_OF_FROZEN_2026_SHADOW_FORECASTS"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.specialization_lift",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.public_forecast_publication",
+        "scientific_nonclaims.entity_resolution_benchmark"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

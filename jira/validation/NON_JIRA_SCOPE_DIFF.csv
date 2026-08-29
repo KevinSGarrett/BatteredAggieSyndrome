@@ -254,6 +254,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001.
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-MOUNTED-ACCEPTANCE-HEAD-SAMPLING-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-ENTITY-BENCHMARK-AND-2026-COVERAGE-REBOUND-001.json
@@ -757,6 +758,7 @@ ADDED,schemas/openai/assistive_candidate.schema.json
 ADDED,schemas/openai/assistive_evaluation.schema.json
 ADDED,schemas/openai/depth_chart_noncoverage_visual.schema.json
 ADDED,scripts/audit_control_plane.ps1
+ADDED,src/aggie_analytics/__pycache__/__init__.cpython-311.pyc
 ADDED,src/aggie_analytics/assistive_plane/__init__.py
 ADDED,src/aggie_analytics/assistive_plane/backend.py
 ADDED,src/aggie_analytics/assistive_plane/budget.py
@@ -942,6 +944,11 @@ ADDED,src/aggie_analytics/temporal/venue_assignment_pit.py
 ADDED,src/aggie_analytics/temporal/weather_previous_runs_snapshot.py
 ADDED,src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
+ADDED,src/aggie_analytics/validation/__pycache__/__init__.cpython-311.pyc
+ADDED,src/aggie_analytics/validation/__pycache__/artifact_binding.cpython-311.pyc
+ADDED,src/aggie_analytics/validation/__pycache__/metrics.cpython-311.pyc
+ADDED,src/aggie_analytics/validation/__pycache__/promotion.cpython-311.pyc
+ADDED,src/aggie_analytics/validation/__pycache__/protected.cpython-311.pyc
 ADDED,src/aggie_analytics/validation/artifact_binding.py
 ADDED,src/aggie_analytics/validation/evaluation_exposure.py
 ADDED,src/aggie_analytics/validation/pit_replay_readiness.py

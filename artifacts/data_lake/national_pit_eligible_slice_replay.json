@@ -1,0 +1,13 @@
+{
+  "artifact_type": "NATIONAL_PIT_ELIGIBLE_SLICE_REPLAY",
+  "contract_id": "BAT-667-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-V1",
+  "gate_identity": "27d369100fc5dfb4b738e4c394b3c898004d50741e129c9d48df11c6df95059a",
+  "gate_relative_path": "artifacts/data_lake/national_pit_eligible_slice_gate.json",
+  "payload_relative_path": "canonical/national_pit_eligible_slice/sha256/27d369100fc5dfb4b738e4c394b3c898004d50741e129c9d48df11c6df95059a/national_pit_eligible_team_features.jsonl",
+  "payload_sha256": "0b19735d74c59b5655e079a1660b64cfd3ad467e7f4115bff8a14bb344e91a25",
+  "reproduction": [
+    "python tools/build_national_pit_eligible_slice.py --repo-root . --data-root <data-root>",
+    "python tools/validate_national_pit_eligible_slice.py --repo-root . --data-root <data-root>"
+  ],
+  "schema_version": "aggie.data.national_pit_eligible_slice_replay.v1"
+}

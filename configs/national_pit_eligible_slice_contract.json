@@ -1,0 +1,96 @@
+{
+  "contract_id": "BAT-667-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-V1",
+  "schema_version": "aggie.data.national_pit_eligible_slice.v1",
+  "classification": "FIRST_NONZERO_NATIONAL_POINT_IN_TIME_ELIGIBLE_FEATURE_SLICE",
+  "lane": "HISTORICAL_DEVELOPMENT_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "jira_key": "BAT-667",
+  "parent_jira_key": "BAT-523",
+  "local_issue_id": "POST-TASK-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-001",
+  "gap_id": "GAP-002",
+  "purpose": "Materialize the first nonzero national point-in-time eligible feature slice using only the domains whose known-at authority the BAT-666 audit actually established. Every prior-derived value is recomputed from bound-admissible evidence rather than inherited from the existing spine, so the slice is eligible by construction rather than by assertion.",
+  "authority_predecessor": {
+    "artifact_relative_path": "artifacts/data_lake/historical_known_at_authority_gate.json",
+    "jira_key": "BAT-666",
+    "required_domains_with_sufficient_authority": [
+      "outcome_labels_and_cutoffs",
+      "team_outcome_priors",
+      "team_season_context"
+    ],
+    "required_domains_blocked": [
+      "rankings",
+      "venues"
+    ]
+  },
+  "bound_predecessors": [
+    {
+      "artifact_relative_path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
+      "jira_key": "BAT-652",
+      "role": "OUTCOME_LABELS_AND_TEAM_OBSERVATIONS"
+    },
+    {
+      "artifact_relative_path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+      "jira_key": "BAT-653",
+      "role": "ADMITTED_DOMAINS_AND_CONTEST_START_EVIDENCE"
+    }
+  ],
+  "admitted_domains": [
+    "team_outcome_priors",
+    "team_season_context"
+  ],
+  "excluded_domains": [
+    {
+      "domain_id": "rankings",
+      "reason": "The BAT-666 audit found no observed publication instant on either national route, so poll values have retrieval-time authority only."
+    },
+    {
+      "domain_id": "venues",
+      "reason": "The mutable dome and playing-surface attributes have retrieval-time authority only, and the audit rejected inheriting the geographic time-invariant basis for them."
+    }
+  ],
+  "emitted_features": [
+    "pit_prior_games_played",
+    "pit_prior_win_rate",
+    "pit_prior_points_for_mean",
+    "pit_prior_points_against_mean",
+    "pit_prior_margin_mean",
+    "pit_prior_season_win_rate",
+    "pit_season_to_date_games",
+    "pit_season_to_date_win_rate",
+    "team_conference",
+    "team_is_fbs"
+  ],
+  "eligibility_rules": {
+    "cutoff_policy_id": "BAT-666-CONSERVATIVE-COMPLETION-BOUND-V1",
+    "cutoff_rule": "A prior contest contributes to a target row only when its precommitted completion bound does not exceed the target contest's earliest possible start.",
+    "same_game_exclusion": "A contest can never be its own prior, because its completion bound always exceeds its own earliest possible start.",
+    "future_append_invariance": "A target row's emitted values depend only on contests whose completion bound precedes that target, so appending later contests cannot change an already-emitted row.",
+    "tie_handling": "A tie counts toward games played and toward neither wins nor losses.",
+    "sealed_seasons_forbidden": [
+      2024,
+      2025
+    ]
+  },
+  "row_verdicts": {
+    "PIT_FEATURE_ELIGIBLE": "The row carries at least one bound-admissible prior value and every emitted value is determined by evidence provably knowable before the contest began.",
+    "PIT_ELIGIBLE_NO_PRIOR_INFORMATION": "The row is temporally sound but has no bound-admissible prior, so every prior feature is truthfully missing and the row carries no prior information.",
+    "REJECTED_NO_USABLE_START_EVIDENCE": "The target contest carries no parseable start evidence, so no cutoff can be computed and the row is rejected.",
+    "REJECTED_NO_OUTCOME_REFERENCE": "The target team-game has no outcome-label row, so its membership in the national population cannot be confirmed.",
+    "REJECTED_SEALED_SEASON": "The row belongs to a sealed season and must never enter any slice."
+  },
+  "leakage_exposure_measurement": {
+    "purpose": "Quantify how much of the existing spine's prior evidence was not provably knowable before kickoff, by comparing the recomputed bound-admissible prior count against the spine's own prior count.",
+    "spine_field": "prior_games_played",
+    "recomputed_field": "pit_prior_games_played",
+    "expectation": "The recomputed count must never exceed the spine count, because the bound only ever removes priors."
+  },
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "champion_or_production_selection": false,
+    "gap_002_closed_by_this_slice": false,
+    "protected_lane_opened": false,
+    "protected_performance": false,
+    "rankings_or_venue_admission": false,
+    "specialization_lift": false
+  }
+}

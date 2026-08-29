@@ -39,6 +39,8 @@ artifacts/data_lake/immutability_and_correction_test.json
 artifacts/data_lake/national_foundation_reconciliation_gate.json
 artifacts/data_lake/national_lake_readiness.json
 artifacts/data_lake/national_pit_domain_admission_matrix_gate.json
+artifacts/data_lake/national_pit_eligible_slice_gate.json
+artifacts/data_lake/national_pit_eligible_slice_replay.json
 artifacts/data_lake/national_tiered_game_spine_gate.json
 artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
@@ -491,6 +493,7 @@ configs/national_chronological_development_matrix_contract.json
 configs/national_expectation_baselines_and_peers_contract.json
 configs/national_foundation_reconciliation_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
+configs/national_pit_eligible_slice_contract.json
 configs/national_shadow_operations_contract.json
 configs/national_tiered_game_spine_contract.json
 configs/ncaa_contest_outcome_reference_adapter_contract.json
@@ -3387,6 +3390,7 @@ src/aggie_analytics/data/http.py
 src/aggie_analytics/data/national_chronological_development_matrix.py
 src/aggie_analytics/data/national_foundation_reconciliation.py
 src/aggie_analytics/data/national_pit_domain_admission_matrix.py
+src/aggie_analytics/data/national_pit_eligible_slice.py
 src/aggie_analytics/data/national_tiered_game_spine.py
 src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 src/aggie_analytics/data/ncaa_contest_reconciliation.py
@@ -3719,6 +3723,7 @@ tests/test_national_chronological_development_matrix.py
 tests/test_national_expectation_baselines.py
 tests/test_national_foundation_reconciliation.py
 tests/test_national_pit_domain_admission_matrix.py
+tests/test_national_pit_eligible_slice.py
 tests/test_national_shadow_state_machine.py
 tests/test_national_tiered_game_spine.py
 tests/test_ncaa_contest_outcome_reference_adapter.py
@@ -3933,6 +3938,7 @@ tools/build_national_chronological_development_matrix.py
 tools/build_national_expectation_baselines.py
 tools/build_national_foundation_reconciliation.py
 tools/build_national_pit_domain_admission_matrix.py
+tools/build_national_pit_eligible_slice.py
 tools/build_national_shadow_operations.py
 tools/build_national_tiered_game_spine.py
 tools/build_ncaa_contest_outcome_reference_adapter.py
@@ -4176,6 +4182,7 @@ tools/validate_national_chronological_development_matrix.py
 tools/validate_national_expectation_baselines.py
 tools/validate_national_foundation_reconciliation.py
 tools/validate_national_pit_domain_admission_matrix.py
+tools/validate_national_pit_eligible_slice.py
 tools/validate_national_shadow_operations.py
 tools/validate_national_tiered_game_spine.py
 tools/validate_ncaa_contest_outcome_reference_adapter.py

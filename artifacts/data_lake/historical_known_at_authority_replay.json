@@ -1,0 +1,15 @@
+{
+  "artifact_type": "HISTORICAL_KNOWN_AT_AUTHORITY_REPLAY",
+  "capture_identity": "89fdc4c8be4405ef4dd73fa8d4ae0c26aff3353393babcc45685f0463336a94a",
+  "contract_id": "BAT-666-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-V1",
+  "gate_identity": "9bc7606a91ed985cd3f4ad3f0035ddd63962596d6fed22ebb9f1260d186dfd14",
+  "gate_relative_path": "artifacts/data_lake/historical_known_at_authority_gate.json",
+  "matrix_gate_identity": "9587189f975615f64b8c637019b9cd58d5bab59fe553cc2f6418e2bd8bb8657e",
+  "reproduction": [
+    "python tools/acquire_historical_known_at_publication_routes.py --repo-root . --data-root <data-root> --env-file <env> --issued-at-utc <now>",
+    "python tools/build_historical_known_at_authority_audit.py --repo-root . --data-root <data-root>",
+    "python tools/validate_historical_known_at_authority_audit.py --repo-root ."
+  ],
+  "route_manifest_relative_path": "manifests/known_at/historical_known_at_publication_routes/sha256/89fdc4c8be4405ef4dd73fa8d4ae0c26aff3353393babcc45685f0463336a94a/historical_known_at_publication_route_manifest.json",
+  "schema_version": "aggie.data.historical_known_at_authority_replay.v1"
+}

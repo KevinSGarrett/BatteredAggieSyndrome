@@ -1,0 +1,655 @@
+{
+  "artifact_type": "HISTORICAL_KNOWN_AT_AUTHORITY_GATE",
+  "authority": "THIS_AUDIT_CLASSIFIES_TEMPORAL_AUTHORITY_AND_ADMITS_NO_FEATURE_BY_ITSELF",
+  "authority_class_counts": {
+    "CONSERVATIVE_PRECOMMITTED_AVAILABILITY_BOUND": 2,
+    "OBSERVED_EFFECTIVE_TIMESTAMP": 0,
+    "OBSERVED_PUBLICATION_TIMESTAMP": 0,
+    "POSTGAME_ONLY_EVIDENCE": 1,
+    "RETRIEVAL_TIMESTAMP_ONLY": 2,
+    "SOURCE_ABSENT": 0
+  },
+  "bound_predecessor_identities": {
+    "domain_admission_matrix_gate_identity": "9587189f975615f64b8c637019b9cd58d5bab59fe553cc2f6418e2bd8bb8657e"
+  },
+  "capture_identity": "89fdc4c8be4405ef4dd73fa8d4ae0c26aff3353393babcc45685f0463336a94a",
+  "classification": "HISTORICAL_KNOWN_AT_AUTHORITY_BOUNDARY_AUDIT_FOR_EVERY_ADMITTED_DOMAIN",
+  "conservative_bound_policy": {
+    "date_only_rule": {
+      "applies_when": "The only temporal evidence for a contest is a calendar date, observed as a midnight UTC sentinel in the spine start field.",
+      "earliest_possible_start_offset_days": -1,
+      "latest_possible_completion_offset_days": 2,
+      "logical_guarantee": "A recorded calendar date may be a local date, so the true contest window lies within one day either side of it. Adding one further day covers the longest possible contest including overtime and weather suspension. A prior contest is therefore guaranteed complete before a target contest starts only when the target date is at least three days after the prior date.",
+      "recorded_date_may_be_local_or_utc": true,
+      "required_separation_days": 3
+    },
+    "label": "THIS_IS_A_BOUND_NOT_AN_OBSERVED_FINAL_WHISTLE",
+    "policy_id": "BAT-666-CONSERVATIVE-COMPLETION-BOUND-V1",
+    "precommitted": true,
+    "published_start_instant_rule": {
+      "applies_when": "The spine carries a non-midnight UTC start instant for the contest.",
+      "logical_guarantee": "A published start instant plus twelve hours bounds any contest including overtime, television delay and weather suspension. A prior contest is guaranteed complete before a target contest starts when the prior start instant plus twelve hours does not exceed the target start instant.",
+      "maximum_contest_duration_hours": 12
+    },
+    "rejected_assumptions": [
+      "Treating the retrieval time of a historical capture as the moment the value became known.",
+      "Treating a recorded calendar date as an exact kickoff instant.",
+      "Assuming that a prior contest on the immediately preceding calendar day had finished before a target contest began.",
+      "Imputing a poll publication instant from a poll week ordinal."
+    ]
+  },
+  "contract_id": "BAT-666-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-V1",
+  "contract_sha256": "f734c3d6ddbc9a6d5eb4f753d897b4abb3d5b4dabe1d197d2c9346f6365f99c0",
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",
+  "domain_authority": [
+    {
+      "admitted_features": [
+        "home_win",
+        "margin",
+        "points_for",
+        "points_against"
+      ],
+      "authority_class": "POSTGAME_ONLY_EVIDENCE",
+      "authority_is_sufficient_for_point_in_time_admission": true,
+      "declared_known_at_basis": "POSTGAME_BY_CONSTRUCTION",
+      "domain_id": "outcome_labels_and_cutoffs",
+      "evidence": "An outcome cannot exist before its contest is played, which is the strongest possible temporal statement. The audit's contribution is the cutoff: the precommitted completion bound states when a prior outcome is guaranteed to have become knowable.",
+      "limitation": "The cutoff is a bound, not an observed final whistle, and it is therefore strictly conservative. It is tightest for the 23 seasons that carry a published start instant.",
+      "supporting_bound_rule": "BOTH"
+    },
+    {
+      "admitted_features": [
+        "ap_poll_rank",
+        "coaches_poll_rank",
+        "rankings_source_available"
+      ],
+      "authority_class": "RETRIEVAL_TIMESTAMP_ONLY",
+      "authority_is_sufficient_for_point_in_time_admission": false,
+      "declared_known_at_basis": "POLL_WEEK_ORDINAL_STRICTLY_BEFORE_GAME_WEEK_ORDINAL",
+      "domain_id": "rankings",
+      "evidence": "The declared basis is a poll week ordinal compared against a game week ordinal. An ordinal is not an instant. Both investigated national routes failed to supply a historical per-week release instant, so no publication timestamp backs the domain.",
+      "limitation": "A week ordinal cannot prove that a poll was released before a contest played early in the same week, so the domain cannot be admitted point in time until a real release instant is acquired.",
+      "supporting_bound_rule": "NONE"
+    },
+    {
+      "admitted_features": [
+        "prior_games_played",
+        "prior_margin_mean",
+        "prior_points_against_mean",
+        "prior_points_for_mean",
+        "prior_season_win_rate",
+        "prior_win_rate",
+        "season_to_date_games",
+        "season_to_date_win_rate"
+      ],
+      "authority_class": "CONSERVATIVE_PRECOMMITTED_AVAILABILITY_BOUND",
+      "authority_is_sufficient_for_point_in_time_admission": true,
+      "declared_known_at_basis": "DERIVED_FROM_STRICTLY_EARLIER_COMPLETED_GAMES_IN_SPINE",
+      "domain_id": "team_outcome_priors",
+      "evidence": "Every prior value is derived from contests the spine already carries, and the spine carries a start field for every one of them. The precommitted completion bound therefore decides admissibility from evidence alone, with no observed final whistle and no retrieval time involved.",
+      "limitation": "For the 38 seasons that carry calendar-date evidence only, the bound requires a three-day separation, so a prior contest within two days of a target contest cannot be admitted.",
+      "supporting_bound_rule": "BOTH"
+    },
+    {
+      "admitted_features": [
+        "team_conference",
+        "team_is_fbs"
+      ],
+      "authority_class": "CONSERVATIVE_PRECOMMITTED_AVAILABILITY_BOUND",
+      "authority_is_sufficient_for_point_in_time_admission": true,
+      "declared_known_at_basis": "SEASON_SCOPED_MEMBERSHIP_DECLARED_BEFORE_SEASON",
+      "domain_id": "team_season_context",
+      "evidence": "Conference affiliation and subdivision membership are declared for a whole season and are settled before that season's first contest, so the season itself is a logically guaranteed availability bound.",
+      "limitation": "The bound is season-grain. It cannot distinguish a value that changed during an offseason from one announced years earlier, and it would be invalidated by any midseason reclassification.",
+      "supporting_bound_rule": "SEASON_SCOPE"
+    },
+    {
+      "admitted_features": [
+        "venue_dome",
+        "venue_elevation_m",
+        "venue_grass",
+        "venue_latitude",
+        "venue_longitude"
+      ],
+      "authority_class": "RETRIEVAL_TIMESTAMP_ONLY",
+      "authority_is_sufficient_for_point_in_time_admission": false,
+      "declared_known_at_basis": "STRUCTURAL_TIME_INVARIANT_REFERENCE",
+      "domain_id": "venues",
+      "evidence": "Latitude, longitude and elevation are genuinely time invariant, but the dome and playing-surface attributes are mutable and were captured once, so their only temporal evidence is this project's retrieval time.",
+      "limitation": "The declared structural time-invariant basis is correct for geography and wrong for the mutable surface attributes, which must not inherit it.",
+      "supporting_bound_rule": "NONE"
+    }
+  ],
+  "domains_blocked_from_point_in_time_admission": [
+    "rankings",
+    "venues"
+  ],
+  "domains_with_sufficient_authority": [
+    "outcome_labels_and_cutoffs",
+    "team_outcome_priors",
+    "team_season_context"
+  ],
+  "gap_id": "GAP-002",
+  "gap_verdict": {
+    "gap_id": "GAP-002",
+    "remains_open": true,
+    "verdict": "PARTIAL_AUTHORITY_ESTABLISHED_A_NONZERO_POINT_IN_TIME_SLICE_IS_NOW_POSSIBLE",
+    "why": "The precommitted completion bound is logically guaranteed by evidence the spine already carries, so the outcome-derived domains gain a real known-at basis. The rankings and venue-surface domains gain none, so the gap does not close."
+  },
+  "gate_identity": "9bc7606a91ed985cd3f4ad3f0035ddd63962596d6fed22ebb9f1260d186dfd14",
+  "jira_key": "BAT-666",
+  "lane": "HISTORICAL_AUDIT_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",
+  "negative_findings": {
+    "neither_investigated_route_supplied_a_historical_per_week_poll_release_instant": true,
+    "no_capture_or_retrieval_time_was_used_as_a_historical_known_at_instant": true,
+    "the_declared_structural_basis_for_venues_overreaches_its_mutable_attributes": true,
+    "the_rankings_week_ordinal_basis_is_not_an_instant": true
+  },
+  "outcome_exclusion": "THE_AUDIT_READS_CONTEST_TIMING_EVIDENCE_ONLY_AND_NEVER_A_CONTEST_RESULT",
+  "parent_jira_key": "BAT-523",
+  "producer": "tools/build_historical_known_at_authority_audit.py",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_time_route_findings": [
+    {
+      "bears_a_publication_instant": false,
+      "finding": "THE_ROUTE_CARRIES_NO_PUBLICATION_OR_EFFECTIVE_INSTANT_OF_ANY_KIND",
+      "historical_limitation": "A publication instant observed on a currently listed item does not establish the release instant of a historical poll week, so it cannot back a historical known-at claim for the rankings domain.",
+      "historical_per_season_release_instant_available": false,
+      "hypothesis": "The national governing body statistics surface publishes rankings with an as-of or release instant that could establish an observed publication timestamp for the rankings domain.",
+      "observed_instant_count": 0,
+      "observed_instant_sample": [],
+      "raw_bytes": 27489,
+      "raw_sha256": "bdc29dde3d87c8929c7d8a1c02a2b9eb40e3dbf94d74324d17b8f605679cd711",
+      "retrieved_at_utc": "2026-08-29T07:23:34Z",
+      "route_id": "NCAA_OFFICIAL_STATS_RANKINGS",
+      "source_authority": "NATIONAL_GOVERNING_BODY_OFFICIAL_STATISTICS_SURFACE",
+      "source_uri": "https://stats.ncaa.org/rankings",
+      "state": "CAPTURED"
+    },
+    {
+      "bears_a_publication_instant": true,
+      "finding": "THE_ROUTE_EXPOSES_PER_ARTICLE_PUBLICATION_INSTANTS_FOR_CURRENTLY_LISTED_CONTENT_ONLY",
+      "historical_limitation": "A publication instant observed on a currently listed item does not establish the release instant of a historical poll week, so it cannot back a historical known-at claim for the rankings domain.",
+      "historical_per_season_release_instant_available": false,
+      "hypothesis": "The publisher of record for the Associated Press Top 25 exposes per-article publication instants that could establish an observed publication timestamp for a poll release.",
+      "observed_instant_count": 5,
+      "observed_instant_sample": [
+        {
+          "pattern": "data-updated-date-timestamp=\"(\\d{10,13})\"",
+          "raw_value": "1787969660000"
+        },
+        {
+          "pattern": "data-updated-date-timestamp=\"(\\d{10,13})\"",
+          "raw_value": "1787969441000"
+        },
+        {
+          "pattern": "data-updated-date-timestamp=\"(\\d{10,13})\"",
+          "raw_value": "1787956990200"
+        }
+      ],
+      "raw_bytes": 899665,
+      "raw_sha256": "234409b1ee8c1598bd18c0096af12838ddf97a3b05eb963a5340e3d141b9ad24",
+      "retrieved_at_utc": "2026-08-29T07:23:34Z",
+      "route_id": "AP_OFFICIAL_TOP25_FOOTBALL",
+      "source_authority": "POLL_PUBLISHER_OF_RECORD_FOR_THE_ASSOCIATED_PRESS_TOP_25",
+      "source_uri": "https://apnews.com/hub/ap-top-25-college-football-poll",
+      "state": "CAPTURED"
+    }
+  ],
+  "result": "PASS_HISTORICAL_KNOWN_AT_AUTHORITY_AUDIT",
+  "schema_version": "aggie.data.historical_known_at_authority.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "bound_presented_as_an_observed_publication_instant": false,
+    "champion_or_production_selection": false,
+    "gap_002_closed_by_this_audit_alone": false,
+    "historical_pit_admission_granted_by_admission_alone": false,
+    "protected_performance": false,
+    "specialization_lift": false
+  },
+  "start_time_evidence_profile": {
+    "distinct_games": 45099,
+    "game_evidence_counts": {
+      "CALENDAR_DATE_ONLY_MIDNIGHT_SENTINEL": 27960,
+      "PUBLISHED_START_INSTANT": 17139
+    },
+    "per_season": [
+      {
+        "calendar_date_only_games": 620,
+        "published_start_instant_games": 0,
+        "season": 1963,
+        "total_games": 620
+      },
+      {
+        "calendar_date_only_games": 633,
+        "published_start_instant_games": 0,
+        "season": 1964,
+        "total_games": 633
+      },
+      {
+        "calendar_date_only_games": 640,
+        "published_start_instant_games": 0,
+        "season": 1965,
+        "total_games": 640
+      },
+      {
+        "calendar_date_only_games": 633,
+        "published_start_instant_games": 0,
+        "season": 1966,
+        "total_games": 633
+      },
+      {
+        "calendar_date_only_games": 629,
+        "published_start_instant_games": 0,
+        "season": 1967,
+        "total_games": 629
+      },
+      {
+        "calendar_date_only_games": 639,
+        "published_start_instant_games": 0,
+        "season": 1968,
+        "total_games": 639
+      },
+      {
+        "calendar_date_only_games": 657,
+        "published_start_instant_games": 0,
+        "season": 1969,
+        "total_games": 657
+      },
+      {
+        "calendar_date_only_games": 700,
+        "published_start_instant_games": 0,
+        "season": 1970,
+        "total_games": 700
+      },
+      {
+        "calendar_date_only_games": 743,
+        "published_start_instant_games": 0,
+        "season": 1971,
+        "total_games": 743
+      },
+      {
+        "calendar_date_only_games": 739,
+        "published_start_instant_games": 0,
+        "season": 1972,
+        "total_games": 739
+      },
+      {
+        "calendar_date_only_games": 757,
+        "published_start_instant_games": 0,
+        "season": 1973,
+        "total_games": 757
+      },
+      {
+        "calendar_date_only_games": 760,
+        "published_start_instant_games": 0,
+        "season": 1974,
+        "total_games": 760
+      },
+      {
+        "calendar_date_only_games": 806,
+        "published_start_instant_games": 0,
+        "season": 1975,
+        "total_games": 806
+      },
+      {
+        "calendar_date_only_games": 804,
+        "published_start_instant_games": 0,
+        "season": 1976,
+        "total_games": 804
+      },
+      {
+        "calendar_date_only_games": 867,
+        "published_start_instant_games": 0,
+        "season": 1977,
+        "total_games": 867
+      },
+      {
+        "calendar_date_only_games": 816,
+        "published_start_instant_games": 0,
+        "season": 1978,
+        "total_games": 816
+      },
+      {
+        "calendar_date_only_games": 825,
+        "published_start_instant_games": 0,
+        "season": 1979,
+        "total_games": 825
+      },
+      {
+        "calendar_date_only_games": 816,
+        "published_start_instant_games": 0,
+        "season": 1980,
+        "total_games": 816
+      },
+      {
+        "calendar_date_only_games": 804,
+        "published_start_instant_games": 0,
+        "season": 1981,
+        "total_games": 804
+      },
+      {
+        "calendar_date_only_games": 687,
+        "published_start_instant_games": 0,
+        "season": 1982,
+        "total_games": 687
+      },
+      {
+        "calendar_date_only_games": 696,
+        "published_start_instant_games": 0,
+        "season": 1983,
+        "total_games": 696
+      },
+      {
+        "calendar_date_only_games": 676,
+        "published_start_instant_games": 0,
+        "season": 1984,
+        "total_games": 676
+      },
+      {
+        "calendar_date_only_games": 673,
+        "published_start_instant_games": 0,
+        "season": 1985,
+        "total_games": 673
+      },
+      {
+        "calendar_date_only_games": 637,
+        "published_start_instant_games": 0,
+        "season": 1986,
+        "total_games": 637
+      },
+      {
+        "calendar_date_only_games": 633,
+        "published_start_instant_games": 0,
+        "season": 1987,
+        "total_games": 633
+      },
+      {
+        "calendar_date_only_games": 636,
+        "published_start_instant_games": 0,
+        "season": 1988,
+        "total_games": 636
+      },
+      {
+        "calendar_date_only_games": 632,
+        "published_start_instant_games": 0,
+        "season": 1989,
+        "total_games": 632
+      },
+      {
+        "calendar_date_only_games": 646,
+        "published_start_instant_games": 0,
+        "season": 1990,
+        "total_games": 646
+      },
+      {
+        "calendar_date_only_games": 639,
+        "published_start_instant_games": 0,
+        "season": 1991,
+        "total_games": 639
+      },
+      {
+        "calendar_date_only_games": 637,
+        "published_start_instant_games": 0,
+        "season": 1992,
+        "total_games": 637
+      },
+      {
+        "calendar_date_only_games": 632,
+        "published_start_instant_games": 0,
+        "season": 1993,
+        "total_games": 632
+      },
+      {
+        "calendar_date_only_games": 636,
+        "published_start_instant_games": 0,
+        "season": 1994,
+        "total_games": 636
+      },
+      {
+        "calendar_date_only_games": 640,
+        "published_start_instant_games": 0,
+        "season": 1995,
+        "total_games": 640
+      },
+      {
+        "calendar_date_only_games": 662,
+        "published_start_instant_games": 0,
+        "season": 1996,
+        "total_games": 662
+      },
+      {
+        "calendar_date_only_games": 666,
+        "published_start_instant_games": 0,
+        "season": 1997,
+        "total_games": 666
+      },
+      {
+        "calendar_date_only_games": 674,
+        "published_start_instant_games": 0,
+        "season": 1998,
+        "total_games": 674
+      },
+      {
+        "calendar_date_only_games": 686,
+        "published_start_instant_games": 0,
+        "season": 1999,
+        "total_games": 686
+      },
+      {
+        "calendar_date_only_games": 702,
+        "published_start_instant_games": 0,
+        "season": 2000,
+        "total_games": 702
+      },
+      {
+        "calendar_date_only_games": 44,
+        "published_start_instant_games": 665,
+        "season": 2001,
+        "total_games": 709
+      },
+      {
+        "calendar_date_only_games": 51,
+        "published_start_instant_games": 721,
+        "season": 2002,
+        "total_games": 772
+      },
+      {
+        "calendar_date_only_games": 54,
+        "published_start_instant_games": 717,
+        "season": 2003,
+        "total_games": 771
+      },
+      {
+        "calendar_date_only_games": 46,
+        "published_start_instant_games": 675,
+        "season": 2004,
+        "total_games": 721
+      },
+      {
+        "calendar_date_only_games": 48,
+        "published_start_instant_games": 670,
+        "season": 2005,
+        "total_games": 718
+      },
+      {
+        "calendar_date_only_games": 65,
+        "published_start_instant_games": 727,
+        "season": 2006,
+        "total_games": 792
+      },
+      {
+        "calendar_date_only_games": 68,
+        "published_start_instant_games": 730,
+        "season": 2007,
+        "total_games": 798
+      },
+      {
+        "calendar_date_only_games": 86,
+        "published_start_instant_games": 719,
+        "season": 2008,
+        "total_games": 805
+      },
+      {
+        "calendar_date_only_games": 73,
+        "published_start_instant_games": 735,
+        "season": 2009,
+        "total_games": 808
+      },
+      {
+        "calendar_date_only_games": 77,
+        "published_start_instant_games": 731,
+        "season": 2010,
+        "total_games": 808
+      },
+      {
+        "calendar_date_only_games": 85,
+        "published_start_instant_games": 726,
+        "season": 2011,
+        "total_games": 811
+      },
+      {
+        "calendar_date_only_games": 91,
+        "published_start_instant_games": 749,
+        "season": 2012,
+        "total_games": 840
+      },
+      {
+        "calendar_date_only_games": 79,
+        "published_start_instant_games": 769,
+        "season": 2013,
+        "total_games": 848
+      },
+      {
+        "calendar_date_only_games": 71,
+        "published_start_instant_games": 797,
+        "season": 2014,
+        "total_games": 868
+      },
+      {
+        "calendar_date_only_games": 71,
+        "published_start_instant_games": 799,
+        "season": 2015,
+        "total_games": 870
+      },
+      {
+        "calendar_date_only_games": 84,
+        "published_start_instant_games": 789,
+        "season": 2016,
+        "total_games": 873
+      },
+      {
+        "calendar_date_only_games": 92,
+        "published_start_instant_games": 782,
+        "season": 2017,
+        "total_games": 874
+      },
+      {
+        "calendar_date_only_games": 68,
+        "published_start_instant_games": 816,
+        "season": 2018,
+        "total_games": 884
+      },
+      {
+        "calendar_date_only_games": 69,
+        "published_start_instant_games": 819,
+        "season": 2019,
+        "total_games": 888
+      },
+      {
+        "calendar_date_only_games": 57,
+        "published_start_instant_games": 513,
+        "season": 2020,
+        "total_games": 570
+      },
+      {
+        "calendar_date_only_games": 58,
+        "published_start_instant_games": 829,
+        "season": 2021,
+        "total_games": 887
+      },
+      {
+        "calendar_date_only_games": 68,
+        "published_start_instant_games": 828,
+        "season": 2022,
+        "total_games": 896
+      },
+      {
+        "calendar_date_only_games": 77,
+        "published_start_instant_games": 833,
+        "season": 2023,
+        "total_games": 910
+      }
+    ],
+    "seasons_with_a_published_start_instant": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "seasons_with_calendar_date_evidence_only": [
+      1963,
+      1964,
+      1965,
+      1966,
+      1967,
+      1968,
+      1969,
+      1970,
+      1971,
+      1972,
+      1973,
+      1974,
+      1975,
+      1976,
+      1977,
+      1978,
+      1979,
+      1980,
+      1981,
+      1982,
+      1983,
+      1984,
+      1985,
+      1986,
+      1987,
+      1988,
+      1989,
+      1990,
+      1991,
+      1992,
+      1993,
+      1994,
+      1995,
+      1996,
+      1997,
+      1998,
+      1999,
+      2000
+    ],
+    "team_row_evidence_counts": {
+      "CALENDAR_DATE_ONLY_MIDNIGHT_SENTINEL": 55920,
+      "PUBLISHED_START_INSTANT": 34278
+    }
+  }
+}

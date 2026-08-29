@@ -112,6 +112,8 @@ ADDED,artifacts/experimentation/development_candidate_evidence_ledger.json
 ADDED,artifacts/experimentation/national_expectation_baselines_and_peers_gate.json
 ADDED,artifacts/experimentation/national_multi_year_walk_forward_gate.json
 ADDED,artifacts/experimentation/national_multi_year_walk_forward_replay.json
+ADDED,artifacts/experimentation/peer_and_tamu_residual_stability_gate.json
+ADDED,artifacts/experimentation/peer_and_tamu_residual_stability_replay.json
 ADDED,artifacts/governance/protected_split_exposure_audit.json
 ADDED,artifacts/implementation_preflight/credential_inventory.redacted.json
 ADDED,artifacts/implementation_preflight/data_root_activation.json
@@ -258,6 +260,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-00
 ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-OFFLINE-DETERMINISTIC-TEST-REPAIR-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-PEER-AND-TAMU-RESIDUAL-STABILITY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-PURE-BYTE-STABLE-GATE-MATERIALIZATION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001.json
@@ -494,6 +497,7 @@ ADDED,configs/openai_quarantine_schema_pilot.json
 ADDED,configs/openai_task_registry.json
 ADDED,configs/openrouter_assist_policy.json
 ADDED,configs/openrouter_task_registry.json
+ADDED,configs/peer_and_tamu_residual_stability_contract.json
 ADDED,configs/preliminary_dense_play_drive_replay_contract.json
 ADDED,configs/preliminary_development_safe_baseline_contract.json
 ADDED,configs/preliminary_play_drive_augmented_contract.json
@@ -889,6 +893,7 @@ ADDED,src/aggie_analytics/features/weather_station_matching.py
 ADDED,src/aggie_analytics/modeling/national_expectation_baselines.py
 ADDED,src/aggie_analytics/modeling/national_multi_year_walk_forward.py
 ADDED,src/aggie_analytics/modeling/national_shadow_state_machine.py
+ADDED,src/aggie_analytics/modeling/peer_and_tamu_residual_stability.py
 ADDED,src/aggie_analytics/modeling/play_drive_augmented.py
 ADDED,src/aggie_analytics/modeling/play_enrichment_augmented.py
 ADDED,src/aggie_analytics/modeling/possession_pace_augmented.py
@@ -1017,6 +1022,7 @@ ADDED,tests/test_openai_assist.py
 ADDED,tests/test_openrouter_assist.py
 ADDED,tests/test_openrouter_campaign_summary.py
 ADDED,tests/test_operations_drift_alerts.py
+ADDED,tests/test_peer_and_tamu_residual_stability.py
 ADDED,tests/test_people_registry.py
 ADDED,tests/test_pit_replay_readiness.py
 ADDED,tests/test_postgame_collapse_taxonomy.py
@@ -1196,6 +1202,7 @@ ADDED,tools/build_noaa_gfs_multigame_selection.py
 ADDED,tools/build_noaa_isd_alternate_station_recovery.py
 ADDED,tools/build_noaa_isd_game_observation_shadow.py
 ADDED,tools/build_noaa_isd_station_matching.py
+ADDED,tools/build_peer_and_tamu_residual_stability.py
 ADDED,tools/build_post2022_roster_candidate.py
 ADDED,tools/build_preliminary_possession_pace.py
 ADDED,tools/build_preliminary_postgame_collapse_taxonomy.py
@@ -1414,6 +1421,7 @@ ADDED,tools/validate_noaa_isd_station_matching.py
 ADDED,tools/validate_openai_assist.py
 ADDED,tools/validate_openai_gamebook_schema_mapping.py
 ADDED,tools/validate_openrouter_assist.py
+ADDED,tools/validate_peer_and_tamu_residual_stability.py
 ADDED,tools/validate_post2022_roster_candidate.py
 ADDED,tools/validate_preliminary_elo_challengers.py
 ADDED,tools/validate_preliminary_elo_offense_defense.py

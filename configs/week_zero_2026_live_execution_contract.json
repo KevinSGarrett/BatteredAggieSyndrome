@@ -1,0 +1,63 @@
+{
+  "contract_id": "BAT-665-WEEK-ZERO-2026-LIVE-SHADOW-EXECUTION-V1",
+  "schema_version": "aggie.shadow.week_zero_2026_live_execution.v1",
+  "classification": "WEEK_ZERO_2026_LIVE_SHADOW_EXECUTION_AND_TEMPORALLY_ELIGIBLE_SCORING",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "jira_key": "BAT-665",
+  "parent_jira_key": "BAT-523",
+  "local_issue_id": "POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001",
+  "purpose": "Refresh the official Week Zero schedule and kickoff surface at execution time, reconcile it against the already frozen snapshots and forecasts, capture official finals when they exist, and score only forecasts whose Phase 4 temporal audit reached TEMPORAL_PROOF_COMPLETE. The lane is observation only: no forecast is ever created, revised or backfilled here.",
+  "week_zero_game_dates": ["2026-08-27", "2026-08-28", "2026-08-29"],
+  "official_ncaa_source": {
+    "source_id": "SRC-NCAA-OFFICIAL-STATS",
+    "official_host": "stats.ncaa.org",
+    "path": "/contests/livestream_scoreboards",
+    "sport_code": "MFB",
+    "academic_year": "2027",
+    "division": "1",
+    "dataset": "ncaa_week_zero_2026_live_execution_scoreboard",
+    "minimum_html_bytes": 20000,
+    "reject_case_insensitive_markers": [
+      "bm-verify",
+      "akamai_validation",
+      "request_quota_reached",
+      "_abck"
+    ]
+  },
+  "final_status_tokens": {
+    "FINAL": ["final"],
+    "CANCELED_OR_SUSPENDED": ["canceled", "cancelled", "postponed", "suspended", "no contest"]
+  },
+  "bound_predecessors": [
+    {
+      "artifact_relative_path": "artifacts/shadow/prospective_2026_shadow_temporal_audit_gate.json",
+      "jira_key": "BAT-664",
+      "role": "TEMPORAL_ELIGIBILITY_AUTHORITY"
+    },
+    {
+      "artifact_relative_path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+      "jira_key": "BAT-657",
+      "role": "FROZEN_SNAPSHOT_AND_FORECAST_AUTHORITY"
+    },
+    {
+      "artifact_relative_path": "artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json",
+      "jira_key": "BAT-661",
+      "role": "CORRECTED_SEASON_TAXONOMY_AUTHORITY"
+    }
+  ],
+  "scoring_eligibility_rule": "A forecast row may be scored only when its Phase 4 verdict is TEMPORAL_PROOF_COMPLETE, an official final for its contest was captured at or after the contest kickoff bound, and the final carries a resolved winner. Any other combination leaves the row in its current non-scored state.",
+  "backfill_prohibition": "If a contest kickoff bound has elapsed at execution time and the contest carries no already frozen forecast, the contest is recorded as MISSED_CUTOFF_NO_BACKFILL. The lane must never emit a probability for it.",
+  "no_contest_handling": "A contest whose refreshed official status matches a canceled, postponed, suspended or no-contest token transitions to CANCELED_OR_SUSPENDED and is never scored, even when a temporally complete forecast exists.",
+  "calibration_bin_edges": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+  "log_loss_clip": [1e-15, 0.999999999999999],
+  "awaiting_result": "AWAITING_OFFICIAL_FINAL",
+  "outcome_exclusion": "AN_OUTCOME_IS_READ_ONLY_FROM_A_CAPTURE_RETRIEVED_AT_OR_AFTER_THE_KICKOFF_BOUND",
+  "scientific_nonclaims": {
+    "week_zero_results_never_tune_select_promote_or_alter_a_candidate": true,
+    "an_empty_scored_population_is_a_truthful_result_not_a_failure": true,
+    "no_bas_or_aggie_excess_claim_is_made": true,
+    "no_champion_or_production_selection_is_made": true,
+    "the_refreshed_kickoff_remains_a_conservative_bound_unless_independently_confirmed": true
+  }
+}

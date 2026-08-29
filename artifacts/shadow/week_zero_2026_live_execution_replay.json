@@ -1,0 +1,92 @@
+{
+  "capture_identity": "03579789d101d2b670b086de5687f29cba04bf7b66dcbbc79a13ce72adf1e640",
+  "contest_state_counts": {
+    "AWAITING_OFFICIAL_FINAL": 8
+  },
+  "execution_time_utc": "2026-08-29T06:54:59Z",
+  "forecast_state_counts": {
+    "AWAITING_OFFICIAL_FINAL": 12
+  },
+  "gate_identity": "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2",
+  "gate_relative_path": "artifacts/shadow/week_zero_2026_live_execution_gate.json",
+  "metrics": {
+    "accuracy": null,
+    "brier_score": null,
+    "calibration_bins": [
+      {
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.6,
+        "bin_upper": 0.7,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.7,
+        "bin_upper": 0.8,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.8,
+        "bin_upper": 0.9,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.9,
+        "bin_upper": 1.0,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      }
+    ],
+    "log_loss": null,
+    "scored_row_count": 0
+  },
+  "replay_command": "python tools/build_week_zero_2026_live_shadow_execution.py --validate-only",
+  "result": "PASS_WEEK_ZERO_2026_LIVE_SHADOW_EXECUTION"
+}

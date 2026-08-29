@@ -1,21 +1,21 @@
 {
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "base_commit": "bb6c5d7df0e52dc0871a4403b55bd78c90f6c4da",
+  "base_commit": "bf9bc852e4a98622ac715396936edc69159a0c28",
   "changed_paths": [
-    "artifacts/shadow/prospective_2026_shadow_temporal_audit_gate.json",
-    "artifacts/shadow/prospective_2026_shadow_temporal_audit_replay.json",
-    "configs/artifact_binding_contract.json",
-    "configs/prospective_2026_shadow_temporal_audit_contract.json",
-    "src/aggie_analytics/modeling/shadow_forecast_temporal_audit.py",
-    "tests/test_prospective_2026_shadow_temporal_audit.py",
-    "tools/build_prospective_2026_shadow_temporal_audit.py",
-    "tools/validate_prospective_2026_shadow_temporal_audit.py"
+    "artifacts/shadow/week_zero_2026_live_execution_gate.json",
+    "artifacts/shadow/week_zero_2026_live_execution_replay.json",
+    "configs/week_zero_2026_live_execution_contract.json",
+    "src/aggie_analytics/modeling/week_zero_live_shadow_execution.py",
+    "tests/test_week_zero_2026_live_shadow_execution.py",
+    "tools/acquire_2026_week_zero_live_execution_evidence.py",
+    "tools/build_week_zero_2026_live_shadow_execution.py",
+    "tools/validate_week_zero_2026_live_shadow_execution.py"
   ],
-  "jira_identity": "BAT-664",
-  "manifest_identity": "dfc256f89e6dfb6305561ca4a0ed5053c55d1d288312b00ce85050368de1187f",
+  "jira_identity": "BAT-665",
+  "manifest_identity": "582d9a84ab8638e7500e8c73093005aaa92cf88d33fac1bebf1b0a84423e09f2",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "f40875db9dcc2a2f233dae9bb30b98e1fdba8448de555100ffab80c4c220d6e3",
+  "pre_routing_decision_sha256": "bb286343cc57ef45e793e93889d389e629192929ea5856747acbb3e82dcb7176",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
-  "work_unit_id": "POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001"
+  "work_unit_id": "POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001"
 }

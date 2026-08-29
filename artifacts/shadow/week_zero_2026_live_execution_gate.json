@@ -1,0 +1,474 @@
+{
+  "append_only_transitions": [
+    {
+      "entity_id": "6586325",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594361",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594398",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594883",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6597632",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6602787",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6603618",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6616111",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6586325::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6586325::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594398::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594398::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594883::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594883::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6597632::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6597632::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6603618::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6603618::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6616111::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6616111::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    }
+  ],
+  "artifact_type": "WEEK_ZERO_2026_LIVE_SHADOW_EXECUTION_GATE",
+  "authority": "OBSERVATION_ONLY_NO_FORECAST_IS_CREATED_REVISED_OR_BACKFILLED_HERE",
+  "backfill_performed": false,
+  "bound_predecessor_identities": {
+    "forecast_gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+    "temporal_audit_gate_identity": "bd2e515b2ab3377a57ee18ac788ba51fc73cd18388c142d4ccc63a4083b5452a"
+  },
+  "capture_identity": "03579789d101d2b670b086de5687f29cba04bf7b66dcbbc79a13ce72adf1e640",
+  "classification": "WEEK_ZERO_2026_LIVE_SHADOW_EXECUTION_AND_TEMPORALLY_ELIGIBLE_SCORING",
+  "contest_rows": [
+    {
+      "contest_state": "AWAITING_OFFICIAL_FINAL",
+      "frozen_forecast_row_count": 2,
+      "kickoff_bound_utc": "2026-08-30T02:00:00Z",
+      "ncaa_contest_id": "6586325",
+      "official_final_status_state": "NO_OFFICIAL_FINAL_PUBLISHED_YET",
+      "official_final_status_text": null,
+      "official_status_capture_sha256": null,
+      "official_status_retrieved_at_utc": null,
+      "refreshed_broadcast_text": "FOX",
+      "refreshed_clock_matches_frozen_snapshot": true,
+      "refreshed_clock_text": "10:00 PM",
+      "snapshot_frozen_at_utc": "2026-08-28T23:34:57Z",
+      "timing_state": "CONTEST_HAS_NOT_REACHED_ITS_KICKOFF_BOUND"
+    },
+    {
+      "contest_state": "AWAITING_OFFICIAL_FINAL",
+      "frozen_forecast_row_count": 0,
+      "kickoff_bound_utc": "2026-08-29T19:00:00Z",
+      "ncaa_contest_id": "6594361",
+      "official_final_status_state": "NO_OFFICIAL_FINAL_PUBLISHED_YET",
+      "official_final_status_text": null,
+      "official_status_capture_sha256": null,
+      "official_status_retrieved_at_utc": null,
+      "refreshed_broadcast_text": "NBC",
+      "refreshed_clock_matches_frozen_snapshot": true,
+      "refreshed_clock_text": "03:00 PM",
+      "snapshot_frozen_at_utc": null,
+      "timing_state": "CONTEST_HAS_NOT_REACHED_ITS_KICKOFF_BOUND"
+    },
+    {
+      "contest_state": "AWAITING_OFFICIAL_FINAL",
+      "frozen_forecast_row_count": 2,
+      "kickoff_bound_utc": "2026-08-29T23:00:00Z",
+      "ncaa_contest_id": "6594398",
+      "official_final_status_state": "NO_OFFICIAL_FINAL_PUBLISHED_YET",
+      "official_final_status_text": null,
+      "official_status_capture_sha256": null,
+      "official_status_retrieved_at_utc": null,
+      "refreshed_broadcast_text": "The CW Network",
+      "refreshed_clock_matches_frozen_snapshot": true,
+      "refreshed_clock_text": "07:00 PM",
+      "snapshot_frozen_at_utc": "2026-08-28T23:34:57Z",
+      "timing_state": "CONTEST_HAS_NOT_REACHED_ITS_KICKOFF_BOUND"
+    },
+    {
+      "contest_state": "AWAITING_OFFICIAL_FINAL",
+      "frozen_forecast_row_count": 2,
+      "kickoff_bound_utc": "2026-08-29T22:30:00Z",
+      "ncaa_contest_id": "6594883",
+      "official_final_status_state": "NO_OFFICIAL_FINAL_PUBLISHED_YET",
+      "official_final_status_text": null,
+      "official_status_capture_sha256": null,
+      "official_status_retrieved_at_utc": null,
+      "refreshed_broadcast_text": "",
+      "refreshed_clock_matches_frozen_snapshot": true,
+      "refreshed_clock_text": "06:30 PM",
+      "snapshot_frozen_at_utc": "2026-08-28T23:34:57Z",
+      "timing_state": "CONTEST_HAS_NOT_REACHED_ITS_KICKOFF_BOUND"
+    },
+    {
+      "contest_state": "AWAITING_OFFICIAL_FINAL",
+      "frozen_forecast_row_count": 2,
+      "kickoff_bound_utc": "2026-08-29T19:30:00Z",
+      "ncaa_contest_id": "6597632",
+      "official_final_status_state": "NO_OFFICIAL_FINAL_PUBLISHED_YET",
+      "official_final_status_text": null,
+      "official_status_capture_sha256": null,
+      "official_status_retrieved_at_utc": null,
+      "refreshed_broadcast_text": "ESPN",
+      "refreshed_clock_matches_frozen_snapshot": true,
+      "refreshed_clock_text": "03:30 PM",
+      "snapshot_frozen_at_utc": "2026-08-28T23:34:57Z",
+      "timing_state": "CONTEST_HAS_NOT_REACHED_ITS_KICKOFF_BOUND"
+    },
+    {
+      "contest_state": "AWAITING_OFFICIAL_FINAL",
+      "frozen_forecast_row_count": 0,
+      "kickoff_bound_utc": "2026-08-29T23:00:00Z",
+      "ncaa_contest_id": "6602787",
+      "official_final_status_state": "NO_OFFICIAL_FINAL_PUBLISHED_YET",
+      "official_final_status_text": null,
+      "official_status_capture_sha256": null,
+      "official_status_retrieved_at_utc": null,
+      "refreshed_broadcast_text": "ACC Network (ACCN)",
+      "refreshed_clock_matches_frozen_snapshot": true,
+      "refreshed_clock_text": "07:00 PM",
+      "snapshot_frozen_at_utc": null,
+      "timing_state": "CONTEST_HAS_NOT_REACHED_ITS_KICKOFF_BOUND"
+    },
+    {
+      "contest_state": "AWAITING_OFFICIAL_FINAL",
+      "frozen_forecast_row_count": 2,
+      "kickoff_bound_utc": "2026-08-29T21:30:00Z",
+      "ncaa_contest_id": "6603618",
+      "official_final_status_state": "NO_OFFICIAL_FINAL_PUBLISHED_YET",
+      "official_final_status_text": null,
+      "official_status_capture_sha256": null,
+      "official_status_retrieved_at_utc": null,
+      "refreshed_broadcast_text": "CBS Sports Network",
+      "refreshed_clock_matches_frozen_snapshot": true,
+      "refreshed_clock_text": "05:30 PM",
+      "snapshot_frozen_at_utc": "2026-08-28T23:34:57Z",
+      "timing_state": "CONTEST_HAS_NOT_REACHED_ITS_KICKOFF_BOUND"
+    },
+    {
+      "contest_state": "AWAITING_OFFICIAL_FINAL",
+      "frozen_forecast_row_count": 2,
+      "kickoff_bound_utc": "2026-08-29T15:00:00Z",
+      "ncaa_contest_id": "6616111",
+      "official_final_status_state": "NO_OFFICIAL_FINAL_PUBLISHED_YET",
+      "official_final_status_text": null,
+      "official_status_capture_sha256": null,
+      "official_status_retrieved_at_utc": null,
+      "refreshed_broadcast_text": "ESPN",
+      "refreshed_clock_matches_frozen_snapshot": true,
+      "refreshed_clock_text": "11:00 AM",
+      "snapshot_frozen_at_utc": "2026-08-28T23:34:57Z",
+      "timing_state": "CONTEST_HAS_NOT_REACHED_ITS_KICKOFF_BOUND"
+    }
+  ],
+  "contest_state_counts": {
+    "AWAITING_OFFICIAL_FINAL": 8
+  },
+  "contract_id": "BAT-665-WEEK-ZERO-2026-LIVE-SHADOW-EXECUTION-V1",
+  "contract_sha256": "bd862d495e24b8c70dac1c0cdd7ddbd5a9b077d9e092204f7222fa36e1db9d79",
+  "decision_unit": "POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001",
+  "execution_time_utc": "2026-08-29T06:54:59Z",
+  "forecast_rows": [
+    {
+      "candidate_id": "national_base_rate",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6586325",
+      "probability_home_win": 0.5,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_elo",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6586325",
+      "probability_home_win": 0.46300163,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_base_rate",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6594398",
+      "probability_home_win": 0.5,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_elo",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6594398",
+      "probability_home_win": 0.75056252,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_base_rate",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6594883",
+      "probability_home_win": 0.5,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_elo",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6594883",
+      "probability_home_win": 0.5861017,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_base_rate",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6597632",
+      "probability_home_win": 0.5,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_elo",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6597632",
+      "probability_home_win": 0.38505461,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_base_rate",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6603618",
+      "probability_home_win": 0.5,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_elo",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6603618",
+      "probability_home_win": 0.53400243,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_base_rate",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6616111",
+      "probability_home_win": 0.5,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    },
+    {
+      "candidate_id": "national_elo",
+      "forecast_state": "AWAITING_OFFICIAL_FINAL",
+      "ncaa_contest_id": "6616111",
+      "probability_home_win": 0.500679,
+      "state_reason": "NO_ELIGIBLE_OFFICIAL_FINAL_EXISTS_AT_EXECUTION_TIME",
+      "temporal_audit_verdict": "TEMPORAL_PROOF_COMPLETE"
+    }
+  ],
+  "forecast_state_counts": {
+    "AWAITING_OFFICIAL_FINAL": 12
+  },
+  "gate_identity": "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2",
+  "jira_key": "BAT-665",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001",
+  "metrics": {
+    "accuracy": null,
+    "brier_score": null,
+    "calibration_bins": [
+      {
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.6,
+        "bin_upper": 0.7,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.7,
+        "bin_upper": 0.8,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.8,
+        "bin_upper": 0.9,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      },
+      {
+        "bin_lower": 0.9,
+        "bin_upper": 1.0,
+        "mean_observed_outcome": null,
+        "mean_predicted_probability": null,
+        "row_count": 0
+      }
+    ],
+    "log_loss": null,
+    "scored_row_count": 0
+  },
+  "negative_findings": {
+    "no_candidate_was_tuned_selected_promoted_or_altered_from_week_zero": true,
+    "no_forecast_was_emitted_for_a_contest_whose_kickoff_bound_had_elapsed": true,
+    "the_refreshed_kickoff_clock_remains_a_published_local_clock_not_a_confirmed_instant": true
+  },
+  "outcome_exclusion": "AN_OUTCOME_IS_READ_ONLY_FROM_A_CAPTURE_RETRIEVED_AT_OR_AFTER_THE_KICKOFF_BOUND",
+  "parent_jira_key": "BAT-523",
+  "producer": "tools/build_week_zero_2026_live_shadow_execution.py",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "refreshed_capture_summary": {
+    "captured_before_any_week_zero_kickoff": true,
+    "dates_the_source_substituted": [
+      "2026-08-27",
+      "2026-08-28"
+    ],
+    "distinct_refreshed_contests": 8,
+    "official_final_count": 0,
+    "refreshed_capture_rows": 24,
+    "week_zero_contest_count": 8
+  },
+  "result": "PASS_WEEK_ZERO_2026_LIVE_SHADOW_EXECUTION",
+  "schema_version": "aggie.shadow.week_zero_2026_live_execution.v1",
+  "scientific_nonclaims": {
+    "an_empty_scored_population_is_a_truthful_result_not_a_failure": true,
+    "no_bas_or_aggie_excess_claim_is_made": true,
+    "no_champion_or_production_selection_is_made": true,
+    "the_refreshed_kickoff_remains_a_conservative_bound_unless_independently_confirmed": true,
+    "week_zero_results_never_tune_select_promote_or_alter_a_candidate": true
+  }
+}

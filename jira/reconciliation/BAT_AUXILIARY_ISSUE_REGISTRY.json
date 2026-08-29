@@ -1424,6 +1424,21 @@
       "phase": "PHASE-9",
       "status": "Done",
       "summary": "[POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001] Rehearse the Texas A&M Week 1 2026 shadow forecast path against the unchanged national baseline"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-659",
+      "local_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-10",
+      "status": "Done",
+      "summary": "[POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001] Implement the append-only national shadow state machine and reevaluate GAP-002 through GAP-009"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

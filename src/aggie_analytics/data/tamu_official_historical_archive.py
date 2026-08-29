@@ -460,8 +460,10 @@ def content_addressed_path(family: str, digest: str, extension: str) -> str:
 
 
 def direct_http_get(url: str, timeout_seconds: float = 45.0) -> dict[str, Any]:
-    if os.environ.get("AGGIE_ANALYTICS_NETWORK_FORBIDDEN", "").strip().lower() in {"1", "true", "yes", "on"}:
-        raise AuthorityViolation(f"{NETWORK_ACCESS_FORBIDDEN_ERROR}: {url}")
+    forbidding = ("AGGIE_ANALYTICS_NETWORK_FORBIDDEN", "AGGIE_ANALYTICS_RECONSTRUCT_FROM_LAKE_ONLY")
+    for name in forbidding:
+        if os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}:
+            raise AuthorityViolation(f"{NETWORK_ACCESS_FORBIDDEN_ERROR}: {url} ({name})")
     validate_official_url(url)
     request = urllib.request.Request(
         url,

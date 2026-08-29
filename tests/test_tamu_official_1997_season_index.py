@@ -14,8 +14,10 @@ from aggie_analytics.data.tamu_official_1997_season_index import (  # noqa: E402
     GATE_RELATIVE,
     compute_code_identity,
     compute_gate_identity,
-    materialize,
     validate_artifact,
+)
+from aggie_analytics.data.season_index_offline_reconstruction import (  # noqa: E402
+    reconstruct_season_index,
 )
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
@@ -33,8 +35,13 @@ def _mutated(gate: dict, **changes):
 class Official1997SeasonIndexTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        materialize(repo_root=REPO_ROOT, data_root=DATA_ROOT)
         cls.gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
+
+    def test_reconstruction_is_read_only_and_reproduces_the_committed_gate(self) -> None:
+        rebuilt = reconstruct_season_index(
+            1997, repo_root=REPO_ROOT, data_root=DATA_ROOT, gate=self.gate
+        )
+        self.assertEqual(rebuilt["gate"], self.gate)
 
     def test_gate_reconstructs(self) -> None:
         result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)

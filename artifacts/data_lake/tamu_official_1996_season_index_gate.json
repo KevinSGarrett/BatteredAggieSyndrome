@@ -210,13 +210,13 @@
       "source_row_order": 12
     }
   ],
-  "gate_identity": "8309deed62ee75c5435b761df8c8c1155014516ee5238c49e3de484ed9cf9f13",
+  "gate_identity": "c404affd6523828053507f4c57ac881587240e04388818a5d2ec99a3e184a6c3",
   "history_href_proof": "../years/1996.html",
   "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
   "jira_key": "BAT-649",
   "official_index_url": "https://files.12thman.com/history/football/years/1996.html",
-  "payload_identity": "07521fcef5c58ed0b2535463fae1e077086ab1afa569a80f5eeb9ac49786e92f",
+  "payload_identity": "0faa1dd863430421d51e94621bdb33b8f4a267d6ade0a41477164bcf7aa6a9e9",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "result": "PASS_OFFICIAL_1996_SEASON_INDEX_CAPTURED_BOX_URLS_DISCOVERED",
   "schema_version": "aggie.data.tamu_official_1996_season_index.v1",
@@ -227,5 +227,5 @@
     "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
   },
-  "validator_code_identity": "74ad4656a66243d039de65fc98efc24e025378f0975653a2935130ff82cc2723"
+  "validator_code_identity": "2d81496df437d0482785225bca8dbd38e71826f3fa7079f279b60b64220581dc"
 }

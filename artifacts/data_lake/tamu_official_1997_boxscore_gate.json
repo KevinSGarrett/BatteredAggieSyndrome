@@ -55,7 +55,7 @@
   "decision_unit": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-SUCCESSOR-001",
   "disposition": "NORMALIZED_CANDIDATE_ONLY_NO_UNION_MUTATION",
   "games_identity": "940f9336499a2aacb19324d65ed1f9094d5c7d5f639f091d8ce0210c45af9276",
-  "gate_identity": "abaff170fb1d62ae4283f9b8d707398f0eb34f78ee420c0af93bc5ef7ebbdd7b",
+  "gate_identity": "8beb99069188cb209894a54aebd8a31d95aa025db1b6a7495b55417e36d8414b",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
   "jira_key": "BAT-649",
   "parser_identity": "tamu.official.legacy_h2.v1",
@@ -89,7 +89,7 @@
     "predecessor_dataset_identity": "ca7bbf2e78dd028d647ff3abc77392c91d956c96ab7d9a93b2ca6f5e8953598a",
     "predecessor_gate_identity": "09a0c2cc295c1b8c5cb03e392e7bb38d637f48b4d7090b69766e69b89ca808f3",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
-    "season_index_gate_identity": "133ac7cef95611d6d61a42d33ce4cd581576e5cfa821715e31d5842cc3263e53"
+    "season_index_gate_identity": "572fc607736b8cdf16a5e11eeb3bc5430b70491438ddb28a580012f7d34d9a02"
   },
-  "validator_code_identity": "eac9880f2a46fb845a2abfafdceb6b8f5ee1e19da0133f8770efaad931dabff9"
+  "validator_code_identity": "e79e658fe0b3cb6f12b5d4832567f22be9b05abe261c094e241977af348b3d11"
 }

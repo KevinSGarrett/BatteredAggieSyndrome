@@ -86,7 +86,7 @@
   },
   "decision_unit": "POST-TASK-SRC014-1997-RECOVERED-UNION-001",
   "disposition": "PRESERVE_PREDECESSOR_MEMBERS_AND_ADMIT_RECOVERED_1997_GAMES",
-  "gate_identity": "060551a702ec8dcb9f9bd43e15290944c2017f39c5f1ce4751915e9f0f1960d7",
+  "gate_identity": "1959c2a1b2e013cc4409353f9018ac5bc43fa9ae16feccfd99b3b830f6600c8c",
   "historical_rejection_count": 40,
   "jira_key": "BAT-649",
   "predecessor_gate_identity": "a6ac7c237333febc5822a467b60be944af20190ddc203f8027f5aeaa61af7f90",
@@ -97,7 +97,7 @@
   "source_id": "SRC-014",
   "union_identity": "0a3311aa9915299403e650c47bc9a24e7e8f54c5f18e1762916b4418201294e6",
   "upstream_1997_boxscore_dataset_identity": "3fd339c3f45cf577ea13729fbdf9d393d02776e28a860b0fbc664f687bef3427",
-  "upstream_1997_boxscore_gate_identity": "abaff170fb1d62ae4283f9b8d707398f0eb34f78ee420c0af93bc5ef7ebbdd7b",
-  "upstream_1997_structured_gate_identity": "9a0c6bd41cbe730f011f0480ee1fb018d19b6277c0b39304a190264b88f0aed9",
+  "upstream_1997_boxscore_gate_identity": "8beb99069188cb209894a54aebd8a31d95aa025db1b6a7495b55417e36d8414b",
+  "upstream_1997_structured_gate_identity": "fc410766d61099e376fa4f5455d2c96bffef7853d7f2e0ee18e34b79bf731f48",
   "validation_contract_version": "aggie.data.tamu_official_gamebook_union_1997_expanded.v1"
 }

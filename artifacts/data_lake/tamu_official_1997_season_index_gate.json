@@ -225,13 +225,13 @@
       "source_row_order": 13
     }
   ],
-  "gate_identity": "133ac7cef95611d6d61a42d33ce4cd581576e5cfa821715e31d5842cc3263e53",
+  "gate_identity": "572fc607736b8cdf16a5e11eeb3bc5430b70491438ddb28a580012f7d34d9a02",
   "history_href_proof": "../years/1997.html",
   "history_index_sha256": "1d3b44c95af913e94548a22e7eeef930fb485a472de362ca1f9c137fb759a17a",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
   "jira_key": "BAT-649",
   "official_index_url": "https://files.12thman.com/history/football/years/1997.html",
-  "payload_identity": "70e48e2253a3b242b9feaca3b28a0ae185e30fb70afabc43887905cc3322faf0",
+  "payload_identity": "d63edeba5fed46ad69aa2cdff1a72a04faf33b9d05bef559fdbc7a54bf6a19a7",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "result": "PASS_OFFICIAL_1997_SEASON_INDEX_CAPTURED_BOX_URLS_DISCOVERED",
   "schema_version": "aggie.data.tamu_official_1997_season_index.v1",
@@ -242,5 +242,5 @@
     "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
     "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
   },
-  "validator_code_identity": "9d009c2271b8ebcd486b52c219c30db507b1ded81de7a02c0cc4bd15a923730d"
+  "validator_code_identity": "d867f37caf1aaa511f66c92ed1346a54b5ca367880fb54fefce4ce11db405e96"
 }

@@ -239,6 +239,7 @@ artifacts/jira_evidence/POST-TASK-2023-DEVELOPMENT-OUTCOMES-001.json
 artifacts/jira_evidence/POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json
 artifacts/jira_evidence/POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001.json
 artifacts/jira_evidence/POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001.json
+artifacts/jira_evidence/POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001.json
 artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 artifacts/jira_evidence/POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001.json
@@ -394,6 +395,8 @@ artifacts/shadow/prospective_2026_shadow_cohort_replay.json
 artifacts/shadow/prospective_2026_shadow_forecast_gate.json
 artifacts/shadow/prospective_2026_shadow_forecast_replay.json
 artifacts/shadow/prospective_2026_shadow_scoring_gate.json
+artifacts/shadow/tamu_2026_week1_rehearsal_gate.json
+artifacts/shadow/tamu_2026_week1_rehearsal_replay.json
 artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/private_research_policy_migration.json
@@ -532,6 +535,7 @@ configs/tamu_2010_2011_ncaa_contest_route_discovery_contract.json
 configs/tamu_2010_2011_ncaa_official_acquisition_contract.json
 configs/tamu_2010_2011_ncaa_team_season_evidence_contract.json
 configs/tamu_2010_2011_season_reconciliation_contract.json
+configs/tamu_2026_week1_rehearsal_contract.json
 configs/tamu_availability_source_sample.json
 configs/tamu_cross_source_domain_gate_contract.json
 configs/tamu_no_adjustment_reference.json
@@ -3518,6 +3522,7 @@ src/aggie_analytics/modeling/runtime.py
 src/aggie_analytics/modeling/schedule_stress_augmented.py
 src/aggie_analytics/modeling/simulation.py
 src/aggie_analytics/modeling/sustainability_augmented.py
+src/aggie_analytics/modeling/tamu_week1_rehearsal.py
 src/aggie_analytics/modeling/uncertainty.py
 src/aggie_analytics/modeling/wmt_tamu_shadow.py
 src/aggie_analytics/openai_assist/__init__.py
@@ -3814,6 +3819,7 @@ tests/test_tamu_official_pre2010_boxscores.py
 tests/test_tamu_official_rich_structure.py
 tests/test_tamu_official_statcrew_preformatted.py
 tests/test_tamu_specialization_governance.py
+tests/test_tamu_week1_rehearsal.py
 tests/test_team_state_governance.py
 tests/test_temporal_governance.py
 tests/test_unified_assistive_completeness.py
@@ -3910,6 +3916,7 @@ tools/build_tamu_2010_2011_ncaa_contest_route_discovery.py
 tools/build_tamu_2010_2011_ncaa_official_acquisition.py
 tools/build_tamu_2010_2011_ncaa_team_season_evidence.py
 tools/build_tamu_2010_2011_season_reconciliation.py
+tools/build_tamu_2026_week1_rehearsal.py
 tools/build_tamu_availability_evidence_pages.py
 tools/build_tamu_cross_source_domain_gate.py
 tools/build_tamu_depth_chart_noncoverage_review.py
@@ -4162,6 +4169,7 @@ tools/validate_tamu_2010_2011_ncaa_contest_route_discovery.py
 tools/validate_tamu_2010_2011_ncaa_official_acquisition.py
 tools/validate_tamu_2010_2011_ncaa_team_season_evidence.py
 tools/validate_tamu_2010_2011_season_reconciliation.py
+tools/validate_tamu_2026_week1_rehearsal.py
 tools/validate_tamu_availability_evidence_pages.py
 tools/validate_tamu_availability_source_sample.py
 tools/validate_tamu_cross_source_domain_gate.py

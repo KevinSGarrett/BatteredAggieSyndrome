@@ -1,42 +1,40 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
-  "jira_identity": "BAT-657",
+  "work_unit_id": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
+  "jira_identity": "BAT-658",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20",
-  "source_commit": "7e4a8e5ee52654e8263f0c599d48529ac883f829",
+  "source_commit": "c12b3527170a1abe6657f16f54f5985767325799",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "scope": "Cycle #20 Phase 8 prospective 2026 national shadow forecast freeze and independent postgame scorer",
-  "downstream_consumer": "CYCLE20_PHASE_9_TAMU_WEEK1_REHEARSAL",
+  "scope": "Cycle #20 Phase 9 Texas A&M Week One 2026 rehearsal against the unchanged national baseline",
+  "downstream_consumer": "CYCLE20_PHASE_10_SHADOW_STATE_MACHINE_AND_GAP_REEVALUATION",
   "user_explicit_waiver": {
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20\nExecute all Cycle #20 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "instruction_sha256": "6e81eee45c595b372801312c8b1c8f4ee359ddab17de13a2f9aa6258914c6533",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
-    "work_unit_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001"
+    "work_unit_id": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001"
   },
   "allowed_paths": [
-    "artifacts/jira_evidence/POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001.json",
-    "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
-    "artifacts/shadow/prospective_2026_shadow_forecast_replay.json",
-    "artifacts/shadow/prospective_2026_shadow_scoring_gate.json",
+    "artifacts/jira_evidence/POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001.json",
+    "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json",
+    "artifacts/shadow/tamu_2026_week1_rehearsal_replay.json",
     "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/prospective_2026_shadow_forecast_contract.json",
+    "configs/tamu_2026_week1_rehearsal_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/modeling/prospective_shadow_forecasts.py",
-    "tests/test_prospective_shadow_forecasts.py",
-    "tools/build_prospective_2026_shadow_forecasts.py",
-    "tools/score_prospective_2026_shadow_forecasts.py",
-    "tools/validate_prospective_2026_shadow_forecasts.py"
+    "src/aggie_analytics/modeling/tamu_week1_rehearsal.py",
+    "tests/test_tamu_week1_rehearsal.py",
+    "tools/build_tamu_2026_week1_rehearsal.py",
+    "tools/validate_tamu_2026_week1_rehearsal.py"
   ],
-  "decision_sha256": "54319b43c82fcef421b6dfee7ac339b75a705d09e0dfae1249302c8dde5ca76c"
+  "decision_sha256": "a646e1645956265bf73487fb66b4faee18f559cbcfcc7c7ce60ad9060f432a46"
 }

@@ -1514,6 +1514,21 @@
       "phase": "PHASE-10",
       "status": "Done",
       "summary": "[POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001] Independently audit the temporal proof of every frozen 2026 shadow forecast row"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-665",
+      "local_id": "POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-10",
+      "status": "Done",
+      "summary": "[POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001] Execute the 2026 Week Zero live shadow lane and score only temporally eligible forecasts"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

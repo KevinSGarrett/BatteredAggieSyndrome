@@ -62,7 +62,7 @@
     "serialized_rows_total": 61556,
     "superseded_rejection_count": 23
   },
-  "dataset_identity": "7162585b8cffef93be31721f8d40122d132c97d1243cdcf9ec23d7e46c7646a8",
+  "dataset_identity": "7a7f9797bbbc43f273e357584a16ece7715c6ab227438b13fa65775c3dd912f7",
   "decision_unit": "POST-TASK-SRC014-1996-2009-RECOVERED-STRUCTURED-ROW-CORPUS-001",
   "games_present_by_domain": {
     "drives": 124,
@@ -71,7 +71,7 @@
     "scoring_summary": 134,
     "team_statistics": 148
   },
-  "gate_identity": "79e593ea01aaa0129966b5c2aab39dec30cab4b98d42da052b04d7fa8888c9f4",
+  "gate_identity": "6e08cafb38d5035ce81b5abdc5f281be87f8c9857bb05323edee21ea553d4d4a",
   "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
   "jira_key": "BAT-649",
   "predecessor_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
@@ -84,8 +84,8 @@
     "scoring_summary": 0,
     "team_statistics": 0
   },
-  "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
-  "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81",
+  "rejection_integrity_gate_identity": "353f32339af8b686e9809bea5ed1ad7a6b5d2674461f42a1be073dde58cc88d0",
+  "rejection_ledger_identity": "1b79f1bac9883e93fca9a6154493cf646059986fdc8bff4491ddbc8715631574",
   "result": "PASS_OFFICIAL_1996_2009_STRUCTURED_ROW_CORPUS_SUCCESSOR",
   "rows_per_domain": {
     "drives": 3142,
@@ -112,8 +112,8 @@
     2009
   ],
   "source_id": "SRC-014",
-  "union_gate_identity": "fbb502ac1f4b39b6c33bee460c734c3f48fd2aa4c3cd0d9f5313b1d278d85828",
+  "union_gate_identity": "d6fd393334338755b37d1d28e01fe3ec7ca9a11b8f8cd263de4e328dac645623",
   "union_identity": "cfbc6823f3afa4e2b4646b34d537ca8749206cc6039c63865a179d2cbea7594f",
-  "upstream_structured_1996_gate_identity": "75091e2c7cf39500def3def761c4ea96525c4fc1e91a9a848e46fd93ea4642f3",
-  "upstream_structured_1997_gate_identity": "9a0c6bd41cbe730f011f0480ee1fb018d19b6277c0b39304a190264b88f0aed9"
+  "upstream_structured_1996_gate_identity": "a53114c9b61abef5cd08de926b7177bb9c4b6e33200a20be13b38e200e3d006c",
+  "upstream_structured_1997_gate_identity": "fc410766d61099e376fa4f5455d2c96bffef7853d7f2e0ee18e34b79bf731f48"
 }

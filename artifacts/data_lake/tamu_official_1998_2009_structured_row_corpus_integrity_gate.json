@@ -41,10 +41,10 @@
     "seasons": 12,
     "serialized_rows_total": 58753
   },
-  "dataset_identity": "7d839faee647e7996c32c66c5a38f218e53760ff280bead3ad9c66ff59bf4e0e",
+  "dataset_identity": "f9ca71cd4206cbe6597af0d3de2ec48fb47aaa7c1d1b89ba2668b700f97a9a98",
   "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
   "disposition": "NEW_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR",
-  "gate_identity": "0215dcb634b50d2c1d7e3422097888803f836c763dc0bcfdce8aa051e2eef92a",
+  "gate_identity": "c0365dfda58f961313e94cd5e99d63ad6f3a0a0b7cc26842eaf5f069008ce02d",
   "jira_key": "BAT-649",
   "predecessor_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
   "predecessor_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
@@ -56,8 +56,8 @@
     "scoring_summary": 0,
     "team_statistics": 0
   },
-  "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
-  "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81",
+  "rejection_integrity_gate_identity": "353f32339af8b686e9809bea5ed1ad7a6b5d2674461f42a1be073dde58cc88d0",
+  "rejection_ledger_identity": "1b79f1bac9883e93fca9a6154493cf646059986fdc8bff4491ddbc8715631574",
   "result": "PASS_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR",
   "schema_version": "aggie.data.tamu_official_1998_2009_structured_row_corpus_integrity.v1",
   "selected_seasons": [
@@ -78,8 +78,8 @@
   "upstream_identities": {
     "bat638_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
     "bat638_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
-    "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
-    "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81"
+    "rejection_integrity_gate_identity": "353f32339af8b686e9809bea5ed1ad7a6b5d2674461f42a1be073dde58cc88d0",
+    "rejection_ledger_identity": "1b79f1bac9883e93fca9a6154493cf646059986fdc8bff4491ddbc8715631574"
   },
   "validation_contract_version": "aggie.data.tamu_official_1998_2009_structured_row_corpus_integrity.v1"
 }

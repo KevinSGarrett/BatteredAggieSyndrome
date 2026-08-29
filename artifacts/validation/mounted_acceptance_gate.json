@@ -1,15 +1,15 @@
 {
-  "acceptance_result_identity": "2d31effd290c34b78df87281ccce544d883fea5eded136bafa52ec94536577d0",
-  "acceptance_result_relative_path": "validation/mounted_acceptance/sha256/2d31effd290c34b78df87281ccce544d883fea5eded136bafa52ec94536577d0/acceptance_result.json",
+  "acceptance_result_identity": "39d6f3bcb47d13e690b036fde0455415f6160aebd855fa60d275af00d9b9e565",
+  "acceptance_result_relative_path": "validation/mounted_acceptance/sha256/39d6f3bcb47d13e690b036fde0455415f6160aebd855fa60d275af00d9b9e565/acceptance_result.json",
   "artifact_type": "MOUNTED_ACCEPTANCE_GATE",
   "classification": "CYCLE18_19_CRITICAL_MOUNTED_ACCEPTANCE",
-  "code_identity": "522436d4cb55ee02cfa5b5cdf87abfec124cd3256a3ce1e5aed6ab2d6a8cd69d",
+  "code_identity": "d236c0136d0dc83b2dfd60633c19ea4e627d8b3d90dbac6417e9db0b45069dc6",
   "contract_id": "BAT-649-CYCLE19-MOUNTED-ACCEPTANCE-V1",
   "counts": {
     "errored": 0,
-    "executed": 29,
+    "executed": 31,
     "failed": 0,
-    "passed": 29,
+    "passed": 31,
     "skipped": 0
   },
   "critical_suite": [
@@ -33,9 +33,9 @@
   "error_tests": [],
   "expected_full_suite_skips": [],
   "failure_tests": [],
-  "gate_identity": "01eac310c475df753eca94256ce9221eb07c959e0380a8e9eb7fd851ac7e3ad1",
+  "gate_identity": "ef3d444a54fa612ba7cccc03c5c39d89c49af1bc57c1e3ae1ef8aec2fa5c038d",
   "network_error_marker": "NETWORK_ACCESS_FORBIDDEN_IN_ACCEPTANCE_TEST",
-  "repo_head_sha": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
+  "repo_head_sha": "43a1cc5df4e6ed3986a08b33c7bf3036b44b30df",
   "required_raw_manifest": [
     {
       "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/season_index/sha256_c7e447bad869680b7207917eb5295d6a45fdc55a8190df26c00b7126a0844c3a.html",
@@ -63,6 +63,7 @@
     "test_tamu_official_1996_boxscores.Official1996BoxscoreTests.test_stale_code_identity_fails",
     "test_tamu_official_1996_season_index.Official1996SeasonIndexTests.test_gate_reconstructs",
     "test_tamu_official_1996_season_index.Official1996SeasonIndexTests.test_history_href_removed_fails",
+    "test_tamu_official_1996_season_index.Official1996SeasonIndexTests.test_reconstruction_is_read_only_and_reproduces_the_committed_gate",
     "test_tamu_official_1996_season_index.Official1996SeasonIndexTests.test_stale_code_identity_fails",
     "test_tamu_official_1996_structured_domains.Official1996StructuredDomainsTests.test_gate_reconstructs",
     "test_tamu_official_1996_structured_domains.Official1996StructuredDomainsTests.test_protected_lane_opened_fails",
@@ -71,6 +72,7 @@
     "test_tamu_official_1997_boxscores.Official1997BoxscoreTests.test_stale_code_identity_fails",
     "test_tamu_official_1997_season_index.Official1997SeasonIndexTests.test_gate_reconstructs",
     "test_tamu_official_1997_season_index.Official1997SeasonIndexTests.test_history_href_removed_fails",
+    "test_tamu_official_1997_season_index.Official1997SeasonIndexTests.test_reconstruction_is_read_only_and_reproduces_the_committed_gate",
     "test_tamu_official_1997_season_index.Official1997SeasonIndexTests.test_stale_code_identity_fails",
     "test_tamu_official_1997_structured_domains.Official1997StructuredDomainsTests.test_gate_reconstructs",
     "test_tamu_official_1997_structured_domains.Official1997StructuredDomainsTests.test_protected_lane_opened_fails",
@@ -86,5 +88,5 @@
     "test_tamu_official_gamebook_union_1998_rejection_complete.RejectionCompleteUnionTests.test_gate_reconstructs",
     "test_tamu_official_gamebook_union_1998_rejection_complete.RejectionCompleteUnionTests.test_protected_lane_open_fails"
   ],
-  "test_inventory_identity": "b4f0236f9f359d4adbcdcee64d5e94f9efaa5d8901b39d173d37237184af8b52"
+  "test_inventory_identity": "50636a57dbe2c61dbd258651debfd1682341de4c7474d3b75e481db6d97c1354"
 }

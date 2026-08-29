@@ -78,21 +78,21 @@
   },
   "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
   "disposition": "NEW_IMMUTABLE_REJECTION_COMPLETE_UNION_SUCCESSOR",
-  "gate_identity": "b4e01cba59586b35e18c7ff567dab828d896c9700a1ba582905a4e2fd8b6213b",
+  "gate_identity": "1fe280d54f74869e840d53c0949c75a3a70b02497d7cd946582bd3becdf8340b",
   "jira_key": "BAT-649",
   "predecessor_gate_identity": "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a",
   "predecessor_union_identity": "e526499dab658992bb528799621833a0cb9dbaf538755ceb4b8b1df37053f069",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
-  "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81",
+  "rejection_integrity_gate_identity": "353f32339af8b686e9809bea5ed1ad7a6b5d2674461f42a1be073dde58cc88d0",
+  "rejection_ledger_identity": "1b79f1bac9883e93fca9a6154493cf646059986fdc8bff4491ddbc8715631574",
   "result": "PASS_IMMUTABLE_REJECTION_COMPLETE_UNION_SUCCESSOR",
   "schema_version": "aggie.data.tamu_official_gamebook_union_1998_rejection_complete.v1",
   "source_id": "SRC-014",
-  "union_identity": "d404d1f92d9836619bd0019f8da48438a9be82add6ad654d33854757736c60a1",
+  "union_identity": "b3ab6078529ad9f679a1d4e8615e08d054c7a75a34c47f768a8613a70f1cbe64",
   "upstream_identities": {
     "bat637_gate_identity": "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a",
-    "rejection_integrity_gate_identity": "88b21f77f53e5d6b2e64dc94a6d955315bfc4adc67aa0b9517a1855c24e9b989",
-    "rejection_ledger_identity": "7ffecf5d8f1b5c80604f557cc6a1dbf267909977b4d4d74d747a2250875b7a81"
+    "rejection_integrity_gate_identity": "353f32339af8b686e9809bea5ed1ad7a6b5d2674461f42a1be073dde58cc88d0",
+    "rejection_ledger_identity": "1b79f1bac9883e93fca9a6154493cf646059986fdc8bff4491ddbc8715631574"
   },
   "validation_contract_version": "aggie.data.tamu_official_gamebook_union_1998_rejection_complete.v1"
 }

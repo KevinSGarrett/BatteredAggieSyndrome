@@ -14,7 +14,7 @@ from aggie_analytics.data.tamu_official_1998_2009_rejection_integrity import (  
     AuthorityViolation,
     GATE_RELATIVE,
     compute_identity,
-    materialize,
+    reconstruct_objects,
     validate_artifact,
 )
 
@@ -33,7 +33,9 @@ def _mutated(gate: dict, **changes):
 class RejectionIntegrityGateTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        materialize(repo_root=REPO_ROOT, data_root=DATA_ROOT)
+        # Reconstruction only. Materialization stays in the explicit build command
+        # so a test run can never rewrite the tracked gate it is checking.
+        reconstruct_objects(repo_root=REPO_ROOT, data_root=DATA_ROOT)
         cls.gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
 
     def test_gate_reconstructs(self) -> None:

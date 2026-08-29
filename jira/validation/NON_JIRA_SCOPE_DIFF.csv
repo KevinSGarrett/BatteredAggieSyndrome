@@ -224,6 +224,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORIN
 ADDED,artifacts/jira_evidence/POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001.json
@@ -390,6 +391,8 @@ ADDED,artifacts/shadow/tamu_2026_week1_rehearsal_gate.json
 ADDED,artifacts/shadow/tamu_2026_week1_rehearsal_replay.json
 ADDED,artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json
 ADDED,artifacts/shadow/week_zero_2026_calendar_and_t7d_replay.json
+ADDED,artifacts/shadow/week_zero_2026_live_execution_gate.json
+ADDED,artifacts/shadow/week_zero_2026_live_execution_replay.json
 ADDED,artifacts/source_governance/acquisition_resilience_test.json
 ADDED,artifacts/source_governance/credential_contract.redacted.json
 ADDED,artifacts/source_governance/private_research_policy_migration.json
@@ -587,6 +590,7 @@ ADDED,configs/unified_assistive_policy.json
 ADDED,configs/unified_assistive_ready_work.json
 ADDED,configs/versioned_play_drive_gap_contract.json
 ADDED,configs/week_zero_2026_calendar_and_t7d_contract.json
+ADDED,configs/week_zero_2026_live_execution_contract.json
 ADDED,configs/wmt_provider_timestamp_pit_contract.json
 ADDED,configs/wmt_tamu_specialization_feature_pit_contract.json
 ADDED,docs/OPEN_SOURCE_INTEGRATION_STRATEGY.md
@@ -880,6 +884,7 @@ ADDED,src/aggie_analytics/modeling/schedule_stress_augmented.py
 ADDED,src/aggie_analytics/modeling/shadow_forecast_temporal_audit.py
 ADDED,src/aggie_analytics/modeling/sustainability_augmented.py
 ADDED,src/aggie_analytics/modeling/tamu_week1_rehearsal.py
+ADDED,src/aggie_analytics/modeling/week_zero_live_shadow_execution.py
 ADDED,src/aggie_analytics/modeling/wmt_tamu_shadow.py
 ADDED,src/aggie_analytics/openai_assist/__init__.py
 ADDED,src/aggie_analytics/openai_assist/budget.py
@@ -1113,11 +1118,11 @@ ADDED,tests/test_unified_runtime_inventory_dispatch.py
 ADDED,tests/test_useful_work_accounting.py
 ADDED,tests/test_validate_repository_strict.py
 ADDED,tests/test_week_zero_2026_calendar_and_t7d.py
+ADDED,tests/test_week_zero_2026_live_shadow_execution.py
 ADDED,tests/test_wmt_provider_timestamp_pit.py
 ADDED,tests/test_wmt_tamu_specialization_feature_pit.py
-ADDED,tools/__pycache__/__init__.cpython-311.pyc
-ADDED,tools/__pycache__/repo_integrity.cpython-311.pyc
 ADDED,tools/acquire_2026_prospective_schedule.py
+ADDED,tools/acquire_2026_week_zero_live_execution_evidence.py
 ADDED,tools/acquire_2026_week_zero_t7d_evidence.py
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
@@ -1256,6 +1261,7 @@ ADDED,tools/build_tamu_official_statcrew_preformatted.py
 ADDED,tools/build_unified_assistive_release.py
 ADDED,tools/build_versioned_play_drive_gap.py
 ADDED,tools/build_week_zero_2026_calendar_and_t7d_authority.py
+ADDED,tools/build_week_zero_2026_live_shadow_execution.py
 ADDED,tools/build_wmt_provider_timestamp_pit.py
 ADDED,tools/build_wmt_tamu_specialization_feature_pit.py
 ADDED,tools/capture_unified_live_baseline.py
@@ -1484,6 +1490,7 @@ ADDED,tools/validate_unified_acceptance_ownership.py
 ADDED,tools/validate_unified_assistive_completeness.py
 ADDED,tools/validate_unified_assistive_plane.py
 ADDED,tools/validate_week_zero_2026_calendar_and_t7d_authority.py
+ADDED,tools/validate_week_zero_2026_live_shadow_execution.py
 ADDED,tools/validate_wmt_provider_timestamp_pit.py
 ADDED,tools/validate_wmt_tamu_specialization_feature_pit.py
 ADDED,tools/write_development_candidate_evidence_ledger.py

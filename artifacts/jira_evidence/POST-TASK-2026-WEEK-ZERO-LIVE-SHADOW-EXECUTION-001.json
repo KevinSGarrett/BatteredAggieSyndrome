@@ -1,0 +1,17 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T07:08:07Z",
+ "jira_key": "BAT-665",
+ "local_issue_id": "POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "58f04aca78d122f2306f1fe58b3c3c9475d50199",
+ "observable_outcome": "The official Week Zero surface was refreshed live at 2026-08-29T06:54:59Z across the three corrected Week Zero dates. The source published 8 contests on 2026-08-29 and substituted that date for the 2026-08-27 and 2026-08-28 queries. All 8 contests were captured strictly before their kickoff bounds, zero official finals existed, and the 12 already frozen forecast rows truthfully remain AWAITING_OFFICIAL_FINAL with a scored row count of zero and null rather than zero metrics. No forecast was created, revised or backfilled, no candidate was tuned, selected, promoted or altered, and the independent validator refuses any gate that admits a backfill, scores a row without a complete Phase 4 temporal proof, or scores a contest whose forecast was not provably issued before kickoff.",
+ "outputs": []
+}

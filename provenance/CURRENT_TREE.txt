@@ -121,6 +121,7 @@ artifacts/entities/canonical_core_registry_manifest.json
 artifacts/entities/canonical_people_registry.csv
 artifacts/entities/canonical_people_registry_manifest.json
 artifacts/entities/entity_decision_and_transition_log.jsonl
+artifacts/entities/national_entity_identity_benchmark_gate.json
 artifacts/entities/population_schema_profile.json
 artifacts/entities/registry_validation.json
 artifacts/entities/resolution_results.parquet
@@ -497,6 +498,8 @@ configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
 configs/mounted_acceptance_contract.json
 configs/national_chronological_development_matrix_contract.json
+configs/national_entity_benchmark_targets.json
+configs/national_entity_identity_benchmark_contract.json
 configs/national_expectation_baselines_and_peers_contract.json
 configs/national_foundation_reconciliation_contract.json
 configs/national_multi_year_walk_forward_contract.json
@@ -3397,6 +3400,7 @@ src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
 src/aggie_analytics/data/historical_known_at_authority.py
 src/aggie_analytics/data/http.py
 src/aggie_analytics/data/national_chronological_development_matrix.py
+src/aggie_analytics/data/national_entity_identity_benchmark.py
 src/aggie_analytics/data/national_foundation_reconciliation.py
 src/aggie_analytics/data/national_pit_domain_admission_matrix.py
 src/aggie_analytics/data/national_pit_eligible_slice.py
@@ -3731,6 +3735,7 @@ tests/test_model_tournament.py
 tests/test_model_tournament_full.py
 tests/test_mounted_data_acceptance.py
 tests/test_national_chronological_development_matrix.py
+tests/test_national_entity_identity_benchmark.py
 tests/test_national_expectation_baselines.py
 tests/test_national_foundation_reconciliation.py
 tests/test_national_multi_year_walk_forward.py
@@ -3909,6 +3914,7 @@ tools/acquire_2026_week_zero_live_execution_evidence.py
 tools/acquire_2026_week_zero_t7d_evidence.py
 tools/acquire_cfbd_historical.py
 tools/acquire_historical_known_at_publication_routes.py
+tools/acquire_national_entity_official_identity.py
 tools/acquire_ncaa_official_gamebooks.py
 tools/acquire_noaa_isd_observed_coverage_pilot.py
 tools/acquire_sec_tamu_availability.py
@@ -3948,6 +3954,7 @@ tools/build_historical_venue_assignment_pit.py
 tools/build_historical_weather_previous_runs_snapshot.py
 tools/build_jira_control_plane.py
 tools/build_national_chronological_development_matrix.py
+tools/build_national_entity_identity_benchmark.py
 tools/build_national_expectation_baselines.py
 tools/build_national_foundation_reconciliation.py
 tools/build_national_multi_year_walk_forward.py
@@ -4194,6 +4201,7 @@ tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_mounted_acceptance_gate.py
 tools/validate_national_chronological_development_matrix.py
+tools/validate_national_entity_identity_benchmark.py
 tools/validate_national_expectation_baselines.py
 tools/validate_national_foundation_reconciliation.py
 tools/validate_national_multi_year_walk_forward.py

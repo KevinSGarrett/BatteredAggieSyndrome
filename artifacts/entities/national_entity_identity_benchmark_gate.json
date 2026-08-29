@@ -1,0 +1,141 @@
+{
+  "abstention_analysis": {
+    "abstained": 24,
+    "by_reason": {
+      "AGREEMENT_RATE_BELOW_THRESHOLD": 3,
+      "INSUFFICIENT_COMPARABLE_SEASONS": 1,
+      "NO_CANDIDATE_MET_THE_MINIMUM_EXACT_MATCH_COUNT": 20
+    },
+    "leading_candidate_covered_fewer_seasons_than_the_official_source": 5,
+    "observation": "Where the leading canonical candidate covers fewer seasons than the official source reports, the canonical spine holds only part of that programme's schedule, so its derived season records cannot equal the official full-season records. The resolver abstains in that situation rather than binding on partial agreement."
+  },
+  "acquisition_evidence": {
+    "ledger_sha256": "0c1631d915a3a35e66717e65a8724af709fc14f581b022d6ec18a3cb19c3cda8",
+    "official_source_id": "SRC-NCAA-OFFICIAL-STATS",
+    "organizations_acquired": 58,
+    "organizations_requested": 58,
+    "retrieved_at_utc": "2026-08-29T17:21:54.466119Z"
+  },
+  "artifact_id": "NATIONAL-ENTITY-IDENTITY-BENCHMARK",
+  "authority": {
+    "champion_or_production_promotion": false,
+    "fuzzy_auto_accept_enabled": false,
+    "historical_known_at_authority_established": false,
+    "identity_bound_without_official_evidence": false,
+    "protected_lane_admission": false
+  },
+  "benchmark_metrics": {
+    "abstained": 16,
+    "abstention_rate": 0.372093,
+    "accepted_bindings": 27,
+    "conflict_rate": 0.0,
+    "conflicting_bindings": 0,
+    "correct_bindings": 27,
+    "exact_match_coverage": 0.627907,
+    "gold_organizations_evaluated": 43,
+    "precision": 1.0,
+    "recall": 0.627907
+  },
+  "classification": "CROSS_SOURCE_NATIONAL_ENTITY_IDENTITY_BENCHMARK_AND_2026_COVERAGE_REBOUND",
+  "cohort_successor": {
+    "immutable_successor_of": "BAT-656-PROSPECTIVE-2026-NATIONAL-SHADOW-COHORT-V1",
+    "predecessor_gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+    "predecessor_is_rewritten": false,
+    "predecessor_payload_sha256": "a43e7afd7865ef483168431f7cbbe157850356dc2a90bf432445d0625ddf4efe",
+    "rows": 99
+  },
+  "contract_id": "NATIONAL-ENTITY-IDENTITY-BENCHMARK-001",
+  "coverage_rebound": {
+    "execution_time_utc": "2026-08-29T17:21:54.466119Z",
+    "frozen_or_scorable_coverage_changed": false,
+    "frozen_or_scorable_coverage_explanation": "This artifact resolves identities only. It creates no snapshot and no forecast, and it never creates a forecast retroactively, so no contest became frozen or scorable as a result of the rebound. Newly supported contests that still hold an open checkpoint become eligible for a future precommitment, which this artifact deliberately does not execute early.",
+    "newly_supported_contests": 9,
+    "newly_supported_participants": 9,
+    "newly_supported_with_an_open_checkpoint": 9,
+    "newly_supported_with_every_checkpoint_elapsed": 0,
+    "predecessor_payload_root_sha256": "a43e7afd7865ef483168431f7cbbe157850356dc2a90bf432445d0625ddf4efe",
+    "still_unsupported_contests": 8
+  },
+  "decision_unit": "POST-TASK-NATIONAL-ENTITY-BENCHMARK-AND-2026-COVERAGE-REBOUND-001",
+  "execution_time_utc": "2026-08-29T17:21:54.466119Z",
+  "forbidden_seasons_compared": 0,
+  "forbidden_seasons_offered_by_the_source_and_discarded": [
+    2024,
+    2025
+  ],
+  "gap_reference": "GAP-009",
+  "gate_identity": "820a9dc23cbb496c9a39159935aeca6d146a2ee9ed4e5b27d52331e743d28b0c",
+  "identity_surfaces": {
+    "fuzzy_auto_accept_enabled": false,
+    "official_directory_entries": 1963,
+    "organizations_acquired": 58,
+    "organizations_requested": 58
+  },
+  "jira_key": "BAT-670",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "manifest": {
+    "bulk_payloads_in_git": false,
+    "dataset_identity": "34586b3ed3a55268de9abd3d6c589d25eab4ea7e3d712e065287885ffff7fc4b",
+    "relative_path": "manifests/national_entity_identity_benchmark/sha256/34586b3ed3a55268de9abd3d6c589d25eab4ea7e3d712e065287885ffff7fc4b/national_entity_identity_benchmark_manifest.json",
+    "sha256": "5a8b8dcff9fe58a59cd0f7d63d8266b946b89ef268a46ef37319027cafae1662"
+  },
+  "negative_controls": {
+    "evaluated": 101,
+    "failed": 0,
+    "passed": 101
+  },
+  "payload_root_sha256": "34586b3ed3a55268de9abd3d6c589d25eab4ea7e3d712e065287885ffff7fc4b",
+  "payloads": [
+    {
+      "name": "national_entity_identity_negative_controls.jsonl",
+      "rows": 101,
+      "sha256": "dff3bc7b5201d1af3523c4add8fdb4498d5ce47ecd49bdee5cbad831efaf75f2"
+    },
+    {
+      "name": "national_entity_identity_resolutions.jsonl",
+      "rows": 58,
+      "sha256": "f80417b67591676efac9760ae7a7fdb0ea2ba030451a5a7caac690e1501ef012"
+    },
+    {
+      "name": "prospective_2026_shadow_cohort_successor.jsonl",
+      "rows": 99,
+      "sha256": "feba7778a4fabf76a5fe9a9cfd19b97f16cc0191c9024d25ac1e7918bd986afb"
+    }
+  ],
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "protected_lane_opened": false,
+  "scientific_non_claims": [
+    "This artifact does not claim that every unresolved 2026 participant was resolved.",
+    "This artifact does not claim that an accepted record-tuple binding establishes historical known-at authority for any feature domain.",
+    "This artifact does not claim any Battered Aggie Syndrome effect, Aggie excess, specialization lift or causal finding.",
+    "This artifact does not promote any model candidate to champion or production status.",
+    "This artifact does not open the protected lane and does not close GAP-002."
+  ],
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "causal_effect": false,
+    "champion_or_production_selection": false,
+    "every_unresolved_participant_was_resolved": false,
+    "fuzzy_similarity_acceptance_enabled": false,
+    "gap_002_closed_by_this_benchmark": false,
+    "gap_009_closed_by_this_benchmark": false,
+    "new_frozen_or_scorable_coverage_created": false,
+    "protected_performance": false,
+    "retroactive_forecast_created": false,
+    "specialization_lift": false
+  },
+  "season_scope": {
+    "forbidden_seasons": [
+      2024,
+      2025
+    ],
+    "maximum_comparable_season": 2023,
+    "minimum_season": 1963
+  },
+  "spine_dataset_identity": "777dce822d5f02455ef2c47b1e482a45dbf5b3b84300885a608ac845946a03f8",
+  "unresolved_target_outcome": {
+    "abstained": 8,
+    "evaluated": 15,
+    "resolved": 7
+  }
+}

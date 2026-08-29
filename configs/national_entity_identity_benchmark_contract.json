@@ -1,0 +1,164 @@
+{
+  "contract_id": "NATIONAL-ENTITY-IDENTITY-BENCHMARK-001",
+  "artifact_id": "NATIONAL-ENTITY-IDENTITY-BENCHMARK",
+  "decision_unit": "POST-TASK-NATIONAL-ENTITY-BENCHMARK-AND-2026-COVERAGE-REBOUND-001",
+  "jira_key": "BAT-670",
+  "gap_reference": "GAP-009",
+  "cycle": 21,
+  "phase": 10,
+
+  "purpose": "Resolve 2026 prospective-cohort team identities against the canonical spine using official NCAA organization identifiers and season record tuples, measure the resolver against an independently labeled benchmark, and leave every identity without authoritative evidence unsupported.",
+
+  "predeclaration": {
+    "declared_before_reading_any_match_result": true,
+    "rationale": "Acceptance thresholds, abstention reasons and negative controls are fixed in this contract before the record-tuple matcher is executed so that no threshold can be fitted to a desired coverage outcome."
+  },
+
+  "identity_surfaces": {
+    "source_label": {
+      "description": "The participant display label published on the official 2026 scoreboard.",
+      "authority": "OFFICIAL_SOURCE_LABEL",
+      "sufficient_for_resolution_alone": false,
+      "reason_insufficient": "Cycle #20 resolved 181 of 198 participant slots by exact normalized label alone and left 17 unresolved; the label surface is known to disagree with canonical spine naming (for example the official NCAA label 'Southern California' against the spine label 'USC')."
+    },
+    "official_organization_id": {
+      "description": "The season-independent NCAA organization identifier obtained from the official organization directory embedded in the official team-history page.",
+      "authority": "OFFICIAL_EXACT_IDENTIFIER",
+      "acquisition_route": "OFFICIAL_NCAA_STATS_TEAM_HISTORY",
+      "match_rule": "EXACT_LABEL_EQUALITY_AGAINST_THE_OFFICIAL_DIRECTORY",
+      "fuzzy_matching_permitted": false
+    },
+    "official_season_record_series": {
+      "description": "The per-season division, conference, wins, losses and ties table published on the official NCAA team-history page for an organization identifier.",
+      "authority": "OFFICIAL_PUBLISHED_RECORD",
+      "used_as": "STRONG_TUPLE_FOR_CANONICAL_BINDING"
+    },
+    "spine_season_record_series": {
+      "description": "Per-canonical-team per-season wins, losses and ties derived from national_team_outcome_labels.jsonl in the canonical national tiered game spine.",
+      "authority": "CANONICAL_DERIVED",
+      "derivation": "A row counts as a tie when label_tie is true, otherwise a win when label_win is true, otherwise a loss."
+    }
+  },
+
+  "season_scope": {
+    "minimum_season": 1963,
+    "maximum_comparable_season": 2023,
+    "forbidden_seasons": [2024, 2025],
+    "forbidden_season_reason": "The 2024 and 2025 seasons remain sealed for this project and must never participate in matching, scoring or evidence-bearing comparison.",
+    "acquired_rows_outside_scope_are_retained_as_evidence_but_never_compared": true,
+    "excluded_from_comparison_when_official_row_reports_no_games": true,
+    "no_games_exclusion_reason": "Official history rows may report 0-0-0 for vacated, cancelled or not-yet-played seasons; comparing them would manufacture agreement."
+  },
+
+  "acceptance_rules": {
+    "evaluation": "For each acquired organization the matcher compares its in-scope official season record tuples against every canonical spine team's derived season record tuples, counting a season as an exact match only when wins, losses and ties are all equal.",
+    "tiers": [
+      {
+        "tier_id": "PRIMARY_LONG_HISTORY",
+        "minimum_compared_seasons": 10,
+        "minimum_exact_matching_seasons": 10,
+        "minimum_agreement_rate": 0.9,
+        "minimum_exact_match_margin_over_runner_up": 5,
+        "verdict_when_satisfied": "RESOLVED_BY_OFFICIAL_RECORD_TUPLE"
+      },
+      {
+        "tier_id": "SECONDARY_SHORT_HISTORY",
+        "maximum_compared_seasons": 9,
+        "minimum_compared_seasons": 3,
+        "minimum_exact_matching_seasons": 3,
+        "minimum_agreement_rate": 1.0,
+        "minimum_exact_match_margin_over_runner_up": 2,
+        "verdict_when_satisfied": "RESOLVED_BY_OFFICIAL_RECORD_TUPLE_SHORT_HISTORY",
+        "rationale": "A shorter evidence window is admissible only under perfect agreement, so that programs with brief canonical histories are not resolved on weaker evidence than long-history programs."
+      }
+    ],
+    "tier_precedence": ["PRIMARY_LONG_HISTORY", "SECONDARY_SHORT_HISTORY"],
+    "abstention_reasons": [
+      "NO_CANDIDATE_MET_THE_MINIMUM_EXACT_MATCH_COUNT",
+      "INSUFFICIENT_COMPARABLE_SEASONS",
+      "AGREEMENT_RATE_BELOW_THRESHOLD",
+      "AMBIGUOUS_RUNNER_UP_WITHIN_MARGIN"
+    ],
+    "fuzzy_auto_accept_enabled": false,
+    "fuzzy_auto_accept_justification": "No predeclared similarity threshold is supported by measured evidence in this cycle, so no similarity-based acceptance path is enabled."
+  },
+
+  "benchmark": {
+    "gold_set": {
+      "description": "Cohort participants that Cycle #20 already resolved by exact normalized label carry an independent gold canonical binding. The record-tuple matcher never sees the label, so agreement between the two surfaces is an independent measurement.",
+      "label_source": "CYCLE_20_EXACT_NORMALIZED_NAME_RESOLUTION",
+      "independence_argument": "The gold label is derived from the participant name surface; the matcher decides from the official season record surface only. The two surfaces share no fields."
+    },
+    "negative_controls": [
+      {
+        "control_id": "HELD_OUT_TRUE_TEAM",
+        "description": "For each gold organization the matcher is rerun with its true canonical spine team removed from the candidate pool. A correct resolver must abstain rather than bind the next best team.",
+        "expected_outcome": "ABSTAIN"
+      },
+      {
+        "control_id": "EXPECTED_ABSENT_ORGANIZATION",
+        "description": "Organizations with no canonical spine counterpart must abstain rather than bind any team.",
+        "expected_outcome": "ABSTAIN"
+      },
+      {
+        "control_id": "SHUFFLED_RECORD_SERIES",
+        "description": "The matcher is rerun against a deterministically season-shifted copy of each official record series. A correct resolver must not reproduce the original binding.",
+        "expected_outcome": "ABSTAIN_OR_DIFFERENT_BINDING"
+      }
+    ],
+    "reported_metrics": [
+      "exact_match_coverage",
+      "precision",
+      "recall",
+      "abstention_rate",
+      "conflict_rate"
+    ],
+    "metric_definitions": {
+      "exact_match_coverage": "Accepted bindings divided by benchmark organizations evaluated.",
+      "precision": "Accepted bindings that equal the gold canonical team divided by accepted bindings over gold organizations.",
+      "recall": "Accepted bindings that equal the gold canonical team divided by gold organizations evaluated.",
+      "abstention_rate": "Abstentions divided by benchmark organizations evaluated.",
+      "conflict_rate": "Accepted bindings that disagree with the gold canonical team divided by accepted bindings over gold organizations."
+    }
+  },
+
+  "cohort_rebuild": {
+    "immutable_successor_required": true,
+    "predecessor_artifact_id": "PROSPECTIVE-2026-SHADOW-COHORT",
+    "predecessor_payload_root_sha256": "a43e7afd7865ef483168431f7cbbe157850356dc2a90bf432445d0625ddf4efe",
+    "predecessor_is_never_rewritten": true,
+    "frozen_forecast_probabilities_are_never_revised": true,
+    "newly_supported_participants_do_not_retroactively_create_forecasts": true,
+    "checkpoint_preservation": {
+      "T_MINUS_7D": "REBOUND_AND_REBIND_EXISTING_STATE_ONLY",
+      "T_MINUS_24H": "PRESERVE_AS_OPEN_AND_NEVER_EXECUTE_EARLY",
+      "T_MINUS_90M": "PRESERVE_AS_OPEN_AND_NEVER_EXECUTE_EARLY"
+    },
+    "texas_am_contest_reference": {
+      "opponent_label": "Missouri State",
+      "t_minus_7d_deadline_utc": "2026-08-29T23:00:00Z"
+    }
+  },
+
+  "scientific_non_claims": [
+    "This artifact does not claim that every unresolved 2026 participant was resolved.",
+    "This artifact does not claim that an accepted record-tuple binding establishes historical known-at authority for any feature domain.",
+    "This artifact does not claim any Battered Aggie Syndrome effect, Aggie excess, specialization lift or causal finding.",
+    "This artifact does not promote any model candidate to champion or production status.",
+    "This artifact does not open the protected lane and does not close GAP-002."
+  ],
+
+  "official_source": {
+    "source_id": "SRC-NCAA-OFFICIAL-STATS",
+    "official_host": "stats.ncaa.org",
+    "team_history_path_template": "/teams/history/MFB/{organization_id}",
+    "sport_code": "MFB",
+    "minimum_html_bytes": 20000,
+    "reject_case_insensitive_markers": [
+      "bm-verify",
+      "akamai_validation",
+      "request_quota_reached",
+      "_abck"
+    ]
+  }
+}

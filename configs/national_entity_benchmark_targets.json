@@ -1,0 +1,354 @@
+{
+ "organization_ids": [
+  17,
+  725,
+  231,
+  277,
+  361,
+  408,
+  415,
+  432,
+  488,
+  503,
+  655,
+  657,
+  498,
+  536,
+  766,
+  2,
+  27,
+  31,
+  77,
+  66,
+  86,
+  458,
+  157,
+  194,
+  204,
+  236,
+  257,
+  288,
+  301,
+  311,
+  327,
+  365,
+  671,
+  388,
+  410,
+  419,
+  669,
+  726,
+  473,
+  487,
+  501,
+  519,
+  523,
+  539,
+  572,
+  102,
+  646,
+  654,
+  698,
+  691,
+  700,
+  716,
+  14,
+  465,
+  731,
+  746,
+  754,
+  796
+ ],
+ "organization_labels": {
+  "Abilene Christian": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2000",
+   "organization_id": 2,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Alcorn": {
+   "gold_canonical_team_id": null,
+   "organization_id": 17,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "App State": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2026",
+   "organization_id": 27,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Arkansas": {
+   "gold_canonical_team_id": "SRC-002:TEAM:8",
+   "organization_id": 31,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Army West Point": {
+   "gold_canonical_team_id": null,
+   "organization_id": 725,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "BYU": {
+   "gold_canonical_team_id": "SRC-002:TEAM:252",
+   "organization_id": 77,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Boise St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:68",
+   "organization_id": 66,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Buffalo": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2084",
+   "organization_id": 86,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Charlotte": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2429",
+   "organization_id": 458,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Colorado": {
+   "gold_canonical_team_id": "SRC-002:TEAM:38",
+   "organization_id": 157,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Duquesne": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2184",
+   "organization_id": 194,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Eastern Mich.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2199",
+   "organization_id": 204,
+   "role": "GOLD_BENCHMARK"
+  },
+  "FIU": {
+   "gold_canonical_team_id": null,
+   "organization_id": 231,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Fordham": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2230",
+   "organization_id": 236,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Georgia": {
+   "gold_canonical_team_id": "SRC-002:TEAM:61",
+   "organization_id": 257,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Hawaii": {
+   "gold_canonical_team_id": null,
+   "organization_id": 277,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Houston": {
+   "gold_canonical_team_id": "SRC-002:TEAM:248",
+   "organization_id": 288,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Illinois": {
+   "gold_canonical_team_id": "SRC-002:TEAM:356",
+   "organization_id": 301,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Iowa St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:66",
+   "organization_id": 311,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Kansas St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2306",
+   "organization_id": 327,
+   "role": "GOLD_BENCHMARK"
+  },
+  "LIU": {
+   "gold_canonical_team_id": null,
+   "organization_id": 361,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "LSU": {
+   "gold_canonical_team_id": "SRC-002:TEAM:99",
+   "organization_id": 365,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Louisiana": {
+   "gold_canonical_team_id": "SRC-002:TEAM:309",
+   "organization_id": 671,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Marshall": {
+   "gold_canonical_team_id": "SRC-002:TEAM:276",
+   "organization_id": 388,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Mercyhurst": {
+   "gold_canonical_team_id": null,
+   "organization_id": 408,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Merrimack": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2771",
+   "organization_id": 410,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Miami (FL)": {
+   "gold_canonical_team_id": null,
+   "organization_id": 415,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Middle Tenn.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2393",
+   "organization_id": 419,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Mississippi Val.": {
+   "gold_canonical_team_id": null,
+   "organization_id": 432,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Missouri St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2623",
+   "organization_id": 669,
+   "role": "GOLD_BENCHMARK"
+  },
+  "N.C. A&T": {
+   "gold_canonical_team_id": null,
+   "organization_id": 488,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "NIU": {
+   "gold_canonical_team_id": null,
+   "organization_id": 503,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Navy": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2426",
+   "organization_id": 726,
+   "role": "GOLD_BENCHMARK"
+  },
+  "New Mexico": {
+   "gold_canonical_team_id": "SRC-002:TEAM:167",
+   "organization_id": 473,
+   "role": "GOLD_BENCHMARK"
+  },
+  "North Ala.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2453",
+   "organization_id": 487,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Northern Ariz.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2464",
+   "organization_id": 501,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Ohio": {
+   "gold_canonical_team_id": "SRC-002:TEAM:195",
+   "organization_id": 519,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Old Dominion": {
+   "gold_canonical_team_id": "SRC-002:TEAM:295",
+   "organization_id": 523,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Penn St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:213",
+   "organization_id": 539,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Rhode Island": {
+   "gold_canonical_team_id": "SRC-002:TEAM:227",
+   "organization_id": 572,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Sacramento St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:16",
+   "organization_id": 102,
+   "role": "GOLD_BENCHMARK"
+  },
+  "South Alabama": {
+   "gold_canonical_team_id": "SRC-002:TEAM:6",
+   "organization_id": 646,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Southeast Mo. St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2546",
+   "organization_id": 654,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Southeastern La.": {
+   "gold_canonical_team_id": null,
+   "organization_id": 655,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Southern California": {
+   "gold_canonical_team_id": null,
+   "organization_id": 657,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "TCU": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2628",
+   "organization_id": 698,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Tennessee St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2634",
+   "organization_id": 691,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Texas Tech": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2641",
+   "organization_id": 700,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Troy": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2653",
+   "organization_id": 716,
+   "role": "GOLD_BENCHMARK"
+  },
+  "UAlbany": {
+   "gold_canonical_team_id": "SRC-002:TEAM:399",
+   "organization_id": 14,
+   "role": "GOLD_BENCHMARK"
+  },
+  "ULM": {
+   "gold_canonical_team_id": null,
+   "organization_id": 498,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "UNLV": {
+   "gold_canonical_team_id": "SRC-002:TEAM:2439",
+   "organization_id": 465,
+   "role": "GOLD_BENCHMARK"
+  },
+  "UTRGV": {
+   "gold_canonical_team_id": null,
+   "organization_id": 536,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Utah St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:328",
+   "organization_id": 731,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Virginia": {
+   "gold_canonical_team_id": "SRC-002:TEAM:258",
+   "organization_id": 746,
+   "role": "GOLD_BENCHMARK"
+  },
+  "Washington St.": {
+   "gold_canonical_team_id": "SRC-002:TEAM:265",
+   "organization_id": 754,
+   "role": "GOLD_BENCHMARK"
+  },
+  "West Ga.": {
+   "gold_canonical_team_id": null,
+   "organization_id": 766,
+   "role": "UNRESOLVED_TARGET"
+  },
+  "Wisconsin": {
+   "gold_canonical_team_id": "SRC-002:TEAM:275",
+   "organization_id": 796,
+   "role": "GOLD_BENCHMARK"
+  }
+ }
+}

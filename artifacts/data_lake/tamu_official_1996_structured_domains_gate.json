@@ -14,7 +14,7 @@
     "team_statistics_rows": 171
   },
   "decision_unit": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-SUCCESSOR-001",
-  "gate_identity": "75091e2c7cf39500def3def761c4ea96525c4fc1e91a9a848e46fd93ea4642f3",
+  "gate_identity": "a53114c9b61abef5cd08de926b7177bb9c4b6e33200a20be13b38e200e3d006c",
   "jira_key": "BAT-649",
   "payload_identity": "b5eb3ac361284a191dc7b111ffa212d6d34d6f06781d616a0e04c63673e3b746",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
@@ -22,6 +22,6 @@
   "schema_version": "aggie.data.tamu_official_1996_structured_domains.v1",
   "source_id": "SRC-014",
   "upstream_boxscore_dataset_identity": "3bb72015157ae542958527ee9c43ec5e58133a475c175378dcd020724506686f",
-  "upstream_boxscore_gate_identity": "b2fa428f09f593b9314e583ec9efc68827b13e86245e4bc9ef8700388ae2f752",
-  "validator_code_identity": "feba31a1eaad6cf375af690b88488363ea14174155ea2b02376a77fff5224431"
+  "upstream_boxscore_gate_identity": "9b2406d7534be13bd810912d6b1e7dd24fc2d40a76510ac524884837ec20956a",
+  "validator_code_identity": "a1c28d3bc2b40ca1fa4c287f3a8f0782b02b83a79c9be9073b163cfbd7316f16"
 }

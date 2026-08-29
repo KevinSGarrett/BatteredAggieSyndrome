@@ -231,32 +231,26 @@ class BackupCatalogIntegrityTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             external = Path(td) / "external"
             external.mkdir(parents=True, exist_ok=True)
-            output = ROOT / "artifacts/operations/backup_catalog_and_integrity.json"
-            old = output.read_text(encoding="utf-8") if output.exists() else None
-            try:
-                env = dict(**os.environ, AGGIE_ANALYTICS_DATA_ROOT=str(external))
-                subprocess.run(
-                    [
-                        sys.executable,
-                        "-B",
-                        "tools/build_backup_catalog_and_integrity.py",
-                        "--output",
-                        str(output),
-                    ],
-                    cwd=ROOT,
-                    env=env,
-                    check=True,
-                )
-                loaded = json.loads(output.read_text(encoding="utf-8"))
-                self.assertEqual(len(loaded["artifact_identity"]), 64)
-                self.assertTrue(loaded["verification"]["corruption_rejected"])
-                self.assertTrue(loaded["verification"]["restricted_destination_rejected"])
-                self.assertGreater(loaded["backup_identity"]["entry_count"], 0)
-            finally:
-                if old is None:
-                    output.unlink(missing_ok=True)
-                else:
-                    output.write_text(old, encoding="utf-8")
+            output = Path(td) / "backup_catalog_and_integrity.json"
+            env = os.environ.copy()
+            env["AGGIE_ANALYTICS_DATA_ROOT"] = str(external)
+            subprocess.run(
+                [
+                    sys.executable,
+                    "-B",
+                    "tools/build_backup_catalog_and_integrity.py",
+                    "--output",
+                    str(output),
+                ],
+                cwd=ROOT,
+                env=env,
+                check=True,
+            )
+            loaded = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(len(loaded["artifact_identity"]), 64)
+            self.assertTrue(loaded["verification"]["corruption_rejected"])
+            self.assertTrue(loaded["verification"]["restricted_destination_rejected"])
+            self.assertGreater(loaded["backup_identity"]["entry_count"], 0)
 
 
 if __name__ == "__main__":

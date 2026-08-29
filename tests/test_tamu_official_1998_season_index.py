@@ -15,8 +15,10 @@ from aggie_analytics.data.tamu_official_1998_season_index import (  # noqa: E402
     compute_code_identity,
     compute_gate_identity,
     lake_is_ready,
-    materialize,
     validate_artifact,
+)
+from aggie_analytics.data.season_index_offline_reconstruction import (  # noqa: E402
+    reconstruct_season_index,
 )
 
 DATA_ROOT = Path(
@@ -66,7 +68,11 @@ class Compact1998GateTests(unittest.TestCase):
 @unittest.skipUnless(LAKE_READY, "external BAT-634 1998 capture is not mounted")
 class Official1998CaptureTests(unittest.TestCase):
     def test_committed_gate_reconstructs(self) -> None:
-        materialize(repo_root=REPO_ROOT, data_root=DATA_ROOT)
+        committed = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
+        rebuilt = reconstruct_season_index(
+            1998, repo_root=REPO_ROOT, data_root=DATA_ROOT, gate=committed
+        )
+        self.assertEqual(rebuilt["gate"], committed)
         result = validate_artifact(
             repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
         )

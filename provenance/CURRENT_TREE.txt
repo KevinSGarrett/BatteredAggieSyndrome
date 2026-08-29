@@ -3376,10 +3376,12 @@ src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 src/aggie_analytics/data/ncaa_contest_reconciliation.py
 src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
 src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py
+src/aggie_analytics/data/offline_reconstruction.py
 src/aggie_analytics/data/open_source.py
 src/aggie_analytics/data/play_drive.py
 src/aggie_analytics/data/prospective_shadow_cohort.py
 src/aggie_analytics/data/roster_reconciliation.py
+src/aggie_analytics/data/season_index_offline_reconstruction.py
 src/aggie_analytics/data/sec_availability.py
 src/aggie_analytics/data/snapshots.py
 src/aggie_analytics/data/tamu_2010_2011_ncaa_official_acquisition.py
@@ -3711,6 +3713,7 @@ tests/test_noaa_isd_alternate_station_recovery.py
 tests/test_noaa_isd_game_observation_shadow.py
 tests/test_noaa_isd_observed_coverage_pilot.py
 tests/test_noaa_isd_station_matching.py
+tests/test_offline_reconstruction_guard.py
 tests/test_open_source_adapters.py
 tests/test_open_source_integration_registry.py
 tests/test_open_source_properties.py

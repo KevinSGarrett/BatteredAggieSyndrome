@@ -37,7 +37,6 @@ from aggie_analytics.data.national_foundation_reconciliation import (
 from aggie_analytics.data.prospective_shadow_cohort import (
     iso_utc,
     kickoff_bound,
-    load_alias_population,
     parse_scoreboard_document,
     parse_utc,
     resolve_participant,
@@ -616,7 +615,6 @@ def score_forecasts(
             if len(rows) < 20
             else "SUPPORTED",
         }
-    result = PASS_RESULT if scored else AWAITING_RESULT
     return {
         "frozen_forecast_count": len(frozen),
         "official_final_count": len(by_contest),

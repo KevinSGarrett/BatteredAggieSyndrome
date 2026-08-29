@@ -1,0 +1,38 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T04:28:07Z",
+ "jira_key": "BAT-661",
+ "local_issue_id": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-656",
+  "BAT-657",
+  "BAT-658"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "498fe0e0ae4c7ca5a9e367643d34adc14c72f340",
+ "observable_outcome": "Twelve declared 2026 game dates are relabelled under the corrected taxonomy with seven labels changed and zero contests moved between dates, ninety-nine official contests are re-observed at the T-7D checkpoint, the official Texas A and M kickoff instant 2026-09-05T23:00:00Z is independently confirmed from the official athletics structured event record together with the Kyle Field and ESPN designations, the T-7D checkpoint is frozen from a capture taken 69,868 seconds before its deadline, the T-24H and T-90M checkpoints remain open and unexecuted, and the five frozen target forecast rows are rehashed to the identical probability identity with no revision, candidate change or adjustment.",
+ "outputs": [
+  {
+   "path": "artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json",
+   "bytes": 28266,
+   "sha256": "d72d9abb196af896cac4db8e52090772a4cb977d5c8007648c36c6f751f99c59",
+   "gate_identity": "135a935bcfa8ffc1d6ef26a254a9d36f48509d83d305b9762543daaaa9df82fa"
+  },
+  {
+   "path": "artifacts/shadow/week_zero_2026_calendar_and_t7d_replay.json",
+   "bytes": 10565,
+   "sha256": "f3578f24a063ad8b0feb90c549f982730c399726775a68a2b01ce3bcc7a350a3"
+  },
+  {
+   "path": "configs/week_zero_2026_calendar_and_t7d_contract.json",
+   "bytes": 9519,
+   "sha256": "771fa74f1695244094904a724b66453504edad6e83fefb75861fd51efca2cbe8"
+  }
+ ]
+}

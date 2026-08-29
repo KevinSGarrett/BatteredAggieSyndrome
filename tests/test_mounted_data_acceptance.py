@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -91,6 +92,79 @@ class MountedAcceptanceTests(unittest.TestCase):
         forged["gate_identity"] = validate_mounted_acceptance_gate.compute_gate_identity(forged)
         findings = validate_mounted_acceptance_gate.validate_gate_document(forged, contract)
         self.assertIn("MOUNTED_ACCEPTANCE_FAILURES_PRESENT", findings)
+
+
+class MaterializationCommitTests(unittest.TestCase):
+    """BAT-673: the gate provenance commit is precommitted, never sampled from the checkout."""
+
+    def contract(self) -> dict:
+        return json.loads(
+            (ROOT / "configs/mounted_acceptance_contract.json").read_text(encoding="utf-8-sig")
+        )
+
+    def test_head_sampling_helper_is_gone(self) -> None:
+        self.assertFalse(hasattr(run_mounted_data_acceptance, "git_head_sha"))
+        source = (ROOT / "tools/run_mounted_data_acceptance.py").read_text(encoding="utf-8")
+        self.assertNotIn("rev-parse", source)
+
+    def test_pinned_commit_is_returned_and_exists_in_history(self) -> None:
+        contract = self.contract()
+        resolved = run_mounted_data_acceptance.materialization_commit(ROOT, contract)
+        self.assertEqual(contract["materialization_commit"], resolved)
+
+    def test_pinned_commit_does_not_track_the_working_checkout(self) -> None:
+        head = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        ).stdout.strip()
+        resolved = run_mounted_data_acceptance.materialization_commit(ROOT, self.contract())
+        committed = json.loads(
+            (ROOT / "artifacts/validation/mounted_acceptance_gate.json").read_text(encoding="utf-8-sig")
+        )
+        # The reproduced provenance follows the contract, not whatever is checked out, so the
+        # committed gate stays reproducible no matter how far HEAD advances past it.
+        self.assertEqual(committed["repo_head_sha"], resolved)
+        if head != resolved:
+            self.assertNotEqual(head, resolved)
+
+    def test_missing_pinned_commit_fails_closed(self) -> None:
+        contract = self.contract()
+        del contract["materialization_commit"]
+        with self.assertRaisesRegex(
+            run_mounted_data_acceptance.AcceptanceFailure, "must predeclare materialization_commit"
+        ):
+            run_mounted_data_acceptance.materialization_commit(ROOT, contract)
+
+    def test_malformed_pinned_commit_fails_closed(self) -> None:
+        for bad in ("", "not-a-sha", "A" * 40, "7303fd0c", "0" * 41):
+            contract = self.contract()
+            contract["materialization_commit"] = bad
+            with self.subTest(value=bad):
+                with self.assertRaisesRegex(
+                    run_mounted_data_acceptance.AcceptanceFailure,
+                    "must predeclare materialization_commit",
+                ):
+                    run_mounted_data_acceptance.materialization_commit(ROOT, contract)
+
+    def test_stripped_authority_label_fails_closed(self) -> None:
+        contract = self.contract()
+        contract["materialization_commit_authority"] = "SAMPLED_FROM_CHECKOUT"
+        with self.assertRaisesRegex(
+            run_mounted_data_acceptance.AcceptanceFailure, "authority label missing or altered"
+        ):
+            run_mounted_data_acceptance.materialization_commit(ROOT, contract)
+
+    def test_commit_absent_from_history_fails_closed(self) -> None:
+        contract = self.contract()
+        contract["materialization_commit"] = "0" * 40
+        with self.assertRaisesRegex(
+            run_mounted_data_acceptance.AcceptanceFailure, "MATERIALIZATION_COMMIT_NOT_IN_HISTORY"
+        ):
+            run_mounted_data_acceptance.materialization_commit(ROOT, contract)
 
 
 if __name__ == "__main__":

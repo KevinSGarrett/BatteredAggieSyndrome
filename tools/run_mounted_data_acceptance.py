@@ -22,6 +22,8 @@ CONTRACT_RELATIVE = "configs/mounted_acceptance_contract.json"
 GATE_RELATIVE = "artifacts/validation/mounted_acceptance_gate.json"
 EXTERNAL_RESULT_ROOT = "validation/mounted_acceptance/sha256"
 HEX64_RE = re.compile(r"^[0-9a-f]{64}$")
+HEX40_RE = re.compile(r"[0-9a-f]{40}")
+MATERIALIZATION_AUTHORITY = "PRECOMMITTED_MATERIALIZATION_COMMIT_NOT_SAMPLED_FROM_CHECKOUT"
 
 
 class AcceptanceFailure(RuntimeError):
@@ -72,18 +74,33 @@ def resolve_data_root(explicit: str | None) -> Path:
     return data_root
 
 
-def git_head_sha(repo_root: Path) -> str:
+def materialization_commit(repo_root: Path, contract: Mapping[str, Any]) -> str:
+    """Return the precommitted commit that materialized the mounted acceptance gate.
+
+    This is read from the contract rather than sampled from the working checkout. Every
+    other field of the gate is derived from committed content and the mounted data root,
+    so sampling HEAD here would make the acceptance result and gate identities a function
+    of whichever commit happens to be checked out, and re-materialization after any later
+    commit would rewrite the tracked gate for no verified provenance gain.
+    """
+    value = contract.get("materialization_commit")
+    if not isinstance(value, str) or not HEX40_RE.fullmatch(value):
+        raise AcceptanceFailure(
+            "contract must predeclare materialization_commit as a 40-character lowercase hex commit SHA"
+        )
+    if contract.get("materialization_commit_authority") != MATERIALIZATION_AUTHORITY:
+        raise AcceptanceFailure("materialization_commit authority label missing or altered")
     completed = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
+        ["git", "cat-file", "-t", value],
         cwd=repo_root,
         check=False,
         capture_output=True,
         text=True,
         encoding="utf-8",
     )
-    if completed.returncode != 0:
-        raise AcceptanceFailure(completed.stderr.strip() or "git rev-parse HEAD failed")
-    return completed.stdout.strip()
+    if completed.returncode != 0 or completed.stdout.strip() != "commit":
+        raise AcceptanceFailure(f"MATERIALIZATION_COMMIT_NOT_IN_HISTORY:{value}")
+    return value
 
 
 def compute_code_identity(repo_root: Path) -> str:
@@ -298,7 +315,8 @@ def build_gate(
         "classification": "CYCLE18_19_CRITICAL_MOUNTED_ACCEPTANCE",
         "result": "PASS" if not evaluate_run_policy(run_result, contract) else "FAIL",
         "contract_id": contract["contract_id"],
-        "repo_head_sha": git_head_sha(repo_root),
+        "repo_head_sha": materialization_commit(repo_root, contract),
+        "repo_head_sha_authority": MATERIALIZATION_AUTHORITY,
         "code_identity": compute_code_identity(repo_root),
         "critical_suite": list(contract.get("critical_suite") or []),
         "test_inventory": list(run_result["inventory"]),
@@ -336,7 +354,8 @@ def run(repo_root: Path, data_root: Path) -> dict[str, Any]:
     acceptance_result = {
         "schema_version": "aggie.validation.mounted_acceptance_result.v1",
         "contract_id": contract["contract_id"],
-        "repo_head_sha": git_head_sha(repo_root),
+        "repo_head_sha": materialization_commit(repo_root, contract),
+        "repo_head_sha_authority": MATERIALIZATION_AUTHORITY,
         "code_identity": compute_code_identity(repo_root),
         "critical_suite": list(contract.get("critical_suite") or []),
         "run": run_result,

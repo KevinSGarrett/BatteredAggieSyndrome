@@ -1,0 +1,222 @@
+{
+  "schema_version": "aggie.shadow.week_zero_2026_calendar_and_t7d.v1",
+  "contract_id": "BAT-661-WEEK-ZERO-2026-CALENDAR-AND-TAMU-T7D-AUTHORITY-V1",
+  "decision_unit": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+  "local_issue_id": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+  "jira_key": "BAT-661",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "WEEK_ZERO_2026_SEASON_TAXONOMY_CORRECTION_AND_TAMU_T7D_CHECKPOINT_AUTHORITY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "purpose": "Correct the 2026 season taxonomy that the predecessor cohort contract recorded, independently bind the official Texas A&M kickoff, venue and broadcast designation from the official athletics surface, and freeze the T-7D checkpoint state before its deadline. This unit adds evidence and checkpoint state only. It never revises a frozen forecast probability, never reads an outcome field, and never backfills a checkpoint after its deadline.",
+  "duplicate_audit": {
+    "searched_terms": [
+      "Week Zero",
+      "T-7D",
+      "checkpoint",
+      "season taxonomy",
+      "kickoff",
+      "Missouri State"
+    ],
+    "inspected_candidates": [
+      {
+        "jira_key": "BAT-656",
+        "status": "Done",
+        "verdict": "COMPLETED_PREDECESSOR_COHORT_OWNER_SUPERSEDED_NOT_REWRITTEN"
+      },
+      {
+        "jira_key": "BAT-657",
+        "status": "Done",
+        "verdict": "COMPLETED_PREDECESSOR_FORECAST_OWNER_BOUND_UNCHANGED"
+      },
+      {
+        "jira_key": "BAT-658",
+        "status": "Done",
+        "verdict": "COMPLETED_PREDECESSOR_REHEARSAL_OWNER_SUPERSEDED_NOT_REWRITTEN"
+      },
+      {
+        "jira_key": "BAT-659",
+        "status": "Done",
+        "verdict": "COMPLETED_PREDECESSOR_STATE_MACHINE_OWNER_BOUND_UNCHANGED"
+      }
+    ],
+    "decision": "CREATE"
+  },
+  "supersession": {
+    "mode": "IMMUTABLE_SUCCESSOR_BINDING",
+    "predecessor_gates_are_rewritten": false,
+    "predecessors": [
+      {
+        "artifact_relative_path": "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+        "gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+        "jira_key": "BAT-656",
+        "superseded_field": "schedule_window.week_zero_dates",
+        "supersession_reason": "The predecessor recorded the August 22 and 23 query dates as Week Zero. Official evidence places Week Zero at August 27 through August 29 2026."
+      },
+      {
+        "artifact_relative_path": "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json",
+        "gate_identity": "7a3fcbefa3f4826f32446d56017c68e6e7053b860607a9ad54cd9ac5ae0e40af",
+        "jira_key": "BAT-658",
+        "superseded_field": "target_contest_identity.kickoff_utc_independently_confirmed",
+        "supersession_reason": "The predecessor could not independently confirm the official kickoff instant, venue or broadcast designation. This successor binds the official athletics structured event record."
+      },
+      {
+        "artifact_relative_path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+        "gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+        "jira_key": "BAT-657",
+        "superseded_field": null,
+        "supersession_reason": "Bound unchanged. Frozen forecast probabilities are read only and are never revised by a checkpoint."
+      }
+    ]
+  },
+  "corrected_season_taxonomy": {
+    "window_id": "2026_WEEK_ZERO_AND_WEEK_ONE_CORRECTED",
+    "season": 2026,
+    "week_zero_dates": ["2026-08-27", "2026-08-28", "2026-08-29"],
+    "week_zero_to_week_one_transition_dates": [
+      "2026-08-30",
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02"
+    ],
+    "week_one_dates": [
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-05",
+      "2026-09-06",
+      "2026-09-07"
+    ],
+    "source_substitution_query_dates": ["2026-08-22", "2026-08-23"],
+    "membership_change_permitted": false,
+    "correction_basis": "The Week Zero window opens on 2026-08-27 and closes after the 2026-08-29 Division I football contests, and Week One is the following week centred on 2026-09-03 through 2026-09-07. Within the Week Zero window the official host echoes contests only for 2026-08-29; queries for 2026-08-27 and 2026-08-28 are echoed back as a different game date, which is a source substitution observation rather than evidence about those dates. The August 22 and 23 queries behave the same way and are therefore retained as source substitution observations rather than as Week Zero dates, which is exactly the conflation the predecessor contract made.",
+    "predecessor_labels_were_wrong_not_the_membership": true
+  },
+  "official_ncaa_source": {
+    "source_id": "SRC-NCAA-OFFICIAL-STATS",
+    "official_host": "stats.ncaa.org",
+    "path": "/contests/livestream_scoreboards",
+    "sport_code": "MFB",
+    "academic_year": "2027",
+    "division": "1",
+    "dataset": "ncaa_week_zero_2026_t7d_scoreboard",
+    "minimum_html_bytes": 20000,
+    "reject_case_insensitive_markers": [
+      "bm-verify",
+      "akamai_validation",
+      "request_quota_reached",
+      "_abck"
+    ]
+  },
+  "official_tamu_source": {
+    "source_id": "SRC-TAMU-OFFICIAL-ATHLETICS",
+    "official_host": "12thman.com",
+    "path": "/sports/football/schedule/2026",
+    "dataset": "tamu_official_2026_football_schedule",
+    "minimum_html_bytes": 100000,
+    "structured_event_extraction": "SCHEMA_ORG_EVENT_JSON_LD",
+    "required_event_description": "Texas A&M vs. Missouri State",
+    "required_tokens": ["Kyle Field", "ESPN", "Missouri State"],
+    "reject_case_insensitive_markers": [
+      "bm-verify",
+      "akamai_validation",
+      "request_quota_reached",
+      "_abck"
+    ]
+  },
+  "target_contest": {
+    "ncaa_contest_id": "6607349",
+    "home_canonical_team_id": "SRC-002:TEAM:245",
+    "away_canonical_team_id": "SRC-002:TEAM:2623",
+    "declared_local_kickoff_text": "September 5, 2026, 6:00 p.m. Central",
+    "declared_venue_text": "Kyle Field",
+    "declared_broadcast_text": "ESPN",
+    "kickoff_utc_conservative_lower_bound": "2026-09-05T23:00:00Z",
+    "bound_snapshot_identity": "516a356976974c6c9e214418b4677f84746ccf741db23c4ba5e2dc92727b2555"
+  },
+  "independent_confirmation_policy": {
+    "confirmation_requires_a_second_official_source": true,
+    "confirmation_requires_an_explicit_structured_instant": true,
+    "confirmation_requires_agreement_with_the_conservative_bound": true,
+    "a_matching_local_clock_alone_is_not_confirmation": true,
+    "retrieval_time_is_never_a_kickoff_time": true,
+    "confirmation_may_only_tighten_or_agree_never_move_a_bound_later_without_a_new_source_identity": true
+  },
+  "checkpoints": [
+    {
+      "checkpoint_id": "T_MINUS_7D",
+      "seconds_before_kickoff_lower_bound": 604800,
+      "deadline_utc": "2026-08-29T23:00:00Z",
+      "is_snapshot_cutoff": false,
+      "executed_by_this_unit": true
+    },
+    {
+      "checkpoint_id": "T_MINUS_24H",
+      "seconds_before_kickoff_lower_bound": 86400,
+      "deadline_utc": "2026-09-04T23:00:00Z",
+      "is_snapshot_cutoff": false,
+      "executed_by_this_unit": false
+    },
+    {
+      "checkpoint_id": "T_MINUS_90M",
+      "seconds_before_kickoff_lower_bound": 5400,
+      "deadline_utc": "2026-09-05T21:30:00Z",
+      "is_snapshot_cutoff": true,
+      "executed_by_this_unit": false
+    }
+  ],
+  "checkpoint_rules": {
+    "capture_must_be_strictly_before_the_deadline": true,
+    "backdated_capture_permitted": false,
+    "backfill_after_the_deadline_permitted": false,
+    "late_execution_state": "MISSED_CUTOFF_NO_BACKFILL",
+    "a_checkpoint_may_add_evidence_and_state_only": true,
+    "forecast_probability_revision_permitted": false,
+    "candidate_set_change_permitted": false,
+    "feature_shopping_permitted": false,
+    "outcome_access_permitted": false,
+    "early_execution_of_a_future_checkpoint_permitted": false
+  },
+  "domain_observation_scope": [
+    "team_outcome_priors",
+    "team_season_context",
+    "venues",
+    "rankings",
+    "official_kickoff_instant",
+    "official_venue_designation",
+    "official_broadcast_designation",
+    "pregame_availability",
+    "weather_forecast_vintages",
+    "market_context"
+  ],
+  "authority": {
+    "prospective_shadow_observation": true,
+    "season_taxonomy_correction": true,
+    "official_kickoff_independent_confirmation": true,
+    "checkpoint_state_issuance": true,
+    "frozen_forecast_revision": false,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "model_selection_or_tuning": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "immutable_raw_capture_mutation": false
+  },
+  "negative_findings": {
+    "a_capture_time_is_not_a_historical_publication_time": true,
+    "a_corrected_week_label_does_not_change_contest_membership": true,
+    "a_source_substituted_date_is_recorded_rather_than_accepted": true,
+    "an_unexecuted_future_checkpoint_stays_open_rather_than_being_simulated": true,
+    "no_specialization_candidate_is_created_by_this_unit": true
+  },
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "champion_or_production_selection": false,
+    "specialization_lift": false,
+    "protected_performance": false,
+    "public_forecast_publication": false,
+    "entity_resolution_benchmark": false
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

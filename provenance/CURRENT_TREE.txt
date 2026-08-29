@@ -400,6 +400,8 @@ artifacts/shadow/prospective_2026_shadow_forecast_replay.json
 artifacts/shadow/prospective_2026_shadow_scoring_gate.json
 artifacts/shadow/tamu_2026_week1_rehearsal_gate.json
 artifacts/shadow/tamu_2026_week1_rehearsal_replay.json
+artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json
+artifacts/shadow/week_zero_2026_calendar_and_t7d_replay.json
 artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/private_research_policy_migration.json
@@ -620,6 +622,7 @@ configs/unified_assistive_policy.json
 configs/unified_assistive_ready_work.json
 configs/validation_science_registry.json
 configs/versioned_play_drive_gap_contract.json
+configs/week_zero_2026_calendar_and_t7d_contract.json
 configs/wmt_provider_timestamp_pit_contract.json
 configs/wmt_tamu_specialization_feature_pit_contract.json
 data/README.md
@@ -3452,6 +3455,7 @@ src/aggie_analytics/data/tamu_official_pre2010_boxscores.py
 src/aggie_analytics/data/tamu_official_rich_structure.py
 src/aggie_analytics/data/tamu_official_statcrew_preformatted.py
 src/aggie_analytics/data/tamu_season_reconciliation.py
+src/aggie_analytics/data/week_zero_2026_calendar.py
 src/aggie_analytics/entities/__init__.py
 src/aggie_analytics/entities/candidates.py
 src/aggie_analytics/entities/contracts.py
@@ -3850,11 +3854,13 @@ tests/test_w23_operations.py
 tests/test_w24_readiness.py
 tests/test_w25_final_handoff.py
 tests/test_wave03_governance.py
+tests/test_week_zero_2026_calendar_and_t7d.py
 tests/test_wmt_provider_timestamp_pit.py
 tests/test_wmt_tamu_specialization_feature_pit.py
 tests/test_worktree_resource_policy.py
 tools/__init__.py
 tools/acquire_2026_prospective_schedule.py
+tools/acquire_2026_week_zero_t7d_evidence.py
 tools/acquire_cfbd_historical.py
 tools/acquire_ncaa_official_gamebooks.py
 tools/acquire_noaa_isd_observed_coverage_pilot.py
@@ -3993,6 +3999,7 @@ tools/build_tamu_official_pre2010_boxscores.py
 tools/build_tamu_official_statcrew_preformatted.py
 tools/build_unified_assistive_release.py
 tools/build_versioned_play_drive_gap.py
+tools/build_week_zero_2026_calendar_and_t7d_authority.py
 tools/build_wmt_provider_timestamp_pit.py
 tools/build_wmt_tamu_specialization_feature_pit.py
 tools/capture_runtime_manifest.py
@@ -4266,6 +4273,7 @@ tools/validate_w23_operations.py
 tools/validate_w24_readiness.py
 tools/validate_w25_final.py
 tools/validate_wave_pair.py
+tools/validate_week_zero_2026_calendar_and_t7d_authority.py
 tools/validate_wmt_provider_timestamp_pit.py
 tools/validate_wmt_tamu_specialization_feature_pit.py
 tools/verify_experiment_replay.py

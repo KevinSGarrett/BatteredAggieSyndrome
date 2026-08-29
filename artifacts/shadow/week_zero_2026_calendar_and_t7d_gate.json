@@ -1,0 +1,587 @@
+{
+  "artifact_type": "WEEK_ZERO_2026_CALENDAR_AND_TAMU_T7D_AUTHORITY",
+  "authority": {
+    "champion_or_production_promotion": false,
+    "checkpoint_state_issuance": true,
+    "forecast_publication": false,
+    "frozen_forecast_revision": false,
+    "historical_pit_admission": false,
+    "immutable_raw_capture_mutation": false,
+    "model_selection_or_tuning": false,
+    "official_kickoff_independent_confirmation": true,
+    "prospective_shadow_observation": true,
+    "protected_evaluation_admission": false,
+    "protected_training_admission": false,
+    "season_taxonomy_correction": true
+  },
+  "capture_inventory": [
+    {
+      "raw_bytes": 74412,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/62b681b19e45654677e657c24179755543017db6231c0a7c9858b7137eb224f7.html",
+      "raw_sha256": "62b681b19e45654677e657c24179755543017db6231c0a7c9858b7137eb224f7",
+      "request_identity_sha256": "4c5f163b80a58ea71bb43fa21ab3b77e5556d7730c39b9759799415026b2b926",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-08-27",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F27%2F2026"
+    },
+    {
+      "raw_bytes": 74037,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/c1b46f71172f674bedd0d7bd90cada2b15a7f6e45e1e851df52eba6e6ea08323.html",
+      "raw_sha256": "c1b46f71172f674bedd0d7bd90cada2b15a7f6e45e1e851df52eba6e6ea08323",
+      "request_identity_sha256": "495e6dd77dd56570feb05873a91f16413eb4c78261528b7ed24b790362e0d631",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-08-28",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F28%2F2026"
+    },
+    {
+      "raw_bytes": 74529,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/ffcf17173af2c4e3ef56ee923a467dbf9f9c56192b349e391e3d75579dd15def.html",
+      "raw_sha256": "ffcf17173af2c4e3ef56ee923a467dbf9f9c56192b349e391e3d75579dd15def",
+      "request_identity_sha256": "697014328f880e045feb6557290de3fb99306463119a0bf2ba168acb07e1b940",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-08-29",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F29%2F2026"
+    },
+    {
+      "raw_bytes": 30753,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/39feb1b198b6a3a89292982b1a45343fffc1ae962c389447b24ca2024880b0f0.html",
+      "raw_sha256": "39feb1b198b6a3a89292982b1a45343fffc1ae962c389447b24ca2024880b0f0",
+      "request_identity_sha256": "a8f0e84e6430caf7e9848eb898d929b48421e7372383558f041809a4976a260f",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-08-30",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F30%2F2026"
+    },
+    {
+      "raw_bytes": 30651,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/71c93cb1601ea416dd87f30cc447d18771fbee9e1dbb87f6eab9c7030f11fb67.html",
+      "raw_sha256": "71c93cb1601ea416dd87f30cc447d18771fbee9e1dbb87f6eab9c7030f11fb67",
+      "request_identity_sha256": "a4c86e2527e3bb0ec05125d55a3797592783ca29ac105f0501e3cfdff2706819",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-08-31",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F31%2F2026"
+    },
+    {
+      "raw_bytes": 30751,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/68499d0c94a98c334f97d745b6a76cd748a88476694a3ddcccf1e2642c77109c.html",
+      "raw_sha256": "68499d0c94a98c334f97d745b6a76cd748a88476694a3ddcccf1e2642c77109c",
+      "request_identity_sha256": "001555b5d82393120e48ae0e4becf8efe83b9104094d98da9b392b68f985cc1a",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-09-01",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F01%2F2026"
+    },
+    {
+      "raw_bytes": 31127,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/f21aee344ba268a27864b83c58ebccd94baf9b4107ac71ebb65e53fc74c92b77.html",
+      "raw_sha256": "f21aee344ba268a27864b83c58ebccd94baf9b4107ac71ebb65e53fc74c92b77",
+      "request_identity_sha256": "189ec4946284295ccc2c94ab2fd6a8a713ef9f782d484c4d2822545b295d943e",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-09-02",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F02%2F2026"
+    },
+    {
+      "raw_bytes": 90044,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/f9383ffb7f2060406076e5dd258cf439c96d2476c425cf407d5987e9364286e0.html",
+      "raw_sha256": "f9383ffb7f2060406076e5dd258cf439c96d2476c425cf407d5987e9364286e0",
+      "request_identity_sha256": "65bf8cda3bada7a041dc987780c835e995fa78392955a870c851eb9117646764",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-09-03",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F03%2F2026"
+    },
+    {
+      "raw_bytes": 73947,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/3463de507b43ebe3834924ea2e83deea9da61abb16d4c6e8cf99b1a4e2bd07b9.html",
+      "raw_sha256": "3463de507b43ebe3834924ea2e83deea9da61abb16d4c6e8cf99b1a4e2bd07b9",
+      "request_identity_sha256": "7326d963959319e8085cd76136ef45d92d89ebbc6c6ef29d6712fd12c0b2b68b",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-09-04",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F04%2F2026"
+    },
+    {
+      "raw_bytes": 395811,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/f705348cab4f153af92e07e29b6b0228f1abbf4b21599597d14fd9b661cd52ec.html",
+      "raw_sha256": "f705348cab4f153af92e07e29b6b0228f1abbf4b21599597d14fd9b661cd52ec",
+      "request_identity_sha256": "77c0747e4451679027476050ceefade1e5803ce4b89a0df7a1117f32907de0df",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-09-05",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F05%2F2026"
+    },
+    {
+      "raw_bytes": 47593,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/98c41302a424ae3421000e357a6ba93e667fc57f02a57ffa3920d06abbc92ac5.html",
+      "raw_sha256": "98c41302a424ae3421000e357a6ba93e667fc57f02a57ffa3920d06abbc92ac5",
+      "request_identity_sha256": "c4026927c7ec4d07ed79e8dd2120330042796e6c98e35a8d4b331665ebb72112",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-09-06",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026"
+    },
+    {
+      "raw_bytes": 36413,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week_zero_2026_t7d_scoreboard/90dcda58555016603c60f00711a4cc348d0409aa83853bee84a1159734de6755.html",
+      "raw_sha256": "90dcda58555016603c60f00711a4cc348d0409aa83853bee84a1159734de6755",
+      "request_identity_sha256": "f0b4710dbe7bcf4cb16e2fbd50d3281ca0d59186436c536ef8b71326112adacb",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "scrapfly_rendering",
+      "source_key": "NCAA_SCOREBOARD:2026-09-07",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F07%2F2026"
+    },
+    {
+      "raw_bytes": 468425,
+      "raw_relative_path": "raw/SRC-TAMU-OFFICIAL-ATHLETICS/tamu_official_2026_football_schedule/1bb0c96421cabd308bb9a7a4437f9dafca364993f8ce061261fd4d1fcbf262e5.html",
+      "raw_sha256": "1bb0c96421cabd308bb9a7a4437f9dafca364993f8ce061261fd4d1fcbf262e5",
+      "request_identity_sha256": "5bc68ac3a2a4ee3b470bf7ec21e840bd40625ea89e8b98b9879a67f3138da5c8",
+      "retrieved_at_utc": "2026-08-29T03:45:32Z",
+      "route_id": "direct_http",
+      "source_key": "TAMU_OFFICIAL_SCHEDULE",
+      "source_uri": "https://12thman.com/sports/football/schedule/2026"
+    }
+  ],
+  "checkpoint_ledger": [
+    {
+      "backfill_permitted_after_the_deadline": false,
+      "captured_at_utc": "2026-08-29T03:45:32Z",
+      "checkpoint_id": "T_MINUS_7D",
+      "deadline_utc": "2026-08-29T23:00:00Z",
+      "early_execution_performed": false,
+      "executed_by_this_unit": true,
+      "is_snapshot_cutoff": false,
+      "seconds_before_deadline": 69268,
+      "state": "CAPTURED_BEFORE_DEADLINE"
+    },
+    {
+      "backfill_permitted_after_the_deadline": false,
+      "captured_at_utc": null,
+      "checkpoint_id": "T_MINUS_24H",
+      "deadline_utc": "2026-09-04T23:00:00Z",
+      "early_execution_performed": false,
+      "executed_by_this_unit": false,
+      "is_snapshot_cutoff": false,
+      "state": "OPEN_NOT_YET_EXECUTED"
+    },
+    {
+      "backfill_permitted_after_the_deadline": false,
+      "captured_at_utc": null,
+      "checkpoint_id": "T_MINUS_90M",
+      "deadline_utc": "2026-09-05T21:30:00Z",
+      "early_execution_performed": false,
+      "executed_by_this_unit": false,
+      "is_snapshot_cutoff": true,
+      "state": "OPEN_NOT_YET_EXECUTED"
+    }
+  ],
+  "classification": "WEEK_ZERO_2026_SEASON_TAXONOMY_CORRECTION_AND_TAMU_T7D_CHECKPOINT_AUTHORITY",
+  "contract_id": "BAT-661-WEEK-ZERO-2026-CALENDAR-AND-TAMU-T7D-AUTHORITY-V1",
+  "contract_sha256": "771fa74f1695244094904a724b66453504edad6e83fefb75861fd51efca2cbe8",
+  "corrected_calendar": [
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ZERO",
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-27",
+      "label_changed": true,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 0,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "predecessor_official_contest_count": 0,
+      "source_echoed_game_date": "2026-08-29",
+      "source_substituted": true
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ZERO",
+      "date_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "game_date": "2026-08-28",
+      "label_changed": true,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 0,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "SOURCE_SUBSTITUTED_A_DIFFERENT_DATE",
+      "predecessor_official_contest_count": 0,
+      "source_echoed_game_date": "2026-08-29",
+      "source_substituted": true
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ZERO",
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-08-29",
+      "label_changed": true,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 8,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "predecessor_official_contest_count": 8,
+      "source_echoed_game_date": "2026-08-29",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ZERO_TO_WEEK_ONE_TRANSITION",
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-08-30",
+      "label_changed": true,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 0,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "predecessor_official_contest_count": 0,
+      "source_echoed_game_date": "2026-08-30",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ZERO_TO_WEEK_ONE_TRANSITION",
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-08-31",
+      "label_changed": true,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 0,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "predecessor_official_contest_count": 0,
+      "source_echoed_game_date": "2026-08-31",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ZERO_TO_WEEK_ONE_TRANSITION",
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-09-01",
+      "label_changed": true,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 0,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "predecessor_official_contest_count": 0,
+      "source_echoed_game_date": "2026-09-01",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ZERO_TO_WEEK_ONE_TRANSITION",
+      "date_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "game_date": "2026-09-02",
+      "label_changed": true,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 0,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "NO_OFFICIAL_CONTESTS_ON_THIS_DATE",
+      "predecessor_official_contest_count": 0,
+      "source_echoed_game_date": "2026-09-02",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ONE",
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-03",
+      "label_changed": false,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 11,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "predecessor_official_contest_count": 11,
+      "source_echoed_game_date": "2026-09-03",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ONE",
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-04",
+      "label_changed": false,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 8,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "predecessor_official_contest_count": 8,
+      "source_echoed_game_date": "2026-09-04",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ONE",
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-05",
+      "label_changed": false,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 68,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "predecessor_official_contest_count": 68,
+      "source_echoed_game_date": "2026-09-05",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ONE",
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-06",
+      "label_changed": false,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 3,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "predecessor_official_contest_count": 3,
+      "source_echoed_game_date": "2026-09-06",
+      "source_substituted": false
+    },
+    {
+      "contest_membership_changed": false,
+      "corrected_label": "WEEK_ONE",
+      "date_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "game_date": "2026-09-07",
+      "label_changed": false,
+      "membership_reconciliation": "UNCHANGED_UNDER_AN_UNCHANGED_OBSERVATION_STATE",
+      "official_contest_count": 1,
+      "official_contest_count_delta": 0,
+      "predecessor_label": "WEEK_ONE",
+      "predecessor_observation_state": "OFFICIAL_CONTESTS_PRESENT",
+      "predecessor_official_contest_count": 1,
+      "source_echoed_game_date": "2026-09-07",
+      "source_substituted": false
+    }
+  ],
+  "counts": {
+    "checkpoints_executed": 1,
+    "checkpoints_open": 2,
+    "declared_game_dates": 12,
+    "frozen_target_forecast_rows": 5,
+    "official_contests_observed": 99,
+    "relabelled_dates": 7,
+    "source_substitution_query_dates": 0,
+    "transition_dates": 4,
+    "week_one_dates": 5,
+    "week_zero_dates": 3
+  },
+  "decision_unit": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+  "domain_observations": [
+    {
+      "availability": "AVAILABLE_ADMITTED_NATIONAL_INPUT_ALREADY_CONSUMED",
+      "changed_field": null,
+      "domain_id": "team_outcome_priors",
+      "observed_value": null,
+      "value_changed_at_this_checkpoint": false
+    },
+    {
+      "availability": "AVAILABLE_ADMITTED_NATIONAL_INPUT_ALREADY_CONSUMED",
+      "changed_field": null,
+      "domain_id": "team_season_context",
+      "observed_value": null,
+      "value_changed_at_this_checkpoint": false
+    },
+    {
+      "availability": "AVAILABLE_ADMITTED_NATIONAL_INPUT_ALREADY_CONSUMED",
+      "changed_field": null,
+      "domain_id": "venues",
+      "observed_value": null,
+      "value_changed_at_this_checkpoint": false
+    },
+    {
+      "availability": "AVAILABLE_ADMITTED_NATIONAL_INPUT_ALREADY_CONSUMED",
+      "changed_field": null,
+      "domain_id": "rankings",
+      "observed_value": null,
+      "value_changed_at_this_checkpoint": false
+    },
+    {
+      "availability": "AVAILABLE_OFFICIAL_STRUCTURED_RECORD",
+      "changed_field": "kickoff_utc_independently_confirmed",
+      "domain_id": "official_kickoff_instant",
+      "observed_value": "2026-09-05T23:00:00Z",
+      "value_changed_at_this_checkpoint": true
+    },
+    {
+      "availability": "AVAILABLE_OFFICIAL_PAGE_TOKEN",
+      "changed_field": "official_venue_designation_independently_confirmed",
+      "domain_id": "official_venue_designation",
+      "observed_value": "Kyle Field",
+      "value_changed_at_this_checkpoint": true
+    },
+    {
+      "availability": "AVAILABLE_OFFICIAL_PAGE_TOKEN",
+      "changed_field": "official_broadcast_designation_independently_confirmed",
+      "domain_id": "official_broadcast_designation",
+      "observed_value": "ESPN",
+      "value_changed_at_this_checkpoint": true
+    },
+    {
+      "availability": "UNAVAILABLE_SOURCE_ABSENT",
+      "changed_field": null,
+      "domain_id": "pregame_availability",
+      "observed_value": null,
+      "value_changed_at_this_checkpoint": false
+    },
+    {
+      "availability": "UNAVAILABLE_CANDIDATE_ONLY_NOT_ADMITTED",
+      "changed_field": null,
+      "domain_id": "weather_forecast_vintages",
+      "observed_value": null,
+      "value_changed_at_this_checkpoint": false
+    },
+    {
+      "availability": "UNAVAILABLE_SOURCE_ABSENT",
+      "changed_field": null,
+      "domain_id": "market_context",
+      "observed_value": null,
+      "value_changed_at_this_checkpoint": false
+    }
+  ],
+  "execution_time_utc": "2026-08-29T03:59:50Z",
+  "frozen_forecast_preservation": {
+    "adjustment_applied": false,
+    "candidate_set_changed": false,
+    "probability_identity": "699d12ab4ad6d591bfc06db102083d9469dff86237cefaf8f15385547d8b4039",
+    "revision_performed": false,
+    "rows": 5
+  },
+  "frozen_target_forecasts": [
+    {
+      "candidate_id": "national_base_rate",
+      "code_identity": "5b9b07d1be215738c771c678eaaf651d40970272828c7164b28db3be4ca2e791",
+      "created_at_utc": "2026-08-28T23:34:57Z",
+      "feature_identity": "9659e43d8a11bb12cfaac3a49173e300e01094cba05b44a990aca2ec625567e4",
+      "forecast_state": "FORECAST_FROZEN",
+      "model_identity": "fceccb666ef15d15a25db4f5f120b800ca580e56db2a80bd817fcae11a5642f9",
+      "probability_home_win": 0.5,
+      "snapshot_identity": "516a356976974c6c9e214418b4677f84746ccf741db23c4ba5e2dc92727b2555"
+    },
+    {
+      "candidate_id": "national_elo",
+      "code_identity": "5b9b07d1be215738c771c678eaaf651d40970272828c7164b28db3be4ca2e791",
+      "created_at_utc": "2026-08-28T23:34:57Z",
+      "feature_identity": "9659e43d8a11bb12cfaac3a49173e300e01094cba05b44a990aca2ec625567e4",
+      "forecast_state": "FORECAST_FROZEN",
+      "model_identity": "fceccb666ef15d15a25db4f5f120b800ca580e56db2a80bd817fcae11a5642f9",
+      "probability_home_win": 0.68188773,
+      "snapshot_identity": "516a356976974c6c9e214418b4677f84746ccf741db23c4ba5e2dc92727b2555"
+    },
+    {
+      "candidate_id": "national_logistic_l2",
+      "code_identity": "5b9b07d1be215738c771c678eaaf651d40970272828c7164b28db3be4ca2e791",
+      "created_at_utc": "2026-08-28T23:34:57Z",
+      "feature_identity": "9659e43d8a11bb12cfaac3a49173e300e01094cba05b44a990aca2ec625567e4",
+      "forecast_state": "MISSING_REQUIRED_FEATURES_ABSTAIN",
+      "model_identity": "fceccb666ef15d15a25db4f5f120b800ca580e56db2a80bd817fcae11a5642f9",
+      "probability_home_win": null,
+      "snapshot_identity": "516a356976974c6c9e214418b4677f84746ccf741db23c4ba5e2dc92727b2555"
+    },
+    {
+      "candidate_id": "national_margin_ridge",
+      "code_identity": "5b9b07d1be215738c771c678eaaf651d40970272828c7164b28db3be4ca2e791",
+      "created_at_utc": "2026-08-28T23:34:57Z",
+      "feature_identity": "9659e43d8a11bb12cfaac3a49173e300e01094cba05b44a990aca2ec625567e4",
+      "forecast_state": "MISSING_REQUIRED_FEATURES_ABSTAIN",
+      "model_identity": "fceccb666ef15d15a25db4f5f120b800ca580e56db2a80bd817fcae11a5642f9",
+      "probability_home_win": null,
+      "snapshot_identity": "516a356976974c6c9e214418b4677f84746ccf741db23c4ba5e2dc92727b2555"
+    },
+    {
+      "candidate_id": "prior_only",
+      "code_identity": "5b9b07d1be215738c771c678eaaf651d40970272828c7164b28db3be4ca2e791",
+      "created_at_utc": "2026-08-28T23:34:57Z",
+      "feature_identity": "9659e43d8a11bb12cfaac3a49173e300e01094cba05b44a990aca2ec625567e4",
+      "forecast_state": "MISSING_REQUIRED_FEATURES_ABSTAIN",
+      "model_identity": "fceccb666ef15d15a25db4f5f120b800ca580e56db2a80bd817fcae11a5642f9",
+      "probability_home_win": null,
+      "snapshot_identity": "516a356976974c6c9e214418b4677f84746ccf741db23c4ba5e2dc92727b2555"
+    }
+  ],
+  "gate_identity": "135a935bcfa8ffc1d6ef26a254a9d36f48509d83d305b9762543daaaa9df82fa",
+  "jira_key": "BAT-661",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
+  "negative_findings": {
+    "a_capture_time_is_not_a_historical_publication_time": true,
+    "a_corrected_week_label_does_not_change_contest_membership": true,
+    "a_source_substituted_date_is_recorded_rather_than_accepted": true,
+    "an_unexecuted_future_checkpoint_stays_open_rather_than_being_simulated": true,
+    "no_specialization_candidate_is_created_by_this_unit": true
+  },
+  "official_kickoff_confirmation": {
+    "agrees_with_conservative_bound": true,
+    "confirmation_state": "OFFICIAL_INSTANT_VENUE_AND_BROADCAST_INDEPENDENTLY_CONFIRMED",
+    "effective_kickoff_utc_for_eligibility": "2026-09-05T23:00:00Z",
+    "kickoff_utc_conservative_lower_bound": "2026-09-05T23:00:00Z",
+    "kickoff_utc_independently_confirmed": true,
+    "official_event_status": "EventScheduled",
+    "official_local_start_date": "2026-09-05",
+    "official_local_start_time": "18:00:00",
+    "official_location_name": "College Station",
+    "official_schedule_timezone": "America/Chicago",
+    "official_structured_start_utc": "2026-09-05T23:00:00Z",
+    "required_token_presence": {
+      "ESPN": true,
+      "Kyle Field": true,
+      "Missouri State": true
+    },
+    "retrieval_time_used_as_kickoff_time": false
+  },
+  "outcome_exclusion": {
+    "outcome_accessible_before_forecast_freeze": false,
+    "outcome_fields_extracted": false,
+    "target_game_outcome_excluded": true
+  },
+  "parent_jira_key": "BAT-523",
+  "producer": "tools/build_week_zero_2026_calendar_and_t7d_authority.py",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_WEEK_ZERO_2026_CALENDAR_AND_TAMU_T7D_AUTHORITY",
+  "schema_version": "aggie.shadow.week_zero_2026_calendar_and_t7d.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "champion_or_production_selection": false,
+    "entity_resolution_benchmark": false,
+    "protected_performance": false,
+    "public_forecast_publication": false,
+    "specialization_lift": false
+  },
+  "supersession": {
+    "mode": "IMMUTABLE_SUCCESSOR_BINDING",
+    "predecessor_gates_are_rewritten": false,
+    "predecessors": [
+      {
+        "artifact_relative_path": "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+        "gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+        "jira_key": "BAT-656",
+        "superseded_field": "schedule_window.week_zero_dates",
+        "supersession_reason": "The predecessor recorded the August 22 and 23 query dates as Week Zero. Official evidence places Week Zero at August 27 through August 29 2026."
+      },
+      {
+        "artifact_relative_path": "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json",
+        "gate_identity": "7a3fcbefa3f4826f32446d56017c68e6e7053b860607a9ad54cd9ac5ae0e40af",
+        "jira_key": "BAT-658",
+        "superseded_field": "target_contest_identity.kickoff_utc_independently_confirmed",
+        "supersession_reason": "The predecessor could not independently confirm the official kickoff instant, venue or broadcast designation. This successor binds the official athletics structured event record."
+      },
+      {
+        "artifact_relative_path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+        "gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+        "jira_key": "BAT-657",
+        "superseded_field": null,
+        "supersession_reason": "Bound unchanged. Frozen forecast probabilities are read only and are never revised by a checkpoint."
+      }
+    ]
+  }
+}

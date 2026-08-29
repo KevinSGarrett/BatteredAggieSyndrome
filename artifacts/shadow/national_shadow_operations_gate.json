@@ -1,0 +1,325 @@
+{
+  "artifact_type": "NATIONAL_SHADOW_OPERATIONS_AND_GAP_REEVALUATION_GATE",
+  "authority": {
+    "append_only_state_ledger": true,
+    "canonical_entity_mutation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "gap_closure_forced": false,
+    "gap_reevaluation": true,
+    "historical_pit_admission": false,
+    "immutable_raw_capture_mutation": false,
+    "model_selection_or_tuning": false,
+    "protected_evaluation_admission": false,
+    "protected_training_admission": false
+  },
+  "bound_predecessors": {
+    "baseline_contract_sha256": "9ed99666cc0afbae068dd59e5015cd0e1711b2d6e053d0d802f4ef246a6291fe",
+    "baseline_gate_sha256": "5e8d14429a7fb04c7b9437ccd3448f243a54c9b555e60d0cc42dc47dd8885158",
+    "cohort_gate_sha256": "5e8e14bbfeeebdcb47c195bf363a071184e07704769764be13f83e69f3199176",
+    "domain_matrix_gate_sha256": "7fdad9a4ae3c445f1c8b10416b13f2333c46c2a29de86cbf6bc019f055440123",
+    "forecast_gate_sha256": "934ca226808b56f34fe0217eb6f0dc8411ec9f305fec8d044fe1e4f51c010bc8",
+    "foundation_gate_sha256": "badd2d877dd74f6d78dd97d98a21965d049d404024b3cfe7f6b517ab85f9adb2",
+    "matrix_gate_sha256": "1968c2837d6555a1c9baefb3f3e17c77fbeee8a7bd9018052bb453ee4ef3ae75",
+    "rehearsal_gate_sha256": "51daf4fc18e5cdb75a3c41f2c3b6d964f6c6e17b0b02c255efd006d2ba782b3b",
+    "scoring_gate_sha256": "ca713f82d5057da3b802f704db5d823e0a04ccc439c06d657c182fcd173d0f2d",
+    "spine_gate_sha256": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5"
+  },
+  "classification": "APPEND_ONLY_NATIONAL_SHADOW_STATE_MACHINE_AND_GAP_REEVALUATION",
+  "contract_id": "BAT-659-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-V1",
+  "contract_sha256": "cb987218f6bca2883f56ecdcb4231319fc951b0e95bbf62294db08c93a93715b",
+  "counts": {
+    "contest_entities": 99,
+    "contest_transitions": 181,
+    "forecast_entities": 495,
+    "forecast_transitions": 987,
+    "gaps_closed": 0,
+    "gaps_reevaluated": 8,
+    "ledger_entries": 1168,
+    "scored_entities": 0
+  },
+  "decision_unit": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+  "execution_time_utc": "2026-08-29T00:25:41Z",
+  "gap_reevaluation": [
+    {
+      "advance": "A content-addressed reconciliation of all 990 national captures plus a deterministic normalized national game candidate population was merged, and a tiered national outcome and team-observation spine plus a chronological development matrix were built on top of it.",
+      "closure_forced": false,
+      "closure_requires": [
+        "Proven historical known-at basis for every admitted feature domain",
+        "Nonzero point-in-time feature eligible population over the historical seasons",
+        "Chronological protected replay over that population"
+      ],
+      "gap_id": "GAP-002",
+      "materially_advanced": true,
+      "observed": {
+        "PIT_FEATURE_ELIGIBLE": 0
+      },
+      "state": "OPEN",
+      "title": "National historical data materialization",
+      "verification_holds": true,
+      "verification_kind": "FOUNDATION_PIT_FEATURE_ELIGIBLE_IS_ZERO",
+      "why_still_open": "Point-in-time feature eligibility over the historical population is still zero because historical source-publication and final-whistle instants remain unproven, so a normalized reference candidate is not an admitted historical point-in-time population."
+    },
+    {
+      "advance": "No protected replay was executed. Every Cycle #20 artifact keeps the protected lane blocked and the 2024 and 2025 seasons sealed.",
+      "closure_forced": false,
+      "closure_requires": [
+        "GAP-002 closure",
+        "An authorized protected replay protocol execution outside the shadow lane"
+      ],
+      "gap_id": "GAP-003",
+      "materially_advanced": false,
+      "observed": {
+        "baseline": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "cohort": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "domain_matrix": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "forecast": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "foundation": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "matrix": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "rehearsal": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "scoring": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "spine": "RETAIN_PROTECTED_LANE_BLOCKED"
+      },
+      "state": "OPEN",
+      "title": "Protected historical replay",
+      "verification_holds": true,
+      "verification_kind": "PROTECTED_LANE_REMAINS_BLOCKED_EVERYWHERE",
+      "why_still_open": "Protected evaluation admission remains false in every merged gate and its data prerequisite, GAP-002, remains open."
+    },
+    {
+      "advance": "A national domain coverage and point-in-time admission matrix was merged, which for the first time states per domain whether it is admitted, candidate, quarantined or source-absent, with the Texas A&M share of every domain recorded.",
+      "closure_forced": false,
+      "closure_requires": [
+        "Screening, stability and ablation evidence over an admitted point-in-time matrix",
+        "A promotion decision made outside the shadow lane"
+      ],
+      "gap_id": "GAP-004",
+      "materially_advanced": true,
+      "observed": {
+        "gates_checked": [
+          "baseline",
+          "cohort",
+          "domain_matrix",
+          "forecast",
+          "foundation",
+          "matrix",
+          "rehearsal",
+          "scoring",
+          "spine"
+        ]
+      },
+      "state": "OPEN",
+      "title": "Production feature set",
+      "verification_holds": true,
+      "verification_kind": "NO_PRODUCTION_PROMOTION_IN_ANY_GATE",
+      "why_still_open": "Admission into a development matrix is not production promotion, and the majority of enumerated domains remain candidate, route-blocked or source-absent."
+    },
+    {
+      "advance": "Five simple national candidates were predeclared and evaluated on the frozen 2023 development cohort, and the preserved prior_only reference plus the previously negative augmented candidate results were retained rather than overwritten.",
+      "closure_forced": false,
+      "closure_requires": [
+        "A protected evaluation result",
+        "An explicit promotion decision through the protected gate"
+      ],
+      "gap_id": "GAP-005",
+      "materially_advanced": true,
+      "observed": {
+        "gates_checked": [
+          "baseline",
+          "cohort",
+          "domain_matrix",
+          "forecast",
+          "foundation",
+          "matrix",
+          "rehearsal",
+          "scoring",
+          "spine"
+        ]
+      },
+      "state": "OPEN",
+      "title": "Production champion model",
+      "verification_holds": true,
+      "verification_kind": "NO_PRODUCTION_PROMOTION_IN_ANY_GATE",
+      "why_still_open": "Champion or production promotion authority is false in every merged gate and no candidate was promoted in any lane."
+    },
+    {
+      "advance": "A development-only Texas A&M residual diagnostic was produced against the unchanged national baseline, and a Week One 2026 rehearsal enumerated exactly which Texas A&M evidence could and could not augment that baseline.",
+      "closure_forced": false,
+      "closure_requires": [
+        "A predeclared specialization candidate",
+        "A protected comparison against the mandatory no-adjustment baseline"
+      ],
+      "gap_id": "GAP-006",
+      "materially_advanced": true,
+      "observed": {
+        "adapter_or_specialization_feature_added_to_the_national_model": false,
+        "comparator_is_mandatory_and_present": true,
+        "predeclared_specialization_candidate_exists": false,
+        "single_game_lift_claimed": false,
+        "specialization_output_permitted": false,
+        "specialization_output_state": "NO_PREDECLARED_SPECIALIZATION_CANDIDATE_SO_NO_OUTPUT_IS_EMITTED",
+        "specialization_rows_emitted": 0
+      },
+      "state": "OPEN",
+      "title": "A&M specialization lift",
+      "verification_holds": true,
+      "verification_kind": "REHEARSAL_EMITS_NO_SPECIALIZATION_ROW",
+      "why_still_open": "No specialization candidate was predeclared, no specialization row was emitted, and no lift is claimed from a residual diagnostic or a single contest."
+    },
+    {
+      "advance": "The national foundation, spine, matrix, baseline and peer cohort that a BAS test would require now exist as merged development-tier artifacts, and a reproducible peer cohort rule replaced ad hoc program lists.",
+      "closure_forced": false,
+      "closure_requires": [
+        "Leakage-safe cross-fit residual tests over an admitted point-in-time population",
+        "Peer and regime stability evidence with a null-result policy"
+      ],
+      "gap_id": "GAP-007",
+      "materially_advanced": true,
+      "observed": {
+        "forecast": false,
+        "rehearsal": false,
+        "scoring": false
+      },
+      "state": "OPEN",
+      "title": "BAS / Aggie Excess validity",
+      "verification_holds": true,
+      "verification_kind": "NO_BAS_CLAIM_IN_ANY_GATE",
+      "why_still_open": "Every merged gate declares that no BAS or Aggie Excess result is claimed, and the underlying protected evidence does not exist."
+    },
+    {
+      "advance": "The domain admission matrix records pregame availability explicitly as unavailable rather than silently absent, and the Week One rehearsal records the Texas A&M availability route as blocked instead of inferring availability from participation.",
+      "closure_forced": false,
+      "closure_requires": [
+        "Official pregame availability snapshots with provider timestamps",
+        "National coverage and missingness accounting for those snapshots"
+      ],
+      "gap_id": "GAP-008",
+      "materially_advanced": true,
+      "observed": {
+        "national_decision": "SOURCE_ABSENT",
+        "tamu_availability_class": "UNAVAILABLE_ROUTE_BLOCKED"
+      },
+      "state": "OPEN",
+      "title": "Historical injuries, depth and availability",
+      "verification_holds": true,
+      "verification_kind": "AVAILABILITY_IS_NOT_ADMITTED_AND_NOT_INFERRED",
+      "why_still_open": "No nationally symmetric availability evidence with a proven pregame known-at basis exists, and participation may not be read as availability."
+    },
+    {
+      "advance": "Canonical entity resolution was exercised at national scale across the reconciled foundation, the tiered spine and the 2026 prospective cohort, where unresolved participants became explicit abstentions rather than guesses.",
+      "closure_forced": false,
+      "closure_requires": [
+        "A labelled cross-source entity benchmark",
+        "A measured precision and recall decision before enabling fuzzy auto-accept"
+      ],
+      "gap_id": "GAP-009",
+      "materially_advanced": true,
+      "observed": {
+        "frozen_forecast_contests": 82,
+        "snapshot_frozen_contests": 82,
+        "unsupported_contests": 17,
+        "unsupported_forecast_rows": 85
+      },
+      "state": "OPEN",
+      "title": "Entity-resolution population benchmark",
+      "verification_holds": true,
+      "verification_kind": "UNRESOLVED_ENTITIES_ABSTAIN_RATHER_THAN_MATCH",
+      "why_still_open": "No labelled cross-source benchmark exists, so a fuzzy auto-accept threshold remains intentionally unset."
+    }
+  ],
+  "gate_identity": "8c5bfc228965435aa3d5b0c624433a4b7a955c79ccc40b006de6a9d8d8297076",
+  "issued_at_utc": "2026-08-29T00:25:41Z",
+  "jira_key": "BAT-659",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+  "manifest": {
+    "bulk_payloads_in_git": false,
+    "dataset_identity": "1126de29bad0fcf9fbcad258cabe5f3b2b9a0ab4650f7a3c18d1aad599bdeb9b",
+    "relative_path": "manifests/national_shadow_operations/sha256/1126de29bad0fcf9fbcad258cabe5f3b2b9a0ab4650f7a3c18d1aad599bdeb9b/national_shadow_operations_manifest.json",
+    "sha256": "a4aea7fcccb11c6fcb62a66d3d7de2f5c653d83bd109acc59521eb9ba0421b80"
+  },
+  "negative_findings": {
+    "no_gap_from_gap_002_through_gap_009_closed_in_cycle_20": true,
+    "no_official_final_existed_for_any_frozen_2026_forecast_inside_this_cycle": true,
+    "no_predeclared_tamu_specialization_candidate_exists": true,
+    "point_in_time_feature_eligibility_over_the_historical_population_remains_zero": true,
+    "three_of_five_frozen_candidates_cannot_be_evaluated_prospectively": true
+  },
+  "parent_jira_key": "BAT-523",
+  "preserved_states": {
+    "BAT-401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "BAT-429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "BAT-523": "In Progress",
+    "protected_judging_seal_altered": false,
+    "protected_seasons_sealed": [
+      2024,
+      2025
+    ],
+    "protected_split_registry_altered": false
+  },
+  "producer": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_NATIONAL_SHADOW_OPERATIONS_AND_GAP_REEVALUATION",
+  "schema_version": "aggie.shadow.national_shadow_operations.v1",
+  "scientific_nonclaims": {
+    "claims_availability_from_participation": false,
+    "claims_bas_or_aggie_excess": false,
+    "claims_forecast_accuracy": false,
+    "claims_gap_closure": false,
+    "claims_production_champion": false,
+    "claims_protected_performance": false,
+    "claims_public_forecast_publication": false,
+    "claims_tamu_specialization_lift": false
+  },
+  "state_machine": {
+    "append_only": true,
+    "progress_states": [
+      "PRECOMMITTED",
+      "SNAPSHOT_ELIGIBLE",
+      "SNAPSHOT_FROZEN",
+      "FORECAST_FROZEN",
+      "AWAITING_OFFICIAL_FINAL",
+      "SCORED"
+    ],
+    "rejections": {
+      "availability_inference": true,
+      "backward_transition": true,
+      "changed_kickoff_without_a_new_source_identity": true,
+      "changed_probability_under_one_forecast_identity": true,
+      "nonmonotonic_sequence": true,
+      "outcome_access_before_forecast_freeze": true,
+      "post_hoc_candidate_insertion": true,
+      "promotion_claim": true,
+      "protected_lane_opening": true,
+      "public_publication_claim": true,
+      "retroactive_forecast": true,
+      "state_skip": true,
+      "transition_from_a_terminal_state": true
+    },
+    "terminal_or_side_states": [
+      "MISSED_CUTOFF_NO_BACKFILL",
+      "UNSUPPORTED_ENTITY",
+      "MISSING_REQUIRED_FEATURES_ABSTAIN",
+      "CANCELED_OR_SUSPENDED",
+      "OFFICIAL_FINAL_UNAVAILABLE",
+      "FAIL_CLOSED_IDENTITY_MISMATCH"
+    ]
+  },
+  "terminal_state_counts": {
+    "AWAITING_OFFICIAL_FINAL": 164,
+    "CANCELED_OR_SUSPENDED": 0,
+    "FAIL_CLOSED_IDENTITY_MISMATCH": 0,
+    "FORECAST_FROZEN": 0,
+    "MISSED_CUTOFF_NO_BACKFILL": 0,
+    "MISSING_REQUIRED_FEATURES_ABSTAIN": 246,
+    "OFFICIAL_FINAL_UNAVAILABLE": 0,
+    "PRECOMMITTED": 0,
+    "SCORED": 0,
+    "SNAPSHOT_ELIGIBLE": 0,
+    "SNAPSHOT_FROZEN": 82,
+    "UNSUPPORTED_ENTITY": 102
+  }
+}

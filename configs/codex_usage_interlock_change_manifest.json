@@ -1,27 +1,27 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "work_unit_id": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
-  "jira_identity": "BAT-658",
+  "work_unit_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+  "jira_identity": "BAT-659",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "c12b3527170a1abe6657f16f54f5985767325799",
-  "pre_routing_decision_sha256": "a646e1645956265bf73487fb66b4faee18f559cbcfcc7c7ce60ad9060f432a46",
+  "base_commit": "20e4fc2afabee7c9a0e0e72a3e3ca9e7d2d5b5ac",
+  "pre_routing_decision_sha256": "db3f7cb7e86607d23d47c94721215f975d36a928ada08c0c51936ea26f357459",
   "changed_paths": [
-    "artifacts/jira_evidence/POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001.json",
-    "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json",
-    "artifacts/shadow/tamu_2026_week1_rehearsal_replay.json",
+    "artifacts/jira_evidence/POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001.json",
+    "artifacts/shadow/national_shadow_operations_gate.json",
+    "artifacts/shadow/national_shadow_operations_replay.json",
     "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/tamu_2026_week1_rehearsal_contract.json",
+    "configs/national_shadow_operations_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/modeling/tamu_week1_rehearsal.py",
-    "tests/test_tamu_week1_rehearsal.py",
-    "tools/build_tamu_2026_week1_rehearsal.py",
-    "tools/validate_tamu_2026_week1_rehearsal.py"
+    "src/aggie_analytics/modeling/national_shadow_state_machine.py",
+    "tests/test_national_shadow_state_machine.py",
+    "tools/build_national_shadow_operations.py",
+    "tools/validate_national_shadow_operations.py"
   ],
-  "manifest_identity": "78f5a95544f2e85e336d29da6219a56c5a0eada1f3ab104bd25f94db7e2e3e04"
+  "manifest_identity": "d9a57e58b18329ceb81d4b10f941eae522619d52520dc5def9a9b67d457dc404"
 }

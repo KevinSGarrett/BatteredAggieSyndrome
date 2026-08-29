@@ -3761,6 +3761,50 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-659-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION",
+      "jira_key": "BAT-659",
+      "local_issue_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+      "canonical_artifact_path": "artifacts/shadow/national_shadow_operations_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+        "jira_key": "BAT-659",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "classification": "APPEND_ONLY_NATIONAL_SHADOW_STATE_MACHINE_AND_GAP_REEVALUATION",
+        "result": "PASS_NATIONAL_SHADOW_OPERATIONS_AND_GAP_REEVALUATION"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.claims_production_champion",
+        "scientific_nonclaims.claims_protected_performance",
+        "scientific_nonclaims.claims_forecast_accuracy",
+        "scientific_nonclaims.claims_bas_or_aggie_excess",
+        "scientific_nonclaims.claims_tamu_specialization_lift",
+        "scientific_nonclaims.claims_public_forecast_publication",
+        "scientific_nonclaims.claims_availability_from_participation",
+        "scientific_nonclaims.claims_gap_closure",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.model_selection_or_tuning",
+        "authority.champion_or_production_promotion",
+        "authority.forecast_publication",
+        "authority.canonical_entity_mutation",
+        "authority.immutable_raw_capture_mutation",
+        "authority.gap_closure_forced",
+        "manifest.bulk_payloads_in_git",
+        "preserved_states.protected_split_registry_altered",
+        "preserved_states.protected_judging_seal_altered"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

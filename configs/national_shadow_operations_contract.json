@@ -1,0 +1,230 @@
+{
+  "schema_version": "aggie.shadow.national_shadow_operations.v1",
+  "contract_id": "BAT-659-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-V1",
+  "decision_unit": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+  "local_issue_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+  "jira_key": "BAT-659",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "APPEND_ONLY_NATIONAL_SHADOW_STATE_MACHINE_AND_GAP_REEVALUATION",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Replay the already frozen 2026 cohort, forecast and rehearsal rows through an append-only state machine that can only move forward, cannot forecast retroactively, cannot read an outcome before a forecast freeze, cannot accept a changed kickoff without a new source identity, cannot accept a second probability under one forecast identity, cannot insert a candidate after the Phase 6 freeze, cannot open the protected lane, and cannot promote or publish anything. The same artifact reevaluates GAP-002 through GAP-009 against what Cycle #20 actually merged, without forcing any closure.",
+  "bound_predecessors": {
+    "foundation_gate_relative_path": "artifacts/data_lake/national_foundation_reconciliation_gate.json",
+    "spine_gate_relative_path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
+    "domain_matrix_gate_relative_path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+    "matrix_gate_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+    "baseline_gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+    "baseline_contract_relative_path": "configs/national_expectation_baselines_and_peers_contract.json",
+    "cohort_gate_relative_path": "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+    "forecast_gate_relative_path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+    "scoring_gate_relative_path": "artifacts/shadow/prospective_2026_shadow_scoring_gate.json",
+    "rehearsal_gate_relative_path": "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json",
+    "predecessors_are_bound_not_superseded": true
+  },
+  "state_machine": {
+    "append_only": true,
+    "progress_states": [
+      "PRECOMMITTED",
+      "SNAPSHOT_ELIGIBLE",
+      "SNAPSHOT_FROZEN",
+      "FORECAST_FROZEN",
+      "AWAITING_OFFICIAL_FINAL",
+      "SCORED"
+    ],
+    "terminal_or_side_states": [
+      "MISSED_CUTOFF_NO_BACKFILL",
+      "UNSUPPORTED_ENTITY",
+      "MISSING_REQUIRED_FEATURES_ABSTAIN",
+      "CANCELED_OR_SUSPENDED",
+      "OFFICIAL_FINAL_UNAVAILABLE",
+      "FAIL_CLOSED_IDENTITY_MISMATCH"
+    ],
+    "rejections": {
+      "backward_transition": true,
+      "state_skip": true,
+      "transition_from_a_terminal_state": true,
+      "nonmonotonic_sequence": true,
+      "retroactive_forecast": true,
+      "outcome_access_before_forecast_freeze": true,
+      "changed_kickoff_without_a_new_source_identity": true,
+      "changed_probability_under_one_forecast_identity": true,
+      "post_hoc_candidate_insertion": true,
+      "protected_lane_opening": true,
+      "promotion_claim": true,
+      "availability_inference": true,
+      "public_publication_claim": true
+    }
+  },
+  "gap_reevaluation": [
+    {
+      "gap_id": "GAP-002",
+      "title": "National historical data materialization",
+      "state": "OPEN",
+      "materially_advanced": true,
+      "advance": "A content-addressed reconciliation of all 990 national captures plus a deterministic normalized national game candidate population was merged, and a tiered national outcome and team-observation spine plus a chronological development matrix were built on top of it.",
+      "why_still_open": "Point-in-time feature eligibility over the historical population is still zero because historical source-publication and final-whistle instants remain unproven, so a normalized reference candidate is not an admitted historical point-in-time population.",
+      "closure_requires": [
+        "Proven historical known-at basis for every admitted feature domain",
+        "Nonzero point-in-time feature eligible population over the historical seasons",
+        "Chronological protected replay over that population"
+      ],
+      "verification": {
+        "kind": "FOUNDATION_PIT_FEATURE_ELIGIBLE_IS_ZERO",
+        "expected_state": "OPEN"
+      }
+    },
+    {
+      "gap_id": "GAP-003",
+      "title": "Protected historical replay",
+      "state": "OPEN",
+      "materially_advanced": false,
+      "advance": "No protected replay was executed. Every Cycle #20 artifact keeps the protected lane blocked and the 2024 and 2025 seasons sealed.",
+      "why_still_open": "Protected evaluation admission remains false in every merged gate and its data prerequisite, GAP-002, remains open.",
+      "closure_requires": [
+        "GAP-002 closure",
+        "An authorized protected replay protocol execution outside the shadow lane"
+      ],
+      "verification": {
+        "kind": "PROTECTED_LANE_REMAINS_BLOCKED_EVERYWHERE",
+        "expected_state": "OPEN"
+      }
+    },
+    {
+      "gap_id": "GAP-004",
+      "title": "Production feature set",
+      "state": "OPEN",
+      "materially_advanced": true,
+      "advance": "A national domain coverage and point-in-time admission matrix was merged, which for the first time states per domain whether it is admitted, candidate, quarantined or source-absent, with the Texas A&M share of every domain recorded.",
+      "why_still_open": "Admission into a development matrix is not production promotion, and the majority of enumerated domains remain candidate, route-blocked or source-absent.",
+      "closure_requires": [
+        "Screening, stability and ablation evidence over an admitted point-in-time matrix",
+        "A promotion decision made outside the shadow lane"
+      ],
+      "verification": {
+        "kind": "NO_PRODUCTION_PROMOTION_IN_ANY_GATE",
+        "expected_state": "OPEN"
+      }
+    },
+    {
+      "gap_id": "GAP-005",
+      "title": "Production champion model",
+      "state": "OPEN",
+      "materially_advanced": true,
+      "advance": "Five simple national candidates were predeclared and evaluated on the frozen 2023 development cohort, and the preserved prior_only reference plus the previously negative augmented candidate results were retained rather than overwritten.",
+      "why_still_open": "Champion or production promotion authority is false in every merged gate and no candidate was promoted in any lane.",
+      "closure_requires": [
+        "A protected evaluation result",
+        "An explicit promotion decision through the protected gate"
+      ],
+      "verification": {
+        "kind": "NO_PRODUCTION_PROMOTION_IN_ANY_GATE",
+        "expected_state": "OPEN"
+      }
+    },
+    {
+      "gap_id": "GAP-006",
+      "title": "A&M specialization lift",
+      "state": "OPEN",
+      "materially_advanced": true,
+      "advance": "A development-only Texas A&M residual diagnostic was produced against the unchanged national baseline, and a Week One 2026 rehearsal enumerated exactly which Texas A&M evidence could and could not augment that baseline.",
+      "why_still_open": "No specialization candidate was predeclared, no specialization row was emitted, and no lift is claimed from a residual diagnostic or a single contest.",
+      "closure_requires": [
+        "A predeclared specialization candidate",
+        "A protected comparison against the mandatory no-adjustment baseline"
+      ],
+      "verification": {
+        "kind": "REHEARSAL_EMITS_NO_SPECIALIZATION_ROW",
+        "expected_state": "OPEN"
+      }
+    },
+    {
+      "gap_id": "GAP-007",
+      "title": "BAS / Aggie Excess validity",
+      "state": "OPEN",
+      "materially_advanced": true,
+      "advance": "The national foundation, spine, matrix, baseline and peer cohort that a BAS test would require now exist as merged development-tier artifacts, and a reproducible peer cohort rule replaced ad hoc program lists.",
+      "why_still_open": "Every merged gate declares that no BAS or Aggie Excess result is claimed, and the underlying protected evidence does not exist.",
+      "closure_requires": [
+        "Leakage-safe cross-fit residual tests over an admitted point-in-time population",
+        "Peer and regime stability evidence with a null-result policy"
+      ],
+      "verification": {
+        "kind": "NO_BAS_CLAIM_IN_ANY_GATE",
+        "expected_state": "OPEN"
+      }
+    },
+    {
+      "gap_id": "GAP-008",
+      "title": "Historical injuries, depth and availability",
+      "state": "OPEN",
+      "materially_advanced": true,
+      "advance": "The domain admission matrix records pregame availability explicitly as unavailable rather than silently absent, and the Week One rehearsal records the Texas A&M availability route as blocked instead of inferring availability from participation.",
+      "why_still_open": "No nationally symmetric availability evidence with a proven pregame known-at basis exists, and participation may not be read as availability.",
+      "closure_requires": [
+        "Official pregame availability snapshots with provider timestamps",
+        "National coverage and missingness accounting for those snapshots"
+      ],
+      "verification": {
+        "kind": "AVAILABILITY_IS_NOT_ADMITTED_AND_NOT_INFERRED",
+        "expected_state": "OPEN"
+      }
+    },
+    {
+      "gap_id": "GAP-009",
+      "title": "Entity-resolution population benchmark",
+      "state": "OPEN",
+      "materially_advanced": true,
+      "advance": "Canonical entity resolution was exercised at national scale across the reconciled foundation, the tiered spine and the 2026 prospective cohort, where unresolved participants became explicit abstentions rather than guesses.",
+      "why_still_open": "No labelled cross-source benchmark exists, so a fuzzy auto-accept threshold remains intentionally unset.",
+      "closure_requires": [
+        "A labelled cross-source entity benchmark",
+        "A measured precision and recall decision before enabling fuzzy auto-accept"
+      ],
+      "verification": {
+        "kind": "UNRESOLVED_ENTITIES_ABSTAIN_RATHER_THAN_MATCH",
+        "expected_state": "OPEN"
+      }
+    }
+  ],
+  "preserved_states": {
+    "BAT-523": "In Progress",
+    "BAT-429": "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+    "BAT-401": "DONE_VERIFIED_RETAIN_PROTECTED_LANE_BLOCKED",
+    "protected_seasons_sealed": [2024, 2025],
+    "protected_split_registry_altered": false,
+    "protected_judging_seal_altered": false
+  },
+  "authority": {
+    "append_only_state_ledger": true,
+    "gap_reevaluation": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "model_selection_or_tuning": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "canonical_entity_mutation": false,
+    "immutable_raw_capture_mutation": false,
+    "gap_closure_forced": false
+  },
+  "negative_findings": {
+    "no_gap_from_gap_002_through_gap_009_closed_in_cycle_20": true,
+    "no_official_final_existed_for_any_frozen_2026_forecast_inside_this_cycle": true,
+    "point_in_time_feature_eligibility_over_the_historical_population_remains_zero": true,
+    "three_of_five_frozen_candidates_cannot_be_evaluated_prospectively": true,
+    "no_predeclared_tamu_specialization_candidate_exists": true
+  },
+  "scientific_nonclaims": {
+    "claims_production_champion": false,
+    "claims_protected_performance": false,
+    "claims_forecast_accuracy": false,
+    "claims_bas_or_aggie_excess": false,
+    "claims_tamu_specialization_lift": false,
+    "claims_public_forecast_publication": false,
+    "claims_availability_from_participation": false,
+    "claims_gap_closure": false
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

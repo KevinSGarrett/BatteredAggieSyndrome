@@ -1,0 +1,17 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T06:38:10Z",
+ "jira_key": "BAT-664",
+ "local_issue_id": "POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "0d9875a70baf4d0cfa108c3049b1e7d142c24478",
+ "observable_outcome": "The Cycle 20 prospective 2026 shadow population was reconstructed read-only and reproduced exactly at 99 contests, 82 frozen snapshots, 495 candidate rows, 164 frozen forecast rows and 17 unsupported contests. All 164 FORECAST_FROZEN rows reached TEMPORAL_PROOF_COMPLETE against nine required bindings and four ordering requirements, with zero MISSED_CUTOFF_NO_BACKFILL rows and zero fail-closed rows, the smallest lead before a conservative kickoff bound being 15.4 hours. The 17 unsupported contests account for exactly 85 unsupported candidate rows and the 246 abstaining rows carry null probabilities. 2026-08-29 was relabeled from WEEK_ONE to WEEK_ZERO across 8 contests with membership provably unchanged. No probability was added, revised or removed.",
+ "outputs": []
+}

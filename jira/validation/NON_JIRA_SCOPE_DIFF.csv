@@ -103,6 +103,7 @@ ADDED,artifacts/entities/canonical_core_registry_manifest.json
 ADDED,artifacts/entities/canonical_people_registry.csv
 ADDED,artifacts/entities/canonical_people_registry_manifest.json
 ADDED,artifacts/entities/entity_decision_and_transition_log.jsonl
+ADDED,artifacts/entities/national_entity_identity_benchmark_gate.json
 ADDED,artifacts/entities/population_schema_profile.json
 ADDED,artifacts/entities/registry_validation.json
 ADDED,artifacts/entities/resolution_results.parquet
@@ -464,6 +465,8 @@ ADDED,configs/local_embedding_shadow_qualification.json
 ADDED,configs/local_qwen_qualification.json
 ADDED,configs/mounted_acceptance_contract.json
 ADDED,configs/national_chronological_development_matrix_contract.json
+ADDED,configs/national_entity_benchmark_targets.json
+ADDED,configs/national_entity_identity_benchmark_contract.json
 ADDED,configs/national_expectation_baselines_and_peers_contract.json
 ADDED,configs/national_foundation_reconciliation_contract.json
 ADDED,configs/national_multi_year_walk_forward_contract.json
@@ -783,6 +786,7 @@ ADDED,src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.p
 ADDED,src/aggie_analytics/data/historical_known_at_authority.py
 ADDED,src/aggie_analytics/data/http.py
 ADDED,src/aggie_analytics/data/national_chronological_development_matrix.py
+ADDED,src/aggie_analytics/data/national_entity_identity_benchmark.py
 ADDED,src/aggie_analytics/data/national_foundation_reconciliation.py
 ADDED,src/aggie_analytics/data/national_pit_domain_admission_matrix.py
 ADDED,src/aggie_analytics/data/national_pit_eligible_slice.py
@@ -995,6 +999,7 @@ ADDED,tests/test_leakage_battery_results.py
 ADDED,tests/test_local_qwen_qualification.py
 ADDED,tests/test_mounted_data_acceptance.py
 ADDED,tests/test_national_chronological_development_matrix.py
+ADDED,tests/test_national_entity_identity_benchmark.py
 ADDED,tests/test_national_expectation_baselines.py
 ADDED,tests/test_national_foundation_reconciliation.py
 ADDED,tests/test_national_multi_year_walk_forward.py
@@ -1150,6 +1155,7 @@ ADDED,tools/acquire_2026_week_zero_live_execution_evidence.py
 ADDED,tools/acquire_2026_week_zero_t7d_evidence.py
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_historical_known_at_publication_routes.py
+ADDED,tools/acquire_national_entity_official_identity.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py
 ADDED,tools/acquire_sec_tamu_availability.py
@@ -1186,6 +1192,7 @@ ADDED,tools/build_historical_venue_assignment_pit.py
 ADDED,tools/build_historical_weather_previous_runs_snapshot.py
 ADDED,tools/build_jira_control_plane.py
 ADDED,tools/build_national_chronological_development_matrix.py
+ADDED,tools/build_national_entity_identity_benchmark.py
 ADDED,tools/build_national_expectation_baselines.py
 ADDED,tools/build_national_foundation_reconciliation.py
 ADDED,tools/build_national_multi_year_walk_forward.py
@@ -1400,6 +1407,7 @@ ADDED,tools/validate_jira_mirror.py
 ADDED,tools/validate_local_qwen_qualification.py
 ADDED,tools/validate_mounted_acceptance_gate.py
 ADDED,tools/validate_national_chronological_development_matrix.py
+ADDED,tools/validate_national_entity_identity_benchmark.py
 ADDED,tools/validate_national_expectation_baselines.py
 ADDED,tools/validate_national_foundation_reconciliation.py
 ADDED,tools/validate_national_multi_year_walk_forward.py

@@ -1,0 +1,698 @@
+{
+  "artifact_type": "PEER_AND_TAMU_RESIDUAL_STABILITY_GATE",
+  "authority": {
+    "causal_effect_established": false,
+    "champion_or_production_promotion": false,
+    "national_model_tuned_on_texas_am": false,
+    "peer_cohort_hand_picked": false,
+    "protected_performance_claimed": false,
+    "residual_stability_development_test": true
+  },
+  "bound_predecessor_identities": {
+    "national_chronological_development_matrix_gate_identity": "3e9289ee0a67b3ca32854cdf7eafad1ab99378ef1d0e3cd4a9d6913c165eb9b2",
+    "national_multi_year_walk_forward_gate_identity": "1112becc65f78a25b0843588fd5eba5ddcec6009b0ec58f0cb299c343188bcda"
+  },
+  "classification": "PREDECLARED_PEER_COHORT_AND_TEXAS_AM_RESIDUAL_STABILITY_TEST_2018_THROUGH_2023",
+  "contract_id": "BAT-669-PEER-AND-TAMU-RESIDUAL-STABILITY-V1",
+  "contract_sha256": "6a3d5db416905a32767eb85e0cffe858019c88f1422a17c78a7b17a07be350d1",
+  "decision_unit": "POST-TASK-PEER-AND-TAMU-RESIDUAL-STABILITY-001",
+  "evaluation_seasons": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "gate_identity": "47c0f35f2b65a2f1fdafefec5dbebdb1effb962ffff70f4dc3640152ceb4c3c5",
+  "jira_key": "BAT-669",
+  "lane": "NATIONAL_DEVELOPMENT_EVALUATION_ONLY",
+  "local_issue_id": "POST-TASK-PEER-AND-TAMU-RESIDUAL-STABILITY-001",
+  "parent_jira_key": "BAT-523",
+  "peer_cohort_rule_sha256": "c29fe641835c965d3e74f5cf9588d444071b9215ded207cc5f0cf65ebd77f30f",
+  "peer_cohorts_by_training_window": [
+    {
+      "cohort_size": 20,
+      "eligible_programs": 120,
+      "members": [
+        "SRC-002:TEAM:103",
+        "SRC-002:TEAM:127",
+        "SRC-002:TEAM:142",
+        "SRC-002:TEAM:145",
+        "SRC-002:TEAM:158",
+        "SRC-002:TEAM:197",
+        "SRC-002:TEAM:213",
+        "SRC-002:TEAM:2294",
+        "SRC-002:TEAM:2306",
+        "SRC-002:TEAM:24",
+        "SRC-002:TEAM:25",
+        "SRC-002:TEAM:2579",
+        "SRC-002:TEAM:26",
+        "SRC-002:TEAM:2633",
+        "SRC-002:TEAM:264",
+        "SRC-002:TEAM:2641",
+        "SRC-002:TEAM:277",
+        "SRC-002:TEAM:59",
+        "SRC-002:TEAM:8",
+        "SRC-002:TEAM:9"
+      ],
+      "training_window_max_season_exclusive": 2018
+    },
+    {
+      "cohort_size": 20,
+      "eligible_programs": 120,
+      "members": [
+        "SRC-002:TEAM:103",
+        "SRC-002:TEAM:127",
+        "SRC-002:TEAM:142",
+        "SRC-002:TEAM:145",
+        "SRC-002:TEAM:158",
+        "SRC-002:TEAM:197",
+        "SRC-002:TEAM:213",
+        "SRC-002:TEAM:2294",
+        "SRC-002:TEAM:2306",
+        "SRC-002:TEAM:2390",
+        "SRC-002:TEAM:24",
+        "SRC-002:TEAM:25",
+        "SRC-002:TEAM:2579",
+        "SRC-002:TEAM:26",
+        "SRC-002:TEAM:2633",
+        "SRC-002:TEAM:264",
+        "SRC-002:TEAM:277",
+        "SRC-002:TEAM:59",
+        "SRC-002:TEAM:8",
+        "SRC-002:TEAM:9"
+      ],
+      "training_window_max_season_exclusive": 2019
+    },
+    {
+      "cohort_size": 20,
+      "eligible_programs": 123,
+      "members": [
+        "SRC-002:TEAM:103",
+        "SRC-002:TEAM:127",
+        "SRC-002:TEAM:142",
+        "SRC-002:TEAM:145",
+        "SRC-002:TEAM:158",
+        "SRC-002:TEAM:197",
+        "SRC-002:TEAM:213",
+        "SRC-002:TEAM:2294",
+        "SRC-002:TEAM:2306",
+        "SRC-002:TEAM:2390",
+        "SRC-002:TEAM:24",
+        "SRC-002:TEAM:25",
+        "SRC-002:TEAM:2579",
+        "SRC-002:TEAM:26",
+        "SRC-002:TEAM:2633",
+        "SRC-002:TEAM:264",
+        "SRC-002:TEAM:277",
+        "SRC-002:TEAM:59",
+        "SRC-002:TEAM:8",
+        "SRC-002:TEAM:9"
+      ],
+      "training_window_max_season_exclusive": 2020
+    },
+    {
+      "cohort_size": 20,
+      "eligible_programs": 126,
+      "members": [
+        "SRC-002:TEAM:127",
+        "SRC-002:TEAM:142",
+        "SRC-002:TEAM:158",
+        "SRC-002:TEAM:197",
+        "SRC-002:TEAM:2",
+        "SRC-002:TEAM:213",
+        "SRC-002:TEAM:2294",
+        "SRC-002:TEAM:2306",
+        "SRC-002:TEAM:2390",
+        "SRC-002:TEAM:24",
+        "SRC-002:TEAM:25",
+        "SRC-002:TEAM:2579",
+        "SRC-002:TEAM:259",
+        "SRC-002:TEAM:26",
+        "SRC-002:TEAM:2633",
+        "SRC-002:TEAM:264",
+        "SRC-002:TEAM:277",
+        "SRC-002:TEAM:52",
+        "SRC-002:TEAM:59",
+        "SRC-002:TEAM:9"
+      ],
+      "training_window_max_season_exclusive": 2021
+    },
+    {
+      "cohort_size": 20,
+      "eligible_programs": 127,
+      "members": [
+        "SRC-002:TEAM:127",
+        "SRC-002:TEAM:142",
+        "SRC-002:TEAM:145",
+        "SRC-002:TEAM:158",
+        "SRC-002:TEAM:197",
+        "SRC-002:TEAM:2",
+        "SRC-002:TEAM:213",
+        "SRC-002:TEAM:2294",
+        "SRC-002:TEAM:2306",
+        "SRC-002:TEAM:2390",
+        "SRC-002:TEAM:24",
+        "SRC-002:TEAM:2579",
+        "SRC-002:TEAM:259",
+        "SRC-002:TEAM:26",
+        "SRC-002:TEAM:2633",
+        "SRC-002:TEAM:264",
+        "SRC-002:TEAM:277",
+        "SRC-002:TEAM:52",
+        "SRC-002:TEAM:59",
+        "SRC-002:TEAM:9"
+      ],
+      "training_window_max_season_exclusive": 2022
+    },
+    {
+      "cohort_size": 20,
+      "eligible_programs": 128,
+      "members": [
+        "SRC-002:TEAM:127",
+        "SRC-002:TEAM:142",
+        "SRC-002:TEAM:145",
+        "SRC-002:TEAM:158",
+        "SRC-002:TEAM:197",
+        "SRC-002:TEAM:2",
+        "SRC-002:TEAM:213",
+        "SRC-002:TEAM:2294",
+        "SRC-002:TEAM:2306",
+        "SRC-002:TEAM:2390",
+        "SRC-002:TEAM:24",
+        "SRC-002:TEAM:2579",
+        "SRC-002:TEAM:259",
+        "SRC-002:TEAM:26",
+        "SRC-002:TEAM:2633",
+        "SRC-002:TEAM:264",
+        "SRC-002:TEAM:277",
+        "SRC-002:TEAM:52",
+        "SRC-002:TEAM:59",
+        "SRC-002:TEAM:9"
+      ],
+      "training_window_max_season_exclusive": 2023
+    }
+  ],
+  "peer_membership_stability": {
+    "cohorts_compared": 6,
+    "mean_pairwise_jaccard": 0.80358868,
+    "members_present_in_every_window": 15,
+    "members_present_in_some_window": 24,
+    "minimum_pairwise_jaccard": 0.66666667
+  },
+  "predeclaration": {
+    "declared_before_reading_any_2018_2023_residual": true,
+    "prior_knowledge_at_authoring_time": {
+      "source_gate": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+      "tamu_2023_mean_residual": 0.01624413,
+      "tamu_2023_rows": 13,
+      "tamu_2023_was_flagged_too_small_for_inference": true
+    },
+    "statement": "Every threshold, sign rule, minimum sample and verdict mapping in this contract was written and committed before any 2018-2023 residual was computed or read. The only prior residual knowledge available at authoring time was the Cycle #20 single-season read-out, which was already published as insufficient for inference."
+  },
+  "predeclared_test_results": [
+    {
+      "observed": {
+        "aggregate_texas_am_rows": 73
+      },
+      "passed": true,
+      "test_id": "T1_MINIMUM_AGGREGATE_SAMPLE"
+    },
+    {
+      "observed": {
+        "qualifying_seasons": 6,
+        "rows_per_season": {
+          "2018": 13,
+          "2019": 13,
+          "2020": 10,
+          "2021": 12,
+          "2022": 12,
+          "2023": 13
+        }
+      },
+      "passed": true,
+      "test_id": "T2_MINIMUM_PER_SEASON_SAMPLE"
+    },
+    {
+      "observed": {
+        "dominant_sign": "POSITIVE",
+        "matching_seasons": 4,
+        "sign_by_season": {
+          "2018": "POSITIVE",
+          "2019": "POSITIVE",
+          "2020": "POSITIVE",
+          "2021": "NEGATIVE",
+          "2022": "NEGATIVE",
+          "2023": "POSITIVE"
+        }
+      },
+      "passed": false,
+      "test_id": "T3_SIGN_PERSISTENCE"
+    },
+    {
+      "observed": {
+        "aggregate_bootstrap": {
+          "bootstrap_unit": "GAME",
+          "percentile_2_5": -0.06072596,
+          "percentile_97_5": 0.1261638,
+          "point_estimate": 0.0340662,
+          "resamples": 2000
+        }
+      },
+      "passed": false,
+      "test_id": "T4_AGGREGATE_SEPARATION_FROM_ZERO"
+    },
+    {
+      "observed": {
+        "texas_am_minus_peer_cohort": {
+          "bootstrap_unit": "GAME",
+          "difference": 0.04790982,
+          "interval_excludes_zero": false,
+          "percentile_2_5": -0.05136443,
+          "percentile_97_5": 0.14179242,
+          "resamples": 2000,
+          "rows": [
+            73,
+            1438
+          ]
+        }
+      },
+      "passed": false,
+      "test_id": "T5_PEER_CONTRAST"
+    },
+    {
+      "observed": {
+        "aggregate_sign": "POSITIVE",
+        "refits": [
+          {
+            "mean_residual_without_this_season": 0.01864978,
+            "rows": 60,
+            "season_removed": 2018,
+            "sign": "POSITIVE"
+          },
+          {
+            "mean_residual_without_this_season": 0.04111209,
+            "rows": 60,
+            "season_removed": 2019,
+            "sign": "POSITIVE"
+          },
+          {
+            "mean_residual_without_this_season": -0.01933421,
+            "rows": 63,
+            "season_removed": 2020,
+            "sign": "NEGATIVE"
+          },
+          {
+            "mean_residual_without_this_season": 0.05175352,
+            "rows": 61,
+            "season_removed": 2021,
+            "sign": "POSITIVE"
+          },
+          {
+            "mean_residual_without_this_season": 0.07588458,
+            "rows": 61,
+            "season_removed": 2022,
+            "sign": "POSITIVE"
+          },
+          {
+            "mean_residual_without_this_season": 0.03800972,
+            "rows": 60,
+            "season_removed": 2023,
+            "sign": "POSITIVE"
+          }
+        ]
+      },
+      "passed": false,
+      "test_id": "T6_LEAVE_ONE_SEASON_OUT_ROBUSTNESS"
+    },
+    {
+      "observed": {
+        "cohorts_compared": 6,
+        "mean_pairwise_jaccard": 0.80358868,
+        "members_present_in_every_window": 15,
+        "members_present_in_some_window": 24,
+        "minimum_pairwise_jaccard": 0.66666667
+      },
+      "passed": true,
+      "test_id": "T7_PEER_MEMBERSHIP_STABILITY"
+    }
+  ],
+  "producer": "tools/build_peer_and_tamu_residual_stability.py",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "reference_candidate": "prior_only",
+  "residual_definition": "OBSERVED_TARGET_MINUS_PREDICTED_WIN_PROBABILITY. A positive residual means the group won more often than the national model predicted.",
+  "residual_summaries": [
+    {
+      "aggregate": {
+        "mean_absolute_residual": 0.37250555,
+        "mean_residual": -0.00124574,
+        "residual_bootstrap": {
+          "bootstrap_unit": "GAME",
+          "percentile_2_5": -0.00247957,
+          "percentile_97_5": -2.467e-05,
+          "point_estimate": -0.00124574,
+          "resamples": 2000
+        },
+        "rows": 10070
+      },
+      "group": "NATIONAL",
+      "per_season": [
+        {
+          "mean_absolute_residual": 0.36282714,
+          "mean_residual": -0.00165468,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.00467133,
+            "percentile_97_5": 0.00111253,
+            "point_estimate": -0.00165468,
+            "resamples": 2000
+          },
+          "rows": 1768,
+          "season": 2018
+        },
+        {
+          "mean_absolute_residual": 0.35808814,
+          "mean_residual": -0.00298095,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.00556996,
+            "percentile_97_5": -0.00014127,
+            "point_estimate": -0.00298095,
+            "resamples": 2000
+          },
+          "rows": 1776,
+          "season": 2019
+        },
+        {
+          "mean_absolute_residual": 0.39771609,
+          "mean_residual": 0.01155078,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": 0.00687286,
+            "percentile_97_5": 0.01631644,
+            "point_estimate": 0.01155078,
+            "resamples": 2000
+          },
+          "rows": 1140,
+          "season": 2020
+        },
+        {
+          "mean_absolute_residual": 0.37583478,
+          "mean_residual": -0.00401192,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.00682692,
+            "percentile_97_5": -0.00120888,
+            "point_estimate": -0.00401192,
+            "resamples": 2000
+          },
+          "rows": 1774,
+          "season": 2021
+        },
+        {
+          "mean_absolute_residual": 0.38200759,
+          "mean_residual": -0.00237627,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.00527789,
+            "percentile_97_5": 0.00049107,
+            "point_estimate": -0.00237627,
+            "resamples": 2000
+          },
+          "rows": 1792,
+          "season": 2022
+        },
+        {
+          "mean_absolute_residual": 0.36758412,
+          "mean_residual": -0.00336121,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.0060888,
+            "percentile_97_5": -0.00057494,
+            "point_estimate": -0.00336121,
+            "resamples": 2000
+          },
+          "rows": 1820,
+          "season": 2023
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "mean_absolute_residual": 0.40606474,
+        "mean_residual": -0.01384362,
+        "residual_bootstrap": {
+          "bootstrap_unit": "GAME",
+          "percentile_2_5": -0.03479403,
+          "percentile_97_5": 0.00665426,
+          "point_estimate": -0.01384362,
+          "resamples": 2000
+        },
+        "rows": 1438
+      },
+      "group": "PEER_COHORT",
+      "per_season": [
+        {
+          "mean_absolute_residual": 0.39383108,
+          "mean_residual": -0.03617254,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.08209111,
+            "percentile_97_5": 0.00712203,
+            "point_estimate": -0.03617254,
+            "resamples": 2000
+          },
+          "rows": 252,
+          "season": 2018
+        },
+        {
+          "mean_absolute_residual": 0.41053462,
+          "mean_residual": -0.0481308,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.09594361,
+            "percentile_97_5": 0.00119932,
+            "point_estimate": -0.0481308,
+            "resamples": 2000
+          },
+          "rows": 251,
+          "season": 2019
+        },
+        {
+          "mean_absolute_residual": 0.42924885,
+          "mean_residual": 0.02356219,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.03832187,
+            "percentile_97_5": 0.0835599,
+            "point_estimate": 0.02356219,
+            "resamples": 2000
+          },
+          "rows": 170,
+          "season": 2020
+        },
+        {
+          "mean_absolute_residual": 0.42378146,
+          "mean_residual": -0.03534945,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.08466258,
+            "percentile_97_5": 0.01500614,
+            "point_estimate": -0.03534945,
+            "resamples": 2000
+          },
+          "rows": 254,
+          "season": 2021
+        },
+        {
+          "mean_absolute_residual": 0.41094345,
+          "mean_residual": -0.02412263,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.07353247,
+            "percentile_97_5": 0.02559328,
+            "point_estimate": -0.02412263,
+            "resamples": 2000
+          },
+          "rows": 251,
+          "season": 2022
+        },
+        {
+          "mean_absolute_residual": 0.37643026,
+          "mean_residual": 0.04737365,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": 0.00039939,
+            "percentile_97_5": 0.09379715,
+            "point_estimate": 0.04737365,
+            "resamples": 2000
+          },
+          "rows": 260,
+          "season": 2023
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "mean_absolute_residual": 0.36485526,
+        "mean_residual": 0.0340662,
+        "residual_bootstrap": {
+          "bootstrap_unit": "GAME",
+          "percentile_2_5": -0.06072596,
+          "percentile_97_5": 0.1261638,
+          "point_estimate": 0.0340662,
+          "resamples": 2000
+        },
+        "rows": 73
+      },
+      "group": "TEXAS_AM",
+      "per_season": [
+        {
+          "mean_absolute_residual": 0.33468909,
+          "mean_residual": 0.10521892,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.09757498,
+            "percentile_97_5": 0.29701064,
+            "point_estimate": 0.10521892,
+            "resamples": 2000
+          },
+          "rows": 13,
+          "season": 2018
+        },
+        {
+          "mean_absolute_residual": 0.30365812,
+          "mean_residual": 0.00154674,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.18726001,
+            "percentile_97_5": 0.18245504,
+            "point_estimate": 0.00154674,
+            "resamples": 2000
+          },
+          "rows": 13,
+          "season": 2019
+        },
+        {
+          "mean_absolute_residual": 0.42658599,
+          "mean_residual": 0.37048881,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": 0.18393887,
+            "percentile_97_5": 0.51337816,
+            "point_estimate": 0.37048881,
+            "resamples": 2000
+          },
+          "rows": 10,
+          "season": 2020
+        },
+        {
+          "mean_absolute_residual": 0.40368795,
+          "mean_residual": -0.05584433,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.31473797,
+            "percentile_97_5": 0.20295698,
+            "point_estimate": -0.05584433,
+            "resamples": 2000
+          },
+          "rows": 12,
+          "season": 2021
+        },
+        {
+          "mean_absolute_residual": 0.40830711,
+          "mean_residual": -0.17851056,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.41015187,
+            "percentile_97_5": 0.06523945,
+            "point_estimate": -0.17851056,
+            "resamples": 2000
+          },
+          "rows": 12,
+          "season": 2022
+        },
+        {
+          "mean_absolute_residual": 0.33277846,
+          "mean_residual": 0.01586536,
+          "residual_bootstrap": {
+            "bootstrap_unit": "GAME",
+            "percentile_2_5": -0.17945229,
+            "percentile_97_5": 0.20764856,
+            "point_estimate": 0.01586536,
+            "resamples": 2000
+          },
+          "rows": 13,
+          "season": 2023
+        }
+      ]
+    }
+  ],
+  "result": "PASS_PEER_AND_TAMU_RESIDUAL_STABILITY_DEVELOPMENT_ONLY_NO_CLAIM",
+  "schema_version": "aggie.models.peer_and_tamu_residual_stability.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "causal_effect": false,
+    "champion_or_production_selection": false,
+    "national_model_tuned_on_texas_am": false,
+    "peer_cohort_hand_picked": false,
+    "protected_performance": false,
+    "specialization_lift": false,
+    "tamu_result_is_unusual": false
+  },
+  "sensitivity": {
+    "leave_one_season_out": [
+      {
+        "mean_residual_without_this_season": 0.01864978,
+        "rows": 60,
+        "season_removed": 2018,
+        "sign": "POSITIVE"
+      },
+      {
+        "mean_residual_without_this_season": 0.04111209,
+        "rows": 60,
+        "season_removed": 2019,
+        "sign": "POSITIVE"
+      },
+      {
+        "mean_residual_without_this_season": -0.01933421,
+        "rows": 63,
+        "season_removed": 2020,
+        "sign": "NEGATIVE"
+      },
+      {
+        "mean_residual_without_this_season": 0.05175352,
+        "rows": 61,
+        "season_removed": 2021,
+        "sign": "POSITIVE"
+      },
+      {
+        "mean_residual_without_this_season": 0.07588458,
+        "rows": 61,
+        "season_removed": 2022,
+        "sign": "POSITIVE"
+      },
+      {
+        "mean_residual_without_this_season": 0.03800972,
+        "rows": 60,
+        "season_removed": 2023,
+        "sign": "POSITIVE"
+      }
+    ],
+    "peer_contrast": {
+      "bootstrap_unit": "GAME",
+      "difference": 0.04790982,
+      "interval_excludes_zero": false,
+      "percentile_2_5": -0.05136443,
+      "percentile_97_5": 0.14179242,
+      "resamples": 2000,
+      "rows": [
+        73,
+        1438
+      ]
+    }
+  },
+  "verdict": "UNSTABLE_SIGN_FLIPS_ACROSS_SEASONS",
+  "verdict_meaning": "The residual does not keep a consistent sign, so it is not persistent."
+}

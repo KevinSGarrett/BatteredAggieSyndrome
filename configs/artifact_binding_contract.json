@@ -3851,6 +3851,42 @@
       "evidence_surfaces": []
     },
     {
+      "binding_id": "BAT-669-PEER-AND-TAMU-RESIDUAL-STABILITY",
+      "jira_key": "BAT-669",
+      "local_issue_id": "POST-TASK-PEER-AND-TAMU-RESIDUAL-STABILITY-001",
+      "canonical_artifact_path": "artifacts/experimentation/peer_and_tamu_residual_stability_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-PEER-AND-TAMU-RESIDUAL-STABILITY-001",
+        "jira_key": "BAT-669",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "NATIONAL_DEVELOPMENT_EVALUATION_ONLY",
+        "classification": "PREDECLARED_PEER_COHORT_AND_TEXAS_AM_RESIDUAL_STABILITY_TEST_2018_THROUGH_2023"
+      },
+      "forbidden_true_paths": [
+        "authority.causal_effect_established",
+        "authority.champion_or_production_promotion",
+        "authority.national_model_tuned_on_texas_am",
+        "authority.peer_cohort_hand_picked",
+        "authority.protected_performance_claimed",
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.causal_effect",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.national_model_tuned_on_texas_am",
+        "scientific_nonclaims.peer_cohort_hand_picked",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.specialization_lift",
+        "scientific_nonclaims.tamu_result_is_unusual"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
       "binding_id": "BAT-668-NATIONAL-MULTI-YEAR-WALK-FORWARD",
       "jira_key": "BAT-668",
       "local_issue_id": "POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001",

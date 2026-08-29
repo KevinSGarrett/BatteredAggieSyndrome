@@ -1,0 +1,23 @@
+{
+  "audited_predecessor_identities": {
+    "calendar_gate_identity": "135a935bcfa8ffc1d6ef26a254a9d36f48509d83d305b9762543daaaa9df82fa",
+    "cohort_gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+    "forecast_gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016"
+  },
+  "gate_identity": "bd2e515b2ab3377a57ee18ac788ba51fc73cd18388c142d4ccc63a4083b5452a",
+  "gate_relative_path": "artifacts/shadow/prospective_2026_shadow_temporal_audit_gate.json",
+  "reconstructed_population": {
+    "contests_observed": 99,
+    "forecast_rows_emitted": 495,
+    "forecast_rows_frozen": 164,
+    "snapshots_frozen": 82,
+    "unsupported_contests": 17
+  },
+  "replay_command": "python tools/build_prospective_2026_shadow_temporal_audit.py --validate-only",
+  "result": "PASS_PROSPECTIVE_2026_SHADOW_FORECAST_TEMPORAL_AUDIT",
+  "verdict_counts": {
+    "FAIL_CLOSED_INSUFFICIENT_TEMPORAL_PROOF": 0,
+    "MISSED_CUTOFF_NO_BACKFILL": 0,
+    "TEMPORAL_PROOF_COMPLETE": 164
+  }
+}

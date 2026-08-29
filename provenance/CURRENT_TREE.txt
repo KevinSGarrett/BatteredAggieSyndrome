@@ -401,6 +401,8 @@ artifacts/shadow/prospective_2026_shadow_cohort_replay.json
 artifacts/shadow/prospective_2026_shadow_forecast_gate.json
 artifacts/shadow/prospective_2026_shadow_forecast_replay.json
 artifacts/shadow/prospective_2026_shadow_scoring_gate.json
+artifacts/shadow/prospective_2026_shadow_temporal_audit_gate.json
+artifacts/shadow/prospective_2026_shadow_temporal_audit_replay.json
 artifacts/shadow/tamu_2026_week1_rehearsal_gate.json
 artifacts/shadow/tamu_2026_week1_rehearsal_replay.json
 artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json
@@ -526,6 +528,7 @@ configs/preliminary_unprotected_baseline_contract.json
 configs/preliminary_wmt_tamu_shadow_contract.json
 configs/prospective_2026_shadow_cohort_contract.json
 configs/prospective_2026_shadow_forecast_contract.json
+configs/prospective_2026_shadow_temporal_audit_contract.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
 configs/research_execution_registry.json
@@ -3535,6 +3538,7 @@ src/aggie_analytics/modeling/prospective_shadow_forecasts.py
 src/aggie_analytics/modeling/registry.py
 src/aggie_analytics/modeling/runtime.py
 src/aggie_analytics/modeling/schedule_stress_augmented.py
+src/aggie_analytics/modeling/shadow_forecast_temporal_audit.py
 src/aggie_analytics/modeling/simulation.py
 src/aggie_analytics/modeling/sustainability_augmented.py
 src/aggie_analytics/modeling/tamu_week1_rehearsal.py
@@ -3746,6 +3750,7 @@ tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
+tests/test_prospective_2026_shadow_temporal_audit.py
 tests/test_prospective_shadow_cohort.py
 tests/test_prospective_shadow_forecasts.py
 tests/test_protected_replay_dry_run.py
@@ -3930,6 +3935,7 @@ tools/build_preliminary_schedule_stress.py
 tools/build_preliminary_sustainability.py
 tools/build_prospective_2026_shadow_cohort.py
 tools/build_prospective_2026_shadow_forecasts.py
+tools/build_prospective_2026_shadow_temporal_audit.py
 tools/build_retrospective_returning_production.py
 tools/build_roster_domain_completeness.py
 tools/build_sec_tamu_availability_candidates.py
@@ -4184,6 +4190,7 @@ tools/validate_preliminary_wmt_tamu_shadow.py
 tools/validate_product_supply_chain.py
 tools/validate_prospective_2026_shadow_cohort.py
 tools/validate_prospective_2026_shadow_forecasts.py
+tools/validate_prospective_2026_shadow_temporal_audit.py
 tools/validate_repository.py
 tools/validate_retrospective_returning_production.py
 tools/validate_roster_domain_completeness.py

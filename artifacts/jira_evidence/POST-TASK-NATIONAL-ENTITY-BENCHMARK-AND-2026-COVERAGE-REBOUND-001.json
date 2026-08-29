@@ -1,0 +1,63 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T18:15:00Z",
+ "jira_key": "BAT-670",
+ "local_issue_id": "POST-TASK-NATIONAL-ENTITY-BENCHMARK-AND-2026-COVERAGE-REBOUND-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-659",
+  "BAT-663",
+  "BAT-664"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "ff3f22081a165b6a424986f95f0a7d7bc9289ea1",
+ "observable_outcome": "Resolved 2026 prospective-cohort identities from official NCAA organization identifiers and season record tuples rather than name similarity, with acceptance thresholds and negative controls predeclared before any match result was read. Against the 43-team independently labeled gold benchmark the resolver reached precision 1.0 and conflict rate 0.0 at coverage 0.627907, abstaining on 0.372093 rather than binding on partial agreement. All 101 negative controls passed. Seven of fifteen unresolved organizations resolved on 19 to 22 exactly matching seasons each; the eight abstentions are retained truthfully. The 2024 and 2025 seasons were offered by the source and structurally discarded. The cohort was rebuilt as an immutable successor in which 9 participants across 9 contests became supported, all 9 of them still holding an open T-90M checkpoint that this artifact deliberately does not execute early. No forecast was created or revised and frozen or scorable coverage did not change. GAP-009 advanced but is not closed, GAP-002 is not closed, and no BAS, causal, champion or production claim is made.",
+ "outputs": [
+  {
+   "path": "artifacts/entities/national_entity_identity_benchmark_gate.json",
+   "bytes": 6246,
+   "sha256": "2ec3baff21f263f4349a48dbebcbad13897d0af4faaccc39b17b47fa18f2e141",
+   "gate_identity": "820a9dc23cbb496c9a39159935aeca6d146a2ee9ed4e5b27d52331e743d28b0c"
+  },
+  {
+   "path": "configs/national_entity_identity_benchmark_contract.json",
+   "bytes": 9000,
+   "sha256": "db04481aab816892131200cf16815fa1f122477f7a289cac4598c1fc36402671"
+  },
+  {
+   "path": "configs/national_entity_benchmark_targets.json",
+   "bytes": 7949,
+   "sha256": "51869ca9bea5d6d2742f813edbeddebc9ff35f545f3e6d6e37d6a1ce70d838a3"
+  },
+  {
+   "path": "src/aggie_analytics/data/national_entity_identity_benchmark.py",
+   "bytes": 34852,
+   "sha256": "9f88bc42d21c6918a334def0fde9975b9772d26c463d88d6954489d329e6929b"
+  },
+  {
+   "path": "tools/acquire_national_entity_official_identity.py",
+   "bytes": 7328,
+   "sha256": "b6507654482c7a6b304eb4047ed47e8dd4047d7d18c60af65992d9233723e289"
+  },
+  {
+   "path": "tools/build_national_entity_identity_benchmark.py",
+   "bytes": 3582,
+   "sha256": "f28c32a62fa1507484171238d5c3904fe68e12e1a147d891ad19cde27d88d9b9"
+  },
+  {
+   "path": "tools/validate_national_entity_identity_benchmark.py",
+   "bytes": 7509,
+   "sha256": "3860a36b3973fa1b18e92b4b0c6eeb404d2538c2903982bb446023d9e98c9bb2"
+  },
+  {
+   "path": "tests/test_national_entity_identity_benchmark.py",
+   "bytes": 20093,
+   "sha256": "bc32d5ff6a7c4cdea929f4fe9ca70a75389ac0dcd1a68660b7831432e9b6fe72"
+  }
+ ]
+}

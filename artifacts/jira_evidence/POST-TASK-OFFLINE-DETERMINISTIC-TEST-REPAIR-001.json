@@ -1,0 +1,45 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T05:32:53Z",
+ "jira_key": "BAT-662",
+ "local_issue_id": "POST-TASK-OFFLINE-DETERMINISTIC-TEST-REPAIR-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-661"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "43a1cc5df4e6ed3986a08b33c7bf3036b44b30df",
+ "observable_outcome": "Material PR #624 merged as 43a1cc5df4e6ed3986a08b33c7bf3036b44b30df. The four reproduced full-suite errors are resolved by making the 1996-1998 official season-index suites reconstruct from the immutable lake instead of calling materialize(), which had acquired over HTTPS and rewritten the tracked gate on every run, and by building the backup catalog subprocess environment from a copy plus explicit assignment with output sent to a temporary path. The shared direct_http_get choke point now refuses acquisition under both the network-forbidden and lake-only flags. The committed 1996 and 1997 gates were independently confirmed stale on pristine origin/main and were re-materialized from the lake in dependency order; only identity fields changed and no game data, official URL or capture hash moved. Full unittest discover with the network forbidden reports 2411 tests, zero errors and 41 skips, and a repeated-run tracked-file fingerprint is unchanged. Four remaining artifacts/data_lake gates are still rewritten by other suites and are named as Phase 3 targets rather than absorbed here. Historical known-at authority is unchanged, no NCAA contest IDs were created, and the protected lane remains blocked.",
+ "outputs": [
+  {
+   "path": "src/aggie_analytics/data/offline_reconstruction.py",
+   "bytes": 2592,
+   "sha256": "e03ff22065b142d43fff5d69e0978ea6b90cbf6b1f78b3a27fb7e185fb989792"
+  },
+  {
+   "path": "src/aggie_analytics/data/season_index_offline_reconstruction.py",
+   "bytes": 5102,
+   "sha256": "4e77e4b2708ad0998a55bd0b1c2d686bdd86aaa17bcfd9fb6580a876ea5a55dd"
+  },
+  {
+   "path": "tests/test_offline_reconstruction_guard.py",
+   "bytes": 8673,
+   "sha256": "a3fca5620cc5ef924c51e246766f68080bc499c2851928027f9e2e77a440c662"
+  },
+  {
+   "path": "artifacts/data_lake/tamu_official_1996_season_index_gate.json",
+   "bytes": 11228,
+   "sha256": "25101cbaafdbfd46402ae80da9584b72fe691dd32f88be2e83bbf94bfb8c4617"
+  },
+  {
+   "path": "artifacts/data_lake/tamu_official_1997_season_index_gate.json",
+   "bytes": 12168,
+   "sha256": "883bcf2d959eb9d1b6c45c91fb2f10a4c3f43fd867b1f8136534c8d3aeb0ed4d"
+  }
+ ]
+}

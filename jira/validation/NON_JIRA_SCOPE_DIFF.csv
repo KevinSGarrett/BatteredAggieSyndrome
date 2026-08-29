@@ -21,6 +21,8 @@ ADDED,artifacts/data_lake/immutability_and_correction_test.json
 ADDED,artifacts/data_lake/national_foundation_reconciliation_gate.json
 ADDED,artifacts/data_lake/national_lake_readiness.json
 ADDED,artifacts/data_lake/national_pit_domain_admission_matrix_gate.json
+ADDED,artifacts/data_lake/national_pit_eligible_slice_gate.json
+ADDED,artifacts/data_lake/national_pit_eligible_slice_replay.json
 ADDED,artifacts/data_lake/national_tiered_game_spine_gate.json
 ADDED,artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 ADDED,artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
@@ -241,6 +243,7 @@ ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-GAMEBOOK-UNION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json
+ADDED,artifacts/jira_evidence/POST-TASK-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/jira_evidence/POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001.json
@@ -458,6 +461,7 @@ ADDED,configs/national_chronological_development_matrix_contract.json
 ADDED,configs/national_expectation_baselines_and_peers_contract.json
 ADDED,configs/national_foundation_reconciliation_contract.json
 ADDED,configs/national_pit_domain_admission_matrix_contract.json
+ADDED,configs/national_pit_eligible_slice_contract.json
 ADDED,configs/national_shadow_operations_contract.json
 ADDED,configs/national_tiered_game_spine_contract.json
 ADDED,configs/ncaa_contest_outcome_reference_adapter_contract.json
@@ -773,6 +777,7 @@ ADDED,src/aggie_analytics/data/http.py
 ADDED,src/aggie_analytics/data/national_chronological_development_matrix.py
 ADDED,src/aggie_analytics/data/national_foundation_reconciliation.py
 ADDED,src/aggie_analytics/data/national_pit_domain_admission_matrix.py
+ADDED,src/aggie_analytics/data/national_pit_eligible_slice.py
 ADDED,src/aggie_analytics/data/national_tiered_game_spine.py
 ADDED,src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 ADDED,src/aggie_analytics/data/ncaa_contest_reconciliation.py
@@ -983,6 +988,7 @@ ADDED,tests/test_national_chronological_development_matrix.py
 ADDED,tests/test_national_expectation_baselines.py
 ADDED,tests/test_national_foundation_reconciliation.py
 ADDED,tests/test_national_pit_domain_admission_matrix.py
+ADDED,tests/test_national_pit_eligible_slice.py
 ADDED,tests/test_national_shadow_state_machine.py
 ADDED,tests/test_national_tiered_game_spine.py
 ADDED,tests/test_ncaa_contest_outcome_reference_adapter.py
@@ -1171,6 +1177,7 @@ ADDED,tools/build_national_chronological_development_matrix.py
 ADDED,tools/build_national_expectation_baselines.py
 ADDED,tools/build_national_foundation_reconciliation.py
 ADDED,tools/build_national_pit_domain_admission_matrix.py
+ADDED,tools/build_national_pit_eligible_slice.py
 ADDED,tools/build_national_shadow_operations.py
 ADDED,tools/build_national_tiered_game_spine.py
 ADDED,tools/build_ncaa_contest_outcome_reference_adapter.py
@@ -1382,6 +1389,7 @@ ADDED,tools/validate_national_chronological_development_matrix.py
 ADDED,tools/validate_national_expectation_baselines.py
 ADDED,tools/validate_national_foundation_reconciliation.py
 ADDED,tools/validate_national_pit_domain_admission_matrix.py
+ADDED,tools/validate_national_pit_eligible_slice.py
 ADDED,tools/validate_national_shadow_operations.py
 ADDED,tools/validate_national_tiered_game_spine.py
 ADDED,tools/validate_ncaa_contest_outcome_reference_adapter.py

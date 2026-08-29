@@ -1,0 +1,31 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-29T00:26:26Z",
+  "jira_key": "BAT-659",
+  "local_issue_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-657",
+    "BAT-658"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "completeness_claimed": false,
+  "observable_outcome": "One thousand one hundred sixty-eight append-only ledger transitions replay the ninety-nine 2026 contests and four hundred ninety-five forecast rows into eighty-two frozen snapshots, one hundred sixty-four forecasts awaiting an official final, two hundred forty-six explicit feature abstentions and one hundred two unsupported-entity terminals, with zero scored entities, and all eight of GAP-002 through GAP-009 remain OPEN under machine-checked verification predicates rather than prose.",
+  "outputs": [
+    {
+      "path": "artifacts/shadow/national_shadow_operations_gate.json",
+      "bytes": 14793,
+      "sha256": "0ea3034a7a678b37d78af46bc590b1261d4cfc11cb5bce333f5ca3fa1f928bc3",
+      "gate_identity": "8c5bfc228965435aa3d5b0c624433a4b7a955c79ccc40b006de6a9d8d8297076"
+    },
+    {
+      "path": "configs/national_shadow_operations_contract.json",
+      "bytes": 12172,
+      "sha256": "cb987218f6bca2883f56ecdcb4231319fc951b0e95bbf62294db08c93a93715b"
+    }
+  ]
+}

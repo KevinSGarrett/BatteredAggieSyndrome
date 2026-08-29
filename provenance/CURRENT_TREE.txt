@@ -262,6 +262,7 @@ artifacts/jira_evidence/POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001.j
 artifacts/jira_evidence/POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001.json
 artifacts/jira_evidence/POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001.json
 artifacts/jira_evidence/POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001.json
+artifacts/jira_evidence/POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001.json
 artifacts/jira_evidence/POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001.json
 artifacts/jira_evidence/POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001.json
@@ -390,6 +391,8 @@ artifacts/pit/roster_domain_completeness_gate.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/pit/wmt_provider_timestamp_pit_gate.json
 artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
+artifacts/shadow/national_shadow_operations_gate.json
+artifacts/shadow/national_shadow_operations_replay.json
 artifacts/shadow/prospective_2026_shadow_cohort_gate.json
 artifacts/shadow/prospective_2026_shadow_cohort_replay.json
 artifacts/shadow/prospective_2026_shadow_forecast_gate.json
@@ -473,6 +476,7 @@ configs/national_chronological_development_matrix_contract.json
 configs/national_expectation_baselines_and_peers_contract.json
 configs/national_foundation_reconciliation_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
+configs/national_shadow_operations_contract.json
 configs/national_tiered_game_spine_contract.json
 configs/ncaa_contest_outcome_reference_adapter_contract.json
 configs/ncaa_contest_reconciliation_contract.json
@@ -3511,6 +3515,7 @@ src/aggie_analytics/modeling/ensemble.py
 src/aggie_analytics/modeling/forecast.py
 src/aggie_analytics/modeling/joint.py
 src/aggie_analytics/modeling/national_expectation_baselines.py
+src/aggie_analytics/modeling/national_shadow_state_machine.py
 src/aggie_analytics/modeling/play_drive_augmented.py
 src/aggie_analytics/modeling/play_enrichment_augmented.py
 src/aggie_analytics/modeling/possession_pace_augmented.py
@@ -3687,6 +3692,7 @@ tests/test_national_chronological_development_matrix.py
 tests/test_national_expectation_baselines.py
 tests/test_national_foundation_reconciliation.py
 tests/test_national_pit_domain_admission_matrix.py
+tests/test_national_shadow_state_machine.py
 tests/test_national_tiered_game_spine.py
 tests/test_ncaa_contest_outcome_reference_adapter.py
 tests/test_ncaa_contest_reconciliation.py
@@ -3891,6 +3897,7 @@ tools/build_national_chronological_development_matrix.py
 tools/build_national_expectation_baselines.py
 tools/build_national_foundation_reconciliation.py
 tools/build_national_pit_domain_admission_matrix.py
+tools/build_national_shadow_operations.py
 tools/build_national_tiered_game_spine.py
 tools/build_ncaa_contest_outcome_reference_adapter.py
 tools/build_ncaa_contest_reconciliation.py
@@ -4129,6 +4136,7 @@ tools/validate_national_chronological_development_matrix.py
 tools/validate_national_expectation_baselines.py
 tools/validate_national_foundation_reconciliation.py
 tools/validate_national_pit_domain_admission_matrix.py
+tools/validate_national_shadow_operations.py
 tools/validate_national_tiered_game_spine.py
 tools/validate_ncaa_contest_outcome_reference_adapter.py
 tools/validate_ncaa_contest_reconciliation.py

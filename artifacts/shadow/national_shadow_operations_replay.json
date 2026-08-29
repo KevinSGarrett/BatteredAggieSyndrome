@@ -1,0 +1,15 @@
+{
+  "artifact_type": "NATIONAL_SHADOW_OPERATIONS_REPLAY",
+  "contract_id": "BAT-659-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-V1",
+  "dataset_identity": "1126de29bad0fcf9fbcad258cabe5f3b2b9a0ab4650f7a3c18d1aad599bdeb9b",
+  "decision_unit": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
+  "execution_time_utc": "2026-08-29T00:25:41Z",
+  "gate_identity": "8c5bfc228965435aa3d5b0c624433a4b7a955c79ccc40b006de6a9d8d8297076",
+  "independent_validation": {
+    "findings": [],
+    "result": "PASS"
+  },
+  "issued_at_utc": "2026-08-29T00:25:41Z",
+  "jira_key": "BAT-659",
+  "schema_version": "aggie.shadow.national_shadow_operations.v1"
+}

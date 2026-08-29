@@ -1,0 +1,42 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T22:40:00Z",
+ "jira_key": "BAT-673",
+ "local_issue_id": "POST-TASK-MOUNTED-ACCEPTANCE-HEAD-SAMPLING-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-649",
+  "BAT-663",
+  "BAT-671"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "f47def43db239540340ef3e4f7029b47fdf81143",
+ "observable_outcome": "Same defect class as BAT-671, in a different producer. tools/run_mounted_data_acceptance.py built both the acceptance result and the mounted acceptance gate with repo_head_sha taken from a live 'git rev-parse HEAD' call. Every other field in that gate is derived from committed content and the mounted data root, so that one sampled value made acceptance_result_identity and gate_identity a function of whichever commit happened to be checked out. Measured at 7303fd0c before the repair: three consecutive runs from the same commit gave 35/35 passed, zero skips and the identical gate identity 9328913cd503d0a99ba0427ba19425cd10592a1696505382ed05cf9887ba67cb, so the producer was already deterministic within a commit, while the committed gate still carried identity 3fc0001090624ea620cbdf08e3d9155be9c1594082119d37c9a28a0b070c5ab6 and repo_head_sha 1b742f6fde99a6613d379eea74a09b20a126a259. Re-materialization therefore rewrote a tracked artifact on every later commit for no verified provenance gain, because nothing anywhere compared repo_head_sha against the checkout. No validator and no test caused that dirt: tools/validate_mounted_acceptance_gate.py passes on the committed gate and leaves the tree clean, and all three full-suite variants leave the tree clean. The materialization commit is now predeclared in the acceptance contract, validated for hex shape, authority label and presence in history, and the HEAD sampling helper is deleted with no rev-parse remaining in the producer. The gate identity is superseded to a896a769b71d46579ea9298ad6a5e11204586ce7f9c848d4ef44de9ee61d84aa because code_identity hashes the producer, the validator and the contract; the old identity is not claimed to have been reproducible. Reproducibility across commits is now proven rather than asserted: at merged HEAD f47def43, which differs from the pinned materialization commit 7303fd0c, mounted acceptance ran twice at 35/35 with zero skips, reproduced the identical gate identity, and left a byte-clean tracked tree both times. Fail-closed coverage was added for a missing, malformed, authority-stripped and absent-from-history pin, and for the absence of the sampling helper. Test-order invariance holds across three hash seeds at 2667 tests with a clean tree each time. No historical evidence, admission decision, forecast, score or protected-lane state changed, and no scientific claim is made.",
+ "outputs": [
+  {
+   "path": "configs/mounted_acceptance_contract.json",
+   "bytes": 2681,
+   "sha256": "0e99bed2a5a4e6df97a6003ade6b56ee4f453086187fed9747da367c0a1957e4"
+  },
+  {
+   "path": "tools/run_mounted_data_acceptance.py",
+   "bytes": 18378,
+   "sha256": "1eaca47bba51c434ea00a22e712b5cf19cefeb165eb1ad425a4231c0e913c02d"
+  },
+  {
+   "path": "tests/test_mounted_data_acceptance.py",
+   "bytes": 8355,
+   "sha256": "417aeeb6ea4f68d399058d42b505a04a64edbe2d0b122bab89101b0f719853e3"
+  },
+  {
+   "path": "artifacts/validation/mounted_acceptance_gate.json",
+   "bytes": 7156,
+   "sha256": "3e3350991f941547aba4db23e3360eaa9454282b4ddd3ceef9a864927f1e0c68"
+  }
+ ]
+}

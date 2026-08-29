@@ -1,0 +1,121 @@
+{
+  "schema_version": "aggie.shadow.tamu_2026_week1_rehearsal.v1",
+  "contract_id": "BAT-658-TAMU-2026-WEEK1-NATIONAL-BASELINE-REHEARSAL-V1",
+  "decision_unit": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
+  "local_issue_id": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
+  "jira_key": "BAT-658",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "TAMU_2026_WEEK1_REHEARSAL_AGAINST_THE_UNCHANGED_NATIONAL_BASELINE",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Rehearse the Texas A&M Week One 2026 shadow path starting from the unchanged Phase 6 national candidate set. The rehearsal reads the already frozen Phase 8 snapshot and forecast rows for the single target contest, states the mandatory no-adjustment national forecast, and separately enumerates the Texas A&M high-resolution evidence that could in principle augment the national model from the evidence that is unavailable or temporally ineligible. No specialization candidate is predeclared, so no specialization output may be emitted and no lift may be claimed.",
+  "bound_predecessors": {
+    "forecast_gate_relative_path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+    "cohort_gate_relative_path": "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+    "baseline_gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+    "baseline_contract_relative_path": "configs/national_expectation_baselines_and_peers_contract.json",
+    "domain_matrix_gate_relative_path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+    "tamu_specialization_gate_relative_paths": [
+      "artifacts/data_lake/tamu_cross_source_domain_gate.json",
+      "artifacts/data_lake/tamu_official_evidence_gap_matrix_gate.json"
+    ],
+    "predecessors_are_bound_not_superseded": true
+  },
+  "target_contest": {
+    "declared_home_source_display_name": "Texas A&M",
+    "declared_away_source_display_name": "Missouri St.",
+    "declared_source_published_game_date": "2026-09-05",
+    "declared_source_published_clock_text": "07:00 PM",
+    "declared_local_kickoff_text": "September 5, 2026, 6:00 p.m. Central",
+    "declared_venue_text": "Kyle Field",
+    "declared_broadcast_text": "ESPN",
+    "venue_and_broadcast_independently_confirmed_from_the_bound_capture": false,
+    "official_kickoff_utc_independently_confirmed": false,
+    "kickoff_utc_basis": "CONSERVATIVE_LOWER_BOUND_CARRIED_FROM_THE_BOUND_PHASE_8_SNAPSHOT",
+    "exactly_one_contest_must_match": true,
+    "outcome_access_permitted": false
+  },
+  "no_adjustment_path": {
+    "mandatory": true,
+    "source": "FROZEN_PHASE_8_SHADOW_FORECAST_ROWS_FOR_THE_TARGET_CONTEST",
+    "tamu_adjustment_applied": false,
+    "refit_performed": false,
+    "candidate_source": "BAT-655-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-V1",
+    "post_hoc_candidate_insertion": false,
+    "post_hoc_feature_addition": false,
+    "minimum_frozen_candidate_rows": 1
+  },
+  "specialization": {
+    "predeclared_specialization_candidate_exists": false,
+    "specialization_output_permitted": false,
+    "specialization_output_state": "NO_PREDECLARED_SPECIALIZATION_CANDIDATE_SO_NO_OUTPUT_IS_EMITTED",
+    "adapter_or_specialization_feature_added_to_the_national_model": false,
+    "single_game_lift_claim_permitted": false
+  },
+  "feature_availability": {
+    "classes": [
+      "NATIONAL_BASELINE_INPUT_ALREADY_CONSUMED",
+      "COULD_AUGMENT_IF_ADMITTED_AND_TEMPORALLY_ELIGIBLE",
+      "TEMPORALLY_INELIGIBLE_POSTGAME_ONLY",
+      "TEMPORALLY_INELIGIBLE_UNKNOWN_KNOWN_AT",
+      "UNAVAILABLE_SOURCE_ABSENT",
+      "UNAVAILABLE_QUARANTINED",
+      "UNAVAILABLE_ROUTE_BLOCKED"
+    ],
+    "pregame_known_at_bases": ["PREGAME_PUBLISHED_ORDINAL", "PREGAME_STATIC_ATTRIBUTE"],
+    "availability_inferred_from_participation": false,
+    "membership_treated_as_availability": false
+  },
+  "checkpoints": {
+    "checkpoint_ids": ["T_MINUS_7D", "T_MINUS_24H", "T_MINUS_90M"],
+    "offsets_seconds": {
+      "T_MINUS_7D": 604800,
+      "T_MINUS_24H": 86400,
+      "T_MINUS_90M": 5400
+    },
+    "snapshot_cutoff_checkpoint_id": "T_MINUS_90M",
+    "missed_checkpoint_is_not_backfilled": true
+  },
+  "scoring_plan": {
+    "scorer": "tools/score_prospective_2026_shadow_forecasts.py",
+    "official_final_required": true,
+    "outcome_load_permitted_before_forecast_freeze": false,
+    "single_game_metrics_are_diagnostic_only": true,
+    "no_eligible_official_final_result": "AWAITING_ELIGIBLE_OFFICIAL_FINALS",
+    "may_tune_a_model": false,
+    "may_promote_a_model": false
+  },
+  "authority": {
+    "prospective_shadow_observation": true,
+    "no_adjustment_national_forecast_path": true,
+    "tamu_feature_availability_enumeration": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "model_selection_or_tuning": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "canonical_entity_mutation": false,
+    "immutable_raw_capture_mutation": false,
+    "tamu_specialization_admission": false
+  },
+  "negative_findings": {
+    "no_predeclared_tamu_specialization_candidate_exists_so_the_rehearsal_has_no_specialization_arm": true,
+    "the_tamu_official_structured_archive_is_postgame_evidence_with_unknown_known_at_and_cannot_enter_a_pregame_forecast": true,
+    "pregame_availability_evidence_remains_blocked_for_the_target_contest": true,
+    "venue_and_broadcast_text_are_declared_by_the_user_and_are_not_confirmed_by_the_bound_official_capture": true,
+    "the_kickoff_instant_remains_a_conservative_lower_bound": true,
+    "three_of_five_frozen_candidates_abstain_on_the_target_contest_for_missing_prospective_features": true
+  },
+  "scientific_nonclaims": {
+    "claims_tamu_specialization_lift": false,
+    "claims_forecast_accuracy": false,
+    "claims_production_champion": false,
+    "claims_protected_performance": false,
+    "claims_bas_or_aggie_excess": false,
+    "claims_public_forecast_publication": false,
+    "claims_availability_from_participation": false
+  },
+  "non_authoritative_metadata": ["issued_at_utc", "producer"]
+}

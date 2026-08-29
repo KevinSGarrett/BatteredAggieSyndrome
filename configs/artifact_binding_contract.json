@@ -3712,6 +3712,55 @@
         "PRODUCTION_READY"
       ],
       "evidence_surfaces": []
+    },
+    {
+      "binding_id": "BAT-658-TAMU-2026-WEEK1-NATIONAL-BASELINE-REHEARSAL",
+      "jira_key": "BAT-658",
+      "local_issue_id": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
+      "canonical_artifact_path": "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
+        "jira_key": "BAT-658",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "classification": "TAMU_2026_WEEK1_REHEARSAL_AGAINST_THE_UNCHANGED_NATIONAL_BASELINE",
+        "result": "PASS_TAMU_2026_WEEK1_NATIONAL_BASELINE_REHEARSAL"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.claims_production_champion",
+        "scientific_nonclaims.claims_protected_performance",
+        "scientific_nonclaims.claims_forecast_accuracy",
+        "scientific_nonclaims.claims_bas_or_aggie_excess",
+        "scientific_nonclaims.claims_tamu_specialization_lift",
+        "scientific_nonclaims.claims_public_forecast_publication",
+        "scientific_nonclaims.claims_availability_from_participation",
+        "authority.historical_pit_admission",
+        "authority.protected_training_admission",
+        "authority.protected_evaluation_admission",
+        "authority.model_selection_or_tuning",
+        "authority.champion_or_production_promotion",
+        "authority.forecast_publication",
+        "authority.canonical_entity_mutation",
+        "authority.immutable_raw_capture_mutation",
+        "authority.tamu_specialization_admission",
+        "no_adjustment_national_path.tamu_adjustment_applied",
+        "no_adjustment_national_path.refit_performed",
+        "specialization.specialization_output_permitted",
+        "specialization.single_game_lift_claimed",
+        "specialization.adapter_or_specialization_feature_added_to_the_national_model",
+        "augmentation_summary.augmentation_applied_to_the_national_path",
+        "target_contest_identity.outcome_read_before_freeze",
+        "scoring_plan.outcome_load_permitted_before_forecast_freeze",
+        "scoring_plan.may_promote_a_model"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
     }
   ]
 }

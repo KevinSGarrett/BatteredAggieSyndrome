@@ -1,0 +1,16 @@
+{
+  "artifact_type": "TAMU_2026_WEEK1_NATIONAL_BASELINE_REHEARSAL_REPLAY",
+  "bound_dataset_identity": "da5317916ad58d10e1e431591f048d262dd1915bab7b485a5737ea09fdf5b226",
+  "bound_forecast_gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+  "contract_id": "BAT-658-TAMU-2026-WEEK1-NATIONAL-BASELINE-REHEARSAL-V1",
+  "decision_unit": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
+  "execution_time_utc": "2026-08-29T00:05:13Z",
+  "gate_identity": "7a3fcbefa3f4826f32446d56017c68e6e7053b860607a9ad54cd9ac5ae0e40af",
+  "independent_validation": {
+    "findings": [],
+    "result": "PASS"
+  },
+  "issued_at_utc": "2026-08-29T00:05:13Z",
+  "jira_key": "BAT-658",
+  "schema_version": "aggie.shadow.tamu_2026_week1_rehearsal.v1"
+}

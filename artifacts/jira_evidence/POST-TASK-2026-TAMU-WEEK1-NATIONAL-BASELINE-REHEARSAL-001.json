@@ -1,0 +1,31 @@
+{
+  "schema_version": "2.1.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-29T00:05:59Z",
+  "jira_key": "BAT-658",
+  "local_issue_id": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-655",
+    "BAT-657"
+  ],
+  "new_issue_decision": "CREATE",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "issue_complete": true,
+  "completeness_claimed": false,
+  "observable_outcome": "The Texas A&M versus Missouri State contest resolves to exactly one frozen pregame snapshot, the mandatory no-adjustment national path carries two frozen candidate probabilities and three explicit abstentions, twenty availability rows separate the evidence that could augment the national model from evidence that is postgame, unknown-known-at, absent, quarantined or route-blocked, and zero augmentation features and zero specialization rows were emitted.",
+  "outputs": [
+    {
+      "path": "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json",
+      "bytes": 25976,
+      "sha256": "51daf4fc18e5cdb75a3c41f2c3b6d964f6c6e17b0b02c255efd006d2ba782b3b",
+      "gate_identity": "7a3fcbefa3f4826f32446d56017c68e6e7053b860607a9ad54cd9ac5ae0e40af"
+    },
+    {
+      "path": "configs/tamu_2026_week1_rehearsal_contract.json",
+      "bytes": 6388,
+      "sha256": "6b39f003545488a955cfd4431d51babe491057334f6dd89e3fe87f67273cd12d"
+    }
+  ]
+}

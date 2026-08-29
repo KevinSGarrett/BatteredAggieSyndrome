@@ -116,14 +116,14 @@
   },
   "discovery_required_before_api_execution": false,
   "jira_base_url": "https://kevinsgarrett.atlassian.net",
-  "last_live_verification": "2026-08-29T16:36:34.519386+00:00",
+  "last_live_verification": "2026-08-29T16:58:39.823979+00:00",
   "live_counts": {
-    "issues": 599,
+    "issues": 600,
     "links": 1151,
     "parents": 444
   },
   "local_sync": {
-    "last_successful_sync": "2026-08-29T16:36:34.519386+00:00",
+    "last_successful_sync": "2026-08-29T16:58:39.823979+00:00",
     "pending_issue_ids": [],
     "pending_reason": "",
     "state": "LIVE_SYNCHRONIZED"

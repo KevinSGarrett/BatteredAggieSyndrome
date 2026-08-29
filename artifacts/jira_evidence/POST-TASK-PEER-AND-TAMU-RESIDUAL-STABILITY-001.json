@@ -1,0 +1,58 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T16:57:07Z",
+ "jira_key": "BAT-669",
+ "local_issue_id": "POST-TASK-PEER-AND-TAMU-RESIDUAL-STABILITY-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-654",
+  "BAT-655",
+  "BAT-668"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "ac827f9aa769f9687383f362bb13a406394e22b3",
+ "observable_outcome": "Predeclared seven-test residual stability check over 2018-2023 returned UNSTABLE_SIGN_FLIPS_ACROSS_SEASONS. The Cycle #20 preliminary Texas A&M residual does not survive. Sample size and peer stability pass; sign persistence, separation from zero, peer contrast and leave-one-season-out all fail. The aggregate positive sign is carried entirely by the shortened 2020 season, and removing it flips the aggregate negative. No BAS, specialization or causal claim is made.",
+ "outputs": [
+  {
+   "path": "artifacts/experimentation/peer_and_tamu_residual_stability_gate.json",
+   "bytes": 20625,
+   "sha256": "4d56fe7ac83cfea514b45c6dd4c9a66317f6e28130a038f3bc3bef05ee3e42f8",
+   "gate_identity": "47c0f35f2b65a2f1fdafefec5dbebdb1effb962ffff70f4dc3640152ceb4c3c5"
+  },
+  {
+   "path": "artifacts/experimentation/peer_and_tamu_residual_stability_replay.json",
+   "bytes": 766,
+   "sha256": "3b34676492694448ac5d3b44dda8323393600a1bd20efc12c418f141b9eabe50"
+  },
+  {
+   "path": "configs/peer_and_tamu_residual_stability_contract.json",
+   "bytes": 7935,
+   "sha256": "dbf2118b1206e83e3502091c0a546f09225b9e22793a137f3cc2b7ef12f83575"
+  },
+  {
+   "path": "src/aggie_analytics/modeling/peer_and_tamu_residual_stability.py",
+   "bytes": 21988,
+   "sha256": "41a0bbf04e62071e0969216b2ae4cedae4768b860e3df267338980ceb6f60542"
+  },
+  {
+   "path": "tools/build_peer_and_tamu_residual_stability.py",
+   "bytes": 5378,
+   "sha256": "81afa6bd6d64821d1d83aa8f060a4c09b33e7d742e6ff4c7ae21f88d5f3a3f6e"
+  },
+  {
+   "path": "tools/validate_peer_and_tamu_residual_stability.py",
+   "bytes": 5508,
+   "sha256": "abbfdaf951856e40f33edc51ccdd2effe2de876a9fd59c6f480b9d2698e85681"
+  },
+  {
+   "path": "tests/test_peer_and_tamu_residual_stability.py",
+   "bytes": 14326,
+   "sha256": "cedc46a4801d41b474a2c2390b3ac9d73cb7b21599fab026c013accfbbe60994"
+  }
+ ]
+}

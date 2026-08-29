@@ -1,0 +1,150 @@
+{
+  "contract_id": "BAT-669-PEER-AND-TAMU-RESIDUAL-STABILITY-V1",
+  "schema_version": "aggie.models.peer_and_tamu_residual_stability.v1",
+  "classification": "PREDECLARED_PEER_COHORT_AND_TEXAS_AM_RESIDUAL_STABILITY_TEST_2018_THROUGH_2023",
+  "lane": "NATIONAL_DEVELOPMENT_EVALUATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "jira_key": "BAT-669",
+  "parent_jira_key": "BAT-523",
+  "local_issue_id": "POST-TASK-PEER-AND-TAMU-RESIDUAL-STABILITY-001",
+  "purpose": "Test whether the preliminary single-season Texas A&M residual survives a six-season replay. Cycle #20 reported a positive Texas A&M mean residual on 13 rows of the 2023 season and flagged that sample as too small for inference. This phase asks whether anything about it persists once six seasons are available, and is designed so that a null result is a first-class outcome.",
+  "predeclaration": {
+    "declared_before_reading_any_2018_2023_residual": true,
+    "statement": "Every threshold, sign rule, minimum sample and verdict mapping in this contract was written and committed before any 2018-2023 residual was computed or read. The only prior residual knowledge available at authoring time was the Cycle #20 single-season read-out, which was already published as insufficient for inference.",
+    "prior_knowledge_at_authoring_time": {
+      "source_gate": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+      "tamu_2023_mean_residual": 0.01624413,
+      "tamu_2023_rows": 13,
+      "tamu_2023_was_flagged_too_small_for_inference": true
+    }
+  },
+  "reference_candidate": {
+    "candidate_id": "prior_only",
+    "why": "This is the reference candidate Cycle #20 used for its residual read-out, and it is also the only fitted candidate whose every feature lies inside a domain with audited known-at authority. Using it keeps the residual test from resting on rankings or venue evidence.",
+    "the_national_model_is_never_tuned_on_texas_am": true
+  },
+  "residual_definition": "OBSERVED_TARGET_MINUS_PREDICTED_WIN_PROBABILITY. A positive residual means the group won more often than the national model predicted.",
+  "peer_cohort_rule_source": {
+    "contract_relative_path": "configs/national_expectation_baselines_and_peers_contract.json",
+    "contract_id": "BAT-655-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-V1",
+    "reuse_rule": "THE_CYCLE_20_PEER_COHORT_RULE_IS_LOADED_VERBATIM_AND_HASHED_NO_PROGRAM_MAY_BE_HAND_PICKED",
+    "rebuilt_per_training_window": true,
+    "known_limitation": "The rule's historical_ranking_exposure criterion reads the rankings domain, which the BAT-666 audit found to have retrieval-time authority only. The cohort is therefore a reference grouping, not a point-in-time feature, and this phase reports it as such rather than silently inheriting the authority question."
+  },
+  "bound_predecessors": [
+    {
+      "artifact_relative_path": "artifacts/experimentation/national_multi_year_walk_forward_gate.json",
+      "jira_key": "BAT-668",
+      "role": "MULTI_YEAR_WALK_FORWARD_PREDICTIONS"
+    },
+    {
+      "artifact_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+      "jira_key": "BAT-654",
+      "role": "FEATURE_MATRIX_LABELS_AND_CHRONOLOGY"
+    }
+  ],
+  "evaluation": {
+    "seasons": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "comparison_groups": [
+      "NATIONAL",
+      "PEER_COHORT",
+      "TEXAS_AM"
+    ],
+    "texas_am_canonical_team_id": "SRC-002:TEAM:245",
+    "bootstrap": {
+      "resamples": 2000,
+      "seed": 20260829,
+      "unit": "GAME"
+    },
+    "forbidden_seasons": [
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "predeclared_tests": [
+    {
+      "test_id": "T1_MINIMUM_AGGREGATE_SAMPLE",
+      "question": "Is there enough Texas A&M evidence across all six seasons to attempt inference at all?",
+      "rule": "The aggregate Texas A&M row count must be at least 60.",
+      "threshold": 60,
+      "failure_verdict": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "test_id": "T2_MINIMUM_PER_SEASON_SAMPLE",
+      "question": "How many individual seasons carry enough Texas A&M rows to be read on their own?",
+      "rule": "A season is inferentially usable only if it carries at least 10 Texas A&M rows, and at least 5 of the 6 seasons must qualify.",
+      "per_season_threshold": 10,
+      "qualifying_seasons_required": 5,
+      "failure_verdict": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "test_id": "T3_SIGN_PERSISTENCE",
+      "question": "Does the Texas A&M residual keep the same sign across seasons, or does it flip?",
+      "rule": "The per-season Texas A&M mean residual must carry the same sign in at least 5 of the 6 seasons.",
+      "matching_seasons_required": 5,
+      "failure_verdict": "UNSTABLE_SIGN_FLIPS_ACROSS_SEASONS"
+    },
+    {
+      "test_id": "T4_AGGREGATE_SEPARATION_FROM_ZERO",
+      "question": "Is the aggregate Texas A&M residual distinguishable from zero?",
+      "rule": "The game-level bootstrap 95 percent interval for the aggregate Texas A&M mean residual must exclude zero.",
+      "failure_verdict": "NULL_NOT_SEPARABLE_FROM_ZERO"
+    },
+    {
+      "test_id": "T5_PEER_CONTRAST",
+      "question": "Is Texas A&M distinguishable from its own predeclared peer cohort, rather than merely from the national mean?",
+      "rule": "The bootstrap 95 percent interval for the difference between the Texas A&M mean residual and the peer-cohort mean residual must exclude zero.",
+      "failure_verdict": "NULL_INDISTINGUISHABLE_FROM_PEERS"
+    },
+    {
+      "test_id": "T6_LEAVE_ONE_SEASON_OUT_ROBUSTNESS",
+      "question": "Does the aggregate result depend on any single season?",
+      "rule": "Recomputing the aggregate Texas A&M mean residual with each season removed in turn must preserve the sign in all six refits.",
+      "refits_required_to_agree": 6,
+      "failure_verdict": "UNSTABLE_DEPENDS_ON_A_SINGLE_SEASON"
+    },
+    {
+      "test_id": "T7_PEER_MEMBERSHIP_STABILITY",
+      "question": "Is the peer cohort itself stable, or does its membership churn between training windows?",
+      "rule": "The mean pairwise Jaccard similarity of peer membership across the six per-season training windows must be at least 0.80.",
+      "threshold": 0.8,
+      "failure_verdict": "UNSTABLE_PEER_MEMBERSHIP_CHURNS"
+    }
+  ],
+  "verdict_rules": {
+    "STABLE_PERSISTENT_RESIDUAL_DETECTED": "Every predeclared test passes. Even this verdict authorizes no BAS, Aggie Excess, specialization or causal claim, and would only justify proposing a governed follow-up.",
+    "INSUFFICIENT_EVIDENCE": "A sample-size test failed, so the question cannot be answered either way.",
+    "NULL_NOT_SEPARABLE_FROM_ZERO": "There is enough evidence, and it shows no detectable Texas A&M residual.",
+    "NULL_INDISTINGUISHABLE_FROM_PEERS": "Any apparent Texas A&M residual is not distinguishable from its predeclared peer cohort.",
+    "UNSTABLE_SIGN_FLIPS_ACROSS_SEASONS": "The residual does not keep a consistent sign, so it is not persistent.",
+    "UNSTABLE_DEPENDS_ON_A_SINGLE_SEASON": "The aggregate result is driven by one season and does not survive leave-one-season-out.",
+    "UNSTABLE_PEER_MEMBERSHIP_CHURNS": "The comparison group is not stable enough for the peer contrast to mean anything."
+  },
+  "verdict_precedence": [
+    "INSUFFICIENT_EVIDENCE",
+    "UNSTABLE_PEER_MEMBERSHIP_CHURNS",
+    "UNSTABLE_SIGN_FLIPS_ACROSS_SEASONS",
+    "UNSTABLE_DEPENDS_ON_A_SINGLE_SEASON",
+    "NULL_NOT_SEPARABLE_FROM_ZERO",
+    "NULL_INDISTINGUISHABLE_FROM_PEERS",
+    "STABLE_PERSISTENT_RESIDUAL_DETECTED"
+  ],
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "causal_effect": false,
+    "champion_or_production_selection": false,
+    "national_model_tuned_on_texas_am": false,
+    "peer_cohort_hand_picked": false,
+    "protected_performance": false,
+    "specialization_lift": false,
+    "tamu_result_is_unusual": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_type": "PEER_AND_TAMU_RESIDUAL_STABILITY_REPLAY",
+  "contract_id": "BAT-669-PEER-AND-TAMU-RESIDUAL-STABILITY-V1",
+  "gate_identity": "47c0f35f2b65a2f1fdafefec5dbebdb1effb962ffff70f4dc3640152ceb4c3c5",
+  "gate_relative_path": "artifacts/experimentation/peer_and_tamu_residual_stability_gate.json",
+  "peer_cohort_rule_sha256": "c29fe641835c965d3e74f5cf9588d444071b9215ded207cc5f0cf65ebd77f30f",
+  "reproduction": [
+    "python tools/build_peer_and_tamu_residual_stability.py --repo-root . --data-root <data-root>",
+    "python tools/validate_peer_and_tamu_residual_stability.py --repo-root . --data-root <data-root>"
+  ],
+  "schema_version": "aggie.models.peer_and_tamu_residual_stability_replay.v1",
+  "verdict": "UNSTABLE_SIGN_FLIPS_ACROSS_SEASONS"
+}

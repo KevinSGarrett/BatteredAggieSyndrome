@@ -1,40 +1,32 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
-  "jira_identity": "BAT-659",
+  "work_unit_id": "POST-TASK-SHADOW-FORECAST-LINT-CORRECTION-001",
+  "jira_identity": "BAT-660",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20",
-  "source_commit": "20e4fc2afabee7c9a0e0e72a3e3ca9e7d2d5b5ac",
+  "source_commit": "d571bbabe5d0751a9eb47e8e7cb075d49701e56b",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "scope": "Cycle #20 Phase 10 append-only national shadow state machine and GAP-002 through GAP-009 reevaluation",
-  "downstream_consumer": "CYCLE20_FINAL_VALIDATION_AND_CLOSEOUT",
+  "scope": "Cycle 20 lint correction of the prospective shadow forecast module",
+  "downstream_consumer": "national 2026 prospective shadow forecast and scoring lane",
   "user_explicit_waiver": {
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_20\nExecute all Cycle #20 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "instruction_sha256": "6e81eee45c595b372801312c8b1c8f4ee359ddab17de13a2f9aa6258914c6533",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
-    "work_unit_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001"
+    "work_unit_id": "POST-TASK-SHADOW-FORECAST-LINT-CORRECTION-001"
   },
   "allowed_paths": [
-    "artifacts/jira_evidence/POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001.json",
-    "artifacts/shadow/national_shadow_operations_gate.json",
-    "artifacts/shadow/national_shadow_operations_replay.json",
-    "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/national_shadow_operations_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/modeling/national_shadow_state_machine.py",
-    "tests/test_national_shadow_state_machine.py",
-    "tools/build_national_shadow_operations.py",
-    "tools/validate_national_shadow_operations.py"
+    "src/aggie_analytics/modeling/prospective_shadow_forecasts.py"
   ],
-  "decision_sha256": "db3f7cb7e86607d23d47c94721215f975d36a928ada08c0c51936ea26f357459"
+  "decision_sha256": "eca1c3ff8e87591c79ce8d1b0034f1c7907d2c8353419baa7e0a03f7fb7bada5"
 }

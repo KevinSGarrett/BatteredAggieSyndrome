@@ -1,9 +1,9 @@
 {
-  "acceptance_result_identity": "2c1c52dafc9c1491115a1267f85865aeed275100e8a866247165b6abd3a121ac",
-  "acceptance_result_relative_path": "validation/mounted_acceptance/sha256/2c1c52dafc9c1491115a1267f85865aeed275100e8a866247165b6abd3a121ac/acceptance_result.json",
+  "acceptance_result_identity": "7ee19eefac46a620ae09b5764cfcc4acbbd9423779dd7b65c1c9d44bc47b00ba",
+  "acceptance_result_relative_path": "validation/mounted_acceptance/sha256/7ee19eefac46a620ae09b5764cfcc4acbbd9423779dd7b65c1c9d44bc47b00ba/acceptance_result.json",
   "artifact_type": "MOUNTED_ACCEPTANCE_GATE",
   "classification": "CYCLE18_19_CRITICAL_MOUNTED_ACCEPTANCE",
-  "code_identity": "d236c0136d0dc83b2dfd60633c19ea4e627d8b3d90dbac6417e9db0b45069dc6",
+  "code_identity": "996bdbb7950bfd95c68a8e0421f3618755dafdf4e6ae2788ecd80f2f991a5945",
   "contract_id": "BAT-649-CYCLE19-MOUNTED-ACCEPTANCE-V1",
   "counts": {
     "errored": 0,
@@ -33,9 +33,10 @@
   "error_tests": [],
   "expected_full_suite_skips": [],
   "failure_tests": [],
-  "gate_identity": "3fc0001090624ea620cbdf08e3d9155be9c1594082119d37c9a28a0b070c5ab6",
+  "gate_identity": "a896a769b71d46579ea9298ad6a5e11204586ce7f9c848d4ef44de9ee61d84aa",
   "network_error_marker": "NETWORK_ACCESS_FORBIDDEN_IN_ACCEPTANCE_TEST",
-  "repo_head_sha": "1b742f6fde99a6613d379eea74a09b20a126a259",
+  "repo_head_sha": "7303fd0c1cc9c198abb2872eadc7d5a67f2f340b",
+  "repo_head_sha_authority": "PRECOMMITTED_MATERIALIZATION_COMMIT_NOT_SAMPLED_FROM_CHECKOUT",
   "required_raw_manifest": [
     {
       "raw_relative_path": "raw/SRC-014/tamu_official_gamebook_equivalent/historical_archive/season_index/sha256_c7e447bad869680b7207917eb5295d6a45fdc55a8190df26c00b7126a0844c3a.html",

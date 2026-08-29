@@ -2,6 +2,10 @@
   "artifact_type": "MOUNTED_ACCEPTANCE_CONTRACT",
   "classification": "CYCLE18_19_CRITICAL_MOUNTED_SUITE",
   "contract_id": "BAT-649-CYCLE19-MOUNTED-ACCEPTANCE-V1",
+  "materialization_commit": "7303fd0c1cc9c198abb2872eadc7d5a67f2f340b",
+  "materialization_commit_authority": "PRECOMMITTED_MATERIALIZATION_COMMIT_NOT_SAMPLED_FROM_CHECKOUT",
+  "materialization_commit_reason": "BAT-673 stopped sampling git HEAD inside the acceptance producer. This pins the origin/main commit whose tree and mounted data root the committed gate was materialized from, so the gate reproduces byte identically from any later checkout instead of self-invalidating on the next commit.",
+  "materialization_commit_superseded": "1b742f6fde99a6613d379eea74a09b20a126a259",
   "critical_suite": [
     "test_tamu_official_1998_2009_rejection_integrity.py",
     "test_tamu_official_gamebook_union_1998_rejection_complete.py",

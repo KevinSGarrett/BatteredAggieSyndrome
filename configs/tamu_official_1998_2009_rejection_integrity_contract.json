@@ -7,6 +7,8 @@
   "payloads": {
     "rejection_ledger_root": "features/tamu_official_1998_2009_rejection_integrity/sha256"
   },
+  "supersession_material_merge_sha": "43a1cc5df4e6ed3986a08b33c7bf3036b44b30df",
+  "supersession_material_merge_sha_authority": "PRECOMMITTED_MATERIALIZATION_COMMIT_NOT_SAMPLED_FROM_CHECKOUT",
   "upstream": {
     "bat633_gate_relative": "artifacts/data_lake/tamu_official_gamebook_union_1999_expanded_gate.json",
     "bat637_gate_relative": "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json",

@@ -1,0 +1,92 @@
+{
+  "contract_id": "BAT-666-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-V1",
+  "schema_version": "aggie.data.historical_known_at_authority.v1",
+  "classification": "HISTORICAL_KNOWN_AT_AUTHORITY_BOUNDARY_AUDIT_FOR_EVERY_ADMITTED_DOMAIN",
+  "lane": "HISTORICAL_AUDIT_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "jira_key": "BAT-666",
+  "parent_jira_key": "BAT-523",
+  "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",
+  "gap_id": "GAP-002",
+  "purpose": "Determine, for every currently admitted historical domain, what kind of temporal authority actually backs its known-at claim. The audit never converts a capture or retrieval timestamp into a historical known-at instant, and it never treats a conservative bound as an observed final whistle.",
+  "authority_classes": {
+    "OBSERVED_PUBLICATION_TIMESTAMP": "The source itself states when the value was published, and that instant is captured verbatim.",
+    "OBSERVED_EFFECTIVE_TIMESTAMP": "The source itself states the instant from which the value was in effect, which may differ from its publication instant.",
+    "CONSERVATIVE_PRECOMMITTED_AVAILABILITY_BOUND": "No instant is observed, but a bound is logically guaranteed by evidence the source does carry, is precommitted in this contract before any evaluation, is reproducible from that evidence alone, and is labeled as a bound.",
+    "RETRIEVAL_TIMESTAMP_ONLY": "The only temporal evidence is when this project retrieved the value, which is not a historical known-at instant.",
+    "POSTGAME_ONLY_EVIDENCE": "The value cannot exist before the contest it describes has been played.",
+    "SOURCE_ABSENT": "No source for the domain has been acquired."
+  },
+  "audited_domains": [
+    "team_outcome_priors",
+    "team_season_context",
+    "venues",
+    "rankings",
+    "outcome_labels_and_cutoffs"
+  ],
+  "conservative_bound_policy": {
+    "policy_id": "BAT-666-CONSERVATIVE-COMPLETION-BOUND-V1",
+    "precommitted": true,
+    "label": "THIS_IS_A_BOUND_NOT_AN_OBSERVED_FINAL_WHISTLE",
+    "date_only_rule": {
+      "applies_when": "The only temporal evidence for a contest is a calendar date, observed as a midnight UTC sentinel in the spine start field.",
+      "recorded_date_may_be_local_or_utc": true,
+      "earliest_possible_start_offset_days": -1,
+      "latest_possible_completion_offset_days": 2,
+      "required_separation_days": 3,
+      "logical_guarantee": "A recorded calendar date may be a local date, so the true contest window lies within one day either side of it. Adding one further day covers the longest possible contest including overtime and weather suspension. A prior contest is therefore guaranteed complete before a target contest starts only when the target date is at least three days after the prior date."
+    },
+    "published_start_instant_rule": {
+      "applies_when": "The spine carries a non-midnight UTC start instant for the contest.",
+      "maximum_contest_duration_hours": 12,
+      "logical_guarantee": "A published start instant plus twelve hours bounds any contest including overtime, television delay and weather suspension. A prior contest is guaranteed complete before a target contest starts when the prior start instant plus twelve hours does not exceed the target start instant."
+    },
+    "rejected_assumptions": [
+      "Treating the retrieval time of a historical capture as the moment the value became known.",
+      "Treating a recorded calendar date as an exact kickoff instant.",
+      "Assuming that a prior contest on the immediately preceding calendar day had finished before a target contest began.",
+      "Imputing a poll publication instant from a poll week ordinal."
+    ]
+  },
+  "publication_time_routes": [
+    {
+      "route_id": "NCAA_OFFICIAL_STATS_RANKINGS",
+      "source_authority": "NATIONAL_GOVERNING_BODY_OFFICIAL_STATISTICS_SURFACE",
+      "official_host": "stats.ncaa.org",
+      "path": "/rankings",
+      "hypothesis": "The national governing body statistics surface publishes rankings with an as-of or release instant that could establish an observed publication timestamp for the rankings domain.",
+      "dataset": "known_at_route_ncaa_official_rankings"
+    },
+    {
+      "route_id": "AP_OFFICIAL_TOP25_FOOTBALL",
+      "source_authority": "POLL_PUBLISHER_OF_RECORD_FOR_THE_ASSOCIATED_PRESS_TOP_25",
+      "official_host": "apnews.com",
+      "path": "/hub/ap-top-25-college-football-poll",
+      "hypothesis": "The publisher of record for the Associated Press Top 25 exposes per-article publication instants that could establish an observed publication timestamp for a poll release.",
+      "dataset": "known_at_route_ap_official_top25"
+    }
+  ],
+  "publication_instant_patterns": [
+    "data-updated-date-timestamp=\"(\\d{10,13})\"",
+    "\"datePublished\"\\s*:\\s*\"([^\"]+)\"",
+    "property=\"article:published_time\"\\s+content=\"([^\"]+)\"",
+    "<time[^>]*datetime=\"([^\"]+)\""
+  ],
+  "bound_predecessors": [
+    {
+      "artifact_relative_path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+      "jira_key": "BAT-560",
+      "role": "ADMITTED_DOMAIN_AND_FEATURE_AUTHORITY"
+    }
+  ],
+  "outcome_exclusion": "THE_AUDIT_READS_CONTEST_TIMING_EVIDENCE_ONLY_AND_NEVER_A_CONTEST_RESULT",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "bound_presented_as_an_observed_publication_instant": false,
+    "champion_or_production_selection": false,
+    "gap_002_closed_by_this_audit_alone": false,
+    "historical_pit_admission_granted_by_admission_alone": false,
+    "protected_performance": false,
+    "specialization_lift": false
+  }
+}

@@ -3851,6 +3851,36 @@
       "evidence_surfaces": []
     },
     {
+      "binding_id": "BAT-666-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT",
+      "jira_key": "BAT-666",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",
+      "canonical_artifact_path": "artifacts/data_lake/historical_known_at_authority_gate.json",
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "required_equal": {
+        "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",
+        "jira_key": "BAT-666",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "lane": "HISTORICAL_AUDIT_OBSERVATION_ONLY",
+        "classification": "HISTORICAL_KNOWN_AT_AUTHORITY_BOUNDARY_AUDIT_FOR_EVERY_ADMITTED_DOMAIN"
+      },
+      "forbidden_true_paths": [
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.bound_presented_as_an_observed_publication_instant",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.gap_002_closed_by_this_audit_alone",
+        "scientific_nonclaims.historical_pit_admission_granted_by_admission_alone",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.specialization_lift"
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "evidence_surfaces": []
+    },
+    {
       "binding_id": "BAT-664-PROSPECTIVE-2026-SHADOW-FORECAST-TEMPORAL-AUDIT",
       "jira_key": "BAT-664",
       "local_issue_id": "POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001",

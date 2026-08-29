@@ -1,0 +1,96 @@
+{
+  "contract_id": "BAT-668-NATIONAL-MULTI-YEAR-WALK-FORWARD-V1",
+  "schema_version": "aggie.models.national_multi_year_walk_forward.v1",
+  "classification": "EXPANDING_CHRONOLOGICAL_NATIONAL_DEVELOPMENT_WALK_FORWARD_2018_THROUGH_2023",
+  "lane": "NATIONAL_DEVELOPMENT_EVALUATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "jira_key": "BAT-668",
+  "parent_jira_key": "BAT-523",
+  "local_issue_id": "POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001",
+  "purpose": "Extend the national development evaluation beyond a single 2023 season. Each evaluation season is predicted by candidates refit on strictly preceding seasons only, so the walk-forward measures whether the Cycle #20 candidate ordering is stable across years rather than an artifact of one season.",
+  "candidate_source": {
+    "contract_relative_path": "configs/national_expectation_baselines_and_peers_contract.json",
+    "contract_id": "BAT-655-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-V1",
+    "reuse_rule": "THE_CYCLE_20_CANDIDATE_LIST_IS_LOADED_VERBATIM_AND_HASHED_NO_CANDIDATE_MAY_BE_ADDED_REMOVED_OR_RETUNED",
+    "expected_candidate_ids": [
+      "national_base_rate",
+      "national_elo",
+      "national_logistic_l2",
+      "national_margin_ridge",
+      "prior_only"
+    ]
+  },
+  "bound_predecessors": [
+    {
+      "artifact_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+      "jira_key": "BAT-654",
+      "role": "FEATURE_MATRIX_LABELS_AND_CHRONOLOGY"
+    },
+    {
+      "artifact_relative_path": "artifacts/data_lake/historical_known_at_authority_gate.json",
+      "jira_key": "BAT-666",
+      "role": "DOMAIN_KNOWN_AT_AUTHORITY"
+    },
+    {
+      "artifact_relative_path": "artifacts/data_lake/national_pit_eligible_slice_gate.json",
+      "jira_key": "BAT-667",
+      "role": "POINT_IN_TIME_ELIGIBLE_POPULATION"
+    }
+  ],
+  "evaluation": {
+    "evaluation_seasons": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "fold_rule": "For evaluation season S, the training partition is every matrix row whose season is strictly less than S, and the evaluation partition is every matrix row whose season equals S.",
+    "transform_scope": "FITTED_ON_THIS_FOLD_TRAINING_PARTITION_ONLY",
+    "calibration_scope": "FITTED_ON_THIS_FOLD_TRAINING_PARTITION_ONLY",
+    "minimum_training_rows": 1000,
+    "tie_target_value": 0.5,
+    "probability_clip": [
+      0.001,
+      0.999
+    ],
+    "calibration_bin_count": 10,
+    "bootstrap": {
+      "resamples": 1000,
+      "seed": 20260829,
+      "unit": "GAME"
+    },
+    "forbidden_seasons": [
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "candidate_authority_labels": {
+    "PIT_ELIGIBLE_DOMAINS_ONLY": "Every feature this candidate consumes lies inside a domain whose known-at authority the BAT-666 audit established, so its evaluation rests on point-in-time eligible evidence.",
+    "DEVELOPMENT_CHRONOLOGY_PROXY_ONLY": "This candidate consumes at least one feature from a domain that has retrieval-time authority only, so its evaluation is a chronological proxy and must never support a champion or production claim."
+  },
+  "domains_without_known_at_authority": [
+    "rankings",
+    "venues"
+  ],
+  "precommitment": {
+    "boosting_neural_sequence_or_graph_models": false,
+    "candidate_set_frozen_before_evaluation": true,
+    "champion_promotion": false,
+    "hyperparameter_search_on_any_evaluation_season": false,
+    "negative_candidates_preserved": true,
+    "post_hoc_candidate_insertion": false,
+    "post_hoc_feature_shopping": false
+  },
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "champion_or_production_selection": false,
+    "gap_002_closed_by_this_walk_forward": false,
+    "protected_evaluation_opened": false,
+    "protected_performance": false,
+    "specialization_lift": false,
+    "tamu_residual_persistence_claimed": false
+  }
+}

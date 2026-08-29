@@ -1604,6 +1604,36 @@
       "phase": "PHASE-10",
       "status": "Done",
       "summary": "[POST-TASK-NATIONAL-ENTITY-BENCHMARK-AND-2026-COVERAGE-REBOUND-001] Build the independently labeled national entity-identity benchmark, resolve only authoritatively evidenced 2026 identities, and rebuild the prospective cohort as an immutable successor"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-671",
+      "local_id": "POST-TASK-REJECTION-LEDGER-RECONSTRUCTION-DETERMINISM-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "Done",
+      "summary": "[POST-TASK-REJECTION-LEDGER-RECONSTRUCTION-DETERMINISM-001] Stop sampling git HEAD inside the 1998-2009 rejection-integrity reconstruction so the gate identity is reproducible across later commits"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-672",
+      "local_id": "POST-TASK-ADMISSION-MATRIX-STALE-CORPUS-GATE-PIN-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "Done",
+      "summary": "[POST-TASK-ADMISSION-MATRIX-STALE-CORPUS-GATE-PIN-001] Rebind the BAT-653 admission-matrix corpus-gate input pin that BAT-663 superseded, and add drift coverage so a stale pin fails loudly"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

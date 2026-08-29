@@ -1,0 +1,1636 @@
+{
+  "schema_version": "1.9.0",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-tamu-official-gamebook-candidate",
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "jira_key": "BAT-523",
+  "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
+  "issued_at_utc": "2026-08-10T20:40:00Z",
+  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_AND_EVENT_ROSTER_RANKINGS_TEAM_BOX_PLAYER_BOX_ADVANCED_GAME_VENUE_WEATHER_AND_TAMU_OFFICIAL_GAMEBOOK_CANDIDATE_LAYERS_VALIDATED",
+  "live_jira": {
+    "issue_id": "24663",
+    "status": "In Progress",
+    "logical_workflow_state": "IN_PROGRESS",
+    "implementation_maturity": "SCOPED_IMPLEMENTED_EXPANSION_CONTINUES",
+    "evidence_state": "VERIFIED_SCOPED",
+    "parent": "BAT-32",
+    "blocks": [
+      "BAT-399"
+    ],
+    "relates_to": [
+      "BAT-398",
+      "BAT-565",
+      "BAT-566",
+      "BAT-567",
+      "BAT-568",
+      "BAT-569",
+      "BAT-578",
+      "BAT-579",
+      "BAT-580",
+      "BAT-581",
+      "BAT-582",
+      "BAT-620",
+      "BAT-621",
+      "BAT-622",
+      "BAT-623",
+      "BAT-624",
+      "BAT-625",
+      "BAT-626",
+      "BAT-627",
+      "BAT-628",
+      "BAT-629"
+    ]
+  },
+  "trigger_evidence": [
+    {
+      "path": "artifacts/pit/known_at_gate.json",
+      "sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
+      "bytes": 1650075,
+      "finding": "Original BAT-395 zero-state admitted no source-known-at rows."
+    },
+    {
+      "path": "artifacts/pit/asof_state_manifest.json",
+      "sha256": "be659759a1fcf02f360ba2a2948096d61b63cca51c90d8ccd6cfbc80c3f5ec51",
+      "bytes": 8235,
+      "finding": "Original BAT-396 zero-state quarantined all 313,712 temporal candidates."
+    },
+    {
+      "path": "artifacts/pit/pregame_matrix_manifest.json",
+      "sha256": "dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0",
+      "bytes": 7277,
+      "finding": "Original BAT-397 matrix had zero rows and zero cells."
+    },
+    {
+      "path": "artifacts/pit/matrix_gate_decision.json",
+      "sha256": "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a1208",
+      "bytes": 6351,
+      "finding": "Original BAT-398 decision remains preserved and is superseded only for the explicitly re-executed scoped team-outcome lane."
+    }
+  ],
+  "contract": {
+    "path": "configs/historical_known_at_recovery_contract.json",
+    "required_reexecution_order": [
+      "BAT-395",
+      "BAT-396",
+      "BAT-397",
+      "BAT-398"
+    ],
+    "fabricated_known_at_permitted": false,
+    "domain_scoped_eligibility_required": true,
+    "independent_work_may_continue": true
+  },
+  "validated_reconciliation_2010_2021": {
+    "dataset_identity": "cbe37a861eccdaaefee060fda1fd05bb30b449bfa1163f740ec3726cc6278c2d",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/cbe37a861eccdaaefee060fda1fd05bb30b449bfa1163f740ec3726cc6278c2d/schedule_outcome_reconciliation.json",
+      "sha256": "7b46433cf101aa4acea5ae0725735da75c5f030a8d89d02be652214910f2feed"
+    },
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/history-2010-2021/schedule_outcome_reconciliation_validation.json",
+      "sha256": "87f9faf5180d8c80fadef3f9e646efa53bf6e85c124383475419ca09a084dfe9",
+      "checks_passed": 30,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/history-2010-2021/cbe37a861eccdaaefee060fda1fd05bb30b449bfa1163f740ec3726cc6278c2d/deterministic-rebuild-report.json",
+      "sha256": "522e23a3af399a271bf86c08e888a813526e930309af0b142c7fbbcd1321fc12",
+      "status": "PASS"
+    },
+    "population": {
+      "repository_rows": 10250,
+      "accepted_cross_source_exact": 9699,
+      "quarantined": 551,
+      "seasons": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ]
+    },
+    "quarantine": {
+      "independent_cfbd_game_not_found": 546,
+      "outcome_reconciliation_conflict": 2,
+      "team_identity_or_mapping_drift": 3
+    }
+  },
+  "validated_replay": {
+    "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "repository_gate": {
+      "path": "artifacts/pit/historical_known_at_replay_gate.json",
+      "sha256": "3367c7bf409435b22c15739aa186378bc69121e4235fd866d3301194b42ded60",
+      "bytes": 31507
+    },
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/known_at_replay_manifest.json",
+      "sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888"
+    },
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/known-at-replay/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/validation-report.json",
+      "sha256": "0d77513834a87900eea33c811a7d22c6926c0bc8ecc5f767aff9de70906e6ee1",
+      "checks_passed": 76,
+      "checks_failed": 0
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/known-at-replay/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/deterministic-rebuild-report.json",
+      "sha256": "f75374116989e98e5fca53c9bcbf254e101c0a823af94011679bc84e10cfdfee",
+      "status": "PASS"
+    },
+    "population": {
+      "source_candidate_rows": 12047,
+      "accepted_strict_game_outcomes": 10593,
+      "accepted_team_observations": 21186,
+      "held_repository_versioned_single_source": 884,
+      "quarantined_reconciliation_rows": 570,
+      "target_games": 2764,
+      "matrix_rows": 5528,
+      "matrix_cells": 22112,
+      "rows_with_priors": 5514,
+      "rows_source_missing": 14,
+      "target_game_outcome_used_rows": 0,
+      "source_seasons": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "target_seasons": [
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "gate_disposition": "APPROVE_EXPANDED_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+    "full_historical_population_disposition": "BLOCKED_OTHER_DOMAINS_AND_COVERAGE_GATES_INCOMPLETE",
+    "negative_findings": [
+      "The validated team-outcome lane spans 2010-2022 but does not establish completeness for other historical domains.",
+      "The 884 repository-versioned single-source candidates remain held outside automatic admission.",
+      "All 570 reconciliation failures remain preserved in quarantine.",
+      "Fourteen target-team rows retain explicit SOURCE_MISSING priors.",
+      "The expanded scoped replay does not establish final historical readiness, production model readiness, protected performance, or any scientific result."
+    ]
+  },
+  "validated_event_detail_candidate": {
+    "domain": "plays",
+    "grain": "PLAY",
+    "dataset_identity": "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5/play_history_reconciliation.json",
+      "sha256": "9fc257b86c496ed91115ed7f97fff34ffbda3e8beb2ff712aa12f0e60d812cf6"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5/plays",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/play_history_2004_2022_validation.json",
+      "sha256": "f7eb7e60e314a015fbd0a7bb8a8f8c721fc4ec5538cd7390a93057bcadf8d772",
+      "checks_passed": 29,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/play_history_2004_2022_rebuild_validation.json",
+      "sha256": "faff1394ec89a66e1a3d511d00e1bc3e06894dafbca6ec9e35461ddd27c82f4f",
+      "status": "PASS",
+      "manifest_and_17_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "absent_repository_seasons": [
+        2011,
+        2020
+      ],
+      "repository_rows": 2432416,
+      "cross_route_exact_canonical_game_candidates": 1606094,
+      "outside_current_cfbd_fbs_scope_candidates": 58586,
+      "source_level_only_candidates": 748514,
+      "quarantined_current_reconciliation_misses": 17704,
+      "quarantined_invalid_core_rows": 1518,
+      "payload_bytes": 302347155
+    },
+    "source_and_route_findings": [
+      "The public versioned repository has no play-by-play file for 2011 or 2020.",
+      "The authenticated CFBD 2004-2009 alternate route stopped at provider rate limit before any capture succeeded; equivalent versioned repository data remains available as a lower-tier source-level candidate.",
+      "Cross-route exact agreement does not establish upstream independence because both routes may derive from ESPN records.",
+      "Every row remains candidate or quarantine data outside Git; none is admitted to canonical data, PIT state, training features, labels, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
+  },
+  "validated_drive_detail_candidate": {
+    "domain": "drives",
+    "grain": "DRIVE",
+    "dataset_identity": "342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0/drive_history_reconciliation.json",
+      "sha256": "ad08719246b144fa2983a2ba54aa20a2b7f56959a9028c04ad413d53eac6f639"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0/drives",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/drive_history_2004_2022_validation.json",
+      "sha256": "5b231aab5f24692a7f22a4666fd45b0ffaa657a7610c9157411644515545b4ed",
+      "checks_passed": 30,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/drive_history_2004_2022_rebuild_validation.json",
+      "sha256": "c0f37b6e300eb0baf4b644b173a23a22789a5480f4d0988cf9d01c7478430418",
+      "status": "PASS",
+      "manifest_and_17_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "absent_repository_seasons": [
+        2011,
+        2020
+      ],
+      "repository_drive_rows": 351990,
+      "versioned_play_rows": 2432416,
+      "versioned_play_rows_without_drive_id": 1148,
+      "cross_route_exact_canonical_game_candidates": 336506,
+      "outside_current_cfbd_fbs_scope_candidates": 11669,
+      "quarantined_current_drive_id_misses": 328,
+      "quarantined_drive_result_missing_or_conflict": 3487,
+      "payload_bytes": 71748255
+    },
+    "source_and_route_findings": [
+      "The drive population is deterministically derived from exact versioned play-file bytes and therefore is not independent of the play route.",
+      "The versioned repository has no play-derived drive population for 2011 or 2020.",
+      "Cross-route exact agreement does not establish upstream independence because both routes may derive from ESPN records.",
+      "Every drive remains candidate or quarantine data outside Git; none is admitted to canonical data, PIT state, training features, labels, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
+  },
+  "validated_supplemental_play_drive_candidate": {
+    "domains": [
+      "plays",
+      "drives"
+    ],
+    "grains": [
+      "PLAY",
+      "DRIVE"
+    ],
+    "dataset_identity": "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f/supplemental_play_drive_reconciliation.json",
+      "sha256": "c41fbedaa89e2ff9188f74789554fd34d5b173f636ee0b3a0853403eee5c4671"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f/supplemental_play_drive",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/POST-SUBTASK-174/supplemental_play_drive_validation.json",
+      "sha256": "b078bdfadcc89b7578798be8734e6bca5cf27a9b36cab27dbc3d9b08ad4f2c14",
+      "checks_passed": 74,
+      "checks_failed": 0
+    },
+    "deterministic_rebuild": {
+      "status": "PASS",
+      "manifest_and_10_payloads_byte_identical": true,
+      "rebuild_root_removed": true
+    },
+    "population": {
+      "source_seasons": [
+        2011,
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "captures": 88,
+      "play_rows": 737580,
+      "drive_rows": 100341,
+      "exact_canonical_game_and_drive_play_candidates": 737580,
+      "exact_canonical_game_and_play_link_drive_candidates": 100315,
+      "exact_canonical_game_drive_without_play_rows_candidates": 26,
+      "quarantined_rows": 0,
+      "dense_2010_2025_candidate_seasons": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "missingness": {
+        "drive_result": 0,
+        "drive_without_play_rows": 26,
+        "play_text": 235,
+        "play_type": 0,
+        "ppa_source": 186183,
+        "wallclock_source": 154099
+      }
+    },
+    "source_and_route_findings": [
+      "Exact immutable CFBD raw captures already present outside Git were reused; no duplicate reacquisition was necessary.",
+      "Every source game ID maps exactly through the pinned canonical game registry, while all source publication times remain unknown and current 2026 capture times are not historical known-at evidence.",
+      "The 26 2020 drives without observed play rows remain explicit partial candidates instead of being discarded or supplemented with fabricated evidence.",
+      "The union with the versioned play and drive candidates covers every season from 2010 through 2025 only at candidate grain; upstream independence is not claimed.",
+      "No row is admitted to canonical data, PIT state, features, training, protected evaluation, forecasts, or production promotion."
+    ],
+    "domain_gate_disposition": "VALIDATED_DENSE_2010_2025_CANDIDATE_COVERAGE_ONLY_CANONICAL_PIT_FEATURE_TRAINING_AND_PROTECTED_ADMISSION_NOT_APPROVED"
+  },
+  "validated_action_derived_play_summary_candidate": {
+    "domain": "tamu_action_derived_play_summary",
+    "grain": "GAME_PERIOD_PLAY_NUMBER_ACTION_DERIVED_SUMMARY",
+    "source_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "dataset_identity": "9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451/action_derived_play_summary_reconciliation.json",
+      "sha256": "f48cac4cd3c42adaa1cd59ee70b96df9ca6fe372808fcd614e75a6de27c04429"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451/action_derived_play_summary",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/POST-SUBTASK-175/action_derived_play_summary_validation.json",
+      "sha256": "176883b1b8535272d1fd6089194d014ea70944b4b308e0b742e369a056401c78",
+      "checks_passed": 87,
+      "checks_failed": 0
+    },
+    "deterministic_rebuild": {
+      "status": "PASS",
+      "manifest_and_10_payloads_byte_identical": true,
+      "rebuild_root_removed": true
+    },
+    "population": {
+      "source_seasons": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "source_action_only_games": 50,
+      "source_action_rows": 48598,
+      "non_summary_action_rows": 25400,
+      "paired_summary_action_rows": 23198,
+      "summary_groups": 11599,
+      "candidate_rows": 11529,
+      "excluded_groups": 70,
+      "play_number_not_positive_groups": 50,
+      "drive_number_missing_groups": 70
+    },
+    "source_and_route_findings": [
+      "The paired summary rows are derived from official WMT actions but are not equivalent to the native player-linked plays relation.",
+      "Every candidate retains both source action records and exact evidence hashes; all other action rows remain at action grain.",
+      "Seventy groups remain reason-coded exclusions; no missing drive number, play number, text, linkage, identity, or publication time is fabricated.",
+      "All evidence is postgame with unknown exact historical publication time and is denied canonical, PIT, feature, training, protected, forecast, and publication authority."
+    ],
+    "domain_gate_disposition": "VALIDATED_ACTION_DERIVED_PLAY_SUMMARY_CANDIDATE_ONLY_NATIVE_PLAY_EQUIVALENCE_AND_ALL_DOWNSTREAM_ADMISSION_DENIED"
+  },
+  "validated_roster_candidate": {
+    "domain": "rosters",
+    "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",
+    "dataset_identity": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda/roster_history_reconciliation.json",
+      "sha256": "453c4863577d3ad3e8e54396d54194024390d1bef1af9eab324c9577a5a7160f"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda/rosters",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/roster_history_2004_2022_validation.json",
+      "sha256": "e509f47aec6c341f7be5c0add7faf4b0014d384a1193fc449419bed32fc1313f",
+      "checks_passed": 34,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/roster_history_2004_2022_rebuild_validation.json",
+      "sha256": "3dad0ef5adcd468cadab78bc53e8b3c1c180ad7201a48c43a563e8407ed550c1",
+      "status": "PASS",
+      "manifest_and_19_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "repository_rows": 206773,
+      "cross_route_exact_canonical_membership_candidates": 154387,
+      "source_level_only_candidates": 44637,
+      "quarantined_canonical_membership_ambiguity": 6462,
+      "quarantined_current_name_conflicts": 1214,
+      "quarantined_current_match_ambiguity": 24,
+      "quarantined_invalid_core_rows": 49,
+      "historical_attribute_drift_rows": 29313,
+      "payload_bytes": 32280054
+    },
+    "source_and_route_findings": [
+      "The public versioned repository provides one immutable roster file for every season from 2004 through 2022 at the captured commit.",
+      "Multiple teams for one athlete in one season are preserved as distinct player-team-season associations rather than mislabeled as duplicate players.",
+      "Canonical membership requires athlete ID, normalized first and last name, and an exact historical team-label option; 6,462 unresolved membership rows remain quarantined and no name-only merge is permitted.",
+      "Current roster attributes are reconciliation evidence only; 29,313 rows retain versioned-versus-current attribute drift instead of being overwritten.",
+      "Roster membership alone does not establish starter, injury, depth-chart, practice, or availability status.",
+      "Every roster row remains candidate or quarantine data outside Git; none is admitted to canonical data, PIT state, training features, availability state, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_CANONICAL_AND_AVAILABILITY_ADMISSION_NOT_APPROVED"
+  },
+  "validated_post2022_roster_candidate": {
+    "domain": "rosters",
+    "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",
+    "acquisition": {
+      "identity": "6e3fba9bff67318e6dc3d94b09700b16c92619fe7a14131ccf0a14757bacc2a8",
+      "manifest_path": "<external-data-root>/manifests/acquisition/sportsdataverse-rosters-2023-2025-v1/sha256/6e3fba9bff67318e6dc3d94b09700b16c92619fe7a14131ccf0a14757bacc2a8/sportsdataverse_roster_acquisition_manifest.json",
+      "manifest_sha256": "5e1efc3e56c803d4c2b3020e6e441544409a3ad6f27595aec7996b679920bec0",
+      "captured_assets": 3,
+      "captured_bytes": 7846862,
+      "primary_route_finding": "CFBD_REST_HTTP_429_AFTER_FOUR_BOUNDED_ATTEMPTS",
+      "successful_substitute_route": "PINNED_SPORTSDATAVERSE_GITHUB_RELEASE_ASSETS_WITH_PUBLISHED_SHA256_DIGESTS"
+    },
+    "dataset_identity": "151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242/post2022_roster_reconciliation.json",
+      "sha256": "62a8721c9af2ea8bc451b9ee51cdc49c5be65ee87440d483a351e945c2d6cddd"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242/rosters_post2022",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/POST-SUBTASK-173/post2022_roster_validation.json",
+      "sha256": "11b93bb959ab7febe595ca34853986c80bce3b013a31bac67d0cccc73951c2b1",
+      "checks_passed": 17,
+      "checks_failed": 0
+    },
+    "deterministic_rebuild": {
+      "status": "PASS",
+      "manifest_and_4_payloads_byte_identical": true,
+      "rebuild_root_removed": true
+    },
+    "population": {
+      "source_seasons": [
+        2023,
+        2024,
+        2025
+      ],
+      "source_rows": 79832,
+      "exact_source_id_name_and_canonical_membership_candidates": 46586,
+      "canonical_person_membership_pending_candidates": 5214,
+      "source_level_only_candidates": 27283,
+      "quarantined_source_id_name_conflicts": 749,
+      "payload_bytes": 9970709
+    },
+    "source_and_route_findings": [
+      "The authenticated CFBD primary route returned HTTP 429 after four bounded retries; this domain continued through equivalent public release assets instead of blocking.",
+      "All three release assets matched the provider-published SHA-256 digests and span 2023 through 2025 without silently broadening the requested population.",
+      "Canonical membership candidates require exact source athlete ID, normalized first and last name, season, and normalized team label; no name-only merge is permitted.",
+      "The 2025 source added draft fields. They are preserved in immutable raw evidence but excluded from normalized roster candidates to prevent future-information use.",
+      "Release update timestamps occur in 2026 and are not promoted to historical pregame known-at timestamps for 2023 through 2025.",
+      "Roster membership does not imply starter, injury, depth-chart, practice, or availability status, and no row is admitted to canonical data, PIT state, features, training, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_POST2022_CANDIDATE_LAYER_ONLY_CANONICAL_PIT_FEATURE_TRAINING_PROTECTED_AND_AVAILABILITY_ADMISSION_NOT_APPROVED"
+  },
+  "validated_player_event_metric_candidate": {
+    "domain": "player_event_metrics",
+    "grain": "GAME_PLAYER_CATEGORY_STAT_DERIVED_FROM_VERSIONED_PLAY_EVENTS",
+    "dataset_identity": "869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10/player_event_metric_reconciliation.json",
+      "sha256": "4e20e5a285a14cca40a5dc0a57ce4628edb5d76653d037ffe3add793f8b3dede"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10/player_event_metrics",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/player_event_metrics_2014_2022_validation.json",
+      "sha256": "3d2cbc21a82f4323c257a1ef9be60d7c8f42beaa45056a679e3613c77eeaae3e",
+      "checks_passed": 44,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/player_event_metrics_2014_2022_rebuild_validation.json",
+      "sha256": "a24d9b086288d2c45fc930c1e4629d4f3c9b0394630762b05b099b4f257e3250",
+      "status": "PASS",
+      "manifest_and_9_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "repository_source_rows": 921136,
+      "source_event_rows_represented": 1677488,
+      "derived_metric_rows": 354082,
+      "cross_route_exact_canonical_game_player_team_candidates": 289897,
+      "cross_route_exact_canonical_identity_pending": 12097,
+      "cross_route_exact_canonical_membership_pending": 2041,
+      "source_level_only_candidates": 6742,
+      "quarantined_value_conflicts": 43111,
+      "quarantined_name_conflicts": 194,
+      "signed_yardage_rows_preserved": 5595,
+      "payload_bytes": 41675999
+    },
+    "source_and_route_findings": [
+      "The versioned player_stats files are sparse play-level participant events, not official box-score tables; only six predeclared semantically comparable game-player aggregates are derived.",
+      "The bounded metric set is passing YDS, rushing CAR/YDS, receiving REC/YDS, and defensive interceptions INT; no undeclared statistic is inferred.",
+      "A pre-validation producer defect that rejected 5,595 legitimate negative YDS aggregates was corrected; all signed yardage rows are preserved and the superseded identity is retained in the final manifest's negative findings.",
+      "The 146 current CFBD player-box captures are enumerated and hash-validated but serve only as reconciliation evidence, not historical-known-at evidence.",
+      "All 43,305 value or player-name conflicts remain quarantined; no tolerance or schema reinterpretation was introduced to force agreement.",
+      "Every derived metric remains candidate or quarantine data outside Git; none is admitted to canonical data, PIT state, training features, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
+  },
+  "validated_play_enrichment_candidate": {
+    "domain": "play_player_position_and_derived_metric_enrichment",
+    "grain": "SOURCE_PLAY_EVENT",
+    "dataset_identity": "7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0/play_enrichment_reconciliation.json",
+      "sha256": "b27a23337c5e6f3c1ffc37180823645c6ecec75376cf64af4d697dac9885d444"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0/play_enrichment",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/play_enrichment_2014_2022_validation.json",
+      "sha256": "ac747a222f0168f1e331be91b87a84a438fe321d8417dea1fd573b9cb17ac6f5",
+      "checks_passed": 23,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/play_enrichment_2014_2022_rebuild_validation.json",
+      "sha256": "5e7bfabbc07379d0e716b8d6105fad29e7573bc6fcfb5bb366db46d992fb0a3a",
+      "status": "PASS",
+      "manifest_and_9_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "repository_rows": 1426487,
+      "rows_with_any_position": 915021,
+      "rows_with_any_source_player_id": 921613,
+      "exact_validated_play_link_candidates": 1176564,
+      "canonical_game_play_unreconciled_candidates": 139932,
+      "source_level_only_candidates": 83654,
+      "quarantined_rows": 26337,
+      "unknown_position_cells": 19924,
+      "raw_capture_bytes": 719655075,
+      "payload_bytes": 336493768
+    },
+    "source_and_route_findings": [
+      "Nine immutable enriched-play files span 2014-2022 and are bound to the public repository commit time 2023-05-05T03:50:21Z.",
+      "Exact game plus sequence plus normalized play-text linkage validates 1,176,564 candidate enrichments against the prerequisite play layer.",
+      "The 2020 prerequisite play payload is absent; 2020 remains canonical-game or source-level candidate evidence and receives no exact-play promotion.",
+      "All 26,337 duplicate-key, text-conflict, invalid-core, ambiguous-base, or non-candidate-base rows remain quarantined.",
+      "The source literal '?' is preserved as UNKNOWN in 19,924 position cells and cannot be treated as a position category.",
+      "Source EPA/WPA revisions remain alongside earlier values and deltas; no revision silently overwrites the prerequisite evidence.",
+      "Source player IDs, names, and positions do not authorize canonical player merges, roster/starter inference, PIT state, features, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_CANONICAL_FEATURE_AND_PLAYER_IDENTITY_ADMISSION_NOT_APPROVED"
+  },
+  "validated_team_membership_candidate": {
+    "domain": "team_season_membership",
+    "grain": "TEAM_SEASON",
+    "dataset_identity": "964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024/team_membership_reconciliation.json",
+      "sha256": "a5571a60f79206bef1de0643188a8317ec3a25cb96875f628e893c74b3b07810"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024/team_membership",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/team_membership_2001_2020_validation.json",
+      "sha256": "b0bb2ab3e512d595efd73e65d41014ab94f3a6a0be4bf30b5e0ec2c96596f88e",
+      "checks_passed": 29,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/team_membership_2001_2020_rebuild_validation.json",
+      "sha256": "6fe9842ff953f74a03ced762c6fea542a0b44b5099974727095da7b3b090375f",
+      "status": "PASS",
+      "manifest_and_20_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "repository_rows": 2462,
+      "exact_source_id_canonical_team_candidates": 2462,
+      "conference_or_division_transitions": 158,
+      "identical_source_payload_groups": 4,
+      "raw_capture_bytes": 306117,
+      "payload_bytes": 839951
+    },
+    "source_and_route_findings": [
+      "Twenty immutable team_info files span 2001-2020 and are bound to public repository commit time 2023-05-05T03:50:21Z.",
+      "Every one of the 2,462 team-season rows maps to exactly one canonical team through the exact SRC-002 provider team ID; no name-only merge is used.",
+      "The tranche preserves 158 conference or division transitions, including Texas A&M Big 12 through 2011 and SEC beginning in 2012.",
+      "Four groups of byte-identical adjacent-season source files are recorded explicitly rather than misrepresented as independent updates.",
+      "The larger cfb_team_info_YEAR series is rejected for historical venue, capacity, conference, and division claims because it repeats current-looking metadata across historical seasons.",
+      "Mascot, aliases, abbreviation, colors, and logos are not promoted as season-effective historical facts; this tranche is membership, conference, and division candidate evidence only.",
+      "Repository commit time does not establish availability at earlier game cutoffs. Every row remains candidate-only outside Git and receives no canonical, PIT, feature, label, protected-evaluation, forecast, or publication authority."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_CANONICAL_AND_VENUE_ADMISSION_NOT_APPROVED"
+  },
+  "validated_rankings_candidate": {
+    "gate_artifact": "artifacts/pit/historical_rankings_reconciliation_gate.json",
+    "source_id": "SRC-063",
+    "normalization_identity": "acad9e20ba70ab7f371fa210431e4adc66243138154683f9a1b71961e0630220",
+    "reconciliation_identity": "28668e9138f9267a0dbe00c60f7cedd8f1fc37b051e2b3c61dde4fd240fb3570",
+    "source_season_min": 1936,
+    "source_season_max": 2025,
+    "poll_snapshots": 1267,
+    "normalized_rows": 37064,
+    "explicit_date_poll_snapshots": 1101,
+    "unknown_date_poll_snapshots": 166,
+    "exact_high_coverage_unique_reconciliations": 395,
+    "ambiguous_period_reconciliations": 1,
+    "high_coverage_conflicted_reconciliations": 3,
+    "low_agreement_quarantined_reconciliations": 12,
+    "pre_2001_source_only_polls": 856,
+    "validation_checks_passed": 28,
+    "mutation_controls_passed": 14,
+    "deterministic_payloads_compared": 92,
+    "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED"
+  },
+  "validated_team_box_candidate": {
+    "gate_artifact": "artifacts/pit/historical_team_box_reconciliation_gate.json",
+    "dataset_identity": "3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b",
+    "manifest_sha256": "7ca71666e49787cf09bee955102192b169a36d226d3772f94958b2a7f41540d5",
+    "source_seasons": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "captured_partitions": 261,
+    "captured_raw_bytes": 36394032,
+    "distinct_source_games": 13670,
+    "candidate_team_rows": 27340,
+    "stat_cells": 812533,
+    "cross_route_game_side_point_reconciled_rows": 21168,
+    "cross_route_side_swap_reconciled_games": 9,
+    "cross_route_side_swap_reconciled_rows": 18,
+    "current_canonical_capture_exact_match_rows": 7318,
+    "current_canonical_capture_conflict_rows": 0,
+    "source_level_only_rows": 642,
+    "payload_bytes": 6163040,
+    "validation_checks_passed": 47,
+    "mutation_controls_passed": 14,
+    "deterministic_payloads_compared": 16,
+    "historical_known_at_state": "UNKNOWN_FOR_TEAM_BOX_STATS_CAPTURE_TIME_ONLY",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_CANONICAL_PIT_FEATURE_AND_OFFICIAL_SOURCE_ADMISSION_NOT_APPROVED"
+  },
+  "validated_advanced_game_candidate": {
+    "gate_artifact": "artifacts/pit/historical_advanced_game_reconciliation_gate.json",
+    "dataset_identity": "8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc",
+    "manifest_sha256": "fd47fe331173946912fb5a2ed262e2d06a648b14fb83db82c89176e5ee5dc62b",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc/advanced_game_history_reconciliation.json",
+    "source_seasons": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "captured_partitions": 25,
+    "captured_raw_bytes": 78113625,
+    "source_rows": 42190,
+    "distinct_source_games": 21095,
+    "games_with_exactly_two_team_rows": 21095,
+    "offense_defense_reciprocal_games": 21095,
+    "advanced_leaf_paths": 56,
+    "advanced_leaf_cells": 2362640,
+    "missing_leaf_cells": 0,
+    "team_box_game_team_link_rows": 27142,
+    "team_box_cross_route_outcome_match_rows": 20996,
+    "current_canonical_capture_exact_match_rows": 7310,
+    "current_canonical_capture_conflict_rows": 0,
+    "source_level_only_rows": 15048,
+    "payload_bytes": 24683692,
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/advanced_game_history_2001_2025_validation.json",
+      "sha256": "0c42e11c145006d77a5b1eca7d4c3e5f0dcc36c1a83acce74d6df1030f952052",
+      "checks_passed": 48,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/advanced_game_history_2001_2025_rebuild_validation.json",
+      "sha256": "0db599c0027e9472fe3567c42e9a4eeaeaa6dcd9cafb6d0a9667122fb5c07116",
+      "status": "PASS",
+      "manifest_and_25_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "UNKNOWN_FOR_ADVANCED_STATS_CAPTURE_TIME_ONLY",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
+  },
+  "validated_venue_assignment_candidate": {
+    "gate_artifact": "artifacts/pit/historical_venue_assignment_reconciliation_gate.json",
+    "dataset_identity": "34b682b25cff6f98e86bbc2e8f64528edd92ee8bcef09cef4729c301adf8cbee",
+    "manifest_sha256": "a14375ed94ba93604b1e09c89f8828eba453d6dcff7f5639ef827d5dcf37dac0",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/34b682b25cff6f98e86bbc2e8f64528edd92ee8bcef09cef4729c301adf8cbee/venue_assignment_history_reconciliation.json",
+    "source_season_min": 1963,
+    "source_season_max": 2025,
+    "source_games": 46954,
+    "venue_catalog_rows": 844,
+    "games_with_venue_id_and_label": 19669,
+    "catalog_id_linked_games": 19669,
+    "games_without_venue_evidence": 27285,
+    "current_canonical_overlap_games": 3659,
+    "current_capture_venue_exact_match_games": 3659,
+    "payload_bytes": 6418853,
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/venue_assignment_history_1963_2025_validation.json",
+      "sha256": "6f6de33080babc683db361f1b887d3d99663c5d6f031d3a60ad89c47b909029e",
+      "checks_passed": 31,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/venue_assignment_history_1963_2025_rebuild_validation.json",
+      "sha256": "6bad429280c05d5ebd9ff9e656c9e212c030bb3a5e9964b4a4ab36051002bf1a",
+      "status": "PASS",
+      "manifest_and_63_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "UNKNOWN_FOR_GAME_VENUE_ASSIGNMENT_AND_CATALOG_ATTRIBUTES_CAPTURE_TIME_ONLY",
+    "catalog_effective_time": "CURRENT_2026_SNAPSHOT_NOT_HISTORICALLY_BACKFILLED",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_HISTORICAL_EFFECTIVE_TIME_CANONICAL_PIT_FEATURE_AND_RELOCATION_ADMISSION_NOT_APPROVED"
+  },
+  "validated_player_box_candidate": {
+    "gate_artifact": "artifacts/pit/historical_player_box_reconciliation_gate.json",
+    "dataset_identity": "d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d",
+    "manifest_sha256": "bcc3ef592d3a586934cab141e772c2f74843964533bd23fa8765eacad9206ca4",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d/player_box_history_reconciliation.json",
+    "source_season_min": 2010,
+    "source_season_max": 2025,
+    "source_games": 13670,
+    "source_stat_cells": 5279775,
+    "distinct_source_player_ids": 63407,
+    "missing_player_name_cells": 246,
+    "player_label_whitespace_drift_cells": 47446,
+    "player_event_metric_exact_cells": 258886,
+    "player_event_metric_conflict_cells": 34006,
+    "current_game_multiset_exact_games": 3659,
+    "current_game_multiset_conflict_games": 0,
+    "payload_bytes": 498389686,
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/player_box_history_2010_2025_validation.json",
+      "sha256": "65cafa6753e5f8811b210a4f0b9e2f830dfa9846b16be0e064fb2e0f7aefc327",
+      "checks_passed": 54,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/player_box_history_2010_2025_rebuild_validation.json",
+      "sha256": "f869b8bd69d589147ecb5242a24539c6f5f9bef121f878798fa17ed70fa293a8",
+      "status": "PASS",
+      "manifest_and_16_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "UNKNOWN_FOR_PLAYER_BOX_STATS_CAPTURE_TIME_ONLY",
+    "official_gamebook_status": "STRUCTURED_AGGREGATOR_CANDIDATE_NOT_OFFICIAL_PRIMARY_GAMEBOOK",
+    "player_identity_state": "PROVIDER_ID_CANDIDATE_ONLY_NO_NAME_ONLY_CANONICAL_MERGE",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PLAYER_IDENTITY_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_OFFICIAL_SOURCE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
+  },
+  "validated_weather_previous_runs_candidate": {
+    "gate_artifact": "artifacts/pit/historical_weather_previous_runs_reconciliation_gate.json",
+    "source_id": "SRC-026",
+    "provider": "Open-Meteo",
+    "route": "previous_runs_gfs_game_weather",
+    "model": "gfs_seamless",
+    "acquisition_identity": "ab949dd731d34e3b5a596aa60e44af83537d45d83336433d0e7777e0ad5d437a",
+    "acquisition_manifest_sha256": "ed4f26c25f0d9355ae913095129c409472660ceb83b285025c8e98091e3bc472",
+    "dataset_identity": "67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb",
+    "manifest_sha256": "4164a6f9ed7fbc760496f712f96e8a5646f79f86584340d842398cfff0adfad0",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb/weather_previous_runs_reconciliation.json",
+    "source_seasons": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "target_games_with_kickoff_and_coordinates": 4545,
+    "captured_games": 4545,
+    "source_evidence_gap_games": 2,
+    "technical_route_gap_games": 0,
+    "target_requests": 553,
+    "captured_requests": 553,
+    "technical_route_gap_requests": 0,
+    "technical_route_complete": true,
+    "raw_capture_bytes": 28488888,
+    "candidate_cells": 136350,
+    "non_null_cells": 61000,
+    "archive_variable_unavailable_cells": 75350,
+    "payload_bytes": 12500088,
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/weather_previous_runs_67df813d_validation.json",
+      "sha256": "928282fbfffe62d91fae55c03a0cd22d4ac1661461bbab2b8c2c11e1e0692b15",
+      "checks_passed": 23,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/weather_previous_runs_67df813d_rebuild.json",
+      "sha256": "6dbf34eba3ec9504228fb145add159c6f07ee03e1f9bc6457bb4f0d99e6813dc",
+      "status": "PASS",
+      "checks_passed": 8,
+      "manifest_and_5_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "FIXED_PREVIOUS_DAY_OFFSET_ONLY_EXACT_RUN_INITIALIZATION_AND_API_AVAILABILITY_UNKNOWN",
+    "venue_coordinate_effective_time": "CURRENT_2026_CATALOG_COORDINATE_HISTORICAL_EFFECTIVE_TIME_UNKNOWN",
+    "observed_weather_substitution": "PROHIBITED",
+    "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_COMPLETE_TECHNICAL_CANDIDATE_LAYER_ONLY_SOURCE_GAPS_EXACT_RUN_AVAILABILITY_VENUE_EFFECTIVE_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
+  },
+  "validated_tamu_official_gamebook_candidate": {
+    "gate_artifact": "artifacts/pit/historical_tamu_official_gamebook_reconciliation_gate.json",
+    "source_id": "SRC-014",
+    "provider": "Texas A&M Athletics / WMT",
+    "route": "12thman_schedule_boxscore_and_wmt_statistics",
+    "acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "acquisition_manifest_sha256": "ff55fbeb2c29820ae2212ab34c9a0aa864fc71f296d3b3f557365e2e83ddf4d2",
+    "dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "manifest_sha256": "9cd644376253e278fc833b6b58c717ea4889b6243671c15bc078623ba822da0e",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebook_reconciliation.json",
+    "source_season_min": 2010,
+    "source_season_max": 2025,
+    "official_schedule_seasons_captured": 16,
+    "seasons_with_gamebook_targets": 14,
+    "source_evidence_gap_seasons": [
+      2010,
+      2011
+    ],
+    "target_games": 177,
+    "captured_games": 177,
+    "technical_route_gap_games": 0,
+    "rich_structured_games": 164,
+    "metadata_only_games": 13,
+    "raw_capture_bytes": 486942225,
+    "normalized_wmt_raw_bytes": 425888393,
+    "candidate_rows": 212737,
+    "payload_files": 9,
+    "payload_bytes": 31935836,
+    "domain_rows": {
+      "game": 177,
+      "competitors": 354,
+      "schools": 354,
+      "teams": 354,
+      "actions": 147381,
+      "players": 18497,
+      "plays": 41453,
+      "drives": 4167,
+      "penalties": 0,
+      "availability": 0
+    },
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/tamu_official_gamebooks_76c3b366_validation.json",
+      "sha256": "696c2c35651a8cc3e4d468e41a895d727e662f0a5a6be223539ad408ce7d9a35",
+      "checks_passed": 19,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/tamu_official_gamebooks_76c3b366_rebuild.json",
+      "sha256": "10de6993ca2612e26c9d3e67231940c1024207b850b91f15921a96b8babe7fcd",
+      "status": "PASS",
+      "checks_passed": 9,
+      "manifest_and_9_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "UNKNOWN_EXACT_PUBLICATION_TIME_CAPTURE_TIME_ONLY",
+    "official_source_state": "OFFICIAL_PRIMARY_STRUCTURED_CANDIDATE",
+    "player_identity_state": "PROVIDER_ID_CANDIDATE_ONLY_NO_NAME_ONLY_CANONICAL_MERGE",
+    "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_OFFICIAL_PRIMARY_CANDIDATE_LAYER_ONLY_DOMAIN_COVERAGE_PLAYER_IDENTITY_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
+  },
+  "cycle9_official_school_union_supersession": {
+    "status": "IN_PROGRESS_PARENT_NOT_CLOSED",
+    "note": "Cycle #9 added an immutable SRC-014 official-school union beside the preserved WMT 177-game payload. 2010/2011 official box scores are now captured as school evidence. This does not complete BAT-523: historical publication time remains unknown, NCAA contest IDs remain absent, pregame availability remains blocked, and the parent known-at recovery contract is not satisfied.",
+    "wmt_payload_preserved": true,
+    "wmt_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "wmt_target_games": 177,
+    "union_gate_identity": "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106",
+    "union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
+    "union_target_games": 203,
+    "union_captured_games": 203,
+    "official_2010_2011_added": 26,
+    "duplicates_detected": 0,
+    "child_issues": [
+      {
+        "jira_key": "BAT-578",
+        "phase": "PHASE-1",
+        "status": "Done"
+      },
+      {
+        "jira_key": "BAT-579",
+        "phase": "PHASE-2",
+        "status": "Done"
+      },
+      {
+        "jira_key": "BAT-580",
+        "phase": "PHASE-3",
+        "status": "Done"
+      },
+      {
+        "jira_key": "BAT-581",
+        "phase": "PHASE-4",
+        "status": "Done"
+      },
+      {
+        "jira_key": "BAT-582",
+        "phase": "PHASE-5",
+        "status": "Done"
+      }
+    ],
+    "remaining_parent_gaps": [
+      "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",
+      "NCAA_CONTEST_ROUTE_STILL_BLOCKED",
+      "PREGAME_AVAILABILITY_NOT_ESTABLISHED",
+      "NATIONAL_GAMEBOOK_POPULATION_INCOMPLETE",
+      "NO_PIT_OR_PROTECTED_ADMISSION"
+    ]
+  },
+  "cycle15_src014_2002_2009_progress": {
+    "status": "IN_PROGRESS_PARENT_NOT_CLOSED",
+    "cycle": 15,
+    "live_progress_comment_id": "14584",
+    "live_progress_comment_recorded_in_ledger": true,
+    "note": "Cycle #15 completed official SRC-014 2003 and 2002 index/acquisition/structured-domains/union work and materialized the BAT-619 2002-2009 structured row corpus. Retrieval and capture timestamps remain retrieval time only and are not historical known-at. This does not close BAT-523.",
+    "exclusions": {
+      "oklahoma_2002_unmatched_excluded": true,
+      "four_preserved_rejected_urls_excluded": true,
+      "ncaa_contest_ids_created": false,
+      "availability_established": false,
+      "protected_lane_opened": false,
+      "historical_known_at_from_retrieval_time": false
+    },
+    "child_issues": [
+      {
+        "jira_key": "BAT-608",
+        "local_issue_id": "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001",
+        "status": "Done",
+        "gate_identity": "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f",
+        "union_identity": "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd"
+      },
+      {
+        "jira_key": "BAT-609",
+        "local_issue_id": "POST-TASK-SRC014-2003-OFFICIAL-INDEX-001",
+        "status": "Done",
+        "gate_identity": "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e",
+        "payload_identity": "9f58c220fe44e8c75835d0dced6dc6571ee7592249eaa6fa209fa181f25fdfa6"
+      },
+      {
+        "jira_key": "BAT-610",
+        "local_issue_id": "POST-TASK-SRC014-2003-OFFICIAL-ACQUISITION-001",
+        "status": "Done",
+        "gate_identity": "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13",
+        "dataset_identity": "741f92a8b0d3c19fe7fd51033e9ddfb797052a9da4e63a2115839a4617e2c0c5"
+      },
+      {
+        "jira_key": "BAT-611",
+        "local_issue_id": "POST-TASK-SRC014-2003-STRUCTURED-DOMAINS-001",
+        "status": "Done",
+        "gate_identity": "758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9",
+        "payload_identity": "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8"
+      },
+      {
+        "jira_key": "BAT-612",
+        "local_issue_id": "POST-TASK-SRC014-2003-EXPANDED-ENRICHED-UNION-001",
+        "status": "Done",
+        "gate_identity": "50e92663d6dbfd8c6770746c99c857cc9db2f1761714e5124a8334eff384f99f",
+        "union_identity": "22ab52efad425074ddab75593c882ca7d1fb0fab6e99df160af1681cfc26f5aa"
+      },
+      {
+        "jira_key": "BAT-613",
+        "local_issue_id": "POST-TASK-SRC014-2002-OFFICIAL-INDEX-001",
+        "status": "Done",
+        "gate_identity": "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a",
+        "payload_identity": "71e518cabe070defa9f5a4551f22d97434a4ff1a9ba13c00159f37cbb3f6d46a"
+      },
+      {
+        "jira_key": "BAT-615",
+        "local_issue_id": "POST-TASK-SRC014-2002-OFFICIAL-ACQUISITION-001",
+        "status": "Done",
+        "gate_identity": "d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e",
+        "dataset_identity": "331c64a2855fb6936755e32e71c693985b37da708d526cc980d09192afac5c1a"
+      },
+      {
+        "jira_key": "BAT-617",
+        "local_issue_id": "POST-TASK-SRC014-2002-STRUCTURED-DOMAINS-001",
+        "status": "Done",
+        "gate_identity": "d6eca244760bba8963130e070d9ac707cb36af7e715b53e2c3bc60a5bbbed014",
+        "payload_identity": "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2"
+      },
+      {
+        "jira_key": "BAT-618",
+        "local_issue_id": "POST-TASK-SRC014-2002-EXPANDED-ENRICHED-UNION-001",
+        "status": "Done",
+        "gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
+        "union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1"
+      },
+      {
+        "jira_key": "BAT-619",
+        "local_issue_id": "POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001",
+        "status": "Done",
+        "dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
+        "gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af",
+        "manifest_file_sha256": "e79bec11165482fa06dbb2dbc10d9ad4da630c0d84e8bcfc37c111c62cb4b620",
+        "games": 93,
+        "serialized_rows_total": 43233,
+        "scoring_summary_rows": 0
+      }
+    ],
+    "quarantined_duplicate_attempts": [
+      {
+        "current_batq_key": "BATQ-68",
+        "former_bat_key": "BAT-614",
+        "canonical_owner": "BAT-613"
+      },
+      {
+        "current_batq_key": "BATQ-69",
+        "former_bat_key": "BAT-616",
+        "canonical_owner": "BAT-615"
+      }
+    ],
+    "remaining_parent_gaps": [
+      "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",
+      "NCAA_CONTEST_ROUTE_STILL_BLOCKED",
+      "PREGAME_AVAILABILITY_NOT_ESTABLISHED",
+      "SCORING_SUMMARY_NOT_SERIALIZED",
+      "UNION_PRESENT_WITHOUT_SERIALIZED_DRIVE_OR_PBP_ON_SOME_PAGES",
+      "OFFICIAL_SEASONS_BEFORE_2002_NOT_IN_UNION",
+      "GAP_005_OPEN",
+      "BAT_429_BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+      "NO_PIT_OR_PROTECTED_ADMISSION"
+    ]
+  },
+  "cycle16_src014_2000_2009_progress": {
+    "status": "IN_PROGRESS_PARENT_NOT_CLOSED",
+    "cycle": 16,
+    "live_progress_comment_id": "14615",
+    "live_progress_comment_recorded_in_ledger": true,
+    "note": "Cycle #16 completed BAT-620 integrity successor, official SRC-014 2001 and 2000 index/acquisition/structured-domains/union work, and materialized the BAT-629 2000-2009 structured row corpus from the BAT-628 union. Retrieval and capture timestamps remain retrieval time only and are not historical known-at. This does not close BAT-523.",
+    "exclusions": {
+      "oklahoma_2002_unmatched_excluded": true,
+      "four_preserved_rejected_urls_excluded": true,
+      "unmatched_2000_notre_dame_texas_tech_iowa_state_excluded": true,
+      "ncaa_contest_ids_created": false,
+      "availability_established": false,
+      "protected_lane_opened": false,
+      "historical_known_at_from_retrieval_time": false,
+      "gap_drive_or_pbp_rows_invented": false
+    },
+    "child_issues": [
+      {
+        "jira_key": "BAT-620",
+        "local_issue_id": "POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001",
+        "status": "Done",
+        "dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+        "gate_identity": "c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4",
+        "games": 93,
+        "serialized_rows_total": 43233
+      },
+      {
+        "jira_key": "BAT-621",
+        "local_issue_id": "POST-TASK-SRC014-2001-OFFICIAL-INDEX-001",
+        "status": "Done",
+        "gate_identity": "24b3dd8e800c74885899af1c479cc9c15457eeb6d93b2ab0772825d856f68094",
+        "payload_identity": "e04f7d3e3700729d63d805be95e934aa211f9233e2c69d234b95691d63a8ab6a"
+      },
+      {
+        "jira_key": "BAT-622",
+        "local_issue_id": "POST-TASK-SRC014-2001-OFFICIAL-ACQUISITION-001",
+        "status": "Done",
+        "gate_identity": "127bea505729cece69c778255c9090486bb31ad66a014d382df134f027fcef8f",
+        "dataset_identity": "289352b9ddee68d2a137542fbb622dffc76340fb33eb0693a794eb60030e194e"
+      },
+      {
+        "jira_key": "BAT-623",
+        "local_issue_id": "POST-TASK-SRC014-2001-STRUCTURED-DOMAINS-001",
+        "status": "Done",
+        "gate_identity": "efbd7b1e0d52b99d49066878cd45e9b7768a9288f8ed2fe94891cb402b02a666",
+        "payload_identity": "b26370bb6e369a9f0106407461fd647bae7d5a39ef9a5229b6d1283977b857c6"
+      },
+      {
+        "jira_key": "BAT-624",
+        "local_issue_id": "POST-TASK-SRC014-2001-EXPANDED-ENRICHED-UNION-001",
+        "status": "Done",
+        "gate_identity": "6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710",
+        "union_identity": "cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8"
+      },
+      {
+        "jira_key": "BAT-625",
+        "local_issue_id": "POST-TASK-SRC014-2000-OFFICIAL-INDEX-001",
+        "status": "Done",
+        "gate_identity": "38cf419510306d17c203a660051f96da9e186e275833bb763a517cf735b07546",
+        "payload_identity": "37257a291547283225fac0f9771607557a789d65f40d64ba7b2fefecfbb0a616"
+      },
+      {
+        "jira_key": "BAT-626",
+        "local_issue_id": "POST-TASK-SRC014-2000-OFFICIAL-ACQUISITION-001",
+        "status": "Done",
+        "gate_identity": "3f7dbc60a7d21359637d04597629a982180d7f97e4d479ad92134567ceec9f8a",
+        "dataset_identity": "5d37f54a95c6c3846aa392e2efc860bf2e3aeb6e1b3d02fee3d698c4473b733c"
+      },
+      {
+        "jira_key": "BAT-627",
+        "local_issue_id": "POST-TASK-SRC014-2000-STRUCTURED-DOMAINS-001",
+        "status": "Done",
+        "gate_identity": "cc1b76240aaab39f355721ed8499a06db3a2d15fcc9056055a594841fba91268",
+        "payload_identity": "6a806655c2bf1ce33200bdd52e77d7f0423a97306d0042edf9384851dc1d8e06"
+      },
+      {
+        "jira_key": "BAT-628",
+        "local_issue_id": "POST-TASK-SRC014-2000-EXPANDED-ENRICHED-UNION-001",
+        "status": "Done",
+        "gate_identity": "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2",
+        "union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35"
+      },
+      {
+        "jira_key": "BAT-629",
+        "local_issue_id": "POST-TASK-SRC014-2000-2009-STRUCTURED-ROW-CORPUS-001",
+        "status": "Done",
+        "dataset_identity": "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420",
+        "gate_identity": "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78",
+        "manifest_file_sha256": "555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0",
+        "games": 114,
+        "serialized_rows_total": 54406,
+        "scoring_summary_rows": 2082
+      }
+    ],
+    "quarantined_duplicate_attempts": [
+      {
+        "current_batq_key": "BATQ-68",
+        "former_bat_key": "BAT-614",
+        "canonical_owner": "BAT-613"
+      },
+      {
+        "current_batq_key": "BATQ-69",
+        "former_bat_key": "BAT-616",
+        "canonical_owner": "BAT-615"
+      }
+    ],
+    "remaining_parent_gaps": [
+      "HISTORICAL_KNOWN_AT_STILL_UNKNOWN_CAPTURE_TIME_ONLY",
+      "NCAA_CONTEST_ROUTE_STILL_BLOCKED",
+      "PREGAME_AVAILABILITY_NOT_ESTABLISHED",
+      "UNION_PRESENT_WITHOUT_SERIALIZED_DRIVE_OR_PBP_ON_TWO_GAP_PAGES",
+      "GAP_005_OPEN",
+      "BAT_429_BLOCKED_UNSATISFIED_HARD_DEPENDENCIES",
+      "NO_PIT_OR_PROTECTED_ADMISSION"
+    ]
+  },
+  "preserved_prior_replay": {
+    "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
+    "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
+  },
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-history-2010-2022/20260810T133700Z",
+    "bundle_sha256": "07d577c3703042b697d80fd84c71a661deab155963a95fc383a1d6116c411d2e",
+    "bundle_bytes": 17922454
+  },
+  "event_detail_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-event-history/20260810T142500Z/BAT-523-event-history.bundle",
+    "bundle_sha256": "10f7338ea5e61dc02aa872f5532dc3be9090cac563062870489d1c7f15e5402b",
+    "bundle_bytes": 17767806,
+    "base_commit": "a72239af74ce08bb9fef17c266e9813bf88542d8"
+  },
+  "drive_detail_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-drive-history/20260810T143000Z/BAT-523-drive-history.bundle",
+    "bundle_sha256": "b9a5f83501cffd9453d27d943bec94f2fd20b4897da62def62f3f609ba49a91e",
+    "bundle_bytes": 17824580,
+    "base_commit": "9b3de8c60132247ed7def9e9af1b97487cb82313"
+  },
+  "roster_detail_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-roster-history/20260810T144500Z/BAT-523-roster-history.bundle",
+    "bundle_sha256": "0edcfb606086cf571db30ad044f8bc5b0ba2a3d22424375854974aec4991677e",
+    "bundle_bytes": 17830888,
+    "base_commit": "bd6bc55a1261acf4f79fab50f78b544164c19fbd"
+  },
+  "player_event_metric_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-player-event-metrics/20260810T151500Z/BAT-523-player-event-metrics.bundle",
+    "bundle_sha256": "6bc0617e41aee17476681c99977553193f086a0374a35b96fd1f9623c6784de2",
+    "bundle_bytes": 17667962,
+    "base_commit": "cfea368c644178eb1aa72db68a2e5bae1879d3bf"
+  },
+  "team_membership_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-team-membership/20260810T155412Z/BAT-523-team-membership.bundle",
+    "bundle_sha256": "da6016a0b3e7ee3c12e0a141b82813760bceb7dbd3858346dcf5a2e004d600a0",
+    "bundle_bytes": 18072101,
+    "base_commit": "a012fee744a7501489f324151a41f82bb89c76fb"
+  },
+  "team_box_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-team-box-history/20260810T170000Z/BAT-523-team-box-history.bundle",
+    "bundle_sha256": "2ce1eb308d02e9a9f7f11d706e4fed8c5b9af8912fa43b1db213b8cf90097e61",
+    "bundle_bytes": 17853826,
+    "base_commit": "1687dc6179a227c79e1228d3993ff08bb938e44e"
+  },
+  "advanced_game_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-advanced-game-history/20260810T172500Z/BAT-523-advanced-game-history.bundle",
+    "bundle_sha256": "7780d37be4ad011a5768a0e3974d248bb9370d3545a21649dcec810c57b96f6a",
+    "bundle_bytes": 17705619,
+    "base_commit": "fc7a1d49f3ba03ef9de30e8f50f521e49d912e6e"
+  },
+  "venue_assignment_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-venue-history/20260810T175000Z/BAT-523-venue-history.bundle",
+    "bundle_sha256": "f1970966bbba8eabfb38ca681138d563fe2adce751ccb5e47c90e0cfbc2cabb4",
+    "bundle_bytes": 17966844,
+    "base_commit": "9b934632080936074450b0fd637b87d45df855b0"
+  },
+  "player_box_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-player-box-history/20260810T182645Z/BAT-523-player-box-history.bundle",
+    "bundle_sha256": "62c5b2a81d9406616c39281473b623349912f70a9b4bb82c499025b928e2af40",
+    "bundle_bytes": 16603215,
+    "base_commit": "e5cc91887f7221736e3cdf3b64fbb9fe1c81c03d"
+  },
+  "weather_previous_runs_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-weather/before-weather-checkpoint-d907c75.bundle",
+    "bundle_sha256": "db8d83c8b0aa1249a1856460e9abc434a5e59f1632d86af37b635e935fe91d2d",
+    "bundle_bytes": 16460476,
+    "base_commit": "d907c75c90309ac02af99b1354b5068a524d9d36"
+  },
+  "weather_previous_runs_complete_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-weather-complete/before-weather-complete-0110524.bundle",
+    "bundle_sha256": "384336c5768352a0f4a52a5ec8938cf7ddcfc5e7a307a665de3b7620ca879fb6",
+    "bundle_bytes": 16461314,
+    "base_commit": "0110524c4ddc01e555ece6f6c0da64af3e5613c3"
+  },
+  "tamu_official_gamebook_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-tamu-official-gamebooks/before-tamu-gamebooks-746e77d.bundle",
+    "bundle_sha256": "7766ccb5d662913b3318b9b93d6cbbf8826e9e6c860d761105389dc4fff2f218",
+    "bundle_bytes": 16465859,
+    "base_commit": "746e77d6b49d910540d224d29a9bcc31d0a42c0f"
+  },
+  "action_derived_play_summary_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/POST-SUBTASK-175-action-play-summary/20260811T045903Z",
+    "zip_sha256": "b623698d214f45cbfcc56186449e7417746a224ff397d08b27ffe2358355fba3",
+    "bundle_sha256": "7f74182aa5af2ccda1db87a81b3e5d428055f6531e7b2029ad94817ed33e4e1b",
+    "rollback_manifest_sha256": "4db8a9a0e7c6c702ad51e64dcc2b83967bf6d5156cfac058a2b0211bda771743",
+    "base_commit": "96701d4fe90d617e063d7a07cd8071ee47427857"
+  },
+  "validated_2023_development_outcomes": {
+    "child_jira_key": "BAT-565",
+    "local_id": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
+    "dataset_identity": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+    "gate_identity": "90c5765ae14c7c668387bc2efa78e0e2d05a6e5c9c1f58c0d5ca2e572273a1d4",
+    "classification": "DEVELOPMENT_ONLY_2023_OUTCOME_LABELS",
+    "label_availability_policy": "CONSERVATIVE_POST_START_ELIGIBILITY_BOUND_NOT_OBSERVED_FINAL_WHISTLE",
+    "supersedes": {
+      "dataset_identity": "902f3558a466a3cc26def6f24285032c2d012c0adeaf5bf5a2cfb47101a99cb2",
+      "reason": "KICKOFF_TIME_LABEL_AVAILABILITY_INVALID"
+    },
+    "repository_gate": {
+      "path": "artifacts/pit/development_2023_outcome_gate.json",
+      "sha256": "23682edeabfe21b101c87780c428cdee4e86580acc46957cd31b57d275a98df9",
+      "bytes": 6197
+    },
+    "manifest": {
+      "path": "<external-data-root>/manifests/development_outcomes/sha256/bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8/development_2023_outcome_manifest.json",
+      "sha256": "6f5b248ec6cbc39a0028cc349222f31a9a473adcc7c08832be45dab1375fbfe5"
+    },
+    "source": {
+      "capture_id": "cap_2c82aa5161f3ad63b5abb3c3",
+      "source_table_identity": "SRC-002:2023:schedules_games_official_outcomes",
+      "source_payload_sha256": "ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03",
+      "source_row_count": 910
+    },
+    "population": {
+      "accepted_games": 910,
+      "team_observations": 1820,
+      "quarantine_rows": 0,
+      "seasons": [
+        2023
+      ],
+      "ncaa_agreements": 313,
+      "ncaa_missing_official_linescore": 462,
+      "ncaa_no_comparison_row": 135
+    },
+    "authority": "DEVELOPMENT_2023_LABELS_ONLY; NOT_PREGAME_FEATURES; NO_PROTECTED_ADMISSION",
+    "closes_BAT-523": false
+  },
+  "validated_2023_labeled_development_replay": {
+    "child_jira_key": "BAT-566",
+    "local_id": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
+    "matrix_identity": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+    "replay_identity": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+    "gate_identity": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2",
+    "classification": "DEVELOPMENT_ONLY_2023_LABELED_WALK_FORWARD",
+    "supersedes": {
+      "matrix_identity": "84e5aede6ab5e57fbd88185f587ead5b6d0be97265da5d495a417f689bbcbc8a",
+      "replay_identity": "584fefb812e36c08c54af5f66df1c49b3cc0ab51b6b45200b88b3b4855b35fd7",
+      "reason": "KICKOFF_TIME_LABEL_PARENT_INVALID"
+    },
+    "repository_gate": {
+      "path": "artifacts/pit/development_walk_forward_2023.json",
+      "sha256": "31e8eb241b56d8584cf1fcf7d714e7aad0adc21094c20280262bb9d8d7f2002b",
+      "bytes": 38536
+    },
+    "manifest": {
+      "path": "<external-data-root>/manifests/development_2023_matrix/sha256/04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68/development_2023_labeled_replay_manifest.json",
+      "sha256": "4885266e5142ab4de74be1c4055e2a2ec0fc175a16ed2b7c93c412f260ca87c4"
+    },
+    "population": {
+      "feature_rows": 1820,
+      "label_rows": 1820,
+      "games": 910,
+      "unique_games": 910,
+      "seasons": [
+        2023
+      ]
+    },
+    "development_metrics_only": true,
+    "play_drive_incremental_brier_delta": 0.004625118047243665,
+    "promotion_authority": false,
+    "closes_BAT-523": false
+  },
+  "validated_roster_domain_completeness": {
+    "child_jira_key": "BAT-567",
+    "local_id": "POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001",
+    "gate_identity": "53fd14a5ea8f43aaf51c9998141c90d13ac371e43c3f1ec502e871a185c35aa9",
+    "supersedes_gate_identity": "15f68c244da9697ca70c128eed24e6498302bebff9a085220fcb488e041d413c",
+    "classification": "ROSTER_DOMAIN_COMPLETENESS_AVAILABILITY_BLOCKED",
+    "repository_gate": {
+      "path": "artifacts/pit/roster_domain_completeness_gate.json",
+      "sha256": "c2aeae595aaca67bdd1db5a5a7cc61d6ddffe5cf3b72d6345d8f429068dfb782",
+      "bytes": 8466
+    },
+    "tamu_admitted_membership_rows_2004_2022": 1326,
+    "tamu_gamebook_availability_rows": 0,
+    "availability_admission": false,
+    "new_membership_layer_materialized": false,
+    "closes_BAT-523": false
+  },
+  "validated_2023_rankings_development_replay": {
+    "child_jira_key": "BAT-568",
+    "local_id": "POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001",
+    "contract_id": "BAT-568-2023-RANKINGS-DEVELOPMENT-REPLAY-V1",
+    "joined_matrix_identity": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
+    "run_identity": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
+    "code_identity": "8ad369f16938d220c7c2fbadea72a7f3a7c00217fff7515030818ecb906a55ae",
+    "gate_identity": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275",
+    "classification": "DEVELOPMENT_ONLY_2023_RANKINGS_AUGMENTED_WALK_FORWARD",
+    "parent_identities": {
+      "BAT-565_label_dataset": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+      "BAT-566_matrix": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+      "BAT-566_replay": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+      "BAT-527_rankings_run": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+      "BAT-527_rankings_state": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
+      "BAT-527_rankings_feature": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274"
+    },
+    "repository_gate": {
+      "path": "artifacts/pit/development_rankings_walk_forward_2023.json",
+      "sha256": "d3170d987c0a3176d4b2941e78f3756064e1eb877f07419ca04ddff114fba2db",
+      "bytes": 7340
+    },
+    "population": {
+      "team_rows": 1820,
+      "unique_games": 910,
+      "fold_count": 16,
+      "seasons": [
+        2023
+      ]
+    },
+    "predeclared_candidate_count": 4,
+    "any_candidate_improved_brier_vs_prior_only": false,
+    "development_metrics_only": true,
+    "promotion_authority": false,
+    "closes_BAT-523": false
+  },
+  "validated_development_candidate_evidence_ledger": {
+    "child_jira_key": "BAT-569",
+    "local_id": "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001",
+    "contract_id": "BAT-569-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-V1",
+    "ledger_identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43",
+    "fold_definition_identity": "21d2e562eeeddae628ec99b43c4e8c1187b53950ce4a7742066b7df3c106932a",
+    "classification": "DEVELOPMENT_ONLY_CANDIDATE_EVIDENCE_LEDGER",
+    "predeclared_candidate_count": 4,
+    "any_candidate_improved_brier_vs_prior_only": false,
+    "development_metrics_only": true,
+    "promotion_authority": false,
+    "closes_BAT-523": false,
+    "repository_ledger": {
+      "path": "artifacts/experimentation/development_candidate_evidence_ledger.json",
+      "identity": "b24e5fe221d2974c3e6c4791b8a7851da370b99746ebfc8763ee97346043dd43"
+    },
+    "parent_identities": {
+      "BAT-565_label_dataset": "bdcacebeaccd3ba69e2445420664749b961f5a3a233a3d66b355e291fa9c6bb8",
+      "BAT-566_matrix": "04e058375e11e0c53e040e8874f9bb84ca548b551fe7b54552fa7d9b4199ef68",
+      "BAT-566_replay": "09995c8baab98842fde54a006a8ac97ca132c79415158bcc405c98984aea70e2",
+      "BAT-566_gate": "e85834e9dbdc6eb1e17302e30a9d9f6b01c2e108617dc4984c5d4c17b7dd2dc2",
+      "BAT-568_joined_matrix": "a6f1c8218e9f837e4dde79ebc3281d7e287d8c36a277bc2bc7a8f16b42f65f0a",
+      "BAT-568_run": "00cee6e04bb24d48160812a4b6df6224a69388ffacb97dc6dfeb8ae138092baf",
+      "BAT-568_gate": "8613feea9beff62f56a280b3c97c8bf3dccc2e0d2b92a564b710ebbafb59f275"
+    }
+  },
+  "remaining_historical_domain_gaps": [
+    "Full historical population is not ready; BAT-523 remains a scoped 2010-2022 team-outcome / 2023-2025 prior-feature recovery.",
+    "Official team and player box scores are not materialized.",
+    "National gamebook population is incomplete; TAMU official gamebook history is not complete.",
+    "Roster membership still does not establish pregame availability.",
+    "No protected-evaluation protocol, production champion, or promoted feature set exists.",
+    "No 2023 development candidate improved team-row Brier versus prior_only; negative results are ledger-bound and must not be silently discarded.",
+    "Protected years 2024 and 2025 remain excluded from development tuning, selection, and promotion."
+  ],
+  "completion_claim": {
+    "workstream_activated": true,
+    "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
+    "nonempty_pit_state_materialized": true,
+    "matrix_approved": "EXPANDED_SCOPED_PIPELINE_INTEGRATION_ONLY",
+    "event_detail_candidate_layer_validated": true,
+    "event_detail_canonical_or_pit_admission": false,
+    "drive_detail_candidate_layer_validated": true,
+    "drive_detail_canonical_or_pit_admission": false,
+    "supplemental_play_drive_candidate_layer_validated": true,
+    "supplemental_play_drive_dense_2010_2025_candidate_coverage": true,
+    "supplemental_play_drive_canonical_pit_feature_training_or_protected_admission": false,
+    "action_derived_play_summary_candidate_layer_validated": true,
+    "action_derived_play_summary_native_play_equivalence": false,
+    "action_derived_play_summary_canonical_pit_feature_training_protected_forecast_or_publication_admission": false,
+    "play_drive_pit_aggregate_development_admitted": true,
+    "play_drive_pit_aggregate_preliminary_unprotected_training_candidate": true,
+    "play_drive_pit_aggregate_protected_training_or_evaluation_admission": false,
+    "roster_candidate_layer_validated": true,
+    "roster_canonical_pit_or_availability_admission": false,
+    "roster_domain_completeness_gate_materialized": true,
+    "roster_pregame_availability_admission": false,
+    "player_event_metric_candidate_layer_validated": true,
+    "player_event_metric_canonical_or_pit_admission": false,
+    "play_enrichment_candidate_layer_validated": true,
+    "play_enrichment_canonical_pit_feature_or_player_identity_admission": false,
+    "team_membership_candidate_layer_validated": true,
+    "team_membership_canonical_or_pit_admission": false,
+    "rankings_candidate_layer_validated": true,
+    "rankings_canonical_or_pit_admission": false,
+    "rankings_exact_dated_weekly_pit_admission": true,
+    "team_box_candidate_layer_validated": true,
+    "team_box_canonical_pit_feature_or_official_source_admission": false,
+    "structured_team_box_candidate_materialized": true,
+    "official_team_box_scores_materialized": false,
+    "advanced_game_candidate_layer_validated": true,
+    "advanced_game_canonical_pit_feature_or_protected_use_admission": false,
+    "structured_advanced_game_candidate_materialized": true,
+    "venue_assignment_candidate_layer_validated": true,
+    "venue_assignment_canonical_pit_feature_or_relocation_admission": false,
+    "historical_venue_materialized": false,
+    "player_box_candidate_layer_validated": true,
+    "player_box_canonical_pit_feature_identity_official_source_or_protected_use_admission": false,
+    "structured_player_box_candidate_materialized": true,
+    "official_player_box_scores_materialized": false,
+    "weather_previous_runs_partial_candidate_layer_validated": true,
+    "weather_previous_runs_complete_technical_candidate_layer_validated": true,
+    "weather_acquisition_complete": true,
+    "weather_canonical_pit_feature_or_protected_use_admission": false,
+    "observed_weather_substitution_used": false,
+    "tamu_official_gamebook_candidate_layer_validated": true,
+    "tamu_official_gamebook_technical_route_complete_for_exposed_targets": true,
+    "tamu_official_gamebook_canonical_pit_feature_or_protected_use_admission": false,
+    "tamu_official_gamebook_history_complete": false,
+    "national_gamebook_population_complete": false,
+    "tamu_official_2000_2009_structured_row_corpus_materialized": true,
+    "tamu_official_2000_2009_historical_known_at_from_retrieval_time": false,
+    "tamu_official_2000_2009_pit_feature_or_protected_admission": false,
+    "other_domain_expansion_continues": true,
+    "development_2023_outcome_labels_materialized": true,
+    "development_2023_outcome_protected_admission": false,
+    "development_2023_labeled_walk_forward_materialized": true,
+    "development_2023_labeled_walk_forward_protected_admission": false,
+    "development_2023_rankings_walk_forward_materialized": true,
+    "development_2023_rankings_walk_forward_protected_admission": false,
+    "development_2023_rankings_brier_improved_vs_prior_only": false,
+    "development_candidate_evidence_ledger_materialized": true,
+    "development_candidate_promoted": false,
+    "full_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "protected_model_promotion_eligible": false,
+    "scientific_result": "NOT_CLAIMED"
+  }
+}

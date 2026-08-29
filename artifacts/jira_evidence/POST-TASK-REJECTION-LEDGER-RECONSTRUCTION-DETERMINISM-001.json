@@ -1,0 +1,41 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T20:20:00Z",
+ "jira_key": "BAT-671",
+ "local_issue_id": "POST-TASK-REJECTION-LEDGER-RECONSTRUCTION-DETERMINISM-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-649",
+  "BAT-663"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "24e6e010c6064f8a21cc17a6f2ca4d371390ac31",
+ "observable_outcome": "The BAT-649 supersession ledger derived every field from committed content except material_merge_sha, which was sampled from a live 'git rev-parse HEAD'. That made the ledger identity and gate identity a function of whichever commit was checked out, so the gate self-invalidated on the first commit after materialization and mounted acceptance failed closed with 'committed rejection-integrity gate does not match independent reconstruction'. The merge SHA is now predeclared in the contract, validated for shape and authority label, and the HEAD sampling helper is deleted. The pinned value is the already-committed one, so the reproduced ledger and gate identities are byte-identical to the committed ones and the four downstream gates that bind those identities did not churn. Mounted acceptance runs 35/35 with zero skips and zero errors and repeats to a byte-identical gate identity across three consecutive runs. No historical evidence, admission decision or protected-lane state changed, and no scientific claim is made.",
+ "outputs": [
+  {
+   "path": "configs/tamu_official_1998_2009_rejection_integrity_contract.json",
+   "bytes": 1193,
+   "sha256": "ede318048a41d7ecfe886333f7d43b0b33abd16b111d4b56e1e4b771fdde7efc"
+  },
+  {
+   "path": "src/aggie_analytics/data/tamu_official_1998_2009_rejection_integrity.py",
+   "bytes": 15389,
+   "sha256": "61ba49317ed4d6314c1e207750e6c16260f7d076d110ef0a1f4627c78f93892b"
+  },
+  {
+   "path": "tests/test_tamu_official_1998_2009_rejection_integrity.py",
+   "bytes": 5309,
+   "sha256": "7cecb3665cdf75ee18a15b91992897de99c96460768790fbb29b3254cee29b39"
+  },
+  {
+   "path": "artifacts/validation/mounted_acceptance_gate.json",
+   "bytes": 7062,
+   "sha256": "f66c498517af728f9c7e995bac61c0b5bf141604a6c5f753b72dfb3f941e6db4"
+  }
+ ]
+}

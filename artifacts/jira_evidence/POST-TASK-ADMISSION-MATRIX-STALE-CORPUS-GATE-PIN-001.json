@@ -1,0 +1,61 @@
+{
+ "schema_version": "2.1.0",
+ "evidence_manifest_type": "jira_issue_completion_evidence",
+ "created_at_utc": "2026-08-29T20:20:00Z",
+ "jira_key": "BAT-672",
+ "local_issue_id": "POST-TASK-ADMISSION-MATRIX-STALE-CORPUS-GATE-PIN-001",
+ "parent_jira_key": "BAT-523",
+ "related_jira_keys": [
+  "BAT-653",
+  "BAT-663"
+ ],
+ "new_issue_decision": "CREATE",
+ "workflow_state": "IN_PROGRESS",
+ "evidence_state": "VERIFIED",
+ "issue_complete": true,
+ "completeness_claimed": false,
+ "material_merge_sha": "6845e51e4502c7311bd926afe0059e490a817ec1",
+ "observable_outcome": "The BAT-653 admission matrix pinned the SHA-256 of the 1996-2009 structured row corpus gate as a precommitted input. That pin was correct when BAT-653 was authored against the BAT-649 state of the gate. Cycle #21 Phase 3 (BAT-663) legitimately superseded the gate's dataset, union, rejection and upstream structured identities but did not rebind the pin, so both mounted matrix test classes errored in setUpClass with 'pinned input SHA-256 drift'. Those were the only two errors remaining in the full mounted suite. The pin is rebound, the superseded digest and reason are recorded beside it, and the three gates whose identities derive from it were re-materialized: the admission matrix, the chronological development matrix, and the expectation baselines and peers. A semantic diff of all three reports zero changes outside content-addressed identities and payload pointers, so no admission decision, coverage metric, population count, expectation, baseline or peer result moved. A new repository-wide validator reports stale repo-relative input pins directly; it exits non-zero on the pre-fix tree and zero on this one. No protected-lane state changed and no scientific claim is made.",
+ "outputs": [
+  {
+   "path": "configs/national_pit_domain_admission_matrix_contract.json",
+   "bytes": 13348,
+   "sha256": "e7fb713d86f7cc1f17ca20d28605a4952d4c89e382037b6e256935e8fabcbf16"
+  },
+  {
+   "path": "configs/national_chronological_development_matrix_contract.json",
+   "bytes": 4368,
+   "sha256": "d412aa8bc0c85846bdc704e6bbd3df68f092e6474c8f3c004549aeb4d9b70fed"
+  },
+  {
+   "path": "configs/national_expectation_baselines_and_peers_contract.json",
+   "bytes": 9366,
+   "sha256": "51ca2a40a4558ec7d988860d730fbfe96978eb5438721f28d3ff8411e54bb85c"
+  },
+  {
+   "path": "artifacts/data_lake/national_pit_domain_admission_matrix_gate.json",
+   "bytes": 40822,
+   "sha256": "e718637243ac6fd24781c8bf975dd1813180245d9b158a542282bbdb17a3e592"
+  },
+  {
+   "path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+   "bytes": 19402,
+   "sha256": "e5e09d93b638a27669d7097e506e0e3341a15a9a2fd9c03f026b591f2a3b071d"
+  },
+  {
+   "path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+   "bytes": 49916,
+   "sha256": "9142cf8a57b629c3b0b396411a01d8db5a8667610e0f179c379aa25ad9ff05d5"
+  },
+  {
+   "path": "tools/validate_contract_input_pins.py",
+   "bytes": 3728,
+   "sha256": "ac41d422ac89deb39e5a513ce56e18acba12f4d77428defbb1466c81fa53e3d2"
+  },
+  {
+   "path": "tests/test_contract_input_pins.py",
+   "bytes": 4969,
+   "sha256": "8dcde2ea0897b86b741e351f3b7710d18ef7f37ba992ffc11cbc189a4ee0124a"
+  }
+ ]
+}

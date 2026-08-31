@@ -133,7 +133,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010–2011 official-evidence gaps."
+      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010\u20132011 official-evidence gaps."
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -148,7 +148,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-4",
       "status": "Done",
-      "summary": "Recover missing 2010–2011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
+      "summary": "Recover missing 2010\u20132011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -163,7 +163,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-5",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010–2011 Texas A&M cross-source domain admission gate"
+      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M cross-source domain admission gate"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -193,7 +193,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-2",
       "status": "Done",
-      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010–2011"
+      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010\u20132011"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -208,7 +208,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010–2011 Texas A&M season-level cross-source reconciliation"
+      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M season-level cross-source reconciliation"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -1649,6 +1649,36 @@
       "phase": "PHASE-3",
       "status": "Done",
       "summary": "[POST-TASK-MOUNTED-ACCEPTANCE-HEAD-SAMPLING-001] Stop sampling git HEAD inside the mounted acceptance gate so its identity is reproducible across commits"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-674",
+      "local_id": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "Done",
+      "summary": "[POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001] Score temporally eligible Week Zero 2026 frozen forecasts from independently verified official finals and materialize prospective national residual evidence"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-675",
+      "local_id": "POST-TASK-2026-CYCLE21-AUTHORITY-PURITY-HARDENING-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "Done",
+      "summary": "[POST-TASK-2026-CYCLE21-AUTHORITY-PURITY-HARDENING-001] Own checkout-authority pin validation, second-pass read-only purity, and BAT-523 comment-ledger supersession hardening"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

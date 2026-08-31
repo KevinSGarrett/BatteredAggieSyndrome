@@ -1,0 +1,170 @@
+{
+  "artifact_type": "CYCLE22_WEEK_ZERO_FINAL_REPORT",
+  "bound_authority": {
+    "acquisition_capture_identity": "029e5b5d30264124861b6fb1aa4091b2b5e6ef9baf32558ad72aaf9f3bca2e2f",
+    "predecessor_bat665_gate_identity": "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2",
+    "scoring_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+    "scoring_gate_relative_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json",
+    "scoring_gate_sha256": "333ccf6c1cb4881b03db04c5fcbb8568a60ad34df30f40230ded588485a4fe70"
+  },
+  "classification": "POST_MERGE_FINAL",
+  "contest_state_counts": {
+    "MISSED_CUTOFF_NO_BACKFILL": 2,
+    "SCORED": 6
+  },
+  "cycle": 22,
+  "cycle_ending_sha": "140dba42a2593b56985a375cdcc550667cfaf56d",
+  "forecast_state_counts": {
+    "SCORED": 12
+  },
+  "governance": {
+    "bat401_state": "DONE_RETAIN_PROTECTED_LANE_BLOCKED",
+    "bat429_state": "BLOCKED",
+    "bat523_state": "IN_PROGRESS",
+    "gap005_state": "OPEN",
+    "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "protected_seasons_sealed": [
+      "2024",
+      "2025"
+    ]
+  },
+  "material_merges": [
+    {
+      "jira_key": "BAT-675",
+      "merge_sha": "e29a8b0ff6dd5e004d9786f73d3da50d6ab0bd0c",
+      "pull_request": 647,
+      "scope": "Checkout-authority pin validation, second-pass read-only purity and BAT-523 comment-ledger supersession hardening"
+    },
+    {
+      "jira_key": "BAT-674",
+      "merge_sha": "140dba42a2593b56985a375cdcc550667cfaf56d",
+      "pull_request": 648,
+      "scope": "Corrected Week Zero 2026 official-final capture semantics, orientation proof, identity binding, metric denominators and independent reconstruction"
+    }
+  ],
+  "metrics_by_candidate": {
+    "national_base_rate": {
+      "abstention_count": 0,
+      "brier_score": 0.25,
+      "classification_threshold_behaviour": "PROBABILITY_EXACTLY_ONE_HALF_IS_NO_DIRECTION_AND_IS_EXCLUDED_FROM_DIRECTIONAL_METRICS",
+      "coverage": 1.0,
+      "directional_accuracy": null,
+      "directional_row_count": 0,
+      "log_loss": 0.6931471805599453,
+      "mean_absolute_residual": 0.5,
+      "missed_cutoff_with_no_forecast_count": 2,
+      "pending_row_count": 0,
+      "populated_calibration_bins": [
+        {
+          "bin_lower": 0.5,
+          "bin_upper": 0.6,
+          "empirical_win_rate": 0.6666666666666666,
+          "mean_predicted_probability": 0.5,
+          "observed_wins": 4,
+          "row_count": 6,
+          "tiny_sample_warning": true
+        }
+      ],
+      "predeclared_eligible_frozen_opportunity_count": 6,
+      "scored_row_count": 6,
+      "temporal_exclusion_count": 0,
+      "unsupported_count": 2
+    },
+    "national_elo": {
+      "abstention_count": 0,
+      "brier_score": 0.2156487329205757,
+      "classification_threshold_behaviour": "PROBABILITY_EXACTLY_ONE_HALF_IS_NO_DIRECTION_AND_IS_EXCLUDED_FROM_DIRECTIONAL_METRICS",
+      "coverage": 1.0,
+      "directional_accuracy": 0.6666666666666666,
+      "directional_row_count": 6,
+      "log_loss": 0.6198642675491248,
+      "mean_absolute_residual": 0.4513265616666666,
+      "missed_cutoff_with_no_forecast_count": 2,
+      "pending_row_count": 0,
+      "populated_calibration_bins": [
+        {
+          "bin_lower": 0.3,
+          "bin_upper": 0.4,
+          "empirical_win_rate": 1.0,
+          "mean_predicted_probability": 0.38505461,
+          "observed_wins": 1,
+          "row_count": 1,
+          "tiny_sample_warning": true
+        },
+        {
+          "bin_lower": 0.4,
+          "bin_upper": 0.5,
+          "empirical_win_rate": 0.0,
+          "mean_predicted_probability": 0.46300163,
+          "observed_wins": 0,
+          "row_count": 1,
+          "tiny_sample_warning": true
+        },
+        {
+          "bin_lower": 0.5,
+          "bin_upper": 0.6,
+          "empirical_win_rate": 0.6666666666666666,
+          "mean_predicted_probability": 0.5402610433333334,
+          "observed_wins": 2,
+          "row_count": 3,
+          "tiny_sample_warning": true
+        },
+        {
+          "bin_lower": 0.7,
+          "bin_upper": 0.8,
+          "empirical_win_rate": 1.0,
+          "mean_predicted_probability": 0.75056252,
+          "observed_wins": 1,
+          "row_count": 1,
+          "tiny_sample_warning": true
+        }
+      ],
+      "predeclared_eligible_frozen_opportunity_count": 6,
+      "scored_row_count": 6,
+      "temporal_exclusion_count": 0,
+      "unsupported_count": 2
+    }
+  },
+  "official_capture_summary": {
+    "admissible_final_capture_count": 1,
+    "capture_count": 3,
+    "source_substitution_capture_count": 2,
+    "source_substitution_observation_count": 16,
+    "unique_official_final_count": 8
+  },
+  "pooled_model_row_diagnostics": {
+    "diagnostic_scope": "POOLED_ACROSS_EVERY_CANDIDATE_ROW_NOT_CONTEST_LEVEL",
+    "pooled_candidate_count": 2,
+    "pooled_expected_home_wins": 6.219401889999999,
+    "pooled_home_win_row_count": 8,
+    "pooled_scored_row_count": 12
+  },
+  "predecessor_cycle_ending_sha": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
+  "report_identity": "c58d5ad6c458df7af00742a7baa666e5922baa566ec8adfb552c81af25e5e409",
+  "schema_version": "aggie.shadow.cycle22_week_zero_final_report.v1",
+  "scientific_nonclaims": {
+    "no_bas_or_aggie_excess_claim": true,
+    "no_production_or_specialization_claim": true,
+    "no_tuning_selection_or_promotion_from_these_results": true,
+    "tiny_population_no_calibration_or_champion_claim": true
+  },
+  "superseded_pre_merge_report": {
+    "classification": "HISTORICAL_PRE_MERGE",
+    "relative_path": "artifacts/shadow/cycle22_week_zero_completion_report.json"
+  },
+  "unique_contest_outcome_diagnostics": {
+    "contest_level_observed_away_wins": 2,
+    "contest_level_observed_home_wins": 4,
+    "diagnostic_scope": "UNIQUE_CONTEST_OUTCOMES_COUNTED_ONCE_PER_CONTEST",
+    "home_win_by_contest": {
+      "6586325": 0,
+      "6594398": 1,
+      "6594883": 1,
+      "6597632": 1,
+      "6603618": 1,
+      "6616111": 0
+    },
+    "unique_scored_contest_count": 6
+  }
+}

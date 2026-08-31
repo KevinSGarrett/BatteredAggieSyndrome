@@ -4304,6 +4304,95 @@
         "predecessor_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
       }
+    },
+    {
+      "binding_id": "BAT-678-WEEK1-2026-FEATURE-COVERAGE-ADEQUACY",
+      "bound_child_identities": {
+        "contract_sha256": "00b10f201de97d9004fb86c2fdbf2d5e09c74ef68d2f12b567a187eb2a63343e",
+        "core_module_sha256": "14bf3c17489ee899be623d4f2aa7a439101e54eaed3dc44d049db23eac1d55a6",
+        "dataset_identity": "200b3cb594dfca5cd04331fa07a1e3d3005b4d40a33b3b1b457413cc78dc1624",
+        "dataset_manifest_sha256": "25b7d96f5c95108145a34be6bd08e6c948ebe2b5bf2903d5f17a409f434b54e9",
+        "feature_spine_dataset_identity": "051f1b3fc3ae9b2940135be67f1906f5c800ec0ecad55ff5d9e1df4bb8dba8d6",
+        "feature_spine_gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+        "feature_spine_gate_sha256": "f5b00ffbae346a0fffeb7b5a297712a5f8fe264c9d704e84a7a14225e5df17af",
+        "feature_spine_payload_root_sha256": "bf7c7e3d18bdd6137aa83e076838437a5833a8d8a7dc6eb642d00de5ba94db2d",
+        "frozen_candidate_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+        "frozen_candidate_gate_sha256": "9142cf8a57b629c3b0b396411a01d8db5a8667610e0f179c379aa25ad9ff05d5",
+        "payload_root_sha256": "f6cb86f2e29b6912e4e88ef1eecf6c2f464e73309ff3f5931314457f7c4b45e1",
+        "producer_sha256": "5b763be7eda73b60bac8d01dd035eca1d24312b6609fe89bb3a7e03a0ed6c0ef",
+        "validator_sha256": "605436136588fc9b0b23c373a73ed961cc5112a07e09e679b913d076b09c01fd",
+        "week1_2026_candidate_adequacy_payload_identity": "dd9370cdf54f508899099586d6ff8669f47fc8ad1978ba4f2b59510df3681368",
+        "week1_2026_contest_adequacy_payload_identity": "6b2a5ddce81b832b44734cfc82dbaa837b3eac7f06bddbe4436079da748707a5",
+        "week1_schedule_identity_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+        "week1_schedule_identity_gate_sha256": "436a54e56cadc9528f6bf14adda06a9a62cf32824ea84a9341378f3d1390077d"
+      },
+      "canonical_artifact_path": "artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "summary.contest_count",
+              "evidence_path": "summary.contest_count"
+            },
+            {
+              "canonical_path": "summary.candidate_row_count",
+              "evidence_path": "summary.candidate_row_count"
+            },
+            {
+              "canonical_path": "summary.verified_availability_total",
+              "evidence_path": "summary.verified_availability_total"
+            },
+            {
+              "canonical_path": "focus_contest_report.ncaa_contest_id",
+              "evidence_path": "focus_contest_report.ncaa_contest_id"
+            }
+          ],
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "authority.champion_or_production_promotion",
+        "authority.forecast_produced",
+        "authority.model_selection_or_tuning",
+        "authority.protected_lane_admission",
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.calibration_or_performance_claim",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.forecast_published",
+        "scientific_nonclaims.model_tuning_or_promotion",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.specialization_lift",
+        "scientific_nonclaims.tamu_specific_adjustment_applied",
+        "tamu_policy.tamu_specific_adjustment_applied"
+      ],
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-678",
+      "local_issue_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
+      "required_equal": {
+        "jira_key": "BAT-678",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "local_issue_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
+        "parent_jira_key": "BAT-523",
+        "predecessor_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+      }
     }
   ],
   "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",

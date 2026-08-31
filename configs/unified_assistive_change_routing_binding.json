@@ -1,41 +1,38 @@
 {
   "allowed_paths": [
-    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json",
-    "artifacts/spine/week1_2026_current_feature_spine_gate.json",
+    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001.json",
+    "artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json",
     "configs/artifact_binding_contract.json",
-    "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle23_material_ownership_registry.json",
-    "configs/unified_assistive_change_routing_binding.json",
-    "configs/week1_2026_current_feature_spine_contract.json",
+    "configs/week1_2026_feature_coverage_adequacy_contract.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/week1_2026_current_feature_spine.py",
-    "tests/test_week1_2026_current_feature_spine.py",
-    "tools/acquire_week1_2026_current_context.py",
-    "tools/build_week1_2026_current_feature_spine.py",
-    "tools/validate_week1_2026_current_feature_spine.py"
+    "src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py",
+    "tests/test_week1_2026_feature_coverage_adequacy.py",
+    "tools/build_week1_2026_feature_coverage_adequacy.py",
+    "tools/validate_week1_2026_feature_coverage_adequacy.py"
   ],
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "32f25c17d6dbcf9095efaea283311c14dbd1fd9c3624d4cc1468875cc62002bb",
+  "decision_sha256": "c280b68f048d0fb0676281f2518918dc83a67122321d70cb86f4f1b457cd9d29",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
-  "downstream_consumer": "tools/validate_week1_2026_current_feature_spine.py",
-  "jira_identity": "BAT-677",
+  "downstream_consumer": "tools/validate_week1_2026_feature_coverage_adequacy.py",
+  "jira_identity": "BAT-678",
   "ordinary_project_work_authorized": false,
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_23",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "schema_version": 1,
-  "scope": "Timestamped national Week 1 current-feature spine with explicit temporal admission and missingness",
-  "source_commit": "f736353c3d01b973958c9d46dd3fc83d4dd3e61d",
+  "scope": "Independent Week 1 feature coverage, temporal eligibility and forecast-input adequacy validation without producing a model",
+  "source_commit": "8fab72ee649b04b8f8a748185cd11d936d670792",
   "user_explicit_waiver": {
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "instruction_sha256": "eda6742adfb80acc1eef38960fb9d7868e13a6bd5d5d4719bac5ef2a3945bc27",
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_23\nExecute all Cycle #23 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
-    "work_unit_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001"
+    "work_unit_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001"
   },
-  "work_unit_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001"
+  "work_unit_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001"
 }

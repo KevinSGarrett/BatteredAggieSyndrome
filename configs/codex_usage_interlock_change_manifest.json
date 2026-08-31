@@ -1,28 +1,25 @@
 {
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "base_commit": "f736353c3d01b973958c9d46dd3fc83d4dd3e61d",
+  "base_commit": "8fab72ee649b04b8f8a748185cd11d936d670792",
   "changed_paths": [
-    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json",
-    "artifacts/spine/week1_2026_current_feature_spine_gate.json",
+    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001.json",
+    "artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json",
     "configs/artifact_binding_contract.json",
-    "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle23_material_ownership_registry.json",
-    "configs/unified_assistive_change_routing_binding.json",
-    "configs/week1_2026_current_feature_spine_contract.json",
+    "configs/week1_2026_feature_coverage_adequacy_contract.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/week1_2026_current_feature_spine.py",
-    "tests/test_week1_2026_current_feature_spine.py",
-    "tools/acquire_week1_2026_current_context.py",
-    "tools/build_week1_2026_current_feature_spine.py",
-    "tools/validate_week1_2026_current_feature_spine.py"
+    "src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py",
+    "tests/test_week1_2026_feature_coverage_adequacy.py",
+    "tools/build_week1_2026_feature_coverage_adequacy.py",
+    "tools/validate_week1_2026_feature_coverage_adequacy.py"
   ],
-  "jira_identity": "BAT-677",
-  "manifest_identity": "f3de254605f4dd5ea118e1aba663cea727fe877d2180370a1eea60c340253930",
+  "jira_identity": "BAT-678",
+  "manifest_identity": "7001102b9e294c42ae17fb003c1ae1db11d951d01fcc39598f9e6bbd00a70fcb",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "32f25c17d6dbcf9095efaea283311c14dbd1fd9c3624d4cc1468875cc62002bb",
+  "pre_routing_decision_sha256": "c280b68f048d0fb0676281f2518918dc83a67122321d70cb86f4f1b457cd9d29",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
-  "work_unit_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001"
+  "work_unit_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001"
 }

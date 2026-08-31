@@ -1,0 +1,227 @@
+{
+ "schema_version": "aggie.shadow.week1_2026_authority_enrichment.v1",
+ "contract_id": "CYCLE24-WEEK1-2026-AUTHORITY-ENRICHMENT-V1",
+ "decision_unit": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
+ "local_issue_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
+ "jira_key": "BAT-683",
+ "parent_jira_key": "BAT-523",
+ "new_issue_decision": "CREATE",
+ "classification": "WEEK1_2026_CURRENT_AUTHORITY_ENRICHMENT",
+ "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+ "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+ "season": 2026,
+ "week_label": "WEEK_1",
+ "summary": "Bind official kickoff, participant identity, ranking and venue authority for the 2026 Week 1 universe without rewriting any Cycle #23 artifact.",
+ "authority_semantics": {
+  "kickoff": "The official NCAA scoreboard contest graph publishes an absolute kickoff instant per contest. An independent confirmation exists only when the official instant agrees with the predecessor schedule bound for the same cross-source identity tuple.",
+  "entity": "An unresolved source participant is resolved only when the official organization history page for its official organization identifier links the exact season team identifier that the official schedule already carries, and publishes that season's subdivision and conference.",
+  "ranking": "A poll alias is bound only when an official surface publishes the same rank value against an official team slug whose canonical entity is already present in the Week 1 universe.",
+  "venue": "An institution is the venue authority for its own home contests. A venue capture licenses only the contests it names.",
+  "weather": "Weather never becomes admitted model input from inferred coordinates."
+ },
+ "cross_source_identity_tuple": [
+  "requested_game_date",
+  "home_normalized_name_key",
+  "away_normalized_name_key"
+ ],
+ "identity_rules": {
+  "forbid_display_name_only_resolution": true,
+  "forbid_fuzzy_threshold_reduction": true,
+  "require_official_organization_identifier": true,
+  "require_season_team_identifier_link": true,
+  "require_exact_rank_agreement_for_alias_binding": true
+ },
+ "sources": {
+  "spine_semantic_successor": {
+   "gate_relative_path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json",
+   "gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
+   "row_payload_name": "week1_2026_successor_spine_rows.jsonl"
+  },
+  "schedule_identity": {
+   "gate_relative_path": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
+   "gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+   "contest_payload_name": "week1_2026_contest_identity.jsonl",
+   "participant_payload_name": "week1_2026_participant_identity.jsonl"
+  },
+  "kickoff_authority_capture": {
+   "source_id": "SRC-NCAA-OFFICIAL-COM",
+   "manifest_relative_path": "manifests/shadow/week1_2026_kickoff_authority/sha256/7641921593e1e3ffc12bd04541574daa73f2dcc3f1e7faf010383b1933a9602d/week1_2026_kickoff_authority_capture_manifest.json",
+   "capture_identity": "7641921593e1e3ffc12bd04541574daa73f2dcc3f1e7faf010383b1933a9602d",
+   "raw_sha256": "b96987ce725254883b21e8ef76633fc2903867b845f998a5f5a6ee331fbe00f2",
+   "source_uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/01/all-conf",
+   "embedded_graph_key": "initialGames"
+  },
+  "entity_authority_capture": {
+   "source_id": "SRC-NCAA-OFFICIAL-STATS",
+   "manifest_relative_path": "manifests/shadow/week1_2026_entity_authority/sha256/35842c29357e21707ea11b822187bc222be51d8bf562c142929e0568b98894bd/week1_2026_entity_authority_capture_manifest.json",
+   "capture_identity": "35842c29357e21707ea11b822187bc222be51d8bf562c142929e0568b98894bd",
+   "expected_capture_count": 8
+  },
+  "venue_authority_capture": {
+   "source_id": "SRC-TAMU-OFFICIAL-ATHLETICS",
+   "manifest_relative_path": "manifests/shadow/week1_2026_venue_authority/sha256/0c1d32170921003211a443671e98a89a2c21c2d6b5674a95bc16fbb60c4fdc42/week1_2026_venue_authority_capture_manifest.json",
+   "capture_identity": "0c1d32170921003211a443671e98a89a2c21c2d6b5674a95bc16fbb60c4fdc42",
+   "raw_sha256": "b204ab8c3402f099fa1828feca57d1cc2a816d111df0e081798e7e45ddfa54f9",
+   "source_uri": "https://12thman.com/sports/football/schedule/2026",
+   "licensed_home_normalized_name_key": "texas a&m",
+   "licensed_contests": [
+    {
+     "away_normalized_name_key": "missouri st",
+     "institutional_published_name_key": "missouri state",
+     "alias_authority": "THE_INSTITUTION_PUBLISHES_THE_UNABBREVIATED_OPPONENT_NAME_FOR_THE_SAME_DATED_HOME_CONTEST"
+    }
+   ]
+  },
+  "ranking_capture": {
+   "source_id": "SRC-NCAA-OFFICIAL-COM",
+   "manifest_relative_path": "manifests/shadow/week1_2026_current_rankings/sha256/926be826b89f7f6addec8906242358735158170baea099e03012acaec3aa8054/week1_2026_current_rankings_capture_manifest.json",
+   "capture_identity": "926be826b89f7f6addec8906242358735158170baea099e03012acaec3aa8054",
+   "raw_sha256": "7b62fa59d14d98750c9ec6f7dd6cb4098a070f6ea14af62225b20b76c233662e",
+   "poll_id": "ASSOCIATED_PRESS_FBS_TOP_25",
+   "expected_ranked_row_count": 25
+  }
+ },
+ "unresolved_participants": [
+  {
+   "source_display_name": "Mercyhurst",
+   "source_team_id": "622349",
+   "official_organization_id": 408
+  },
+  {
+   "source_display_name": "West Ga.",
+   "source_team_id": "622350",
+   "official_organization_id": 766
+  },
+  {
+   "source_display_name": "LIU",
+   "source_team_id": "622352",
+   "official_organization_id": 361
+  },
+  {
+   "source_display_name": "Alcorn",
+   "source_team_id": "622358",
+   "official_organization_id": 17
+  },
+  {
+   "source_display_name": "Mississippi Val.",
+   "source_team_id": "622407",
+   "official_organization_id": 432
+  },
+  {
+   "source_display_name": "N.C. A&T",
+   "source_team_id": "622417",
+   "official_organization_id": 488
+  },
+  {
+   "source_display_name": "Southeastern La.",
+   "source_team_id": "622443",
+   "official_organization_id": 655
+  },
+  {
+   "source_display_name": "UTRGV",
+   "source_team_id": "622444",
+   "official_organization_id": 536
+  }
+ ],
+ "ranking_alias_bindings": [
+  {
+   "poll_display_name": "Southern Cal",
+   "official_team_slug": "southern-california",
+   "canonical_team_id": "SRC-002:TEAM:30",
+   "normalized_name_key": "southern california",
+   "declared_rank": 14,
+   "tie_group": "T14",
+   "binding_rule": "OFFICIAL_SLUG_AND_RANK_AGREEMENT_ACROSS_TWO_OFFICIAL_SURFACES"
+  }
+ ],
+ "ranking_states": [
+  "RANKED_TOP_25",
+  "FBS_POLL_ELIGIBLE_UNRANKED",
+  "NOT_APPLICABLE_FBS_POLL",
+  "POLL_ROW_UNBOUND"
+ ],
+ "forbidden_ranking_encodings": {
+  "unranked_as_rank_26": false,
+  "fcs_as_ordinary_unranked_fbs": false
+ },
+ "kickoff_confirmation_states": [
+  "INDEPENDENTLY_CONFIRMED",
+  "OFFICIAL_INSTANT_DISAGREES_WITH_PREDECESSOR_BOUND",
+  "OFFICIAL_INSTANT_ABSENT"
+ ],
+ "venue_identity_states": [
+  "AUTHORITATIVE_VENUE_IDENTITY_BOUND",
+  "SOURCE_EVIDENCE_ABSENT"
+ ],
+ "venue_coordinate_states": [
+  "AUTHORITATIVE_COORDINATES_BOUND",
+  "CANDIDATE_ONLY",
+  "SOURCE_EVIDENCE_ABSENT"
+ ],
+ "weather_policy": {
+  "admitted_requires_authoritative_venue_identity": true,
+  "admitted_requires_authoritative_coordinates": true,
+  "expected_state_when_unsupported": "CANDIDATE_ONLY_NOT_CONSUMED",
+  "observed_postgame_weather_forbidden": true
+ },
+ "entity_dispositions": [
+  "RESOLVED_AUTHORITATIVE_IDENTITY",
+  "ABSTAIN_UNSUPPORTED_ENTITY"
+ ],
+ "focus_contest": {
+  "requested_game_date": "2026-09-05",
+  "home_normalized_name_key": "texas a&m",
+  "away_normalized_name_key": "missouri st",
+  "expected_kickoff_utc": "2026-09-05T23:00:00Z",
+  "expected_local_kickoff": "6:00 p.m. Central",
+  "expected_venue_identity": "Kyle Field",
+  "expected_venue_city": "College Station"
+ },
+ "authority": {
+  "acquisition_is_offline_at_validation_time": true,
+  "declared_source_order": [
+   "REGISTERED_STRUCTURED_API_WITH_VALID_QUOTA",
+   "OFFICIAL_NCAA_OR_OFFICIAL_INSTITUTIONAL_SOURCE",
+   "DECLARED_OFFICIAL_PAGE_RENDERING_ROUTE",
+   "CROSS_CHECK_ONLY"
+  ],
+  "cfbd_quota_state": "QUOTA_EXHAUSTED_429_RECEIPT_PRESERVED",
+  "cfbd_credential_absent": false,
+  "credential_values_logged": false
+ },
+ "checkpoints": {
+  "t_minus_24h_state": "OPEN",
+  "t_minus_90m_state": "OPEN",
+  "executed_early": false,
+  "pregame_result_access": false,
+  "week1_outcome_access": false
+ },
+ "protected_evidence": {
+  "excluded_protected_seasons": [
+   2024,
+   2025
+  ],
+  "target_outcome_read": false,
+  "week1_outcome_read": false
+ },
+ "scientific_nonclaims": [
+  "NO_BAS_CLAIM",
+  "NO_AGGIE_EXCESS_CLAIM",
+  "NO_CHAMPION_CLAIM",
+  "NO_PRODUCTION_READINESS_CLAIM",
+  "NO_PROTECTED_PERFORMANCE_CLAIM"
+ ],
+ "tamu_policy": {
+  "custom_correction_applied": false,
+  "tamu_specific_adjustment_applied": false
+ },
+ "predecessor_immutability": {
+  "rewrites_predecessor_artifacts": false,
+  "bound_predecessor_gate_identities": [
+   "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+   "c411192f556c8d44fafff8843bc450634ad5111ecd26ded57e3fbd17fdd8e729",
+   "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+   "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6"
+  ]
+ }
+}

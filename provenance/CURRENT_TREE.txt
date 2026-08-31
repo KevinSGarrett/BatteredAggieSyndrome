@@ -134,6 +134,7 @@ artifacts/experimentation/national_multi_year_walk_forward_gate.json
 artifacts/experimentation/national_multi_year_walk_forward_replay.json
 artifacts/experimentation/peer_and_tamu_residual_stability_gate.json
 artifacts/experimentation/peer_and_tamu_residual_stability_replay.json
+artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json
 artifacts/forecast/week1_2026_national_forecast_suite_gate.json
 artifacts/governance/protected_split_exposure_audit.json
 artifacts/implementation_preflight/credential_inventory.redacted.json
@@ -257,6 +258,7 @@ artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json
+artifacts/jira_evidence/POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001.json
@@ -695,6 +697,7 @@ configs/validation_science_registry.json
 configs/versioned_play_drive_gap_contract.json
 configs/week1_2026_authority_enrichment_contract.json
 configs/week1_2026_current_feature_spine_contract.json
+configs/week1_2026_early_forecast_adequacy_contract.json
 configs/week1_2026_feature_coverage_adequacy_contract.json
 configs/week1_2026_frozen_strength_prior_contract.json
 configs/week1_2026_national_forecast_suite_contract.json
@@ -3543,6 +3546,7 @@ src/aggie_analytics/data/tamu_official_statcrew_preformatted.py
 src/aggie_analytics/data/tamu_season_reconciliation.py
 src/aggie_analytics/data/week1_2026_authority_enrichment.py
 src/aggie_analytics/data/week1_2026_current_feature_spine.py
+src/aggie_analytics/data/week1_2026_early_forecast_adequacy.py
 src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py
 src/aggie_analytics/data/week1_2026_frozen_strength_prior.py
 src/aggie_analytics/data/week1_2026_national_forecast_suite.py
@@ -3968,6 +3972,7 @@ tests/test_w25_final_handoff.py
 tests/test_wave03_governance.py
 tests/test_week1_2026_authority_enrichment.py
 tests/test_week1_2026_current_feature_spine.py
+tests/test_week1_2026_early_forecast_adequacy.py
 tests/test_week1_2026_feature_coverage_adequacy.py
 tests/test_week1_2026_frozen_strength_prior.py
 tests/test_week1_2026_national_forecast_suite.py
@@ -4138,6 +4143,7 @@ tools/build_unified_assistive_release.py
 tools/build_versioned_play_drive_gap.py
 tools/build_week1_2026_authority_enrichment.py
 tools/build_week1_2026_current_feature_spine.py
+tools/build_week1_2026_early_forecast_adequacy.py
 tools/build_week1_2026_feature_coverage_adequacy.py
 tools/build_week1_2026_frozen_strength_prior.py
 tools/build_week1_2026_national_forecast_suite.py
@@ -4431,6 +4437,7 @@ tools/validate_w25_final.py
 tools/validate_wave_pair.py
 tools/validate_week1_2026_authority_enrichment.py
 tools/validate_week1_2026_current_feature_spine.py
+tools/validate_week1_2026_early_forecast_adequacy.py
 tools/validate_week1_2026_feature_coverage_adequacy.py
 tools/validate_week1_2026_frozen_strength_prior.py
 tools/validate_week1_2026_national_forecast_suite.py

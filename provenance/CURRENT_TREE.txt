@@ -256,6 +256,7 @@ artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001.json
+artifacts/jira_evidence/POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001.json
 artifacts/jira_evidence/POST-TASK-ADMISSION-MATRIX-STALE-CORPUS-GATE-PIN-001.json
 artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
@@ -466,6 +467,7 @@ artifacts/source_governance/supplemental_rights_decisions.csv
 artifacts/source_governance/tier1_rights_decisions.csv
 artifacts/spine/week1_2026_current_feature_spine_gate.json
 artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json
+artifacts/spine/week1_2026_spine_semantic_successor_gate.json
 artifacts/validation/cycle19_final_evidence_snapshot.json
 artifacts/validation/mounted_acceptance_gate.json
 configs/acceptance_registry.json
@@ -484,6 +486,7 @@ configs/codex_usage_interlock_change_manifest.json
 configs/context_intelligence_registry.json
 configs/cpu_worker_qualification.json
 configs/cycle23_material_ownership_registry.json
+configs/cycle24_material_ownership_registry.json
 configs/development_2023_labeled_replay_contract.json
 configs/development_2023_outcome_identity_contract.json
 configs/development_candidate_feature_registry.json
@@ -687,6 +690,7 @@ configs/versioned_play_drive_gap_contract.json
 configs/week1_2026_current_feature_spine_contract.json
 configs/week1_2026_feature_coverage_adequacy_contract.json
 configs/week1_2026_official_schedule_identity_contract.json
+configs/week1_2026_spine_semantic_successor_contract.json
 configs/week_zero_2026_calendar_and_t7d_contract.json
 configs/week_zero_2026_cfbd_get_games_acquisition.json
 configs/week_zero_2026_live_execution_contract.json
@@ -3531,6 +3535,7 @@ src/aggie_analytics/data/tamu_season_reconciliation.py
 src/aggie_analytics/data/week1_2026_current_feature_spine.py
 src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py
 src/aggie_analytics/data/week1_2026_official_schedule_identity.py
+src/aggie_analytics/data/week1_2026_spine_semantic_successor.py
 src/aggie_analytics/data/week_zero_2026_calendar.py
 src/aggie_analytics/entities/__init__.py
 src/aggie_analytics/entities/candidates.py
@@ -3722,6 +3727,7 @@ tests/test_core_registry.py
 tests/test_cpu_worker_backend.py
 tests/test_cursor_review_disposition.py
 tests/test_cycle23_routing_manifest_coverage.py
+tests/test_cycle24_routing_manifest_coverage.py
 tests/test_data_research.py
 tests/test_development_2023_labeled_replay.py
 tests/test_development_2023_outcomes.py
@@ -3951,6 +3957,7 @@ tests/test_wave03_governance.py
 tests/test_week1_2026_current_feature_spine.py
 tests/test_week1_2026_feature_coverage_adequacy.py
 tests/test_week1_2026_official_schedule_identity.py
+tests/test_week1_2026_spine_semantic_successor.py
 tests/test_week_zero_2026_calendar_and_t7d.py
 tests/test_week_zero_2026_live_shadow_execution.py
 tests/test_week_zero_2026_official_final_acquisition_blocked.py
@@ -4116,6 +4123,7 @@ tools/build_versioned_play_drive_gap.py
 tools/build_week1_2026_current_feature_spine.py
 tools/build_week1_2026_feature_coverage_adequacy.py
 tools/build_week1_2026_official_schedule_identity.py
+tools/build_week1_2026_spine_semantic_successor.py
 tools/build_week_zero_2026_calendar_and_t7d_authority.py
 tools/build_week_zero_2026_live_shadow_execution.py
 tools/build_week_zero_2026_official_final_acquisition_blocked.py
@@ -4405,6 +4413,7 @@ tools/validate_wave_pair.py
 tools/validate_week1_2026_current_feature_spine.py
 tools/validate_week1_2026_feature_coverage_adequacy.py
 tools/validate_week1_2026_official_schedule_identity.py
+tools/validate_week1_2026_spine_semantic_successor.py
 tools/validate_week_zero_2026_calendar_and_t7d_authority.py
 tools/validate_week_zero_2026_live_shadow_execution.py
 tools/validate_week_zero_2026_official_final_scoring_successor.py

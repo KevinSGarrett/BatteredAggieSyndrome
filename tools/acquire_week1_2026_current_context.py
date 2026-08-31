@@ -10,7 +10,10 @@ Two prospective domains are captured at execution time:
     the official public National Weather Service point, gridpoint and hourly
     forecast responses for each resolvable Week 1 home venue, preserving the
     office and gridpoint, the forecast issuance and generation times, the valid
-    interval of every period, and the raw response digest.
+    interval of every period, and the raw response digest. The manifest records the
+    forecast office and grid cell rather than a site coordinate, because the grid
+    cell is the National Weather Service's own forecast authority and a coordinate
+    adds nothing a later reader can verify.
 
 Nothing here is a forecast of a contest outcome and no observed postgame value is
 ever requested: the weather route asks only for forecast products issued before
@@ -137,9 +140,9 @@ def acquire_weather(data_root: Path, venues: Sequence[dict[str, Any]]) -> str:
         record: dict[str, Any] = {
             "venue_key": venue["venue_key"],
             "canonical_team_id": venue["canonical_team_id"],
-            "latitude": venue["latitude"],
-            "longitude": venue["longitude"],
-            "point_source_uri": point_uri,
+            "point_request_identity_sha256": hashlib.sha256(
+                point_uri.encode("utf-8")
+            ).hexdigest(),
             "retrieved_at_utc": utc_now(),
             "attempts": [{"stage": "points", "route_id": "direct_http", **outcome}],
         }

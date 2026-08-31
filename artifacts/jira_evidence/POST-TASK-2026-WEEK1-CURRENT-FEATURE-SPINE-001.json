@@ -1,8 +1,8 @@
 {
-  "canonical_gate_identity": "1b6610460159b16b023cb9d9097c4b7f4622964f5eb692f6ea526b9673bbd60d",
+  "canonical_gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
   "canonical_gate_path": "artifacts/spine/week1_2026_current_feature_spine_gate.json",
   "completeness_claimed": false,
-  "created_at_utc": "2026-08-31T11:01:11.099091Z",
+  "created_at_utc": "2026-08-31T11:10:46.119883Z",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "evidence_state": "VERIFIED",
   "issue_complete": false,
@@ -14,11 +14,11 @@
   "outputs": [
     {
       "path": "artifacts/spine/week1_2026_current_feature_spine_gate.json",
-      "sha256": "af148a85d3a3094b6d17f9577677bd99b6a076f2be2cb20e60b890e07ce43189"
+      "sha256": "f5b00ffbae346a0fffeb7b5a297712a5f8fe264c9d704e84a7a14225e5df17af"
     },
     {
       "path": "configs/week1_2026_current_feature_spine_contract.json",
-      "sha256": "126132b19ff27176dc844a1fd63339ed61fe090e4ef8a65773dee48ff12958ed"
+      "sha256": "f7af344b0d804f591fc9c47081b5cf99be89845c91f2e764f17a4b3c830796be"
     },
     {
       "path": "src/aggie_analytics/data/week1_2026_current_feature_spine.py",
@@ -30,7 +30,7 @@
     },
     {
       "path": "tools/acquire_week1_2026_current_context.py",
-      "sha256": "10f6fd9065157976e3cbe13c30ed595a89ca69643985cd0143692ade3c92dfe8"
+      "sha256": "870b113135527e97f00f6a8f1dc34e864fc4a7be6c06a613d4f3d58374c5bc74"
     },
     {
       "path": "tools/build_week1_2026_current_feature_spine.py",

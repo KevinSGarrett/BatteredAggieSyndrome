@@ -74,8 +74,8 @@
       "alias_is_evidence_only": true
     },
     "weather_vintage": {
-      "manifest_relative_path": "manifests/shadow/week1_2026_weather_vintage/sha256/dce1700d25ee40b999dc3bcf9feb99766171d4270bcb54a4773dc235cfdbe6ff/week1_2026_weather_vintage_capture_manifest.json",
-      "capture_identity": "dce1700d25ee40b999dc3bcf9feb99766171d4270bcb54a4773dc235cfdbe6ff",
+      "manifest_relative_path": "manifests/shadow/week1_2026_weather_vintage/sha256/59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed/week1_2026_weather_vintage_capture_manifest.json",
+      "capture_identity": "59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed",
       "provider": "NATIONAL_WEATHER_SERVICE_PUBLIC_API",
       "product": "HOURLY_FORECAST",
       "observed_postgame_weather_permitted": false,

@@ -35,7 +35,7 @@
     "entity_alias_authority_gate_sha256": "5e8e14bbfeeebdcb47c195bf363a071184e07704769764be13f83e69f3199176",
     "national_expectation_baselines_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
     "prospective_shadow_forecast_gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
-    "weather_vintage_capture_identity": "dce1700d25ee40b999dc3bcf9feb99766171d4270bcb54a4773dc235cfdbe6ff",
+    "weather_vintage_capture_identity": "59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed",
     "week1_schedule_identity_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
     "week1_schedule_identity_gate_sha256": "436a54e56cadc9528f6bf14adda06a9a62cf32824ea84a9341378f3d1390077d",
     "week_zero_official_final_scoring_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
@@ -44,7 +44,7 @@
   },
   "classification": "WEEK1_2026_NATIONAL_CURRENT_FEATURE_SPINE_AND_TEMPORAL_ADMISSION",
   "contract_id": "BAT-677-WEEK1-2026-CURRENT-FEATURE-SPINE-V1",
-  "contract_sha256": "126132b19ff27176dc844a1fd63339ed61fe090e4ef8a65773dee48ff12958ed",
+  "contract_sha256": "f7af344b0d804f591fc9c47081b5cf99be89845c91f2e764f17a4b3c830796be",
   "declared_nonclaims": [
     "NO_FORECAST_IS_PRODUCED_OR_PUBLISHED",
     "NO_MODEL_IS_TRAINED_TUNED_SELECTED_OR_PROMOTED",
@@ -53,7 +53,7 @@
     "NO_PROTECTED_SEASON_RESULT_IS_ADMITTED",
     "NO_SPECIALIZATION_LIFT_CLAIM"
   ],
-  "execution_time_utc": "2026-08-31T11:01:11.099091Z",
+  "execution_time_utc": "2026-08-31T11:10:46.119883Z",
   "feature_domains": [
     "TEAM_STRENGTH_PRIOR",
     "WEEK_ZERO_CURRENT_RESULT",
@@ -64,16 +64,16 @@
     "ROSTER_MEMBERSHIP",
     "PREGAME_AVAILABILITY"
   ],
-  "gate_identity": "1b6610460159b16b023cb9d9097c4b7f4622964f5eb692f6ea526b9673bbd60d",
+  "gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
   "grain": "ONE_ROW_PER_TEAM_PER_CONTEST",
   "jira_key": "BAT-677",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
   "manifest": {
     "bulk_payloads_in_git": false,
-    "dataset_identity": "a2e92cc06d7824beeb6618bb363a5175e56b339e94ae6c1b090db79fa32c0ba7",
-    "relative_path": "manifests/week1_2026_current_feature_spine/sha256/a2e92cc06d7824beeb6618bb363a5175e56b339e94ae6c1b090db79fa32c0ba7/week1_2026_current_feature_spine_manifest.json",
-    "sha256": "00ffc95c6a37b84216429c2e8e217e5d19f4ed05098c18437f572708b9796ec9"
+    "dataset_identity": "051f1b3fc3ae9b2940135be67f1906f5c800ec0ecad55ff5d9e1df4bb8dba8d6",
+    "relative_path": "manifests/week1_2026_current_feature_spine/sha256/051f1b3fc3ae9b2940135be67f1906f5c800ec0ecad55ff5d9e1df4bb8dba8d6/week1_2026_current_feature_spine_manifest.json",
+    "sha256": "c39e5af13e2ba5d4173fdf95b69a1d0b4309672dc1e5bebccff7af095d98afdc"
   },
   "missingness": {
     "fabricated_default_permitted": false,
@@ -86,23 +86,23 @@
     "week_zero_result_precedes_its_official_final_capture": false
   },
   "parent_jira_key": "BAT-523",
-  "payload_root_sha256": "b39463ae24a082b3febee1067ebd70205b39bb2cd43329207d43f10ecb52d5f8",
+  "payload_root_sha256": "bf7c7e3d18bdd6137aa83e076838437a5833a8d8a7dc6eb642d00de5ba94db2d",
   "payloads": [
     {
       "bytes": 376966,
       "name": "week1_2026_feature_spine_rows.jsonl",
-      "payload_identity": "d8dd5f59e8cb4ef80a002ef8d90ddb65545e724d1499240286b86979b1d4ef82",
+      "payload_identity": "2cb917d5e61b1301a04746bf048d2236a3aa0736f4af741a454cfbd18a1dd384",
       "role": "WEEK1_2026_FEATURE_SPINE_ROWS",
       "rows": 182,
-      "sha256": "062fde9985ed8c7b02882f049142932b786a30035c66b87f3aefe40cdb0437cb"
+      "sha256": "cc9a1985b86edd125573c0946d0e2e6114c8b6ed4dddc1ce00c551fd0bd2f1f2"
     },
     {
-      "bytes": 1586371,
+      "bytes": 1586373,
       "name": "week1_2026_temporal_admission_cells.jsonl",
-      "payload_identity": "3321bac631e43a4ccd345f83fdca319b239e9cdc1e417ae68f35caa1047abf6a",
+      "payload_identity": "745beb6935bdf9fb15ebab4104b6b195641c03922b841d40c97dca942738cb79",
       "role": "WEEK1_2026_TEMPORAL_ADMISSION_CELLS",
       "rows": 1456,
-      "sha256": "092137b72f713de84999a350c334e4bc0c8c589b6d96e21d46843b2a2acf4a35"
+      "sha256": "c4f6b8374a27e79124351718f989ee421828453d7d89a0f61d43407a592fe3cc"
     }
   ],
   "predecessor_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
@@ -166,7 +166,7 @@
     "tamu_specific_adjustment_applied": false
   },
   "season": 2026,
-  "snapshot_issuance_utc": "2026-08-31T11:01:11.099091Z",
+  "snapshot_issuance_utc": "2026-08-31T11:10:46.119883Z",
   "summary": {
     "admitted_contest_count": 83,
     "cell_count": 1456,
@@ -288,11 +288,11 @@
     "source_known_at_must_not_exceed_snapshot_issuance": true
   },
   "weather_evidence": {
-    "capture_identity": "dce1700d25ee40b999dc3bcf9feb99766171d4270bcb54a4773dc235cfdbe6ff",
+    "capture_identity": "59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed",
     "captured_site_count": 84,
     "failed_site_count": 0,
-    "manifest_relative_path": "manifests/shadow/week1_2026_weather_vintage/sha256/dce1700d25ee40b999dc3bcf9feb99766171d4270bcb54a4773dc235cfdbe6ff/week1_2026_weather_vintage_capture_manifest.json",
-    "manifest_sha256": "c6251aba96ce119f8acb50099d0dc74f1dc5099580bbeeb71d9541cfed384116",
+    "manifest_relative_path": "manifests/shadow/week1_2026_weather_vintage/sha256/59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed/week1_2026_weather_vintage_capture_manifest.json",
+    "manifest_sha256": "d17bd3991e19a1f3e1000f516d86f97feab5e41d921ba908c379943bf7e228fb",
     "observed_postgame_weather_used": false,
     "product": "HOURLY_FORECAST",
     "provider": "NATIONAL_WEATHER_SERVICE_PUBLIC_API",

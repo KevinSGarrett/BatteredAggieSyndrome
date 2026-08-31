@@ -1,11 +1,13 @@
 {
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "base_commit": "4523717ebe4ea0b7ad0258d6d88e6db719e3b6de",
+  "base_commit": "f736353c3d01b973958c9d46dd3fc83d4dd3e61d",
   "changed_paths": [
     "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json",
     "artifacts/spine/week1_2026_current_feature_spine_gate.json",
     "configs/artifact_binding_contract.json",
+    "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle23_material_ownership_registry.json",
+    "configs/unified_assistive_change_routing_binding.json",
     "configs/week1_2026_current_feature_spine_contract.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
@@ -17,9 +19,9 @@
     "tools/validate_week1_2026_current_feature_spine.py"
   ],
   "jira_identity": "BAT-677",
-  "manifest_identity": "6b8ed3f9c3ef1469618700fb11cee326784e849e45838a66831d8d8c43730b71",
+  "manifest_identity": "f3de254605f4dd5ea118e1aba663cea727fe877d2180370a1eea60c340253930",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "18be760f0829ed78cb05bd7d742cd79486b1da9928b591bdee600d13821c62ab",
+  "pre_routing_decision_sha256": "32f25c17d6dbcf9095efaea283311c14dbd1fd9c3624d4cc1468875cc62002bb",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001"

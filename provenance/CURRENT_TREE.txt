@@ -253,6 +253,7 @@ artifacts/jira_evidence/POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-00
 artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001.json
+artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001.json
 artifacts/jira_evidence/POST-TASK-ADMISSION-MATRIX-STALE-CORPUS-GATE-PIN-001.json
 artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
@@ -461,6 +462,7 @@ artifacts/source_governance/source_priority_decisions.json
 artifacts/source_governance/source_rights_gate_test.json
 artifacts/source_governance/supplemental_rights_decisions.csv
 artifacts/source_governance/tier1_rights_decisions.csv
+artifacts/spine/week1_2026_current_feature_spine_gate.json
 artifacts/validation/cycle19_final_evidence_snapshot.json
 artifacts/validation/mounted_acceptance_gate.json
 configs/acceptance_registry.json
@@ -679,6 +681,7 @@ configs/unified_assistive_policy.json
 configs/unified_assistive_ready_work.json
 configs/validation_science_registry.json
 configs/versioned_play_drive_gap_contract.json
+configs/week1_2026_current_feature_spine_contract.json
 configs/week1_2026_official_schedule_identity_contract.json
 configs/week_zero_2026_calendar_and_t7d_contract.json
 configs/week_zero_2026_cfbd_get_games_acquisition.json
@@ -3521,6 +3524,7 @@ src/aggie_analytics/data/tamu_official_pre2010_boxscores.py
 src/aggie_analytics/data/tamu_official_rich_structure.py
 src/aggie_analytics/data/tamu_official_statcrew_preformatted.py
 src/aggie_analytics/data/tamu_season_reconciliation.py
+src/aggie_analytics/data/week1_2026_current_feature_spine.py
 src/aggie_analytics/data/week1_2026_official_schedule_identity.py
 src/aggie_analytics/data/week_zero_2026_calendar.py
 src/aggie_analytics/entities/__init__.py
@@ -3939,6 +3943,7 @@ tests/test_w23_operations.py
 tests/test_w24_readiness.py
 tests/test_w25_final_handoff.py
 tests/test_wave03_governance.py
+tests/test_week1_2026_current_feature_spine.py
 tests/test_week1_2026_official_schedule_identity.py
 tests/test_week_zero_2026_calendar_and_t7d.py
 tests/test_week_zero_2026_live_shadow_execution.py
@@ -3961,6 +3966,7 @@ tools/acquire_noaa_isd_observed_coverage_pilot.py
 tools/acquire_sec_tamu_availability.py
 tools/acquire_sportsdataverse_rosters.py
 tools/acquire_tamu_official_historical_archive.py
+tools/acquire_week1_2026_current_context.py
 tools/acquire_week1_2026_source_universe.py
 tools/activate_codex_usage_interlock.py
 tools/activate_unified_assistive_release.py
@@ -4101,6 +4107,7 @@ tools/build_tamu_official_pre2010_boxscores.py
 tools/build_tamu_official_statcrew_preformatted.py
 tools/build_unified_assistive_release.py
 tools/build_versioned_play_drive_gap.py
+tools/build_week1_2026_current_feature_spine.py
 tools/build_week1_2026_official_schedule_identity.py
 tools/build_week_zero_2026_calendar_and_t7d_authority.py
 tools/build_week_zero_2026_live_shadow_execution.py
@@ -4388,6 +4395,7 @@ tools/validate_w23_operations.py
 tools/validate_w24_readiness.py
 tools/validate_w25_final.py
 tools/validate_wave_pair.py
+tools/validate_week1_2026_current_feature_spine.py
 tools/validate_week1_2026_official_schedule_identity.py
 tools/validate_week_zero_2026_calendar_and_t7d_authority.py
 tools/validate_week_zero_2026_live_shadow_execution.py

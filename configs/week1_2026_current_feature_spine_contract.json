@@ -1,0 +1,143 @@
+{
+  "schema_version": "aggie.shadow.week1_2026_current_feature_spine.v1",
+  "contract_id": "BAT-677-WEEK1-2026-CURRENT-FEATURE-SPINE-V1",
+  "decision_unit": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
+  "local_issue_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
+  "jira_key": "BAT-677",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "WEEK1_2026_NATIONAL_CURRENT_FEATURE_SPINE_AND_TEMPORAL_ADMISSION",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "season": 2026,
+  "week_label": "WEEK_1",
+  "grain": "ONE_ROW_PER_TEAM_PER_CONTEST",
+  "purpose": "Materialize the timestamped national Week 1 current-feature spine on the team-game grain. Every feature cell carries its source, its raw capture digest, the time the value became known, the snapshot issuance time, the target kickoff bound, and exactly one admission disposition, so a value is either provably prospective or explicitly missing. No value is defaulted, no outcome of the target contest is present, and no model is fitted, tuned, selected, or promoted here.",
+  "authority": {
+    "prospective_shadow_observation": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "model_selection_or_tuning": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "canonical_entity_mutation": false,
+    "immutable_raw_capture_mutation": false
+  },
+  "snapshot": {
+    "issuance_is_the_execution_time": true,
+    "issuance_must_precede_every_target_kickoff_bound": true,
+    "retroactive_snapshot_permitted": false,
+    "later_vintage_is_a_new_immutable_snapshot_not_an_overwrite": true,
+    "checkpoint_ids_not_executed_here": [
+      "T_MINUS_24H",
+      "T_MINUS_90M"
+    ]
+  },
+  "sources": {
+    "schedule_identity": {
+      "gate_relative_path": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
+      "contest_payload_name": "week1_2026_contest_identity.jsonl",
+      "participant_payload_name": "week1_2026_participant_identity.jsonl"
+    },
+    "week_zero_official_finals": {
+      "gate_relative_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json",
+      "payload_relative_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json",
+      "admission_rule": "A completed Week Zero contest may enter a Week 1 row only after its own official final capture time, and only for a target whose kickoff bound is later than that capture."
+    },
+    "frozen_prior_domain": {
+      "candidate_gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+      "frozen_forecast_gate_relative_path": "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+      "frozen_forecast_payload_name": "prospective_2026_shadow_forecasts.jsonl",
+      "retraining_permitted": false,
+      "week_zero_outcomes_may_update_a_prior": false
+    },
+    "current_rankings": {
+      "manifest_relative_path": "manifests/shadow/week1_2026_current_rankings/sha256/926be826b89f7f6addec8906242358735158170baea099e03012acaec3aa8054/week1_2026_current_rankings_capture_manifest.json",
+      "capture_identity": "926be826b89f7f6addec8906242358735158170baea099e03012acaec3aa8054",
+      "poll_id": "ASSOCIATED_PRESS_FBS_TOP_25",
+      "source_uri": "https://www.ncaa.com/rankings/football/fbs/associated-press",
+      "unranked_encoding": "NULL_RANK_WITH_AN_EXPLICIT_UNRANKED_INDICATOR",
+      "unranked_sentinel_forbidden": 26,
+      "join_method": "EXACT_OFFICIAL_PUBLISHER_DISPLAY_NAME_MATCH_WITHIN_THE_SAME_OFFICIAL_SITE",
+      "join_is_consumed_by_a_model": false,
+      "alias_authorities": [
+        "OFFICIAL_NCAA_SCOREBOARD_DISPLAY_NAME",
+        "CANONICAL_SPINE_DISPLAY_NAME_BOUND_BY_THE_PREDECESSOR_BENCHMARK"
+      ],
+      "join_resolves_an_entity": false,
+      "unbound_poll_entry_policy": "REFUSE_TO_ASSERT_UNRANKED_WHILE_ANY_POLL_ENTRY_IS_UNBOUND"
+    },
+    "entity_alias_authority": {
+      "gate_relative_path": "artifacts/shadow/prospective_2026_shadow_cohort_gate.json",
+      "cohort_payload_name": "prospective_2026_shadow_cohort.jsonl",
+      "alias_is_evidence_only": true
+    },
+    "weather_vintage": {
+      "manifest_relative_path": "manifests/shadow/week1_2026_weather_vintage/sha256/59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed/week1_2026_weather_vintage_capture_manifest.json",
+      "capture_identity": "59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed",
+      "provider": "NATIONAL_WEATHER_SERVICE_PUBLIC_API",
+      "product": "HOURLY_FORECAST",
+      "observed_postgame_weather_permitted": false,
+      "venue_coordinate_authority": "INFERRED_FROM_THE_MOST_RECENT_UNSEALED_HISTORICAL_HOME_VENUE_COORDINATE",
+      "venue_coordinate_is_official_2026_venue_evidence": false
+    },
+    "roster_membership": {
+      "state": "SOURCE_EVIDENCE_ABSENT",
+      "reason": "No official 2026 roster page or declared structured roster provider was captured for the Week 1 population in this cycle, so membership is recorded as absent rather than inferred from a historical roster.",
+      "membership_is_availability": false
+    },
+    "pregame_availability": {
+      "state": "NOT_ESTABLISHED",
+      "reason": "No independently timestamped pregame availability authority covers the Week 1 national population.",
+      "membership_as_availability": false,
+      "participation_as_availability": false
+    }
+  },
+  "feature_domains": [
+    "TEAM_STRENGTH_PRIOR",
+    "WEEK_ZERO_CURRENT_RESULT",
+    "CURRENT_RANKING",
+    "CONFERENCE_AND_SUBDIVISION",
+    "VENUE_AND_SITE",
+    "WEATHER_VINTAGE",
+    "ROSTER_MEMBERSHIP",
+    "PREGAME_AVAILABILITY"
+  ],
+  "admission_dispositions": [
+    "ADMITTED_PROSPECTIVE_PREKICKOFF",
+    "CANDIDATE_ONLY_NOT_CONSUMED",
+    "TEMPORALLY_INELIGIBLE",
+    "SOURCE_EVIDENCE_ABSENT",
+    "UNRESOLVED_ENTITY",
+    "QUARANTINED_CONFLICT",
+    "NOT_APPLICABLE"
+  ],
+  "temporal_rules": {
+    "source_known_at_must_not_exceed_snapshot_issuance": true,
+    "snapshot_issuance_must_precede_target_kickoff_bound": true,
+    "same_game_target_exclusion": true,
+    "future_game_result_in_an_earlier_target": false,
+    "capture_time_promoted_into_historical_known_at": false,
+    "capture_time_establishes_known_by_this_capture_only": true,
+    "future_append_invariance_required": true
+  },
+  "missingness": {
+    "fabricated_default_permitted": false,
+    "null_is_explicit_with_a_reason": true,
+    "unranked_is_not_a_numeric_rank": true
+  },
+  "tamu_policy": {
+    "tamu_travels_the_same_national_path": true,
+    "tamu_specific_adjustment_applied": false,
+    "hardcoded_probability_or_ranking_bonus": false
+  },
+  "scientific_nonclaims": [
+    "NO_FORECAST_IS_PRODUCED_OR_PUBLISHED",
+    "NO_MODEL_IS_TRAINED_TUNED_SELECTED_OR_PROMOTED",
+    "NO_BAS_OR_AGGIE_EXCESS_CLAIM",
+    "NO_CHAMPION_OR_PRODUCTION_READINESS_CLAIM",
+    "NO_PROTECTED_SEASON_RESULT_IS_ADMITTED",
+    "NO_SPECIALIZATION_LIFT_CLAIM"
+  ]
+}

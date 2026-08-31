@@ -1,28 +1,28 @@
 {
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "base_commit": "b20cad3312f58243aa0301d99f4c40b18f018b05",
+  "base_commit": "f736353c3d01b973958c9d46dd3fc83d4dd3e61d",
   "changed_paths": [
-    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001.json",
-    "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
+    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json",
+    "artifacts/spine/week1_2026_current_feature_spine_gate.json",
     "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle23_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "configs/week1_2026_official_schedule_identity_contract.json",
+    "configs/week1_2026_current_feature_spine_contract.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/week1_2026_official_schedule_identity.py",
-    "tests/test_week1_2026_official_schedule_identity.py",
-    "tools/acquire_week1_2026_source_universe.py",
-    "tools/build_week1_2026_official_schedule_identity.py",
-    "tools/validate_week1_2026_official_schedule_identity.py"
+    "src/aggie_analytics/data/week1_2026_current_feature_spine.py",
+    "tests/test_week1_2026_current_feature_spine.py",
+    "tools/acquire_week1_2026_current_context.py",
+    "tools/build_week1_2026_current_feature_spine.py",
+    "tools/validate_week1_2026_current_feature_spine.py"
   ],
-  "jira_identity": "BAT-676",
-  "manifest_identity": "22c84124cdd88478cc068443836b07dcaaf19d24d78bfa57110470f5960cb976",
+  "jira_identity": "BAT-677",
+  "manifest_identity": "f3de254605f4dd5ea118e1aba663cea727fe877d2180370a1eea60c340253930",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "817c1957a62040eda9d61f8eccddcc157b7cd93ef79d7a49af0290462387a3f8",
+  "pre_routing_decision_sha256": "32f25c17d6dbcf9095efaea283311c14dbd1fd9c3624d4cc1468875cc62002bb",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
-  "work_unit_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001"
+  "work_unit_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001"
 }

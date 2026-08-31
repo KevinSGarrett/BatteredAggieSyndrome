@@ -1,0 +1,303 @@
+{
+  "admission_dispositions": [
+    "ADMITTED_PROSPECTIVE_PREKICKOFF",
+    "CANDIDATE_ONLY_NOT_CONSUMED",
+    "TEMPORALLY_INELIGIBLE",
+    "SOURCE_EVIDENCE_ABSENT",
+    "UNRESOLVED_ENTITY",
+    "QUARANTINED_CONFLICT",
+    "NOT_APPLICABLE"
+  ],
+  "artifact_type": "WEEK1_2026_CURRENT_FEATURE_SPINE_GATE",
+  "authority": {
+    "canonical_entity_mutation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "historical_pit_admission": false,
+    "immutable_raw_capture_mutation": false,
+    "model_selection_or_tuning": false,
+    "prospective_shadow_observation": true,
+    "protected_evaluation_admission": false,
+    "protected_lane_admission": false,
+    "protected_training_admission": false
+  },
+  "availability_evidence": {
+    "availability_feature_count": 0,
+    "membership_as_availability": false,
+    "participation_as_availability": false,
+    "reason": "No independently timestamped pregame availability authority covers the Week 1 national population.",
+    "state": "NOT_ESTABLISHED",
+    "verified_availability_count": 0
+  },
+  "bound_predecessors": {
+    "current_ranking_capture_identity": "926be826b89f7f6addec8906242358735158170baea099e03012acaec3aa8054",
+    "entity_alias_authority_gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+    "entity_alias_authority_gate_sha256": "5e8e14bbfeeebdcb47c195bf363a071184e07704769764be13f83e69f3199176",
+    "national_expectation_baselines_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+    "prospective_shadow_forecast_gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+    "weather_vintage_capture_identity": "59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed",
+    "week1_schedule_identity_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+    "week1_schedule_identity_gate_sha256": "436a54e56cadc9528f6bf14adda06a9a62cf32824ea84a9341378f3d1390077d",
+    "week_zero_official_final_scoring_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+    "week_zero_official_final_scoring_gate_sha256": "333ccf6c1cb4881b03db04c5fcbb8568a60ad34df30f40230ded588485a4fe70",
+    "week_zero_official_final_scoring_payload_sha256": "848a2d65920ff72575a6b19d100dd9edfeea55bf7e56b61afd02106a3c3e5a52"
+  },
+  "classification": "WEEK1_2026_NATIONAL_CURRENT_FEATURE_SPINE_AND_TEMPORAL_ADMISSION",
+  "contract_id": "BAT-677-WEEK1-2026-CURRENT-FEATURE-SPINE-V1",
+  "contract_sha256": "f7af344b0d804f591fc9c47081b5cf99be89845c91f2e764f17a4b3c830796be",
+  "declared_nonclaims": [
+    "NO_FORECAST_IS_PRODUCED_OR_PUBLISHED",
+    "NO_MODEL_IS_TRAINED_TUNED_SELECTED_OR_PROMOTED",
+    "NO_BAS_OR_AGGIE_EXCESS_CLAIM",
+    "NO_CHAMPION_OR_PRODUCTION_READINESS_CLAIM",
+    "NO_PROTECTED_SEASON_RESULT_IS_ADMITTED",
+    "NO_SPECIALIZATION_LIFT_CLAIM"
+  ],
+  "execution_time_utc": "2026-08-31T11:10:46.119883Z",
+  "feature_domains": [
+    "TEAM_STRENGTH_PRIOR",
+    "WEEK_ZERO_CURRENT_RESULT",
+    "CURRENT_RANKING",
+    "CONFERENCE_AND_SUBDIVISION",
+    "VENUE_AND_SITE",
+    "WEATHER_VINTAGE",
+    "ROSTER_MEMBERSHIP",
+    "PREGAME_AVAILABILITY"
+  ],
+  "gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+  "grain": "ONE_ROW_PER_TEAM_PER_CONTEST",
+  "jira_key": "BAT-677",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
+  "manifest": {
+    "bulk_payloads_in_git": false,
+    "dataset_identity": "051f1b3fc3ae9b2940135be67f1906f5c800ec0ecad55ff5d9e1df4bb8dba8d6",
+    "relative_path": "manifests/week1_2026_current_feature_spine/sha256/051f1b3fc3ae9b2940135be67f1906f5c800ec0ecad55ff5d9e1df4bb8dba8d6/week1_2026_current_feature_spine_manifest.json",
+    "sha256": "c39e5af13e2ba5d4173fdf95b69a1d0b4309672dc1e5bebccff7af095d98afdc"
+  },
+  "missingness": {
+    "fabricated_default_permitted": false,
+    "null_is_explicit_with_a_reason": true,
+    "unranked_is_not_a_numeric_rank": true
+  },
+  "outcome_exclusion": {
+    "future_contest_result_in_an_earlier_target": false,
+    "target_outcome_fields_present": false,
+    "week_zero_result_precedes_its_official_final_capture": false
+  },
+  "parent_jira_key": "BAT-523",
+  "payload_root_sha256": "bf7c7e3d18bdd6137aa83e076838437a5833a8d8a7dc6eb642d00de5ba94db2d",
+  "payloads": [
+    {
+      "bytes": 376966,
+      "name": "week1_2026_feature_spine_rows.jsonl",
+      "payload_identity": "2cb917d5e61b1301a04746bf048d2236a3aa0736f4af741a454cfbd18a1dd384",
+      "role": "WEEK1_2026_FEATURE_SPINE_ROWS",
+      "rows": 182,
+      "sha256": "cc9a1985b86edd125573c0946d0e2e6114c8b6ed4dddc1ce00c551fd0bd2f1f2"
+    },
+    {
+      "bytes": 1586373,
+      "name": "week1_2026_temporal_admission_cells.jsonl",
+      "payload_identity": "745beb6935bdf9fb15ebab4104b6b195641c03922b841d40c97dca942738cb79",
+      "role": "WEEK1_2026_TEMPORAL_ADMISSION_CELLS",
+      "rows": 1456,
+      "sha256": "c4f6b8374a27e79124351718f989ee421828453d7d89a0f61d43407a592fe3cc"
+    }
+  ],
+  "predecessor_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+  "prior_domain_evidence": {
+    "absence_reason": "The prior-outcome domain requires prior-season and season-to-date team outcome aggregates for the 2026 participants, which would have to come from the sealed 2024 and 2025 seasons or from 2026 results that do not exist before kickoff.",
+    "absence_reasons": [
+      "The prior-outcome domain requires prior-season and season-to-date team outcome aggregates for the 2026 participants, which would have to come from the sealed 2024 and 2025 seasons or from 2026 results that do not exist before kickoff."
+    ],
+    "candidate_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+    "candidate_gate_sha256": "9142cf8a57b629c3b0b396411a01d8db5a8667610e0f179c379aa25ad9ff05d5",
+    "candidate_source": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+    "frozen_forecast_gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+    "retraining_performed": false,
+    "week_zero_outcomes_updated_a_prior": false
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "ranking_evidence": {
+    "alias_authorities": [
+      "OFFICIAL_NCAA_SCOREBOARD_DISPLAY_NAME",
+      "CANONICAL_SPINE_DISPLAY_NAME_BOUND_BY_THE_PREDECESSOR_BENCHMARK"
+    ],
+    "bound_participant_count": 24,
+    "capture_identity": "926be826b89f7f6addec8906242358735158170baea099e03012acaec3aa8054",
+    "conflicting_poll_entries": [],
+    "join_is_consumed_by_a_model": false,
+    "join_method": "EXACT_OFFICIAL_PUBLISHER_DISPLAY_NAME_MATCH_WITHIN_THE_SAME_OFFICIAL_SITE",
+    "manifest_relative_path": "manifests/shadow/week1_2026_current_rankings/sha256/926be826b89f7f6addec8906242358735158170baea099e03012acaec3aa8054/week1_2026_current_rankings_capture_manifest.json",
+    "poll_coverage_complete": false,
+    "poll_entry_count": 25,
+    "poll_id": "ASSOCIATED_PRESS_FBS_TOP_25",
+    "publication_authority_text": "Through Games AUG. 17, 2026",
+    "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-COM/ncaa_2026_football_rankings/7b62fa59d14d98750c9ec6f7dd6cb4098a070f6ea14af62225b20b76c233662e.html",
+    "raw_sha256": "7b62fa59d14d98750c9ec6f7dd6cb4098a070f6ea14af62225b20b76c233662e",
+    "retrieved_at_utc": "2026-08-31T10:33:25Z",
+    "source_uri": "https://www.ncaa.com/rankings/football/fbs/associated-press",
+    "unbound_poll_entry_policy": "REFUSE_TO_ASSERT_UNRANKED_WHILE_ANY_POLL_ENTRY_IS_UNBOUND",
+    "unmatched_poll_entries": [
+      {
+        "poll_display_name": "Southern Cal",
+        "poll_display_name_raw": "Southern Cal",
+        "rank": 14,
+        "rank_is_tied": true
+      }
+    ],
+    "unranked_encoding": "NULL_RANK_WITH_AN_EXPLICIT_UNRANKED_INDICATOR"
+  },
+  "result": "PASS_WEEK1_2026_CURRENT_FEATURE_SPINE",
+  "roster_membership_evidence": {
+    "membership_is_availability": false,
+    "reason": "No official 2026 roster page or declared structured roster provider was captured for the Week 1 population in this cycle, so membership is recorded as absent rather than inferred from a historical roster.",
+    "state": "SOURCE_EVIDENCE_ABSENT"
+  },
+  "schema_version": "aggie.shadow.week1_2026_current_feature_spine.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "champion_or_production_selection": false,
+    "forecast_published": false,
+    "model_tuning_or_promotion": false,
+    "protected_performance": false,
+    "specialization_lift": false,
+    "tamu_specific_adjustment_applied": false
+  },
+  "season": 2026,
+  "snapshot_issuance_utc": "2026-08-31T11:10:46.119883Z",
+  "summary": {
+    "admitted_contest_count": 83,
+    "cell_count": 1456,
+    "contest_count": 91,
+    "domain_admission_counts": {
+      "CONFERENCE_AND_SUBDIVISION": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 182,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 0,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "CURRENT_RANKING": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 24,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 158,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "PREGAME_AVAILABILITY": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "ROSTER_MEMBERSHIP": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "TEAM_STRENGTH_PRIOR": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "VENUE_AND_SITE": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 182,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 0,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "WEATHER_VINTAGE": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 166,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 16,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "WEEK_ZERO_CURRENT_RESULT": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 8,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 174,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      }
+    },
+    "ranked_row_count": 24,
+    "row_count": 182,
+    "rows_by_orientation": {
+      "AWAY": 91,
+      "HOME": 91
+    },
+    "rows_by_ranked_state": {
+      "NOT_ESTABLISHED": 158,
+      "RANKED": 24
+    },
+    "rows_by_requested_date": {
+      "2026-09-03": 22,
+      "2026-09-04": 16,
+      "2026-09-05": 136,
+      "2026-09-06": 6,
+      "2026-09-07": 2
+    },
+    "rows_by_subdivision": {
+      "FBS": 134,
+      "FCS": 48
+    },
+    "rows_with_canonical_identity": 174,
+    "rows_with_official_season_authority": 182,
+    "rows_with_weather_vintage": 166,
+    "rows_with_week_zero_result": 8,
+    "unsupported_contest_count": 8,
+    "verified_availability_count": 0
+  },
+  "tamu_policy": {
+    "hardcoded_probability_or_ranking_bonus": false,
+    "tamu_specific_adjustment_applied": false,
+    "tamu_travels_the_same_national_path": true
+  },
+  "temporal_rules": {
+    "capture_time_establishes_known_by_this_capture_only": true,
+    "capture_time_promoted_into_historical_known_at": false,
+    "future_append_invariance_required": true,
+    "future_game_result_in_an_earlier_target": false,
+    "same_game_target_exclusion": true,
+    "snapshot_issuance_must_precede_target_kickoff_bound": true,
+    "source_known_at_must_not_exceed_snapshot_issuance": true
+  },
+  "weather_evidence": {
+    "capture_identity": "59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed",
+    "captured_site_count": 84,
+    "failed_site_count": 0,
+    "manifest_relative_path": "manifests/shadow/week1_2026_weather_vintage/sha256/59a8f1266b174d4981d443c5cd82ea7aac20b4afdbafe46ff9247fcfd50303ed/week1_2026_weather_vintage_capture_manifest.json",
+    "manifest_sha256": "d17bd3991e19a1f3e1000f516d86f97feab5e41d921ba908c379943bf7e228fb",
+    "observed_postgame_weather_used": false,
+    "product": "HOURLY_FORECAST",
+    "provider": "NATIONAL_WEATHER_SERVICE_PUBLIC_API",
+    "venue_coordinate_authority": "INFERRED_FROM_THE_MOST_RECENT_UNSEALED_HISTORICAL_HOME_VENUE_COORDINATE",
+    "venue_coordinate_is_official_2026_venue_evidence": false
+  },
+  "week_label": "WEEK_1"
+}

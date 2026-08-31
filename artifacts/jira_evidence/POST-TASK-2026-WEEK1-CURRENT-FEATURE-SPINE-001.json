@@ -1,0 +1,166 @@
+{
+  "canonical_gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+  "canonical_gate_path": "artifacts/spine/week1_2026_current_feature_spine_gate.json",
+  "completeness_claimed": false,
+  "created_at_utc": "2026-08-31T11:10:46.119883Z",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "issue_complete": false,
+  "jira_key": "BAT-677",
+  "local_issue_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "The national Week 1 current-feature spine exists on the team-game grain. One hundred eighty-two oriented rows cover all ninety-one official contests, two per contest, and one thousand four hundred fifty-six admission cells cover eight feature domains. Every cell carries its source, its raw capture digest, the time the value became knowable, the snapshot issuance, the target kickoff bound, and exactly one admission disposition. Official 2026 conference and subdivision authority and the published site annotation are admitted for every row; eight rows carry a Week Zero result that was captured before the snapshot and before their own kickoff; twenty-four rows carry a current poll rank bound by an official label, and unranked is never encoded as a number. The frozen prior domain, roster membership and pregame availability are recorded as absent with explicit reasons rather than defaulted, and availability is never inferred from membership or participation. Weather is an official National Weather Service forecast vintage matched to the kickoff hour and held as candidate-only because its site coordinate is inferred. No forecast, model fit, or outcome field is produced, and Texas A&M travels the same path as every other team.",
+  "outputs": [
+    {
+      "path": "artifacts/spine/week1_2026_current_feature_spine_gate.json",
+      "sha256": "f5b00ffbae346a0fffeb7b5a297712a5f8fe264c9d704e84a7a14225e5df17af"
+    },
+    {
+      "path": "configs/week1_2026_current_feature_spine_contract.json",
+      "sha256": "f7af344b0d804f591fc9c47081b5cf99be89845c91f2e764f17a4b3c830796be"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_current_feature_spine.py",
+      "sha256": "85a1914b0fe76cbc9db01219bb3750e49485506afce103ae463dcb20b6496b56"
+    },
+    {
+      "path": "tests/test_week1_2026_current_feature_spine.py",
+      "sha256": "931600257e93f6ed5303107d0359844e2c7f83d5086667b755efca16688f377f"
+    },
+    {
+      "path": "tools/acquire_week1_2026_current_context.py",
+      "sha256": "870b113135527e97f00f6a8f1dc34e864fc4a7be6c06a613d4f3d58374c5bc74"
+    },
+    {
+      "path": "tools/build_week1_2026_current_feature_spine.py",
+      "sha256": "2c2ce87f48319c6b670cdcbd2f956d342813c8e1f5c6856ef092d53b39ad17d0"
+    },
+    {
+      "path": "tools/validate_week1_2026_current_feature_spine.py",
+      "sha256": "2ea43a3b8c84cf12b64595cdeff4505dcda25be8815bae050df6933abd908ee9"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-397",
+    "BAT-523",
+    "BAT-530",
+    "BAT-651",
+    "BAT-653",
+    "BAT-654",
+    "BAT-661",
+    "BAT-667",
+    "BAT-674",
+    "BAT-676"
+  ],
+  "schema_version": "2.1.0",
+  "summary": {
+    "admitted_contest_count": 83,
+    "cell_count": 1456,
+    "contest_count": 91,
+    "domain_admission_counts": {
+      "CONFERENCE_AND_SUBDIVISION": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 182,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 0,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "CURRENT_RANKING": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 24,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 158,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "PREGAME_AVAILABILITY": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "ROSTER_MEMBERSHIP": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "TEAM_STRENGTH_PRIOR": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "VENUE_AND_SITE": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 182,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 0,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "WEATHER_VINTAGE": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 166,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 16,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "WEEK_ZERO_CURRENT_RESULT": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 8,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 174,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      }
+    },
+    "ranked_row_count": 24,
+    "row_count": 182,
+    "rows_by_orientation": {
+      "AWAY": 91,
+      "HOME": 91
+    },
+    "rows_by_ranked_state": {
+      "NOT_ESTABLISHED": 158,
+      "RANKED": 24
+    },
+    "rows_by_requested_date": {
+      "2026-09-03": 22,
+      "2026-09-04": 16,
+      "2026-09-05": 136,
+      "2026-09-06": 6,
+      "2026-09-07": 2
+    },
+    "rows_by_subdivision": {
+      "FBS": 134,
+      "FCS": 48
+    },
+    "rows_with_canonical_identity": 174,
+    "rows_with_official_season_authority": 182,
+    "rows_with_weather_vintage": 166,
+    "rows_with_week_zero_result": 8,
+    "unsupported_contest_count": 8,
+    "verified_availability_count": 0
+  },
+  "superseded_identities": [],
+  "workflow_state": "IN_REVIEW"
+}

@@ -14,6 +14,11 @@
     {
       "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
       "owner": null,
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001.json"
     },
     {
@@ -118,7 +123,12 @@
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-677",
+      "owner": "BAT-678",
+      "path": "artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-678",
       "path": "configs/artifact_binding_contract.json"
     },
     {
@@ -145,6 +155,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-677",
       "path": "configs/week1_2026_current_feature_spine_contract.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-678",
+      "path": "configs/week1_2026_feature_coverage_adequacy_contract.json"
     },
     {
       "kind": "MATERIAL",
@@ -294,6 +309,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-678",
+      "path": "src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-676",
       "path": "src/aggie_analytics/data/week1_2026_official_schedule_identity.py"
     },
@@ -336,6 +356,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-677",
       "path": "tests/test_week1_2026_current_feature_spine.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-678",
+      "path": "tests/test_week1_2026_feature_coverage_adequacy.py"
     },
     {
       "kind": "MATERIAL",
@@ -389,6 +414,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-678",
+      "path": "tools/build_week1_2026_feature_coverage_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-676",
       "path": "tools/build_week1_2026_official_schedule_identity.py"
     },
@@ -425,6 +455,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-678",
+      "path": "tools/validate_week1_2026_feature_coverage_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-676",
       "path": "tools/validate_week1_2026_official_schedule_identity.py"
     },
@@ -450,6 +485,10 @@
     "BAT-677": {
       "local_issue_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
       "scope": "Timestamped national Week 1 current-feature spine with explicit temporal admission and missingness"
+    },
+    "BAT-678": {
+      "local_issue_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
+      "scope": "Independent Week 1 feature coverage, temporal eligibility and forecast-input adequacy validation without producing a model"
     }
   },
   "predecessor_commit": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",

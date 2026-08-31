@@ -1,0 +1,148 @@
+{
+  "schema_version": "aggie.shadow.week1_2026_feature_coverage_adequacy.v1",
+  "contract_id": "BAT-678-WEEK1-2026-FEATURE-COVERAGE-ADEQUACY-V1",
+  "decision_unit": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
+  "local_issue_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
+  "jira_key": "BAT-678",
+  "parent_jira_key": "BAT-523",
+  "new_issue_decision": "CREATE",
+  "classification": "WEEK1_2026_FEATURE_COVERAGE_TEMPORAL_ELIGIBILITY_AND_FORECAST_INPUT_ADEQUACY",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "season": 2026,
+  "week_label": "WEEK_1",
+  "purpose": "Independently validate Week 1 feature coverage, temporal eligibility, identity completeness and forecast-input adequacy for the frozen candidate set. This gate produces no forecast and promotes no model: it states, per contest and per predeclared candidate, whether a later cycle could legitimately attempt one.",
+  "authority": {
+    "prospective_shadow_observation": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "model_selection_or_tuning": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "forecast_produced": false,
+    "canonical_entity_mutation": false,
+    "immutable_raw_capture_mutation": false
+  },
+  "sources": {
+    "feature_spine": {
+      "gate_relative_path": "artifacts/spine/week1_2026_current_feature_spine_gate.json",
+      "row_payload_name": "week1_2026_feature_spine_rows.jsonl",
+      "cell_payload_name": "week1_2026_temporal_admission_cells.jsonl"
+    },
+    "schedule_identity": {
+      "gate_relative_path": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
+      "contest_payload_name": "week1_2026_contest_identity.jsonl"
+    },
+    "frozen_candidates": {
+      "gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+      "candidate_set_is_frozen": true,
+      "post_hoc_candidate_insertion": false
+    }
+  },
+  "candidate_feature_requirements": [
+    {
+      "candidate_id": "national_base_rate",
+      "feature_scope": "NONE",
+      "required_domains": [],
+      "optional_domains": [
+        "CURRENT_RANKING",
+        "WEATHER_VINTAGE",
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "requires_resolved_participant_identity": true,
+      "requires_kickoff_bound": true
+    },
+    {
+      "candidate_id": "prior_only",
+      "feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+      "required_domains": [
+        "TEAM_STRENGTH_PRIOR",
+        "VENUE_AND_SITE"
+      ],
+      "optional_domains": [
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "requires_resolved_participant_identity": true,
+      "requires_kickoff_bound": true
+    },
+    {
+      "candidate_id": "national_elo",
+      "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+      "required_domains": [
+        "TEAM_STRENGTH_PRIOR",
+        "VENUE_AND_SITE"
+      ],
+      "optional_domains": [
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "requires_resolved_participant_identity": true,
+      "requires_kickoff_bound": true,
+      "note": "The predecessor emitted a frozen forecast for this candidate from a default initial rating. A default initialization is not evidence of an admitted prior feature, so adequacy here still requires the prior-outcome domain."
+    },
+    {
+      "candidate_id": "national_logistic_l2",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "required_domains": [
+        "TEAM_STRENGTH_PRIOR",
+        "CURRENT_RANKING",
+        "CONFERENCE_AND_SUBDIVISION",
+        "VENUE_AND_SITE"
+      ],
+      "optional_domains": [
+        "WEATHER_VINTAGE",
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "requires_resolved_participant_identity": true,
+      "requires_kickoff_bound": true
+    },
+    {
+      "candidate_id": "national_margin_ridge",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "required_domains": [
+        "TEAM_STRENGTH_PRIOR",
+        "CURRENT_RANKING",
+        "CONFERENCE_AND_SUBDIVISION",
+        "VENUE_AND_SITE"
+      ],
+      "optional_domains": [
+        "WEATHER_VINTAGE",
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "requires_resolved_participant_identity": true,
+      "requires_kickoff_bound": true
+    }
+  ],
+  "admission_counts_as_required": [
+    "ADMITTED_PROSPECTIVE_PREKICKOFF"
+  ],
+  "adequacy_states": [
+    "READY_FOR_PREDECLARED_MODEL_INPUT",
+    "PARTIAL_MODEL_INPUT",
+    "ABSTAIN_MISSING_REQUIRED_FEATURES",
+    "ABSTAIN_UNSUPPORTED_ENTITY",
+    "QUARANTINED_CONFLICT",
+    "NOT_IN_MODEL_TARGET"
+  ],
+  "checkpoints": {
+    "t_minus_7d_packet_state": "PRESERVED_UNCHANGED",
+    "t_minus_24h_state": "OPEN",
+    "t_minus_90m_state": "OPEN",
+    "executed_early": false,
+    "pregame_result_access": false
+  },
+  "tamu_policy": {
+    "tamu_travels_the_same_national_path": true,
+    "tamu_specific_adjustment_applied": false,
+    "tamu_contest_is_reported_not_corrected": true,
+    "tamu_ncaa_contest_id_is_discovered_from_the_universe_not_hardcoded": true
+  },
+  "scientific_nonclaims": [
+    "NO_FORECAST_IS_PRODUCED_OR_PUBLISHED",
+    "NO_MODEL_IS_TRAINED_TUNED_SELECTED_OR_PROMOTED",
+    "NO_BAS_OR_AGGIE_EXCESS_CLAIM",
+    "NO_CHAMPION_OR_PRODUCTION_READINESS_CLAIM",
+    "NO_PROTECTED_SEASON_RESULT_IS_ADMITTED",
+    "NO_CALIBRATION_OR_PERFORMANCE_CLAIM"
+  ]
+}

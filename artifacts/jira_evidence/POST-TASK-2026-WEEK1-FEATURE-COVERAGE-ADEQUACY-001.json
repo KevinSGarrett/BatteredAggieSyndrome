@@ -1,0 +1,223 @@
+{
+  "canonical_gate_identity": "c411192f556c8d44fafff8843bc450634ad5111ecd26ded57e3fbd17fdd8e729",
+  "canonical_gate_path": "artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json",
+  "completeness_claimed": false,
+  "created_at_utc": "2026-08-31T11:24:51.882975Z",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "focus_contest_report": {
+    "adequacy_state": "PARTIAL_MODEL_INPUT",
+    "admitted_domain_count": 4,
+    "candidate_rows": [
+      {
+        "adequacy_state": "READY_FOR_PREDECLARED_MODEL_INPUT",
+        "candidate_id": "national_base_rate",
+        "missing_required_domains": []
+      },
+      {
+        "adequacy_state": "PARTIAL_MODEL_INPUT",
+        "candidate_id": "prior_only",
+        "missing_required_domains": [
+          "TEAM_STRENGTH_PRIOR"
+        ]
+      },
+      {
+        "adequacy_state": "PARTIAL_MODEL_INPUT",
+        "candidate_id": "national_elo",
+        "missing_required_domains": [
+          "TEAM_STRENGTH_PRIOR"
+        ]
+      },
+      {
+        "adequacy_state": "PARTIAL_MODEL_INPUT",
+        "candidate_id": "national_logistic_l2",
+        "missing_required_domains": [
+          "CURRENT_RANKING",
+          "TEAM_STRENGTH_PRIOR"
+        ]
+      },
+      {
+        "adequacy_state": "PARTIAL_MODEL_INPUT",
+        "candidate_id": "national_margin_ridge",
+        "missing_required_domains": [
+          "CURRENT_RANKING",
+          "TEAM_STRENGTH_PRIOR"
+        ]
+      }
+    ],
+    "candidate_states": {
+      "national_base_rate": "READY_FOR_PREDECLARED_MODEL_INPUT",
+      "national_elo": "PARTIAL_MODEL_INPUT",
+      "national_logistic_l2": "PARTIAL_MODEL_INPUT",
+      "national_margin_ridge": "PARTIAL_MODEL_INPUT",
+      "prior_only": "PARTIAL_MODEL_INPUT"
+    },
+    "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+    "custom_correction_applied": false,
+    "hardcoded_feature_applied": false,
+    "matches_national_modal_state": true,
+    "national_admitted_domain_count_max": 5,
+    "national_admitted_domain_count_mean": 4.087912,
+    "national_admitted_domain_count_min": 4,
+    "national_percentile_position": 0.0,
+    "ncaa_contest_id": "6607349"
+  },
+  "issue_complete": false,
+  "jira_key": "BAT-678",
+  "local_issue_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "Week 1 forecast-input adequacy is now decided from evidence rather than assumed. Every one of the ninety-one official contests carries a coverage row, and each of the five frozen candidates carries its own adequacy row per contest, four hundred fifty-five in total, because a contest can be adequate for one candidate and not another. Eighty-three contests are partial: the identity, site, and 2026 conference and subdivision authority resolve, so the base-rate candidate is ready, while every candidate that requires a frozen team-strength prior abstains because no 2026 prior exists yet. The remaining eight contests abstain for an unsupported entity rather than being dropped. No contest is marked ready while a required feature is missing, and no forecast is produced. Texas A&M against Missouri State is discovered from the universe rather than named in code, is reported on the same fields as every other contest, and lands on the national modal state with no custom correction.",
+  "outputs": [
+    {
+      "path": "artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json",
+      "sha256": "937d32342892655d4fcbc89a9079bf9e322417f64ffedc21e8a2ca8f40c6f1e0"
+    },
+    {
+      "path": "configs/week1_2026_feature_coverage_adequacy_contract.json",
+      "sha256": "00b10f201de97d9004fb86c2fdbf2d5e09c74ef68d2f12b567a187eb2a63343e"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py",
+      "sha256": "14bf3c17489ee899be623d4f2aa7a439101e54eaed3dc44d049db23eac1d55a6"
+    },
+    {
+      "path": "tests/test_week1_2026_feature_coverage_adequacy.py",
+      "sha256": "1dca3f6a5bb85f6c45244ec14bb826d40f1eb9eadc39cdc8db56ce7bf540841e"
+    },
+    {
+      "path": "tools/build_week1_2026_feature_coverage_adequacy.py",
+      "sha256": "5b763be7eda73b60bac8d01dd035eca1d24312b6609fe89bb3a7e03a0ed6c0ef"
+    },
+    {
+      "path": "tools/validate_week1_2026_feature_coverage_adequacy.py",
+      "sha256": "605436136588fc9b0b23c373a73ed961cc5112a07e09e679b913d076b09c01fd"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-397",
+    "BAT-523",
+    "BAT-651",
+    "BAT-652",
+    "BAT-653",
+    "BAT-654",
+    "BAT-657",
+    "BAT-658",
+    "BAT-661",
+    "BAT-667",
+    "BAT-670",
+    "BAT-674",
+    "BAT-676",
+    "BAT-677"
+  ],
+  "schema_version": "2.1.0",
+  "summary": {
+    "candidate_adequacy_counts": {
+      "national_base_rate": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 83
+      },
+      "national_elo": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 83,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+      },
+      "national_logistic_l2": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 83,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+      },
+      "national_margin_ridge": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 83,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+      },
+      "prior_only": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 83,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+      }
+    },
+    "candidate_row_count": 455,
+    "contest_adequacy_counts": {
+      "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+      "NOT_IN_MODEL_TARGET": 0,
+      "PARTIAL_MODEL_INPUT": 83,
+      "QUARANTINED_CONFLICT": 0,
+      "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+    },
+    "contest_count": 91,
+    "contests_with_a_ranked_participant": 23,
+    "contests_with_conflicts": 0,
+    "contests_with_roster_membership": 0,
+    "contests_with_unsupported_entities": 8,
+    "contests_with_weather": 83,
+    "coverage_by_conference": {
+      "ACC": 12,
+      "American": 14,
+      "Big 12": 15,
+      "Big Sky": 5,
+      "Big Ten": 18,
+      "CAA": 8,
+      "CUSA": 10,
+      "FBS Independent": 2,
+      "FCS Independent": 1,
+      "MAC": 13,
+      "MEAC": 2,
+      "MVFC": 4,
+      "Mountain West": 9,
+      "NEC": 3,
+      "OVC": 4,
+      "Pac-12": 8,
+      "Patriot": 2,
+      "SEC": 16,
+      "SWAC": 4,
+      "SoCon": 3,
+      "Southland": 6,
+      "Sun Belt": 14,
+      "UAC": 6
+    },
+    "coverage_by_contest_disposition": {
+      "ADMITTED_MODEL_ELIGIBLE": 83,
+      "UNSUPPORTED_ENTITY": 8
+    },
+    "coverage_by_requested_date": {
+      "2026-09-03": 11,
+      "2026-09-04": 8,
+      "2026-09-05": 68,
+      "2026-09-06": 3,
+      "2026-09-07": 1
+    },
+    "coverage_by_site_state": {
+      "HOME_TEAM_SITE": 88,
+      "NEUTRAL": 3
+    },
+    "coverage_by_subdivision_pair": {
+      "FBS": 43,
+      "FBS+FCS": 48
+    },
+    "team_row_count": 182,
+    "temporal_exclusion_total": 0,
+    "verified_availability_total": 0
+  },
+  "superseded_identities": [],
+  "workflow_state": "IN_REVIEW"
+}

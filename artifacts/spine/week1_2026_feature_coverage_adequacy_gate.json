@@ -1,0 +1,342 @@
+{
+  "adequacy_states": [
+    "READY_FOR_PREDECLARED_MODEL_INPUT",
+    "PARTIAL_MODEL_INPUT",
+    "ABSTAIN_MISSING_REQUIRED_FEATURES",
+    "ABSTAIN_UNSUPPORTED_ENTITY",
+    "QUARANTINED_CONFLICT",
+    "NOT_IN_MODEL_TARGET"
+  ],
+  "artifact_type": "WEEK1_2026_FEATURE_COVERAGE_ADEQUACY_GATE",
+  "authority": {
+    "canonical_entity_mutation": false,
+    "champion_or_production_promotion": false,
+    "forecast_produced": false,
+    "forecast_publication": false,
+    "historical_pit_admission": false,
+    "immutable_raw_capture_mutation": false,
+    "model_selection_or_tuning": false,
+    "prospective_shadow_observation": true,
+    "protected_evaluation_admission": false,
+    "protected_lane_admission": false,
+    "protected_training_admission": false
+  },
+  "bound_predecessors": {
+    "feature_spine_dataset_identity": "051f1b3fc3ae9b2940135be67f1906f5c800ec0ecad55ff5d9e1df4bb8dba8d6",
+    "feature_spine_gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+    "feature_spine_gate_sha256": "f5b00ffbae346a0fffeb7b5a297712a5f8fe264c9d704e84a7a14225e5df17af",
+    "feature_spine_payload_root_sha256": "bf7c7e3d18bdd6137aa83e076838437a5833a8d8a7dc6eb642d00de5ba94db2d",
+    "feature_spine_snapshot_issuance_utc": "2026-08-31T11:10:46.119883Z",
+    "frozen_candidate_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+    "frozen_candidate_gate_sha256": "9142cf8a57b629c3b0b396411a01d8db5a8667610e0f179c379aa25ad9ff05d5",
+    "week1_schedule_identity_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+    "week1_schedule_identity_gate_sha256": "436a54e56cadc9528f6bf14adda06a9a62cf32824ea84a9341378f3d1390077d"
+  },
+  "candidate_feature_requirements": [
+    {
+      "candidate_id": "national_base_rate",
+      "feature_scope": "NONE",
+      "optional_domains": [
+        "CURRENT_RANKING",
+        "WEATHER_VINTAGE",
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "required_domains": [],
+      "requires_kickoff_bound": true,
+      "requires_resolved_participant_identity": true
+    },
+    {
+      "candidate_id": "prior_only",
+      "feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+      "optional_domains": [
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "required_domains": [
+        "TEAM_STRENGTH_PRIOR",
+        "VENUE_AND_SITE"
+      ],
+      "requires_kickoff_bound": true,
+      "requires_resolved_participant_identity": true
+    },
+    {
+      "candidate_id": "national_elo",
+      "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+      "note": "The predecessor emitted a frozen forecast for this candidate from a default initial rating. A default initialization is not evidence of an admitted prior feature, so adequacy here still requires the prior-outcome domain.",
+      "optional_domains": [
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "required_domains": [
+        "TEAM_STRENGTH_PRIOR",
+        "VENUE_AND_SITE"
+      ],
+      "requires_kickoff_bound": true,
+      "requires_resolved_participant_identity": true
+    },
+    {
+      "candidate_id": "national_logistic_l2",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "optional_domains": [
+        "WEATHER_VINTAGE",
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "required_domains": [
+        "TEAM_STRENGTH_PRIOR",
+        "CURRENT_RANKING",
+        "CONFERENCE_AND_SUBDIVISION",
+        "VENUE_AND_SITE"
+      ],
+      "requires_kickoff_bound": true,
+      "requires_resolved_participant_identity": true
+    },
+    {
+      "candidate_id": "national_margin_ridge",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "optional_domains": [
+        "WEATHER_VINTAGE",
+        "WEEK_ZERO_CURRENT_RESULT"
+      ],
+      "required_domains": [
+        "TEAM_STRENGTH_PRIOR",
+        "CURRENT_RANKING",
+        "CONFERENCE_AND_SUBDIVISION",
+        "VENUE_AND_SITE"
+      ],
+      "requires_kickoff_bound": true,
+      "requires_resolved_participant_identity": true
+    }
+  ],
+  "checkpoints": {
+    "executed_early": false,
+    "pregame_result_access": false,
+    "t_minus_24h_state": "OPEN",
+    "t_minus_7d_packet_state": "PRESERVED_UNCHANGED",
+    "t_minus_90m_state": "OPEN"
+  },
+  "classification": "WEEK1_2026_FEATURE_COVERAGE_TEMPORAL_ELIGIBILITY_AND_FORECAST_INPUT_ADEQUACY",
+  "contract_id": "BAT-678-WEEK1-2026-FEATURE-COVERAGE-ADEQUACY-V1",
+  "contract_sha256": "00b10f201de97d9004fb86c2fdbf2d5e09c74ef68d2f12b567a187eb2a63343e",
+  "declared_nonclaims": [
+    "NO_FORECAST_IS_PRODUCED_OR_PUBLISHED",
+    "NO_MODEL_IS_TRAINED_TUNED_SELECTED_OR_PROMOTED",
+    "NO_BAS_OR_AGGIE_EXCESS_CLAIM",
+    "NO_CHAMPION_OR_PRODUCTION_READINESS_CLAIM",
+    "NO_PROTECTED_SEASON_RESULT_IS_ADMITTED",
+    "NO_CALIBRATION_OR_PERFORMANCE_CLAIM"
+  ],
+  "execution_time_utc": "2026-08-31T11:24:51.882975Z",
+  "focus_contest_report": {
+    "adequacy_state": "PARTIAL_MODEL_INPUT",
+    "admitted_domain_count": 4,
+    "candidate_rows": [
+      {
+        "adequacy_state": "READY_FOR_PREDECLARED_MODEL_INPUT",
+        "candidate_id": "national_base_rate",
+        "missing_required_domains": []
+      },
+      {
+        "adequacy_state": "PARTIAL_MODEL_INPUT",
+        "candidate_id": "prior_only",
+        "missing_required_domains": [
+          "TEAM_STRENGTH_PRIOR"
+        ]
+      },
+      {
+        "adequacy_state": "PARTIAL_MODEL_INPUT",
+        "candidate_id": "national_elo",
+        "missing_required_domains": [
+          "TEAM_STRENGTH_PRIOR"
+        ]
+      },
+      {
+        "adequacy_state": "PARTIAL_MODEL_INPUT",
+        "candidate_id": "national_logistic_l2",
+        "missing_required_domains": [
+          "CURRENT_RANKING",
+          "TEAM_STRENGTH_PRIOR"
+        ]
+      },
+      {
+        "adequacy_state": "PARTIAL_MODEL_INPUT",
+        "candidate_id": "national_margin_ridge",
+        "missing_required_domains": [
+          "CURRENT_RANKING",
+          "TEAM_STRENGTH_PRIOR"
+        ]
+      }
+    ],
+    "candidate_states": {
+      "national_base_rate": "READY_FOR_PREDECLARED_MODEL_INPUT",
+      "national_elo": "PARTIAL_MODEL_INPUT",
+      "national_logistic_l2": "PARTIAL_MODEL_INPUT",
+      "national_margin_ridge": "PARTIAL_MODEL_INPUT",
+      "prior_only": "PARTIAL_MODEL_INPUT"
+    },
+    "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+    "custom_correction_applied": false,
+    "hardcoded_feature_applied": false,
+    "matches_national_modal_state": true,
+    "national_admitted_domain_count_max": 5,
+    "national_admitted_domain_count_mean": 4.087912,
+    "national_admitted_domain_count_min": 4,
+    "national_percentile_position": 0.0,
+    "ncaa_contest_id": "6607349"
+  },
+  "gate_identity": "c411192f556c8d44fafff8843bc450634ad5111ecd26ded57e3fbd17fdd8e729",
+  "jira_key": "BAT-678",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
+  "manifest": {
+    "bulk_payloads_in_git": false,
+    "dataset_identity": "200b3cb594dfca5cd04331fa07a1e3d3005b4d40a33b3b1b457413cc78dc1624",
+    "relative_path": "manifests/week1_2026_feature_coverage_adequacy/sha256/200b3cb594dfca5cd04331fa07a1e3d3005b4d40a33b3b1b457413cc78dc1624/week1_2026_feature_coverage_adequacy_manifest.json",
+    "sha256": "25b7d96f5c95108145a34be6bd08e6c948ebe2b5bf2903d5f17a409f434b54e9"
+  },
+  "parent_jira_key": "BAT-523",
+  "payload_root_sha256": "f6cb86f2e29b6912e4e88ef1eecf6c2f464e73309ff3f5931314457f7c4b45e1",
+  "payloads": [
+    {
+      "bytes": 128994,
+      "name": "week1_2026_contest_adequacy.jsonl",
+      "payload_identity": "6b2a5ddce81b832b44734cfc82dbaa837b3eac7f06bddbe4436079da748707a5",
+      "role": "WEEK1_2026_CONTEST_ADEQUACY",
+      "rows": 91,
+      "sha256": "b66b64d2ee7a22379abb76a300815623a7ce3b3f10ccee49133e29f500a3bcfd"
+    },
+    {
+      "bytes": 363955,
+      "name": "week1_2026_candidate_adequacy.jsonl",
+      "payload_identity": "dd9370cdf54f508899099586d6ff8669f47fc8ad1978ba4f2b59510df3681368",
+      "role": "WEEK1_2026_CANDIDATE_ADEQUACY",
+      "rows": 455,
+      "sha256": "f7f3b2a2c92cd44c0609a5157be61c8de63638158b097dacf29ec67637c2aa39"
+    }
+  ],
+  "predecessor_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_WEEK1_2026_FEATURE_COVERAGE_ADEQUACY",
+  "schema_version": "aggie.shadow.week1_2026_feature_coverage_adequacy.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "calibration_or_performance_claim": false,
+    "champion_or_production_selection": false,
+    "forecast_published": false,
+    "model_tuning_or_promotion": false,
+    "protected_performance": false,
+    "specialization_lift": false,
+    "tamu_specific_adjustment_applied": false
+  },
+  "season": 2026,
+  "summary": {
+    "candidate_adequacy_counts": {
+      "national_base_rate": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 83
+      },
+      "national_elo": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 83,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+      },
+      "national_logistic_l2": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 83,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+      },
+      "national_margin_ridge": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 83,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+      },
+      "prior_only": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "NOT_IN_MODEL_TARGET": 0,
+        "PARTIAL_MODEL_INPUT": 83,
+        "QUARANTINED_CONFLICT": 0,
+        "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+      }
+    },
+    "candidate_row_count": 455,
+    "contest_adequacy_counts": {
+      "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+      "NOT_IN_MODEL_TARGET": 0,
+      "PARTIAL_MODEL_INPUT": 83,
+      "QUARANTINED_CONFLICT": 0,
+      "READY_FOR_PREDECLARED_MODEL_INPUT": 0
+    },
+    "contest_count": 91,
+    "contests_with_a_ranked_participant": 23,
+    "contests_with_conflicts": 0,
+    "contests_with_roster_membership": 0,
+    "contests_with_unsupported_entities": 8,
+    "contests_with_weather": 83,
+    "coverage_by_conference": {
+      "ACC": 12,
+      "American": 14,
+      "Big 12": 15,
+      "Big Sky": 5,
+      "Big Ten": 18,
+      "CAA": 8,
+      "CUSA": 10,
+      "FBS Independent": 2,
+      "FCS Independent": 1,
+      "MAC": 13,
+      "MEAC": 2,
+      "MVFC": 4,
+      "Mountain West": 9,
+      "NEC": 3,
+      "OVC": 4,
+      "Pac-12": 8,
+      "Patriot": 2,
+      "SEC": 16,
+      "SWAC": 4,
+      "SoCon": 3,
+      "Southland": 6,
+      "Sun Belt": 14,
+      "UAC": 6
+    },
+    "coverage_by_contest_disposition": {
+      "ADMITTED_MODEL_ELIGIBLE": 83,
+      "UNSUPPORTED_ENTITY": 8
+    },
+    "coverage_by_requested_date": {
+      "2026-09-03": 11,
+      "2026-09-04": 8,
+      "2026-09-05": 68,
+      "2026-09-06": 3,
+      "2026-09-07": 1
+    },
+    "coverage_by_site_state": {
+      "HOME_TEAM_SITE": 88,
+      "NEUTRAL": 3
+    },
+    "coverage_by_subdivision_pair": {
+      "FBS": 43,
+      "FBS+FCS": 48
+    },
+    "team_row_count": 182,
+    "temporal_exclusion_total": 0,
+    "verified_availability_total": 0
+  },
+  "tamu_policy": {
+    "tamu_contest_is_reported_not_corrected": true,
+    "tamu_ncaa_contest_id_is_discovered_from_the_universe_not_hardcoded": true,
+    "tamu_specific_adjustment_applied": false,
+    "tamu_travels_the_same_national_path": true
+  },
+  "week_label": "WEEK_1"
+}

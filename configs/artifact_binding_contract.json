@@ -4721,6 +4721,93 @@
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_WEEK1_2026_NATIONAL_FORECAST_SUITE_BINDING"
       }
+    },
+    {
+      "binding_id": "BAT-681-WEEK1-2026-EARLY-FORECAST-ADEQUACY",
+      "bound_child_identities": {
+        "contract_sha256": "51551bdf6576ab375876d465733855407ae040796f8985a96aabb74c37027abc",
+        "core_module_sha256": "32c0644a7ec43f8bbd298b79b9be8503aa27158e06deaea78f9b9eb36a3765a9",
+        "dataset_identity": "57cb159164c8dfb3cbaa377245c440696c246f38bd4056647818dcb3006cadaf",
+        "gate_identity": "892ed90f7ca6ea227321d0b0347065b4e179bca44528dc275ad6fe7b7d76c71b",
+        "predecessor_suite_gate_identity": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b",
+        "producer_sha256": "a9cbaf81e9957bc9c538c6d4672983e2cf86d4b2015a8812f447bc949df5d54c",
+        "validator_sha256": "7cbb23ba2065c530d4b345550fe4d5e3f9bbe8f198f10e265fdf1e88652fd079"
+      },
+      "canonical_artifact_path": "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "summary.forecast_row_count",
+              "evidence_path": "summary.forecast_row_count"
+            },
+            {
+              "canonical_path": "summary.contest_count",
+              "evidence_path": "summary.contest_count"
+            },
+            {
+              "canonical_path": "pair_coherence.pair_coherence_holds",
+              "evidence_path": "pair_coherence.pair_coherence_holds"
+            },
+            {
+              "canonical_path": "checkpoints.t_minus_24h_state",
+              "evidence_path": "checkpoints.t_minus_24h_state"
+            },
+            {
+              "canonical_path": "checkpoints.t_minus_90m_state",
+              "evidence_path": "checkpoints.t_minus_90m_state"
+            }
+          ],
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "summary.week1_outcome_access",
+        "summary.week_zero_used_to_tune_select_or_promote",
+        "summary.custom_correction_applied",
+        "summary.tamu_specific_adjustment_applied",
+        "summary.base_rate_presented_as_recommended",
+        "checkpoints.executed_early",
+        "checkpoints.week1_outcome_access",
+        "checkpoints.pregame_result_access",
+        "checkpoints.backfill_allowed",
+        "focus_contest_report.custom_correction_applied",
+        "focus_contest_report.tamu_specific_adjustment_applied",
+        "focus_contest_report.outcome_read",
+        "adequacy.partial_model_input_may_emit_a_forecast",
+        "uncertainty.probability_interval_established",
+        "bound_predecessors.predecessor_artifacts_rewritten_in_place",
+        "tamu_policy.custom_correction_applied",
+        "tamu_policy.tamu_specific_adjustment_applied"
+      ],
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-681",
+      "local_issue_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
+      "required_equal": {
+        "jira_key": "BAT-681",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "local_issue_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
+        "parent_jira_key": "BAT-523",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_WEEK1_2026_EARLY_FORECAST_ADEQUACY"
+      }
     }
   ],
   "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",

@@ -1,0 +1,189 @@
+{
+  "schema_version": "aggie.shadow.week1_2026_early_forecast_adequacy.v1",
+  "contract_id": "CYCLE24-WEEK1-2026-EARLY-FORECAST-ADEQUACY-V1",
+  "decision_unit": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
+  "local_issue_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
+  "jira_key": "BAT-681",
+  "parent_jira_key": "BAT-523",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "checkpoint_id": "EARLY_WEEK1",
+  "purpose": "Freeze one immutable EARLY_WEEK1 row for every Week 1 2026 oriented team row and every one of the exactly five frozen candidates, so that each candidate either carries a coherent probability with its supported margin and uncertainty or names the exact evidence it lacks, and so that the focus contest receives a truthful readout rather than a plausible-looking number.",
+  "checkpoint": {
+    "checkpoint_id": "EARLY_WEEK1",
+    "is_a_separate_immutable_identity_from_the_tamu_checkpoints": true,
+    "tamu_t_minus_24h_may_execute_in_this_unit": false,
+    "tamu_t_minus_90m_may_execute_in_this_unit": false,
+    "tamu_t_minus_24h_not_before_utc": "2026-09-04T23:00:00Z",
+    "tamu_t_minus_90m_not_before_utc": "2026-09-05T21:30:00Z",
+    "post_kickoff_insertion_state": "MISSED_CUTOFF_NO_BACKFILL",
+    "backfill_allowed": false,
+    "overwrites_predecessor_forecast_rows": false,
+    "preserved_predecessor_forecast_gates": [
+      "artifacts/shadow/prospective_2026_shadow_forecast_gate.json",
+      "artifacts/shadow/national_shadow_operations_gate.json",
+      "artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json",
+      "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json"
+    ]
+  },
+  "sources": {
+    "national_forecast_suite": {
+      "gate_relative_path": "artifacts/forecast/week1_2026_national_forecast_suite_gate.json",
+      "gate_identity": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b",
+      "feature_payload_name": "week1_2026_forecast_feature_rows.jsonl",
+      "adequacy_payload_name": "week1_2026_forecast_candidate_adequacy_rows.jsonl",
+      "model_payload_name": "week1_2026_forecast_model_binding_rows.jsonl",
+      "parameter_payload_name": "week1_2026_forecast_fitted_parameter_rows.jsonl"
+    },
+    "frozen_strength_prior": {
+      "gate_relative_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+      "gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+      "prior_payload_name": "week1_2026_frozen_strength_prior_rows.jsonl"
+    },
+    "spine_semantic_successor": {
+      "gate_relative_path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json",
+      "gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6"
+    },
+    "authority_enrichment": {
+      "gate_relative_path": "artifacts/authority/week1_2026_authority_enrichment_gate.json",
+      "gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b"
+    },
+    "frozen_candidates": {
+      "gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+      "gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24"
+    },
+    "historical_predecessor_rows": {
+      "gate_relative_path": "artifacts/shadow/tamu_2026_week1_rehearsal_gate.json",
+      "gate_identity": "7a3fcbefa3f4826f32446d56017c68e6e7053b860607a9ad54cd9ac5ae0e40af",
+      "immutable_base_rate_probability": 0.5,
+      "immutable_elo_probability": 0.68188773,
+      "may_be_relabelled_as_current": false,
+      "may_be_presented_as_recommended": false
+    }
+  },
+  "candidates": [
+    "national_base_rate",
+    "prior_only",
+    "national_elo",
+    "national_logistic_l2",
+    "national_margin_ridge"
+  ],
+  "probability_construction": {
+    "national_base_rate": {
+      "rule": "FIXED_CONTROL_ONE_HALF_ON_BOTH_ORIENTATIONS",
+      "pair_rule": "EXACTLY_COMPLEMENTARY_BY_CONSTRUCTION",
+      "direction": "NO_DIRECTION",
+      "never_recommended": true
+    },
+    "prior_only": {
+      "rule": "FITTED_LOGISTIC_ON_THE_PRIOR_OUTCOME_DOMAIN_AND_SITE_DESIGN",
+      "pair_rule": "PREDECLARED_RAW_SUM_PAIR_NORMALIZATION"
+    },
+    "national_elo": {
+      "rule": "PREDECLARED_ELO_LINK_ON_THE_FROZEN_RATING_STATE_WITH_THE_PREDECLARED_HOME_EFFECT",
+      "pair_rule": "EXACTLY_COMPLEMENTARY_BY_CONSTRUCTION_BECAUSE_THE_ORIENTED_RATING_DIFFERENCE_IS_ANTISYMMETRIC"
+    },
+    "national_logistic_l2": {
+      "rule": "FITTED_LOGISTIC_ON_THE_ALL_ADMITTED_FEATURES_DESIGN",
+      "pair_rule": "PREDECLARED_RAW_SUM_PAIR_NORMALIZATION"
+    },
+    "national_margin_ridge": {
+      "rule": "PREDECLARED_DEVELOPMENT_FITTED_LOGISTIC_LINK_ON_THE_PAIR_COHERENT_EXPECTED_MARGIN",
+      "pair_rule": "EXACTLY_COMPLEMENTARY_BY_CONSTRUCTION_BECAUSE_THE_PAIR_COHERENT_MARGIN_IS_ANTISYMMETRIC"
+    }
+  },
+  "pair_normalization": {
+    "probability_rule_id": "PREDECLARED_RAW_SUM_PAIR_NORMALIZATION",
+    "probability_rule_authority": "src/aggie_analytics/experimentation/development_2023_labeled_replay.py:normalize_pair_probabilities",
+    "probability_tolerance": 1e-09,
+    "margin_rule_id": "PAIR_ANTISYMMETRIC_MEAN",
+    "margin_rule_statement": "The pair-coherent oriented margin is one half of the difference between the two raw oriented margins, so the pair sums to zero exactly rather than being forced by discarding one orientation.",
+    "margin_tolerance": 1e-09,
+    "raw_values_are_retained_alongside_the_coherent_values": true,
+    "direction_must_agree_between_probability_and_margin": true,
+    "probability_exactly_one_half_direction": "NO_DIRECTION"
+  },
+  "margin_support": {
+    "supported_candidates": [
+      "national_margin_ridge"
+    ],
+    "unsupported_state": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+    "forbid_copying_the_ridge_margin_into_another_candidate_row": true
+  },
+  "uncertainty": {
+    "nominal_interval_level": 0.95,
+    "normal_quantile": 1.959964,
+    "nominal_interval_source": "THE_EXISTING_PREDECLARED_TWO_POINT_FIVE_AND_NINETY_SEVEN_POINT_FIVE_BOOTSTRAP_PERCENTILE_PAIR",
+    "margin_interval_allowed_candidates": [
+      "national_margin_ridge"
+    ],
+    "margin_interval_rule": "THE_PAIR_COHERENT_MARGIN_PLUS_OR_MINUS_THE_NORMAL_QUANTILE_TIMES_THE_DEVELOPMENT_MARGIN_RESIDUAL_DISPERSION",
+    "probability_interval_established": false,
+    "unsupported_state": "UNCERTAINTY_NOT_ESTABLISHED",
+    "forbid_probability_interval_for_the_control": true,
+    "forbid_margin_interval_for_a_probability_only_family": true,
+    "forbid_inferring_calibration_from_week_zero": true,
+    "aleatoric_state": "DEVELOPMENT_FITTED_RESIDUAL_DISPERSION",
+    "epistemic_state_for_stale_priors": "STALE_INPUT_EPISTEMIC_INADEQUACY",
+    "aleatoric_and_epistemic_are_reported_separately": true
+  },
+  "row_states": [
+    "FORECAST_FROZEN",
+    "ABSTAIN_MISSING_REQUIRED_FEATURES",
+    "ABSTAIN_UNSUPPORTED_ENTITY",
+    "QUARANTINED_CONFLICT",
+    "MISSED_CUTOFF_NO_BACKFILL"
+  ],
+  "adequacy_verdicts": [
+    "ADEQUATE_FOR_SHADOW_OBSERVATION",
+    "LIMITED_STALE_INPUT_SHADOW_ONLY",
+    "ABSTAIN_MISSING_REQUIRED_FEATURES",
+    "ABSTAIN_UNSUPPORTED_ENTITY",
+    "QUARANTINED_CONFLICT",
+    "MISSED_CUTOFF_NO_BACKFILL"
+  ],
+  "adequacy_rule": {
+    "statement": "A frozen row is never ADEQUATE_FOR_SHADOW_OBSERVATION while its inputs are stale, because a stale opening prior is epistemic inadequacy rather than residual noise. A frozen row whose prior carries SUPPORTED_STALE_INPUT or LIMITED_SUPPORT_STALE_INPUT is LIMITED_STALE_INPUT_SHADOW_ONLY. The unfitted control is never adequate and never recommended.",
+    "stale_prior_uncertainty_classes": [
+      "SUPPORTED_STALE_INPUT",
+      "LIMITED_SUPPORT_STALE_INPUT"
+    ],
+    "control_verdict": "LIMITED_STALE_INPUT_SHADOW_ONLY",
+    "partial_model_input_may_emit_a_forecast": false,
+    "credibility_may_rest_on_intuitive_plausibility": false
+  },
+  "focus_contest": {
+    "discovery_rule": "DISCOVERED_FROM_THE_BOUND_AUTHORITY_GATE_FOCUS_CONTEST_REPORT",
+    "hardcoded_participant_identities": [],
+    "custom_correction_applied": false,
+    "tamu_specific_adjustment_applied": false,
+    "pregame_bas_score_permitted": false,
+    "postgame_residual_predeclared": true,
+    "predeclared_result_residual": "OBSERVED_RESULT_INDICATOR_MINUS_THE_FROZEN_ORIENTED_PROBABILITY",
+    "predeclared_margin_residual": "OBSERVED_ORIENTED_MARGIN_MINUS_THE_FROZEN_PAIR_COHERENT_EXPECTED_MARGIN",
+    "outcome_read_in_this_unit": false
+  },
+  "forbidden": {
+    "protected_seasons": [
+      2024,
+      2025
+    ],
+    "week1_outcome_access": false,
+    "week_zero_used_to_tune_select_or_promote": false,
+    "market_input": false,
+    "candidate_insertion": false,
+    "hyperparameter_drift": false,
+    "probability_mutation_under_the_same_row_identity": false,
+    "fabricated_numeric_feature_value": false,
+    "recommended_candidate_promoted_in_this_unit": false
+  },
+  "scientific_nonclaims": [
+    "NO_BAS_CLAIM",
+    "NO_AGGIE_EXCESS_CLAIM",
+    "NO_TAMU_LIFT_CLAIM",
+    "NO_CHAMPION_CLAIM",
+    "NO_PRODUCTION_READINESS_CLAIM",
+    "NO_PROTECTED_PERFORMANCE_CLAIM",
+    "NO_RECOMMENDED_PRODUCTION_FORECAST_CLAIM"
+  ]
+}

@@ -57,7 +57,7 @@ def validate(repo_root: Path, *, require_live: bool = False) -> list[str]:
     validator = repo / "jira/tools/validate_second_pass.py"
     if validator.is_file():
         completed = subprocess.run(
-            [sys.executable, "-B", str(validator), "--repo-root", str(repo)],
+            [sys.executable, "-B", str(validator), "--repo-root", str(repo), "--mode", "validate"],
             cwd=repo,
             text=True,
             capture_output=True,

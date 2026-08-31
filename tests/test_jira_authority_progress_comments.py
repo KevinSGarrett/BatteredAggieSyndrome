@@ -222,6 +222,108 @@ class AuthorityProgressCommentLedgerTests(unittest.TestCase):
                 [],
             )
 
+    def test_supersession_record_for_historical_comment_passes(self) -> None:
+        repo_root = Path(__file__).resolve().parents[1]
+        head_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
+        parent_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD~1"], text=True).strip()
+        with tempfile.TemporaryDirectory(dir=repo_root) as tmp:
+            tmp_path = Path(tmp)
+            snapshot_payload = {
+                "jira_key": "BAT-523",
+                "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+            }
+            snapshot_contents = json.dumps(snapshot_payload)
+            snapshot_sha = hashlib.sha256(snapshot_contents.encode("utf-8")).hexdigest()
+            snapshot = tmp_path / snapshot_sha / "snapshot.json"
+            snapshot.parent.mkdir(parents=True, exist_ok=True)
+            snapshot.write_text(snapshot_contents, encoding="utf-8")
+            entry = _ledger_entry(
+                cycle=21,
+                comment_id="14706",
+                material_merge_sha=head_sha,
+                immutable_evidence_snapshot_path=str(snapshot.relative_to(repo_root)).replace("\\", "/"),
+                immutable_evidence_snapshot_sha256=snapshot_sha,
+                comment_body_sha256="49d06f0fec3ea5ea04747cf1e597ce7c2a2803b72e107d2a0d25e2c173cbed0d",
+            )
+            ledger = {
+                "schema_version": 2,
+                "supersession_schema_version": 1,
+                "v2_evidence_authority": {
+                    "historical_snapshot": import_bat_live.V2_HISTORICAL_SNAPSHOT_AUTHORITY,
+                    "evolving_evidence_path": import_bat_live.V2_EVOLVING_EVIDENCE_AUTHORITY,
+                    "legacy_mutable_fields": import_bat_live.V2_LEGACY_MUTABLE_FIELDS_AUTHORITY,
+                },
+                "comments": [entry],
+                "supersessions": [
+                    {
+                        "jira_key": "BAT-523",
+                        "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+                        "cycle": 21,
+                        "original_comment_id": "14706",
+                        "original_comment_body_sha256": "49d06f0fec3ea5ea04747cf1e597ce7c2a2803b72e107d2a0d25e2c173cbed0d",
+                        "posted_cycle_end_sha": parent_sha.lower(),
+                        "final_cycle_end_sha": head_sha.lower(),
+                        "correction_reason": "posted before final closeout commit",
+                        "historical_comment_immutable": True,
+                        "supersession_kind": "HISTORICAL_COMMENT_END_SHA_CORRECTION",
+                    }
+                ],
+            }
+            self.assertEqual(
+                import_bat_live.validate_authority_progress_comment_ledger_static(repo_root, ledger),
+                [],
+            )
+
+    def test_supersession_sha_mismatch_fails(self) -> None:
+        repo_root = Path(__file__).resolve().parents[1]
+        head_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
+        parent_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD~1"], text=True).strip()
+        with tempfile.TemporaryDirectory(dir=repo_root) as tmp:
+            tmp_path = Path(tmp)
+            snapshot_payload = {
+                "jira_key": "BAT-523",
+                "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+            }
+            snapshot_contents = json.dumps(snapshot_payload)
+            snapshot_sha = hashlib.sha256(snapshot_contents.encode("utf-8")).hexdigest()
+            snapshot = tmp_path / snapshot_sha / "snapshot.json"
+            snapshot.parent.mkdir(parents=True, exist_ok=True)
+            snapshot.write_text(snapshot_contents, encoding="utf-8")
+            entry = _ledger_entry(
+                cycle=21,
+                comment_id="14706",
+                material_merge_sha=head_sha,
+                immutable_evidence_snapshot_path=str(snapshot.relative_to(repo_root)).replace("\\", "/"),
+                immutable_evidence_snapshot_sha256=snapshot_sha,
+                comment_body_sha256="49d06f0fec3ea5ea04747cf1e597ce7c2a2803b72e107d2a0d25e2c173cbed0d",
+            )
+            ledger = {
+                "schema_version": 2,
+                "supersession_schema_version": 1,
+                "v2_evidence_authority": {
+                    "historical_snapshot": import_bat_live.V2_HISTORICAL_SNAPSHOT_AUTHORITY,
+                    "evolving_evidence_path": import_bat_live.V2_EVOLVING_EVIDENCE_AUTHORITY,
+                    "legacy_mutable_fields": import_bat_live.V2_LEGACY_MUTABLE_FIELDS_AUTHORITY,
+                },
+                "comments": [entry],
+                "supersessions": [
+                    {
+                        "jira_key": "BAT-523",
+                        "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+                        "cycle": 21,
+                        "original_comment_id": "14706",
+                        "original_comment_body_sha256": "0" * 64,
+                        "posted_cycle_end_sha": parent_sha.lower(),
+                        "final_cycle_end_sha": head_sha.lower(),
+                        "correction_reason": "posted before final closeout commit",
+                        "historical_comment_immutable": True,
+                        "supersession_kind": "HISTORICAL_COMMENT_END_SHA_CORRECTION",
+                    }
+                ],
+            }
+            findings = import_bat_live.validate_authority_progress_comment_ledger_static(repo_root, ledger)
+            self.assertTrue(any("supersession comment SHA mismatch BAT-523/14706" in item for item in findings))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -63,6 +63,7 @@ LEGACY_PROGRESS_COMMENT_FIELDS = ("local_evidence_path", "local_evidence_identit
 V2_HISTORICAL_SNAPSHOT_AUTHORITY = "IMMUTABLE_EVIDENCE_SNAPSHOT_PATH_AND_SHA256"
 V2_EVOLVING_EVIDENCE_AUTHORITY = "NON_AUTHORITATIVE_REFERENCE_ONLY"
 V2_LEGACY_MUTABLE_FIELDS_AUTHORITY = "NON_AUTHORITATIVE_IGNORED"
+PROGRESS_SUPERSESSION_SCHEMA_VERSION = 1
 RECORDS_ROOT = JIRA_ROOT / "records" / "issues"
 STALE_AUXILIARY_SEMANTICS_COUNT = 31
 
@@ -2582,6 +2583,79 @@ def _merge_sha_reachable_from_head(repo_root: Path, merge_sha: str) -> bool:
     return probe.returncode == 0
 
 
+def _validate_progress_supersessions(
+    *,
+    repo_root: Path,
+    ledger: Mapping[str, Any],
+    comments: list[Mapping[str, Any]],
+) -> list[str]:
+    findings: list[str] = []
+    supersessions = list(ledger.get("supersessions") or [])
+    if not supersessions:
+        return findings
+    if int(ledger.get("supersession_schema_version") or 0) != PROGRESS_SUPERSESSION_SCHEMA_VERSION:
+        findings.append("authority progress supersession schema_version is invalid")
+    comment_index: dict[tuple[str, str, int], Mapping[str, Any]] = {}
+    for item in comments:
+        cycle = _entry_cycle_int(item)
+        if cycle is None:
+            continue
+        key = (
+            str(item.get("jira_key") or "").strip(),
+            str(item.get("comment_id") or "").strip(),
+            cycle,
+        )
+        comment_index[key] = item
+    for row in supersessions:
+        jira_key = str(row.get("jira_key") or "").strip()
+        comment_id = str(row.get("original_comment_id") or "").strip()
+        cycle = _entry_cycle_int(row)
+        if cycle is None:
+            findings.append(f"invalid supersession cycle for {jira_key}/{comment_id}")
+            continue
+        required = (
+            "jira_key",
+            "local_issue_id",
+            "cycle",
+            "original_comment_id",
+            "original_comment_body_sha256",
+            "posted_cycle_end_sha",
+            "final_cycle_end_sha",
+            "correction_reason",
+        )
+        missing = [field for field in required if not str(row.get(field) or "").strip()]
+        if missing:
+            findings.append(f"invalid supersession record {jira_key}/{comment_id}: missing {', '.join(missing)}")
+            continue
+        match = comment_index.get((jira_key, comment_id, cycle))
+        if match is None:
+            findings.append(f"supersession has no matching recorded comment {jira_key}/{comment_id}")
+            continue
+        expected_sha = str(match.get("comment_body_sha256") or "").strip().lower()
+        actual_sha = str(row.get("original_comment_body_sha256") or "").strip().lower()
+        if expected_sha != actual_sha:
+            findings.append(f"supersession comment SHA mismatch {jira_key}/{comment_id}")
+        if str(match.get("local_issue_id") or "").strip() != str(row.get("local_issue_id") or "").strip():
+            findings.append(f"supersession local issue mismatch {jira_key}/{comment_id}")
+        posted_sha = str(row.get("posted_cycle_end_sha") or "").strip().lower()
+        final_sha = str(row.get("final_cycle_end_sha") or "").strip().lower()
+        if not _is_hex(posted_sha, 40):
+            findings.append(f"supersession posted-cycle SHA invalid {jira_key}/{comment_id}")
+        elif not _merge_sha_reachable_from_head(repo_root, posted_sha):
+            findings.append(f"supersession posted-cycle SHA unreachable {jira_key}/{comment_id}")
+        if not _is_hex(final_sha, 40):
+            findings.append(f"supersession final-cycle SHA invalid {jira_key}/{comment_id}")
+        elif not _merge_sha_reachable_from_head(repo_root, final_sha):
+            findings.append(f"supersession final-cycle SHA unreachable {jira_key}/{comment_id}")
+        if posted_sha == final_sha:
+            findings.append(f"supersession requires distinct posted and final cycle SHAs {jira_key}/{comment_id}")
+        if row.get("historical_comment_immutable") is not True:
+            findings.append(f"supersession must declare immutable historical comment {jira_key}/{comment_id}")
+        if str(row.get("supersession_kind") or "").strip() != "HISTORICAL_COMMENT_END_SHA_CORRECTION":
+            findings.append(f"supersession kind invalid {jira_key}/{comment_id}")
+    return findings
+
+
 def validate_authority_progress_comment_ledger_static(
     repo_root: Path,
     ledger: Mapping[str, Any] | None = None,
@@ -2676,6 +2750,9 @@ def validate_authority_progress_comment_ledger_static(
         snapshot_jira_key, snapshot_local_issue_id = owner_cache[immutable_full_path]
         if snapshot_jira_key != jira_key or snapshot_local_issue_id != local_issue_id:
             findings.append(f"snapshot owner mismatch for progress comment {jira_key}/{comment_id}")
+    findings.extend(
+        _validate_progress_supersessions(repo_root=repo_root, ledger=working_ledger, comments=comments)
+    )
     return findings
 
 

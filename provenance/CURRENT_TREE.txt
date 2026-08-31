@@ -450,6 +450,7 @@ configs/artifact_binding_contract.json
 configs/assistive_downstream_adoptions.json
 configs/assistive_provider_registry.json
 configs/assistive_route_readiness.json
+configs/authority_checkout_sampling_contract.json
 configs/backlog_policy.json
 configs/backup_retention_policy.json
 configs/bas_science_registry.json
@@ -457,6 +458,7 @@ configs/cfbd_post2022_roster_acquisition.json
 configs/codex_usage_interlock_change_manifest.json
 configs/context_intelligence_registry.json
 configs/cpu_worker_qualification.json
+configs/cycle23_material_ownership_registry.json
 configs/development_2023_labeled_replay_contract.json
 configs/development_2023_outcome_identity_contract.json
 configs/development_candidate_feature_registry.json
@@ -3678,12 +3680,14 @@ tests/test_backlog_governance.py
 tests/test_backup_catalog_integrity.py
 tests/test_bas_science_governance.py
 tests/test_cfbd_historical_acquisition.py
+tests/test_checkout_authority_pins.py
 tests/test_codex_usage_interlock.py
 tests/test_context_intelligence_governance.py
 tests/test_contract_input_pins.py
 tests/test_core_registry.py
 tests/test_cpu_worker_backend.py
 tests/test_cursor_review_disposition.py
+tests/test_cycle23_routing_manifest_coverage.py
 tests/test_data_research.py
 tests/test_development_2023_labeled_replay.py
 tests/test_development_2023_outcomes.py
@@ -3807,6 +3811,7 @@ tests/test_result_comparison_full.py
 tests/test_retrospective_returning_production.py
 tests/test_roster_domain_completeness.py
 tests/test_sec_tamu_availability.py
+tests/test_second_pass_audit_modes.py
 tests/test_source_access_smoke_results.py
 tests/test_supplemental_play_drive.py
 tests/test_tamu_2010_2011_ncaa_contest_route_discovery.py
@@ -4167,6 +4172,7 @@ tools/validate_authority_placeholders.py
 tools/validate_autonomous_controls.py
 tools/validate_backlog.py
 tools/validate_bas_science.py
+tools/validate_checkout_authority_pins.py
 tools/validate_codex_usage_interlock.py
 tools/validate_context_intelligence.py
 tools/validate_contract_input_pins.py

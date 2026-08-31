@@ -1,97 +1,111 @@
 {
- "authority_bearing_pattern": "^Cycle #\\d+ progress \\(factual\\):",
- "comments": [
-  {
-   "comment_body_sha256": "256d9afc406bb937d681984e1e72a15bf12404b4922b773624f6faf719e525a3",
-   "comment_id": "14584",
-   "cycle": 15,
-   "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
-   "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
-   "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/c1e60522f83f8244aba95b7acd05698f95b7e1fb3dbe48b8f378eb549ec89c5a/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
-   "immutable_evidence_snapshot_sha256": "c1e60522f83f8244aba95b7acd05698f95b7e1fb3dbe48b8f378eb549ec89c5a",
-   "jira_key": "BAT-523",
-   "kind": "parent_progress",
-   "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-   "material_merge_sha": "d77c17bc978247b3189cc2069fa3cd6941a95401",
-   "parent_progress_kind": "parent_progress"
-  },
-  {
-   "comment_body_sha256": "d9f8e5c38a93351ccf0160e41041854acabece7784fd05642e70c6be635d5a40",
-   "comment_id": "14615",
-   "cycle": 16,
-   "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
-   "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
-   "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/3987396107d211b995513a386a6c011989c211f456bd1edae10e37b9d7401638/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
-   "immutable_evidence_snapshot_sha256": "3987396107d211b995513a386a6c011989c211f456bd1edae10e37b9d7401638",
-   "jira_key": "BAT-523",
-   "kind": "parent_progress",
-   "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-   "material_merge_sha": "866eb613e7a8b476ebd2e4632ea132cde4a20f3c",
-   "parent_progress_kind": "parent_progress"
-  },
-  {
-   "comment_body_sha256": "d5ef9e0deb318d2bd22a9bc4d2475db8717ae1ea9b4efbb3473031eb5240edd2",
-   "comment_id": "14671",
-   "cycle": 17,
-   "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
-   "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001.json",
-   "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/901992b48c28097bb7ba4262ee2c7405da465bf47f794c252cb3c08f16da6ec9/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
-   "immutable_evidence_snapshot_sha256": "901992b48c28097bb7ba4262ee2c7405da465bf47f794c252cb3c08f16da6ec9",
-   "jira_key": "BAT-523",
-   "kind": "parent_progress",
-   "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-   "material_merge_sha": "2a85490f1ab5852213020e8d58b08ec77d2cb309",
-   "parent_progress_kind": "parent_progress"
-  },
-  {
-   "comment_body_sha256": "a77595abc8ef67892e6a26e639eb47d8591c06f77cb23a61565ada617d007bb7",
-   "comment_id": "14705",
-   "cycle": 18,
-   "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
-   "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001.json",
-   "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/3d8dd23d737de3bf1286044a81c0c8bc70a29b3c2afb0a2293398d699219addd/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
-   "immutable_evidence_snapshot_sha256": "3d8dd23d737de3bf1286044a81c0c8bc70a29b3c2afb0a2293398d699219addd",
-   "jira_key": "BAT-523",
-   "kind": "parent_progress",
-   "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-   "material_merge_sha": "cb7ab3bb183ed9eabcf9dbd6740f3703c624198e",
-   "parent_progress_kind": "parent_progress"
-  },
-  {
-   "comment_body_sha256": "49d06f0fec3ea5ea04747cf1e597ce7c2a2803b72e107d2a0d25e2c173cbed0d",
-   "comment_id": "14706",
-   "cycle": 21,
-   "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
-   "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001.json",
-   "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/0105a88a784dcab6ccc5f53cb065cf6139eb8fded8430f03131a92ac1662edaf/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
-   "immutable_evidence_snapshot_sha256": "0105a88a784dcab6ccc5f53cb065cf6139eb8fded8430f03131a92ac1662edaf",
-   "jira_key": "BAT-523",
-   "kind": "parent_progress",
-   "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-   "material_merge_sha": "f47def43db239540340ef3e4f7029b47fdf81143",
-   "parent_progress_kind": "parent_progress"
+  "authority_bearing_pattern": "^Cycle #\\d+ progress \\(factual\\):",
+  "comments": [
+    {
+      "comment_body_sha256": "256d9afc406bb937d681984e1e72a15bf12404b4922b773624f6faf719e525a3",
+      "comment_id": "14584",
+      "cycle": 15,
+      "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
+      "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/c1e60522f83f8244aba95b7acd05698f95b7e1fb3dbe48b8f378eb549ec89c5a/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_sha256": "c1e60522f83f8244aba95b7acd05698f95b7e1fb3dbe48b8f378eb549ec89c5a",
+      "jira_key": "BAT-523",
+      "kind": "parent_progress",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "material_merge_sha": "d77c17bc978247b3189cc2069fa3cd6941a95401",
+      "parent_progress_kind": "parent_progress"
+    },
+    {
+      "comment_body_sha256": "d9f8e5c38a93351ccf0160e41041854acabece7784fd05642e70c6be635d5a40",
+      "comment_id": "14615",
+      "cycle": 16,
+      "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
+      "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/3987396107d211b995513a386a6c011989c211f456bd1edae10e37b9d7401638/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_sha256": "3987396107d211b995513a386a6c011989c211f456bd1edae10e37b9d7401638",
+      "jira_key": "BAT-523",
+      "kind": "parent_progress",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "material_merge_sha": "866eb613e7a8b476ebd2e4632ea132cde4a20f3c",
+      "parent_progress_kind": "parent_progress"
+    },
+    {
+      "comment_body_sha256": "d5ef9e0deb318d2bd22a9bc4d2475db8717ae1ea9b4efbb3473031eb5240edd2",
+      "comment_id": "14671",
+      "cycle": 17,
+      "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
+      "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001.json",
+      "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/901992b48c28097bb7ba4262ee2c7405da465bf47f794c252cb3c08f16da6ec9/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_sha256": "901992b48c28097bb7ba4262ee2c7405da465bf47f794c252cb3c08f16da6ec9",
+      "jira_key": "BAT-523",
+      "kind": "parent_progress",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "material_merge_sha": "2a85490f1ab5852213020e8d58b08ec77d2cb309",
+      "parent_progress_kind": "parent_progress"
+    },
+    {
+      "comment_body_sha256": "a77595abc8ef67892e6a26e639eb47d8591c06f77cb23a61565ada617d007bb7",
+      "comment_id": "14705",
+      "cycle": 18,
+      "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
+      "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001.json",
+      "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/3d8dd23d737de3bf1286044a81c0c8bc70a29b3c2afb0a2293398d699219addd/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_sha256": "3d8dd23d737de3bf1286044a81c0c8bc70a29b3c2afb0a2293398d699219addd",
+      "jira_key": "BAT-523",
+      "kind": "parent_progress",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "material_merge_sha": "cb7ab3bb183ed9eabcf9dbd6740f3703c624198e",
+      "parent_progress_kind": "parent_progress"
+    },
+    {
+      "comment_body_sha256": "49d06f0fec3ea5ea04747cf1e597ce7c2a2803b72e107d2a0d25e2c173cbed0d",
+      "comment_id": "14706",
+      "cycle": 21,
+      "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
+      "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001.json",
+      "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/0105a88a784dcab6ccc5f53cb065cf6139eb8fded8430f03131a92ac1662edaf/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_sha256": "0105a88a784dcab6ccc5f53cb065cf6139eb8fded8430f03131a92ac1662edaf",
+      "jira_key": "BAT-523",
+      "kind": "parent_progress",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "material_merge_sha": "f47def43db239540340ef3e4f7029b47fdf81143",
+      "parent_progress_kind": "parent_progress"
+    },
+    {
+      "comment_body_sha256": "bb49ead7dc24711cfef63b96fccf94347e79a9edc324e9485c8c67978475929f",
+      "comment_id": "14716",
+      "cycle": 22,
+      "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
+      "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/ed1b14872553ba5a896179b9a0ce85f2b825594ce95ffc0ec48237f0d824c9eb/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_sha256": "ed1b14872553ba5a896179b9a0ce85f2b825594ce95ffc0ec48237f0d824c9eb",
+      "jira_key": "BAT-523",
+      "kind": "parent_progress",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "material_merge_sha": "140dba42a2593b56985a375cdcc550667cfaf56d",
+      "parent_progress_kind": "parent_progress"
+    }
+  ],
+  "purpose": "Local authority-bearing parent progress-comment ledger. Recorded comments must match live Jira comment ID and canonicalized body SHA. No live-only parent progress is allowed after the recording cycle.",
+  "schema_version": 2,
+  "supersession_schema_version": 1,
+  "supersessions": [
+    {
+      "correction_reason": "Cycle #21 comment 14706 was posted before BAT-673 landed and therefore named the then-current end SHA.",
+      "cycle": 21,
+      "final_cycle_end_sha": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
+      "historical_comment_immutable": true,
+      "jira_key": "BAT-523",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "original_comment_body_sha256": "49d06f0fec3ea5ea04747cf1e597ce7c2a2803b72e107d2a0d25e2c173cbed0d",
+      "original_comment_id": "14706",
+      "posted_cycle_end_sha": "6845e51e4502c7311bd926afe0059e490a817ec1",
+      "supersession_kind": "HISTORICAL_COMMENT_END_SHA_CORRECTION"
+    }
+  ],
+  "v2_evidence_authority": {
+    "evolving_evidence_path": "NON_AUTHORITATIVE_REFERENCE_ONLY",
+    "historical_snapshot": "IMMUTABLE_EVIDENCE_SNAPSHOT_PATH_AND_SHA256",
+    "legacy_mutable_fields": "NON_AUTHORITATIVE_IGNORED"
   }
- ],
- "purpose": "Local authority-bearing parent progress-comment ledger. Recorded comments must match live Jira comment ID and canonicalized body SHA. No live-only parent progress is allowed after the recording cycle.",
- "schema_version": 2,
- "supersession_schema_version": 1,
- "supersessions": [
-  {
-   "correction_reason": "Cycle #21 comment 14706 was posted before BAT-673 landed and therefore named the then-current end SHA.",
-   "cycle": 21,
-   "final_cycle_end_sha": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
-   "historical_comment_immutable": true,
-   "jira_key": "BAT-523",
-   "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-   "original_comment_body_sha256": "49d06f0fec3ea5ea04747cf1e597ce7c2a2803b72e107d2a0d25e2c173cbed0d",
-   "original_comment_id": "14706",
-   "posted_cycle_end_sha": "6845e51e4502c7311bd926afe0059e490a817ec1",
-   "supersession_kind": "HISTORICAL_COMMENT_END_SHA_CORRECTION"
-  }
- ],
- "v2_evidence_authority": {
-  "evolving_evidence_path": "NON_AUTHORITATIVE_REFERENCE_ONLY",
-  "historical_snapshot": "IMMUTABLE_EVIDENCE_SNAPSHOT_PATH_AND_SHA256",
-  "legacy_mutable_fields": "NON_AUTHORITATIVE_IGNORED"
- }
 }

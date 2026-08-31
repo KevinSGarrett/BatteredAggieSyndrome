@@ -27,6 +27,16 @@
       "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
     },
     {
+      "path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "artifacts/jira_evidence/immutable/sha256/ed1b14872553ba5a896179b9a0ce85f2b825594ce95ffc0ec48237f0d824c9eb/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
       "path": "artifacts/shadow/bat401_done_lane_interpretation.json",
       "owner": "BAT-674",
       "kind": "MATERIAL"
@@ -38,6 +48,11 @@
     },
     {
       "path": "artifacts/shadow/cycle22_week_zero_completion_report.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/cycle22_week_zero_final_report.json",
       "owner": "BAT-674",
       "kind": "MATERIAL"
     },
@@ -163,8 +178,9 @@
     },
     {
       "path": "jira/reconciliation/BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json",
-      "owner": "BAT-675",
-      "kind": "MATERIAL"
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "reason": "BAT-675's supersession mechanism merged at e29a8b0f; later cycles only append recorded parent-progress comments to this control-plane ledger."
     },
     {
       "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
@@ -318,6 +334,11 @@
     },
     {
       "path": "tests/test_week_zero_2026_scoreboard_fallback_conditions.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tools/build_cycle22_final_report.py",
       "owner": "BAT-674",
       "kind": "MATERIAL"
     },

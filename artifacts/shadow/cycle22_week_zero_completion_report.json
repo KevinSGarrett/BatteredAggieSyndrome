@@ -1,59 +1,80 @@
 {
   "artifact_type": "CYCLE22_WEEK_ZERO_COMPLETION_REPORT",
-  "schema_version": "aggie.shadow.cycle22_week_zero_completion_report.v1",
-  "cycle": 22,
-  "execution_summary": {
-    "canonical_env_file": "C:\\BatteredAggieSyndrome\\.env",
-    "credential_probe": {
-      "env_file_resolved": true,
-      "cfbd_api_key_present": true,
-      "cfbd_api_key_nonzero_length": true,
-      "secret_value_displayed": false
-    },
-    "cfbd_requests": [
-      {
-        "method": "GET",
-        "path": "/games",
-        "parameters": {
-          "year": 2026,
-          "seasonType": "regular",
-          "week": 0
-        }
-      },
-      {
-        "method": "GET",
-        "path": "/games",
-        "parameters": {
-          "year": 2026,
-          "seasonType": "regular",
-          "week": 1
-        }
-      }
-    ],
-    "cfbd_capture_status": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
-    "cfbd_capture_artifact": "artifacts/shadow/week_zero_2026_cfbd_route_probe.json",
-    "cfbd_raw_capture_identities": [],
-    "official_capture_identity": "029e5b5d30264124861b6fb1aa4091b2b5e6ef9baf32558ad72aaf9f3bca2e2f",
-    "official_capture_manifest_path": "C:\\BatteredAggieSyndrome.data\\manifests\\shadow\\week_zero_2026_live_execution\\sha256\\029e5b5d30264124861b6fb1aa4091b2b5e6ef9baf32558ad72aaf9f3bca2e2f\\week_zero_2026_live_execution_capture_manifest.json"
-  },
   "crosswalk_and_reconciliation": {
+    "confirmation_source": "NCAA_OFFICIAL_SCOREBOARD_VIA_SCRAPFLY",
+    "conflict_quarantine_count": 0,
     "crosswalk_artifact": "artifacts/shadow/week_zero_2026_cfbd_crosswalk.json",
-    "reconciliation_gate_artifact": "artifacts/shadow/week_zero_2026_result_reconciliation_gate.json",
     "crosswalk_counts": {
       "MISSED_CUTOFF_NO_BACKFILL": 2,
       "UNRESOLVED_ABSTAIN": 6
     },
+    "reconciliation_gate_artifact": "artifacts/shadow/week_zero_2026_result_reconciliation_gate.json",
     "source_authority_labels": {
       "primary": "NCAA_OFFICIAL_SCOREBOARD_VIA_SCRAPFLY",
       "secondary": "CFBD_STRUCTURED_FINAL_EVIDENCE"
-    },
-    "confirmation_source": "NCAA_OFFICIAL_SCOREBOARD_VIA_SCRAPFLY",
-    "conflict_quarantine_count": 0
+    }
   },
+  "cycle": 22,
+  "execution_summary": {
+    "canonical_env_file": "C:\\BatteredAggieSyndrome\\.env",
+    "cfbd_capture_artifact": "artifacts/shadow/week_zero_2026_cfbd_route_probe.json",
+    "cfbd_capture_status": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+    "cfbd_raw_capture_identities": [],
+    "cfbd_requests": [
+      {
+        "method": "GET",
+        "parameters": {
+          "seasonType": "regular",
+          "week": 0,
+          "year": 2026
+        },
+        "path": "/games"
+      },
+      {
+        "method": "GET",
+        "parameters": {
+          "seasonType": "regular",
+          "week": 1,
+          "year": 2026
+        },
+        "path": "/games"
+      }
+    ],
+    "credential_probe": {
+      "cfbd_api_key_nonzero_length": true,
+      "cfbd_api_key_present": true,
+      "env_file_resolved": true,
+      "secret_value_displayed": false
+    },
+    "official_capture_identity": "029e5b5d30264124861b6fb1aa4091b2b5e6ef9baf32558ad72aaf9f3bca2e2f",
+    "official_capture_manifest_path": "C:\\BatteredAggieSyndrome.data\\manifests\\shadow\\week_zero_2026_live_execution\\sha256\\029e5b5d30264124861b6fb1aa4091b2b5e6ef9baf32558ad72aaf9f3bca2e2f\\week_zero_2026_live_execution_capture_manifest.json"
+  },
+  "governance": {
+    "bat401_interpretation_artifact": "artifacts/shadow/bat401_done_lane_interpretation.json",
+    "bat401_state": "Done means completed evaluation while lane remains RETAIN_PROTECTED_LANE_BLOCKED and GAP-005 remains OPEN.",
+    "defect_classification_artifact": "artifacts/shadow/cycle21_defect_classification_cycle22.json",
+    "scoreboard_fallback_disposition_artifact": "artifacts/shadow/week_zero_2026_scoreboard_fallback_disposition.json"
+  },
+  "integration_status": {
+    "ci_remote": "NOT_RUN_IN_THIS_STEP",
+    "merged": false,
+    "notes": "Repository remains dirty and no merge was performed.",
+    "pr_created": false,
+    "tree_clean": false
+  },
+  "mounted_suite_diagnosis": {
+    "classification": "ISOLATED_PASSES_ORDER_RUN_FAILS_TEST_CONTAMINATION",
+    "diagnosis_artifact": "artifacts/shadow/week_zero_2026_mounted_failure_diagnosis.json",
+    "matrix": {
+      "base_isolated_bat638": "PASS",
+      "base_isolated_bat648": "PASS",
+      "current_isolated_bat638": "PASS",
+      "current_isolated_bat648": "PASS"
+    },
+    "root_cause": "Parallel full-suite contamination over shared mounted context, not evidence drift or Cycle #22 regression."
+  },
+  "schema_version": "aggie.shadow.cycle22_week_zero_completion_report.v1",
   "scoring_and_metrics": {
-    "successor_gate_artifact": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json",
-    "scoring_payload_artifact": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json",
-    "residual_payload_artifact": "artifacts/shadow/week_zero_2026_prospective_residual_successor_payload.json",
     "contest_state_counts": {
       "MISSED_CUTOFF_NO_BACKFILL": 2,
       "SCORED": 6
@@ -61,39 +82,25 @@
     "forecast_state_counts": {
       "SCORED": 12
     },
+    "residual_payload_artifact": "artifacts/shadow/week_zero_2026_prospective_residual_successor_payload.json",
+    "scientific_nonclaims": "Tiny Week Zero sample; no calibration, champion, production, BAS, Aggie Excess, or specialization claim.",
     "scored_row_count": 12,
-    "scientific_nonclaims": "Tiny Week Zero sample; no calibration, champion, production, BAS, Aggie Excess, or specialization claim."
+    "scoring_payload_artifact": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json",
+    "successor_gate_artifact": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json"
   },
-  "mounted_suite_diagnosis": {
-    "matrix": {
-      "base_isolated_bat638": "PASS",
-      "base_isolated_bat648": "PASS",
-      "current_isolated_bat638": "PASS",
-      "current_isolated_bat648": "PASS"
-    },
-    "classification": "ISOLATED_PASSES_ORDER_RUN_FAILS_TEST_CONTAMINATION",
-    "root_cause": "Parallel full-suite contamination over shared mounted context, not evidence drift or Cycle #22 regression.",
-    "diagnosis_artifact": "artifacts/shadow/week_zero_2026_mounted_failure_diagnosis.json"
-  },
-  "governance": {
-    "bat401_interpretation_artifact": "artifacts/shadow/bat401_done_lane_interpretation.json",
-    "bat401_state": "Done means completed evaluation while lane remains RETAIN_PROTECTED_LANE_BLOCKED and GAP-005 remains OPEN.",
-    "scoreboard_fallback_disposition_artifact": "artifacts/shadow/week_zero_2026_scoreboard_fallback_disposition.json",
-    "defect_classification_artifact": "artifacts/shadow/cycle21_defect_classification_cycle22.json"
+  "supersession": {
+    "current_authority": false,
+    "historical_attempt": true,
+    "reason": "This report was generated before any Cycle #22 pull request existed and recorded a dirty tree, uncorrected scoring denominators and an unmerged state.",
+    "superseded_by_material_merge_sha": "140dba42a2593b56985a375cdcc550667cfaf56d",
+    "superseded_by_relative_path": "artifacts/shadow/cycle22_week_zero_final_report.json"
   },
   "verification": {
-    "mounted_suite": "PASS",
-    "unmounted_suite": "PASS",
-    "warnings_as_errors_suite": "PASS",
-    "strict_repository_validation": "PASS",
     "jira_execute": "PASS",
-    "jira_verify_live": "PASS"
-  },
-  "integration_status": {
-    "pr_created": false,
-    "merged": false,
-    "ci_remote": "NOT_RUN_IN_THIS_STEP",
-    "tree_clean": false,
-    "notes": "Repository remains dirty and no merge was performed."
+    "jira_verify_live": "PASS",
+    "mounted_suite": "PASS",
+    "strict_repository_validation": "PASS",
+    "unmounted_suite": "PASS",
+    "warnings_as_errors_suite": "PASS"
   }
 }

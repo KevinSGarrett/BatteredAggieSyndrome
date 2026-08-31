@@ -1,0 +1,174 @@
+{
+  "artifact_type": "CYCLE24_MATERIAL_OWNERSHIP_REGISTRY",
+  "assignments": [
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-682",
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-682",
+      "path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/artifact_binding_contract.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/codex_usage_interlock_change_manifest.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/cycle24_material_ownership_registry.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/unified_assistive_change_routing_binding.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-682",
+      "path": "configs/week1_2026_spine_semantic_successor_contract.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/history/ISSUE_CHANGE_LOG.jsonl"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/import/POST_IMPORT_KEY_MAP.csv"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/issues/subtasks/POST-SUBTASK-047_build_national_pregame_matrices_at_configured_cutoffs_with_row_cell_lineage_miss.md"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.md"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.md"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/project/JIRA_TARGET_PROFILE.yaml"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/reconciliation/BAT_JIRA_EXPORT.csv"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-047_build_national_pregame_matrices_at_configured_cutoffs_with_row_cell_lineage_miss.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/validation/JIRA_FILE_HASHES.sha256"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/validation/JIRA_FILE_MANIFEST.csv"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/CURRENT_TREE.txt"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/PROJECT_FILE_HASHES.sha256"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/PROJECT_FILE_MANIFEST.csv"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-682",
+      "path": "src/aggie_analytics/data/week1_2026_spine_semantic_successor.py"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "tests/test_cycle23_routing_manifest_coverage.py"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "tests/test_cycle24_routing_manifest_coverage.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-682",
+      "path": "tests/test_week1_2026_spine_semantic_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-682",
+      "path": "tools/build_week1_2026_spine_semantic_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-682",
+      "path": "tools/validate_week1_2026_spine_semantic_successor.py"
+    }
+  ],
+  "owners": {
+    "BAT-682": {
+      "local_issue_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",
+      "scope": "Immutable Cycle #23 spine semantic successor separating site orientation from venue identity and coordinates, replacing the false no-knowable-prior classification, making partial model input terminal at forecast time, and correcting pair-level count and outcome wording"
+    }
+  },
+  "predecessor_commit": "cbb78b0786644146462dbcfc5c4d6fb514c7fa44",
+  "process_only_classifications": [
+    "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+    "PROCESS_ONLY_GENERATED_PROVENANCE",
+    "PROCESS_ONLY_ROUTING_INTERLOCK"
+  ],
+  "purpose": "Assign every Cycle #24 changed path to exactly one declared material owner, or classify it as process-only/generated, so that no material path can enter a routing manifest that does not own it.",
+  "schema_version": 1
+}

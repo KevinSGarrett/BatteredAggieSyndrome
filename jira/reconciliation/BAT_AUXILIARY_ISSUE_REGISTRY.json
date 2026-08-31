@@ -133,7 +133,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010–2011 official-evidence gaps."
+      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010\u20132011 official-evidence gaps."
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -148,7 +148,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-4",
       "status": "Done",
-      "summary": "Recover missing 2010–2011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
+      "summary": "Recover missing 2010\u20132011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -163,7 +163,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-5",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010–2011 Texas A&M cross-source domain admission gate"
+      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M cross-source domain admission gate"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -193,7 +193,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-2",
       "status": "Done",
-      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010–2011"
+      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010\u20132011"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -208,7 +208,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010–2011 Texas A&M season-level cross-source reconciliation"
+      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M season-level cross-source reconciliation"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -1724,6 +1724,81 @@
       "phase": "PHASE-3",
       "status": "Done",
       "summary": "[POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001] Independently validate Week 1 feature coverage, temporal eligibility, identity completeness and forecast-input adequacy without producing or promoting a model"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PLANNED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-679",
+      "local_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "CONTRACT_DEFINED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "In Progress",
+      "summary": "[POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001] Materialize a frozen 2026 opening team-strength prior surface from allowed through-2023 evidence with explicit staleness, support and cold-start metadata and a predeclared Week Zero update rule"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PLANNED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-680",
+      "local_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "CONTRACT_DEFINED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "In Progress",
+      "summary": "[POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001] Execute the five frozen national candidates against the Week 1 2026 universe with fit and replay bindings, probability and supported-margin outputs, calibration transfer and uncertainty"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PLANNED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-681",
+      "local_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "CONTRACT_DEFINED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "In Progress",
+      "summary": "[POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001] Freeze the immutable EARLY_WEEK1 national forecast snapshot with a coverage and abstention table, a truthful A&M vs Missouri State readout, and a fail-closed adequacy verdict"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PARTIAL",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-682",
+      "local_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "In Progress",
+      "summary": "[POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001] Create an immutable semantic successor separating site orientation from venue identity and coordinates, stating prior availability exactly, and making partial model input terminal at forecast time"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "PLANNED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-683",
+      "local_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
+      "logical_state": "IN_PROGRESS",
+      "maturity": "CONTRACT_DEFINED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "In Progress",
+      "summary": "[POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001] Resolve or truthfully retain the eight unsupported Week 1 participants, complete the AP ranking surface authoritatively, and bind official kickoff, venue and coordinate authority"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

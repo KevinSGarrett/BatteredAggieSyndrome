@@ -4393,6 +4393,90 @@
         "predecessor_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
       }
+    },
+    {
+      "binding_id": "BAT-682-WEEK1-2026-SPINE-SEMANTIC-SUCCESSOR",
+      "bound_child_identities": {
+        "contract_sha256": "3663c6445ab8cfeefcea06ad11fe0ed5cba6559f4b6aab176e3e49b9902bbf14",
+        "core_module_sha256": "d151cbf5be4ecc9fd4892c1b92101aaad142629de6d5b164d966823b9b44e67c",
+        "dataset_identity": "fc5ff0fdfff6aa2c62549aa4437fd9920e620b3c6cd39758f6b7f3e05b0bb195",
+        "gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
+        "payload_root_sha256": "a87d72a8db64d2b07726fc84092a2ca069374692d3c9def49e33aba04050ee2b",
+        "predecessor_adequacy_gate_identity": "c411192f556c8d44fafff8843bc450634ad5111ecd26ded57e3fbd17fdd8e729",
+        "predecessor_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+        "producer_sha256": "985c307a266d8becdb5ef7645bba59fa06af2f0e5c6e7a267d3bb886c1d9d4bd",
+        "validator_sha256": "107d67aaad7f161b732cafa017e42d25af4a0e67a62e278b0accc98ef1c603a2",
+        "week1_schedule_identity_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18"
+      },
+      "canonical_artifact_path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "summary.contest_count",
+              "evidence_path": "summary.contest_count"
+            },
+            {
+              "canonical_path": "summary.cell_count",
+              "evidence_path": "summary.cell_count"
+            },
+            {
+              "canonical_path": "focus_contest_report.ncaa_contest_id",
+              "evidence_path": "focus_contest_report.ncaa_contest_id"
+            },
+            {
+              "canonical_path": "focus_contest_report.admitted_team_domain_cell_count",
+              "evidence_path": "focus_contest_report.admitted_team_domain_cell_count"
+            },
+            {
+              "canonical_path": "focus_contest_report.distinct_admitted_domain_count",
+              "evidence_path": "focus_contest_report.distinct_admitted_domain_count"
+            }
+          ],
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "authority.champion_or_production_promotion",
+        "authority.forecast_produced",
+        "authority.forecast_publication",
+        "authority.judging_rule_seal_mutation",
+        "authority.model_selection_or_tuning",
+        "authority.protected_evaluation_admission",
+        "authority.protected_split_registry_mutation",
+        "authority.protected_training_admission",
+        "tamu_policy.custom_correction_applied",
+        "tamu_policy.tamu_specific_adjustment_applied"
+      ],
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-682",
+      "local_issue_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",
+      "required_equal": {
+        "jira_key": "BAT-682",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "local_issue_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",
+        "parent_jira_key": "BAT-523",
+        "predecessor_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_WEEK1_2026_SPINE_SEMANTIC_SUCCESSOR"
+      }
     }
   ],
   "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",

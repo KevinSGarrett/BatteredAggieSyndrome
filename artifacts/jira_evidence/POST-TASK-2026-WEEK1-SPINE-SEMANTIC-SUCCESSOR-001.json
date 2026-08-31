@@ -1,0 +1,477 @@
+{
+  "canonical_gate_identity": "87de63416c440b873481a9163b8817dba15dd40ffe99aa8d1f2f262b89478761",
+  "canonical_gate_path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json",
+  "completeness_claimed": false,
+  "corrections": [
+    {
+      "correction_id": "CYCLE24-CORRECTION-A-SITE-VENUE-SEPARATION",
+      "cycle23_finding": "SITE_ORIENTATION_AND_VENUE_IDENTITY_WERE_CONFLATED",
+      "predecessor_admitted_cell_count": 182,
+      "predecessor_defect": "The predecessor admits VENUE_AND_SITE whenever a kickoff bound is known, even when venue_identity is null and venue_identity_state is SOURCE_EVIDENCE_ABSENT. Site orientation and venue identity are therefore conflated, and a downstream consumer cannot distinguish an authoritative venue from an unknown one.",
+      "predecessor_domain": "VENUE_AND_SITE",
+      "predecessor_gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+      "predecessor_rewritten_in_place": false,
+      "severity": "SEMANTIC_OVERSTATEMENT_OF_ADMITTED_EVIDENCE",
+      "site_orientation_may_be_admitted_without_venue_identity": true,
+      "successor_domains": [
+        "SITE_ORIENTATION",
+        "VENUE_IDENTITY",
+        "VENUE_COORDINATES"
+      ],
+      "venue_coordinates_may_be_admitted_from_inference": false,
+      "venue_identity_may_be_admitted_from_site_orientation_alone": false,
+      "weather_demotions_applied": 0
+    },
+    {
+      "allowed_evidence_window": "THROUGH_2023_CHRONOLOGICAL_OUTCOMES",
+      "correction_id": "CYCLE24-CORRECTION-B-PRIOR-KNOWABLE-VERSUS-CURRENT",
+      "cycle23_finding": "A_MISSING_CURRENT_PRIOR_WAS_DESCRIBED_AS_NO_KNOWABLE_PRIOR",
+      "predecessor_absence_reason": "The prior-outcome domain requires prior-season and season-to-date team outcome aggregates for the 2026 participants, which would have to come from the sealed 2024 and 2025 seasons or from 2026 results that do not exist before kickoff.",
+      "predecessor_gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+      "predecessor_rewritten_in_place": false,
+      "retired_classification": "NO_PRIOR_STRENGTH_VALUE_IS_KNOWABLE_FOR_THIS_TEAM_BEFORE_KICKOFF",
+      "retired_classification_defect": "The predecessor wording asserts that no prior strength value is knowable for any team before kickoff. That is false: allowed chronological outcome evidence through 2023 is knowable and merely stale. The absence is an absence of a materialized current 2026 frozen prior, not an absence of knowable history.",
+      "severity": "FALSE_UNKNOWABILITY_CLAIM",
+      "stale_history_is_current": false,
+      "stale_history_is_knowable": true,
+      "stale_history_minimum_games": 20,
+      "successor_classifications": [
+        "CURRENT_2026_FROZEN_PRIOR_NOT_MATERIALIZED",
+        "STALE_ALLOWED_HISTORY_AVAILABLE",
+        "COLD_START_INSUFFICIENT_TEAM_HISTORY",
+        "UNRESOLVED_ENTITY",
+        "CURRENT_PRIOR_ADMITTED",
+        "CURRENT_PRIOR_QUARANTINED"
+      ]
+    },
+    {
+      "correction_id": "CYCLE24-CORRECTION-C-PARTIAL-INPUT-IS-TERMINAL",
+      "cycle23_finding": "PARTIAL_MODEL_INPUT_WAS_A_NONTERMINAL_PRE_FORECAST_STATE",
+      "diagnostic_state_retained": true,
+      "enforced_by": "map_partial_model_input",
+      "forecast_time_mapping": "ABSTAIN_MISSING_REQUIRED_FEATURES",
+      "partial_model_input_may_emit_a_forecast": false,
+      "predecessor_gate_identity": "c411192f556c8d44fafff8843bc450634ad5111ecd26ded57e3fbd17fdd8e729",
+      "predecessor_partial_contest_count": 83,
+      "predecessor_rewritten_in_place": false,
+      "severity": "FORECAST_READINESS_LOOPHOLE"
+    },
+    {
+      "correction_id": "CYCLE24-CORRECTION-D-PAIR-CELL-VERSUS-DISTINCT-DOMAIN",
+      "cycle23_finding": "PAIR_LEVEL_ADMITTED_DOMAIN_COUNT_WAS_AMBIGUOUS",
+      "focus_contest_admitted_team_domain_cell_count": 4,
+      "focus_contest_distinct_admitted_domain_count": 2,
+      "focus_contest_interpretation": "FOUR_ADMITTED_TEAM_DOMAIN_CELLS_ACROSS_TWO_ORIENTED_ROWS",
+      "focus_contest_predecessor_reported_value": 4,
+      "predecessor_gate_identity": "c411192f556c8d44fafff8843bc450634ad5111ecd26ded57e3fbd17fdd8e729",
+      "predecessor_rewritten_in_place": false,
+      "retired_field": "admitted_domain_count",
+      "retired_field_defect": "At pair level the predecessor field is ambiguous between the number of admitted team-domain cells across both oriented rows and the number of distinct domains admitted. A reported value of 4 for a two-team contest cannot be interpreted without that distinction.",
+      "severity": "COUNT_SEMANTIC_AMBIGUITY",
+      "successor_fields": [
+        "admitted_team_domain_cell_count",
+        "distinct_admitted_domain_count",
+        "admitted_domain_count_by_orientation",
+        "candidate_only_team_domain_cell_count",
+        "missing_team_domain_cell_count"
+      ]
+    },
+    {
+      "correct_invariant": "NO_TARGET_CONTEST_OUTCOME_ENTERS_ITS_OWN_FEATURE_ROW",
+      "correction_id": "CYCLE24-CORRECTION-E-TARGET-OUTCOME-WORDING",
+      "cycle23_finding": "THE_LEAKAGE_INVARIANT_WAS_STATED_AS_NO_OUTCOME_FIELD_ANYWHERE",
+      "predecessor_gate_identity": "a9547b405360b9e9711f6d3e50e943804955855b816fa3a1b73b565c1e7a89ad",
+      "predecessor_rewritten_in_place": false,
+      "retired_wording": "NO_TARGET_CONTEST_OUTCOME_FIELD_EXISTS_ANYWHERE_IN_THE_SPINE",
+      "severity": "INVARIANT_MISSTATEMENT",
+      "target_outcome_enters_its_own_feature_row": false,
+      "week_zero_completed_contest_count": 8,
+      "week_zero_finals_legitimately_appear_as_prior_results": true
+    },
+    {
+      "correct_statement": "Week Zero scoring covered two scored candidates, each with six eligible and scored opportunities, for twelve pooled candidate rows.",
+      "correction_id": "CYCLE24-CORRECTION-F-WEEK-ZERO-CANDIDATE-COUNT",
+      "cycle23_finding": "THE_WEEK_ZERO_REPORT_DESCRIBED_SIX_SCORED_CANDIDATES",
+      "eligible_opportunities_per_candidate": 6,
+      "incorrect_statement": "Week Zero scoring covered six scored candidates.",
+      "pooled_candidate_rows": 12,
+      "predecessor_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+      "predecessor_rewritten_in_place": false,
+      "scientific_artifact_identity_rewritten": false,
+      "scored_candidate_count": 2,
+      "severity": "REPORT_LANGUAGE_ERROR_WITHOUT_ARTIFACT_DRIFT"
+    },
+    {
+      "audit_performed": true,
+      "body_disposition": "BODY_NOT_RECOVERABLE_FROM_AUTHORITY",
+      "body_reconstructed_from_model_memory": false,
+      "comment_id": 14717,
+      "correction_id": "CYCLE24-CORRECTION-G-JIRA-COMMENT-14717-AUDIT",
+      "cycle23_comment_14718_mutated": false,
+      "cycle23_finding": "A_CYCLE23_JIRA_COMMENT_IS_MALFORMED_OR_DELETED",
+      "predecessor_rewritten_in_place": false,
+      "second_cycle23_parent_comment_posted": false,
+      "severity": "AUTHORITY_TRACEABILITY_INCIDENT"
+    }
+  ],
+  "count_semantics": {
+    "focus_contest_proof_required": true,
+    "retired_field": "admitted_domain_count",
+    "retired_field_defect": "At pair level the predecessor field is ambiguous between the number of admitted team-domain cells across both oriented rows and the number of distinct domains admitted. A reported value of 4 for a two-team contest cannot be interpreted without that distinction.",
+    "successor_fields": [
+      "admitted_team_domain_cell_count",
+      "distinct_admitted_domain_count",
+      "admitted_domain_count_by_orientation",
+      "candidate_only_team_domain_cell_count",
+      "missing_team_domain_cell_count"
+    ]
+  },
+  "created_at_utc": "2026-08-31T16:05:00Z",
+  "domain_split": {
+    "predecessor_defect": "The predecessor admits VENUE_AND_SITE whenever a kickoff bound is known, even when venue_identity is null and venue_identity_state is SOURCE_EVIDENCE_ABSENT. Site orientation and venue identity are therefore conflated, and a downstream consumer cannot distinguish an authoritative venue from an unknown one.",
+    "predecessor_domain": "VENUE_AND_SITE",
+    "successor_domain_set": [
+      "TEAM_STRENGTH_PRIOR",
+      "WEEK_ZERO_CURRENT_RESULT",
+      "CURRENT_RANKING",
+      "CONFERENCE_AND_SUBDIVISION",
+      "SITE_ORIENTATION",
+      "VENUE_IDENTITY",
+      "VENUE_COORDINATES",
+      "WEATHER_VINTAGE",
+      "ROSTER_MEMBERSHIP",
+      "PREGAME_AVAILABILITY"
+    ],
+    "successor_domains": [
+      {
+        "admissible_values": [
+          "HOME",
+          "AWAY",
+          "NEUTRAL",
+          "UNKNOWN"
+        ],
+        "derived_from": "PREDECESSOR_SITE_ORIENTATION_AND_SITE_STATE",
+        "domain": "SITE_ORIENTATION",
+        "may_be_admitted_without_venue_identity": true
+      },
+      {
+        "admissible_values": [
+          "AUTHORITATIVE_VENUE_ID",
+          "SOURCE_EVIDENCE_ABSENT"
+        ],
+        "derived_from": "PREDECESSOR_VENUE_IDENTITY_AND_VENUE_IDENTITY_STATE",
+        "domain": "VENUE_IDENTITY",
+        "may_be_admitted_from_site_orientation_alone": false
+      },
+      {
+        "admissible_values": [
+          "AUTHORITATIVE_COORDINATES",
+          "CANDIDATE_ONLY",
+          "SOURCE_EVIDENCE_ABSENT"
+        ],
+        "domain": "VENUE_COORDINATES",
+        "may_be_admitted_from_inference": false,
+        "requires_authoritative_venue_identity": true
+      }
+    ],
+    "weather_rule": {
+      "weather_may_become_admitted_model_input_from_inferred_coordinates": false,
+      "weather_requires_authoritative_or_predeclared_coordinates": true,
+      "weather_requires_authoritative_venue_identity": true
+    }
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "focus_contest_report": {
+    "admitted_domain_count_by_orientation": {
+      "AWAY": 2,
+      "HOME": 2
+    },
+    "admitted_team_domain_cell_count": 4,
+    "candidate_only_team_domain_cell_count": 5,
+    "candidate_readiness": {
+      "national_base_rate": "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED",
+      "national_elo": "ABSTAIN_MISSING_REQUIRED_FEATURES",
+      "national_logistic_l2": "ABSTAIN_MISSING_REQUIRED_FEATURES",
+      "national_margin_ridge": "ABSTAIN_MISSING_REQUIRED_FEATURES",
+      "prior_only": "ABSTAIN_MISSING_REQUIRED_FEATURES"
+    },
+    "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+    "custom_correction_applied": false,
+    "discovered_from_the_predecessor_focus_report_not_hardcoded": true,
+    "distinct_admitted_domain_count": 2,
+    "distinct_admitted_domains": [
+      "CONFERENCE_AND_SUBDIVISION",
+      "SITE_ORIENTATION"
+    ],
+    "missing_team_domain_cell_count": 11,
+    "ncaa_contest_id": "6607349",
+    "oriented_rows": [
+      {
+        "admitted_domains": [
+          "CONFERENCE_AND_SUBDIVISION",
+          "SITE_ORIENTATION"
+        ],
+        "admitted_team_domain_cell_count": 2,
+        "canonical_team_id": "SRC-002:TEAM:2623",
+        "orientation": "AWAY",
+        "prior_classification": "STALE_ALLOWED_HISTORY_AVAILABLE",
+        "site_orientation": "AWAY",
+        "venue_coordinate_state": "CANDIDATE_ONLY",
+        "venue_identity_state": "SOURCE_EVIDENCE_ABSENT"
+      },
+      {
+        "admitted_domains": [
+          "CONFERENCE_AND_SUBDIVISION",
+          "SITE_ORIENTATION"
+        ],
+        "admitted_team_domain_cell_count": 2,
+        "canonical_team_id": "SRC-002:TEAM:245",
+        "orientation": "HOME",
+        "prior_classification": "STALE_ALLOWED_HISTORY_AVAILABLE",
+        "site_orientation": "HOME",
+        "venue_coordinate_state": "CANDIDATE_ONLY",
+        "venue_identity_state": "SOURCE_EVIDENCE_ABSENT"
+      }
+    ],
+    "predecessor_candidate_states": {
+      "national_base_rate": "READY_FOR_PREDECLARED_MODEL_INPUT",
+      "national_elo": "PARTIAL_MODEL_INPUT",
+      "national_logistic_l2": "PARTIAL_MODEL_INPUT",
+      "national_margin_ridge": "PARTIAL_MODEL_INPUT",
+      "prior_only": "PARTIAL_MODEL_INPUT"
+    },
+    "predecessor_reported_admitted_domain_count": 4,
+    "reported_four_means": "FOUR_ADMITTED_TEAM_DOMAIN_CELLS_ACROSS_TWO_ORIENTED_ROWS",
+    "tamu_specific_adjustment_applied": false
+  },
+  "forecast_readiness": {
+    "partial_model_input_forecast_time_mapping": "ABSTAIN_MISSING_REQUIRED_FEATURES",
+    "partial_model_input_may_emit_a_forecast": false,
+    "partial_model_input_remains_a_diagnostic_adequacy_state": true,
+    "readiness_states": [
+      "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED",
+      "ABSTAIN_MISSING_REQUIRED_FEATURES",
+      "ABSTAIN_UNSUPPORTED_ENTITY",
+      "QUARANTINED_CONFLICT",
+      "NOT_IN_MODEL_TARGET"
+    ]
+  },
+  "issue_complete": false,
+  "jira_key": "BAT-682",
+  "local_issue_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "Cycle #23 said VENUE_AND_SITE was admitted for all one hundred eighty-two oriented Week 1 rows even though not one row carried an authoritative venue. The successor splits that single field into three, and the split is what makes the difference visible: SITE_ORIENTATION is admitted one hundred eighty-two times because the schedule genuinely orients every contest, VENUE_IDENTITY is SOURCE_EVIDENCE_ABSENT one hundred eighty-two times, and VENUE_COORDINATES is candidate-only one hundred eighty-two times, so weather can never be promoted into model input from an inference. The successor also stops describing a missing 2026 prior as a prior nobody could know: one hundred seventy-four rows are STALE_ALLOWED_HISTORY_AVAILABLE because through-2023 evidence exists but has not been frozen into a current surface, and eight rows are UNRESOLVED_ENTITY. PARTIAL_MODEL_INPUT is retained as a diagnostic but maps to ABSTAIN_MISSING_REQUIRED_FEATURES at forecast time, so no candidate can emit a probability from partial input. The ambiguous pair-level admitted_domain_count is retired: for Texas A&M against Missouri State the reported four is proven to be four admitted team-domain cells across two oriented rows, not four distinct domains, of which there are two. No predecessor gate, payload or identity is rewritten.",
+  "outputs": [
+    {
+      "path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json",
+      "sha256": "29bfc764b10b13112d0af4550212cbef49913d8d4341517ecd988dc68d4403ef"
+    },
+    {
+      "path": "configs/week1_2026_spine_semantic_successor_contract.json",
+      "sha256": "3663c6445ab8cfeefcea06ad11fe0ed5cba6559f4b6aab176e3e49b9902bbf14"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_spine_semantic_successor.py",
+      "sha256": "d151cbf5be4ecc9fd4892c1b92101aaad142629de6d5b164d966823b9b44e67c"
+    },
+    {
+      "path": "tests/test_week1_2026_spine_semantic_successor.py",
+      "sha256": "cfb0af3d0a69bd3b6929aad409b14c8d542f3748502c906c284ee41e6130942e"
+    },
+    {
+      "path": "tools/build_week1_2026_spine_semantic_successor.py",
+      "sha256": "985c307a266d8becdb5ef7645bba59fa06af2f0e5c6e7a267d3bb886c1d9d4bd"
+    },
+    {
+      "path": "tools/validate_week1_2026_spine_semantic_successor.py",
+      "sha256": "107d67aaad7f161b732cafa017e42d25af4a0e67a62e278b0accc98ef1c603a2"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "prior_semantics": {
+    "retired_classification": "NO_PRIOR_STRENGTH_VALUE_IS_KNOWABLE_FOR_THIS_TEAM_BEFORE_KICKOFF",
+    "retired_classification_defect": "The predecessor wording asserts that no prior strength value is knowable for any team before kickoff. That is false: allowed chronological outcome evidence through 2023 is knowable and merely stale. The absence is an absence of a materialized current 2026 frozen prior, not an absence of knowable history.",
+    "stale_history_admissible_as_current_model_input": false,
+    "stale_history_is_current_prior": false,
+    "stale_history_minimum_games": 20,
+    "successor_classifications": [
+      "CURRENT_2026_FROZEN_PRIOR_NOT_MATERIALIZED",
+      "STALE_ALLOWED_HISTORY_AVAILABLE",
+      "COLD_START_INSUFFICIENT_TEAM_HISTORY",
+      "UNRESOLVED_ENTITY",
+      "CURRENT_PRIOR_ADMITTED",
+      "CURRENT_PRIOR_QUARANTINED"
+    ]
+  },
+  "related_jira_keys": [
+    "BAT-397",
+    "BAT-399",
+    "BAT-523",
+    "BAT-674",
+    "BAT-676",
+    "BAT-677",
+    "BAT-678"
+  ],
+  "schema_version": "2.1.0",
+  "summary": {
+    "cell_count": 1820,
+    "contest_count": 91,
+    "domain_admission_counts": {
+      "CONFERENCE_AND_SUBDIVISION": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 182,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 0,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "CURRENT_RANKING": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 24,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 158,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "PREGAME_AVAILABILITY": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "ROSTER_MEMBERSHIP": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "SITE_ORIENTATION": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 182,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 0,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "TEAM_STRENGTH_PRIOR": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "VENUE_COORDINATES": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 182,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 0,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "VENUE_IDENTITY": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 182,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "WEATHER_VINTAGE": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 0,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 166,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 16,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      },
+      "WEEK_ZERO_CURRENT_RESULT": {
+        "ADMITTED_PROSPECTIVE_PREKICKOFF": 8,
+        "CANDIDATE_ONLY_NOT_CONSUMED": 0,
+        "NOT_APPLICABLE": 0,
+        "QUARANTINED_CONFLICT": 0,
+        "SOURCE_EVIDENCE_ABSENT": 174,
+        "TEMPORALLY_INELIGIBLE": 0,
+        "UNRESOLVED_ENTITY": 0
+      }
+    },
+    "forecast_emitted": false,
+    "forecast_readiness_counts": {
+      "national_base_rate": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 0,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 83,
+        "NOT_IN_MODEL_TARGET": 0,
+        "QUARANTINED_CONFLICT": 0
+      },
+      "national_elo": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 83,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 0,
+        "NOT_IN_MODEL_TARGET": 0,
+        "QUARANTINED_CONFLICT": 0
+      },
+      "national_logistic_l2": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 83,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 0,
+        "NOT_IN_MODEL_TARGET": 0,
+        "QUARANTINED_CONFLICT": 0
+      },
+      "national_margin_ridge": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 83,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 0,
+        "NOT_IN_MODEL_TARGET": 0,
+        "QUARANTINED_CONFLICT": 0
+      },
+      "prior_only": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 83,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 0,
+        "NOT_IN_MODEL_TARGET": 0,
+        "QUARANTINED_CONFLICT": 0
+      }
+    },
+    "prior_classification_counts": {
+      "COLD_START_INSUFFICIENT_TEAM_HISTORY": 15,
+      "CURRENT_2026_FROZEN_PRIOR_NOT_MATERIALIZED": 0,
+      "CURRENT_PRIOR_ADMITTED": 0,
+      "CURRENT_PRIOR_QUARANTINED": 0,
+      "STALE_ALLOWED_HISTORY_AVAILABLE": 159,
+      "UNRESOLVED_ENTITY": 8
+    },
+    "ranking_surface_complete": false,
+    "readiness_row_count": 455,
+    "retired_ambiguous_count_field_emitted": false,
+    "retired_composite_domain_emitted": false,
+    "retired_prior_classification_emitted": false,
+    "row_count": 182,
+    "rows_by_orientation": {
+      "AWAY": 91,
+      "HOME": 91
+    },
+    "site_orientation_admitted_without_venue_identity": 182,
+    "successor_domain_count": 10,
+    "venue_coordinates_admitted_count": 0,
+    "venue_identity_admitted_count": 0,
+    "weather_demotion_count": 0
+  },
+  "superseded_identities": [],
+  "workflow_state": "IN_REVIEW"
+}

@@ -1,88 +1,335 @@
 {
- "artifact_type": "CYCLE23_MATERIAL_OWNERSHIP_REGISTRY",
- "schema_version": 1,
- "purpose": "Assign every Cycle #22 carryover changed or untracked path to exactly one declared material owner, or classify it as process-only/generated, so that no material path can enter a routing manifest that does not own it.",
- "predecessor_commit": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
- "preservation_ref": "refs/preservation/cycle23-phase0-cycle22-dirty",
- "preservation_commit": "845979de7ebde9c2e35ad5051eb215e2c8956b68",
- "owners": {
-  "BAT-674": {
-   "local_issue_id": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
-   "scope": "Week Zero 2026 official-final acquisition, reconciliation, scoring successor, residual and transition evidence"
+  "artifact_type": "CYCLE23_MATERIAL_OWNERSHIP_REGISTRY",
+  "schema_version": 1,
+  "purpose": "Assign every Cycle #22 carryover changed or untracked path to exactly one declared material owner, or classify it as process-only/generated, so that no material path can enter a routing manifest that does not own it.",
+  "predecessor_commit": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
+  "preservation_ref": "refs/preservation/cycle23-phase0-cycle22-dirty",
+  "preservation_commit": "845979de7ebde9c2e35ad5051eb215e2c8956b68",
+  "owners": {
+    "BAT-674": {
+      "local_issue_id": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
+      "scope": "Week Zero 2026 official-final acquisition, reconciliation, scoring successor, residual and transition evidence"
+    },
+    "BAT-675": {
+      "local_issue_id": "POST-TASK-2026-CYCLE21-AUTHORITY-PURITY-HARDENING-001",
+      "scope": "Checkout-authority pin validation, second-pass read-only purity, and BAT-523 comment-ledger supersession hardening"
+    }
   },
-  "BAT-675": {
-   "local_issue_id": "POST-TASK-2026-CYCLE21-AUTHORITY-PURITY-HARDENING-001",
-   "scope": "Checkout-authority pin validation, second-pass read-only purity, and BAT-523 comment-ledger supersession hardening"
-  }
- },
- "process_only_classifications": [
-  "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-  "PROCESS_ONLY_GENERATED_PROVENANCE",
-  "PROCESS_ONLY_ROUTING_INTERLOCK"
- ],
- "assignments": [
-  {"path": "configs/authority_checkout_sampling_contract.json", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "jira/reconciliation/BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "jira/tools/import_bat_live.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "jira/tools/run_second_pass_audit.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "jira/tools/second_pass_hardening.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "jira/tools/validate_second_pass.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "tools/validate_jira_control_plane.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "tests/test_checkout_authority_pins.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "tests/test_cycle23_routing_manifest_coverage.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "tests/test_jira_authority_progress_comments.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "tests/test_second_pass_audit_modes.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "tools/validate_checkout_authority_pins.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "tools/validate_repository.py", "owner": "BAT-675", "kind": "MATERIAL"},
-  {"path": "configs/cycle23_material_ownership_registry.json", "owner": "BAT-675", "kind": "MATERIAL"},
-
-  {"path": "artifacts/shadow/bat401_done_lane_interpretation.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/cycle21_defect_classification_cycle22.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/cycle22_week_zero_completion_report.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_cfbd_crosswalk.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_cfbd_route_probe.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_mounted_failure_diagnosis.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_official_final_acquisition_blocked_gate.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_official_final_acquisition_blocked_replay.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_replay.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_state_transitions.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_prospective_residual_successor_payload.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_result_reconciliation_gate.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "artifacts/shadow/week_zero_2026_scoreboard_fallback_disposition.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "configs/week_zero_2026_cfbd_get_games_acquisition.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "configs/week_zero_2026_official_final_scoring_successor_contract.json", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "src/aggie_analytics/modeling/week_zero_live_shadow_execution.py", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "tests/test_week_zero_2026_live_shadow_execution.py", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "tests/test_week_zero_2026_official_final_acquisition_blocked.py", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "tests/test_week_zero_2026_official_final_scoring_successor.py", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "tools/build_week_zero_2026_official_final_acquisition_blocked.py", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "tools/build_week_zero_2026_official_final_scoring_successor.py", "owner": "BAT-674", "kind": "MATERIAL"},
-  {"path": "tools/validate_week_zero_2026_official_final_scoring_successor.py", "owner": "BAT-674", "kind": "MATERIAL"},
-
-  {"path": "artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/history/ISSUE_CHANGE_LOG.jsonl", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/import/POST_IMPORT_KEY_MAP.csv", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.md", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.md", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/project/JIRA_TARGET_PROFILE.yaml", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/reconciliation/BAT_JIRA_EXPORT.csv", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/validation/JIRA_FILE_HASHES.sha256", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/validation/JIRA_FILE_MANIFEST.csv", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/validation/NON_JIRA_SCOPE_DIFF.csv", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/validation/NON_JIRA_SCOPE_DIFF.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/validation/SECOND_PASS_AUDIT.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "jira/validation/SECOND_PASS_AUDIT_RESULTS.json", "owner": null, "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"},
-  {"path": "provenance/CURRENT_TREE.txt", "owner": null, "kind": "PROCESS_ONLY_GENERATED_PROVENANCE"},
-  {"path": "provenance/PROJECT_FILE_HASHES.sha256", "owner": null, "kind": "PROCESS_ONLY_GENERATED_PROVENANCE"},
-  {"path": "provenance/PROJECT_FILE_MANIFEST.csv", "owner": null, "kind": "PROCESS_ONLY_GENERATED_PROVENANCE"},
-  {"path": "configs/codex_usage_interlock_change_manifest.json", "owner": null, "kind": "PROCESS_ONLY_ROUTING_INTERLOCK"},
-  {"path": "configs/unified_assistive_change_routing_binding.json", "owner": null, "kind": "PROCESS_ONLY_ROUTING_INTERLOCK"}
- ]
+  "process_only_classifications": [
+    "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+    "PROCESS_ONLY_GENERATED_PROVENANCE",
+    "PROCESS_ONLY_ROUTING_INTERLOCK"
+  ],
+  "assignments": [
+    {
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "artifacts/shadow/bat401_done_lane_interpretation.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/cycle21_defect_classification_cycle22.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/cycle22_week_zero_completion_report.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_cfbd_crosswalk.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_cfbd_route_probe.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_mounted_failure_diagnosis.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_acquisition_blocked_gate.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_acquisition_blocked_replay.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_replay.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_state_transitions.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_prospective_residual_successor_payload.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_result_reconciliation_gate.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_scoreboard_fallback_disposition.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "configs/authority_checkout_sampling_contract.json",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "configs/codex_usage_interlock_change_manifest.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK"
+    },
+    {
+      "path": "configs/cycle23_material_ownership_registry.json",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "configs/unified_assistive_change_routing_binding.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK"
+    },
+    {
+      "path": "configs/week_zero_2026_cfbd_get_games_acquisition.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "configs/week_zero_2026_official_final_scoring_successor_contract.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "jira/history/ISSUE_CHANGE_LOG.jsonl",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/import/POST_IMPORT_KEY_MAP.csv",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.md",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.md",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/project/JIRA_TARGET_PROFILE.yaml",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/reconciliation/BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-050_implement_deterministic_walk_forward_replay_with_frozen_train_tune_protected_bou.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/tools/import_bat_live.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "jira/tools/run_second_pass_audit.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "jira/tools/second_pass_hardening.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "jira/tools/validate_second_pass.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/validation/JIRA_FILE_HASHES.sha256",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/validation/JIRA_FILE_MANIFEST.csv",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/validation/NON_JIRA_SCOPE_DIFF.csv",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/validation/NON_JIRA_SCOPE_DIFF.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/validation/SECOND_PASS_AUDIT.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "jira/validation/SECOND_PASS_AUDIT_RESULTS.json",
+      "owner": null,
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE"
+    },
+    {
+      "path": "provenance/CURRENT_TREE.txt",
+      "owner": null,
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE"
+    },
+    {
+      "path": "provenance/PROJECT_FILE_HASHES.sha256",
+      "owner": null,
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE"
+    },
+    {
+      "path": "provenance/PROJECT_FILE_MANIFEST.csv",
+      "owner": null,
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE"
+    },
+    {
+      "path": "src/aggie_analytics/modeling/week_zero_live_shadow_execution.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_checkout_authority_pins.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_cycle23_routing_manifest_coverage.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_jira_authority_progress_comments.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_second_pass_audit_modes.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_unified_controller_state.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_week_zero_2026_live_shadow_execution.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_week_zero_2026_official_final_acquisition_blocked.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_week_zero_2026_official_final_scoring_successor.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tools/build_week_zero_2026_official_final_acquisition_blocked.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tools/build_week_zero_2026_official_final_scoring_successor.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tools/validate_checkout_authority_pins.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tools/validate_jira_control_plane.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tools/validate_repository.py",
+      "owner": "BAT-675",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tools/validate_week_zero_2026_official_final_scoring_successor.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    }
+  ]
 }

@@ -1,0 +1,26 @@
+{
+  "artifact_identity": "3d7d7a36d7bf6e67c494b39aee06437585c456d39578d96d23cb8cc5eb94fe3f",
+  "artifact_type": "WEEK_ZERO_2026_SCOREBOARD_FALLBACK_DISPOSITION",
+  "bound_code_identity": {
+    "module": "src/aggie_analytics/modeling/week_zero_live_shadow_execution.py",
+    "sha256": "97410def816902f42c4169457e4787c65847706f20507edbe434e620b2d9d508"
+  },
+  "bound_scoring_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+  "cfbd_priority_preserved": true,
+  "conditions": {
+    "absent_status_never_becomes_final": true,
+    "api_first_acquisition_remains_preferred": true,
+    "code_identity_is_bound": true,
+    "no_missing_contest_is_substituted": true,
+    "no_score_is_inferred": true,
+    "tests_cover_every_condition": "tests/test_week_zero_2026_scoreboard_fallback_conditions.py"
+  },
+  "decision": "BOUND_AS_SUCCESSOR_CODE_IDENTITY",
+  "fixture_identity": {
+    "module": "tests/test_week_zero_2026_live_shadow_execution.py",
+    "sha256": "29c10d81d7f0bb4689457e52b7be32aafd12c66a6c08a2e2c500d73b74fa49e3"
+  },
+  "rationale": "Anchor-only fallback changes parser behavior and is treated as successor-owned evidence behavior with focused fixtures; absent status never escalates to final and no score inference occurs.",
+  "schema_version": "aggie.shadow.week_zero_2026_scoreboard_fallback_disposition.v1",
+  "successor_ownership": "BAT-674"
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
+  "run_id": "week-zero-2026-cfbd-get-games-v1",
+  "classification": "WEEK_ZERO_2026_CFBD_STRUCTURED_GAME_ACQUISITION",
+  "source_id": "SRC-002",
+  "endpoint_id": "CFBD-GetGames",
+  "path": "/games",
+  "source_acquisition_registry_sha256": "94fa9e7fed7d1e8a91abe5d1947d15285bb2504fbde4670628a4b89240b9d75b",
+  "credential_environment_variable": "CFBD_API_KEY",
+  "requests": [
+    {
+      "year": 2026,
+      "seasonType": "regular",
+      "week": 0
+    },
+    {
+      "year": 2026,
+      "seasonType": "regular",
+      "week": 1
+    }
+  ],
+  "expected_seasons": [
+    2026
+  ],
+  "expected_minimum_rows_per_season": 1,
+  "authority": {
+    "source_capture_only": true,
+    "provider_completed_flag_required_for_scoring": true,
+    "name_only_match_permitted": false,
+    "crosswalk_required": true,
+    "official_source_substitution_claimed": false,
+    "historical_publication_time_known": false,
+    "protected_use_admission": false
+  }
+}

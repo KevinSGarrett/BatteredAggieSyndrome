@@ -1,0 +1,47 @@
+{
+  "base_worktree": "C:/BatteredAggieSyndrome.validation/final21",
+  "classification": "ISOLATED_PASSES_ORDER_RUN_FAILS_TEST_CONTAMINATION",
+  "current_worktree": "C:\\BatteredAggieSyndrome.worktrees\\cycle22-week-zero-official-finals",
+  "failure_evidence": {
+    "BAT-648": {
+      "committed_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
+      "declared_upstream_pins": {
+        "PINNED_BAT638_DATASET_IDENTITY": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
+        "PINNED_BAT638_GATE_IDENTITY": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54"
+      },
+      "external_manifest_path": "C:\\BatteredAggieSyndrome.data\\features\\tamu_official_1998_2009_structured_row_corpus_integrity\\sha256\\f9ca71cd4206cbe6597af0d3de2ec48fb47aaa7c1d1b89ba2668b700f97a9a98\\corpus_manifest.json",
+      "external_manifest_sha256": "8c5ec7d607b53144647e946e5989ce954cc696271f4b50dab0185b2d09579d43",
+      "reconstructed_gate_identity": "c0365dfda58f961313e94cd5e99d63ad6f3a0a0b7cc26842eaf5f069008ce02d",
+      "source_code_identity": "f3098155c6ea0619365c95afca81a1c4c80e1225283b9f040e5dbd9efab5b9ee"
+    },
+    "BAT-649_1996_2009_successor": {
+      "committed_gate_identity": "6e08cafb38d5035ce81b5abdc5f281be87f8c9857bb05323edee21ea553d4d4a",
+      "declared_upstream_pins": {
+        "predecessor_1998_2009_dataset_identity_constant": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8"
+      },
+      "external_manifest_path": "C:\\BatteredAggieSyndrome.data\\features\\tamu_official_1996_2009_structured_row_corpus\\sha256\\7a7f9797bbbc43f273e357584a16ece7715c6ab227438b13fa65775c3dd912f7\\corpus_manifest.json",
+      "external_manifest_sha256": "bd5cd0605663d13de5a72bb5b4ecf0fb615373cf6dbdb0a0faeb0e0ce87f7ad9",
+      "reconstructed_gate_identity": "6e08cafb38d5035ce81b5abdc5f281be87f8c9857bb05323edee21ea553d4d4a",
+      "source_code_identity": "2f994c514a2c2bc9072a3681fe989a523a044172baa1f1afa01f4a1208885b53"
+    }
+  },
+  "full_exception_messages_from_failed_mounted_run": [
+    "Traceback (most recent call last):\n  File \"C:\\BatteredAggieSyndrome.worktrees\\cycle22-week-zero-official-finals\\tests\\test_tamu_official_1996_2009_structured_row_corpus.py\", line 46, in test_gate_reconstructs\n    result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\BatteredAggieSyndrome.worktrees\\cycle22-week-zero-official-finals\\src\\aggie_analytics\\data\\tamu_official_1996_2009_structured_row_corpus.py\", line 332, in validate_artifact\n    raise AuthorityViolation(\"committed 1996-2009 corpus gate does not match independent reconstruction\")\naggie_analytics.data.tamu_official_historical_boxscores.AuthorityViolation: committed 1996-2009 corpus gate does not match independent reconstruction\n\n======================================================================\nERROR: setUpClass (test_tamu_official_1998_2009_structured_row_corpus_integrity.CorpusIntegrityTests)",
+    "Traceback (most recent call last):\n  File \"C:\\BatteredAggieSyndrome.worktrees\\cycle22-week-zero-official-finals\\tests\\test_tamu_official_1998_2009_structured_row_corpus_integrity.py\", line 37, in setUpClass\n    reconstruct_objects(repo_root=REPO_ROOT, data_root=DATA_ROOT)\n  File \"C:\\BatteredAggieSyndrome.worktrees\\cycle22-week-zero-official-finals\\src\\aggie_analytics\\data\\tamu_official_1998_2009_structured_row_corpus_integrity.py\", line 89, in reconstruct_objects\n    raise AuthorityViolation(\"BAT-638 gate identity drifted\")\naggie_analytics.data.tamu_official_historical_boxscores.AuthorityViolation: BAT-638 gate identity drifted"
+  ],
+  "isolated_test_file_mutation_check": "UNCHANGED",
+  "isolated_tests_base": {
+    "test_tamu_official_1996_2009_structured_row_corpus": "PASS",
+    "test_tamu_official_1998_2009_structured_row_corpus_integrity": "PASS"
+  },
+  "isolated_tests_current": {
+    "test_tamu_official_1996_2009_structured_row_corpus": "PASS",
+    "test_tamu_official_1998_2009_structured_row_corpus_integrity": "PASS"
+  },
+  "prior_parallel_full_suite_observation": {
+    "likely_contamination": "CONCURRENT_FULL_SUITE_EXECUTIONS_SHARED_WORKTREE_AND_DATA_ROOT",
+    "mounted_run": "FAILED",
+    "unmounted_run": "PASSED",
+    "warnings_as_errors_run": "PASSED"
+  }
+}

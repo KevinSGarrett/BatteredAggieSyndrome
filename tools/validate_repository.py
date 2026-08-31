@@ -347,7 +347,30 @@ def main() -> int:
                     )
                 successor_module = importlib.util.module_from_spec(successor_spec)
                 successor_spec.loader.exec_module(successor_module)
-                successor_module.validate()
+                data_root = Path(
+                    os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+                )
+                mounted = (
+                    data_root / "manifests/shadow/week_zero_2026_official_final_capture"
+                ).is_dir()
+                if mounted:
+                    for detail in successor_module.validate(
+                        repo_root=root, data_root=data_root
+                    ):
+                        findings.append(
+                            type(
+                                "F",
+                                (),
+                                {
+                                    "kind": "week_zero_successor_gate",
+                                    "path": (
+                                        "artifacts/shadow/"
+                                        "week_zero_2026_official_final_scoring_successor_gate.json"
+                                    ),
+                                    "detail": detail,
+                                },
+                            )()
+                        )
             except (ValueError, FileNotFoundError, OSError, json.JSONDecodeError, AttributeError) as exc:
                 findings.append(
                     type(

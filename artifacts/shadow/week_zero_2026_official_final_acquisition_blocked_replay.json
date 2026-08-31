@@ -1,0 +1,28 @@
+{
+  "attempted_capture_identity": "899823369d61723e98bc17bbca4959a4d39e5c230c416c11ecd4abb5d038f9b2",
+  "gate_identity": "a4e74b948121fd98dc581b5ae1e720f6bd36d54f02974e3a9642a27b5fbd9376",
+  "historical_attempt_identity_before_supersession_annotation": "a4e74b948121fd98dc581b5ae1e720f6bd36d54f02974e3a9642a27b5fbd9376",
+  "replay_command": "python -B tools/build_week_zero_2026_official_final_acquisition_blocked.py --repo-root . --data-root <data-root>",
+  "result": "FAIL_CLOSED_OFFICIAL_FINAL_ACQUISITION_BLOCKED",
+  "state_protection": {
+    "bound_predecessor_gate_identity": "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2",
+    "bound_successor_gate_identity": "f3a50f1a013a0aa64a8f6227c5883134c6eb223452c5a6a23a7dece82ebc046a",
+    "forecast_backfill_performed": false,
+    "frozen_probability_mutation_performed": false,
+    "scored_row_count": 0,
+    "successor_contest_state_counts": {
+      "AWAITING_OFFICIAL_FINAL": 6,
+      "MISSED_CUTOFF_NO_BACKFILL": 2
+    },
+    "successor_forecast_state_counts": {
+      "AWAITING_OFFICIAL_FINAL": 12
+    }
+  },
+  "supersession": {
+    "current_authority": false,
+    "historical_attempt": true,
+    "superseded_by_scoring_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+    "superseded_by_successful_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+    "supersession_reason": "The direct HTTP route was later completed through the declared transport policy and the resulting official finals were scored under BAT-674."
+  }
+}

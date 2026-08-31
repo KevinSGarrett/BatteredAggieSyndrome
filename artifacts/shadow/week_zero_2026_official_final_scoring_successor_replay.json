@@ -1,0 +1,12 @@
+{
+  "artifact_type": "WEEK_ZERO_2026_OFFICIAL_FINAL_SCORING_SUCCESSOR_REPLAY",
+  "bound_predecessor_gate_identity": "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2",
+  "gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+  "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+  "reconciliation_gate_identity": "6064b747210c834d7f70f36a75edf25c005dbfe62c3ceb66dd8ab3203e037b16",
+  "replay_command": "python -B tools/build_week_zero_2026_official_final_scoring_successor.py --repo-root . --data-root <data-root> --execution-time-utc <utc> --acquisition-capture-identity <sha256>",
+  "residual_payload_identity": "1a4a72efd62e7bcd80830bf51271946c5af5f7f3ac43d7e8e7ea8d61cb1f2e60",
+  "scoring_payload_identity": "33c282e1e2bf24b04c5a8516c7866142978c79f29fba7eddab314e5756dce424",
+  "state_transition_count": 40,
+  "validation_command": "python -B tools/validate_week_zero_2026_official_final_scoring_successor.py --repo-root . --data-root <data-root>"
+}

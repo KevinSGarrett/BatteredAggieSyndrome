@@ -1,0 +1,128 @@
+{
+  "canonical_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+  "canonical_gate_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json",
+  "completeness_claimed": false,
+  "created_at_utc": "2026-08-31T02:00:00Z",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "issue_complete": false,
+  "jira_key": "BAT-674",
+  "local_issue_id": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "EXISTING",
+  "observable_outcome": "The Week Zero 2026 official-final scoring successor now derives every committed object from the three raw NCAA captures. The August 27 and August 28 responses are preserved as source-substitution observations and cannot contribute an admissible final, so the eight official finals are recorded once from the single admissible August 29 capture rather than three times. Six contests are SCORED after an identifier-based ordered-participant and canonical-identity orientation proof with a post-kickoff terminal final; the two contests whose participants never resolved carry MISSED_CUTOFF_NO_BACKFILL with an explicit unsupported-entity flag. Twelve frozen forecast rows are scored against their own candidate opportunity population, so coverage is 6/6 for each candidate rather than 6/12. Rows at probability exactly one half are NO_DIRECTION and are excluded from directional metrics. No probability, model, candidate or protected lane was changed.",
+  "official_capture_summary": {
+    "admissible_final_capture_count": 1,
+    "capture_count": 3,
+    "source_substitution_capture_count": 2,
+    "source_substitution_observation_count": 16,
+    "unique_official_final_count": 8
+  },
+  "outputs": [
+    {
+      "path": "artifacts/shadow/bat401_done_lane_interpretation.json",
+      "sha256": "b57e7815f0511977577438cd4e70bc204d3bcbada39de9cd27dfbc0fbaf84853"
+    },
+    {
+      "path": "artifacts/shadow/cycle21_defect_classification_cycle22.json",
+      "sha256": "1436e692e8cb4eecb7c1a537e77f0be7a816df44663d18e5cffe1dddb714c52b"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_cfbd_crosswalk.json",
+      "sha256": "9e9b93f49b637bdc9d12c1f7310f7be1f1082ab9f911eb845441975a368b698d"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_cfbd_route_probe.json",
+      "sha256": "bda864d00b8418085f8fe6113dd318fce42a53f6d4026f006c511366a9c73b4e"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_mounted_failure_diagnosis.json",
+      "sha256": "f7a25fdfc32a76af89d97ff05b0041ec2fa525ee005d3fd73459e7d2269940e1"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_acquisition_blocked_gate.json",
+      "sha256": "37fc41205fa4b8371df900c964086c9cdd30311d63f82b9eb00e9c61666980ee"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_acquisition_blocked_replay.json",
+      "sha256": "6853a94da520ecf53e8792825d0b2f7e99d37861fde7d9980bc2f60d060e85ff"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json",
+      "sha256": "333ccf6c1cb4881b03db04c5fcbb8568a60ad34df30f40230ded588485a4fe70"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json",
+      "sha256": "848a2d65920ff72575a6b19d100dd9edfeea55bf7e56b61afd02106a3c3e5a52"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_replay.json",
+      "sha256": "4cd1b65cc46d47cc83a5243c1e78085eee6740cb8773e7be1737480f3d076231"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_state_transitions.json",
+      "sha256": "3613f34770bf7c2fefe739c567ab44070c6e00623e9f242d6639dfe8bf01e8eb"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_prospective_residual_successor_payload.json",
+      "sha256": "0be3b7e71a04107bf7ee72dbb5fc05b4aeda8b59a70541de101a5601daad042a"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_result_reconciliation_gate.json",
+      "sha256": "ae508fea56533faf6944fb9f8cace19afd9e6d7c22fa333f7f69c7413773cff7"
+    },
+    {
+      "path": "artifacts/shadow/week_zero_2026_scoreboard_fallback_disposition.json",
+      "sha256": "3e98e82b943c88b876644047373efba2bc1b3b6f45b68ebf0f8bcd68e63d38b7"
+    },
+    {
+      "path": "configs/week_zero_2026_official_final_scoring_successor_contract.json",
+      "sha256": "7196a50e844b111562219c733f0c163033e0b5297bb62d00344da0487cbb1ae9"
+    },
+    {
+      "path": "src/aggie_analytics/modeling/week_zero_official_final_scoring.py",
+      "sha256": "f430e9d4fe4ab75c937c656e141f68cf5cb18809c5a01809523e8518a8041a6b"
+    },
+    {
+      "path": "tests/test_week_zero_2026_official_final_reconstruction.py",
+      "sha256": "cf7e6f2127ddc0c518db4b25c4bb3a5934847bf003642243d0ffe9ccf7a0ca91"
+    },
+    {
+      "path": "tests/test_week_zero_2026_official_final_scoring_successor.py",
+      "sha256": "e243e5d2a518fb511ab33b8ce0dec2aa213c40af7c9e6f26927b2e353b406447"
+    },
+    {
+      "path": "tests/test_week_zero_2026_scoreboard_fallback_conditions.py",
+      "sha256": "ca0087d14cc387440f16bc457be589bafc3b83136b09c251f3f9cec76e6830fe"
+    },
+    {
+      "path": "tools/build_week_zero_2026_official_final_acquisition_blocked.py",
+      "sha256": "a27cef5383bf64890213433bdfee373874aa5b97530d734971a2744aa4c0dc0b"
+    },
+    {
+      "path": "tools/build_week_zero_2026_official_final_scoring_successor.py",
+      "sha256": "2ea9af3fcb1b9716f61004303d4ed6f1a876892c0e55eaf1f2b359483ae24998"
+    },
+    {
+      "path": "tools/validate_week_zero_2026_official_final_scoring_successor.py",
+      "sha256": "acf3a5526e9bfa68c3085d3154c2c1a9cbb288f828890c207e6b02eedd578bc5"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-399",
+    "BAT-400",
+    "BAT-657",
+    "BAT-659",
+    "BAT-661",
+    "BAT-664",
+    "BAT-665",
+    "BAT-675"
+  ],
+  "schema_version": "2.1.0",
+  "scored_row_count": 12,
+  "superseded_identities": [
+    "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2"
+  ],
+  "workflow_state": "IN_REVIEW"
+}

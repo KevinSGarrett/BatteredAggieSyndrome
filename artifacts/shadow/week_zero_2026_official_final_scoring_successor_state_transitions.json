@@ -1,0 +1,452 @@
+{
+  "append_only": true,
+  "artifact_type": "WEEK_ZERO_2026_OFFICIAL_FINAL_SCORING_SUCCESSOR_STATE_TRANSITIONS",
+  "bound_predecessor_transition_count": 20,
+  "ledger_identity": "9f3ab60ce25ad9b8056f9ada624a25f667125bb49eaa2b18c1bdf4a3866f0590",
+  "new_transition_count": 20,
+  "new_transitions": [
+    {
+      "entity_id": "6586325",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6586325::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6586325::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594361",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "UNRESOLVED_PARTICIPANT_IDENTITY_LEFT_NO_FROZEN_FORECAST_BEFORE_THE_KICKOFF_BOUND",
+      "to_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "entity_id": "6594398",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594398::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594398::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594883",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594883::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594883::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6597632",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6597632::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6597632::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6602787",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "UNRESOLVED_PARTICIPANT_IDENTITY_LEFT_NO_FROZEN_FORECAST_BEFORE_THE_KICKOFF_BOUND",
+      "to_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "entity_id": "6603618",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6603618::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6603618::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6616111",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6616111::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6616111::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    }
+  ],
+  "total_transition_count": 40,
+  "transitions": [
+    {
+      "entity_id": "6586325",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594361",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594398",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594883",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6597632",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6602787",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6603618",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6616111",
+      "entity_kind": "CONTEST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6586325::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6586325::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594398::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594398::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594883::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6594883::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6597632::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6597632::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6603618::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6603618::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6616111::national_base_rate",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6616111::national_elo",
+      "entity_kind": "FORECAST",
+      "observed_at_utc": "2026-08-29T06:54:59Z",
+      "to_state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "entity_id": "6586325",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6586325::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6586325::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594361",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "UNRESOLVED_PARTICIPANT_IDENTITY_LEFT_NO_FROZEN_FORECAST_BEFORE_THE_KICKOFF_BOUND",
+      "to_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "entity_id": "6594398",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594398::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594398::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594883",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594883::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6594883::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6597632",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6597632::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6597632::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6602787",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "UNRESOLVED_PARTICIPANT_IDENTITY_LEFT_NO_FROZEN_FORECAST_BEFORE_THE_KICKOFF_BOUND",
+      "to_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "entity_id": "6603618",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6603618::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6603618::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6616111",
+      "entity_kind": "CONTEST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_NCAA_FINAL_OBSERVED_AND_ORIENTATION_PROVEN",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6616111::national_base_rate",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    },
+    {
+      "entity_id": "6616111::national_elo",
+      "entity_kind": "FORECAST",
+      "from_state": "AWAITING_OFFICIAL_FINAL",
+      "observed_at_utc": "2026-08-31T02:00:00Z",
+      "reason": "OFFICIAL_FINAL_ORIENTATION_PROVEN_AND_TEMPORAL_PROOF_COMPLETE",
+      "to_state": "SCORED"
+    }
+  ]
+}

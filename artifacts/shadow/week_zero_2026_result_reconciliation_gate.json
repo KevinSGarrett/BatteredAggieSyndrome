@@ -1,0 +1,21 @@
+{
+  "artifact_type": "WEEK_ZERO_2026_RESULT_RECONCILIATION_GATE",
+  "cfbd_source_label": "CFBD_STRUCTURED_FINAL_EVIDENCE",
+  "contest_state_counts": {
+    "MISSED_CUTOFF_NO_BACKFILL": 2,
+    "SCORED": 6
+  },
+  "crosswalk_identity": "ac5c36d8fefeb3587541d8d8d8945bb8714a53b8209429cd93a3007122f646eb",
+  "disposition_counts": {
+    "MISSED_CUTOFF_NO_BACKFILL": 2,
+    "NCAA_PREDECESSOR_CONTEST_ID_AND_ORIENTATION_EXACT": 6
+  },
+  "gate_identity": "6064b747210c834d7f70f36a75edf25c005dbfe62c3ceb66dd8ab3203e037b16",
+  "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+  "official_final_source_label": "NCAA_OFFICIAL_SCOREBOARD_VIA_DECLARED_TRANSPORT",
+  "orientation_proven_contest_count": 6,
+  "pending_contest_count": 0,
+  "quarantine_contest_count": 0,
+  "result": "PASS_RECONCILIATION",
+  "scored_row_count": 12
+}

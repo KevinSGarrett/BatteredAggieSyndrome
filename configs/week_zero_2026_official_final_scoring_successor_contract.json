@@ -1,0 +1,37 @@
+{
+  "artifact_type": "WEEK_ZERO_2026_OFFICIAL_FINAL_SCORING_SUCCESSOR_CONTRACT",
+  "awaiting_state": "AWAITING_OFFICIAL_FINAL",
+  "blocked_capture_semantics": "A blocked acquisition attempt is recorded as an observation and must never erase previously captured contest clock/broadcast/identity/snapshot evidence.",
+  "classification": "WEEK_ZERO_2026_OFFICIAL_FINAL_SCORING_SUCCESSOR_AND_PROSPECTIVE_RESIDUALS",
+  "contract_id": "BAT-674-WEEK-ZERO-2026-OFFICIAL-FINAL-SCORING-SUCCESSOR-V1",
+  "fallback_policy": "NO_UNOFFICIAL_OR_UNDECLARED_FALLBACK_SOURCE_ALLOWED",
+  "forecast_pending_state": "AWAITING_OFFICIAL_FINAL",
+  "jira_key": "BAT-674",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
+  "missed_cutoff_state": "MISSED_CUTOFF_NO_BACKFILL",
+  "parent_jira_key": "BAT-523",
+  "predecessor_authority": {
+    "capture_identity": "03579789d101d2b670b086de5687f29cba04bf7b66dcbbc79a13ce72adf1e640",
+    "contest_state_counts": {
+      "AWAITING_OFFICIAL_FINAL": 8
+    },
+    "execution_time_utc": "2026-08-29T06:54:59Z",
+    "forecast_state_counts": {
+      "AWAITING_OFFICIAL_FINAL": 12
+    },
+    "gate_identity": "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2",
+    "gate_relative_path": "artifacts/shadow/week_zero_2026_live_execution_gate.json",
+    "replay_relative_path": "artifacts/shadow/week_zero_2026_live_execution_replay.json",
+    "transition_count": 20
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "schema_version": "aggie.shadow.week_zero_2026_official_final_scoring_successor.v1",
+  "source": {
+    "academic_year": "2027",
+    "division": "1",
+    "host": "stats.ncaa.org",
+    "path": "/contests/livestream_scoreboards",
+    "sport_code": "MFB"
+  }
+}

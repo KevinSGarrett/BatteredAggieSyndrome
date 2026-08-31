@@ -74,6 +74,21 @@
  ],
  "purpose": "Local authority-bearing parent progress-comment ledger. Recorded comments must match live Jira comment ID and canonicalized body SHA. No live-only parent progress is allowed after the recording cycle.",
  "schema_version": 2,
+ "supersession_schema_version": 1,
+ "supersessions": [
+  {
+   "correction_reason": "Cycle #21 comment 14706 was posted before BAT-673 landed and therefore named the then-current end SHA.",
+   "cycle": 21,
+   "final_cycle_end_sha": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
+   "historical_comment_immutable": true,
+   "jira_key": "BAT-523",
+   "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+   "original_comment_body_sha256": "49d06f0fec3ea5ea04747cf1e597ce7c2a2803b72e107d2a0d25e2c173cbed0d",
+   "original_comment_id": "14706",
+   "posted_cycle_end_sha": "6845e51e4502c7311bd926afe0059e490a817ec1",
+   "supersession_kind": "HISTORICAL_COMMENT_END_SHA_CORRECTION"
+  }
+ ],
  "v2_evidence_authority": {
   "evolving_evidence_path": "NON_AUTHORITATIVE_REFERENCE_ONLY",
   "historical_snapshot": "IMMUTABLE_EVIDENCE_SNAPSHOT_PATH_AND_SHA256",

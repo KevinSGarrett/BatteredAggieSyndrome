@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "authority_key_names": [
+    "repo_head_sha",
+    "git_head",
+    "material_merge_sha",
+    "source_commit",
+    "base_commit",
+    "git_base_commit"
+  ],
+  "artifacts": [
+    {
+      "path": "configs/codex_usage_interlock_change_manifest.json",
+      "identity_field": "manifest_identity",
+      "rules": [
+        {
+          "path": "base_commit",
+          "role": "AUTHORITATIVE_PINNED",
+          "authority_label_path": "work_class",
+          "required_authority_label": "PROJECT_WORK",
+          "must_be_git_ancestor_of_head": true
+        }
+      ]
+    },
+    {
+      "path": "configs/unified_assistive_change_routing_binding.json",
+      "rules": [
+        {
+          "path": "source_commit",
+          "role": "AUTHORITATIVE_PINNED",
+          "authority_label_path": "class",
+          "required_authority_label": "PROJECT_WORK",
+          "must_be_git_ancestor_of_head": true
+        }
+      ]
+    },
+    {
+      "path": "jira/reconciliation/BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json",
+      "rules": [
+        {
+          "path": "comments[].material_merge_sha",
+          "role": "AUTHORITATIVE_PINNED",
+          "authority_label_path": "comments[].evidence_classification",
+          "required_authority_label": "IMMUTABLE_CYCLE_SNAPSHOT",
+          "must_be_git_ancestor_of_head": true
+        }
+      ]
+    },
+    {
+      "path": "artifacts/operations/drift_alert_validation.json",
+      "identity_field": "artifact_identity",
+      "rules": [
+        {
+          "path": "producer.git_base_commit",
+          "role": "DIAGNOSTIC_NON_AUTHORITY"
+        }
+      ]
+    }
+  ],
+  "cross_artifact_equalities": [
+    {
+      "left": "configs/codex_usage_interlock_change_manifest.json::base_commit",
+      "right": "configs/unified_assistive_change_routing_binding.json::source_commit"
+    }
+  ]
+}

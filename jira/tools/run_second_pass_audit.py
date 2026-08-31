@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
 import re
 import sys
-sys.dont_write_bytecode = True
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,6 +13,8 @@ from typing import Any
 
 from jira_pack_lib import JIRA_ROOT, REPO_ROOT, project_path, repository_context_errors, validate_file_manifest, rebuild_file_manifest, write_csv
 from second_pass_hardening import load_records, strict_validate, validate_source_anchors
+
+sys.dont_write_bytecode = True
 
 SECTIONS = [
     (1, "Role and primary mission", "mission"),
@@ -95,10 +97,10 @@ def exists(rel: str) -> bool:
     return (JIRA_ROOT / rel).exists()
 
 
-def run_checks() -> tuple[dict[str, dict[str, Any]], list[str], dict[str, Any]]:
+def run_checks(*, write_reports: bool = True) -> tuple[dict[str, dict[str, Any]], list[str], dict[str, Any]]:
     records = load_records()
     by_id = {record["local_id"]: record for record in records}
-    errors, validation_metrics = strict_validate(records, write_reports=True)
+    errors, validation_metrics = strict_validate(records, write_reports=write_reports)
     source_errors, source_results = validate_source_anchors(repair=False)
     legacy_import_rows = csv_rows(JIRA_ROOT / "import" / "JIRA_EXTERNAL_SYSTEM_IMPORT.csv")
     modern_import_rows = csv_rows(JIRA_ROOT / "import" / "JIRA_CLOUD_2026_WORK_ITEM_IMPORT.csv")
@@ -109,7 +111,8 @@ def run_checks() -> tuple[dict[str, dict[str, Any]], list[str], dict[str, Any]]:
         "modern_issue_rows": len(modern_import_rows),
         "link_rows": len(link_rows),
     }
-    rebuild_file_manifest()
+    if write_reports:
+        rebuild_file_manifest()
     manifest_errors = validate_file_manifest() if exists("validation/JIRA_FILE_MANIFEST.csv") else ["Missing Jira file manifest"]
     actionable = [record for record in records if record.get("historical_classification") == "ACTIONABLE_POST_WAVE"]
     atomic = [record for record in actionable if record.get("execution_mode") == "ATOMIC_EXECUTION"]
@@ -144,11 +147,20 @@ def run_checks() -> tuple[dict[str, dict[str, Any]], list[str], dict[str, Any]]:
         "added": non_jira_added,
         "changed": non_jira_changed,
     }
-    (JIRA_ROOT / "validation" / "NON_JIRA_SCOPE_DIFF.json").write_text(json.dumps(non_jira_diff, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    if write_reports:
+        (JIRA_ROOT / "validation" / "NON_JIRA_SCOPE_DIFF.json").write_text(
+            json.dumps(non_jira_diff, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
     diff_rows = ([{"change_type": "MISSING", "repo_relative_path": path} for path in non_jira_missing]
                  + [{"change_type": "ADDED", "repo_relative_path": path} for path in non_jira_added]
                  + [{"change_type": "CHANGED", "repo_relative_path": path} for path in non_jira_changed])
-    write_csv(JIRA_ROOT / "validation" / "NON_JIRA_SCOPE_DIFF.csv", diff_rows, ["change_type", "repo_relative_path"])
+    if write_reports:
+        write_csv(
+            JIRA_ROOT / "validation" / "NON_JIRA_SCOPE_DIFF.csv",
+            diff_rows,
+            ["change_type", "repo_relative_path"],
+        )
     baseline_path = JIRA_ROOT / "validation" / "BASELINE_REPOSITORY_VALIDATION.json"
     baseline = json.loads(baseline_path.read_text(encoding="utf-8")) if baseline_path.exists() else []
     baseline_pass = bool(baseline) and all(item.get("passed") for item in baseline)
@@ -376,7 +388,55 @@ def run_checks() -> tuple[dict[str, dict[str, Any]], list[str], dict[str, Any]]:
     return checks, audit_errors, metrics
 
 
+def _build_payload(
+    *,
+    checks: dict[str, dict[str, Any]],
+    errors: list[str],
+    metrics: dict[str, Any],
+    repository_context: str,
+) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
+    rows: list[dict[str, Any]] = []
+    for number, title, check_key in SECTIONS:
+        check = checks[check_key]
+        rows.append(
+            {
+                "section": number,
+                "title": title,
+                "status": check["status"],
+                "check_group": check_key,
+                "detail": check["detail"],
+                "evidence_files": check["evidence"],
+            }
+        )
+    failed_sections = [row for row in rows if row["status"] != "PASS"]
+    payload = {
+        "schema_version": 2,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "result": "PASS" if not errors and not failed_sections else "FAIL",
+        "section_count": len(rows),
+        "passed_sections": len(rows) - len(failed_sections),
+        "failed_sections": len(failed_sections),
+        "error_count": len(errors),
+        "errors": errors,
+        "metrics": metrics,
+        "sections": rows,
+        "repository_context": repository_context,
+    }
+    return payload, rows, failed_sections
+
+
 def main() -> None:
+    mode = "materialize"
+    if len(sys.argv) > 1:
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument(
+            "--mode",
+            choices=("materialize", "validate"),
+            default="materialize",
+            help="materialize writes SECOND_PASS_* reports; validate is read-only",
+        )
+        args = parser.parse_args()
+        mode = args.mode
     context_errors = repository_context_errors()
     if context_errors:
         payload = {
@@ -392,48 +452,63 @@ def main() -> None:
         }
         print(json.dumps(payload, indent=2, sort_keys=True))
         raise SystemExit(2)
-    checks, errors, metrics = run_checks()
-    rows: list[dict[str, Any]] = []
-    for number, title, check_key in SECTIONS:
-        check = checks[check_key]
-        rows.append({
-            "section": number, "title": title, "status": check["status"], "check_group": check_key,
-            "detail": check["detail"], "evidence_files": check["evidence"],
-        })
-    failed_sections = [row for row in rows if row["status"] != "PASS"]
-    payload = {
-        "schema_version": 2, "generated_at": datetime.now(timezone.utc).isoformat(),
-        "result": "PASS" if not errors and not failed_sections else "FAIL",
-        "section_count": len(rows), "passed_sections": len(rows) - len(failed_sections),
-        "failed_sections": len(failed_sections), "error_count": len(errors), "errors": errors,
-        "metrics": metrics, "sections": rows,
-    }
-    validation = JIRA_ROOT / "validation"
-    (validation / "SECOND_PASS_AUDIT.json").write_text(json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
-    write_csv(validation / "SECOND_PASS_REQUIREMENT_MATRIX.csv", rows, ["section", "title", "status", "check_group", "detail", "evidence_files"])
-    lines = [
-        "# Independent Second-Pass Audit", "",
-        f"- Result: **{payload['result']}**", f"- Source-prompt sections audited: {len(rows)}",
-        f"- Passed sections: {payload['passed_sections']}", f"- Failed sections: {payload['failed_sections']}",
-        f"- Canonical issues: {metrics['issue_count']}",
-        f"- Post-wave packets: {metrics['work_packet_count']} / {metrics['post_wave_count']}",
-        f"- Atomic execution records: {metrics['atomic_count']}", f"- Aggregate gate records: {metrics['aggregate_count']}",
-        f"- Protected/touched overlaps: {metrics['protected_touch_overlap_count']}",
-        f"- Source references validated: {metrics['source_reference_count']}",
-        f"- Import rows validated: {metrics['import'].get('issue_rows', 0)}", "",
-        "## 68-section matrix", "",
-        "| § | Requirement area | Status | Verification |",
-        "|---:|---|---|---|",
-    ]
-    for row in rows:
-        detail = str(row["detail"]).replace("|", "\\|")
-        lines.append(f"| {row['section']} | {row['title']} | {row['status']} | {detail} |")
-    if errors:
-        lines.extend(["", "## Errors", ""] + [f"- {error}" for error in errors])
-    lines.extend(["", "## Evidence map", "", "The machine-readable evidence paths for each section are in `SECOND_PASS_REQUIREMENT_MATRIX.csv` and `SECOND_PASS_AUDIT.json`."])
-    (validation / "SECOND_PASS_AUDIT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    rebuild_file_manifest()
-    print(f"Second-pass audit: {payload['result']} | sections={len(rows)} passed={payload['passed_sections']} errors={len(errors)}")
+    checks, errors, metrics = run_checks(write_reports=(mode == "materialize"))
+    payload, rows, failed_sections = _build_payload(
+        checks=checks,
+        errors=errors,
+        metrics=metrics,
+        repository_context=str(REPO_ROOT),
+    )
+    if mode == "materialize":
+        validation = JIRA_ROOT / "validation"
+        (validation / "SECOND_PASS_AUDIT.json").write_text(
+            json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        write_csv(
+            validation / "SECOND_PASS_REQUIREMENT_MATRIX.csv",
+            rows,
+            ["section", "title", "status", "check_group", "detail", "evidence_files"],
+        )
+        lines = [
+            "# Independent Second-Pass Audit",
+            "",
+            f"- Result: **{payload['result']}**",
+            f"- Source-prompt sections audited: {len(rows)}",
+            f"- Passed sections: {payload['passed_sections']}",
+            f"- Failed sections: {payload['failed_sections']}",
+            f"- Canonical issues: {metrics['issue_count']}",
+            f"- Post-wave packets: {metrics['work_packet_count']} / {metrics['post_wave_count']}",
+            f"- Atomic execution records: {metrics['atomic_count']}",
+            f"- Aggregate gate records: {metrics['aggregate_count']}",
+            f"- Protected/touched overlaps: {metrics['protected_touch_overlap_count']}",
+            f"- Source references validated: {metrics['source_reference_count']}",
+            f"- Import rows validated: {metrics['import'].get('issue_rows', 0)}",
+            "",
+            "## 68-section matrix",
+            "",
+            "| § | Requirement area | Status | Verification |",
+            "|---:|---|---|---|",
+        ]
+        for row in rows:
+            detail = str(row["detail"]).replace("|", "\\|")
+            lines.append(f"| {row['section']} | {row['title']} | {row['status']} | {detail} |")
+        if errors:
+            lines.extend(["", "## Errors", ""] + [f"- {error}" for error in errors])
+        lines.extend(
+            [
+                "",
+                "## Evidence map",
+                "",
+                "The machine-readable evidence paths for each section are in `SECOND_PASS_REQUIREMENT_MATRIX.csv` and `SECOND_PASS_AUDIT.json`.",
+            ]
+        )
+        (validation / "SECOND_PASS_AUDIT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+        rebuild_file_manifest()
+    print(
+        f"Second-pass audit ({mode}): {payload['result']} | sections={len(rows)} "
+        f"passed={payload['passed_sections']} errors={len(errors)}"
+    )
     for error in errors:
         print("ERROR:", error)
     raise SystemExit(1 if errors or failed_sections else 0)

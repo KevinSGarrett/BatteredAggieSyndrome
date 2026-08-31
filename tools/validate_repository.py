@@ -23,6 +23,9 @@ from tools.repo_integrity import (  # noqa: E402
 )
 from tools.validate_acceptance import validate as validate_acceptance  # noqa: E402
 from tools.validate_architecture import validate_registry  # noqa: E402
+from tools.validate_checkout_authority_pins import (  # noqa: E402
+    validate_checkout_authority_pins,
+)
 from tools.validate_entities import validate as validate_entities  # noqa: E402
 from tools.validate_execution_focus import validate as validate_execution_focus  # noqa: E402
 from tools.validate_external_storage_policy import validate as validate_external_storage_policy  # noqa: E402
@@ -262,6 +265,44 @@ def main() -> int:
                     },
                 )()
             )
+        second_pass_module_path = root / "jira" / "tools" / "run_second_pass_audit.py"
+        try:
+            second_pass_tools_path = str(second_pass_module_path.parent)
+            if second_pass_tools_path not in sys.path:
+                sys.path.insert(0, second_pass_tools_path)
+            second_pass_spec = importlib.util.spec_from_file_location(
+                "aggie_analytics_second_pass_read_only_validate",
+                second_pass_module_path,
+            )
+            if second_pass_spec is None or second_pass_spec.loader is None:
+                raise FileNotFoundError("unable to load jira/tools/run_second_pass_audit.py")
+            second_pass_module = importlib.util.module_from_spec(second_pass_spec)
+            second_pass_spec.loader.exec_module(second_pass_module)
+            _, second_pass_errors, _ = second_pass_module.run_checks(write_reports=False)
+            for detail in second_pass_errors:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "second_pass_read_only_validation",
+                            "path": "jira/tools/run_second_pass_audit.py",
+                            "detail": detail,
+                        },
+                    )()
+                )
+        except (ValueError, FileNotFoundError, OSError, json.JSONDecodeError, AttributeError) as exc:
+            findings.append(
+                type(
+                    "F",
+                    (),
+                    {
+                        "kind": "second_pass_read_only_validation",
+                        "path": "jira/tools/run_second_pass_audit.py",
+                        "detail": str(exc),
+                    },
+                )()
+            )
 
         audit_path = root / AUDIT_PATH
         try:
@@ -281,6 +322,44 @@ def main() -> int:
                     },
                 )()
             )
+        for detail in validate_checkout_authority_pins(root):
+            findings.append(
+                type(
+                    "F",
+                    (),
+                    {
+                        "kind": "checkout_authority_pins",
+                        "path": "configs/authority_checkout_sampling_contract.json",
+                        "detail": detail,
+                    },
+                )()
+            )
+        successor_validator_path = root / "tools" / "validate_week_zero_2026_official_final_scoring_successor.py"
+        if successor_validator_path.is_file():
+            try:
+                successor_spec = importlib.util.spec_from_file_location(
+                    "aggie_analytics_week_zero_successor_validate",
+                    successor_validator_path,
+                )
+                if successor_spec is None or successor_spec.loader is None:
+                    raise FileNotFoundError(
+                        "unable to load tools/validate_week_zero_2026_official_final_scoring_successor.py"
+                    )
+                successor_module = importlib.util.module_from_spec(successor_spec)
+                successor_spec.loader.exec_module(successor_module)
+                successor_module.validate()
+            except (ValueError, FileNotFoundError, OSError, json.JSONDecodeError, AttributeError) as exc:
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "week_zero_successor_gate",
+                            "path": "tools/validate_week_zero_2026_official_final_scoring_successor.py",
+                            "detail": str(exc),
+                        },
+                    )()
+                )
 
         contract_path = root / "configs" / "artifact_binding_contract.json"
         module_path = root / "src" / "aggie_analytics" / "validation" / "artifact_binding.py"

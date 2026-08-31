@@ -1,0 +1,293 @@
+{
+  "artifact_type": "WEEK_ZERO_2026_NCAA_CFBD_CROSSWALK",
+  "cfbd_acquisition_state": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+  "cfbd_route_probe_present": true,
+  "counts": {
+    "MISSED_CUTOFF_NO_BACKFILL": 2,
+    "NCAA_PREDECESSOR_CONTEST_ID_AND_ORIENTATION_EXACT": 6
+  },
+  "crosswalk_identity": "ac5c36d8fefeb3587541d8d8d8945bb8714a53b8209429cd93a3007122f646eb",
+  "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+  "rows": [
+    {
+      "canonical_team_identifiers": {
+        "away_canonical_team_id": "SRC-002:TEAM:235",
+        "home_canonical_team_id": "SRC-002:TEAM:2439"
+      },
+      "cfbd_absence_is_enrichment_limitation_not_identity_failure": true,
+      "cfbd_enrichment_disposition": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+      "cfbd_game_id": null,
+      "conflicting_fields": [],
+      "contest_orientation_identity": "5c56ff5c6277d76afb2460670e0ba02fbb09e5d06c17de14a6b5d839db911b52",
+      "kickoff_bound_utc": "2026-08-30T02:00:00Z",
+      "kickoff_date": "2026-08-29",
+      "matched_fields": [
+        "ncaa_contest_id",
+        "ordered_source_team_ids",
+        "canonical_team_ids"
+      ],
+      "ncaa_contest_id": "6586325",
+      "ncaa_identity_disposition": "NCAA_PREDECESSOR_CONTEST_ID_AND_ORIENTATION_EXACT",
+      "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+      "official_raw_response_sha256": "f5a6dc1cde6ee3516178714ac8fefa8b3bc22b8e1a55608c1ce685569fe134b2",
+      "ordered_source_team_identifiers": [
+        {
+          "source_display_name": "Memphis",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622184"
+        },
+        {
+          "source_display_name": "UNLV",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622197"
+        }
+      ],
+      "season": 2026,
+      "unsupported_entity": false
+    },
+    {
+      "canonical_team_identifiers": {
+        "away_canonical_team_id": "SRC-002:TEAM:23",
+        "home_canonical_team_id": null
+      },
+      "cfbd_absence_is_enrichment_limitation_not_identity_failure": true,
+      "cfbd_enrichment_disposition": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+      "cfbd_game_id": null,
+      "conflicting_fields": [],
+      "contest_orientation_identity": "6adf4b323f0419aea30c2e14295fdfdb9874647b234a71926f865314a239c685",
+      "kickoff_bound_utc": "2026-08-29T19:00:00Z",
+      "kickoff_date": "2026-08-29",
+      "matched_fields": [],
+      "ncaa_contest_id": "6594361",
+      "ncaa_identity_disposition": "MISSED_CUTOFF_NO_BACKFILL",
+      "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+      "official_raw_response_sha256": "f5a6dc1cde6ee3516178714ac8fefa8b3bc22b8e1a55608c1ce685569fe134b2",
+      "ordered_source_team_identifiers": [
+        {
+          "source_display_name": "San Jose St.",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622223"
+        },
+        {
+          "source_display_name": "Southern California",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622227"
+        }
+      ],
+      "season": 2026,
+      "unsupported_entity": true
+    },
+    {
+      "canonical_team_identifiers": {
+        "away_canonical_team_id": "SRC-002:TEAM:166",
+        "home_canonical_team_id": "SRC-002:TEAM:52"
+      },
+      "cfbd_absence_is_enrichment_limitation_not_identity_failure": true,
+      "cfbd_enrichment_disposition": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+      "cfbd_game_id": null,
+      "conflicting_fields": [],
+      "contest_orientation_identity": "b0d681b22ed45e28df6f3e167ca7df891e1995fe00b0232e66fd22c27b898c29",
+      "kickoff_bound_utc": "2026-08-29T23:00:00Z",
+      "kickoff_date": "2026-08-29",
+      "matched_fields": [
+        "ncaa_contest_id",
+        "ordered_source_team_ids",
+        "canonical_team_ids"
+      ],
+      "ncaa_contest_id": "6594398",
+      "ncaa_identity_disposition": "NCAA_PREDECESSOR_CONTEST_ID_AND_ORIENTATION_EXACT",
+      "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+      "official_raw_response_sha256": "f5a6dc1cde6ee3516178714ac8fefa8b3bc22b8e1a55608c1ce685569fe134b2",
+      "ordered_source_team_identifiers": [
+        {
+          "source_display_name": "New Mexico St.",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622199"
+        },
+        {
+          "source_display_name": "Florida St.",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622295"
+        }
+      ],
+      "season": 2026,
+      "unsupported_entity": false
+    },
+    {
+      "canonical_team_identifiers": {
+        "away_canonical_team_id": "SRC-002:TEAM:16",
+        "home_canonical_team_id": "SRC-002:TEAM:2199"
+      },
+      "cfbd_absence_is_enrichment_limitation_not_identity_failure": true,
+      "cfbd_enrichment_disposition": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+      "cfbd_game_id": null,
+      "conflicting_fields": [],
+      "contest_orientation_identity": "e55395039afe65c1961bf9812711f162b0e7905f723a5813fcd47291e4f8626d",
+      "kickoff_bound_utc": "2026-08-29T22:30:00Z",
+      "kickoff_date": "2026-08-29",
+      "matched_fields": [
+        "ncaa_contest_id",
+        "ordered_source_team_ids",
+        "canonical_team_ids"
+      ],
+      "ncaa_contest_id": "6594883",
+      "ncaa_identity_disposition": "NCAA_PREDECESSOR_CONTEST_ID_AND_ORIENTATION_EXACT",
+      "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+      "official_raw_response_sha256": "f5a6dc1cde6ee3516178714ac8fefa8b3bc22b8e1a55608c1ce685569fe134b2",
+      "ordered_source_team_identifiers": [
+        {
+          "source_display_name": "Sacramento St.",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622368"
+        },
+        {
+          "source_display_name": "Eastern Mich.",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622292"
+        }
+      ],
+      "season": 2026,
+      "unsupported_entity": false
+    },
+    {
+      "canonical_team_identifiers": {
+        "away_canonical_team_id": "SRC-002:TEAM:152",
+        "home_canonical_team_id": "SRC-002:TEAM:258"
+      },
+      "cfbd_absence_is_enrichment_limitation_not_identity_failure": true,
+      "cfbd_enrichment_disposition": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+      "cfbd_game_id": null,
+      "conflicting_fields": [],
+      "contest_orientation_identity": "689f49a7e24e9cd15a373099de60b13296d772c055eeb4b4e2af60e2488ca0c4",
+      "kickoff_bound_utc": "2026-08-29T19:30:00Z",
+      "kickoff_date": "2026-08-29",
+      "matched_fields": [
+        "ncaa_contest_id",
+        "ordered_source_team_ids",
+        "canonical_team_ids"
+      ],
+      "ncaa_contest_id": "6597632",
+      "ncaa_identity_disposition": "NCAA_PREDECESSOR_CONTEST_ID_AND_ORIENTATION_EXACT",
+      "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+      "official_raw_response_sha256": "f5a6dc1cde6ee3516178714ac8fefa8b3bc22b8e1a55608c1ce685569fe134b2",
+      "ordered_source_team_identifiers": [
+        {
+          "source_display_name": "NC State",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622201"
+        },
+        {
+          "source_display_name": "Virginia",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622253"
+        }
+      ],
+      "season": 2026,
+      "unsupported_entity": false
+    },
+    {
+      "canonical_team_identifiers": {
+        "away_canonical_team_id": null,
+        "home_canonical_team_id": "SRC-002:TEAM:24"
+      },
+      "cfbd_absence_is_enrichment_limitation_not_identity_failure": true,
+      "cfbd_enrichment_disposition": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+      "cfbd_game_id": null,
+      "conflicting_fields": [],
+      "contest_orientation_identity": "af140005fdeef23e34b7a723e6f4879ed94609e858c86a4843d6303f9c4711d1",
+      "kickoff_bound_utc": "2026-08-29T23:00:00Z",
+      "kickoff_date": "2026-08-29",
+      "matched_fields": [],
+      "ncaa_contest_id": "6602787",
+      "ncaa_identity_disposition": "MISSED_CUTOFF_NO_BACKFILL",
+      "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+      "official_raw_response_sha256": "f5a6dc1cde6ee3516178714ac8fefa8b3bc22b8e1a55608c1ce685569fe134b2",
+      "ordered_source_team_identifiers": [
+        {
+          "source_display_name": "Hawaii",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622301"
+        },
+        {
+          "source_display_name": "Stanford",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622232"
+        }
+      ],
+      "season": 2026,
+      "unsupported_entity": true
+    },
+    {
+      "canonical_team_identifiers": {
+        "away_canonical_team_id": "SRC-002:TEAM:55",
+        "home_canonical_team_id": "SRC-002:TEAM:2449"
+      },
+      "cfbd_absence_is_enrichment_limitation_not_identity_failure": true,
+      "cfbd_enrichment_disposition": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+      "cfbd_game_id": null,
+      "conflicting_fields": [],
+      "contest_orientation_identity": "ca3c765c7f523de74734606200925548fe3fd4fd18a2f63a0f64f110a51053fc",
+      "kickoff_bound_utc": "2026-08-29T21:30:00Z",
+      "kickoff_date": "2026-08-29",
+      "matched_fields": [
+        "ncaa_contest_id",
+        "ordered_source_team_ids",
+        "canonical_team_ids"
+      ],
+      "ncaa_contest_id": "6603618",
+      "ncaa_identity_disposition": "NCAA_PREDECESSOR_CONTEST_ID_AND_ORIENTATION_EXACT",
+      "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+      "official_raw_response_sha256": "f5a6dc1cde6ee3516178714ac8fefa8b3bc22b8e1a55608c1ce685569fe134b2",
+      "ordered_source_team_identifiers": [
+        {
+          "source_display_name": "Jacksonville St.",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622221"
+        },
+        {
+          "source_display_name": "North Dakota St.",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622419"
+        }
+      ],
+      "season": 2026,
+      "unsupported_entity": false
+    },
+    {
+      "canonical_team_identifiers": {
+        "away_canonical_team_id": "SRC-002:TEAM:153",
+        "home_canonical_team_id": "SRC-002:TEAM:2628"
+      },
+      "cfbd_absence_is_enrichment_limitation_not_identity_failure": true,
+      "cfbd_enrichment_disposition": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+      "cfbd_game_id": null,
+      "conflicting_fields": [],
+      "contest_orientation_identity": "12d5fb982f685ac742ae5e09f869f4b5f51999e73a14f57c50f6fd9fb249b030",
+      "kickoff_bound_utc": "2026-08-29T15:00:00Z",
+      "kickoff_date": "2026-08-29",
+      "matched_fields": [
+        "ncaa_contest_id",
+        "ordered_source_team_ids",
+        "canonical_team_ids"
+      ],
+      "ncaa_contest_id": "6616111",
+      "ncaa_identity_disposition": "NCAA_PREDECESSOR_CONTEST_ID_AND_ORIENTATION_EXACT",
+      "official_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+      "official_raw_response_sha256": "f5a6dc1cde6ee3516178714ac8fefa8b3bc22b8e1a55608c1ce685569fe134b2",
+      "ordered_source_team_identifiers": [
+        {
+          "source_display_name": "North Carolina",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622194"
+        },
+        {
+          "source_display_name": "TCU",
+          "source_label_carried_prior_record": true,
+          "source_team_id": "622237"
+        }
+      ],
+      "season": 2026,
+      "unsupported_entity": false
+    }
+  ]
+}

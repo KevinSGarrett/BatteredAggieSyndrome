@@ -1,0 +1,12 @@
+{
+  "artifact_type": "BAT401_DONE_LANE_INTERPRETATION",
+  "schema_version": "aggie.shadow.bat401_interpretation.v1",
+  "jira_key": "BAT-401",
+  "issue_status": "Done",
+  "logical_work_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "protected_evaluation": "CLOSED",
+  "gap_005_state": "OPEN",
+  "interpretation": "Done means the protected-lane evaluation concluded; it does not open the protected lane."
+}

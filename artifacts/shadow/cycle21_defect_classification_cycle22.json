@@ -1,0 +1,54 @@
+{
+  "artifact_type": "CYCLE21_DEFECT_CLASSIFICATION",
+  "schema_version": "aggie.shadow.cycle21_defect_classification.v1",
+  "decision_unit": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
+  "classifications": [
+    {
+      "defect_id": "BAT-638-mounted-suite-failure",
+      "classification": "QUALIFIED",
+      "finding": "Failure appears during shared full-suite execution but not in isolated base/current replay with matched environment.",
+      "root_cause": "Test contamination from concurrent mounted-suite runs over shared worktree/data-root state."
+    },
+    {
+      "defect_id": "BAT-648-mounted-suite-failure",
+      "classification": "QUALIFIED",
+      "finding": "Failure appears during shared full-suite execution but not in isolated base/current replay with matched environment.",
+      "root_cause": "Test contamination from concurrent mounted-suite runs over shared worktree/data-root state."
+    },
+    {
+      "defect_id": "cycle22-regression-in-bat638-bat648",
+      "classification": "DISPROVED",
+      "finding": "Both targeted tests pass in detached base and current worktree under matched invocation."
+    },
+    {
+      "defect_id": "external-data-root-drift-after-cycle21",
+      "classification": "DISPROVED",
+      "finding": "Independent reconstruction matches committed identities when tests are run in isolation."
+    },
+    {
+      "defect_id": "cfbd-credential-missing",
+      "classification": "DISPROVED",
+      "finding": "Canonical env-file lookup confirms CFBD_API_KEY is present and non-empty."
+    },
+    {
+      "defect_id": "cfbd-structured-route-unavailable-quota",
+      "classification": "CONFIRMED",
+      "finding": "CFBD GET /games currently returns HTTP 429 with monthly quota exceeded body."
+    },
+    {
+      "defect_id": "bat401-done-implies-open-protected-lane",
+      "classification": "DISPROVED",
+      "finding": "BAT-401 Done is interpreted as completed evaluation with RETAIN_PROTECTED_LANE_BLOCKED and GAP-005 open."
+    },
+    {
+      "defect_id": "minimal-scoreboard-anchor-treated-as-final",
+      "classification": "DISPROVED",
+      "finding": "Fixture coverage enforces anchor-only markup as non-final candidate with no score inference."
+    },
+    {
+      "defect_id": "legacy-scoreboard-fallback-semantics-risk",
+      "classification": "HISTORICAL_ONLY",
+      "finding": "Risk was introduced in prior parser evolution and is now constrained by focused fixtures and explicit successor evidence."
+    }
+  ]
+}

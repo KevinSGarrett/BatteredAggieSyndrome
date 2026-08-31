@@ -1,0 +1,112 @@
+{
+  "artifact_type": "WEEK_ZERO_2026_OFFICIAL_FINAL_ACQUISITION_BLOCKED_GATE",
+  "attempted_capture_identity": "899823369d61723e98bc17bbca4959a4d39e5c230c416c11ecd4abb5d038f9b2",
+  "attempted_capture_issued_at_utc": "2026-08-30T01:04:30Z",
+  "attempts_by_date": [
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "condition": "HTTP_403",
+          "route_id": "direct_http"
+        }
+      ],
+      "failure_condition": "HTTP_403",
+      "game_date": "2026-08-27",
+      "request_identity_sha256": "df188a071e9928ea7899ea317fcb48f8745a1743b6f25702bfdfcbdf149577c8",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F27%2F2026"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "condition": "HTTP_403",
+          "route_id": "direct_http"
+        }
+      ],
+      "failure_condition": "HTTP_403",
+      "game_date": "2026-08-28",
+      "request_identity_sha256": "876be70d6e531fc8b02743620964fbec7fd710eadd776d009aaa2d2de8e5cacd",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F28%2F2026"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "condition": "HTTP_403",
+          "route_id": "direct_http"
+        }
+      ],
+      "failure_condition": "HTTP_403",
+      "game_date": "2026-08-29",
+      "request_identity_sha256": "42bf72331145396ac6ad2063256072d59721303865a2f60f37087aa4a4f51bf0",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=08%2F29%2F2026"
+    }
+  ],
+  "contract_id": "BAT-674-WEEK-ZERO-2026-OFFICIAL-FINAL-SCORING-SUCCESSOR-V1",
+  "fallback_route_audit": {
+    "audit_result": "NO_DECLARED_PUBLIC_OFFICIAL_FALLBACK_ROUTES_FOR_ALL_EIGHT_WEEK_ZERO_CONTESTS",
+    "declared_public_official_fallback_routes": [],
+    "policy": "DO_NOT_USE_UNOFFICIAL_OR_UNDECLARED_FALLBACKS"
+  },
+  "gate_identity": "94c5ef7353e12510e4e03b74af540ce586013ddf9e90a50a884c2b9134f153e2",
+  "historical_attempt_identity_before_supersession_annotation": "c844b9febb26e60f8df3b941d0f2fc9ab81b29b50b0d13e5d85a3f950876cced",
+  "issued_at_utc": "2026-08-30T18:50:53Z",
+  "jira_key": "BAT-674",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
+  "negative_findings": {
+    "scoring_claimed_without_official_final": false,
+    "undeclared_credential_requested": false,
+    "unofficial_source_substitution_performed": false
+  },
+  "official_route": {
+    "academic_year": "2027",
+    "division": "1",
+    "host": "stats.ncaa.org",
+    "path": "/contests/livestream_scoreboards",
+    "sport_code": "MFB"
+  },
+  "prior_successful_capture_context": {
+    "capture_identity": "03579789d101d2b670b086de5687f29cba04bf7b66dcbbc79a13ce72adf1e640",
+    "captured_count": 3,
+    "issued_at_utc": "2026-08-29T06:54:59Z",
+    "official_final_count": 0
+  },
+  "reconstruction_bindings": {
+    "attempted_capture_manifest_path": "C:\\BatteredAggieSyndrome.data\\manifests\\shadow\\week_zero_2026_live_execution\\sha256\\899823369d61723e98bc17bbca4959a4d39e5c230c416c11ecd4abb5d038f9b2\\week_zero_2026_live_execution_capture_manifest.json",
+    "successor_gate_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json",
+    "successor_replay_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_replay.json",
+    "successor_residual_payload_path": "artifacts/shadow/week_zero_2026_prospective_residual_successor_payload.json",
+    "successor_scoring_payload_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json",
+    "successor_transition_ledger_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_state_transitions.json"
+  },
+  "requested_game_dates": [
+    "2026-08-27",
+    "2026-08-28",
+    "2026-08-29"
+  ],
+  "result": "FAIL_CLOSED_OFFICIAL_FINAL_ACQUISITION_BLOCKED",
+  "schema_version": "aggie.shadow.week_zero_2026_official_final_acquisition_blocked.v1",
+  "state_protection": {
+    "bound_predecessor_gate_identity": "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2",
+    "bound_successor_gate_identity": "f3a50f1a013a0aa64a8f6227c5883134c6eb223452c5a6a23a7dece82ebc046a",
+    "forecast_backfill_performed": false,
+    "frozen_probability_mutation_performed": false,
+    "scored_row_count": 0,
+    "successor_contest_state_counts": {
+      "AWAITING_OFFICIAL_FINAL": 6,
+      "MISSED_CUTOFF_NO_BACKFILL": 2
+    },
+    "successor_forecast_state_counts": {
+      "AWAITING_OFFICIAL_FINAL": 12
+    }
+  },
+  "supersession": {
+    "current_authority": false,
+    "historical_attempt": true,
+    "superseded_by_scoring_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+    "superseded_by_successful_capture_identity": "571692ce605cb6b3c47e1aef7e5e83087730d074e631b382f2dbc6024eb4a877",
+    "supersession_reason": "The direct HTTP route was later completed through the declared transport policy and the resulting official finals were scored under BAT-674."
+  }
+}

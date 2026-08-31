@@ -154,6 +154,18 @@ class OfficialStatusTests(unittest.TestCase):
         self.assertEqual(len(parsed), 1)
         self.assertNotEqual(parsed[0]["official_status_state"], FINAL_OBSERVED)
 
+    def test_anchor_only_markup_emits_a_non_final_candidate_without_scores(self) -> None:
+        document = '<a href="/contests/6594361/">San Jose St.</a>'
+        parsed = parse_official_finals(document, synthetic_contract(), game_date="2026-08-29")
+        self.assertEqual(parsed[0]["away_points"], None)
+        self.assertEqual(parsed[0]["home_points"], None)
+        self.assertEqual(parsed[0]["official_status_text"], "")
+
+    def test_parser_never_substitutes_missing_contests(self) -> None:
+        document = '<a href="/contests/6594361/">San Jose St.</a>'
+        parsed = parse_official_finals(document, synthetic_contract(), game_date="2026-08-29")
+        self.assertEqual([row["ncaa_contest_id"] for row in parsed], ["6594361"])
+
 
 class LiveExecutionTests(unittest.TestCase):
     def setUp(self) -> None:

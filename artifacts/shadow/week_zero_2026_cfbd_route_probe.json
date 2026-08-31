@@ -1,0 +1,85 @@
+{
+  "acquisition_result": "FAIL_CLOSED_RATE_LIMITED_NO_STRUCTURED_ROWS",
+  "artifact_identity": "3241df409e7b4b5afcdd56e3cd72192fe6924f4409c97769562797d52b08ec97",
+  "artifact_type": "WEEK_ZERO_2026_CFBD_ROUTE_PROBE",
+  "cfbd_api_key_nonzero_length": true,
+  "cfbd_api_key_present": true,
+  "credential_rejected": false,
+  "env_file_path": "C:/BatteredAggieSyndrome/.env",
+  "env_file_resolved": true,
+  "issued_at_utc": "2026-08-31T01:21:00Z",
+  "method": "GET",
+  "operation": "CFBD-GetGames",
+  "path": "/games",
+  "provider_attempt_observations": [
+    {
+      "attempt": 1,
+      "http_status": 429,
+      "parameters": {
+        "seasonType": "regular",
+        "week": 1,
+        "year": 2026
+      }
+    },
+    {
+      "attempt": 2,
+      "http_status": 429,
+      "parameters": {
+        "seasonType": "regular",
+        "week": 1,
+        "year": 2026
+      }
+    },
+    {
+      "attempt": 3,
+      "http_status": 429,
+      "parameters": {
+        "seasonType": "regular",
+        "week": 1,
+        "year": 2026
+      }
+    },
+    {
+      "attempt": 4,
+      "http_status": 429,
+      "parameters": {
+        "seasonType": "regular",
+        "week": 0,
+        "year": 2026
+      }
+    },
+    {
+      "attempt": 5,
+      "http_status": 429,
+      "parameters": {
+        "seasonType": "regular",
+        "week": 1,
+        "year": 2026
+      },
+      "provider_message": "Monthly call quota exceeded."
+    }
+  ],
+  "requests": [
+    {
+      "parameters": {
+        "seasonType": "regular",
+        "week": 0,
+        "year": 2026
+      },
+      "request_identity_sha256": "addd2b05e9c6ae1fd7782f57bd40a9a9bf626d2fc3c811616262ab97abcb10a6",
+      "source_uri": "https://api.collegefootballdata.com/games?seasonType=regular&week=0&year=2026"
+    },
+    {
+      "parameters": {
+        "seasonType": "regular",
+        "week": 1,
+        "year": 2026
+      },
+      "request_identity_sha256": "484393c2e6dd5fd23ebf197d895e40c87fbd028b37b05fcd502a7cfb1f45bfff",
+      "source_uri": "https://api.collegefootballdata.com/games?seasonType=regular&week=1&year=2026"
+    }
+  ],
+  "secret_persisted": false,
+  "secret_value_displayed": false,
+  "source_id": "SRC-002"
+}

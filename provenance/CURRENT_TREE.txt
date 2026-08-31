@@ -252,6 +252,7 @@ artifacts/jira_evidence/POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001.json
 artifacts/jira_evidence/POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001.json
+artifacts/jira_evidence/POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001.json
 artifacts/jira_evidence/POST-TASK-ADMISSION-MATRIX-STALE-CORPUS-GATE-PIN-001.json
 artifacts/jira_evidence/POST-TASK-ARTIFACT-BINDING-VALIDATOR-001.json
 artifacts/jira_evidence/POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001.json
@@ -414,6 +415,9 @@ artifacts/pit/roster_domain_completeness_gate.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/pit/wmt_provider_timestamp_pit_gate.json
 artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
+artifacts/shadow/bat401_done_lane_interpretation.json
+artifacts/shadow/cycle21_defect_classification_cycle22.json
+artifacts/shadow/cycle22_week_zero_completion_report.json
 artifacts/shadow/national_shadow_operations_gate.json
 artifacts/shadow/national_shadow_operations_replay.json
 artifacts/shadow/prospective_2026_shadow_cohort_gate.json
@@ -427,8 +431,20 @@ artifacts/shadow/tamu_2026_week1_rehearsal_gate.json
 artifacts/shadow/tamu_2026_week1_rehearsal_replay.json
 artifacts/shadow/week_zero_2026_calendar_and_t7d_gate.json
 artifacts/shadow/week_zero_2026_calendar_and_t7d_replay.json
+artifacts/shadow/week_zero_2026_cfbd_crosswalk.json
+artifacts/shadow/week_zero_2026_cfbd_route_probe.json
 artifacts/shadow/week_zero_2026_live_execution_gate.json
 artifacts/shadow/week_zero_2026_live_execution_replay.json
+artifacts/shadow/week_zero_2026_mounted_failure_diagnosis.json
+artifacts/shadow/week_zero_2026_official_final_acquisition_blocked_gate.json
+artifacts/shadow/week_zero_2026_official_final_acquisition_blocked_replay.json
+artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json
+artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json
+artifacts/shadow/week_zero_2026_official_final_scoring_successor_replay.json
+artifacts/shadow/week_zero_2026_official_final_scoring_successor_state_transitions.json
+artifacts/shadow/week_zero_2026_prospective_residual_successor_payload.json
+artifacts/shadow/week_zero_2026_result_reconciliation_gate.json
+artifacts/shadow/week_zero_2026_scoreboard_fallback_disposition.json
 artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/private_research_policy_migration.json
@@ -660,7 +676,9 @@ configs/unified_assistive_ready_work.json
 configs/validation_science_registry.json
 configs/versioned_play_drive_gap_contract.json
 configs/week_zero_2026_calendar_and_t7d_contract.json
+configs/week_zero_2026_cfbd_get_games_acquisition.json
 configs/week_zero_2026_live_execution_contract.json
+configs/week_zero_2026_official_final_scoring_successor_contract.json
 configs/wmt_provider_timestamp_pit_contract.json
 configs/wmt_tamu_specialization_feature_pit_contract.json
 data/README.md
@@ -3580,6 +3598,7 @@ src/aggie_analytics/modeling/sustainability_augmented.py
 src/aggie_analytics/modeling/tamu_week1_rehearsal.py
 src/aggie_analytics/modeling/uncertainty.py
 src/aggie_analytics/modeling/week_zero_live_shadow_execution.py
+src/aggie_analytics/modeling/week_zero_official_final_scoring.py
 src/aggie_analytics/modeling/wmt_tamu_shadow.py
 src/aggie_analytics/openai_assist/__init__.py
 src/aggie_analytics/openai_assist/budget.py
@@ -3916,6 +3935,10 @@ tests/test_w25_final_handoff.py
 tests/test_wave03_governance.py
 tests/test_week_zero_2026_calendar_and_t7d.py
 tests/test_week_zero_2026_live_shadow_execution.py
+tests/test_week_zero_2026_official_final_acquisition_blocked.py
+tests/test_week_zero_2026_official_final_reconstruction.py
+tests/test_week_zero_2026_official_final_scoring_successor.py
+tests/test_week_zero_2026_scoreboard_fallback_conditions.py
 tests/test_wmt_provider_timestamp_pit.py
 tests/test_wmt_tamu_specialization_feature_pit.py
 tests/test_worktree_resource_policy.py
@@ -4071,6 +4094,8 @@ tools/build_unified_assistive_release.py
 tools/build_versioned_play_drive_gap.py
 tools/build_week_zero_2026_calendar_and_t7d_authority.py
 tools/build_week_zero_2026_live_shadow_execution.py
+tools/build_week_zero_2026_official_final_acquisition_blocked.py
+tools/build_week_zero_2026_official_final_scoring_successor.py
 tools/build_wmt_provider_timestamp_pit.py
 tools/build_wmt_tamu_specialization_feature_pit.py
 tools/capture_runtime_manifest.py
@@ -4355,6 +4380,7 @@ tools/validate_w25_final.py
 tools/validate_wave_pair.py
 tools/validate_week_zero_2026_calendar_and_t7d_authority.py
 tools/validate_week_zero_2026_live_shadow_execution.py
+tools/validate_week_zero_2026_official_final_scoring_successor.py
 tools/validate_wmt_provider_timestamp_pit.py
 tools/validate_wmt_tamu_specialization_feature_pit.py
 tools/verify_experiment_replay.py

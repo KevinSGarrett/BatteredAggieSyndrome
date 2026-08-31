@@ -102,6 +102,11 @@
       "kind": "MATERIAL"
     },
     {
+      "path": "configs/artifact_binding_contract.json",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
       "path": "configs/authority_checkout_sampling_contract.json",
       "owner": "BAT-675",
       "kind": "MATERIAL"
@@ -113,8 +118,8 @@
     },
     {
       "path": "configs/cycle23_material_ownership_registry.json",
-      "owner": "BAT-675",
-      "kind": "MATERIAL"
+      "owner": null,
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK"
     },
     {
       "path": "configs/unified_assistive_change_routing_binding.json",
@@ -262,6 +267,11 @@
       "kind": "MATERIAL"
     },
     {
+      "path": "src/aggie_analytics/modeling/week_zero_official_final_scoring.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
       "path": "tests/test_checkout_authority_pins.py",
       "owner": "BAT-675",
       "kind": "MATERIAL"
@@ -297,7 +307,17 @@
       "kind": "MATERIAL"
     },
     {
+      "path": "tests/test_week_zero_2026_official_final_reconstruction.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
       "path": "tests/test_week_zero_2026_official_final_scoring_successor.py",
+      "owner": "BAT-674",
+      "kind": "MATERIAL"
+    },
+    {
+      "path": "tests/test_week_zero_2026_scoreboard_fallback_conditions.py",
       "owner": "BAT-674",
       "kind": "MATERIAL"
     },
@@ -323,8 +343,9 @@
     },
     {
       "path": "tools/validate_repository.py",
-      "owner": "BAT-675",
-      "kind": "MATERIAL"
+      "owner": "BAT-674",
+      "kind": "MATERIAL",
+      "reason": "BAT-675's checkout-authority integration merged at e29a8b0f; the remaining unmerged change is the BAT-674 successor-gate call site."
     },
     {
       "path": "tools/validate_week_zero_2026_official_final_scoring_successor.py",

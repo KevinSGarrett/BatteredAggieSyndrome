@@ -116,10 +116,29 @@ def parse_official_finals(
     """Extract per-contest official status and score from a refreshed scoreboard page."""
 
     finals: list[dict[str, Any]] = []
-    for block in re.split(r'(?=href="/contests/\d+/)', document):
-        identifier = re.search(r'href="/contests/(\d+)/', block)
-        if identifier is None:
-            continue
+    # Parse from the contest rows to reliably capture score cells in current NCAA markup.
+    contest_pattern = re.compile(r'<tr id="contest_(\d+)">', re.IGNORECASE)
+    matches = list(contest_pattern.finditer(document))
+    grouped_blocks: list[tuple[str, str]] = []
+    cursor = 0
+    while cursor < len(matches):
+        contest_id = matches[cursor].group(1)
+        start = matches[cursor].start()
+        next_cursor = cursor + 1
+        while next_cursor < len(matches) and matches[next_cursor].group(1) == contest_id:
+            next_cursor += 1
+        end = matches[next_cursor].start() if next_cursor < len(matches) else len(document)
+        grouped_blocks.append((contest_id, document[start:end]))
+        cursor = next_cursor
+
+    # Some legacy/minimal scoreboard payloads expose contest anchors but no contest
+    # table rows; preserve those IDs as non-final observations instead of dropping them.
+    if not grouped_blocks:
+        fallback_ids = sorted({value for value in re.findall(r"/contests/(\d+)/", document)})
+        for contest_id in fallback_ids:
+            grouped_blocks.append((contest_id, ""))
+
+    for contest_id, block in grouped_blocks:
         status_text = ""
         status_match = re.search(
             r">\s*(FINAL[^<]*|Final[^<]*|Canceled|Cancelled|Postponed|Suspended|No Contest)\s*<",
@@ -127,13 +146,14 @@ def parse_official_finals(
         )
         if status_match:
             status_text = status_match.group(1).strip()
-        scores = [int(value) for value in re.findall(r'class="[^"]*score[^"]*"[^>]*>\s*(\d+)\s*<', block)]
+        # Score totals render as <div id="score_<competitor_id>">N</div>.
+        scores = [int(value) for value in re.findall(r'id="score_\d+"[^>]*>\s*(\d+)\s*<', block)]
         finals.append(
             {
                 "away_points": scores[0] if len(scores) >= 2 else None,
                 "game_date": game_date,
                 "home_points": scores[1] if len(scores) >= 2 else None,
-                "ncaa_contest_id": identifier.group(1),
+                "ncaa_contest_id": contest_id,
                 "official_status_state": classify_official_status(status_text, contract),
                 "official_status_text": status_text,
             }

@@ -1,0 +1,194 @@
+{
+  "canonical_gate_identity": "2db5d6a257bb13401f55e64075834e01ccec4b83e22ed223c82fa3bee521a04e",
+  "canonical_gate_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+  "completeness_claimed": false,
+  "coverage": {
+    "abstention_count": 13,
+    "admitted_prior_count": 169,
+    "replayed_contest_count": 45099,
+    "replayed_team_count": 343,
+    "team_row_count": 182
+  },
+  "created_at_utc": "2026-08-31T19:00:00Z",
+  "elo": {
+    "between_season_regression": 0.25,
+    "candidate_id": "national_elo",
+    "home_advantage_rating": 65.0,
+    "hyperparameter_search_performed": false,
+    "hyperparameter_source": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+    "hyperparameters_tuned_on_week1": false,
+    "hyperparameters_tuned_on_week_zero": false,
+    "initial_rating": 1500.0,
+    "k_factor": 20.0,
+    "rating_scale": 400.0,
+    "regression_rule": "AT_EACH_SEASON_BOUNDARY_REGRESS_EACH_RATING_TOWARD_THE_INITIAL_RATING_BY_THE_DECLARED_FRACTION",
+    "regression_target": "initial_rating",
+    "replay_order_field": "chronological_ordinal"
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "evidence_window": {
+    "allowed_season_max": 2023,
+    "allowed_season_min": 1963,
+    "excluded_protected_seasons": [
+      2024,
+      2025
+    ],
+    "market_data_admitted": false,
+    "staleness_reference_season": 2026,
+    "staleness_seasons_since_latest_allowed_result": 3,
+    "target_game_outcome_admitted": false,
+    "week1_outcome_admitted": false
+  },
+  "focus_contest_report": {
+    "custom_correction_applied": false,
+    "focus_contest_participants": [
+      {
+        "canonical_team_id": "SRC-002:TEAM:245",
+        "cold_start_state": "NOT_COLD_START",
+        "effective_sample_size": 37.905759,
+        "historical_game_count": 724,
+        "opening_rating": 1538.50194,
+        "pre_week_zero_rating": 1538.50194,
+        "prior_age_seasons": 3,
+        "prior_disposition": "PRIOR_ADMITTED_STALE_ALLOWED_EVIDENCE",
+        "source_team_id": "622236",
+        "subdivision": "FBS",
+        "uncertainty_class": "SUPPORTED_STALE_INPUT",
+        "week_zero_update_applied": false
+      },
+      {
+        "canonical_team_id": "SRC-002:TEAM:2623",
+        "cold_start_state": "NOT_COLD_START",
+        "effective_sample_size": 22.608696,
+        "historical_game_count": 52,
+        "opening_rating": 1471.048958,
+        "pre_week_zero_rating": 1471.048958,
+        "prior_age_seasons": 3,
+        "prior_disposition": "PRIOR_ADMITTED_STALE_ALLOWED_EVIDENCE",
+        "source_team_id": "622180",
+        "subdivision": "FBS",
+        "uncertainty_class": "SUPPORTED_STALE_INPUT",
+        "week_zero_update_applied": false
+      }
+    ],
+    "tamu_specific_adjustment_applied": false
+  },
+  "invariance_proofs": [
+    {
+      "detail": "Replaying the same contests supplied in reverse input order reproduces every rating, because the replay sorts on the chronological ordinal rather than trusting input order.",
+      "holds": true,
+      "proof": "ROW_ORDER_INVARIANCE"
+    },
+    {
+      "detail": "Appending the final ten percent of contests to a prefix replay reproduces the full-history ratings exactly.",
+      "holds": true,
+      "proof": "FUTURE_APPEND_INVARIANCE"
+    },
+    {
+      "detail": "No contest pairs a team with itself, and each rating update is computed from the pre-contest state.",
+      "holds": true,
+      "proof": "SAME_GAME_EXCLUSION"
+    },
+    {
+      "detail": "Only an admitted prior carries an opening rating; an abstaining row carries none.",
+      "holds": true,
+      "proof": "BATCH_UPDATE_CORRECTNESS"
+    },
+    {
+      "detail": "The canonical prior payload hashes identically on reconstruction.",
+      "holds": true,
+      "proof": "BYTE_STABLE_RECONSTRUCTION"
+    }
+  ],
+  "issue_complete": false,
+  "jira_key": "BAT-679",
+  "local_issue_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "A current 2026 opening strength prior now exists where Cycle #23 had none, and it is knowable-but-stale rather than fabricated: 45,099 allowed contests through 2023 replay chronologically under the previously frozen national_elo hyperparameters, producing 169 admitted priors across the 182 oriented Week 1 team rows, of which 159 carry SUPPORTED_STALE_INPUT and 10 carry LIMITED_SUPPORT_STALE_INPUT. The remaining 13 rows abstain with an exact reason rather than inheriting a default: eight are the participants that still carry no authoritative identity, and five are cold starts with five or fewer allowed games, because no hierarchical conference fallback was predeclared for this cycle and an unfitted group prior would not be team evidence. No protected season enters the surface: the latest included season is 2023 and the protected-season row count is zero. The Week Zero batch update is predeclared and gated on the whole batch: all eight official Week Zero contests carry terminal finals captured after kickoff, twelve teams receive a rating update in official final-timestamp order under unchanged hyperparameters, and the two contests whose orientation could not be proven update nothing and record ORIENTATION_NOT_PROVEN_UNSUPPORTED_PARTICIPANT instead. Row-order invariance, future-append invariance, same-game exclusion, batch-update correctness and byte-stable reconstruction are each proven in the gate rather than asserted, and the focus contest is discovered from the bound authority gate so neither participant is special-cased.",
+  "outputs": [
+    {
+      "path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+      "sha256": "2ad5c8874f7cfb3e9acee85e61f2b4cb4235cbc1721e6772a63506548440e807"
+    },
+    {
+      "path": "configs/week1_2026_frozen_strength_prior_contract.json",
+      "sha256": "8b7d679f8615a76a764ac181637403f3353de99a27a2bc66a7dec539532bd630"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py",
+      "sha256": "062918abf24d68310c7220b9be18f5304f16d03e0066824ff2f5e898040ae91d"
+    },
+    {
+      "path": "tests/test_week1_2026_frozen_strength_prior.py",
+      "sha256": "883c6092d6861a28655dd50bc8dbf1a11ad475bddac2f3c9b8197b2dbec7d3db"
+    },
+    {
+      "path": "tools/build_week1_2026_frozen_strength_prior.py",
+      "sha256": "802bba8ceb423e9acab0c0e134ef7471388be6649dd3ef68902e9805f778e9d7"
+    },
+    {
+      "path": "tools/validate_week1_2026_frozen_strength_prior.py",
+      "sha256": "dc156350d527b1854fc8f2ce5cbd2a9f9480897c05dd8b41e643ef8d0b13a77f"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-654",
+    "BAT-655",
+    "BAT-667",
+    "BAT-668",
+    "BAT-674",
+    "BAT-682",
+    "BAT-683"
+  ],
+  "schema_version": "2.1.0",
+  "summary": {
+    "abstention_count": 13,
+    "admitted_prior_count": 169,
+    "cold_start_count": 13,
+    "default_rating_presented_as_evidence_count": 0,
+    "disposition_counts": {
+      "ABSTAIN_COLD_START_INSUFFICIENT_TEAM_HISTORY": 5,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 8,
+      "PRIOR_ADMITTED_LIMITED_SUPPORT": 10,
+      "PRIOR_ADMITTED_STALE_ALLOWED_EVIDENCE": 159
+    },
+    "forecast_emitted": false,
+    "hierarchical_group_prior_applied_count": 0,
+    "latest_allowed_season": 2023,
+    "protected_season_rows": 0,
+    "replayed_contest_count": 45099,
+    "replayed_team_count": 343,
+    "team_row_count": 182,
+    "uncertainty_class_counts": {
+      "LIMITED_SUPPORT_STALE_INPUT": 10,
+      "SUPPORTED_STALE_INPUT": 159,
+      "UNSUPPORTED": 13
+    },
+    "week_zero_update_row_count": 16,
+    "week_zero_updated_team_count": 12
+  },
+  "superseded_identities": [],
+  "support": {
+    "cold_start_maximum_games": 5,
+    "effective_sample_size_half_life_games": 40,
+    "hierarchical_fallback_enabled": false,
+    "hierarchical_fallback_reason": "NO_PREDECLARED_HIERARCHICAL_RULE_EXISTS_FOR_THIS_CYCLE_SO_COLD_START_TEAMS_ABSTAIN_INSTEAD_OF_INHERITING_A_GROUP_PRIOR",
+    "minimum_games_for_supported_prior": 20
+  },
+  "week_zero_update": {
+    "applied_in_this_gate": true,
+    "applied_row_count": 12,
+    "candidate_selection_changed": false,
+    "hyperparameters_changed": false,
+    "official_final_capture_required": true,
+    "predeclared": true,
+    "rule_id": "WEEK_ZERO_2026_BATCH_ELO_UPDATE_V1",
+    "update_row_count": 16,
+    "updated_team_count": 12
+  },
+  "workflow_state": "IN_REVIEW"
+}

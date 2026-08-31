@@ -13,8 +13,18 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-679",
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-679",
+      "path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json"
     },
     {
       "kind": "MATERIAL",
@@ -45,6 +55,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-683",
       "path": "configs/week1_2026_authority_enrichment_contract.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-679",
+      "path": "configs/week1_2026_frozen_strength_prior_contract.json"
     },
     {
       "kind": "MATERIAL",
@@ -148,6 +163,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-679",
+      "path": "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "src/aggie_analytics/data/week1_2026_spine_semantic_successor.py"
     },
@@ -168,6 +188,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-679",
+      "path": "tests/test_week1_2026_frozen_strength_prior.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "tests/test_week1_2026_spine_semantic_successor.py"
     },
@@ -183,6 +208,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-679",
+      "path": "tools/build_week1_2026_frozen_strength_prior.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "tools/build_week1_2026_spine_semantic_successor.py"
     },
@@ -193,11 +223,20 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-679",
+      "path": "tools/validate_week1_2026_frozen_strength_prior.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "tools/validate_week1_2026_spine_semantic_successor.py"
     }
   ],
   "owners": {
+    "BAT-679": {
+      "local_issue_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
+      "scope": "Materialize the frozen 2026 opening strength prior from allowed through-2023 evidence with unchanged predeclared Elo hyperparameters, a predeclared Week Zero batch update, and explicit abstention wherever team support is inadequate"
+    },
     "BAT-682": {
       "local_issue_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",
       "scope": "Immutable Cycle #23 spine semantic successor separating site orientation from venue identity and coordinates, replacing the false no-knowable-prior classification, making partial model input terminal at forecast time, and correcting pair-level count and outcome wording"

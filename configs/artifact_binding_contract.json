@@ -4556,6 +4556,85 @@
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_WEEK1_2026_CURRENT_AUTHORITY_ENRICHMENT"
       }
+    },
+    {
+      "binding_id": "BAT-679-WEEK1-2026-FROZEN-STRENGTH-PRIOR",
+      "bound_child_identities": {
+        "contract_sha256": "8b7d679f8615a76a764ac181637403f3353de99a27a2bc66a7dec539532bd630",
+        "core_module_sha256": "062918abf24d68310c7220b9be18f5304f16d03e0066824ff2f5e898040ae91d",
+        "dataset_identity": "2c9dea8b78f136c8b62504aedcc4bc1ac113da232907afde19f1dff38f86eca0",
+        "gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+        "predecessor_authority_gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
+        "predecessor_spine_successor_gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
+        "producer_sha256": "802bba8ceb423e9acab0c0e134ef7471388be6649dd3ef68902e9805f778e9d7",
+        "validator_sha256": "dc156350d527b1854fc8f2ce5cbd2a9f9480897c05dd8b41e643ef8d0b13a77f"
+      },
+      "canonical_artifact_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "summary.team_row_count",
+              "evidence_path": "summary.team_row_count"
+            },
+            {
+              "canonical_path": "summary.admitted_prior_count",
+              "evidence_path": "summary.admitted_prior_count"
+            },
+            {
+              "canonical_path": "summary.abstention_count",
+              "evidence_path": "summary.abstention_count"
+            },
+            {
+              "canonical_path": "summary.latest_allowed_season",
+              "evidence_path": "summary.latest_allowed_season"
+            },
+            {
+              "canonical_path": "summary.protected_season_rows",
+              "evidence_path": "summary.protected_season_rows"
+            }
+          ],
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "summary.forecast_emitted",
+        "week_zero_update.hyperparameters_changed",
+        "week_zero_update.candidate_selection_changed",
+        "support.hierarchical_fallback_enabled",
+        "elo.hyperparameter_search_performed",
+        "bound_predecessors.predecessor_artifacts_rewritten_in_place",
+        "tamu_policy.custom_correction_applied",
+        "tamu_policy.tamu_specific_adjustment_applied"
+      ],
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-679",
+      "local_issue_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
+      "required_equal": {
+        "jira_key": "BAT-679",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "local_issue_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
+        "parent_jira_key": "BAT-523",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_WEEK1_2026_FROZEN_STRENGTH_PRIOR"
+      }
     }
   ],
   "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",

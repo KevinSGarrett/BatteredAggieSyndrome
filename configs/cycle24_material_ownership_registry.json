@@ -8,6 +8,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-680",
+      "path": "artifacts/forecast/week1_2026_national_forecast_suite_gate.json"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-683",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001.json"
     },
@@ -15,6 +20,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-679",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-680",
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001.json"
     },
     {
       "kind": "MATERIAL",
@@ -60,6 +70,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-679",
       "path": "configs/week1_2026_frozen_strength_prior_contract.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-680",
+      "path": "configs/week1_2026_national_forecast_suite_contract.json"
     },
     {
       "kind": "MATERIAL",
@@ -168,6 +183,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-680",
+      "path": "src/aggie_analytics/data/week1_2026_national_forecast_suite.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "src/aggie_analytics/data/week1_2026_spine_semantic_successor.py"
     },
@@ -193,6 +213,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-680",
+      "path": "tests/test_week1_2026_national_forecast_suite.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "tests/test_week1_2026_spine_semantic_successor.py"
     },
@@ -213,6 +238,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-680",
+      "path": "tools/build_week1_2026_national_forecast_suite.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "tools/build_week1_2026_spine_semantic_successor.py"
     },
@@ -228,6 +258,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-680",
+      "path": "tools/validate_week1_2026_national_forecast_suite.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "tools/validate_week1_2026_spine_semantic_successor.py"
     }
@@ -236,6 +271,10 @@
     "BAT-679": {
       "local_issue_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
       "scope": "Materialize the frozen 2026 opening strength prior from allowed through-2023 evidence with unchanged predeclared Elo hyperparameters, a predeclared Week Zero batch update, and explicit abstention wherever team support is inadequate"
+    },
+    "BAT-680": {
+      "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
+      "scope": "Bind the exactly five previously frozen national candidates to executable Week 1 2026 inputs under unchanged hyperparameters, fit each fitted family only on allowed rows through 2023, and record per-candidate probability form, margin support, uncertainty support and per-contest forecast readiness or exact abstention"
     },
     "BAT-682": {
       "local_issue_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",

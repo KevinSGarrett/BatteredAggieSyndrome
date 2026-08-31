@@ -1,41 +1,41 @@
 {
   "allowed_paths": [
-    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json",
-    "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+    "artifacts/forecast/week1_2026_national_forecast_suite_gate.json",
+    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001.json",
     "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle24_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "configs/week1_2026_frozen_strength_prior_contract.json",
+    "configs/week1_2026_national_forecast_suite_contract.json",
     "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py",
-    "tests/test_week1_2026_frozen_strength_prior.py",
-    "tools/build_week1_2026_frozen_strength_prior.py",
-    "tools/validate_week1_2026_frozen_strength_prior.py"
+    "src/aggie_analytics/data/week1_2026_national_forecast_suite.py",
+    "tests/test_week1_2026_national_forecast_suite.py",
+    "tools/build_week1_2026_national_forecast_suite.py",
+    "tools/validate_week1_2026_national_forecast_suite.py"
   ],
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "cdcf27dd73bf0c5ccdd7f6c9d9f18679b0b6b9f5b2ca16522056671a714da5f4",
+  "decision_sha256": "2f716726d759a682b600c52282d5c61f4c53972f1d1583f4b7d5daf764eb8a1c",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
-  "downstream_consumer": "tools/validate_week1_2026_frozen_strength_prior.py",
-  "jira_identity": "BAT-679",
+  "downstream_consumer": "tools/validate_week1_2026_national_forecast_suite.py",
+  "jira_identity": "BAT-680",
   "ordinary_project_work_authorized": false,
   "reason_code": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_24",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "schema_version": 1,
-  "scope": "Materialize the frozen 2026 opening strength prior from allowed through-2023 evidence with unchanged predeclared Elo hyperparameters, a predeclared Week Zero batch update, and explicit abstention wherever team support is inadequate",
-  "source_commit": "28f856eda73192945393db83afc5d976206dec41",
+  "scope": "Bind the exactly five previously frozen national candidates to executable Week 1 2026 inputs under unchanged hyperparameters, fit each fitted family only on allowed rows through 2023, and record per-candidate probability form, margin support, uncertainty support and per-contest forecast readiness or exact abstention",
+  "source_commit": "9958e1489b8e97245f8e732446688a71ad455117",
   "user_explicit_waiver": {
     "accepted_risk": "Retired assistive pipeline remains inactive; protected lanes and production claims remain closed; only governed project work in scoped paths is authorized.",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "instruction_sha256": "41e0453fec8a524fc5ff55034d1da4009279e86180a34b3c9130965dcf2b7d73",
     "instruction_text": "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_24\nExecute all Cycle #24 decision-unit work in this one Cursor session without assistive workers; retired assistive pipeline remains inactive.",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
-    "work_unit_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001"
+    "work_unit_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001"
   },
-  "work_unit_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001"
+  "work_unit_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001"
 }

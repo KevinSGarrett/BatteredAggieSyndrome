@@ -1,0 +1,394 @@
+{
+  "adequacy": {
+    "partial_model_input_may_emit_a_forecast": false,
+    "readiness_counts": {
+      "ABSTAIN_MISSING_REQUIRED_FEATURES": 32,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 80,
+      "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 798
+    },
+    "readiness_counts_by_candidate": {
+      "national_base_rate": {
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 166
+      },
+      "national_elo": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 158
+      },
+      "national_logistic_l2": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 158
+      },
+      "national_margin_ridge": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 158
+      },
+      "prior_only": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 158
+      }
+    },
+    "verdicts": [
+      "ADEQUATE_FOR_SHADOW_OBSERVATION",
+      "LIMITED_STALE_INPUT_SHADOW_ONLY",
+      "ABSTAIN_MISSING_REQUIRED_FEATURES",
+      "ABSTAIN_UNSUPPORTED_ENTITY",
+      "QUARANTINED_CONFLICT",
+      "MISSED_CUTOFF_NO_BACKFILL"
+    ]
+  },
+  "artifact_type": "WEEK1_2026_NATIONAL_FORECAST_SUITE_GATE",
+  "binding_identity": "6c873e63a1216bd1fe4ef22e3518bad8293dfda4f896d24bc18781f33ea579e6",
+  "bound_predecessors": {
+    "authority_enrichment_gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
+    "chronological_matrix_gate_sha256": "e5e09d93b638a27669d7097e506e0e3341a15a9a2fd9c03f026b591f2a3b071d",
+    "frozen_candidate_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+    "frozen_strength_prior_gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+    "predecessor_artifacts_rewritten_in_place": false,
+    "preserved_predecessor_forecast_rows": [
+      "THE_HISTORICAL_FIFTY_PERCENT_CONTROL_ROW",
+      "THE_HISTORICAL_SIXTY_EIGHT_POINT_ONE_NINE_PERCENT_ELO_ROW"
+    ],
+    "spine_semantic_successor_gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6"
+  },
+  "candidate_bindings": [
+    {
+      "candidate_id": "national_base_rate",
+      "development_accuracy": 0.5,
+      "development_brier": 0.25,
+      "development_calibration_intercept": null,
+      "development_calibration_slope": null,
+      "development_log_loss": 0.69314718,
+      "development_margin_mae": null,
+      "development_margin_rmse": null,
+      "family": "UNFITTED_REFERENCE",
+      "feature_scope": "NONE",
+      "fitted_parameter_identity": null,
+      "hyperparameters": {},
+      "margin_support": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+      "never_recommended": true,
+      "probability_form": "FIXED_CONTROL_ONE_HALF",
+      "promoted": false,
+      "recommended": false,
+      "uncertainty_support": "UNCERTAINTY_NOT_ESTABLISHED",
+      "week1_abstention_counts": {
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16
+      },
+      "week1_ready_row_count": 166
+    },
+    {
+      "candidate_id": "national_elo",
+      "development_accuracy": 0.7032967,
+      "development_brier": 0.20078011,
+      "development_calibration_intercept": 0.0,
+      "development_calibration_slope": 1.85490791,
+      "development_log_loss": 0.58915159,
+      "development_margin_mae": null,
+      "development_margin_rmse": null,
+      "family": "ELO",
+      "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+      "fitted_parameter_identity": null,
+      "hyperparameters": {
+        "between_season_regression": 0.25,
+        "home_advantage_rating": 65.0,
+        "initial_rating": 1500.0,
+        "k_factor": 20.0,
+        "rating_scale": 400.0
+      },
+      "margin_support": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+      "never_recommended": false,
+      "probability_form": "PREDECLARED_ELO_LINK_ON_THE_RATING_STATE_INCLUDING_THE_PREDECLARED_WEEK_ZERO_BATCH_UPDATE",
+      "promoted": false,
+      "recommended": false,
+      "uncertainty_support": "UNCERTAINTY_NOT_ESTABLISHED",
+      "week1_abstention_counts": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16
+      },
+      "week1_ready_row_count": 158
+    },
+    {
+      "candidate_id": "national_logistic_l2",
+      "development_accuracy": 0.72967033,
+      "development_brier": 0.17773941,
+      "development_calibration_intercept": -0.01306102,
+      "development_calibration_slope": 0.96849521,
+      "development_log_loss": 0.52341291,
+      "development_margin_mae": null,
+      "development_margin_rmse": null,
+      "family": "REGULARIZED_LOGISTIC",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "fitted_parameter_identity": "eedd212efa586c56ab9c7240b13131729af1f7a7e20a2ba8c8bec76d674a387a",
+      "hyperparameters": {
+        "l2_lambda": 1.0,
+        "newton_iterations": 25,
+        "tolerance": 1e-10
+      },
+      "margin_support": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+      "never_recommended": false,
+      "probability_form": "FITTED_LOGISTIC_ON_THE_ALLOWED_TRAINING_PARTITION",
+      "promoted": false,
+      "recommended": false,
+      "uncertainty_support": "UNCERTAINTY_NOT_ESTABLISHED",
+      "week1_abstention_counts": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16
+      },
+      "week1_ready_row_count": 158
+    },
+    {
+      "candidate_id": "national_margin_ridge",
+      "development_accuracy": 0.73406593,
+      "development_brier": 0.17799208,
+      "development_calibration_intercept": -0.01607343,
+      "development_calibration_slope": 1.02407006,
+      "development_log_loss": 0.52480356,
+      "development_margin_mae": 13.71934582,
+      "development_margin_rmse": 17.53230104,
+      "family": "RIDGE_MARGIN",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "fitted_parameter_identity": "baefa311231c7757e9f54f83721c98993d5523c1cc98a050dda9302e659b31ec",
+      "hyperparameters": {
+        "l2_lambda": 1.0,
+        "logistic_link_scale_divisor": 1.7013016167040798
+      },
+      "margin_support": "SUPPORTED_BY_MODEL_FAMILY",
+      "never_recommended": false,
+      "probability_form": "PREDECLARED_LOGISTIC_LINK_ON_THE_FITTED_MARGIN",
+      "promoted": false,
+      "recommended": false,
+      "uncertainty_support": "DEVELOPMENT_FITTED_MARGIN_RESIDUAL_INTERVAL",
+      "week1_abstention_counts": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16
+      },
+      "week1_ready_row_count": 158
+    },
+    {
+      "candidate_id": "prior_only",
+      "development_accuracy": 0.71153846,
+      "development_brier": 0.18402908,
+      "development_calibration_intercept": -0.01762168,
+      "development_calibration_slope": 0.99184417,
+      "development_log_loss": 0.54191235,
+      "development_margin_mae": null,
+      "development_margin_rmse": null,
+      "family": "REGULARIZED_LOGISTIC",
+      "feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+      "fitted_parameter_identity": "0abeb7644ab42904c07557d3dbcc8c9906b7b3205c68826a09309a0d2370a1ef",
+      "hyperparameters": {
+        "l2_lambda": 1.0,
+        "newton_iterations": 25,
+        "tolerance": 1e-10
+      },
+      "margin_support": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+      "never_recommended": false,
+      "probability_form": "FITTED_LOGISTIC_ON_THE_ALLOWED_TRAINING_PARTITION_RESTRICTED_TO_THE_PRIOR_OUTCOME_DOMAIN_AND_SITE",
+      "promoted": false,
+      "recommended": false,
+      "uncertainty_support": "UNCERTAINTY_NOT_ESTABLISHED",
+      "week1_abstention_counts": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16
+      },
+      "week1_ready_row_count": 158
+    }
+  ],
+  "checkpoints": {
+    "executed_early": false,
+    "pregame_result_access": false,
+    "t_minus_24h_state": "OPEN",
+    "t_minus_90m_state": "OPEN",
+    "week1_outcome_access": false
+  },
+  "classification": "WEEK1_2026_NATIONAL_FORECAST_SUITE_EXECUTABLE_BINDING",
+  "contract_id": "CYCLE24-WEEK1-2026-NATIONAL-FORECAST-SUITE-V1",
+  "contract_sha256": "6fe3f35826f3a378d78bd497e8c42e3c83dbf9d60996a8879b926fc72c4fb6b8",
+  "dataset_identity": "48dc89d19084d6a925103134504bf098c11ba82c1c0b1d5078cb35c103a5b123",
+  "decision_unit": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
+  "deployment_fit": {
+    "conference_level_count": 14,
+    "design_column_counts": {
+      "ALL_ADMITTED_FEATURES": 60,
+      "PRIOR_OUTCOME_DOMAIN_AND_SITE": 26
+    },
+    "elo_refit_in_this_unit": false,
+    "hyperparameter_search_performed": false,
+    "learned_indicator_count": 20,
+    "training_game_count": 45099,
+    "training_partition": "ALL_ALLOWED_ROWS_THROUGH_2023",
+    "training_row_count": 90198,
+    "training_season_max": 2023,
+    "training_season_min": 1963,
+    "transform_fit_scope": "THE_ALLOWED_TRAINING_PARTITION_ONLY"
+  },
+  "development_evidence": {
+    "evaluation_cohort": "FROZEN_2023_NATIONAL_DEVELOPMENT_PARTITION",
+    "expected_evaluation_rows": 1820,
+    "expected_folds": 16,
+    "fitted_or_selected_on_market_data": false,
+    "fitted_or_selected_on_protected_seasons": false,
+    "fitted_or_selected_on_the_focus_contest": false,
+    "fitted_or_selected_on_week1": false,
+    "fitted_or_selected_on_week_zero": false,
+    "metrics_bound": [
+      "brier",
+      "log_loss",
+      "accuracy",
+      "calibration_slope",
+      "calibration_intercept",
+      "margin_mae",
+      "margin_rmse"
+    ],
+    "source_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+    "source_gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json"
+  },
+  "focus_contest_report": {
+    "candidate_readiness": {
+      "national_base_rate": "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED",
+      "national_elo": "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED",
+      "national_logistic_l2": "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED",
+      "national_margin_ridge": "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED",
+      "prior_only": "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED"
+    },
+    "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+    "custom_correction_applied": false,
+    "oriented_row_count": 2,
+    "tamu_specific_adjustment_applied": false
+  },
+  "gate_identity": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b",
+  "issued_at_utc": "2026-08-31T16:40:00Z",
+  "jira_key": "BAT-680",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
+  "manifest": {
+    "authoritative_sha256": "7bb9ca58ebec658e13785fd30d54ffc95e15762b2282fb31049e54b6ba3bcd29",
+    "dataset_identity": "48dc89d19084d6a925103134504bf098c11ba82c1c0b1d5078cb35c103a5b123",
+    "relative_path": "manifests/week1_2026_national_forecast_suite/sha256/48dc89d19084d6a925103134504bf098c11ba82c1c0b1d5078cb35c103a5b123/week1_2026_national_forecast_suite_manifest.json"
+  },
+  "parent_jira_key": "BAT-523",
+  "payloads": [
+    {
+      "bytes": 7281,
+      "name": "week1_2026_forecast_model_binding_rows.jsonl",
+      "role": "WEEK1_2026_FORECAST_MODEL_BINDING_ROWS",
+      "rows": 5,
+      "sha256": "6f6f0afaba3d9d92cc0960c327264238344efe7d319ee641f99c945dd213362a"
+    },
+    {
+      "bytes": 662412,
+      "name": "week1_2026_forecast_feature_rows.jsonl",
+      "role": "WEEK1_2026_FORECAST_FEATURE_ROWS",
+      "rows": 182,
+      "sha256": "e5e524746dd237ea539f8eea9058768c1f957707d72267604678b3cd1635371e"
+    },
+    {
+      "bytes": 696317,
+      "name": "week1_2026_forecast_candidate_adequacy_rows.jsonl",
+      "role": "WEEK1_2026_FORECAST_CANDIDATE_ADEQUACY_ROWS",
+      "rows": 910,
+      "sha256": "593ff81265b15ce188822cf59315c50153ac54d157313f2617b96e04d39cf807"
+    },
+    {
+      "bytes": 7826,
+      "name": "week1_2026_forecast_fitted_parameter_rows.jsonl",
+      "role": "WEEK1_2026_FORECAST_FITTED_PARAMETER_ROWS",
+      "rows": 4,
+      "sha256": "75d4589fe1660b65575b9b85380f1ebeb97aab3ca9a7d4b22e68e56a324f9eee"
+    }
+  ],
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "record_hashes": {
+    "adequacy_rows": "b1865d14f0d27b2dab840cffce0283300b1ff9e862e4ca096b761cff7be6173a",
+    "feature_rows": "33ac631266dabe06dbea5ba418a6f4b565e460aa2f789f2bbdd6bb3d26290707",
+    "fitted_parameter_rows": "6d28ec5f0b79b695957c7ac7cdacd629bd56d52157021919e07c01c5942baaa9",
+    "model_binding_rows": "57efe708975397d085ef3c4dfb44b1b29ead0b33eee46941e7127219059150ee"
+  },
+  "result": "PASS_WEEK1_2026_NATIONAL_FORECAST_SUITE_BINDING",
+  "schema_version": "aggie.shadow.week1_2026_national_forecast_suite.v1",
+  "scientific_nonclaims": [
+    "NO_BAS_CLAIM",
+    "NO_AGGIE_EXCESS_CLAIM",
+    "NO_CHAMPION_CLAIM",
+    "NO_PRODUCTION_READINESS_CLAIM",
+    "NO_PROTECTED_PERFORMANCE_CLAIM",
+    "NO_RECOMMENDED_PRODUCTION_FORECAST_CLAIM"
+  ],
+  "season": 2026,
+  "summary": {
+    "adequacy_row_count": 910,
+    "candidate_count": 5,
+    "contest_count": 91,
+    "fabricated_numeric_value_count": 0,
+    "features_neither_admitted_nor_indicator_covered": [],
+    "forecast_emitted": false,
+    "hyperparameter_drift_count": 0,
+    "margin_supported_candidates": [
+      "national_margin_ridge"
+    ],
+    "oriented_row_count": 182,
+    "readiness_counts": {
+      "ABSTAIN_MISSING_REQUIRED_FEATURES": 32,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 80,
+      "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 798
+    },
+    "readiness_counts_by_candidate": {
+      "national_base_rate": {
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 166
+      },
+      "national_elo": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 158
+      },
+      "national_logistic_l2": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 158
+      },
+      "national_margin_ridge": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 158
+      },
+      "prior_only": {
+        "ABSTAIN_MISSING_REQUIRED_FEATURES": 8,
+        "ABSTAIN_UNSUPPORTED_ENTITY": 16,
+        "FORECAST_READY_ALL_REQUIRED_FEATURES_ADMITTED": 158
+      }
+    },
+    "recommended_candidate": null,
+    "training_game_count": 45099,
+    "training_row_count": 90198,
+    "training_season_max": 2023,
+    "training_season_min": 1963,
+    "uncertainty_supported_candidates": [
+      "national_margin_ridge"
+    ]
+  },
+  "tamu_policy": {
+    "custom_correction_applied": false,
+    "tamu_specific_adjustment_applied": false
+  },
+  "uncertainty": {
+    "aleatoric_and_epistemic_are_reported_separately": true,
+    "epistemic_state_for_stale_priors": "STALE_INPUT_EPISTEMIC_INADEQUACY",
+    "forbid_inferring_calibration_from_week_zero": true,
+    "forbid_margin_interval_for_a_probability_only_family": true,
+    "forbid_probability_interval_for_the_control": true,
+    "margin_interval_allowed_candidates": [
+      "national_margin_ridge"
+    ],
+    "margin_interval_rule": "PREDICTED_MARGIN_PLUS_OR_MINUS_THE_NORMAL_QUANTILE_TIMES_THE_DEVELOPMENT_MARGIN_RESIDUAL_DISPERSION",
+    "nominal_interval_level": 0.95,
+    "nominal_interval_source": "THE_EXISTING_PREDECLARED_TWO_POINT_FIVE_AND_NINETY_SEVEN_POINT_FIVE_BOOTSTRAP_PERCENTILE_PAIR",
+    "normal_quantile": 1.959964,
+    "probability_interval_established": false
+  },
+  "week_label": "WEEK_1"
+}

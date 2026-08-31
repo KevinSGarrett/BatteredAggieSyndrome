@@ -1,0 +1,257 @@
+{
+ "schema_version": "aggie.shadow.week1_2026_national_forecast_suite.v1",
+ "contract_id": "CYCLE24-WEEK1-2026-NATIONAL-FORECAST-SUITE-V1",
+ "decision_unit": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
+ "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
+ "jira_key": "BAT-680",
+ "parent_jira_key": "BAT-523",
+ "new_issue_decision": "CREATE",
+ "classification": "WEEK1_2026_NATIONAL_FORECAST_SUITE_EXECUTABLE_BINDING",
+ "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+ "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+ "season": 2026,
+ "week_label": "WEEK_1",
+ "summary": "Bind the five frozen candidates to executable Week 1 2026 inputs, fit each fitted family only on allowed training rows through 2023, and decide per candidate and contest whether a probability or supported expected margin may be emitted at all.",
+ "candidate_set_is_exactly": [
+  "national_base_rate",
+  "prior_only",
+  "national_elo",
+  "national_logistic_l2",
+  "national_margin_ridge"
+ ],
+ "candidates": [
+  {
+   "candidate_id": "national_base_rate",
+   "family": "UNFITTED_REFERENCE",
+   "feature_scope": "NONE",
+   "probability_form": "FIXED_CONTROL_ONE_HALF",
+   "fixed_probability": 0.5,
+   "never_recommended": true,
+   "margin_support": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+   "uncertainty_support": "UNCERTAINTY_NOT_ESTABLISHED",
+   "uncertainty_reason": "A FIXED CONTROL HAS NO FITTED SAMPLING DISTRIBUTION, SO NO PROBABILITY INTERVAL MAY BE INVENTED FOR IT."
+  },
+  {
+   "candidate_id": "prior_only",
+   "family": "REGULARIZED_LOGISTIC",
+   "feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+   "probability_form": "FITTED_LOGISTIC_ON_THE_ALLOWED_TRAINING_PARTITION_RESTRICTED_TO_THE_PRIOR_OUTCOME_DOMAIN_AND_SITE",
+   "margin_support": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+   "margin_reason": "NO_PREDECLARED_DEVELOPMENT_FITTED_PRIOR_TO_MARGIN_MAPPING_EXISTS",
+   "uncertainty_support": "UNCERTAINTY_NOT_ESTABLISHED",
+   "uncertainty_reason": "NO_PREDECLARED_PER_ROW_PROBABILITY_INTERVAL_MODEL_WAS_FITTED_ON_ALLOWED_DEVELOPMENT_RESIDUALS"
+  },
+  {
+   "candidate_id": "national_elo",
+   "family": "ELO",
+   "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+   "probability_form": "PREDECLARED_ELO_LINK_ON_THE_RATING_STATE_INCLUDING_THE_PREDECLARED_WEEK_ZERO_BATCH_UPDATE",
+   "rating_state": "POST_WEEK_ZERO_BATCH_UPDATE",
+   "margin_support": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+   "margin_reason": "THE_FROZEN_ELO_CANDIDATE_DECLARES_EMITS_MARGIN_FALSE_AND_NO_PREDECLARED_RATING_TO_MARGIN_MAPPING_EXISTS",
+   "uncertainty_support": "UNCERTAINTY_NOT_ESTABLISHED",
+   "uncertainty_reason": "NO_PREDECLARED_PER_ROW_PROBABILITY_INTERVAL_MODEL_WAS_FITTED_ON_ALLOWED_DEVELOPMENT_RESIDUALS",
+   "stale_input_warning_required": true
+  },
+  {
+   "candidate_id": "national_logistic_l2",
+   "family": "REGULARIZED_LOGISTIC",
+   "feature_scope": "ALL_ADMITTED_FEATURES",
+   "probability_form": "FITTED_LOGISTIC_ON_THE_ALLOWED_TRAINING_PARTITION",
+   "margin_support": "NOT_SUPPORTED_BY_MODEL_FAMILY",
+   "margin_reason": "A_PROBABILITY_ONLY_FAMILY_MUST_NOT_INHERIT_THE_RIDGE_MARGIN",
+   "uncertainty_support": "UNCERTAINTY_NOT_ESTABLISHED",
+   "uncertainty_reason": "NO_PREDECLARED_PER_ROW_PROBABILITY_INTERVAL_MODEL_WAS_FITTED_ON_ALLOWED_DEVELOPMENT_RESIDUALS"
+  },
+  {
+   "candidate_id": "national_margin_ridge",
+   "family": "RIDGE_MARGIN",
+   "feature_scope": "ALL_ADMITTED_FEATURES",
+   "probability_form": "PREDECLARED_LOGISTIC_LINK_ON_THE_FITTED_MARGIN",
+   "margin_support": "SUPPORTED_BY_MODEL_FAMILY",
+   "uncertainty_support": "DEVELOPMENT_FITTED_MARGIN_RESIDUAL_INTERVAL",
+   "uncertainty_reason": "THE_FROZEN_CANDIDATE_GATE_PUBLISHES_A_DEVELOPMENT_MARGIN_RESIDUAL_DISPERSION_FROM_HELD_OUT_FOLDS"
+  }
+ ],
+ "deployment_fit": {
+  "training_partition": "ALL_ALLOWED_ROWS_THROUGH_2023",
+  "training_partition_note": "The deployment fit uses every allowed row through 2023. The development metrics bound below come from the frozen candidate gate, whose sixteen folds each held their evaluation rows out of their own training partition, so those metrics measure this procedure out of sample rather than this particular refit.",
+  "training_season_max": 2023,
+  "excluded_protected_seasons": [
+   2024,
+   2025
+  ],
+  "transform_fit_scope": "THE_ALLOWED_TRAINING_PARTITION_ONLY",
+  "hyperparameters_source": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+  "hyperparameter_search_performed": false,
+  "selection_performed_on_week_zero": false,
+  "selection_performed_on_week1": false,
+  "elo_rating_state_source": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+  "elo_refit_in_this_unit": false
+ },
+ "week1_feature_construction": {
+  "rule": "A_FEATURE_MAY_ONLY_BE_POPULATED_FROM_AN_ADMITTED_WEEK1_DOMAIN_OR_LEFT_MISSING_BEHIND_A_LEARNED_INDICATOR",
+  "forbid_fabricated_numeric_value": true,
+  "forbid_training_mean_substitution_without_a_learned_indicator": true,
+  "abstain_when_a_scope_feature_is_neither_admitted_nor_indicator_covered": true,
+  "admitted_feature_sources": {
+   "is_home": "SITE_ORIENTATION",
+   "is_neutral_site": "SITE_ORIENTATION",
+   "team_conference": "CONFERENCE_AND_SUBDIVISION",
+   "team_is_fbs": "CONFERENCE_AND_SUBDIVISION",
+   "ap_poll_rank": "CURRENT_RANKING_COMPLETED_BY_THE_AUTHORITY_GATE",
+   "opponent_ap_poll_rank": "CURRENT_RANKING_COMPLETED_BY_THE_AUTHORITY_GATE",
+   "rankings_source_available": "CURRENT_RANKING_COMPLETED_BY_THE_AUTHORITY_GATE",
+   "prior_games_played": "TEAM_STRENGTH_PRIOR_ALLOWED_HISTORICAL_GAME_COUNT",
+   "opponent_prior_games_played": "TEAM_STRENGTH_PRIOR_ALLOWED_HISTORICAL_GAME_COUNT",
+   "season_to_date_games": "WEEK_ZERO_CURRENT_RESULT_OFFICIAL_FINAL_COUNT"
+  },
+  "missing_behind_learned_indicator": [
+   "prior_win_rate",
+   "prior_points_for_mean",
+   "prior_points_against_mean",
+   "prior_margin_mean",
+   "prior_season_win_rate",
+   "season_to_date_win_rate",
+   "opponent_prior_win_rate",
+   "opponent_prior_margin_mean",
+   "opponent_prior_season_win_rate",
+   "prior_win_rate_differential",
+   "coaches_poll_rank",
+   "venue_elevation_m",
+   "venue_latitude",
+   "venue_longitude",
+   "venue_dome",
+   "venue_grass"
+  ],
+  "features_without_a_learned_indicator": [
+   "prior_games_played",
+   "season_to_date_games",
+   "opponent_prior_games_played"
+  ],
+  "weather_admitted_as_model_input": false,
+  "venue_coordinates_admitted_as_model_input": false
+ },
+ "development_evidence": {
+  "source_gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+  "source_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+  "evaluation_cohort": "FROZEN_2023_NATIONAL_DEVELOPMENT_PARTITION",
+  "expected_evaluation_rows": 1820,
+  "expected_folds": 16,
+  "metrics_bound": [
+   "brier",
+   "log_loss",
+   "accuracy",
+   "calibration_slope",
+   "calibration_intercept",
+   "margin_mae",
+   "margin_rmse"
+  ],
+  "fitted_or_selected_on_week_zero": false,
+  "fitted_or_selected_on_week1": false,
+  "fitted_or_selected_on_the_focus_contest": false,
+  "fitted_or_selected_on_protected_seasons": false,
+  "fitted_or_selected_on_market_data": false
+ },
+ "uncertainty": {
+  "nominal_interval_level": 0.95,
+  "nominal_interval_source": "THE_EXISTING_PREDECLARED_TWO_POINT_FIVE_AND_NINETY_SEVEN_POINT_FIVE_BOOTSTRAP_PERCENTILE_PAIR",
+  "normal_quantile": 1.959964,
+  "margin_interval_rule": "PREDICTED_MARGIN_PLUS_OR_MINUS_THE_NORMAL_QUANTILE_TIMES_THE_DEVELOPMENT_MARGIN_RESIDUAL_DISPERSION",
+  "margin_interval_allowed_candidates": [
+   "national_margin_ridge"
+  ],
+  "probability_interval_established": false,
+  "aleatoric_and_epistemic_are_reported_separately": true,
+  "epistemic_state_for_stale_priors": "STALE_INPUT_EPISTEMIC_INADEQUACY",
+  "forbid_inferring_calibration_from_week_zero": true,
+  "forbid_probability_interval_for_the_control": true,
+  "forbid_margin_interval_for_a_probability_only_family": true
+ },
+ "adequacy_verdicts": [
+  "ADEQUATE_FOR_SHADOW_OBSERVATION",
+  "LIMITED_STALE_INPUT_SHADOW_ONLY",
+  "ABSTAIN_MISSING_REQUIRED_FEATURES",
+  "ABSTAIN_UNSUPPORTED_ENTITY",
+  "QUARANTINED_CONFLICT",
+  "MISSED_CUTOFF_NO_BACKFILL"
+ ],
+ "sources": {
+  "frozen_candidates": {
+   "gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+   "gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24"
+  },
+  "chronological_development_matrix": {
+   "gate_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+   "gate_sha256": "e5e09d93b638a27669d7097e506e0e3341a15a9a2fd9c03f026b591f2a3b071d",
+   "feature_payload_name": "national_development_matrix_features.jsonl",
+   "label_payload_name": "national_development_matrix_labels.jsonl"
+  },
+  "spine_semantic_successor": {
+   "gate_relative_path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json",
+   "gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
+   "row_payload_name": "week1_2026_successor_spine_rows.jsonl",
+   "cell_payload_name": "week1_2026_successor_admission_cells.jsonl"
+  },
+  "authority_enrichment": {
+   "gate_relative_path": "artifacts/authority/week1_2026_authority_enrichment_gate.json",
+   "gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
+   "kickoff_payload_name": "week1_2026_kickoff_authority_rows.jsonl",
+   "entity_payload_name": "week1_2026_entity_authority_rows.jsonl",
+   "ranking_payload_name": "week1_2026_ranking_authority_rows.jsonl"
+  },
+  "frozen_strength_prior": {
+   "gate_relative_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+   "gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+   "prior_payload_name": "week1_2026_frozen_strength_prior_rows.jsonl",
+   "update_payload_name": "week1_2026_week_zero_prior_update_rows.jsonl"
+  }
+ },
+ "forbidden": {
+  "sixth_candidate": true,
+  "candidate_family_substitution": true,
+  "market_model": true,
+  "protected_season_evidence": true,
+  "target_game_outcome": true,
+  "future_week1_outcome": true,
+  "week_zero_tuning_selection_or_promotion": true,
+  "partial_model_input_emitting_a_forecast": true,
+  "unresolved_entity_emitting_a_forecast": true,
+  "fabricated_numeric_feature_value": true,
+  "control_presented_as_recommended": true,
+  "manual_tamu_boost": true,
+  "hyperparameter_drift": true
+ },
+ "checkpoints": {
+  "t_minus_24h_state": "OPEN",
+  "t_minus_90m_state": "OPEN",
+  "executed_early": false,
+  "pregame_result_access": false,
+  "week1_outcome_access": false
+ },
+ "scientific_nonclaims": [
+  "NO_BAS_CLAIM",
+  "NO_AGGIE_EXCESS_CLAIM",
+  "NO_CHAMPION_CLAIM",
+  "NO_PRODUCTION_READINESS_CLAIM",
+  "NO_PROTECTED_PERFORMANCE_CLAIM",
+  "NO_RECOMMENDED_PRODUCTION_FORECAST_CLAIM"
+ ],
+ "tamu_policy": {
+  "custom_correction_applied": false,
+  "tamu_specific_adjustment_applied": false
+ },
+ "predecessor_immutability": {
+  "rewrites_predecessor_artifacts": false,
+  "preserved_predecessor_forecast_rows": [
+   "THE_HISTORICAL_FIFTY_PERCENT_CONTROL_ROW",
+   "THE_HISTORICAL_SIXTY_EIGHT_POINT_ONE_NINE_PERCENT_ELO_ROW"
+  ],
+  "bound_predecessor_gate_identities": [
+   "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+   "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
+   "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
+   "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628"
+  ]
+ }
+}

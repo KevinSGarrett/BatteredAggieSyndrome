@@ -1,0 +1,958 @@
+{
+  "artifact_type": "WEEK1_2026_OFFICIAL_SCHEDULE_IDENTITY_GATE",
+  "authority": {
+    "canonical_entity_mutation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "historical_pit_admission": false,
+    "immutable_raw_capture_mutation": false,
+    "model_selection_or_tuning": false,
+    "prospective_shadow_observation": true,
+    "protected_evaluation_admission": false,
+    "protected_lane_admission": false,
+    "protected_training_admission": false
+  },
+  "backfill_performed": false,
+  "bound_predecessors": {
+    "national_entity_identity_benchmark_gate_identity": "820a9dc23cbb496c9a39159935aeca6d146a2ee9ed4e5b27d52331e743d28b0c",
+    "national_entity_identity_benchmark_gate_sha256": "2ec3baff21f263f4349a48dbebcbad13897d0af4faaccc39b17b47fa18f2e141",
+    "team_season_authority_capture_identity": "49e73f5466e04d87bba44d31c27961f9a9fd6c7a78b750fc3edb63c3eddb1070",
+    "team_season_authority_capture_manifest_sha256": "074ec8976e0a07f3cdd56e9e6b894e9eca1d3c1e47b9d3e65fce2758b8350f8d",
+    "week1_source_universe_capture_identity": "a60275dabe6f384f3ee52e83c8b5b9e77cbd32d545b15865f9c3018884019fed",
+    "week1_source_universe_capture_manifest_sha256": "6f3f1cd098b43ff23af7017f2b674066eda59836b5d0a90c20278e67efa69a4a"
+  },
+  "capture_inventory": [
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "condition": "HTTP_403",
+          "route_id": "direct_http"
+        },
+        {
+          "attempt": 1,
+          "condition": "SUCCESS",
+          "route_id": "scrapfly_rendering",
+          "upstream_status": 200
+        }
+      ],
+      "raw_bytes": 90496,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb.html",
+      "raw_sha256": "e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb",
+      "request_identity_sha256": "418ef6856d3f1c573d643b8e301032c5b78c89fc0187e042fc20398439c5d6a3",
+      "requested_game_date": "2026-09-03",
+      "retrieved_at_utc": "2026-08-31T06:16:12Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F03%2F2026"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "condition": "HTTP_403",
+          "route_id": "direct_http"
+        },
+        {
+          "attempt": 1,
+          "condition": "SUCCESS",
+          "route_id": "scrapfly_rendering",
+          "upstream_status": 200
+        }
+      ],
+      "raw_bytes": 73997,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a.html",
+      "raw_sha256": "a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a",
+      "request_identity_sha256": "91bfec2ee14c500681f69105f8c9c557ed2fd4eff5fddc7762f48a47b8cd89cb",
+      "requested_game_date": "2026-09-04",
+      "retrieved_at_utc": "2026-08-31T06:16:50Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F04%2F2026"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "condition": "HTTP_403",
+          "route_id": "direct_http"
+        },
+        {
+          "attempt": 1,
+          "condition": "SUCCESS",
+          "route_id": "scrapfly_rendering",
+          "upstream_status": 200
+        }
+      ],
+      "raw_bytes": 395430,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977.html",
+      "raw_sha256": "522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977",
+      "request_identity_sha256": "6bcb9e0ff3c31bfd44c148ebd6c6213cd3b39e292ef08f252f968f42c1f96e19",
+      "requested_game_date": "2026-09-05",
+      "retrieved_at_utc": "2026-08-31T06:17:08Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F05%2F2026"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "condition": "HTTP_403",
+          "route_id": "direct_http"
+        },
+        {
+          "attempt": 1,
+          "condition": "SUCCESS",
+          "route_id": "scrapfly_rendering",
+          "upstream_status": 200
+        }
+      ],
+      "raw_bytes": 47656,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd.html",
+      "raw_sha256": "af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd",
+      "request_identity_sha256": "51bc1ac1675641f3cc49e1bc1a57aac74f2f36b52c423601211dc9dc7cfb980b",
+      "requested_game_date": "2026-09-06",
+      "retrieved_at_utc": "2026-08-31T06:17:19Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "condition": "HTTP_403",
+          "route_id": "direct_http"
+        },
+        {
+          "attempt": 1,
+          "condition": "SUCCESS",
+          "route_id": "scrapfly_rendering",
+          "upstream_status": 200
+        }
+      ],
+      "raw_bytes": 36507,
+      "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e.html",
+      "raw_sha256": "ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e",
+      "request_identity_sha256": "9d5d600f9c0a118a5c2d11e2875a047ef708bd5db862ae3a5f9b4bbf0a86531f",
+      "requested_game_date": "2026-09-07",
+      "retrieved_at_utc": "2026-08-31T06:17:37Z",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F07%2F2026"
+    }
+  ],
+  "classification": "WEEK1_2026_NATIONAL_OFFICIAL_SCHEDULE_AND_IDENTITY_UNIVERSE",
+  "contest_dispositions": [
+    {
+      "contest_identity": "f4303777110d961c26ecd7e9c23a8505302da7a820641ec5be81f477914d66a1",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6582933"
+    },
+    {
+      "contest_identity": "de79662bba76d77689c523d80af701333b233e5eaeb95076e197a633958f5b85",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6584486"
+    },
+    {
+      "contest_identity": "af408c16ba9140ff1a9bddeff298a759eee154035ed787622d7081356443207f",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6586572"
+    },
+    {
+      "contest_identity": "a072b9402eb4843ccf71b2c914382bcd3af2d00c88e18949dac1cd34de321020",
+      "disposition": "UNSUPPORTED_ENTITY",
+      "disposition_reason": "AT_LEAST_ONE_PARTICIPANT_HAS_NO_CANONICAL_IDENTITY_UNDER_PERMITTED_EVIDENCE",
+      "ncaa_contest_id": "6588927"
+    },
+    {
+      "contest_identity": "90dd5aa3d70afc1ddece5f7c6a8ba39103540d16683634908864f1ff1af6f68a",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6591259"
+    },
+    {
+      "contest_identity": "25eabf817cb2189a776bb07ad3465a3a1fcb18a4dd016c1b604841bb525511c4",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6601465"
+    },
+    {
+      "contest_identity": "57dc19615009332684632ac1edddb1541772933fc7ca90dd1c82cb2cbe9d2875",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6602046"
+    },
+    {
+      "contest_identity": "f92f48c8ce0ccd7bb7035041f368d5b21643a5ebd1bdac5c598b730b791be61a",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6603568"
+    },
+    {
+      "contest_identity": "f7c59da7bcca6ad451032b7aff2a54ed863a389f17b76a260d92f69894a916f8",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6609567"
+    },
+    {
+      "contest_identity": "57202d85f053d96bbc4b936875fb15dfa6f53807e6f27b50d9e35aa4290e2b39",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6618350"
+    },
+    {
+      "contest_identity": "eb26857c9434c76dad6769869236f7a11cd89abd7c40238ae54c143ab9cba894",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620218"
+    },
+    {
+      "contest_identity": "89a71ebed42090dca718a098979a406a29ba489d2c46c00da9e05bddfe6365c1",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6592887"
+    },
+    {
+      "contest_identity": "cdd9055606eb74bb595a4ed86d9a45316e5a6e426e9d370a0e963bd413a33fd5",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6594366"
+    },
+    {
+      "contest_identity": "abecc21dcd4851f3054f2d6cf8f5244ae2abb1c15cb2c87bf0b8ea2e08e5d275",
+      "disposition": "UNSUPPORTED_ENTITY",
+      "disposition_reason": "AT_LEAST_ONE_PARTICIPANT_HAS_NO_CANONICAL_IDENTITY_UNDER_PERMITTED_EVIDENCE",
+      "ncaa_contest_id": "6598559"
+    },
+    {
+      "contest_identity": "bf426b0a6c7a1d4790202fed2cee2e6df59fcc8f64acfd8afb739835dab6b969",
+      "disposition": "UNSUPPORTED_ENTITY",
+      "disposition_reason": "AT_LEAST_ONE_PARTICIPANT_HAS_NO_CANONICAL_IDENTITY_UNDER_PERMITTED_EVIDENCE",
+      "ncaa_contest_id": "6601163"
+    },
+    {
+      "contest_identity": "572243778d9a639c0ad7d5e7acf10fc0b657272e3e5d0dad7b6c0703ab475c76",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6602792"
+    },
+    {
+      "contest_identity": "17f3696f48050d31d7ed55cd17b906a07e6a66ee1688609f4e1a42fd7a876797",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6611346"
+    },
+    {
+      "contest_identity": "dca24f4e920c41866b451ea784f02ca2c71dd94861bf7805d103400ec7d51fa6",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6619544"
+    },
+    {
+      "contest_identity": "250bb80c1c7faa1235305c25d401bbbe2987f088b8874e808272f5f86663bdbf",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620138"
+    },
+    {
+      "contest_identity": "9a6a8869ae9988955cd7f127ce90030c8f88083e7f056e03484d690f74974034",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6582881"
+    },
+    {
+      "contest_identity": "7345fc0073b7344f703c695a76fac4106aea0ad67ac60a0e3895aea399be573b",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6582887"
+    },
+    {
+      "contest_identity": "2188920a96d03372e684ee77f16cd59467fa0679fb19c2432713415eceac9724",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6583172"
+    },
+    {
+      "contest_identity": "5540ad1b319f286a547ed2a5044c0556fdc2ce15db7f2c008b863387a5bfbfc4",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6583220"
+    },
+    {
+      "contest_identity": "6bc59f8afc1712cac6edb084c06673394d5bf33668a602988360a63fc2e210c3",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6583331"
+    },
+    {
+      "contest_identity": "b2ca9f93c516d07b694a07b66d400f7fef13d83bb7e95fb1fb1f9e7e12365698",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6583392"
+    },
+    {
+      "contest_identity": "402d99917fe7b523b937da5a9ccb3774000c4dbdbd137549190bff17a8f19cf5",
+      "disposition": "UNSUPPORTED_ENTITY",
+      "disposition_reason": "AT_LEAST_ONE_PARTICIPANT_HAS_NO_CANONICAL_IDENTITY_UNDER_PERMITTED_EVIDENCE",
+      "ncaa_contest_id": "6583582"
+    },
+    {
+      "contest_identity": "5f6bdefcac034bf5d621e02e3fdff9b55d344af5816ce56e8e3059c0da8946f8",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6585877"
+    },
+    {
+      "contest_identity": "0ca36dcec93e0972c7a0829c07836e6fbb3a1325e1624688c10465227d8683f4",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6586022"
+    },
+    {
+      "contest_identity": "4955df2bfee3749ba8e0bb048674c47cbb317e23c27fd876a8ed7d82e02193ae",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6586106"
+    },
+    {
+      "contest_identity": "6f4de5a25efe8925e078c7d684e6bd60cfa39184e502813bfffebfd0c91d788c",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6586326"
+    },
+    {
+      "contest_identity": "5ac06bf6a201e8b5395141eab5ee556f7baf390af59b717270699cf9dcaf3efb",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6587284"
+    },
+    {
+      "contest_identity": "0f4ea279955cba387fa55cc0895e9a90173848a1b4a992ca96804672b89777e5",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6587672"
+    },
+    {
+      "contest_identity": "3fc3d8fe74e783ba10f95ccaf54c2bbca202e05373a2049a81fdd1f7199393bd",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6587707"
+    },
+    {
+      "contest_identity": "c2f306c67bb34a3c503c974303d43a928013524024e307de2aed14ee55ce1e0a",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6587775"
+    },
+    {
+      "contest_identity": "3c7b6addbed68905fcc59b2f321bdb6c92a80a7fee139bc5f7fc3b1381e81507",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6588730"
+    },
+    {
+      "contest_identity": "fd93aedc00d61edb39228fe8ab5375d9a14864bc737def72e9b815e2ef6f6cce",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6589595"
+    },
+    {
+      "contest_identity": "dbe228802039d15dc34f8d86e7bcd7687523c8fa4160947ec4648f9bebe92e79",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6589809"
+    },
+    {
+      "contest_identity": "a1fcef74a736a1b2ed612090f3036f69dbe8867c3ff6a81928241c717de9014d",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6589953"
+    },
+    {
+      "contest_identity": "2cc49cf85b58bbedd4715e8b2de2d8f4b298a0c60f4b0d8b1083915dc1eee681",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6590386"
+    },
+    {
+      "contest_identity": "70a44c34e8b6237bbfc5c0bb7e33a3048711b7451b9911f3b8878ea4b58960de",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6590505"
+    },
+    {
+      "contest_identity": "2d90336bd57cab7d8880ac40516d6f5553d618b3c7317cb1fc72815e83e27a42",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6590807"
+    },
+    {
+      "contest_identity": "f54a7300ce0945494788758b6e5967a031f6bdae835b6090233a7f3488d22798",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6590855"
+    },
+    {
+      "contest_identity": "5033dc2f7d3e0590611507738513b600d6e3db4e180d487dc1370748cc93b1e5",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6590890"
+    },
+    {
+      "contest_identity": "ef67f0249b09d1eefce811b93a8675bb61edf03c390c2aabc6a8a90cee36ea32",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6591589"
+    },
+    {
+      "contest_identity": "72ba10ed5193a0031cf1276e9e079036fa8e8ea7d757e4e842e3a1b5f4515aee",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6592568"
+    },
+    {
+      "contest_identity": "1d5d65ff33adbe3b4c9ca76cdf1020ccfec0a407dbd67dc0c29efb160cba28a9",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6592700"
+    },
+    {
+      "contest_identity": "f4a53c86d6b06108276d6f3bc034f31e4986c3e58bc32c4946be57eb011a8fac",
+      "disposition": "UNSUPPORTED_ENTITY",
+      "disposition_reason": "AT_LEAST_ONE_PARTICIPANT_HAS_NO_CANONICAL_IDENTITY_UNDER_PERMITTED_EVIDENCE",
+      "ncaa_contest_id": "6593076"
+    },
+    {
+      "contest_identity": "6d3a660f760faad4e12dbcdf0739d88f222a6b050732fbe726534b025410c6ca",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6593153"
+    },
+    {
+      "contest_identity": "c649d15df15034f79c959061313232f10e4ff82ad6f510fee7dfed0da8e8f9a7",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6593392"
+    },
+    {
+      "contest_identity": "70bf74da5d0b50ddcbd241b88f249cd0f0192f56aabb4b72dbebad2ed2644da5",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6593811"
+    },
+    {
+      "contest_identity": "5c16c87cf7bd50c3d4403e0ecbb92c5c9e41d9c44d6a560a8154aee25e7a0dcb",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6594109"
+    },
+    {
+      "contest_identity": "c69110a46f0c1ba3923dfd3470f6c7016a11bccdaf1768cdb6dea0be268dd66e",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6594325"
+    },
+    {
+      "contest_identity": "daf10c7a79ecba476e1a457ebc08141d3fea079c9fc9913817904abe26e0b1ce",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6596114"
+    },
+    {
+      "contest_identity": "7c00aaf85d6b5d01adfedb0e105ad8278db079b1eb5c10780684ca38b35c2994",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6596257"
+    },
+    {
+      "contest_identity": "7c65a9d42ba3f3b2aa07bd96e053be17588d6456dd646a8a7cf260e4caf201df",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6598117"
+    },
+    {
+      "contest_identity": "d1782da5af1679d77bfcdcb7d013c15ff3775b9e67a1f1ef49705dabd07b7c7e",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6600254"
+    },
+    {
+      "contest_identity": "0a04e2e2120164647e0ca3f045d3ee62566a77788b633bdeec3c8b512c0c0656",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6600846"
+    },
+    {
+      "contest_identity": "4a4cbe032eb2035da9fa9e88e49a77768bdfe0052aa364cf16a81352e8c6b9ec",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6601384"
+    },
+    {
+      "contest_identity": "62ad5715e4e222f1df713f35272c2134334aea92090940bffe8ca2d4da323f9d",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6603305"
+    },
+    {
+      "contest_identity": "9b60f4a5e7eaa4096bc7c06e61cc300dd0f2334659ef389d227ecf890070821d",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6604408"
+    },
+    {
+      "contest_identity": "1405c2972d4235d4eeee0a6eabb189aac787666fb1010d0b258b1107271aaa79",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6605119"
+    },
+    {
+      "contest_identity": "2f2f083a8d5cdee030e9384595d348e97a6126a0070c3b824aac1524e2ca9edd",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6605164"
+    },
+    {
+      "contest_identity": "d18bb99b60ddabfedce9d6215f5dc12d6d73e4f40ca4a48cbc2f7a246ac313c0",
+      "disposition": "UNSUPPORTED_ENTITY",
+      "disposition_reason": "AT_LEAST_ONE_PARTICIPANT_HAS_NO_CANONICAL_IDENTITY_UNDER_PERMITTED_EVIDENCE",
+      "ncaa_contest_id": "6606172"
+    },
+    {
+      "contest_identity": "89059eec8f4b3640a0b2d86db742b11f080706ecd4d9b0af659533bdab9eb7ca",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6607271"
+    },
+    {
+      "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6607349"
+    },
+    {
+      "contest_identity": "a715be1cd5de64fe783eceb19d2c42e38a08c550a6066b3c9f3a670347ec3f42",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6607433"
+    },
+    {
+      "contest_identity": "81c887224e64974ece78c2fb3825586fe2bd141aec5841f1d153d3d77b03ec69",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6607878"
+    },
+    {
+      "contest_identity": "718b13e5ede826ac3c846077182e051abb8ca83e75ae67d4dc93da1584a7238c",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6608932"
+    },
+    {
+      "contest_identity": "91820a7a751cd487903552c143e26f1cb193ccec637eec8e93f0a4733186e3b6",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6609172"
+    },
+    {
+      "contest_identity": "b8eeca3d6901839c83672c6b4042256846d2cbac8590a1e647d1b933fb86506f",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6610894"
+    },
+    {
+      "contest_identity": "49915816d63bc48e03e7418ad21a8be8d1025ad7de09622aa50360469073e966",
+      "disposition": "UNSUPPORTED_ENTITY",
+      "disposition_reason": "AT_LEAST_ONE_PARTICIPANT_HAS_NO_CANONICAL_IDENTITY_UNDER_PERMITTED_EVIDENCE",
+      "ncaa_contest_id": "6611505"
+    },
+    {
+      "contest_identity": "84030919f9f956a614a1e816105158b7e92f77b8c337a2688a45823861083fef",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6611692"
+    },
+    {
+      "contest_identity": "f08f06890e2e1f04f9722ce04a524778f0b4faf388ac1eb088b8260219bfbd41",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6611873"
+    },
+    {
+      "contest_identity": "e4fd834afad7779b73f9bd84ff61871f77ca34f54e03a5e2db82acdf7620067b",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6612588"
+    },
+    {
+      "contest_identity": "810cdbf4e78b8fb1bcb2b79e80ec59bc66e382cfd836691c23db330973b33732",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6613128"
+    },
+    {
+      "contest_identity": "00d13b8251c0c669f1e14a05787df0432773c53a76249fa14d7a7f5efcb6bc90",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6614741"
+    },
+    {
+      "contest_identity": "c200b65d4154aed7d635f126c270994d39a7f13e03a5f340733027d9c08202cf",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6616987"
+    },
+    {
+      "contest_identity": "ef3b8341793ddcbbf6a5b6830d26c7d4f6fa6fae05bdb52d9e849eeed0421d00",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6617023"
+    },
+    {
+      "contest_identity": "1f21141332e1cf1b2527de699541341a2a6729c9ecb42328259893ab7499e510",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6618489"
+    },
+    {
+      "contest_identity": "ae3b1b9a772d5b08f6479be08f456af13b3af1b763f2b89d08274512b2cb87ef",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6618687"
+    },
+    {
+      "contest_identity": "20be9693ba928051d3eab400ab538d7a9f37ea10f6e59afe5a03f26fe847eda8",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620092"
+    },
+    {
+      "contest_identity": "4a71d7c1d647500c7b159924f06fdac35d0af61d8e07d744aeb4dbf53cd4981a",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620448"
+    },
+    {
+      "contest_identity": "1d712db9528b5f003c1706f85cac99a7f72cd8238f3d6029b1c97c8354a70133",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620458"
+    },
+    {
+      "contest_identity": "45c90810c215a14df32b9a6ab68ef9b0a40143e85eb2cdfae8deb8d8ea17ba69",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620478"
+    },
+    {
+      "contest_identity": "fab3208c6cfb2bc5f7fa7743d46a471ca08aa0bc9d46e6acdd79e6fc2edf62ca",
+      "disposition": "UNSUPPORTED_ENTITY",
+      "disposition_reason": "AT_LEAST_ONE_PARTICIPANT_HAS_NO_CANONICAL_IDENTITY_UNDER_PERMITTED_EVIDENCE",
+      "ncaa_contest_id": "6620513"
+    },
+    {
+      "contest_identity": "bd44a1356eb45c81aa2428716a6fc56cf7845f367d62bf4adf329d66973c9a60",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620636"
+    },
+    {
+      "contest_identity": "768b33880bbab4f0a2e76d05bfd74b6b63be5b956f3791ee54f427f7db872132",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620944"
+    },
+    {
+      "contest_identity": "3ca011ef7d460af3299d3e8fcc131337346920784738b26695a805f9631e2be8",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6602874"
+    },
+    {
+      "contest_identity": "848cfdf60b74b8004f638fa0d41d7f66fc6d355b232f3f6fa5ea65db3ecfb6a4",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6618941"
+    },
+    {
+      "contest_identity": "75e90fc34430884f16d105824331fb977be921d685189822a69352a96e44ac97",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6620581"
+    },
+    {
+      "contest_identity": "fa100e2567b6ebe4d195a380439b53fbcedca92545ca70cc167f3a11354ebcc0",
+      "disposition": "ADMITTED_MODEL_ELIGIBLE",
+      "disposition_reason": "CANONICAL_IDENTITIES_SEASON_AUTHORITY_AND_KICKOFF_BOUND_ALL_RESOLVE",
+      "ncaa_contest_id": "6594400"
+    }
+  ],
+  "contract_id": "BAT-676-WEEK1-2026-OFFICIAL-SCHEDULE-IDENTITY-V1",
+  "contract_sha256": "2c163314e61c825157fac3d629e88d87df3e40c49d665fa30031177d36705393",
+  "declared_nonclaims": [
+    "NO_FORECAST_IS_PRODUCED_BY_THIS_ARTIFACT",
+    "NO_MODEL_IS_TRAINED_TUNED_SELECTED_OR_PROMOTED",
+    "NO_CHAMPION_OR_PRODUCTION_READINESS_IS_CLAIMED",
+    "NO_BAS_OR_AGGIE_EXCESS_QUANTITY_IS_COMPUTED",
+    "NO_PROTECTED_2024_OR_2025_RESULT_IS_ADMITTED",
+    "NO_TEXAS_A_AND_M_SPECIFIC_ADJUSTMENT_IS_APPLIED"
+  ],
+  "execution_time_utc": "2026-08-31T10:23:19.672488Z",
+  "gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+  "identity_rules": {
+    "fuzzy_auto_accept_enabled": false,
+    "fuzzy_threshold_reduction_permitted": false,
+    "name_only_resolution_permitted": false,
+    "permitted_resolution_evidence": [
+      "OFFICIAL_NCAA_ORGANIZATION_RECORD_TUPLE",
+      "EXACT_NORMALIZED_NAME_RESOLVED_IN_PREDECESSOR_BENCHMARK",
+      "RESOLVED_BY_OFFICIAL_RECORD_TUPLE_SHORT_HISTORY"
+    ],
+    "predecessor_abstentions_may_not_be_forced": true,
+    "unresolved_entities_must_be_recorded": true
+  },
+  "jira_key": "BAT-676",
+  "kickoff_time_basis": {
+    "bound_semantics": "EARLIEST_POSSIBLE_CONTINENTAL_UNITED_STATES_KICKOFF_INSTANT",
+    "declared_offset_seconds_for_window": -14400,
+    "independent_confirmation_required_for_exact_instant": true,
+    "published_clock_timezone_authority": "OFFICIAL_SOURCE_PUBLISHES_A_LOCAL_CLOCK_WITHOUT_A_DECLARED_ZONE"
+  },
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001",
+  "manifest": {
+    "bulk_payloads_in_git": false,
+    "dataset_identity": "041d8c32967c022fa86b13c3c9d21d9bd4395ac425637cc069378a275b34cbea",
+    "relative_path": "manifests/week1_2026_official_schedule_identity/sha256/041d8c32967c022fa86b13c3c9d21d9bd4395ac425637cc069378a275b34cbea/week1_2026_official_schedule_identity_manifest.json",
+    "sha256": "66f722f75ab5947deb7047eb9958dbbf9554d50cb801e38025f8b5ae954edf1f"
+  },
+  "outcome_exclusion": {
+    "forbidden_outcome_markers_absent": true,
+    "outcome_fields_extracted": false,
+    "prior_record_suffix_discarded": true
+  },
+  "parent_jira_key": "BAT-523",
+  "payload_root_sha256": "7d6e1af87ed1d07790e2d618e74c86fbd07aab86c9957f361f64b04d2d3819e2",
+  "payloads": [
+    {
+      "bytes": 402473,
+      "name": "week1_2026_contest_identity.jsonl",
+      "payload_identity": "3258a084b51f65ff9c9806ce1b5e7a2e5a2a2e004f0b1281576622a06916ca60",
+      "role": "WEEK1_2026_CONTEST_IDENTITY",
+      "rows": 91,
+      "sha256": "48eb514bb6e64e075b35c5cf5cb20c5246bb31e6e86c7416c2a9a1b355c53d5b"
+    },
+    {
+      "bytes": 120116,
+      "name": "week1_2026_participant_identity.jsonl",
+      "payload_identity": "14dbef73e63ee9ea84d852302b2a174ba543cc9255aeade6c5e355b577d504e6",
+      "role": "WEEK1_2026_PARTICIPANT_IDENTITY",
+      "rows": 182,
+      "sha256": "4ce5d58875fd2985f92a35461cadafd4a77c8cc0642aac9eb1fb009519f66b15"
+    }
+  ],
+  "predecessor_identity": "820a9dc23cbb496c9a39159935aeca6d146a2ee9ed4e5b27d52331e743d28b0c",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "requested_game_dates": [
+    "2026-09-03",
+    "2026-09-04",
+    "2026-09-05",
+    "2026-09-06",
+    "2026-09-07"
+  ],
+  "result": "PASS_WEEK1_2026_OFFICIAL_SCHEDULE_IDENTITY",
+  "schema_version": "aggie.shadow.week1_2026_official_schedule_identity.v1",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess": false,
+    "champion_or_production_selection": false,
+    "forecast_published": false,
+    "model_tuning_or_promotion": false,
+    "protected_performance": false,
+    "specialization_lift": false,
+    "tamu_specific_adjustment_applied": false
+  },
+  "season": 2026,
+  "summary": {
+    "contest_count": 91,
+    "contests_by_requested_date": {
+      "2026-09-03": 11,
+      "2026-09-04": 8,
+      "2026-09-05": 68,
+      "2026-09-06": 3,
+      "2026-09-07": 1
+    },
+    "contests_with_bound_venue_identity": 0,
+    "contests_with_independently_confirmed_kickoff": 0,
+    "contests_with_neutral_site_annotation": 3,
+    "contests_with_published_kickoff_clock": 91,
+    "disposition_counts": {
+      "ADMITTED_FEATURE_SPINE_ONLY": 0,
+      "ADMITTED_MODEL_ELIGIBLE": 83,
+      "AMBIGUOUS_KICKOFF": 0,
+      "CANCELED_OR_POSTPONED": 0,
+      "CONFLICT_QUARANTINED": 0,
+      "OUTSIDE_FBS_TARGET": 0,
+      "SOURCE_DATE_SUBSTITUTION": 0,
+      "SOURCE_EVIDENCE_ABSENT": 0,
+      "UNSUPPORTED_ENTITY": 8
+    },
+    "participant_conference_counts": {
+      "ACC": 14,
+      "American": 14,
+      "Big 12": 15,
+      "Big Sky": 5,
+      "Big Ten": 18,
+      "CAA": 8,
+      "CUSA": 10,
+      "FBS Independent": 2,
+      "FCS Independent": 1,
+      "MAC": 13,
+      "MEAC": 2,
+      "MVFC": 4,
+      "Mountain West": 10,
+      "NEC": 3,
+      "OVC": 4,
+      "Pac-12": 8,
+      "Patriot": 2,
+      "SEC": 16,
+      "SWAC": 4,
+      "SoCon": 3,
+      "Southland": 6,
+      "Sun Belt": 14,
+      "UAC": 6
+    },
+    "participant_count": 182,
+    "participant_subdivision_counts": {
+      "FBS": 134,
+      "FCS": 48
+    },
+    "participants_unresolved": 8,
+    "participants_with_canonical_identity": 174,
+    "participants_with_official_organization_id": 7,
+    "participants_with_official_season_authority": 182,
+    "universe_counts": {
+      "WEEK1_FBS_TARGET": 91,
+      "WEEK1_MODEL_ELIGIBLE": 83,
+      "WEEK1_SOURCE_UNIVERSE": 91,
+      "WEEK1_UNSUPPORTED": 8
+    }
+  },
+  "universe_definitions": {
+    "WEEK1_FBS_TARGET": "Every source-universe contest involving at least one 2026 FBS program under official season authority.",
+    "WEEK1_MODEL_ELIGIBLE": "Every FBS-target contest whose participant canonical identities and kickoff bound both resolve.",
+    "WEEK1_SOURCE_UNIVERSE": "Every official Division I contest published by the official scoreboard for the declared dates.",
+    "WEEK1_UNSUPPORTED": "Every source-universe contest that cannot enter the current model because an identity or a kickoff bound does not resolve."
+  },
+  "unresolved_participants": [
+    {
+      "conference_name": "NEC",
+      "contest_ids": [
+        "6620513"
+      ],
+      "official_organization_id": null,
+      "resolution_state": "UNRESOLVED_SOURCE_ENTITY",
+      "source_display_names": [
+        "Mercyhurst"
+      ],
+      "source_team_id": "622349",
+      "subdivision": "FCS"
+    },
+    {
+      "conference_name": "UAC",
+      "contest_ids": [
+        "6588927"
+      ],
+      "official_organization_id": null,
+      "resolution_state": "UNRESOLVED_SOURCE_ENTITY",
+      "source_display_names": [
+        "West Ga."
+      ],
+      "source_team_id": "622350",
+      "subdivision": "FCS"
+    },
+    {
+      "conference_name": "NEC",
+      "contest_ids": [
+        "6601163"
+      ],
+      "official_organization_id": null,
+      "resolution_state": "UNRESOLVED_SOURCE_ENTITY",
+      "source_display_names": [
+        "LIU"
+      ],
+      "source_team_id": "622352",
+      "subdivision": "FCS"
+    },
+    {
+      "conference_name": "SWAC",
+      "contest_ids": [
+        "6593076"
+      ],
+      "official_organization_id": null,
+      "resolution_state": "UNRESOLVED_SOURCE_ENTITY",
+      "source_display_names": [
+        "Alcorn"
+      ],
+      "source_team_id": "622358",
+      "subdivision": "FCS"
+    },
+    {
+      "conference_name": "SWAC",
+      "contest_ids": [
+        "6583582"
+      ],
+      "official_organization_id": null,
+      "resolution_state": "UNRESOLVED_SOURCE_ENTITY",
+      "source_display_names": [
+        "Mississippi Val."
+      ],
+      "source_team_id": "622407",
+      "subdivision": "FCS"
+    },
+    {
+      "conference_name": "CAA",
+      "contest_ids": [
+        "6598559"
+      ],
+      "official_organization_id": null,
+      "resolution_state": "UNRESOLVED_SOURCE_ENTITY",
+      "source_display_names": [
+        "N.C. A&T"
+      ],
+      "source_team_id": "622417",
+      "subdivision": "FCS"
+    },
+    {
+      "conference_name": "Southland",
+      "contest_ids": [
+        "6606172"
+      ],
+      "official_organization_id": null,
+      "resolution_state": "UNRESOLVED_SOURCE_ENTITY",
+      "source_display_names": [
+        "Southeastern La."
+      ],
+      "source_team_id": "622443",
+      "subdivision": "FCS"
+    },
+    {
+      "conference_name": "Southland",
+      "contest_ids": [
+        "6611505"
+      ],
+      "official_organization_id": null,
+      "resolution_state": "UNRESOLVED_SOURCE_ENTITY",
+      "source_display_names": [
+        "UTRGV"
+      ],
+      "source_team_id": "622444",
+      "subdivision": "FCS"
+    }
+  ],
+  "venue_policy": {
+    "neutral_site_annotation_is_the_only_published_site_evidence": true,
+    "official_scoreboard_publishes_a_venue_identity": false,
+    "venue_identity_state_when_absent": "SOURCE_EVIDENCE_ABSENT"
+  },
+  "week_label": "WEEK_1"
+}

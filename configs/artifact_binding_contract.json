@@ -4128,6 +4128,90 @@
         "predecessor_identity": "5c9b5a00a11cd0ff26a8221d459939dd080c504376812f4fe94f56dd96324fc2",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
       }
+    },
+    {
+      "binding_id": "BAT-676-WEEK1-2026-OFFICIAL-SCHEDULE-IDENTITY",
+      "bound_child_identities": {
+        "acquisition_sha256": "c0939a10df3b7308f5627e2186134d8cfea011e1ff0e4ef2bfdbe2d587547675",
+        "contract_sha256": "2c163314e61c825157fac3d629e88d87df3e40c49d665fa30031177d36705393",
+        "core_module_sha256": "64d6c858cb3242cdb6154deea88d62029bdb030b4e3f1f8c1c1882703f717e19",
+        "dataset_identity": "041d8c32967c022fa86b13c3c9d21d9bd4395ac425637cc069378a275b34cbea",
+        "dataset_manifest_sha256": "66f722f75ab5947deb7047eb9958dbbf9554d50cb801e38025f8b5ae954edf1f",
+        "national_entity_identity_benchmark_gate_identity": "820a9dc23cbb496c9a39159935aeca6d146a2ee9ed4e5b27d52331e743d28b0c",
+        "national_entity_identity_benchmark_gate_sha256": "2ec3baff21f263f4349a48dbebcbad13897d0af4faaccc39b17b47fa18f2e141",
+        "payload_root_sha256": "7d6e1af87ed1d07790e2d618e74c86fbd07aab86c9957f361f64b04d2d3819e2",
+        "producer_sha256": "2198b6ce1fe86c8a91fcefba911282ed461941ab5cf0cff05949942b25267625",
+        "team_season_authority_capture_identity": "49e73f5466e04d87bba44d31c27961f9a9fd6c7a78b750fc3edb63c3eddb1070",
+        "team_season_authority_capture_manifest_sha256": "074ec8976e0a07f3cdd56e9e6b894e9eca1d3c1e47b9d3e65fce2758b8350f8d",
+        "validator_sha256": "767efdfb3a8329273d666bf27b47ee9186a91fd2fec23c4444925c6f297bbb7a",
+        "week1_2026_contest_identity_payload_identity": "3258a084b51f65ff9c9806ce1b5e7a2e5a2a2e004f0b1281576622a06916ca60",
+        "week1_2026_participant_identity_payload_identity": "14dbef73e63ee9ea84d852302b2a174ba543cc9255aeade6c5e355b577d504e6",
+        "week1_source_universe_capture_identity": "a60275dabe6f384f3ee52e83c8b5b9e77cbd32d545b15865f9c3018884019fed",
+        "week1_source_universe_capture_manifest_sha256": "6f3f1cd098b43ff23af7017f2b674066eda59836b5d0a90c20278e67efa69a4a"
+      },
+      "canonical_artifact_path": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "summary.contest_count",
+              "evidence_path": "summary.contest_count"
+            },
+            {
+              "canonical_path": "summary.participant_count",
+              "evidence_path": "summary.participant_count"
+            },
+            {
+              "canonical_path": "summary.universe_counts.WEEK1_MODEL_ELIGIBLE",
+              "evidence_path": "summary.universe_counts.WEEK1_MODEL_ELIGIBLE"
+            },
+            {
+              "canonical_path": "summary.participants_unresolved",
+              "evidence_path": "summary.participants_unresolved"
+            }
+          ],
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "authority.champion_or_production_promotion",
+        "authority.protected_lane_admission",
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.model_tuning_or_promotion",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.specialization_lift",
+        "scientific_nonclaims.tamu_specific_adjustment_applied",
+        "backfill_performed"
+      ],
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-676",
+      "local_issue_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001",
+      "required_equal": {
+        "jira_key": "BAT-676",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "local_issue_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001",
+        "parent_jira_key": "BAT-523",
+        "predecessor_identity": "820a9dc23cbb496c9a39159935aeca6d146a2ee9ed4e5b27d52331e743d28b0c",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+      }
     }
   ],
   "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",

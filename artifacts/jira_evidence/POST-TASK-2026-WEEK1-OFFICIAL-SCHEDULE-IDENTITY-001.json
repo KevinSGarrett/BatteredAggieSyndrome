@@ -1,0 +1,125 @@
+{
+  "canonical_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+  "canonical_gate_path": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
+  "completeness_claimed": false,
+  "created_at_utc": "2026-08-31T10:23:19.672488Z",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "issue_complete": false,
+  "jira_key": "BAT-676",
+  "local_issue_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "The complete official 2026 Week 1 national contest universe is captured and bound. Ninety-one Division I contests were enumerated across the five declared dates from the official NCAA route, reached directly first and through a transport to the same official uniform resource identifier when the direct route was blocked. Every contest binds its official contest identifier, ordered away and home participants, a conservative kickoff lower bound, its published site annotation, and exactly one disposition. All one hundred eighty-two participants carry official 2026-27 subdivision and conference authority taken from the official institution lists rather than from a historical row; one hundred seventy-four carry a canonical identity established by the predecessor entity benchmark and eight remain truthfully unresolved, so their eight contests are UNSUPPORTED_ENTITY rather than silently dropped. No venue identity is claimed because the official route publishes none, and no forecast, model, or outcome field was produced.",
+  "outputs": [
+    {
+      "path": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
+      "sha256": "436a54e56cadc9528f6bf14adda06a9a62cf32824ea84a9341378f3d1390077d"
+    },
+    {
+      "path": "configs/week1_2026_official_schedule_identity_contract.json",
+      "sha256": "2c163314e61c825157fac3d629e88d87df3e40c49d665fa30031177d36705393"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_official_schedule_identity.py",
+      "sha256": "64d6c858cb3242cdb6154deea88d62029bdb030b4e3f1f8c1c1882703f717e19"
+    },
+    {
+      "path": "tests/test_week1_2026_official_schedule_identity.py",
+      "sha256": "76b1bdcc30fd1f7ac1200fc8d244671b0822e5087e756c32b98cdc4ecaf8c9bc"
+    },
+    {
+      "path": "tools/acquire_week1_2026_source_universe.py",
+      "sha256": "c0939a10df3b7308f5627e2186134d8cfea011e1ff0e4ef2bfdbe2d587547675"
+    },
+    {
+      "path": "tools/build_week1_2026_official_schedule_identity.py",
+      "sha256": "2198b6ce1fe86c8a91fcefba911282ed461941ab5cf0cff05949942b25267625"
+    },
+    {
+      "path": "tools/validate_week1_2026_official_schedule_identity.py",
+      "sha256": "767efdfb3a8329273d666bf27b47ee9186a91fd2fec23c4444925c6f297bbb7a"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-651",
+    "BAT-652",
+    "BAT-653",
+    "BAT-654",
+    "BAT-657",
+    "BAT-658",
+    "BAT-661",
+    "BAT-667",
+    "BAT-670",
+    "BAT-674"
+  ],
+  "schema_version": "2.1.0",
+  "summary": {
+    "contest_count": 91,
+    "contests_by_requested_date": {
+      "2026-09-03": 11,
+      "2026-09-04": 8,
+      "2026-09-05": 68,
+      "2026-09-06": 3,
+      "2026-09-07": 1
+    },
+    "contests_with_bound_venue_identity": 0,
+    "contests_with_independently_confirmed_kickoff": 0,
+    "contests_with_neutral_site_annotation": 3,
+    "contests_with_published_kickoff_clock": 91,
+    "disposition_counts": {
+      "ADMITTED_FEATURE_SPINE_ONLY": 0,
+      "ADMITTED_MODEL_ELIGIBLE": 83,
+      "AMBIGUOUS_KICKOFF": 0,
+      "CANCELED_OR_POSTPONED": 0,
+      "CONFLICT_QUARANTINED": 0,
+      "OUTSIDE_FBS_TARGET": 0,
+      "SOURCE_DATE_SUBSTITUTION": 0,
+      "SOURCE_EVIDENCE_ABSENT": 0,
+      "UNSUPPORTED_ENTITY": 8
+    },
+    "participant_conference_counts": {
+      "ACC": 14,
+      "American": 14,
+      "Big 12": 15,
+      "Big Sky": 5,
+      "Big Ten": 18,
+      "CAA": 8,
+      "CUSA": 10,
+      "FBS Independent": 2,
+      "FCS Independent": 1,
+      "MAC": 13,
+      "MEAC": 2,
+      "MVFC": 4,
+      "Mountain West": 10,
+      "NEC": 3,
+      "OVC": 4,
+      "Pac-12": 8,
+      "Patriot": 2,
+      "SEC": 16,
+      "SWAC": 4,
+      "SoCon": 3,
+      "Southland": 6,
+      "Sun Belt": 14,
+      "UAC": 6
+    },
+    "participant_count": 182,
+    "participant_subdivision_counts": {
+      "FBS": 134,
+      "FCS": 48
+    },
+    "participants_unresolved": 8,
+    "participants_with_canonical_identity": 174,
+    "participants_with_official_organization_id": 7,
+    "participants_with_official_season_authority": 182,
+    "universe_counts": {
+      "WEEK1_FBS_TARGET": 91,
+      "WEEK1_MODEL_ELIGIBLE": 83,
+      "WEEK1_SOURCE_UNIVERSE": 91,
+      "WEEK1_UNSUPPORTED": 8
+    }
+  },
+  "superseded_identities": [],
+  "workflow_state": "IN_REVIEW"
+}

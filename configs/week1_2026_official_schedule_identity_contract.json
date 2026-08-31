@@ -1,0 +1,121 @@
+{
+  "contract_id": "BAT-676-WEEK1-2026-OFFICIAL-SCHEDULE-IDENTITY-V1",
+  "schema_version": "aggie.shadow.week1_2026_official_schedule_identity.v1",
+  "jira_key": "BAT-676",
+  "parent_jira_key": "BAT-523",
+  "local_issue_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "season": 2026,
+  "week_label": "WEEK_1",
+  "requested_game_dates": [
+    "2026-09-03",
+    "2026-09-04",
+    "2026-09-05",
+    "2026-09-06",
+    "2026-09-07"
+  ],
+  "authority": {
+    "prospective_shadow_observation": true,
+    "historical_pit_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "model_selection_or_tuning": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "canonical_entity_mutation": false,
+    "immutable_raw_capture_mutation": false
+  },
+  "outcome_exclusion": {
+    "outcome_fields_extracted": false,
+    "reason": "Week 1 contests have not kicked off; the schedule spine carries no score, status, or attendance field."
+  },
+  "sources": {
+    "schedule_capture": {
+      "source_id": "SRC-NCAA-OFFICIAL-STATS",
+      "dataset": "ncaa_week1_2026_schedule_scoreboard",
+      "manifest_relative_path": "manifests/shadow/week1_2026_source_universe/sha256/a60275dabe6f384f3ee52e83c8b5b9e77cbd32d545b15865f9c3018884019fed/week1_2026_source_universe_capture_manifest.json",
+      "capture_identity": "a60275dabe6f384f3ee52e83c8b5b9e77cbd32d545b15865f9c3018884019fed",
+      "route_policy": [
+        "DIRECT_OFFICIAL_HTTP_FIRST",
+        "SCRAPFLY_TRANSPORT_TO_THE_SAME_OFFICIAL_URI_ON_BLOCK"
+      ]
+    },
+    "team_season_authority": {
+      "source_id": "SRC-NCAA-OFFICIAL-STATS",
+      "dataset": "ncaa_2026_team_season_authority",
+      "manifest_relative_path": "manifests/shadow/week1_2026_team_season_authority/sha256/49e73f5466e04d87bba44d31c27961f9a9fd6c7a78b750fc3edb63c3eddb1070/week1_2026_team_season_authority_capture_manifest.json",
+      "capture_identity": "49e73f5466e04d87bba44d31c27961f9a9fd6c7a78b750fc3edb63c3eddb1070",
+      "academic_year": "2027",
+      "division_codes": {
+        "11": "FBS",
+        "12": "FCS"
+      },
+      "historical_conference_inference_permitted": false
+    },
+    "entity_identity_benchmark": {
+      "jira_key": "BAT-670",
+      "gate_relative_path": "artifacts/entities/national_entity_identity_benchmark_gate.json",
+      "cohort_payload_name": "prospective_2026_shadow_cohort_successor.jsonl",
+      "resolutions_payload_name": "national_entity_identity_resolutions.jsonl"
+    }
+  },
+  "kickoff_time_basis": {
+    "published_clock_timezone_authority": "OFFICIAL_SOURCE_PUBLISHES_A_LOCAL_CLOCK_WITHOUT_A_DECLARED_ZONE",
+    "declared_offset_seconds_for_window": -14400,
+    "bound_semantics": "EARLIEST_POSSIBLE_CONTINENTAL_UNITED_STATES_KICKOFF_INSTANT",
+    "independent_confirmation_required_for_exact_instant": true
+  },
+  "identity_rules": {
+    "name_only_resolution_permitted": false,
+    "fuzzy_auto_accept_enabled": false,
+    "fuzzy_threshold_reduction_permitted": false,
+    "permitted_resolution_evidence": [
+      "OFFICIAL_NCAA_ORGANIZATION_RECORD_TUPLE",
+      "EXACT_NORMALIZED_NAME_RESOLVED_IN_PREDECESSOR_BENCHMARK",
+      "RESOLVED_BY_OFFICIAL_RECORD_TUPLE_SHORT_HISTORY"
+    ],
+    "unresolved_entities_must_be_recorded": true,
+    "predecessor_abstentions_may_not_be_forced": true
+  },
+  "universe_definitions": {
+    "WEEK1_SOURCE_UNIVERSE": "Every official Division I contest published by the official scoreboard for the declared dates.",
+    "WEEK1_FBS_TARGET": "Every source-universe contest involving at least one 2026 FBS program under official season authority.",
+    "WEEK1_MODEL_ELIGIBLE": "Every FBS-target contest whose participant canonical identities and kickoff bound both resolve.",
+    "WEEK1_UNSUPPORTED": "Every source-universe contest that cannot enter the current model because an identity or a kickoff bound does not resolve."
+  },
+  "dispositions": [
+    "ADMITTED_MODEL_ELIGIBLE",
+    "ADMITTED_FEATURE_SPINE_ONLY",
+    "UNSUPPORTED_ENTITY",
+    "AMBIGUOUS_KICKOFF",
+    "CONFLICT_QUARANTINED",
+    "SOURCE_DATE_SUBSTITUTION",
+    "CANCELED_OR_POSTPONED",
+    "OUTSIDE_FBS_TARGET",
+    "SOURCE_EVIDENCE_ABSENT"
+  ],
+  "venue_policy": {
+    "official_scoreboard_publishes_a_venue_identity": false,
+    "neutral_site_annotation_is_the_only_published_site_evidence": true,
+    "venue_identity_state_when_absent": "SOURCE_EVIDENCE_ABSENT"
+  },
+  "payloads": [
+    {
+      "name": "week1_2026_contest_identity.jsonl",
+      "role": "CONTEST_IDENTITY"
+    },
+    {
+      "name": "week1_2026_participant_identity.jsonl",
+      "role": "PARTICIPANT_IDENTITY"
+    }
+  ],
+  "scientific_nonclaims": [
+    "NO_FORECAST_IS_PRODUCED_BY_THIS_ARTIFACT",
+    "NO_MODEL_IS_TRAINED_TUNED_SELECTED_OR_PROMOTED",
+    "NO_CHAMPION_OR_PRODUCTION_READINESS_IS_CLAIMED",
+    "NO_BAS_OR_AGGIE_EXCESS_QUANTITY_IS_COMPUTED",
+    "NO_PROTECTED_2024_OR_2025_RESULT_IS_ADMITTED",
+    "NO_TEXAS_A_AND_M_SPECIFIC_ADJUSTMENT_IS_APPLIED"
+  ]
+}

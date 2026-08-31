@@ -133,7 +133,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010\u20132011 official-evidence gaps."
+      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010–2011 official-evidence gaps."
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -148,7 +148,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-4",
       "status": "Done",
-      "summary": "Recover missing 2010\u20132011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
+      "summary": "Recover missing 2010–2011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -163,7 +163,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-5",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M cross-source domain admission gate"
+      "summary": "Produce an identity-bound 2010–2011 Texas A&M cross-source domain admission gate"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -193,7 +193,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-2",
       "status": "Done",
-      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010\u20132011"
+      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010–2011"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -208,7 +208,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M season-level cross-source reconciliation"
+      "summary": "Produce an identity-bound 2010–2011 Texas A&M season-level cross-source reconciliation"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -1679,6 +1679,51 @@
       "phase": "PHASE-3",
       "status": "Done",
       "summary": "[POST-TASK-2026-CYCLE21-AUTHORITY-PURITY-HARDENING-001] Own checkout-authority pin validation, second-pass read-only purity, and BAT-523 comment-ledger supersession hardening"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-676",
+      "local_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "Done",
+      "summary": "[POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001] Acquire the complete official 2026 Week 1 national contest universe and bind contest, participant, kickoff, venue, conference and subdivision identities"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-677",
+      "local_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "Done",
+      "summary": "[POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001] Materialize the timestamped national Week 1 current-feature spine with explicit temporal admission and missingness"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-678",
+      "local_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "Done",
+      "summary": "[POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001] Independently validate Week 1 feature coverage, temporal eligibility, identity completeness and forecast-input adequacy without producing or promoting a model"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

@@ -1,28 +1,28 @@
 {
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "base_commit": "28f856eda73192945393db83afc5d976206dec41",
+  "base_commit": "9958e1489b8e97245f8e732446688a71ad455117",
   "changed_paths": [
-    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json",
-    "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+    "artifacts/forecast/week1_2026_national_forecast_suite_gate.json",
+    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001.json",
     "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle24_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "configs/week1_2026_frozen_strength_prior_contract.json",
+    "configs/week1_2026_national_forecast_suite_contract.json",
     "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py",
-    "tests/test_week1_2026_frozen_strength_prior.py",
-    "tools/build_week1_2026_frozen_strength_prior.py",
-    "tools/validate_week1_2026_frozen_strength_prior.py"
+    "src/aggie_analytics/data/week1_2026_national_forecast_suite.py",
+    "tests/test_week1_2026_national_forecast_suite.py",
+    "tools/build_week1_2026_national_forecast_suite.py",
+    "tools/validate_week1_2026_national_forecast_suite.py"
   ],
-  "jira_identity": "BAT-679",
-  "manifest_identity": "065f4872ff38a9775e709081dbd4911d6a83e912b3eff7d584f72ea04b792f8a",
+  "jira_identity": "BAT-680",
+  "manifest_identity": "b4c9de7022c388c09b3198682cee42c308bd57616896722d72c75ee864c6dc77",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "cdcf27dd73bf0c5ccdd7f6c9d9f18679b0b6b9f5b2ca16522056671a714da5f4",
+  "pre_routing_decision_sha256": "2f716726d759a682b600c52282d5c61f4c53972f1d1583f4b7d5daf764eb8a1c",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
-  "work_unit_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001"
+  "work_unit_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001"
 }

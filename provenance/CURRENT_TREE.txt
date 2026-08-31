@@ -134,6 +134,7 @@ artifacts/experimentation/national_multi_year_walk_forward_gate.json
 artifacts/experimentation/national_multi_year_walk_forward_replay.json
 artifacts/experimentation/peer_and_tamu_residual_stability_gate.json
 artifacts/experimentation/peer_and_tamu_residual_stability_replay.json
+artifacts/forecast/week1_2026_national_forecast_suite_gate.json
 artifacts/governance/protected_split_exposure_audit.json
 artifacts/implementation_preflight/credential_inventory.redacted.json
 artifacts/implementation_preflight/data_root_activation.json
@@ -258,6 +259,7 @@ artifacts/jira_evidence/POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json
+artifacts/jira_evidence/POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001.json
 artifacts/jira_evidence/POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001.json
 artifacts/jira_evidence/POST-TASK-ADMISSION-MATRIX-STALE-CORPUS-GATE-PIN-001.json
@@ -695,6 +697,7 @@ configs/week1_2026_authority_enrichment_contract.json
 configs/week1_2026_current_feature_spine_contract.json
 configs/week1_2026_feature_coverage_adequacy_contract.json
 configs/week1_2026_frozen_strength_prior_contract.json
+configs/week1_2026_national_forecast_suite_contract.json
 configs/week1_2026_official_schedule_identity_contract.json
 configs/week1_2026_spine_semantic_successor_contract.json
 configs/week_zero_2026_calendar_and_t7d_contract.json
@@ -3542,6 +3545,7 @@ src/aggie_analytics/data/week1_2026_authority_enrichment.py
 src/aggie_analytics/data/week1_2026_current_feature_spine.py
 src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py
 src/aggie_analytics/data/week1_2026_frozen_strength_prior.py
+src/aggie_analytics/data/week1_2026_national_forecast_suite.py
 src/aggie_analytics/data/week1_2026_official_schedule_identity.py
 src/aggie_analytics/data/week1_2026_spine_semantic_successor.py
 src/aggie_analytics/data/week_zero_2026_calendar.py
@@ -3966,6 +3970,7 @@ tests/test_week1_2026_authority_enrichment.py
 tests/test_week1_2026_current_feature_spine.py
 tests/test_week1_2026_feature_coverage_adequacy.py
 tests/test_week1_2026_frozen_strength_prior.py
+tests/test_week1_2026_national_forecast_suite.py
 tests/test_week1_2026_official_schedule_identity.py
 tests/test_week1_2026_spine_semantic_successor.py
 tests/test_week_zero_2026_calendar_and_t7d.py
@@ -4135,6 +4140,7 @@ tools/build_week1_2026_authority_enrichment.py
 tools/build_week1_2026_current_feature_spine.py
 tools/build_week1_2026_feature_coverage_adequacy.py
 tools/build_week1_2026_frozen_strength_prior.py
+tools/build_week1_2026_national_forecast_suite.py
 tools/build_week1_2026_official_schedule_identity.py
 tools/build_week1_2026_spine_semantic_successor.py
 tools/build_week_zero_2026_calendar_and_t7d_authority.py
@@ -4427,6 +4433,7 @@ tools/validate_week1_2026_authority_enrichment.py
 tools/validate_week1_2026_current_feature_spine.py
 tools/validate_week1_2026_feature_coverage_adequacy.py
 tools/validate_week1_2026_frozen_strength_prior.py
+tools/validate_week1_2026_national_forecast_suite.py
 tools/validate_week1_2026_official_schedule_identity.py
 tools/validate_week1_2026_spine_semantic_successor.py
 tools/validate_week_zero_2026_calendar_and_t7d_authority.py

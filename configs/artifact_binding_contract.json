@@ -4212,6 +4212,98 @@
         "predecessor_identity": "820a9dc23cbb496c9a39159935aeca6d146a2ee9ed4e5b27d52331e743d28b0c",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
       }
+    },
+    {
+      "binding_id": "BAT-677-WEEK1-2026-CURRENT-FEATURE-SPINE",
+      "bound_child_identities": {
+        "acquisition_sha256": "10f6fd9065157976e3cbe13c30ed595a89ca69643985cd0143692ade3c92dfe8",
+        "contract_sha256": "126132b19ff27176dc844a1fd63339ed61fe090e4ef8a65773dee48ff12958ed",
+        "core_module_sha256": "85a1914b0fe76cbc9db01219bb3750e49485506afce103ae463dcb20b6496b56",
+        "current_ranking_capture_identity": "926be826b89f7f6addec8906242358735158170baea099e03012acaec3aa8054",
+        "dataset_identity": "a2e92cc06d7824beeb6618bb363a5175e56b339e94ae6c1b090db79fa32c0ba7",
+        "dataset_manifest_sha256": "00ffc95c6a37b84216429c2e8e217e5d19f4ed05098c18437f572708b9796ec9",
+        "entity_alias_authority_gate_identity": "ff714fe82f16721cf4992bc0202fd2c3c45b98235907818f91757d3dcf4797a6",
+        "entity_alias_authority_gate_sha256": "5e8e14bbfeeebdcb47c195bf363a071184e07704769764be13f83e69f3199176",
+        "national_expectation_baselines_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+        "payload_root_sha256": "b39463ae24a082b3febee1067ebd70205b39bb2cd43329207d43f10ecb52d5f8",
+        "producer_sha256": "2c2ce87f48319c6b670cdcbd2f956d342813c8e1f5c6856ef092d53b39ad17d0",
+        "prospective_shadow_forecast_gate_identity": "7cd83d61ffca398f06af02f8a2dd9b29195196ebadd41d036cab3d68f0e8d016",
+        "validator_sha256": "2ea43a3b8c84cf12b64595cdeff4505dcda25be8815bae050df6933abd908ee9",
+        "weather_vintage_capture_identity": "dce1700d25ee40b999dc3bcf9feb99766171d4270bcb54a4773dc235cfdbe6ff",
+        "week1_2026_feature_spine_rows_payload_identity": "d8dd5f59e8cb4ef80a002ef8d90ddb65545e724d1499240286b86979b1d4ef82",
+        "week1_2026_temporal_admission_cells_payload_identity": "3321bac631e43a4ccd345f83fdca319b239e9cdc1e417ae68f35caa1047abf6a",
+        "week1_schedule_identity_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+        "week1_schedule_identity_gate_sha256": "436a54e56cadc9528f6bf14adda06a9a62cf32824ea84a9341378f3d1390077d",
+        "week_zero_official_final_scoring_gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+        "week_zero_official_final_scoring_gate_sha256": "333ccf6c1cb4881b03db04c5fcbb8568a60ad34df30f40230ded588485a4fe70",
+        "week_zero_official_final_scoring_payload_sha256": "848a2d65920ff72575a6b19d100dd9edfeea55bf7e56b61afd02106a3c3e5a52"
+      },
+      "canonical_artifact_path": "artifacts/spine/week1_2026_current_feature_spine_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "summary.row_count",
+              "evidence_path": "summary.row_count"
+            },
+            {
+              "canonical_path": "summary.cell_count",
+              "evidence_path": "summary.cell_count"
+            },
+            {
+              "canonical_path": "summary.contest_count",
+              "evidence_path": "summary.contest_count"
+            },
+            {
+              "canonical_path": "summary.verified_availability_count",
+              "evidence_path": "summary.verified_availability_count"
+            }
+          ],
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "authority.champion_or_production_promotion",
+        "authority.protected_lane_admission",
+        "outcome_exclusion.target_outcome_fields_present",
+        "outcome_exclusion.future_contest_result_in_an_earlier_target",
+        "outcome_exclusion.week_zero_result_precedes_its_official_final_capture",
+        "scientific_nonclaims.bas_or_aggie_excess",
+        "scientific_nonclaims.champion_or_production_selection",
+        "scientific_nonclaims.model_tuning_or_promotion",
+        "scientific_nonclaims.protected_performance",
+        "scientific_nonclaims.specialization_lift",
+        "scientific_nonclaims.tamu_specific_adjustment_applied",
+        "tamu_policy.tamu_specific_adjustment_applied"
+      ],
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-677",
+      "local_issue_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
+      "required_equal": {
+        "jira_key": "BAT-677",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "local_issue_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
+        "parent_jira_key": "BAT-523",
+        "predecessor_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+      }
     }
   ],
   "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",

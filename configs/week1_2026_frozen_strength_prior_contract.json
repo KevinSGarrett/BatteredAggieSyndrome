@@ -1,0 +1,148 @@
+{
+ "schema_version": "aggie.shadow.week1_2026_frozen_strength_prior.v1",
+ "contract_id": "CYCLE24-WEEK1-2026-FROZEN-STRENGTH-PRIOR-V1",
+ "decision_unit": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
+ "local_issue_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
+ "jira_key": "BAT-679",
+ "parent_jira_key": "BAT-523",
+ "new_issue_decision": "CREATE",
+ "classification": "WEEK1_2026_FROZEN_OPENING_STRENGTH_PRIOR",
+ "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+ "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+ "season": 2026,
+ "week_label": "WEEK_1",
+ "summary": "Freeze a 2026 opening strength-prior surface from allowed through-2023 chronological evidence, with explicit staleness, support and cold-start metadata and a predeclared Week Zero update rule.",
+ "evidence_window": {
+  "allowed_season_min": 1963,
+  "allowed_season_max": 2023,
+  "excluded_protected_seasons": [
+   2024,
+   2025
+  ],
+  "target_game_outcome_admitted": false,
+  "week1_outcome_admitted": false,
+  "market_data_admitted": false,
+  "staleness_reference_season": 2026,
+  "staleness_seasons_since_latest_allowed_result": 3
+ },
+ "elo": {
+  "hyperparameter_source": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+  "candidate_id": "national_elo",
+  "initial_rating": 1500.0,
+  "k_factor": 20.0,
+  "home_advantage_rating": 65.0,
+  "rating_scale": 400.0,
+  "between_season_regression": 0.25,
+  "hyperparameter_search_performed": false,
+  "hyperparameters_tuned_on_week_zero": false,
+  "hyperparameters_tuned_on_week1": false,
+  "replay_order_field": "chronological_ordinal",
+  "regression_target": "initial_rating",
+  "regression_rule": "AT_EACH_SEASON_BOUNDARY_REGRESS_EACH_RATING_TOWARD_THE_INITIAL_RATING_BY_THE_DECLARED_FRACTION"
+ },
+ "support": {
+  "minimum_games_for_supported_prior": 20,
+  "cold_start_maximum_games": 5,
+  "effective_sample_size_half_life_games": 40,
+  "hierarchical_fallback_enabled": false,
+  "hierarchical_fallback_reason": "NO_PREDECLARED_HIERARCHICAL_RULE_EXISTS_FOR_THIS_CYCLE_SO_COLD_START_TEAMS_ABSTAIN_INSTEAD_OF_INHERITING_A_GROUP_PRIOR"
+ },
+ "prior_dispositions": [
+  "PRIOR_ADMITTED_STALE_ALLOWED_EVIDENCE",
+  "PRIOR_ADMITTED_LIMITED_SUPPORT",
+  "ABSTAIN_COLD_START_INSUFFICIENT_TEAM_HISTORY",
+  "ABSTAIN_NO_ALLOWED_TEAM_HISTORY",
+  "ABSTAIN_UNSUPPORTED_ENTITY"
+ ],
+ "uncertainty_classes": [
+  "SUPPORTED_STALE_INPUT",
+  "LIMITED_SUPPORT_STALE_INPUT",
+  "UNSUPPORTED"
+ ],
+ "week_zero_update_rule": {
+  "rule_id": "WEEK_ZERO_2026_BATCH_ELO_UPDATE_V1",
+  "predeclared": true,
+  "applies_after": "EVERY_CONTEST_IN_THE_DECLARED_TEMPORAL_BATCH_HAS_BEEN_FORECAST_AND_OFFICIALLY_FINALIZED",
+  "batch_definition": "THE_EIGHT_OFFICIAL_2026_WEEK_ZERO_CONTESTS",
+  "update_form": "ONE_ELO_UPDATE_PER_FINALIZED_CONTEST_APPLIED_IN_OFFICIAL_FINAL_TIMESTAMP_ORDER_WITH_THE_UNCHANGED_HYPERPARAMETERS",
+  "may_change_candidate_selection": false,
+  "may_change_hyperparameters": false,
+  "requires_official_final_capture_timestamp": true,
+  "applied_in_this_gate": true
+ },
+ "sources": {
+  "chronological_development_matrix": {
+   "gate_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+   "gate_sha256": "e5e09d93b638a27669d7097e506e0e3341a15a9a2fd9c03f026b591f2a3b071d",
+   "dataset_identity": "874865034d36d5f7bd385485eeeb5e308c2463cdf0145bf9eaba7efa50c33861",
+   "feature_payload_name": "national_development_matrix_features.jsonl",
+   "label_payload_name": "national_development_matrix_labels.jsonl"
+  },
+  "frozen_candidates": {
+   "gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json",
+   "gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24"
+  },
+  "spine_semantic_successor": {
+   "gate_relative_path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json",
+   "gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
+   "row_payload_name": "week1_2026_successor_spine_rows.jsonl"
+  },
+  "authority_enrichment": {
+   "gate_relative_path": "artifacts/authority/week1_2026_authority_enrichment_gate.json",
+   "gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
+   "entity_payload_name": "week1_2026_entity_authority_rows.jsonl"
+  },
+  "week_zero_scoring": {
+   "gate_relative_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_gate.json",
+   "gate_identity": "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b",
+   "payload_relative_path": "artifacts/shadow/week_zero_2026_official_final_scoring_successor_payload.json",
+   "payload_sha256": "848a2d65920ff72575a6b19d100dd9edfeea55bf7e56b61afd02106a3c3e5a52",
+   "orientation_proof_count": 8,
+   "required_proof_state": "ORIENTATION_PROVEN"
+  }
+ },
+ "invariance_proofs": [
+  "ROW_ORDER_INVARIANCE",
+  "FUTURE_APPEND_INVARIANCE",
+  "SAME_GAME_EXCLUSION",
+  "BATCH_UPDATE_CORRECTNESS",
+  "BYTE_STABLE_RECONSTRUCTION"
+ ],
+ "forbidden": {
+  "protected_season_evidence": true,
+  "target_game_outcome": true,
+  "future_week1_outcome": true,
+  "defaults_presented_as_team_evidence": true,
+  "name_only_joins": true,
+  "manual_tamu_boost": true,
+  "market_lines": true,
+  "post_hoc_parameter_selection_on_week_zero": true
+ },
+ "checkpoints": {
+  "t_minus_24h_state": "OPEN",
+  "t_minus_90m_state": "OPEN",
+  "executed_early": false,
+  "pregame_result_access": false,
+  "week1_outcome_access": false
+ },
+ "scientific_nonclaims": [
+  "NO_BAS_CLAIM",
+  "NO_AGGIE_EXCESS_CLAIM",
+  "NO_CHAMPION_CLAIM",
+  "NO_PRODUCTION_READINESS_CLAIM",
+  "NO_PROTECTED_PERFORMANCE_CLAIM"
+ ],
+ "tamu_policy": {
+  "custom_correction_applied": false,
+  "tamu_specific_adjustment_applied": false
+ },
+ "predecessor_immutability": {
+  "rewrites_predecessor_artifacts": false,
+  "bound_predecessor_gate_identities": [
+   "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
+   "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
+   "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
+   "720e8c383d227b81f27a4262f5b86b2db7a531e5eb5bb5a1300c9cfc8208080b"
+  ]
+ }
+}

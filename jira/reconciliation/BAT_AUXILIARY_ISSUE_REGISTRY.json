@@ -1728,16 +1728,16 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "PLANNED",
+      "evidence_state": "VERIFIED",
       "execution_lane": "SHARED_CONTRACT",
       "issue_type": "Task",
       "jira_key": "BAT-679",
       "local_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
-      "logical_state": "IN_PROGRESS",
-      "maturity": "CONTRACT_DEFINED",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
-      "status": "In Progress",
+      "status": "In Review",
       "summary": "[POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001] Materialize a frozen 2026 opening team-strength prior surface from allowed through-2023 evidence with explicit staleness, support and cold-start metadata and a predeclared Week Zero update rule"
     },
     {

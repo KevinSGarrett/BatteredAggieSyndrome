@@ -1,29 +1,28 @@
 {
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "base_commit": "d54f95e6f231f1b94694aba7b8d6ce70930ad386",
+  "base_commit": "28f856eda73192945393db83afc5d976206dec41",
   "changed_paths": [
-    "artifacts/authority/week1_2026_authority_enrichment_gate.json",
-    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001.json",
+    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json",
+    "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
     "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle24_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "configs/week1_2026_authority_enrichment_contract.json",
+    "configs/week1_2026_frozen_strength_prior_contract.json",
     "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/week1_2026_authority_enrichment.py",
-    "tests/test_week1_2026_authority_enrichment.py",
-    "tools/acquire_week1_2026_authority_enrichment.py",
-    "tools/build_week1_2026_authority_enrichment.py",
-    "tools/validate_week1_2026_authority_enrichment.py"
+    "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py",
+    "tests/test_week1_2026_frozen_strength_prior.py",
+    "tools/build_week1_2026_frozen_strength_prior.py",
+    "tools/validate_week1_2026_frozen_strength_prior.py"
   ],
-  "jira_identity": "BAT-683",
-  "manifest_identity": "47c533c6381e0bd72c61583f8c94a1cc1248a1ee465a6f4d5a715faae77e9bfc",
+  "jira_identity": "BAT-679",
+  "manifest_identity": "065f4872ff38a9775e709081dbd4911d6a83e912b3eff7d584f72ea04b792f8a",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "d88dfb143eb889a3ab8c27f89d25529f0a4379ee8b0a3f11969ff7aa1754e4fb",
+  "pre_routing_decision_sha256": "cdcf27dd73bf0c5ccdd7f6c9d9f18679b0b6b9f5b2ca16522056671a714da5f4",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
-  "work_unit_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001"
+  "work_unit_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001"
 }

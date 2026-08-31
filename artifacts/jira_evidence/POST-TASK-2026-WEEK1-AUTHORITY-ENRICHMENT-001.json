@@ -1,0 +1,267 @@
+{
+  "canonical_gate_identity": "57131fed6d3acaf2ff525661f0c1dd9fee8faae1862332bd69daaf819e5f3940",
+  "canonical_gate_path": "artifacts/authority/week1_2026_authority_enrichment_gate.json",
+  "completeness_claimed": false,
+  "created_at_utc": "2026-08-31T18:00:00Z",
+  "entity_resolution": {
+    "canonical_development_history_available_count": 0,
+    "disposition_counts": {
+      "RESOLVED_AUTHORITATIVE_IDENTITY": 8
+    },
+    "fuzzy_threshold_reduced": false,
+    "resolved": [
+      {
+        "authoritative_identity": "SRC-NCAA-OFFICIAL-STATS:ORG:408",
+        "official_conference_label": "NEC",
+        "official_organization_id": 408,
+        "official_season_label": "2026-27",
+        "official_subdivision": "FCS",
+        "source_display_name": "Mercyhurst",
+        "source_team_id": "622349"
+      },
+      {
+        "authoritative_identity": "SRC-NCAA-OFFICIAL-STATS:ORG:766",
+        "official_conference_label": "UAC",
+        "official_organization_id": 766,
+        "official_season_label": "2026-27",
+        "official_subdivision": "FCS",
+        "source_display_name": "West Ga.",
+        "source_team_id": "622350"
+      },
+      {
+        "authoritative_identity": "SRC-NCAA-OFFICIAL-STATS:ORG:361",
+        "official_conference_label": "NEC",
+        "official_organization_id": 361,
+        "official_season_label": "2026-27",
+        "official_subdivision": "FCS",
+        "source_display_name": "LIU",
+        "source_team_id": "622352"
+      },
+      {
+        "authoritative_identity": "SRC-NCAA-OFFICIAL-STATS:ORG:17",
+        "official_conference_label": "SWAC",
+        "official_organization_id": 17,
+        "official_season_label": "2026-27",
+        "official_subdivision": "FCS",
+        "source_display_name": "Alcorn",
+        "source_team_id": "622358"
+      },
+      {
+        "authoritative_identity": "SRC-NCAA-OFFICIAL-STATS:ORG:432",
+        "official_conference_label": "SWAC",
+        "official_organization_id": 432,
+        "official_season_label": "2026-27",
+        "official_subdivision": "FCS",
+        "source_display_name": "Mississippi Val.",
+        "source_team_id": "622407"
+      },
+      {
+        "authoritative_identity": "SRC-NCAA-OFFICIAL-STATS:ORG:488",
+        "official_conference_label": "CAA",
+        "official_organization_id": 488,
+        "official_season_label": "2026-27",
+        "official_subdivision": "FCS",
+        "source_display_name": "N.C. A&T",
+        "source_team_id": "622417"
+      },
+      {
+        "authoritative_identity": "SRC-NCAA-OFFICIAL-STATS:ORG:655",
+        "official_conference_label": "Southland",
+        "official_organization_id": 655,
+        "official_season_label": "2026-27",
+        "official_subdivision": "FCS",
+        "source_display_name": "Southeastern La.",
+        "source_team_id": "622443"
+      },
+      {
+        "authoritative_identity": "SRC-NCAA-OFFICIAL-STATS:ORG:536",
+        "official_conference_label": "Southland",
+        "official_organization_id": 536,
+        "official_season_label": "2026-27",
+        "official_subdivision": "FCS",
+        "source_display_name": "UTRGV",
+        "source_team_id": "622444"
+      }
+    ],
+    "resolved_by_display_name_only_count": 0,
+    "retained_abstentions": []
+  },
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "focus_contest_report": {
+    "broadcaster_name": null,
+    "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+    "custom_correction_applied": false,
+    "expected_kickoff_utc": "2026-09-05T23:00:00Z",
+    "expected_local_kickoff": "6:00 p.m. Central",
+    "kickoff_confirmation_state": "INDEPENDENTLY_CONFIRMED",
+    "kickoff_matches_declared_calendar": true,
+    "kickoff_raw_capture_sha256": "b96987ce725254883b21e8ef76633fc2903867b845f998a5f5a6ee331fbe00f2",
+    "kickoff_retrieved_at_utc": "2026-08-31T17:06:53Z",
+    "ncaa_contest_id": "6607349",
+    "official_contest_id": "6604183",
+    "official_kickoff_epoch": 1788649200,
+    "official_kickoff_utc": "2026-09-05T23:00:00Z",
+    "official_local_start_time": "19:00",
+    "requested_game_date": "2026-09-05",
+    "tamu_specific_adjustment_applied": false,
+    "venue_city": "College Station",
+    "venue_coordinate_state": "CANDIDATE_ONLY",
+    "venue_identity": "Kyle Field",
+    "venue_identity_matches_declared_venue": true,
+    "venue_identity_state": "AUTHORITATIVE_VENUE_IDENTITY_BOUND",
+    "venue_raw_capture_sha256": "b204ab8c3402f099fa1828feca57d1cc2a816d111df0e081798e7e45ddfa54f9",
+    "venue_retrieved_at_utc": "2026-08-31T17:06:54Z",
+    "weather_state": "CANDIDATE_ONLY_NOT_CONSUMED"
+  },
+  "issue_complete": false,
+  "jira_key": "BAT-683",
+  "kickoff_authority": {
+    "confirmation_state_counts": {
+      "INDEPENDENTLY_CONFIRMED": 82,
+      "OFFICIAL_INSTANT_ABSENT": 7,
+      "OFFICIAL_INSTANT_DISAGREES_WITH_PREDECESSOR_BOUND": 2
+    },
+    "contest_count": 91,
+    "cross_source_matched_count": 84,
+    "independently_confirmed_count": 82,
+    "official_instant_present_count": 84
+  },
+  "local_issue_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "All eight participants that Cycle #23 could not support now carry RESOLVED_AUTHORITATIVE_IDENTITY, and none of them was resolved by display name: each official organization history page links the exact season team identifier the official schedule already carried, and publishes that season's subdivision and conference, so Mercyhurst binds to organization 408 in the NEC, West Ga. to 766 in the UAC, LIU to 361 in the NEC, Alcorn to 17 in the SWAC, Mississippi Val. to 432 in the SWAC, N.C. A&T to 488 in the CAA, and Southeastern La. and UTRGV to 655 and 536 in the Southland. The poll surface is complete: the Associated Press table publishes a genuine T14 tie between BYU and Southern Cal, the official scoreboard publishes rank 14 against the official slug southern-california, and rank agreement across those two official surfaces is what binds the alias, so twenty-four ranked Week 1 participants carry ranks two through twenty-five, one hundred ten poll-eligible FBS participants carry rank null with is_unranked true, forty-eight FCS participants carry a separate NOT_APPLICABLE_FBS_POLL state, and no team is encoded as rank twenty-six. Kickoff confirmation is earned rather than assumed: the official contest graph publishes an absolute instant for eighty-four of ninety-one contests, eighty-two agree exactly with the predecessor bound and are marked INDEPENDENTLY_CONFIRMED, two disagree and are marked as disagreeing rather than silently overwritten, and seven publish no instant. Texas A&M against Missouri State is independently bound to 2026-09-05T23:00:00Z, official contest 6604183, and Kyle Field in College Station as published by the institution itself. Weather stays candidate-only for all ninety-one contests because no 2026 venue-coordinate authority exists, so no inferred coordinate can promote weather into model input.",
+  "outputs": [
+    {
+      "path": "artifacts/authority/week1_2026_authority_enrichment_gate.json",
+      "sha256": "0f07cca97fc141432e72a2bc545c80949ea11c5b4168d4b566cf4f938fb43141"
+    },
+    {
+      "path": "configs/week1_2026_authority_enrichment_contract.json",
+      "sha256": "22db2be429d62d06d59d49f05f93c38d0f8802fc985058d0d013a09829a8ecc5"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_authority_enrichment.py",
+      "sha256": "67bcf57b8a6f3f2b826d767db4c6701d4f4676f1a6ce9fdb404905db7b0fdb37"
+    },
+    {
+      "path": "tests/test_week1_2026_authority_enrichment.py",
+      "sha256": "7c529ff5a144e51632e1435253f3965764341d89a0a200c14395a0063772aafb"
+    },
+    {
+      "path": "tools/acquire_week1_2026_authority_enrichment.py",
+      "sha256": "c7fedadfd2875b379d55cc049891373e8f93ca269a10f8dc4f24234dea8decfe"
+    },
+    {
+      "path": "tools/build_week1_2026_authority_enrichment.py",
+      "sha256": "1decb243098612ced491085b0aad9cbbb0e7bfa713575040a68d885b333bbc79"
+    },
+    {
+      "path": "tools/validate_week1_2026_authority_enrichment.py",
+      "sha256": "be0afe07e17df876869620af88c0ae136eaef6194857f7c8c1f4ca2df18f3540"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "ranking_completion": {
+    "alias_bindings": [
+      {
+        "binding_rule": "OFFICIAL_SLUG_AND_RANK_AGREEMENT_ACROSS_TWO_OFFICIAL_SURFACES",
+        "binding_state": "ALIAS_BOUND_THROUGH_RANK_AGREEMENT",
+        "canonical_team_id": "SRC-002:TEAM:30",
+        "declared_rank": 14,
+        "normalized_name_key": "southern california",
+        "official_slug_rank_observed": 14,
+        "official_team_slug": "southern-california",
+        "poll_display_name": "Southern Cal",
+        "poll_rank_observed": 14,
+        "poll_ranks_absent_from_the_week1_universe": [
+          1
+        ],
+        "poll_tie_group_observed": "T14",
+        "record_identity": "ced6487e54c47666a8b279e67d107ae3178b7a80cb5310f901b86f02e3ba061f",
+        "resolved_by_display_name_only": false,
+        "unbound_poll_ranks_after_binding": []
+      }
+    ],
+    "distinct_bound_ranks": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ],
+    "fcs_participants_marked_not_applicable": 48,
+    "poll_id": "ASSOCIATED_PRESS_FBS_TOP_25",
+    "poll_ranks_absent_from_the_week1_universe": [
+      1
+    ],
+    "poll_surface_complete": true,
+    "ranked_participant_count": 24,
+    "state_counts": {
+      "FBS_POLL_ELIGIBLE_UNRANKED": 110,
+      "NOT_APPLICABLE_FBS_POLL": 48,
+      "RANKED_TOP_25": 24
+    },
+    "unbound_poll_ranks": [],
+    "unranked_encoded_as_26_count": 0
+  },
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-661",
+    "BAT-670",
+    "BAT-676",
+    "BAT-677",
+    "BAT-678",
+    "BAT-682"
+  ],
+  "schema_version": "2.1.0",
+  "summary": {
+    "authoritative_venue_identity_count": 1,
+    "contest_count": 91,
+    "forecast_emitted": false,
+    "independently_confirmed_kickoff_count": 82,
+    "participant_count": 182,
+    "poll_surface_complete": true,
+    "prior_materialized": false,
+    "resolved_participant_count": 8,
+    "retained_abstention_count": 0,
+    "unresolved_participant_row_count": 8,
+    "weather_admitted_model_input": false
+  },
+  "superseded_identities": [],
+  "venue_and_weather": {
+    "authoritative_coordinate_count": 0,
+    "authoritative_venue_identity_count": 1,
+    "venue_coordinate_state_counts": {
+      "CANDIDATE_ONLY": 91
+    },
+    "venue_identity_admitted_from_site_orientation_alone_count": 0,
+    "venue_identity_state_counts": {
+      "AUTHORITATIVE_VENUE_IDENTITY_BOUND": 1,
+      "SOURCE_EVIDENCE_ABSENT": 90
+    },
+    "weather_admitted_model_input_count": 0,
+    "weather_state_counts": {
+      "CANDIDATE_ONLY_NOT_CONSUMED": 91
+    }
+  },
+  "workflow_state": "IN_REVIEW"
+}

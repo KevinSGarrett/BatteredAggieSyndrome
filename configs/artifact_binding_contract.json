@@ -4477,6 +4477,85 @@
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_WEEK1_2026_SPINE_SEMANTIC_SUCCESSOR"
       }
+    },
+    {
+      "binding_id": "BAT-683-WEEK1-2026-AUTHORITY-ENRICHMENT",
+      "bound_child_identities": {
+        "acquisition_sha256": "c7fedadfd2875b379d55cc049891373e8f93ca269a10f8dc4f24234dea8decfe",
+        "contract_sha256": "22db2be429d62d06d59d49f05f93c38d0f8802fc985058d0d013a09829a8ecc5",
+        "core_module_sha256": "67bcf57b8a6f3f2b826d767db4c6701d4f4676f1a6ce9fdb404905db7b0fdb37",
+        "dataset_identity": "cef273fe8f05b0cf382111d04f69914fb7ca590771d388f998e2ba265a0e9612",
+        "gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
+        "predecessor_spine_successor_gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
+        "producer_sha256": "1decb243098612ced491085b0aad9cbbb0e7bfa713575040a68d885b333bbc79",
+        "validator_sha256": "be0afe07e17df876869620af88c0ae136eaef6194857f7c8c1f4ca2df18f3540",
+        "week1_schedule_identity_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18"
+      },
+      "canonical_artifact_path": "artifacts/authority/week1_2026_authority_enrichment_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": [
+            {
+              "canonical_path": "summary.contest_count",
+              "evidence_path": "summary.contest_count"
+            },
+            {
+              "canonical_path": "summary.participant_count",
+              "evidence_path": "summary.participant_count"
+            },
+            {
+              "canonical_path": "summary.resolved_participant_count",
+              "evidence_path": "summary.resolved_participant_count"
+            },
+            {
+              "canonical_path": "focus_contest_report.official_kickoff_utc",
+              "evidence_path": "focus_contest_report.official_kickoff_utc"
+            },
+            {
+              "canonical_path": "focus_contest_report.venue_identity",
+              "evidence_path": "focus_contest_report.venue_identity"
+            }
+          ],
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "summary.forecast_emitted",
+        "summary.prior_materialized",
+        "summary.weather_admitted_model_input",
+        "bound_predecessors.predecessor_artifacts_rewritten_in_place",
+        "authority.policy.credential_values_logged",
+        "tamu_policy.custom_correction_applied",
+        "tamu_policy.tamu_specific_adjustment_applied"
+      ],
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-683",
+      "local_issue_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
+      "required_equal": {
+        "jira_key": "BAT-683",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "local_issue_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
+        "parent_jira_key": "BAT-523",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_WEEK1_2026_CURRENT_AUTHORITY_ENRICHMENT"
+      }
     }
   ],
   "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",

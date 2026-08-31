@@ -1788,17 +1788,17 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "PLANNED",
+      "evidence_state": "VERIFIED",
       "execution_lane": "SHARED_CONTRACT",
       "issue_type": "Task",
       "jira_key": "BAT-683",
       "local_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
-      "logical_state": "IN_PROGRESS",
-      "maturity": "CONTRACT_DEFINED",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
-      "status": "In Progress",
-      "summary": "[POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001] Resolve or truthfully retain the eight unsupported Week 1 participants, complete the AP ranking surface authoritatively, and bind official kickoff, venue and coordinate authority"
+      "status": "In Review",
+      "summary": "[POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001] Bind official Week 1 kickoff instants, resolve the eight unsupported participants through official organization evidence, complete the Associated Press surface, and bind Kyle Field for the focus contest"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

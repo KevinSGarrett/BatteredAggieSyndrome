@@ -3,6 +3,16 @@
   "assignments": [
     {
       "kind": "MATERIAL",
+      "owner": "BAT-683",
+      "path": "artifacts/authority/week1_2026_authority_enrichment_gate.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-683",
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001.json"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001.json"
     },
@@ -30,6 +40,11 @@
       "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
       "owner": null,
       "path": "configs/unified_assistive_change_routing_binding.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-683",
+      "path": "configs/week1_2026_authority_enrichment_contract.json"
     },
     {
       "kind": "MATERIAL",
@@ -128,6 +143,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-683",
+      "path": "src/aggie_analytics/data/week1_2026_authority_enrichment.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "src/aggie_analytics/data/week1_2026_spine_semantic_successor.py"
     },
@@ -143,13 +163,33 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-683",
+      "path": "tests/test_week1_2026_authority_enrichment.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "tests/test_week1_2026_spine_semantic_successor.py"
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-683",
+      "path": "tools/acquire_week1_2026_authority_enrichment.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-683",
+      "path": "tools/build_week1_2026_authority_enrichment.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-682",
       "path": "tools/build_week1_2026_spine_semantic_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-683",
+      "path": "tools/validate_week1_2026_authority_enrichment.py"
     },
     {
       "kind": "MATERIAL",
@@ -161,6 +201,10 @@
     "BAT-682": {
       "local_issue_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",
       "scope": "Immutable Cycle #23 spine semantic successor separating site orientation from venue identity and coordinates, replacing the false no-knowable-prior classification, making partial model input terminal at forecast time, and correcting pair-level count and outcome wording"
+    },
+    "BAT-683": {
+      "local_issue_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
+      "scope": "Bind official kickoff, unsupported participant identity, Associated Press poll completion and institutional venue authority for the 2026 Week 1 universe without rewriting any predecessor artifact"
     }
   },
   "predecessor_commit": "cbb78b0786644146462dbcfc5c4d6fb514c7fa44",

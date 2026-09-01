@@ -59,6 +59,13 @@
         "head_sha": "1350ef6283ef5adacc9246a01fc9fca3b0dacd16",
         "classification": "[material]",
         "reason": "The reviewed PR head was classified as material, but the GitHub squash subject supplied during merge omitted the marker. This immutable exact-commit correction preserves history without weakening classification for any other commit."
+      },
+      {
+        "commit_sha": "90084081e61d449441e2c6893590802b578bc5c4",
+        "pull_request": 665,
+        "head_sha": "1c5a8d8283de9c0f7ff982a32083a8a6e67a5d8c",
+        "classification": "[material]",
+        "reason": "The reviewed PR head was classified as material, but the GitHub squash subject supplied during merge omitted the marker. This immutable exact-commit correction preserves history without weakening classification for any other commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

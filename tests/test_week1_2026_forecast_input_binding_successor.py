@@ -12,11 +12,16 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 sys.path.insert(0, str(SRC))
 
-from aggie_analytics.data.week1_2026_forecast_input_binding_successor import (  # noqa: E402
-    BindingSuccessorViolation,
-    map_ranking_surface_state,
-    successor_readiness,
-)
+try:
+    from aggie_analytics.data.week1_2026_forecast_input_binding_successor import (  # noqa: E402
+        BindingSuccessorViolation,
+        map_ranking_surface_state,
+        successor_readiness,
+    )
+except ModuleNotFoundError as exc:  # pragma: no cover - exercised by core-only CI
+    raise unittest.SkipTest(
+        "the forecast-input binding successor requires the optional modeling dependencies"
+    ) from exc
 from aggie_analytics.validation.protected_hash_labels import (  # noqa: E402
     JUDGING_RULE_JSON,
     PROTECTED_JUDGING_CSV,

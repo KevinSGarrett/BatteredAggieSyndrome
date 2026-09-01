@@ -7,13 +7,18 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.data.week1_2026_market_benchmark_and_adequacy import (  # noqa: E402
-    american_implied_probability,
-    consensus_from_books,
-    crosswalk_quotes,
-    home_expected_margin_from_home_handicap,
-    multiplicative_devig,
-)
+try:
+    from aggie_analytics.data.week1_2026_market_benchmark_and_adequacy import (  # noqa: E402
+        american_implied_probability,
+        consensus_from_books,
+        crosswalk_quotes,
+        home_expected_margin_from_home_handicap,
+        multiplicative_devig,
+    )
+except ModuleNotFoundError as exc:  # pragma: no cover - exercised by core-only CI
+    raise unittest.SkipTest(
+        "the market benchmark and adequacy tests require the optional modeling dependencies"
+    ) from exc
 
 
 class MoneylineDevigMutationTests(unittest.TestCase):

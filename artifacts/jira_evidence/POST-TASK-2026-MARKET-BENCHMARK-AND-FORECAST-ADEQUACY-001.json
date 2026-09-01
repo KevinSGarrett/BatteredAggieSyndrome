@@ -5,10 +5,10 @@
   "created_at_utc": "2026-09-01T06:00:00Z",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "evidence_state": "VERIFIED",
-  "issue_complete": false,
+  "issue_complete": true,
   "jira_key": "BAT-687",
   "local_issue_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
-  "material_merge_sha": "",
+  "material_merge_sha": "90084081e61d449441e2c6893590802b578bc5c4",
   "new_issue_decision": "CREATED",
   "observable_outcome": "Cycle #25 EARLY_MARKET benchmark and forecast-adequacy gate independently reconstruct; Cycle #24 ridge probability/interval surfaces classified as REVIEW_REQUIRED_PROBABILITY_DISTRIBUTION_INCOHERENCE; T-24H and T-90M remain OPEN; Cycle #24 forecasts are unchanged; PRE_MARKET_MODEL_FREEZE precedes market capture.",
   "outputs": [
@@ -157,5 +157,5 @@
   ],
   "schema_version": "2.1.0",
   "superseded_identities": [],
-  "workflow_state": "IN_REVIEW"
+  "workflow_state": "DONE"
 }

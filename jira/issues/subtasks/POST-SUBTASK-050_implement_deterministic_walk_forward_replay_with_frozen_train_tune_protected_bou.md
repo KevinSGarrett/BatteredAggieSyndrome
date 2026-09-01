@@ -159,8 +159,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24540",
-    "jira_updated_at": "2026-08-31T11:06:10.865-0500",
-    "last_synced_at": "2026-08-31T16:39:20.684079+00:00",
+    "jira_updated_at": "2026-08-31T23:37:13.199-0500",
+    "last_synced_at": "2026-09-01T05:51:13.696502+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"

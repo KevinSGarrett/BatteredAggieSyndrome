@@ -5,10 +5,10 @@
   "created_at_utc": "2026-09-01T05:00:00Z",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "evidence_state": "VERIFIED",
-  "issue_complete": false,
+  "issue_complete": true,
   "jira_key": "BAT-686",
   "local_issue_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
-  "material_merge_sha": "",
+  "material_merge_sha": "90084081e61d449441e2c6893590802b578bc5c4",
   "new_issue_decision": "CREATED",
   "observable_outcome": "Cycle #24 binding findings independently classified including ridge probability/interval incoherence; successor candidates frozen before market capture; Cycle #24 forecast identities unchanged.",
   "outputs": [
@@ -41,5 +41,5 @@
   ],
   "schema_version": "2.1.0",
   "superseded_identities": [],
-  "workflow_state": "IN_REVIEW"
+  "workflow_state": "DONE"
 }

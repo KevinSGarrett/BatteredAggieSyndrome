@@ -17,13 +17,13 @@
     ]
   },
   "artifact_type": "WEEK1_2026_EARLY_FORECAST_ADEQUACY_GATE",
-  "binding_identity": "fd32ae4ba47f5c9632263010141455e2e632998361bc1d7a65268bd6906590fb",
+  "binding_identity": "dcdc5e6f7acc95446fa244d42ef58ffb09e30c883ff08db25b131f246558b54c",
   "bound_predecessors": {
     "authority_enrichment_gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
     "frozen_candidate_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
-    "frozen_strength_prior_gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+    "frozen_strength_prior_gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
     "historical_rehearsal_gate_identity": "7a3fcbefa3f4826f32446d56017c68e6e7053b860607a9ad54cd9ac5ae0e40af",
-    "national_forecast_suite_gate_identity": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b",
+    "national_forecast_suite_gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366",
     "predecessor_artifacts_rewritten_in_place": false,
     "preserved_predecessor_forecast_rows": [
       "THE_HISTORICAL_FIFTY_PERCENT_CONTROL_ROW",
@@ -47,7 +47,7 @@
     "python_version": "3.11.9"
   },
   "contract_id": "CYCLE24-WEEK1-2026-EARLY-FORECAST-ADEQUACY-V1",
-  "contract_sha256": "51551bdf6576ab375876d465733855407ae040796f8985a96aabb74c37027abc",
+  "contract_sha256": "c3cb736a02cacf4ac8f6ed40e9a19299fc655202021970365a21c1f5a8f127ab",
   "coverage": {
     "by_candidate": [
       {
@@ -131,7 +131,7 @@
     ],
     "national_row_count": 455
   },
-  "dataset_identity": "57cb159164c8dfb3cbaa377245c440696c246f38bd4056647818dcb3006cadaf",
+  "dataset_identity": "035868d4f6dcdda336cb6e8de35c04d991ddf333e36eba4e2897dd1ed85041a9",
   "decision_unit": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
   "focus_contest_report": {
     "candidate_count": 5,
@@ -142,7 +142,7 @@
     "packet_identity": "8c397066211d65d6477bf39551501c01dca53ad9be6c9fa1e04a3a4ed56d21d8",
     "tamu_specific_adjustment_applied": false
   },
-  "gate_identity": "892ed90f7ca6ea227321d0b0347065b4e179bca44528dc275ad6fe7b7d76c71b",
+  "gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
   "historical_predecessor_comparison": {
     "current_base_rate_is_the_same_control": true,
     "current_elo_is_a_separate_frozen_row": true,
@@ -156,9 +156,9 @@
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
   "manifest": {
-    "authoritative_sha256": "6ef37a73dc18f1f4f241558715008e97807c85783c0df2d924a16f5ced470dbc",
-    "dataset_identity": "57cb159164c8dfb3cbaa377245c440696c246f38bd4056647818dcb3006cadaf",
-    "relative_path": "manifests/week1_2026_early_forecast_adequacy/sha256/57cb159164c8dfb3cbaa377245c440696c246f38bd4056647818dcb3006cadaf/week1_2026_early_forecast_adequacy_manifest.json"
+    "authoritative_sha256": "be648cb01f59cf7bd777b3929eb7a1a070daf8e3b65ff4e57e4ad872f85367ce",
+    "dataset_identity": "035868d4f6dcdda336cb6e8de35c04d991ddf333e36eba4e2897dd1ed85041a9",
+    "relative_path": "manifests/week1_2026_early_forecast_adequacy/sha256/035868d4f6dcdda336cb6e8de35c04d991ddf333e36eba4e2897dd1ed85041a9/week1_2026_early_forecast_adequacy_manifest.json"
   },
   "pair_coherence": {
     "direction_disagreement_count": 0,
@@ -176,7 +176,7 @@
       "name": "week1_2026_early_forecast_rows.jsonl",
       "role": "WEEK1_2026_EARLY_FORECAST_ROWS",
       "rows": 455,
-      "sha256": "40aacd94b5bfad0c281947433c44a056c85027d7ffbae3833d088eab9a58eee7"
+      "sha256": "b01e77007dc09b83b310762058e2c09ffd5b1db1ac360347cfc530f4f2ee016c"
     },
     {
       "bytes": 1624,
@@ -198,7 +198,7 @@
     "core_module": "32c0644a7ec43f8bbd298b79b9be8503aa27158e06deaea78f9b9eb36a3765a9",
     "coverage_rows": "ae004ffba07155a8cd034ba813f318457e264df8245af68fdde7f9e6985fb1d9",
     "focus_packet": "becd419b41c39398b6e2e260c14eb847aa7366dee874014d0ce1e7bbe055001f",
-    "forecast_rows": "40aacd94b5bfad0c281947433c44a056c85027d7ffbae3833d088eab9a58eee7"
+    "forecast_rows": "b01e77007dc09b83b310762058e2c09ffd5b1db1ac360347cfc530f4f2ee016c"
   },
   "result": "PASS_WEEK1_2026_EARLY_FORECAST_ADEQUACY",
   "schema_version": "aggie.shadow.week1_2026_early_forecast_adequacy.v1",

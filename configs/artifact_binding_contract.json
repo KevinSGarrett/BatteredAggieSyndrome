@@ -4562,8 +4562,8 @@
       "bound_child_identities": {
         "contract_sha256": "8b7d679f8615a76a764ac181637403f3353de99a27a2bc66a7dec539532bd630",
         "core_module_sha256": "94dd0a1b666974bb673342686d5112c0092f56eb9a4cdb3acd57113c81cc8727",
-        "dataset_identity": "2c9dea8b78f136c8b62504aedcc4bc1ac113da232907afde19f1dff38f86eca0",
-        "gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+        "dataset_identity": "508611e534a08a1d43cff46a8cd9e18e07f3947fbddee3d3c3e6d986af3d25b0",
+        "gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
         "predecessor_authority_gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
         "predecessor_spine_successor_gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
         "producer_sha256": "802bba8ceb423e9acab0c0e134ef7471388be6649dd3ef68902e9805f778e9d7",
@@ -4639,12 +4639,12 @@
     {
       "binding_id": "BAT-680-WEEK1-2026-NATIONAL-FORECAST-SUITE",
       "bound_child_identities": {
-        "contract_sha256": "6fe3f35826f3a378d78bd497e8c42e3c83dbf9d60996a8879b926fc72c4fb6b8",
+        "contract_sha256": "9e72152bf0b40b279bd27bc9001012ffee71549e40dc7141a5b73e2c4d7f71b6",
         "core_module_sha256": "5358ef5d8acb1f6f8beefb9f96ac1f80a44e3a6241d124824837d41937a18426",
-        "dataset_identity": "48dc89d19084d6a925103134504bf098c11ba82c1c0b1d5078cb35c103a5b123",
-        "gate_identity": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b",
+        "dataset_identity": "325a5fcba9942b2defb0336131e93d842f38f0924cdc0f8bf88460051fb3ac2c",
+        "gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366",
         "predecessor_frozen_candidate_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
-        "predecessor_prior_gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+        "predecessor_prior_gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
         "producer_sha256": "59b3dee915f1c0809c929592a9d540cf3f62b0c448db43556c226bbaa3709b8c",
         "validator_sha256": "9e3400261d924a52f7ed2a5222277650c298773910d6ae44c878647ef73a983f"
       },
@@ -4725,11 +4725,12 @@
     {
       "binding_id": "BAT-681-WEEK1-2026-EARLY-FORECAST-ADEQUACY",
       "bound_child_identities": {
-        "contract_sha256": "51551bdf6576ab375876d465733855407ae040796f8985a96aabb74c37027abc",
+        "contract_sha256": "c3cb736a02cacf4ac8f6ed40e9a19299fc655202021970365a21c1f5a8f127ab",
         "core_module_sha256": "32c0644a7ec43f8bbd298b79b9be8503aa27158e06deaea78f9b9eb36a3765a9",
-        "dataset_identity": "57cb159164c8dfb3cbaa377245c440696c246f38bd4056647818dcb3006cadaf",
-        "gate_identity": "892ed90f7ca6ea227321d0b0347065b4e179bca44528dc275ad6fe7b7d76c71b",
-        "predecessor_suite_gate_identity": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b",
+        "dataset_identity": "035868d4f6dcdda336cb6e8de35c04d991ddf333e36eba4e2897dd1ed85041a9",
+        "gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
+        "predecessor_prior_gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
+        "predecessor_suite_gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366",
         "producer_sha256": "a9cbaf81e9957bc9c538c6d4672983e2cf86d4b2015a8812f447bc949df5d54c",
         "validator_sha256": "7cbb23ba2065c530d4b345550fe4d5e3f9bbe8f198f10e265fdf1e88652fd079"
       },
@@ -4800,6 +4801,58 @@
       "identity_mode": "canonical_json_excluding_identity_field",
       "jira_key": "BAT-681",
       "local_issue_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
+      "required_equal": {
+        "jira_key": "BAT-681",
+        "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+        "local_issue_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
+        "parent_jira_key": "BAT-523",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_WEEK1_2026_EARLY_FORECAST_ADEQUACY"
+      }
+    },
+    {
+      "binding_id": "BAT-685-WEEK1-2026-CYCLE24-CODE-IDENTITY-REBIND",
+      "bound_child_identities": {
+        "contract_sha256": "c3cb736a02cacf4ac8f6ed40e9a19299fc655202021970365a21c1f5a8f127ab",
+        "dataset_identity": "035868d4f6dcdda336cb6e8de35c04d991ddf333e36eba4e2897dd1ed85041a9",
+        "gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
+        "predecessor_prior_gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
+        "predecessor_suite_gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366"
+      },
+      "canonical_artifact_path": "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": [],
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CYCLE24-CODE-IDENTITY-REBIND-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "summary.week1_outcome_access",
+        "summary.week_zero_used_to_tune_select_or_promote",
+        "summary.custom_correction_applied",
+        "summary.tamu_specific_adjustment_applied",
+        "summary.base_rate_presented_as_recommended"
+      ],
+      "identity_field": "binding_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-685",
+      "local_issue_id": "POST-TASK-2026-WEEK1-CYCLE24-CODE-IDENTITY-REBIND-001",
       "required_equal": {
         "jira_key": "BAT-681",
         "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",

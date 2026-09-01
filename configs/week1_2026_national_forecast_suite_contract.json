@@ -202,7 +202,7 @@
   },
   "frozen_strength_prior": {
    "gate_relative_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
-   "gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+   "gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
    "prior_payload_name": "week1_2026_frozen_strength_prior_rows.jsonl",
    "update_payload_name": "week1_2026_week_zero_prior_update_rows.jsonl"
   }
@@ -251,7 +251,7 @@
    "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
    "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6",
    "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
-   "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628"
+   "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41"
   ]
  }
 }

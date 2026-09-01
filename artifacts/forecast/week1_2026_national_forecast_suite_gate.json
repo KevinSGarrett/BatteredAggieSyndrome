@@ -42,12 +42,12 @@
     ]
   },
   "artifact_type": "WEEK1_2026_NATIONAL_FORECAST_SUITE_GATE",
-  "binding_identity": "6c873e63a1216bd1fe4ef22e3518bad8293dfda4f896d24bc18781f33ea579e6",
+  "binding_identity": "1a9b0da43b34d5e5d170d6931ee80a9c9ec412708c7a85c2e1c1975b5f06db22",
   "bound_predecessors": {
     "authority_enrichment_gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
     "chronological_matrix_gate_sha256": "e5e09d93b638a27669d7097e506e0e3341a15a9a2fd9c03f026b591f2a3b071d",
     "frozen_candidate_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
-    "frozen_strength_prior_gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+    "frozen_strength_prior_gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
     "predecessor_artifacts_rewritten_in_place": false,
     "preserved_predecessor_forecast_rows": [
       "THE_HISTORICAL_FIFTY_PERCENT_CONTROL_ROW",
@@ -207,8 +207,8 @@
   },
   "classification": "WEEK1_2026_NATIONAL_FORECAST_SUITE_EXECUTABLE_BINDING",
   "contract_id": "CYCLE24-WEEK1-2026-NATIONAL-FORECAST-SUITE-V1",
-  "contract_sha256": "6fe3f35826f3a378d78bd497e8c42e3c83dbf9d60996a8879b926fc72c4fb6b8",
-  "dataset_identity": "48dc89d19084d6a925103134504bf098c11ba82c1c0b1d5078cb35c103a5b123",
+  "contract_sha256": "9e72152bf0b40b279bd27bc9001012ffee71549e40dc7141a5b73e2c4d7f71b6",
+  "dataset_identity": "325a5fcba9942b2defb0336131e93d842f38f0924cdc0f8bf88460051fb3ac2c",
   "decision_unit": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
   "deployment_fit": {
     "conference_level_count": 14,
@@ -260,15 +260,15 @@
     "oriented_row_count": 2,
     "tamu_specific_adjustment_applied": false
   },
-  "gate_identity": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b",
-  "issued_at_utc": "2026-08-31T16:40:00Z",
+  "gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366",
+  "issued_at_utc": "2026-08-31T17:00:00Z",
   "jira_key": "BAT-680",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
   "manifest": {
-    "authoritative_sha256": "7bb9ca58ebec658e13785fd30d54ffc95e15762b2282fb31049e54b6ba3bcd29",
-    "dataset_identity": "48dc89d19084d6a925103134504bf098c11ba82c1c0b1d5078cb35c103a5b123",
-    "relative_path": "manifests/week1_2026_national_forecast_suite/sha256/48dc89d19084d6a925103134504bf098c11ba82c1c0b1d5078cb35c103a5b123/week1_2026_national_forecast_suite_manifest.json"
+    "authoritative_sha256": "5c3ebcdc50494609084f30242efb2e0ac02304ba784dee9aaa6577cd5e89fccb",
+    "dataset_identity": "325a5fcba9942b2defb0336131e93d842f38f0924cdc0f8bf88460051fb3ac2c",
+    "relative_path": "manifests/week1_2026_national_forecast_suite/sha256/325a5fcba9942b2defb0336131e93d842f38f0924cdc0f8bf88460051fb3ac2c/week1_2026_national_forecast_suite_manifest.json"
   },
   "parent_jira_key": "BAT-523",
   "payloads": [

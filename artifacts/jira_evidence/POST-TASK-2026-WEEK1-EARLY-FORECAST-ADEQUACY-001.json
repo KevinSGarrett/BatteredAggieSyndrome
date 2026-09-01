@@ -29,7 +29,7 @@
     ],
     "spine_semantic_successor_gate_identity": "6fdb9b9c4cc97f783dbf916d5f33e088add581ce9c181793daa9132abb86a3a6"
   },
-  "canonical_gate_identity": "fd32ae4ba47f5c9632263010141455e2e632998361bc1d7a65268bd6906590fb",
+  "canonical_gate_identity": "dcdc5e6f7acc95446fa244d42ef58ffb09e30c883ff08db25b131f246558b54c",
   "canonical_gate_path": "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json",
   "checkpoints": {
     "backfill_allowed": false,
@@ -153,11 +153,11 @@
   "outputs": [
     {
       "path": "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json",
-      "sha256": "eb4db38f8f3face249cf6313707b2288f7f9dd02aa5f0d81eb068150225038f8"
+      "sha256": "2acd75f490efe336c65bb1dd23ad40305818ea248ee121997db0d7bf4a2b15e6"
     },
     {
       "path": "configs/week1_2026_early_forecast_adequacy_contract.json",
-      "sha256": "51551bdf6576ab375876d465733855407ae040796f8985a96aabb74c37027abc"
+      "sha256": "c3cb736a02cacf4ac8f6ed40e9a19299fc655202021970365a21c1f5a8f127ab"
     },
     {
       "path": "src/aggie_analytics/data/week1_2026_early_forecast_adequacy.py",

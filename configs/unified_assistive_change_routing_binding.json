@@ -1,26 +1,15 @@
 {
   "allowed_paths": [
-    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001.json",
-    "configs/artifact_binding_contract.json",
-    "configs/codex_usage_interlock_change_manifest.json",
-    "configs/cycle24_material_ownership_registry.json",
-    "configs/unified_assistive_change_routing_binding.json",
     "jira/project/JIRA_TARGET_PROFILE.yaml",
-    "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
     "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
     "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
     "jira/validation/JIRA_FILE_HASHES.sha256",
-    "jira/validation/JIRA_FILE_MANIFEST.csv",
-    "jira/validation/SECOND_PASS_AUDIT_RESULTS.json",
-    "provenance/CURRENT_TREE.txt",
-    "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py"
+    "jira/validation/JIRA_FILE_MANIFEST.csv"
   ],
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "76632d8d8130db82db4287d28f4ec141509022c9eb2224e2ca01e2ed5974fff6",
+  "decision_sha256": "d604b29c7e7c11c5ee96e488c19a92733660ef4391426b03ef315dfce52e09b0",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "downstream_consumer": "tools/validate_artifact_bindings.py",
   "jira_identity": "BAT-684",

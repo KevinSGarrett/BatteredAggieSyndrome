@@ -8,12 +8,12 @@
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-681",
+      "owner": "BAT-685",
       "path": "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json"
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-680",
+      "owner": "BAT-685",
       "path": "artifacts/forecast/week1_2026_national_forecast_suite_gate.json"
     },
     {
@@ -23,22 +23,27 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-685",
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CYCLE24-CODE-IDENTITY-REBIND-001.json"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-684",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001.json"
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-681",
+      "owner": "BAT-685",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001.json"
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-679",
+      "owner": "BAT-685",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json"
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-680",
+      "owner": "BAT-685",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001.json"
     },
     {
@@ -48,7 +53,7 @@
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-679",
+      "owner": "BAT-685",
       "path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json"
     },
     {
@@ -58,7 +63,7 @@
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-684",
+      "owner": "BAT-685",
       "path": "configs/artifact_binding_contract.json"
     },
     {
@@ -83,7 +88,7 @@
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-681",
+      "owner": "BAT-685",
       "path": "configs/week1_2026_early_forecast_adequacy_contract.json"
     },
     {
@@ -93,7 +98,7 @@
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-680",
+      "owner": "BAT-685",
       "path": "configs/week1_2026_national_forecast_suite_contract.json"
     },
     {
@@ -336,6 +341,10 @@
     "BAT-684": {
       "local_issue_id": "POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001",
       "scope": "Ruff-format closeout for the frozen strength-prior module with rebound core_module_sha256 and live auxiliary registration of BAT-684"
+    },
+    "BAT-685": {
+      "local_issue_id": "POST-TASK-2026-WEEK1-CYCLE24-CODE-IDENTITY-REBIND-001",
+      "scope": "Rematerialize and rebind Cycle #24 prior/suite/early identity-bearing surfaces after the BAT-684 module format changed code_identity"
     }
   },
   "predecessor_commit": "cbb78b0786644146462dbcfc5c4d6fb514c7fa44",

@@ -196,7 +196,7 @@
       "week1_ready_row_count": 158
     }
   ],
-  "canonical_gate_identity": "6c873e63a1216bd1fe4ef22e3518bad8293dfda4f896d24bc18781f33ea579e6",
+  "canonical_gate_identity": "1a9b0da43b34d5e5d170d6931ee80a9c9ec412708c7a85c2e1c1975b5f06db22",
   "canonical_gate_path": "artifacts/forecast/week1_2026_national_forecast_suite_gate.json",
   "checkpoints": {
     "executed_early": false,
@@ -268,11 +268,11 @@
   "outputs": [
     {
       "path": "artifacts/forecast/week1_2026_national_forecast_suite_gate.json",
-      "sha256": "f1ee4e14c0c6b8b573fa372419adf9482a6587d52b48c0c44df63ab04a838abf"
+      "sha256": "2dc7af341031f3375be7d3cd843cf93ec1c23ff9c93e5567eb31a032f753ee18"
     },
     {
       "path": "configs/week1_2026_national_forecast_suite_contract.json",
-      "sha256": "6fe3f35826f3a378d78bd497e8c42e3c83dbf9d60996a8879b926fc72c4fb6b8"
+      "sha256": "9e72152bf0b40b279bd27bc9001012ffee71549e40dc7141a5b73e2c4d7f71b6"
     },
     {
       "path": "src/aggie_analytics/data/week1_2026_national_forecast_suite.py",
@@ -280,7 +280,7 @@
     },
     {
       "path": "tests/test_week1_2026_national_forecast_suite.py",
-      "sha256": "84c14f048538726b12fbb137e6c08b586caa395df44f1459537c405b521ada58"
+      "sha256": "356e16af4268cebbd89ffea8d08a9b10fb709149aa6c741b1fa70a80b3a0963a"
     },
     {
       "path": "tools/build_week1_2026_national_forecast_suite.py",

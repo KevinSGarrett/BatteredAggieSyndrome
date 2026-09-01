@@ -1,0 +1,101 @@
+{
+  "canonical_gate_identity": "dcdc5e6f7acc95446fa244d42ef58ffb09e30c883ff08db25b131f246558b54c",
+  "canonical_gate_path": "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json",
+  "completeness_claimed": false,
+  "created_at_utc": "2026-09-01T02:34:09Z",
+  "dataset_identity": "035868d4f6dcdda336cb6e8de35c04d991ddf333e36eba4e2897dd1ed85041a9",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
+  "issue_complete": false,
+  "jira_key": "BAT-685",
+  "local_issue_id": "POST-TASK-2026-WEEK1-CYCLE24-CODE-IDENTITY-REBIND-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "Cycle #24 prior/suite/early gate and contract identities were rebound to the formatted prior-module code_identity while prior record_hashes, hyperparameters, five-candidate inventory, and EARLY_WEEK1 forecast probabilities remained scientifically unchanged.",
+  "outputs": [
+    {
+      "path": "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json",
+      "sha256": "2acd75f490efe336c65bb1dd23ad40305818ea248ee121997db0d7bf4a2b15e6"
+    },
+    {
+      "path": "artifacts/forecast/week1_2026_national_forecast_suite_gate.json",
+      "sha256": "2dc7af341031f3375be7d3cd843cf93ec1c23ff9c93e5567eb31a032f753ee18"
+    },
+    {
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001.json",
+      "sha256": "9d9138b42f7d894c6d87c202250af8f5572627c44fcad4dc56703ce68818eac8"
+    },
+    {
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001.json",
+      "sha256": "65e47ded5be0fcd06e7b78a19e5060c14f58ec358c6efc087aef7d10913306ae"
+    },
+    {
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001.json",
+      "sha256": "7f7473bb12d5227176f0df97df9626767224b75f700ca3c7884421cd901aa55e"
+    },
+    {
+      "path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+      "sha256": "431e4cf25fbcb9d2951cf3715fb0c475d769ed947a5c2e35e627c9376a599900"
+    },
+    {
+      "path": "configs/artifact_binding_contract.json",
+      "sha256": "9f0376ee99adb9b977e918b3fe4834cd4a50e756b5498a0e1d81902cb766d7b2"
+    },
+    {
+      "path": "configs/week1_2026_early_forecast_adequacy_contract.json",
+      "sha256": "c3cb736a02cacf4ac8f6ed40e9a19299fc655202021970365a21c1f5a8f127ab"
+    },
+    {
+      "path": "configs/week1_2026_national_forecast_suite_contract.json",
+      "sha256": "9e72152bf0b40b279bd27bc9001012ffee71549e40dc7141a5b73e2c4d7f71b6"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-523",
+    "BAT-679",
+    "BAT-680",
+    "BAT-681",
+    "BAT-684"
+  ],
+  "result": "PASS_WEEK1_2026_EARLY_FORECAST_ADEQUACY",
+  "schema_version": "2.1.0",
+  "summary": {
+    "adequacy_verdict_counts": {
+      "ABSTAIN_MISSING_REQUIRED_FEATURES": 16,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 40,
+      "LIMITED_STALE_INPUT_SHADOW_ONLY": 399
+    },
+    "base_rate_presented_as_recommended": false,
+    "candidate_count": 5,
+    "contest_count": 91,
+    "custom_correction_applied": false,
+    "forecast_row_count": 455,
+    "promoted_candidate": null,
+    "recommended_candidate": null,
+    "row_state_counts": {
+      "ABSTAIN_MISSING_REQUIRED_FEATURES": 16,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 40,
+      "FORECAST_FROZEN": 399
+    },
+    "tamu_specific_adjustment_applied": false,
+    "week1_outcome_access": false,
+    "week_zero_used_to_tune_select_or_promote": false
+  },
+  "superseded_identities": [
+    {
+      "kind": "prior_gate_identity",
+      "value": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628"
+    },
+    {
+      "kind": "suite_gate_identity",
+      "value": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b"
+    },
+    {
+      "kind": "early_gate_identity",
+      "value": "892ed90f7ca6ea227321d0b0347065b4e179bca44528dc275ad6fe7b7d76c71b"
+    }
+  ],
+  "workflow_state": "IN_REVIEW"
+}

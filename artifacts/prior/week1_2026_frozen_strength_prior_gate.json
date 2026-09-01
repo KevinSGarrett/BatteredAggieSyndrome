@@ -1,6 +1,6 @@
 {
   "artifact_type": "WEEK1_2026_FROZEN_STRENGTH_PRIOR_GATE",
-  "binding_identity": "2db5d6a257bb13401f55e64075834e01ccec4b83e22ed223c82fa3bee521a04e",
+  "binding_identity": "f0918fa16c638c595a0c267a724ef01ed44f31a82cb6b7f5bb55eb90681ad245",
   "bound_predecessors": {
     "authority_enrichment_gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",
     "bound_predecessor_gate_identities": [
@@ -32,7 +32,7 @@
     "replayed_team_count": 343,
     "team_row_count": 182
   },
-  "dataset_identity": "2c9dea8b78f136c8b62504aedcc4bc1ac113da232907afde19f1dff38f86eca0",
+  "dataset_identity": "508611e534a08a1d43cff46a8cd9e18e07f3947fbddee3d3c3e6d986af3d25b0",
   "decision_unit": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
   "elo": {
     "between_season_regression": 0.25,
@@ -96,7 +96,7 @@
     ],
     "tamu_specific_adjustment_applied": false
   },
-  "gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+  "gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
   "invariance_proofs": [
     {
       "detail": "Replaying the same contests supplied in reverse input order reproduces every rating, because the replay sorts on the chronological ordinal rather than trusting input order.",
@@ -124,14 +124,14 @@
       "proof": "BYTE_STABLE_RECONSTRUCTION"
     }
   ],
-  "issued_at_utc": "2026-08-31T15:40:00Z",
+  "issued_at_utc": "2026-08-31T17:00:00Z",
   "jira_key": "BAT-679",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
   "manifest": {
-    "authoritative_sha256": "3236dbe81066296d091c8602e27dcd12c3c419eb96e0884709eda02b60458041",
-    "dataset_identity": "2c9dea8b78f136c8b62504aedcc4bc1ac113da232907afde19f1dff38f86eca0",
-    "relative_path": "manifests/week1_2026_frozen_strength_prior/sha256/2c9dea8b78f136c8b62504aedcc4bc1ac113da232907afde19f1dff38f86eca0/week1_2026_frozen_strength_prior_manifest.json"
+    "authoritative_sha256": "8e03eeb6aba86c6144cc8626f292fb908ab98a8b9a5136586fbcb2d72d2fe31c",
+    "dataset_identity": "508611e534a08a1d43cff46a8cd9e18e07f3947fbddee3d3c3e6d986af3d25b0",
+    "relative_path": "manifests/week1_2026_frozen_strength_prior/sha256/508611e534a08a1d43cff46a8cd9e18e07f3947fbddee3d3c3e6d986af3d25b0/week1_2026_frozen_strength_prior_manifest.json"
   },
   "parent_jira_key": "BAT-523",
   "payloads": [

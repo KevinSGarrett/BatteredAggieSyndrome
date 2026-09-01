@@ -29,7 +29,7 @@
   "sources": {
     "national_forecast_suite": {
       "gate_relative_path": "artifacts/forecast/week1_2026_national_forecast_suite_gate.json",
-      "gate_identity": "7303ff578f00fd492b95714677f2ced981b9366f84bb403ecc171b4e5e9eb52b",
+      "gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366",
       "feature_payload_name": "week1_2026_forecast_feature_rows.jsonl",
       "adequacy_payload_name": "week1_2026_forecast_candidate_adequacy_rows.jsonl",
       "model_payload_name": "week1_2026_forecast_model_binding_rows.jsonl",
@@ -37,7 +37,7 @@
     },
     "frozen_strength_prior": {
       "gate_relative_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
-      "gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+      "gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
       "prior_payload_name": "week1_2026_frozen_strength_prior_rows.jsonl"
     },
     "spine_semantic_successor": {

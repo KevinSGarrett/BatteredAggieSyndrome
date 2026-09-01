@@ -1,5 +1,5 @@
 {
-  "canonical_gate_identity": "2db5d6a257bb13401f55e64075834e01ccec4b83e22ed223c82fa3bee521a04e",
+  "canonical_gate_identity": "f0918fa16c638c595a0c267a724ef01ed44f31a82cb6b7f5bb55eb90681ad245",
   "canonical_gate_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
   "completeness_claimed": false,
   "coverage": {
@@ -110,7 +110,7 @@
   "outputs": [
     {
       "path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
-      "sha256": "2ad5c8874f7cfb3e9acee85e61f2b4cb4235cbc1721e6772a63506548440e807"
+      "sha256": "431e4cf25fbcb9d2951cf3715fb0c475d769ed947a5c2e35e627c9376a599900"
     },
     {
       "path": "configs/week1_2026_frozen_strength_prior_contract.json",
@@ -118,7 +118,7 @@
     },
     {
       "path": "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py",
-      "sha256": "062918abf24d68310c7220b9be18f5304f16d03e0066824ff2f5e898040ae91d"
+      "sha256": "94dd0a1b666974bb673342686d5112c0092f56eb9a4cdb3acd57113c81cc8727"
     },
     {
       "path": "tests/test_week1_2026_frozen_strength_prior.py",

@@ -98,6 +98,20 @@
       "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "material_merge_sha": "ad2d81cc54c71a798a33989864d2f14b18fa23d5",
       "parent_progress_kind": "parent_progress"
+    },
+    {
+      "comment_body_sha256": "877e79069e62df620ee46afb10da2a60fbac7bad866b9420f3c4d61697b1da69",
+      "comment_id": "14719",
+      "cycle": 24,
+      "evidence_classification": "IMMUTABLE_CYCLE_SNAPSHOT",
+      "evolving_evidence_path": "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_path": "artifacts/jira_evidence/immutable/sha256/b2ede87f501e3c2f2d30e522e81b96264033974ebd7d1b309765871e23eee3eb/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
+      "immutable_evidence_snapshot_sha256": "b2ede87f501e3c2f2d30e522e81b96264033974ebd7d1b309765871e23eee3eb",
+      "jira_key": "BAT-523",
+      "kind": "parent_progress",
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "material_merge_sha": "acb22e4caeee3025df1bc345b795e7cfe8207390",
+      "parent_progress_kind": "parent_progress"
     }
   ],
   "purpose": "Local authority-bearing parent progress-comment ledger. Recorded comments must match live Jira comment ID and canonicalized body SHA. No live-only parent progress is allowed after the recording cycle.",

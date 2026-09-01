@@ -82,721 +82,721 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:16.275681+00:00"
+      "verified_at": "2026-08-31T23:55:19.251482+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:16.477768+00:00"
+      "verified_at": "2026-08-31T23:55:19.451315+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:16.686804+00:00"
+      "verified_at": "2026-08-31T23:55:19.655776+00:00"
     },
     {
       "jira_key": "BAT-565",
       "local_id": "POST-TASK-2023-DEVELOPMENT-OUTCOMES-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:16.873418+00:00"
+      "verified_at": "2026-08-31T23:55:19.846673+00:00"
     },
     {
       "jira_key": "BAT-566",
       "local_id": "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:17.071126+00:00"
+      "verified_at": "2026-08-31T23:55:20.012276+00:00"
     },
     {
       "jira_key": "BAT-567",
       "local_id": "POST-TASK-ROSTER-DOMAIN-COMPLETENESS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:17.256089+00:00"
+      "verified_at": "2026-08-31T23:55:20.211741+00:00"
     },
     {
       "jira_key": "BAT-568",
       "local_id": "POST-TASK-2023-RANKINGS-DEVELOPMENT-REPLAY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:17.505154+00:00"
+      "verified_at": "2026-08-31T23:55:20.380217+00:00"
     },
     {
       "jira_key": "BAT-569",
       "local_id": "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:17.701473+00:00"
+      "verified_at": "2026-08-31T23:55:20.567869+00:00"
     },
     {
       "jira_key": "BAT-570",
       "local_id": "POST-TASK-TAMU-OFFICIAL-EVIDENCE-GAP-MATRIX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:17.920567+00:00"
+      "verified_at": "2026-08-31T23:55:20.743709+00:00"
     },
     {
       "jira_key": "BAT-571",
       "local_id": "POST-TASK-TAMU-2010-2011-NCAA-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:18.137635+00:00"
+      "verified_at": "2026-08-31T23:55:20.922601+00:00"
     },
     {
       "jira_key": "BAT-572",
       "local_id": "POST-TASK-CROSS-SOURCE-DOMAIN-GATE-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:18.331930+00:00"
+      "verified_at": "2026-08-31T23:55:21.124644+00:00"
     },
     {
       "jira_key": "BAT-573",
       "local_id": "POST-TASK-ARTIFACT-BINDING-VALIDATOR-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:18.526557+00:00"
+      "verified_at": "2026-08-31T23:55:21.284864+00:00"
     },
     {
       "jira_key": "BAT-574",
       "local_id": "POST-TASK-TAMU-2010-2011-NCAA-TEAM-SEASON-EVIDENCE-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:18.714227+00:00"
+      "verified_at": "2026-08-31T23:55:21.502546+00:00"
     },
     {
       "jira_key": "BAT-575",
       "local_id": "POST-TASK-TAMU-2010-2011-SEASON-RECONCILIATION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:18.909266+00:00"
+      "verified_at": "2026-08-31T23:55:21.701360+00:00"
     },
     {
       "jira_key": "BAT-576",
       "local_id": "POST-TASK-TAMU-2010-2011-NCAA-CONTEST-ROUTE-DISCOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:19.115587+00:00"
+      "verified_at": "2026-08-31T23:55:21.913632+00:00"
     },
     {
       "jira_key": "BAT-577",
       "local_id": "POST-TASK-CYCLE-8-DEPENDENT-GATE-REBOUND-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:19.326011+00:00"
+      "verified_at": "2026-08-31T23:55:22.095604+00:00"
     },
     {
       "jira_key": "BAT-578",
       "local_id": "POST-TASK-CYCLE-9-VALIDATOR-BYPASS-CORRECTION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:19.529036+00:00"
+      "verified_at": "2026-08-31T23:55:22.278367+00:00"
     },
     {
       "jira_key": "BAT-579",
       "local_id": "POST-TASK-CYCLE-9-OFFICIAL-HISTORICAL-ARCHIVE-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:19.701866+00:00"
+      "verified_at": "2026-08-31T23:55:22.467329+00:00"
     },
     {
       "jira_key": "BAT-580",
       "local_id": "POST-TASK-CYCLE-9-OFFICIAL-BOXSCORE-NORMALIZATION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:19.901896+00:00"
+      "verified_at": "2026-08-31T23:55:22.638969+00:00"
     },
     {
       "jira_key": "BAT-581",
       "local_id": "POST-TASK-CYCLE-9-OFFICIAL-GAMEBOOK-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:20.114801+00:00"
+      "verified_at": "2026-08-31T23:55:22.831575+00:00"
     },
     {
       "jira_key": "BAT-582",
       "local_id": "POST-TASK-CYCLE-9-DEPENDENT-GATE-REBOUND-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:20.299390+00:00"
+      "verified_at": "2026-08-31T23:55:23.035960+00:00"
     },
     {
       "jira_key": "BAT-583",
       "local_id": "POST-TASK-CYCLE-10-BAT572-EVIDENCE-REPRODUCIBILITY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:20.612733+00:00"
+      "verified_at": "2026-08-31T23:55:23.227151+00:00"
     },
     {
       "jira_key": "BAT-584",
       "local_id": "POST-TASK-CYCLE-10-BAT580-VALIDATOR-PURITY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:20.810174+00:00"
+      "verified_at": "2026-08-31T23:55:23.530765+00:00"
     },
     {
       "jira_key": "BAT-585",
       "local_id": "POST-TASK-CYCLE-10-SRC014-HISTORICAL-COVERAGE-INVENTORY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:21.001553+00:00"
+      "verified_at": "2026-08-31T23:55:23.743634+00:00"
     },
     {
       "jira_key": "BAT-586",
       "local_id": "POST-TASK-CYCLE-10-SRC014-PRE2010-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:21.167294+00:00"
+      "verified_at": "2026-08-31T23:55:23.918221+00:00"
     },
     {
       "jira_key": "BAT-587",
       "local_id": "POST-TASK-CYCLE-10-SRC014-EXPANDED-GAMEBOOK-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:21.350223+00:00"
+      "verified_at": "2026-08-31T23:55:24.176227+00:00"
     },
     {
       "jira_key": "BAT-588",
       "local_id": "POST-TASK-SRC014-2007-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:21.539502+00:00"
+      "verified_at": "2026-08-31T23:55:24.361663+00:00"
     },
     {
       "jira_key": "BAT-589",
       "local_id": "POST-TASK-SRC014-2007-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:21.730713+00:00"
+      "verified_at": "2026-08-31T23:55:24.544918+00:00"
     },
     {
       "jira_key": "BAT-590",
       "local_id": "POST-TASK-SRC014-2007-OFFICIAL-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:21.921432+00:00"
+      "verified_at": "2026-08-31T23:55:24.746925+00:00"
     },
     {
       "jira_key": "BAT-591",
       "local_id": "POST-TASK-SRC014-STATCREW-PREFORMATTED-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:22.105188+00:00"
+      "verified_at": "2026-08-31T23:55:24.908006+00:00"
     },
     {
       "jira_key": "BAT-592",
       "local_id": "POST-TASK-SRC014-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:22.273272+00:00"
+      "verified_at": "2026-08-31T23:55:25.099880+00:00"
     },
     {
       "jira_key": "BAT-593",
       "local_id": "POST-TASK-JIRA-LIVE-VERIFIER-HISTOGRAMS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:22.508067+00:00"
+      "verified_at": "2026-08-31T23:55:25.290819+00:00"
     },
     {
       "jira_key": "BAT-594",
       "local_id": "POST-TASK-SRC014-2006-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:22.787665+00:00"
+      "verified_at": "2026-08-31T23:55:25.464091+00:00"
     },
     {
       "jira_key": "BAT-595",
       "local_id": "POST-TASK-SRC014-2006-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:22.958872+00:00"
+      "verified_at": "2026-08-31T23:55:25.666006+00:00"
     },
     {
       "jira_key": "BAT-596",
       "local_id": "POST-TASK-SRC014-2006-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:23.158812+00:00"
+      "verified_at": "2026-08-31T23:55:25.854255+00:00"
     },
     {
       "jira_key": "BAT-597",
       "local_id": "POST-TASK-SRC014-2006-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:23.388142+00:00"
+      "verified_at": "2026-08-31T23:55:26.036411+00:00"
     },
     {
       "jira_key": "BAT-598",
       "local_id": "POST-TASK-JIRA-RETIREMENT-QUARANTINE-REGISTRY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:23.634762+00:00"
+      "verified_at": "2026-08-31T23:55:26.248948+00:00"
     },
     {
       "jira_key": "BAT-599",
       "local_id": "POST-TASK-SRC014-2005-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:23.823275+00:00"
+      "verified_at": "2026-08-31T23:55:26.422724+00:00"
     },
     {
       "jira_key": "BAT-600",
       "local_id": "POST-TASK-SRC014-2005-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:24.068675+00:00"
+      "verified_at": "2026-08-31T23:55:26.664211+00:00"
     },
     {
       "jira_key": "BAT-601",
       "local_id": "POST-TASK-SRC014-2005-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:24.277072+00:00"
+      "verified_at": "2026-08-31T23:55:26.901952+00:00"
     },
     {
       "jira_key": "BAT-602",
       "local_id": "POST-TASK-SRC014-2005-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:24.454451+00:00"
+      "verified_at": "2026-08-31T23:55:27.156159+00:00"
     },
     {
       "jira_key": "BAT-603",
       "local_id": "POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:24.695992+00:00"
+      "verified_at": "2026-08-31T23:55:27.391974+00:00"
     },
     {
       "jira_key": "BAT-604",
       "local_id": "POST-TASK-SRC014-2004-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:24.903630+00:00"
+      "verified_at": "2026-08-31T23:55:27.584972+00:00"
     },
     {
       "jira_key": "BAT-605",
       "local_id": "POST-TASK-SRC014-2004-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:25.104983+00:00"
+      "verified_at": "2026-08-31T23:55:27.817551+00:00"
     },
     {
       "jira_key": "BAT-606",
       "local_id": "POST-TASK-SRC014-2004-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:25.275137+00:00"
+      "verified_at": "2026-08-31T23:55:28.002343+00:00"
     },
     {
       "jira_key": "BAT-607",
       "local_id": "POST-TASK-SRC014-2004-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:25.479357+00:00"
+      "verified_at": "2026-08-31T23:55:28.260114+00:00"
     },
     {
       "jira_key": "BAT-608",
       "local_id": "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:25.681794+00:00"
+      "verified_at": "2026-08-31T23:55:28.437695+00:00"
     },
     {
       "jira_key": "BAT-609",
       "local_id": "POST-TASK-SRC014-2003-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:25.871187+00:00"
+      "verified_at": "2026-08-31T23:55:28.604629+00:00"
     },
     {
       "jira_key": "BAT-610",
       "local_id": "POST-TASK-SRC014-2003-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:26.052052+00:00"
+      "verified_at": "2026-08-31T23:55:28.770077+00:00"
     },
     {
       "jira_key": "BAT-611",
       "local_id": "POST-TASK-SRC014-2003-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:26.251448+00:00"
+      "verified_at": "2026-08-31T23:55:28.971945+00:00"
     },
     {
       "jira_key": "BAT-612",
       "local_id": "POST-TASK-SRC014-2003-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:26.431541+00:00"
+      "verified_at": "2026-08-31T23:55:29.151936+00:00"
     },
     {
       "jira_key": "BAT-613",
       "local_id": "POST-TASK-SRC014-2002-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:26.778203+00:00"
+      "verified_at": "2026-08-31T23:55:29.341740+00:00"
     },
     {
       "jira_key": "BAT-615",
       "local_id": "POST-TASK-SRC014-2002-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:26.972724+00:00"
+      "verified_at": "2026-08-31T23:55:29.510236+00:00"
     },
     {
       "jira_key": "BAT-617",
       "local_id": "POST-TASK-SRC014-2002-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:27.162575+00:00"
+      "verified_at": "2026-08-31T23:55:29.683392+00:00"
     },
     {
       "jira_key": "BAT-618",
       "local_id": "POST-TASK-SRC014-2002-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:27.362523+00:00"
+      "verified_at": "2026-08-31T23:55:29.880453+00:00"
     },
     {
       "jira_key": "BAT-619",
       "local_id": "POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:27.545244+00:00"
+      "verified_at": "2026-08-31T23:55:30.086361+00:00"
     },
     {
       "jira_key": "BAT-620",
       "local_id": "POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:27.741742+00:00"
+      "verified_at": "2026-08-31T23:55:30.271027+00:00"
     },
     {
       "jira_key": "BAT-621",
       "local_id": "POST-TASK-SRC014-2001-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:27.945754+00:00"
+      "verified_at": "2026-08-31T23:55:30.450233+00:00"
     },
     {
       "jira_key": "BAT-622",
       "local_id": "POST-TASK-SRC014-2001-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:28.153101+00:00"
+      "verified_at": "2026-08-31T23:55:30.623210+00:00"
     },
     {
       "jira_key": "BAT-623",
       "local_id": "POST-TASK-SRC014-2001-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:28.356762+00:00"
+      "verified_at": "2026-08-31T23:55:30.796995+00:00"
     },
     {
       "jira_key": "BAT-624",
       "local_id": "POST-TASK-SRC014-2001-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:28.583805+00:00"
+      "verified_at": "2026-08-31T23:55:30.980208+00:00"
     },
     {
       "jira_key": "BAT-625",
       "local_id": "POST-TASK-SRC014-2000-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:28.849859+00:00"
+      "verified_at": "2026-08-31T23:55:31.175017+00:00"
     },
     {
       "jira_key": "BAT-626",
       "local_id": "POST-TASK-SRC014-2000-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:29.096286+00:00"
+      "verified_at": "2026-08-31T23:55:31.350173+00:00"
     },
     {
       "jira_key": "BAT-627",
       "local_id": "POST-TASK-SRC014-2000-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:29.295632+00:00"
+      "verified_at": "2026-08-31T23:55:31.525659+00:00"
     },
     {
       "jira_key": "BAT-628",
       "local_id": "POST-TASK-SRC014-2000-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:29.482342+00:00"
+      "verified_at": "2026-08-31T23:55:31.719969+00:00"
     },
     {
       "jira_key": "BAT-629",
       "local_id": "POST-TASK-SRC014-2000-2009-STRUCTURED-ROW-CORPUS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:29.691989+00:00"
+      "verified_at": "2026-08-31T23:55:31.944641+00:00"
     },
     {
       "jira_key": "BAT-630",
       "local_id": "POST-TASK-SRC014-1999-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:29.885798+00:00"
+      "verified_at": "2026-08-31T23:55:32.103111+00:00"
     },
     {
       "jira_key": "BAT-631",
       "local_id": "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:30.068433+00:00"
+      "verified_at": "2026-08-31T23:55:32.315791+00:00"
     },
     {
       "jira_key": "BAT-632",
       "local_id": "POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:30.274320+00:00"
+      "verified_at": "2026-08-31T23:55:32.504742+00:00"
     },
     {
       "jira_key": "BAT-633",
       "local_id": "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:30.467129+00:00"
+      "verified_at": "2026-08-31T23:55:32.722376+00:00"
     },
     {
       "jira_key": "BAT-634",
       "local_id": "POST-TASK-SRC014-1998-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:30.683131+00:00"
+      "verified_at": "2026-08-31T23:55:32.898446+00:00"
     },
     {
       "jira_key": "BAT-635",
       "local_id": "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:30.854333+00:00"
+      "verified_at": "2026-08-31T23:55:33.064572+00:00"
     },
     {
       "jira_key": "BAT-636",
       "local_id": "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:31.077235+00:00"
+      "verified_at": "2026-08-31T23:55:33.226221+00:00"
     },
     {
       "jira_key": "BAT-637",
       "local_id": "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:31.319560+00:00"
+      "verified_at": "2026-08-31T23:55:33.402483+00:00"
     },
     {
       "jira_key": "BAT-638",
       "local_id": "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:31.535848+00:00"
+      "verified_at": "2026-08-31T23:55:33.602883+00:00"
     },
     {
       "jira_key": "BAT-639",
       "local_id": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:31.736890+00:00"
+      "verified_at": "2026-08-31T23:55:33.813721+00:00"
     },
     {
       "jira_key": "BAT-640",
       "local_id": "POST-TASK-SRC014-1997-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:31.904108+00:00"
+      "verified_at": "2026-08-31T23:55:34.033900+00:00"
     },
     {
       "jira_key": "BAT-641",
       "local_id": "POST-TASK-SRC014-1997-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:32.122239+00:00"
+      "verified_at": "2026-08-31T23:55:34.196187+00:00"
     },
     {
       "jira_key": "BAT-642",
       "local_id": "POST-TASK-SRC014-1997-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:32.315806+00:00"
+      "verified_at": "2026-08-31T23:55:34.373503+00:00"
     },
     {
       "jira_key": "BAT-643",
       "local_id": "POST-TASK-SRC014-1997-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:32.523095+00:00"
+      "verified_at": "2026-08-31T23:55:34.582092+00:00"
     },
     {
       "jira_key": "BAT-644",
       "local_id": "POST-TASK-SRC014-1996-OFFICIAL-INDEX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:32.942795+00:00"
+      "verified_at": "2026-08-31T23:55:34.796225+00:00"
     },
     {
       "jira_key": "BAT-645",
       "local_id": "POST-TASK-SRC014-1996-OFFICIAL-ACQUISITION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:33.115378+00:00"
+      "verified_at": "2026-08-31T23:55:34.973412+00:00"
     },
     {
       "jira_key": "BAT-646",
       "local_id": "POST-TASK-SRC014-1996-STRUCTURED-DOMAINS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:33.351399+00:00"
+      "verified_at": "2026-08-31T23:55:35.160473+00:00"
     },
     {
       "jira_key": "BAT-647",
       "local_id": "POST-TASK-SRC014-1996-EXPANDED-ENRICHED-UNION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:33.525627+00:00"
+      "verified_at": "2026-08-31T23:55:35.346934+00:00"
     },
     {
       "jira_key": "BAT-648",
       "local_id": "POST-TASK-SRC014-1996-2009-STRUCTURED-ROW-CORPUS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:33.741605+00:00"
+      "verified_at": "2026-08-31T23:55:35.544462+00:00"
     },
     {
       "jira_key": "BAT-649",
       "local_id": "POST-TASK-CYCLE19-LEGACY-H2-INTEGRATION-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:33.928701+00:00"
+      "verified_at": "2026-08-31T23:55:35.722106+00:00"
     },
     {
       "jira_key": "BAT-650",
       "local_id": "POST-TASK-AUTHORITY-PLACEHOLDER-OWNERSHIP-VALIDATION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:34.226305+00:00"
+      "verified_at": "2026-08-31T23:55:35.916955+00:00"
     },
     {
       "jira_key": "BAT-651",
       "local_id": "POST-TASK-NATIONAL-FOUNDATION-RECONCILIATION-V2-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:34.427955+00:00"
+      "verified_at": "2026-08-31T23:55:36.104087+00:00"
     },
     {
       "jira_key": "BAT-652",
       "local_id": "POST-TASK-NATIONAL-GAME-OUTCOME-SPINE-1963-2023-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:34.634647+00:00"
+      "verified_at": "2026-08-31T23:55:36.297656+00:00"
     },
     {
       "jira_key": "BAT-653",
       "local_id": "POST-TASK-NATIONAL-PIT-DOMAIN-ADMISSION-MATRIX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:34.816316+00:00"
+      "verified_at": "2026-08-31T23:55:36.477872+00:00"
     },
     {
       "jira_key": "BAT-654",
       "local_id": "POST-TASK-NATIONAL-CHRONOLOGICAL-DEVELOPMENT-MATRIX-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:34.998568+00:00"
+      "verified_at": "2026-08-31T23:55:36.646463+00:00"
     },
     {
       "jira_key": "BAT-655",
       "local_id": "POST-TASK-NATIONAL-EXPECTATION-BASELINES-AND-PEERS-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:35.186186+00:00"
+      "verified_at": "2026-08-31T23:55:36.811816+00:00"
     },
     {
       "jira_key": "BAT-656",
       "local_id": "POST-TASK-2026-NATIONAL-PROSPECTIVE-SHADOW-COHORT-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:35.359471+00:00"
+      "verified_at": "2026-08-31T23:55:37.007539+00:00"
     },
     {
       "jira_key": "BAT-657",
       "local_id": "POST-TASK-2026-NATIONAL-SHADOW-FORECAST-AND-SCORING-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:35.521453+00:00"
+      "verified_at": "2026-08-31T23:55:37.187932+00:00"
     },
     {
       "jira_key": "BAT-658",
       "local_id": "POST-TASK-2026-TAMU-WEEK1-NATIONAL-BASELINE-REHEARSAL-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:35.720384+00:00"
+      "verified_at": "2026-08-31T23:55:37.397460+00:00"
     },
     {
       "jira_key": "BAT-659",
       "local_id": "POST-TASK-NATIONAL-SHADOW-OPERATIONS-AND-GAP-REEVALUATION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:35.913886+00:00"
+      "verified_at": "2026-08-31T23:55:37.564814+00:00"
     },
     {
       "jira_key": "BAT-660",
       "local_id": "POST-TASK-SHADOW-FORECAST-LINT-CORRECTION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:36.098865+00:00"
+      "verified_at": "2026-08-31T23:55:37.756239+00:00"
     },
     {
       "jira_key": "BAT-661",
       "local_id": "POST-TASK-2026-WEEK-ZERO-CALENDAR-AND-TAMU-T7D-AUTHORITY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:36.327864+00:00"
+      "verified_at": "2026-08-31T23:55:37.932769+00:00"
     },
     {
       "jira_key": "BAT-662",
       "local_id": "POST-TASK-OFFLINE-DETERMINISTIC-TEST-REPAIR-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:36.519913+00:00"
+      "verified_at": "2026-08-31T23:55:38.093777+00:00"
     },
     {
       "jira_key": "BAT-663",
       "local_id": "POST-TASK-PURE-BYTE-STABLE-GATE-MATERIALIZATION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:36.741578+00:00"
+      "verified_at": "2026-08-31T23:55:38.269480+00:00"
     },
     {
       "jira_key": "BAT-664",
       "local_id": "POST-TASK-2026-SHADOW-FORECAST-TEMPORAL-AUDIT-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:36.936021+00:00"
+      "verified_at": "2026-08-31T23:55:38.470626+00:00"
     },
     {
       "jira_key": "BAT-665",
       "local_id": "POST-TASK-2026-WEEK-ZERO-LIVE-SHADOW-EXECUTION-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:37.127054+00:00"
+      "verified_at": "2026-08-31T23:55:38.685337+00:00"
     },
     {
       "jira_key": "BAT-666",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:37.333532+00:00"
+      "verified_at": "2026-08-31T23:55:38.893443+00:00"
     },
     {
       "jira_key": "BAT-667",
       "local_id": "POST-TASK-FIRST-NATIONAL-PIT-ELIGIBLE-SLICE-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:37.528809+00:00"
+      "verified_at": "2026-08-31T23:55:39.111950+00:00"
     },
     {
       "jira_key": "BAT-668",
       "local_id": "POST-TASK-MULTI-YEAR-NATIONAL-WALK-FORWARD-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:37.805621+00:00"
+      "verified_at": "2026-08-31T23:55:39.382805+00:00"
     },
     {
       "jira_key": "BAT-669",
       "local_id": "POST-TASK-PEER-AND-TAMU-RESIDUAL-STABILITY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:38.013325+00:00"
+      "verified_at": "2026-08-31T23:55:39.591914+00:00"
     },
     {
       "jira_key": "BAT-670",
       "local_id": "POST-TASK-NATIONAL-ENTITY-BENCHMARK-AND-2026-COVERAGE-REBOUND-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:38.199815+00:00"
+      "verified_at": "2026-08-31T23:55:39.814971+00:00"
     },
     {
       "jira_key": "BAT-671",
       "local_id": "POST-TASK-REJECTION-LEDGER-RECONSTRUCTION-DETERMINISM-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:38.434547+00:00"
+      "verified_at": "2026-08-31T23:55:40.134141+00:00"
     },
     {
       "jira_key": "BAT-672",
       "local_id": "POST-TASK-ADMISSION-MATRIX-STALE-CORPUS-GATE-PIN-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:38.646764+00:00"
+      "verified_at": "2026-08-31T23:55:40.343194+00:00"
     },
     {
       "jira_key": "BAT-673",
       "local_id": "POST-TASK-MOUNTED-ACCEPTANCE-HEAD-SAMPLING-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:38.868420+00:00"
+      "verified_at": "2026-08-31T23:55:40.524649+00:00"
     },
     {
       "jira_key": "BAT-674",
       "local_id": "POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:39.075435+00:00"
+      "verified_at": "2026-08-31T23:55:40.713041+00:00"
     },
     {
       "jira_key": "BAT-675",
       "local_id": "POST-TASK-2026-CYCLE21-AUTHORITY-PURITY-HARDENING-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:39.248250+00:00"
+      "verified_at": "2026-08-31T23:55:40.945918+00:00"
     },
     {
       "jira_key": "BAT-676",
       "local_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:39.533893+00:00"
+      "verified_at": "2026-08-31T23:55:41.148641+00:00"
     },
     {
       "jira_key": "BAT-677",
       "local_id": "POST-TASK-2026-WEEK1-CURRENT-FEATURE-SPINE-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:39.744978+00:00"
+      "verified_at": "2026-08-31T23:55:41.339786+00:00"
     },
     {
       "jira_key": "BAT-678",
       "local_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:39.934571+00:00"
+      "verified_at": "2026-08-31T23:55:41.542228+00:00"
     },
     {
       "jira_key": "BAT-679",
       "local_id": "POST-TASK-2026-WEEK1-FROZEN-STRENGTH-PRIOR-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:40.249793+00:00"
+      "verified_at": "2026-08-31T23:55:41.760462+00:00"
     },
     {
       "jira_key": "BAT-680",
       "local_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-SUITE-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:40.447930+00:00"
+      "verified_at": "2026-08-31T23:55:41.934752+00:00"
     },
     {
       "jira_key": "BAT-681",
       "local_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:40.657715+00:00"
+      "verified_at": "2026-08-31T23:55:42.098221+00:00"
     },
     {
       "jira_key": "BAT-682",
       "local_id": "POST-TASK-2026-WEEK1-SPINE-SEMANTIC-SUCCESSOR-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:40.877109+00:00"
+      "verified_at": "2026-08-31T23:55:42.286115+00:00"
     },
     {
       "jira_key": "BAT-683",
       "local_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
       "updated_fields": [],
-      "verified_at": "2026-08-31T16:38:41.078023+00:00"
+      "verified_at": "2026-08-31T23:55:42.480094+00:00"
     }
   ],
   "backup": {
@@ -812,9 +812,9 @@
   "canonical_spec_sync": {
     "changed_issues": 0,
     "status": "EXACT_NO_UPDATES_REQUIRED",
-    "verified_at": "2026-08-31T16:38:52.727521+00:00"
+    "verified_at": "2026-08-31T23:55:53.722457+00:00"
   },
-  "completed_at": "2026-08-31T16:39:53.615721+00:00",
+  "completed_at": "2026-08-31T23:56:55.130209+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -822,8 +822,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-31T16:38:59.517513+00:00",
-    "verified_at": "2026-08-31T16:39:01.648395+00:00",
+    "updated_at": "2026-08-31T23:56:00.353146+00:00",
+    "verified_at": "2026-08-31T23:56:02.448262+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -1723,7 +1723,7 @@
     "missing_canonical_links": 12,
     "preserved_auxiliary_links": 4,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-31T16:39:20.201279+00:00"
+    "verified_at": "2026-08-31T23:56:20.164627+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2885,9 +2885,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2897,9 +2897,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2909,7 +2909,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2919,9 +2919,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2931,9 +2931,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-semantic"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle24-process"
         ],
         "returncode": 0,
         "stderr": "",
@@ -3154,12 +3154,24 @@
     {
       "finding": "BAT contains issues outside the canonical import set: BAT-674:POST-TASK-2026-WEEK-ZERO-OFFICIAL-FINAL-SCORING-001, BAT-675:POST-TASK-2026-CYCLE21-AUTHORITY-PURITY-HARDENING-001",
       "recorded_at": "2026-08-31T09:14:52.452929+00:00"
+    },
+    {
+      "finding": "Auxiliary Jira issue BAT-679 status drifted",
+      "recorded_at": "2026-08-31T23:50:09.265806+00:00"
+    },
+    {
+      "finding": "Auxiliary Jira issue BAT-683 summary drifted",
+      "recorded_at": "2026-08-31T23:52:35.679796+00:00"
+    },
+    {
+      "finding": "Live Jira verification failed: duplicate immutable snapshot for BAT-523/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "recorded_at": "2026-08-31T23:54:03.825844+00:00"
     }
   ],
   "operational_status_reconciliation": {
     "changed_count": 0,
     "changes": [],
-    "completed_at": "2026-08-31T16:38:57.074780+00:00",
+    "completed_at": "2026-08-31T23:55:58.128906+00:00",
     "inspected_non_done_issues": 408,
     "status": "COMPLETE"
   },
@@ -3197,13 +3209,13 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 3,
+      "changes": 0,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
       "rows": 494
     },
     "live": {
-      "changed_issues": 3,
+      "changed_issues": 0,
       "conflict_count": 0,
       "result": "PASS",
       "rows": 494,
@@ -3288,7 +3300,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-31T16:39:53.615721+00:00",
+  "updated_at": "2026-08-31T23:56:55.130209+00:00",
   "verification": {
     "actual_expected_link_count": 1151,
     "auxiliary_actual_count": 120,
@@ -3297,8 +3309,8 @@
       "Task": 120
     },
     "auxiliary_status_counts": {
-      "Done": 114,
-      "In Progress": 6
+      "Done": 119,
+      "In Progress": 1
     },
     "board": {
       "filter_id": "10134",
@@ -3373,8 +3385,8 @@
     "result": "PASS",
     "schema_version": 2,
     "status_counts": {
-      "Done": 200,
-      "In Progress": 6,
+      "Done": 205,
+      "In Progress": 1,
       "To Do": 408
     },
     "total_actual_issue_count": 614,
@@ -3386,14 +3398,14 @@
       "Task": 321
     },
     "total_status_counts": {
-      "Done": 200,
-      "In Progress": 6,
+      "Done": 205,
+      "In Progress": 1,
       "To Do": 408
     },
     "unexpected_issue_keys": [],
     "unexpected_issue_type_counts": {},
     "unexpected_link_count": 0,
     "unexpected_status_counts": {},
-    "verified_at": "2026-08-31T16:39:20.201279+00:00"
+    "verified_at": "2026-08-31T23:56:20.164627+00:00"
   }
 }

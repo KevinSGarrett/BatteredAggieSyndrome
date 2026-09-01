@@ -1,0 +1,228 @@
+{
+  "artifact_type": "CYCLE25_MATERIAL_OWNERSHIP_REGISTRY",
+  "assignments": [
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "artifacts/forecast/week1_2026_cycle24_binding_review_gate.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "artifacts/forecast/week1_2026_forecast_input_binding_successor_gate.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "artifacts/jira_evidence/POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/artifact_binding_contract.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/codex_usage_interlock_change_manifest.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/cycle24_material_ownership_registry.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/cycle25_material_ownership_registry.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/unified_assistive_change_routing_binding.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "configs/week1_2026_cycle24_binding_review_contract.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "configs/week1_2026_early_market_source_registry.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "configs/week1_2026_forecast_input_binding_successor_contract.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "configs/week1_2026_market_benchmark_and_adequacy_contract.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/CURRENT_TREE.txt"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/PROJECT_FILE_HASHES.sha256"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/PROJECT_FILE_MANIFEST.csv"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "src/aggie_analytics/validation/protected_hash_labels.py"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "tests/test_cycle23_routing_manifest_coverage.py"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "tests/test_cycle24_routing_manifest_coverage.py"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "tests/test_cycle25_routing_manifest_coverage.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tests/test_tamu_2010_2011_season_reconciliation.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tests/test_week1_2026_forecast_input_binding_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tests/test_week1_2026_market_benchmark_and_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/build_week1_2026_forecast_input_binding_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/build_week1_2026_market_benchmark_and_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_protected_hash_labels.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_a_and_m_packet.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_cycle25_final.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_forecast_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_forecast_input_binding_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_historical_current_feature_equivalence.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_market_benchmark_and_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_market_consensus.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_market_crosswalk.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_market_source_acquisition.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_market_surfaces.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_moneyline_devig.py"
+    }
+  ],
+  "owners": {
+    "BAT-686": {
+      "local_issue_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+      "scope": "Correct Week 1 model feature-authority, training-equivalence, and candidate-readiness bindings without rewriting frozen Cycle #24 forecasts, and freeze PRE_MARKET_MODEL_FREEZE before market access"
+    },
+    "BAT-687": {
+      "local_issue_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+      "scope": "Acquire identity-bound Week 1 EARLY_MARKET snapshots, crosswalk them to the BAT-676/BAT-677 universe, build a separate market-consensus benchmark, and emit national and A and M forecast-adequacy decisions against the pre-market-frozen Cycle #25 successor without rewriting Cycle #24 forecasts"
+    }
+  },
+  "predecessor_commit": "991bf4666fa6d60921448113939300c121250278",
+  "process_only_classifications": [
+    "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+    "PROCESS_ONLY_GENERATED_PROVENANCE",
+    "PROCESS_ONLY_ROUTING_INTERLOCK"
+  ],
+  "purpose": "Assign every Cycle #25 changed path to exactly one declared material owner, or classify it as process-only/generated.",
+  "schema_version": 1
+}

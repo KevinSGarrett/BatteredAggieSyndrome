@@ -1,0 +1,145 @@
+{
+  "artifact_type": "WEEK1_2026_MARKET_BENCHMARK_AND_ADEQUACY_GATE",
+  "binding_identity": "ab1bda0ce21f187a7b1e98e8f31d0e52dc681fe16c7827a31e18b9d1b5947e18",
+  "cfbd": {
+    "credential_presence": "PRESENT",
+    "disposition": "STRUCTURED_ROWS_CAPTURED",
+    "public_uri": "https://api.collegefootballdata.com/lines",
+    "raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\cycle25_early_market\\cfbd_lines\\sha256_6a53f4c55e0e3e3e6245d6e769d7745d01610ffc257f672ece379fac1ff52af7.json",
+    "raw_sha256": "6a53f4c55e0e3e3e6245d6e769d7745d01610ffc257f672ece379fac1ff52af7",
+    "replayed": true,
+    "route": "CFBD-GetLines"
+  },
+  "checkpoints": {
+    "checkpoint_id": "EARLY_MARKET",
+    "cycle24_forecasts_rewritten": false,
+    "executed_early": false,
+    "t_minus_24h_state": "OPEN",
+    "t_minus_90m_state": "OPEN",
+    "week1_outcome_access": false
+  },
+  "classification": "WEEK1_2026_EARLY_MARKET_BENCHMARK_AND_FORECAST_ADEQUACY",
+  "code_identity": "5fc8de2da7f1bc385e4cd76721d8bb50daea90a7c162e6c56c0426e114a8c290",
+  "contract_id": "CYCLE25-WEEK1-2026-MARKET-BENCHMARK-AND-ADEQUACY-V1",
+  "contract_sha256": "8c4d01823db596365fc5a165bfd945c87c2ceb6a25166af09c721da3043b0359",
+  "credentials": {
+    "CFBD_API_KEY": "PRESENT",
+    "ODDS_API_KEY": "ABSENT",
+    "SCRAPERAPI_API_TOKEN": "PRESENT",
+    "SCRAPFLY_API_TOKEN": "PRESENT",
+    "dotenv_path_exists": true,
+    "dotenv_path_recorded": "C:\\BatteredAggieSyndrome\\.env",
+    "secret_values_recorded": false
+  },
+  "cycle24_preservation": {
+    "early_forecast_row_count": 455,
+    "rewritten": false
+  },
+  "dataset_identity": "40aee2f1c40f88c2b9c416a5555c8398c4214540c6516dba8dae2f910752407a",
+  "decision_unit": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+  "focus_packet_identity": "bcae274c3b3f9705bf58ac7c3e598ad66b14fb311a7065f3f3e7cf1fa6cd3d88",
+  "gate_identity": "e5cb14c59a5d61c3aa0337a204e11ae68e1dec20e1eb80f845211892aec8071e",
+  "issued_at_utc": "2026-09-01T06:00:00Z",
+  "jira_key": "BAT-687",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+  "national": {
+    "adequacy_counts": {
+      "ABSTAIN_MISSING_REQUIRED_FEATURES": 4,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 40,
+      "LIMITED_STALE_INPUT_SHADOW_ONLY": 336,
+      "MARKET_REFERENCE_UNAVAILABLE": 9,
+      "REVIEW_REQUIRED_MODEL_MARKET_DISAGREEMENT": 51
+    },
+    "authority_mismatch_count": 0,
+    "consensus_count": 0,
+    "cycle24_forecast_coverage": 455,
+    "directional_disagreement_count": 18,
+    "insufficient_coverage_count": 78,
+    "market_covered_count": 37,
+    "market_missing_count": 54,
+    "matched_quote_count": 56,
+    "quote_count": 236,
+    "saturation_count": 0,
+    "single_source_count": 13,
+    "t_minus_24h_state": "OPEN",
+    "t_minus_90m_state": "OPEN",
+    "week1_contest_count": 91
+  },
+  "odds_disposition": {
+    "credential_presence": "ABSENT",
+    "disposition": "CREDENTIAL_ABSENT_ROUTE_NOT_ATTEMPTED",
+    "fallback_reason": null,
+    "route": "THE-ODDS-API-ODDS"
+  },
+  "parent_jira_key": "BAT-523",
+  "payloads": [
+    {
+      "bytes": 245015,
+      "name": "week1_2026_early_market_quotes.jsonl",
+      "role": "EARLY_MARKET_QUOTES",
+      "rows": 236,
+      "sha256": "fed4ac8a2fb5bf51215744bb488af1c0c77c788bc4697ba88518ab15c7f89cd8"
+    },
+    {
+      "bytes": 77763,
+      "name": "week1_2026_early_market_crosswalk_matched.jsonl",
+      "role": "EARLY_MARKET_CROSSWALK_MATCHED",
+      "rows": 56,
+      "sha256": "3eecc3650c48c8d466073b13fe0fe11644705c19ba3023b103a996cf16093c1b"
+    },
+    {
+      "bytes": 45083,
+      "name": "week1_2026_early_market_consensus.jsonl",
+      "role": "EARLY_MARKET_CONSENSUS",
+      "rows": 91,
+      "sha256": "a86742a473dacc47428631730c6adbac1ae2df8770e9fad69a5202136ce6db79"
+    },
+    {
+      "bytes": 277146,
+      "name": "week1_2026_c25_forecast_adequacy_rows.jsonl",
+      "role": "CYCLE25_FORECAST_ADEQUACY",
+      "rows": 440,
+      "sha256": "5463828073e5086e1f82dee895c9052fc4d4e7ed617e666b6b612fae290a9a50"
+    },
+    {
+      "bytes": 6277,
+      "name": "week1_2026_c25_a_and_m_packet.jsonl",
+      "role": "CYCLE25_A_AND_M_PACKET",
+      "rows": 1,
+      "sha256": "85b352902658ab9c56448b7fafa27d0773159f5d6e4454bc260af489cec91200"
+    }
+  ],
+  "pre_market_model_freeze_identity": "b92ec594d38cb879293c957aa59333bc7e1a568bbc15ea67822329ac9ff19556",
+  "producer": {
+    "platform": "Windows",
+    "python": "3.11.9"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_WEEK1_2026_EARLY_MARKET_BENCHMARK_AND_ADEQUACY",
+  "schema_version": "aggie.shadow.week1_2026_market_benchmark_and_adequacy.v1",
+  "scientific_nonclaims": {
+    "a_and_m_adjustment": false,
+    "bas_or_aggie_excess_claim": false,
+    "champion_or_production_promotion": false,
+    "hardcoded_a_and_m_market_threshold": false,
+    "market_enters_calibration": false,
+    "market_enters_model_fitting": false,
+    "market_replaces_independent_probability": false,
+    "roughly_40_point_spread_assumed": false,
+    "spread_converted_to_exact_win_probability": false
+  },
+  "snapshot_id": "EARLY_MARKET",
+  "web_fallback": {
+    "credential_presence": {
+      "SCRAPERAPI_API_TOKEN": "PRESENT",
+      "SCRAPFLY_API_TOKEN": "PRESENT"
+    },
+    "disposition": "NOT_USED",
+    "reason": "Structured CFBD route was attempted first; web fallback is not used merely because it is convenient, and no explicit public sportsbook URL is authorized beyond the structured attempt disposition.",
+    "route": "PUBLIC-PAGE-CAPTURE",
+    "structured_route_unavailable": false,
+    "used": false,
+    "why_structured_unavailable": "STRUCTURED_ROWS_CAPTURED"
+  }
+}

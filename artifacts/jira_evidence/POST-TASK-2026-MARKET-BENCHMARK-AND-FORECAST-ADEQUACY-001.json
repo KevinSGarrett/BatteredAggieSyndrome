@@ -1,0 +1,149 @@
+{
+  "canonical_gate_identity": "e5cb14c59a5d61c3aa0337a204e11ae68e1dec20e1eb80f845211892aec8071e",
+  "canonical_gate_path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json",
+  "completeness_claimed": false,
+  "created_at_utc": "2026-09-01T06:00:00Z",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "issue_complete": false,
+  "jira_key": "BAT-687",
+  "local_issue_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "Cycle #25 EARLY_MARKET benchmark and forecast-adequacy gate independently reconstruct; T-24H and T-90M remain OPEN; Cycle #24 forecasts are unchanged; PRE_MARKET_MODEL_FREEZE precedes market capture.",
+  "outputs": [
+    {
+      "path": "artifacts/forecast/week1_2026_cycle24_binding_review_gate.json",
+      "sha256": "324fb627878cd154a5435f96778c3959f50a1ec65e918b34610e2630a776453a"
+    },
+    {
+      "path": "artifacts/forecast/week1_2026_forecast_input_binding_successor_gate.json",
+      "sha256": "273e762ca2195a185fd424071e323f868ff6ecb1973f0c279a7f37f4678a6cce"
+    },
+    {
+      "path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json",
+      "sha256": "9c827ebf250946c2e175527f1564c661d6619d35e53c2d521dcd56fa6d7ba7b8"
+    },
+    {
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001.json",
+      "sha256": "e34d3ea0608c60bce30dad40b6dae6012bfafc1a0c8906c3be520490399283c5"
+    },
+    {
+      "path": "configs/week1_2026_cycle24_binding_review_contract.json",
+      "sha256": "1c1075bdaaadf7458c545f4c778208a59c26c6c628e422f805a017e05f87b797"
+    },
+    {
+      "path": "configs/week1_2026_early_market_source_registry.json",
+      "sha256": "9e837cd765e9a0a1a80fed79e9639205de2fce23b61dd2d8a3712ca1f6cc40df"
+    },
+    {
+      "path": "configs/week1_2026_forecast_input_binding_successor_contract.json",
+      "sha256": "0a5d79d802be0e0d25048a5c320f3fcf978969d10a3345fc3cb584e88a565036"
+    },
+    {
+      "path": "configs/week1_2026_market_benchmark_and_adequacy_contract.json",
+      "sha256": "8c4d01823db596365fc5a165bfd945c87c2ceb6a25166af09c721da3043b0359"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py",
+      "sha256": "b6b811dab1782341e232969bfe39f7e346d7215bc9d573ee622ce4bec5c2e1ef"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py",
+      "sha256": "5fc8de2da7f1bc385e4cd76721d8bb50daea90a7c162e6c56c0426e114a8c290"
+    },
+    {
+      "path": "src/aggie_analytics/validation/protected_hash_labels.py",
+      "sha256": "d8ca067dcd347cfbe19f73272ff2cc598edf055b93c95ad53bd612be6546d8b8"
+    },
+    {
+      "path": "tests/test_tamu_2010_2011_season_reconciliation.py",
+      "sha256": "e8c3c3dceec92ed078dbe3e5a94aab2a155ed44d85d89f6233254059b0ab7642"
+    },
+    {
+      "path": "tests/test_week1_2026_forecast_input_binding_successor.py",
+      "sha256": "2f0e4d9de58c15a49af23f0792b4ef480bb4fabca9159a215a36c623643bca3c"
+    },
+    {
+      "path": "tests/test_week1_2026_market_benchmark_and_adequacy.py",
+      "sha256": "cdb5c805f31995dfc983141c04d068e81c4d42922cabe827008323f80aa8f8b8"
+    },
+    {
+      "path": "tools/build_week1_2026_forecast_input_binding_successor.py",
+      "sha256": "afa83a1888ef4663eff6946912ec981cdf2e094f482aa1b6584cf1c5d00dcd47"
+    },
+    {
+      "path": "tools/build_week1_2026_market_benchmark_and_adequacy.py",
+      "sha256": "499f039b43f093778cdbf57285433841c7e6efe7e6d8e1427ed3ddef6f16de8c"
+    },
+    {
+      "path": "tools/validate_protected_hash_labels.py",
+      "sha256": "f919278f13d519ec853b5a98cdfe4fe144f69c0d0afb57591c38811c8a1be5cd"
+    },
+    {
+      "path": "tools/validate_week1_2026_a_and_m_packet.py",
+      "sha256": "8342d112d74fe436156bbfcb8c9aa93ac596e9962462166f44fcabb6a6681bf4"
+    },
+    {
+      "path": "tools/validate_week1_2026_cycle25_final.py",
+      "sha256": "a06edb7f02488567b1a3bc4f2f971f1ea13b312813a62dff368e9c97666a54da"
+    },
+    {
+      "path": "tools/validate_week1_2026_forecast_adequacy.py",
+      "sha256": "012cec1e642747fe1d9b6f943897491f21dc384b587202d8aa5fce5194789cd0"
+    },
+    {
+      "path": "tools/validate_week1_2026_forecast_input_binding_successor.py",
+      "sha256": "b1ae010df558cce3b35237ca221a76544abcf0fcd157513a757eaacd12c2ce01"
+    },
+    {
+      "path": "tools/validate_week1_2026_historical_current_feature_equivalence.py",
+      "sha256": "a05b454d9d2903a3bd90fce288c268622a5161469da907b5d8321d77e5d29160"
+    },
+    {
+      "path": "tools/validate_week1_2026_market_benchmark_and_adequacy.py",
+      "sha256": "f603cc418d65ff5ccc817f75983910a170f7a7fb2fa208f96ca253804081f877"
+    },
+    {
+      "path": "tools/validate_week1_2026_market_consensus.py",
+      "sha256": "1ff67308eb3beebb314acb463a6b00892635911c7bee2e5823fd8862390afaa1"
+    },
+    {
+      "path": "tools/validate_week1_2026_market_crosswalk.py",
+      "sha256": "7407cac44d856a6871666270827247a9017f318ea78fa8a7568ca7442418a4b2"
+    },
+    {
+      "path": "tools/validate_week1_2026_market_source_acquisition.py",
+      "sha256": "7b2940e5941f03685d11d00a912285987b56a0714659792e4a0c220ba28bce86"
+    },
+    {
+      "path": "tools/validate_week1_2026_market_surfaces.py",
+      "sha256": "cf16b0e544ffdd2d0e814aeced1bec645ced79d44524e24b86896a0faa9fc5fe"
+    },
+    {
+      "path": "tools/validate_week1_2026_moneyline_devig.py",
+      "sha256": "5e20dc806f3405926104c3434fba78ca117ed9ea4c11c1ee4f54648107dc39cf"
+    }
+  ],
+  "parent_jira_key": "BAT-523",
+  "related_jira_keys": [
+    "BAT-399",
+    "BAT-400",
+    "BAT-523",
+    "BAT-655",
+    "BAT-657",
+    "BAT-658",
+    "BAT-659",
+    "BAT-668",
+    "BAT-679",
+    "BAT-680",
+    "BAT-681",
+    "BAT-682",
+    "BAT-683",
+    "BAT-685",
+    "BAT-686"
+  ],
+  "schema_version": "2.1.0",
+  "superseded_identities": [],
+  "workflow_state": "IN_REVIEW"
+}

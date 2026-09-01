@@ -1,0 +1,346 @@
+{
+  "artifact_type": "WEEK1_2026_CYCLE24_BINDING_REVIEW_GATE",
+  "checkpoints": {
+    "executed_early": false,
+    "market_values_inspected": false,
+    "t_minus_24h_state": "OPEN",
+    "t_minus_90m_state": "OPEN"
+  },
+  "classification": "WEEK1_2026_CYCLE24_MODEL_INPUT_BINDING_REVIEW",
+  "contract_id": "CYCLE25-WEEK1-2026-CYCLE24-BINDING-REVIEW-V1",
+  "cycle24_preservation": {
+    "early_gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
+    "forecast_row_count": 455,
+    "forecast_row_identity_sha256": "f1469f69966d94f35c8ae047b97f5a99057733fe6e90dcbbeb1ddbea62f129ea",
+    "frozen_row_count": 399,
+    "prior_gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
+    "rewritten": false,
+    "suite_gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366"
+  },
+  "decision_unit": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+  "findings": [
+    {
+      "disposition": "CONFIRMED",
+      "evidence": {
+        "elo_family_consumes_opening_rating": true,
+        "fitted_scopes": [
+          "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+          "ALL_ADMITTED_FEATURES"
+        ],
+        "opening_rating_in_fitted_design_matrix": false,
+        "opening_rating_present_on_week1_rows": true
+      },
+      "finding_id": "A_OPENING_RATING_NOT_CONSUMED_BY_FITTED_MODELS"
+    },
+    {
+      "controlling_authority": "prior_admitted",
+      "disposition": "CONFIRMED",
+      "evidence": {
+        "effective_admission_state": "PRIOR_ADMITTED_OVERRIDES_SPINE_DOMAIN_LABEL",
+        "rows_prior_admitted_while_domain_source_evidence_absent": 169
+      },
+      "finding_id": "B_STRENGTH_PRIOR_DOMAIN_STATE_CONTRADICTION"
+    },
+    {
+      "bat683_promoted_ranking_surface": true,
+      "disposition": "CONFIRMED",
+      "evidence": {
+        "cycle24_rows_rewritten": false,
+        "rows_with_absent_or_candidate_only_domain_and_rankings_source_available_true": 182
+      },
+      "finding_id": "C_RANKING_CANDIDATE_ONLY_CONSUMPTION",
+      "successor_effective_authority": "EFFECTIVE_AUTHORITY_ADMITTED_BOUND_TO_BAT_683"
+    },
+    {
+      "disposition": "CONFIRMED",
+      "evidence": {
+        "all_week1_rows_hardcoded_true": true,
+        "separate_surface_states_required": true
+      },
+      "finding_id": "D_RANKINGS_SOURCE_AVAILABLE_CONSTANT",
+      "historical_analogue": "poll_snapshot_present_for_the_week"
+    },
+    {
+      "disposition": "CONFIRMED",
+      "evidence": {
+        "all_oriented_rows_principal_performance_features_none": true,
+        "fitted_rows_marked_ready": 474,
+        "learned_missingness_is_not_material_presence": true
+      },
+      "finding_id": "E_DOMAIN_READY_BUT_REQUIRED_FIELDS_MISSING"
+    },
+    {
+      "disposition": "CONFIRMED",
+      "evidence": {
+        "brier": 0.17799208,
+        "calibration_intercept": -0.01607343,
+        "calibration_slope": 1.02407006,
+        "candidate_id": "national_margin_ridge",
+        "changed_because_of_a_and_m_or_market_or_week1_outcome": false,
+        "clip": [
+          0.001,
+          0.999
+        ],
+        "development_row_count": 1820,
+        "expected_margin_mean": 0.18026772,
+        "expected_margin_stdev": 16.66795952,
+        "log_loss": 0.52480356,
+        "mapping_changed": false,
+        "margin_mae": 13.71934582,
+        "probability_max": 0.99729433,
+        "probability_mean": 0.50281317,
+        "probability_min": 0.00242666,
+        "proportion_above_0_99": 0.00549451,
+        "proportion_at_or_beyond_clip": 0.0,
+        "proportion_below_0_01": 0.00604396,
+        "reliability_bins": [
+          {
+            "bin_index": 0,
+            "lower": 0.0,
+            "mean_predicted": 0.0501133,
+            "observed_rate": 0.04225352,
+            "rows": 142,
+            "upper": 0.1
+          },
+          {
+            "bin_index": 1,
+            "lower": 0.1,
+            "mean_predicted": 0.15350487,
+            "observed_rate": 0.13605442,
+            "rows": 147,
+            "upper": 0.2
+          },
+          {
+            "bin_index": 2,
+            "lower": 0.2,
+            "mean_predicted": 0.24576227,
+            "observed_rate": 0.23295455,
+            "rows": 176,
+            "upper": 0.3
+          },
+          {
+            "bin_index": 3,
+            "lower": 0.3,
+            "mean_predicted": 0.34988686,
+            "observed_rate": 0.36057692,
+            "rows": 208,
+            "upper": 0.4
+          },
+          {
+            "bin_index": 4,
+            "lower": 0.4,
+            "mean_predicted": 0.45126132,
+            "observed_rate": 0.42386831,
+            "rows": 243,
+            "upper": 0.5
+          },
+          {
+            "bin_index": 5,
+            "lower": 0.5,
+            "mean_predicted": 0.54760771,
+            "observed_rate": 0.58411215,
+            "rows": 214,
+            "upper": 0.6
+          },
+          {
+            "bin_index": 6,
+            "lower": 0.6,
+            "mean_predicted": 0.64891282,
+            "observed_rate": 0.65104167,
+            "rows": 192,
+            "upper": 0.7
+          },
+          {
+            "bin_index": 7,
+            "lower": 0.7,
+            "mean_predicted": 0.74911241,
+            "observed_rate": 0.76595745,
+            "rows": 188,
+            "upper": 0.8
+          },
+          {
+            "bin_index": 8,
+            "lower": 0.8,
+            "mean_predicted": 0.84610901,
+            "observed_rate": 0.78106509,
+            "rows": 169,
+            "upper": 0.9
+          },
+          {
+            "bin_index": 9,
+            "lower": 0.9,
+            "mean_predicted": 0.95139489,
+            "observed_rate": 0.9858156,
+            "rows": 141,
+            "upper": 1.0
+          }
+        ]
+      },
+      "finding_id": "F_RIDGE_MARGIN_TO_PROBABILITY_SATURATION",
+      "mapping_changed": false
+    },
+    {
+      "cycle24_report_mislabeled_json_hash_as_governance_csv_hash": true,
+      "disposition": "CONFIRMED",
+      "evidence": {
+        "config_json_sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758",
+        "expected_config_json_sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758",
+        "expected_governance_csv_sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356",
+        "governance_csv_sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356",
+        "hashes_match_distinct_expected_values": true
+      },
+      "finding_id": "G_PROTECTED_HASH_LABEL_DRIFT"
+    },
+    {
+      "disposition": "CONFIRMED",
+      "finding_id": "H_FULL_SUITE_SIDEARM_FIXTURE_CAVEAT",
+      "remediation": "Skip rebuild when Sidearm schedule HTML is absent from the resolved data root",
+      "reproduced_on_starting_main": true,
+      "test_id": "tests.test_tamu_2010_2011_season_reconciliation.SeasonReconciliationMutationTests.test_rebuild_matches_when_lake_present",
+      "trigger": "AGGIE_ANALYTICS_DATA_ROOT present but empty string resolves to Path('.')"
+    },
+    {
+      "abstained_row_count": 56,
+      "disposition": "CONFIRMED",
+      "finding_id": "CYCLE24_FORECAST_PRESERVATION",
+      "frozen_row_count": 399,
+      "rewritten": false
+    }
+  ],
+  "gate_identity": "ebd479054082b5b960d01df4c92bc1e7e38d9fd03e839aea7483228df91ba5bb",
+  "issued_at_utc": "2026-09-01T05:00:00Z",
+  "jira_key": "BAT-686",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+  "parent_jira_key": "BAT-523",
+  "protected_hash_labels": {
+    "judging_rule_seal_json_path": "configs/judging_rule_seal.json",
+    "judging_rule_seal_json_sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758",
+    "protected_judging_rule_seal_csv_path": "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "protected_judging_rule_seal_csv_sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356",
+    "protected_split_registry_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_WEEK1_2026_CYCLE24_BINDING_REVIEW",
+  "ridge_saturation_audit": {
+    "brier": 0.17799208,
+    "calibration_intercept": -0.01607343,
+    "calibration_slope": 1.02407006,
+    "candidate_id": "national_margin_ridge",
+    "changed_because_of_a_and_m_or_market_or_week1_outcome": false,
+    "clip": [
+      0.001,
+      0.999
+    ],
+    "development_row_count": 1820,
+    "expected_margin_mean": 0.18026772,
+    "expected_margin_stdev": 16.66795952,
+    "log_loss": 0.52480356,
+    "mapping_changed": false,
+    "margin_mae": 13.71934582,
+    "probability_max": 0.99729433,
+    "probability_mean": 0.50281317,
+    "probability_min": 0.00242666,
+    "proportion_above_0_99": 0.00549451,
+    "proportion_at_or_beyond_clip": 0.0,
+    "proportion_below_0_01": 0.00604396,
+    "reliability_bins": [
+      {
+        "bin_index": 0,
+        "lower": 0.0,
+        "mean_predicted": 0.0501133,
+        "observed_rate": 0.04225352,
+        "rows": 142,
+        "upper": 0.1
+      },
+      {
+        "bin_index": 1,
+        "lower": 0.1,
+        "mean_predicted": 0.15350487,
+        "observed_rate": 0.13605442,
+        "rows": 147,
+        "upper": 0.2
+      },
+      {
+        "bin_index": 2,
+        "lower": 0.2,
+        "mean_predicted": 0.24576227,
+        "observed_rate": 0.23295455,
+        "rows": 176,
+        "upper": 0.3
+      },
+      {
+        "bin_index": 3,
+        "lower": 0.3,
+        "mean_predicted": 0.34988686,
+        "observed_rate": 0.36057692,
+        "rows": 208,
+        "upper": 0.4
+      },
+      {
+        "bin_index": 4,
+        "lower": 0.4,
+        "mean_predicted": 0.45126132,
+        "observed_rate": 0.42386831,
+        "rows": 243,
+        "upper": 0.5
+      },
+      {
+        "bin_index": 5,
+        "lower": 0.5,
+        "mean_predicted": 0.54760771,
+        "observed_rate": 0.58411215,
+        "rows": 214,
+        "upper": 0.6
+      },
+      {
+        "bin_index": 6,
+        "lower": 0.6,
+        "mean_predicted": 0.64891282,
+        "observed_rate": 0.65104167,
+        "rows": 192,
+        "upper": 0.7
+      },
+      {
+        "bin_index": 7,
+        "lower": 0.7,
+        "mean_predicted": 0.74911241,
+        "observed_rate": 0.76595745,
+        "rows": 188,
+        "upper": 0.8
+      },
+      {
+        "bin_index": 8,
+        "lower": 0.8,
+        "mean_predicted": 0.84610901,
+        "observed_rate": 0.78106509,
+        "rows": 169,
+        "upper": 0.9
+      },
+      {
+        "bin_index": 9,
+        "lower": 0.9,
+        "mean_predicted": 0.95139489,
+        "observed_rate": 0.9858156,
+        "rows": 141,
+        "upper": 1.0
+      }
+    ]
+  },
+  "schema_version": "aggie.shadow.week1_2026_forecast_input_binding_successor.v1",
+  "scientific_nonclaims": {
+    "a_and_m_adjustment": false,
+    "bas_or_aggie_excess_claim": false,
+    "champion_or_production_promotion": false,
+    "cycle24_forecasts_rewritten": false,
+    "judging_rule_seal_mutation": false,
+    "market_values_inspected": false,
+    "old_candidate_id_reused_with_new_semantics": false,
+    "opening_rating_inserted_into_fitted_models": false,
+    "protected_split_registry_mutation": false,
+    "t_24h_executed": false,
+    "t_90m_executed": false,
+    "week1_outcome_access": false
+  }
+}

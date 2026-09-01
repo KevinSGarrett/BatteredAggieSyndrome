@@ -4861,6 +4861,105 @@
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_WEEK1_2026_EARLY_FORECAST_ADEQUACY"
       }
+    },
+    {
+      "binding_id": "BAT-686-WEEK1-2026-FORECAST-INPUT-BINDING-SUCCESSOR",
+      "bound_child_identities": {
+        "code_identity": "b6b811dab1782341e232969bfe39f7e346d7215bc9d573ee622ce4bec5c2e1ef",
+        "dataset_identity": "b27047fbf9530bfb20fdf0512e858173df9a5093524da95a959e16f0839bba23"
+      },
+      "canonical_artifact_path": "artifacts/forecast/week1_2026_forecast_input_binding_successor_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": {
+            "gate_identity": "canonical_gate_identity"
+          },
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "scientific_nonclaims.bas_or_aggie_excess_claim",
+        "scientific_nonclaims.champion_or_production_promotion",
+        "scientific_nonclaims.cycle24_forecasts_rewritten",
+        "scientific_nonclaims.market_values_inspected"
+      ],
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-686",
+      "local_issue_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+      "required_equal": {
+        "jira_key": "BAT-686",
+        "local_issue_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_WEEK1_2026_FORECAST_INPUT_BINDING_SUCCESSOR"
+      }
+    },
+    {
+      "binding_id": "BAT-687-WEEK1-2026-MARKET-BENCHMARK-AND-ADEQUACY",
+      "bound_child_identities": {
+        "code_identity": "5fc8de2da7f1bc385e4cd76721d8bb50daea90a7c162e6c56c0426e114a8c290",
+        "dataset_identity": "40aee2f1c40f88c2b9c416a5555c8398c4214540c6516dba8dae2f910752407a",
+        "focus_packet_identity": "bcae274c3b3f9705bf58ac7c3e598ad66b14fb311a7065f3f3e7cf1fa6cd3d88",
+        "pre_market_model_freeze_identity": "b92ec594d38cb879293c957aa59333bc7e1a568bbc15ea67822329ac9ff19556"
+      },
+      "canonical_artifact_path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json",
+      "evidence_surfaces": [
+        {
+          "canonical_to_evidence_paths": {
+            "gate_identity": "canonical_gate_identity"
+          },
+          "current_identity_paths": [
+            "canonical_gate_identity"
+          ],
+          "jira_key_path": "jira_key",
+          "local_issue_id_path": "local_issue_id",
+          "path": "artifacts/jira_evidence/POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001.json",
+          "required_evidence_equal": {
+            "completeness_claimed": false,
+            "evidence_state": "VERIFIED",
+            "parent_jira_key": "BAT-523"
+          },
+          "role": "current"
+        }
+      ],
+      "forbidden_lane_values": [
+        "OPEN",
+        "OPEN_PROTECTED_LANE",
+        "PRODUCTION_READY"
+      ],
+      "forbidden_true_paths": [
+        "scientific_nonclaims.bas_or_aggie_excess_claim",
+        "scientific_nonclaims.champion_or_production_promotion",
+        "scientific_nonclaims.market_enters_model_fitting",
+        "scientific_nonclaims.a_and_m_adjustment",
+        "scientific_nonclaims.roughly_40_point_spread_assumed"
+      ],
+      "identity_field": "gate_identity",
+      "identity_mode": "canonical_json_excluding_identity_field",
+      "jira_key": "BAT-687",
+      "local_issue_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+      "required_equal": {
+        "jira_key": "BAT-687",
+        "local_issue_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+        "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+        "result": "PASS_WEEK1_2026_EARLY_MARKET_BENCHMARK_AND_ADEQUACY"
+      }
     }
   ],
   "contract_id": "ARTIFACT-BINDING-CROSS-SURFACE-V1",

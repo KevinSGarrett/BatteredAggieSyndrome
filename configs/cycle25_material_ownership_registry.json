@@ -74,7 +74,22 @@
     {
       "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
       "owner": null,
+      "path": "jira/project/JIRA_TARGET_PROFILE.yaml"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
       "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json"
     },
     {
       "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
@@ -100,6 +115,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-687",
       "path": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py"
     },
     {
       "kind": "MATERIAL",
@@ -135,6 +155,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-687",
       "path": "tests/test_week1_2026_market_benchmark_and_adequacy.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tests/test_week1_2026_ridge_distribution_coherence.py"
     },
     {
       "kind": "MATERIAL",
@@ -205,6 +230,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-687",
       "path": "tools/validate_week1_2026_moneyline_devig.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-687",
+      "path": "tools/validate_week1_2026_ridge_distribution_coherence.py"
     }
   ],
   "owners": {

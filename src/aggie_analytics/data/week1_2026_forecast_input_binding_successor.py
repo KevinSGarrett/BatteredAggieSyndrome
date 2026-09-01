@@ -12,12 +12,15 @@ from typing import Any, Literal, Mapping, Sequence, assert_never
 import numpy as np
 
 from aggie_analytics.data.national_foundation_reconciliation import (
-    binding_identity,
     canonical_json_bytes,
     sha256_file,
     stable_hash,
 )
+from aggie_analytics.data.week1_2026_ridge_distribution_coherence import (
+    audit_cycle24_ridge_forecast_row,
+)
 from aggie_analytics.modeling import national_expectation_baselines as baselines
+from aggie_analytics.validation.artifact_binding import compute_identity
 
 SCHEMA_VERSION = "aggie.shadow.week1_2026_forecast_input_binding_successor.v1"
 CONTRACT_ID = "CYCLE25-WEEK1-2026-FORECAST-INPUT-BINDING-SUCCESSOR-V1"
@@ -59,6 +62,19 @@ RankingCycle24State = Literal[
 
 class BindingSuccessorViolation(ValueError):
     """Raised when the Cycle #25 binding successor cannot be materialized."""
+
+
+def seal_identities(
+    payload: dict[str, Any],
+    *,
+    identity_field: str = "gate_identity",
+    binding_field: str = "binding_identity",
+) -> dict[str, Any]:
+    payload.pop(identity_field, None)
+    payload.pop(binding_field, None)
+    payload[binding_field] = compute_identity(payload, binding_field)
+    payload[identity_field] = compute_identity(payload, identity_field)
+    return payload
 
 
 def read_json(path: Path) -> Any:
@@ -241,6 +257,7 @@ def classify_cycle24_findings(
     ridge_audit: Mapping[str, Any],
     labels: Mapping[str, str],
     review_contract: Mapping[str, Any],
+    ridge_coherence_audit: Mapping[str, Any],
 ) -> list[dict[str, Any]]:
     fitted_ids = {"prior_only", "national_logistic_l2", "national_margin_ridge"}
     principal = list(contract["principal_performance_features"])
@@ -367,6 +384,15 @@ def classify_cycle24_findings(
             "reproduced_on_starting_main": True,
             "trigger": "AGGIE_ANALYTICS_DATA_ROOT present but empty string resolves to Path('.')",
             "remediation": "Skip rebuild when Sidearm schedule HTML is absent from the resolved data root",
+        },
+        {
+            "finding_id": "I_RIDGE_PROBABILITY_INTERVAL_INCOHERENCE",
+            "disposition": "CONFIRMED",
+            "cycle24_rows_rewritten": False,
+            "mapping_changed": False,
+            "chosen_using_a_and_m_or_market_or_week1_outcome": False,
+            "successor_probability_mapping_changed_after_market": False,
+            "evidence": ridge_coherence_audit,
         },
     ]
     findings.append(
@@ -663,6 +689,69 @@ def build_expected(
     if any(int(row["season"]) in {2024, 2025} for row in matrix_rows):
         raise BindingSuccessorViolation("2024/2025 rows present in development matrix")
 
+    ridge_params = next(
+        row
+        for row in parameter_rows
+        if row["parameter_set_id"] == "NATIONAL_MARGIN_RIDGE_BETA"
+    )
+    early_contract = read_json(
+        repo_root / "configs/week1_2026_early_forecast_adequacy_contract.json"
+    )
+    saturation = contract["pre_market_diagnostic_thresholds"]
+    ridge_coherence_rows = [
+        audit_cycle24_ridge_forecast_row(
+            row,
+            residual_stdev=float(ridge_params["training_residual_stdev"]),
+            logistic_link_scale_divisor=float(
+                ridge_params["logistic_link_scale_divisor"]
+            ),
+            normal_quantile=float(early_contract["uncertainty"]["normal_quantile"]),
+            saturation_low=float(saturation["saturation_low"]),
+            saturation_high=float(saturation["saturation_high"]),
+        )
+        for row in early_rows
+        if row.get("candidate_id") == "national_margin_ridge"
+        and row.get("row_state") == "FORECAST_FROZEN"
+    ]
+    incoherent = [
+        row
+        for row in ridge_coherence_rows
+        if row["adequacy_state"]
+        == "REVIEW_REQUIRED_PROBABILITY_DISTRIBUTION_INCOHERENCE"
+    ]
+    ridge_coherence_audit = {
+        "frozen_ridge_row_count": len(ridge_coherence_rows),
+        "incoherent_row_count": len(incoherent),
+        "coherent_row_count": len(ridge_coherence_rows) - len(incoherent),
+        "can_represent_one_predictive_distribution": len(incoherent) == 0,
+        "probability_formula_emitted": (
+            "logistic(expected_margin_home / logistic_link_scale_divisor)"
+        ),
+        "training_consistent_probability_formula": (
+            "logistic(expected_margin_home / (training_residual_stdev / "
+            "logistic_link_scale_divisor))"
+        ),
+        "interval_formula": (
+            "expected_margin_home ± normal_quantile * training_residual_stdev"
+        ),
+        "interval_implied_home_win_probability": (
+            "Phi(expected_margin_home / training_residual_stdev)"
+        ),
+        "training_residual_stdev": float(ridge_params["training_residual_stdev"]),
+        "logistic_link_scale_divisor": float(
+            ridge_params["logistic_link_scale_divisor"]
+        ),
+        "normal_quantile": float(early_contract["uncertainty"]["normal_quantile"]),
+        "cycle24_forecast_row_identities_unchanged": True,
+        "new_fitted_probability_successor_after_market_blocked": True,
+        "block_reason": (
+            "Cycle #25 successor already uses the training-consistent "
+            "link_scale = residual_stdev / logistic_link_scale_divisor; a new "
+            "fitted probability mapping is not created from Cycle #24 "
+            "incoherence, A&M, market evidence, or Week 1 outcomes."
+        ),
+    }
+
     ridge_audit = ridge_saturation_audit(predictions, clip=contract["probability_clip"])
     findings = classify_cycle24_findings(
         contract=contract,
@@ -672,6 +761,7 @@ def build_expected(
         ridge_audit=ridge_audit,
         labels=labels,
         review_contract=review_contract,
+        ridge_coherence_audit=ridge_coherence_audit,
     )
     frozen_identities = sorted(row["forecast_row_identity"] for row in early_rows)
     terminal = terminal_prior_index(matrix_rows)
@@ -981,8 +1071,7 @@ def build_review_gate(
             "market_values_inspected": False,
         },
     }
-    review["gate_identity"] = binding_identity(review, "gate_identity")
-    return review
+    return seal_identities(review)
 
 
 def build_successor_gate(
@@ -1017,9 +1106,7 @@ def build_successor_gate(
             "predecessor_artifacts_rewritten_in_place": False,
         },
     }
-    gate["gate_identity"] = binding_identity(gate, "gate_identity")
-    gate["binding_identity"] = binding_identity(gate, "binding_identity")
-    return gate
+    return seal_identities(gate)
 
 
 def materialize(
@@ -1096,10 +1183,7 @@ def materialize(
         "platform": platform.system(),
         "code_identity": resolved["code_identity"],
     }
-    successor_gate["gate_identity"] = binding_identity(successor_gate, "gate_identity")
-    successor_gate["binding_identity"] = binding_identity(
-        successor_gate, "binding_identity"
-    )
+    seal_identities(successor_gate)
 
     review_path = repo_root / REVIEW_GATE_RELATIVE
     successor_path = repo_root / GATE_RELATIVE

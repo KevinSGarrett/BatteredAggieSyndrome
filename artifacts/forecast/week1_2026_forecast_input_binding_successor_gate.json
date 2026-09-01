@@ -1,6 +1,6 @@
 {
   "artifact_type": "WEEK1_2026_FORECAST_INPUT_BINDING_SUCCESSOR_GATE",
-  "binding_identity": "1523e36aa04cf99d3941d4d408decd2778caaca798cfbca3846dd1eb7fca4dfe",
+  "binding_identity": "a06c69c1898ddbc9465f6528b02349742194de78db5051154839ff4813bcd326",
   "bound_predecessors": {
     "early_gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
     "predecessor_artifacts_rewritten_in_place": false,
@@ -16,7 +16,7 @@
     "week1_outcome_access": false
   },
   "classification": "WEEK1_2026_FORECAST_INPUT_BINDING_SUCCESSOR",
-  "code_identity": "b6b811dab1782341e232969bfe39f7e346d7215bc9d573ee622ce4bec5c2e1ef",
+  "code_identity": "7fc7e3a3a56bfb8c132979fe0ac21c7025b89343ce463346b19316103093a174",
   "contract_id": "CYCLE25-WEEK1-2026-FORECAST-INPUT-BINDING-SUCCESSOR-V1",
   "contract_sha256": "0a5d79d802be0e0d25048a5c320f3fcf978969d10a3345fc3cb584e88a565036",
   "cycle24_preservation": {
@@ -28,9 +28,9 @@
     "rewritten": false,
     "suite_gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366"
   },
-  "dataset_identity": "b27047fbf9530bfb20fdf0512e858173df9a5093524da95a959e16f0839bba23",
+  "dataset_identity": "91fa82144bb76d75bbfc67d98141cfdd8d5825a5c1b5e657639c9a2b4c693730",
   "decision_unit": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
-  "gate_identity": "79a7b393e462403edfe662e9ca732e216a38d4c3656bc75913a025f4ec373937",
+  "gate_identity": "3a49ab278f08e349b8450b3f0e25a87ff7bf1601303f80067a448f0cc61be3e4",
   "issued_at_utc": "2026-09-01T05:00:00Z",
   "jira_key": "BAT-686",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
@@ -38,11 +38,11 @@
   "parent_jira_key": "BAT-523",
   "payloads": [
     {
-      "bytes": 4293,
+      "bytes": 5571,
       "name": "week1_2026_cycle24_binding_findings.jsonl",
       "role": "CYCLE24_BINDING_FINDINGS",
-      "rows": 9,
-      "sha256": "85cd6f33c1e2a7d48875549fe2d523e9ba288015f1dbbcd7de8e6e1751f747d3"
+      "rows": 10,
+      "sha256": "4c9519e2b66ce57bf4a955e4e418bf09638b6eb8c574db58b22d0bcde044d016"
     },
     {
       "bytes": 593414,
@@ -81,7 +81,7 @@
       "national_logistic_l2_c25_input_bound",
       "national_margin_ridge_c25_input_bound"
     ],
-    "code_identity": "b6b811dab1782341e232969bfe39f7e346d7215bc9d573ee622ce4bec5c2e1ef",
+    "code_identity": "7fc7e3a3a56bfb8c132979fe0ac21c7025b89343ce463346b19316103093a174",
     "contract_id": "CYCLE25-WEEK1-2026-FORECAST-INPUT-BINDING-SUCCESSOR-V1",
     "contract_sha256": "0a5d79d802be0e0d25048a5c320f3fcf978969d10a3345fc3cb584e88a565036",
     "diagnostic_thresholds": {
@@ -108,7 +108,7 @@
       "prior_only_c25_input_bound": "PRIOR_OUTCOME_DOMAIN_AND_SITE"
     },
     "freeze_id": "PRE_MARKET_MODEL_FREEZE",
-    "freeze_identity": "b92ec594d38cb879293c957aa59333bc7e1a568bbc15ea67822329ac9ff19556",
+    "freeze_identity": "9ed7e0110113bbc653090fbfa6517c627dc60722a80f0053723a8f191d7fb942",
     "hyperparameters_reused_from_cycle24": true,
     "issued_at_utc": "2026-09-01T05:00:00Z",
     "market_access_occurred": false,
@@ -116,7 +116,7 @@
     "training_population": "ALL_ALLOWED_ROWS_THROUGH_2023"
   },
   "producer": {
-    "code_identity": "b6b811dab1782341e232969bfe39f7e346d7215bc9d573ee622ce4bec5c2e1ef",
+    "code_identity": "7fc7e3a3a56bfb8c132979fe0ac21c7025b89343ce463346b19316103093a174",
     "platform": "Windows",
     "python": "3.11.9"
   },

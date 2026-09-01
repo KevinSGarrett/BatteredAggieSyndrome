@@ -1,5 +1,5 @@
 {
-  "canonical_gate_identity": "e5cb14c59a5d61c3aa0337a204e11ae68e1dec20e1eb80f845211892aec8071e",
+  "canonical_gate_identity": "01f0ba588293f3708d85da6e591639ebff6d1aeea77705dd4afd673f27e3114d",
   "canonical_gate_path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json",
   "completeness_claimed": false,
   "created_at_utc": "2026-09-01T06:00:00Z",
@@ -10,23 +10,23 @@
   "local_issue_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
   "material_merge_sha": "",
   "new_issue_decision": "CREATED",
-  "observable_outcome": "Cycle #25 EARLY_MARKET benchmark and forecast-adequacy gate independently reconstruct; T-24H and T-90M remain OPEN; Cycle #24 forecasts are unchanged; PRE_MARKET_MODEL_FREEZE precedes market capture.",
+  "observable_outcome": "Cycle #25 EARLY_MARKET benchmark and forecast-adequacy gate independently reconstruct; Cycle #24 ridge probability/interval surfaces classified as REVIEW_REQUIRED_PROBABILITY_DISTRIBUTION_INCOHERENCE; T-24H and T-90M remain OPEN; Cycle #24 forecasts are unchanged; PRE_MARKET_MODEL_FREEZE precedes market capture.",
   "outputs": [
     {
       "path": "artifacts/forecast/week1_2026_cycle24_binding_review_gate.json",
-      "sha256": "324fb627878cd154a5435f96778c3959f50a1ec65e918b34610e2630a776453a"
+      "sha256": "920e033f3bbc84a8363fa6c0b41ae1a9bc64a7633917656811243cb286c43b8f"
     },
     {
       "path": "artifacts/forecast/week1_2026_forecast_input_binding_successor_gate.json",
-      "sha256": "273e762ca2195a185fd424071e323f868ff6ecb1973f0c279a7f37f4678a6cce"
+      "sha256": "6acb0c22264dc5a4014c059fab6af159ce6a8bda99ea6e6319d99b1f8dcb911d"
     },
     {
       "path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json",
-      "sha256": "9c827ebf250946c2e175527f1564c661d6619d35e53c2d521dcd56fa6d7ba7b8"
+      "sha256": "164ca00ea5f1cb37345e33e1a6b48b1115f6ccf696af81aa362ffaab0062e10b"
     },
     {
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001.json",
-      "sha256": "e34d3ea0608c60bce30dad40b6dae6012bfafc1a0c8906c3be520490399283c5"
+      "sha256": "b8d248111e0c90a80425a8a8702fd853d564e8fd72d0644f6da8fd9d953576ca"
     },
     {
       "path": "configs/week1_2026_cycle24_binding_review_contract.json",
@@ -42,15 +42,19 @@
     },
     {
       "path": "configs/week1_2026_market_benchmark_and_adequacy_contract.json",
-      "sha256": "8c4d01823db596365fc5a165bfd945c87c2ceb6a25166af09c721da3043b0359"
+      "sha256": "e35a05f95945a0478513c60840ab36dd3c015e255cdd0b49a60bf318d130b97d"
     },
     {
       "path": "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py",
-      "sha256": "b6b811dab1782341e232969bfe39f7e346d7215bc9d573ee622ce4bec5c2e1ef"
+      "sha256": "7fc7e3a3a56bfb8c132979fe0ac21c7025b89343ce463346b19316103093a174"
     },
     {
       "path": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py",
-      "sha256": "5fc8de2da7f1bc385e4cd76721d8bb50daea90a7c162e6c56c0426e114a8c290"
+      "sha256": "cdf93181f696fadb284a47fde6709bc6c105335b40bda45d437a703969058ac0"
+    },
+    {
+      "path": "src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py",
+      "sha256": "455f03739bed1b3e6313833c9e77425be9d88ace29f1652c74657f2379132bfb"
     },
     {
       "path": "src/aggie_analytics/validation/protected_hash_labels.py",
@@ -67,6 +71,10 @@
     {
       "path": "tests/test_week1_2026_market_benchmark_and_adequacy.py",
       "sha256": "cdb5c805f31995dfc983141c04d068e81c4d42922cabe827008323f80aa8f8b8"
+    },
+    {
+      "path": "tests/test_week1_2026_ridge_distribution_coherence.py",
+      "sha256": "9ba030821911a2d8e134e9f6f640bbd334b33d101c7f799cdfc6f8dbd9804fb0"
     },
     {
       "path": "tools/build_week1_2026_forecast_input_binding_successor.py",
@@ -86,7 +94,7 @@
     },
     {
       "path": "tools/validate_week1_2026_cycle25_final.py",
-      "sha256": "a06edb7f02488567b1a3bc4f2f971f1ea13b312813a62dff368e9c97666a54da"
+      "sha256": "56ab8056c90a48b733c88b7e19f44791df8046ede30493ec8352647c948035f1"
     },
     {
       "path": "tools/validate_week1_2026_forecast_adequacy.py",
@@ -118,11 +126,15 @@
     },
     {
       "path": "tools/validate_week1_2026_market_surfaces.py",
-      "sha256": "cf16b0e544ffdd2d0e814aeced1bec645ced79d44524e24b86896a0faa9fc5fe"
+      "sha256": "e6a00742a0a2f5e31876358599c6fa4d46a893962d679074becca9ffb92a2554"
     },
     {
       "path": "tools/validate_week1_2026_moneyline_devig.py",
       "sha256": "5e20dc806f3405926104c3434fba78ca117ed9ea4c11c1ee4f54648107dc39cf"
+    },
+    {
+      "path": "tools/validate_week1_2026_ridge_distribution_coherence.py",
+      "sha256": "83adb8e2730989041cab8c36ae024dd990d776f6c8b2c72e42a91fcba7d03769"
     }
   ],
   "parent_jira_key": "BAT-523",

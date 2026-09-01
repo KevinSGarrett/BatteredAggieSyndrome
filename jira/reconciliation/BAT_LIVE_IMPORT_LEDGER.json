@@ -3270,12 +3270,12 @@
     "status": "RETIRED_BOARD_LINKS_REMOVED_VERIFIED"
   },
   "saved_filters": {
-    "BAT — Blocked Work": "10137",
-    "BAT — Critical Path": "10139",
-    "BAT — Deferred or Conditional Work": "10138",
-    "BAT — Historical Completion Not Proven": "10141",
-    "BAT — Historical W01-W25 Reference": "10140",
-    "BAT — Ready Atomic Work": "10136"
+    "BAT \u2014 Blocked Work": "10137",
+    "BAT \u2014 Critical Path": "10139",
+    "BAT \u2014 Deferred or Conditional Work": "10138",
+    "BAT \u2014 Historical Completion Not Proven": "10141",
+    "BAT \u2014 Historical W01-W25 Reference": "10140",
+    "BAT \u2014 Ready Atomic Work": "10136"
   },
   "schema_version": 1,
   "source_preflight": {
@@ -3315,14 +3315,15 @@
   "updated_at": "2026-09-01T03:22:16.585332+00:00",
   "verification": {
     "actual_expected_link_count": 1151,
-    "auxiliary_actual_count": 122,
-    "auxiliary_expected_count": 122,
+    "auxiliary_actual_count": 124,
+    "auxiliary_expected_count": 124,
     "auxiliary_issue_type_counts": {
-      "Task": 122
+      "Task": 124
     },
     "auxiliary_status_counts": {
       "Done": 121,
-      "In Progress": 1
+      "In Progress": 1,
+      "In Review": 2
     },
     "board": {
       "filter_id": "10134",
@@ -3378,12 +3379,12 @@
       "issue_type_counts": "alias of total_issue_type_counts covering every live BAT issue",
       "status_counts": "alias of total_status_counts covering every live BAT issue"
     },
-    "issue_count": 616,
+    "issue_count": 618,
     "issue_type_counts": {
       "Epic": 50,
       "Story": 53,
       "Sub-task": 190,
-      "Task": 323
+      "Task": 325
     },
     "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
     "missing_auxiliary_keys": [],
@@ -3399,19 +3400,21 @@
     "status_counts": {
       "Done": 207,
       "In Progress": 1,
+      "In Review": 2,
       "To Do": 408
     },
-    "total_actual_issue_count": 616,
-    "total_expected_issue_count": 616,
+    "total_actual_issue_count": 618,
+    "total_expected_issue_count": 618,
     "total_issue_type_counts": {
       "Epic": 50,
       "Story": 53,
       "Sub-task": 190,
-      "Task": 323
+      "Task": 325
     },
     "total_status_counts": {
       "Done": 207,
       "In Progress": 1,
+      "In Review": 2,
       "To Do": 408
     },
     "unexpected_issue_keys": [],

@@ -1,5 +1,5 @@
 {
-  "canonical_gate_identity": "79a7b393e462403edfe662e9ca732e216a38d4c3656bc75913a025f4ec373937",
+  "canonical_gate_identity": "3a49ab278f08e349b8450b3f0e25a87ff7bf1601303f80067a448f0cc61be3e4",
   "canonical_gate_path": "artifacts/forecast/week1_2026_forecast_input_binding_successor_gate.json",
   "completeness_claimed": false,
   "created_at_utc": "2026-09-01T05:00:00Z",
@@ -10,15 +10,15 @@
   "local_issue_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
   "material_merge_sha": "",
   "new_issue_decision": "CREATED",
-  "observable_outcome": "Cycle #24 binding findings independently classified; successor candidates frozen before market capture; Cycle #24 forecast identities unchanged.",
+  "observable_outcome": "Cycle #24 binding findings independently classified including ridge probability/interval incoherence; successor candidates frozen before market capture; Cycle #24 forecast identities unchanged.",
   "outputs": [
     {
       "path": "artifacts/forecast/week1_2026_cycle24_binding_review_gate.json",
-      "sha256": "324fb627878cd154a5435f96778c3959f50a1ec65e918b34610e2630a776453a"
+      "sha256": "920e033f3bbc84a8363fa6c0b41ae1a9bc64a7633917656811243cb286c43b8f"
     },
     {
       "path": "artifacts/forecast/week1_2026_forecast_input_binding_successor_gate.json",
-      "sha256": "273e762ca2195a185fd424071e323f868ff6ecb1973f0c279a7f37f4678a6cce"
+      "sha256": "6acb0c22264dc5a4014c059fab6af159ce6a8bda99ea6e6319d99b1f8dcb911d"
     }
   ],
   "parent_jira_key": "BAT-523",

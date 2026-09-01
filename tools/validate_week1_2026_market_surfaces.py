@@ -127,6 +127,10 @@ def validate_packet(repo_root: Path) -> dict:
     gate = _gate(repo_root)
     if gate["focus_packet_identity"] is None:
         raise MarketBenchmarkViolation("A&M packet missing")
+    if gate["scientific_nonclaims"].get("independent_bas_predicted_score"):
+        raise MarketBenchmarkViolation("unauthorized BAS predicted score")
+    if gate["scientific_nonclaims"].get("chatgpt_transcript_used_as_source_authority"):
+        raise MarketBenchmarkViolation("ChatGPT transcript used as market source")
     return {
         "result": "PASS",
         "focus_packet_identity": gate["focus_packet_identity"],
@@ -134,6 +138,9 @@ def validate_packet(repo_root: Path) -> dict:
         "hardcoded_contest_id": False,
         "t_minus_24h_state": gate["checkpoints"]["t_minus_24h_state"],
         "t_minus_90m_state": gate["checkpoints"]["t_minus_90m_state"],
+        "cycle24_ridge_incoherence_count": gate["national"].get(
+            "cycle24_ridge_incoherence_count"
+        ),
     }
 
 

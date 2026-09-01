@@ -40,6 +40,10 @@
     "champion_or_production_promotion": false,
     "bas_or_aggie_excess_claim": false,
     "spread_converted_to_exact_win_probability": false,
-    "roughly_40_point_spread_assumed": false
+    "roughly_40_point_spread_assumed": false,
+    "chatgpt_transcript_used_as_source_authority": false,
+    "independent_bas_predicted_score": false,
+    "cycle24_forecasts_rewritten": false,
+    "probability_recalibrated_from_a_and_m_or_market_or_week1_outcome": false
   }
 }

@@ -1,5 +1,6 @@
 {
   "artifact_type": "WEEK1_2026_CYCLE24_BINDING_REVIEW_GATE",
+  "binding_identity": "8ccf2bb2989fe1fa1ff1c68d51f56c4dcdc2215d3fff6c58bdcd809f22fb4741",
   "checkpoints": {
     "executed_early": false,
     "market_values_inspected": false,
@@ -200,6 +201,30 @@
       "trigger": "AGGIE_ANALYTICS_DATA_ROOT present but empty string resolves to Path('.')"
     },
     {
+      "chosen_using_a_and_m_or_market_or_week1_outcome": false,
+      "cycle24_rows_rewritten": false,
+      "disposition": "CONFIRMED",
+      "evidence": {
+        "block_reason": "Cycle #25 successor already uses the training-consistent link_scale = residual_stdev / logistic_link_scale_divisor; a new fitted probability mapping is not created from Cycle #24 incoherence, A&M, market evidence, or Week 1 outcomes.",
+        "can_represent_one_predictive_distribution": false,
+        "coherent_row_count": 0,
+        "cycle24_forecast_row_identities_unchanged": true,
+        "frozen_ridge_row_count": 79,
+        "incoherent_row_count": 79,
+        "interval_formula": "expected_margin_home \u00b1 normal_quantile * training_residual_stdev",
+        "interval_implied_home_win_probability": "Phi(expected_margin_home / training_residual_stdev)",
+        "logistic_link_scale_divisor": 1.7013016167040798,
+        "new_fitted_probability_successor_after_market_blocked": true,
+        "normal_quantile": 1.959964,
+        "probability_formula_emitted": "logistic(expected_margin_home / logistic_link_scale_divisor)",
+        "training_consistent_probability_formula": "logistic(expected_margin_home / (training_residual_stdev / logistic_link_scale_divisor))",
+        "training_residual_stdev": 17.7396030753
+      },
+      "finding_id": "I_RIDGE_PROBABILITY_INTERVAL_INCOHERENCE",
+      "mapping_changed": false,
+      "successor_probability_mapping_changed_after_market": false
+    },
+    {
       "abstained_row_count": 56,
       "disposition": "CONFIRMED",
       "finding_id": "CYCLE24_FORECAST_PRESERVATION",
@@ -207,7 +232,7 @@
       "rewritten": false
     }
   ],
-  "gate_identity": "ebd479054082b5b960d01df4c92bc1e7e38d9fd03e839aea7483228df91ba5bb",
+  "gate_identity": "56323d2419deda30d2d58e927e502e373427eeb58ff5ecfb4c646a4adf8a8454",
   "issued_at_utc": "2026-09-01T05:00:00Z",
   "jira_key": "BAT-686",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",

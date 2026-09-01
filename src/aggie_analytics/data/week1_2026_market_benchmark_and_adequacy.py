@@ -15,7 +15,6 @@ from aggie_analytics.data.cfbd import (
     load_dotenv_value,
 )
 from aggie_analytics.data.national_foundation_reconciliation import (
-    binding_identity,
     canonical_json_bytes,
     sha256_file,
     stable_hash,
@@ -25,8 +24,12 @@ from aggie_analytics.data.week1_2026_forecast_input_binding_successor import (
     PAYLOAD_SLUG as FREEZE_PAYLOAD_SLUG,
     payload_rows,
     read_json,
+    seal_identities,
 )
 from aggie_analytics.data.week1_2026_authority_enrichment import normalize_name_key
+from aggie_analytics.data.week1_2026_ridge_distribution_coherence import (
+    audit_cycle24_ridge_forecast_row,
+)
 
 SCHEMA_VERSION = "aggie.shadow.week1_2026_market_benchmark_and_adequacy.v1"
 CONTRACT_ID = "CYCLE25-WEEK1-2026-MARKET-BENCHMARK-AND-ADEQUACY-V1"
@@ -49,6 +52,7 @@ ADEQUATE = "ADEQUATE_FOR_SHADOW_COMPARISON"
 LIMITED = "LIMITED_STALE_INPUT_SHADOW_ONLY"
 REVIEW_DISAGREE = "REVIEW_REQUIRED_MODEL_MARKET_DISAGREEMENT"
 REVIEW_SATURATION = "REVIEW_REQUIRED_PROBABILITY_SATURATION"
+REVIEW_INCOHERENCE = "REVIEW_REQUIRED_PROBABILITY_DISTRIBUTION_INCOHERENCE"
 ABSTAIN_AUTHORITY = "ABSTAIN_FEATURE_AUTHORITY_MISMATCH"
 ABSTAIN_FEATURES = "ABSTAIN_MISSING_REQUIRED_FEATURES"
 ABSTAIN_ENTITY = "ABSTAIN_UNSUPPORTED_ENTITY"
@@ -705,6 +709,42 @@ def build_expected(
         freeze_gate["dataset_identity"],
         "week1_2026_c25_successor_feature_rows.jsonl",
     )
+    suite_gate = read_json(
+        repo_root / "artifacts/forecast/week1_2026_national_forecast_suite_gate.json"
+    )
+    parameter_rows = payload_rows(
+        data_root, suite_gate, "week1_2026_forecast_fitted_parameter_rows.jsonl"
+    )
+    ridge_params = next(
+        row
+        for row in parameter_rows
+        if row["parameter_set_id"] == "NATIONAL_MARGIN_RIDGE_BETA"
+    )
+    early_contract = read_json(
+        repo_root / "configs/week1_2026_early_forecast_adequacy_contract.json"
+    )
+    saturation = freeze["diagnostic_thresholds"]
+    ridge_coherence_rows = []
+    for row in early_rows:
+        if row.get("candidate_id") != "national_margin_ridge":
+            continue
+        if row.get("row_state") != "FORECAST_FROZEN":
+            continue
+        audit = audit_cycle24_ridge_forecast_row(
+            row,
+            residual_stdev=float(ridge_params["training_residual_stdev"]),
+            logistic_link_scale_divisor=float(
+                ridge_params["logistic_link_scale_divisor"]
+            ),
+            normal_quantile=float(early_contract["uncertainty"]["normal_quantile"]),
+            saturation_low=float(saturation["saturation_low"]),
+            saturation_high=float(saturation["saturation_high"]),
+        )
+        audit["row_identity"] = stable_hash(audit)
+        ridge_coherence_rows.append(audit)
+    ridge_coherence_by_identity = {
+        row["forecast_row_identity"]: row for row in ridge_coherence_rows
+    }
 
     capture_dir = data_root / "raw" / "cycle25_early_market" / "cfbd_lines"
     capture_dir.mkdir(parents=True, exist_ok=True)
@@ -922,15 +962,28 @@ def build_expected(
                 "candidate_id": row["candidate_id"],
                 "probability_home": row["probability_home"],
                 "expected_margin_home": row.get("expected_margin_home"),
+                "margin_interval_home": row.get("margin_interval_home"),
                 "adequacy_verdict": row.get("adequacy_verdict"),
                 "row_state": row["row_state"],
                 "forecast_row_identity": row["forecast_row_identity"],
                 "tamu_specific_adjustment_applied": row.get(
                     "tamu_specific_adjustment_applied"
                 ),
+                "cycle24_ridge_distribution_state": (
+                    ridge_coherence_by_identity.get(row["forecast_row_identity"]) or {}
+                ).get("adequacy_state"),
             }
             for row in focus_cycle24
         ],
+        "cycle24_national_margin_ridge_coherence": next(
+            (
+                ridge_coherence_by_identity[row["forecast_row_identity"]]
+                for row in focus_cycle24
+                if row["candidate_id"] == "national_margin_ridge"
+                and row["forecast_row_identity"] in ridge_coherence_by_identity
+            ),
+            None,
+        ),
         "corrective_successors": focus_successor,
         "consumed_features": [
             {
@@ -955,9 +1008,21 @@ def build_expected(
         "roughly_40_point_spread_assumed": False,
         "independent_probability_replaced_by_market": False,
         "a_and_m_adjustment_applied": False,
+        "chatgpt_transcript_used_as_source_authority": False,
+        "approximate_market_line_from_transcript_used": False,
         "t_minus_24h_state": "OPEN",
         "t_minus_90m_state": "OPEN",
         "bas_claim": False,
+        "bas_predicted_score_authorized": False,
+        "bas_predicted_score": None,
+        "hybrid_visualization": {
+            "label": "HYBRID_VISUALIZATION_NOT_A_BAS_SCORE",
+            "bas_margin_plus_market_total_computed": False,
+            "reason": (
+                "No nationally trained total-points or team-score model satisfies "
+                "a pre-market-frozen contract, so no BAS predicted score is emitted."
+            ),
+        },
     }
     packet["packet_identity"] = stable_hash(packet)
 
@@ -994,6 +1059,12 @@ def build_expected(
         "saturation_count": sum(
             1 for row in adequacy_rows if "PROBABILITY_SATURATION" in row["reasons"]
         ),
+        "cycle24_ridge_incoherence_count": sum(
+            1
+            for row in ridge_coherence_rows
+            if row["adequacy_state"] == REVIEW_INCOHERENCE
+        ),
+        "cycle24_ridge_frozen_count": len(ridge_coherence_rows),
         "authority_mismatch_count": sum(
             1 for row in adequacy_rows if row["adequacy_state"] == ABSTAIN_AUTHORITY
         ),
@@ -1011,6 +1082,9 @@ def build_expected(
             "matched": [row["row_identity"] for row in walk["matched"]],
             "consensus": [row["row_identity"] for row in consensus_rows],
             "adequacy": [row["row_identity"] for row in adequacy_rows],
+            "cycle24_ridge_coherence": [
+                row["row_identity"] for row in ridge_coherence_rows
+            ],
             "packet": packet["packet_identity"],
             "cfbd_disposition": cfbd.get("disposition"),
             "cfbd_raw_sha256": cfbd.get("raw_sha256"),
@@ -1032,6 +1106,7 @@ def build_expected(
         "crosswalk": walk,
         "consensus_rows": consensus_rows,
         "adequacy_rows": adequacy_rows,
+        "ridge_coherence_rows": ridge_coherence_rows,
         "packet": packet,
         "national": national,
         "contests": contests,
@@ -1082,6 +1157,11 @@ def materialize(
             "week1_2026_c25_forecast_adequacy_rows.jsonl",
             "CYCLE25_FORECAST_ADEQUACY",
             expected["adequacy_rows"],
+        ),
+        (
+            "week1_2026_cycle24_ridge_distribution_coherence.jsonl",
+            "CYCLE24_RIDGE_DISTRIBUTION_COHERENCE",
+            expected["ridge_coherence_rows"],
         ),
         (
             "week1_2026_c25_a_and_m_packet.jsonl",
@@ -1138,8 +1218,7 @@ def materialize(
             "rewritten": False,
         },
     }
-    gate["gate_identity"] = binding_identity(gate, "gate_identity")
-    gate["binding_identity"] = binding_identity(gate, "binding_identity")
+    seal_identities(gate)
     path = repo_root / GATE_RELATIVE
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -1170,6 +1249,18 @@ def validate_artifact(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         raise MarketBenchmarkViolation("40-point spread was assumed")
     if gate["cycle24_preservation"]["rewritten"]:
         raise MarketBenchmarkViolation("Cycle #24 forecasts were rewritten")
+    packet = expected["packet"]
+    ridge = packet.get("cycle24_national_margin_ridge_coherence") or {}
+    if ridge.get("adequacy_state") != REVIEW_INCOHERENCE:
+        raise MarketBenchmarkViolation(
+            "Cycle #24 A&M ridge was not classified as probability/interval incoherence"
+        )
+    if ridge.get("cycle24_row_rewritten"):
+        raise MarketBenchmarkViolation("Cycle #24 ridge row was rewritten")
+    if packet.get("bas_predicted_score") is not None:
+        raise MarketBenchmarkViolation("unauthorized BAS predicted score was emitted")
+    if packet.get("chatgpt_transcript_used_as_source_authority"):
+        raise MarketBenchmarkViolation("ChatGPT transcript used as market source")
     return {
         "result": "PASS",
         "gate_identity": gate["gate_identity"],

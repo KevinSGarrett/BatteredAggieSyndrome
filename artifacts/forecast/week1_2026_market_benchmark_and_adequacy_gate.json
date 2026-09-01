@@ -1,6 +1,6 @@
 {
   "artifact_type": "WEEK1_2026_MARKET_BENCHMARK_AND_ADEQUACY_GATE",
-  "binding_identity": "ab1bda0ce21f187a7b1e98e8f31d0e52dc681fe16c7827a31e18b9d1b5947e18",
+  "binding_identity": "c741b80e3f052bc67402288c702435741aeb7adcd85bf3f8c1688d16d03f32c7",
   "cfbd": {
     "credential_presence": "PRESENT",
     "disposition": "STRUCTURED_ROWS_CAPTURED",
@@ -19,9 +19,9 @@
     "week1_outcome_access": false
   },
   "classification": "WEEK1_2026_EARLY_MARKET_BENCHMARK_AND_FORECAST_ADEQUACY",
-  "code_identity": "5fc8de2da7f1bc385e4cd76721d8bb50daea90a7c162e6c56c0426e114a8c290",
+  "code_identity": "cdf93181f696fadb284a47fde6709bc6c105335b40bda45d437a703969058ac0",
   "contract_id": "CYCLE25-WEEK1-2026-MARKET-BENCHMARK-AND-ADEQUACY-V1",
-  "contract_sha256": "8c4d01823db596365fc5a165bfd945c87c2ceb6a25166af09c721da3043b0359",
+  "contract_sha256": "e35a05f95945a0478513c60840ab36dd3c015e255cdd0b49a60bf318d130b97d",
   "credentials": {
     "CFBD_API_KEY": "PRESENT",
     "ODDS_API_KEY": "ABSENT",
@@ -35,10 +35,10 @@
     "early_forecast_row_count": 455,
     "rewritten": false
   },
-  "dataset_identity": "40aee2f1c40f88c2b9c416a5555c8398c4214540c6516dba8dae2f910752407a",
+  "dataset_identity": "29762246b77351b09c25dffbb738eb2a1ff61fe579a7e23e67134aefc5e0ced7",
   "decision_unit": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
-  "focus_packet_identity": "bcae274c3b3f9705bf58ac7c3e598ad66b14fb311a7065f3f3e7cf1fa6cd3d88",
-  "gate_identity": "e5cb14c59a5d61c3aa0337a204e11ae68e1dec20e1eb80f845211892aec8071e",
+  "focus_packet_identity": "cf4e7a56d4e70a5ba14ae1076dac99ce75bd4cbbbaac1e8786d8a0495ac922b1",
+  "gate_identity": "01f0ba588293f3708d85da6e591639ebff6d1aeea77705dd4afd673f27e3114d",
   "issued_at_utc": "2026-09-01T06:00:00Z",
   "jira_key": "BAT-687",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
@@ -54,6 +54,8 @@
     "authority_mismatch_count": 0,
     "consensus_count": 0,
     "cycle24_forecast_coverage": 455,
+    "cycle24_ridge_frozen_count": 79,
+    "cycle24_ridge_incoherence_count": 79,
     "directional_disagreement_count": 18,
     "insufficient_coverage_count": 78,
     "market_covered_count": 37,
@@ -103,14 +105,21 @@
       "sha256": "5463828073e5086e1f82dee895c9052fc4d4e7ed617e666b6b612fae290a9a50"
     },
     {
-      "bytes": 6277,
+      "bytes": 125557,
+      "name": "week1_2026_cycle24_ridge_distribution_coherence.jsonl",
+      "role": "CYCLE24_RIDGE_DISTRIBUTION_COHERENCE",
+      "rows": 79,
+      "sha256": "37169d9748c0160333858348830260c62e9e5c6e5b2869d19e21a52cc44262fc"
+    },
+    {
+      "bytes": 8777,
       "name": "week1_2026_c25_a_and_m_packet.jsonl",
       "role": "CYCLE25_A_AND_M_PACKET",
       "rows": 1,
-      "sha256": "85b352902658ab9c56448b7fafa27d0773159f5d6e4454bc260af489cec91200"
+      "sha256": "7d935a85b1058e74788760cb90227ac9421e94aa7fd7f680a5a5ecf3e8cc9c40"
     }
   ],
-  "pre_market_model_freeze_identity": "b92ec594d38cb879293c957aa59333bc7e1a568bbc15ea67822329ac9ff19556",
+  "pre_market_model_freeze_identity": "9ed7e0110113bbc653090fbfa6517c627dc60722a80f0053723a8f191d7fb942",
   "producer": {
     "platform": "Windows",
     "python": "3.11.9"
@@ -122,10 +131,14 @@
     "a_and_m_adjustment": false,
     "bas_or_aggie_excess_claim": false,
     "champion_or_production_promotion": false,
+    "chatgpt_transcript_used_as_source_authority": false,
+    "cycle24_forecasts_rewritten": false,
     "hardcoded_a_and_m_market_threshold": false,
+    "independent_bas_predicted_score": false,
     "market_enters_calibration": false,
     "market_enters_model_fitting": false,
     "market_replaces_independent_probability": false,
+    "probability_recalibrated_from_a_and_m_or_market_or_week1_outcome": false,
     "roughly_40_point_spread_assumed": false,
     "spread_converted_to_exact_win_probability": false
   },

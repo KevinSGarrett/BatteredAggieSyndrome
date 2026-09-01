@@ -1,0 +1,7 @@
+{
+  "artifact_type": "PR_REVIEW_FINDING_LEDGER",
+  "findings": [],
+  "ledger_identity": "93e55ec51e01f6ac9187ad05c974e24dc48847f4651017a7d94a73563a9e2a27",
+  "note": "Cursor may propose but cannot solely approve FALSE_POSITIVE_PROVEN or accepted-risk for P0/P1.",
+  "schema_version": 1
+}

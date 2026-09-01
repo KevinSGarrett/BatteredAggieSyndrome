@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexScientificReview",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pr_number",
+    "base_sha",
+    "head_sha",
+    "reviewed_merge_sha",
+    "changed_file_inventory",
+    "changed_file_digest",
+    "review_rule_identity",
+    "model",
+    "reasoning_effort",
+    "findings_p0",
+    "findings_p1",
+    "findings_p2",
+    "scientific_invariants_checked",
+    "critical_files_not_reviewed",
+    "limitations",
+    "verdict"
+  ],
+  "properties": {
+    "pr_number": { "type": "integer", "minimum": 1 },
+    "base_sha": { "type": "string", "minLength": 40, "maxLength": 40 },
+    "head_sha": { "type": "string", "minLength": 40, "maxLength": 40 },
+    "reviewed_merge_sha": { "type": "string", "minLength": 40, "maxLength": 40 },
+    "changed_file_inventory": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "changed_file_digest": { "type": "string", "minLength": 64, "maxLength": 64 },
+    "review_rule_identity": { "type": "string" },
+    "model": { "type": "string" },
+    "reasoning_effort": { "type": "string" },
+    "findings_p0": { "type": "array", "items": { "type": "string" } },
+    "findings_p1": { "type": "array", "items": { "type": "string" } },
+    "findings_p2": { "type": "array", "items": { "type": "string" } },
+    "scientific_invariants_checked": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "critical_files_not_reviewed": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "verdict": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "BLOCKED_INSUFFICIENT_EVIDENCE"]
+    }
+  }
+}

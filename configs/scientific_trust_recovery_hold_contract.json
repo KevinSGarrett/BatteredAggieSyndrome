@@ -1,0 +1,57 @@
+{
+  "artifact_type": "SCIENTIFIC_TRUST_RECOVERY_HOLD_CONTRACT",
+  "audited_starting_sha": "c1c310da6bcae25641977fe409e3034b8c08010a",
+  "calendar_exceptions": {
+    "kickoff_utc": "2026-09-05T23:00:00Z",
+    "never_backfill_missed_checkpoint": true,
+    "t24h_utc": "2026-09-04T23:00:00Z",
+    "t90m_utc": "2026-09-05T21:30:00Z",
+    "untrusted_outputs_while_gate_closed": [
+      "UNTRUSTED_SHADOW",
+      "ABSTAIN_SCIENTIFIC_TRUST_GATE_BLOCKED"
+    ]
+  },
+  "hold_id": "CYCLE-25.5-SCIENTIFIC-TRUST-RECOVERY-OPERATOR-HOLD",
+  "issue_scope": [
+    "BAT-688",
+    "BAT-689",
+    "BAT-690",
+    "BAT-691",
+    "BAT-692",
+    "BAT-693",
+    "BAT-694",
+    "BAT-695",
+    "BAT-696",
+    "BAT-523",
+    "BAT-401",
+    "BAT-429"
+  ],
+  "permitted_actions": [
+    "issue_scoped_branches_and_worktrees",
+    "commits_and_draft_or_ready_for_review_prs",
+    "ci_runs",
+    "immutable_live_evidence_capture_at_actual_deadlines",
+    "jira_transitions_through_in_review",
+    "read_only_audits_and_validation",
+    "separately_authorized_review_infrastructure_merge_at_tranche_b_checkpoint"
+  ],
+  "pr_scope": {
+    "do_not_touch": ["654"],
+    "scientific_correction_merges": "FORBIDDEN_WHILE_HOLD_ACTIVE",
+    "review_infrastructure_merge": "REQUIRES_EXPLICIT_USER_AUTHORIZATION"
+  },
+  "prohibited_actions": [
+    "merge_scientific_correction_prs",
+    "transition_scientific_trust_recovery_owners_to_done",
+    "post_cycle_25_5_bat_523_parent_progress_comment",
+    "describe_fitted_week1_forecast_as_credible_or_recommended",
+    "promote_a_candidate",
+    "declare_cycle_25_5_complete"
+  ],
+  "release_authority": {
+    "authorizing_user": "KevinSGarrett",
+    "requires_explicit_operator_release_receipt": true,
+    "receipt_path": "artifacts/scientific_integrity/OPERATOR_RELEASE_RECEIPT.json"
+  },
+  "schema_version": 1
+}

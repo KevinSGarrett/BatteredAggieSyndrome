@@ -1,0 +1,147 @@
+{
+  "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
+  "audit_identity": "67e0d2e7bd174945f4172931f08dd72487d180c8f736bf52358c5aa7d1fd8a7c",
+  "cycle_number": 25,
+  "ending_sha": "c1c310da6bcae25641977fe409e3034b8c08010a",
+  "findings": [
+    {
+      "cycles": [
+        24,
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py"
+      ],
+      "finding_id": "P0-C24-RIDGE-DISTRIBUTION-INCOHERENCE",
+      "severity": "P0",
+      "summary": "national_margin_ridge emits logistic probabilities and Normal residual intervals that are not one predictive distribution."
+    },
+    {
+      "cycles": [
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py"
+      ],
+      "finding_id": "P0-C25-HISTORICAL-ROW-TRANSPLANT",
+      "severity": "P0",
+      "summary": "Cycle #25 successor copies terminal historical game rows into current Week 1 targets instead of binding the current contest opponent."
+    },
+    {
+      "cycles": [
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py"
+      ],
+      "finding_id": "P0-PRE-MARKET-FREEZE-NOT-PROVEN",
+      "severity": "P0",
+      "summary": "Model freeze predating market access is not proven."
+    },
+    {
+      "cycles": [
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py"
+      ],
+      "finding_id": "P0-FOCUS-GAME-QUOTE-COUNT-FALSE-ZERO",
+      "severity": "P0",
+      "summary": "Focus-game quote_count=0 can be produced by Missouri State / Missouri St. alias mismatch despite raw quotes."
+    },
+    {
+      "cycles": [
+        24,
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "tools/validate_week1_2026_ridge_distribution_coherence.py"
+      ],
+      "finding_id": "P0-VALIDATOR-PRODUCER-HELPER-REUSE",
+      "severity": "P0",
+      "summary": "Scientific validators import producer helpers they purport to challenge."
+    },
+    {
+      "cycles": [
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "git log origin/main",
+        "PRs 665-667"
+      ],
+      "finding_id": "P0-C25-HOLD-NOT-IMPLEMENTED",
+      "severity": "P0",
+      "summary": "Cycle #25 hold was not implemented; PRs #665-#667 merged."
+    },
+    {
+      "cycles": [
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py"
+      ],
+      "finding_id": "P1-EVEN-SIZED-MEDIAN-UPPER-MIDDLE",
+      "severity": "P1",
+      "summary": "Even-sized median uses sorted(values)[len//2] rather than the mean of the two central values."
+    },
+    {
+      "cycles": [
+        17,
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "BAT-401",
+        "RETAIN_PROTECTED_LANE_BLOCKED"
+      ],
+      "finding_id": "P1-2024-2025-EXPOSED-NOT-BLIND",
+      "severity": "P1",
+      "summary": "2024/2025 are historically exposed and cannot be restored to blind/protected status."
+    },
+    {
+      "cycles": [
+        25
+      ],
+      "disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        "calendar 2026-09-04 / 2026-09-05"
+      ],
+      "finding_id": "P2-T24H-T90M-STILL-OPEN",
+      "severity": "P2",
+      "summary": "T-24H and T-90M deadlines have not occurred; capture remains OPEN and must not be backfilled."
+    }
+  ],
+  "pass_one_provenance": {
+    "end_descends_from_start": true,
+    "ending_sha": "c1c310da6bcae25641977fe409e3034b8c08010a",
+    "proves": "provenance_and_completeness_only",
+    "starting_sha": "991bf4666fa6d60921448113939300c121250278",
+    "status": "COMPLETE"
+  },
+  "pass_three_adversarial": {
+    "searched_for": [
+      "omitted_artifacts",
+      "circular_validation",
+      "target_leakage",
+      "pair_incoherence",
+      "protected_exposure",
+      "ignored_user_holds"
+    ],
+    "status": "COMPLETE"
+  },
+  "pass_two_semantic": {
+    "independent_of_producer_helpers": true,
+    "missing_raw_payloads": false,
+    "status": "COMPLETE"
+  },
+  "schema_version": 1,
+  "starting_sha": "991bf4666fa6d60921448113939300c121250278",
+  "trust_classification": "FAIL"
+}

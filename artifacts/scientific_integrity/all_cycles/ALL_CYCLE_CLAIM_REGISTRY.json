@@ -1,0 +1,626 @@
+{
+  "artifact_type": "ALL_CYCLE_CLAIM_REGISTRY",
+  "audited_starting_sha": "c1c310da6bcae25641977fe409e3034b8c08010a",
+  "claims": [
+    {
+      "claim_id": "P0-C24-RIDGE-DISTRIBUTION-INCOHERENCE:C24",
+      "cycle_number": 24,
+      "producer": "src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py",
+      "severity": "P0",
+      "summary": "national_margin_ridge emits logistic probabilities and Normal residual intervals that are not one predictive distribution.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P0-C24-RIDGE-DISTRIBUTION-INCOHERENCE:C25",
+      "cycle_number": 25,
+      "producer": "src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py",
+      "severity": "P0",
+      "summary": "national_margin_ridge emits logistic probabilities and Normal residual intervals that are not one predictive distribution.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P0-C25-HISTORICAL-ROW-TRANSPLANT:C25",
+      "cycle_number": 25,
+      "producer": "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py",
+      "severity": "P0",
+      "summary": "Cycle #25 successor copies terminal historical game rows into current Week 1 targets instead of binding the current contest opponent.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P0-PRE-MARKET-FREEZE-NOT-PROVEN:C25",
+      "cycle_number": 25,
+      "producer": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py",
+      "severity": "P0",
+      "summary": "Model freeze predating market access is not proven.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P0-FOCUS-GAME-QUOTE-COUNT-FALSE-ZERO:C25",
+      "cycle_number": 25,
+      "producer": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py",
+      "severity": "P0",
+      "summary": "Focus-game quote_count=0 can be produced by Missouri State / Missouri St. alias mismatch despite raw quotes.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P0-VALIDATOR-PRODUCER-HELPER-REUSE:C24",
+      "cycle_number": 24,
+      "producer": "tools/validate_week1_2026_ridge_distribution_coherence.py",
+      "severity": "P0",
+      "summary": "Scientific validators import producer helpers they purport to challenge.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P0-VALIDATOR-PRODUCER-HELPER-REUSE:C25",
+      "cycle_number": 25,
+      "producer": "tools/validate_week1_2026_ridge_distribution_coherence.py",
+      "severity": "P0",
+      "summary": "Scientific validators import producer helpers they purport to challenge.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P0-C25-HOLD-NOT-IMPLEMENTED:C25",
+      "cycle_number": 25,
+      "producer": "git log origin/main",
+      "severity": "P0",
+      "summary": "Cycle #25 hold was not implemented; PRs #665-#667 merged.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P1-FALSE-QUARANTINE-312472199:C18",
+      "cycle_number": 18,
+      "producer": "src/aggie_analytics/data/national_foundation_reconciliation.py",
+      "severity": "P1",
+      "summary": "Substring postponed/canceled detection on notes falsely quarantines SRC-002:GAME:312472199 (2011 Howard-EMU completed 41-9).",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P1-FALSE-QUARANTINE-312472199:C20",
+      "cycle_number": 20,
+      "producer": "src/aggie_analytics/data/national_foundation_reconciliation.py",
+      "severity": "P1",
+      "summary": "Substring postponed/canceled detection on notes falsely quarantines SRC-002:GAME:312472199 (2011 Howard-EMU completed 41-9).",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P1-FALSE-QUARANTINE-312472199:C21",
+      "cycle_number": 21,
+      "producer": "src/aggie_analytics/data/national_foundation_reconciliation.py",
+      "severity": "P1",
+      "summary": "Substring postponed/canceled detection on notes falsely quarantines SRC-002:GAME:312472199 (2011 Howard-EMU completed 41-9).",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P1-EVEN-SIZED-MEDIAN-UPPER-MIDDLE:C25",
+      "cycle_number": 25,
+      "producer": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py",
+      "severity": "P1",
+      "summary": "Even-sized median uses sorted(values)[len//2] rather than the mean of the two central values.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P1-2024-2025-EXPOSED-NOT-BLIND:C17",
+      "cycle_number": 17,
+      "producer": "BAT-401",
+      "severity": "P1",
+      "summary": "2024/2025 are historically exposed and cannot be restored to blind/protected status.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P1-2024-2025-EXPOSED-NOT-BLIND:C25",
+      "cycle_number": 25,
+      "producer": "BAT-401",
+      "severity": "P1",
+      "summary": "2024/2025 are historically exposed and cannot be restored to blind/protected status.",
+      "trust_classification": "FAIL",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P2-T24H-T90M-STILL-OPEN:C25",
+      "cycle_number": 25,
+      "producer": "calendar 2026-09-04 / 2026-09-05",
+      "severity": "P2",
+      "summary": "T-24H and T-90M deadlines have not occurred; capture remains OPEN and must not be backfilled.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-01-PROVENANCE-COMPLETE",
+      "cycle_number": 1,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-01-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 1,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-02-PROVENANCE-COMPLETE",
+      "cycle_number": 2,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-02-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 2,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-03-PROVENANCE-COMPLETE",
+      "cycle_number": 3,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-03-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 3,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-04-PROVENANCE-COMPLETE",
+      "cycle_number": 4,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-04-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 4,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-05-PROVENANCE-COMPLETE",
+      "cycle_number": 5,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-05-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 5,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-06-PROVENANCE-COMPLETE",
+      "cycle_number": 6,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-06-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 6,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-07-PROVENANCE-COMPLETE",
+      "cycle_number": 7,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-07-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 7,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-08-PROVENANCE-COMPLETE",
+      "cycle_number": 8,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-08-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 8,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-09-PROVENANCE-COMPLETE",
+      "cycle_number": 9,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-09-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 9,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-10-PROVENANCE-COMPLETE",
+      "cycle_number": 10,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-10-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 10,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-11-PROVENANCE-COMPLETE",
+      "cycle_number": 11,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-11-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 11,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-12-PROVENANCE-COMPLETE",
+      "cycle_number": 12,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-12-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 12,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-13-PROVENANCE-COMPLETE",
+      "cycle_number": 13,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-13-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 13,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-14-PROVENANCE-COMPLETE",
+      "cycle_number": 14,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-14-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 14,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-15-PROVENANCE-COMPLETE",
+      "cycle_number": 15,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-15-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 15,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-16-PROVENANCE-COMPLETE",
+      "cycle_number": 16,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-16-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 16,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-17-PROVENANCE-COMPLETE",
+      "cycle_number": 17,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-17-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 17,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-18-PROVENANCE-COMPLETE",
+      "cycle_number": 18,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-18-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 18,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-19-PROVENANCE-COMPLETE",
+      "cycle_number": 19,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-19-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 19,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-20-PROVENANCE-COMPLETE",
+      "cycle_number": 20,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-20-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 20,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-21-PROVENANCE-COMPLETE",
+      "cycle_number": 21,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-21-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 21,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-22-PROVENANCE-COMPLETE",
+      "cycle_number": 22,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-22-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 22,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-23-PROVENANCE-COMPLETE",
+      "cycle_number": 23,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-23-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 23,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-24-PROVENANCE-COMPLETE",
+      "cycle_number": 24,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-24-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 24,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "CYCLE-25-PROVENANCE-COMPLETE",
+      "cycle_number": 25,
+      "producer": "git",
+      "severity": "P2",
+      "summary": "Pass One provenance/completeness skeleton for the cycle SHA range.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
+      "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "claim_id": "CYCLE-25-SEMANTIC-RECONSTRUCTION",
+      "cycle_number": 25,
+      "producer": "external_payloads_not_in_git",
+      "severity": "P0",
+      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    }
+  ],
+  "counts_by_classification": {
+    "BLOCKED_INSUFFICIENT_EVIDENCE": 26,
+    "FAIL": 14,
+    "REPRODUCIBLE_ONLY": 25
+  },
+  "counts_by_cycle": {
+    "1": 2,
+    "10": 2,
+    "11": 2,
+    "12": 2,
+    "13": 2,
+    "14": 2,
+    "15": 2,
+    "16": 2,
+    "17": 3,
+    "18": 3,
+    "19": 2,
+    "2": 2,
+    "20": 3,
+    "21": 3,
+    "22": 2,
+    "23": 2,
+    "24": 4,
+    "25": 11,
+    "3": 2,
+    "4": 2,
+    "5": 2,
+    "6": 2,
+    "7": 2,
+    "8": 2,
+    "9": 2
+  },
+  "inventory_identity": "ad7b63de9b073d30337a0f6578a42160a72c898ce0fdb36c23f92d891d6fc66d",
+  "registry_identity": "3e7aede14bfc56bd92bfdbec8beb71c218601140814e569d16eb6ca041eea72b",
+  "schema_version": 1
+}

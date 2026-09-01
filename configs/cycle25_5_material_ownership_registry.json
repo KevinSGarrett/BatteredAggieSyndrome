@@ -1,0 +1,483 @@
+{
+  "artifact_type": "CYCLE25_5_MATERIAL_OWNERSHIP_REGISTRY",
+  "assignments": [
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": ".cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": ".github/.cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": ".github/codex/prompts/scientific-review.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": ".github/workflows/ci.yml"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": ".github/workflows/codex-scientific-review.yml"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "AGENTS.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/INDEPENDENT_VALIDATOR_CLASSIFICATION.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/PR_REVIEW_FINDING_LEDGER.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/USER_ADMIN_ACTION_REQUIRED.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/WEEK1_CHECKPOINT_CONTINUITY.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_AFFECTED_SUCCESSORS.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_CLAIM_REGISTRY.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_DEPENDENCY_DAG.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_FALSE_POSITIVE_REJECTIONS.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_FINDINGS.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_TRUST_RECOVERY_GATE.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_01_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_02_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_03_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_04_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_05_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_06_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_07_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_08_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_09_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_10_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_11_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_12_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_13_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_14_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_15_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_16_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_17_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_18_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_19_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_20_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_21_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_22_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_23_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_24_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/CYCLE_25_SCIENTIFIC_AUDIT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "codecov.yml"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/codex_usage_interlock_change_manifest.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/cycle25_5_material_ownership_registry.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "configs/scientific_trust_recovery_hold_contract.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
+      "owner": null,
+      "path": "configs/unified_assistive_change_routing_binding.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/project/JIRA_TARGET_PROFILE.yaml"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/CURRENT_TREE.txt"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/PROJECT_FILE_HASHES.sha256"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/PROJECT_FILE_MANIFEST.csv"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "schemas/scientific_review/codex_scientific_review.schema.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/data/.cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/data/authority_clean_model_lineage.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/data/national_foundation_status_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/data/protected_evaluation_replacement_protocol.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/data/tamu_corpus_derivative_integrity_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/data/week1_2026_game_grain_distribution_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/data/week1_2026_market_integrity_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/governance/.cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/governance/__init__.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/governance/scientific_trust_recovery_hold.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/scientific_reference/.cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/scientific_reference/__init__.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/scientific_reference/binding.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/scientific_reference/coherence.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/scientific_reference/market.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "src/aggie_analytics/scientific_reference/metrics.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tests/test_all_cycle_scientific_inventory.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tests/test_cycle25_5_routing_manifest_coverage.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tests/test_independent_scientific_reference.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tests/test_scientific_trust_recovery_hold.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/build_all_cycle_scientific_inventory.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/update_cycle25_5_jira_control_plane.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_affected_successors.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_all_cycle_scientific_inventory.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_codex_scientific_review.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_cross_output_coherence.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_independent_scientific_reference.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_pr_review_finding_ledger.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_protected_replacement_protocol.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_raw_to_forecast_trace.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_repository.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_scientific_trust_recovery_hold.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/write_cycle25_5_routing_manifests.py"
+    }
+  ],
+  "owners": [
+    "BAT-688",
+    "BAT-689",
+    "BAT-690",
+    "BAT-691",
+    "BAT-692",
+    "BAT-693",
+    "BAT-694",
+    "BAT-695",
+    "BAT-696"
+  ],
+  "schema_version": 1,
+  "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"
+}

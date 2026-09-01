@@ -1,0 +1,50 @@
+{
+  "artifact_type": "DEPRECATION_SUCCESSOR_MAP",
+  "hold_active": true,
+  "scientific_correction_merges_forbidden": true,
+  "entries": [
+    {
+      "predecessor": "src/aggie_analytics/data/national_foundation_reconciliation.py",
+      "status": "IMMUTABLE_DEPRECATED_SUBSTRING_NON_FINAL",
+      "successor": "src/aggie_analytics/data/national_foundation_status_successor.py",
+      "owner": "BAT-690"
+    },
+    {
+      "predecessor": "A&M structured corpus derivative metadata/parsers",
+      "status": "IMMUTABLE_PREDECESSOR",
+      "successor": "src/aggie_analytics/data/tamu_corpus_derivative_integrity_successor.py",
+      "owner": "BAT-692"
+    },
+    {
+      "predecessor": "Cycles #20-#25 ranking/venue/Elo admission",
+      "status": "EXCLUDED_INSUFFICIENT_PUBLICATION_VINTAGE",
+      "successor": "src/aggie_analytics/data/authority_clean_model_lineage.py",
+      "owner": "BAT-691"
+    },
+    {
+      "predecessor": "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py",
+      "status": "IMMUTABLE_DEPRECATED_HISTORICAL_ROW_COPY",
+      "successor": "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py",
+      "owner": "BAT-693"
+    },
+    {
+      "predecessor": "src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py",
+      "status": "IMMUTABLE_DEPRECATED_INCOHERENT_DISTRIBUTION",
+      "successor": "src/aggie_analytics/data/week1_2026_game_grain_distribution_successor.py",
+      "owner": "BAT-693"
+    },
+    {
+      "predecessor": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py",
+      "status": "IMMUTABLE_DEPRECATED_MARKET_INTEGRITY_DEFECTS",
+      "successor": "src/aggie_analytics/data/week1_2026_market_integrity_successor.py",
+      "owner": "BAT-694"
+    },
+    {
+      "predecessor": "BAT-401 protected lane",
+      "status": "DONE_RETAIN_PROTECTED_LANE_BLOCKED",
+      "successor": "src/aggie_analytics/data/protected_evaluation_replacement_protocol.py",
+      "owner": "BAT-695"
+    }
+  ],
+  "schema_version": 1
+}

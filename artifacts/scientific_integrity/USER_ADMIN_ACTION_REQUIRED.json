@@ -1,0 +1,39 @@
+{
+  "artifact_type": "USER_ADMIN_ACTION_REQUIRED",
+  "actions": [
+    {
+      "system": "openai_codex_github_app",
+      "action": "Connect Codex cloud to KevinSGarrett/BatteredAggieSyndrome and enable automatic Codex code review on pull requests.",
+      "confirmed_enabled": false,
+      "reason": "GitHub installation API returned 401/404 from this agent session; automatic Codex cloud review is not claimed."
+    },
+    {
+      "system": "openai_codex_github_action",
+      "action": "Add repository secret OPENAI_API_KEY as a project-scoped service-account key. Never print the secret value or length.",
+      "confirmed_enabled": false,
+      "reason": "Encrypted GitHub secret presence cannot be proven from this session."
+    },
+    {
+      "system": "cursor_bugbot",
+      "action": "Connect the Cursor GitHub app, enable Bugbot Automations on this repository, automatic review on every PR update including drafts, turn off Incremental Review, and set effort to High if the usage-based plan exposes that setting.",
+      "confirmed_enabled": false,
+      "strongest_verified_product_setting": "High effort exists in current Cursor Bugbot docs for usage-based plans; dashboard enablement is not proven.",
+      "reason": "Bugbot dashboard/admin action is required. Enablement is not fabricated."
+    },
+    {
+      "system": "codecov",
+      "action": "Install the Codecov GitHub app, add CODECOV_TOKEN, merge one coverage upload to main to establish a baseline before making project coverage blocking.",
+      "confirmed_enabled": false,
+      "tier_limitation": "Project blocking remains informational until a main-branch baseline exists. Missing upload is configured as failure.",
+      "reason": "Codecov account/app/token are not proven from this session."
+    },
+    {
+      "system": "github_branch_protection",
+      "action": "Require on the latest SHA: existing checks, Codex scientific review, Cursor Bugbot when installed, Codecov patch/project after baseline, independent scientific reference, all-cycle trust gate, resolved review conversations, and explicit release-authority receipt.",
+      "confirmed_enabled": false,
+      "reason": "Branch protection is not claimed active without GitHub readback."
+    }
+  ],
+  "do_not_claim_installed": true,
+  "schema_version": 1
+}

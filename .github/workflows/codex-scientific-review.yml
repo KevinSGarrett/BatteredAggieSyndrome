@@ -1,0 +1,74 @@
+name: codex-scientific-review
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  codex-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout pull-request merge ref
+        uses: actions/checkout@v7
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Run Codex scientific review
+        uses: openai/codex-action@v1
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        with:
+          prompt-file: .github/codex/prompts/scientific-review.md
+          sandbox: true
+          output-file: artifacts/scientific_integrity/codex_scientific_review_output.json
+          codex-args: '--output-schema schemas/scientific_review/codex_scientific_review.schema.json'
+      - name: Validate structured Codex output
+        run: python tools/validate_codex_scientific_review.py --payload artifacts/scientific_integrity/codex_scientific_review_output.json
+      - name: Upload sanitized review artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: codex-scientific-review
+          path: artifacts/scientific_integrity/codex_scientific_review_output.json
+          if-no-files-found: error
+
+  publish-review-comment:
+    needs: codex-review
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v7
+        with:
+          name: codex-scientific-review
+          path: artifacts/scientific_integrity
+      - name: Post sanitized review summary
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("artifacts/scientific_integrity/codex_scientific_review_output.json")
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          summary = {
+              "verdict": payload.get("verdict"),
+              "reviewed_merge_sha": payload.get("reviewed_merge_sha"),
+              "p0": len(payload.get("findings_p0") or []),
+              "p1": len(payload.get("findings_p1") or []),
+              "limitations": payload.get("limitations") or [],
+          }
+          Path("artifacts/scientific_integrity/codex_scientific_review_comment.json").write_text(
+              json.dumps(summary, indent=2), encoding="utf-8"
+          )
+          print(json.dumps(summary, indent=2))
+          PY

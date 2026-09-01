@@ -1,0 +1,60 @@
+{
+  "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
+  "audit_identity": "511da71ffc4d2bf4750e2785258254fb37b1832db19866cb210d00c6501a1aeb",
+  "cycle_number": 24,
+  "ending_sha": "991bf4666fa6d60921448113939300c121250278",
+  "findings": [
+    {
+      "cycles": [
+        24,
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py"
+      ],
+      "finding_id": "P0-C24-RIDGE-DISTRIBUTION-INCOHERENCE",
+      "severity": "P0",
+      "summary": "national_margin_ridge emits logistic probabilities and Normal residual intervals that are not one predictive distribution."
+    },
+    {
+      "cycles": [
+        24,
+        25
+      ],
+      "disposition": "FAIL",
+      "evidence": [
+        "tools/validate_week1_2026_ridge_distribution_coherence.py"
+      ],
+      "finding_id": "P0-VALIDATOR-PRODUCER-HELPER-REUSE",
+      "severity": "P0",
+      "summary": "Scientific validators import producer helpers they purport to challenge."
+    }
+  ],
+  "pass_one_provenance": {
+    "end_descends_from_start": true,
+    "ending_sha": "991bf4666fa6d60921448113939300c121250278",
+    "proves": "provenance_and_completeness_only",
+    "starting_sha": "cbb78b0786644146462dbcfc5c4d6fb514c7fa44",
+    "status": "COMPLETE"
+  },
+  "pass_three_adversarial": {
+    "searched_for": [
+      "omitted_artifacts",
+      "circular_validation",
+      "target_leakage",
+      "pair_incoherence",
+      "protected_exposure",
+      "ignored_user_holds"
+    ],
+    "status": "COMPLETE"
+  },
+  "pass_two_semantic": {
+    "independent_of_producer_helpers": true,
+    "missing_raw_payloads": false,
+    "status": "COMPLETE"
+  },
+  "schema_version": 1,
+  "starting_sha": "cbb78b0786644146462dbcfc5c4d6fb514c7fa44",
+  "trust_classification": "FAIL"
+}

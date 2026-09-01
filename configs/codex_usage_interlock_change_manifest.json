@@ -1,28 +1,29 @@
 {
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "base_commit": "a075dbc3c4b28a839754b3c7de18d7dd5284f7f9",
+  "base_commit": "e09f84a7c1cccb64dbd448d89a1de83832e58f4f",
   "changed_paths": [
-    "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json",
-    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001.json",
+    "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001.json",
     "configs/artifact_binding_contract.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle24_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "configs/week1_2026_early_forecast_adequacy_contract.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml",
     "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
+    "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
+    "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+    "jira/validation/JIRA_FILE_HASHES.sha256",
+    "jira/validation/JIRA_FILE_MANIFEST.csv",
+    "jira/validation/SECOND_PASS_AUDIT_RESULTS.json",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/data/week1_2026_early_forecast_adequacy.py",
-    "tests/test_week1_2026_early_forecast_adequacy.py",
-    "tools/build_week1_2026_early_forecast_adequacy.py",
-    "tools/validate_week1_2026_early_forecast_adequacy.py"
+    "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py"
   ],
-  "jira_identity": "BAT-681",
-  "manifest_identity": "0ac01d1fda01a7bc44e01e436fe7503feed07af4f3a5135de1c5b45c03c9b784",
+  "jira_identity": "BAT-684",
+  "manifest_identity": "a98f22e47898c8cda72fbbb6082b77cf3f13791daafb9a10e98659b696abd9b2",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "302f9b65ddbf1f46240ad0ea0a9185013c1576dac905902a7c9666a0df5324e5",
+  "pre_routing_decision_sha256": "76632d8d8130db82db4287d28f4ec141509022c9eb2224e2ca01e2ed5974fff6",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
-  "work_unit_id": "POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001"
+  "work_unit_id": "POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001"
 }

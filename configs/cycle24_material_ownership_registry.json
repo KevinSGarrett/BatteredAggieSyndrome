@@ -23,6 +23,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-684",
+      "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001.json"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-681",
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-EARLY-FORECAST-ADEQUACY-001.json"
     },
@@ -52,8 +57,8 @@
       "path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json"
     },
     {
-      "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
-      "owner": null,
+      "kind": "MATERIAL",
+      "owner": "BAT-684",
       "path": "configs/artifact_binding_contract.json"
     },
     {
@@ -172,6 +177,11 @@
       "path": "jira/validation/JIRA_FILE_MANIFEST.csv"
     },
     {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "jira/validation/SECOND_PASS_AUDIT_RESULTS.json"
+    },
+    {
       "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
       "owner": null,
       "path": "provenance/CURRENT_TREE.txt"
@@ -198,7 +208,7 @@
     },
     {
       "kind": "MATERIAL",
-      "owner": "BAT-679",
+      "owner": "BAT-684",
       "path": "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py"
     },
     {
@@ -322,6 +332,10 @@
     "BAT-683": {
       "local_issue_id": "POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001",
       "scope": "Bind official kickoff, unsupported participant identity, Associated Press poll completion and institutional venue authority for the 2026 Week 1 universe without rewriting any predecessor artifact"
+    },
+    "BAT-684": {
+      "local_issue_id": "POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001",
+      "scope": "Ruff-format closeout for the frozen strength-prior module with rebound core_module_sha256 and live auxiliary registration of BAT-684"
     }
   },
   "predecessor_commit": "cbb78b0786644146462dbcfc5c4d6fb514c7fa44",

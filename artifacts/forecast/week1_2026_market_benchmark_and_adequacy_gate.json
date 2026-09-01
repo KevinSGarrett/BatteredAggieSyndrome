@@ -1,6 +1,6 @@
 {
   "artifact_type": "WEEK1_2026_MARKET_BENCHMARK_AND_ADEQUACY_GATE",
-  "binding_identity": "c741b80e3f052bc67402288c702435741aeb7adcd85bf3f8c1688d16d03f32c7",
+  "binding_identity": "34f50640db7997612ba646379d0a5a2a4c1421396e6d45b95025317414914292",
   "cfbd": {
     "credential_presence": "PRESENT",
     "disposition": "STRUCTURED_ROWS_CAPTURED",
@@ -19,7 +19,7 @@
     "week1_outcome_access": false
   },
   "classification": "WEEK1_2026_EARLY_MARKET_BENCHMARK_AND_FORECAST_ADEQUACY",
-  "code_identity": "cdf93181f696fadb284a47fde6709bc6c105335b40bda45d437a703969058ac0",
+  "code_identity": "017ec10e804cb47952de2035ec6052ac73ab32952c95fe18cdc998b810d532f4",
   "contract_id": "CYCLE25-WEEK1-2026-MARKET-BENCHMARK-AND-ADEQUACY-V1",
   "contract_sha256": "e35a05f95945a0478513c60840ab36dd3c015e255cdd0b49a60bf318d130b97d",
   "credentials": {
@@ -38,7 +38,7 @@
   "dataset_identity": "29762246b77351b09c25dffbb738eb2a1ff61fe579a7e23e67134aefc5e0ced7",
   "decision_unit": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
   "focus_packet_identity": "cf4e7a56d4e70a5ba14ae1076dac99ce75bd4cbbbaac1e8786d8a0495ac922b1",
-  "gate_identity": "01f0ba588293f3708d85da6e591639ebff6d1aeea77705dd4afd673f27e3114d",
+  "gate_identity": "815848fb56ddb78e9a65db582d0d6b0890ffd1860dd664a04de78db869f44acd",
   "issued_at_utc": "2026-09-01T06:00:00Z",
   "jira_key": "BAT-687",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",

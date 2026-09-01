@@ -301,8 +301,8 @@ def acquire_cfbd_lines(
             "raw_sha256": None,
             "raw_path": None,
         }
-    token = load_dotenv_value(env_file, "CFBD_API_KEY")
-    transport = CFBDTransport(token, timeout_seconds=90.0)
+    cfbd_auth = load_dotenv_value(env_file, "CFBD_API_KEY")
+    transport = CFBDTransport(cfbd_auth, timeout_seconds=90.0)
     response = transport(request)
     receipt = redacted_receipt(
         provider="CollegeFootballData",

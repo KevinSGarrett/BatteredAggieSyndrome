@@ -1,5 +1,5 @@
 {
-  "canonical_gate_identity": "01f0ba588293f3708d85da6e591639ebff6d1aeea77705dd4afd673f27e3114d",
+  "canonical_gate_identity": "815848fb56ddb78e9a65db582d0d6b0890ffd1860dd664a04de78db869f44acd",
   "canonical_gate_path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json",
   "completeness_claimed": false,
   "created_at_utc": "2026-09-01T06:00:00Z",
@@ -22,7 +22,7 @@
     },
     {
       "path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json",
-      "sha256": "164ca00ea5f1cb37345e33e1a6b48b1115f6ccf696af81aa362ffaab0062e10b"
+      "sha256": "6e59d8d3f4360c37d4966f06bbf6369ae94774ad4445382b2cfc10e88d44b44f"
     },
     {
       "path": "artifacts/jira_evidence/POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001.json",
@@ -50,7 +50,7 @@
     },
     {
       "path": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py",
-      "sha256": "cdf93181f696fadb284a47fde6709bc6c105335b40bda45d437a703969058ac0"
+      "sha256": "017ec10e804cb47952de2035ec6052ac73ab32952c95fe18cdc998b810d532f4"
     },
     {
       "path": "src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py",

@@ -63,7 +63,9 @@ def main() -> int:
         findings.append("40_point_spread_assumed")
     if market["scientific_nonclaims"].get("independent_bas_predicted_score"):
         findings.append("unauthorized_bas_predicted_score")
-    if market["scientific_nonclaims"].get("chatgpt_transcript_used_as_source_authority"):
+    if market["scientific_nonclaims"].get(
+        "chatgpt_transcript_used_as_source_authority"
+    ):
         findings.append("chatgpt_transcript_used_as_source")
     if market["national"].get("cycle24_ridge_incoherence_count", 0) < 1:
         findings.append("cycle24_ridge_incoherence_unclassified")

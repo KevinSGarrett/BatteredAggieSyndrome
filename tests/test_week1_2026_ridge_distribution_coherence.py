@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.data.week1_2026_ridge_distribution_coherence import (  # noqa: E402
+    audit_cycle24_ridge_forecast_row,
     classify_ridge_distribution_coherence,
     reconstruct_ridge_surfaces,
 )
@@ -103,10 +104,6 @@ class RidgeDistributionCoherenceTests(unittest.TestCase):
             "probability_home": A_AND_M_EMITTED,
             "row_state": "FORECAST_FROZEN",
         }
-        from aggie_analytics.data.week1_2026_ridge_distribution_coherence import (
-            audit_cycle24_ridge_forecast_row,
-        )
-
         audit = audit_cycle24_ridge_forecast_row(
             row,
             residual_stdev=STDEV,
@@ -115,9 +112,7 @@ class RidgeDistributionCoherenceTests(unittest.TestCase):
             saturation_low=0.01,
             saturation_high=0.99,
         )
-        self.assertEqual(
-            audit["forecast_row_identity"], row["forecast_row_identity"]
-        )
+        self.assertEqual(audit["forecast_row_identity"], row["forecast_row_identity"])
         self.assertFalse(audit["cycle24_row_rewritten"])
         self.assertEqual(audit["adequacy_state"], INCOHERENCE)
 

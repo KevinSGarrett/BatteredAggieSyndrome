@@ -62,6 +62,7 @@ def main() -> int:
         "provenance/PROJECT_FILE_HASHES.sha256",
         "provenance/PROJECT_FILE_MANIFEST.csv",
         "tools/write_cycle25_5_routing_manifests.py",
+        ".github/CODE_REVIEW_RULES.md",
     ]
     paths = sorted(set(tracked) | set(untracked) | set(extra))
     assignments = []
@@ -96,8 +97,8 @@ def main() -> int:
         "schema_version": 1,
         "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001",
     }
-    (ROOT / "configs/cycle25_5_material_ownership_registry.json").write_text(
-        json.dumps(registry, indent=2) + "\n", encoding="utf-8"
+    (ROOT / "configs/cycle25_5_material_ownership_registry.json").write_bytes(
+        (json.dumps(registry, indent=2) + "\n").encode("utf-8")
     )
     waiver = {
         "accepted_risk": (
@@ -132,8 +133,8 @@ def main() -> int:
         "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001",
     }
     binding["decision_sha256"] = _sha(binding, "decision_sha256")
-    (ROOT / "configs/unified_assistive_change_routing_binding.json").write_text(
-        json.dumps(binding, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    (ROOT / "configs/unified_assistive_change_routing_binding.json").write_bytes(
+        (json.dumps(binding, indent=2, sort_keys=True) + "\n").encode("utf-8")
     )
     manifest = {
         "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
@@ -147,8 +148,8 @@ def main() -> int:
         "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001",
     }
     manifest["manifest_identity"] = _sha(manifest, "manifest_identity")
-    (ROOT / "configs/codex_usage_interlock_change_manifest.json").write_text(
-        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    (ROOT / "configs/codex_usage_interlock_change_manifest.json").write_bytes(
+        (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode("utf-8")
     )
     print(json.dumps({"path_count": len(paths), "decision": binding["decision_sha256"]}))
     return 0

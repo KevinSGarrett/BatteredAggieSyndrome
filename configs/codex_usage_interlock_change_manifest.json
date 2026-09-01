@@ -4,10 +4,10 @@
   "changed_paths": [
     ".cursor/BUGBOT.md",
     ".github/.cursor/BUGBOT.md",
+    ".github/CODE_REVIEW_RULES.md",
     ".github/codex/prompts/scientific-review.md",
     ".github/workflows/ci.yml",
     ".github/workflows/codex-scientific-review.yml",
-    "AGENTS.md",
     "artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json",
     "artifacts/scientific_integrity/INDEPENDENT_VALIDATOR_CLASSIFICATION.json",
     "artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json",
@@ -97,9 +97,9 @@
     "tools/write_cycle25_5_routing_manifests.py"
   ],
   "jira_identity": "BAT-688",
-  "manifest_identity": "e00ac8ae2735ed32d6dde15c3eac1501f0375d4f28a6b729f52e119ca13fa180",
+  "manifest_identity": "f06dec89c56e1ab6bd6b1fedfaba938d9e62d06a4ed1ed89820a44263f1ff229",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "dd89479fba767c392bdcd0624b9e8a68fc748ce0040e58390405f8d9c947a565",
+  "pre_routing_decision_sha256": "bac1a08cd290ec318895486ab17172143cddefdbeb6284bc8c96843a15e16e2d",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"

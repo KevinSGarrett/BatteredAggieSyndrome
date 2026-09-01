@@ -8,6 +8,7 @@
 .githooks/pre-commit
 .github/.cursor/BUGBOT.md
 .github/CODEOWNERS
+.github/CODE_REVIEW_RULES.md
 .github/ISSUE_TEMPLATE/bug_report.yml
 .github/ISSUE_TEMPLATE/config.yml
 .github/codex/prompts/scientific-review.md

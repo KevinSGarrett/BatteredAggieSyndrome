@@ -14,6 +14,11 @@
     {
       "kind": "MATERIAL",
       "owner": "BAT-688",
+      "path": ".github/CODE_REVIEW_RULES.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
       "path": ".github/codex/prompts/scientific-review.md"
     },
     {
@@ -25,11 +30,6 @@
       "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": ".github/workflows/codex-scientific-review.yml"
-    },
-    {
-      "kind": "MATERIAL",
-      "owner": "BAT-688",
-      "path": "AGENTS.md"
     },
     {
       "kind": "MATERIAL",

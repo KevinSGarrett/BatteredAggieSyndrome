@@ -1829,6 +1829,36 @@
       "phase": "PHASE-3",
       "status": "Done",
       "summary": "Cycle #24 code-identity rebind after Ruff format of the frozen strength-prior module"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-686",
+      "local_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "In Review",
+      "summary": "Correct Week 1 model feature-authority, training-equivalence, and candidate-readiness bindings without rewriting frozen Cycle #24 forecasts"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-687",
+      "local_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "In Review",
+      "summary": "Acquire identity-bound Week 1 market snapshots and create a separate market-consensus forecast-adequacy benchmark"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

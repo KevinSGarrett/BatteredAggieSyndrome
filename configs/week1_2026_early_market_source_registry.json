@@ -1,0 +1,63 @@
+{
+  "schema_version": "aggie.shadow.week1_2026_early_market_source_registry.v1",
+  "registry_id": "CYCLE25-WEEK1-2026-EARLY-MARKET-SOURCE-REGISTRY-V1",
+  "snapshot_id": "EARLY_MARKET",
+  "t_minus_24h_state": "OPEN",
+  "t_minus_90m_state": "OPEN",
+  "declared_before_price_inspection": true,
+  "global_source_acquisition_registry_includes_get_lines": false,
+  "sources": [
+    {
+      "provider": "CollegeFootballData",
+      "source_id": "SRC-002",
+      "endpoint_id": "CFBD-GetLines",
+      "endpoint_path": "/lines",
+      "method": "GET",
+      "route_class": "STRUCTURED_API",
+      "credential_environment_variable": "CFBD_API_KEY",
+      "permitted_use": "WEEK1_2026_EARLY_MARKET_BENCHMARK_ONLY",
+      "authoritative_or_benchmark": "BENCHMARK_ONLY",
+      "expected_market_types": ["spread", "moneyline", "total"],
+      "timezone_convention": "PROVIDER_UTC_START_DATE",
+      "event_identifier": "CFBD_GAME_ID",
+      "raw_storage_policy": "EXTERNAL_DATA_ROOT_NOT_GIT",
+      "retrieval_terms": "Use only when the Cycle #25 market registry declares the route. Do not retry a known 429. NCAA is not a betting-market authority.",
+      "quota_retry_policy": "PRESERVE_ONE_REDACTED_429_RECEIPT_THEN_STOP"
+    },
+    {
+      "provider": "TheOddsAPI",
+      "source_id": "UNREGISTERED_ODDS_API",
+      "endpoint_id": "THE-ODDS-API-ODDS",
+      "endpoint_path": null,
+      "method": "GET",
+      "route_class": "STRUCTURED_API_IF_CREDENTIAL_PRESENT",
+      "credential_environment_variable": "ODDS_API_KEY",
+      "permitted_use": "WEEK1_2026_EARLY_MARKET_BENCHMARK_ONLY",
+      "authoritative_or_benchmark": "BENCHMARK_ONLY",
+      "expected_market_types": ["h2h", "spreads", "totals"],
+      "timezone_convention": "PROVIDER_UTC",
+      "event_identifier": "PROVIDER_EVENT_ID",
+      "raw_storage_policy": "EXTERNAL_DATA_ROOT_NOT_GIT",
+      "retrieval_terms": "Use only when the credential is present and the source is authorized. Not in the global source-acquisition registry.",
+      "quota_retry_policy": "PRESERVE_ONE_REDACTED_QUOTA_RECEIPT_THEN_STOP"
+    },
+    {
+      "provider": "DeclaredPublicSportsbookPage",
+      "source_id": "PUBLIC_MARKET_PAGE_FALLBACK",
+      "endpoint_id": "PUBLIC-PAGE-CAPTURE",
+      "endpoint_path": null,
+      "method": "GET",
+      "route_class": "WEB_FALLBACK_ONLY_WHEN_STRUCTURED_ROUTE_UNAVAILABLE",
+      "credential_environment_variable": "SCRAPFLY_API_TOKEN",
+      "alternate_credential_environment_variable": "SCRAPERAPI_API_TOKEN",
+      "permitted_use": "WEEK1_2026_EARLY_MARKET_BENCHMARK_ONLY",
+      "authoritative_or_benchmark": "BENCHMARK_ONLY",
+      "expected_market_types": ["spread", "moneyline", "total"],
+      "timezone_convention": "PAGE_DISPLAYED_KICKOFF",
+      "event_identifier": "PAGE_EVENT_IDENTITY",
+      "raw_storage_policy": "EXTERNAL_DATA_ROOT_NOT_GIT",
+      "retrieval_terms": "Use only for an explicitly declared public market source when no structured registered route is usable. Record why the structured route was unavailable. Do not scrape because it is convenient.",
+      "quota_retry_policy": "NO_RETRY_ON_BLOCK"
+    }
+  ]
+}

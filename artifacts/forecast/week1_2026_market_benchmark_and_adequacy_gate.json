@@ -1,0 +1,158 @@
+{
+  "artifact_type": "WEEK1_2026_MARKET_BENCHMARK_AND_ADEQUACY_GATE",
+  "binding_identity": "34f50640db7997612ba646379d0a5a2a4c1421396e6d45b95025317414914292",
+  "cfbd": {
+    "credential_presence": "PRESENT",
+    "disposition": "STRUCTURED_ROWS_CAPTURED",
+    "public_uri": "https://api.collegefootballdata.com/lines",
+    "raw_path": "C:\\BatteredAggieSyndrome.data\\raw\\cycle25_early_market\\cfbd_lines\\sha256_6a53f4c55e0e3e3e6245d6e769d7745d01610ffc257f672ece379fac1ff52af7.json",
+    "raw_sha256": "6a53f4c55e0e3e3e6245d6e769d7745d01610ffc257f672ece379fac1ff52af7",
+    "replayed": true,
+    "route": "CFBD-GetLines"
+  },
+  "checkpoints": {
+    "checkpoint_id": "EARLY_MARKET",
+    "cycle24_forecasts_rewritten": false,
+    "executed_early": false,
+    "t_minus_24h_state": "OPEN",
+    "t_minus_90m_state": "OPEN",
+    "week1_outcome_access": false
+  },
+  "classification": "WEEK1_2026_EARLY_MARKET_BENCHMARK_AND_FORECAST_ADEQUACY",
+  "code_identity": "017ec10e804cb47952de2035ec6052ac73ab32952c95fe18cdc998b810d532f4",
+  "contract_id": "CYCLE25-WEEK1-2026-MARKET-BENCHMARK-AND-ADEQUACY-V1",
+  "contract_sha256": "e35a05f95945a0478513c60840ab36dd3c015e255cdd0b49a60bf318d130b97d",
+  "credentials": {
+    "CFBD_API_KEY": "PRESENT",
+    "ODDS_API_KEY": "ABSENT",
+    "SCRAPERAPI_API_TOKEN": "PRESENT",
+    "SCRAPFLY_API_TOKEN": "PRESENT",
+    "dotenv_path_exists": true,
+    "dotenv_path_recorded": "C:\\BatteredAggieSyndrome\\.env",
+    "secret_values_recorded": false
+  },
+  "cycle24_preservation": {
+    "early_forecast_row_count": 455,
+    "rewritten": false
+  },
+  "dataset_identity": "29762246b77351b09c25dffbb738eb2a1ff61fe579a7e23e67134aefc5e0ced7",
+  "decision_unit": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+  "focus_packet_identity": "cf4e7a56d4e70a5ba14ae1076dac99ce75bd4cbbbaac1e8786d8a0495ac922b1",
+  "gate_identity": "815848fb56ddb78e9a65db582d0d6b0890ffd1860dd664a04de78db869f44acd",
+  "issued_at_utc": "2026-09-01T06:00:00Z",
+  "jira_key": "BAT-687",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-MARKET-BENCHMARK-AND-FORECAST-ADEQUACY-001",
+  "national": {
+    "adequacy_counts": {
+      "ABSTAIN_MISSING_REQUIRED_FEATURES": 4,
+      "ABSTAIN_UNSUPPORTED_ENTITY": 40,
+      "LIMITED_STALE_INPUT_SHADOW_ONLY": 336,
+      "MARKET_REFERENCE_UNAVAILABLE": 9,
+      "REVIEW_REQUIRED_MODEL_MARKET_DISAGREEMENT": 51
+    },
+    "authority_mismatch_count": 0,
+    "consensus_count": 0,
+    "cycle24_forecast_coverage": 455,
+    "cycle24_ridge_frozen_count": 79,
+    "cycle24_ridge_incoherence_count": 79,
+    "directional_disagreement_count": 18,
+    "insufficient_coverage_count": 78,
+    "market_covered_count": 37,
+    "market_missing_count": 54,
+    "matched_quote_count": 56,
+    "quote_count": 236,
+    "saturation_count": 0,
+    "single_source_count": 13,
+    "t_minus_24h_state": "OPEN",
+    "t_minus_90m_state": "OPEN",
+    "week1_contest_count": 91
+  },
+  "odds_disposition": {
+    "credential_presence": "ABSENT",
+    "disposition": "CREDENTIAL_ABSENT_ROUTE_NOT_ATTEMPTED",
+    "fallback_reason": null,
+    "route": "THE-ODDS-API-ODDS"
+  },
+  "parent_jira_key": "BAT-523",
+  "payloads": [
+    {
+      "bytes": 245015,
+      "name": "week1_2026_early_market_quotes.jsonl",
+      "role": "EARLY_MARKET_QUOTES",
+      "rows": 236,
+      "sha256": "fed4ac8a2fb5bf51215744bb488af1c0c77c788bc4697ba88518ab15c7f89cd8"
+    },
+    {
+      "bytes": 77763,
+      "name": "week1_2026_early_market_crosswalk_matched.jsonl",
+      "role": "EARLY_MARKET_CROSSWALK_MATCHED",
+      "rows": 56,
+      "sha256": "3eecc3650c48c8d466073b13fe0fe11644705c19ba3023b103a996cf16093c1b"
+    },
+    {
+      "bytes": 45083,
+      "name": "week1_2026_early_market_consensus.jsonl",
+      "role": "EARLY_MARKET_CONSENSUS",
+      "rows": 91,
+      "sha256": "a86742a473dacc47428631730c6adbac1ae2df8770e9fad69a5202136ce6db79"
+    },
+    {
+      "bytes": 277146,
+      "name": "week1_2026_c25_forecast_adequacy_rows.jsonl",
+      "role": "CYCLE25_FORECAST_ADEQUACY",
+      "rows": 440,
+      "sha256": "5463828073e5086e1f82dee895c9052fc4d4e7ed617e666b6b612fae290a9a50"
+    },
+    {
+      "bytes": 125557,
+      "name": "week1_2026_cycle24_ridge_distribution_coherence.jsonl",
+      "role": "CYCLE24_RIDGE_DISTRIBUTION_COHERENCE",
+      "rows": 79,
+      "sha256": "37169d9748c0160333858348830260c62e9e5c6e5b2869d19e21a52cc44262fc"
+    },
+    {
+      "bytes": 8777,
+      "name": "week1_2026_c25_a_and_m_packet.jsonl",
+      "role": "CYCLE25_A_AND_M_PACKET",
+      "rows": 1,
+      "sha256": "7d935a85b1058e74788760cb90227ac9421e94aa7fd7f680a5a5ecf3e8cc9c40"
+    }
+  ],
+  "pre_market_model_freeze_identity": "9ed7e0110113bbc653090fbfa6517c627dc60722a80f0053723a8f191d7fb942",
+  "producer": {
+    "platform": "Windows",
+    "python": "3.11.9"
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "result": "PASS_WEEK1_2026_EARLY_MARKET_BENCHMARK_AND_ADEQUACY",
+  "schema_version": "aggie.shadow.week1_2026_market_benchmark_and_adequacy.v1",
+  "scientific_nonclaims": {
+    "a_and_m_adjustment": false,
+    "bas_or_aggie_excess_claim": false,
+    "champion_or_production_promotion": false,
+    "chatgpt_transcript_used_as_source_authority": false,
+    "cycle24_forecasts_rewritten": false,
+    "hardcoded_a_and_m_market_threshold": false,
+    "independent_bas_predicted_score": false,
+    "market_enters_calibration": false,
+    "market_enters_model_fitting": false,
+    "market_replaces_independent_probability": false,
+    "probability_recalibrated_from_a_and_m_or_market_or_week1_outcome": false,
+    "roughly_40_point_spread_assumed": false,
+    "spread_converted_to_exact_win_probability": false
+  },
+  "snapshot_id": "EARLY_MARKET",
+  "web_fallback": {
+    "credential_presence": {
+      "SCRAPERAPI_API_TOKEN": "PRESENT",
+      "SCRAPFLY_API_TOKEN": "PRESENT"
+    },
+    "disposition": "NOT_USED",
+    "reason": "Structured CFBD route was attempted first; web fallback is not used merely because it is convenient, and no explicit public sportsbook URL is authorized beyond the structured attempt disposition.",
+    "route": "PUBLIC-PAGE-CAPTURE",
+    "structured_route_unavailable": false,
+    "used": false,
+    "why_structured_unavailable": "STRUCTURED_ROWS_CAPTURED"
+  }
+}

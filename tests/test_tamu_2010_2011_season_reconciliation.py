@@ -23,7 +23,9 @@ from aggie_analytics.data.tamu_season_reconciliation import (  # noqa: E402
     validate_artifact,
 )
 
-DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+DATA_ROOT = Path(
+    os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+)
 
 
 def _mutated(gate: dict, **changes):
@@ -143,7 +145,9 @@ class SeasonReconciliationMutationTests(unittest.TestCase):
             _validate(_mutated(self.gate, authority=authority))
 
     def test_forged_completion_after_rehash_is_rejected(self) -> None:
-        forged = _mutated(self.gate, result="FORGED_DONE", classification="PRODUCTION_CHAMPION")
+        forged = _mutated(
+            self.gate, result="FORGED_DONE", classification="PRODUCTION_CHAMPION"
+        )
         with self.assertRaises(AuthorityViolation):
             _validate(forged)
 
@@ -151,6 +155,21 @@ class SeasonReconciliationMutationTests(unittest.TestCase):
         rows = Path(str(self.gate["payload"]["rows"]))
         if not rows.is_file():
             self.skipTest("bulk season reconciliation rows are not on this machine")
+        identities = self.gate["input_identities"]
+        for season, key in (
+            ("2010", "sidearm_schedule_html_2010_sha256"),
+            ("2011", "sidearm_schedule_html_2011_sha256"),
+        ):
+            digest = identities[key]
+            html_path = (
+                DATA_ROOT
+                / "raw/SRC-014/tamu_official_gamebook_equivalent/schedule_html"
+                / f"sha256_{digest}.html"
+            )
+            if not html_path.is_file():
+                self.skipTest(
+                    f"Sidearm {season} schedule HTML fixture is absent from the resolved data root"
+                )
         result = _validate(self.gate, require_rebuild=True)
         self.assertEqual("PASS", result["result"])
 

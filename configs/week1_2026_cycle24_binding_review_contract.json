@@ -1,0 +1,39 @@
+{
+  "schema_version": "aggie.shadow.week1_2026_cycle24_binding_review.v1",
+  "contract_id": "CYCLE25-WEEK1-2026-CYCLE24-BINDING-REVIEW-V1",
+  "decision_unit": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+  "local_issue_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+  "jira_key": "BAT-686",
+  "parent_jira_key": "BAT-523",
+  "classification": "WEEK1_2026_CYCLE24_MODEL_INPUT_BINDING_REVIEW",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Independently classify Cycle #24 model-input binding findings without rewriting frozen forecasts or BAT-679 through BAT-685 artifacts.",
+  "predecessor_identities": {
+    "prior_gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41",
+    "suite_gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366",
+    "early_gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb"
+  },
+  "protected_hash_labels": {
+    "protected_split_registry_path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "protected_judging_rule_seal_csv_path": "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "protected_judging_rule_seal_csv_sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356",
+    "judging_rule_seal_json_path": "configs/judging_rule_seal.json",
+    "judging_rule_seal_json_sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758"
+  },
+  "sidearm_fixture": {
+    "test_id": "tests.test_tamu_2010_2011_season_reconciliation.SeasonReconciliationMutationTests.test_rebuild_matches_when_lake_present",
+    "reported_error": "AuthorityViolation: Sidearm 2010 schedule HTML is missing or drifted",
+    "classification_if_empty_string_data_root": "CONFIRMED"
+  },
+  "scientific_nonclaims": {
+    "cycle24_forecasts_rewritten": false,
+    "champion_or_production_promotion": false,
+    "bas_or_aggie_excess_claim": false,
+    "week1_outcome_access": false,
+    "market_values_inspected": false,
+    "protected_split_registry_mutation": false,
+    "judging_rule_seal_mutation": false
+  }
+}

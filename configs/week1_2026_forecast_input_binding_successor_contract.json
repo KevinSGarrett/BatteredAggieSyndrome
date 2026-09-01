@@ -1,0 +1,165 @@
+{
+  "schema_version": "aggie.shadow.week1_2026_forecast_input_binding_successor.v1",
+  "contract_id": "CYCLE25-WEEK1-2026-FORECAST-INPUT-BINDING-SUCCESSOR-V1",
+  "decision_unit": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+  "local_issue_id": "POST-TASK-2026-WEEK1-FORECAST-INPUT-BINDING-SUCCESSOR-001",
+  "jira_key": "BAT-686",
+  "parent_jira_key": "BAT-523",
+  "classification": "WEEK1_2026_FORECAST_INPUT_BINDING_SUCCESSOR",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "purpose": "Correct Week 1 feature-authority, training-equivalence, and candidate-readiness bindings with versioned successor identities, freeze them before market access, and leave every Cycle #24 forecast row unchanged.",
+  "sources": {
+    "cycle24_prior_gate": {
+      "gate_relative_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+      "gate_identity": "f861afbe6dc30ce0fa81195e80d1fcc51ffdd43c1e7d6fd4456ca45d4e71dd41"
+    },
+    "cycle24_suite_gate": {
+      "gate_relative_path": "artifacts/forecast/week1_2026_national_forecast_suite_gate.json",
+      "gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366"
+    },
+    "cycle24_early_gate": {
+      "gate_relative_path": "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json",
+      "gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb"
+    },
+    "authority_enrichment_gate": {
+      "gate_relative_path": "artifacts/authority/week1_2026_authority_enrichment_gate.json"
+    },
+    "spine_semantic_successor_gate": {
+      "gate_relative_path": "artifacts/spine/week1_2026_spine_semantic_successor_gate.json"
+    },
+    "feature_coverage_gate": {
+      "gate_relative_path": "artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json"
+    },
+    "frozen_candidates_gate": {
+      "gate_relative_path": "artifacts/experimentation/national_expectation_baselines_and_peers_gate.json"
+    },
+    "chronological_development_matrix": {
+      "gate_relative_path": "artifacts/pit/national_chronological_development_matrix_gate.json",
+      "feature_payload_name": "national_development_matrix_features.jsonl",
+      "label_payload_name": "national_development_matrix_labels.jsonl"
+    }
+  },
+  "cycle24_candidate_ids_immutable": [
+    "national_base_rate",
+    "prior_only",
+    "national_elo",
+    "national_logistic_l2",
+    "national_margin_ridge"
+  ],
+  "successor_candidates": [
+    {
+      "candidate_id": "national_base_rate_c25_input_bound",
+      "predecessor_candidate_id": "national_base_rate",
+      "family": "UNFITTED_REFERENCE",
+      "feature_scope": "NONE",
+      "consumes_opening_rating": false,
+      "emits_margin": false
+    },
+    {
+      "candidate_id": "prior_only_c25_input_bound",
+      "predecessor_candidate_id": "prior_only",
+      "family": "REGULARIZED_LOGISTIC",
+      "feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+      "consumes_opening_rating": false,
+      "emits_margin": false
+    },
+    {
+      "candidate_id": "national_elo_c25_input_bound",
+      "predecessor_candidate_id": "national_elo",
+      "family": "ELO",
+      "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+      "consumes_opening_rating": true,
+      "emits_margin": false
+    },
+    {
+      "candidate_id": "national_logistic_l2_c25_input_bound",
+      "predecessor_candidate_id": "national_logistic_l2",
+      "family": "REGULARIZED_LOGISTIC",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "consumes_opening_rating": false,
+      "emits_margin": false
+    },
+    {
+      "candidate_id": "national_margin_ridge_c25_input_bound",
+      "predecessor_candidate_id": "national_margin_ridge",
+      "family": "RIDGE_MARGIN",
+      "feature_scope": "ALL_ADMITTED_FEATURES",
+      "consumes_opening_rating": false,
+      "emits_margin": true
+    }
+  ],
+  "principal_performance_features": [
+    "prior_win_rate",
+    "prior_points_for_mean",
+    "prior_points_against_mean",
+    "prior_margin_mean",
+    "prior_season_win_rate",
+    "opponent_prior_win_rate",
+    "opponent_prior_margin_mean",
+    "opponent_prior_season_win_rate",
+    "prior_win_rate_differential"
+  ],
+  "ranking_surface_states": [
+    "POLL_SURFACE_AVAILABLE",
+    "TEAM_POLL_ELIGIBLE",
+    "TEAM_RANKED",
+    "TEAM_UNRANKED_FBS",
+    "FCS_NOT_APPLICABLE",
+    "SOURCE_MISSING"
+  ],
+  "historical_rankings_source_available_analogue": "poll_snapshot_present_for_the_week",
+  "ranking_effective_authority": {
+    "state": "EFFECTIVE_AUTHORITY_ADMITTED_BOUND_TO_BAT_683",
+    "bound_predecessor": "BAT-683",
+    "poll_id": "ASSOCIATED_PRESS_FBS_TOP_25",
+    "cycle24_coverage_label_retained": "CURRENT_RANKING=CANDIDATE_ONLY_NOT_CONSUMED"
+  },
+  "strength_prior_effective_authority": {
+    "controlling_surface": "prior_admitted",
+    "spine_label_retained": "TEAM_STRENGTH_PRIOR domain admission_disposition",
+    "fitted_models_consume_opening_rating": false,
+    "elo_family_consumes_opening_rating": true
+  },
+  "deployment_fit": {
+    "training_season_max": 2023,
+    "excluded_protected_seasons": [2024, 2025],
+    "refit_fitted_families": false,
+    "reuse_cycle24_coefficients": true
+  },
+  "probability_clip": [0.001, 0.999],
+  "pre_market_diagnostic_thresholds": {
+    "classification": "DESCRIPTIVE_OPERATIONAL_ONLY",
+    "empirical_calibration_claimed": false,
+    "favorite_direction_disagreement": "ANY",
+    "probability_gap_review_abs": 0.15,
+    "margin_gap_review_abs": 10.0,
+    "saturation_low": 0.01,
+    "saturation_high": 0.99,
+    "consensus_minimum_independent_books": 3,
+    "devig_method": "MULTIPLICATIVE_NORMALIZATION",
+    "spread_sign_convention": "HOME_EXPECTED_MARGIN_EQUALS_NEGATED_HOME_HANDICAP",
+    "one_sided_moneyline_rejected": true,
+    "cross_book_price_pairing_rejected": true,
+    "cross_timestamp_price_pairing_rejected": true,
+    "spread_to_exact_win_probability_authorized": false
+  },
+  "checkpoints": {
+    "checkpoint_id": "EARLY_MARKET_NOT_THIS_UNIT",
+    "t_minus_24h_state": "OPEN",
+    "t_minus_90m_state": "OPEN",
+    "executed_early": false,
+    "week1_outcome_access": false,
+    "market_values_inspected": false
+  },
+  "scientific_nonclaims": {
+    "cycle24_forecasts_rewritten": false,
+    "old_candidate_id_reused_with_new_semantics": false,
+    "opening_rating_inserted_into_fitted_models": false,
+    "champion_or_production_promotion": false,
+    "bas_or_aggie_excess_claim": false,
+    "a_and_m_adjustment": false,
+    "protected_season_training": false,
+    "market_enters_fitting_or_calibration": false
+  }
+}

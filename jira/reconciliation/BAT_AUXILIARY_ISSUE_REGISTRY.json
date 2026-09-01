@@ -1808,11 +1808,11 @@
       "issue_type": "Task",
       "jira_key": "BAT-684",
       "local_id": "POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001",
-      "logical_state": "REVIEW",
+      "logical_state": "DONE",
       "maturity": "IMPLEMENTED",
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
-      "status": "In Review",
+      "status": "Done",
       "summary": "Cycle #24 source-format closeout for the frozen strength-prior module"
     }
   ],

@@ -1,0 +1,271 @@
+{
+  "artifact_type": "ALL_CYCLE_DEPENDENCY_DAG",
+  "circular_authority": false,
+  "dag_identity": "ac0a3acfb6773f15d0a34f03adb3cb46adfec7ad8964c20a6aca4a501ca1a977",
+  "edges": [
+    {
+      "from": "CYCLE-01",
+      "kind": "lineage",
+      "to": "CYCLE-02"
+    },
+    {
+      "from": "CYCLE-02",
+      "kind": "lineage",
+      "to": "CYCLE-03"
+    },
+    {
+      "from": "CYCLE-03",
+      "kind": "lineage",
+      "to": "CYCLE-04"
+    },
+    {
+      "from": "CYCLE-04",
+      "kind": "lineage",
+      "to": "CYCLE-05"
+    },
+    {
+      "from": "CYCLE-05",
+      "kind": "lineage",
+      "to": "CYCLE-06"
+    },
+    {
+      "from": "CYCLE-06",
+      "kind": "lineage",
+      "to": "CYCLE-07"
+    },
+    {
+      "from": "CYCLE-07",
+      "kind": "lineage",
+      "to": "CYCLE-08"
+    },
+    {
+      "from": "CYCLE-08",
+      "kind": "lineage",
+      "to": "CYCLE-09"
+    },
+    {
+      "from": "CYCLE-09",
+      "kind": "lineage",
+      "to": "CYCLE-10"
+    },
+    {
+      "from": "CYCLE-10",
+      "kind": "lineage",
+      "to": "CYCLE-11"
+    },
+    {
+      "from": "CYCLE-11",
+      "kind": "lineage",
+      "to": "CYCLE-12"
+    },
+    {
+      "from": "CYCLE-12",
+      "kind": "lineage",
+      "to": "CYCLE-13"
+    },
+    {
+      "from": "CYCLE-13",
+      "kind": "lineage",
+      "to": "CYCLE-14"
+    },
+    {
+      "from": "CYCLE-14",
+      "kind": "lineage",
+      "to": "CYCLE-15"
+    },
+    {
+      "from": "CYCLE-15",
+      "kind": "lineage",
+      "to": "CYCLE-16"
+    },
+    {
+      "from": "CYCLE-16",
+      "kind": "lineage",
+      "to": "CYCLE-17"
+    },
+    {
+      "from": "CYCLE-17",
+      "kind": "lineage",
+      "to": "CYCLE-18"
+    },
+    {
+      "from": "CYCLE-18",
+      "kind": "lineage",
+      "to": "CYCLE-19"
+    },
+    {
+      "from": "CYCLE-20",
+      "kind": "lineage",
+      "to": "CYCLE-21"
+    },
+    {
+      "from": "CYCLE-21",
+      "kind": "lineage",
+      "to": "CYCLE-22"
+    },
+    {
+      "from": "CYCLE-22",
+      "kind": "lineage",
+      "to": "CYCLE-23"
+    },
+    {
+      "from": "CYCLE-23",
+      "kind": "lineage",
+      "to": "CYCLE-24"
+    },
+    {
+      "from": "CYCLE-24",
+      "kind": "lineage",
+      "to": "CYCLE-25"
+    },
+    {
+      "from": "CYCLE-19",
+      "kind": "integrated_during_later_cycle",
+      "to": "CYCLE-20"
+    },
+    {
+      "from": "CYCLE-22",
+      "kind": "integrated_during_later_cycle",
+      "to": "CYCLE-23"
+    },
+    {
+      "from": "CYCLE-18",
+      "kind": "national_foundation",
+      "to": "CYCLE-20"
+    },
+    {
+      "from": "CYCLE-24",
+      "kind": "forecast_successor",
+      "to": "CYCLE-25"
+    }
+  ],
+  "nodes": [
+    {
+      "cycle_number": 1,
+      "disposition": "FAIL",
+      "id": "CYCLE-01"
+    },
+    {
+      "cycle_number": 2,
+      "disposition": "FAIL",
+      "id": "CYCLE-02"
+    },
+    {
+      "cycle_number": 3,
+      "disposition": "FAIL",
+      "id": "CYCLE-03"
+    },
+    {
+      "cycle_number": 4,
+      "disposition": "FAIL",
+      "id": "CYCLE-04"
+    },
+    {
+      "cycle_number": 5,
+      "disposition": "FAIL",
+      "id": "CYCLE-05"
+    },
+    {
+      "cycle_number": 6,
+      "disposition": "FAIL",
+      "id": "CYCLE-06"
+    },
+    {
+      "cycle_number": 7,
+      "disposition": "FAIL",
+      "id": "CYCLE-07"
+    },
+    {
+      "cycle_number": 8,
+      "disposition": "FAIL",
+      "id": "CYCLE-08"
+    },
+    {
+      "cycle_number": 9,
+      "disposition": "FAIL",
+      "id": "CYCLE-09"
+    },
+    {
+      "cycle_number": 10,
+      "disposition": "FAIL",
+      "id": "CYCLE-10"
+    },
+    {
+      "cycle_number": 11,
+      "disposition": "FAIL",
+      "id": "CYCLE-11"
+    },
+    {
+      "cycle_number": 12,
+      "disposition": "FAIL",
+      "id": "CYCLE-12"
+    },
+    {
+      "cycle_number": 13,
+      "disposition": "FAIL",
+      "id": "CYCLE-13"
+    },
+    {
+      "cycle_number": 14,
+      "disposition": "FAIL",
+      "id": "CYCLE-14"
+    },
+    {
+      "cycle_number": 15,
+      "disposition": "FAIL",
+      "id": "CYCLE-15"
+    },
+    {
+      "cycle_number": 16,
+      "disposition": "FAIL",
+      "id": "CYCLE-16"
+    },
+    {
+      "cycle_number": 17,
+      "disposition": "FAIL",
+      "id": "CYCLE-17"
+    },
+    {
+      "cycle_number": 18,
+      "disposition": "FAIL",
+      "id": "CYCLE-18"
+    },
+    {
+      "cycle_number": 19,
+      "disposition": "FAIL",
+      "id": "CYCLE-19"
+    },
+    {
+      "cycle_number": 20,
+      "disposition": "FAIL",
+      "id": "CYCLE-20"
+    },
+    {
+      "cycle_number": 21,
+      "disposition": "FAIL",
+      "id": "CYCLE-21"
+    },
+    {
+      "cycle_number": 22,
+      "disposition": "FAIL",
+      "id": "CYCLE-22"
+    },
+    {
+      "cycle_number": 23,
+      "disposition": "FAIL",
+      "id": "CYCLE-23"
+    },
+    {
+      "cycle_number": 24,
+      "disposition": "FAIL",
+      "id": "CYCLE-24"
+    },
+    {
+      "cycle_number": 25,
+      "disposition": "FAIL",
+      "id": "CYCLE-25"
+    }
+  ],
+  "orphaned_authority": [],
+  "schema_version": 1
+}

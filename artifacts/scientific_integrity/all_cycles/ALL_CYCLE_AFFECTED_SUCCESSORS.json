@@ -1,0 +1,304 @@
+{
+  "affected_successors_identity": "8ba48e5a749e14f1d466b7ab2eb2246e168c19729b101c43965615f1020056a2",
+  "artifact_type": "ALL_CYCLE_AFFECTED_SUCCESSORS",
+  "schema_version": 1,
+  "successors": [
+    {
+      "affected_claims": [
+        "CYCLE-02-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-01"
+      ],
+      "successor_id": "CYCLE-02"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-03-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-02"
+      ],
+      "successor_id": "CYCLE-03"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-04-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-03"
+      ],
+      "successor_id": "CYCLE-04"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-05-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-04"
+      ],
+      "successor_id": "CYCLE-05"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-06-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-05"
+      ],
+      "successor_id": "CYCLE-06"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-07-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-06"
+      ],
+      "successor_id": "CYCLE-07"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-08-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-07"
+      ],
+      "successor_id": "CYCLE-08"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-09-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-08"
+      ],
+      "successor_id": "CYCLE-09"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-10-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-09"
+      ],
+      "successor_id": "CYCLE-10"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-11-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-10"
+      ],
+      "successor_id": "CYCLE-11"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-12-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-11"
+      ],
+      "successor_id": "CYCLE-12"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-13-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-12"
+      ],
+      "successor_id": "CYCLE-13"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-14-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-13"
+      ],
+      "successor_id": "CYCLE-14"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-15-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-14"
+      ],
+      "successor_id": "CYCLE-15"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-16-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-15"
+      ],
+      "successor_id": "CYCLE-16"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-17-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-16"
+      ],
+      "successor_id": "CYCLE-17"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-18-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-17"
+      ],
+      "successor_id": "CYCLE-18"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-19-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-18"
+      ],
+      "successor_id": "CYCLE-19"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-21-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-20"
+      ],
+      "successor_id": "CYCLE-21"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-22-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-21"
+      ],
+      "successor_id": "CYCLE-22"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-23-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-22"
+      ],
+      "successor_id": "CYCLE-23"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-24-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-23"
+      ],
+      "successor_id": "CYCLE-24"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-25-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-24"
+      ],
+      "successor_id": "CYCLE-25"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-20-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-19"
+      ],
+      "successor_id": "CYCLE-20"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-23-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-22"
+      ],
+      "successor_id": "CYCLE-23"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-20-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-18"
+      ],
+      "successor_id": "CYCLE-20"
+    },
+    {
+      "affected_claims": [
+        "CYCLE-25-INHERITED-FAILURE"
+      ],
+      "apparently_passing_built_on_failed_predecessor": true,
+      "corrected_successor_requirement": "Rebuild on authority-clean independent reconstruction; do not treat predecessor PASS as inherited.",
+      "failed_predecessors": [
+        "CYCLE-24"
+      ],
+      "successor_id": "CYCLE-25"
+    }
+  ]
+}

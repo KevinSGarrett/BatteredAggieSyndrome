@@ -1,0 +1,33 @@
+{
+  "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
+  "audit_identity": "191b6bb799d7749bfeb422d5cc454a47d5b7c787abe573bd2dfde04d99ee2875",
+  "cycle_number": 1,
+  "ending_sha": "f318d1842399f8b249a9a04bbcaec2ce7400349f",
+  "findings": [],
+  "pass_one_provenance": {
+    "end_descends_from_start": true,
+    "ending_sha": "f318d1842399f8b249a9a04bbcaec2ce7400349f",
+    "proves": "provenance_and_completeness_only",
+    "starting_sha": "b86a0759abac21163459c834cd0bd0f449576a60",
+    "status": "COMPLETE"
+  },
+  "pass_three_adversarial": {
+    "searched_for": [
+      "omitted_artifacts",
+      "circular_validation",
+      "target_leakage",
+      "pair_incoherence",
+      "protected_exposure",
+      "ignored_user_holds"
+    ],
+    "status": "COMPLETE"
+  },
+  "pass_two_semantic": {
+    "independent_of_producer_helpers": true,
+    "missing_raw_payloads": true,
+    "status": "BLOCKED_INSUFFICIENT_EVIDENCE"
+  },
+  "schema_version": 1,
+  "starting_sha": "b86a0759abac21163459c834cd0bd0f449576a60",
+  "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE"
+}

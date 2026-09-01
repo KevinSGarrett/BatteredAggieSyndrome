@@ -1,0 +1,258 @@
+{
+  "artifact_type": "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX",
+  "cycles": [
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 1,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 2,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 3,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 4,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 5,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 6,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 7,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 8,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 9,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 10,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 11,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 12,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 13,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 14,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 15,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 16,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_number": 17,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "FAIL",
+      "cycle_number": 18,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "FAIL",
+      "cycle_number": 19,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "FAIL",
+      "cycle_number": 20,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "FAIL",
+      "cycle_number": 21,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "FAIL",
+      "cycle_number": 22,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "FAIL",
+      "cycle_number": 23,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "FAIL",
+      "cycle_number": 24,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "COMPLETE"
+      },
+      "semantically_audited": false
+    },
+    {
+      "cycle_disposition": "FAIL",
+      "cycle_number": 25,
+      "passes": {
+        "pass_one": "COMPLETE",
+        "pass_three": "COMPLETE",
+        "pass_two": "COMPLETE"
+      },
+      "semantically_audited": false
+    }
+  ],
+  "matrix_identity": "894f077bca24b09fc45ebedff2d71b857170477e0e10ad4a71b56cf1188edc18",
+  "note": "No later cycle confers PASS on an earlier one. Missing evidence is BLOCKED_INSUFFICIENT_EVIDENCE, not PASS.",
+  "schema_version": 1
+}

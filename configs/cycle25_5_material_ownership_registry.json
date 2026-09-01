@@ -3,8 +3,53 @@
   "assignments": [
     {
       "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": ".cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": ".github/.cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": ".github/CODE_REVIEW_RULES.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": ".github/codex/prompts/scientific-review.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": ".github/workflows/ci.yml"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": ".github/workflows/codex-scientific-review.yml"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "AGENTS.md"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": "artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "artifacts/scientific_integrity/PR_REVIEW_FINDING_LEDGER.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "artifacts/scientific_integrity/USER_ADMIN_ACTION_REQUIRED.json"
     },
     {
       "kind": "MATERIAL",
@@ -177,6 +222,11 @@
       "path": "artifacts/scientific_integrity/all_cycles/CYCLE_25_SCIENTIFIC_AUDIT.json"
     },
     {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "codecov.yml"
+    },
+    {
       "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
       "owner": null,
       "path": "configs/codex_usage_interlock_change_manifest.json"
@@ -197,6 +247,11 @@
       "path": "configs/unified_assistive_change_routing_binding.json"
     },
     {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/index/SOURCE_REFERENCE_INDEX.csv"
+    },
+    {
       "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
       "owner": null,
       "path": "jira/project/JIRA_TARGET_PROFILE.yaml"
@@ -212,9 +267,114 @@
       "path": "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json"
     },
     {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/SOURCE_ANCHOR_INDEX.csv"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-EPIC-001.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-STORY-001.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-STORY-002.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-STORY-003.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-STORY-004.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-001.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-002.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-003.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-004.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-005.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-006.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-007.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-008.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-009.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-010.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-011.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-012.json"
+    },
+    {
       "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
       "owner": null,
       "path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/validation/JIRA_FILE_HASHES.sha256"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/validation/JIRA_FILE_MANIFEST.csv"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "jira/validation/SOURCE_ANCHOR_VALIDATION.csv"
     },
     {
       "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
@@ -230,6 +390,21 @@
       "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
       "owner": null,
       "path": "provenance/PROJECT_FILE_MANIFEST.csv"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "schemas/scientific_review/codex_scientific_review.schema.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "src/aggie_analytics/data/.cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "src/aggie_analytics/governance/.cursor/BUGBOT.md"
     },
     {
       "kind": "MATERIAL",
@@ -250,6 +425,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": "tests/test_cycle25_5_routing_manifest_coverage.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "tests/test_pr_review_defense_infrastructure.py"
     },
     {
       "kind": "MATERIAL",
@@ -275,6 +455,16 @@
       "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": "tools/validate_all_cycle_scientific_inventory.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "tools/validate_codex_scientific_review.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "tools/validate_pr_review_finding_ledger.py"
     },
     {
       "kind": "MATERIAL",
@@ -304,5 +494,5 @@
     "BAT-696"
   ],
   "schema_version": 1,
-  "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"
+  "work_unit_id": "POST-TASK-PR-REVIEW-DEFENSE-INFRASTRUCTURE-001"
 }

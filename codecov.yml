@@ -1,0 +1,52 @@
+coverage:
+  status:
+    project:
+      default:
+        informational: true
+        target: auto
+        threshold: 0%
+        if_not_found: failure
+        if_ci_failed: failure
+      core:
+        informational: true
+        flags: core
+        if_not_found: failure
+      mounted:
+        informational: true
+        flags: mounted
+        if_not_found: failure
+      independent_scientific_reference:
+        informational: true
+        flags: independent_scientific_reference
+        if_not_found: success
+        carryforward: false
+    patch:
+      default:
+        target: 80%
+        informational: true
+        if_not_found: failure
+      scientific:
+        target: 100%
+        flags:
+          - independent_scientific_reference
+        informational: false
+        if_not_found: failure
+
+flag_management:
+  default_rules:
+    carryforward: true
+  individual_flags:
+    - name: independent_scientific_reference
+      carryforward: false
+    - name: core
+      carryforward: true
+    - name: mounted
+      carryforward: true
+
+comment:
+  layout: "condensed_header, flags, files"
+  require_head: true
+  require_base: true
+
+github_checks:
+  annotations: true

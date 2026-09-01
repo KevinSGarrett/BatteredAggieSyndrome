@@ -1,16 +1,21 @@
 .codex/README.md
 .codex/TASK_PACKET_TEMPLATE.md
 .codex/WORKTREE_POLICY.md
+.cursor/BUGBOT.md
 .editorconfig
 .env.example
 .gitattributes
 .githooks/pre-commit
+.github/.cursor/BUGBOT.md
 .github/CODEOWNERS
+.github/CODE_REVIEW_RULES.md
 .github/ISSUE_TEMPLATE/bug_report.yml
 .github/ISSUE_TEMPLATE/config.yml
+.github/codex/prompts/scientific-review.md
 .github/dependabot.yml
 .github/pull_request_template.md
 .github/workflows/ci.yml
+.github/workflows/codex-scientific-review.yml
 .github/workflows/security.yml
 .gitignore
 .python-version
@@ -440,6 +445,8 @@ artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
 artifacts/prior/week1_2026_frozen_strength_prior_gate.json
 artifacts/schedule/week1_2026_official_schedule_identity_gate.json
 artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json
+artifacts/scientific_integrity/PR_REVIEW_FINDING_LEDGER.json
+artifacts/scientific_integrity/USER_ADMIN_ACTION_REQUIRED.json
 artifacts/scientific_integrity/WEEK1_CHECKPOINT_CONTINUITY.json
 artifacts/scientific_integrity/all_cycles/ALL_CYCLE_AFFECTED_SUCCESSORS.json
 artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json
@@ -522,6 +529,7 @@ artifacts/spine/week1_2026_feature_coverage_adequacy_gate.json
 artifacts/spine/week1_2026_spine_semantic_successor_gate.json
 artifacts/validation/cycle19_final_evidence_snapshot.json
 artifacts/validation/mounted_acceptance_gate.json
+codecov.yml
 configs/acceptance_registry.json
 configs/action_derived_play_summary_contract.json
 configs/architecture_registry.json
@@ -3425,6 +3433,7 @@ schemas/players/prospect_prior.json
 schemas/players/replacement_state.json
 schemas/players/transfer_episode.json
 schemas/product_forecast_response_v1.schema.json
+schemas/scientific_review/codex_scientific_review.schema.json
 schemas/tamu/peer_analog_query.json
 schemas/tamu/snapshot_candidate.json
 schemas/tamu/specialization_signal.json
@@ -3492,6 +3501,7 @@ src/aggie_analytics/context_intelligence/__init__.py
 src/aggie_analytics/context_intelligence/coaching.py
 src/aggie_analytics/context_intelligence/context.py
 src/aggie_analytics/context_intelligence/mechanics.py
+src/aggie_analytics/data/.cursor/BUGBOT.md
 src/aggie_analytics/data/__init__.py
 src/aggie_analytics/data/action_play_summary.py
 src/aggie_analytics/data/adapters.py
@@ -3660,6 +3670,7 @@ src/aggie_analytics/features/screening.py
 src/aggie_analytics/features/sustainability.py
 src/aggie_analytics/features/transforms.py
 src/aggie_analytics/features/weather_station_matching.py
+src/aggie_analytics/governance/.cursor/BUGBOT.md
 src/aggie_analytics/governance/__init__.py
 src/aggie_analytics/governance/scientific_trust_recovery_hold.py
 src/aggie_analytics/lineage.py
@@ -3895,6 +3906,7 @@ tests/test_people_registry.py
 tests/test_pit_replay_readiness.py
 tests/test_player_intelligence_governance.py
 tests/test_postgame_collapse_taxonomy.py
+tests/test_pr_review_defense_infrastructure.py
 tests/test_preliminary_elo_challengers.py
 tests/test_preliminary_elo_offense_defense.py
 tests/test_preliminary_elo_uncertainty.py
@@ -4325,6 +4337,7 @@ tools/validate_autonomous_controls.py
 tools/validate_backlog.py
 tools/validate_bas_science.py
 tools/validate_checkout_authority_pins.py
+tools/validate_codex_scientific_review.py
 tools/validate_codex_usage_interlock.py
 tools/validate_context_intelligence.py
 tools/validate_contract_input_pins.py
@@ -4391,6 +4404,7 @@ tools/validate_openrouter_assist.py
 tools/validate_peer_and_tamu_residual_stability.py
 tools/validate_player_intelligence.py
 tools/validate_post2022_roster_candidate.py
+tools/validate_pr_review_finding_ledger.py
 tools/validate_preliminary_elo_challengers.py
 tools/validate_preliminary_elo_offense_defense.py
 tools/validate_preliminary_elo_uncertainty.py

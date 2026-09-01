@@ -45,6 +45,51 @@ jobs:
           name: runtime-environment-${{ matrix.os }}-py${{ matrix.python-version }}
           path: runtime-environment.json
 
+  coverage-upload:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install core and coverage
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install coverage==7.10.6
+      - name: Core coverage
+        run: |
+          python -m coverage run --source=src/aggie_analytics -m unittest discover -s tests -v
+          python -m coverage xml -o coverage-core.xml
+      - name: Independent scientific-reference coverage
+        if: hashFiles('src/aggie_analytics/scientific_reference/**/*.py', 'tests/test_independent_scientific_reference.py') != ''
+        run: |
+          python -m coverage run --source=src/aggie_analytics/scientific_reference -m unittest tests.test_independent_scientific_reference
+          python -m coverage xml -o coverage-independent-scientific-reference.xml
+      - name: Upload core coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage-core.xml
+          flags: core
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
+      - name: Upload independent scientific-reference coverage to Codecov
+        if: hashFiles('coverage-independent-scientific-reference.xml') != ''
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage-independent-scientific-reference.xml
+          flags: independent_scientific_reference
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
+
   product-adapter:
     strategy:
       fail-fast: false

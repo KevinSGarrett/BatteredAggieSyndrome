@@ -4561,7 +4561,7 @@
       "binding_id": "BAT-679-WEEK1-2026-FROZEN-STRENGTH-PRIOR",
       "bound_child_identities": {
         "contract_sha256": "8b7d679f8615a76a764ac181637403f3353de99a27a2bc66a7dec539532bd630",
-        "core_module_sha256": "062918abf24d68310c7220b9be18f5304f16d03e0066824ff2f5e898040ae91d",
+        "core_module_sha256": "94dd0a1b666974bb673342686d5112c0092f56eb9a4cdb3acd57113c81cc8727",
         "dataset_identity": "2c9dea8b78f136c8b62504aedcc4bc1ac113da232907afde19f1dff38f86eca0",
         "gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
         "predecessor_authority_gate_identity": "5067fc1b69b1b7e9b1fb9dee14b8a998307202870fa8b88979fb177ee9a5e00b",

@@ -762,15 +762,17 @@ def build_expected(
     admitted = [row for row in prior_rows if row["prior_admitted"]]
     # The focus contest is discovered from the bound authority gate, never
     # hardcoded, so no participant can be special-cased in this surface.
-    focus_contest_identity = resolved["gates"]["authority_enrichment"]["focus_contest_report"][
-        "contest_identity"
-    ]
+    focus_contest_identity = resolved["gates"]["authority_enrichment"][
+        "focus_contest_report"
+    ]["contest_identity"]
     focus_source_team_ids = {
         row["source_team_id"]
         for row in resolved["spine_rows"]
         if row["contest_identity"] == focus_contest_identity
     }
-    focus_rows = [row for row in prior_rows if row["source_team_id"] in focus_source_team_ids]
+    focus_rows = [
+        row for row in prior_rows if row["source_team_id"] in focus_source_team_ids
+    ]
 
     record_hashes = {
         "prior_rows": stable_hash(prior_rows),

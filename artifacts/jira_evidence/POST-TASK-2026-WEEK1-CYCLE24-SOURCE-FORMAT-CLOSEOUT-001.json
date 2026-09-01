@@ -1,0 +1,30 @@
+{
+  "canonical_gate_identity": "fa0492790d4d2ce7eac2df1fed82511d59bddcb6b5fdd825c809fb5966586628",
+  "canonical_gate_path": "artifacts/prior/week1_2026_frozen_strength_prior_gate.json",
+  "completeness_claimed": false,
+  "created_at_utc": "2026-09-01T01:15:00Z",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "evidence_state": "VERIFIED",
+  "issue_complete": false,
+  "jira_key": "BAT-684",
+  "local_issue_id": "POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001",
+  "material_merge_sha": "",
+  "new_issue_decision": "CREATED",
+  "observable_outcome": "Frozen strength-prior module is Ruff-format clean; core_module_sha256 rebound from 062918abf24d68310c7220b9be18f5304f16d03e0066824ff2f5e898040ae91d to 94dd0a1b666974bb673342686d5112c0092f56eb9a4cdb3acd57113c81cc8727; gate and dataset identities unchanged.",
+  "outputs": [
+    {
+      "path": "src/aggie_analytics/data/week1_2026_frozen_strength_prior.py",
+      "sha256": "94dd0a1b666974bb673342686d5112c0092f56eb9a4cdb3acd57113c81cc8727"
+    },
+    {
+      "path": "configs/artifact_binding_contract.json",
+      "sha256": "c89200f55cf0bda4f1491e6fd245e4611f5dd677bc9a4614e5cf0bee4ebf1ae8"
+    }
+  ],
+  "schema_version": 1,
+  "scientific_nonclaims": [
+    "NO_BAS",
+    "NO_PRODUCTION",
+    "NO_FORECAST_REWRITE"
+  ]
+}

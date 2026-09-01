@@ -1799,6 +1799,21 @@
       "phase": "PHASE-3",
       "status": "Done",
       "summary": "[POST-TASK-2026-WEEK1-AUTHORITY-ENRICHMENT-001] Resolve or truthfully retain the eight unsupported Week 1 participants, complete the AP ranking surface authoritatively, and bind official kickoff, venue and coordinate authority"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-684",
+      "local_id": "POST-TASK-2026-WEEK1-CYCLE24-SOURCE-FORMAT-CLOSEOUT-001",
+      "logical_state": "REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "status": "In Review",
+      "summary": "Cycle #24 source-format closeout for the frozen strength-prior module"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

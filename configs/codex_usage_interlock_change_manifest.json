@@ -73,15 +73,16 @@
     "tools/validate_cross_output_coherence.py",
     "tools/validate_execution_focus.py",
     "tools/validate_independent_scientific_reference.py",
+    "tools/validate_pr_review_finding_ledger.py",
     "tools/validate_protected_replacement_protocol.py",
     "tools/validate_raw_to_forecast_trace.py",
     "tools/validate_repository.py",
     "tools/write_cycle25_5_routing_manifests.py"
   ],
   "jira_identity": "BAT-690",
-  "manifest_identity": "5da0d97a44b758048700f4da1083871e33eed05d3c672075d94671fd1a3ac3d0",
+  "manifest_identity": "dce7fe7fb22a1b8f869769a35d567826f90b5be0d661c3558c08b691d37ac80c",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "2199108e1df26f50857003580e95de7b9904416524139081f1792eb865a5b8df",
+  "pre_routing_decision_sha256": "f0421e87d64fec4bb0d0785b1941074d1f8d2f2e1518be892c80dcd719c409a5",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-NATIONAL-FOUNDATION-SCIENTIFIC-SUCCESSOR-001"

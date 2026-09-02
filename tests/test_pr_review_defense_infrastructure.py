@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -9,7 +10,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
+if str(REPO_ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from aggie_analytics.governance.scientific_trust_recovery_hold import (  # noqa: E402
+    compute_identity,
+)
 from tools.validate_codex_scientific_review import validate_payload  # noqa: E402
 from tools.validate_pr_review_finding_ledger import validate as validate_ledger  # noqa: E402
 
@@ -86,6 +92,20 @@ class PrReviewDefenseInfrastructureTests(unittest.TestCase):
             REPO_ROOT / "tools" / "build_all_cycle_scientific_inventory.py"
         ).read_text(encoding="utf-8")
         self.assertNotIn("PR_REVIEW_FINDING_LEDGER.json", text)
+
+    def test_committed_ledger_identity_matches(self) -> None:
+        path = (
+            REPO_ROOT
+            / "artifacts"
+            / "scientific_integrity"
+            / "PR_REVIEW_FINDING_LEDGER.json"
+        )
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            payload["ledger_identity"],
+            compute_identity(payload, "ledger_identity"),
+        )
+        self.assertEqual([], validate_ledger(payload))
 
 
 if __name__ == "__main__":

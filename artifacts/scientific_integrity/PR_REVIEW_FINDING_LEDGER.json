@@ -120,14 +120,30 @@
       "final_authority": "deterministic test",
       "finding": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED evidence recorded a Windows absolute data-root path in tracked artifacts.",
       "follow_up_review_identity": "pending-this-commit",
-      "implementation_response": "Replaced the machine-local path with a POSIX-relative mounted:raw/SRC-002 identity and regenerated cycle audits.",
+      "implementation_response": "Replaced the machine-local path with a POSIX-relative mounted:raw/SRC-002 identity and regenerated cycle audits. Recomputed ledger_identity to bind the appended finding.",
       "regression_test": "tests/test_all_cycle_scientific_inventory.py",
       "reviewed_sha": "0555b305b8e3e9fcab58a4186f6e1eaf163a9547",
+      "reviewer": "cursor",
+      "severity": "P2"
+    },
+    {
+      "affected_files": [
+        "artifacts/scientific_integrity/PR_REVIEW_FINDING_LEDGER.json",
+        "tools/validate_pr_review_finding_ledger.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "ledger_identity recomputed via compute_identity; validator fails LEDGER_IDENTITY_MISMATCH; regression tests/test_pr_review_defense_infrastructure.py::test_committed_ledger_identity_matches",
+      "final_authority": "deterministic test",
+      "finding": "Appending a ledger finding left ledger_identity unchanged.",
+      "follow_up_review_identity": "pending-this-commit",
+      "implementation_response": "Rebound ledger_identity to the canonical payload hash and added a validator check.",
+      "regression_test": "tests/test_pr_review_defense_infrastructure.py",
+      "reviewed_sha": "82da47741a1b1161b5a1b1482423ad2417d55b93",
       "reviewer": "cursor",
       "severity": "P2"
     }
   ],
   "note": "Cursor may propose but cannot solely approve FALSE_POSITIVE_PROVEN or accepted-risk for P0/P1.",
   "schema_version": 1,
-  "ledger_identity": "cc5f71b889b2a35fc176a09c62c301679cd15d991c827ecb3f3faaad7c1e0ce4"
+  "ledger_identity": "a568d3272c85421cc69f52120335c7c66cbcadeb720a8516c5b2942a59756795"
 }

@@ -358,6 +358,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "tools/validate_pr_review_finding_ledger.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-696",
       "path": "tools/validate_protected_replacement_protocol.py"
     },

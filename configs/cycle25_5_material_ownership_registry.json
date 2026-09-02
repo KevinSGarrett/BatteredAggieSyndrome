@@ -47,6 +47,16 @@
       "path": "provenance/CURRENT_TREE.txt"
     },
     {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/PROJECT_FILE_HASHES.sha256"
+    },
+    {
+      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
+      "owner": null,
+      "path": "provenance/PROJECT_FILE_MANIFEST.csv"
+    },
+    {
       "kind": "MATERIAL",
       "owner": "BAT-691",
       "path": "src/aggie_analytics/data/authority_clean_model_lineage.py"

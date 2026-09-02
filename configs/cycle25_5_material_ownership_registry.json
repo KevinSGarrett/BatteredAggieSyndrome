@@ -24,11 +24,6 @@
     {
       "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
       "owner": null,
-      "path": "provenance/CURRENT_TREE.txt"
-    },
-    {
-      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
-      "owner": null,
       "path": "provenance/PROJECT_FILE_HASHES.sha256"
     },
     {

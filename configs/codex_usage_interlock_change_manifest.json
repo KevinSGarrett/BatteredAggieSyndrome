@@ -6,15 +6,14 @@
     "configs/cycle25_5_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
     "instructions/policies/execution_focus_policy.json",
-    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
     "tools/write_cycle25_5_routing_manifests.py"
   ],
   "jira_identity": "BAT-689",
-  "manifest_identity": "61312c08d6fed142fecceea505d88102c8aab97d00cab43aed00882060706521",
+  "manifest_identity": "61bf8a3bd4c496f7d7f9f1a8b3e93e0e8ffee8ca7c0bed7aeea2eb4356ac4b7a",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "a1b72089b2386aea6ffb7385da61a7237867bd817de4c2f430fc30d08ddfee03",
+  "pre_routing_decision_sha256": "4c46810a9370f5de8c597402bac173a3ce8f65c052b7a736375b7e48e4cb9f83",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-PR-REVIEW-DEFENSE-INFRASTRUCTURE-001"

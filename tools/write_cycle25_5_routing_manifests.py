@@ -141,9 +141,6 @@ def main() -> int:
         "configs/cycle25_5_material_ownership_registry.json",
         "configs/codex_usage_interlock_change_manifest.json",
         "configs/unified_assistive_change_routing_binding.json",
-        "provenance/CURRENT_TREE.txt",
-        "provenance/PROJECT_FILE_HASHES.sha256",
-        "provenance/PROJECT_FILE_MANIFEST.csv",
         "tools/write_cycle25_5_routing_manifests.py",
     ]
     paths = sorted(set(tracked) | set(untracked) | set(extra))

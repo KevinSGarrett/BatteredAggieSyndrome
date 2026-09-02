@@ -4,7 +4,6 @@
     "configs/cycle25_5_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
     "instructions/policies/execution_focus_policy.json",
-    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
     "tools/write_cycle25_5_routing_manifests.py"
@@ -12,7 +11,7 @@
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "a1b72089b2386aea6ffb7385da61a7237867bd817de4c2f430fc30d08ddfee03",
+  "decision_sha256": "4c46810a9370f5de8c597402bac173a3ce8f65c052b7a736375b7e48e4cb9f83",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "downstream_consumer": "tools/validate_artifact_bindings.py",
   "jira_identity": "BAT-689",

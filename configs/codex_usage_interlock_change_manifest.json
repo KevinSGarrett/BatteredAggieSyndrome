@@ -16,12 +16,14 @@
     "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv"
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "tests/test_jira_control_plane.py",
+    "tools/validate_jira_control_plane.py"
   ],
   "jira_identity": "BAT-688",
-  "manifest_identity": "8a737cf1d8f313f843a2e2a87fa308f3e308adba45c3fe5583c7696e916ce2e9",
+  "manifest_identity": "975bbb2b669547343a7e7cc1864bc5d17d925570a6614a9bc757c79c9fe39c9f",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "b11ad269460f7eaee8015499457d05b3de76e1f8d5447487c122c392decaab41",
+  "pre_routing_decision_sha256": "5a26be6b5a13e9165db297a22599aa55f7a8a4ed74e7d57b55d60778a17bbab2",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"

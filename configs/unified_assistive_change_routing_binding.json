@@ -14,12 +14,14 @@
     "jira/validation/JIRA_FILE_MANIFEST.csv",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
-    "provenance/PROJECT_FILE_MANIFEST.csv"
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "tests/test_jira_control_plane.py",
+    "tools/validate_jira_control_plane.py"
   ],
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "b11ad269460f7eaee8015499457d05b3de76e1f8d5447487c122c392decaab41",
+  "decision_sha256": "5a26be6b5a13e9165db297a22599aa55f7a8a4ed74e7d57b55d60778a17bbab2",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "downstream_consumer": "tools/validate_artifact_bindings.py",
   "jira_identity": "BAT-688",

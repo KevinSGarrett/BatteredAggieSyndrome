@@ -75,6 +75,16 @@
       "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
       "owner": null,
       "path": "provenance/PROJECT_FILE_MANIFEST.csv"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "tests/test_jira_control_plane.py"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "tools/validate_jira_control_plane.py"
     }
   ],
   "owners": [

@@ -72,14 +72,32 @@ def validate(repo_root: Path) -> list[str]:
     artifacts = inventory.get("artifacts") or []
     if not artifacts:
         findings.append("INVENTORY_EMPTY")
+    guessed_cycle_one = [
+        item
+        for item in artifacts
+        if item.get("authority_bearing") is True
+        and "DEFAULT" in str(item.get("mapping_note") or "")
+    ]
+    if guessed_cycle_one:
+        findings.append(f"GUESSED_CYCLE_ONE_MAPPING:{len(guessed_cycle_one)}")
     unmapped = [
         item
         for item in artifacts
         if item.get("originating_cycle") in (None, "", 0, "UNMAPPED")
         and item.get("authority_bearing") is True
     ]
-    if unmapped:
+    recorded_unmapped = inventory.get("unmapped_authority_count")
+    if recorded_unmapped != len(unmapped):
+        findings.append(
+            f"UNMAPPED_COUNT_MISMATCH:{recorded_unmapped}:{len(unmapped)}"
+        )
+    if unmapped and gate.get("scientific_trust_recovered") is True:
         findings.append(f"UNMAPPED_AUTHORITY_ARTIFACTS:{len(unmapped)}")
+    if unmapped and gate.get("inventory_completeness") not in {
+        "BLOCKED_INSUFFICIENT_EVIDENCE",
+        "INCOMPLETE_UNMAPPED_AUTHORITY",
+    }:
+        findings.append("UNMAPPED_AUTHORITY_NOT_RECORDED_ON_TRUST_GATE")
     claim_rows = claims.get("claims") or []
     for row in claim_rows:
         classification = row.get("trust_classification")

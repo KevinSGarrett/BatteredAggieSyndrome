@@ -13,9 +13,6 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from aggie_analytics.data.protected_evaluation_replacement_protocol import (  # noqa: E402
-    replacement_protocol,
-)
 from aggie_analytics.governance.scientific_trust_recovery_hold import (  # noqa: E402
     STARTING_SHA,
     bind_identity,
@@ -168,7 +165,7 @@ def cycle_for_path(relative: str, cycle_rows: list[dict[str, Any]]) -> int | str
         if token in posix:
             return cycle
     _ = cycle_rows
-    return 1
+    return "UNMAPPED"
 
 
 def authority_paths() -> list[str]:
@@ -438,8 +435,12 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
         artifacts.append(
             {
                 "path": relative,
-                "originating_cycle": cycle if cycle != "UNMAPPED" else 1,
-                "mapping_note": "PATH_TOKEN_OR_FOUNDATION_DEFAULT",
+                "originating_cycle": cycle,
+                "mapping_note": (
+                    "UNMAPPED_NO_CYCLE_TOKEN"
+                    if cycle == "UNMAPPED"
+                    else "PATH_TOKEN"
+                ),
                 "jira_owner": "SEE_CYCLE_AUDIT",
                 "pr_or_merge": "SEE_CYCLE_AUDIT",
                 "scientific_claim_or_role": classify_role(relative),
@@ -477,7 +478,7 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
             "unmapped_authority_count": sum(
                 1
                 for item in artifacts
-                if item.get("mapping_note") == "FIRST_COMMIT_OR_FOUNDATION_DEFAULT"
+                if item.get("originating_cycle") == "UNMAPPED"
             ),
         },
         "inventory_identity",
@@ -725,6 +726,7 @@ def build_gate(claims: dict[str, Any]) -> dict[str, Any]:
             ],
             "cycle_25_5_complete": False,
             "hold_active": True,
+            "inventory_completeness": "INCOMPLETE_UNMAPPED_AUTHORITY",
             "missing_evidence_is_blocked_not_pass": True,
             "scientific_trust_recovered": False,
             "t24h_state": "OPEN",
@@ -777,33 +779,6 @@ def main() -> int:
     for row in cycle_rows:
         audit = build_cycle_audit(row, known_findings())
         _write(ALL_CYCLES / f"CYCLE_{row['cycle_number']:02d}_SCIENTIFIC_AUDIT.json", audit)
-    protocol = bind_identity(
-        {
-            "artifact_type": "PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL",
-            **replacement_protocol(user_approved_activation=False),
-        },
-        "protocol_identity",
-    )
-    _write(
-        REPO_ROOT
-        / "artifacts"
-        / "scientific_integrity"
-        / "PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL.json",
-        protocol,
-    )
-    ledger = bind_identity(
-        {
-            "artifact_type": "PR_REVIEW_FINDING_LEDGER",
-            "findings": [],
-            "schema_version": 1,
-            "note": "Cursor may propose but cannot solely approve FALSE_POSITIVE_PROVEN or accepted-risk for P0/P1.",
-        },
-        "ledger_identity",
-    )
-    _write(
-        REPO_ROOT / "artifacts" / "scientific_integrity" / "PR_REVIEW_FINDING_LEDGER.json",
-        ledger,
-    )
     print(
         json.dumps(
             {

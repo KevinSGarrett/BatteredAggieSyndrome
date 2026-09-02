@@ -72,6 +72,12 @@ class PrReviewDefenseInfrastructureTests(unittest.TestCase):
         )
         self.assertTrue(any("SELF_APPROVAL" in item for item in findings))
 
+    def test_inventory_builder_does_not_write_finding_ledger(self) -> None:
+        text = (
+            REPO_ROOT / "tools" / "build_all_cycle_scientific_inventory.py"
+        ).read_text(encoding="utf-8")
+        self.assertNotIn("PR_REVIEW_FINDING_LEDGER.json", text)
+
 
 if __name__ == "__main__":
     unittest.main()

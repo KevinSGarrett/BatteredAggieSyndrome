@@ -19,6 +19,11 @@
     {
       "kind": "MATERIAL",
       "owner": "BAT-689",
+      "path": "artifacts/scientific_integrity/USER_ADMIN_ACTION_REQUIRED.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
       "path": "codecov.yml"
     },
     {

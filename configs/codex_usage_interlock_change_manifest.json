@@ -5,6 +5,7 @@
     "artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json",
     "artifacts/scientific_integrity/INDEPENDENT_VALIDATOR_CLASSIFICATION.json",
     "artifacts/scientific_integrity/PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL.json",
+    "artifacts/scientific_integrity/USER_ADMIN_ACTION_REQUIRED.json",
     "codecov.yml",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle25_5_material_ownership_registry.json",
@@ -34,9 +35,9 @@
     "tools/write_cycle25_5_routing_manifests.py"
   ],
   "jira_identity": "BAT-690",
-  "manifest_identity": "8e91c6cdc6ab65e5b78298d7684bb38728fc6d6957bc4e10b88632369d896ccf",
+  "manifest_identity": "9b5f742a9d5afbd5c874a4b1c524fd210a9be77b52b3b787e154ee4798a3376e",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "23f13de9ef1a99e3e222649e280a8938266cffe5131d46c9504710450d79910d",
+  "pre_routing_decision_sha256": "a7565bd949fd7f3ad914c4817c3cd75642287d80bf3178334e652cc1f8862473",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-NATIONAL-FOUNDATION-SCIENTIFIC-SUCCESSOR-001"

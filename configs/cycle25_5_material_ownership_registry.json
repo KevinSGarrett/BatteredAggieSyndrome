@@ -18,6 +18,16 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "instructions/FILE_HASHES.sha256"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "instructions/manifest.json"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-689",
       "path": "instructions/policies/execution_focus_policy.json"
     },

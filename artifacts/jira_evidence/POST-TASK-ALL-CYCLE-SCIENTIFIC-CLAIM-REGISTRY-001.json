@@ -1,0 +1,12 @@
+{
+  "artifact_type": "CYCLE_25_5_BAT523_PARENT_PROGRESS_SNAPSHOT",
+  "cycle_25_5_complete": false,
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "jira_key": "BAT-523",
+  "material_merge_sha": "3ed574e94778cd4fda8878d7ff1cbbf34f087c9d",
+  "pr": 671,
+  "scientific_trust_recovered": false,
+  "t24h_state": "OPEN",
+  "t90m_state": "OPEN",
+  "week1_forecast_credibility": "UNTRUSTED_SHADOW"
+}

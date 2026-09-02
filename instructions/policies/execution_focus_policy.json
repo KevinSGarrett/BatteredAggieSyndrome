@@ -94,6 +94,13 @@
         "head_sha": "bb1134578d80ca76aeec44e9061fe336cdc8c03d",
         "classification": "[material]",
         "reason": "This merge of the execution-focus correction into the scientific successor branch touched material paths. The [process] subject was incorrect; the correction is scoped to this exact commit."
+      },
+      {
+        "commit_sha": "4069c521556e405b6b9684c6975cf38f4e012c1c",
+        "pull_request": 673,
+        "head_sha": "4069c521556e405b6b9684c6975cf38f4e012c1c",
+        "classification": "[material]",
+        "reason": "The Cycle 25.5 Jira reconciliation recorded an immutable BAT-523 snapshot and updated routing/provenance configs. Those are material governance paths; the [process] subject was incorrect. The correction is scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

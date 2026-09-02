@@ -10,6 +10,19 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 
+ALLOWED_AUXILIARY_LOGICAL_STATES = {
+    "BACKLOG",
+    "READY",
+    "IN_PROGRESS",
+    "BLOCKED",
+    "REVIEW",
+    "VALIDATION",
+    "EVIDENCE_PENDING",
+    "DONE",
+    "DEFERRED",
+    "CANCELLED",
+}
+
 
 def validate(repo_root: Path, *, require_live: bool = False) -> list[str]:
     repo = repo_root.resolve()
@@ -54,6 +67,18 @@ def validate(repo_root: Path, *, require_live: bool = False) -> list[str]:
                     findings.append(f"pending_local_sync_missing:{local_id}")
                 elif record.get("jira_key"):
                     findings.append(f"pending_local_sync_already_bound:{local_id}")
+    registry_path = repo / "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json"
+    if registry_path.is_file():
+        try:
+            registry = json.loads(registry_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            findings.append(f"auxiliary_registry_invalid:{type(exc).__name__}")
+        else:
+            for item in registry.get("issues", []):
+                state = item.get("logical_state")
+                key = item.get("jira_key") or item.get("local_id") or "UNKNOWN"
+                if state not in ALLOWED_AUXILIARY_LOGICAL_STATES:
+                    findings.append(f"auxiliary_logical_state_invalid:{key}:{state}")
     validator = repo / "jira/tools/validate_second_pass.py"
     if validator.is_file():
         completed = subprocess.run(

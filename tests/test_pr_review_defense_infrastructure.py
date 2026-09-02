@@ -86,6 +86,7 @@ class PrReviewDefenseInfrastructureTests(unittest.TestCase):
             }
         )
         self.assertTrue(any("SELF_APPROVAL" in item for item in findings))
+        self.assertIn("LEDGER_IDENTITY_MISSING", validate_ledger({"findings": []}))
 
     def test_inventory_builder_does_not_write_finding_ledger(self) -> None:
         text = (

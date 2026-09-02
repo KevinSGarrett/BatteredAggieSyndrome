@@ -141,9 +141,24 @@
       "reviewed_sha": "82da47741a1b1161b5a1b1482423ad2417d55b93",
       "reviewer": "cursor",
       "severity": "P2"
+    },
+    {
+      "affected_files": [
+        "tools/validate_pr_review_finding_ledger.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "Missing ledger_identity now fails LEDGER_IDENTITY_MISSING; test_pr_review_defense_infrastructure.py",
+      "final_authority": "deterministic test",
+      "finding": "ledger_identity check ran only when the field was already present, so an identity-less ledger failed open.",
+      "follow_up_review_identity": "pending-this-commit",
+      "implementation_response": "Require ledger_identity; mismatch and absence are both failures.",
+      "regression_test": "tests/test_pr_review_defense_infrastructure.py",
+      "reviewed_sha": "664023d1f51f1abc475cc775ec3b294217ba6aae",
+      "reviewer": "cursor",
+      "severity": "P2"
     }
   ],
   "note": "Cursor may propose but cannot solely approve FALSE_POSITIVE_PROVEN or accepted-risk for P0/P1.",
   "schema_version": 1,
-  "ledger_identity": "a568d3272c85421cc69f52120335c7c66cbcadeb720a8516c5b2942a59756795"
+  "ledger_identity": "ab447ec6c650480372ca04dce32f865cb2f589fa544d40a801c8ea427d97d0a6"
 }

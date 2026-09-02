@@ -29,7 +29,9 @@ CURSOR_CANNOT_SOLELY_APPROVE = {"FALSE_POSITIVE_PROVEN", "ACCEPTED_RISK_USER_APP
 
 def validate(payload: dict[str, Any]) -> list[str]:
     findings: list[str] = []
-    if "ledger_identity" in payload:
+    if "ledger_identity" not in payload:
+        findings.append("LEDGER_IDENTITY_MISSING")
+    else:
         expected = compute_identity(payload, "ledger_identity")
         if payload.get("ledger_identity") != expected:
             findings.append("LEDGER_IDENTITY_MISMATCH")

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -16,6 +17,7 @@ if str(REPO_ROOT / "src") not in sys.path:
 
 from tools.build_all_cycle_scientific_inventory import (  # noqa: E402
     cycle_commit_index,
+    first_add_commit,
     verify_cycle_shas,
 )
 from tools.validate_affected_successors import validate as validate_successors  # noqa: E402
@@ -71,6 +73,24 @@ class AllCycleInventoryTests(unittest.TestCase):
             self.assertIn(item.get("mapping_note"), allowed_unmapped)
             self.assertNotEqual(item.get("mapping_note"), "UNMAPPED_NO_CYCLE_TOKEN")
         self.assertGreaterEqual(git_mapped, 1)
+
+    def test_first_add_commit_uses_earliest_add(self) -> None:
+        relative = (
+            "artifacts/jira_evidence/POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001.json"
+        )
+        completed = subprocess.run(
+            ["git", "log", "--diff-filter=A", "--format=%H", "--", relative],
+            cwd=REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+        commits = (completed.stdout or "").split()
+        self.assertGreaterEqual(len(commits), 1)
+        self.assertEqual(first_add_commit(relative), commits[-1])
+        if len(commits) > 1:
+            self.assertNotEqual(first_add_commit(relative), commits[0])
 
     def test_cycle_one_index_includes_declared_start_only(self) -> None:
         rows = verify_cycle_shas()

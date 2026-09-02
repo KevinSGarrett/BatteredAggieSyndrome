@@ -138,14 +138,18 @@ def classify_role(relative: str) -> str:
 
 def first_add_commit(relative: str) -> str:
     completed = subprocess.run(
-        ["git", "log", "--diff-filter=A", "--format=%H", "-1", "--", relative],
+        ["git", "log", "--diff-filter=A", "--format=%H", "--", relative],
         cwd=REPO_ROOT,
         check=False,
         capture_output=True,
         text=True,
         encoding="utf-8",
     )
-    return (completed.stdout or "").strip()
+    commits = (completed.stdout or "").split()
+    if not commits:
+        return ""
+    # git log is newest-first; originating_cycle uses the earliest add.
+    return commits[-1]
 
 
 def cycle_commit_index(cycle_rows: list[dict[str, Any]]) -> dict[str, list[int]]:

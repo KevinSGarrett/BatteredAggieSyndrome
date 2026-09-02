@@ -1,0 +1,48 @@
+{
+  "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
+  "audit_identity": "0a9a43cb7fd801d8b78f6f758b7050251716feeade897a8d21f90d4a7017910c",
+  "cycle_number": 18,
+  "ending_sha": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
+  "findings": [
+    {
+      "cycles": [
+        18,
+        20,
+        21
+      ],
+      "disposition": "REPRODUCIBLE_WRONG_SPECIFICATION",
+      "evidence": [
+        "src/aggie_analytics/data/national_foundation_reconciliation.py"
+      ],
+      "finding_id": "P1-FALSE-QUARANTINE-312472199",
+      "severity": "P1",
+      "summary": "Substring postponed/canceled detection on notes falsely quarantines SRC-002:GAME:312472199 (2011 Howard-EMU completed 41-9)."
+    }
+  ],
+  "pass_one_provenance": {
+    "end_descends_from_start": true,
+    "ending_sha": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
+    "proves": "provenance_and_completeness_only",
+    "starting_sha": "71952d4095a6248ff93406093f02a89185ceef71",
+    "status": "COMPLETE"
+  },
+  "pass_three_adversarial": {
+    "searched_for": [
+      "omitted_artifacts",
+      "circular_validation",
+      "target_leakage",
+      "pair_incoherence",
+      "protected_exposure",
+      "ignored_user_holds"
+    ],
+    "status": "COMPLETE"
+  },
+  "pass_two_semantic": {
+    "independent_of_producer_helpers": true,
+    "missing_raw_payloads": true,
+    "status": "BLOCKED_INSUFFICIENT_EVIDENCE"
+  },
+  "schema_version": 1,
+  "starting_sha": "71952d4095a6248ff93406093f02a89185ceef71",
+  "trust_classification": "FAIL"
+}

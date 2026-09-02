@@ -839,6 +839,78 @@
         "customfield_10201"
       ],
       "verified_at": "2026-09-01T05:50:35.472055+00:00"
+    },
+    {
+      "jira_key": "BAT-688",
+      "local_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
+    },
+    {
+      "jira_key": "BAT-689",
+      "local_id": "POST-TASK-PR-REVIEW-DEFENSE-INFRASTRUCTURE-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
+    },
+    {
+      "jira_key": "BAT-690",
+      "local_id": "POST-TASK-NATIONAL-FOUNDATION-SCIENTIFIC-SUCCESSOR-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
+    },
+    {
+      "jira_key": "BAT-691",
+      "local_id": "POST-TASK-NATIONAL-MODEL-LINEAGE-CORRECTION-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
+    },
+    {
+      "jira_key": "BAT-692",
+      "local_id": "POST-TASK-TAMU-CORPUS-DERIVATIVE-INTEGRITY-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
+    },
+    {
+      "jira_key": "BAT-693",
+      "local_id": "POST-TASK-WEEK1-FORECAST-BINDING-AND-COHERENCE-SUCCESSOR-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
+    },
+    {
+      "jira_key": "BAT-694",
+      "local_id": "POST-TASK-MARKET-BENCHMARK-INTEGRITY-SUCCESSOR-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
+    },
+    {
+      "jira_key": "BAT-695",
+      "local_id": "POST-TASK-PROTECTED-EVALUATION-REPLACEMENT-PROTOCOL-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
+    },
+    {
+      "jira_key": "BAT-696",
+      "local_id": "POST-TASK-SCIENTIFIC-VALIDATION-INDEPENDENCE-GATE-001",
+      "updated_fields": [
+        "created_live_cycle25_5"
+      ],
+      "verified_at": "2026-09-01T18:30:00+00:00"
     }
   ],
   "backup": {
@@ -3304,12 +3376,12 @@
     "status": "RETIRED_BOARD_LINKS_REMOVED_VERIFIED"
   },
   "saved_filters": {
-    "BAT — Blocked Work": "10137",
-    "BAT — Critical Path": "10139",
-    "BAT — Deferred or Conditional Work": "10138",
-    "BAT — Historical Completion Not Proven": "10141",
-    "BAT — Historical W01-W25 Reference": "10140",
-    "BAT — Ready Atomic Work": "10136"
+    "BAT \u2014 Blocked Work": "10137",
+    "BAT \u2014 Critical Path": "10139",
+    "BAT \u2014 Deferred or Conditional Work": "10138",
+    "BAT \u2014 Historical Completion Not Proven": "10141",
+    "BAT \u2014 Historical W01-W25 Reference": "10140",
+    "BAT \u2014 Ready Atomic Work": "10136"
   },
   "schema_version": 1,
   "source_preflight": {
@@ -3346,17 +3418,18 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-09-01T05:51:47.550169+00:00",
+  "updated_at": "2026-09-01T18:30:00+00:00",
   "verification": {
     "actual_expected_link_count": 1151,
-    "auxiliary_actual_count": 124,
-    "auxiliary_expected_count": 124,
+    "auxiliary_actual_count": 133,
+    "auxiliary_expected_count": 133,
     "auxiliary_issue_type_counts": {
-      "Task": 124
+      "Task": 133
     },
     "auxiliary_status_counts": {
       "Done": 123,
-      "In Progress": 1
+      "In Progress": 2,
+      "To Do": 8
     },
     "board": {
       "filter_id": "10134",
@@ -3412,12 +3485,12 @@
       "issue_type_counts": "alias of total_issue_type_counts covering every live BAT issue",
       "status_counts": "alias of total_status_counts covering every live BAT issue"
     },
-    "issue_count": 618,
+    "issue_count": 627,
     "issue_type_counts": {
       "Epic": 50,
       "Story": 53,
       "Sub-task": 190,
-      "Task": 325
+      "Task": 334
     },
     "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
     "missing_auxiliary_keys": [],
@@ -3432,26 +3505,26 @@
     "schema_version": 2,
     "status_counts": {
       "Done": 209,
-      "In Progress": 1,
-      "To Do": 408
+      "In Progress": 2,
+      "To Do": 416
     },
-    "total_actual_issue_count": 618,
-    "total_expected_issue_count": 618,
+    "total_actual_issue_count": 627,
+    "total_expected_issue_count": 627,
     "total_issue_type_counts": {
       "Epic": 50,
       "Story": 53,
       "Sub-task": 190,
-      "Task": 325
+      "Task": 334
     },
     "total_status_counts": {
       "Done": 209,
-      "In Progress": 1,
-      "To Do": 408
+      "In Progress": 2,
+      "To Do": 416
     },
     "unexpected_issue_keys": [],
     "unexpected_issue_type_counts": {},
     "unexpected_link_count": 0,
     "unexpected_status_counts": {},
-    "verified_at": "2026-09-01T05:51:13.172233+00:00"
+    "verified_at": "2026-09-01T18:30:00+00:00"
   }
 }

@@ -1,0 +1,17 @@
+{
+  "artifact_type": "WEEK1_CHECKPOINT_CONTINUITY",
+  "backfill_forbidden": true,
+  "kickoff_utc": "2026-09-05T23:00:00Z",
+  "recorded_at_utc": "2026-09-01T18:30:00Z",
+  "t24h": {
+    "deadline_utc": "2026-09-04T23:00:00Z",
+    "state": "OPEN",
+    "capture": null
+  },
+  "t90m": {
+    "deadline_utc": "2026-09-05T21:30:00Z",
+    "state": "OPEN",
+    "capture": null
+  },
+  "note": "Checkpoints are captured only at actual deadlines. This file records OPEN state before T-24H. It is not authority to merge scientific corrections."
+}

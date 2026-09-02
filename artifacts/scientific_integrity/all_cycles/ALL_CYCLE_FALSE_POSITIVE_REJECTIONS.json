@@ -1,0 +1,37 @@
+{
+  "artifact_type": "ALL_CYCLE_FALSE_POSITIVE_REJECTIONS",
+  "false_positive_identity": "01e09c460aea1e6d8d2a80fed42ddd6611c46a0d518c5afb1c96f87cc1ab00f5",
+  "rejections": [
+    {
+      "finding_id": "FP-BROAD-RAW-CORRUPTION",
+      "reason": "Independent inspection did not show wholesale raw-file corruption.",
+      "rejected": true
+    },
+    {
+      "finding_id": "FP-A&M-ADMITTED-SCORE-CORRUPTION",
+      "reason": "No evidence that admitted A&M final scores were rewritten.",
+      "rejected": true
+    },
+    {
+      "finding_id": "FP-REJECTION-LEAKAGE-INTO-UNION",
+      "reason": "Rejected URLs are not shown to enter union membership in committed gates.",
+      "rejected": true
+    },
+    {
+      "finding_id": "FP-CYCLE-3-LEAKAGE",
+      "reason": "Cycle #3 leakage claim was not independently reproduced from current artifacts.",
+      "rejected": true
+    },
+    {
+      "finding_id": "FP-A&M-PARSER-CONTAMINATES-NATIONAL-MODEL",
+      "reason": "A&M parser defects do not automatically contaminate national SRC-002 rows.",
+      "rejected": true
+    },
+    {
+      "finding_id": "FP-BAS-CHAMPION-PROMOTION",
+      "reason": "Repository non-claims continue to forbid BAS/champion/production promotion.",
+      "rejected": true
+    }
+  ],
+  "schema_version": 1
+}

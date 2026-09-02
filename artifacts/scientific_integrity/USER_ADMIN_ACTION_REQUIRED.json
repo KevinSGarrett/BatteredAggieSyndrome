@@ -1,0 +1,49 @@
+{
+  "artifact_type": "USER_ADMIN_ACTION_REQUIRED",
+  "actions": [
+    {
+      "system": "openai_codex_github_app",
+      "action": "Confirm Codex cloud is connected to KevinSGarrett/BatteredAggieSyndrome and that automatic Codex code review is enabled.",
+      "confirmed_enabled": false,
+      "reason": "GitHub installation APIs returned 404/403 from this session; no Codex GitHub App check-run was present on SHA 49003eea. Automatic cloud review is not claimed."
+    },
+    {
+      "system": "openai_codex_github_action",
+      "action": "Keep repository secret OPENAI_API_KEY as the Actions input used by .github/workflows/codex-scientific-review.yml. Do not print the secret value or length.",
+      "confirmed_enabled": true,
+      "reason": "gh secret list independently showed the name OPENAI_API_KEY. The prior failed job used env OPENAI_API_KEY and sandbox: true instead of the documented openai-api-key input and read-only sandbox; that workflow is corrected on this branch. Action success is not claimed until a green check binds the latest SHA."
+    },
+    {
+      "system": "cursor_bugbot",
+      "action": "Confirm the Cursor GitHub app, Bugbot Automations on this repository, automatic review on every PR update including drafts, Incremental Review off, and High effort only if the current product plan exposes that setting.",
+      "confirmed_enabled": false,
+      "strongest_verified_product_setting": "High effort is documented for usage-based Bugbot plans; this session could not read the dashboard. Enablement is not fabricated.",
+      "reason": "No Cursor Bugbot check-run was present on SHA 49003eea. User/app installation APIs returned 403/404."
+    },
+    {
+      "system": "codecov",
+      "action": "Keep CODECOV_TOKEN as a repository secret. Merge review-infrastructure/hold so repository-ci on main can establish a coverage baseline before making project coverage blocking.",
+      "confirmed_enabled": true,
+      "main_baseline_established": false,
+      "tier_limitation": "Project blocking remains informational until a main-branch baseline exists. PR upload 33563774424 is not a main baseline.",
+      "reason": "gh secret list independently showed CODECOV_TOKEN. coverage-upload succeeded on rerun 33563774424 after the secret existed. Codecov GitHub app installation was not proven from this session."
+    },
+    {
+      "system": "github_branch_protection",
+      "action": "After this tranche merges, keep existing required checks and add Codex scientific review, Bugbot, and Codecov statuses only when GitHub readback shows those checks actually exist.",
+      "confirmed_enabled": true,
+      "currently_required_checks": [
+        "core-validation (ubuntu-latest, 3.12)",
+        "core-validation (windows-latest, 3.12)",
+        "product-adapter (ubuntu-latest)",
+        "product-adapter (windows-latest)",
+        "security-policy",
+        "codeql",
+        "dependency-review"
+      ],
+      "reason": "Branch protection readback on main already requires the listed checks, strict status, conversation resolution, linear history, and enforce_admins. Codex/Bugbot/Codecov are not in that required list yet."
+    }
+  ],
+  "do_not_claim_installed": true,
+  "schema_version": 1
+}

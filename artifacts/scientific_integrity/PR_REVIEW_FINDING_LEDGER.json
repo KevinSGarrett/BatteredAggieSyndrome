@@ -1,0 +1,117 @@
+{
+  "artifact_type": "PR_REVIEW_FINDING_LEDGER",
+  "findings": [
+    {
+      "affected_files": [
+        ".github/workflows/codex-scientific-review.yml",
+        "tools/validate_codex_scientific_review.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "commit 16504e98b0d20234ebfdd800d194db65eb4a2e2d; Codex review check passed on that SHA",
+      "final_authority": "GitHub Actions codex-review check",
+      "finding": "Validator CLI did not bind PR/base/head/merge SHAs from GitHub event.",
+      "follow_up_review_identity": "16504e98b0d20234ebfdd800d194db65eb4a2e2d",
+      "implementation_response": "Added CI-written binding and expected-pr/base/head/merge CLI flags.",
+      "regression_test": "tests/test_pr_review_defense_infrastructure.py",
+      "reviewed_sha": "651ab615d269a6482f92cdcc3903f01ede5bfa1d",
+      "reviewer": "chatgpt-codex-connector",
+      "severity": "P1"
+    },
+    {
+      "affected_files": [
+        ".github/workflows/codex-scientific-review.yml"
+      ],
+      "disposition": "DUPLICATE",
+      "evidence": "Same defect as Codex bind-review-output finding",
+      "final_authority": "GitHub Actions codex-review check",
+      "finding": "Validate step did not compare review payload to GitHub event SHAs.",
+      "follow_up_review_identity": "16504e98b0d20234ebfdd800d194db65eb4a2e2d",
+      "implementation_response": "Same SHA-binding fix as Codex P1.",
+      "regression_test": "tests/test_pr_review_defense_infrastructure.py",
+      "reviewed_sha": "651ab615d269a6482f92cdcc3903f01ede5bfa1d",
+      "reviewer": "cursor-bugbot",
+      "severity": "P1"
+    },
+    {
+      "affected_files": [
+        "tools/build_all_cycle_scientific_inventory.py",
+        "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "inventory unmapped_authority_count 124; validator requires labeled unmapped while trust unrecovered",
+      "final_authority": "deterministic inventory validator",
+      "finding": "Unmatched authority artifacts were assigned to Cycle 1 instead of UNMAPPED.",
+      "follow_up_review_identity": "pending-this-commit",
+      "implementation_response": "Default mapping is UNMAPPED; unmapped_authority_count=124; trust gate records INCOMPLETE_UNMAPPED_AUTHORITY.",
+      "regression_test": "tests/test_all_cycle_scientific_inventory.py",
+      "reviewed_sha": "651ab615d269a6482f92cdcc3903f01ede5bfa1d",
+      "reviewer": "chatgpt-codex-connector",
+      "severity": "P1"
+    },
+    {
+      "affected_files": [
+        ".github/workflows/codex-scientific-review.yml"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "workflow posts via gh pr comment using GH_TOKEN",
+      "final_authority": "workflow file",
+      "finding": "publish-review-comment job never posted a PR comment.",
+      "follow_up_review_identity": "pending-this-commit",
+      "implementation_response": "Job now calls gh pr comment with sanitized verdict summary.",
+      "regression_test": "none-workflow",
+      "reviewed_sha": "651ab615d269a6482f92cdcc3903f01ede5bfa1d",
+      "reviewer": "chatgpt-codex-connector",
+      "severity": "P2"
+    },
+    {
+      "affected_files": [
+        ".github/workflows/codex-scientific-review.yml"
+      ],
+      "disposition": "DUPLICATE",
+      "evidence": "Same defect as Codex P2 publish finding",
+      "final_authority": "workflow file",
+      "finding": "Review comment is never posted.",
+      "follow_up_review_identity": "pending-this-commit",
+      "implementation_response": "Same publish-comment fix.",
+      "regression_test": "none-workflow",
+      "reviewed_sha": "651ab615d269a6482f92cdcc3903f01ede5bfa1d",
+      "reviewer": "cursor-bugbot",
+      "severity": "P1"
+    },
+    {
+      "affected_files": [
+        "jira/validation/SOURCE_ANCHOR_VALIDATION.csv",
+        "AGENTS.md"
+      ],
+      "disposition": "BLOCKED",
+      "evidence": "SOURCE_ANCHOR_VALIDATION.csv SRCREF-01994 status=RELOCATED; Cursor does not self-approve this as false positive.",
+      "final_authority": "pending-human",
+      "finding": "SOURCE_ANCHOR_VALIDATION remains RELOCATED for SRCREF-01994 after repair.",
+      "follow_up_review_identity": "human",
+      "implementation_response": "Controlled repair relocated SRCREF-01994. core-validation on 16504e98 and 70b326d7 passed. Status remains RELOCATED as honest repair record, not a silent PASS rewrite.",
+      "regression_test": "jira/tools/validate_source_refs.py",
+      "reviewed_sha": "651ab615d269a6482f92cdcc3903f01ede5bfa1d",
+      "reviewer": "chatgpt-codex-connector",
+      "severity": "P1"
+    },
+    {
+      "affected_files": [
+        "tools/build_all_cycle_scientific_inventory.py",
+        "artifacts/scientific_integrity/PR_REVIEW_FINDING_LEDGER.json"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "inventory builder no longer writes PR_REVIEW_FINDING_LEDGER.json; regression in tests/test_pr_review_defense_infrastructure.py",
+      "final_authority": "deterministic test",
+      "finding": "Inventory builder wiped a filled finding ledger by rewriting findings=[].",
+      "follow_up_review_identity": "pending-this-commit",
+      "implementation_response": "Removed ledger write from tools/build_all_cycle_scientific_inventory.py. Ledger remains an adjudication artifact.",
+      "regression_test": "tests/test_pr_review_defense_infrastructure.py",
+      "reviewed_sha": "70b326d7d1d3ef4472214c3c12cb1fa0132e067a",
+      "reviewer": "cursor-bugbot",
+      "severity": "P1"
+    }
+  ],
+  "note": "Cursor may propose but cannot solely approve FALSE_POSITIVE_PROVEN or accepted-risk for P0/P1.",
+  "schema_version": 1,
+  "ledger_identity": "cc5f71b889b2a35fc176a09c62c301679cd15d991c827ecb3f3faaad7c1e0ce4"
+}

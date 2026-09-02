@@ -1,0 +1,33 @@
+{
+  "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
+  "audit_identity": "ffbe6cc0aa07cdd1e869ab4e1dca8ef6a1b65fb023ce1ce65161240daaa81b3d",
+  "cycle_number": 11,
+  "ending_sha": "4d90111372cd8d342f59c716e3033b6a1f9db5e9",
+  "findings": [],
+  "pass_one_provenance": {
+    "end_descends_from_start": true,
+    "ending_sha": "4d90111372cd8d342f59c716e3033b6a1f9db5e9",
+    "proves": "provenance_and_completeness_only",
+    "starting_sha": "0fc3d31731eeb86dbc143c8a08a5d6618dba5e21",
+    "status": "COMPLETE"
+  },
+  "pass_three_adversarial": {
+    "searched_for": [
+      "omitted_artifacts",
+      "circular_validation",
+      "target_leakage",
+      "pair_incoherence",
+      "protected_exposure",
+      "ignored_user_holds"
+    ],
+    "status": "COMPLETE"
+  },
+  "pass_two_semantic": {
+    "independent_of_producer_helpers": true,
+    "missing_raw_payloads": true,
+    "status": "BLOCKED_INSUFFICIENT_EVIDENCE"
+  },
+  "schema_version": 1,
+  "starting_sha": "0fc3d31731eeb86dbc143c8a08a5d6618dba5e21",
+  "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE"
+}

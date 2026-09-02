@@ -12,6 +12,9 @@ from pathlib import Path
 sys.dont_write_bytecode = True
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+_SRC = Path(__file__).resolve().parents[1] / "src"
+if str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
 
 from tools.audit_protected_split_exposure import AUDIT_PATH, validate_audit  # noqa: E402
 from tools.repo_integrity import (  # noqa: E402
@@ -37,6 +40,12 @@ from tools.validate_openai_assist import validate as validate_openai_assist  # n
 from tools.validate_openrouter_assist import validate as validate_openrouter_assist  # noqa: E402
 from tools.validate_team_state import validate as validate_team_state  # noqa: E402
 from tools.validate_temporal import validate as validate_temporal  # noqa: E402
+from aggie_analytics.governance.scientific_trust_recovery_hold import (  # noqa: E402
+    validate_hold as validate_scientific_trust_recovery_hold,
+)
+from tools.validate_all_cycle_scientific_inventory import (  # noqa: E402
+    validate as validate_all_cycle_scientific_inventory,
+)
 
 
 def validate_live_verification_histogram_surface(root: Path) -> list[str]:
@@ -334,6 +343,32 @@ def main() -> int:
                     },
                 )()
             )
+        hold_contract = root / "configs" / "scientific_trust_recovery_hold_contract.json"
+        if hold_contract.is_file():
+            for detail in validate_scientific_trust_recovery_hold(root):
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "scientific_trust_recovery_hold",
+                            "path": "artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json",
+                            "detail": detail,
+                        },
+                    )()
+                )
+            for detail in validate_all_cycle_scientific_inventory(root):
+                findings.append(
+                    type(
+                        "F",
+                        (),
+                        {
+                            "kind": "all_cycle_scientific_inventory",
+                            "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json",
+                            "detail": detail,
+                        },
+                    )()
+                )
         successor_validator_path = root / "tools" / "validate_week_zero_2026_official_final_scoring_successor.py"
         if successor_validator_path.is_file():
             try:

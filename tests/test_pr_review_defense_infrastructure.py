@@ -49,6 +49,15 @@ class PrReviewDefenseInfrastructureTests(unittest.TestCase):
         self.assertTrue(
             any("UNRESOLVED_P0_P1" in item or "DIGEST" in item for item in findings)
         )
+        empty_inventory = dict(payload)
+        empty_inventory["changed_file_inventory"] = []
+        empty_inventory["verdict"] = "FAIL"
+        empty_inventory["findings_p0"] = []
+        empty_findings = validate_payload(
+            empty_inventory, expected_files=["src/x.py"]
+        )
+        self.assertIn("CODEX_REVIEW_EMPTY_INVENTORY", empty_findings)
+        self.assertIn("CODEX_REVIEW_CHANGED_FILE_MISMATCH", empty_findings)
 
     def test_cursor_cannot_self_approve_p0_false_positive(self) -> None:
         findings = validate_ledger(

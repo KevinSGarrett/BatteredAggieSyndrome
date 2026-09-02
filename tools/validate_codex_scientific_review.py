@@ -46,6 +46,7 @@ def validate_payload(
     expected_head: str | None = None,
     expected_merge: str | None = None,
     expected_files: list[str] | None = None,
+    expected_digest: str | None = None,
 ) -> list[str]:
     findings: list[str] = []
     if not payload:
@@ -69,8 +70,14 @@ def validate_payload(
             findings.append("CODEX_REVIEW_CHANGED_FILE_MISMATCH")
     digest = payload.get("changed_file_digest")
     encoded = json.dumps(sorted(inventory), separators=(",", ":")).encode("utf-8")
-    expected_digest = hashlib.sha256(encoded).hexdigest()
-    if inventory and digest != expected_digest:
+    inventory_digest = hashlib.sha256(encoded).hexdigest()
+    if expected_files is not None and not expected_files and not inventory:
+        pass
+    elif not inventory:
+        findings.append("CODEX_REVIEW_EMPTY_INVENTORY")
+    if digest != inventory_digest:
+        findings.append("CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH")
+    if expected_digest and digest != expected_digest:
         findings.append("CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH")
     if payload.get("verdict") == "PASS":
         if payload.get("critical_files_not_reviewed"):
@@ -106,6 +113,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--expected-base", default=None)
     parser.add_argument("--expected-head", default=None)
     parser.add_argument("--expected-merge", default=None)
+    parser.add_argument("--binding", default=None)
     args = parser.parse_args(argv)
     path = Path(args.payload)
     if not path.is_file():
@@ -116,12 +124,24 @@ def main(argv: list[str] | None = None) -> int:
     except json.JSONDecodeError:
         print(json.dumps({"result": "FAIL", "findings": ["CODEX_REVIEW_MALFORMED"]}))
         return 1
+    expected_files = None
+    expected_digest = None
+    if args.binding:
+        binding_path = Path(args.binding)
+        if not binding_path.is_file():
+            print(json.dumps({"result": "FAIL", "findings": ["CODEX_REVIEW_BINDING_MISSING"]}))
+            return 1
+        binding = _load(binding_path)
+        expected_files = list(binding.get("changed_file_inventory") or [])
+        expected_digest = binding.get("changed_file_digest")
     findings = validate_payload(
         payload,
         expected_pr=args.expected_pr,
         expected_base=args.expected_base,
         expected_head=args.expected_head,
         expected_merge=args.expected_merge,
+        expected_files=expected_files,
+        expected_digest=expected_digest,
     )
     print(
         json.dumps(

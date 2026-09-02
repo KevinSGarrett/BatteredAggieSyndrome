@@ -3,6 +3,16 @@
   "assignments": [
     {
       "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": ".github/codex/prompts/scientific-review.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": ".github/workflows/codex-scientific-review.yml"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-696",
       "path": "artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json"
     },
@@ -303,6 +313,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "tests/test_pr_review_defense_infrastructure.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": "tests/test_scientific_trust_recovery_hold.py"
     },
@@ -310,6 +325,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": "tools/build_all_cycle_scientific_inventory.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "tools/validate_codex_scientific_review.py"
     },
     {
       "kind": "MATERIAL",

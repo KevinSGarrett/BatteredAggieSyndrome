@@ -1,5 +1,7 @@
 {
   "allowed_paths": [
+    ".github/codex/prompts/scientific-review.md",
+    ".github/workflows/codex-scientific-review.yml",
     "artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json",
     "artifacts/scientific_integrity/INDEPENDENT_VALIDATOR_CLASSIFICATION.json",
     "artifacts/scientific_integrity/OPERATOR_RELEASE_RECEIPT.json",
@@ -60,8 +62,10 @@
     "src/aggie_analytics/scientific_reference/metrics.py",
     "tests/test_execution_focus.py",
     "tests/test_independent_scientific_reference.py",
+    "tests/test_pr_review_defense_infrastructure.py",
     "tests/test_scientific_trust_recovery_hold.py",
     "tools/build_all_cycle_scientific_inventory.py",
+    "tools/validate_codex_scientific_review.py",
     "tools/validate_cross_output_coherence.py",
     "tools/validate_execution_focus.py",
     "tools/validate_independent_scientific_reference.py",
@@ -73,7 +77,7 @@
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "159470e1953a7d737192142aaf3c098530c82e76433b91a31d614efcbaa61778",
+  "decision_sha256": "90cf7ddfbeb1871df02f7e66e224bca269224b1fc05fc54d3335b9894c3708f2",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "downstream_consumer": "tools/validate_artifact_bindings.py",
   "jira_identity": "BAT-690",

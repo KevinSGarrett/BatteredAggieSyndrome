@@ -403,7 +403,7 @@ def known_findings() -> list[dict[str, Any]]:
             ),
             "evidence": [
                 "artifacts/data_lake/national_lake_readiness.json",
-                "C:/BatteredAggieSyndrome.data/raw/SRC-002 file count 980",
+                "mounted:raw/SRC-002 file count 980",
             ],
         },
     ]

@@ -34,6 +34,11 @@
     {
       "kind": "MATERIAL",
       "owner": "BAT-689",
+      "path": "artifacts/scientific_integrity/PR_REVIEW_FINDING_LEDGER.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
       "path": "artifacts/scientific_integrity/USER_ADMIN_ACTION_REQUIRED.json"
     },
     {
@@ -300,6 +305,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-696",
       "path": "src/aggie_analytics/scientific_reference/metrics.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tests/test_all_cycle_scientific_inventory.py"
     },
     {
       "kind": "MATERIAL",

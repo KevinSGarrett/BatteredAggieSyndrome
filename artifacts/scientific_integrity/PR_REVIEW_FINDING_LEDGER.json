@@ -109,6 +109,22 @@
       "reviewed_sha": "70b326d7d1d3ef4472214c3c12cb1fa0132e067a",
       "reviewer": "cursor-bugbot",
       "severity": "P1"
+    },
+    {
+      "affected_files": [
+        "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_FINDINGS.json",
+        "tools/build_all_cycle_scientific_inventory.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "Evidence string is now mounted:raw/SRC-002 file count 980; regression in tests/test_all_cycle_scientific_inventory.py::test_findings_evidence_is_posix_relative",
+      "final_authority": "deterministic test",
+      "finding": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED evidence recorded a Windows absolute data-root path in tracked artifacts.",
+      "follow_up_review_identity": "pending-this-commit",
+      "implementation_response": "Replaced the machine-local path with a POSIX-relative mounted:raw/SRC-002 identity and regenerated cycle audits.",
+      "regression_test": "tests/test_all_cycle_scientific_inventory.py",
+      "reviewed_sha": "0555b305b8e3e9fcab58a4186f6e1eaf163a9547",
+      "reviewer": "cursor",
+      "severity": "P2"
     }
   ],
   "note": "Cursor may propose but cannot solely approve FALSE_POSITIVE_PROVEN or accepted-risk for P0/P1.",

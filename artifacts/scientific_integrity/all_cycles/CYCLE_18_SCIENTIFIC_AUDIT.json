@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
-  "audit_identity": "b3d06b75d6f0258991c894818900995642f9c924a0e6c5c9aab8895ae1657e72",
+  "audit_identity": "31792aa1806c8c867b1eb13649c4ba1d5a6fdea6952e75aca7716a1580af763d",
   "cycle_number": 18,
   "ending_sha": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
   "findings": [
@@ -27,7 +27,7 @@
       "disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
       "evidence": [
         "artifacts/data_lake/national_lake_readiness.json",
-        "C:/BatteredAggieSyndrome.data/raw/SRC-002 file count 980"
+        "mounted:raw/SRC-002 file count 980"
       ],
       "finding_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED",
       "severity": "P1",

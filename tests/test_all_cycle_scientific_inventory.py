@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -43,6 +44,16 @@ class AllCycleInventoryTests(unittest.TestCase):
 
     def test_affected_successors_propagate(self) -> None:
         self.assertEqual([], validate_successors(REPO_ROOT))
+
+    def test_findings_evidence_is_posix_relative(self) -> None:
+        drive = re.compile(r"^[A-Za-z]:[\\/]")
+        payload = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_FINDINGS.json").read_text(encoding="utf-8")
+        )
+        for finding in payload["findings"]:
+            for item in finding.get("evidence") or []:
+                self.assertFalse(drive.match(str(item)), msg=item)
+                self.assertNotIn("\\", str(item))
 
 
 if __name__ == "__main__":

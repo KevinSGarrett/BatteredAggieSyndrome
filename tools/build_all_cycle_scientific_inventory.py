@@ -76,8 +76,8 @@ def _expand(prefix: str) -> str:
 
 def _write(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    path.write_bytes(
+        (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
     )
 
 
@@ -390,6 +390,22 @@ def known_findings() -> list[dict[str, Any]]:
             "summary": "T-24H and T-90M deadlines have not occurred; capture remains OPEN and must not be backfilled.",
             "evidence": ["calendar 2026-09-04 / 2026-09-05"],
         },
+        {
+            "finding_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED",
+            "severity": "P1",
+            "cycles": [18, 20, 21],
+            "disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+            "summary": (
+                "Declared national capture set is 990 (BAT-382 / POST-SUBTASK-044). "
+                "Mounted raw/SRC-002 currently contains 980 files (63 under games/). "
+                "The full 990-capture 2,550,148,419-byte archive was not rehashed because "
+                "that exact capture set is not mounted as 990 files."
+            ),
+            "evidence": [
+                "artifacts/data_lake/national_lake_readiness.json",
+                "C:/BatteredAggieSyndrome.data/raw/SRC-002 file count 980",
+            ],
+        },
     ]
 
 
@@ -642,9 +658,7 @@ def build_matrix() -> dict[str, Any]:
                 "cycle_number": cycle,
                 "passes": {
                     "pass_one": "COMPLETE",
-                    "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
-                    if cycle < 24
-                    else "COMPLETE",
+                    "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE",
                     "pass_three": "COMPLETE",
                 },
                 "cycle_disposition": "FAIL"
@@ -659,7 +673,11 @@ def build_matrix() -> dict[str, Any]:
             "cycles": cycles,
             "note": (
                 "No later cycle confers PASS on an earlier one. Missing evidence is "
-                "BLOCKED_INSUFFICIENT_EVIDENCE, not PASS."
+                "BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is blocked for every "
+                "cycle because independent reconstruction of every material claim from "
+                "mounted raw payloads was not completed; successor fixture tests are not "
+                "a substitute. Pass three COMPLETE means the listed adversarial categories "
+                "were searched; it does not authorize SEMANTICALLY_AUDITED."
             ),
             "schema_version": 1,
         },
@@ -670,11 +688,7 @@ def build_matrix() -> dict[str, Any]:
 def build_cycle_audit(cycle_row: dict[str, Any], findings: list[dict[str, Any]]) -> dict[str, Any]:
     number = cycle_row["cycle_number"]
     related = [item for item in findings if number in item["cycles"]]
-    pass_two = (
-        "COMPLETE"
-        if number >= 24
-        else "BLOCKED_INSUFFICIENT_EVIDENCE"
-    )
+    pass_two = "BLOCKED_INSUFFICIENT_EVIDENCE"
     return bind_identity(
         {
             "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
@@ -690,6 +704,10 @@ def build_cycle_audit(cycle_row: dict[str, Any], findings: list[dict[str, Any]])
             },
             "pass_three_adversarial": {
                 "status": "COMPLETE",
+                "limitation": (
+                    "Category search only. Pass two did not independently reconstruct "
+                    "every material claim from mounted raw payloads."
+                ),
                 "searched_for": [
                     "omitted_artifacts",
                     "circular_validation",
@@ -702,7 +720,7 @@ def build_cycle_audit(cycle_row: dict[str, Any], findings: list[dict[str, Any]])
             "pass_two_semantic": {
                 "status": pass_two,
                 "independent_of_producer_helpers": True,
-                "missing_raw_payloads": pass_two == "BLOCKED_INSUFFICIENT_EVIDENCE",
+                "missing_raw_payloads": True,
             },
             "schema_version": 1,
             "starting_sha": cycle_row["starting_sha"],
@@ -741,11 +759,14 @@ def build_gate(claims: dict[str, Any]) -> dict[str, Any]:
 def main() -> int:
     ALL_CYCLES.mkdir(parents=True, exist_ok=True)
     cycle_rows = verify_cycle_shas()
-    receipt = build_hold_receipt(cycle_rows)
-    _write(
-        REPO_ROOT / "artifacts" / "scientific_integrity" / "OPERATOR_HOLD_RECEIPT.json",
-        receipt,
+    hold_path = (
+        REPO_ROOT / "artifacts" / "scientific_integrity" / "OPERATOR_HOLD_RECEIPT.json"
     )
+    if hold_path.is_file():
+        receipt = json.loads(hold_path.read_text(encoding="utf-8"))
+    else:
+        receipt = build_hold_receipt(cycle_rows)
+        _write(hold_path, receipt)
     inventory = build_inventory(cycle_rows)
     _write(ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json", inventory)
     claims = build_claims(inventory)

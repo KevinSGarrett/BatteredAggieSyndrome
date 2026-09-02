@@ -28,6 +28,22 @@
     {
       "path": "tools/validate_scientific_trust_recovery_hold.py",
       "class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    },
+    {
+      "path": "tools/validate_independent_scientific_reference.py",
+      "class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "path": "tools/validate_cross_output_coherence.py",
+      "class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "path": "tools/validate_raw_to_forecast_trace.py",
+      "class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "path": "tools/validate_protected_replacement_protocol.py",
+      "class": "PRODUCER_SHARED_IMPLEMENTATION"
     }
   ],
   "note": "Only INDEPENDENT_SEMANTIC_REFERENCE may authorize SEMANTICALLY_AUDITED or higher.",

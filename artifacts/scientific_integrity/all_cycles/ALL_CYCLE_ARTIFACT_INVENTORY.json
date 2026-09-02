@@ -6040,12 +6040,76 @@
       "jira_owner": "SEE_CYCLE_AUDIT",
       "mapping_note": "PATH_TOKEN",
       "originating_cycle": 25,
+      "path": "artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "PATH_TOKEN",
+      "originating_cycle": 25,
+      "path": "artifacts/scientific_integrity/INDEPENDENT_VALIDATOR_CLASSIFICATION.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/INDEPENDENT_VALIDATOR_CLASSIFICATION.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "PATH_TOKEN",
+      "originating_cycle": 25,
       "path": "artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json",
       "pr_or_merge": "SEE_CYCLE_AUDIT",
       "producer": "COMMITTED_MODULE_OR_BUILDER",
       "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
       "source_identities": [
         "git:artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "PATH_TOKEN",
+      "originating_cycle": 25,
+      "path": "artifacts/scientific_integrity/OPERATOR_RELEASE_RECEIPT.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/OPERATOR_RELEASE_RECEIPT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "PATH_TOKEN",
+      "originating_cycle": 25,
+      "path": "artifacts/scientific_integrity/PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL.json"
       ],
       "validator": "COMMITTED_VALIDATOR_OR_NONE"
     },
@@ -10818,13 +10882,13 @@
       "starting_sha": "cbb78b0786644146462dbcfc5c4d6fb514c7fa44"
     },
     {
-      "artifact_count": 39,
+      "artifact_count": 43,
       "cycle_number": 25,
       "ending_sha": "c1c310da6bcae25641977fe409e3034b8c08010a",
       "starting_sha": "991bf4666fa6d60921448113939300c121250278"
     }
   ],
-  "inventory_identity": "31f3149dd15cab6130628143043de636c08fa8f92611937c01aa7ca7f3d15d88",
+  "inventory_identity": "f77ca969db741720e9b38ef33f3d73dc04d5a80fe46b682dacc3eebd3535ae7e",
   "schema_version": 1,
   "unmapped_authority_count": 124
 }

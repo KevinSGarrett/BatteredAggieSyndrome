@@ -237,7 +237,7 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "COMPLETE",
-        "pass_two": "COMPLETE"
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
     },
@@ -247,12 +247,12 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "COMPLETE",
-        "pass_two": "COMPLETE"
+        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
     }
   ],
-  "matrix_identity": "894f077bca24b09fc45ebedff2d71b857170477e0e10ad4a71b56cf1188edc18",
-  "note": "No later cycle confers PASS on an earlier one. Missing evidence is BLOCKED_INSUFFICIENT_EVIDENCE, not PASS.",
+  "matrix_identity": "4b5c2394b02ca473c2782d6c5a54591051e18b086d82d0e57ea26238f3e8f8d0",
+  "note": "No later cycle confers PASS on an earlier one. Missing evidence is BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is blocked for every cycle because independent reconstruction of every material claim from mounted raw payloads was not completed; successor fixture tests are not a substitute. Pass three COMPLETE means the listed adversarial categories were searched; it does not authorize SEMANTICALLY_AUDITED.",
   "schema_version": 1
 }

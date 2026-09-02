@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
-  "audit_identity": "191b6bb799d7749bfeb422d5cc454a47d5b7c787abe573bd2dfde04d99ee2875",
+  "audit_identity": "52c0cee467e7a9fcbd8057480edfbd79627fd5dbb852c6ff64736f3df68eeb74",
   "cycle_number": 1,
   "ending_sha": "f318d1842399f8b249a9a04bbcaec2ce7400349f",
   "findings": [],
@@ -12,6 +12,7 @@
     "status": "COMPLETE"
   },
   "pass_three_adversarial": {
+    "limitation": "Category search only. Pass two did not independently reconstruct every material claim from mounted raw payloads.",
     "searched_for": [
       "omitted_artifacts",
       "circular_validation",

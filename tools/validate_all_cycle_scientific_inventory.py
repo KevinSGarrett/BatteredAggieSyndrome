@@ -120,25 +120,14 @@ def validate(repo_root: Path) -> list[str]:
     completeness_rule = str(inventory.get("completeness_rule") or "")
     if unmapped and "not that mapping is complete" not in completeness_rule.lower():
         findings.append("COMPLETENESS_RULE_IMPLIES_VALIDATOR_PASS_IS_COMPLETE")
-    after_cycle_token = [
+    path_token_rows = [
         item
         for item in artifacts
         if item.get("mapping_note") == "PATH_TOKEN"
-        and str(item.get("path") or "").endswith(
-            "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001.json"
-        )
+        and item.get("authority_bearing") is True
     ]
-    if after_cycle_token:
-        findings.append("PATH_TOKEN_OVERRIDES_AFTER_CYCLE_25_FIRST_ADD")
-    protected_token = [
-        item
-        for item in artifacts
-        if item.get("path") == "artifacts/pit/protected_replay_dry_run.json"
-        and item.get("mapping_note") == "PATH_TOKEN"
-        and item.get("originating_cycle") == 17
-    ]
-    if protected_token:
-        findings.append("PATH_TOKEN_OVERRIDES_UNIQUE_GIT_FIRST_ADD")
+    if path_token_rows:
+        findings.append(f"PATH_TOKEN_STILL_USED_AS_ORIGIN_AUTHORITY:{len(path_token_rows)}")
     claim_rows = claims.get("claims") or []
     for row in claim_rows:
         classification = row.get("trust_classification")

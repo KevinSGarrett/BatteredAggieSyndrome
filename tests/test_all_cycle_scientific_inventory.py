@@ -17,6 +17,7 @@ if str(REPO_ROOT / "src") not in sys.path:
 
 from tools.build_all_cycle_scientific_inventory import (  # noqa: E402
     cycle_commit_index,
+    cycle_for_path,
     first_add_commit,
     verify_cycle_shas,
 )
@@ -125,6 +126,24 @@ class AllCycleInventoryTests(unittest.TestCase):
         self.assertEqual(rows[0]["mapping_note"], "GIT_FIRST_ADD")
         self.assertIsInstance(rows[0]["originating_cycle"], int)
         self.assertNotEqual(rows[0]["originating_cycle"], 17)
+
+    def test_ambiguous_git_first_add_is_not_token_mapped(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+        )
+        path_token = [
+            item
+            for item in inventory["artifacts"]
+            if item.get("mapping_note") == "PATH_TOKEN"
+        ]
+        self.assertEqual(path_token, [])
+
+    def test_path_token_heuristic_is_not_origin_authority(self) -> None:
+        rows = verify_cycle_shas()
+        self.assertEqual(
+            cycle_for_path("artifacts/pit/protected_replay_dry_run.json", rows),
+            17,
+        )
 
     def test_post_cycle_25_jira_evidence_is_not_token_mapped_to_cycle_five(self) -> None:
         inventory = json.loads(

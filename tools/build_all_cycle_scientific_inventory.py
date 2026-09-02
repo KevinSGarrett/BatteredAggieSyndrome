@@ -506,19 +506,11 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
     artifacts = []
     commit_index = cycle_commit_index(cycle_rows)
     for relative in authority_paths():
-        token_cycle = cycle_for_path(relative, cycle_rows)
         git_cycle, git_note = git_first_add_cycle(relative, cycle_rows, commit_index)
         if git_note == "GIT_FIRST_ADD":
             cycle, mapping_note = git_cycle, git_note
-        elif git_note in {
-            "GIT_FIRST_ADD_BEFORE_CYCLE_1",
-            "GIT_FIRST_ADD_AFTER_CYCLE_25",
-        }:
-            cycle, mapping_note = "UNMAPPED", git_note
-        elif token_cycle != "UNMAPPED":
-            cycle, mapping_note = token_cycle, "PATH_TOKEN"
         else:
-            cycle, mapping_note = git_cycle, git_note
+            cycle, mapping_note = "UNMAPPED", git_note
         artifacts.append(
             {
                 "path": relative,

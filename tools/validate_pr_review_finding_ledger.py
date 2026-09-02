@@ -8,6 +8,14 @@ import sys
 from pathlib import Path
 from typing import Any
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "src"))
+
+from aggie_analytics.governance.scientific_trust_recovery_hold import (  # noqa: E402
+    compute_identity,
+)
+
 ALLOWED_DISPOSITIONS = {
     "CONFIRMED_FIXED",
     "FALSE_POSITIVE_PROVEN",
@@ -21,6 +29,12 @@ CURSOR_CANNOT_SOLELY_APPROVE = {"FALSE_POSITIVE_PROVEN", "ACCEPTED_RISK_USER_APP
 
 def validate(payload: dict[str, Any]) -> list[str]:
     findings: list[str] = []
+    if "ledger_identity" not in payload:
+        findings.append("LEDGER_IDENTITY_MISSING")
+    else:
+        expected = compute_identity(payload, "ledger_identity")
+        if payload.get("ledger_identity") != expected:
+            findings.append("LEDGER_IDENTITY_MISMATCH")
     rows = payload.get("findings") or []
     required = (
         "reviewer",

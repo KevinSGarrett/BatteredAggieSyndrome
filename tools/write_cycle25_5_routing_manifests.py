@@ -9,7 +9,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "516b7aeefaaf2dad4f4ef7aeba08e05497bc65f2"
+BASE = "24978a25035241285af93505febdc69dd5e51a92"
 INSTRUCTION_TEXT = (
     "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_25_5\n"
     "Execute all Cycle #25.5 Scientific Trust Recovery Program work in this one "

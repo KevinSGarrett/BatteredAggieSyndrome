@@ -1,0 +1,43 @@
+{
+  "artifact_type": "OPERATOR_RELEASE_RECEIPT",
+  "audited_starting_sha": "c1c310da6bcae25641977fe409e3034b8c08010a",
+  "authorization_message_binding": {
+    "instruction_pack_sha256": "5aa27e79a92e221e270ee9a76e357efd6a3b8714e74a6c344dd3881220d3273b",
+    "instruction_text_sha256": "45b8d6615be48d0611de0377b8f649e8befb15b2d2288f4a8d4b48ff90ac40dc",
+    "note": "This receipt binds the Cycle 25.5 continuation authorization from KevinSGarrett that named this hold identity and authorized sequential scientific successor merges after CI green.",
+    "operator": "KevinSGarrett",
+    "stated_hold_identity": "9c3ecb3091a41d6b4326ed701fccaddff4ed557251cd808d36e381455f6c24cd"
+  },
+  "authorizes": [
+    "merge_scientific_successor_prs_sequentially",
+    "transition_verified_owners_to_done_only_if_acceptance_actually_met",
+    "post_exactly_one_factual_bat_523_cycle_25_5_parent_progress_comment"
+  ],
+  "authorizing_user": "KevinSGarrett",
+  "does_not_override": [
+    "do_not_set_scientific_trust_recovered_without_three_pass_evidence",
+    "missing_evidence_remains_blocked_insufficient_evidence",
+    "week1_fitted_outputs_remain_untrusted_shadow_or_abstain",
+    "no_bas_aggie_excess_champion_protected_performance_or_production_claim",
+    "keep_bat_523_in_progress",
+    "keep_bat_401_done_retain_protected_lane_blocked",
+    "keep_bat_429_blocked_unless_413_416_419_independently_meet_acceptance",
+    "keep_gap_005_open",
+    "do_not_activate_protected_evaluation_replacement_lane",
+    "keep_cycle_25_hold_incident_record",
+    "do_not_backfill_t24h_or_t90m",
+    "do_not_touch_dependabot_pr_654"
+  ],
+  "explicit_user_authorization": true,
+  "hold_id": "CYCLE-25.5-SCIENTIFIC-TRUST-RECOVERY-OPERATOR-HOLD",
+  "hold_receipt_identity": "9c3ecb3091a41d6b4326ed701fccaddff4ed557251cd808d36e381455f6c24cd",
+  "issued_at_utc": "2026-09-02T04:01:36Z",
+  "release_identity": "250a80ee3dd2dc2d3403e32f2d59270733f0cb4955b3e7046c608fde7988fd2c",
+  "schema_version": 1,
+  "scientific_green_sha_at_issuance": "a43803b03bb7da5d20b8a4c06f12ecd8f4569a18",
+  "scientific_pr": 671,
+  "trusted_source": {
+    "agent_recorded_wall_clock_utc": "2026-09-02T04:01:36Z",
+    "note": "Wall-clock is agent-recorded and is not durable acquisition authority; binding identities are the hold receipt and instruction hashes."
+  }
+}

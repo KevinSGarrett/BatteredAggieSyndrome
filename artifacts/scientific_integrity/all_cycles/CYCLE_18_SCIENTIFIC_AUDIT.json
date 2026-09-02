@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
-  "audit_identity": "0a9a43cb7fd801d8b78f6f758b7050251716feeade897a8d21f90d4a7017910c",
+  "audit_identity": "31792aa1806c8c867b1eb13649c4ba1d5a6fdea6952e75aca7716a1580af763d",
   "cycle_number": 18,
   "ending_sha": "1c44df09634c149e1c5c747ddc8b399b90da5bf4",
   "findings": [
@@ -17,6 +17,21 @@
       "finding_id": "P1-FALSE-QUARANTINE-312472199",
       "severity": "P1",
       "summary": "Substring postponed/canceled detection on notes falsely quarantines SRC-002:GAME:312472199 (2011 Howard-EMU completed 41-9)."
+    },
+    {
+      "cycles": [
+        18,
+        20,
+        21
+      ],
+      "disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        "artifacts/data_lake/national_lake_readiness.json",
+        "mounted:raw/SRC-002 file count 980"
+      ],
+      "finding_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED",
+      "severity": "P1",
+      "summary": "Declared national capture set is 990 (BAT-382 / POST-SUBTASK-044). Mounted raw/SRC-002 currently contains 980 files (63 under games/). The full 990-capture 2,550,148,419-byte archive was not rehashed because that exact capture set is not mounted as 990 files."
     }
   ],
   "pass_one_provenance": {
@@ -27,6 +42,7 @@
     "status": "COMPLETE"
   },
   "pass_three_adversarial": {
+    "limitation": "Category search only. Pass two did not independently reconstruct every material claim from mounted raw payloads.",
     "searched_for": [
       "omitted_artifacts",
       "circular_validation",

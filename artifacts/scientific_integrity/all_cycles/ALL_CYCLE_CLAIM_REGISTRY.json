@@ -138,6 +138,33 @@
       "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
     },
     {
+      "claim_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED:C18",
+      "cycle_number": 18,
+      "producer": "artifacts/data_lake/national_lake_readiness.json",
+      "severity": "P1",
+      "summary": "Declared national capture set is 990 (BAT-382 / POST-SUBTASK-044). Mounted raw/SRC-002 currently contains 980 files (63 under games/). The full 990-capture 2,550,148,419-byte archive was not rehashed because that exact capture set is not mounted as 990 files.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED:C20",
+      "cycle_number": 20,
+      "producer": "artifacts/data_lake/national_lake_readiness.json",
+      "severity": "P1",
+      "summary": "Declared national capture set is 990 (BAT-382 / POST-SUBTASK-044). Mounted raw/SRC-002 currently contains 980 files (63 under games/). The full 990-capture 2,550,148,419-byte archive was not rehashed because that exact capture set is not mounted as 990 files.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "claim_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED:C21",
+      "cycle_number": 21,
+      "producer": "artifacts/data_lake/national_lake_readiness.json",
+      "severity": "P1",
+      "summary": "Declared national capture set is 990 (BAT-382 / POST-SUBTASK-044). Mounted raw/SRC-002 currently contains 980 files (63 under games/). The full 990-capture 2,550,148,419-byte archive was not rehashed because that exact capture set is not mounted as 990 files.",
+      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
       "claim_id": "CYCLE-01-PROVENANCE-COMPLETE",
       "cycle_number": 1,
       "producer": "git",
@@ -589,7 +616,7 @@
     }
   ],
   "counts_by_classification": {
-    "BLOCKED_INSUFFICIENT_EVIDENCE": 26,
+    "BLOCKED_INSUFFICIENT_EVIDENCE": 29,
     "FAIL": 14,
     "REPRODUCIBLE_ONLY": 25
   },
@@ -603,11 +630,11 @@
     "15": 2,
     "16": 2,
     "17": 3,
-    "18": 3,
+    "18": 4,
     "19": 2,
     "2": 2,
-    "20": 3,
-    "21": 3,
+    "20": 4,
+    "21": 4,
     "22": 2,
     "23": 2,
     "24": 4,
@@ -620,7 +647,7 @@
     "8": 2,
     "9": 2
   },
-  "inventory_identity": "ad7b63de9b073d30337a0f6578a42160a72c898ce0fdb36c23f92d891d6fc66d",
-  "registry_identity": "3e7aede14bfc56bd92bfdbec8beb71c218601140814e569d16eb6ca041eea72b",
+  "inventory_identity": "f77ca969db741720e9b38ef33f3d73dc04d5a80fe46b682dacc3eebd3535ae7e",
+  "registry_identity": "a648e037eb3c44f30fdf9af14c1fe51a05a28d7084d9ff11e397f12b07f86563",
   "schema_version": 1
 }

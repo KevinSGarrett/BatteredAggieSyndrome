@@ -73,6 +73,27 @@
         "head_sha": "99b901d84f54233af1c4a7c8974b71652df99b8f",
         "classification": "[material]",
         "reason": "The reviewed PR #670 head was classified as material, but the GitHub squash subject supplied during merge omitted the marker. This immutable exact-commit correction preserves history without weakening classification for any other commit."
+      },
+      {
+        "commit_sha": "d7b97189b846ef0b355ed37415069d5afd19cd9e",
+        "pull_request": 671,
+        "head_sha": "d7b97189b846ef0b355ed37415069d5afd19cd9e",
+        "classification": "[material]",
+        "reason": "This merge of review-infra/hold main into the scientific successor branch touched material paths (configs/tools/src). The [process] subject was incorrect; the correction is scoped to this exact commit."
+      },
+      {
+        "commit_sha": "1ef8bf47c9eb5a9cd758891a983be90f4f566b6c",
+        "pull_request": 671,
+        "head_sha": "1ef8bf47c9eb5a9cd758891a983be90f4f566b6c",
+        "classification": "[material]",
+        "reason": "USER_ADMIN_ACTION_REQUIRED and routing updates are material governance artifacts. The [process] subject was incorrect; the correction is scoped to this exact commit."
+      },
+      {
+        "commit_sha": "bb1134578d80ca76aeec44e9061fe336cdc8c03d",
+        "pull_request": 671,
+        "head_sha": "bb1134578d80ca76aeec44e9061fe336cdc8c03d",
+        "classification": "[material]",
+        "reason": "This merge of the execution-focus correction into the scientific successor branch touched material paths. The [process] subject was incorrect; the correction is scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

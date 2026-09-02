@@ -120,6 +120,31 @@ class ExecutionFocusPolicyTests(unittest.TestCase):
             findings = validate_execution_focus._validate_history(ROOT, policy)
         self.assertTrue(any(item.startswith("COMMIT_CLASSIFICATION_INVALID") for item in findings))
 
+    def test_historical_correction_overrides_wrong_process_marker(self) -> None:
+        policy = json.loads(
+            (ROOT / "instructions/policies/execution_focus_policy.json").read_text(encoding="utf-8")
+        )
+        fake_sha = "b" * 40
+        policy["commit_classification"]["historical_integration_corrections"].append(
+            {
+                "commit_sha": fake_sha,
+                "head_sha": fake_sha,
+                "pull_request": 671,
+                "classification": "[material]",
+                "reason": "unit-test override",
+            }
+        )
+        with patch.object(
+            validate_execution_focus,
+            "_git_commits",
+            return_value=[(fake_sha, "[process] merge that touched material paths")],
+        ), patch.object(
+            validate_execution_focus,
+            "_git_commit_changed_paths",
+            return_value=["src/aggie_analytics/data/example.py"],
+        ):
+            self.assertEqual([], validate_execution_focus._validate_history(ROOT, policy))
+
     def test_process_commit_touching_material_paths_fails(self) -> None:
         policy = json.loads(
             (ROOT / "instructions/policies/execution_focus_policy.json").read_text(encoding="utf-8")

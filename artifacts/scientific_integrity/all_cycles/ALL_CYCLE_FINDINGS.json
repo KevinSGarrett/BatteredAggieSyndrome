@@ -127,8 +127,23 @@
       "finding_id": "P2-T24H-T90M-STILL-OPEN",
       "severity": "P2",
       "summary": "T-24H and T-90M deadlines have not occurred; capture remains OPEN and must not be backfilled."
+    },
+    {
+      "cycles": [
+        18,
+        20,
+        21
+      ],
+      "disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        "artifacts/data_lake/national_lake_readiness.json",
+        "mounted:raw/SRC-002 file count 980"
+      ],
+      "finding_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED",
+      "severity": "P1",
+      "summary": "Declared national capture set is 990 (BAT-382 / POST-SUBTASK-044). Mounted raw/SRC-002 currently contains 980 files (63 under games/). The full 990-capture 2,550,148,419-byte archive was not rehashed because that exact capture set is not mounted as 990 files."
     }
   ],
-  "findings_identity": "c87b99d5963c91e6b0c0d44c5cd8041632c0ae940c89e9a1fc9bf47e8adee8f5",
+  "findings_identity": "1da4ffe26c6d37ac3a59ce066a0cae029466c80d115507b6d38f478dc4fae499",
   "schema_version": 1
 }

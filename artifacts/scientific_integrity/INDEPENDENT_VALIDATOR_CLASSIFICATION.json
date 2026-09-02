@@ -1,0 +1,35 @@
+{
+  "artifact_type": "INDEPENDENT_VALIDATOR_CLASSIFICATION",
+  "classifications": [
+    {
+      "path": "src/aggie_analytics/scientific_reference/metrics.py",
+      "class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "path": "src/aggie_analytics/scientific_reference/coherence.py",
+      "class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "path": "src/aggie_analytics/scientific_reference/market.py",
+      "class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "path": "src/aggie_analytics/scientific_reference/binding.py",
+      "class": "INDEPENDENT_SEMANTIC_REFERENCE"
+    },
+    {
+      "path": "tools/validate_week1_2026_ridge_distribution_coherence.py",
+      "class": "PRODUCER_SHARED_IMPLEMENTATION"
+    },
+    {
+      "path": "tools/validate_week1_2026_market_benchmark_and_adequacy.py",
+      "class": "PRODUCER_SHARED_IMPLEMENTATION"
+    },
+    {
+      "path": "tools/validate_scientific_trust_recovery_hold.py",
+      "class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
+    }
+  ],
+  "note": "Only INDEPENDENT_SEMANTIC_REFERENCE may authorize SEMANTICALLY_AUDITED or higher.",
+  "schema_version": 1
+}

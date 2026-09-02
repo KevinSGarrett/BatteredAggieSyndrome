@@ -444,7 +444,10 @@ artifacts/pit/wmt_provider_timestamp_pit_gate.json
 artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
 artifacts/prior/week1_2026_frozen_strength_prior_gate.json
 artifacts/schedule/week1_2026_official_schedule_identity_gate.json
+artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json
+artifacts/scientific_integrity/INDEPENDENT_VALIDATOR_CLASSIFICATION.json
 artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json
+artifacts/scientific_integrity/PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL.json
 artifacts/scientific_integrity/PR_REVIEW_FINDING_LEDGER.json
 artifacts/scientific_integrity/USER_ADMIN_ACTION_REQUIRED.json
 artifacts/scientific_integrity/WEEK1_CHECKPOINT_CONTINUITY.json
@@ -3505,6 +3508,7 @@ src/aggie_analytics/data/.cursor/BUGBOT.md
 src/aggie_analytics/data/__init__.py
 src/aggie_analytics/data/action_play_summary.py
 src/aggie_analytics/data/adapters.py
+src/aggie_analytics/data/authority_clean_model_lineage.py
 src/aggie_analytics/data/cfbd.py
 src/aggie_analytics/data/contracts.py
 src/aggie_analytics/data/development_2023_outcomes.py
@@ -3516,6 +3520,7 @@ src/aggie_analytics/data/http.py
 src/aggie_analytics/data/national_chronological_development_matrix.py
 src/aggie_analytics/data/national_entity_identity_benchmark.py
 src/aggie_analytics/data/national_foundation_reconciliation.py
+src/aggie_analytics/data/national_foundation_status_successor.py
 src/aggie_analytics/data/national_pit_domain_admission_matrix.py
 src/aggie_analytics/data/national_pit_eligible_slice.py
 src/aggie_analytics/data/national_tiered_game_spine.py
@@ -3527,11 +3532,13 @@ src/aggie_analytics/data/offline_reconstruction.py
 src/aggie_analytics/data/open_source.py
 src/aggie_analytics/data/play_drive.py
 src/aggie_analytics/data/prospective_shadow_cohort.py
+src/aggie_analytics/data/protected_evaluation_replacement_protocol.py
 src/aggie_analytics/data/roster_reconciliation.py
 src/aggie_analytics/data/season_index_offline_reconstruction.py
 src/aggie_analytics/data/sec_availability.py
 src/aggie_analytics/data/snapshots.py
 src/aggie_analytics/data/tamu_2010_2011_ncaa_official_acquisition.py
+src/aggie_analytics/data/tamu_corpus_derivative_integrity_successor.py
 src/aggie_analytics/data/tamu_cross_source_domain_gate.py
 src/aggie_analytics/data/tamu_ncaa_contest_route_discovery.py
 src/aggie_analytics/data/tamu_ncaa_team_season_evidence.py
@@ -3606,12 +3613,15 @@ src/aggie_analytics/data/tamu_official_rich_structure.py
 src/aggie_analytics/data/tamu_official_statcrew_preformatted.py
 src/aggie_analytics/data/tamu_season_reconciliation.py
 src/aggie_analytics/data/week1_2026_authority_enrichment.py
+src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py
 src/aggie_analytics/data/week1_2026_current_feature_spine.py
 src/aggie_analytics/data/week1_2026_early_forecast_adequacy.py
 src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py
 src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py
 src/aggie_analytics/data/week1_2026_frozen_strength_prior.py
+src/aggie_analytics/data/week1_2026_game_grain_distribution_successor.py
 src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py
+src/aggie_analytics/data/week1_2026_market_integrity_successor.py
 src/aggie_analytics/data/week1_2026_national_forecast_suite.py
 src/aggie_analytics/data/week1_2026_official_schedule_identity.py
 src/aggie_analytics/data/week1_2026_ridge_distribution_coherence.py
@@ -3747,6 +3757,12 @@ src/aggie_analytics/product/static/index.html
 src/aggie_analytics/product/static/styles.css
 src/aggie_analytics/readiness/__init__.py
 src/aggie_analytics/readiness/e2e.py
+src/aggie_analytics/scientific_reference/.cursor/BUGBOT.md
+src/aggie_analytics/scientific_reference/__init__.py
+src/aggie_analytics/scientific_reference/binding.py
+src/aggie_analytics/scientific_reference/coherence.py
+src/aggie_analytics/scientific_reference/market.py
+src/aggie_analytics/scientific_reference/metrics.py
 src/aggie_analytics/tamu/__init__.py
 src/aggie_analytics/tamu/runtime.py
 src/aggie_analytics/tamu/specialization.py
@@ -3853,6 +3869,7 @@ tests/test_historical_weather_previous_runs_snapshot.py
 tests/test_hpo_engine_full.py
 tests/test_hpo_governance.py
 tests/test_hypothesis_queue.py
+tests/test_independent_scientific_reference.py
 tests/test_instructions_pack.py
 tests/test_jira_authority_progress_comments.py
 tests/test_jira_auxiliary_quarantine_registry.py
@@ -4342,6 +4359,7 @@ tools/validate_codex_usage_interlock.py
 tools/validate_context_intelligence.py
 tools/validate_contract_input_pins.py
 tools/validate_cpu_worker_readiness.py
+tools/validate_cross_output_coherence.py
 tools/validate_data_research.py
 tools/validate_dependency_policy.py
 tools/validate_development_2023_labeled_replay.py
@@ -4371,6 +4389,7 @@ tools/validate_historical_team_box_snapshot.py
 tools/validate_historical_team_membership_pit.py
 tools/validate_historical_venue_assignment_pit.py
 tools/validate_historical_weather_previous_runs_snapshot.py
+tools/validate_independent_scientific_reference.py
 tools/validate_instructions.py
 tools/validate_jira_control_plane.py
 tools/validate_jira_mirror.py
@@ -4421,6 +4440,8 @@ tools/validate_prospective_2026_shadow_cohort.py
 tools/validate_prospective_2026_shadow_forecasts.py
 tools/validate_prospective_2026_shadow_temporal_audit.py
 tools/validate_protected_hash_labels.py
+tools/validate_protected_replacement_protocol.py
+tools/validate_raw_to_forecast_trace.py
 tools/validate_repository.py
 tools/validate_retrospective_returning_production.py
 tools/validate_roster_domain_completeness.py

@@ -369,6 +369,52 @@ def main() -> int:
                         },
                     )()
                 )
+            independent_validator_path = (
+                root / "tools" / "validate_independent_scientific_reference.py"
+            )
+            if independent_validator_path.is_file():
+                independent_spec = importlib.util.spec_from_file_location(
+                    "aggie_analytics_independent_scientific_reference_validate",
+                    independent_validator_path,
+                )
+                if independent_spec is not None and independent_spec.loader is not None:
+                    independent_module = importlib.util.module_from_spec(independent_spec)
+                    independent_spec.loader.exec_module(independent_module)
+                    for detail in independent_module.validate(root):
+                        findings.append(
+                            type(
+                                "F",
+                                (),
+                                {
+                                    "kind": "independent_scientific_reference",
+                                    "path": "src/aggie_analytics/scientific_reference",
+                                    "detail": detail,
+                                },
+                            )()
+                        )
+            protected_validator_path = (
+                root / "tools" / "validate_protected_replacement_protocol.py"
+            )
+            if protected_validator_path.is_file():
+                protected_spec = importlib.util.spec_from_file_location(
+                    "aggie_analytics_protected_replacement_validate",
+                    protected_validator_path,
+                )
+                if protected_spec is not None and protected_spec.loader is not None:
+                    protected_module = importlib.util.module_from_spec(protected_spec)
+                    protected_spec.loader.exec_module(protected_module)
+                    for detail in protected_module.validate(root):
+                        findings.append(
+                            type(
+                                "F",
+                                (),
+                                {
+                                    "kind": "protected_replacement_protocol",
+                                    "path": "artifacts/scientific_integrity/PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL.json",
+                                    "detail": detail,
+                                },
+                            )()
+                        )
         successor_validator_path = root / "tools" / "validate_week_zero_2026_official_final_scoring_successor.py"
         if successor_validator_path.is_file():
             try:

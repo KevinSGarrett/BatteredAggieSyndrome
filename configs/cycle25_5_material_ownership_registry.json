@@ -38,8 +38,23 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "artifacts/scientific_integrity/DEPRECATION_SUCCESSOR_MAP.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "artifacts/scientific_integrity/INDEPENDENT_VALIDATOR_CLASSIFICATION.json"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": "artifacts/scientific_integrity/OPERATOR_HOLD_RECEIPT.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/PROTECTED_EVALUATION_REPLACEMENT_PROTOCOL.json"
     },
     {
       "kind": "MATERIAL",
@@ -403,6 +418,41 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-691",
+      "path": "src/aggie_analytics/data/authority_clean_model_lineage.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-690",
+      "path": "src/aggie_analytics/data/national_foundation_status_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-695",
+      "path": "src/aggie_analytics/data/protected_evaluation_replacement_protocol.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-692",
+      "path": "src/aggie_analytics/data/tamu_corpus_derivative_integrity_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-693",
+      "path": "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-693",
+      "path": "src/aggie_analytics/data/week1_2026_game_grain_distribution_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-694",
+      "path": "src/aggie_analytics/data/week1_2026_market_integrity_successor.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-689",
       "path": "src/aggie_analytics/governance/.cursor/BUGBOT.md"
     },
@@ -418,6 +468,36 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "src/aggie_analytics/scientific_reference/.cursor/BUGBOT.md"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "src/aggie_analytics/scientific_reference/__init__.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "src/aggie_analytics/scientific_reference/binding.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "src/aggie_analytics/scientific_reference/coherence.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "src/aggie_analytics/scientific_reference/market.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "src/aggie_analytics/scientific_reference/metrics.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": "tests/test_all_cycle_scientific_inventory.py"
     },
@@ -425,6 +505,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-688",
       "path": "tests/test_cycle25_5_routing_manifest_coverage.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "tests/test_independent_scientific_reference.py"
     },
     {
       "kind": "MATERIAL",
@@ -463,8 +548,28 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "tools/validate_cross_output_coherence.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "tools/validate_independent_scientific_reference.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-689",
       "path": "tools/validate_pr_review_finding_ledger.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "tools/validate_protected_replacement_protocol.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-696",
+      "path": "tools/validate_raw_to_forecast_trace.py"
     },
     {
       "kind": "MATERIAL",
@@ -494,5 +599,5 @@
     "BAT-696"
   ],
   "schema_version": 1,
-  "work_unit_id": "POST-TASK-PR-REVIEW-DEFENSE-INFRASTRUCTURE-001"
+  "work_unit_id": "POST-TASK-NATIONAL-FOUNDATION-SCIENTIFIC-SUCCESSOR-001"
 }

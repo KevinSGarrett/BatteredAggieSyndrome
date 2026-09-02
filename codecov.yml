@@ -18,7 +18,7 @@ coverage:
       independent_scientific_reference:
         informational: true
         flags: independent_scientific_reference
-        if_not_found: success
+        if_not_found: failure
         carryforward: false
     patch:
       default:

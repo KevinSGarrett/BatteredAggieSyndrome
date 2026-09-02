@@ -63,6 +63,7 @@
     "BAT-695",
     "BAT-696"
   ],
+  "census_inclusion_rule": "ALL_AUTHORITY_SUFFIXES_UNDER_CENSUS_ROOTS",
   "schema_version": 1,
   "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"
 }

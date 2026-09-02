@@ -41,7 +41,9 @@ class AllCycleInventoryTests(unittest.TestCase):
 
     def test_trust_gate_does_not_claim_recovery(self) -> None:
         gate = json.loads(
-            (ALL_CYCLES / "ALL_CYCLE_TRUST_RECOVERY_GATE.json").read_text(encoding="utf-8")
+            (ALL_CYCLES / "ALL_CYCLE_TRUST_RECOVERY_GATE.json").read_text(
+                encoding="utf-8"
+            )
         )
         self.assertFalse(gate["scientific_trust_recovered"])
         self.assertFalse(gate["cycle_25_5_complete"])
@@ -54,7 +56,9 @@ class AllCycleInventoryTests(unittest.TestCase):
 
     def test_unmapped_artifacts_record_git_first_add_reason(self) -> None:
         inventory = json.loads(
-            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
         )
         allowed_unmapped = {
             "GIT_FIRST_ADD_NOT_FOUND",
@@ -76,9 +80,7 @@ class AllCycleInventoryTests(unittest.TestCase):
         self.assertGreaterEqual(git_mapped, 1)
 
     def test_first_add_commit_uses_earliest_add(self) -> None:
-        relative = (
-            "artifacts/jira_evidence/POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001.json"
-        )
+        relative = "artifacts/jira_evidence/POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001.json"
         completed = subprocess.run(
             ["git", "log", "--diff-filter=A", "--format=%H", "--", relative],
             cwd=REPO_ROOT,
@@ -102,7 +104,9 @@ class AllCycleInventoryTests(unittest.TestCase):
 
     def test_pre_cycle_one_artifacts_are_not_guessed_as_cycle_one(self) -> None:
         inventory = json.loads(
-            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
         )
         before = [
             item
@@ -115,7 +119,9 @@ class AllCycleInventoryTests(unittest.TestCase):
 
     def test_unique_git_first_add_overrides_path_token(self) -> None:
         inventory = json.loads(
-            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
         )
         rows = [
             item
@@ -129,7 +135,9 @@ class AllCycleInventoryTests(unittest.TestCase):
 
     def test_ambiguous_git_first_add_is_not_token_mapped(self) -> None:
         inventory = json.loads(
-            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
         )
         path_token = [
             item
@@ -145,9 +153,13 @@ class AllCycleInventoryTests(unittest.TestCase):
             17,
         )
 
-    def test_post_cycle_25_jira_evidence_is_not_token_mapped_to_cycle_five(self) -> None:
+    def test_post_cycle_25_jira_evidence_is_not_token_mapped_to_cycle_five(
+        self,
+    ) -> None:
         inventory = json.loads(
-            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
         )
         rows = [
             item
@@ -161,16 +173,58 @@ class AllCycleInventoryTests(unittest.TestCase):
 
     def test_completeness_rule_does_not_treat_validator_pass_as_complete(self) -> None:
         inventory = json.loads(
-            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
         )
         gate = json.loads(
-            (ALL_CYCLES / "ALL_CYCLE_TRUST_RECOVERY_GATE.json").read_text(encoding="utf-8")
+            (ALL_CYCLES / "ALL_CYCLE_TRUST_RECOVERY_GATE.json").read_text(
+                encoding="utf-8"
+            )
         )
         rule = str(inventory.get("completeness_rule") or "").lower()
         self.assertGreater(inventory["unmapped_authority_count"], 0)
         self.assertIn("not that mapping is complete", rule)
-        self.assertEqual(gate["inventory_completeness"], "INCOMPLETE_UNMAPPED_AUTHORITY")
+        self.assertEqual(
+            gate["inventory_completeness"], "INCOMPLETE_UNMAPPED_AUTHORITY"
+        )
         self.assertFalse(gate["scientific_trust_recovered"])
+
+    def test_census_includes_governance_protected_split_registry(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertIn("governance", inventory.get("census_roots") or [])
+        rows = [
+            item
+            for item in inventory["artifacts"]
+            if item.get("path") == "governance/PROTECTED_SPLIT_REGISTRY.csv"
+        ]
+        self.assertEqual(len(rows), 1)
+        self.assertTrue(rows[0]["authority_bearing"])
+
+    def test_census_includes_tokenless_files_inside_declared_roots(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        by_path = {item["path"]: item for item in inventory["artifacts"]}
+        self.assertIn("configs/judging_rule_seal.json", by_path)
+        self.assertIn("governance/BAS_EVALUATION_PROTOCOL.csv", by_path)
+        self.assertIn("schemas/models/joint_score_distribution.json", by_path)
+        producer = by_path[
+            "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py"
+        ]
+        validator = by_path[
+            "src/aggie_analytics/validation/protected_split_authority.py"
+        ]
+        self.assertEqual(producer["scientific_claim_or_role"], "SCIENTIFIC_PRODUCER")
+        self.assertEqual(validator["scientific_claim_or_role"], "SCIENTIFIC_VALIDATOR")
+        rule = str(inventory.get("completeness_rule") or "").lower()
+        self.assertIn("token or filename filters are not inclusion authority", rule)
 
     def test_findings_evidence_is_posix_relative(self) -> None:
         drive = re.compile(r"^[A-Za-z]:[\\/]")

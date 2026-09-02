@@ -125,6 +125,19 @@ def verify_cycle_shas() -> list[dict[str, Any]]:
 
 def classify_role(relative: str) -> str:
     posix = relative.replace("\\", "/")
+    name = Path(posix).name.lower()
+    if posix.startswith("src/aggie_analytics/scientific_reference/"):
+        return "INDEPENDENT_SEMANTIC_REFERENCE"
+    if posix.startswith("src/aggie_analytics/validation/") or (
+        posix.startswith("tools/") and name.startswith("validate_")
+    ):
+        return "SCIENTIFIC_VALIDATOR"
+    if posix.startswith("src/aggie_analytics/") and posix.endswith(".py"):
+        return "SCIENTIFIC_PRODUCER"
+    if posix.startswith("schemas/"):
+        return "SCIENTIFIC_CONTRACT_SCHEMA"
+    if posix.startswith("governance/") or posix.startswith("configs/"):
+        return "GOVERNANCE"
     if posix.startswith("artifacts/forecast/") or posix.startswith("artifacts/pit/"):
         return "SCIENTIFIC"
     if "gate" in posix or "contract" in posix:
@@ -133,6 +146,10 @@ def classify_role(relative: str) -> str:
         return "GOVERNANCE"
     if posix.startswith("artifacts/scientific_integrity/"):
         return "SCIENTIFIC_TRUST_RECOVERY"
+    if posix.startswith("artifacts/"):
+        return "SCIENTIFIC_IF_QUANTITATIVE_ELSE_GOVERNANCE"
+    if posix.startswith("tools/") and posix.endswith(".py"):
+        return "SCIENTIFIC_VALIDATOR" if "validate" in name else "SCIENTIFIC_PRODUCER"
     return "NON_SCIENTIFIC_OR_PROCESS"
 
 
@@ -150,6 +167,27 @@ def first_add_commit(relative: str) -> str:
         return ""
     # git log is newest-first; originating_cycle uses the earliest add.
     return commits[-1]
+
+
+def first_add_index() -> dict[str, str]:
+    """Map each path to its earliest add commit.
+
+    `git log` is newest-first, so the last SHA written for a path is the
+    earliest add. This avoids one process per inventoried file.
+    """
+    output = _git("log", "--diff-filter=A", "--name-only", "--pretty=format:%H")
+    index: dict[str, str] = {}
+    current = ""
+    for raw in output.splitlines():
+        line = raw.strip().replace("\\", "/")
+        if not line:
+            continue
+        if len(line) == 40 and all(char in "0123456789abcdef" for char in line.lower()):
+            current = line
+            continue
+        if current:
+            index[line] = current
+    return index
 
 
 def cycle_commit_index(cycle_rows: list[dict[str, Any]]) -> dict[str, list[int]]:
@@ -175,8 +213,9 @@ def git_first_add_cycle(
     relative: str,
     cycle_rows: list[dict[str, Any]],
     commit_index: dict[str, list[int]],
+    add_index: dict[str, str] | None = None,
 ) -> tuple[int | str, str]:
-    commit = first_add_commit(relative)
+    commit = (add_index or {}).get(relative) or first_add_commit(relative)
     if not commit:
         return "UNMAPPED", "GIT_FIRST_ADD_NOT_FOUND"
     matches = commit_index.get(commit, [])
@@ -226,37 +265,29 @@ def cycle_for_path(relative: str, cycle_rows: list[dict[str, Any]]) -> int | str
     return "UNMAPPED"
 
 
+AUTHORITY_SUFFIXES = {".json", ".yaml", ".yml", ".csv", ".md", ".py"}
+CENSUS_ROOTS = (
+    "artifacts",
+    "configs",
+    "governance",
+    "schemas",
+    "src/aggie_analytics",
+    "tools",
+)
+
+
 def authority_paths() -> list[str]:
-    roots = [
-        REPO_ROOT / "artifacts",
-        REPO_ROOT / "configs",
-    ]
     paths: list[str] = []
-    for root in roots:
+    for root_name in CENSUS_ROOTS:
+        root = REPO_ROOT / Path(*root_name.split("/"))
+        if not root.is_dir():
+            continue
         for path in root.rglob("*"):
             if not path.is_file():
                 continue
-            relative = path.relative_to(REPO_ROOT).as_posix()
-            name = path.name.lower()
-            if path.suffix.lower() not in {".json", ".yaml", ".yml", ".csv", ".md"}:
+            if path.suffix.lower() not in AUTHORITY_SUFFIXES:
                 continue
-            if any(
-                token in relative.lower() or token in name
-                for token in (
-                    "gate",
-                    "contract",
-                    "forecast",
-                    "pit",
-                    "claim",
-                    "inventory",
-                    "registry",
-                    "manifest",
-                    "shadow",
-                    "scientific_integrity",
-                    "jira_evidence",
-                )
-            ):
-                paths.append(relative)
+            paths.append(path.relative_to(REPO_ROOT).as_posix())
     return sorted(set(paths))
 
 
@@ -397,9 +428,7 @@ def known_findings() -> list[dict[str, Any]]:
             "cycles": [24, 25],
             "disposition": "FAIL",
             "summary": "Scientific validators import producer helpers they purport to challenge.",
-            "evidence": [
-                "tools/validate_week1_2026_ridge_distribution_coherence.py"
-            ],
+            "evidence": ["tools/validate_week1_2026_ridge_distribution_coherence.py"],
         },
         {
             "finding_id": "P0-C25-HOLD-NOT-IMPLEMENTED",
@@ -505,8 +534,11 @@ def false_positive_rejections() -> list[dict[str, Any]]:
 def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
     artifacts = []
     commit_index = cycle_commit_index(cycle_rows)
+    add_index = first_add_index()
     for relative in authority_paths():
-        git_cycle, git_note = git_first_add_cycle(relative, cycle_rows, commit_index)
+        git_cycle, git_note = git_first_add_cycle(
+            relative, cycle_rows, commit_index, add_index
+        )
         if git_note == "GIT_FIRST_ADD":
             cycle, mapping_note = git_cycle, git_note
         else:
@@ -532,12 +564,16 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
             "artifact_type": "ALL_CYCLE_ARTIFACT_INVENTORY",
             "artifacts": artifacts,
             "audited_starting_sha": STARTING_SHA,
+            "census_roots": list(CENSUS_ROOTS),
             "completeness_rule": (
                 "Unmapped authority-bearing artifacts are a hard completeness failure "
                 "for scientific_trust_recovered and must keep inventory_completeness="
-                "INCOMPLETE_UNMAPPED_AUTHORITY. A passing inventory validator means "
-                "that incompleteness is recorded with explicit mapping_notes, not that "
-                "mapping is complete."
+                "INCOMPLETE_UNMAPPED_AUTHORITY. Census roots are artifacts, configs, "
+                "governance, schemas, src/aggie_analytics, and tools. Inside those "
+                "roots every authority-suffixed file is inventoried; token or filename "
+                "filters are not inclusion authority. Files outside the six roots remain "
+                "uncensused. A passing inventory validator means that incompleteness is "
+                "recorded with explicit mapping_notes, not that mapping is complete."
             ),
             "cycle_sha_table": cycle_rows,
             "cycles": [
@@ -555,9 +591,7 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
             ],
             "schema_version": 1,
             "unmapped_authority_count": sum(
-                1
-                for item in artifacts
-                if item.get("originating_cycle") == "UNMAPPED"
+                1 for item in artifacts if item.get("originating_cycle") == "UNMAPPED"
             ),
         },
         "inventory_identity",
@@ -652,7 +686,8 @@ def build_dag(claims: dict[str, Any]) -> dict[str, Any]:
     for cycle in range(1, 26):
         failed = any(
             item["cycle_number"] == cycle
-            and item["trust_classification"] in {"FAIL", "BLOCKED_INSUFFICIENT_EVIDENCE"}
+            and item["trust_classification"]
+            in {"FAIL", "BLOCKED_INSUFFICIENT_EVIDENCE"}
             for item in claims["claims"]
         )
         nodes.append(
@@ -663,12 +698,20 @@ def build_dag(claims: dict[str, Any]) -> dict[str, Any]:
             }
         )
     edges = [
-        {"from": f"CYCLE-{cycle:02d}", "to": f"CYCLE-{cycle + 1:02d}", "kind": "lineage"}
+        {
+            "from": f"CYCLE-{cycle:02d}",
+            "to": f"CYCLE-{cycle + 1:02d}",
+            "kind": "lineage",
+        }
         for cycle in range(1, 25)
         if not (cycle == 19)
     ]
-    edges.append({"from": "CYCLE-19", "to": "CYCLE-20", "kind": "integrated_during_later_cycle"})
-    edges.append({"from": "CYCLE-22", "to": "CYCLE-23", "kind": "integrated_during_later_cycle"})
+    edges.append(
+        {"from": "CYCLE-19", "to": "CYCLE-20", "kind": "integrated_during_later_cycle"}
+    )
+    edges.append(
+        {"from": "CYCLE-22", "to": "CYCLE-23", "kind": "integrated_during_later_cycle"}
+    )
     edges.append({"from": "CYCLE-18", "to": "CYCLE-20", "kind": "national_foundation"})
     edges.append({"from": "CYCLE-24", "to": "CYCLE-25", "kind": "forecast_successor"})
     return bind_identity(
@@ -686,7 +729,9 @@ def build_dag(claims: dict[str, Any]) -> dict[str, Any]:
 
 def build_successors(dag: dict[str, Any]) -> dict[str, Any]:
     failed = {
-        node["id"] for node in dag["nodes"] if node["disposition"] in {"FAIL", "BLOCKED_INSUFFICIENT_EVIDENCE"}
+        node["id"]
+        for node in dag["nodes"]
+        if node["disposition"] in {"FAIL", "BLOCKED_INSUFFICIENT_EVIDENCE"}
     }
     successors = []
     for edge in dag["edges"]:
@@ -748,7 +793,9 @@ def build_matrix() -> dict[str, Any]:
     )
 
 
-def build_cycle_audit(cycle_row: dict[str, Any], findings: list[dict[str, Any]]) -> dict[str, Any]:
+def build_cycle_audit(
+    cycle_row: dict[str, Any], findings: list[dict[str, Any]]
+) -> dict[str, Any]:
     number = cycle_row["cycle_number"]
     related = [item for item in findings if number in item["cycles"]]
     pass_two = "BLOCKED_INSUFFICIENT_EVIDENCE"
@@ -862,7 +909,9 @@ def main() -> int:
     _write(ALL_CYCLES / "ALL_CYCLE_TRUST_RECOVERY_GATE.json", gate)
     for row in cycle_rows:
         audit = build_cycle_audit(row, known_findings())
-        _write(ALL_CYCLES / f"CYCLE_{row['cycle_number']:02d}_SCIENTIFIC_AUDIT.json", audit)
+        _write(
+            ALL_CYCLES / f"CYCLE_{row['cycle_number']:02d}_SCIENTIFIC_AUDIT.json", audit
+        )
     print(
         json.dumps(
             {

@@ -508,7 +508,9 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
     for relative in authority_paths():
         token_cycle = cycle_for_path(relative, cycle_rows)
         git_cycle, git_note = git_first_add_cycle(relative, cycle_rows, commit_index)
-        if git_note in {
+        if git_note == "GIT_FIRST_ADD":
+            cycle, mapping_note = git_cycle, git_note
+        elif git_note in {
             "GIT_FIRST_ADD_BEFORE_CYCLE_1",
             "GIT_FIRST_ADD_AFTER_CYCLE_25",
         }:

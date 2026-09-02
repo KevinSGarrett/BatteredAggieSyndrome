@@ -130,6 +130,15 @@ def validate(repo_root: Path) -> list[str]:
     ]
     if after_cycle_token:
         findings.append("PATH_TOKEN_OVERRIDES_AFTER_CYCLE_25_FIRST_ADD")
+    protected_token = [
+        item
+        for item in artifacts
+        if item.get("path") == "artifacts/pit/protected_replay_dry_run.json"
+        and item.get("mapping_note") == "PATH_TOKEN"
+        and item.get("originating_cycle") == 17
+    ]
+    if protected_token:
+        findings.append("PATH_TOKEN_OVERRIDES_UNIQUE_GIT_FIRST_ADD")
     claim_rows = claims.get("claims") or []
     for row in claim_rows:
         classification = row.get("trust_classification")

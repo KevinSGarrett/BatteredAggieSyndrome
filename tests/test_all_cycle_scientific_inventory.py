@@ -112,6 +112,20 @@ class AllCycleInventoryTests(unittest.TestCase):
         for item in before:
             self.assertEqual(item["originating_cycle"], "UNMAPPED")
 
+    def test_unique_git_first_add_overrides_path_token(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+        )
+        rows = [
+            item
+            for item in inventory["artifacts"]
+            if item.get("path") == "artifacts/pit/protected_replay_dry_run.json"
+        ]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["mapping_note"], "GIT_FIRST_ADD")
+        self.assertIsInstance(rows[0]["originating_cycle"], int)
+        self.assertNotEqual(rows[0]["originating_cycle"], 17)
+
     def test_post_cycle_25_jira_evidence_is_not_token_mapped_to_cycle_five(self) -> None:
         inventory = json.loads(
             (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")

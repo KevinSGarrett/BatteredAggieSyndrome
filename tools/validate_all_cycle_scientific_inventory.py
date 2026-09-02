@@ -80,6 +80,25 @@ def validate(repo_root: Path) -> list[str]:
     ]
     if guessed_cycle_one:
         findings.append(f"GUESSED_CYCLE_ONE_MAPPING:{len(guessed_cycle_one)}")
+    allowed_unmapped_notes = {
+        "GIT_FIRST_ADD_NOT_FOUND",
+        "GIT_FIRST_ADD_AMBIGUOUS_CYCLE",
+        "GIT_FIRST_ADD_BEFORE_CYCLE_1",
+        "GIT_FIRST_ADD_AFTER_CYCLE_25",
+        "GIT_FIRST_ADD_OUTSIDE_DECLARED_RANGES",
+    }
+    for item in artifacts:
+        note = str(item.get("mapping_note") or "")
+        cycle = item.get("originating_cycle")
+        if note == "GIT_FIRST_ADD":
+            if not isinstance(cycle, int):
+                findings.append(f"GIT_FIRST_ADD_WITHOUT_CYCLE:{item.get('path')}")
+            continue
+        if cycle in (None, "", 0, "UNMAPPED"):
+            if note not in allowed_unmapped_notes:
+                findings.append(
+                    f"UNMAPPED_MAPPING_NOTE_INVALID:{item.get('path')}:{note}"
+                )
     unmapped = [
         item
         for item in artifacts

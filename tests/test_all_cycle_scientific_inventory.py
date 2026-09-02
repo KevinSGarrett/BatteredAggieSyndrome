@@ -14,6 +14,10 @@ if str(REPO_ROOT) not in sys.path:
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from tools.build_all_cycle_scientific_inventory import (  # noqa: E402
+    cycle_commit_index,
+    verify_cycle_shas,
+)
 from tools.validate_affected_successors import validate as validate_successors  # noqa: E402
 from tools.validate_all_cycle_scientific_inventory import validate  # noqa: E402
 
@@ -44,6 +48,49 @@ class AllCycleInventoryTests(unittest.TestCase):
 
     def test_affected_successors_propagate(self) -> None:
         self.assertEqual([], validate_successors(REPO_ROOT))
+
+    def test_unmapped_artifacts_record_git_first_add_reason(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+        )
+        allowed_unmapped = {
+            "GIT_FIRST_ADD_NOT_FOUND",
+            "GIT_FIRST_ADD_AMBIGUOUS_CYCLE",
+            "GIT_FIRST_ADD_BEFORE_CYCLE_1",
+            "GIT_FIRST_ADD_AFTER_CYCLE_25",
+            "GIT_FIRST_ADD_OUTSIDE_DECLARED_RANGES",
+        }
+        git_mapped = 0
+        for item in inventory["artifacts"]:
+            if item.get("mapping_note") == "GIT_FIRST_ADD":
+                git_mapped += 1
+                self.assertIsInstance(item["originating_cycle"], int)
+                continue
+            if item.get("originating_cycle") != "UNMAPPED":
+                continue
+            self.assertIn(item.get("mapping_note"), allowed_unmapped)
+            self.assertNotEqual(item.get("mapping_note"), "UNMAPPED_NO_CYCLE_TOKEN")
+        self.assertGreaterEqual(git_mapped, 1)
+
+    def test_cycle_one_index_includes_declared_start_only(self) -> None:
+        rows = verify_cycle_shas()
+        index = cycle_commit_index(rows)
+        cycle_one_start = str(rows[0]["starting_sha"])
+        self.assertIn(1, index[cycle_one_start])
+        self.assertEqual(index[cycle_one_start], [1])
+
+    def test_pre_cycle_one_artifacts_are_not_guessed_as_cycle_one(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+        )
+        before = [
+            item
+            for item in inventory["artifacts"]
+            if item.get("mapping_note") == "GIT_FIRST_ADD_BEFORE_CYCLE_1"
+        ]
+        self.assertGreaterEqual(len(before), 1)
+        for item in before:
+            self.assertEqual(item["originating_cycle"], "UNMAPPED")
 
     def test_findings_evidence_is_posix_relative(self) -> None:
         drive = re.compile(r"^[A-Za-z]:[\\/]")

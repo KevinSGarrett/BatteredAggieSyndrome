@@ -2,14 +2,14 @@
   "artifact_type": "CYCLE25_5_MATERIAL_OWNERSHIP_REGISTRY",
   "assignments": [
     {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "artifacts/jira_evidence/POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001.json"
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json"
     },
     {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "artifacts/jira_evidence/immutable/sha256/140a7c7185136ac5b69c6d17b73a619bdf74e132894a09f992c467772859c4c8/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json"
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_CLAIM_REGISTRY.json"
     },
     {
       "kind": "PROCESS_ONLY_ROUTING_INTERLOCK",
@@ -27,46 +27,6 @@
       "path": "configs/unified_assistive_change_routing_binding.json"
     },
     {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "instructions/FILE_HASHES.sha256"
-    },
-    {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "instructions/manifest.json"
-    },
-    {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "instructions/policies/execution_focus_policy.json"
-    },
-    {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "jira/reconciliation/BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json"
-    },
-    {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json"
-    },
-    {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "jira/validation/JIRA_FILE_HASHES.sha256"
-    },
-    {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "jira/validation/JIRA_FILE_MANIFEST.csv"
-    },
-    {
-      "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
-      "owner": null,
-      "path": "provenance/CURRENT_TREE.txt"
-    },
-    {
       "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
       "owner": null,
       "path": "provenance/PROJECT_FILE_HASHES.sha256"
@@ -77,18 +37,31 @@
       "path": "provenance/PROJECT_FILE_MANIFEST.csv"
     },
     {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "tests/test_jira_control_plane.py"
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tests/test_all_cycle_scientific_inventory.py"
     },
     {
-      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
-      "owner": null,
-      "path": "tools/validate_jira_control_plane.py"
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/build_all_cycle_scientific_inventory.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_all_cycle_scientific_inventory.py"
     }
   ],
   "owners": [
-    "BAT-688"
+    "BAT-688",
+    "BAT-689",
+    "BAT-690",
+    "BAT-691",
+    "BAT-692",
+    "BAT-693",
+    "BAT-694",
+    "BAT-695",
+    "BAT-696"
   ],
   "schema_version": 1,
   "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"

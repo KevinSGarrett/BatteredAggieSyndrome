@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from typing import Any, Mapping, Sequence
 
 from aggie_analytics.scientific_reference.market import (
@@ -34,6 +35,21 @@ def classify_crosswalk(
     return "UNRESOLVED_PARTICIPANT"
 
 
+def _parse_aware_utc(value: str) -> datetime | None:
+    text = value.strip()
+    if not text:
+        return None
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    return parsed.astimezone(timezone.utc)
+
+
 def freeze_vs_market(
     *,
     model_freeze_utc: str | None,
@@ -44,7 +60,11 @@ def freeze_vs_market(
         return "PRE_MARKET_FREEZE_NOT_PROVEN"
     if not model_freeze_utc or not market_acquisition_utc:
         return "PRE_MARKET_FREEZE_NOT_PROVEN"
-    if model_freeze_utc < market_acquisition_utc:
+    freeze_at = _parse_aware_utc(model_freeze_utc)
+    acquired_at = _parse_aware_utc(market_acquisition_utc)
+    if freeze_at is None or acquired_at is None:
+        return "PRE_MARKET_FREEZE_NOT_PROVEN"
+    if freeze_at < acquired_at:
         return "PRE_MARKET_MODEL_FREEZE"
     return "PRE_MARKET_FREEZE_NOT_PROVEN"
 
@@ -85,30 +105,47 @@ def consensus_from_quotes(
     *,
     minimum_books: int = 3,
 ) -> dict[str, Any]:
-    normalized_books = sorted({normalize_sportsbook(book) for book in books})
-    source_count = len(normalized_books)
+    insufficient = {
+        "label": "INSUFFICIENT_MARKET_COVERAGE",
+        "median_devigged_home": None,
+        "source_count": 0,
+        "independent_books": [],
+        "quote_presence": False,
+        "usable_moneyline": False,
+        "spread_converted_to_probability": False,
+        "neutral_contests_included": True,
+        "cross_book_pairing_forbidden": True,
+    }
+    if len(probabilities) != len(books):
+        insufficient["reject_reason"] = "UNPAIRED_PROBABILITY_BOOK_SEQUENCES"
+        return insufficient
     if not probabilities:
-        return {
-            "label": "INSUFFICIENT_MARKET_COVERAGE",
-            "median_devigged_home": None,
-            "source_count": 0,
-        }
+        insufficient["reject_reason"] = "NO_QUOTES"
+        return insufficient
+    paired_books = [normalize_sportsbook(book) for book in books]
+    normalized_books = sorted(set(paired_books))
+    source_count = len(normalized_books)
     median = even_odd_median(probabilities)
     if source_count == 0:
-        label = "INSUFFICIENT_MARKET_COVERAGE"
-    elif source_count == 1:
+        insufficient["quote_presence"] = True
+        insufficient["reject_reason"] = "NO_USABLE_BOOKS"
+        return insufficient
+    if source_count == 1:
         label = "SINGLE_SOURCE_MARKET_REFERENCE"
+        usable = True
     elif source_count < minimum_books:
         label = "MULTI_SOURCE_MARKET_REFERENCE"
+        usable = True
     else:
         label = "MARKET_CONSENSUS"
+        usable = True
     return {
         "label": label,
         "median_devigged_home": median,
         "source_count": source_count,
         "independent_books": normalized_books,
         "quote_presence": True,
-        "usable_moneyline": True,
+        "usable_moneyline": usable,
         "spread_converted_to_probability": False,
         "neutral_contests_included": True,
         "cross_book_pairing_forbidden": True,

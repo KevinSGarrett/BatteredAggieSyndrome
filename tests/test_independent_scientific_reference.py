@@ -57,6 +57,10 @@ class IndependentReferenceTests(unittest.TestCase):
         self.assertTrue(pair["coherent"])
         broken = pair_normalize(0.9, 0.2, 4.0, -1.0)
         self.assertFalse(broken["coherent"])
+        toss_up_nonzero_margin = pair_normalize(0.5, 0.5, 4.0, -4.0)
+        self.assertFalse(toss_up_nonzero_margin["coherent"])
+        true_toss_up = pair_normalize(0.5, 0.5, 0.0, 0.0)
+        self.assertTrue(true_toss_up["coherent"])
         probability = probability_from_normal_residual(0.0, 1.0)
         self.assertAlmostEqual(probability, 0.5, places=12)
 
@@ -157,6 +161,18 @@ class IndependentReferenceTests(unittest.TestCase):
             acquisition_source="supplied_cli_time",
         )
         self.assertEqual(freeze, "PRE_MARKET_FREEZE_NOT_PROVEN")
+        offset_inversion = freeze_vs_market(
+            model_freeze_utc="2026-09-01T12:00:00-05:00",
+            market_acquisition_utc="2026-09-01T13:00:00Z",
+            acquisition_source="provider_retrieval_receipt",
+        )
+        self.assertEqual(offset_inversion, "PRE_MARKET_FREEZE_NOT_PROVEN")
+        proven_pre_market = freeze_vs_market(
+            model_freeze_utc="2026-09-01T12:00:00-05:00",
+            market_acquisition_utc="2026-09-01T18:00:00Z",
+            acquisition_source="provider_retrieval_receipt",
+        )
+        self.assertEqual(proven_pre_market, "PRE_MARKET_MODEL_FREEZE")
         self.assertEqual(
             classify_crosswalk(
                 participants_authoritative=False,
@@ -180,6 +196,12 @@ class IndependentReferenceTests(unittest.TestCase):
         self.assertEqual(quotes["quote_count"], 1)
         consensus = consensus_from_quotes([0.8, 0.7], ["Draft Kings", "FanDuel"])
         self.assertEqual(consensus["median_devigged_home"], 0.75)
+        self.assertTrue(consensus["usable_moneyline"])
+        unpaired = consensus_from_quotes([0.9], ["a", "b", "c"])
+        self.assertEqual(unpaired["label"], "INSUFFICIENT_MARKET_COVERAGE")
+        self.assertEqual(unpaired["reject_reason"], "UNPAIRED_PROBABILITY_BOOK_SEQUENCES")
+        self.assertFalse(unpaired["usable_moneyline"])
+        self.assertFalse(unpaired["quote_presence"])
         pathological = overround(-110, -110)
         self.assertFalse(pathological["pathological"])
         bad = overround(-10000, -10000)

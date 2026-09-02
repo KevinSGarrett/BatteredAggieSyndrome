@@ -41,26 +41,16 @@ def validate(repo_root: Path) -> list[str]:
             findings.append(
                 f"INDEPENDENT_REFERENCE_IMPORTS_PRODUCER:{path.name}:{','.join(overlap)}"
             )
-        if "aggie_analytics.data." in " ".join(imports):
-            producer = [
-                item
-                for item in imports
-                if item.startswith("aggie_analytics.data.")
-                and item
-                not in {
-                    "aggie_analytics.data.week1_2026_current_contest_binding_successor",
-                    "aggie_analytics.data.week1_2026_game_grain_distribution_successor",
-                    "aggie_analytics.data.week1_2026_market_integrity_successor",
-                    "aggie_analytics.data.national_foundation_status_successor",
-                    "aggie_analytics.data.authority_clean_model_lineage",
-                    "aggie_analytics.data.tamu_corpus_derivative_integrity_successor",
-                    "aggie_analytics.data.protected_evaluation_replacement_protocol",
-                }
-            ]
-            if producer:
-                findings.append(
-                    f"INDEPENDENT_REFERENCE_IMPORTS_PRODUCER:{path.name}:{','.join(producer)}"
-                )
+        producer = sorted(
+            item
+            for item in imports
+            if item == "aggie_analytics.data"
+            or item.startswith("aggie_analytics.data.")
+        )
+        if producer:
+            findings.append(
+                f"INDEPENDENT_REFERENCE_IMPORTS_PRODUCER:{path.name}:{','.join(producer)}"
+            )
     return findings
 
 

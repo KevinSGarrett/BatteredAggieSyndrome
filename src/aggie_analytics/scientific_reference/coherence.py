@@ -29,10 +29,14 @@ def pair_normalize(
     margin_sum = home_margin + away_margin
     probability_ok = abs(probability_sum - 1.0) <= PROBABILITY_TOLERANCE
     margin_ok = abs(margin_sum) <= MARGIN_TOLERANCE
-    favorite_ok = (home_probability >= 0.5) == (home_margin >= 0.0) or (
-        abs(home_probability - 0.5) <= PROBABILITY_TOLERANCE
-        and abs(home_margin) <= MARGIN_TOLERANCE
-    )
+    toss_up = abs(home_probability - 0.5) <= PROBABILITY_TOLERANCE
+    zero_margin = abs(home_margin) <= MARGIN_TOLERANCE
+    if toss_up and zero_margin:
+        favorite_ok = True
+    elif toss_up or zero_margin:
+        favorite_ok = False
+    else:
+        favorite_ok = (home_probability > 0.5) == (home_margin > 0.0)
     coherent = probability_ok and margin_ok and favorite_ok
     return {
         "home_probability": home_probability,

@@ -102,6 +102,10 @@ def validate_payload(
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--payload", required=True)
+    parser.add_argument("--expected-pr", type=int, default=None)
+    parser.add_argument("--expected-base", default=None)
+    parser.add_argument("--expected-head", default=None)
+    parser.add_argument("--expected-merge", default=None)
     args = parser.parse_args(argv)
     path = Path(args.payload)
     if not path.is_file():
@@ -112,7 +116,13 @@ def main(argv: list[str] | None = None) -> int:
     except json.JSONDecodeError:
         print(json.dumps({"result": "FAIL", "findings": ["CODEX_REVIEW_MALFORMED"]}))
         return 1
-    findings = validate_payload(payload)
+    findings = validate_payload(
+        payload,
+        expected_pr=args.expected_pr,
+        expected_base=args.expected_base,
+        expected_head=args.expected_head,
+        expected_merge=args.expected_merge,
+    )
     print(
         json.dumps(
             {

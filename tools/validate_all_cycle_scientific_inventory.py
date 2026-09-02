@@ -117,6 +117,19 @@ def validate(repo_root: Path) -> list[str]:
         "INCOMPLETE_UNMAPPED_AUTHORITY",
     }:
         findings.append("UNMAPPED_AUTHORITY_NOT_RECORDED_ON_TRUST_GATE")
+    completeness_rule = str(inventory.get("completeness_rule") or "")
+    if unmapped and "not that mapping is complete" not in completeness_rule.lower():
+        findings.append("COMPLETENESS_RULE_IMPLIES_VALIDATOR_PASS_IS_COMPLETE")
+    after_cycle_token = [
+        item
+        for item in artifacts
+        if item.get("mapping_note") == "PATH_TOKEN"
+        and str(item.get("path") or "").endswith(
+            "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001.json"
+        )
+    ]
+    if after_cycle_token:
+        findings.append("PATH_TOKEN_OVERRIDES_AFTER_CYCLE_25_FIRST_ADD")
     claim_rows = claims.get("claims") or []
     for row in claim_rows:
         classification = row.get("trust_classification")

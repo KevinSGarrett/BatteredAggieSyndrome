@@ -502,11 +502,17 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
     artifacts = []
     commit_index = cycle_commit_index(cycle_rows)
     for relative in authority_paths():
-        cycle = cycle_for_path(relative, cycle_rows)
-        if cycle == "UNMAPPED":
-            cycle, mapping_note = git_first_add_cycle(relative, cycle_rows, commit_index)
+        token_cycle = cycle_for_path(relative, cycle_rows)
+        git_cycle, git_note = git_first_add_cycle(relative, cycle_rows, commit_index)
+        if git_note in {
+            "GIT_FIRST_ADD_BEFORE_CYCLE_1",
+            "GIT_FIRST_ADD_AFTER_CYCLE_25",
+        }:
+            cycle, mapping_note = "UNMAPPED", git_note
+        elif token_cycle != "UNMAPPED":
+            cycle, mapping_note = token_cycle, "PATH_TOKEN"
         else:
-            mapping_note = "PATH_TOKEN"
+            cycle, mapping_note = git_cycle, git_note
         artifacts.append(
             {
                 "path": relative,
@@ -529,7 +535,11 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
             "artifacts": artifacts,
             "audited_starting_sha": STARTING_SHA,
             "completeness_rule": (
-                "Any unmapped authority-bearing artifact is a hard completeness failure."
+                "Unmapped authority-bearing artifacts are a hard completeness failure "
+                "for scientific_trust_recovered and must keep inventory_completeness="
+                "INCOMPLETE_UNMAPPED_AUTHORITY. A passing inventory validator means "
+                "that incompleteness is recorded with explicit mapping_notes, not that "
+                "mapping is complete."
             ),
             "cycle_sha_table": cycle_rows,
             "cycles": [

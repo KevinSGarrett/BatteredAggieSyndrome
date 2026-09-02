@@ -92,6 +92,33 @@ class AllCycleInventoryTests(unittest.TestCase):
         for item in before:
             self.assertEqual(item["originating_cycle"], "UNMAPPED")
 
+    def test_post_cycle_25_jira_evidence_is_not_token_mapped_to_cycle_five(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+        )
+        rows = [
+            item
+            for item in inventory["artifacts"]
+            if item.get("path")
+            == "artifacts/jira_evidence/POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001.json"
+        ]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["originating_cycle"], "UNMAPPED")
+        self.assertEqual(rows[0]["mapping_note"], "GIT_FIRST_ADD_AFTER_CYCLE_25")
+
+    def test_completeness_rule_does_not_treat_validator_pass_as_complete(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(encoding="utf-8")
+        )
+        gate = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_TRUST_RECOVERY_GATE.json").read_text(encoding="utf-8")
+        )
+        rule = str(inventory.get("completeness_rule") or "").lower()
+        self.assertGreater(inventory["unmapped_authority_count"], 0)
+        self.assertIn("not that mapping is complete", rule)
+        self.assertEqual(gate["inventory_completeness"], "INCOMPLETE_UNMAPPED_AUTHORITY")
+        self.assertFalse(gate["scientific_trust_recovered"])
+
     def test_findings_evidence_is_posix_relative(self) -> None:
         drive = re.compile(r"^[A-Za-z]:[\\/]")
         payload = json.loads(

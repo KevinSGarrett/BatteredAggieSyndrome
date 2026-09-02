@@ -5,6 +5,7 @@
     "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json",
     "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_CLAIM_REGISTRY.json",
     "configs/codex_usage_interlock_change_manifest.json",
+    "configs/cycle25_5_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
@@ -13,9 +14,9 @@
     "tools/validate_all_cycle_scientific_inventory.py"
   ],
   "jira_identity": "BAT-688",
-  "manifest_identity": "0a2eeabf3d45363022b6c16472f3a8c64ad427f0a3a3c9de118f41d0fd3164f4",
+  "manifest_identity": "dba7401ddfc3d9d40890046b82cc6ebea474afecc9aa658a0b817aca76b541a5",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "da346497a61eb0c65a300459b2dd7f4985d88e92504b3413df3a7a6608d1a110",
+  "pre_routing_decision_sha256": "1ed05bb32173d8f29ee718e4f881f69decc89b510850b0225f5d8f42fce1045c",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"

@@ -205,6 +205,27 @@ class AllCycleInventoryTests(unittest.TestCase):
         self.assertEqual(len(rows), 1)
         self.assertTrue(rows[0]["authority_bearing"])
 
+    def test_census_includes_tokenless_files_inside_declared_roots(self) -> None:
+        inventory = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        by_path = {item["path"]: item for item in inventory["artifacts"]}
+        self.assertIn("configs/judging_rule_seal.json", by_path)
+        self.assertIn("governance/BAS_EVALUATION_PROTOCOL.csv", by_path)
+        self.assertIn("schemas/models/joint_score_distribution.json", by_path)
+        producer = by_path[
+            "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py"
+        ]
+        validator = by_path[
+            "src/aggie_analytics/validation/protected_split_authority.py"
+        ]
+        self.assertEqual(producer["scientific_claim_or_role"], "SCIENTIFIC_PRODUCER")
+        self.assertEqual(validator["scientific_claim_or_role"], "SCIENTIFIC_VALIDATOR")
+        rule = str(inventory.get("completeness_rule") or "").lower()
+        self.assertIn("token or filename filters are not inclusion authority", rule)
+
     def test_findings_evidence_is_posix_relative(self) -> None:
         drive = re.compile(r"^[A-Za-z]:[\\/]")
         payload = json.loads(

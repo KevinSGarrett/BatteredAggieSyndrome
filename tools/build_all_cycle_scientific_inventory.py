@@ -125,6 +125,19 @@ def verify_cycle_shas() -> list[dict[str, Any]]:
 
 def classify_role(relative: str) -> str:
     posix = relative.replace("\\", "/")
+    name = Path(posix).name.lower()
+    if posix.startswith("src/aggie_analytics/scientific_reference/"):
+        return "INDEPENDENT_SEMANTIC_REFERENCE"
+    if posix.startswith("src/aggie_analytics/validation/") or (
+        posix.startswith("tools/") and name.startswith("validate_")
+    ):
+        return "SCIENTIFIC_VALIDATOR"
+    if posix.startswith("src/aggie_analytics/") and posix.endswith(".py"):
+        return "SCIENTIFIC_PRODUCER"
+    if posix.startswith("schemas/"):
+        return "SCIENTIFIC_CONTRACT_SCHEMA"
+    if posix.startswith("governance/") or posix.startswith("configs/"):
+        return "GOVERNANCE"
     if posix.startswith("artifacts/forecast/") or posix.startswith("artifacts/pit/"):
         return "SCIENTIFIC"
     if "gate" in posix or "contract" in posix:
@@ -133,6 +146,10 @@ def classify_role(relative: str) -> str:
         return "GOVERNANCE"
     if posix.startswith("artifacts/scientific_integrity/"):
         return "SCIENTIFIC_TRUST_RECOVERY"
+    if posix.startswith("artifacts/"):
+        return "SCIENTIFIC_IF_QUANTITATIVE_ELSE_GOVERNANCE"
+    if posix.startswith("tools/") and posix.endswith(".py"):
+        return "SCIENTIFIC_VALIDATOR" if "validate" in name else "SCIENTIFIC_PRODUCER"
     return "NON_SCIENTIFIC_OR_PROCESS"
 
 
@@ -150,6 +167,27 @@ def first_add_commit(relative: str) -> str:
         return ""
     # git log is newest-first; originating_cycle uses the earliest add.
     return commits[-1]
+
+
+def first_add_index() -> dict[str, str]:
+    """Map each path to its earliest add commit.
+
+    `git log` is newest-first, so the last SHA written for a path is the
+    earliest add. This avoids one process per inventoried file.
+    """
+    output = _git("log", "--diff-filter=A", "--name-only", "--pretty=format:%H")
+    index: dict[str, str] = {}
+    current = ""
+    for raw in output.splitlines():
+        line = raw.strip().replace("\\", "/")
+        if not line:
+            continue
+        if len(line) == 40 and all(char in "0123456789abcdef" for char in line.lower()):
+            current = line
+            continue
+        if current:
+            index[line] = current
+    return index
 
 
 def cycle_commit_index(cycle_rows: list[dict[str, Any]]) -> dict[str, list[int]]:
@@ -175,8 +213,9 @@ def git_first_add_cycle(
     relative: str,
     cycle_rows: list[dict[str, Any]],
     commit_index: dict[str, list[int]],
+    add_index: dict[str, str] | None = None,
 ) -> tuple[int | str, str]:
-    commit = first_add_commit(relative)
+    commit = (add_index or {}).get(relative) or first_add_commit(relative)
     if not commit:
         return "UNMAPPED", "GIT_FIRST_ADD_NOT_FOUND"
     matches = commit_index.get(commit, [])
@@ -227,30 +266,6 @@ def cycle_for_path(relative: str, cycle_rows: list[dict[str, Any]]) -> int | str
 
 
 AUTHORITY_SUFFIXES = {".json", ".yaml", ".yml", ".csv", ".md", ".py"}
-AUTHORITY_TOKENS = (
-    "gate",
-    "contract",
-    "forecast",
-    "pit",
-    "claim",
-    "inventory",
-    "registry",
-    "manifest",
-    "shadow",
-    "scientific_integrity",
-    "jira_evidence",
-    "scientific_reference",
-    "successor",
-    "protected",
-    "lineage",
-    "week1_2026",
-    "national_foundation",
-    "tamu",
-    "ridge",
-    "market",
-    "hold",
-    "validate_",
-)
 CENSUS_ROOTS = (
     "artifacts",
     "configs",
@@ -270,20 +285,9 @@ def authority_paths() -> list[str]:
         for path in root.rglob("*"):
             if not path.is_file():
                 continue
-            relative = path.relative_to(REPO_ROOT).as_posix()
-            name = path.name.lower()
             if path.suffix.lower() not in AUTHORITY_SUFFIXES:
                 continue
-            haystack = relative.lower()
-            if any(token in haystack or token in name for token in AUTHORITY_TOKENS):
-                paths.append(relative)
-                continue
-            if path.suffix.lower() == ".py" and (
-                haystack.startswith("src/aggie_analytics/")
-                or name.startswith("validate_")
-                or name.startswith("build_all_cycle_")
-            ):
-                paths.append(relative)
+            paths.append(path.relative_to(REPO_ROOT).as_posix())
     return sorted(set(paths))
 
 
@@ -530,8 +534,11 @@ def false_positive_rejections() -> list[dict[str, Any]]:
 def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
     artifacts = []
     commit_index = cycle_commit_index(cycle_rows)
+    add_index = first_add_index()
     for relative in authority_paths():
-        git_cycle, git_note = git_first_add_cycle(relative, cycle_rows, commit_index)
+        git_cycle, git_note = git_first_add_cycle(
+            relative, cycle_rows, commit_index, add_index
+        )
         if git_note == "GIT_FIRST_ADD":
             cycle, mapping_note = git_cycle, git_note
         else:
@@ -562,9 +569,11 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
                 "Unmapped authority-bearing artifacts are a hard completeness failure "
                 "for scientific_trust_recovered and must keep inventory_completeness="
                 "INCOMPLETE_UNMAPPED_AUTHORITY. Census roots are artifacts, configs, "
-                "governance, schemas, src/aggie_analytics, and tools. A passing "
-                "inventory validator means that incompleteness is recorded with "
-                "explicit mapping_notes, not that mapping is complete."
+                "governance, schemas, src/aggie_analytics, and tools. Inside those "
+                "roots every authority-suffixed file is inventoried; token or filename "
+                "filters are not inclusion authority. Files outside the six roots remain "
+                "uncensused. A passing inventory validator means that incompleteness is "
+                "recorded with explicit mapping_notes, not that mapping is complete."
             ),
             "cycle_sha_table": cycle_rows,
             "cycles": [

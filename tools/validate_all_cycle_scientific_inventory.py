@@ -146,6 +146,41 @@ def validate(repo_root: Path) -> list[str]:
     ]
     if not protected_split:
         findings.append("PROTECTED_SPLIT_REGISTRY_NOT_INVENTORIED")
+    required_inside_roots = (
+        "configs/judging_rule_seal.json",
+        "governance/BAS_EVALUATION_PROTOCOL.csv",
+        "governance/BAS_ANTI_CIRCULARITY_RULES.csv",
+        "artifacts/data_lake/historical_known_at_authority_replay.json",
+        "artifacts/data_lake/immutability_and_correction_test.json",
+        "schemas/experiments/judging_rule_seal.json",
+        "schemas/models/joint_score_distribution.json",
+        "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py",
+        "src/aggie_analytics/validation/protected_split_authority.py",
+    )
+    inventoried = {item.get("path") for item in artifacts}
+    for required in required_inside_roots:
+        if required not in inventoried:
+            findings.append(f"CENSUS_OMITTED_TOKENLESS_AUTHORITY:{required}")
+    producer_row = next(
+        (
+            item
+            for item in artifacts
+            if item.get("path")
+            == "src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py"
+        ),
+        None,
+    )
+    if producer_row and producer_row.get("scientific_claim_or_role") in {
+        None,
+        "",
+        "NON_SCIENTIFIC_OR_PROCESS",
+    }:
+        findings.append("SOURCE_MODULE_ROLE_NOT_SCIENTIFIC")
+    if (
+        "token or filename filters are not inclusion authority"
+        not in completeness_rule.lower()
+    ):
+        findings.append("COMPLETENESS_RULE_STILL_ALLOWS_TOKEN_OMISSION")
     claim_rows = claims.get("claims") or []
     for row in claim_rows:
         classification = row.get("trust_classification")

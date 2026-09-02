@@ -240,7 +240,7 @@ def _validate_history(root: Path, policy: dict[str, Any]) -> list[str]:
         lowered = subject.casefold()
         corrected = corrections.get(commit_sha)
         if corrected is not None:
-            lowered = f"{lowered} {corrected}"
+            lowered = corrected
         has_material = material in lowered
         has_process = process in lowered
         if has_material == has_process:

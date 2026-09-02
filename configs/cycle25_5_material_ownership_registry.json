@@ -42,6 +42,21 @@
       "path": "configs/unified_assistive_change_routing_binding.json"
     },
     {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "instructions/FILE_HASHES.sha256"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "instructions/manifest.json"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-689",
+      "path": "instructions/policies/execution_focus_policy.json"
+    },
+    {
       "kind": "PROCESS_ONLY_GENERATED_PROVENANCE",
       "owner": null,
       "path": "provenance/CURRENT_TREE.txt"
@@ -123,6 +138,11 @@
     },
     {
       "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tests/test_execution_focus.py"
+    },
+    {
+      "kind": "MATERIAL",
       "owner": "BAT-696",
       "path": "tests/test_independent_scientific_reference.py"
     },
@@ -130,6 +150,11 @@
       "kind": "MATERIAL",
       "owner": "BAT-696",
       "path": "tools/validate_cross_output_coherence.py"
+    },
+    {
+      "kind": "MATERIAL",
+      "owner": "BAT-688",
+      "path": "tools/validate_execution_focus.py"
     },
     {
       "kind": "MATERIAL",

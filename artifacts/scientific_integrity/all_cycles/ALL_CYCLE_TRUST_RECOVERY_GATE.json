@@ -43,8 +43,9 @@
     "CYCLE-25-SEMANTIC-RECONSTRUCTION"
   ],
   "cycle_25_5_complete": false,
-  "gate_identity": "6fcf5f69ae6d5132d456900ba2f3f4c0960330ce68d89e11bb2f7538c30f6f64",
+  "gate_identity": "6d418fa7c6169736f65e40cc69f210ee4526d57f4235798ae760c1887ecc2bc0",
   "hold_active": true,
+  "inventory_completeness": "INCOMPLETE_UNMAPPED_AUTHORITY",
   "missing_evidence_is_blocked_not_pass": true,
   "schema_version": 1,
   "scientific_trust_recovered": false,

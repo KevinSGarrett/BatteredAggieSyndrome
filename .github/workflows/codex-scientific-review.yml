@@ -79,9 +79,12 @@ jobs:
       - name: Post sanitized review summary
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           python - <<'PY'
           import json
+          import os
+          import subprocess
           from pathlib import Path
           path = Path("artifacts/scientific_integrity/codex_scientific_review_output.json")
           payload = json.loads(path.read_text(encoding="utf-8"))
@@ -93,7 +96,24 @@ jobs:
               "limitations": payload.get("limitations") or [],
           }
           Path("artifacts/scientific_integrity/codex_scientific_review_comment.json").write_text(
-              json.dumps(summary, indent=2), encoding="utf-8"
+              json.dumps(summary, indent=2) + "\n", encoding="utf-8"
+          )
+          body = (
+              "Codex scientific review (sanitized)\n"
+              f"- verdict: {summary['verdict']}\n"
+              f"- reviewed_merge_sha: {summary['reviewed_merge_sha']}\n"
+              f"- p0: {summary['p0']}\n"
+              f"- p1: {summary['p1']}\n"
+          )
+          subprocess.check_call(
+              [
+                  "gh",
+                  "pr",
+                  "comment",
+                  os.environ["PR_NUMBER"],
+                  "--body",
+                  body,
+              ]
           )
           print(json.dumps(summary, indent=2))
           PY

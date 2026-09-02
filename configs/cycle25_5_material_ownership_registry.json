@@ -29,6 +29,21 @@
     {
       "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
       "owner": null,
+      "path": "instructions/FILE_HASHES.sha256"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "instructions/manifest.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
+      "path": "instructions/policies/execution_focus_policy.json"
+    },
+    {
+      "kind": "PROCESS_ONLY_JIRA_CONTROL_PLANE",
+      "owner": null,
       "path": "jira/reconciliation/BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json"
     },
     {

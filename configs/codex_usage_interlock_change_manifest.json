@@ -7,6 +7,9 @@
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/cycle25_5_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "instructions/FILE_HASHES.sha256",
+    "instructions/manifest.json",
+    "instructions/policies/execution_focus_policy.json",
     "jira/reconciliation/BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json",
     "jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json",
     "jira/validation/JIRA_FILE_HASHES.sha256",
@@ -16,9 +19,9 @@
     "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
   "jira_identity": "BAT-688",
-  "manifest_identity": "2ff57cc818967dfd1b2fa1bf557f0d2aeda2554c7fea4d50ddc013f86f724653",
+  "manifest_identity": "8a737cf1d8f313f843a2e2a87fa308f3e308adba45c3fe5583c7696e916ce2e9",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "617ab8c31a7bab2855861569c003b72478e19b064e8e59bc41d020ac0cdb585a",
+  "pre_routing_decision_sha256": "b11ad269460f7eaee8015499457d05b3de76e1f8d5447487c122c392decaab41",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"

@@ -779,19 +779,6 @@ def main() -> int:
     for row in cycle_rows:
         audit = build_cycle_audit(row, known_findings())
         _write(ALL_CYCLES / f"CYCLE_{row['cycle_number']:02d}_SCIENTIFIC_AUDIT.json", audit)
-    ledger = bind_identity(
-        {
-            "artifact_type": "PR_REVIEW_FINDING_LEDGER",
-            "findings": [],
-            "schema_version": 1,
-            "note": "Cursor may propose but cannot solely approve FALSE_POSITIVE_PROVEN or accepted-risk for P0/P1.",
-        },
-        "ledger_identity",
-    )
-    _write(
-        REPO_ROOT / "artifacts" / "scientific_integrity" / "PR_REVIEW_FINDING_LEDGER.json",
-        ledger,
-    )
     print(
         json.dumps(
             {

@@ -1,11 +1,10 @@
 {
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "base_commit": "deaece17cd66d51510cf8ee29f615d35a3c11994",
+  "base_commit": "183b80baa2db4302039cccb0c22dac19c581d413",
   "changed_paths": [
     "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json",
     "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_CLAIM_REGISTRY.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/cycle25_5_material_ownership_registry.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
@@ -14,9 +13,9 @@
     "tools/validate_all_cycle_scientific_inventory.py"
   ],
   "jira_identity": "BAT-688",
-  "manifest_identity": "576235e61f67505282a4cba012e3f140b8901bb388561f82f4c4715db497a05a",
+  "manifest_identity": "0a2eeabf3d45363022b6c16472f3a8c64ad427f0a3a3c9de118f41d0fd3164f4",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "0a7f765c256de07cecd0dfa426f9a734326925ad378d7aa26d45db6206062be3",
+  "pre_routing_decision_sha256": "da346497a61eb0c65a300459b2dd7f4985d88e92504b3413df3a7a6608d1a110",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001"

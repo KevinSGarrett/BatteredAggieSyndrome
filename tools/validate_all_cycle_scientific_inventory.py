@@ -107,9 +107,7 @@ def validate(repo_root: Path) -> list[str]:
     ]
     recorded_unmapped = inventory.get("unmapped_authority_count")
     if recorded_unmapped != len(unmapped):
-        findings.append(
-            f"UNMAPPED_COUNT_MISMATCH:{recorded_unmapped}:{len(unmapped)}"
-        )
+        findings.append(f"UNMAPPED_COUNT_MISMATCH:{recorded_unmapped}:{len(unmapped)}")
     if unmapped and gate.get("scientific_trust_recovered") is True:
         findings.append(f"UNMAPPED_AUTHORITY_ARTIFACTS:{len(unmapped)}")
     if unmapped and gate.get("inventory_completeness") not in {
@@ -127,7 +125,27 @@ def validate(repo_root: Path) -> list[str]:
         and item.get("authority_bearing") is True
     ]
     if path_token_rows:
-        findings.append(f"PATH_TOKEN_STILL_USED_AS_ORIGIN_AUTHORITY:{len(path_token_rows)}")
+        findings.append(
+            f"PATH_TOKEN_STILL_USED_AS_ORIGIN_AUTHORITY:{len(path_token_rows)}"
+        )
+    census_roots = inventory.get("census_roots") or []
+    required_roots = {
+        "artifacts",
+        "configs",
+        "governance",
+        "schemas",
+        "src/aggie_analytics",
+        "tools",
+    }
+    if set(census_roots) != required_roots:
+        findings.append(f"CENSUS_ROOTS_INCOMPLETE:{census_roots}")
+    protected_split = [
+        item
+        for item in artifacts
+        if item.get("path") == "governance/PROTECTED_SPLIT_REGISTRY.csv"
+    ]
+    if not protected_split:
+        findings.append("PROTECTED_SPLIT_REGISTRY_NOT_INVENTORIED")
     claim_rows = claims.get("claims") or []
     for row in claim_rows:
         classification = row.get("trust_classification")
@@ -145,9 +163,7 @@ def validate(repo_root: Path) -> list[str]:
             )
     if not (dag.get("nodes") and dag.get("edges") is not None):
         findings.append("DAG_INCOMPLETE")
-    matrix_cycles = {
-        int(item["cycle_number"]) for item in matrix.get("cycles") or []
-    }
+    matrix_cycles = {int(item["cycle_number"]) for item in matrix.get("cycles") or []}
     if matrix_cycles != set(REQUIRED_CYCLES):
         findings.append("THREE_PASS_MATRIX_INCOMPLETE")
     for item in matrix.get("cycles") or []:

@@ -9,7 +9,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "c1c310da6bcae25641977fe409e3034b8c08010a"
+BASE = "516b7aeefaaf2dad4f4ef7aeba08e05497bc65f2"
 INSTRUCTION_TEXT = (
     "USER_EXPLICIT_CURSOR_AUTHORIZATION_CYCLE_25_5\n"
     "Execute all Cycle #25.5 Scientific Trust Recovery Program work in this one "
@@ -85,6 +85,8 @@ def owner_for(path: str) -> str:
         "schemas/scientific_review/codex_scientific_review.schema.json",
         "tools/validate_codex_scientific_review.py",
         "tools/validate_pr_review_finding_ledger.py",
+        "tools/write_cycle25_5_routing_manifests.py",
+        "instructions/policies/execution_focus_policy.json",
         "artifacts/scientific_integrity/PR_REVIEW_FINDING_LEDGER.json",
         "artifacts/scientific_integrity/USER_ADMIN_ACTION_REQUIRED.json",
         "tests/test_pr_review_defense_infrastructure.py",
@@ -139,9 +141,6 @@ def main() -> int:
         "configs/cycle25_5_material_ownership_registry.json",
         "configs/codex_usage_interlock_change_manifest.json",
         "configs/unified_assistive_change_routing_binding.json",
-        "provenance/CURRENT_TREE.txt",
-        "provenance/PROJECT_FILE_HASHES.sha256",
-        "provenance/PROJECT_FILE_MANIFEST.csv",
         "tools/write_cycle25_5_routing_manifests.py",
     ]
     paths = sorted(set(tracked) | set(untracked) | set(extra))

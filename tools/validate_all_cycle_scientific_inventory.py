@@ -80,6 +80,25 @@ def validate(repo_root: Path) -> list[str]:
     ]
     if guessed_cycle_one:
         findings.append(f"GUESSED_CYCLE_ONE_MAPPING:{len(guessed_cycle_one)}")
+    allowed_unmapped_notes = {
+        "GIT_FIRST_ADD_NOT_FOUND",
+        "GIT_FIRST_ADD_AMBIGUOUS_CYCLE",
+        "GIT_FIRST_ADD_BEFORE_CYCLE_1",
+        "GIT_FIRST_ADD_AFTER_CYCLE_25",
+        "GIT_FIRST_ADD_OUTSIDE_DECLARED_RANGES",
+    }
+    for item in artifacts:
+        note = str(item.get("mapping_note") or "")
+        cycle = item.get("originating_cycle")
+        if note == "GIT_FIRST_ADD":
+            if not isinstance(cycle, int):
+                findings.append(f"GIT_FIRST_ADD_WITHOUT_CYCLE:{item.get('path')}")
+            continue
+        if cycle in (None, "", 0, "UNMAPPED"):
+            if note not in allowed_unmapped_notes:
+                findings.append(
+                    f"UNMAPPED_MAPPING_NOTE_INVALID:{item.get('path')}:{note}"
+                )
     unmapped = [
         item
         for item in artifacts
@@ -98,6 +117,17 @@ def validate(repo_root: Path) -> list[str]:
         "INCOMPLETE_UNMAPPED_AUTHORITY",
     }:
         findings.append("UNMAPPED_AUTHORITY_NOT_RECORDED_ON_TRUST_GATE")
+    completeness_rule = str(inventory.get("completeness_rule") or "")
+    if unmapped and "not that mapping is complete" not in completeness_rule.lower():
+        findings.append("COMPLETENESS_RULE_IMPLIES_VALIDATOR_PASS_IS_COMPLETE")
+    path_token_rows = [
+        item
+        for item in artifacts
+        if item.get("mapping_note") == "PATH_TOKEN"
+        and item.get("authority_bearing") is True
+    ]
+    if path_token_rows:
+        findings.append(f"PATH_TOKEN_STILL_USED_AS_ORIGIN_AUTHORITY:{len(path_token_rows)}")
     claim_rows = claims.get("claims") or []
     for row in claim_rows:
         classification = row.get("trust_classification")

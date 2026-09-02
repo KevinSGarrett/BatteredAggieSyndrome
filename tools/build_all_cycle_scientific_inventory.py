@@ -136,6 +136,64 @@ def classify_role(relative: str) -> str:
     return "NON_SCIENTIFIC_OR_PROCESS"
 
 
+def first_add_commit(relative: str) -> str:
+    completed = subprocess.run(
+        ["git", "log", "--diff-filter=A", "--format=%H", "--", relative],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    commits = (completed.stdout or "").split()
+    if not commits:
+        return ""
+    # git log is newest-first; originating_cycle uses the earliest add.
+    return commits[-1]
+
+
+def cycle_commit_index(cycle_rows: list[dict[str, Any]]) -> dict[str, list[int]]:
+    index: dict[str, list[int]] = {}
+    for row in cycle_rows:
+        number = int(row["cycle_number"])
+        start = str(row["starting_sha"])
+        end = str(row["ending_sha"])
+        if start == end:
+            index.setdefault(start, []).append(number)
+            continue
+        log = _git("log", "--format=%H", f"{start}..{end}")
+        for commit in log.split():
+            index.setdefault(commit, []).append(number)
+        if number == 1:
+            # start..end excludes the declared Cycle 1 starting commit. Include
+            # that commit only; do not attribute any pre-start history to Cycle 1.
+            index.setdefault(start, []).append(number)
+    return index
+
+
+def git_first_add_cycle(
+    relative: str,
+    cycle_rows: list[dict[str, Any]],
+    commit_index: dict[str, list[int]],
+) -> tuple[int | str, str]:
+    commit = first_add_commit(relative)
+    if not commit:
+        return "UNMAPPED", "GIT_FIRST_ADD_NOT_FOUND"
+    matches = commit_index.get(commit, [])
+    unique = sorted(set(matches))
+    if len(unique) == 1:
+        return unique[0], "GIT_FIRST_ADD"
+    if unique:
+        return "UNMAPPED", "GIT_FIRST_ADD_AMBIGUOUS_CYCLE"
+    cycle_one_start = str(cycle_rows[0]["starting_sha"])
+    cycle_25_end = str(cycle_rows[-1]["ending_sha"])
+    if commit != cycle_one_start and _is_ancestor(commit, cycle_one_start):
+        return "UNMAPPED", "GIT_FIRST_ADD_BEFORE_CYCLE_1"
+    if commit != cycle_25_end and _is_ancestor(cycle_25_end, commit):
+        return "UNMAPPED", "GIT_FIRST_ADD_AFTER_CYCLE_25"
+    return "UNMAPPED", "GIT_FIRST_ADD_OUTSIDE_DECLARED_RANGES"
+
+
 def cycle_for_path(relative: str, cycle_rows: list[dict[str, Any]]) -> int | str:
     posix = relative.replace("\\", "/").lower()
     mapping = (
@@ -446,17 +504,18 @@ def false_positive_rejections() -> list[dict[str, Any]]:
 
 def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
     artifacts = []
+    commit_index = cycle_commit_index(cycle_rows)
     for relative in authority_paths():
-        cycle = cycle_for_path(relative, cycle_rows)
+        git_cycle, git_note = git_first_add_cycle(relative, cycle_rows, commit_index)
+        if git_note == "GIT_FIRST_ADD":
+            cycle, mapping_note = git_cycle, git_note
+        else:
+            cycle, mapping_note = "UNMAPPED", git_note
         artifacts.append(
             {
                 "path": relative,
                 "originating_cycle": cycle,
-                "mapping_note": (
-                    "UNMAPPED_NO_CYCLE_TOKEN"
-                    if cycle == "UNMAPPED"
-                    else "PATH_TOKEN"
-                ),
+                "mapping_note": mapping_note,
                 "jira_owner": "SEE_CYCLE_AUDIT",
                 "pr_or_merge": "SEE_CYCLE_AUDIT",
                 "scientific_claim_or_role": classify_role(relative),
@@ -474,7 +533,11 @@ def build_inventory(cycle_rows: list[dict[str, Any]]) -> dict[str, Any]:
             "artifacts": artifacts,
             "audited_starting_sha": STARTING_SHA,
             "completeness_rule": (
-                "Any unmapped authority-bearing artifact is a hard completeness failure."
+                "Unmapped authority-bearing artifacts are a hard completeness failure "
+                "for scientific_trust_recovered and must keep inventory_completeness="
+                "INCOMPLETE_UNMAPPED_AUTHORITY. A passing inventory validator means "
+                "that incompleteness is recorded with explicit mapping_notes, not that "
+                "mapping is complete."
             ),
             "cycle_sha_table": cycle_rows,
             "cycles": [

@@ -1,0 +1,25 @@
+name: Research or documentation proposal
+description: Propose a focused, testable improvement to the research or public documentation.
+title: "[proposal] "
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question or problem
+      description: What would we learn or make easier to understand?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and evaluation plan
+      description: Describe source availability, reuse permissions, relevant cutoffs, and a test that could disprove the proposal. Do not upload restricted data.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Smallest useful scope
+      description: What is the first bounded contribution? What is explicitly outside it?
+    validations:
+      required: true

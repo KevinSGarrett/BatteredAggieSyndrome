@@ -59,3 +59,55 @@ Aggie_Analytics_Engine_W*_HYDRATION.zip
 *.db-shm
 research_worktrees/
 optuna_journal.log
+
+# Private development material. These rules prevent NEW additions only.
+# Already tracked files and historical copies require a reviewed migration.
+/jira/
+/prompts/
+/artifacts/jira_evidence/
+/artifacts/assistive/
+/artifacts/assistive_plane/
+/artifacts/assistive_runtime/
+/.codex/
+/.codex-ops/
+/AGENTS.local.md
+# Keep the active PR-review rules; ignore machine/editor settings beside them.
+/.cursor/*
+!/.cursor/BUGBOT.md
+# Legacy operator documentation is private; reader documentation remains public.
+/docs/final/
+/docs/context/
+/docs/operations/
+/docs/[0-9]*.md
+/src/aggie_analytics/openai_assist/
+/configs/openai_assist*
+/artifacts/openai_assist/
+/fixtures/openai_assist/
+/.private/
+/.internal/
+/private/
+/internal/
+/ops/
+/preservation/
+/backups/
+*.bundle
+
+# Active governance, review rules, hooks, provenance, and scientific evidence
+# deliberately remain visible to Git. Do not ignore them by keyword: a reviewed
+# dependency migration is required before private authority can leave the tree.
+# Retired machinery is limited to the explicit directories listed above.
+
+# Runtime output and private diagnostics
+*.log
+coverage.xml
+coverage-*.xml
+/.coverage.*
+/test-results/
+/playwright-report/
+/.envrc
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Source fixtures containing public certificates, if needed, require explicit review.

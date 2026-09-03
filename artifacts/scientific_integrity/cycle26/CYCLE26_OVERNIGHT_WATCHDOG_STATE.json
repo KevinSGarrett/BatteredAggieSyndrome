@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T14:37:32Z",
-  "git_tip": "afa0475fe3cff3a70b9ef90c5be679ed5e8260c3",
+  "issued_at_utc": "2026-09-03T14:38:07Z",
+  "git_tip": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
   "code_head_binding": "LIVE_PR_678_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "ci": "PASS",
@@ -30,6 +30,8 @@
   "R26_20": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_21": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_22": "CONFIRMED_CONTAINED_NOT_FIXED",
-  "jira_verify_live_at": "2026-09-03T14:37:32Z",
-  "t90m_scheduler": "run_scheduled_sep3_t90m_capture.ps1 armed 2026-09-03T19:45:00Z"
+  "jira_verify_live_at": "2026-09-03T14:38:07Z",
+  "t90m_scheduler": "run_scheduled_sep3_t90m_capture.ps1 armed 2026-09-03T19:45:00Z",
+  "t90m_executor": "armed_2026-09-03T19:45:00Z",
+  "t90m_executor_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_T90M_EXECUTOR.log"
 }

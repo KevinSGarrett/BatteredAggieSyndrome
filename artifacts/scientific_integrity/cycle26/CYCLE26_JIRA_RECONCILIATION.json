@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
-  "issued_at_utc": "2026-09-03T14:37:32Z",
+  "issued_at_utc": "2026-09-03T14:38:07Z",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
   "live_statuses": {
     "BAT-696": "In Review",
@@ -71,6 +71,9 @@
   "code_head_binding": "LIVE_PR_678_TIP",
   "code_head": "afa0475fe3cff3a70b9ef90c5be679ed5e8260c3",
   "git_tip_at_issuance": "6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa",
-  "git_tip": "4479d6988d8844fb3a4eec7c405076a3d391c976",
-  "ci": "PASS"
+  "git_tip": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
+  "ci": "PASS",
+  "t90m_executor": "armed_2026-09-03T19:45:00Z",
+  "t90m_executor_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_T90M_EXECUTOR.log",
+  "jira_verify_live_at": "2026-09-03T14:38:07Z"
 }

@@ -1,0 +1,31 @@
+{
+  "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
+  "issued_at_utc": "2026-09-03T05:16:00Z",
+  "ACTIVE_PATH_CORRECTNESS_GATE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+  "probability_component": "PARTIAL",
+  "joint_fitted_path": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+  "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
+  "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
+  "MERGE_AUTHORIZATION_GATE": "USER_EXPLICIT_ONLY",
+  "blocker": "Historical C20/C21/C25 logistic/ridge/prior-only saved pairs remain complementary-probability failures. Cycle #26 repaired production/reference helpers and game-grain successor math, but did not emit a newly fitted, independently reconstructed national Week 1 margin-capable successor over the complete eligible opportunity population. Pass 3 cannot be author-self-approved.",
+  "declared_scope": {
+    "population": "2026 NCAA Week 1 official contests 2026-09-03 through 2026-09-07",
+    "excluded": ["2024/2025 protected-season fitting", "market-driven retuning", "independent predicted final scores", "BAS/Aggie Excess claims"]
+  },
+  "week1_schedule_capture": {
+    "identity": "6042fb3abb48e09601c7daaac424694d8e349604ba8e3244d58ce2b686794cab",
+    "dates": ["2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07"],
+    "state": "CAPTURED",
+    "t7d_backfill": false
+  },
+  "national_rehash": {
+    "capture_records": 990,
+    "verified_records": 990,
+    "record_weighted_bytes": 2550148419
+  },
+  "three_pass": {
+    "pass_1": "PARTIAL_HELPER_AND_CONTROL_CLOSURE",
+    "pass_2": "PARTIAL_INDEPENDENT_REFERENCE_ON_HELPERS_NOT_FULL_NATIONAL_FIT",
+    "pass_3": "PENDING_INDEPENDENT_REVIEWER"
+  }
+}

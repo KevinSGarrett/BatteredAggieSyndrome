@@ -1,0 +1,46 @@
+{
+  "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
+  "issued_at_utc": "2026-09-03T05:16:00Z",
+  "cloud_id": "eae77257-a572-4e19-b746-8b184ba2d01f",
+  "jira_site": "https://kevinsgarrett.atlassian.net",
+  "command": "searchJiraIssuesUsingJql key in (BAT-523, BAT-401, BAT-429, BAT-688..BAT-696)",
+  "JIRA_BOARD_LOCAL_CONVERGENCE": "PARTIAL",
+  "reason": "Owner-issue live readback completed; full project/board pagination, importer execute, and zero managed-field discrepancy were not finished under the hold. No Cycle #26 BAT-523 parent-progress comment was posted.",
+  "live_statuses": {
+    "BAT-523": "In Progress",
+    "BAT-401": "Done",
+    "BAT-429": "To Do",
+    "BAT-688": "Done",
+    "BAT-689": "Done",
+    "BAT-690": "In Review",
+    "BAT-691": "In Review",
+    "BAT-692": "In Review",
+    "BAT-693": "In Review",
+    "BAT-694": "In Review",
+    "BAT-695": "Done",
+    "BAT-696": "In Review"
+  },
+  "discrepancies": [
+    {
+      "issue": "BAT-429",
+      "pack_expected": "Blocked unless BAT-413/416/419 independently pass",
+      "live": "To Do",
+      "local_auxiliary_after_repair": "To Do",
+      "class": "ALIGNED_TO_LIVE",
+      "note": "Live To Do is preserved; not overwritten to Blocked"
+    }
+  ],
+  "comment_14723": {
+    "id": "14723",
+    "live_created": "2026-09-02T00:24:33.246-0500",
+    "live_body_sha256_mcp_markdown": "74dbc59eab16955859c3ebec271ddb50907caa56ed3e22d302f8839d0307ef4e",
+    "ledger_cycle_field": 26,
+    "canonical_cycle_id": "CYCLE-25.5",
+    "edited": false,
+    "new_cycle26_parent_comment_posted": false
+  },
+  "hold_transitions": {
+    "done_on_remaining_scientific_owners": false,
+    "bat_523_parent_progress_cycle26": false
+  }
+}

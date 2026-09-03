@@ -13,8 +13,20 @@ FORBIDDEN_PRODUCER_IMPORTS = {
     "aggie_analytics.data.week1_2026_forecast_input_binding_successor",
     "aggie_analytics.data.week1_2026_ridge_distribution_coherence",
     "aggie_analytics.data.national_foundation_reconciliation",
+    "aggie_analytics.data.week1_2026_game_grain_distribution_successor",
+    "aggie_analytics.data.week1_2026_market_integrity_successor",
+    "aggie_analytics.data.week1_2026_current_contest_binding_successor",
+    "aggie_analytics.data.producer_distribution_math",
+    "aggie_analytics.data.producer_market_math",
 }
 REFERENCE_ROOT = Path("src") / "aggie_analytics" / "scientific_reference"
+PRODUCER_PATHS = (
+    Path("src") / "aggie_analytics" / "data" / "week1_2026_game_grain_distribution_successor.py",
+    Path("src") / "aggie_analytics" / "data" / "week1_2026_market_integrity_successor.py",
+    Path("src") / "aggie_analytics" / "data" / "week1_2026_current_contest_binding_successor.py",
+    Path("src") / "aggie_analytics" / "data" / "producer_distribution_math.py",
+    Path("src") / "aggie_analytics" / "data" / "producer_market_math.py",
+)
 
 
 def _module_imports(path: Path) -> set[str]:
@@ -50,6 +62,22 @@ def validate(repo_root: Path) -> list[str]:
         if producer:
             findings.append(
                 f"INDEPENDENT_REFERENCE_IMPORTS_PRODUCER:{path.name}:{','.join(producer)}"
+            )
+    for producer_path in PRODUCER_PATHS:
+        path = repo_root / producer_path
+        if not path.is_file():
+            findings.append(f"PRODUCER_MODULE_MISSING:{producer_path.as_posix()}")
+            continue
+        imports = _module_imports(path)
+        reverse = sorted(
+            item
+            for item in imports
+            if item == "aggie_analytics.scientific_reference"
+            or item.startswith("aggie_analytics.scientific_reference.")
+        )
+        if reverse:
+            findings.append(
+                f"PRODUCER_IMPORTS_INDEPENDENT_REFERENCE:{producer_path.name}:{','.join(reverse)}"
             )
     return findings
 

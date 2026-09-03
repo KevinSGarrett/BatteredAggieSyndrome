@@ -30,9 +30,11 @@ WINDOWS_DEVICE_NAMES = {
 def _normalize_relpath(name: str) -> str:
     if not isinstance(name, str):
         raise ValueError("path must be a string")
-    raw = name.strip()
-    if not raw:
+    if not name:
         raise ValueError("path cannot be empty")
+    if name != name.strip():
+        raise ValueError(f"leading or trailing whitespace path alias: {name!r}")
+    raw = name
     if "\\" in raw:
         raise ValueError(f"unsafe path separator alias: {name!r}")
     if raw.startswith("/"):

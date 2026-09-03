@@ -528,6 +528,18 @@ def false_positive_rejections() -> list[dict[str, Any]]:
             "rejected": True,
             "reason": "Repository non-claims continue to forbid BAS/champion/production promotion.",
         },
+        {
+            "finding_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED",
+            "rejected": True,
+            "original_assertion_preserved": True,
+            "reason": (
+                "Manager rehash of the BAT-651 CFBD request_index plus SportsDataverse "
+                "captures, including CAPTURED_EMPTY, verified 972+18=990 valid records, "
+                "983 distinct paths/hashes, and 2,550,148,419 record-weighted bytes. "
+                "A recursive SRC-002 directory count is not the declared population. "
+                "Byte verification does not admit a feature or restore trust."
+            ),
+        },
     ]
 
 

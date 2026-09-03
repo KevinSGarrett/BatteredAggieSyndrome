@@ -1994,6 +1994,36 @@
       "phase": "PHASE-3",
       "status": "In Review",
       "summary": "[POST-TASK-SCIENTIFIC-VALIDATION-INDEPENDENCE-GATE-001] Install independent scientific-reference validators and adversarial mutation coverage"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "VERIFIED",
+      "execution_lane": "PROTECTED_GATE",
+      "issue_type": "Task",
+      "jira_key": "BAT-401",
+      "local_id": "POST-TASK-PROTECTED-EVALUATION-LANE-001",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "HISTORICAL",
+      "phase": "PROTECTED",
+      "status": "Done",
+      "summary": "Protected evaluation lane retained blocked; BAT-401 remains Done with RETAIN_PROTECTED_LANE_BLOCKED"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "BLOCKED",
+      "execution_lane": "PROTECTED_GATE",
+      "issue_type": "Task",
+      "jira_key": "BAT-429",
+      "local_id": "POST-TASK-PROTECTED-PERFORMANCE-CLAIMS-001",
+      "logical_state": "READY",
+      "maturity": "CONTRACT_DEFINED",
+      "owner_wave": "HISTORICAL",
+      "phase": "PROTECTED",
+      "status": "To Do",
+      "summary": "Protected performance claims remain blocked unless BAT-413/416/419 independently pass"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

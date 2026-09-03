@@ -1,0 +1,46 @@
+{
+  "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
+  "issued_at_utc": "2026-09-03T05:16:00Z",
+  "BRANCH_WORKTREE_HYGIENE": "BLOCKED",
+  "reason": "Every observed local branch/worktree was classified, but origin:gone tracking refs were not compare-and-deleted because remote absence was not independently proven with ls-remote tip locks. No default/protected/preservation/open-PR/dirty worktree was deleted.",
+  "canonical_main": {
+    "path": "C:\\BatteredAggieSyndrome",
+    "branch": "main",
+    "sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+    "clean": true,
+    "tracks": "origin/main"
+  },
+  "active_cycle26_worktree": {
+    "path": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-690-c26-scr",
+    "branch": "codex/BAT-690-c26-scr",
+    "disposition": "ACTIVE_UNMERGED_WORK"
+  },
+  "open_prs_untouched": ["Dependabot #654"],
+  "retained_worktrees": [
+    "C:/BatteredAggieSyndrome",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors",
+    "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate",
+    "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b",
+    "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation",
+    "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover"
+  ],
+  "deleted_refs": [],
+  "preservation_refs_retained": [
+    "preserve/cycle13-assistive-retirement",
+    "preserve/cycle17-unintegrated-20260824T075717Z",
+    "preserve/cycle18-canonical-overlap-20260827T015111Z",
+    "preserve/cycle18-preflight-overlap-20260824T184919Z",
+    "preserve/cycle20-cycle19-unintegrated-20260828T022538Z",
+    "preserve/cycle25-preflight-20260831T991bf466",
+    "preserve/local-second-pass-audit-20260828T0405Z",
+    "cycle22/week-zero-official-finals"
+  ]
+}

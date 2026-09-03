@@ -61,7 +61,11 @@ def _phi(z: float) -> float:
 
 
 def inverse_normal_cdf(p: float) -> float:
-    """Standard-normal inverse CDF using Acklam's 2003 rational approximation."""
+    """Standard-normal inverse CDF using Acklam's 2003 rational approximation.
+
+    Two Halley refinements using the erf CDF keep CDF(PPF(p)) within
+    ``CDF_PPF_ABS_TOLERANCE`` without using sports outcomes to choose constants.
+    """
     if not _finite(p) or not 0.0 < p < 1.0:
         raise ValueError("p must be finite and in (0, 1)")
     plow = _ACKLAM_P_LOW
@@ -72,20 +76,27 @@ def inverse_normal_cdf(p: float) -> float:
     d = _ACKLAM_D
     if p < plow:
         q = math.sqrt(-2.0 * math.log(p))
-        return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / (
+        x = (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / (
             ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1.0)
         )
-    if p > phigh:
+    elif p > phigh:
         q = math.sqrt(-2.0 * math.log(1.0 - p))
-        return -(
-            (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5])
-            / (((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1.0)
-        )
-    q = p - 0.5
-    r = q * q
-    return (
-        (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q
-    ) / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1.0)
+        x = -(
+            ((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]
+        ) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1.0)
+    else:
+        q = p - 0.5
+        r = q * q
+        x = (
+            (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q
+        ) / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1.0)
+    for _ in range(2):
+        cdf = _phi(x)
+        pdf = math.exp(-0.5 * x * x) / math.sqrt(2.0 * math.pi)
+        if pdf == 0.0:
+            break
+        x = x - (cdf - p) / (pdf + (cdf - p) * x / 2.0)
+    return x
 
 
 def standard_normal_cdf(z: float) -> float:

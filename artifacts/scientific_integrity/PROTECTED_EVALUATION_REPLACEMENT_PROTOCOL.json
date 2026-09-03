@@ -12,11 +12,13 @@
       2025
     ]
   },
+  "approval_identity_required": true,
   "gap_005_remains_open": true,
   "jira_keep_bat_401_done": true,
   "lane_decision": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "protocol_identity": "91017a8b7e214a8492b40dca31aa52cdeb0bf4032bbe885c34366d2b4058ba66",
+  "protocol_identity": "67acadf5671e01b63db655c6eab5f0affa73b87497316792ad22c466d7251da7",
   "protocol_status": "DESIGNED_INACTIVE",
+  "result_access_boundary": "results_inaccessible_to_implementation_until_freeze",
   "results_inaccessible_to_implementation_until_freeze": true,
   "stages": [
     "development",

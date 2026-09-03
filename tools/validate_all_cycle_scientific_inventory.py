@@ -8,6 +8,15 @@ import sys
 from pathlib import Path
 from typing import Any
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "src"))
+
+from aggie_analytics.governance.scientific_dependency_graph import (  # noqa: E402
+    circular_authority_from_edges,
+    directed_cycles,
+)
+
 REQUIRED_CYCLES = list(range(1, 26))
 ALLOWED_CLASSIFICATIONS = {
     "UNREVIEWED",
@@ -198,6 +207,15 @@ def validate(repo_root: Path) -> list[str]:
             )
     if not (dag.get("nodes") and dag.get("edges") is not None):
         findings.append("DAG_INCOMPLETE")
+    else:
+        computed_circular = circular_authority_from_edges(dag.get("edges") or [])
+        claimed_circular = dag.get("circular_authority") is True
+        if computed_circular and not claimed_circular:
+            findings.append("DAG_CIRCULAR_AUTHORITY_FALSE_WITH_CYCLE")
+        if not computed_circular and claimed_circular:
+            findings.append("DAG_CIRCULAR_AUTHORITY_TRUE_WITHOUT_CYCLE")
+        if directed_cycles([{"from": "A", "to": "B"}, {"from": "B", "to": "A"}]) == []:
+            findings.append("DAG_CYCLE_DETECTOR_FAILED_SELF_CHECK")
     matrix_cycles = {int(item["cycle_number"]) for item in matrix.get("cycles") or []}
     if matrix_cycles != set(REQUIRED_CYCLES):
         findings.append("THREE_PASS_MATRIX_INCOMPLETE")

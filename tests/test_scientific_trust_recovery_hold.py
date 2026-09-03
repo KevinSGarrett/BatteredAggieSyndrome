@@ -61,6 +61,18 @@ class ScientificTrustRecoveryHoldTests(unittest.TestCase):
         (tmp / "jira" / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json").write_bytes(
             registry_src.read_bytes()
         )
+        gate_src = (
+            REPO_ROOT
+            / "artifacts"
+            / "scientific_integrity"
+            / "all_cycles"
+            / "ALL_CYCLE_TRUST_RECOVERY_GATE.json"
+        )
+        dest_gate = tmp / "artifacts" / "scientific_integrity" / "all_cycles"
+        dest_gate.mkdir(parents=True, exist_ok=True)
+        dest_gate.joinpath("ALL_CYCLE_TRUST_RECOVERY_GATE.json").write_bytes(
+            gate_src.read_bytes()
+        )
         return tmp
 
     def test_done_transition_fails_closed_without_release(self) -> None:
@@ -96,7 +108,7 @@ class ScientificTrustRecoveryHoldTests(unittest.TestCase):
             )
         self.assertIn("HOLD_COMPLETION_CLAIM_WHILE_ACTIVE", findings)
 
-    def test_valid_release_receipt_authorizes_gated_actions(self) -> None:
+    def test_valid_release_receipt_does_not_unscoped_authorize(self) -> None:
         release_path = (
             REPO_ROOT
             / "artifacts"
@@ -111,13 +123,39 @@ class ScientificTrustRecoveryHoldTests(unittest.TestCase):
             payload["hold_receipt_identity"],
             "9c3ecb3091a41d6b4326ed701fccaddff4ed557251cd808d36e381455f6c24cd",
         )
-        findings = validate_hold(
+        missing_context = validate_hold(
             REPO_ROOT,
             proposed_merges=["scientific:BAT-690-national-foundation"],
             proposed_done_keys=["BAT-688"],
             proposed_parent_comment="CYCLE_25_5_BAT-523_PARENT_PROGRESS factual",
         )
-        self.assertEqual([], findings)
+        self.assertIn("HOLD_ACTION_CONTEXT_MISSING", missing_context)
+        unscoped_done = validate_hold(
+            REPO_ROOT,
+            proposed_action="done",
+            proposed_done_keys=["BAT-688"],
+        )
+        self.assertTrue(
+            any(
+                item.startswith("HOLD_DONE_REQUIRES_INDEPENDENT_ACCEPTANCE")
+                or item.startswith("HOLD_RELEASE")
+                for item in unscoped_done
+            )
+        )
+        unscoped_merge = validate_hold(
+            REPO_ROOT,
+            proposed_action="merge",
+            proposed_merges=["scientific:BAT-690-national-foundation"],
+        )
+        self.assertTrue(
+            any(item.startswith("HOLD_RELEASE_PR_NOT_IN_SCOPE") for item in unscoped_merge)
+        )
+        parent = validate_hold(
+            REPO_ROOT,
+            proposed_action="parent_progress_comment",
+            proposed_parent_comment="Cycle #26 BAT-523 parent-progress",
+        )
+        self.assertIn("HOLD_PROHIBITED_BAT_523_PARENT_PROGRESS_COMMENT", parent)
 
     def test_tampered_receipt_identity_fails(self) -> None:
         original = (

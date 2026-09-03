@@ -659,7 +659,7 @@
   "R26_21_ACTIVE_PATH_DEPENDENCY": "NONE_PROVEN",
   "R26_21_NOTE": "Week1 national fitted successor import closure has zero BAT-591/StatCrew edges; R26-21 remains CONFIRMED_CONTAINED_NOT_FIXED for corpus owners.",
   "manifest_integrity_note": "Regenerated provenance manifest to remove stale tools/_cycle26_patch_evidence.py entry that broke CI strict validate.",
-  "ci_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
+  "ci_head": "ffc766a7e442d8c5f5735efc1bba92f2317d3a8d",
   "ci_status": "BOUND_BY_LIVE_PR_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",

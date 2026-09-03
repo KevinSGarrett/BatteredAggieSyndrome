@@ -15,7 +15,7 @@
     "codex_review": "PASS",
     "workflow_run": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33736633545",
     "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-    "head_sha": "06db31244a08883ffb1d56e1db911d9b8b60ced4"
+    "head_sha": "ffc766a7e442d8c5f5735efc1bba92f2317d3a8d"
   },
   "ci_all_required_checks": "PASS",
   "note": "Hosted Codex scientific review PASS at head 06db31244a08883ffb1d56e1db911d9b8b60ced4 contributes evidence but does not alone complete Pass 3. Independent human adjudication still required. No author self-approval."

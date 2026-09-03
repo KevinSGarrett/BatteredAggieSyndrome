@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T18:13:53Z",
-  "git_tip": "e7a163f70b465228aa3b558e2e4dbf5d46ea4d5a",
+  "issued_at_utc": "2026-09-03T18:52:50Z",
+  "git_tip": "bf27aeadeb5a532703f2df949fc1bbe43bf4bcb9",
   "code_head_binding": "LIVE_PR_678_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "ci": "PASS",
@@ -30,7 +30,7 @@
   "R26_20": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_21": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_22": "CONFIRMED_CONTAINED_NOT_FIXED",
-  "jira_verify_live_at": "2026-09-03T15:43:12Z",
+  "jira_verify_live_at": "2026-09-03T18:51:28Z",
   "t90m_scheduler": "run_scheduled_sep3_t90m_capture.ps1 wake 2026-09-03T19:45:00Z ARMED",
   "t24h_scheduler": "run_scheduled_sep4_t24h_capture.ps1 wake 2026-09-03T22:00:00Z ARMED",
   "t90m_executor": "armed_2026-09-03T19:45:00Z",
@@ -40,5 +40,8 @@
   "am_t24h_scheduler": "armed_2026-09-04T22:15:00Z",
   "am_t90m_scheduler": "armed_2026-09-05T20:45:00Z",
   "failover_monitor": "armed",
-  "placeholder_ci_fix": "PASS_e7a163f7"
+  "placeholder_ci_fix": "PASS_e7a163f7",
+  "t90m_awaiting_1945_refresh": true,
+  "t90m_earliest_cutoff_utc": "2026-09-03T20:30:00Z",
+  "pre_1945_note": "Early T-90M freeze bound 2026-09-03T15:41:18Z remains valid; scheduled 19:45Z refresh will supersede capture identities if successful."
 }

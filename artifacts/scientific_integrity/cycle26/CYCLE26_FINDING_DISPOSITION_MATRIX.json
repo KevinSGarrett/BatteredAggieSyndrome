@@ -5,8 +5,8 @@
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "adversarial_regressions": {
-    "count": 46,
     "module": "tests/test_cycle26_adversarial_regressions.py",
+    "count": 49,
     "result": "OK"
   },
   "artifact_type": "CYCLE26_FINDING_DISPOSITION_MATRIX",
@@ -352,7 +352,7 @@
     }
   ],
   "git_tip_at_issuance": "23c5806f2e18a940c2f786f02be722d2872f5606",
-  "issued_at_utc": "2026-09-03T17:59:30Z",
+  "issued_at_utc": "2026-09-03T18:52:50Z",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "schema_version": 2
 }

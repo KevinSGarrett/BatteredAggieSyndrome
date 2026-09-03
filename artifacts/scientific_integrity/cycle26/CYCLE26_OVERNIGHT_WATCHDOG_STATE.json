@@ -1,10 +1,10 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T10:57:12Z",
-  "git_tip": "ab8fcf3e37ba886c9e96bfe57edcda30b7ddaf1b",
+  "issued_at_utc": "2026-09-03T12:37:36Z",
+  "git_tip": "983628d453c14d9284cd132fedb18c7a180c35fc",
   "code_head_binding": "LIVE_PR_678_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "ci": "PASS_PRIOR_TIP_PUSHING_REFRESH_BIND",
+  "ci": "WAITING_PROVENANCE_RESYNC_983628d4",
   "PRIMARY_TRUST_RECOVERY_INCOMPLETE": true,
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
@@ -26,5 +26,9 @@
   "capture_runner_log_tee": "ENABLED",
   "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
   "week_zero_scoring_fixture_validation": "PASS_INDEPENDENT_RECONSTRUCTION",
-  "midday_refresh": "PASS_20260903T104412Z"
+  "midday_refresh": "PASS_20260903T104412Z",
+  "R26_20": "CONFIRMED_FIXED_SUCCESSOR",
+  "R26_21": "CONFIRMED_FIXED_SUCCESSOR",
+  "R26_22": "CONFIRMED_CONTAINED_NOT_FIXED",
+  "jira_verify_live_at": "2026-09-03T12:36:56Z"
 }

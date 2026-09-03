@@ -1,9 +1,9 @@
 {
   "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T21:00:00Z",
+  "issued_at_utc": "2026-09-03T23:03:40Z",
   "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
-  "note": "Every entry classified; active PR/worktree branches retained under hold. No unexplained disposable obsolete refs removed in this refresh; Dependabot #654 retained.",
-  "git_tip": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07",
+  "note": "Re-enumerated 2026-09-03T23:03:40Z. Every entry classified; deleted_count=0. Active PR #678 and Dependabot #654 retained. Canonical main 55e12a5a left unchanged. Closed-unmerged historical remotes retained (not disposable). Active review worktree retained under hold.",
+  "git_tip": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
   "local_branch_count": 31,
   "worktree_count": 14,
   "open_pr_count": 2,
@@ -385,7 +385,7 @@
     {
       "number": 678,
       "head": "codex/BAT-690-c26-scr",
-      "oid": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07",
+      "oid": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
       "url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"
     },
     {
@@ -399,13 +399,12 @@
   "hold": "ACTIVE_no_merge_for_cleanup",
   "obsolete_cleanup_note": "preserve/* tips may be ancestors of main but are PRESERVATION_RETAIN; not deleted. No MERGED_OBSOLETE_ELIGIBLE deletions executed in this refresh.",
   "scheduler_dedupe": {
-    "sep4_t24h": "PID_34232 TargetUtc 2026-09-03T22:00:00Z",
     "am_t24h": "PID_17032 TargetUtc 2026-09-04T22:15:00Z",
     "am_t90m": "PID_20624 TargetUtc 2026-09-05T20:45:00Z",
-    "failover_monitors": [
-      "37744",
-      "19856",
-      "60988"
-    ]
-  }
+    "am_t24h_failover": "PID_37876",
+    "am_t90m_failover": "PID_57284",
+    "sep4_t24h": "COMPLETE_2026-09-03T22:12:29Z"
+  },
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "reenumeration_at_utc": "2026-09-03T23:03:40Z"
 }

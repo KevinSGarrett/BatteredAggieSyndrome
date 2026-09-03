@@ -44,14 +44,15 @@
   "checkpoint_policy": {
     "sep3_t24h": "MISSED_CUTOFF_NO_BACKFILL",
     "sep3_t90m_still_open_until_earliest_utc": "2026-09-03T20:30:00Z",
-    "sep4_t24h_open": true,
+    "sep4_t24h_open": false,
     "am_6607349_t24h_utc": "2026-09-04T23:00:00Z",
     "am_6607349_t90m_utc": "2026-09-05T21:30:00Z",
     "asof_is_not_per_game_t24h": true,
-    "sep3_t90m_freeze": "T-90M"
+    "sep3_t90m_freeze": "T-90M",
+    "sep4_window_t24h": "T-24H_BOUND_2026-09-03T22:12:29Z"
   },
   "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
-  "rebound_at_utc": "2026-09-03T22:12:01Z",
+  "rebound_at_utc": "2026-09-03T23:03:40Z",
   "refresh_run": {
     "phase": "REFRESH",
     "finished_at_utc": "2026-09-03T15:30:37Z",
@@ -63,15 +64,23 @@
   },
   "next_calendar_actions": [
     {
-      "action": "SEP4_T24H_CAPTURE",
-      "deadline_window": "per-contest T-24H before each Sep4 kickoff; scheduler wake 2026-09-03T22:00:00Z",
-      "earliest_open_cutoff_utc": "2026-09-03T22:30:00Z",
-      "am_t24h_utc": "2026-09-04T23:00:00Z"
+      "action": "AM_6607349_T24H_CAPTURE",
+      "deadline_window": "A&M contest 6607349 T-24H 2026-09-04T23:00:00Z; scheduler wake 2026-09-04T22:15:00Z with failover",
+      "cutoff_utc": "2026-09-04T23:00:00Z",
+      "wake_utc": "2026-09-04T22:15:00Z",
+      "promise": false
     },
     {
-      "action": "SEP4_T24H_CAPTURE",
-      "deadline_window": "per-contest T-24H before each Sep4 kickoff",
-      "am_t24h_utc": "2026-09-04T23:00:00Z"
+      "action": "AM_6607349_T90M_CAPTURE",
+      "deadline_window": "A&M contest 6607349 T-90M 2026-09-05T21:30:00Z; scheduler wake 2026-09-05T20:45:00Z with failover",
+      "cutoff_utc": "2026-09-05T21:30:00Z",
+      "wake_utc": "2026-09-05T20:45:00Z",
+      "promise": false
+    },
+    {
+      "action": "OFFICIAL_FINAL_ACQUISITION_WHEN_PUBLISHED",
+      "scoring": "AWAITING_FINAL",
+      "note": "Do not train/select/tune/promote on Week 1 outcomes. Do not backfill missed T-24H."
     }
   ],
   "t90m_capture": {

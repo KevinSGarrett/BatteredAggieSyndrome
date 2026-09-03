@@ -159,8 +159,8 @@
     "oriented_rows": "a46aee71b79689d2ad74a6fcceb293bcb291273386b7bd8b72f7e55d4bad08cc"
   },
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "rebinding_code_head": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
-  "rebinding_issued_at_utc": "2026-09-03T12:26:41Z",
+  "rebinding_code_head": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
+  "rebinding_issued_at_utc": "2026-09-03T23:03:40Z",
   "result": "PASS_WITHIN_DECLARED_SUCCESSOR_SCOPE",
   "scope": {
     "candidate_families": [

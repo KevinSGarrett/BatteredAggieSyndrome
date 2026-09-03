@@ -717,10 +717,10 @@
     "probability_sum": 1.0,
     "publication_label": "UNTRUSTED_SHADOW"
   },
-  "acceptance_rebound_at_utc": "2026-09-03T22:18:57Z",
+  "acceptance_rebound_at_utc": "2026-09-03T23:03:40Z",
   "Pass3": "PENDING_INDEPENDENT_REVIEWER",
   "sep4_window_t24h_freeze_at_utc": "2026-09-03T22:12:29Z",
-  "git_tip": "4209c413385d9b6d741e5dec120e70a3e094e8c1",
+  "git_tip": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
   "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
   "calendar": {
     "sep3_t24h": "MISSED_CUTOFF_NO_BACKFILL",
@@ -729,5 +729,7 @@
     "am_t24h_utc": "2026-09-04T23:00:00Z",
     "am_t90m_utc": "2026-09-05T21:30:00Z",
     "scoring": "AWAITING_FINAL"
-  }
+  },
+  "jira_verify_live_at": "2026-09-03T23:01:40Z",
+  "numbered_final_report": true
 }

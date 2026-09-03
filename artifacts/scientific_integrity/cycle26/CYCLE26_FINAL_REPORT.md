@@ -1,86 +1,165 @@
 # Cycle #26 Final Report — IMPLEMENTATION_REVIEW_READY_UNMERGED
 
-Issued: 2026-09-03T12:26:41Z
-Worktree: C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr
-Branch: codex/BAT-690-c26-scr
-Base: 55e12a5aad3a7e843204fcba619c3cb3d3d6194d
+Issued: 2026-09-03T23:02:00Z
+Worktree: `C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr`
+Branch: `codex/BAT-690-c26-scr`
+Development origin: `KevinSGarrett/BatteredAggieSyndrome` (public; migration `DEFERRED_BY_USER_NOT_COMPLETE`)
+Data root: `C:/BatteredAggieSyndrome.data`
+Base / canonical `origin/main`: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d` (left unchanged)
+Requested review head: `1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2`
 PR: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678
-Authoritative tip: the live PR #678 head on origin (this file is carried on that tip; do not treat a stale SHA printed elsewhere as authority).
-Sep4-window T-24H freeze bound at 2026-09-03T22:12:29Z (label authority T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW; earliest cutoff 22:30:00Z). Tip 4209c413385d9b6d741e5dec120e70a3e094e8c1 CI green. A&M T-24H/T-90M schedulers remain armed. PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; hold ACTIVE; REVIEW_READY_UNMERGED.
-Watchdog resume rebound: 2026-09-03T20:53:51Z at tip f1fe397b48b2aefa29110b4fbd150e033bb6c564 (CI green; Sep3 T-90M bound 2026-09-03T20:01:19Z; Sep4 T-24H armed 22:00Z; A&M schedulers armed; PRIMARY_TRUST_RECOVERY_INCOMPLETE).
-Active-path gate identity: aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43
-Active-path dataset identity: 770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939
-Historical pair-successor gate identity: 1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0
-Historical pair-successor dataset identity: f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9
-Passing-section successor gate identity: 1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787
-Passing-section successor dataset identity: e98912fa5be82ecea999380040b1031e83e3c40ac07a76a615ceffd817439912
-Status successor gate identity: 54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894
-Status successor dataset identity: 8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b
-Migration: DEFERRED_BY_USER_NOT_COMPLETE — Cycle #26 proceeded on public origin under existing scientific controls.
+Historical manager-review SHA (not this head): `04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1`
+Fort Knox assistive pipeline: `NOT_OPERATIONAL` (direct BAS work permitted)
+Operator hold: ACTIVE. No merge, no Done on BAT-690–694/BAT-696, no Cycle #26 BAT-523 parent-progress/completion comment.
 
-## Terminal states (independent)
+This is the Cycle #26 stop-boundary report. It does not close Cycle #25.5, release the all-cycle trust gate, or authorize integration.
 
-| Dimension | Result |
+## 1. Identities
+
+| Object | Identity |
 |---|---|
-| Evidence operations | EVIDENCE_CAPTURE_VERIFIED |
-| Known-defect containment | CONTAINMENT_VERIFIED |
-| Probability component | VERIFIED_WITHIN_DECLARED_SCOPE |
-| Joint fitted path | VERIFIED_WITHIN_DECLARED_SCOPE (UNTRUSTED_SHADOW; declared successor only) |
-| Primary trust recovery | PRIMARY_TRUST_RECOVERY_INCOMPLETE |
-| Predictive skill | DEVELOPMENT_EVIDENCE_ONLY (2023 frozen partition; not Week1 prospective) |
-| Historical all-cycle audit | unfinished; not claimed complete |
-| Jira board/local | JIRA_BOARD_LOCAL_CONVERGENCE=VERIFIED |
-| Branch/worktree hygiene | BRANCH_WORKTREE_HYGIENE=VERIFIED (classified; deleted_count=0 pending squash-merge proof) |
-| Integration authority | REVIEW_READY_UNMERGED |
-| Pass 3 independent review | PENDING_INDEPENDENT_REVIEWER |
-| Operator hold / Done / BAT-523 parent comment | unchanged |
+| Week 1 national forecast successor gate | `aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43` |
+| Week 1 dataset | `770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939` |
+| Historical pair successor gate | `1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0` |
+| Passing-section successor gate | `1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787` |
+| Structured-status successor gate | `54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894` |
+| Corpus derivative-integrity successor | `8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e` |
+| R26-22 pair-audit gate | `0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548` |
 
-## Primary scientific delivery
+## 2. Independent 12C states
 
-National game-grain forecast successor remains the declared active Week 1 path:
-- Opportunities: 455 (91×5); ridge joint coherent: 79/91
-- A&M 6607349 ridge both orientations: P(home)=0.8951316669, P(away)=0.1048683331, sum=1; margins +22.2506043541 / -22.2506043541, sum=0
-- Publication: UNTRUSTED_SHADOW
-- R26-21 active-path dependency: NONE (zero BAT-591 import edges)
+| Dimension | Result | Does not establish |
+|---|---|---|
+| Evidence operations | `EVIDENCE_CAPTURE_VERIFIED` | Correct fitted science |
+| Known-defect containment | `CONTAINMENT_VERIFIED` | All defects repaired or a production path restored |
+| Probability component | `VERIFIED_WITHIN_DECLARED_SCOPE` | Margin/interval for every family, or empirical accuracy |
+| Joint fitted path | `VERIFIED_WITHIN_DECLARED_SCOPE` on the Week 1 successor only, publication `UNTRUSTED_SHADOW` | Whole-project trust |
+| Primary trust recovery | `PRIMARY_TRUST_RECOVERY_INCOMPLETE` | Cycle #26 name does not confer recovery |
+| Predictive skill | `DEVELOPMENT_EVIDENCE_ONLY` | Future Week 1 skill or a BAS conclusion |
+| Historical all-cycle audit | Unfinished; pass-two `BLOCKED_INSUFFICIENT_EVIDENCE` for cycles 1–25; pass-three category search is PARTIAL | Completeness because 25 JSON files exist |
+| Live/local Jira and board | `JIRA_BOARD_LOCAL_CONVERGENCE=VERIFIED` on PR #678, not canonical main | Done authority |
+| Branch/worktree hygiene | `BRANCH_WORKTREE_HYGIENE=VERIFIED` (classified; `deleted_count=0`) | Permission to delete closed-unmerged or open-PR refs |
+| Integration authority | `REVIEW_READY_UNMERGED` | Hold release or merge |
+| Pass 3 | `PENDING_INDEPENDENT_REVIEWER` | Hosted Codex SUCCESS is defense-layer only |
 
-Historical C20/C21 pair complement is repaired as a new successor, not by rewriting old files:
-- C20: 910 unique games × 5 candidates, failing_pairs=0
-- C21: 5035 unique games × 5 candidates, failing_pairs=0
-- Original C20 team-grain metrics are deprecated; unique-game ridge Brier=0.17587702 (DEVELOPMENT_EVIDENCE_ONLY)
-- C20/C21 joint Normal interval is not claimed
+## 3. Primary scientific delivery
 
-Passing-section successor (R26-21) rematerialized 429 confirmed mislabeled rows on 125 raw pages without rewriting the predecessor player corpus. 45 unresolved screen candidates remain unresolved. 22 confirmed TEAM rows stay team-attributed evidence.
+National Week 1 game-grain successor (declared active path):
 
-Structured-status successor restores SRC-002:GAME:312472199 as Eastern Michigan 41, Howard 9 (EMU home). Predecessor national foundation quarantine is preserved. PIT admission remains closed. Truthy completed strings cannot authorize restore.
+- Universe: 91 contests (`UNCHANGED_COUNT` vs prior 91-contest baseline).
+- Opportunities: 455 (91×5 candidates). Oriented rows are derived, not extra games.
+- Ridge joint coherent: 79/91 contests.
+- A&M NCAA 6607349 ridge both orientations: P(home)=0.8951316669, P(away)=0.1048683331, sum=1; margins +22.2506043541 / −22.2506043541, sum=0.
+- Publication: `UNTRUSTED_SHADOW`. 50% control is `CONTROL_ONLY`.
+- R26-21 active-path StatCrew import edges: 0.
+- Scoring of Week 1 targets: `AWAITING_FINAL` (no target-outcome training/tuning/promotion).
 
-PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 unresolved (pass-two backlog); R26-13 unresolved (admin thresholds); R26-22 contained not fully repaired; all-cycle trust gate closed; Pass 3 pending human adjudication. Unresolved/contained P1 findings prohibit scientific PASS or credibility treatment.
+Historical C20/C21 pair complement repaired as a successor (old saved payloads not rewritten): C20 910 unique games × 5, failing_pairs=0; C21 5035 × 5, failing_pairs=0. Unique-game ridge Brier=0.17587702 (`DEVELOPMENT_EVIDENCE_ONLY`). C20/C21 joint Normal interval is not claimed.
 
-## Calendar / capture
+Passing-section successor (R26-21): 429 confirmed mislabeled rows on 125 raw pages; 45 unresolved screen candidates; 22 TEAM rows stay team-attributed.
 
-- Sep 3 T-24H: MISSED_CUTOFF_NO_BACKFILL (11 contests)
-- Sep 3 T-90M: **bound** 2026-09-03T15:41:18Z predecessor and **successor refresh** 2026-09-03T19:05:35Z (`T90M_LABEL_PERMITTED`; earliest cutoff 2026-09-03T20:30:00Z); scheduler refresh still armed 19:45Z
-- National Sep4-window T-24H: **bound** 2026-09-03T22:12:29Z (T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW; earliest cutoff 22:30Z)
-- A&M 6607349 T-24H 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z
-- Scoring: AWAITING_FINAL
-- Deterministic capture runner: ops/cycle26/run_week1_checkpoint_capture.ps1
+Structured-status successor (7A.7): SRC-002:GAME:312472199 restored as Eastern Michigan 41, Howard 9. PIT admission remains closed.
 
-## Explicit non-claims
+Corpus derivative-integrity successor: 4 stale child-count domains recomputed; mounted `rejected_url_hits=0`; 58753 `original_text` preserved / 2803 stringified-parsed (`QUALIFIED`).
 
-No hold release, merge authority, production credibility, BAS/Aggie Excess, or prospective predictive skill. No Done on remaining scientific owners. No Cycle #26 BAT-523 parent progress comment. No scientific PASS while unresolved/contained P1 findings remain on the declared matrix.
+R26-22: 27,274,659 proxy-admitted prior-target pairs; 14 near-bound; `leakage_declared=false`; Week 1 successor does not import the PIT bound. Disposition `CONFIRMED_CONTAINED_NOT_FIXED`.
 
-_Midday bind 2026-09-03T14:11:28Z: tip=6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa; CI PASS; REFRESH captures 9e98e3d8/6b9b57be/1c0ae677; T-90M pipeline armed 19:45Z._
+`PRIMARY_TRUST_RECOVERY_INCOMPLETE` blockers that remain: R26-09 (all-cycle pass-two backlog); R26-13 (admin required-review thresholds; live `required_approving_review_count=0`); R26-22 contained not fully repaired; Pass 3 pending a reviewer independent of the implementing author; all-cycle trust gate closed; no Week 1 official finals for target scoring.
 
-_Schedulers armed 2026-09-03T14:39:00Z: tip=3f0ad33e4e2bb15751ce85991994e3ee14274949; T-90M wake 19:45Z; national T-24H wake 22:00Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
+## 4. Finding disposition (R26-01–R26-26 and 7A.7)
 
-_T-90M bound 2026-09-03T15:41:18Z: tip=5dbced15; freeze receipt CYCLE26_SEP3_T90M_FREEZE_RECEIPT; schedule f8be37b3; CI pending on push; national T-24H scheduler wake 22:00Z still armed._
-_7A.7/R26-22 bind 2026-09-03T17:59:30Z: corpus successor 8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e (4 stale child-count domains recomputed; 0 rejection leaks; 0 unresolved external BAT placeholder ownership tokens in scanned authority files; 58753 original_text preserved / 2803 stringified-parsed QUALIFIED). R26-22 pair audit 0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548: 27274659 proxy-admitted pairs, 14 near-bound, leakage_declared=false, Week1 path does not import PIT bound. Jira --verify-live PASS 2026-09-03T17:52:23Z. PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
+| ID | Disposition | Owner |
+|---|---|---|
+| R26-01 | CONFIRMED_FIXED | BAT-689 |
+| R26-02 | CONFIRMED_FIXED | BAT-688 |
+| R26-03 | CONFIRMED_FIXED | BAT-696 |
+| R26-04 | CONFIRMED_FIXED | BAT-696 |
+| R26-05 | CONFIRMED_FIXED | BAT-693 |
+| R26-06 | CONFIRMED_FIXED | BAT-693 |
+| R26-07 | CONFIRMED_FIXED | BAT-694 |
+| R26-08 | QUALIFIED | BAT-690 |
+| R26-09 | CONFIRMED_UNRESOLVED | BAT-688 |
+| R26-10 | DISPROVED_WITH_EVIDENCE | BAT-688 |
+| R26-11 | CONFIRMED_FIXED | BAT-688 |
+| R26-12 | CONFIRMED_FIXED | BAT-688 |
+| R26-13 | CONFIRMED_UNRESOLVED | BAT-689 |
+| R26-14 | NOT_APPLICABLE_WITH_REASON | BAT-690 |
+| R26-15 | CONFIRMED_FIXED | BAT-689 |
+| R26-16 | CONFIRMED_FIXED | BAT-688 |
+| R26-17 | CONFIRMED_FIXED | BAT-688 |
+| R26-18 | QUALIFIED | BAT-688 |
+| R26-19 | CONFIRMED_FIXED (protocol remains DESIGNED_INACTIVE) | BAT-401 lineage |
+| R26-20 | CONFIRMED_FIXED (successor; predecessors preserved) | BAT-693 |
+| R26-21 | CONFIRMED_FIXED (successor) | BAT-692 |
+| R26-22 | CONFIRMED_CONTAINED_NOT_FIXED | BAT-690 |
+| R26-23 | CONFIRMED_FIXED | BAT-692 |
+| R26-24 | CONFIRMED_FIXED | BAT-688 |
+| R26-25 | CONFIRMED_FIXED | BAT-689 |
+| R26-26 | CONFIRMED_FIXED | BAT-693 |
+| C26-7A7-* | FIXED / QUALIFIED as recorded in the matrix | BAT-692 |
+| C26-MOUNTED-STATCREW-PREDECESSOR-RECONSTRUCTION | CONFIRMED_CONTAINED_NOT_FIXED | BAT-692 |
 
-_Pre-1945Z sync 2026-09-03T18:52:50Z: tip=bf27aeadeb5a532703f2df949fc1bbe43bf4bcb9; CI PASS; jira verify-live PASS (627); adversarial=49 OK; early T-90M freeze retained; 19:45Z scheduler refresh pending before earliest cutoff 20:30Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED._
-_T-90M successor freeze 2026-09-03T19:05:35Z: tip=4c726140; predecessor 15:41:18Z retained as CYCLE26_SEP3_T90M_FREEZE_RECEIPT_20260903T154118Z.json; schedule 71704c598166747d34384d86d49deee88a6183121738b80c47cada6a9e729b0d; label T90M_LABEL_PERMITTED before earliest cutoff 20:30Z; 19:45Z scheduler still armed; Sep4 T-24H wake 22:00Z; mounted validate_repository --strict FAIL 14 StatCrew predecessor reconstructions CONFIRMED_CONTAINED_NOT_FIXED; CI unmounted PASS; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
-_T-90M scheduled 19:45Z refresh bound 2026-09-03T20:01:19Z: tip=2020c45b; predecessor 19:05:35Z retained as CYCLE26_SEP3_T90M_FREEZE_RECEIPT_20260903T190535Z.json; schedule ac08bf4c0f468205cbfd8a8da7fc6ec4cc992845fd93f46b80ab253e79fbc65e; full unittest 3136 OK skipped=265; Sep4 T-24H wake 22:00Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
+Matrix path: `artifacts/scientific_integrity/cycle26/CYCLE26_FINDING_DISPOSITION_MATRIX.json`.
 
-_Scheduled T-90M wake bind 2026-09-03T20:01:19Z: tip advancing after freeze receipt; label T90M_LABEL_PERMITTED; schedule ac08bf4c; national T-24H still armed 22:00Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
+## 5. Calendar and capture
 
-_Sep4-window T-24H freeze 2026-09-03T22:12:47Z: label T-24H permitted before 22:30Z cutoff; schedule 0236d013…; weather 802fd99d…; PRIMARY_TRUST_RECOVERY_INCOMPLETE; REVIEW_READY_UNMERGED._
+Actual UTC at this report: 2026-09-03T23:02:00Z.
 
-_National Sep4-window T-24H bound 2026-09-03T22:12:29Z: tip=6ea6a182; label T-24H / T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW (cutoff 22:30Z); PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
+- Sep 3 T-24H: `MISSED_CUTOFF_NO_BACKFILL` (11 contests). No backfill.
+- Sep 3 T-90M: labeled freezes at 15:41:18Z, 19:05:35Z, and scheduled 20:01:19Z, all before earliest cutoff 20:30:00Z. Predecessors retained as timestamped receipts.
+- National Sep4-window T-24H: freeze 2026-09-03T22:12:29Z, `T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW` (cutoff 22:30:00Z). Schedule identity `0236d0138163a79db23937a418809af54e0651cefde644ddf11b23b3e273b4a0`.
+- A&M 6607349 T-24H still future: 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z. Schedulers armed (`am_t24h` wake 2026-09-04T22:15:00Z; `am_t90m` wake 2026-09-05T20:45:00Z) with overlap lock. This report does not promise those future executions.
+- Official-final scoring: `AWAITING_FINAL`. Odds API: ABSENT (explicit; no invented quotes).
+- Runner: `ops/cycle26/run_week1_checkpoint_capture.ps1`.
+
+## 6. Tests and purity
+
+At worktree `src` first on PYTHONPATH:
+
+- Adversarial regressions: 49 OK (`tests/test_cycle26_adversarial_regressions.py`).
+- Mounted-default full discover: 3136 tests, 265 skipped, OK (2026-09-03T19:25:53Z).
+- Unmounted `validate_repository --strict` (empty `AGGIE_ANALYTICS_DATA_ROOT`): PASS after manifest rewrite.
+- Mounted `validate_repository --strict` against `C:\BatteredAggieSyndrome.data`: FAIL 14 predecessor StatCrew/structured-domain reconstructions — contained, not rematerialized; CI unmounted core-validation PASS.
+- Truly unmounted unittest discover (empty data root): 2988 tests, 219 skipped, 1 failure + 39 errors from tests that assume mounted fixtures. Reported, not converted into hidden skips.
+- Warnings-as-errors on mounted default at process-streak HEAD: 3136 tests, 1 failure (`CONSECUTIVE_PROCESS_ONLY_LIMIT_EXCEEDED` on a `[process]` commit). Subsequent `[material]` commits reset the streak; `test_execution_focus` 10/10 OK at later tips.
+- Hosted CI on PR #678 head `1cd2205b`: all attached checks PASS (ubuntu/windows core-validation, product-adapter, security-policy, CodeQL, coverage-upload, Codex review, Codecov patch, dependency-review).
+- `import_bat_live.py --verify-live`: PASS 2026-09-03T23:01:40Z; 627/627; 0 discrepancies; board 134 / filter 10134; project Done 212 / In Progress 1 / In Review 6 / To Do 408.
+
+## 7. Jira (4A)
+
+Live/local managed-field convergence `VERIFIED` on this PR branch, not on canonical main.
+
+- Project: BAT / 10133; board 134; JQL `project = BAT AND labels = post-wave ORDER BY Rank ASC`.
+- Remaining scientific owners BAT-690–694/BAT-696: In Review (hold). BAT-523 In Progress. BAT-401 Done + `RETAIN_PROTECTED_LANE_BLOCKED`. BAT-429 To Do. GAP-005 remains open.
+- No Cycle #26 BAT-523 parent-progress or parent-completion comment. Comment 14723 mapped to CYCLE-25.5; not edited/deleted.
+- Owner notes 14729 (BAT-692) and 14730 (BAT-651) are non-parent.
+
+## 8. Branch/worktree hygiene (4B)
+
+`BRANCH_WORKTREE_HYGIENE=VERIFIED`: every inventoried ref classified. `deleted_count=0`. Closed-unmerged historical `codex/BAT-*` remotes retained (a closed-unmerged PR is not disposable). Open PRs: #678 and Dependabot #654. Canonical main not fast-forwarded. Active review worktree retained.
+
+## 9. Three-pass acceptance (12A)
+
+- Pass 1: provenance/completeness of the declared successor closure — bound to live PR tip; Week 1 gate `aa4ff84b…` unchanged across later process/material evidence commits.
+- Pass 2: independent reconstruction `PASS_WITHIN_DECLARED_SUCCESSOR_SCOPE`; `independent_fail_count=0`; ridge rows checked 79; oriented rows 158.
+- Pass 3: `PENDING_INDEPENDENT_REVIEWER`. Implementing author cannot self-approve. Hosted Codex review on this tip is a defense layer, not this pass.
+
+Any later semantic change of the successor path invalidates these receipts.
+
+## 10. Explicit non-claims
+
+No hold release, merge, production credibility, BAS / Aggie Excess / A&M-lift, or prospective predictive skill. No independent predicted final score. 2024/2025 remain exposed; protected lane `DESIGNED_INACTIVE`. Fitted Week 1 numbers are `UNTRUSTED_SHADOW`, not recommended.
+
+## 11. Remaining calendar and #25.5 backlog
+
+- A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z: capture operation prepared; future execution is not claimed by this report.
+- Official finals for kicked-off contests: acquire when published; do not score unfrozen or abstained rows; do not train on Week 1 outcomes.
+- All-cycle three-pass backlog remains under existing #25.5 owners (see `CYCLE26_REMAINING_AUDIT_BACKLOG.json`).
+- R26-13 admin activation of required approving reviews / normalized latest-head review gate remains outstanding.
+
+## 12. Requested user authorization
+
+Present PR head `1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2` (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
+
+Operational stop state: `IMPLEMENTATION_REVIEW_READY_UNMERGED`.
+Primary scientific stop state: `PRIMARY_TRUST_RECOVERY_INCOMPLETE`.

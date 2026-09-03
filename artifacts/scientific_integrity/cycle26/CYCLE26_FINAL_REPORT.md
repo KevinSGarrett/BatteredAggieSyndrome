@@ -6,6 +6,7 @@ Branch: codex/BAT-690-c26-scr
 Base: 55e12a5aad3a7e843204fcba619c3cb3d3d6194d
 PR: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678
 Authoritative tip: the live PR #678 head on origin (this file is carried on that tip; do not treat a stale SHA printed elsewhere as authority).
+Watchdog resume rebound: 2026-09-03T20:53:51Z at tip f1fe397b48b2aefa29110b4fbd150e033bb6c564 (CI green; Sep3 T-90M bound 2026-09-03T20:01:19Z; Sep4 T-24H armed 22:00Z; A&M schedulers armed; PRIMARY_TRUST_RECOVERY_INCOMPLETE).
 Active-path gate identity: aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43
 Active-path dataset identity: 770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939
 Historical pair-successor gate identity: 1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0

@@ -1,8 +1,8 @@
+<p align="center"><sub>Research concept artwork — displayed scores and percentages are illustrative, not game forecasts.</sub></p>
+
 <p align="center">
   <img src="docs/assets/readme/hero.png" width="100%" alt="Battered Aggie Syndrome: college football analytics and Texas A&amp;M research">
 </p>
-
-<p align="center"><sub>Research concept artwork — displayed scores and percentages are illustrative, not game forecasts.</sub></p>
 
 <h1 align="center">Battered Aggie Syndrome</h1>
 

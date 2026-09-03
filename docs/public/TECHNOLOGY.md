@@ -29,7 +29,7 @@ The repository also contains Elo and regularized-model experiments plus independ
 - Dashboard: HTML, CSS, and JavaScript; no frontend build framework is required by the current adapter.
 - Data formats: JSON/JSONL, CSV, and Parquet-oriented analytical workflows; bulk payloads live outside Git.
 - Testing: standard-library unittest; `test` installs optional Hypothesis.
-- Repository checks: Ruff, GitHub Actions, security analysis, and coverage/review tooling.
+- Repository checks: GitHub Actions, repository validators, security analysis, and coverage/review tooling.
 
 ## Install only what you need
 

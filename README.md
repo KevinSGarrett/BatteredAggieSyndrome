@@ -159,7 +159,7 @@ The [installation and usage guide](docs/public/GETTING_STARTED.md) covers shell 
 | **Evaluation and explainability** | Independent reference calculations; optional scoringrules, MAPIE, SHAP |
 | **Experiments** | Optional MLflow and Optuna; experiment storage does not authorize evaluation-set tuning |
 | **API and interface** | FastAPI, Uvicorn, HTML, CSS, JavaScript; read-only snapshot serving |
-| **Testing and delivery** | unittest, optional Hypothesis, Ruff, GitHub Actions, code and coverage review |
+| **Testing and delivery** | unittest, optional Hypothesis, GitHub Actions, code and coverage review |
 
 The [full stack guide](docs/public/TECHNOLOGY.md) maps technologies to installation extras and separates tooling from validated capability. Exact dependency versions live in [pyproject.toml](pyproject.toml).
 

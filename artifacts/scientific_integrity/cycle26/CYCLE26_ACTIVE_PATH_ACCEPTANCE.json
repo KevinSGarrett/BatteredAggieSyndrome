@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
-  "issued_at_utc": "2026-09-03T07:36:31Z",
-  "code_head": "c9662a01785ad817a9579e81e001d2e8b086fa3f",
+  "issued_at_utc": "2026-09-03T07:40:12Z",
+  "code_head": "a79ca4f8766dbb32838b3a0949801fb90dd16213",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",

@@ -1,13 +1,13 @@
 {
   "artifact_type": "CYCLE26_WEEK1_CAPTURE_RECEIPT",
-  "issued_at_utc": "2026-09-03T09:29:55Z",
+  "issued_at_utc": "2026-09-03T09:31:33Z",
   "code_head_binding": "LIVE_PR_678_TIP",
-  "git_tip_at_issuance": "2112ec165c213a143de31f15a4811159b1c9c7a7",
+  "git_tip_at_issuance": "effe6a53fe7dda5d9a11f23531593a90356ac09f",
   "data_root": "C:\\\\BatteredAggieSyndrome.data",
   "captures": {
     "schedule_source_universe": {
       "tool": "tools/acquire_week1_2026_source_universe.py --dataset schedule",
-      "capture_identity": "3b300e12414d4dece017fcf5388892c8fc2e0aa8753f9622b9ac03644fb15a48",
+      "capture_identity": "9a9b659ce06e8d2708c84d34b28d4ec5b4dfbdc5d8ed6dfea19e7484164d0f6d",
       "dates_captured": [
         "2026-09-03",
         "2026-09-04",
@@ -15,32 +15,23 @@
         "2026-09-06",
         "2026-09-07"
       ],
-      "state": "CAPTURED",
-      "date_identities": {
-        "2026-09-03": "b3de1192c36b0f840df99e8f89d3178baf1f8f21aeac91f23e44d77ecef474d9",
-        "2026-09-04": "a9a840c1b2ce4701cd6288e17ce5ee049ed1f94a6babb26fc025cf218cbe1b0e",
-        "2026-09-05": "64e443a4d55ede94edb4732146cc6996be8a604f1ca764788eb967fd0872a6b4",
-        "2026-09-06": "9be0b65568bc6b2fd89b01a2910a69b10c17a3bf107d3373f9cd1e794cb960d5",
-        "2026-09-07": "cd69badfcf49b96cd86ae5bfc9ef76acf5f0ede6ce38530e473489e17fd0f4b3"
-      }
+      "state": "CAPTURED"
     },
     "authority_enrichment": {
       "tool": "tools/acquire_week1_2026_authority_enrichment.py --dataset all",
-      "kickoff_authority": "3ae5f779b7df406bc5c7a83d7e2467155287536f9e3958c909701a9bdf950ae2",
-      "entity_authority": "2262e00c7b232092125ff3b57db5dfc6af60dd6de8d53a71ee16c4858826cdb8",
-      "venue_authority": "91baeb2755f75be6e4a45553017ecf825c2e55b8f27f9a789766d8b4e7cd142c",
-      "kickoff_payload_identity": "a1e01eb870027cc9d362ccbe3da62ed6f8975cb49e0495d47f27c6e768c2c857",
-      "venue_payload_identity": "812f0dc7b3fb8bcd445a21623092dcd2806b078867d499b432214aa1596acfb7",
+      "kickoff_authority": "ceadd5c77896442722415a2af359dd282fb715fc1397a73f87ef3f7890f418a2",
+      "entity_authority": "16659f44bce82b706c4ef40b9f44d3a83497b6a1612b24de79ca174f7a5b533a",
+      "venue_authority": "74a3c842de33f724a0d66d89921f919ea72b4b3f6349f6c187d94174c2be0df8",
       "state": "CAPTURED"
     },
     "rankings": {
       "tool": "tools/acquire_week1_2026_current_context.py --dataset rankings",
-      "capture_identity": "04b6600f114de7a7390f4311a4eb29f12fd66a8b6830ce8cccd8eab5a7535367",
+      "capture_identity": "3344a065fdecc47d2cf569b9cf0d0ba1ba4eab3da00eaa8fed41ab630c37cc94",
       "state": "CAPTURED"
     },
     "weather": {
       "tool": "tools/acquire_week1_2026_current_context.py --dataset weather --venue-coordinates C:/BatteredAggieSyndrome.data/tmp/c23_venue_coords.json",
-      "capture_identity": "0181c3eb744d62eb2395a1e264cfd2dd10a834c8ff0c755f376023e00b15edd5",
+      "capture_identity": "85f9565bc9e2e2556aaa23d645a33fba5ef6e2e58a5795545c162eafb182f8a8",
       "state": "CAPTURED",
       "venue_coordinates": "C:/BatteredAggieSyndrome.data/tmp/c23_venue_coords.json"
     }
@@ -54,13 +45,13 @@
     "asof_is_not_per_game_t24h": true
   },
   "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
-  "rebound_at_utc": "2026-09-03T09:29:55Z",
+  "rebound_at_utc": "2026-09-03T09:31:33Z",
   "refresh_run": {
     "phase": "REFRESH",
     "finished_at_utc": "2026-09-03T09:28:50Z",
     "runner": "ops/cycle26/run_week1_checkpoint_capture.ps1",
-    "log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260903T092404Z.log",
-    "note": "Smoke REFRESH proved DATA_ROOT+weather coords wiring; not a T-90M labeled freeze"
+    "log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_CAPTURE_RUN_20260903T092404Z.log",
+    "note": "Smoke REFRESH proved DATA_ROOT+weather coords wiring; stdout now also teed into future run logs; not a T-90M labeled freeze"
   },
   "next_calendar_actions": [
     {
@@ -79,7 +70,6 @@
   "adversarial_regressions": {
     "module": "tests/test_cycle26_adversarial_regressions.py",
     "count": 46,
-    "result": "OK",
-    "pack_section_11_coverage": "cases_01_through_42_plus_r26_21_import_closure"
+    "result": "OK"
   }
 }

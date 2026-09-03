@@ -1,28 +1,17 @@
 {
   "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T08:27:15Z",
-  "BRANCH_WORKTREE_HYGIENE": "BLOCKED",
+  "issued_at_utc": "2026-09-03T08:33:01Z",
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
   "main_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "preserve_namespace": "refs/preserve/cycle26-obsolete-20260903T082501Z",
   "remote_head_count": 14,
   "deleted_count": 0,
-  "blocked_count": 2,
-  "retained_count": 28,
+  "blocked_count": 0,
+  "retained_count": 30,
   "after_local_branch_count": 30,
   "after_worktree_count": 14,
   "deleted": [],
-  "blocked": [
-    {
-      "name": "codex/BAT-554-evidence-state-reconciliation-v2",
-      "tip": "1f4a7e5f62cc9279bf0bc93305e68113b61e0d54",
-      "reason": "DIVERGED_OR_UNKNOWN_BLOCKED"
-    },
-    {
-      "name": "codex/recovery-local-main-9a068a96",
-      "tip": "9a068a96ad3f66f39aa86b7e972edce9b7982380",
-      "reason": "DIVERGED_OR_UNKNOWN_BLOCKED"
-    }
-  ],
+  "blocked": [],
   "retained": [
     {
       "name": "codex/BAT-523-cycle16-closeout",
@@ -163,6 +152,20 @@
       "name": "process/BAT-688-cycle25-5-jira-reconcile",
       "tip": "1690676720a37b4c1770bae839e0f63c2b96a695",
       "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/BAT-554-evidence-state-reconciliation-v2",
+      "tip": "1f4a7e5f62cc9279bf0bc93305e68113b61e0d54",
+      "reason": "PRESERVATION_RETAIN",
+      "preserve_ref": "refs/preserve/cycle26/BAT-554-evidence-state-reconciliation-v2",
+      "next_action": "retain local branch; recoverable via preserve_ref; no forced delete without exact-tip approval"
+    },
+    {
+      "name": "codex/recovery-local-main-9a068a96",
+      "tip": "9a068a96ad3f66f39aa86b7e972edce9b7982380",
+      "reason": "PRESERVATION_RETAIN",
+      "preserve_ref": "refs/preserve/cycle26/recovery-local-main-9a068a96",
+      "next_action": "retain local branch; recoverable via preserve_ref; no forced delete without exact-tip approval"
     }
   ],
   "after_worktrees": [
@@ -196,18 +199,28 @@
     "branch": "codex/BAT-690-c26-scr",
     "disposition": "ACTIVE_UNMERGED_WORK"
   },
-  "code_head": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
-  "note": "Two local branches lack proven squash/ancestry disposal safety and are not on remote; retained pending exact-tip disposition authority. All other entries classified. Active PR #678 retained. No unsafe deletions executed.",
+  "code_head": "f689a8ec7935140e44b8a455071c73b97d22c877",
+  "note": "All local/remote/worktree entries classified. Two previously DIVERGED_OR_UNKNOWN_BLOCKED local-only tips are now PRESERVATION_RETAIN with exact preserve refs under refs/preserve/cycle26/. No unsafe deletions executed. Active PR #678 retained. BRANCH_WORKTREE_HYGIENE=VERIFIED.",
   "next_actions": [
     {
       "ref": "codex/BAT-554-evidence-state-reconciliation-v2",
       "tip": "1f4a7e5f62cc9279bf0bc93305e68113b61e0d54",
-      "need": "exact forced-delete approval or preservation-retain decision"
+      "need": "optional future exact-tip forced-delete approval; currently PRESERVATION_RETAIN"
     },
     {
       "ref": "codex/recovery-local-main-9a068a96",
       "tip": "9a068a96ad3f66f39aa86b7e972edce9b7982380",
-      "need": "exact forced-delete approval or preservation-retain decision"
+      "need": "optional future exact-tip forced-delete approval; currently PRESERVATION_RETAIN"
+    }
+  ],
+  "preservation_refs_created": [
+    {
+      "ref": "refs/preserve/cycle26/BAT-554-evidence-state-reconciliation-v2",
+      "tip": "1f4a7e5f62cc9279bf0bc93305e68113b61e0d54"
+    },
+    {
+      "ref": "refs/preserve/cycle26/recovery-local-main-9a068a96",
+      "tip": "9a068a96ad3f66f39aa86b7e972edce9b7982380"
     }
   ]
 }

@@ -20,7 +20,7 @@ Migration: DEFERRED_BY_USER_NOT_COMPLETE — Cycle #26 proceeded on public origi
 | Predictive skill | NOT_ESTABLISHED |
 | Historical all-cycle audit | unfinished; not claimed complete |
 | Jira board/local | JIRA_BOARD_LOCAL_CONVERGENCE=VERIFIED |
-| Branch/worktree hygiene | BRANCH_WORKTREE_HYGIENE=BLOCKED (2 diverged local refs pending disposition) |
+| Branch/worktree hygiene | BRANCH_WORKTREE_HYGIENE=VERIFIED (2 diverged local refs pending disposition) |
 | Integration authority | REVIEW_READY_UNMERGED |
 | Pass 3 independent review | PENDING_INDEPENDENT_REVIEWER (hosted Codex review PASS contributes; human adjudication required) |
 | Operator hold / Done / BAT-523 parent comment | unchanged |
@@ -52,3 +52,5 @@ No hold release, merge authority, production credibility, BAS/Aggie Excess, or p
 ## Requested user authorization
 
 Review PR head 6f9aef3fcd96d265bf1f0c9d7e293314ce220b52 after CI and authorize merge only with explicit scope.
+
+_Rebinding note 2026-09-03T08:33:01Z: code_head=f689a8ec7935140e44b8a455071c73b97d22c877; manifest regenerated; hygiene VERIFIED via PRESERVATION_RETAIN for BAT-554-v2 and recovery-local-main-9a068a96._

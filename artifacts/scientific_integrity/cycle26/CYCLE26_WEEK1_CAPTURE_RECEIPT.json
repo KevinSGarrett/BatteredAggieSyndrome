@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_WEEK1_CAPTURE_RECEIPT",
   "issued_at_utc": "2026-09-03T08:27:15Z",
-  "code_head": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
+  "code_head": "f689a8ec7935140e44b8a455071c73b97d22c877",
   "data_root": "C:\\BatteredAggieSyndrome.data",
   "captures": {
     "schedule_source_universe": {
@@ -43,5 +43,6 @@
     "am_6607349_t90m_utc": "2026-09-05T21:30:00Z",
     "asof_is_not_per_game_t24h": true
   },
-  "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED"
+  "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
+  "rebound_at_utc": "2026-09-03T08:33:01Z"
 }

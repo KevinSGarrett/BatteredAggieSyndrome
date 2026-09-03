@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
-  "issued_at_utc": "2026-09-03T08:24:16Z",
-  "code_head": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
+  "issued_at_utc": "2026-09-03T08:34:13Z",
+  "code_head": "f689a8ec7935140e44b8a455071c73b97d22c877",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
   "live_statuses": {
     "BAT-696": "In Review",
@@ -31,5 +31,7 @@
     "In Progress": 1,
     "In Review": 6,
     "To Do": 408
-  }
+  },
+  "verified_at_utc": "2026-09-03T08:33:11.792064+00:00",
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED"
 }

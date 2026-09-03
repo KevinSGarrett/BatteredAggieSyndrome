@@ -1,12 +1,12 @@
 {
   "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
-  "issued_at_utc": "2026-09-03T09:50:03Z",
+  "issued_at_utc": "2026-09-03T10:29:25Z",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",
   "joint_fitted_path": "VERIFIED_WITHIN_DECLARED_SCOPE",
-  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: unresolved/contained P1 findings remain (R26-09/13/17 and R26-20/21/22). Joint successor path scoped VERIFIED under UNTRUSTED_SHADOW only. Pass3 PENDING_INDEPENDENT_REVIEWER. No scientific PASS or credibility claim.",
-  "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: unresolved/contained findings remain (R26-09 CONFIRMED_UNRESOLVED pass-two backlog; R26-13 admin thresholds; R26-20/21/22 CONFIRMED_CONTAINED_NOT_FIXED). R26-17 false registry assurance is CONFIRMED_FIXED. Joint successor path scoped VERIFIED under UNTRUSTED_SHADOW only. Pass3 PENDING_INDEPENDENT_REVIEWER. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY on frozen 2023 partition \u2014 not prospective Week1 skill. No scientific PASS or credibility claim.",
+  "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
   "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
   "MERGE_AUTHORIZATION_GATE": "USER_EXPLICIT_ONLY",
   "OPERATIONAL_EVIDENCE_GATE": "EVIDENCE_CAPTURE_VERIFIED",
@@ -679,5 +679,6 @@
     },
     "note": "Abstentions are evidence-backed fail-closed rows, not silent drops. Do not force-fit missing modelling history or unadmitted domains."
   },
-  "all_cycle_pass_three_honesty": "PARTIAL_CATEGORY_SEARCH_NOT_COMPLETE"
+  "all_cycle_pass_three_honesty": "PARTIAL_CATEGORY_SEARCH_NOT_COMPLETE",
+  "predictive_skill_evidence_relative_path": "artifacts/scientific_integrity/cycle26/CYCLE26_PREDICTIVE_SKILL_EVIDENCE.json"
 }

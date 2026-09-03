@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_WEEK1_SCORING_READINESS",
-  "issued_at_utc": "2026-09-03T09:09:59Z",
+  "issued_at_utc": "2026-09-03T10:29:25Z",
   "scoring_contract_module": "src/aggie_analytics/modeling/week_zero_official_final_scoring.py",
   "week1_target_scoring_state": "AWAITING_FINAL",
   "held_fixture_branch": "BAT-674 week-zero official-final scoring successor available for reconstruction on frozen fixtures",
@@ -15,5 +15,11 @@
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
-  "code_head_binding": "LIVE_PR_678_TIP"
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "code_head": "97a2da023deed09aa0b50746072eab948b693076",
+  "held_fixture_validation": {
+    "command": "python tools/validate_week_zero_2026_official_final_scoring_successor.py",
+    "result": "PASS_INDEPENDENT_RECONSTRUCTION",
+    "validated_at_utc": "2026-09-03T10:29:25Z"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T09:31:33Z",
-  "git_tip": "effe6a53fe7dda5d9a11f23531593a90356ac09f",
+  "issued_at_utc": "2026-09-03T10:29:25Z",
+  "git_tip": "97a2da023deed09aa0b50746072eab948b693076",
   "code_head_binding": "LIVE_PR_678_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "ci": "PASS_PRIOR_TIP_PUSHING_REFRESH_BIND",
@@ -23,5 +23,7 @@
   "universe_refresh": "UNCHANGED_COUNT",
   "market_odds_api": "ABSENT",
   "adversarial_regressions": 46,
-  "capture_runner_log_tee": "ENABLED"
+  "capture_runner_log_tee": "ENABLED",
+  "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
+  "week_zero_scoring_fixture_validation": "PASS_INDEPENDENT_RECONSTRUCTION"
 }

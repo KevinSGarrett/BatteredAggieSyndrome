@@ -19,7 +19,7 @@ Migration: DEFERRED_BY_USER_NOT_COMPLETE — Cycle #26 proceeded on public origi
 | Probability component | VERIFIED_WITHIN_DECLARED_SCOPE |
 | Joint fitted path | VERIFIED_WITHIN_DECLARED_SCOPE (UNTRUSTED_SHADOW; declared successor only) |
 | Primary trust recovery | PRIMARY_TRUST_RECOVERY_INCOMPLETE |
-| Predictive skill | NOT_ESTABLISHED |
+| Predictive skill | DEVELOPMENT_EVIDENCE_ONLY (2023 frozen partition; not Week1 prospective) |
 | Historical all-cycle audit | unfinished; not claimed complete |
 | Jira board/local | JIRA_BOARD_LOCAL_CONVERGENCE=VERIFIED |
 | Branch/worktree hygiene | BRANCH_WORKTREE_HYGIENE=VERIFIED (PRESERVATION_RETAIN for two local-only tips) |
@@ -34,7 +34,7 @@ National game-grain forecast successor remains the declared active path:
 - Publication: UNTRUSTED_SHADOW
 - R26-21 active-path dependency: NONE (zero BAT-591 import edges)
 
-PRIMARY_TRUST_RECOVERY_INCOMPLETE: historical StatCrew rematerialization cascade reverted; R26-09/13/17 unresolved; R26-20/21/22 contained not fully repaired; all-cycle trust gate closed; Pass 3 pending human adjudication. Unresolved/contained P1 findings prohibit scientific PASS or credibility treatment.
+PRIMARY_TRUST_RECOVERY_INCOMPLETE: historical StatCrew rematerialization cascade reverted; R26-09 unresolved (pass-two backlog); R26-13 unresolved (admin thresholds); R26-17 CONFIRMED_FIXED; R26-20/21/22 contained not fully repaired; all-cycle trust gate closed; Pass 3 pending human adjudication. Predictive skill bound as DEVELOPMENT_EVIDENCE_ONLY only. Unresolved/contained P1 findings prohibit scientific PASS or credibility treatment.
 
 ## Calendar / capture
 
@@ -47,10 +47,12 @@ PRIMARY_TRUST_RECOVERY_INCOMPLETE: historical StatCrew rematerialization cascade
 
 ## Explicit non-claims
 
-No hold release, merge authority, production credibility, BAS/Aggie Excess, or predictive skill. No Done on remaining scientific owners. No Cycle #26 BAT-523 parent progress comment. No scientific PASS while unresolved/contained P1 findings remain on the declared matrix.
+No hold release, merge authority, production credibility, BAS/Aggie Excess, or prospective predictive skill. No Done on remaining scientific owners. No Cycle #26 BAT-523 parent progress comment. No scientific PASS while unresolved/contained P1 findings remain on the declared matrix.
 
 ## Requested user authorization
 
 Review the live PR #678 tip after required checks and authorize merge only with explicit scope. Pass 3 still requires independent human adjudication.
 
 _CI-green live tip 2026-09-03T09:20:20Z: tip=ae1cf969485da724a547df474cb70d2cd4da9ba2; ci=PASS; adversarial=46; universe_href_count=0 disposition=PARSE_INCONCLUSIVE; jira verify-live PASS; T-90M sleeper armed 19:45Z; Pass3 PENDING_INDEPENDENT_REVIEWER; PRIMARY_TRUST_RECOVERY_INCOMPLETE; REVIEW_READY_UNMERGED; no merge authorized._\n\n_CI PASS + capture-runner smoke 2026-09-03T09:29:55Z: tip=2112ec165c213a143de31f15a4811159b1c9c7a7; REFRESH runner PASS; T-90M sleeper armed 19:45Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING; REVIEW_READY_UNMERGED._\n
+
+_Predictive-skill bind 2026-09-03T10:29:25Z: tip=97a2da023deed09aa0b50746072eab948b693076; PREDICTIVE_SKILL=DEVELOPMENT_EVIDENCE_ONLY from national_expectation_baselines gate 38e166a50f0c…; ridge brier=0.17799208; week-zero scoring fixture PASS_INDEPENDENT_RECONSTRUCTION; T-90M sleeper armed 19:45Z; Pass3 PENDING_INDEPENDENT_REVIEWER; PRIMARY_TRUST_RECOVERY_INCOMPLETE; REVIEW_READY_UNMERGED; no merge authorized._

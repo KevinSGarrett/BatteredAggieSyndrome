@@ -64,7 +64,14 @@ NARRATIVE_STOP_RE = re.compile(
     r"^(INTERCEPTIONS|FUMBLES|Stadium|Kickoff time|Officials|SACKS|TACKLES|Game Starters|Player participation)\b",
     re.IGNORECASE,
 )
-STAT_GROUP_HEADER_RE = re.compile(r"^(Rushing|Passing|Receiving)\s+No\.?\b", re.IGNORECASE | re.MULTILINE)
+STAT_GROUP_HEADER_RE = re.compile(
+    r"^(Rushing|Passing|Receiving)\s+(?:No\.?|Att-Cmp-Int|Cmp-Att-Int|Att-Comp-Int|Cmp-Att)\b",
+    re.IGNORECASE,
+)
+AMBIGUOUS_STAT_HEADER_RE = re.compile(
+    r"^(Rushing|Passing|Receiving)\b",
+    re.IGNORECASE,
+)
 OTHER_IND_HEADER_RE = re.compile(
     r"^(Punting|All Returns|Interceptions|Fumbles|Field Goals|Kickoffs|Sacks|Tackles|Punt returns|Kick returns)\b",
     re.IGNORECASE,
@@ -253,6 +260,9 @@ def parse_table_players(block: str) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     current_team = ""
     current_group = ""
+    groups_seen: set[str] = set()
+    groups_with_rows: set[str] = set()
+    raw_headers: dict[str, str] = {}
     for raw_line in block.splitlines():
         line = raw_line.strip()
         if not line:
@@ -262,6 +272,11 @@ def parse_table_players(block: str) -> list[dict[str, Any]]:
         header = STAT_GROUP_HEADER_RE.match(line)
         if header:
             current_group = header.group(1).lower()
+            groups_seen.add(current_group)
+            raw_headers[current_group] = line
+            continue
+        if AMBIGUOUS_STAT_HEADER_RE.match(line) and not STAT_GROUP_HEADER_RE.match(line):
+            current_group = ""
             continue
         if OTHER_IND_HEADER_RE.match(line):
             current_group = ""
@@ -277,14 +292,31 @@ def parse_table_players(block: str) -> list[dict[str, Any]]:
         name = match.group("name").strip()
         if name.lower().startswith("totals"):
             continue
+        team_row = name.upper() == "TEAM"
+        groups_with_rows.add(current_group)
         rows.append(
             {
                 "team_raw": current_team,
                 "name_raw": name,
                 "stat_group": current_group,
                 "original_text": line,
-                "identity_status": "SOURCE_PLAYER_CANDIDATE",
+                "identity_status": "TEAM_ATTRIBUTED" if team_row else "SOURCE_PLAYER_CANDIDATE",
                 "availability": "NOT_ESTABLISHED",
+                "header_only": False,
+                "raw_section_text": line,
+            }
+        )
+    for group in sorted(groups_seen - groups_with_rows):
+        rows.append(
+            {
+                "team_raw": current_team,
+                "name_raw": "",
+                "stat_group": group,
+                "original_text": raw_headers.get(group, ""),
+                "identity_status": "HEADER_ONLY",
+                "availability": "HEADER_ONLY_NOT_MATERIAL",
+                "header_only": True,
+                "raw_section_text": raw_headers.get(group, ""),
             }
         )
     return rows

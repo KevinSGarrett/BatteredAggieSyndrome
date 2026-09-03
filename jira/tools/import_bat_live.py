@@ -2564,8 +2564,13 @@ def _evolving_evidence_path(entry: Mapping[str, Any]) -> str:
 
 
 def _entry_cycle_int(entry: Mapping[str, Any]) -> int | None:
+    value = entry.get("cycle")
+    if isinstance(value, bool):
+        return None
     try:
-        cycle = int(entry.get("cycle"))
+        if isinstance(value, float) and not value.is_integer():
+            return None
+        cycle = int(value)
     except (TypeError, ValueError):
         return None
     return cycle if cycle > 0 else None
@@ -2637,6 +2642,16 @@ def _validate_progress_supersessions(
             findings.append(f"supersession comment SHA mismatch {jira_key}/{comment_id}")
         if str(match.get("local_issue_id") or "").strip() != str(row.get("local_issue_id") or "").strip():
             findings.append(f"supersession local issue mismatch {jira_key}/{comment_id}")
+        kind = str(row.get("supersession_kind") or "").strip()
+        if kind == "CYCLE_IDENTITY_ATTRIBUTION":
+            canonical = str(row.get("canonical_cycle_id") or "").strip()
+            if canonical != "CYCLE-25.5":
+                findings.append(
+                    f"supersession canonical cycle invalid {jira_key}/{comment_id}"
+                )
+            if row.get("historical_comment_immutable") is not True:
+                findings.append(f"supersession must declare immutable historical comment {jira_key}/{comment_id}")
+            continue
         posted_sha = str(row.get("posted_cycle_end_sha") or "").strip().lower()
         final_sha = str(row.get("final_cycle_end_sha") or "").strip().lower()
         if not _is_hex(posted_sha, 40):
@@ -2651,7 +2666,10 @@ def _validate_progress_supersessions(
             findings.append(f"supersession requires distinct posted and final cycle SHAs {jira_key}/{comment_id}")
         if row.get("historical_comment_immutable") is not True:
             findings.append(f"supersession must declare immutable historical comment {jira_key}/{comment_id}")
-        if str(row.get("supersession_kind") or "").strip() != "HISTORICAL_COMMENT_END_SHA_CORRECTION":
+        if kind not in {
+            "HISTORICAL_COMMENT_END_SHA_CORRECTION",
+            "CYCLE_IDENTITY_ATTRIBUTION",
+        }:
             findings.append(f"supersession kind invalid {jira_key}/{comment_id}")
     return findings
 

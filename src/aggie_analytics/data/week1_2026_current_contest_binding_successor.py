@@ -15,13 +15,21 @@ SHADOW_CLASSIFICATION = "UNTRUSTED_SHADOW"
 def resolve_current_contest(
     team_key: str, contests: list[Mapping[str, Any]]
 ) -> Mapping[str, Any] | None:
+    team = str(team_key or "").strip()
+    if not team:
+        return None
+    matches: list[Mapping[str, Any]] = []
     for contest in contests:
-        if team_key in {
-            str(contest.get("home_team_key")),
-            str(contest.get("away_team_key")),
-        }:
-            return contest
-    return None
+        contest_id = str(contest.get("contest_id") or "").strip()
+        home = str(contest.get("home_team_key") or "").strip()
+        away = str(contest.get("away_team_key") or "").strip()
+        if not contest_id or not home or not away:
+            continue
+        if team in {home, away}:
+            matches.append(contest)
+    if len(matches) != 1:
+        return None
+    return matches[0]
 
 
 def build_current_contest_row(
@@ -37,12 +45,31 @@ def build_current_contest_row(
     trust_gate_open: bool,
 ) -> dict[str, Any]:
     contest = resolve_current_contest(team_key, contests)
-    if contest is None:
+    if not str(team_key or "").strip():
         return {
             "team_key": team_key,
-            "row_state": "ABSTAIN_SCIENTIFIC_TRUST_GATE_BLOCKED"
-            if not trust_gate_open
-            else "ABSTAIN_CURRENT_CONTEST_UNRESOLVED",
+            "row_state": "ABSTAIN_EMPTY_TEAM_ID",
+            "copied_from_terminal_historical_row": False,
+            "trust_classification": SHADOW_CLASSIFICATION,
+        }
+    if contest is None:
+        multiple = [
+            row
+            for row in contests
+            if str(team_key) in {
+                str(row.get("home_team_key") or "").strip(),
+                str(row.get("away_team_key") or "").strip(),
+            }
+            and str(row.get("contest_id") or "").strip()
+        ]
+        reason = (
+            "ABSTAIN_AMBIGUOUS_CURRENT_CONTEST"
+            if len(multiple) > 1
+            else "ABSTAIN_CURRENT_CONTEST_UNRESOLVED"
+        )
+        return {
+            "team_key": team_key,
+            "row_state": reason,
             "copied_from_terminal_historical_row": False,
             "trust_classification": SHADOW_CLASSIFICATION,
         }

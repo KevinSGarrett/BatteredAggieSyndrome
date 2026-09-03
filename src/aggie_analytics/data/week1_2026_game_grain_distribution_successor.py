@@ -5,8 +5,8 @@ from __future__ import annotations
 import math
 from typing import Any, Mapping
 
-from aggie_analytics.scientific_reference.coherence import (
-    joint_distribution_coherent,
+from aggie_analytics.data.producer_distribution_math import (
+    joint_from_same_normal,
     pair_normalize,
     probability_from_normal_residual,
 )
@@ -98,13 +98,11 @@ def game_grain_forecast(
     lower = expected_margin_home - quantile * residual_stdev
     upper = expected_margin_home + quantile * residual_stdev
     pair = pair_normalize(home_probability, away_probability, home_margin, away_margin)
-    joint = joint_distribution_coherent(
-        {
-            "expected_margin_home": expected_margin_home,
-            "home_win_probability": home_probability,
-            "interval_lower": lower,
-            "interval_upper": upper,
-        },
+    joint = joint_from_same_normal(
+        expected_margin=expected_margin_home,
+        emitted_probability=home_probability,
+        lower=lower,
+        upper=upper,
         residual_stdev=residual_stdev,
         quantile=quantile,
     )
@@ -141,19 +139,27 @@ def oriented_rows_from_game(game: Mapping[str, Any]) -> list[dict[str, Any]]:
     home = {
         "team_key": game["home_team_key"],
         "opponent_key": game["away_team_key"],
-        "home_win_probability": game["home_win_probability"],
+        "team_win_probability": game["home_win_probability"],
         "expected_margin": game["expected_margin_home"],
         "interval_lower": game["interval_lower"],
         "interval_upper": game["interval_upper"],
         "orientation": "HOME",
+        "contest_id": game["contest_id"],
+        "parent_forecast_identity": game.get("forecast_identity"),
+        "checkpoint": game.get("checkpoint"),
+        "candidate_id": game.get("candidate_id"),
     }
     away = {
         "team_key": game["away_team_key"],
         "opponent_key": game["home_team_key"],
-        "home_win_probability": game["away_win_probability"],
+        "team_win_probability": game["away_win_probability"],
         "expected_margin": game["expected_margin_away"],
         "interval_lower": -game["interval_upper"],
         "interval_upper": -game["interval_lower"],
         "orientation": "AWAY",
+        "contest_id": game["contest_id"],
+        "parent_forecast_identity": game.get("forecast_identity"),
+        "checkpoint": game.get("checkpoint"),
+        "candidate_id": game.get("candidate_id"),
     }
     return [home, away]

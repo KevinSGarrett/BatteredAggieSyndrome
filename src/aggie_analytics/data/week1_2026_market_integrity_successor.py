@@ -5,10 +5,11 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any, Mapping, Sequence
 
-from aggie_analytics.scientific_reference.market import (
+from aggie_analytics.data.producer_market_math import (
     even_odd_median,
     normalize_participant,
     normalize_sportsbook,
+    one_observation_per_book,
     overround,
     reject_duplicate_quotes,
 )
@@ -28,10 +29,10 @@ def classify_crosswalk(
     schedule_evidence: bool,
     name_date_only: bool,
 ) -> str:
-    if participants_authoritative and schedule_evidence:
-        return "STRONG_IDENTITY"
     if name_date_only:
         return NAME_DATE_ONLY
+    if participants_authoritative and schedule_evidence:
+        return "STRONG_IDENTITY"
     return "UNRESOLVED_PARTICIPANT"
 
 
@@ -50,12 +51,21 @@ def _parse_aware_utc(value: str) -> datetime | None:
     return parsed.astimezone(timezone.utc)
 
 
+ALLOWED_ACQUISITION_SOURCES = {
+    "provider_retrieval_receipt",
+    "official_source_receipt",
+    "declared_api_route",
+}
+
+
 def freeze_vs_market(
     *,
     model_freeze_utc: str | None,
     market_acquisition_utc: str | None,
     acquisition_source: str,
 ) -> str:
+    if acquisition_source not in ALLOWED_ACQUISITION_SOURCES:
+        return "PRE_MARKET_FREEZE_NOT_PROVEN"
     if acquisition_source == "supplied_cli_time":
         return "PRE_MARKET_FREEZE_NOT_PROVEN"
     if not model_freeze_utc or not market_acquisition_utc:
@@ -122,10 +132,15 @@ def consensus_from_quotes(
     if not probabilities:
         insufficient["reject_reason"] = "NO_QUOTES"
         return insufficient
-    paired_books = [normalize_sportsbook(book) for book in books]
-    normalized_books = sorted(set(paired_books))
+    try:
+        unique_probabilities, normalized_books = one_observation_per_book(
+            probabilities, books
+        )
+    except ValueError as exc:
+        insufficient["reject_reason"] = str(exc)
+        return insufficient
     source_count = len(normalized_books)
-    median = even_odd_median(probabilities)
+    median = even_odd_median(unique_probabilities)
     if source_count == 0:
         insufficient["quote_presence"] = True
         insufficient["reject_reason"] = "NO_USABLE_BOOKS"

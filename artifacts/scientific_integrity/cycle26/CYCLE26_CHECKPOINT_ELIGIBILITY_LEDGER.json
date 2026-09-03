@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_CHECKPOINT_ELIGIBILITY_LEDGER",
-  "issued_at_utc": "2026-09-03T19:05:35Z",
-  "as_of_utc": "2026-09-03T19:05:35Z",
+  "issued_at_utc": "2026-09-03T20:01:17Z",
+  "as_of_utc": "2026-09-03T20:01:17Z",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "contest_count": 91,
   "t24h_missed": 11,

@@ -1,8 +1,8 @@
 {
   "artifact_type": "CYCLE26_FINDING_DISPOSITION_MATRIX",
   "schema_version": 2,
-  "issued_at_utc": "2026-09-03T08:43:03Z",
-  "code_head_at_issuance": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "issued_at_utc": "2026-09-03T08:50:05Z",
+  "code_head_at_issuance": "6ec1df1bdcb8c815ed3324b5994964f0ffa67889",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "entries": [
@@ -85,7 +85,9 @@
       "severity": "P1",
       "disposition": "CONFIRMED_UNRESOLVED",
       "owner": "BAT-689",
-      "reason": "Required approving reviews remain 0 pending admin activation"
+      "reason": "main branch protection live readback: required_approving_review_count=0; required contexts include coverage-upload and codex-review but not Codecov threshold nor a normalized latest-head Bugbot gate; dismiss_stale_reviews=true; enforce_admins=true. Admin activation of substantive review thresholds remains outstanding.",
+      "live_readback_utc": "2026-09-03T08:50:05Z",
+      "evidence": "gh api repos/KevinSGarrett/BatteredAggieSyndrome/branches/main/protection"
     },
     {
       "id": "R26-14",

@@ -1,0 +1,19 @@
+{
+  "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
+  "issued_at_utc": "2026-09-03T08:49:43Z",
+  "git_tip": "6ec1df1bdcb8c815ed3324b5994964f0ffa67889",
+  "receipt_bound_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "ci": "PASS",
+  "PRIMARY_TRUST_RECOVERY_INCOMPLETE": true,
+  "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
+  "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+  "Pass3": "PENDING_INDEPENDENT_REVIEWER",
+  "integration_authority": "REVIEW_READY_UNMERGED",
+  "merge_authorized": false,
+  "t90m_sleeper": "armed_until_2026-09-03T19:45:00Z",
+  "sep3_t24h": "MISSED_CUTOFF_NO_BACKFILL",
+  "migration": "DEFERRED_BY_USER_NOT_COMPLETE",
+  "hold": "ACTIVE"
+}

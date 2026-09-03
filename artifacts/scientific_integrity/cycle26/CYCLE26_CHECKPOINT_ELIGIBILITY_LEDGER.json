@@ -1,0 +1,855 @@
+{
+  "artifact_type": "CYCLE26_CHECKPOINT_ELIGIBILITY_LEDGER",
+  "issued_at_utc": "2026-09-03T09:53:42Z",
+  "as_of_utc": "2026-09-03T09:53:42Z",
+  "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+  "contest_count": 91,
+  "t24h_missed": 11,
+  "t90m_still_eligible": 91,
+  "contests": [
+    {
+      "ncaa_contest_id": "6591259",
+      "kickoff_bound_utc": "2026-09-03T22:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T22:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T20:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6582933",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6588927",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6601465",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6609567",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6618350",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6584486",
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6603568",
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620218",
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6586572",
+      "kickoff_bound_utc": "2026-09-04T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T23:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6602046",
+      "kickoff_bound_utc": "2026-09-04T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T23:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6594366",
+      "kickoff_bound_utc": "2026-09-04T22:30:00Z",
+      "t24h_cutoff_utc": "2026-09-03T22:30:00Z",
+      "t90m_cutoff_utc": "2026-09-04T21:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6598559",
+      "kickoff_bound_utc": "2026-09-04T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6619544",
+      "kickoff_bound_utc": "2026-09-04T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6592887",
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6601163",
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6611346",
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6602792",
+      "kickoff_bound_utc": "2026-09-05T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620138",
+      "kickoff_bound_utc": "2026-09-05T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6590890",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6593811",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6594325",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6601384",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6611692",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6611873",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6613128",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6617023",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620636",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620944",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6618687",
+      "kickoff_bound_utc": "2026-09-05T16:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620092",
+      "kickoff_bound_utc": "2026-09-05T16:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6593392",
+      "kickoff_bound_utc": "2026-09-05T16:45:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:45:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:15:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6583220",
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T17:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6583331",
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T17:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6600846",
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T17:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6598117",
+      "kickoff_bound_utc": "2026-09-05T18:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T18:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T16:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6612588",
+      "kickoff_bound_utc": "2026-09-05T18:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T18:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T17:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620448",
+      "kickoff_bound_utc": "2026-09-05T19:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T17:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6583392",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6585877",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6587707",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6592568",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6594109",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6600254",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6604408",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6607271",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6608932",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6610894",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6611505",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6582887",
+      "kickoff_bound_utc": "2026-09-05T19:45:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:45:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:15:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6582881",
+      "kickoff_bound_utc": "2026-09-05T20:15:00Z",
+      "t24h_cutoff_utc": "2026-09-04T20:15:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:45:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6587775",
+      "kickoff_bound_utc": "2026-09-05T20:15:00Z",
+      "t24h_cutoff_utc": "2026-09-04T20:15:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:45:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6593076",
+      "kickoff_bound_utc": "2026-09-05T21:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T21:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T19:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6590855",
+      "kickoff_bound_utc": "2026-09-05T22:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T22:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T20:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6607433",
+      "kickoff_bound_utc": "2026-09-05T22:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T22:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T20:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6586106",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6586326",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6587284",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6588730",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6590807",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6591589",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6593153",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6596114",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6606172",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6607349",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6609172",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620458",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620478",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6586022",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6589809",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6590386",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6590505",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6614741",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6583172",
+      "kickoff_bound_utc": "2026-09-05T23:45:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:45:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:15:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6583582",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6587672",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6589595",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6589953",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6596257",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6616987",
+      "kickoff_bound_utc": "2026-09-06T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620513",
+      "kickoff_bound_utc": "2026-09-06T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ]
+    },
+    {
+      "ncaa_contest_id": "6605119",
+      "kickoff_bound_utc": "2026-09-06T01:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T01:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T00:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6618489",
+      "kickoff_bound_utc": "2026-09-06T01:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T01:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T00:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6592700",
+      "kickoff_bound_utc": "2026-09-06T02:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T02:00:00Z",
+      "t90m_cutoff_utc": "2026-09-06T00:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6607878",
+      "kickoff_bound_utc": "2026-09-06T02:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T02:00:00Z",
+      "t90m_cutoff_utc": "2026-09-06T00:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6603305",
+      "kickoff_bound_utc": "2026-09-06T02:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T02:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T01:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6605164",
+      "kickoff_bound_utc": "2026-09-06T02:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T02:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T01:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6618941",
+      "kickoff_bound_utc": "2026-09-06T08:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T08:00:00Z",
+      "t90m_cutoff_utc": "2026-09-06T06:30:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6602874",
+      "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6620581",
+      "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    },
+    {
+      "ncaa_contest_id": "6594400",
+      "kickoff_bound_utc": "2026-09-07T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-06T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "abstention_reasons": []
+    }
+  ],
+  "note": "Ledger only. Checkpoint labels require every required capture/freeze before cutoff; late packets cannot backfill earlier checkpoints."
+}

@@ -1,10 +1,10 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T22:18:57Z",
-  "git_tip": "4209c413385d9b6d741e5dec120e70a3e094e8c1",
+  "issued_at_utc": "2026-09-03T22:24:14Z",
+  "git_tip": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
   "code_head_binding": "LIVE_PR_678_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "ci": "GREEN_4209c413",
+  "ci": "GREEN_2681f6b0",
   "PRIMARY_TRUST_RECOVERY_INCOMPLETE": true,
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
@@ -37,8 +37,8 @@
   "t90m_executor_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_T90M_EXECUTOR.log",
   "afternoon_refresh": "PASS_20260903T153037Z",
   "sep3_t90m": "T-90M_BOUND_SCHEDULED_WAKE_20260903T200119Z",
-  "am_t24h_scheduler": "armed_2026-09-04T22:15:00Z",
-  "am_t90m_scheduler": "armed_2026-09-05T20:45:00Z",
+  "am_t24h_scheduler": "armed_2026-09-04T22:15:00Z_with_failover",
+  "am_t90m_scheduler": "armed_2026-09-05T20:45:00Z_with_failover",
   "failover_monitor": "armed",
   "placeholder_ci_fix": "PASS_e7a163f7",
   "t90m_awaiting_1945_refresh": false,
@@ -53,10 +53,11 @@
     "result": "OK",
     "at_utc": "2026-09-03T19:25:53Z"
   },
-  "sep4_window_t24h": "T-24H_BOUND_20260903T221229Z",
+  "sep4_window_t24h": "T-24H_BOUND_2026-09-03T221229Z_BEFORE_223000Z",
   "jira_verify_live_exit": 0,
   "watchdog_resume": "CYCLE26_OVERNIGHT_WATCHDOG_RESUME_v1",
   "sep4_window_t24h_freeze_at": "2026-09-03T22:12:29Z",
   "sep4_window_t24h_label_authority": "T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW",
-  "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED"
+  "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
+  "overnight_heartbeat": "ARMED"
 }

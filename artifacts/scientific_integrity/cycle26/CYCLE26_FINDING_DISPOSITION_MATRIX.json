@@ -158,7 +158,8 @@
       "owner": "BAT-690",
       "reason": "Expected OPEN future checkpoints and national timing are planned state, not an integrity defect. Sep3 T-24H recorded MISSED_CUTOFF_NO_BACKFILL; T-90M remains eligible until per-contest cutoffs.",
       "residual_risk": "Missed cutoffs must never be backfilled",
-      "severity": "P2"
+      "severity": "P2",
+      "calendar_note": "Sep3 T-90M bound 20:01:19Z; Sep4-window T-24H bound 22:12:29Z before 22:30:00Z; A&M T-24H/T-90M armed with failover; PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged"
     },
     {
       "acceptance_authority": "USER_EXPLICIT_ONLY",
@@ -363,8 +364,9 @@
       "residual_risk": "Local mounted --strict remains FAIL until a separately authorized cascade rematerialization."
     }
   ],
-  "git_tip_at_issuance": "4c726140174922974e98f549535c921461cc78b2",
-  "issued_at_utc": "2026-09-03T19:05:36Z",
+  "git_tip_at_issuance": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
+  "issued_at_utc": "2026-09-03T22:24:16Z",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "schema_version": 2
+  "schema_version": 2,
+  "evidence_ops_note": "Sep3 T-90M bound 20:01:19Z; Sep4-window T-24H bound 22:12:29Z before 22:30:00Z; A&M T-24H/T-90M armed with failover; PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged"
 }

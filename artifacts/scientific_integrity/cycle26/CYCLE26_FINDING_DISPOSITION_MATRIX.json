@@ -323,9 +323,9 @@
     },
     {
       "acceptance_authority": "USER_EXPLICIT_ONLY",
-      "correction": "Authority-bearing configs/artifacts/governance/docs/instructions scan found 0 unresolved BAT-XXX placeholders. Fixture tests/fixtures/stale_placeholder_contract.json remains exempt.",
+      "correction": "Authority-bearing configs/artifacts/governance/docs/instructions scan found 0 unresolved external BAT placeholder ownership tokens. Fixture tests/fixtures/stale_placeholder_contract.json remains exempt.",
       "disposition": "CONFIRMED_FIXED",
-      "id": "C26-7A7-BAT-XXX",
+      "id": "C26-7A7-PLACEHOLDER-OWNERSHIP",
       "owner": "BAT-692",
       "residual_risk": "Historical snapshots under jira/snapshots/ are excluded by design.",
       "severity": "P1",

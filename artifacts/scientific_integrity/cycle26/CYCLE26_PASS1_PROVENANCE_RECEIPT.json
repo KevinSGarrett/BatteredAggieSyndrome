@@ -1,0 +1,171 @@
+{
+  "pass": 1,
+  "name": "provenance_completeness_execution",
+  "issued_at_utc": "2026-09-03T06:17:01Z",
+  "code_head": "f317fe7b3dfa362a6652f8410294776881301967",
+  "scope": {
+    "candidate_families": [
+      "national_base_rate",
+      "national_elo",
+      "national_logistic_l2",
+      "national_margin_ridge",
+      "prior_only"
+    ],
+    "population": "2026 Week 1 official contests",
+    "contest_count": 91,
+    "opportunity_rows": 455,
+    "ridge_emitted": 79,
+    "failing_pairs": 0
+  },
+  "gate_identity": "bd213778d497faf0ff5da7c34d5b3b5bea797fa53edabf0b5d47e6286a27350e",
+  "dataset_identity": "547713b943953bb9d3ae0c85bfdb28f2e0c3de5d3ad4ebc5416ddbba595aac18",
+  "payload_hashes": {
+    "core_module": "4367c3e68c1a79b5966d9f602f000c4a49916e6115e78570678bed3f33c11ada",
+    "coverage_rows": "bc6b9d09ae51984b5180a46bcd5bbd7fd393300658b4aeaae699c4d711beae0e",
+    "focus_packet": "489e3f2562ba79705c0b5d7547381834f5bfc9c392a846bf4233cdb1cb357a8a",
+    "forecast_rows": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
+    "oriented_rows": "a46aee71b79689d2ad74a6fcceb293bcb291273386b7bd8b72f7e55d4bad08cc"
+  },
+  "asof_checkpoint": {
+    "artifact_type": "NATIONAL_WEEK1_ASOF_CHECKPOINT",
+    "checkpoint_id": "NATIONAL_WEEK1_ASOF",
+    "issued_at_utc": "2026-09-03T06:04:11Z",
+    "earliest_kickoff_utc_conservative_lower_bound": "2026-09-03T22:00:00Z",
+    "pre_earliest_kickoff": true,
+    "contest_count": 91,
+    "still_pre_kickoff_count": 91,
+    "t24h_missed_no_backfill_count": 11,
+    "t24h_disposition": "MISSED_CUTOFF_NO_BACKFILL for contests whose T-24H already passed; asof research checkpoint is not a T-24H label",
+    "t7d_backfill": false,
+    "schedule_capture_identity": [
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 90496,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb.html",
+        "raw_sha256": "e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb",
+        "request_identity_sha256": "418ef6856d3f1c573d643b8e301032c5b78c89fc0187e042fc20398439c5d6a3",
+        "requested_game_date": "2026-09-03",
+        "retrieved_at_utc": "2026-08-31T06:16:12Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F03%2F2026"
+      },
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 73997,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a.html",
+        "raw_sha256": "a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a",
+        "request_identity_sha256": "91bfec2ee14c500681f69105f8c9c557ed2fd4eff5fddc7762f48a47b8cd89cb",
+        "requested_game_date": "2026-09-04",
+        "retrieved_at_utc": "2026-08-31T06:16:50Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F04%2F2026"
+      },
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 395430,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977.html",
+        "raw_sha256": "522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977",
+        "request_identity_sha256": "6bcb9e0ff3c31bfd44c148ebd6c6213cd3b39e292ef08f252f968f42c1f96e19",
+        "requested_game_date": "2026-09-05",
+        "retrieved_at_utc": "2026-08-31T06:17:08Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F05%2F2026"
+      },
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 47656,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd.html",
+        "raw_sha256": "af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd",
+        "request_identity_sha256": "51bc1ac1675641f3cc49e1bc1a57aac74f2f36b52c423601211dc9dc7cfb980b",
+        "requested_game_date": "2026-09-06",
+        "retrieved_at_utc": "2026-08-31T06:17:19Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026"
+      },
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 36507,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e.html",
+        "raw_sha256": "ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e",
+        "request_identity_sha256": "9d5d600f9c0a118a5c2d11e2875a047ef708bd5db862ae3a5f9b4bbf0a86531f",
+        "requested_game_date": "2026-09-07",
+        "retrieved_at_utc": "2026-08-31T06:17:37Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F07%2F2026"
+      }
+    ],
+    "schedule_gate_identity": "3682897882697fc939f23f79706ff37a46e8cf870f1f8432cdd51f55c13831cc",
+    "forecast_successor_gate": "bd213778d497faf0ff5da7c34d5b3b5bea797fa53edabf0b5d47e6286a27350e"
+  },
+  "national_rehash": {
+    "capture_records": 990,
+    "verified_records": 990,
+    "record_weighted_bytes": 2550148419
+  },
+  "result": "PASS_WITHIN_DECLARED_SUCCESSOR_SCOPE",
+  "limitations": [
+    "Historical C20/C21/C25 saved payloads remain immutable and unrepaired.",
+    "Publication label remains UNTRUSTED_SHADOW.",
+    "All-cycle three-pass audit remains unfinished."
+  ]
+}

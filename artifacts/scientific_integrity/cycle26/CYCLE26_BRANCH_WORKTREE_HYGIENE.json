@@ -1,13 +1,731 @@
 {
   "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T05:16:00Z",
-  "BRANCH_WORKTREE_HYGIENE": "BLOCKED",
-  "reason": "Every observed local branch/worktree was classified, but origin:gone tracking refs were not compare-and-deleted because remote absence was not independently proven with ls-remote tip locks. No default/protected/preservation/open-PR/dirty worktree was deleted.",
+  "issued_at_utc": "2026-09-03T06:19:02Z",
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+  "main_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "preserve_namespace": "refs/preserve/cycle26-obsolete-20260903T061820Z",
+  "remote_head_count": 14,
+  "deleted_count": 107,
+  "blocked_count": 0,
+  "retained_count": 28,
+  "after_local_branch_count": 30,
+  "after_worktree_count": 14,
+  "deleted": [
+    {
+      "name": "bat-677/week1-current-feature-spine",
+      "tip": "7384f7fb698490d74a2f7c0fa8ad638979eca3e5",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/bat-677__week1-current-feature-spine"
+    },
+    {
+      "name": "bat-678/week1-feature-coverage-adequacy",
+      "tip": "1da9dd829921b130e3c03c7353983b14fab9bcb8",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/bat-678__week1-feature-coverage-adequacy"
+    },
+    {
+      "name": "chore/c23-process-677",
+      "tip": "d916e5cd2516ed8981048c6c994e355506eac50e",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/chore__c23-process-677"
+    },
+    {
+      "name": "codex/BAT-480-backup-retention-policy",
+      "tip": "2f304b0675cd54effadd0ab5515f9d09ce75fab5",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-480-backup-retention-policy"
+    },
+    {
+      "name": "codex/BAT-480-sync-state",
+      "tip": "b7935d92dac7e0fb318bb6db4125fdc43320260c",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-480-sync-state"
+    },
+    {
+      "name": "codex/BAT-481-backup-integrity",
+      "tip": "0445745a5f1c49431437a8333bb5f8b78c0c6c23",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-481-backup-integrity"
+    },
+    {
+      "name": "codex/BAT-482-clean-restore-drill",
+      "tip": "7b6a288a491693a4370aaf7418debf90f3eabc07",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-482-clean-restore-drill"
+    },
+    {
+      "name": "codex/BAT-523-cycle16-known-at-boundary",
+      "tip": "d5ef187376dd0de87b28a46dd5f0dacc365caf9d",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-523-cycle16-known-at-boundary"
+    },
+    {
+      "name": "codex/BAT-523-cycle17-ledger-v2-material",
+      "tip": "29a3e853d9f8524037153091f4779c216f614f99",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-523-cycle17-ledger-v2-material"
+    },
+    {
+      "name": "codex/BAT-523-cycle17-ledger-v2-process",
+      "tip": "3954a0105b9aa421acdfa9f5e2d8288abfb9a4fc",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-523-cycle17-ledger-v2-process"
+    },
+    {
+      "name": "codex/BAT-554-closeout-sync",
+      "tip": "40e1a9e8e15d6f372b0c9168f1d77be53df2bdfb",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-554-closeout-sync"
+    },
+    {
+      "name": "codex/BAT-554-parser-runtime-domain-gate-r2",
+      "tip": "2154db8128360a0732e5c6cc281410f205e1afdc",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-554-parser-runtime-domain-gate-r2"
+    },
+    {
+      "name": "codex/BAT-570-tamu-official-evidence-gap-matrix",
+      "tip": "e795f3be77c45342b9f9c890494e49094985ca7e",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-570-tamu-official-evidence-gap-matrix"
+    },
+    {
+      "name": "codex/BAT-572-cycle7-final-reconciliation",
+      "tip": "411587314e7e0eb471378507a54c1fff7901a081",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-572-cycle7-final-reconciliation"
+    },
+    {
+      "name": "codex/BAT-579-official-historical-archive",
+      "tip": "941916d9fb1d1b8cdc9cdf0f186b1e27201480a9",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-579-official-historical-archive"
+    },
+    {
+      "name": "codex/BAT-581-official-gamebook-union",
+      "tip": "284a51176e44c77c1d9b0c114f279d03518d850b",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-581-official-gamebook-union"
+    },
+    {
+      "name": "codex/BAT-582-cycle9-closeout",
+      "tip": "e4f02d7666cf33e0f30a7b749236440a09097e34",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-582-cycle9-closeout"
+    },
+    {
+      "name": "codex/BAT-582-cycle9-done-bind",
+      "tip": "089f0c8d28767102acd82a3d8f8bcd0e654855fc",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-582-cycle9-done-bind"
+    },
+    {
+      "name": "codex/BAT-588-process-reconciliation",
+      "tip": "d80651cb9d8532727ef8e494e3264cec7e8becd3",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-588-process-reconciliation"
+    },
+    {
+      "name": "codex/BAT-588-src014-2007-official-index",
+      "tip": "c01b4cccb54029a092e2e188b8843994e8605b7d",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-588-src014-2007-official-index"
+    },
+    {
+      "name": "codex/BAT-589-process-reconciliation",
+      "tip": "990e4f1483d8f497dcb1999a3166a81f54e0853b",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-589-process-reconciliation"
+    },
+    {
+      "name": "codex/BAT-589-src014-2007-official-acquisition",
+      "tip": "74f915285569c56566ba8796a57b50ea16a30821",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-589-src014-2007-official-acquisition"
+    },
+    {
+      "name": "codex/BAT-590-process-reconciliation",
+      "tip": "27219be4648e09dace8c034b82cae5f9e81330b1",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-590-process-reconciliation"
+    },
+    {
+      "name": "codex/BAT-590-src014-2007-official-union",
+      "tip": "a1cc6289e6e700947efe41e3eaa5bcfea8bd4410",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-590-src014-2007-official-union"
+    },
+    {
+      "name": "codex/BAT-591-process-reconciliation",
+      "tip": "268ea0685e8e947db43cb5304230f64f9c1b56c7",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-591-process-reconciliation"
+    },
+    {
+      "name": "codex/BAT-591-statcrew-preformatted-domains",
+      "tip": "084f9753db1cc10e8ee79d8e6732077ae6624984",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-591-statcrew-preformatted-domains"
+    },
+    {
+      "name": "codex/BAT-592-enriched-union",
+      "tip": "fc0b857bff5101044520c57bb3258c1ce9dc5e7b",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-592-enriched-union"
+    },
+    {
+      "name": "codex/BAT-592-process-reconciliation",
+      "tip": "39d76a7411bc29635cd5c5a7a3566155e22a6fc0",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-592-process-reconciliation"
+    },
+    {
+      "name": "codex/BAT-593-jira-live-verifier-histograms",
+      "tip": "55d067cc8b34faf84603b1d767a00d46fc554b59",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-593-jira-live-verifier-histograms"
+    },
+    {
+      "name": "codex/BAT-593-process-reconciliation",
+      "tip": "965b409baf8ea0a3ae2358be94afaf99bd8d6fed",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-593-process-reconciliation"
+    },
+    {
+      "name": "codex/BAT-594-2006-official-season-index",
+      "tip": "5889f2e572f4be7eb1882217690ac67b2dd46561",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-594-2006-official-season-index"
+    },
+    {
+      "name": "codex/BAT-594-process-reconciliation",
+      "tip": "ddfc4030382d9d518a788c284c3dc2b346c9765c",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-594-process-reconciliation"
+    },
+    {
+      "name": "codex/BAT-595-2006-official-boxscores",
+      "tip": "1743bde79a2f147212a18c4c6d97743b67184ec8",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-595-2006-official-boxscores"
+    },
+    {
+      "name": "codex/BAT-595-2006-official-boxscores-process",
+      "tip": "05384a221d1221d92d28300f6c80c15015852cbb",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-595-2006-official-boxscores-process"
+    },
+    {
+      "name": "codex/BAT-596-2006-structured-domains",
+      "tip": "b8c86694a24a552aee3a1a3bf7fe988b26ff941d",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-596-2006-structured-domains"
+    },
+    {
+      "name": "codex/BAT-596-2006-structured-domains-process",
+      "tip": "02f1d94c29562e7409ca5fb06ef9ee4a0731f034",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-596-2006-structured-domains-process"
+    },
+    {
+      "name": "codex/BAT-597-2006-expanded-union",
+      "tip": "ea8d57249e621ccb4fa479eadb671e4980fb76a2",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-597-2006-expanded-union"
+    },
+    {
+      "name": "codex/BAT-597-2006-expanded-union-process",
+      "tip": "5b2976767ade76b363224b41a492d7637e5bc923",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-597-2006-expanded-union-process"
+    },
+    {
+      "name": "codex/BAT-599-official-2005-season-index",
+      "tip": "aa4f593db9b13af826911232c5d9dc318c6ca5a7",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-599-official-2005-season-index"
+    },
+    {
+      "name": "codex/BAT-599-process",
+      "tip": "836ec2a216950193b79356769842cee8a637885f",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-599-process"
+    },
+    {
+      "name": "codex/BAT-600-official-2005-boxscores",
+      "tip": "4600470e2d2f4f82572e654d80403890fc63b503",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-600-official-2005-boxscores"
+    },
+    {
+      "name": "codex/BAT-600-process",
+      "tip": "992166a9b5c9d9dbf5c25c4343e20f769b6725a0",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-600-process"
+    },
+    {
+      "name": "codex/BAT-601-official-2005-structured",
+      "tip": "c2a9389f7731d07f87f592e09236774fce6012d1",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-601-official-2005-structured"
+    },
+    {
+      "name": "codex/BAT-601-process",
+      "tip": "5584bf3adb5a0a7fa8539e4c282740638232aa61",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-601-process"
+    },
+    {
+      "name": "codex/BAT-602-official-2005-union",
+      "tip": "4c6ca3ca2f3f29e43ed524bc294f9aa599273987",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-602-official-2005-union"
+    },
+    {
+      "name": "codex/BAT-609-2003-official-index",
+      "tip": "73b5e6eaceee0a792c4b1009ea448994ee036dc7",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-609-2003-official-index"
+    },
+    {
+      "name": "codex/BAT-609-process",
+      "tip": "42d75941afbe0d19f266b70efe540a690ec50a8c",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-609-process"
+    },
+    {
+      "name": "codex/BAT-610-2003-official-acquisition",
+      "tip": "75e7d4ddf455ecc155b6b0718ffd3eb4d47829d8",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-610-2003-official-acquisition"
+    },
+    {
+      "name": "codex/BAT-610-process",
+      "tip": "90882b39d5e079311eaca47e91c0111ea88cc520",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-610-process"
+    },
+    {
+      "name": "codex/BAT-611-2003-structured-domains",
+      "tip": "f5810646fc94eb96827ad7eba207e193a44deb9d",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-611-2003-structured-domains"
+    },
+    {
+      "name": "codex/BAT-611-process",
+      "tip": "2a3f2299865d296ff2c92ecbf6961cf7b028d986",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-611-process"
+    },
+    {
+      "name": "codex/BAT-612-2003-expanded-union",
+      "tip": "ae2abfc3684f2aca9b153cb690f0c35c8040b45e",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-612-2003-expanded-union"
+    },
+    {
+      "name": "codex/BAT-612-process",
+      "tip": "ca68c7d29a99df54116214c528f2498bbfbde25f",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-612-process"
+    },
+    {
+      "name": "codex/BAT-613-2002-official-index",
+      "tip": "4a40877defbad9443aea368dd8c1b8cbc1850f04",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-613-2002-official-index"
+    },
+    {
+      "name": "codex/BAT-613-2002-official-index-process",
+      "tip": "3413d28e92552e539e591ccb042e6d065ee0bfe8",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-613-2002-official-index-process"
+    },
+    {
+      "name": "codex/BAT-615-2002-official-acquisition",
+      "tip": "50d33841e952688a83be6b453a38f94f56058488",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-615-2002-official-acquisition"
+    },
+    {
+      "name": "codex/BAT-615-2002-official-acquisition-process",
+      "tip": "7d3dc97c1d73f5a799e9a6e40432d9d738adb72d",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-615-2002-official-acquisition-process"
+    },
+    {
+      "name": "codex/BAT-615-process-squash",
+      "tip": "9dae703e2b6a59ccf85cca2c6fa850f1ed22ecd1",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-615-process-squash"
+    },
+    {
+      "name": "codex/BAT-617-2002-structured",
+      "tip": "c1376fe40b564b330f8037e42fa1a80772c5ab46",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-617-2002-structured"
+    },
+    {
+      "name": "codex/BAT-617-process",
+      "tip": "83be2eb8fbc1d433ec72df60472b6603743bbfb5",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-617-process"
+    },
+    {
+      "name": "codex/BAT-618-2002-expanded-union",
+      "tip": "7d8f432ed35274c7cef25d47202a3445245f5315",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-618-2002-expanded-union"
+    },
+    {
+      "name": "codex/BAT-618-process",
+      "tip": "e7fd81e94e57f882f09507e63d7a7760977863d1",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-618-process"
+    },
+    {
+      "name": "codex/BAT-619-2002-2009-row-corpus",
+      "tip": "a891202ffc9b445a50be8db28817f506db014287",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-619-2002-2009-row-corpus"
+    },
+    {
+      "name": "codex/BAT-619-process",
+      "tip": "bf8cfef7fe572fd5cb78ebb4d08d49e833955245",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-619-process"
+    },
+    {
+      "name": "codex/BAT-620-process",
+      "tip": "ea4ab5c24f10a1468dc2d1dcb85ea79ebe7980b0",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-620-process"
+    },
+    {
+      "name": "codex/BAT-620-row-corpus-integrity",
+      "tip": "639442b411b3ca2927e7bf62f98c0d5439d58f2c",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-620-row-corpus-integrity"
+    },
+    {
+      "name": "codex/BAT-621-2001-official-index",
+      "tip": "c2d59af5ccf0b3c3611d5ceddecfd9ca042c6916",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-621-2001-official-index"
+    },
+    {
+      "name": "codex/BAT-621-process",
+      "tip": "4bb974b3079a396cea681fab7255a3bf960448ac",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-621-process"
+    },
+    {
+      "name": "codex/BAT-622-2001-official-acquisition",
+      "tip": "c8979aca61c0481d5c5e0be8d4b1dc0efc3d5f40",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-622-2001-official-acquisition"
+    },
+    {
+      "name": "codex/BAT-622-process",
+      "tip": "95c3a6b3fe174ef7e817246dc403f20a112bf7b0",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-622-process"
+    },
+    {
+      "name": "codex/BAT-623-2001-structured-domains",
+      "tip": "59ce1c3476e2c12b0a00808aee791d3c0afe345f",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-623-2001-structured-domains"
+    },
+    {
+      "name": "codex/BAT-623-process",
+      "tip": "a77b71ba556c8feb2b2baac6110000b5740fd0be",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-623-process"
+    },
+    {
+      "name": "codex/BAT-624-2001-expanded-union",
+      "tip": "bb6606351153382cc96e7c9297da2ee02ec3824e",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-624-2001-expanded-union"
+    },
+    {
+      "name": "codex/BAT-624-process",
+      "tip": "8bea563efeedc7a71bd3f70ba6c97fedeb8295c4",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-624-process"
+    },
+    {
+      "name": "codex/BAT-625-2000-official-index",
+      "tip": "d80f3756a926f8e17d1ea50187fdb47568270343",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-625-2000-official-index"
+    },
+    {
+      "name": "codex/BAT-625-process",
+      "tip": "b0b55d75838aba7c5e635155a4f747d3c2531906",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-625-process"
+    },
+    {
+      "name": "codex/BAT-626-2000-official-acquisition",
+      "tip": "adefee85c7ba7fa85468492c710b737014daea0a",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-626-2000-official-acquisition"
+    },
+    {
+      "name": "codex/BAT-626-process",
+      "tip": "4d287b7cd615b424af4ac74c63b0cef8deb9bf0e",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-626-process"
+    },
+    {
+      "name": "codex/BAT-627-2000-structured-domains",
+      "tip": "d5c25c6a0bb78af1958812e0ddcb8c11f93ca759",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-627-2000-structured-domains"
+    },
+    {
+      "name": "codex/BAT-627-process",
+      "tip": "71061418887478a8b75a132f4aaafde27bc1aa89",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-627-process"
+    },
+    {
+      "name": "codex/BAT-628-2000-expanded-union",
+      "tip": "87bdb45cc2ea9ac0cbf2a7c7ba296e1f0c8bb43e",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-628-2000-expanded-union"
+    },
+    {
+      "name": "codex/BAT-628-process",
+      "tip": "6f60254ef1f4ae0217243f6aea880586ae63eb5e",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-628-process"
+    },
+    {
+      "name": "codex/BAT-629-2000-2009-row-corpus",
+      "tip": "b29fcb319e57958b27abb22577003af6459ff70a",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-629-2000-2009-row-corpus"
+    },
+    {
+      "name": "codex/BAT-629-process",
+      "tip": "6b21793426cb0fbade18f3decc63edad03453ec2",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-629-process"
+    },
+    {
+      "name": "codex/BAT-630-cycle17-1999-index-material",
+      "tip": "152a09f96fe5c943930f38d64844cbd923fb6a74",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-630-cycle17-1999-index-material"
+    },
+    {
+      "name": "codex/BAT-630-cycle17-1999-index-process",
+      "tip": "bc909195727cf9e973e6779dced55e3da99d0460",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-630-cycle17-1999-index-process"
+    },
+    {
+      "name": "codex/BAT-631-cycle17-1999-acquisition-material",
+      "tip": "ee0746858916e6a56ce33daee98219c413ed14ce",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-631-cycle17-1999-acquisition-material"
+    },
+    {
+      "name": "codex/BAT-631-cycle17-1999-acquisition-process",
+      "tip": "122c2706e6ac393cc3f1078d65c616399e68e635",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-631-cycle17-1999-acquisition-process"
+    },
+    {
+      "name": "codex/BAT-632-cycle17-1999-structured-domains-material",
+      "tip": "fe1ed140fa28335d28da632136d34dcb83a90c53",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-632-cycle17-1999-structured-domains-material"
+    },
+    {
+      "name": "codex/BAT-632-cycle17-1999-structured-domains-process",
+      "tip": "b43dbb11b3bb50e8a3550baa67cacc3872bfa3e4",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-632-cycle17-1999-structured-domains-process"
+    },
+    {
+      "name": "codex/BAT-633-cycle17-1999-expanded-union-material",
+      "tip": "1f83d4fed23b29e69835105db4e16e98de1a0dc3",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-633-cycle17-1999-expanded-union-material"
+    },
+    {
+      "name": "codex/BAT-633-cycle17-1999-expanded-union-process",
+      "tip": "77e8384bdfeef490870bf7f385421dca850f3b41",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-633-cycle17-1999-expanded-union-process"
+    },
+    {
+      "name": "codex/BAT-634-cycle17-1998-index-material",
+      "tip": "b6e86857f3b7a66d88edbff91454cf7cea501a28",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-634-cycle17-1998-index-material"
+    },
+    {
+      "name": "codex/BAT-634-cycle17-1998-index-process",
+      "tip": "a30f21b1e697e53c2dad2e80db19955043c4a4e2",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-634-cycle17-1998-index-process"
+    },
+    {
+      "name": "codex/BAT-635-cycle17-1998-acquisition-material",
+      "tip": "64a19e8f4e1c99a046bb84d246c9874ba6c1e334",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-635-cycle17-1998-acquisition-material"
+    },
+    {
+      "name": "codex/BAT-635-cycle17-1998-acquisition-process",
+      "tip": "fe38bf5e6268b1bd0f84799d20f586e93d5bcc90",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-635-cycle17-1998-acquisition-process"
+    },
+    {
+      "name": "codex/BAT-636-cycle17-1998-structured-material",
+      "tip": "79c32ae5e2bfe00bf52004e8ad784b69367f0aba",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-636-cycle17-1998-structured-material"
+    },
+    {
+      "name": "codex/BAT-636-cycle17-1998-structured-process",
+      "tip": "9989256da5f128ceca83bba8eec5a84ab48cd03c",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-636-cycle17-1998-structured-process"
+    },
+    {
+      "name": "codex/BAT-637-cycle17-1998-union-material",
+      "tip": "ed21d35dfc909e2f4ec9eb09d7c7f32f2575cf86",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-637-cycle17-1998-union-material"
+    },
+    {
+      "name": "codex/BAT-637-cycle17-1998-union-process",
+      "tip": "0fb9051b8592c3f17b1f62510630ad7eca6e0e22",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-637-cycle17-1998-union-process"
+    },
+    {
+      "name": "codex/BAT-638-cycle17-1998-corpus-material",
+      "tip": "82651a51fa772f220d247d8ed85d231d76456c93",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-638-cycle17-1998-corpus-material"
+    },
+    {
+      "name": "codex/BAT-638-cycle17-1998-corpus-process",
+      "tip": "1d9131785597083774534a5068cd77bb2f7ee364",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-638-cycle17-1998-corpus-process"
+    },
+    {
+      "name": "codex/BAT-661-week-zero-t7d-authority",
+      "tip": "be92366a1f63aea6e574539d676143e867d049f9",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-661-week-zero-t7d-authority"
+    },
+    {
+      "name": "codex/BAT-662-offline-test-repair",
+      "tip": "ef3e7dde2087e75257ef92fd4cf354427c52f1fd",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__BAT-662-offline-test-repair"
+    },
+    {
+      "name": "codex/cycle2-final-closeout-sync",
+      "tip": "31eb4d176bb03af3677e32fa6d965fd3dfe6bc6d",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__cycle2-final-closeout-sync"
+    },
+    {
+      "name": "codex/new-worktree-ps5-compat",
+      "tip": "6fef9ea216207e9933be7c308dadd2583243dc2f",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/codex__new-worktree-ps5-compat"
+    },
+    {
+      "name": "process/BAT-602-official-2005-union",
+      "tip": "02cdfe2c15a5f99d36d5b012f5c16594cc88a87c",
+      "preserve": "refs/preserve/cycle26-obsolete-20260903T055912Z/process__BAT-602-official-2005-union"
+    }
+  ],
+  "blocked": [],
+  "retained": [
+    {
+      "name": "codex/BAT-523-cycle16-closeout",
+      "tip": "679751b7cb0a2960f17fe1ce4694b0eb327f0c63",
+      "reason": "STILL_ON_REMOTE"
+    },
+    {
+      "name": "codex/BAT-554-evidence-state-reconciliation",
+      "tip": "1f4a7e5f62cc9279bf0bc93305e68113b61e0d54",
+      "reason": "STILL_ON_REMOTE"
+    },
+    {
+      "name": "codex/BAT-554-parser-runtime-domain-gate",
+      "tip": "3233d146b9080011b829b5d21bbf0f2bbbded38e",
+      "reason": "STILL_ON_REMOTE"
+    },
+    {
+      "name": "codex/BAT-572-tamu-cross-source-domain-gate",
+      "tip": "808fc9e33055be08a3d0f63d3136a2cfcbe70819",
+      "reason": "STILL_ON_REMOTE"
+    },
+    {
+      "name": "codex/BAT-582-cycle9-done-mirror",
+      "tip": "1911553820447715cb94f4f3f5a380ec8b1380aa",
+      "reason": "STILL_ON_REMOTE"
+    },
+    {
+      "name": "codex/BAT-613-process",
+      "tip": "49a0b8294b34d3e18af282b636e5849e2aa28feb",
+      "reason": "STILL_ON_REMOTE"
+    },
+    {
+      "name": "codex/BAT-615-process",
+      "tip": "bbe2974594a70cec75a54b04cecc08aa1afb20d6",
+      "reason": "STILL_ON_REMOTE"
+    },
+    {
+      "name": "codex/BAT-615-process-bind",
+      "tip": "1a3a282aaa3169e5834cae61f9803186c6580ec2",
+      "reason": "STILL_ON_REMOTE"
+    },
+    {
+      "name": "codex/BAT-688-hold-inventory",
+      "tip": "410e7bf6e893e103266665654f340b1dfe5c42bd",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/BAT-688-scientific-trust-hold",
+      "tip": "49003eea32d2935ecf79a0ca68bda87bf4896e79",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/BAT-689-execution-focus-correction",
+      "tip": "8c1ebcf502a6a56f52344aa314cd1f54c1a01554",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/BAT-689-review-infra",
+      "tip": "99b901d84f54233af1c4a7c8974b71652df99b8f",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/BAT-690-c26-scr",
+      "tip": "f317fe7b3dfa362a6652f8410294776881301967",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/BAT-690-scientific-successors",
+      "tip": "3ef3b6a6e3e9c6bf7e9f332fa40a583b94fa83f2",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/public-private-separation",
+      "tip": "94cf3d66d8e19282fdfbc5f920f6b03b3aaca012",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/public-repository-makeover",
+      "tip": "f5b36c56664549962f2d72e9093e12d1ea23deec",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "cycle22/week-zero-official-finals",
+      "tip": "845979de7ebde9c2e35ad5051eb215e2c8956b68",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "main",
+      "tip": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "material/BAT-688-inventory-authority-roots",
+      "tip": "266d13839e8fb1aa369a2eb2a9c36fbb38d27330",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "material/BAT-688-inventory-git-first-add",
+      "tip": "ba2e9e6650ef71e8c0c3f630ad8768e36a423843",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "preserve/cycle13-assistive-retirement",
+      "tip": "150e8df33f2534de16aabece42bd99b3c0814994",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "preserve/cycle17-unintegrated-20260824T075717Z",
+      "tip": "75485de5e0122e87ad86f651f2c2d37d96ff39aa",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "preserve/cycle18-canonical-overlap-20260827T015111Z",
+      "tip": "97636fa1e220a7df265c73231d1fd099fc5e1495",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "preserve/cycle18-preflight-overlap-20260824T184919Z",
+      "tip": "71952d4095a6248ff93406093f02a89185ceef71",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "preserve/cycle20-cycle19-unintegrated-20260828T022538Z",
+      "tip": "e25be0b899342e9f00ad4f5f9bd1b9c4594974cb",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "preserve/cycle25-preflight-20260831T991bf466",
+      "tip": "991bf4666fa6d60921448113939300c121250278",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "preserve/local-second-pass-audit-20260828T0405Z",
+      "tip": "254d4f88b8082a330937461ce6bdc3f1301587c5",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "process/BAT-688-cycle25-5-jira-reconcile",
+      "tip": "1690676720a37b4c1770bae839e0f63c2b96a695",
+      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+    },
+    {
+      "name": "codex/BAT-554-evidence-state-reconciliation-v2",
+      "tip": "1f4a7e5f62cc9279bf0bc93305e68113b61e0d54",
+      "reason": "PRESERVATION_RETAIN_UNIQUE_UNMERGED",
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "name": "codex/recovery-local-main-9a068a96",
+      "tip": "9a068a96ad3f66f39aa86b7e972edce9b7982380",
+      "reason": "PRESERVATION_RETAIN_UNIQUE_UNMERGED",
+      "disposition": "PRESERVATION_RETAIN"
+    }
+  ],
+  "after_worktrees": [
+    "C:/BatteredAggieSyndrome                                                    55e12a5a [main]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory              410e7bf6 [codex/BAT-688-hold-inventory]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots   266d1383 [material/BAT-688-inventory-authority-roots]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add     ba2e9e66 [material/BAT-688-inventory-git-first-add]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile              16906767 [process/BAT-688-cycle25-5-jira-reconcile]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold       49003eea [codex/BAT-688-scientific-trust-hold]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction  8c1ebcf5 [codex/BAT-689-execution-focus-correction]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra                99b901d8 [codex/BAT-689-review-infra]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr                     f317fe7b [codex/BAT-690-c26-scr]",
+    "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors       3ef3b6a6 [codex/BAT-690-scientific-successors]",
+    "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate                  deaece17 (detached HEAD)",
+    "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b         04d3c79b (detached HEAD)",
+    "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation           94cf3d66 [codex/public-private-separation]",
+    "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover          f5b36c56 [codex/public-repository-makeover]"
+  ],
+  "recovery": "git update-ref refs/heads/<name> <tip> using preserve refs under refs/preserve/cycle26-obsolete-20260903T055912Z",
+  "open_prs_untouched": [
+    "codex/BAT-690-c26-scr",
+    "dependabot/pip/product-runtime-029124cf7c"
+  ],
   "canonical_main": {
     "path": "C:\\BatteredAggieSyndrome",
-    "branch": "main",
     "sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
-    "clean": true,
     "tracks": "origin/main"
   },
   "active_cycle26_worktree": {
@@ -15,32 +733,5 @@
     "branch": "codex/BAT-690-c26-scr",
     "disposition": "ACTIVE_UNMERGED_WORK"
   },
-  "open_prs_untouched": ["Dependabot #654"],
-  "retained_worktrees": [
-    "C:/BatteredAggieSyndrome",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
-    "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors",
-    "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate",
-    "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b",
-    "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation",
-    "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover"
-  ],
-  "deleted_refs": [],
-  "preservation_refs_retained": [
-    "preserve/cycle13-assistive-retirement",
-    "preserve/cycle17-unintegrated-20260824T075717Z",
-    "preserve/cycle18-canonical-overlap-20260827T015111Z",
-    "preserve/cycle18-preflight-overlap-20260824T184919Z",
-    "preserve/cycle20-cycle19-unintegrated-20260828T022538Z",
-    "preserve/cycle25-preflight-20260831T991bf466",
-    "preserve/local-second-pass-audit-20260828T0405Z",
-    "cycle22/week-zero-official-finals"
-  ]
+  "note": "Every local branch classified; obsolete tips deleted with preserve refs; unique unmerged recovery tips retained; active PR/worktree/protection refs retained."
 }

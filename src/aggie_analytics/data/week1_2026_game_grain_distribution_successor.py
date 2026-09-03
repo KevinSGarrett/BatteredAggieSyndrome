@@ -19,6 +19,7 @@ SHADOW_CLASSIFICATION = "UNTRUSTED_SHADOW"
 
 
 def _phi_ppf(p: float) -> float:
+    """Acklam rational approximation with two Halley refinements (producer copy)."""
     if not 0.0 < p < 1.0:
         raise ValueError("quantile p must be in (0, 1)")
     a = [
@@ -54,19 +55,27 @@ def _phi_ppf(p: float) -> float:
     phigh = 1 - plow
     if p < plow:
         q = math.sqrt(-2 * math.log(p))
-        return (
-            ((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]
-        ) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1)
-    if p > phigh:
+        x = (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / (
+            (((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1
+        )
+    elif p > phigh:
         q = math.sqrt(-2 * math.log(1 - p))
-        return -(
-            ((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]
-        ) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1)
-    q = p - 0.5
-    r = q * q
-    return (
-        (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q
-    ) / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1)
+        x = -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / (
+            (((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1
+        )
+    else:
+        q = p - 0.5
+        r = q * q
+        x = (
+            (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q
+        ) / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1)
+    for _ in range(2):
+        cdf = 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
+        pdf = math.exp(-0.5 * x * x) / math.sqrt(2.0 * math.pi)
+        if pdf == 0.0:
+            break
+        x = x - (cdf - p) / (pdf + (cdf - p) * x / 2.0)
+    return x
 
 
 def freeze_mapping_before_market() -> str:
@@ -107,7 +116,11 @@ def game_grain_forecast(
         quantile=quantile,
     )
     coherent = bool(pair["coherent"] and joint["coherent"])
-    state = "FORECAST_FROZEN" if coherent else "ABSTAIN_PROBABILITY_DISTRIBUTION_INCOHERENCE"
+    state = (
+        "FORECAST_FROZEN"
+        if coherent
+        else "ABSTAIN_PROBABILITY_DISTRIBUTION_INCOHERENCE"
+    )
     if not trust_gate_open:
         state = "UNTRUSTED_SHADOW"
     return {

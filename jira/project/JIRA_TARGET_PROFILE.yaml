@@ -116,14 +116,14 @@
   },
   "discovery_required_before_api_execution": false,
   "jira_base_url": "https://kevinsgarrett.atlassian.net",
-  "last_live_verification": "2026-09-01T18:30:00+00:00",
+  "last_live_verification": "2026-09-03T06:00:00+00:00",
   "live_counts": {
     "issues": 627,
     "links": 1151,
     "parents": 444
   },
   "local_sync": {
-    "last_successful_sync": "2026-09-01T18:30:00+00:00",
+    "last_successful_sync": "2026-09-03T06:00:00+00:00",
     "pending_issue_ids": [],
     "pending_reason": "",
     "state": "LIVE_SYNCHRONIZED"
@@ -141,12 +141,12 @@
   "project_name": "BatteredAggieSyndrome",
   "project_type": "software",
   "saved_filters": {
-    "BAT — Blocked Work": "10137",
-    "BAT — Critical Path": "10139",
-    "BAT — Deferred or Conditional Work": "10138",
-    "BAT — Historical Completion Not Proven": "10141",
-    "BAT — Historical W01-W25 Reference": "10140",
-    "BAT — Ready Atomic Work": "10136"
+    "BAT \u2014 Blocked Work": "10137",
+    "BAT \u2014 Critical Path": "10139",
+    "BAT \u2014 Deferred or Conditional Work": "10138",
+    "BAT \u2014 Historical Completion Not Proven": "10141",
+    "BAT \u2014 Historical W01-W25 Reference": "10140",
+    "BAT \u2014 Ready Atomic Work": "10136"
   },
   "schema_version": 1
 }

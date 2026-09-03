@@ -6,9 +6,9 @@
     "Task": 133
   },
   "auxiliary_status_counts": {
-    "Done": 123,
-    "In Progress": 2,
-    "To Do": 8
+    "Done": 126,
+    "In Progress": 1,
+    "In Review": 6
   },
   "board": {
     "filter_id": "10134",
@@ -104,5 +104,5 @@
   "unexpected_issue_type_counts": {},
   "unexpected_link_count": 0,
   "unexpected_status_counts": {},
-  "verified_at": "2026-09-01T18:30:00+00:00"
+  "verified_at": "2026-09-03T06:00:00+00:00"
 }

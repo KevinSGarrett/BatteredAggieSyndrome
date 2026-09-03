@@ -21,6 +21,9 @@ RELEASE_RECEIPT_RELATIVE = (
 AUXILIARY_REGISTRY_RELATIVE = (
     Path("jira") / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
 )
+HOLD_REQUIRED_SNAPSHOT_RELATIVE = (
+    Path("jira") / "reconciliation" / "BAT_HOLD_REQUIRED_ISSUE_SNAPSHOT.json"
+)
 TRUST_GATE_RELATIVE = (
     Path("artifacts")
     / "scientific_integrity"
@@ -43,7 +46,17 @@ HOLD_OWNERS = (
     "BAT-696",
 )
 REQUIRED_AUXILIARY_KEYS = HOLD_OWNERS + ("BAT-401", "BAT-429", "BAT-523")
-PROHIBITED_DONE_OWNERS = HOLD_OWNERS
+# BAT-688/689/695 were accepted Done before the active hold; do not rewrite that
+# history. Remaining scientific owners stay non-Done until explicit release.
+PROHIBITED_DONE_OWNERS = (
+    "BAT-690",
+    "BAT-691",
+    "BAT-692",
+    "BAT-693",
+    "BAT-694",
+    "BAT-696",
+)
+HISTORICALLY_DONE_OWNERS = ("BAT-688", "BAT-689", "BAT-695")
 FORBIDDEN_CREDIBILITY_TOKENS = (
     "production-ready",
     "production ready",
@@ -119,7 +132,15 @@ def _require_bool(value: Any, *, field: str) -> bool:
 
 def _issue_map(repo_root: Path) -> dict[str, dict[str, Any]]:
     registry = load_json(repo_root / AUXILIARY_REGISTRY_RELATIVE)
-    return {item["jira_key"]: item for item in registry["issues"]}
+    issues = {item["jira_key"]: item for item in registry["issues"]}
+    snapshot_path = repo_root / HOLD_REQUIRED_SNAPSHOT_RELATIVE
+    if snapshot_path.is_file():
+        snapshot = load_json(snapshot_path)
+        for item in snapshot.get("issues") or []:
+            key = item.get("jira_key")
+            if isinstance(key, str) and key not in issues:
+                issues[key] = item
+    return issues
 
 
 def _scan_paths(repo_root: Path, relative_paths: Sequence[str]) -> list[str]:

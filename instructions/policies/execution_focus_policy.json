@@ -101,6 +101,20 @@
         "head_sha": "4069c521556e405b6b9684c6975cf38f4e012c1c",
         "classification": "[material]",
         "reason": "The Cycle 25.5 Jira reconciliation recorded an immutable BAT-523 snapshot and updated routing/provenance configs. Those are material governance paths; the [process] subject was incorrect. The correction is scoped to this exact commit."
+      },
+      {
+        "commit_sha": "0bccbd13000e0e96f3641de4df90fcb0dc10f5ef",
+        "pull_request": 678,
+        "head_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "classification": "[material]",
+        "reason": "Cycle #26 scientific-control checkpoint commit changed material src/tools/governance paths but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "pull_request": 678,
+        "head_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "classification": "[material]",
+        "reason": "Cycle #26 review/hold/distribution repairs changed material validators and scientific helpers but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

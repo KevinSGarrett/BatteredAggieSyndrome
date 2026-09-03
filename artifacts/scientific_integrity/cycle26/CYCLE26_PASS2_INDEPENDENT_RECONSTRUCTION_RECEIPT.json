@@ -1,0 +1,23 @@
+{
+  "pass": 2,
+  "name": "independent_scientific_reconstruction",
+  "issued_at_utc": "2026-09-03T06:17:01Z",
+  "code_head": "f317fe7b3dfa362a6652f8410294776881301967",
+  "reference_modules": [
+    "aggie_analytics.scientific_reference.coherence"
+  ],
+  "producer_modules": [
+    "aggie_analytics.data.week1_2026_game_grain_distribution_successor",
+    "aggie_analytics.data.week1_2026_game_grain_national_forecast_successor",
+    "aggie_analytics.data.producer_distribution_math"
+  ],
+  "ridge_rows_checked": 79,
+  "independent_fail_count": 0,
+  "joint_probability_margin_interval": true,
+  "oriented_row_count": 158,
+  "result": "PASS_WITHIN_DECLARED_SUCCESSOR_SCOPE",
+  "limitations": [
+    "Empirical skill not established.",
+    "Pass does not authorize merge or trust-gate release."
+  ]
+}

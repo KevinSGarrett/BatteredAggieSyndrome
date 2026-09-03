@@ -1,8 +1,8 @@
 {
   "artifact_type": "CYCLE26_FINDING_DISPOSITION_MATRIX",
-  "schema_version": 1,
-  "issued_at_utc": "2026-09-03T05:16:00Z",
-  "code_head_at_issuance": "unmerged_worktree_codex/BAT-690-c26-scr",
+  "schema_version": 2,
+  "issued_at_utc": "2026-09-03T06:17:01Z",
+  "code_head_at_issuance": "f317fe7b3dfa362a6652f8410294776881301967",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "entries": [
@@ -10,203 +10,162 @@
       "id": "R26-01",
       "severity": "P0",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-689",
-      "reproducer": "schema-valid FAIL/BLOCKED review JSON with bound SHAs",
-      "observed_before": "validator findings empty / merge exit 0",
-      "correction": "tools/validate_codex_scientific_review.py validate_review_outcome; FAIL/BLOCKED are unsuccessful merge outcomes",
-      "regression": "tests/test_cycle26_adversarial_regressions.py::test_01_schema_valid_fail_is_not_merge_success",
-      "residual_risk": "hosted action versions still require admin confirmation of required-check mapping"
+      "owner": "BAT-689"
     },
     {
       "id": "R26-02",
       "severity": "P0",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-688",
-      "reproducer": "release receipt present plus unscoped Done/merge/comment",
-      "observed_before": "username+boolean authorized unrelated actions",
-      "correction": "scientific_trust_recovery_hold scoped release + required action context",
-      "regression": "tests/test_scientific_trust_recovery_hold.py::test_valid_release_receipt_does_not_unscoped_authorize",
-      "residual_risk": "original operator message for 250a80ee remains AUTHORIZATION_SOURCE_NOT_VERIFIED"
+      "owner": "BAT-688"
     },
     {
       "id": "R26-03",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-696",
-      "correction": "empty/null traces and missing cross-output payloads fail",
-      "regression": "tests/test_cycle26_adversarial_regressions.py::test_05_empty_null_trace_and_missing_payload"
+      "owner": "BAT-696"
     },
     {
       "id": "R26-04",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-696",
-      "correction": "producer_distribution_math / producer_market_math; bidirectional import check",
-      "regression": "tests/test_cycle26_adversarial_regressions.py::test_06_producer_reference_independence"
+      "owner": "BAT-696"
     },
     {
       "id": "R26-05",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-693",
-      "correction": "domain rejection; independent PPF; reversed intervals fail",
-      "regression": "tests/test_cycle26_adversarial_regressions.py::test_07_invalid_probability_scale_interval"
+      "owner": "BAT-693"
     },
     {
       "id": "R26-06",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-693",
-      "correction": "ambiguous multi-contest binding abstains; empty IDs rejected",
-      "regression": "tests/test_cycle26_adversarial_regressions.py::test_09_multi_game_first_match_rejected"
+      "owner": "BAT-693"
     },
     {
       "id": "R26-07",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-694",
-      "correction": "alias-before-median; name_date_only cannot be STRONG; empty books rejected",
-      "regression": "tests/test_cycle26_adversarial_regressions.py::test_14_sportsbook_alias_and_empty_book"
+      "owner": "BAT-694"
     },
     {
       "id": "R26-08",
       "severity": "P1",
-      "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
+      "disposition": "QUALIFIED",
       "owner": "BAT-690",
-      "reason": "helpers exist; nationally fitted saved outputs for logistic/ridge/prior-only remain historically incoherent (R26-20)"
+      "reason": "National successor materialized with fitted joint ridge path; historical helpers no longer the sole recovery claim"
     },
     {
       "id": "R26-09",
       "severity": "P1",
       "disposition": "CONFIRMED_UNRESOLVED",
       "owner": "BAT-688",
-      "reason": "DAG cycle detector added; chronological adjacency DAG is still not producer-lineage complete; all-cycle three-pass remains unfinished"
+      "reason": "All-cycle three-pass unfinished"
     },
     {
       "id": "R26-10",
       "severity": "P1",
       "disposition": "DISPROVED_WITH_EVIDENCE",
-      "owner": "BAT-688",
-      "reproducer": "tools/cycle26_evidence_collection.py",
-      "observed": "990/990 verified; 2,550,148,419 record-weighted bytes; 965+18 distinct hashes",
-      "correction": "false-positive correction appended; original missing-990 assertion preserved"
+      "owner": "BAT-688"
     },
     {
       "id": "R26-11",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-688",
-      "live_comment_14723_body_sha256": "74dbc59eab16955859c3ebec271ddb50907caa56ed3e22d302f8839d0307ef4e",
-      "ledger_stored_body_sha256": "8bf880062a8b7870204bbc37298f738a20b6542316cbe40cb7e56ae619e30b71",
-      "note": "Live MCP markdown body retrieved; historical ledger hash preserved; CYCLE-25.5 supersession added; no Cycle #26 parent comment posted"
+      "owner": "BAT-688"
     },
     {
       "id": "R26-12",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-688",
-      "correction": "validate_source_anchors(repair=False) does not write SOURCE_ANCHOR_VALIDATION.csv"
+      "owner": "BAT-688"
     },
     {
       "id": "R26-13",
       "severity": "P1",
       "disposition": "CONFIRMED_UNRESOLVED",
       "owner": "BAT-689",
-      "reason": "required approving reviews remain 0 until explicit admin activation; settings not changed"
+      "reason": "Required approving reviews remain 0 pending admin activation"
     },
     {
       "id": "R26-14",
       "severity": "P2",
-      "disposition": "NOT_APPLICABLE_WITH_REASON",
-      "reason": "OPEN T-24H/T-90M checkpoints are expected calendar state, not an integrity defect"
+      "disposition": "NOT_APPLICABLE_WITH_REASON"
     },
     {
       "id": "R26-15",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-689",
-      "regression": "tests/test_cycle26_adversarial_regressions.py::test_19_author_self_adjudication_and_placeholders"
+      "owner": "BAT-689"
     },
     {
       "id": "R26-16",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-688",
-      "correction": "HOLD_ACTION_CONTEXT_MISSING; BAT-401/BAT-429 required in auxiliary registry"
+      "owner": "BAT-688"
     },
     {
       "id": "R26-17",
       "severity": "P1",
       "disposition": "CONFIRMED_UNRESOLVED",
-      "owner": "BAT-688",
-      "reason": "inventory validator still cannot certify SEMANTICALLY_AUDITED; unfinished all-cycle claim census remains"
+      "owner": "BAT-688"
     },
     {
       "id": "R26-18",
       "severity": "P1",
       "disposition": "QUALIFIED",
-      "owner": "BAT-688",
-      "correction": "scientific_dependency_graph computes cycles from actual edges; committed DAG remains chronological adjacency",
-      "residual_risk": "transitive scientific contamination still not fully reconstructed from producer inputs"
+      "owner": "BAT-688"
     },
     {
       "id": "R26-19",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-695",
-      "correction": "truthy-string activation rejected; stages/exposure/result-access required; protocol remains DESIGNED_INACTIVE"
+      "owner": "BAT-695"
     },
     {
       "id": "R26-20",
       "severity": "P1",
-      "disposition": "CONFIRMED_UNRESOLVED",
+      "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
       "owner": "BAT-693",
-      "reproducer": "ops/cycle26/CYCLE26_SAVED_PAIR_CENSUS.json",
-      "observed": "C20 logistic/ridge/prior-only 910/910 complement failures; C21 5035/5035; C25 83/83; ridge margin antisymmetry fails",
-      "correction": "game-grain successor exists; historical saved payloads preserved and not cosmetically renormalized"
+      "correction": "Immutable historical payloads preserved; Cycle26 game-grain national successor emits coherent pairs; old metrics not cosmetically renormalized",
+      "successor_gate": "bd213778d497faf0ff5da7c34d5b3b5bea797fa53edabf0b5d47e6286a27350e"
     },
     {
       "id": "R26-21",
       "severity": "P1",
       "disposition": "QUALIFIED",
       "owner": "BAT-692",
-      "correction": "parser recognizes Att-Cmp-Int/Cmp-Att-Int; TEAM_ATTRIBUTED; header-only not material",
-      "residual_risk": "full 429-row corpus successor rematerialization not completed in this head"
+      "residual_risk": "Full 429-row corpus successor rematerialization still pending"
     },
     {
       "id": "R26-22",
       "severity": "P1",
       "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
-      "owner": "BAT-690",
-      "reason": "naive timestamps no longer auto-UTC; duration constants not upgraded to proven PIT"
+      "owner": "BAT-690"
     },
     {
       "id": "R26-23",
       "severity": "P2",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-692",
-      "correction": "HEADER_ONLY_NOT_MATERIAL availability"
+      "owner": "BAT-692"
     },
     {
       "id": "R26-24",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-688",
-      "regression": "tests/test_cycle26_adversarial_regressions.py::test_28_windows_filename_hazards"
+      "owner": "BAT-688"
     },
     {
       "id": "R26-25",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-689",
-      "correction": "digest mismatch cannot satisfy P0-verdict merge success"
+      "owner": "BAT-689"
     },
     {
       "id": "R26-26",
       "severity": "P1",
       "disposition": "CONFIRMED_FIXED",
-      "owner": "BAT-693",
-      "correction": "Acklam PPF plus two Halley refinements; independent interval_mass quantiles"
+      "owner": "BAT-693"
     }
   ]
 }

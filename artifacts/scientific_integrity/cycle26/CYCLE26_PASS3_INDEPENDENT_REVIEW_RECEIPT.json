@@ -1,0 +1,13 @@
+{
+  "pass": 3,
+  "name": "independent_review_of_implementation_and_review",
+  "issued_at_utc": "2026-09-03T06:17:01Z",
+  "code_head": "f317fe7b3dfa362a6652f8410294776881301967",
+  "result": "PENDING_INDEPENDENT_REVIEWER",
+  "hosted_reviewers_available": [
+    "Codex scientific review",
+    "Bugbot"
+  ],
+  "author_self_approval": false,
+  "note": "Implementing author cannot alone complete Pass 3. PR #678 awaits independent review."
+}

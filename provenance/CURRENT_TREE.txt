@@ -146,6 +146,7 @@ artifacts/experimentation/peer_and_tamu_residual_stability_replay.json
 artifacts/forecast/week1_2026_cycle24_binding_review_gate.json
 artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json
 artifacts/forecast/week1_2026_forecast_input_binding_successor_gate.json
+artifacts/forecast/week1_2026_game_grain_national_forecast_successor_gate.json
 artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json
 artifacts/forecast/week1_2026_national_forecast_suite_gate.json
 artifacts/governance/protected_split_exposure_audit.json
@@ -491,6 +492,13 @@ artifacts/scientific_integrity/all_cycles/CYCLE_22_SCIENTIFIC_AUDIT.json
 artifacts/scientific_integrity/all_cycles/CYCLE_23_SCIENTIFIC_AUDIT.json
 artifacts/scientific_integrity/all_cycles/CYCLE_24_SCIENTIFIC_AUDIT.json
 artifacts/scientific_integrity/all_cycles/CYCLE_25_SCIENTIFIC_AUDIT.json
+artifacts/scientific_integrity/cycle26/CYCLE26_ACTIVE_PATH_ACCEPTANCE.json
+artifacts/scientific_integrity/cycle26/CYCLE26_BRANCH_WORKTREE_HYGIENE.json
+artifacts/scientific_integrity/cycle26/CYCLE26_FINDING_DISPOSITION_MATRIX.json
+artifacts/scientific_integrity/cycle26/CYCLE26_JIRA_RECONCILIATION.json
+artifacts/scientific_integrity/cycle26/CYCLE26_PASS1_PROVENANCE_RECEIPT.json
+artifacts/scientific_integrity/cycle26/CYCLE26_PASS2_INDEPENDENT_RECONSTRUCTION_RECEIPT.json
+artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEW_RECEIPT.json
 artifacts/shadow/bat401_done_lane_interpretation.json
 artifacts/shadow/cycle21_defect_classification_cycle22.json
 artifacts/shadow/cycle22_week_zero_completion_report.json
@@ -3553,6 +3561,8 @@ src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py
 src/aggie_analytics/data/offline_reconstruction.py
 src/aggie_analytics/data/open_source.py
 src/aggie_analytics/data/play_drive.py
+src/aggie_analytics/data/producer_distribution_math.py
+src/aggie_analytics/data/producer_market_math.py
 src/aggie_analytics/data/prospective_shadow_cohort.py
 src/aggie_analytics/data/protected_evaluation_replacement_protocol.py
 src/aggie_analytics/data/roster_reconciliation.py
@@ -3642,6 +3652,7 @@ src/aggie_analytics/data/week1_2026_feature_coverage_adequacy.py
 src/aggie_analytics/data/week1_2026_forecast_input_binding_successor.py
 src/aggie_analytics/data/week1_2026_frozen_strength_prior.py
 src/aggie_analytics/data/week1_2026_game_grain_distribution_successor.py
+src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py
 src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py
 src/aggie_analytics/data/week1_2026_market_integrity_successor.py
 src/aggie_analytics/data/week1_2026_national_forecast_suite.py
@@ -3704,6 +3715,9 @@ src/aggie_analytics/features/transforms.py
 src/aggie_analytics/features/weather_station_matching.py
 src/aggie_analytics/governance/.cursor/BUGBOT.md
 src/aggie_analytics/governance/__init__.py
+src/aggie_analytics/governance/branch_worktree_hygiene.py
+src/aggie_analytics/governance/cycle_identity.py
+src/aggie_analytics/governance/scientific_dependency_graph.py
 src/aggie_analytics/governance/scientific_trust_recovery_hold.py
 src/aggie_analytics/lineage.py
 src/aggie_analytics/modeling/__init__.py
@@ -3853,6 +3867,7 @@ tests/test_cycle23_routing_manifest_coverage.py
 tests/test_cycle24_routing_manifest_coverage.py
 tests/test_cycle25_5_routing_manifest_coverage.py
 tests/test_cycle25_routing_manifest_coverage.py
+tests/test_cycle26_adversarial_regressions.py
 tests/test_data_research.py
 tests/test_development_2023_labeled_replay.py
 tests/test_development_2023_outcomes.py
@@ -4088,6 +4103,7 @@ tests/test_week1_2026_early_forecast_adequacy.py
 tests/test_week1_2026_feature_coverage_adequacy.py
 tests/test_week1_2026_forecast_input_binding_successor.py
 tests/test_week1_2026_frozen_strength_prior.py
+tests/test_week1_2026_game_grain_national_forecast_successor.py
 tests/test_week1_2026_market_benchmark_and_adequacy.py
 tests/test_week1_2026_national_forecast_suite.py
 tests/test_week1_2026_official_schedule_identity.py
@@ -4103,6 +4119,7 @@ tests/test_wmt_provider_timestamp_pit.py
 tests/test_wmt_tamu_specialization_feature_pit.py
 tests/test_worktree_resource_policy.py
 tools/__init__.py
+tools/_diag_aux_live.py
 tools/acquire_2026_prospective_schedule.py
 tools/acquire_2026_week_zero_live_execution_evidence.py
 tools/acquire_2026_week_zero_t7d_evidence.py
@@ -4263,6 +4280,7 @@ tools/build_week1_2026_early_forecast_adequacy.py
 tools/build_week1_2026_feature_coverage_adequacy.py
 tools/build_week1_2026_forecast_input_binding_successor.py
 tools/build_week1_2026_frozen_strength_prior.py
+tools/build_week1_2026_game_grain_national_forecast_successor.py
 tools/build_week1_2026_market_benchmark_and_adequacy.py
 tools/build_week1_2026_national_forecast_suite.py
 tools/build_week1_2026_official_schedule_identity.py
@@ -4283,6 +4301,7 @@ tools/cpu_worker_service.py
 tools/create_experiment.py
 tools/create_research_packet.py
 tools/cursor_assist.py
+tools/cycle26_evidence_collection.py
 tools/evaluate_pit_replay_readiness.py
 tools/evaluate_retraining_admission.py
 tools/experiment_store_cli.py
@@ -4573,6 +4592,7 @@ tools/validate_week1_2026_feature_coverage_adequacy.py
 tools/validate_week1_2026_forecast_adequacy.py
 tools/validate_week1_2026_forecast_input_binding_successor.py
 tools/validate_week1_2026_frozen_strength_prior.py
+tools/validate_week1_2026_game_grain_national_forecast_successor.py
 tools/validate_week1_2026_historical_current_feature_equivalence.py
 tools/validate_week1_2026_market_benchmark_and_adequacy.py
 tools/validate_week1_2026_market_consensus.py

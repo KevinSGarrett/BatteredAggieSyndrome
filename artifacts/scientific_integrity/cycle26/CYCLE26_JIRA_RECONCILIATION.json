@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
-  "issued_at_utc": "2026-09-03T12:37:36Z",
+  "issued_at_utc": "2026-09-03T14:02:27Z",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
   "live_statuses": {
     "BAT-696": "In Review",
@@ -39,7 +39,7 @@
     }
   ],
   "verify_live_result": "PASS",
-  "verify_live_at": "2026-09-03T12:37:36Z",
+  "verify_live_at": "2026-09-03T13:52:05Z",
   "total_issue_count": 627,
   "status_counts": {
     "Done": 212,
@@ -55,7 +55,7 @@
   },
   "missing_auxiliary_keys": [],
   "unexpected_issue_keys": [],
-  "verified_at_utc": "2026-09-03T09:01:57.962220+00:00",
+  "verified_at_utc": "2026-09-03T13:52:05.839510+00:00",
   "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
   "commands": [
     {
@@ -69,5 +69,6 @@
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "code_head_binding": "LIVE_PR_678_TIP",
-  "code_head": "983628d453c14d9284cd132fedb18c7a180c35fc"
+  "code_head": "983628d453c14d9284cd132fedb18c7a180c35fc",
+  "git_tip_at_issuance": "4479d6988d8844fb3a4eec7c405076a3d391c976"
 }

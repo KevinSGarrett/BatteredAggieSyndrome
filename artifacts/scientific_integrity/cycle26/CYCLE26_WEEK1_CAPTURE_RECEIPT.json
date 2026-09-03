@@ -1,13 +1,13 @@
 {
   "artifact_type": "CYCLE26_WEEK1_CAPTURE_RECEIPT",
-  "issued_at_utc": "2026-09-03T10:57:12Z",
+  "issued_at_utc": "2026-09-03T14:02:27Z",
   "code_head_binding": "LIVE_PR_678_TIP",
-  "git_tip_at_issuance": "ab8fcf3e37ba886c9e96bfe57edcda30b7ddaf1b",
+  "git_tip_at_issuance": "4479d6988d8844fb3a4eec7c405076a3d391c976",
   "data_root": "C:\\\\BatteredAggieSyndrome.data",
   "captures": {
     "schedule_source_universe": {
       "tool": "tools/acquire_week1_2026_source_universe.py --dataset schedule",
-      "capture_identity": "891d481dbcddb71d2edb5e68241d344b5a451ae1dfca622e6fc08ce1ce4ac4ae",
+      "capture_identity": "9e98e3d8e372bbecb0d25e02accbb41506fc47c4ade7c7dbc971032d789dc98b",
       "dates_captured": [
         "2026-09-03",
         "2026-09-04",
@@ -19,24 +19,24 @@
     },
     "authority_enrichment": {
       "tool": "tools/acquire_week1_2026_authority_enrichment.py --dataset all",
-      "kickoff_authority": "36cabbe7395c83030f963fa8b5c3ea97a89241a66f6770f2964f77c0c2d1aaec",
-      "entity_authority": "16d70ee470108ecf628d85311ade4e47fcbe5a8db3561919af06ec44cbf552bd",
-      "venue_authority": "2121e013f0b4dfe473226976aea9acc5ae854f871e20b19e663a07e2a24b3dd3",
+      "kickoff_authority": "f1fa60e16db8da578aebc8fed0aa6135e9f863d71253a1ccf8007d6657c4f29c",
+      "entity_authority": "da2a1b93bde50993b270928c3c5986085ad335399075488ce19c193f2b7bb7d1",
+      "venue_authority": "774eece1c87ad007e646d0e4c2624c2c8bc35f59afac42aa76addde02904a0a3",
       "capture_identities": {
-        "kickoff-authority": "72c33956fca4f48e5e961b3734dcf46fe17c4eb895988cdbff7419612d33f831",
-        "entity-authority": "16d70ee470108ecf628d85311ade4e47fcbe5a8db3561919af06ec44cbf552bd",
-        "venue-authority": "4126f3335f8467d9f97071e4176ffbec6d013d54416abf3b1648fc002afca682"
+        "kickoff-authority": "f1fa60e16db8da578aebc8fed0aa6135e9f863d71253a1ccf8007d6657c4f29c",
+        "entity-authority": "da2a1b93bde50993b270928c3c5986085ad335399075488ce19c193f2b7bb7d1",
+        "venue-authority": "774eece1c87ad007e646d0e4c2624c2c8bc35f59afac42aa76addde02904a0a3"
       },
       "state": "CAPTURED"
     },
     "rankings": {
       "tool": "tools/acquire_week1_2026_current_context.py --dataset rankings",
-      "capture_identity": "b95cc1bc9e7c871e1c83eb7947c903753e9a3fb30dc71b6afcba777f0760480a",
+      "capture_identity": "6b9b57becdcb9f51945e011e6412f9b36d9106f4e67428076c194ee9b130fc9f",
       "state": "CAPTURED"
     },
     "weather": {
       "tool": "tools/acquire_week1_2026_current_context.py --dataset weather --venue-coordinates C:/BatteredAggieSyndrome.data/tmp/c23_venue_coords.json",
-      "capture_identity": "f539fab72b064ed3c768d414128e5e732126759fcc0a15c06694517d2e163ea2",
+      "capture_identity": "1c0ae6772e5aeabb841c09706446e73d581fea17f07e01e4cbb95697c22b103d",
       "state": "CAPTURED",
       "venue_coordinates": "C:/BatteredAggieSyndrome.data/tmp/c23_venue_coords.json"
     }
@@ -50,31 +50,26 @@
     "asof_is_not_per_game_t24h": true
   },
   "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
-  "rebound_at_utc": "2026-09-03T10:57:12Z",
+  "rebound_at_utc": "2026-09-03T14:02:27Z",
   "refresh_run": {
     "phase": "REFRESH",
-    "finished_at_utc": "2026-09-03T10:44:12Z",
+    "finished_at_utc": "2026-09-03T14:02:27Z",
     "runner": "ops/cycle26/run_week1_checkpoint_capture.ps1",
-    "log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_CAPTURE_RUN_20260903T103910Z.log",
-    "note": "Midday REFRESH before Sep3 T-90M window; not a T-90M labeled freeze; no T-24H backfill"
+    "log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260903T135605Z.log",
+    "contest_count": 91,
+    "t90m_still_eligible": 91,
+    "note": "Midday REFRESH 2026-09-03 ~14:01Z; not T-90M labeled freeze"
   },
   "next_calendar_actions": [
     {
       "action": "SEP3_T90M_FREEZE_CAPTURE",
       "not_before_utc": "2026-09-03T19:45:00Z",
       "deadline_utc": "2026-09-03T20:30:00Z",
-      "command": "powershell -File C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\run_week1_checkpoint_capture.ps1 -Phase T90M",
-      "note": "Packet may only receive T-90M label if every required record freezes by cutoff; no T-24H backfill"
+      "command": "powershell -File C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\run_week1_checkpoint_capture.ps1 -Phase T90M"
     },
     {
       "action": "SEP4_T24H_CAPTURE",
-      "deadline_window": "per-contest T-24H before each Sep4 kickoff",
       "am_t24h_utc": "2026-09-04T23:00:00Z"
     }
-  ],
-  "adversarial_regressions": {
-    "module": "tests/test_cycle26_adversarial_regressions.py",
-    "count": 47,
-    "result": "OK"
-  }
+  ]
 }

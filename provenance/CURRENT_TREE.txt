@@ -138,6 +138,7 @@ artifacts/entities/resolution_results.parquet
 artifacts/entities/schema_readiness_gate.json
 artifacts/entities/schema_reconciliation.csv
 artifacts/experimentation/development_candidate_evidence_ledger.json
+artifacts/experimentation/historical_saved_pair_game_grain_successor_gate.json
 artifacts/experimentation/national_expectation_baselines_and_peers_gate.json
 artifacts/experimentation/national_multi_year_walk_forward_gate.json
 artifacts/experimentation/national_multi_year_walk_forward_replay.json
@@ -510,6 +511,7 @@ artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json
 artifacts/scientific_integrity/cycle26/CYCLE26_REMAINING_AUDIT_BACKLOG.json
 artifacts/scientific_integrity/cycle26/CYCLE26_RIDGE_ABSTENTION_CENSUS.json
+artifacts/scientific_integrity/cycle26/CYCLE26_SAVED_PAIR_CENSUS.json
 artifacts/scientific_integrity/cycle26/CYCLE26_SEP4_T24H_CAPTURE_PREP.json
 artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_SCORING_READINESS.json
@@ -3562,6 +3564,7 @@ src/aggie_analytics/data/historical_game_outcome_spine.py
 src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
 src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
 src/aggie_analytics/data/historical_known_at_authority.py
+src/aggie_analytics/data/historical_saved_pair_game_grain_successor.py
 src/aggie_analytics/data/http.py
 src/aggie_analytics/data/national_chronological_development_matrix.py
 src/aggie_analytics/data/national_entity_identity_benchmark.py
@@ -3914,6 +3917,7 @@ tests/test_historical_player_box_snapshot.py
 tests/test_historical_player_event_metric_pit.py
 tests/test_historical_rankings_pit.py
 tests/test_historical_roster_membership_pit.py
+tests/test_historical_saved_pair_game_grain_successor.py
 tests/test_historical_spine_coverage_matrix.py
 tests/test_historical_team_box_snapshot.py
 tests/test_historical_team_membership_pit.py
@@ -4156,6 +4160,7 @@ tools/apply_private_research_acquisition_policy.py
 tools/audit_control_plane.py
 tools/audit_protected_split_exposure.py
 tools/backup_state.py
+tools/bind_cycle26_historical_pair_successor.py
 tools/bootstrap_readiness.py
 tools/build_action_derived_play_summary.py
 tools/build_all_cycle_scientific_inventory.py
@@ -4178,6 +4183,7 @@ tools/build_historical_player_box_snapshot.py
 tools/build_historical_player_event_metric_pit.py
 tools/build_historical_rankings_pit.py
 tools/build_historical_roster_membership_pit.py
+tools/build_historical_saved_pair_game_grain_successor.py
 tools/build_historical_spine_coverage_matrix.py
 tools/build_historical_team_box_snapshot.py
 tools/build_historical_team_membership_pit.py
@@ -4441,6 +4447,7 @@ tools/validate_historical_player_box_snapshot.py
 tools/validate_historical_player_event_metric_pit.py
 tools/validate_historical_rankings_pit.py
 tools/validate_historical_roster_membership_pit.py
+tools/validate_historical_saved_pair_game_grain_successor.py
 tools/validate_historical_team_box_snapshot.py
 tools/validate_historical_team_membership_pit.py
 tools/validate_historical_venue_assignment_pit.py

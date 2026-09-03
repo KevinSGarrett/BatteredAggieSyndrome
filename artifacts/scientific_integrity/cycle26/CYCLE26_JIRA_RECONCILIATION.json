@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
-  "issued_at_utc": "2026-09-03T10:34:45Z",
+  "issued_at_utc": "2026-09-03T12:09:17Z",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
   "live_statuses": {
     "BAT-696": "In Review",
@@ -21,9 +21,9 @@
     "done_on_remaining_scientific_owners": false,
     "bat_523_parent_progress_cycle26": false
   },
-  "note": "import_bat_live.py --verify-live PASS. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization. | refreshed verify stamp after predictive-skill bind; hold/Done rules unchanged",
+  "note": "import_bat_live.py --verify-live PASS. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization. | refreshed verify stamp after historical pair-successor bind; hold/Done rules unchanged",
   "verify_live_result": "PASS",
-  "verify_live_at": "2026-09-03T10:34:45Z",
+  "verify_live_at": "2026-09-03T12:09:17Z",
   "total_issue_count": 627,
   "status_counts": {
     "Done": 212,
@@ -53,5 +53,5 @@
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "code_head_binding": "LIVE_PR_678_TIP",
-  "code_head": "bac5dcb91f13b984f278e24cdd205a0b97f9b513"
+  "code_head": "LIVE_PR_678_TIP"
 }

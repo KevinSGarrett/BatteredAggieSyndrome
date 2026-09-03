@@ -11,8 +11,14 @@ from pathlib import Path
 
 DATA_ROOT = Path(r"C:\BatteredAggieSyndrome.data")
 OPS = DATA_ROOT / "ops" / "cycle26"
-CFBD = DATA_ROOT / "manifests/acquisition/bat378-cfbd-historical-expansion-v1/historical_expansion_acquisition_manifest.full.json"
-SDV = DATA_ROOT / "manifests/acquisition/bat378-sportsdataverse-supplement-v1/sportsdataverse_supplement_manifest.full.json"
+CFBD = (
+    DATA_ROOT
+    / "manifests/acquisition/bat378-cfbd-historical-expansion-v1/historical_expansion_acquisition_manifest.full.json"
+)
+SDV = (
+    DATA_ROOT
+    / "manifests/acquisition/bat378-sportsdataverse-supplement-v1/sportsdataverse_supplement_manifest.full.json"
+)
 PREDICTIONS = {
     "20": (
         "canonical/national_expectation_baselines_and_peers/sha256/773cf850bb8351497643506dd2ddcb4efbad26e3cd95a4dc78039b6e8ef3a1b0/national_baseline_predictions.jsonl",
@@ -53,7 +59,9 @@ def rehash_manifest(path: Path, records_key: str) -> dict:
             or row.get("relative_path")
             or row.get("path")
         )
-        expected = row.get("response_sha256") or row.get("raw_sha256") or row.get("sha256")
+        expected = (
+            row.get("response_sha256") or row.get("raw_sha256") or row.get("sha256")
+        )
         disposition = str(row.get("disposition") or row.get("state") or "")
         target = DATA_ROOT / relative if relative else None
         if disposition == "CAPTURED_EMPTY":
@@ -87,16 +95,17 @@ def rehash_manifest(path: Path, records_key: str) -> dict:
 
 
 def pair_census() -> dict:
-    from collections import defaultdict
-    import math
-
     results = {}
     for cycle, (relative, expected) in PREDICTIONS.items():
         path = DATA_ROOT / relative
         raw = path.read_bytes()
         digest = hashlib.sha256(raw).hexdigest()
         if digest != expected:
-            results[cycle] = {"error": "HASH_MISMATCH", "actual": digest, "expected": expected}
+            results[cycle] = {
+                "error": "HASH_MISMATCH",
+                "actual": digest,
+                "expected": expected,
+            }
             continue
         rows = [json.loads(line) for line in raw.splitlines() if line]
         game_key = "contest_identity" if cycle == "25" else "canonical_game_id"
@@ -108,7 +117,11 @@ def pair_census() -> dict:
         summary = {}
         for candidate in sorted({row["candidate_id"] for row in rows}):
             all_pairs = [pair for (cid, _), pair in groups.items() if cid == candidate]
-            pairs = [pair for pair in all_pairs if all(r.get(probability) is not None for r in pair)]
+            pairs = [
+                pair
+                for pair in all_pairs
+                if all(r.get(probability) is not None for r in pair)
+            ]
             errors = [abs(sum(r[probability] for r in pair) - 1) for pair in pairs]
             margin_errors = [
                 abs(sum(r[margin] for r in pair))
@@ -118,7 +131,9 @@ def pair_census() -> dict:
             summary[candidate] = {
                 "all_game_pairs": len(all_pairs),
                 "scorable_game_pairs": len(pairs),
-                "probability_sum_failures_tolerance_1e_8": sum(error > 1e-8 for error in errors),
+                "probability_sum_failures_tolerance_1e_8": sum(
+                    error > 1e-8 for error in errors
+                ),
                 "max_probability_sum_error": max(errors, default=None),
                 "margin_pairs": len(margin_errors),
                 "margin_antisymmetry_failures_tolerance_1e_8": sum(
@@ -144,7 +159,8 @@ def pair_census() -> dict:
                     "row_state": row.get("row_state"),
                 }
                 for row in rows
-                if row[game_key] == focus and row.get("candidate_id") == "ridge"
+                if row[game_key] == focus
+                and "ridge" in str(row.get("candidate_id") or "")
             ]
     return results
 
@@ -161,7 +177,8 @@ def main() -> int:
         "sportsdataverse": sdv,
         "capture_records": cfbd["record_count"] + sdv["record_count"],
         "verified_records": cfbd["verified_records"] + sdv["verified_records"],
-        "record_weighted_bytes": cfbd["record_weighted_bytes"] + sdv["record_weighted_bytes"],
+        "record_weighted_bytes": cfbd["record_weighted_bytes"]
+        + sdv["record_weighted_bytes"],
         "missing_or_mismatched_records": cfbd["missing_or_mismatched_records"]
         + sdv["missing_or_mismatched_records"],
         "false_positive_correction": {
@@ -178,7 +195,11 @@ def main() -> int:
     (OPS / "CYCLE26_SAVED_PAIR_CENSUS.json").write_text(
         json.dumps(census, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    print(json.dumps({"rehash": combined, "pair_cycles": list(census)}, indent=2, sort_keys=True)[:2000])
+    print(
+        json.dumps(
+            {"rehash": combined, "pair_cycles": list(census)}, indent=2, sort_keys=True
+        )[:2000]
+    )
     return 0
 
 

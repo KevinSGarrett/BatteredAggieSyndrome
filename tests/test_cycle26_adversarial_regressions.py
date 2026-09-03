@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import math
 import sys
 import tempfile
 import unittest
@@ -21,6 +20,10 @@ from aggie_analytics.data.protected_evaluation_replacement_protocol import (  # 
 )
 from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: E402
     parse_table_players,
+)
+from aggie_analytics.data.historical_saved_pair_game_grain_successor import (  # noqa: E402
+    PREDECESSORS as HISTORICAL_PAIR_PREDECESSORS,
+    succeed_pair,
 )
 from aggie_analytics.data.week1_2026_current_contest_binding_successor import (  # noqa: E402
     build_current_contest_row,
@@ -135,21 +138,31 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         )
         self.assertTrue(result["schema_valid"])
         self.assertFalse(result["merge_success"])
-        self.assertIn("CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL", result["merge_findings"])
+        self.assertIn(
+            "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL", result["merge_findings"]
+        )
 
     def test_01_blocked_and_unknown_are_not_merge_success(self) -> None:
         blocked = _passing_review(verdict="BLOCKED")
-        blocked_result = validate_review_outcome(blocked, expected_files=blocked["changed_file_inventory"])
+        blocked_result = validate_review_outcome(
+            blocked, expected_files=blocked["changed_file_inventory"]
+        )
         self.assertTrue(blocked_result["schema_valid"])
         self.assertFalse(blocked_result["merge_success"])
         unknown = _passing_review(verdict="UNKNOWN")
-        unknown_result = validate_review_outcome(unknown, expected_files=unknown["changed_file_inventory"])
+        unknown_result = validate_review_outcome(
+            unknown, expected_files=unknown["changed_file_inventory"]
+        )
         self.assertFalse(unknown_result["merge_success"])
-        self.assertIn("CODEX_REVIEW_UNKNOWN_VERDICT:UNKNOWN", unknown_result["merge_findings"])
+        self.assertIn(
+            "CODEX_REVIEW_UNKNOWN_VERDICT:UNKNOWN", unknown_result["merge_findings"]
+        )
 
     def test_02_pr_changing_own_checker_is_rejected(self) -> None:
         payload = _passing_review()
-        payload["changed_file_inventory"] = ["tools/validate_codex_scientific_review.py"]
+        payload["changed_file_inventory"] = [
+            "tools/validate_codex_scientific_review.py"
+        ]
         payload["changed_file_digest"] = _digest(payload["changed_file_inventory"])
         result = validate_review_outcome(
             payload, expected_files=payload["changed_file_inventory"]
@@ -314,7 +327,9 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             trust_gate_open=False,
         )
         self.assertEqual(first["row_state"], "ABSTAIN_AMBIGUOUS_CURRENT_CONTEST")
-        self.assertEqual(reversed_order["row_state"], "ABSTAIN_AMBIGUOUS_CURRENT_CONTEST")
+        self.assertEqual(
+            reversed_order["row_state"], "ABSTAIN_AMBIGUOUS_CURRENT_CONTEST"
+        )
 
     def test_10_empty_ids_do_not_match(self) -> None:
         row = build_current_contest_row(
@@ -349,7 +364,9 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         )
 
     def test_14_sportsbook_alias_and_empty_book(self) -> None:
-        consensus = consensus_from_quotes([0.1, 0.1, 0.9], ["DraftKings", "Draft Kings", "Bovada"])
+        consensus = consensus_from_quotes(
+            [0.1, 0.1, 0.9], ["DraftKings", "Draft Kings", "Bovada"]
+        )
         self.assertEqual(consensus["median_devigged_home"], 0.5)
         with self.assertRaises(ValueError):
             from aggie_analytics.scientific_reference.market import normalize_sportsbook
@@ -381,7 +398,9 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
                 ],
             }
         )
-        self.assertTrue(any("LEDGER_AUTHOR_SELF_ADJUDICATION" in item for item in findings))
+        self.assertTrue(
+            any("LEDGER_AUTHOR_SELF_ADJUDICATION" in item for item in findings)
+        )
         self.assertTrue(any("LEDGER_PLACEHOLDER_EVIDENCE" in item for item in findings))
 
     def test_21_cycle_ids_not_coerced(self) -> None:
@@ -392,7 +411,11 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
     def test_23_dag_cycle_and_transitive_omission(self) -> None:
         cyclic = directed_cycles([{"from": "A", "to": "B"}, {"from": "B", "to": "A"}])
         self.assertTrue(cyclic)
-        self.assertTrue(circular_authority_from_edges([{"from": "A", "to": "B"}, {"from": "B", "to": "A"}]))
+        self.assertTrue(
+            circular_authority_from_edges(
+                [{"from": "A", "to": "B"}, {"from": "B", "to": "A"}]
+            )
+        )
         affected = transitive_affected(
             [{"from": "A", "to": "B"}, {"from": "B", "to": "C"}],
             "A",
@@ -419,8 +442,39 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             residual_stdev=12.0,
         )
         rows = oriented_rows_from_game(game)
-        self.assertAlmostEqual(rows[0]["team_win_probability"] + rows[1]["team_win_probability"], 1.0)
+        self.assertAlmostEqual(
+            rows[0]["team_win_probability"] + rows[1]["team_win_probability"], 1.0
+        )
         self.assertEqual(rows[1]["orientation"], "AWAY")
+
+    def test_25_historical_saved_pairs_are_not_cosmetically_rewritten(self) -> None:
+        spec = HISTORICAL_PAIR_PREDECESSORS["20"]
+        left = {
+            "candidate_id": "national_logistic_l2",
+            "canonical_game_id": "SRC-002:GAME:1",
+            "canonical_team_id": "SRC-002:TEAM:A",
+            "predicted_win_probability": 0.71,
+            "predicted_margin": None,
+            "observed_win": True,
+        }
+        right = {
+            "candidate_id": "national_logistic_l2",
+            "canonical_game_id": "SRC-002:GAME:1",
+            "canonical_team_id": "SRC-002:TEAM:B",
+            "predicted_win_probability": 0.41,
+            "predicted_margin": None,
+            "observed_win": False,
+        }
+        predecessor_sum = 0.71 + 0.41
+        self.assertGreater(abs(predecessor_sum - 1.0), 1e-8)
+        built = succeed_pair(left, right, spec=spec, source_cycle="20")
+        self.assertTrue(built["game"]["pair_coherence"])
+        self.assertLessEqual(
+            abs(built["game"]["probability_a"] + built["game"]["probability_b"] - 1.0),
+            1e-12,
+        )
+        self.assertEqual(left["predicted_win_probability"], 0.71)
+        self.assertFalse(built["game"]["joint_probability_margin_interval"])
 
     def test_26_passing_header_does_not_inherit_rushing(self) -> None:
         block = "\n".join(
@@ -436,7 +490,11 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             ]
         )
         rows = parse_table_players(block)
-        passing = [row for row in rows if row["stat_group"] == "passing" and not row["header_only"]]
+        passing = [
+            row
+            for row in rows
+            if row["stat_group"] == "passing" and not row["header_only"]
+        ]
         self.assertTrue(passing)
         self.assertEqual(passing[0]["stat_group"], "passing")
         team = [row for row in rows if row["identity_status"] == "TEAM_ATTRIBUTED"]
@@ -464,7 +522,9 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         )
         self.assertFalse(result["schema_valid"])
         self.assertFalse(result["merge_success"])
-        self.assertIn("CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH", result["schema_findings"])
+        self.assertIn(
+            "CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH", result["schema_findings"]
+        )
         self.assertNotEqual(result["schema_findings"], [])
 
     def test_30_inverse_normal_cdf_ppf_roundtrip(self) -> None:
@@ -599,21 +659,23 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
     def test_20_hold_missing_action_context_blocks_mutation(self) -> None:
         findings = validate_hold(
             REPO_ROOT,
-            proposed_merges=["https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"],
+            proposed_merges=[
+                "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"
+            ],
             proposed_action=None,
         )
         self.assertTrue(
-            any(
-                item in findings or item.startswith("HOLD_")
-                for item in findings
-            )
+            any(item in findings or item.startswith("HOLD_") for item in findings)
         )
         self.assertIn("HOLD_ACTION_CONTEXT_MISSING", findings)
 
     def test_22_empty_claim_registry_and_false_semantic_audit(self) -> None:
         registry = {"claims": [], "cycle_disposition": "SEMANTICALLY_AUDITED"}
         # Empty claim census cannot authorize SEMANTICALLY_AUDITED.
-        self.assertFalse(bool(registry["claims"]) and registry["cycle_disposition"] == "SEMANTICALLY_AUDITED")
+        self.assertFalse(
+            bool(registry["claims"])
+            and registry["cycle_disposition"] == "SEMANTICALLY_AUDITED"
+        )
         blocked = {"pass_two": "BLOCKED", "cycle_disposition": "SEMANTICALLY_AUDITED"}
         self.assertNotEqual(blocked["pass_two"], "PASS")
         self.assertEqual(blocked["cycle_disposition"], "SEMANTICALLY_AUDITED")
@@ -648,10 +710,15 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             "forecast_row_identity": "x",
         }
         rewritten = _rewrite_probability_only_row(row)
-        self.assertEqual(rewritten.get("margin_support"), "NOT_SUPPORTED_BY_MODEL_FAMILY")
+        self.assertEqual(
+            rewritten.get("margin_support"), "NOT_SUPPORTED_BY_MODEL_FAMILY"
+        )
         self.assertNotEqual(rewritten.get("ACTIVE_PATH_CORRECTNESS_CLAIM"), True)
         # Probability-only support must not imply joint margin/interval PASS.
-        self.assertNotIn(rewritten.get("uncertainty_state"), {"JOINT_NORMAL_PASS", "ACTIVE_PATH_CORRECTNESS_VERIFIED"})
+        self.assertNotIn(
+            rewritten.get("uncertainty_state"),
+            {"JOINT_NORMAL_PASS", "ACTIVE_PATH_CORRECTNESS_VERIFIED"},
+        )
 
     def test_33_stale_acceptance_receipt_does_not_authorize_head(self) -> None:
         tip = "8a3612f9ce0a11c8bf9815d36d594252959db2ea"
@@ -698,8 +765,7 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         }
         # Local-only PASS cannot claim full live/board convergence.
         genuine = (
-            report["live_verify"] == "PASS"
-            and report["board_pagination_complete"]
+            report["live_verify"] == "PASS" and report["board_pagination_complete"]
         )
         self.assertFalse(genuine)
         if not genuine:
@@ -764,7 +830,9 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
 
     def test_41_open_pr_and_dirty_worktree_not_deleted(self) -> None:
         self.assertEqual(classify_branch({"open_pr": True}), "ACTIVE_PR")
-        self.assertFalse(deletion_allowed({"open_pr": True, "merged_obsolete_proven": True}))
+        self.assertFalse(
+            deletion_allowed({"open_pr": True, "merged_obsolete_proven": True})
+        )
         dirty = classify_branch({"dirty_worktree": True, "unique_unmerged": True})
         self.assertEqual(dirty, "ACTIVE_UNMERGED_WORK")
 
@@ -785,7 +853,9 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         )
         self.assertTrue(path.is_file(), "predictive skill evidence artifact must exist")
         payload = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual(payload.get("PREDICTIVE_SKILL_EVIDENCE_STATE"), "DEVELOPMENT_EVIDENCE_ONLY")
+        self.assertEqual(
+            payload.get("PREDICTIVE_SKILL_EVIDENCE_STATE"), "DEVELOPMENT_EVIDENCE_ONLY"
+        )
         nonclaims = payload.get("nonclaims") or {}
         self.assertFalse(nonclaims.get("future_predictive_skill"))
         self.assertFalse(nonclaims.get("production_credibility"))
@@ -800,9 +870,13 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             ).read_text(encoding="utf-8")
         )
         self.assertEqual(
-            acceptance.get("PREDICTIVE_SKILL_EVIDENCE_STATE"), "DEVELOPMENT_EVIDENCE_ONLY"
+            acceptance.get("PREDICTIVE_SKILL_EVIDENCE_STATE"),
+            "DEVELOPMENT_EVIDENCE_ONLY",
         )
-        self.assertIn("PRIMARY_TRUST_RECOVERY_INCOMPLETE", acceptance.get("PRIMARY_OBJECTIVE_NOTE", ""))
+        self.assertIn(
+            "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+            acceptance.get("PRIMARY_OBJECTIVE_NOTE", ""),
+        )
 
 
 if __name__ == "__main__":

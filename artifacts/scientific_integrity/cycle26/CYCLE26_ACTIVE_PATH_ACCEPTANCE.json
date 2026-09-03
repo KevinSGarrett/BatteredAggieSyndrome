@@ -7,7 +7,7 @@
   "OPERATIONAL_EVIDENCE_GATE": "EVIDENCE_CAPTURE_VERIFIED",
   "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
   "PRIMARY_OBJECTIVE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
-  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_UNRESOLVED pass-two backlog; R26-13 admin thresholds; R26-22 CONFIRMED_CONTAINED_NOT_FIXED; R26-20/R26-21 and 312472199 restored via successors without rewriting predecessors. Joint Week 1 successor remains UNTRUSTED_SHADOW. Pass3 PENDING_INDEPENDENT_REVIEWER. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY.",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_UNRESOLVED pass-two backlog; R26-13 admin thresholds; R26-22 CONFIRMED_CONTAINED_NOT_FIXED with pair census; R26-20/R26-21/7A.7 successors without rewriting predecessors. Joint Week 1 successor remains UNTRUSTED_SHADOW. Pass3 PENDING_INDEPENDENT_REVIEWER. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY.",
   "R26_21_ACTIVE_PATH_DEPENDENCY": "NONE_PROVEN",
   "R26_21_NOTE": "R26-21 CONFIRMED_FIXED via passing-section successor; Week1 path still has zero StatCrew import edges.",
   "ROW_SCIENTIFIC_ELIGIBILITY_GATE": "PARTIAL_SUCCESSOR_PATH",
@@ -149,6 +149,7 @@
   "ci_head": "ffc766a7e442d8c5f5735efc1bba92f2317d3a8d",
   "ci_status": "PASS",
   "code_head_binding": "LIVE_PR_678_TIP",
+  "corpus_integrity_successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e",
   "gate": {
     "coverage": {
       "by_candidate": [
@@ -211,6 +212,7 @@
       "scientific_trust_gate_open": false
     }
   },
+  "git_tip_at_issuance": "6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa",
   "historical_pair_failures_preserved": {
     "20": {
       "bytes": 2491754,
@@ -470,6 +472,7 @@
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "predictive_skill_evidence_relative_path": "artifacts/scientific_integrity/cycle26/CYCLE26_PREDICTIVE_SKILL_EVIDENCE.json",
   "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",
+  "r26_22_pair_audit_gate": "0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548",
   "ridge_abstention_census": {
     "abstained": 12,
     "abstention_reason_counts": {
@@ -713,6 +716,5 @@
     "probability_home": 0.8951316669,
     "probability_sum": 1.0,
     "publication_label": "UNTRUSTED_SHADOW"
-  },
-  "git_tip_at_issuance": "6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa"
+  }
 }

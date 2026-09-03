@@ -243,11 +243,17 @@
     },
     {
       "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "admitted_proxy_pairs": 27274659,
+      "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
       "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json",
       "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
       "id": "R26-22",
+      "leakage_declared": false,
+      "near_bound_pairs": 14,
+      "note": "National spine pair census completed; +12h/+2d remain conditional proxies. Predecessor BAT-666/667 gates not rewritten. Week1 successor does not import the PIT bound.",
       "owner": "BAT-690",
-      "red_before_green_after": "tests/test_cycle26_adversarial_regressions.py::test_27",
+      "pair_audit_gate_identity": "0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548",
+      "red_before_green_after": "tests/test_cycle26_bound_authority_pair_audit.py + tests/test_cycle26_adversarial_regressions.py::test_27",
       "severity": "P1"
     },
     {
@@ -302,10 +308,51 @@
       "residual_risk": "Predecessor national foundation remains quarantined for this id; consumers must bind the successor explicitly. PIT admission stays closed.",
       "severity": "P1",
       "successor_gate": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "correction": "Corpus derivative-integrity successor recomputes stale child_payload row_count vs rows_per_domain (4 stale domains; player 3475 vs 3613). Predecessor 1996-2009 gate not rewritten.",
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-7A7-CHILD-COUNTS",
+      "independently_reconstructed": true,
+      "owner": "BAT-692",
+      "red_before_green_after": "tests/test_tamu_corpus_derivative_integrity_successor.py",
+      "residual_risk": "Predecessor child_payload.row_count fields remain stale in the 1996-2009 gate; consumers must bind the successor.",
+      "severity": "P1",
+      "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "correction": "Authority-bearing configs/artifacts/governance/docs/instructions scan found 0 unresolved BAT-XXX placeholders. Fixture tests/fixtures/stale_placeholder_contract.json remains exempt.",
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-7A7-BAT-XXX",
+      "owner": "BAT-692",
+      "residual_risk": "Historical snapshots under jira/snapshots/ are excluded by design.",
+      "severity": "P1",
+      "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "correction": "Mounted 1996-2009 children: 58753 rows preserve original_text distinct from str(parsed); 2803 rows have original_text equal to stringified parsed objects. Predecessor not rewritten.",
+      "disposition": "QUALIFIED",
+      "id": "C26-7A7-RAW-TEXT",
+      "owner": "BAT-692",
+      "residual_risk": "2803 stringified-parsed rows remain in the predecessor payload; they are reported, not silently repaired in place.",
+      "severity": "P1",
+      "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "correction": "Mounted child jsonl rejected_url_hits=0 across all serialized domains. Season-specific official_YYYY_rejected sum=17 is not equated to cumulative rejected_urls_complete=40.",
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-7A7-REJECTION-LEAK",
+      "owner": "BAT-692",
+      "severity": "P1",
+      "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
     }
   ],
   "git_tip_at_issuance": "23c5806f2e18a940c2f786f02be722d2872f5606",
-  "issued_at_utc": "2026-09-03T12:26:41Z",
+  "issued_at_utc": "2026-09-03T17:59:30Z",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "schema_version": 2
 }

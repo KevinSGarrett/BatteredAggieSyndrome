@@ -29,6 +29,10 @@ from aggie_analytics.data.tamu_official_passing_section_successor import (  # no
 from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: E402
     parse_table_players,
 )
+from aggie_analytics.data.cycle26_bound_authority_pair_audit import (  # noqa: E402
+    EPISTEMIC_STATUS,
+    classify_prior_target_temporal_authority,
+)
 from aggie_analytics.data.historical_saved_pair_game_grain_successor import (  # noqa: E402
     PREDECESSORS as HISTORICAL_PAIR_PREDECESSORS,
     succeed_pair,
@@ -727,10 +731,16 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             binding.temporal_order_ok("2026-09-02T10:00:00", "2026-09-02T10:30:00Z")
-        # Precommitted +12h is a proxy, not proven finality evidence.
+        classified = classify_prior_target_temporal_authority(
+            "2026-09-02T18:00:00Z",
+            "2026-09-03T01:00:00Z",
+        )
+        self.assertFalse(classified["admitted_under_proxy"])
+        self.assertFalse(classified["universal_finality_guarantee"])
+        self.assertEqual(classified["bound_epistemic_status"], EPISTEMIC_STATUS)
         proxy = {
             "maximum_contest_duration_hours": 12,
-            "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+            "bound_epistemic_status": EPISTEMIC_STATUS,
         }
         self.assertEqual(
             proxy["bound_epistemic_status"],

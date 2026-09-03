@@ -59,6 +59,7 @@ artifacts/data_lake/tamu_2010_2011_ncaa_contest_route_discovery_gate.json
 artifacts/data_lake/tamu_2010_2011_ncaa_official_acquisition_gate.json
 artifacts/data_lake/tamu_2010_2011_ncaa_team_season_evidence_gate.json
 artifacts/data_lake/tamu_2010_2011_season_reconciliation_gate.json
+artifacts/data_lake/tamu_corpus_derivative_integrity_successor_gate.json
 artifacts/data_lake/tamu_cross_source_domain_gate.json
 artifacts/data_lake/tamu_official_1996_2009_structured_row_corpus_gate.json
 artifacts/data_lake/tamu_official_1996_boxscore_gate.json
@@ -513,6 +514,7 @@ artifacts/scientific_integrity/cycle26/CYCLE26_R26_20_CONTAINMENT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_R26_20_OLD_NEW_IMPACT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json
+artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_PRIOR_TARGET_PAIR_AUDIT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_REMAINING_AUDIT_BACKLOG.json
 artifacts/scientific_integrity/cycle26/CYCLE26_RIDGE_ABSTENTION_CENSUS.json
 artifacts/scientific_integrity/cycle26/CYCLE26_SAVED_PAIR_CENSUS.json
@@ -3564,6 +3566,7 @@ src/aggie_analytics/data/adapters.py
 src/aggie_analytics/data/authority_clean_model_lineage.py
 src/aggie_analytics/data/cfbd.py
 src/aggie_analytics/data/contracts.py
+src/aggie_analytics/data/cycle26_bound_authority_pair_audit.py
 src/aggie_analytics/data/development_2023_outcomes.py
 src/aggie_analytics/data/historical_game_outcome_spine.py
 src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
@@ -3893,6 +3896,7 @@ tests/test_cycle24_routing_manifest_coverage.py
 tests/test_cycle25_5_routing_manifest_coverage.py
 tests/test_cycle25_routing_manifest_coverage.py
 tests/test_cycle26_adversarial_regressions.py
+tests/test_cycle26_bound_authority_pair_audit.py
 tests/test_data_research.py
 tests/test_development_2023_labeled_replay.py
 tests/test_development_2023_outcomes.py
@@ -4028,6 +4032,7 @@ tests/test_tamu_2010_2011_ncaa_contest_route_discovery.py
 tests/test_tamu_2010_2011_ncaa_official_acquisition.py
 tests/test_tamu_2010_2011_ncaa_team_season_evidence.py
 tests/test_tamu_2010_2011_season_reconciliation.py
+tests/test_tamu_corpus_derivative_integrity_successor.py
 tests/test_tamu_cross_source_domain_gate.py
 tests/test_tamu_official_1996_2009_structured_row_corpus.py
 tests/test_tamu_official_1996_boxscores.py
@@ -4167,6 +4172,7 @@ tools/adopt_unified_enforcement_package.py
 tools/apply_private_research_acquisition_policy.py
 tools/audit_control_plane.py
 tools/audit_protected_split_exposure.py
+tools/audit_r26_22_admitted_prior_target_pairs.py
 tools/backup_state.py
 tools/bind_cycle26_historical_pair_successor.py
 tools/bind_cycle26_passing_status_successors.py
@@ -4237,6 +4243,7 @@ tools/build_tamu_2010_2011_ncaa_team_season_evidence.py
 tools/build_tamu_2010_2011_season_reconciliation.py
 tools/build_tamu_2026_week1_rehearsal.py
 tools/build_tamu_availability_evidence_pages.py
+tools/build_tamu_corpus_derivative_integrity_successor.py
 tools/build_tamu_cross_source_domain_gate.py
 tools/build_tamu_depth_chart_noncoverage_review.py
 tools/build_tamu_official_1996_2009_structured_row_corpus.py
@@ -4530,6 +4537,7 @@ tools/validate_tamu_2010_2011_season_reconciliation.py
 tools/validate_tamu_2026_week1_rehearsal.py
 tools/validate_tamu_availability_evidence_pages.py
 tools/validate_tamu_availability_source_sample.py
+tools/validate_tamu_corpus_derivative_integrity_successor.py
 tools/validate_tamu_cross_source_domain_gate.py
 tools/validate_tamu_depth_chart_noncoverage_review.py
 tools/validate_tamu_official_1996_2009_structured_row_corpus.py

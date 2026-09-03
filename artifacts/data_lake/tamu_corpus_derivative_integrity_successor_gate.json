@@ -1,0 +1,168 @@
+{
+  "artifact_type": "TAMU_CORPUS_DERIVATIVE_INTEGRITY_SUCCESSOR_GATE",
+  "census": {
+    "child_counts": {
+      "corrected_by_domain": {
+        "drives": {
+          "child_payload_row_count": 3142,
+          "delta": 0,
+          "rows_per_domain": 3142,
+          "stale": false
+        },
+        "individual_player_statistics": {
+          "child_payload_row_count": 3475,
+          "delta": 138,
+          "rows_per_domain": 3613,
+          "stale": true
+        },
+        "play_by_play": {
+          "child_payload_row_count": 45348,
+          "delta": 2194,
+          "rows_per_domain": 47542,
+          "stale": true
+        },
+        "scoring_summary": {
+          "child_payload_row_count": 2150,
+          "delta": 102,
+          "rows_per_domain": 2252,
+          "stale": true
+        },
+        "team_statistics": {
+          "child_payload_row_count": 4638,
+          "delta": 369,
+          "rows_per_domain": 5007,
+          "stale": true
+        }
+      },
+      "predecessor_gate_rewritten": false,
+      "stale_domain_count": 4,
+      "stale_domains": [
+        {
+          "child_payload_row_count": 4638,
+          "delta": 369,
+          "disposition": "STALE_CHILD_COUNT_RECOMPUTED_IN_SUCCESSOR",
+          "domain": "team_statistics",
+          "rows_per_domain": 5007
+        },
+        {
+          "child_payload_row_count": 3475,
+          "delta": 138,
+          "disposition": "STALE_CHILD_COUNT_RECOMPUTED_IN_SUCCESSOR",
+          "domain": "individual_player_statistics",
+          "rows_per_domain": 3613
+        },
+        {
+          "child_payload_row_count": 45348,
+          "delta": 2194,
+          "disposition": "STALE_CHILD_COUNT_RECOMPUTED_IN_SUCCESSOR",
+          "domain": "play_by_play",
+          "rows_per_domain": 47542
+        },
+        {
+          "child_payload_row_count": 2150,
+          "delta": 102,
+          "disposition": "STALE_CHILD_COUNT_RECOMPUTED_IN_SUCCESSOR",
+          "domain": "scoring_summary",
+          "rows_per_domain": 2252
+        }
+      ]
+    },
+    "join_audit": {
+      "national_forecast_consumption_proven": false,
+      "week1_successor_import_edges": 0
+    },
+    "mounted_children": {
+      "active_rejection_leaked_into_admitted_children": 0,
+      "by_domain": {
+        "drives": {
+          "actual_jsonl_rows": 3142,
+          "child_payload_row_count": 3142,
+          "rejected_url_hits": 0,
+          "rows_per_domain": 3142,
+          "sha256": "d88c1290ccccca01754bbbd3fea18f47c10e3f58cd20b84912c9f826dcc173ef"
+        },
+        "individual_player_statistics": {
+          "actual_jsonl_rows": 3613,
+          "child_payload_row_count": 3475,
+          "rejected_url_hits": 0,
+          "rows_per_domain": 3613,
+          "sha256": "8de41e750e459d592e86768d723883a7fa92f9fea46b3418bf6a805dcb6eecd0"
+        },
+        "play_by_play": {
+          "actual_jsonl_rows": 47542,
+          "child_payload_row_count": 45348,
+          "rejected_url_hits": 0,
+          "rows_per_domain": 47542,
+          "sha256": "ab013db811523d0cd2ca31faad55cfc52642bcedb93fecee5220596fd7711647"
+        },
+        "scoring_summary": {
+          "actual_jsonl_rows": 2252,
+          "child_payload_row_count": 2150,
+          "rejected_url_hits": 0,
+          "rows_per_domain": 2252,
+          "sha256": "3727c7f2c1652971a71f85f2640d99df2af185777d9c4190702c812484e373a3"
+        },
+        "team_statistics": {
+          "actual_jsonl_rows": 5007,
+          "child_payload_row_count": 4638,
+          "rejected_url_hits": 0,
+          "rows_per_domain": 5007,
+          "sha256": "beedbf4168fbea74a6f31a865422534914412c4948b793afc56b14b21002a422"
+        }
+      },
+      "mounted": true,
+      "original_text_equals_stringified_parsed": 2803,
+      "original_text_missing": 0,
+      "original_text_source_preserved": 58753,
+      "predecessor_player_immutable": true,
+      "predecessor_player_sha256": "8de41e750e459d592e86768d723883a7fa92f9fea46b3418bf6a805dcb6eecd0"
+    },
+    "placeholders": {
+      "fixtures_exempt": [
+        "tests/fixtures/stale_placeholder_contract.json"
+      ],
+      "unresolved_count": 0,
+      "unresolved_placeholder_files": []
+    },
+    "predecessor": {
+      "corpus_dataset_identity": "7a7f9797bbbc43f273e357584a16ece7715c6ab227438b13fa65775c3dd912f7",
+      "corpus_gate_identity": "6e08cafb38d5035ce81b5abdc5f281be87f8c9857bb05323edee21ea553d4d4a",
+      "rejection_gate_contract_id": "BAT-649-TAMU-OFFICIAL-1998-UNION-REJECTION-COMPLETE-V1",
+      "rewritten": false
+    },
+    "rejections": {
+      "cumulative_rejected_urls_complete": 40,
+      "cumulative_unmatched_rejected": 17,
+      "note": "Season-specific official_YYYY_rejected counts and cumulative rejected_urls_complete are different denominators when unmatched or superseded rejections exist. They must not be silently equated.",
+      "season_specific_rejected": {
+        "1998": 8,
+        "1999": 5,
+        "2000": 3,
+        "2001": 0,
+        "2002": 1,
+        "2003": 0,
+        "2004": 0
+      },
+      "season_specific_sum": 17,
+      "season_sum_equals_cumulative_complete": false
+    }
+  },
+  "classification": "TAMU_CORPUS_DERIVATIVE_INTEGRITY_SUCCESSOR_CANDIDATE_ONLY",
+  "contract_id": "CYCLE26-TAMU-CORPUS-DERIVATIVE-INTEGRITY-SUCCESSOR-V1",
+  "gate_identity": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e",
+  "issued_at_utc": "2026-09-03T17:49:37Z",
+  "jira_key": "BAT-692",
+  "lane": "DEVELOPMENT_SUCCESSOR_UNTRUSTED_SHADOW",
+  "local_issue_id": "POST-TASK-SRC014-CORPUS-DERIVATIVE-INTEGRITY-SUCCESSOR-001",
+  "predecessor_payloads_rewritten": false,
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "result": "PASS_TAMU_CORPUS_DERIVATIVE_INTEGRITY_SUCCESSOR",
+  "schema_version": "aggie.data.tamu_corpus_derivative_integrity_successor.v1",
+  "scientific_nonclaims": [
+    "Does not rewrite the 1996-2009 predecessor corpus or union gates.",
+    "Does not equate season-specific rejection counts with cumulative ledgers.",
+    "Does not claim national-forecast consumption of the player corpus.",
+    "Does not open the all-cycle trust gate or operator hold."
+  ]
+}

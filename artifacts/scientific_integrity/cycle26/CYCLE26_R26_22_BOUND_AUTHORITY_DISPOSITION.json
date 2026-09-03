@@ -1,15 +1,22 @@
 {
-  "artifact_type": "CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION",
-  "issued_at_utc": "2026-09-03T09:11:28Z",
-  "finding": "R26-22",
-  "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
-  "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
-  "contract_path": "configs/historical_known_at_authority_contract.json",
-  "contract_note": "Immutable BAT-666 contract text retains historical logical_guarantee wording for hash continuity; Cycle #26 explicitly demotes those bounds to conditional chronology proxies for acceptance.",
   "active_path_effect": "Week1 national successor remains UNTRUSTED_SHADOW and does not claim proven historical PIT training from the +2d/+12h proxies.",
-  "operational_rule": "Where proven PIT authority is required and only a precommitted proxy is available, fitted issuance must abstain or remain explicitly conditional.",
+  "active_week1_path_imports_pit_bound": false,
+  "admitted_proxy_pairs": 27274659,
   "adversarial_proof": [
     "test_27_contest_duration_not_universal_finality"
   ],
-  "code_head_binding": "LIVE_PR_678_TIP"
+  "artifact_type": "CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION",
+  "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+  "census_source": "NATIONAL_SPINE_MOUNTED",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "contract_note": "Immutable BAT-666 contract text retains historical logical_guarantee wording for hash continuity; Cycle #26 explicitly demotes those bounds to conditional chronology proxies for acceptance.",
+  "contract_path": "configs/historical_known_at_authority_contract.json",
+  "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
+  "finding": "R26-22",
+  "issued_at_utc": "2026-09-03T17:59:30Z",
+  "leakage_declared": false,
+  "near_bound_pairs": 14,
+  "operational_rule": "Where proven PIT authority is required and only a precommitted proxy is available, fitted issuance must abstain or remain explicitly conditional.",
+  "pair_audit_gate_identity": "0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548",
+  "pair_audit_relative_path": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_PRIOR_TARGET_PAIR_AUDIT.json"
 }

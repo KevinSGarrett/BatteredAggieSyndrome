@@ -374,7 +374,7 @@
   ],
   "inventory_gate_relative_path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json",
   "inventory_result": null,
-  "issued_at_utc": "2026-09-03T12:26:41Z",
+  "issued_at_utc": "2026-09-03T17:59:30Z",
   "method_requirement": "Maintain per-field/material-claim registry; resolve first origin and every material contribution; distinguish missing evidence, unreviewed scope, and failed semantics.",
   "named_open_scientific_units": [
     {
@@ -391,7 +391,7 @@
     },
     {
       "id": "R26-22",
-      "note": "Bound-authority conditional; no proven-PIT upgrade",
+      "note": "Pair census 27274659 proxy-admitted pairs, 14 near-bound; no leakage declared; bound remains conditional. Predecessor gates not rewritten.",
       "owner": "BAT-691",
       "state": "CONFIRMED_CONTAINED_NOT_FIXED"
     },
@@ -411,6 +411,12 @@
       "id": "C26-7A7-FALSE-QUARANTINE-312472199",
       "note": "Structured-status successor restore; predecessor quarantine preserved.",
       "owner": "BAT-651",
+      "state": "CONFIRMED_FIXED"
+    },
+    {
+      "id": "C26-7A7-CHILD-COUNTS",
+      "note": "Successor recomputed 4 stale child-count domains.",
+      "owner": "BAT-692",
       "state": "CONFIRMED_FIXED"
     }
   ],

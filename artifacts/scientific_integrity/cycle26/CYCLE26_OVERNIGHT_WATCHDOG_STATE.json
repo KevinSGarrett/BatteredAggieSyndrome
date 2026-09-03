@@ -31,7 +31,8 @@
   "R26_21": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_22": "CONFIRMED_CONTAINED_NOT_FIXED",
   "jira_verify_live_at": "2026-09-03T14:38:07Z",
-  "t90m_scheduler": "run_scheduled_sep3_t90m_capture.ps1 armed 2026-09-03T19:45:00Z",
+  "t90m_scheduler": "run_scheduled_sep3_t90m_capture.ps1 wake 2026-09-03T19:45:00Z ARMED",
+  "t24h_scheduler": "run_scheduled_sep4_t24h_capture.ps1 wake 2026-09-03T22:00:00Z ARMED",
   "t90m_executor": "armed_2026-09-03T19:45:00Z",
   "t90m_executor_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_T90M_EXECUTOR.log"
 }

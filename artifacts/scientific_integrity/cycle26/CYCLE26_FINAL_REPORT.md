@@ -58,10 +58,13 @@ PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 unresolved (pass-two backlog); R26-13 
 - Sep 3 T-24H: MISSED_CUTOFF_NO_BACKFILL (11 contests); T-90M open until earliest ~2026-09-03T20:30:00Z
 - A&M 6607349 T-24H 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z
 - Scoring: AWAITING_FINAL
-- Deterministic capture runner: ops/cycle26/run_week1_checkpoint_capture.ps1 (T-90M sleeper armed for 19:45Z)
+- Deterministic capture runner: ops/cycle26/run_week1_checkpoint_capture.ps1
+- Schedulers armed: T-90M wake 2026-09-03T19:45:00Z; national T-24H wake 2026-09-03T22:00:00Z (earliest cutoff 22:30Z)
 
 ## Explicit non-claims
 
 No hold release, merge authority, production credibility, BAS/Aggie Excess, or prospective predictive skill. No Done on remaining scientific owners. No Cycle #26 BAT-523 parent progress comment. No scientific PASS while unresolved/contained P1 findings remain on the declared matrix.
 
 _Midday bind 2026-09-03T14:11:28Z: tip=6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa; CI PASS; REFRESH captures 9e98e3d8/6b9b57be/1c0ae677; T-90M pipeline armed 19:45Z._
+
+_Schedulers armed 2026-09-03T14:39:00Z: tip=3f0ad33e4e2bb15751ce85991994e3ee14274949; T-90M wake 19:45Z; national T-24H wake 22:00Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._

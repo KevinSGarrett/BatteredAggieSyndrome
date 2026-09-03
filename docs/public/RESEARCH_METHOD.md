@@ -37,3 +37,11 @@ Expected-versus-actual residuals are conditional on the expectation model. Descr
 Freeze the candidate, inputs, cutoff, and prediction before the relevant game. Never backfill a missed pregame forecast. Score only after valid final-result authority exists. Keep later corrections in distinct, traceable versions.
 
 Market benchmarks remain separately labeled. Neither market disagreement nor a disappointing A&M prediction authorizes an arbitrary model adjustment.
+
+## Reading the risk concept
+
+The README artwork illustrates the intended report format, not a computed game
+forecast. Its shortfall bars represent nested tail probabilities,
+`P(shortfall >= threshold)`, rather than disjoint outcome bins. The example values
+are illustrative; a released risk report would require a declared predictive
+distribution, evaluated calibration, and explicit evidence for any risk category.

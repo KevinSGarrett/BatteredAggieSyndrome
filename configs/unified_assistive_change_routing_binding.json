@@ -1,30 +1,10 @@
 {
   "allowed_paths": [
-    ".github/ISSUE_TEMPLATE/bug_report.yml",
-    ".github/ISSUE_TEMPLATE/research_proposal.yml",
-    ".github/pull_request_template.md",
-    ".gitignore",
-    "ARCHITECTURE.md",
-    "CONTRIBUTING.md",
     "README.md",
-    "REPRODUCIBILITY.md",
-    "SECURITY.md",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "docs/README.md",
-    "docs/assets/readme/aggie-excess.png",
-    "docs/assets/readme/bas-risk-profile-v2.png",
-    "docs/assets/readme/hero-v2.png",
-    "docs/assets/readme/research-architecture.png",
-    "docs/assets/readme/underperformance-drivers.png",
-    "docs/public/DATA_AND_REUSE.md",
-    "docs/public/DATA_DOMAINS.md",
-    "docs/public/GETTING_STARTED.md",
-    "docs/public/README.md",
+    "docs/assets/readme/newsletter-banner.svg",
     "docs/public/RESEARCH_METHOD.md",
-    "docs/public/ROADMAP.md",
-    "docs/public/STATUS.md",
-    "docs/public/TECHNOLOGY.md",
     "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv"
@@ -32,9 +12,9 @@
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "d52e8bf47d9d4d545c50b023a9df0ee0c2f4313303cabeb9b69d48f42785e59a",
+  "decision_sha256": "31280476d4282b64f8ff8a3e9161ade6ae916565077a3d0ad071d1ac1ca6c781",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
-  "downstream_consumer": "Public repository readers and contributors",
+  "downstream_consumer": "Public repository readers",
   "jira_disposition": "NOT_APPLICABLE_NO_CANONICAL_SPECIFICATION_OR_JIRA_STATUS_CHANGE",
   "jira_identity": null,
   "operational_disposition_authority": {
@@ -43,27 +23,26 @@
     "section": "Current operational disposition"
   },
   "ordinary_project_work_authorized": false,
-  "reason_code": "USER_AUTHORIZED_PUBLIC_PRESENTATION_PUBLICATION_ONLY",
+  "reason_code": "USER_AUTHORIZED_README_LAYOUT_CORRECTIONS",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "schema_version": 1,
-  "scope": "Publish prepared README, supplied artwork, public documentation, contributor templates and ignore rules; exact routing/provenance metadata only. No scientific implementation, policy, Jira state, private-file extraction or history rewrite.",
-  "source_commit": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1",
+  "scope": "Only the exact README/layout/art-caption corrections and binding/provenance paths.",
+  "source_commit": "b1c01b4823e3194d68cee21a04b417b0c57f486e",
   "user_explicit_waiver": {
-    "accepted_risk": "Authorization is conditional on conflict review and passing required checks. It is limited to this exact allowed-path presentation publication; the legacy scope enum is not an authorization for unrelated work. Existing internal tracking and the known validator Jira-write defect remain disclosed; scientific trust is not recovered.",
-    "context": "User explicitly answered the request to commit, push, open a makeover PR and merge after required checks without rewriting history or removing scientific safeguards.",
+    "accepted_risk": "Conditional on tests/review. No science, CI, policy, Jira, history or private-file changes in this unit.",
+    "context": "Current user-requested presentation corrections in the ongoing makeover.",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "effective_authorization_constraints": {
-      "effective_duration": "ENDS_WITH_PR_676_PUBLICATION_OR_WITH_USER_REVOCATION",
-      "exact_scope": "The binding allowed_paths only, for this public-presentation publication.",
-      "legacy_enum_explanation": "scope and duration above are unchanged required machine-policy literals, not a representation that the user granted repository-wide or indefinite authority. The validator additionally enforces the exact changed-path allowlist and work-unit binding.",
-      "pull_request": 676,
+      "effective_duration": "ENDS_WITH_THIS_README_CORRECTION_OR_USER_REVOCATION",
+      "exact_scope": "Only binding.allowed_paths for this presentation unit.",
+      "legacy_enum_explanation": "The policy requires broad scope/duration literals; the exact path allowlist and unit constrain actual authority.",
       "scientific_hold_release_authorized": false,
       "unrelated_or_future_work_authorized": false
     },
-    "instruction_sha256": "8eb5fe08c81081e69689b1004b145b12e342c246c5f0febbfc392bf87870b47c",
-    "instruction_text": "authorize as long as it doesn't conflict or mess anything up with any of the updates that you are making and you need to test, check, verify, and confirm this",
+    "instruction_sha256": "a530f5b665a3be6360e9c28662a816243ddb5b2cd1cceb38c2af6b8e72dfade1",
+    "instruction_text": "User requests: move the college-football tagline below badges and above navigation; add literal ** around the newsletter joke, enlarge it, and use white text on maroon; objects to long concept-art disclaimers in README. Retain concise art labeling and move detailed explanation to methodology. This unit excludes private-file migration.",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
-    "work_unit_id": "PUBLIC-PRESENTATION-PUBLICATION-20260903"
+    "work_unit_id": "PUBLIC-README-LAYOUT-CORRECTION-20260903"
   },
-  "work_unit_id": "PUBLIC-PRESENTATION-PUBLICATION-20260903"
+  "work_unit_id": "PUBLIC-README-LAYOUT-CORRECTION-20260903"
 }

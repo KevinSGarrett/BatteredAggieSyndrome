@@ -1,14 +1,12 @@
-<p align="center"><sub>Research concept artwork — displayed scores and percentages are illustrative, not game forecasts.</sub></p>
-
 <p align="center">
   <img src="docs/assets/readme/hero-v2.png" width="100%" alt="Battered Aggie Syndrome: college football analytics and Texas A&amp;M research concept">
 </p>
 
 <h1 align="center">Battered Aggie Syndrome</h1>
 
-<p align="center"><strong>Scientific research funded by residual Dennis Franchione newsletter proceeds.</strong></p>
-
-<p align="center">College football analytics · Explainable forecasting · Texas A&amp;M research</p>
+<p align="center">
+  <img src="docs/assets/readme/newsletter-banner.svg" width="100%" alt="** Scientific research funded by residual Dennis Franchione newsletter proceeds. **">
+</p>
 
 <p align="center">
   <a href="pyproject.toml"><img alt="Python 3.11–3.13" src="https://img.shields.io/badge/Python-3.11%E2%80%933.13-500000?style=flat-square&amp;logo=python&amp;logoColor=white"></a>
@@ -20,6 +18,8 @@
   <a href="docs/public/GETTING_STARTED.md"><img alt="PowerShell local setup instructions" src="https://img.shields.io/badge/PowerShell-Local_Setup-500000?style=flat-square&amp;logo=powershell&amp;logoColor=white"></a>
   <a href="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions"><img alt="GitHub Actions workflow results" src="https://img.shields.io/badge/GitHub_Actions-Checks-500000?style=flat-square&amp;logo=githubactions&amp;logoColor=white"></a>
 </p>
+
+<p align="center">College football analytics · Explainable forecasting · Texas A&amp;M research</p>
 
 <p align="center">
   <a href="#the-bas-research-framework">Research framework</a> ·
@@ -109,7 +109,7 @@ A useful risk report would distinguish a small miss from a major collapse: for e
   <img src="docs/assets/readme/bas-risk-profile-v2.png" width="100%" alt="Illustrative shortfall-tail probabilities: 40%, 24%, 10%, and 3% at thresholds of 3, 7, 14, and 21 points; fictional values, not forecasts">
 </p>
 
-The bars show illustrative values of **P(shortfall ≥ threshold)**, not disjoint outcome bins. A statistical implementation must derive these probabilities from a declared predictive distribution. The values are fictional, and no calibrated risk category is assigned.
+<p align="center"><sub>Concept artwork · <a href="docs/public/RESEARCH_METHOD.md#reading-the-risk-concept">About the risk profile</a></sub></p>
 
 ## System architecture
 

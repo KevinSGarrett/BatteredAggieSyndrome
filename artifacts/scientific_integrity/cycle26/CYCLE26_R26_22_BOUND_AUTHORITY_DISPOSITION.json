@@ -1,12 +1,15 @@
 {
   "artifact_type": "CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION",
-  "issued_at_utc": "2026-09-03T07:36:31Z",
-  "code_head": "c9662a01785ad817a9579e81e001d2e8b086fa3f",
+  "issued_at_utc": "2026-09-03T09:11:28Z",
   "finding": "R26-22",
   "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
   "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
   "contract_path": "configs/historical_known_at_authority_contract.json",
   "contract_note": "Immutable BAT-666 contract text retains historical logical_guarantee wording for hash continuity; Cycle #26 explicitly demotes those bounds to conditional chronology proxies for acceptance.",
   "active_path_effect": "Week1 national successor remains UNTRUSTED_SHADOW and does not claim proven historical PIT training from the +2d/+12h proxies.",
-  "operational_rule": "Where proven PIT authority is required and only a precommitted proxy is available, fitted issuance must abstain or remain explicitly conditional."
+  "operational_rule": "Where proven PIT authority is required and only a precommitted proxy is available, fitted issuance must abstain or remain explicitly conditional.",
+  "adversarial_proof": [
+    "test_27_contest_duration_not_universal_finality"
+  ],
+  "code_head_binding": "LIVE_PR_678_TIP"
 }

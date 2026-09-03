@@ -1,0 +1,23 @@
+{
+  "artifact_type": "CYCLE26_R26_20_CONTAINMENT",
+  "issued_at_utc": "2026-09-03T09:11:28Z",
+  "finding": "R26-20",
+  "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
+  "owner": "BAT-693",
+  "historical_payloads": "Immutable C20/C21/C25 saved pairs preserved unrepaired",
+  "successor": {
+    "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "failing_pairs": 0,
+    "ridge_emitted": 79,
+    "oriented_rows": 158,
+    "publication": "UNTRUSTED_SHADOW"
+  },
+  "adversarial_proof": [
+    "test_25_oriented_rows_use_team_probability",
+    "test_12_neutral_contest_and_away_probability_label",
+    "test_32_probability_only_does_not_certify_joint_path"
+  ],
+  "note": "Do not cosmetically renormalize old outputs; successor is the corrected path.",
+  "code_head_binding": "LIVE_PR_678_TIP"
+}

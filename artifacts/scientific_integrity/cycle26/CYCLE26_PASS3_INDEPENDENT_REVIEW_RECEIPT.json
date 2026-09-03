@@ -1,7 +1,7 @@
 {
   "pass": 3,
   "name": "independent_review_of_implementation_and_review",
-  "issued_at_utc": "2026-09-03T09:09:49Z",
+  "issued_at_utc": "2026-09-03T09:20:00Z",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
@@ -12,11 +12,11 @@
     "Bugbot"
   ],
   "hosted_review_contribution": {
-    "codex_review": "PASS",
-    "workflow_run": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33736633545",
-    "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-    "head_sha": "ffc766a7e442d8c5f5735efc1bba92f2317d3a8d"
+    "status": "HISTORICAL_CONTRIBUTING_EVIDENCE_ONLY",
+    "note": "Prior hosted Codex review outcomes on earlier PR tips are defense-layer evidence only. They do not bind the live tip and do not complete Pass 3. Do not assert PASS for a failed or mismatched review run.",
+    "example_prior_pass_run": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33735521569",
+    "example_failed_run_do_not_cite_as_pass": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33736633545"
   },
-  "ci_all_required_checks": "PASS",
-  "note": "Hosted Codex scientific review PASS at head 06db31244a08883ffb1d56e1db911d9b8b60ced4 contributes evidence but does not alone complete Pass 3. Independent human adjudication still required. No author self-approval."
+  "ci_all_required_checks": "BOUND_BY_LIVE_PR_TIP_NOT_ASSERTED_HERE",
+  "note": "Pass 3 remains PENDING_INDEPENDENT_REVIEWER. Author cannot self-approve. Unresolved/contained P1 findings keep PRIMARY_TRUST_RECOVERY_INCOMPLETE and prohibit scientific PASS or credibility claims."
 }

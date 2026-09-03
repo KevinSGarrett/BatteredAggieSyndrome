@@ -43,8 +43,8 @@ from aggie_analytics.data.tamu_official_gamebook_union_2004_expanded import (  #
 
 DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
-EXPECTED_GATE_IDENTITY = "525706ab4273443ca36e4c65ee386e6e2d9870644de16565ca16820bffcc98a9"
-EXPECTED_UNION_IDENTITY = "0bd42472491241967a2f562ea32561f5c7ee726a7146d2699728988e212a98f7"
+EXPECTED_GATE_IDENTITY = "e79c5b01a5f4e654add4ad492714578be17bbd577e3bf080159dc133639f3b8b"
+EXPECTED_UNION_IDENTITY = "326850d3669c00e14dee9e8f013059eadd2de4eceaa49500ae6a54b11630fc44"
 
 
 def _copy(value):

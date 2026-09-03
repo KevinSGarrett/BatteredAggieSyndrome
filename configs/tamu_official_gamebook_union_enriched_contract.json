@@ -6,8 +6,8 @@
   "purpose": "Create a new immutable SRC-014 enriched-union identity that preserves WMT 177, the Cycle #9 203-game union, the BAT-587 226-game union, and the BAT-590 237-game union, then overlays BAT-591 StatCrew domains onto already admitted official 2007-2009 games. Validation reconstructs in memory and never writes.",
   "prior_union_identity": "d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31",
   "prior_union_gate_identity": "537de885b49e6e4574dfe5622b0d3f0db07a081f213e96b5ae14d5e1ee011297",
-  "statcrew_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
-  "statcrew_gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+  "statcrew_payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
+  "statcrew_gate_identity": "ed2ce7b95bd046a282116cf50aff84fec1e585f8dee848cc4451bec63bdf668c",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
   "payloads": {
     "union_root": "features/tamu_official_gamebook_union_enriched/sha256"

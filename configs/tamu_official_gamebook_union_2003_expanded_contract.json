@@ -6,21 +6,23 @@
   "local_issue_id": "POST-TASK-SRC014-2003-EXPANDED-ENRICHED-UNION-001",
   "new_issue_decision": "CREATE",
   "purpose": "Create a new immutable official enriched union that starts from the BAT-608 integrity-complete successor and admits only independently validated official 2003 games. Do not rewrite BAT-608, BAT-607, or BAT-603. Opponent name alone is not admission. Fail closed if the BAT-608 union manifest is missing.",
-  "predecessor_union_identity": "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd",
-  "predecessor_gate_identity": "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f",
-  "pinned_bat608_union_manifest_file_sha256": "7853ae659d1a6c8954a99ac23abd65d8c484c8e61d3d455d0f8deafba9bb0401",
+  "predecessor_union_identity": "2af6bf25cce6b9f63edcd4285931b7bbe1093de7e9b927ec00028a4df348de75",
+  "predecessor_gate_identity": "873c90f94ffeb414178d25f9a12ec9c897c2d8d745bc4824de3642845a00fc8c",
+  "pinned_bat608_union_manifest_file_sha256": "c1b6de383aecc24380679b531d2a8e7e5606b596e76f03117f528b870fee0f21",
   "pinned_bat609_gate_identity": "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e",
   "pinned_bat609_box_url_identity": "169ecef65490a5a07889ccd06816fda94db5215e6f1eacf6cb22204286800a99",
   "pinned_bat610_gate_identity": "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13",
   "pinned_bat610_dataset_identity": "741f92a8b0d3c19fe7fd51033e9ddfb797052a9da4e63a2115839a4617e2c0c5",
   "pinned_bat610_acquisition_identity": "f5c0a2824381669501b7bccaeac18ced85f7c14b570d03e56ea4ebb1e4e08ee0",
   "pinned_bat610_games_identity": "17a9daed972a0fa91e554b33adeaf5027aefa206188fec949a4450e2f8971772",
-  "pinned_bat611_gate_identity": "758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9",
-  "pinned_bat611_payload_identity": "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8",
+  "pinned_bat611_gate_identity": "4d22bbb416115c10a490d703b90cf70d8cdb67c9163c23b0f8cfb69212250284",
+  "pinned_bat611_payload_identity": "ad3065275042edc8c8f8770e73b237d243811d29e528481d1f88d918d529a040",
   "official_index_url": "https://files.12thman.com/history/football/years/2003.html",
   "parent_url_fallback_forbidden": true,
   "payloads": {
     "union_root": "features/tamu_official_gamebook_union_2003_expanded/sha256"
   },
-  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "pinned_union_identity": "f6f330d4574cfcb819bd304496e9163e4997d12b0839670b65194bae2a680252",
+  "pinned_gate_identity": "e4c8a1ccc607a9e9f418b30a5cc2dc94ddf4569517b1a16008d8388486f1e0b0"
 }

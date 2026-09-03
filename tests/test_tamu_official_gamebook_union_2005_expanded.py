@@ -27,8 +27,8 @@ from aggie_analytics.data.tamu_official_gamebook_union_2005_expanded import (  #
 
 DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
-EXPECTED_GATE_IDENTITY = "d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8"
-EXPECTED_UNION_IDENTITY = "c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200"
+EXPECTED_GATE_IDENTITY = "cdff6912e51eb1d72107d86b6a2e8c40d47a5379017e8c927edbf408b6ed8786"
+EXPECTED_UNION_IDENTITY = "5874a0556841a3d0f6caa25a5b501915f64211b645071df0094e058dbedf617f"
 
 
 def _mutated(gate: dict, **changes):

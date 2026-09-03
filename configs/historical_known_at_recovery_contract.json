@@ -747,7 +747,7 @@
     "gate_identity": "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78",
     "manifest_file_sha256": "555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0",
     "code_bundle_identity": "462183d079f1af7cfbd9208614b1c0e817c7609a69680f0f987f25a745e8b182",
-    "predecessor_bat620_dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+    "predecessor_bat620_dataset_identity": "331817f16df5e5cde22ec730f10faa527be9a641ccb9a95b6ad37c3cf903643d",
     "membership_union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
     "domain": "TAMU_OFFICIAL_SRC014_STRUCTURED_ROW_CORPUS",
     "grain": "GAME_DOMAIN_SERIALIZED_ROW",

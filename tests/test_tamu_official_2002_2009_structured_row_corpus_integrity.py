@@ -76,7 +76,7 @@ def _mutated_gate(gate: dict, **changes) -> dict:
 def _source() -> dict:
     return {
         "jira_key": "BAT-617",
-        "payload_identity": "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2",
+        "payload_identity": "0a2e8e6c510f4d935e8cd6e04f7741491856f46f608e47d62c42f73fab6d4697",
         "default_parser": PREFORMATTED_PARSER_IDENTITY,
         "schema_authorizes_parser_default": True,
         "authorized_schema_version": "aggie.data.tamu_official_2002_structured_domains.v1",

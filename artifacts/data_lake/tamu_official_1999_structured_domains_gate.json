@@ -318,10 +318,10 @@
       "warnings": []
     }
   ],
-  "gate_identity": "a3773196da81aa1d94e01d633ff68e6a7ddd2c603c41eb2c0ab9c26f8ddc1e93",
+  "gate_identity": "45f83109b1db70262ccca91f03823edbeb7d04e791e7b8005a8cf9f643bb9179",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
   "jira_key": "BAT-632",
-  "payload_identity": "736cdd338d3097d02ca6c5a05c434e8b36366caac30db55d574c872b2ca892a1",
+  "payload_identity": "c45365c6dfed298062871761abbc872740d4425a19cd3f73aa223b44c4e5a76c",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "result": "PASS_OFFICIAL_1999_STRUCTURED_DOMAINS_PARSED",
   "schema_version": "aggie.data.tamu_official_1999_structured_domains.v1",

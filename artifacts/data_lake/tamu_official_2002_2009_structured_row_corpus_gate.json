@@ -39,19 +39,19 @@
       "filename": "drives.jsonl",
       "row_count": 2457,
       "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
-      "sha256": "128d69aafbe0481961d03027f8379e00bcf1d146d4e679b7319605b88e4f5bca"
+      "sha256": "2c1213e54782dc175382bf4fd6a8175c7eb659566d6cf4bdc08753309530a325"
     },
     "individual_player_statistics": {
       "filename": "individual_player_statistics.jsonl",
       "row_count": 2638,
       "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
-      "sha256": "79b6b0558b69cc2dd6c765f616f4e6bf1493d8c9376a0f82c5f5c2231e20d0e5"
+      "sha256": "7b1e0e24bfa0edd5466ffc608574bed6faee04553c9ed767888eb629cd035b30"
     },
     "play_by_play": {
       "filename": "play_by_play.jsonl",
       "row_count": 34328,
       "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
-      "sha256": "0e20b7dbe41412a32377ed57c93aaf52be69ae5eab3337ef8707ee4c7a679d77"
+      "sha256": "401bff005d9b3497b92fe3c9580018e948c08e30a2606326571b03d63703448e"
     },
     "scoring_summary": {
       "filename": "scoring_summary.jsonl",
@@ -63,7 +63,7 @@
       "filename": "team_statistics.jsonl",
       "row_count": 3810,
       "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1",
-      "sha256": "df1e89aebf81a28acfe8a77d79b260ea778bd326d9113e805f1d13609dde96e0"
+      "sha256": "6e4c6d50c9a42b2fce8fc7c78c9c3c0c5a4eea6ee728fb7f4ab268ab5d12c16c"
     }
   },
   "classification": "TAMU_SRC014_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY",
@@ -141,10 +141,10 @@
       2009
     ]
   },
-  "dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
+  "dataset_identity": "5ec3e5599334b096847ab1115fa70135e836cdc2649981be8dd4b922b140db87",
   "decision_unit": "POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001",
   "disposition": "NEW_CONTENT_ADDRESSED_ROW_CORPUS_FROM_SERIALIZED_PAYLOADS",
-  "gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af",
+  "gate_identity": "465598fbf626f078405c71d9eab41eb82018ea2ccc66255db870b0554198676c",
   "jira_key": "BAT-619",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "result": "PASS_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS",
@@ -187,18 +187,18 @@
   "union_gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
   "union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
   "upstream_identities": {
-    "bat591_payload_file_sha256": "cb7fc0b293f15ee8d98058daa38fa9abba02d9506b28dd6845dfb2682272ab3a",
-    "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
-    "bat596_payload_file_sha256": "38bfcaf9b89dcc82d68a3cb78767db19fe011294d0858993692ace3ec55eebb5",
-    "bat596_payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
-    "bat601_payload_file_sha256": "752bd4631289fa35ae40bd11f481d520cb14c0dd7a082814055a80c2fec876c6",
-    "bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
-    "bat606_payload_file_sha256": "e56fadea242c9d06a4154415411ad9b1ed8c04ba2eef225fac44c6873e1c3aef",
-    "bat606_payload_identity": "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0",
-    "bat611_payload_file_sha256": "6e21fabf1df2fb7f5b5066de55026d5841802092349192a19f6278b682ea5cf2",
-    "bat611_payload_identity": "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8",
-    "bat617_payload_file_sha256": "a411e25e81335ae8570f8452f65303f4533f47fb38bb1d7a615daebf99d22981",
-    "bat617_payload_identity": "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2",
+    "bat591_payload_file_sha256": "e4fa2f48acd0b89b11e4899b9f67c38e16b9737d34a72672f9efde57b6ed2950",
+    "bat591_payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
+    "bat596_payload_file_sha256": "bd7ee4af132ea228a3e0a89a67fd61c89849ee9fe3d16ef4ccd85d7cbafc9384",
+    "bat596_payload_identity": "f4fc2472e90e37adc3d0d4569d8b1225a45acd6ad4d41aa48a9b3dbb39473a9d",
+    "bat601_payload_file_sha256": "d43cac803b1e53b0c797165bb5be50385e4ac0546c4c51435c35011cce111e4d",
+    "bat601_payload_identity": "35ccd6ff643dad9248c57d41873f74572c3ac040a642dd0c54197289f87c833d",
+    "bat606_payload_file_sha256": "4207d940456e376aecd5ec464e916d2cbcf3cbb505307a001667660833860c89",
+    "bat606_payload_identity": "80ba101dc4699c32eae44e963be627ac1edff00a09e2dd459780f11f6930122c",
+    "bat611_payload_file_sha256": "4de9371a0c9b535359bdc3795b94e3daa2df0ad9b50952e0ef366ce188ef2d45",
+    "bat611_payload_identity": "ad3065275042edc8c8f8770e73b237d243811d29e528481d1f88d918d529a040",
+    "bat617_payload_file_sha256": "47bf7f7a11c6f2ad15540167d0681e5992775d70644b4bd677374cca9bbfb829",
+    "bat617_payload_identity": "0a2e8e6c510f4d935e8cd6e04f7741491856f46f608e47d62c42f73fab6d4697",
     "bat618_gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
     "bat618_union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
     "bat618_union_manifest_file_sha256": "07ec65650bfbb1a213a6b633187d919be3a90b0c9538ed17754d6a49622a9cd1",

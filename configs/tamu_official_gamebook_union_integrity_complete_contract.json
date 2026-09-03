@@ -6,17 +6,19 @@
   "local_issue_id": "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001",
   "new_issue_decision": "CREATE",
   "purpose": "Create a new immutable successor to BAT-607 that preserves 273-game membership while requiring authoritative BAT-603/BAT-607 union manifests and independently raw-reconstructing every BAT-606 serialized row. Do not rewrite BAT-603 or BAT-607 identities. new_games_added remains 0.",
-  "predecessor_union_identity": "0bd42472491241967a2f562ea32561f5c7ee726a7146d2699728988e212a98f7",
-  "predecessor_gate_identity": "525706ab4273443ca36e4c65ee386e6e2d9870644de16565ca16820bffcc98a9",
-  "pinned_bat603_union_identity": "51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459",
-  "pinned_bat603_gate_identity": "ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580",
-  "pinned_bat603_union_manifest_file_sha256": "c12fbcacab99ff16fe5c606b22354f5f5ecadb61b405a0bc353c458ab8082d21",
+  "predecessor_union_identity": "326850d3669c00e14dee9e8f013059eadd2de4eceaa49500ae6a54b11630fc44",
+  "predecessor_gate_identity": "e79c5b01a5f4e654add4ad492714578be17bbd577e3bf080159dc133639f3b8b",
+  "pinned_bat603_union_identity": "dfd51c6eff815ef56d1674d5c6055f2acad435123156261bf1e7b40c32da6340",
+  "pinned_bat603_gate_identity": "aaf307e5c2a42b48ea88b2745c965b5290a3d4312a71d48db49cf16a6a30e88b",
+  "pinned_bat603_union_manifest_file_sha256": "350ed96699f20bcbc9b1ce65c7995035b52c82ab6e36b7240658f4fe440843f4",
   "pinned_bat607_union_manifest_file_sha256": "e5532cd07107312ca0595836a2c71f405b95355b02eb722eb6be5131cd46603c",
-  "pinned_bat606_payload_identity": "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0",
-  "pinned_bat606_gate_identity": "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6",
+  "pinned_bat606_payload_identity": "80ba101dc4699c32eae44e963be627ac1edff00a09e2dd459780f11f6930122c",
+  "pinned_bat606_gate_identity": "1b3fb5536ff535b23a910a462857b0c7c1e29f66b3d937e0b1de90e85ac179b6",
   "new_games_added": 0,
   "payloads": {
     "union_root": "features/tamu_official_gamebook_union_integrity_complete/sha256"
   },
-  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "pinned_union_identity": "2af6bf25cce6b9f63edcd4285931b7bbe1093de7e9b927ec00028a4df348de75",
+  "pinned_gate_identity": "873c90f94ffeb414178d25f9a12ec9c897c2d8d745bc4824de3642845a00fc8c"
 }

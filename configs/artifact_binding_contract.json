@@ -818,7 +818,7 @@
       "local_issue_id": "POST-TASK-SRC014-2001-EXPANDED-ENRICHED-UNION-001",
       "required_equal": {
         "jira_key": "BAT-624",
-        "predecessor_union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
+        "predecessor_union_identity": "b0da65bf92eb1b7416c4558e2049ca7fe292110a8656d13cf9398286bb020606",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_IMMUTABLE_BAT618_PRESERVED_OFFICIAL_2001_ADDED",
         "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2001_expanded.v1"
@@ -1614,7 +1614,7 @@
       "jira_key": "BAT-591",
       "local_issue_id": "POST-TASK-SRC014-STATCREW-PREFORMATTED-001",
       "required_equal": {
-        "payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+        "payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_STATCREW_PREFORMATTED_DOMAINS_PARSED"
       }
@@ -1714,7 +1714,7 @@
       "required_equal": {
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_IMMUTABLE_BAT592_PRESERVED_OFFICIAL_2006_ADDED",
-        "union_identity": "cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98"
+        "union_identity": "ef322be7f076edc17e6cb01cfc7a430399847a4c4ef62374c7a7849f718ca9cd"
       }
     },
     {
@@ -1761,7 +1761,7 @@
       "jira_key": "BAT-602",
       "local_issue_id": "POST-TASK-SRC014-2005-EXPANDED-ENRICHED-UNION-001",
       "required_equal": {
-        "prior_union_identity": "cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98",
+        "prior_union_identity": "ef322be7f076edc17e6cb01cfc7a430399847a4c4ef62374c7a7849f718ca9cd",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_IMMUTABLE_BAT597_PRESERVED_OFFICIAL_2005_ADDED"
       }
@@ -1813,7 +1813,7 @@
       "jira_key": "BAT-603",
       "local_issue_id": "POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001",
       "required_equal": {
-        "predecessor_union_identity": "c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200",
+        "predecessor_union_identity": "5874a0556841a3d0f6caa25a5b501915f64211b645071df0094e058dbedf617f",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_IMMUTABLE_BAT602_PRESERVED_INDEPENDENT_UPSTREAM_BINDINGS",
         "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2005_integrity_bound.v1"
@@ -1867,7 +1867,7 @@
       "jira_key": "BAT-607",
       "local_issue_id": "POST-TASK-SRC014-2004-EXPANDED-ENRICHED-UNION-001",
       "required_equal": {
-        "predecessor_union_identity": "51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459",
+        "predecessor_union_identity": "dfd51c6eff815ef56d1674d5c6055f2acad435123156261bf1e7b40c32da6340",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_IMMUTABLE_BAT603_PRESERVED_OFFICIAL_2004_ADDED",
         "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2004_expanded.v1"
@@ -1922,7 +1922,7 @@
       "jira_key": "BAT-608",
       "local_issue_id": "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001",
       "required_equal": {
-        "predecessor_union_identity": "0bd42472491241967a2f562ea32561f5c7ee726a7146d2699728988e212a98f7",
+        "predecessor_union_identity": "326850d3669c00e14dee9e8f013059eadd2de4eceaa49500ae6a54b11630fc44",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_IMMUTABLE_BAT607_PRESERVED_INDEPENDENT_BAT606_RAW_BINDINGS",
         "validation_contract_version": "aggie.data.tamu_official_gamebook_union_integrity_complete.v1"
@@ -1979,7 +1979,7 @@
       "required_equal": {
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS",
-        "union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
+        "union_identity": "b0da65bf92eb1b7416c4558e2049ca7fe292110a8656d13cf9398286bb020606",
         "validation_contract_version": "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1"
       }
     },
@@ -2034,7 +2034,7 @@
       "jira_key": "BAT-629",
       "local_issue_id": "POST-TASK-SRC014-2000-2009-STRUCTURED-ROW-CORPUS-001",
       "required_equal": {
-        "predecessor_dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+        "predecessor_dataset_identity": "331817f16df5e5cde22ec730f10faa527be9a641ccb9a95b6ad37c3cf903643d",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_OFFICIAL_2000_2009_STRUCTURED_ROW_CORPUS",
         "union_identity": "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
@@ -2094,7 +2094,7 @@
         "predecessor_dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_COMPLETE",
-        "union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
+        "union_identity": "b0da65bf92eb1b7416c4558e2049ca7fe292110a8656d13cf9398286bb020606",
         "validation_contract_version": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1"
       }
     },
@@ -2146,7 +2146,7 @@
       "jira_key": "BAT-618",
       "local_issue_id": "POST-TASK-SRC014-2002-EXPANDED-ENRICHED-UNION-001",
       "required_equal": {
-        "predecessor_union_identity": "22ab52efad425074ddab75593c882ca7d1fb0fab6e99df160af1681cfc26f5aa",
+        "predecessor_union_identity": "f6f330d4574cfcb819bd304496e9163e4997d12b0839670b65194bae2a680252",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_IMMUTABLE_BAT612_PRESERVED_OFFICIAL_2002_ADDED",
         "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2002_expanded.v1"
@@ -2200,7 +2200,7 @@
       "jira_key": "BAT-612",
       "local_issue_id": "POST-TASK-SRC014-2003-EXPANDED-ENRICHED-UNION-001",
       "required_equal": {
-        "predecessor_union_identity": "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd",
+        "predecessor_union_identity": "2af6bf25cce6b9f63edcd4285931b7bbe1093de7e9b927ec00028a4df348de75",
         "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
         "result": "PASS_IMMUTABLE_BAT608_PRESERVED_OFFICIAL_2003_ADDED",
         "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2003_expanded.v1"

@@ -31,8 +31,8 @@ from aggie_analytics.data.tamu_official_html_table_classifier import (  # noqa: 
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
-EXPECTED_GATE_IDENTITY = "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d"
-EXPECTED_PAYLOAD_IDENTITY = "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc"
+EXPECTED_GATE_IDENTITY = "a466c5ae9c18cb49a2008c0fc403fe80c9f480b9ba0bb560568651d3cfb393ad"
+EXPECTED_PAYLOAD_IDENTITY = "35ccd6ff643dad9248c57d41873f74572c3ac040a642dd0c54197289f87c833d"
 
 
 def _mutated(gate: dict, **changes):

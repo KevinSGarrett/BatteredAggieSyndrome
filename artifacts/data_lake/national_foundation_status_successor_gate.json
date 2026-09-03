@@ -1,0 +1,60 @@
+{
+  "artifact_type": "NATIONAL_FOUNDATION_STATUS_SUCCESSOR_GATE",
+  "classification": "NATIONAL_FOUNDATION_STATUS_SUCCESSOR_CANDIDATE_ONLY",
+  "contract_id": "CYCLE26-NATIONAL-FOUNDATION-STATUS-SUCCESSOR-V1",
+  "dataset_identity": "8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b",
+  "gate_identity": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894",
+  "issued_at_utc": "2026-09-03T12:23:58Z",
+  "jira_key": "BAT-651",
+  "lane": "DEVELOPMENT_SUCCESSOR_UNTRUSTED_SHADOW",
+  "local_issue_id": "POST-TASK-NATIONAL-FOUNDATION-STATUS-SUCCESSOR-001",
+  "payloads": {
+    "restored_normalized_game": {
+      "bytes": 964,
+      "relative_path": "canonical/national_foundation_status_successor/sha256/8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b/restored_normalized_game.jsonl",
+      "row_count": 1,
+      "sha256": "0678d9423fae0a639db07ffae0e932d0ad52e3f9c150b6b7f7860c12946ab093"
+    },
+    "restored_outcome_label": {
+      "bytes": 362,
+      "relative_path": "canonical/national_foundation_status_successor/sha256/8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b/restored_outcome_label.jsonl",
+      "row_count": 1,
+      "sha256": "0f62b73116c6d339796aec67ab8ad30c5045df82634e35bc74a2534ac65f5145"
+    }
+  },
+  "predecessor": {
+    "normalized_relative_path": "canonical/national_foundation_reconciliation/sha256/d2af2bab981f8e7b33a6823e3e4b4b65eb2f96593a0eeafd56dedce1b84fd477/national_normalized_games.jsonl",
+    "normalized_sha256": "8ac949ef3ecbdbc560bb8080e2f302cbd000ab96437dfafef9f1a14165d1c574",
+    "quarantine_relative_path": "quarantine/national_foundation_reconciliation/sha256/d2af2bab981f8e7b33a6823e3e4b4b65eb2f96593a0eeafd56dedce1b84fd477/national_normalization_quarantine.jsonl",
+    "quarantine_sha256": "d60f8b93d77286f44c2bcade5e2284989c8e2fc080a3c97cdcb35985bb430680",
+    "rewritten": false
+  },
+  "predecessor_payloads_rewritten": false,
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "restored_game": {
+    "away_points": 9,
+    "away_team_name": "Howard",
+    "canonical_game_id": "SRC-002:GAME:312472199",
+    "disposition": "RESTORE_FALSE_SUBSTRING_QUARANTINE",
+    "home_points": 41,
+    "home_team_name": "Eastern Michigan",
+    "outcome_result": "HOME_WIN",
+    "pit_feature_eligible": false,
+    "season": 2011
+  },
+  "result": "PASS_NATIONAL_FOUNDATION_STATUS_SUCCESSOR",
+  "schema_version": "aggie.data.national_foundation_status_successor.v1",
+  "scientific_nonclaims": [
+    "Does not rewrite the predecessor national foundation payloads.",
+    "Does not admit PIT features; historical known-at remains unproven.",
+    "Does not coerce a completed string into boolean true.",
+    "Does not open the all-cycle trust gate or operator hold."
+  ],
+  "source_capture": {
+    "relative_path": "raw/SRC-002/games/sha256_c342b8ad1e44e77308cf670fe55552ebb0ef6168f42ff864b5a09cbd0cff09ef.json",
+    "season": 2011,
+    "sha256": "c342b8ad1e44e77308cf670fe55552ebb0ef6168f42ff864b5a09cbd0cff09ef",
+    "source_id": "SRC-002"
+  }
+}

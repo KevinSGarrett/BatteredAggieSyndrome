@@ -18,6 +18,14 @@ if str(REPO_ROOT / "src") not in sys.path:
 from aggie_analytics.data.protected_evaluation_replacement_protocol import (  # noqa: E402
     replacement_protocol,
 )
+from aggie_analytics.data.national_foundation_status_successor import (  # noqa: E402
+    classify_status_successor,
+    parse_completed_flag,
+)
+from aggie_analytics.data.tamu_official_passing_section_successor import (  # noqa: E402
+    player_identity_role,
+    succeed_row,
+)
 from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: E402
     parse_table_players,
 )
@@ -501,6 +509,38 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         self.assertTrue(team)
         ghost = [row for row in rows if row["name_raw"] == "Ghost"]
         self.assertEqual(ghost, [])
+        team_role = player_identity_role({"name_raw": "TEAM"})
+        self.assertEqual(team_role, "TEAM_ATTRIBUTED_EVIDENCE")
+        successor = succeed_row(
+            {
+                "row_identity": "r1",
+                "name_raw": "TEAM",
+                "stat_group": "rushing",
+                "original_text": "TEAM  0-0-0",
+                "header_only": False,
+            },
+            confirmed_ids={"r1"},
+            unresolved_ids=set(),
+        )
+        self.assertEqual(successor["stat_group"], "passing")
+        self.assertFalse(successor["fabricated_person_identity"])
+
+    def test_26b_completed_string_cannot_restore_false_quarantine(self) -> None:
+        self.assertIsNone(parse_completed_flag("false"))
+        classified = classify_status_successor(
+            {
+                "canonical_game_id": "SRC-002:GAME:312472199",
+                "notes": "postponed",
+                "completed": "true",
+                "homePoints": 41,
+                "awayPoints": 9,
+                "status": "final",
+                "season": 2011,
+            }
+        )
+        self.assertNotEqual(
+            classified["disposition"], "RESTORE_FALSE_SUBSTRING_QUARANTINE"
+        )
 
     def test_28_windows_filename_hazards(self) -> None:
         with self.assertRaises(ValueError):

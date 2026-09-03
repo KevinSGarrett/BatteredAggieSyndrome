@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
-  "issued_at_utc": "2026-09-03T12:09:17Z",
+  "issued_at_utc": "2026-09-03T12:27:30Z",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
   "live_statuses": {
     "BAT-696": "In Review",
@@ -21,7 +21,23 @@
     "done_on_remaining_scientific_owners": false,
     "bat_523_parent_progress_cycle26": false
   },
-  "note": "import_bat_live.py --verify-live PASS. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization. | refreshed verify stamp after historical pair-successor bind; hold/Done rules unchanged",
+  "note": "import_bat_live.py --verify-live PASS at 2026-09-03T12:09:17Z. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Owner-issue factual comments 14729 (BAT-692) and 14730 (BAT-651) are not parent-progress comments and do not use cycle-26 parent identity. Local Jira changes may remain on review branch until explicit merge authorization.",
+  "owner_issue_comments_this_cycle": [
+    {
+      "issue": "BAT-692",
+      "comment_id": "14729",
+      "created": "2026-09-03T12:27:21Z",
+      "cycle_parent": false,
+      "purpose": "R26-21 passing-section successor progress"
+    },
+    {
+      "issue": "BAT-651",
+      "comment_id": "14730",
+      "created": "2026-09-03T12:27:21Z",
+      "cycle_parent": false,
+      "purpose": "312472199 structured-status successor progress"
+    }
+  ],
   "verify_live_result": "PASS",
   "verify_live_at": "2026-09-03T12:09:17Z",
   "total_issue_count": 627,

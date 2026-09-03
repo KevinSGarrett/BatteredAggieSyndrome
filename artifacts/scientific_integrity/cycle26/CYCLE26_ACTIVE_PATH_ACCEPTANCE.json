@@ -7,9 +7,9 @@
   "OPERATIONAL_EVIDENCE_GATE": "EVIDENCE_CAPTURE_VERIFIED",
   "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
   "PRIMARY_OBJECTIVE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
-  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_UNRESOLVED pass-two backlog; R26-13 admin thresholds; R26-21/R26-22 CONFIRMED_CONTAINED_NOT_FIXED; R26-20 pair complement CONFIRMED_FIXED via historical successor without rewriting predecessors. Joint Week 1 successor remains UNTRUSTED_SHADOW. Pass3 PENDING_INDEPENDENT_REVIEWER. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY on unique-game C20 successor \u2014 not prospective Week1 skill.",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_UNRESOLVED pass-two backlog; R26-13 admin thresholds; R26-22 CONFIRMED_CONTAINED_NOT_FIXED; R26-20/R26-21 and 312472199 restored via successors without rewriting predecessors. Joint Week 1 successor remains UNTRUSTED_SHADOW. Pass3 PENDING_INDEPENDENT_REVIEWER. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY.",
   "R26_21_ACTIVE_PATH_DEPENDENCY": "NONE_PROVEN",
-  "R26_21_NOTE": "Week1 national fitted successor import closure has zero BAT-591/StatCrew edges; R26-21 remains CONFIRMED_CONTAINED_NOT_FIXED for corpus owners.",
+  "R26_21_NOTE": "R26-21 CONFIRMED_FIXED via passing-section successor; Week1 path still has zero StatCrew import edges.",
   "ROW_SCIENTIFIC_ELIGIBILITY_GATE": "PARTIAL_SUCCESSOR_PATH",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "all_cycle_pass_three_honesty": "PARTIAL_CATEGORY_SEARCH_NOT_COMPLETE",
@@ -381,7 +381,7 @@
     "joint_probability_margin_interval": false
   },
   "integration_authority": "REVIEW_READY_UNMERGED",
-  "issued_at_utc": "2026-09-03T12:07:48Z",
+  "issued_at_utc": "2026-09-03T12:26:41Z",
   "joint_fitted_path": "VERIFIED_WITHIN_DECLARED_SCOPE",
   "live_owners": {
     "captured_at_utc": "2026-09-03T06:04:11Z",
@@ -461,6 +461,12 @@
     }
   },
   "manifest_integrity_note": "Regenerated provenance manifest to remove stale tools/_cycle26_patch_evidence.py entry that broke CI strict validate.",
+  "passing_section_successor": {
+    "active_path_import_edges": 0,
+    "confirmed_rows": 429,
+    "dataset_identity": "e98912fa5be82ecea999380040b1031e83e3c40ac07a76a615ceffd817439912",
+    "gate_identity": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787"
+  },
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "predictive_skill_evidence_relative_path": "artifacts/scientific_integrity/cycle26/CYCLE26_PREDICTIVE_SKILL_EVIDENCE.json",
   "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",
@@ -478,6 +484,12 @@
     "issued_at_utc": "2026-09-03T09:50:03Z",
     "note": "Abstentions are evidence-backed fail-closed rows, not silent drops. Do not force-fit missing modelling history or unadmitted domains.",
     "opportunity": 91
+  },
+  "status_successor": {
+    "dataset_identity": "8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b",
+    "gate_identity": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894",
+    "pit_feature_eligible": false,
+    "restored_game": "SRC-002:GAME:312472199"
   },
   "three_pass": {
     "pass_1": {

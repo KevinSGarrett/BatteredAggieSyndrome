@@ -231,12 +231,15 @@
       "acceptance_authority": "USER_EXPLICIT_ONLY",
       "active_path_import_edges": 0,
       "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json",
-      "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
+      "correction": "Immutable passing-section successor recodes 429 confirmed rows to passing without rewriting the 1996-2009 predecessor; TEAM rows stay team-attributed; 45 unresolved screen candidates remain unresolved.",
+      "disposition": "CONFIRMED_FIXED",
       "id": "R26-21",
+      "independently_reconstructed": true,
       "owner": "BAT-692",
-      "red_before_green_after": "tests/test_cycle26_adversarial_regressions.py::test_26 + test_r26_21_active_path_does_not_import_statcrew",
-      "residual_risk": "Full 429-row corpus successor rematerialization still pending; incomplete cascade reverted to protect CI",
-      "severity": "P1"
+      "red_before_green_after": "tests/test_tamu_official_passing_section_successor.py + tools/validate_tamu_official_passing_section_successor.py",
+      "residual_risk": "45 unresolved ambiguous-section screen candidates remain unlabeled as passing; full season-domain parser cascade was not replayed; national model join is unproven.",
+      "severity": "P1",
+      "successor_gate": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787"
     },
     {
       "acceptance_authority": "USER_EXPLICIT_ONLY",
@@ -287,10 +290,22 @@
         "test_30_inverse_normal_cdf_ppf_roundtrip"
       ],
       "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "correction": "Structured-status successor restores SRC-002:GAME:312472199 from verified boolean completed + scores; predecessor quarantine preserved.",
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-7A7-FALSE-QUARANTINE-312472199",
+      "independently_reconstructed": true,
+      "owner": "BAT-651",
+      "red_before_green_after": "tests/test_national_foundation_status_successor.py + tools/validate_national_foundation_status_successor.py",
+      "residual_risk": "Predecessor national foundation remains quarantined for this id; consumers must bind the successor explicitly. PIT admission stays closed.",
+      "severity": "P1",
+      "successor_gate": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894"
     }
   ],
   "git_tip_at_issuance": "23c5806f2e18a940c2f786f02be722d2872f5606",
-  "issued_at_utc": "2026-09-03T12:07:48Z",
+  "issued_at_utc": "2026-09-03T12:26:41Z",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "schema_version": 2
 }

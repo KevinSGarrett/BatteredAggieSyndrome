@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T15:41:05Z",
-  "git_tip": "50dbfd317514c2075e9e141afd9f13cbe33e592f",
+  "issued_at_utc": "2026-09-03T15:43:12Z",
+  "git_tip": "5dbced15dbb543d64f730857ad823545f0baf5a3",
   "code_head_binding": "LIVE_PR_678_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "ci": "PASS",
@@ -12,7 +12,7 @@
   "Pass3": "PENDING_INDEPENDENT_REVIEWER",
   "integration_authority": "REVIEW_READY_UNMERGED",
   "merge_authorized": false,
-  "t90m_sleeper": "executed_2026-09-03T15:41:03.9432228Z",
+  "t90m_sleeper": "executed_early_2026-09-03T15:41:18Z_scheduler_refresh_19:45Z",
   "sep3_t24h": "MISSED_CUTOFF_NO_BACKFILL",
   "migration": "DEFERRED_BY_USER_NOT_COMPLETE",
   "hold": "ACTIVE",
@@ -30,11 +30,11 @@
   "R26_20": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_21": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_22": "CONFIRMED_CONTAINED_NOT_FIXED",
-  "jira_verify_live_at": "2026-09-03T15:32:50Z",
+  "jira_verify_live_at": "2026-09-03T15:43:12Z",
   "t90m_scheduler": "run_scheduled_sep3_t90m_capture.ps1 wake 2026-09-03T19:45:00Z ARMED",
   "t24h_scheduler": "run_scheduled_sep4_t24h_capture.ps1 wake 2026-09-03T22:00:00Z ARMED",
   "t90m_executor": "armed_2026-09-03T19:45:00Z",
   "t90m_executor_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_T90M_EXECUTOR.log",
   "afternoon_refresh": "PASS_20260903T153037Z",
-  "sep3_t90m": "T-90M"
+  "sep3_t90m": "T-90M_BOUND_20260903T154118Z"
 }

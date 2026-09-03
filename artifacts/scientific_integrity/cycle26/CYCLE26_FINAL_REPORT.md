@@ -55,11 +55,12 @@ PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 unresolved (pass-two backlog); R26-13 
 
 ## Calendar / capture
 
-- Sep 3 T-24H: MISSED_CUTOFF_NO_BACKFILL (11 contests); T-90M open until earliest ~2026-09-03T20:30:00Z
+- Sep 3 T-24H: MISSED_CUTOFF_NO_BACKFILL (11 contests)
+- Sep 3 T-90M: **bound** 2026-09-03T15:41:18Z (`T90M_LABEL_PERMITTED`; earliest cutoff 2026-09-03T20:30:00Z); scheduler refresh still armed 19:45Z
+- National Sep4-window T-24H: scheduler wake 2026-09-03T22:00:00Z (earliest cutoff 22:30Z) — pending at report issuance
 - A&M 6607349 T-24H 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z
 - Scoring: AWAITING_FINAL
 - Deterministic capture runner: ops/cycle26/run_week1_checkpoint_capture.ps1
-- Schedulers armed: T-90M wake 2026-09-03T19:45:00Z; national T-24H wake 2026-09-03T22:00:00Z (earliest cutoff 22:30Z)
 
 ## Explicit non-claims
 
@@ -68,3 +69,5 @@ No hold release, merge authority, production credibility, BAS/Aggie Excess, or p
 _Midday bind 2026-09-03T14:11:28Z: tip=6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa; CI PASS; REFRESH captures 9e98e3d8/6b9b57be/1c0ae677; T-90M pipeline armed 19:45Z._
 
 _Schedulers armed 2026-09-03T14:39:00Z: tip=3f0ad33e4e2bb15751ce85991994e3ee14274949; T-90M wake 19:45Z; national T-24H wake 22:00Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
+
+_T-90M bound 2026-09-03T15:41:18Z: tip=5dbced15; freeze receipt CYCLE26_SEP3_T90M_FREEZE_RECEIPT; schedule f8be37b3; CI pending on push; national T-24H scheduler wake 22:00Z still armed._

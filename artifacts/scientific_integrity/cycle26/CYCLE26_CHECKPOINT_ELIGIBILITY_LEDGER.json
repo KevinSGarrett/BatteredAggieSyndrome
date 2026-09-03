@@ -1,11 +1,11 @@
 {
   "artifact_type": "CYCLE26_CHECKPOINT_ELIGIBILITY_LEDGER",
-  "issued_at_utc": "2026-09-03T20:01:17Z",
-  "as_of_utc": "2026-09-03T20:01:17Z",
+  "issued_at_utc": "2026-09-03T22:12:00Z",
+  "as_of_utc": "2026-09-03T22:12:00Z",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "contest_count": 91,
   "t24h_missed": 11,
-  "t90m_still_eligible": 91,
+  "t90m_still_eligible": 85,
   "contests": [
     {
       "ncaa_contest_id": "6591259",
@@ -13,7 +13,7 @@
       "t24h_cutoff_utc": "2026-09-02T22:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T20:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {
@@ -22,7 +22,7 @@
       "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {
@@ -31,7 +31,7 @@
       "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": [
         "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
       ]
@@ -42,7 +42,7 @@
       "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": [
         "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
       ]
@@ -53,7 +53,7 @@
       "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {
@@ -62,7 +62,7 @@
       "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {

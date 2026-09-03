@@ -1,10 +1,10 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T20:52:55Z",
-  "git_tip": "f1fe397b48b2aefa29110b4fbd150e033bb6c564",
+  "issued_at_utc": "2026-09-03T22:12:30Z",
+  "git_tip": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07",
   "code_head_binding": "LIVE_PR_678_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "ci": "GREEN_f1fe397b",
+  "ci": "PENDING_ON_PUSH",
   "PRIMARY_TRUST_RECOVERY_INCOMPLETE": true,
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
@@ -17,9 +17,9 @@
   "migration": "DEFERRED_BY_USER_NOT_COMPLETE",
   "hold": "ACTIVE",
   "capture_runner_smoke": "PASS_REFRESH",
-  "latest_schedule_capture_identity": "ac08bf4c0f468205cbfd8a8da7fc6ec4cc992845fd93f46b80ab253e79fbc65e",
-  "latest_rankings_capture_identity": "49f21c6a01bd7dbaed673b48cb4cd37f4c2878705f388f40d945ba4342d46f22",
-  "latest_weather_capture_identity": "49d820b5ec79156ac6d922c36262a72932d12f64338195bbeec66493e5a35786",
+  "latest_schedule_capture_identity": "0236d0138163a79db23937a418809af54e0651cefde644ddf11b23b3e273b4a0",
+  "latest_rankings_capture_identity": "24b2b627247638a5f660f22eb613cd540252c4efa3a1c1f02256715d3d82c3b2",
+  "latest_weather_capture_identity": "802fd99d4375578233c30effc7c4557afef28f7609917b6e1ebb5eff70f787f4",
   "universe_refresh": "UNCHANGED_COUNT",
   "market_odds_api": "ABSENT",
   "adversarial_regressions": 49,
@@ -53,7 +53,9 @@
     "result": "OK",
     "at_utc": "2026-09-03T19:25:53Z"
   },
-  "sep4_window_t24h": "ARMED_WAKE_2026-09-03T22:00:00Z",
+  "sep4_window_t24h": "T-24H",
   "jira_verify_live_exit": 0,
-  "watchdog_resume": "CYCLE26_OVERNIGHT_WATCHDOG_RESUME_v1"
+  "watchdog_resume": "CYCLE26_OVERNIGHT_WATCHDOG_RESUME_v1",
+  "sep4_window_t24h_freeze_at": "2026-09-03T22:12:29Z",
+  "sep4_window_t24h_label_authority": "T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW"
 }

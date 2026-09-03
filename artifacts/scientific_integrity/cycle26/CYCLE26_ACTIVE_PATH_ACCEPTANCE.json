@@ -1,12 +1,11 @@
 {
   "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
-  "issued_at_utc": "2026-09-03T09:09:49Z",
-  "code_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
+  "issued_at_utc": "2026-09-03T09:09:59Z",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",
   "joint_fitted_path": "VERIFIED_WITHIN_DECLARED_SCOPE",
-  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-21 StatCrew rematerialization cascade was reverted; defect CONFIRMED_CONTAINED_NOT_FIXED. Joint probability/margin/interval successor emitted for 79/91 ridge opportunities with independent reconstruction PASS and zero failing pairs. Historical saved C20/C21/C25 payloads remain unrepaired (contained). R26-21/R26-22 contained. UNTRUSTED_SHADOW; hold remains; Pass 3 pending. Adversarial suite 46 OK.",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: unresolved/contained P1 findings remain (R26-09/13/17 and R26-20/21/22). Joint successor path scoped VERIFIED under UNTRUSTED_SHADOW only. Pass3 PENDING_INDEPENDENT_REVIEWER. No scientific PASS or credibility claim.",
   "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
   "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
   "MERGE_AUTHORIZATION_GATE": "USER_EXPLICIT_ONLY",
@@ -661,5 +660,8 @@
   "R26_21_NOTE": "Week1 national fitted successor import closure has zero BAT-591/StatCrew edges; R26-21 remains CONFIRMED_CONTAINED_NOT_FIXED for corpus owners.",
   "manifest_integrity_note": "Regenerated provenance manifest to remove stale tools/_cycle26_patch_evidence.py entry that broke CI strict validate.",
   "ci_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
-  "ci_status": "PASS"
+  "ci_status": "BOUND_BY_LIVE_PR_TIP",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "code_head_binding": "LIVE_PR_678_TIP"
 }

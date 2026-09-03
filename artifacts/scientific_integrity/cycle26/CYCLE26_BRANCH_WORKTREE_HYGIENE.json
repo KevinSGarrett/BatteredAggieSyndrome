@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T09:08:12Z",
+  "issued_at_utc": "2026-09-03T09:09:59Z",
   "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
   "main_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "preserve_namespace": "refs/preserve/cycle26-obsolete-20260903T082501Z",
@@ -200,8 +200,7 @@
     "branch": "codex/BAT-690-c26-scr",
     "disposition": "ACTIVE_UNMERGED_WORK"
   },
-  "code_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
-  "note": "All local/remote/worktree entries classified. Two previously DIVERGED_OR_UNKNOWN_BLOCKED local-only tips are now PRESERVATION_RETAIN with exact preserve refs under refs/preserve/cycle26/. No unsafe deletions executed. Active PR #678 retained. BRANCH_WORKTREE_HYGIENE=VERIFIED.",
+  "note": "All entries classified. Two local-only tips retained as PRESERVATION_RETAIN with refs/preserve/cycle26/*. No unsafe deletions. Active PR #678 retained.",
   "next_actions": [
     {
       "ref": "codex/BAT-554-evidence-state-reconciliation-v2",
@@ -224,5 +223,9 @@
       "tip": "9a068a96ad3f66f39aa86b7e972edce9b7982380"
     }
   ],
-  "refresh_note": "Retained entries reaffirmed; active Cycle26 tip updated; no disposable obsolete deletions executed in this refresh (open PRs/worktrees/preservation retained). Remote-gone tracking and STILL_ON_REMOTE historical branches remain explicitly classified, not age-deleted."
+  "refresh_note": "Retained entries reaffirmed; active Cycle26 tip updated; no disposable obsolete deletions executed in this refresh (open PRs/worktrees/preservation retained). Remote-gone tracking and STILL_ON_REMOTE historical branches remain explicitly classified, not age-deleted.",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "code_head_binding": "LIVE_PR_678_TIP"
 }

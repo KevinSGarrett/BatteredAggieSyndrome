@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T09:06:55Z",
+  "issued_at_utc": "2026-09-03T09:09:59Z",
   "git_tip": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "receipt_bound_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
@@ -21,5 +21,7 @@
   "latest_weather_capture_identity": "0181c3eb744d62eb2395a1e264cfd2dd10a834c8ff0c755f376023e00b15edd5",
   "jira_verify_live_at": "2026-09-03T09:01:57.962220+00:00",
   "jira_verify_live_result": "PASS",
-  "jira_total_issues": 627
+  "jira_total_issues": 627,
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
 }

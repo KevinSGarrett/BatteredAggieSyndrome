@@ -1,8 +1,7 @@
 {
   "pass": 2,
   "name": "independent_scientific_reconstruction",
-  "issued_at_utc": "2026-09-03T09:09:49Z",
-  "code_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
+  "issued_at_utc": "2026-09-03T09:09:59Z",
   "reference_modules": [
     "aggie_analytics.scientific_reference.coherence"
   ],
@@ -22,5 +21,9 @@
   ],
   "rebinding_code_head": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
   "rebinding_issued_at_utc": "2026-09-03T08:24:16Z",
-  "note": "Receipt rebound to current tip; successor gate identity unchanged (aa4ff84b...); prior pass evidence retained for declared national successor scope."
+  "note": "Receipt rebound to current tip; successor gate identity unchanged (aa4ff84b...); prior pass evidence retained for declared national successor scope.",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "code_head_binding": "LIVE_PR_678_TIP"
 }

@@ -63,3 +63,5 @@ PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 unresolved (pass-two backlog); R26-13 
 ## Explicit non-claims
 
 No hold release, merge authority, production credibility, BAS/Aggie Excess, or prospective predictive skill. No Done on remaining scientific owners. No Cycle #26 BAT-523 parent progress comment. No scientific PASS while unresolved/contained P1 findings remain on the declared matrix.
+
+_Midday bind 2026-09-03T14:11:28Z: tip=6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa; CI PASS; REFRESH captures 9e98e3d8/6b9b57be/1c0ae677; T-90M pipeline armed 19:45Z._

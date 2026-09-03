@@ -147,7 +147,7 @@
   },
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "ci_head": "ffc766a7e442d8c5f5735efc1bba92f2317d3a8d",
-  "ci_status": "BOUND_BY_LIVE_PR_TIP",
+  "ci_status": "PASS",
   "code_head_binding": "LIVE_PR_678_TIP",
   "gate": {
     "coverage": {
@@ -381,7 +381,7 @@
     "joint_probability_margin_interval": false
   },
   "integration_authority": "REVIEW_READY_UNMERGED",
-  "issued_at_utc": "2026-09-03T12:26:41Z",
+  "issued_at_utc": "2026-09-03T14:11:28Z",
   "joint_fitted_path": "VERIFIED_WITHIN_DECLARED_SCOPE",
   "live_owners": {
     "captured_at_utc": "2026-09-03T06:04:11Z",
@@ -713,5 +713,6 @@
     "probability_home": 0.8951316669,
     "probability_sum": 1.0,
     "publication_label": "UNTRUSTED_SHADOW"
-  }
+  },
+  "git_tip_at_issuance": "6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa"
 }

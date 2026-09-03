@@ -1,13 +1,13 @@
 {
   "artifact_type": "CYCLE26_WEEK1_CAPTURE_RECEIPT",
-  "issued_at_utc": "2026-09-03T14:02:27Z",
+  "issued_at_utc": "2026-09-03T15:31:52Z",
   "code_head_binding": "LIVE_PR_678_TIP",
-  "git_tip_at_issuance": "4479d6988d8844fb3a4eec7c405076a3d391c976",
+  "git_tip_at_issuance": "edff7f2685644c5233cffad9dc38dead078509d0",
   "data_root": "C:\\\\BatteredAggieSyndrome.data",
   "captures": {
     "schedule_source_universe": {
       "tool": "tools/acquire_week1_2026_source_universe.py --dataset schedule",
-      "capture_identity": "9e98e3d8e372bbecb0d25e02accbb41506fc47c4ade7c7dbc971032d789dc98b",
+      "capture_identity": "c94b749aa535bdc87cc03e47ae57568edfdbf932331553278e3fe6f577dfdf43",
       "dates_captured": [
         "2026-09-03",
         "2026-09-04",
@@ -19,24 +19,24 @@
     },
     "authority_enrichment": {
       "tool": "tools/acquire_week1_2026_authority_enrichment.py --dataset all",
-      "kickoff_authority": "f1fa60e16db8da578aebc8fed0aa6135e9f863d71253a1ccf8007d6657c4f29c",
-      "entity_authority": "da2a1b93bde50993b270928c3c5986085ad335399075488ce19c193f2b7bb7d1",
-      "venue_authority": "774eece1c87ad007e646d0e4c2624c2c8bc35f59afac42aa76addde02904a0a3",
+      "kickoff_authority": "6a06b306420ffdc3a022782f8068ced1256310506a55b11cc4d6006edf52f834",
+      "entity_authority": "11078e26ef85b6043d0ad76f14f9683411384240f82be306c7b3560621b72e27",
+      "venue_authority": "cbb854e505ad73815056905e9fd52646cac80772fb27e59698bae215f737f450",
       "capture_identities": {
-        "kickoff-authority": "f1fa60e16db8da578aebc8fed0aa6135e9f863d71253a1ccf8007d6657c4f29c",
-        "entity-authority": "da2a1b93bde50993b270928c3c5986085ad335399075488ce19c193f2b7bb7d1",
-        "venue-authority": "774eece1c87ad007e646d0e4c2624c2c8bc35f59afac42aa76addde02904a0a3"
+        "kickoff-authority": "6a06b306420ffdc3a022782f8068ced1256310506a55b11cc4d6006edf52f834",
+        "entity-authority": "11078e26ef85b6043d0ad76f14f9683411384240f82be306c7b3560621b72e27",
+        "venue-authority": "cbb854e505ad73815056905e9fd52646cac80772fb27e59698bae215f737f450"
       },
       "state": "CAPTURED"
     },
     "rankings": {
       "tool": "tools/acquire_week1_2026_current_context.py --dataset rankings",
-      "capture_identity": "6b9b57becdcb9f51945e011e6412f9b36d9106f4e67428076c194ee9b130fc9f",
+      "capture_identity": "db60435a71490936da91d0c9ab3b2103d1297c7ae1209cb110e80aafa26221bc",
       "state": "CAPTURED"
     },
     "weather": {
       "tool": "tools/acquire_week1_2026_current_context.py --dataset weather --venue-coordinates C:/BatteredAggieSyndrome.data/tmp/c23_venue_coords.json",
-      "capture_identity": "1c0ae6772e5aeabb841c09706446e73d581fea17f07e01e4cbb95697c22b103d",
+      "capture_identity": "c35c80f231e7ab07c095f69d81d0609e0ea3fbc8d7627991d54b685ec599183c",
       "state": "CAPTURED",
       "venue_coordinates": "C:/BatteredAggieSyndrome.data/tmp/c23_venue_coords.json"
     }
@@ -50,15 +50,15 @@
     "asof_is_not_per_game_t24h": true
   },
   "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
-  "rebound_at_utc": "2026-09-03T14:02:27Z",
+  "rebound_at_utc": "2026-09-03T15:31:52Z",
   "refresh_run": {
     "phase": "REFRESH",
-    "finished_at_utc": "2026-09-03T14:02:27Z",
+    "finished_at_utc": "2026-09-03T15:30:37Z",
     "runner": "ops/cycle26/run_week1_checkpoint_capture.ps1",
-    "log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260903T135605Z.log",
+    "log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_CAPTURE_RUN_20260903T152519Z.log",
     "contest_count": 91,
     "t90m_still_eligible": 91,
-    "note": "Midday REFRESH 2026-09-03 ~14:01Z; not T-90M labeled freeze"
+    "note": "Afternoon REFRESH 2026-09-03 ~15:30Z; not T-90M labeled freeze"
   },
   "next_calendar_actions": [
     {

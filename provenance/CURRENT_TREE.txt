@@ -918,9 +918,10 @@ docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md
 docs/assets/readme/aggie-emotional-rollercoaster.png
 docs/assets/readme/aggie-excess.png
-docs/assets/readme/bas-risk-profile.png
+docs/assets/readme/bas-risk-profile-v2.png
 docs/assets/readme/bas-spectrum-mobile.svg
 docs/assets/readme/bas-spectrum.svg
+docs/assets/readme/hero-v2.png
 docs/assets/readme/hero.png
 docs/assets/readme/research-architecture.png
 docs/assets/readme/system-map-mobile.svg

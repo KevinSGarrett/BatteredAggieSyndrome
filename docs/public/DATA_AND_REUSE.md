@@ -20,4 +20,8 @@ No code license has been selected for this repository. Public visibility does no
 
 README graphics were supplied by the project maintainer as generated concept artwork. They illustrate research questions and an intended architecture; they are not actual game predictions, measured performance, or evidence of completed functionality.
 
+The versioned header and risk-profile illustrations adapt that supplied artwork
+to make the research-concept status explicit and represent cumulative shortfall
+probabilities consistently. Their original source images are preserved separately.
+
 The selected graphics contain university-related names and marks. Those marks belong to their respective owners. No university affiliation or endorsement is asserted, and this page does not grant rights to third-party marks or source data. Artwork reuse requires a separate rights review.

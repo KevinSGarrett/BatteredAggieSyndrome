@@ -1,7 +1,7 @@
 <p align="center"><sub>Research concept artwork — displayed scores and percentages are illustrative, not game forecasts.</sub></p>
 
 <p align="center">
-  <img src="docs/assets/readme/hero.png" width="100%" alt="Battered Aggie Syndrome: college football analytics and Texas A&amp;M research">
+  <img src="docs/assets/readme/hero-v2.png" width="100%" alt="Battered Aggie Syndrome: college football analytics and Texas A&amp;M research concept">
 </p>
 
 <h1 align="center">Battered Aggie Syndrome</h1>
@@ -106,10 +106,10 @@ The [methodology](docs/public/RESEARCH_METHOD.md) distinguishes expected perform
 A useful risk report would distinguish a small miss from a major collapse: for example, the probability of finishing at least 3, 7, 14, or 21 points below the pregame expectation. These are **nested tail probabilities**; a more severe threshold cannot have a larger probability than a less severe one.
 
 <p align="center">
-  <img src="docs/assets/readme/bas-risk-profile.png" width="100%" alt="Illustrative BAS risk-profile design with shortfall thresholds; displayed numbers are mockup values, not forecasts">
+  <img src="docs/assets/readme/bas-risk-profile-v2.png" width="100%" alt="Illustrative shortfall-tail probabilities: 40%, 24%, 10%, and 3% at thresholds of 3, 7, 14, and 21 points; fictional values, not forecasts">
 </p>
 
-In a statistical implementation, each probability is an **area in a predictive tail**, not the height of a density curve. The graphic is a report-design illustration; its percentages and “moderate” label are not estimated research results.
+The bars show illustrative values of **P(shortfall ≥ threshold)**, not disjoint outcome bins. A statistical implementation must derive these probabilities from a declared predictive distribution. The values are fictional, and no calibrated risk category is assigned.
 
 ## System architecture
 

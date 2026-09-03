@@ -1,0 +1,21 @@
+{
+  "artifact_type": "CYCLE26_SEP4_T24H_CAPTURE_PREP",
+  "issued_at_utc": "2026-09-03T10:34:45Z",
+  "code_head": "bac5dcb91f13b984f278e24cdd205a0b97f9b513",
+  "runner": "C:/BatteredAggieSyndrome.data/ops/cycle26/run_week1_checkpoint_capture.ps1",
+  "phase": "T24H",
+  "national_note": "National September 4 games have earlier cutoffs than A&M T-24H; do not wait until A&M T-24H to preserve them.",
+  "a_and_m": {
+    "ncaa_contest_id": "6607349",
+    "t24h_utc": "2026-09-04T23:00:00Z",
+    "t90m_utc": "2026-09-05T21:30:00Z"
+  },
+  "wake_target_utc_recommended": "2026-09-04T18:00:00Z",
+  "rules": [
+    "No T-7D or missed T-24H backfill",
+    "Checkpoint label only if every required freeze meets cutoff",
+    "MISSED_CUTOFF_NO_BACKFILL when late",
+    "No merge/Done/BAT-523 parent-progress comment"
+  ],
+  "result": "PREP_DOCUMENTED_NOT_YET_EXECUTED"
+}

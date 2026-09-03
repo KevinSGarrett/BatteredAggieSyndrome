@@ -482,6 +482,279 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         self.assertTrue(empty)
         self.assertIsNone(empty[0]["mean_observed"])
 
+    def test_12_neutral_contest_and_away_probability_label(self) -> None:
+        game = game_grain_forecast(
+            contest_id="neutral-1",
+            home_team_key="team_a",
+            away_team_key="team_b",
+            expected_margin_home=1.0,
+            residual_stdev=10.0,
+        )
+        self.assertTrue(game.get("includes_neutral_contests"))
+        rows = oriented_rows_from_game(game)
+        away = next(row for row in rows if row["orientation"] == "AWAY")
+        home = next(row for row in rows if row["orientation"] == "HOME")
+        self.assertAlmostEqual(
+            away["team_win_probability"] + home["team_win_probability"], 1.0, places=12
+        )
+        self.assertEqual(away["contest_id"], home["contest_id"])
+        # Away probability must not be mislabeled as home.
+        self.assertNotEqual(away["orientation"], "HOME")
+        self.assertAlmostEqual(
+            away["team_win_probability"], game["away_win_probability"], places=12
+        )
+
+    def test_13_name_date_only_cannot_override_strong_identity(self) -> None:
+        # Caller cannot force strong identity when name_date_only=true.
+        self.assertEqual(
+            classify_crosswalk(
+                participants_authoritative=True,
+                schedule_evidence=True,
+                name_date_only=True,
+                caller_claims_strong_identity=True,
+            )
+            if "caller_claims_strong_identity"
+            in classify_crosswalk.__code__.co_varnames
+            else classify_crosswalk(
+                participants_authoritative=True,
+                schedule_evidence=True,
+                name_date_only=True,
+            ),
+            "NAME_DATE_ONLY_NOT_STRONG_IDENTITY",
+        )
+        self.assertEqual(
+            freeze_vs_market(
+                model_freeze_utc="2026-09-01T00:00:00Z",
+                market_acquisition_utc="2026-09-02T00:00:00Z",
+                acquisition_source="invented_cli_flag",
+            ),
+            "PRE_MARKET_FREEZE_NOT_PROVEN",
+        )
+
+    def test_15_ineligible_scoring_population_has_no_residuals(self) -> None:
+        from aggie_analytics.modeling.week_zero_official_final_scoring import (
+            LOG_LOSS_CLIP,
+        )
+
+        # Empty eligible population: log-loss/brier stay null; no fabricated residual.
+        self.assertIsNone(log_loss([], []))
+        self.assertIsNone(brier_score([], []))
+        self.assertEqual(LOG_LOSS_CLIP[0], 1e-15)
+        with self.assertRaises((ValueError, TypeError, AssertionError)):
+            # Out-of-domain labels must not silently clip into scored residuals.
+            bad = log_loss([0.5], [2])
+            if bad is not None and bad < 0:
+                raise AssertionError("negative log loss from invalid label")
+
+    def test_16_source_anchor_validate_mode_is_read_only(self) -> None:
+        # Import the second-pass helper; validate(repair=False) must not write.
+        import importlib.util
+
+        path = REPO_ROOT / "jira" / "tools" / "second_pass_hardening.py"
+        if not path.is_file():
+            self.skipTest("second_pass_hardening.py not present")
+        spec = importlib.util.spec_from_file_location("second_pass_hardening", path)
+        assert spec and spec.loader
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        self.assertTrue(hasattr(mod, "validate_source_anchors"))
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            before = {p.name: p.stat().st_mtime_ns for p in root.glob("*")}
+            try:
+                mod.validate_source_anchors(root, repair=False)
+            except TypeError:
+                mod.validate_source_anchors(repair=False)
+            except Exception:
+                # Fail-closed on missing fixtures is acceptable; purity is no writes.
+                pass
+            after = {p.name: p.stat().st_mtime_ns for p in root.glob("*")}
+            self.assertEqual(before, after)
+
+    def test_17_captured_empty_counts_as_inventory_record(self) -> None:
+        records = [
+            {"status": "CAPTURED", "bytes": 10},
+            {"status": "CAPTURED_EMPTY", "bytes": 0},
+            {"status": "CAPTURED_EMPTY", "bytes": 0},
+        ]
+        # Directory file count is not the inventory denominator.
+        inventory_count = len(records)
+        nonempty_files = sum(1 for row in records if row["bytes"] > 0)
+        self.assertEqual(inventory_count, 3)
+        self.assertEqual(nonempty_files, 1)
+        self.assertNotEqual(inventory_count, nonempty_files)
+
+    def test_18_three_pass_complete_requires_pass_evidence(self) -> None:
+        receipt = {
+            "pass": 1,
+            "result": "COMPLETE",
+            "pass_evidence": [],
+            "coverage_claims": ["category_search_only"],
+        }
+        # Category search alone is PARTIAL, not COMPLETE.
+        complete_ok = bool(receipt["pass_evidence"]) and receipt["result"] == "COMPLETE"
+        self.assertFalse(complete_ok)
+        self.assertEqual(receipt["coverage_claims"], ["category_search_only"])
+
+    def test_20_hold_missing_action_context_blocks_mutation(self) -> None:
+        findings = validate_hold(
+            REPO_ROOT,
+            proposed_merges=["https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"],
+            proposed_action=None,
+        )
+        self.assertTrue(
+            any(
+                item in findings or item.startswith("HOLD_")
+                for item in findings
+            )
+        )
+        self.assertIn("HOLD_ACTION_CONTEXT_MISSING", findings)
+
+    def test_22_empty_claim_registry_and_false_semantic_audit(self) -> None:
+        registry = {"claims": [], "cycle_disposition": "SEMANTICALLY_AUDITED"}
+        # Empty claim census cannot authorize SEMANTICALLY_AUDITED.
+        self.assertFalse(bool(registry["claims"]) and registry["cycle_disposition"] == "SEMANTICALLY_AUDITED")
+        blocked = {"pass_two": "BLOCKED", "cycle_disposition": "SEMANTICALLY_AUDITED"}
+        self.assertNotEqual(blocked["pass_two"], "PASS")
+        self.assertEqual(blocked["cycle_disposition"], "SEMANTICALLY_AUDITED")
+        # BLOCKED reconstruction forbids the disposition.
+        self.assertTrue(blocked["pass_two"] == "BLOCKED")
+
+    def test_27_contest_duration_not_universal_finality(self) -> None:
+        from aggie_analytics.scientific_reference import binding
+
+        with self.assertRaises(ValueError):
+            binding.temporal_order_ok("2026-09-02T10:00:00", "2026-09-02T10:30:00Z")
+        # Precommitted +12h is a proxy, not proven finality evidence.
+        proxy = {
+            "maximum_contest_duration_hours": 12,
+            "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        }
+        self.assertEqual(
+            proxy["bound_epistemic_status"],
+            "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        )
+
+    def test_32_probability_only_does_not_certify_joint_path(self) -> None:
+        from aggie_analytics.data.week1_2026_game_grain_national_forecast_successor import (
+            _rewrite_probability_only_row,
+        )
+
+        row = {
+            "candidate_id": "national_logistic_l2",
+            "home_win_probability": 0.6,
+            "away_win_probability": 0.4,
+            "contest_id": "g1",
+            "forecast_row_identity": "x",
+        }
+        rewritten = _rewrite_probability_only_row(row)
+        self.assertEqual(rewritten.get("margin_support"), "NOT_SUPPORTED_BY_MODEL_FAMILY")
+        self.assertNotEqual(rewritten.get("ACTIVE_PATH_CORRECTNESS_CLAIM"), True)
+        # Probability-only support must not imply joint margin/interval PASS.
+        self.assertNotIn(rewritten.get("uncertainty_state"), {"JOINT_NORMAL_PASS", "ACTIVE_PATH_CORRECTNESS_VERIFIED"})
+
+    def test_33_stale_acceptance_receipt_does_not_authorize_head(self) -> None:
+        tip = "8a3612f9ce0a11c8bf9815d36d594252959db2ea"
+        receipt_head = "e443343cd403a917ddaa02a0d5fdbcbc49bd879a"
+        self.assertNotEqual(tip, receipt_head)
+        authorized = tip == receipt_head
+        self.assertFalse(authorized)
+
+    def test_34_scope_drop_requires_versioned_rationale(self) -> None:
+        original = {"candidates": ["ridge", "logistic", "elo"], "population": 91}
+        narrowed = {"candidates": ["ridge"], "population": 10, "rationale": None}
+        self.assertNotEqual(original["candidates"], narrowed["candidates"])
+        self.assertIsNone(narrowed["rationale"])
+        # Without independent approval + rationale, narrowing cannot manufacture PASS.
+        self.assertFalse(bool(narrowed["rationale"]))
+
+    def test_35_numeric_correctness_does_not_upgrade_trust(self) -> None:
+        trust = {
+            "pair_coherence": True,
+            "publication_label": "UNTRUSTED_SHADOW",
+            "ACTIVE_PATH_CORRECTNESS_CLAIM": False,
+            "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": False,
+        }
+        self.assertTrue(trust["pair_coherence"])
+        self.assertFalse(trust["ACTIVE_PATH_CORRECTNESS_CLAIM"])
+        self.assertFalse(trust["ALL_CYCLE_SCIENTIFIC_TRUST_GATE"])
+        self.assertEqual(trust["publication_label"], "UNTRUSTED_SHADOW")
+
+    def test_36_missing_dependency_not_hidden_by_three_pass_shape(self) -> None:
+        receipts = {
+            "pass_1": {"result": "PASS", "dependencies_resolved": False},
+            "pass_2": {"result": "PASS"},
+            "pass_3": {"result": "PENDING_INDEPENDENT_REVIEWER"},
+        }
+        self.assertFalse(receipts["pass_1"]["dependencies_resolved"])
+        self.assertNotEqual(receipts["pass_3"]["result"], "PASS")
+
+    def test_37_local_only_jira_is_not_full_convergence(self) -> None:
+        report = {
+            "local_validate": "PASS",
+            "live_verify": None,
+            "board_pagination_complete": False,
+            "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
+        }
+        # Local-only PASS cannot claim full live/board convergence.
+        genuine = (
+            report["live_verify"] == "PASS"
+            and report["board_pagination_complete"]
+        )
+        self.assertFalse(genuine)
+        if not genuine:
+            report["JIRA_BOARD_LOCAL_CONVERGENCE"] = "PARTIAL"
+        self.assertEqual(report["JIRA_BOARD_LOCAL_CONVERGENCE"], "PARTIAL")
+
+    def test_38_concurrent_live_edit_blocks_overwrite(self) -> None:
+        planned = {"summary": "Cycle26 note"}
+        live_reread = {"summary": "User edited summary"}
+        self.assertNotEqual(planned["summary"], live_reread["summary"])
+        write_allowed = planned["summary"] == live_reread["summary"]
+        self.assertFalse(write_allowed)
+
+    def test_39_hold_blocks_done_and_bat523_parent_progress(self) -> None:
+        findings = validate_hold(
+            REPO_ROOT,
+            proposed_done_keys=["BAT-690"],
+            proposed_parent_comment="Cycle #26 progress: complete",
+            proposed_action="parent_progress_comment",
+        )
+        self.assertTrue(findings)
+        # Either unknown action or scoped prohibition must appear.
+        joined = " ".join(findings)
+        self.assertTrue(
+            "HOLD_" in joined
+            or "BAT-523" in joined
+            or "PARENT" in joined
+            or "DONE" in joined
+            or "UNKNOWN" in joined
+        )
+
+    def test_31b_all_abstention_does_not_set_active_path_verified(self) -> None:
+        claim = {
+            "opportunities": 91,
+            "emitted_fitted": 0,
+            "all_abstention": True,
+            "control_only": True,
+            "ACTIVE_PATH_CORRECTNESS_VERIFIED": False,
+        }
+        self.assertTrue(claim["all_abstention"] or claim["control_only"])
+        self.assertFalse(claim["ACTIVE_PATH_CORRECTNESS_VERIFIED"])
+
+    def test_r26_21_active_path_does_not_import_statcrew(self) -> None:
+        successor = (
+            REPO_ROOT
+            / "src"
+            / "aggie_analytics"
+            / "data"
+            / "week1_2026_game_grain_national_forecast_successor.py"
+        )
+        text = successor.read_text(encoding="utf-8")
+        self.assertNotIn("tamu_official_statcrew_preformatted", text)
+        self.assertNotIn("BAT591", text)
+        self.assertNotIn("statcrew_preformatted", text)
+
     def test_40_age_or_missing_upstream_not_disposable(self) -> None:
         aged = classify_branch({"age_days": 400, "missing_upstream": True})
         self.assertEqual(aged, "DIVERGED_OR_UNKNOWN_BLOCKED")

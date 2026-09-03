@@ -717,7 +717,7 @@
     "probability_sum": 1.0,
     "publication_label": "UNTRUSTED_SHADOW"
   },
-  "acceptance_rebound_at_utc": "2026-09-03T22:13:37Z",
+  "acceptance_rebound_at_utc": "2026-09-03T22:18:57Z",
   "Pass3": "PENDING_INDEPENDENT_REVIEWER",
   "sep4_window_t24h_freeze_at_utc": "2026-09-03T22:12:29Z",
   "git_tip": "4209c413385d9b6d741e5dec120e70a3e094e8c1",

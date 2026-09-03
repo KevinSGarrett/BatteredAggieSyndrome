@@ -6,6 +6,7 @@ Branch: codex/BAT-690-c26-scr
 Base: 55e12a5aad3a7e843204fcba619c3cb3d3d6194d
 PR: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678
 Authoritative tip: the live PR #678 head on origin (this file is carried on that tip; do not treat a stale SHA printed elsewhere as authority).
+Sep4-window T-24H freeze bound at 2026-09-03T22:12:29Z (label authority T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW; earliest cutoff 22:30:00Z). Tip 4209c413385d9b6d741e5dec120e70a3e094e8c1 CI green. A&M T-24H/T-90M schedulers remain armed. PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; hold ACTIVE; REVIEW_READY_UNMERGED.
 Watchdog resume rebound: 2026-09-03T20:53:51Z at tip f1fe397b48b2aefa29110b4fbd150e033bb6c564 (CI green; Sep3 T-90M bound 2026-09-03T20:01:19Z; Sep4 T-24H armed 22:00Z; A&M schedulers armed; PRIMARY_TRUST_RECOVERY_INCOMPLETE).
 Active-path gate identity: aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43
 Active-path dataset identity: 770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939

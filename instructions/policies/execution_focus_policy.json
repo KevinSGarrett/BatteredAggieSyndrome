@@ -129,6 +129,20 @@
         "head_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
         "classification": "[material]",
         "reason": "Cycle #26 live Jira verification receipt refresh accompanied material Cycle #26 head updates but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "0a63c57da05349f25af44af7f7e5a50189758223",
+        "pull_request": 678,
+        "head_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "classification": "[material]",
+        "reason": "Git revert of incomplete BAT-591 rematerialization restored material gate/binding integrity on PR #678, but default revert subject omitted [material]. Correction scoped to this exact revert commit."
+      },
+      {
+        "commit_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "pull_request": 678,
+        "head_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "classification": "[material]",
+        "reason": "Git revert of incomplete BAT-591 rematerialization restored material StatCrew/domain/corpus pins on PR #678, but default revert subject omitted [material]. Correction scoped to this exact revert commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

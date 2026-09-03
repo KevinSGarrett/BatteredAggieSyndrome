@@ -178,6 +178,20 @@
         "head_sha": "1127601f39c22a7219089a449226c2c2d283ce56",
         "classification": "[material]",
         "reason": "Cycle #26 T-90M executor arming and Jira verify refresh are material calendar-evidence operations on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
+        "pull_request": 678,
+        "head_sha": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
+        "classification": "[material]",
+        "reason": "Cycle #26 live Jira verification rebound after scheduled T-90M freeze is material board/local convergence evidence on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "4e2dee0775b9dc163e5fef060b571c93c229fa64",
+        "pull_request": 678,
+        "head_sha": "4e2dee0775b9dc163e5fef060b571c93c229fa64",
+        "classification": "[material]",
+        "reason": "Cycle #26 branch/worktree hygiene inventory refresh after T-90M freeze is material operational handoff evidence on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

@@ -9,6 +9,22 @@ Describe the problem, scope, and user or research benefit. Link a public issue i
 - Data population, source rights, and cutoff (if applicable):
 - Limitations, skipped checks, or unavailable inputs:
 
+## Change authority and integration evidence
+
+- Work identity and linked ownership (or documented non-applicability):
+- Exact base and proposed head commit:
+- Pre-change authorization/routing record identity:
+- Complete changed-path manifest identity:
+- Required review/result identities or the exact authorized exclusion:
+- Resource settlement and cleanup evidence (or documented non-applicability):
+- Active holds, permitted scope, and explicit release authority where required:
+- Routing/interlock validation command and outcome:
+
+Keep sensitive source records private, but bind their permitted immutable
+identities. Do not omit required evidence merely because this template is
+reader-facing. An unauthorized execution finding blocks integration. A green
+review job is insufficient when its review artifact reports unresolved findings.
+
 ## Review checklist
 
 - [ ] No credentials, personal information, restricted data, or local-machine details are introduced.

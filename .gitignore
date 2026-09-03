@@ -63,9 +63,7 @@ optuna_journal.log
 # Private development material. These rules prevent NEW additions only.
 # Already tracked files and historical copies require a reviewed migration.
 /jira/
-/instructions/
 /prompts/
-/provenance/
 /artifacts/jira_evidence/
 /artifacts/assistive/
 /artifacts/assistive_plane/
@@ -73,8 +71,6 @@ optuna_journal.log
 /.codex/
 /.codex-ops/
 /AGENTS.local.md
-/AGENTS.md
-/.githooks/
 # Keep the active PR-review rules; ignore machine/editor settings beside them.
 /.cursor/*
 !/.cursor/BUGBOT.md
@@ -96,20 +92,10 @@ optuna_journal.log
 /backups/
 *.bundle
 
-# Retired execution machinery; active PR-review/security workflows are separate.
-**/*assistive*
-**/*ASSISTIVE*
-**/*openrouter*
-**/*OPENROUTER*
-**/*openai_assist*
-**/*OPENAI_ASSIST*
-**/*cpu_worker*
-**/*CPU_WORKER*
-**/*gpu_worker*
-**/*GPU_WORKER*
-**/*provider_routing*
-**/*codex_usage_interlock*
-**/*autonomous_control*
+# Active governance, review rules, hooks, provenance, and scientific evidence
+# deliberately remain visible to Git. Do not ignore them by keyword: a reviewed
+# dependency migration is required before private authority can leave the tree.
+# Retired machinery is limited to the explicit directories listed above.
 
 # Runtime output and private diagnostics
 *.log

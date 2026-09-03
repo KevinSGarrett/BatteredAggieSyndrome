@@ -32,11 +32,16 @@
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "97720e17e73f6202171c7d70adbf4ea232aea8aa8d14c674e8a9a3d95b0e72b9",
+  "decision_sha256": "341283edf3a72017c1481ba165dc3b17778f99b17b610bf65068e6e88deb49cb",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "downstream_consumer": "Public repository readers and contributors",
   "jira_disposition": "NOT_APPLICABLE_NO_CANONICAL_SPECIFICATION_OR_JIRA_STATUS_CHANGE",
   "jira_identity": null,
+  "operational_disposition_authority": {
+    "meaning": "Retired pipeline incompleteness does not block directly authorized BAS work; no pipeline reactivation is authorized.",
+    "path": "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
+    "section": "Current operational disposition"
+  },
   "ordinary_project_work_authorized": false,
   "reason_code": "USER_AUTHORIZED_PUBLIC_PRESENTATION_PUBLICATION_ONLY",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
@@ -47,6 +52,15 @@
     "accepted_risk": "Authorization is conditional on conflict review and passing required checks. It is limited to this exact allowed-path presentation publication; the legacy scope enum is not an authorization for unrelated work. Existing internal tracking and the known validator Jira-write defect remain disclosed; scientific trust is not recovered.",
     "context": "User explicitly answered the request to commit, push, open a makeover PR and merge after required checks without rewriting history or removing scientific safeguards.",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
+    "effective_authorization_constraints": {
+      "base_commit": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1",
+      "effective_duration": "ENDS_WITH_PR_676_PUBLICATION_OR_WITH_USER_REVOCATION",
+      "exact_scope": "The binding allowed_paths only, for this public-presentation publication.",
+      "legacy_enum_explanation": "scope and duration above are unchanged required machine-policy literals, not a representation that the user granted repository-wide or indefinite authority. The validator additionally enforces the exact changed-path allowlist and work-unit binding.",
+      "pull_request": 676,
+      "scientific_hold_release_authorized": false,
+      "unrelated_or_future_work_authorized": false
+    },
     "instruction_sha256": "8eb5fe08c81081e69689b1004b145b12e342c246c5f0febbfc392bf87870b47c",
     "instruction_text": "authorize as long as it doesn't conflict or mess anything up with any of the updates that you are making and you need to test, check, verify, and confirm this",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",

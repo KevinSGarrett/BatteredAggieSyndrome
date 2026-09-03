@@ -143,13 +143,16 @@
     },
     {
       "acceptance_authority": "USER_EXPLICIT_ONLY",
-      "disposition": "CONFIRMED_UNRESOLVED",
+      "disposition": "CONFIRMED_FIXED",
       "evidence": "gh api repos/KevinSGarrett/BatteredAggieSyndrome/branches/main/protection",
       "id": "R26-13",
-      "live_readback_utc": "2026-09-03T08:50:05Z",
+      "live_readback_utc": "2026-09-03T23:33:22Z",
       "owner": "BAT-689",
-      "reason": "main branch protection live readback: required_approving_review_count=0; required contexts include coverage-upload and codex-review but not Codecov threshold nor a normalized latest-head Bugbot gate; dismiss_stale_reviews=true; enforce_admins=true. Admin activation of substantive review thresholds remains outstanding.",
-      "severity": "P1"
+      "reason": "Live main protection updated: required_approving_review_count=1, require_last_push_approval=true, codecov/patch added as required without removing existing checks. Bugbot is not a current check context and was not fabricated as required. Existing enforce_admins/dismiss_stale_reviews preserved.",
+      "severity": "P1",
+      "residual_risk": "Bugbot latest-head gate still not a required context because Bugbot does not emit a check on this repository. Solo-admin review still required for merge under enforce_admins.",
+      "red_before_green_after": "tests/test_cycle26_adversarial_regressions.py::test_skipped_and_neutral_required_checks_are_not_success",
+      "correction": "Hosted GitHub branch protection PUT plus normalized_review_gate rejecting skipped/neutral and coverage-upload-as-codecov."
     },
     {
       "acceptance_authority": "USER_EXPLICIT_ONLY",
@@ -254,8 +257,9 @@
       "note": "National spine pair census completed; +12h/+2d remain conditional proxies. Predecessor BAT-666/667 gates not rewritten. Week1 successor does not import the PIT bound.",
       "owner": "BAT-690",
       "pair_audit_gate_identity": "0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548",
-      "red_before_green_after": "tests/test_cycle26_bound_authority_pair_audit.py + tests/test_cycle26_adversarial_regressions.py::test_27",
-      "severity": "P1"
+      "red_before_green_after": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit + test_27",
+      "severity": "P1",
+      "correction": "operational_pit_admission_allowed rejects CONSERVATIVE_BOUND even when predecessor PIT boolean is true. Pair census retained. Historical fitted parameters still used proxies; Week1 publication remains UNTRUSTED_SHADOW."
     },
     {
       "acceptance_authority": "USER_EXPLICIT_ONLY",
@@ -365,7 +369,7 @@
     }
   ],
   "git_tip_at_issuance": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
-  "issued_at_utc": "2026-09-03T22:24:16Z",
+  "issued_at_utc": "2026-09-03T23:33:22Z",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "schema_version": 2,
   "evidence_ops_note": "Sep3 T-90M bound 20:01:19Z; Sep4-window T-24H bound 22:12:29Z before 22:30:00Z; A&M T-24H/T-90M armed with failover; PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged"

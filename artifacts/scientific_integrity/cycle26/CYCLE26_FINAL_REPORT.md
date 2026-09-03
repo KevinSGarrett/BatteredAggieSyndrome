@@ -1,6 +1,6 @@
 # Cycle #26 Final Report — IMPLEMENTATION_REVIEW_READY_UNMERGED
 
-Issued: 2026-09-03T23:02:00Z
+Issued: 2026-09-03T23:35:00Z
 Worktree: `C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr`
 Branch: `codex/BAT-690-c26-scr`
 Development origin: `KevinSGarrett/BatteredAggieSyndrome` (public; migration `DEFERRED_BY_USER_NOT_COMPLETE`)
@@ -38,7 +38,7 @@ This is the Cycle #26 stop-boundary report. It does not close Cycle #25.5, relea
 | Predictive skill | `DEVELOPMENT_EVIDENCE_ONLY` | Future Week 1 skill or a BAS conclusion |
 | Historical all-cycle audit | Unfinished; pass-two `BLOCKED_INSUFFICIENT_EVIDENCE` for cycles 1–25; pass-three category search is PARTIAL | Completeness because 25 JSON files exist |
 | Live/local Jira and board | `JIRA_BOARD_LOCAL_CONVERGENCE=VERIFIED` on PR #678, not canonical main | Done authority |
-| Branch/worktree hygiene | `BRANCH_WORKTREE_HYGIENE=VERIFIED` (classified; `deleted_count=0`) | Permission to delete closed-unmerged or open-PR refs |
+| Branch/worktree hygiene | `BRANCH_WORKTREE_HYGIENE=VERIFIED` (8 merged-PR local worktrees removed; 0 remote deletions) | Permission to delete closed-unmerged or open-PR refs |
 | Integration authority | `REVIEW_READY_UNMERGED` | Hold release or merge |
 | Pass 3 | `PENDING_INDEPENDENT_REVIEWER` | Hosted Codex SUCCESS is defense-layer only |
 
@@ -64,7 +64,7 @@ Corpus derivative-integrity successor: 4 stale child-count domains recomputed; m
 
 R26-22: 27,274,659 proxy-admitted prior-target pairs; 14 near-bound; `leakage_declared=false`; Week 1 successor does not import the PIT bound. Disposition `CONFIRMED_CONTAINED_NOT_FIXED`.
 
-`PRIMARY_TRUST_RECOVERY_INCOMPLETE` blockers that remain: R26-09 (all-cycle pass-two backlog); R26-13 (admin required-review thresholds; live `required_approving_review_count=0`); R26-22 contained not fully repaired; Pass 3 pending a reviewer independent of the implementing author; all-cycle trust gate closed; no Week 1 official finals for target scoring.
+`PRIMARY_TRUST_RECOVERY_INCOMPLETE` blockers that remain: R26-09 (all-cycle pass-two backlog); R26-22 historical fit still used chronology proxies (operational PIT boolean now rejected); Pass 3 pending a reviewer independent of the implementing author; all-cycle trust gate closed; no Week 1 official finals. R26-13 live protection is required_approving_review_count=1, require_last_push_approval=true, and codecov/patch required.
 
 ## 4. Finding disposition (R26-01–R26-26 and 7A.7)
 
@@ -82,7 +82,7 @@ R26-22: 27,274,659 proxy-admitted prior-target pairs; 14 near-bound; `leakage_de
 | R26-10 | DISPROVED_WITH_EVIDENCE | BAT-688 |
 | R26-11 | CONFIRMED_FIXED | BAT-688 |
 | R26-12 | CONFIRMED_FIXED | BAT-688 |
-| R26-13 | CONFIRMED_UNRESOLVED | BAT-689 |
+| R26-13 | CONFIRMED_FIXED (Bugbot context still absent) | BAT-689 |
 | R26-14 | NOT_APPLICABLE_WITH_REASON | BAT-690 |
 | R26-15 | CONFIRMED_FIXED | BAT-689 |
 | R26-16 | CONFIRMED_FIXED | BAT-688 |
@@ -103,20 +103,20 @@ Matrix path: `artifacts/scientific_integrity/cycle26/CYCLE26_FINDING_DISPOSITION
 
 ## 5. Calendar and capture
 
-Actual UTC at this report: 2026-09-03T23:02:00Z.
+Actual UTC at this report: 2026-09-03T23:35:00Z.
 
 - Sep 3 T-24H: `MISSED_CUTOFF_NO_BACKFILL` (11 contests). No backfill.
 - Sep 3 T-90M: labeled freezes at 15:41:18Z, 19:05:35Z, and scheduled 20:01:19Z, all before earliest cutoff 20:30:00Z. Predecessors retained as timestamped receipts.
 - National Sep4-window T-24H: freeze 2026-09-03T22:12:29Z, `T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW` (cutoff 22:30:00Z). Schedule identity `0236d0138163a79db23937a418809af54e0651cefde644ddf11b23b3e273b4a0`.
 - A&M 6607349 T-24H still future: 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z. Schedulers armed (`am_t24h` wake 2026-09-04T22:15:00Z; `am_t90m` wake 2026-09-05T20:45:00Z) with overlap lock. This report does not promise those future executions.
-- Official-final scoring: `AWAITING_FINAL`. Odds API: ABSENT (explicit; no invented quotes).
+- Official-final scoring: `AWAITING_FINAL`. Post-kickoff schedule refresh capture_identity `25c12a9c` is not a checkpoint label. Odds API: ABSENT.
 - Runner: `ops/cycle26/run_week1_checkpoint_capture.ps1`.
 
 ## 6. Tests and purity
 
 At worktree `src` first on PYTHONPATH:
 
-- Adversarial regressions: 49 OK (`tests/test_cycle26_adversarial_regressions.py`).
+- Adversarial regressions: 50 OK (`tests/test_cycle26_adversarial_regressions.py`).
 - Mounted-default full discover: 3136 tests, 265 skipped, OK (2026-09-03T19:25:53Z).
 - Unmounted `validate_repository --strict` (empty `AGGIE_ANALYTICS_DATA_ROOT`): PASS after manifest rewrite.
 - Mounted `validate_repository --strict` against `C:\BatteredAggieSyndrome.data`: FAIL 14 predecessor StatCrew/structured-domain reconstructions — contained, not rematerialized; CI unmounted core-validation PASS.
@@ -136,7 +136,7 @@ Live/local managed-field convergence `VERIFIED` on this PR branch, not on canoni
 
 ## 8. Branch/worktree hygiene (4B)
 
-`BRANCH_WORKTREE_HYGIENE=VERIFIED`: every inventoried ref classified. `deleted_count=0`. Closed-unmerged historical `codex/BAT-*` remotes retained (a closed-unmerged PR is not disposable). Open PRs: #678 and Dependabot #654. Canonical main not fast-forwarded. Active review worktree retained.
+`BRANCH_WORKTREE_HYGIENE=VERIFIED`: removed 8 local worktrees/branches whose HEAD equaled merged PR headRefOids after preserve refs. Remote deletions=0. Closed-unmerged remotes retained. Open PRs: #678 and Dependabot #654. Canonical main unchanged. Recovery via `refs/preserve/cycle26-hygiene/*`.
 
 ## 9. Three-pass acceptance (12A)
 
@@ -155,7 +155,7 @@ No hold release, merge, production credibility, BAS / Aggie Excess / A&M-lift, o
 - A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z: capture operation prepared; future execution is not claimed by this report.
 - Official finals for kicked-off contests: acquire when published; do not score unfrozen or abstained rows; do not train on Week 1 outcomes.
 - All-cycle three-pass backlog remains under existing #25.5 owners (see `CYCLE26_REMAINING_AUDIT_BACKLOG.json`).
-- R26-13 admin activation of required approving reviews / normalized latest-head review gate remains outstanding.
+- R26-13 live main protection: required_approving_review_count=1, require_last_push_approval=true, codecov/patch required. Bugbot still has no check context. Independent Pass 3 remains pending.
 
 ## 12. Requested user authorization
 

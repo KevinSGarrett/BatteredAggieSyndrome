@@ -30,8 +30,13 @@ from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: 
     parse_table_players,
 )
 from aggie_analytics.data.cycle26_bound_authority_pair_audit import (  # noqa: E402
+    CONSERVATIVE_BOUND,
     EPISTEMIC_STATUS,
     classify_prior_target_temporal_authority,
+    operational_pit_admission_allowed,
+)
+from aggie_analytics.governance.normalized_review_gate import (  # noqa: E402
+    evaluate_latest_head_checks,
 )
 from aggie_analytics.data.historical_saved_pair_game_grain_successor import (  # noqa: E402
     PREDECESSORS as HISTORICAL_PAIR_PREDECESSORS,
@@ -415,6 +420,47 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         )
         self.assertTrue(any("LEDGER_PLACEHOLDER_EVIDENCE" in item for item in findings))
 
+    def test_skipped_and_neutral_required_checks_are_not_success(self) -> None:
+        head = "a" * 40
+        skipped = evaluate_latest_head_checks(
+            head_sha=head,
+            checks=[
+                {
+                    "name": "codex-review",
+                    "head_sha": head,
+                    "conclusion": "skipped",
+                },
+                {
+                    "name": "codecov/patch",
+                    "head_sha": head,
+                    "conclusion": "success",
+                },
+            ],
+        )
+        self.assertFalse(skipped["ok"])
+        self.assertTrue(
+            any("REQUIRED_CHECK_NOT_SUCCESS" in item for item in skipped["findings"])
+        )
+        upload_only = evaluate_latest_head_checks(
+            head_sha=head,
+            checks=[
+                {
+                    "name": "codex-review",
+                    "head_sha": head,
+                    "conclusion": "success",
+                },
+                {
+                    "name": "coverage-upload",
+                    "head_sha": head,
+                    "conclusion": "success",
+                },
+            ],
+        )
+        self.assertFalse(upload_only["ok"])
+        self.assertIn(
+            "COVERAGE_UPLOAD_IS_NOT_CODECOV_THRESHOLD", upload_only["findings"]
+        )
+
     def test_21_cycle_ids_not_coerced(self) -> None:
         self.assertEqual(parse_cycle_identity("CYCLE-25").canonical_id, "CYCLE-25")
         self.assertEqual(parse_cycle_identity("CYCLE-25.5").canonical_id, CYCLE_25_5)
@@ -745,6 +791,11 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         self.assertEqual(
             proxy["bound_epistemic_status"],
             "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        )
+        self.assertFalse(
+            operational_pit_admission_allowed(
+                CONSERVATIVE_BOUND, predecessor_sufficient=True
+            )
         )
 
     def test_32_probability_only_does_not_certify_joint_path(self) -> None:

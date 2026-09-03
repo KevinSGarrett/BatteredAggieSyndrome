@@ -1,0 +1,39 @@
+{
+  "artifact_type": "CYCLE26_WEEK1_SCHEDULE_REFRESH_NOT_CHECKPOINT",
+  "issued_at_utc": "2026-09-03T23:33:22Z",
+  "capture_identity": "25c12a9cfec37b06658a1336b9ab16af82c6a3ba5ba5d3aa58f7dd58a37eef94",
+  "checkpoint_label": null,
+  "note": "Schedule refresh after some Sep3 kickoffs. Not a T-24H or T-90M packet. Official-final scoring remains AWAITING_FINAL until a declared official-final payload exists for a frozen forecast row.",
+  "days": {
+    "2026-09-03": {
+      "raw_sha256": "1431707a7a46ff71b2660b2ef1a7e6897b2a79239f772a877bc08aaf784e0981",
+      "final_markers": 0,
+      "live_markers": 0,
+      "bytes": 89492
+    },
+    "2026-09-04": {
+      "raw_sha256": "67c1e90c1ba60dc7fb025e1ab59e82abacfc9037085dba2e08f51fa0671f90e7",
+      "final_markers": 0,
+      "live_markers": 0,
+      "bytes": 73854
+    },
+    "2026-09-05": {
+      "raw_sha256": "78b677f923c76fe771939181fa32413771e33e0b9a230baaabacfb639fd3e7ef",
+      "final_markers": 0,
+      "live_markers": 0,
+      "bytes": 395238
+    },
+    "2026-09-06": {
+      "raw_sha256": "278bb32c149f4275fc102ca298e02551cd8aea6baf9c133956abd0acb8cea340",
+      "final_markers": 0,
+      "live_markers": 0,
+      "bytes": 47283
+    },
+    "2026-09-07": {
+      "raw_sha256": "06ce097fff6a009392b540c0be106464c8221d0719e17ccb19c2aee353710d4e",
+      "final_markers": 0,
+      "live_markers": 0,
+      "bytes": 36306
+    }
+  }
+}

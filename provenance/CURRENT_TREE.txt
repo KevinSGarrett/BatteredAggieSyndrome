@@ -527,6 +527,7 @@ artifacts/scientific_integrity/cycle26/CYCLE26_SEP4_T24H_CAPTURE_PREP.json
 artifacts/scientific_integrity/cycle26/CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT_20260903T221223Z.json
 artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json
+artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_SCHEDULE_REFRESH_NOT_CHECKPOINT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_SCORING_READINESS.json
 artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_UNIVERSE_REFRESH.json
 artifacts/shadow/bat401_done_lane_interpretation.json
@@ -3751,6 +3752,7 @@ src/aggie_analytics/governance/.cursor/BUGBOT.md
 src/aggie_analytics/governance/__init__.py
 src/aggie_analytics/governance/branch_worktree_hygiene.py
 src/aggie_analytics/governance/cycle_identity.py
+src/aggie_analytics/governance/normalized_review_gate.py
 src/aggie_analytics/governance/scientific_dependency_graph.py
 src/aggie_analytics/governance/scientific_trust_recovery_hold.py
 src/aggie_analytics/lineage.py
@@ -4505,6 +4507,7 @@ tools/validate_noaa_isd_alternate_station_recovery.py
 tools/validate_noaa_isd_game_observation_shadow.py
 tools/validate_noaa_isd_observed_coverage_pilot.py
 tools/validate_noaa_isd_station_matching.py
+tools/validate_normalized_review_gate.py
 tools/validate_openai_assist.py
 tools/validate_openai_gamebook_schema_mapping.py
 tools/validate_openrouter_assist.py

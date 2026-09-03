@@ -23,10 +23,36 @@ CLASSIFICATION = "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE"
 LANE = "DEVELOPMENT_SUCCESSOR_UNTRUSTED_SHADOW"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 PASS_RESULT = "PASS_R26_22_PAIR_AUDIT_CONTAINED"
-GATE_RELATIVE = "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_PRIOR_TARGET_PAIR_AUDIT.json"
+GATE_RELATIVE = (
+    "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_PRIOR_TARGET_PAIR_AUDIT.json"
+)
 SHADOW_CLASSIFICATION = "UNTRUSTED_SHADOW"
 DATE_ONLY_CLOCK = "00:00"
 EPISTEMIC_STATUS = "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE"
+CONSERVATIVE_BOUND = "CONSERVATIVE_PRECOMMITTED_AVAILABILITY_BOUND"
+OBSERVED_PUBLICATION = "OBSERVED_PUBLICATION_TIMESTAMP"
+OBSERVED_EFFECTIVE = "OBSERVED_EFFECTIVE_TIMESTAMP"
+PROVEN_PIT_AUTHORITY_CLASSES = frozenset({OBSERVED_PUBLICATION, OBSERVED_EFFECTIVE})
+
+
+def operational_pit_admission_allowed(
+    authority_class: str,
+    predecessor_sufficient: bool | None = None,
+) -> bool:
+    """Conservative precommitted bounds never satisfy proven-PIT admission.
+
+    Predecessor BAT-666 rows may still carry
+    ``authority_is_sufficient_for_point_in_time_admission=true`` for hash
+    continuity. Operational consumers must call this successor instead of
+    trusting that boolean.
+    """
+
+    if authority_class == CONSERVATIVE_BOUND:
+        return False
+    if predecessor_sufficient is False:
+        return False
+    return authority_class in PROVEN_PIT_AUTHORITY_CLASSES
+
 
 CONSUMERS = (
     {
@@ -62,9 +88,9 @@ def sha256_bytes(payload: bytes) -> str:
 
 
 def canonical_json_bytes(value: Any) -> bytes:
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode(
-        "utf-8"
-    )
+    return json.dumps(
+        value, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    ).encode("utf-8")
 
 
 def parse_start_instant(text: str) -> datetime | None:
@@ -250,7 +276,10 @@ def build_audit(
     census_source: str = "SYNTHETIC_FIXTURE",
 ) -> dict[str, Any]:
     census = census_team_prior_target_pairs(observations, starts)
-    week1 = repo_root / "src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py"
+    week1 = (
+        repo_root
+        / "src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py"
+    )
     week1_text = week1.read_text(encoding="utf-8") if week1.is_file() else ""
     active_import = any(
         needle in week1_text
@@ -316,5 +345,7 @@ def materialize(
     )
     path = repo_root / GATE_RELATIVE
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(json.dumps(audit, indent=2, sort_keys=True).encode("utf-8") + b"\n")
+    path.write_bytes(
+        json.dumps(audit, indent=2, sort_keys=True).encode("utf-8") + b"\n"
+    )
     return audit

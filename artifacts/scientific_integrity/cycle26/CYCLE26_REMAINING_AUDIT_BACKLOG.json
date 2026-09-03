@@ -17,9 +17,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "All capture semantic replay and every ownership/acceptance claim",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-2",
@@ -31,9 +32,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Incident chronology and all restore evidence",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-3",
@@ -45,9 +47,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Full mounted 14-scenario battery and every early leakage claim",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-4",
@@ -59,9 +62,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "All feature/label rows, fitted parameters and historical exposures",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-5",
@@ -73,9 +77,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Original materialized outputs and every scientific claim",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-6",
@@ -87,9 +92,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "All ranking/metric/roster populations and lineage",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-7",
@@ -101,9 +107,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Full 2010-11 capture census and joins",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-8",
@@ -115,9 +122,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Every alias, page and source match",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-9",
@@ -129,9 +137,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Complete original union generation",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-10",
@@ -143,9 +152,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Complete metadata/union and all domains",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-11",
@@ -157,9 +167,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Every player/stat/domain field and enriched union",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-12",
@@ -171,9 +182,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Every other 2006 domain and admission claim",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-13",
@@ -185,9 +197,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Complete HTML/domain/union correctness",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-14",
@@ -199,9 +212,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Other domains and all authority metadata",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-15",
@@ -213,9 +227,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Complete corpus/union/rejection reconstruction",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-16",
@@ -227,9 +242,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Complete corpus/union/rejection reconstruction",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-17",
@@ -241,9 +257,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Original full rejection/union chains",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-18",
@@ -255,9 +272,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "All original 1996/97 claims, identities and mutation evidence",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-19",
@@ -269,9 +287,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Preservation-to-C20 integration mapping and all dirty-work claims; NOT an empty-work cycle",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-20",
@@ -283,9 +302,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Every normalized/game/feature join, fold-fit/transform and peer inference; no full refit",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-21",
@@ -297,9 +317,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Row-specific completion/publication authority, every prior contribution, full peer/entity/known-at claims",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-22",
@@ -311,9 +332,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Full raw-final/forecast/metric replay; integration continued in 23",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-23",
@@ -325,9 +347,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "All 91 original schedule/authority receipts and every domain cell reconstructed",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-24",
@@ -339,9 +362,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Every original frozen row full raw-feature-parameter trace and all fitting decisions",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-25",
@@ -353,9 +377,10 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Per ALL_CYCLE_RECHECK_COVERAGE.md \u2014 full three-pass unfinished; see Not completed column",
+      "remaining": "Original acquisition time authenticity, every market raw join, all training/refit/parameter claims",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     },
     {
       "cycle_id": "CYCLE-25.5",
@@ -367,14 +392,15 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Complete inventory, independent reconstruction, admin config, original auth/live comment, materialized scientific recovery",
+      "remaining": "Complete inventory, all independent reconstruction, external admin configuration, original authorization/live comment, materialized scientific recovery",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE"
+      "three_pass_status": "INCOMPLETE",
+      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
     }
   ],
   "inventory_gate_relative_path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json",
   "inventory_result": null,
-  "issued_at_utc": "2026-09-03T17:59:30Z",
+  "issued_at_utc": "2026-09-03T23:29:08Z",
   "method_requirement": "Maintain per-field/material-claim registry; resolve first origin and every material contribution; distinguish missing evidence, unreviewed scope, and failed semantics.",
   "named_open_scientific_units": [
     {
@@ -391,7 +417,7 @@
     },
     {
       "id": "R26-22",
-      "note": "Pair census 27274659 proxy-admitted pairs, 14 near-bound; no leakage declared; bound remains conditional. Predecessor gates not rewritten.",
+      "note": "Pair census retained; operational_pit_admission_allowed rejects conservative-bound predecessor PIT boolean. Historical fit still used proxies; Week1 path UNTRUSTED_SHADOW.",
       "owner": "BAT-691",
       "state": "CONFIRMED_CONTAINED_NOT_FIXED"
     },
@@ -403,9 +429,9 @@
     },
     {
       "id": "R26-13",
-      "note": "Admin: required_approving_review_count=0; needs explicit admin authorization",
+      "note": "Live main protection updated 2026-09-03T23:25Z: required_approving_review_count=1, require_last_push_approval=true, codecov/patch required. Bugbot still not a required context.",
       "owner": "BAT-694",
-      "state": "CONFIRMED_UNRESOLVED"
+      "state": "CONFIRMED_FIXED"
     },
     {
       "id": "C26-7A7-FALSE-QUARANTINE-312472199",
@@ -425,5 +451,11 @@
     "cycle26_completion_implies_all_cycle_recovery": false,
     "delays_safe_pregame_capture": false
   },
-  "result": "BACKLOG_ENUMERATED_TRUST_GATE_REMAINS_CLOSED"
+  "result": "BACKLOG_ENUMERATED_TRUST_GATE_REMAINS_CLOSED",
+  "r26_13_live_enforcement": {
+    "required_approving_review_count": 1,
+    "require_last_push_approval": true,
+    "codecov_patch_required": true,
+    "bugbot_required_context": false
+  }
 }

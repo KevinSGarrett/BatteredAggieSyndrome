@@ -56,7 +56,7 @@ PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 unresolved (pass-two backlog); R26-13 
 ## Calendar / capture
 
 - Sep 3 T-24H: MISSED_CUTOFF_NO_BACKFILL (11 contests)
-- Sep 3 T-90M: **bound** 2026-09-03T15:41:18Z (`T90M_LABEL_PERMITTED`; earliest cutoff 2026-09-03T20:30:00Z); scheduler refresh still armed 19:45Z
+- Sep 3 T-90M: **bound** 2026-09-03T15:41:18Z predecessor and **successor refresh** 2026-09-03T19:05:35Z (`T90M_LABEL_PERMITTED`; earliest cutoff 2026-09-03T20:30:00Z); scheduler refresh still armed 19:45Z
 - National Sep4-window T-24H: scheduler wake 2026-09-03T22:00:00Z (earliest cutoff 22:30Z) — pending at report issuance
 - A&M 6607349 T-24H 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z
 - Scoring: AWAITING_FINAL
@@ -74,3 +74,4 @@ _T-90M bound 2026-09-03T15:41:18Z: tip=5dbced15; freeze receipt CYCLE26_SEP3_T90
 _7A.7/R26-22 bind 2026-09-03T17:59:30Z: corpus successor 8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e (4 stale child-count domains recomputed; 0 rejection leaks; 0 unresolved external BAT placeholder ownership tokens in scanned authority files; 58753 original_text preserved / 2803 stringified-parsed QUALIFIED). R26-22 pair audit 0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548: 27274659 proxy-admitted pairs, 14 near-bound, leakage_declared=false, Week1 path does not import PIT bound. Jira --verify-live PASS 2026-09-03T17:52:23Z. PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
 
 _Pre-1945Z sync 2026-09-03T18:52:50Z: tip=bf27aeadeb5a532703f2df949fc1bbe43bf4bcb9; CI PASS; jira verify-live PASS (627); adversarial=49 OK; early T-90M freeze retained; 19:45Z scheduler refresh pending before earliest cutoff 20:30Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED._
+_T-90M successor freeze 2026-09-03T19:05:35Z: tip=4c726140; predecessor 15:41:18Z retained as CYCLE26_SEP3_T90M_FREEZE_RECEIPT_20260903T154118Z.json; schedule 71704c598166747d34384d86d49deee88a6183121738b80c47cada6a9e729b0d; label T90M_LABEL_PERMITTED before earliest cutoff 20:30Z; 19:45Z scheduler still armed; Sep4 T-24H wake 22:00Z; mounted validate_repository --strict FAIL 14 StatCrew predecessor reconstructions CONFIRMED_CONTAINED_NOT_FIXED; CI unmounted PASS; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._

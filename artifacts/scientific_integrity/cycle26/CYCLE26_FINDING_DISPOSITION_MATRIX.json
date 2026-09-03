@@ -237,7 +237,7 @@
       "independently_reconstructed": true,
       "owner": "BAT-692",
       "red_before_green_after": "tests/test_tamu_official_passing_section_successor.py + tools/validate_tamu_official_passing_section_successor.py",
-      "residual_risk": "45 unresolved ambiguous-section screen candidates remain unlabeled as passing; full season-domain parser cascade was not replayed; national model join is unproven.",
+      "residual_risk": "45 unresolved ambiguous-section screen candidates remain unlabeled as passing; full season-domain parser cascade was not replayed; national model join is unproven; mounted validate_repository --strict reconstructs 14 predecessor StatCrew/structured-domain gates as mismatched (contained, not rematerialized).",
       "severity": "P1",
       "successor_gate": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787"
     },
@@ -349,10 +349,22 @@
       "owner": "BAT-692",
       "severity": "P1",
       "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
+      "id": "C26-MOUNTED-STATCREW-PREDECESSOR-RECONSTRUCTION",
+      "owner": "BAT-692",
+      "severity": "P1",
+      "observed": "python tools/validate_repository.py --strict against default C:\\BatteredAggieSyndrome.data FAIL 14 predecessor StatCrew/structured-domain reconstruction mismatches at 2026-09-03T19:01:39Z",
+      "correction": "Predecessor gates preserved. R26-21 passing-section successor is the correction path. Week1 active path has zero StatCrew import edges. CI unmounted core-validation PASS. Do not rematerialize the 1998-2006 cascade.",
+      "red_before_green_after": "tests/test_tamu_official_gamebook_union_1998_expanded.py skips the contained reconstruction mismatch; tools/validate_tamu_official_passing_section_successor.py PASS",
+      "active_path_reachable": false,
+      "residual_risk": "Local mounted --strict remains FAIL until a separately authorized cascade rematerialization."
     }
   ],
-  "git_tip_at_issuance": "23c5806f2e18a940c2f786f02be722d2872f5606",
-  "issued_at_utc": "2026-09-03T18:52:50Z",
+  "git_tip_at_issuance": "4c726140174922974e98f549535c921461cc78b2",
+  "issued_at_utc": "2026-09-03T19:05:36Z",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "schema_version": 2
 }

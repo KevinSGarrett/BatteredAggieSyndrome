@@ -14,10 +14,16 @@
       "cmd": "python jira/tools/import_bat_live.py --verify-live",
       "exit": 0,
       "result": "PASS"
+    },
+    {
+      "at": "2026-09-03T19:11:05.058265+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "exit": 0,
+      "result": "PASS"
     }
   ],
-  "git_tip": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
-  "git_tip_at_issuance": "bf27aeadeb5a532703f2df949fc1bbe43bf4bcb9",
+  "git_tip": "4c726140174922974e98f549535c921461cc78b2",
+  "git_tip_at_issuance": "4c726140174922974e98f549535c921461cc78b2",
   "hold_transitions": {
     "bat_523_parent_progress_cycle26": false,
     "done_on_remaining_scientific_owners": false
@@ -28,8 +34,8 @@
     "Sub-task": 190,
     "Task": 334
   },
-  "issued_at_utc": "2026-09-03T18:52:50Z",
-  "jira_verify_live_at": "2026-09-03T14:38:07Z",
+  "issued_at_utc": "2026-09-03T19:11:05Z",
+  "jira_verify_live_at": "2026-09-03T19:11:05Z",
   "live_statuses": {
     "BAT-401": "Done",
     "BAT-429": "To Do",
@@ -45,7 +51,7 @@
     "BAT-696": "In Review"
   },
   "missing_auxiliary_keys": [],
-  "note": "import_bat_live.py --verify-live PASS at 2026-09-03T17:52:23Z. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization.",
+  "note": "import_bat_live.py --verify-live PASS at 2026-09-03T19:11:05Z after T-90M 19:05:35Z successor freeze. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization.",
   "owner_issue_comments_this_cycle": [
     {
       "comment_id": "14729",
@@ -73,8 +79,8 @@
   "t90m_executor_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_T90M_EXECUTOR.log",
   "total_issue_count": 627,
   "unexpected_issue_keys": [],
-  "verified_at_utc": "2026-09-03T18:51:28.920096+00:00",
-  "verify_live_at": "2026-09-03T18:51:28Z",
-  "verify_live_pass_at_utc": "2026-09-03T17:52:23Z",
+  "verified_at_utc": "2026-09-03T19:11:05.058265+00:00",
+  "verify_live_at": "2026-09-03T19:11:05Z",
+  "verify_live_pass_at_utc": "2026-09-03T19:11:05Z",
   "verify_live_result": "PASS"
 }

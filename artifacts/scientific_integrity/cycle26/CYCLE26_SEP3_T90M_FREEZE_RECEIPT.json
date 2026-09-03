@@ -1,26 +1,32 @@
 {
   "artifact_type": "CYCLE26_SEP3_T90M_FREEZE_RECEIPT",
-  "issued_at_utc": "2026-09-03T15:41:18Z",
+  "issued_at_utc": "2026-09-03T19:05:36Z",
   "code_head_binding": "LIVE_PR_678_TIP",
-  "git_tip_at_issuance": "50dbfd317514c2075e9e141afd9f13cbe33e592f",
+  "git_tip_at_issuance": "4c726140174922974e98f549535c921461cc78b2",
   "checkpoint_label": "T-90M",
   "earliest_eligible_cutoff_utc": "2026-09-03T20:30:00Z",
-  "freeze_at_utc": "2026-09-03T15:41:18Z",
+  "freeze_at_utc": "2026-09-03T19:05:35Z",
   "label_authority": "T90M_LABEL_PERMITTED",
-  "capture_log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260903T153715Z.log",
+  "predecessor_freeze_artifact": "CYCLE26_SEP3_T90M_FREEZE_RECEIPT_20260903T154118Z.json",
+  "predecessor_freeze_at_utc": "2026-09-03T15:41:18Z",
+  "capture_log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260903T185959Z.log",
   "capture_identities": {
-    "schedule": "f8be37b3bd4df6e88827febd8697574ddb27fbdb07974f57faebef1c357ad414",
-    "kickoff-authority": "f318b4cfa40997d4a4603e1f1cd2ae739338cbdc689c707c5989d51fd8813a4d",
-    "entity-authority": "a2225675419f0a18b2798beb4ce316b67b51bb6ff524707d6b55ef4599c5dddf",
-    "venue-authority": "0b0b740e91e84ba86c4eda3468e8680f2504696832913b813c53dfa08fe2823e",
-    "rankings": "7c98ec2406ce792f4753a3ed370448b87dde2781c475dae55304e2a27a3f87b6",
-    "weather": "2f13c7f87da667e1ec3e685ba7e1e56171cfa51b19a372d49d955171425ebd12"
+    "schedule": "71704c598166747d34384d86d49deee88a6183121738b80c47cada6a9e729b0d",
+    "kickoff-authority": "95740a3f9296ea496252952cc9dd88e46e724b3a9d04a01206c30195b17e4e8e",
+    "entity-authority": "9a02bef08eec58a6a5e026033a20ca0e4eedabce14da5ec44aa7d3a9389cd616",
+    "venue-authority": "5ed3761d3edd6a9477828caf3cb0de4410939307baba5f036f84ff8ed8c111b1",
+    "rankings": "a5b3c949c8ceffba83a667737581e74475e9c739dec50a09b0e04d23a8a2bff6",
+    "weather": "cab341d460b5abb2ac32dbb72f20db79899ecf0f4979c522f3e991c1b855898a"
+  },
+  "authority_object_identities": {
+    "kickoff_authority": "ec5f4de8121090b7942f525a84b52478c7071e087be6297bb97cea5496f1903c",
+    "venue_authority": "a036c9080e083091994843c7428b5d77277df4a9fd74bd05163431c723970fbf"
   },
   "eligibility_ledger": {
     "contest_count": 91,
     "t24h_missed": 11,
     "t90m_still_eligible": 91,
-    "as_of_utc": "2026-09-03T15:41:03Z"
+    "as_of_utc": "2026-09-03T19:05:35Z"
   },
-  "note": "T90M label requires every required record to freeze by per-contest cutoff; this receipt binds the freeze timestamp and capture identities only."
+  "note": "Successor T-90M freeze after 19:05:35Z capture, still before earliest Sep3 T-90M cutoff 2026-09-03T20:30:00Z. 15:41:18Z predecessor freeze retained."
 }

@@ -59,3 +59,69 @@ Aggie_Analytics_Engine_W*_HYDRATION.zip
 *.db-shm
 research_worktrees/
 optuna_journal.log
+
+# Private development material. These rules prevent NEW additions only.
+# Already tracked files and historical copies require a reviewed migration.
+/jira/
+/instructions/
+/prompts/
+/provenance/
+/artifacts/jira_evidence/
+/artifacts/assistive/
+/artifacts/assistive_plane/
+/artifacts/assistive_runtime/
+/.codex/
+/.codex-ops/
+/AGENTS.local.md
+/AGENTS.md
+/.githooks/
+# Keep the active PR-review rules; ignore machine/editor settings beside them.
+/.cursor/*
+!/.cursor/BUGBOT.md
+# Legacy operator documentation is private; reader documentation remains public.
+/docs/final/
+/docs/context/
+/docs/operations/
+/docs/[0-9]*.md
+/src/aggie_analytics/openai_assist/
+/configs/openai_assist*
+/artifacts/openai_assist/
+/fixtures/openai_assist/
+/.private/
+/.internal/
+/private/
+/internal/
+/ops/
+/preservation/
+/backups/
+*.bundle
+
+# Retired execution machinery; active PR-review/security workflows are separate.
+**/*assistive*
+**/*ASSISTIVE*
+**/*openrouter*
+**/*OPENROUTER*
+**/*openai_assist*
+**/*OPENAI_ASSIST*
+**/*cpu_worker*
+**/*CPU_WORKER*
+**/*gpu_worker*
+**/*GPU_WORKER*
+**/*provider_routing*
+**/*codex_usage_interlock*
+**/*autonomous_control*
+
+# Runtime output and private diagnostics
+*.log
+coverage.xml
+coverage-*.xml
+/.coverage.*
+/test-results/
+/playwright-report/
+/.envrc
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Source fixtures containing public certificates, if needed, require explicit review.

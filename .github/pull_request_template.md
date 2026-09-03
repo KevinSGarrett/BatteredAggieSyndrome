@@ -1,33 +1,21 @@
-## Purpose
+## What changes, and why?
 
-## Fail-closed assistive routing evidence
+Describe the problem, scope, and user or research benefit. Link a public issue if relevant; keep private tracker exports and account details out of this description.
 
-- Work-unit/Jira identity:
-- Work class:
-- `PRE_ROUTING_DECISION` SHA-256:
-- Changed-path manifest identity:
-- Controller/provider result and review identities, or exact permitted exclusion:
-- Codex-authored modifications:
-- Settlement and cleanup evidence:
-- [ ] No `UNJUSTIFIED_DIRECT_EXECUTION`
-- [ ] `python -B tools/validate_codex_usage_interlock.py --mode ci`
+## Evidence and tests
 
-## Requirements / ADRs
-- REQ-
-- ADR-
+- Exact commands and results:
+- Regression test or reproducible example:
+- Data population, source rights, and cutoff (if applicable):
+- Limitations, skipped checks, or unavailable inputs:
 
-## Maturity
-- [ ] Production-ready
-- [ ] Functional starter
-- [ ] Scaffold
-- [ ] Interface/stub
-- [ ] Design-only
+## Review checklist
 
-## Validation
-- [ ] `python tools/validate_repository.py --repo-root . --strict`
-- [ ] `python -m unittest discover -s tests -v`
-- [ ] No secrets / forbidden artifacts
-- [ ] PIT/leakage implications considered if applicable
-- [ ] Shared-contract changes coordinated
+- [ ] No credentials, personal information, restricted data, or local-machine details are introduced.
+- [ ] Documentation accurately distinguishes implemented, experimental, and validated behavior.
+- [ ] Scientific changes preserve temporal eligibility, target-outcome exclusion, and current-opponent binding.
+- [ ] Probability, margin, interval, orientation, and denominator claims have been checked where applicable.
+- [ ] Immutable historical forecasts and evidence are not rewritten.
+- [ ] Required reviews and existing merge controls remain in force.
 
-## Evidence / notes
+Mark inapplicable scientific items as such and explain why. Passing CI is not a claim of scientific correctness.

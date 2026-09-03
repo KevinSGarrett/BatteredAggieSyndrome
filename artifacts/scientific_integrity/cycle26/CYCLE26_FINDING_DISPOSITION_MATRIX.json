@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_FINDING_DISPOSITION_MATRIX",
   "schema_version": 2,
-  "issued_at_utc": "2026-09-03T09:22:42Z",
+  "issued_at_utc": "2026-09-03T09:50:03Z",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "entries": [
@@ -97,8 +97,10 @@
       "severity": "P1",
       "disposition": "CONFIRMED_UNRESOLVED",
       "owner": "BAT-688",
-      "reason": "All-cycle three-pass unfinished",
-      "acceptance_authority": "USER_EXPLICIT_ONLY"
+      "reason": "All-cycle three-pass unfinished: pass two remains BLOCKED_INSUFFICIENT_EVIDENCE for cycles 1-25. Pass three demoted from false COMPLETE to PARTIAL (category search only) in inventory rebuild.",
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "residual_risk": "Historical claims remain unreconstructed; trust gate closed",
+      "evidence": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json"
     },
     {
       "id": "R26-10",
@@ -144,7 +146,10 @@
       "id": "R26-14",
       "severity": "P2",
       "disposition": "NOT_APPLICABLE_WITH_REASON",
-      "acceptance_authority": "USER_EXPLICIT_ONLY"
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "owner": "BAT-690",
+      "reason": "Expected OPEN future checkpoints and national timing are planned state, not an integrity defect. Sep3 T-24H recorded MISSED_CUTOFF_NO_BACKFILL; T-90M remains eligible until per-contest cutoffs.",
+      "residual_risk": "Missed cutoffs must never be backfilled"
     },
     {
       "id": "R26-15",
@@ -169,16 +174,26 @@
     {
       "id": "R26-17",
       "severity": "P1",
-      "disposition": "CONFIRMED_UNRESOLVED",
+      "disposition": "CONFIRMED_FIXED",
       "owner": "BAT-688",
-      "acceptance_authority": "USER_EXPLICIT_ONLY"
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "reason": "False COMPLETE pass-three / SEMANTICALLY_AUDITED assurance closed: builder emits PARTIAL for category-search pass three; validator rejects COMPLETE under category-search limitation and SEMANTICALLY_AUDITED with blocked passes.",
+      "residual_risk": "Full semantic audit (R26-09) remains unfinished; registry honesty improved only",
+      "regression_tests": [
+        "test_pass_three_category_search_cannot_be_complete",
+        "test_inventory_validator_passes"
+      ],
+      "evidence": "tools/validate_all_cycle_scientific_inventory.py"
     },
     {
       "id": "R26-18",
       "severity": "P1",
       "disposition": "QUALIFIED",
       "owner": "BAT-688",
-      "acceptance_authority": "USER_EXPLICIT_ONLY"
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "reason": "Dependency DAG cycle detection and transitive successor propagation are implemented and tested; full claim-to-consumer closure for every historical cycle remains incomplete while pass two is blocked.",
+      "residual_risk": "Unaffected-branch proofs still required per claim before all-cycle PASS",
+      "evidence": "src/aggie_analytics/governance/scientific_dependency_graph.py"
     },
     {
       "id": "R26-19",

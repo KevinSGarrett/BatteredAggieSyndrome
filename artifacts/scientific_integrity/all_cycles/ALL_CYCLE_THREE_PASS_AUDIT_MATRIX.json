@@ -6,7 +6,7 @@
       "cycle_number": 1,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -16,7 +16,7 @@
       "cycle_number": 2,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -26,7 +26,7 @@
       "cycle_number": 3,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -36,7 +36,7 @@
       "cycle_number": 4,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -46,7 +46,7 @@
       "cycle_number": 5,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -56,7 +56,7 @@
       "cycle_number": 6,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -66,7 +66,7 @@
       "cycle_number": 7,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -76,7 +76,7 @@
       "cycle_number": 8,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -86,7 +86,7 @@
       "cycle_number": 9,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -96,7 +96,7 @@
       "cycle_number": 10,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -106,7 +106,7 @@
       "cycle_number": 11,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -116,7 +116,7 @@
       "cycle_number": 12,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -126,7 +126,7 @@
       "cycle_number": 13,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -136,7 +136,7 @@
       "cycle_number": 14,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -146,7 +146,7 @@
       "cycle_number": 15,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -156,7 +156,7 @@
       "cycle_number": 16,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -166,7 +166,7 @@
       "cycle_number": 17,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -176,7 +176,7 @@
       "cycle_number": 18,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -186,7 +186,7 @@
       "cycle_number": 19,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -196,7 +196,7 @@
       "cycle_number": 20,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -206,7 +206,7 @@
       "cycle_number": 21,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -216,7 +216,7 @@
       "cycle_number": 22,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -226,7 +226,7 @@
       "cycle_number": 23,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -236,7 +236,7 @@
       "cycle_number": 24,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
@@ -246,13 +246,13 @@
       "cycle_number": 25,
       "passes": {
         "pass_one": "COMPLETE",
-        "pass_three": "COMPLETE",
+        "pass_three": "PARTIAL",
         "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
       },
       "semantically_audited": false
     }
   ],
-  "matrix_identity": "4b5c2394b02ca473c2782d6c5a54591051e18b086d82d0e57ea26238f3e8f8d0",
-  "note": "No later cycle confers PASS on an earlier one. Missing evidence is BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is blocked for every cycle because independent reconstruction of every material claim from mounted raw payloads was not completed; successor fixture tests are not a substitute. Pass three COMPLETE means the listed adversarial categories were searched; it does not authorize SEMANTICALLY_AUDITED.",
+  "matrix_identity": "5095b2815f66b3f92d28e668b22337a733cdcea208787bbb7584f301723b4010",
+  "note": "No later cycle confers PASS on an earlier one. Missing evidence is BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is blocked for every cycle because independent reconstruction of every material claim from mounted raw payloads was not completed; successor fixture tests are not a substitute. Pass three PARTIAL means listed adversarial categories were searched only; it is not complete review-of-review and does not authorize SEMANTICALLY_AUDITED.",
   "schema_version": 1
 }

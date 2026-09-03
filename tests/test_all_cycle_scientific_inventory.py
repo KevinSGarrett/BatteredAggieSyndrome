@@ -236,6 +236,61 @@ class AllCycleInventoryTests(unittest.TestCase):
                 self.assertFalse(drive.match(str(item)), msg=item)
                 self.assertNotIn("\\", str(item))
 
+    def test_pass_three_category_search_cannot_be_complete(self) -> None:
+        matrix = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        for item in matrix["cycles"]:
+            self.assertNotEqual(
+                item["passes"]["pass_three"],
+                "COMPLETE",
+                msg=f"cycle {item['cycle_number']}",
+            )
+            self.assertEqual(item["passes"]["pass_three"], "PARTIAL")
+        audit = json.loads(
+            (ALL_CYCLES / "CYCLE_01_SCIENTIFIC_AUDIT.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(audit["pass_three_adversarial"]["status"], "PARTIAL")
+        self.assertIn(
+            "category search",
+            str(audit["pass_three_adversarial"]["limitation"]).lower(),
+        )
+        # Tampered COMPLETE under category-search limitation must fail validation.
+        import copy
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_root = Path(tmp)
+            src = ALL_CYCLES
+            dest = tmp_root / "artifacts" / "scientific_integrity" / "all_cycles"
+            dest.mkdir(parents=True)
+            for path in src.glob("*.json"):
+                (dest / path.name).write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+            tampered = json.loads(
+                (dest / "CYCLE_01_SCIENTIFIC_AUDIT.json").read_text(encoding="utf-8")
+            )
+            tampered["pass_three_adversarial"]["status"] = "COMPLETE"
+            (dest / "CYCLE_01_SCIENTIFIC_AUDIT.json").write_text(
+                json.dumps(tampered), encoding="utf-8"
+            )
+            matrix_t = json.loads(
+                (dest / "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            for item in matrix_t["cycles"]:
+                if item["cycle_number"] == 1:
+                    item["passes"]["pass_three"] = "COMPLETE"
+            (dest / "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json").write_text(
+                json.dumps(matrix_t), encoding="utf-8"
+            )
+            findings = validate(tmp_root)
+            joined = " ".join(findings)
+            self.assertIn("AUDIT_PASS_THREE_FALSE_COMPLETE:01", joined)
+            self.assertIn("PASS_THREE_CATEGORY_SEARCH_CANNOT_BE_COMPLETE:1", joined)
+
 
 if __name__ == "__main__":
     unittest.main()

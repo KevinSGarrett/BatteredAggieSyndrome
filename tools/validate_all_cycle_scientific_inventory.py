@@ -219,16 +219,54 @@ def validate(repo_root: Path) -> list[str]:
     matrix_cycles = {int(item["cycle_number"]) for item in matrix.get("cycles") or []}
     if matrix_cycles != set(REQUIRED_CYCLES):
         findings.append("THREE_PASS_MATRIX_INCOMPLETE")
+    allowed_pass_states = {
+        "COMPLETE",
+        "PARTIAL",
+        "BLOCKED_INSUFFICIENT_EVIDENCE",
+        "FAIL",
+        "NOT_AUDITED_YET",
+    }
     for item in matrix.get("cycles") or []:
         passes = item.get("passes") or {}
+        for name in ("pass_one", "pass_two", "pass_three"):
+            state = passes.get(name)
+            if state not in allowed_pass_states:
+                findings.append(
+                    f"THREE_PASS_STATE_INVALID:{item.get('cycle_number')}:{name}:{state}"
+                )
+        # Category-search-only pass three cannot be COMPLETE.
+        if passes.get("pass_three") == "COMPLETE":
+            findings.append(
+                f"PASS_THREE_CATEGORY_SEARCH_CANNOT_BE_COMPLETE:{item.get('cycle_number')}"
+            )
         complete = all(
-            passes.get(name) in {"COMPLETE", "BLOCKED_INSUFFICIENT_EVIDENCE", "FAIL"}
+            passes.get(name)
+            in {"COMPLETE", "PARTIAL", "BLOCKED_INSUFFICIENT_EVIDENCE", "FAIL"}
             for name in ("pass_one", "pass_two", "pass_three")
         )
         if item.get("cycle_disposition") == "SEMANTICALLY_AUDITED" and not complete:
             findings.append(
                 f"SEMANTIC_LABEL_BEFORE_THREE_PASSES:{item.get('cycle_number')}"
             )
+        if item.get("cycle_disposition") == "SEMANTICALLY_AUDITED" and (
+            passes.get("pass_two") in {"BLOCKED_INSUFFICIENT_EVIDENCE", "FAIL", "PARTIAL"}
+            or passes.get("pass_three") != "COMPLETE"
+        ):
+            findings.append(
+                f"SEMANTICALLY_AUDITED_WITH_BLOCKED_OR_PARTIAL_PASSES:{item.get('cycle_number')}"
+            )
+    # Per-cycle audits must not claim COMPLETE pass-three under category-search limitation.
+    for cycle in REQUIRED_CYCLES:
+        audit_path = base / f"CYCLE_{cycle:02d}_SCIENTIFIC_AUDIT.json"
+        if not audit_path.is_file():
+            continue
+        audit = _load(audit_path)
+        p3 = audit.get("pass_three_adversarial") or {}
+        limitation = str(p3.get("limitation") or "").lower()
+        if p3.get("status") == "COMPLETE" and "category search" in limitation:
+            findings.append(f"AUDIT_PASS_THREE_FALSE_COMPLETE:{cycle:02d}")
+    if not (claims.get("claims") or []):
+        findings.append("CLAIM_REGISTRY_EMPTY")
     if gate.get("scientific_trust_recovered") is True:
         findings.append("TRUST_GATE_MUST_NOT_CLAIM_RECOVERY_WHILE_HOLD_ACTIVE")
     if gate.get("missing_evidence_is_blocked_not_pass") is not True:

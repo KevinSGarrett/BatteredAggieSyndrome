@@ -779,7 +779,8 @@ def build_matrix() -> dict[str, Any]:
                 "passes": {
                     "pass_one": "COMPLETE",
                     "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE",
-                    "pass_three": "COMPLETE",
+                    # Category search alone is PARTIAL, not review-of-review COMPLETE.
+                    "pass_three": "PARTIAL",
                 },
                 "cycle_disposition": "FAIL"
                 if cycle >= 18
@@ -796,8 +797,9 @@ def build_matrix() -> dict[str, Any]:
                 "BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is blocked for every "
                 "cycle because independent reconstruction of every material claim from "
                 "mounted raw payloads was not completed; successor fixture tests are not "
-                "a substitute. Pass three COMPLETE means the listed adversarial categories "
-                "were searched; it does not authorize SEMANTICALLY_AUDITED."
+                "a substitute. Pass three PARTIAL means listed adversarial categories "
+                "were searched only; it is not complete review-of-review and does not "
+                "authorize SEMANTICALLY_AUDITED."
             ),
             "schema_version": 1,
         },
@@ -825,10 +827,11 @@ def build_cycle_audit(
                 "proves": "provenance_and_completeness_only",
             },
             "pass_three_adversarial": {
-                "status": "COMPLETE",
+                "status": "PARTIAL",
                 "limitation": (
                     "Category search only. Pass two did not independently reconstruct "
-                    "every material claim from mounted raw payloads."
+                    "every material claim from mounted raw payloads. Category search is "
+                    "PARTIAL, not complete review-of-review."
                 ),
                 "searched_for": [
                     "omitted_artifacts",

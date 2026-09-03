@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
-  "audit_identity": "5b1eb85ec31af1d940585f4050a6b1e7f33ab7d9a2eb7e907f6a2bdb46539bad",
+  "audit_identity": "0212eae536e9bd573ca9bbbc2c16de9ef7d5a747b71c9fee5a3e360b0f5a91ec",
   "cycle_number": 13,
   "ending_sha": "b032999975857ed498cd09dc4f68b833541b97a4",
   "findings": [],
@@ -12,7 +12,7 @@
     "status": "COMPLETE"
   },
   "pass_three_adversarial": {
-    "limitation": "Category search only. Pass two did not independently reconstruct every material claim from mounted raw payloads.",
+    "limitation": "Category search only. Pass two did not independently reconstruct every material claim from mounted raw payloads. Category search is PARTIAL, not complete review-of-review.",
     "searched_for": [
       "omitted_artifacts",
       "circular_validation",
@@ -21,7 +21,7 @@
       "protected_exposure",
       "ignored_user_holds"
     ],
-    "status": "COMPLETE"
+    "status": "PARTIAL"
   },
   "pass_two_semantic": {
     "independent_of_producer_helpers": true,

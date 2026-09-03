@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
-  "issued_at_utc": "2026-09-03T09:09:59Z",
+  "issued_at_utc": "2026-09-03T09:50:03Z",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",
@@ -663,5 +663,21 @@
   "ci_status": "BOUND_BY_LIVE_PR_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
-  "code_head_binding": "LIVE_PR_678_TIP"
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "ridge_abstention_census": {
+    "artifact_type": "CYCLE26_RIDGE_ABSTENTION_CENSUS",
+    "issued_at_utc": "2026-09-03T09:50:03Z",
+    "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "candidate_id": "national_margin_ridge",
+    "opportunity": 91,
+    "emitted_with_probability": 79,
+    "abstained": 12,
+    "abstention_reason_counts": {
+      "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR": 4,
+      "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY": 8
+    },
+    "note": "Abstentions are evidence-backed fail-closed rows, not silent drops. Do not force-fit missing modelling history or unadmitted domains."
+  },
+  "all_cycle_pass_three_honesty": "PARTIAL_CATEGORY_SEARCH_NOT_COMPLETE"
 }

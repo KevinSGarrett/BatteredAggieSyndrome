@@ -79,3 +79,5 @@ _T-90M successor freeze 2026-09-03T19:05:35Z: tip=4c726140; predecessor 15:41:18
 _T-90M scheduled 19:45Z refresh bound 2026-09-03T20:01:19Z: tip=2020c45b; predecessor 19:05:35Z retained as CYCLE26_SEP3_T90M_FREEZE_RECEIPT_20260903T190535Z.json; schedule ac08bf4c0f468205cbfd8a8da7fc6ec4cc992845fd93f46b80ab253e79fbc65e; full unittest 3136 OK skipped=265; Sep4 T-24H wake 22:00Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
 
 _Scheduled T-90M wake bind 2026-09-03T20:01:19Z: tip advancing after freeze receipt; label T90M_LABEL_PERMITTED; schedule ac08bf4c; national T-24H still armed 22:00Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
+
+_Sep4-window T-24H freeze 2026-09-03T22:12:47Z: label T-24H permitted before 22:30Z cutoff; schedule 0236d013…; weather 802fd99d…; PRIMARY_TRUST_RECOVERY_INCOMPLETE; REVIEW_READY_UNMERGED._

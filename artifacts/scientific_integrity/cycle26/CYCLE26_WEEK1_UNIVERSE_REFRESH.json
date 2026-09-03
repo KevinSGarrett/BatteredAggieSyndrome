@@ -1,19 +1,23 @@
 {
   "artifact_type": "CYCLE26_WEEK1_UNIVERSE_REFRESH",
-  "issued_at_utc": "2026-09-03T09:20:20Z",
+  "issued_at_utc": "2026-09-03T09:22:10Z",
   "code_head_binding": "LIVE_PR_678_TIP",
-  "git_tip_at_issuance": "ae1cf969485da724a547df474cb70d2cd4da9ba2",
+  "git_tip_at_issuance": "98b7a2495e984365d4ecaa8726ecc6117bd49b70",
   "schedule_capture_identity": "3b300e12414d4dece017fcf5388892c8fc2e0aa8753f9622b9ac03644fb15a48",
   "baseline_comparison_contest_count": 91,
-  "observed_unique_contest_href_count": 0,
-  "per_date_contest_href_counts": {
-    "2026-09-03": 0,
-    "2026-09-04": 0,
-    "2026-09-05": 0,
-    "2026-09-06": 0,
-    "2026-09-07": 0
+  "observed_contest_count_from_rebuild": 91,
+  "observed_contests_by_date": {
+    "2026-09-03": 11,
+    "2026-09-04": 8,
+    "2026-09-05": 68,
+    "2026-09-06": 3,
+    "2026-09-07": 1
   },
-  "disposition_vs_baseline_91": "PARSE_INCONCLUSIVE",
-  "note": "Href-based contest ID count is a freshness check against the prior 91-contest baseline; it does not replace the canonical official-schedule identity gate. Do not force 91 if the official universe changed.",
-  "canonical_identity_gate": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json"
+  "disposition_vs_baseline_91": "UNCHANGED_COUNT",
+  "committed_schedule_gate_identity": "3682897882697fc939f23f79706ff37a46e8cf870f1f8432cdd51f55c13831cc",
+  "committed_schedule_dataset_identity": "25476f44de3fdb43de2185cabd4797c3c43e4a081be69c5e4c1dae2ac6e2b014",
+  "rebuild_note": "Fresh captures re-ran identity builder and still produced contest_count=91. Committed schedule gate left unchanged to avoid artifact-binding cascade; external rebuild manifests retained under data root only.",
+  "neutral_site_annotation_count": 3,
+  "model_eligible": 83,
+  "unsupported": 8
 }

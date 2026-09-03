@@ -923,6 +923,7 @@ docs/assets/readme/bas-spectrum-mobile.svg
 docs/assets/readme/bas-spectrum.svg
 docs/assets/readme/hero-v2.png
 docs/assets/readme/hero.png
+docs/assets/readme/newsletter-banner.svg
 docs/assets/readme/research-architecture.png
 docs/assets/readme/system-map-mobile.svg
 docs/assets/readme/system-map.svg

@@ -1,331 +1,342 @@
 {
   "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T18:14:31Z",
-  "git_tip": "21e67149cc9f795eeeb036392ce2f6204b9a9914",
+  "issued_at_utc": "2026-09-03T20:07:22Z",
+  "git_tip": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
   "verdict": "BRANCH_WORKTREE_HYGIENE=VERIFIED",
-  "note": "Reinventory after Cycle26 tip advance; no deletions executed in this pass. Active PR/worktree/preservation retained.",
+  "note": "Reinventory after T-90M 20:01 freeze. No deletions. Closed-unmerged historical branches retained without squash-merge proof. Open PRs #678 and Dependabot #654 retained. Canonical main left unchanged.",
   "deleted_count": 0,
   "local_branch_count": 30,
   "worktree_count": 14,
   "open_pr_count": 2,
-  "remote_head_count": 14,
-  "branches": [
-    {
-      "ref": "codex/BAT-523-cycle16-closeout",
-      "tip": "679751b7",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-523-cycle16-closeout                         679751b7 [origin/codex/BAT-523-cycle16-closeout] [process] BAT-523: record Cycle #16 progress after 2000-2009 row corpus"
-    },
-    {
-      "ref": "codex/BAT-554-evidence-state-reconciliation",
-      "tip": "1f4a7e5f",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-554-evidence-state-reconciliation            1f4a7e5f [origin/codex/BAT-554-evidence-state-reconciliation] [process] BAT-554 policy correction classification tuning"
-    },
-    {
-      "ref": "codex/BAT-554-evidence-state-reconciliation-v2",
-      "tip": "1f4a7e5f",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-554-evidence-state-reconciliation-v2         1f4a7e5f [process] BAT-554 policy correction classification tuning"
-    },
-    {
-      "ref": "codex/BAT-554-parser-runtime-domain-gate",
-      "tip": "3233d146",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-554-parser-runtime-domain-gate               3233d146 [origin/codex/BAT-554-parser-runtime-domain-gate] [process] BAT-554 refresh instruction hash ledger and manifests"
-    },
-    {
-      "ref": "codex/BAT-572-tamu-cross-source-domain-gate",
-      "tip": "808fc9e3",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-572-tamu-cross-source-domain-gate            808fc9e3 [origin/codex/BAT-572-tamu-cross-source-domain-gate: ahead 1] [material] BAT-572: record BAT-570 and BAT-571 as live Done"
-    },
-    {
-      "ref": "codex/BAT-582-cycle9-done-mirror",
-      "tip": "19115538",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-582-cycle9-done-mirror                       19115538 [origin/codex/BAT-582-cycle9-done-mirror] [process] Mirror BAT-582 Done after Cycle 9 acceptance"
-    },
-    {
-      "ref": "codex/BAT-613-process",
-      "tip": "49a0b829",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-613-process                                  49a0b829 [origin/codex/BAT-613-process] [process] BAT-613: bind merge SHA and Done status after 2002 official index"
-    },
-    {
-      "ref": "codex/BAT-615-process",
-      "tip": "bbe29745",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-615-process                                  bbe29745 [origin/codex/BAT-615-process] [process] BAT-615: persist live Jira ledger after 2002 official acquisition"
-    },
-    {
-      "ref": "codex/BAT-615-process-bind",
-      "tip": "1a3a282a",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/BAT-615-process-bind                             1a3a282a [origin/codex/BAT-615-process-bind] [process] BAT-615: bind merge SHA and Done status after 2002 official acquisition"
-    },
-    {
-      "ref": "+",
-      "tip": "codex/BAT-688-hold-inventory",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ codex/BAT-688-hold-inventory                           410e7bf6 (C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory) [origin/codex/BAT-688-hold-inventory] [material] split Cycle #25.5 operator hold and all-cycle inventory (BAT-688)"
-    },
-    {
-      "ref": "+",
-      "tip": "codex/BAT-688-scientific-trust-hold",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ codex/BAT-688-scientific-trust-hold                    49003eea (C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold) [origin/codex/BAT-688-scientific-trust-hold] [material] keep AGENTS.md as SRCREF-01994 invariant and host Code Review Rules beside it"
-    },
-    {
-      "ref": "+",
-      "tip": "codex/BAT-689-execution-focus-correction",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ codex/BAT-689-execution-focus-correction               8c1ebcf5 (C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction) [origin/codex/BAT-689-execution-focus-correction: gone] [material] refresh instruction hashes after the #670 execution-focus correction (BAT-689)"
-    },
-    {
-      "ref": "+",
-      "tip": "codex/BAT-689-review-infra",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ codex/BAT-689-review-infra                             99b901d8 (C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra) [origin/codex/BAT-689-review-infra: gone] [material] stop inventory builder from wiping the PR finding ledger (BAT-689)"
-    },
-    {
-      "ref": "codex/BAT-690-c26-scr",
-      "tip": "21e67149",
-      "current": true,
-      "disposition": "ACTIVE_PR",
-      "raw": "* codex/BAT-690-c26-scr                                  21e67149 [origin/codex/BAT-690-c26-scr] [material] Arm A&M and failover checkpoint schedulers in capture operation record.",
-      "pr": 678,
-      "pr_head": "21e67149cc9f795eeeb036392ce2f6204b9a9914",
-      "owner": "BAT-690"
-    },
-    {
-      "ref": "+",
-      "tip": "codex/BAT-690-scientific-successors",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ codex/BAT-690-scientific-successors                    3ef3b6a6 (C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors) [origin/codex/BAT-690-scientific-successors: gone] [material] fail closed when the PR review finding ledger omits ledger_identity (BAT-690)"
-    },
-    {
-      "ref": "+",
-      "tip": "codex/public-private-separation",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ codex/public-private-separation                        94cf3d66 (C:/BatteredAggieSyndrome.data/worktrees/public-private-separation) [origin/codex/public-private-separation: gone] [material] refine public README layout and concept-art captions"
-    },
-    {
-      "ref": "+",
-      "tip": "codex/public-repository-makeover",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ codex/public-repository-makeover                       f5b36c56 (C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover) [origin/codex/public-repository-makeover: gone] [material] align public tooling inventory with configured checks"
-    },
-    {
-      "ref": "codex/recovery-local-main-9a068a96",
-      "tip": "9a068a96",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "codex/recovery-local-main-9a068a96                     9a068a96 [process] Synchronize BAT-479 completion state and downstream readiness"
-    },
-    {
-      "ref": "cycle22/week-zero-official-finals",
-      "tip": "845979de",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "cycle22/week-zero-official-finals                      845979de PRESERVATION: cycle22 combined dirty worktree snapshot (Cycle #23 Phase 0)"
-    },
-    {
-      "ref": "+",
-      "tip": "main",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ main                                                   55e12a5a (C:/BatteredAggieSyndrome) [origin/main] [material] refine README layout and concept-art captions"
-    },
-    {
-      "ref": "+",
-      "tip": "material/BAT-688-inventory-authority-roots",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ material/BAT-688-inventory-authority-roots             266d1383 (C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots) [origin/material/BAT-688-inventory-authority-roots: gone] [material] inventory every authority-suffixed file in declared census roots without token omission (BAT-688)"
-    },
-    {
-      "ref": "+",
-      "tip": "material/BAT-688-inventory-git-first-add",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ material/BAT-688-inventory-git-first-add               ba2e9e66 (C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add) [origin/material/BAT-688-inventory-git-first-add: gone] [material] keep ambiguous git first-add inventory rows unmapped instead of token-guessing (BAT-688)"
-    },
-    {
-      "ref": "preserve/cycle13-assistive-retirement",
-      "tip": "150e8df3",
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN",
-      "raw": "preserve/cycle13-assistive-retirement                  150e8df3 [process] preserve unrelated Cycle 13 dirty paths outside retirement integration"
-    },
-    {
-      "ref": "preserve/cycle17-unintegrated-20260824T075717Z",
-      "tip": "75485de5",
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN",
-      "raw": "preserve/cycle17-unintegrated-20260824T075717Z         75485de5 [preserve] Cycle #17 unintegrated recovery 20260824T075717Z"
-    },
-    {
-      "ref": "preserve/cycle18-canonical-overlap-20260827T015111Z",
-      "tip": "97636fa1",
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN",
-      "raw": "preserve/cycle18-canonical-overlap-20260827T015111Z    97636fa1 [process] preserve canonical overlap before Cycle 18 final sync"
-    },
-    {
-      "ref": "preserve/cycle18-preflight-overlap-20260824T184919Z",
-      "tip": "71952d40",
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN",
-      "raw": "preserve/cycle18-preflight-overlap-20260824T184919Z    71952d40 [process] BAT-638 reconcile Cycle 17 evidence and Jira"
-    },
-    {
-      "ref": "preserve/cycle20-cycle19-unintegrated-20260828T022538Z",
-      "tip": "e25be0b8",
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN",
-      "raw": "preserve/cycle20-cycle19-unintegrated-20260828T022538Z e25be0b8 chore(cycle20): preserve unintegrated cycle19 dirty state"
-    },
-    {
-      "ref": "preserve/cycle25-preflight-20260831T991bf466",
-      "tip": "991bf466",
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN",
-      "raw": "preserve/cycle25-preflight-20260831T991bf466           991bf466 [process] record BAT-685 Done after the Cycle #24 code-identity rebind (#664)"
-    },
-    {
-      "ref": "preserve/local-second-pass-audit-20260828T0405Z",
-      "tip": "254d4f88",
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN",
-      "raw": "preserve/local-second-pass-audit-20260828T0405Z        254d4f88 preserve local validate_repository formatting drift before cycle20 continuation"
-    },
-    {
-      "ref": "+",
-      "tip": "process/BAT-688-cycle25-5-jira-reconcile",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK",
-      "raw": "+ process/BAT-688-cycle25-5-jira-reconcile               16906767 (C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile) [origin/process/BAT-688-cycle25-5-jira-reconcile: gone] [material] keep jira control-plane --mode validate on one line (BAT-688)"
-    }
-  ],
-  "worktrees": [
-    {
-      "path": "C:/BatteredAggieSyndrome",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
-      "branch": "refs/heads/main"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "410e7bf6e893e103266665654f340b1dfe5c42bd",
-      "branch": "refs/heads/codex/BAT-688-hold-inventory"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "266d13839e8fb1aa369a2eb2a9c36fbb38d27330",
-      "branch": "refs/heads/material/BAT-688-inventory-authority-roots"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "ba2e9e6650ef71e8c0c3f630ad8768e36a423843",
-      "branch": "refs/heads/material/BAT-688-inventory-git-first-add"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "1690676720a37b4c1770bae839e0f63c2b96a695",
-      "branch": "refs/heads/process/BAT-688-cycle25-5-jira-reconcile"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "49003eea32d2935ecf79a0ca68bda87bf4896e79",
-      "branch": "refs/heads/codex/BAT-688-scientific-trust-hold"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "8c1ebcf502a6a56f52344aa314cd1f54c1a01554",
-      "branch": "refs/heads/codex/BAT-689-execution-focus-correction"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "99b901d84f54233af1c4a7c8974b71652df99b8f",
-      "branch": "refs/heads/codex/BAT-689-review-infra"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "21e67149cc9f795eeeb036392ce2f6204b9a9914",
-      "branch": "refs/heads/codex/BAT-690-c26-scr"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "3ef3b6a6e3e9c6bf7e9f332fa40a583b94fa83f2",
-      "branch": "refs/heads/codex/BAT-690-scientific-successors"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "deaece17cd66d51510cf8ee29f615d35a3c11994",
-      "detached": true
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1",
-      "detached": true
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "94cf3d66d8e19282fdfbc5f920f6b03b3aaca012",
-      "branch": "refs/heads/codex/public-private-separation"
-    },
-    {
-      "path": "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover",
-      "disposition": "ACTIVE_WORKTREE",
-      "head": "f5b36c56664549962f2d72e9093e12d1ea23deec",
-      "branch": "refs/heads/codex/public-repository-makeover"
-    }
-  ],
   "open_prs": [
     {
-      "baseRefName": "main",
       "headRefName": "codex/BAT-690-c26-scr",
-      "headRefOid": "21e67149cc9f795eeeb036392ce2f6204b9a9914",
       "isDraft": false,
       "number": 678,
       "title": "Cycle #26 scientific recovery path (unmerged; hold remains)"
     },
     {
-      "baseRefName": "main",
       "headRefName": "dependabot/pip/product-runtime-029124cf7c",
-      "headRefOid": "8eccbf158c1b72fe35a64f5fd33349654931be7c",
       "isDraft": false,
       "number": 654,
       "title": "Bump the product-runtime group across 1 directory with 8 updates"
     }
-  ]
+  ],
+  "remote_head_count": 14,
+  "branches": [
+    {
+      "ref": "codex/BAT-523-cycle16-closeout",
+      "tip": "679751b7",
+      "upstream": "origin/codex/BAT-523-cycle16-closeout",
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-554-evidence-state-reconciliation",
+      "tip": "1f4a7e5f",
+      "upstream": "origin/codex/BAT-554-evidence-state-reconciliation",
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-554-evidence-state-reconciliation-v2",
+      "tip": "1f4a7e5f",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-554-parser-runtime-domain-gate",
+      "tip": "3233d146",
+      "upstream": "origin/codex/BAT-554-parser-runtime-domain-gate",
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-572-tamu-cross-source-domain-gate",
+      "tip": "808fc9e3",
+      "upstream": "origin/codex/BAT-572-tamu-cross-source-domain-gate",
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-582-cycle9-done-mirror",
+      "tip": "19115538",
+      "upstream": "origin/codex/BAT-582-cycle9-done-mirror",
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-613-process",
+      "tip": "49a0b829",
+      "upstream": "origin/codex/BAT-613-process",
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-615-process",
+      "tip": "bbe29745",
+      "upstream": "origin/codex/BAT-615-process",
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-615-process-bind",
+      "tip": "1a3a282a",
+      "upstream": "origin/codex/BAT-615-process-bind",
+      "worktree": null,
+      "current": false,
+      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+    },
+    {
+      "ref": "codex/BAT-688-hold-inventory",
+      "tip": "410e7bf6",
+      "upstream": "origin/codex/BAT-688-hold-inventory",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "codex/BAT-688-scientific-trust-hold",
+      "tip": "49003eea",
+      "upstream": "origin/codex/BAT-688-scientific-trust-hold",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "codex/BAT-689-execution-focus-correction",
+      "tip": "8c1ebcf5",
+      "upstream": "origin/codex/BAT-689-execution-focus-correction",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "codex/BAT-689-review-infra",
+      "tip": "99b901d8",
+      "upstream": "origin/codex/BAT-689-review-infra",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "codex/BAT-690-c26-scr",
+      "tip": "c407b0f0",
+      "upstream": "origin/codex/BAT-690-c26-scr",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
+      "current": true,
+      "disposition": "ACTIVE_PR"
+    },
+    {
+      "ref": "codex/BAT-690-scientific-successors",
+      "tip": "3ef3b6a6",
+      "upstream": "origin/codex/BAT-690-scientific-successors",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "codex/public-private-separation",
+      "tip": "94cf3d66",
+      "upstream": "origin/codex/public-private-separation",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "codex/public-repository-makeover",
+      "tip": "f5b36c56",
+      "upstream": "origin/codex/public-repository-makeover",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "codex/recovery-local-main-9a068a96",
+      "tip": "9a068a96",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "cycle22/week-zero-official-finals",
+      "tip": "845979de",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "main",
+      "tip": "55e12a5a",
+      "upstream": "origin/main",
+      "worktree": "C:/BatteredAggieSyndrome",
+      "current": false,
+      "disposition": "PROTECTED_DEFAULT"
+    },
+    {
+      "ref": "material/BAT-688-inventory-authority-roots",
+      "tip": "266d1383",
+      "upstream": "origin/material/BAT-688-inventory-authority-roots",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "material/BAT-688-inventory-git-first-add",
+      "tip": "ba2e9e66",
+      "upstream": "origin/material/BAT-688-inventory-git-first-add",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    },
+    {
+      "ref": "preserve/cycle13-assistive-retirement",
+      "tip": "150e8df3",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "preserve/cycle17-unintegrated-20260824T075717Z",
+      "tip": "75485de5",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "preserve/cycle18-canonical-overlap-20260827T015111Z",
+      "tip": "97636fa1",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "preserve/cycle18-preflight-overlap-20260824T184919Z",
+      "tip": "71952d40",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "preserve/cycle20-cycle19-unintegrated-20260828T022538Z",
+      "tip": "e25be0b8",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "preserve/cycle25-preflight-20260831T991bf466",
+      "tip": "991bf466",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "preserve/local-second-pass-audit-20260828T0405Z",
+      "tip": "254d4f88",
+      "upstream": null,
+      "worktree": null,
+      "current": false,
+      "disposition": "PRESERVATION_RETAIN"
+    },
+    {
+      "ref": "process/BAT-688-cycle25-5-jira-reconcile",
+      "tip": "16906767",
+      "upstream": "origin/process/BAT-688-cycle25-5-jira-reconcile",
+      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile",
+      "current": false,
+      "disposition": "ACTIVE_UNMERGED_WORK"
+    }
+  ],
+  "worktrees": [
+    {
+      "path": "C:/BatteredAggieSyndrome",
+      "head": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+      "branch": "refs/heads/main"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
+      "head": "410e7bf6e893e103266665654f340b1dfe5c42bd",
+      "branch": "refs/heads/codex/BAT-688-hold-inventory"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots",
+      "head": "266d13839e8fb1aa369a2eb2a9c36fbb38d27330",
+      "branch": "refs/heads/material/BAT-688-inventory-authority-roots"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add",
+      "head": "ba2e9e6650ef71e8c0c3f630ad8768e36a423843",
+      "branch": "refs/heads/material/BAT-688-inventory-git-first-add"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile",
+      "head": "1690676720a37b4c1770bae839e0f63c2b96a695",
+      "branch": "refs/heads/process/BAT-688-cycle25-5-jira-reconcile"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
+      "head": "49003eea32d2935ecf79a0ca68bda87bf4896e79",
+      "branch": "refs/heads/codex/BAT-688-scientific-trust-hold"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction",
+      "head": "8c1ebcf502a6a56f52344aa314cd1f54c1a01554",
+      "branch": "refs/heads/codex/BAT-689-execution-focus-correction"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra",
+      "head": "99b901d84f54233af1c4a7c8974b71652df99b8f",
+      "branch": "refs/heads/codex/BAT-689-review-infra"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
+      "head": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
+      "branch": "refs/heads/codex/BAT-690-c26-scr"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors",
+      "head": "3ef3b6a6e3e9c6bf7e9f332fa40a583b94fa83f2",
+      "branch": "refs/heads/codex/BAT-690-scientific-successors"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate",
+      "head": "deaece17cd66d51510cf8ee29f615d35a3c11994",
+      "detached": true
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b",
+      "head": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1",
+      "detached": true
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation",
+      "head": "94cf3d66d8e19282fdfbc5f920f6b03b3aaca012",
+      "branch": "refs/heads/codex/public-private-separation"
+    },
+    {
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover",
+      "head": "f5b36c56664549962f2d72e9093e12d1ea23deec",
+      "branch": "refs/heads/codex/public-repository-makeover"
+    }
+  ],
+  "deleted_refs": [],
+  "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d_LEFT_UNCHANGED"
 }

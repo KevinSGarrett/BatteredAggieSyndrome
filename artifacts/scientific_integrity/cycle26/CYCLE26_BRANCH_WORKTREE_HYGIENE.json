@@ -1,342 +1,411 @@
 {
   "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T20:07:22Z",
-  "git_tip": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
-  "verdict": "BRANCH_WORKTREE_HYGIENE=VERIFIED",
-  "note": "Reinventory after T-90M 20:01 freeze. No deletions. Closed-unmerged historical branches retained without squash-merge proof. Open PRs #678 and Dependabot #654 retained. Canonical main left unchanged.",
-  "deleted_count": 0,
-  "local_branch_count": 30,
+  "issued_at_utc": "2026-09-03T21:00:00Z",
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+  "note": "Every entry classified; active PR/worktree branches retained under hold. No unexplained disposable obsolete refs removed in this refresh; Dependabot #654 retained.",
+  "git_tip": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07",
+  "local_branch_count": 31,
   "worktree_count": 14,
   "open_pr_count": 2,
-  "open_prs": [
-    {
-      "headRefName": "codex/BAT-690-c26-scr",
-      "isDraft": false,
-      "number": 678,
-      "title": "Cycle #26 scientific recovery path (unmerged; hold remains)"
-    },
-    {
-      "headRefName": "dependabot/pip/product-runtime-029124cf7c",
-      "isDraft": false,
-      "number": 654,
-      "title": "Bump the product-runtime group across 1 directory with 8 updates"
-    }
-  ],
-  "remote_head_count": 14,
-  "branches": [
+  "entries": [
     {
       "ref": "codex/BAT-523-cycle16-closeout",
-      "tip": "679751b7",
+      "tip": "679751b7cb0a2960f17fe1ce4694b0eb327f0c63",
       "upstream": "origin/codex/BAT-523-cycle16-closeout",
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-554-evidence-state-reconciliation",
-      "tip": "1f4a7e5f",
+      "tip": "1f4a7e5f62cc9279bf0bc93305e68113b61e0d54",
       "upstream": "origin/codex/BAT-554-evidence-state-reconciliation",
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-554-evidence-state-reconciliation-v2",
-      "tip": "1f4a7e5f",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "tip": "1f4a7e5f62cc9279bf0bc93305e68113b61e0d54",
+      "upstream": "",
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-554-parser-runtime-domain-gate",
-      "tip": "3233d146",
+      "tip": "3233d146b9080011b829b5d21bbf0f2bbbded38e",
       "upstream": "origin/codex/BAT-554-parser-runtime-domain-gate",
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-572-tamu-cross-source-domain-gate",
-      "tip": "808fc9e3",
+      "tip": "808fc9e33055be08a3d0f63d3136a2cfcbe70819",
       "upstream": "origin/codex/BAT-572-tamu-cross-source-domain-gate",
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "track": "[ahead 1]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-582-cycle9-done-mirror",
-      "tip": "19115538",
+      "tip": "1911553820447715cb94f4f3f5a380ec8b1380aa",
       "upstream": "origin/codex/BAT-582-cycle9-done-mirror",
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-613-process",
-      "tip": "49a0b829",
+      "tip": "49a0b8294b34d3e18af282b636e5849e2aa28feb",
       "upstream": "origin/codex/BAT-613-process",
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-615-process",
-      "tip": "bbe29745",
+      "tip": "bbe2974594a70cec75a54b04cecc08aa1afb20d6",
       "upstream": "origin/codex/BAT-615-process",
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-615-process-bind",
-      "tip": "1a3a282a",
+      "tip": "1a3a282aaa3169e5834cae61f9803186c6580ec2",
       "upstream": "origin/codex/BAT-615-process-bind",
-      "worktree": null,
-      "current": false,
-      "disposition": "CLOSED_UNMERGED_OR_HISTORICAL_RETAIN"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-688-hold-inventory",
-      "tip": "410e7bf6",
+      "tip": "410e7bf6e893e103266665654f340b1dfe5c42bd",
       "upstream": "origin/codex/BAT-688-hold-inventory",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-688-scientific-trust-hold",
-      "tip": "49003eea",
+      "tip": "49003eea32d2935ecf79a0ca68bda87bf4896e79",
       "upstream": "origin/codex/BAT-688-scientific-trust-hold",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-689-execution-focus-correction",
-      "tip": "8c1ebcf5",
+      "tip": "8c1ebcf502a6a56f52344aa314cd1f54c1a01554",
       "upstream": "origin/codex/BAT-689-execution-focus-correction",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "[gone]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-689-review-infra",
-      "tip": "99b901d8",
+      "tip": "99b901d84f54233af1c4a7c8974b71652df99b8f",
       "upstream": "origin/codex/BAT-689-review-infra",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "[gone]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/BAT-690-c26-scr",
-      "tip": "c407b0f0",
+      "tip": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07",
       "upstream": "origin/codex/BAT-690-c26-scr",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
-      "current": true,
-      "disposition": "ACTIVE_PR"
+      "track": "",
+      "disposition": "ACTIVE_PR",
+      "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+      "pr_head": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07"
     },
     {
       "ref": "codex/BAT-690-scientific-successors",
-      "tip": "3ef3b6a6",
+      "tip": "3ef3b6a6e3e9c6bf7e9f332fa40a583b94fa83f2",
       "upstream": "origin/codex/BAT-690-scientific-successors",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "[gone]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/public-private-separation",
-      "tip": "94cf3d66",
+      "tip": "94cf3d66d8e19282fdfbc5f920f6b03b3aaca012",
       "upstream": "origin/codex/public-private-separation",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "[gone]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/public-repository-makeover",
-      "tip": "f5b36c56",
+      "tip": "f5b36c56664549962f2d72e9093e12d1ea23deec",
       "upstream": "origin/codex/public-repository-makeover",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "[gone]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "codex/recovery-local-main-9a068a96",
-      "tip": "9a068a96",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "9a068a96ad3f66f39aa86b7e972edce9b7982380",
+      "upstream": "",
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "cycle22/week-zero-official-finals",
-      "tip": "845979de",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "845979de7ebde9c2e35ad5051eb215e2c8956b68",
+      "upstream": "",
+      "track": "",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "main",
-      "tip": "55e12a5a",
+      "tip": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
       "upstream": "origin/main",
-      "worktree": "C:/BatteredAggieSyndrome",
-      "current": false,
-      "disposition": "PROTECTED_DEFAULT"
+      "track": "",
+      "disposition": "CANONICAL_MAIN",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "material/BAT-688-inventory-authority-roots",
-      "tip": "266d1383",
+      "tip": "266d13839e8fb1aa369a2eb2a9c36fbb38d27330",
       "upstream": "origin/material/BAT-688-inventory-authority-roots",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "[gone]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "material/BAT-688-inventory-git-first-add",
-      "tip": "ba2e9e66",
+      "tip": "ba2e9e6650ef71e8c0c3f630ad8768e36a423843",
       "upstream": "origin/material/BAT-688-inventory-git-first-add",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "[gone]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
     },
     {
       "ref": "preserve/cycle13-assistive-retirement",
-      "tip": "150e8df3",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "150e8df33f2534de16aabece42bd99b3c0814994",
+      "upstream": "",
+      "track": "",
+      "disposition": "PRESERVATION_RETAIN",
+      "pr": null,
+      "pr_head": null,
+      "retain_reason": "preservation ref; never delete under section 4B"
     },
     {
       "ref": "preserve/cycle17-unintegrated-20260824T075717Z",
-      "tip": "75485de5",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "75485de5e0122e87ad86f651f2c2d37d96ff39aa",
+      "upstream": "",
+      "track": "",
+      "disposition": "PRESERVATION_RETAIN",
+      "pr": null,
+      "pr_head": null,
+      "retain_reason": "preservation ref; never delete under section 4B"
     },
     {
       "ref": "preserve/cycle18-canonical-overlap-20260827T015111Z",
-      "tip": "97636fa1",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "97636fa1e220a7df265c73231d1fd099fc5e1495",
+      "upstream": "",
+      "track": "",
+      "disposition": "PRESERVATION_RETAIN",
+      "pr": null,
+      "pr_head": null,
+      "retain_reason": "preservation ref; never delete under section 4B"
     },
     {
       "ref": "preserve/cycle18-preflight-overlap-20260824T184919Z",
-      "tip": "71952d40",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "71952d4095a6248ff93406093f02a89185ceef71",
+      "upstream": "",
+      "track": "",
+      "disposition": "PRESERVATION_RETAIN",
+      "pr": null,
+      "pr_head": null,
+      "retain_reason": "preservation ref; never delete under section 4B"
     },
     {
       "ref": "preserve/cycle20-cycle19-unintegrated-20260828T022538Z",
-      "tip": "e25be0b8",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "e25be0b899342e9f00ad4f5f9bd1b9c4594974cb",
+      "upstream": "",
+      "track": "",
+      "disposition": "PRESERVATION_RETAIN",
+      "pr": null,
+      "pr_head": null,
+      "retain_reason": "preservation ref; never delete under section 4B"
     },
     {
       "ref": "preserve/cycle25-preflight-20260831T991bf466",
-      "tip": "991bf466",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "991bf4666fa6d60921448113939300c121250278",
+      "upstream": "",
+      "track": "",
+      "disposition": "PRESERVATION_RETAIN",
+      "pr": null,
+      "pr_head": null,
+      "retain_reason": "preservation ref; never delete under section 4B"
     },
     {
       "ref": "preserve/local-second-pass-audit-20260828T0405Z",
-      "tip": "254d4f88",
-      "upstream": null,
-      "worktree": null,
-      "current": false,
-      "disposition": "PRESERVATION_RETAIN"
+      "tip": "254d4f88b8082a330937461ce6bdc3f1301587c5",
+      "upstream": "",
+      "track": "",
+      "disposition": "PRESERVATION_RETAIN",
+      "pr": null,
+      "pr_head": null,
+      "retain_reason": "preservation ref; never delete under section 4B"
     },
     {
       "ref": "process/BAT-688-cycle25-5-jira-reconcile",
-      "tip": "16906767",
+      "tip": "1690676720a37b4c1770bae839e0f63c2b96a695",
       "upstream": "origin/process/BAT-688-cycle25-5-jira-reconcile",
-      "worktree": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile",
-      "current": false,
-      "disposition": "ACTIVE_UNMERGED_WORK"
+      "track": "[gone]",
+      "disposition": "ACTIVE_UNMERGED_WORK",
+      "pr": null,
+      "pr_head": null
+    },
+    {
+      "ref": "dependabot/pip/product-runtime-029124cf7c",
+      "tip": "8eccbf158c1b72fe35a64f5fd33349654931be7c",
+      "upstream": "",
+      "track": "remote-only-or-tracking",
+      "disposition": "ACTIVE_PR",
+      "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/654",
+      "pr_head": "8eccbf158c1b72fe35a64f5fd33349654931be7c"
     }
   ],
   "worktrees": [
     {
       "path": "C:/BatteredAggieSyndrome",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
       "branch": "refs/heads/main"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "410e7bf6e893e103266665654f340b1dfe5c42bd",
       "branch": "refs/heads/codex/BAT-688-hold-inventory"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "266d13839e8fb1aa369a2eb2a9c36fbb38d27330",
       "branch": "refs/heads/material/BAT-688-inventory-authority-roots"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "ba2e9e6650ef71e8c0c3f630ad8768e36a423843",
       "branch": "refs/heads/material/BAT-688-inventory-git-first-add"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "1690676720a37b4c1770bae839e0f63c2b96a695",
       "branch": "refs/heads/process/BAT-688-cycle25-5-jira-reconcile"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "49003eea32d2935ecf79a0ca68bda87bf4896e79",
       "branch": "refs/heads/codex/BAT-688-scientific-trust-hold"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "8c1ebcf502a6a56f52344aa314cd1f54c1a01554",
       "branch": "refs/heads/codex/BAT-689-execution-focus-correction"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "99b901d84f54233af1c4a7c8974b71652df99b8f",
       "branch": "refs/heads/codex/BAT-689-review-infra"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
-      "head": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
+      "disposition": "ACTIVE_WORKTREE",
+      "head": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07",
       "branch": "refs/heads/codex/BAT-690-c26-scr"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "3ef3b6a6e3e9c6bf7e9f332fa40a583b94fa83f2",
       "branch": "refs/heads/codex/BAT-690-scientific-successors"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "deaece17cd66d51510cf8ee29f615d35a3c11994",
       "detached": true
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1",
       "detached": true
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "94cf3d66d8e19282fdfbc5f920f6b03b3aaca012",
       "branch": "refs/heads/codex/public-private-separation"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover",
+      "disposition": "ACTIVE_WORKTREE",
       "head": "f5b36c56664549962f2d72e9093e12d1ea23deec",
       "branch": "refs/heads/codex/public-repository-makeover"
     }
   ],
-  "deleted_refs": [],
-  "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d_LEFT_UNCHANGED"
+  "open_prs": [
+    {
+      "number": 678,
+      "head": "codex/BAT-690-c26-scr",
+      "oid": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07",
+      "url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"
+    },
+    {
+      "number": 654,
+      "head": "dependabot/pip/product-runtime-029124cf7c",
+      "oid": "8eccbf158c1b72fe35a64f5fd33349654931be7c",
+      "url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/654"
+    }
+  ],
+  "removed_in_this_refresh": [],
+  "hold": "ACTIVE_no_merge_for_cleanup",
+  "obsolete_cleanup_note": "preserve/* tips may be ancestors of main but are PRESERVATION_RETAIN; not deleted. No MERGED_OBSOLETE_ELIGIBLE deletions executed in this refresh.",
+  "scheduler_dedupe": {
+    "sep4_t24h": "PID_34232 TargetUtc 2026-09-03T22:00:00Z",
+    "am_t24h": "PID_17032 TargetUtc 2026-09-04T22:15:00Z",
+    "am_t90m": "PID_20624 TargetUtc 2026-09-05T20:45:00Z",
+    "failover_monitors": [
+      "37744",
+      "19856",
+      "60988"
+    ]
+  }
 }

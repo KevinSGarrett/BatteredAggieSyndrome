@@ -88,5 +88,10 @@
   "verified_at_utc": "2026-09-03T20:03:09.969051+00:00",
   "verify_live_at": "2026-09-03T20:03:09Z",
   "verify_live_pass_at_utc": "2026-09-03T20:03:09Z",
-  "verify_live_result": "PASS"
+  "verify_live_result": "PASS",
+  "last_verify_live_at_utc": "2026-09-03T20:57:52Z",
+  "last_verify_live_result": "PASS",
+  "last_verify_live_total_issues": 627,
+  "hold_note": "No Done transitions; no Cycle26 BAT-523 parent-progress comment",
+  "git_tip_at_verify": "a5e5e7b709f45f741d85fcd29e4d8b1a6a3c3e07"
 }

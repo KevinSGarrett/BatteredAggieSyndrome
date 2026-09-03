@@ -58,7 +58,7 @@ PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 unresolved (pass-two backlog); R26-13 
 
 - Sep 3 T-24H: MISSED_CUTOFF_NO_BACKFILL (11 contests)
 - Sep 3 T-90M: **bound** 2026-09-03T15:41:18Z predecessor and **successor refresh** 2026-09-03T19:05:35Z (`T90M_LABEL_PERMITTED`; earliest cutoff 2026-09-03T20:30:00Z); scheduler refresh still armed 19:45Z
-- National Sep4-window T-24H: scheduler wake 2026-09-03T22:00:00Z (earliest cutoff 22:30Z) — pending at report issuance
+- National Sep4-window T-24H: **bound** 2026-09-03T22:12:29Z (T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW; earliest cutoff 22:30Z)
 - A&M 6607349 T-24H 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z
 - Scoring: AWAITING_FINAL
 - Deterministic capture runner: ops/cycle26/run_week1_checkpoint_capture.ps1
@@ -81,3 +81,5 @@ _T-90M scheduled 19:45Z refresh bound 2026-09-03T20:01:19Z: tip=2020c45b; predec
 _Scheduled T-90M wake bind 2026-09-03T20:01:19Z: tip advancing after freeze receipt; label T90M_LABEL_PERMITTED; schedule ac08bf4c; national T-24H still armed 22:00Z; PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._
 
 _Sep4-window T-24H freeze 2026-09-03T22:12:47Z: label T-24H permitted before 22:30Z cutoff; schedule 0236d013…; weather 802fd99d…; PRIMARY_TRUST_RECOVERY_INCOMPLETE; REVIEW_READY_UNMERGED._
+
+_National Sep4-window T-24H bound 2026-09-03T22:12:29Z: tip=6ea6a182; label T-24H / T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW (cutoff 22:30Z); PRIMARY_TRUST_RECOVERY_INCOMPLETE; Pass3 PENDING_INDEPENDENT_REVIEWER; REVIEW_READY_UNMERGED; no merge authorized._

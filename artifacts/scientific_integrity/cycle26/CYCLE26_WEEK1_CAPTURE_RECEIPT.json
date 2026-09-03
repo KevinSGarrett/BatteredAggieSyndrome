@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_WEEK1_CAPTURE_RECEIPT",
-  "issued_at_utc": "2026-09-03T08:27:15Z",
-  "code_head": "f689a8ec7935140e44b8a455071c73b97d22c877",
+  "issued_at_utc": "2026-09-03T08:43:03Z",
+  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
   "data_root": "C:\\BatteredAggieSyndrome.data",
   "captures": {
     "schedule_source_universe": {
@@ -44,5 +44,19 @@
     "asof_is_not_per_game_t24h": true
   },
   "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
-  "rebound_at_utc": "2026-09-03T08:33:01Z"
+  "rebound_at_utc": "2026-09-03T08:43:03Z",
+  "next_calendar_actions": [
+    {
+      "action": "SEP3_T90M_FREEZE_CAPTURE",
+      "not_before_utc": null,
+      "deadline_utc": "2026-09-03T20:30:00Z",
+      "command": "python tools/acquire_week1_2026_source_universe.py --dataset schedule --env-file C:\\BatteredAggieSyndrome\\.env",
+      "note": "Packet may only receive T-90M label if every required record freezes by cutoff"
+    },
+    {
+      "action": "SEP4_T24H_CAPTURE",
+      "deadline_window": "per-contest T-24H before each Sep4 kickoff",
+      "am_t24h_utc": "2026-09-04T23:00:00Z"
+    }
+  ]
 }

@@ -1,8 +1,8 @@
 {
   "pass": 2,
   "name": "independent_scientific_reconstruction",
-  "issued_at_utc": "2026-09-03T06:17:01Z",
-  "code_head": "f689a8ec7935140e44b8a455071c73b97d22c877",
+  "issued_at_utc": "2026-09-03T08:43:03Z",
+  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
   "reference_modules": [
     "aggie_analytics.scientific_reference.coherence"
   ],

@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_WEEK1_SCORING_READINESS",
-  "issued_at_utc": "2026-09-03T07:36:31Z",
-  "code_head": "c9662a01785ad817a9579e81e001d2e8b086fa3f",
+  "issued_at_utc": "2026-09-03T08:43:03Z",
+  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
   "scoring_contract_module": "src/aggie_analytics/modeling/week_zero_official_final_scoring.py",
   "week1_target_scoring_state": "AWAITING_FINAL",
   "held_fixture_branch": "BAT-674 week-zero official-final scoring successor available for reconstruction on frozen fixtures",

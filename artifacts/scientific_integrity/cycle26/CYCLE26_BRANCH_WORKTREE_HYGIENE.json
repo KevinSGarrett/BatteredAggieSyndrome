@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T08:33:01Z",
+  "issued_at_utc": "2026-09-03T08:43:03Z",
   "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
   "main_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "preserve_namespace": "refs/preserve/cycle26-obsolete-20260903T082501Z",
@@ -199,7 +199,7 @@
     "branch": "codex/BAT-690-c26-scr",
     "disposition": "ACTIVE_UNMERGED_WORK"
   },
-  "code_head": "f689a8ec7935140e44b8a455071c73b97d22c877",
+  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
   "note": "All local/remote/worktree entries classified. Two previously DIVERGED_OR_UNKNOWN_BLOCKED local-only tips are now PRESERVATION_RETAIN with exact preserve refs under refs/preserve/cycle26/. No unsafe deletions executed. Active PR #678 retained. BRANCH_WORKTREE_HYGIENE=VERIFIED.",
   "next_actions": [
     {

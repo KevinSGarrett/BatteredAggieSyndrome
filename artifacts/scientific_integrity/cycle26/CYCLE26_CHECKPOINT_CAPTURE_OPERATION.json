@@ -1,0 +1,38 @@
+{
+  "artifact_type": "CYCLE26_CHECKPOINT_CAPTURE_OPERATION",
+  "issued_at_utc": "2026-09-03T08:43:03Z",
+  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-690-c26-scr",
+  "data_root": "C:\\BatteredAggieSyndrome.data",
+  "env_file": "C:\\BatteredAggieSyndrome\\.env",
+  "operator_hold": "ACTIVE",
+  "scheduling_authority": "NOT_INSTALLED_SURFACE_FOR_APPROVAL",
+  "overlap_lock": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\locks\\week1_capture.lock",
+  "idempotency": "content-addressed raw captures; re-run safe if identities collide",
+  "bounded_retry": {
+    "max_attempts": 3,
+    "timeout_s": 180
+  },
+  "operations": [
+    {
+      "id": "SEP3_T90M",
+      "label": "T-90M",
+      "earliest_eligible_contest_cutoff_utc": "2026-09-03T20:30:00Z",
+      "steps": [
+        "python tools/acquire_week1_2026_source_universe.py --dataset schedule --env-file C:\\BatteredAggieSyndrome\\.env",
+        "python tools/acquire_week1_2026_authority_enrichment.py --dataset all --env-file C:\\BatteredAggieSyndrome\\.env",
+        "python tools/acquire_week1_2026_current_context.py --dataset rankings",
+        "python tools/acquire_week1_2026_current_context.py --dataset weather"
+      ],
+      "missed_policy": "MISSED_CUTOFF_NO_BACKFILL; later pre-kickoff may support a NEW later checkpoint only"
+    },
+    {
+      "id": "SEP4_T24H",
+      "label": "T-24H",
+      "am_contest": "6607349",
+      "am_deadline_utc": "2026-09-04T23:00:00Z",
+      "note": "National Sep4 games have earlier individual cutoffs; do not wait for A&M alone"
+    }
+  ],
+  "retired_pipeline": "NOT_OPERATIONAL_DO_NOT_REACTIVATE"
+}

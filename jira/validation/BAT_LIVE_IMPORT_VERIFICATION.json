@@ -83,9 +83,10 @@
   "result": "PASS",
   "schema_version": 2,
   "status_counts": {
-    "Done": 209,
-    "In Progress": 2,
-    "To Do": 416
+    "Done": 212,
+    "To Do": 408,
+    "In Progress": 1,
+    "In Review": 6
   },
   "total_actual_issue_count": 627,
   "total_expected_issue_count": 627,
@@ -96,9 +97,10 @@
     "Task": 334
   },
   "total_status_counts": {
-    "Done": 209,
-    "In Progress": 2,
-    "To Do": 416
+    "Done": 212,
+    "To Do": 408,
+    "In Progress": 1,
+    "In Review": 6
   },
   "unexpected_issue_keys": [],
   "unexpected_issue_type_counts": {},

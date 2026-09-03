@@ -1,17 +1,23 @@
 {
   "artifact_type": "CYCLE26_SEP4_T24H_CAPTURE_PREP",
-  "issued_at_utc": "2026-09-03T14:38:00Z",
-  "code_head": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
+  "issued_at_utc": "2026-09-03T18:53:41Z",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "git_tip_at_issuance": "05ffbfaa1769911877295f2b49b649937db0a545",
   "runner": "C:/BatteredAggieSyndrome.data/ops/cycle26/run_week1_checkpoint_capture.ps1",
-  "scheduler": "C:/BatteredAggieSyndrome.data/ops/cycle26/run_scheduled_sep4_t24h_capture.ps1",
+  "scheduler": "run_scheduled_sep4_t24h_capture.ps1 wake 2026-09-03T22:00:00Z ARMED",
+  "am_t24h_scheduler": "run_scheduled_am_t24h_capture.ps1 wake 2026-09-04T22:15:00Z ARMED",
   "phase": "T24H",
   "national_note": "National September 4 games have earlier cutoffs than A&M T-24H; do not wait until A&M T-24H to preserve them.",
-  "earliest_national_t24h_cutoff_utc": "2026-09-03T22:30:00Z",
-  "scheduler_wake_utc": "2026-09-03T22:00:00Z",
   "a_and_m": {
     "ncaa_contest_id": "6607349",
     "t24h_utc": "2026-09-04T23:00:00Z",
     "t90m_utc": "2026-09-05T21:30:00Z"
+  },
+  "eligibility_snapshot": {
+    "contest_count": 91,
+    "t24h_missed": 11,
+    "t90m_still_eligible": 91,
+    "as_of_utc": "2026-09-03T18:53:39Z"
   },
   "rules": [
     "No T-7D or missed T-24H backfill",
@@ -19,5 +25,5 @@
     "MISSED_CUTOFF_NO_BACKFILL when late",
     "No merge/Done/BAT-523 parent-progress comment"
   ],
-  "result": "SCHEDULER_ARMED"
+  "result": "PREP_DOCUMENTED_SCHEDULERS_ARMED"
 }

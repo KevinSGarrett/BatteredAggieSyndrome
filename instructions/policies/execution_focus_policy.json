@@ -157,6 +157,27 @@
         "head_sha": "0df91cd691b613e6985e472faf5b294ce4a13de0",
         "classification": "[material]",
         "reason": "Cycle #26 remaining all-cycle audit backlog and Sep4 T-24H capture prep are material scientific/governance handoff artifacts on PR #678, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "afa0475fe3cff3a70b9ef90c5be679ed5e8260c3",
+        "pull_request": 678,
+        "head_sha": "afa0475fe3cff3a70b9ef90c5be679ed5e8260c3",
+        "classification": "[material]",
+        "reason": "Cycle #26 active-path acceptance and final report rebind at CI-green tip are material handoff artifacts on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
+        "pull_request": 678,
+        "head_sha": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
+        "classification": "[material]",
+        "reason": "Cycle #26 Jira verify-live stamp and watchdog convergence evidence on PR #678 are material operational artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "1127601f39c22a7219089a449226c2c2d283ce56",
+        "pull_request": 678,
+        "head_sha": "1127601f39c22a7219089a449226c2c2d283ce56",
+        "classification": "[material]",
+        "reason": "Cycle #26 T-90M executor arming and Jira verify refresh are material calendar-evidence operations on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

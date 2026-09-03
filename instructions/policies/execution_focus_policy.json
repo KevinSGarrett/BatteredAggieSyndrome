@@ -192,6 +192,20 @@
         "head_sha": "4e2dee0775b9dc163e5fef060b571c93c229fa64",
         "classification": "[material]",
         "reason": "Cycle #26 branch/worktree hygiene inventory refresh after T-90M freeze is material operational handoff evidence on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
+        "pull_request": 678,
+        "head_sha": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
+        "classification": "[material]",
+        "reason": "Cycle #26 Sep4-window T-24H freeze handoff rebind and acceptance/watchdog evidence on PR #678 are material operational artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "cd73f288ab7c40f856556bb178a3f71cae79f9e2",
+        "pull_request": 678,
+        "head_sha": "cd73f288ab7c40f856556bb178a3f71cae79f9e2",
+        "classification": "[material]",
+        "reason": "Cycle #26 finding-disposition evidence-ops stamp after Sep4 T-24H and A&M failover arming on PR #678 are material scientific/governance handoff artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

@@ -1,8 +1,8 @@
 {
   "artifact_type": "CYCLE26_FINDING_DISPOSITION_MATRIX",
   "schema_version": 2,
-  "issued_at_utc": "2026-09-03T07:35:58Z",
-  "code_head_at_issuance": "603de4508ac3e28f2ea933f0c036f50ecf2561c3",
+  "issued_at_utc": "2026-09-03T08:24:16Z",
+  "code_head_at_issuance": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "entries": [

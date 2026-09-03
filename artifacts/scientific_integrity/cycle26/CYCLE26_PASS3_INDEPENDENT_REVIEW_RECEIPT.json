@@ -1,14 +1,19 @@
 {
   "pass": 3,
   "name": "independent_review_of_implementation_and_review",
-  "issued_at_utc": "2026-09-03T07:41:56Z",
-  "code_head": "6afe8ca25eaa7d92d0b0bdd35d529504dc0181dd",
+  "issued_at_utc": "2026-09-03T08:24:16Z",
+  "code_head": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
   "result": "PENDING_INDEPENDENT_REVIEWER",
   "hosted_reviewers_available": [
     "Codex scientific review",
     "Bugbot"
   ],
   "author_self_approval": false,
-  "note": "Implementing author cannot alone complete Pass 3. PR #678 awaits independent review at head 6afe8ca25eaa7d92d0b0bdd35d529504dc0181dd",
-  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"
+  "note": "Hosted Codex scientific review PASS contributes evidence but does not alone complete Pass 3. Independent human adjudication still required at head 6f9aef3fcd96d265bf1f0c9d7e293314ce220b52.",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "hosted_review_contribution": {
+    "codex_review": "PASS",
+    "workflow_run": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33729445789",
+    "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"
+  }
 }

@@ -19,5 +19,8 @@
   "limitations": [
     "Empirical skill not established.",
     "Pass does not authorize merge or trust-gate release."
-  ]
+  ],
+  "rebinding_code_head": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
+  "rebinding_issued_at_utc": "2026-09-03T08:24:16Z",
+  "note": "Receipt rebound to current tip; successor gate identity unchanged (aa4ff84b...); prior pass evidence retained for declared national successor scope."
 }

@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
-  "issued_at_utc": "2026-09-03T07:41:56Z",
-  "code_head": "6afe8ca25eaa7d92d0b0bdd35d529504dc0181dd",
+  "issued_at_utc": "2026-09-03T08:24:16Z",
+  "code_head": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
   "live_statuses": {
     "BAT-696": "In Review",
@@ -24,7 +24,7 @@
   },
   "note": "import_bat_live.py --verify-live PASS at bound head. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment.",
   "verify_live_result": "PASS",
-  "verify_live_at": "2026-09-03T07:34:45Z",
+  "verify_live_at": "2026-09-03T08:07:53Z",
   "total_issue_count": 627,
   "status_counts": {
     "Done": 212,

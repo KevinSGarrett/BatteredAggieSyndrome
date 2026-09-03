@@ -502,6 +502,7 @@ artifacts/scientific_integrity/cycle26/CYCLE26_PASS2_INDEPENDENT_RECONSTRUCTION_
 artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEW_RECEIPT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json
+artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_SCORING_READINESS.json
 artifacts/shadow/bat401_done_lane_interpretation.json
 artifacts/shadow/cycle21_defect_classification_cycle22.json
@@ -4124,6 +4125,7 @@ tests/test_wmt_provider_timestamp_pit.py
 tests/test_wmt_tamu_specialization_feature_pit.py
 tests/test_worktree_resource_policy.py
 tools/__init__.py
+tools/_cycle26_patch_evidence.py
 tools/acquire_2026_prospective_schedule.py
 tools/acquire_2026_week_zero_live_execution_evidence.py
 tools/acquire_2026_week_zero_t7d_evidence.py

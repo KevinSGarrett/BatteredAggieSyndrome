@@ -32,7 +32,7 @@
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
   "canonical_or_protected_authority": false,
   "class": "PROJECT_WORK",
-  "decision_sha256": "341283edf3a72017c1481ba165dc3b17778f99b17b610bf65068e6e88deb49cb",
+  "decision_sha256": "9b63b18cdc52f83132e11a3ca4b83b184f6c6215c9aba90e09dab841f45c6f46",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "downstream_consumer": "Public repository readers and contributors",
   "jira_disposition": "NOT_APPLICABLE_NO_CANONICAL_SPECIFICATION_OR_JIRA_STATUS_CHANGE",
@@ -53,7 +53,6 @@
     "context": "User explicitly answered the request to commit, push, open a makeover PR and merge after required checks without rewriting history or removing scientific safeguards.",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "effective_authorization_constraints": {
-      "base_commit": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1",
       "effective_duration": "ENDS_WITH_PR_676_PUBLICATION_OR_WITH_USER_REVOCATION",
       "exact_scope": "The binding allowed_paths only, for this public-presentation publication.",
       "legacy_enum_explanation": "scope and duration above are unchanged required machine-policy literals, not a representation that the user granted repository-wide or indefinite authority. The validator additionally enforces the exact changed-path allowlist and work-unit binding.",

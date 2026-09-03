@@ -32,9 +32,9 @@
     "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
   "jira_identity": null,
-  "manifest_identity": "b46372ff66e762d37e515eba4b72810e825f840049778adca3b010a771d2bab0",
+  "manifest_identity": "50171f650e481d326e62f85b47758fe282f998785541cdfc8fff43e561e7f818",
   "ordinary_project_work_authorized": false,
-  "pre_routing_decision_sha256": "341283edf3a72017c1481ba165dc3b17778f99b17b610bf65068e6e88deb49cb",
+  "pre_routing_decision_sha256": "9b63b18cdc52f83132e11a3ca4b83b184f6c6215c9aba90e09dab841f45c6f46",
   "schema_version": 1,
   "work_class": "PROJECT_WORK",
   "work_unit_id": "PUBLIC-PRESENTATION-PUBLICATION-20260903"

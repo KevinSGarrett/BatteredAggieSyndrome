@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION",
-  "issued_at_utc": "2026-09-03T07:30:57Z",
-  "code_head": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+  "issued_at_utc": "2026-09-03T07:36:31Z",
+  "code_head": "c9662a01785ad817a9579e81e001d2e8b086fa3f",
   "finding": "R26-22",
   "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
   "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",

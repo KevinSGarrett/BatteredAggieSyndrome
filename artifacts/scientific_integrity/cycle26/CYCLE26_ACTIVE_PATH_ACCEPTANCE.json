@@ -1,12 +1,12 @@
 {
   "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
-  "issued_at_utc": "2026-09-03T07:30:57Z",
-  "code_head": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+  "issued_at_utc": "2026-09-03T07:36:31Z",
+  "code_head": "c9662a01785ad817a9579e81e001d2e8b086fa3f",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",
   "joint_fitted_path": "VERIFIED_WITHIN_DECLARED_SCOPE",
-  "PRIMARY_OBJECTIVE_NOTE": "Joint probability/margin/interval successor emitted for 79/91 ridge opportunities with independent reconstruction PASS and zero failing pairs. Historical saved C20/C21/C25 payloads remain unrepaired (contained). R26-21/R26-22 contained. UNTRUSTED_SHADOW; hold remains; Pass 3 pending.",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-21 StatCrew rematerialization cascade was reverted; defect CONFIRMED_CONTAINED_NOT_FIXED. Joint probability/margin/interval successor emitted for 79/91 ridge opportunities with independent reconstruction PASS and zero failing pairs. Historical saved C20/C21/C25 payloads remain unrepaired (contained). R26-21/R26-22 contained. UNTRUSTED_SHADOW; hold remains; Pass 3 pending.",
   "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
   "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
   "MERGE_AUTHORIZATION_GATE": "USER_EXPLICIT_ONLY",
@@ -655,5 +655,6 @@
     ],
     "schedule_gate_identity": "3682897882697fc939f23f79706ff37a46e8cf870f1f8432cdd51f55c13831cc",
     "forecast_successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
-  }
+  },
+  "PRIMARY_OBJECTIVE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE"
 }

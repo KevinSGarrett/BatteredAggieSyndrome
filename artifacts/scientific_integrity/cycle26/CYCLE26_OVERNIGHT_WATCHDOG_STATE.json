@@ -1,10 +1,10 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T22:12:47Z",
-  "git_tip": "PENDING_COMMIT",
+  "issued_at_utc": "2026-09-03T22:18:44Z",
+  "git_tip": "4209c413385d9b6d741e5dec120e70a3e094e8c1",
   "code_head_binding": "LIVE_PR_678_TIP",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "ci": "PENDING_ON_PUSH",
+  "ci": "PASS",
   "PRIMARY_TRUST_RECOVERY_INCOMPLETE": true,
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
@@ -30,9 +30,9 @@
   "R26_20": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_21": "CONFIRMED_FIXED_SUCCESSOR",
   "R26_22": "CONFIRMED_CONTAINED_NOT_FIXED",
-  "jira_verify_live_at": "2026-09-03T20:52:55Z",
+  "jira_verify_live_at": "2026-09-03T22:13:14Z",
   "t90m_scheduler": "run_scheduled_sep3_t90m_capture.ps1 COMPLETE_20260903T200119Z",
-  "t24h_scheduler": "COMPLETE_20260903T221223Z",
+  "t24h_scheduler": "COMPLETE_WITH_OVERLAP_RACE_RECOVERED",
   "t90m_executor": "armed_2026-09-03T19:45:00Z",
   "t90m_executor_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_T90M_EXECUTOR.log",
   "afternoon_refresh": "PASS_20260903T153037Z",
@@ -53,9 +53,10 @@
     "result": "OK",
     "at_utc": "2026-09-03T19:25:53Z"
   },
-  "sep4_window_t24h": "T-24H",
+  "sep4_window_t24h": "T-24H_BOUND_20260903T221229Z",
   "jira_verify_live_exit": 0,
   "watchdog_resume": "CYCLE26_OVERNIGHT_WATCHDOG_RESUME_v1",
   "sep4_window_t24h_freeze_at": "2026-09-03T22:12:29Z",
-  "sep4_window_t24h_label_authority": "T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW"
+  "sep4_window_t24h_label_authority": "T24H_LABEL_PERMITTED_FOR_EARLIEST_NATIONAL_WINDOW",
+  "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED"
 }

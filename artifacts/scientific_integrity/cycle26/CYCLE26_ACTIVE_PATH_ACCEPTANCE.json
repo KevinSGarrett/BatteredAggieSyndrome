@@ -146,7 +146,7 @@
     "t7d_backfill": false
   },
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
-  "ci_head": "f1fe397b48b2aefa29110b4fbd150e033bb6c564",
+  "ci_head": "4209c413385d9b6d741e5dec120e70a3e094e8c1",
   "ci_status": "GREEN",
   "code_head_binding": "LIVE_PR_678_TIP",
   "corpus_integrity_successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e",
@@ -383,7 +383,7 @@
     "joint_probability_margin_interval": false
   },
   "integration_authority": "REVIEW_READY_UNMERGED",
-  "issued_at_utc": "2026-09-03T14:11:28Z",
+  "issued_at_utc": "2026-09-03T22:18:44Z",
   "joint_fitted_path": "VERIFIED_WITHIN_DECLARED_SCOPE",
   "live_owners": {
     "captured_at_utc": "2026-09-03T06:04:11Z",
@@ -717,6 +717,17 @@
     "probability_sum": 1.0,
     "publication_label": "UNTRUSTED_SHADOW"
   },
-  "acceptance_rebound_at_utc": "2026-09-03T20:53:26Z",
-  "Pass3": "PENDING_INDEPENDENT_REVIEWER"
+  "acceptance_rebound_at_utc": "2026-09-03T22:13:37Z",
+  "Pass3": "PENDING_INDEPENDENT_REVIEWER",
+  "sep4_window_t24h_freeze_at_utc": "2026-09-03T22:12:29Z",
+  "git_tip": "4209c413385d9b6d741e5dec120e70a3e094e8c1",
+  "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
+  "calendar": {
+    "sep3_t24h": "MISSED_CUTOFF_NO_BACKFILL",
+    "sep3_t90m": "T-90M_BOUND_20260903T200119Z",
+    "sep4_window_t24h": "T-24H_BOUND_20260903T221229Z",
+    "am_t24h_utc": "2026-09-04T23:00:00Z",
+    "am_t90m_utc": "2026-09-05T21:30:00Z",
+    "scoring": "AWAITING_FINAL"
+  }
 }

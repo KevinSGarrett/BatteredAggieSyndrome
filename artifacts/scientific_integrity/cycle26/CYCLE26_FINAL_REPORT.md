@@ -6,7 +6,7 @@ Branch: `codex/BAT-690-c26-scr`
 Development origin: `KevinSGarrett/BatteredAggieSyndrome` (public; migration `DEFERRED_BY_USER_NOT_COMPLETE`)
 Data root: `C:/BatteredAggieSyndrome.data`
 Base / canonical `origin/main`: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d` (left unchanged)
-Requested review head: `1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2`
+Requested review head: GitHub PR #678 live tip. Numbered-report material commit: `ecb4357185e6d6b731e047dd1135051f20d7d93c`.
 PR: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678
 Historical manager-review SHA (not this head): `04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1`
 Fort Knox assistive pipeline: `NOT_OPERATIONAL` (direct BAS work permitted)
@@ -122,7 +122,7 @@ At worktree `src` first on PYTHONPATH:
 - Mounted `validate_repository --strict` against `C:\BatteredAggieSyndrome.data`: FAIL 14 predecessor StatCrew/structured-domain reconstructions — contained, not rematerialized; CI unmounted core-validation PASS.
 - Truly unmounted unittest discover (empty data root): 2988 tests, 219 skipped, 1 failure + 39 errors from tests that assume mounted fixtures. Reported, not converted into hidden skips.
 - Warnings-as-errors on mounted default at process-streak HEAD: 3136 tests, 1 failure (`CONSECUTIVE_PROCESS_ONLY_LIMIT_EXCEEDED` on a `[process]` commit). Subsequent `[material]` commits reset the streak; `test_execution_focus` 10/10 OK at later tips.
-- Hosted CI on PR #678 head `1cd2205b`: all attached checks PASS (ubuntu/windows core-validation, product-adapter, security-policy, CodeQL, coverage-upload, Codex review, Codecov patch, dependency-review).
+- Hosted CI on predecessor PR #678 head `1cd2205b`: all attached checks PASS (ubuntu/windows core-validation, product-adapter, security-policy, CodeQL, coverage-upload, Codex review, Codecov patch, dependency-review). This numbered-report commit re-runs CI on the live tip.
 - `import_bat_live.py --verify-live`: PASS 2026-09-03T23:01:40Z; 627/627; 0 discrepancies; board 134 / filter 10134; project Done 212 / In Progress 1 / In Review 6 / To Do 408.
 
 ## 7. Jira (4A)
@@ -159,7 +159,7 @@ No hold release, merge, production credibility, BAS / Aggie Excess / A&M-lift, o
 
 ## 12. Requested user authorization
 
-Present PR head `1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2` (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
+Present the live PR #678 head (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. Numbered-report material commit: `ecb4357185e6d6b731e047dd1135051f20d7d93c`. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
 
 Operational stop state: `IMPLEMENTATION_REVIEW_READY_UNMERGED`.
 Primary scientific stop state: `PRIMARY_TRUST_RECOVERY_INCOMPLETE`.

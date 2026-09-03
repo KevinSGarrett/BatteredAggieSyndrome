@@ -1,0 +1,16 @@
+{
+  "artifact_type": "CYCLE26_WEEK1_SCORING_READINESS",
+  "issued_at_utc": "2026-09-03T07:30:57Z",
+  "code_head": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+  "scoring_contract_module": "src/aggie_analytics/modeling/week_zero_official_final_scoring.py",
+  "week1_target_scoring_state": "AWAITING_FINAL",
+  "held_fixture_branch": "BAT-674 week-zero official-final scoring successor available for reconstruction on frozen fixtures",
+  "rules": [
+    "Authorize outcomes only through declared official final evidence and canonical identity",
+    "No residual for abstained/unfrozen rows",
+    "Append states without changing probabilities/checkpoint/candidate membership",
+    "Week1 outcomes cannot select/tune/promote the same cohort"
+  ],
+  "national_successor_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "result": "SCORING_IMPLEMENTATION_READY_TARGET_AWAITING_FINAL"
+}

@@ -52,3 +52,5 @@ No hold release, merge authority, production credibility, BAS/Aggie Excess, or p
 ## Requested user authorization
 
 Review the live PR #678 tip after required checks and authorize merge only with explicit scope. Pass 3 still requires independent human adjudication.
+
+_CI-green live tip 2026-09-03T09:20:20Z: tip=ae1cf969485da724a547df474cb70d2cd4da9ba2; ci=PASS; adversarial=46; universe_href_count=0 disposition=PARSE_INCONCLUSIVE; jira verify-live PASS; T-90M sleeper armed 19:45Z; Pass3 PENDING_INDEPENDENT_REVIEWER; PRIMARY_TRUST_RECOVERY_INCOMPLETE; REVIEW_READY_UNMERGED; no merge authorized._

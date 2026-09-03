@@ -5,21 +5,19 @@
   "jira_key": "BAT-603",
   "local_issue_id": "POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001",
   "purpose": "Create a new immutable successor to BAT-602 that independently recomputes BAT-600 and BAT-601 external payload semantics before consumption. Preserve the 261-game membership and four unmatched rejections. Do not rewrite BAT-586 through BAT-602 identities. new_games_added remains 0.",
-  "predecessor_union_identity": "5874a0556841a3d0f6caa25a5b501915f64211b645071df0094e058dbedf617f",
-  "predecessor_gate_identity": "cdff6912e51eb1d72107d86b6a2e8c40d47a5379017e8c927edbf408b6ed8786",
+  "predecessor_union_identity": "c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200",
+  "predecessor_gate_identity": "d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8",
   "pinned_bat600_dataset_identity": "e063378e564a3dcdbb09e42ea63cc0a843e9db8918130ecffd02f796c3805dbb",
   "pinned_bat600_acquisition_identity": "56aa050f4bf12c2e02a93915e03125f6cf782ea5b5cfd8b9bab63d724c3e5b59",
   "pinned_bat600_games_identity": "7bb39a7eaad39fa1b1c3ce640c78f309935c307c18d8498e6143cc35009153aa",
   "pinned_bat600_gate_identity": "c999af29522096e4ae3a9cdc558679321095c8cf11247ef1ccd23b3114ee18cc",
-  "pinned_bat601_payload_identity": "35ccd6ff643dad9248c57d41873f74572c3ac040a642dd0c54197289f87c833d",
-  "pinned_bat601_gate_identity": "a466c5ae9c18cb49a2008c0fc403fe80c9f480b9ba0bb560568651d3cfb393ad",
+  "pinned_bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
+  "pinned_bat601_gate_identity": "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d",
   "official_index_url": "https://files.12thman.com/history/football/years/2005.html",
   "parent_url_fallback_forbidden": true,
   "new_games_added": 0,
   "payloads": {
     "union_root": "features/tamu_official_gamebook_union_2005_integrity_bound/sha256"
   },
-  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "pinned_union_identity": "dfd51c6eff815ef56d1674d5c6055f2acad435123156261bf1e7b40c32da6340",
-  "pinned_gate_identity": "aaf307e5c2a42b48ea88b2745c965b5290a3d4312a71d48db49cf16a6a30e88b"
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
 }

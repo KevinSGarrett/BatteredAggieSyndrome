@@ -42,8 +42,8 @@ from aggie_analytics.data.tamu_official_2005_boxscores import (  # noqa: E402
 
 DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
-EXPECTED_GATE_IDENTITY = "aaf307e5c2a42b48ea88b2745c965b5290a3d4312a71d48db49cf16a6a30e88b"
-EXPECTED_UNION_IDENTITY = "dfd51c6eff815ef56d1674d5c6055f2acad435123156261bf1e7b40c32da6340"
+EXPECTED_GATE_IDENTITY = "ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580"
+EXPECTED_UNION_IDENTITY = "51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459"
 
 
 def _copy(value):

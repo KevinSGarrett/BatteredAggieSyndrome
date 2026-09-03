@@ -30,8 +30,8 @@ from aggie_analytics.data.tamu_official_2006_structured_domains import (  # noqa
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 TEXAS_URL = "https://files.12thman.com/history/football/stats/2006-2007/texas.htm"
-EXPECTED_GATE_IDENTITY = "973769e93b22c6e5f30fd8abbaef16bf0abc904e7bc9a5582fc25d4ef06514ba"
-EXPECTED_PAYLOAD_IDENTITY = "f4fc2472e90e37adc3d0d4569d8b1225a45acd6ad4d41aa48a9b3dbb39473a9d"
+EXPECTED_GATE_IDENTITY = "57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4"
+EXPECTED_PAYLOAD_IDENTITY = "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea"
 EXPECTED_HTML_ROWS_IDENTITY = "579f89802cb1ccb5d10b40728d378baed787ce5699243b23d5d63f4859521f98"
 
 

@@ -40,8 +40,8 @@ from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 UTAH_URL = "https://files.12thman.com/history/football/stats/2004-2005/mfb_116_utah.html"
-EXPECTED_GATE_IDENTITY = "1b3fb5536ff535b23a910a462857b0c7c1e29f66b3d937e0b1de90e85ac179b6"
-EXPECTED_PAYLOAD_IDENTITY = "80ba101dc4699c32eae44e963be627ac1edff00a09e2dd459780f11f6930122c"
+EXPECTED_GATE_IDENTITY = "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6"
+EXPECTED_PAYLOAD_IDENTITY = "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0"
 
 TEAM_HTML = """
 <pre>

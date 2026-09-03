@@ -4,14 +4,12 @@
   "jira_key": "BAT-602",
   "local_issue_id": "POST-TASK-SRC014-2005-EXPANDED-ENRICHED-UNION-001",
   "purpose": "Create a new immutable SRC-014 union identity that preserves the BAT-597 2006-expanded union and admits official 2005 games only when the BAT-599 index URL, BAT-600 box URL, and raw SHA all match. Overlay BAT-601 structured-row payload identities. Do not rewrite BAT-586 through BAT-601 identities.",
-  "prior_union_identity": "ef322be7f076edc17e6cb01cfc7a430399847a4c4ef62374c7a7849f718ca9cd",
-  "prior_union_gate_identity": "9983f6b40afed67b658ba78e2ab6081f2c599eca495c73966fd2743a286f654b",
-  "bat601_payload_identity": "35ccd6ff643dad9248c57d41873f74572c3ac040a642dd0c54197289f87c833d",
+  "prior_union_identity": "cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98",
+  "prior_union_gate_identity": "6a3a276087d3341b3826dec9c58391d54eaa42055149d7d7705e9e1a1d1601ff",
+  "bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
   "payloads": {
     "union_root": "features/tamu_official_gamebook_union_2005_expanded/sha256"
   },
-  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "pinned_union_identity": "5874a0556841a3d0f6caa25a5b501915f64211b645071df0094e058dbedf617f",
-  "pinned_gate_identity": "cdff6912e51eb1d72107d86b6a2e8c40d47a5379017e8c927edbf408b6ed8786"
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
 }

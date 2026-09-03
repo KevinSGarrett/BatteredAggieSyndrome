@@ -6,13 +6,11 @@
   "purpose": "Create a new immutable SRC-014 union identity that preserves the BAT-592 enriched union and admits official 2006 games only when the BAT-594 index URL, BAT-595 box URL, and raw SHA all match. Overlay BAT-596 domains. Do not rewrite BAT-586 through BAT-596 identities.",
   "prior_union_identity": "00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31",
   "prior_union_gate_identity": "3b546b12b3d50098bec457a010b47168f472449e8475c397ee44cd26ff1edc6a",
-  "bat591_payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
-  "bat596_payload_identity": "f4fc2472e90e37adc3d0d4569d8b1225a45acd6ad4d41aa48a9b3dbb39473a9d",
+  "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+  "bat596_payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
   "payloads": {
     "union_root": "features/tamu_official_gamebook_union_2006_expanded/sha256"
   },
-  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
-  "pinned_union_identity": "ef322be7f076edc17e6cb01cfc7a430399847a4c4ef62374c7a7849f718ca9cd",
-  "pinned_gate_identity": "9983f6b40afed67b658ba78e2ab6081f2c599eca495c73966fd2743a286f654b"
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED"
 }

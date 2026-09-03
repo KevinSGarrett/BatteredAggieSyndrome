@@ -1,7 +1,9 @@
 {
   "artifact_type": "CYCLE26_WEEK1_CAPTURE_RECEIPT",
-  "issued_at_utc": "2026-09-03T09:09:59Z",
-  "data_root": "C:\\BatteredAggieSyndrome.data",
+  "issued_at_utc": "2026-09-03T09:29:55Z",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "git_tip_at_issuance": "2112ec165c213a143de31f15a4811159b1c9c7a7",
+  "data_root": "C:\\\\BatteredAggieSyndrome.data",
   "captures": {
     "schedule_source_universe": {
       "tool": "tools/acquire_week1_2026_source_universe.py --dataset schedule",
@@ -52,7 +54,14 @@
     "asof_is_not_per_game_t24h": true
   },
   "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
-  "rebound_at_utc": "2026-09-03T09:06:55Z",
+  "rebound_at_utc": "2026-09-03T09:29:55Z",
+  "refresh_run": {
+    "phase": "REFRESH",
+    "finished_at_utc": "2026-09-03T09:28:50Z",
+    "runner": "ops/cycle26/run_week1_checkpoint_capture.ps1",
+    "log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260903T092404Z.log",
+    "note": "Smoke REFRESH proved DATA_ROOT+weather coords wiring; not a T-90M labeled freeze"
+  },
   "next_calendar_actions": [
     {
       "action": "SEP3_T90M_FREEZE_CAPTURE",
@@ -67,16 +76,10 @@
       "am_t24h_utc": "2026-09-04T23:00:00Z"
     }
   ],
-  "refresh_note": "2026-09-03 ~09:00Z session refresh: schedule/authority/rankings/weather reacquired; adversarial suite green (46); T-90M sleeper to arm for 19:45Z",
   "adversarial_regressions": {
     "module": "tests/test_cycle26_adversarial_regressions.py",
     "count": 46,
     "result": "OK",
     "pack_section_11_coverage": "cases_01_through_42_plus_r26_21_import_closure"
-  },
-  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
-  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
-  "code_head_binding": "LIVE_PR_678_TIP",
-  "rankings_authority_note": "Rankings capture proves retrieval only; publication vintage/known-at at forecast cutoff is not established by capture alone; rankings excluded from fitted admission absent separate proof."
+  }
 }

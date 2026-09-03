@@ -128,7 +128,7 @@
       "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
       "owner": "BAT-693",
       "correction": "Immutable historical payloads preserved; Cycle26 game-grain national successor emits coherent pairs; old metrics not cosmetically renormalized",
-      "successor_gate": "bd213778d497faf0ff5da7c34d5b3b5bea797fa53edabf0b5d47e6286a27350e"
+      "successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
     },
     {
       "id": "R26-21",

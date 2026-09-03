@@ -15,14 +15,10 @@ import math
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from aggie_analytics.data import week1_2026_national_forecast_suite as suite
 from aggie_analytics.data.week1_2026_game_grain_distribution_successor import (
     SHADOW_CLASSIFICATION,
     game_grain_forecast,
     oriented_rows_from_game,
-)
-from aggie_analytics.experimentation.development_2023_labeled_replay import (
-    normalize_pair_probabilities,
 )
 
 SCHEMA_VERSION = "aggie.shadow.week1_2026_game_grain_national_forecast_successor.v1"
@@ -62,6 +58,27 @@ TAMU_CANONICAL_TEAM_IDS = frozenset({"SRC-002:TEAM:245"})
 
 class GameGrainNationalViolation(ValueError):
     """Raised when the game-grain national successor cannot be built honestly."""
+
+
+def normalize_pair_probabilities(p_a_raw: float, p_b_raw: float) -> dict[str, float]:
+    """Fail-closed pair renormalization without importing numpy-backed suites."""
+    try:
+        p_a = float(p_a_raw)
+        p_b = float(p_b_raw)
+    except (TypeError, ValueError) as exc:
+        raise GameGrainNationalViolation("raw pair probability is not numeric") from exc
+    if not math.isfinite(p_a) or not math.isfinite(p_b):
+        raise GameGrainNationalViolation("raw pair probability is NaN or infinite")
+    if p_a < 0.0 or p_b < 0.0 or p_a == 0.0 or p_b == 0.0:
+        raise GameGrainNationalViolation("raw pair probability domain is invalid")
+    raw_sum = p_a + p_b
+    if raw_sum == 0.0:
+        raise GameGrainNationalViolation("raw pair probability sum is zero")
+    p_a_game = p_a / raw_sum
+    p_b_game = 1.0 - p_a_game
+    if abs((p_a_game + p_b_game) - 1.0) > 1e-12:
+        raise GameGrainNationalViolation("normalized pair is not complementary")
+    return {"p_a_game": p_a_game, "p_b_game": p_b_game, "raw_sum": raw_sum}
 
 
 def sha256_bytes(payload: bytes) -> str:
@@ -560,6 +577,9 @@ def materialize(
     issued_at_utc: str,
     early_gate_path: Path | None = None,
 ) -> dict[str, Any]:
+    # Lazy import keeps unit-test discovery free of numpy-backed forecast-suite deps.
+    from aggie_analytics.data import week1_2026_national_forecast_suite as suite
+
     early_gate_path = early_gate_path or (
         repo_root / "artifacts/forecast/week1_2026_early_forecast_adequacy_gate.json"
     )

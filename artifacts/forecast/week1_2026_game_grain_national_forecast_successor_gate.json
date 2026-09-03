@@ -53,10 +53,10 @@
       }
     ]
   },
-  "dataset_identity": "547713b943953bb9d3ae0c85bfdb28f2e0c3de5d3ad4ebc5416ddbba595aac18",
+  "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "decision_unit": "POST-TASK-ACTIVE-NATIONAL-FORECAST-SCIENTIFIC-CORRECTNESS-RECOVERY-001",
-  "gate_identity": "bd213778d497faf0ff5da7c34d5b3b5bea797fa53edabf0b5d47e6286a27350e",
-  "issued_at_utc": "2026-09-03T05:51:51Z",
+  "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "issued_at_utc": "2026-09-03T06:47:23Z",
   "jira_key": "BAT-693",
   "joint_distribution": {
     "interval_from_same_distribution": true,
@@ -74,32 +74,32 @@
   "payloads": {
     "coverage_rows": {
       "bytes": 571,
-      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/547713b943953bb9d3ae0c85bfdb28f2e0c3de5d3ad4ebc5416ddbba595aac18/week1_2026_game_grain_coverage_table.jsonl",
+      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_coverage_table.jsonl",
       "row_count": 5,
       "sha256": "bc6b9d09ae51984b5180a46bcd5bbd7fd393300658b4aeaae699c4d711beae0e"
     },
     "focus_packet": {
       "bytes": 13474,
-      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/547713b943953bb9d3ae0c85bfdb28f2e0c3de5d3ad4ebc5416ddbba595aac18/week1_2026_game_grain_focus_contest_packet.jsonl",
+      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_focus_contest_packet.jsonl",
       "row_count": 5,
       "sha256": "489e3f2562ba79705c0b5d7547381834f5bfc9c392a846bf4233cdb1cb357a8a"
     },
     "forecast_rows": {
       "bytes": 1228668,
-      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/547713b943953bb9d3ae0c85bfdb28f2e0c3de5d3ad4ebc5416ddbba595aac18/week1_2026_game_grain_forecast_rows.jsonl",
+      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_forecast_rows.jsonl",
       "row_count": 455,
       "sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16"
     },
     "oriented_rows": {
       "bytes": 95198,
-      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/547713b943953bb9d3ae0c85bfdb28f2e0c3de5d3ad4ebc5416ddbba595aac18/week1_2026_game_grain_oriented_rows.jsonl",
+      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_oriented_rows.jsonl",
       "row_count": 158,
       "sha256": "a46aee71b79689d2ad74a6fcceb293bcb291273386b7bd8b72f7e55d4bad08cc"
     }
   },
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "record_hashes": {
-    "core_module": "4367c3e68c1a79b5966d9f602f000c4a49916e6115e78570678bed3f33c11ada",
+    "core_module": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
     "coverage_rows": "bc6b9d09ae51984b5180a46bcd5bbd7fd393300658b4aeaae699c4d711beae0e",
     "focus_packet": "489e3f2562ba79705c0b5d7547381834f5bfc9c392a846bf4233cdb1cb357a8a",
     "forecast_rows": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",

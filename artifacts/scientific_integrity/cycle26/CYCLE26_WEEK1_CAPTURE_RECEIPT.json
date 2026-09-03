@@ -1,12 +1,12 @@
 {
   "artifact_type": "CYCLE26_WEEK1_CAPTURE_RECEIPT",
-  "issued_at_utc": "2026-09-03T08:43:03Z",
-  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "issued_at_utc": "2026-09-03T08:58:50Z",
+  "code_head": "8a3612f9ce0a11c8bf9815d36d594252959db2ea",
   "data_root": "C:\\BatteredAggieSyndrome.data",
   "captures": {
     "schedule_source_universe": {
       "tool": "tools/acquire_week1_2026_source_universe.py --dataset schedule",
-      "capture_identity": "990e672e2b00dd50939f482d914e28533aad466cdf919ed96f5228e720ac1819",
+      "capture_identity": "7623185c505055af7d6c3b675a05a39e32e74ccc4556a89eb1af7d7d9442a544",
       "dates_captured": [
         "2026-09-03",
         "2026-09-04",
@@ -18,19 +18,19 @@
     },
     "authority_enrichment": {
       "tool": "tools/acquire_week1_2026_authority_enrichment.py --dataset all",
-      "kickoff_authority": "3e344dcb3a466cf5d84d488d8fff70a979a3a27f1c32ffb6c100a3b908ccfa70",
-      "entity_authority": "05db3bc26b74c7d0c56cbd1cfdd62835ef1d247792eb05052faa0aaa83b1b169",
-      "venue_authority": "79a7591d51748026d7bb792ef4dc3f0bd961b8caf62a54c8a67fd396e41ae9e3",
+      "kickoff_authority": "5424a6b23e79f7e81465def6e6968bb8c09afc4c49cc716f224b06174f30dc3f",
+      "entity_authority": "bfaf6153a22ac3f63a9ba9f8aa5d683ad8533bb52da9ebc12fca108c9e1bdff8",
+      "venue_authority": "bdbb64353a659d657e4a9ec2c36c362564ad5ad00544418638b0a7fb3dfa21b3",
       "state": "CAPTURED"
     },
     "rankings": {
       "tool": "tools/acquire_week1_2026_current_context.py --dataset rankings",
-      "capture_identity": "a76c0af3bb7dffe25ddcb8715d9f967c09d9b6704f9f5b3e460cf436c21c122b",
+      "capture_identity": "3626fc884f47976071246a4371752e0a810c390517b8806e591d73852087c98d",
       "state": "CAPTURED"
     },
     "weather": {
       "tool": "tools/acquire_week1_2026_current_context.py --dataset weather",
-      "capture_identity": "800c68511b8dfcc6ffc090cdd033f154ef151cec3569472d928b835bec40ffd1",
+      "capture_identity": "3dbc19bdc713f5d4c973d7cb349178c85153df03f241faf856af8412d8e2c6dc",
       "state": "CAPTURED",
       "venue_coordinates": "C:/BatteredAggieSyndrome.data/tmp/c23_venue_coords.json"
     }
@@ -44,7 +44,7 @@
     "asof_is_not_per_game_t24h": true
   },
   "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
-  "rebound_at_utc": "2026-09-03T08:43:03Z",
+  "rebound_at_utc": "2026-09-03T08:58:50Z",
   "next_calendar_actions": [
     {
       "action": "SEP3_T90M_FREEZE_CAPTURE",
@@ -58,5 +58,6 @@
       "deadline_window": "per-contest T-24H before each Sep4 kickoff",
       "am_t24h_utc": "2026-09-04T23:00:00Z"
     }
-  ]
+  ],
+  "refresh_note": "Midday Sep3 UTC refresh of schedule/authority/rankings/weather; T-90M sleeper armed for 19:45Z"
 }

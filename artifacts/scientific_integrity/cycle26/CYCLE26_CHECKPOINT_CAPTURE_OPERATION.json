@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_CHECKPOINT_CAPTURE_OPERATION",
-  "issued_at_utc": "2026-09-03T08:43:03Z",
-  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "issued_at_utc": "2026-09-03T08:58:50Z",
+  "code_head": "8a3612f9ce0a11c8bf9815d36d594252959db2ea",
   "worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-690-c26-scr",
   "data_root": "C:\\BatteredAggieSyndrome.data",
   "env_file": "C:\\BatteredAggieSyndrome\\.env",
@@ -22,7 +22,7 @@
         "python tools/acquire_week1_2026_source_universe.py --dataset schedule --env-file C:\\BatteredAggieSyndrome\\.env",
         "python tools/acquire_week1_2026_authority_enrichment.py --dataset all --env-file C:\\BatteredAggieSyndrome\\.env",
         "python tools/acquire_week1_2026_current_context.py --dataset rankings",
-        "python tools/acquire_week1_2026_current_context.py --dataset weather"
+        "python tools/acquire_week1_2026_current_context.py --dataset weather --venue-coordinates C:\\BatteredAggieSyndrome.data\\tmp\\c23_venue_coords.json"
       ],
       "missed_policy": "MISSED_CUTOFF_NO_BACKFILL; later pre-kickoff may support a NEW later checkpoint only"
     },

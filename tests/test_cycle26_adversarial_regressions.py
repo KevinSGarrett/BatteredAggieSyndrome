@@ -775,6 +775,35 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             )
         )
 
+    def test_predictive_skill_development_only_does_not_claim_week1(self) -> None:
+        path = (
+            REPO_ROOT
+            / "artifacts"
+            / "scientific_integrity"
+            / "cycle26"
+            / "CYCLE26_PREDICTIVE_SKILL_EVIDENCE.json"
+        )
+        self.assertTrue(path.is_file(), "predictive skill evidence artifact must exist")
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(payload.get("PREDICTIVE_SKILL_EVIDENCE_STATE"), "DEVELOPMENT_EVIDENCE_ONLY")
+        nonclaims = payload.get("nonclaims") or {}
+        self.assertFalse(nonclaims.get("future_predictive_skill"))
+        self.assertFalse(nonclaims.get("production_credibility"))
+        self.assertFalse(nonclaims.get("week1_outcome_tuned"))
+        acceptance = json.loads(
+            (
+                REPO_ROOT
+                / "artifacts"
+                / "scientific_integrity"
+                / "cycle26"
+                / "CYCLE26_ACTIVE_PATH_ACCEPTANCE.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            acceptance.get("PREDICTIVE_SKILL_EVIDENCE_STATE"), "DEVELOPMENT_EVIDENCE_ONLY"
+        )
+        self.assertIn("PRIMARY_TRUST_RECOVERY_INCOMPLETE", acceptance.get("PRIMARY_OBJECTIVE_NOTE", ""))
+
 
 if __name__ == "__main__":
     unittest.main()

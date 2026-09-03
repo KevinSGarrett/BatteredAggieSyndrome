@@ -143,6 +143,20 @@
         "head_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
         "classification": "[material]",
         "reason": "Git revert of incomplete BAT-591 rematerialization restored material StatCrew/domain/corpus pins on PR #678, but default revert subject omitted [material]. Correction scoped to this exact revert commit."
+      },
+      {
+        "commit_sha": "bac5dcb91f13b984f278e24cdd205a0b97f9b513",
+        "pull_request": 678,
+        "head_sha": "bac5dcb91f13b984f278e24cdd205a0b97f9b513",
+        "classification": "[material]",
+        "reason": "Cycle #26 predictive-skill evidence bind created a downstream-consumable DEVELOPMENT_EVIDENCE_ONLY acceptance artifact on PR #678, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "0df91cd691b613e6985e472faf5b294ce4a13de0",
+        "pull_request": 678,
+        "head_sha": "0df91cd691b613e6985e472faf5b294ce4a13de0",
+        "classification": "[material]",
+        "reason": "Cycle #26 remaining all-cycle audit backlog and Sep4 T-24H capture prep are material scientific/governance handoff artifacts on PR #678, but the commit subject omitted [material]. Correction scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

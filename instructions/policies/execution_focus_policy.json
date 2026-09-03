@@ -115,6 +115,20 @@
         "head_sha": "f317fe7b3dfa362a6652f8410294776881301967",
         "classification": "[material]",
         "reason": "Cycle #26 review/hold/distribution repairs changed material validators and scientific helpers but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "9d770cef0336152e78b01f6cba5cd77fc1dd85cb",
+        "pull_request": 678,
+        "head_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "classification": "[material]",
+        "reason": "Cycle #26 national forecast successor and reconciliation changed material science/governance paths but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "pull_request": 678,
+        "head_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "classification": "[material]",
+        "reason": "Cycle #26 live Jira verification receipt refresh accompanied material Cycle #26 head updates but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

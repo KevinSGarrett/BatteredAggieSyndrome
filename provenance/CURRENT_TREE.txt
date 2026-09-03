@@ -2174,6 +2174,7 @@ jira/project/WORKFLOW_MAPPING.yaml
 jira/reconciliation/BAT_AUTHORITY_PROGRESS_COMMENT_LEDGER.json
 jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json
 jira/reconciliation/BAT_AUXILIARY_QUARANTINE_REGISTRY.json
+jira/reconciliation/BAT_HOLD_REQUIRED_ISSUE_SNAPSHOT.json
 jira/reconciliation/BAT_JIRA_EXPORT.csv
 jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json
 jira/reconciliation/BAT_RETIRED_CANONICAL_ISSUE_REGISTRY.json
@@ -4119,7 +4120,6 @@ tests/test_wmt_provider_timestamp_pit.py
 tests/test_wmt_tamu_specialization_feature_pit.py
 tests/test_worktree_resource_policy.py
 tools/__init__.py
-tools/_diag_aux_live.py
 tools/acquire_2026_prospective_schedule.py
 tools/acquire_2026_week_zero_live_execution_evidence.py
 tools/acquire_2026_week_zero_t7d_evidence.py

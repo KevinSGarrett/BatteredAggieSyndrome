@@ -1,10 +1,10 @@
 {
   "artifact_type": "CYCLE26_OVERNIGHT_WATCHDOG_STATE",
-  "issued_at_utc": "2026-09-03T08:58:50Z",
-  "git_tip": "8a3612f9ce0a11c8bf9815d36d594252959db2ea",
-  "receipt_bound_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "issued_at_utc": "2026-09-03T09:06:55Z",
+  "git_tip": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
+  "receipt_bound_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "ci": "PASS",
+  "ci": "IN_PROGRESS_CODEX_REVIEW_RERUN",
   "PRIMARY_TRUST_RECOVERY_INCOMPLETE": true,
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
@@ -12,10 +12,14 @@
   "Pass3": "PENDING_INDEPENDENT_REVIEWER",
   "integration_authority": "REVIEW_READY_UNMERGED",
   "merge_authorized": false,
-  "t90m_sleeper": "armed_until_2026-09-03T19:45:00Z",
+  "t90m_sleeper": "arming_until_2026-09-03T19:45:00Z",
   "sep3_t24h": "MISSED_CUTOFF_NO_BACKFILL",
   "migration": "DEFERRED_BY_USER_NOT_COMPLETE",
   "hold": "ACTIVE",
-  "latest_schedule_capture_identity": "7623185c505055af7d6c3b675a05a39e32e74ccc4556a89eb1af7d7d9442a544",
-  "latest_weather_capture_identity": "3dbc19bdc713f5d4c973d7cb349178c85153df03f241faf856af8412d8e2c6dc"
+  "latest_schedule_capture_identity": "3b300e12414d4dece017fcf5388892c8fc2e0aa8753f9622b9ac03644fb15a48",
+  "latest_rankings_capture_identity": "04b6600f114de7a7390f4311a4eb29f12fd66a8b6830ce8cccd8eab5a7535367",
+  "latest_weather_capture_identity": "0181c3eb744d62eb2395a1e264cfd2dd10a834c8ff0c755f376023e00b15edd5",
+  "jira_verify_live_at": "2026-09-03T09:01:57.962220+00:00",
+  "jira_verify_live_result": "PASS",
+  "jira_total_issues": 627
 }

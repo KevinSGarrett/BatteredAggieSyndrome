@@ -1,8 +1,8 @@
 {
   "artifact_type": "CYCLE26_FINDING_DISPOSITION_MATRIX",
   "schema_version": 2,
-  "issued_at_utc": "2026-09-03T08:50:05Z",
-  "code_head_at_issuance": "6ec1df1bdcb8c815ed3324b5994964f0ffa67889",
+  "issued_at_utc": "2026-09-03T09:08:12Z",
+  "code_head_at_issuance": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "entries": [
@@ -53,7 +53,9 @@
       "severity": "P1",
       "disposition": "QUALIFIED",
       "owner": "BAT-690",
-      "reason": "National successor materialized with fitted joint ridge path; historical helpers no longer the sole recovery claim"
+      "reason": "National successor materialized with fitted joint ridge path; historical helpers no longer the sole recovery claim",
+      "successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+      "residual_risk": "Historical helper-only recovery claims remain insufficient without the declared successor path; path is UNTRUSTED_SHADOW"
     },
     {
       "id": "R26-09",
@@ -130,7 +132,8 @@
       "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
       "owner": "BAT-693",
       "correction": "Immutable historical payloads preserved; Cycle26 game-grain national successor emits coherent pairs; old metrics not cosmetically renormalized",
-      "successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      "successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+      "red_before_green_after": "tests/test_cycle26_adversarial_regressions.py::test_25 + national successor gate failing_pairs=0"
     },
     {
       "id": "R26-21",
@@ -138,14 +141,17 @@
       "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
       "owner": "BAT-692",
       "residual_risk": "Full 429-row corpus successor rematerialization still pending; incomplete cascade reverted to protect CI",
-      "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json"
+      "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json",
+      "active_path_import_edges": 0,
+      "red_before_green_after": "tests/test_cycle26_adversarial_regressions.py::test_26 + test_r26_21_active_path_does_not_import_statcrew"
     },
     {
       "id": "R26-22",
       "severity": "P1",
       "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
       "owner": "BAT-690",
-      "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json"
+      "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json",
+      "red_before_green_after": "tests/test_cycle26_adversarial_regressions.py::test_27"
     },
     {
       "id": "R26-23",
@@ -173,5 +179,11 @@
     }
   ],
   "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
-  "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED"
+  "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
+  "adversarial_regressions": {
+    "module": "tests/test_cycle26_adversarial_regressions.py",
+    "count": 46,
+    "result": "OK",
+    "at_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4"
+  }
 }

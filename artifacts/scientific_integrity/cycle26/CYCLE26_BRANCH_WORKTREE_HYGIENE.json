@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T08:43:03Z",
+  "issued_at_utc": "2026-09-03T09:08:12Z",
   "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
   "main_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "preserve_namespace": "refs/preserve/cycle26-obsolete-20260903T082501Z",
@@ -75,8 +75,9 @@
     },
     {
       "name": "codex/BAT-690-c26-scr",
-      "tip": "6f9aef3fcd96d265bf1f0c9d7e293314ce220b52",
-      "reason": "PROTECTED_OR_ACTIVE_OR_PRESERVATION"
+      "tip": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
+      "reason": "ACTIVE_PR",
+      "pr": 678
     },
     {
       "name": "codex/BAT-690-scientific-successors",
@@ -199,7 +200,7 @@
     "branch": "codex/BAT-690-c26-scr",
     "disposition": "ACTIVE_UNMERGED_WORK"
   },
-  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "code_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "note": "All local/remote/worktree entries classified. Two previously DIVERGED_OR_UNKNOWN_BLOCKED local-only tips are now PRESERVATION_RETAIN with exact preserve refs under refs/preserve/cycle26/. No unsafe deletions executed. Active PR #678 retained. BRANCH_WORKTREE_HYGIENE=VERIFIED.",
   "next_actions": [
     {
@@ -222,5 +223,6 @@
       "ref": "refs/preserve/cycle26/recovery-local-main-9a068a96",
       "tip": "9a068a96ad3f66f39aa86b7e972edce9b7982380"
     }
-  ]
+  ],
+  "refresh_note": "Retained entries reaffirmed; active Cycle26 tip updated; no disposable obsolete deletions executed in this refresh (open PRs/worktrees/preservation retained). Remote-gone tracking and STILL_ON_REMOTE historical branches remain explicitly classified, not age-deleted."
 }

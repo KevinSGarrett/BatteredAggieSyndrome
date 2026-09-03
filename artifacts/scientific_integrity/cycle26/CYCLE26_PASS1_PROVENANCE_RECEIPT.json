@@ -1,8 +1,8 @@
 {
   "pass": 1,
   "name": "provenance_completeness_execution",
-  "issued_at_utc": "2026-09-03T08:43:03Z",
-  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "issued_at_utc": "2026-09-03T09:09:49Z",
+  "code_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "scope": {
     "candidate_families": [
       "national_base_rate",

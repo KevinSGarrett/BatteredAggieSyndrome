@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
-  "issued_at_utc": "2026-09-03T08:43:03Z",
-  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "issued_at_utc": "2026-09-03T09:08:12Z",
+  "code_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
   "live_statuses": {
     "BAT-696": "In Review",
@@ -22,9 +22,9 @@
     "done_on_remaining_scientific_owners": false,
     "bat_523_parent_progress_cycle26": false
   },
-  "note": "import_bat_live.py --verify-live PASS at bound head. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment.",
+  "note": "import_bat_live.py --verify-live PASS. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization.",
   "verify_live_result": "PASS",
-  "verify_live_at": "2026-09-03T08:07:53Z",
+  "verify_live_at": "2026-09-03T09:01:57.962220+00:00",
   "total_issue_count": 627,
   "status_counts": {
     "Done": 212,
@@ -32,6 +32,22 @@
     "In Review": 6,
     "To Do": 408
   },
-  "verified_at_utc": "2026-09-03T08:33:11.792064+00:00",
-  "BRANCH_WORKTREE_HYGIENE": "VERIFIED"
+  "issue_type_counts": {
+    "Epic": 50,
+    "Story": 53,
+    "Sub-task": 190,
+    "Task": 334
+  },
+  "missing_auxiliary_keys": [],
+  "unexpected_issue_keys": [],
+  "verified_at_utc": "2026-09-03T09:01:57.962220+00:00",
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+  "commands": [
+    {
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "exit": 0,
+      "result": "PASS",
+      "at": "2026-09-03T09:01:57.962220+00:00"
+    }
+  ]
 }

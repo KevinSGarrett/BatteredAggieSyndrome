@@ -1,12 +1,12 @@
 {
   "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
-  "issued_at_utc": "2026-09-03T08:43:03Z",
-  "code_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "issued_at_utc": "2026-09-03T09:09:49Z",
+  "code_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
   "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",
   "joint_fitted_path": "VERIFIED_WITHIN_DECLARED_SCOPE",
-  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-21 StatCrew rematerialization cascade was reverted; defect CONFIRMED_CONTAINED_NOT_FIXED. Joint probability/margin/interval successor emitted for 79/91 ridge opportunities with independent reconstruction PASS and zero failing pairs. Historical saved C20/C21/C25 payloads remain unrepaired (contained). R26-21/R26-22 contained. UNTRUSTED_SHADOW; hold remains; Pass 3 pending.",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-21 StatCrew rematerialization cascade was reverted; defect CONFIRMED_CONTAINED_NOT_FIXED. Joint probability/margin/interval successor emitted for 79/91 ridge opportunities with independent reconstruction PASS and zero failing pairs. Historical saved C20/C21/C25 payloads remain unrepaired (contained). R26-21/R26-22 contained. UNTRUSTED_SHADOW; hold remains; Pass 3 pending. Adversarial suite 46 OK.",
   "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
   "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
   "MERGE_AUTHORIZATION_GATE": "USER_EXPLICIT_ONLY",
@@ -660,6 +660,6 @@
   "R26_21_ACTIVE_PATH_DEPENDENCY": "NONE_PROVEN",
   "R26_21_NOTE": "Week1 national fitted successor import closure has zero BAT-591/StatCrew edges; R26-21 remains CONFIRMED_CONTAINED_NOT_FIXED for corpus owners.",
   "manifest_integrity_note": "Regenerated provenance manifest to remove stale tools/_cycle26_patch_evidence.py entry that broke CI strict validate.",
-  "ci_head": "e443343cd403a917ddaa02a0d5fdbcbc49bd879a",
+  "ci_head": "06db31244a08883ffb1d56e1db911d9b8b60ced4",
   "ci_status": "PASS"
 }

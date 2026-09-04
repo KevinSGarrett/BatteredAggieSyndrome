@@ -1,12 +1,12 @@
 # Cycle #26 numbered report — not a completion certificate
 
-Issued: 2026-09-04T03:05:00Z
+Issued: 2026-09-04T03:50:00Z
 Worktree: `C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr`
 Branch: `codex/BAT-690-c26-scr`
 Development origin: `KevinSGarrett/BatteredAggieSyndrome` (public; migration `DEFERRED_BY_USER_NOT_COMPLETE`)
 Data root: `C:/BatteredAggieSyndrome.data`
 Base / canonical `origin/main`: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d` (left unchanged)
-Latest material head: `ca31ddcf9b5ebb598bff843158c21ab39e86b460`
+Latest material head: `e1e92c0aae1c4ba7f4090cf43ba2a552678e00d7`
 Predecessor-containment material: `25fc78fb61aa192ed11c64117426ed988fa32837`
 PR: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678
 Historical manager-review SHA (not this head): `04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1`
@@ -25,6 +25,9 @@ This is the Cycle #26 stop-boundary report. It does not close Cycle #25.5, relea
 | Historical pair successor gate | `1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0` |
 | Independent Pass 3 (Week 1 successor) | `c353f01a2ae6021fae17e752fcfac0c038ee1645` `PASS_WITHIN_DECLARED_SCOPE` |
 | Independent Pass 3 (R26-09 stamp) | `20b0b78d0cb29db4ef90c50e4a1f62b5624d55a2` `PASS_WITHIN_DECLARED_SCOPE` |
+| Fitted-path temporal-authority gate | `8abf30a34a7e59b27782d9d152461273120ee19695e0d8f2e324faf1dc039e8e` |
+| Remaining-claim census gate | `4aac43a01f9799f20afcbebf7467a0fa35a20ab7bd3bf767402f004db3e9c726` |
+| Week 1 official-final scoring gate | `1960b623df9ab4e8d167a98cfe62f9a9b996b4605af4c4dbc024d21fb4708789` |
 
 ## 2. Independent 12C states
 
@@ -60,7 +63,7 @@ R26-09 inventory-stamp repair and independent Pass 3 receipt at `20b0b78d` are r
 | R26-06 | CONFIRMED_FIXED |
 | R26-07 | CONFIRMED_FIXED |
 | R26-08 | QUALIFIED |
-| R26-09 | CONFIRMED_FIXED (stamp); remaining reconstruction NOT_AUDITED_YET |
+| R26-09 | CONFIRMED_FIXED (stamp); remaining reconstruction enumerated, not COMPLETE |
 | R26-10 | DISPROVED_WITH_EVIDENCE |
 | R26-11 | CONFIRMED_FIXED |
 | R26-12 | CONFIRMED_FIXED |
@@ -73,7 +76,7 @@ R26-09 inventory-stamp repair and independent Pass 3 receipt at `20b0b78d` are r
 | R26-19 | CONFIRMED_FIXED (protocol remains DESIGNED_INACTIVE) |
 | R26-20 | CONFIRMED_FIXED (successor; predecessors preserved) |
 | R26-21 | CONFIRMED_FIXED (successor) |
-| R26-22 | CONFIRMED_CONTAINED_NOT_FIXED |
+| R26-22 | CONFIRMED_CONTAINED_NOT_FIXED (0 proven-PIT training rows) |
 | R26-23 | CONFIRMED_FIXED |
 | R26-24 | CONFIRMED_FIXED |
 | R26-25 | CONFIRMED_FIXED |
@@ -84,13 +87,14 @@ Matrix: `artifacts/scientific_integrity/cycle26/CYCLE26_FINDING_DISPOSITION_MATR
 
 ## 5. Calendar and capture
 
-Actual UTC at this report: 2026-09-04T03:05:00Z.
+Actual UTC at this report: 2026-09-04T03:50:00Z.
 
 - Sep 3 T-24H: `MISSED_CUTOFF_NO_BACKFILL`. No backfill.
 - Sep 3 T-90M and Sep4-window T-24H: previously frozen before cutoff; predecessors retained.
-- A&M 6607349 T-24H: 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z. Sleepers rearmed 2026-09-04T01:36Z; this report does not promise those executions.
+- A&M 6607349 T-24H: 2026-09-04T23:00:00Z; T-90M 2026-09-05T21:30:00Z. Sleepers remain armed; this report does not promise those executions.
 - Saturday 16:00 UTC kickoff T-24H cutoff: 2026-09-04T16:00:00Z (wake 15:15Z).
-- Scoreboard reparse at closeout: newest HTML `636535acc6…`, 1 card, 0 terminal. Official-final scoring: `AWAITING_FINAL`. Held-fixture BAT-674 validator: `PASS_INDEPENDENT_RECONSTRUCTION`. No Week 1 outcome training/tuning/promotion.
+- Fresh Sep 3 scoreboard capture `02fbf4ab…`: 11 cards, 6 terminal official finals, 5 still nonterminal. EARLY_WEEK1 freeze 2026-09-03T06:47:23Z is before those kickoffs. Append-only scoring: 30 joined rows, 26 scored, forecast payloads not rewritten, no T-24H/T-90M backfill. Remainder `AWAITING_FINAL`. No Week 1 outcome training/tuning/promotion.
+- Held-fixture BAT-674 validator: `PASS_INDEPENDENT_RECONSTRUCTION`.
 - Odds API: unchanged absence does not invent market values.
 
 ## 6. Tests and purity
@@ -99,7 +103,7 @@ PYTHONPATH worktree `src` first; `AGGIE_ANALYTICS_DATA_ROOT=C:\BatteredAggieSynd
 
 - `tests/test_tamu_official_*.py`: 726 OK, skipped=37 after containment.
 - Full mounted unittest discover: 3141 tests, skipped=51. The only failure at `25fc78fb` was `LINE_ENDING_BASELINE_ENTRY_NO_LONGER_MIXED` on the nine LF-normalized tests; repaired at `ca31ddcf`.
-- `tests/test_cycle26_adversarial_regressions.py`: 51 OK.
+- `tests/test_cycle26_adversarial_regressions.py`: 52 OK.
 - `tests/test_all_cycle_scientific_inventory.py`: 18 OK.
 - `tests/test_tracked_file_purity.py`: 17 OK after baseline update.
 - Hosted CI at `628b93ea` (prior tip): all required checks SUCCESS, including `codecov/patch` and `codex-review`. Re-run expected on the new heads.
@@ -129,16 +133,16 @@ No hold release, merge, production credibility, BAS / Aggie Excess / A&M-lift, o
 
 ## 11. Remaining blockers for primary trust recovery
 
-- All-cycle independent reconstruction of remaining material claims (`NOT_AUDITED_YET` / FAIL findings on later cycles).
-- R26-22 historical fit still used chronology proxies (`CONFIRMED_CONTAINED_NOT_FIXED`).
+- All-cycle independent reconstruction of remaining material claims (21 `NOT_AUDITED_YET`, 5 FAIL, 5 named-check reconstructions that do not complete parent cycles).
+- R26-22 historical fit still used chronology proxies (`CONFIRMED_CONTAINED_NOT_FIXED`; 0 proven-PIT training rows; reduced-feature refit not performed).
 - All-cycle trust gate closed.
-- No Week 1 official finals (`AWAITING_FINAL`).
+- Week 1 official finals only partial (6 of 91 contests terminal; remainder `AWAITING_FINAL`).
 - Publication remains `UNTRUSTED_SHADOW`.
 - Mounted StatCrew predecessor reconstruction mismatches remain contained and unreachable from the Week 1 successor; unmounted `--strict` still reports those predecessor findings.
 
 ## 12. Requested user authorization
 
-Present PR #678 (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) at material head `ca31ddcf9b5ebb598bff843158c21ab39e86b460` (containment `25fc78fb61aa192ed11c64117426ed988fa32837`) for explicit review after the following process stamp is pushed. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
+Present PR #678 (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) at material head `e1e92c0aae1c4ba7f4090cf43ba2a552678e00d7` (containment `25fc78fb61aa192ed11c64117426ed988fa32837`) for explicit review after the following process stamp is pushed. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
 
 Operational stop state: `IMPLEMENTATION_REVIEW_READY_UNMERGED`.
 Primary scientific stop state: `PRIMARY_TRUST_RECOVERY_INCOMPLETE`.

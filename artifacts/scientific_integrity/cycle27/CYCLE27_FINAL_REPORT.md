@@ -16,7 +16,7 @@ This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleep
 - Stacked PR 679: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679 — OPEN, base `codex/BAT-690-c26-scr`.
 - PR 654: untouched.
 - Prior stacked head `8f16ca9dee02349f0f828f35831b5580fa5909c8` hosted core-validation/security-policy/codex-review **FAILURE**: unsealed Cycle 27 files, C26 report/watchdog dirty-hash mismatch inherited from `3fcc7104`, unclassified commit subjects, and numpy imports in core coaching/pregame tests.
-- Ending stacked head is bound in a follow-up `[material]` commit after this packet lands (no self-referential SHA inside the commit being created).
+- Repair packet head: `c9862b203ea4314bb807381bbbffc3810020276e` (this follow-up only binds that SHA; it does not predict the follow-up commit SHA).
 - CONTROL-07: hosted green on FAIL remains not acceptance.
 
 ## 2. Hold and containment

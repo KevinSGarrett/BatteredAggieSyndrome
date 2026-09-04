@@ -66,7 +66,7 @@ Corpus derivative-integrity successor: 4 stale child-count domains recomputed; m
 
 R26-22: 27,274,659 proxy-admitted prior-target pairs; 14 near-bound; `leakage_declared=false`; Week 1 successor does not import the PIT bound. Disposition `CONFIRMED_CONTAINED_NOT_FIXED`.
 
-`PRIMARY_TRUST_RECOVERY_INCOMPLETE` blockers that remain: R26-09 (all-cycle pass-two backlog); R26-22 historical fit still used chronology proxies (operational PIT boolean now rejected); Pass 3 pending a reviewer independent of the implementing author; all-cycle trust gate closed; no Week 1 official finals. R26-13 live protection is required_approving_review_count=1, require_last_push_approval=true, and codecov/patch required.
+`PRIMARY_TRUST_RECOVERY_INCOMPLETE` blockers that remain: R26-09 (all-cycle pass-two backlog); R26-22 historical fit still used chronology proxies (operational PIT boolean now rejected); all-cycle trust gate closed; no Week 1 official finals. Independent Pass 3 is `PASS_WITHIN_DECLARED_SCOPE` at `c353f01a` (not merge authority). R26-13 live protection is required_approving_review_count=1, require_last_push_approval=true, and codecov/patch required.
 
 ## 4. Finding disposition (R26-01–R26-26 and 7A.7)
 
@@ -154,8 +154,9 @@ No hold release, merge, production credibility, BAS / Aggie Excess / A&M-lift, o
 
 ## 11. Remaining calendar and #25.5 backlog
 
-- A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z: capture operation prepared; future execution is not claimed by this report.
-- Official finals: 01:21Z refresh capture_identity `5efc592f…`; Sep 3 HTML `1fbfb397…` has 11 cards and 0 terminal `livestream_game_over` statuses. Scoring remains `AWAITING_FINAL`. Do not train on Week 1 outcomes.
+- A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z: capture operation prepared; future execution is not claimed by this report. Primary sleepers were absent at 01:30Z and were rearmed at 01:36Z (`CYCLE26_SCHEDULER_REARMING.json`); heartbeat sample `am24=1 am90=1 sat=1 fo24=1 fo90=1 fosat=1`.
+- National Saturday 16:00 UTC kickoff T-24H cutoff is 2026-09-04T16:00:00Z (wake 15:15Z). Do not wait until A&M T-24H to preserve those contests.
+- Official finals: 01:21Z refresh capture_identity `5efc592f…`; Sep 3 scoreboard HTML `1fbfb397…` has 11 cards and 0 terminal statuses. Reparse of `ncaa_week1_2026_schedule_scoreboard` at 01:37Z: any_terminal=false. Scoring remains `AWAITING_FINAL`. Do not train on Week 1 outcomes.
 - Eligibility at 01:21Z: 91 contests; T-24H missed=19 (`MISSED_CUTOFF_NO_BACKFILL`); T-90M still eligible=80.
 - Mounted full unittest at `c353f01a`: 3138 tests, skipped=50, failures=3, errors=16. The StatCrew predecessor reconstruction mismatches remain `CONFIRMED_CONTAINED_NOT_FIXED` (Week 1 import edges=0). One error is `predecessor gate identity drift for schedule_identity` after the non-checkpoint refresh; do not rematerialize the frozen as-of universe from that refresh. The same run mutated committed 1998/1999 structured-domain `gate_identity`/`payload_identity` fields; those two files were restored and are not accepted as new science. Hosted unmounted core-validation on `c353f01a` is PASS.
 - All-cycle three-pass backlog remains under existing #25.5 owners (see `CYCLE26_REMAINING_AUDIT_BACKLOG.json`).
@@ -163,7 +164,7 @@ No hold release, merge, production credibility, BAS / Aggie Excess / A&M-lift, o
 
 ## 12. Requested user authorization
 
-Present the live PR #678 head `c353f01a2ae6021fae17e752fcfac0c038ee1645` (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
+Present the live PR #678 head after the purity/scheduler material commit (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. Predecessor process-bind SHA: `4b47a2659ac29945df3f317a637ae535ea73a0a2`. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
 
 Operational stop state: `IMPLEMENTATION_REVIEW_READY_UNMERGED`.
 Primary scientific stop state: `PRIMARY_TRUST_RECOVERY_INCOMPLETE`.

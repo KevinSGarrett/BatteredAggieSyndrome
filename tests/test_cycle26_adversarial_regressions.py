@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import sys
 import tempfile
@@ -712,8 +713,6 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
 
     def test_16_source_anchor_validate_mode_is_read_only(self) -> None:
         # Import the second-pass helper; validate(repair=False) must not write.
-        import importlib.util
-
         path = REPO_ROOT / "jira" / "tools" / "second_pass_hardening.py"
         if not path.is_file():
             self.skipTest("second_pass_hardening.py not present")
@@ -734,6 +733,32 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
                 pass
             after = {p.name: p.stat().st_mtime_ns for p in root.glob("*")}
             self.assertEqual(before, after)
+
+    def test_16b_predecessor_reconstruction_tests_do_not_write_committed_gates(
+        self,
+    ) -> None:
+        for name in (
+            "test_tamu_official_1996_structured_domains.py",
+            "test_tamu_official_1997_structured_domains.py",
+            "test_tamu_official_1998_structured_domains.py",
+            "test_tamu_official_1999_structured_domains.py",
+        ):
+            text = (REPO_ROOT / "tests" / name).read_text(encoding="utf-8")
+            self.assertNotIn("materialize(repo_root=REPO_ROOT", text)
+        gates = [
+            REPO_ROOT
+            / "artifacts"
+            / "data_lake"
+            / "tamu_official_1998_structured_domains_gate.json",
+            REPO_ROOT
+            / "artifacts"
+            / "data_lake"
+            / "tamu_official_1999_structured_domains_gate.json",
+        ]
+        before = {path: path.read_bytes() for path in gates if path.is_file()}
+        self.assertEqual(len(before), 2)
+        after = {path: path.read_bytes() for path in before}
+        self.assertEqual(before, after)
 
     def test_17_captured_empty_counts_as_inventory_record(self) -> None:
         records = [

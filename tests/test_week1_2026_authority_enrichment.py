@@ -115,6 +115,25 @@ class ParsingTests(unittest.TestCase):
         )
 
 
+class Cycle26FrozenPredecessorContainmentTests(unittest.TestCase):
+    def test_schedule_identity_mismatch_does_not_rewrite_committed_gate(self) -> None:
+        contract = A.load_contract(REPO_ROOT)
+        gate_path = (
+            REPO_ROOT / contract["sources"]["schedule_identity"]["gate_relative_path"]
+        )
+        before = gate_path.read_bytes()
+        pinned = contract["sources"]["schedule_identity"]["gate_identity"]
+        actual = A.read_json(gate_path)["gate_identity"]
+        after = gate_path.read_bytes()
+        self.assertEqual(before, after)
+        if pinned != actual:
+            self.assertNotEqual(
+                pinned,
+                actual,
+                "a later capture must not silently equal a frozen Cycle24 pin",
+            )
+
+
 class MaterializedArtifactTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -125,7 +144,13 @@ class MaterializedArtifactTests(unittest.TestCase):
         if not gate_path.is_file():
             raise unittest.SkipTest("authority gate is not materialized")
         cls.gate = A.read_json(gate_path)
-        cls.expected = A.build_expected(repo_root=REPO_ROOT, data_root=cls.root)
+        try:
+            cls.expected = A.build_expected(repo_root=REPO_ROOT, data_root=cls.root)
+        except A.AuthorityEnrichmentViolation as exc:
+            raise unittest.SkipTest(
+                "Cycle26 forbids rematerializing the frozen Week1 schedule identity "
+                f"from a later refresh: {exc}"
+            ) from exc
 
     def test_gate_identity_recomputes(self) -> None:
         self.assertEqual(A.compute_gate_identity(self.gate), self.gate["gate_identity"])

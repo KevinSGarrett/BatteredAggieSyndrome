@@ -196,6 +196,99 @@ class Cycle27CheckpointReceiptTests(unittest.TestCase):
             self.assertNotEqual(first["receipt_sha256"], second["receipt_sha256"])
             self.assertTrue(Path(first["receipt"]).is_file())
             self.assertTrue(Path(second["receipt"]).is_file())
+            payload = json.loads(Path(first["receipt"]).read_text(encoding="utf-8"))
+            self.assertEqual(payload["issued_at_utc"], "2026-09-04T20:16:30Z")
+            self.assertEqual(payload["receipt_bound_at_utc"], "2026-09-04T20:20:00Z")
+
+    def test_caller_cutoff_must_match_bound_contest_phase_cutoff(self) -> None:
+        cutoff = datetime(2026, 9, 4, 22, 30, tzinfo=UTC)
+        ident = "c" * 64
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            log_path = root / "scheduler.log"
+            log_path.write_text(
+                _complete_log({"schedule": ident, "rankings": ident, "weather": ident}),
+                encoding="utf-8",
+            )
+            ledger = root / "ledger.json"
+            ledger.write_text(
+                json.dumps(
+                    {
+                        "contests": [
+                            {
+                                "ncaa_contest_id": "6594366",
+                                "t90m_cutoff_utc": "2026-09-04T21:00:00Z",
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                ValueError, "CUTOFF_NOT_BOUND_TO_CONTEST_PHASE"
+            ):
+                bind_checkpoint_receipt(
+                    checkpoint="FRI_T90M_20260904T2100Z",
+                    phase="T90M",
+                    run_id="backfill",
+                    log_path=log_path,
+                    cutoff=cutoff,
+                    cohort_contest="6594366",
+                    now=datetime(2026, 9, 4, 20, 20, tzinfo=UTC),
+                    output_root=root / "ops",
+                    data_root=root,
+                    ledger_paths=[ledger],
+                )
+
+    def test_stale_stage_timestamps_are_not_this_checkpoint(self) -> None:
+        cutoff = datetime(2026, 9, 4, 21, 0, tzinfo=UTC)
+        ident = "e" * 64
+        stale_lines = []
+        for name in REQUIRED_STAGES:
+            stale_lines.append(
+                f"[2026-09-04T15:16:00.000000+00:00] START {name}: python tools/{name}.py"
+            )
+            if name in {"schedule", "rankings", "weather"}:
+                stale_lines.append(f"capture_identity: {ident}")
+            stale_lines.append(f"[2026-09-04T15:16:30.000000+00:00] OK {name}")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            log_path = root / "scheduler.log"
+            log_path.write_text("\n".join(stale_lines) + "\n", encoding="utf-8")
+            ledger = root / "ledger.json"
+            ledger.write_text(
+                json.dumps(
+                    {
+                        "contests": [
+                            {
+                                "ncaa_contest_id": "6594366",
+                                "t90m_cutoff_utc": "2026-09-04T21:00:00Z",
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            shadow = root / "manifests" / "shadow" / "sha256" / ident
+            shadow.mkdir(parents=True)
+            (shadow / "bytes.bin").write_bytes(b"raw")
+            result = bind_checkpoint_receipt(
+                checkpoint="FRI_T90M_20260904T2100Z",
+                phase="T90M",
+                run_id="stale-stages",
+                log_path=log_path,
+                cutoff=cutoff,
+                cohort_contest="6594366",
+                now=datetime(2026, 9, 4, 20, 20, tzinfo=UTC),
+                output_root=root / "ops",
+                data_root=root,
+                ledger_paths=[ledger],
+            )
+            self.assertFalse(result["verified"])
+            self.assertEqual(result["checkpoint_label"], "RAW_CAPTURE_OUTSIDE_WINDOW")
+            payload = json.loads(Path(result["receipt"]).read_text(encoding="utf-8"))
+            self.assertEqual(payload["label_authority"], "STALE_STAGE_NOT_THIS_WINDOW")
+            self.assertFalse(payload["forecast_frozen"])
 
     def test_main_executes_bind_against_isolated_fixture(self) -> None:
         ident = "d" * 64
@@ -208,7 +301,16 @@ class Cycle27CheckpointReceiptTests(unittest.TestCase):
             )
             ledger = root / "ledger.json"
             ledger.write_text(
-                json.dumps({"contests": [{"ncaa_contest_id": "6594366"}]}),
+                json.dumps(
+                    {
+                        "contests": [
+                            {
+                                "ncaa_contest_id": "6594366",
+                                "t90m_cutoff_utc": "2026-09-04T21:00:00Z",
+                            }
+                        ]
+                    }
+                ),
                 encoding="utf-8",
             )
             shadow = root / "manifests" / "shadow" / "sha256" / ident

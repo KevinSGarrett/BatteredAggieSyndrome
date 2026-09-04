@@ -12,9 +12,9 @@ import argparse
 import hashlib
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 from aggie_analytics.operations.contest_checkpoint_ledger import (
     CAPTURE_WINDOW,
@@ -131,20 +131,79 @@ def parse_named_stages(log_text: str) -> dict[str, dict[str, str]]:
     stages: dict[str, dict[str, str]] = {}
     current: str | None = None
     for line in log_text.splitlines():
-        start = re.search(r"\] START ([A-Za-z0-9_]+):", line)
+        start = re.search(r"\[([^\]]+)\] START ([A-Za-z0-9_]+):", line)
         if start:
-            current = start.group(1)
-            stages.setdefault(current, {"start_line": line})
+            current = start.group(2)
+            stage = stages.setdefault(current, {"start_line": line})
+            stage["start_utc"] = format_utc(parse_dt(start.group(1)))
             continue
-        ok = re.search(r"\] OK ([A-Za-z0-9_]+)$", line)
+        ok = re.search(r"\[([^\]]+)\] OK ([A-Za-z0-9_]+)$", line)
         if ok:
-            stages.setdefault(ok.group(1), {})["ok"] = "true"
+            stage = stages.setdefault(ok.group(2), {})
+            stage["ok"] = "true"
+            stage["ok_utc"] = format_utc(parse_dt(ok.group(1)))
             continue
         if current:
             ident = re.search(r"capture_identity:\s*([a-f0-9]{64})", line)
             if ident:
                 stages[current]["capture_identity"] = ident.group(1)
     return stages
+
+
+def bound_cutoff_for_phase(contest: Mapping[str, Any], phase: str) -> datetime:
+    key = "t90m_cutoff_utc" if phase == T90M else "t24h_cutoff_utc"
+    raw = contest.get(key)
+    if not raw:
+        raise ValueError("BOUND_CUTOFF_MISSING_FROM_CONTEST_ROW")
+    return parse_dt(str(raw))
+
+
+def require_cutoff_matches_contest(
+    cutoff: datetime, contest: Mapping[str, Any], phase: str
+) -> datetime:
+    bound = bound_cutoff_for_phase(contest, phase)
+    if format_utc(cutoff) != format_utc(bound):
+        raise ValueError("CUTOFF_NOT_BOUND_TO_CONTEST_PHASE")
+    return bound
+
+
+def stage_completion_authority(
+    *,
+    stages: Mapping[str, Mapping[str, str]],
+    required: Sequence[str],
+    window_open: datetime,
+    cutoff: datetime,
+) -> dict[str, Any]:
+    missing_ok: list[str] = []
+    missing_timestamps: list[str] = []
+    stale: list[str] = []
+    late: list[str] = []
+    completions: list[datetime] = []
+    for name in required:
+        stage = stages.get(name) or {}
+        if stage.get("ok") != "true":
+            missing_ok.append(name)
+            continue
+        raw = stage.get("ok_utc")
+        if not raw:
+            missing_timestamps.append(name)
+            continue
+        completed = parse_dt(raw)
+        completions.append(completed)
+        if completed < window_open:
+            stale.append(name)
+        elif completed > cutoff:
+            late.append(name)
+    authority = None
+    if completions and not missing_ok and not missing_timestamps:
+        authority = max(completions)
+    return {
+        "missing_ok": missing_ok,
+        "missing_timestamps": missing_timestamps,
+        "stale_before_window": stale,
+        "completed_after_cutoff": late,
+        "acquisition_completed_at": authority,
+    }
 
 
 def lookup_identity(identity: str, data_root: Path) -> dict[str, Any]:
@@ -210,9 +269,6 @@ def bind_checkpoint_receipt(
                 Path(bound_capture_log).read_text(encoding="utf-8", errors="replace")
             )
         )
-    missing = [
-        name for name in REQUIRED_STAGES if stages.get(name, {}).get("ok") != "true"
-    ]
     identities = {
         name: lookup_identity(
             stages.get(name, {}).get("capture_identity") or "", data_root
@@ -222,28 +278,55 @@ def bind_checkpoint_receipt(
     contest = load_contest_row(cohort_contest, ledger_paths)
     if contest is None:
         raise ValueError("COHORT_CONTEST_MISSING")
+    require_cutoff_matches_contest(cutoff, contest, phase)
+    authority = stage_completion_authority(
+        stages=stages,
+        required=REQUIRED_STAGES,
+        window_open=window_open,
+        cutoff=cutoff,
+    )
+    missing = list(authority["missing_ok"]) + list(authority["missing_timestamps"])
+    if authority["completed_after_cutoff"]:
+        classification_now = cutoff + timedelta(seconds=1)
+    elif authority["acquisition_completed_at"] is not None:
+        classification_now = authority["acquisition_completed_at"]
+    else:
+        classification_now = now
+    if authority["stale_before_window"] and not authority["completed_after_cutoff"]:
+        classification_now = window_open - timedelta(seconds=1)
     classification = classify_checkpoint_label(
         phase=phase,
-        now=now,
+        now=classification_now,
         window_open=window_open,
         cutoff=cutoff,
         missing_stages=missing,
         cohort_contest=str(cohort_contest),
     )
+    if authority["stale_before_window"] and classification["checkpoint_label"] == (
+        "RAW_CAPTURE_OUTSIDE_WINDOW"
+    ):
+        classification["label_authority"] = "STALE_STAGE_NOT_THIS_WINDOW"
     identities_found = all(
         identities[name]["found"] for name in ("schedule", "rankings", "weather")
     )
     receipt_verified = (
-        not missing and bool(classification["on_time"]) and identities_found
+        not missing
+        and not authority["stale_before_window"]
+        and not authority["completed_after_cutoff"]
+        and bool(classification["on_time"])
+        and identities_found
+        and authority["acquisition_completed_at"] is not None
     )
+    issued_at = authority["acquisition_completed_at"] or now
     receipt: dict[str, Any] = {
         "artifact_type": "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
         "run_id": run_id,
         "checkpoint": checkpoint,
         "phase": phase,
         "cohort_contest": str(cohort_contest),
-        "issued_at_utc": format_utc(now),
-        "completed_at_utc": format_utc(now),
+        "issued_at_utc": format_utc(issued_at),
+        "completed_at_utc": format_utc(issued_at),
+        "receipt_bound_at_utc": format_utc(now),
         "cutoff_utc": format_utc(cutoff),
         "earliest_cutoff_utc": format_utc(cutoff),
         "coverage": "EXACT_EARLIEST_CLUSTER",
@@ -254,6 +337,17 @@ def bind_checkpoint_receipt(
         "required_stages": list(REQUIRED_STAGES),
         "stage_results": stages,
         "missing_required_stages": list(missing),
+        "stage_authority": {
+            "missing_ok": authority["missing_ok"],
+            "missing_timestamps": authority["missing_timestamps"],
+            "stale_before_window": authority["stale_before_window"],
+            "completed_after_cutoff": authority["completed_after_cutoff"],
+            "acquisition_completed_at_utc": (
+                format_utc(issued_at)
+                if authority["acquisition_completed_at"] is not None
+                else None
+            ),
+        },
         "capture_identities": identities,
         "eligibility_contest_row": contest,
         "clock_note": clock_note,

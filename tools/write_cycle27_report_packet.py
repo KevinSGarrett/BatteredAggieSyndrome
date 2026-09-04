@@ -212,12 +212,13 @@ def main() -> int:
     for item in dimensions.get("dimensions") or []:
         if item.get("id") == 1:
             item["notes"] = (
-                "91-contest ledger joined to Sep3 T90, Sep4 window T24, Saturday "
-                "T24. Saturday earliest cluster remains EVIDENCE_CAPTURED after "
-                f"cutoff ({ledger['saturday_t24h_completed_count']} contests). Later "
-                "T-24H cutoffs do not inherit the 15:20Z receipt. Friday T90 and "
-                "A&M T24/T90 are armed, not yet executed. No T24/T90 forecast "
-                "freeze this packet."
+                "91-contest ledger joined to verified C27 receipts. Saturday "
+                "earliest cluster remains EVIDENCE_CAPTURED after cutoff "
+                f"({ledger['saturday_t24h_completed_count']} contests). Later "
+                "T-24H cutoffs do not inherit the 15:20Z receipt. Friday T90, "
+                "A&M T24, and subsequent in-window T24 clusters are "
+                "EVIDENCE_CAPTURED where receipts verify. Remaining T24/T90 "
+                "clusters stay armed. No T24/T90 forecast freeze this packet."
             )
         if item.get("id") == 6:
             item["notes"] = (
@@ -235,9 +236,10 @@ def main() -> int:
     preflight["revision"] = "C27-PREGAME-COACHING-20260904"
     preflight.setdefault("hold", {})["operator_hold"] = "ACTIVE"
     preflight.setdefault("live_owners", {})
-    preflight["live_owners"]["friday_t90m_owner"] = "ARMED_PID_40708_FAILOVER_41416"
-    preflight["live_owners"]["friday_t90m_primary_pid"] = 40708
-    preflight["live_owners"]["friday_t90m_failover_pid"] = 41416
+    preflight["live_owners"]["friday_t90m_owner"] = "COMPLETED_EVIDENCE_CAPTURED"
+    preflight["live_owners"]["am_t24h"] = "COMPLETED_EVIDENCE_CAPTURED_0400f8b0"
+    preflight["live_owners"]["am_t90m"] = "ARMED_C26_PRIMARY_AND_FAILOVER"
+    preflight["live_owners"]["watchdog"] = "T90_AND_T24_RESTART_NO_BACKFILL"
     preflight["live_owners"]["do_not_kill"] = True
     preflight["stacked_repair"] = {
         "worktree": str(REPO),
@@ -299,18 +301,22 @@ Durable owners (do not kill):
 
 | Checkpoint | Wake UTC | Cutoff UTC | Owner |
 | --- | --- | --- | --- |
-| Friday T-90M contest `6594366` | 2026-09-04T20:15Z | 2026-09-04T21:00Z | primary 40708 / failover 41416; no git commit from sleeper |
-| A&M T-24H contest `6607349` | 2026-09-04T22:15Z | 2026-09-04T23:00Z | primary 28372 / failover 27724 |
-| A&M T-90M | 2026-09-05T20:45Z | 2026-09-05T21:30Z | primary 24528 / failover 32428 |
-| Overnight heartbeat | running | n/a | 22176 |
+| Friday T-90M / T-24H clusters already bound | in-window | passed | C27 receipts under `ops/cycle27/receipts/`; do not duplicate |
+| A&M T-24H contest `6607349` | 2026-09-04T22:15Z | 2026-09-04T23:00Z | **DONE** EVIDENCE_CAPTURED `0400f8b0…`; not FORECAST_FROZEN |
+| Remaining T-24H clusters | armed | 01:00Z–23:30Z Sep5 and Sun 23:30Z | `run_t24h_cluster_capture.ps1` + watchdog T24 restart |
+| Earliest Saturday T-90M | 2026-09-05T13:45Z | 2026-09-05T14:30Z | `run_t90m_cluster_capture.ps1` contest `6590890` |
+| Remaining Sat/Sun/Mon T-90M | armed | through Mon 22:00Z | armed clusters + watchdog; skip Sat 21:30Z national duplicate |
+| A&M T-90M contest `6607349` | 2026-09-05T20:45Z | 2026-09-05T21:30Z | C26 primary + failover; C27 binds after verified capture |
+| Overnight heartbeat | running | n/a | `run_cycle26_overnight_heartbeat.ps1` |
+| Cluster watchdog | running through 2026-09-08T00:00Z | n/a | T90 + T24 restart; no backfill |
 | Git publication coordinator | after verified capture | n/a | CYCLE27_CURSOR_AGENT |
 
-Saturday T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTURED** for the earliest Saturday cluster ({ledger["saturday_t24h_completed_count"]} contests), not FORECAST_FROZEN. Later T-24H cutoffs do not inherit that receipt.
+Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTURED** for that cluster ({ledger["saturday_t24h_completed_count"]} contests), not FORECAST_FROZEN. Later T-24H cutoffs do not inherit that receipt.
 
 T24 states: {json.dumps(ledger["t24h_state_counts"], sort_keys=True)}.
 T90 states: {json.dumps(ledger["t90m_state_counts"], sort_keys=True)}.
 
-Next action: Friday T-90M at 20:15Z for contest `6594366`. Then A&M T-24H at 22:15Z. Calendar waiting uses the existing sleepers and leases, not an unverified promise to check later.
+Next action: remaining T-24H 01:00Z cluster (wake 00:15Z), then later T24/T90 clusters as cutoffs open. A&M T-90M wake 20:45Z Sep5. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 
@@ -382,14 +388,14 @@ Local/live statuses preserved under the hold. No new BAT keys. Substantial C27 w
 
 Do not read this as “no follow-up needed.”
 
-1. Execute Friday T-90M at 20:15Z and A&M T-24H at 22:15Z under existing leases; publish only after exact receipt verification and an explicit delta review.
+1. Remaining T-24H clusters after 00:00Z and all T-90M clusters including A&M 21:30Z remain owned by live sleepers plus the watchdog; bind C27 receipts after each verified capture; do not duplicate or backfill.
 2. Hosted CONTROL-07 checker bootstrap still needs independent reviewer approval; until then hosted green FAIL remains non-acceptance.
 3. R26-22 / primary fitted-path trust remains incomplete; keep UNTRUSTED_SHADOW. C26 materializer remains a C24 copy.
 4. C27 scoring successor currently admits zero terminals until independently hashed acquisition receipts exist; do not invent timestamps or treat pin-field time as authority.
-5. Exact-head Codex review of `b32c0cce` is FAIL (P1 report/readback disagreement repaired in this post-review delta). Later capture publication and this delta itself need an explicit follow-on exact-head review.
+5. Exact-head Codex review of `b32c0cce` is FAIL (P1 report/readback disagreement repaired in a post-review delta). Later capture publication needs an explicit follow-on exact-head review; do not invent a self-referential SHA.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.
-8. Remaining Friday T90 clusters after 21:00Z and Saturday T90 national clusters remain owned by the armed sleepers; do not kill them.
+8. A&M T-90M readable packet is issued only after that window is actually met; the T-24H evidence report is not a T-90M freeze.
 
 ## 10. Non-claims
 

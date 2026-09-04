@@ -4,7 +4,7 @@
     {
       "id": 1,
       "name": "Evidence collection, receipt validity and checkpoint coverage",
-      "notes": "91-contest ledger joined to Sep3 T90, Sep4 window T24, Saturday T24. Saturday earliest cluster remains EVIDENCE_CAPTURED after cutoff (10 contests). Later T-24H cutoffs do not inherit the 15:20Z receipt. Friday T90 and A&M T24/T90 are armed, not yet executed. No T24/T90 forecast freeze this packet.",
+      "notes": "91-contest ledger joined to verified C27 receipts. Saturday earliest cluster remains EVIDENCE_CAPTURED after cutoff (10 contests). Later T-24H cutoffs do not inherit the 15:20Z receipt. Friday T90, A&M T24, and subsequent in-window T24 clusters are EVIDENCE_CAPTURED where receipts verify. Remaining T24/T90 clusters stay armed. No T24/T90 forecast freeze this packet.",
       "verdict": "PARTIAL_PASS"
     },
     {
@@ -52,7 +52,7 @@
   ],
   "fitted_outputs": "UNTRUSTED_SHADOW",
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-04T22:22:09Z",
+  "issued_at_utc": "2026-09-04T23:23:01Z",
   "pass_one": "Inventoried code/data/receipt dependencies for C26 forecast/scoring gates, Saturday receipt, live sleepers, and C27 successors.",
   "pass_three": "Manager review reports plus this stacked implementation's adversarial tests; this pack is not Pass Three approval of the trusted-control bootstrap.",
   "pass_two": "Independent reconstruction used scientific_reference for scoring metrics, pair coherence, and saved-pair validator without producer imports.",

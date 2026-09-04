@@ -4435,6 +4435,7 @@ tools/create_experiment.py
 tools/create_research_packet.py
 tools/cursor_assist.py
 tools/cycle26_evidence_collection.py
+tools/cycle27_cluster_watchdog.ps1
 tools/cycle27_schedulers/run_friday_t90m_capture.ps1
 tools/cycle27_schedulers/run_friday_t90m_failover.ps1
 tools/cycle27_schedulers/run_t90m_cluster_capture.ps1

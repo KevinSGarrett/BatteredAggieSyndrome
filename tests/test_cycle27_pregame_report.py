@@ -18,6 +18,7 @@ if str(REPO_ROOT / "src") not in sys.path:
 from aggie_analytics.data.cycle27_pregame_reporting import (  # noqa: E402
     INTERIM_LABEL,
     T24H_EVIDENCE_LABEL,
+    T90M_EVIDENCE_LABEL,
     ContributionSumError,
     PregameReportingError,
     admit_market_quote,
@@ -287,6 +288,55 @@ class Cycle27PregameReportTests(unittest.TestCase):
         self.assertIn(T24H_EVIDENCE_LABEL, markdown)
         self.assertIn("not a new T-24H freeze", markdown)
         self.assertNotIn("FORECAST_FROZEN", markdown.split("Label", 1)[0])
+        self.assertIn(
+            "May not treat this T-24H evidence packet as FORECAST_FROZEN or as a T-90M freeze.",
+            markdown,
+        )
+        self.assertNotIn("May not treat this report as T-24H or T-90M.", markdown)
+
+    def test_t90m_evidence_report_does_not_relabel_early_week1_as_frozen(self) -> None:
+        markdown = render_pregame_report(
+            issued_at_utc="2026-09-05T21:20:00Z",
+            candidates=[
+                {
+                    "candidate_id": "national_base_rate",
+                    "probability_home": 0.5,
+                    "probability_away": 0.5,
+                    "expected_margin_home": None,
+                    "margin_interval_home": None,
+                    "nominal_interval_level": None,
+                    "trust_classification": "UNTRUSTED_SHADOW",
+                    "never_recommended": True,
+                }
+            ],
+            market={
+                "status": "ABSENT",
+                "quote_count": 0,
+                "label": "INSUFFICIENT_MARKET_COVERAGE",
+            },
+            implied_score={
+                "status": "INCOMPATIBLE_SCORE_REFERENCE",
+                "reason": "MISSING_BOOK_IDENTITY",
+            },
+            coaching={"national_domain": "SOURCE_ABSENT"},
+            disagreement={"classes": [], "narrative": "Fixture narrative."},
+            score_readiness={
+                "independent_predicted_score": None,
+                "independent_predicted_score_blocker": "NO_ELIGIBLE_WEEK1_JOINT_SCORE_OR_TOTAL_CANDIDATE",
+            },
+            consumption=[],
+            other_models=[],
+            evidence_checkpoint={
+                "checkpoint_label": "T-90M",
+                "forecast_frozen": False,
+            },
+        )
+        self.assertIn(T90M_EVIDENCE_LABEL, markdown)
+        self.assertIn("not a new T-90M freeze", markdown)
+        self.assertIn(
+            "May not treat this T-90M evidence packet as FORECAST_FROZEN.",
+            markdown,
+        )
 
 
 if __name__ == "__main__":

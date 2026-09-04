@@ -39,6 +39,7 @@ JIRA_KEY = "BAT-690"
 PARENT_JIRA_KEY = "BAT-523"
 INTERIM_LABEL = "INTERIM_AS_OF_NOW_NOT_T24H_NOT_T90M"
 T24H_EVIDENCE_LABEL = "T-24H_EVIDENCE_CAPTURED_NOT_FORECAST_FROZEN"
+T90M_EVIDENCE_LABEL = "T-90M_EVIDENCE_CAPTURED_NOT_FORECAST_FROZEN"
 CONTROL_CANDIDATE = "national_base_rate"
 RIDGE_CANDIDATE = "national_margin_ridge"
 CONTRIBUTION_TOLERANCE = 1e-6
@@ -673,10 +674,10 @@ def build_score_model_readiness(
     return readiness
 
 
-def load_am_t24h_evidence_receipt() -> dict[str, Any] | None:
+def _load_receipt_pointer(checkpoint: str) -> dict[str, Any] | None:
     latest = Path(
         r"C:\BatteredAggieSyndrome.data\ops\cycle27\receipts"
-        r"\AM_T24H_20260904T2300Z\LATEST.json"
+        rf"\{checkpoint}\LATEST.json"
     )
     if not latest.is_file():
         return None
@@ -685,6 +686,17 @@ def load_am_t24h_evidence_receipt() -> dict[str, Any] | None:
     if not receipt_path.is_file():
         return None
     return json.loads(receipt_path.read_text(encoding="utf-8"))
+
+
+def load_am_t24h_evidence_receipt() -> dict[str, Any] | None:
+    return _load_receipt_pointer("AM_T24H_20260904T2300Z")
+
+
+def load_am_checkpoint_evidence_receipt() -> dict[str, Any] | None:
+    t90 = _load_receipt_pointer("AM_T90M_20260905T2130Z")
+    if t90 is not None:
+        return t90
+    return load_am_t24h_evidence_receipt()
 
 
 def render_pregame_report(
@@ -703,9 +715,17 @@ def render_pregame_report(
     label = INTERIM_LABEL
     title = "INTERIM"
     extra = "This is not a T-24H or T-90M packet."
-    if (evidence_checkpoint or {}).get("checkpoint_label") == "T-24H" and not (
-        evidence_checkpoint or {}
-    ).get("forecast_frozen"):
+    checkpoint_label = (evidence_checkpoint or {}).get("checkpoint_label")
+    forecast_frozen = bool((evidence_checkpoint or {}).get("forecast_frozen"))
+    if checkpoint_label == "T-90M" and not forecast_frozen:
+        label = T90M_EVIDENCE_LABEL
+        title = "T-90M evidence"
+        extra = (
+            "T-90M evidence is captured for contest 6607349. "
+            "This is EVIDENCE_CAPTURED, not FORECAST_FROZEN. "
+            "The table below is the preserved C26 EARLY_WEEK1 successor, not a new T-90M freeze."
+        )
+    elif checkpoint_label == "T-24H" and not forecast_frozen:
         label = T24H_EVIDENCE_LABEL
         title = "T-24H evidence"
         extra = (
@@ -838,7 +858,15 @@ def render_pregame_report(
             "",
             "- May read the shadow probabilities and supported ridge margin as issued, with trust `UNTRUSTED_SHADOW`.",
             "- May not treat the control as a pick.",
-            "- May not treat this report as T-24H or T-90M.",
+            (
+                "- May not treat this T-90M evidence packet as FORECAST_FROZEN."
+                if label == T90M_EVIDENCE_LABEL
+                else (
+                    "- May not treat this T-24H evidence packet as FORECAST_FROZEN or as a T-90M freeze."
+                    if label == T24H_EVIDENCE_LABEL
+                    else "- May not treat this report as T-24H or T-90M."
+                )
+            ),
             "- May not treat coaching titles as model inputs or play-caller proof.",
             "- May not treat a line-implied score, if later eligible, as a BAS final-score prediction.",
             "- May not conclude calibration, BAS, or persistent underperformance from one game.",
@@ -1310,7 +1338,7 @@ def materialize(
         score_readiness=readiness,
         consumption=diagnostic["input_consumption"],
         other_models=[],
-        evidence_checkpoint=load_am_t24h_evidence_receipt(),
+        evidence_checkpoint=load_am_checkpoint_evidence_receipt(),
     )
     repo_dir = repo_root / "artifacts/scientific_integrity/cycle27"
     ops_dir = ops_root / "outputs"
@@ -1339,7 +1367,13 @@ def materialize(
         "sha256": sha256_bytes(encoded),
         "bytes": len(encoded),
         "label": (
-            T24H_EVIDENCE_LABEL if T24H_EVIDENCE_LABEL in report_md else INTERIM_LABEL
+            T90M_EVIDENCE_LABEL
+            if T90M_EVIDENCE_LABEL in report_md
+            else (
+                T24H_EVIDENCE_LABEL
+                if T24H_EVIDENCE_LABEL in report_md
+                else INTERIM_LABEL
+            )
         ),
     }
     return {

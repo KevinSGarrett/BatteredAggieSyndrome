@@ -776,19 +776,22 @@
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
     "scientific_done_authorized": false
   },
-  "issued_at_utc": "2026-09-04T22:22:09Z",
+  "issued_at_utc": "2026-09-04T23:23:01Z",
   "live_owners": {
+    "am_t24h": "COMPLETED_EVIDENCE_CAPTURED_0400f8b0",
     "am_t24h_failover_pid": 27724,
     "am_t24h_primary_pid": 28372,
+    "am_t90m": "ARMED_C26_PRIMARY_AND_FAILOVER",
     "am_t90m_failover_pid": 32428,
     "am_t90m_primary_pid": 24528,
     "do_not_kill": true,
     "friday_t90m_failover_pid": 41416,
-    "friday_t90m_owner": "ARMED_PID_40708_FAILOVER_41416",
+    "friday_t90m_owner": "COMPLETED_EVIDENCE_CAPTURED",
     "friday_t90m_primary_pid": 40708,
     "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
     "overnight_heartbeat_pid": 22176,
-    "saturday_primary_and_failover": "EXITED_AFTER_COMPLETE"
+    "saturday_primary_and_failover": "EXITED_AFTER_COMPLETE",
+    "watchdog": "T90_AND_T24_RESTART_NO_BACKFILL"
   },
   "next_actions": [
     {

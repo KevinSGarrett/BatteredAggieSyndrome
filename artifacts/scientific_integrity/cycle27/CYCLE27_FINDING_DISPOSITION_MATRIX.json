@@ -111,6 +111,9 @@
       "status": "R26-22_REMAINS_BLOCKED"
     },
     {
+      "codecov_patch": "SUCCESS",
+      "codex_review": "FAILURE_SCHEMA_VALID_FAIL_NOT_ACCEPTANCE",
+      "core_validation": "SUCCESS",
       "id": "HOSTED_CI_PR679",
       "prior_failures": [
         "manifest_coverage",
@@ -119,7 +122,9 @@
         "test_cycle27_pregame_report numpy import",
         "ops ledger path required on hosted runners"
       ],
-      "status": "REPAIRED_IN_STACKED_HEAD_NOT_MERGED"
+      "reviewed_head": "b32c0cce9fcd78319667c8344daa878d2d968e06",
+      "security_policy": "SUCCESS",
+      "status": "CORE_GREEN_CODEX_FAIL_ENFORCEMENT_NOT_MERGED"
     },
     {
       "id": "R27-P1-PIN-RETRIEVED-AT-NOT-ACQUISITION-AUTHORITY",
@@ -132,10 +137,24 @@
       "result": "Independent scoring validator reconstructs scoreboard cards from scientific_reference.ncaa_scoreboard_cards and forbids importing modeling.week_zero_official_final_scoring.",
       "severity": "P1",
       "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED"
+    },
+    {
+      "codex_verdict": "FAIL",
+      "id": "R27-P1-EXACT-HEAD-REPORT-READBACK",
+      "result": "Codex FAIL on b32c0cce because the numbered report/readback bound the pack review-source instead of the CI head. This packet binds b32c0cce as the reviewed scientific head and refreshes the exact PR 679 check JSON. It is not merge acceptance.",
+      "reviewed_head": "b32c0cce9fcd78319667c8344daa878d2d968e06",
+      "severity": "P1",
+      "status": "REPAIRED_POST_REVIEW_DELTA_NOT_MERGED"
+    },
+    {
+      "id": "R27-P1-NEWER-INPROGRESS-RERUN",
+      "result": "Latest-head review gate sorts by started_at/completed_at recency and treats incomplete attempts without timestamps as latest, so a queued or in-progress rerun cannot hide behind an older success.",
+      "severity": "P1",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED"
     }
   ],
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-04T18:22:03Z",
+  "issued_at_utc": "2026-09-04T18:42:54Z",
   "merge_authorized": false,
   "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
   "revision": "C27-PREGAME-COACHING-20260904",

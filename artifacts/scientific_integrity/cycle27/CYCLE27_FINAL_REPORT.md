@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-04T18:22:03Z (America/Chicago 2026-09-04T13:22:03)
+Issued: 2026-09-04T18:42:54Z (America/Chicago 2026-09-04T13:42:54)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.
@@ -9,15 +9,16 @@ This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleep
 ## 1. Heads, PRs, CI
 
 - Starting live capture head: `3fcc710438a75f15abc23392c6136ac077f25e7b` (scheduler push 2026-09-04T15:20:35Z).
-- Review source head: `7e3e9cc2bb81d6dafe2903bd1b3dc0b316e42f82`.
-- Base: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d`.
+- Pack review-source head (PR 678 lineage): `7e3e9cc2bb81d6dafe2903bd1b3dc0b316e42f82`.
+- Canonical main base for that lineage: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d`.
+- Stacked PR 679 base: `3fcc710438a75f15abc23392c6136ac077f25e7b` (`codex/BAT-690-c26-scr`).
+- Exact-head reviewed stacked scientific head: `b32c0cce9fcd78319667c8344daa878d2d968e06`. This packet is a post-review delta (report/readback/manifest) and does not invent a self-referential SHA for the commit that lands it.
 - Stacked repair branch: `codex/BAT-690-c27-scr` based on `3fcc7104`, not on main.
 - Pending PR 678: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678 — OPEN, capture owner, not amended in place.
 - Stacked PR 679: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679 — OPEN, base `codex/BAT-690-c26-scr`.
 - PR 654: untouched.
-- Prior stacked head `8f16ca9dee02349f0f828f35831b5580fa5909c8` hosted core-validation/security-policy/codex-review **FAILURE**: unsealed Cycle 27 files, C26 report/watchdog dirty-hash mismatch inherited from `3fcc7104`, unclassified commit subjects, and numpy imports in core coaching/pregame tests.
-- Ending stacked head is bound in a follow-up `[material]` commit after this packet lands (no self-referential SHA inside the commit being created).
-- CONTROL-07: hosted green on FAIL remains not acceptance.
+- Hosted checks on `b32c0cce`: core-validation ubuntu+windows **SUCCESS**; security-policy **SUCCESS**; codecov/patch **SUCCESS**; coverage-upload SUCCESS; CodeQL SUCCESS. `codex-review` **FAILURE** (schema-valid FAIL, PR checker exit 1). Hosted green on FAIL remains not acceptance.
+- CONTROL-07: base checker still masks FAIL as success. Trusted-control bootstrap is `PREPARATION_NOT_APPROVED`.
 
 ## 2. Hold and containment
 
@@ -88,9 +89,21 @@ Postgame residual methodology is predeclared: prediction error `predicted-actual
 
 ## 7. Tests and reproductions
 
-See the commit that lands this packet for exact local counts. CONTROL-07: base checker still exits 0 on schema-valid FAIL for `7e3e9cc2` and `3fcc7104`; PR checker exits 1. Hosted green is not acceptance.
+Candidate-head `b32c0cce` (`BAT-690-c27-head`, that checkout's `src` first on PYTHONPATH):
 
-Saved-pair independent validator no longer imports producer helpers. Invalid p=2/3 is not normalized to .4/.6. Coaching/pregame modules no longer import numpy at module load.
+- Cycle 27 discover `test_cycle27_*.py`: 96 OK (PYTHONHASHSEED=0 and 1).
+- Official-final scoring: 14 OK, including pin-only time rejected as `CALLER_SUPPLIED_TIME_NOT_ACQUISITION_AUTHORITY`.
+- Hold: 12 OK. Review-gate: 6 OK, including newer in-progress rerun over older success.
+- Failover policy: 22 OK. Trusted-control protocol: 9 OK. Execution-focus: 10 OK.
+- Independent scoring validator on rematerialized pin: PASS, 0 findings.
+- Mounted critical suite twice with no repo writes: 35/35 identical PASS both runs. Committed mounted-acceptance gate validator: PASS.
+- Jira control-plane `--strict --require-live`: PASS, 0 findings.
+- Full mounted unittest discover: **3300 tests, skipped=51, OK** in 757.786s.
+- Scoring tests under `python -W error`: 14 OK.
+- Hosted PR 679 at `b32c0cce`: core-validation ubuntu+windows SUCCESS; security-policy SUCCESS; codecov/patch SUCCESS. `codex-review` FAILURE with schema-valid FAIL (P1: stale report/readback vs bound head). PR checker exit 1 is enforcement, not masked success.
+- CONTROL-07: base checker still exits 0 on schema-valid FAIL for `7e3e9cc2` and `3fcc7104`; hosted green on FAIL is not acceptance.
+
+Saved-pair independent validator no longer imports producer helpers. Invalid p=2/3 is not normalized to .4/.6. Independent scoreboard reconstruction no longer imports `modeling.week_zero_official_final_scoring`.
 
 Local `validate_repository.py --strict` with `AGGIE_ANALYTICS_DATA_ROOT` unset still falls back to the real lake and is not claimed as an unmounted run.
 
@@ -106,10 +119,10 @@ Do not read this as “no follow-up needed.”
 2. Hosted CONTROL-07 checker bootstrap still needs independent reviewer approval; until then hosted green FAIL remains non-acceptance.
 3. R26-22 / primary fitted-path trust remains incomplete; keep UNTRUSTED_SHADOW. C26 materializer remains a C24 copy.
 4. C27 scoring successor currently admits zero terminals until independently hashed acquisition receipts exist; do not invent timestamps or treat pin-field time as authority.
-5. Exact-head GitHub review of stacked PR 679 after this reseal; later capture publication needs an explicit delta review.
+5. Exact-head Codex review of `b32c0cce` is FAIL (P1 report/readback disagreement repaired in this post-review delta). Later capture publication and this delta itself need an explicit follow-on exact-head review.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.
-8. Remaining Friday T90 clusters after 21:00Z and Saturday T90 national clusters still require dedicated owners before those windows.
+8. Remaining Friday T90 clusters after 21:00Z and Saturday T90 national clusters remain owned by the armed sleepers; do not kill them.
 
 ## 10. Non-claims
 

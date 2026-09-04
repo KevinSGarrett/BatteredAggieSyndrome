@@ -20,11 +20,49 @@ from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import parse_qs, urlparse
 
 from aggie_analytics.context_intelligence.coaching import manual_coach_bonus
-from aggie_analytics.modeling.national_expectation_baselines import (
-    ALL_BOOLEAN,
-    ALL_NUMERIC,
-    FEATURE_SCOPES,
+
+# Duplicated from national_expectation_baselines so core CI stays numpy-free.
+# Consumption census only needs the admitted-name inventory, not design matrices.
+PRIOR_DOMAIN_NUMERIC = (
+    "prior_games_played",
+    "prior_win_rate",
+    "prior_points_for_mean",
+    "prior_points_against_mean",
+    "prior_margin_mean",
+    "prior_season_win_rate",
+    "season_to_date_games",
+    "season_to_date_win_rate",
+    "opponent_prior_games_played",
+    "opponent_prior_win_rate",
+    "opponent_prior_margin_mean",
+    "opponent_prior_season_win_rate",
+    "prior_win_rate_differential",
 )
+PRIOR_DOMAIN_BOOLEAN = ("is_home", "is_neutral_site")
+ALL_NUMERIC = PRIOR_DOMAIN_NUMERIC + (
+    "ap_poll_rank",
+    "coaches_poll_rank",
+    "opponent_ap_poll_rank",
+    "venue_elevation_m",
+    "venue_latitude",
+    "venue_longitude",
+)
+ALL_BOOLEAN = PRIOR_DOMAIN_BOOLEAN + (
+    "rankings_source_available",
+    "venue_dome",
+    "venue_grass",
+    "team_is_fbs",
+)
+FEATURE_SCOPES = {
+    "NONE": ((), (), False),
+    "PRIOR_OUTCOME_DOMAIN_AND_SITE": (
+        PRIOR_DOMAIN_NUMERIC,
+        PRIOR_DOMAIN_BOOLEAN,
+        False,
+    ),
+    "OUTCOME_SEQUENCE_AND_SITE": ((), PRIOR_DOMAIN_BOOLEAN, False),
+    "ALL_ADMITTED_FEATURES": (ALL_NUMERIC, ALL_BOOLEAN, True),
+}
 
 SCHEMA_VERSION = "aggie.data.cycle27_coaching_data_and_consumption_census.v1"
 CONTRACT_ID = "CYCLE27-COACHING-DATA-AND-CONSUMPTION-CENSUS-V1"
@@ -819,22 +857,27 @@ def build_coaching_census(
     team_seasons: list[dict[str, Any]] = []
     seen: set[tuple[str, int]] = set()
     for row in spine_rows:
-        team_id = str(row.get("canonical_team_id") or row.get("source_team_id") or "")
+        canonical = str(row.get("canonical_team_id") or "").strip()
+        source = str(row.get("source_team_id") or "").strip()
         season = int(row.get("season") or SEASON)
-        key = (team_id, season)
-        if not team_id or key in seen:
+        identity_key = canonical or (f"UNRESOLVED:{source}" if source else "")
+        key = (identity_key, season)
+        if not identity_key or key in seen:
             continue
         seen.add(key)
         team_seasons.append(
             {
-                "canonical_team_id": team_id,
-                "source_team_id": row.get("source_team_id"),
+                "canonical_team_id": canonical or None,
+                "canonical_bind_state": (
+                    "CANONICAL_BOUND" if canonical else "UNRESOLVED_SOURCE_ENTITY"
+                ),
+                "source_team_id": source or None,
                 "season": season,
                 "ncaa_contest_id": row.get("ncaa_contest_id"),
                 "site_orientation": row.get("site_orientation"),
                 "conference_name": row.get("conference_name"),
                 "subdivision": row.get("subdivision"),
-                "focus_participant": team_id
+                "focus_participant": canonical
                 in {FOCUS_HOME_CANONICAL, FOCUS_AWAY_CANONICAL},
             }
         )
@@ -872,7 +915,10 @@ def build_coaching_census(
             "contest_count": len(contests),
             "participant_rows_retained": participants_retained,
             "unique_team_seasons": len(team_seasons),
-            "deduplicated_on": ["canonical_team_id", "season"],
+            "deduplicated_on": [
+                "canonical_team_id_or_unresolved_source",
+                "season",
+            ],
             "both_participants_retained": True,
             "ncaa_contest_ids": contests,
         },

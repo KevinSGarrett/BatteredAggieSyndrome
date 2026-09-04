@@ -28,8 +28,10 @@ LEDGER_PATHS = (
     / "scientific_integrity"
     / "cycle27"
     / "CYCLE27_CONTEST_CHECKPOINT_LEDGER.json",
+)
+OPS_LEDGER = (
     Path(r"C:\BatteredAggieSyndrome.data\ops\cycle27")
-    / "CYCLE27_CONTEST_CHECKPOINT_LEDGER.json",
+    / "CYCLE27_CONTEST_CHECKPOINT_LEDGER.json"
 )
 AFTER_SATURDAY_CUTOFF = datetime(2026, 9, 4, 18, 0, tzinfo=timezone.utc)
 SATURDAY_T24_CLUSTER = {
@@ -125,8 +127,40 @@ class Cycle27ContestCheckpointLedgerTests(unittest.TestCase):
         )
         self.assertEqual(result["state"], EVIDENCE_CAPTURED)
 
+    def test_early_receipt_does_not_cover_later_contest_window(self) -> None:
+        contest = {
+            "ncaa_contest_id": "6609172",
+            "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+            "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+            "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+            "abstention_reasons": [],
+        }
+        saturday = {
+            "kind": "T24H",
+            "issued_at_utc": "2026-09-04T15:20:10Z",
+            "earliest_cutoff_utc": "2026-09-04T16:00:00Z",
+            "coverage": "REMAINING_WINDOW",
+            "artifact_type": "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT",
+            "forecast_frozen": False,
+        }
+        result = evaluate_checkpoint_state(
+            now=AFTER_SATURDAY_CUTOFF,
+            contest=contest,
+            kind="T24H",
+            receipts=[saturday],
+            live_owners=[],
+        )
+        self.assertNotEqual(result["state"], EVIDENCE_CAPTURED)
+        self.assertNotIn(
+            "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT", result["joined_receipts"]
+        )
+
     def test_written_artifacts_cover_91_and_saturday(self) -> None:
-        for path in LEDGER_PATHS:
+        paths = list(LEDGER_PATHS)
+        if OPS_LEDGER.is_file():
+            paths.append(OPS_LEDGER)
+        self.assertTrue(paths, "repository ledger artifact is required")
+        for path in paths:
             self.assertTrue(path.is_file(), path)
             payload = json.loads(path.read_text(encoding="utf-8"))
             self.assertEqual(payload["contest_count"], WEEK1_CONTEST_COUNT)

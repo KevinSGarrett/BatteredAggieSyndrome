@@ -1,0 +1,72 @@
+{
+  "artifact_type": "REVIEW_ENFORCEMENT_EVIDENCE",
+  "base_treats_schema_valid_fail_as_success": true,
+  "base_validator_sha256": "214d1cde630c3c487dba2fc9ea976c46452f3b224b31de42bf2f4e4e19db37ac",
+  "cases": [
+    {
+      "base_findings": [],
+      "base_treats_fail_as_success": true,
+      "head_label": "7e3e9cc2",
+      "payload_p0_count": 1,
+      "payload_p1_count": 1,
+      "payload_sha256": "d4284b54cba1a2cb9e29a1f839824060c3c9b212f1cc7ba3ec1fd99ec60e1f69",
+      "payload_verdict": "FAIL",
+      "pr_findings": [
+        "CODEX_REVIEW_UNRESOLVED_P0_P1",
+        "CODEX_REVIEW_PR_CHANGED_OWN_CHECKER",
+        "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL"
+      ],
+      "pr_merge_success": false,
+      "pr_schema_valid": true
+    },
+    {
+      "base_findings": [],
+      "base_treats_fail_as_success": true,
+      "head_label": "3fcc7104",
+      "payload_p0_count": 0,
+      "payload_p1_count": 2,
+      "payload_sha256": "9a623bb313ea2922a8925792fe54fc460a1bf9c5a932c699c6bfe5166908738d",
+      "payload_verdict": "FAIL",
+      "pr_findings": [
+        "CODEX_REVIEW_UNRESOLVED_P0_P1",
+        "CODEX_REVIEW_PR_CHANGED_OWN_CHECKER",
+        "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL"
+      ],
+      "pr_merge_success": false,
+      "pr_schema_valid": true
+    }
+  ],
+  "cli": [
+    {
+      "base_cli_exit": 0,
+      "base_cli_findings": [],
+      "base_cli_result": "PASS",
+      "head_label": "7e3e9cc2",
+      "pr_cli_exit": 1,
+      "pr_cli_findings": [
+        "CODEX_REVIEW_UNRESOLVED_P0_P1",
+        "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL"
+      ],
+      "pr_cli_result": "FAIL"
+    },
+    {
+      "base_cli_exit": 0,
+      "base_cli_findings": [],
+      "base_cli_result": "PASS",
+      "head_label": "3fcc7104",
+      "pr_cli_exit": 1,
+      "pr_cli_findings": [
+        "CODEX_REVIEW_UNRESOLVED_P0_P1",
+        "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL"
+      ],
+      "pr_cli_result": "FAIL"
+    }
+  ],
+  "hold": "ACTIVE",
+  "hosted_green_on_fail_is_not_acceptance": true,
+  "issued_at_utc": "2026-09-04T17:53:44Z",
+  "masked_fail_confirmed": true,
+  "merge_authorized": false,
+  "source": "ops/cycle27/CYCLE27_PREFLIGHT_AND_OWNERSHIP.json",
+  "trusted_control_bootstrap": "PREPARATION_NOT_APPROVED"
+}

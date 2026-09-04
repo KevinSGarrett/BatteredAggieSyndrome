@@ -137,6 +137,35 @@ class Cycle27SchedulerAdversarialTests(unittest.TestCase):
         )
         self.assertEqual(missed.action, "MISSED_CUTOFF_NO_BACKFILL")
 
+    def test_versioned_friday_capture_caller_checks_exits_and_does_not_commit(
+        self,
+    ) -> None:
+        script = (
+            REPO_ROOT / "tools" / "cycle27_schedulers" / "run_friday_t90m_capture.ps1"
+        )
+        text = script.read_text(encoding="utf-8")
+        self.assertIn("no_git_commit=1", text)
+        self.assertIn("aggie_analytics.operations.checkpoint_lease", text)
+        self.assertIn('if ($LASTEXITCODE -ne 0) { throw "lease acquire failed', text)
+        self.assertIn('if ($LASTEXITCODE -ne 0) { throw "capture runner failed', text)
+        self.assertIn('if ($LASTEXITCODE -ne 0) { throw "receipt bind failed', text)
+        self.assertIn("MISSED_CUTOFF_NO_BACKFILL", text)
+        self.assertNotIn("git commit", text.casefold())
+        self.assertIn("START capture", text)
+
+    def test_versioned_friday_failover_uses_packaged_policy_not_ops_import(
+        self,
+    ) -> None:
+        script = (
+            REPO_ROOT / "tools" / "cycle27_schedulers" / "run_friday_t90m_failover.ps1"
+        )
+        text = script.read_text(encoding="utf-8")
+        self.assertIn("aggie_analytics.operations.checkpoint_failover_policy", text)
+        self.assertNotIn("prepared_fixes", text)
+        self.assertIn("STALLED_PRIMARY_NO_DUPLICATE", text)
+        self.assertIn('if ($LASTEXITCODE -ne 0) { throw "failover policy failed', text)
+        self.assertIn("MISSED_CUTOFF_NO_BACKFILL", text)
+
 
 if __name__ == "__main__":
     unittest.main()

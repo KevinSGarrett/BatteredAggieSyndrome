@@ -3,7 +3,7 @@
   "authority_enrichment_head_coach_boolean_retained_as_staff": false,
   "classification": "CYCLE27_COACHING_CENSUS_CONTEXT_ONLY_NOT_CONSUMED",
   "coaches_poll_rank_is_not_staff": true,
-  "code_head": "0db9a12ed299ade4de07f53739de389049e71866",
+  "code_head": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
   "contract_id": "CYCLE27-COACHING-DATA-AND-CONSUMPTION-CENSUS-V1",
   "counts": {
     "by_role": {
@@ -131,7 +131,7 @@
         "RETRIEVED": 0
       },
       "model_consumption": "NOT_CONSUMED_BY_MODEL",
-      "packet_identity": "3e6a918f3fdd6330bfc7f5cdedabf4fac70ac5c29a900a8dd21e86746d13a301",
+      "packet_identity": "16c29e9e0048e91e816a1d2c80e87d2af27554705a9b5e52923b3bd22fe6da72",
       "team_label": "Texas A&M",
       "title_observation_count": 0
     },
@@ -142,15 +142,15 @@
         "RETRIEVED": 1
       },
       "model_consumption": "NOT_CONSUMED_BY_MODEL",
-      "packet_identity": "e32da3b1866b6c65295344bf11423aefffc1cf3191961044cb32c54659f56a71",
+      "packet_identity": "0d380120081d3d96b40097ce3b243816f44583beb829ead413090e35185c2bc4",
       "team_label": "Missouri State",
       "title_observation_count": 17
     }
   },
-  "gate_identity": "5d33c912e49701fd849a6ca08d203d548176615b30b03fb5f894435c77fca901",
+  "gate_identity": "449cde32836c5f9eee7e7bd5f333b2571f872e8804a5a7388ff556e56a5f1841",
   "head_coach_boolean_is_not_full_coverage": true,
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-04T17:11:26Z",
+  "issued_at_utc": "2026-09-04T17:40:00Z",
   "jira_key": "BAT-690",
   "manual_coach_bonus_permitted": false,
   "maturity_layers": {
@@ -231,6 +231,7 @@
   },
   "team_seasons": [
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2466",
       "conference_name": "Southland",
       "focus_participant": false,
@@ -241,6 +242,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2348",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -251,6 +253,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2184",
       "conference_name": "NEC",
       "focus_participant": false,
@@ -261,6 +264,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2005",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -271,6 +275,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2433",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -281,6 +286,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:344",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -291,6 +297,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2623",
       "conference_name": "CUSA",
       "focus_participant": true,
@@ -301,6 +308,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:245",
       "conference_name": "SEC",
       "focus_participant": true,
@@ -311,6 +319,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2320",
       "conference_name": "Southland",
       "focus_participant": false,
@@ -321,6 +330,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:309",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -331,6 +341,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2502",
       "conference_name": "Big Sky",
       "focus_participant": false,
@@ -341,6 +352,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:21",
       "conference_name": "Pac-12",
       "focus_participant": false,
@@ -351,6 +363,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2649",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -361,6 +374,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:127",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -371,6 +385,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2117",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -381,6 +396,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:167",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -391,6 +407,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2046",
       "conference_name": "UAC",
       "focus_participant": false,
@@ -401,6 +418,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:238",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -411,6 +429,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2464",
       "conference_name": "Big Sky",
       "focus_participant": false,
@@ -421,6 +440,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:12",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -431,6 +451,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:193",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -441,6 +462,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:221",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -451,6 +473,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2226",
       "conference_name": "American",
       "focus_participant": false,
@@ -461,6 +484,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:57",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -471,6 +495,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:278",
       "conference_name": "Pac-12",
       "focus_participant": false,
@@ -481,6 +506,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:30",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -491,6 +517,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2771",
       "conference_name": "FCS Independent",
       "focus_participant": false,
@@ -501,6 +528,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:48",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -511,6 +539,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:228",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -521,6 +550,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:99",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -531,6 +561,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2229",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -541,6 +572,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:58",
       "conference_name": "American",
       "focus_participant": false,
@@ -551,6 +583,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:98",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -561,6 +594,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2440",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -571,6 +605,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2127",
       "conference_name": "OVC",
       "focus_participant": false,
@@ -581,6 +616,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:290",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -591,6 +627,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:87",
       "conference_name": "FBS Independent",
       "focus_participant": false,
@@ -601,6 +638,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:275",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -611,6 +649,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:276",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -621,6 +660,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:213",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -631,7 +671,8 @@
       "subdivision": "FBS"
     },
     {
-      "canonical_team_id": "622407",
+      "canonical_bind_state": "UNRESOLVED_SOURCE_ENTITY",
+      "canonical_team_id": null,
       "conference_name": "SWAC",
       "focus_participant": false,
       "ncaa_contest_id": "6583582",
@@ -641,6 +682,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:16",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -651,6 +693,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:93",
       "conference_name": "MVFC",
       "focus_participant": false,
@@ -661,6 +704,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2393",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -671,6 +715,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2450",
       "conference_name": "MEAC",
       "focus_participant": false,
@@ -681,6 +726,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:295",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -691,7 +737,8 @@
       "subdivision": "FBS"
     },
     {
-      "canonical_team_id": "622444",
+      "canonical_bind_state": "UNRESOLVED_SOURCE_ENTITY",
+      "canonical_team_id": null,
       "conference_name": "Southland",
       "focus_participant": false,
       "ncaa_contest_id": "6611505",
@@ -701,6 +748,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2636",
       "conference_name": "American",
       "focus_participant": false,
@@ -711,6 +759,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:204",
       "conference_name": "Pac-12",
       "focus_participant": false,
@@ -721,6 +770,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:248",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -731,6 +781,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2634",
       "conference_name": "OVC",
       "focus_participant": false,
@@ -741,6 +792,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:61",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -751,6 +803,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2803",
       "conference_name": "CAA",
       "focus_participant": false,
@@ -761,6 +814,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:349",
       "conference_name": "American",
       "focus_participant": false,
@@ -771,6 +825,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2754",
       "conference_name": "MVFC",
       "focus_participant": false,
@@ -781,6 +836,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:96",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -791,6 +847,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2006",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -801,6 +858,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:154",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -811,6 +869,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2390",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -821,6 +880,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:24",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -831,6 +891,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:70",
       "conference_name": "Big Sky",
       "focus_participant": false,
@@ -841,6 +902,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:254",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -851,6 +913,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2277",
       "conference_name": "Southland",
       "focus_participant": false,
@@ -861,6 +924,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:242",
       "conference_name": "American",
       "focus_participant": false,
@@ -871,6 +935,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:239",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -881,6 +946,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -891,6 +957,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:119",
       "conference_name": "CAA",
       "focus_participant": false,
@@ -901,6 +968,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2426",
       "conference_name": "American",
       "focus_participant": false,
@@ -911,6 +979,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:26",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -921,6 +990,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:25",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -931,6 +1001,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2546",
       "conference_name": "OVC",
       "focus_participant": false,
@@ -941,6 +1012,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:66",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -951,6 +1023,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:304",
       "conference_name": "Big Sky",
       "focus_participant": false,
@@ -961,6 +1034,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:328",
       "conference_name": "Pac-12",
       "focus_participant": false,
@@ -971,6 +1045,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2032",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -981,6 +1056,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:235",
       "conference_name": "American",
       "focus_participant": false,
@@ -991,6 +1067,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2711",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -1001,6 +1078,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:130",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1011,6 +1089,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2335",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -1021,6 +1100,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:256",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -1031,6 +1111,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:326",
       "conference_name": "Pac-12",
       "focus_participant": false,
@@ -1041,6 +1122,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:251",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -1051,6 +1133,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2230",
       "conference_name": "Patriot",
       "focus_participant": false,
@@ -1061,6 +1144,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2449",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -1071,6 +1155,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:197",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1081,6 +1166,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:202",
       "conference_name": "American",
       "focus_participant": false,
@@ -1091,6 +1177,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:97",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -1101,6 +1188,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:145",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -1111,6 +1199,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:160",
       "conference_name": "CAA",
       "focus_participant": false,
@@ -1121,6 +1210,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:183",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -1131,6 +1221,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2261",
       "conference_name": "CAA",
       "focus_participant": false,
@@ -1141,6 +1232,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:120",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1151,6 +1243,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:227",
       "conference_name": "CAA",
       "focus_participant": false,
@@ -1161,6 +1254,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:218",
       "conference_name": "American",
       "focus_participant": false,
@@ -1171,6 +1265,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:151",
       "conference_name": "American",
       "focus_participant": false,
@@ -1181,6 +1276,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:333",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -1191,6 +1287,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2439",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -1201,6 +1298,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:62",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -1211,6 +1309,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:324",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -1221,6 +1320,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:277",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1231,6 +1331,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:265",
       "conference_name": "Pac-12",
       "focus_participant": false,
@@ -1241,6 +1342,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:264",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1251,6 +1353,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2643",
       "conference_name": "SoCon",
       "focus_participant": false,
@@ -1261,6 +1364,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2429",
       "conference_name": "American",
       "focus_participant": false,
@@ -1271,6 +1375,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2638",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -1281,6 +1386,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:201",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -1291,6 +1397,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:113",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -1301,6 +1408,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:164",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1311,6 +1419,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2447",
       "conference_name": "Southland",
       "focus_participant": false,
@@ -1321,6 +1430,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2306",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1331,6 +1441,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2459",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -1341,6 +1452,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2294",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1351,6 +1463,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:311",
       "conference_name": "CAA",
       "focus_participant": false,
@@ -1361,6 +1474,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2026",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -1371,7 +1485,8 @@
       "subdivision": "FBS"
     },
     {
-      "canonical_team_id": "622350",
+      "canonical_bind_state": "UNRESOLVED_SOURCE_ENTITY",
+      "canonical_team_id": null,
       "conference_name": "UAC",
       "focus_participant": false,
       "ncaa_contest_id": "6588927",
@@ -1381,6 +1496,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:338",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -1391,6 +1507,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:3101",
       "conference_name": "Big Sky",
       "focus_participant": false,
@@ -1401,6 +1518,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:252",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1411,6 +1529,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2751",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -1421,6 +1540,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:36",
       "conference_name": "Pac-12",
       "focus_participant": false,
@@ -1431,7 +1551,8 @@
       "subdivision": "FBS"
     },
     {
-      "canonical_team_id": "622417",
+      "canonical_bind_state": "UNRESOLVED_SOURCE_ENTITY",
+      "canonical_team_id": null,
       "conference_name": "CAA",
       "focus_participant": false,
       "ncaa_contest_id": "6598559",
@@ -1441,6 +1562,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2247",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -1451,6 +1573,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2050",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -1461,6 +1584,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:194",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1471,6 +1595,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:5",
       "conference_name": "American",
       "focus_participant": false,
@@ -1481,6 +1606,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:356",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1491,6 +1617,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2655",
       "conference_name": "American",
       "focus_participant": false,
@@ -1501,6 +1628,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:150",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -1511,6 +1639,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:103",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -1521,6 +1650,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2132",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1531,6 +1661,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:322",
       "conference_name": "Patriot",
       "focus_participant": false,
@@ -1541,6 +1672,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:41",
       "conference_name": "FBS Independent",
       "focus_participant": false,
@@ -1551,7 +1683,8 @@
       "subdivision": "FBS"
     },
     {
-      "canonical_team_id": "622352",
+      "canonical_bind_state": "UNRESOLVED_SOURCE_ENTITY",
+      "canonical_team_id": null,
       "conference_name": "NEC",
       "focus_participant": false,
       "ncaa_contest_id": "6601163",
@@ -1561,6 +1694,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2305",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1571,6 +1705,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2415",
       "conference_name": "MEAC",
       "focus_participant": false,
@@ -1581,6 +1716,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:9",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1591,6 +1727,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2453",
       "conference_name": "UAC",
       "focus_participant": false,
@@ -1601,6 +1738,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:8",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -1611,6 +1749,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2309",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -1621,6 +1760,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2579",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -1631,6 +1771,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:249",
       "conference_name": "American",
       "focus_participant": false,
@@ -1641,6 +1782,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:84",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1651,6 +1793,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:23",
       "conference_name": "Mountain West",
       "focus_participant": false,
@@ -1661,6 +1804,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2199",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -1671,6 +1815,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:231",
       "conference_name": "SoCon",
       "focus_participant": false,
@@ -1681,6 +1826,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2633",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -1691,7 +1837,8 @@
       "subdivision": "FBS"
     },
     {
-      "canonical_team_id": "622443",
+      "canonical_bind_state": "UNRESOLVED_SOURCE_ENTITY",
+      "canonical_team_id": null,
       "conference_name": "Southland",
       "focus_participant": false,
       "ncaa_contest_id": "6606172",
@@ -1701,6 +1848,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:6",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -1711,6 +1859,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2000",
       "conference_name": "UAC",
       "focus_participant": false,
@@ -1721,6 +1870,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2641",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1731,6 +1881,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2678",
       "conference_name": "SoCon",
       "focus_participant": false,
@@ -1741,6 +1892,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:259",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -1751,6 +1903,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:282",
       "conference_name": "MVFC",
       "focus_participant": false,
@@ -1761,6 +1914,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2509",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1771,6 +1925,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2197",
       "conference_name": "OVC",
       "focus_participant": false,
@@ -1781,6 +1936,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:135",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1791,6 +1947,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:68",
       "conference_name": "Pac-12",
       "focus_participant": false,
@@ -1801,6 +1958,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2483",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1811,6 +1969,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:38",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1821,6 +1980,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:59",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -1831,6 +1991,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:195",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -1841,6 +2002,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:158",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -1851,6 +2013,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2534",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -1861,6 +2024,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2653",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -1871,6 +2035,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2627",
       "conference_name": "UAC",
       "focus_participant": false,
@@ -1881,6 +2046,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:189",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -1891,6 +2057,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2065",
       "conference_name": "SWAC",
       "focus_participant": false,
@@ -1901,6 +2068,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2116",
       "conference_name": "Big 12",
       "focus_participant": false,
@@ -1911,7 +2079,8 @@
       "subdivision": "FBS"
     },
     {
-      "canonical_team_id": "622358",
+      "canonical_bind_state": "UNRESOLVED_SOURCE_ENTITY",
+      "canonical_team_id": null,
       "conference_name": "SWAC",
       "focus_participant": false,
       "ncaa_contest_id": "6593076",
@@ -1921,6 +2090,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2572",
       "conference_name": "Sun Belt",
       "focus_participant": false,
@@ -1931,6 +2101,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2198",
       "conference_name": "UAC",
       "focus_participant": false,
@@ -1941,6 +2112,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:55",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -1951,6 +2123,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:399",
       "conference_name": "CAA",
       "focus_participant": false,
@@ -1961,6 +2134,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2084",
       "conference_name": "MAC",
       "focus_participant": false,
@@ -1971,6 +2145,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2029",
       "conference_name": "SWAC",
       "focus_participant": false,
@@ -1981,6 +2156,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:142",
       "conference_name": "SEC",
       "focus_participant": false,
@@ -1991,6 +2167,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2567",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -2001,6 +2178,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:52",
       "conference_name": "ACC",
       "focus_participant": false,
@@ -2011,7 +2189,8 @@
       "subdivision": "FBS"
     },
     {
-      "canonical_team_id": "622349",
+      "canonical_bind_state": "UNRESOLVED_SOURCE_ENTITY",
+      "canonical_team_id": null,
       "conference_name": "NEC",
       "focus_participant": false,
       "ncaa_contest_id": "6620513",
@@ -2021,6 +2200,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:166",
       "conference_name": "CUSA",
       "focus_participant": false,
@@ -2031,6 +2211,7 @@
       "subdivision": "FBS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:2571",
       "conference_name": "MVFC",
       "focus_participant": false,
@@ -2041,6 +2222,7 @@
       "subdivision": "FCS"
     },
     {
+      "canonical_bind_state": "CANONICAL_BOUND",
       "canonical_team_id": "SRC-002:TEAM:77",
       "conference_name": "Big Ten",
       "focus_participant": false,
@@ -2055,7 +2237,7 @@
     "both_participants_retained": true,
     "contest_count": 91,
     "deduplicated_on": [
-      "canonical_team_id",
+      "canonical_team_id_or_unresolved_source",
       "season"
     ],
     "ncaa_contest_ids": [

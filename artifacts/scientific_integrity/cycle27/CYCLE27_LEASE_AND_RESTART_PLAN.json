@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE27_LEASE_AND_RESTART_PLAN",
-  "issued_at_utc": "2026-09-04T16:54:13Z",
-  "as_of_utc": "2026-09-04T16:54:13Z",
+  "issued_at_utc": "2026-09-04T17:53:44Z",
+  "as_of_utc": "2026-09-04T17:53:44Z",
   "this_plan_does_not_kill_live_owners": true,
   "do_not_kill_pids": [
     28372,
@@ -10,7 +10,11 @@
     32428,
     22176,
     40708,
-    41416
+    41416,
+    42852,
+    10732,
+    42444,
+    14180
   ],
   "atomic_lease_module": {
     "ops_runtime": "C:/BatteredAggieSyndrome.data/ops/cycle27/checkpoint_lease.py",
@@ -48,7 +52,60 @@
       "cutoff_utc": "2026-09-05T21:30:00Z"
     },
     "overnight_heartbeat_pid": 22176,
-    "git_publication_coordinator": "CYCLE27_CURSOR_AGENT"
+    "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
+    "friday_t90m_2130z": {
+      "checkpoint": "FRI_T90M_20260904T2130Z",
+      "contest_ids": [
+        "6598559",
+        "6619544"
+      ],
+      "primary_pid": 42852,
+      "wake_utc": "2026-09-04T20:45:00Z",
+      "cutoff_utc": "2026-09-04T21:30:00Z",
+      "no_git_commit_from_sleeper": true
+    },
+    "friday_t90m_2230z": {
+      "checkpoint": "FRI_T90M_20260904T2230Z",
+      "contest_ids": [
+        "6592887",
+        "6601163",
+        "6611346"
+      ],
+      "primary_pid": 10732,
+      "wake_utc": "2026-09-04T21:45:00Z",
+      "cutoff_utc": "2026-09-04T22:30:00Z",
+      "no_git_commit_from_sleeper": true
+    },
+    "friday_t90m_2330z": {
+      "checkpoint": "FRI_T90M_20260904T2330Z",
+      "contest_ids": [
+        "6602792",
+        "6620138"
+      ],
+      "primary_pid": 42444,
+      "wake_utc": "2026-09-04T22:45:00Z",
+      "cutoff_utc": "2026-09-04T23:30:00Z",
+      "no_git_commit_from_sleeper": true
+    },
+    "saturday_t90m_1430z": {
+      "checkpoint": "SAT_T90M_20260905T1430Z",
+      "contest_ids": [
+        "6590890",
+        "6593811",
+        "6594325",
+        "6601384",
+        "6611692",
+        "6611873",
+        "6613128",
+        "6617023",
+        "6620636",
+        "6620944"
+      ],
+      "primary_pid": 14180,
+      "wake_utc": "2026-09-05T13:45:00Z",
+      "cutoff_utc": "2026-09-05T14:30:00Z",
+      "no_git_commit_from_sleeper": true
+    }
   },
   "restart_policy": {
     "stale_pid_not_deleted_unconditionally": true,

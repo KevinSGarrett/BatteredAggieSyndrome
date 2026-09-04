@@ -4,7 +4,10 @@
   "c26_gate_identity_preserved": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "contract_id": "CYCLE27-ACTIVE-PATH-DEPENDENCY-TRACE-V1",
   "current_contest_binding": {
+    "consumed_by_cycle27_remaining_checkpoint_binder": true,
     "consumed_by_week1_materializer": false,
+    "cycle27_binder_module": "src/aggie_analytics/data/cycle27_current_contest_checkpoint_binding.py",
+    "cycle27_remaining_checkpoint_execution": "HELPER_CONSUMED_UNTRUSTED_SHADOW",
     "helper_module": "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py",
     "helper_symbol": "build_current_contest_row",
     "live_execution": "CYCLE24_FORECAST_ROWS_COPIED_AND_MUTATED"
@@ -72,7 +75,7 @@
       "row_state"
     ]
   },
-  "issued_at_utc": "2026-09-04T16:45:00Z",
+  "issued_at_utc": "2026-09-04T17:40:00Z",
   "jira_key": "BAT-690",
   "local_issue_id": "POST-TASK-CYCLE27-ACTIVE-PATH-DEPENDENCY-TRACE-001",
   "national_expectation_baselines": {
@@ -434,7 +437,8 @@
     "Does not claim a connected current-feature fitted path.",
     "Does not advertise unused opening ratings as consumed.",
     "Does not invent a new cold-start average to improve coverage.",
-    "Does not overwrite the Cycle #26 gate or dataset."
+    "Does not overwrite the Cycle #26 gate or dataset.",
+    "Cycle 27 remaining-checkpoint binder consumes current-contest rows without issuing a trusted forecast."
   ],
   "scientific_trust_gate_open": false,
   "stages": [
@@ -579,5 +583,5 @@
       "stage": "checkpoint_packet"
     }
   ],
-  "trace_identity": "90f375a0111ed8fa9c62fc064f45e6375f14caddfc2115bdc7af15595273c28c"
+  "trace_identity": "eabf402d11d3706ec6efda4b90d332002254243f67dffd53298453e089919859"
 }

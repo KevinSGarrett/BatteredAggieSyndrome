@@ -14,83 +14,22 @@
   "capture_mode": "PINNED_MANIFEST",
   "checkpoint_scored": "EARLY_WEEK1",
   "classification": "WEEK1_OFFICIAL_FINAL_SCORING_PINNED_MANIFEST",
-  "code_identity": "06a70b77c01cbf6d452344cf854eb3772a09acd726375dc9051fdcb0c896e5e6",
+  "code_identity": "db8355be3d43c54b27b0af0b9dfc65d04ddbe673358fd914a4d223a937c2e1d9",
   "contract_id": "CYCLE27-WEEK1-2026-OFFICIAL-FINAL-SCORING-SUCCESSOR-V1",
-  "dataset_identity": "6bfd992603c0e2ca4a6a3df66ca6c3ba5fced559c1c8eeb599a527e9791f2c2b",
+  "dataset_identity": "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed",
   "empirical_assessment": {
     "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
-    "candidates": [
-      {
-        "brier": 0.25,
-        "candidate_id": "national_base_rate",
-        "control_only": true,
-        "directional_accuracy": null,
-        "directional_denominator": 0,
-        "directional_numerator": 0,
-        "log_loss": 0.6931471805599453,
-        "margin_mae": null,
-        "no_direction_excluded_from_directional": true,
-        "unique_games": 10
-      },
-      {
-        "brier": 0.20067395316974515,
-        "candidate_id": "national_elo",
-        "control_only": false,
-        "directional_accuracy": 0.7777777777777778,
-        "directional_denominator": 9,
-        "directional_numerator": 7,
-        "log_loss": 0.5918351636667778,
-        "margin_mae": null,
-        "no_direction_excluded_from_directional": true,
-        "unique_games": 9
-      },
-      {
-        "brier": 0.1473536147590511,
-        "candidate_id": "national_logistic_l2",
-        "control_only": false,
-        "directional_accuracy": 0.7777777777777778,
-        "directional_denominator": 9,
-        "directional_numerator": 7,
-        "log_loss": 0.46366125007834413,
-        "margin_mae": null,
-        "no_direction_excluded_from_directional": true,
-        "unique_games": 9
-      },
-      {
-        "brier": 0.15155653962495563,
-        "candidate_id": "national_margin_ridge",
-        "control_only": false,
-        "directional_accuracy": 0.7777777777777778,
-        "directional_denominator": 9,
-        "directional_numerator": 7,
-        "log_loss": 0.47721340229098363,
-        "margin_mae": 23.877609784977775,
-        "no_direction_excluded_from_directional": true,
-        "unique_games": 9
-      },
-      {
-        "brier": 0.1592848512617721,
-        "candidate_id": "prior_only",
-        "control_only": false,
-        "directional_accuracy": 0.7777777777777778,
-        "directional_denominator": 9,
-        "directional_numerator": 7,
-        "log_loss": 0.4976683509205812,
-        "margin_mae": null,
-        "no_direction_excluded_from_directional": true,
-        "unique_games": 9
-      }
-    ],
+    "candidates": [],
     "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW_NOT_REPEATED_CHECKPOINT",
     "predeclared_min_unique_games_for_skill_claim": 30,
     "reason": "Week 1 unique-game n is below the predeclared skill floor; residuals are a prospective census only.",
-    "unique_scored_games": 10,
+    "unique_scored_games": 0,
     "used_for_training_or_tuning": false
   },
   "forecast_payloads_rewritten": false,
-  "gate_identity": "96478de8e0ace3bddbdd8867173f45b989dd9f21e419e950a0cce78fbdc8fdd0",
+  "gate_identity": "203436873d86589367f0b0bd324b8bde508cde8a28a5de7c85d9742ec3120d43",
   "input_manifest_identity": "a25ced52b627110f9d92db9edd2c34e713a735f30a90b86905e64d658ebe67da",
-  "issued_at_utc": "2026-09-04T16:45:00Z",
+  "issued_at_utc": "2026-09-04T17:40:00Z",
   "jira_key": "BAT-694",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-COHORT-001",
@@ -105,10 +44,10 @@
       "sha256": "a25ced52b627110f9d92db9edd2c34e713a735f30a90b86905e64d658ebe67da"
     },
     "scoring_rows": {
-      "bytes": 255262,
+      "bytes": 234659,
       "relative_path": "artifacts/scientific_integrity/cycle27/CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING_ROWS.jsonl",
       "row_count": 455,
-      "sha256": "6bfd992603c0e2ca4a6a3df66ca6c3ba5fced559c1c8eeb599a527e9791f2c2b"
+      "sha256": "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed"
     }
   },
   "predecessor_scoring_payload_rewritten": false,
@@ -130,35 +69,23 @@
   ],
   "summary": {
     "forecast_row_count": 455,
-    "joined_forecast_rows": 55,
+    "joined_forecast_rows": 0,
     "quarantined_conflict_contest_ids": [],
-    "rejected_receipt_before_kickoff_count": 0,
+    "rejected_receipt_before_kickoff_count": 11,
     "scoreboard_cards": 2162,
     "scoreboard_html_count": 120,
-    "scored_row_count": 46,
+    "scored_row_count": 0,
     "state_counts": {
-      "ABSTAINED": 9,
+      "ABSTAINED": 0,
       "AUTHORIZED_EXCLUSION": 0,
-      "AWAITING_OFFICIAL_FINAL": 400,
+      "AWAITING_OFFICIAL_FINAL": 455,
       "CONFLICT_QUARANTINED": 0,
       "MISSED_CUTOFF_NO_BACKFILL": 0,
-      "SCORED": 46
+      "SCORED": 0
     },
-    "terminal_contest_count": 11,
-    "terminal_contest_ids": [
-      "6582933",
-      "6584486",
-      "6586572",
-      "6588927",
-      "6591259",
-      "6601465",
-      "6602046",
-      "6603568",
-      "6609567",
-      "6618350",
-      "6620218"
-    ],
-    "unique_scored_games": 10,
+    "terminal_contest_count": 0,
+    "terminal_contest_ids": [],
+    "unique_scored_games": 0,
     "universe_contest_count": 91
   },
   "t24h_backfill": false,

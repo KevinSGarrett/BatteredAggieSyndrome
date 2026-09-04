@@ -13,8 +13,6 @@ import math
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-import numpy as np
-
 from aggie_analytics.data.cycle27_coaching_reporting import (
     CLASSIFICATION as COACHING_CLASSIFICATION,
     COACHES_POLL_FIELDS,
@@ -34,7 +32,6 @@ from aggie_analytics.data.cycle27_coaching_reporting import (
     utc_now_label,
     write_json_dual,
 )
-from aggie_analytics.modeling.national_expectation_baselines import build_design
 
 SCHEMA_VERSION = "aggie.data.cycle27_pregame_reporting.v1"
 CONTRACT_ID = "CYCLE27-PREGAME-REPORTING-V1"
@@ -348,6 +345,14 @@ def reconstruct_ridge_row(
     coefficients: Sequence[float],
     reconstructed_margin: float,
 ) -> dict[str, Any]:
+    try:
+        from aggie_analytics.modeling.national_expectation_baselines import (
+            build_design,
+        )
+    except ImportError as exc:
+        raise PregameReportingError(
+            "ridge reconstruction requires numpy-backed design matrices"
+        ) from exc
     matrix, columns = build_design(
         [dict(feature_values)],
         scope="ALL_ADMITTED_FEATURES",
@@ -362,7 +367,7 @@ def reconstruct_ridge_row(
             f"design width {len(values)} != coefficient width {len(coefficients)}"
         )
     prediction = float(
-        np.array(values, dtype=np.float64) @ np.array(coefficients, dtype=np.float64)
+        sum(float(value) * float(coef) for value, coef in zip(values, coefficients))
     )
     contributions = ridge_contributions(
         named,

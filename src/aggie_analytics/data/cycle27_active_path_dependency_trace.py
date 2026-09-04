@@ -49,7 +49,11 @@ ALL_BOOLEAN = PRIOR_DOMAIN_BOOLEAN + (
 )
 FEATURE_SCOPES = {
     "NONE": ((), (), False),
-    "PRIOR_OUTCOME_DOMAIN_AND_SITE": (PRIOR_DOMAIN_NUMERIC, PRIOR_DOMAIN_BOOLEAN, False),
+    "PRIOR_OUTCOME_DOMAIN_AND_SITE": (
+        PRIOR_DOMAIN_NUMERIC,
+        PRIOR_DOMAIN_BOOLEAN,
+        False,
+    ),
     "OUTCOME_SEQUENCE_AND_SITE": ((), PRIOR_DOMAIN_BOOLEAN, False),
     "ALL_ADMITTED_FEATURES": (ALL_NUMERIC, ALL_BOOLEAN, True),
 }
@@ -70,10 +74,19 @@ BASELINES_RELATIVE = "src/aggie_analytics/modeling/national_expectation_baseline
 CURRENT_CONTEST_RELATIVE = (
     "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py"
 )
+CYCLE27_BINDER_RELATIVE = (
+    "src/aggie_analytics/data/cycle27_current_contest_checkpoint_binding.py"
+)
 C26_GATE_IDENTITY = "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
-C26_DATASET_IDENTITY = "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939"
+C26_DATASET_IDENTITY = (
+    "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939"
+)
 CURRENT_CONTEST_HELPER = "build_current_contest_row"
-ADVERTISED_UNUSED_OPENING_RATINGS = ("opening_rating", "opening_elo", "preseason_rating")
+ADVERTISED_UNUSED_OPENING_RATINGS = (
+    "opening_rating",
+    "opening_elo",
+    "preseason_rating",
+)
 RIDGE_CONSUMED_ROW_FIELDS = (
     "expected_margin_home",
     "contest_identity",
@@ -236,7 +249,9 @@ def trace_forecast_successor(repo_root: Path) -> dict[str, Any]:
         raise ActivePathTraceError("successor rewrite/materialize functions missing")
     ridge_keys = mapping_key_reads(ridge_fn, ("row",))
     prob_keys = mapping_key_reads(prob_fn, ("row",))
-    residual_keys = mapping_key_reads(residual_fn, ("row", "suite_gate")) if residual_fn else set()
+    residual_keys = (
+        mapping_key_reads(residual_fn, ("row", "suite_gate")) if residual_fn else set()
+    )
     helper_consumed = current_contest_helper_consumed(tree)
     copies_c24 = copies_entire_mapping(ridge_fn, ("row",)) and copies_entire_mapping(
         prob_fn, ("row",)
@@ -308,11 +323,17 @@ def assert_baselines_source_matches(repo_root: Path) -> None:
     tracked += ALL_BOOLEAN[len(PRIOR_DOMAIN_BOOLEAN) :] + ("team_conference",)
     for field in tracked:
         if f'"{field}"' not in source and f"'{field}'" not in source:
-            raise ActivePathTraceError(f"baselines source no longer contains field {field}")
+            raise ActivePathTraceError(
+                f"baselines source no longer contains field {field}"
+            )
     if "initial_rating" not in source:
-        raise ActivePathTraceError("Elo initial_rating no longer present in baselines source")
+        raise ActivePathTraceError(
+            "Elo initial_rating no longer present in baselines source"
+        )
     if "opening_rating" in source:
-        raise ActivePathTraceError("unexpected opening_rating consumption in baselines source")
+        raise ActivePathTraceError(
+            "unexpected opening_rating consumption in baselines source"
+        )
 
 
 def trace_national_expectation_baselines(*, repo_root: Path) -> dict[str, Any]:
@@ -339,7 +360,8 @@ def trace_national_expectation_baselines(*, repo_root: Path) -> dict[str, Any]:
         "national_elo": {
             "family": "ELO",
             "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
-            "actually_consumed_fields": list(ELO_CONSUMED_FIELDS) + list(LABEL_CONSUMED_FIELDS),
+            "actually_consumed_fields": list(ELO_CONSUMED_FIELDS)
+            + list(LABEL_CONSUMED_FIELDS),
             "initial_rating": 1500.0,
             "opening_ratings_consumed": False,
             "advertised_unused_in_this_candidate": list(PRIOR_DOMAIN_NUMERIC)
@@ -383,6 +405,18 @@ def trace_national_expectation_baselines(*, repo_root: Path) -> dict[str, Any]:
     }
 
 
+def cycle27_binder_consumes_helper(repo_root: Path) -> bool:
+    path = repo_root / CYCLE27_BINDER_RELATIVE
+    if not path.is_file():
+        return False
+    consumed = current_contest_helper_consumed(parse_module(path))
+    if not consumed:
+        raise ActivePathTraceError(
+            "Cycle 27 remaining-checkpoint binder must call build_current_contest_row"
+        )
+    return True
+
+
 def build_trace(*, repo_root: Path, issued_at_utc: str) -> dict[str, Any]:
     successor = trace_forecast_successor(repo_root)
     baselines = trace_national_expectation_baselines(repo_root=repo_root)
@@ -390,6 +424,7 @@ def build_trace(*, repo_root: Path, issued_at_utc: str) -> dict[str, Any]:
         raise ActivePathTraceError(
             "trace would claim helper consumption; live successor does not call it"
         )
+    binder_consumed = cycle27_binder_consumes_helper(repo_root)
     stages = [
         {
             "stage": "raw_normalized_outcomes",
@@ -441,7 +476,9 @@ def build_trace(*, repo_root: Path, issued_at_utc: str) -> dict[str, Any]:
         {
             "stage": "executable_prediction",
             "actually_consumed": successor["executable_prediction_inputs"],
-            "ridge_row_fields_actually_read": successor["ridge_row_fields_actually_read"],
+            "ridge_row_fields_actually_read": successor[
+                "ridge_row_fields_actually_read"
+            ],
             "probability_only_row_fields_actually_read": successor[
                 "probability_only_row_fields_actually_read"
             ],
@@ -473,7 +510,14 @@ def build_trace(*, repo_root: Path, issued_at_utc: str) -> dict[str, Any]:
             "helper_module": CURRENT_CONTEST_RELATIVE,
             "helper_symbol": CURRENT_CONTEST_HELPER,
             "consumed_by_week1_materializer": False,
+            "consumed_by_cycle27_remaining_checkpoint_binder": binder_consumed,
+            "cycle27_binder_module": CYCLE27_BINDER_RELATIVE,
             "live_execution": "CYCLE24_FORECAST_ROWS_COPIED_AND_MUTATED",
+            "cycle27_remaining_checkpoint_execution": (
+                "HELPER_CONSUMED_UNTRUSTED_SHADOW"
+                if binder_consumed
+                else "BINDER_ABSENT_FROM_THIS_CHECKOUT"
+            ),
         },
         "c26_gate_identity_preserved": C26_GATE_IDENTITY,
         "c26_dataset_identity_preserved": C26_DATASET_IDENTITY,
@@ -482,6 +526,7 @@ def build_trace(*, repo_root: Path, issued_at_utc: str) -> dict[str, Any]:
             "Does not advertise unused opening ratings as consumed.",
             "Does not invent a new cold-start average to improve coverage.",
             "Does not overwrite the Cycle #26 gate or dataset.",
+            "Cycle 27 remaining-checkpoint binder consumes current-contest rows without issuing a trusted forecast.",
         ],
         "result": "PASS_CYCLE27_ACTIVE_PATH_DEPENDENCY_TRACE",
     }
@@ -497,5 +542,7 @@ def materialize(*, repo_root: Path, issued_at_utc: str) -> dict[str, Any]:
     trace = build_trace(repo_root=repo_root, issued_at_utc=issued_at_utc)
     path = repo_root / GATE_RELATIVE
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(trace, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     return trace

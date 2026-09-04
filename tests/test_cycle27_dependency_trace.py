@@ -17,10 +17,12 @@ from aggie_analytics.data.cycle27_active_path_dependency_trace import (  # noqa:
     C26_DATASET_IDENTITY,
     C26_GATE_IDENTITY,
     CURRENT_CONTEST_HELPER,
+    CYCLE27_BINDER_RELATIVE,
     SUCCESSOR_RELATIVE,
     build_trace,
     called_names,
     current_contest_helper_consumed,
+    cycle27_binder_consumes_helper,
     mapping_key_reads,
     parse_module,
     trace_forecast_successor,
@@ -49,7 +51,9 @@ class ForecastSuccessorConsumptionTests(unittest.TestCase):
         successor = trace_forecast_successor(REPO)
         self.assertFalse(successor["current_contest_binding_helper_consumed"])
         self.assertEqual(successor["current_contest_execution"], "C24_ROWS_MUTATED")
-        self.assertTrue(successor["copies_cycle24_row_then_mutates_probability_interval"])
+        self.assertTrue(
+            successor["copies_cycle24_row_then_mutates_probability_interval"]
+        )
         self.assertFalse(successor["feature_values_consumed_for_prediction"])
         self.assertFalse(successor["rebuilds_target_features"])
         self.assertFalse(successor["refits_parameters"])
@@ -71,19 +75,37 @@ class IsolatedTraceFixtureTests(unittest.TestCase):
             trace["current_contest_binding"]["live_execution"],
             "CYCLE24_FORECAST_ROWS_COPIED_AND_MUTATED",
         )
-        self.assertFalse(trace["current_contest_binding"]["consumed_by_week1_materializer"])
+        self.assertFalse(
+            trace["current_contest_binding"]["consumed_by_week1_materializer"]
+        )
+        self.assertFalse(
+            trace["current_contest_binding"][
+                "consumed_by_cycle27_remaining_checkpoint_binder"
+            ]
+        )
+        self.assertEqual(
+            trace["current_contest_binding"]["cycle27_remaining_checkpoint_execution"],
+            "BINDER_ABSENT_FROM_THIS_CHECKOUT",
+        )
         stages = {item["stage"]: item for item in trace["stages"]}
         self.assertEqual(stages["current_target_features"]["actually_consumed"], [])
-        self.assertFalse(stages["current_target_features"]["current_contest_binding_helper_consumed"])
+        self.assertFalse(
+            stages["current_target_features"]["current_contest_binding_helper_consumed"]
+        )
         elo = trace["national_expectation_baselines"]["candidates"]["national_elo"]
         self.assertFalse(elo["opening_ratings_consumed"])
         self.assertEqual(elo["initial_rating"], 1500.0)
         self.assertFalse(
-            trace["national_expectation_baselines"]["new_cold_start_average_invented_for_coverage"]
+            trace["national_expectation_baselines"][
+                "new_cold_start_average_invented_for_coverage"
+            ]
         )
         self.assertEqual(trace["c26_gate_identity_preserved"], C26_GATE_IDENTITY)
         self.assertEqual(trace["c26_dataset_identity_preserved"], C26_DATASET_IDENTITY)
-        self.assertIn("expected_margin_home from Cycle #24 predecessor row", stages["executable_prediction"]["actually_consumed"])
+        self.assertIn(
+            "expected_margin_home from Cycle #24 predecessor row",
+            stages["executable_prediction"]["actually_consumed"],
+        )
 
     def test_helper_call_in_fixture_is_detected(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -114,6 +136,25 @@ class FrozenC26IdentityTests(unittest.TestCase):
         )
         self.assertEqual(gate["gate_identity"], C26_GATE_IDENTITY)
         self.assertEqual(gate["dataset_identity"], C26_DATASET_IDENTITY)
+
+
+class Cycle27BinderConsumptionTests(unittest.TestCase):
+    def test_live_cycle27_binder_calls_helper(self) -> None:
+        self.assertTrue((REPO / CYCLE27_BINDER_RELATIVE).is_file())
+        self.assertTrue(cycle27_binder_consumes_helper(REPO))
+        live = build_trace(repo_root=REPO, issued_at_utc="2026-09-04T18:00:00Z")
+        self.assertFalse(
+            live["current_contest_binding"]["consumed_by_week1_materializer"]
+        )
+        self.assertTrue(
+            live["current_contest_binding"][
+                "consumed_by_cycle27_remaining_checkpoint_binder"
+            ]
+        )
+        self.assertEqual(
+            live["current_contest_binding"]["cycle27_remaining_checkpoint_execution"],
+            "HELPER_CONSUMED_UNTRUSTED_SHADOW",
+        )
 
 
 if __name__ == "__main__":

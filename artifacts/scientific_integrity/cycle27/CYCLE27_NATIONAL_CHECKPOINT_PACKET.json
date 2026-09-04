@@ -1,51 +1,75 @@
 {
   "artifact_type": "CYCLE27_NATIONAL_CHECKPOINT_PACKET",
-  "revision": "C27-PREGAME-COACHING-20260904",
-  "issued_at_utc": "2026-09-04T17:20:00Z",
-  "label": "EVIDENCE_AND_DISPOSITION_PACKET_NOT_T24H_NOT_T90M_FORECAST_FREEZE",
-  "hold": "ACTIVE",
-  "merge_authorized": false,
-  "scientific_done_unauthorized": true,
-  "universe_contest_count": 91,
-  "universe_source": "artifacts/scientific_integrity/cycle27/CYCLE27_CONTEST_CHECKPOINT_LEDGER.json",
-  "raw_collection_is_not_forecast_frozen": true,
+  "coaching_census_identity": null,
+  "current_contest_binding": {
+    "binding_identity": "ead01b6ee2db38293182051698d31f4a0ef941b717742499305ac4d4eed04273",
+    "contest_count": 91,
+    "helper_call_count": 182,
+    "new_forecast_frozen_count": 0
+  },
   "early_week1_forecast_may_not_be_relabeled_t24_or_t90": true,
+  "focus_contest_6607349": {
+    "forecast_at_this_packet": "PREDECESSOR_EARLY_WEEK1_UNTRUSTED_SHADOW_NOT_A_NEW_T24_FREEZE",
+    "kickoff_utc": "2026-09-05T23:00:00Z",
+    "readable_report": "artifacts/scientific_integrity/cycle27/PREGAME_RESEARCH_REPORT.md",
+    "t24h_state": "CAPTURE_IN_PROGRESS",
+    "t90m_state": "CAPTURE_IN_PROGRESS"
+  },
+  "hold": "ACTIVE",
+  "issued_at_utc": "2026-09-04T17:53:44Z",
+  "label": "EVIDENCE_AND_DISPOSITION_PACKET_NOT_T24H_NOT_T90M_FORECAST_FREEZE",
+  "merge_authorized": false,
+  "postgame_methodology_identity": "80c7fcea1f0ca43c2ae2014c39ab32f42bb9dbaf0884e052b37bfba25dc7e80e",
   "preserved_c26_forecast": {
-    "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
-    "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
     "checkpoint_label": "EARLY_WEEK1",
-    "opportunities": 455,
+    "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
     "non_null_forecasts": 399,
+    "opportunities": 455,
     "rewritten": false
   },
+  "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "raw_collection_is_not_forecast_frozen": true,
+  "revision": "C27-PREGAME-COACHING-20260904",
   "saturday_t24h": {
-    "state": "EVIDENCE_CAPTURED",
-    "not": "FORECAST_FROZEN",
-    "issued_at_utc": "2026-09-04T15:20:10Z",
-    "cutoff_utc": "2026-09-04T16:00:00Z",
     "completed_before_cutoff": true,
+    "completed_count": 10,
+    "cutoff_utc": "2026-09-04T16:00:00Z",
+    "issued_at_utc": "2026-09-04T15:20:10Z",
+    "later_cutoffs_do_not_inherit_this_receipt": true,
+    "not": "FORECAST_FROZEN",
+    "publication_commit": "3fcc710438a75f15abc23392c6136ac077f25e7b",
     "receipt": "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT",
-    "publication_commit": "3fcc710438a75f15abc23392c6136ac077f25e7b"
+    "state": "EVIDENCE_CAPTURED"
+  },
+  "scientific_done_unauthorized": true,
+  "scoring_successor": {
+    "dataset_identity": "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed",
+    "gate_identity": "203436873d86589367f0b0bd324b8bde508cde8a28a5de7c85d9742ec3120d43",
+    "predecessor_preserved": {
+      "dataset": "1b1adb9e3c7da9269ec176d4c7aa3029db00a2d35352623a6dd44f37c95b293b",
+      "gate": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c"
+    },
+    "reason": "Pinned scoreboard captures have retrieved_at_utc=null; post-kickoff timestamp is necessary, so terminals are not admitted.",
+    "rejected_receipt_before_kickoff_count": 11,
+    "scored_row_count": 0,
+    "unique_scored_games": 0
   },
   "t24h_state_counts": {
     "ABSTAINED_AT_CHECKPOINT": 4,
     "CAPTURE_IN_PROGRESS": 1,
-    "EVIDENCE_CAPTURED": 69,
-    "MISSED_CUTOFF_NO_BACKFILL": 14,
-    "NOT_OPEN": 3
+    "EVIDENCE_CAPTURED": 11,
+    "MISSED_CUTOFF_NO_BACKFILL": 20,
+    "NOT_OPEN": 55
   },
   "t90m_state_counts": {
-    "CAPTURE_IN_PROGRESS": 2,
-    "EVIDENCE_CAPTURED": 11,
-    "NOT_OPEN": 78
+    "ABSTAINED_AT_CHECKPOINT": 2,
+    "CAPTURE_IN_PROGRESS": 19,
+    "EVIDENCE_CAPTURED": 1,
+    "MISSED_CUTOFF_NO_BACKFILL": 8,
+    "NOT_OPEN": 61
   },
-  "focus_contest_6607349": {
-    "kickoff_utc": "2026-09-05T23:00:00Z",
-    "t24h_state": "CAPTURE_IN_PROGRESS",
-    "t90m_state": "NOT_OPEN",
-    "forecast_at_this_packet": "PREDECESSOR_EARLY_WEEK1_UNTRUSTED_SHADOW_NOT_A_NEW_T24_FREEZE",
-    "readable_report": "artifacts/scientific_integrity/cycle27/PREGAME_RESEARCH_REPORT.md"
-  },
-  "publication_label": "UNTRUSTED_SHADOW",
-  "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE"
+  "universe_contest_count": 91,
+  "universe_source": "artifacts/scientific_integrity/cycle27/CYCLE27_CONTEST_CHECKPOINT_LEDGER.json"
 }

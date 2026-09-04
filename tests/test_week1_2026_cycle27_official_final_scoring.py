@@ -189,6 +189,20 @@ class Cycle27OfficialFinalScoringTests(unittest.TestCase):
         self.assertEqual(gate["summary"]["rejected_receipt_before_kickoff_count"], 1)
         self.assertFalse(rows[0]["scored"])
 
+    def test_missing_retrieved_at_is_not_scored(self) -> None:
+        self._write_forecast([forecast_row(contest_id="1002")])
+        self._write_html(
+            "notime.html",
+            render_scoreboard(contest_id="1002", home_points=21, away_points=14),
+        )
+        manifest = self._pin(html_names=["notime.html"])
+        gate = self._score(manifest)
+        self.assertFalse(gate["_scored_rows"][0]["scored"])
+        self.assertEqual(gate["_scored_rows"][0]["state"], STATE_AWAITING)
+        self.assertGreaterEqual(
+            int(gate["summary"]["rejected_receipt_before_kickoff_count"]), 1
+        )
+
     def test_duplicate_conflicted_final_is_quarantined(self) -> None:
         self._write_forecast([forecast_row(contest_id="2002")])
         self._write_html(
@@ -332,6 +346,25 @@ class Cycle27OfficialFinalScoringTests(unittest.TestCase):
         self.assertEqual(frozen_bytes, replay["_payload_bytes"])
         self.assertEqual(first["dataset_identity"], replay["dataset_identity"])
         self.assertEqual(len(replay["_scored_rows"]), 1)
+
+    def test_replay_ignores_unpinned_mtime_and_extra_files(self) -> None:
+        self._write_forecast([forecast_row(contest_id="6008")])
+        self._write_html(
+            "first.html",
+            render_scoreboard(contest_id="6008", home_points=21, away_points=7),
+        )
+        manifest = self._pin(
+            html_names=["first.html"],
+            retrieved_at={"first.html": "2026-09-03T23:00:00Z"},
+        )
+        first = self._score(manifest)
+        frozen_bytes = first["_payload_bytes"]
+        extra = self.data_root / self.scoreboard_rel / "unrelated_later.html"
+        extra.write_text("not in the pin", encoding="utf-8")
+        extra.touch()
+        replay = self._score(manifest)
+        self.assertEqual(frozen_bytes, replay["_payload_bytes"])
+        self.assertEqual(first["dataset_identity"], replay["dataset_identity"])
 
     def test_all_expected_states_are_reconstructed(self) -> None:
         rows = [

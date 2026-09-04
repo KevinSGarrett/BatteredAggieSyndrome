@@ -300,6 +300,37 @@ class Cycle27CoachingReportingTests(unittest.TestCase):
         )
         json.dumps(census["counts"])
 
+    def test_unresolved_source_is_not_labeled_canonical(self) -> None:
+        rows = _spine_universe()
+        rows[3]["canonical_team_id"] = None
+        rows[3]["source_team_id"] = "622407"
+        census = build_coaching_census(
+            issued_at_utc="2026-09-04T16:45:00Z",
+            spine_rows=rows,
+            feature_column_names=["prior_games_played", "is_home"],
+            fitted_design_columns={"ALL_ADMITTED_FEATURES": ["intercept"]},
+            acquisition_registry={"sources": []},
+            domain_admission={"domains": []},
+            authority_head_coach_boolean_retained=False,
+            cycle26_successor_consumes_coaching=False,
+            focus_packets={
+                FOCUS_HOME_CANONICAL: {"team_label": "Texas A&M"},
+                FOCUS_AWAY_CANONICAL: {"team_label": "Missouri State"},
+            },
+        )
+        unresolved = [
+            row
+            for row in census["team_seasons"]
+            if row.get("source_team_id") == "622407"
+        ]
+        self.assertEqual(len(unresolved), 1)
+        self.assertIsNone(unresolved[0]["canonical_team_id"])
+        self.assertEqual(
+            unresolved[0]["canonical_bind_state"], "UNRESOLVED_SOURCE_ENTITY"
+        )
+        self.assertNotEqual(unresolved[0]["canonical_team_id"], "622407")
+        self.assertIn("unresolved_source", census["universe"]["deduplicated_on"][0])
+
 
 if __name__ == "__main__":
     unittest.main()

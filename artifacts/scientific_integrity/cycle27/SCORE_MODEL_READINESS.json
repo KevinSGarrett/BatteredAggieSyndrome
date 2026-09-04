@@ -8,7 +8,7 @@
   ],
   "artifact_type": "SCORE_MODEL_READINESS",
   "classification": "CYCLE27_SCORE_MODEL_READINESS_NOT_WEEK1_ELIGIBLE",
-  "code_head": "0db9a12ed299ade4de07f53739de389049e71866",
+  "code_head": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
   "contract_id": "CYCLE27-PREGAME-REPORTING-V1",
   "deprecated_experiments_enabled": false,
   "experimental_score_models": {
@@ -50,10 +50,10 @@
     "Interval coverage under the declared joint model.",
     "Immutable future forecasts; algebraic score+margin+total cross-checks."
   ],
-  "gate_identity": "066cd964720d154b520a4ebc7368b77bfe4767fff06979b4ca7f7fe034c1d0ca",
+  "gate_identity": "445cd14128171006176627eceed2ac3286d4cf936a264133509b8071eb4ba2e1",
   "independent_predicted_score": null,
   "independent_predicted_score_blocker": "NO_ELIGIBLE_WEEK1_JOINT_SCORE_OR_TOTAL_CANDIDATE; active suite emits probability and ridge margin only; JointScoreDistribution/IndependentPoissonScoreRuntime are interfaces/experiments, not frozen Week1 outputs; preliminary Poisson and offense/defense Elo used 2024/2025 which are historically exposed and not blind; deprecated experiments are not enabled.",
-  "issued_at_utc": "2026-09-04T17:11:26Z",
+  "issued_at_utc": "2026-09-04T17:40:00Z",
   "jira_key": "BAT-690",
   "margin_identifies_both_team_scores": false,
   "parent_jira_key": "BAT-523",

@@ -462,7 +462,18 @@ def reject_pre_kickoff_receipts(
     for contest_id, snapshot in list(terminals.items()):
         kickoff = kickoff_by_contest.get(contest_id)
         retrieved = snapshot.get("retrieved_at_utc")
-        if retrieved is None:
+        if retrieved in (None, ""):
+            rejected.append(
+                {
+                    "ncaa_contest_id": contest_id,
+                    "capture_sha256": snapshot.get("capture_sha256"),
+                    "receipt_id": snapshot.get("receipt_id"),
+                    "retrieved_at_utc": retrieved,
+                    "kickoff_bound_utc": kickoff,
+                    "reason": "MISSING_RETRIEVED_AT_UTC_NOT_POST_KICKOFF_PROOF",
+                }
+            )
+            terminals.pop(contest_id, None)
             continue
         if not receipt_after_kickoff(str(retrieved), kickoff):
             rejected.append(

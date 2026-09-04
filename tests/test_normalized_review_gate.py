@@ -131,6 +131,84 @@ class NormalizedReviewGateShaTests(unittest.TestCase):
             )
         )
 
+    def test_newer_in_progress_rerun_beats_older_success(self) -> None:
+        result = evaluate_latest_head_checks(
+            head_sha=HEAD,
+            checks=[
+                {
+                    "name": "codex-review",
+                    "head_sha": HEAD,
+                    "conclusion": "success",
+                    "status": "completed",
+                    "completed_at": "2026-09-04T15:00:00Z",
+                    "started_at": "2026-09-04T14:59:00Z",
+                    "id": 1,
+                },
+                {
+                    "name": "codex-review",
+                    "head_sha": HEAD,
+                    "conclusion": "",
+                    "status": "in_progress",
+                    "completed_at": "",
+                    "started_at": "2026-09-04T15:30:00Z",
+                    "id": 2,
+                },
+                {
+                    "name": "codecov/patch",
+                    "head_sha": HEAD,
+                    "conclusion": "success",
+                    "status": "completed",
+                    "completed_at": "2026-09-04T15:23:00Z",
+                    "id": 3,
+                },
+            ],
+        )
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["observed"]["codex-review"]["status"], "in_progress")
+        self.assertTrue(
+            any(
+                "REQUIRED_CHECK_NOT_COMPLETED:codex-review" in item
+                for item in result["findings"]
+            )
+        )
+
+    def test_queued_rerun_without_timestamps_beats_older_success(self) -> None:
+        result = evaluate_latest_head_checks(
+            head_sha=HEAD,
+            checks=[
+                {
+                    "name": "codex-review",
+                    "head_sha": HEAD,
+                    "conclusion": "success",
+                    "status": "completed",
+                    "completed_at": "2026-09-04T15:00:00Z",
+                    "id": 1,
+                },
+                {
+                    "name": "codex-review",
+                    "head_sha": HEAD,
+                    "conclusion": "",
+                    "status": "queued",
+                    "id": 2,
+                },
+                {
+                    "name": "codecov/patch",
+                    "head_sha": HEAD,
+                    "conclusion": "success",
+                    "status": "completed",
+                    "completed_at": "2026-09-04T15:23:00Z",
+                    "id": 3,
+                },
+            ],
+        )
+        self.assertFalse(result["ok"])
+        self.assertTrue(
+            any(
+                "REQUIRED_CHECK_NOT_COMPLETED:codex-review" in item
+                for item in result["findings"]
+            )
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

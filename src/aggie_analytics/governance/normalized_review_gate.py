@@ -60,16 +60,21 @@ def _observed_sha(raw: Mapping[str, Any]) -> str:
     return ""
 
 
-def _attempt_time_key(raw: Mapping[str, Any]) -> tuple[str, str]:
-    return (
-        str(raw.get("completed_at") or ""),
-        str(raw.get("started_at") or ""),
-    )
+def _attempt_recency(raw: Mapping[str, Any]) -> str:
+    status = str(raw.get("status") or "").strip().casefold()
+    incomplete = status in INCOMPLETE_STATUSES
+    started = str(raw.get("started_at") or "")
+    completed = str(raw.get("completed_at") or "")
+    recency = started or completed
+    if incomplete and not recency:
+        return "9999-12-31T23:59:59Z"
+    return recency
 
 
 def _attempt_sort_key(raw: Mapping[str, Any]) -> tuple[str, str, str]:
-    time_key = _attempt_time_key(raw)
-    return (*time_key, str(raw.get("id") or ""))
+    status = str(raw.get("status") or "").strip().casefold()
+    incomplete = "1" if status in INCOMPLETE_STATUSES else "0"
+    return (_attempt_recency(raw), incomplete, str(raw.get("id") or ""))
 
 
 def evaluate_latest_head_checks(
@@ -103,8 +108,8 @@ def evaluate_latest_head_checks(
         if not rows:
             continue
         rows.sort(key=_attempt_sort_key)
-        latest_time = _attempt_time_key(rows[-1])
-        tied = [row for row in rows if _attempt_time_key(row) == latest_time]
+        latest_time = _attempt_recency(rows[-1])
+        tied = [row for row in rows if _attempt_recency(row) == latest_time]
         classified_set = {
             classify_check_conclusion(row.get("conclusion")) for row in tied
         }

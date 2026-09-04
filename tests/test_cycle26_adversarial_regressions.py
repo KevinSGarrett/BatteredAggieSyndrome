@@ -789,6 +789,15 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
                 }
             )
         )
+        self.assertFalse(
+            three_pass_complete_authorized(
+                {
+                    "result": "NOT_AUDITED_YET",
+                    "pass_evidence": ["payload_presence_checked"],
+                    "coverage_claims": ["independent_reconstruction"],
+                }
+            )
+        )
 
     def test_20_hold_missing_action_context_blocks_mutation(self) -> None:
         findings = validate_hold(

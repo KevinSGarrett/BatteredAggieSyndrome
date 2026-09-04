@@ -1,14 +1,21 @@
 {
   "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
-  "R26_09_disposition": "CONFIRMED_UNRESOLVED",
+  "R26_09_disposition": "CONFIRMED_FIXED",
+  "R26_09_residual": "Uniform missing_raw_payloads stamp is repaired. Remaining pass-two reconstruction is NOT_AUDITED_YET and does not authorize SEMANTICALLY_AUDITED.",
   "R26_17_disposition": "CONFIRMED_FIXED",
   "artifact_type": "CYCLE26_REMAINING_AUDIT_BACKLOG",
   "authority_document": "C:/BatteredAggieSyndrome.data/ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md",
-  "code_head": "bac5dcb91f13b984f278e24cdd205a0b97f9b513",
+  "code_head": "ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc",
   "code_head_binding": "LIVE_PR_678_TIP",
   "cycles": [
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-1",
+      "cycle_number": 1,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -17,13 +24,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "All capture semantic replay and every ownership/acceptance claim",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Capture semantic replay and ownership/acceptance claims remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-2",
+      "cycle_number": 2,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -32,13 +47,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Incident chronology and all restore evidence",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Incident chronology and restore evidence remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-3",
+      "cycle_number": 3,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -47,13 +70,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Full mounted 14-scenario battery and every early leakage claim",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Mounted 14-scenario battery and early leakage claims remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-4",
+      "cycle_number": 4,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -62,13 +93,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "All feature/label rows, fitted parameters and historical exposures",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Feature/label rows, fitted parameters and historical exposures remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-5",
+      "cycle_number": 5,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -77,13 +116,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Original materialized outputs and every scientific claim",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original materialized outputs and scientific claims remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-6",
+      "cycle_number": 6,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -92,13 +139,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "All ranking/metric/roster populations and lineage",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Ranking/metric/roster populations and lineage remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-7",
+      "cycle_number": 7,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -107,13 +162,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Full 2010-11 capture census and joins",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "2010-11 capture census and joins remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-8",
+      "cycle_number": 8,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -122,13 +185,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Every alias, page and source match",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Alias/page/source matches remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-9",
+      "cycle_number": 9,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -137,13 +208,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Complete original union generation",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original union generation remains unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-10",
+      "cycle_number": 10,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -152,13 +231,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Complete metadata/union and all domains",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Metadata/union and domain claims remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-11",
+      "cycle_number": 11,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -167,13 +254,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Every player/stat/domain field and enriched union",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Player/stat/domain fields and enriched union remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-12",
+      "cycle_number": 12,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -182,13 +277,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Every other 2006 domain and admission claim",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Non-2006 domains and admission claims remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-13",
+      "cycle_number": 13,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -197,13 +300,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Complete HTML/domain/union correctness",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "HTML/domain/union correctness remains unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-14",
+      "cycle_number": 14,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -212,13 +323,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Other domains and all authority metadata",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Other domains and authority metadata remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-15",
+      "cycle_number": 15,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -227,13 +346,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Complete corpus/union/rejection reconstruction",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Corpus/union/rejection reconstruction remains unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-16",
+      "cycle_number": 16,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -242,13 +369,22 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Complete corpus/union/rejection reconstruction",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Corpus/union/rejection reconstruction remains unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "FAIL": 1,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_id": "CYCLE-17",
+      "cycle_number": 17,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -257,13 +393,23 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Original full rejection/union chains",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original rejection/union chains remain unreviewed; 2024/2025 exposure finding remains FAIL.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "BLOCKED_INSUFFICIENT_EVIDENCE": 1,
+        "FAIL": 1,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
       "cycle_id": "CYCLE-18",
+      "cycle_number": 18,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -272,13 +418,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "All original 1996/97 claims, identities and mutation evidence",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original 1996/97 claims remain unreviewed; 990 directory-count assertion is a preserved false-positive.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
       "cycle_id": "CYCLE-19",
+      "cycle_number": 19,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -287,13 +441,23 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Preservation-to-C20 integration mapping and all dirty-work claims; NOT an empty-work cycle",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Preservation-to-C20 integration mapping remains unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "BLOCKED_INSUFFICIENT_EVIDENCE": 1,
+        "FAIL": 1,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
       "cycle_id": "CYCLE-20",
+      "cycle_number": 20,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -302,13 +466,23 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Every normalized/game/feature join, fold-fit/transform and peer inference; no full refit",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Normalized/game/feature joins and fold-fit remain unreviewed; pair successor is separate Cycle 26 work.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "BLOCKED_INSUFFICIENT_EVIDENCE": 1,
+        "FAIL": 1,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
       "cycle_id": "CYCLE-21",
+      "cycle_number": 21,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -317,13 +491,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Row-specific completion/publication authority, every prior contribution, full peer/entity/known-at claims",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Row-specific completion/publication authority remains unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
       "cycle_id": "CYCLE-22",
+      "cycle_number": 22,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -332,13 +514,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Full raw-final/forecast/metric replay; integration continued in 23",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Full raw-final/forecast/metric replay remains unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
       "cycle_id": "CYCLE-23",
+      "cycle_number": 23,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -347,13 +537,22 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "All 91 original schedule/authority receipts and every domain cell reconstructed",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original schedule/authority receipts remain unreviewed.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "FAIL": 2,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
       "cycle_id": "CYCLE-24",
+      "cycle_number": 24,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -362,13 +561,22 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Every original frozen row full raw-feature-parameter trace and all fitting decisions",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Frozen-row raw-feature-parameter traces remain unreviewed; ridge distribution finding remains FAIL.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
+      "claim_classification_counts": {
+        "FAIL": 8,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 2
+      },
+      "cycle_disposition": "FAIL",
       "cycle_id": "CYCLE-25",
+      "cycle_number": 25,
       "owner_candidates": [
         "BAT-690",
         "BAT-691",
@@ -377,10 +585,12 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Original acquisition time authenticity, every market raw join, all training/refit/parameter claims",
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original acquisition/market/training claims remain unreviewed; several P0 findings remain FAIL.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     },
     {
       "cycle_id": "CYCLE-25.5",
@@ -392,17 +602,21 @@
         "BAT-694",
         "BAT-696"
       ],
-      "remaining": "Complete inventory, all independent reconstruction, external admin configuration, original authorization/live comment, materialized scientific recovery",
+      "remaining": "Independent reconstruction of remaining material claims, external admin residuals, and all-cycle trust recovery remain open. Cycle 26 removed the uniform missing_raw_payloads stamp; it does not complete Cycle 25.5.",
       "semantically_audited": false,
-      "three_pass_status": "INCOMPLETE",
-      "remaining_authority": "ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md Not completed column"
+      "three_pass_status": "INCOMPLETE"
     }
   ],
   "inventory_gate_relative_path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json",
-  "inventory_result": null,
-  "issued_at_utc": "2026-09-03T23:29:08Z",
-  "method_requirement": "Maintain per-field/material-claim registry; resolve first origin and every material contribution; distinguish missing evidence, unreviewed scope, and failed semantics.",
+  "issued_at_utc": "2026-09-04T01:59:23Z",
+  "method_requirement": "Maintain per-field/material-claim registry; resolve first origin and every material contribution; distinguish missing evidence, unreviewed scope, and failed semantics. Do not stamp every cycle missing_raw_payloads=true without checking that cycle's declared dependencies.",
   "named_open_scientific_units": [
+    {
+      "id": "R26-09",
+      "note": "Uniform missing_raw_payloads stamp repaired; remaining reconstruction NOT_AUDITED_YET.",
+      "owner": "BAT-688",
+      "state": "CONFIRMED_FIXED"
+    },
     {
       "id": "R26-20",
       "note": "Historical game-grain successor; predecessors immutable.",
@@ -411,51 +625,47 @@
     },
     {
       "id": "R26-21",
-      "note": "Passing-section successor rematerialized 429/125; predecessor unrepaired in place; 45 unresolved screen candidates remain.",
+      "note": "Passing-section successor rematerialized 429/125; predecessor unrepaired in place.",
       "owner": "BAT-692",
       "state": "CONFIRMED_FIXED"
     },
     {
       "id": "R26-22",
-      "note": "Pair census retained; operational_pit_admission_allowed rejects conservative-bound predecessor PIT boolean. Historical fit still used proxies; Week1 path UNTRUSTED_SHADOW.",
+      "note": "Operational PIT boolean rejects conservative-bound predecessor; historical fit still used proxies.",
       "owner": "BAT-691",
       "state": "CONFIRMED_CONTAINED_NOT_FIXED"
     },
     {
-      "id": "R26-09",
-      "note": "Pass-two reconstruction blocked for whole-project inventory",
-      "owner": "BAT-693",
-      "state": "CONFIRMED_UNRESOLVED"
-    },
-    {
       "id": "R26-13",
-      "note": "Live main protection updated 2026-09-03T23:25Z: required_approving_review_count=1, require_last_push_approval=true, codecov/patch required. Bugbot still not a required context.",
+      "note": "Live main protection required_approving_review_count=1; Bugbot still not a required context.",
       "owner": "BAT-694",
-      "state": "CONFIRMED_FIXED"
-    },
-    {
-      "id": "C26-7A7-FALSE-QUARANTINE-312472199",
-      "note": "Structured-status successor restore; predecessor quarantine preserved.",
-      "owner": "BAT-651",
-      "state": "CONFIRMED_FIXED"
-    },
-    {
-      "id": "C26-7A7-CHILD-COUNTS",
-      "note": "Successor recomputed 4 stale child-count domains.",
-      "owner": "BAT-692",
       "state": "CONFIRMED_FIXED"
     }
   ],
   "nonclaims": {
     "all_25_cycles_audited_because_json_files_exist": false,
     "cycle26_completion_implies_all_cycle_recovery": false,
-    "delays_safe_pregame_capture": false
+    "delays_safe_pregame_capture": false,
+    "not_audited_yet_is_pass": false
+  },
+  "pass_two_status_counts": {
+    "NOT_AUDITED_YET": 25
   },
   "result": "BACKLOG_ENUMERATED_TRUST_GATE_REMAINS_CLOSED",
-  "r26_13_live_enforcement": {
-    "required_approving_review_count": 1,
-    "require_last_push_approval": true,
-    "codecov_patch_required": true,
-    "bugbot_required_context": false
-  }
+  "scientific_trust_recovered": false,
+  "scoreboard_reparse": {
+    "any_terminal": false,
+    "files_parsed": 90,
+    "newest": {
+      "cards": 1,
+      "mtime": 1788484641.891369,
+      "sha256": "ed5ab4acf681c1ad48670770e6c5ae57fcc06f0159898445d5709946235f1b1c",
+      "statuses": {
+        "PARSED": 1
+      },
+      "terminal": 0
+    },
+    "reparse_terminal_total": 0
+  },
+  "week1_official_finals": "AWAITING_FINAL"
 }

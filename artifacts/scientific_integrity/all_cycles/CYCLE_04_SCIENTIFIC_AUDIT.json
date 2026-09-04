@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
-  "audit_identity": "cf0db9468100d77e88162dc67401a38ad2c9b337d8e20f875fbe41aa2ed0ab61",
+  "audit_identity": "95f1e33c2ae0de2a395e1d440d6cb5ed985d86538e628ad0cd9920df3fa5a728",
   "cycle_number": 4,
   "ending_sha": "05b17030afa98c26f0d20ba413c7497b51f31d07",
   "findings": [],
@@ -24,11 +24,15 @@
     "status": "PARTIAL"
   },
   "pass_two_semantic": {
+    "declared_payload_requirement_count": 0,
     "independent_of_producer_helpers": true,
-    "missing_raw_payloads": true,
-    "status": "BLOCKED_INSUFFICIENT_EVIDENCE"
+    "limitation": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+    "missing_declared_payloads": [],
+    "missing_raw_payloads": false,
+    "skipped_false_positive_payload_assertions": [],
+    "status": "NOT_AUDITED_YET"
   },
   "schema_version": 1,
   "starting_sha": "5baf80d46491cbcda1ec1dfbd3f879f0f37379fb",
-  "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE"
+  "trust_classification": "NOT_AUDITED_YET"
 }

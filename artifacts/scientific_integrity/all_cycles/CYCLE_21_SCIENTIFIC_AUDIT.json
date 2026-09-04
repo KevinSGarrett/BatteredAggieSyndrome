@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
-  "audit_identity": "37eeedb7191482b94d5e3de9fd94fd5e2d4a5c9dfb5716e44776c6142e704370",
+  "audit_identity": "3fa062c29a8dbc8b729fadad1314d032189481545759e37f3862b48bd00269a8",
   "cycle_number": 21,
   "ending_sha": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
   "findings": [
@@ -54,9 +54,15 @@
     "status": "PARTIAL"
   },
   "pass_two_semantic": {
+    "declared_payload_requirement_count": 1,
     "independent_of_producer_helpers": true,
-    "missing_raw_payloads": true,
-    "status": "BLOCKED_INSUFFICIENT_EVIDENCE"
+    "limitation": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+    "missing_declared_payloads": [],
+    "missing_raw_payloads": false,
+    "skipped_false_positive_payload_assertions": [
+      "mounted:raw/SRC-002 file count 980"
+    ],
+    "status": "NOT_AUDITED_YET"
   },
   "schema_version": 1,
   "starting_sha": "862b4ff5cfdb1c0c9ac67a10182f1da3131eefcc",

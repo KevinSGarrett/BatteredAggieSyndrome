@@ -1,81 +1,100 @@
 {
-  "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
-  "issued_at_utc": "2026-09-03T23:33:54Z",
   "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+  "artifact_type": "CYCLE26_BRANCH_WORKTREE_HYGIENE",
   "code_head_binding": "LIVE_PR_678_TIP",
   "deleted_count": 8,
   "deleted_kind": "local_worktree_and_local_branch_after_merged_pr_head_oid_match",
-  "remote_deleted_count": 0,
+  "issued_at_utc": "2026-09-04T02:02:08Z",
   "note": "Removed only clean local worktrees/branches whose HEAD exactly equaled a merged PR headRefOid. Preserve refs created first. Remote branches for those PRs were already gone. Closed-unmerged remotes retained. Open PRs 678 and 654 retained. Detached cycle25.5 validation worktrees retained. Canonical main unchanged.",
+  "open_prs": [
+    678,
+    654
+  ],
   "recovery": "git update-ref refs/heads/<branch> <tip> then git worktree add <path> <branch> using the preserve ref",
+  "reenumeration_20260904T020158Z": {
+    "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+    "additional_deletions": 0,
+    "git_tip_at_refresh": "ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc",
+    "local_branch_count": 23,
+    "note": "Refresh only. Historical removed[] cleanup proof unchanged. No additional obsolete deletions. Dependabot #654 retained.",
+    "open_pr_count": 2,
+    "open_prs_retained": [
+      654,
+      678
+    ],
+    "remote_deletions": 0,
+    "worktree_count": 6
+  },
+  "remote_deleted_count": 0,
+  "remote_head_count": 14,
   "removed": [
     {
-      "pr": 677,
       "branch": "codex/public-private-separation",
-      "tip": "94cf3d66d8e19282fdfbc5f920f6b03b3aaca012",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/public-private-separation",
-      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/public-private-separation"
+      "pr": 677,
+      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/public-private-separation",
+      "tip": "94cf3d66d8e19282fdfbc5f920f6b03b3aaca012"
     },
     {
-      "pr": 676,
       "branch": "codex/public-repository-makeover",
-      "tip": "f5b36c56664549962f2d72e9093e12d1ea23deec",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/public-repository-makeover",
-      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/public-repository-makeover"
+      "pr": 676,
+      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/public-repository-makeover",
+      "tip": "f5b36c56664549962f2d72e9093e12d1ea23deec"
     },
     {
-      "pr": 675,
       "branch": "material/BAT-688-inventory-authority-roots",
-      "tip": "266d13839e8fb1aa369a2eb2a9c36fbb38d27330",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-authority-roots",
-      "preserve_ref": "refs/preserve/cycle26-hygiene/material/BAT-688-inventory-authority-roots"
+      "pr": 675,
+      "preserve_ref": "refs/preserve/cycle26-hygiene/material/BAT-688-inventory-authority-roots",
+      "tip": "266d13839e8fb1aa369a2eb2a9c36fbb38d27330"
     },
     {
-      "pr": 674,
       "branch": "material/BAT-688-inventory-git-first-add",
-      "tip": "ba2e9e6650ef71e8c0c3f630ad8768e36a423843",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-inventory-git-first-add",
-      "preserve_ref": "refs/preserve/cycle26-hygiene/material/BAT-688-inventory-git-first-add"
+      "pr": 674,
+      "preserve_ref": "refs/preserve/cycle26-hygiene/material/BAT-688-inventory-git-first-add",
+      "tip": "ba2e9e6650ef71e8c0c3f630ad8768e36a423843"
     },
     {
-      "pr": 673,
       "branch": "process/BAT-688-cycle25-5-jira-reconcile",
-      "tip": "1690676720a37b4c1770bae839e0f63c2b96a695",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-jira-reconcile",
-      "preserve_ref": "refs/preserve/cycle26-hygiene/process/BAT-688-cycle25-5-jira-reconcile"
+      "pr": 673,
+      "preserve_ref": "refs/preserve/cycle26-hygiene/process/BAT-688-cycle25-5-jira-reconcile",
+      "tip": "1690676720a37b4c1770bae839e0f63c2b96a695"
     },
     {
-      "pr": 672,
       "branch": "codex/BAT-689-execution-focus-correction",
-      "tip": "8c1ebcf502a6a56f52344aa314cd1f54c1a01554",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-execution-focus-correction",
-      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/BAT-689-execution-focus-correction"
+      "pr": 672,
+      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/BAT-689-execution-focus-correction",
+      "tip": "8c1ebcf502a6a56f52344aa314cd1f54c1a01554"
     },
     {
-      "pr": 670,
       "branch": "codex/BAT-689-review-infra",
-      "tip": "99b901d84f54233af1c4a7c8974b71652df99b8f",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-689-review-infra",
-      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/BAT-689-review-infra"
+      "pr": 670,
+      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/BAT-689-review-infra",
+      "tip": "99b901d84f54233af1c4a7c8974b71652df99b8f"
     },
     {
-      "pr": 671,
       "branch": "codex/BAT-690-scientific-successors",
-      "tip": "3ef3b6a6e3e9c6bf7e9f332fa40a583b94fa83f2",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-scientific-successors",
-      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/BAT-690-scientific-successors"
+      "pr": 671,
+      "preserve_ref": "refs/preserve/cycle26-hygiene/codex/BAT-690-scientific-successors",
+      "tip": "3ef3b6a6e3e9c6bf7e9f332fa40a583b94fa83f2"
     }
   ],
   "retained_worktrees": [
     {
       "path": "C:/BatteredAggieSyndrome",
-      "sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
-      "reason": "CANONICAL_MAIN"
+      "reason": "CANONICAL_MAIN",
+      "sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
-      "sha": "LIVE_PR_678_TIP",
-      "reason": "ACTIVE_PR_678"
+      "reason": "ACTIVE_PR_678",
+      "sha": "LIVE_PR_678_TIP"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
@@ -87,19 +106,14 @@
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate",
-      "sha": "deaece17cd66d51510cf8ee29f615d35a3c11994",
-      "reason": "PRESERVATION_RETAIN"
+      "reason": "PRESERVATION_RETAIN",
+      "sha": "deaece17cd66d51510cf8ee29f615d35a3c11994"
     },
     {
       "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b",
-      "sha": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1",
-      "reason": "PRESERVATION_RETAIN_MANAGER_REVIEW"
+      "reason": "PRESERVATION_RETAIN_MANAGER_REVIEW",
+      "sha": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1"
     }
   ],
-  "open_prs": [
-    678,
-    654
-  ],
-  "remote_head_count": 14,
   "worktree_count_after": 6
 }

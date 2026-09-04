@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
-  "audit_identity": "4daa72325711f14c600a94ee6584e6c3c9231b1f185638c4c46de2de84eb6a7e",
+  "audit_identity": "9d2ec84b8e6d0d96635e737ef36557b8a3b06a5d105b830036d1604de7aa4bda",
   "cycle_number": 25,
   "ending_sha": "c1c310da6bcae25641977fe409e3034b8c08010a",
   "findings": [
@@ -109,13 +109,15 @@
       "cycles": [
         25
       ],
-      "disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "disposition": "REPRODUCIBLE_ONLY",
       "evidence": [
-        "calendar 2026-09-04 / 2026-09-05"
+        "artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_SEP3_T90M_FREEZE_RECEIPT.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT.json"
       ],
-      "finding_id": "P2-T24H-T90M-STILL-OPEN",
+      "finding_id": "P2-REMAINING-OPEN-CHECKPOINTS-PLANNED",
       "severity": "P2",
-      "summary": "T-24H and T-90M deadlines have not occurred; capture remains OPEN and must not be backfilled."
+      "summary": "Remaining A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z are OPEN planned checkpoints, not an integrity defect. Sep 3 T-24H is MISSED_CUTOFF_NO_BACKFILL. Sep 3 T-90M and the Sep4-window T-24H were captured before their cutoffs. Do not backfill a missed checkpoint."
     }
   ],
   "pass_one_provenance": {
@@ -138,9 +140,13 @@
     "status": "PARTIAL"
   },
   "pass_two_semantic": {
+    "declared_payload_requirement_count": 0,
     "independent_of_producer_helpers": true,
-    "missing_raw_payloads": true,
-    "status": "BLOCKED_INSUFFICIENT_EVIDENCE"
+    "limitation": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+    "missing_declared_payloads": [],
+    "missing_raw_payloads": false,
+    "skipped_false_positive_payload_assertions": [],
+    "status": "NOT_AUDITED_YET"
   },
   "schema_version": 1,
   "starting_sha": "991bf4666fa6d60921448113939300c121250278",

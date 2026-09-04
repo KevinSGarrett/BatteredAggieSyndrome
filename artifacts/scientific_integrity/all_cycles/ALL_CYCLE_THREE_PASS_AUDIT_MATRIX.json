@@ -2,172 +2,172 @@
   "artifact_type": "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX",
   "cycles": [
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 1,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 2,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 3,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 4,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 5,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 6,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 7,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 8,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 9,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 10,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 11,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 12,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 13,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 14,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 15,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 16,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
     {
-      "cycle_disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "cycle_disposition": "NOT_AUDITED_YET",
       "cycle_number": 17,
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
@@ -177,7 +177,7 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
@@ -187,7 +187,7 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
@@ -197,7 +197,7 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
@@ -207,7 +207,7 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
@@ -217,7 +217,7 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
@@ -227,7 +227,7 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
@@ -237,7 +237,7 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     },
@@ -247,12 +247,12 @@
       "passes": {
         "pass_one": "COMPLETE",
         "pass_three": "PARTIAL",
-        "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE"
+        "pass_two": "NOT_AUDITED_YET"
       },
       "semantically_audited": false
     }
   ],
-  "matrix_identity": "5095b2815f66b3f92d28e668b22337a733cdcea208787bbb7584f301723b4010",
-  "note": "No later cycle confers PASS on an earlier one. Missing evidence is BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is blocked for every cycle because independent reconstruction of every material claim from mounted raw payloads was not completed; successor fixture tests are not a substitute. Pass three PARTIAL means listed adversarial categories were searched only; it is not complete review-of-review and does not authorize SEMANTICALLY_AUDITED.",
+  "matrix_identity": "3281d3f9198721e26fcb9dacc9c6df235d085760b85f71820998513d17efd93a",
+  "note": "No later cycle confers PASS on an earlier one. Missing evidence is BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is NOT_AUDITED_YET when declared payload dependencies are present or were a disproved directory-count assertion; it is not independent reconstruction of every material claim. Pass three PARTIAL means listed adversarial categories were searched only; it is not complete review-of-review and does not authorize SEMANTICALLY_AUDITED.",
   "schema_version": 1
 }

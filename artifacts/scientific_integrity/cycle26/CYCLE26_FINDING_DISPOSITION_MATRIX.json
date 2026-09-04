@@ -286,24 +286,25 @@
       ],
       "code_payload_pr_identities": {
         "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "requested_review_head_at_last_material": "ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc",
         "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
       },
-      "correction_or_containment": "Honest backlog enumeration; no false COMPLETE stamp.",
+      "correction_or_containment": "assess_cycle_pass_two checks declared payload dependencies per cycle; national 990 uses the committed reconciliation gate rather than a recursive directory count.",
       "dependency_closure": [
+        "tools/build_all_cycle_scientific_inventory.py",
         "tools/validate_all_cycle_scientific_inventory.py",
         "artifacts/scientific_integrity/cycle26/CYCLE26_REMAINING_AUDIT_BACKLOG.json"
       ],
-      "disposition": "CONFIRMED_UNRESOLVED",
+      "disposition": "CONFIRMED_FIXED",
       "evidence": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json",
       "id": "R26-09",
-      "independently_reconstructed_result": "Inventory validator rejects SEMANTICALLY_AUDITED with blocked passes.",
-      "observed_result": "Pass two is BLOCKED_INSUFFICIENT_EVIDENCE for cycles 1-25; pass three is PARTIAL category search.",
+      "independently_reconstructed_result": "Cycle 01 pass_two=NOT_AUDITED_YET and missing_raw_payloads=false; scientific_trust_recovered remains false.",
+      "observed_result": "Builder no longer stamps missing_raw_payloads=true for every cycle. Pass two is NOT_AUDITED_YET when declared payload dependencies are present or were the disproved SRC-002 directory-count assertion. Validator rejects UNIFORM_MISSING_RAW_PAYLOADS_STAMP.",
       "owner": "BAT-688",
-      "reason": "All-cycle three-pass unfinished: pass two remains BLOCKED_INSUFFICIENT_EVIDENCE for cycles 1-25. Pass three demoted from false COMPLETE to PARTIAL (category search only) in inventory rebuild.",
-      "red_before_green_after_regression": "tests/test_all_cycle_scientific_inventory.py::test_pass_three_category_search_cannot_be_complete",
+      "reason": "R26-09 inventory-stamp defect is repaired. Remaining independent reconstruction of material claims is still NOT_AUDITED_YET and is owned as the Cycle 25.5 backlog, not as a false COMPLETE.",
+      "red_before_green_after_regression": "tests/test_all_cycle_scientific_inventory.py::test_pass_two_does_not_stamp_every_cycle_missing_raw_payloads",
       "reproducer": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json",
-      "residual_risk": "All-cycle trust gate remains closed; unfinished reconstruction is CONFIRMED_UNRESOLVED.",
+      "residual_risk": "All-cycle trust gate remains closed. NOT_AUDITED_YET is not PASS.",
       "severity": "P1"
     },
     {

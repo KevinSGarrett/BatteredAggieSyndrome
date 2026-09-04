@@ -30,6 +30,7 @@ ALLOWED_CLASSIFICATIONS = {
     "EXTERNALLY_BENCHMARKED",
     "FAIL",
     "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "NOT_AUDITED_YET",
 }
 HIGH_TRUST = {
     "SEMANTICALLY_AUDITED",
@@ -269,6 +270,20 @@ def validate(repo_root: Path) -> list[str]:
         limitation = str(p3.get("limitation") or "").lower()
         if p3.get("status") == "COMPLETE" and "category search" in limitation:
             findings.append(f"AUDIT_PASS_THREE_FALSE_COMPLETE:{cycle:02d}")
+    missing_flags = []
+    for cycle in REQUIRED_CYCLES:
+        audit_path = base / f"CYCLE_{cycle:02d}_SCIENTIFIC_AUDIT.json"
+        if not audit_path.is_file():
+            continue
+        audit = _load(audit_path)
+        p2 = audit.get("pass_two_semantic") or {}
+        missing_flags.append(p2.get("missing_raw_payloads") is True)
+        if p2.get("missing_raw_payloads") is True and not p2.get(
+            "missing_declared_payloads"
+        ):
+            findings.append(f"MISSING_RAW_PAYLOADS_WITHOUT_DECLARED_GAPS:{cycle:02d}")
+    if missing_flags and all(missing_flags):
+        findings.append("UNIFORM_MISSING_RAW_PAYLOADS_STAMP")
     if not (claims.get("claims") or []):
         findings.append("CLAIM_REGISTRY_EMPTY")
     if gate.get("scientific_trust_recovered") is True:

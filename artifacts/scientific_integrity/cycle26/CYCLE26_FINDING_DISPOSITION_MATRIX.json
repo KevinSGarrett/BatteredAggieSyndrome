@@ -1100,6 +1100,6 @@
   "jira_verify_live_at_utc": "2026-09-04T02:49:20Z",
   "note": "Matrix completed for required 1B fields. Pass 3 at e9f0adb5 does not cover later semantic heads. PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged.",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "requested_review_head": "95eba9f9f083e10ea260034b63e4f4bd36e08655",
+  "requested_review_head": "973b1a5deb658e2d7e02b43c66f7e98f3c95ae6d",
   "schema_version": 2
 }

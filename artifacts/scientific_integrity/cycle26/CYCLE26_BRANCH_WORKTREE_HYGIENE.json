@@ -4,7 +4,7 @@
   "code_head_binding": "LIVE_PR_678_TIP",
   "deleted_count": 8,
   "deleted_kind": "local_worktree_and_local_branch_after_merged_pr_head_oid_match",
-  "issued_at_utc": "2026-09-04T02:02:08Z",
+  "issued_at_utc": "2026-09-04T05:28:00Z",
   "note": "Removed only clean local worktrees/branches whose HEAD exactly equaled a merged PR headRefOid. Preserve refs created first. Remote branches for those PRs were already gone. Closed-unmerged remotes retained. Open PRs 678 and 654 retained. Detached cycle25.5 validation worktrees retained. Canonical main unchanged.",
   "open_prs": [
     678,
@@ -165,5 +165,27 @@
       "sha": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1"
     }
   ],
-  "worktree_count_after": 6
+  "worktree_count_after": 6,
+  "reenumeration_20260904T052800Z": {
+    "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+    "additional_deletions": 0,
+    "git_tip_at_refresh": "973b1a5deb658e2d7e02b43c66f7e98f3c95ae6d",
+    "local_branch_count": 22,
+    "note": "Refresh only. Historical removed[] cleanup proof unchanged. No additional obsolete deletions. Open PRs 678 and Dependabot 654 retained. Canonical main unchanged.",
+    "open_pr_count": 2,
+    "open_prs_retained": [
+      654,
+      678
+    ],
+    "remote_deletions": 0,
+    "worktree_count": 6,
+    "worktree_paths": [
+      "C:/BatteredAggieSyndrome",
+      "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
+      "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
+      "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
+      "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate",
+      "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b"
+    ]
+  }
 }

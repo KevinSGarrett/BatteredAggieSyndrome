@@ -31,12 +31,16 @@
   "independent_reviewer_result": "PASS_WITHIN_DECLARED_SCOPE",
   "issued_at_utc": "2026-09-04T01:25:03Z",
   "name": "independent_review_of_implementation_and_review",
-  "note": "Author does not self-approve. Independent Pass 3 of the Week 1 forecast successor remains c353f01a. Independent Pass 3 of directory-union official-final scoring is 95eba9f9 PASS_WITHIN_DECLARED_SCOPE. Neither authorizes merge. PRIMARY_TRUST_RECOVERY_INCOMPLETE remains.",
+  "note": "Author does not self-approve. Independent Pass 3 of the Week 1 forecast successor remains c353f01a. Independent Pass 3 of directory-union official-final scoring code is 95eba9f9. Independent Pass 3 of the 10-terminal scoring payload is 6e7ad0a5 PASS_WITHIN_DECLARED_SCOPE. Neither authorizes merge. PRIMARY_TRUST_RECOVERY_INCOMPLETE remains.",
   "pass": 3,
   "passing_section_successor_gate": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "rebinding_issued_at_utc": "2026-09-04T04:35:44Z",
+  "rebinding_issued_at_utc": "2026-09-04T05:50:00Z",
   "result": "PASS_WITHIN_DECLARED_SCOPE",
   "status_successor_gate": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894",
-  "this_file_is_not_author_self_approval": true
+  "this_file_is_not_author_self_approval": true,
+  "scoring_payload_independent_reviewed_head": "6e7ad0a5093090cb3bf7d2a75e4ae02f7aaeb761",
+  "scoring_payload_independent_reviewer_receipt": "artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEWER_RECEIPT_6e7ad0a5.json",
+  "scoring_payload_independent_reviewer_result": "PASS_WITHIN_DECLARED_SCOPE",
+  "requested_review_head": "973b1a5deb658e2d7e02b43c66f7e98f3c95ae6d"
 }

@@ -3880,6 +3880,7 @@ src/aggie_analytics/validation/protected_split_authority.py
 src/aggie_analytics/validation/retraining_admission.py
 src/aggie_analytics/validation/roster_domain_completeness.py
 src/aggie_analytics/validation/tracked_file_purity.py
+tests/cycle26_frozen_predecessor.py
 tests/fixtures/protected_split_exposure_audit.v2.stale.json
 tests/fixtures/stale_placeholder_contract.json
 tests/test_acceptance_governance.py

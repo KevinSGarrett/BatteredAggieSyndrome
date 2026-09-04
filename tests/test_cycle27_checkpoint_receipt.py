@@ -21,6 +21,7 @@ from aggie_analytics.operations.cycle27_checkpoint_receipt import (  # noqa: E40
     derive_capture_window_open,
     main as bind_main,
     parse_named_stages,
+    resolve_capture_run_log,
 )
 
 UTC = timezone.utc
@@ -119,6 +120,27 @@ class Cycle27CheckpointReceiptTests(unittest.TestCase):
         stages = parse_named_stages(text)
         self.assertEqual(stages["schedule"]["ok"], "true")
         self.assertNotIn("ok", stages["weather"])
+
+    def test_nested_timestamps_and_utf8_sig_last_capture_pointer(self) -> None:
+        ident = "f" * 64
+        wrapped = (
+            "[2026-09-04T20:16:00Z] [2026-09-04T20:16:00.0806927Z] START schedule: python x.py\n"
+            f"capture_identity: {ident}\n"
+            "[2026-09-04T20:16:10Z] [2026-09-04T20:16:10.0000000Z] OK schedule\n"
+        )
+        stages = parse_named_stages(wrapped)
+        self.assertEqual(stages["schedule"]["ok"], "true")
+        self.assertEqual(stages["schedule"]["ok_utc"], "2026-09-04T20:16:10Z")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            capture = root / "CYCLE26_CAPTURE_RUN_20260904T201500Z.log"
+            capture.write_text("capture", encoding="utf-8")
+            pointer = root / "LAST_CAPTURE_RUN.json"
+            pointer.write_bytes(
+                b"\xef\xbb\xbf" + json.dumps({"log": str(capture)}).encode("utf-8")
+            )
+            resolved = resolve_capture_run_log("no path in text", pointer_path=pointer)
+            self.assertEqual(Path(resolved), capture)
 
     def test_bind_writes_versioned_receipt_and_pointer_without_forecast(self) -> None:
         cutoff = datetime(2026, 9, 4, 21, 0, tzinfo=UTC)

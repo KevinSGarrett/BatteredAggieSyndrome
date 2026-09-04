@@ -131,23 +131,50 @@ def parse_named_stages(log_text: str) -> dict[str, dict[str, str]]:
     stages: dict[str, dict[str, str]] = {}
     current: str | None = None
     for line in log_text.splitlines():
-        start = re.search(r"\[([^\]]+)\] START ([A-Za-z0-9_]+):", line)
+        line = line.rstrip()
+        stamps = re.findall(r"\[([^\]]+)\]", line)
+        stamp = format_utc(parse_dt(stamps[-1])) if stamps else None
+        start = re.search(r"START ([A-Za-z0-9_]+):", line)
         if start:
-            current = start.group(2)
+            current = start.group(1)
             stage = stages.setdefault(current, {"start_line": line})
-            stage["start_utc"] = format_utc(parse_dt(start.group(1)))
+            if stamp:
+                stage["start_utc"] = stamp
             continue
-        ok = re.search(r"\[([^\]]+)\] OK ([A-Za-z0-9_]+)$", line)
+        ok = re.search(r"\bOK ([A-Za-z0-9_]+)$", line)
         if ok:
-            stage = stages.setdefault(ok.group(2), {})
+            stage = stages.setdefault(ok.group(1), {})
             stage["ok"] = "true"
-            stage["ok_utc"] = format_utc(parse_dt(ok.group(1)))
+            if stamp:
+                stage["ok_utc"] = stamp
             continue
         if current:
             ident = re.search(r"capture_identity:\s*([a-f0-9]{64})", line)
             if ident:
                 stages[current]["capture_identity"] = ident.group(1)
     return stages
+
+
+LAST_CAPTURE_POINTER = OPS27 / "LAST_CAPTURE_RUN.json"
+CAPTURE_RUN_LOG_RE = (
+    r"C:\\BatteredAggieSyndrome\.data\\ops\\cycle26\\"
+    r"CYCLE26_CAPTURE_RUN_\d{8}T\d{6}Z\.log"
+)
+
+
+def resolve_capture_run_log(
+    log_text: str, pointer_path: Path | None = None
+) -> str | None:
+    paths = re.findall(CAPTURE_RUN_LOG_RE, log_text)
+    if paths:
+        return paths[-1]
+    if pointer_path is None or not pointer_path.is_file():
+        return None
+    payload = json.loads(pointer_path.read_text(encoding="utf-8-sig"))
+    log = str(payload.get("log") or "")
+    if log and Path(log).is_file():
+        return log
+    return None
 
 
 def bound_cutoff_for_phase(contest: Mapping[str, Any], phase: str) -> datetime:
@@ -252,17 +279,21 @@ def bind_checkpoint_receipt(
     ledger_paths: Sequence[Path],
     capture_window_open: datetime | None = None,
     clock_note: str = "Host OS clock; not cryptographic global-time proof",
+    last_capture_pointer: Path | None = None,
 ) -> dict[str, Any]:
     if not log_path.is_file():
         raise FileNotFoundError("LOG_MISSING")
     window_open = derive_capture_window_open(cutoff, capture_window_open)
     log_text = log_path.read_text(encoding="utf-8", errors="replace")
     stages = parse_named_stages(log_text)
-    capture_run_logs = re.findall(
-        r"C:\\BatteredAggieSyndrome\.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_\d{8}T\d{6}Z\.log",
-        log_text,
-    )
-    bound_capture_log = capture_run_logs[-1] if capture_run_logs else None
+    missing_ok = [
+        name for name in REQUIRED_STAGES if stages.get(name, {}).get("ok") != "true"
+    ]
+    bound_capture_log = None
+    if missing_ok:
+        bound_capture_log = resolve_capture_run_log(
+            log_text, pointer_path=last_capture_pointer
+        )
     if bound_capture_log and Path(bound_capture_log).is_file():
         stages.update(
             parse_named_stages(
@@ -441,6 +472,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             ledger_paths=ledger_paths,
             capture_window_open=explicit,
             clock_note=clock_note,
+            last_capture_pointer=LAST_CAPTURE_POINTER,
         )
     except FileNotFoundError:
         print(json.dumps({"ok": False, "reason": "LOG_MISSING"}))

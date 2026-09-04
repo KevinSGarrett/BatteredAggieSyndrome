@@ -742,9 +742,12 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             "test_tamu_official_1997_structured_domains.py",
             "test_tamu_official_1998_structured_domains.py",
             "test_tamu_official_1999_structured_domains.py",
+            "test_tamu_official_statcrew_preformatted.py",
+            "test_tamu_official_gamebook_union_1999_expanded.py",
         ):
             text = (REPO_ROOT / "tests" / name).read_text(encoding="utf-8")
             self.assertNotIn("materialize(repo_root=REPO_ROOT", text)
+            self.assertNotIn("materialize_union(repo_root=REPO_ROOT", text)
         gates = [
             REPO_ROOT
             / "artifacts"

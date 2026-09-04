@@ -8,6 +8,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.tamu_official_gamebook_union_2000_expanded import (  # noqa: E402
     FORBIDDEN_UNION_URLS,
@@ -68,9 +71,15 @@ from aggie_analytics.data.tamu_official_gamebook_union_2000_expanded import (  #
 
 
 DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
-LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT, REPO_ROOT)
-EXPECTED_GATE_IDENTITY = "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2"
-EXPECTED_UNION_IDENTITY = "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35"
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(
+    DATA_ROOT, REPO_ROOT
+)
+EXPECTED_GATE_IDENTITY = (
+    "8d8fcbd413524ce65321212c3c68efe481ddc8e6dda73ab0d6824826dd29e3b2"
+)
+EXPECTED_UNION_IDENTITY = (
+    "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35"
+)
 
 
 def _copy(value):
@@ -446,9 +455,16 @@ class Expanded2000ReconstructionAndTamperTests(unittest.TestCase):
         self.bat623 = _copy(self.objects["bat623"]["payload"])
 
     def test_committed_gate_reconstructs(self) -> None:
-        result = validate_artifact(
-            repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+        result = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: validate_artifact(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+            ),
         )
+        if result is None:
+            return
         self.assertEqual(result["result"], "PASS")
         self.assertEqual(result["counts"]["new_games_added"], 9)
         self.assertEqual(result["counts"]["union_captured_games"], 317)

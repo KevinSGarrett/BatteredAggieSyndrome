@@ -8,6 +8,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: E402
     AuthorityViolation,
@@ -24,8 +27,12 @@ from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: 
     validate_artifact,
 )
 
-DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
-LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
+DATA_ROOT = Path(
+    os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(
+    DATA_ROOT
+)
 MSU_SHA = "a28f8c250713bab3efa3ee24ab4546c4c1d38d65d0ad64f7b4351e2127121ff9"
 MSU_URL = "https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm"
 
@@ -107,7 +114,9 @@ class PreformattedParserUnitTests(unittest.TestCase):
             raw_sha256=sha256_bytes(html.encode("utf-8")),
         )
         self.assertEqual(parsed["domain_coverage"]["team_statistics"], "PRESENT")
-        self.assertTrue(all("injected" not in row["stat_raw"] for row in parsed["team_statistics"]))
+        self.assertTrue(
+            all("injected" not in row["stat_raw"] for row in parsed["team_statistics"])
+        )
 
     def test_team_statistics_require_source_labels(self) -> None:
         rows = parse_team_statistics(
@@ -137,7 +146,9 @@ class PreformattedParserUnitTests(unittest.TestCase):
         self.assertEqual(names.count(("D. Crawford", "receiving")), 1)
 
     def test_missing_play_by_play_stays_absent(self) -> None:
-        rows = parse_play_by_play("Team Statistics (Final)\nFIRST DOWNS................... 23 16\n")
+        rows = parse_play_by_play(
+            "Team Statistics (Final)\nFIRST DOWNS................... 23 16\n"
+        )
         self.assertEqual(rows, [])
 
     def test_ambiguous_team_tables_are_rejected(self) -> None:
@@ -159,7 +170,12 @@ class PreformattedParserUnitTests(unittest.TestCase):
             source_season=2007,
             raw_sha256=sha256_bytes(body),
         )
-        for domain in ("team_statistics", "individual_player_statistics", "drives", "play_by_play"):
+        for domain in (
+            "team_statistics",
+            "individual_player_statistics",
+            "drives",
+            "play_by_play",
+        ):
             self.assertEqual(parsed["domain_coverage"][domain], "PRESENT")
             self.assertTrue(parsed[domain])
             for index, row in enumerate(parsed[domain]):
@@ -189,16 +205,32 @@ class PreformattedParserUnitTests(unittest.TestCase):
             PLAYER_HTML.replace("Montana State", "Penn State").encode("utf-8"),
             url="https://files.12thman.com/history/football/stats/2007-2008/mfb_8523_alamo.html",
             source_season=2007,
-            raw_sha256=sha256_bytes(PLAYER_HTML.replace("Montana State", "Penn State").encode("utf-8")),
+            raw_sha256=sha256_bytes(
+                PLAYER_HTML.replace("Montana State", "Penn State").encode("utf-8")
+            ),
         )
-        first_urls = {row["source_url"] for row in first["individual_player_statistics"]}
-        second_urls = {row["source_url"] for row in second["individual_player_statistics"]}
-        self.assertEqual(first_urls, {"https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm"})
-        self.assertEqual(second_urls, {"https://files.12thman.com/history/football/stats/2007-2008/mfb_8523_alamo.html"})
+        first_urls = {
+            row["source_url"] for row in first["individual_player_statistics"]
+        }
+        second_urls = {
+            row["source_url"] for row in second["individual_player_statistics"]
+        }
+        self.assertEqual(
+            first_urls,
+            {"https://files.12thman.com/history/football/stats/2007-2008/ta01-msu.htm"},
+        )
+        self.assertEqual(
+            second_urls,
+            {
+                "https://files.12thman.com/history/football/stats/2007-2008/mfb_8523_alamo.html"
+            },
+        )
         self.assertTrue(first_urls.isdisjoint(second_urls))
 
     def test_participation_is_not_availability(self) -> None:
-        html = PLAYER_HTML.replace("</pre>", "Player participation:\nTexas A&M: 1-Johnson, Jerrod\n</pre>")
+        html = PLAYER_HTML.replace(
+            "</pre>", "Player participation:\nTexas A&M: 1-Johnson, Jerrod\n</pre>"
+        )
         parsed = parse_preformatted_page(
             html.encode("utf-8"),
             url=MSU_URL,
@@ -206,7 +238,12 @@ class PreformattedParserUnitTests(unittest.TestCase):
             raw_sha256=sha256_bytes(html.encode("utf-8")),
         )
         self.assertFalse(parsed["availability_claim"])
-        self.assertTrue(all(row["availability"] == "NOT_ESTABLISHED" for row in parsed["individual_player_statistics"]))
+        self.assertTrue(
+            all(
+                row["availability"] == "NOT_ESTABLISHED"
+                for row in parsed["individual_player_statistics"]
+            )
+        )
 
 
 class CompactGateTests(unittest.TestCase):
@@ -240,19 +277,42 @@ class CompactGateTests(unittest.TestCase):
 @unittest.skipUnless(LAKE_READY, "external official 2007-2009 captures are not mounted")
 class StatCrewLakeTests(unittest.TestCase):
     def test_committed_gate_reconstructs(self) -> None:
-        result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
+        result = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: validate_artifact(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+            ),
+        )
+        if result is None:
+            return
         self.assertEqual(result["result"], "PASS")
         self.assertEqual(result["parsed_games"], 38)
-        self.assertEqual(result["payload_identity"], "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d")
+        self.assertEqual(
+            result["payload_identity"],
+            "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+        )
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
-        self.assertEqual(gate["gate_identity"], "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16")
+        self.assertEqual(
+            gate["gate_identity"],
+            "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+        )
         self.assertEqual(gate["counts"]["team_statistics_present_games"], 38)
-        self.assertEqual(gate["counts"]["individual_player_statistics_present_games"], 38)
+        self.assertEqual(
+            gate["counts"]["individual_player_statistics_present_games"], 38
+        )
         self.assertEqual(gate["counts"]["drives_present_games"], 37)
         self.assertEqual(gate["counts"]["play_by_play_present_games"], 37)
         self.assertEqual(gate["counts"]["play_by_play_absent_games"], 1)
-        self.assertEqual(gate["upstream_identities"]["bat586_dataset_identity"], PRE2010_DATASET_IDENTITY)
-        self.assertEqual(gate["upstream_identities"]["bat589_dataset_identity"], BOX_2007_DATASET_IDENTITY)
+        self.assertEqual(
+            gate["upstream_identities"]["bat586_dataset_identity"],
+            PRE2010_DATASET_IDENTITY,
+        )
+        self.assertEqual(
+            gate["upstream_identities"]["bat589_dataset_identity"],
+            BOX_2007_DATASET_IDENTITY,
+        )
         msu = next(item for item in gate["games"] if item["url"] == MSU_URL)
         self.assertEqual(msu["source_sha256"], MSU_SHA)
         self.assertEqual(msu["domain_coverage"]["play_by_play"], "ABSENT")

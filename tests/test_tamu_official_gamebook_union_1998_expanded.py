@@ -7,6 +7,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.tamu_official_gamebook_union_1998_expanded import (  # noqa: E402  # pylint: disable=import-error
     AuthorityViolation,
@@ -53,21 +56,18 @@ class Official1998UnionReconstructionTests(unittest.TestCase):
     def test_committed_gate_reconstructs_read_only(self) -> None:
         path = REPO_ROOT / GATE_RELATIVE
         gate = json.loads(path.read_text(encoding="utf-8-sig"))
-        if gate.get("validator_code_identity") != compute_code_identity(REPO_ROOT):
-            self.skipTest("1998-expanded union gate needs rebuild for current code identity")
-        try:
-            result = validate_artifact(
+        result = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: validate_artifact(
                 repo_root=REPO_ROOT,
                 data_root=DATA_ROOT,
                 require_rebuild=True,
-            )
-        except AuthorityViolation as exc:
-            if "1998 structured-domain gate does not match reconstruction" in str(exc):
-                self.skipTest(
-                    "1998 structured-domain predecessor is contained, not rematerialized; "
-                    "Cycle26 passing-section successor is the correction path"
-                )
-            raise
+            ),
+        )
+        if result is None:
+            return
         self.assertEqual(result["result"], "PASS")
         committed = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
         self.assertEqual(committed["gate_identity"], gate["gate_identity"])

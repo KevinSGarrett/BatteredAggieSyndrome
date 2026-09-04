@@ -219,6 +219,20 @@ REMAINING_CLAIMS: tuple[dict[str, Any], ...] = (
         "status": NAMED_CHECK_RECONSTRUCTED,
         "remaining": "429 confirmed current-corpus errors on 125 raw pages; 45 screen candidates unresolved.",
     },
+    {
+        "claim_id": "NAMED-C03-LEAKAGE-BATTERY-14",
+        "cycle_id": "CYCLE-3",
+        "status": NAMED_CHECK_RECONSTRUCTED,
+        "remaining": (
+            "Mounted 14-scenario leakage battery independently re-executed "
+            "2026-09-04T05:14:41Z; artifact_identity "
+            "2be6b713722382b2c0ea5e86f89a6e6ed57533bab3adbb0bc3cf3a77b46df13a; "
+            "dataset_identity "
+            "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7; "
+            "status DONE. Does not reconstruct every early leakage claim or "
+            "complete CYCLE-3."
+        ),
+    },
 )
 
 ALLOWED_STATUSES = frozenset({NOT_AUDITED_YET, NAMED_CHECK_RECONSTRUCTED, FAIL})

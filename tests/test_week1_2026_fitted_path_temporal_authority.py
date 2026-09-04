@@ -131,6 +131,19 @@ class RemainingClaimCensusTests(unittest.TestCase):
         with self.assertRaises(RemainingClaimCensusError):
             validate_census(forged)
 
+    def test_leakage_named_check_does_not_complete_cycle_three(self) -> None:
+        by_id = {row["claim_id"]: row for row in REMAINING_CLAIMS}
+        self.assertEqual(
+            by_id["C03-MOUNTED-14-SCENARIO-AND-LEAKAGE"]["status"],
+            NOT_AUDITED_YET,
+        )
+        named = by_id["NAMED-C03-LEAKAGE-BATTERY-14"]
+        self.assertEqual(named["status"], NAMED_CHECK_RECONSTRUCTED)
+        self.assertIn(
+            "2be6b713722382b2c0ea5e86f89a6e6ed57533bab3adbb0bc3cf3a77b46df13a",
+            named["remaining"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

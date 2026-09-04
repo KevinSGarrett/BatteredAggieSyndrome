@@ -2,7 +2,7 @@
   "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
   "artifact_type": "CYCLE26_REMAINING_CLAIM_CENSUS",
   "authority_document": "C:/BatteredAggieSyndrome.data/ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md",
-  "claim_count": 31,
+  "claim_count": 32,
   "claims": [
     {
       "claim_id": "C01-CAPTURE-SEMANTIC-REPLAY-AND-OWNERSHIP",
@@ -189,16 +189,22 @@
       "cycle_id": "CYCLE-11",
       "remaining": "429 confirmed current-corpus errors on 125 raw pages; 45 screen candidates unresolved.",
       "status": "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE"
+    },
+    {
+      "claim_id": "NAMED-C03-LEAKAGE-BATTERY-14",
+      "cycle_id": "CYCLE-3",
+      "remaining": "Mounted 14-scenario leakage battery independently re-executed 2026-09-04T05:14:41Z; artifact_identity 2be6b713722382b2c0ea5e86f89a6e6ed57533bab3adbb0bc3cf3a77b46df13a; dataset_identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7; status DONE. Does not reconstruct every early leakage claim or complete CYCLE-3.",
+      "status": "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE"
     }
   ],
   "classification": "REMAINING_MATERIAL_CLAIM_CENSUS_NOT_SEMANTICALLY_AUDITED",
   "contract_id": "CYCLE26-REMAINING-CLAIM-CENSUS-V1",
   "failed_remaining_claim_count": 5,
-  "gate_identity": "4aac43a01f9799f20afcbebf7467a0fa35a20ab7bd3bf767402f004db3e9c726",
-  "issued_at_utc": "2026-09-04T03:44:12Z",
+  "gate_identity": "264132ab68950160c436381c4634ba5f8e45d349440679205052f6f391eec854",
+  "issued_at_utc": "2026-09-04T05:22:00Z",
   "jira_key": "BAT-691",
   "local_issue_id": "POST-TASK-ALL-CYCLE-REMAINING-CLAIM-CENSUS-001",
-  "named_check_reconstructed_count": 5,
+  "named_check_reconstructed_count": 6,
   "parent_jira_key": "BAT-523",
   "result": "PASS_REMAINING_CLAIM_CENSUS_ENUMERATED",
   "schema_version": "aggie.data.cycle26_remaining_claim_census.v1",
@@ -212,7 +218,7 @@
   "status_counts": {
     "FAIL": 5,
     "NOT_AUDITED_YET": 21,
-    "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE": 5
+    "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE": 6
   },
   "three_pass_status": "INCOMPLETE",
   "unreviewed_remaining_claim_count": 21

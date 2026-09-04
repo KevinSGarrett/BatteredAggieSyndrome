@@ -21,7 +21,7 @@
     "Do not backfill missed T-24H or T-90M checkpoints"
   ],
   "scoring_contract_module": "src/aggie_analytics/data/week1_2026_official_final_scoring_successor.py",
-  "week1_official_final_scoring_gate_identity": "1960b623df9ab4e8d167a98cfe62f9a9b996b4605af4c4dbc024d21fb4708789",
+  "week1_official_final_scoring_gate_identity": "1134875d34f59a69b96a3cf0783bb4fceff64e4996da477325e6eea27ed77f0e",
   "week1_target_scoring_state": "PARTIAL_OFFICIAL_FINALS_SCORED_REMAINDER_AWAITING_FINAL",
   "week1_outcome_training_forbidden": true
 }

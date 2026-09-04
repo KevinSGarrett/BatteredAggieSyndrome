@@ -117,5 +117,62 @@
     "probability_home": 0.8951316669,
     "probability_sum": 1.0,
     "publication_label": "UNTRUSTED_SHADOW"
+  },
+  "week1_partial_official_finals": {
+    "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
+    "candidates": [
+      {
+        "accuracy": 0.8333333333333334,
+        "brier": 0.25,
+        "candidate_id": "national_base_rate",
+        "control_only": true,
+        "log_loss": 0.6931471805599453,
+        "margin_mae": null,
+        "unique_games": 6
+      },
+      {
+        "accuracy": 0.8,
+        "brier": 0.1750254048619661,
+        "candidate_id": "national_elo",
+        "control_only": false,
+        "log_loss": 0.5377391142603534,
+        "margin_mae": null,
+        "unique_games": 5
+      },
+      {
+        "accuracy": 0.8,
+        "brier": 0.15759055178753292,
+        "candidate_id": "national_logistic_l2",
+        "control_only": false,
+        "log_loss": 0.48659899624744407,
+        "margin_mae": null,
+        "unique_games": 5
+      },
+      {
+        "accuracy": 0.8,
+        "brier": 0.1600529111275479,
+        "candidate_id": "national_margin_ridge",
+        "control_only": false,
+        "log_loss": 0.49485851301384426,
+        "margin_mae": 31.575166603859998,
+        "unique_games": 5
+      },
+      {
+        "accuracy": 0.8,
+        "brier": 0.16578986719430439,
+        "candidate_id": "prior_only",
+        "control_only": false,
+        "log_loss": 0.5121264758456096,
+        "margin_mae": null,
+        "unique_games": 5
+      }
+    ],
+    "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW",
+    "does_not_replace_2023_development_evidence": true,
+    "predeclared_min_unique_games_for_skill_claim": 30,
+    "reason": "Week 1 unique-game n is below the predeclared skill floor; residuals are a prospective census only.",
+    "scoring_gate_identity": "1134875d34f59a69b96a3cf0783bb4fceff64e4996da477325e6eea27ed77f0e",
+    "unique_scored_games": 6,
+    "used_for_training_or_tuning": false
   }
 }

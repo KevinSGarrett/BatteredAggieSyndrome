@@ -41,6 +41,10 @@ from aggie_analytics.data.week1_2026_fitted_path_temporal_authority import (  # 
     OBSERVED_PUBLICATION,
     assess_fitted_path_temporal_authority,
 )
+from aggie_analytics.data.week1_2026_official_final_scoring_successor import (  # noqa: E402
+    merge_terminal_cards,
+    unique_game_empirical_assessment,
+)
 from aggie_analytics.governance.normalized_review_gate import (  # noqa: E402
     evaluate_latest_head_checks,
 )
@@ -1098,6 +1102,67 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
                 },
             )
 
+    def test_44_conflicting_terminal_scores_are_quarantined(self) -> None:
+        merged = merge_terminal_cards(
+            [
+                (
+                    "aa",
+                    [
+                        {
+                            "final_status_is_terminal": True,
+                            "ncaa_contest_id": "99",
+                            "home_points": 10,
+                            "away_points": 7,
+                        }
+                    ],
+                ),
+                (
+                    "bb",
+                    [
+                        {
+                            "final_status_is_terminal": True,
+                            "ncaa_contest_id": "99",
+                            "home_points": 17,
+                            "away_points": 7,
+                        }
+                    ],
+                ),
+            ]
+        )
+        self.assertNotIn("99", merged["terminals"])
+        self.assertIn("99", merged["quarantined_conflicts"])
+
+    def test_45_week1_partial_census_cannot_claim_skill_or_double_count(self) -> None:
+        empirical = unique_game_empirical_assessment(
+            [
+                {
+                    "scored": True,
+                    "ncaa_contest_id": "1",
+                    "candidate_id": "national_margin_ridge",
+                    "brier": 0.04,
+                    "binary_log_loss": 0.22,
+                    "forecast_probability_home": 0.8,
+                    "label_home_win": 1,
+                    "margin_residual": 2.0,
+                },
+                {
+                    "scored": True,
+                    "ncaa_contest_id": "1",
+                    "candidate_id": "national_logistic_l2",
+                    "brier": 0.09,
+                    "binary_log_loss": 0.33,
+                    "forecast_probability_home": 0.7,
+                    "label_home_win": 1,
+                    "margin_residual": None,
+                },
+            ]
+        )
+        self.assertEqual(empirical["unique_scored_games"], 1)
+        self.assertEqual(
+            empirical["PREDICTIVE_SKILL_EVIDENCE_STATE"], "NOT_ESTABLISHED"
+        )
+        self.assertFalse(empirical["used_for_training_or_tuning"])
+
     def test_predictive_skill_development_only_does_not_claim_week1(self) -> None:
         path = (
             REPO_ROOT
@@ -1115,6 +1180,13 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         self.assertFalse(nonclaims.get("future_predictive_skill"))
         self.assertFalse(nonclaims.get("production_credibility"))
         self.assertFalse(nonclaims.get("week1_outcome_tuned"))
+        week1_partial = payload.get("week1_partial_official_finals") or {}
+        if week1_partial:
+            self.assertEqual(
+                week1_partial.get("PREDICTIVE_SKILL_EVIDENCE_STATE"),
+                "NOT_ESTABLISHED",
+            )
+            self.assertFalse(week1_partial.get("used_for_training_or_tuning"))
         acceptance = json.loads(
             (
                 REPO_ROOT

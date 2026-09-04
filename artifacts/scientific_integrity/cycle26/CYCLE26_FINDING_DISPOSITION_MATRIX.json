@@ -5,7 +5,7 @@
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "adversarial_regressions": {
-    "count": 52,
+    "count": 54,
     "module": "tests/test_cycle26_adversarial_regressions.py",
     "result": "PASS"
   },

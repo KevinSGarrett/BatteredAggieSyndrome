@@ -104,6 +104,9 @@ class Cycle27CoachingReportingTests(unittest.TestCase):
         self.assertEqual(
             even_named["play_caller_status"], "UNKNOWN_NOT_INFERRED_FROM_TITLE"
         )
+        associate = classify_title_versus_play_caller("Associate Head Coach")
+        self.assertNotEqual(associate["title_role_id"], "HEAD_COACH")
+        self.assertFalse(associate["title_is_play_caller_proof"])
 
     def test_missing_role_is_unknown_not_none(self) -> None:
         classified = classify_missing_role(None)

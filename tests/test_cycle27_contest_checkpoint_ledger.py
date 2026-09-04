@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
@@ -154,6 +155,68 @@ class Cycle27ContestCheckpointLedgerTests(unittest.TestCase):
         self.assertNotIn(
             "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT", result["joined_receipts"]
         )
+
+    def test_cycle27_t90_receipt_covers_same_cutoff_only(self) -> None:
+        friday = {
+            "kind": "T90M",
+            "issued_at_utc": "2026-09-04T20:20:00Z",
+            "earliest_cutoff_utc": "2026-09-04T21:00:00Z",
+            "coverage": "EXACT_EARLIEST_CLUSTER",
+            "artifact_type": "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
+            "forecast_frozen": False,
+        }
+        covered = {
+            "ncaa_contest_id": "6594366",
+            "kickoff_bound_utc": "2026-09-04T22:30:00Z",
+            "t24h_cutoff_utc": "2026-09-03T22:30:00Z",
+            "t90m_cutoff_utc": "2026-09-04T21:00:00Z",
+            "abstention_reasons": [],
+        }
+        later = {
+            "ncaa_contest_id": "6601163",
+            "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+            "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
+            "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
+            "abstention_reasons": [],
+        }
+        now = datetime(2026, 9, 4, 21, 5, tzinfo=timezone.utc)
+        hit = evaluate_checkpoint_state(
+            now=now,
+            contest=covered,
+            kind="T90M",
+            receipts=[friday],
+            live_owners=[],
+        )
+        miss = evaluate_checkpoint_state(
+            now=now,
+            contest=later,
+            kind="T90M",
+            receipts=[friday],
+            live_owners=[],
+        )
+        self.assertEqual(hit["state"], EVIDENCE_CAPTURED)
+        self.assertFalse(hit["forecast_frozen"])
+        self.assertNotEqual(miss["state"], EVIDENCE_CAPTURED)
+
+    def test_cycle27_late_or_outside_window_receipt_is_not_joined(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            late = Path(tmp) / "late.json"
+            late.write_text(
+                json.dumps(
+                    {
+                        "artifact_type": "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
+                        "phase": "T90M",
+                        "checkpoint_label": "LATE_RAW_CAPTURE_ONLY",
+                        "state": "MISSED_CUTOFF_NO_BACKFILL",
+                        "issued_at_utc": "2026-09-04T21:05:00Z",
+                        "cutoff_utc": "2026-09-04T21:00:00Z",
+                        "forecast_frozen": False,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            loaded = load_valid_receipts([late])
+            self.assertEqual(loaded, [])
 
     def test_written_artifacts_cover_91_and_saturday(self) -> None:
         paths = list(LEDGER_PATHS)

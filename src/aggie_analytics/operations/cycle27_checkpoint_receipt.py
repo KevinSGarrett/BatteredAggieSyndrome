@@ -245,6 +245,8 @@ def bind_checkpoint_receipt(
         "issued_at_utc": format_utc(now),
         "completed_at_utc": format_utc(now),
         "cutoff_utc": format_utc(cutoff),
+        "earliest_cutoff_utc": format_utc(cutoff),
+        "coverage": "EXACT_EARLIEST_CLUSTER",
         "capture_window_open_utc": format_utc(window_open),
         "scheduler_log": str(log_path).replace("\\", "/"),
         "scheduler_log_sha256": sha256_file(log_path),

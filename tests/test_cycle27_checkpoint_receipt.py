@@ -166,6 +166,8 @@ class Cycle27CheckpointReceiptTests(unittest.TestCase):
             payload = json.loads(Path(first["receipt"]).read_text(encoding="utf-8"))
             self.assertFalse(payload["forecast_frozen"])
             self.assertEqual(payload["capture_window_open_utc"], "2026-09-04T20:00:00Z")
+            self.assertEqual(payload["earliest_cutoff_utc"], "2026-09-04T21:00:00Z")
+            self.assertEqual(payload["coverage"], "EXACT_EARLIEST_CLUSTER")
             self.assertNotEqual(
                 payload["capture_window_open_utc"], "2026-09-04T19:45:00Z"
             )

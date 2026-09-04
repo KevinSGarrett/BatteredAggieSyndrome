@@ -88,28 +88,55 @@ def _receipt_earliest_cutoff(receipt: Mapping[str, Any]) -> datetime:
         str(
             receipt.get("earliest_cutoff_utc")
             or receipt.get("earliest_eligible_cutoff_utc")
+            or receipt.get("cutoff_utc")
+            or receipt.get("contest_cutoff_utc")
             or ""
         )
     )
+
+
+def _receipt_kind(payload: Mapping[str, Any], label: str) -> str:
+    phase = str(payload.get("phase") or "")
+    if phase == T90M or "T-90M" in label or label == "T90M":
+        return T90M
+    if phase == T24H or "T-24H" in label or label == "T24H":
+        return T24H
+    if "T90" in label:
+        return T90M
+    return T24H
 
 
 def load_valid_receipts(receipt_paths: Sequence[Path]) -> list[dict[str, Any]]:
     loaded: list[dict[str, Any]] = []
     for path in receipt_paths:
         payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        if payload.get("artifact_type") == "CYCLE27_LATEST_RECEIPT_POINTER":
+            continue
         label = str(payload.get("checkpoint_label") or "")
-        kind = T90M if ("T-90" in label or "T90M" in label or "T90" in label) else T24H
-        issued = _receipt_issued_at(payload)
-        earliest = _receipt_earliest_cutoff(payload)
+        if payload.get("artifact_type") == "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT":
+            if payload.get("forecast_frozen") is True:
+                continue
+            if payload.get("state") == MISSED_CUTOFF_NO_BACKFILL:
+                continue
+            if label not in {"T-90M", "T-24H"}:
+                continue
+        try:
+            issued = _receipt_issued_at(payload)
+            earliest = _receipt_earliest_cutoff(payload)
+        except ValueError:
+            continue
         if issued > earliest:
             continue
+        kind = _receipt_kind(payload, label)
         name = Path(path).name.upper()
-        if "SATURDAY" in name:
-            coverage = "REMAINING_WINDOW"
-        elif "SEP3" in name and kind == T90M:
-            coverage = "SAME_UTC_DAY_REMAINING_WINDOW"
-        else:
-            coverage = "EXACT_EARLIEST_CLUSTER"
+        coverage = str(payload.get("coverage") or "")
+        if not coverage:
+            if "SATURDAY" in name:
+                coverage = "REMAINING_WINDOW"
+            elif "SEP3" in name and kind == T90M:
+                coverage = "SAME_UTC_DAY_REMAINING_WINDOW"
+            else:
+                coverage = "EXACT_EARLIEST_CLUSTER"
         loaded.append(
             {
                 "path": str(path).replace("\\", "/"),
@@ -514,7 +541,27 @@ def _count_states(rows: Sequence[Mapping[str, Any]], key: str) -> dict[str, int]
     return dict(sorted(counts.items()))
 
 
-def default_receipt_paths(ops26: Path, artifacts26: Path) -> list[Path]:
+def cycle27_latest_receipt_paths(ops27: Path) -> list[Path]:
+    """Follow LATEST pointers. Do not select receipts by newest mtime."""
+    root = ops27 / "receipts"
+    if not root.is_dir():
+        return []
+    paths: list[Path] = []
+    for pointer_path in sorted(root.glob("*/LATEST.json")):
+        pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+        if pointer.get("artifact_type") != "CYCLE27_LATEST_RECEIPT_POINTER":
+            continue
+        receipt_path = Path(str(pointer.get("receipt_path") or ""))
+        if receipt_path.is_file():
+            paths.append(receipt_path)
+    return paths
+
+
+def default_receipt_paths(
+    ops26: Path,
+    artifacts26: Path,
+    ops27: Path | None = None,
+) -> list[Path]:
     names = (
         "CYCLE26_SEP3_T90M_FREEZE_RECEIPT.json",
         "CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT.json",
@@ -530,6 +577,8 @@ def default_receipt_paths(ops26: Path, artifacts26: Path) -> list[Path]:
             paths.append(art_path)
         else:
             raise FileNotFoundError(name)
+    if ops27 is not None:
+        paths.extend(cycle27_latest_receipt_paths(ops27))
     return paths
 
 

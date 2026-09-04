@@ -34,7 +34,7 @@ ART27 = REPO / "artifacts" / "scientific_integrity" / "cycle27"
 def main() -> int:
     now = datetime.now(timezone.utc)
     c26 = load_c26_ledger(OPS26, ART26)
-    receipts = load_valid_receipts(default_receipt_paths(OPS26, ART26))
+    receipts = load_valid_receipts(default_receipt_paths(OPS26, ART26, OPS27))
     ledger = build_cycle27_ledger(c26_ledger=c26, receipts=receipts, now=now)
     plan = build_lease_and_restart_plan(ledger=ledger, now=now)
     protocol = build_protocol_artifact(

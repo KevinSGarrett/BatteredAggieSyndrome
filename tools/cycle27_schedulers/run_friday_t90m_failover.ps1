@@ -14,7 +14,7 @@ function Log([string]$Msg) {
 
 $wake = [DateTime]::Parse("2026-09-04T20:15:00Z", $null, [System.Globalization.DateTimeStyles]::AdjustToUniversal -bor [System.Globalization.DateTimeStyles]::AssumeUniversal)
 $cutoff = [DateTime]::Parse("2026-09-04T21:00:00Z", $null, [System.Globalization.DateTimeStyles]::AdjustToUniversal -bor [System.Globalization.DateTimeStyles]::AssumeUniversal)
-$windowOpen = [DateTime]::Parse("2026-09-04T19:45:00Z", $null, [System.Globalization.DateTimeStyles]::AdjustToUniversal -bor [System.Globalization.DateTimeStyles]::AssumeUniversal)
+$windowOpen = [DateTime]::Parse("2026-09-04T20:00:00Z", $null, [System.Globalization.DateTimeStyles]::AdjustToUniversal -bor [System.Globalization.DateTimeStyles]::AssumeUniversal)
 $sec = [Math]::Max(0, [int](($wake - [DateTime]::UtcNow).TotalSeconds))
 Log "FRIDAY_T90M_FAILOVER_SLEEP seconds=$sec"
 if ($sec -gt 0) { Start-Sleep -Seconds $sec }

@@ -3853,6 +3853,7 @@ src/aggie_analytics/operations/checkpoint_failover_policy.py
 src/aggie_analytics/operations/checkpoint_lease.py
 src/aggie_analytics/operations/cleanup.py
 src/aggie_analytics/operations/contest_checkpoint_ledger.py
+src/aggie_analytics/operations/cycle27_checkpoint_receipt.py
 src/aggie_analytics/operations/drift_alerts.py
 src/aggie_analytics/operations/environment.py
 src/aggie_analytics/operations/incidents.py
@@ -3963,6 +3964,7 @@ tests/test_cycle25_routing_manifest_coverage.py
 tests/test_cycle26_adversarial_regressions.py
 tests/test_cycle26_bound_authority_pair_audit.py
 tests/test_cycle27_checkpoint_lease.py
+tests/test_cycle27_checkpoint_receipt.py
 tests/test_cycle27_coaching_reporting.py
 tests/test_cycle27_contest_checkpoint_ledger.py
 tests/test_cycle27_current_contest_checkpoint_binding.py
@@ -4257,6 +4259,7 @@ tools/audit_r26_22_admitted_prior_target_pairs.py
 tools/backup_state.py
 tools/bind_cycle26_historical_pair_successor.py
 tools/bind_cycle26_passing_status_successors.py
+tools/bind_cycle27_checkpoint_receipt.py
 tools/bootstrap_readiness.py
 tools/build_action_derived_play_summary.py
 tools/build_all_cycle_scientific_inventory.py

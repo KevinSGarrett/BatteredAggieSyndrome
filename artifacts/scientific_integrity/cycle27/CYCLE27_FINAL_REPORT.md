@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-04T18:42:54Z (America/Chicago 2026-09-04T13:42:54)
+Issued: 2026-09-04T22:22:09Z (America/Chicago 2026-09-04T17:22:09)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.
@@ -40,8 +40,8 @@ Durable owners (do not kill):
 
 Saturday T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTURED** for the earliest Saturday cluster (10 contests), not FORECAST_FROZEN. Later T-24H cutoffs do not inherit that receipt.
 
-T24 states: {"ABSTAINED_AT_CHECKPOINT": 4, "CAPTURE_IN_PROGRESS": 1, "EVIDENCE_CAPTURED": 11, "MISSED_CUTOFF_NO_BACKFILL": 20, "NOT_OPEN": 55}.
-T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 19, "EVIDENCE_CAPTURED": 1, "MISSED_CUTOFF_NO_BACKFILL": 8, "NOT_OPEN": 61}.
+T24 states: {"ABSTAINED_AT_CHECKPOINT": 6, "EVIDENCE_CAPTURED": 26, "MISSED_CUTOFF_NO_BACKFILL": 36, "NOT_OPEN": 23}.
+T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 13, "EVIDENCE_CAPTURED": 7, "MISSED_CUTOFF_NO_BACKFILL": 8, "NOT_OPEN": 61}.
 
 Next action: Friday T-90M at 20:15Z for contest `6594366`. Then A&M T-24H at 22:15Z. Calendar waiting uses the existing sleepers and leases, not an unverified promise to check later.
 

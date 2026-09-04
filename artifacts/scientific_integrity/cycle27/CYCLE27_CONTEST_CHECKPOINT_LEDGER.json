@@ -1,8 +1,8 @@
 {
   "artifact_type": "CYCLE27_CONTEST_CHECKPOINT_LEDGER",
-  "issued_at_utc": "2026-09-04T21:51:20Z",
-  "as_of_utc": "2026-09-04T21:51:20Z",
-  "predecessor_c26_ledger_issued_at_utc": "2026-09-04T21:50:35Z",
+  "issued_at_utc": "2026-09-04T22:22:07Z",
+  "as_of_utc": "2026-09-04T22:22:07Z",
+  "predecessor_c26_ledger_issued_at_utc": "2026-09-04T22:19:39Z",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "contest_count": 91,
   "clock_uncertainty": "Host OS clock; local receipt is not cryptographic proof",
@@ -13,6 +13,7 @@
     "CYCLE26_SEP3_T90M_FREEZE_RECEIPT",
     "CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT",
     "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT",
+    "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
@@ -33,10 +34,9 @@
   "saturday_t24h_completed_count": 10,
   "t24h_state_counts": {
     "ABSTAINED_AT_CHECKPOINT": 6,
-    "CAPTURE_IN_PROGRESS": 1,
-    "EVIDENCE_CAPTURED": 13,
+    "EVIDENCE_CAPTURED": 26,
     "MISSED_CUTOFF_NO_BACKFILL": 36,
-    "NOT_OPEN": 35
+    "NOT_OPEN": 23
   },
   "t90m_state_counts": {
     "ABSTAINED_AT_CHECKPOINT": 2,
@@ -2612,7 +2612,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "t90m": {
         "state": "NOT_OPEN",
@@ -2624,7 +2624,7 @@
         "completed_valid_receipt_retained_after_cutoff": false
       },
       "abstention_reasons": [],
-      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
     },
     {
@@ -2643,7 +2643,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "t90m": {
         "state": "NOT_OPEN",
@@ -2655,7 +2655,7 @@
         "completed_valid_receipt_retained_after_cutoff": false
       },
       "abstention_reasons": [],
-      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
     },
     {
@@ -2663,13 +2663,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2692,13 +2694,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2721,13 +2725,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2750,13 +2756,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2779,13 +2787,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2808,13 +2818,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2837,13 +2849,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2866,13 +2880,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2895,13 +2911,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2926,13 +2944,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "CAPTURE_IN_PROGRESS",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "CAPTURE_IN_PROGRESS",
       "t24h": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": "AM_T24H",
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2955,13 +2975,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -2984,13 +3006,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
@@ -3013,13 +3037,15 @@
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
-      "t24h_state": "NOT_OPEN",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "NOT_OPEN",
       "t24h": {
-        "state": "NOT_OPEN",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:00:00Z",
         "capture_window_open_utc": "2026-09-04T22:00:00Z",
-        "joined_receipts": [],
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
         "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false

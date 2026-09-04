@@ -2,7 +2,7 @@
   "artifact_type": "CYCLE27_NATIONAL_CHECKPOINT_PACKET",
   "coaching_census_identity": null,
   "current_contest_binding": {
-    "binding_identity": "ead01b6ee2db38293182051698d31f4a0ef941b717742499305ac4d4eed04273",
+    "binding_identity": "16a5613c4ffce39b3d50302ded94dbe2bdf2c83e1cca53625f8b849186fbb12c",
     "contest_count": 91,
     "helper_call_count": 182,
     "new_forecast_frozen_count": 0
@@ -12,11 +12,11 @@
     "forecast_at_this_packet": "PREDECESSOR_EARLY_WEEK1_UNTRUSTED_SHADOW_NOT_A_NEW_T24_FREEZE",
     "kickoff_utc": "2026-09-05T23:00:00Z",
     "readable_report": "artifacts/scientific_integrity/cycle27/PREGAME_RESEARCH_REPORT.md",
-    "t24h_state": "CAPTURE_IN_PROGRESS",
+    "t24h_state": "EVIDENCE_CAPTURED",
     "t90m_state": "CAPTURE_IN_PROGRESS"
   },
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-04T18:42:54Z",
+  "issued_at_utc": "2026-09-04T22:22:09Z",
   "label": "EVIDENCE_AND_DISPOSITION_PACKET_NOT_T24H_NOT_T90M_FORECAST_FREEZE",
   "merge_authorized": false,
   "postgame_methodology_identity": "cb6ee39381bbf595eb39b9b0498171b57339258076de0cea2632b40a0f4e893e",
@@ -57,16 +57,15 @@
     "unique_scored_games": 0
   },
   "t24h_state_counts": {
-    "ABSTAINED_AT_CHECKPOINT": 4,
-    "CAPTURE_IN_PROGRESS": 1,
-    "EVIDENCE_CAPTURED": 11,
-    "MISSED_CUTOFF_NO_BACKFILL": 20,
-    "NOT_OPEN": 55
+    "ABSTAINED_AT_CHECKPOINT": 6,
+    "EVIDENCE_CAPTURED": 26,
+    "MISSED_CUTOFF_NO_BACKFILL": 36,
+    "NOT_OPEN": 23
   },
   "t90m_state_counts": {
     "ABSTAINED_AT_CHECKPOINT": 2,
-    "CAPTURE_IN_PROGRESS": 19,
-    "EVIDENCE_CAPTURED": 1,
+    "CAPTURE_IN_PROGRESS": 13,
+    "EVIDENCE_CAPTURED": 7,
     "MISSED_CUTOFF_NO_BACKFILL": 8,
     "NOT_OPEN": 61
   },

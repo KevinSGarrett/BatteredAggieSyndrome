@@ -1,7 +1,7 @@
-# Pregame research report — INTERIM
+# Pregame research report — T-24H evidence
 
-**Label:** `INTERIM_AS_OF_NOW_NOT_T24H_NOT_T90M`. This is not a T-24H or T-90M packet.
-**As of (UTC):** 2026-09-04T21:33:36Z
+**Label:** `T-24H_EVIDENCE_CAPTURED_NOT_FORECAST_FROZEN`. T-24H evidence is captured for contest 6607349. This is EVIDENCE_CAPTURED, not FORECAST_FROZEN. The table below is the preserved C26 EARLY_WEEK1 successor, not a new T-24H freeze.
+**As of (UTC):** 2026-09-04T22:22:07Z
 **Contest:** NCAA `6607349` — Texas A&M (home) vs Missouri State (away).
 **Kickoff bound:** 2026-09-05T23:00:00Z (from frozen payload).
 **Hold:** ACTIVE. Merge unauthorized. Scientific Done unauthorized.
@@ -35,14 +35,14 @@ Ridge probability, margin, and interval are from the same declared Normal residu
 
 - National domain `coaching_staff`: `SOURCE_ABSENT`.
 - Structured acquisition-registry coach entry: `False`.
-- Texas A&M staff fetch: `BLOCKED HTTP 404 https://12thman.com/sports/football/coaches final=https://12thman.com/sports/football/coaches sha256=329bfdd9adc2b6004e635bf44b1a5af1e8d61137cabce9cbb0e3d9fda0bcaad0 retrieved_at=2026-09-04T21:33:37Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 404 https://12thman.com/sports/football/staff final=https://12thman.com/sports/football/staff sha256=62a9f4d64e540ecc3e813e96fed7fb8cdb73c54c0678041e816e4632122d3794 retrieved_at=2026-09-04T21:33:37Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 200 https://12thman.com/coaches.aspx?path=football final=https://12thman.com/sports/womens-golf/roster/season/2016-17/staff/trelle-mccombs sha256=00ebcbeab77c9f3736b561a773bbc9bc4bb5e20f819552d848a40f89218dd2db retrieved_at=2026-09-04T21:33:37Z identity=WRONG_RESOURCE_REDIRECT error=WRONG_RESOURCE_REDIRECT`.
-- Missouri State staff fetch: `RETRIEVED HTTP 200 https://missouristatebears.com/sports/football/coaches final=https://missouristatebears.com/sports/football/coaches sha256=0e1fad2c2262d703757b8357e05a8ccebb53bffe4486fa6b49a334ec8a158b02 retrieved_at=2026-09-04T21:33:38Z identity=PAGE_IDENTITY_PLAUSIBLE`.
+- Texas A&M staff fetch: `BLOCKED HTTP 404 https://12thman.com/sports/football/coaches final=https://12thman.com/sports/football/coaches sha256=0727fc51fd376c4688e9321eb6627a9254a6d28b2ec0f2182e3ed07eb8cedcc8 retrieved_at=2026-09-04T22:22:08Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 404 https://12thman.com/sports/football/staff final=https://12thman.com/sports/football/staff sha256=41421da0617ad504ca75822af5c1913effc0f5f2e5a58873a9da25c321b80a76 retrieved_at=2026-09-04T22:22:08Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 200 https://12thman.com/coaches.aspx?path=football final=https://12thman.com/sports/womens-golf/roster/season/2016-17/staff/trelle-mccombs sha256=bb00e5a0f93d66df41b170ad0e9b498dde053065de8d35e4546f5e57962e1f72 retrieved_at=2026-09-04T22:22:08Z identity=WRONG_RESOURCE_REDIRECT error=WRONG_RESOURCE_REDIRECT`.
+- Missouri State staff fetch: `BLOCKED HTTP None https://missouristatebears.com/sports/football/coaches final=https://missouristatebears.com/sports/football/coaches sha256=None retrieved_at=2026-09-04T22:22:09Z identity=PAGE_IDENTITY_PLAUSIBLE error=URLError: <urlopen error [Errno 11002] getaddrinfo failed>`.
 - HC/OC/DC titles, when observed on an official page, remain titles. Play-caller roles are `UNKNOWN` unless contemporaneous non-title evidence exists.
 - Coaching does not affect any displayed BAS number.
 
 ## Other unused/missing domains
 
-- `coaching`: **CONTEXT_ONLY** — No HC/OC/DC/play-caller columns in active Week1 designs. coaches_poll_rank is a poll, not staff. Official staff packets, if any, remain CONTEXT_ONLY / NOT_CONSUMED_BY_MODEL.
+- `coaching`: **BLOCKED** — No HC/OC/DC/play-caller columns in active Week1 designs. coaches_poll_rank is a poll, not staff. Official staff packets, if any, remain CONTEXT_ONLY / NOT_CONSUMED_BY_MODEL.
 - `recruiting_talent`: **ABSENT** — national_pit_domain_admission coaching-adjacent recruiting_talent SOURCE_ABSENT.
 - `roster_availability`: **ABSENT** — Spine ROSTER_MEMBERSHIP and PREGAME_AVAILABILITY SOURCE_EVIDENCE_ABSENT for 182 cells.
 - `weather`: **CANDIDATE_ONLY** — week1_feature_construction.weather_admitted_as_model_input is false; weather vintage capture is not a consumed feature.

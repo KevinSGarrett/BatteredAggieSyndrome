@@ -39,7 +39,7 @@
     "is_staff_evidence": false,
     "model_consumption_if_present": "POLL_RANKING_NOT_STAFF_ROLE"
   },
-  "code_head": "47bf3cd69d1bf495a13afdc4f448f4de6df22852",
+  "code_head": "d823773f069aa39352ef1b8b740f2e0030410fa6",
   "contract_id": "CYCLE27-PREGAME-REPORTING-V1",
   "diagnostic_classes": [
     "CONFIRMED_IMPLEMENTATION_DEFECT",
@@ -71,7 +71,7 @@
     "rejected_relabel": "EXPLORATORY",
     "status": "EXPLORATORY"
   },
-  "gate_identity": "3511c8c677e3db09163e8d08aa720c1248c9d926fa6544dc535297e617a1d41e",
+  "gate_identity": "f4eb79d922507ab5a6439a080f2c22884a4a743f240d031be45ab248820ab6ac",
   "home_team": {
     "canonical_team_id": "SRC-002:TEAM:245",
     "conference_current": "SEC",
@@ -92,7 +92,7 @@
         "week1_2026_national_forecast_suite.py feature_values",
         "ALL_NUMERIC"
       ],
-      "label": "CONTEXT_ONLY",
+      "label": "BLOCKED",
       "note": "No HC/OC/DC/play-caller columns in active Week1 designs. coaches_poll_rank is a poll, not staff. Official staff packets, if any, remain CONTEXT_ONLY / NOT_CONSUMED_BY_MODEL."
     },
     {
@@ -198,7 +198,7 @@
       "note": "Missing prior rates/margins/ranks/venue fields are explicit indicators, not imputed means without an indicator."
     }
   ],
-  "issued_at_utc": "2026-09-04T21:33:36Z",
+  "issued_at_utc": "2026-09-04T22:22:07Z",
   "jira_key": "BAT-690",
   "lineage": {
     "C24": {

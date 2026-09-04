@@ -21,8 +21,8 @@
       "final_url": "https://12thman.com/sports/football/coaches",
       "http_status": 404,
       "page_identity": "PAGE_IDENTITY_PLAUSIBLE",
-      "retrieved_at_utc": "2026-09-04T21:33:37Z",
-      "sha256": "329bfdd9adc2b6004e635bf44b1a5af1e8d61137cabce9cbb0e3d9fda0bcaad0",
+      "retrieved_at_utc": "2026-09-04T22:22:08Z",
+      "sha256": "0727fc51fd376c4688e9321eb6627a9254a6d28b2ec0f2182e3ed07eb8cedcc8",
       "url": "https://12thman.com/sports/football/coaches"
     },
     {
@@ -32,8 +32,8 @@
       "final_url": "https://12thman.com/sports/football/staff",
       "http_status": 404,
       "page_identity": "PAGE_IDENTITY_PLAUSIBLE",
-      "retrieved_at_utc": "2026-09-04T21:33:37Z",
-      "sha256": "62a9f4d64e540ecc3e813e96fed7fb8cdb73c54c0678041e816e4632122d3794",
+      "retrieved_at_utc": "2026-09-04T22:22:08Z",
+      "sha256": "41421da0617ad504ca75822af5c1913effc0f5f2e5a58873a9da25c321b80a76",
       "url": "https://12thman.com/sports/football/staff"
     },
     {
@@ -43,16 +43,16 @@
       "final_url": "https://12thman.com/sports/womens-golf/roster/season/2016-17/staff/trelle-mccombs",
       "http_status": 200,
       "page_identity": "WRONG_RESOURCE_REDIRECT",
-      "retrieved_at_utc": "2026-09-04T21:33:37Z",
-      "sha256": "00ebcbeab77c9f3736b561a773bbc9bc4bb5e20f819552d848a40f89218dd2db",
+      "retrieved_at_utc": "2026-09-04T22:22:08Z",
+      "sha256": "bb00e5a0f93d66df41b170ad0e9b498dde053065de8d35e4546f5e57962e1f72",
       "url": "https://12thman.com/coaches.aspx?path=football"
     }
   ],
-  "issued_at_utc": "2026-09-04T21:33:36Z",
+  "issued_at_utc": "2026-09-04T22:22:07Z",
   "model_consumption": "NOT_CONSUMED_BY_MODEL",
   "national_coverage_not_implied": true,
   "ncaa_contest_id": "6607349",
-  "packet_identity": "5445841fd68515881353b924c5d5c18b4d8d76cb815f67e2a3747199fb709fe7",
+  "packet_identity": "793931aaa2cfe5990b66d0bc741dfa9d571fa39acc4b63bdf28c680416fac04b",
   "packet_use": "CONTEXT_ONLY",
   "play_caller_inferred_from_title": false,
   "registry_coach_entry_present": false,

@@ -38,6 +38,7 @@ CONTRACT_ID = "CYCLE27-PREGAME-REPORTING-V1"
 JIRA_KEY = "BAT-690"
 PARENT_JIRA_KEY = "BAT-523"
 INTERIM_LABEL = "INTERIM_AS_OF_NOW_NOT_T24H_NOT_T90M"
+T24H_EVIDENCE_LABEL = "T-24H_EVIDENCE_CAPTURED_NOT_FORECAST_FROZEN"
 CONTROL_CANDIDATE = "national_base_rate"
 RIDGE_CANDIDATE = "national_margin_ridge"
 CONTRIBUTION_TOLERANCE = 1e-6
@@ -672,6 +673,20 @@ def build_score_model_readiness(
     return readiness
 
 
+def load_am_t24h_evidence_receipt() -> dict[str, Any] | None:
+    latest = Path(
+        r"C:\BatteredAggieSyndrome.data\ops\cycle27\receipts"
+        r"\AM_T24H_20260904T2300Z\LATEST.json"
+    )
+    if not latest.is_file():
+        return None
+    pointer = json.loads(latest.read_text(encoding="utf-8-sig"))
+    receipt_path = Path(str(pointer.get("receipt_path") or ""))
+    if not receipt_path.is_file():
+        return None
+    return json.loads(receipt_path.read_text(encoding="utf-8"))
+
+
 def render_pregame_report(
     *,
     issued_at_utc: str,
@@ -683,11 +698,25 @@ def render_pregame_report(
     score_readiness: Mapping[str, Any],
     consumption: Sequence[Mapping[str, Any]],
     other_models: Sequence[Mapping[str, Any]],
+    evidence_checkpoint: Mapping[str, Any] | None = None,
 ) -> str:
+    label = INTERIM_LABEL
+    title = "INTERIM"
+    extra = "This is not a T-24H or T-90M packet."
+    if (evidence_checkpoint or {}).get("checkpoint_label") == "T-24H" and not (
+        evidence_checkpoint or {}
+    ).get("forecast_frozen"):
+        label = T24H_EVIDENCE_LABEL
+        title = "T-24H evidence"
+        extra = (
+            "T-24H evidence is captured for contest 6607349. "
+            "This is EVIDENCE_CAPTURED, not FORECAST_FROZEN. "
+            "The table below is the preserved C26 EARLY_WEEK1 successor, not a new T-24H freeze."
+        )
     lines = [
-        "# Pregame research report — INTERIM",
+        f"# Pregame research report — {title}",
         "",
-        f"**Label:** `{INTERIM_LABEL}`. This is not a T-24H or T-90M packet.",
+        f"**Label:** `{label}`. {extra}",
         f"**As of (UTC):** {issued_at_utc}",
         f"**Contest:** NCAA `{FOCUS_CONTEST_ID}` — {FOCUS_HOME_LABEL} (home) vs {FOCUS_AWAY_LABEL} (away).",
         "**Kickoff bound:** 2026-09-05T23:00:00Z (from frozen payload).",
@@ -1281,6 +1310,7 @@ def materialize(
         score_readiness=readiness,
         consumption=diagnostic["input_consumption"],
         other_models=[],
+        evidence_checkpoint=load_am_t24h_evidence_receipt(),
     )
     repo_dir = repo_root / "artifacts/scientific_integrity/cycle27"
     ops_dir = ops_root / "outputs"
@@ -1308,7 +1338,9 @@ def materialize(
         "ops_path": str(ops_dir / "PREGAME_RESEARCH_REPORT.md"),
         "sha256": sha256_bytes(encoded),
         "bytes": len(encoded),
-        "label": INTERIM_LABEL,
+        "label": (
+            T24H_EVIDENCE_LABEL if T24H_EVIDENCE_LABEL in report_md else INTERIM_LABEL
+        ),
     }
     return {
         "issued_at_utc": issued,

@@ -884,7 +884,7 @@
     {
       "acceptance_authority": "USER_EXPLICIT_ONLY",
       "affected_fields": [
-        "BAT-XXX placeholders"
+        "unresolved BAT placeholder ownership tokens"
       ],
       "code_payload_pr_identities": {
         "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
@@ -899,7 +899,7 @@
       "disposition": "CONFIRMED_FIXED",
       "id": "C26-7A7-PLACEHOLDER-OWNERSHIP",
       "independently_reconstructed_result": "Historical jira/snapshots remain excluded by design.",
-      "observed_result": "0 unresolved external BAT-XXX ownership tokens in authority-bearing configs/artifacts/governance/docs/instructions.",
+      "observed_result": "0 unresolved external BAT placeholder ownership tokens in authority-bearing configs/artifacts/governance/docs/instructions.",
       "owner": "BAT-692",
       "red_before_green_after_regression": "tests/test_tamu_corpus_derivative_integrity_successor.py",
       "reproducer": "src/aggie_analytics/data/tamu_corpus_derivative_integrity_successor.py reject_placeholder",

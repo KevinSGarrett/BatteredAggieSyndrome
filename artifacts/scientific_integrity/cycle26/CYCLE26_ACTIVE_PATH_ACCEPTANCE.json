@@ -153,7 +153,7 @@
     "am_t24h_utc": "2026-09-04T23:00:00Z",
     "am_t90m_utc": "2026-09-05T21:30:00Z",
     "saturday_t24h_utc": "2026-09-04T16:00:00Z",
-    "scoring": "AWAITING_FINAL",
+    "scoring": "PARTIAL_OFFICIAL_FINALS_SCORED_REMAINDER_AWAITING_FINAL",
     "sep3_t24h": "MISSED_CUTOFF_NO_BACKFILL",
     "sep3_t90m": "T-90M_BOUND_20260903T200119Z",
     "sep4_window_t24h": "T-24H_BOUND_20260903T221229Z"

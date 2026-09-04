@@ -5,7 +5,7 @@
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "adversarial_regressions": {
-    "count": 51,
+    "count": 52,
     "module": "tests/test_cycle26_adversarial_regressions.py",
     "result": "PASS"
   },
@@ -293,7 +293,8 @@
       "dependency_closure": [
         "tools/build_all_cycle_scientific_inventory.py",
         "tools/validate_all_cycle_scientific_inventory.py",
-        "artifacts/scientific_integrity/cycle26/CYCLE26_REMAINING_AUDIT_BACKLOG.json"
+        "artifacts/scientific_integrity/cycle26/CYCLE26_REMAINING_AUDIT_BACKLOG.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_REMAINING_CLAIM_CENSUS.json"
       ],
       "disposition": "CONFIRMED_FIXED",
       "evidence": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json",
@@ -301,7 +302,7 @@
       "independently_reconstructed_result": "Cycle 01 pass_two=NOT_AUDITED_YET and missing_raw_payloads=false; scientific_trust_recovered remains false.",
       "observed_result": "Builder no longer stamps missing_raw_payloads=true for every cycle. Pass two is NOT_AUDITED_YET when declared payload dependencies are present or were the disproved SRC-002 directory-count assertion. Validator rejects UNIFORM_MISSING_RAW_PAYLOADS_STAMP.",
       "owner": "BAT-688",
-      "reason": "R26-09 inventory-stamp defect is repaired. Remaining independent reconstruction of material claims is still NOT_AUDITED_YET and is owned as the Cycle 25.5 backlog, not as a false COMPLETE.",
+      "reason": "R26-09 inventory-stamp defect is repaired. Remaining independent reconstruction is enumerated in CYCLE26_REMAINING_CLAIM_CENSUS (21 NOT_AUDITED_YET, 5 FAIL, 5 named-check reconstructions). Named checks do not complete parent cycles or authorize SEMANTICALLY_AUDITED.",
       "red_before_green_after_regression": "tests/test_all_cycle_scientific_inventory.py::test_pass_two_does_not_stamp_every_cycle_missing_raw_payloads",
       "reproducer": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json",
       "residual_risk": "All-cycle trust gate remains closed. NOT_AUDITED_YET is not PASS.",
@@ -682,22 +683,23 @@
         "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
       },
       "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json",
-      "correction": "operational_pit_admission_allowed rejects CONSERVATIVE_BOUND even when predecessor PIT boolean is true. Pair census retained. Historical fitted parameters still used proxies; Week1 publication remains UNTRUSTED_SHADOW.",
-      "correction_or_containment": "Containment of operational fitted-lane admission; BAT-666 contract not rewritten.",
+      "correction": "operational_pit_admission_allowed rejects CONSERVATIVE_BOUND even when predecessor PIT boolean is true. Fitted-path temporal-authority successor binds the 90198-row deployment fit to 0 proven-PIT training rows (OBSERVED_PUBLICATION=0, OBSERVED_EFFECTIVE=0). Pair census retained. Historical fitted parameters still used proxies; Week1 publication remains UNTRUSTED_SHADOW.",
+      "correction_or_containment": "Containment of operational fitted-lane admission; BAT-666 contract not rewritten; no reduced-feature refit under the same ridge identity.",
       "dependency_closure": [
-        "src/aggie_analytics/data/cycle26_bound_authority_pair_audit.py"
+        "src/aggie_analytics/data/cycle26_bound_authority_pair_audit.py",
+        "src/aggie_analytics/data/week1_2026_fitted_path_temporal_authority.py"
       ],
       "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
       "id": "R26-22",
-      "independently_reconstructed_result": "CONFIRMED_CONTAINED_NOT_FIXED for historical fitted parameters that used proxies.",
+      "independently_reconstructed_result": "CONFIRMED_CONTAINED_NOT_FIXED for historical fitted parameters that used proxies. tools/validate_week1_2026_fitted_path_temporal_authority.py PASS; proven_pit_training_row_count=0.",
       "leakage_declared": false,
       "near_bound_pairs": 14,
-      "note": "National spine pair census completed; +12h/+2d remain conditional proxies. Predecessor BAT-666/667 gates not rewritten. Week1 successor does not import the PIT bound.",
-      "observed_result": "27,274,659 proxy-admitted pairs; 14 near-bound; operational_pit_admission_allowed is False for CONSERVATIVE_BOUND even when predecessor PIT boolean is true.",
+      "note": "National spine pair census completed; +12h/+2d remain conditional proxies. Predecessor BAT-666/667 gates not rewritten. Week1 forecast payloads not rewritten. Fitted-path successor records PRIMARY_TRUST_RECOVERY_INCOMPLETE.",
+      "observed_result": "27,274,659 proxy-admitted pairs; 14 near-bound; operational_pit_admission_allowed is False for CONSERVATIVE_BOUND even when predecessor PIT boolean is true. 90198 training rows; 0 proven-PIT domains.",
       "owner": "BAT-690",
       "pair_audit_gate_identity": "0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548",
-      "red_before_green_after": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit + test_27",
-      "red_before_green_after_regression": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit + test_27",
+      "red_before_green_after": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit + test_27 + test_43_zero_proven_pit_cannot_hide_behind_training_row_count",
+      "red_before_green_after_regression": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit + test_27 + test_43_zero_proven_pit_cannot_hide_behind_training_row_count",
       "reproducer": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit",
       "residual_risk": "Conditional chronology proxies cannot satisfy proven-PIT; Week1 remains UNTRUSTED_SHADOW.",
       "severity": "P1"

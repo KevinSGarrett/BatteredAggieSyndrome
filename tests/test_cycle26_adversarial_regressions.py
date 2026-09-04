@@ -36,6 +36,11 @@ from aggie_analytics.data.cycle26_bound_authority_pair_audit import (  # noqa: E
     classify_prior_target_temporal_authority,
     operational_pit_admission_allowed,
 )
+from aggie_analytics.data.week1_2026_fitted_path_temporal_authority import (  # noqa: E402
+    FittedPathTemporalAuthorityError,
+    OBSERVED_PUBLICATION,
+    assess_fitted_path_temporal_authority,
+)
 from aggie_analytics.governance.normalized_review_gate import (  # noqa: E402
     evaluate_latest_head_checks,
 )
@@ -1056,6 +1061,42 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
                 {"local_prune_only": True, "remote_compare_and_delete_succeeded": False}
             )
         )
+
+    def test_43_zero_proven_pit_cannot_hide_behind_training_row_count(self) -> None:
+        assessment = assess_fitted_path_temporal_authority(
+            authority_counts={
+                OBSERVED_PUBLICATION: 0,
+                "OBSERVED_EFFECTIVE_TIMESTAMP": 0,
+                CONSERVATIVE_BOUND: 2,
+            },
+            training_row_count=90198,
+            week1_trust={
+                "ACTIVE_PATH_CORRECTNESS_CLAIM": False,
+                "publication_label": "UNTRUSTED_SHADOW",
+                "scientific_trust_gate_open": False,
+                "recommended": False,
+            },
+        )
+        self.assertEqual(assessment["training_row_count"], 90198)
+        self.assertEqual(assessment["proven_pit_training_row_count"], 0)
+        self.assertEqual(
+            assessment["primary_trust_recovery"], "PRIMARY_TRUST_RECOVERY_INCOMPLETE"
+        )
+        with self.assertRaises(FittedPathTemporalAuthorityError):
+            assess_fitted_path_temporal_authority(
+                authority_counts={
+                    OBSERVED_PUBLICATION: 0,
+                    "OBSERVED_EFFECTIVE_TIMESTAMP": 0,
+                    CONSERVATIVE_BOUND: 2,
+                },
+                training_row_count=90198,
+                week1_trust={
+                    "ACTIVE_PATH_CORRECTNESS_CLAIM": True,
+                    "publication_label": "UNTRUSTED_SHADOW",
+                    "scientific_trust_gate_open": False,
+                    "recommended": False,
+                },
+            )
 
     def test_predictive_skill_development_only_does_not_claim_week1(self) -> None:
         path = (

@@ -1,0 +1,57 @@
+{
+  "artifact_type": "CYCLE26_WEEK1_OFFICIAL_FINAL_SCORING",
+  "bound_predecessors": {
+    "early_week1_freeze_utc": "2026-09-03T06:47:23Z",
+    "forecast_payload_sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
+    "week1_successor_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+  },
+  "capture_sha256": "02fbf4ab441ccae3f9172285ee9f3cb57e9e91a43ecc03967c3ebef50be03868",
+  "checkpoint_scored": "EARLY_WEEK1",
+  "classification": "WEEK1_OFFICIAL_FINAL_SCORING_APPEND_ONLY",
+  "contract_id": "CYCLE26-WEEK1-2026-OFFICIAL-FINAL-SCORING-SUCCESSOR-V1",
+  "dataset_identity": "724a3434609397c329d718922574af78251bbed0ead57f21c8e9380b7f232fe4",
+  "forecast_payloads_rewritten": false,
+  "gate_identity": "1960b623df9ab4e8d167a98cfe62f9a9b996b4605af4c4dbc024d21fb4708789",
+  "issued_at_utc": "2026-09-04T03:44:12Z",
+  "jira_key": "BAT-694",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-COHORT-001",
+  "parent_jira_key": "BAT-523",
+  "payloads": {
+    "scoring_rows": {
+      "bytes": 17740,
+      "relative_path": "canonical/week1_2026_official_final_scoring_successor/sha256/724a3434609397c329d718922574af78251bbed0ead57f21c8e9380b7f232fe4/week1_2026_official_final_scoring_rows.jsonl",
+      "row_count": 30,
+      "sha256": "724a3434609397c329d718922574af78251bbed0ead57f21c8e9380b7f232fe4"
+    }
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "result": "PASS_WEEK1_OFFICIAL_FINAL_SCORING_PARTIAL",
+  "schema_version": "aggie.shadow.week1_2026_official_final_scoring_successor.v1",
+  "scientific_nonclaims": [
+    "Does not train, select, tune or promote using Week 1 outcomes.",
+    "Does not rewrite frozen EARLY_WEEK1 forecast payloads.",
+    "Does not backfill missed T-24H or T-90M checkpoints.",
+    "Does not claim predictive skill or production credibility.",
+    "Partial finals are not a complete Week 1 scoring run."
+  ],
+  "summary": {
+    "joined_forecast_rows": 30,
+    "remaining_nonterminal_sep3_cards": 5,
+    "scoreboard_cards": 11,
+    "scored_row_count": 26,
+    "terminal_contest_count": 6,
+    "terminal_contest_ids": [
+      "6582933",
+      "6584486",
+      "6591259",
+      "6601465",
+      "6603568",
+      "6618350"
+    ]
+  },
+  "t24h_backfill": false,
+  "t90m_backfill": false,
+  "week1_outcome_training_forbidden": true
+}

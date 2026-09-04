@@ -41,10 +41,19 @@
       "result": "PASS",
       "total_actual_issue_count": 627,
       "verified_at": "2026-09-04T00:59:25.470038+00:00"
+    },
+    {
+      "at": "2026-09-04T01:25:03.627267+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "discrepancies": 0,
+      "exit": 0,
+      "result": "PASS",
+      "total_actual_issue_count": 627,
+      "verified_at": "2026-09-04T01:25:03.627267+00:00"
     }
   ],
-  "git_tip": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
-  "git_tip_at_issuance": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+  "git_tip": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+  "git_tip_at_issuance": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
   "git_tip_at_verify": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
   "hold_note": "No Done transitions; no Cycle26 BAT-523 parent-progress comment",
   "hold_transitions": {
@@ -57,9 +66,9 @@
     "Sub-task": 190,
     "Task": 334
   },
-  "issued_at_utc": "2026-09-04T01:06:33Z",
-  "jira_verify_live_at": "2026-09-04T00:59:25Z",
-  "last_verify_live_at_utc": "2026-09-03T23:01:40Z",
+  "issued_at_utc": "2026-09-04T01:25:03Z",
+  "jira_verify_live_at": "2026-09-04T01:25:03Z",
+  "last_verify_live_at_utc": "2026-09-04T01:25:03Z",
   "last_verify_live_result": "PASS",
   "last_verify_live_total_issues": 627,
   "live_statuses": {
@@ -77,7 +86,7 @@
     "BAT-696": "In Review"
   },
   "missing_auxiliary_keys": [],
-  "note": "import_bat_live.py --verify-live PASS at 2026-09-04T00:59:25Z (627/627, 0 discrepancies, board 134 / filter 10134). Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization. Canonical main remains 55e12a5aad3a7e843204fcba619c3cb3d3d6194d.",
+  "note": "import_bat_live.py --verify-live PASS at 2026-09-04T01:25:03Z (627/627, 0 discrepancies, board 134 / filter 10134). Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization. Canonical main remains 55e12a5aad3a7e843204fcba619c3cb3d3d6194d.",
   "owner_issue_comments_this_cycle": [
     {
       "comment_id": "14729",

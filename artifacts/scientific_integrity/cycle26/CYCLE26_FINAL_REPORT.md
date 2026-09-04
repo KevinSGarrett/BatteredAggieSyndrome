@@ -1,6 +1,6 @@
 # Cycle #26 numbered report — not a completion certificate
 
-**Correction, 2026-09-04T01:06:33Z:** This file is the pack-required numbered handoff. It is **not** proof that every completable Cycle #26 item was finished. The 2026-09-03T23:35:00Z issuance was a stop-boundary draft written while Pass 3 findings C26-P3-01–04, 1B matrix fields, live Jira rebind, and exact-head Pass 3 were still open. Those control defects are being repaired on PR #678; they were not complete when this filename first appeared.
+**Correction, 2026-09-04T01:25:03Z:** Independent Pass 3 at `c353f01a` is `PASS_WITHIN_DECLARED_SCOPE` (not merge authority). Hosted required checks on that SHA are PASS (defense-layer). Week 1 official finals remain `AWAITING_FINAL` (0 terminal cards at 01:21Z refresh). Primary objective remains `PRIMARY_TRUST_RECOVERY_INCOMPLETE`.
 
 Issued: 2026-09-03T23:35:00Z; control-repair update 2026-09-04T01:06:33Z
 Worktree: `C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr`
@@ -8,7 +8,7 @@ Branch: `codex/BAT-690-c26-scr`
 Development origin: `KevinSGarrett/BatteredAggieSyndrome` (public; migration `DEFERRED_BY_USER_NOT_COMPLETE`)
 Data root: `C:/BatteredAggieSyndrome.data`
 Base / canonical `origin/main`: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d` (left unchanged)
-Requested review head: GitHub PR #678 live tip (moves as repairs land). Predecessor numbered-report material commit: `ecb4357185e6d6b731e047dd1135051f20d7d93c`.
+Requested review head: GitHub PR #678 live tip `c353f01a2ae6021fae17e752fcfac0c038ee1645`. Predecessor numbered-report material commit: `ecb4357185e6d6b731e047dd1135051f20d7d93c`.
 PR: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678
 Historical manager-review SHA (not this head): `04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1`
 Fort Knox assistive pipeline: `NOT_OPERATIONAL` (direct BAS work permitted)
@@ -42,7 +42,7 @@ This is the Cycle #26 stop-boundary report. It does not close Cycle #25.5, relea
 | Live/local Jira and board | `JIRA_BOARD_LOCAL_CONVERGENCE=VERIFIED` on PR #678, not canonical main | Done authority |
 | Branch/worktree hygiene | `BRANCH_WORKTREE_HYGIENE=VERIFIED` (8 merged-PR local worktrees removed; 0 remote deletions) | Permission to delete closed-unmerged or open-PR refs |
 | Integration authority | `REVIEW_READY_UNMERGED` | Hold release or merge |
-| Pass 3 | `PENDING_INDEPENDENT_REVIEWER` | Hosted Codex SUCCESS is defense-layer only |
+| Pass 3 | `PASS_WITHIN_DECLARED_SCOPE` at `c353f01a` by independent code-reviewer; not author self-approval | Hosted Codex SUCCESS, merge, or `ACTIVE_PATH_CORRECTNESS_VERIFIED` |
 
 ## 3. Primary scientific delivery
 
@@ -142,9 +142,9 @@ Live/local managed-field convergence `VERIFIED` on this PR branch, not on canoni
 
 ## 9. Three-pass acceptance (12A)
 
-- Pass 1: provenance/completeness of the declared successor closure — bound to live PR tip; Week 1 gate `aa4ff84b…` unchanged across later process/material evidence commits.
+- Pass 1: provenance/completeness of the declared successor closure — `core_module` sha256 `4440a213…` matches the live Week 1 successor file; gate `aa4ff84b…` unchanged.
 - Pass 2: independent reconstruction `PASS_WITHIN_DECLARED_SUCCESSOR_SCOPE`; `independent_fail_count=0`; ridge rows checked 79; oriented rows 158.
-- Pass 3: `PENDING_INDEPENDENT_REVIEWER`. Implementing author cannot self-approve. Hosted Codex review on this tip is a defense layer, not this pass.
+- Pass 3: independent code-reviewer receipt `CYCLE26_PASS3_INDEPENDENT_REVIEWER_RECEIPT_c353f01a.json` is `PASS_WITHIN_DECLARED_SCOPE` at `c353f01a`. Not author self-approval. Hosted Codex is defense-layer only. C26-P3-01/03/04 fixed; C26-P3-02 is receipt-SHA lag contained by the core_module hash.
 
 Any later semantic change of the successor path invalidates these receipts.
 
@@ -155,13 +155,15 @@ No hold release, merge, production credibility, BAS / Aggie Excess / A&M-lift, o
 ## 11. Remaining calendar and #25.5 backlog
 
 - A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z: capture operation prepared; future execution is not claimed by this report.
-- Official finals for kicked-off contests: acquire when published; do not score unfrozen or abstained rows; do not train on Week 1 outcomes.
+- Official finals: 01:21Z refresh capture_identity `5efc592f…`; Sep 3 HTML `1fbfb397…` has 11 cards and 0 terminal `livestream_game_over` statuses. Scoring remains `AWAITING_FINAL`. Do not train on Week 1 outcomes.
+- Eligibility at 01:21Z: 91 contests; T-24H missed=19 (`MISSED_CUTOFF_NO_BACKFILL`); T-90M still eligible=80.
+- Mounted full unittest at `c353f01a`: 3138 tests, skipped=50, failures=3, errors=16. The StatCrew predecessor reconstruction mismatches remain `CONFIRMED_CONTAINED_NOT_FIXED` (Week 1 import edges=0). One error is `predecessor gate identity drift for schedule_identity` after the non-checkpoint refresh; do not rematerialize the frozen as-of universe from that refresh. The same run mutated committed 1998/1999 structured-domain `gate_identity`/`payload_identity` fields; those two files were restored and are not accepted as new science. Hosted unmounted core-validation on `c353f01a` is PASS.
 - All-cycle three-pass backlog remains under existing #25.5 owners (see `CYCLE26_REMAINING_AUDIT_BACKLOG.json`).
-- R26-13 live main protection: required_approving_review_count=1, require_last_push_approval=true, codecov/patch required. Bugbot still has no check context. Independent Pass 3 remains pending.
+- R26-13 live main protection: required_approving_review_count=1, require_last_push_approval=true, codecov/patch required. Bugbot still has no check context.
 
 ## 12. Requested user authorization
 
-Present the live PR #678 head (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. Numbered-report material commit: `ecb4357185e6d6b731e047dd1135051f20d7d93c`. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
+Present the live PR #678 head `c353f01a2ae6021fae17e752fcfac0c038ee1645` (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
 
 Operational stop state: `IMPLEMENTATION_REVIEW_READY_UNMERGED`.
 Primary scientific stop state: `PRIMARY_TRUST_RECOVERY_INCOMPLETE`.

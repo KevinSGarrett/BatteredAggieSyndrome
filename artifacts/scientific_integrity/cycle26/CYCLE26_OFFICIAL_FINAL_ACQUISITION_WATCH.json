@@ -1,0 +1,29 @@
+{
+  "artifact_type": "CYCLE26_OFFICIAL_FINAL_ACQUISITION_WATCH",
+  "issued_at_utc": "2026-09-04T01:16:30Z",
+  "code_head": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+  "state": "AWAITING_FINAL",
+  "scoring_state": "AWAITING_FINAL",
+  "refresh_capture_identity": "5efc592fbac6d26891d426c612c36bc3699e5bde748a7affff4f8b651ea4d39d",
+  "refresh_finished_at_utc": "2026-09-04T01:21:15Z",
+  "sep3_html": "1fbfb3972f035c1ac1be6f971402bffd3a063e25bc93d6ba91d198bbd44656cf",
+  "sep3_cards": 11,
+  "sep3_terminal": 0,
+  "eligibility": {
+    "contest_count": 91,
+    "t24h_missed": 19,
+    "t90m_still_eligible": 80
+  },
+  "parser": "aggie_analytics.modeling.week_zero_official_final_scoring.parse_scoreboard_cards",
+  "note": "Acquisition authorized separately from scoring eligibility. No Week 1 outcome training, selection, tuning, or promotion. Pre-refresh newest Sep3-window HTML (1431707a…) parsed 11 cards, 0 livestream_game_over terminals, 0 scored point pairs. A parallel REFRESH capture is in progress; this watch is not a checkpoint label.",
+  "earliest_kickoff_utc": "2026-09-03T22:00:00Z",
+  "pre_refresh_newest_sep3_like_html": {
+    "sha256_prefix": "1431707a7a46ff71",
+    "cards": 11,
+    "terminal": 0,
+    "scored_point_pairs": 0
+  },
+  "am_t24h_utc": "2026-09-04T23:00:00Z",
+  "am_t90m_utc": "2026-09-05T21:30:00Z",
+  "week1_outcome_training_forbidden": true
+}

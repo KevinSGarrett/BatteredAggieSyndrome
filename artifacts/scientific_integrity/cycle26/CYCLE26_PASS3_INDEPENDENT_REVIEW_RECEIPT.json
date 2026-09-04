@@ -2,34 +2,37 @@
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "author_self_approval": false,
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
-  "ci_all_required_checks": "PASS_ON_1cd2205b_DEFENSE_LAYER_ONLY",
-  "code_head_binding": "CURRENT_HEAD_PENDING_INDEPENDENT_REVIEW",
+  "ci_all_required_checks": "PASS_ON_c353f01a_DEFENSE_LAYER_ONLY",
+  "code_head_binding": "BOUND_REVIEWED_HEAD_c353f01a",
   "historical_independent_head": "e9f0adb5302c9fea030d398470b04acd1f7eee5e",
   "historical_independent_receipt": "artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEWER_RECEIPT_e9f0adb5.json",
   "historical_independent_result": "PASS_WITHIN_DECLARED_SCOPE",
   "historical_pair_successor_gate": "1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0",
   "hosted_review_contribution": {
-    "example_failed_run_do_not_cite_as_pass": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33736633545",
-    "example_prior_pass_run": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33735521569",
     "live_tip_defense_layer": {
-      "head_at_verify": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
-      "note": "Hosted Codex/core-validation PASS on 1cd2205b is not Pass 3. Pass 3 remains PENDING_INDEPENDENT_REVIEWER.",
-      "status": "HOSTED_CHECKS_PASS_DEFENSE_LAYER_ONLY"
+      "head_at_verify": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+      "note": "Hosted required checks PASS on c353f01a are defense-layer only. They are not Pass 3.",
+      "status": "HOSTED_CHECKS_PASS_DEFENSE_LAYER_ONLY",
+      "url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"
     },
-    "note": "Prior hosted Codex review outcomes on earlier PR tips are defense-layer evidence only. They do not bind the live tip and do not complete Pass 3. Do not assert PASS for a failed or mismatched review run.",
-    "status": "HISTORICAL_CONTRIBUTING_EVIDENCE_ONLY"
+    "note": "Hosted Codex/core-validation PASS is not Pass 3.",
+    "status": "DEFENSE_LAYER_ONLY"
   },
   "hosted_reviewers_available": [
     "Codex scientific review",
     "Bugbot"
   ],
-  "issued_at_utc": "2026-09-04T01:06:33Z",
+  "independent_reviewer_receipt": "artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEWER_RECEIPT_c353f01a.json",
+  "independent_reviewer_result": "PASS_WITHIN_DECLARED_SCOPE",
+  "independent_reviewed_head": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+  "issued_at_utc": "2026-09-04T01:25:03Z",
   "name": "independent_review_of_implementation_and_review",
-  "note": "Independent Pass 3 at e9f0adb5 does not cover 8f65cc36 or later semantic repairs (normalized review gate, conservative-bound PIT rejection, producer independence, acceptance guards). Current-head Pass 3 remains PENDING_INDEPENDENT_REVIEWER. Hosted Codex/Bugbot are defense-layer only.",
+  "note": "Author does not self-approve. Independent code-reviewer Pass 3 at c353f01a is PASS_WITHIN_DECLARED_SCOPE, does not authorize merge, and keeps PRIMARY_TRUST_RECOVERY_INCOMPLETE. Finding C26-P3-02 remains receipt-SHA lag, contained by core_module hash binding.",
   "pass": 3,
   "passing_section_successor_gate": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "rebinding_issued_at_utc": "2026-09-03T23:03:40Z",
-  "result": "PENDING_INDEPENDENT_REVIEWER",
-  "status_successor_gate": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894"
+  "rebinding_issued_at_utc": "2026-09-04T01:25:03Z",
+  "result": "PASS_WITHIN_DECLARED_SCOPE",
+  "status_successor_gate": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894",
+  "this_file_is_not_author_self_approval": true
 }

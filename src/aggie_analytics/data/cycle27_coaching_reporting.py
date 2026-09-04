@@ -170,9 +170,10 @@ def classify_title_role(title: str | None) -> dict[str, Any]:
         "delegated": "assistant" in lowered and "coordinator" in lowered,
     }
     role_id = None
-    if re.search(r"\bhead coach\b", lowered) or re.search(
-        r"\bhead football coach\b", lowered
-    ):
+    if (
+        re.search(r"\bhead coach\b", lowered)
+        or re.search(r"\bhead football coach\b", lowered)
+    ) and not re.search(r"\b(associate|assistant)\b", lowered):
         role_id = "HEAD_COACH"
     elif re.search(r"\boffensive coordinator\b", lowered):
         role_id = "OFFENSIVE_COORDINATOR"

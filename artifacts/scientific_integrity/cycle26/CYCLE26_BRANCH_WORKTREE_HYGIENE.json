@@ -25,6 +25,34 @@
     "remote_deletions": 0,
     "worktree_count": 6
   },
+  "reenumeration_20260904T030200Z": {
+    "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+    "additional_deletions": 0,
+    "git_tip_at_refresh": "ca31ddcf9b5ebb598bff843158c21ab39e86b460",
+    "local_branch_count": 23,
+    "note": "Refresh only. Historical removed[] cleanup proof unchanged. No additional obsolete deletions. Leftover local cycle branches retained as PRESERVATION_RETAIN or closed-unmerged unique work; squash-merge force-delete not used. Open PRs 678 and Dependabot 654 retained. Canonical main unchanged.",
+    "open_pr_count": 2,
+    "open_prs_retained": [
+      654,
+      678
+    ],
+    "remote_deletions": 0,
+    "retained_local_branches_without_worktree": [
+      "codex/BAT-523-cycle16-closeout",
+      "codex/BAT-554-evidence-state-reconciliation",
+      "codex/BAT-554-evidence-state-reconciliation-v2",
+      "codex/BAT-554-parser-runtime-domain-gate",
+      "codex/BAT-572-tamu-cross-source-domain-gate",
+      "codex/BAT-582-cycle9-done-mirror",
+      "codex/BAT-613-process",
+      "codex/BAT-615-process",
+      "codex/BAT-615-process-bind",
+      "codex/recovery-local-main-9a068a96",
+      "cycle22/week-zero-official-finals"
+    ],
+    "retained_reason": "PRESERVATION_RETAIN_OR_SQUASH_MERGE_UNPROVEN_NO_FORCE_DELETE",
+    "worktree_count": 6
+  },
   "remote_deleted_count": 0,
   "remote_head_count": 14,
   "removed": [

@@ -5,9 +5,9 @@
   "acceptance_authority": "USER_EXPLICIT_ONLY",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "adversarial_regressions": {
-    "count": 50,
+    "count": 51,
     "module": "tests/test_cycle26_adversarial_regressions.py",
-    "result": "PENDING_REBIND_AFTER_THIS_REPAIR"
+    "result": "PASS"
   },
   "artifact_type": "CYCLE26_FINDING_DISPOSITION_MATRIX",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
@@ -286,7 +286,7 @@
       ],
       "code_payload_pr_identities": {
         "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-        "requested_review_head_at_last_material": "ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc",
+        "requested_review_head_at_last_material": "ca31ddcf9b5ebb598bff843158c21ab39e86b460",
         "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
       },
       "correction_or_containment": "assess_cycle_pass_two checks declared payload dependencies per cycle; national 990 uses the committed reconciliation gate rather than a recursive directory count.",
@@ -981,12 +981,12 @@
       ],
       "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
       "id": "C26-MOUNTED-STATCREW-PREDECESSOR-RECONSTRUCTION",
-      "independently_reconstructed_result": "CONFIRMED_CONTAINED_NOT_FIXED; CI unmounted core-validation PASS.",
+      "independently_reconstructed_result": "CONFIRMED_CONTAINED_NOT_FIXED; reconstruction tests no longer ERROR; CI unmounted core-validation PASS; local --strict predecessor mismatches remain.",
       "observed": "python tools/validate_repository.py --strict against default C:\\BatteredAggieSyndrome.data FAIL 14 predecessor StatCrew/structured-domain reconstruction mismatches at 2026-09-03T19:01:39Z",
       "observed_result": "FAIL 14 predecessor StatCrew/structured-domain reconstruction mismatches at 2026-09-03T19:01:39Z",
       "owner": "BAT-692",
-      "red_before_green_after": "tests/test_tamu_official_gamebook_union_1998_expanded.py skips the contained reconstruction mismatch; tools/validate_tamu_official_passing_section_successor.py PASS",
-      "red_before_green_after_regression": "tests/test_tamu_official_gamebook_union_1998_expanded.py skips the contained reconstruction mismatch; tools/validate_tamu_official_passing_section_successor.py PASS",
+      "red_before_green_after": "tests/cycle26_frozen_predecessor.py contained_reconstruction asserts reconstruction mismatch without rematerializing; mounted test_tamu_official_* discover 726 OK; full mounted discover 3141 tests skipped=51 after LF baseline repair; tools/validate_tamu_official_passing_section_successor.py PASS",
+      "red_before_green_after_regression": "tests/cycle26_frozen_predecessor.py contained_reconstruction asserts reconstruction mismatch without rematerializing; mounted test_tamu_official_* discover 726 OK; full mounted discover 3141 tests skipped=51 after LF baseline repair; tools/validate_tamu_official_passing_section_successor.py PASS",
       "reproducer": "python tools/validate_repository.py --strict against C:\\BatteredAggieSyndrome.data",
       "residual_risk": "Local mounted --strict remains FAIL until separately authorized rematerialization.",
       "severity": "P1"
@@ -1095,7 +1095,9 @@
   "evidence_ops_note": "Sep3 T-90M bound 20:01:19Z; Sep4-window T-24H bound 22:12:29Z before 22:30:00Z; A&M T-24H/T-90M armed with failover; PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged",
   "git_tip_at_issuance": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
   "issued_at_utc": "2026-09-04T01:06:33Z",
+  "jira_verify_live_at_utc": "2026-09-04T02:49:20Z",
   "note": "Matrix completed for required 1B fields. Pass 3 at e9f0adb5 does not cover later semantic heads. PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged.",
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "requested_review_head": "ca31ddcf9b5ebb598bff843158c21ab39e86b460",
   "schema_version": 2
 }

@@ -5,7 +5,7 @@
   "R26_17_disposition": "CONFIRMED_FIXED",
   "artifact_type": "CYCLE26_REMAINING_AUDIT_BACKLOG",
   "authority_document": "C:/BatteredAggieSyndrome.data/ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md",
-  "code_head": "0c054811c8ca5b63e30c7b3a6f077a183da0a8b6",
+  "code_head": "ca31ddcf9b5ebb598bff843158c21ab39e86b460",
   "code_head_binding": "LIVE_PR_678_TIP",
   "cycles": [
     {
@@ -608,7 +608,7 @@
     }
   ],
   "inventory_gate_relative_path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json",
-  "issued_at_utc": "2026-09-04T01:59:23Z",
+  "issued_at_utc": "2026-09-04T03:03:50Z",
   "method_requirement": "Maintain per-field/material-claim registry; resolve first origin and every material contribution; distinguish missing evidence, unreviewed scope, and failed semantics. Do not stamp every cycle missing_raw_payloads=true without checking that cycle's declared dependencies.",
   "named_open_scientific_units": [
     {
@@ -655,11 +655,11 @@
   "scientific_trust_recovered": false,
   "scoreboard_reparse": {
     "any_terminal": false,
-    "files_parsed": 90,
+    "files_parsed": 95,
     "newest": {
       "cards": 1,
-      "mtime": 1788484641.891369,
-      "sha256": "ed5ab4acf681c1ad48670770e6c5ae57fcc06f0159898445d5709946235f1b1c",
+      "mtime": 1788487308.217944,
+      "sha256": "636535acc6234bce9bdf2edb679e07c31b539aa4b4c329976185219c9812bc71",
       "statuses": {
         "PARSED": 1
       },

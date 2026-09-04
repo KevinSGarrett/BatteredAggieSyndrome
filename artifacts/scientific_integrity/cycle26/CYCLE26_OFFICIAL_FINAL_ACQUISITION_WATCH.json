@@ -2,32 +2,23 @@
   "am_t24h_utc": "2026-09-04T23:00:00Z",
   "am_t90m_utc": "2026-09-05T21:30:00Z",
   "artifact_type": "CYCLE26_OFFICIAL_FINAL_ACQUISITION_WATCH",
-  "code_head": "ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc",
-  "do_not_rematerialize_frozen_week1_gates": true,
-  "eligibility": {
-    "contest_count": 91,
-    "t24h_missed": 19,
-    "t90m_still_eligible": 80
-  },
-  "issued_at_utc": "2026-09-04T01:59:23Z",
+  "code_head": "ca31ddcf9b5ebb598bff843158c21ab39e86b460",
+  "issued_at_utc": "2026-09-04T03:03:50Z",
   "newest_scoreboard_cards": 1,
-  "newest_scoreboard_html": "ed5ab4acf681c1ad48670770e6c5ae57fcc06f0159898445d5709946235f1b1c",
-  "not_a_checkpoint_label": true,
+  "newest_scoreboard_html": "636535acc6234bce9bdf2edb679e07c31b539aa4b4c329976185219c9812bc71",
   "note": "Acquisition authorized separately from scoring eligibility. No Week 1 outcome training, selection, tuning, or promotion. This watch is not a checkpoint label.",
   "parser": "aggie_analytics.modeling.week_zero_official_final_scoring.parse_scoreboard_cards",
-  "refresh_capture_identity": "fb7dcd9c939a8e01686da54013ff4e685ebb8bb09c085dd67e35c7913db48d36",
-  "refresh_finished_at_utc": "2026-09-04T02:04:58Z",
-  "reparse_at_utc": "2026-09-04T01:59:23Z",
+  "reparse_at_utc": "2026-09-04T03:03:50Z",
   "reparse_terminal_total": 0,
   "saturday_t24h_cutoff_utc": "2026-09-04T16:00:00Z",
   "scoreboard_reparse": {
     "any_terminal": false,
     "directory": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-NCAA-OFFICIAL-STATS\\ncaa_week1_2026_schedule_scoreboard",
-    "files_parsed": 90,
+    "files_parsed": 95,
     "newest": {
       "cards": 1,
-      "mtime": 1788484641.891369,
-      "sha256": "ed5ab4acf681c1ad48670770e6c5ae57fcc06f0159898445d5709946235f1b1c",
+      "mtime": 1788487308.217944,
+      "sha256": "636535acc6234bce9bdf2edb679e07c31b539aa4b4c329976185219c9812bc71",
       "statuses": {
         "PARSED": 1
       },
@@ -35,16 +26,6 @@
     }
   },
   "scoring_state": "AWAITING_FINAL",
-  "sep3_refresh_cards": 0,
-  "sep3_refresh_html": "26fbfd295943a56d90571d25534194a0fd9de124fe6d2f597f07715d68fb2308",
-  "sep3_refresh_note": "New Sep 3 HTML is 3131 bytes / 0 parsed cards and is not used as terminal authority.",
-  "sep3_usable_cards": 11,
-  "sep3_usable_html": "1fbfb3972f035c1ac1be6f971402bffd3a063e25bc93d6ba91d198bbd44656cf",
-  "sep3_usable_scored_point_pairs": 11,
-  "sep3_usable_terminal": 0,
-  "sep4_refresh_cards": 8,
-  "sep4_refresh_html": "44d3091a6feabf984ded56fe38ef65323a6b389c5bad8589dcf6ad97f92d4b75",
-  "sep4_refresh_terminal": 0,
   "state": "AWAITING_FINAL",
   "week1_outcome_training_forbidden": true
 }

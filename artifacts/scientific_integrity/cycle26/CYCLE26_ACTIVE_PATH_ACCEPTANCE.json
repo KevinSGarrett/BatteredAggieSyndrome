@@ -8,12 +8,12 @@
   "OPERATIONAL_EVIDENCE_GATE": "EVIDENCE_CAPTURE_VERIFIED",
   "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
   "PRIMARY_OBJECTIVE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
-  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_FIXED for the uniform missing_raw stamp with remaining reconstruction NOT_AUDITED_YET; R26-13 CONFIRMED_FIXED with Bugbot residual; R26-22 CONFIRMED_CONTAINED_NOT_FIXED; joint Week 1 successor remains UNTRUSTED_SHADOW. Independent Pass 3 of the Week 1 successor at c353f01a is PASS_WITHIN_DECLARED_SCOPE and is not merge authority. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY. Week 1 official-final scoring remains AWAITING_FINAL (any_terminal=False at 2026-09-04T01:59:23Z).",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_FIXED for the uniform missing_raw stamp with remaining reconstruction NOT_AUDITED_YET; R26-13 CONFIRMED_FIXED with Bugbot residual; R26-22 CONFIRMED_CONTAINED_NOT_FIXED; joint Week 1 successor remains UNTRUSTED_SHADOW. Independent Pass 3 of the Week 1 successor at c353f01a is PASS_WITHIN_DECLARED_SCOPE and is not merge authority. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY. Week 1 official-final scoring remains AWAITING_FINAL (any_terminal=False at 2026-09-04T03:03:50Z).",
   "Pass3": "PASS_WITHIN_DECLARED_SCOPE",
   "R26_21_ACTIVE_PATH_DEPENDENCY": "NONE_PROVEN",
   "R26_21_NOTE": "R26-21 CONFIRMED_FIXED via passing-section successor; Week1 path still has zero StatCrew import edges.",
   "ROW_SCIENTIFIC_ELIGIBILITY_GATE": "PARTIAL_SUCCESSOR_PATH",
-  "acceptance_rebound_at_utc": "2026-09-04T01:59:23Z",
+  "acceptance_rebound_at_utc": "2026-09-04T03:03:50Z",
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "all_cycle_pass_three_honesty": "PARTIAL_CATEGORY_SEARCH_NOT_COMPLETE",
   "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
@@ -225,7 +225,7 @@
       "scientific_trust_gate_open": false
     }
   },
-  "git_tip": "0c054811c8ca5b63e30c7b3a6f077a183da0a8b6",
+  "git_tip": "ca31ddcf9b5ebb598bff843158c21ab39e86b460",
   "git_tip_at_issuance": "6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa",
   "historical_pair_failures_preserved": {
     "20": {

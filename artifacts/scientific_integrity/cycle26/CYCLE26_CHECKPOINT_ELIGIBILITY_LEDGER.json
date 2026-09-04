@@ -1,11 +1,11 @@
 {
   "artifact_type": "CYCLE26_CHECKPOINT_ELIGIBILITY_LEDGER",
-  "issued_at_utc": "2026-09-03T22:12:00Z",
-  "as_of_utc": "2026-09-03T22:12:00Z",
+  "issued_at_utc": "2026-09-04T15:20:10Z",
+  "as_of_utc": "2026-09-04T15:20:10Z",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "contest_count": 91,
-  "t24h_missed": 11,
-  "t90m_still_eligible": 85,
+  "t24h_missed": 19,
+  "t90m_still_eligible": 80,
   "contests": [
     {
       "ncaa_contest_id": "6591259",
@@ -71,7 +71,7 @@
       "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {
@@ -80,7 +80,7 @@
       "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {
@@ -89,7 +89,7 @@
       "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {
@@ -98,7 +98,7 @@
       "t24h_cutoff_utc": "2026-09-03T01:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T23:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {
@@ -107,7 +107,7 @@
       "t24h_cutoff_utc": "2026-09-03T01:00:00Z",
       "t90m_cutoff_utc": "2026-09-03T23:30:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL",
       "abstention_reasons": []
     },
     {
@@ -115,7 +115,7 @@
       "kickoff_bound_utc": "2026-09-04T22:30:00Z",
       "t24h_cutoff_utc": "2026-09-03T22:30:00Z",
       "t90m_cutoff_utc": "2026-09-04T21:00:00Z",
-      "t24h_state": "OPEN",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
       "abstention_reasons": []
     },
@@ -124,7 +124,7 @@
       "kickoff_bound_utc": "2026-09-04T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-03T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-04T21:30:00Z",
-      "t24h_state": "OPEN",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
       "abstention_reasons": [
         "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
@@ -135,7 +135,7 @@
       "kickoff_bound_utc": "2026-09-04T23:00:00Z",
       "t24h_cutoff_utc": "2026-09-03T23:00:00Z",
       "t90m_cutoff_utc": "2026-09-04T21:30:00Z",
-      "t24h_state": "OPEN",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
       "abstention_reasons": []
     },
@@ -144,7 +144,7 @@
       "kickoff_bound_utc": "2026-09-05T00:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
       "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
-      "t24h_state": "OPEN",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
       "abstention_reasons": []
     },
@@ -153,7 +153,7 @@
       "kickoff_bound_utc": "2026-09-05T00:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
       "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
-      "t24h_state": "OPEN",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
       "abstention_reasons": [
         "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
@@ -164,7 +164,7 @@
       "kickoff_bound_utc": "2026-09-05T00:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
       "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
-      "t24h_state": "OPEN",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
       "abstention_reasons": []
     },
@@ -173,7 +173,7 @@
       "kickoff_bound_utc": "2026-09-05T01:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T01:00:00Z",
       "t90m_cutoff_utc": "2026-09-04T23:30:00Z",
-      "t24h_state": "OPEN",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
       "abstention_reasons": []
     },
@@ -182,7 +182,7 @@
       "kickoff_bound_utc": "2026-09-05T01:00:00Z",
       "t24h_cutoff_utc": "2026-09-04T01:00:00Z",
       "t90m_cutoff_utc": "2026-09-04T23:30:00Z",
-      "t24h_state": "OPEN",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
       "abstention_reasons": []
     },

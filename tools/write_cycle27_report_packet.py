@@ -110,8 +110,9 @@ def main() -> int:
                 "rejected_receipt_before_kickoff_count"
             ],
             "reason": (
-                "Pinned scoreboard captures have retrieved_at_utc=null; "
-                "post-kickoff timestamp is necessary, so terminals are not admitted."
+                "Pinned scoreboard HTML is not admitted from pin-field "
+                "retrieved_at_utc. Independently hashed acquisition receipts are "
+                "required; the current pin has none, so terminals stay rejected."
             ),
             "predecessor_preserved": {
                 "gate": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
@@ -137,6 +138,8 @@ def main() -> int:
             finding["rejected_missing_retrieved_at"] = scoring["summary"][
                 "rejected_receipt_before_kickoff_count"
             ]
+            finding["pin_retrieved_at_is_not_acquisition_authority"] = True
+            finding["acquisition_receipt_required"] = True
         if finding.get("id") == "SATURDAY_T24H_CAPTURE":
             finding["completed_count"] = ledger["saturday_t24h_completed_count"]
             finding["later_windows_not_covered_by_1520z_receipt"] = True
@@ -144,6 +147,34 @@ def main() -> int:
             finding["census_identity"] = census.get("census_identity")
             finding["canonical_bind_state_required"] = True
             finding["source_id_is_not_canonical"] = True
+    extra_findings = {
+        "R27-P1-PIN-RETRIEVED-AT-NOT-ACQUISITION-AUTHORITY": {
+            "id": "R27-P1-PIN-RETRIEVED-AT-NOT-ACQUISITION-AUTHORITY",
+            "severity": "P1",
+            "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED",
+            "result": (
+                "Pin-field retrieved_at_utc is CALLER_SUPPLIED_TIME_NOT_"
+                "ACQUISITION_AUTHORITY. Admission requires an independently hashed "
+                "acquisition receipt bound to the HTML bytes."
+            ),
+        },
+        "R27-P1-VALIDATOR-IMPORTS-PRODUCER-PARSER": {
+            "id": "R27-P1-VALIDATOR-IMPORTS-PRODUCER-PARSER",
+            "severity": "P1",
+            "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED",
+            "result": (
+                "Independent scoring validator reconstructs scoreboard cards "
+                "from scientific_reference.ncaa_scoreboard_cards and forbids "
+                "importing modeling.week_zero_official_final_scoring."
+            ),
+        },
+    }
+    by_id = {item.get("id"): item for item in matrix.get("findings") or []}
+    for finding_id, payload in extra_findings.items():
+        if finding_id in by_id:
+            by_id[finding_id].update(payload)
+        else:
+            matrix.setdefault("findings", []).append(payload)
     dump(ART / "CYCLE27_FINDING_DISPOSITION_MATRIX.json", matrix)
 
     dimensions = load(ART / "CYCLE27_ACCEPTANCE_DIMENSIONS.json")
@@ -162,9 +193,9 @@ def main() -> int:
             item["notes"] = (
                 "C27 scoring successor unique games n="
                 f"{scoring['summary']['unique_scored_games']} because pinned "
-                "captures lack retrieved_at_utc. C26 predecessor 41 scored rows "
-                "are preserved and not rewritten. Week1 outcomes are not "
-                "training/tuning data."
+                "captures lack independently hashed acquisition receipts. C26 "
+                "predecessor 41 scored rows are preserved and not rewritten. Week1 "
+                "outcomes are not training/tuning data."
             )
     dump(ART / "CYCLE27_ACCEPTANCE_DIMENSIONS.json", dimensions)
 
@@ -260,7 +291,7 @@ P1 containment this packet:
 
 - Coaching census no longer stores unresolved source IDs as `canonical_team_id`.
 - Saturday 15:20Z receipt covers only the 60-minute capture window of each contest cutoff.
-- Official-final scoring rejects terminals without `retrieved_at_utc`.
+- Official-final scoring admits terminals only from independently hashed acquisition receipts; pin-field `retrieved_at_utc` is not acquisition authority.
 
 Confirmed and not hosted-fixed: CONTROL-07 masked Codex FAIL. Bootstrap prepared, not approved.
 
@@ -282,7 +313,7 @@ D2: C26 Week 1 materializer still copies C24 rows. Cycle 27 remaining-checkpoint
 
 C26 forecast gate `aa4ff84b...` / dataset `770d2544...` preserved (455/399).
 
-Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `{scoring["gate_identity"]}` / dataset `{scoring["dataset_identity"]}` admits **0** terminals because pinned captures have `retrieved_at_utc=null`. Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
+Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `{scoring["gate_identity"]}` / dataset `{scoring["dataset_identity"]}` admits **0** terminals because the pin has no independently hashed acquisition receipts (pin-field `retrieved_at_utc` is not acquisition authority). Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
 
 A&M 6607349 C26 ridge: P(home)≈0.89513, margin≈+22.2506, emitted interval label 0.95 vs declared 0.8. Trust `UNTRUSTED_SHADOW`. Control `national_base_rate` is a control, never a recommendation.
 
@@ -311,7 +342,7 @@ Do not read this as “no follow-up needed.”
 1. Execute Friday T-90M at 20:15Z and A&M T-24H at 22:15Z under existing leases; publish only after exact receipt verification and an explicit delta review.
 2. Hosted CONTROL-07 checker bootstrap still needs independent reviewer approval; until then hosted green FAIL remains non-acceptance.
 3. R26-22 / primary fitted-path trust remains incomplete; keep UNTRUSTED_SHADOW. C26 materializer remains a C24 copy.
-4. C27 scoring successor currently admits zero terminals until receipts carry post-kickoff `retrieved_at_utc`; do not invent timestamps.
+4. C27 scoring successor currently admits zero terminals until independently hashed acquisition receipts exist; do not invent timestamps or treat pin-field time as authority.
 5. Exact-head GitHub review of stacked PR 679 after this reseal; later capture publication needs an explicit delta review.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.

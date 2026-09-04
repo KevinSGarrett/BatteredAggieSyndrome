@@ -3889,6 +3889,7 @@ src/aggie_analytics/scientific_reference/binding.py
 src/aggie_analytics/scientific_reference/coherence.py
 src/aggie_analytics/scientific_reference/market.py
 src/aggie_analytics/scientific_reference/metrics.py
+src/aggie_analytics/scientific_reference/ncaa_scoreboard_cards.py
 src/aggie_analytics/tamu/__init__.py
 src/aggie_analytics/tamu/runtime.py
 src/aggie_analytics/tamu/specialization.py

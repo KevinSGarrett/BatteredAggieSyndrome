@@ -91,9 +91,11 @@
       "status": "ISSUED_NULL_SCORE"
     },
     {
+      "acquisition_receipt_required": true,
       "dataset_identity": "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed",
-      "gate_identity": "203436873d86589367f0b0bd324b8bde508cde8a28a5de7c85d9742ec3120d43",
+      "gate_identity": "8d47971c1773ed88947ebe9ef5637fb992d4766a717122a087bc8e8ddde7afe5",
       "id": "TRACK_C_SCORING_SUCCESSOR",
+      "pin_retrieved_at_is_not_acquisition_authority": true,
       "predecessor_gate_preserved": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
       "rejected_missing_retrieved_at": 11,
       "scored_row_count": 0,
@@ -118,10 +120,22 @@
         "ops ledger path required on hosted runners"
       ],
       "status": "REPAIRED_IN_STACKED_HEAD_NOT_MERGED"
+    },
+    {
+      "id": "R27-P1-PIN-RETRIEVED-AT-NOT-ACQUISITION-AUTHORITY",
+      "result": "Pin-field retrieved_at_utc is CALLER_SUPPLIED_TIME_NOT_ACQUISITION_AUTHORITY. Admission requires an independently hashed acquisition receipt bound to the HTML bytes.",
+      "severity": "P1",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED"
+    },
+    {
+      "id": "R27-P1-VALIDATOR-IMPORTS-PRODUCER-PARSER",
+      "result": "Independent scoring validator reconstructs scoreboard cards from scientific_reference.ncaa_scoreboard_cards and forbids importing modeling.week_zero_official_final_scoring.",
+      "severity": "P1",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED"
     }
   ],
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-04T17:53:44Z",
+  "issued_at_utc": "2026-09-04T18:22:03Z",
   "merge_authorized": false,
   "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
   "revision": "C27-PREGAME-COACHING-20260904",

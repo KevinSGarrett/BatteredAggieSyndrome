@@ -16,10 +16,10 @@
     "t90m_state": "CAPTURE_IN_PROGRESS"
   },
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-04T17:53:44Z",
+  "issued_at_utc": "2026-09-04T18:22:03Z",
   "label": "EVIDENCE_AND_DISPOSITION_PACKET_NOT_T24H_NOT_T90M_FORECAST_FREEZE",
   "merge_authorized": false,
-  "postgame_methodology_identity": "80c7fcea1f0ca43c2ae2014c39ab32f42bb9dbaf0884e052b37bfba25dc7e80e",
+  "postgame_methodology_identity": "cb6ee39381bbf595eb39b9b0498171b57339258076de0cea2632b40a0f4e893e",
   "preserved_c26_forecast": {
     "checkpoint_label": "EARLY_WEEK1",
     "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
@@ -46,12 +46,12 @@
   "scientific_done_unauthorized": true,
   "scoring_successor": {
     "dataset_identity": "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed",
-    "gate_identity": "203436873d86589367f0b0bd324b8bde508cde8a28a5de7c85d9742ec3120d43",
+    "gate_identity": "8d47971c1773ed88947ebe9ef5637fb992d4766a717122a087bc8e8ddde7afe5",
     "predecessor_preserved": {
       "dataset": "1b1adb9e3c7da9269ec176d4c7aa3029db00a2d35352623a6dd44f37c95b293b",
       "gate": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c"
     },
-    "reason": "Pinned scoreboard captures have retrieved_at_utc=null; post-kickoff timestamp is necessary, so terminals are not admitted.",
+    "reason": "Pinned scoreboard HTML is not admitted from pin-field retrieved_at_utc. Independently hashed acquisition receipts are required; the current pin has none, so terminals stay rejected.",
     "rejected_receipt_before_kickoff_count": 11,
     "scored_row_count": 0,
     "unique_scored_games": 0

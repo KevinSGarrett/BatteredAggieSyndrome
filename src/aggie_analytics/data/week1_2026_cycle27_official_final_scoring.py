@@ -80,6 +80,7 @@ TEMPORAL_AUTHORITY_RELATIVE = (
 
 CODE_BUNDLE_RELATIVE = (
     "src/aggie_analytics/data/week1_2026_cycle27_official_final_scoring.py",
+    "src/aggie_analytics/scientific_reference/ncaa_scoreboard_cards.py",
     "tools/build_week1_2026_cycle27_official_final_scoring.py",
     "tools/validate_week1_2026_cycle27_official_final_scoring.py",
     PARSER_MODULE_RELATIVE,
@@ -265,15 +266,21 @@ def build_pinned_input_manifest(
                 f"duplicate pinned capture sha256: {digest}"
             )
         seen.add(digest)
-        pinned_captures.append(
-            {
-                "bytes": size,
-                "receipt_id": raw.get("receipt_id"),
-                "relative_path": relative,
-                "retrieved_at_utc": raw.get("retrieved_at_utc"),
-                "sha256": digest,
-            }
-        )
+        pinned = {
+            "acquisition_receipt_relative_path": raw.get(
+                "acquisition_receipt_relative_path"
+            ),
+            "acquisition_receipt_sha256": raw.get("acquisition_receipt_sha256"),
+            "bytes": size,
+            "receipt_id": raw.get("receipt_id"),
+            "relative_path": relative,
+            "sha256": digest,
+        }
+        if raw.get("caller_supplied_retrieved_at_utc"):
+            pinned["caller_supplied_retrieved_at_utc"] = raw.get(
+                "caller_supplied_retrieved_at_utc"
+            )
+        pinned_captures.append(pinned)
     pinned_captures.sort(key=lambda item: (item["sha256"], item["relative_path"]))
     forecast = {
         "bytes": int(forecast_payload["bytes"]),
@@ -304,17 +311,28 @@ def capture_record_from_file(
     relative_path: str,
     retrieved_at_utc: str | None = None,
     receipt_id: str | None = None,
+    acquisition_receipt_relative_path: str | None = None,
+    acquisition_receipt_sha256: str | None = None,
 ) -> dict[str, Any]:
     path = data_root / posix_relative(relative_path)
     payload = path.read_bytes()
     digest = sha256_bytes(payload)
-    return {
+    record = {
         "bytes": len(payload),
         "receipt_id": receipt_id or digest,
         "relative_path": posix_relative(relative_path),
-        "retrieved_at_utc": retrieved_at_utc,
         "sha256": digest,
     }
+    if acquisition_receipt_relative_path and acquisition_receipt_sha256:
+        record["acquisition_receipt_relative_path"] = posix_relative(
+            acquisition_receipt_relative_path
+        )
+        record["acquisition_receipt_sha256"] = (
+            str(acquisition_receipt_sha256).strip().lower()
+        )
+    elif retrieved_at_utc:
+        record["caller_supplied_retrieved_at_utc"] = retrieved_at_utc
+    return record
 
 
 def load_pinned_captures(
@@ -344,10 +362,39 @@ def load_pinned_captures(
             raise Week1Cycle27OfficialFinalScoringError(
                 f"pinned capture size drift: {relative}"
             )
+        retrieved_at = None
+        receipt_rejection = None
+        caller_supplied = capture.get(
+            "caller_supplied_retrieved_at_utc"
+        ) or capture.get("retrieved_at_utc")
+        receipt_rel = capture.get("acquisition_receipt_relative_path")
+        receipt_digest = str(capture.get("acquisition_receipt_sha256") or "").lower()
+        if receipt_rel:
+            receipt_path = data_root / posix_relative(str(receipt_rel))
+            if not receipt_path.is_file():
+                raise Week1Cycle27OfficialFinalScoringError(
+                    f"acquisition receipt missing: {receipt_rel}"
+                )
+            receipt_bytes = receipt_path.read_bytes()
+            if sha256_bytes(receipt_bytes) != receipt_digest:
+                raise Week1Cycle27OfficialFinalScoringError(
+                    f"acquisition receipt hash drift: {receipt_rel}"
+                )
+            receipt_payload = json.loads(receipt_bytes.decode("utf-8"))
+            retrieved_at = receipt_payload.get("retrieved_at_utc")
+            html_digest = str(receipt_payload.get("html_sha256") or "").lower()
+            if html_digest and html_digest != digest:
+                raise Week1Cycle27OfficialFinalScoringError(
+                    f"acquisition receipt html hash mismatch: {receipt_rel}"
+                )
+        elif caller_supplied:
+            receipt_rejection = "CALLER_SUPPLIED_TIME_NOT_ACQUISITION_AUTHORITY"
         loaded.append(
             {
                 **dict(capture),
                 "document": payload.decode("utf-8", errors="replace"),
+                "retrieved_at_utc": retrieved_at,
+                "retrieved_at_rejection": receipt_rejection,
             }
         )
     return loaded
@@ -401,6 +448,7 @@ def terminal_snapshot(
         "final_status_text": card.get("final_status_text"),
         "capture_sha256": capture["sha256"],
         "retrieved_at_utc": capture.get("retrieved_at_utc"),
+        "retrieved_at_rejection": capture.get("retrieved_at_rejection"),
         "receipt_id": capture.get("receipt_id"),
     }
 
@@ -462,6 +510,20 @@ def reject_pre_kickoff_receipts(
     for contest_id, snapshot in list(terminals.items()):
         kickoff = kickoff_by_contest.get(contest_id)
         retrieved = snapshot.get("retrieved_at_utc")
+        rejection = snapshot.get("retrieved_at_rejection")
+        if rejection:
+            rejected.append(
+                {
+                    "ncaa_contest_id": contest_id,
+                    "capture_sha256": snapshot.get("capture_sha256"),
+                    "receipt_id": snapshot.get("receipt_id"),
+                    "retrieved_at_utc": retrieved,
+                    "kickoff_bound_utc": kickoff,
+                    "reason": rejection,
+                }
+            )
+            terminals.pop(contest_id, None)
+            continue
         if retrieved in (None, ""):
             rejected.append(
                 {
@@ -809,7 +871,7 @@ def score_from_pinned_manifest(
             == PRIMARY_INCOMPLETE
         )
     missing_receipt_times = any(
-        capture.get("retrieved_at_utc") in (None, "")
+        not capture.get("acquisition_receipt_sha256")
         for capture in manifest.get("captures") or []
     )
     if missing_receipt_times:
@@ -867,6 +929,13 @@ def score_from_pinned_manifest(
             "quarantined_conflict_contest_ids": sorted(merged["quarantined_conflicts"]),
             "rejected_receipt_before_kickoff_count": len(
                 merged["rejected_receipts_before_kickoff"]
+            ),
+            "rejected_receipt_reasons": sorted(
+                {
+                    str(item.get("reason") or "")
+                    for item in merged["rejected_receipts_before_kickoff"]
+                    if item.get("reason")
+                }
             ),
             "universe_contest_count": len(expected_contests),
             "forecast_row_count": len(scored_rows),

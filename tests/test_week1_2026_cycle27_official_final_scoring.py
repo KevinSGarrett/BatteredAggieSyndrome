@@ -7,6 +7,7 @@ the live scoreboard directory are never written.
 from __future__ import annotations
 
 import hashlib
+import json
 import sys
 import tempfile
 import unittest
@@ -137,6 +138,7 @@ class Cycle27OfficialFinalScoringTests(unittest.TestCase):
         html_names: list[str],
         retrieved_at: dict[str, str] | None = None,
         authorized: list[str] | None = None,
+        bind_acquisition_receipt: bool = True,
     ) -> dict:
         forecast_path = self.data_root / self.forecast_rel
         payload = forecast_path.read_bytes()
@@ -144,12 +146,32 @@ class Cycle27OfficialFinalScoringTests(unittest.TestCase):
         times = retrieved_at or {}
         for name in html_names:
             relative = f"{self.scoreboard_rel}/{name}"
+            html_path = self.data_root / relative
+            html_digest = hashlib.sha256(html_path.read_bytes()).hexdigest()
+            receipt_rel = None
+            receipt_digest = None
+            if bind_acquisition_receipt and times.get(name):
+                receipt_rel = f"{self.scoreboard_rel}/{name}.acquisition_receipt.json"
+                receipt_path = self.data_root / receipt_rel
+                receipt_body = json.dumps(
+                    {
+                        "html_sha256": html_digest,
+                        "relative_path": relative,
+                        "retrieved_at_utc": times[name],
+                    },
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+                receipt_path.write_bytes(receipt_body)
+                receipt_digest = hashlib.sha256(receipt_body).hexdigest()
             captures.append(
                 capture_record_from_file(
                     data_root=self.data_root,
                     relative_path=relative,
-                    retrieved_at_utc=times.get(name),
+                    retrieved_at_utc=None if receipt_rel else times.get(name),
                     receipt_id=name,
+                    acquisition_receipt_relative_path=receipt_rel,
+                    acquisition_receipt_sha256=receipt_digest,
                 )
             )
         return build_pinned_input_manifest(
@@ -201,6 +223,25 @@ class Cycle27OfficialFinalScoringTests(unittest.TestCase):
         self.assertEqual(gate["_scored_rows"][0]["state"], STATE_AWAITING)
         self.assertGreaterEqual(
             int(gate["summary"]["rejected_receipt_before_kickoff_count"]), 1
+        )
+
+    def test_caller_supplied_time_without_receipt_is_not_authority(self) -> None:
+        self._write_forecast([forecast_row(contest_id="1003")])
+        self._write_html(
+            "supplied.html",
+            render_scoreboard(contest_id="1003", home_points=21, away_points=14),
+        )
+        manifest = self._pin(
+            html_names=["supplied.html"],
+            retrieved_at={"supplied.html": "2026-09-03T23:00:00Z"},
+            bind_acquisition_receipt=False,
+        )
+        gate = self._score(manifest)
+        self.assertFalse(gate["_scored_rows"][0]["scored"])
+        self.assertEqual(gate["_scored_rows"][0]["state"], STATE_AWAITING)
+        self.assertIn(
+            "CALLER_SUPPLIED_TIME_NOT_ACQUISITION_AUTHORITY",
+            gate["summary"]["rejected_receipt_reasons"],
         )
 
     def test_duplicate_conflicted_final_is_quarantined(self) -> None:

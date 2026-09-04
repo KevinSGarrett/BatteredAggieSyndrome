@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-04T17:53:44Z (America/Chicago 2026-09-04T12:53:44)
+Issued: 2026-09-04T18:22:03Z (America/Chicago 2026-09-04T13:22:03)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.
@@ -16,7 +16,7 @@ This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleep
 - Stacked PR 679: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679 — OPEN, base `codex/BAT-690-c26-scr`.
 - PR 654: untouched.
 - Prior stacked head `8f16ca9dee02349f0f828f35831b5580fa5909c8` hosted core-validation/security-policy/codex-review **FAILURE**: unsealed Cycle 27 files, C26 report/watchdog dirty-hash mismatch inherited from `3fcc7104`, unclassified commit subjects, and numpy imports in core coaching/pregame tests.
-- Repair packet head: `c9862b203ea4314bb807381bbbffc3810020276e` (this follow-up only binds that SHA; it does not predict the follow-up commit SHA).
+- Ending stacked head is bound in a follow-up `[material]` commit after this packet lands (no self-referential SHA inside the commit being created).
 - CONTROL-07: hosted green on FAIL remains not acceptance.
 
 ## 2. Hold and containment
@@ -54,7 +54,7 @@ P1 containment this packet:
 
 - Coaching census no longer stores unresolved source IDs as `canonical_team_id`.
 - Saturday 15:20Z receipt covers only the 60-minute capture window of each contest cutoff.
-- Official-final scoring rejects terminals without `retrieved_at_utc`.
+- Official-final scoring admits terminals only from independently hashed acquisition receipts; pin-field `retrieved_at_utc` is not acquisition authority.
 
 Confirmed and not hosted-fixed: CONTROL-07 masked Codex FAIL. Bootstrap prepared, not approved.
 
@@ -76,7 +76,7 @@ D2: C26 Week 1 materializer still copies C24 rows. Cycle 27 remaining-checkpoint
 
 C26 forecast gate `aa4ff84b...` / dataset `770d2544...` preserved (455/399).
 
-Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `203436873d86589367f0b0bd324b8bde508cde8a28a5de7c85d9742ec3120d43` / dataset `0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed` admits **0** terminals because pinned captures have `retrieved_at_utc=null`. Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
+Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `8d47971c1773ed88947ebe9ef5637fb992d4766a717122a087bc8e8ddde7afe5` / dataset `0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed` admits **0** terminals because the pin has no independently hashed acquisition receipts (pin-field `retrieved_at_utc` is not acquisition authority). Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
 
 A&M 6607349 C26 ridge: P(home)≈0.89513, margin≈+22.2506, emitted interval label 0.95 vs declared 0.8. Trust `UNTRUSTED_SHADOW`. Control `national_base_rate` is a control, never a recommendation.
 
@@ -105,7 +105,7 @@ Do not read this as “no follow-up needed.”
 1. Execute Friday T-90M at 20:15Z and A&M T-24H at 22:15Z under existing leases; publish only after exact receipt verification and an explicit delta review.
 2. Hosted CONTROL-07 checker bootstrap still needs independent reviewer approval; until then hosted green FAIL remains non-acceptance.
 3. R26-22 / primary fitted-path trust remains incomplete; keep UNTRUSTED_SHADOW. C26 materializer remains a C24 copy.
-4. C27 scoring successor currently admits zero terminals until receipts carry post-kickoff `retrieved_at_utc`; do not invent timestamps.
+4. C27 scoring successor currently admits zero terminals until independently hashed acquisition receipts exist; do not invent timestamps or treat pin-field time as authority.
 5. Exact-head GitHub review of stacked PR 679 after this reseal; later capture publication needs an explicit delta review.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.

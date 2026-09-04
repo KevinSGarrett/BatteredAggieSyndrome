@@ -18,14 +18,14 @@ from typing import Any, Mapping, Sequence
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
-from aggie_analytics.modeling.week_zero_official_final_scoring import (  # noqa: E402
-    parse_scoreboard_cards,
-)
 from aggie_analytics.scientific_reference.coherence import residual_metrics  # noqa: E402
 from aggie_analytics.scientific_reference.metrics import (  # noqa: E402
     accuracy,
     brier_score,
     log_loss,
+)
+from aggie_analytics.scientific_reference.ncaa_scoreboard_cards import (  # noqa: E402
+    reconstruct_scoreboard_cards,
 )
 
 GATE_RELATIVE = (
@@ -60,6 +60,7 @@ FORBIDDEN_PRODUCER_IMPORTS = {
     "aggie_analytics.data.producer_metric_math",
     "aggie_analytics.data.week1_2026_official_final_scoring_successor",
     "aggie_analytics.data.week1_2026_cycle27_official_final_scoring",
+    "aggie_analytics.modeling.week_zero_official_final_scoring",
 }
 
 
@@ -132,7 +133,7 @@ def _merge_terminals(captures: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     terminals: dict[str, dict[str, Any]] = {}
     conflicts: dict[str, list[dict[str, Any]]] = {}
     for capture in captures:
-        cards = parse_scoreboard_cards(str(capture["document"]))
+        cards = reconstruct_scoreboard_cards(str(capture["document"]))
         for card in cards:
             if not card.get("final_status_is_terminal"):
                 continue
@@ -308,6 +309,16 @@ def validate(
             findings.append("PRODUCER_IMPORTS_INDEPENDENT_REFERENCE")
         if "aggie_analytics.data.producer_metric_math" in producer_imports:
             findings.append("PRODUCER_IMPORTS_PRODUCER_METRIC_MATH")
+    reference_path = (
+        repo_root / "src/aggie_analytics/scientific_reference/ncaa_scoreboard_cards.py"
+    )
+    if reference_path.is_file():
+        reference_imports = _module_imports(reference_path)
+        overlap_reference = sorted(reference_imports & FORBIDDEN_PRODUCER_IMPORTS)
+        if overlap_reference:
+            findings.append(
+                f"INDEPENDENT_PARSER_IMPORTS_PRODUCER:{','.join(overlap_reference)}"
+            )
     loaded_gate = gate or json.loads(
         (repo_root / GATE_RELATIVE).read_text(encoding="utf-8")
     )
@@ -359,10 +370,29 @@ def validate(
         if len(payload) != int(capture["bytes"]):
             findings.append(f"PINNED_CAPTURE_SIZE_DRIFT:{capture['relative_path']}")
             continue
+        retrieved_at = None
+        receipt_rel = capture.get("acquisition_receipt_relative_path")
+        receipt_digest = str(capture.get("acquisition_receipt_sha256") or "").lower()
+        if receipt_rel:
+            receipt_path = data_root / str(receipt_rel)
+            if not receipt_path.is_file():
+                findings.append(f"ACQUISITION_RECEIPT_MISSING:{receipt_rel}")
+                continue
+            receipt_bytes = receipt_path.read_bytes()
+            if _sha256_bytes(receipt_bytes) != receipt_digest:
+                findings.append(f"ACQUISITION_RECEIPT_HASH_DRIFT:{receipt_rel}")
+                continue
+            receipt_payload = json.loads(receipt_bytes.decode("utf-8"))
+            retrieved_at = receipt_payload.get("retrieved_at_utc")
+            html_digest = str(receipt_payload.get("html_sha256") or "").lower()
+            if html_digest and html_digest != capture["sha256"]:
+                findings.append(f"ACQUISITION_RECEIPT_HTML_HASH_MISMATCH:{receipt_rel}")
+                continue
         captures.append(
             {
                 **capture,
                 "document": payload.decode("utf-8", errors="replace"),
+                "retrieved_at_utc": retrieved_at,
             }
         )
     merged = _merge_terminals(captures)
@@ -374,7 +404,8 @@ def validate(
     terminals = dict(merged["terminals"])
     for contest_id, snapshot in list(terminals.items()):
         retrieved = snapshot.get("retrieved_at_utc")
-        if retrieved is None:
+        if retrieved in (None, ""):
+            terminals.pop(contest_id, None)
             continue
         if not _receipt_after_kickoff(
             str(retrieved), kickoff_by_contest.get(contest_id)
@@ -455,9 +486,10 @@ def validate(
         findings.append(f"INDEPENDENT_RECONSTRUCTION_FAIL:{metric_fail}")
     empirical = reconstruct_metrics(scored_for_metrics)
     gate_empirical = loaded_gate.get("empirical_assessment") or {}
+    produced_unique = gate_empirical.get("unique_scored_games")
     if (
-        int(gate_empirical.get("unique_scored_games") or -1)
-        != empirical["unique_scored_games"]
+        produced_unique is None
+        or int(produced_unique) != empirical["unique_scored_games"]
     ):
         findings.append("UNIQUE_GAME_COUNT_MISMATCH")
     produced_by_candidate = {

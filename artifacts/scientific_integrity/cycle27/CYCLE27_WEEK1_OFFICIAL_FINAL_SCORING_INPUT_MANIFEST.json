@@ -1,0 +1,858 @@
+{
+  "artifact_type": "CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING_INPUT_MANIFEST",
+  "as_of_utc": "2026-09-04T16:45:00Z",
+  "authorized_exclusion_contest_ids": [],
+  "capture_mode": "PINNED_MANIFEST",
+  "captures": [
+    {
+      "bytes": 395400,
+      "receipt_id": "0088e91825a71c58fba6eeb337a33eb8b8d317918b538a845c5c8e53b44d4f13",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/0088e91825a71c58fba6eeb337a33eb8b8d317918b538a845c5c8e53b44d4f13.html",
+      "retrieved_at_utc": null,
+      "sha256": "0088e91825a71c58fba6eeb337a33eb8b8d317918b538a845c5c8e53b44d4f13"
+    },
+    {
+      "bytes": 84247,
+      "receipt_id": "02fbf4ab441ccae3f9172285ee9f3cb57e9e91a43ecc03967c3ebef50be03868",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/02fbf4ab441ccae3f9172285ee9f3cb57e9e91a43ecc03967c3ebef50be03868.html",
+      "retrieved_at_utc": null,
+      "sha256": "02fbf4ab441ccae3f9172285ee9f3cb57e9e91a43ecc03967c3ebef50be03868"
+    },
+    {
+      "bytes": 74332,
+      "receipt_id": "033454fceabdc5fae0907f50b483e9c22ebcea701945f6dc95453d8aad4bb9a7",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/033454fceabdc5fae0907f50b483e9c22ebcea701945f6dc95453d8aad4bb9a7.html",
+      "retrieved_at_utc": null,
+      "sha256": "033454fceabdc5fae0907f50b483e9c22ebcea701945f6dc95453d8aad4bb9a7"
+    },
+    {
+      "bytes": 74161,
+      "receipt_id": "046f57d58af8b47daf32083b4b8e1516631d7e61c1f1fff36a45d7f44f0c99e7",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/046f57d58af8b47daf32083b4b8e1516631d7e61c1f1fff36a45d7f44f0c99e7.html",
+      "retrieved_at_utc": null,
+      "sha256": "046f57d58af8b47daf32083b4b8e1516631d7e61c1f1fff36a45d7f44f0c99e7"
+    },
+    {
+      "bytes": 47382,
+      "receipt_id": "0513d92256b93d9db8e2a94ec8ab1fa189d33129c80f4193777b925869d38964",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/0513d92256b93d9db8e2a94ec8ab1fa189d33129c80f4193777b925869d38964.html",
+      "retrieved_at_utc": null,
+      "sha256": "0513d92256b93d9db8e2a94ec8ab1fa189d33129c80f4193777b925869d38964"
+    },
+    {
+      "bytes": 36306,
+      "receipt_id": "06ce097fff6a009392b540c0be106464c8221d0719e17ccb19c2aee353710d4e",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/06ce097fff6a009392b540c0be106464c8221d0719e17ccb19c2aee353710d4e.html",
+      "retrieved_at_utc": null,
+      "sha256": "06ce097fff6a009392b540c0be106464c8221d0719e17ccb19c2aee353710d4e"
+    },
+    {
+      "bytes": 80624,
+      "receipt_id": "0762a0190739646dec25898cc635cfac67dba3f8d0dda226777153874594dcf6",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/0762a0190739646dec25898cc635cfac67dba3f8d0dda226777153874594dcf6.html",
+      "retrieved_at_utc": null,
+      "sha256": "0762a0190739646dec25898cc635cfac67dba3f8d0dda226777153874594dcf6"
+    },
+    {
+      "bytes": 36785,
+      "receipt_id": "0ce5324ee4197ac67f133d76374ce87e44dd0b53c9442f85c252f80c7845b954",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/0ce5324ee4197ac67f133d76374ce87e44dd0b53c9442f85c252f80c7845b954.html",
+      "retrieved_at_utc": null,
+      "sha256": "0ce5324ee4197ac67f133d76374ce87e44dd0b53c9442f85c252f80c7845b954"
+    },
+    {
+      "bytes": 47702,
+      "receipt_id": "12a8614391dc63b37b6a6e4550659baefc7907a72eb7631813722ec3b46ac4a5",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/12a8614391dc63b37b6a6e4550659baefc7907a72eb7631813722ec3b46ac4a5.html",
+      "retrieved_at_utc": null,
+      "sha256": "12a8614391dc63b37b6a6e4550659baefc7907a72eb7631813722ec3b46ac4a5"
+    },
+    {
+      "bytes": 90328,
+      "receipt_id": "1300ff5718636eb5991b7951358ba0eb265ac1ed12fab6120db422c784c4e6df",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/1300ff5718636eb5991b7951358ba0eb265ac1ed12fab6120db422c784c4e6df.html",
+      "retrieved_at_utc": null,
+      "sha256": "1300ff5718636eb5991b7951358ba0eb265ac1ed12fab6120db422c784c4e6df"
+    },
+    {
+      "bytes": 89492,
+      "receipt_id": "1431707a7a46ff71b2660b2ef1a7e6897b2a79239f772a877bc08aaf784e0981",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/1431707a7a46ff71b2660b2ef1a7e6897b2a79239f772a877bc08aaf784e0981.html",
+      "retrieved_at_utc": null,
+      "sha256": "1431707a7a46ff71b2660b2ef1a7e6897b2a79239f772a877bc08aaf784e0981"
+    },
+    {
+      "bytes": 74216,
+      "receipt_id": "15696000820f2c174de6ebe4da58ab7b79b64c11b3b9ef397ca8862bfd522f3d",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/15696000820f2c174de6ebe4da58ab7b79b64c11b3b9ef397ca8862bfd522f3d.html",
+      "retrieved_at_utc": null,
+      "sha256": "15696000820f2c174de6ebe4da58ab7b79b64c11b3b9ef397ca8862bfd522f3d"
+    },
+    {
+      "bytes": 395323,
+      "receipt_id": "15eea544b1da1db830dc5e59498af0a814d0106613c370a7475ab6873fa69ed0",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/15eea544b1da1db830dc5e59498af0a814d0106613c370a7475ab6873fa69ed0.html",
+      "retrieved_at_utc": null,
+      "sha256": "15eea544b1da1db830dc5e59498af0a814d0106613c370a7475ab6873fa69ed0"
+    },
+    {
+      "bytes": 36681,
+      "receipt_id": "1656eb44a19039f82dd688089d6ac5d31af9e9cef88ed80e9d0fd4ca5c0c9e58",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/1656eb44a19039f82dd688089d6ac5d31af9e9cef88ed80e9d0fd4ca5c0c9e58.html",
+      "retrieved_at_utc": null,
+      "sha256": "1656eb44a19039f82dd688089d6ac5d31af9e9cef88ed80e9d0fd4ca5c0c9e58"
+    },
+    {
+      "bytes": 395661,
+      "receipt_id": "18362c7204b45c14d4b9a90d8c0a833e63511cd1cb7afda0cee1f8d4f4493143",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/18362c7204b45c14d4b9a90d8c0a833e63511cd1cb7afda0cee1f8d4f4493143.html",
+      "retrieved_at_utc": null,
+      "sha256": "18362c7204b45c14d4b9a90d8c0a833e63511cd1cb7afda0cee1f8d4f4493143"
+    },
+    {
+      "bytes": 74102,
+      "receipt_id": "19a23af2b603e835423ed217abec2281918259045f5259bfb8277af7ca353006",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/19a23af2b603e835423ed217abec2281918259045f5259bfb8277af7ca353006.html",
+      "retrieved_at_utc": null,
+      "sha256": "19a23af2b603e835423ed217abec2281918259045f5259bfb8277af7ca353006"
+    },
+    {
+      "bytes": 89639,
+      "receipt_id": "1fbfb3972f035c1ac1be6f971402bffd3a063e25bc93d6ba91d198bbd44656cf",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/1fbfb3972f035c1ac1be6f971402bffd3a063e25bc93d6ba91d198bbd44656cf.html",
+      "retrieved_at_utc": null,
+      "sha256": "1fbfb3972f035c1ac1be6f971402bffd3a063e25bc93d6ba91d198bbd44656cf"
+    },
+    {
+      "bytes": 37346,
+      "receipt_id": "20d226dac2f4aa2da78659d6a9243d5ac49cefe778cfc82035bb16e3ca866e86",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/20d226dac2f4aa2da78659d6a9243d5ac49cefe778cfc82035bb16e3ca866e86.html",
+      "retrieved_at_utc": null,
+      "sha256": "20d226dac2f4aa2da78659d6a9243d5ac49cefe778cfc82035bb16e3ca866e86"
+    },
+    {
+      "bytes": 395338,
+      "receipt_id": "227514ec14d237bc78b79f465c434f8d6c982fe64c8baa573d58d9a484714bc8",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/227514ec14d237bc78b79f465c434f8d6c982fe64c8baa573d58d9a484714bc8.html",
+      "retrieved_at_utc": null,
+      "sha256": "227514ec14d237bc78b79f465c434f8d6c982fe64c8baa573d58d9a484714bc8"
+    },
+    {
+      "bytes": 3131,
+      "receipt_id": "26fbfd295943a56d90571d25534194a0fd9de124fe6d2f597f07715d68fb2308",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/26fbfd295943a56d90571d25534194a0fd9de124fe6d2f597f07715d68fb2308.html",
+      "retrieved_at_utc": null,
+      "sha256": "26fbfd295943a56d90571d25534194a0fd9de124fe6d2f597f07715d68fb2308"
+    },
+    {
+      "bytes": 47283,
+      "receipt_id": "278bb32c149f4275fc102ca298e02551cd8aea6baf9c133956abd0acb8cea340",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/278bb32c149f4275fc102ca298e02551cd8aea6baf9c133956abd0acb8cea340.html",
+      "retrieved_at_utc": null,
+      "sha256": "278bb32c149f4275fc102ca298e02551cd8aea6baf9c133956abd0acb8cea340"
+    },
+    {
+      "bytes": 36411,
+      "receipt_id": "279047de5cbb635d3a7371699b07fd9ade744ae99466b017038c2c28127cb7a0",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/279047de5cbb635d3a7371699b07fd9ade744ae99466b017038c2c28127cb7a0.html",
+      "retrieved_at_utc": null,
+      "sha256": "279047de5cbb635d3a7371699b07fd9ade744ae99466b017038c2c28127cb7a0"
+    },
+    {
+      "bytes": 36727,
+      "receipt_id": "280b3322d73c6d2f769356326d4da95a061deb967047bf9a91298a5e02b0f363",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/280b3322d73c6d2f769356326d4da95a061deb967047bf9a91298a5e02b0f363.html",
+      "retrieved_at_utc": null,
+      "sha256": "280b3322d73c6d2f769356326d4da95a061deb967047bf9a91298a5e02b0f363"
+    },
+    {
+      "bytes": 90441,
+      "receipt_id": "2a1712c827c6c2c65fe4992feb4f3149d9a0ccc90cae1e216c43b6a7edbe7438",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/2a1712c827c6c2c65fe4992feb4f3149d9a0ccc90cae1e216c43b6a7edbe7438.html",
+      "retrieved_at_utc": null,
+      "sha256": "2a1712c827c6c2c65fe4992feb4f3149d9a0ccc90cae1e216c43b6a7edbe7438"
+    },
+    {
+      "bytes": 36782,
+      "receipt_id": "2bb85152902101fdcc8b463bf6f30bc19d08f70a4f56a5db0556d956181ce7d6",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/2bb85152902101fdcc8b463bf6f30bc19d08f70a4f56a5db0556d956181ce7d6.html",
+      "retrieved_at_utc": null,
+      "sha256": "2bb85152902101fdcc8b463bf6f30bc19d08f70a4f56a5db0556d956181ce7d6"
+    },
+    {
+      "bytes": 74776,
+      "receipt_id": "2f31c5db18874aef30c93195af1d0067e94964af57c0c7eba8c8e71c8ceee427",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/2f31c5db18874aef30c93195af1d0067e94964af57c0c7eba8c8e71c8ceee427.html",
+      "retrieved_at_utc": null,
+      "sha256": "2f31c5db18874aef30c93195af1d0067e94964af57c0c7eba8c8e71c8ceee427"
+    },
+    {
+      "bytes": 73999,
+      "receipt_id": "2f3d3b324a0e942f7079b8d326fde5c1bcdb4292221909b590a9a89744951501",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/2f3d3b324a0e942f7079b8d326fde5c1bcdb4292221909b590a9a89744951501.html",
+      "retrieved_at_utc": null,
+      "sha256": "2f3d3b324a0e942f7079b8d326fde5c1bcdb4292221909b590a9a89744951501"
+    },
+    {
+      "bytes": 83457,
+      "receipt_id": "3a8c5681cf32ca4c67910515f1daaa0582026bb16b6a78b24016e402a771c990",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/3a8c5681cf32ca4c67910515f1daaa0582026bb16b6a78b24016e402a771c990.html",
+      "retrieved_at_utc": null,
+      "sha256": "3a8c5681cf32ca4c67910515f1daaa0582026bb16b6a78b24016e402a771c990"
+    },
+    {
+      "bytes": 47903,
+      "receipt_id": "3b924c4668108e07eb8f689481d5a612c4788b47e542960a326ce5f76570656c",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/3b924c4668108e07eb8f689481d5a612c4788b47e542960a326ce5f76570656c.html",
+      "retrieved_at_utc": null,
+      "sha256": "3b924c4668108e07eb8f689481d5a612c4788b47e542960a326ce5f76570656c"
+    },
+    {
+      "bytes": 37256,
+      "receipt_id": "3c11401cee7698596eb12861ace89b32e4c1fb0168ccc3ca723b22acbeac3299",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/3c11401cee7698596eb12861ace89b32e4c1fb0168ccc3ca723b22acbeac3299.html",
+      "retrieved_at_utc": null,
+      "sha256": "3c11401cee7698596eb12861ace89b32e4c1fb0168ccc3ca723b22acbeac3299"
+    },
+    {
+      "bytes": 36395,
+      "receipt_id": "41b6b632352f12a005dba8d01c54ffaa7d7b4b87357cd55e812ab431d9997a93",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/41b6b632352f12a005dba8d01c54ffaa7d7b4b87357cd55e812ab431d9997a93.html",
+      "retrieved_at_utc": null,
+      "sha256": "41b6b632352f12a005dba8d01c54ffaa7d7b4b87357cd55e812ab431d9997a93"
+    },
+    {
+      "bytes": 395471,
+      "receipt_id": "42590f96f3238cec1114c300d7b62138757bf6cda9f70aac9997e209340d18fc",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/42590f96f3238cec1114c300d7b62138757bf6cda9f70aac9997e209340d18fc.html",
+      "retrieved_at_utc": null,
+      "sha256": "42590f96f3238cec1114c300d7b62138757bf6cda9f70aac9997e209340d18fc"
+    },
+    {
+      "bytes": 395228,
+      "receipt_id": "42f8aed07350b1ccf58fe28adf97222df157f67a312e5437c738ff23d978b0a7",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/42f8aed07350b1ccf58fe28adf97222df157f67a312e5437c738ff23d978b0a7.html",
+      "retrieved_at_utc": null,
+      "sha256": "42f8aed07350b1ccf58fe28adf97222df157f67a312e5437c738ff23d978b0a7"
+    },
+    {
+      "bytes": 73732,
+      "receipt_id": "44d3091a6feabf984ded56fe38ef65323a6b389c5bad8589dcf6ad97f92d4b75",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/44d3091a6feabf984ded56fe38ef65323a6b389c5bad8589dcf6ad97f92d4b75.html",
+      "retrieved_at_utc": null,
+      "sha256": "44d3091a6feabf984ded56fe38ef65323a6b389c5bad8589dcf6ad97f92d4b75"
+    },
+    {
+      "bytes": 47756,
+      "receipt_id": "4904ef2e00d61ecdbc968773acc11d5d2323af0a77efefcec8a27a0ece9dff7c",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/4904ef2e00d61ecdbc968773acc11d5d2323af0a77efefcec8a27a0ece9dff7c.html",
+      "retrieved_at_utc": null,
+      "sha256": "4904ef2e00d61ecdbc968773acc11d5d2323af0a77efefcec8a27a0ece9dff7c"
+    },
+    {
+      "bytes": 81261,
+      "receipt_id": "4916b5bb461ecf22a151ef9eac62e4ccb0926bdd59dad952d23e6a060aa7141d",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/4916b5bb461ecf22a151ef9eac62e4ccb0926bdd59dad952d23e6a060aa7141d.html",
+      "retrieved_at_utc": null,
+      "sha256": "4916b5bb461ecf22a151ef9eac62e4ccb0926bdd59dad952d23e6a060aa7141d"
+    },
+    {
+      "bytes": 36509,
+      "receipt_id": "4c28b8cd0821a906c57608682d1030c11ea0cce4ff6b1402055f0dc9d2e7bb4b",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/4c28b8cd0821a906c57608682d1030c11ea0cce4ff6b1402055f0dc9d2e7bb4b.html",
+      "retrieved_at_utc": null,
+      "sha256": "4c28b8cd0821a906c57608682d1030c11ea0cce4ff6b1402055f0dc9d2e7bb4b"
+    },
+    {
+      "bytes": 74329,
+      "receipt_id": "4d4b4e33eb6d87f4ae6db6e9f52a2766435650db971470f0d429af40672564a6",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/4d4b4e33eb6d87f4ae6db6e9f52a2766435650db971470f0d429af40672564a6.html",
+      "retrieved_at_utc": null,
+      "sha256": "4d4b4e33eb6d87f4ae6db6e9f52a2766435650db971470f0d429af40672564a6"
+    },
+    {
+      "bytes": 395430,
+      "receipt_id": "522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977.html",
+      "retrieved_at_utc": null,
+      "sha256": "522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977"
+    },
+    {
+      "bytes": 74321,
+      "receipt_id": "52b2f7b7dbd9a7f96c06b39087d1301311230565225202ae983b5f0cd6e9e4c2",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/52b2f7b7dbd9a7f96c06b39087d1301311230565225202ae983b5f0cd6e9e4c2.html",
+      "retrieved_at_utc": null,
+      "sha256": "52b2f7b7dbd9a7f96c06b39087d1301311230565225202ae983b5f0cd6e9e4c2"
+    },
+    {
+      "bytes": 47475,
+      "receipt_id": "53714abde6e3997a28379c22d32c864eafeebcf720175fe9a2b4f4d2806b1b9d",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/53714abde6e3997a28379c22d32c864eafeebcf720175fe9a2b4f4d2806b1b9d.html",
+      "retrieved_at_utc": null,
+      "sha256": "53714abde6e3997a28379c22d32c864eafeebcf720175fe9a2b4f4d2806b1b9d"
+    },
+    {
+      "bytes": 90891,
+      "receipt_id": "54f678bcf1db3ede6f36b7e2809d7f66c957b573225ba8c377fe9bc31c4fb5b6",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/54f678bcf1db3ede6f36b7e2809d7f66c957b573225ba8c377fe9bc31c4fb5b6.html",
+      "retrieved_at_utc": null,
+      "sha256": "54f678bcf1db3ede6f36b7e2809d7f66c957b573225ba8c377fe9bc31c4fb5b6"
+    },
+    {
+      "bytes": 89851,
+      "receipt_id": "559130b5a7cfcc803e898bf668d962630c8caf3eee5764dc875f06b3fd5a4b47",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/559130b5a7cfcc803e898bf668d962630c8caf3eee5764dc875f06b3fd5a4b47.html",
+      "retrieved_at_utc": null,
+      "sha256": "559130b5a7cfcc803e898bf668d962630c8caf3eee5764dc875f06b3fd5a4b47"
+    },
+    {
+      "bytes": 3140,
+      "receipt_id": "577a89223dd3c2e13020beb6ae146a72377f6893d95555d591023f36538c0a3e",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/577a89223dd3c2e13020beb6ae146a72377f6893d95555d591023f36538c0a3e.html",
+      "retrieved_at_utc": null,
+      "sha256": "577a89223dd3c2e13020beb6ae146a72377f6893d95555d591023f36538c0a3e"
+    },
+    {
+      "bytes": 47545,
+      "receipt_id": "58da8b396b15d4058cced4c4c03148d55abb2a8098d503f240a875f3b84d7f96",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/58da8b396b15d4058cced4c4c03148d55abb2a8098d503f240a875f3b84d7f96.html",
+      "retrieved_at_utc": null,
+      "sha256": "58da8b396b15d4058cced4c4c03148d55abb2a8098d503f240a875f3b84d7f96"
+    },
+    {
+      "bytes": 36478,
+      "receipt_id": "61c55d38989818205f19bd89831e166beb38060b5c2345066ad9fdeab96cf4fe",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/61c55d38989818205f19bd89831e166beb38060b5c2345066ad9fdeab96cf4fe.html",
+      "retrieved_at_utc": null,
+      "sha256": "61c55d38989818205f19bd89831e166beb38060b5c2345066ad9fdeab96cf4fe"
+    },
+    {
+      "bytes": 36539,
+      "receipt_id": "636535acc6234bce9bdf2edb679e07c31b539aa4b4c329976185219c9812bc71",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/636535acc6234bce9bdf2edb679e07c31b539aa4b4c329976185219c9812bc71.html",
+      "retrieved_at_utc": null,
+      "sha256": "636535acc6234bce9bdf2edb679e07c31b539aa4b4c329976185219c9812bc71"
+    },
+    {
+      "bytes": 395402,
+      "receipt_id": "64e443a4d55ede94edb4732146cc6996be8a604f1ca764788eb967fd0872a6b4",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/64e443a4d55ede94edb4732146cc6996be8a604f1ca764788eb967fd0872a6b4.html",
+      "retrieved_at_utc": null,
+      "sha256": "64e443a4d55ede94edb4732146cc6996be8a604f1ca764788eb967fd0872a6b4"
+    },
+    {
+      "bytes": 48314,
+      "receipt_id": "65b55d2aa0fb474338f2c89439dcf00da631b026fcbe29ff750f5d7bb117f8b9",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/65b55d2aa0fb474338f2c89439dcf00da631b026fcbe29ff750f5d7bb117f8b9.html",
+      "retrieved_at_utc": null,
+      "sha256": "65b55d2aa0fb474338f2c89439dcf00da631b026fcbe29ff750f5d7bb117f8b9"
+    },
+    {
+      "bytes": 90252,
+      "receipt_id": "66a51a3ad2c707d726bb58b546fc1cbda03872e0878166ca312edf045db4686f",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/66a51a3ad2c707d726bb58b546fc1cbda03872e0878166ca312edf045db4686f.html",
+      "retrieved_at_utc": null,
+      "sha256": "66a51a3ad2c707d726bb58b546fc1cbda03872e0878166ca312edf045db4686f"
+    },
+    {
+      "bytes": 73854,
+      "receipt_id": "67c1e90c1ba60dc7fb025e1ab59e82abacfc9037085dba2e08f51fa0671f90e7",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/67c1e90c1ba60dc7fb025e1ab59e82abacfc9037085dba2e08f51fa0671f90e7.html",
+      "retrieved_at_utc": null,
+      "sha256": "67c1e90c1ba60dc7fb025e1ab59e82abacfc9037085dba2e08f51fa0671f90e7"
+    },
+    {
+      "bytes": 47702,
+      "receipt_id": "682f26fa254fb8807038368c3d547144a1d22cb015ae9b953693ddc892c16d3a",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/682f26fa254fb8807038368c3d547144a1d22cb015ae9b953693ddc892c16d3a.html",
+      "retrieved_at_utc": null,
+      "sha256": "682f26fa254fb8807038368c3d547144a1d22cb015ae9b953693ddc892c16d3a"
+    },
+    {
+      "bytes": 36770,
+      "receipt_id": "69125466eb632c5994c6bbe9a4f6060169d80fe84384e51ce7d036d9fc32416f",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/69125466eb632c5994c6bbe9a4f6060169d80fe84384e51ce7d036d9fc32416f.html",
+      "retrieved_at_utc": null,
+      "sha256": "69125466eb632c5994c6bbe9a4f6060169d80fe84384e51ce7d036d9fc32416f"
+    },
+    {
+      "bytes": 36894,
+      "receipt_id": "698fa3fd1ae6cd85770ce68a55b228aae5e09dc584b96e109c9a24d3ad7caa85",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/698fa3fd1ae6cd85770ce68a55b228aae5e09dc584b96e109c9a24d3ad7caa85.html",
+      "retrieved_at_utc": null,
+      "sha256": "698fa3fd1ae6cd85770ce68a55b228aae5e09dc584b96e109c9a24d3ad7caa85"
+    },
+    {
+      "bytes": 37034,
+      "receipt_id": "6c58f91f6339f7f86ca71e2c6105d18d34202706193410acd271496c49211bad",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/6c58f91f6339f7f86ca71e2c6105d18d34202706193410acd271496c49211bad.html",
+      "retrieved_at_utc": null,
+      "sha256": "6c58f91f6339f7f86ca71e2c6105d18d34202706193410acd271496c49211bad"
+    },
+    {
+      "bytes": 74468,
+      "receipt_id": "6d3db3885674e62711dadbac3a126383b683aeaf6f4f0ad9e2ee8d5d26e5687a",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/6d3db3885674e62711dadbac3a126383b683aeaf6f4f0ad9e2ee8d5d26e5687a.html",
+      "retrieved_at_utc": null,
+      "sha256": "6d3db3885674e62711dadbac3a126383b683aeaf6f4f0ad9e2ee8d5d26e5687a"
+    },
+    {
+      "bytes": 36305,
+      "receipt_id": "6f3ffca6ea5246be9b75bb8c4a17289160488a6388d9f5d399df34e76ed869e1",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/6f3ffca6ea5246be9b75bb8c4a17289160488a6388d9f5d399df34e76ed869e1.html",
+      "retrieved_at_utc": null,
+      "sha256": "6f3ffca6ea5246be9b75bb8c4a17289160488a6388d9f5d399df34e76ed869e1"
+    },
+    {
+      "bytes": 89927,
+      "receipt_id": "7115f63c91d2419571cec97ea44c62366d8d6ec2b3b6ee8b579bfbaa5818cab1",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/7115f63c91d2419571cec97ea44c62366d8d6ec2b3b6ee8b579bfbaa5818cab1.html",
+      "retrieved_at_utc": null,
+      "sha256": "7115f63c91d2419571cec97ea44c62366d8d6ec2b3b6ee8b579bfbaa5818cab1"
+    },
+    {
+      "bytes": 395729,
+      "receipt_id": "750bc7ed8564a8fbe660e1420eaf4d428da2a9754216685b39246baf20e11782",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/750bc7ed8564a8fbe660e1420eaf4d428da2a9754216685b39246baf20e11782.html",
+      "retrieved_at_utc": null,
+      "sha256": "750bc7ed8564a8fbe660e1420eaf4d428da2a9754216685b39246baf20e11782"
+    },
+    {
+      "bytes": 47390,
+      "receipt_id": "75cfeda2be81e8252be45c6ac879bca01e3d7ba17f70d9abcedea99ec8780755",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/75cfeda2be81e8252be45c6ac879bca01e3d7ba17f70d9abcedea99ec8780755.html",
+      "retrieved_at_utc": null,
+      "sha256": "75cfeda2be81e8252be45c6ac879bca01e3d7ba17f70d9abcedea99ec8780755"
+    },
+    {
+      "bytes": 90832,
+      "receipt_id": "781a03d3a5b74dd5da4aee7d688ff9ef52133831c53f2926cff8a5590915b963",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/781a03d3a5b74dd5da4aee7d688ff9ef52133831c53f2926cff8a5590915b963.html",
+      "retrieved_at_utc": null,
+      "sha256": "781a03d3a5b74dd5da4aee7d688ff9ef52133831c53f2926cff8a5590915b963"
+    },
+    {
+      "bytes": 395238,
+      "receipt_id": "78b677f923c76fe771939181fa32413771e33e0b9a230baaabacfb639fd3e7ef",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/78b677f923c76fe771939181fa32413771e33e0b9a230baaabacfb639fd3e7ef.html",
+      "retrieved_at_utc": null,
+      "sha256": "78b677f923c76fe771939181fa32413771e33e0b9a230baaabacfb639fd3e7ef"
+    },
+    {
+      "bytes": 395240,
+      "receipt_id": "798c9a3a9b7cbc68facd2a844ef6342b326e2c999b52dfd71fcc9dd7c8685245",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/798c9a3a9b7cbc68facd2a844ef6342b326e2c999b52dfd71fcc9dd7c8685245.html",
+      "retrieved_at_utc": null,
+      "sha256": "798c9a3a9b7cbc68facd2a844ef6342b326e2c999b52dfd71fcc9dd7c8685245"
+    },
+    {
+      "bytes": 74026,
+      "receipt_id": "799c2fedea0967170154aa67142e1f1e1b02098418008f6e857cb4d72de6d41e",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/799c2fedea0967170154aa67142e1f1e1b02098418008f6e857cb4d72de6d41e.html",
+      "retrieved_at_utc": null,
+      "sha256": "799c2fedea0967170154aa67142e1f1e1b02098418008f6e857cb4d72de6d41e"
+    },
+    {
+      "bytes": 47757,
+      "receipt_id": "7b83351bf9c9ec2703a1395690192a4a32cb38f0b3790539e30d367d1b5032de",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/7b83351bf9c9ec2703a1395690192a4a32cb38f0b3790539e30d367d1b5032de.html",
+      "retrieved_at_utc": null,
+      "sha256": "7b83351bf9c9ec2703a1395690192a4a32cb38f0b3790539e30d367d1b5032de"
+    },
+    {
+      "bytes": 395760,
+      "receipt_id": "7b897dc6953348997f468ce7ca5fb2bfed59abbcf86367532e4f22885e9ee667",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/7b897dc6953348997f468ce7ca5fb2bfed59abbcf86367532e4f22885e9ee667.html",
+      "retrieved_at_utc": null,
+      "sha256": "7b897dc6953348997f468ce7ca5fb2bfed59abbcf86367532e4f22885e9ee667"
+    },
+    {
+      "bytes": 90613,
+      "receipt_id": "7cd3177e0eb9f63fb756534b5f67a944383d8f8829e101ad211877fc434fe92d",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/7cd3177e0eb9f63fb756534b5f67a944383d8f8829e101ad211877fc434fe92d.html",
+      "retrieved_at_utc": null,
+      "sha256": "7cd3177e0eb9f63fb756534b5f67a944383d8f8829e101ad211877fc434fe92d"
+    },
+    {
+      "bytes": 90273,
+      "receipt_id": "7cefc1a5a08aab374a5ae17136d8e2207833759f0a4d3f70f0ebe6288041e595",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/7cefc1a5a08aab374a5ae17136d8e2207833759f0a4d3f70f0ebe6288041e595.html",
+      "retrieved_at_utc": null,
+      "sha256": "7cefc1a5a08aab374a5ae17136d8e2207833759f0a4d3f70f0ebe6288041e595"
+    },
+    {
+      "bytes": 74715,
+      "receipt_id": "83dd7af260ffc842d109379e3017fa8ca66a05ba6fbbb3d8f1de55c745a53776",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/83dd7af260ffc842d109379e3017fa8ca66a05ba6fbbb3d8f1de55c745a53776.html",
+      "retrieved_at_utc": null,
+      "sha256": "83dd7af260ffc842d109379e3017fa8ca66a05ba6fbbb3d8f1de55c745a53776"
+    },
+    {
+      "bytes": 395442,
+      "receipt_id": "85a41daf5e096e65c6c858c14503cd4dd08c13ac2ed8a630c42563a9eadfc0ef",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/85a41daf5e096e65c6c858c14503cd4dd08c13ac2ed8a630c42563a9eadfc0ef.html",
+      "retrieved_at_utc": null,
+      "sha256": "85a41daf5e096e65c6c858c14503cd4dd08c13ac2ed8a630c42563a9eadfc0ef"
+    },
+    {
+      "bytes": 74814,
+      "receipt_id": "85bc4265bc3e129c4e8e22fc7270710c8233934cc43674460ef8a5f1974560d4",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/85bc4265bc3e129c4e8e22fc7270710c8233934cc43674460ef8a5f1974560d4.html",
+      "retrieved_at_utc": null,
+      "sha256": "85bc4265bc3e129c4e8e22fc7270710c8233934cc43674460ef8a5f1974560d4"
+    },
+    {
+      "bytes": 47917,
+      "receipt_id": "87a5a9381c98aa95e36be69056e30d589bc996612cfa1977d2ae4aa16bf5d03f",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/87a5a9381c98aa95e36be69056e30d589bc996612cfa1977d2ae4aa16bf5d03f.html",
+      "retrieved_at_utc": null,
+      "sha256": "87a5a9381c98aa95e36be69056e30d589bc996612cfa1977d2ae4aa16bf5d03f"
+    },
+    {
+      "bytes": 395329,
+      "receipt_id": "8922695ed5009b5c848694f571e09bc2d517320114eaac295fd84a7486c2dc16",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/8922695ed5009b5c848694f571e09bc2d517320114eaac295fd84a7486c2dc16.html",
+      "retrieved_at_utc": null,
+      "sha256": "8922695ed5009b5c848694f571e09bc2d517320114eaac295fd84a7486c2dc16"
+    },
+    {
+      "bytes": 73913,
+      "receipt_id": "91c10bc759ebfb76ed2581a704641fb3bb1588c099869f858768819e369a8aad",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/91c10bc759ebfb76ed2581a704641fb3bb1588c099869f858768819e369a8aad.html",
+      "retrieved_at_utc": null,
+      "sha256": "91c10bc759ebfb76ed2581a704641fb3bb1588c099869f858768819e369a8aad"
+    },
+    {
+      "bytes": 36390,
+      "receipt_id": "9277b43648790a201e0808ebcd09030ba5e07a4aa32255d9bf337f7a18927428",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/9277b43648790a201e0808ebcd09030ba5e07a4aa32255d9bf337f7a18927428.html",
+      "retrieved_at_utc": null,
+      "sha256": "9277b43648790a201e0808ebcd09030ba5e07a4aa32255d9bf337f7a18927428"
+    },
+    {
+      "bytes": 81278,
+      "receipt_id": "9357081008c652d21f6f281d883b905c786b267ba3ca5ab0e8e996e9485e50ab",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/9357081008c652d21f6f281d883b905c786b267ba3ca5ab0e8e996e9485e50ab.html",
+      "retrieved_at_utc": null,
+      "sha256": "9357081008c652d21f6f281d883b905c786b267ba3ca5ab0e8e996e9485e50ab"
+    },
+    {
+      "bytes": 36294,
+      "receipt_id": "94a4257a083388b5e09f3366c9157255b755d04c1cf88e655561d75a1f738c41",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/94a4257a083388b5e09f3366c9157255b755d04c1cf88e655561d75a1f738c41.html",
+      "retrieved_at_utc": null,
+      "sha256": "94a4257a083388b5e09f3366c9157255b755d04c1cf88e655561d75a1f738c41"
+    },
+    {
+      "bytes": 89950,
+      "receipt_id": "94cb1a4befe0a811e4df906ae31cf47c4c676f6aa8fe25df154c05f420466e2d",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/94cb1a4befe0a811e4df906ae31cf47c4c676f6aa8fe25df154c05f420466e2d.html",
+      "retrieved_at_utc": null,
+      "sha256": "94cb1a4befe0a811e4df906ae31cf47c4c676f6aa8fe25df154c05f420466e2d"
+    },
+    {
+      "bytes": 47452,
+      "receipt_id": "957f2aa2bd78e24f3249958fd68f3cfe126893b9025340d074f961d953a1b915",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/957f2aa2bd78e24f3249958fd68f3cfe126893b9025340d074f961d953a1b915.html",
+      "retrieved_at_utc": null,
+      "sha256": "957f2aa2bd78e24f3249958fd68f3cfe126893b9025340d074f961d953a1b915"
+    },
+    {
+      "bytes": 47499,
+      "receipt_id": "9be0b65568bc6b2fd89b01a2910a69b10c17a3bf107d3373f9cd1e794cb960d5",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/9be0b65568bc6b2fd89b01a2910a69b10c17a3bf107d3373f9cd1e794cb960d5.html",
+      "retrieved_at_utc": null,
+      "sha256": "9be0b65568bc6b2fd89b01a2910a69b10c17a3bf107d3373f9cd1e794cb960d5"
+    },
+    {
+      "bytes": 74495,
+      "receipt_id": "9beb5115e4ccb1a9b0c8cbc48fa28f432002baa540b5368a6296c189bcbfd41b",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/9beb5115e4ccb1a9b0c8cbc48fa28f432002baa540b5368a6296c189bcbfd41b.html",
+      "retrieved_at_utc": null,
+      "sha256": "9beb5115e4ccb1a9b0c8cbc48fa28f432002baa540b5368a6296c189bcbfd41b"
+    },
+    {
+      "bytes": 73853,
+      "receipt_id": "9e4d973cb1190db2e58ec760b6b1db7867b893a473e575a265ed921abbf3e758",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/9e4d973cb1190db2e58ec760b6b1db7867b893a473e575a265ed921abbf3e758.html",
+      "retrieved_at_utc": null,
+      "sha256": "9e4d973cb1190db2e58ec760b6b1db7867b893a473e575a265ed921abbf3e758"
+    },
+    {
+      "bytes": 396063,
+      "receipt_id": "a4bbebf7c98094ce4a54461514afd0115e8746772c62aaf78ce1f542e5efd65c",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/a4bbebf7c98094ce4a54461514afd0115e8746772c62aaf78ce1f542e5efd65c.html",
+      "retrieved_at_utc": null,
+      "sha256": "a4bbebf7c98094ce4a54461514afd0115e8746772c62aaf78ce1f542e5efd65c"
+    },
+    {
+      "bytes": 73997,
+      "receipt_id": "a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a.html",
+      "retrieved_at_utc": null,
+      "sha256": "a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a"
+    },
+    {
+      "bytes": 73731,
+      "receipt_id": "a7201019d9b768381827c33f99bd789d028e0c098ff105822215d3b0d76e5167",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/a7201019d9b768381827c33f99bd789d028e0c098ff105822215d3b0d76e5167.html",
+      "retrieved_at_utc": null,
+      "sha256": "a7201019d9b768381827c33f99bd789d028e0c098ff105822215d3b0d76e5167"
+    },
+    {
+      "bytes": 74105,
+      "receipt_id": "a9a840c1b2ce4701cd6288e17ce5ee049ed1f94a6babb26fc025cf218cbe1b0e",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/a9a840c1b2ce4701cd6288e17ce5ee049ed1f94a6babb26fc025cf218cbe1b0e.html",
+      "retrieved_at_utc": null,
+      "sha256": "a9a840c1b2ce4701cd6288e17ce5ee049ed1f94a6babb26fc025cf218cbe1b0e"
+    },
+    {
+      "bytes": 47429,
+      "receipt_id": "ac0f662fc18da7d01df343b30159c6eeafef9d1fea117912d7ae70a257ffabc4",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ac0f662fc18da7d01df343b30159c6eeafef9d1fea117912d7ae70a257ffabc4.html",
+      "retrieved_at_utc": null,
+      "sha256": "ac0f662fc18da7d01df343b30159c6eeafef9d1fea117912d7ae70a257ffabc4"
+    },
+    {
+      "bytes": 47656,
+      "receipt_id": "af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd.html",
+      "retrieved_at_utc": null,
+      "sha256": "af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd"
+    },
+    {
+      "bytes": 73738,
+      "receipt_id": "b13f6b41b606cd43a4839a8251ce6f243429bd4b584edbf4f45a62281e324f5e",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/b13f6b41b606cd43a4839a8251ce6f243429bd4b584edbf4f45a62281e324f5e.html",
+      "retrieved_at_utc": null,
+      "sha256": "b13f6b41b606cd43a4839a8251ce6f243429bd4b584edbf4f45a62281e324f5e"
+    },
+    {
+      "bytes": 90068,
+      "receipt_id": "b3de1192c36b0f840df99e8f89d3178baf1f8f21aeac91f23e44d77ecef474d9",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/b3de1192c36b0f840df99e8f89d3178baf1f8f21aeac91f23e44d77ecef474d9.html",
+      "retrieved_at_utc": null,
+      "sha256": "b3de1192c36b0f840df99e8f89d3178baf1f8f21aeac91f23e44d77ecef474d9"
+    },
+    {
+      "bytes": 395744,
+      "receipt_id": "b9ff09ec41b7b5ccb8f6ea3c8fa4d79a7f9ac17589f2b612e8069a8b3d237de3",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/b9ff09ec41b7b5ccb8f6ea3c8fa4d79a7f9ac17589f2b612e8069a8b3d237de3.html",
+      "retrieved_at_utc": null,
+      "sha256": "b9ff09ec41b7b5ccb8f6ea3c8fa4d79a7f9ac17589f2b612e8069a8b3d237de3"
+    },
+    {
+      "bytes": 395239,
+      "receipt_id": "beb615e6558dbfefd23d624c8eeb0996daea27196c672981684e79012889f277",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/beb615e6558dbfefd23d624c8eeb0996daea27196c672981684e79012889f277.html",
+      "retrieved_at_utc": null,
+      "sha256": "beb615e6558dbfefd23d624c8eeb0996daea27196c672981684e79012889f277"
+    },
+    {
+      "bytes": 395715,
+      "receipt_id": "c4fcc9a64ae2d793420204493b63c360f91474b878ca14a0d44ce76e7b57978a",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/c4fcc9a64ae2d793420204493b63c360f91474b878ca14a0d44ce76e7b57978a.html",
+      "retrieved_at_utc": null,
+      "sha256": "c4fcc9a64ae2d793420204493b63c360f91474b878ca14a0d44ce76e7b57978a"
+    },
+    {
+      "bytes": 37114,
+      "receipt_id": "c8bf56603f77e02a7d901c54af5079592d55c9453a2708a029a7b0ff195234e8",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/c8bf56603f77e02a7d901c54af5079592d55c9453a2708a029a7b0ff195234e8.html",
+      "retrieved_at_utc": null,
+      "sha256": "c8bf56603f77e02a7d901c54af5079592d55c9453a2708a029a7b0ff195234e8"
+    },
+    {
+      "bytes": 74470,
+      "receipt_id": "cc631df42cbeddd9674e0131d0b080c1dcba7e7ea5f9847ad0d6cc53bf3a479a",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/cc631df42cbeddd9674e0131d0b080c1dcba7e7ea5f9847ad0d6cc53bf3a479a.html",
+      "retrieved_at_utc": null,
+      "sha256": "cc631df42cbeddd9674e0131d0b080c1dcba7e7ea5f9847ad0d6cc53bf3a479a"
+    },
+    {
+      "bytes": 36671,
+      "receipt_id": "cd69badfcf49b96cd86ae5bfc9ef76acf5f0ede6ce38530e473489e17fd0f4b3",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/cd69badfcf49b96cd86ae5bfc9ef76acf5f0ede6ce38530e473489e17fd0f4b3.html",
+      "retrieved_at_utc": null,
+      "sha256": "cd69badfcf49b96cd86ae5bfc9ef76acf5f0ede6ce38530e473489e17fd0f4b3"
+    },
+    {
+      "bytes": 396180,
+      "receipt_id": "d0775bae27ba30b782e2bc66b42a9bd436fa45f9f9634dcf06445f19f4d7a4b6",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/d0775bae27ba30b782e2bc66b42a9bd436fa45f9f9634dcf06445f19f4d7a4b6.html",
+      "retrieved_at_utc": null,
+      "sha256": "d0775bae27ba30b782e2bc66b42a9bd436fa45f9f9634dcf06445f19f4d7a4b6"
+    },
+    {
+      "bytes": 47396,
+      "receipt_id": "d18d7fb29d6dec969c29e526623998550ba4236453475e2f6a955943ed25865f",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/d18d7fb29d6dec969c29e526623998550ba4236453475e2f6a955943ed25865f.html",
+      "retrieved_at_utc": null,
+      "sha256": "d18d7fb29d6dec969c29e526623998550ba4236453475e2f6a955943ed25865f"
+    },
+    {
+      "bytes": 395526,
+      "receipt_id": "d482ebf0508207e91e6ff155ce1c19846f331cb8a646a8dbe6d4bec67ad43778",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/d482ebf0508207e91e6ff155ce1c19846f331cb8a646a8dbe6d4bec67ad43778.html",
+      "retrieved_at_utc": null,
+      "sha256": "d482ebf0508207e91e6ff155ce1c19846f331cb8a646a8dbe6d4bec67ad43778"
+    },
+    {
+      "bytes": 47283,
+      "receipt_id": "d4a14a4228292d84d4c2606894cb182943583550830e01eac2372695c2c9643b",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/d4a14a4228292d84d4c2606894cb182943583550830e01eac2372695c2c9643b.html",
+      "retrieved_at_utc": null,
+      "sha256": "d4a14a4228292d84d4c2606894cb182943583550830e01eac2372695c2c9643b"
+    },
+    {
+      "bytes": 90714,
+      "receipt_id": "d5917c46998cb5072fe68127113aedba63515b9db872396c20046af98d01f8dd",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/d5917c46998cb5072fe68127113aedba63515b9db872396c20046af98d01f8dd.html",
+      "retrieved_at_utc": null,
+      "sha256": "d5917c46998cb5072fe68127113aedba63515b9db872396c20046af98d01f8dd"
+    },
+    {
+      "bytes": 395543,
+      "receipt_id": "d64cd729501690a646e17206593949f3be8bd3bca7a0f7fc2fe019060b1f2dd2",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/d64cd729501690a646e17206593949f3be8bd3bca7a0f7fc2fe019060b1f2dd2.html",
+      "retrieved_at_utc": null,
+      "sha256": "d64cd729501690a646e17206593949f3be8bd3bca7a0f7fc2fe019060b1f2dd2"
+    },
+    {
+      "bytes": 395285,
+      "receipt_id": "d702d519c60a31e0b730f970f0bc9c1fbbbb4c9ff5018dade02ffe2d1a416d3f",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/d702d519c60a31e0b730f970f0bc9c1fbbbb4c9ff5018dade02ffe2d1a416d3f.html",
+      "retrieved_at_utc": null,
+      "sha256": "d702d519c60a31e0b730f970f0bc9c1fbbbb4c9ff5018dade02ffe2d1a416d3f"
+    },
+    {
+      "bytes": 47543,
+      "receipt_id": "da74a783aa279d24b3f5a281af63612760906aa12d28cecdd32f5c7e4f0a1cf9",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/da74a783aa279d24b3f5a281af63612760906aa12d28cecdd32f5c7e4f0a1cf9.html",
+      "retrieved_at_utc": null,
+      "sha256": "da74a783aa279d24b3f5a281af63612760906aa12d28cecdd32f5c7e4f0a1cf9"
+    },
+    {
+      "bytes": 89896,
+      "receipt_id": "dccf13ad75d6fc5358411411543df7e8ee61deabb001573b0d977dd52a1aad0e",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/dccf13ad75d6fc5358411411543df7e8ee61deabb001573b0d977dd52a1aad0e.html",
+      "retrieved_at_utc": null,
+      "sha256": "dccf13ad75d6fc5358411411543df7e8ee61deabb001573b0d977dd52a1aad0e"
+    },
+    {
+      "bytes": 47486,
+      "receipt_id": "ddfa31b03b9de65e9694cd741d7f77bba8414975b98477060314da9d00b40ca9",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ddfa31b03b9de65e9694cd741d7f77bba8414975b98477060314da9d00b40ca9.html",
+      "retrieved_at_utc": null,
+      "sha256": "ddfa31b03b9de65e9694cd741d7f77bba8414975b98477060314da9d00b40ca9"
+    },
+    {
+      "bytes": 47759,
+      "receipt_id": "de25d6e3e28b9966c786e51b958a2da671a6a36e344414c183b51951a6497407",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/de25d6e3e28b9966c786e51b958a2da671a6a36e344414c183b51951a6497407.html",
+      "retrieved_at_utc": null,
+      "sha256": "de25d6e3e28b9966c786e51b958a2da671a6a36e344414c183b51951a6497407"
+    },
+    {
+      "bytes": 90496,
+      "receipt_id": "e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb.html",
+      "retrieved_at_utc": null,
+      "sha256": "e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb"
+    },
+    {
+      "bytes": 395707,
+      "receipt_id": "e61ba11adaa5ef5751729fc17b576c7f8eccaa7c4a799980e1fd711beaf8accc",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e61ba11adaa5ef5751729fc17b576c7f8eccaa7c4a799980e1fd711beaf8accc.html",
+      "retrieved_at_utc": null,
+      "sha256": "e61ba11adaa5ef5751729fc17b576c7f8eccaa7c4a799980e1fd711beaf8accc"
+    },
+    {
+      "bytes": 46719,
+      "receipt_id": "e62a3fc74f7317ac40388a33e14402b0241b7b85e0fd3b3804e8798c4ba2652a",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e62a3fc74f7317ac40388a33e14402b0241b7b85e0fd3b3804e8798c4ba2652a.html",
+      "retrieved_at_utc": null,
+      "sha256": "e62a3fc74f7317ac40388a33e14402b0241b7b85e0fd3b3804e8798c4ba2652a"
+    },
+    {
+      "bytes": 47646,
+      "receipt_id": "e69a4448696e1e5c7022ecf267e2907237b59830b0280bf6284bd365298e44d8",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e69a4448696e1e5c7022ecf267e2907237b59830b0280bf6284bd365298e44d8.html",
+      "retrieved_at_utc": null,
+      "sha256": "e69a4448696e1e5c7022ecf267e2907237b59830b0280bf6284bd365298e44d8"
+    },
+    {
+      "bytes": 48235,
+      "receipt_id": "e75c055a5cc2b18cd5a5e0ade6dc0ceeff91ea74db91bf23d0b6e1d958e477a2",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e75c055a5cc2b18cd5a5e0ade6dc0ceeff91ea74db91bf23d0b6e1d958e477a2.html",
+      "retrieved_at_utc": null,
+      "sha256": "e75c055a5cc2b18cd5a5e0ade6dc0ceeff91ea74db91bf23d0b6e1d958e477a2"
+    },
+    {
+      "bytes": 89851,
+      "receipt_id": "e9e48f170e99eb03307dfcc6c3056c85c9739e35feff3b8f91cb2a00a274a6af",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e9e48f170e99eb03307dfcc6c3056c85c9739e35feff3b8f91cb2a00a274a6af.html",
+      "retrieved_at_utc": null,
+      "sha256": "e9e48f170e99eb03307dfcc6c3056c85c9739e35feff3b8f91cb2a00a274a6af"
+    },
+    {
+      "bytes": 74001,
+      "receipt_id": "ea788d51762074d34aa9d3b14132aba0fe8cab302fc3a6d540f2df010d0233fd",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ea788d51762074d34aa9d3b14132aba0fe8cab302fc3a6d540f2df010d0233fd.html",
+      "retrieved_at_utc": null,
+      "sha256": "ea788d51762074d34aa9d3b14132aba0fe8cab302fc3a6d540f2df010d0233fd"
+    },
+    {
+      "bytes": 36772,
+      "receipt_id": "ed5ab4acf681c1ad48670770e6c5ae57fcc06f0159898445d5709946235f1b1c",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ed5ab4acf681c1ad48670770e6c5ae57fcc06f0159898445d5709946235f1b1c.html",
+      "retrieved_at_utc": null,
+      "sha256": "ed5ab4acf681c1ad48670770e6c5ae57fcc06f0159898445d5709946235f1b1c"
+    },
+    {
+      "bytes": 36507,
+      "receipt_id": "ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e.html",
+      "retrieved_at_utc": null,
+      "sha256": "ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e"
+    },
+    {
+      "bytes": 36632,
+      "receipt_id": "effa2ebafe06d1ee02ede8d6c12ebc2f7cc3ecb83d64b1315a3567e70a145a42",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/effa2ebafe06d1ee02ede8d6c12ebc2f7cc3ecb83d64b1315a3567e70a145a42.html",
+      "retrieved_at_utc": null,
+      "sha256": "effa2ebafe06d1ee02ede8d6c12ebc2f7cc3ecb83d64b1315a3567e70a145a42"
+    },
+    {
+      "bytes": 36592,
+      "receipt_id": "f0a1c2f45a82a1cd1b918b4dcc08d182e3257c3d0ec56c64548be0280e8765bc",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/f0a1c2f45a82a1cd1b918b4dcc08d182e3257c3d0ec56c64548be0280e8765bc.html",
+      "retrieved_at_utc": null,
+      "sha256": "f0a1c2f45a82a1cd1b918b4dcc08d182e3257c3d0ec56c64548be0280e8765bc"
+    },
+    {
+      "bytes": 395716,
+      "receipt_id": "f94b3d89800d3fa0eae01563a5b2021ee20cb4ffde0c0db1ccfcf4bcfcb55a66",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/f94b3d89800d3fa0eae01563a5b2021ee20cb4ffde0c0db1ccfcf4bcfcb55a66.html",
+      "retrieved_at_utc": null,
+      "sha256": "f94b3d89800d3fa0eae01563a5b2021ee20cb4ffde0c0db1ccfcf4bcfcb55a66"
+    },
+    {
+      "bytes": 74445,
+      "receipt_id": "fd8356f73151db495801216bfe6bbcf4880b1e592c6fcc5296acb81f361fe799",
+      "relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/fd8356f73151db495801216bfe6bbcf4880b1e592c6fcc5296acb81f361fe799.html",
+      "retrieved_at_utc": null,
+      "sha256": "fd8356f73151db495801216bfe6bbcf4880b1e592c6fcc5296acb81f361fe799"
+    }
+  ],
+  "forecast_payload": {
+    "bytes": 1228668,
+    "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_forecast_rows.jsonl",
+    "sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16"
+  },
+  "freeze_utc": "2026-09-03T06:47:23Z",
+  "manifest_identity": "a25ced52b627110f9d92db9edd2c34e713a735f30a90b86905e64d658ebe67da",
+  "parser_module_sha256": "f430e9d4fe4ab75c937c656e141f68cf5cb18809c5a01809523e8518a8041a6b",
+  "parser_version": "aggie.week_zero_official_final_scoring.parse_scoreboard_cards.v1",
+  "schema_version": "aggie.shadow.week1_2026_cycle27_official_final_scoring.v1"
+}

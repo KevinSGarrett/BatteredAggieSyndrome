@@ -1,0 +1,3822 @@
+{
+  "artifact_type": "CYCLE27_CONTEST_CHECKPOINT_LEDGER",
+  "issued_at_utc": "2026-09-04T16:54:13Z",
+  "as_of_utc": "2026-09-04T16:54:13Z",
+  "predecessor_c26_ledger_issued_at_utc": "2026-09-04T15:20:10Z",
+  "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+  "contest_count": 91,
+  "clock_uncertainty": "Host OS clock; local receipt is not cryptographic proof",
+  "completed_valid_receipts_retained_after_cutoff": true,
+  "do_not_recompute_saturday_as_missed": true,
+  "raw_collection_is_not_forecast_frozen": true,
+  "joined_receipts": [
+    "CYCLE26_SEP3_T90M_FREEZE_RECEIPT",
+    "CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT",
+    "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+  ],
+  "saturday_t24h_completed_contest_ids": [
+    "6590890",
+    "6593811",
+    "6594325",
+    "6601384",
+    "6611692",
+    "6611873",
+    "6613128",
+    "6617023",
+    "6620636",
+    "6620944",
+    "6618687",
+    "6620092",
+    "6593392",
+    "6583220",
+    "6583331",
+    "6600846",
+    "6598117",
+    "6612588",
+    "6620448",
+    "6583392",
+    "6585877",
+    "6587707",
+    "6592568",
+    "6594109",
+    "6600254",
+    "6604408",
+    "6607271",
+    "6608932",
+    "6610894",
+    "6611505",
+    "6582887",
+    "6582881",
+    "6587775",
+    "6593076",
+    "6590855",
+    "6607433",
+    "6586106",
+    "6586326",
+    "6587284",
+    "6588730",
+    "6590807",
+    "6591589",
+    "6593153",
+    "6596114",
+    "6606172",
+    "6609172",
+    "6620458",
+    "6620478",
+    "6586022",
+    "6589809",
+    "6590386",
+    "6590505",
+    "6614741",
+    "6583172",
+    "6583582",
+    "6587672",
+    "6589595",
+    "6589953",
+    "6596257",
+    "6616987",
+    "6620513",
+    "6605119",
+    "6618489",
+    "6592700",
+    "6607878",
+    "6603305",
+    "6605164",
+    "6618941"
+  ],
+  "saturday_t24h_completed_count": 68,
+  "t24h_state_counts": {
+    "ABSTAINED_AT_CHECKPOINT": 4,
+    "CAPTURE_IN_PROGRESS": 1,
+    "EVIDENCE_CAPTURED": 69,
+    "MISSED_CUTOFF_NO_BACKFILL": 14,
+    "NOT_OPEN": 3
+  },
+  "t90m_state_counts": {
+    "CAPTURE_IN_PROGRESS": 2,
+    "EVIDENCE_CAPTURED": 11,
+    "NOT_OPEN": 78
+  },
+  "cutoff_clusters": {
+    "t24h": [
+      {
+        "cutoff_utc": "2026-09-02T22:00:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6591259"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-03T22:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-02T23:00:00Z",
+        "kind": "T24H",
+        "contest_count": 5,
+        "contest_ids": [
+          "6582933",
+          "6588927",
+          "6601465",
+          "6609567",
+          "6618350"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-03T23:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-03T00:00:00Z",
+        "kind": "T24H",
+        "contest_count": 3,
+        "contest_ids": [
+          "6584486",
+          "6603568",
+          "6620218"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-04T00:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-03T01:00:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6586572",
+          "6602046"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-04T01:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-03T22:30:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6594366"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-04T22:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-03T23:00:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6598559",
+          "6619544"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-04T23:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T00:00:00Z",
+        "kind": "T24H",
+        "contest_count": 3,
+        "contest_ids": [
+          "6592887",
+          "6601163",
+          "6611346"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T00:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T01:00:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6602792",
+          "6620138"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T01:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "kind": "T24H",
+        "contest_count": 10,
+        "contest_ids": [
+          "6590890",
+          "6593811",
+          "6594325",
+          "6601384",
+          "6611692",
+          "6611873",
+          "6613128",
+          "6617023",
+          "6620636",
+          "6620944"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T16:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T16:30:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6618687",
+          "6620092"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T16:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T16:45:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6593392"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T16:45:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T17:00:00Z",
+        "kind": "T24H",
+        "contest_count": 3,
+        "contest_ids": [
+          "6583220",
+          "6583331",
+          "6600846"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T17:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T18:00:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6598117"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T18:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T18:30:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6612588"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T18:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T19:00:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6620448"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T19:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "kind": "T24H",
+        "contest_count": 11,
+        "contest_ids": [
+          "6583392",
+          "6585877",
+          "6587707",
+          "6592568",
+          "6594109",
+          "6600254",
+          "6604408",
+          "6607271",
+          "6608932",
+          "6610894",
+          "6611505"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T19:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T19:45:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6582887"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T19:45:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T20:15:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6582881",
+          "6587775"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T20:15:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T21:00:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6593076"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T21:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T22:00:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6590855",
+          "6607433"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T22:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "kind": "T24H",
+        "contest_count": 13,
+        "contest_ids": [
+          "6586106",
+          "6586326",
+          "6587284",
+          "6588730",
+          "6590807",
+          "6591589",
+          "6593153",
+          "6596114",
+          "6606172",
+          "6607349",
+          "6609172",
+          "6620458",
+          "6620478"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T23:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "kind": "T24H",
+        "contest_count": 5,
+        "contest_ids": [
+          "6586022",
+          "6589809",
+          "6590386",
+          "6590505",
+          "6614741"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T23:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T23:45:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6583172"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T23:45:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T00:00:00Z",
+        "kind": "T24H",
+        "contest_count": 5,
+        "contest_ids": [
+          "6583582",
+          "6587672",
+          "6589595",
+          "6589953",
+          "6596257"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T00:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T01:00:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6616987",
+          "6620513"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T01:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T01:30:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6605119",
+          "6618489"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T01:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T02:00:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6592700",
+          "6607878"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T02:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T02:30:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6603305",
+          "6605164"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T02:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T08:00:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6618941"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T08:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T23:30:00Z",
+        "kind": "T24H",
+        "contest_count": 2,
+        "contest_ids": [
+          "6602874",
+          "6620581"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T23:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-06T23:30:00Z",
+        "kind": "T24H",
+        "contest_count": 1,
+        "contest_ids": [
+          "6594400"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-07T23:30:00Z"
+        ]
+      }
+    ],
+    "t90m": [
+      {
+        "cutoff_utc": "2026-09-03T20:30:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6591259"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-03T22:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-03T21:30:00Z",
+        "kind": "T90M",
+        "contest_count": 5,
+        "contest_ids": [
+          "6582933",
+          "6588927",
+          "6601465",
+          "6609567",
+          "6618350"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-03T23:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-03T22:30:00Z",
+        "kind": "T90M",
+        "contest_count": 3,
+        "contest_ids": [
+          "6584486",
+          "6603568",
+          "6620218"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-04T00:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-03T23:30:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6586572",
+          "6602046"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-04T01:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T21:00:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6594366"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-04T22:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T21:30:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6598559",
+          "6619544"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-04T23:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T22:30:00Z",
+        "kind": "T90M",
+        "contest_count": 3,
+        "contest_ids": [
+          "6592887",
+          "6601163",
+          "6611346"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T00:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6602792",
+          "6620138"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T01:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "kind": "T90M",
+        "contest_count": 10,
+        "contest_ids": [
+          "6590890",
+          "6593811",
+          "6594325",
+          "6601384",
+          "6611692",
+          "6611873",
+          "6613128",
+          "6617023",
+          "6620636",
+          "6620944"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T16:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T15:00:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6618687",
+          "6620092"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T16:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T15:15:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6593392"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T16:45:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T15:30:00Z",
+        "kind": "T90M",
+        "contest_count": 3,
+        "contest_ids": [
+          "6583220",
+          "6583331",
+          "6600846"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T17:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T16:30:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6598117"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T18:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T17:00:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6612588"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T18:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T17:30:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6620448"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T19:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "kind": "T90M",
+        "contest_count": 11,
+        "contest_ids": [
+          "6583392",
+          "6585877",
+          "6587707",
+          "6592568",
+          "6594109",
+          "6600254",
+          "6604408",
+          "6607271",
+          "6608932",
+          "6610894",
+          "6611505"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T19:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T18:15:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6582887"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T19:45:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T18:45:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6582881",
+          "6587775"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T20:15:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T19:30:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6593076"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T21:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T20:30:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6590855",
+          "6607433"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T22:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "kind": "T90M",
+        "contest_count": 13,
+        "contest_ids": [
+          "6586106",
+          "6586326",
+          "6587284",
+          "6588730",
+          "6590807",
+          "6591589",
+          "6593153",
+          "6596114",
+          "6606172",
+          "6607349",
+          "6609172",
+          "6620458",
+          "6620478"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T23:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T22:00:00Z",
+        "kind": "T90M",
+        "contest_count": 5,
+        "contest_ids": [
+          "6586022",
+          "6589809",
+          "6590386",
+          "6590505",
+          "6614741"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T23:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T22:15:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6583172"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-05T23:45:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T22:30:00Z",
+        "kind": "T90M",
+        "contest_count": 5,
+        "contest_ids": [
+          "6583582",
+          "6587672",
+          "6589595",
+          "6589953",
+          "6596257"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T00:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-05T23:30:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6616987",
+          "6620513"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T01:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-06T00:00:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6605119",
+          "6618489"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T01:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-06T00:30:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6592700",
+          "6607878"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T02:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-06T01:00:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6603305",
+          "6605164"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T02:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-06T06:30:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6618941"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T08:00:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-06T22:00:00Z",
+        "kind": "T90M",
+        "contest_count": 2,
+        "contest_ids": [
+          "6602874",
+          "6620581"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-06T23:30:00Z"
+        ]
+      },
+      {
+        "cutoff_utc": "2026-09-07T22:00:00Z",
+        "kind": "T90M",
+        "contest_count": 1,
+        "contest_ids": [
+          "6594400"
+        ],
+        "kickoff_bound_utc": [
+          "2026-09-07T23:30:00Z"
+        ]
+      }
+    ]
+  },
+  "sunday_monday_ownership_plan": {
+    "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
+    "note": "Sunday 23:30Z and Monday 23:30Z contests remain NOT_OPEN at Friday T90. Arm dedicated owners before those windows. Do not reuse A&M PIDs 28372/24528/27724/32428.",
+    "sunday": [
+      {
+        "ncaa_contest_id": "6602874",
+        "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+        "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+        "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+        "t24h_wake_utc": "2026-09-05T22:45:00Z",
+        "t90m_wake_utc": "2026-09-06T21:15:00Z",
+        "do_not_use_am_sleeper_pids": true,
+        "planned_owner": "CYCLE27_CURSOR_AGENT"
+      },
+      {
+        "ncaa_contest_id": "6620581",
+        "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+        "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+        "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+        "t24h_wake_utc": "2026-09-05T22:45:00Z",
+        "t90m_wake_utc": "2026-09-06T21:15:00Z",
+        "do_not_use_am_sleeper_pids": true,
+        "planned_owner": "CYCLE27_CURSOR_AGENT"
+      }
+    ],
+    "monday": [
+      {
+        "ncaa_contest_id": "6594400",
+        "kickoff_bound_utc": "2026-09-07T23:30:00Z",
+        "t24h_cutoff_utc": "2026-09-06T23:30:00Z",
+        "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
+        "t24h_wake_utc": "2026-09-06T22:45:00Z",
+        "t90m_wake_utc": "2026-09-07T21:15:00Z",
+        "do_not_use_am_sleeper_pids": true,
+        "planned_owner": "CYCLE27_CURSOR_AGENT"
+      }
+    ]
+  },
+  "live_owners": [
+    {
+      "name": "FRIDAY_T90M",
+      "kind": "T90M",
+      "contest_ids": [
+        "6594366"
+      ],
+      "primary_pid": 40708,
+      "failover_pid": 41416,
+      "wake_utc": "2026-09-04T20:15:00Z",
+      "cutoff_utc": "2026-09-04T21:00:00Z",
+      "do_not_kill": true,
+      "no_git_commit_from_sleeper": true
+    },
+    {
+      "name": "AM_T24H",
+      "kind": "T24H",
+      "contest_ids": [
+        "6607349"
+      ],
+      "primary_pid": 28372,
+      "failover_pid": 27724,
+      "wake_utc": "2026-09-04T22:15:00Z",
+      "cutoff_utc": "2026-09-04T23:00:00Z",
+      "do_not_kill": true
+    },
+    {
+      "name": "AM_T90M",
+      "kind": "T90M",
+      "contest_ids": [
+        "6607349"
+      ],
+      "primary_pid": 24528,
+      "failover_pid": 32428,
+      "wake_utc": "2026-09-05T20:45:00Z",
+      "cutoff_utc": "2026-09-05T21:30:00Z",
+      "do_not_kill": true
+    }
+  ],
+  "heartbeat_pid": 22176,
+  "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
+  "do_not_kill_pids": [
+    28372,
+    24528,
+    27724,
+    32428,
+    22176,
+    40708,
+    41416
+  ],
+  "contests": [
+    {
+      "ncaa_contest_id": "6591259",
+      "kickoff_bound_utc": "2026-09-03T22:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T22:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T20:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-02T22:00:00Z",
+        "capture_window_open_utc": "2026-09-02T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T20:30:00Z",
+        "capture_window_open_utc": "2026-09-03T19:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6582933",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-02T23:00:00Z",
+        "capture_window_open_utc": "2026-09-02T22:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T21:30:00Z",
+        "capture_window_open_utc": "2026-09-03T20:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6588927",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "ABSTAINED_AT_CHECKPOINT",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "ABSTAINED_AT_CHECKPOINT",
+        "cutoff_utc": "2026-09-02T23:00:00Z",
+        "capture_window_open_utc": "2026-09-02T22:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T21:30:00Z",
+        "capture_window_open_utc": "2026-09-03T20:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6601465",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "ABSTAINED_AT_CHECKPOINT",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "ABSTAINED_AT_CHECKPOINT",
+        "cutoff_utc": "2026-09-02T23:00:00Z",
+        "capture_window_open_utc": "2026-09-02T22:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T21:30:00Z",
+        "capture_window_open_utc": "2026-09-03T20:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [
+        "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
+      ],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6609567",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-02T23:00:00Z",
+        "capture_window_open_utc": "2026-09-02T22:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T21:30:00Z",
+        "capture_window_open_utc": "2026-09-03T20:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6618350",
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-02T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-02T23:00:00Z",
+        "capture_window_open_utc": "2026-09-02T22:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T21:30:00Z",
+        "capture_window_open_utc": "2026-09-03T20:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6584486",
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-03T00:00:00Z",
+        "capture_window_open_utc": "2026-09-02T23:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T22:30:00Z",
+        "capture_window_open_utc": "2026-09-03T21:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6603568",
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-03T00:00:00Z",
+        "capture_window_open_utc": "2026-09-02T23:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T22:30:00Z",
+        "capture_window_open_utc": "2026-09-03T21:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6620218",
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T22:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-03T00:00:00Z",
+        "capture_window_open_utc": "2026-09-02T23:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T22:30:00Z",
+        "capture_window_open_utc": "2026-09-03T21:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6586572",
+      "kickoff_bound_utc": "2026-09-04T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T23:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-03T01:00:00Z",
+        "capture_window_open_utc": "2026-09-03T00:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T23:30:00Z",
+        "capture_window_open_utc": "2026-09-03T22:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6602046",
+      "kickoff_bound_utc": "2026-09-04T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-03T23:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "EVIDENCE_CAPTURED",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-03T01:00:00Z",
+        "capture_window_open_utc": "2026-09-03T00:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T23:30:00Z",
+        "capture_window_open_utc": "2026-09-03T22:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP3_T90M_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "ncaa_contest_id": "6594366",
+      "kickoff_bound_utc": "2026-09-04T22:30:00Z",
+      "t24h_cutoff_utc": "2026-09-03T22:30:00Z",
+      "t90m_cutoff_utc": "2026-09-04T21:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-03T22:30:00Z",
+        "capture_window_open_utc": "2026-09-03T21:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "CAPTURE_IN_PROGRESS",
+        "cutoff_utc": "2026-09-04T21:00:00Z",
+        "capture_window_open_utc": "2026-09-04T20:00:00Z",
+        "joined_receipts": [],
+        "live_owner": "FRIDAY_T90M",
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6598559",
+      "kickoff_bound_utc": "2026-09-04T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T21:30:00Z",
+      "t24h_state": "ABSTAINED_AT_CHECKPOINT",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "ABSTAINED_AT_CHECKPOINT",
+        "cutoff_utc": "2026-09-03T23:00:00Z",
+        "capture_window_open_utc": "2026-09-03T22:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-04T21:30:00Z",
+        "capture_window_open_utc": "2026-09-04T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6619544",
+      "kickoff_bound_utc": "2026-09-04T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-03T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T21:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-03T23:00:00Z",
+        "capture_window_open_utc": "2026-09-03T22:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-04T21:30:00Z",
+        "capture_window_open_utc": "2026-09-04T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6592887",
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-04T00:00:00Z",
+        "capture_window_open_utc": "2026-09-03T23:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-04T22:30:00Z",
+        "capture_window_open_utc": "2026-09-04T21:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6601163",
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
+      "t24h_state": "ABSTAINED_AT_CHECKPOINT",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "ABSTAINED_AT_CHECKPOINT",
+        "cutoff_utc": "2026-09-04T00:00:00Z",
+        "capture_window_open_utc": "2026-09-03T23:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-04T22:30:00Z",
+        "capture_window_open_utc": "2026-09-04T21:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6611346",
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T22:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-04T00:00:00Z",
+        "capture_window_open_utc": "2026-09-03T23:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-04T22:30:00Z",
+        "capture_window_open_utc": "2026-09-04T21:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6602792",
+      "kickoff_bound_utc": "2026-09-05T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-04T01:00:00Z",
+        "capture_window_open_utc": "2026-09-04T00:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "capture_window_open_utc": "2026-09-04T22:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620138",
+      "kickoff_bound_utc": "2026-09-05T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "MISSED_CUTOFF_NO_BACKFILL",
+        "cutoff_utc": "2026-09-04T01:00:00Z",
+        "capture_window_open_utc": "2026-09-04T00:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "capture_window_open_utc": "2026-09-04T22:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6590890",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
+      ],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6593811",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6594325",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6601384",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6611692",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6611873",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
+      ],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6613128",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6617023",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620636",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620944",
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T14:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:00:00Z",
+        "capture_window_open_utc": "2026-09-04T15:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "capture_window_open_utc": "2026-09-05T13:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6618687",
+      "kickoff_bound_utc": "2026-09-05T16:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:30:00Z",
+        "capture_window_open_utc": "2026-09-04T15:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T15:00:00Z",
+        "capture_window_open_utc": "2026-09-05T14:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620092",
+      "kickoff_bound_utc": "2026-09-05T16:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:30:00Z",
+        "capture_window_open_utc": "2026-09-04T15:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T15:00:00Z",
+        "capture_window_open_utc": "2026-09-05T14:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6593392",
+      "kickoff_bound_utc": "2026-09-05T16:45:00Z",
+      "t24h_cutoff_utc": "2026-09-04T16:45:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:15:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T16:45:00Z",
+        "capture_window_open_utc": "2026-09-04T15:45:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": true
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T15:15:00Z",
+        "capture_window_open_utc": "2026-09-05T14:15:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6583220",
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T17:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T17:00:00Z",
+        "capture_window_open_utc": "2026-09-04T16:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T15:30:00Z",
+        "capture_window_open_utc": "2026-09-05T14:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6583331",
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T17:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T17:00:00Z",
+        "capture_window_open_utc": "2026-09-04T16:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T15:30:00Z",
+        "capture_window_open_utc": "2026-09-05T14:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6600846",
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T17:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T15:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T17:00:00Z",
+        "capture_window_open_utc": "2026-09-04T16:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T15:30:00Z",
+        "capture_window_open_utc": "2026-09-05T14:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6598117",
+      "kickoff_bound_utc": "2026-09-05T18:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T18:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T16:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T18:00:00Z",
+        "capture_window_open_utc": "2026-09-04T17:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T16:30:00Z",
+        "capture_window_open_utc": "2026-09-05T15:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6612588",
+      "kickoff_bound_utc": "2026-09-05T18:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T18:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T17:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T18:30:00Z",
+        "capture_window_open_utc": "2026-09-04T17:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T17:00:00Z",
+        "capture_window_open_utc": "2026-09-05T16:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620448",
+      "kickoff_bound_utc": "2026-09-05T19:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T17:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:00:00Z",
+        "capture_window_open_utc": "2026-09-04T18:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T17:30:00Z",
+        "capture_window_open_utc": "2026-09-05T16:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6583392",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6585877",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6587707",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6592568",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6594109",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6600254",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6604408",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6607271",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6608932",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6610894",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6611505",
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "capture_window_open_utc": "2026-09-04T18:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "capture_window_open_utc": "2026-09-05T17:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6582887",
+      "kickoff_bound_utc": "2026-09-05T19:45:00Z",
+      "t24h_cutoff_utc": "2026-09-04T19:45:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:15:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T19:45:00Z",
+        "capture_window_open_utc": "2026-09-04T18:45:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:15:00Z",
+        "capture_window_open_utc": "2026-09-05T17:15:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6582881",
+      "kickoff_bound_utc": "2026-09-05T20:15:00Z",
+      "t24h_cutoff_utc": "2026-09-04T20:15:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:45:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T20:15:00Z",
+        "capture_window_open_utc": "2026-09-04T19:15:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:45:00Z",
+        "capture_window_open_utc": "2026-09-05T17:45:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6587775",
+      "kickoff_bound_utc": "2026-09-05T20:15:00Z",
+      "t24h_cutoff_utc": "2026-09-04T20:15:00Z",
+      "t90m_cutoff_utc": "2026-09-05T18:45:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T20:15:00Z",
+        "capture_window_open_utc": "2026-09-04T19:15:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T18:45:00Z",
+        "capture_window_open_utc": "2026-09-05T17:45:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6593076",
+      "kickoff_bound_utc": "2026-09-05T21:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T21:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T19:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T21:00:00Z",
+        "capture_window_open_utc": "2026-09-04T20:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T19:30:00Z",
+        "capture_window_open_utc": "2026-09-05T18:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6590855",
+      "kickoff_bound_utc": "2026-09-05T22:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T22:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T20:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T22:00:00Z",
+        "capture_window_open_utc": "2026-09-04T21:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T20:30:00Z",
+        "capture_window_open_utc": "2026-09-05T19:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6607433",
+      "kickoff_bound_utc": "2026-09-05T22:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T22:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T20:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T22:00:00Z",
+        "capture_window_open_utc": "2026-09-04T21:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T20:30:00Z",
+        "capture_window_open_utc": "2026-09-05T19:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6586106",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6586326",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6587284",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6588730",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6590807",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6591589",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6593153",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6596114",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6606172",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6607349",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "CAPTURE_IN_PROGRESS",
+      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t24h": {
+        "state": "CAPTURE_IN_PROGRESS",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [],
+        "live_owner": "AM_T24H",
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "CAPTURE_IN_PROGRESS",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": "AM_T90M",
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6609172",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620458",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620478",
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "capture_window_open_utc": "2026-09-04T22:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "capture_window_open_utc": "2026-09-05T20:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6586022",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "capture_window_open_utc": "2026-09-04T22:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:00:00Z",
+        "capture_window_open_utc": "2026-09-05T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6589809",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "capture_window_open_utc": "2026-09-04T22:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:00:00Z",
+        "capture_window_open_utc": "2026-09-05T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6590386",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "capture_window_open_utc": "2026-09-04T22:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:00:00Z",
+        "capture_window_open_utc": "2026-09-05T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6590505",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "capture_window_open_utc": "2026-09-04T22:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:00:00Z",
+        "capture_window_open_utc": "2026-09-05T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6614741",
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "capture_window_open_utc": "2026-09-04T22:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:00:00Z",
+        "capture_window_open_utc": "2026-09-05T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6583172",
+      "kickoff_bound_utc": "2026-09-05T23:45:00Z",
+      "t24h_cutoff_utc": "2026-09-04T23:45:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:15:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-04T23:45:00Z",
+        "capture_window_open_utc": "2026-09-04T22:45:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:15:00Z",
+        "capture_window_open_utc": "2026-09-05T21:15:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6583582",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T00:00:00Z",
+        "capture_window_open_utc": "2026-09-04T23:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:30:00Z",
+        "capture_window_open_utc": "2026-09-05T21:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6587672",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T00:00:00Z",
+        "capture_window_open_utc": "2026-09-04T23:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:30:00Z",
+        "capture_window_open_utc": "2026-09-05T21:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6589595",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T00:00:00Z",
+        "capture_window_open_utc": "2026-09-04T23:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:30:00Z",
+        "capture_window_open_utc": "2026-09-05T21:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6589953",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T00:00:00Z",
+        "capture_window_open_utc": "2026-09-04T23:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:30:00Z",
+        "capture_window_open_utc": "2026-09-05T21:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR"
+      ],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6596257",
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T00:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T22:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T00:00:00Z",
+        "capture_window_open_utc": "2026-09-04T23:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T22:30:00Z",
+        "capture_window_open_utc": "2026-09-05T21:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6616987",
+      "kickoff_bound_utc": "2026-09-06T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T01:00:00Z",
+        "capture_window_open_utc": "2026-09-05T00:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T23:30:00Z",
+        "capture_window_open_utc": "2026-09-05T22:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620513",
+      "kickoff_bound_utc": "2026-09-06T01:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T01:00:00Z",
+      "t90m_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T01:00:00Z",
+        "capture_window_open_utc": "2026-09-05T00:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T23:30:00Z",
+        "capture_window_open_utc": "2026-09-05T22:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [
+        "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
+      ],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6605119",
+      "kickoff_bound_utc": "2026-09-06T01:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T01:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T00:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T01:30:00Z",
+        "capture_window_open_utc": "2026-09-05T00:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T00:00:00Z",
+        "capture_window_open_utc": "2026-09-05T23:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6618489",
+      "kickoff_bound_utc": "2026-09-06T01:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T01:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T00:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T01:30:00Z",
+        "capture_window_open_utc": "2026-09-05T00:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T00:00:00Z",
+        "capture_window_open_utc": "2026-09-05T23:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6592700",
+      "kickoff_bound_utc": "2026-09-06T02:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T02:00:00Z",
+      "t90m_cutoff_utc": "2026-09-06T00:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T02:00:00Z",
+        "capture_window_open_utc": "2026-09-05T01:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T00:30:00Z",
+        "capture_window_open_utc": "2026-09-05T23:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6607878",
+      "kickoff_bound_utc": "2026-09-06T02:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T02:00:00Z",
+      "t90m_cutoff_utc": "2026-09-06T00:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T02:00:00Z",
+        "capture_window_open_utc": "2026-09-05T01:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T00:30:00Z",
+        "capture_window_open_utc": "2026-09-05T23:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6603305",
+      "kickoff_bound_utc": "2026-09-06T02:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T02:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T01:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T02:30:00Z",
+        "capture_window_open_utc": "2026-09-05T01:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T01:00:00Z",
+        "capture_window_open_utc": "2026-09-06T00:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6605164",
+      "kickoff_bound_utc": "2026-09-06T02:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T02:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T01:00:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T02:30:00Z",
+        "capture_window_open_utc": "2026-09-05T01:30:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T01:00:00Z",
+        "capture_window_open_utc": "2026-09-06T00:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6618941",
+      "kickoff_bound_utc": "2026-09-06T08:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T08:00:00Z",
+      "t90m_cutoff_utc": "2026-09-06T06:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "EVIDENCE_CAPTURED",
+        "cutoff_utc": "2026-09-05T08:00:00Z",
+        "capture_window_open_utc": "2026-09-05T07:00:00Z",
+        "joined_receipts": [
+          "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT"
+        ],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T06:30:00Z",
+        "capture_window_open_utc": "2026-09-06T05:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6602874",
+      "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+      "t24h_state": "NOT_OPEN",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T23:30:00Z",
+        "capture_window_open_utc": "2026-09-05T22:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T22:00:00Z",
+        "capture_window_open_utc": "2026-09-06T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6620581",
+      "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+      "t24h_state": "NOT_OPEN",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-05T23:30:00Z",
+        "capture_window_open_utc": "2026-09-05T22:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T22:00:00Z",
+        "capture_window_open_utc": "2026-09-06T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    {
+      "ncaa_contest_id": "6594400",
+      "kickoff_bound_utc": "2026-09-07T23:30:00Z",
+      "t24h_cutoff_utc": "2026-09-06T23:30:00Z",
+      "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
+      "t24h_state": "NOT_OPEN",
+      "t90m_state": "NOT_OPEN",
+      "t24h": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-06T23:30:00Z",
+        "capture_window_open_utc": "2026-09-06T22:30:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "t90m": {
+        "state": "NOT_OPEN",
+        "cutoff_utc": "2026-09-07T22:00:00Z",
+        "capture_window_open_utc": "2026-09-07T21:00:00Z",
+        "joined_receipts": [],
+        "live_owner": null,
+        "forecast_frozen": false,
+        "completed_valid_receipt_retained_after_cutoff": false
+      },
+      "abstention_reasons": [],
+      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    }
+  ],
+  "note": "Ledger joins Sep3 T90, Sep4 window T24, and Saturday T24 receipts. EVIDENCE_CAPTURED is not FORECAST_FROZEN. Late operations cannot backfill a missed checkpoint."
+}

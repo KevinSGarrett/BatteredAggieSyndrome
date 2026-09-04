@@ -1,0 +1,61 @@
+{
+  "artifact_type": "CYCLE27_ACCEPTANCE_DIMENSIONS",
+  "issued_at_utc": "2026-09-04T17:20:00Z",
+  "hold": "ACTIVE",
+  "repeating_the_same_validator_three_times_is_not_three_passes": true,
+  "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+  "fitted_outputs": "UNTRUSTED_SHADOW",
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "Evidence collection, receipt validity and checkpoint coverage",
+      "verdict": "PARTIAL_PASS",
+      "notes": "91-contest ledger joined to Sep3 T90, Sep4 window T24, Saturday T24. Saturday remains EVIDENCE_CAPTURED after cutoff. Friday T90 and A&M T24/T90 are armed, not yet executed. No T24/T90 forecast freeze this packet."
+    },
+    {
+      "id": 2,
+      "name": "Containment and operator authorization",
+      "verdict": "PASS_CONTAINED",
+      "notes": "Hold ACTIVE. No merge, no Done, no protected-lane activation, no PR-654 change. CONTROL-07 bootstrap prepared not approved."
+    },
+    {
+      "id": 3,
+      "name": "Population, source, temporal and current-feature correctness",
+      "verdict": "REPAIRS_UNMERGED_TRUST_INCOMPLETE",
+      "notes": "Validators now reject vacuous empty universes, unresolved raw bytes, future known-at, and wrong opponents. R26-22 proven-PIT rows remain 0. Current-contest helper is not consumed by the Week1 materializer."
+    },
+    {
+      "id": 4,
+      "name": "Conditional probability/margin/distribution coherence",
+      "verdict": "DEFECT_VERSIONED",
+      "notes": "C26 ridge 80/95 mismatch confirmed; Cycle 27 interval-label successor issued with new identities. Invalid p is not normalized. Predecessor rows not rewritten."
+    },
+    {
+      "id": 5,
+      "name": "Active end-to-end fitted-path correctness within explicit domains/periods",
+      "verdict": "BLOCKED",
+      "notes": "Materializer copies C24 rows and mutates p/interval. R26-22 BLOCKED. Outputs UNTRUSTED_SHADOW."
+    },
+    {
+      "id": 6,
+      "name": "Historical development metrics and prospective predictive skill, separately",
+      "verdict": "NOT_ESTABLISHED",
+      "notes": "Scoring successor unique games n=10 below predeclared 30-game skill floor. Week1 outcomes not training/tuning data."
+    },
+    {
+      "id": 7,
+      "name": "All-cycle audit coverage and backlog",
+      "verdict": "MEASURED_BACKLOG_REMAINS",
+      "notes": "All-history work is not a fake deadline deliverable. National coaching historical acquisition and a new total-points model remain follow-on."
+    },
+    {
+      "id": 8,
+      "name": "Local/live Jira, Git and integration state",
+      "verdict": "STACKED_PR_HOLD_ACTIVE",
+      "notes": "Live capture remains PR 678 / 3fcc7104. Repairs are stacked on codex/BAT-690-c27-scr. Statuses preserved under the hold."
+    }
+  ],
+  "pass_one": "Inventoried code/data/receipt dependencies for C26 forecast/scoring gates, Saturday receipt, live sleepers, and C27 successors.",
+  "pass_two": "Independent reconstruction used scientific_reference for scoring metrics, pair coherence, and saved-pair validator without producer imports.",
+  "pass_three": "Manager review reports plus this stacked implementation's adversarial tests; this pack is not Pass Three approval of the trusted-control bootstrap."
+}

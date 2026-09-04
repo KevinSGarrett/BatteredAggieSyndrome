@@ -1,0 +1,128 @@
+{
+  "artifact_type": "CYCLE27_FOCUS_STAFF_CONTEXT_PACKET",
+  "blocked_count": 3,
+  "canonical_role_episodes": [],
+  "canonical_team_id": "SRC-002:TEAM:245",
+  "classification": "CYCLE27_COACHING_CENSUS_CONTEXT_ONLY_NOT_CONSUMED",
+  "coach_bonus_applied": false,
+  "conflict_count": 0,
+  "contract_id": "CYCLE27-COACHING-DATA-AND-CONSUMPTION-CENSUS-V1",
+  "declared_official_staff_urls": [
+    "https://12thman.com/sports/football/coaches",
+    "https://12thman.com/sports/football/staff",
+    "https://12thman.com/coaches.aspx?path=football"
+  ],
+  "effective_dates_invented": false,
+  "fetches": [
+    {
+      "bytes": 305231,
+      "error": "HTTP Error 404: Not Found",
+      "fetch_disposition": "BLOCKED",
+      "final_url": "https://12thman.com/sports/football/coaches",
+      "http_status": 404,
+      "page_identity": "PAGE_IDENTITY_PLAUSIBLE",
+      "retrieved_at_utc": "2026-09-04T17:09:31Z",
+      "sha256": "2804f64952d27c496cf2d61f377534c85b7b9affdfd84e8b80a7fbc2e9cd34d5",
+      "url": "https://12thman.com/sports/football/coaches"
+    },
+    {
+      "bytes": 305229,
+      "error": "HTTP Error 404: Not Found",
+      "fetch_disposition": "BLOCKED",
+      "final_url": "https://12thman.com/sports/football/staff",
+      "http_status": 404,
+      "page_identity": "PAGE_IDENTITY_PLAUSIBLE",
+      "retrieved_at_utc": "2026-09-04T17:09:31Z",
+      "sha256": "19edf99e4f22988c956502bfa2b10d5be80ba5a7ca8dd06416382c7f8f227836",
+      "url": "https://12thman.com/sports/football/staff"
+    },
+    {
+      "bytes": 391118,
+      "error": "WRONG_RESOURCE_REDIRECT",
+      "fetch_disposition": "BLOCKED",
+      "final_url": "https://12thman.com/sports/womens-golf/roster/season/2016-17/staff/trelle-mccombs",
+      "http_status": 200,
+      "page_identity": "WRONG_RESOURCE_REDIRECT",
+      "retrieved_at_utc": "2026-09-04T17:09:31Z",
+      "sha256": "cebf2c77325d186a3c8a85dd1d4825a6a54b362699099e86f923660d58788b22",
+      "url": "https://12thman.com/coaches.aspx?path=football"
+    }
+  ],
+  "issued_at_utc": "2026-09-04T17:25:00Z",
+  "model_consumption": "NOT_CONSUMED_BY_MODEL",
+  "national_coverage_not_implied": true,
+  "ncaa_contest_id": "6607349",
+  "packet_identity": "776ea45a42c8f2967c8f10e0aa7b8088f58e432b5e72f64d280faabc888ddfc5",
+  "packet_use": "CONTEXT_ONLY",
+  "play_caller_inferred_from_title": false,
+  "registry_coach_entry_present": false,
+  "retrieved_count": 0,
+  "roles": {
+    "CO_OR_INTERIM_OR_DELEGATED": {
+      "classification": "MISSING_ROLE_IS_UNKNOWN_NOT_NONE",
+      "confirmed_absent": false,
+      "confirmed_none": false,
+      "consumption": "NOT_CONSUMED_BY_MODEL",
+      "observations": [],
+      "status": "UNKNOWN"
+    },
+    "DEFENSIVE_COORDINATOR": {
+      "classification": "MISSING_ROLE_IS_UNKNOWN_NOT_NONE",
+      "confirmed_absent": false,
+      "confirmed_none": false,
+      "consumption": "NOT_CONSUMED_BY_MODEL",
+      "observations": [],
+      "status": "UNKNOWN"
+    },
+    "DEFENSIVE_PLAY_CALLER": {
+      "confirmed_absent": false,
+      "consumption": "NOT_CONSUMED_BY_MODEL",
+      "observations": [],
+      "status": "UNKNOWN",
+      "title_inference": "FORBIDDEN"
+    },
+    "HEAD_COACH": {
+      "classification": "MISSING_ROLE_IS_UNKNOWN_NOT_NONE",
+      "confirmed_absent": false,
+      "confirmed_none": false,
+      "consumption": "NOT_CONSUMED_BY_MODEL",
+      "observations": [],
+      "status": "UNKNOWN"
+    },
+    "OFFENSIVE_COORDINATOR": {
+      "classification": "MISSING_ROLE_IS_UNKNOWN_NOT_NONE",
+      "confirmed_absent": false,
+      "confirmed_none": false,
+      "consumption": "NOT_CONSUMED_BY_MODEL",
+      "observations": [],
+      "status": "UNKNOWN"
+    },
+    "OFFENSIVE_PLAY_CALLER": {
+      "confirmed_absent": false,
+      "consumption": "NOT_CONSUMED_BY_MODEL",
+      "observations": [],
+      "status": "UNKNOWN",
+      "title_inference": "FORBIDDEN"
+    },
+    "SPECIAL_TEAMS_COORDINATOR": {
+      "classification": "MISSING_ROLE_IS_UNKNOWN_NOT_NONE",
+      "confirmed_absent": false,
+      "confirmed_none": false,
+      "consumption": "NOT_CONSUMED_BY_MODEL",
+      "observations": [],
+      "status": "UNKNOWN"
+    }
+  },
+  "schema_version": "aggie.data.cycle27_coaching_data_and_consumption_census.v1",
+  "scientific_nonclaims": [
+    "CONTEXT_ONLY / NOT_CONSUMED_BY_MODEL.",
+    "Title is not play-caller proof.",
+    "Unknown effective dates are not synthesized.",
+    "Equal names do not establish canonical person identity.",
+    "This packet does not authorize a coaching-effect model."
+  ],
+  "season": 2026,
+  "structured_coaching_endpoint": "SOURCE_ABSENT_NOT_REGISTERED",
+  "team_label": "Texas A&M",
+  "title_observations": []
+}

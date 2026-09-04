@@ -1,0 +1,108 @@
+{
+  "artifact_type": "CYCLE27_FINDING_DISPOSITION_MATRIX",
+  "revision": "C27-PREGAME-COACHING-20260904",
+  "issued_at_utc": "2026-09-04T17:20:00Z",
+  "hold": "ACTIVE",
+  "merge_authorized": false,
+  "scientific_trust_recovered": false,
+  "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+  "findings": [
+    {
+      "id": "CONTROL-07 / R27-CODEX-MASKED-FAIL",
+      "severity": "P0",
+      "status": "CONFIRMED_REPRODUCED_BOOTSTRAP_PREPARED_NOT_HOSTED",
+      "result": "Base checker exits 0 on schema-valid FAIL for 7e3e9cc2 and 3fcc7104. PR checker exits 1. Hosted green check is not acceptance. Trusted-control protocol is PREPARATION_NOT_APPROVED."
+    },
+    {
+      "id": "CONTROL-01",
+      "severity": "P0",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED"
+    },
+    {
+      "id": "CONTROL-02",
+      "severity": "P1",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED"
+    },
+    {
+      "id": "CONTROL-03",
+      "severity": "P1",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED"
+    },
+    {
+      "id": "CONTROL-04",
+      "severity": "P1",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED",
+      "result": "Raw-to-forecast traces now require loadable raw bytes, timezone-aware known-at/cutoff, opponent join, and reject fake hashes/future known-at."
+    },
+    {
+      "id": "CONTROL-05",
+      "severity": "P1",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED",
+      "result": "Caller-provided empty lists are not empty-universe authority. Invalid p is not renormalized."
+    },
+    {
+      "id": "CONTROL-06",
+      "severity": "P1",
+      "status": "CODE_FIXED_IN_STACKED_C27_NOT_MERGED",
+      "result": "Relative imports resolve by node.level; transitive producer imports and independent saved-pair tool producer imports fail."
+    },
+    {
+      "id": "SATURDAY_T24H_CAPTURE",
+      "severity": "P0_OPERATIONS",
+      "status": "VALIDATED_EVIDENCE_CAPTURED_NOT_FORECAST_FROZEN"
+    },
+    {
+      "id": "FRIDAY_T90M_OWNERSHIP",
+      "severity": "P0_OPERATIONS",
+      "status": "ARMED",
+      "wake_utc": "2026-09-04T20:15:00Z",
+      "cutoff_utc": "2026-09-04T21:00:00Z",
+      "cohort_contest": "6594366"
+    },
+    {
+      "id": "AM_T24H_SLEEPERS",
+      "severity": "P0_OPERATIONS",
+      "status": "RETAINED_LIVE",
+      "wake_utc": "2026-09-04T22:15:00Z",
+      "do_not_kill": true
+    },
+    {
+      "id": "A4_COACHING_CENSUS",
+      "status": "ISSUED_CONTEXT_ONLY_NOT_CONSUMED",
+      "national_canonical_staff_records": 0,
+      "coaches_poll_is_not_staff": true
+    },
+    {
+      "id": "D4_FOCUS_DISAGREEMENT",
+      "status": "ISSUED",
+      "classes": [
+        "CONFIRMED_IMPLEMENTATION_DEFECT",
+        "INPUT_LIMITATION",
+        "MODEL_SPECIFICATION_LIMITATION",
+        "UNEXPLAINED_DISAGREEMENT"
+      ]
+    },
+    {
+      "id": "E1_PREGAME_REPORT",
+      "status": "ISSUED_INTERIM_NOT_T24_NOT_T90"
+    },
+    {
+      "id": "E2_SCORE_MODEL_READINESS",
+      "status": "ISSUED_NULL_SCORE",
+      "independent_predicted_score": null
+    },
+    {
+      "id": "TRACK_C_SCORING_SUCCESSOR",
+      "status": "ISSUED_PINNED_MANIFEST_UNTRUSTED_SHADOW",
+      "gate_identity": "96478de8e0ace3bddbdd8867173f45b989dd9f21e419e950a0cce78fbdc8fdd0",
+      "predecessor_gate_preserved": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c"
+    },
+    {
+      "id": "TRACK_D_FITTED_PATH",
+      "status": "R26-22_REMAINS_BLOCKED",
+      "proven_pit_training_row_count": 0,
+      "pin_successor": "SEMANTICALLY_RESOLVED_TO_e77195d8",
+      "ridge_interval_label_successor_issued": true
+    }
+  ]
+}

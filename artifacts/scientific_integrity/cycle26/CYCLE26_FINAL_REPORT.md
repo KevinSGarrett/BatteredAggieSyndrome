@@ -8,7 +8,7 @@ Branch: `codex/BAT-690-c26-scr`
 Development origin: `KevinSGarrett/BatteredAggieSyndrome` (public; migration `DEFERRED_BY_USER_NOT_COMPLETE`)
 Data root: `C:/BatteredAggieSyndrome.data`
 Base / canonical `origin/main`: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d` (left unchanged)
-Requested review head: GitHub PR #678 live tip `c353f01a2ae6021fae17e752fcfac0c038ee1645`. Predecessor numbered-report material commit: `ecb4357185e6d6b731e047dd1135051f20d7d93c`.
+Requested review head: GitHub PR #678 live tip `c01cf5472e68622083d8c25ab5f7e640ef764f46`. Predecessor numbered-report material commit: `ecb4357185e6d6b731e047dd1135051f20d7d93c`.
 PR: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678
 Historical manager-review SHA (not this head): `04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1`
 Fort Knox assistive pipeline: `NOT_OPERATIONAL` (direct BAS work permitted)
@@ -164,7 +164,7 @@ No hold release, merge, production credibility, BAS / Aggie Excess / A&M-lift, o
 
 ## 12. Requested user authorization
 
-Present the live PR #678 head after the purity/scheduler material commit (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. Predecessor process-bind SHA: `4b47a2659ac29945df3f317a637ae535ea73a0a2`. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
+Present the live PR #678 head `c01cf5472e68622083d8c25ab5f7e640ef764f46` (https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678) for explicit review. This pack does not authorize merge, Done transitions, trust-gate change, or protected-lane activation.
 
 Operational stop state: `IMPLEMENTATION_REVIEW_READY_UNMERGED`.
 Primary scientific stop state: `PRIMARY_TRUST_RECOVERY_INCOMPLETE`.

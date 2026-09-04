@@ -13,22 +13,22 @@
   "effective_dates_invented": false,
   "fetches": [
     {
-      "bytes": 933441,
+      "bytes": 933440,
       "error": null,
       "fetch_disposition": "RETRIEVED",
       "final_url": "https://missouristatebears.com/sports/football/coaches",
       "http_status": 200,
       "page_identity": "PAGE_IDENTITY_PLAUSIBLE",
-      "retrieved_at_utc": "2026-09-04T17:38:44Z",
-      "sha256": "a8d0777b5637caef3356d7ce10de989820a785702645213c4e642feec7ce9401",
+      "retrieved_at_utc": "2026-09-04T21:33:38Z",
+      "sha256": "0e1fad2c2262d703757b8357e05a8ccebb53bffe4486fa6b49a334ec8a158b02",
       "url": "https://missouristatebears.com/sports/football/coaches"
     }
   ],
-  "issued_at_utc": "2026-09-04T17:40:00Z",
+  "issued_at_utc": "2026-09-04T21:33:36Z",
   "model_consumption": "NOT_CONSUMED_BY_MODEL",
   "national_coverage_not_implied": true,
   "ncaa_contest_id": "6607349",
-  "packet_identity": "0d380120081d3d96b40097ce3b243816f44583beb829ead413090e35185c2bc4",
+  "packet_identity": "4ce87420bb71604e056998f1fd51dcc6832f0684ffa1206f8db155ed76d9446f",
   "packet_use": "CONTEXT_ONLY",
   "play_caller_inferred_from_title": false,
   "registry_coach_entry_present": false,

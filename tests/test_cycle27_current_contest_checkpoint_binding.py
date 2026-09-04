@@ -150,6 +150,39 @@ class Cycle27CurrentContestCheckpointBindingTests(unittest.TestCase):
                     "ncaa_contest_id": "6594109",
                     "canonical_team_id": "SRC-002:TEAM:239",
                     "site_orientation": "NEUTRAL",
+                    "ncaa_listed_orientation": "HOME",
+                    "conference_name": "SEC",
+                    "subdivision": "FBS",
+                },
+                {
+                    "ncaa_contest_id": "6594109",
+                    "canonical_team_id": "SRC-002:TEAM:2",
+                    "site_orientation": "NEUTRAL",
+                    "ncaa_listed_orientation": "AWAY",
+                    "conference_name": "ACC",
+                    "subdivision": "FBS",
+                },
+            ]
+        )
+        self.assertEqual(len(contests), 1)
+        self.assertEqual(contests[0]["site"], "NEUTRAL")
+        self.assertEqual(contests[0]["home_team_key"], "SRC-002:TEAM:239")
+        self.assertEqual(contests[0]["away_team_key"], "SRC-002:TEAM:2")
+        self.assertEqual(
+            contests[0]["listed_home_authority"],
+            "NCAA_LISTED_HOME_ON_NEUTRAL_SITE_NOT_SORTED_CANONICAL_ID",
+        )
+        bound = bind_contest(contests[0], now_utc=NOW)
+        self.assertEqual(bound["home"]["site"], "NEUTRAL")
+        self.assertFalse(bound["home"]["fake_site_or_venue_default"])
+
+    def test_neutral_without_listed_home_is_not_sorted_by_canonical_id(self) -> None:
+        contests = contests_from_census_rows(
+            [
+                {
+                    "ncaa_contest_id": "6594109",
+                    "canonical_team_id": "SRC-002:TEAM:239",
+                    "site_orientation": "NEUTRAL",
                     "conference_name": "SEC",
                     "subdivision": "FBS",
                 },
@@ -163,14 +196,12 @@ class Cycle27CurrentContestCheckpointBindingTests(unittest.TestCase):
             ]
         )
         self.assertEqual(len(contests), 1)
-        self.assertEqual(contests[0]["site"], "NEUTRAL")
+        self.assertTrue(contests[0].get("orientation_abstained"))
+        self.assertNotIn("home_team_key", contests[0])
         self.assertEqual(
             contests[0]["listed_home_authority"],
-            "NEUTRAL_PAIR_SLOTTED_BY_CANONICAL_ID_NOT_VENUE_HOME",
+            "ABSTAIN_NEUTRAL_LISTED_HOME_UNKNOWN",
         )
-        bound = bind_contest(contests[0], now_utc=NOW)
-        self.assertEqual(bound["home"]["site"], "NEUTRAL")
-        self.assertFalse(bound["home"]["fake_site_or_venue_default"])
 
     def test_transplant_flag_is_hard_error(self) -> None:
         def bad(**kwargs):

@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE27_LEASE_AND_RESTART_PLAN",
-  "issued_at_utc": "2026-09-04T21:12:08Z",
-  "as_of_utc": "2026-09-04T21:12:08Z",
+  "issued_at_utc": "2026-09-04T21:51:20Z",
+  "as_of_utc": "2026-09-04T21:51:20Z",
   "this_plan_does_not_kill_live_owners": true,
   "do_not_kill_pids": [
     28372,

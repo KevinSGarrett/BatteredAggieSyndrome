@@ -75,6 +75,9 @@ def contests_from_census_rows(
             "conference_name": row.get("conference_name"),
             "subdivision": row.get("subdivision"),
             "source_team_id": row.get("source_team_id"),
+            "ncaa_listed_orientation": str(
+                row.get("ncaa_listed_orientation") or ""
+            ).strip(),
         }
         if orientation == "HOME":
             rec["home_team_key"] = team
@@ -100,18 +103,34 @@ def contests_from_census_rows(
             and not rec.get("home_team_key")
             and not rec.get("away_team_key")
         ):
-            ordered = sorted(neutrals, key=lambda item: str(item["canonical_team_id"]))
-            rec["home_team_key"] = ordered[0]["canonical_team_id"]
-            rec["away_team_key"] = ordered[1]["canonical_team_id"]
-            rec["home_conference"] = ordered[0].get("conference_name")
-            rec["away_conference"] = ordered[1].get("conference_name")
-            rec["home_subdivision"] = ordered[0].get("subdivision")
-            rec["away_subdivision"] = ordered[1].get("subdivision")
-            rec["home_source_team_id"] = ordered[0].get("source_team_id")
-            rec["away_source_team_id"] = ordered[1].get("source_team_id")
+            listed_home = [
+                item
+                for item in neutrals
+                if str(item.get("ncaa_listed_orientation") or "").upper() == "HOME"
+            ]
+            listed_away = [
+                item
+                for item in neutrals
+                if str(item.get("ncaa_listed_orientation") or "").upper() == "AWAY"
+            ]
+            if len(listed_home) != 1 or len(listed_away) != 1:
+                rec["site"] = "NEUTRAL"
+                rec["listed_home_authority"] = "ABSTAIN_NEUTRAL_LISTED_HOME_UNKNOWN"
+                rec["orientation_abstained"] = True
+                rec["neutral_participants"] = neutrals
+                contests.append(rec)
+                continue
+            rec["home_team_key"] = listed_home[0]["canonical_team_id"]
+            rec["away_team_key"] = listed_away[0]["canonical_team_id"]
+            rec["home_conference"] = listed_home[0].get("conference_name")
+            rec["away_conference"] = listed_away[0].get("conference_name")
+            rec["home_subdivision"] = listed_home[0].get("subdivision")
+            rec["away_subdivision"] = listed_away[0].get("subdivision")
+            rec["home_source_team_id"] = listed_home[0].get("source_team_id")
+            rec["away_source_team_id"] = listed_away[0].get("source_team_id")
             rec["site"] = "NEUTRAL"
             rec["listed_home_authority"] = (
-                "NEUTRAL_PAIR_SLOTTED_BY_CANONICAL_ID_NOT_VENUE_HOME"
+                "NCAA_LISTED_HOME_ON_NEUTRAL_SITE_NOT_SORTED_CANONICAL_ID"
             )
             contests.append(rec)
     return sorted(contests, key=lambda item: str(item["contest_id"]))
@@ -284,17 +303,32 @@ def build_binding(
     historical_priors: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     helper_calls: list[dict[str, Any]] = []
-    bound_rows = [
-        bind_contest(
-            contest,
-            now_utc=now_utc,
-            trust_gate_open=trust_gate_open,
-            helper=helper,
-            helper_calls=helper_calls,
-            historical_priors=historical_priors,
+    bound_rows = []
+    for contest in contests:
+        if contest.get("orientation_abstained"):
+            bound_rows.append(
+                {
+                    "contest_id": contest.get("contest_id"),
+                    "site": "NEUTRAL",
+                    "listed_home_authority": contest.get("listed_home_authority"),
+                    "kicked_off_at_bind": False,
+                    "new_forecast_frozen": False,
+                    "publication_label": SHADOW_CLASSIFICATION,
+                    "forecast_issuance": "ABSTAIN_NEUTRAL_LISTED_HOME_UNKNOWN",
+                    "copied_from_terminal_historical_row": False,
+                }
+            )
+            continue
+        bound_rows.append(
+            bind_contest(
+                contest,
+                now_utc=now_utc,
+                trust_gate_open=trust_gate_open,
+                helper=helper,
+                helper_calls=helper_calls,
+                historical_priors=historical_priors,
+            )
         )
-        for contest in contests
-    ]
     if not helper_calls:
         raise CurrentContestCheckpointBindingError(
             "current-contest helper was never executed"

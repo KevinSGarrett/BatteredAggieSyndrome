@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE27_CURRENT_CONTEST_CHECKPOINT_BINDING",
-  "binding_identity": "ead01b6ee2db38293182051698d31f4a0ef941b717742499305ac4d4eed04273",
+  "binding_identity": "16a5613c4ffce39b3d50302ded94dbe2bdf2c83e1cca53625f8b849186fbb12c",
   "c26_dataset_identity_preserved": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "c26_gate_identity_preserved": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "c26_week1_materializer_still_copies_c24": true,
@@ -6748,7 +6748,7 @@
   "helper_module": "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py",
   "helper_symbol": "build_current_contest_row",
   "helper_was_executed": true,
-  "issued_at_utc": "2026-09-04T17:40:00Z",
+  "issued_at_utc": "2026-09-04T21:33:41Z",
   "jira_key": "BAT-693",
   "local_issue_id": "POST-TASK-WEEK1-FORECAST-BINDING-AND-COHERENCE-SUCCESSOR-001",
   "new_forecast_frozen_count": 0,

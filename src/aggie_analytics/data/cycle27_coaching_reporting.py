@@ -875,6 +875,8 @@ def build_coaching_census(
                 "season": season,
                 "ncaa_contest_id": row.get("ncaa_contest_id"),
                 "site_orientation": row.get("site_orientation"),
+                "ncaa_listed_orientation": row.get("orientation")
+                or row.get("ncaa_listed_orientation"),
                 "conference_name": row.get("conference_name"),
                 "subdivision": row.get("subdivision"),
                 "focus_participant": canonical

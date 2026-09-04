@@ -14,6 +14,7 @@ if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from aggie_analytics.scientific_reference.coherence import (  # noqa: E402
+    joint_distribution_coherent,
     pair_normalize,
 )
 
@@ -79,6 +80,62 @@ def _is_abstention(row: dict[str, Any]) -> bool:
     return False
 
 
+def _interval_distribution_findings(index: int, row: dict[str, Any]) -> list[str]:
+    """Invariant 5: p, margin, and interval must share one declared distribution."""
+    lower = row.get("interval_lower")
+    upper = row.get("interval_upper")
+    level = row.get("interval_nominal_level")
+    declared = row.get("distribution_identity")
+    interval_distribution = row.get("interval_distribution_identity")
+    present = [
+        item is not None
+        for item in (lower, upper, level, declared, interval_distribution)
+    ]
+    if not any(present):
+        return []
+    findings: list[str] = []
+    if not all(item is not None for item in (lower, upper, level, declared)):
+        findings.append(f"CROSS_OUTPUT_INTERVAL_FIELDS_INCOMPLETE:{index}")
+        return findings
+    if (
+        not _finite_number(lower)
+        or not _finite_number(upper)
+        or not _finite_number(level)
+    ):
+        findings.append(f"CROSS_OUTPUT_INTERVAL_NONFINITE:{index}")
+        return findings
+    if not _nonempty(declared):
+        findings.append(f"CROSS_OUTPUT_DISTRIBUTION_IDENTITY_EMPTY:{index}")
+    if interval_distribution is not None and str(interval_distribution) != str(
+        declared
+    ):
+        findings.append(
+            f"CROSS_OUTPUT_INCOHERENT:{index}:ABSTAIN_PROBABILITY_DISTRIBUTION_INCOHERENCE"
+        )
+        return findings
+    stdev = row.get("residual_stdev")
+    if stdev is None:
+        return findings
+    if not _finite_number(stdev):
+        findings.append(f"CROSS_OUTPUT_INTERVAL_NONFINITE:{index}")
+        return findings
+    reconstructed = joint_distribution_coherent(
+        {
+            "expected_margin_home": row.get("expected_margin_home"),
+            "home_win_probability": row.get("home_win_probability"),
+            "interval_lower": lower,
+            "interval_upper": upper,
+        },
+        residual_stdev=float(stdev),
+        interval_mass=float(level),
+    )
+    if not reconstructed["coherent"]:
+        findings.append(
+            f"CROSS_OUTPUT_INCOHERENT:{index}:{reconstructed['abstain_reason']}"
+        )
+    return findings
+
+
 def validate_rows(rows: list[dict]) -> list[str]:
     findings: list[str] = []
     seen_keys: set[str] = set()
@@ -124,6 +181,7 @@ def validate_rows(rows: list[dict]) -> list[str]:
             findings.append(
                 f"CROSS_OUTPUT_INCOHERENT:{index}:{result['abstain_reason']}"
             )
+        findings.extend(_interval_distribution_findings(index, row))
         schema = row.get("schema_version")
         if schema is not None and not _nonempty(schema):
             findings.append(f"CROSS_OUTPUT_SCHEMA_EMPTY:{index}")

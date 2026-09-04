@@ -110,6 +110,30 @@ class Cycle27ScientificValidators(unittest.TestCase):
         )
         self.assertTrue(any("ABSTENTION_HIDDEN_P" in item for item in hidden))
 
+    def test_interval_from_a_different_distribution_is_incoherent(self) -> None:
+        row = _coherent_row()
+        findings = validate_cross_payload(
+            {
+                "expected_opportunity_ids": ["ridge|g1|T24"],
+                "rows": [
+                    {
+                        **row,
+                        "distribution_identity": "normal_ridge_v1",
+                        "interval_distribution_identity": "other_distribution_v9",
+                        "interval_lower": -3.0,
+                        "interval_upper": 9.0,
+                        "interval_nominal_level": 0.8,
+                    }
+                ],
+            }
+        )
+        self.assertTrue(
+            any(
+                "ABSTAIN_PROBABILITY_DISTRIBUTION_INCOHERENCE" in item
+                for item in findings
+            )
+        )
+
     def test_future_known_at_fake_hash_and_raw_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

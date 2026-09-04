@@ -53,6 +53,28 @@
     "retained_reason": "PRESERVATION_RETAIN_OR_SQUASH_MERGE_UNPROVEN_NO_FORCE_DELETE",
     "worktree_count": 6
   },
+  "reenumeration_20260904T043700Z": {
+    "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+    "additional_deletions": 0,
+    "git_tip_at_refresh": "95eba9f9f083e10ea260034b63e4f4bd36e08655",
+    "local_branch_count": 22,
+    "note": "Refresh only. Historical removed[] cleanup proof unchanged. No additional obsolete deletions. Open PRs 678 and Dependabot 654 retained. Canonical main unchanged.",
+    "open_pr_count": 2,
+    "open_prs_retained": [
+      654,
+      678
+    ],
+    "remote_deletions": 0,
+    "worktree_count": 6,
+    "worktree_paths": [
+      "C:/BatteredAggieSyndrome",
+      "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory",
+      "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold",
+      "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr",
+      "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate",
+      "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b"
+    ]
+  },
   "remote_deleted_count": 0,
   "remote_head_count": 14,
   "removed": [

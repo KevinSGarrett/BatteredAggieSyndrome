@@ -2,7 +2,7 @@
   "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "artifact_type": "CYCLE26_WEEK1_SCORING_READINESS",
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
-  "code_head": "ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc",
+  "code_head": "0c054811c8ca5b63e30c7b3a6f077a183da0a8b6",
   "code_head_binding": "LIVE_PR_678_TIP",
   "held_fixture_branch": "BAT-674 week-zero official-final scoring successor available for reconstruction on frozen fixtures",
   "held_fixture_validation": {

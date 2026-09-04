@@ -6,7 +6,7 @@ Branch: `codex/BAT-690-c26-scr`
 Development origin: `KevinSGarrett/BatteredAggieSyndrome` (public; migration `DEFERRED_BY_USER_NOT_COMPLETE`)
 Data root: `C:/BatteredAggieSyndrome.data`
 Base / canonical `origin/main`: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d` (left unchanged)
-Parent HEAD at this write: `ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc`
+Requested review head: `0c054811c8ca5b63e30c7b3a6f077a183da0a8b6` (parent `ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc`)
 PR: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678
 Historical manager-review SHA (not this head): `04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1`
 Fort Knox assistive pipeline: `NOT_OPERATIONAL` (direct BAS work permitted)

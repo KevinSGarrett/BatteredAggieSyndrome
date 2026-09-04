@@ -5,7 +5,7 @@
   "R26_17_disposition": "CONFIRMED_FIXED",
   "artifact_type": "CYCLE26_REMAINING_AUDIT_BACKLOG",
   "authority_document": "C:/BatteredAggieSyndrome.data/ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md",
-  "code_head": "ff0740bd14c5f747cc9cce4672c8c0c3de9f90fc",
+  "code_head": "0c054811c8ca5b63e30c7b3a6f077a183da0a8b6",
   "code_head_binding": "LIVE_PR_678_TIP",
   "cycles": [
     {

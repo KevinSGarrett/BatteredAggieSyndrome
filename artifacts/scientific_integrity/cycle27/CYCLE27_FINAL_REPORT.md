@@ -15,7 +15,7 @@ This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleep
 - Pending PR 678: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678 — OPEN, capture owner, not amended in place.
 - PR 654: untouched.
 - Hosted Codex review green check on FAIL payloads is **not** acceptance (CONTROL-07).
-- Ending stacked head is the commit on `codex/BAT-690-c27-scr` after this report's files are committed; do not treat an uncommitted worktree as a reviewed SHA.
+- Ending stacked head: `2f85ca98004879601dbb1d3dd61c5cd5f4523beb` on `codex/BAT-690-c27-scr`.
 
 ## 2. Hold and containment
 

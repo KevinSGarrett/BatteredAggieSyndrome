@@ -12,6 +12,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from aggie_analytics.governance.cycle26_acceptance_guards import (  # noqa: E402
+    semantically_audited_findings,
+)
 from aggie_analytics.governance.scientific_dependency_graph import (  # noqa: E402
     circular_authority_from_edges,
     directed_cycles,
@@ -248,13 +251,14 @@ def validate(repo_root: Path) -> list[str]:
             findings.append(
                 f"SEMANTIC_LABEL_BEFORE_THREE_PASSES:{item.get('cycle_number')}"
             )
-        if item.get("cycle_disposition") == "SEMANTICALLY_AUDITED" and (
-            passes.get("pass_two") in {"BLOCKED_INSUFFICIENT_EVIDENCE", "FAIL", "PARTIAL"}
-            or passes.get("pass_three") != "COMPLETE"
-        ):
-            findings.append(
-                f"SEMANTICALLY_AUDITED_WITH_BLOCKED_OR_PARTIAL_PASSES:{item.get('cycle_number')}"
+        findings.extend(
+            semantically_audited_findings(
+                item.get("cycle_number"),
+                claims=claims.get("claims") or [],
+                passes=passes,
+                disposition=str(item.get("cycle_disposition") or ""),
             )
+        )
     # Per-cycle audits must not claim COMPLETE pass-three under category-search limitation.
     for cycle in REQUIRED_CYCLES:
         audit_path = base / f"CYCLE_{cycle:02d}_SCIENTIFIC_AUDIT.json"

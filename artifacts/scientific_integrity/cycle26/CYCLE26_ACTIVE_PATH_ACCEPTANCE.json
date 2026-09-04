@@ -7,7 +7,7 @@
   "OPERATIONAL_EVIDENCE_GATE": "EVIDENCE_CAPTURE_VERIFIED",
   "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
   "PRIMARY_OBJECTIVE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
-  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_UNRESOLVED pass-two backlog; R26-13 admin thresholds; R26-22 CONFIRMED_CONTAINED_NOT_FIXED with pair census; R26-20/R26-21/7A.7 successors without rewriting predecessors. Joint Week 1 successor remains UNTRUSTED_SHADOW. Pass3 PENDING_INDEPENDENT_REVIEWER. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY.",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_UNRESOLVED pass-two backlog; R26-13 hosted protection CONFIRMED_FIXED with Bugbot residual; R26-22 CONFIRMED_CONTAINED_NOT_FIXED with pair census; R26-20/R26-21/7A.7 successors without rewriting predecessors. Joint Week 1 successor remains UNTRUSTED_SHADOW. Current-head Pass3 PENDING_INDEPENDENT_REVIEWER (e9f0adb5 receipt is historical only). Predictive skill is DEVELOPMENT_EVIDENCE_ONLY.",
   "R26_21_ACTIVE_PATH_DEPENDENCY": "NONE_PROVEN",
   "R26_21_NOTE": "R26-21 CONFIRMED_FIXED via passing-section successor; Week1 path still has zero StatCrew import edges.",
   "ROW_SCIENTIFIC_ELIGIBILITY_GATE": "PARTIAL_SUCCESSOR_PATH",
@@ -644,7 +644,7 @@
       },
       "pass": 1,
       "payload_hashes": {
-        "core_module": "4367c3e68c1a79b5966d9f602f000c4a49916e6115e78570678bed3f33c11ada",
+        "core_module": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
         "coverage_rows": "bc6b9d09ae51984b5180a46bcd5bbd7fd393300658b4aeaae699c4d711beae0e",
         "focus_packet": "489e3f2562ba79705c0b5d7547381834f5bfc9c392a846bf4233cdb1cb357a8a",
         "forecast_rows": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",

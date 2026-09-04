@@ -17,13 +17,13 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from aggie_analytics.data.week1_2026_game_grain_national_forecast_successor import (
-    normalize_pair_probabilities,
-)
-from aggie_analytics.scientific_reference.metrics import (
+from aggie_analytics.data.producer_metric_math import (
     accuracy,
     brier_score,
     log_loss,
+)
+from aggie_analytics.data.week1_2026_game_grain_national_forecast_successor import (
+    normalize_pair_probabilities,
 )
 
 SCHEMA_VERSION = "aggie.models.historical_saved_pair_game_grain_successor.v1"

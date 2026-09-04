@@ -18,14 +18,35 @@ FORBIDDEN_PRODUCER_IMPORTS = {
     "aggie_analytics.data.week1_2026_current_contest_binding_successor",
     "aggie_analytics.data.producer_distribution_math",
     "aggie_analytics.data.producer_market_math",
+    "aggie_analytics.data.producer_metric_math",
+    "aggie_analytics.data.week1_2026_game_grain_national_forecast_successor",
+    "aggie_analytics.data.historical_saved_pair_game_grain_successor",
 }
 REFERENCE_ROOT = Path("src") / "aggie_analytics" / "scientific_reference"
 PRODUCER_PATHS = (
-    Path("src") / "aggie_analytics" / "data" / "week1_2026_game_grain_distribution_successor.py",
-    Path("src") / "aggie_analytics" / "data" / "week1_2026_market_integrity_successor.py",
-    Path("src") / "aggie_analytics" / "data" / "week1_2026_current_contest_binding_successor.py",
+    Path("src")
+    / "aggie_analytics"
+    / "data"
+    / "week1_2026_game_grain_distribution_successor.py",
+    Path("src")
+    / "aggie_analytics"
+    / "data"
+    / "week1_2026_market_integrity_successor.py",
+    Path("src")
+    / "aggie_analytics"
+    / "data"
+    / "week1_2026_current_contest_binding_successor.py",
+    Path("src")
+    / "aggie_analytics"
+    / "data"
+    / "week1_2026_game_grain_national_forecast_successor.py",
+    Path("src")
+    / "aggie_analytics"
+    / "data"
+    / "historical_saved_pair_game_grain_successor.py",
     Path("src") / "aggie_analytics" / "data" / "producer_distribution_math.py",
     Path("src") / "aggie_analytics" / "data" / "producer_market_math.py",
+    Path("src") / "aggie_analytics" / "data" / "producer_metric_math.py",
 )
 
 

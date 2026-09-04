@@ -133,6 +133,7 @@
   },
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "code_head_binding": "LIVE_PR_678_TIP",
+  "core_module_hash_note": "core_module is the sha256 of week1_2026_game_grain_national_forecast_successor.py bytes; it is not the git commit SHA.",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
   "historical_pair_successor_gate": "1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0",
@@ -152,15 +153,15 @@
   "pass": 1,
   "passing_section_successor_gate": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787",
   "payload_hashes": {
-    "core_module": "4367c3e68c1a79b5966d9f602f000c4a49916e6115e78570678bed3f33c11ada",
+    "core_module": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
     "coverage_rows": "bc6b9d09ae51984b5180a46bcd5bbd7fd393300658b4aeaae699c4d711beae0e",
     "focus_packet": "489e3f2562ba79705c0b5d7547381834f5bfc9c392a846bf4233cdb1cb357a8a",
     "forecast_rows": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
     "oriented_rows": "a46aee71b79689d2ad74a6fcceb293bcb291273386b7bd8b72f7e55d4bad08cc"
   },
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
-  "rebinding_code_head": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
-  "rebinding_issued_at_utc": "2026-09-03T23:03:40Z",
+  "rebinding_code_head": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+  "rebinding_issued_at_utc": "2026-09-04T01:06:33Z",
   "result": "PASS_WITHIN_DECLARED_SUCCESSOR_SCOPE",
   "scope": {
     "candidate_families": [

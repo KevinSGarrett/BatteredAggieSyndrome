@@ -509,6 +509,7 @@ artifacts/scientific_integrity/cycle26/CYCLE26_MARKET_REFERENCE_DISPOSITION.json
 artifacts/scientific_integrity/cycle26/CYCLE26_OVERNIGHT_WATCHDOG_STATE.json
 artifacts/scientific_integrity/cycle26/CYCLE26_PASS1_PROVENANCE_RECEIPT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_PASS2_INDEPENDENT_RECONSTRUCTION_RECEIPT.json
+artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEWER_RECEIPT_e9f0adb5.json
 artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEW_RECEIPT.json
 artifacts/scientific_integrity/cycle26/CYCLE26_PREDICTIVE_SKILL_EVIDENCE.json
 artifacts/scientific_integrity/cycle26/CYCLE26_R26_13_LIVE_PROTECTION_READBACK.json
@@ -3597,6 +3598,7 @@ src/aggie_analytics/data/open_source.py
 src/aggie_analytics/data/play_drive.py
 src/aggie_analytics/data/producer_distribution_math.py
 src/aggie_analytics/data/producer_market_math.py
+src/aggie_analytics/data/producer_metric_math.py
 src/aggie_analytics/data/prospective_shadow_cohort.py
 src/aggie_analytics/data/protected_evaluation_replacement_protocol.py
 src/aggie_analytics/data/roster_reconciliation.py
@@ -3751,6 +3753,7 @@ src/aggie_analytics/features/weather_station_matching.py
 src/aggie_analytics/governance/.cursor/BUGBOT.md
 src/aggie_analytics/governance/__init__.py
 src/aggie_analytics/governance/branch_worktree_hygiene.py
+src/aggie_analytics/governance/cycle26_acceptance_guards.py
 src/aggie_analytics/governance/cycle_identity.py
 src/aggie_analytics/governance/normalized_review_gate.py
 src/aggie_analytics/governance/scientific_dependency_graph.py

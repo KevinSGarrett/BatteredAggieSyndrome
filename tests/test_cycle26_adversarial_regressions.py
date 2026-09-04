@@ -59,6 +59,20 @@ from aggie_analytics.governance.branch_worktree_hygiene import (  # noqa: E402
     deletion_allowed,
     local_prune_is_not_remote_deletion,
 )
+from aggie_analytics.governance.cycle26_acceptance_guards import (  # noqa: E402
+    all_abstention_or_control_sets_active_path_verified,
+    apply_numeric_correctness,
+    capture_inventory_denominator,
+    concurrent_live_write_allowed,
+    jira_convergence_verdict,
+    nonempty_payload_file_count,
+    receipt_authorizes_head,
+    scope_narrowing_authorized,
+    semantically_audited_findings,
+    source_file_sha256,
+    three_pass_authorizes_active_path,
+    three_pass_complete_authorized,
+)
 from aggie_analytics.governance.cycle_identity import (  # noqa: E402
     CYCLE_25_5,
     CYCLE_26,
@@ -727,9 +741,8 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             {"status": "CAPTURED_EMPTY", "bytes": 0},
             {"status": "CAPTURED_EMPTY", "bytes": 0},
         ]
-        # Directory file count is not the inventory denominator.
-        inventory_count = len(records)
-        nonempty_files = sum(1 for row in records if row["bytes"] > 0)
+        inventory_count = capture_inventory_denominator(records)
+        nonempty_files = nonempty_payload_file_count(records)
         self.assertEqual(inventory_count, 3)
         self.assertEqual(nonempty_files, 1)
         self.assertNotEqual(inventory_count, nonempty_files)
@@ -741,10 +754,16 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             "pass_evidence": [],
             "coverage_claims": ["category_search_only"],
         }
-        # Category search alone is PARTIAL, not COMPLETE.
-        complete_ok = bool(receipt["pass_evidence"]) and receipt["result"] == "COMPLETE"
-        self.assertFalse(complete_ok)
-        self.assertEqual(receipt["coverage_claims"], ["category_search_only"])
+        self.assertFalse(three_pass_complete_authorized(receipt))
+        self.assertTrue(
+            three_pass_complete_authorized(
+                {
+                    "result": "COMPLETE",
+                    "pass_evidence": ["enumerated_claim_reconstruction"],
+                    "coverage_claims": ["independent_reconstruction"],
+                }
+            )
+        )
 
     def test_20_hold_missing_action_context_blocks_mutation(self) -> None:
         findings = validate_hold(
@@ -760,17 +779,43 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         self.assertIn("HOLD_ACTION_CONTEXT_MISSING", findings)
 
     def test_22_empty_claim_registry_and_false_semantic_audit(self) -> None:
-        registry = {"claims": [], "cycle_disposition": "SEMANTICALLY_AUDITED"}
-        # Empty claim census cannot authorize SEMANTICALLY_AUDITED.
-        self.assertFalse(
-            bool(registry["claims"])
-            and registry["cycle_disposition"] == "SEMANTICALLY_AUDITED"
+        findings = semantically_audited_findings(
+            1,
+            claims=[],
+            passes={"pass_two": "BLOCKED", "pass_three": "PARTIAL"},
+            disposition="SEMANTICALLY_AUDITED",
         )
-        blocked = {"pass_two": "BLOCKED", "cycle_disposition": "SEMANTICALLY_AUDITED"}
-        self.assertNotEqual(blocked["pass_two"], "PASS")
-        self.assertEqual(blocked["cycle_disposition"], "SEMANTICALLY_AUDITED")
-        # BLOCKED reconstruction forbids the disposition.
-        self.assertTrue(blocked["pass_two"] == "BLOCKED")
+        self.assertTrue(findings)
+        self.assertTrue(
+            any(
+                "CLAIM_REGISTRY_EMPTY" in item or "SEMANTICALLY_AUDITED" in item
+                for item in findings
+            )
+        )
+        blocked = semantically_audited_findings(
+            2,
+            claims=[{"id": "c1"}],
+            passes={
+                "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE",
+                "pass_three": "PARTIAL",
+            },
+            disposition="SEMANTICALLY_AUDITED",
+        )
+        self.assertTrue(
+            any(
+                "SEMANTICALLY_AUDITED_WITH_BLOCKED_OR_PARTIAL_PASSES" in item
+                for item in blocked
+            )
+        )
+        self.assertEqual(
+            semantically_audited_findings(
+                3,
+                claims=[{"id": "c1"}],
+                passes={"pass_two": "COMPLETE", "pass_three": "COMPLETE"},
+                disposition="UNREVIEWED",
+            ),
+            [],
+        )
 
     def test_27_contest_duration_not_universal_finality(self) -> None:
         from aggie_analytics.scientific_reference import binding
@@ -824,29 +869,59 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
     def test_33_stale_acceptance_receipt_does_not_authorize_head(self) -> None:
         tip = "8a3612f9ce0a11c8bf9815d36d594252959db2ea"
         receipt_head = "e443343cd403a917ddaa02a0d5fdbcbc49bd879a"
-        self.assertNotEqual(tip, receipt_head)
-        authorized = tip == receipt_head
-        self.assertFalse(authorized)
+        self.assertFalse(receipt_authorizes_head(receipt_head, tip))
+        core = (
+            REPO_ROOT
+            / "src"
+            / "aggie_analytics"
+            / "data"
+            / "week1_2026_game_grain_national_forecast_successor.py"
+        )
+        pass1 = json.loads(
+            (
+                REPO_ROOT
+                / "artifacts"
+                / "scientific_integrity"
+                / "cycle26"
+                / "CYCLE26_PASS1_PROVENANCE_RECEIPT.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            pass1["payload_hashes"]["core_module"],
+            source_file_sha256(core),
+        )
 
     def test_34_scope_drop_requires_versioned_rationale(self) -> None:
         original = {"candidates": ["ridge", "logistic", "elo"], "population": 91}
         narrowed = {"candidates": ["ridge"], "population": 10, "rationale": None}
-        self.assertNotEqual(original["candidates"], narrowed["candidates"])
-        self.assertIsNone(narrowed["rationale"])
-        # Without independent approval + rationale, narrowing cannot manufacture PASS.
-        self.assertFalse(bool(narrowed["rationale"]))
+        self.assertFalse(scope_narrowing_authorized(original, narrowed))
+        self.assertTrue(
+            scope_narrowing_authorized(
+                original,
+                {
+                    "candidates": ["ridge"],
+                    "population": 10,
+                    "rationale": "versioned-scope-v2",
+                    "independent_approval": "reviewer-receipt",
+                },
+            )
+        )
 
     def test_35_numeric_correctness_does_not_upgrade_trust(self) -> None:
-        trust = {
-            "pair_coherence": True,
-            "publication_label": "UNTRUSTED_SHADOW",
-            "ACTIVE_PATH_CORRECTNESS_CLAIM": False,
-            "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": False,
-        }
-        self.assertTrue(trust["pair_coherence"])
-        self.assertFalse(trust["ACTIVE_PATH_CORRECTNESS_CLAIM"])
-        self.assertFalse(trust["ALL_CYCLE_SCIENTIFIC_TRUST_GATE"])
-        self.assertEqual(trust["publication_label"], "UNTRUSTED_SHADOW")
+        upgraded = apply_numeric_correctness(
+            {
+                "pair_coherence": True,
+                "publication_label": "UNTRUSTED_SHADOW",
+                "ACTIVE_PATH_CORRECTNESS_CLAIM": False,
+                "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": False,
+            }
+        )
+        self.assertTrue(upgraded["pair_coherence"])
+        self.assertFalse(upgraded["ACTIVE_PATH_CORRECTNESS_CLAIM"])
+        self.assertFalse(upgraded["ALL_CYCLE_SCIENTIFIC_TRUST_GATE"])
+        self.assertFalse(upgraded["merge_authorized"])
+        self.assertFalse(upgraded["production_credibility"])
+        self.assertEqual(upgraded["publication_label"], "UNTRUSTED_SHADOW")
 
     def test_36_missing_dependency_not_hidden_by_three_pass_shape(self) -> None:
         receipts = {
@@ -854,31 +929,33 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             "pass_2": {"result": "PASS"},
             "pass_3": {"result": "PENDING_INDEPENDENT_REVIEWER"},
         }
-        self.assertFalse(receipts["pass_1"]["dependencies_resolved"])
-        self.assertNotEqual(receipts["pass_3"]["result"], "PASS")
+        self.assertFalse(three_pass_authorizes_active_path(receipts))
 
     def test_37_local_only_jira_is_not_full_convergence(self) -> None:
-        report = {
-            "local_validate": "PASS",
-            "live_verify": None,
-            "board_pagination_complete": False,
-            "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
-        }
-        # Local-only PASS cannot claim full live/board convergence.
-        genuine = (
-            report["live_verify"] == "PASS" and report["board_pagination_complete"]
+        self.assertEqual(
+            jira_convergence_verdict(
+                local_validate="PASS",
+                live_verify=None,
+                board_pagination_complete=False,
+            ),
+            "PARTIAL",
         )
-        self.assertFalse(genuine)
-        if not genuine:
-            report["JIRA_BOARD_LOCAL_CONVERGENCE"] = "PARTIAL"
-        self.assertEqual(report["JIRA_BOARD_LOCAL_CONVERGENCE"], "PARTIAL")
+        self.assertEqual(
+            jira_convergence_verdict(
+                local_validate="PASS",
+                live_verify="PASS",
+                board_pagination_complete=True,
+            ),
+            "VERIFIED",
+        )
 
     def test_38_concurrent_live_edit_blocks_overwrite(self) -> None:
         planned = {"summary": "Cycle26 note"}
         live_reread = {"summary": "User edited summary"}
-        self.assertNotEqual(planned["summary"], live_reread["summary"])
-        write_allowed = planned["summary"] == live_reread["summary"]
-        self.assertFalse(write_allowed)
+        self.assertFalse(concurrent_live_write_allowed(planned, live_reread))
+        self.assertTrue(
+            concurrent_live_write_allowed(planned, {"summary": "Cycle26 note"})
+        )
 
     def test_39_hold_blocks_done_and_bat523_parent_progress(self) -> None:
         findings = validate_hold(
@@ -904,10 +981,9 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
             "emitted_fitted": 0,
             "all_abstention": True,
             "control_only": True,
-            "ACTIVE_PATH_CORRECTNESS_VERIFIED": False,
+            "ACTIVE_PATH_CORRECTNESS_VERIFIED": True,
         }
-        self.assertTrue(claim["all_abstention"] or claim["control_only"])
-        self.assertFalse(claim["ACTIVE_PATH_CORRECTNESS_VERIFIED"])
+        self.assertFalse(all_abstention_or_control_sets_active_path_verified(claim))
 
     def test_r26_21_active_path_does_not_import_statcrew(self) -> None:
         successor = (

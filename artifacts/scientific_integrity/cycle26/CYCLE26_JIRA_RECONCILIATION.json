@@ -6,7 +6,7 @@
   "aux_synced_to_live": true,
   "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "ci": "PASS",
-  "code_head": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
+  "code_head": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
   "code_head_binding": "LIVE_PR_678_TIP",
   "commands": [
     {
@@ -32,10 +32,21 @@
       "cmd": "python jira/tools/import_bat_live.py --verify-live",
       "exit": 0,
       "result": "PASS"
+    },
+    {
+      "at": "2026-09-04T00:59:25.470038+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "discrepancies": 0,
+      "exit": 0,
+      "result": "PASS",
+      "total_actual_issue_count": 627,
+      "verified_at": "2026-09-04T00:59:25.470038+00:00"
     }
   ],
-  "git_tip": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
-  "git_tip_at_issuance": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
+  "git_tip": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+  "git_tip_at_issuance": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+  "git_tip_at_verify": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2",
+  "hold_note": "No Done transitions; no Cycle26 BAT-523 parent-progress comment",
   "hold_transitions": {
     "bat_523_parent_progress_cycle26": false,
     "done_on_remaining_scientific_owners": false
@@ -46,8 +57,11 @@
     "Sub-task": 190,
     "Task": 334
   },
-  "issued_at_utc": "2026-09-03T23:03:40Z",
-  "jira_verify_live_at": "2026-09-03T23:01:40Z",
+  "issued_at_utc": "2026-09-04T01:06:33Z",
+  "jira_verify_live_at": "2026-09-04T00:59:25Z",
+  "last_verify_live_at_utc": "2026-09-03T23:01:40Z",
+  "last_verify_live_result": "PASS",
+  "last_verify_live_total_issues": 627,
   "live_statuses": {
     "BAT-401": "Done",
     "BAT-429": "To Do",
@@ -63,7 +77,7 @@
     "BAT-696": "In Review"
   },
   "missing_auxiliary_keys": [],
-  "note": "import_bat_live.py --verify-live PASS at 2026-09-03T23:01:40Z at pre-report tip 1cd2205b. Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization. Canonical main remains 55e12a5aad3a7e843204fcba619c3cb3d3d6194d.",
+  "note": "import_bat_live.py --verify-live PASS at 2026-09-04T00:59:25Z (627/627, 0 discrepancies, board 134 / filter 10134). Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization. Canonical main remains 55e12a5aad3a7e843204fcba619c3cb3d3d6194d.",
   "owner_issue_comments_this_cycle": [
     {
       "comment_id": "14729",
@@ -94,10 +108,5 @@
   "verified_at_utc": "2026-09-03T23:01:40.746638+00:00",
   "verify_live_at": "2026-09-03T23:01:40Z",
   "verify_live_pass_at_utc": "2026-09-03T23:01:40Z",
-  "verify_live_result": "PASS",
-  "last_verify_live_at_utc": "2026-09-03T23:01:40Z",
-  "last_verify_live_result": "PASS",
-  "last_verify_live_total_issues": 627,
-  "hold_note": "No Done transitions; no Cycle26 BAT-523 parent-progress comment",
-  "git_tip_at_verify": "1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2"
+  "verify_live_result": "PASS"
 }

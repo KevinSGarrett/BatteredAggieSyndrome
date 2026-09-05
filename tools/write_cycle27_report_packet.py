@@ -133,7 +133,8 @@ def main() -> int:
             finding["dataset_identity"] = scoring["dataset_identity"]
             finding["scored_row_count"] = scoring["summary"]["scored_row_count"]
             finding["status"] = (
-                "ISSUED_PINNED_MANIFEST_UNTRUSTED_SHADOW_ZERO_ADMITTED_TERMINALS"
+                "ISSUED_PINNED_MANIFEST_UNTRUSTED_SHADOW_"
+                f"{scoring['summary']['unique_scored_games']}_UNIQUE_GAMES"
             )
             finding["rejected_missing_retrieved_at"] = scoring["summary"][
                 "rejected_receipt_before_kickoff_count"
@@ -322,7 +323,7 @@ Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTU
 T24 states: {json.dumps(ledger["t24h_state_counts"], sort_keys=True)}.
 T90 states: {json.dumps(ledger["t90m_state_counts"], sort_keys=True)}.
 
-Next action: remaining Saturday T-90M clusters from 18:15Z, A&M T-90M wake 20:45Z Sep5, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: remaining Saturday T-90M clusters from 18:45Z, A&M T-90M wake 20:45Z Sep5, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 
@@ -356,7 +357,7 @@ D2: C26 Week 1 materializer still copies C24 rows. Cycle 27 remaining-checkpoint
 
 C26 forecast gate `aa4ff84b...` / dataset `770d2544...` preserved (455/399).
 
-Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `{scoring["gate_identity"]}` / dataset `{scoring["dataset_identity"]}` admits **0** terminals because the pin has no independently hashed acquisition receipts (pin-field `retrieved_at_utc` is not acquisition authority). Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
+Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `{scoring["gate_identity"]}` / dataset `{scoring["dataset_identity"]}` admits {scoring["summary"]["terminal_contest_count"]} terminals / {scoring["summary"]["scored_row_count"]} scored rows / {scoring["summary"]["unique_scored_games"]} unique games from independently hashed acquisition receipts. Pin-field `retrieved_at_utc` is not acquisition authority. Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
 
 A&M 6607349 C26 ridge: P(home)≈0.89513, margin≈+22.2506, emitted interval label 0.95 vs declared 0.8. Trust `UNTRUSTED_SHADOW`. Control `national_base_rate` is a control, never a recommendation.
 
@@ -397,7 +398,7 @@ Do not read this as “no follow-up needed.”
 1. Remaining T-24H clusters after 00:00Z and all T-90M clusters including A&M 21:30Z remain owned by live sleepers plus the watchdog; bind C27 receipts after each verified capture; do not duplicate or backfill.
 2. Hosted CONTROL-07 checker bootstrap still needs independent reviewer approval; until then hosted green FAIL remains non-acceptance.
 3. R26-22 / primary fitted-path trust remains incomplete; keep UNTRUSTED_SHADOW. C26 materializer remains a C24 copy.
-4. C27 scoring successor currently admits zero terminals until independently hashed acquisition receipts exist; do not invent timestamps or treat pin-field time as authority.
+4. C27 scoring successor currently has n={scoring["summary"]["unique_scored_games"]} unique scored games, below the predeclared 30-game skill floor; keep UNTRUSTED_SHADOW. Do not invent timestamps or treat pin-field time as authority.
 5. Exact-head Codex review of `b32c0cce` is FAIL (P1 report/readback disagreement repaired in a post-review delta). Later capture publication needs an explicit follow-on exact-head review; do not invent a self-referential SHA.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.

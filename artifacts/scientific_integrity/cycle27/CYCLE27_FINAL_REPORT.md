@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-05T17:27:07Z (America/Chicago 2026-09-05T12:27:07)
+Issued: 2026-09-05T17:38:17Z (America/Chicago 2026-09-05T12:38:17)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.
@@ -46,9 +46,9 @@ Durable owners (do not kill):
 Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTURED** for that cluster (10 contests), not FORECAST_FROZEN. Later T-24H cutoffs do not inherit that receipt.
 
 T24 states: {"ABSTAINED_AT_CHECKPOINT": 6, "CAPTURE_IN_PROGRESS": 3, "EVIDENCE_CAPTURED": 46, "MISSED_CUTOFF_NO_BACKFILL": 36}.
-T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 30, "EVIDENCE_CAPTURED": 39, "MISSED_CUTOFF_NO_BACKFILL": 8, "NOT_OPEN": 12}.
+T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 29, "EVIDENCE_CAPTURED": 40, "MISSED_CUTOFF_NO_BACKFILL": 8, "NOT_OPEN": 12}.
 
-Next action: remaining Saturday T-90M clusters from 18:15Z, A&M T-90M wake 20:45Z Sep5, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: remaining Saturday T-90M clusters from 18:45Z, A&M T-90M wake 20:45Z Sep5, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 
@@ -82,7 +82,7 @@ D2: C26 Week 1 materializer still copies C24 rows. Cycle 27 remaining-checkpoint
 
 C26 forecast gate `aa4ff84b...` / dataset `770d2544...` preserved (455/399).
 
-Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `e5ae2490f7aed35f443deab91684355043eef6cf5b4fb2db81819a0a70264aa4` / dataset `4fedbdc265a458ba03c72d77e3ff5fbf9b5c6cd9e3e4ed4d6feb2c54c530c49c` admits **0** terminals because the pin has no independently hashed acquisition receipts (pin-field `retrieved_at_utc` is not acquisition authority). Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
+Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `e5ae2490f7aed35f443deab91684355043eef6cf5b4fb2db81819a0a70264aa4` / dataset `4fedbdc265a458ba03c72d77e3ff5fbf9b5c6cd9e3e4ed4d6feb2c54c530c49c` admits 19 terminals / 76 scored rows / 16 unique games from independently hashed acquisition receipts. Pin-field `retrieved_at_utc` is not acquisition authority. Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
 
 A&M 6607349 C26 ridge: P(home)≈0.89513, margin≈+22.2506, emitted interval label 0.95 vs declared 0.8. Trust `UNTRUSTED_SHADOW`. Control `national_base_rate` is a control, never a recommendation.
 
@@ -123,7 +123,7 @@ Do not read this as “no follow-up needed.”
 1. Remaining T-24H clusters after 00:00Z and all T-90M clusters including A&M 21:30Z remain owned by live sleepers plus the watchdog; bind C27 receipts after each verified capture; do not duplicate or backfill.
 2. Hosted CONTROL-07 checker bootstrap still needs independent reviewer approval; until then hosted green FAIL remains non-acceptance.
 3. R26-22 / primary fitted-path trust remains incomplete; keep UNTRUSTED_SHADOW. C26 materializer remains a C24 copy.
-4. C27 scoring successor currently admits zero terminals until independently hashed acquisition receipts exist; do not invent timestamps or treat pin-field time as authority.
+4. C27 scoring successor currently has n=16 unique scored games, below the predeclared 30-game skill floor; keep UNTRUSTED_SHADOW. Do not invent timestamps or treat pin-field time as authority.
 5. Exact-head Codex review of `b32c0cce` is FAIL (P1 report/readback disagreement repaired in a post-review delta). Later capture publication needs an explicit follow-on exact-head review; do not invent a self-referential SHA.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.

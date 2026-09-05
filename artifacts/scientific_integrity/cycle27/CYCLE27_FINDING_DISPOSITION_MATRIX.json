@@ -102,7 +102,7 @@
       "predecessor_gate_preserved": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
       "rejected_missing_retrieved_at": 0,
       "scored_row_count": 76,
-      "status": "ISSUED_PINNED_MANIFEST_UNTRUSTED_SHADOW_ZERO_ADMITTED_TERMINALS"
+      "status": "ISSUED_PINNED_MANIFEST_UNTRUSTED_SHADOW_16_UNIQUE_GAMES"
     },
     {
       "c26_materializer": "STILL_COPIES_C24_AND_MUTATES_P_INTERVAL",
@@ -157,7 +157,7 @@
     }
   ],
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-05T17:27:07Z",
+  "issued_at_utc": "2026-09-05T17:38:17Z",
   "merge_authorized": false,
   "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
   "revision": "C27-PREGAME-COACHING-20260904",

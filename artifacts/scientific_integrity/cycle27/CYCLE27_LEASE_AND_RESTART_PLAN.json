@@ -1,20 +1,41 @@
 {
   "artifact_type": "CYCLE27_LEASE_AND_RESTART_PLAN",
-  "issued_at_utc": "2026-09-05T01:50:20Z",
-  "as_of_utc": "2026-09-05T01:50:20Z",
+  "issued_at_utc": "2026-09-05T02:44:44Z",
+  "as_of_utc": "2026-09-05T02:44:44Z",
   "this_plan_does_not_kill_live_owners": true,
+  "saved_pid_alone_is_not_liveness": true,
+  "live_inventory_source": "CONFIRMED_PROCESS_COMMAND_LINE",
   "do_not_kill_pids": [
-    28372,
-    24528,
-    27724,
-    32428,
-    22176,
-    40708,
-    41416,
-    42852,
-    10732,
-    42444,
-    14180
+    5200,
+    5476,
+    7444,
+    8836,
+    10124,
+    13088,
+    13280,
+    19340,
+    21076,
+    21488,
+    23388,
+    24552,
+    24916,
+    25740,
+    26116,
+    28180,
+    28600,
+    29028,
+    29368,
+    29548,
+    29720,
+    30276,
+    31248,
+    31552,
+    31632,
+    31912,
+    32368,
+    32588,
+    33332,
+    34460
   ],
   "atomic_lease_module": {
     "ops_runtime": "C:/BatteredAggieSyndrome.data/ops/cycle27/checkpoint_lease.py",
@@ -26,68 +47,7 @@
   },
   "failover_policy": "src/aggie_analytics/operations/checkpoint_failover_policy.py",
   "current_owners": {
-    "friday_t90m": {
-      "checkpoint": "FRI_T90M_20260904T2100Z",
-      "contest_id": "6594366",
-      "primary_pid": 40708,
-      "failover_pid": 41416,
-      "wake_utc": "2026-09-04T20:15:00Z",
-      "cutoff_utc": "2026-09-04T21:00:00Z",
-      "no_git_commit_from_sleeper": true
-    },
-    "am_t24h": {
-      "checkpoint": "AM_T24H",
-      "contest_id": "6607349",
-      "primary_pid": 28372,
-      "failover_pid": 27724,
-      "wake_utc": "2026-09-04T22:15:00Z",
-      "cutoff_utc": "2026-09-04T23:00:00Z"
-    },
-    "am_t90m": {
-      "checkpoint": "AM_T90M",
-      "contest_id": "6607349",
-      "primary_pid": 24528,
-      "failover_pid": 32428,
-      "wake_utc": "2026-09-05T20:45:00Z",
-      "cutoff_utc": "2026-09-05T21:30:00Z"
-    },
-    "overnight_heartbeat_pid": 22176,
-    "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
-    "friday_t90m_2130z": {
-      "checkpoint": "FRI_T90M_20260904T2130Z",
-      "contest_ids": [
-        "6598559",
-        "6619544"
-      ],
-      "primary_pid": 42852,
-      "wake_utc": "2026-09-04T20:45:00Z",
-      "cutoff_utc": "2026-09-04T21:30:00Z",
-      "no_git_commit_from_sleeper": true
-    },
-    "friday_t90m_2230z": {
-      "checkpoint": "FRI_T90M_20260904T2230Z",
-      "contest_ids": [
-        "6592887",
-        "6601163",
-        "6611346"
-      ],
-      "primary_pid": 10732,
-      "wake_utc": "2026-09-04T21:45:00Z",
-      "cutoff_utc": "2026-09-04T22:30:00Z",
-      "no_git_commit_from_sleeper": true
-    },
-    "friday_t90m_2330z": {
-      "checkpoint": "FRI_T90M_20260904T2330Z",
-      "contest_ids": [
-        "6602792",
-        "6620138"
-      ],
-      "primary_pid": 42444,
-      "wake_utc": "2026-09-04T22:45:00Z",
-      "cutoff_utc": "2026-09-04T23:30:00Z",
-      "no_git_commit_from_sleeper": true
-    },
-    "saturday_t90m_1430z": {
+    "sat_t90m_20260905t1430z": {
       "checkpoint": "SAT_T90M_20260905T1430Z",
       "contest_ids": [
         "6590890",
@@ -101,11 +61,328 @@
         "6620636",
         "6620944"
       ],
-      "primary_pid": 14180,
+      "primary_pid": 29368,
       "wake_utc": "2026-09-05T13:45:00Z",
       "cutoff_utc": "2026-09-05T14:30:00Z",
-      "no_git_commit_from_sleeper": true
-    }
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "am_t90m": {
+      "checkpoint": "AM_T90M",
+      "contest_id": "6607349",
+      "primary_pid": 21076,
+      "failover_pid": 25740,
+      "wake_utc": "2026-09-05T20:45:00Z",
+      "cutoff_utc": "2026-09-05T21:30:00Z",
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "overnight_heartbeat": {
+      "pid": 29720,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1500z": {
+      "checkpoint": "SAT_T90M_20260905T1500Z",
+      "contest_ids": [
+        "6618687",
+        "6620092"
+      ],
+      "primary_pid": 29548,
+      "wake_utc": "2026-09-05T14:15:00Z",
+      "cutoff_utc": "2026-09-05T15:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1515z": {
+      "checkpoint": "SAT_T90M_20260905T1515Z",
+      "contest_ids": [
+        "6593392"
+      ],
+      "primary_pid": 28600,
+      "wake_utc": "2026-09-05T14:30:00Z",
+      "cutoff_utc": "2026-09-05T15:15:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1530z": {
+      "checkpoint": "SAT_T90M_20260905T1530Z",
+      "contest_ids": [
+        "6583220",
+        "6583331",
+        "6600846"
+      ],
+      "primary_pid": 7444,
+      "wake_utc": "2026-09-05T14:45:00Z",
+      "cutoff_utc": "2026-09-05T15:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1630z": {
+      "checkpoint": "SAT_T90M_20260905T1630Z",
+      "contest_ids": [
+        "6598117"
+      ],
+      "primary_pid": 13088,
+      "wake_utc": "2026-09-05T15:45:00Z",
+      "cutoff_utc": "2026-09-05T16:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1700z": {
+      "checkpoint": "SAT_T90M_20260905T1700Z",
+      "contest_ids": [
+        "6612588"
+      ],
+      "primary_pid": 30276,
+      "wake_utc": "2026-09-05T16:15:00Z",
+      "cutoff_utc": "2026-09-05T17:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1730z": {
+      "checkpoint": "SAT_T90M_20260905T1730Z",
+      "contest_ids": [
+        "6620448"
+      ],
+      "primary_pid": 31552,
+      "wake_utc": "2026-09-05T16:45:00Z",
+      "cutoff_utc": "2026-09-05T17:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1800z": {
+      "checkpoint": "SAT_T90M_20260905T1800Z",
+      "contest_ids": [
+        "6583392",
+        "6585877",
+        "6587707",
+        "6592568",
+        "6594109",
+        "6600254",
+        "6604408",
+        "6607271",
+        "6608932",
+        "6610894",
+        "6611505"
+      ],
+      "primary_pid": 31248,
+      "wake_utc": "2026-09-05T17:15:00Z",
+      "cutoff_utc": "2026-09-05T18:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1815z": {
+      "checkpoint": "SAT_T90M_20260905T1815Z",
+      "contest_ids": [
+        "6582887"
+      ],
+      "primary_pid": 5476,
+      "wake_utc": "2026-09-05T17:30:00Z",
+      "cutoff_utc": "2026-09-05T18:15:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1845z": {
+      "checkpoint": "SAT_T90M_20260905T1845Z",
+      "contest_ids": [
+        "6582881",
+        "6587775"
+      ],
+      "primary_pid": 29028,
+      "wake_utc": "2026-09-05T18:00:00Z",
+      "cutoff_utc": "2026-09-05T18:45:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t1930z": {
+      "checkpoint": "SAT_T90M_20260905T1930Z",
+      "contest_ids": [
+        "6593076"
+      ],
+      "primary_pid": 28180,
+      "wake_utc": "2026-09-05T18:45:00Z",
+      "cutoff_utc": "2026-09-05T19:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t2030z": {
+      "checkpoint": "SAT_T90M_20260905T2030Z",
+      "contest_ids": [
+        "6590855",
+        "6607433"
+      ],
+      "primary_pid": 19340,
+      "wake_utc": "2026-09-05T19:45:00Z",
+      "cutoff_utc": "2026-09-05T20:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t2200z": {
+      "checkpoint": "SAT_T90M_20260905T2200Z",
+      "contest_ids": [
+        "6586022",
+        "6589809",
+        "6590386",
+        "6590505",
+        "6614741"
+      ],
+      "primary_pid": 10124,
+      "wake_utc": "2026-09-05T21:15:00Z",
+      "cutoff_utc": "2026-09-05T22:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t2215z": {
+      "checkpoint": "SAT_T90M_20260905T2215Z",
+      "contest_ids": [
+        "6583172"
+      ],
+      "primary_pid": 23388,
+      "wake_utc": "2026-09-05T21:30:00Z",
+      "cutoff_utc": "2026-09-05T22:15:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t2230z": {
+      "checkpoint": "SAT_T90M_20260905T2230Z",
+      "contest_ids": [
+        "6583582",
+        "6587672",
+        "6589595",
+        "6589953",
+        "6596257"
+      ],
+      "primary_pid": 24916,
+      "wake_utc": "2026-09-05T21:45:00Z",
+      "cutoff_utc": "2026-09-05T22:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t90m_20260905t2330z": {
+      "checkpoint": "SAT_T90M_20260905T2330Z",
+      "contest_ids": [
+        "6616987",
+        "6620513"
+      ],
+      "primary_pid": 5200,
+      "wake_utc": "2026-09-05T22:45:00Z",
+      "cutoff_utc": "2026-09-05T23:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sun_t90m_20260906t0000z": {
+      "checkpoint": "SUN_T90M_20260906T0000Z",
+      "contest_ids": [
+        "6605119",
+        "6618489"
+      ],
+      "primary_pid": 13280,
+      "wake_utc": "2026-09-05T23:15:00Z",
+      "cutoff_utc": "2026-09-06T00:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sun_t90m_20260906t0030z": {
+      "checkpoint": "SUN_T90M_20260906T0030Z",
+      "contest_ids": [
+        "6592700",
+        "6607878"
+      ],
+      "primary_pid": 31632,
+      "wake_utc": "2026-09-05T23:45:00Z",
+      "cutoff_utc": "2026-09-06T00:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sun_t90m_20260906t0100z": {
+      "checkpoint": "SUN_T90M_20260906T0100Z",
+      "contest_ids": [
+        "6603305",
+        "6605164"
+      ],
+      "primary_pid": 32368,
+      "wake_utc": "2026-09-06T00:15:00Z",
+      "cutoff_utc": "2026-09-06T01:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sun_t90m_20260906t0630z": {
+      "checkpoint": "SUN_T90M_20260906T0630Z",
+      "contest_ids": [
+        "6618941"
+      ],
+      "primary_pid": 32588,
+      "wake_utc": "2026-09-06T05:45:00Z",
+      "cutoff_utc": "2026-09-06T06:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sun_t90m_20260906t2200z": {
+      "checkpoint": "SUN_T90M_20260906T2200Z",
+      "contest_ids": [
+        "6602874",
+        "6620581"
+      ],
+      "primary_pid": 24552,
+      "wake_utc": "2026-09-06T21:15:00Z",
+      "cutoff_utc": "2026-09-06T22:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "mon_t90m_20260907t2200z": {
+      "checkpoint": "MON_T90M_20260907T2200Z",
+      "contest_ids": [
+        "6594400"
+      ],
+      "primary_pid": 33332,
+      "wake_utc": "2026-09-07T21:15:00Z",
+      "cutoff_utc": "2026-09-07T22:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t24h_20260905t0800z": {
+      "checkpoint": "SAT_T24H_20260905T0800Z",
+      "contest_ids": [
+        "6618941"
+      ],
+      "primary_pid": 8836,
+      "wake_utc": "2026-09-05T07:15:00Z",
+      "cutoff_utc": "2026-09-05T08:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sat_t24h_20260905t2330z": {
+      "checkpoint": "SAT_T24H_20260905T2330Z",
+      "contest_ids": [
+        "6602874",
+        "6620581"
+      ],
+      "primary_pid": 31912,
+      "wake_utc": "2026-09-05T22:45:00Z",
+      "cutoff_utc": "2026-09-05T23:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sun_t24h_20260906t2330z": {
+      "checkpoint": "SUN_T24H_20260906T2330Z",
+      "contest_ids": [
+        "6594400"
+      ],
+      "primary_pid": 26116,
+      "wake_utc": "2026-09-06T22:45:00Z",
+      "cutoff_utc": "2026-09-06T23:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "cluster_watchdog": {
+      "pid": 34460,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "ledger_refresh": {
+      "pid": 21488,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
+    "overnight_heartbeat_pid": 29720
   },
   "restart_policy": {
     "stale_pid_not_deleted_unconditionally": true,
@@ -677,7 +954,7 @@
   ],
   "sunday_monday_ownership_plan": {
     "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
-    "note": "Sunday 23:30Z and Monday 23:30Z contests remain NOT_OPEN at Friday T90. Arm dedicated owners before those windows. Do not reuse A&M PIDs 28372/24528/27724/32428.",
+    "note": "Sunday 23:30Z and Monday 23:30Z contests remain NOT_OPEN at Friday T90. Arm dedicated owners before those windows. Do not reuse A&M T-90M owners for national clusters.",
     "sunday": [
       {
         "ncaa_contest_id": "6602874",
@@ -713,5 +990,5 @@
       }
     ]
   },
-  "note": "Remaining Saturday T90 national clusters start 2026-09-05T14:30Z. A&M contest 6607349 stays on PIDs 24528/32428; do not duplicate."
+  "note": "Remaining Saturday T90 national clusters start 2026-09-05T14:30Z. A&M contest 6607349 stays on confirmed live A&M T90 owners; do not duplicate the 21:30Z national cluster."
 }

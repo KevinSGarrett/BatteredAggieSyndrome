@@ -3855,6 +3855,7 @@ src/aggie_analytics/operations/checkpoint_lease.py
 src/aggie_analytics/operations/cleanup.py
 src/aggie_analytics/operations/contest_checkpoint_ledger.py
 src/aggie_analytics/operations/cycle27_checkpoint_receipt.py
+src/aggie_analytics/operations/cycle27_live_owner_inventory.py
 src/aggie_analytics/operations/drift_alerts.py
 src/aggie_analytics/operations/environment.py
 src/aggie_analytics/operations/incidents.py
@@ -3970,6 +3971,7 @@ tests/test_cycle27_coaching_reporting.py
 tests/test_cycle27_contest_checkpoint_ledger.py
 tests/test_cycle27_current_contest_checkpoint_binding.py
 tests/test_cycle27_dependency_trace.py
+tests/test_cycle27_live_owner_inventory.py
 tests/test_cycle27_postgame_residual_methodology.py
 tests/test_cycle27_pregame_report.py
 tests/test_cycle27_r26_22_pin_successor.py

@@ -315,8 +315,8 @@ def sunday_monday_ownership_plan(
         "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
         "note": (
             "Sunday 23:30Z and Monday 23:30Z contests remain NOT_OPEN at Friday "
-            "T90. Arm dedicated owners before those windows. Do not reuse A&M "
-            "PIDs 28372/24528/27724/32428."
+            "T90. Arm dedicated owners before those windows. Do not reuse "
+            "A&M T-90M owners for national clusters."
         ),
         "sunday": sunday,
         "monday": monday,
@@ -324,90 +324,8 @@ def sunday_monday_ownership_plan(
 
 
 def cycle27_live_owners() -> list[dict[str, Any]]:
-    return [
-        {
-            "name": "FRIDAY_T90M",
-            "kind": T90M,
-            "contest_ids": ["6594366"],
-            "primary_pid": 40708,
-            "failover_pid": 41416,
-            "wake_utc": "2026-09-04T20:15:00Z",
-            "cutoff_utc": "2026-09-04T21:00:00Z",
-            "do_not_kill": True,
-            "no_git_commit_from_sleeper": True,
-        },
-        {
-            "name": "FRIDAY_T90M_2130Z",
-            "kind": T90M,
-            "contest_ids": ["6598559", "6619544"],
-            "primary_pid": 42852,
-            "wake_utc": "2026-09-04T20:45:00Z",
-            "cutoff_utc": "2026-09-04T21:30:00Z",
-            "do_not_kill": True,
-            "no_git_commit_from_sleeper": True,
-        },
-        {
-            "name": "FRIDAY_T90M_2230Z",
-            "kind": T90M,
-            "contest_ids": ["6592887", "6601163", "6611346"],
-            "primary_pid": 10732,
-            "wake_utc": "2026-09-04T21:45:00Z",
-            "cutoff_utc": "2026-09-04T22:30:00Z",
-            "do_not_kill": True,
-            "no_git_commit_from_sleeper": True,
-        },
-        {
-            "name": "FRIDAY_T90M_2330Z",
-            "kind": T90M,
-            "contest_ids": ["6602792", "6620138"],
-            "primary_pid": 42444,
-            "wake_utc": "2026-09-04T22:45:00Z",
-            "cutoff_utc": "2026-09-04T23:30:00Z",
-            "do_not_kill": True,
-            "no_git_commit_from_sleeper": True,
-        },
-        {
-            "name": "SATURDAY_T90M_1430Z",
-            "kind": T90M,
-            "contest_ids": [
-                "6590890",
-                "6593811",
-                "6594325",
-                "6601384",
-                "6611692",
-                "6611873",
-                "6613128",
-                "6617023",
-                "6620636",
-                "6620944",
-            ],
-            "primary_pid": 14180,
-            "wake_utc": "2026-09-05T13:45:00Z",
-            "cutoff_utc": "2026-09-05T14:30:00Z",
-            "do_not_kill": True,
-            "no_git_commit_from_sleeper": True,
-        },
-        {
-            "name": "AM_T24H",
-            "kind": T24H,
-            "contest_ids": [AM_CONTEST_ID],
-            "primary_pid": 28372,
-            "failover_pid": 27724,
-            "wake_utc": "2026-09-04T22:15:00Z",
-            "cutoff_utc": "2026-09-04T23:00:00Z",
-            "do_not_kill": True,
-        },
-        {
-            "name": "AM_T90M",
-            "kind": T90M,
-            "contest_ids": [AM_CONTEST_ID],
-            "primary_pid": 24528,
-            "failover_pid": 32428,
-            "wake_utc": "2026-09-05T20:45:00Z",
-            "cutoff_utc": "2026-09-05T21:30:00Z",
-            "do_not_kill": True,
-        },
-    ]
+    """Hardcoded PIDs are not liveness. Inject a confirmed process inventory."""
+    return []
 
 
 def saturday_t90_clusters_without_am(
@@ -510,21 +428,27 @@ def build_cycle27_ledger(
         },
         "sunday_monday_ownership_plan": sunday_monday_ownership_plan(contests),
         "live_owners": owners,
-        "heartbeat_pid": 22176,
+        "heartbeat_pid": next(
+            (
+                int(owner["primary_pid"])
+                for owner in owners
+                if owner.get("name") == "overnight_heartbeat"
+            ),
+            None,
+        ),
         "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
-        "do_not_kill_pids": [
-            28372,
-            24528,
-            27724,
-            32428,
-            22176,
-            40708,
-            41416,
-            42852,
-            10732,
-            42444,
-            14180,
-        ],
+        "do_not_kill_pids": sorted(
+            {
+                int(pid)
+                for owner in owners
+                for pid in (
+                    owner.get("primary_pid"),
+                    owner.get("failover_pid"),
+                    owner.get("pid"),
+                )
+                if pid
+            }
+        ),
         "contests": rows,
         "note": (
             "Ledger joins Sep3 T90, Sep4 window T24, and Saturday T24 receipts. "
@@ -601,26 +525,31 @@ def build_lease_and_restart_plan(
     *,
     ledger: Mapping[str, Any],
     now: datetime,
+    live_inventory: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     contests = ledger["contests"]
+    inventory = dict(live_inventory or {})
+    current_owners = dict(inventory.get("current_owners") or {})
+    current_owners["git_publication_coordinator"] = "CYCLE27_CURSOR_AGENT"
+    heartbeat = current_owners.get("overnight_heartbeat")
+    if isinstance(heartbeat, Mapping):
+        current_owners["overnight_heartbeat_pid"] = heartbeat.get("pid")
+    do_not_kill = [
+        int(pid)
+        for pid in (
+            inventory.get("do_not_kill_pids") or ledger.get("do_not_kill_pids") or []
+        )
+        if pid
+    ]
     return {
         "artifact_type": "CYCLE27_LEASE_AND_RESTART_PLAN",
         "issued_at_utc": format_utc(now),
         "as_of_utc": format_utc(now),
         "this_plan_does_not_kill_live_owners": True,
-        "do_not_kill_pids": [
-            28372,
-            24528,
-            27724,
-            32428,
-            22176,
-            40708,
-            41416,
-            42852,
-            10732,
-            42444,
-            14180,
-        ],
+        "saved_pid_alone_is_not_liveness": True,
+        "live_inventory_source": inventory.get("inventory_source")
+        or "NO_LIVE_PROCESSES_SUPPLIED",
+        "do_not_kill_pids": do_not_kill,
         "atomic_lease_module": {
             "ops_runtime": "C:/BatteredAggieSyndrome.data/ops/cycle27/checkpoint_lease.py",
             "versioned_source": "src/aggie_analytics/operations/checkpoint_lease.py",
@@ -632,78 +561,7 @@ def build_lease_and_restart_plan(
         "failover_policy": (
             "src/aggie_analytics/operations/checkpoint_failover_policy.py"
         ),
-        "current_owners": {
-            "friday_t90m": {
-                "checkpoint": "FRI_T90M_20260904T2100Z",
-                "contest_id": "6594366",
-                "primary_pid": 40708,
-                "failover_pid": 41416,
-                "wake_utc": "2026-09-04T20:15:00Z",
-                "cutoff_utc": "2026-09-04T21:00:00Z",
-                "no_git_commit_from_sleeper": True,
-            },
-            "am_t24h": {
-                "checkpoint": "AM_T24H",
-                "contest_id": AM_CONTEST_ID,
-                "primary_pid": 28372,
-                "failover_pid": 27724,
-                "wake_utc": "2026-09-04T22:15:00Z",
-                "cutoff_utc": "2026-09-04T23:00:00Z",
-            },
-            "am_t90m": {
-                "checkpoint": "AM_T90M",
-                "contest_id": AM_CONTEST_ID,
-                "primary_pid": 24528,
-                "failover_pid": 32428,
-                "wake_utc": "2026-09-05T20:45:00Z",
-                "cutoff_utc": "2026-09-05T21:30:00Z",
-            },
-            "overnight_heartbeat_pid": 22176,
-            "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
-            "friday_t90m_2130z": {
-                "checkpoint": "FRI_T90M_20260904T2130Z",
-                "contest_ids": ["6598559", "6619544"],
-                "primary_pid": 42852,
-                "wake_utc": "2026-09-04T20:45:00Z",
-                "cutoff_utc": "2026-09-04T21:30:00Z",
-                "no_git_commit_from_sleeper": True,
-            },
-            "friday_t90m_2230z": {
-                "checkpoint": "FRI_T90M_20260904T2230Z",
-                "contest_ids": ["6592887", "6601163", "6611346"],
-                "primary_pid": 10732,
-                "wake_utc": "2026-09-04T21:45:00Z",
-                "cutoff_utc": "2026-09-04T22:30:00Z",
-                "no_git_commit_from_sleeper": True,
-            },
-            "friday_t90m_2330z": {
-                "checkpoint": "FRI_T90M_20260904T2330Z",
-                "contest_ids": ["6602792", "6620138"],
-                "primary_pid": 42444,
-                "wake_utc": "2026-09-04T22:45:00Z",
-                "cutoff_utc": "2026-09-04T23:30:00Z",
-                "no_git_commit_from_sleeper": True,
-            },
-            "saturday_t90m_1430z": {
-                "checkpoint": "SAT_T90M_20260905T1430Z",
-                "contest_ids": [
-                    "6590890",
-                    "6593811",
-                    "6594325",
-                    "6601384",
-                    "6611692",
-                    "6611873",
-                    "6613128",
-                    "6617023",
-                    "6620636",
-                    "6620944",
-                ],
-                "primary_pid": 14180,
-                "wake_utc": "2026-09-05T13:45:00Z",
-                "cutoff_utc": "2026-09-05T14:30:00Z",
-                "no_git_commit_from_sleeper": True,
-            },
-        },
+        "current_owners": current_owners,
         "restart_policy": {
             "stale_pid_not_deleted_unconditionally": True,
             "collision_holds_live_owner": True,
@@ -719,6 +577,7 @@ def build_lease_and_restart_plan(
         "sunday_monday_ownership_plan": ledger["sunday_monday_ownership_plan"],
         "note": (
             "Remaining Saturday T90 national clusters start 2026-09-05T14:30Z. "
-            "A&M contest 6607349 stays on PIDs 24528/32428; do not duplicate."
+            "A&M contest 6607349 stays on confirmed live A&M T90 owners; "
+            "do not duplicate the 21:30Z national cluster."
         ),
     }

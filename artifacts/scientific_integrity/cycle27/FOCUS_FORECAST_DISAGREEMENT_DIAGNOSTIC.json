@@ -39,7 +39,7 @@
     "is_staff_evidence": false,
     "model_consumption_if_present": "POLL_RANKING_NOT_STAFF_ROLE"
   },
-  "code_head": null,
+  "code_head": "0cb2eed3b9c9d30532b5284ca624eb25da32c8be",
   "contract_id": "CYCLE27-PREGAME-REPORTING-V1",
   "diagnostic_classes": [
     "CONFIRMED_IMPLEMENTATION_DEFECT",
@@ -71,7 +71,7 @@
     "rejected_relabel": "EXPLORATORY",
     "status": "EXPLORATORY"
   },
-  "gate_identity": "4c3190b78a09680ed95d2dedec8e844a228d8f15359a915261c48558e636168e",
+  "gate_identity": "ed5061b7d56c194e0f3c637541cf7d993c5b99c295dd257d9f0c07bce00f8329",
   "home_team": {
     "canonical_team_id": "SRC-002:TEAM:245",
     "conference_current": "SEC",
@@ -198,7 +198,7 @@
       "note": "Missing prior rates/margins/ranks/venue fields are explicit indicators, not imputed means without an indicator."
     }
   ],
-  "issued_at_utc": "2026-09-04T23:20:02Z",
+  "issued_at_utc": "2026-09-05T17:27:04Z",
   "jira_key": "BAT-690",
   "lineage": {
     "C24": {

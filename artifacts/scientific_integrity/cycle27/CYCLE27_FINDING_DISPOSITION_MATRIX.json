@@ -63,11 +63,14 @@
       "wake_utc": "2026-09-04T22:15:00Z"
     },
     {
+      "am_staff_packet": "RETRIEVED_FOOTBALL_SCOPED_STAFF_DIRECTORY_CONTEXT_ONLY",
       "canonical_bind_state_required": true,
       "census_identity": null,
       "coaches_poll_is_not_staff": true,
       "id": "A4_COACHING_CENSUS",
+      "missouri_staff_packet_frozen": true,
       "national_canonical_staff_records": 0,
+      "play_caller_not_inferred": true,
       "source_id_is_not_canonical": true,
       "status": "ISSUED_CONTEXT_ONLY_NOT_CONSUMED"
     },
@@ -154,7 +157,7 @@
     }
   ],
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-05T17:16:34Z",
+  "issued_at_utc": "2026-09-05T17:27:07Z",
   "merge_authorized": false,
   "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
   "revision": "C27-PREGAME-COACHING-20260904",

@@ -101,6 +101,7 @@ DECLARED_OFFICIAL_STAFF_URLS = {
         "https://12thman.com/sports/football/coaches",
         "https://12thman.com/sports/football/staff",
         "https://12thman.com/coaches.aspx?path=football",
+        "https://12thman.com/staff-directory/department/football",
     ),
     FOCUS_AWAY_CANONICAL: ("https://missouristatebears.com/sports/football/coaches",),
 }
@@ -557,6 +558,23 @@ def parse_staff_directory_html(html: str) -> list[dict[str, Any]]:
     ]
     for name, title in zip(names, titles):
         _record(name, title, "sidearm_class_pair")
+
+    staff_directory_row = re.compile(
+        r'<a href="/staff/[^"]+" class="[^"]*staff-directory-table-member-position__link--name[^"]*"[^>]*>'
+        r"([\s\S]*?)</a>"
+        r"[\s\S]{0,800}?"
+        r'class="[^"]*staff-directory-table-member-position__position[^"]*"[^>]*>'
+        r"[\s\S]{0,200}?<p>([^<]+)</p>",
+        re.I,
+    )
+    for name_html, title in staff_directory_row.findall(html or ""):
+        name = html_unescape_text(name_html)
+        title_text = html_unescape_text(title)
+        if name.casefold().endswith(title_text.casefold()):
+            name = name[: len(name) - len(title_text)].strip()
+        if not name or not looks_like_staff_title(title_text):
+            continue
+        _record(name, title_text, "sidearm_staff_directory_row")
 
     vue_table_pattern = re.compile(
         r'<span class="s-text-paragraph-small-bold[^"]*"[^>]*>\s*([^<]+?)\s*</span>'
@@ -1224,6 +1242,7 @@ def materialize(
     issued_at_utc: str | None = None,
     opener: FetchOpener | None = None,
     code_head: str | None = None,
+    refresh_away_staff: bool = True,
 ) -> dict[str, Any]:
     issued = issued_at_utc or utc_now_label()
     registry = load_json(repo_root / "configs/source_acquisition_registry.json")
@@ -1276,17 +1295,17 @@ def materialize(
         token in successor_text.casefold()
         for token in ("head_coach", "play_caller", "offensive_coordinator")
     )
-    packets = {
-        FOCUS_HOME_CANONICAL: build_staff_context_packet(
-            team_label=FOCUS_HOME_LABEL,
-            canonical_team_id=FOCUS_HOME_CANONICAL,
-            ncaa_contest_id=FOCUS_CONTEST_ID,
-            urls=DECLARED_OFFICIAL_STAFF_URLS[FOCUS_HOME_CANONICAL],
-            issued_at_utc=issued,
-            registry_inspection=registry_inspection,
-            opener=opener,
-        ),
-        FOCUS_AWAY_CANONICAL: build_staff_context_packet(
+    home_packet = build_staff_context_packet(
+        team_label=FOCUS_HOME_LABEL,
+        canonical_team_id=FOCUS_HOME_CANONICAL,
+        ncaa_contest_id=FOCUS_CONTEST_ID,
+        urls=DECLARED_OFFICIAL_STAFF_URLS[FOCUS_HOME_CANONICAL],
+        issued_at_utc=issued,
+        registry_inspection=registry_inspection,
+        opener=opener,
+    )
+    if refresh_away_staff:
+        away_packet = build_staff_context_packet(
             team_label=FOCUS_AWAY_LABEL,
             canonical_team_id=FOCUS_AWAY_CANONICAL,
             ncaa_contest_id=FOCUS_CONTEST_ID,
@@ -1294,7 +1313,15 @@ def materialize(
             issued_at_utc=issued,
             registry_inspection=registry_inspection,
             opener=opener,
-        ),
+        )
+    else:
+        away_packet = load_json(
+            repo_root
+            / "artifacts/scientific_integrity/cycle27/FOCUS_STAFF_CONTEXT_MISSOURI_STATE.json"
+        )
+    packets = {
+        FOCUS_HOME_CANONICAL: home_packet,
+        FOCUS_AWAY_CANONICAL: away_packet,
     }
     census = build_coaching_census(
         issued_at_utc=issued,
@@ -1321,6 +1348,8 @@ def materialize(
         FOCUS_AWAY_CANONICAL: "FOCUS_STAFF_CONTEXT_MISSOURI_STATE.json",
     }
     for team_id, filename in packet_files.items():
+        if not refresh_away_staff and team_id == FOCUS_AWAY_CANONICAL:
+            continue
         packet = dict(packets[team_id])
         raw_bodies = packet.pop("_raw_bodies", [])
         written[filename] = write_json_dual(

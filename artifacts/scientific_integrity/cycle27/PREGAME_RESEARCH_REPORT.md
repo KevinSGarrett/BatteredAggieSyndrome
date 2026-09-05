@@ -1,7 +1,7 @@
 # Pregame research report — T-24H evidence
 
 **Label:** `T-24H_EVIDENCE_CAPTURED_NOT_FORECAST_FROZEN`. T-24H evidence is captured for contest 6607349. This is EVIDENCE_CAPTURED, not FORECAST_FROZEN. The table below is the preserved C26 EARLY_WEEK1 successor, not a new T-24H freeze.
-**As of (UTC):** 2026-09-04T23:20:02Z
+**As of (UTC):** 2026-09-05T17:27:04Z
 **Contest:** NCAA `6607349` — Texas A&M (home) vs Missouri State (away).
 **Kickoff bound:** 2026-09-05T23:00:00Z (from frozen payload).
 **Hold:** ACTIVE. Merge unauthorized. Scientific Done unauthorized.
@@ -35,7 +35,7 @@ Ridge probability, margin, and interval are from the same declared Normal residu
 
 - National domain `coaching_staff`: `SOURCE_ABSENT`.
 - Structured acquisition-registry coach entry: `False`.
-- Texas A&M staff fetch: `BLOCKED HTTP 404 https://12thman.com/sports/football/coaches final=https://12thman.com/sports/football/coaches sha256=0727fc51fd376c4688e9321eb6627a9254a6d28b2ec0f2182e3ed07eb8cedcc8 retrieved_at=2026-09-04T22:22:08Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 404 https://12thman.com/sports/football/staff final=https://12thman.com/sports/football/staff sha256=41421da0617ad504ca75822af5c1913effc0f5f2e5a58873a9da25c321b80a76 retrieved_at=2026-09-04T22:22:08Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 200 https://12thman.com/coaches.aspx?path=football final=https://12thman.com/sports/womens-golf/roster/season/2016-17/staff/trelle-mccombs sha256=bb00e5a0f93d66df41b170ad0e9b498dde053065de8d35e4546f5e57962e1f72 retrieved_at=2026-09-04T22:22:08Z identity=WRONG_RESOURCE_REDIRECT error=WRONG_RESOURCE_REDIRECT`.
+- Texas A&M staff fetch: `BLOCKED HTTP 404 https://12thman.com/sports/football/coaches final=https://12thman.com/sports/football/coaches sha256=d58487406ce9c28b0e26b189776b68151d39fdd1b3aa361c61d6dddbd9f11f0b retrieved_at=2026-09-05T17:27:04Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 404 https://12thman.com/sports/football/staff final=https://12thman.com/sports/football/staff sha256=3fca8c3450d3a80ebf81b022f365ec0c5ef1dbb70bd1536bdc90edca32f678f1 retrieved_at=2026-09-05T17:27:05Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 200 https://12thman.com/coaches.aspx?path=football final=https://12thman.com/sports/womens-golf/roster/season/2016-17/staff/trelle-mccombs sha256=471e338f82c3280f69dad970251861bfc8349f3212b0d393112edf4043576d0f retrieved_at=2026-09-05T17:27:05Z identity=WRONG_RESOURCE_REDIRECT error=WRONG_RESOURCE_REDIRECT; RETRIEVED HTTP 200 https://12thman.com/staff-directory/department/football final=https://12thman.com/staff-directory/department/football sha256=0ab5e5baa6af3957ba24714e7dcd916fb44718a1a214c24869f4219fbc5bdecd retrieved_at=2026-09-05T17:27:06Z identity=PAGE_IDENTITY_PLAUSIBLE`.
 - Missouri State staff fetch: `RETRIEVED HTTP 200 https://missouristatebears.com/sports/football/coaches final=https://missouristatebears.com/sports/football/coaches sha256=0e1fad2c2262d703757b8357e05a8ccebb53bffe4486fa6b49a334ec8a158b02 retrieved_at=2026-09-04T21:33:38Z identity=PAGE_IDENTITY_PLAUSIBLE`.
 - HC/OC/DC titles, when observed on an official page, remain titles. Play-caller roles are `UNKNOWN` unless contemporaneous non-title evidence exists.
 - Coaching does not affect any displayed BAS number.

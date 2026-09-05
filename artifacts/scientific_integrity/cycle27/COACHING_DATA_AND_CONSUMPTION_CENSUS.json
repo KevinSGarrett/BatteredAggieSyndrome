@@ -3,72 +3,72 @@
   "authority_enrichment_head_coach_boolean_retained_as_staff": false,
   "classification": "CYCLE27_COACHING_CENSUS_CONTEXT_ONLY_NOT_CONSUMED",
   "coaches_poll_rank_is_not_staff": true,
-  "code_head": "d823773f069aa39352ef1b8b740f2e0030410fa6",
+  "code_head": "0cb2eed3b9c9d30532b5284ca624eb25da32c8be",
   "contract_id": "CYCLE27-COACHING-DATA-AND-CONSUMPTION-CENSUS-V1",
   "counts": {
     "by_role": {
       "CO_OR_INTERIM_OR_DELEGATED": {
-        "blocked_focus_fetches": 2,
+        "blocked_focus_fetches": 0,
         "conflicted_focus": 0,
-        "missing_or_unknown_focus": 0,
+        "missing_or_unknown_focus": 1,
         "national_canonical_week1_records": 0,
         "not_consumed_team_seasons": 182,
         "not_yet_audited_team_seasons": 180,
-        "verified_context_only_focus_titles": 0
+        "verified_context_only_focus_titles": 1
       },
       "DEFENSIVE_COORDINATOR": {
-        "blocked_focus_fetches": 2,
+        "blocked_focus_fetches": 0,
         "conflicted_focus": 0,
         "missing_or_unknown_focus": 0,
         "national_canonical_week1_records": 0,
         "not_consumed_team_seasons": 182,
         "not_yet_audited_team_seasons": 180,
-        "verified_context_only_focus_titles": 0
+        "verified_context_only_focus_titles": 2
       },
       "DEFENSIVE_PLAY_CALLER": {
-        "blocked_focus_fetches": 2,
+        "blocked_focus_fetches": 0,
         "conflicted_focus": 0,
-        "missing_or_unknown_focus": 0,
+        "missing_or_unknown_focus": 2,
         "national_canonical_week1_records": 0,
         "not_consumed_team_seasons": 182,
         "not_yet_audited_team_seasons": 180,
         "verified_context_only_focus_titles": 0
       },
       "HEAD_COACH": {
-        "blocked_focus_fetches": 2,
+        "blocked_focus_fetches": 0,
         "conflicted_focus": 0,
         "missing_or_unknown_focus": 0,
         "national_canonical_week1_records": 0,
         "not_consumed_team_seasons": 182,
         "not_yet_audited_team_seasons": 180,
-        "verified_context_only_focus_titles": 0
+        "verified_context_only_focus_titles": 2
       },
       "OFFENSIVE_COORDINATOR": {
-        "blocked_focus_fetches": 2,
+        "blocked_focus_fetches": 0,
         "conflicted_focus": 0,
         "missing_or_unknown_focus": 0,
         "national_canonical_week1_records": 0,
         "not_consumed_team_seasons": 182,
         "not_yet_audited_team_seasons": 180,
-        "verified_context_only_focus_titles": 0
+        "verified_context_only_focus_titles": 2
       },
       "OFFENSIVE_PLAY_CALLER": {
-        "blocked_focus_fetches": 2,
+        "blocked_focus_fetches": 0,
         "conflicted_focus": 0,
-        "missing_or_unknown_focus": 0,
+        "missing_or_unknown_focus": 2,
         "national_canonical_week1_records": 0,
         "not_consumed_team_seasons": 182,
         "not_yet_audited_team_seasons": 180,
         "verified_context_only_focus_titles": 0
       },
       "SPECIAL_TEAMS_COORDINATOR": {
-        "blocked_focus_fetches": 2,
+        "blocked_focus_fetches": 0,
         "conflicted_focus": 0,
-        "missing_or_unknown_focus": 0,
+        "missing_or_unknown_focus": 1,
         "national_canonical_week1_records": 0,
         "not_consumed_team_seasons": 182,
         "not_yet_audited_team_seasons": 180,
-        "verified_context_only_focus_titles": 0
+        "verified_context_only_focus_titles": 1
       }
     },
     "do_not_read_as_national_coverage": true,
@@ -128,29 +128,29 @@
       "fetch_disposition_counts": {
         "BLOCKED": 3,
         "CONFLICT": 0,
-        "RETRIEVED": 0
+        "RETRIEVED": 1
       },
       "model_consumption": "NOT_CONSUMED_BY_MODEL",
-      "packet_identity": "793931aaa2cfe5990b66d0bc741dfa9d571fa39acc4b63bdf28c680416fac04b",
+      "packet_identity": "c7ccba9f26e6f49c237c40852d2a2a6f7e0f905d31066439d34d693244f70c04",
       "team_label": "Texas A&M",
-      "title_observation_count": 0
+      "title_observation_count": 38
     },
     "SRC-002:TEAM:2623": {
       "fetch_disposition_counts": {
-        "BLOCKED": 1,
+        "BLOCKED": 0,
         "CONFLICT": 0,
-        "RETRIEVED": 0
+        "RETRIEVED": 1
       },
       "model_consumption": "NOT_CONSUMED_BY_MODEL",
-      "packet_identity": "03c8fb730d91a0b949995717b75e15c486961193b8562504bd535dd33fcf7604",
+      "packet_identity": "4ce87420bb71604e056998f1fd51dcc6832f0684ffa1206f8db155ed76d9446f",
       "team_label": "Missouri State",
-      "title_observation_count": 0
+      "title_observation_count": 17
     }
   },
-  "gate_identity": "c4e154a68b876aa2bf2386b1815923ad8aa8c810b0df320ebf7fb605550207bc",
+  "gate_identity": "073531de5b08b9b76bc78c17962f8cbb3e0269627f427f67e8b2243eb42c96cc",
   "head_coach_boolean_is_not_full_coverage": true,
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-04T22:22:07Z",
+  "issued_at_utc": "2026-09-05T17:27:04Z",
   "jira_key": "BAT-690",
   "manual_coach_bonus_permitted": false,
   "maturity_layers": {

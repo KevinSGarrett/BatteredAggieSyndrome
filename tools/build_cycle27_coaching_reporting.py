@@ -50,6 +50,11 @@ def main() -> int:
         "--issued-at-utc",
         default=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     )
+    parser.add_argument(
+        "--home-staff-only",
+        action="store_true",
+        help="Refresh Texas A&M staff evidence without refetching Missouri State.",
+    )
     args = parser.parse_args()
     repo_root = Path(args.repo_root)
     data_root = Path(args.data_root)
@@ -61,6 +66,7 @@ def main() -> int:
         ops_root=ops_root,
         issued_at_utc=args.issued_at_utc,
         code_head=code_head,
+        refresh_away_staff=not args.home_staff_only,
     )
     census = load_json(
         repo_root

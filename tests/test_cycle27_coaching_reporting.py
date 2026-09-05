@@ -185,6 +185,48 @@ class Cycle27CoachingReportingTests(unittest.TestCase):
         self.assertEqual(packet["blocked_count"], 1)
         self.assertEqual(packet["title_observations"], [])
 
+    def test_unscoped_staff_directory_is_blocked_football_department_is_not(
+        self,
+    ) -> None:
+        unscoped = classify_page_identity(
+            "https://12thman.com/staff-directory",
+            "https://12thman.com/staff-directory",
+            b"<html>all sports</html>",
+        )
+        self.assertFalse(unscoped["ok"])
+        self.assertEqual(unscoped["reason"], "UNSCOPED_MULTI_SPORT_DIRECTORY")
+        football = classify_page_identity(
+            "https://12thman.com/staff-directory/department/football",
+            "https://12thman.com/staff-directory/department/football",
+            b"<html>Football Coaching Staff</html>",
+        )
+        self.assertTrue(football["ok"])
+        self.assertEqual(football["reason"], "PAGE_IDENTITY_PLAUSIBLE")
+
+    def test_staff_directory_row_records_head_coach_title_not_play_caller(self) -> None:
+        html = """
+        <tr class="staff-directory-table-member-position staff-directory-table-department__row">
+          <td class="staff-directory-table-cell staff-directory-table-member-position__name">
+            <a href="/staff/mike-elko" class="staff-directory-table-member-position__link staff-directory-table-member-position__link--name">
+              <img alt="Elko,-Mike" title="Mike Elko Head Shot"> Mike Elko
+            </a>
+          </td>
+          <td class="staff-directory-table-cell staff-directory-table-member-position__position">
+            <!--[--><p>Head Coach</p><!--]-->
+          </td>
+        </tr>
+        """
+        people = parse_staff_directory_html(html)
+        head = [row for row in people if row["title_role_id"] == "HEAD_COACH"]
+        self.assertEqual(len(head), 1)
+        self.assertEqual(head[0]["source_person_name"], "Mike Elko")
+        self.assertEqual(head[0]["source_title"], "Head Coach")
+        self.assertFalse(head[0]["title_is_play_caller_proof"])
+        self.assertEqual(
+            head[0]["play_caller_status"], "UNKNOWN_NOT_INFERRED_FROM_TITLE"
+        )
+        self.assertEqual(head[0]["extractor"], "sidearm_staff_directory_row")
+
     def test_parser_does_not_infer_play_caller_from_title(self) -> None:
         html = """
         <div class="sidearm-roster-coach-name">Pat Example</div>

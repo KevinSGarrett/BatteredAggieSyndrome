@@ -147,6 +147,11 @@ def main() -> int:
             finding["census_identity"] = census.get("census_identity")
             finding["canonical_bind_state_required"] = True
             finding["source_id_is_not_canonical"] = True
+            finding["am_staff_packet"] = (
+                "RETRIEVED_FOOTBALL_SCOPED_STAFF_DIRECTORY_CONTEXT_ONLY"
+            )
+            finding["missouri_staff_packet_frozen"] = True
+            finding["play_caller_not_inferred"] = True
         if finding.get("id") == "HOSTED_CI_PR679":
             finding["reviewed_head"] = "b32c0cce9fcd78319667c8344daa878d2d968e06"
             finding["core_validation"] = "SUCCESS"
@@ -317,7 +322,7 @@ Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTU
 T24 states: {json.dumps(ledger["t24h_state_counts"], sort_keys=True)}.
 T90 states: {json.dumps(ledger["t90m_state_counts"], sort_keys=True)}.
 
-Next action: remaining Saturday T-90M clusters from 18:00Z, A&M T-90M wake 20:45Z Sep5, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: remaining Saturday T-90M clusters from 18:15Z, A&M T-90M wake 20:45Z Sep5, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 

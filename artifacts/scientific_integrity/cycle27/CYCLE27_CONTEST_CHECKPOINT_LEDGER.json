@@ -1,8 +1,8 @@
 {
   "artifact_type": "CYCLE27_CONTEST_CHECKPOINT_LEDGER",
-  "issued_at_utc": "2026-09-05T02:44:44Z",
-  "as_of_utc": "2026-09-05T02:44:44Z",
-  "predecessor_c26_ledger_issued_at_utc": "2026-09-05T01:50:02Z",
+  "issued_at_utc": "2026-09-05T07:21:39Z",
+  "as_of_utc": "2026-09-05T07:21:39Z",
+  "predecessor_c26_ledger_issued_at_utc": "2026-09-05T07:20:30Z",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "contest_count": 91,
   "clock_uncertainty": "Host OS clock; local receipt is not cryptographic proof",
@@ -13,6 +13,7 @@
     "CYCLE26_SEP3_T90M_FREEZE_RECEIPT",
     "CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT",
     "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT",
+    "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
@@ -42,8 +43,8 @@
   "saturday_t24h_completed_count": 10,
   "t24h_state_counts": {
     "ABSTAINED_AT_CHECKPOINT": 6,
-    "CAPTURE_IN_PROGRESS": 4,
-    "EVIDENCE_CAPTURED": 45,
+    "CAPTURE_IN_PROGRESS": 3,
+    "EVIDENCE_CAPTURED": 46,
     "MISSED_CUTOFF_NO_BACKFILL": 36
   },
   "t90m_state_counts": {
@@ -1244,19 +1245,6 @@
       "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
     },
     {
-      "name": "SAT_T24H_20260905T0800Z",
-      "kind": "T24H",
-      "contest_ids": [
-        "6618941"
-      ],
-      "primary_pid": 8836,
-      "wake_utc": "2026-09-05T07:15:00Z",
-      "cutoff_utc": "2026-09-05T08:00:00Z",
-      "do_not_kill": true,
-      "no_git_commit_from_sleeper": true,
-      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
-    },
-    {
       "name": "SAT_T24H_20260905T2330Z",
       "kind": "T24H",
       "contest_ids": [
@@ -1304,7 +1292,6 @@
     5200,
     5476,
     7444,
-    8836,
     10124,
     13088,
     13280,
@@ -3892,7 +3879,7 @@
         "completed_valid_receipt_retained_after_cutoff": false
       },
       "abstention_reasons": [],
-      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
     },
     {
@@ -3923,7 +3910,7 @@
         "completed_valid_receipt_retained_after_cutoff": false
       },
       "abstention_reasons": [],
-      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
     },
     {
@@ -3954,7 +3941,7 @@
         "completed_valid_receipt_retained_after_cutoff": false
       },
       "abstention_reasons": [],
-      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
     },
     {
@@ -3985,7 +3972,7 @@
         "completed_valid_receipt_retained_after_cutoff": false
       },
       "abstention_reasons": [],
-      "predecessor_c26_t24h_state": "OPEN",
+      "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
       "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
     },
     {
@@ -3993,14 +3980,16 @@
       "kickoff_bound_utc": "2026-09-06T08:00:00Z",
       "t24h_cutoff_utc": "2026-09-05T08:00:00Z",
       "t90m_cutoff_utc": "2026-09-06T06:30:00Z",
-      "t24h_state": "CAPTURE_IN_PROGRESS",
+      "t24h_state": "EVIDENCE_CAPTURED",
       "t90m_state": "CAPTURE_IN_PROGRESS",
       "t24h": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-05T08:00:00Z",
         "capture_window_open_utc": "2026-09-05T07:00:00Z",
-        "joined_receipts": [],
-        "live_owner": "SAT_T24H_20260905T0800Z",
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
+        "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
       },

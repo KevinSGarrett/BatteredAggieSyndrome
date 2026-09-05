@@ -776,7 +776,7 @@
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
     "scientific_done_authorized": false
   },
-  "issued_at_utc": "2026-09-05T02:33:23Z",
+  "issued_at_utc": "2026-09-05T07:21:40Z",
   "live_owners": {
     "am_t24h": "COMPLETED_EVIDENCE_CAPTURED_0400f8b0",
     "am_t24h_failover_pid": 27724,

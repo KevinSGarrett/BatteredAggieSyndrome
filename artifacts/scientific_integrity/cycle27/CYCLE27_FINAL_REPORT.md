@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-05T16:56:41Z (America/Chicago 2026-09-05T11:56:41)
+Issued: 2026-09-05T17:16:34Z (America/Chicago 2026-09-05T12:16:34)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.

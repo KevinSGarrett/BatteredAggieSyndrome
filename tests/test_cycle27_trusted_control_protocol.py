@@ -58,8 +58,8 @@ class Cycle27TrustedControlProtocolTests(unittest.TestCase):
             "review_rule_identity": self.protocol["bindings"]["rules"][
                 "review_rule_identity"
             ],
-            "model": "gpt-5",
-            "reasoning_effort": "high",
+            "model": "gpt-5.3-codex",
+            "reasoning_effort": "medium",
             "findings_p0": [],
             "findings_p1": [],
             "findings_p2": [],
@@ -95,6 +95,10 @@ class Cycle27TrustedControlProtocolTests(unittest.TestCase):
             self.protocol["bindings"]["checker"]["proposed_successor_sha256"],
             bindings["checker"]["proposed_successor_sha256"],
         )
+        self.assertEqual(bindings["model"]["trusted_value"], "gpt-5.3-codex")
+        self.assertTrue(bindings["model"]["workflow_currently_supplies_trusted_model"])
+        self.assertEqual(bindings["effort"]["trusted_value"], "medium")
+        self.assertTrue(bindings["effort"]["workflow_currently_supplies_trusted_effort"])
 
     def test_schema_valid_fail_json_fails_acceptance(self) -> None:
         payload = dict(self.payload)

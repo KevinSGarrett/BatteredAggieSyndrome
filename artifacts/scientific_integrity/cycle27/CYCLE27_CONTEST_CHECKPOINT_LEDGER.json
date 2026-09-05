@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE27_CONTEST_CHECKPOINT_LEDGER",
-  "issued_at_utc": "2026-09-05T16:56:39Z",
-  "as_of_utc": "2026-09-05T16:56:39Z",
+  "issued_at_utc": "2026-09-05T17:16:17Z",
+  "as_of_utc": "2026-09-05T17:16:17Z",
   "predecessor_c26_ledger_issued_at_utc": "2026-09-05T16:50:59Z",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "contest_count": 91,
@@ -2372,7 +2372,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",

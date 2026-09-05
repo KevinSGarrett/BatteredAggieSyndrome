@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE27_TRUSTED_CONTROL_CHANGE_PROTOCOL",
   "revision": "C27-CONTROL-07-PREPARATION",
-  "issued_at_utc": "2026-09-05T16:56:39Z",
+  "issued_at_utc": "2026-09-05T17:16:17Z",
   "this_pack_is_not_approval": true,
   "bootstrap_status": "PREPARATION_NOT_APPROVED",
   "hold": "ACTIVE",
@@ -33,18 +33,18 @@
     },
     "workflow": {
       "path": ".github/workflows/codex-scientific-review.yml",
-      "sha256": "f6a3c45d0972e842a2ab505a2dc88d33a61c39bef705ec773d1cae8bc1a72626",
+      "sha256": "e663bcb8793e626b1dbcb5bb8176922bc1b2881fadf1702c3f9bc4fa0d1f5418",
       "must_not_trust_pr_checker": true
     },
     "model": {
       "required": true,
-      "trusted_value": "gpt-5",
-      "workflow_currently_supplies_trusted_model": false
+      "trusted_value": "gpt-5.3-codex",
+      "workflow_currently_supplies_trusted_model": true
     },
     "effort": {
       "required": true,
-      "trusted_value": "high",
-      "workflow_currently_supplies_trusted_effort": false
+      "trusted_value": "medium",
+      "workflow_currently_supplies_trusted_effort": true
     }
   },
   "fail_closed": {

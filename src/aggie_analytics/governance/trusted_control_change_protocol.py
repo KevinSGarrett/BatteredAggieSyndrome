@@ -24,6 +24,9 @@ CONTROL_SURFACES = (
 )
 PROMPT_PATH = ".github/codex/prompts/scientific-review.md"
 RULES_PATH = ".github/CODE_REVIEW_RULES.md"
+WORKFLOW_PATH = ".github/workflows/codex-scientific-review.yml"
+CODEX_PR_REVIEW_MODEL = "gpt-5.3-codex"
+CODEX_PR_REVIEW_EFFORT = "medium"
 UNSUCCESSFUL_VERDICTS = frozenset({"FAIL", "BLOCKED", "BLOCKED_INSUFFICIENT_EVIDENCE"})
 ACCEPTED_VERDICT = "PASS"
 
@@ -180,13 +183,25 @@ def evaluate_unreviewed_critical(payload: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _workflow_pin(workflow_text: str, key: str) -> str | None:
+    prefix = f"{key}:"
+    for line in workflow_text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith(prefix):
+            return stripped.split(":", 1)[1].strip().strip("'\"")
+    return None
+
+
 def bind_current_tree(repo_root: Path) -> dict[str, Any]:
     root = Path(repo_root)
     prompt = root / PROMPT_PATH
     schema = root / "schemas/scientific_review/codex_scientific_review.schema.json"
     rules = root / RULES_PATH
     checker = root / "tools/validate_codex_scientific_review.py"
-    workflow = root / ".github/workflows/codex-scientific-review.yml"
+    workflow = root / WORKFLOW_PATH
+    workflow_text = workflow.read_text(encoding="utf-8")
+    workflow_model = _workflow_pin(workflow_text, "model")
+    workflow_effort = _workflow_pin(workflow_text, "effort")
     bugbot = root / ".cursor/BUGBOT.md"
     return {
         "prompt": {
@@ -217,19 +232,23 @@ def bind_current_tree(repo_root: Path) -> dict[str, Any]:
             "hosted_workflow_fetches_checker_from_protected_base": True,
         },
         "workflow": {
-            "path": ".github/workflows/codex-scientific-review.yml",
+            "path": WORKFLOW_PATH,
             "sha256": sha256_file(workflow),
             "must_not_trust_pr_checker": True,
         },
         "model": {
             "required": True,
-            "trusted_value": "gpt-5",
-            "workflow_currently_supplies_trusted_model": False,
+            "trusted_value": CODEX_PR_REVIEW_MODEL,
+            "workflow_currently_supplies_trusted_model": (
+                workflow_model == CODEX_PR_REVIEW_MODEL
+            ),
         },
         "effort": {
             "required": True,
-            "trusted_value": "high",
-            "workflow_currently_supplies_trusted_effort": False,
+            "trusted_value": CODEX_PR_REVIEW_EFFORT,
+            "workflow_currently_supplies_trusted_effort": (
+                workflow_effort == CODEX_PR_REVIEW_EFFORT
+            ),
         },
     }
 

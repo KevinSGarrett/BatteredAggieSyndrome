@@ -323,7 +323,7 @@ Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTU
 T24 states: {json.dumps(ledger["t24h_state_counts"], sort_keys=True)}.
 T90 states: {json.dumps(ledger["t90m_state_counts"], sort_keys=True)}.
 
-Next action: remaining Saturday T-90M clusters from 22:15Z, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: remaining Saturday T-90M cluster at 22:30Z, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 

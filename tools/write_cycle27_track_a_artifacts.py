@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from datetime import datetime, timezone
@@ -35,7 +36,14 @@ ART26 = REPO / "artifacts" / "scientific_integrity" / "cycle26"
 ART27 = REPO / "artifacts" / "scientific_integrity" / "cycle27"
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--write-git",
+        action="store_true",
+        help="Also write repository artifacts. Overnight refresh omits this so it cannot dirty a pending review tree.",
+    )
+    args = parser.parse_args(argv)
     now = datetime.now(timezone.utc)
     c26 = load_c26_ledger(OPS26, ART26)
     receipts = load_valid_receipts(default_receipt_paths(OPS26, ART26, OPS27))
@@ -59,15 +67,15 @@ def main() -> int:
     protocol = build_protocol_artifact(
         repo_root=REPO, issued_at_utc=ledger["issued_at_utc"]
     )
-    ART27.mkdir(parents=True, exist_ok=True)
-    OPS27.mkdir(parents=True, exist_ok=True)
-    write_json(ART27 / "CYCLE27_CONTEST_CHECKPOINT_LEDGER.json", ledger)
     write_json(OPS27 / "CYCLE27_CONTEST_CHECKPOINT_LEDGER.json", ledger)
-    write_json(ART27 / "CYCLE27_LEASE_AND_RESTART_PLAN.json", plan)
     write_json(OPS27 / "CYCLE27_LEASE_AND_RESTART_PLAN.json", plan)
-    write_json(ART27 / "CYCLE27_TRUSTED_CONTROL_CHANGE_PROTOCOL.json", protocol)
     write_json(OPS27 / "CYCLE27_TRUSTED_CONTROL_CHANGE_PROTOCOL.json", protocol)
     write_json(OPS27 / "CYCLE27_LIVE_OWNER_INVENTORY.json", inventory)
+    if args.write_git:
+        ART27.mkdir(parents=True, exist_ok=True)
+        write_json(ART27 / "CYCLE27_CONTEST_CHECKPOINT_LEDGER.json", ledger)
+        write_json(ART27 / "CYCLE27_LEASE_AND_RESTART_PLAN.json", plan)
+        write_json(ART27 / "CYCLE27_TRUSTED_CONTROL_CHANGE_PROTOCOL.json", protocol)
     print(json_summary(ledger, plan, protocol, inventory))
     return 0
 

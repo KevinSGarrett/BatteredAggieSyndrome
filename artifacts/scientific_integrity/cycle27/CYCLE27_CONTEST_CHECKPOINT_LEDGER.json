@@ -1,8 +1,8 @@
 {
   "artifact_type": "CYCLE27_CONTEST_CHECKPOINT_LEDGER",
-  "issued_at_utc": "2026-09-05T17:37:20Z",
-  "as_of_utc": "2026-09-05T17:37:20Z",
-  "predecessor_c26_ledger_issued_at_utc": "2026-09-05T17:33:57Z",
+  "issued_at_utc": "2026-09-05T18:09:30Z",
+  "as_of_utc": "2026-09-05T18:09:30Z",
+  "predecessor_c26_ledger_issued_at_utc": "2026-09-05T18:05:21Z",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "contest_count": 91,
   "clock_uncertainty": "Host OS clock; local receipt is not cryptographic proof",
@@ -13,6 +13,7 @@
     "CYCLE26_SEP3_T90M_FREEZE_RECEIPT",
     "CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT",
     "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT",
+    "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
@@ -58,8 +59,8 @@
   },
   "t90m_state_counts": {
     "ABSTAINED_AT_CHECKPOINT": 2,
-    "CAPTURE_IN_PROGRESS": 29,
-    "EVIDENCE_CAPTURED": 40,
+    "CAPTURE_IN_PROGRESS": 27,
+    "EVIDENCE_CAPTURED": 42,
     "MISSED_CUTOFF_NO_BACKFILL": 8,
     "NOT_OPEN": 12
   },
@@ -931,20 +932,6 @@
       "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
     },
     {
-      "name": "SAT_T90M_20260905T1845Z",
-      "kind": "T90M",
-      "contest_ids": [
-        "6582881",
-        "6587775"
-      ],
-      "primary_pid": 29028,
-      "wake_utc": "2026-09-05T18:00:00Z",
-      "cutoff_utc": "2026-09-05T18:45:00Z",
-      "do_not_kill": true,
-      "no_git_commit_from_sleeper": true,
-      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
-    },
-    {
       "name": "SAT_T90M_20260905T1930Z",
       "kind": "T90M",
       "contest_ids": [
@@ -1171,7 +1158,6 @@
     25740,
     26116,
     28180,
-    29028,
     29720,
     31632,
     31912,
@@ -2398,11 +2384,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6585877",
@@ -2429,11 +2415,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6587707",
@@ -2460,11 +2446,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6592568",
@@ -2491,11 +2477,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6594109",
@@ -2522,11 +2508,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6600254",
@@ -2553,11 +2539,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6604408",
@@ -2584,11 +2570,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6607271",
@@ -2615,11 +2601,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6608932",
@@ -2646,11 +2632,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6610894",
@@ -2677,11 +2663,11 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6611505",
@@ -2708,13 +2694,13 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [
         "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
       ],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "predecessor_c26_t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+      "predecessor_c26_t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
     },
     {
       "ncaa_contest_id": "6582887",
@@ -2753,7 +2739,7 @@
       "t24h_cutoff_utc": "2026-09-04T20:15:00Z",
       "t90m_cutoff_utc": "2026-09-05T18:45:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t90m_state": "EVIDENCE_CAPTURED",
       "t24h": {
         "state": "MISSED_CUTOFF_NO_BACKFILL",
         "cutoff_utc": "2026-09-04T20:15:00Z",
@@ -2764,11 +2750,13 @@
         "completed_valid_receipt_retained_after_cutoff": false
       },
       "t90m": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-05T18:45:00Z",
         "capture_window_open_utc": "2026-09-05T17:45:00Z",
-        "joined_receipts": [],
-        "live_owner": "SAT_T90M_20260905T1845Z",
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
+        "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
       },
@@ -2782,7 +2770,7 @@
       "t24h_cutoff_utc": "2026-09-04T20:15:00Z",
       "t90m_cutoff_utc": "2026-09-05T18:45:00Z",
       "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
-      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t90m_state": "EVIDENCE_CAPTURED",
       "t24h": {
         "state": "MISSED_CUTOFF_NO_BACKFILL",
         "cutoff_utc": "2026-09-04T20:15:00Z",
@@ -2793,11 +2781,13 @@
         "completed_valid_receipt_retained_after_cutoff": false
       },
       "t90m": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-05T18:45:00Z",
         "capture_window_open_utc": "2026-09-05T17:45:00Z",
-        "joined_receipts": [],
-        "live_owner": "SAT_T90M_20260905T1845Z",
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
+        "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
       },

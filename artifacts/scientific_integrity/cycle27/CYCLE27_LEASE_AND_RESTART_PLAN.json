@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE27_LEASE_AND_RESTART_PLAN",
-  "issued_at_utc": "2026-09-05T17:37:20Z",
-  "as_of_utc": "2026-09-05T17:37:20Z",
+  "issued_at_utc": "2026-09-05T18:09:30Z",
+  "as_of_utc": "2026-09-05T18:09:30Z",
   "this_plan_does_not_kill_live_owners": true,
   "saved_pid_alone_is_not_liveness": true,
   "live_inventory_source": "CONFIRMED_PROCESS_COMMAND_LINE",
@@ -18,7 +18,6 @@
     25740,
     26116,
     28180,
-    29028,
     29720,
     31632,
     31912,
@@ -48,18 +47,6 @@
     },
     "overnight_heartbeat": {
       "pid": 29720,
-      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
-    },
-    "sat_t90m_20260905t1845z": {
-      "checkpoint": "SAT_T90M_20260905T1845Z",
-      "contest_ids": [
-        "6582881",
-        "6587775"
-      ],
-      "primary_pid": 29028,
-      "wake_utc": "2026-09-05T18:00:00Z",
-      "cutoff_utc": "2026-09-05T18:45:00Z",
-      "no_git_commit_from_sleeper": true,
       "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
     },
     "sat_t90m_20260905t1930z": {

@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE27_LEASE_AND_RESTART_PLAN",
-  "issued_at_utc": "2026-09-05T20:20:56Z",
-  "as_of_utc": "2026-09-05T20:20:56Z",
+  "issued_at_utc": "2026-09-05T20:58:25Z",
+  "as_of_utc": "2026-09-05T20:58:25Z",
   "this_plan_does_not_kill_live_owners": true,
   "saved_pid_alone_is_not_liveness": true,
   "live_inventory_source": "CONFIRMED_PROCESS_COMMAND_LINE",
@@ -9,20 +9,17 @@
     5200,
     10124,
     13280,
-    21076,
     21488,
     23388,
     24552,
     24916,
-    25740,
     26116,
     29720,
     31632,
     31912,
     32368,
     32588,
-    33332,
-    34460
+    33332
   ],
   "atomic_lease_module": {
     "ops_runtime": "C:/BatteredAggieSyndrome.data/ops/cycle27/checkpoint_lease.py",
@@ -34,15 +31,6 @@
   },
   "failover_policy": "src/aggie_analytics/operations/checkpoint_failover_policy.py",
   "current_owners": {
-    "am_t90m": {
-      "checkpoint": "AM_T90M",
-      "contest_id": "6607349",
-      "primary_pid": 21076,
-      "failover_pid": 25740,
-      "wake_utc": "2026-09-05T20:45:00Z",
-      "cutoff_utc": "2026-09-05T21:30:00Z",
-      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
-    },
     "overnight_heartbeat": {
       "pid": 29720,
       "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
@@ -191,10 +179,6 @@
       "wake_utc": "2026-09-06T22:45:00Z",
       "cutoff_utc": "2026-09-06T23:30:00Z",
       "no_git_commit_from_sleeper": true,
-      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
-    },
-    "cluster_watchdog": {
-      "pid": 34460,
       "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
     },
     "ledger_refresh": {

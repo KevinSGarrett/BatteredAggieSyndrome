@@ -776,12 +776,12 @@
     "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
     "scientific_done_authorized": false
   },
-  "issued_at_utc": "2026-09-05T20:20:59Z",
+  "issued_at_utc": "2026-09-05T20:58:26Z",
   "live_owners": {
     "am_t24h": "COMPLETED_EVIDENCE_CAPTURED_0400f8b0",
     "am_t24h_failover_pid": 27724,
     "am_t24h_primary_pid": 28372,
-    "am_t90m": "ARMED_C26_PRIMARY_AND_FAILOVER",
+    "am_t90m": "COMPLETED_EVIDENCE_CAPTURED_8063d3bb_NOT_FORECAST_FROZEN",
     "am_t90m_failover_pid": 32428,
     "am_t90m_primary_pid": 24528,
     "do_not_kill": true,

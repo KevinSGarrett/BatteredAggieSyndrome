@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-05T20:20:59Z (America/Chicago 2026-09-05T15:20:59)
+Issued: 2026-09-05T20:58:26Z (America/Chicago 2026-09-05T15:58:26)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.
@@ -46,9 +46,9 @@ Durable owners (do not kill):
 Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTURED** for that cluster (10 contests), not FORECAST_FROZEN. Later T-24H cutoffs do not inherit that receipt.
 
 T24 states: {"ABSTAINED_AT_CHECKPOINT": 6, "CAPTURE_IN_PROGRESS": 3, "EVIDENCE_CAPTURED": 46, "MISSED_CUTOFF_NO_BACKFILL": 36}.
-T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 24, "EVIDENCE_CAPTURED": 45, "MISSED_CUTOFF_NO_BACKFILL": 8, "NOT_OPEN": 12}.
+T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 23, "EVIDENCE_CAPTURED": 58, "MISSED_CUTOFF_NO_BACKFILL": 8}.
 
-Next action: A&M T-90M wake 20:45Z / cutoff 21:30Z Sep5, then remaining national T-90M from 22:00Z, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: remaining Saturday T-90M clusters from 22:00Z (21:30Z national is bound from the A&M T-90M capture), then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 
@@ -73,7 +73,7 @@ D2: C26 Week 1 materializer still copies C24 rows. Cycle 27 remaining-checkpoint
 ## 5. Data / feature authority
 
 - Coaching staff: planned domain, `SOURCE_ABSENT` nationally, **NOT_CONSUMED** by the active five-candidate path. `coaches_poll_rank` is a poll ranking.
-- A&M official coaches URL remains blocked/wrong-resource; HC/OC/DC remain **UNKNOWN** (not NONE). Missouri State coaches page retrieved; titles remain titles, not play-callers.
+- A&M football-scoped staff directory retrieved (`https://12thman.com/staff-directory/department/football`): Head Coach Mike Elko, OC/DC titles observed as CONTEXT_ONLY; play-callers remain UNKNOWN. Missouri State coaches page frozen (`retrieved_count=1`). `coaches_poll_rank` is a poll ranking.
 - Current-contest helper is **not** consumed by the C26 Week 1 materializer. The Cycle 27 remaining-checkpoint binder consumes the helper without issuing a trusted forecast.
 - Weather is candidate-only. Roster/availability/recruiting/travel absent as consumed features.
 - No market-line tuning. No Week 1 outcome training.
@@ -88,7 +88,7 @@ A&M 6607349 C26 ridge: P(home)≈0.89513, margin≈+22.2506, emitted interval la
 
 `independent_predicted_score = null` (`NO_ELIGIBLE_WEEK1_JOINT_SCORE_OR_TOTAL_CANDIDATE`). Market-line implied score withheld (`INCOMPATIBLE_SCORE_REFERENCE` / missing book identity).
 
-Interim `PREGAME_RESEARCH_REPORT.md` is **not** T-24H or T-90M.
+`PREGAME_RESEARCH_REPORT.md` is **T-90M evidence** for contest 6607349 (`forecast_frozen=false`). It is not a new FORECAST_FROZEN payload.
 
 Postgame residual methodology is predeclared: prediction error `predicted-actual`, result residual `actual-predicted`. Repeated checkpoints are not independent games.
 
@@ -127,7 +127,7 @@ Do not read this as “no follow-up needed.”
 5. Exact-head Codex review of `b32c0cce` is FAIL (P1 report/readback disagreement repaired in a post-review delta). Later capture publication needs an explicit follow-on exact-head review; do not invent a self-referential SHA.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.
-8. A&M T-90M readable packet is issued only after that window is actually met; the T-24H evidence report is not a T-90M freeze.
+8. Remaining Saturday T-90M clusters from 22:00Z, plus T-24H 23:30Z Sep5 and Sun 23:30Z, stay on live sleepers and the watchdog. Do not backfill.
 
 ## 10. Non-claims
 

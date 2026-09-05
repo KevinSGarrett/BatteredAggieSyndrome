@@ -113,7 +113,7 @@ while ([DateTime]::UtcNow -lt $until) {
       $bindLog = Join-Path $Ops27 "CYCLE27_AM_T90M_BIND.log"
       Log "BIND_C27_AM_T90M"
       $env:PYTHONPATH = "$Repo\src;$Repo"
-      python -B (Join-Path $Ops27 "bind_cycle27_checkpoint_receipt.py") --checkpoint AM_T90M_20260905T2130Z --phase T90M --run-id c27-am-t90m-watchdog --cutoff 2026-09-05T21:30:00Z --cohort-contest 6607349 *>> $bindLog
+      python -B (Join-Path $Ops27 "bind_cycle27_checkpoint_receipt.py") --checkpoint AM_T90M_20260905T2130Z --phase T90M --run-id c27-am-t90m-watchdog --log (Join-Path $Ops26 "CYCLE26_CAPTURE_RUN_20260905T204500Z.log") --cutoff 2026-09-05T21:30:00Z --cohort-contest 6607349 *>> $bindLog
       if ($LASTEXITCODE -ne 0) { Log "BIND_C27_AM_T90M_FAILED exit=$LASTEXITCODE" }
     }
   }

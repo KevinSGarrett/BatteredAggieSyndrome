@@ -3,7 +3,7 @@
   "authority_enrichment_head_coach_boolean_retained_as_staff": false,
   "classification": "CYCLE27_COACHING_CENSUS_CONTEXT_ONLY_NOT_CONSUMED",
   "coaches_poll_rank_is_not_staff": true,
-  "code_head": "0cb2eed3b9c9d30532b5284ca624eb25da32c8be",
+  "code_head": "a5fc3b38ed592781f245a65e9f051d445d7d7ddd",
   "contract_id": "CYCLE27-COACHING-DATA-AND-CONSUMPTION-CENSUS-V1",
   "counts": {
     "by_role": {
@@ -131,7 +131,7 @@
         "RETRIEVED": 1
       },
       "model_consumption": "NOT_CONSUMED_BY_MODEL",
-      "packet_identity": "c7ccba9f26e6f49c237c40852d2a2a6f7e0f905d31066439d34d693244f70c04",
+      "packet_identity": "e479b3e91b5e48508959ad6d0e2859ba9a71dd8eedcfb7f183bca7444096ecd6",
       "team_label": "Texas A&M",
       "title_observation_count": 38
     },
@@ -147,10 +147,10 @@
       "title_observation_count": 17
     }
   },
-  "gate_identity": "073531de5b08b9b76bc78c17962f8cbb3e0269627f427f67e8b2243eb42c96cc",
+  "gate_identity": "69317f10435dbfcc2f917f83019486eaa6174d9647f31894d0f527b64b38facc",
   "head_coach_boolean_is_not_full_coverage": true,
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-05T17:27:04Z",
+  "issued_at_utc": "2026-09-05T20:58:22Z",
   "jira_key": "BAT-690",
   "manual_coach_bonus_permitted": false,
   "maturity_layers": {

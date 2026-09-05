@@ -1,7 +1,7 @@
-# Pregame research report — T-24H evidence
+# Pregame research report — T-90M evidence
 
-**Label:** `T-24H_EVIDENCE_CAPTURED_NOT_FORECAST_FROZEN`. T-24H evidence is captured for contest 6607349. This is EVIDENCE_CAPTURED, not FORECAST_FROZEN. The table below is the preserved C26 EARLY_WEEK1 successor, not a new T-24H freeze.
-**As of (UTC):** 2026-09-05T17:27:04Z
+**Label:** `T-90M_EVIDENCE_CAPTURED_NOT_FORECAST_FROZEN`. T-90M evidence is captured for contest 6607349. This is EVIDENCE_CAPTURED, not FORECAST_FROZEN. The table below is the preserved C26 EARLY_WEEK1 successor, not a new T-90M freeze.
+**As of (UTC):** 2026-09-05T20:58:22Z
 **Contest:** NCAA `6607349` — Texas A&M (home) vs Missouri State (away).
 **Kickoff bound:** 2026-09-05T23:00:00Z (from frozen payload).
 **Hold:** ACTIVE. Merge unauthorized. Scientific Done unauthorized.
@@ -35,7 +35,7 @@ Ridge probability, margin, and interval are from the same declared Normal residu
 
 - National domain `coaching_staff`: `SOURCE_ABSENT`.
 - Structured acquisition-registry coach entry: `False`.
-- Texas A&M staff fetch: `BLOCKED HTTP 404 https://12thman.com/sports/football/coaches final=https://12thman.com/sports/football/coaches sha256=d58487406ce9c28b0e26b189776b68151d39fdd1b3aa361c61d6dddbd9f11f0b retrieved_at=2026-09-05T17:27:04Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 404 https://12thman.com/sports/football/staff final=https://12thman.com/sports/football/staff sha256=3fca8c3450d3a80ebf81b022f365ec0c5ef1dbb70bd1536bdc90edca32f678f1 retrieved_at=2026-09-05T17:27:05Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 200 https://12thman.com/coaches.aspx?path=football final=https://12thman.com/sports/womens-golf/roster/season/2016-17/staff/trelle-mccombs sha256=471e338f82c3280f69dad970251861bfc8349f3212b0d393112edf4043576d0f retrieved_at=2026-09-05T17:27:05Z identity=WRONG_RESOURCE_REDIRECT error=WRONG_RESOURCE_REDIRECT; RETRIEVED HTTP 200 https://12thman.com/staff-directory/department/football final=https://12thman.com/staff-directory/department/football sha256=0ab5e5baa6af3957ba24714e7dcd916fb44718a1a214c24869f4219fbc5bdecd retrieved_at=2026-09-05T17:27:06Z identity=PAGE_IDENTITY_PLAUSIBLE`.
+- Texas A&M staff fetch: `BLOCKED HTTP 404 https://12thman.com/sports/football/coaches final=https://12thman.com/sports/football/coaches sha256=2526cd53fcbd743571fa89acfaa7c4cc59c6b51123304901db505bb3a9367e7a retrieved_at=2026-09-05T20:58:22Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 404 https://12thman.com/sports/football/staff final=https://12thman.com/sports/football/staff sha256=bc995ddd726ef22b13b84f7c9736dfbfa6127c304179f68545e9babcdb977369 retrieved_at=2026-09-05T20:58:23Z identity=PAGE_IDENTITY_PLAUSIBLE error=HTTP Error 404: Not Found; BLOCKED HTTP 200 https://12thman.com/coaches.aspx?path=football final=https://12thman.com/sports/womens-golf/roster/season/2016-17/staff/trelle-mccombs sha256=83d88fb4ee838fa04f5b893240f805d7122bbcb5097bba81a6501558a83ed233 retrieved_at=2026-09-05T20:58:23Z identity=WRONG_RESOURCE_REDIRECT error=WRONG_RESOURCE_REDIRECT; RETRIEVED HTTP 200 https://12thman.com/staff-directory/department/football final=https://12thman.com/staff-directory/department/football sha256=38afd8f6e841c740457491ea6f952fb597c94c2585c7e74d9bf61396b216f8c6 retrieved_at=2026-09-05T20:58:24Z identity=PAGE_IDENTITY_PLAUSIBLE`.
 - Missouri State staff fetch: `RETRIEVED HTTP 200 https://missouristatebears.com/sports/football/coaches final=https://missouristatebears.com/sports/football/coaches sha256=0e1fad2c2262d703757b8357e05a8ccebb53bffe4486fa6b49a334ec8a158b02 retrieved_at=2026-09-04T21:33:38Z identity=PAGE_IDENTITY_PLAUSIBLE`.
 - HC/OC/DC titles, when observed on an official page, remain titles. Play-caller roles are `UNKNOWN` unless contemporaneous non-title evidence exists.
 - Coaching does not affect any displayed BAS number.
@@ -72,7 +72,7 @@ No actual-score column. Week 1 outcomes are not training data.
 
 - May read the shadow probabilities and supported ridge margin as issued, with trust `UNTRUSTED_SHADOW`.
 - May not treat the control as a pick.
-- May not treat this T-24H evidence packet as FORECAST_FROZEN or as a T-90M freeze.
+- May not treat this T-90M evidence packet as FORECAST_FROZEN.
 - May not treat coaching titles as model inputs or play-caller proof.
 - May not treat a line-implied score, if later eligible, as a BAS final-score prediction.
 - May not conclude calibration, BAS, or persistent underperformance from one game.

@@ -1,8 +1,8 @@
 {
   "artifact_type": "CYCLE27_CONTEST_CHECKPOINT_LEDGER",
-  "issued_at_utc": "2026-09-05T20:58:25Z",
-  "as_of_utc": "2026-09-05T20:58:25Z",
-  "predecessor_c26_ledger_issued_at_utc": "2026-09-05T20:50:14Z",
+  "issued_at_utc": "2026-09-05T21:32:45Z",
+  "as_of_utc": "2026-09-05T21:32:45Z",
+  "predecessor_c26_ledger_issued_at_utc": "2026-09-05T21:21:01Z",
   "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
   "contest_count": 91,
   "clock_uncertainty": "Host OS clock; local receipt is not cryptographic proof",
@@ -13,6 +13,7 @@
     "CYCLE26_SEP3_T90M_FREEZE_RECEIPT",
     "CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT",
     "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT",
+    "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
     "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT",
@@ -62,8 +63,8 @@
   },
   "t90m_state_counts": {
     "ABSTAINED_AT_CHECKPOINT": 2,
-    "CAPTURE_IN_PROGRESS": 23,
-    "EVIDENCE_CAPTURED": 58,
+    "CAPTURE_IN_PROGRESS": 18,
+    "EVIDENCE_CAPTURED": 63,
     "MISSED_CUTOFF_NO_BACKFILL": 8
   },
   "cutoff_clusters": {
@@ -921,23 +922,6 @@
       "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
     },
     {
-      "name": "SAT_T90M_20260905T2200Z",
-      "kind": "T90M",
-      "contest_ids": [
-        "6586022",
-        "6589809",
-        "6590386",
-        "6590505",
-        "6614741"
-      ],
-      "primary_pid": 10124,
-      "wake_utc": "2026-09-05T21:15:00Z",
-      "cutoff_utc": "2026-09-05T22:00:00Z",
-      "do_not_kill": true,
-      "no_git_commit_from_sleeper": true,
-      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
-    },
-    {
       "name": "SAT_T90M_20260905T2215Z",
       "kind": "T90M",
       "contest_ids": [
@@ -1096,13 +1080,19 @@
       "primary_pid": 21488,
       "do_not_kill": true,
       "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    {
+      "name": "cluster_watchdog",
+      "pid": 49612,
+      "primary_pid": 49612,
+      "do_not_kill": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
     }
   ],
   "heartbeat_pid": 29720,
   "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
   "do_not_kill_pids": [
     5200,
-    10124,
     13280,
     21488,
     23388,
@@ -1114,7 +1104,8 @@
     31912,
     32368,
     32588,
-    33332
+    33332,
+    49612
   ],
   "contests": [
     {
@@ -2871,7 +2862,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -2904,7 +2895,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -2937,7 +2928,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -2970,7 +2961,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3003,7 +2994,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3036,7 +3027,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3069,7 +3060,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3102,7 +3093,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3135,7 +3126,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [
         "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY"
@@ -3170,7 +3161,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3203,7 +3194,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3236,7 +3227,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3269,7 +3260,7 @@
         ],
         "live_owner": null,
         "forecast_frozen": false,
-        "completed_valid_receipt_retained_after_cutoff": false
+        "completed_valid_receipt_retained_after_cutoff": true
       },
       "abstention_reasons": [],
       "predecessor_c26_t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
@@ -3281,7 +3272,7 @@
       "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
       "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
       "t24h_state": "EVIDENCE_CAPTURED",
-      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t90m_state": "EVIDENCE_CAPTURED",
       "t24h": {
         "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:30:00Z",
@@ -3294,11 +3285,13 @@
         "completed_valid_receipt_retained_after_cutoff": true
       },
       "t90m": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-05T22:00:00Z",
         "capture_window_open_utc": "2026-09-05T21:00:00Z",
-        "joined_receipts": [],
-        "live_owner": "SAT_T90M_20260905T2200Z",
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
+        "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
       },
@@ -3312,7 +3305,7 @@
       "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
       "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
       "t24h_state": "EVIDENCE_CAPTURED",
-      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t90m_state": "EVIDENCE_CAPTURED",
       "t24h": {
         "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:30:00Z",
@@ -3325,11 +3318,13 @@
         "completed_valid_receipt_retained_after_cutoff": true
       },
       "t90m": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-05T22:00:00Z",
         "capture_window_open_utc": "2026-09-05T21:00:00Z",
-        "joined_receipts": [],
-        "live_owner": "SAT_T90M_20260905T2200Z",
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
+        "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
       },
@@ -3343,7 +3338,7 @@
       "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
       "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
       "t24h_state": "EVIDENCE_CAPTURED",
-      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t90m_state": "EVIDENCE_CAPTURED",
       "t24h": {
         "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:30:00Z",
@@ -3356,11 +3351,13 @@
         "completed_valid_receipt_retained_after_cutoff": true
       },
       "t90m": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-05T22:00:00Z",
         "capture_window_open_utc": "2026-09-05T21:00:00Z",
-        "joined_receipts": [],
-        "live_owner": "SAT_T90M_20260905T2200Z",
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
+        "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
       },
@@ -3374,7 +3371,7 @@
       "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
       "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
       "t24h_state": "EVIDENCE_CAPTURED",
-      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t90m_state": "EVIDENCE_CAPTURED",
       "t24h": {
         "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:30:00Z",
@@ -3387,11 +3384,13 @@
         "completed_valid_receipt_retained_after_cutoff": true
       },
       "t90m": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-05T22:00:00Z",
         "capture_window_open_utc": "2026-09-05T21:00:00Z",
-        "joined_receipts": [],
-        "live_owner": "SAT_T90M_20260905T2200Z",
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
+        "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
       },
@@ -3405,7 +3404,7 @@
       "t24h_cutoff_utc": "2026-09-04T23:30:00Z",
       "t90m_cutoff_utc": "2026-09-05T22:00:00Z",
       "t24h_state": "EVIDENCE_CAPTURED",
-      "t90m_state": "CAPTURE_IN_PROGRESS",
+      "t90m_state": "EVIDENCE_CAPTURED",
       "t24h": {
         "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-04T23:30:00Z",
@@ -3418,11 +3417,13 @@
         "completed_valid_receipt_retained_after_cutoff": true
       },
       "t90m": {
-        "state": "CAPTURE_IN_PROGRESS",
+        "state": "EVIDENCE_CAPTURED",
         "cutoff_utc": "2026-09-05T22:00:00Z",
         "capture_window_open_utc": "2026-09-05T21:00:00Z",
-        "joined_receipts": [],
-        "live_owner": "SAT_T90M_20260905T2200Z",
+        "joined_receipts": [
+          "CYCLE27_CHECKPOINT_CAPTURE_RECEIPT"
+        ],
+        "live_owner": null,
         "forecast_frozen": false,
         "completed_valid_receipt_retained_after_cutoff": false
       },

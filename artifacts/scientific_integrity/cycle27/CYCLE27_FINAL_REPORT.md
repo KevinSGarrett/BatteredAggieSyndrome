@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-05T07:21:40Z (America/Chicago 2026-09-05T02:21:40)
+Issued: 2026-09-05T07:22:55Z (America/Chicago 2026-09-05T02:22:55)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.
@@ -48,7 +48,7 @@ Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTU
 T24 states: {"ABSTAINED_AT_CHECKPOINT": 6, "CAPTURE_IN_PROGRESS": 3, "EVIDENCE_CAPTURED": 46, "MISSED_CUTOFF_NO_BACKFILL": 36}.
 T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 60, "EVIDENCE_CAPTURED": 9, "MISSED_CUTOFF_NO_BACKFILL": 8, "NOT_OPEN": 12}.
 
-Next action: remaining T-24H 08:00Z Sep5 cluster (wake 07:15Z), then Saturday T-90M from 14:30Z, A&M T-90M wake 20:45Z Sep5. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: remaining T-24H 23:30Z Sep5 and Sun 23:30Z, then Saturday T-90M from 14:30Z, A&M T-90M wake 20:45Z Sep5. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 

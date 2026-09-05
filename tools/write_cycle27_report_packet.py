@@ -110,9 +110,14 @@ def main() -> int:
                 "rejected_receipt_before_kickoff_count"
             ],
             "reason": (
-                "Pinned scoreboard HTML is not admitted from pin-field "
-                "retrieved_at_utc. Independently hashed acquisition receipts are "
-                "required; the current pin has none, so terminals stay rejected."
+                "Pinned successor admits terminals only from independently hashed "
+                "acquisition receipts. Pin-field retrieved_at_utc is not "
+                "acquisition authority. Current pin: "
+                f"{scoring['summary']['terminal_contest_count']} terminals / "
+                f"{scoring['summary']['scored_row_count']} scored rows / "
+                f"{scoring['summary']['unique_scored_games']} unique games. "
+                "Publication remains UNTRUSTED_SHADOW. New scoreboard files "
+                "require a new successor pin, never a rewrite of this pin."
             ),
             "predecessor_preserved": {
                 "gate": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
@@ -323,7 +328,7 @@ Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTU
 T24 states: {json.dumps(ledger["t24h_state_counts"], sort_keys=True)}.
 T90 states: {json.dumps(ledger["t90m_state_counts"], sort_keys=True)}.
 
-Next action: remaining Saturday T-90M at 23:30Z, T-24H 23:30Z Sep5, and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: Sunday T-90M 00:30Z/01:00Z/06:30Z/22:00Z, Monday T-90M 22:00Z, and Sunday T-24H 23:30Z remain on live sleepers plus the watchdog. Saturday T-90M 23:30Z and Sunday T-90M 00:00Z are captured; Saturday T-24H 23:30Z is MISSED_CUTOFF_NO_BACKFILL with a late raw capture only. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 
@@ -395,14 +400,14 @@ Local/live statuses preserved under the hold. No new BAT keys. Substantial C27 w
 
 Do not read this as “no follow-up needed.”
 
-1. Remaining T-24H clusters after 00:00Z and all T-90M clusters including A&M 21:30Z remain owned by live sleepers plus the watchdog; bind C27 receipts after each verified capture; do not duplicate or backfill.
+1. Remaining Sunday/Monday T-90M clusters and Sunday T-24H 23:30Z remain owned by live sleepers plus the watchdog; bind C27 receipts after each verified capture; do not duplicate or backfill. A&M T-90M is already bound as EVIDENCE_CAPTURED, not FORECAST_FROZEN.
 2. Hosted CONTROL-07 checker bootstrap still needs independent reviewer approval; until then hosted green FAIL remains non-acceptance.
 3. R26-22 / primary fitted-path trust remains incomplete; keep UNTRUSTED_SHADOW. C26 materializer remains a C24 copy.
 4. C27 scoring successor currently has n={scoring["summary"]["unique_scored_games"]} unique scored games, below the predeclared 30-game skill floor; keep UNTRUSTED_SHADOW. Do not invent timestamps or treat pin-field time as authority.
 5. Exact-head Codex review of `b32c0cce` is FAIL (P1 report/readback disagreement repaired in a post-review delta). Later capture publication needs an explicit follow-on exact-head review; do not invent a self-referential SHA.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.
-8. Remaining Saturday T-90M clusters from 22:00Z, plus T-24H 23:30Z Sep5 and Sun 23:30Z, stay on live sleepers and the watchdog. Do not backfill.
+8. Remaining Sunday/Monday T-90M clusters and Sunday T-24H 23:30Z stay on live sleepers and the watchdog. Saturday T-24H 23:30Z is MISSED_CUTOFF_NO_BACKFILL; do not backfill it.
 
 ## 10. Non-claims
 

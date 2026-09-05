@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-05T23:36:53Z (America/Chicago 2026-09-05T18:36:53)
+Issued: 2026-09-05T23:53:44Z (America/Chicago 2026-09-05T18:53:44)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.
@@ -46,9 +46,9 @@ Durable owners (do not kill):
 Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTURED** for that cluster (10 contests), not FORECAST_FROZEN. Later T-24H cutoffs do not inherit that receipt.
 
 T24 states: {"ABSTAINED_AT_CHECKPOINT": 6, "CAPTURE_IN_PROGRESS": 1, "EVIDENCE_CAPTURED": 46, "MISSED_CUTOFF_NO_BACKFILL": 38}.
-T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 8, "EVIDENCE_CAPTURED": 73, "MISSED_CUTOFF_NO_BACKFILL": 8}.
+T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 6, "EVIDENCE_CAPTURED": 75, "MISSED_CUTOFF_NO_BACKFILL": 8}.
 
-Next action: Sunday T-90M 00:30Z/01:00Z/06:30Z/22:00Z, Monday T-90M 22:00Z, and Sunday T-24H 23:30Z remain on live sleepers plus the watchdog. Saturday T-90M 23:30Z and Sunday T-90M 00:00Z are captured; Saturday T-24H 23:30Z is MISSED_CUTOFF_NO_BACKFILL with a late raw capture only. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: Sunday T-90M 01:00Z (wake 00:15Z), 06:30Z, 22:00Z, Monday T-90M 22:00Z, and Sunday T-24H 23:30Z remain on live sleepers plus the watchdog. Sunday T-90M 00:00Z and 00:30Z are captured. Saturday T-24H 23:30Z is MISSED_CUTOFF_NO_BACKFILL with a late raw capture only. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 
@@ -82,7 +82,7 @@ D2: C26 Week 1 materializer still copies C24 rows. Cycle 27 remaining-checkpoint
 
 C26 forecast gate `aa4ff84b...` / dataset `770d2544...` preserved (455/399).
 
-Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `e5ae2490f7aed35f443deab91684355043eef6cf5b4fb2db81819a0a70264aa4` / dataset `4fedbdc265a458ba03c72d77e3ff5fbf9b5c6cd9e3e4ed4d6feb2c54c530c49c` admits 19 terminals / 76 scored rows / 16 unique games from independently hashed acquisition receipts. Pin-field `retrieved_at_utc` is not acquisition authority. Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
+Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Prior Cycle 27 pin gate `e5ae2490...` / dataset `4fedbdc2...` (19 terminals / 16 unique games) remains lineage in git history and is not rewritten. Current successor gate `6d08fae4117d59374d21f511d235e1df5b1e30581b392692503dbadd82ea4c8d` / dataset `0aef490e088b5349644f6d8cd415fb6a86913242e33a53b5cd441e5178052628` admits 45 terminals / 193 scored rows / 41 unique games from independently hashed acquisition receipts. Pin-field `retrieved_at_utc` is not acquisition authority. Publication `UNTRUSTED_SHADOW`. Contest 6607349 is not in this pin's terminal set. The 30-game operational sample floor is a sample-size floor only and does not establish skill.
 
 A&M 6607349 C26 ridge: P(home)≈0.89513, margin≈+22.2506, emitted interval label 0.95 vs declared 0.8. Trust `UNTRUSTED_SHADOW`. Control `national_base_rate` is a control, never a recommendation.
 
@@ -123,7 +123,7 @@ Do not read this as “no follow-up needed.”
 1. Remaining Sunday/Monday T-90M clusters and Sunday T-24H 23:30Z remain owned by live sleepers plus the watchdog; bind C27 receipts after each verified capture; do not duplicate or backfill. A&M T-90M is already bound as EVIDENCE_CAPTURED, not FORECAST_FROZEN.
 2. Hosted CONTROL-07 checker bootstrap still needs independent reviewer approval; until then hosted green FAIL remains non-acceptance.
 3. R26-22 / primary fitted-path trust remains incomplete; keep UNTRUSTED_SHADOW. C26 materializer remains a C24 copy.
-4. C27 scoring successor currently has n=16 unique scored games, below the predeclared 30-game skill floor; keep UNTRUSTED_SHADOW. Do not invent timestamps or treat pin-field time as authority.
+4. C27 scoring successor currently has n=41 unique scored games. That meets the predeclared 30-game operational sample floor as a sample-size count only; it does not establish skill, calibrate tails, or select a champion. Keep UNTRUSTED_SHADOW. Do not invent timestamps or treat pin-field time as authority. A&M 6607349 is not yet an official FINAL in this pin.
 5. Exact-head Codex review of `b32c0cce` is FAIL (P1 report/readback disagreement repaired in a post-review delta). Later capture publication needs an explicit follow-on exact-head review; do not invent a self-referential SHA.
 6. National historical coaching acquisition and an eligible joint score model remain follow-on, not Week 1 prerequisites.
 7. Merge remains blocked until explicit exact-scope user authorization, independent GitHub review, and required checks.

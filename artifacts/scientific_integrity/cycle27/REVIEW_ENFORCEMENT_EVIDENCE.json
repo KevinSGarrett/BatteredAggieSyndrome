@@ -64,7 +64,7 @@
   ],
   "hold": "ACTIVE",
   "hosted_green_on_fail_is_not_acceptance": true,
-  "issued_at_utc": "2026-09-05T18:09:31Z",
+  "issued_at_utc": "2026-09-05T18:53:25Z",
   "masked_fail_confirmed": true,
   "merge_authorized": false,
   "source": "ops/cycle27/CYCLE27_PREFLIGHT_AND_OWNERSHIP.json",

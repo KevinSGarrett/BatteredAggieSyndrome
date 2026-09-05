@@ -16,7 +16,7 @@
     "t90m_state": "EVIDENCE_CAPTURED"
   },
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-05T21:38:54Z",
+  "issued_at_utc": "2026-09-05T21:54:46Z",
   "label": "EVIDENCE_AND_DISPOSITION_PACKET_NOT_T24H_NOT_T90M_FORECAST_FREEZE",
   "merge_authorized": false,
   "postgame_methodology_identity": "cb6ee39381bbf595eb39b9b0498171b57339258076de0cea2632b40a0f4e893e",
@@ -64,8 +64,8 @@
   },
   "t90m_state_counts": {
     "ABSTAINED_AT_CHECKPOINT": 2,
-    "CAPTURE_IN_PROGRESS": 17,
-    "EVIDENCE_CAPTURED": 64,
+    "CAPTURE_IN_PROGRESS": 12,
+    "EVIDENCE_CAPTURED": 69,
     "MISSED_CUTOFF_NO_BACKFILL": 8
   },
   "universe_contest_count": 91,

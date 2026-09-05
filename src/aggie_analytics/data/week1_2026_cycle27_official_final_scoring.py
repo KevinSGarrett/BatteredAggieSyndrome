@@ -59,6 +59,15 @@ PREDECESSOR_SCORING_DATASET_IDENTITY = (
 )
 PREDECESSOR_JOINED_FORECAST_ROWS = 50
 PREDECESSOR_SCORED_ROW_COUNT = 41
+ZERO_TERMINAL_SUCCESSOR_GATE_IDENTITY = (
+    "8d47971c1773ed88947ebe9ef5637fb992d4766a717122a087bc8e8ddde7afe5"
+)
+ZERO_TERMINAL_SUCCESSOR_DATASET_IDENTITY = (
+    "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed"
+)
+ACQUISITION_RECEIPT_ROOT = (
+    "manifests/shadow/week1_2026_cycle27_official_final_acquisition"
+)
 
 WEEK1_GATE_RELATIVE = (
     "artifacts/forecast/week1_2026_game_grain_national_forecast_successor_gate.json"
@@ -305,6 +314,42 @@ def build_pinned_input_manifest(
     return manifest
 
 
+def write_hashed_acquisition_receipt(
+    *,
+    data_root: Path,
+    html_relative_path: str,
+    html_sha256: str,
+    html_bytes: int,
+    retrieved_at_utc: str,
+) -> dict[str, Any]:
+    """Write a content-addressed acquisition receipt. Pin-field time is not authority."""
+
+    if parse_utc(retrieved_at_utc) is None:
+        raise Week1Cycle27OfficialFinalScoringError(
+            "acquisition receipt retrieved_at_utc is not a UTC instant"
+        )
+    payload = {
+        "artifact_type": "WEEK1_OFFICIAL_FINAL_ACQUISITION_RECEIPT",
+        "html_bytes": int(html_bytes),
+        "html_relative_path": posix_relative(html_relative_path),
+        "html_sha256": str(html_sha256).strip().lower(),
+        "pin_field_retrieved_at_is_not_authority": True,
+        "retrieved_at_utc": retrieved_at_utc,
+        "source_id": "SRC-NCAA-OFFICIAL-STATS",
+    }
+    body = canonical_json_bytes(payload)
+    digest = sha256_bytes(body)
+    relative = f"{ACQUISITION_RECEIPT_ROOT}/sha256/{digest}/acquisition_receipt.json"
+    path = data_root / relative
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(body)
+    return {
+        "acquisition_receipt_relative_path": relative,
+        "acquisition_receipt_sha256": digest,
+        "retrieved_at_utc": retrieved_at_utc,
+    }
+
+
 def capture_record_from_file(
     *,
     data_root: Path,
@@ -441,16 +486,51 @@ def terminal_snapshot(
         away_points = int(card["away_points"])
     except (KeyError, TypeError, ValueError):
         return None
+    if home_points > away_points:
+        expected_winner = "HOME"
+    elif away_points > home_points:
+        expected_winner = "AWAY"
+    else:
+        expected_winner = "TIE"
+    winner = card.get("winner")
+    if winner is None and card.get("home_win") in (0, 1):
+        winner = "HOME" if int(card["home_win"]) == 1 else "AWAY"
+    if winner is not None and str(winner).upper() != expected_winner:
+        return None
     return {
         "ncaa_contest_id": contest_id,
         "home_points": home_points,
         "away_points": away_points,
+        "away_source_team_id": card.get("away_source_team_id"),
+        "home_source_team_id": card.get("home_source_team_id"),
         "final_status_text": card.get("final_status_text"),
         "capture_sha256": capture["sha256"],
         "retrieved_at_utc": capture.get("retrieved_at_utc"),
         "retrieved_at_rejection": capture.get("retrieved_at_rejection"),
         "receipt_id": capture.get("receipt_id"),
     }
+
+
+def forecast_participants_conflict(
+    row: Mapping[str, Any], snapshot: Mapping[str, Any]
+) -> bool:
+    """Join ordered source participants when the frozen row carries them."""
+
+    pairs = (
+        ("home_source_team_id", snapshot.get("home_source_team_id")),
+        ("away_source_team_id", snapshot.get("away_source_team_id")),
+        ("home_canonical_team_id", snapshot.get("home_canonical_team_id")),
+        ("away_canonical_team_id", snapshot.get("away_canonical_team_id")),
+    )
+    for field, observed in pairs:
+        expected = row.get(field)
+        if expected in (None, ""):
+            continue
+        if observed in (None, ""):
+            continue
+        if str(expected).strip() != str(observed).strip():
+            return True
+    return False
 
 
 def merge_pinned_terminals(
@@ -650,6 +730,12 @@ def classify_forecast_row(
             **base,
             "state": STATE_AWAITING,
             "unscored_reason": "AWAITING_OFFICIAL_FINAL",
+        }
+    if forecast_participants_conflict(row, final):
+        return {
+            **base,
+            "state": STATE_CONFLICT,
+            "unscored_reason": "PARTICIPANT_IDENTITY_CONFLICT",
         }
     home_points = int(final["home_points"])
     away_points = int(final["away_points"])
@@ -920,6 +1006,12 @@ def score_from_pinned_manifest(
             "predecessor_joined_forecast_rows": PREDECESSOR_JOINED_FORECAST_ROWS,
             "predecessor_scored_row_count": PREDECESSOR_SCORED_ROW_COUNT,
             "predecessor_scoring_payload_rewritten": False,
+            "zero_terminal_successor_gate_identity": (
+                ZERO_TERMINAL_SUCCESSOR_GATE_IDENTITY
+            ),
+            "zero_terminal_successor_dataset_identity": (
+                ZERO_TERMINAL_SUCCESSOR_DATASET_IDENTITY
+            ),
         },
         "summary": {
             "scoreboard_html_count": merged["scoreboard_html_count"],

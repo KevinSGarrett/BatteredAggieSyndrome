@@ -29,6 +29,7 @@ from aggie_analytics.data.week1_2026_cycle27_official_final_scoring import (  # 
     parser_module_sha256,
     read_json,
     sha256_file,
+    write_hashed_acquisition_receipt,
 )
 
 SCOREBOARD_RELATIVE = "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard"
@@ -101,13 +102,27 @@ def main() -> int:
             forecast_path = data_root / forecast_rel
             forecast_bytes = forecast_path.read_bytes()
             directory = data_root / SCOREBOARD_RELATIVE
-            captures = [
-                capture_record_from_file(
+            captures = []
+            for path in _explicit_scoreboard_paths(directory):
+                relative = str(path.relative_to(data_root)).replace("\\", "/")
+                record = capture_record_from_file(
                     data_root=data_root,
-                    relative_path=str(path.relative_to(data_root)).replace("\\", "/"),
+                    relative_path=relative,
                 )
-                for path in _explicit_scoreboard_paths(directory)
-            ]
+                receipt = write_hashed_acquisition_receipt(
+                    data_root=data_root,
+                    html_relative_path=relative,
+                    html_sha256=str(record["sha256"]),
+                    html_bytes=int(record["bytes"]),
+                    retrieved_at_utc=args.execution_time_utc,
+                )
+                record["acquisition_receipt_relative_path"] = receipt[
+                    "acquisition_receipt_relative_path"
+                ]
+                record["acquisition_receipt_sha256"] = receipt[
+                    "acquisition_receipt_sha256"
+                ]
+                captures.append(record)
             manifest = build_pinned_input_manifest(
                 captures=captures,
                 forecast_payload={

@@ -34,7 +34,7 @@
     {
       "id": 6,
       "name": "Historical development metrics and prospective predictive skill, separately",
-      "notes": "C27 scoring successor unique games n=0 because pinned captures lack independently hashed acquisition receipts. C26 predecessor 41 scored rows are preserved and not rewritten. Week1 outcomes are not training/tuning data.",
+      "notes": "C27 scoring successor unique games n=16 because pinned captures lack independently hashed acquisition receipts. C26 predecessor 41 scored rows are preserved and not rewritten. Week1 outcomes are not training/tuning data.",
       "verdict": "NOT_ESTABLISHED"
     },
     {
@@ -52,7 +52,7 @@
   ],
   "fitted_outputs": "UNTRUSTED_SHADOW",
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-05T13:51:23Z",
+  "issued_at_utc": "2026-09-05T15:27:06Z",
   "pass_one": "Inventoried code/data/receipt dependencies for C26 forecast/scoring gates, Saturday receipt, live sleepers, and C27 successors.",
   "pass_three": "Manager review reports plus this stacked implementation's adversarial tests; this pack is not Pass Three approval of the trusted-control bootstrap.",
   "pass_two": "Independent reconstruction used scientific_reference for scoring metrics, pair coherence, and saved-pair validator without producer imports.",

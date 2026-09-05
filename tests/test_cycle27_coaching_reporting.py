@@ -26,12 +26,16 @@ from aggie_analytics.data.cycle27_coaching_reporting import (  # noqa: E402
     UNKNOWN_NOT_NONE,
     _fetch_result,
     apply_coach_bonus,
+    bind_source_person_identity,
     build_coaching_census,
     build_staff_context_packet,
     classify_feature_as_staff_evidence,
+    classify_future_role_announcement,
     classify_head_coach_presence_boolean,
     classify_missing_role,
     classify_page_identity,
+    classify_role_effective_time,
+    classify_title_role,
     classify_title_versus_play_caller,
     inspect_source_acquisition_registry,
     parse_staff_directory_html,
@@ -330,6 +334,72 @@ class Cycle27CoachingReportingTests(unittest.TestCase):
         )
         self.assertNotEqual(unresolved[0]["canonical_team_id"], "622407")
         self.assertIn("unresolved_source", census["universe"]["deduplicated_on"][0])
+
+    def test_co_and_interim_roles_are_retained_not_dropped(self) -> None:
+        co_oc = classify_title_role("Co-Offensive Coordinator")
+        interim_dc = classify_title_role("Interim Defensive Coordinator")
+        self.assertEqual(co_oc["title_role_id"], "OFFENSIVE_COORDINATOR")
+        self.assertTrue(co_oc["flags"]["co_role"])
+        self.assertTrue(co_oc["co_or_interim_or_delegated"])
+        self.assertEqual(interim_dc["title_role_id"], "DEFENSIVE_COORDINATOR")
+        self.assertTrue(interim_dc["flags"]["interim"])
+        people = parse_staff_directory_html(
+            '<script type="application/ld+json">'
+            '[{"name":"Pat Smith","jobTitle":"Co-Offensive Coordinator"},'
+            '{"name":"Lee Jones","jobTitle":"Interim Defensive Coordinator"}]'
+            "</script>"
+        )
+        roles = {person["title_role_id"] for person in people}
+        self.assertIn("OFFENSIVE_COORDINATOR", roles)
+        self.assertIn("DEFENSIVE_COORDINATOR", roles)
+        self.assertTrue(any(person["co_or_interim_or_delegated"] for person in people))
+
+    def test_wrong_team_or_season_is_not_bound(self) -> None:
+        wrong_team = bind_source_person_identity(
+            source_person_name="Same Name",
+            canonical_coach_id="COACH-1",
+            source_team_id="TEAM-A",
+            bound_team_id="TEAM-B",
+            source_season=2026,
+            bound_season=2026,
+        )
+        wrong_season = bind_source_person_identity(
+            source_person_name="Same Name",
+            canonical_coach_id="COACH-1",
+            source_team_id="TEAM-A",
+            bound_team_id="TEAM-A",
+            source_season=2025,
+            bound_season=2026,
+        )
+        name_only = bind_source_person_identity(
+            source_person_name="Same Name",
+            canonical_coach_id=None,
+            source_team_id="TEAM-A",
+            bound_team_id="TEAM-A",
+            source_season=2026,
+            bound_season=2026,
+        )
+        self.assertEqual(wrong_team["status"], "WRONG_TEAM_REJECTED")
+        self.assertEqual(wrong_season["status"], "WRONG_SEASON_REJECTED")
+        self.assertEqual(name_only["status"], "NAME_ONLY_NOT_PERSON_IDENTITY")
+        self.assertFalse(wrong_team["bound"])
+
+    def test_future_announcement_and_invented_effective_time(self) -> None:
+        future = classify_future_role_announcement(
+            role_effective_utc="2026-09-06T00:00:00Z",
+            cutoff_utc="2026-09-05T21:30:00Z",
+        )
+        invented = classify_role_effective_time(
+            effective_from=None,
+            synthesize_if_missing=True,
+        )
+        unknown = classify_role_effective_time(effective_from=None)
+        self.assertEqual(future["status"], "FUTURE_APPOINTMENT_NOT_CURRENT_ROLE")
+        self.assertFalse(future["current_play_caller"])
+        self.assertTrue(invented["rejected_synthesis"])
+        self.assertFalse(invented["invented"])
+        self.assertEqual(unknown["status"], "UNKNOWN_NOT_SYNTHESIZED")
+        self.assertIsNone(unknown["effective_from"])
 
 
 if __name__ == "__main__":

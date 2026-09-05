@@ -16,6 +16,10 @@ from aggie_analytics.operations.checkpoint_lease import (  # noqa: E402
     acquire,
     lease_action_is_completion,
 )
+from aggie_analytics.operations.cycle27_checkpoint_receipt import (  # noqa: E402
+    classify_checkpoint_label,
+    parse_named_stages,
+)
 
 
 UTC = timezone.utc
@@ -152,6 +156,82 @@ class Cycle27SchedulerAdversarialTests(unittest.TestCase):
         self.assertIn("MISSED_CUTOFF_NO_BACKFILL", text)
         self.assertNotIn("git commit", text.casefold())
         self.assertIn("START capture", text)
+
+    def test_laptop_restart_dead_pid_retries_only_with_time_and_lease(self) -> None:
+        times = self._times()
+        restarted = decide(
+            now=times["wake"] + timedelta(minutes=10),
+            wake=times["wake"],
+            cutoff=times["cutoff"],
+            capture_window_open=times["window"],
+            primary_alive=False,
+            last_progress=times["wake"],
+            completion_receipt_verified=False,
+            completed_at=None,
+            attempts=0,
+        )
+        self.assertEqual(restarted.action, "START_RETRY_AFTER_EXCLUSIVE_LEASE")
+
+    def test_future_progress_and_cutoff_reschedule_are_not_rescues(self) -> None:
+        times = self._times()
+        with self.assertRaises(ValueError):
+            decide(
+                now=times["wake"],
+                wake=times["wake"],
+                cutoff=times["cutoff"],
+                capture_window_open=times["window"],
+                primary_alive=True,
+                last_progress=times["wake"] + timedelta(hours=1),
+                completion_receipt_verified=False,
+                completed_at=None,
+                attempts=0,
+            )
+        original_cutoff = times["cutoff"]
+        later_kickoff_cutoff = original_cutoff + timedelta(hours=2)
+        missed = decide(
+            now=original_cutoff + timedelta(minutes=1),
+            wake=times["wake"],
+            cutoff=original_cutoff,
+            capture_window_open=times["window"],
+            primary_alive=False,
+            last_progress=None,
+            completion_receipt_verified=False,
+            completed_at=None,
+            attempts=1,
+        )
+        self.assertEqual(missed.action, "MISSED_CUTOFF_NO_BACKFILL")
+        self.assertNotEqual(later_kickoff_cutoff, original_cutoff)
+
+    def test_missing_stage_and_incomplete_log_are_not_t90_labels(self) -> None:
+        cutoff = datetime(2026, 9, 5, 15, 0, tzinfo=UTC)
+        window = cutoff - timedelta(minutes=60)
+        missing = classify_checkpoint_label(
+            phase="T90M",
+            now=cutoff - timedelta(minutes=10),
+            window_open=window,
+            cutoff=cutoff,
+            missing_stages=("weather",),
+            cohort_contest="6618687",
+        )
+        self.assertEqual(missing["checkpoint_label"], "PARTIAL_RAW_EVIDENCE")
+        self.assertFalse(missing["forecast_frozen"])
+        stages = parse_named_stages("incomplete capture log missing required stages")
+        self.assertNotIn("schedule", stages)
+
+    def test_publication_failure_is_separate_from_verified_capture(self) -> None:
+        self.assertTrue(lease_action_is_completion("EVIDENCE_CAPTURED"))
+        self.assertFalse(lease_action_is_completion("GIT_PUSHED"))
+        cutoff = datetime(2026, 9, 5, 15, 0, tzinfo=UTC)
+        captured = classify_checkpoint_label(
+            phase="T90M",
+            now=cutoff - timedelta(minutes=10),
+            window_open=cutoff - timedelta(minutes=60),
+            cutoff=cutoff,
+            missing_stages=(),
+            cohort_contest="6618687",
+        )
+        self.assertEqual(captured["state"], "EVIDENCE_CAPTURED")
+        self.assertFalse(captured["forecast_frozen"])
 
     def test_versioned_friday_failover_uses_packaged_policy_not_ops_import(
         self,

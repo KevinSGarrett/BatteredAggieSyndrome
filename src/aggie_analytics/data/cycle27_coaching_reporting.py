@@ -279,6 +279,104 @@ def classify_missing_role(value: Any) -> dict[str, Any]:
     }
 
 
+def bind_source_person_identity(
+    *,
+    source_person_name: str | None,
+    canonical_coach_id: str | None,
+    source_team_id: str | None,
+    bound_team_id: str | None,
+    source_season: int | None,
+    bound_season: int | None,
+) -> dict[str, Any]:
+    """Equal names alone do not establish person identity or team-season bind."""
+
+    if canonical_coach_id in (None, ""):
+        return {
+            "status": "NAME_ONLY_NOT_PERSON_IDENTITY",
+            "canonical_coach_id": None,
+            "source_person_name": source_person_name,
+            "bound": False,
+        }
+    if source_team_id and bound_team_id and str(source_team_id) != str(bound_team_id):
+        return {
+            "status": "WRONG_TEAM_REJECTED",
+            "canonical_coach_id": canonical_coach_id,
+            "bound": False,
+        }
+    if (
+        source_season is not None
+        and bound_season is not None
+        and int(source_season) != int(bound_season)
+    ):
+        return {
+            "status": "WRONG_SEASON_REJECTED",
+            "canonical_coach_id": canonical_coach_id,
+            "bound": False,
+        }
+    return {
+        "status": "CANONICAL_PERSON_BOUND",
+        "canonical_coach_id": canonical_coach_id,
+        "bound": True,
+    }
+
+
+def classify_role_effective_time(
+    *,
+    effective_from: str | None,
+    synthesize_if_missing: bool = False,
+) -> dict[str, Any]:
+    """Unknown effective time stays unknown. Do not invent a timestamp."""
+
+    if synthesize_if_missing and not effective_from:
+        return {
+            "status": "UNKNOWN_NOT_SYNTHESIZED",
+            "effective_from": None,
+            "invented": False,
+            "rejected_synthesis": True,
+        }
+    if not effective_from:
+        return {
+            "status": "UNKNOWN_NOT_SYNTHESIZED",
+            "effective_from": None,
+            "invented": False,
+            "rejected_synthesis": False,
+        }
+    return {
+        "status": "OBSERVED_EFFECTIVE_FROM",
+        "effective_from": effective_from,
+        "invented": False,
+        "rejected_synthesis": False,
+    }
+
+
+def classify_future_role_announcement(
+    *,
+    role_effective_utc: str | None,
+    cutoff_utc: str | None,
+) -> dict[str, Any]:
+    """A later appointment is not the current play-caller at an earlier cutoff."""
+
+    if not role_effective_utc or not cutoff_utc:
+        return {
+            "status": "UNKNOWN_EFFECTIVE_TIME",
+            "current_play_caller": False,
+            "current_role_at_cutoff": False,
+        }
+    if str(role_effective_utc) > str(cutoff_utc):
+        return {
+            "status": "FUTURE_APPOINTMENT_NOT_CURRENT_ROLE",
+            "current_play_caller": False,
+            "current_role_at_cutoff": False,
+            "career_total_not_usable_at_earlier_cutoff": True,
+        }
+    return {
+        "status": "EFFECTIVE_BY_CUTOFF",
+        "current_play_caller": False,
+        "current_role_at_cutoff": True,
+        "career_total_not_usable_at_earlier_cutoff": True,
+    }
+
+
 def apply_coach_bonus(*args: Any, **kwargs: Any) -> float:
     """Manual coach point bonuses are forbidden."""
     return manual_coach_bonus(*args, **kwargs)

@@ -25,6 +25,10 @@ from aggie_analytics.data.cycle27_pregame_reporting import (  # noqa: E402
     build_score_model_readiness,
     captured_focus_quote_count,
     classify_disagreement,
+    classify_external_model_attribution,
+    classify_implied_score_label,
+    classify_linear_contributions_as_causal,
+    classify_spread_sign,
     classify_subgroup_analysis,
     independent_scores_from_margin_only,
     market_line_implied_score,
@@ -337,6 +341,79 @@ class Cycle27PregameReportTests(unittest.TestCase):
             "May not treat this T-90M evidence packet as FORECAST_FROZEN.",
             markdown,
         )
+
+    def test_wrong_external_model_attribution_is_rejected(self) -> None:
+        coincidental = classify_external_model_attribution(
+            attributed_source="ESPN FPI",
+            captured_source_id="numberFire",
+            probability_coincides=True,
+        )
+        matched = classify_external_model_attribution(
+            attributed_source="numberFire",
+            captured_source_id="numberFire",
+        )
+        self.assertFalse(coincidental["admitted"])
+        self.assertEqual(coincidental["reason"], "WRONG_EXTERNAL_MODEL_ATTRIBUTION")
+        self.assertTrue(coincidental["probability_coincidence_is_not_identity"])
+        self.assertTrue(matched["admitted"])
+
+    def test_spread_sign_reversal_and_nonfinite_implied_inputs(self) -> None:
+        reversed_sign = classify_spread_sign(
+            quoted_home_spread=40.5,
+            captured_home_spread=-40.5,
+        )
+        self.assertEqual(reversed_sign["status"], "SIGN_REVERSAL_REJECTED")
+        withheld = market_line_implied_score(
+            total=float("nan"),
+            home_spread=-7.5,
+            sportsbook="book-a",
+            spread_book="book-a",
+            total_book="book-a",
+            spread_as_of_utc="2026-09-05T12:00:00Z",
+            total_as_of_utc="2026-09-05T12:00:00Z",
+        )
+        self.assertEqual(withheld["status"], "INCOMPATIBLE_SCORE_REFERENCE")
+        self.assertEqual(withheld["reason"], "NONFINITE_OR_MISSING_NUMERIC_INPUTS")
+        nonpositive = market_line_implied_score(
+            total=0,
+            home_spread=-7.5,
+            sportsbook="book-a",
+            spread_book="book-a",
+            total_book="book-a",
+            spread_as_of_utc="2026-09-05T12:00:00Z",
+            total_as_of_utc="2026-09-05T12:00:00Z",
+        )
+        self.assertEqual(nonpositive["reason"], "NONPOSITIVE_TOTAL")
+        negative_points = market_line_implied_score(
+            total=10.0,
+            home_spread=-40.5,
+            sportsbook="book-a",
+            spread_book="book-a",
+            total_book="book-a",
+            spread_as_of_utc="2026-09-05T12:00:00Z",
+            total_as_of_utc="2026-09-05T12:00:00Z",
+        )
+        self.assertEqual(negative_points["reason"], "NEGATIVE_IMPLIED_TEAM_POINTS")
+        self.assertIsNone(negative_points.get("home_points"))
+
+    def test_implied_score_is_not_independent_bas_and_contributions_are_not_causal(
+        self,
+    ) -> None:
+        implied = market_line_implied_score(
+            total=53.5,
+            home_spread=-7.5,
+            sportsbook="book-a",
+            spread_book="book-a",
+            total_book="book-a",
+            spread_as_of_utc="2026-09-05T12:00:00Z",
+            total_as_of_utc="2026-09-05T12:00:00Z",
+        )
+        labeled = classify_implied_score_label(implied)
+        self.assertFalse(labeled["independent_bas_score"])
+        self.assertFalse(labeled["mislabeled_as_independent_bas"])
+        causal = classify_linear_contributions_as_causal(interpret_as_causal=True)
+        self.assertTrue(causal["rejected"])
+        self.assertFalse(causal["causal_interpretation"])
 
 
 if __name__ == "__main__":

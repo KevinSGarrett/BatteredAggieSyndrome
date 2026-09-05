@@ -135,6 +135,93 @@ def admit_market_quote(quote: Mapping[str, Any] | None) -> dict[str, Any]:
     }
 
 
+def classify_external_model_attribution(
+    *,
+    attributed_source: str | None,
+    captured_source_id: str | None,
+    probability_coincides: bool = False,
+) -> dict[str, Any]:
+    """Equal percentages do not make a numberFire quote into ESPN FPI."""
+
+    attributed = str(attributed_source or "").strip()
+    captured = str(captured_source_id or "").strip()
+    if not captured:
+        return {
+            "admitted": False,
+            "reason": "NO_INDEPENDENT_EXTERNAL_MODEL_CAPTURE",
+            "probability_coincidence_is_not_identity": True,
+        }
+    if attributed.casefold() != captured.casefold():
+        return {
+            "admitted": False,
+            "reason": "WRONG_EXTERNAL_MODEL_ATTRIBUTION",
+            "attributed_source": attributed or None,
+            "captured_source_id": captured,
+            "probability_coincidence_is_not_identity": True,
+        }
+    return {
+        "admitted": True,
+        "reason": "IDENTITY_MATCHED_CAPTURE",
+        "attributed_source": attributed,
+        "captured_source_id": captured,
+        "probability_coincidence_is_not_identity": bool(probability_coincides),
+    }
+
+
+def classify_spread_sign(
+    *,
+    quoted_home_spread: Any,
+    captured_home_spread: Any,
+) -> dict[str, Any]:
+    """Reject a reversed home handicap relative to the captured quote."""
+
+    try:
+        quoted = float(quoted_home_spread)
+        captured = float(captured_home_spread)
+    except (TypeError, ValueError):
+        return {
+            "status": "NONFINITE_OR_MISSING_NUMERIC_INPUTS",
+            "sign_reversal": False,
+        }
+    if quoted == 0 or captured == 0:
+        return {"status": "ZERO_SPREAD", "sign_reversal": False}
+    if (quoted > 0) != (captured > 0):
+        return {
+            "status": "SIGN_REVERSAL_REJECTED",
+            "sign_reversal": True,
+            "quoted_home_spread": quoted,
+            "captured_home_spread": captured,
+        }
+    return {
+        "status": "SIGN_AGREES",
+        "sign_reversal": False,
+        "quoted_home_spread": quoted,
+        "captured_home_spread": captured,
+    }
+
+
+def classify_implied_score_label(implied: Mapping[str, Any] | None) -> dict[str, Any]:
+    payload = dict(implied or {})
+    return {
+        "independent_bas_score": False,
+        "status": payload.get("status"),
+        "mislabeled_as_independent_bas": bool(payload.get("independent_bas_score")),
+    }
+
+
+def classify_linear_contributions_as_causal(
+    *,
+    interpret_as_causal: bool,
+) -> dict[str, Any]:
+    if interpret_as_causal:
+        return {
+            "causal_interpretation": False,
+            "rejected": True,
+            "reason": "LINEAR_CONTRIBUTIONS_ARE_NOT_CAUSAL",
+        }
+    return {"causal_interpretation": False, "rejected": False}
+
+
 def captured_focus_quote_count(
     *,
     consensus: Mapping[str, Any] | None,

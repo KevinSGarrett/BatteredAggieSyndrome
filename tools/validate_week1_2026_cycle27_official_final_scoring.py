@@ -145,6 +145,8 @@ def _merge_terminals(captures: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
                     "ncaa_contest_id": contest_id,
                     "home_points": int(card["home_points"]),
                     "away_points": int(card["away_points"]),
+                    "away_source_team_id": card.get("away_source_team_id"),
+                    "home_source_team_id": card.get("home_source_team_id"),
                     "capture_sha256": capture["sha256"],
                     "retrieved_at_utc": capture.get("retrieved_at_utc"),
                 }
@@ -197,6 +199,25 @@ def reconstruct_states(
         final = terminals.get(contest_id)
         if final is None:
             reconstructed.append({"identity": identity, "state": STATE_AWAITING})
+            continue
+        participant_conflict = False
+        for field in (
+            "home_source_team_id",
+            "away_source_team_id",
+            "home_canonical_team_id",
+            "away_canonical_team_id",
+        ):
+            expected = row.get(field)
+            observed = final.get(field)
+            if (
+                expected not in (None, "")
+                and observed not in (None, "")
+                and str(expected).strip() != str(observed).strip()
+            ):
+                participant_conflict = True
+                break
+        if participant_conflict:
+            reconstructed.append({"identity": identity, "state": STATE_CONFLICT})
             continue
         if int(final["home_points"]) == int(final["away_points"]):
             reconstructed.append(
@@ -499,6 +520,14 @@ def validate(
         produced = produced_by_candidate.get(item["candidate_id"]) or {}
         if produced.get("directional_denominator") != item["directional_denominator"]:
             findings.append(f"DIRECTIONAL_DENOMINATOR_MISMATCH:{item['candidate_id']}")
+        produced_brier = produced.get("brier")
+        if item.get("brier") is not None and produced_brier is not None:
+            if abs(float(produced_brier) - float(item["brier"] or 0.0)) > 1e-12:
+                findings.append(f"AGGREGATE_BRIER_TAMPER:{item['candidate_id']}")
+        produced_ll = produced.get("log_loss")
+        if item.get("log_loss") is not None and produced.get("log_loss") is not None:
+            if abs(float(produced_ll) - float(item["log_loss"] or 0.0)) > 1e-12:
+                findings.append(f"AGGREGATE_LOG_LOSS_TAMPER:{item['candidate_id']}")
         if item["directional_denominator"] == 0:
             if produced.get("directional_accuracy") is not None:
                 findings.append(

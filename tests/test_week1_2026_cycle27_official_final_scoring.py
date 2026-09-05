@@ -604,6 +604,97 @@ class Cycle27OfficialFinalScoringTests(unittest.TestCase):
         self.assertEqual(predecessor_gate.read_bytes(), before)
         self.assertFalse((self.data_root / "raw/SRC-NCAA-OFFICIAL-STATS").exists())
 
+    def test_mutated_html_bytes_and_forecast_identity_are_rejected(self) -> None:
+        self._write_forecast([forecast_row(contest_id="1001")])
+        path = self._write_html(
+            "ok.html",
+            render_scoreboard(contest_id="1001", home_points=21, away_points=7),
+        )
+        manifest = self._pin(
+            html_names=["ok.html"],
+            retrieved_at={"ok.html": "2026-09-03T23:00:00Z"},
+        )
+        path.write_text(
+            render_scoreboard(contest_id="1001", home_points=99, away_points=0),
+            encoding="utf-8",
+        )
+        with self.assertRaises(Week1Cycle27OfficialFinalScoringError):
+            self._score(manifest)
+        self._write_html(
+            "ok.html",
+            render_scoreboard(contest_id="1001", home_points=21, away_points=7),
+        )
+        gate = self._score(manifest)
+        mutated_rows = list(gate["_scored_rows"])
+        mutated_rows[0] = dict(mutated_rows[0])
+        mutated_rows[0]["forecast_row_identity"] = "forged-identity"
+        findings = validate(
+            repo_root=REPO_ROOT,
+            data_root=self.data_root,
+            gate=gate,
+            manifest=manifest,
+            scored_rows=mutated_rows,
+        )
+        self.assertTrue(
+            any(
+                "EXTRA_SCORED_ROWS" in item or "MISSING_SCORED_ROWS" in item
+                for item in findings
+            )
+        )
+
+    def test_participant_mismatch_is_quarantined(self) -> None:
+        row = forecast_row(contest_id="1001")
+        row["home_source_team_id"] = "999"
+        row["away_source_team_id"] = "998"
+        self._write_forecast([row])
+        self._write_html(
+            "ok.html",
+            render_scoreboard(contest_id="1001", home_points=21, away_points=7),
+        )
+        manifest = self._pin(
+            html_names=["ok.html"],
+            retrieved_at={"ok.html": "2026-09-03T23:00:00Z"},
+        )
+        gate = self._score(manifest)
+        scored = [
+            item for item in gate["_scored_rows"] if item["state"] == STATE_SCORED
+        ]
+        conflicted = [
+            item for item in gate["_scored_rows"] if item["state"] == STATE_CONFLICT
+        ]
+        self.assertEqual(scored, [])
+        self.assertEqual(
+            conflicted[0]["unscored_reason"], "PARTICIPANT_IDENTITY_CONFLICT"
+        )
+
+    def test_aggregate_brier_tamper_is_rejected(self) -> None:
+        self._write_forecast([forecast_row(contest_id="1001")])
+        self._write_html(
+            "ok.html",
+            render_scoreboard(contest_id="1001", home_points=21, away_points=7),
+        )
+        manifest = self._pin(
+            html_names=["ok.html"],
+            retrieved_at={"ok.html": "2026-09-03T23:00:00Z"},
+        )
+        gate = self._score(manifest)
+        tampered = dict(gate)
+        empirical = dict(gate["empirical_assessment"])
+        candidates = [dict(item) for item in empirical["candidates"]]
+        if candidates:
+            candidates[0] = dict(candidates[0])
+            candidates[0]["brier"] = 0.0
+        empirical["candidates"] = candidates
+        tampered["empirical_assessment"] = empirical
+        findings = validate(
+            repo_root=REPO_ROOT,
+            data_root=self.data_root,
+            gate=tampered,
+            manifest=manifest,
+            scored_rows=gate["_scored_rows"],
+        )
+        self.assertTrue(any("AGGREGATE_BRIER_TAMPER" in item for item in findings))
+
 
 if __name__ == "__main__":
     unittest.main()

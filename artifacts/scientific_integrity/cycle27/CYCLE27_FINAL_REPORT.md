@@ -1,7 +1,7 @@
 # Cycle 27 numbered final report
 
 Revision: `C27-PREGAME-COACHING-20260904`
-Issued: 2026-09-05T13:51:23Z (America/Chicago 2026-09-05T08:51:23)
+Issued: 2026-09-05T15:27:06Z (America/Chicago 2026-09-05T10:27:06)
 Operator hold: **ACTIVE**. Merge unauthorized. Scientific Done unauthorized. Protected-lane remains `RETAIN_PROTECTED_LANE_BLOCKED`.
 
 This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleepers were preserved.
@@ -46,9 +46,9 @@ Durable owners (do not kill):
 Saturday earliest T-24H capture issued 15:20:10Z before 16:00Z: **EVIDENCE_CAPTURED** for that cluster (10 contests), not FORECAST_FROZEN. Later T-24H cutoffs do not inherit that receipt.
 
 T24 states: {"ABSTAINED_AT_CHECKPOINT": 6, "CAPTURE_IN_PROGRESS": 3, "EVIDENCE_CAPTURED": 46, "MISSED_CUTOFF_NO_BACKFILL": 36}.
-T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 50, "EVIDENCE_CAPTURED": 19, "MISSED_CUTOFF_NO_BACKFILL": 8, "NOT_OPEN": 12}.
+T90 states: {"ABSTAINED_AT_CHECKPOINT": 2, "CAPTURE_IN_PROGRESS": 44, "EVIDENCE_CAPTURED": 25, "MISSED_CUTOFF_NO_BACKFILL": 8, "NOT_OPEN": 12}.
 
-Next action: remaining Saturday T-90M clusters from 15:00Z, A&M T-90M wake 20:45Z Sep5, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
+Next action: remaining Saturday T-90M clusters from 16:30Z, A&M T-90M wake 20:45Z Sep5, then T-24H 23:30Z Sep5 and Sun 23:30Z. Calendar waiting uses live sleepers, leases, and the watchdog, not an unverified promise to check later.
 
 ## 4. Finding dispositions
 
@@ -82,7 +82,7 @@ D2: C26 Week 1 materializer still copies C24 rows. Cycle 27 remaining-checkpoint
 
 C26 forecast gate `aa4ff84b...` / dataset `770d2544...` preserved (455/399).
 
-Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `8d47971c1773ed88947ebe9ef5637fb992d4766a717122a087bc8e8ddde7afe5` / dataset `0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed` admits **0** terminals because the pin has no independently hashed acquisition receipts (pin-field `retrieved_at_utc` is not acquisition authority). Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
+Scoring predecessor gate `b5f20df4...` / dataset `1b1adb9e...` preserved (50 joined / 41 scored). Cycle 27 scoring successor gate `e5ae2490f7aed35f443deab91684355043eef6cf5b4fb2db81819a0a70264aa4` / dataset `4fedbdc265a458ba03c72d77e3ff5fbf9b5c6cd9e3e4ed4d6feb2c54c530c49c` admits **0** terminals because the pin has no independently hashed acquisition receipts (pin-field `retrieved_at_utc` is not acquisition authority). Publication `UNTRUSTED_SHADOW`. This is not a rewrite of the C26 scoring payloads.
 
 A&M 6607349 C26 ridge: P(home)≈0.89513, margin≈+22.2506, emitted interval label 0.95 vs declared 0.8. Trust `UNTRUSTED_SHADOW`. Control `national_base_rate` is a control, never a recommendation.
 

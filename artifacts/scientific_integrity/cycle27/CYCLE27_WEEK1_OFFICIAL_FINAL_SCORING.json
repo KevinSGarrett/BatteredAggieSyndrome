@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING",
-  "as_of_utc": "2026-09-04T16:45:00Z",
+  "as_of_utc": "2026-09-05T15:26:06Z",
   "bound_predecessors": {
     "early_week1_freeze_utc": "2026-09-03T06:47:23Z",
     "forecast_payload_sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
@@ -9,27 +9,90 @@
     "predecessor_scoring_dataset_identity": "1b1adb9e3c7da9269ec176d4c7aa3029db00a2d35352623a6dd44f37c95b293b",
     "predecessor_scoring_gate_identity": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
     "predecessor_scoring_payload_rewritten": false,
-    "week1_successor_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+    "week1_successor_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "zero_terminal_successor_dataset_identity": "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed",
+    "zero_terminal_successor_gate_identity": "8d47971c1773ed88947ebe9ef5637fb992d4766a717122a087bc8e8ddde7afe5"
   },
   "capture_mode": "PINNED_MANIFEST",
   "checkpoint_scored": "EARLY_WEEK1",
   "classification": "WEEK1_OFFICIAL_FINAL_SCORING_PINNED_MANIFEST",
-  "code_identity": "46a598c0f42495edae83c7af4d9b481eea0447bfcea59d402c412d9d2cc30052",
+  "code_identity": "e17af5a9762e391a39a2306260e3cf00c4eca89759de5909eac7994b17fc9fde",
   "contract_id": "CYCLE27-WEEK1-2026-OFFICIAL-FINAL-SCORING-SUCCESSOR-V1",
-  "dataset_identity": "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed",
+  "dataset_identity": "4fedbdc265a458ba03c72d77e3ff5fbf9b5c6cd9e3e4ed4d6feb2c54c530c49c",
   "empirical_assessment": {
     "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
-    "candidates": [],
+    "candidates": [
+      {
+        "brier": 0.25,
+        "candidate_id": "national_base_rate",
+        "control_only": true,
+        "directional_accuracy": null,
+        "directional_denominator": 0,
+        "directional_numerator": 0,
+        "log_loss": 0.6931471805599453,
+        "margin_mae": null,
+        "no_direction_excluded_from_directional": true,
+        "unique_games": 16
+      },
+      {
+        "brier": 0.19868948343835996,
+        "candidate_id": "national_elo",
+        "control_only": false,
+        "directional_accuracy": 0.7333333333333333,
+        "directional_denominator": 15,
+        "directional_numerator": 11,
+        "log_loss": 0.5846138172727554,
+        "margin_mae": null,
+        "no_direction_excluded_from_directional": true,
+        "unique_games": 15
+      },
+      {
+        "brier": 0.13555923977287831,
+        "candidate_id": "national_logistic_l2",
+        "control_only": false,
+        "directional_accuracy": 0.8,
+        "directional_denominator": 15,
+        "directional_numerator": 12,
+        "log_loss": 0.4390615555906722,
+        "margin_mae": null,
+        "no_direction_excluded_from_directional": true,
+        "unique_games": 15
+      },
+      {
+        "brier": 0.14469555289789932,
+        "candidate_id": "national_margin_ridge",
+        "control_only": false,
+        "directional_accuracy": 0.8,
+        "directional_denominator": 15,
+        "directional_numerator": 12,
+        "log_loss": 0.4639976956442732,
+        "margin_mae": 22.721916202706666,
+        "no_direction_excluded_from_directional": true,
+        "unique_games": 15
+      },
+      {
+        "brier": 0.17309649962830898,
+        "candidate_id": "prior_only",
+        "control_only": false,
+        "directional_accuracy": 0.7333333333333333,
+        "directional_denominator": 15,
+        "directional_numerator": 11,
+        "log_loss": 0.5279085238254583,
+        "margin_mae": null,
+        "no_direction_excluded_from_directional": true,
+        "unique_games": 15
+      }
+    ],
     "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW_NOT_REPEATED_CHECKPOINT",
     "predeclared_min_unique_games_for_skill_claim": 30,
     "reason": "Week 1 unique-game n is below the predeclared skill floor; residuals are a prospective census only.",
-    "unique_scored_games": 0,
+    "unique_scored_games": 16,
     "used_for_training_or_tuning": false
   },
   "forecast_payloads_rewritten": false,
-  "gate_identity": "8d47971c1773ed88947ebe9ef5637fb992d4766a717122a087bc8e8ddde7afe5",
-  "input_manifest_identity": "a25ced52b627110f9d92db9edd2c34e713a735f30a90b86905e64d658ebe67da",
-  "issued_at_utc": "2026-09-04T18:25:00Z",
+  "gate_identity": "e5ae2490f7aed35f443deab91684355043eef6cf5b4fb2db81819a0a70264aa4",
+  "input_manifest_identity": "494e9b3e6b65b562ec543b6b6368e460907a6f6ab735206290753f1faf82b296",
+  "issued_at_utc": "2026-09-05T15:26:06Z",
   "jira_key": "BAT-694",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-COHORT-001",
@@ -41,13 +104,13 @@
   "payloads": {
     "input_manifest": {
       "relative_path": "artifacts/scientific_integrity/cycle27/CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING_INPUT_MANIFEST.json",
-      "sha256": "a25ced52b627110f9d92db9edd2c34e713a735f30a90b86905e64d658ebe67da"
+      "sha256": "494e9b3e6b65b562ec543b6b6368e460907a6f6ab735206290753f1faf82b296"
     },
     "scoring_rows": {
-      "bytes": 234659,
+      "bytes": 269490,
       "relative_path": "artifacts/scientific_integrity/cycle27/CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING_ROWS.jsonl",
       "row_count": 455,
-      "sha256": "0aadd884f7a56e11105bbefeaa9ca0c7edb5d7cd23401f7545afbc14248ca2ed"
+      "sha256": "4fedbdc265a458ba03c72d77e3ff5fbf9b5c6cd9e3e4ed4d6feb2c54c530c49c"
     }
   },
   "predecessor_scoring_payload_rewritten": false,
@@ -69,26 +132,44 @@
   ],
   "summary": {
     "forecast_row_count": 455,
-    "joined_forecast_rows": 0,
+    "joined_forecast_rows": 95,
     "quarantined_conflict_contest_ids": [],
-    "rejected_receipt_before_kickoff_count": 11,
-    "rejected_receipt_reasons": [
-      "MISSING_RETRIEVED_AT_UTC_NOT_POST_KICKOFF_PROOF"
-    ],
-    "scoreboard_cards": 2162,
-    "scoreboard_html_count": 120,
-    "scored_row_count": 0,
+    "rejected_receipt_before_kickoff_count": 0,
+    "rejected_receipt_reasons": [],
+    "scoreboard_cards": 3724,
+    "scoreboard_html_count": 210,
+    "scored_row_count": 76,
     "state_counts": {
-      "ABSTAINED": 0,
+      "ABSTAINED": 19,
       "AUTHORIZED_EXCLUSION": 0,
-      "AWAITING_OFFICIAL_FINAL": 455,
+      "AWAITING_OFFICIAL_FINAL": 360,
       "CONFLICT_QUARANTINED": 0,
       "MISSED_CUTOFF_NO_BACKFILL": 0,
-      "SCORED": 0
+      "SCORED": 76
     },
-    "terminal_contest_count": 0,
-    "terminal_contest_ids": [],
-    "unique_scored_games": 0,
+    "terminal_contest_count": 19,
+    "terminal_contest_ids": [
+      "6582933",
+      "6584486",
+      "6586572",
+      "6588927",
+      "6591259",
+      "6592887",
+      "6594366",
+      "6598559",
+      "6601163",
+      "6601465",
+      "6602046",
+      "6602792",
+      "6603568",
+      "6609567",
+      "6611346",
+      "6618350",
+      "6619544",
+      "6620138",
+      "6620218"
+    ],
+    "unique_scored_games": 16,
     "universe_contest_count": 91
   },
   "t24h_backfill": false,

@@ -241,6 +241,13 @@
         "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
         "classification": "[material]",
         "reason": "Cycle #27 coaching/pregame packet identity refresh on PR #679 is a downstream-consumable honesty artifact, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "b44c013a54087bf4325c7e93a408c7c6ae26b935",
+        "pull_request": 679,
+        "head_sha": "b44c013a54087bf4325c7e93a408c7c6ae26b935",
+        "classification": "[material]",
+        "reason": "This merge of live PR 678 capture head 0d099bd9 into stacked PR #679 brought CYCLE26_AM_6607349_T24H_FREEZE_RECEIPT.json and the Cycle 26 eligibility ledger onto the review branch. The [process] subject was incorrect; the correction is scoped to this exact merge commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

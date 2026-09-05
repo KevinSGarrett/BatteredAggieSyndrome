@@ -280,13 +280,14 @@ This is not a Cycle 26 restart. Predecessor C26 evidence, PR 678, and live sleep
 - Starting live capture head: `3fcc710438a75f15abc23392c6136ac077f25e7b` (scheduler push 2026-09-04T15:20:35Z).
 - Pack review-source head (PR 678 lineage): `7e3e9cc2bb81d6dafe2903bd1b3dc0b316e42f82`.
 - Canonical main base for that lineage: `55e12a5aad3a7e843204fcba619c3cb3d3d6194d`.
-- Stacked PR 679 base: `3fcc710438a75f15abc23392c6136ac077f25e7b` (`codex/BAT-690-c26-scr`).
-- Exact-head reviewed stacked scientific head: `b32c0cce9fcd78319667c8344daa878d2d968e06`. This packet is a post-review delta (report/readback/manifest) and does not invent a self-referential SHA for the commit that lands it.
-- Stacked repair branch: `codex/BAT-690-c27-scr` based on `3fcc7104`, not on main.
+- Live capture owner PR 678 head: `0d099bd9303ecc77fefa8dbec0cde761aa9db6af` (A&M T-24H evidence, `forecast_frozen=false`).
+- Stacked merge on PR 679: `b44c013a54087bf4325c7e93a408c7c6ae26b935` parents `17380c22` and `0d099bd9`. This packet is a post-merge classification/report bind and does not invent a self-referential SHA for the commit that lands it.
+- Exact-head reviewed stacked scientific head: `b32c0cce9fcd78319667c8344daa878d2d968e06`. Later heads are explicit deltas.
+- Stacked repair branch: `codex/BAT-690-c27-scr` stacked on live `codex/BAT-690-c26-scr`, not on main.
 - Pending PR 678: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678 — OPEN, capture owner, not amended in place.
-- Stacked PR 679: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679 — OPEN, base `codex/BAT-690-c26-scr`.
-- PR 654: untouched.
-- Hosted checks on `b32c0cce`: core-validation ubuntu+windows **SUCCESS**; security-policy **SUCCESS**; codecov/patch **SUCCESS**; coverage-upload SUCCESS; CodeQL SUCCESS. `codex-review` **FAILURE** (schema-valid FAIL, PR checker exit 1). Hosted green on FAIL remains not acceptance.
+- Stacked PR 679: https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679 — OPEN, base `codex/BAT-690-c26-scr`, mergeable after stacking `0d099bd9`.
+- PR 654: untouched (OPEN, MERGEABLE BEHIND, unrelated).
+- Hosted `repository-ci` on `b44c013a` **FAILURE**: `CONSECUTIVE_PROCESS_ONLY_LIMIT_EXCEEDED` because the merge subject used `[process]` while bringing the A&M T-24H receipt. Exact-commit historical correction classifies that merge as `[material]`. Product-adapter SUCCESS. CodeQL SUCCESS. `codex-review` was IN_PROGRESS at bind time.
 - CONTROL-07: base checker still masks FAIL as success. Trusted-control bootstrap is `PREPARATION_NOT_APPROVED`.
 
 ## 2. Hold and containment

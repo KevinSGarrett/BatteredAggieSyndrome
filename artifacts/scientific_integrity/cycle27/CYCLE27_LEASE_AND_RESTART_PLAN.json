@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE27_LEASE_AND_RESTART_PLAN",
-  "issued_at_utc": "2026-09-05T07:21:39Z",
-  "as_of_utc": "2026-09-05T07:21:39Z",
+  "issued_at_utc": "2026-09-05T13:51:21Z",
+  "as_of_utc": "2026-09-05T13:51:21Z",
   "this_plan_does_not_kill_live_owners": true,
   "saved_pid_alone_is_not_liveness": true,
   "live_inventory_source": "CONFIRMED_PROCESS_COMMAND_LINE",
@@ -23,7 +23,6 @@
     28180,
     28600,
     29028,
-    29368,
     29548,
     29720,
     30276,
@@ -46,26 +45,6 @@
   },
   "failover_policy": "src/aggie_analytics/operations/checkpoint_failover_policy.py",
   "current_owners": {
-    "sat_t90m_20260905t1430z": {
-      "checkpoint": "SAT_T90M_20260905T1430Z",
-      "contest_ids": [
-        "6590890",
-        "6593811",
-        "6594325",
-        "6601384",
-        "6611692",
-        "6611873",
-        "6613128",
-        "6617023",
-        "6620636",
-        "6620944"
-      ],
-      "primary_pid": 29368,
-      "wake_utc": "2026-09-05T13:45:00Z",
-      "cutoff_utc": "2026-09-05T14:30:00Z",
-      "no_git_commit_from_sleeper": true,
-      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
-    },
     "am_t90m": {
       "checkpoint": "AM_T90M",
       "contest_id": "6607349",

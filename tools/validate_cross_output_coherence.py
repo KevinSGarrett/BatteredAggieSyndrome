@@ -35,9 +35,24 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--payload", required=False)
     args = parser.parse_args(argv)
     findings: list[str] = []
-    if args.payload:
-        payload = json.loads(Path(args.payload).read_text(encoding="utf-8"))
-        findings = validate_rows(payload.get("rows") or [])
+    if not args.payload:
+        findings = ["CROSS_OUTPUT_PAYLOAD_MISSING"]
+    else:
+        path = Path(args.payload)
+        if not path.is_file():
+            findings = ["CROSS_OUTPUT_PAYLOAD_MISSING"]
+        else:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            if "rows" not in payload:
+                findings = ["CROSS_OUTPUT_POPULATION_MISSING"]
+            else:
+                rows = payload.get("rows") or []
+                expected = payload.get("expected_opportunity_ids")
+                if expected is None:
+                    findings.append("CROSS_OUTPUT_EXPECTED_POPULATION_MISSING")
+                if not rows and expected:
+                    findings.append("CROSS_OUTPUT_EMPTY_UNEXPECTED_POPULATION")
+                findings.extend(validate_rows(rows))
     print(
         json.dumps(
             {

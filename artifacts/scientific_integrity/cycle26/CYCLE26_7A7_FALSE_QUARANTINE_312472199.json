@@ -1,0 +1,30 @@
+{
+  "artifact_type": "CYCLE26_7A7_FALSE_QUARANTINE_312472199",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "completed_string_not_coerced": true,
+  "disposition": "CONFIRMED_FIXED",
+  "finding": "C26-7A7-FALSE-QUARANTINE-312472199",
+  "issued_at_utc": "2026-09-03T12:26:41Z",
+  "owner": "BAT-651",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "predecessor_quarantine_rewritten": false,
+  "residual_risk": "Predecessor national foundation remains quarantined for this id; consumers must bind the successor explicitly. PIT admission stays closed.",
+  "source_identity": {
+    "away_points": 9,
+    "away_team_name": "Howard",
+    "canonical_game_id": "SRC-002:GAME:312472199",
+    "home_points": 41,
+    "home_team_name": "Eastern Michigan",
+    "note": "Informal Howard-EMU 41-9 naming is not home-away order; authority is CFBD GAME-grain source: EMU home 41, Howard away 9.",
+    "outcome_result": "HOME_WIN",
+    "season": 2011,
+    "venue_name": "Rynearson Stadium"
+  },
+  "successor": {
+    "dataset_identity": "8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b",
+    "disposition": "RESTORE_FALSE_SUBSTRING_QUARANTINE",
+    "gate_identity": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894",
+    "independent_reconstruction": "PASS",
+    "pit_feature_eligible": false
+  }
+}

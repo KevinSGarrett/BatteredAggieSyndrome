@@ -697,8 +697,8 @@
     "NO_PROTECTED_2024_OR_2025_RESULT_IS_ADMITTED",
     "NO_TEXAS_A_AND_M_SPECIFIC_ADJUSTMENT_IS_APPLIED"
   ],
-  "execution_time_utc": "2026-08-31T10:23:19.672488Z",
-  "gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+  "execution_time_utc": "2026-09-03T05:59:15.701063Z",
+  "gate_identity": "3682897882697fc939f23f79706ff37a46e8cf870f1f8432cdd51f55c13831cc",
   "identity_rules": {
     "fuzzy_auto_accept_enabled": false,
     "fuzzy_threshold_reduction_permitted": false,
@@ -722,9 +722,9 @@
   "local_issue_id": "POST-TASK-2026-WEEK1-OFFICIAL-SCHEDULE-IDENTITY-001",
   "manifest": {
     "bulk_payloads_in_git": false,
-    "dataset_identity": "041d8c32967c022fa86b13c3c9d21d9bd4395ac425637cc069378a275b34cbea",
-    "relative_path": "manifests/week1_2026_official_schedule_identity/sha256/041d8c32967c022fa86b13c3c9d21d9bd4395ac425637cc069378a275b34cbea/week1_2026_official_schedule_identity_manifest.json",
-    "sha256": "66f722f75ab5947deb7047eb9958dbbf9554d50cb801e38025f8b5ae954edf1f"
+    "dataset_identity": "25476f44de3fdb43de2185cabd4797c3c43e4a081be69c5e4c1dae2ac6e2b014",
+    "relative_path": "manifests/week1_2026_official_schedule_identity/sha256/25476f44de3fdb43de2185cabd4797c3c43e4a081be69c5e4c1dae2ac6e2b014/week1_2026_official_schedule_identity_manifest.json",
+    "sha256": "0d726f6a151730e4b75e136b9e341002d0807d8be64c4cc060bf4fcc8cdbf6a9"
   },
   "outcome_exclusion": {
     "forbidden_outcome_markers_absent": true,

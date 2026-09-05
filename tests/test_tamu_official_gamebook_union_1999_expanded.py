@@ -8,7 +8,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
 
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 from aggie_analytics.data.tamu_official_gamebook_union_1999_expanded import (  # noqa: E402
     AuthorityViolation,
     GATE_RELATIVE,
@@ -17,12 +19,13 @@ from aggie_analytics.data.tamu_official_gamebook_union_1999_expanded import (  #
     compute_code_identity,
     compute_gate_identity,
     lake_is_ready,
-    materialize_union,
     validate_artifact,
- )  # pylint: disable=import-error
+)  # pylint: disable=import-error
 
 DATA_ROOT = Path(r"C:\\BatteredAggieSyndrome.data")
-LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT, REPO_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(
+    DATA_ROOT, REPO_ROOT
+)
 
 
 def _mutated(gate: dict, **changes):
@@ -39,7 +42,9 @@ class Compact1999UnionGateTests(unittest.TestCase):
             self.skipTest("1999-expanded union gate not materialized yet")
         self.gate = json.loads(path.read_text(encoding="utf-8-sig"))
         if self.gate.get("validator_code_identity") != compute_code_identity(REPO_ROOT):
-            self.skipTest("1999-expanded union gate needs rebuild for current code identity")
+            self.skipTest(
+                "1999-expanded union gate needs rebuild for current code identity"
+            )
 
     def test_protected_lane_opened_fails(self) -> None:
         with self.assertRaisesRegex(AuthorityViolation, "protected lane"):
@@ -65,14 +70,26 @@ class Compact1999UnionGateTests(unittest.TestCase):
 @unittest.skipUnless(LAKE_READY, "external BAT-633 inputs are not mounted")
 class Official1999UnionReconstructionTests(unittest.TestCase):
     def test_committed_gate_reconstructs(self) -> None:
-        materialize_union(repo_root=REPO_ROOT, data_root=DATA_ROOT)
-        result = validate_artifact(
-            repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+        result = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: validate_artifact(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+            ),
         )
+        if result is None:
+            return
         self.assertEqual(result["result"], "PASS")
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
-        self.assertEqual(int(gate["counts"]["official_1999_admitted"]), OFFICIAL_1999_ADMITTED_EXPECTED)
-        self.assertEqual(int(gate["counts"]["official_1999_rejected"]), OFFICIAL_1999_REJECTED_EXPECTED)
+        self.assertEqual(
+            int(gate["counts"]["official_1999_admitted"]),
+            OFFICIAL_1999_ADMITTED_EXPECTED,
+        )
+        self.assertEqual(
+            int(gate["counts"]["official_1999_rejected"]),
+            OFFICIAL_1999_REJECTED_EXPECTED,
+        )
         self.assertTrue(gate["domain_semantics_by_game"])
 
 

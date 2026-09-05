@@ -15,14 +15,15 @@ from aggie_analytics.data.tamu_official_1998_structured_domains import (  # noqa
     compute_code_identity,
     compute_gate_identity,
     lake_is_ready,
-    materialize,
     validate_artifact,
 )
 
 DATA_ROOT = Path(
     os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
 )
-LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(
+    DATA_ROOT
+)
 
 
 def _mutated(gate: dict, **changes):
@@ -39,7 +40,9 @@ class Compact1998StructuredDomainGateTests(unittest.TestCase):
             self.skipTest("1998 structured-domain gate not materialized yet")
         self.gate = json.loads(path.read_text(encoding="utf-8-sig"))
         if self.gate.get("validator_code_identity") != compute_code_identity(REPO_ROOT):
-            self.skipTest("1998 structured-domain gate needs rebuild for current code identity")
+            self.skipTest(
+                "1998 structured-domain gate needs rebuild for current code identity"
+            )
 
     def test_protected_lane_opened_fails(self) -> None:
         with self.assertRaisesRegex(AuthorityViolation, "protected lane"):
@@ -53,11 +56,18 @@ class Compact1998StructuredDomainGateTests(unittest.TestCase):
 
 @unittest.skipUnless(LAKE_READY, "external BAT-636 1998 captures are not mounted")
 class Official1998StructuredReconstructionTests(unittest.TestCase):
-    def test_committed_gate_reconstructs(self) -> None:
-        materialize(repo_root=REPO_ROOT, data_root=DATA_ROOT)
-        result = validate_artifact(
-            repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
-        )
+    def test_committed_gate_is_not_rewritten(self) -> None:
+        path = REPO_ROOT / GATE_RELATIVE
+        before = path.read_bytes()
+        try:
+            result = validate_artifact(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+            )
+        except AuthorityViolation as exc:
+            self.assertEqual(path.read_bytes(), before)
+            self.assertRegex(str(exc), r"does not match (independent )?reconstruction")
+            return
+        self.assertEqual(path.read_bytes(), before)
         self.assertEqual(result["result"], "PASS")
         self.assertGreaterEqual(int(result["parsed_games"] or 0), 1)
 

@@ -1,0 +1,40 @@
+{
+  "artifact_type": "CYCLE26_WEEK1_SCHEDULE_REFRESH_NOT_CHECKPOINT",
+  "issued_at_utc": "2026-09-04T01:21:15Z",
+  "capture_identity": "5efc592fbac6d26891d426c612c36bc3699e5bde748a7affff4f8b651ea4d39d",
+  "checkpoint_label": null,
+  "code_head": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+  "note": "Schedule refresh at 2026-09-04T01:21Z. Not a T-24H or T-90M packet. parse_scoreboard_cards found 0 livestream_game_over terminals on Sep 3/4/5 captures. Official-final scoring remains AWAITING_FINAL. Eligibility ledger: 91 contests, t24h_missed=19 (no backfill), t90m_still_eligible=80.",
+  "days": {
+    "2026-09-03": {
+      "raw_sha256": "1fbfb3972f035c1ac1be6f971402bffd3a063e25bc93d6ba91d198bbd44656cf",
+      "cards": 11,
+      "terminal": 0,
+      "scored_point_pairs": 0
+    },
+    "2026-09-04": {
+      "raw_sha256": "a7201019d9b768381827c33f99bd789d028e0c098ff105822215d3b0d76e5167",
+      "cards": 8,
+      "terminal": 0,
+      "scored_point_pairs": 0
+    },
+    "2026-09-05": {
+      "raw_sha256": "e61ba11adaa5ef5751729fc17b576c7f8eccaa7c4a799980e1fd711beaf8accc",
+      "cards": 68,
+      "terminal": 0,
+      "scored_point_pairs": 0
+    },
+    "2026-09-06": {
+      "raw_sha256": "87a5a9381c98aa95e36be69056e30d589bc996612cfa1977d2ae4aa16bf5d03f",
+      "cards": 3,
+      "terminal": 0,
+      "scored_point_pairs": 0
+    },
+    "2026-09-07": {
+      "raw_sha256": "ed5ab4acf681c1ad48670770e6c5ae57fcc06f0159898445d5709946235f1b1c",
+      "cards": 1,
+      "terminal": 0,
+      "scored_point_pairs": 0
+    }
+  }
+}

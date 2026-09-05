@@ -61,14 +61,21 @@ jobs:
           sandbox: read-only
           output-file: artifacts/scientific_integrity/codex_scientific_review_output.json
           codex-args: '["--output-schema","schemas/scientific_review/codex_scientific_review.schema.json"]'
+      - name: Materialize trusted validator from protected base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          mkdir -p /tmp/trusted-review
+          git show "$BASE_SHA:tools/validate_codex_scientific_review.py" > /tmp/trusted-review/validate_codex_scientific_review.py
       - name: Validate structured Codex output
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           MERGE_SHA: ${{ github.sha }}
-        run: python tools/validate_codex_scientific_review.py --payload artifacts/scientific_integrity/codex_scientific_review_output.json --binding artifacts/scientific_integrity/codex_review_binding.json --expected-pr "$PR_NUMBER" --expected-base "$BASE_SHA" --expected-head "$HEAD_SHA" --expected-merge "$MERGE_SHA"
+        run: python /tmp/trusted-review/validate_codex_scientific_review.py --payload artifacts/scientific_integrity/codex_scientific_review_output.json --binding artifacts/scientific_integrity/codex_review_binding.json --expected-pr "$PR_NUMBER" --expected-base "$BASE_SHA" --expected-head "$HEAD_SHA" --expected-merge "$MERGE_SHA"
       - name: Upload sanitized review artifact
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: codex-scientific-review

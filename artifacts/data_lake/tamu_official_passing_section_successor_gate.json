@@ -1,0 +1,93 @@
+{
+  "artifact_type": "TAMU_OFFICIAL_PASSING_SECTION_SUCCESSOR_GATE",
+  "census": {
+    "confirmed_affected_raw_pages": 125,
+    "confirmed_mislabeled_passing_rows": 429,
+    "counts_by_season": {
+      "1998": 16,
+      "1999": 28,
+      "2000": 32,
+      "2001": 38,
+      "2002": 42,
+      "2003": 44,
+      "2004": 40,
+      "2005": 40,
+      "2006": 44,
+      "2007": 31,
+      "2008": 39,
+      "2009": 35
+    },
+    "screened_nonpassing_triple_rows": 474,
+    "team_pseudo_player_rows": 97,
+    "unresolved_section_matches": 45
+  },
+  "classification": "TAMU_SRC014_PASSING_SECTION_SUCCESSOR_CANDIDATE_ONLY",
+  "contract_id": "CYCLE26-TAMU-OFFICIAL-PASSING-SECTION-SUCCESSOR-V1",
+  "dataset_identity": "e98912fa5be82ecea999380040b1031e83e3c40ac07a76a615ceffd817439912",
+  "gate_identity": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787",
+  "impact": {
+    "changed_stat_group_rows": 429,
+    "confirmed_team_attributed_rows": 22,
+    "counts_by_season": {
+      "1998": 16,
+      "1999": 28,
+      "2000": 32,
+      "2001": 38,
+      "2002": 42,
+      "2003": 44,
+      "2004": 40,
+      "2005": 40,
+      "2006": 44,
+      "2007": 31,
+      "2008": 39,
+      "2009": 35
+    },
+    "header_only_rows": 0,
+    "join_audit": {
+      "active_path_import_edges": 0,
+      "national_forecast_consumption_proven": false,
+      "needles_present": [],
+      "week1_successor_path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr/src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py"
+    },
+    "national_forecast_consumption_proven": false,
+    "predecessor_rewritten": false,
+    "predecessor_rows": 3613,
+    "successor_rows": 3613,
+    "unchanged_rows": 3139,
+    "unresolved_rows": 45
+  },
+  "issued_at_utc": "2026-09-03T12:23:58Z",
+  "jira_key": "BAT-692",
+  "lane": "DEVELOPMENT_SUCCESSOR_UNTRUSTED_SHADOW",
+  "local_issue_id": "POST-TASK-SRC014-PASSING-SECTION-SUCCESSOR-001",
+  "payloads": {
+    "impact": {
+      "bytes": 810,
+      "relative_path": "canonical/tamu_official_passing_section_successor/sha256/e98912fa5be82ecea999380040b1031e83e3c40ac07a76a615ceffd817439912/old_to_new_impact.json",
+      "sha256": "5226311403ab907cd41e083d6864c165a670fa916094c37bed952edca90d3286"
+    },
+    "player_successor": {
+      "bytes": 6177797,
+      "relative_path": "canonical/tamu_official_passing_section_successor/sha256/e98912fa5be82ecea999380040b1031e83e3c40ac07a76a615ceffd817439912/individual_player_statistics_successor.jsonl",
+      "row_count": 3613,
+      "sha256": "27a71c93efc3689c14bf1d4cf82fff9824b32874e6926cddbd271bf58cb3072b"
+    }
+  },
+  "predecessor": {
+    "relative_path": "features/tamu_official_1996_2009_structured_row_corpus/sha256/7a7f9797bbbc43f273e357584a16ece7715c6ab227438b13fa65775c3dd912f7/individual_player_statistics.jsonl",
+    "rewritten": false,
+    "sha256": "8de41e750e459d592e86768d723883a7fa92f9fea46b3418bf6a805dcb6eecd0"
+  },
+  "predecessor_payloads_rewritten": false,
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "result": "PASS_PASSING_SECTION_SUCCESSOR",
+  "schema_version": "aggie.data.tamu_official_passing_section_successor.v1",
+  "scientific_nonclaims": [
+    "Does not rewrite the 1996-2009 predecessor player corpus.",
+    "Does not fabricate person identities for TEAM rows.",
+    "Does not treat header-only tables as material statistic availability.",
+    "Does not prove national-forecast consumption of the player corpus.",
+    "Does not open the all-cycle trust gate or operator hold."
+  ]
+}

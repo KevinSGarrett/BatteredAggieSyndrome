@@ -1,0 +1,178 @@
+{
+  "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
+  "artifact_type": "CYCLE26_PREDICTIVE_SKILL_EVIDENCE",
+  "candidates": [
+    {
+      "accuracy": 0.50769231,
+      "authority": "DEVELOPMENT_ONLY_UNPROTECTED_CANDIDATE",
+      "brier": 0.25,
+      "candidate_id": "national_base_rate",
+      "control_only": true,
+      "log_loss": 0.69314718,
+      "mean_predicted": 0.5,
+      "observed_rate": 0.50769231,
+      "promoted": false,
+      "unique_games": 910
+    },
+    {
+      "accuracy": 0.7032967,
+      "authority": "DEVELOPMENT_ONLY_UNPROTECTED_CANDIDATE",
+      "brier": 0.20078011,
+      "candidate_id": "national_elo",
+      "control_only": false,
+      "log_loss": 0.58915159,
+      "mean_predicted": 0.49604766,
+      "observed_rate": 0.50769231,
+      "promoted": false,
+      "unique_games": 910
+    },
+    {
+      "accuracy": 0.73406593,
+      "authority": "DEVELOPMENT_ONLY_UNPROTECTED_CANDIDATE",
+      "brier": 0.17563908,
+      "candidate_id": "national_logistic_l2",
+      "control_only": false,
+      "log_loss": 0.51904635,
+      "mean_predicted": 0.50337148,
+      "observed_rate": 0.50769231,
+      "promoted": false,
+      "unique_games": 910
+    },
+    {
+      "accuracy": 0.73406593,
+      "authority": "DEVELOPMENT_ONLY_UNPROTECTED_CANDIDATE",
+      "brier": 0.17587702,
+      "candidate_id": "national_margin_ridge",
+      "control_only": false,
+      "log_loss": 0.52038981,
+      "mean_predicted": 0.50349754,
+      "observed_rate": 0.50769231,
+      "promoted": false,
+      "unique_games": 910
+    },
+    {
+      "accuracy": 0.72857143,
+      "authority": "DEVELOPMENT_ONLY_UNPROTECTED_CANDIDATE",
+      "brier": 0.18257033,
+      "candidate_id": "prior_only",
+      "control_only": false,
+      "log_loss": 0.53933063,
+      "mean_predicted": 0.50515989,
+      "observed_rate": 0.50769231,
+      "promoted": false,
+      "unique_games": 910
+    }
+  ],
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "cohort": {
+    "candidates": 5,
+    "prospective_seasons_excluded": [
+      2026
+    ],
+    "protected_seasons_excluded": [
+      2024,
+      2025
+    ],
+    "season": 2023,
+    "tamu_ridge_oriented_rows": 13,
+    "unique_games": 910
+  },
+  "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW",
+  "evaluation_cohort": "FROZEN_2023_NATIONAL_DEVELOPMENT_PARTITION_GAME_GRAIN_SUCCESSOR",
+  "issued_at_utc": "2026-09-03T12:07:48Z",
+  "joint_probability_margin_interval": false,
+  "limitations": [
+    "Unique-game successor of frozen 2023 national development partition only; not Week 1 prospective skill.",
+    "Original C20 team-grain metrics are deprecated because pair probabilities were not complementary.",
+    "Successor probabilities are pair-normalized; ridge margins are antisymmetric projections of saved team margins.",
+    "Fold-local Normal residual scale is not in the saved C20 files; no joint probability/margin/interval claim for C20/C21.",
+    "Lexicographic first-team orientation makes observed_rate differ from 0.5; Brier is complementary-pair invariant.",
+    "2024/2025 protected seasons excluded. No champion, promotion, BAS/Aggie Excess, or A&M-lift claim.",
+    "Does not open ALL_CYCLE_SCIENTIFIC_TRUST_GATE or MERGE_AUTHORIZATION_GATE."
+  ],
+  "nonclaims": {
+    "bas_or_aggie_excess": false,
+    "future_predictive_skill": false,
+    "original_c20_metrics_authoritative": false,
+    "production_credibility": false,
+    "week1_outcome_tuned": false
+  },
+  "orientation_convention": "LEXICOGRAPHIC_FIRST_CANONICAL_TEAM_ID",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "predecessor_c20_metrics_status": "DEPRECATED_INCOHERENT_TEAM_GRAIN_NOT_AUTHORITATIVE",
+  "source_dataset_identity": "f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9",
+  "source_gate_identity": "1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0",
+  "source_gate_relative_path": "artifacts/experimentation/historical_saved_pair_game_grain_successor_gate.json",
+  "source_result": "PASS_HISTORICAL_SAVED_PAIR_GAME_GRAIN_SUCCESSOR",
+  "week1_am_ridge_both_orientations": {
+    "away_canonical_team_id": "SRC-002:TEAM:2623",
+    "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+    "expected_margin_away": -22.2506043541,
+    "expected_margin_home": 22.2506043541,
+    "home_canonical_team_id": "SRC-002:TEAM:245",
+    "joint_coherence": true,
+    "margin_sum": 0.0,
+    "ncaa_contest_id": "6607349",
+    "probability_away": 0.1048683331,
+    "probability_home": 0.8951316669,
+    "probability_sum": 1.0,
+    "publication_label": "UNTRUSTED_SHADOW"
+  },
+  "week1_partial_official_finals": {
+    "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
+    "candidates": [
+      {
+        "accuracy": 0.7777777777777778,
+        "brier": 0.25,
+        "candidate_id": "national_base_rate",
+        "control_only": true,
+        "log_loss": 0.6931471805599453,
+        "margin_mae": null,
+        "unique_games": 9
+      },
+      {
+        "accuracy": 0.75,
+        "brier": 0.20231780740752384,
+        "candidate_id": "national_elo",
+        "control_only": false,
+        "log_loss": 0.5948813765329715,
+        "margin_mae": null,
+        "unique_games": 8
+      },
+      {
+        "accuracy": 0.75,
+        "brier": 0.1560532889661612,
+        "candidate_id": "national_logistic_l2",
+        "control_only": false,
+        "log_loss": 0.4807557337864169,
+        "margin_mae": null,
+        "unique_games": 8
+      },
+      {
+        "accuracy": 0.75,
+        "brier": 0.15926686165350631,
+        "candidate_id": "national_margin_ridge",
+        "control_only": false,
+        "log_loss": 0.49231822798964325,
+        "margin_mae": 26.1981385191,
+        "unique_games": 8
+      },
+      {
+        "accuracy": 0.75,
+        "brier": 0.16964757231166414,
+        "candidate_id": "prior_only",
+        "control_only": false,
+        "log_loss": 0.5194416657642584,
+        "margin_mae": null,
+        "unique_games": 8
+      }
+    ],
+    "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW",
+    "does_not_replace_2023_development_evidence": true,
+    "predeclared_min_unique_games_for_skill_claim": 30,
+    "reason": "Week 1 unique-game n is below the predeclared skill floor; residuals are a prospective census only.",
+    "scoring_gate_identity": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
+    "unique_scored_games": 9,
+    "used_for_training_or_tuning": false
+  }
+}

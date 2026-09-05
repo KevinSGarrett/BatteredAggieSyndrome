@@ -145,7 +145,21 @@
   "purpose": "Local authority-bearing parent progress-comment ledger. Recorded comments must match live Jira comment ID and canonicalized body SHA. No live-only parent progress is allowed after the recording cycle.",
   "schema_version": 2,
   "supersession_schema_version": 1,
-  "supersessions": [
+    "supersessions": [
+    {
+      "canonical_cycle_id": "CYCLE-25.5",
+      "correction_reason": "Comment 14723 was stored as integer cycle 26; commit deaece17 and the BAT-688/all-cycle inventory purpose identify it as Cycle #25.5. The historical cycle field 26 is preserved and is not a Cycle #26 parent-progress comment.",
+      "cycle": 26,
+      "final_cycle_end_sha": "3ed574e94778cd4fda8878d7ff1cbbf34f087c9d",
+      "historical_comment_immutable": true,
+      "jira_key": "BAT-523",
+      "legacy_cycle_field": 26,
+      "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+      "original_comment_body_sha256": "8bf880062a8b7870204bbc37298f738a20b6542316cbe40cb7e56ae619e30b71",
+      "original_comment_id": "14723",
+      "posted_cycle_end_sha": "deaece17cd66d51510cf8ee29f615d35a3c11994",
+      "supersession_kind": "CYCLE_IDENTITY_ATTRIBUTION"
+    },
     {
       "correction_reason": "Cycle #21 comment 14706 was posted before BAT-673 landed and therefore named the then-current end SHA.",
       "cycle": 21,

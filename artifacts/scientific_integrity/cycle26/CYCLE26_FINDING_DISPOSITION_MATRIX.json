@@ -1,0 +1,1105 @@
+{
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+  "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
+  "PRIMARY_TRUST_RECOVERY_INCOMPLETE": true,
+  "acceptance_authority": "USER_EXPLICIT_ONLY",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "adversarial_regressions": {
+    "count": 54,
+    "module": "tests/test_cycle26_adversarial_regressions.py",
+    "result": "PASS"
+  },
+  "artifact_type": "CYCLE26_FINDING_DISPOSITION_MATRIX",
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "code_head_at_issuance_binding": "LIVE_PR_678_TIP",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "core_module_sha256": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
+  "entries": [
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "codex_review_outcome.verdict",
+        "merge_review_gate"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Review-outcome validator distinguishes valid schema from successful merge review.",
+      "dependency_closure": [
+        "tools/validate_codex_scientific_review.py",
+        ".github/workflows"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-01",
+      "independently_reconstructed_result": "FAIL and BLOCKED remain unsuccessful merge outcomes.",
+      "observed_result": "Schema-valid Codex FAIL/BLOCKED JSON is rejected as a merge-review success; missing/unknown verdicts block.",
+      "owner": "BAT-689",
+      "red_before_green_after_regression": [
+        "test_01_schema_valid_fail_is_not_merge_success",
+        "test_01_blocked_and_unknown_are_not_merge_success",
+        "test_29_digest_failure_is_not_p0_verdict_success"
+      ],
+      "regression_tests": [
+        "test_01_schema_valid_fail_is_not_merge_success",
+        "test_01_blocked_and_unknown_are_not_merge_success",
+        "test_29_digest_failure_is_not_p0_verdict_success"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_01_schema_valid_fail_is_not_merge_success",
+      "residual_risk": "Hosted required-check wiring still depends on GitHub protection remaining enforced.",
+      "severity": "P0"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "operator_release.action_class",
+        "hold.proposed_action"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Scoped hold/release validation with Boolean types and action context.",
+      "dependency_closure": [
+        "src/aggie_analytics/governance/scientific_trust_recovery_hold.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-02",
+      "independently_reconstructed_result": "Unrelated owner/PR/head cannot inherit a release.",
+      "observed_result": "Unscoped/forged release and missing action context fail closed.",
+      "owner": "BAT-688",
+      "red_before_green_after_regression": [
+        "test_03_unscoped_release_and_missing_action_context",
+        "test_20_hold_missing_action_context_blocks_mutation",
+        "test_39_hold_blocks_done_and_bat523_parent_progress"
+      ],
+      "regression_tests": [
+        "test_03_unscoped_release_and_missing_action_context",
+        "test_20_hold_missing_action_context_blocks_mutation",
+        "test_39_hold_blocks_done_and_bat523_parent_progress"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_03_unscoped_release_and_missing_action_context",
+      "residual_risk": "Original 250a80ee authorization source remains AUTHORIZATION_SOURCE_NOT_VERIFIED if the live message is unavailable.",
+      "severity": "P0"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "forecast_trace",
+        "opportunity_population",
+        "payload_sha256"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Required payload/population coverage in the validator.",
+      "dependency_closure": [
+        "tools/validate_raw_to_forecast_trace.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-03",
+      "independently_reconstructed_result": "Null-only traces fail; empty expected population is accounted.",
+      "observed_result": "Empty/null traces and missing payloads cannot PASS production validation.",
+      "owner": "BAT-696",
+      "red_before_green_after_regression": [
+        "test_05_empty_null_trace_and_missing_payload"
+      ],
+      "regression_tests": [
+        "test_05_empty_null_trace_and_missing_payload"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_05_empty_null_trace_and_missing_payload",
+      "residual_risk": "All-abstention remains a legitimate empty forecast only when every opportunity is enumerated.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "scientific_reference imports",
+        "producer imports"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Expanded PRODUCER_PATHS; historical pair uses producer_metric_math instead of scientific_reference.metrics.",
+      "dependency_closure": [
+        "tools/validate_independent_scientific_reference.py",
+        "src/aggie_analytics/data/producer_metric_math.py",
+        "src/aggie_analytics/data/historical_saved_pair_game_grain_successor.py",
+        "src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-04",
+      "independently_reconstructed_result": "validate_independence returns no findings on the declared producer set.",
+      "observed_result": "Producer/reference reverse imports are rejected, including Week 1 national-forecast and historical-pair producers.",
+      "owner": "BAT-696",
+      "red_before_green_after_regression": [
+        "test_06_producer_reference_independence"
+      ],
+      "regression_tests": [
+        "test_06_producer_reference_independence"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_06_producer_reference_independence",
+      "residual_risk": "Shared JSON/hash parsing remains allowed; specification independence still needs semantic review.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "home_win_probability",
+        "interval_lower",
+        "interval_upper",
+        "labels"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Independent numerical domain checks before clipping/metrics.",
+      "dependency_closure": [
+        "src/aggie_analytics/scientific_reference/coherence.py",
+        "metrics.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-05",
+      "independently_reconstructed_result": "Invalid numbers abstain or raise; they do not silently clip into PASS.",
+      "observed_result": "Out-of-range probabilities, reversed intervals, label=2 log loss, and string source-coverage flags are rejected.",
+      "owner": "BAT-693",
+      "red_before_green_after_regression": [
+        "test_07_invalid_probability_scale_interval"
+      ],
+      "regression_tests": [
+        "test_07_invalid_probability_scale_interval"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_07_invalid_probability_scale_interval",
+      "residual_risk": "Unsupported families must keep NOT_SUPPORTED rather than invented margins.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "canonical_contest_id",
+        "opponent_id",
+        "team_id"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Contest+orientation join; empty IDs do not match.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-06",
+      "independently_reconstructed_result": "Ambiguous current contests abstain.",
+      "observed_result": "Multi-game first-match binding and empty IDs are rejected.",
+      "owner": "BAT-693",
+      "red_before_green_after_regression": [
+        "test_09_multi_game_first_match_rejected",
+        "test_10_empty_ids_do_not_match"
+      ],
+      "regression_tests": [
+        "test_09_multi_game_first_match_rejected",
+        "test_10_empty_ids_do_not_match"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_09_multi_game_first_match_rejected",
+      "residual_risk": "Name/date-only matches remain unresolved, not strong identity.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "market_identity",
+        "bookmaker_id",
+        "consensus_median"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Alias normalization, duplicate quarantine, no caller override of name_date_only.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/week1_2026_market_integrity_successor.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-07",
+      "independently_reconstructed_result": "Odds API remains ABSENT; no invented quotes.",
+      "observed_result": "Name/date-only cannot be labeled strong; invented sources cannot prove pre-market freeze; empty books are not independent.",
+      "owner": "BAT-694",
+      "red_before_green_after_regression": [
+        "test_11_market_name_date_and_made_up_source",
+        "test_13_name_date_only_cannot_override_strong_identity",
+        "test_14_sportsbook_alias_and_empty_book"
+      ],
+      "regression_tests": [
+        "test_11_market_name_date_and_made_up_source",
+        "test_13_name_date_only_cannot_override_strong_identity",
+        "test_14_sportsbook_alias_and_empty_book"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_11_market_name_date_and_made_up_source",
+      "residual_risk": "Missing markets do not block no-market controls and do not change model output.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "forecast_rows",
+        "oriented_rows",
+        "ridge expected_margin/interval"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Materialized national successor; historical helpers remain insufficient without that path.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py"
+      ],
+      "disposition": "QUALIFIED",
+      "id": "R26-08",
+      "independently_reconstructed_result": "Ridge pair/joint reconstruction fail_count=0 on emitted rows; publication UNTRUSTED_SHADOW.",
+      "observed_result": "Week 1 successor materialized 455 opportunities and 79 ridge joint-coherent games; helpers alone are not recovery.",
+      "owner": "BAT-690",
+      "reason": "National successor materialized with fitted joint ridge path; historical helpers no longer the sole recovery claim",
+      "red_before_green_after_regression": null,
+      "reproducer": "artifacts/forecast/week1_2026_game_grain_national_forecast_successor_gate.json",
+      "residual_risk": "PRIMARY_TRUST_RECOVERY_INCOMPLETE; UNTRUSTED_SHADOW; Pass 3 must bind the live head.",
+      "severity": "P1",
+      "successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "cycle_disposition",
+        "passes.pass_two",
+        "passes.pass_three"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "ca31ddcf9b5ebb598bff843158c21ab39e86b460",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "assess_cycle_pass_two checks declared payload dependencies per cycle; national 990 uses the committed reconciliation gate rather than a recursive directory count.",
+      "dependency_closure": [
+        "tools/build_all_cycle_scientific_inventory.py",
+        "tools/validate_all_cycle_scientific_inventory.py",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_REMAINING_AUDIT_BACKLOG.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_REMAINING_CLAIM_CENSUS.json"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json",
+      "id": "R26-09",
+      "independently_reconstructed_result": "Cycle 01 pass_two=NOT_AUDITED_YET and missing_raw_payloads=false; scientific_trust_recovered remains false.",
+      "observed_result": "Builder no longer stamps missing_raw_payloads=true for every cycle. Pass two is NOT_AUDITED_YET when declared payload dependencies are present or were the disproved SRC-002 directory-count assertion. Validator rejects UNIFORM_MISSING_RAW_PAYLOADS_STAMP.",
+      "owner": "BAT-688",
+      "reason": "R26-09 inventory-stamp defect is repaired. Remaining independent reconstruction is enumerated in CYCLE26_REMAINING_CLAIM_CENSUS (21 NOT_AUDITED_YET, 5 FAIL, 5 named-check reconstructions). Named checks do not complete parent cycles or authorize SEMANTICALLY_AUDITED.",
+      "red_before_green_after_regression": "tests/test_all_cycle_scientific_inventory.py::test_pass_two_does_not_stamp_every_cycle_missing_raw_payloads",
+      "reproducer": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json",
+      "residual_risk": "All-cycle trust gate remains closed. NOT_AUDITED_YET is not PASS.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "capture inventory count",
+        "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "False-positive correction appended; no invented missing-file repair.",
+      "dependency_closure": [
+        "BAT-651 CFBD request_index",
+        "SportsDataverse captures"
+      ],
+      "disposition": "DISPROVED_WITH_EVIDENCE",
+      "evidence": "ops/cycle26/CYCLE26_NATIONAL_CAPTURE_REHASH.json",
+      "id": "R26-10",
+      "independently_reconstructed_result": "DISPROVED_WITH_EVIDENCE; 2,550,148,419 record-weighted bytes on the September 2 rehash.",
+      "observed_result": "990 manifest records valid (972+18 CAPTURED_EMPTY); directory count is not the denominator.",
+      "owner": "BAT-688",
+      "red_before_green_after_regression": "tests/test_cycle26_adversarial_regressions.py::test_17_captured_empty_counts_as_inventory_record",
+      "regression_tests": null,
+      "reproducer": "ops/cycle26/CYCLE26_NATIONAL_CAPTURE_REHASH.json",
+      "residual_risk": "Byte verification does not admit a feature or restore trust.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "jira comment ledger cycle_id",
+        "comment 14723 mapping"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Canonical non-floating cycle identifiers; comment 14723 mapped to 25.5 without editing the live body.",
+      "dependency_closure": [
+        "src/aggie_analytics/governance/cycle_identity.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-11",
+      "independently_reconstructed_result": "No Cycle #26 BAT-523 parent comment posted.",
+      "observed_result": "CYCLE-25.5 vs CYCLE-26 collision is rejected; int(True) and float coercion are rejected.",
+      "owner": "BAT-688",
+      "red_before_green_after_regression": [
+        "test_04_cycle_identity_collision_and_boolean_rejection",
+        "test_21_cycle_ids_not_coerced"
+      ],
+      "regression_tests": [
+        "test_04_cycle_identity_collision_and_boolean_rejection",
+        "test_21_cycle_ids_not_coerced"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_04_cycle_identity_collision_and_boolean_rejection",
+      "residual_risk": "Uniqueness/authority for a later Cycle #26 parent comment remains unresolved by design under hold.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "SOURCE_ANCHOR_VALIDATION.csv"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Read-only validate mode; producer mode may write declared outputs only.",
+      "dependency_closure": [
+        "source-anchor validation producer vs validate mode"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-12",
+      "independently_reconstructed_result": "Mutation on validate is failure evidence.",
+      "observed_result": "validate_source_anchors(repair=False) does not write SOURCE_ANCHOR_VALIDATION.csv.",
+      "owner": "BAT-688",
+      "red_before_green_after_regression": [
+        "test_16_source_anchor_validate_mode_is_read_only"
+      ],
+      "regression_tests": [
+        "test_16_source_anchor_validate_mode_is_read_only"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_16_source_anchor_validate_mode_is_read_only",
+      "residual_risk": "Downstream generators must not restore the write-on-validate defect.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "branch protection required_pull_request_reviews",
+        "required status checks"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction": "Hosted GitHub branch protection PUT plus normalized_review_gate rejecting skipped/neutral and coverage-upload-as-codecov.",
+      "correction_or_containment": "Hosted protection PUT plus normalized gate rejecting skipped/neutral and coverage-upload-as-codecov.",
+      "dependency_closure": [
+        "src/aggie_analytics/governance/normalized_review_gate.py",
+        "GitHub /repos/KevinSGarrett/BatteredAggieSyndrome/branches/main/protection"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "gh api repos/KevinSGarrett/BatteredAggieSyndrome/branches/main/protection",
+      "id": "R26-13",
+      "independently_reconstructed_result": "Live readback 2026-09-03T23:33:22Z; skipped/neutral are not success.",
+      "live_readback_utc": "2026-09-03T23:33:22Z",
+      "observed_result": "Live main protection: required_approving_review_count=1, require_last_push_approval=true, codecov/patch required; Bugbot is not a check context.",
+      "owner": "BAT-689",
+      "reason": "Live main protection updated: required_approving_review_count=1, require_last_push_approval=true, codecov/patch added as required without removing existing checks. Bugbot is not a current check context and was not fabricated as required. Existing enforce_admins/dismiss_stale_reviews preserved.",
+      "red_before_green_after": "tests/test_cycle26_adversarial_regressions.py::test_skipped_and_neutral_required_checks_are_not_success",
+      "red_before_green_after_regression": "tests/test_cycle26_adversarial_regressions.py::test_skipped_and_neutral_required_checks_are_not_success",
+      "reproducer": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_13_LIVE_PROTECTION_READBACK.json",
+      "residual_risk": "Bugbot latest-head gate still not required because Bugbot does not emit a check. Solo-admin cannot self-approve under enforce_admins.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "checkpoint_label",
+        "freeze_receipt",
+        "kickoff_authority"
+      ],
+      "calendar_note": "Sep3 T-90M bound 20:01:19Z; Sep4-window T-24H bound 22:12:29Z before 22:30:00Z; A&M T-24H/T-90M armed with failover; PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged",
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "No invented P2 defect; no backfill.",
+      "dependency_closure": [
+        "ops/cycle26/run_week1_checkpoint_capture.ps1"
+      ],
+      "disposition": "NOT_APPLICABLE_WITH_REASON",
+      "id": "R26-14",
+      "independently_reconstructed_result": "NOT_APPLICABLE_WITH_REASON for expected OPEN checkpoints.",
+      "observed_result": "Sep 3 T-24H is MISSED_CUTOFF_NO_BACKFILL; T-90M and Sep4-window T-24H were bound before their cutoffs. OPEN future checkpoints are planned state.",
+      "owner": "BAT-690",
+      "reason": "Expected OPEN future checkpoints and national timing are planned state, not an integrity defect. Sep3 T-24H recorded MISSED_CUTOFF_NO_BACKFILL; T-90M remains eligible until per-contest cutoffs.",
+      "red_before_green_after_regression": "not a code defect; calendar evidence only",
+      "reproducer": "artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json",
+      "residual_risk": "A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z remain future captures.",
+      "severity": "P2"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "finding_ledger.adjudicator",
+        "originating_reviewer",
+        "implementing_author"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Distinct roles; case-insensitive identity; stale follow-up rejected.",
+      "dependency_closure": [
+        "tools/validate_pr_review_finding_ledger.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-15",
+      "independently_reconstructed_result": "Empty ledger is valid only with independently verified zero applicable findings.",
+      "observed_result": "Implementing author cannot adjudicate own P0/P1; null/placeholder identities are rejected.",
+      "owner": "BAT-689",
+      "red_before_green_after_regression": [
+        "test_19_author_self_adjudication_and_placeholders"
+      ],
+      "regression_tests": [
+        "test_19_author_self_adjudication_and_placeholders"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_19_author_self_adjudication_and_placeholders",
+      "residual_risk": "Pass 3 cannot be author self-approval.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "proposed_action",
+        "canonical_owner",
+        "trust_gate"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Action context required; comment/transition ledger deltas checked.",
+      "dependency_closure": [
+        "src/aggie_analytics/governance/scientific_trust_recovery_hold.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-16",
+      "independently_reconstructed_result": "Done and Cycle #26 BAT-523 parent-progress remain blocked.",
+      "observed_result": "Hold check missing action context/canonical owner/gate fails closed.",
+      "owner": "BAT-688",
+      "red_before_green_after_regression": [
+        "test_20_hold_missing_action_context_blocks_mutation"
+      ],
+      "regression_tests": [
+        "test_20_hold_missing_action_context_blocks_mutation"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_20_hold_missing_action_context_blocks_mutation",
+      "residual_risk": "Successful validation of an ACTIVE hold is not merge permission.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "cycle_disposition",
+        "claims"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Validator + semantically_audited_findings helper.",
+      "dependency_closure": [
+        "src/aggie_analytics/governance/cycle26_acceptance_guards.py",
+        "tools/validate_all_cycle_scientific_inventory.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "tools/validate_all_cycle_scientific_inventory.py",
+      "id": "R26-17",
+      "independently_reconstructed_result": "Live matrix pass-three is PARTIAL, not COMPLETE.",
+      "observed_result": "SEMANTICALLY_AUDITED with blocked/partial passes is rejected; empty claim census cannot authorize it.",
+      "owner": "BAT-688",
+      "reason": "False COMPLETE pass-three / SEMANTICALLY_AUDITED assurance closed: builder emits PARTIAL for category-search pass three; validator rejects COMPLETE under category-search limitation and SEMANTICALLY_AUDITED with blocked passes.",
+      "red_before_green_after_regression": "tests/test_cycle26_adversarial_regressions.py::test_22_empty_claim_registry_and_false_semantic_audit",
+      "regression_tests": [
+        "test_pass_three_category_search_cannot_be_complete",
+        "test_inventory_validator_passes"
+      ],
+      "reproducer": "tools/validate_all_cycle_scientific_inventory.py",
+      "residual_risk": "Registry honesty is not all-cycle reconstruction.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "dependency_dag.edges",
+        "transitive_affected"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Actual-edge DAG cycle and transitive impact reconstruction.",
+      "dependency_closure": [
+        "tools/validate_all_cycle_scientific_inventory.py"
+      ],
+      "disposition": "QUALIFIED",
+      "evidence": "src/aggie_analytics/governance/scientific_dependency_graph.py",
+      "id": "R26-18",
+      "independently_reconstructed_result": "QUALIFIED: full claim-to-consumer closure remains incomplete while pass two is blocked.",
+      "observed_result": "A->B->A cycles and omitted C in A->B->C are detected; circular_authority is not trusted as a boolean stamp.",
+      "owner": "BAT-688",
+      "reason": "Dependency DAG cycle detection and transitive successor propagation are implemented and tested; full claim-to-consumer closure for every historical cycle remains incomplete while pass two is blocked.",
+      "red_before_green_after_regression": "tests/test_cycle26_adversarial_regressions.py DAG cycle cases",
+      "reproducer": "src/aggie_analytics/governance/scientific_dependency_graph.py",
+      "residual_risk": "Unaffected-branch proofs still required per claim before all-cycle PASS.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "protected_evaluation_replacement_protocol.activation"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Validate exposure record, staged roles, result-access boundary, approval identity.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/protected_evaluation_replacement_protocol.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-19",
+      "independently_reconstructed_result": "RETAIN_PROTECTED_LANE_BLOCKED; 2024/2025 remain exposed.",
+      "observed_result": "Truthy-string activation and missing exposure/stage fields are rejected; design remains inactive.",
+      "owner": "BAT-695",
+      "red_before_green_after_regression": [
+        "test_24_protected_protocol_rejects_truthy_string"
+      ],
+      "regression_tests": [
+        "test_24_protected_protocol_rejects_truthy_string"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_24_protected_protocol_rejects_truthy_string",
+      "residual_risk": "Neither this fix nor operator approval makes exposed seasons blind.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "predicted_win_probability pairs",
+        "predicted_margin pairs",
+        "C25 A&M both orientations"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction": "New historical game-grain successor emits complementary pairs and antisymmetric ridge margins without rewriting C20/C21/C25 payloads; Week 1 joint Normal successor unchanged; original team-grain metrics deprecated.",
+      "correction_or_containment": "Content-addressed successor; original team-grain metrics deprecated; producer metrics no longer import the reference module.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/historical_saved_pair_game_grain_successor.py",
+        "src/aggie_analytics/data/producer_metric_math.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-20",
+      "independently_reconstructed": true,
+      "independently_reconstructed_result": "C25 ridge A&M orientations remain complementary on the successor; joint Normal not claimed for C20/C21.",
+      "observed_result": "C20/C21 logistic/ridge/prior-only pair failures are preserved as predecessors; successor emits complementary pairs without rewriting saved payloads.",
+      "owner": "BAT-693",
+      "red_before_green_after": "tests/test_historical_saved_pair_game_grain_successor.py + test_25_historical_saved_pairs_are_not_cosmetically_rewritten",
+      "red_before_green_after_regression": "tests/test_historical_saved_pair_game_grain_successor.py + test_25_historical_saved_pairs_are_not_cosmetically_rewritten",
+      "reproducer": "tests/test_historical_saved_pair_game_grain_successor.py",
+      "residual_risk": "Predecessor files remain immutable deprecated evidence.",
+      "severity": "P1",
+      "successor_gate": "1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0",
+      "week1_successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "active_path_import_edges": 0,
+      "affected_fields": [
+        "passing/rushing section labels",
+        "TEAM pseudo-player rows"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json",
+      "correction": "Immutable passing-section successor recodes 429 confirmed rows to passing without rewriting the 1996-2009 predecessor; TEAM rows stay team-attributed; 45 unresolved screen candidates remain unresolved.",
+      "correction_or_containment": "Att-Cmp-Int and Cmp-Att-Int headers; TEAM rows stay team-attributed.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/tamu_official_passing_section_successor.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-21",
+      "independently_reconstructed": true,
+      "independently_reconstructed_result": "Week 1 active path StatCrew import edges=0.",
+      "observed_result": "429 confirmed current-corpus passing-section errors on 125 raw pages; successor recodes without rewriting 1996-2009 predecessor.",
+      "owner": "BAT-692",
+      "red_before_green_after": "tests/test_tamu_official_passing_section_successor.py + tools/validate_tamu_official_passing_section_successor.py",
+      "red_before_green_after_regression": "tests/test_tamu_official_passing_section_successor.py + tools/validate_tamu_official_passing_section_successor.py",
+      "reproducer": "tests/test_tamu_official_passing_section_successor.py",
+      "residual_risk": "45 unresolved screen candidates; mounted predecessor StatCrew reconstruction remains contained-not-fixed.",
+      "severity": "P1",
+      "successor_gate": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "admitted_proxy_pairs": 27274659,
+      "affected_fields": [
+        "authority_is_sufficient_for_point_in_time_admission",
+        "prior_target pairs"
+      ],
+      "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "containment_evidence": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json",
+      "correction": "operational_pit_admission_allowed rejects CONSERVATIVE_BOUND even when predecessor PIT boolean is true. Fitted-path temporal-authority successor binds the 90198-row deployment fit to 0 proven-PIT training rows (OBSERVED_PUBLICATION=0, OBSERVED_EFFECTIVE=0). Pair census retained. Historical fitted parameters still used proxies; Week1 publication remains UNTRUSTED_SHADOW.",
+      "correction_or_containment": "Containment of operational fitted-lane admission; BAT-666 contract not rewritten; no reduced-feature refit under the same ridge identity.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/cycle26_bound_authority_pair_audit.py",
+        "src/aggie_analytics/data/week1_2026_fitted_path_temporal_authority.py"
+      ],
+      "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
+      "id": "R26-22",
+      "independently_reconstructed_result": "CONFIRMED_CONTAINED_NOT_FIXED for historical fitted parameters that used proxies. tools/validate_week1_2026_fitted_path_temporal_authority.py PASS; proven_pit_training_row_count=0.",
+      "leakage_declared": false,
+      "near_bound_pairs": 14,
+      "note": "National spine pair census completed; +12h/+2d remain conditional proxies. Predecessor BAT-666/667 gates not rewritten. Week1 forecast payloads not rewritten. Fitted-path successor records PRIMARY_TRUST_RECOVERY_INCOMPLETE.",
+      "observed_result": "27,274,659 proxy-admitted pairs; 14 near-bound; operational_pit_admission_allowed is False for CONSERVATIVE_BOUND even when predecessor PIT boolean is true. 90198 training rows; 0 proven-PIT domains.",
+      "owner": "BAT-690",
+      "pair_audit_gate_identity": "0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548",
+      "red_before_green_after": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit + test_27 + test_43_zero_proven_pit_cannot_hide_behind_training_row_count",
+      "red_before_green_after_regression": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit + test_27 + test_43_zero_proven_pit_cannot_hide_behind_training_row_count",
+      "reproducer": "tests/test_cycle26_bound_authority_pair_audit.py::test_conservative_bound_predecessor_boolean_is_not_proven_pit",
+      "residual_risk": "Conditional chronology proxies cannot satisfy proven-PIT; Week1 remains UNTRUSTED_SHADOW.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "table header vs statistic rows"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Separate header/schema evidence from validated statistic rows.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/tamu_official_statcrew_preformatted.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-23",
+      "independently_reconstructed_result": "Malformed header transitions and empty tables are exercised.",
+      "observed_result": "Header-only tables cannot assert material statistic availability; rushing state is not inherited across passing headers.",
+      "owner": "BAT-692",
+      "red_before_green_after_regression": [
+        "test_26_passing_header_does_not_inherit_rushing"
+      ],
+      "regression_tests": [
+        "test_26_passing_header_does_not_inherit_rushing"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_26_passing_header_does_not_inherit_rushing",
+      "residual_risk": "Broader corpus table variants outside the successor remain historical.",
+      "severity": "P2"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "backup relative path"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Harden Windows path components before backup/restore claims.",
+      "dependency_closure": [
+        "src/aggie_analytics/operations/backup.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-24",
+      "independently_reconstructed_result": "Hostile fixtures are not restored over user data in tests.",
+      "observed_result": "ADS/colon, device names, trailing-dot/space aliases are rejected in backup path components.",
+      "owner": "BAT-688",
+      "red_before_green_after_regression": [
+        "test_28_windows_filename_hazards"
+      ],
+      "regression_tests": [
+        "test_28_windows_filename_hazards"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_28_windows_filename_hazards",
+      "residual_risk": "New backup claims still require disposable-directory tests.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "changed_file_digest",
+        "codex_review_outcome"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Digest mismatch is a distinct error, not a P0-verdict PASS.",
+      "dependency_closure": [
+        "tools/validate_codex_scientific_review.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-25",
+      "independently_reconstructed_result": "CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH with merge_success=false.",
+      "observed_result": "Unrelated malformed digest cannot satisfy a P0-verdict or scientific regression as success.",
+      "owner": "BAT-689",
+      "red_before_green_after_regression": [
+        "test_29_digest_failure_is_not_p0_verdict_success"
+      ],
+      "regression_tests": [
+        "test_29_digest_failure_is_not_p0_verdict_success"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_29_digest_failure_is_not_p0_verdict_success",
+      "residual_risk": "Hosted required checks remain a defense layer, not Pass 3.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "interval quantiles",
+        "P(home margin>0)"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Vetted inverse-CDF; joint Normal from the same fitted distribution.",
+      "dependency_closure": [
+        "src/aggie_analytics/scientific_reference/coherence.py",
+        "producer_distribution_math.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "R26-26",
+      "independently_reconstructed_result": "Week 1 ridge joint reconstruction fail_count=0.",
+      "observed_result": "Independent Acklam inverse-normal CDF(PPF(p)) including p=.975 stays within declared tolerance; producer quantiles are not the independent expected result.",
+      "owner": "BAT-693",
+      "red_before_green_after_regression": [
+        "test_08_joint_distribution_uses_independent_ppf",
+        "test_30_inverse_normal_cdf_ppf_roundtrip"
+      ],
+      "regression_tests": [
+        "test_08_joint_distribution_uses_independent_ppf",
+        "test_30_inverse_normal_cdf_ppf_roundtrip"
+      ],
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_30_inverse_normal_cdf_ppf_roundtrip",
+      "residual_risk": "A&M/market outcomes were not used to choose constants.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "completed",
+        "final scores",
+        "quarantine flag"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction": "Structured-status successor restores SRC-002:GAME:312472199 from verified boolean completed + scores; predecessor quarantine preserved.",
+      "correction_or_containment": "Successor from verified finality/identity, not a truthy completed string.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/national_foundation_status_successor.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-7A7-FALSE-QUARANTINE-312472199",
+      "independently_reconstructed": true,
+      "independently_reconstructed_result": "PIT admission stays closed.",
+      "observed_result": "SRC-002:GAME:312472199 restored from verified completed+scores (Eastern Michigan 41, Howard 9); predecessor quarantine preserved.",
+      "owner": "BAT-651",
+      "red_before_green_after": "tests/test_national_foundation_status_successor.py + tools/validate_national_foundation_status_successor.py",
+      "red_before_green_after_regression": "tests/test_national_foundation_status_successor.py + tools/validate_national_foundation_status_successor.py",
+      "reproducer": "tests/test_national_foundation_status_successor.py",
+      "residual_risk": "Consumers must bind the successor explicitly.",
+      "severity": "P1",
+      "successor_gate": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "child_payload.row_count",
+        "rows_per_domain"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction": "Corpus derivative-integrity successor recomputes stale child_payload row_count vs rows_per_domain (4 stale domains; player 3475 vs 3613). Predecessor 1996-2009 gate not rewritten.",
+      "correction_or_containment": "Immutable successor; 1996-2009 predecessor not rewritten.",
+      "dependency_closure": [
+        "src/aggie_analytics/data/tamu_corpus_derivative_integrity_successor.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-7A7-CHILD-COUNTS",
+      "independently_reconstructed": true,
+      "independently_reconstructed_result": "independent_fail_count=0 on the successor gate.",
+      "observed_result": "4 stale child-count domains recomputed; player 3475 vs 3613 in the successor.",
+      "owner": "BAT-692",
+      "red_before_green_after": "tests/test_tamu_corpus_derivative_integrity_successor.py",
+      "red_before_green_after_regression": "tests/test_tamu_corpus_derivative_integrity_successor.py",
+      "reproducer": "tests/test_tamu_corpus_derivative_integrity_successor.py",
+      "residual_risk": "Predecessor row_count fields remain stale.",
+      "severity": "P1",
+      "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "unresolved BAT placeholder ownership tokens"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction": "Authority-bearing configs/artifacts/governance/docs/instructions scan found 0 unresolved external BAT placeholder ownership tokens. Fixture tests/fixtures/stale_placeholder_contract.json remains exempt.",
+      "correction_or_containment": "Scan + fixture exemption for tests/fixtures/stale_placeholder_contract.json.",
+      "dependency_closure": [
+        "C26-7A7 corpus successor"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-7A7-PLACEHOLDER-OWNERSHIP",
+      "independently_reconstructed_result": "Historical jira/snapshots remain excluded by design.",
+      "observed_result": "0 unresolved external BAT placeholder ownership tokens in authority-bearing configs/artifacts/governance/docs/instructions.",
+      "owner": "BAT-692",
+      "red_before_green_after_regression": "tests/test_tamu_corpus_derivative_integrity_successor.py",
+      "reproducer": "src/aggie_analytics/data/tamu_corpus_derivative_integrity_successor.py reject_placeholder",
+      "residual_risk": "Snapshots must not be treated as live ownership.",
+      "severity": "P1",
+      "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "original_text",
+        "parsed object serialization"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction": "Mounted 1996-2009 children: 58753 rows preserve original_text distinct from str(parsed); 2803 rows have original_text equal to stringified parsed objects. Predecessor not rewritten.",
+      "correction_or_containment": "Reported, not silently repaired in place.",
+      "dependency_closure": [
+        "tamu official children jsonl"
+      ],
+      "disposition": "QUALIFIED",
+      "id": "C26-7A7-RAW-TEXT",
+      "independently_reconstructed_result": "QUALIFIED; predecessor not rewritten.",
+      "observed_result": "58753 rows preserve original_text distinct from str(parsed); 2803 rows equal stringified parsed objects.",
+      "owner": "BAT-692",
+      "red_before_green_after_regression": "tests/test_tamu_corpus_derivative_integrity_successor.py",
+      "reproducer": "mounted 1996-2009 children original_text vs str(parsed)",
+      "residual_risk": "2803 stringified-parsed rows remain in the predecessor payload.",
+      "severity": "P1",
+      "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "rejected_url_hits",
+        "official_YYYY_rejected",
+        "rejected_urls_complete"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction": "Mounted child jsonl rejected_url_hits=0 across all serialized domains. Season-specific official_YYYY_rejected sum=17 is not equated to cumulative rejected_urls_complete=40.",
+      "correction_or_containment": "Do not equate season-specific and cumulative rejection counts.",
+      "dependency_closure": [
+        "tamu official children"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-7A7-REJECTION-LEAK",
+      "independently_reconstructed_result": "No active rejection enters admitted children in the mounted scan.",
+      "observed_result": "rejected_url_hits=0; season-specific official_YYYY_rejected sum=17 is not equated to cumulative rejected_urls_complete=40.",
+      "owner": "BAT-692",
+      "red_before_green_after_regression": "tests/test_tamu_corpus_derivative_integrity_successor.py",
+      "reproducer": "mounted child jsonl rejected_url_hits scan",
+      "residual_risk": "Predecessor cascade rematerialization is not authorized.",
+      "severity": "P1",
+      "successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "active_path_reachable": false,
+      "affected_fields": [
+        "StatCrew/structured-domain gates 1998-2006"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction": "Predecessor gates preserved. R26-21 passing-section successor is the correction path. Week1 active path has zero StatCrew import edges. CI unmounted core-validation PASS. Do not rematerialize the 1998-2006 cascade.",
+      "correction_or_containment": "Quarantine: Week 1 path has zero StatCrew import edges; do not rematerialize the cascade.",
+      "dependency_closure": [
+        "mounted TAMU official corpus predecessors"
+      ],
+      "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
+      "id": "C26-MOUNTED-STATCREW-PREDECESSOR-RECONSTRUCTION",
+      "independently_reconstructed_result": "CONFIRMED_CONTAINED_NOT_FIXED; reconstruction tests no longer ERROR; CI unmounted core-validation PASS; local --strict predecessor mismatches remain.",
+      "observed": "python tools/validate_repository.py --strict against default C:\\BatteredAggieSyndrome.data FAIL 14 predecessor StatCrew/structured-domain reconstruction mismatches at 2026-09-03T19:01:39Z",
+      "observed_result": "FAIL 14 predecessor StatCrew/structured-domain reconstruction mismatches at 2026-09-03T19:01:39Z",
+      "owner": "BAT-692",
+      "red_before_green_after": "tests/cycle26_frozen_predecessor.py contained_reconstruction asserts reconstruction mismatch without rematerializing; mounted test_tamu_official_* discover 726 OK; full mounted discover 3141 tests skipped=51 after LF baseline repair; tools/validate_tamu_official_passing_section_successor.py PASS",
+      "red_before_green_after_regression": "tests/cycle26_frozen_predecessor.py contained_reconstruction asserts reconstruction mismatch without rematerializing; mounted test_tamu_official_* discover 726 OK; full mounted discover 3141 tests skipped=51 after LF baseline repair; tools/validate_tamu_official_passing_section_successor.py PASS",
+      "reproducer": "python tools/validate_repository.py --strict against C:\\BatteredAggieSyndrome.data",
+      "residual_risk": "Local mounted --strict remains FAIL until separately authorized rematerialization.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "CYCLE26_PASS1_PROVENANCE_RECEIPT.payload_hashes.core_module"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Rebind core_module hash to live file sha256 4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c.",
+      "dependency_closure": [
+        "week1_2026_game_grain_national_forecast_successor.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-P3-01",
+      "independently_reconstructed_result": "test_33 now hashes the live module against the receipt.",
+      "observed_result": "Pass 1 payload_hashes.core_module previously 4367c3e6\u2026 did not match live module 4440a213\u2026",
+      "owner": "BAT-690",
+      "red_before_green_after_regression": "tests/test_cycle26_adversarial_regressions.py::test_33_stale_acceptance_receipt_does_not_authorize_head",
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_33_stale_acceptance_receipt_does_not_authorize_head",
+      "residual_risk": "Git commit SHA of receipts still lags the commit that writes them.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "Pass 1/2/3 git_tip",
+        "rebinding_code_head"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Preserve e9f0adb5 Pass 3 as historical; current-head Pass 3 remains PENDING until re-run after this semantic repair.",
+      "dependency_closure": [
+        "three-pass receipts",
+        "PR #678"
+      ],
+      "disposition": "CONFIRMED_CONTAINED_NOT_FIXED",
+      "id": "C26-P3-02",
+      "independently_reconstructed_result": "Author cannot self-approve Pass 3.",
+      "observed_result": "Independent Pass 3 at e9f0adb5; later heads 8f65cc36 and subsequent semantic commits are not covered by that receipt.",
+      "owner": "BAT-690",
+      "red_before_green_after_regression": "tests/test_cycle26_adversarial_regressions.py::test_33_stale_acceptance_receipt_does_not_authorize_head",
+      "reproducer": "ops/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEWER_RECEIPT.json",
+      "residual_risk": "Semantic change invalidates Pass 3 descendants until rebound.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "PRODUCER_PATHS",
+        "historical pair metric imports"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Watch both producers; move historical metrics to producer_metric_math.",
+      "dependency_closure": [
+        "tools/validate_independent_scientific_reference.py",
+        "src/aggie_analytics/data/producer_metric_math.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-P3-03",
+      "independently_reconstructed_result": "Week 1 producer still does not import scientific_reference.",
+      "observed_result": "Independence validator omitted Week 1 national-forecast and historical-pair producers; historical pair imported scientific_reference.metrics.",
+      "owner": "BAT-696",
+      "red_before_green_after_regression": "tests/test_cycle26_adversarial_regressions.py::test_06_producer_reference_independence",
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py::test_06_producer_reference_independence",
+      "residual_risk": "Independent tests may still import reference metrics to reconstruct producer outputs.",
+      "severity": "P1"
+    },
+    {
+      "acceptance_authority": "USER_EXPLICIT_ONLY",
+      "affected_fields": [
+        "adversarial regression fail-closed coverage"
+      ],
+      "code_payload_pr_identities": {
+        "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+        "requested_review_head_at_last_material": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+        "week1_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+      },
+      "correction_or_containment": "Tests now call production guards and live Pass 1 core_module hashing.",
+      "dependency_closure": [
+        "src/aggie_analytics/governance/cycle26_acceptance_guards.py"
+      ],
+      "disposition": "CONFIRMED_FIXED",
+      "id": "C26-P3-04",
+      "independently_reconstructed_result": "Stale core_module hash fails test_33; all-abstention cannot set VERIFIED even if the claim flag is true.",
+      "observed_result": "Several section-11 tests asserted locally constructed dicts and would not fail on live receipt defects.",
+      "owner": "BAT-689",
+      "red_before_green_after_regression": "tests/test_cycle26_adversarial_regressions.py",
+      "reproducer": "tests/test_cycle26_adversarial_regressions.py tautological tests 17/18/22/33-38/31b",
+      "residual_risk": "Not every section-11 item has a hosted required check; guards are the fail-closed entry.",
+      "severity": "P1"
+    }
+  ],
+  "evidence_ops_note": "Sep3 T-90M bound 20:01:19Z; Sep4-window T-24H bound 22:12:29Z before 22:30:00Z; A&M T-24H/T-90M armed with failover; PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged",
+  "git_tip_at_issuance": "8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc",
+  "issued_at_utc": "2026-09-04T01:06:33Z",
+  "jira_verify_live_at_utc": "2026-09-04T02:49:20Z",
+  "note": "Matrix completed for required 1B fields. Pass 3 at e9f0adb5 does not cover later semantic heads. PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged.",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "requested_review_head": "973b1a5deb658e2d7e02b43c66f7e98f3c95ae6d",
+  "schema_version": 2
+}

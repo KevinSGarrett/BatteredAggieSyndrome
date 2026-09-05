@@ -120,6 +120,7 @@ class IndependentReferenceTests(unittest.TestCase):
         bound = current_opponent_bound(
             row,
             {
+                "contest_id": "week1-tamu-most",
                 "home_team_key": "texas a&m",
                 "away_team_key": "missouri state",
             },
@@ -153,6 +154,9 @@ class IndependentReferenceTests(unittest.TestCase):
         rows = oriented_rows_from_game(game)
         self.assertEqual(len(rows), 2)
         self.assertAlmostEqual(rows[0]["expected_margin"] + rows[1]["expected_margin"], 0.0)
+        self.assertEqual(rows[0]["team_win_probability"], game["home_win_probability"])
+        self.assertEqual(rows[1]["team_win_probability"], game["away_win_probability"])
+        self.assertNotIn("home_win_probability", rows[1])
 
     def test_market_alias_median_overround(self) -> None:
         freeze = freeze_vs_market(
@@ -233,7 +237,7 @@ class IndependentReferenceTests(unittest.TestCase):
                 "opponent_key": "arkansas",
                 "copied_from_terminal_historical_row": True,
             },
-            {"home_team_key": "texas a&m", "away_team_key": "missouri state"},
+            {"contest_id": "week1-tamu-most", "home_team_key": "texas a&m", "away_team_key": "missouri state"},
         )
         self.assertFalse(bound["bound"])
 

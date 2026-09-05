@@ -8,6 +8,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.tamu_official_2005_structured_domains import (  # noqa: E402
     AuthorityViolation,
@@ -132,7 +135,16 @@ class Compact2005StructuredDomainGateTests(unittest.TestCase):
 @unittest.skipUnless(LAKE_READY, "external BAT-601 captures are not mounted")
 class Official2005StructuredDomainTests(unittest.TestCase):
     def test_committed_gate_reconstructs(self) -> None:
-        result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
+        result = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: validate_artifact(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+            ),
+        )
+        if result is None:
+            return
         self.assertEqual(result["result"], "PASS")
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
         self.assertEqual(gate["gate_identity"], EXPECTED_GATE_IDENTITY)

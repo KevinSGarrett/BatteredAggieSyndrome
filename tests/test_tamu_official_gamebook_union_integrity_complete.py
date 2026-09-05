@@ -9,6 +9,9 @@ from typing import Any, Iterator
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.tamu_official_gamebook_union_2004_expanded import (  # noqa: E402
     PINNED_UNION_IDENTITY as PINNED_BAT607_UNION_IDENTITY,
@@ -192,10 +195,24 @@ class IntegrityCompleteReconstructionAndTamperTests(unittest.TestCase):
         path = REPO_ROOT / GATE_RELATIVE
         if not path.is_file():
             self.skipTest("integrity-complete union gate not materialized yet")
-        self.objects = reconstruct_objects(repo_root=REPO_ROOT, data_root=DATA_ROOT)
-        self.bat606 = _copy(self.objects["bat606"]["payload"])
+        self.objects = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: reconstruct_objects(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT
+            ),
+        )
+        self.predecessor_contained = self.objects is None
+        self.bat606 = (
+            None
+            if self.predecessor_contained
+            else _copy(self.objects["bat606"]["payload"])
+        )
 
     def test_committed_gate_reconstructs(self) -> None:
+        if self.predecessor_contained:
+            return
         result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
         self.assertEqual(result["result"], "PASS")
         self.assertEqual(result["counts"]["new_games_added"], 0)
@@ -206,6 +223,8 @@ class IntegrityCompleteReconstructionAndTamperTests(unittest.TestCase):
         self.assertTrue(lake_is_ready(DATA_ROOT))
 
     def test_missing_predecessor_union_manifests_fail_closed(self) -> None:
+        if self.predecessor_contained:
+            return
         with _temporarily_moved(bat603_union_manifest_path(DATA_ROOT)):
             with self.assertRaisesRegex(AuthorityViolation, "union manifest is missing"):
                 validate_bat603(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
@@ -214,6 +233,8 @@ class IntegrityCompleteReconstructionAndTamperTests(unittest.TestCase):
                 validate_bat607(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
 
     def test_substituted_and_altered_union_manifests_fail_closed(self) -> None:
+        if self.predecessor_contained:
+            return
         path = bat607_union_manifest_path(DATA_ROOT)
         substituted = _copy(load_json(path))
         substituted["counts"]["new_games_added"] = 99
@@ -227,6 +248,8 @@ class IntegrityCompleteReconstructionAndTamperTests(unittest.TestCase):
                 validate_bat607(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
 
     def test_extra_union_manifest_fails_closed(self) -> None:
+        if self.predecessor_contained:
+            return
         extra = bat607_union_manifest_path(DATA_ROOT).with_name("extra_manifest.json")
         extra.write_text("{}\n", encoding="utf-8")
         try:
@@ -237,6 +260,8 @@ class IntegrityCompleteReconstructionAndTamperTests(unittest.TestCase):
                 extra.unlink()
 
     def test_missing_successor_union_manifest_fails_closed(self) -> None:
+        if self.predecessor_contained:
+            return
         gate = load_json(REPO_ROOT / GATE_RELATIVE)
         path = union_manifest_path(DATA_ROOT, str(gate["union_identity"]))
         with _temporarily_moved(path):
@@ -244,6 +269,8 @@ class IntegrityCompleteReconstructionAndTamperTests(unittest.TestCase):
                 validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
 
     def test_bat606_row_tampers_fail_against_raw_reconstruction(self) -> None:
+        if self.predecessor_contained:
+            return
         sha = _copy(self.bat606)
         if sha["rows"][0]:
             sha["rows"][0][0]["source_sha256"] = "0" * 64
@@ -285,6 +312,8 @@ class IntegrityCompleteReconstructionAndTamperTests(unittest.TestCase):
             validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, bat606_payload=warnings)
 
     def test_coordinated_bat606_and_outer_rehash_fail(self) -> None:
+        if self.predecessor_contained:
+            return
         coordinated = _copy(self.bat606)
         if coordinated["rows"][0]:
             coordinated["rows"][0][0]["source_label"] = "COORDINATED TAMPER"

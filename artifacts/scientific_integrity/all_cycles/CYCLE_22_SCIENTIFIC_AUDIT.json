@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
-  "audit_identity": "c680b80e22c055aa09cfe3ca3f7586d8ca63d9fb39977717341fc28f8319a016",
+  "audit_identity": "80fc2a60f5527ddbb7b54ceb9704159304768e386c2cf18ccdf66f678f5e9f70",
   "cycle_number": 22,
   "ending_sha": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
   "findings": [],
@@ -12,7 +12,7 @@
     "status": "COMPLETE"
   },
   "pass_three_adversarial": {
-    "limitation": "Category search only. Pass two did not independently reconstruct every material claim from mounted raw payloads.",
+    "limitation": "Category search only. Pass two did not independently reconstruct every material claim from mounted raw payloads. Category search is PARTIAL, not complete review-of-review.",
     "searched_for": [
       "omitted_artifacts",
       "circular_validation",
@@ -21,14 +21,18 @@
       "protected_exposure",
       "ignored_user_holds"
     ],
-    "status": "COMPLETE"
+    "status": "PARTIAL"
   },
   "pass_two_semantic": {
+    "declared_payload_requirement_count": 0,
     "independent_of_producer_helpers": true,
-    "missing_raw_payloads": true,
-    "status": "BLOCKED_INSUFFICIENT_EVIDENCE"
+    "limitation": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+    "missing_declared_payloads": [],
+    "missing_raw_payloads": false,
+    "skipped_false_positive_payload_assertions": [],
+    "status": "NOT_AUDITED_YET"
   },
   "schema_version": 1,
   "starting_sha": "f7b68d776a2d7c602ac6ae003f23fbac8d0f2820",
-  "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE"
+  "trust_classification": "NOT_AUDITED_YET"
 }

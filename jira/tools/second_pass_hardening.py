@@ -1214,7 +1214,9 @@ def regenerate_import_derivatives(records: list[dict[str, Any]]) -> None:
     jsonl_dump(JIRA_ROOT / "import" / "JIRA_API_STATUS_TRANSITION_PLAN.jsonl", transition_plan)
 
 
-def validate_source_anchors(repair: bool = False) -> tuple[list[str], list[dict[str, Any]]]:
+def validate_source_anchors(repair: bool = False, *, write: bool | None = None) -> tuple[list[str], list[dict[str, Any]]]:
+    if write is None:
+        write = repair
     context_errors = repository_context_errors()
     if context_errors:
         return context_errors, []
@@ -1314,11 +1316,12 @@ def validate_source_anchors(repair: bool = False) -> tuple[list[str], list[dict[
             "source_ref_id": row["source_ref_id"], "repo_relative_path": rel, "status": status, "relocated": relocated,
             "start_line": row.get("start_line", ""), "end_line": row.get("end_line", ""), "detail": detail,
         })
-    if changed:
+    if write and changed:
         fields = list(rows[0]) if rows else []
         csv_dump(path, rows, fields)
         csv_dump(JIRA_ROOT / "sources" / "SOURCE_ANCHOR_INDEX.csv", rows, fields)
-    csv_dump(JIRA_ROOT / "validation" / "SOURCE_ANCHOR_VALIDATION.csv", results)
+    if write:
+        csv_dump(JIRA_ROOT / "validation" / "SOURCE_ANCHOR_VALIDATION.csv", results)
     return errors, results
 
 

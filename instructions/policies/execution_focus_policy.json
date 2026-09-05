@@ -101,6 +101,111 @@
         "head_sha": "4069c521556e405b6b9684c6975cf38f4e012c1c",
         "classification": "[material]",
         "reason": "The Cycle 25.5 Jira reconciliation recorded an immutable BAT-523 snapshot and updated routing/provenance configs. Those are material governance paths; the [process] subject was incorrect. The correction is scoped to this exact commit."
+      },
+      {
+        "commit_sha": "0bccbd13000e0e96f3641de4df90fcb0dc10f5ef",
+        "pull_request": 678,
+        "head_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "classification": "[material]",
+        "reason": "Cycle #26 scientific-control checkpoint commit changed material src/tools/governance paths but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "pull_request": 678,
+        "head_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "classification": "[material]",
+        "reason": "Cycle #26 review/hold/distribution repairs changed material validators and scientific helpers but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "9d770cef0336152e78b01f6cba5cd77fc1dd85cb",
+        "pull_request": 678,
+        "head_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "classification": "[material]",
+        "reason": "Cycle #26 national forecast successor and reconciliation changed material science/governance paths but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "pull_request": 678,
+        "head_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "classification": "[material]",
+        "reason": "Cycle #26 live Jira verification receipt refresh accompanied material Cycle #26 head updates but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "0a63c57da05349f25af44af7f7e5a50189758223",
+        "pull_request": 678,
+        "head_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "classification": "[material]",
+        "reason": "Git revert of incomplete BAT-591 rematerialization restored material gate/binding integrity on PR #678, but default revert subject omitted [material]. Correction scoped to this exact revert commit."
+      },
+      {
+        "commit_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "pull_request": 678,
+        "head_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "classification": "[material]",
+        "reason": "Git revert of incomplete BAT-591 rematerialization restored material StatCrew/domain/corpus pins on PR #678, but default revert subject omitted [material]. Correction scoped to this exact revert commit."
+      },
+      {
+        "commit_sha": "bac5dcb91f13b984f278e24cdd205a0b97f9b513",
+        "pull_request": 678,
+        "head_sha": "bac5dcb91f13b984f278e24cdd205a0b97f9b513",
+        "classification": "[material]",
+        "reason": "Cycle #26 predictive-skill evidence bind created a downstream-consumable DEVELOPMENT_EVIDENCE_ONLY acceptance artifact on PR #678, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "0df91cd691b613e6985e472faf5b294ce4a13de0",
+        "pull_request": 678,
+        "head_sha": "0df91cd691b613e6985e472faf5b294ce4a13de0",
+        "classification": "[material]",
+        "reason": "Cycle #26 remaining all-cycle audit backlog and Sep4 T-24H capture prep are material scientific/governance handoff artifacts on PR #678, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "afa0475fe3cff3a70b9ef90c5be679ed5e8260c3",
+        "pull_request": 678,
+        "head_sha": "afa0475fe3cff3a70b9ef90c5be679ed5e8260c3",
+        "classification": "[material]",
+        "reason": "Cycle #26 active-path acceptance and final report rebind at CI-green tip are material handoff artifacts on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
+        "pull_request": 678,
+        "head_sha": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
+        "classification": "[material]",
+        "reason": "Cycle #26 Jira verify-live stamp and watchdog convergence evidence on PR #678 are material operational artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "1127601f39c22a7219089a449226c2c2d283ce56",
+        "pull_request": 678,
+        "head_sha": "1127601f39c22a7219089a449226c2c2d283ce56",
+        "classification": "[material]",
+        "reason": "Cycle #26 T-90M executor arming and Jira verify refresh are material calendar-evidence operations on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
+        "pull_request": 678,
+        "head_sha": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
+        "classification": "[material]",
+        "reason": "Cycle #26 live Jira verification rebound after scheduled T-90M freeze is material board/local convergence evidence on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "4e2dee0775b9dc163e5fef060b571c93c229fa64",
+        "pull_request": 678,
+        "head_sha": "4e2dee0775b9dc163e5fef060b571c93c229fa64",
+        "classification": "[material]",
+        "reason": "Cycle #26 branch/worktree hygiene inventory refresh after T-90M freeze is material operational handoff evidence on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
+        "pull_request": 678,
+        "head_sha": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
+        "classification": "[material]",
+        "reason": "Cycle #26 Sep4-window T-24H freeze handoff rebind and acceptance/watchdog evidence on PR #678 are material operational artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "cd73f288ab7c40f856556bb178a3f71cae79f9e2",
+        "pull_request": 678,
+        "head_sha": "cd73f288ab7c40f856556bb178a3f71cae79f9e2",
+        "classification": "[material]",
+        "reason": "Cycle #26 finding-disposition evidence-ops stamp after Sep4 T-24H and A&M failover arming on PR #678 are material scientific/governance handoff artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

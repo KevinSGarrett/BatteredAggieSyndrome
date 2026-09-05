@@ -1,0 +1,47 @@
+{
+  "artifact_type": "CYCLE26_SCHEDULER_REARMING",
+  "issued_at_utc": "2026-09-04T01:37:43Z",
+  "reason": "Primary AM T-24H/T-90M sleepers were absent from the live process table at 2026-09-04T01:30Z; last heartbeat 2026-09-03T23:23:43Z.",
+  "does_not_promise_future_execution": true,
+  "no_missed_cutoff_backfill": true,
+  "armed": [
+    {
+      "script": "run_scheduled_am_t24h_capture.ps1",
+      "wake_utc": "2026-09-04T22:15:00Z",
+      "cutoff_utc": "2026-09-04T23:00:00Z",
+      "log": "CYCLE26_AM_T24H_SCHEDULER_20260904T013602Z.log"
+    },
+    {
+      "script": "run_scheduled_am_t90m_capture.ps1",
+      "wake_utc": "2026-09-05T20:45:00Z",
+      "cutoff_utc": "2026-09-05T21:30:00Z",
+      "log": "CYCLE26_AM_T90M_SCHEDULER_20260904T013602Z.log"
+    },
+    {
+      "script": "run_scheduled_sep5_saturday_t24h_capture.ps1",
+      "wake_utc": "2026-09-04T15:15:00Z",
+      "cutoff_utc": "2026-09-04T16:00:00Z",
+      "log": "CYCLE26_SATURDAY_T24H_SCHEDULER_20260904T013604Z.log"
+    },
+    {
+      "script": "run_am_t24h_failover.ps1",
+      "wake_utc": "2026-09-04T22:15:00Z",
+      "cutoff_utc": "2026-09-04T23:00:00Z"
+    },
+    {
+      "script": "run_am_t90m_failover.ps1",
+      "wake_utc": "2026-09-05T20:45:00Z",
+      "cutoff_utc": "2026-09-05T21:30:00Z"
+    },
+    {
+      "script": "run_saturday_t24h_failover.ps1",
+      "wake_utc": "2026-09-04T15:15:00Z",
+      "cutoff_utc": "2026-09-04T16:00:00Z"
+    },
+    {
+      "script": "run_cycle26_overnight_heartbeat.ps1",
+      "until_utc": "2026-09-05T22:00:00Z"
+    }
+  ],
+  "heartbeat_first_sample": "heartbeat left=159835s am24=1 am90=1 sat=1 fo24=1 fo90=1 fosat=1"
+}

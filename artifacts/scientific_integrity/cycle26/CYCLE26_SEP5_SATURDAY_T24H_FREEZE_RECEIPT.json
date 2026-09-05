@@ -1,0 +1,22 @@
+{
+  "artifact_type": "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT",
+  "issued_at_utc": "2026-09-04T15:20:10Z",
+  "code_head": "7e3e9cc2bb81d6dafe2903bd1b3dc0b316e42f82",
+  "checkpoint_label": "T-24H",
+  "label_authority": "T24H_LABEL_PERMITTED_FOR_EARLIEST_REMAINING_SATURDAY_WINDOW",
+  "earliest_cutoff_utc": "2026-09-04T16:00:00Z",
+  "capture_log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260904T151500Z.log",
+  "capture_identities": {
+    "schedule": "9b3c11f70db1f33eb545f2c35f3a0209d7006c0d67033d9da9dd53600023539e",
+    "rankings": "08ddddaf12d3492b25514b444a2564763ec2c8d3f69cdeef7572ad920d8b187e",
+    "weather": "829f881cce7a89956199418c37987adb768c2382bf5f1bc2ef0a520ff9cdadef"
+  },
+  "eligibility": {
+    "contest_count": 91,
+    "t24h_missed": 19,
+    "t24h_open": null
+  },
+  "does_not_overwrite_sep4_window_receipt": true,
+  "does_not_rematerialize_week1_asof_gate": true,
+  "week1_outcome_training_forbidden": true
+}

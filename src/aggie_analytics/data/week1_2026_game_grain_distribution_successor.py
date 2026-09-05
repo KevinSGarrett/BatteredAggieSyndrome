@@ -5,8 +5,8 @@ from __future__ import annotations
 import math
 from typing import Any, Mapping
 
-from aggie_analytics.scientific_reference.coherence import (
-    joint_distribution_coherent,
+from aggie_analytics.data.producer_distribution_math import (
+    joint_from_same_normal,
     pair_normalize,
     probability_from_normal_residual,
 )
@@ -19,6 +19,7 @@ SHADOW_CLASSIFICATION = "UNTRUSTED_SHADOW"
 
 
 def _phi_ppf(p: float) -> float:
+    """Acklam rational approximation with two Halley refinements (producer copy)."""
     if not 0.0 < p < 1.0:
         raise ValueError("quantile p must be in (0, 1)")
     a = [
@@ -54,19 +55,27 @@ def _phi_ppf(p: float) -> float:
     phigh = 1 - plow
     if p < plow:
         q = math.sqrt(-2 * math.log(p))
-        return (
-            ((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]
-        ) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1)
-    if p > phigh:
+        x = (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / (
+            (((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1
+        )
+    elif p > phigh:
         q = math.sqrt(-2 * math.log(1 - p))
-        return -(
-            ((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]
-        ) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1)
-    q = p - 0.5
-    r = q * q
-    return (
-        (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q
-    ) / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1)
+        x = -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / (
+            (((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1
+        )
+    else:
+        q = p - 0.5
+        r = q * q
+        x = (
+            (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q
+        ) / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1)
+    for _ in range(2):
+        cdf = 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
+        pdf = math.exp(-0.5 * x * x) / math.sqrt(2.0 * math.pi)
+        if pdf == 0.0:
+            break
+        x = x - (cdf - p) / (pdf + (cdf - p) * x / 2.0)
+    return x
 
 
 def freeze_mapping_before_market() -> str:
@@ -98,18 +107,20 @@ def game_grain_forecast(
     lower = expected_margin_home - quantile * residual_stdev
     upper = expected_margin_home + quantile * residual_stdev
     pair = pair_normalize(home_probability, away_probability, home_margin, away_margin)
-    joint = joint_distribution_coherent(
-        {
-            "expected_margin_home": expected_margin_home,
-            "home_win_probability": home_probability,
-            "interval_lower": lower,
-            "interval_upper": upper,
-        },
+    joint = joint_from_same_normal(
+        expected_margin=expected_margin_home,
+        emitted_probability=home_probability,
+        lower=lower,
+        upper=upper,
         residual_stdev=residual_stdev,
         quantile=quantile,
     )
     coherent = bool(pair["coherent"] and joint["coherent"])
-    state = "FORECAST_FROZEN" if coherent else "ABSTAIN_PROBABILITY_DISTRIBUTION_INCOHERENCE"
+    state = (
+        "FORECAST_FROZEN"
+        if coherent
+        else "ABSTAIN_PROBABILITY_DISTRIBUTION_INCOHERENCE"
+    )
     if not trust_gate_open:
         state = "UNTRUSTED_SHADOW"
     return {
@@ -141,19 +152,27 @@ def oriented_rows_from_game(game: Mapping[str, Any]) -> list[dict[str, Any]]:
     home = {
         "team_key": game["home_team_key"],
         "opponent_key": game["away_team_key"],
-        "home_win_probability": game["home_win_probability"],
+        "team_win_probability": game["home_win_probability"],
         "expected_margin": game["expected_margin_home"],
         "interval_lower": game["interval_lower"],
         "interval_upper": game["interval_upper"],
         "orientation": "HOME",
+        "contest_id": game["contest_id"],
+        "parent_forecast_identity": game.get("forecast_identity"),
+        "checkpoint": game.get("checkpoint"),
+        "candidate_id": game.get("candidate_id"),
     }
     away = {
         "team_key": game["away_team_key"],
         "opponent_key": game["home_team_key"],
-        "home_win_probability": game["away_win_probability"],
+        "team_win_probability": game["away_win_probability"],
         "expected_margin": game["expected_margin_away"],
         "interval_lower": -game["interval_upper"],
         "interval_upper": -game["interval_lower"],
         "orientation": "AWAY",
+        "contest_id": game["contest_id"],
+        "parent_forecast_identity": game.get("forecast_identity"),
+        "checkpoint": game.get("checkpoint"),
+        "candidate_id": game.get("candidate_id"),
     }
     return [home, away]

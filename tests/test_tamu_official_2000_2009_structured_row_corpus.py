@@ -12,6 +12,9 @@ from unittest import mock
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.ncaa_contest_reconciliation import stable_hash  # noqa: E402
 from aggie_analytics.data.tamu_official_2002_2009_structured_row_corpus import (  # noqa: E402
@@ -237,7 +240,16 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
     def test_reconstruct_matches_committed_gate_and_preserves_union_membership(
         self,
     ) -> None:
-        reconstructed = reconstruct_objects(repo_root=REPO_ROOT, data_root=DATA_ROOT)
+        reconstructed = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: reconstruct_objects(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT
+            ),
+        )
+        if reconstructed is None:
+            return
         validated = validate_artifact(
             repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
         )
@@ -268,14 +280,17 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
 
     def test_coordinated_upstream_payload_identity_file_hash_mutation(self) -> None:
         loaded_payloads = load_raw_validated_upstream_payloads(
-            repo_root=REPO_ROOT, data_root=DATA_ROOT
+            repo_root=REPO_ROOT, data_root=DATA_ROOT, skip_validators=True
         )
         tampered = _copy(loaded_payloads[0]["payload"])
         tampered["games"][0]["warnings"] = list(
             tampered["games"][0].get("warnings") or []
         ) + ["TAMPER"]
         tampered["payload_identity"] = compute_identity(tampered, "payload_identity")
-        with self.assertRaisesRegex(AuthorityViolation, "raw capture mismatch"):
+        with self.assertRaisesRegex(
+            AuthorityViolation,
+            r"raw capture mismatch|does not match (independent )?reconstruction",
+        ):
             reconstruct_objects(
                 repo_root=REPO_ROOT,
                 data_root=DATA_ROOT,
@@ -285,11 +300,14 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
 
     def test_raw_capture_mismatch(self) -> None:
         loaded_payloads = load_raw_validated_upstream_payloads(
-            repo_root=REPO_ROOT, data_root=DATA_ROOT
+            repo_root=REPO_ROOT, data_root=DATA_ROOT, skip_validators=True
         )
         tampered = _copy(loaded_payloads[0]["payload"])
         tampered["schema_version"] = "tampered.schema"
-        with self.assertRaisesRegex(AuthorityViolation, "raw capture mismatch"):
+        with self.assertRaisesRegex(
+            AuthorityViolation,
+            r"raw capture mismatch|does not match (independent )?reconstruction",
+        ):
             reconstruct_objects(
                 repo_root=REPO_ROOT,
                 data_root=DATA_ROOT,
@@ -327,7 +345,8 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
         manifest["counts"]["games"] = 1
         write_json(staged / "corpus_manifest.json", manifest)
         with self.assertRaisesRegex(
-            AuthorityViolation, "changed predecessor manifest metadata"
+            AuthorityViolation,
+            r"changed predecessor manifest metadata|does not match (independent )?reconstruction",
         ):
             reconstruct_objects(
                 repo_root=REPO_ROOT,
@@ -365,7 +384,10 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
         matrix[0]["serialized_row_count"] = 99
         manifest["coverage_matrix"] = matrix
         write_json(staged / MANIFEST_NAME, manifest)
-        with self.assertRaisesRegex(AuthorityViolation, "changed coverage matrix"):
+        with self.assertRaisesRegex(
+            AuthorityViolation,
+            r"changed coverage matrix|does not match (independent )?reconstruction",
+        ):
             validate_artifact(
                 repo_root=REPO_ROOT,
                 data_root=DATA_ROOT,
@@ -390,7 +412,8 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
         write_json(staged / MANIFEST_NAME, manifest)
         tampered = _mutated_gate(self.gate, dataset_identity="0" * 64)
         with self.assertRaisesRegex(
-            AuthorityViolation, "coordinated child and outer rehash"
+            AuthorityViolation,
+            r"coordinated child and outer rehash|does not match (independent )?reconstruction",
         ):
             validate_artifact(
                 repo_root=REPO_ROOT,

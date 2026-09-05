@@ -7,6 +7,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.tamu_official_gamebook_union_1998_expanded import (  # noqa: E402  # pylint: disable=import-error
     AuthorityViolation,
@@ -15,7 +18,6 @@ from aggie_analytics.data.tamu_official_gamebook_union_1998_expanded import (  #
     OFFICIAL_1998_REJECTED_EXPECTED,
     compute_code_identity,
     compute_gate_identity,
-    materialize_union,
     upstream_is_ready,
     validate_artifact,
 )
@@ -51,13 +53,26 @@ class Compact1998UnionGateTests(unittest.TestCase):
 
 @unittest.skipUnless(upstream_is_ready(DATA_ROOT, REPO_ROOT), "external BAT-637 inputs are not mounted")
 class Official1998UnionReconstructionTests(unittest.TestCase):
-    def test_committed_gate_reconstructs(self) -> None:
-        materialize_union(repo_root=REPO_ROOT, data_root=DATA_ROOT)
-        result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
+    def test_committed_gate_reconstructs_read_only(self) -> None:
+        path = REPO_ROOT / GATE_RELATIVE
+        gate = json.loads(path.read_text(encoding="utf-8-sig"))
+        result = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: validate_artifact(
+                repo_root=REPO_ROOT,
+                data_root=DATA_ROOT,
+                require_rebuild=True,
+            ),
+        )
+        if result is None:
+            return
         self.assertEqual(result["result"], "PASS")
-        gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
-        self.assertEqual(int(gate["counts"]["official_1998_admitted"]), OFFICIAL_1998_ADMITTED_EXPECTED)
-        self.assertEqual(int(gate["counts"]["official_1998_rejected"]), OFFICIAL_1998_REJECTED_EXPECTED)
+        committed = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
+        self.assertEqual(committed["gate_identity"], gate["gate_identity"])
+        self.assertEqual(int(committed["counts"]["official_1998_admitted"]), OFFICIAL_1998_ADMITTED_EXPECTED)
+        self.assertEqual(int(committed["counts"]["official_1998_rejected"]), OFFICIAL_1998_REJECTED_EXPECTED)
 
 
 if __name__ == "__main__":

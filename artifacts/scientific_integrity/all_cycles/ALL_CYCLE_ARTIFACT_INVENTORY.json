@@ -1862,6 +1862,22 @@
       "authority_bearing": true,
       "current_trust_classification": "UNREVIEWED",
       "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/forecast/week1_2026_game_grain_national_forecast_successor_gate.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC",
+      "source_identities": [
+        "git:artifacts/forecast/week1_2026_game_grain_national_forecast_successor_gate.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
       "mapping_note": "GIT_FIRST_ADD",
       "originating_cycle": 25,
       "path": "artifacts/forecast/week1_2026_market_benchmark_and_adequacy_gate.json",
@@ -7358,6 +7374,278 @@
       "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
       "source_identities": [
         "git:artifacts/scientific_integrity/all_cycles/CYCLE_25_SCIENTIFIC_AUDIT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_ACTIVE_PATH_ACCEPTANCE.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_ACTIVE_PATH_ACCEPTANCE.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_BRANCH_WORKTREE_HYGIENE.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_BRANCH_WORKTREE_HYGIENE.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_CHECKPOINT_CAPTURE_OPERATION.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_CHECKPOINT_CAPTURE_OPERATION.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_FINAL_REPORT.md",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_FINAL_REPORT.md"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_FINDING_DISPOSITION_MATRIX.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_FINDING_DISPOSITION_MATRIX.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_JIRA_RECONCILIATION.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_JIRA_RECONCILIATION.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_MARKET_REFERENCE_DISPOSITION.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_MARKET_REFERENCE_DISPOSITION.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_OVERNIGHT_WATCHDOG_STATE.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_OVERNIGHT_WATCHDOG_STATE.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_PASS1_PROVENANCE_RECEIPT.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_PASS1_PROVENANCE_RECEIPT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_PASS2_INDEPENDENT_RECONSTRUCTION_RECEIPT.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_PASS2_INDEPENDENT_RECONSTRUCTION_RECEIPT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEW_RECEIPT.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEW_RECEIPT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_20_CONTAINMENT.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_R26_20_CONTAINMENT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_R26_21_CONTAINMENT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_R26_22_BOUND_AUTHORITY_DISPOSITION.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_SCORING_READINESS.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_SCORING_READINESS.json"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_UNIVERSE_REFRESH.json",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_TRUST_RECOVERY",
+      "source_identities": [
+        "git:artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_UNIVERSE_REFRESH.json"
       ],
       "validator": "COMMITTED_VALIDATOR_OR_NONE"
     },
@@ -18694,6 +18982,38 @@
       "authority_bearing": true,
       "current_trust_classification": "UNREVIEWED",
       "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "src/aggie_analytics/data/producer_distribution_math.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
+      "source_identities": [
+        "git:src/aggie_analytics/data/producer_distribution_math.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "src/aggie_analytics/data/producer_market_math.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
+      "source_identities": [
+        "git:src/aggie_analytics/data/producer_market_math.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
       "mapping_note": "GIT_FIRST_ADD",
       "originating_cycle": 20,
       "path": "src/aggie_analytics/data/prospective_shadow_cohort.py",
@@ -20118,6 +20438,22 @@
       "authority_bearing": true,
       "current_trust_classification": "UNREVIEWED",
       "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
+      "source_identities": [
+        "git:src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
       "mapping_note": "GIT_FIRST_ADD",
       "originating_cycle": 25,
       "path": "src/aggie_analytics/data/week1_2026_market_benchmark_and_adequacy.py",
@@ -21102,6 +21438,54 @@
       "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
       "source_identities": [
         "git:src/aggie_analytics/governance/__init__.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "src/aggie_analytics/governance/branch_worktree_hygiene.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
+      "source_identities": [
+        "git:src/aggie_analytics/governance/branch_worktree_hygiene.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "src/aggie_analytics/governance/cycle_identity.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
+      "source_identities": [
+        "git:src/aggie_analytics/governance/cycle_identity.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "src/aggie_analytics/governance/scientific_dependency_graph.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
+      "source_identities": [
+        "git:src/aggie_analytics/governance/scientific_dependency_graph.py"
       ],
       "validator": "COMMITTED_VALIDATOR_OR_NONE"
     },
@@ -25558,6 +25942,22 @@
       "authority_bearing": true,
       "current_trust_classification": "UNREVIEWED",
       "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "tools/build_week1_2026_game_grain_national_forecast_successor.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
+      "source_identities": [
+        "git:tools/build_week1_2026_game_grain_national_forecast_successor.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
       "mapping_note": "GIT_FIRST_ADD",
       "originating_cycle": 25,
       "path": "tools/build_week1_2026_market_benchmark_and_adequacy.py",
@@ -25870,6 +26270,22 @@
       "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
       "source_identities": [
         "git:tools/cursor_assist.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "tools/cycle26_evidence_collection.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_PRODUCER",
+      "source_identities": [
+        "git:tools/cycle26_evidence_collection.py"
       ],
       "validator": "COMMITTED_VALIDATOR_OR_NONE"
     },
@@ -30470,6 +30886,22 @@
       "authority_bearing": true,
       "current_trust_classification": "UNREVIEWED",
       "jira_owner": "SEE_CYCLE_AUDIT",
+      "mapping_note": "GIT_FIRST_ADD_AFTER_CYCLE_25",
+      "originating_cycle": "UNMAPPED",
+      "path": "tools/validate_week1_2026_game_grain_national_forecast_successor.py",
+      "pr_or_merge": "SEE_CYCLE_AUDIT",
+      "producer": "COMMITTED_MODULE_OR_BUILDER",
+      "scientific_claim_or_role": "SCIENTIFIC_VALIDATOR",
+      "source_identities": [
+        "git:tools/validate_week1_2026_game_grain_national_forecast_successor.py"
+      ],
+      "validator": "COMMITTED_VALIDATOR_OR_NONE"
+    },
+    {
+      "affected_successors": [],
+      "authority_bearing": true,
+      "current_trust_classification": "UNREVIEWED",
+      "jira_owner": "SEE_CYCLE_AUDIT",
       "mapping_note": "GIT_FIRST_ADD",
       "originating_cycle": 25,
       "path": "tools/validate_week1_2026_historical_current_feature_equivalence.py",
@@ -31232,7 +31664,7 @@
       "starting_sha": "991bf4666fa6d60921448113939300c121250278"
     }
   ],
-  "inventory_identity": "10aeaec5a88b661f19c977da03a08a2c6274acfb503183223d0edfc061958fcb",
+  "inventory_identity": "06c677c3911ce19428245a6b4811455be054608b2f76239d85d3d4f97fa63bbc",
   "schema_version": 1,
-  "unmapped_authority_count": 1185
+  "unmapped_authority_count": 1212
 }

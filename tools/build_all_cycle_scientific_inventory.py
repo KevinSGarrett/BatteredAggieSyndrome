@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -470,12 +472,21 @@ def known_findings() -> list[dict[str, Any]]:
             "evidence": ["BAT-401", "RETAIN_PROTECTED_LANE_BLOCKED"],
         },
         {
-            "finding_id": "P2-T24H-T90M-STILL-OPEN",
+            "finding_id": "P2-REMAINING-OPEN-CHECKPOINTS-PLANNED",
             "severity": "P2",
             "cycles": [25],
-            "disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
-            "summary": "T-24H and T-90M deadlines have not occurred; capture remains OPEN and must not be backfilled.",
-            "evidence": ["calendar 2026-09-04 / 2026-09-05"],
+            "disposition": "REPRODUCIBLE_ONLY",
+            "summary": (
+                "Remaining A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z "
+                "are OPEN planned checkpoints, not an integrity defect. Sep 3 T-24H is "
+                "MISSED_CUTOFF_NO_BACKFILL. Sep 3 T-90M and the Sep4-window T-24H were "
+                "captured before their cutoffs. Do not backfill a missed checkpoint."
+            ),
+            "evidence": [
+                "artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json",
+                "artifacts/scientific_integrity/cycle26/CYCLE26_SEP3_T90M_FREEZE_RECEIPT.json",
+                "artifacts/scientific_integrity/cycle26/CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT.json",
+            ],
         },
         {
             "finding_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED",
@@ -527,6 +538,18 @@ def false_positive_rejections() -> list[dict[str, Any]]:
             "finding_id": "FP-BAS-CHAMPION-PROMOTION",
             "rejected": True,
             "reason": "Repository non-claims continue to forbid BAS/champion/production promotion.",
+        },
+        {
+            "finding_id": "P1-NATIONAL-CAPTURE-COUNT-990-VS-MOUNTED",
+            "rejected": True,
+            "original_assertion_preserved": True,
+            "reason": (
+                "Manager rehash of the BAT-651 CFBD request_index plus SportsDataverse "
+                "captures, including CAPTURED_EMPTY, verified 972+18=990 valid records, "
+                "983 distinct paths/hashes, and 2,550,148,419 record-weighted bytes. "
+                "A recursive SRC-002 directory count is not the declared population. "
+                "Byte verification does not admit a feature or restore trust."
+            ),
         },
     ]
 
@@ -637,15 +660,15 @@ def build_claims(inventory: dict[str, Any]) -> dict[str, Any]:
                 "producer": "git",
             }
         )
+        pass_two = assess_cycle_pass_two(
+            cycle, [item for item in known_findings() if cycle in item["cycles"]]
+        )
         claims.append(
             {
                 "claim_id": f"CYCLE-{cycle:02d}-SEMANTIC-RECONSTRUCTION",
                 "cycle_number": cycle,
-                "summary": (
-                    "Pass Two independent semantic reconstruction. Missing raw payloads "
-                    "remain BLOCKED_INSUFFICIENT_EVIDENCE."
-                ),
-                "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+                "summary": pass_two["limitation"],
+                "trust_classification": pass_two["status"],
                 "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE",
                 "severity": "P0",
                 "producer": "external_payloads_not_in_git",
@@ -758,20 +781,82 @@ def build_successors(dag: dict[str, Any]) -> dict[str, Any]:
     )
 
 
+def assess_cycle_pass_two(number: int, related: list[dict[str, Any]]) -> dict[str, Any]:
+    """Check this cycle's declared payload dependencies; do not stamp every cycle missing."""
+
+    required: list[str] = []
+    skipped_false_positive: list[str] = []
+    for finding in related:
+        for evidence in finding.get("evidence") or []:
+            text = str(evidence)
+            if "raw/SRC-002 file count" in text or text.startswith(
+                "mounted:raw/SRC-002"
+            ):
+                skipped_false_positive.append(text)
+                continue
+            if text.startswith("mounted:") or text.startswith("raw/"):
+                required.append(text)
+    if number in (18, 20, 21):
+        required.append(
+            "git:artifacts/data_lake/national_foundation_reconciliation_gate.json"
+        )
+
+    missing: list[str] = []
+    data_root = os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")
+    for req in required:
+        if req.startswith("git:"):
+            if not (REPO_ROOT / req[4:]).is_file():
+                missing.append(req)
+            continue
+        if req.startswith("mounted:"):
+            relative = req.split(":", 1)[1].strip()
+            if not data_root:
+                missing.append(req)
+                continue
+            if not (Path(data_root) / relative).exists():
+                missing.append(req)
+            continue
+        if not (REPO_ROOT / req).exists():
+            missing.append(req)
+
+    missing_raw = bool(missing)
+    if missing_raw:
+        status = "BLOCKED_INSUFFICIENT_EVIDENCE"
+        limitation = "declared_raw_or_mounted_payloads_missing"
+    else:
+        status = "NOT_AUDITED_YET"
+        limitation = (
+            "Declared payload dependencies were checked for this cycle; independent "
+            "reconstruction of remaining material claims is unfinished. "
+            "NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED."
+        )
+    return {
+        "status": status,
+        "independent_of_producer_helpers": True,
+        "missing_raw_payloads": missing_raw,
+        "declared_payload_requirement_count": len(required),
+        "missing_declared_payloads": missing,
+        "skipped_false_positive_payload_assertions": skipped_false_positive,
+        "limitation": limitation,
+    }
+
+
 def build_matrix() -> dict[str, Any]:
+    findings = known_findings()
     cycles = []
     for cycle in range(1, 26):
+        related = [item for item in findings if cycle in item["cycles"]]
+        pass_two = assess_cycle_pass_two(cycle, related)
         cycles.append(
             {
                 "cycle_number": cycle,
                 "passes": {
                     "pass_one": "COMPLETE",
-                    "pass_two": "BLOCKED_INSUFFICIENT_EVIDENCE",
-                    "pass_three": "COMPLETE",
+                    "pass_two": pass_two["status"],
+                    # Category search alone is PARTIAL, not review-of-review COMPLETE.
+                    "pass_three": "PARTIAL",
                 },
-                "cycle_disposition": "FAIL"
-                if cycle >= 18
-                else "BLOCKED_INSUFFICIENT_EVIDENCE",
+                "cycle_disposition": "FAIL" if cycle >= 18 else pass_two["status"],
                 "semantically_audited": False,
             }
         )
@@ -781,11 +866,12 @@ def build_matrix() -> dict[str, Any]:
             "cycles": cycles,
             "note": (
                 "No later cycle confers PASS on an earlier one. Missing evidence is "
-                "BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is blocked for every "
-                "cycle because independent reconstruction of every material claim from "
-                "mounted raw payloads was not completed; successor fixture tests are not "
-                "a substitute. Pass three COMPLETE means the listed adversarial categories "
-                "were searched; it does not authorize SEMANTICALLY_AUDITED."
+                "BLOCKED_INSUFFICIENT_EVIDENCE, not PASS. Pass two is NOT_AUDITED_YET "
+                "when declared payload dependencies are present or were a disproved "
+                "directory-count assertion; it is not independent reconstruction of "
+                "every material claim. Pass three PARTIAL means listed adversarial "
+                "categories were searched only; it is not complete review-of-review "
+                "and does not authorize SEMANTICALLY_AUDITED."
             ),
             "schema_version": 1,
         },
@@ -798,7 +884,8 @@ def build_cycle_audit(
 ) -> dict[str, Any]:
     number = cycle_row["cycle_number"]
     related = [item for item in findings if number in item["cycles"]]
-    pass_two = "BLOCKED_INSUFFICIENT_EVIDENCE"
+    pass_two = assess_cycle_pass_two(number, related)
+    trust = "FAIL" if related else pass_two["status"]
     return bind_identity(
         {
             "artifact_type": "CYCLE_SCIENTIFIC_AUDIT",
@@ -813,10 +900,11 @@ def build_cycle_audit(
                 "proves": "provenance_and_completeness_only",
             },
             "pass_three_adversarial": {
-                "status": "COMPLETE",
+                "status": "PARTIAL",
                 "limitation": (
                     "Category search only. Pass two did not independently reconstruct "
-                    "every material claim from mounted raw payloads."
+                    "every material claim from mounted raw payloads. Category search is "
+                    "PARTIAL, not complete review-of-review."
                 ),
                 "searched_for": [
                     "omitted_artifacts",
@@ -827,16 +915,10 @@ def build_cycle_audit(
                     "ignored_user_holds",
                 ],
             },
-            "pass_two_semantic": {
-                "status": pass_two,
-                "independent_of_producer_helpers": True,
-                "missing_raw_payloads": True,
-            },
+            "pass_two_semantic": pass_two,
             "schema_version": 1,
             "starting_sha": cycle_row["starting_sha"],
-            "trust_classification": "FAIL"
-            if related
-            else "BLOCKED_INSUFFICIENT_EVIDENCE",
+            "trust_classification": trust,
         },
         "audit_identity",
     )
@@ -866,7 +948,14 @@ def build_gate(claims: dict[str, Any]) -> dict[str, Any]:
     )
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--skip-inventory",
+        action="store_true",
+        help="Reuse the existing artifact inventory instead of recrawling git first-add.",
+    )
+    args = parser.parse_args(argv)
     ALL_CYCLES.mkdir(parents=True, exist_ok=True)
     cycle_rows = verify_cycle_shas()
     hold_path = (
@@ -877,8 +966,12 @@ def main() -> int:
     else:
         receipt = build_hold_receipt(cycle_rows)
         _write(hold_path, receipt)
-    inventory = build_inventory(cycle_rows)
-    _write(ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json", inventory)
+    inventory_path = ALL_CYCLES / "ALL_CYCLE_ARTIFACT_INVENTORY.json"
+    if args.skip_inventory and inventory_path.is_file():
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+    else:
+        inventory = build_inventory(cycle_rows)
+        _write(inventory_path, inventory)
     claims = build_claims(inventory)
     _write(ALL_CYCLES / "ALL_CYCLE_CLAIM_REGISTRY.json", claims)
     dag = build_dag(claims)

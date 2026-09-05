@@ -1,0 +1,130 @@
+{
+  "artifact_type": "CYCLE26_WEEK1_OFFICIAL_FINAL_SCORING",
+  "bound_predecessors": {
+    "early_week1_freeze_utc": "2026-09-03T06:47:23Z",
+    "forecast_payload_sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
+    "predecessor_scoring_dataset_identity": "724a3434609397c329d718922574af78251bbed0ead57f21c8e9380b7f232fe4",
+    "predecessor_scoring_payload_rewritten": false,
+    "week1_successor_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+  },
+  "capture_mode": "DIRECTORY_UNION",
+  "capture_sha256": "4916b5bb461ecf22a151ef9eac62e4ccb0926bdd59dad952d23e6a060aa7141d",
+  "capture_sha256_list": [
+    "02fbf4ab441ccae3f9172285ee9f3cb57e9e91a43ecc03967c3ebef50be03868",
+    "3a8c5681cf32ca4c67910515f1daaa0582026bb16b6a78b24016e402a771c990",
+    "4916b5bb461ecf22a151ef9eac62e4ccb0926bdd59dad952d23e6a060aa7141d"
+  ],
+  "checkpoint_scored": "EARLY_WEEK1",
+  "classification": "WEEK1_OFFICIAL_FINAL_SCORING_APPEND_ONLY",
+  "contract_id": "CYCLE26-WEEK1-2026-OFFICIAL-FINAL-SCORING-SUCCESSOR-V2",
+  "dataset_identity": "1b1adb9e3c7da9269ec176d4c7aa3029db00a2d35352623a6dd44f37c95b293b",
+  "empirical_assessment": {
+    "PREDICTIVE_SKILL_EVIDENCE_STATE": "NOT_ESTABLISHED",
+    "candidates": [
+      {
+        "accuracy": 0.7777777777777778,
+        "brier": 0.25,
+        "candidate_id": "national_base_rate",
+        "control_only": true,
+        "log_loss": 0.6931471805599453,
+        "margin_mae": null,
+        "unique_games": 9
+      },
+      {
+        "accuracy": 0.75,
+        "brier": 0.20231780740752384,
+        "candidate_id": "national_elo",
+        "control_only": false,
+        "log_loss": 0.5948813765329715,
+        "margin_mae": null,
+        "unique_games": 8
+      },
+      {
+        "accuracy": 0.75,
+        "brier": 0.1560532889661612,
+        "candidate_id": "national_logistic_l2",
+        "control_only": false,
+        "log_loss": 0.4807557337864169,
+        "margin_mae": null,
+        "unique_games": 8
+      },
+      {
+        "accuracy": 0.75,
+        "brier": 0.15926686165350631,
+        "candidate_id": "national_margin_ridge",
+        "control_only": false,
+        "log_loss": 0.49231822798964325,
+        "margin_mae": 26.1981385191,
+        "unique_games": 8
+      },
+      {
+        "accuracy": 0.75,
+        "brier": 0.16964757231166414,
+        "candidate_id": "prior_only",
+        "control_only": false,
+        "log_loss": 0.5194416657642584,
+        "margin_mae": null,
+        "unique_games": 8
+      }
+    ],
+    "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW",
+    "predeclared_min_unique_games_for_skill_claim": 30,
+    "reason": "Week 1 unique-game n is below the predeclared skill floor; residuals are a prospective census only.",
+    "unique_scored_games": 9,
+    "used_for_training_or_tuning": false
+  },
+  "forecast_payloads_rewritten": false,
+  "gate_identity": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
+  "issued_at_utc": "2026-09-04T05:11:48Z",
+  "jira_key": "BAT-694",
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-COHORT-001",
+  "parent_jira_key": "BAT-523",
+  "payloads": {
+    "scoring_rows": {
+      "bytes": 34220,
+      "relative_path": "canonical/week1_2026_official_final_scoring_successor/sha256/1b1adb9e3c7da9269ec176d4c7aa3029db00a2d35352623a6dd44f37c95b293b/week1_2026_official_final_scoring_rows.jsonl",
+      "row_count": 50,
+      "sha256": "1b1adb9e3c7da9269ec176d4c7aa3029db00a2d35352623a6dd44f37c95b293b"
+    }
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "result": "PASS_WEEK1_OFFICIAL_FINAL_SCORING_PARTIAL",
+  "schema_version": "aggie.shadow.week1_2026_official_final_scoring_successor.v2",
+  "scientific_nonclaims": [
+    "Does not train, select, tune or promote using Week 1 outcomes.",
+    "Does not rewrite frozen EARLY_WEEK1 forecast payloads.",
+    "Does not rewrite the predecessor partial scoring payload.",
+    "Does not backfill missed T-24H or T-90M checkpoints.",
+    "Does not claim predictive skill or production credibility.",
+    "Partial finals are not a complete Week 1 scoring run.",
+    "Directory union does not upgrade a single-file capture into a missed cutoff."
+  ],
+  "summary": {
+    "awaiting_final_contest_count": 81,
+    "joined_forecast_rows": 50,
+    "quarantined_conflict_contest_ids": [],
+    "scoreboard_cards": 1980,
+    "scoreboard_html_count": 110,
+    "scored_row_count": 41,
+    "terminal_contest_count": 10,
+    "terminal_contest_ids": [
+      "6582933",
+      "6584486",
+      "6586572",
+      "6588927",
+      "6591259",
+      "6601465",
+      "6602046",
+      "6603568",
+      "6618350",
+      "6620218"
+    ],
+    "unique_scored_games": 9,
+    "universe_contest_count": 91
+  },
+  "t24h_backfill": false,
+  "t90m_backfill": false,
+  "week1_outcome_training_forbidden": true
+}

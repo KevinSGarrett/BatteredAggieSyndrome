@@ -1,5 +1,5 @@
 {
-  "canonical_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
+  "canonical_gate_identity": "3682897882697fc939f23f79706ff37a46e8cf870f1f8432cdd51f55c13831cc",
   "canonical_gate_path": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
   "completeness_claimed": false,
   "created_at_utc": "2026-08-31T10:23:19.672488Z",
@@ -14,7 +14,7 @@
   "outputs": [
     {
       "path": "artifacts/schedule/week1_2026_official_schedule_identity_gate.json",
-      "sha256": "436a54e56cadc9528f6bf14adda06a9a62cf32824ea84a9341378f3d1390077d"
+      "sha256": "e252381520449cc786e6797a210e599d24609924f6a4e62f45165ac2aafbce21"
     },
     {
       "path": "configs/week1_2026_official_schedule_identity_contract.json",

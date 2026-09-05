@@ -129,12 +129,12 @@
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
-      "claim_id": "P2-T24H-T90M-STILL-OPEN:C25",
+      "claim_id": "P2-REMAINING-OPEN-CHECKPOINTS-PLANNED:C25",
       "cycle_number": 25,
-      "producer": "calendar 2026-09-04 / 2026-09-05",
+      "producer": "artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json",
       "severity": "P2",
-      "summary": "T-24H and T-90M deadlines have not occurred; capture remains OPEN and must not be backfilled.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Remaining A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z are OPEN planned checkpoints, not an integrity defect. Sep 3 T-24H is MISSED_CUTOFF_NO_BACKFILL. Sep 3 T-90M and the Sep4-window T-24H were captured before their cutoffs. Do not backfill a missed checkpoint.",
+      "trust_classification": "REPRODUCIBLE_ONLY",
       "validator_class": "SAME_SPECIFICATION_INDEPENDENT_CODE"
     },
     {
@@ -178,8 +178,8 @@
       "cycle_number": 1,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -196,8 +196,8 @@
       "cycle_number": 2,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -214,8 +214,8 @@
       "cycle_number": 3,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -232,8 +232,8 @@
       "cycle_number": 4,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -250,8 +250,8 @@
       "cycle_number": 5,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -268,8 +268,8 @@
       "cycle_number": 6,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -286,8 +286,8 @@
       "cycle_number": 7,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -304,8 +304,8 @@
       "cycle_number": 8,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -322,8 +322,8 @@
       "cycle_number": 9,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -340,8 +340,8 @@
       "cycle_number": 10,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -358,8 +358,8 @@
       "cycle_number": 11,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -376,8 +376,8 @@
       "cycle_number": 12,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -394,8 +394,8 @@
       "cycle_number": 13,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -412,8 +412,8 @@
       "cycle_number": 14,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -430,8 +430,8 @@
       "cycle_number": 15,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -448,8 +448,8 @@
       "cycle_number": 16,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -466,8 +466,8 @@
       "cycle_number": 17,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -484,8 +484,8 @@
       "cycle_number": 18,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -502,8 +502,8 @@
       "cycle_number": 19,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -520,8 +520,8 @@
       "cycle_number": 20,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -538,8 +538,8 @@
       "cycle_number": 21,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -556,8 +556,8 @@
       "cycle_number": 22,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -574,8 +574,8 @@
       "cycle_number": 23,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -592,8 +592,8 @@
       "cycle_number": 24,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     },
     {
@@ -610,15 +610,16 @@
       "cycle_number": 25,
       "producer": "external_payloads_not_in_git",
       "severity": "P0",
-      "summary": "Pass Two independent semantic reconstruction. Missing raw payloads remain BLOCKED_INSUFFICIENT_EVIDENCE.",
-      "trust_classification": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "summary": "Declared payload dependencies were checked for this cycle; independent reconstruction of remaining material claims is unfinished. NOT_AUDITED_YET is not PASS and does not authorize SEMANTICALLY_AUDITED.",
+      "trust_classification": "NOT_AUDITED_YET",
       "validator_class": "INDEPENDENT_SEMANTIC_REFERENCE"
     }
   ],
   "counts_by_classification": {
-    "BLOCKED_INSUFFICIENT_EVIDENCE": 29,
+    "BLOCKED_INSUFFICIENT_EVIDENCE": 3,
     "FAIL": 14,
-    "REPRODUCIBLE_ONLY": 25
+    "NOT_AUDITED_YET": 25,
+    "REPRODUCIBLE_ONLY": 26
   },
   "counts_by_cycle": {
     "1": 2,
@@ -647,7 +648,7 @@
     "8": 2,
     "9": 2
   },
-  "inventory_identity": "10aeaec5a88b661f19c977da03a08a2c6274acfb503183223d0edfc061958fcb",
-  "registry_identity": "001a4ce81388c059038c3bfb1d90fbe803399012831721fa1b16b6a269e1e76e",
+  "inventory_identity": "06c677c3911ce19428245a6b4811455be054608b2f76239d85d3d4f97fa63bbc",
+  "registry_identity": "69aae326efaf8c9ba290731465dd5438b10b649332ef1956124237883dc6275c",
   "schema_version": 1
 }

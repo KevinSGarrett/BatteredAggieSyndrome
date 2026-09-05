@@ -1,0 +1,163 @@
+{
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+  "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "artifact_type": "CYCLE26_JIRA_RECONCILIATION",
+  "aux_synced_to_live": true,
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "ci": "PASS",
+  "code_head": "0c054811c8ca5b63e30c7b3a6f077a183da0a8b6",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "commands": [
+    {
+      "at": "2026-09-03T09:01:57.962220+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "exit": 0,
+      "result": "PASS"
+    },
+    {
+      "at": "2026-09-03T19:11:05.058265+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "exit": 0,
+      "result": "PASS"
+    },
+    {
+      "at": "2026-09-03T20:03:09.969051+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "exit": 0,
+      "result": "PASS"
+    },
+    {
+      "at": "2026-09-03T23:01:40.746638+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "exit": 0,
+      "result": "PASS"
+    },
+    {
+      "at": "2026-09-04T00:59:25.470038+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "discrepancies": 0,
+      "exit": 0,
+      "result": "PASS",
+      "total_actual_issue_count": 627,
+      "verified_at": "2026-09-04T00:59:25.470038+00:00"
+    },
+    {
+      "at": "2026-09-04T01:25:03.627267+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "discrepancies": 0,
+      "exit": 0,
+      "result": "PASS",
+      "total_actual_issue_count": 627,
+      "verified_at": "2026-09-04T01:25:03.627267+00:00"
+    },
+    {
+      "at": "2026-09-04T01:39:49.863453+00:00",
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "discrepancies": 0,
+      "exit": 0,
+      "result": "PASS",
+      "total_actual_issue_count": 627,
+      "verified_at": "2026-09-04T01:39:49.863453+00:00"
+    },
+    {
+      "at": "2026-09-04T02:02:08.300687+00:00",
+      "board_id": 134,
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "discrepancies": 0,
+      "exit": 0,
+      "filter_id": 10134,
+      "result": "PASS",
+      "total_actual_issue_count": 627,
+      "verified_at": "2026-09-04T02:02:08.300687+00:00"
+    },
+    {
+      "at": "2026-09-04T04:35:58.525149+00:00",
+      "board_id": 134,
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "discrepancies": 0,
+      "exit": 0,
+      "filter_id": 10134,
+      "result": "PASS",
+      "total_actual_issue_count": 627,
+      "verified_at": "2026-09-04T04:35:58.525149+00:00"
+    },
+    {
+      "at": "2026-09-04T05:27:16.797959+00:00",
+      "board_id": 134,
+      "cmd": "python jira/tools/import_bat_live.py --verify-live",
+      "discrepancies": 0,
+      "exit": 0,
+      "filter_id": 10134,
+      "result": "PASS",
+      "total_actual_issue_count": 627,
+      "verified_at": "2026-09-04T05:27:16.797959+00:00"
+    }
+  ],
+  "git_tip": "0c054811c8ca5b63e30c7b3a6f077a183da0a8b6",
+  "git_tip_at_issuance": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+  "git_tip_at_verify": "973b1a5deb658e2d7e02b43c66f7e98f3c95ae6d",
+  "hold_note": "No Done transitions; no Cycle26 BAT-523 parent-progress comment",
+  "hold_transitions": {
+    "bat_523_parent_progress_cycle26": false,
+    "done_on_remaining_scientific_owners": false
+  },
+  "issue_type_counts": {
+    "Epic": 50,
+    "Story": 53,
+    "Sub-task": 190,
+    "Task": 334
+  },
+  "issued_at_utc": "2026-09-04T02:02:08Z",
+  "jira_verify_live_at": "2026-09-04T05:27:16Z",
+  "last_verify_live_at_utc": "2026-09-04T05:27:16Z",
+  "last_verify_live_result": "PASS",
+  "last_verify_live_total_issues": 627,
+  "live_statuses": {
+    "BAT-401": "Done",
+    "BAT-429": "To Do",
+    "BAT-523": "In Progress",
+    "BAT-688": "Done",
+    "BAT-689": "Done",
+    "BAT-690": "In Review",
+    "BAT-691": "In Review",
+    "BAT-692": "In Review",
+    "BAT-693": "In Review",
+    "BAT-694": "In Review",
+    "BAT-695": "Done",
+    "BAT-696": "In Review"
+  },
+  "missing_auxiliary_keys": [],
+  "note": "import_bat_live.py --verify-live PASS at 2026-09-04T05:27:16Z (627/627, 0 discrepancies, board 134 / filter 10134). Remaining scientific owners stay In Review under hold. No Cycle #26 BAT-523 parent comment. Local Jira changes may remain on review branch until explicit merge authorization. Canonical main remains 55e12a5aad3a7e843204fcba619c3cb3d3d6194d.",
+  "owner_issue_comments_this_cycle": [
+    {
+      "comment_id": "14729",
+      "created": "2026-09-03T12:27:21Z",
+      "cycle_parent": false,
+      "issue": "BAT-692",
+      "purpose": "R26-21 passing-section successor progress"
+    },
+    {
+      "comment_id": "14730",
+      "created": "2026-09-03T12:27:21Z",
+      "cycle_parent": false,
+      "issue": "BAT-651",
+      "purpose": "312472199 structured-status successor progress"
+    }
+  ],
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "status_counts": {
+    "Done": 212,
+    "In Progress": 1,
+    "In Review": 6,
+    "To Do": 408
+  },
+  "t90m_executor": "armed_2026-09-03T19:45:00Z",
+  "t90m_executor_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_T90M_EXECUTOR.log",
+  "total_issue_count": 627,
+  "unexpected_issue_keys": [],
+  "verified_at_utc": "2026-09-03T23:01:40.746638+00:00",
+  "verify_live_at": "2026-09-03T23:01:40Z",
+  "verify_live_pass_at_utc": "2026-09-03T23:01:40Z",
+  "verify_live_result": "PASS"
+}

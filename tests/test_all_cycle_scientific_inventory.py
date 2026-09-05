@@ -6,6 +6,7 @@ import json
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -235,6 +236,110 @@ class AllCycleInventoryTests(unittest.TestCase):
             for item in finding.get("evidence") or []:
                 self.assertFalse(drive.match(str(item)), msg=item)
                 self.assertNotIn("\\", str(item))
+
+    def test_pass_three_category_search_cannot_be_complete(self) -> None:
+        matrix = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        for item in matrix["cycles"]:
+            self.assertNotEqual(
+                item["passes"]["pass_three"],
+                "COMPLETE",
+                msg=f"cycle {item['cycle_number']}",
+            )
+            self.assertEqual(item["passes"]["pass_three"], "PARTIAL")
+        audit = json.loads(
+            (ALL_CYCLES / "CYCLE_01_SCIENTIFIC_AUDIT.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(audit["pass_three_adversarial"]["status"], "PARTIAL")
+        self.assertIn(
+            "category search",
+            str(audit["pass_three_adversarial"]["limitation"]).lower(),
+        )
+        # Tampered COMPLETE under category-search limitation must fail validation.
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_root = Path(tmp)
+            src = ALL_CYCLES
+            dest = tmp_root / "artifacts" / "scientific_integrity" / "all_cycles"
+            dest.mkdir(parents=True)
+            for path in src.glob("*.json"):
+                (dest / path.name).write_text(
+                    path.read_text(encoding="utf-8"), encoding="utf-8"
+                )
+            tampered = json.loads(
+                (dest / "CYCLE_01_SCIENTIFIC_AUDIT.json").read_text(encoding="utf-8")
+            )
+            tampered["pass_three_adversarial"]["status"] = "COMPLETE"
+            (dest / "CYCLE_01_SCIENTIFIC_AUDIT.json").write_text(
+                json.dumps(tampered), encoding="utf-8"
+            )
+            matrix_t = json.loads(
+                (dest / "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            for item in matrix_t["cycles"]:
+                if item["cycle_number"] == 1:
+                    item["passes"]["pass_three"] = "COMPLETE"
+            (dest / "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json").write_text(
+                json.dumps(matrix_t), encoding="utf-8"
+            )
+            findings = validate(tmp_root)
+            joined = " ".join(findings)
+            self.assertIn("AUDIT_PASS_THREE_FALSE_COMPLETE:01", joined)
+            self.assertIn("PASS_THREE_CATEGORY_SEARCH_CANNOT_BE_COMPLETE:1", joined)
+
+    def test_pass_two_does_not_stamp_every_cycle_missing_raw_payloads(self) -> None:
+        missing_flags = []
+        for cycle in range(1, 26):
+            audit = json.loads(
+                (ALL_CYCLES / f"CYCLE_{cycle:02d}_SCIENTIFIC_AUDIT.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            p2 = audit["pass_two_semantic"]
+            missing_flags.append(p2["missing_raw_payloads"] is True)
+            if p2["missing_raw_payloads"] is True:
+                self.assertTrue(p2.get("missing_declared_payloads"))
+        self.assertFalse(all(missing_flags))
+        cycle_one = json.loads(
+            (ALL_CYCLES / "CYCLE_01_SCIENTIFIC_AUDIT.json").read_text(encoding="utf-8")
+        )
+        self.assertFalse(cycle_one["pass_two_semantic"]["missing_raw_payloads"])
+        self.assertEqual(cycle_one["pass_two_semantic"]["status"], "NOT_AUDITED_YET")
+        self.assertNotEqual(cycle_one["trust_classification"], "SEMANTICALLY_AUDITED")
+        matrix = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_THREE_PASS_AUDIT_MATRIX.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(matrix["cycles"][0]["passes"]["pass_two"], "NOT_AUDITED_YET")
+        gate = json.loads(
+            (ALL_CYCLES / "ALL_CYCLE_TRUST_RECOVERY_GATE.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertFalse(gate["scientific_trust_recovered"])
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_root = Path(tmp)
+            dest = tmp_root / "artifacts" / "scientific_integrity" / "all_cycles"
+            dest.mkdir(parents=True)
+            for path in ALL_CYCLES.glob("*.json"):
+                (dest / path.name).write_text(
+                    path.read_text(encoding="utf-8"), encoding="utf-8"
+                )
+            for cycle in range(1, 26):
+                audit_path = dest / f"CYCLE_{cycle:02d}_SCIENTIFIC_AUDIT.json"
+                audit = json.loads(audit_path.read_text(encoding="utf-8"))
+                audit["pass_two_semantic"]["missing_raw_payloads"] = True
+                audit["pass_two_semantic"]["missing_declared_payloads"] = []
+                audit_path.write_text(json.dumps(audit), encoding="utf-8")
+            findings = validate(tmp_root)
+            joined = " ".join(findings)
+            self.assertIn("UNIFORM_MISSING_RAW_PAYLOADS_STAMP", joined)
+            self.assertIn("MISSING_RAW_PAYLOADS_WITHOUT_DECLARED_GAPS:01", joined)
 
 
 if __name__ == "__main__":

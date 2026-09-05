@@ -1,0 +1,74 @@
+{
+  "artifact_type": "CYCLE26_CHECKPOINT_CAPTURE_OPERATION",
+  "issued_at_utc": "2026-09-03T18:13:53Z",
+  "worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-690-c26-scr",
+  "data_root": "C:\\BatteredAggieSyndrome.data",
+  "env_file": "C:\\BatteredAggieSyndrome\\.env",
+  "operator_hold": "ACTIVE",
+  "scheduling_authority": "LOCAL_DETERMINISTIC_SCHEDULERS_ARMED",
+  "overlap_lock": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\locks\\week1_capture.lock",
+  "idempotency": "content-addressed raw captures; re-run safe if identities collide",
+  "bounded_retry": {
+    "max_attempts": 3,
+    "timeout_s": 180
+  },
+  "schedulers": [
+    {
+      "id": "SEP3_T90M",
+      "script": "C:\\\\BatteredAggieSyndrome.data\\\\ops\\\\cycle26\\\\run_scheduled_sep3_t90m_capture.ps1",
+      "wake_utc": "2026-09-03T19:45:00Z",
+      "status": "ARMED_REFRESH_AFTER_EARLY_BIND",
+      "early_bind_utc": "2026-09-03T15:41:18Z"
+    },
+    {
+      "id": "SEP4_WINDOW_T24H",
+      "script": "C:\\\\BatteredAggieSyndrome.data\\\\ops\\\\cycle26\\\\run_scheduled_sep4_t24h_capture.ps1",
+      "wake_utc": "2026-09-03T22:00:00Z",
+      "earliest_national_t24h_cutoff_utc": "2026-09-03T22:30:00Z",
+      "status": "ARMED"
+    },
+    {
+      "id": "AM_6607349_T24H",
+      "script": "C:\\\\BatteredAggieSyndrome.data\\\\ops\\\\cycle26\\\\run_scheduled_am_t24h_capture.ps1",
+      "wake_utc": "2026-09-04T22:15:00Z",
+      "cutoff_utc": "2026-09-04T23:00:00Z",
+      "status": "ARMED"
+    },
+    {
+      "id": "AM_6607349_T90M",
+      "script": "C:\\\\BatteredAggieSyndrome.data\\\\ops\\\\cycle26\\\\run_scheduled_am_t90m_capture.ps1",
+      "wake_utc": "2026-09-05T20:45:00Z",
+      "cutoff_utc": "2026-09-05T21:30:00Z",
+      "status": "ARMED"
+    },
+    {
+      "id": "FAILOVER_MONITOR",
+      "script": "C:\\\\BatteredAggieSyndrome.data\\\\ops\\\\cycle26\\\\run_scheduler_failover_monitor.ps1",
+      "status": "ARMED"
+    }
+  ],
+  "operations": [
+    {
+      "id": "SEP3_T90M",
+      "label": "T-90M",
+      "earliest_eligible_contest_cutoff_utc": "2026-09-03T20:30:00Z",
+      "runner": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\run_week1_checkpoint_capture.ps1",
+      "missed_policy": "MISSED_CUTOFF_NO_BACKFILL; later pre-kickoff may support a NEW later checkpoint only"
+    },
+    {
+      "id": "SEP4_WINDOW_T24H",
+      "label": "T-24H",
+      "earliest_national_t24h_cutoff_utc": "2026-09-03T22:30:00Z",
+      "am_contest": "6607349",
+      "am_deadline_utc": "2026-09-04T23:00:00Z",
+      "note": "National Sep4 games have earlier individual cutoffs; do not wait for A&M alone"
+    }
+  ],
+  "retired_pipeline": "NOT_OPERATIONAL_DO_NOT_REACTIVATE",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "code_head": "e7a163f70b465228aa3b558e2e4dbf5d46ea4d5a",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "ci": "PASS",
+  "sep3_t90m_bound_early_utc": "2026-09-03T15:41:18Z"
+}

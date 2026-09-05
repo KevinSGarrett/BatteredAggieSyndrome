@@ -1,0 +1,53 @@
+{
+  "active_path_effect": "Declared Week1 national fitted successor does not consume the player corpus; join_audit active_path_import_edges=0",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "active_path_import_closure_bat591_edges": 0,
+  "adversarial_proof": [
+    "test_26_passing_header_does_not_inherit_rushing",
+    "test_r26_21_active_path_does_not_import_statcrew",
+    "tests/test_tamu_official_passing_section_successor.py"
+  ],
+  "artifact_type": "CYCLE26_R26_21_CONTAINMENT",
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "disposition": "CONFIRMED_FIXED",
+  "finding": "R26-21",
+  "historical_census": {
+    "confirmed_affected_raw_pages": 125,
+    "confirmed_mislabeled_passing_rows": 429,
+    "corpus_path": "features/tamu_official_1996_2009_structured_row_corpus/sha256/7a7f9797bbbc43f273e357584a16ece7715c6ab227438b13fa65775c3dd912f7/individual_player_statistics.jsonl",
+    "predecessor_sha256": "8de41e750e459d592e86768d723883a7fa92f9fea46b3418bf6a805dcb6eecd0",
+    "rewritten": false,
+    "screened_nonpassing_triple_rows": 474,
+    "unresolved_section_matches": 45
+  },
+  "issued_at_utc": "2026-09-03T12:26:41Z",
+  "national_forecast_consumption_proven": false,
+  "owner": "BAT-692",
+  "parser_helpers": "src/aggie_analytics/data/tamu_official_statcrew_preformatted.py recognizes Att-Cmp-Int/Cmp-Att-Int; successor materializes corrected rows",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "residual_risk": "45 unresolved ambiguous-section screen candidates remain unlabeled as passing; full season-domain parser cascade was not replayed; national model join is unproven.",
+  "successor": {
+    "changed_stat_group_rows": 429,
+    "confirmed_team_attributed_rows": 22,
+    "counts_by_season": {
+      "1998": 16,
+      "1999": 28,
+      "2000": 32,
+      "2001": 38,
+      "2002": 42,
+      "2003": 44,
+      "2004": 40,
+      "2005": 40,
+      "2006": 44,
+      "2007": 31,
+      "2008": 39,
+      "2009": 35
+    },
+    "dataset_identity": "e98912fa5be82ecea999380040b1031e83e3c40ac07a76a615ceffd817439912",
+    "gate_identity": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787",
+    "independent_reconstruction": "PASS",
+    "unchanged_rows": 3139,
+    "unresolved_rows": 45
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "adversarial_proof": [
+    "test_25_oriented_rows_use_team_probability",
+    "test_25_historical_saved_pairs_are_not_cosmetically_rewritten",
+    "test_32_probability_only_does_not_certify_joint_path",
+    "tests/test_historical_saved_pair_game_grain_successor.py"
+  ],
+  "artifact_type": "CYCLE26_R26_20_CONTAINMENT",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "disposition": "CONFIRMED_FIXED",
+  "finding": "R26-20",
+  "historical_payloads": "Immutable C20/C21/C25 saved pairs preserved unrepaired as deprecated evidence",
+  "historical_successor": {
+    "c20_failing_pairs": 0,
+    "c20_unique_games_per_candidate": 910,
+    "c21_failing_pairs": 0,
+    "c21_unique_games_per_candidate": 5035,
+    "dataset_identity": "f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9",
+    "gate_identity": "1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0",
+    "joint_probability_margin_interval": false
+  },
+  "issued_at_utc": "2026-09-03T12:07:48Z",
+  "note": "Do not cosmetically renormalize old outputs; successor is the corrected path. Original C20/C21 metrics are not authoritative.",
+  "owner": "BAT-693",
+  "residual_risk": "C20/C21 joint Normal interval remains unavailable without fold-local residual scale; Week 1 joint path is separate.",
+  "week1_successor": {
+    "am_both_orientations": {
+      "away_canonical_team_id": "SRC-002:TEAM:2623",
+      "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+      "expected_margin_away": -22.2506043541,
+      "expected_margin_home": 22.2506043541,
+      "home_canonical_team_id": "SRC-002:TEAM:245",
+      "joint_coherence": true,
+      "margin_sum": 0.0,
+      "ncaa_contest_id": "6607349",
+      "probability_away": 0.1048683331,
+      "probability_home": 0.8951316669,
+      "probability_sum": 1.0,
+      "publication_label": "UNTRUSTED_SHADOW"
+    },
+    "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "failing_pairs": 0,
+    "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "oriented_rows": 158,
+    "publication": "UNTRUSTED_SHADOW",
+    "ridge_emitted": 79
+  }
+}

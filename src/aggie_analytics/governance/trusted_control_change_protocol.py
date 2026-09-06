@@ -18,15 +18,16 @@ from aggie_analytics.governance.normalized_review_gate import (
 CONTROL_SURFACES = (
     "tools/validate_codex_scientific_review.py",
     ".github/workflows/codex-scientific-review.yml",
+    ".github/workflows/paid-scientific-review.yml",
     ".github/CODE_REVIEW_RULES.md",
     ".github/codex/prompts/scientific-review.md",
     "schemas/scientific_review/codex_scientific_review.schema.json",
 )
 PROMPT_PATH = ".github/codex/prompts/scientific-review.md"
 RULES_PATH = ".github/CODE_REVIEW_RULES.md"
-WORKFLOW_PATH = ".github/workflows/codex-scientific-review.yml"
+WORKFLOW_PATH = ".github/workflows/paid-scientific-review.yml"
 CODEX_PR_REVIEW_MODEL = "gpt-5.3-codex"
-CODEX_PR_REVIEW_EFFORT = "medium"
+CODEX_PR_REVIEW_EFFORT = "low"
 UNSUCCESSFUL_VERDICTS = frozenset({"FAIL", "BLOCKED", "BLOCKED_INSUFFICIENT_EVIDENCE"})
 ACCEPTED_VERDICT = "PASS"
 
@@ -257,7 +258,7 @@ def build_protocol_artifact(*, repo_root: Path, issued_at_utc: str) -> dict[str,
     bindings = bind_current_tree(repo_root)
     return {
         "artifact_type": "CYCLE27_TRUSTED_CONTROL_CHANGE_PROTOCOL",
-        "revision": "C27-CONTROL-07-PREPARATION",
+        "revision": "C28-CONTROL-PREPARATION-REBIND",
         "issued_at_utc": issued_at_utc,
         "this_pack_is_not_approval": True,
         "bootstrap_status": "PREPARATION_NOT_APPROVED",

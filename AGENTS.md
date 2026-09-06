@@ -1,18 +1,15 @@
-## P0 fail-closed assistive-execution interlock
+## Retired assistive / Fort Knox pipeline — no active authority
 
-Before any material work, read `instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md`.
-Until its independent black-box, probation, and sustained-operation evidence all
-pass, Codex may perform only `PIPELINE_BOOTSTRAP_REPAIR`, final-authority,
-credential/security, Git integration, or irreducibly deterministic local work.
-Ordinary delegable BAS project work is fail-closed. An empty queue, malformed
-packet, provider failure, or direct-execution convenience is never permission
-for Codex fallback. Every material change must carry an immutable routing
-decision and pass `tools/validate_codex_usage_interlock.py`; an
-`UNJUSTIFIED_DIRECT_EXECUTION` finding is a hard failure.
+The Fort Knox assistive-execution interlock and the retired
+OpenAI/Cursor/OpenRouter assistive pipeline have no operational, routing,
+validation, completion, or cost authority. Do not treat
+`instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md` as required
+reading. Do not run `tools/validate_codex_usage_interlock.py` as a Cycle
+acceptance, CI, or strict-repository gate. Do not import or schedule the
+retired pipeline. Historical files remain `RETIRED_HISTORICAL_ONLY`.
+Absence of assistive-plane evidence does not block BAS work.
 
-This interlock can prove whether this repository's pipeline operates without a
-Codex turn. It cannot infer private product intent or billing motive from local
-evidence, and no result may claim otherwise.
+Prove this decommission with `tools/validate_retired_assistive_pipeline_decommission.py`.
 
 # AGENTS.md — Final Operating Contract
 

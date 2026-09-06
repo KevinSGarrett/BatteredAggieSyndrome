@@ -1,0 +1,135 @@
+name: paid-scientific-review
+
+on:
+  pull_request:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        required: true
+        type: string
+      head_sha:
+        required: true
+        type: string
+      premium_authorized:
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paid-scientific-review-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+jobs:
+  paid-review:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.label.name == 'paid-scientific-review-ready')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha || inputs.head_sha }}
+      BASE_SHA: ${{ github.event.pull_request.base.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.HEAD_SHA }}
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Deterministic gates before paid review
+        run: |
+          python tools/validate_retired_assistive_pipeline_decommission.py --repo-root .
+          python -m unittest tests.test_cycle28_adversarial_controls
+      - name: Refuse automatic premium models
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          from pathlib import Path
+          sys.path.insert(0, "src")
+          from aggie_analytics.cycle28.cost import admit_paid_review
+          premium = os.environ.get("PREMIUM", "false").lower() == "true"
+          payload = {
+              "deterministic_passed": True,
+              "readiness_label_present": True,
+              "authorized_head_sha": os.environ["HEAD_SHA"],
+              "current_head_sha": os.environ["HEAD_SHA"],
+              "model": "gpt-5.3-codex",
+              "effort": "low",
+              "premium_authorized": premium,
+              "cache_hit": False,
+              "prior_tuple_paid": False,
+              "estimated_or_actual_cost_usd": 0.50,
+              "pr_spend_usd": 0.0,
+              "cycle_spend_usd": 0.0,
+              "second_run": False,
+              "second_run_reason": None,
+              "retry_loop": False,
+              "raw_lake_or_secrets_in_prompt": False,
+          }
+          admit_paid_review(**{k: payload[k] for k in payload if k != "model"} | {"model": "gpt-5.3-codex", "effort": "low"})
+          Path("artifacts/scientific_integrity").mkdir(parents=True, exist_ok=True)
+          Path("artifacts/scientific_integrity/paid_review_admission.json").write_text(
+              json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+          )
+          PY
+        env:
+          PREMIUM: ${{ inputs.premium_authorized || 'false' }}
+      - name: Write trusted CI review binding
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, subprocess
+          from pathlib import Path
+          base = os.environ["BASE_SHA"]
+          names = subprocess.check_output(
+              ["git", "diff", "--name-only", "--diff-filter=ACMRD", f"{base}...HEAD"],
+              text=True, encoding="utf-8",
+          ).splitlines()
+          inventory = sorted(line.strip().replace("\\", "/") for line in names if line.strip())
+          digest = hashlib.sha256(json.dumps(inventory, separators=(",", ":")).encode("utf-8")).hexdigest()
+          path = Path("artifacts/scientific_integrity/codex_review_binding.json")
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps({
+              "pr_number": int(os.environ["PR_NUMBER"]),
+              "base_sha": os.environ["BASE_SHA"],
+              "head_sha": os.environ["HEAD_SHA"],
+              "reviewed_merge_sha": os.environ.get("GITHUB_SHA", os.environ["HEAD_SHA"]),
+              "changed_file_inventory": inventory,
+              "changed_file_digest": digest,
+          }, indent=2) + "\n", encoding="utf-8")
+          PY
+      - name: Run Codex scientific review
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          prompt-file: .github/codex/prompts/scientific-review.md
+          sandbox: read-only
+          output-file: artifacts/scientific_integrity/codex_scientific_review_output.json
+          model: gpt-5.3-codex
+          effort: low
+          codex-args: '["--output-schema","schemas/scientific_review/codex_scientific_review.schema.json"]'
+      - name: Materialize trusted validator from protected base
+        env:
+          BASE_SHA: ${{ env.BASE_SHA }}
+        run: |
+          mkdir -p /tmp/trusted-review
+          git show "$BASE_SHA:tools/validate_codex_scientific_review.py" > /tmp/trusted-review/validate_codex_scientific_review.py
+      - name: Validate structured Codex output
+        env:
+          MERGE_SHA: ${{ github.sha }}
+        run: python /tmp/trusted-review/validate_codex_scientific_review.py --payload artifacts/scientific_integrity/codex_scientific_review_output.json --binding artifacts/scientific_integrity/codex_review_binding.json --expected-pr "$PR_NUMBER" --expected-base "$BASE_SHA" --expected-head "$HEAD_SHA" --expected-merge "$MERGE_SHA"
+      - name: Upload sanitized review artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: paid-scientific-review
+          path: artifacts/scientific_integrity/codex_scientific_review_output.json
+          if-no-files-found: error

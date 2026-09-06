@@ -36,8 +36,9 @@ from tools.validate_feature_lifecycle import validate as validate_feature_lifecy
 from tools.validate_feature_registry import validate as validate_feature_registry  # noqa: E402
 from tools.validate_model_architecture import validate as validate_model_architecture  # noqa: E402
 from tools.validate_mounted_acceptance_gate import validate as validate_mounted_acceptance_gate  # noqa: E402
-from tools.validate_openai_assist import validate as validate_openai_assist  # noqa: E402
-from tools.validate_openrouter_assist import validate as validate_openrouter_assist  # noqa: E402
+from tools.validate_retired_assistive_pipeline_decommission import (  # noqa: E402
+    validate as validate_retired_assistive_decommission,
+)
 from tools.validate_team_state import validate as validate_team_state  # noqa: E402
 from tools.validate_temporal import validate as validate_temporal  # noqa: E402
 from aggie_analytics.governance.scientific_trust_recovery_hold import (  # noqa: E402
@@ -125,15 +126,18 @@ def main() -> int:
         for detail in validate_external_storage_policy(root):
             findings.append(type("F", (), {"kind":"external_storage", "path":str(external_storage_policy.relative_to(root)), "detail":detail})())
 
-    openai_assist_policy = root / "configs/openai_assist_policy.json"
-    if openai_assist_policy.exists():
-        for detail in validate_openai_assist(root):
-            findings.append(type("F", (), {"kind":"openai_assist", "path":str(openai_assist_policy.relative_to(root)), "detail":detail})())
-
-    openrouter_assist_policy = root / "configs/openrouter_assist_policy.json"
-    if openrouter_assist_policy.exists():
-        for detail in validate_openrouter_assist(root):
-            findings.append(type("F", (), {"kind":"openrouter_assist", "path":str(openrouter_assist_policy.relative_to(root)), "detail":detail})())
+    for detail in validate_retired_assistive_decommission(root):
+        findings.append(
+            type(
+                "F",
+                (),
+                {
+                    "kind": "retired_assistive_decommission",
+                    "path": "tools/validate_retired_assistive_pipeline_decommission.py",
+                    "detail": detail,
+                },
+            )()
+        )
 
     execution_focus_policy = root / "instructions/policies/execution_focus_policy.json"
     if execution_focus_policy.exists():

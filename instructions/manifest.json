@@ -236,7 +236,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "human-policy:12_ci_testing_evidence_and_definition_of_done",
-      "sha256": "cef4c8fff48ab7c41c39a52b1bd5c36d609d656ed43b531de990b76fe3bd6925"
+      "sha256": "1c05f8163948a1542d0210444c42efb1ed1bb037dbd5da7872195f27fa804a22"
     },
     {
       "path": "instructions/13_SECURITY_SECRETS_DATA_RIGHTS_AND_DEPENDENCIES.md",
@@ -383,7 +383,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "human-policy:20_instruction_maintenance_and_change_control",
-      "sha256": "6549f7bc3e955608365f4c95b966ad1742abc46ff25a34bb19b27415593cc31c"
+      "sha256": "095fe21d42a07078e3f5f52d5a4f141a3b1a3edbe434018a07ea463fbf3a0aa3"
     },
     {
       "path": "instructions/21_PACKAGING_INTEGRITY_AND_INSTALLATION.md",
@@ -461,10 +461,10 @@
     },
     {
       "path": "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
-      "purpose": "P0 fail-closed direct-Codex work interlock and independent no-Codex operational proof contract.",
-      "authority": "P0_ACTIVE_EXECUTION_INTERLOCK",
-      "read_tier": "ALWAYS",
-      "when_to_read": "Immediately after AGENTS.md and before selecting or performing any material work while the assistive plane is not operational.",
+      "purpose": "Retired historical Fort Knox assistive-execution interlock. Not required reading and not an active gate.",
+      "authority": "RETIRED_HISTORICAL_ONLY",
+      "read_tier": "HISTORICAL_PROVENANCE_ONLY",
+      "when_to_read": "Never as required reading. Historical provenance only after Cycle #28 decommission.",
       "agent_roles": [
         "all autonomous agents",
         "implementation agent",
@@ -477,7 +477,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "human-policy:25_fort_knox_assistive_execution_interlock",
-      "sha256": "b3c0b88764a557b07fcf53075dfd0c93b4995952fb2b37b9a9827887f2ff146f"
+      "sha256": "7dbca50a831d19d45abda9b4ff209709a399cbe7c37347fcfaeb78d4d9e8d5d2"
     },
     {
       "path": "instructions/CHANGELOG.md",
@@ -527,7 +527,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "autonomous-entrypoint",
-      "sha256": "64c278adc89cbf5c6efbc37e267800bf573e340c872954a8ae75556a0af7cd7e"
+      "sha256": "1ac68e17d24e1fb08649ff1d2ae5f1728ef8dfac9fd318e88a48ff2dae1eee89"
     },
     {
       "path": "instructions/audit/EXTERNAL_INTEGRATION_AUDIT.md",
@@ -866,7 +866,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "machine-policy:definition_of_done",
-      "sha256": "5120788b725e6d0823b8b95e9b3449f1ef0c3c8d2e5f2a227484323b3768c0c8"
+      "sha256": "8fc5bb7a8ca111ba4b51cb7adc38649464a3ef948a5771cd29bd6fb749ed4d01"
     },
     {
       "path": "instructions/policies/execution_focus_policy.json",
@@ -884,7 +884,7 @@
       ],
       "version": "1.0.0",
       "canonical_topic": "machine-policy:execution_focus",
-      "sha256": "a57ab9c7b57cabfda8fc57941c37de2f0185884c84a4ff72cecdb32a4d9c8d78"
+      "sha256": "d42742df60d0b6c1694b586a8332e1982557976d9bc4dd15a8323fa6d1dd3700"
     },
     {
       "path": "instructions/policies/git_policy.json",

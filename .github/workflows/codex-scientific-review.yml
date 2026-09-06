@@ -6,137 +6,36 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: codex-review-skip-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   codex-review:
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - name: Checkout pull-request merge ref
-        uses: actions/checkout@v7
-        with:
-          ref: refs/pull/${{ github.event.pull_request.number }}/merge
-          persist-credentials: false
-          fetch-depth: 0
-      - name: Write trusted CI review binding
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          MERGE_SHA: ${{ github.sha }}
-        run: |
-          python - <<'PY'
-          import hashlib
-          import json
-          import os
-          import subprocess
-          from pathlib import Path
-          base = os.environ["BASE_SHA"]
-          names = subprocess.check_output(
-              ["git", "diff", "--name-only", "--diff-filter=ACMRD", f"{base}...HEAD"],
-              text=True,
-              encoding="utf-8",
-          ).splitlines()
-          inventory = sorted(line.strip().replace("\\", "/") for line in names if line.strip())
-          digest = hashlib.sha256(
-              json.dumps(inventory, separators=(",", ":")).encode("utf-8")
-          ).hexdigest()
-          path = Path("artifacts/scientific_integrity/codex_review_binding.json")
-          path.parent.mkdir(parents=True, exist_ok=True)
-          payload = {
-              "pr_number": int(os.environ["PR_NUMBER"]),
-              "base_sha": os.environ["BASE_SHA"],
-              "head_sha": os.environ["HEAD_SHA"],
-              "reviewed_merge_sha": os.environ["MERGE_SHA"],
-              "changed_file_inventory": inventory,
-              "changed_file_digest": digest,
-          }
-          path.write_bytes((json.dumps(payload, indent=2) + "\n").encode("utf-8"))
-          PY
-      - name: Run Codex scientific review
-        uses: openai/codex-action@v1
-        with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          prompt-file: .github/codex/prompts/scientific-review.md
-          sandbox: read-only
-          output-file: artifacts/scientific_integrity/codex_scientific_review_output.json
-          model: gpt-5.3-codex
-          effort: medium
-          codex-args: '["--output-schema","schemas/scientific_review/codex_scientific_review.schema.json"]'
-      - name: Materialize trusted validator from protected base
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: |
-          mkdir -p /tmp/trusted-review
-          git show "$BASE_SHA:tools/validate_codex_scientific_review.py" > /tmp/trusted-review/validate_codex_scientific_review.py
-      - name: Validate structured Codex output
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          MERGE_SHA: ${{ github.sha }}
-        run: python /tmp/trusted-review/validate_codex_scientific_review.py --payload artifacts/scientific_integrity/codex_scientific_review_output.json --binding artifacts/scientific_integrity/codex_review_binding.json --expected-pr "$PR_NUMBER" --expected-base "$BASE_SHA" --expected-head "$HEAD_SHA" --expected-merge "$MERGE_SHA"
-      - name: Upload sanitized review artifact
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: codex-scientific-review
-          path: artifacts/scientific_integrity/codex_scientific_review_output.json
-          if-no-files-found: error
-
-  publish-review-comment:
-    needs: codex-review
-    if: needs.codex-review.result == 'success'
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      contents: read
-    steps:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: actions/download-artifact@v7
-        with:
-          name: codex-scientific-review
-          path: artifacts/scientific_integrity
-      - name: Post sanitized review summary
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+      - name: Paid review is opt-in and not run on every push
         run: |
           python - <<'PY'
           import json
-          import os
-          import subprocess
           from pathlib import Path
-          path = Path("artifacts/scientific_integrity/codex_scientific_review_output.json")
-          payload = json.loads(path.read_text(encoding="utf-8"))
-          summary = {
-              "verdict": payload.get("verdict"),
-              "reviewed_merge_sha": payload.get("reviewed_merge_sha"),
-              "p0": len(payload.get("findings_p0") or []),
-              "p1": len(payload.get("findings_p1") or []),
-              "limitations": payload.get("limitations") or [],
+          Path("artifacts/scientific_integrity").mkdir(parents=True, exist_ok=True)
+          payload = {
+              "verdict": "SKIPPED_UNTIL_PAID_SCIENTIFIC_REVIEW_READY",
+              "paid_review_on_every_push": False,
+              "default_model": "gpt-5.3-codex",
+              "default_effort": "low",
+              "automatic_premium_models": False,
+              "authorization_label": "paid-scientific-review-ready",
+              "workflow": ".github/workflows/paid-scientific-review.yml",
           }
-          Path("artifacts/scientific_integrity/codex_scientific_review_comment.json").write_text(
-              json.dumps(summary, indent=2) + "\n", encoding="utf-8"
+          Path("artifacts/scientific_integrity/codex_scientific_review_skip.json").write_text(
+              json.dumps(payload, indent=2) + "\n", encoding="utf-8"
           )
-          body = (
-              "Codex scientific review (sanitized)\n"
-              f"- verdict: {summary['verdict']}\n"
-              f"- reviewed_merge_sha: {summary['reviewed_merge_sha']}\n"
-              f"- p0: {summary['p0']}\n"
-              f"- p1: {summary['p1']}\n"
-          )
-          subprocess.check_call(
-              [
-                  "gh",
-                  "pr",
-                  "comment",
-                  os.environ["PR_NUMBER"],
-                  "--body",
-                  body,
-              ]
-          )
-          print(json.dumps(summary, indent=2))
+          print(json.dumps(payload, indent=2))
           PY

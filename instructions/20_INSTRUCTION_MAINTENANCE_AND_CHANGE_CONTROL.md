@@ -10,7 +10,7 @@ Machine companion: `policies/instruction_change_policy.json`.
 - Every major policy has one canonical Markdown home.
 - Deterministic enumerations/patterns/state machines may have one machine companion listed in `manifest.json`.
 - Root `.codex`, `.github`, `AGENTS.md`, README, and CONTRIBUTING may point/summarize but must not redefine the rule differently.
-- The active assistive-execution interlock in `25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md` is fail-closed and may not be weakened, removed, or self-promoted by Codex, a provider result, or a controller-authored status file. A later explicit user waiver must be exact and immutable.
+- Cycle #28 executed the exact user waiver decommissioning Fort Knox and the retired assistive pipeline from active required-reading, routing, CI, strict validation, scheduler, import and completion authority. The historical document remains `RETIRED_HISTORICAL_ONLY` and must not be restored as an active gate.
 
 ## Change gate
 

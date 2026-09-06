@@ -748,7 +748,6 @@ configs/noaa_isd_alternate_station_recovery_contract.json
 configs/noaa_isd_game_observation_shadow_contract.json
 configs/noaa_isd_observed_coverage_pilot_contract.json
 configs/noaa_isd_station_matching_contract.json
-configs/omitted_protected_tune_contract.json
 configs/open_source_integration_registry.json
 configs/openai_assist_policy.json
 configs/openai_availability_source_triage.json

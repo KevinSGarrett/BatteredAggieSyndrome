@@ -6,7 +6,6 @@ Must not import producer scoring, receipt, identity, or metric helpers from
 
 from __future__ import annotations
 
-import math
 from typing import Any, Mapping, Sequence
 
 from aggie_analytics.scientific_reference.metrics import accuracy, brier_score, log_loss
@@ -21,7 +20,9 @@ class IndependentScoringError(ValueError):
 
 
 def game_grain_denominators(rows: Sequence[Mapping[str, Any]]) -> dict[str, int]:
-    contests = {str(row.get("ncaa_contest_id")) for row in rows if row.get("ncaa_contest_id")}
+    contests = {
+        str(row.get("ncaa_contest_id")) for row in rows if row.get("ncaa_contest_id")
+    }
     oriented = [row for row in rows if row.get("orientation") in {"HOME", "AWAY"}]
     if oriented and len(oriented) == 2 * len(contests):
         # Oriented pairs are not independent games.
@@ -38,7 +39,9 @@ def reject_oriented_rows_as_games(rows: Sequence[Mapping[str, Any]]) -> int:
     if stats["oriented_rows"] and stats["unique_games"] * 2 == stats["oriented_rows"]:
         return stats["unique_games"]
     if stats["oriented_rows"] > stats["unique_games"]:
-        raise IndependentScoringError("oriented rows cannot be counted as independent games")
+        raise IndependentScoringError(
+            "oriented rows cannot be counted as independent games"
+        )
     return stats["unique_games"]
 
 
@@ -96,7 +99,10 @@ def select_earliest_valid_terminal(
         return "CONFLICT_QUARANTINED"
     ordered = sorted(
         admitted,
-        key=lambda row: str(row.get("trusted_clock_retrieval_utc") or row.get("acquisition_ended_at_utc")),
+        key=lambda row: str(
+            row.get("trusted_clock_retrieval_utc")
+            or row.get("acquisition_ended_at_utc")
+        ),
     )
     return ordered[0]
 
@@ -105,7 +111,9 @@ def parse_independent_cards(document: str) -> list[dict[str, Any]]:
     return reconstruct_scoreboard_cards(document)
 
 
-def parse_independent_box(document: str, contest_id_hint: str | None = None) -> dict[str, Any]:
+def parse_independent_box(
+    document: str, contest_id_hint: str | None = None
+) -> dict[str, Any]:
     return reconstruct_box_score_header(document, contest_id_hint)
 
 

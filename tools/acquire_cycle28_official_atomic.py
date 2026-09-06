@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
+# ruff: noqa: E402
 from aggie_analytics.cycle28.atomic_receipt import (
     SOURCE_ACQUISITION_RECEIPT,
     write_atomic_source_acquisition,
@@ -236,7 +237,9 @@ def transport_fetch(uri: str, token: str) -> tuple[bytes | None, dict[str, Any]]
     }
 
 
-def acquire_one(target: dict[str, Any], *, data_root: Path, token: str) -> dict[str, Any]:
+def acquire_one(
+    target: dict[str, Any], *, data_root: Path, token: str
+) -> dict[str, Any]:
     started = utc_now()
     uri = str(target["source_uri"])
     request_id = hashlib.sha256(
@@ -329,10 +332,20 @@ def main() -> int:
         / "outputs"
         / "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER.json"
     )
-    selected = [target for target in TARGETS if not args.only or target["target_id"] in args.only]
+    selected = [
+        target
+        for target in TARGETS
+        if not args.only or target["target_id"] in args.only
+    ]
     for target in selected:
-        if args.skip_captured and already_captured(args.data_root, str(target["target_id"])):
-            html = next((args.data_root / "raw" / "CYCLE28" / str(target["target_id"])).glob("*.html"))
+        if args.skip_captured and already_captured(
+            args.data_root, str(target["target_id"])
+        ):
+            html = next(
+                (args.data_root / "raw" / "CYCLE28" / str(target["target_id"])).glob(
+                    "*.html"
+                )
+            )
             records.append(
                 {
                     "target_id": target["target_id"],
@@ -375,7 +388,11 @@ def main() -> int:
     }
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(ledger, indent=2, sort_keys=True), encoding="utf-8")
-    print(json.dumps({"captured": ledger["captured_count"], "failed": ledger["failed_count"]}))
+    print(
+        json.dumps(
+            {"captured": ledger["captured_count"], "failed": ledger["failed_count"]}
+        )
+    )
     return 0 if ledger["captured_count"] else 1
 
 

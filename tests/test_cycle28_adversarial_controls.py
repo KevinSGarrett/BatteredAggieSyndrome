@@ -2,11 +2,9 @@
 
 from __future__ import annotations
 
-import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest import mock
 
 from aggie_analytics.cycle28.atomic_receipt import (
     DERIVATIVE_OBSERVATION_RECEIPT,
@@ -48,7 +46,6 @@ from aggie_analytics.cycle28.calendar import (
     reject_sunday_into_monday_fitted_path,
 )
 from aggie_analytics.cycle28.coaching import (
-    ROLE_HEAD_COACH,
     ROLE_OC,
     ROLE_OFFENSE_PLAY_CALLER,
     CoachingError,
@@ -66,7 +63,6 @@ from aggie_analytics.cycle28.coverage import (
     reject_not_yet_audited_collapse,
     require_all_domains,
 )
-from aggie_analytics.cycle28.decommission import validate_retired_assistive_decommission
 from aggie_analytics.cycle28.gridiron import (
     ALLOWED_CLAIM,
     GridironBoundaryError,
@@ -250,7 +246,9 @@ class Cycle28AdversarialTests(unittest.TestCase):
                 },
             ]
         )
-        self.assertEqual(earliest["trusted_clock_retrieval_utc"], "2026-09-06T04:00:00Z")
+        self.assertEqual(
+            earliest["trusted_clock_retrieval_utc"], "2026-09-06T04:00:00Z"
+        )
 
     def test_oriented_rows_are_not_independent_games(self) -> None:
         rows = [
@@ -275,7 +273,9 @@ class Cycle28AdversarialTests(unittest.TestCase):
         )
         self.assertTrue(result["conflict"])
         self.assertEqual(result["real_t90m_disposition"], DISPOSITION_MISSED)
-        self.assertEqual(result["predecessor_t90m_capture_disposition"], DISPOSITION_EARLY)
+        self.assertEqual(
+            result["predecessor_t90m_capture_disposition"], DISPOSITION_EARLY
+        )
         self.assertFalse(result["real_t90m_was_met"])
         with self.assertRaises(CalendarReconciliationError):
             reject_relabel_early_as_t90m(
@@ -293,8 +293,24 @@ class Cycle28AdversarialTests(unittest.TestCase):
             )
         self.assertFalse(
             live_owner_identity_match(
-                reported={"pid": 1, "executable": "a", "command_line": "x", "creation_utc": "t", "checkpoint": "c", "contest_ids": ["1"], "cutoff_utc": "u"},
-                observed={"pid": 1, "executable": "b", "command_line": "x", "creation_utc": "t", "checkpoint": "c", "contest_ids": ["1"], "cutoff_utc": "u"},
+                reported={
+                    "pid": 1,
+                    "executable": "a",
+                    "command_line": "x",
+                    "creation_utc": "t",
+                    "checkpoint": "c",
+                    "contest_ids": ["1"],
+                    "cutoff_utc": "u",
+                },
+                observed={
+                    "pid": 1,
+                    "executable": "b",
+                    "command_line": "x",
+                    "creation_utc": "t",
+                    "checkpoint": "c",
+                    "contest_ids": ["1"],
+                    "cutoff_utc": "u",
+                },
             )
         )
 
@@ -304,8 +320,14 @@ class Cycle28AdversarialTests(unittest.TestCase):
         results = {layer: "PASS" for layer in ASSURANCE_LAYERS}
         results["metrics_and_denominators"] = "FAIL"
         with self.assertRaises(AssuranceError):
-            reject_lower_layer_promotion(results, "STRUCTURAL_CORRECTNESS_VERIFIED_WITHIN_SCOPE")
-        self.assertTrue(validator_imports_producer(["aggie_analytics.data.week1_2026_cycle27_official_final_scoring"]))
+            reject_lower_layer_promotion(
+                results, "STRUCTURAL_CORRECTNESS_VERIFIED_WITHIN_SCOPE"
+            )
+        self.assertTrue(
+            validator_imports_producer(
+                ["aggie_analytics.data.week1_2026_cycle27_official_final_scoring"]
+            )
+        )
         self.assertFalse(
             cross_output_coherent(
                 probability=0.9,
@@ -322,9 +344,13 @@ class Cycle28AdversarialTests(unittest.TestCase):
             coherent=True,
         )
         self.assertEqual(blocked["structural_correctness"], BLOCKED_ZERO_PIT)
-        self.assertEqual(blocked["empirical_predictive_skill"], EMPIRICAL_NOT_ESTABLISHED)
+        self.assertEqual(
+            blocked["empirical_predictive_skill"], EMPIRICAL_NOT_ESTABLISHED
+        )
         self.assertFalse(blocked["scientific_trust_recovered"])
-        children = invalidate_descendants("raw", {"raw": ["features"], "features": ["model"]})
+        children = invalidate_descendants(
+            "raw", {"raw": ["features"], "features": ["model"]}
+        )
         self.assertEqual(children, {"raw", "features", "model"})
 
     def test_coverage_invariants(self) -> None:
@@ -341,7 +367,9 @@ class Cycle28AdversarialTests(unittest.TestCase):
 
     def test_coaching_and_availability_invariants(self) -> None:
         with self.assertRaises(CoachingError):
-            reject_play_caller_from_coordinator("Offensive Coordinator", ROLE_OFFENSE_PLAY_CALLER)
+            reject_play_caller_from_coordinator(
+                "Offensive Coordinator", ROLE_OFFENSE_PLAY_CALLER
+            )
         with self.assertRaises(CoachingError):
             reject_cfbd_as_coordinator_or_play_caller("CFBD", ROLE_OC)
         with self.assertRaises(CoachingError):
@@ -350,7 +378,10 @@ class Cycle28AdversarialTests(unittest.TestCase):
             reject_am_only_national_staff(
                 national_denominator=136, covered_teams=2, label="national"
             )
-        self.assertEqual(consumption_state(admitted=False, reasons_pass=()), "CANDIDATE_ONLY_NOT_CONSUMED")
+        self.assertEqual(
+            consumption_state(admitted=False, reasons_pass=()),
+            "CANDIDATE_ONLY_NOT_CONSUMED",
+        )
         with self.assertRaises(AvailabilityError):
             reject_missing_report_as_healthy(REPORT_EXPECTED_NOT_FOUND, True)
         with self.assertRaises(AvailabilityError):
@@ -372,7 +403,9 @@ class Cycle28AdversarialTests(unittest.TestCase):
         with self.assertRaises(GridironBoundaryError):
             reject_forbidden_claim("GRIDIRON_CORTEX_INTEGRATED")
         with self.assertRaises(GridironBoundaryError):
-            reject_incompatible_payload({"snapshot_state": "DRIFTED_NOT_CONSUMABLE"}, adapter_version="1")
+            reject_incompatible_payload(
+                {"snapshot_state": "DRIFTED_NOT_CONSUMABLE"}, adapter_version="1"
+            )
         self.assertEqual(
             classify_breaking_change(
                 grain_changed=True,
@@ -522,10 +555,15 @@ class Cycle28AdversarialTests(unittest.TestCase):
         )
         with self.assertRaises(TopologyError):
             reject_generated_index_as_completeness(True)
-        self.assertEqual(transfer_conclusion(False, False), "BAS_REPOSITORY_TRANSFER_PREPARED_NOT_AUTHORIZED")
+        self.assertEqual(
+            transfer_conclusion(False, False),
+            "BAS_REPOSITORY_TRANSFER_PREPARED_NOT_AUTHORIZED",
+        )
 
     def test_protected_years_and_one_game_not_bas(self) -> None:
-        self.assertEqual("RETAIN_PROTECTED_LANE_BLOCKED", "RETAIN_PROTECTED_LANE_BLOCKED")
+        self.assertEqual(
+            "RETAIN_PROTECTED_LANE_BLOCKED", "RETAIN_PROTECTED_LANE_BLOCKED"
+        )
         self.assertNotIn("blind", "2024/2025 historically exposed")
         self.assertNotEqual("BAS", "one A&M result")
 
@@ -547,7 +585,12 @@ class Cycle28AdversarialTests(unittest.TestCase):
             "route_id": "scrapfly_rendering",
         }
         bound = bind_atomic_week1_scoring(
-            contests=[{"ncaa_contest_id": "6607349", "kickoff_bound_utc": "2026-09-05T23:00:00Z"}],
+            contests=[
+                {
+                    "ncaa_contest_id": "6607349",
+                    "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+                }
+            ],
             forecast_rows=[
                 {
                     "ncaa_contest_id": "6607349",
@@ -563,8 +606,12 @@ class Cycle28AdversarialTests(unittest.TestCase):
             now_utc="2026-09-06T20:50:00Z",
         )
         self.assertEqual(bound["scored_row_count"], 1)
-        self.assertEqual(bound["final_states"][0]["state"], "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT")
-        self.assertAlmostEqual(bound["rows"][0]["margin_residual"], 27.7493956459, places=4)
+        self.assertEqual(
+            bound["final_states"][0]["state"], "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
+        )
+        self.assertAlmostEqual(
+            bound["rows"][0]["margin_residual"], 27.7493956459, places=4
+        )
         post = a_and_m_postgame_observation(scored_rows=bound["rows"])
         self.assertTrue(post["report_50_0_exceeded_untrusted_early_ridge_by_27_7494"])
         self.assertIsNone(post["independent_predicted_score"])
@@ -592,7 +639,9 @@ class Cycle28AdversarialTests(unittest.TestCase):
         with self.assertRaises(IndependentScoringError):
             reject_prekickoff_final("2026-09-05T12:00:00Z", "2026-09-05T23:00:00Z")
 
-    def test_display_name_variants_same_score_are_corroboration_not_conflict(self) -> None:
+    def test_display_name_variants_same_score_are_corroboration_not_conflict(
+        self,
+    ) -> None:
         scoreboard = {
             "receipt_kind": SOURCE_ACQUISITION_RECEIPT,
             "ncaa_contest_id": "6607349",
@@ -609,10 +658,14 @@ class Cycle28AdversarialTests(unittest.TestCase):
             "trusted_clock_retrieval_utc": "2026-09-06T20:54:50Z",
         }
         selected = terminal_selection([scoreboard, box])
-        self.assertEqual(selected["trusted_clock_retrieval_utc"], "2026-09-06T20:54:50Z")
+        self.assertEqual(
+            selected["trusted_clock_retrieval_utc"], "2026-09-06T20:54:50Z"
+        )
         conflicted = dict(box)
         conflicted["home_points"] = 49
-        self.assertEqual(terminal_selection([scoreboard, conflicted]), "CONFLICT_QUARANTINED")
+        self.assertEqual(
+            terminal_selection([scoreboard, conflicted]), "CONFLICT_QUARANTINED"
+        )
 
 
 if __name__ == "__main__":

@@ -7,8 +7,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
-import re
 import subprocess
 import sys
 from collections import Counter
@@ -21,13 +19,15 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
+# Tool scripts must import the local package after PATH setup.
+# ruff: noqa: E402
+
 from aggie_analytics.cycle28.assurance import (
     ALL_CYCLE_INCOMPLETE,
     ASSURANCE_LAYERS,
     BLOCKED,
     BLOCKED_ZERO_PIT,
     EMPIRICAL_NOT_ESTABLISHED,
-    PASS,
 )
 from aggie_analytics.cycle28.availability import (
     CANDIDATE_ONLY as AVAIL_CANDIDATE,
@@ -55,7 +55,10 @@ from aggie_analytics.cycle28.scoring import (
     card_to_terminal_receipt,
     classify_predecessor_receipts,
 )
-from aggie_analytics.scientific_reference.cycle28_scoring import parse_independent_box, parse_independent_cards
+from aggie_analytics.scientific_reference.cycle28_scoring import (
+    parse_independent_box,
+    parse_independent_cards,
+)
 from aggie_analytics.cycle28.topology import TRANSFER_PREPARED
 
 DATA = Path(r"C:\BatteredAggieSyndrome.data")
@@ -132,7 +135,8 @@ def receipt_payloads() -> list[dict[str, Any]]:
         else:
             receipts.append(
                 {
-                    "retrieved_at_utc": manifest.get("as_of_utc") or "2026-09-06T00:24:34Z",
+                    "retrieved_at_utc": manifest.get("as_of_utc")
+                    or "2026-09-06T00:24:34Z",
                     "pin_field_retrieved_at_is_not_authority": True,
                     "builder_reads_preexisting_files": True,
                     "receipt_file_missing": True,
@@ -170,7 +174,9 @@ def load_frozen_forecast_rows() -> list[dict[str, Any]]:
     return rows
 
 
-def load_cycle28_receipt(target_id: str, raw_sha256: str | None = None) -> dict[str, Any] | None:
+def load_cycle28_receipt(
+    target_id: str, raw_sha256: str | None = None
+) -> dict[str, Any] | None:
     receipt_dir = DATA / "receipts" / "CYCLE28" / target_id
     if not receipt_dir.is_dir():
         return None
@@ -187,7 +193,9 @@ def load_cycle28_receipt(target_id: str, raw_sha256: str | None = None) -> dict[
     return matches[-1] if matches else None
 
 
-def load_atomic_terminal_receipts(kickoff_by_contest: dict[str, str]) -> tuple[list[dict[str, Any]], list[str]]:
+def load_atomic_terminal_receipts(
+    kickoff_by_contest: dict[str, str],
+) -> tuple[list[dict[str, Any]], list[str]]:
     terminals: list[dict[str, Any]] = []
     failed: list[str] = []
     raw_root = DATA / "raw" / "CYCLE28"
@@ -218,14 +226,19 @@ def load_atomic_terminal_receipts(kickoff_by_contest: dict[str, str]) -> tuple[l
             or receipt.get("acquisition_ended_at_utc"),
             "request_identity_sha256": receipt.get("request_identity_sha256"),
             "raw_response_sha256": html_path.stem,
-            "raw_response_relative_path": str(html_path.relative_to(DATA)).replace("\\", "/"),
+            "raw_response_relative_path": str(html_path.relative_to(DATA)).replace(
+                "\\", "/"
+            ),
             "acquisition_receipt_sha256": receipt.get("_receipt_sha256")
             or receipt.get("receipt_sha256"),
             "acquisition_receipt_relative_path": receipt.get("_receipt_path"),
             "route_id": receipt.get("route_id") or "unknown_route",
             "receipt_kind": receipt.get("receipt_kind") or SOURCE_ACQUISITION_RECEIPT,
         }
-        if not acquisition["trusted_clock_retrieval_utc"] or not acquisition["request_identity_sha256"]:
+        if (
+            not acquisition["trusted_clock_retrieval_utc"]
+            or not acquisition["request_identity_sha256"]
+        ):
             continue
         if target_dir.name.startswith("ncaa_scoreboard_"):
             for card in parse_independent_cards(document):
@@ -338,7 +351,10 @@ def main() -> int:
             "washington_state_washington": wsu,
         },
     )
-    dump(OUT / "WEEK1_REMAINING_GAME_CALENDAR_RECONCILIATION.json", load_json(ART / "WEEK1_REMAINING_GAME_CALENDAR_RECONCILIATION.json"))
+    dump(
+        OUT / "WEEK1_REMAINING_GAME_CALENDAR_RECONCILIATION.json",
+        load_json(ART / "WEEK1_REMAINING_GAME_CALENDAR_RECONCILIATION.json"),
+    )
     dump(
         ART / "WEEK1_REMAINING_CHECKPOINT_LEDGER.json",
         {
@@ -395,7 +411,9 @@ def main() -> int:
     )
 
     kickoff_by_contest = {
-        str(row.get("ncaa_contest_id")): str(row.get("kickoff_bound_utc") or row.get("kickoff_utc") or "")
+        str(row.get("ncaa_contest_id")): str(
+            row.get("kickoff_bound_utc") or row.get("kickoff_utc") or ""
+        )
         for row in contests
     }
     terminals, failed_ids = load_atomic_terminal_receipts(kickoff_by_contest)
@@ -599,7 +617,12 @@ def main() -> int:
                     continue
                 for cutoff in ("T-24H", "T-90M"):
                     for domain in REQUIRED_DOMAINS:
-                        if domain in {"schedules_results", "identities", "conferences", "governance"}:
+                        if domain in {
+                            "schedules_results",
+                            "identities",
+                            "conferences",
+                            "governance",
+                        }:
                             disposition = "PRESENT_CANDIDATE_ONLY"
                         elif domain in {
                             "head_coaches",
@@ -787,11 +810,21 @@ def main() -> int:
         },
     )
 
-    contracts_head = git(Path(r"C:\All-22\repos\CFBIntelligenceContracts"), "rev-parse", "HEAD")
-    contracts_dirty = git(Path(r"C:\All-22\repos\CFBIntelligenceContracts"), "status", "--porcelain")
-    specs_head = git(Path(r"C:\All-22\repos\CFBProgramSpecifications"), "rev-parse", "HEAD")
-    specs_dirty = git(Path(r"C:\All-22\repos\CFBProgramSpecifications"), "status", "--porcelain")
-    foundation = load_json(Path(r"C:\All-22\FoundationControl\control\CURRENT_STEP.json"))
+    contracts_head = git(
+        Path(r"C:\All-22\repos\CFBIntelligenceContracts"), "rev-parse", "HEAD"
+    )
+    contracts_dirty = git(
+        Path(r"C:\All-22\repos\CFBIntelligenceContracts"), "status", "--porcelain"
+    )
+    specs_head = git(
+        Path(r"C:\All-22\repos\CFBProgramSpecifications"), "rev-parse", "HEAD"
+    )
+    specs_dirty = git(
+        Path(r"C:\All-22\repos\CFBProgramSpecifications"), "status", "--porcelain"
+    )
+    foundation = load_json(
+        Path(r"C:\All-22\FoundationControl\control\CURRENT_STEP.json")
+    )
     bound = str(foundation.get("contracts_repository_head_sha") or "")
     dump(
         ART / "ALL22_SNAPSHOT_INVENTORY.json",
@@ -799,13 +832,17 @@ def main() -> int:
             "artifact_type": "ALL22_SNAPSHOT_INVENTORY",
             "issued_at_utc": now,
             "phase": "entry_and_closeout_recomputed",
-            "foundation_part3_status": foundation.get("part3_certification_readiness_status"),
+            "foundation_part3_status": foundation.get(
+                "part3_certification_readiness_status"
+            ),
             "foundation_bound_contracts_head": bound,
             "observed_contracts_head": contracts_head,
             "observed_contracts_dirty": bool(contracts_dirty),
             "observed_programspecifications_head": specs_head,
             "observed_programspecifications_dirty": bool(specs_dirty),
-            "contracts_object_count_foundation": foundation.get("contracts_object_count"),
+            "contracts_object_count_foundation": foundation.get(
+                "contracts_object_count"
+            ),
             "disposition": "DRIFTED_NOT_CONSUMABLE",
             "reason": "Foundation bound C01 head does not equal observed clean C01 head; Part 3 remains blocked; Contracts and ProgramSpecifications have dirt",
         },
@@ -846,7 +883,9 @@ def main() -> int:
         },
     )
 
-    target_exists = "BatteredAggieSyndrome" in gh("api", "orgs/GridironCortex/repos", "--jq", ".[].name")
+    target_exists = "BatteredAggieSyndrome" in gh(
+        "api", "orgs/GridironCortex/repos", "--jq", ".[].name"
+    )
     membership = gh("api", "user/memberships/orgs/GridironCortex")
     dump(
         ART / "BAS_REPOSITORY_TOPOLOGY_RECEIPT.json",
@@ -878,10 +917,14 @@ def main() -> int:
                 "LIVE_WEEK1_OWNERS",
                 "OPEN_PR_678_679",
                 "NO_SEPARATE_EXACT_CUTOVER_AUTHORIZATION",
-                "TARGET_REPO_MUST_NOT_BE_CREATED_FIRST" if not target_exists else "TARGET_EXISTS_CONFLICT",
+                "TARGET_REPO_MUST_NOT_BE_CREATED_FIRST"
+                if not target_exists
+                else "TARGET_EXISTS_CONFLICT",
             ],
             "membership_redacted": "GridironCortex membership queried; role recorded without tokens",
-            "membership_query_ok": "login" in membership or "role" in membership or "active" in membership,
+            "membership_query_ok": "login" in membership
+            or "role" in membership
+            or "active" in membership,
             "disposition": TRANSFER_PREPARED,
         },
     )
@@ -892,21 +935,111 @@ def main() -> int:
             "issued_at_utc": now,
             "reviewed_sha": "c69a7db91c014f0dabe57dccfc3e479fa11b4ea3",
             "findings": [
-                {"id": "C27-P0-01", "severity": "P0", "state": "CONFIRMED", "successor": "BAT-699", "disposition": "SUCCESSOR_OPEN_IN_REVIEW"},
-                {"id": "C27-P0-02", "severity": "P0", "state": "CONFIRMED", "successor": "BAT-705", "disposition": "CHECKER_SPLIT_AND_COST_GATE"},
-                {"id": "C27-P0-03", "severity": "P0", "state": "CONFIRMED", "successor": "BAT-706", "disposition": "PORTABLE_FIXTURES_REQUIRED"},
-                {"id": "C27-P0-04", "severity": "P0", "state": "CONFIRMED", "successor": "BAT-706", "disposition": "EXACT_HEAD_REVIEW_REQUIRED"},
-                {"id": "C27-P1-01", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-706", "disposition": "COVERAGE_GATE_NOT_WEAKENED"},
-                {"id": "C27-P1-02", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-706", "disposition": "THREADS_UNRESOLVED_UNTIL_EXACT_HEAD"},
-                {"id": "C27-P1-03", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-706", "disposition": "NO_WORKSTATION_PATH_IN_NEW_TESTS"},
-                {"id": "C27-P1-04", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-699", "disposition": "SCORED_ROW_AUTHORITY_SCHEMA"},
-                {"id": "C27-P1-05", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-699", "disposition": "EARLIEST_VALID_TERMINAL_RULE"},
-                {"id": "C27-P1-06", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-701", "disposition": "NATIONAL_STAFF_FOUNDATION"},
-                {"id": "C27-P1-07", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-700", "disposition": BLOCKED_ZERO_PIT},
-                {"id": "C27-P1-08", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-699", "disposition": "independent_predicted_score=null"},
-                {"id": "C27-P1-09", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-706", "disposition": "CLASSIFIED_NOT_BROAD_DELETED"},
-                {"id": "C27-P1-10", "severity": "P1", "state": "CONFIRMED", "successor": "BAT-705", "disposition": "PAID_REVIEW_GATED"},
-                {"id": "C27-P2-01", "severity": "P2", "state": "CONFIRMED", "successor": "BAT-700", "disposition": "OPERATIONAL_FLOOR_NOT_SKILL"},
+                {
+                    "id": "C27-P0-01",
+                    "severity": "P0",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-699",
+                    "disposition": "SUCCESSOR_OPEN_IN_REVIEW",
+                },
+                {
+                    "id": "C27-P0-02",
+                    "severity": "P0",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-705",
+                    "disposition": "CHECKER_SPLIT_AND_COST_GATE",
+                },
+                {
+                    "id": "C27-P0-03",
+                    "severity": "P0",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-706",
+                    "disposition": "PORTABLE_FIXTURES_REQUIRED",
+                },
+                {
+                    "id": "C27-P0-04",
+                    "severity": "P0",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-706",
+                    "disposition": "EXACT_HEAD_REVIEW_REQUIRED",
+                },
+                {
+                    "id": "C27-P1-01",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-706",
+                    "disposition": "COVERAGE_GATE_NOT_WEAKENED",
+                },
+                {
+                    "id": "C27-P1-02",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-706",
+                    "disposition": "THREADS_UNRESOLVED_UNTIL_EXACT_HEAD",
+                },
+                {
+                    "id": "C27-P1-03",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-706",
+                    "disposition": "NO_WORKSTATION_PATH_IN_NEW_TESTS",
+                },
+                {
+                    "id": "C27-P1-04",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-699",
+                    "disposition": "SCORED_ROW_AUTHORITY_SCHEMA",
+                },
+                {
+                    "id": "C27-P1-05",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-699",
+                    "disposition": "EARLIEST_VALID_TERMINAL_RULE",
+                },
+                {
+                    "id": "C27-P1-06",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-701",
+                    "disposition": "NATIONAL_STAFF_FOUNDATION",
+                },
+                {
+                    "id": "C27-P1-07",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-700",
+                    "disposition": BLOCKED_ZERO_PIT,
+                },
+                {
+                    "id": "C27-P1-08",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-699",
+                    "disposition": "independent_predicted_score=null",
+                },
+                {
+                    "id": "C27-P1-09",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-706",
+                    "disposition": "CLASSIFIED_NOT_BROAD_DELETED",
+                },
+                {
+                    "id": "C27-P1-10",
+                    "severity": "P1",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-705",
+                    "disposition": "PAID_REVIEW_GATED",
+                },
+                {
+                    "id": "C27-P2-01",
+                    "severity": "P2",
+                    "state": "CONFIRMED",
+                    "successor": "BAT-700",
+                    "disposition": "OPERATIONAL_FLOOR_NOT_SKILL",
+                },
             ],
         },
     )
@@ -918,20 +1051,98 @@ def main() -> int:
             "bat_remains_scientific_authority": True,
             "cfip_replaces_bat": False,
             "links": [
-                {"bat": "BAT-704", "cfip": "CFIP-17", "relation": "Relates", "duplicative": False},
-                {"bat": "BAT-708", "cfip": "CFIP-17", "relation": "Relates", "duplicative": False},
-                {"bat": "BAT-704", "cfip": "CFIP-19", "relation": "Relates", "duplicative": False},
-                {"bat": "BAT-701", "cfip": "CFIP-22", "relation": "Relates", "duplicative": False},
-                {"bat": "BAT-703", "cfip": "CFIP-23", "relation": "Relates", "duplicative": False},
-                {"bat": "BAT-707", "cfip": "CFIP-26", "relation": "Relates", "duplicative": False},
-                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-20", "relation": "Parent Of", "duplicative": False},
-                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-21", "relation": "Parent Of", "duplicative": False},
-                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-22", "relation": "Parent Of", "duplicative": False},
-                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-23", "relation": "Parent Of", "duplicative": False},
-                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-24", "relation": "Parent Of", "duplicative": False},
-                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-25", "relation": "Parent Of", "duplicative": False},
-                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-26", "relation": "Parent Of", "duplicative": False},
-                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-27", "relation": "Parent Of", "duplicative": False},
+                {
+                    "bat": "BAT-704",
+                    "cfip": "CFIP-17",
+                    "relation": "Relates",
+                    "duplicative": False,
+                },
+                {
+                    "bat": "BAT-708",
+                    "cfip": "CFIP-17",
+                    "relation": "Relates",
+                    "duplicative": False,
+                },
+                {
+                    "bat": "BAT-704",
+                    "cfip": "CFIP-19",
+                    "relation": "Relates",
+                    "duplicative": False,
+                },
+                {
+                    "bat": "BAT-701",
+                    "cfip": "CFIP-22",
+                    "relation": "Relates",
+                    "duplicative": False,
+                },
+                {
+                    "bat": "BAT-703",
+                    "cfip": "CFIP-23",
+                    "relation": "Relates",
+                    "duplicative": False,
+                },
+                {
+                    "bat": "BAT-707",
+                    "cfip": "CFIP-26",
+                    "relation": "Relates",
+                    "duplicative": False,
+                },
+                {
+                    "bat": None,
+                    "cfip": "CFIP-17",
+                    "child": "CFIP-20",
+                    "relation": "Parent Of",
+                    "duplicative": False,
+                },
+                {
+                    "bat": None,
+                    "cfip": "CFIP-17",
+                    "child": "CFIP-21",
+                    "relation": "Parent Of",
+                    "duplicative": False,
+                },
+                {
+                    "bat": None,
+                    "cfip": "CFIP-17",
+                    "child": "CFIP-22",
+                    "relation": "Parent Of",
+                    "duplicative": False,
+                },
+                {
+                    "bat": None,
+                    "cfip": "CFIP-17",
+                    "child": "CFIP-23",
+                    "relation": "Parent Of",
+                    "duplicative": False,
+                },
+                {
+                    "bat": None,
+                    "cfip": "CFIP-17",
+                    "child": "CFIP-24",
+                    "relation": "Parent Of",
+                    "duplicative": False,
+                },
+                {
+                    "bat": None,
+                    "cfip": "CFIP-17",
+                    "child": "CFIP-25",
+                    "relation": "Parent Of",
+                    "duplicative": False,
+                },
+                {
+                    "bat": None,
+                    "cfip": "CFIP-17",
+                    "child": "CFIP-26",
+                    "relation": "Parent Of",
+                    "duplicative": False,
+                },
+                {
+                    "bat": None,
+                    "cfip": "CFIP-17",
+                    "child": "CFIP-27",
+                    "relation": "Parent Of",
+                    "duplicative": False,
+                },
             ],
         },
     )
@@ -963,8 +1174,16 @@ def main() -> int:
             "issued_at_utc": now,
             "nodes": ["CFIP-17", "CFIP-19", "BAT-704", "BAT-700", "BAT-699"],
             "edges": [
-                {"from": "CFIP-19", "to": "BAT-704", "note": "C01 RFC must be accepted before BAS consumes a release identity"},
-                {"from": "BAT-699", "to": "BAT-700", "note": "atomic finals before structural-trust matrix"},
+                {
+                    "from": "CFIP-19",
+                    "to": "BAT-704",
+                    "note": "C01 RFC must be accepted before BAS consumes a release identity",
+                },
+                {
+                    "from": "BAT-699",
+                    "to": "BAT-700",
+                    "note": "atomic finals before structural-trust matrix",
+                },
             ],
             "bat_cannot_close_from_cfip_plan": True,
             "cfip_cannot_close_from_bas_implementation": True,
@@ -988,10 +1207,22 @@ def main() -> int:
         },
     )
     if ledger_src.is_file():
-        dump(ART / "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER.json", load_json(ledger_src))
+        dump(
+            ART / "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER.json",
+            load_json(ledger_src),
+        )
     for path in ART.glob("*.json"):
         dump(OUT / path.name, load_json(path))
-    print(json.dumps({"issued_at_utc": now, "contest_count": len(contest_ids), "artifact_dir": str(ART), "scored_row_count": scoring_payload["scored_row_count"]}))
+    print(
+        json.dumps(
+            {
+                "issued_at_utc": now,
+                "contest_count": len(contest_ids),
+                "artifact_dir": str(ART),
+                "scored_row_count": scoring_payload["scored_row_count"],
+            }
+        )
+    )
     return 0
 
 

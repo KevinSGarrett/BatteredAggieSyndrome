@@ -64,7 +64,9 @@ class Cycle28ScoringError(ValueError):
     """Raised when a Cycle #28 scoring row cannot be admitted."""
 
 
-def classify_predecessor_receipts(payloads: Sequence[Mapping[str, Any]]) -> dict[str, int]:
+def classify_predecessor_receipts(
+    payloads: Sequence[Mapping[str, Any]],
+) -> dict[str, int]:
     counts = {SOURCE_ACQUISITION_RECEIPT: 0, DERIVATIVE_OBSERVATION_RECEIPT: 0}
     timestamps: dict[str, int] = {}
     for payload in payloads:
@@ -76,8 +78,12 @@ def classify_predecessor_receipts(payloads: Sequence[Mapping[str, Any]]) -> dict
         "receipt_count": len(payloads),
         "source_acquisition_count": counts[SOURCE_ACQUISITION_RECEIPT],
         "derivative_observation_count": counts[DERIVATIVE_OBSERVATION_RECEIPT],
-        "shared_materialization_timestamp_count": max(timestamps.values()) if timestamps else 0,
-        "shared_materialization_timestamp": max(timestamps, key=timestamps.get) if timestamps else None,
+        "shared_materialization_timestamp_count": max(timestamps.values())
+        if timestamps
+        else 0,
+        "shared_materialization_timestamp": max(timestamps, key=timestamps.get)
+        if timestamps
+        else None,
         "predecessor_preserved": True,
         "predecessor_deleted": False,
         "supersession": "CYCLE28_ATOMIC_SOURCE_ACQUISITION_SUCCESSOR",
@@ -94,7 +100,9 @@ def require_scored_row_authority(row: Mapping[str, Any]) -> None:
         if value is None or value == "":
             missing.append(field)
     if missing:
-        raise Cycle28ScoringError(f"scored row missing receipt/source authority: {missing}")
+        raise Cycle28ScoringError(
+            f"scored row missing receipt/source authority: {missing}"
+        )
     if row.get("receipt_kind") != SOURCE_ACQUISITION_RECEIPT:
         raise Cycle28ScoringError("scored row must bind a SOURCE_ACQUISITION_RECEIPT")
     reject_non_final_score(str(row["final_status"]))
@@ -122,7 +130,10 @@ def classify_contest(
         return STATE_AWAITING
     if forecast_row is None:
         return STATE_NO_FORECAST
-    if forecast_row.get("publication_state") in {"ABSTAIN", "ABSTAIN_SCIENTIFIC_TRUST_GATE_BLOCKED"}:
+    if forecast_row.get("publication_state") in {
+        "ABSTAIN",
+        "ABSTAIN_SCIENTIFIC_TRUST_GATE_BLOCKED",
+    }:
         return STATE_ABSTAINED
     return STATE_SCORED
 
@@ -151,7 +162,9 @@ def score_game_grain(
     }
 
 
-def terminal_selection(receipts: Sequence[Mapping[str, Any]]) -> Mapping[str, Any] | str:
+def terminal_selection(
+    receipts: Sequence[Mapping[str, Any]],
+) -> Mapping[str, Any] | str:
     return select_earliest_valid_terminal(receipts)
 
 
@@ -160,7 +173,9 @@ def reject_forecast_mutation(predecessor_hash: str, current_hash: str) -> None:
         raise Cycle28ScoringError("frozen forecast mutation/backfill is forbidden")
 
 
-def reject_week1_outcome_tuning(used_for_fit: bool, used_for_selection: bool, used_for_promotion: bool) -> None:
+def reject_week1_outcome_tuning(
+    used_for_fit: bool, used_for_selection: bool, used_for_promotion: bool
+) -> None:
     if used_for_fit or used_for_selection or used_for_promotion:
         raise Cycle28ScoringError("Week 1 outcomes cannot tune, select, or promote")
 
@@ -201,9 +216,13 @@ def card_to_terminal_receipt(
         "raw_response_sha256": acquisition["raw_response_sha256"],
         "raw_response_relative_path": acquisition["raw_response_relative_path"],
         "acquisition_receipt_sha256": acquisition["acquisition_receipt_sha256"],
-        "acquisition_receipt_relative_path": acquisition["acquisition_receipt_relative_path"],
+        "acquisition_receipt_relative_path": acquisition[
+            "acquisition_receipt_relative_path"
+        ],
         "route_id": acquisition["route_id"],
-        "kickoff_bound_or_confirmed_utc": acquisition.get("kickoff_bound_or_confirmed_utc"),
+        "kickoff_bound_or_confirmed_utc": acquisition.get(
+            "kickoff_bound_or_confirmed_utc"
+        ),
         "home_source_team_id": card.get("home_source_team_id"),
         "away_source_team_id": card.get("away_source_team_id"),
         "home_source_team_name": card.get("home_source_team_name"),
@@ -236,7 +255,9 @@ def bind_atomic_week1_scoring(
     final_states: list[dict[str, Any]] = []
     for contest in contests:
         cid = str(contest.get("ncaa_contest_id"))
-        kickoff = str(contest.get("kickoff_bound_utc") or contest.get("kickoff_utc") or "")
+        kickoff = str(
+            contest.get("kickoff_bound_utc") or contest.get("kickoff_utc") or ""
+        )
         selected = terminal_selection(receipts_by_contest.get(cid, []))
         forecasts = forecasts_by_contest.get(cid) or []
         eligible = [
@@ -257,14 +278,21 @@ def bind_atomic_week1_scoring(
             except IndependentScoringError:
                 official = None
         postponed = bool(contest.get("postponed_or_canceled"))
-        forecast_for_class = eligible[0] if eligible else (forecasts[0] if forecasts else None)
-        if official is None and forecasts and all(
-            str(row.get("publication_state") or row.get("state") or "") in {
-                "ABSTAIN",
-                "ABSTAIN_SCIENTIFIC_TRUST_GATE_BLOCKED",
-                "ABSTAINED_AT_CHECKPOINT",
-            }
-            for row in forecasts
+        forecast_for_class = (
+            eligible[0] if eligible else (forecasts[0] if forecasts else None)
+        )
+        if (
+            official is None
+            and forecasts
+            and all(
+                str(row.get("publication_state") or row.get("state") or "")
+                in {
+                    "ABSTAIN",
+                    "ABSTAIN_SCIENTIFIC_TRUST_GATE_BLOCKED",
+                    "ABSTAINED_AT_CHECKPOINT",
+                }
+                for row in forecasts
+            )
         ):
             forecast_for_class = {
                 "publication_state": "ABSTAIN_SCIENTIFIC_TRUST_GATE_BLOCKED"
@@ -273,14 +301,20 @@ def bind_atomic_week1_scoring(
             official_final_receipt=official,
             acquisition_failed=cid in failed and official is None,
             postponed_or_canceled=postponed,
-            forecast_row=forecast_for_class if official is not None or forecasts else None,
+            forecast_row=forecast_for_class
+            if official is not None or forecasts
+            else None,
             conflict=conflict,
         )
         if official is None and not failed and not conflict and not postponed:
             if kickoff and kickoff > now_utc:
                 state = STATE_AWAITING
             elif not forecasts:
-                state = STATE_NO_FORECAST if kickoff and kickoff <= now_utc else STATE_AWAITING
+                state = (
+                    STATE_NO_FORECAST
+                    if kickoff and kickoff <= now_utc
+                    else STATE_AWAITING
+                )
             else:
                 state = STATE_AWAITING
         home_name = None
@@ -300,8 +334,10 @@ def bind_atomic_week1_scoring(
         if state != STATE_SCORED or not isinstance(official, Mapping):
             continue
         actual_margin = int(official["home_points"]) - int(official["away_points"])
-        observed_home_win = 1.0 if official["winner"] == "HOME" else (
-            0.0 if official["winner"] == "AWAY" else 0.5
+        observed_home_win = (
+            1.0
+            if official["winner"] == "HOME"
+            else (0.0 if official["winner"] == "AWAY" else 0.5)
         )
         for forecast in eligible:
             predicted = float(forecast["forecast_probability_home"])
@@ -317,7 +353,9 @@ def bind_atomic_week1_scoring(
                 "raw_response_sha256": official["raw_response_sha256"],
                 "raw_response_relative_path": official["raw_response_relative_path"],
                 "acquisition_receipt_sha256": official["acquisition_receipt_sha256"],
-                "acquisition_receipt_relative_path": official["acquisition_receipt_relative_path"],
+                "acquisition_receipt_relative_path": official[
+                    "acquisition_receipt_relative_path"
+                ],
                 "trusted_clock_retrieval_utc": official["trusted_clock_retrieval_utc"],
                 "route_id": official["route_id"],
                 "receipt_kind": SOURCE_ACQUISITION_RECEIPT,
@@ -402,9 +440,11 @@ def a_and_m_postgame_observation(
     residual = row.get("margin_residual")
     expected_repro = None
     if predicted_margin is not None:
-        expected_repro = abs(float(residual) - (50.0 - float(predicted_margin))) < 1e-6 if (
-            int(row["home_points"]) == 50 and int(row["away_points"]) == 0
-        ) else False
+        expected_repro = (
+            abs(float(residual) - (50.0 - float(predicted_margin))) < 1e-6
+            if (int(row["home_points"]) == 50 and int(row["away_points"]) == 0)
+            else False
+        )
         # residual vs +22.2506 is reported only when independently reproduced
         report_277494 = (
             int(row["home_points"]) == 50

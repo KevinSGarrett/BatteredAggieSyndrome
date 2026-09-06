@@ -1,12 +1,12 @@
 {
   "artifact_type": "C28_SMU_T24H_CAPTURE_RECEIPT",
-  "captured_at_utc": "2026-09-06T23:32:42.2439085Z",
+  "captured_at_utc": "2026-09-06T23:33:56.3199751Z",
   "checkpoint": "T24H",
   "cutoff_utc": "2026-09-06T23:30:00Z",
   "disposition": "EVIDENCE_CAPTURED_AT_REAL_CUTOFF",
   "log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle28\\C28_SMU_T24H_20260906T2330Z.log",
   "ncaa_contest_id": "6594400",
   "predecessor_cycle27": "EARLY_NON_CHECKPOINT_EVIDENCE",
-  "schedule_capture_identity": "e5c0759eed864c60e0f3a4caf1735bcccf498293a057138c2674bc4d124f5ece",
+  "schedule_capture_identity": "0d729fcec16fe6ed66ce6badf966faad5ab53950ccf6695a6fb408ee6544ab51",
   "sunday_outcomes_in_fitted_path": false
 }

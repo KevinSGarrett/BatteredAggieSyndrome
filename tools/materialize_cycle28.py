@@ -245,60 +245,61 @@ def load_atomic_terminal_receipts(
             if contest_id:
                 failed.append(str(contest_id))
             continue
-        html_path = html_files[-1]
-        receipt = load_cycle28_receipt(target_dir.name, html_path.stem)
-        if receipt is None:
-            for candidate in reversed(html_files):
-                receipt = load_cycle28_receipt(target_dir.name, candidate.stem)
-                if receipt is not None:
-                    html_path = candidate
-                    break
-        receipt = receipt or {}
-        document = html_path.read_text(encoding="utf-8", errors="replace")
-        acquisition = {
-            "trusted_clock_retrieval_utc": receipt.get("trusted_clock_retrieval_utc")
-            or receipt.get("acquisition_ended_at_utc"),
-            "request_identity_sha256": receipt.get("request_identity_sha256"),
-            "raw_response_sha256": html_path.stem,
-            "raw_response_relative_path": str(html_path.relative_to(DATA)).replace(
-                "\\", "/"
-            ),
-            "acquisition_receipt_sha256": receipt.get("_receipt_sha256")
-            or receipt.get("receipt_sha256"),
-            "acquisition_receipt_relative_path": receipt.get("_receipt_path"),
-            "route_id": receipt.get("route_id") or "unknown_route",
-            "receipt_kind": receipt.get("receipt_kind") or SOURCE_ACQUISITION_RECEIPT,
-        }
-        if (
-            not acquisition["trusted_clock_retrieval_utc"]
-            or not acquisition["request_identity_sha256"]
-        ):
-            continue
-        if target_dir.name.startswith("ncaa_scoreboard_"):
-            for card in parse_independent_cards(document):
+        for html_path in html_files:
+            receipt = load_cycle28_receipt(target_dir.name, html_path.stem) or {}
+            document = html_path.read_text(encoding="utf-8", errors="replace")
+            acquisition = {
+                "trusted_clock_retrieval_utc": receipt.get(
+                    "trusted_clock_retrieval_utc"
+                )
+                or receipt.get("acquisition_ended_at_utc"),
+                "request_identity_sha256": receipt.get("request_identity_sha256"),
+                "raw_response_sha256": html_path.stem,
+                "raw_response_relative_path": str(html_path.relative_to(DATA)).replace(
+                    "\\", "/"
+                ),
+                "acquisition_receipt_sha256": receipt.get("_receipt_sha256")
+                or receipt.get("receipt_sha256"),
+                "acquisition_receipt_relative_path": receipt.get("_receipt_path"),
+                "route_id": receipt.get("route_id") or "unknown_route",
+                "receipt_kind": receipt.get("receipt_kind")
+                or SOURCE_ACQUISITION_RECEIPT,
+            }
+            if (
+                not acquisition["trusted_clock_retrieval_utc"]
+                or not acquisition["request_identity_sha256"]
+            ):
+                continue
+            if target_dir.name.startswith("ncaa_scoreboard_"):
+                for card in parse_independent_cards(document):
+                    if card.get("parse_state") != "PARSED":
+                        continue
+                    if not card.get("final_status_is_terminal"):
+                        continue
+                    status = str(card.get("final_status_text") or "").upper()
+                    if "FINAL" not in status:
+                        continue
+                    if (
+                        card.get("home_points") is None
+                        or card.get("away_points") is None
+                    ):
+                        continue
+                    cid = str(card["ncaa_contest_id"])
+                    bound = dict(acquisition)
+                    bound["kickoff_bound_or_confirmed_utc"] = kickoff_by_contest.get(
+                        cid
+                    )
+                    terminals.append(card_to_terminal_receipt(card, bound))
+                continue
+            if target_dir.name.startswith("ncaa_contest_"):
+                hint = target_dir.name.split("ncaa_contest_")[-1]
+                card = parse_independent_box(document, hint)
                 if card.get("parse_state") != "PARSED":
-                    continue
-                if not card.get("final_status_is_terminal"):
-                    continue
-                status = str(card.get("final_status_text") or "").upper()
-                if "FINAL" not in status:
-                    continue
-                if card.get("home_points") is None or card.get("away_points") is None:
                     continue
                 cid = str(card["ncaa_contest_id"])
                 bound = dict(acquisition)
                 bound["kickoff_bound_or_confirmed_utc"] = kickoff_by_contest.get(cid)
                 terminals.append(card_to_terminal_receipt(card, bound))
-            continue
-        if target_dir.name.startswith("ncaa_contest_"):
-            hint = target_dir.name.split("ncaa_contest_")[-1]
-            card = parse_independent_box(document, hint)
-            if card.get("parse_state") != "PARSED":
-                continue
-            cid = str(card["ncaa_contest_id"])
-            bound = dict(acquisition)
-            bound["kickoff_bound_or_confirmed_utc"] = kickoff_by_contest.get(cid)
-            terminals.append(card_to_terminal_receipt(card, bound))
     return terminals, failed
 
 

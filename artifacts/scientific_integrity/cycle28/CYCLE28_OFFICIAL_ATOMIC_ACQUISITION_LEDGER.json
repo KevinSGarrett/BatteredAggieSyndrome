@@ -2,7 +2,7 @@
   "artifact_type": "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER",
   "captured_count": 16,
   "failed_count": 0,
-  "issued_at_utc": "2026-09-06T23:32:42Z",
+  "issued_at_utc": "2026-09-06T23:51:02Z",
   "records": [
     {
       "ncaa_contest_id": "6618941",
@@ -69,8 +69,8 @@
     },
     {
       "ncaa_contest_id": null,
-      "raw_sha256": "afaaee025d41e73413076ec34a77459956cf3bcbb175d57d9e670c45f7cf9f27",
-      "receipt_sha256": "79e9a7c47871126a23a7aa427036596fa8fbc54b85072c3b5835ef072f2acf07",
+      "raw_sha256": "fc152ea2637467caf8c1a11072a830e088cd253d45a6c2079ea8d11a88c16309",
+      "receipt_sha256": "3c167b4d95586e9ee117dac0c518f561e5b8cb281eb918787d3fc00753c87e5a",
       "route_id": "scrapfly_rendering",
       "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026",
       "state": "CAPTURED",
@@ -96,8 +96,8 @@
     },
     {
       "ncaa_contest_id": "6618941",
-      "raw_sha256": "60ee8ab956afc23e366b864d3be824234336a88169e15bc7c53be50c5f2727c2",
-      "receipt_sha256": "46bb2c3bf592ec93f9647654168f3f23b8a4a696526e55596ef3d106a543b9fb",
+      "raw_sha256": "5efce1106593e3ae88f357a9d7615e393c9309a6b183a6a95fb63988dd88b280",
+      "receipt_sha256": "c39b6da14bb1efa2028459aeef04b2d386ebc852be1dd20aff0ceba3524e769f",
       "route_id": "scrapfly_rendering",
       "source_uri": "https://stats.ncaa.org/contests/6618941/box_score",
       "state": "CAPTURED",
@@ -124,7 +124,7 @@
     {
       "ncaa_contest_id": "6594400",
       "raw_sha256": "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a",
-      "receipt_sha256": "fded6df967f217dcbb28de78d8c83d1204dd4c8fba78f9b84f982dfb869d6fb3",
+      "receipt_sha256": "65cccc8df85c0863c67594b5f52ffe7016a93ffdf89297f1db16bb01dc7be30e",
       "route_id": "scrapfly_rendering",
       "source_uri": "https://stats.ncaa.org/contests/6594400/box_score",
       "state": "CAPTURED",

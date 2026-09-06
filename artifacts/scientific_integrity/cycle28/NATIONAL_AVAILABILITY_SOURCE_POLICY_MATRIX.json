@@ -2,7 +2,7 @@
   "absence_means_healthy": false,
   "artifact_type": "NATIONAL_AVAILABILITY_SOURCE_POLICY_MATRIX",
   "conference_policy_applied_out_of_scope": false,
-  "issued_at_utc": "2026-09-06T23:33:15Z",
+  "issued_at_utc": "2026-09-06T23:52:53Z",
   "model_consumption": "CANDIDATE_ONLY_NOT_CONSUMED",
   "rows": [
     {
@@ -1395,7 +1395,7 @@
       "no_report_required": "NO_REPORT_REQUIRED",
       "policy": "NOT_YET_AUDITED",
       "season": 2026,
-      "team": "Washington"
+      "team": "Washington Huskies"
     },
     {
       "disposition": "NOT_YET_AUDITED",
@@ -1403,7 +1403,7 @@
       "no_report_required": "NO_REPORT_REQUIRED",
       "policy": "NOT_YET_AUDITED",
       "season": 2026,
-      "team": "Washington St."
+      "team": "Washington St. Cougars"
     },
     {
       "disposition": "NOT_YET_AUDITED",

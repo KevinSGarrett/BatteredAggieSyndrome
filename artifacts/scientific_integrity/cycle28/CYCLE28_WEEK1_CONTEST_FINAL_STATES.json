@@ -3,7 +3,7 @@
   "backfill": false,
   "contest_count": 91,
   "forecast_mutation": false,
-  "issued_at_utc": "2026-09-06T23:33:15Z",
+  "issued_at_utc": "2026-09-06T23:52:53Z",
   "rows": [
     {
       "away": "Massachusetts",
@@ -615,11 +615,11 @@
       "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": "Washington St.",
-      "home": "Washington",
+      "away": "Washington St. Cougars",
+      "home": "Washington Huskies",
       "kickoff_bound_utc": "2026-09-06T20:00:00Z",
       "ncaa_contest_id": "6618941",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
       "away": "Notre Dame",
@@ -644,8 +644,8 @@
     }
   ],
   "states": {
-    "AWAITING_OFFICIAL_FINAL": 4,
-    "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT": 87
+    "AWAITING_OFFICIAL_FINAL": 3,
+    "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT": 88
   },
   "tuning_from_week1_outcomes": false
 }

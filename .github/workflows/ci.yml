@@ -28,8 +28,8 @@ jobs:
           cache: pip
       - name: Repository integrity
         run: python tools/validate_repository.py --repo-root . --strict
-      - name: Assistive routing interlock
-        run: python tools/validate_unified_assistive_plane.py
+      - name: Retired assistive pipeline decommission
+        run: python tools/validate_retired_assistive_pipeline_decommission.py --repo-root .
       - name: Upgrade packaging tools
         run: python -m pip install --upgrade pip setuptools
       - name: Install dependency-free core

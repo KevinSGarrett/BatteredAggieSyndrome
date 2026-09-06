@@ -1,5 +1,9 @@
 # Fort Knox Assistive-Execution Interlock
 
+**Disposition:** `RETIRED_HISTORICAL_ONLY`. This file is not required reading,
+not a routing authority, and not a CI/strict/completion gate. Cycle #28
+permanently decommissioned it from active governance.
+
 ## Current operational disposition
 
 This contract is preserved as historical governance evidence but is inactive

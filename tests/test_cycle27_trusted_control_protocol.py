@@ -59,7 +59,7 @@ class Cycle27TrustedControlProtocolTests(unittest.TestCase):
                 "review_rule_identity"
             ],
             "model": "gpt-5.3-codex",
-            "reasoning_effort": "medium",
+            "reasoning_effort": "low",
             "findings_p0": [],
             "findings_p1": [],
             "findings_p2": [],
@@ -97,7 +97,7 @@ class Cycle27TrustedControlProtocolTests(unittest.TestCase):
         )
         self.assertEqual(bindings["model"]["trusted_value"], "gpt-5.3-codex")
         self.assertTrue(bindings["model"]["workflow_currently_supplies_trusted_model"])
-        self.assertEqual(bindings["effort"]["trusted_value"], "medium")
+        self.assertEqual(bindings["effort"]["trusted_value"], "low")
         self.assertTrue(bindings["effort"]["workflow_currently_supplies_trusted_effort"])
 
     def test_schema_valid_fail_json_fails_acceptance(self) -> None:

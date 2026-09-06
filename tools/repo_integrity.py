@@ -56,10 +56,14 @@ def _git_visible_files(repo_root: Path) -> list[Path] | None:
     if completed.returncode != 0:
         return None
     paths: list[Path] = []
+    seen: set[str] = set()
     for raw in completed.stdout.split(b"\0"):
         if not raw:
             continue
         relative = raw.decode("utf-8", "surrogateescape")
+        if relative in seen:
+            continue
+        seen.add(relative)
         path = repo_root / Path(*PurePosixPath(relative).parts)
         if path.is_file():
             paths.append(path)

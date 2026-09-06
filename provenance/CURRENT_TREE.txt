@@ -17,6 +17,7 @@
 .github/pull_request_template.md
 .github/workflows/ci.yml
 .github/workflows/codex-scientific-review.yml
+.github/workflows/paid-scientific-review.yml
 .github/workflows/security.yml
 .gitignore
 .python-version
@@ -3605,6 +3606,9 @@ src/aggie_analytics/context_intelligence/__init__.py
 src/aggie_analytics/context_intelligence/coaching.py
 src/aggie_analytics/context_intelligence/context.py
 src/aggie_analytics/context_intelligence/mechanics.py
+src/aggie_analytics/cycle28/__init__.py
+src/aggie_analytics/cycle28/cost.py
+src/aggie_analytics/cycle28/decommission.py
 src/aggie_analytics/data/.cursor/BUGBOT.md
 src/aggie_analytics/data/__init__.py
 src/aggie_analytics/data/action_play_summary.py
@@ -4105,6 +4109,7 @@ tests/test_repo_integrity_tools.py
 tests/test_resource_scheduler_full.py
 tests/test_restore_drill.py
 tests/test_result_comparison_full.py
+tests/test_retired_assistive_pipeline_decommission.py
 tests/test_retrospective_returning_production.py
 tests/test_roster_domain_completeness.py
 tests/test_scientific_trust_recovery_hold.py
@@ -4606,6 +4611,7 @@ tools/validate_normalized_review_gate.py
 tools/validate_openai_assist.py
 tools/validate_openai_gamebook_schema_mapping.py
 tools/validate_openrouter_assist.py
+tools/validate_paid_scientific_review_admission.py
 tools/validate_peer_and_tamu_residual_stability.py
 tools/validate_player_intelligence.py
 tools/validate_post2022_roster_candidate.py
@@ -4629,6 +4635,7 @@ tools/validate_protected_hash_labels.py
 tools/validate_protected_replacement_protocol.py
 tools/validate_raw_to_forecast_trace.py
 tools/validate_repository.py
+tools/validate_retired_assistive_pipeline_decommission.py
 tools/validate_retrospective_returning_production.py
 tools/validate_roster_domain_completeness.py
 tools/validate_scientific_trust_recovery_hold.py

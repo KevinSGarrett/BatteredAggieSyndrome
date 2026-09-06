@@ -255,6 +255,34 @@
         "head_sha": "e49ca7e144771dcaab466a4f53c4cf38225ac055",
         "classification": "[material]",
         "reason": "This Cycle #27 numbered-report calendar bind on PR #679 changed tools/write_cycle27_report_packet.py, a material writer. The [process] subject was incorrect; the correction is scoped to this exact commit."
+      },
+      {
+        "commit_sha": "b03eb83768993778f21114640b0643ba5e6c31f5",
+        "pull_request": 680,
+        "head_sha": "b03eb83768993778f21114640b0643ba5e6c31f5",
+        "classification": "[material]",
+        "reason": "Cycle #28 Fort Knox/assistive decommission and paid-review cost gate on PR #680 changed material control-plane paths, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "4e2b689027efcfd38f24c1bfa634de1e9a257955",
+        "pull_request": 681,
+        "head_sha": "4e2b689027efcfd38f24c1bfa634de1e9a257955",
+        "classification": "[material]",
+        "reason": "Cycle #28 scientific successors on PR #681 changed material src/tools/tests/artifacts paths, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "52fa284a8e808ea49e7be5e112a98a095bb9e11b",
+        "pull_request": 681,
+        "head_sha": "52fa284a8e808ea49e7be5e112a98a095bb9e11b",
+        "classification": "[material]",
+        "reason": "Cycle #28 official-final atomic receipt and scoring successor on PR #681 changed material science paths, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "609c9d64bdb2c817ef4d51a031b10e9686fb75e2",
+        "pull_request": 681,
+        "head_sha": "609c9d64bdb2c817ef4d51a031b10e9686fb75e2",
+        "classification": "[material]",
+        "reason": "Cycle #28 scoring/acquisition formatting on PR #681 touched material tools, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

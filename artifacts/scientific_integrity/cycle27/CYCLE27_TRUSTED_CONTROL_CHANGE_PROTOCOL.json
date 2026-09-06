@@ -1,7 +1,7 @@
 {
   "artifact_type": "CYCLE27_TRUSTED_CONTROL_CHANGE_PROTOCOL",
-  "revision": "C27-CONTROL-07-PREPARATION",
-  "issued_at_utc": "2026-09-06T00:25:52Z",
+  "revision": "C28-CONTROL-PREPARATION-REBIND",
+  "issued_at_utc": "2026-09-06T21:20:15Z",
   "this_pack_is_not_approval": true,
   "bootstrap_status": "PREPARATION_NOT_APPROVED",
   "hold": "ACTIVE",
@@ -11,7 +11,7 @@
   "bindings": {
     "prompt": {
       "path": ".github/codex/prompts/scientific-review.md",
-      "sha256": "b84ed996b61051acf80813bd559b44ceb75eb46fc4de3cc1b784d6e42cef21df"
+      "sha256": "93ca20d509d901d5f9d1f64a33110e4321ae229191244ce1c88111c25f10580b"
     },
     "schema": {
       "path": "schemas/scientific_review/codex_scientific_review.schema.json",
@@ -32,8 +32,8 @@
       "hosted_workflow_fetches_checker_from_protected_base": true
     },
     "workflow": {
-      "path": ".github/workflows/codex-scientific-review.yml",
-      "sha256": "e663bcb8793e626b1dbcb5bb8176922bc1b2881fadf1702c3f9bc4fa0d1f5418",
+      "path": ".github/workflows/paid-scientific-review.yml",
+      "sha256": "d59df320b4ac56f96c7e7dc5c4a08e42dc8d7253fd4df68cc6543b2b5a6dab4b",
       "must_not_trust_pr_checker": true
     },
     "model": {
@@ -43,7 +43,7 @@
     },
     "effort": {
       "required": true,
-      "trusted_value": "medium",
+      "trusted_value": "low",
       "workflow_currently_supplies_trusted_effort": true
     }
   },
@@ -78,6 +78,7 @@
   "control_surfaces": [
     "tools/validate_codex_scientific_review.py",
     ".github/workflows/codex-scientific-review.yml",
+    ".github/workflows/paid-scientific-review.yml",
     ".github/CODE_REVIEW_RULES.md",
     ".github/codex/prompts/scientific-review.md",
     "schemas/scientific_review/codex_scientific_review.schema.json"

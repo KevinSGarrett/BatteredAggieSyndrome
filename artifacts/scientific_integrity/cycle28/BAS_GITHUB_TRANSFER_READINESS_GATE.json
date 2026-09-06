@@ -1,0 +1,19 @@
+{
+  "admin_blockers": [
+    "OPERATOR_HOLD_ACTIVE",
+    "LIVE_WEEK1_OWNERS",
+    "OPEN_PR_678_679",
+    "NO_SEPARATE_EXACT_CUTOVER_AUTHORIZATION",
+    "TARGET_REPO_MUST_NOT_BE_CREATED_FIRST"
+  ],
+  "artifact_type": "BAS_GITHUB_TRANSFER_READINESS_GATE",
+  "create_disconnected_copy": false,
+  "disposition": "BAS_REPOSITORY_TRANSFER_PREPARED_NOT_AUTHORIZED",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "membership_query_ok": true,
+  "membership_redacted": "GridironCortex membership queried; role recorded without tokens",
+  "recommended_target": "GridironCortex/BatteredAggieSyndrome",
+  "source": "KevinSGarrett/BatteredAggieSyndrome",
+  "target_already_exists": false,
+  "transfer_authorized": false
+}

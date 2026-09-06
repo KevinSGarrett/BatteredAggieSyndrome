@@ -1,0 +1,6 @@
+{
+  "admitted": false,
+  "artifact_type": "GRIDIRON_CORTEX_RELEASE_BOM",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "reason": "no immutable released C01 package; dirty/mutable worktrees rejected"
+}

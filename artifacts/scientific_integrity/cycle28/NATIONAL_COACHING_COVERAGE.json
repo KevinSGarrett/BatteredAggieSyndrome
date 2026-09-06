@@ -1,0 +1,21 @@
+{
+  "acquired_national_episodes": 0,
+  "am_only_labeled_national": false,
+  "artifact_type": "NATIONAL_COACHING_COVERAGE",
+  "cfbd_used_beyond_head_coach": false,
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "model_consumption": "CANDIDATE_ONLY_NOT_CONSUMED",
+  "play_caller_inferred_from_coordinator": false,
+  "population_team_count": 0,
+  "roles": [
+    "head_coach",
+    "offensive_coordinator",
+    "defensive_coordinator",
+    "special_teams_coordinator",
+    "co_coordinator",
+    "interim_acting",
+    "offense_play_caller",
+    "defense_play_caller"
+  ],
+  "uncovered_remain_in_denominator": true
+}

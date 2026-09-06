@@ -1,0 +1,16 @@
+{
+  "adapters": [
+    {
+      "adapter_id": "ncaa_official_stats",
+      "authority": "official_ncaa",
+      "verified_live": true
+    },
+    {
+      "adapter_id": "cfbd_coaches",
+      "authority": "head_coach_records_profile_seasons_tenures_only",
+      "verified_live_docs": "head_coach_only"
+    }
+  ],
+  "artifact_type": "NATIONAL_SOURCE_ADAPTER_INVENTORY",
+  "issued_at_utc": "2026-09-06T21:02:24Z"
+}

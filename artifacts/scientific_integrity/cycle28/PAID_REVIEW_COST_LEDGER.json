@@ -1,0 +1,13 @@
+{
+  "artifact_type": "PAID_REVIEW_COST_LEDGER",
+  "cycle_ceiling_usd": 10.0,
+  "default_effort": "low",
+  "default_model": "gpt-5.3-codex",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "paid_review_triggered": false,
+  "pr_ceiling_usd": 3.0,
+  "premium_authorization": false,
+  "run_ceiling_usd": 1.0,
+  "spent_usd": null,
+  "unknown_is_not_zero": true
+}

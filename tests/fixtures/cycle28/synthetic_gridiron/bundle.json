@@ -1,0 +1,7 @@
+{
+  "schema_version": "synthetic.gridiron.bas_adapter.v1",
+  "package_identity": "SYNTHETIC_FIXTURE_ONLY",
+  "released": false,
+  "objects": [],
+  "note": "Adapter tests must pass this fixture root. They must never default to C:\\All-22."
+}

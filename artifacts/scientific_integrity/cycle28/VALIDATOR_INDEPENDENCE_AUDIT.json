@@ -1,0 +1,8 @@
+{
+  "artifact_type": "VALIDATOR_INDEPENDENCE_AUDIT",
+  "imports_producer_scoring_helpers": false,
+  "independent_module": "aggie_analytics.scientific_reference.cycle28_scoring",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "runtime_pass": true,
+  "static_pass": true
+}

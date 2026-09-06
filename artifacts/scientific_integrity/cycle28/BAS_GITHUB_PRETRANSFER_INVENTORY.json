@@ -1,0 +1,92 @@
+{
+    "artifact_type":  "BAS_GITHUB_PRETRANSFER_INVENTORY",
+    "issued_at_utc":  "2026-09-06T20:39:20Z",
+    "source":  "KevinSGarrett/BatteredAggieSyndrome",
+    "recommended_target":  "GridironCortex/BatteredAggieSyndrome",
+    "transfer_executed":  false,
+    "secret_values_exported":  false,
+    "repo":  {
+                 "default_branch":  "main",
+                 "forks":  0,
+                 "has_pages":  false,
+                 "name":  "BatteredAggieSyndrome",
+                 "open_issues":  3,
+                 "owner":  "KevinSGarrett",
+                 "private":  false,
+                 "stars":  0,
+                 "topics":  [
+                                "calibration",
+                                "college-football",
+                                "data-engineering",
+                                "data-provenance",
+                                "fbs",
+                                "fcs",
+                                "football-analytics",
+                                "machine-learning",
+                                "ncaa",
+                                "probabilistic-forecasting",
+                                "python",
+                                "reproducible-research",
+                                "sports-analytics",
+                                "sports-data",
+                                "texas-am",
+                                "time-series"
+                            ],
+                 "visibility":  "public",
+                 "watchers":  0
+             },
+    "branches":  [
+                     "codex/BAT-479-sync-state",
+                     "codex/BAT-523-cycle16-closeout",
+                     "codex/BAT-554-evidence-state-reconciliation",
+                     "codex/BAT-554-parser-runtime-domain-gate",
+                     "codex/BAT-572-tamu-cross-source-domain-gate",
+                     "codex/BAT-582-cycle9-done-mirror",
+                     "codex/BAT-613-process",
+                     "codex/BAT-615-process",
+                     "codex/BAT-615-process-bind",
+                     "codex/BAT-688-hold-inventory",
+                     "codex/BAT-688-scientific-trust-hold",
+                     "codex/BAT-690-c26-scr",
+                     "codex/BAT-690-c27-scr",
+                     "dependabot/pip/product-runtime-029124cf7c",
+                     "main"
+                 ],
+    "tags":  [
+
+             ],
+    "releases":  [
+
+                 ],
+    "open_prs":  [
+                     "[{\"baseRefName\":\"codex/BAT-690-c26-scr\",\"headRefName\":\"codex/BAT-690-c27-scr\",\"number\":679,\"title\":\"Cycle 27 stacked repairs for PR 678 (hold remains active)\"},{\"baseRefName\":\"main\",\"headRefName\":\"codex/BAT-690-c26-scr\",\"number\":678,\"title\":\"Cycle #26 scientific recovery path (unmerged; hold remains)\"},{\"baseRefName\":\"main\",\"headRefName\":\"dependabot/pip/product-runtime-029124cf7c\",\"number\":654,\"title\":\"Bump the product-runtime group across 1 directory with 8 updates\"}]"
+                 ],
+    "collaborators":  [
+                          "KevinSGarrett"
+                      ],
+    "teams":  [
+
+              ],
+    "webhooks_count":  0,
+    "deploy_keys_count":  0,
+    "actions_secret_names":  [
+                                 "CODECOV_TOKEN",
+                                 "OPENAI_API",
+                                 "OPENAI_API_KEY"
+                             ],
+    "actions_variable_names":  [
+
+                               ],
+    "environments":  [
+
+                     ],
+    "rulesets":  [
+
+                 ],
+    "installed_apps":  [
+                           "{\"message\":\"A JSON web token could not be decoded\",\"documentation_url\":\"https://docs.github.com/rest\",\"status\":\"401\"}"
+                       ],
+    "target_exists":  false,
+    "membership_role":  "admin",
+    "membership_state":  "active"
+}

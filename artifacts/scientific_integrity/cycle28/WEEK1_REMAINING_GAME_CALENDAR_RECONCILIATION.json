@@ -1,0 +1,83 @@
+{
+  "artifact_type": "WEEK1_REMAINING_GAME_CALENDAR_RECONCILIATION",
+  "contests": [
+    {
+      "backfill": false,
+      "early_capture_class": "EARLY_NON_CHECKPOINT_EVIDENCE",
+      "kickoff_utc": "2026-09-06T20:00:00Z",
+      "matchup": "Washington State at Washington",
+      "ncaa_contest_id": "6618941",
+      "official_kickoff_utc": "2026-09-06T20:00:00Z",
+      "predecessor_rewritten": false,
+      "t24h_cutoff_utc": "2026-09-05T20:00:00Z",
+      "t24h_disposition": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_cutoff_utc": "2026-09-06T18:30:00Z",
+      "t90m_disposition": "MISSED_CUTOFF_NO_BACKFILL",
+      "venue": "Husky Stadium"
+    },
+    {
+      "backfill": false,
+      "early_capture_class": null,
+      "kickoff_utc": "2026-09-06T23:30:00Z",
+      "matchup": "Notre Dame vs Wisconsin",
+      "ncaa_contest_id": "6602874",
+      "official_kickoff_utc": "2026-09-06T23:30:00Z",
+      "predecessor_rewritten": false,
+      "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t24h_disposition": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+      "t90m_disposition": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE",
+      "venue": "Lambeau Field"
+    },
+    {
+      "backfill": false,
+      "early_capture_class": null,
+      "kickoff_utc": "2026-09-06T23:30:00Z",
+      "matchup": "Louisville vs Ole Miss",
+      "ncaa_contest_id": "6620581",
+      "official_kickoff_utc": "2026-09-06T23:30:00Z",
+      "predecessor_rewritten": false,
+      "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t24h_disposition": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+      "t90m_disposition": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE",
+      "venue": "Nissan Stadium"
+    },
+    {
+      "backfill": false,
+      "early_capture_class": null,
+      "kickoff_utc": "2026-09-07T23:30:00Z",
+      "matchup": "SMU at Florida State",
+      "ncaa_contest_id": "6594400",
+      "official_kickoff_utc": "2026-09-07T23:30:00Z",
+      "predecessor_rewritten": false,
+      "t24h_cutoff_utc": "2026-09-06T23:30:00Z",
+      "t24h_disposition": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE",
+      "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
+      "t90m_disposition": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE",
+      "venue": "Doak Campbell Stadium"
+    }
+  ],
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "trusted_clock_utc": "2026-09-06T21:02:24Z",
+  "washington_state_washington": {
+    "conflict": true,
+    "conflict_disposition": "CONFLICT_REVIEW_REQUIRED",
+    "corrected_calendar_identity_kind": "CORRECTED_CALENDAR_SUCCESSOR",
+    "corrected_cutoffs": {
+      "kickoff_utc": "2026-09-06T20:00:00Z",
+      "t24h_cutoff_utc": "2026-09-05T20:00:00Z",
+      "t90m_cutoff_utc": "2026-09-06T18:30:00Z"
+    },
+    "ncaa_contest_id": "6618941",
+    "official_institutional_kickoff_utc": "2026-09-06T20:00:00Z",
+    "predecessor_contest_identity": "848cfdf60b74b8004f638fa0d41d7f66fc6d355b232f3f6fa5ea65db3ecfb6a4",
+    "predecessor_kickoff_utc_conservative_lower_bound": "2026-09-06T08:00:00Z",
+    "predecessor_preserved": true,
+    "predecessor_rewritten": false,
+    "predecessor_source_published_clock_text": "04:00 AM",
+    "predecessor_t90m_capture_disposition": "EARLY_NON_CHECKPOINT_EVIDENCE",
+    "real_t90m_disposition": "MISSED_CUTOFF_NO_BACKFILL",
+    "real_t90m_was_met": false
+  }
+}

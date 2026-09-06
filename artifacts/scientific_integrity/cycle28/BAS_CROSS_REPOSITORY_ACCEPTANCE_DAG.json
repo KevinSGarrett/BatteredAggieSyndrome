@@ -1,0 +1,25 @@
+{
+  "artifact_type": "BAS_CROSS_REPOSITORY_ACCEPTANCE_DAG",
+  "bat_cannot_close_from_cfip_plan": true,
+  "cfip_cannot_close_from_bas_implementation": true,
+  "edges": [
+    {
+      "from": "CFIP-19",
+      "note": "C01 RFC must be accepted before BAS consumes a release identity",
+      "to": "BAT-704"
+    },
+    {
+      "from": "BAT-699",
+      "note": "atomic finals before structural-trust matrix",
+      "to": "BAT-700"
+    }
+  ],
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "nodes": [
+    "CFIP-17",
+    "CFIP-19",
+    "BAT-704",
+    "BAT-700",
+    "BAT-699"
+  ]
+}

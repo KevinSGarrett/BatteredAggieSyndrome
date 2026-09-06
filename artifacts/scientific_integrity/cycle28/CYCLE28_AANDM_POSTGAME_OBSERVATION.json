@@ -1,0 +1,26 @@
+{
+  "actual_margin_home": 50.0,
+  "artifact_type": "CYCLE28_AANDM_POSTGAME_OBSERVATION",
+  "athletics_cross_check": {
+    "missouri_state_schedule_page_contains_plaintext_score": false,
+    "reason": "captured athletics schedule HTML is JS-shell without admitted score text; NCAA scoreboard/box remains preferred authority",
+    "tamu_schedule_page_contains_plaintext_score": false
+  },
+  "away_points": 0,
+  "bas_specialization_claim": false,
+  "brier_contribution": 0.010997367287172554,
+  "causal_claim": false,
+  "checkpoint_identity": "EARLY_WEEK1",
+  "expected_repro_identity_check": true,
+  "frozen_forecast_row_identity": "f514d6c6eaa5b9261074224717f8813e3d4e9235c358c4bd12bc0e6b0627a119",
+  "home_points": 50,
+  "independent_predicted_score": null,
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "log_loss_contribution": null,
+  "margin_residual": 27.7493956459,
+  "ncaa_contest_id": "6607349",
+  "predicted_margin_home": 22.2506043541,
+  "report_50_0_exceeded_untrusted_early_ridge_by_27_7494": true,
+  "result_residual": 0.10486833309999999,
+  "scored": true
+}

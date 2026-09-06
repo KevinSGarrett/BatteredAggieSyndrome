@@ -1,0 +1,8 @@
+{
+  "absence_means_healthy": false,
+  "artifact_type": "NATIONAL_AVAILABILITY_SOURCE_POLICY_MATRIX",
+  "conference_policy_applied_out_of_scope": false,
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "model_consumption": "CANDIDATE_ONLY_NOT_CONSUMED",
+  "rows": []
+}

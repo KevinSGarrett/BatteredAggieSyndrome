@@ -1,0 +1,22 @@
+{
+  "artifact_type": "SCIENTIFIC_ASSURANCE_LAYER_RESULTS",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "layers": {
+    "coverage_and_missingness": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "cross_output_coherence": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "feature_admission_binding": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "identity_and_joins": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "metrics_and_denominators": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "model_mathematics": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "operational_reproducibility": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "parsing_semantics": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "prospective_empirical_validation": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "raw_integrity": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "rights_privacy_security_cost": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "scope_and_population": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "source_authenticity": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "split_and_leakage": "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "temporal_pit_authority": "BLOCKED_INSUFFICIENT_EVIDENCE"
+  },
+  "lower_layer_pass_does_not_promote": true
+}

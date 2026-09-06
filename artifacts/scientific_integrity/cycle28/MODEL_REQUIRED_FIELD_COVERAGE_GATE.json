@@ -1,0 +1,7 @@
+{
+  "admitted_registry_fields": [],
+  "artifact_type": "MODEL_REQUIRED_FIELD_COVERAGE_GATE",
+  "declared_model_columns": [],
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "result": "PASS_NO_CONSUMED_FIELDS"
+}

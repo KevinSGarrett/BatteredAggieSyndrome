@@ -1,0 +1,14 @@
+{
+  "artifact_type": "ALL22_SNAPSHOT_INVENTORY",
+  "contracts_object_count_foundation": 36,
+  "disposition": "DRIFTED_NOT_CONSUMABLE",
+  "foundation_bound_contracts_head": "e32e1eee3e7e901f96b3e87055376af0fa1dfffb",
+  "foundation_part3_status": "BLOCKED",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "observed_contracts_dirty": false,
+  "observed_contracts_head": "d473b2fd56943f1c9d77aa2ebdf0f015f8f6f20e",
+  "observed_programspecifications_dirty": true,
+  "observed_programspecifications_head": "8ac9b836bc3b1c631a0db3aeb3dea7fd8d983edf",
+  "phase": "entry_and_closeout_recomputed",
+  "reason": "Foundation bound C01 head does not equal observed clean C01 head; Part 3 remains blocked; Contracts and ProgramSpecifications have dirt"
+}

@@ -24,7 +24,13 @@ class GridironBoundaryError(ValueError):
 def reject_default_all22_path(root: Path | None) -> None:
     if root is None:
         return
-    resolved = root.resolve()
+    text = str(root).replace("\\", "/").casefold()
+    if text == "c:/all-22" or text.endswith("/all-22") or "/all-22/" in text:
+        raise GridironBoundaryError("All-22 local path cannot be a runtime dependency")
+    try:
+        resolved = root.resolve()
+    except OSError:
+        return
     if resolved == DEFAULT_FORBIDDEN_ROOT or DEFAULT_FORBIDDEN_ROOT in resolved.parents:
         raise GridironBoundaryError("All-22 local path cannot be a runtime dependency")
 

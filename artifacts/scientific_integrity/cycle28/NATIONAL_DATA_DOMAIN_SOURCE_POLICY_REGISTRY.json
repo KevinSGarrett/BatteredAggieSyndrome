@@ -1,0 +1,402 @@
+{
+  "artifact_type": "NATIONAL_DATA_DOMAIN_SOURCE_POLICY_REGISTRY",
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "policies": [
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "schedules_results",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "identities",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "conferences",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "rankings",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "priors",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "venues",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "weather",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "market",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "rosters",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "availability_injuries",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "recruiting",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "transfers",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "head_coaches",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "offensive_coordinator",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "defensive_coordinator",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "special_teams",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "play_callers",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "staff_regimes",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "box_scores",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "plays",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "drives",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "travel_rest_time_zone",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "officials_penalties",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "film",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "calibration_ood_uncertainty",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "total_team_score",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "peer_cohorts",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "am_archive",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "bas_residual",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "data_rights",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "security",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "costs",
+      "uniform_national_source": false
+    },
+    {
+      "applies_to_game_types": [
+        "FBS",
+        "FCS_OR_LOWER_OPPONENT"
+      ],
+      "applies_to_seasons": [
+        2026
+      ],
+      "applies_to_teams": "FROZEN_NATIONAL_POPULATION",
+      "domain": "governance",
+      "uniform_national_source": false
+    }
+  ]
+}

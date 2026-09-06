@@ -1,0 +1,6 @@
+{
+  "artifact_type": "CFBPROGRAMSPECIFICATIONS_PLAN_UPDATE_READINESS_GATE",
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "ready_to_edit_checkout": false,
+  "reason": "dirty_or_concurrent_ProgramSpecifications_checkout"
+}

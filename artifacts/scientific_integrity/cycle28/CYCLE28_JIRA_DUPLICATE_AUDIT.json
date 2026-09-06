@@ -1,0 +1,47 @@
+{
+  "artifact_type": "CYCLE28_JIRA_DUPLICATE_AUDIT",
+  "issued_at_utc": "2026-09-06T20:40:38Z",
+  "created": [
+    "BAT-697",
+    "BAT-698",
+    "BAT-699",
+    "BAT-700",
+    "BAT-701",
+    "BAT-702",
+    "BAT-703",
+    "BAT-704",
+    "BAT-705",
+    "BAT-706",
+    "BAT-707",
+    "BAT-708"
+  ],
+  "reused_not_created": [
+    "BAT-414 remains broad and was not closed",
+    "BAT-388 people registry is not national staff completeness",
+    "BAT-598 assistive Jira retirement is not Fort Knox AGENTS/CI decommission",
+    "BAT-690-696 remain In Review under hold"
+  ],
+  "preserved": {
+    "BAT-523": "In Progress",
+    "BAT-401": "Done RETAIN_PROTECTED_LANE_BLOCKED",
+    "BAT-429": "blocked",
+    "GAP-005": "open"
+  },
+  "cfip": {
+    "parent": "CFIP-17",
+    "children": [
+      "CFIP-18",
+      "CFIP-19",
+      "CFIP-20",
+      "CFIP-21",
+      "CFIP-22",
+      "CFIP-23",
+      "CFIP-24",
+      "CFIP-25",
+      "CFIP-26",
+      "CFIP-27"
+    ],
+    "implementation_authority": "CFIP_IMPLEMENTATION_AUTHORITY_REQUIRED"
+  },
+  "parent_progress_comment_posted": false
+}

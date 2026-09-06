@@ -1,0 +1,12 @@
+{
+  "active_head": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "active_root": "C:\\BatteredAggieSyndrome",
+  "artifact_type": "BAS_REPOSITORY_TOPOLOGY_RECEIPT",
+  "disposition": "BAS_REPOSITORY_TRANSFER_PREPARED_NOT_AUTHORIZED",
+  "integration_branch": "foundation/gridiron-cortex-contract-boundary",
+  "integration_head": "cda5101f18dd9f7a9031993326a08f70fa76d820",
+  "integration_root": "C:\\All-22\\repos\\BatteredAggieSyndrome",
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "physical_move": false,
+  "transfer_executed": false
+}

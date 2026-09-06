@@ -1,0 +1,650 @@
+{
+  "artifact_type": "CYCLE28_WEEK1_CONTEST_FINAL_STATES",
+  "backfill": false,
+  "contest_count": 91,
+  "forecast_mutation": false,
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "rows": [
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-03T22:00:00Z",
+      "ncaa_contest_id": "6591259",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "ncaa_contest_id": "6582933",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "ncaa_contest_id": "6588927",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "ncaa_contest_id": "6601465",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "ncaa_contest_id": "6609567",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-03T23:00:00Z",
+      "ncaa_contest_id": "6618350",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "ncaa_contest_id": "6584486",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "ncaa_contest_id": "6603568",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-04T00:00:00Z",
+      "ncaa_contest_id": "6620218",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-04T01:00:00Z",
+      "ncaa_contest_id": "6586572",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-04T01:00:00Z",
+      "ncaa_contest_id": "6602046",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-04T22:30:00Z",
+      "ncaa_contest_id": "6594366",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-04T23:00:00Z",
+      "ncaa_contest_id": "6598559",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-04T23:00:00Z",
+      "ncaa_contest_id": "6619544",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "ncaa_contest_id": "6592887",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "ncaa_contest_id": "6601163",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T00:00:00Z",
+      "ncaa_contest_id": "6611346",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T01:00:00Z",
+      "ncaa_contest_id": "6602792",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T01:00:00Z",
+      "ncaa_contest_id": "6620138",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6590890",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6593811",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6594325",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6601384",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6611692",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6611873",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6613128",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6617023",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6620636",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:00:00Z",
+      "ncaa_contest_id": "6620944",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:30:00Z",
+      "ncaa_contest_id": "6618687",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:30:00Z",
+      "ncaa_contest_id": "6620092",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T16:45:00Z",
+      "ncaa_contest_id": "6593392",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "ncaa_contest_id": "6583220",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "ncaa_contest_id": "6583331",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T17:00:00Z",
+      "ncaa_contest_id": "6600846",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T18:00:00Z",
+      "ncaa_contest_id": "6598117",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T18:30:00Z",
+      "ncaa_contest_id": "6612588",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:00:00Z",
+      "ncaa_contest_id": "6620448",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6583392",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6585877",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6587707",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6592568",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6594109",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6600254",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6604408",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6607271",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6608932",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6610894",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:30:00Z",
+      "ncaa_contest_id": "6611505",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T19:45:00Z",
+      "ncaa_contest_id": "6582887",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T20:15:00Z",
+      "ncaa_contest_id": "6582881",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T20:15:00Z",
+      "ncaa_contest_id": "6587775",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T21:00:00Z",
+      "ncaa_contest_id": "6593076",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T22:00:00Z",
+      "ncaa_contest_id": "6590855",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T22:00:00Z",
+      "ncaa_contest_id": "6607433",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6586106",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6586326",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6587284",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6588730",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6590807",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6591589",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6593153",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6596114",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6606172",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6607349",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6609172",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6620458",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6620478",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "ncaa_contest_id": "6586022",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "ncaa_contest_id": "6589809",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "ncaa_contest_id": "6590386",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "ncaa_contest_id": "6590505",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+      "ncaa_contest_id": "6614741",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-05T23:45:00Z",
+      "ncaa_contest_id": "6583172",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "ncaa_contest_id": "6583582",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "ncaa_contest_id": "6587672",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "ncaa_contest_id": "6589595",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "ncaa_contest_id": "6589953",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T00:00:00Z",
+      "ncaa_contest_id": "6596257",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T01:00:00Z",
+      "ncaa_contest_id": "6616987",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T01:00:00Z",
+      "ncaa_contest_id": "6620513",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T01:30:00Z",
+      "ncaa_contest_id": "6605119",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T01:30:00Z",
+      "ncaa_contest_id": "6618489",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T02:00:00Z",
+      "ncaa_contest_id": "6592700",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T02:00:00Z",
+      "ncaa_contest_id": "6607878",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T02:30:00Z",
+      "ncaa_contest_id": "6603305",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T02:30:00Z",
+      "ncaa_contest_id": "6605164",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T08:00:00Z",
+      "ncaa_contest_id": "6618941",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+      "ncaa_contest_id": "6602874",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+      "ncaa_contest_id": "6620581",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    },
+    {
+      "away": null,
+      "home": null,
+      "kickoff_bound_utc": "2026-09-07T23:30:00Z",
+      "ncaa_contest_id": "6594400",
+      "state": "AWAITING_OFFICIAL_FINAL"
+    }
+  ],
+  "states": {
+    "AWAITING_OFFICIAL_FINAL": 91
+  },
+  "tuning_from_week1_outcomes": false
+}

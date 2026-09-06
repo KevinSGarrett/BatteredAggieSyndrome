@@ -1,0 +1,9 @@
+{
+  "am_only_satisfies_national": false,
+  "artifact_type": "NATIONAL_DOMAIN_COVERAGE_GATE",
+  "cell_count": 0,
+  "cube_path": "C:\\BatteredAggieSyndrome.data\\lake\\cycle28\\NATIONAL_DOMAIN_COVERAGE_CUBE.jsonl",
+  "denominator_includes_unaudited_absent_failed": true,
+  "dispositions": {},
+  "issued_at_utc": "2026-09-06T20:32:09Z"
+}

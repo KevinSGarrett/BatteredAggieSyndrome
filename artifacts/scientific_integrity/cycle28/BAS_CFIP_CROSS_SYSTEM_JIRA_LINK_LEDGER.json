@@ -1,0 +1,44 @@
+{
+  "artifact_type": "BAS_CFIP_CROSS_SYSTEM_JIRA_LINK_LEDGER",
+  "bat_remains_scientific_authority": true,
+  "cfip_replaces_bat": false,
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "links": [
+    {
+      "bat": "BAT-704",
+      "cfip": "CFIP-17",
+      "duplicative": false,
+      "relation": "Relates"
+    },
+    {
+      "bat": "BAT-708",
+      "cfip": "CFIP-17",
+      "duplicative": false,
+      "relation": "Relates"
+    },
+    {
+      "bat": "BAT-704",
+      "cfip": "CFIP-19",
+      "duplicative": false,
+      "relation": "Relates"
+    },
+    {
+      "bat": "BAT-701",
+      "cfip": "CFIP-22",
+      "duplicative": false,
+      "relation": "Relates"
+    },
+    {
+      "bat": "BAT-703",
+      "cfip": "CFIP-23",
+      "duplicative": false,
+      "relation": "Relates"
+    },
+    {
+      "bat": "BAT-707",
+      "cfip": "CFIP-26",
+      "duplicative": false,
+      "relation": "Relates"
+    }
+  ]
+}

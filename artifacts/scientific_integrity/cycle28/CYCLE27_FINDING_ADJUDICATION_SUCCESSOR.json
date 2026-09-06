@@ -1,0 +1,112 @@
+{
+  "artifact_type": "CYCLE27_FINDING_ADJUDICATION_SUCCESSOR",
+  "findings": [
+    {
+      "disposition": "SUCCESSOR_OPEN_IN_REVIEW",
+      "id": "C27-P0-01",
+      "severity": "P0",
+      "state": "CONFIRMED",
+      "successor": "BAT-699"
+    },
+    {
+      "disposition": "CHECKER_SPLIT_AND_COST_GATE",
+      "id": "C27-P0-02",
+      "severity": "P0",
+      "state": "CONFIRMED",
+      "successor": "BAT-705"
+    },
+    {
+      "disposition": "PORTABLE_FIXTURES_REQUIRED",
+      "id": "C27-P0-03",
+      "severity": "P0",
+      "state": "CONFIRMED",
+      "successor": "BAT-706"
+    },
+    {
+      "disposition": "EXACT_HEAD_REVIEW_REQUIRED",
+      "id": "C27-P0-04",
+      "severity": "P0",
+      "state": "CONFIRMED",
+      "successor": "BAT-706"
+    },
+    {
+      "disposition": "COVERAGE_GATE_NOT_WEAKENED",
+      "id": "C27-P1-01",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-706"
+    },
+    {
+      "disposition": "THREADS_UNRESOLVED_UNTIL_EXACT_HEAD",
+      "id": "C27-P1-02",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-706"
+    },
+    {
+      "disposition": "NO_WORKSTATION_PATH_IN_NEW_TESTS",
+      "id": "C27-P1-03",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-706"
+    },
+    {
+      "disposition": "SCORED_ROW_AUTHORITY_SCHEMA",
+      "id": "C27-P1-04",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-699"
+    },
+    {
+      "disposition": "EARLIEST_VALID_TERMINAL_RULE",
+      "id": "C27-P1-05",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-699"
+    },
+    {
+      "disposition": "NATIONAL_STAFF_FOUNDATION",
+      "id": "C27-P1-06",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-701"
+    },
+    {
+      "disposition": "BLOCKED_ZERO_PROVEN_PIT_TRAINING_ROWS",
+      "id": "C27-P1-07",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-700"
+    },
+    {
+      "disposition": "independent_predicted_score=null",
+      "id": "C27-P1-08",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-699"
+    },
+    {
+      "disposition": "CLASSIFIED_NOT_BROAD_DELETED",
+      "id": "C27-P1-09",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-706"
+    },
+    {
+      "disposition": "PAID_REVIEW_GATED",
+      "id": "C27-P1-10",
+      "severity": "P1",
+      "state": "CONFIRMED",
+      "successor": "BAT-705"
+    },
+    {
+      "disposition": "OPERATIONAL_FLOOR_NOT_SKILL",
+      "id": "C27-P2-01",
+      "severity": "P2",
+      "state": "CONFIRMED",
+      "successor": "BAT-700"
+    }
+  ],
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "reviewed_sha": "c69a7db91c014f0dabe57dccfc3e479fa11b4ea3"
+}

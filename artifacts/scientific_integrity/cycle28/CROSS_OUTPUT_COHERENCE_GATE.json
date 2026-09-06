@@ -1,0 +1,6 @@
+{
+  "artifact_type": "CROSS_OUTPUT_COHERENCE_GATE",
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "reason": "no jointly presented probability/margin/interval on an admitted fitted path",
+  "result": "BLOCKED_INSUFFICIENT_EVIDENCE"
+}

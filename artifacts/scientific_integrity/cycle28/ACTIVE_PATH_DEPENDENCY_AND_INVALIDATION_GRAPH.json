@@ -1,0 +1,25 @@
+{
+  "artifact_type": "ACTIVE_PATH_DEPENDENCY_AND_INVALIDATION_GRAPH",
+  "edges": [
+    {
+      "from": "official_finals",
+      "invalidates_descendants": true,
+      "to": "authority_clean_training_matrix"
+    }
+  ],
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "nodes": [
+    {
+      "id": "official_finals",
+      "state": "INCOMPLETE"
+    },
+    {
+      "id": "authority_clean_training_matrix",
+      "state": "BLOCKED_ZERO_PROVEN_PIT_TRAINING_ROWS"
+    },
+    {
+      "id": "fitted_forecast",
+      "state": "INVALIDATED_BY_EMPTY_MATRIX"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "artifact_type": "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER",
+  "captured_count": 10,
+  "failed_count": 2,
+  "issued_at_utc": "2026-09-06T20:39:18Z",
+  "records": [
+    {
+      "ncaa_contest_id": "6618941",
+      "raw_sha256": "d85061a030b9412c177d67382d86d89aa4bd25ce6160ce5539f593a6f193845c",
+      "receipt_sha256": "27de4666eed526b55c40aff729b95c57766b27ae4c2aaf2e76261d782201ac1f",
+      "route_id": "direct_http",
+      "source_uri": "https://gohuskies.com/sports/football/schedule",
+      "state": "CAPTURED",
+      "target_id": "washington_athletics_schedule"
+    },
+    {
+      "ncaa_contest_id": "6602874",
+      "raw_sha256": "948b7cb7b0ca479bd4f5b825ce3694223781b79f7abaae26f389e2dc78bf8bdc",
+      "receipt_sha256": "7d73997d9897fca4903c1718590658008b41d74426d05900069e408efdfa2fbf",
+      "route_id": "direct_http",
+      "source_uri": "https://uwbadgers.com/sports/football/schedule",
+      "state": "CAPTURED",
+      "target_id": "wisconsin_athletics_schedule"
+    },
+    {
+      "ncaa_contest_id": "6620581",
+      "raw_sha256": "282ad3c6fb0679a16fea2a00e0a1d2576d33cae4276ca6a0c210ab0dbc6d920f",
+      "receipt_sha256": "05622605341bbac0d28688ee631c99053981c0655a060991ce19f054c072febf",
+      "route_id": "direct_http",
+      "source_uri": "https://olemisssports.com/sports/football/schedule",
+      "state": "CAPTURED",
+      "target_id": "olemiss_athletics_schedule"
+    },
+    {
+      "ncaa_contest_id": "6594400",
+      "raw_sha256": "cad7844ed806e9095103394f6e85901d5a38fd87c6c0ef129797fec2bbeb49f5",
+      "receipt_sha256": "935832cb2b908380d0f027c6c5b3efaa44ca6929c386c6dd624537fdddb99b59",
+      "route_id": "direct_http",
+      "source_uri": "https://seminoles.com/sports/football/schedule",
+      "state": "CAPTURED",
+      "target_id": "fsu_athletics_schedule"
+    },
+    {
+      "ncaa_contest_id": null,
+      "raw_sha256": null,
+      "receipt_sha256": "df1c81a966a243c05693448d26be54d6486d7b81c6f5b667154da1ebd8431e4f",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026",
+      "state": "SOURCE_ACQUISITION_FAILED",
+      "target_id": "ncaa_scoreboard_2026_09_06"
+    },
+    {
+      "ncaa_contest_id": null,
+      "raw_sha256": "a6e85d0206cb54a58d33dfd0191da0ddc514dcd10bcc806f0a0153bbc7cd508e",
+      "receipt_sha256": "e3db64c3a32553901d7ddd1988bf8ba549b63cca0d06c60330acd6dabdaa0e7a",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F07%2F2026",
+      "state": "CAPTURED",
+      "target_id": "ncaa_scoreboard_2026_09_07"
+    },
+    {
+      "ncaa_contest_id": "6618941",
+      "raw_sha256": null,
+      "receipt_sha256": "eee8a0b02839933ea44ea0409096bb048937d6af6f66e9923f6d4b74379f5a5d",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/6618941/box_score",
+      "state": "SOURCE_ACQUISITION_FAILED",
+      "target_id": "ncaa_contest_6618941"
+    },
+    {
+      "ncaa_contest_id": "6602874",
+      "raw_sha256": "60ee8ab956afc23e366b864d3be824234336a88169e15bc7c53be50c5f2727c2",
+      "receipt_sha256": "4a35aec05bb0ecd13e52802d7915098e9386403ead14e8279d8a8fcd7d1494d3",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/6602874/box_score",
+      "state": "CAPTURED",
+      "target_id": "ncaa_contest_6602874"
+    },
+    {
+      "ncaa_contest_id": "6620581",
+      "raw_sha256": "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a",
+      "receipt_sha256": "664c39c89128b453b601c06733a7b6f53ce739fbf3a87e0781f52ccf60a68114",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/6620581/box_score",
+      "state": "CAPTURED",
+      "target_id": "ncaa_contest_6620581"
+    },
+    {
+      "ncaa_contest_id": "6594400",
+      "raw_sha256": "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a",
+      "receipt_sha256": "b4fe8cd01f6e830423e595433f2f6687fd5d9a23bffc52e11ee2bd8aa936733a",
+      "route_id": "scrapfly_rendering",
+      "source_uri": "https://stats.ncaa.org/contests/6594400/box_score",
+      "state": "CAPTURED",
+      "target_id": "ncaa_contest_6594400"
+    },
+    {
+      "ncaa_contest_id": null,
+      "raw_sha256": "7067e4ebda2a460e939abc90580fa3b8815b5e83be7796a26da2adb1982e179e",
+      "receipt_sha256": "d52ba97d1793cbd7291f2a9ca8d7572e303ee782aea2abcbd281dbfc529415af",
+      "route_id": "direct_http",
+      "source_uri": "https://12thman.com/sports/football/schedule",
+      "state": "CAPTURED",
+      "target_id": "tamu_athletics_schedule"
+    },
+    {
+      "ncaa_contest_id": null,
+      "raw_sha256": "73841409a2bdd63b7dde143c6c7650be73318e47a37cd3398a42d442cf7c55b6",
+      "receipt_sha256": "b99bfd8a62a72af3ec3fe9ff40e5129a3406941d2d4e0db7c33d46041ebaf086",
+      "route_id": "direct_http",
+      "source_uri": "https://missouristatebears.com/sports/football/schedule",
+      "state": "CAPTURED",
+      "target_id": "missouri_state_athletics_schedule"
+    }
+  ]
+}

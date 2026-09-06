@@ -1,0 +1,11 @@
+{
+  "artifact_type": "WEEK1_REMAINING_OUTCOME_ACCESS_LEDGER",
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "monday_contest_id": "6594400",
+  "predeclared_update_rule": false,
+  "sunday_outcomes_enter_monday_fitted_path": false,
+  "sunday_used_for": [
+    "scoring",
+    "diagnostics"
+  ]
+}

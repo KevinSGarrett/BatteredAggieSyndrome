@@ -133,7 +133,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010–2011 official-evidence gaps."
+      "summary": "Build an identity-bound cross-source Texas A&M official schedule, gamebook, team-box, player-box, and NCAA endpoint completeness matrix, with special resolution of the 2010\u20132011 official-evidence gaps."
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -148,7 +148,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-4",
       "status": "Done",
-      "summary": "Recover missing 2010–2011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
+      "summary": "Recover missing 2010\u20132011 Texas A&M official gamebook/box-score evidence via NCAA contest routes using Phase 3 decision population"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -163,7 +163,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-5",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010–2011 Texas A&M cross-source domain admission gate"
+      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M cross-source domain admission gate"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -193,7 +193,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-2",
       "status": "Done",
-      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010–2011"
+      "summary": "Acquire and gate NCAA team-season summary/roster evidence for Texas A&M 2010\u20132011"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -208,7 +208,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-3",
       "status": "Done",
-      "summary": "Produce an identity-bound 2010–2011 Texas A&M season-level cross-source reconciliation"
+      "summary": "Produce an identity-bound 2010\u20132011 Texas A&M season-level cross-source reconciliation"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -1994,6 +1994,186 @@
       "phase": "PHASE-3",
       "status": "In Review",
       "summary": "[POST-TASK-SCIENTIFIC-VALIDATION-INDEPENDENCE-GATE-001] Install independent scientific-reference validators and adversarial mutation coverage"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "OPERATIONS",
+      "issue_type": "Task",
+      "jira_key": "BAT-697",
+      "local_id": "POST-TASK-WEEK1-SUNDAY-MONDAY-LIVE-CALENDAR-AND-CHECKPOINT-CORRECTION-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-WEEK1-SUNDAY-MONDAY-LIVE-CALENDAR-AND-CHECKPOINT-CORRECTION-001] Reconcile remaining Week 1 Sunday/Monday official schedule and checkpoint identities"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "TRUSTED_CONTROL",
+      "issue_type": "Task",
+      "jira_key": "BAT-698",
+      "local_id": "POST-TASK-RETIRED-ASSISTIVE-PIPELINE-ACTIVE-GOVERNANCE-DECOMMISSION-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-RETIRED-ASSISTIVE-PIPELINE-ACTIVE-GOVERNANCE-DECOMMISSION-001] Decommission Fort Knox and retired assistive pipeline from active governance"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "SCIENTIFIC",
+      "issue_type": "Task",
+      "jira_key": "BAT-699",
+      "local_id": "POST-TASK-WEEK1-OFFICIAL-FINAL-ATOMIC-RECEIPT-AND-SCORING-SUCCESSOR-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-WEEK1-OFFICIAL-FINAL-ATOMIC-RECEIPT-AND-SCORING-SUCCESSOR-001] Atomic official-final receipts and Week 1 scoring successor"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "SCIENTIFIC",
+      "issue_type": "Task",
+      "jira_key": "BAT-700",
+      "local_id": "POST-TASK-AUTHORITY-CLEAN-NATIONAL-TRAINING-AND-STRUCTURAL-TRUST-KERNEL-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-AUTHORITY-CLEAN-NATIONAL-TRAINING-AND-STRUCTURAL-TRUST-KERNEL-001] Active-path structural-trust kernel and claim/evidence graph"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "SCIENTIFIC",
+      "issue_type": "Task",
+      "jira_key": "BAT-701",
+      "local_id": "POST-TASK-NATIONAL-COACHING-STAFF-ROLE-EPISODE-PIT-FOUNDATION-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-NATIONAL-COACHING-STAFF-ROLE-EPISODE-PIT-FOUNDATION-001] National coaching/staff role-episode PIT foundation"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "SCIENTIFIC",
+      "issue_type": "Task",
+      "jira_key": "BAT-702",
+      "local_id": "POST-TASK-BAS-END-TO-END-CAPABILITY-COMPLETENESS-REGISTRY-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-BAS-END-TO-END-CAPABILITY-COMPLETENESS-REGISTRY-001] BAS end-to-end capability completeness registry and anti-omission gate"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "SCIENTIFIC",
+      "issue_type": "Task",
+      "jira_key": "BAT-703",
+      "local_id": "POST-TASK-NATIONAL-DATA-DOMAIN-POPULATION-SOURCE-POLICY-AND-COVERAGE-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-NATIONAL-DATA-DOMAIN-POPULATION-SOURCE-POLICY-AND-COVERAGE-001] National population, source policy, coverage cube, and availability policy"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-704",
+      "local_id": "POST-TASK-BAS-GRIDIRON-CORTEX-VERSIONED-CONSUMER-BOUNDARY-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-BAS-GRIDIRON-CORTEX-VERSIONED-CONSUMER-BOUNDARY-001] Version-pinned Gridiron Cortex consumer boundary and continuous intake"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "TRUSTED_CONTROL",
+      "issue_type": "Task",
+      "jira_key": "BAT-705",
+      "local_id": "POST-TASK-PAID-AI-PR-REVIEW-COST-CONTAINMENT-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-PAID-AI-PR-REVIEW-COST-CONTAINMENT-001] Paid AI PR-review cost containment"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "TRUSTED_CONTROL",
+      "issue_type": "Task",
+      "jira_key": "BAT-706",
+      "local_id": "POST-TASK-CYCLE26-CYCLE27-STACKED-INTEGRATION-AND-REVIEW-ADJUDICATION-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-CYCLE26-CYCLE27-STACKED-INTEGRATION-AND-REVIEW-ADJUDICATION-001] Cycle #26/#27 stacked integration and review adjudication"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "OPERATIONS",
+      "issue_type": "Task",
+      "jira_key": "BAT-707",
+      "local_id": "POST-TASK-BAS-GRIDIRON-CORTEX-REPOSITORY-TRANSFER-READINESS-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-BAS-GRIDIRON-CORTEX-REPOSITORY-TRANSFER-READINESS-001] BAS repository topology and GitHub transfer readiness"
+    },
+    {
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
+      "critical_path": true,
+      "evidence_state": "IMPLEMENTED",
+      "execution_lane": "SHARED_CONTRACT",
+      "issue_type": "Task",
+      "jira_key": "BAT-708",
+      "local_id": "POST-TASK-BAS-GRIDIRON-CORTEX-CROSS-SYSTEM-TECHNICAL-PLAN-AND-JIRA-SYNC-001",
+      "logical_state": "IN_REVIEW",
+      "maturity": "IMPLEMENTED",
+      "owner_wave": "CYCLE28",
+      "phase": "CYCLE28",
+      "status": "In Review",
+      "summary": "[POST-TASK-BAS-GRIDIRON-CORTEX-CROSS-SYSTEM-TECHNICAL-PLAN-AND-JIRA-SYNC-001] BAS-Gridiron Cortex cross-system technical plan and Jira sync"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

@@ -1,0 +1,19 @@
+{
+  "a_and_m_hardcoded": false,
+  "artifact_type": "CYCLE28_WEEK1_SCORING_SUCCESSOR",
+  "game_grain_only": true,
+  "independent_metrics": {
+    "accuracy": null,
+    "brier": null,
+    "log_loss": null,
+    "reason": "official finals not yet atomically admitted for a complete Week 1 union",
+    "unique_games": 0
+  },
+  "independent_predicted_score": null,
+  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "oriented_rows_counted_as_games": false,
+  "predecessor_preserved": true,
+  "rows": [],
+  "schema": "aggie.shadow.week1_2026_cycle28_official_final_scoring.v1",
+  "scored_row_count": 0
+}

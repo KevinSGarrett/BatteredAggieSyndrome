@@ -71,13 +71,22 @@ def classify_checkpoint(
         return DISPOSITION_CONFLICT
     if capture_utc:
         captured = parse_utc(capture_utc)
+        early_window_end = cutoff - timedelta(seconds=60)
+        late_window_end = cutoff + timedelta(minutes=5)
+        if captured > late_window_end:
+            return DISPOSITION_MISSED
+        predecessor_is_earlier = bool(
+            predecessor_cutoff_utc and parse_utc(predecessor_cutoff_utc) < cutoff
+        )
+        if captured <= early_window_end and (
+            predecessor_is_earlier or captured < cutoff
+        ):
+            return DISPOSITION_EARLY
         if (
             predecessor_cutoff_utc
             and captured <= parse_utc(predecessor_cutoff_utc) < cutoff
         ):
             return DISPOSITION_EARLY
-        if captured > cutoff:
-            return DISPOSITION_MISSED
         if forecast_frozen:
             return DISPOSITION_FROZEN
         return DISPOSITION_EVIDENCE

@@ -143,6 +143,13 @@ def corrected_sunday_t90m_receipt() -> dict[str, Any]:
     return load_json(path)
 
 
+def load_optional_receipt(name: str) -> dict[str, Any]:
+    path = OUT / name
+    if not path.is_file():
+        return {}
+    return load_json(path)
+
+
 def receipt_payloads() -> list[dict[str, Any]]:
     manifest = load_json(
         ROOT
@@ -314,6 +321,8 @@ def main() -> int:
     }
     t90m_receipt = corrected_sunday_t90m_receipt()
     captured_t90m = {str(item) for item in (t90m_receipt.get("contests") or [])}
+    smu_t24h = load_optional_receipt("C28_SMU_T24H_CAPTURE_RECEIPT.json")
+    smu_t90m = load_optional_receipt("C28_SMU_T90M_CAPTURE_RECEIPT.json")
     wsu = reconcile_washington_state_washington(
         now_utc=now,
         predecessor_clock_text="04:00 AM",
@@ -338,6 +347,25 @@ def main() -> int:
             early = DISPOSITION_EARLY
         else:
             early = None
+        checkpoint_receipt = (
+            t90m_receipt.get("schedule_capture_identity")
+            if contest_id in captured_t90m
+            else None
+        )
+        if contest_id == CONTEST_6594400:
+            early = DISPOSITION_EARLY
+            if smu_t24h.get("disposition") == "EVIDENCE_CAPTURED_AT_REAL_CUTOFF":
+                t24_state = DISPOSITION_EVIDENCE
+            elif smu_t24h.get("disposition") == "MISSED_CUTOFF_NO_BACKFILL":
+                t24_state = DISPOSITION_MISSED
+            if smu_t90m.get("disposition") == "EVIDENCE_CAPTURED_AT_REAL_CUTOFF":
+                t90_state = DISPOSITION_EVIDENCE
+            elif smu_t90m.get("disposition") == "MISSED_CUTOFF_NO_BACKFILL":
+                t90_state = DISPOSITION_MISSED
+            if t24_state == DISPOSITION_EVIDENCE:
+                checkpoint_receipt = smu_t24h.get("schedule_capture_identity")
+            elif t90_state == DISPOSITION_EVIDENCE:
+                checkpoint_receipt = smu_t90m.get("schedule_capture_identity")
         calendar_rows.append(
             {
                 "ncaa_contest_id": contest_id,
@@ -359,15 +387,15 @@ def main() -> int:
                 "t24h_state": t24_state,
                 "forecast_frozen": False,
                 "relabeled_early_as_t90m": False,
-                "corrected_t90m_receipt": (
-                    t90m_receipt.get("schedule_capture_identity")
-                    if contest_id in captured_t90m
-                    else None
-                ),
+                "corrected_t90m_receipt": checkpoint_receipt,
             }
         )
     if t90m_receipt:
         dump(ART / "C28_CORRECTED_SUN_T90M_CAPTURE_RECEIPT.json", t90m_receipt)
+    if smu_t24h:
+        dump(ART / "C28_SMU_T24H_CAPTURE_RECEIPT.json", smu_t24h)
+    if smu_t90m:
+        dump(ART / "C28_SMU_T90M_CAPTURE_RECEIPT.json", smu_t90m)
     dump(
         ART / "WEEK1_REMAINING_GAME_CALENDAR_RECONCILIATION.json",
         {

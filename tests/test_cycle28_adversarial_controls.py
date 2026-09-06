@@ -37,9 +37,11 @@ from aggie_analytics.cycle28.availability import (
 )
 from aggie_analytics.cycle28.calendar import (
     DISPOSITION_EARLY,
+    DISPOSITION_EVIDENCE,
     DISPOSITION_MISSED,
     REMAINING_GAMES,
     CalendarReconciliationError,
+    classify_checkpoint,
     live_owner_identity_match,
     reconcile_washington_state_washington,
     reject_backfill,
@@ -297,6 +299,28 @@ class Cycle28AdversarialTests(unittest.TestCase):
                 feature_update_from_sunday_outcome=True,
                 predeclared_update_rule=False,
             )
+        self.assertEqual(
+            classify_checkpoint(
+                now_utc="2026-09-06T23:00:00Z",
+                cutoff_utc="2026-09-06T23:30:00Z",
+                capture_utc="2026-09-06T22:45:03Z",
+                forecast_frozen=False,
+                predecessor_cutoff_utc="2026-09-06T22:45:00Z",
+                official_kickoff_confirmed=True,
+            ),
+            DISPOSITION_EARLY,
+        )
+        self.assertEqual(
+            classify_checkpoint(
+                now_utc="2026-09-06T23:31:00Z",
+                cutoff_utc="2026-09-06T23:30:00Z",
+                capture_utc="2026-09-06T23:30:08Z",
+                forecast_frozen=False,
+                predecessor_cutoff_utc="2026-09-06T22:45:00Z",
+                official_kickoff_confirmed=True,
+            ),
+            DISPOSITION_EVIDENCE,
+        )
         self.assertFalse(
             live_owner_identity_match(
                 reported={

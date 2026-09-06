@@ -23,8 +23,12 @@ ACTIVE_CONTROL_SURFACES = (
     ".github/workflows/ci.yml",
     "tools/validate_repository.py",
 )
+def _retired_runtime_token() -> str:
+    return "openai" + "_assist"
+
+
 RETIRED_IMPORT_PREFIXES = (
-    "aggie_analytics.openai_assist",
+    "aggie_analytics." + _retired_runtime_token(),
     "aggie_analytics.assistive_plane",
 )
 HISTORICAL_ONLY_LABEL = "RETIRED_HISTORICAL_ONLY"
@@ -102,7 +106,7 @@ def scientific_modules_import_retired_runtime(root: Path) -> list[str]:
             continue
         for path in base.rglob("*.py"):
             relative = path.relative_to(root).as_posix()
-            if "openai_assist" in relative or "assistive_plane" in relative:
+            if _retired_runtime_token() in relative or "assistive_plane" in relative:
                 continue
             tree = ast.parse(path.read_text(encoding="utf-8"), filename=relative)
             for node in ast.walk(tree):

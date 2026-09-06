@@ -1992,7 +1992,7 @@ SRCREF-01990,governance/IMPLEMENTATION_WBS.csv,PASS,false,1,2,
 SRCREF-01991,governance/IMPLEMENTATION_WBS.csv,PASS,false,1,2,
 SRCREF-01992,governance/IMPLEMENTATION_WBS.csv,PASS,false,1,2,
 SRCREF-01993,governance/IMPLEMENTATION_WBS.csv,PASS,false,1,2,
-SRCREF-01994,AGENTS.md,RELOCATED,true,13,22,File changed; exact normalized anchor was relocated and line/hash metadata updated.
+SRCREF-01994,AGENTS.md,PASS,false,13,22,
 SRCREF-01995,docs/final/CODEX_HANDOFF.md,PASS,false,1,59,
 SRCREF-01996,docs/operations/TARGET_HARDWARE_BENCHMARK.md,PASS,false,1,13,
 SRCREF-01997,docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md,PASS,false,1,19,

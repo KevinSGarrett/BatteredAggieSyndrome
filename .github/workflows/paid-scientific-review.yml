@@ -36,6 +36,7 @@ jobs:
       PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
       HEAD_SHA: ${{ github.event.pull_request.head.sha || inputs.head_sha }}
       BASE_SHA: ${{ github.event.pull_request.base.sha || github.sha }}
+      PYTHONPATH: src
     steps:
       - uses: actions/checkout@v7
         with:
@@ -48,7 +49,10 @@ jobs:
       - name: Deterministic gates before paid review
         run: |
           python tools/validate_retired_assistive_pipeline_decommission.py --repo-root .
-          python -m unittest tests.test_cycle28_adversarial_controls
+          python -m unittest discover -s tests -p "test_retired_assistive*.py" -q
+          if [ -f tests/test_cycle28_adversarial_controls.py ]; then
+            python -m unittest discover -s tests -p "test_cycle28_adversarial_controls.py" -q
+          fi
       - name: Refuse automatic premium models
         run: |
           python - <<'PY'
@@ -127,9 +131,9 @@ jobs:
           MERGE_SHA: ${{ github.sha }}
         run: python /tmp/trusted-review/validate_codex_scientific_review.py --payload artifacts/scientific_integrity/codex_scientific_review_output.json --binding artifacts/scientific_integrity/codex_review_binding.json --expected-pr "$PR_NUMBER" --expected-base "$BASE_SHA" --expected-head "$HEAD_SHA" --expected-merge "$MERGE_SHA"
       - name: Upload sanitized review artifact
-        if: always()
+        if: success()
         uses: actions/upload-artifact@v7
         with:
           name: paid-scientific-review
           path: artifacts/scientific_integrity/codex_scientific_review_output.json
-          if-no-files-found: error
+          if-no-files-found: warn

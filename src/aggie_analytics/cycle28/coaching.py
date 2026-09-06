@@ -53,7 +53,10 @@ def reject_play_caller_from_coordinator(title: str, role_type: str) -> None:
         "dc",
         "st",
     }
-    if coordinator and role_type in {ROLE_OFFENSE_PLAY_CALLER, ROLE_DEFENSE_PLAY_CALLER}:
+    if coordinator and role_type in {
+        ROLE_OFFENSE_PLAY_CALLER,
+        ROLE_DEFENSE_PLAY_CALLER,
+    }:
         raise CoachingError("coordinator title cannot be represented as play caller")
 
 
@@ -70,7 +73,12 @@ def reject_name_only_auto_admit(identity_method: str, state: str) -> None:
 
 
 def reject_collapsed_co_interim(episode: Mapping[str, Any]) -> None:
-    if episode.get("co_role_flag") and episode.get("role_type") not in {ROLE_CO, ROLE_OC, ROLE_DC, ROLE_ST}:
+    if episode.get("co_role_flag") and episode.get("role_type") not in {
+        ROLE_CO,
+        ROLE_OC,
+        ROLE_DC,
+        ROLE_ST,
+    }:
         raise CoachingError("co-coordinator episode collapsed")
     if episode.get("interim_flag") and episode.get("role_type") != ROLE_INTERIM:
         if not episode.get("interim_preserved"):

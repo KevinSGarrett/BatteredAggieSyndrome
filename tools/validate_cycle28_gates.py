@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
+# Tool scripts must import the local package after PATH setup.
+# ruff: noqa: E402
 from aggie_analytics.cycle28.assurance import ASSURANCE_LAYERS, BLOCKED_ZERO_PIT
 from aggie_analytics.cycle28.coverage import REQUIRED_DOMAINS
 from aggie_analytics.cycle28.decommission import validate_retired_assistive_decommission
@@ -73,7 +75,9 @@ def validate(root: Path) -> list[str]:
 
     calendar = load(root, "WEEK1_REMAINING_GAME_CALENDAR_RECONCILIATION.json")
     if len(calendar.get("contests") or []) != 4:
-        findings.append("remaining calendar must cover exactly four Sunday/Monday contests")
+        findings.append(
+            "remaining calendar must cover exactly four Sunday/Monday contests"
+        )
     conflict = load(root, "WEEK1_REMAINING_SCHEDULE_CONFLICT_FINDINGS.json")
     wsu = (conflict.get("findings") or [{}])[0]
     if wsu.get("relabeled_early_as_t90m"):
@@ -108,20 +112,27 @@ def validate(root: Path) -> list[str]:
     if int(graph.get("unmapped_authority_bearing_claims") or 0) != 0:
         findings.append("unmapped authority-bearing claims")
     layers = load(root, "SCIENTIFIC_ASSURANCE_LAYER_RESULTS.json")
-    missing_layers = [layer for layer in ASSURANCE_LAYERS if layer not in (layers.get("layers") or {})]
+    missing_layers = [
+        layer for layer in ASSURANCE_LAYERS if layer not in (layers.get("layers") or {})
+    ]
     if missing_layers:
         findings.append(f"assurance layers omitted: {missing_layers}")
 
     trust = load(root, "ACTIVE_PATH_STRUCTURAL_TRUST_GATE.json")
     if trust.get("scientific_trust_recovered"):
         findings.append("scientific_trust_recovered set true")
-    if trust.get("r26_22") != BLOCKED_ZERO_PIT and int(trust.get("proven_pit_training_rows") or 0) == 0:
+    if (
+        trust.get("r26_22") != BLOCKED_ZERO_PIT
+        and int(trust.get("proven_pit_training_rows") or 0) == 0
+    ):
         findings.append("empty PIT matrix not blocked")
 
     indep = load(root, "VALIDATOR_INDEPENDENCE_AUDIT.json")
     if indep.get("imports_producer_scoring_helpers"):
         findings.append("independent reference imports producer scoring helpers")
-    reference = root / "src" / "aggie_analytics" / "scientific_reference" / "cycle28_scoring.py"
+    reference = (
+        root / "src" / "aggie_analytics" / "scientific_reference" / "cycle28_scoring.py"
+    )
     tree = ast.parse(reference.read_text(encoding="utf-8"))
     imported = []
     for node in ast.walk(tree):

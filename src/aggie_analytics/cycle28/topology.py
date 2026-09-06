@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any, Sequence
 
 ACTIVE_ROOT_NAME = "BatteredAggieSyndrome"
 INTEGRATION_MARKER = Path("All-22") / "repos" / "BatteredAggieSyndrome"
@@ -21,7 +21,9 @@ def classify_clone(root: Path) -> str:
         "/All-22/repos/BatteredAggieSyndrome/"
     ):
         return "INTEGRATION_CLONE"
-    if posix.endswith("/BatteredAggieSyndrome") or posix.endswith("/BatteredAggieSyndrome/"):
+    if posix.endswith("/BatteredAggieSyndrome") or posix.endswith(
+        "/BatteredAggieSyndrome/"
+    ):
         return "ACTIVE_AUTHORITATIVE_CHECKOUT"
     return "UNKNOWN"
 
@@ -61,7 +63,9 @@ def reject_cfip_replacing_bat(bat_owner_omitted: bool, cfip_replaces_bat: bool) 
         raise TopologyError("BAT ownership cannot be replaced by CFIP")
 
 
-def reject_generic_plan_as_substantive(source_atoms: Sequence[Any], line_count: int) -> str:
+def reject_generic_plan_as_substantive(
+    source_atoms: Sequence[Any], line_count: int
+) -> str:
     if not source_atoms and line_count <= 54:
         return "PLAN_STRUCTURE_PRESENT_SUBSTANTIVE_BAS_INTEGRATION_INCOMPLETE"
     if not source_atoms:
@@ -83,9 +87,13 @@ def reject_freeform_c01_staff(complete: bool, freeform_role: bool) -> None:
         )
 
 
-def reject_orphaned_link(orphaned: bool, circular: bool, stale: bool, duplicative: bool) -> None:
+def reject_orphaned_link(
+    orphaned: bool, circular: bool, stale: bool, duplicative: bool
+) -> None:
     if orphaned or circular or stale or duplicative:
-        raise TopologyError("orphaned, circular, stale or responsibility-duplicating BAT/CFIP link")
+        raise TopologyError(
+            "orphaned, circular, stale or responsibility-duplicating BAT/CFIP link"
+        )
 
 
 def transfer_conclusion(authorized: bool, executed: bool) -> str:

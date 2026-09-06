@@ -36,9 +36,7 @@ from aggie_analytics.cycle28.availability import (
 )
 from aggie_analytics.cycle28.calendar import (
     CONTEST_6594400,
-    CONTEST_6602874,
     CONTEST_6618941,
-    CONTEST_6620581,
     DISPOSITION_EARLY,
     DISPOSITION_EVIDENCE,
     DISPOSITION_MISSED,
@@ -315,9 +313,7 @@ def main() -> int:
         for item in REMAINING_GAMES
     }
     t90m_receipt = corrected_sunday_t90m_receipt()
-    captured_t90m = {
-        str(item) for item in (t90m_receipt.get("contests") or [])
-    }
+    captured_t90m = {str(item) for item in (t90m_receipt.get("contests") or [])}
     wsu = reconcile_washington_state_washington(
         now_utc=now,
         predecessor_clock_text="04:00 AM",

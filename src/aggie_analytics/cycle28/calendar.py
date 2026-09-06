@@ -11,7 +11,9 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Mapping
 
 CORRECTED_CALENDAR_SCHEMA = "aggie.cycle28.week1_remaining_calendar.v1"
-PREDECESSOR_IDENTITY_6618941 = "848cfdf60b74b8004f638fa0d41d7f66fc6d355b232f3f6fa5ea65db3ecfb6a4"
+PREDECESSOR_IDENTITY_6618941 = (
+    "848cfdf60b74b8004f638fa0d41d7f66fc6d355b232f3f6fa5ea65db3ecfb6a4"
+)
 
 CONTEST_6618941 = "6618941"
 CONTEST_6602874 = "6602874"
@@ -69,7 +71,10 @@ def classify_checkpoint(
         return DISPOSITION_CONFLICT
     if capture_utc:
         captured = parse_utc(capture_utc)
-        if predecessor_cutoff_utc and captured <= parse_utc(predecessor_cutoff_utc) < cutoff:
+        if (
+            predecessor_cutoff_utc
+            and captured <= parse_utc(predecessor_cutoff_utc) < cutoff
+        ):
             return DISPOSITION_EARLY
         if captured > cutoff:
             return DISPOSITION_MISSED
@@ -125,7 +130,10 @@ def reconcile_washington_state_washington(
     official_institutional_kickoff_utc: str,
     predecessor_t90m_capture_utc: str | None,
 ) -> dict[str, Any]:
-    if predecessor_clock_text == "04:00 AM" and official_institutional_kickoff_utc == "2026-09-06T20:00:00Z":
+    if (
+        predecessor_clock_text == "04:00 AM"
+        and official_institutional_kickoff_utc == "2026-09-06T20:00:00Z"
+    ):
         conflict = True
     else:
         conflict = predecessor_bound_utc != official_institutional_kickoff_utc
@@ -155,7 +163,9 @@ def reconcile_washington_state_washington(
         "official_institutional_kickoff_utc": official_institutional_kickoff_utc,
         "corrected_calendar_identity_kind": "CORRECTED_CALENDAR_SUCCESSOR",
         "conflict": conflict,
-        "conflict_disposition": "CONFLICT_REVIEW_REQUIRED" if conflict else "CONSISTENT",
+        "conflict_disposition": "CONFLICT_REVIEW_REQUIRED"
+        if conflict
+        else "CONSISTENT",
         "corrected_cutoffs": cutoffs,
         "real_t90m_disposition": t90m_state,
         "predecessor_t90m_capture_disposition": early_state,

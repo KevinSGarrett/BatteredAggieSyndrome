@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any, Mapping, Sequence
 
 FORECASTING_UNIVERSE = "CURRENT_FORECASTING_FBS_PLUS_SCHEDULED_LOWER_DIVISION_OPPONENTS"
 HISTORICAL_UNIVERSE = "HISTORICAL_DEVELOPMENT_ADMITTED_FBS_TEAM_GAMES"
@@ -98,8 +98,13 @@ def require_one_disposition(cells: Mapping[tuple[Any, ...], str]) -> None:
 
 
 def reject_not_yet_audited_collapse(disposition: str, reported_as: str) -> None:
-    if disposition == "NOT_YET_AUDITED" and reported_as in {"SOURCE_ABSENT", "PRESENT_ADMISSIBLE"}:
-        raise CoverageError("NOT_YET_AUDITED cannot collapse into absence or a present value")
+    if disposition == "NOT_YET_AUDITED" and reported_as in {
+        "SOURCE_ABSENT",
+        "PRESENT_ADMISSIBLE",
+    }:
+        raise CoverageError(
+            "NOT_YET_AUDITED cannot collapse into absence or a present value"
+        )
 
 
 def reject_denominator_shrink(
@@ -109,12 +114,19 @@ def reject_denominator_shrink(
     source_absent_count: int,
 ) -> None:
     if reported_denominator < frozen_denominator:
-        raise CoverageError("national denominator cannot shrink because a source value is absent")
-    if frozen_denominator - source_absent_count == reported_denominator and source_absent_count:
+        raise CoverageError(
+            "national denominator cannot shrink because a source value is absent"
+        )
+    if (
+        frozen_denominator - source_absent_count == reported_denominator
+        and source_absent_count
+    ):
         raise CoverageError("absent rows were dropped from the denominator")
 
 
-def reject_am_only_national(national_numerator: int, am_numerator: int, label: str) -> None:
+def reject_am_only_national(
+    national_numerator: int, am_numerator: int, label: str
+) -> None:
     if label == "national" and national_numerator == am_numerator and am_numerator <= 2:
         raise CoverageError("A&M-only coverage cannot satisfy a national requirement")
 
@@ -124,9 +136,13 @@ def model_field_coverage(
     declared_columns: Sequence[str],
     admitted_registry_fields: Sequence[str],
 ) -> list[str]:
-    missing = [column for column in declared_columns if column not in admitted_registry_fields]
+    missing = [
+        column for column in declared_columns if column not in admitted_registry_fields
+    ]
     if missing:
-        raise CoverageError(f"model field absent from admitted capability registry: {missing}")
+        raise CoverageError(
+            f"model field absent from admitted capability registry: {missing}"
+        )
     return list(declared_columns)
 
 

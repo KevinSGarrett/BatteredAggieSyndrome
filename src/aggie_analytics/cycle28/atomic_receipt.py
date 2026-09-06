@@ -96,7 +96,9 @@ def reject_caller_supplied_retrieval_time(
         )
 
 
-def reject_filesystem_mtime_authority(mtime_utc: str | None, retrieval_utc: str) -> None:
+def reject_filesystem_mtime_authority(
+    mtime_utc: str | None, retrieval_utc: str
+) -> None:
     if mtime_utc and mtime_utc == retrieval_utc:
         raise AtomicReceiptError("filesystem mtime cannot be used as source authority")
 
@@ -166,7 +168,9 @@ def write_atomic_source_acquisition(
     body = canonical_json_bytes(payload)
     receipt_digest = sha256_bytes(body)
     raw_dir = data_root / raw_relative_dir.replace("\\", "/")
-    receipt_dir = data_root / receipt_relative_dir.replace("\\", "/") / "sha256" / receipt_digest
+    receipt_dir = (
+        data_root / receipt_relative_dir.replace("\\", "/") / "sha256" / receipt_digest
+    )
     raw_dir.mkdir(parents=True, exist_ok=True)
     receipt_dir.mkdir(parents=True, exist_ok=True)
     raw_name = f"{raw_digest}.html"

@@ -73,7 +73,9 @@ def reject_forbidden_claim(claim: str) -> None:
         raise GridironBoundaryError(f"unsupported consumer-boundary claim {claim}")
 
 
-def reject_incompatible_payload(payload: Mapping[str, Any], *, adapter_version: str) -> None:
+def reject_incompatible_payload(
+    payload: Mapping[str, Any], *, adapter_version: str
+) -> None:
     if payload.get("contract_version") != adapter_version:
         raise GridironBoundaryError("incompatible version")
     if payload.get("unknown_schema"):
@@ -132,7 +134,9 @@ def require_affected_claim_invalidation(
         )
 
 
-def load_synthetic_adapter(fixture_root: Path | None, installed_package_root: Path | None) -> dict[str, str]:
+def load_synthetic_adapter(
+    fixture_root: Path | None, installed_package_root: Path | None
+) -> dict[str, str]:
     if fixture_root is None and installed_package_root is None:
         raise GridironBoundaryError("adapter must not default to C:\\All-22")
     for candidate in (fixture_root, installed_package_root):
@@ -148,8 +152,12 @@ def load_synthetic_adapter(fixture_root: Path | None, installed_package_root: Pa
 def reject_active_checkout_move(active_root: Path, all22_root: Path) -> None:
     active = str(active_root).replace("\\", "/").rstrip("/").lower()
     all22 = str(all22_root).replace("\\", "/").rstrip("/").lower()
-    if active == f"{all22}/repos/batteredaggiesyndrome" or active.startswith(all22 + "/"):
-        raise GridironBoundaryError("active BAS checkout physically moved into C:\\All-22")
+    if active == f"{all22}/repos/batteredaggiesyndrome" or active.startswith(
+        all22 + "/"
+    ):
+        raise GridironBoundaryError(
+            "active BAS checkout physically moved into C:\\All-22"
+        )
 
 
 def reject_integration_clone_as_authority(clone_is_authoritative: bool) -> None:
@@ -168,7 +176,9 @@ def reject_disconnected_target_created(created: bool) -> None:
 
 def reject_unauthorized_transfer(executed: bool, authorized: bool) -> None:
     if executed and not authorized:
-        raise GridironBoundaryError("GitHub transfer attempted without separate exact authorization")
+        raise GridironBoundaryError(
+            "GitHub transfer attempted without separate exact authorization"
+        )
 
 
 def reject_transfer_as_science(claim: str) -> None:
@@ -181,6 +191,13 @@ def reject_transfer_as_science(claim: str) -> None:
 def reject_secret_values_in_inventory(inventory: Mapping[str, Any]) -> None:
     for key, value in inventory.items():
         lowered = str(key).lower()
-        if any(token in lowered for token in ("secret", "token", "password", "api_key", "_key")):
-            if value not in {None, "", "***", "[REDACTED_NAME_ONLY]"} and not str(key).endswith("_name"):
-                raise GridironBoundaryError("secret values exported in the pre-transfer settings inventory")
+        if any(
+            token in lowered
+            for token in ("secret", "token", "password", "api_key", "_key")
+        ):
+            if value not in {None, "", "***", "[REDACTED_NAME_ONLY]"} and not str(
+                key
+            ).endswith("_name"):
+                raise GridironBoundaryError(
+                    "secret values exported in the pre-transfer settings inventory"
+                )

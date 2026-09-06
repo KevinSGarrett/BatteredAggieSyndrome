@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import ast
 import json
-import re
 from pathlib import Path
 from typing import Iterable
 
@@ -23,6 +22,8 @@ ACTIVE_CONTROL_SURFACES = (
     ".github/workflows/ci.yml",
     "tools/validate_repository.py",
 )
+
+
 def _retired_runtime_token() -> str:
     return "openai" + "_assist"
 
@@ -84,7 +85,10 @@ def instruction_manifest_always_reads_fort_knox(root: Path) -> bool:
         (root / "instructions/manifest.json").read_text(encoding="utf-8")
     )
     for entry in manifest.get("files", []):
-        if entry.get("path") != "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md":
+        if (
+            entry.get("path")
+            != "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md"
+        ):
             continue
         if entry.get("read_tier") == "ALWAYS":
             return True
@@ -122,7 +126,9 @@ def scientific_modules_import_retired_runtime(root: Path) -> list[str]:
 
 def definition_of_done_requires_assistive_proof(root: Path) -> bool:
     payload = json.loads(
-        (root / "instructions/policies/definition_of_done.json").read_text(encoding="utf-8")
+        (root / "instructions/policies/definition_of_done.json").read_text(
+            encoding="utf-8"
+        )
     )
     for check in payload.get("core_checks", []):
         text = str(check.get("requirement") or "")

@@ -44,7 +44,9 @@ class AssuranceError(ValueError):
     """Raised when a scientific claim cannot be mapped or promoted."""
 
 
-def require_claim_mapped(claim: Mapping[str, Any], required_fields: Sequence[str]) -> None:
+def require_claim_mapped(
+    claim: Mapping[str, Any], required_fields: Sequence[str]
+) -> None:
     missing = [field for field in required_fields if field not in claim]
     if missing:
         raise AssuranceError(f"unmapped authority-bearing claim fields: {missing}")
@@ -71,7 +73,9 @@ def layer_results_complete(results: Mapping[str, str]) -> bool:
     return all(layer in results for layer in ASSURANCE_LAYERS)
 
 
-def reject_lower_layer_promotion(results: Mapping[str, str], claimed_state: str) -> None:
+def reject_lower_layer_promotion(
+    results: Mapping[str, str], claimed_state: str
+) -> None:
     if claimed_state == STRUCTURAL_VERIFIED:
         structural = (
             "source_authenticity",
@@ -91,16 +95,22 @@ def reject_lower_layer_promotion(results: Mapping[str, str], claimed_state: str)
                 raise AssuranceError(
                     f"lower-layer {layer}={results.get(layer)} cannot promote {claimed_state}"
                 )
-    if results.get("prospective_empirical_validation") != PASS and claimed_state not in {
+    if results.get(
+        "prospective_empirical_validation"
+    ) != PASS and claimed_state not in {
         EMPIRICAL_NOT_ESTABLISHED,
         ALL_CYCLE_INCOMPLETE,
         STRUCTURAL_VERIFIED,
         BLOCKED_ZERO_PIT,
     }:
-        raise AssuranceError("empirical skill cannot be claimed without prospective PASS")
+        raise AssuranceError(
+            "empirical skill cannot be claimed without prospective PASS"
+        )
 
 
-def invalidate_descendants(changed_node: str, graph: Mapping[str, Sequence[str]]) -> set[str]:
+def invalidate_descendants(
+    changed_node: str, graph: Mapping[str, Sequence[str]]
+) -> set[str]:
     invalidated = {changed_node}
     stack = [changed_node]
     while stack:
@@ -149,7 +159,9 @@ def structural_trust_outcome(
 ) -> dict[str, Any]:
     if proven_pit_training_rows <= 0:
         structural = BLOCKED_ZERO_PIT
-    elif every_claim_mapped and every_layer_passed and validator_independent and coherent:
+    elif (
+        every_claim_mapped and every_layer_passed and validator_independent and coherent
+    ):
         structural = STRUCTURAL_VERIFIED
     else:
         structural = BLOCKED

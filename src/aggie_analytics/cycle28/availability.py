@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from typing import Any
 
 NO_REPORT_REQUIRED = "NO_REPORT_REQUIRED"
 REPORT_EXPECTED_NOT_FOUND = "REPORT_EXPECTED_NOT_FOUND"
@@ -18,13 +18,17 @@ class AvailabilityError(ValueError):
     """Raised when an availability claim cannot be admitted."""
 
 
-def reject_missing_report_as_healthy(disposition: str, inferred_available: bool) -> None:
+def reject_missing_report_as_healthy(
+    disposition: str, inferred_available: bool
+) -> None:
     if inferred_available and disposition in {
         NO_REPORT_REQUIRED,
         REPORT_EXPECTED_NOT_FOUND,
         TEAM_SOURCE_ABSENT,
     }:
-        raise AvailabilityError("missing injury report cannot be represented as healthy/available")
+        raise AvailabilityError(
+            "missing injury report cannot be represented as healthy/available"
+        )
 
 
 def reject_conference_policy_out_of_scope(

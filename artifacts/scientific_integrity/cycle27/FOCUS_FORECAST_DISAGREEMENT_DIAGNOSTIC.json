@@ -1,0 +1,1198 @@
+{
+  "artifact_type": "FOCUS_FORECAST_DISAGREEMENT_DIAGNOSTIC",
+  "away_team": {
+    "canonical_team_id": "SRC-002:TEAM:2623",
+    "conference_current": null,
+    "label": "Missouri State",
+    "note": "Current 2026 subdivision is taken from current contest/spine authority, not copied from an old season as if it were current.",
+    "source_team_id": "622180",
+    "subdivision_current": "FBS"
+  },
+  "class_evidence": {
+    "CONFIRMED_IMPLEMENTATION_DEFECT": [
+      "C24 ridge P(home)=0.9999979105 used a saturated link; C26 corrected p without changing margin.",
+      "C26 emits nominal_interval_level=0.95 while declared/reconstructed mass is 0.8.",
+      "C26 reuses predecessor forecast_row_identity while changing probability/interval semantics."
+    ],
+    "INPUT_LIMITATION": [
+      "Prior win/margin/points rates are missing behind learned indicators for both teams.",
+      "Venue coordinates/elevation/surface missing.",
+      "Coaches Poll rank missing; AP rank present only for A&M.",
+      "No coaching/recruiting/roster/weather/travel/market features consumed.",
+      "Priors are stale allowed history (age_seasons=3), not a 2026 frozen current prior."
+    ],
+    "MODEL_SPECIFICATION_LIMITATION": [
+      "Largest ridge contributions on this row are missingness indicators, intercept, is_home, and prior game-count z-scores, not scheme/staff.",
+      "Opening-season season_to_date_games=0; season win rate missingness is a large term.",
+      "Missouri State 2026 FBS/CUSA current status is a current-contest field; historical analogue support for opening FBS seasons is not a confirmed skill claim.",
+      "Symmetric Normal residual and pair symmetrization are specification choices."
+    ],
+    "UNEXPLAINED_DISAGREEMENT": [
+      "No captured same-event market quotes for 6607349, so an 18-point market gap is not a verified residual.",
+      "Mathematical coherence of p/margin/interval does not establish useful skill."
+    ]
+  },
+  "classification": "CYCLE27_FOCUS_FORECAST_DISAGREEMENT_DIAGNOSTIC",
+  "coaches_poll_rank_classification": {
+    "classification": "COACHES_POLL_RANKING_NOT_STAFF",
+    "field_name": "coaches_poll_rank",
+    "is_staff_evidence": false,
+    "model_consumption_if_present": "POLL_RANKING_NOT_STAFF_ROLE"
+  },
+  "code_head": "a5fc3b38ed592781f245a65e9f051d445d7d7ddd",
+  "contract_id": "CYCLE27-PREGAME-REPORTING-V1",
+  "diagnostic_classes": [
+    "CONFIRMED_IMPLEMENTATION_DEFECT",
+    "INPUT_LIMITATION",
+    "MODEL_SPECIFICATION_LIMITATION",
+    "UNEXPLAINED_DISAGREEMENT"
+  ],
+  "emitted": {
+    "adequacy_verdict": "LIMITED_STALE_INPUT_SHADOW_ONLY",
+    "candidate_id": "national_margin_ridge",
+    "declared_interval_probability": 0.8,
+    "expected_margin_away": -22.2506043541,
+    "expected_margin_home": 22.2506043541,
+    "margin_interval_home": [
+      -0.4836117392,
+      44.9848204474
+    ],
+    "nominal_interval_level_emitted": 0.95,
+    "probability_away": 0.1048683331,
+    "probability_home": 0.8951316669,
+    "probability_link": "NORMAL_CDF_FROM_SAME_DISTRIBUTION",
+    "raw_margin_away": -22.7429168579,
+    "raw_margin_home": 21.7582918503,
+    "trust_classification": "UNTRUSTED_SHADOW"
+  },
+  "exploratory_subgroups": {
+    "independent_confirmation": false,
+    "motivated_by_observed_disagreement": true,
+    "rejected_relabel": "EXPLORATORY",
+    "status": "EXPLORATORY"
+  },
+  "gate_identity": "0ad973883f0fbaf3f7eedd44fb297f36a9eb25f98efa89e6add76e77468000e0",
+  "home_team": {
+    "canonical_team_id": "SRC-002:TEAM:245",
+    "conference_current": "SEC",
+    "label": "Texas A&M",
+    "source_team_id": "622236",
+    "subdivision_current": "FBS"
+  },
+  "independent_predicted_score": {
+    "blocker": "MARGIN_ALONE_CANNOT_IDENTIFY_BOTH_TEAM_SCORES",
+    "independent_predicted_score": null,
+    "margin": 22.2506043541
+  },
+  "input_consumption": [
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "coaching",
+      "evidence": [
+        "week1_2026_national_forecast_suite.py feature_values",
+        "ALL_NUMERIC"
+      ],
+      "label": "CONTEXT_ONLY",
+      "note": "No HC/OC/DC/play-caller columns in active Week1 designs. coaches_poll_rank is a poll, not staff. Official staff packets, if any, remain CONTEXT_ONLY / NOT_CONSUMED_BY_MODEL."
+    },
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "recruiting_talent",
+      "evidence": [
+        "configs/national_pit_domain_admission_matrix_contract.json"
+      ],
+      "label": "ABSENT",
+      "note": "national_pit_domain_admission coaching-adjacent recruiting_talent SOURCE_ABSENT."
+    },
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "roster_availability",
+      "evidence": [
+        "week1_2026_spine_semantic_successor_gate.json domain_admission_counts"
+      ],
+      "label": "ABSENT",
+      "note": "Spine ROSTER_MEMBERSHIP and PREGAME_AVAILABILITY SOURCE_EVIDENCE_ABSENT for 182 cells."
+    },
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "weather",
+      "evidence": [
+        "configs/week1_2026_national_forecast_suite_contract.json"
+      ],
+      "label": "CANDIDATE_ONLY",
+      "note": "week1_feature_construction.weather_admitted_as_model_input is false; weather vintage capture is not a consumed feature."
+    },
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "travel_rest",
+      "evidence": [
+        "national_expectation_baselines.ALL_NUMERIC/ALL_BOOLEAN"
+      ],
+      "label": "ABSENT",
+      "note": "No travel/rest feature columns in ALL_ADMITTED_FEATURES."
+    },
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "market",
+      "evidence": [
+        "CYCLE26_MARKET_REFERENCE_DISPOSITION.json",
+        "week1_2026_early_market_consensus.jsonl"
+      ],
+      "label": "ABSENT",
+      "note": "Market references attach separately and do not enter the fitted design. Captured focus-contest quotes: 0."
+    },
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "strength_context",
+      "evidence": [
+        "prior_games_played",
+        "opponent_prior_games_played",
+        "is_home",
+        "is_neutral_site",
+        "team_is_fbs",
+        "team_conference",
+        "ap_poll_rank",
+        "opponent_ap_poll_rank",
+        "rankings_source_available",
+        "season_to_date_games"
+      ],
+      "label": "ACTUALLY_CONSUMED",
+      "note": "Prior game counts, site, FBS, conference (when in training levels), AP rank when present, and learned missingness indicators."
+    },
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "coaches_poll_rank",
+      "evidence": [
+        "coaches_poll_rank",
+        "coaches_poll_rank_missing"
+      ],
+      "label": "ACTUALLY_CONSUMED",
+      "note": "Consumed as Coaches Poll ranking with missingness indicator; not staff."
+    },
+    {
+      "advertised_schema_is_not_model_use": true,
+      "domain": "learned_missingness",
+      "evidence": [
+        "ap_poll_rank_missing",
+        "coaches_poll_rank_missing",
+        "opponent_ap_poll_rank_missing",
+        "opponent_prior_margin_mean_missing",
+        "opponent_prior_season_win_rate_missing",
+        "opponent_prior_win_rate_missing",
+        "prior_margin_mean_missing",
+        "prior_points_against_mean_missing",
+        "prior_points_for_mean_missing",
+        "prior_season_win_rate_missing",
+        "prior_win_rate_differential_missing",
+        "prior_win_rate_missing",
+        "season_to_date_win_rate_missing",
+        "team_conference_missing",
+        "team_is_fbs_missing",
+        "venue_dome_missing",
+        "venue_elevation_m_missing",
+        "venue_grass_missing",
+        "venue_latitude_missing",
+        "venue_longitude_missing"
+      ],
+      "label": "ACTUALLY_CONSUMED",
+      "note": "Missing prior rates/margins/ranks/venue fields are explicit indicators, not imputed means without an indicator."
+    }
+  ],
+  "issued_at_utc": "2026-09-05T20:58:22Z",
+  "jira_key": "BAT-690",
+  "lineage": {
+    "C24": {
+      "checkpoint_id": "EARLY_WEEK1",
+      "gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
+      "note": "Original freeze. Ridge probability used the later-corrected saturated link.",
+      "payload": "week1_2026_early_forecast_adequacy",
+      "rewritten": false,
+      "ridge_expected_margin_home": 22.2506043541,
+      "ridge_interval_home": [
+        -12.5183790478,
+        57.019587756
+      ],
+      "ridge_probability_home": 0.9999979105
+    },
+    "C25": {
+      "checkpoint_id": "NOT_A_NEW_FREEZE_OF_THIS_CONTEST",
+      "note": "C26 reads C24 early forecast rows, not a C25 transplanted row set. Predecessor files remain.",
+      "payload": "week1_2026_ridge_distribution_coherence / input-binding successors",
+      "rewritten": false,
+      "status": "DEPRECATED_PREDECESSOR_NOT_USED_AS_ACTIVE_FOCUS_PAYLOAD"
+    },
+    "C26": {
+      "checkpoint_id": "EARLY_WEEK1_SUCCESSOR_NOT_T24H_NOT_T90M",
+      "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+      "declared_interval_probability": 0.8,
+      "forecast_row_identity_reused_from_predecessor": "f514d6c6eaa5b9261074224717f8813e3d4e9235c358c4bd12bc0e6b0627a119",
+      "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+      "nominal_interval_level_emitted": 0.95,
+      "note": "Probability/interval math changed; expected margin equals C24; row IDs reused.",
+      "rewritten_predecessor_files": false,
+      "ridge_expected_margin_home": 22.2506043541,
+      "ridge_interval_home": [
+        -0.4836117392,
+        44.9848204474
+      ],
+      "ridge_probability_home": 0.8951316669
+    },
+    "changes": [
+      {
+        "after": 0.8951316669,
+        "before": 0.9999979105,
+        "field": "probability_home",
+        "from": "C24",
+        "reason": "Normal residual CDF replaced saturated-link probability; margin unchanged.",
+        "to": "C26"
+      },
+      {
+        "after": 22.2506043541,
+        "before": 22.2506043541,
+        "field": "expected_margin_home",
+        "from": "C24",
+        "reason": "Successor preserves predecessor ridge margin.",
+        "to": "C26"
+      },
+      {
+        "after": [
+          -0.4836117392,
+          44.9848204474
+        ],
+        "before": [
+          -12.5183790478,
+          57.019587756
+        ],
+        "field": "margin_interval_home",
+        "from": "C24",
+        "reason": "Interval recomputed from residual stdev at declared mass 0.8; emitted label 0.95.",
+        "to": "C26"
+      }
+    ],
+    "predecessor_rows_rewritten": false
+  },
+  "market": {
+    "captured_quote_count": 0,
+    "consensus": {
+      "aggregation": "MEDIAN_OF_DEVIGGED_HOME_WIN_PROBABILITIES",
+      "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+      "dispersion": null,
+      "independent_books": [],
+      "individual_quotes_hidden": false,
+      "label": "INSUFFICIENT_MARKET_COVERAGE",
+      "median_devigged_home": null,
+      "median_home_margin": null,
+      "minimum_independent_books": 3,
+      "ncaa_contest_id": "6607349",
+      "quote_count": 0,
+      "row_identity": "926574bc99185668a7d86e1a60adbc5b3e6ee13ff4a04aa277c3ff2d46b1a5ba",
+      "source_count": 0
+    },
+    "model_minus_market_margin_gap": null,
+    "user_quotes_are_not_receipts": true
+  },
+  "ncaa_contest_id": "6607349",
+  "payload": {
+    "c24_gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
+    "c26_dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "c26_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "source": "frozen focus packets, not report prose"
+  },
+  "result": "PASS_FOCUS_DISAGREEMENT_DIAGNOSTIC",
+  "ridge_decomposition": {
+    "away_raw": {
+      "causal_interpretation": false,
+      "contribution_sum": -22.742916857905133,
+      "contributions": [
+        {
+          "coefficient": -7.6540836826,
+          "column": "intercept",
+          "contribution": -7.6540836826,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1861244785,
+          "column": "prior_games_played",
+          "contribution": -2.6106229341822393,
+          "value": -1.1941785382566628
+        },
+        {
+          "coefficient": -3.6193081247,
+          "column": "prior_win_rate",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.1724562589,
+          "column": "prior_points_for_mean",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.6636453472,
+          "column": "prior_points_against_mean",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.4425105555,
+          "column": "prior_margin_mean",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 3.6226326839,
+          "column": "prior_season_win_rate",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 0.142901005,
+          "column": "season_to_date_games",
+          "contribution": -0.20574879282838,
+          "value": -1.4397994809650219
+        },
+        {
+          "coefficient": 3.6350807977,
+          "column": "season_to_date_win_rate",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -3.006134399,
+          "column": "opponent_prior_games_played",
+          "contribution": -6.04478987599254,
+          "value": 2.0108182382009794
+        },
+        {
+          "coefficient": 2.618250553,
+          "column": "opponent_prior_win_rate",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -5.399747011,
+          "column": "opponent_prior_margin_mean",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -4.4125603991,
+          "column": "opponent_prior_season_win_rate",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.2342846785,
+          "column": "prior_win_rate_differential",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.8865646509,
+          "column": "ap_poll_rank",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 0.0067984499,
+          "column": "coaches_poll_rank",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.3531179339,
+          "column": "opponent_ap_poll_rank",
+          "contribution": -1.5957366492019738,
+          "value": -0.6781371329558646
+        },
+        {
+          "coefficient": 0.189188493,
+          "column": "venue_elevation_m",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.1481353418,
+          "column": "venue_latitude",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 0.0701321085,
+          "column": "venue_longitude",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_win_rate_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_points_for_mean_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_points_against_mean_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_margin_mean_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -12.4523434171,
+          "column": "prior_season_win_rate_missing",
+          "contribution": -12.4523434171,
+          "value": 1.0
+        },
+        {
+          "coefficient": -0.9390883038,
+          "column": "season_to_date_win_rate_missing",
+          "contribution": -0.9390883038,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1535605571,
+          "column": "opponent_prior_win_rate_missing",
+          "contribution": 2.1535605571,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1535605571,
+          "column": "opponent_prior_margin_mean_missing",
+          "contribution": 2.1535605571,
+          "value": 1.0
+        },
+        {
+          "coefficient": 12.4559761526,
+          "column": "opponent_prior_season_win_rate_missing",
+          "contribution": 12.4559761526,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.4403949955,
+          "column": "prior_win_rate_differential_missing",
+          "contribution": 0.4403949955,
+          "value": 1.0
+        },
+        {
+          "coefficient": -4.0599575962,
+          "column": "ap_poll_rank_missing",
+          "contribution": -4.0599575962,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.0066952215,
+          "column": "coaches_poll_rank_missing",
+          "contribution": 0.0066952215,
+          "value": 1.0
+        },
+        {
+          "coefficient": 8.4624055992,
+          "column": "opponent_ap_poll_rank_missing",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.4932373578,
+          "column": "venue_elevation_m_missing",
+          "contribution": -1.4932373578,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.8036400201,
+          "column": "venue_latitude_missing",
+          "contribution": 0.8036400201,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.8036400201,
+          "column": "venue_longitude_missing",
+          "contribution": 0.8036400201,
+          "value": 1.0
+        },
+        {
+          "coefficient": 8.4734632457,
+          "column": "is_home",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.2206383208,
+          "column": "is_neutral_site",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.7857604328,
+          "column": "rankings_source_available",
+          "contribution": -0.7857604328,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.3949488123,
+          "column": "venue_dome",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.869303579,
+          "column": "venue_grass",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.0898005885,
+          "column": "team_is_fbs",
+          "contribution": 1.0898005885,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.8378686391,
+          "column": "venue_dome_missing",
+          "contribution": 0.8378686391,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.3166240574,
+          "column": "venue_grass_missing",
+          "contribution": 0.3166240574,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.0898005884,
+          "column": "team_is_fbs_missing",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.1935614932,
+          "column": "team_conference=ACC",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.6200883933,
+          "column": "team_conference=American Athletic",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.6336012267,
+          "column": "team_conference=Big 12",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.1445045588,
+          "column": "team_conference=Big East",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.61090468,
+          "column": "team_conference=Big Ten",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -2.0043451542,
+          "column": "team_conference=Conference USA",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.9452992686,
+          "column": "team_conference=FBS Independents",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -2.2872022725,
+          "column": "team_conference=Mid-American",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.5894789955,
+          "column": "team_conference=Mountain West",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.2602998648,
+          "column": "team_conference=Pac-10",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.8875084789,
+          "column": "team_conference=Pac-12",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.8993225211,
+          "column": "team_conference=SEC",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -2.2440841133,
+          "column": "team_conference=Sun Belt",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.8494040377,
+          "column": "team_conference=Western Athletic",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.0898005884,
+          "column": "team_conference=OTHER_OR_MISSING",
+          "contribution": -1.0898005884,
+          "value": 1.0
+        }
+      ],
+      "largest_abs_contributions": [
+        {
+          "coefficient": 12.4559761526,
+          "column": "opponent_prior_season_win_rate_missing",
+          "contribution": 12.4559761526,
+          "value": 1.0
+        },
+        {
+          "coefficient": -12.4523434171,
+          "column": "prior_season_win_rate_missing",
+          "contribution": -12.4523434171,
+          "value": 1.0
+        },
+        {
+          "coefficient": -7.6540836826,
+          "column": "intercept",
+          "contribution": -7.6540836826,
+          "value": 1.0
+        },
+        {
+          "coefficient": -3.006134399,
+          "column": "opponent_prior_games_played",
+          "contribution": -6.04478987599254,
+          "value": 2.0108182382009794
+        },
+        {
+          "coefficient": -4.0599575962,
+          "column": "ap_poll_rank_missing",
+          "contribution": -4.0599575962,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1861244785,
+          "column": "prior_games_played",
+          "contribution": -2.6106229341822393,
+          "value": -1.1941785382566628
+        },
+        {
+          "coefficient": 2.1535605571,
+          "column": "opponent_prior_win_rate_missing",
+          "contribution": 2.1535605571,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1535605571,
+          "column": "opponent_prior_margin_mean_missing",
+          "contribution": 2.1535605571,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.3531179339,
+          "column": "opponent_ap_poll_rank",
+          "contribution": -1.5957366492019738,
+          "value": -0.6781371329558646
+        },
+        {
+          "coefficient": -1.4932373578,
+          "column": "venue_elevation_m_missing",
+          "contribution": -1.4932373578,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_win_rate_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_points_for_mean_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        }
+      ],
+      "reconstructed_margin": -22.742916857905133,
+      "target_margin": -22.7429168579
+    },
+    "contributions_are_not_causal": true,
+    "home_raw": {
+      "causal_interpretation": false,
+      "contribution_sum": 21.75829185031513,
+      "contributions": [
+        {
+          "coefficient": -7.6540836826,
+          "column": "intercept",
+          "contribution": -7.6540836826,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1861244785,
+          "column": "prior_games_played",
+          "contribution": 4.395898972345405,
+          "value": 2.0108182382009794
+        },
+        {
+          "coefficient": -3.6193081247,
+          "column": "prior_win_rate",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.1724562589,
+          "column": "prior_points_for_mean",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.6636453472,
+          "column": "prior_points_against_mean",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.4425105555,
+          "column": "prior_margin_mean",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 3.6226326839,
+          "column": "prior_season_win_rate",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 0.142901005,
+          "column": "season_to_date_games",
+          "contribution": -0.20574879282838,
+          "value": -1.4397994809650219
+        },
+        {
+          "coefficient": 3.6350807977,
+          "column": "season_to_date_win_rate",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -3.006134399,
+          "column": "opponent_prior_games_played",
+          "contribution": 3.5898611824008912,
+          "value": -1.1941785382566628
+        },
+        {
+          "coefficient": 2.618250553,
+          "column": "opponent_prior_win_rate",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -5.399747011,
+          "column": "opponent_prior_margin_mean",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -4.4125603991,
+          "column": "opponent_prior_season_win_rate",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.2342846785,
+          "column": "prior_win_rate_differential",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.8865646509,
+          "column": "ap_poll_rank",
+          "contribution": 1.2793495434972078,
+          "value": -0.6781371329558646
+        },
+        {
+          "coefficient": 0.0067984499,
+          "column": "coaches_poll_rank",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.3531179339,
+          "column": "opponent_ap_poll_rank",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 0.189188493,
+          "column": "venue_elevation_m",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.1481353418,
+          "column": "venue_latitude",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 0.0701321085,
+          "column": "venue_longitude",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_win_rate_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_points_for_mean_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_points_against_mean_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.218377009,
+          "column": "prior_margin_mean_missing",
+          "contribution": -1.218377009,
+          "value": 1.0
+        },
+        {
+          "coefficient": -12.4523434171,
+          "column": "prior_season_win_rate_missing",
+          "contribution": -12.4523434171,
+          "value": 1.0
+        },
+        {
+          "coefficient": -0.9390883038,
+          "column": "season_to_date_win_rate_missing",
+          "contribution": -0.9390883038,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1535605571,
+          "column": "opponent_prior_win_rate_missing",
+          "contribution": 2.1535605571,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1535605571,
+          "column": "opponent_prior_margin_mean_missing",
+          "contribution": 2.1535605571,
+          "value": 1.0
+        },
+        {
+          "coefficient": 12.4559761526,
+          "column": "opponent_prior_season_win_rate_missing",
+          "contribution": 12.4559761526,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.4403949955,
+          "column": "prior_win_rate_differential_missing",
+          "contribution": 0.4403949955,
+          "value": 1.0
+        },
+        {
+          "coefficient": -4.0599575962,
+          "column": "ap_poll_rank_missing",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 0.0066952215,
+          "column": "coaches_poll_rank_missing",
+          "contribution": 0.0066952215,
+          "value": 1.0
+        },
+        {
+          "coefficient": 8.4624055992,
+          "column": "opponent_ap_poll_rank_missing",
+          "contribution": 8.4624055992,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.4932373578,
+          "column": "venue_elevation_m_missing",
+          "contribution": -1.4932373578,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.8036400201,
+          "column": "venue_latitude_missing",
+          "contribution": 0.8036400201,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.8036400201,
+          "column": "venue_longitude_missing",
+          "contribution": 0.8036400201,
+          "value": 1.0
+        },
+        {
+          "coefficient": 8.4734632457,
+          "column": "is_home",
+          "contribution": 8.4734632457,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.2206383208,
+          "column": "is_neutral_site",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.7857604328,
+          "column": "rankings_source_available",
+          "contribution": -0.7857604328,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.3949488123,
+          "column": "venue_dome",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.869303579,
+          "column": "venue_grass",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.0898005885,
+          "column": "team_is_fbs",
+          "contribution": 1.0898005885,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.8378686391,
+          "column": "venue_dome_missing",
+          "contribution": 0.8378686391,
+          "value": 1.0
+        },
+        {
+          "coefficient": 0.3166240574,
+          "column": "venue_grass_missing",
+          "contribution": 0.3166240574,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.0898005884,
+          "column": "team_is_fbs_missing",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.1935614932,
+          "column": "team_conference=ACC",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.6200883933,
+          "column": "team_conference=American Athletic",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.6336012267,
+          "column": "team_conference=Big 12",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.1445045588,
+          "column": "team_conference=Big East",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.61090468,
+          "column": "team_conference=Big Ten",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -2.0043451542,
+          "column": "team_conference=Conference USA",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -0.9452992686,
+          "column": "team_conference=FBS Independents",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -2.2872022725,
+          "column": "team_conference=Mid-American",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.5894789955,
+          "column": "team_conference=Mountain West",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.2602998648,
+          "column": "team_conference=Pac-10",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 1.8875084789,
+          "column": "team_conference=Pac-12",
+          "contribution": 0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": 2.8993225211,
+          "column": "team_conference=SEC",
+          "contribution": 2.8993225211,
+          "value": 1.0
+        },
+        {
+          "coefficient": -2.2440841133,
+          "column": "team_conference=Sun Belt",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.8494040377,
+          "column": "team_conference=Western Athletic",
+          "contribution": -0.0,
+          "value": 0.0
+        },
+        {
+          "coefficient": -1.0898005884,
+          "column": "team_conference=OTHER_OR_MISSING",
+          "contribution": -0.0,
+          "value": 0.0
+        }
+      ],
+      "largest_abs_contributions": [
+        {
+          "coefficient": 12.4559761526,
+          "column": "opponent_prior_season_win_rate_missing",
+          "contribution": 12.4559761526,
+          "value": 1.0
+        },
+        {
+          "coefficient": -12.4523434171,
+          "column": "prior_season_win_rate_missing",
+          "contribution": -12.4523434171,
+          "value": 1.0
+        },
+        {
+          "coefficient": 8.4734632457,
+          "column": "is_home",
+          "contribution": 8.4734632457,
+          "value": 1.0
+        },
+        {
+          "coefficient": 8.4624055992,
+          "column": "opponent_ap_poll_rank_missing",
+          "contribution": 8.4624055992,
+          "value": 1.0
+        },
+        {
+          "coefficient": -7.6540836826,
+          "column": "intercept",
+          "contribution": -7.6540836826,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1861244785,
+          "column": "prior_games_played",
+          "contribution": 4.395898972345405,
+          "value": 2.0108182382009794
+        },
+        {
+          "coefficient": -3.006134399,
+          "column": "opponent_prior_games_played",
+          "contribution": 3.5898611824008912,
+          "value": -1.1941785382566628
+        },
+        {
+          "coefficient": 2.8993225211,
+          "column": "team_conference=SEC",
+          "contribution": 2.8993225211,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1535605571,
+          "column": "opponent_prior_win_rate_missing",
+          "contribution": 2.1535605571,
+          "value": 1.0
+        },
+        {
+          "coefficient": 2.1535605571,
+          "column": "opponent_prior_margin_mean_missing",
+          "contribution": 2.1535605571,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.4932373578,
+          "column": "venue_elevation_m_missing",
+          "contribution": -1.4932373578,
+          "value": 1.0
+        },
+        {
+          "coefficient": -1.8865646509,
+          "column": "ap_poll_rank",
+          "contribution": 1.2793495434972078,
+          "value": -0.6781371329558646
+        }
+      ],
+      "reconstructed_margin": 21.75829185031513,
+      "target_margin": 21.7582918503
+    },
+    "symmetrized_emitted_margin_home": 22.2506043541,
+    "tolerance": 1e-06
+  },
+  "schema_version": "aggie.data.cycle27_pregame_reporting.v1",
+  "scientific_nonclaims": [
+    "Does not patch weights or missing values to match a market line.",
+    "Does not treat a bookmaker handicap as an expected margin.",
+    "Does not claim historical market-beating skill without archived quotes.",
+    "Does not rewrite C24/C25/C26 predecessor rows."
+  ]
+}

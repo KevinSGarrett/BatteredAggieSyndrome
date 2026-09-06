@@ -1,0 +1,587 @@
+{
+  "artifact_type": "CYCLE27_ACTIVE_PATH_DEPENDENCY_TRACE",
+  "c26_dataset_identity_preserved": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+  "c26_gate_identity_preserved": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "contract_id": "CYCLE27-ACTIVE-PATH-DEPENDENCY-TRACE-V1",
+  "current_contest_binding": {
+    "consumed_by_cycle27_remaining_checkpoint_binder": true,
+    "consumed_by_week1_materializer": false,
+    "cycle27_binder_module": "src/aggie_analytics/data/cycle27_current_contest_checkpoint_binding.py",
+    "cycle27_remaining_checkpoint_execution": "HELPER_CONSUMED_UNTRUSTED_SHADOW",
+    "helper_module": "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py",
+    "helper_symbol": "build_current_contest_row",
+    "live_execution": "CYCLE24_FORECAST_ROWS_COPIED_AND_MUTATED"
+  },
+  "forecast_successor": {
+    "advertised_unused": [
+      {
+        "evidence": "not read by week1 successor rewrite; Elo training uses initial_rating=1500",
+        "field": "opening_rating",
+        "status": "ADVERTISED_UNUSED"
+      },
+      {
+        "evidence": "not read by week1 successor rewrite; Elo training uses initial_rating=1500",
+        "field": "opening_elo",
+        "status": "ADVERTISED_UNUSED"
+      },
+      {
+        "evidence": "not read by week1 successor rewrite; Elo training uses initial_rating=1500",
+        "field": "preseason_rating",
+        "status": "ADVERTISED_UNUSED"
+      },
+      {
+        "evidence": "src/aggie_analytics/data/week1_2026_current_contest_binding_successor.py is imported/called only by tests, not by the Week 1 national materializer",
+        "field": "build_current_contest_row",
+        "status": "HELPER_PRESENT_NOT_CONSUMED_BY_MATERIALIZER"
+      }
+    ],
+    "c26_dataset_identity_preserved": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "c26_gate_identity_preserved": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "copies_cycle24_row_then_mutates_probability_interval": true,
+    "current_contest_binding_helper_consumed": false,
+    "current_contest_execution": "C24_ROWS_MUTATED",
+    "executable_prediction_inputs": [
+      "expected_margin_home from Cycle #24 predecessor row",
+      "ridge_training_residual_stdev from suite parameter/deployment_fit",
+      "interval_probability hardcoded 0.8"
+    ],
+    "feature_values_consumed_for_prediction": false,
+    "loads_cycle24_early_forecast_rows": true,
+    "module": "src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py",
+    "probability_only_row_fields_actually_read": [
+      "candidate_id",
+      "probability_away",
+      "probability_home",
+      "raw_probability_away",
+      "raw_probability_home",
+      "row_state"
+    ],
+    "rebuilds_target_features": false,
+    "refits_parameters": false,
+    "residual_stdev_keys_read": [
+      "deployment_fit",
+      "parameter_id",
+      "parameter_set_id"
+    ],
+    "ridge_row_fields_actually_read": [
+      "away_canonical_team_id",
+      "away_source_team_id",
+      "checkpoint_id",
+      "contest_identity",
+      "expected_margin_home",
+      "forecast_row_identity",
+      "home_canonical_team_id",
+      "home_source_team_id",
+      "row_state"
+    ]
+  },
+  "issued_at_utc": "2026-09-04T17:40:00Z",
+  "jira_key": "BAT-690",
+  "local_issue_id": "POST-TASK-CYCLE27-ACTIVE-PATH-DEPENDENCY-TRACE-001",
+  "national_expectation_baselines": {
+    "candidates": {
+      "national_base_rate": {
+        "actually_consumed_fields": [
+          "fold_training_label_win_rate"
+        ],
+        "advertised_unused_in_this_candidate": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "ap_poll_rank",
+          "coaches_poll_rank",
+          "opponent_ap_poll_rank",
+          "venue_elevation_m",
+          "venue_latitude",
+          "venue_longitude",
+          "is_home",
+          "is_neutral_site",
+          "rankings_source_available",
+          "venue_dome",
+          "venue_grass",
+          "team_is_fbs",
+          "opening_rating"
+        ],
+        "family": "UNFITTED_REFERENCE",
+        "feature_scope": "NONE"
+      },
+      "national_elo": {
+        "actually_consumed_fields": [
+          "canonical_game_id",
+          "canonical_team_id",
+          "opponent_canonical_team_id",
+          "season",
+          "is_home",
+          "is_neutral_site",
+          "chronological_ordinal",
+          "label_win",
+          "label_tie",
+          "label_margin"
+        ],
+        "advertised_unused_in_this_candidate": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "opening_rating",
+          "ap_poll_rank",
+          "venue_elevation_m"
+        ],
+        "family": "ELO",
+        "feature_scope": "OUTCOME_SEQUENCE_AND_SITE",
+        "initial_rating": 1500.0,
+        "opening_ratings_consumed": false
+      },
+      "national_logistic_l2": {
+        "actually_consumed": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "ap_poll_rank",
+          "coaches_poll_rank",
+          "opponent_ap_poll_rank",
+          "venue_elevation_m",
+          "venue_latitude",
+          "venue_longitude",
+          "is_home",
+          "is_neutral_site",
+          "rankings_source_available",
+          "venue_dome",
+          "venue_grass",
+          "team_is_fbs",
+          "team_conference"
+        ],
+        "advertised_unused_in_this_candidate": [
+          "opening_rating"
+        ],
+        "boolean": [
+          "is_home",
+          "is_neutral_site",
+          "rankings_source_available",
+          "venue_dome",
+          "venue_grass",
+          "team_is_fbs"
+        ],
+        "conference_indicators": true,
+        "family": "REGULARIZED_LOGISTIC",
+        "feature_scope": "ALL_ADMITTED_FEATURES",
+        "missingness_indicators_when_present": [
+          "prior_games_played_missing",
+          "prior_win_rate_missing",
+          "prior_points_for_mean_missing",
+          "prior_points_against_mean_missing",
+          "prior_margin_mean_missing",
+          "prior_season_win_rate_missing",
+          "season_to_date_games_missing",
+          "season_to_date_win_rate_missing",
+          "opponent_prior_games_played_missing",
+          "opponent_prior_win_rate_missing",
+          "opponent_prior_margin_mean_missing",
+          "opponent_prior_season_win_rate_missing",
+          "prior_win_rate_differential_missing",
+          "ap_poll_rank_missing",
+          "coaches_poll_rank_missing",
+          "opponent_ap_poll_rank_missing",
+          "venue_elevation_m_missing",
+          "venue_latitude_missing",
+          "venue_longitude_missing",
+          "is_home_missing",
+          "is_neutral_site_missing",
+          "rankings_source_available_missing",
+          "venue_dome_missing",
+          "venue_grass_missing",
+          "team_is_fbs_missing"
+        ],
+        "numeric": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "ap_poll_rank",
+          "coaches_poll_rank",
+          "opponent_ap_poll_rank",
+          "venue_elevation_m",
+          "venue_latitude",
+          "venue_longitude"
+        ]
+      },
+      "national_margin_ridge": {
+        "actually_consumed": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "ap_poll_rank",
+          "coaches_poll_rank",
+          "opponent_ap_poll_rank",
+          "venue_elevation_m",
+          "venue_latitude",
+          "venue_longitude",
+          "is_home",
+          "is_neutral_site",
+          "rankings_source_available",
+          "venue_dome",
+          "venue_grass",
+          "team_is_fbs",
+          "team_conference"
+        ],
+        "advertised_unused_in_this_candidate": [
+          "opening_rating"
+        ],
+        "boolean": [
+          "is_home",
+          "is_neutral_site",
+          "rankings_source_available",
+          "venue_dome",
+          "venue_grass",
+          "team_is_fbs"
+        ],
+        "conference_indicators": true,
+        "family": "RIDGE_MARGIN",
+        "feature_scope": "ALL_ADMITTED_FEATURES",
+        "label_consumed": "label_margin",
+        "missingness_indicators_when_present": [
+          "prior_games_played_missing",
+          "prior_win_rate_missing",
+          "prior_points_for_mean_missing",
+          "prior_points_against_mean_missing",
+          "prior_margin_mean_missing",
+          "prior_season_win_rate_missing",
+          "season_to_date_games_missing",
+          "season_to_date_win_rate_missing",
+          "opponent_prior_games_played_missing",
+          "opponent_prior_win_rate_missing",
+          "opponent_prior_margin_mean_missing",
+          "opponent_prior_season_win_rate_missing",
+          "prior_win_rate_differential_missing",
+          "ap_poll_rank_missing",
+          "coaches_poll_rank_missing",
+          "opponent_ap_poll_rank_missing",
+          "venue_elevation_m_missing",
+          "venue_latitude_missing",
+          "venue_longitude_missing",
+          "is_home_missing",
+          "is_neutral_site_missing",
+          "rankings_source_available_missing",
+          "venue_dome_missing",
+          "venue_grass_missing",
+          "team_is_fbs_missing"
+        ],
+        "numeric": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "ap_poll_rank",
+          "coaches_poll_rank",
+          "opponent_ap_poll_rank",
+          "venue_elevation_m",
+          "venue_latitude",
+          "venue_longitude"
+        ],
+        "residual_distribution": "fold-local training residual stdev; logistic link_scale = stdev / logistic_link_scale_divisor",
+        "week1_successor_uses_this_training_link": false
+      },
+      "prior_only": {
+        "actually_consumed": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "is_home",
+          "is_neutral_site"
+        ],
+        "advertised_unused_in_this_candidate": [
+          "ap_poll_rank",
+          "coaches_poll_rank",
+          "opponent_ap_poll_rank",
+          "venue_elevation_m",
+          "venue_latitude",
+          "venue_longitude",
+          "rankings_source_available",
+          "venue_dome",
+          "venue_grass",
+          "team_is_fbs",
+          "opening_rating"
+        ],
+        "boolean": [
+          "is_home",
+          "is_neutral_site"
+        ],
+        "conference_indicators": false,
+        "family": "REGULARIZED_LOGISTIC",
+        "feature_scope": "PRIOR_OUTCOME_DOMAIN_AND_SITE",
+        "missingness_indicators_when_present": [
+          "prior_games_played_missing",
+          "prior_win_rate_missing",
+          "prior_points_for_mean_missing",
+          "prior_points_against_mean_missing",
+          "prior_margin_mean_missing",
+          "prior_season_win_rate_missing",
+          "season_to_date_games_missing",
+          "season_to_date_win_rate_missing",
+          "opponent_prior_games_played_missing",
+          "opponent_prior_win_rate_missing",
+          "opponent_prior_margin_mean_missing",
+          "opponent_prior_season_win_rate_missing",
+          "prior_win_rate_differential_missing",
+          "is_home_missing",
+          "is_neutral_site_missing"
+        ],
+        "numeric": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential"
+        ]
+      }
+    },
+    "consumed_by_week1_successor_materializer": false,
+    "module": "src/aggie_analytics/modeling/national_expectation_baselines.py",
+    "new_cold_start_average_invented_for_coverage": false,
+    "partitions": [
+      "chronological_ordinal training_max_ordinal_exclusive expanding folds",
+      "EVALUATION 2023 development partition"
+    ],
+    "raw_normalized_outcomes": [
+      "label_win",
+      "label_tie",
+      "label_margin"
+    ],
+    "role": "HISTORICAL_DEVELOPMENT_FIT_NOT_WEEK1_MATERIALIZER",
+    "transforms": [
+      "fold_local_transforms mean/stdev standardization of numeric features",
+      "missing numeric values left at standardized zero (train mean) plus missingness indicators",
+      "conference levels with min-training-row bucket OTHER_OR_MISSING"
+    ]
+  },
+  "parent_jira_key": "BAT-523",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "result": "PASS_CYCLE27_ACTIVE_PATH_DEPENDENCY_TRACE",
+  "schema_version": "aggie.data.cycle27_active_path_dependency_trace.v1",
+  "scientific_nonclaims": [
+    "Does not claim a connected current-feature fitted path.",
+    "Does not advertise unused opening ratings as consumed.",
+    "Does not invent a new cold-start average to improve coverage.",
+    "Does not overwrite the Cycle #26 gate or dataset.",
+    "Cycle 27 remaining-checkpoint binder consumes current-contest rows without issuing a trusted forecast."
+  ],
+  "scientific_trust_gate_open": false,
+  "stages": [
+    {
+      "actually_consumed": [
+        "label_win",
+        "label_tie",
+        "label_margin"
+      ],
+      "consumer": "src/aggie_analytics/modeling/national_expectation_baselines.py",
+      "stage": "raw_normalized_outcomes",
+      "week1_successor_rereads_outcomes": false
+    },
+    {
+      "actually_consumed": {
+        "national_base_rate": [
+          "fold training win labels only"
+        ],
+        "national_elo": [
+          "canonical_game_id",
+          "canonical_team_id",
+          "opponent_canonical_team_id",
+          "season",
+          "is_home",
+          "is_neutral_site",
+          "chronological_ordinal"
+        ],
+        "national_logistic_l2_and_ridge": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "ap_poll_rank",
+          "coaches_poll_rank",
+          "opponent_ap_poll_rank",
+          "venue_elevation_m",
+          "venue_latitude",
+          "venue_longitude",
+          "is_home",
+          "is_neutral_site",
+          "rankings_source_available",
+          "venue_dome",
+          "venue_grass",
+          "team_is_fbs",
+          "team_conference"
+        ],
+        "prior_only": [
+          "prior_games_played",
+          "prior_win_rate",
+          "prior_points_for_mean",
+          "prior_points_against_mean",
+          "prior_margin_mean",
+          "prior_season_win_rate",
+          "season_to_date_games",
+          "season_to_date_win_rate",
+          "opponent_prior_games_played",
+          "opponent_prior_win_rate",
+          "opponent_prior_margin_mean",
+          "opponent_prior_season_win_rate",
+          "prior_win_rate_differential",
+          "is_home",
+          "is_neutral_site"
+        ]
+      },
+      "advertised_unused": [
+        "opening_rating",
+        "opening_elo",
+        "preseason_rating"
+      ],
+      "stage": "permitted_historical_features_and_labels"
+    },
+    {
+      "actually_consumed": [
+        "chronological_ordinal",
+        "training_max_ordinal_exclusive",
+        "evaluation_ordinals",
+        "partition=EVALUATION"
+      ],
+      "stage": "partitions"
+    },
+    {
+      "actually_consumed": [
+        "fold_local_transforms mean/stdev",
+        "ridge fold residual stdev",
+        "logistic_link_scale_divisor (training path only)",
+        "Week1 residual_stdev from NATIONAL_MARGIN_RIDGE_BETA / deployment_fit"
+      ],
+      "stage": "transforms_parameters_residual_distribution",
+      "training_ridge_link_differs_from_week1_normal_cdf": true,
+      "week1_distribution": "NORMAL_RESIDUAL CDF and interval from residual_stdev"
+    },
+    {
+      "actually_consumed": [],
+      "current_contest_binding_helper_consumed": false,
+      "execution": "C24_ROWS_MUTATED",
+      "note": "Week1 successor does not rebuild current-opponent/conference/subdivision/rank features. It copies Cycle #24 forecast rows.",
+      "stage": "current_target_features"
+    },
+    {
+      "actually_consumed": [
+        "expected_margin_home from Cycle #24 predecessor row",
+        "ridge_training_residual_stdev from suite parameter/deployment_fit",
+        "interval_probability hardcoded 0.8"
+      ],
+      "feature_values_consumed_for_prediction": false,
+      "probability_only_row_fields_actually_read": [
+        "candidate_id",
+        "probability_away",
+        "probability_home",
+        "raw_probability_away",
+        "raw_probability_home",
+        "row_state"
+      ],
+      "ridge_row_fields_actually_read": [
+        "away_canonical_team_id",
+        "away_source_team_id",
+        "checkpoint_id",
+        "contest_identity",
+        "expected_margin_home",
+        "forecast_row_identity",
+        "home_canonical_team_id",
+        "home_source_team_id",
+        "row_state"
+      ],
+      "stage": "executable_prediction"
+    },
+    {
+      "c26_dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+      "c26_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+      "checkpoint_id": "EARLY_WEEK1",
+      "overwritten_in_this_trace": false,
+      "publication_label": "UNTRUSTED_SHADOW",
+      "stage": "checkpoint_packet"
+    }
+  ],
+  "trace_identity": "eabf402d11d3706ec6efda4b90d332002254243f67dffd53298453e089919859"
+}

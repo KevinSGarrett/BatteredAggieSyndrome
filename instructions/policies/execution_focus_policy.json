@@ -206,6 +206,55 @@
         "head_sha": "cd73f288ab7c40f856556bb178a3f71cae79f9e2",
         "classification": "[material]",
         "reason": "Cycle #26 finding-disposition evidence-ops stamp after Sep4 T-24H and A&M failover arming on PR #678 are material scientific/governance handoff artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "2f85ca98004879601dbb1d3dd61c5cd5f4523beb",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 stacked repairs on PR #679 changed material validators, leases, scoring successors, and honesty packets, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "2c087767ca0c9e4cf04226aa3e12236b8bde2072",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 numbered handoff identity bind on PR #679 is a downstream-consumable artifact, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "0db9a12ed299ade4de07f53739de389049e71866",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 coaching title-role parser correction on PR #679 changed material reporting source, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "59e6fa53c09d6fbb56a9d40bee9d5cd905b70c10",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 associate-head-coach title coverage test on PR #679 is material scientific reporting, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 coaching/pregame packet identity refresh on PR #679 is a downstream-consumable honesty artifact, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "b44c013a54087bf4325c7e93a408c7c6ae26b935",
+        "pull_request": 679,
+        "head_sha": "b44c013a54087bf4325c7e93a408c7c6ae26b935",
+        "classification": "[material]",
+        "reason": "This merge of live PR 678 capture head 0d099bd9 into stacked PR #679 brought CYCLE26_AM_6607349_T24H_FREEZE_RECEIPT.json and the Cycle 26 eligibility ledger onto the review branch. The [process] subject was incorrect; the correction is scoped to this exact merge commit."
+      },
+      {
+        "commit_sha": "e49ca7e144771dcaab466a4f53c4cf38225ac055",
+        "pull_request": 679,
+        "head_sha": "e49ca7e144771dcaab466a4f53c4cf38225ac055",
+        "classification": "[material]",
+        "reason": "This Cycle #27 numbered-report calendar bind on PR #679 changed tools/write_cycle27_report_packet.py, a material writer. The [process] subject was incorrect; the correction is scoped to this exact commit."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

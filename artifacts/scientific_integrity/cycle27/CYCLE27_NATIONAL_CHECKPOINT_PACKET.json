@@ -1,0 +1,73 @@
+{
+  "artifact_type": "CYCLE27_NATIONAL_CHECKPOINT_PACKET",
+  "coaching_census_identity": null,
+  "current_contest_binding": {
+    "binding_identity": "16a5613c4ffce39b3d50302ded94dbe2bdf2c83e1cca53625f8b849186fbb12c",
+    "contest_count": 91,
+    "helper_call_count": 182,
+    "new_forecast_frozen_count": 0
+  },
+  "early_week1_forecast_may_not_be_relabeled_t24_or_t90": true,
+  "focus_contest_6607349": {
+    "forecast_at_this_packet": "PREDECESSOR_EARLY_WEEK1_UNTRUSTED_SHADOW_NOT_A_NEW_T24_FREEZE",
+    "kickoff_utc": "2026-09-05T23:00:00Z",
+    "readable_report": "artifacts/scientific_integrity/cycle27/PREGAME_RESEARCH_REPORT.md",
+    "t24h_state": "EVIDENCE_CAPTURED",
+    "t90m_state": "EVIDENCE_CAPTURED"
+  },
+  "hold": "ACTIVE",
+  "issued_at_utc": "2026-09-06T00:37:47Z",
+  "label": "EVIDENCE_AND_DISPOSITION_PACKET_NOT_T24H_NOT_T90M_FORECAST_FREEZE",
+  "merge_authorized": false,
+  "postgame_methodology_identity": "cb6ee39381bbf595eb39b9b0498171b57339258076de0cea2632b40a0f4e893e",
+  "preserved_c26_forecast": {
+    "checkpoint_label": "EARLY_WEEK1",
+    "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "non_null_forecasts": 399,
+    "opportunities": 455,
+    "rewritten": false
+  },
+  "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "raw_collection_is_not_forecast_frozen": true,
+  "revision": "C27-PREGAME-COACHING-20260904",
+  "saturday_t24h": {
+    "completed_before_cutoff": true,
+    "completed_count": 10,
+    "cutoff_utc": "2026-09-04T16:00:00Z",
+    "issued_at_utc": "2026-09-04T15:20:10Z",
+    "later_cutoffs_do_not_inherit_this_receipt": true,
+    "not": "FORECAST_FROZEN",
+    "publication_commit": "3fcc710438a75f15abc23392c6136ac077f25e7b",
+    "receipt": "CYCLE26_SEP5_SATURDAY_T24H_FREEZE_RECEIPT",
+    "state": "EVIDENCE_CAPTURED"
+  },
+  "scientific_done_unauthorized": true,
+  "scoring_successor": {
+    "dataset_identity": "85a379e3d5f7c6267ca12dbbb9825e0e0b1226671fbbd7479f19f420afee26d5",
+    "gate_identity": "9c7a10e72b3ecb1de4ef5c8c093ec0897608d741e99a8efab1d7af7423280fea",
+    "predecessor_preserved": {
+      "dataset": "1b1adb9e3c7da9269ec176d4c7aa3029db00a2d35352623a6dd44f37c95b293b",
+      "gate": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c"
+    },
+    "reason": "Pinned successor admits terminals only from independently hashed acquisition receipts. Pin-field retrieved_at_utc is not acquisition authority. Current pin: 51 terminals / 218 scored rows / 46 unique games. Publication remains UNTRUSTED_SHADOW. New scoreboard files require a new successor pin, never a rewrite of this pin.",
+    "rejected_receipt_before_kickoff_count": 0,
+    "scored_row_count": 218,
+    "unique_scored_games": 46
+  },
+  "t24h_state_counts": {
+    "ABSTAINED_AT_CHECKPOINT": 6,
+    "CAPTURE_IN_PROGRESS": 1,
+    "EVIDENCE_CAPTURED": 46,
+    "MISSED_CUTOFF_NO_BACKFILL": 38
+  },
+  "t90m_state_counts": {
+    "ABSTAINED_AT_CHECKPOINT": 2,
+    "CAPTURE_IN_PROGRESS": 4,
+    "EVIDENCE_CAPTURED": 77,
+    "MISSED_CUTOFF_NO_BACKFILL": 8
+  },
+  "universe_contest_count": 91,
+  "universe_source": "artifacts/scientific_integrity/cycle27/CYCLE27_CONTEST_CHECKPOINT_LEDGER.json"
+}

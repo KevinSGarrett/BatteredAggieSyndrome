@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
+from aggie_analytics.governance import scientific_trust_recovery_hold as hold
 from aggie_analytics.governance.scientific_trust_recovery_hold import (
     STARTING_SHA,
     compute_identity,
@@ -46,21 +49,26 @@ class ScientificTrustRecoveryHoldTests(unittest.TestCase):
         (tmp / "configs").mkdir()
         (tmp / "jira" / "reconciliation").mkdir(parents=True)
         hold_src = (
-            REPO_ROOT / "artifacts" / "scientific_integrity" / "OPERATOR_HOLD_RECEIPT.json"
+            REPO_ROOT
+            / "artifacts"
+            / "scientific_integrity"
+            / "OPERATOR_HOLD_RECEIPT.json"
         )
-        (tmp / "artifacts" / "scientific_integrity" / "OPERATOR_HOLD_RECEIPT.json").write_bytes(
-            hold_src.read_bytes()
+        (
+            tmp / "artifacts" / "scientific_integrity" / "OPERATOR_HOLD_RECEIPT.json"
+        ).write_bytes(hold_src.read_bytes())
+        contract_src = (
+            REPO_ROOT / "configs" / "scientific_trust_recovery_hold_contract.json"
         )
-        contract_src = REPO_ROOT / "configs" / "scientific_trust_recovery_hold_contract.json"
         (tmp / "configs" / "scientific_trust_recovery_hold_contract.json").write_bytes(
             contract_src.read_bytes()
         )
         registry_src = (
             REPO_ROOT / "jira" / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
         )
-        (tmp / "jira" / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json").write_bytes(
-            registry_src.read_bytes()
-        )
+        (
+            tmp / "jira" / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
+        ).write_bytes(registry_src.read_bytes())
         gate_src = (
             REPO_ROOT
             / "artifacts"
@@ -88,7 +96,10 @@ class ScientificTrustRecoveryHoldTests(unittest.TestCase):
                 root, proposed_merges=["scientific:BAT-690-national-foundation"]
             )
         self.assertTrue(
-            any(item.startswith("HOLD_SCIENTIFIC_MERGE_WHILE_ACTIVE") for item in findings)
+            any(
+                item.startswith("HOLD_SCIENTIFIC_MERGE_WHILE_ACTIVE")
+                for item in findings
+            )
         )
 
     def test_parent_progress_comment_fails_closed_without_release(self) -> None:
@@ -148,7 +159,10 @@ class ScientificTrustRecoveryHoldTests(unittest.TestCase):
             proposed_merges=["scientific:BAT-690-national-foundation"],
         )
         self.assertTrue(
-            any(item.startswith("HOLD_RELEASE_PR_NOT_IN_SCOPE") for item in unscoped_merge)
+            any(
+                item.startswith("HOLD_RELEASE_PR_NOT_IN_SCOPE")
+                for item in unscoped_merge
+            )
         )
         parent = validate_hold(
             REPO_ROOT,
@@ -202,6 +216,46 @@ class ScientificTrustRecoveryHoldTests(unittest.TestCase):
                     )
                 )
             )
+
+    def test_historical_release_does_not_authorize_current_done(self) -> None:
+        self.assertTrue(hold.release_receipt_present(REPO_ROOT))
+        issues = copy.deepcopy(hold._issue_map(REPO_ROOT))
+        issues["BAT-690"]["status"] = "Done"
+        issues["BAT-690"]["logical_state"] = "DONE"
+        with patch.object(hold, "_issue_map", return_value=issues):
+            findings = hold.validate_hold(REPO_ROOT)
+        self.assertIn("HOLD_DONE_TRANSITION_WHILE_ACTIVE:BAT-690", findings)
+        self.assertIn("HOLD_LOGICAL_DONE_WHILE_ACTIVE:BAT-690", findings)
+
+    def test_merge_action_without_merge_ref_is_not_diagnostic_pass(self) -> None:
+        findings = validate_hold(
+            REPO_ROOT,
+            proposed_action="merge",
+            proposed_pr_number=678,
+            proposed_head_sha="3fcc710438a75f15abc23392c6136ac077f25e7b",
+            proposed_base_sha="55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        )
+        self.assertIn("HOLD_MERGE_REFERENCE_MISSING", findings)
+        self.assertNotEqual(findings, [])
+
+    def test_full_pr678_merge_context_remains_blocked(self) -> None:
+        findings = validate_hold(
+            REPO_ROOT,
+            proposed_action="merge",
+            proposed_merges=[
+                "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"
+            ],
+            proposed_pr_number=678,
+            proposed_head_sha="3fcc710438a75f15abc23392c6136ac077f25e7b",
+            proposed_base_sha="55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        )
+        self.assertTrue(
+            any(item.startswith("HOLD_RELEASE_PR_NOT_IN_SCOPE") for item in findings)
+        )
+
+    def test_done_action_without_owner_context_fails(self) -> None:
+        findings = validate_hold(REPO_ROOT, proposed_action="done")
+        self.assertIn("HOLD_DONE_OWNER_CONTEXT_MISSING", findings)
 
 
 if __name__ == "__main__":

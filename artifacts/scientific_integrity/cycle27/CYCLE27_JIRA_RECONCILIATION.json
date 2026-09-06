@@ -1,0 +1,42 @@
+{
+  "artifact_type": "CYCLE27_JIRA_RECONCILIATION",
+  "issued_at_utc": "2026-09-05T23:55:17Z",
+  "hold": "ACTIVE",
+  "scientific_done_unauthorized": true,
+  "completion_comment_unauthorized": true,
+  "new_bat_keys_invented": false,
+  "strategy": "Reuse exact active owners. Cycle 27 evidence/reporting grouped under BAT-690 with scientific/reference/lineage still BAT-690-694/696. Coaching and score-model readiness remain evidence/reporting, not a new Done coaching BAT and not a new score-model champion.",
+  "live_statuses_preserved": {
+    "BAT-523": "In Progress",
+    "BAT-401": "Done with RETAIN_PROTECTED_LANE_BLOCKED",
+    "BAT-429": "To Do / blocked unless real dependencies independently complete",
+    "BAT-689": "Done",
+    "BAT-690": "In Review",
+    "BAT-691": "In Review",
+    "BAT-692": "In Review",
+    "BAT-693": "In Review",
+    "BAT-694": "In Review",
+    "BAT-696": "In Review"
+  },
+  "unrelated_pr_654": "DO_NOT_CHANGE_OR_MERGE",
+  "pr_678": "PRESERVED_LIVE_CAPTURE_BRANCH",
+  "stacked_pr": "codex/BAT-690-c27-scr stacked on origin/codex/BAT-690-c26-scr, not on main",
+  "stacked_pr_679": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679",
+  "live_verify": {
+    "command": "python jira/tools/import_bat_live.py --verify-live",
+    "result": "PASS",
+    "discrepancies": 0,
+    "total_actual_issue_count": 627,
+    "verified_at_utc": "2026-09-05T23:54:36Z",
+    "in_progress": 1,
+    "in_review": 6,
+    "to_do": 408,
+    "done": 212
+  },
+  "control_plane_strict_require_live": {
+    "command": "python tools/validate_jira_control_plane.py --strict --require-live",
+    "result": "PASS",
+    "finding_count": 0,
+    "verified_at_utc": "2026-09-05T23:55:17Z"
+  }
+}

@@ -1,0 +1,866 @@
+{
+  "artifact_type": "CYCLE27_PREFLIGHT_AND_OWNERSHIP",
+  "clock": {
+    "america_chicago": "2026-09-04T11:28:03-0500",
+    "local_clock_uncertainty": "Host OS clock; not cryptographic proof of global time",
+    "tz_note": "CDT (UTC-5); DST observed on 2026-09-04",
+    "utc": "2026-09-04T16:28:03Z"
+  },
+  "codex_fail_replay": {
+    "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+    "base_validator_matches_appendix": true,
+    "base_validator_sha256": "214d1cde630c3c487dba2fc9ea976c46452f3b224b31de42bf2f4e4e19db37ac",
+    "cases": [
+      {
+        "base_findings": [],
+        "base_treats_fail_as_success": true,
+        "head_label": "7e3e9cc2",
+        "payload_p0_count": 1,
+        "payload_p1_count": 1,
+        "payload_sha256": "d4284b54cba1a2cb9e29a1f839824060c3c9b212f1cc7ba3ec1fd99ec60e1f69",
+        "payload_verdict": "FAIL",
+        "pr_findings": [
+          "CODEX_REVIEW_UNRESOLVED_P0_P1",
+          "CODEX_REVIEW_PR_CHANGED_OWN_CHECKER",
+          "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL"
+        ],
+        "pr_merge_success": false,
+        "pr_schema_valid": true
+      },
+      {
+        "base_findings": [],
+        "base_treats_fail_as_success": true,
+        "head_label": "3fcc7104",
+        "payload_p0_count": 0,
+        "payload_p1_count": 2,
+        "payload_sha256": "9a623bb313ea2922a8925792fe54fc460a1bf9c5a932c699c6bfe5166908738d",
+        "payload_verdict": "FAIL",
+        "pr_findings": [
+          "CODEX_REVIEW_UNRESOLVED_P0_P1",
+          "CODEX_REVIEW_PR_CHANGED_OWN_CHECKER",
+          "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL"
+        ],
+        "pr_merge_success": false,
+        "pr_schema_valid": true
+      }
+    ],
+    "cli": [
+      {
+        "base_cli_exit": 0,
+        "base_cli_findings": [],
+        "base_cli_result": "PASS",
+        "head_label": "7e3e9cc2",
+        "pr_cli_exit": 1,
+        "pr_cli_findings": [
+          "CODEX_REVIEW_UNRESOLVED_P0_P1",
+          "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL"
+        ],
+        "pr_cli_result": "FAIL"
+      },
+      {
+        "base_cli_exit": 0,
+        "base_cli_findings": [],
+        "base_cli_result": "PASS",
+        "head_label": "3fcc7104",
+        "pr_cli_exit": 1,
+        "pr_cli_findings": [
+          "CODEX_REVIEW_UNRESOLVED_P0_P1",
+          "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL"
+        ],
+        "pr_cli_result": "FAIL"
+      }
+    ],
+    "expected_base_validator_sha256": "214d1cde630c3c487dba2fc9ea976c46452f3b224b31de42bf2f4e4e19db37ac",
+    "masked_fail_confirmed": true
+  },
+  "contest_clusters": {
+    "am_6607349": {
+      "abstention_reasons": [],
+      "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+      "ncaa_contest_id": "6607349",
+      "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+      "t24h_state": "OPEN",
+      "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+      "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE"
+    },
+    "as_of_utc": "2026-09-04T16:28:03Z",
+    "contest_count": 91,
+    "earliest_remaining_friday_t90": {
+      "clock_state": "UPCOMING",
+      "contest_count": 1,
+      "contest_ids": [
+        "6594366"
+      ],
+      "cutoff_utc": "2026-09-04T21:00:00Z",
+      "kind": "T90M",
+      "minutes_from_now": 271.9
+    },
+    "friday_remaining_t90_clusters": [
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6594366"
+        ],
+        "cutoff_utc": "2026-09-04T21:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 271.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6598559",
+          "6619544"
+        ],
+        "cutoff_utc": "2026-09-04T21:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 301.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 3,
+        "contest_ids": [
+          "6592887",
+          "6601163",
+          "6611346"
+        ],
+        "cutoff_utc": "2026-09-04T22:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 361.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6602792",
+          "6620138"
+        ],
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 421.9
+      }
+    ],
+    "ledger_issued_at_utc": "2026-09-04T15:20:10Z",
+    "upcoming_t24_clusters": [
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6618687",
+          "6620092"
+        ],
+        "cutoff_utc": "2026-09-04T16:30:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 1.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6593392"
+        ],
+        "cutoff_utc": "2026-09-04T16:45:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 16.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 3,
+        "contest_ids": [
+          "6583220",
+          "6583331",
+          "6600846"
+        ],
+        "cutoff_utc": "2026-09-04T17:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 31.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6598117"
+        ],
+        "cutoff_utc": "2026-09-04T18:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 91.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6612588"
+        ],
+        "cutoff_utc": "2026-09-04T18:30:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 121.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6620448"
+        ],
+        "cutoff_utc": "2026-09-04T19:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 151.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 11,
+        "contest_ids": [
+          "6583392",
+          "6585877",
+          "6587707",
+          "6592568",
+          "6594109",
+          "6600254",
+          "6604408",
+          "6607271",
+          "6608932",
+          "6610894",
+          "6611505"
+        ],
+        "cutoff_utc": "2026-09-04T19:30:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 181.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6582887"
+        ],
+        "cutoff_utc": "2026-09-04T19:45:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 196.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6582881",
+          "6587775"
+        ],
+        "cutoff_utc": "2026-09-04T20:15:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 226.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6593076"
+        ],
+        "cutoff_utc": "2026-09-04T21:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 271.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6590855",
+          "6607433"
+        ],
+        "cutoff_utc": "2026-09-04T22:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 331.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 13,
+        "contest_ids": [
+          "6586106",
+          "6586326",
+          "6587284",
+          "6588730",
+          "6590807",
+          "6591589",
+          "6593153",
+          "6596114",
+          "6606172",
+          "6607349",
+          "6609172",
+          "6620458",
+          "6620478"
+        ],
+        "cutoff_utc": "2026-09-04T23:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 391.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 5,
+        "contest_ids": [
+          "6586022",
+          "6589809",
+          "6590386",
+          "6590505",
+          "6614741"
+        ],
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 421.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6583172"
+        ],
+        "cutoff_utc": "2026-09-04T23:45:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 436.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 5,
+        "contest_ids": [
+          "6583582",
+          "6587672",
+          "6589595",
+          "6589953",
+          "6596257"
+        ],
+        "cutoff_utc": "2026-09-05T00:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 451.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6616987",
+          "6620513"
+        ],
+        "cutoff_utc": "2026-09-05T01:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 511.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6605119",
+          "6618489"
+        ],
+        "cutoff_utc": "2026-09-05T01:30:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 541.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6592700",
+          "6607878"
+        ],
+        "cutoff_utc": "2026-09-05T02:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 571.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6603305",
+          "6605164"
+        ],
+        "cutoff_utc": "2026-09-05T02:30:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 601.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6618941"
+        ],
+        "cutoff_utc": "2026-09-05T08:00:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 931.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6602874",
+          "6620581"
+        ],
+        "cutoff_utc": "2026-09-05T23:30:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 1861.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6594400"
+        ],
+        "cutoff_utc": "2026-09-06T23:30:00Z",
+        "kind": "T24H",
+        "minutes_from_now": 3301.9
+      }
+    ],
+    "upcoming_t90_clusters": [
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6594366"
+        ],
+        "cutoff_utc": "2026-09-04T21:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 271.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6598559",
+          "6619544"
+        ],
+        "cutoff_utc": "2026-09-04T21:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 301.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 3,
+        "contest_ids": [
+          "6592887",
+          "6601163",
+          "6611346"
+        ],
+        "cutoff_utc": "2026-09-04T22:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 361.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6602792",
+          "6620138"
+        ],
+        "cutoff_utc": "2026-09-04T23:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 421.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 10,
+        "contest_ids": [
+          "6590890",
+          "6593811",
+          "6594325",
+          "6601384",
+          "6611692",
+          "6611873",
+          "6613128",
+          "6617023",
+          "6620636",
+          "6620944"
+        ],
+        "cutoff_utc": "2026-09-05T14:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1321.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6618687",
+          "6620092"
+        ],
+        "cutoff_utc": "2026-09-05T15:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1351.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6593392"
+        ],
+        "cutoff_utc": "2026-09-05T15:15:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1366.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 3,
+        "contest_ids": [
+          "6583220",
+          "6583331",
+          "6600846"
+        ],
+        "cutoff_utc": "2026-09-05T15:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1381.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6598117"
+        ],
+        "cutoff_utc": "2026-09-05T16:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1441.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6612588"
+        ],
+        "cutoff_utc": "2026-09-05T17:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1471.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6620448"
+        ],
+        "cutoff_utc": "2026-09-05T17:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1501.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 11,
+        "contest_ids": [
+          "6583392",
+          "6585877",
+          "6587707",
+          "6592568",
+          "6594109",
+          "6600254",
+          "6604408",
+          "6607271",
+          "6608932",
+          "6610894",
+          "6611505"
+        ],
+        "cutoff_utc": "2026-09-05T18:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1531.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6582887"
+        ],
+        "cutoff_utc": "2026-09-05T18:15:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1546.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6582881",
+          "6587775"
+        ],
+        "cutoff_utc": "2026-09-05T18:45:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1576.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6593076"
+        ],
+        "cutoff_utc": "2026-09-05T19:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1621.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6590855",
+          "6607433"
+        ],
+        "cutoff_utc": "2026-09-05T20:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1681.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 13,
+        "contest_ids": [
+          "6586106",
+          "6586326",
+          "6587284",
+          "6588730",
+          "6590807",
+          "6591589",
+          "6593153",
+          "6596114",
+          "6606172",
+          "6607349",
+          "6609172",
+          "6620458",
+          "6620478"
+        ],
+        "cutoff_utc": "2026-09-05T21:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1741.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 5,
+        "contest_ids": [
+          "6586022",
+          "6589809",
+          "6590386",
+          "6590505",
+          "6614741"
+        ],
+        "cutoff_utc": "2026-09-05T22:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1771.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6583172"
+        ],
+        "cutoff_utc": "2026-09-05T22:15:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1786.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 5,
+        "contest_ids": [
+          "6583582",
+          "6587672",
+          "6589595",
+          "6589953",
+          "6596257"
+        ],
+        "cutoff_utc": "2026-09-05T22:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1801.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6616987",
+          "6620513"
+        ],
+        "cutoff_utc": "2026-09-05T23:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1861.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6605119",
+          "6618489"
+        ],
+        "cutoff_utc": "2026-09-06T00:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1891.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6592700",
+          "6607878"
+        ],
+        "cutoff_utc": "2026-09-06T00:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1921.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6603305",
+          "6605164"
+        ],
+        "cutoff_utc": "2026-09-06T01:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 1951.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6618941"
+        ],
+        "cutoff_utc": "2026-09-06T06:30:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 2281.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 2,
+        "contest_ids": [
+          "6602874",
+          "6620581"
+        ],
+        "cutoff_utc": "2026-09-06T22:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 3211.9
+      },
+      {
+        "clock_state": "UPCOMING",
+        "contest_count": 1,
+        "contest_ids": [
+          "6594400"
+        ],
+        "cutoff_utc": "2026-09-07T22:00:00Z",
+        "kind": "T90M",
+        "minutes_from_now": 4651.9
+      }
+    ]
+  },
+  "dirty_preservation": {
+    "artifact_type": "CYCLE27_DIRTY_OPERATOR_ARTIFACT_PRESERVATION",
+    "files": [
+      {
+        "committed_bytes": 14662,
+        "committed_sha256": "97db36fbeadfb299da36644decd3ce9973bb916402996e61fe7ad34cd5a9befa",
+        "manifest_sha256": "b2100f2fb62741b0cc594beb8c9b4d4cf211c5a0ac1ec5fd88cfef1c7b5c9ad5",
+        "matches_committed": false,
+        "matches_manifest": true,
+        "path": "artifacts/scientific_integrity/cycle26/CYCLE26_FINAL_REPORT.md",
+        "preserved_copy": "C:\\BatteredAggieSyndrome.data\\ops\\cycle27\\preserved_dirty\\20260904T162200Z\\CYCLE26_FINAL_REPORT.md",
+        "working_bytes": 16116,
+        "working_sha256": "b2100f2fb62741b0cc594beb8c9b4d4cf211c5a0ac1ec5fd88cfef1c7b5c9ad5"
+      },
+      {
+        "committed_bytes": 3335,
+        "committed_sha256": "092e446101db5a574ec848ccf887409eccfc2081b68b74a2d750c3bf1684a574",
+        "manifest_sha256": "a690f63394aab53e55defec9a27f2b5d0238d0329d8c1f3e8a8db8115352d6c0",
+        "matches_committed": false,
+        "matches_manifest": true,
+        "path": "artifacts/scientific_integrity/cycle26/CYCLE26_OVERNIGHT_WATCHDOG_STATE.json",
+        "preserved_copy": "C:\\BatteredAggieSyndrome.data\\ops\\cycle27\\preserved_dirty\\20260904T162200Z\\CYCLE26_OVERNIGHT_WATCHDOG_STATE.json",
+        "working_bytes": 3399,
+        "working_sha256": "a690f63394aab53e55defec9a27f2b5d0238d0329d8c1f3e8a8db8115352d6c0"
+      }
+    ],
+    "issued_at_utc": "2026-09-04T16:28:03Z",
+    "live_head": "3fcc710438a75f15abc23392c6136ac077f25e7b",
+    "note": "Preserved working-tree bytes only. Not a git commit, not authorization to add these files, not a hold release."
+  },
+  "git": {
+    "branch": "codex/BAT-690-c26-scr",
+    "head": "3fcc710438a75f15abc23392c6136ac077f25e7b",
+    "live_worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-690-c26-scr",
+    "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+    "pr_state": "OPEN_BLOCKED_REVIEW_REQUIRED",
+    "strategy": "STACKED_ON_PR678_HEAD_DO_NOT_MUTATE_LIVE_CAPTURE_OWNER",
+    "unrelated_open_pr": 654
+  },
+  "hold": {
+    "historical_pr671_release_not_authority_for_pr678": true,
+    "merge_authorized": false,
+    "operator_hold": "ACTIVE",
+    "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+    "scientific_done_authorized": false
+  },
+  "issued_at_utc": "2026-09-06T00:37:47Z",
+  "live_owners": {
+    "am_t24h": "COMPLETED_EVIDENCE_CAPTURED_0400f8b0",
+    "am_t24h_failover_pid": 27724,
+    "am_t24h_primary_pid": 28372,
+    "am_t90m": "COMPLETED_EVIDENCE_CAPTURED_8063d3bb_NOT_FORECAST_FROZEN",
+    "am_t90m_failover_pid": 32428,
+    "am_t90m_primary_pid": 24528,
+    "do_not_kill": true,
+    "friday_t90m_failover_pid": 41416,
+    "friday_t90m_owner": "COMPLETED_EVIDENCE_CAPTURED",
+    "friday_t90m_primary_pid": 40708,
+    "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
+    "overnight_heartbeat_pid": 22176,
+    "saturday_primary_and_failover": "EXITED_AFTER_COMPLETE",
+    "watchdog": "T90_AND_T24_RESTART_NO_BACKFILL"
+  },
+  "next_actions": [
+    {
+      "action": "ARM_FRIDAY_EARLIEST_T90M",
+      "cutoff_utc": "2026-09-04T21:00:00Z",
+      "do_not_git_commit_from_sleeper": true,
+      "wake_utc": "2026-09-04T20:15:00Z"
+    },
+    {
+      "action": "RETAIN_AM_T24H_SLEEPERS",
+      "cutoff_utc": "2026-09-04T23:00:00Z",
+      "wake_utc": "2026-09-04T22:15:00Z"
+    },
+    {
+      "action": "ISSUE_SCOPED_C27_WORKTREE",
+      "base": "3fcc710438a75f15abc23392c6136ac077f25e7b"
+    }
+  ],
+  "revision": "C27-PREGAME-COACHING-20260904",
+  "saturday_t24h": {
+    "checkpoint_label": "T-24H",
+    "code_head": "7e3e9cc2bb81d6dafe2903bd1b3dc0b316e42f82",
+    "contest_count": 91,
+    "failover_did_not_duplicate": true,
+    "identities": {
+      "rankings": {
+        "example_paths": [
+          "C:/BatteredAggieSyndrome.data/manifests/shadow/week1_2026_current_rankings/sha256/08ddddaf12d3492b25514b444a2564763ec2c8d3f69cdeef7572ad920d8b187e/week1_2026_current_rankings_capture_manifest.json"
+        ],
+        "found": true,
+        "identity": "08ddddaf12d3492b25514b444a2564763ec2c8d3f69cdeef7572ad920d8b187e"
+      },
+      "schedule": {
+        "example_paths": [
+          "C:/BatteredAggieSyndrome.data/manifests/shadow/week1_2026_source_universe/sha256/9b3c11f70db1f33eb545f2c35f3a0209d7006c0d67033d9da9dd53600023539e/week1_2026_source_universe_capture_manifest.json"
+        ],
+        "found": true,
+        "identity": "9b3c11f70db1f33eb545f2c35f3a0209d7006c0d67033d9da9dd53600023539e"
+      },
+      "weather": {
+        "example_paths": [
+          "C:/BatteredAggieSyndrome.data/manifests/shadow/week1_2026_weather_vintage/sha256/829f881cce7a89956199418c37987adb768c2382bf5f1bc2ef0a520ff9cdadef/week1_2026_weather_vintage_capture_manifest.json"
+        ],
+        "found": true,
+        "identity": "829f881cce7a89956199418c37987adb768c2382bf5f1bc2ef0a520ff9cdadef"
+      }
+    },
+    "issued_at_utc": "2026-09-04T15:20:10Z",
+    "issued_before_cutoff": true,
+    "label_authority": "T24H_LABEL_PERMITTED_FOR_EARLIEST_REMAINING_SATURDAY_WINDOW",
+    "limitations": [
+      "Binder selected capture log by declared path in this receipt; identity lookup is path presence, not cryptographic clock proof.",
+      "EVIDENCE_CAPTURED is not FORECAST_FROZEN."
+    ],
+    "log_exists": true,
+    "log_sha256": "3927753d9f2d095a0b01edc228ecd439c3504086156d7bb9fa0c339c6bdc466f",
+    "not_automatically_forecast_frozen": true,
+    "raw_collection_only": true,
+    "receipt_art_sha256": "1b8d1534a5d9bb8963fc52c942e1b62256df844c839f8a2c65d4d714329ac15b",
+    "receipt_ops_sha256": "1b8d1534a5d9bb8963fc52c942e1b62256df844c839f8a2c65d4d714329ac15b",
+    "receipts_match": true,
+    "scheduler_complete": true,
+    "scheduler_complete_head": true
+  },
+  "self_sha256_placeholder": "e96a9c83958be2686e2f65714fc8186ee29521036185a72a238d92b30447087c",
+  "stacked_repair": {
+    "branch": "codex/BAT-690-c27-scr",
+    "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679",
+    "strategy": "STACKED_ON_PR678_DO_NOT_MUTATE_LIVE_CAPTURE_OWNER",
+    "worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-690-c27-scr"
+  }
+}

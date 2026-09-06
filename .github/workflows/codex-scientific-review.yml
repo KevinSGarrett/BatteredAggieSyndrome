@@ -60,6 +60,8 @@ jobs:
           prompt-file: .github/codex/prompts/scientific-review.md
           sandbox: read-only
           output-file: artifacts/scientific_integrity/codex_scientific_review_output.json
+          model: gpt-5.3-codex
+          effort: medium
           codex-args: '["--output-schema","schemas/scientific_review/codex_scientific_review.schema.json"]'
       - name: Materialize trusted validator from protected base
         env:

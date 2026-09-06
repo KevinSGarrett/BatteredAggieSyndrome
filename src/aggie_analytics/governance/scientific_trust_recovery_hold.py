@@ -13,8 +13,12 @@ import re
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-HOLD_CONTRACT_RELATIVE = Path("configs") / "scientific_trust_recovery_hold_contract.json"
-HOLD_RECEIPT_RELATIVE = Path("artifacts") / "scientific_integrity" / "OPERATOR_HOLD_RECEIPT.json"
+HOLD_CONTRACT_RELATIVE = (
+    Path("configs") / "scientific_trust_recovery_hold_contract.json"
+)
+HOLD_RECEIPT_RELATIVE = (
+    Path("artifacts") / "scientific_integrity" / "OPERATOR_HOLD_RECEIPT.json"
+)
 RELEASE_RECEIPT_RELATIVE = (
     Path("artifacts") / "scientific_integrity" / "OPERATOR_RELEASE_RECEIPT.json"
 )
@@ -83,7 +87,9 @@ KNOWN_ACTION_CLASSES = {
     "diagnostic",
 }
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
-RELEASE_IDENTITY_250A80EE = "250a80ee3dd2dc2d3403e32f2d59270733f0cb4955b3e7046c608fde7988fd2c"
+RELEASE_IDENTITY_250A80EE = (
+    "250a80ee3dd2dc2d3403e32f2d59270733f0cb4955b3e7046c608fde7988fd2c"
+)
 
 
 def canonical_json(value: object) -> bytes:
@@ -187,7 +193,10 @@ def _release_authorizes(
     expected_digest = compute_identity(release, "release_identity")
     if release.get("release_identity") != expected_digest:
         findings.append("HOLD_RELEASE_DIGEST_MISMATCH")
-    if release.get("hold_receipt_identity") != "9c3ecb3091a41d6b4326ed701fccaddff4ed557251cd808d36e381455f6c24cd":
+    if (
+        release.get("hold_receipt_identity")
+        != "9c3ecb3091a41d6b4326ed701fccaddff4ed557251cd808d36e381455f6c24cd"
+    ):
         findings.append("HOLD_RELEASE_HOLD_IDENTITY_MISMATCH")
     try:
         explicit = _require_bool(
@@ -202,7 +211,9 @@ def _release_authorizes(
     if release.get("authorizing_user") != "KevinSGarrett":
         findings.append("HOLD_RELEASE_AUTHORITY_INVALID")
     binding = release.get("authorization_message_binding") or {}
-    if not binding.get("instruction_text_sha256") or not binding.get("instruction_pack_sha256"):
+    if not binding.get("instruction_text_sha256") or not binding.get(
+        "instruction_pack_sha256"
+    ):
         findings.append("AUTHORIZATION_SOURCE_NOT_VERIFIED")
     authorized_actions = {str(item) for item in release.get("authorizes") or []}
     authorized_pr = release.get("scientific_pr")
@@ -217,14 +228,20 @@ def _release_authorizes(
         if base_sha and not SHA_RE.fullmatch(str(base_sha).lower()):
             findings.append("HOLD_RELEASE_BASE_SHA_INVALID")
     elif action == "done":
-        if "transition_verified_owners_to_done_only_if_acceptance_actually_met" not in authorized_actions:
+        if (
+            "transition_verified_owners_to_done_only_if_acceptance_actually_met"
+            not in authorized_actions
+        ):
             findings.append("HOLD_RELEASE_ACTION_CLASS_MISMATCH")
         for owner in owners:
             if owner not in PROHIBITED_DONE_OWNERS:
                 findings.append(f"HOLD_RELEASE_UNKNOWN_OWNER:{owner}")
         findings.append("HOLD_DONE_REQUIRES_INDEPENDENT_ACCEPTANCE")
     elif action == "parent_progress_comment":
-        if "post_exactly_one_factual_bat_523_cycle_25_5_parent_progress_comment" not in authorized_actions:
+        if (
+            "post_exactly_one_factual_bat_523_cycle_25_5_parent_progress_comment"
+            not in authorized_actions
+        ):
             findings.append("HOLD_RELEASE_ACTION_CLASS_MISMATCH")
         findings.append("HOLD_CYCLE26_PARENT_COMMENT_FORBIDDEN")
     elif action == "completion_claim":
@@ -289,6 +306,22 @@ def validate_hold(
         findings.append("HOLD_ACTION_CONTEXT_MISSING")
     if proposed_action is not None and proposed_action not in KNOWN_ACTION_CLASSES:
         findings.append(f"HOLD_UNKNOWN_ACTION:{proposed_action}")
+    # An action request is not a diagnostic merely because its payload is absent.
+    if proposed_action == "merge":
+        if not proposed_merges:
+            findings.append("HOLD_MERGE_REFERENCE_MISSING")
+        if (
+            isinstance(proposed_pr_number, bool)
+            or not isinstance(proposed_pr_number, int)
+            or proposed_pr_number <= 0
+        ):
+            findings.append("HOLD_MERGE_PR_CONTEXT_MISSING")
+        if not SHA_RE.fullmatch(str(proposed_head_sha or "")):
+            findings.append("HOLD_MERGE_HEAD_CONTEXT_MISSING")
+        if not SHA_RE.fullmatch(str(proposed_base_sha or "")):
+            findings.append("HOLD_MERGE_BASE_CONTEXT_MISSING")
+    if proposed_action == "done" and not proposed_done_keys:
+        findings.append("HOLD_DONE_OWNER_CONTEXT_MISSING")
 
     released = release_receipt_present(repo_root)
     release: dict[str, Any] | None = None
@@ -322,9 +355,12 @@ def validate_hold(
         if not item:
             findings.append(f"HOLD_OWNER_MISSING_FROM_REGISTRY:{key}")
             continue
-        if item.get("status") == "Done" and not released:
+        # Receipt presence is not scoped acceptance. No current protected owner
+        # may be recorded Done while this hold is active; historical Done owners
+        # are already excluded by PROHIBITED_DONE_OWNERS.
+        if item.get("status") == "Done":
             findings.append(f"HOLD_DONE_TRANSITION_WHILE_ACTIVE:{key}")
-        if item.get("logical_state") == "DONE" and not released:
+        if item.get("logical_state") == "DONE":
             findings.append(f"HOLD_LOGICAL_DONE_WHILE_ACTIVE:{key}")
 
     for key in proposed_done_keys or []:
@@ -346,7 +382,10 @@ def validate_hold(
                 )
 
     if proposed_parent_comment:
-        if _parent_comment_prohibited(proposed_parent_comment) and receipt.get("status") == "ACTIVE":
+        if (
+            _parent_comment_prohibited(proposed_parent_comment)
+            and receipt.get("status") == "ACTIVE"
+        ):
             findings.append("HOLD_PROHIBITED_BAT_523_PARENT_PROGRESS_COMMENT")
         if released and release is not None:
             findings.extend(

@@ -1,0 +1,77 @@
+{
+  "active_week1_candidates": [
+    "national_base_rate",
+    "national_elo",
+    "national_logistic_l2",
+    "national_margin_ridge",
+    "prior_only"
+  ],
+  "artifact_type": "SCORE_MODEL_READINESS",
+  "classification": "CYCLE27_SCORE_MODEL_READINESS_NOT_WEEK1_ELIGIBLE",
+  "code_head": "a5fc3b38ed592781f245a65e9f051d445d7d7ddd",
+  "contract_id": "CYCLE27-PREGAME-REPORTING-V1",
+  "deprecated_experiments_enabled": false,
+  "experimental_score_models": {
+    "IndependentPoissonScoreRuntime": true,
+    "elo_offense_defense_score_components": {
+      "candidate_only": true,
+      "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
+      "contract": "configs/elo_offense_defense_challenger_contract.json",
+      "enabled_for_week1": false,
+      "protected_performance": false,
+      "report_only_exposed_seasons": [
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "enabled_for_week1": false,
+    "path": "src/aggie_analytics/modeling/joint.py",
+    "preliminary_poisson_unprotected_baselines": {
+      "2024_2025_blind": false,
+      "classification": "PRELIMINARY_UNPROTECTED",
+      "target_seasons": [
+        2023,
+        2024,
+        2025
+      ],
+      "tool": "tools/run_preliminary_unprotected_baselines.py"
+    },
+    "present_in_active_week1_design": false,
+    "requires_expected_team_points_features": true
+  },
+  "fitted_authority_clean_week1_score_candidate": false,
+  "follow_on_requirements": [
+    "Authority-clean historical points-for/against labels and features.",
+    "National chronological training with train-only transforms.",
+    "Coherent nonnegative team-score/total/margin joint distribution.",
+    "Declared overtime and market-settlement treatment.",
+    "Out-of-sample score, total, margin, and probability evaluation.",
+    "Interval coverage under the declared joint model.",
+    "Immutable future forecasts; algebraic score+margin+total cross-checks."
+  ],
+  "gate_identity": "f15329c38763544be7c8bbcb6439f1d44b371bc9b739e9674f9b69d5711ebc49",
+  "independent_predicted_score": null,
+  "independent_predicted_score_blocker": "NO_ELIGIBLE_WEEK1_JOINT_SCORE_OR_TOTAL_CANDIDATE; active suite emits probability and ridge margin only; JointScoreDistribution/IndependentPoissonScoreRuntime are interfaces/experiments, not frozen Week1 outputs; preliminary Poisson and offense/defense Elo used 2024/2025 which are historically exposed and not blind; deprecated experiments are not enabled.",
+  "issued_at_utc": "2026-09-05T20:58:22Z",
+  "jira_key": "BAT-690",
+  "margin_identifies_both_team_scores": false,
+  "parent_jira_key": "BAT-523",
+  "planned_interfaces": {
+    "JointScoreDistribution": true,
+    "path": "src/aggie_analytics/modeling/contracts.py",
+    "week1_frozen_output": false
+  },
+  "prospective_frozen_week1_score_outputs": false,
+  "protected_seasons_2024_2025_not_blind": true,
+  "result": "PASS_SCORE_MODEL_READINESS_NULL_SCORE",
+  "ridge_emits_margin": true,
+  "schema_version": "aggie.data.cycle27_pregame_reporting.v1",
+  "scientific_nonclaims": [
+    "Does not state that score modeling was never implemented.",
+    "Does not repackage 2024/2025 experiments as blind validation.",
+    "Does not invent score intervals from a margin interval alone.",
+    "A market-line implied score is not an independent BAS score."
+  ],
+  "validated_score_performance": false
+}

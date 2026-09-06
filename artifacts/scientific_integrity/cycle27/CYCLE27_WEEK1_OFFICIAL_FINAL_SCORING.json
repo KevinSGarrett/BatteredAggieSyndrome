@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING",
-  "as_of_utc": "2026-09-05T23:38:44Z",
+  "as_of_utc": "2026-09-06T00:24:34Z",
   "bound_predecessors": {
     "early_week1_freeze_utc": "2026-09-03T06:47:23Z",
     "forecast_payload_sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
@@ -18,7 +18,7 @@
   "classification": "WEEK1_OFFICIAL_FINAL_SCORING_PINNED_MANIFEST",
   "code_identity": "e17af5a9762e391a39a2306260e3cf00c4eca89759de5909eac7994b17fc9fde",
   "contract_id": "CYCLE27-WEEK1-2026-OFFICIAL-FINAL-SCORING-SUCCESSOR-V1",
-  "dataset_identity": "0aef490e088b5349644f6d8cd415fb6a86913242e33a53b5cd441e5178052628",
+  "dataset_identity": "85a379e3d5f7c6267ca12dbbb9825e0e0b1226671fbbd7479f19f420afee26d5",
   "empirical_assessment": {
     "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
     "candidates": [
@@ -29,70 +29,70 @@
         "directional_accuracy": null,
         "directional_denominator": 0,
         "directional_numerator": 0,
-        "log_loss": 0.6931471805599446,
+        "log_loss": 0.6931471805599445,
         "margin_mae": null,
         "no_direction_excluded_from_directional": true,
-        "unique_games": 41
+        "unique_games": 46
       },
       {
-        "brier": 0.17214928148092024,
+        "brier": 0.16594791937525433,
         "candidate_id": "national_elo",
         "control_only": false,
-        "directional_accuracy": 0.7894736842105263,
-        "directional_denominator": 38,
-        "directional_numerator": 30,
-        "log_loss": 0.5237537818065471,
+        "directional_accuracy": 0.813953488372093,
+        "directional_denominator": 43,
+        "directional_numerator": 35,
+        "log_loss": 0.5116425297804149,
         "margin_mae": null,
         "no_direction_excluded_from_directional": true,
-        "unique_games": 38
+        "unique_games": 43
       },
       {
-        "brier": 0.09907718827716576,
+        "brier": 0.09710920683832024,
         "candidate_id": "national_logistic_l2",
         "control_only": false,
-        "directional_accuracy": 0.9210526315789473,
-        "directional_denominator": 38,
-        "directional_numerator": 35,
-        "log_loss": 0.356231423153227,
+        "directional_accuracy": 0.9302325581395349,
+        "directional_denominator": 43,
+        "directional_numerator": 40,
+        "log_loss": 0.35190613735478793,
         "margin_mae": null,
         "no_direction_excluded_from_directional": true,
-        "unique_games": 38
+        "unique_games": 43
       },
       {
-        "brier": 0.1093930397370027,
+        "brier": 0.10741812140545869,
         "candidate_id": "national_margin_ridge",
         "control_only": false,
-        "directional_accuracy": 0.9210526315789473,
-        "directional_denominator": 38,
-        "directional_numerator": 35,
-        "log_loss": 0.38482443153712925,
-        "margin_mae": 23.98868121695263,
+        "directional_accuracy": 0.9302325581395349,
+        "directional_denominator": 43,
+        "directional_numerator": 40,
+        "log_loss": 0.38053313151792034,
+        "margin_mae": 23.28961102553488,
         "no_direction_excluded_from_directional": true,
-        "unique_games": 38
+        "unique_games": 43
       },
       {
-        "brier": 0.12660407574233895,
+        "brier": 0.12479602030983508,
         "candidate_id": "prior_only",
         "control_only": false,
-        "directional_accuracy": 0.8947368421052632,
-        "directional_denominator": 38,
-        "directional_numerator": 34,
-        "log_loss": 0.4268856159478906,
+        "directional_accuracy": 0.9069767441860465,
+        "directional_denominator": 43,
+        "directional_numerator": 39,
+        "log_loss": 0.4234678638419679,
         "margin_mae": null,
         "no_direction_excluded_from_directional": true,
-        "unique_games": 38
+        "unique_games": 43
       }
     ],
     "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW_NOT_REPEATED_CHECKPOINT",
     "predeclared_min_unique_games_for_skill_claim": 30,
     "reason": "Week 1 residuals remain a prospective census and do not replace the 2023 development partition.",
-    "unique_scored_games": 41,
+    "unique_scored_games": 46,
     "used_for_training_or_tuning": false
   },
   "forecast_payloads_rewritten": false,
-  "gate_identity": "6d08fae4117d59374d21f511d235e1df5b1e30581b392692503dbadd82ea4c8d",
-  "input_manifest_identity": "2119cbc535b08e3422d0537d8f9452b33ff4f8b26f239032bd367fd36db4d7aa",
-  "issued_at_utc": "2026-09-05T23:38:44Z",
+  "gate_identity": "9c7a10e72b3ecb1de4ef5c8c093ec0897608d741e99a8efab1d7af7423280fea",
+  "input_manifest_identity": "723795382fb896db50d1e969c03e3caceb4fc980d37de602b7bba547600e03aa",
+  "issued_at_utc": "2026-09-06T00:24:34Z",
   "jira_key": "BAT-694",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-2026-WEEK1-NATIONAL-FORECAST-COHORT-001",
@@ -104,13 +104,13 @@
   "payloads": {
     "input_manifest": {
       "relative_path": "artifacts/scientific_integrity/cycle27/CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING_INPUT_MANIFEST.json",
-      "sha256": "2119cbc535b08e3422d0537d8f9452b33ff4f8b26f239032bd367fd36db4d7aa"
+      "sha256": "723795382fb896db50d1e969c03e3caceb4fc980d37de602b7bba547600e03aa"
     },
     "scoring_rows": {
-      "bytes": 320002,
+      "bytes": 331246,
       "relative_path": "artifacts/scientific_integrity/cycle27/CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING_ROWS.jsonl",
       "row_count": 455,
-      "sha256": "0aef490e088b5349644f6d8cd415fb6a86913242e33a53b5cd441e5178052628"
+      "sha256": "85a379e3d5f7c6267ca12dbbb9825e0e0b1226671fbbd7479f19f420afee26d5"
     }
   },
   "predecessor_scoring_payload_rewritten": false,
@@ -132,23 +132,24 @@
   ],
   "summary": {
     "forecast_row_count": 455,
-    "joined_forecast_rows": 225,
+    "joined_forecast_rows": 255,
     "quarantined_conflict_contest_ids": [],
     "rejected_receipt_before_kickoff_count": 0,
     "rejected_receipt_reasons": [],
-    "scoreboard_cards": 4621,
-    "scoreboard_html_count": 280,
-    "scored_row_count": 193,
+    "scoreboard_cards": 4803,
+    "scoreboard_html_count": 290,
+    "scored_row_count": 218,
     "state_counts": {
-      "ABSTAINED": 32,
+      "ABSTAINED": 37,
       "AUTHORIZED_EXCLUSION": 0,
-      "AWAITING_OFFICIAL_FINAL": 230,
+      "AWAITING_OFFICIAL_FINAL": 200,
       "CONFLICT_QUARANTINED": 0,
       "MISSED_CUTOFF_NO_BACKFILL": 0,
-      "SCORED": 193
+      "SCORED": 218
     },
-    "terminal_contest_count": 45,
+    "terminal_contest_count": 51,
     "terminal_contest_ids": [
+      "6582881",
       "6582887",
       "6582933",
       "6583220",
@@ -157,10 +158,13 @@
       "6585877",
       "6586572",
       "6587707",
+      "6587775",
       "6588927",
       "6590890",
       "6591259",
+      "6592568",
       "6592887",
+      "6593076",
       "6593392",
       "6593811",
       "6594109",
@@ -179,10 +183,12 @@
       "6604408",
       "6608932",
       "6609567",
+      "6610894",
       "6611346",
       "6611505",
       "6611692",
       "6611873",
+      "6612588",
       "6613128",
       "6617023",
       "6618350",
@@ -195,7 +201,7 @@
       "6620636",
       "6620944"
     ],
-    "unique_scored_games": 41,
+    "unique_scored_games": 46,
     "universe_contest_count": 91
   },
   "t24h_backfill": false,

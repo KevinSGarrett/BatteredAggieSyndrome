@@ -95,14 +95,14 @@
     },
     {
       "acquisition_receipt_required": true,
-      "dataset_identity": "0aef490e088b5349644f6d8cd415fb6a86913242e33a53b5cd441e5178052628",
-      "gate_identity": "6d08fae4117d59374d21f511d235e1df5b1e30581b392692503dbadd82ea4c8d",
+      "dataset_identity": "85a379e3d5f7c6267ca12dbbb9825e0e0b1226671fbbd7479f19f420afee26d5",
+      "gate_identity": "9c7a10e72b3ecb1de4ef5c8c093ec0897608d741e99a8efab1d7af7423280fea",
       "id": "TRACK_C_SCORING_SUCCESSOR",
       "pin_retrieved_at_is_not_acquisition_authority": true,
       "predecessor_gate_preserved": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
       "rejected_missing_retrieved_at": 0,
-      "scored_row_count": 193,
-      "status": "ISSUED_PINNED_MANIFEST_UNTRUSTED_SHADOW_41_UNIQUE_GAMES"
+      "scored_row_count": 218,
+      "status": "ISSUED_PINNED_MANIFEST_UNTRUSTED_SHADOW_46_UNIQUE_GAMES"
     },
     {
       "c26_materializer": "STILL_COPIES_C24_AND_MUTATES_P_INTERVAL",
@@ -157,7 +157,7 @@
     }
   ],
   "hold": "ACTIVE",
-  "issued_at_utc": "2026-09-05T23:53:44Z",
+  "issued_at_utc": "2026-09-06T00:25:53Z",
   "merge_authorized": false,
   "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
   "revision": "C27-PREGAME-COACHING-20260904",

@@ -9,7 +9,7 @@
   "artifact_type": "BAS_GITHUB_TRANSFER_READINESS_GATE",
   "create_disconnected_copy": false,
   "disposition": "BAS_REPOSITORY_TRANSFER_PREPARED_NOT_AUTHORIZED",
-  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
   "membership_query_ok": true,
   "membership_redacted": "GridironCortex membership queried; role recorded without tokens",
   "recommended_target": "GridironCortex/BatteredAggieSyndrome",

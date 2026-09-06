@@ -61,6 +61,36 @@ TARGETS = (
         "purpose": "official_institutional_kickoff",
     },
     {
+        "target_id": "ncaa_scoreboard_2026_09_03",
+        "ncaa_contest_id": None,
+        "source_uri": (
+            "https://stats.ncaa.org/contests/livestream_scoreboards"
+            "?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1"
+            "&game_date=09%2F03%2F2026"
+        ),
+        "purpose": "official_ncaa_scoreboard",
+    },
+    {
+        "target_id": "ncaa_scoreboard_2026_09_04",
+        "ncaa_contest_id": None,
+        "source_uri": (
+            "https://stats.ncaa.org/contests/livestream_scoreboards"
+            "?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1"
+            "&game_date=09%2F04%2F2026"
+        ),
+        "purpose": "official_ncaa_scoreboard",
+    },
+    {
+        "target_id": "ncaa_scoreboard_2026_09_05",
+        "ncaa_contest_id": None,
+        "source_uri": (
+            "https://stats.ncaa.org/contests/livestream_scoreboards"
+            "?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1"
+            "&game_date=09%2F05%2F2026"
+        ),
+        "purpose": "official_ncaa_scoreboard",
+    },
+    {
         "target_id": "ncaa_scoreboard_2026_09_06",
         "ncaa_contest_id": None,
         "source_uri": (
@@ -79,6 +109,12 @@ TARGETS = (
             "&game_date=09%2F07%2F2026"
         ),
         "purpose": "official_ncaa_scoreboard",
+    },
+    {
+        "target_id": "ncaa_contest_6607349",
+        "ncaa_contest_id": "6607349",
+        "source_uri": "https://stats.ncaa.org/contests/6607349/box_score",
+        "purpose": "official_ncaa_box_or_status",
     },
     {
         "target_id": "ncaa_contest_6618941",
@@ -248,6 +284,11 @@ def acquire_one(target: dict[str, Any], *, data_root: Path, token: str) -> dict[
     return {"state": "CAPTURED", **written, "attempts": attempts}
 
 
+def already_captured(data_root: Path, target_id: str) -> bool:
+    raw_dir = data_root / "raw" / "CYCLE28" / target_id
+    return raw_dir.is_dir() and any(raw_dir.glob("*.html"))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -260,6 +301,17 @@ def main() -> int:
         type=Path,
         default=Path(r"C:\BatteredAggieSyndrome\.env"),
     )
+    parser.add_argument(
+        "--skip-captured",
+        action="store_true",
+        help="Do not re-fetch targets that already have raw HTML.",
+    )
+    parser.add_argument(
+        "--only",
+        action="append",
+        default=[],
+        help="Acquire only these target_id values (repeatable).",
+    )
     args = parser.parse_args()
     env = load_env(args.env_path)
     token = (
@@ -270,7 +322,30 @@ def main() -> int:
         or ""
     )
     records = []
-    for target in TARGETS:
+    out = (
+        args.data_root
+        / "ops"
+        / "cycle28"
+        / "outputs"
+        / "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER.json"
+    )
+    selected = [target for target in TARGETS if not args.only or target["target_id"] in args.only]
+    for target in selected:
+        if args.skip_captured and already_captured(args.data_root, str(target["target_id"])):
+            html = next((args.data_root / "raw" / "CYCLE28" / str(target["target_id"])).glob("*.html"))
+            records.append(
+                {
+                    "target_id": target["target_id"],
+                    "ncaa_contest_id": target.get("ncaa_contest_id"),
+                    "source_uri": target["source_uri"],
+                    "state": "CAPTURED",
+                    "raw_sha256": html.stem,
+                    "receipt_sha256": None,
+                    "route_id": "already_captured_not_refetched",
+                }
+            )
+            print(f"{target['target_id']}: SKIP_CAPTURED")
+            continue
         record = acquire_one(target, data_root=args.data_root, token=token)
         records.append(
             {
@@ -285,6 +360,12 @@ def main() -> int:
             }
         )
         print(f"{target['target_id']}: {record['state']}")
+    by_id = {row["target_id"]: row for row in records}
+    if out.is_file() and args.only:
+        previous = json.loads(out.read_text(encoding="utf-8"))
+        merged = {row["target_id"]: row for row in previous.get("records") or []}
+        merged.update(by_id)
+        records = list(merged.values())
     ledger = {
         "artifact_type": "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER",
         "issued_at_utc": utc_now(),
@@ -292,13 +373,6 @@ def main() -> int:
         "captured_count": sum(1 for row in records if row["state"] == "CAPTURED"),
         "failed_count": sum(1 for row in records if row["state"] != "CAPTURED"),
     }
-    out = (
-        args.data_root
-        / "ops"
-        / "cycle28"
-        / "outputs"
-        / "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER.json"
-    )
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(ledger, indent=2, sort_keys=True), encoding="utf-8")
     print(json.dumps({"captured": ledger["captured_count"], "failed": ledger["failed_count"]}))

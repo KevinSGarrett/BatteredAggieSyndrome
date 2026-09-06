@@ -129,3 +129,55 @@ def reconstruct_scoreboard_cards(document: str) -> list[dict[str, Any]]:
             }
         )
     return cards
+
+
+_BOX_TEAM = re.compile(
+    r'<a target="TEAMS_WIN" class="skipMask" href="/teams/(\d+)">([^<]+)</a>'
+)
+_BOX_BIG_SCORE = re.compile(
+    r'<td valign="center" style="font-size:36px; color: [^"]+">\s*(-?\d+)\s*</td>'
+)
+_BOX_CONTEST = re.compile(r"/contests/(\d+)/")
+_BOX_DATETIME = re.compile(r"(\d{2}/\d{2}/\d{4})\s+(\d{1,2}:\d{2}\s*[AP]M)")
+
+
+def reconstruct_box_score_header(document: str, contest_id_hint: str | None = None) -> dict[str, Any]:
+    """Independently parse an NCAA contest box-score header. Does not hardcode scores."""
+    contest_ids = _BOX_CONTEST.findall(document)
+    contest_id = contest_id_hint or (contest_ids[0] if contest_ids else None)
+    teams = _BOX_TEAM.findall(document)
+    scores = _BOX_BIG_SCORE.findall(document)
+    if contest_id is None or len(teams) < 2 or len(scores) < 2:
+        return {
+            "ncaa_contest_id": contest_id,
+            "parse_state": "REJECTED_BOX_HEADER",
+            "team_count": len(teams),
+            "score_count": len(scores),
+        }
+    away_id, away_name = teams[0]
+    home_id, home_name = teams[1]
+    away_points = int(scores[0])
+    home_points = int(scores[1])
+    if home_points > away_points:
+        winner = "HOME"
+    elif away_points > home_points:
+        winner = "AWAY"
+    else:
+        winner = "TIE"
+    header = _BOX_DATETIME.search(document)
+    return {
+        "ncaa_contest_id": contest_id,
+        "parse_state": "PARSED",
+        "final_status_text": "FINAL",
+        "final_status_is_terminal": True,
+        "away_source_team_id": away_id,
+        "away_source_team_name": html.unescape(away_name).strip(),
+        "away_points": away_points,
+        "home_source_team_id": home_id,
+        "home_source_team_name": html.unescape(home_name).strip(),
+        "home_points": home_points,
+        "winner_orientation": winner,
+        "source_published_clock_text": header.group(2) if header else None,
+        "source_published_game_date": _normalize_source_date(header.group(1) if header else None),
+        "home_win": None if winner == "TIE" else int(winner == "HOME"),
+    }

@@ -49,10 +49,13 @@ from aggie_analytics.cycle28.coaching import CANDIDATE_ONLY, CFBD_HEAD_COACH_SCO
 from aggie_analytics.cycle28.coverage import REQUIRED_DOMAINS, capability_domain_record
 from aggie_analytics.cycle28.scoring import (
     PREDECESSOR_CYCLE27_RECEIPT_CLASS,
-    STATE_AWAITING,
-    STATE_NO_FORECAST,
+    SOURCE_ACQUISITION_RECEIPT,
+    a_and_m_postgame_observation,
+    bind_atomic_week1_scoring,
+    card_to_terminal_receipt,
     classify_predecessor_receipts,
 )
+from aggie_analytics.scientific_reference.cycle28_scoring import parse_independent_box, parse_independent_cards
 from aggie_analytics.cycle28.topology import TRANSFER_PREPARED
 
 DATA = Path(r"C:\BatteredAggieSyndrome.data")
@@ -147,6 +150,109 @@ def receipt_payloads() -> list[dict[str, Any]]:
             for _ in range(290)
         ]
     return receipts
+
+
+def load_frozen_forecast_rows() -> list[dict[str, Any]]:
+    path = (
+        ROOT
+        / "artifacts"
+        / "scientific_integrity"
+        / "cycle27"
+        / "CYCLE27_WEEK1_OFFICIAL_FINAL_SCORING_ROWS.jsonl"
+    )
+    rows: list[dict[str, Any]] = []
+    if not path.is_file():
+        return rows
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        rows.append(json.loads(line))
+    return rows
+
+
+def load_cycle28_receipt(target_id: str, raw_sha256: str | None = None) -> dict[str, Any] | None:
+    receipt_dir = DATA / "receipts" / "CYCLE28" / target_id
+    if not receipt_dir.is_dir():
+        return None
+    matches: list[dict[str, Any]] = []
+    for path in sorted(receipt_dir.rglob("source_acquisition_receipt.json")):
+        payload = load_json(path)
+        if payload.get("receipt_kind") != SOURCE_ACQUISITION_RECEIPT:
+            continue
+        payload["_receipt_path"] = str(path.relative_to(DATA)).replace("\\", "/")
+        payload["_receipt_sha256"] = path.parent.name
+        if raw_sha256 and payload.get("raw_sha256") == raw_sha256:
+            return payload
+        matches.append(payload)
+    return matches[-1] if matches else None
+
+
+def load_atomic_terminal_receipts(kickoff_by_contest: dict[str, str]) -> tuple[list[dict[str, Any]], list[str]]:
+    terminals: list[dict[str, Any]] = []
+    failed: list[str] = []
+    raw_root = DATA / "raw" / "CYCLE28"
+    if not raw_root.is_dir():
+        return terminals, failed
+    for target_dir in sorted(raw_root.iterdir()):
+        if not target_dir.is_dir():
+            continue
+        html_files = sorted(target_dir.glob("*.html"))
+        if not html_files:
+            receipt = load_cycle28_receipt(target_dir.name)
+            contest_id = None if receipt is None else receipt.get("ncaa_contest_id")
+            if contest_id:
+                failed.append(str(contest_id))
+            continue
+        html_path = html_files[-1]
+        receipt = load_cycle28_receipt(target_dir.name, html_path.stem)
+        if receipt is None:
+            for candidate in reversed(html_files):
+                receipt = load_cycle28_receipt(target_dir.name, candidate.stem)
+                if receipt is not None:
+                    html_path = candidate
+                    break
+        receipt = receipt or {}
+        document = html_path.read_text(encoding="utf-8", errors="replace")
+        acquisition = {
+            "trusted_clock_retrieval_utc": receipt.get("trusted_clock_retrieval_utc")
+            or receipt.get("acquisition_ended_at_utc"),
+            "request_identity_sha256": receipt.get("request_identity_sha256"),
+            "raw_response_sha256": html_path.stem,
+            "raw_response_relative_path": str(html_path.relative_to(DATA)).replace("\\", "/"),
+            "acquisition_receipt_sha256": receipt.get("_receipt_sha256")
+            or receipt.get("receipt_sha256"),
+            "acquisition_receipt_relative_path": receipt.get("_receipt_path"),
+            "route_id": receipt.get("route_id") or "unknown_route",
+            "receipt_kind": receipt.get("receipt_kind") or SOURCE_ACQUISITION_RECEIPT,
+        }
+        if not acquisition["trusted_clock_retrieval_utc"] or not acquisition["request_identity_sha256"]:
+            continue
+        if target_dir.name.startswith("ncaa_scoreboard_"):
+            for card in parse_independent_cards(document):
+                if card.get("parse_state") != "PARSED":
+                    continue
+                if not card.get("final_status_is_terminal"):
+                    continue
+                status = str(card.get("final_status_text") or "").upper()
+                if "FINAL" not in status:
+                    continue
+                if card.get("home_points") is None or card.get("away_points") is None:
+                    continue
+                cid = str(card["ncaa_contest_id"])
+                bound = dict(acquisition)
+                bound["kickoff_bound_or_confirmed_utc"] = kickoff_by_contest.get(cid)
+                terminals.append(card_to_terminal_receipt(card, bound))
+            continue
+        if target_dir.name.startswith("ncaa_contest_"):
+            hint = target_dir.name.split("ncaa_contest_")[-1]
+            card = parse_independent_box(document, hint)
+            if card.get("parse_state") != "PARSED":
+                continue
+            cid = str(card["ncaa_contest_id"])
+            bound = dict(acquisition)
+            bound["kickoff_bound_or_confirmed_utc"] = kickoff_by_contest.get(cid)
+            terminals.append(card_to_terminal_receipt(card, bound))
+    return terminals, failed
 
 
 def main() -> int:
@@ -288,59 +394,68 @@ def main() -> int:
         },
     )
 
-    scoring_rows = []
-    final_states = []
-    for row in contests:
-        cid = str(row.get("ncaa_contest_id"))
-        if cid in remaining and remaining[cid]["official_kickoff_utc"] > now:
-            state = STATE_AWAITING
-        elif cid == CONTEST_6618941:
-            state = STATE_AWAITING
-        else:
-            kickoff = str(row.get("kickoff_bound_utc") or row.get("kickoff_utc") or "")
-            state = STATE_AWAITING if kickoff and kickoff > now else STATE_AWAITING
-        final_states.append(
-            {
-                "ncaa_contest_id": cid,
-                "state": state,
-                "home": row.get("home_team") or row.get("home"),
-                "away": row.get("away_team") or row.get("away"),
-                "kickoff_bound_utc": row.get("kickoff_bound_utc") or row.get("kickoff_utc"),
-            }
-        )
+    kickoff_by_contest = {
+        str(row.get("ncaa_contest_id")): str(row.get("kickoff_bound_utc") or row.get("kickoff_utc") or "")
+        for row in contests
+    }
+    terminals, failed_ids = load_atomic_terminal_receipts(kickoff_by_contest)
+    scoring_payload = bind_atomic_week1_scoring(
+        contests=contests,
+        forecast_rows=load_frozen_forecast_rows(),
+        terminal_receipts=terminals,
+        acquisition_failed_contest_ids=failed_ids,
+        now_utc=now,
+    )
     dump(
         ART / "CYCLE28_WEEK1_CONTEST_FINAL_STATES.json",
         {
             "artifact_type": "CYCLE28_WEEK1_CONTEST_FINAL_STATES",
             "issued_at_utc": now,
-            "contest_count": len(final_states),
-            "states": Counter(row["state"] for row in final_states),
-            "rows": final_states,
+            "contest_count": len(scoring_payload["final_states"]),
+            "states": Counter(row["state"] for row in scoring_payload["final_states"]),
+            "rows": scoring_payload["final_states"],
             "tuning_from_week1_outcomes": False,
             "forecast_mutation": False,
             "backfill": False,
         },
     )
+    scored_rows_path = LAKE / "CYCLE28_WEEK1_SCORING_SUCCESSOR_ROWS.jsonl"
+    with scored_rows_path.open("w", encoding="utf-8") as handle:
+        for row in scoring_payload["rows"]:
+            handle.write(json.dumps(row, sort_keys=True) + "\n")
     dump(
         ART / "CYCLE28_WEEK1_SCORING_SUCCESSOR.json",
         {
             "artifact_type": "CYCLE28_WEEK1_SCORING_SUCCESSOR",
             "issued_at_utc": now,
-            "schema": "aggie.shadow.week1_2026_cycle28_official_final_scoring.v1",
-            "scored_row_count": 0,
+            "schema": scoring_payload["schema_version"],
+            "scored_row_count": scoring_payload["scored_row_count"],
             "game_grain_only": True,
             "oriented_rows_counted_as_games": False,
-            "independent_metrics": {
-                "brier": None,
-                "log_loss": None,
-                "accuracy": None,
-                "unique_games": 0,
-                "reason": "official finals not yet atomically admitted for a complete Week 1 union",
-            },
-            "rows": scoring_rows,
+            "independent_metrics": scoring_payload["independent_metrics"],
+            "rows_path": str(scored_rows_path),
+            "rows_sha256": sha_bytes(scored_rows_path.read_bytes()),
             "predecessor_preserved": True,
             "a_and_m_hardcoded": False,
             "independent_predicted_score": None,
+            "tuned_from_week1_outcomes": False,
+            "forecast_mutation": False,
+            "backfill": False,
+        },
+    )
+    dump(
+        ART / "CYCLE28_AANDM_POSTGAME_OBSERVATION.json",
+        {
+            "artifact_type": "CYCLE28_AANDM_POSTGAME_OBSERVATION",
+            "issued_at_utc": now,
+            **a_and_m_postgame_observation(
+                scored_rows=scoring_payload["rows"],
+                athletics_cross_check={
+                    "tamu_schedule_page_contains_plaintext_score": False,
+                    "missouri_state_schedule_page_contains_plaintext_score": False,
+                    "reason": "captured athletics schedule HTML is JS-shell without admitted score text; NCAA scoreboard/box remains preferred authority",
+                },
+            ),
         },
     )
 
@@ -809,6 +924,14 @@ def main() -> int:
                 {"bat": "BAT-701", "cfip": "CFIP-22", "relation": "Relates", "duplicative": False},
                 {"bat": "BAT-703", "cfip": "CFIP-23", "relation": "Relates", "duplicative": False},
                 {"bat": "BAT-707", "cfip": "CFIP-26", "relation": "Relates", "duplicative": False},
+                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-20", "relation": "Parent Of", "duplicative": False},
+                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-21", "relation": "Parent Of", "duplicative": False},
+                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-22", "relation": "Parent Of", "duplicative": False},
+                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-23", "relation": "Parent Of", "duplicative": False},
+                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-24", "relation": "Parent Of", "duplicative": False},
+                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-25", "relation": "Parent Of", "duplicative": False},
+                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-26", "relation": "Parent Of", "duplicative": False},
+                {"bat": None, "cfip": "CFIP-17", "child": "CFIP-27", "relation": "Parent Of", "duplicative": False},
             ],
         },
     )
@@ -847,6 +970,7 @@ def main() -> int:
             "cfip_cannot_close_from_bas_implementation": True,
         },
     )
+    ledger_src = OUT / "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER.json"
     dump(
         ART / "PAID_REVIEW_COST_LEDGER.json",
         {
@@ -863,7 +987,11 @@ def main() -> int:
             "paid_review_triggered": False,
         },
     )
-    print(json.dumps({"issued_at_utc": now, "contest_count": len(contest_ids), "artifact_dir": str(ART)}))
+    if ledger_src.is_file():
+        dump(ART / "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER.json", load_json(ledger_src))
+    for path in ART.glob("*.json"):
+        dump(OUT / path.name, load_json(path))
+    print(json.dumps({"issued_at_utc": now, "contest_count": len(contest_ids), "artifact_dir": str(ART), "scored_row_count": scoring_payload["scored_row_count"]}))
     return 0
 
 

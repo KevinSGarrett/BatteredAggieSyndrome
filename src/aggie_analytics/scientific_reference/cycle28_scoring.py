@@ -11,6 +11,7 @@ from typing import Any, Mapping, Sequence
 
 from aggie_analytics.scientific_reference.metrics import accuracy, brier_score, log_loss
 from aggie_analytics.scientific_reference.ncaa_scoreboard_cards import (
+    reconstruct_box_score_header,
     reconstruct_scoreboard_cards,
 )
 
@@ -85,11 +86,13 @@ def select_earliest_valid_terminal(
             int(row["away_points"]),
             str(row["winner"]),
             str(row["ncaa_contest_id"]),
-            tuple(row.get("ordered_participants") or ()),
         )
         for row in admitted
     }
     if len(scores) > 1:
+        return "CONFLICT_QUARANTINED"
+    contest_ids = {str(row["ncaa_contest_id"]) for row in admitted}
+    if len(contest_ids) != 1:
         return "CONFLICT_QUARANTINED"
     ordered = sorted(
         admitted,
@@ -100,6 +103,10 @@ def select_earliest_valid_terminal(
 
 def parse_independent_cards(document: str) -> list[dict[str, Any]]:
     return reconstruct_scoreboard_cards(document)
+
+
+def parse_independent_box(document: str, contest_id_hint: str | None = None) -> dict[str, Any]:
+    return reconstruct_box_score_header(document, contest_id_hint)
 
 
 def reject_prekickoff_final(retrieved_utc: str, kickoff_utc: str) -> None:

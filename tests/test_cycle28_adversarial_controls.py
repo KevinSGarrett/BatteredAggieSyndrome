@@ -87,6 +87,8 @@ from aggie_analytics.cycle28.gridiron import (
 )
 from aggie_analytics.cycle28.scoring import (
     Cycle28ScoringError,
+    a_and_m_postgame_observation,
+    bind_atomic_week1_scoring,
     classify_predecessor_receipts,
     reject_forecast_mutation,
     reject_week1_outcome_tuning,
@@ -526,6 +528,91 @@ class Cycle28AdversarialTests(unittest.TestCase):
         self.assertEqual("RETAIN_PROTECTED_LANE_BLOCKED", "RETAIN_PROTECTED_LANE_BLOCKED")
         self.assertNotIn("blind", "2024/2025 historically exposed")
         self.assertNotEqual("BAS", "one A&M result")
+
+    def test_atomic_bind_scores_game_grain_and_a_and_m_residual(self) -> None:
+        receipt = {
+            "receipt_kind": SOURCE_ACQUISITION_RECEIPT,
+            "ncaa_contest_id": "6607349",
+            "ordered_participants": ("Missouri State", "Texas A&M"),
+            "final_status": "OFFICIAL_FINAL",
+            "home_points": 50,
+            "away_points": 0,
+            "winner": "HOME",
+            "trusted_clock_retrieval_utc": "2026-09-06T04:10:00Z",
+            "request_identity_sha256": "req",
+            "raw_response_sha256": "raw",
+            "raw_response_relative_path": "raw/CYCLE28/ncaa_scoreboard_2026_09_05/raw.html",
+            "acquisition_receipt_sha256": "rcp",
+            "acquisition_receipt_relative_path": "receipts/CYCLE28/ncaa_scoreboard_2026_09_05/rcp.json",
+            "route_id": "scrapfly_rendering",
+        }
+        bound = bind_atomic_week1_scoring(
+            contests=[{"ncaa_contest_id": "6607349", "kickoff_bound_utc": "2026-09-05T23:00:00Z"}],
+            forecast_rows=[
+                {
+                    "ncaa_contest_id": "6607349",
+                    "candidate_id": "national_margin_ridge",
+                    "checkpoint_id": "EARLY_WEEK1",
+                    "forecast_row_identity": "f514d6c6eaa5b9261074224717f8813e3d4e9235c358c4bd12bc0e6b0627a119",
+                    "forecast_probability_home": 0.8951316669,
+                    "forecast_expected_margin_home": 22.2506043541,
+                }
+            ],
+            terminal_receipts=[receipt],
+            acquisition_failed_contest_ids=[],
+            now_utc="2026-09-06T20:50:00Z",
+        )
+        self.assertEqual(bound["scored_row_count"], 1)
+        self.assertEqual(bound["final_states"][0]["state"], "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT")
+        self.assertAlmostEqual(bound["rows"][0]["margin_residual"], 27.7493956459, places=4)
+        post = a_and_m_postgame_observation(scored_rows=bound["rows"])
+        self.assertTrue(post["report_50_0_exceeded_untrusted_early_ridge_by_27_7494"])
+        self.assertIsNone(post["independent_predicted_score"])
+        self.assertFalse(post["bas_specialization_claim"])
+
+    def test_non_final_and_prekickoff_not_scored(self) -> None:
+        live = {
+            "receipt_kind": SOURCE_ACQUISITION_RECEIPT,
+            "ncaa_contest_id": "6618941",
+            "ordered_participants": ("Washington State", "Washington"),
+            "final_status": "IN_PROGRESS",
+            "home_points": 7,
+            "away_points": 0,
+            "winner": "HOME",
+            "trusted_clock_retrieval_utc": "2026-09-06T20:40:00Z",
+            "request_identity_sha256": "req2",
+            "raw_response_sha256": "raw2",
+            "raw_response_relative_path": "raw/x",
+            "acquisition_receipt_sha256": "rcp2",
+            "acquisition_receipt_relative_path": "receipts/x",
+            "route_id": "direct_http",
+        }
+        selected = terminal_selection([live])
+        self.assertEqual(selected, "NO_VALID_ATOMIC_TERMINAL")
+        with self.assertRaises(IndependentScoringError):
+            reject_prekickoff_final("2026-09-05T12:00:00Z", "2026-09-05T23:00:00Z")
+
+    def test_display_name_variants_same_score_are_corroboration_not_conflict(self) -> None:
+        scoreboard = {
+            "receipt_kind": SOURCE_ACQUISITION_RECEIPT,
+            "ncaa_contest_id": "6607349",
+            "ordered_participants": ("Missouri St.", "Texas A&M"),
+            "final_status": "OFFICIAL_FINAL",
+            "home_points": 50,
+            "away_points": 0,
+            "winner": "HOME",
+            "trusted_clock_retrieval_utc": "2026-09-06T20:57:59Z",
+        }
+        box = {
+            **scoreboard,
+            "ordered_participants": ("Missouri St. Bears", "Texas A&M Aggies"),
+            "trusted_clock_retrieval_utc": "2026-09-06T20:54:50Z",
+        }
+        selected = terminal_selection([scoreboard, box])
+        self.assertEqual(selected["trusted_clock_retrieval_utc"], "2026-09-06T20:54:50Z")
+        conflicted = dict(box)
+        conflicted["home_points"] = 49
+        self.assertEqual(terminal_selection([scoreboard, conflicted]), "CONFLICT_QUARANTINED")
 
 
 if __name__ == "__main__":

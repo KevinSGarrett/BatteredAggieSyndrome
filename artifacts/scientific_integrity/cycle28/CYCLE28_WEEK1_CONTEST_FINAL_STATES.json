@@ -3,616 +3,616 @@
   "backfill": false,
   "contest_count": 91,
   "forecast_mutation": false,
-  "issued_at_utc": "2026-09-06T20:32:09Z",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
   "rows": [
     {
-      "away": null,
-      "home": null,
+      "away": "Massachusetts",
+      "home": "Rutgers",
       "kickoff_bound_utc": "2026-09-03T22:00:00Z",
       "ncaa_contest_id": "6591259",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Bethune-Cookman",
+      "home": "UCF",
       "kickoff_bound_utc": "2026-09-03T23:00:00Z",
       "ncaa_contest_id": "6582933",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "West Ga.",
+      "home": "Kennesaw St.",
       "kickoff_bound_utc": "2026-09-03T23:00:00Z",
       "ncaa_contest_id": "6588927",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Merrimack",
+      "home": "Delaware",
       "kickoff_bound_utc": "2026-09-03T23:00:00Z",
       "ncaa_contest_id": "6601465",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "UAlbany",
+      "home": "Buffalo",
       "kickoff_bound_utc": "2026-09-03T23:00:00Z",
       "ncaa_contest_id": "6609567",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Akron",
+      "home": "Wake Forest",
       "kickoff_bound_utc": "2026-09-03T23:00:00Z",
       "ncaa_contest_id": "6618350",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Eastern Ill.",
+      "home": "Minnesota",
       "kickoff_bound_utc": "2026-09-04T00:00:00Z",
       "ncaa_contest_id": "6584486",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Ark.-Pine Bluff",
+      "home": "Missouri",
       "kickoff_bound_utc": "2026-09-04T00:00:00Z",
       "ncaa_contest_id": "6603568",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Colorado",
+      "home": "Georgia Tech",
       "kickoff_bound_utc": "2026-09-04T00:00:00Z",
       "ncaa_contest_id": "6620218",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "UAB",
+      "home": "Illinois",
       "kickoff_bound_utc": "2026-09-04T01:00:00Z",
       "ncaa_contest_id": "6586572",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Idaho",
+      "home": "Utah",
       "kickoff_bound_utc": "2026-09-04T01:00:00Z",
       "ncaa_contest_id": "6602046",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "San Jose St.",
+      "home": "Eastern Mich.",
       "kickoff_bound_utc": "2026-09-04T22:30:00Z",
       "ncaa_contest_id": "6594366",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "N.C. A&T",
+      "home": "Georgia St.",
       "kickoff_bound_utc": "2026-09-04T23:00:00Z",
       "ncaa_contest_id": "6598559",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Indiana St.",
+      "home": "Purdue",
       "kickoff_bound_utc": "2026-09-04T23:00:00Z",
       "ncaa_contest_id": "6619544",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "UTEP",
+      "home": "Oklahoma",
       "kickoff_bound_utc": "2026-09-05T00:00:00Z",
       "ncaa_contest_id": "6592887",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "LIU",
+      "home": "Kansas",
       "kickoff_bound_utc": "2026-09-05T00:00:00Z",
       "ncaa_contest_id": "6601163",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Toledo",
+      "home": "Michigan St.",
       "kickoff_bound_utc": "2026-09-05T00:00:00Z",
       "ncaa_contest_id": "6611346",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Miami (FL)",
+      "home": "Stanford",
       "kickoff_bound_utc": "2026-09-05T01:00:00Z",
       "ncaa_contest_id": "6602792",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Fresno St.",
+      "home": "Southern California",
       "kickoff_bound_utc": "2026-09-05T01:00:00Z",
       "ncaa_contest_id": "6620138",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Bryant",
+      "home": "Army West Point",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6590890",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Liberty",
+      "home": "James Madison",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6593811",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "North Texas",
+      "home": "Indiana",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6594325",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Oregon St.",
+      "home": "Houston",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6601384",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Coastal Carolina",
+      "home": "West Virginia",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6611692",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Tarleton St.",
+      "home": "Bowling Green",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6611873",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "East Carolina",
+      "home": "Alabama",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6613128",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Ohio",
+      "home": "Nebraska",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6617023",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Lafayette",
+      "home": "UConn",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6620636",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "New Hampshire",
+      "home": "Syracuse",
       "kickoff_bound_utc": "2026-09-05T16:00:00Z",
       "ncaa_contest_id": "6620944",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Ball St.",
+      "home": "Ohio St.",
       "kickoff_bound_utc": "2026-09-05T16:30:00Z",
       "ncaa_contest_id": "6618687",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Miami (OH)",
+      "home": "Pittsburgh",
       "kickoff_bound_utc": "2026-09-05T16:30:00Z",
       "ncaa_contest_id": "6620092",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Kent St.",
+      "home": "South Carolina",
       "kickoff_bound_utc": "2026-09-05T16:45:00Z",
       "ncaa_contest_id": "6593392",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Youngstown St.",
+      "home": "Kentucky",
       "kickoff_bound_utc": "2026-09-05T17:00:00Z",
       "ncaa_contest_id": "6583220",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Southeast Mo. St.",
+      "home": "Iowa St.",
       "kickoff_bound_utc": "2026-09-05T17:00:00Z",
       "ncaa_contest_id": "6583331",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Duquesne",
+      "home": "Air Force",
       "kickoff_bound_utc": "2026-09-05T17:00:00Z",
       "ncaa_contest_id": "6600846",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Rhode Island",
+      "home": "Temple",
       "kickoff_bound_utc": "2026-09-05T18:00:00Z",
       "ncaa_contest_id": "6598117",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Boise St.",
+      "home": "Oregon",
       "kickoff_bound_utc": "2026-09-05T18:30:00Z",
       "ncaa_contest_id": "6612588",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Tennessee St.",
+      "home": "Georgia",
       "kickoff_bound_utc": "2026-09-05T19:00:00Z",
       "ncaa_contest_id": "6620448",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Tulane",
+      "home": "Duke",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6583392",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Towson",
+      "home": "Navy",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6585877",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Marshall",
+      "home": "Penn St.",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6587707",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Fordham",
+      "home": "North Dakota St.",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6592568",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Baylor",
+      "home": "Auburn",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6594109",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Furman",
+      "home": "Tennessee",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6600254",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Maine",
+      "home": "App State",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6604408",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "The Citadel",
+      "home": "Charlotte",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6607271",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Texas St.",
+      "home": "Texas",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6608932",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Boston College",
+      "home": "Cincinnati",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6610894",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "UTRGV",
+      "home": "UTSA",
       "kickoff_bound_utc": "2026-09-05T19:30:00Z",
       "ncaa_contest_id": "6611505",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Oklahoma St.",
+      "home": "Tulsa",
       "kickoff_bound_utc": "2026-09-05T19:45:00Z",
       "ncaa_contest_id": "6582887",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "NIU",
+      "home": "Iowa",
       "kickoff_bound_utc": "2026-09-05T20:15:00Z",
       "ncaa_contest_id": "6582881",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "North Ala.",
+      "home": "Arkansas",
       "kickoff_bound_utc": "2026-09-05T20:15:00Z",
       "ncaa_contest_id": "6587775",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Alcorn",
+      "home": "Southern Miss.",
       "kickoff_bound_utc": "2026-09-05T21:00:00Z",
       "ncaa_contest_id": "6593076",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Eastern Ky.",
+      "home": "Jacksonville St.",
       "kickoff_bound_utc": "2026-09-05T22:00:00Z",
       "ncaa_contest_id": "6590855",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Wyoming",
+      "home": "Colorado St.",
       "kickoff_bound_utc": "2026-09-05T22:00:00Z",
       "ncaa_contest_id": "6607433",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Norfolk St.",
+      "home": "Old Dominion",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6586106",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Arkansas St.",
+      "home": "Memphis",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6586326",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Houston Christian",
+      "home": "Rice",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6587284",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Charleston So.",
+      "home": "Ga. Southern",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6588730",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "FIU",
+      "home": "South Fla.",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6590807",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Sam Houston",
+      "home": "Troy",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6591589",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Idaho St.",
+      "home": "Utah St.",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6593153",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Abilene Christian",
+      "home": "Texas Tech",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6596114",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Southeastern La.",
+      "home": "South Alabama",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6606172",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Missouri St. Bears",
+      "home": "Texas A&M Aggies",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6607349",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Nicholls",
+      "home": "Kansas St.",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6609172",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Austin Peay",
+      "home": "Vanderbilt",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6620458",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Murray St.",
+      "home": "Middle Tenn.",
       "kickoff_bound_utc": "2026-09-05T23:00:00Z",
       "ncaa_contest_id": "6620478",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "ULM",
+      "home": "Mississippi St.",
       "kickoff_bound_utc": "2026-09-05T23:30:00Z",
       "ncaa_contest_id": "6586022",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "VMI",
+      "home": "Virginia Tech",
       "kickoff_bound_utc": "2026-09-05T23:30:00Z",
       "ncaa_contest_id": "6589809",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Clemson",
+      "home": "LSU",
       "kickoff_bound_utc": "2026-09-05T23:30:00Z",
       "ncaa_contest_id": "6590386",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Western Mich.",
+      "home": "Michigan",
       "kickoff_bound_utc": "2026-09-05T23:30:00Z",
       "ncaa_contest_id": "6590505",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Northwestern St.",
+      "home": "Louisiana Tech",
       "kickoff_bound_utc": "2026-09-05T23:30:00Z",
       "ncaa_contest_id": "6614741",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Fla. Atlantic",
+      "home": "Florida",
       "kickoff_bound_utc": "2026-09-05T23:45:00Z",
       "ncaa_contest_id": "6583172",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Mississippi Val.",
+      "home": "Sacramento St.",
       "kickoff_bound_utc": "2026-09-06T00:00:00Z",
       "ncaa_contest_id": "6583582",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Lamar University",
+      "home": "Louisiana",
       "kickoff_bound_utc": "2026-09-06T00:00:00Z",
       "ncaa_contest_id": "6587672",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "South Dakota St.",
+      "home": "Northwestern",
       "kickoff_bound_utc": "2026-09-06T00:00:00Z",
       "ncaa_contest_id": "6589595",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Utah Tech",
+      "home": "BYU",
       "kickoff_bound_utc": "2026-09-06T00:00:00Z",
       "ncaa_contest_id": "6589953",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Hampton",
+      "home": "Maryland",
       "kickoff_bound_utc": "2026-09-06T00:00:00Z",
       "ncaa_contest_id": "6596257",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Morgan St.",
+      "home": "Arizona St.",
       "kickoff_bound_utc": "2026-09-06T01:00:00Z",
       "ncaa_contest_id": "6616987",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Mercyhurst",
+      "home": "New Mexico St.",
       "kickoff_bound_utc": "2026-09-06T01:00:00Z",
       "ncaa_contest_id": "6620513",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Portland St.",
+      "home": "San Diego St.",
       "kickoff_bound_utc": "2026-09-06T01:30:00Z",
       "ncaa_contest_id": "6605119",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Northern Ariz.",
+      "home": "Arizona",
       "kickoff_bound_utc": "2026-09-06T01:30:00Z",
       "ncaa_contest_id": "6618489",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Central Mich.",
+      "home": "New Mexico",
       "kickoff_bound_utc": "2026-09-06T02:00:00Z",
       "ncaa_contest_id": "6592700",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "UNLV",
+      "home": "Hawaii",
       "kickoff_bound_utc": "2026-09-06T02:00:00Z",
       "ncaa_contest_id": "6607878",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "UCLA",
+      "home": "California",
       "kickoff_bound_utc": "2026-09-06T02:30:00Z",
       "ncaa_contest_id": "6603305",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Western Ky.",
+      "home": "Nevada",
       "kickoff_bound_utc": "2026-09-06T02:30:00Z",
       "ncaa_contest_id": "6605164",
-      "state": "AWAITING_OFFICIAL_FINAL"
+      "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
       "away": null,
@@ -644,7 +644,8 @@
     }
   ],
   "states": {
-    "AWAITING_OFFICIAL_FINAL": 91
+    "AWAITING_OFFICIAL_FINAL": 4,
+    "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT": 87
   },
   "tuning_from_week1_outcomes": false
 }

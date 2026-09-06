@@ -58,8 +58,8 @@
       "venue": "Doak Campbell Stadium"
     }
   ],
-  "issued_at_utc": "2026-09-06T20:32:09Z",
-  "trusted_clock_utc": "2026-09-06T20:32:09Z",
+  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "trusted_clock_utc": "2026-09-06T21:02:24Z",
   "washington_state_washington": {
     "conflict": true,
     "conflict_disposition": "CONFLICT_REVIEW_REQUIRED",

@@ -3,17 +3,26 @@
   "base": "codex/BAT-690-c26-scr",
   "baseRefName": "codex/BAT-690-c26-scr",
   "codecov_patch": "SUCCESS",
-  "codex_review": "IN_PROGRESS_OR_ENFORCEMENT_NOT_ACCEPTANCE",
+  "codex_review": "IN_PROGRESS_NOT_ACCEPTANCE",
   "core_validation": "SUCCESS",
-  "head": "460d9a0c6a9d68600a6659bf8a2ca624fd12316f",
-  "headRefOid": "460d9a0c6a9d68600a6659bf8a2ca624fd12316f",
+  "full_mounted_unittest": {
+    "hash_seeds": [
+      0,
+      1
+    ],
+    "result": "OK",
+    "skipped": 51,
+    "tests": 3339,
+    "warnings_as_errors": "OK"
+  },
+  "head": "afac63eed51f7d7915449790ee8138318a4d812c",
+  "headRefOid": "afac63eed51f7d7915449790ee8138318a4d812c",
   "hold": "ACTIVE",
-  "instruction_hash_repair_head": "460d9a0c6a9d68600a6659bf8a2ca624fd12316f",
-  "issued_at_utc": "2026-09-06T00:25:54Z",
+  "issued_at_utc": "2026-09-06T00:37:48Z",
   "mergeStateStatus": "UNSTABLE",
   "merge_authorized": false,
   "mergeable": "MERGEABLE",
-  "note": "Exact GitHub JSON readback of the published head at write time. Later capture publication is an explicit delta. Do not invent a self-referential SHA.",
+  "note": "Exact GitHub JSON readback of published head afac63ee. This packet does not invent a later SHA. Codex review in progress is not acceptance. CONTROL-07 remains PREPARATION_NOT_APPROVED.",
   "number": 679,
   "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679",
   "security_policy": "SUCCESS",
@@ -23,230 +32,173 @@
       "__typename": "CheckRun",
       "completedAt": "0001-01-01T00:00:00Z",
       "conclusion": "",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895803/job/101396755751",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280196/job/101400478080",
       "name": "codex-review",
-      "startedAt": "2026-09-05T23:54:36Z",
+      "startedAt": "2026-09-06T00:26:23Z",
       "status": "IN_PROGRESS",
       "workflowName": "codex-scientific-review"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:56:13Z",
+      "completedAt": "2026-09-06T00:27:57Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895796/job/101396755944",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280186/job/101400478369",
       "name": "core-validation (ubuntu-latest, 3.12)",
-      "startedAt": "2026-09-05T23:54:37Z",
+      "startedAt": "2026-09-06T00:26:23Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:55:48Z",
+      "completedAt": "2026-09-06T00:27:43Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999894106/job/101396751217",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001278223/job/101400473485",
       "name": "core-validation (ubuntu-latest, 3.12)",
-      "startedAt": "2026-09-05T23:54:33Z",
+      "startedAt": "2026-09-06T00:26:21Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:56:01Z",
+      "completedAt": "2026-09-06T00:27:53Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895795/job/101396755886",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280190/job/101400478175",
       "name": "codeql",
-      "startedAt": "2026-09-05T23:54:36Z",
+      "startedAt": "2026-09-06T00:26:23Z",
       "status": "COMPLETED",
       "workflowName": "security-analysis"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:58:35Z",
+      "completedAt": "2026-09-06T00:29:36Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895796/job/101396755926",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280186/job/101400478299",
       "name": "core-validation (windows-latest, 3.12)",
-      "startedAt": "2026-09-05T23:54:37Z",
+      "startedAt": "2026-09-06T00:26:23Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:57:51Z",
+      "completedAt": "2026-09-06T00:30:15Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999894106/job/101396751244",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001278223/job/101400473443",
       "name": "core-validation (windows-latest, 3.12)",
-      "startedAt": "2026-09-05T23:54:35Z",
+      "startedAt": "2026-09-06T00:26:21Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:56:29Z",
+      "completedAt": "2026-09-06T00:28:31Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895796/job/101396755963",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280186/job/101400478363",
       "name": "coverage-upload",
-      "startedAt": "2026-09-05T23:54:36Z",
+      "startedAt": "2026-09-06T00:26:24Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:56:38Z",
+      "completedAt": "2026-09-06T00:28:10Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999894106/job/101396751162",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001278223/job/101400473526",
       "name": "coverage-upload",
-      "startedAt": "2026-09-05T23:54:35Z",
+      "startedAt": "2026-09-06T00:26:21Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:54:46Z",
+      "completedAt": "2026-09-06T00:26:32Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895795/job/101396755972",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280190/job/101400478087",
       "name": "dependency-review",
-      "startedAt": "2026-09-05T23:54:37Z",
+      "startedAt": "2026-09-06T00:26:23Z",
       "status": "COMPLETED",
       "workflowName": "security-analysis"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:54:53Z",
+      "completedAt": "2026-09-06T00:26:43Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895796/job/101396755933",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280186/job/101400478253",
       "name": "product-adapter (ubuntu-latest)",
-      "startedAt": "2026-09-05T23:54:36Z",
+      "startedAt": "2026-09-06T00:26:23Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:54:49Z",
+      "completedAt": "2026-09-06T00:26:43Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999894106/job/101396751299",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001278223/job/101400473452",
       "name": "product-adapter (ubuntu-latest)",
-      "startedAt": "2026-09-05T23:54:33Z",
+      "startedAt": "2026-09-06T00:26:22Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:55:19Z",
+      "completedAt": "2026-09-06T00:27:03Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895796/job/101396755850",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280186/job/101400478109",
       "name": "product-adapter (windows-latest)",
-      "startedAt": "2026-09-05T23:54:36Z",
+      "startedAt": "2026-09-06T00:26:23Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:55:22Z",
+      "completedAt": "2026-09-06T00:26:58Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999894106/job/101396751254",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001278223/job/101400473557",
       "name": "product-adapter (windows-latest)",
-      "startedAt": "2026-09-05T23:54:34Z",
+      "startedAt": "2026-09-06T00:26:21Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:55:23Z",
+      "completedAt": "2026-09-06T00:27:10Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999895796/job/101396755770",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001280186/job/101400478245",
       "name": "security-policy",
-      "startedAt": "2026-09-05T23:54:38Z",
+      "startedAt": "2026-09-06T00:26:24Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:55:19Z",
+      "completedAt": "2026-09-06T00:27:01Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/33999894106/job/101396751324",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/34001278223/job/101400473365",
       "name": "security-policy",
-      "startedAt": "2026-09-05T23:54:34Z",
+      "startedAt": "2026-09-06T00:26:20Z",
       "status": "COMPLETED",
       "workflowName": "repository-ci"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:55:53Z",
+      "completedAt": "2026-09-06T00:27:46Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/runs/101396898879",
+      "detailsUrl": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/runs/101400640025",
       "name": "CodeQL",
-      "startedAt": "2026-09-05T23:55:51Z",
+      "startedAt": "2026-09-06T00:27:43Z",
       "status": "COMPLETED",
       "workflowName": ""
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-09-05T23:57:01Z",
+      "completedAt": "2026-09-06T00:29:11Z",
       "conclusion": "SUCCESS",
       "detailsUrl": "https://app.codecov.io/gh/KevinSGarrett/BatteredAggieSyndrome/pull/679",
       "name": "codecov/patch",
-      "startedAt": "2026-09-05T23:57:00Z",
+      "startedAt": "2026-09-06T00:29:11Z",
       "status": "COMPLETED",
       "workflowName": ""
     }
   ],
   "title": "Cycle 27 stacked repairs for PR 678 (hold remains active)",
-  "unique_check_conclusions": [
-    {
-      "conclusion": "SUCCESS",
-      "name": "CodeQL",
-      "workflow": ""
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "codecov/patch",
-      "workflow": ""
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "codeql",
-      "workflow": "security-analysis"
-    },
-    {
-      "conclusion": "IN_PROGRESS",
-      "name": "codex-review",
-      "workflow": "codex-scientific-review"
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "core-validation (ubuntu-latest, 3.12)",
-      "workflow": "repository-ci"
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "core-validation (windows-latest, 3.12)",
-      "workflow": "repository-ci"
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "coverage-upload",
-      "workflow": "repository-ci"
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "dependency-review",
-      "workflow": "security-analysis"
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "product-adapter (ubuntu-latest)",
-      "workflow": "repository-ci"
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "product-adapter (windows-latest)",
-      "workflow": "repository-ci"
-    },
-    {
-      "conclusion": "SUCCESS",
-      "name": "security-policy",
-      "workflow": "repository-ci"
-    }
-  ],
   "url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/679"
 }

@@ -378,16 +378,17 @@ Postgame residual methodology is predeclared: prediction error `predicted-actual
 
 Candidate-head `b32c0cce` (`BAT-690-c27-head`, that checkout's `src` first on PYTHONPATH):
 
-- Cycle 27 discover `test_cycle27_*.py`: 96 OK (PYTHONHASHSEED=0 and 1).
-- Official-final scoring: 14 OK, including pin-only time rejected as `CALLER_SUPPLIED_TIME_NOT_ACQUISITION_AUTHORITY`.
+- Cycle 27 discover `test_cycle27_*.py`: 132 OK (PYTHONHASHSEED=0).
+- Official-final scoring: 17 OK, including pin-only time rejected as `CALLER_SUPPLIED_TIME_NOT_ACQUISITION_AUTHORITY`.
 - Hold: 12 OK. Review-gate: 6 OK, including newer in-progress rerun over older success.
 - Failover policy: 22 OK. Trusted-control protocol: 9 OK. Execution-focus: 10 OK.
 - Independent scoring validator on rematerialized pin: PASS, 0 findings.
 - Mounted critical suite twice with no repo writes: 35/35 identical PASS both runs. Committed mounted-acceptance gate validator: PASS.
 - Jira control-plane `--strict --require-live`: PASS, 0 findings.
 - Full mounted unittest discover: **3339 tests, skipped=51, OK** with PYTHONHASHSEED=0 (749.771s) and PYTHONHASHSEED=1 (610.808s).
-- Scoring tests under `python -W error`: 14 OK.
-- Hosted PR 679 at `b32c0cce`: core-validation ubuntu+windows SUCCESS; security-policy SUCCESS; codecov/patch SUCCESS. `codex-review` FAILURE with schema-valid FAIL (P1: stale report/readback vs bound head). PR checker exit 1 is enforcement, not masked success.
+- Full mounted suite under `python -W error`: **3339 tests, skipped=51, OK**.
+- Scoring tests under `python -W error`: 17 OK.
+- Hosted PR 679 at `460d9a0c` and `afac63ee`: core-validation ubuntu+windows SUCCESS; security-policy SUCCESS; codecov/patch SUCCESS. `codex-review` IN_PROGRESS is not acceptance. CONTROL-07 remains `PREPARATION_NOT_APPROVED`.
 - CONTROL-07: base checker still exits 0 on schema-valid FAIL for `7e3e9cc2` and `3fcc7104`; hosted green on FAIL is not acceptance.
 
 Saved-pair independent validator no longer imports producer helpers. Invalid p=2/3 is not normalized to .4/.6. Independent scoreboard reconstruction no longer imports `modeling.week_zero_official_final_scoring`.

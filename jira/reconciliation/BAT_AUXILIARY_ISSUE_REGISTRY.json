@@ -1998,7 +1998,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "OPERATIONS",
       "issue_type": "Task",
       "jira_key": "BAT-697",
@@ -2013,7 +2013,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "TRUSTED_CONTROL",
       "issue_type": "Task",
       "jira_key": "BAT-698",
@@ -2028,7 +2028,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "SCIENTIFIC",
       "issue_type": "Task",
       "jira_key": "BAT-699",
@@ -2043,7 +2043,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "SCIENTIFIC",
       "issue_type": "Task",
       "jira_key": "BAT-700",
@@ -2058,7 +2058,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "SCIENTIFIC",
       "issue_type": "Task",
       "jira_key": "BAT-701",
@@ -2073,7 +2073,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "SCIENTIFIC",
       "issue_type": "Task",
       "jira_key": "BAT-702",
@@ -2088,7 +2088,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "SCIENTIFIC",
       "issue_type": "Task",
       "jira_key": "BAT-703",
@@ -2103,7 +2103,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "SHARED_CONTRACT",
       "issue_type": "Task",
       "jira_key": "BAT-704",
@@ -2118,7 +2118,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "TRUSTED_CONTROL",
       "issue_type": "Task",
       "jira_key": "BAT-705",
@@ -2133,7 +2133,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "TRUSTED_CONTROL",
       "issue_type": "Task",
       "jira_key": "BAT-706",
@@ -2148,7 +2148,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "OPERATIONS",
       "issue_type": "Task",
       "jira_key": "BAT-707",
@@ -2163,7 +2163,7 @@
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
       "critical_path": true,
-      "evidence_state": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
       "execution_lane": "SHARED_CONTRACT",
       "issue_type": "Task",
       "jira_key": "BAT-708",

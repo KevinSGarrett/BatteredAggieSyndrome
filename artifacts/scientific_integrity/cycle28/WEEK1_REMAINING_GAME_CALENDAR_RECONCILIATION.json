@@ -52,7 +52,7 @@
     {
       "away": "SMU",
       "backfill": false,
-      "early_capture_class": null,
+      "early_capture_class": "EARLY_NON_CHECKPOINT_EVIDENCE",
       "home": "Florida St.",
       "kickoff_utc": "2026-09-07T23:30:00Z",
       "matchup": "SMU at Florida State",
@@ -60,14 +60,14 @@
       "official_kickoff_utc": "2026-09-07T23:30:00Z",
       "predecessor_rewritten": false,
       "t24h_cutoff_utc": "2026-09-06T23:30:00Z",
-      "t24h_disposition": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE",
+      "t24h_disposition": "EVIDENCE_CAPTURED_NO_TRUSTED_FORECAST",
       "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
       "t90m_disposition": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE",
       "venue": "Doak S. Campbell Stadium"
     }
   ],
-  "issued_at_utc": "2026-09-06T22:07:43Z",
-  "trusted_clock_utc": "2026-09-06T22:07:43Z",
+  "issued_at_utc": "2026-09-06T23:33:15Z",
+  "trusted_clock_utc": "2026-09-06T23:33:15Z",
   "washington_state_washington": {
     "conflict": true,
     "conflict_disposition": "CONFLICT_REVIEW_REQUIRED",

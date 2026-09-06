@@ -1,6 +1,6 @@
 {
   "artifact_type": "WEEK1_REMAINING_CHECKPOINT_LEDGER",
-  "issued_at_utc": "2026-09-06T22:07:43Z",
+  "issued_at_utc": "2026-09-06T23:33:15Z",
   "no_backfill": true,
   "rows": [
     {
@@ -34,12 +34,12 @@
       "t90m_state": "EVIDENCE_CAPTURED_NO_TRUSTED_FORECAST"
     },
     {
-      "corrected_t90m_receipt": null,
+      "corrected_t90m_receipt": "e5c0759eed864c60e0f3a4caf1735bcccf498293a057138c2674bc4d124f5ece",
       "forecast_frozen": false,
       "ncaa_contest_id": "6594400",
       "relabeled_early_as_t90m": false,
       "t24h_cutoff_utc": "2026-09-06T23:30:00Z",
-      "t24h_state": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE",
+      "t24h_state": "EVIDENCE_CAPTURED_NO_TRUSTED_FORECAST",
       "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
       "t90m_state": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE"
     }

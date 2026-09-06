@@ -3,7 +3,7 @@
   "cycle_ceiling_usd": 10.0,
   "default_effort": "low",
   "default_model": "gpt-5.3-codex",
-  "issued_at_utc": "2026-09-06T22:07:43Z",
+  "issued_at_utc": "2026-09-06T23:33:15Z",
   "paid_review_triggered": false,
   "pr_ceiling_usd": 3.0,
   "premium_authorization": false,

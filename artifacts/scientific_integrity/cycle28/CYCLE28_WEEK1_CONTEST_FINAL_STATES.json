@@ -3,7 +3,7 @@
   "backfill": false,
   "contest_count": 91,
   "forecast_mutation": false,
-  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "issued_at_utc": "2026-09-06T22:07:43Z",
   "rows": [
     {
       "away": "Massachusetts",
@@ -615,29 +615,29 @@
       "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
     },
     {
-      "away": null,
-      "home": null,
-      "kickoff_bound_utc": "2026-09-06T08:00:00Z",
+      "away": "Washington St.",
+      "home": "Washington",
+      "kickoff_bound_utc": "2026-09-06T20:00:00Z",
       "ncaa_contest_id": "6618941",
       "state": "AWAITING_OFFICIAL_FINAL"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Notre Dame",
+      "home": "Wisconsin",
       "kickoff_bound_utc": "2026-09-06T23:30:00Z",
       "ncaa_contest_id": "6602874",
       "state": "AWAITING_OFFICIAL_FINAL"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "Louisville",
+      "home": "Ole Miss",
       "kickoff_bound_utc": "2026-09-06T23:30:00Z",
       "ncaa_contest_id": "6620581",
       "state": "AWAITING_OFFICIAL_FINAL"
     },
     {
-      "away": null,
-      "home": null,
+      "away": "SMU",
+      "home": "Florida St.",
       "kickoff_bound_utc": "2026-09-07T23:30:00Z",
       "ncaa_contest_id": "6594400",
       "state": "AWAITING_OFFICIAL_FINAL"

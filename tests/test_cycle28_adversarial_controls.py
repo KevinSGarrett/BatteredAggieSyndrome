@@ -38,6 +38,7 @@ from aggie_analytics.cycle28.availability import (
 from aggie_analytics.cycle28.calendar import (
     DISPOSITION_EARLY,
     DISPOSITION_MISSED,
+    REMAINING_GAMES,
     CalendarReconciliationError,
     live_owner_identity_match,
     reconcile_washington_state_washington,
@@ -277,6 +278,11 @@ class Cycle28AdversarialTests(unittest.TestCase):
             result["predecessor_t90m_capture_disposition"], DISPOSITION_EARLY
         )
         self.assertFalse(result["real_t90m_was_met"])
+        self.assertEqual(len(REMAINING_GAMES), 4)
+        for row in REMAINING_GAMES:
+            self.assertEqual(len(row["ordered_participants"]), 2)
+            self.assertTrue(row["ordered_participants"][0])
+            self.assertTrue(row["ordered_participants"][1])
         with self.assertRaises(CalendarReconciliationError):
             reject_relabel_early_as_t90m(
                 capture_utc="2026-09-06T06:30:00Z",

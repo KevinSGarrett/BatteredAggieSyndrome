@@ -4,11 +4,11 @@
   "disposition": "DRIFTED_NOT_CONSUMABLE",
   "foundation_bound_contracts_head": "e32e1eee3e7e901f96b3e87055376af0fa1dfffb",
   "foundation_part3_status": "BLOCKED",
-  "issued_at_utc": "2026-09-06T21:02:24Z",
-  "observed_contracts_dirty": false,
-  "observed_contracts_head": "d473b2fd56943f1c9d77aa2ebdf0f015f8f6f20e",
+  "issued_at_utc": "2026-09-06T22:07:43Z",
+  "observed_contracts_dirty": true,
+  "observed_contracts_head": "a354a7c9d2b545bd4be558c9cb006fc380326829",
   "observed_programspecifications_dirty": true,
-  "observed_programspecifications_head": "8ac9b836bc3b1c631a0db3aeb3dea7fd8d983edf",
+  "observed_programspecifications_head": "e9e4a9556e5a306deca24f2290df81f54e7405e3",
   "phase": "entry_and_closeout_recomputed",
   "reason": "Foundation bound C01 head does not equal observed clean C01 head; Part 3 remains blocked; Contracts and ProgramSpecifications have dirt"
 }

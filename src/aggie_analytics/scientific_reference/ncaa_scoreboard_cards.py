@@ -167,11 +167,12 @@ def reconstruct_box_score_header(
     else:
         winner = "TIE"
     header = _BOX_DATETIME.search(document)
+    terminal = bool(re.search(r"\bFINAL(?:/OT)?\b", document, re.I))
     return {
         "ncaa_contest_id": contest_id,
         "parse_state": "PARSED",
-        "final_status_text": "FINAL",
-        "final_status_is_terminal": True,
+        "final_status_text": "FINAL" if terminal else "NON_FINAL_OR_IN_PROGRESS",
+        "final_status_is_terminal": terminal,
         "away_source_team_id": away_id,
         "away_source_team_name": html.unescape(away_name).strip(),
         "away_points": away_points,

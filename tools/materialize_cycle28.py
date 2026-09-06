@@ -40,8 +40,10 @@ from aggie_analytics.cycle28.calendar import (
     CONTEST_6618941,
     CONTEST_6620581,
     DISPOSITION_EARLY,
+    DISPOSITION_EVIDENCE,
     DISPOSITION_MISSED,
     DISPOSITION_OPEN,
+    REMAINING_GAMES,
     cutoff_pair,
     reconcile_washington_state_washington,
 )
@@ -113,7 +115,34 @@ def contest_rows() -> list[dict[str, Any]]:
         / "cycle27"
         / "CYCLE27_CONTEST_CHECKPOINT_LEDGER.json"
     )
-    return list(ledger.get("contests") or [])
+    return overlay_remaining_contests(list(ledger.get("contests") or []))
+
+
+def overlay_remaining_contests(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    extra = {str(item["ncaa_contest_id"]): item for item in REMAINING_GAMES}
+    patched_rows: list[dict[str, Any]] = []
+    for row in rows:
+        cid = str(row.get("ncaa_contest_id"))
+        meta = extra.get(cid)
+        if meta is None:
+            patched_rows.append(row)
+            continue
+        away, home = meta["ordered_participants"]
+        patched = dict(row)
+        patched["away"] = away
+        patched["home"] = home
+        patched["predecessor_kickoff_bound_utc"] = row.get("kickoff_bound_utc")
+        patched["kickoff_bound_utc"] = meta["official_kickoff_utc"]
+        patched["kickoff_utc"] = meta["official_kickoff_utc"]
+        patched_rows.append(patched)
+    return patched_rows
+
+
+def corrected_sunday_t90m_receipt() -> dict[str, Any]:
+    path = OUT / "C28_CORRECTED_SUN_T90M_CAPTURE_RECEIPT.json"
+    if not path.is_file():
+        return {}
+    return load_json(path)
 
 
 def receipt_payloads() -> list[dict[str, Any]]:
@@ -276,26 +305,18 @@ def main() -> int:
     contests = contest_rows()
     contest_ids = [str(row.get("ncaa_contest_id")) for row in contests]
     remaining = {
-        CONTEST_6618941: {
-            "matchup": "Washington State at Washington",
-            "official_kickoff_utc": "2026-09-06T20:00:00Z",
-            "venue": "Husky Stadium",
-        },
-        CONTEST_6602874: {
-            "matchup": "Notre Dame vs Wisconsin",
-            "official_kickoff_utc": "2026-09-06T23:30:00Z",
-            "venue": "Lambeau Field",
-        },
-        CONTEST_6620581: {
-            "matchup": "Louisville vs Ole Miss",
-            "official_kickoff_utc": "2026-09-06T23:30:00Z",
-            "venue": "Nissan Stadium",
-        },
-        CONTEST_6594400: {
-            "matchup": "SMU at Florida State",
-            "official_kickoff_utc": "2026-09-07T23:30:00Z",
-            "venue": "Doak Campbell Stadium",
-        },
+        str(item["ncaa_contest_id"]): {
+            "matchup": item["matchup"],
+            "official_kickoff_utc": item["official_kickoff_utc"],
+            "venue": str(item["site"]).split(",")[0],
+            "away": item["ordered_participants"][0],
+            "home": item["ordered_participants"][1],
+        }
+        for item in REMAINING_GAMES
+    }
+    t90m_receipt = corrected_sunday_t90m_receipt()
+    captured_t90m = {
+        str(item) for item in (t90m_receipt.get("contests") or [])
     }
     wsu = reconcile_washington_state_washington(
         now_utc=now,
@@ -315,6 +336,9 @@ def main() -> int:
         t24_state = DISPOSITION_MISSED if now_dt >= t24 else DISPOSITION_OPEN
         if contest_id == CONTEST_6618941:
             t90_state = DISPOSITION_MISSED
+            early = DISPOSITION_EARLY
+        elif contest_id in captured_t90m:
+            t90_state = DISPOSITION_EVIDENCE
             early = DISPOSITION_EARLY
         else:
             early = None
@@ -339,8 +363,15 @@ def main() -> int:
                 "t24h_state": t24_state,
                 "forecast_frozen": False,
                 "relabeled_early_as_t90m": False,
+                "corrected_t90m_receipt": (
+                    t90m_receipt.get("schedule_capture_identity")
+                    if contest_id in captured_t90m
+                    else None
+                ),
             }
         )
+    if t90m_receipt:
+        dump(ART / "C28_CORRECTED_SUN_T90M_CAPTURE_RECEIPT.json", t90m_receipt)
     dump(
         ART / "WEEK1_REMAINING_GAME_CALENDAR_RECONCILIATION.json",
         {
@@ -580,7 +611,8 @@ def main() -> int:
     )
 
     teams: dict[str, dict[str, Any]] = {}
-    for row in contests:
+    cube_rows = scoring_payload["final_states"]
+    for row in cube_rows:
         for side in ("home", "away", "home_team", "away_team"):
             value = row.get(side)
             if value:
@@ -608,8 +640,8 @@ def main() -> int:
     )
     cube_path = LAKE / "NATIONAL_DOMAIN_COVERAGE_CUBE.jsonl"
     dispositions: Counter[str] = Counter()
-    with cube_path.open("w", encoding="utf-8") as handle:
-        for row in contests:
+    with cube_path.open("w", encoding="utf-8", newline="\n") as handle:
+        for row in cube_rows:
             cid = str(row.get("ncaa_contest_id"))
             for side in ("home", "away", "home_team", "away_team"):
                 team = row.get(side)

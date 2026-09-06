@@ -1,9 +1,12 @@
 {
   "am_only_satisfies_national": false,
   "artifact_type": "NATIONAL_DOMAIN_COVERAGE_GATE",
-  "cell_count": 0,
+  "cell_count": 12012,
   "cube_path": "C:\\BatteredAggieSyndrome.data\\lake\\cycle28\\NATIONAL_DOMAIN_COVERAGE_CUBE.jsonl",
   "denominator_includes_unaudited_absent_failed": true,
-  "dispositions": {},
-  "issued_at_utc": "2026-09-06T21:02:24Z"
+  "dispositions": {
+    "NOT_YET_AUDITED": 10556,
+    "PRESENT_CANDIDATE_ONLY": 1456
+  },
+  "issued_at_utc": "2026-09-06T22:07:43Z"
 }

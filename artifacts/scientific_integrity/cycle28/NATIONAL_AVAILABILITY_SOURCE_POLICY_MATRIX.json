@@ -2,7 +2,1464 @@
   "absence_means_healthy": false,
   "artifact_type": "NATIONAL_AVAILABILITY_SOURCE_POLICY_MATRIX",
   "conference_policy_applied_out_of_scope": false,
-  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "issued_at_utc": "2026-09-06T22:07:43Z",
   "model_consumption": "CANDIDATE_ONLY_NOT_CONSUMED",
-  "rows": []
+  "rows": [
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Abilene Christian"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Air Force"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Akron"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Alabama"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Alcorn"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "App State"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Arizona"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Arizona St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Ark.-Pine Bluff"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Arkansas"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Arkansas St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Army West Point"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Auburn"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Austin Peay"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "BYU"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Ball St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Baylor"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Bethune-Cookman"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Boise St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Boston College"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Bowling Green"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Bryant"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Buffalo"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "California"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Central Mich."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Charleston So."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Charlotte"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Cincinnati"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Clemson"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Coastal Carolina"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Colorado"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Colorado St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Delaware"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Duke"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Duquesne"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "East Carolina"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Eastern Ill."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Eastern Ky."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Eastern Mich."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "FIU"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Fla. Atlantic"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Florida"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Florida St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Fordham"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Fresno St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Furman"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Ga. Southern"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Georgia"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Georgia St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Georgia Tech"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Hampton"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Hawaii"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Houston"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Houston Christian"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Idaho"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Idaho St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Illinois"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Indiana"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Indiana St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Iowa"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Iowa St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Jacksonville St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "James Madison"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Kansas"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Kansas St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Kennesaw St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Kent St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Kentucky"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "LIU"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "LSU"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Lafayette"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Lamar University"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Liberty"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Louisiana"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Louisiana Tech"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Louisville"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Maine"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Marshall"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Maryland"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Massachusetts"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Memphis"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Mercyhurst"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Merrimack"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Miami (FL)"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Miami (OH)"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Michigan"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Michigan St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Middle Tenn."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Minnesota"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Mississippi St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Mississippi Val."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Missouri"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Missouri St. Bears"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Morgan St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Murray St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "N.C. A&T"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "NIU"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Navy"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Nebraska"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Nevada"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "New Hampshire"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "New Mexico"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "New Mexico St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Nicholls"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Norfolk St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "North Ala."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "North Dakota St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "North Texas"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Northern Ariz."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Northwestern"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Northwestern St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Notre Dame"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Ohio"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Ohio St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Oklahoma"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Oklahoma St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Old Dominion"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Ole Miss"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Oregon"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Oregon St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Penn St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Pittsburgh"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Portland St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Purdue"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Rhode Island"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Rice"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Rutgers"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "SMU"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Sacramento St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Sam Houston"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "San Diego St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "San Jose St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "South Alabama"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "South Carolina"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "South Dakota St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "South Fla."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Southeast Mo. St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Southeastern La."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Southern California"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Southern Miss."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Stanford"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Syracuse"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Tarleton St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Temple"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Tennessee"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Tennessee St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Texas"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Texas A&M Aggies"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Texas St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Texas Tech"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "The Citadel"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Toledo"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Towson"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Troy"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Tulane"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Tulsa"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UAB"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UAlbany"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UCF"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UCLA"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UConn"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "ULM"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UNLV"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UTEP"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UTRGV"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "UTSA"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Utah"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Utah St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Utah Tech"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "VMI"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Vanderbilt"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Virginia Tech"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Wake Forest"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Washington"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Washington St."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "West Ga."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "West Virginia"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Western Ky."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Western Mich."
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Wisconsin"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Wyoming"
+    },
+    {
+      "disposition": "NOT_YET_AUDITED",
+      "game_type": "nonconference_or_unspecified",
+      "no_report_required": "NO_REPORT_REQUIRED",
+      "policy": "NOT_YET_AUDITED",
+      "season": 2026,
+      "team": "Youngstown St."
+    }
+  ]
 }

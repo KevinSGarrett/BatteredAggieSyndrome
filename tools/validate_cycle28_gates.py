@@ -80,6 +80,9 @@ def validate(root: Path) -> list[str]:
         findings.append("early capture relabeled as T-90M")
     if wsu.get("predecessor_preserved") is not True:
         findings.append("WSU predecessor not preserved")
+    coverage_gate = load(root, "NATIONAL_DOMAIN_COVERAGE_GATE.json")
+    if int(coverage_gate.get("cell_count") or 0) < 91 * 2 * 2:
+        findings.append("national coverage cube missing contest/team/cutoff cells")
 
     pred = load(root, "CYCLE27_PREDECESSOR_RECEIPT_AUDIT.json")
     if pred.get("predecessor_deleted"):

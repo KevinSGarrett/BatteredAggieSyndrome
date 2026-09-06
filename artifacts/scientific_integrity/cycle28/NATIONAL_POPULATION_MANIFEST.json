@@ -1,6 +1,6 @@
 {
   "artifact_type": "NATIONAL_POPULATION_MANIFEST",
-  "issued_at_utc": "2026-09-06T21:02:24Z",
+  "issued_at_utc": "2026-09-06T22:07:43Z",
   "universes": {
     "CURRENT_FORECASTING_FBS_PLUS_SCHEDULED_LOWER_DIVISION_OPPONENTS": {
       "contest_count": 91,
@@ -98,7 +98,7 @@
         "6594400"
       ],
       "denominator_frozen": true,
-      "team_count": 0
+      "team_count": 182
     },
     "HISTORICAL_DEVELOPMENT_ADMITTED_FBS_TEAM_GAMES": {
       "cell_disposition_default": "NOT_YET_AUDITED",

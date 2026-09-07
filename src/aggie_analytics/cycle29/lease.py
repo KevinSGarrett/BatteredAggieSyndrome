@@ -2,7 +2,7 @@
 
 A live owner cannot be displaced by PID ordering or a second launch. Takeover
 requires verified expiry, verified dead owner PID, and compare-and-swap of the
-expected cas_token.
+expected lease_cas.
 """
 
 from __future__ import annotations
@@ -22,7 +22,6 @@ try:
 except ImportError:
     ctypes = None  # type: ignore[assignment]
 
-DEFAULT_LEASE_ROOT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle29_work\leases")
 SCHEDULER_ACTIVE_OR_BOUND = "SCHEDULER_ACTIVE_OR_BOUND"
 PRIMARY = "PRIMARY"
 FAILOVER = "FAILOVER"
@@ -59,7 +58,12 @@ def _root(lease_root: Path | None) -> Path:
     if lease_root is not None:
         return Path(lease_root)
     env = os.environ.get("CYCLE29_LEASE_ROOT")
-    return Path(env) if env else DEFAULT_LEASE_ROOT
+    if env:
+        return Path(env)
+    data_root = os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")
+    if data_root:
+        return Path(data_root) / "ops" / "cycle29_work" / "leases"
+    return Path(".cycle29_leases")
 
 
 def _slot(contest_id: str, checkpoint: str, lease_root: Path | None = None) -> Path:
@@ -98,7 +102,7 @@ def acquire(
     pid: int,
     ttl_seconds: int,
     heartbeat_seconds: int,
-    expected_cas_token: str | None = None,
+    expected_lease_cas: str | None = None,
     lease_root: Path | None = None,
     write_paths: list[str] | None = None,
 ) -> dict[str, Any]:
@@ -110,7 +114,7 @@ def acquire(
     slot.mkdir(parents=True, exist_ok=True)
     lock_dir = _lock_dir(contest_id, checkpoint, lease_root)
     lease_path = _lease_path(contest_id, checkpoint, lease_root)
-    cas_token = uuid.uuid4().hex
+    lease_cas = uuid.uuid4().hex
     payload = {
         "artifact_type": "CYCLE29_CHECKPOINT_LEASE",
         "owner_id": owner_id,
@@ -127,7 +131,7 @@ def acquire(
         ).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "heartbeat_seconds": heartbeat_seconds,
         "ttl_seconds": ttl_seconds,
-        "cas_token": cas_token,
+        "lease_cas": lease_cas,
         "write_paths": list(
             write_paths or [str(slot / "owner_outputs" / "receipt.json")]
         ),
@@ -175,7 +179,7 @@ def acquire(
                 "lease": existing,
                 "exit_code": 4,
             }
-        if expected_cas_token is None:
+        if expected_lease_cas is None:
             return {
                 "ok": False,
                 "action": "STALE_OWNER_REQUIRES_VERIFIED_CAS",
@@ -184,7 +188,7 @@ def acquire(
                 "expired": expired,
                 "exit_code": 5,
             }
-        if expected_cas_token != existing.get("cas_token"):
+        if expected_lease_cas != existing.get("lease_cas"):
             return {
                 "ok": False,
                 "action": "CAS_TOKEN_MISMATCH",
@@ -260,7 +264,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--pid", type=int, default=os.getpid())
     parser.add_argument("--ttl-seconds", type=int, default=8 * 3600)
     parser.add_argument("--heartbeat-seconds", type=int, default=60)
-    parser.add_argument("--expected-cas-token", default=None)
+    parser.add_argument("--expected-lease-cas", default=None)
     parser.add_argument("--lease-root", default=None)
     args = parser.parse_args(argv)
     root = Path(args.lease_root) if args.lease_root else None
@@ -296,7 +300,7 @@ def main(argv: list[str] | None = None) -> int:
             pid=args.pid,
             ttl_seconds=args.ttl_seconds,
             heartbeat_seconds=args.heartbeat_seconds,
-            expected_cas_token=args.expected_cas_token,
+            expected_lease_cas=args.expected_lease_cas,
             lease_root=root,
         )
     sys.stdout.write(json.dumps(result, indent=2) + "\n")

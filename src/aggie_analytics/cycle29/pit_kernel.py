@@ -17,7 +17,7 @@ from aggie_analytics.cycle29.temporal import (
     parse_aware_utc,
 )
 
-SEALED_SEASONS = {2024, 2025}
+EXPOSED_NON_BLIND_SEASONS = {2024, 2025}
 ADMITTED_DOMAINS = (
     "canonical_game_identity",
     "canonical_team_identity",
@@ -66,12 +66,17 @@ class PriorAccumulator:
         self.by_season: dict[int, list[int]] = defaultdict(lambda: [0, 0])
 
     def admit(self, outcome: Mapping[str, Any]) -> None:
+        if outcome.get("label_win") is None:
+            raise PitKernelError("missing label_win cannot be imputed as a loss")
+        for field in ("points_for", "points_against", "margin"):
+            if outcome.get(field) is None:
+                raise PitKernelError("missing points/margin cannot be imputed as zero")
         self.games += 1
         won = 1 if outcome.get("label_win") else 0
         self.wins += won
-        self.points_for += int(outcome.get("points_for") or 0)
-        self.points_against += int(outcome.get("points_against") or 0)
-        self.margin += int(outcome.get("margin") or 0)
+        self.points_for += int(outcome["points_for"])
+        self.points_against += int(outcome["points_against"])
+        self.margin += int(outcome["margin"])
         season = self.by_season[int(outcome["season"])]
         season[0] += 1
         season[1] += won
@@ -154,8 +159,14 @@ def build_game_grain_kernel(
             ]
             if instant is None or not matching:
                 continue
+            outcome = matching[0]
+            if outcome.get("label_win") is None or any(
+                outcome.get(field) is None
+                for field in ("points_for", "points_against", "margin")
+            ):
+                continue
             team_targets.append((earliest_start_bound(instant, policy), observation))
-            team_outcomes.append((completion_bound(instant, policy), matching[0]))
+            team_outcomes.append((completion_bound(instant, policy), outcome))
         team_targets.sort(key=lambda item: (item[0], str(item[1]["canonical_game_id"])))
         team_outcomes.sort(
             key=lambda item: (item[0], str(item[1]["canonical_game_id"]))
@@ -174,9 +185,12 @@ def build_game_grain_kernel(
         season = int(game["season"])
         home = str(game["home_canonical_team_id"])
         away = str(game["away_canonical_team_id"])
-        if season in SEALED_SEASONS:
+        if season in EXPOSED_NON_BLIND_SEASONS:
             blockers.append(
-                {"canonical_game_id": game_id, "blocker": "REJECTED_SEALED_SEASON"}
+                {
+                    "canonical_game_id": game_id,
+                    "blocker": "REJECTED_EXPOSED_NON_BLIND_SEASON",
+                }
             )
             continue
         if game_id not in starts:

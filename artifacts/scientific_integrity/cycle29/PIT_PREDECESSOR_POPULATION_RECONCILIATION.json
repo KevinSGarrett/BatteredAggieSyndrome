@@ -1,6 +1,6 @@
 {
   "controlling_gate": "CYCLE29_PIT_KERNEL_ADMISSION",
-  "cycle29_kernel_proven_pit_training_rows": 3,
+  "cycle29_kernel_proven_pit_training_rows": 0,
   "deprecation": "CYCLE28_ACTIVE_PATH_ZERO_PROVEN_REMAINS_BINDING_FOR_FITTED_FORECASTS",
   "difference_eligible_minus_oriented": -343,
   "eligibility_is_not_admission": true,

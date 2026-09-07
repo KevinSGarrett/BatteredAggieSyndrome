@@ -1,8 +1,12 @@
-"""Validate Cycle #29 gates from materialized artifacts and import graphs."""
+"""Validate Cycle #29 gates from materialized artifacts and import graphs.
+
+Does not import producer scientific helpers. Independent reconstruction only.
+"""
 
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import sys
 from pathlib import Path
@@ -11,13 +15,6 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
-
-# Tool scripts must import the local package after PATH setup.
-# ruff: noqa: E402
-
-from aggie_analytics.cycle29.dependency import static_import_graph
-from aggie_analytics.cycle29.domains import crosswalk
-from aggie_analytics.cycle29.findings import C28_P0_IDS
 
 ART = ROOT / "artifacts" / "scientific_integrity" / "cycle29"
 REQUIRED = (
@@ -31,6 +28,43 @@ REQUIRED = (
     "CYCLE29_CLAIM_INVENTORY.json",
     "CYCLE29_PREFLIGHT_AND_PRESERVATION.json",
 )
+C28_P0_IDS = tuple(f"C28-P0-{index:02d}" for index in range(1, 13))
+PRODUCER_ROOT = "aggie_analytics.cycle29"
+REFERENCE_ROOT = "aggie_analytics.scientific_reference.cycle29"
+
+
+def _imported_modules(path: Path) -> set[str]:
+    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    names: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                names.add(alias.name)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            names.add(node.module)
+    return names
+
+
+def _producer_reference_disjoint(src_root: Path) -> bool:
+    producer_dir = src_root / "aggie_analytics" / "cycle29"
+    reference_dir = src_root / "aggie_analytics" / "scientific_reference" / "cycle29"
+    producer_imports: set[str] = set()
+    reference_imports: set[str] = set()
+    for path in producer_dir.rglob("*.py"):
+        producer_imports.update(_imported_modules(path))
+    for path in reference_dir.rglob("*.py"):
+        reference_imports.update(_imported_modules(path))
+    if any(
+        name == REFERENCE_ROOT or name.startswith(REFERENCE_ROOT + ".")
+        for name in producer_imports
+    ):
+        return False
+    if any(
+        name == PRODUCER_ROOT or name.startswith(PRODUCER_ROOT + ".")
+        for name in reference_imports
+    ):
+        return False
+    return True
 
 
 def main() -> int:
@@ -43,8 +77,7 @@ def main() -> int:
     if missing:
         print("FAIL missing", missing)
         return 1
-    graph = static_import_graph(root / "src")
-    if not graph["disjoint"]:
+    if not _producer_reference_disjoint(root / "src"):
         print("FAIL dependency graph")
         return 1
     xwalk = json.loads(
@@ -55,10 +88,6 @@ def main() -> int:
         or xwalk.get("ambiguous_unresolved_mapping_count") != 0
     ):
         print("FAIL domain crosswalk")
-        return 1
-    live = crosswalk()
-    if live["unmapped_term_count"] != 0:
-        print("FAIL live crosswalk")
         return 1
     findings = json.loads(
         (art / "CYCLE29_FINDING_SUCCESSOR_LEDGER.json").read_text(encoding="utf-8")
@@ -76,6 +105,9 @@ def main() -> int:
         return 1
     if trust.get("scientific_trust_recovered") is not False:
         print("FAIL compatibility scientific_trust_recovered must remain false")
+        return 1
+    if trust.get("cycle29_kernel_trust_usable") is not False:
+        print("FAIL kernel trust usable must remain false")
         return 1
     entity = json.loads(
         (art / "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json").read_text(

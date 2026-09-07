@@ -6,6 +6,8 @@ its own unmapped count.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from aggie_analytics.cycle29.hashing import sha256_json
@@ -30,6 +32,18 @@ CLAIM_FIELDS = (
 ALL_CYCLE_PRIOR = "PRIOR_ALL_CYCLE_CLASSIFICATION_RETAINED"
 KERNEL_INVENTORIED = "CYCLE29_KERNEL_CLOSURE_INVENTORIED"
 UNMAPPED_FAIL = "UNMAPPED_CLAIM_FAIL_CLOSED"
+AUTHORITY_KEY_MARKERS = (
+    "_count",
+    "_rows",
+    "_row_count",
+    "proven_pit_training_rows",
+    "cycle29_kernel_trust_usable",
+    "current_fitted_forecast_trust_recovered",
+    "project_wide_scientific_trust_recovered",
+    "scientific_trust_recovered",
+    "unmapped_count",
+    "all_cycle_trust_recovered",
+)
 
 
 class ClaimError(ValueError):
@@ -47,12 +61,16 @@ def inventory_claims(
     discovered: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
     declared_ids = [str(row["claim_id"]) for row in declared]
+    declared_fields = {str(row["field"]) for row in declared}
     for claim in declared:
         require_mapped(claim)
+    if discovered is declared:
+        raise ClaimError("discovered claims cannot be the producer's declared list")
     unmapped = []
     for claim in discovered:
-        cid = str(claim.get("claim_id") or claim.get("field") or "")
-        if cid not in declared_ids:
+        cid = str(claim.get("claim_id") or "")
+        field = str(claim.get("field") or "")
+        if cid not in declared_ids and field not in declared_fields:
             unmapped.append(claim)
     if unmapped:
         raise ClaimError(
@@ -77,6 +95,74 @@ def reject_producer_unmapped_count(
         raise ClaimError("producer unmapped count disagrees with independent inventory")
     if independent_unmapped != 0:
         raise ClaimError("unmapped claims remain")
+
+
+def _is_authority_key(key: str, value: Any) -> bool:
+    if key in AUTHORITY_KEY_MARKERS:
+        return isinstance(value, (int, float, bool))
+    if any(key.endswith(suffix) for suffix in ("_count", "_rows", "_row_count")):
+        return isinstance(value, (int, float))
+    return False
+
+
+def _walk_authority_keys(payload: Any, found: set[str]) -> None:
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            if _is_authority_key(str(key), value):
+                found.add(str(key))
+            _walk_authority_keys(value, found)
+    elif isinstance(payload, list):
+        for item in payload:
+            _walk_authority_keys(item, found)
+
+
+def discover_authority_claims(
+    art_dir: Path, declared: Sequence[Mapping[str, Any]]
+) -> list[dict[str, Any]]:
+    """Scan Cycle #29 artifacts; do not reuse the declared list as discovery."""
+
+    skip = {
+        "CYCLE29_CLAIM_INVENTORY.json",
+        "CYCLE29_MATERIALIZATION_MANIFEST.json",
+        "CYCLE29_PREFLIGHT_AND_PRESERVATION.json",
+    }
+    declared_artifacts = {Path(str(row["artifact_path"])).name for row in declared}
+    declared_fields = {str(row["field"]) for row in declared}
+    discovered: list[dict[str, Any]] = []
+    seen: set[tuple[str, str]] = set()
+    for path in sorted(art_dir.glob("*.json")):
+        if path.name in skip or path.name not in declared_artifacts:
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        keys: set[str] = set()
+        _walk_authority_keys(payload, keys)
+        for key in sorted(keys):
+            ident = (path.name, key)
+            if ident in seen:
+                continue
+            seen.add(ident)
+            if key in declared_fields:
+                discovered.append(
+                    {
+                        "claim_id": key,
+                        "field": key,
+                        "artifact_path": path.name,
+                    }
+                )
+            else:
+                discovered.append(
+                    {
+                        "claim_id": f"UNMAPPED-{path.name}-{key}",
+                        "field": key,
+                        "artifact_path": path.name,
+                    }
+                )
+    if not discovered:
+        raise ClaimError("claim discovery produced no authority-bearing fields")
+    return discovered
 
 
 def kernel_closure_claims() -> list[dict[str, Any]]:
@@ -119,6 +205,15 @@ def kernel_closure_claims() -> list[dict[str, Any]]:
             "PIT_KERNEL_TRUST_GATE.json",
         ),
         _c(
+            "C29-CLAIM-WEEK1-APPEARANCES",
+            "participant_appearance_count",
+            "week1_2026_slice",
+            182,
+            182,
+            KERNEL_INVENTORIED,
+            "WEEK1_2026_PROGRAM_SLICE.json",
+        ),
+        _c(
             "C29-CLAIM-WEEK1-CONTESTS",
             "contest_count",
             "week1_2026_slice",
@@ -126,6 +221,60 @@ def kernel_closure_claims() -> list[dict[str, Any]]:
             91,
             KERNEL_INVENTORIED,
             "WEEK1_2026_PROGRAM_SLICE.json",
+        ),
+        _c(
+            "C29-CLAIM-FORECAST-ISSUED-BEFORE",
+            "issued_before_cutoff_count",
+            "week1_frozen_forecasts",
+            "proven",
+            455,
+            KERNEL_INVENTORIED,
+            "CYCLE29_FORECAST_IMMUTABILITY.json",
+        ),
+        _c(
+            "C29-CLAIM-FORECAST-NOT-PROVEN",
+            "not_proven_count",
+            "week1_frozen_forecasts",
+            "not_proven",
+            455,
+            KERNEL_INVENTORIED,
+            "CYCLE29_FORECAST_IMMUTABILITY.json",
+        ),
+        _c(
+            "C29-CLAIM-FORECAST-ROW-COUNT",
+            "row_count",
+            "week1_frozen_forecasts",
+            455,
+            455,
+            KERNEL_INVENTORIED,
+            "CYCLE29_FORECAST_IMMUTABILITY.json",
+        ),
+        _c(
+            "C29-CLAIM-ENTITY-RESOLVED-COUNT",
+            "resolved_authoritative_identity_count",
+            "week1_entity_authority_successor",
+            "resolved",
+            "population",
+            KERNEL_INVENTORIED,
+            "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+        ),
+        _c(
+            "C29-CLAIM-KERNEL-PROVEN-RECONCILED",
+            "cycle29_kernel_proven_pit_training_rows",
+            "pit_kernel",
+            0,
+            0,
+            KERNEL_INVENTORIED,
+            "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+        ),
+        _c(
+            "C29-CLAIM-PRODUCTION-PROVEN-ROWS",
+            "production_proven_rows",
+            "pit_kernel",
+            0,
+            0,
+            KERNEL_INVENTORIED,
+            "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
         ),
         _c(
             "C29-CLAIM-FORECAST-455",
@@ -270,5 +419,59 @@ def kernel_closure_claims() -> list[dict[str, Any]]:
             0,
             KERNEL_INVENTORIED,
             "CYCLE29_CLAIM_INVENTORY.json",
+        ),
+        _c(
+            "C29-CLAIM-COMPAT-FIXTURE-ROWS",
+            "compatibility_fixture_row_count",
+            "pit_kernel_bounded_compatibility",
+            "fixture",
+            "not_proven",
+            KERNEL_INVENTORIED,
+            "PIT_KERNEL_POPULATION_MANIFEST.json",
+        ),
+        _c(
+            "C29-CLAIM-INDEPENDENT-MATCHED-ROWS",
+            "matched_team_rows",
+            "pit_kernel_bounded_compatibility",
+            "reconstructed",
+            "producer",
+            KERNEL_INVENTORIED,
+            "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+        ),
+        _c(
+            "C29-CLAIM-INDEPENDENT-RECONSTRUCTED-COUNT",
+            "reconstructed_count",
+            "pit_kernel_bounded_compatibility",
+            "reconstructed",
+            "producer",
+            KERNEL_INVENTORIED,
+            "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+        ),
+        _c(
+            "C29-CLAIM-PIT-GAME-GRAIN-COUNT",
+            "game_grain_count",
+            "pit_kernel",
+            0,
+            0,
+            KERNEL_INVENTORIED,
+            "PIT_KERNEL_POPULATION_MANIFEST.json",
+        ),
+        _c(
+            "C29-CLAIM-PIT-ORIENTED-COUNT",
+            "oriented_row_count",
+            "pit_kernel",
+            0,
+            0,
+            KERNEL_INVENTORIED,
+            "PIT_KERNEL_POPULATION_MANIFEST.json",
+        ),
+        _c(
+            "C29-CLAIM-MISSOURI-PRIOR-52",
+            "admitted_prior_games",
+            "missouri_state_transition_prior",
+            52,
+            52,
+            KERNEL_INVENTORIED,
+            "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
         ),
     ]

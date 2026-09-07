@@ -116,15 +116,42 @@ REMAINING = {
     "6594400": {
         "matchup": "SMU at Florida State",
         "kickoff_utc": "2026-09-07T23:30:00Z",
-        "canonical_home_id": "NCAA_TEAM:6594400_HOME",
-        "canonical_away_id": "NCAA_TEAM:6594400_AWAY",
+        "canonical_home_id": "NCAA_TEAM:622295",
+        "canonical_away_id": "NCAA_TEAM:622228",
         "displayed_home_name": "Florida St.",
         "displayed_away_name": "SMU",
-        "scoreboard_home_id": None,
-        "scoreboard_away_id": None,
+        "scoreboard_home_id": "622295",
+        "scoreboard_away_id": "622228",
         "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
     },
 }
+
+
+def pending_contest_ids() -> set[str]:
+    path = ART / "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json"
+    if not path.is_file():
+        return set(REMAINING)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    pending: set[str] = set()
+    for row in payload.get("contests", []):
+        if row.get("state") != "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT":
+            pending.add(str(row.get("ncaa_contest_id")))
+    return pending or set(REMAINING)
+
+
+def capture_reusable_for_target(target: dict[str, Any], pending: set[str]) -> bool:
+    contest_id = target.get("ncaa_contest_id")
+    if contest_id and str(contest_id) in pending:
+        return False
+    if target.get("purpose") == "official_ncaa_scoreboard":
+        date_pending = {
+            "ncaa_scoreboard_2026_09_06": {"6602874", "6620581"},
+            "ncaa_scoreboard_2026_09_07": {"6594400"},
+        }
+        needed = date_pending.get(str(target["target_id"]), set())
+        if needed.intersection(pending):
+            return False
+    return True
 
 
 def utc_now() -> str:
@@ -220,7 +247,7 @@ def find_receipt_for_raw(
     return matches[0]
 
 
-def acquire_one(target: dict[str, Any]) -> dict[str, Any]:
+def acquire_one(target: dict[str, Any], pending: set[str]) -> dict[str, Any]:
     started = utc_now()
     req_id = request_identity(
         method="GET",
@@ -240,7 +267,8 @@ def acquire_one(target: dict[str, Any]) -> dict[str, Any]:
             reusable.append((path, rec, raw))
     token = scrapfly_token()
     token_present = bool(token)
-    if reusable:
+    allow_reuse = capture_reusable_for_target(target, pending)
+    if reusable and allow_reuse:
         reusable.sort(
             key=lambda item: (
                 0 if item[1].get("semantic_state") == "SEMANTIC_PAGE_AVAILABLE" else 1,
@@ -340,7 +368,8 @@ def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     ART.mkdir(parents=True, exist_ok=True)
     now = utc_now()
-    acquisitions = [acquire_one(target) for target in TARGETS]
+    pending = pending_contest_ids()
+    acquisitions = [acquire_one(target, pending) for target in TARGETS]
     by_id = {row["target_id"]: row for row in acquisitions}
     sep6 = by_id["ncaa_scoreboard_2026_09_06"]
     sep7 = by_id["ncaa_scoreboard_2026_09_07"]
@@ -372,17 +401,25 @@ def main() -> int:
         try:
             if card is None:
                 raise ValueError("contest card absent from official scoreboard")
-            home_id = f"NCAA_TEAM:{card['home_source_team_id']}"
-            away_id = f"NCAA_TEAM:{card['away_source_team_id']}"
+            canonical_home = str(meta["canonical_home_id"])
+            canonical_away = str(meta["canonical_away_id"])
+            card_home = f"NCAA_TEAM:{card['home_source_team_id']}"
+            card_away = f"NCAA_TEAM:{card['away_source_team_id']}"
+            if {card_home, card_away} != {canonical_home, canonical_away}:
+                raise ValueError("scoreboard team IDs do not match contest authority")
+            points_by_id = {
+                card_home: int(card["home_points"])
+                if card.get("home_points") is not None
+                else None,
+                card_away: int(card["away_points"])
+                if card.get("away_points") is not None
+                else None,
+            }
+            home_id = canonical_home
+            away_id = canonical_away
             score_ids = [
-                str(
-                    card.get("home_source_score_element_id")
-                    or card.get("home_source_team_id")
-                ),
-                str(
-                    card.get("away_source_score_element_id")
-                    or card.get("away_source_team_id")
-                ),
+                str(card.get("home_source_team_id")),
+                str(card.get("away_source_team_id")),
             ]
             terminal_state = contest_scoped_terminal(
                 page_text=page,
@@ -398,6 +435,10 @@ def main() -> int:
             if terminal_state == "TERMINAL_STATUS_ESTABLISHED" and card.get(
                 "final_status_is_terminal"
             ):
+                home_points = points_by_id[home_id]
+                away_points = points_by_id[away_id]
+                if home_points is None or away_points is None:
+                    raise ValueError("terminal card missing bound points")
                 admitted = admit_official_final(
                     page_text=page,
                     contest_id=contest_id,
@@ -408,11 +449,11 @@ def main() -> int:
                     embedded_contest_id=contest_id,
                     canonical_home_id=home_id,
                     canonical_away_id=away_id,
-                    displayed_home_name=str(card.get("home_source_team_name") or ""),
-                    displayed_away_name=str(card.get("away_source_team_name") or ""),
+                    displayed_home_name=str(meta.get("displayed_home_name") or ""),
+                    displayed_away_name=str(meta.get("displayed_away_name") or ""),
                     name_only=False,
-                    home_points=int(card["home_points"]),
-                    away_points=int(card["away_points"]),
+                    home_points=int(home_points),
+                    away_points=int(away_points),
                     kickoff_utc=str(meta["kickoff_utc"]),
                     retrieval_utc=str(
                         sep7["ended_at_utc"]
@@ -426,7 +467,10 @@ def main() -> int:
         state = "AWAITING_OFFICIAL_FINAL"
         if admitted:
             state = "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
-        elif box.get("semantic_state") == "HTTP_CAPTURED_SEMANTIC_NOT_AVAILABLE":
+        elif (
+            card is None
+            and box.get("semantic_state") == "HTTP_CAPTURED_SEMANTIC_NOT_AVAILABLE"
+        ):
             state = "HTTP_CAPTURED_SEMANTIC_NOT_AVAILABLE"
         row = {
             "ncaa_contest_id": contest_id,

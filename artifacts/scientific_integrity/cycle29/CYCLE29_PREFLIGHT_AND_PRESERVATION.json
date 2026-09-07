@@ -2,10 +2,10 @@
   "artifact_type": "CYCLE29_PREFLIGHT_AND_PRESERVATION",
   "dependabot_654_untouched": true,
   "hold_active": true,
-  "issued_at_utc": "2026-09-07T22:25:23Z",
+  "issued_at_utc": "2026-09-07T23:42:36Z",
   "main_observed": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "migration": "DEFERRED_BY_USER_NOT_COMPLETE",
   "public_repo_canonical": true,
   "science_branch": "codex/cycle29-scientific-successor",
-  "science_head": "b37444e498e4d6db699a5904b55ace55f7dcabff"
+  "science_head": "6636b825ee1805cf1565006c1761d996b2d08b86"
 }

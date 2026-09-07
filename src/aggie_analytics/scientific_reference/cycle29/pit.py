@@ -19,7 +19,7 @@ from aggie_analytics.scientific_reference.cycle29.temporal import (
     parse_aware_utc,
 )
 
-SEALED = {2024, 2025}
+EXPOSED_NON_BLIND = {2024, 2025}
 
 
 class IndependentPitError(ValueError):
@@ -42,22 +42,35 @@ class IndependentPrior:
         self.by_season: dict[int, list[int]] = defaultdict(lambda: [0, 0])
 
     def admit(self, outcome: Mapping[str, Any]) -> None:
+        if outcome.get("label_win") is None:
+            raise IndependentPitError("missing label_win cannot be imputed as a loss")
+        for field in ("points_for", "points_against", "margin"):
+            if outcome.get(field) is None:
+                raise IndependentPitError(
+                    "missing points/margin cannot be imputed as zero"
+                )
         self.games += 1
         won = 1 if outcome.get("label_win") else 0
         self.wins += won
-        self.points_for += int(outcome.get("points_for") or 0)
-        self.points_against += int(outcome.get("points_against") or 0)
-        self.margin += int(outcome.get("margin") or 0)
+        self.points_for += int(outcome["points_for"])
+        self.points_against += int(outcome["points_against"])
+        self.margin += int(outcome["margin"])
         bucket = self.by_season[int(outcome["season"])]
         bucket[0] += 1
         bucket[1] += won
 
     def emit(self, season: int) -> dict[str, Any]:
         previous = self.by_season.get(season - 1, [0, 0])
+        current = self.by_season.get(season, [0, 0])
         return {
             "pit_prior_games_played": self.games,
-            "pit_prior_win_rate": _ratio(self.wins, self.games),
+            "pit_prior_margin_mean": _ratio(self.margin, self.games),
+            "pit_prior_points_against_mean": _ratio(self.points_against, self.games),
+            "pit_prior_points_for_mean": _ratio(self.points_for, self.games),
             "pit_prior_season_win_rate": _ratio(previous[1], previous[0]),
+            "pit_prior_win_rate": _ratio(self.wins, self.games),
+            "pit_season_to_date_games": current[0],
+            "pit_season_to_date_win_rate": _ratio(current[1], current[0]),
         }
 
 
@@ -99,8 +112,14 @@ def reconstruct_game_features(
             ]
             if not matching:
                 continue
+            outcome = matching[0]
+            if outcome.get("label_win") is None or any(
+                outcome.get(field) is None
+                for field in ("points_for", "points_against", "margin")
+            ):
+                continue
             targets.append((earliest_start_bound(instant, policy), observation))
-            priors.append((completion_bound(instant, policy), matching[0]))
+            priors.append((completion_bound(instant, policy), outcome))
         targets.sort(key=lambda item: (item[0], str(item[1]["canonical_game_id"])))
         priors.sort(key=lambda item: (item[0], str(item[1]["canonical_game_id"])))
         acc = IndependentPrior()
@@ -109,7 +128,7 @@ def reconstruct_game_features(
             while cursor < len(priors) and priors[cursor][0] <= earliest:
                 acc.admit(priors[cursor][1])
                 cursor += 1
-            if int(observation["season"]) in SEALED:
+            if int(observation["season"]) in EXPOSED_NON_BLIND:
                 continue
             rows.append(
                 {
@@ -122,11 +141,29 @@ def reconstruct_game_features(
     return rows
 
 
+COMPARE_KEYS = (
+    "pit_prior_games_played",
+    "pit_prior_margin_mean",
+    "pit_prior_points_against_mean",
+    "pit_prior_points_for_mean",
+    "pit_prior_season_win_rate",
+    "pit_prior_win_rate",
+    "pit_season_to_date_games",
+    "pit_season_to_date_win_rate",
+)
+
+
 def compare_producer_rows(
     producer_rows: Sequence[Mapping[str, Any]],
     reconstructed: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
-    # Producer game-grain rows store home/away features.
+    if not reconstructed:
+        raise IndependentPitError("independent reconstruction is empty")
+    reconstructed_keys = {
+        (str(row["canonical_game_id"]), str(row["canonical_team_id"]))
+        for row in reconstructed
+    }
+    producer_keys: set[tuple[str, str]] = set()
     matches = 0
     for row in reconstructed:
         key = (str(row["canonical_game_id"]), str(row["canonical_team_id"]))
@@ -136,14 +173,34 @@ def compare_producer_rows(
                 continue
             if key[1] == str(prow.get("home_canonical_team_id")):
                 parent = prow.get("home_features") or prow
+                producer_keys.add((key[0], str(prow.get("home_canonical_team_id"))))
             elif key[1] == str(prow.get("away_canonical_team_id")):
                 parent = prow.get("away_features") or prow
+                producer_keys.add((key[0], str(prow.get("away_canonical_team_id"))))
         if parent is None:
-            continue
-        if parent.get("pit_prior_games_played") != row.get("pit_prior_games_played"):
-            raise IndependentPitError("independent prior games_played disagrees")
+            raise IndependentPitError(
+                "independent reconstruction row has no producer match"
+            )
+        for field in COMPARE_KEYS:
+            if parent.get(field) != row.get(field):
+                raise IndependentPitError(
+                    f"independent reconstruction disagrees on {field}"
+                )
         matches += 1
-    return {"matched_team_rows": matches, "reconstructed_count": len(reconstructed)}
+    expected_producer_keys = set()
+    for prow in producer_rows:
+        gid = str(prow.get("canonical_game_id"))
+        expected_producer_keys.add((gid, str(prow.get("home_canonical_team_id"))))
+        expected_producer_keys.add((gid, str(prow.get("away_canonical_team_id"))))
+    if reconstructed_keys != expected_producer_keys:
+        raise IndependentPitError(
+            "independent reconstruction does not cover every producer team-row"
+        )
+    return {
+        "matched_team_rows": matches,
+        "reconstructed_count": len(reconstructed),
+        "matched": True,
+    }
 
 
 def scoring_metrics(

@@ -62,13 +62,15 @@ def prove_issued_before_cutoff(rows: Sequence[Mapping[str, Any]]) -> dict[str, A
             reasons.append(NOT_PROVEN)
             continue
         try:
-            if parse_aware_utc(str(issued)) <= parse_aware_utc(str(cutoff)):
-                proven += 1
-            else:
-                raise ForecastImmutabilityError("forecast issued after cutoff/kickoff")
+            issued_at = parse_aware_utc(str(issued))
+            cutoff_at = parse_aware_utc(str(cutoff))
         except Exception:
             unproven += 1
             reasons.append(NOT_PROVEN)
+            continue
+        if issued_at > cutoff_at:
+            raise ForecastImmutabilityError("forecast issued after cutoff/kickoff")
+        proven += 1
     return {
         "issued_before_cutoff_count": proven,
         "not_proven_count": unproven,

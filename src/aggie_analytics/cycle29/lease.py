@@ -202,7 +202,26 @@ def acquire(
                 "lease": existing,
                 "exit_code": 7,
             }
-        _atomic_write(lease_path, payload)
+        retired = slot / f"LOCK.retired.{existing.get('lease_cas')}"
+        try:
+            os.rename(lock_dir, retired)
+        except OSError:
+            return {
+                "ok": False,
+                "action": "CAS_TAKEOVER_RACE_LOST",
+                "exit_code": 10,
+            }
+        try:
+            tmp_dir = slot / f".lock_tmp_{uuid.uuid4().hex}"
+            tmp_dir.mkdir()
+            _atomic_write(tmp_dir / "lease.json", payload)
+            os.rename(tmp_dir, lock_dir)
+        except OSError:
+            return {
+                "ok": False,
+                "action": "CAS_TAKEOVER_RACE_LOST",
+                "exit_code": 10,
+            }
         return {
             "ok": True,
             "action": "CAS_TAKEOVER",

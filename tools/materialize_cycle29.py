@@ -21,7 +21,11 @@ if str(ROOT / "src") not in sys.path:
 # Tool scripts must import the local package after PATH setup.
 # ruff: noqa: E402
 
-from aggie_analytics.cycle29.claims import inventory_claims, kernel_closure_claims
+from aggie_analytics.cycle29.claims import (
+    discover_authority_claims,
+    inventory_claims,
+    kernel_closure_claims,
+)
 from aggie_analytics.cycle29.coaching import (
     extract_registry_identities,
     hc_oc_dc_matrix,
@@ -555,7 +559,7 @@ def main() -> int:
     )
 
     games, outcomes = fixture_kernel_games()
-    kernel = build_game_grain_kernel(
+    compatibility_kernel = build_game_grain_kernel(
         games,
         outcomes,
         expected_population_complete=False,
@@ -563,18 +567,48 @@ def main() -> int:
         cross_subdivision=False,
     )
     reconstructed = reconstruct_game_features(games, outcomes)
-    compare_producer_rows(kernel["rows"], reconstructed)
+    reconstruction = compare_producer_rows(compatibility_kernel["rows"], reconstructed)
+    hashes["PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE.json"] = write_json(
+        ART / "PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE.json",
+        {
+            "row_class": "BOUNDED_COMPATIBILITY_FIXTURE",
+            "fixture_game_count": len(games),
+            "reconstructed_fixture_rows": compatibility_kernel[
+                "proven_pit_training_rows"
+            ],
+            "not_proven_pit_training_rows": True,
+        },
+    )
+    production_kernel = {
+        **compatibility_kernel,
+        "proven_pit_training_rows": 0,
+        "oriented_row_count": 0,
+        "game_grain_count": 0,
+        "rows": [],
+        "oriented_rows": [],
+        "blockers": list(compatibility_kernel["blockers"])
+        + [
+            {
+                "canonical_game_id": None,
+                "blocker": "NO_AUTHORITY_CLEAN_HISTORICAL_MEMBERSHIP_POPULATION",
+            }
+        ],
+        "blocker_count": int(compatibility_kernel["blocker_count"]) + 1,
+        "compatibility_fixture_row_count": compatibility_kernel[
+            "proven_pit_training_rows"
+        ],
+    }
     hashes["PIT_KERNEL_ROWS.jsonl"] = write_jsonl(
-        EXT / "PIT_KERNEL_ROWS.jsonl", kernel["rows"]
+        EXT / "PIT_KERNEL_ROWS.jsonl", production_kernel["rows"]
     )
     hashes["PIT_KERNEL_EXCLUSION_LEDGER.jsonl"] = write_jsonl(
-        EXT / "PIT_KERNEL_EXCLUSION_LEDGER.jsonl", kernel["blockers"]
+        EXT / "PIT_KERNEL_EXCLUSION_LEDGER.jsonl", production_kernel["blockers"]
     )
     recon_pop = predecessor_reconciliation(
         pit_feature_eligible=89855,
         oriented_development=90198,
         active_proven=0,
-        kernel_proven=int(kernel["proven_pit_training_rows"]),
+        kernel_proven=int(production_kernel["proven_pit_training_rows"]),
     )
     hashes["PIT_PREDECESSOR_POPULATION_RECONCILIATION.json"] = write_json(
         ART / "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json", recon_pop
@@ -582,17 +616,20 @@ def main() -> int:
     hashes["PIT_KERNEL_DOMAIN_ADMISSION.json"] = write_json(
         ART / "PIT_KERNEL_DOMAIN_ADMISSION.json",
         {
-            "admitted": kernel["admitted_domains"],
-            "excluded": kernel["excluded_domains"],
+            "admitted": production_kernel["admitted_domains"],
+            "excluded": production_kernel["excluded_domains"],
         },
     )
     hashes["PIT_KERNEL_POPULATION_MANIFEST.json"] = write_json(
         ART / "PIT_KERNEL_POPULATION_MANIFEST.json",
         {
-            "scope": kernel["scope"],
-            "proven_pit_training_rows": kernel["proven_pit_training_rows"],
-            "game_grain_count": kernel["game_grain_count"],
-            "oriented_row_count": kernel["oriented_row_count"],
+            "scope": production_kernel["scope"],
+            "proven_pit_training_rows": production_kernel["proven_pit_training_rows"],
+            "game_grain_count": production_kernel["game_grain_count"],
+            "oriented_row_count": production_kernel["oriented_row_count"],
+            "compatibility_fixture_row_count": production_kernel[
+                "compatibility_fixture_row_count"
+            ],
         },
     )
     hashes["PIT_KERNEL_TEMPORAL_PROOF.json"] = write_json(
@@ -601,13 +638,18 @@ def main() -> int:
     )
     hashes["PIT_KERNEL_RAW_TO_ROW_TRACE_SAMPLE.json"] = write_json(
         ART / "PIT_KERNEL_RAW_TO_ROW_TRACE_SAMPLE.json",
-        kernel["rows"][:1],
+        {
+            "sample": [],
+            "reason": "NO_AUTHORITY_CLEAN_HISTORICAL_MEMBERSHIP_POPULATION",
+        },
     )
     hashes["PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json"] = write_json(
         ART / "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
         {
-            "matched": True,
+            **reconstruction,
             "reference": "aggie_analytics.scientific_reference.cycle29.pit",
+            "applies_to": "BOUNDED_COMPATIBILITY_FIXTURE",
+            "production_proven_rows": 0,
         },
     )
     hashes["PIT_KERNEL_MODEL_BASELINE.json"] = write_json(
@@ -622,7 +664,7 @@ def main() -> int:
         },
     )
     usable_gate = kernel_trust_gate(
-        proven_rows=int(kernel["proven_pit_training_rows"]),
+        proven_rows=int(production_kernel["proven_pit_training_rows"]),
         independently_reconstructed=True,
         kernel_gates_pass=False,
         unresolved_p0_affects_kernel=True,
@@ -632,10 +674,16 @@ def main() -> int:
     )
 
     claims = kernel_closure_claims()
-    inventory_claims(claims, claims)
+    discovered = discover_authority_claims(ART, claims)
+    inventory = inventory_claims(claims, discovered)
     hashes["CYCLE29_CLAIM_INVENTORY.json"] = write_json(
         ART / "CYCLE29_CLAIM_INVENTORY.json",
-        {"claims": claims, "unmapped_count": 0, "all_cycle_trust_recovered": False},
+        {
+            "claims": claims,
+            "unmapped_count": inventory["unmapped_count"],
+            "discovered_count": inventory["discovered_count"],
+            "all_cycle_trust_recovered": False,
+        },
     )
     hashes["CYCLE29_FINDING_SUCCESSOR_LEDGER.json"] = write_json(
         ART / "CYCLE29_FINDING_SUCCESSOR_LEDGER.json", successor_ledger()
@@ -829,7 +877,7 @@ def main() -> int:
                 "ok": True,
                 "files": len(hashes),
                 "W": w,
-                "proven": kernel["proven_pit_training_rows"],
+                "proven": production_kernel["proven_pit_training_rows"],
             },
             indent=2,
         )

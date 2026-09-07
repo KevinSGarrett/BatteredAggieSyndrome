@@ -60,6 +60,7 @@ from aggie_analytics.cycle29.domains import (
 from aggie_analytics.cycle29.findings import C28_P0_IDS, successor_ledger
 from aggie_analytics.cycle29.forecast import (
     ForecastImmutabilityError,
+    prove_issued_before_cutoff,
     prove_set_unchanged,
     reject_literal_no_tuning,
 )
@@ -105,7 +106,11 @@ from aggie_analytics.cycle29.temporal import (
 from aggie_analytics.scientific_reference.cycle29.metrics import (
     reject_half_as_directional,
 )
-from aggie_analytics.scientific_reference.cycle29.pit import reconstruct_game_features
+from aggie_analytics.scientific_reference.cycle29.pit import (
+    IndependentPitError,
+    compare_producer_rows,
+    reconstruct_game_features,
+)
 from aggie_analytics.scientific_reference.cycle29.temporal import (
     cutoff_span_classification,
 )
@@ -348,6 +353,19 @@ class Cycle29AdversarialTests(unittest.TestCase):
             inventory_claims(
                 declared, declared + [{"claim_id": "UNMAPPED-NEW", "field": "x"}]
             )
+        with self.assertRaises(ClaimError):
+            inventory_claims(declared, declared)
+
+    def test_forecast_after_cutoff_fails_closed(self) -> None:
+        with self.assertRaises(ForecastImmutabilityError):
+            prove_issued_before_cutoff(
+                [
+                    {
+                        "snapshot_timestamp_utc": "2026-09-07T23:31:00Z",
+                        "kickoff_utc": "2026-09-07T23:30:00Z",
+                    }
+                ]
+            )
 
     def test_base_rate_half(self) -> None:
         with self.assertRaises(ScoringError):
@@ -511,6 +529,28 @@ class Cycle29AdversarialTests(unittest.TestCase):
         self.assertGreater(kernel["proven_pit_training_rows"], 0)
         reconstructed = reconstruct_game_features(games, outcomes)
         self.assertTrue(reconstructed)
+        compare_producer_rows(kernel["rows"], reconstructed)
+        with self.assertRaises(IndependentPitError):
+            compare_producer_rows(kernel["rows"], [])
+        incomplete = [
+            {
+                "canonical_game_id": "G1",
+                "canonical_team_id": "T1",
+                "label_win": None,
+                "points_for": None,
+                "points_against": None,
+                "margin": None,
+                "season": 2018,
+            }
+        ]
+        missing_kernel = build_game_grain_kernel(
+            games[:1],
+            incomplete,
+            expected_population_complete=False,
+            contemporaneous_fbs_authority=True,
+            cross_subdivision=False,
+        )
+        self.assertEqual(missing_kernel["proven_pit_training_rows"], 0)
         with self.assertRaises(PitKernelError):
             reject_expected_from_observed_route(True)
 
@@ -533,6 +573,8 @@ class Cycle29AdversarialTests(unittest.TestCase):
         self.assertEqual(len(cells), 6)
         with self.assertRaises(CoachingError):
             reject_week1_as_national_coaching(182, 263, True)
+        with self.assertRaises(CoachingError):
+            reject_week1_as_national_coaching(182, 182, True)
         contract = position_role_contract(["head_coach", "quarterbacks"])
         self.assertEqual(
             len(

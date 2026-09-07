@@ -5,7 +5,7 @@
   "kernel_gates_pass": false,
   "operator_hold": "ACTIVE",
   "project_wide_scientific_trust_recovered": false,
-  "proven_pit_training_rows": 3,
+  "proven_pit_training_rows": 0,
   "scientific_trust_recovered": false,
   "unresolved_p0_affects_kernel": true
 }

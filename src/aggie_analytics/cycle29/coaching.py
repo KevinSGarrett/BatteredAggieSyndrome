@@ -162,9 +162,10 @@ def hc_oc_dc_matrix(program_ids: Sequence[str], as_of_utc: str) -> list[dict[str
 def reject_week1_as_national_coaching(
     w: int, n: int | None, claimed_complete: bool
 ) -> None:
-    if claimed_complete and (n is None or w != n):
+    if claimed_complete:
         raise CoachingError(
             "complete Week 1 coverage cannot satisfy CURRENT_NATIONAL_HC_OC_DC_COMPLETE"
+            f" even when W={w} equals N={n}"
         )
 
 

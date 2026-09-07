@@ -73,7 +73,7 @@ jobs:
           python -m coverage run --source=src/aggie_analytics/scientific_reference -m unittest tests.test_independent_scientific_reference
           python -m coverage xml -o coverage-independent-scientific-reference.xml
       - name: Upload core coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           files: coverage-core.xml
           flags: core
@@ -82,7 +82,7 @@ jobs:
           verbose: true
       - name: Upload independent scientific-reference coverage to Codecov
         if: hashFiles('coverage-independent-scientific-reference.xml') != ''
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           files: coverage-independent-scientific-reference.xml
           flags: independent_scientific_reference

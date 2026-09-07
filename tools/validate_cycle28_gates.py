@@ -51,11 +51,13 @@ REQUIRED_FILES = (
     "BAS_REPOSITORY_TOPOLOGY_RECEIPT.json",
     "BAS_GITHUB_TRANSFER_READINESS_GATE.json",
     "CYCLE27_FINDING_ADJUDICATION_SUCCESSOR.json",
+    "CYCLE28_JIRA_DUPLICATE_AUDIT.json",
     "BAS_CFIP_CROSS_SYSTEM_JIRA_LINK_LEDGER.json",
     "CFBPROGRAMSPECIFICATIONS_BAS_GAP_AUDIT.json",
     "CFBPROGRAMSPECIFICATIONS_PLAN_UPDATE_READINESS_GATE.json",
     "BAS_CROSS_REPOSITORY_ACCEPTANCE_DAG.json",
     "PAID_REVIEW_COST_LEDGER.json",
+    "CYCLE28_EXACT_HEAD_REVIEW_ADJUDICATION.json",
 )
 
 
@@ -177,6 +179,27 @@ def validate(root: Path) -> list[str]:
         findings.append("transfer readiness disposition incorrect")
     if gate.get("transfer_authorized"):
         findings.append("transfer marked authorized")
+
+    duplicate_audit = load(root, "CYCLE28_JIRA_DUPLICATE_AUDIT.json")
+    if duplicate_audit.get("parent_progress_comment_posted"):
+        findings.append("BAT-523 parent-progress comment posted while hold active")
+    paid = load(root, "PAID_REVIEW_COST_LEDGER.json")
+    if paid.get("unknown_is_not_zero") is not True:
+        findings.append("unknown paid-review cost treated as zero")
+    if paid.get("spent_usd") == 0:
+        findings.append("unknown paid-review cost recorded as zero")
+    if paid.get("premium_authorization"):
+        findings.append(
+            "premium review authorization recorded without separate authority"
+        )
+    review = load(root, "CYCLE28_EXACT_HEAD_REVIEW_ADJUDICATION.json")
+    if review.get("automatic_retry"):
+        findings.append("paid review automatic retry recorded")
+    if review.get("bat_523_parent_progress_comment_posted"):
+        findings.append("exact-head review recorded a BAT-523 parent-progress comment")
+    hold = review.get("hold_adjudication") or {}
+    if hold.get("hold_comment_compliance") is not True:
+        findings.append("BAT-523 hold-comment compliance not recorded")
 
     findings.extend(validate_retired_assistive_decommission(root))
     return findings

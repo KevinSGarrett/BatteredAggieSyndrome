@@ -2,7 +2,7 @@
   "artifact_type": "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER",
   "captured_count": 16,
   "failed_count": 0,
-  "issued_at_utc": "2026-09-06T23:51:02Z",
+  "issued_at_utc": "2026-09-07T02:18:45Z",
   "records": [
     {
       "ncaa_contest_id": "6618941",
@@ -69,8 +69,8 @@
     },
     {
       "ncaa_contest_id": null,
-      "raw_sha256": "fc152ea2637467caf8c1a11072a830e088cd253d45a6c2079ea8d11a88c16309",
-      "receipt_sha256": "3c167b4d95586e9ee117dac0c518f561e5b8cb281eb918787d3fc00753c87e5a",
+      "raw_sha256": "1eef83e019b816098fb721ae78134fb6500b113466355cc46bbba244c6dd0d5a",
+      "receipt_sha256": "7e26b5332be4938e86c9c72c42378776e1e5fad2287a02035518ea1c9bf95421",
       "route_id": "scrapfly_rendering",
       "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026",
       "state": "CAPTURED",
@@ -96,8 +96,8 @@
     },
     {
       "ncaa_contest_id": "6618941",
-      "raw_sha256": "5efce1106593e3ae88f357a9d7615e393c9309a6b183a6a95fb63988dd88b280",
-      "receipt_sha256": "c39b6da14bb1efa2028459aeef04b2d386ebc852be1dd20aff0ceba3524e769f",
+      "raw_sha256": "f2e0da04973572b012017dfee1e0bb5377068ba74e377e26a886140ad0d734d2",
+      "receipt_sha256": "31e05a926971ef3d964e077b9c734cd201e57882848fb2f56b7a0f34707bc6f2",
       "route_id": "scrapfly_rendering",
       "source_uri": "https://stats.ncaa.org/contests/6618941/box_score",
       "state": "CAPTURED",
@@ -106,7 +106,7 @@
     {
       "ncaa_contest_id": "6602874",
       "raw_sha256": "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a",
-      "receipt_sha256": "78953c7369410ee3371f38aed3fe7821dbbf4cd7a906cd3da29a3b3add148a8e",
+      "receipt_sha256": "15eb851d54099c90529bf080626dcd8c0b1401b3f560c752ce1b75558517d149",
       "route_id": "scrapfly_rendering",
       "source_uri": "https://stats.ncaa.org/contests/6602874/box_score",
       "state": "CAPTURED",
@@ -115,7 +115,7 @@
     {
       "ncaa_contest_id": "6620581",
       "raw_sha256": "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a",
-      "receipt_sha256": "c273237c402f098059c773608bda1efb305be6b25b359c659e15f9682a0a2a29",
+      "receipt_sha256": "4bccc19386fed37beef56b124a482d6e6c92f9f36521e378e954572e75268c75",
       "route_id": "scrapfly_rendering",
       "source_uri": "https://stats.ncaa.org/contests/6620581/box_score",
       "state": "CAPTURED",

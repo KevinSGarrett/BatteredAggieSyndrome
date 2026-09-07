@@ -31,8 +31,6 @@ from aggie_analytics.cycle28.assurance import (
 )
 from aggie_analytics.cycle28.availability import (
     CANDIDATE_ONLY as AVAIL_CANDIDATE,
-    NO_REPORT_REQUIRED,
-    REPORT_EXPECTED_NOT_FOUND,
 )
 from aggie_analytics.cycle28.calendar import (
     CONTEST_6594400,
@@ -46,6 +44,7 @@ from aggie_analytics.cycle28.calendar import (
     reconcile_washington_state_washington,
 )
 from aggie_analytics.cycle28.coaching import CANDIDATE_ONLY, CFBD_HEAD_COACH_SCOPE
+from aggie_analytics.cycle28.cost import adjudicate_codex_operator_hold_findings
 from aggie_analytics.cycle28.coverage import REQUIRED_DOMAINS, capability_domain_record
 from aggie_analytics.cycle28.scoring import (
     PREDECESSOR_CYCLE27_RECEIPT_CLASS,
@@ -857,10 +856,8 @@ def main() -> int:
                     "season": 2026,
                     "game_type": "nonconference_or_unspecified",
                     "policy": "NOT_YET_AUDITED",
-                    "disposition": REPORT_EXPECTED_NOT_FOUND
-                    if False
-                    else "NOT_YET_AUDITED",
-                    "no_report_required": NO_REPORT_REQUIRED,
+                    "disposition": "NOT_YET_AUDITED",
+                    "no_report_required": None,
                 }
                 for team in sorted(teams)
             ],
@@ -901,7 +898,12 @@ def main() -> int:
                 "contracts_object_count"
             ),
             "disposition": "DRIFTED_NOT_CONSUMABLE",
-            "reason": "Foundation bound C01 head does not equal observed clean C01 head; Part 3 remains blocked; Contracts and ProgramSpecifications have dirt",
+            "reason": (
+                "Foundation bound C01 head does not equal observed C01 head; "
+                f"Part 3 remains {foundation.get('part3_certification_readiness_status')}; "
+                f"Contracts dirty={bool(contracts_dirty)}; "
+                f"ProgramSpecifications dirty={bool(specs_dirty)}"
+            ),
         },
     )
     dump(
@@ -1247,6 +1249,54 @@ def main() -> int:
         },
     )
     ledger_src = OUT / "CYCLE28_OFFICIAL_ATOMIC_ACQUISITION_LEDGER.json"
+    paid_output_path = (
+        OPS
+        / "outputs"
+        / "paid_review_34074643015"
+        / "paid-scientific-review"
+        / "codex_scientific_review_output.json"
+    )
+    paid_output: dict[str, Any] = {}
+    if paid_output_path.is_file():
+        paid_output = load_json(paid_output_path)
+    duplicate_audit = load_json(ART / "CYCLE28_JIRA_DUPLICATE_AUDIT.json")
+    hold_adjudication = adjudicate_codex_operator_hold_findings(
+        findings_p0=list(paid_output.get("findings_p0") or []),
+        findings_p1=list(paid_output.get("findings_p1") or []),
+        parent_progress_comment_posted=bool(
+            duplicate_audit.get("parent_progress_comment_posted")
+        ),
+        operator_hold_active=True,
+    )
+    dump(
+        ART / "CYCLE28_EXACT_HEAD_REVIEW_ADJUDICATION.json",
+        {
+            "artifact_type": "CYCLE28_EXACT_HEAD_REVIEW_ADJUDICATION",
+            "issued_at_utc": now,
+            "pr_number": 681,
+            "head_sha": paid_output.get("head_sha")
+            or "0fee91fbd1baa4a051afce83436afe3c81afcd91",
+            "base_sha": paid_output.get("base_sha")
+            or "2236ca41dbfdfeb1db7284f6ae89d9dec96394a0",
+            "reviewed_merge_sha": paid_output.get("reviewed_merge_sha"),
+            "github_run_id": "34074643015",
+            "workflow_requested_model": "gpt-5.3-codex",
+            "workflow_requested_effort": "low",
+            "provider_reported_model": paid_output.get("model"),
+            "provider_reported_effort": paid_output.get("reasoning_effort"),
+            "provider_model_remap": (
+                paid_output.get("model") not in {None, "gpt-5.3-codex"}
+                or paid_output.get("reasoning_effort") not in {None, "low"}
+            ),
+            "codex_verdict": paid_output.get("verdict"),
+            "findings_p0": paid_output.get("findings_p0") or [],
+            "findings_p1": paid_output.get("findings_p1") or [],
+            "hold_adjudication": hold_adjudication,
+            "automatic_retry": False,
+            "label_removed_after_run": True,
+            "bat_523_parent_progress_comment_posted": False,
+        },
+    )
     dump(
         ART / "PAID_REVIEW_COST_LEDGER.json",
         {
@@ -1260,7 +1310,33 @@ def main() -> int:
             "default_model": "gpt-5.3-codex",
             "default_effort": "low",
             "premium_authorization": False,
-            "paid_review_triggered": False,
+            "paid_review_triggered": True,
+            "runs": [
+                {
+                    "pr_number": 680,
+                    "github_run_id": "second-tuple-control",
+                    "head_sha": "2236ca41dbfdfeb1db7284f6ae89d9dec96394a0",
+                    "requested_model": "gpt-5.3-codex",
+                    "requested_effort": "low",
+                    "spent_usd": None,
+                    "unknown_is_not_zero": True,
+                    "automatic_retry": False,
+                },
+                {
+                    "pr_number": 681,
+                    "github_run_id": "34074643015",
+                    "head_sha": "0fee91fbd1baa4a051afce83436afe3c81afcd91",
+                    "requested_model": "gpt-5.3-codex",
+                    "requested_effort": "low",
+                    "provider_reported_model": paid_output.get("model"),
+                    "provider_reported_effort": paid_output.get("reasoning_effort"),
+                    "spent_usd": None,
+                    "unknown_is_not_zero": True,
+                    "automatic_retry": False,
+                    "validator_result": "FAIL",
+                    "schema_valid": True,
+                },
+            ],
         },
     )
     if ledger_src.is_file():

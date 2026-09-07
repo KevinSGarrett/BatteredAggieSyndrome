@@ -58,7 +58,11 @@ from aggie_analytics.cycle28.coaching import (
     reject_name_only_auto_admit,
     reject_play_caller_from_coordinator,
 )
-from aggie_analytics.cycle28.cost import PaidReviewError, admit_paid_review
+from aggie_analytics.cycle28.cost import (
+    PaidReviewError,
+    adjudicate_codex_operator_hold_findings,
+    admit_paid_review,
+)
 from aggie_analytics.cycle28.coverage import (
     CoverageError,
     reject_am_only_national,
@@ -565,6 +569,41 @@ class Cycle28AdversarialTests(unittest.TestCase):
                 retry_loop=True,
                 raw_lake_or_secrets_in_prompt=False,
             )
+
+    def test_codex_hold_comment_absence_is_compliance_not_p1(self) -> None:
+        inverted = (
+            "Operator-hold control violation: "
+            "`artifacts/scientific_integrity/cycle28/CYCLE28_JIRA_DUPLICATE_AUDIT.json` "
+            "records `parent_progress_comment_posted: false` while this PR advances "
+            "the protected-lane/Jira control-plane surface. Prompt-required BAT-523 "
+            "parent-progress comment control is unmet, so operator-hold evidence is incomplete."
+        )
+        result = adjudicate_codex_operator_hold_findings(
+            findings_p0=[],
+            findings_p1=[inverted],
+            parent_progress_comment_posted=False,
+            operator_hold_active=True,
+        )
+        self.assertEqual(result["remaining_p0"], [])
+        self.assertEqual(result["remaining_p1"], [])
+        self.assertEqual(
+            result["false_positives"][0]["disposition"],
+            "FALSE_POSITIVE_HOLD_COMPLIANCE",
+        )
+        self.assertTrue(result["hold_comment_compliance"])
+        self.assertFalse(result["automatic_retry"])
+        posted = adjudicate_codex_operator_hold_findings(
+            findings_p0=[],
+            findings_p1=[],
+            parent_progress_comment_posted=True,
+            operator_hold_active=True,
+        )
+        self.assertTrue(
+            any(
+                "parent-progress comment posted" in item
+                for item in posted["remaining_p0"]
+            )
+        )
 
     def test_topology_and_cfip(self) -> None:
         self.assertEqual(

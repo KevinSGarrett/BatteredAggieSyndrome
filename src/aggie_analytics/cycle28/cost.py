@@ -110,3 +110,72 @@ def admit_paid_review(
         "soft_warning": estimated_or_actual_cost_usd >= SOFT_LIMIT_USD,
         "human_dashboard_budget_action": "RECORDED_AS_HUMAN_ACTION",
     }
+
+
+HOLD_COMMENT_INVERSION_MARKERS = (
+    "parent-progress comment control is unmet",
+    "parent_progress_comment_posted: false",
+    "prompt-required bat-523 parent-progress comment control is unmet",
+)
+
+
+def _is_hold_comment_inversion(text: str) -> bool:
+    lowered = text.casefold()
+    return "bat-523" in lowered and any(
+        marker in lowered for marker in HOLD_COMMENT_INVERSION_MARKERS
+    )
+
+
+def adjudicate_codex_operator_hold_findings(
+    *,
+    findings_p0: list[str],
+    findings_p1: list[str],
+    parent_progress_comment_posted: bool,
+    operator_hold_active: bool,
+) -> dict[str, Any]:
+    """Absence of a BAT-523 parent-progress comment is hold compliance, not a defect."""
+    false_positives: list[dict[str, str]] = []
+    remaining_p0: list[str] = []
+    remaining_p1: list[str] = []
+    for finding in findings_p0:
+        if (
+            operator_hold_active
+            and not parent_progress_comment_posted
+            and _is_hold_comment_inversion(finding)
+        ):
+            false_positives.append(
+                {
+                    "severity": "P0",
+                    "text": finding,
+                    "disposition": "FALSE_POSITIVE_HOLD_COMPLIANCE",
+                }
+            )
+        else:
+            remaining_p0.append(finding)
+    for finding in findings_p1:
+        if (
+            operator_hold_active
+            and not parent_progress_comment_posted
+            and _is_hold_comment_inversion(finding)
+        ):
+            false_positives.append(
+                {
+                    "severity": "P1",
+                    "text": finding,
+                    "disposition": "FALSE_POSITIVE_HOLD_COMPLIANCE",
+                }
+            )
+        else:
+            remaining_p1.append(finding)
+    if parent_progress_comment_posted and operator_hold_active:
+        remaining_p0.append("BAT-523 parent-progress comment posted while hold active")
+    return {
+        "remaining_p0": remaining_p0,
+        "remaining_p1": remaining_p1,
+        "false_positives": false_positives,
+        "parent_progress_comment_posted": parent_progress_comment_posted,
+        "operator_hold_active": operator_hold_active,
+        "hold_comment_compliance": operator_hold_active
+        and not parent_progress_comment_posted,
+        "automatic_retry": False,
+    }

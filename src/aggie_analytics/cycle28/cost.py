@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from typing import Any
 
 DEFAULT_MODEL = "gpt-5.3-codex"
 DEFAULT_EFFORT = "low"
@@ -64,16 +64,26 @@ def admit_paid_review(
     raw_lake_or_secrets_in_prompt: bool,
 ) -> dict[str, Any]:
     if not deterministic_passed:
-        raise PaidReviewError("deterministic CI/scientific-reference checks must run before paid review")
+        raise PaidReviewError(
+            "deterministic CI/scientific-reference checks must run before paid review"
+        )
     if not readiness_label_present:
-        raise PaidReviewError("paid review requires paid-scientific-review-ready exact-SHA authorization")
+        raise PaidReviewError(
+            "paid review requires paid-scientific-review-ready exact-SHA authorization"
+        )
     if authorized_head_sha != current_head_sha:
-        raise PaidReviewError("new push invalidates the paid-review authorization signal")
+        raise PaidReviewError(
+            "new push invalidates the paid-review authorization signal"
+        )
     if model in PREMIUM_MODELS and not premium_authorized:
-        raise PaidReviewError("premium model requires explicit per-run user authorization")
+        raise PaidReviewError(
+            "premium model requires explicit per-run user authorization"
+        )
     if model != DEFAULT_MODEL and model not in PREMIUM_MODELS:
         raise PaidReviewError(f"unsupported review model {model}")
-    if effort not in {"low", "minimal", "none"} and not (effort == "medium" and premium_authorized):
+    if effort not in {"low", "minimal", "none"} and not (
+        effort == "medium" and premium_authorized
+    ):
         if effort != DEFAULT_EFFORT:
             raise PaidReviewError("default effort must be low/minimum supported")
     if prior_tuple_paid or cache_hit:
@@ -85,7 +95,9 @@ def admit_paid_review(
     if raw_lake_or_secrets_in_prompt:
         raise PaidReviewError("raw lake/Jira/private All-22/secrets cannot be sent")
     if estimated_or_actual_cost_usd is None:
-        raise PaidReviewError("COST_UNKNOWN_FAIL_CLOSED: unknown cost cannot be treated as zero")
+        raise PaidReviewError(
+            "COST_UNKNOWN_FAIL_CLOSED: unknown cost cannot be treated as zero"
+        )
     projected_pr = pr_spend_usd + estimated_or_actual_cost_usd
     projected_cycle = cycle_spend_usd + estimated_or_actual_cost_usd
     if projected_pr > HARD_PR_LIMIT_USD or projected_cycle > HARD_CYCLE_LIMIT_USD:
@@ -97,4 +109,73 @@ def admit_paid_review(
         "cache_hit": False,
         "soft_warning": estimated_or_actual_cost_usd >= SOFT_LIMIT_USD,
         "human_dashboard_budget_action": "RECORDED_AS_HUMAN_ACTION",
+    }
+
+
+HOLD_COMMENT_INVERSION_MARKERS = (
+    "parent-progress comment control is unmet",
+    "parent_progress_comment_posted: false",
+    "prompt-required bat-523 parent-progress comment control is unmet",
+)
+
+
+def _is_hold_comment_inversion(text: str) -> bool:
+    lowered = text.casefold()
+    return "bat-523" in lowered and any(
+        marker in lowered for marker in HOLD_COMMENT_INVERSION_MARKERS
+    )
+
+
+def adjudicate_codex_operator_hold_findings(
+    *,
+    findings_p0: list[str],
+    findings_p1: list[str],
+    parent_progress_comment_posted: bool,
+    operator_hold_active: bool,
+) -> dict[str, Any]:
+    """Absence of a BAT-523 parent-progress comment is hold compliance, not a defect."""
+    false_positives: list[dict[str, str]] = []
+    remaining_p0: list[str] = []
+    remaining_p1: list[str] = []
+    for finding in findings_p0:
+        if (
+            operator_hold_active
+            and not parent_progress_comment_posted
+            and _is_hold_comment_inversion(finding)
+        ):
+            false_positives.append(
+                {
+                    "severity": "P0",
+                    "text": finding,
+                    "disposition": "FALSE_POSITIVE_HOLD_COMPLIANCE",
+                }
+            )
+        else:
+            remaining_p0.append(finding)
+    for finding in findings_p1:
+        if (
+            operator_hold_active
+            and not parent_progress_comment_posted
+            and _is_hold_comment_inversion(finding)
+        ):
+            false_positives.append(
+                {
+                    "severity": "P1",
+                    "text": finding,
+                    "disposition": "FALSE_POSITIVE_HOLD_COMPLIANCE",
+                }
+            )
+        else:
+            remaining_p1.append(finding)
+    if parent_progress_comment_posted and operator_hold_active:
+        remaining_p0.append("BAT-523 parent-progress comment posted while hold active")
+    return {
+        "remaining_p0": remaining_p0,
+        "remaining_p1": remaining_p1,
+        "false_positives": false_positives,
+        "parent_progress_comment_posted": parent_progress_comment_posted,
+        "operator_hold_active": operator_hold_active,
+        "hold_comment_compliance": operator_hold_active
+        and not parent_progress_comment_posted,
+        "automatic_retry": False,
     }

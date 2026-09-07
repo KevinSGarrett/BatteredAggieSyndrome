@@ -1,0 +1,47 @@
+{
+  "artifact_type": "WEEK1_REMAINING_CHECKPOINT_LEDGER",
+  "issued_at_utc": "2026-09-07T02:18:58Z",
+  "no_backfill": true,
+  "rows": [
+    {
+      "corrected_t90m_receipt": null,
+      "forecast_frozen": false,
+      "ncaa_contest_id": "6618941",
+      "relabeled_early_as_t90m": false,
+      "t24h_cutoff_utc": "2026-09-05T20:00:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_cutoff_utc": "2026-09-06T18:30:00Z",
+      "t90m_state": "MISSED_CUTOFF_NO_BACKFILL"
+    },
+    {
+      "corrected_t90m_receipt": "5b6f2993a839b64ef1e4ba02358e9511acb883c60995ddb69fc2b84701a785ff",
+      "forecast_frozen": false,
+      "ncaa_contest_id": "6602874",
+      "relabeled_early_as_t90m": false,
+      "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+      "t90m_state": "EVIDENCE_CAPTURED_NO_TRUSTED_FORECAST"
+    },
+    {
+      "corrected_t90m_receipt": "5b6f2993a839b64ef1e4ba02358e9511acb883c60995ddb69fc2b84701a785ff",
+      "forecast_frozen": false,
+      "ncaa_contest_id": "6620581",
+      "relabeled_early_as_t90m": false,
+      "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+      "t24h_state": "MISSED_CUTOFF_NO_BACKFILL",
+      "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+      "t90m_state": "EVIDENCE_CAPTURED_NO_TRUSTED_FORECAST"
+    },
+    {
+      "corrected_t90m_receipt": "0d729fcec16fe6ed66ce6badf966faad5ab53950ccf6695a6fb408ee6544ab51",
+      "forecast_frozen": false,
+      "ncaa_contest_id": "6594400",
+      "relabeled_early_as_t90m": false,
+      "t24h_cutoff_utc": "2026-09-06T23:30:00Z",
+      "t24h_state": "EVIDENCE_CAPTURED_NO_TRUSTED_FORECAST",
+      "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
+      "t90m_state": "CAPTURE_ARMED_CUTOFF_STILL_FUTURE"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "artifact_type": "BAS_GRIDIRON_CORTEX_CROSS_SYSTEM_REQUIREMENTS_MATRIX",
+  "issued_at_utc": "2026-09-06T20:40:00Z",
+  "bat_scientific_authority": true,
+  "cfip_replaces_bat": false,
+  "requirements": [
+    {"id": "CTX", "contract": "BASContextExportV1", "bat": "BAT-704", "cfip": "CFIP-20"},
+    {"id": "FILM", "contract": "FilmFeaturePackageV1", "bat": "BAT-704", "cfip": "CFIP-21", "auto_admit": false},
+    {"id": "STAFF", "contract": "StaffRoleEpisodeV1", "bat": "BAT-701", "cfip": "CFIP-22"},
+    {"id": "AVAIL", "contract": "official_availability_distinct_from_film", "bat": "BAT-703", "cfip": "CFIP-23"},
+    {"id": "BOM", "contract": "GRIDIRON_CORTEX_RELEASE_BOM", "bat": "BAT-704", "cfip": "CFIP-24"},
+    {"id": "XFER", "contract": "repository_transfer_readiness", "bat": "BAT-707", "cfip": "CFIP-26", "authorized": false}
+  ]
+}

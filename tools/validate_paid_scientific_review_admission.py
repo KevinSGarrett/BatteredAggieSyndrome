@@ -11,7 +11,13 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.cycle28.cost import PaidReviewError, admit_paid_review, review_tuple
+# Tool scripts must import the local package after PATH setup.
+# ruff: noqa: E402
+from aggie_analytics.cycle28.cost import (
+    PaidReviewError,
+    admit_paid_review,
+    review_tuple,
+)
 
 
 def validate_payload(payload: dict) -> list[str]:
@@ -33,10 +39,14 @@ def validate_payload(payload: dict) -> list[str]:
             second_run=bool(payload.get("second_run")),
             second_run_reason=payload.get("second_run_reason"),
             retry_loop=bool(payload.get("retry_loop")),
-            raw_lake_or_secrets_in_prompt=bool(payload.get("raw_lake_or_secrets_in_prompt")),
+            raw_lake_or_secrets_in_prompt=bool(
+                payload.get("raw_lake_or_secrets_in_prompt")
+            ),
         )
         review_tuple(
-            repository=str(payload.get("repository") or "KevinSGarrett/BatteredAggieSyndrome"),
+            repository=str(
+                payload.get("repository") or "KevinSGarrett/BatteredAggieSyndrome"
+            ),
             pr_number=int(payload.get("pr_number") or 0),
             base_sha=str(payload.get("base_sha") or ""),
             head_sha=str(payload.get("head_sha") or ""),
@@ -58,7 +68,12 @@ def main() -> int:
     args = parser.parse_args()
     payload = json.loads(args.payload.read_text(encoding="utf-8"))
     findings = validate_payload(payload)
-    print(json.dumps({"result": "PASS" if not findings else "FAIL", "findings": findings}, indent=2))
+    print(
+        json.dumps(
+            {"result": "PASS" if not findings else "FAIL", "findings": findings},
+            indent=2,
+        )
+    )
     return 1 if findings else 0
 
 

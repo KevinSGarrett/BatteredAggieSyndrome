@@ -1,0 +1,9 @@
+{
+  "artifact_type": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR",
+  "independent_eight_to_zero": true,
+  "misleading_current_field_unresolved_participant_row_count": "DO_NOT_PRESENT_AS_CURRENT_STATE",
+  "predecessor_identity": "cef273fe8f05b0cf382111d04f69914fb7ca590771d388f998e2ba265a0e9612",
+  "predecessor_unresolved_participant_row_count": 8,
+  "resolved_authoritative_identity_count": 8,
+  "successor_unresolved_participant_row_count": 0
+}

@@ -1,0 +1,18 @@
+{
+  "candidates": [
+    "national_base_rate",
+    "national_elo",
+    "national_logistic_l2",
+    "national_margin_ridge",
+    "prior_only"
+  ],
+  "file_and_manifest_agree": true,
+  "file_sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
+  "issued": {
+    "issued_before_cutoff_count": 455,
+    "not_proven_count": 0,
+    "unprovable_retained_as": null
+  },
+  "manifest_sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
+  "row_count": 455
+}

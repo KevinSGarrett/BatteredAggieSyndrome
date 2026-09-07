@@ -1,0 +1,216 @@
+"""Independent PIT kernel reconstruction.
+
+Must not import ``aggie_analytics.cycle29`` or ``aggie_analytics.data``.
+"""
+
+from __future__ import annotations
+
+from collections import defaultdict
+from typing import Any, Mapping, Sequence
+
+from aggie_analytics.scientific_reference.cycle29.metrics import (
+    brier_score,
+    directional_accuracy,
+    log_loss,
+)
+from aggie_analytics.scientific_reference.cycle29.temporal import (
+    completion_bound,
+    earliest_start_bound,
+    parse_aware_utc,
+)
+
+EXPOSED_NON_BLIND = {2024, 2025}
+
+
+class IndependentPitError(ValueError):
+    """Raised when independent kernel reconstruction fails."""
+
+
+def _ratio(numerator: float, denominator: int) -> float | None:
+    if denominator <= 0:
+        return None
+    return round(numerator / denominator, 12)
+
+
+class IndependentPrior:
+    def __init__(self) -> None:
+        self.games = 0
+        self.wins = 0
+        self.points_for = 0
+        self.points_against = 0
+        self.margin = 0
+        self.by_season: dict[int, list[int]] = defaultdict(lambda: [0, 0])
+
+    def admit(self, outcome: Mapping[str, Any]) -> None:
+        if outcome.get("label_win") is None:
+            raise IndependentPitError("missing label_win cannot be imputed as a loss")
+        for field in ("points_for", "points_against", "margin"):
+            if outcome.get(field) is None:
+                raise IndependentPitError(
+                    "missing points/margin cannot be imputed as zero"
+                )
+        self.games += 1
+        won = 1 if outcome.get("label_win") else 0
+        self.wins += won
+        self.points_for += int(outcome["points_for"])
+        self.points_against += int(outcome["points_against"])
+        self.margin += int(outcome["margin"])
+        bucket = self.by_season[int(outcome["season"])]
+        bucket[0] += 1
+        bucket[1] += won
+
+    def emit(self, season: int) -> dict[str, Any]:
+        previous = self.by_season.get(season - 1, [0, 0])
+        current = self.by_season.get(season, [0, 0])
+        return {
+            "pit_prior_games_played": self.games,
+            "pit_prior_margin_mean": _ratio(self.margin, self.games),
+            "pit_prior_points_against_mean": _ratio(self.points_against, self.games),
+            "pit_prior_points_for_mean": _ratio(self.points_for, self.games),
+            "pit_prior_season_win_rate": _ratio(previous[1], previous[0]),
+            "pit_prior_win_rate": _ratio(self.wins, self.games),
+            "pit_season_to_date_games": current[0],
+            "pit_season_to_date_win_rate": _ratio(current[1], current[0]),
+        }
+
+
+def reconstruct_game_features(
+    games: Sequence[Mapping[str, Any]],
+    outcomes: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    policy = {
+        "date_only_start_offset_days": -1,
+        "date_only_completion_offset_days": 2,
+        "published_duration_hours": 12.0,
+    }
+    by_outcome: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+    for row in outcomes:
+        by_outcome[str(row["canonical_game_id"])].append(row)
+    by_team: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+    starts = {}
+    for game in games:
+        gid = str(game["canonical_game_id"])
+        instant = parse_aware_utc(str(game["start_date_utc_text"]))
+        starts[gid] = instant
+        by_team[str(game["home_canonical_team_id"])].append(
+            {**dict(game), "canonical_team_id": game["home_canonical_team_id"]}
+        )
+        by_team[str(game["away_canonical_team_id"])].append(
+            {**dict(game), "canonical_team_id": game["away_canonical_team_id"]}
+        )
+    rows: list[dict[str, Any]] = []
+    for team_id, observations in by_team.items():
+        targets = []
+        priors = []
+        for observation in observations:
+            gid = str(observation["canonical_game_id"])
+            instant = starts[gid]
+            matching = [
+                row
+                for row in by_outcome.get(gid, [])
+                if str(row["canonical_team_id"]) == team_id
+            ]
+            if not matching:
+                continue
+            outcome = matching[0]
+            if outcome.get("label_win") is None or any(
+                outcome.get(field) is None
+                for field in ("points_for", "points_against", "margin")
+            ):
+                continue
+            targets.append((earliest_start_bound(instant, policy), observation))
+            priors.append((completion_bound(instant, policy), outcome))
+        targets.sort(key=lambda item: (item[0], str(item[1]["canonical_game_id"])))
+        priors.sort(key=lambda item: (item[0], str(item[1]["canonical_game_id"])))
+        acc = IndependentPrior()
+        cursor = 0
+        for earliest, observation in targets:
+            while cursor < len(priors) and priors[cursor][0] <= earliest:
+                acc.admit(priors[cursor][1])
+                cursor += 1
+            if int(observation["season"]) in EXPOSED_NON_BLIND:
+                continue
+            rows.append(
+                {
+                    "canonical_game_id": str(observation["canonical_game_id"]),
+                    "canonical_team_id": team_id,
+                    **acc.emit(int(observation["season"])),
+                }
+            )
+    rows.sort(key=lambda row: (row["canonical_game_id"], row["canonical_team_id"]))
+    return rows
+
+
+COMPARE_KEYS = (
+    "pit_prior_games_played",
+    "pit_prior_margin_mean",
+    "pit_prior_points_against_mean",
+    "pit_prior_points_for_mean",
+    "pit_prior_season_win_rate",
+    "pit_prior_win_rate",
+    "pit_season_to_date_games",
+    "pit_season_to_date_win_rate",
+)
+
+
+def compare_producer_rows(
+    producer_rows: Sequence[Mapping[str, Any]],
+    reconstructed: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    if not reconstructed:
+        raise IndependentPitError("independent reconstruction is empty")
+    reconstructed_keys = {
+        (str(row["canonical_game_id"]), str(row["canonical_team_id"]))
+        for row in reconstructed
+    }
+    producer_keys: set[tuple[str, str]] = set()
+    matches = 0
+    for row in reconstructed:
+        key = (str(row["canonical_game_id"]), str(row["canonical_team_id"]))
+        parent = None
+        for prow in producer_rows:
+            if str(prow.get("canonical_game_id")) != key[0]:
+                continue
+            if key[1] == str(prow.get("home_canonical_team_id")):
+                parent = prow.get("home_features") or prow
+                producer_keys.add((key[0], str(prow.get("home_canonical_team_id"))))
+            elif key[1] == str(prow.get("away_canonical_team_id")):
+                parent = prow.get("away_features") or prow
+                producer_keys.add((key[0], str(prow.get("away_canonical_team_id"))))
+        if parent is None:
+            raise IndependentPitError(
+                "independent reconstruction row has no producer match"
+            )
+        for field in COMPARE_KEYS:
+            if parent.get(field) != row.get(field):
+                raise IndependentPitError(
+                    f"independent reconstruction disagrees on {field}"
+                )
+        matches += 1
+    expected_producer_keys = set()
+    for prow in producer_rows:
+        gid = str(prow.get("canonical_game_id"))
+        expected_producer_keys.add((gid, str(prow.get("home_canonical_team_id"))))
+        expected_producer_keys.add((gid, str(prow.get("away_canonical_team_id"))))
+    if reconstructed_keys != expected_producer_keys:
+        raise IndependentPitError(
+            "independent reconstruction does not cover every producer team-row"
+        )
+    return {
+        "matched_team_rows": matches,
+        "reconstructed_count": len(reconstructed),
+        "matched": True,
+    }
+
+
+def scoring_metrics(
+    predicted: Sequence[float], observed: Sequence[float], unique_games: int
+) -> dict[str, Any]:
+    if unique_games != len(predicted):
+        raise IndependentPitError("metrics must be computed at unique-game grain")
+    return {
+        "unique_games": unique_games,
+        "brier": brier_score(predicted, observed),
+        "log_loss": log_loss(predicted, observed),
+        "directional": directional_accuracy(predicted, observed),
+    }

@@ -1,0 +1,17 @@
+{
+  "artifact_type": "NATIONAL_PROGRAM_IDENTITY_CROSSWALK",
+  "display_names_are_not_canonical": true,
+  "provider_aliases_preserved_separately": true,
+  "week1_display_to_placeholder": [
+    "DISPLAY:Abilene Christian",
+    "DISPLAY:Air Force",
+    "DISPLAY:Akron",
+    "DISPLAY:Alabama",
+    "DISPLAY:Alcorn",
+    "DISPLAY:App State",
+    "DISPLAY:Arizona",
+    "DISPLAY:Arizona St.",
+    "DISPLAY:Ark.-Pine Bluff",
+    "DISPLAY:Arkansas"
+  ]
+}

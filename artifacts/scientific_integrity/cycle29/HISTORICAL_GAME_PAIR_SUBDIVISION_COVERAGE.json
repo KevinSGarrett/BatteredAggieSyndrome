@@ -1,0 +1,15 @@
+{
+  "canonical_game_entity_count": 46960,
+  "classification": "FBS_CENTRIC_NOT_COMPLETE_FBS_FCS_COMPETITION_GRAPH",
+  "entity_inventory_is_not_competitive_normalized_games": true,
+  "fcs_to_fcs_count": 0,
+  "normalized_game_count": 46953,
+  "pair_counts_predecessor": {
+    "FBS_TO_FBS": 41576,
+    "FBS_TO_FCS": 52,
+    "FBS_TO_NULL": 800,
+    "FCS_TO_FBS": 2287,
+    "FCS_TO_FCS": 0,
+    "NULL_TO_FBS": 2238
+  }
+}

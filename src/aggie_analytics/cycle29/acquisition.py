@@ -190,6 +190,14 @@ def contest_scoped_terminal(
         raise AcquisitionError("score element IDs are required")
     if _FINAL_TOKEN.search(page_text) and contest_id not in page_text:
         raise AcquisitionError("unrelated FINAL text does not establish terminality")
+    scoped = re.search(
+        rf"livestream_status_{re.escape(contest_id)}\s+livestream_status\s+"
+        rf"livestream_game_over\s*\">\s*([^<]+)",
+        page_text,
+        re.I,
+    )
+    if scoped and _FINAL_TOKEN.search(scoped.group(1)):
+        return TERMINAL_STATUS_ESTABLISHED
     contest_window = _contest_window(page_text, contest_id)
     if contest_window is None:
         raise AcquisitionError("contest-scoped terminal status not found")

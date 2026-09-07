@@ -225,6 +225,25 @@ class Cycle29AdversarialTests(unittest.TestCase):
                 embedded_contest_id="6594400",
             )
 
+    def test_contest_scoped_livestream_game_over(self) -> None:
+        page = (
+            '<tr id="contest_6602874"></tr>'
+            '<div class="livestream_status_6602874 livestream_status livestream_game_over">'
+            "Final</div>"
+        )
+        self.assertEqual(
+            contest_scoped_terminal(
+                page_text=page,
+                contest_id="6602874",
+                contest_hint="6602874",
+                score_element_ids=["s1"],
+                ordered_participant_ids=["H", "A"],
+                page_url="https://stats.ncaa.org/contests/livestream_scoreboards",
+                embedded_contest_id="6602874",
+            ),
+            "TERMINAL_STATUS_ESTABLISHED",
+        )
+
     def test_contest_hint_mismatch(self) -> None:
         with self.assertRaises(AcquisitionError):
             contest_scoped_terminal(

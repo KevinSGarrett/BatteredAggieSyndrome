@@ -1,0 +1,11 @@
+{
+  "controlling_gate": "CYCLE29_PIT_KERNEL_ADMISSION",
+  "cycle29_kernel_proven_pit_training_rows": 3,
+  "deprecation": "CYCLE28_ACTIVE_PATH_ZERO_PROVEN_REMAINS_BINDING_FOR_FITTED_FORECASTS",
+  "difference_eligible_minus_oriented": -343,
+  "eligibility_is_not_admission": true,
+  "oriented_rows_are_not_independent_games": true,
+  "predecessor_active_path_proven_pit_rows": 0,
+  "predecessor_oriented_development_rows": 90198,
+  "predecessor_pit_feature_eligible_rows": 89855
+}

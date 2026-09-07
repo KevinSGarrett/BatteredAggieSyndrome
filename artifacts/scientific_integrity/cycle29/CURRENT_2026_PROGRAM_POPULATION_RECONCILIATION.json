@@ -1,0 +1,9 @@
+{
+  "artifact_type": "CURRENT_2026_PROGRAM_POPULATION_RECONCILIATION",
+  "as_of_utc": "2026-09-07T16:00:00Z",
+  "current_population_identity": "5ec579dc7275affcb0b324c90a742ad3c7817924260df561648b3eb290cba8fd",
+  "exact_equality": false,
+  "historical_2026_slice_identity": null,
+  "reason": "BOTH_SIDES_BLOCKED_MEMBERSHIP_EVIDENCE",
+  "week1_substitution_rejected": true
+}

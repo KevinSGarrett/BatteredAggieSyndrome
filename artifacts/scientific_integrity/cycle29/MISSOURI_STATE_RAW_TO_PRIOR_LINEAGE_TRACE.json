@@ -1,0 +1,11 @@
+{
+  "admitted_prior_games": 52,
+  "distinct_opponents": 32,
+  "fcs_v_fcs": 0,
+  "focus_game_hardcode": false,
+  "generator": "general_transition_program_logic",
+  "omitted_fcs_schedule_coverage": "NOT_IN_FBS_FILTERED_ROUTE",
+  "prior_supported": false,
+  "program_id": "MISSOURI_STATE",
+  "spine_edges_1963_2025": 66
+}

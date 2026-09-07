@@ -1,0 +1,178 @@
+{
+  "artifact_type": "CYCLE29_FINDING_SUCCESSOR_LEDGER",
+  "cursor_cannot_authorize_false_positive_or_accepted_risk": true,
+  "operator_hold": "ACTIVE",
+  "p0_count": 12,
+  "p0_ids_preserved": [
+    "C28-P0-01",
+    "C28-P0-02",
+    "C28-P0-03",
+    "C28-P0-04",
+    "C28-P0-05",
+    "C28-P0-06",
+    "C28-P0-07",
+    "C28-P0-08",
+    "C28-P0-09",
+    "C28-P0-10",
+    "C28-P0-11",
+    "C28-P0-12"
+  ],
+  "rows": [
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "claim completeness now fails closed on unmapped claims",
+      "finding_id": "C28-P0-01",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "cycle29 producer and reference trees are disjoint",
+      "finding_id": "C28-P0-02",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "official finals require canonical participant IDs",
+      "finding_id": "C28-P0-03",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "timestamps parse as aware UTC instants",
+      "finding_id": "C28-P0-04",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "probability/interval coherence independently reconstructed",
+      "finding_id": "C28-P0-05",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "forecast immutability reconstructed from row bytes",
+      "finding_id": "C28-P0-06",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "atomic checkpoint lease; duplicate SMU writer stopped",
+      "finding_id": "C28-P0-07",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "CI opens/rehashes fixture rows or fail-closed blocked",
+      "finding_id": "C28-P0-08",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "89855/90198/zero contradiction bound; kernel may be nonzero but expected-FBS population remains blocked",
+      "finding_id": "C28-P0-09",
+      "regression_test_required": "false"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "All-22 C01 release/BOM not consumed until immutable",
+      "finding_id": "C28-P0-10",
+      "regression_test_required": "false"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "national coverage census exists; completeness not claimed",
+      "finding_id": "C28-P0-11",
+      "regression_test_required": "false"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "46953-game payload classified FBS_CENTRIC; FCS-v-FCS expected universe independently gated",
+      "finding_id": "C28-P0-12",
+      "regression_test_required": "false"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "empty/empty inventories cannot PASS",
+      "finding_id": "C28-P0-11a",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "zero-filled capability registry superseded",
+      "finding_id": "C28-P0-11b",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "display names are not canonical IDs",
+      "finding_id": "C28-P0-11c",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "0.5 excluded from directional accuracy",
+      "finding_id": "C28-P1-BASE-RATE-0.5",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "request identity excludes PID/time",
+      "finding_id": "C28-P1-REQUEST-IDENTITY",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "arbitrary last-receipt fallback removed",
+      "finding_id": "C28-P1-RECEIPT-FALLBACK",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "checkpoint window from calendar authority",
+      "finding_id": "C28-P1-CHECKPOINT-WINDOW",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "predecessor 8 vs successor 0 split",
+      "finding_id": "C28-P1-WEEK1-UNRESOLVED-FIELD",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "provisional staff observations reconciled, not admitted",
+      "finding_id": "C28-P1-STAFF-2382",
+      "regression_test_required": "false"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "modern FBS/FCS not projected pre-1978",
+      "finding_id": "C28-P1-ERA-LABELS",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "52-game prior incomplete FCS graph",
+      "finding_id": "C28-P1-MISSOURI-STATE",
+      "regression_test_required": "false"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "metered API restricted to explicit authorization",
+      "finding_id": "C28-P1-PAID-REVIEW",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "public artifacts use relative/portable paths",
+      "finding_id": "C28-P1-ABSOLUTE-PATHS",
+      "regression_test_required": "true"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "line endings diagnosed, not mass-normalized",
+      "finding_id": "C28-P1-DIFF-CHECK",
+      "regression_test_required": "false"
+    }
+  ]
+}

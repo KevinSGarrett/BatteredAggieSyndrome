@@ -1,0 +1,330 @@
+{
+  "all_cycle_trust_recovered": false,
+  "claims": [
+    {
+      "artifact_path": "PIT_KERNEL_TRUST_GATE.json",
+      "claim_id": "C29-CLAIM-PIT-PROVEN-ROWS",
+      "denominator": "admitted",
+      "dependencies": [],
+      "field": "proven_pit_training_rows",
+      "formula": "proven_pit_training_rows = numerator/denominator over pit_kernel",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": "proven",
+      "population": "pit_kernel",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "WEEK1_2026_PROGRAM_SLICE.json",
+      "claim_id": "C29-CLAIM-WEEK1-CONTESTS",
+      "denominator": 91,
+      "dependencies": [],
+      "field": "contest_count",
+      "formula": "contest_count = numerator/denominator over week1_2026_slice",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 91,
+      "population": "week1_2026_slice",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "CYCLE29_FORECAST_IMMUTABILITY.json",
+      "claim_id": "C29-CLAIM-FORECAST-455",
+      "denominator": 455,
+      "dependencies": [],
+      "field": "forecast_opportunity_count",
+      "formula": "forecast_opportunity_count = numerator/denominator over week1_frozen_forecasts",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 455,
+      "population": "week1_frozen_forecasts",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+      "claim_id": "C29-CLAIM-GAMES-46953",
+      "denominator": 46953,
+      "dependencies": [],
+      "field": "normalized_game_count",
+      "formula": "normalized_game_count = numerator/denominator over fbs_centric_predecessor_spine",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 46953,
+      "population": "fbs_centric_predecessor_spine",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.jsonl",
+      "claim_id": "C29-CLAIM-COACH-2251",
+      "denominator": 2251,
+      "dependencies": [],
+      "field": "accepted_coach_role_episodes",
+      "formula": "accepted_coach_role_episodes = numerator/denominator over predecessor_people_registry",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 2251,
+      "population": "predecessor_people_registry",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.jsonl",
+      "claim_id": "C29-CLAIM-STAFF-2382",
+      "denominator": 2382,
+      "dependencies": [],
+      "field": "provisional_staff_role_observations",
+      "formula": "provisional_staff_role_observations = numerator/denominator over predecessor_people_registry",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 2382,
+      "population": "predecessor_people_registry",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "PIT_KERNEL_TRUST_GATE.json",
+      "claim_id": "C29-CLAIM-TRUST-USABLE",
+      "denominator": 1,
+      "dependencies": [],
+      "field": "cycle29_kernel_trust_usable",
+      "formula": "cycle29_kernel_trust_usable = numerator/denominator over cycle29_kernel",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": "boolean",
+      "population": "cycle29_kernel",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "PIT_KERNEL_TRUST_GATE.json",
+      "claim_id": "C29-CLAIM-FITTED-TRUST",
+      "denominator": 1,
+      "dependencies": [],
+      "field": "current_fitted_forecast_trust_recovered",
+      "formula": "current_fitted_forecast_trust_recovered = numerator/denominator over frozen_fitted_forecasts",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": false,
+      "population": "frozen_fitted_forecasts",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "ALL_CYCLE_TRUST_RECOVERY_GATE.json",
+      "claim_id": "C29-CLAIM-PROJECT-TRUST",
+      "denominator": 1,
+      "dependencies": [],
+      "field": "project_wide_scientific_trust_recovered",
+      "formula": "project_wide_scientific_trust_recovered = numerator/denominator over all_cycles",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": false,
+      "population": "all_cycles",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "PRIOR_ALL_CYCLE_CLASSIFICATION_RETAINED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "PIT_KERNEL_TRUST_GATE.json",
+      "claim_id": "C29-CLAIM-SCIENTIFIC-COMPAT",
+      "denominator": 1,
+      "dependencies": [],
+      "field": "scientific_trust_recovered",
+      "formula": "scientific_trust_recovered = numerator/denominator over compatibility",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": false,
+      "population": "compatibility",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "PRIOR_ALL_CYCLE_CLASSIFICATION_RETAINED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+      "claim_id": "C29-CLAIM-PRED-UNRESOLVED-8",
+      "denominator": 8,
+      "dependencies": [],
+      "field": "predecessor_unresolved_participant_row_count",
+      "formula": "predecessor_unresolved_participant_row_count = numerator/denominator over week1_entity_authority_predecessor",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 8,
+      "population": "week1_entity_authority_predecessor",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+      "claim_id": "C29-CLAIM-SUCC-UNRESOLVED-0",
+      "denominator": 0,
+      "dependencies": [],
+      "field": "successor_unresolved_participant_row_count",
+      "formula": "successor_unresolved_participant_row_count = numerator/denominator over week1_entity_authority_successor",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 0,
+      "population": "week1_entity_authority_successor",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+      "claim_id": "C29-CLAIM-FCS-TO-FCS-ZERO",
+      "denominator": 46953,
+      "dependencies": [],
+      "field": "fcs_to_fcs_count",
+      "formula": "fcs_to_fcs_count = numerator/denominator over predecessor_normalized_games",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 0,
+      "population": "predecessor_normalized_games",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+      "claim_id": "C29-CLAIM-ENTITY-GAMES-46960",
+      "denominator": 46960,
+      "dependencies": [],
+      "field": "canonical_game_entity_count",
+      "formula": "canonical_game_entity_count = numerator/denominator over canonical_core_registry",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 46960,
+      "population": "canonical_core_registry",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+      "claim_id": "C29-CLAIM-PIT-ELIGIBLE-89855",
+      "denominator": 90198,
+      "dependencies": [],
+      "field": "predecessor_pit_feature_eligible_rows",
+      "formula": "predecessor_pit_feature_eligible_rows = numerator/denominator over national_pit_eligible_slice",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 89855,
+      "population": "national_pit_eligible_slice",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+      "claim_id": "C29-CLAIM-ORIENTED-90198",
+      "denominator": 90198,
+      "dependencies": [],
+      "field": "predecessor_oriented_development_rows",
+      "formula": "predecessor_oriented_development_rows = numerator/denominator over chronological_development_matrix",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 90198,
+      "population": "chronological_development_matrix",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+      "claim_id": "C29-CLAIM-ACTIVE-PROVEN-PRED-0",
+      "denominator": 0,
+      "dependencies": [],
+      "field": "predecessor_active_path_proven_pit_rows",
+      "formula": "predecessor_active_path_proven_pit_rows = numerator/denominator over cycle28_trust_gate",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 0,
+      "population": "cycle28_trust_gate",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    },
+    {
+      "artifact_path": "CYCLE29_CLAIM_INVENTORY.json",
+      "claim_id": "C29-CLAIM-UNMAPPED",
+      "denominator": 0,
+      "dependencies": [],
+      "field": "unmapped_count",
+      "formula": "unmapped_count = numerator/denominator over cycle29_claim_inventory",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle29",
+      "numerator": 0,
+      "population": "cycle29_claim_inventory",
+      "producer": "aggie_analytics.cycle29",
+      "source_identities": [
+        "cycle29_kernel"
+      ],
+      "temporal_authority": "declared_cutoff_or_as_of",
+      "trust_class": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+      "validator": "tools.validate_cycle29_gates"
+    }
+  ],
+  "unmapped_count": 0
+}

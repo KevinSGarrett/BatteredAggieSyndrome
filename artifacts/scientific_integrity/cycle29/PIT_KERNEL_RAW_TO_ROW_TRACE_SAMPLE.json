@@ -1,0 +1,33 @@
+[
+  {
+    "away_canonical_team_id": "TEAM:2",
+    "away_features": {
+      "pit_prior_games_played": 0,
+      "pit_prior_margin_mean": null,
+      "pit_prior_points_against_mean": null,
+      "pit_prior_points_for_mean": null,
+      "pit_prior_season_win_rate": null,
+      "pit_prior_win_rate": null,
+      "pit_season_to_date_games": 0,
+      "pit_season_to_date_win_rate": null
+    },
+    "canonical_game_id": "GAME:A",
+    "expected_population_complete": false,
+    "grain": "GAME",
+    "home_canonical_team_id": "TEAM:1",
+    "home_features": {
+      "pit_prior_games_played": 0,
+      "pit_prior_margin_mean": null,
+      "pit_prior_points_against_mean": null,
+      "pit_prior_points_for_mean": null,
+      "pit_prior_season_win_rate": null,
+      "pit_prior_win_rate": null,
+      "pit_season_to_date_games": 0,
+      "pit_season_to_date_win_rate": null
+    },
+    "home_win_label": true,
+    "row_verdict": "PROVEN_PIT_TRAINING_ROW",
+    "scope": "FBS_ROUTE_OBSERVED_NOT_COMPLETE_EXPECTED_FBS_UNIVERSE",
+    "season": 2018
+  }
+]

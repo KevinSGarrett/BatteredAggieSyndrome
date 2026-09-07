@@ -1,0 +1,39 @@
+{
+  "disjoint": true,
+  "producer_imports": [
+    "__future__",
+    "aggie_analytics.cycle29.acquisition",
+    "aggie_analytics.cycle29.coaching",
+    "aggie_analytics.cycle29.coverage_terms",
+    "aggie_analytics.cycle29.hashing",
+    "aggie_analytics.cycle29.temporal",
+    "argparse",
+    "ast",
+    "collections",
+    "csv",
+    "ctypes",
+    "datetime",
+    "hashlib",
+    "json",
+    "os",
+    "pathlib",
+    "re",
+    "sys",
+    "time",
+    "typing",
+    "uuid",
+    "zoneinfo"
+  ],
+  "reference_imports": [
+    "__future__",
+    "aggie_analytics.scientific_reference.cycle29.metrics",
+    "aggie_analytics.scientific_reference.cycle29.temporal",
+    "collections",
+    "datetime",
+    "hashlib",
+    "json",
+    "math",
+    "typing",
+    "zoneinfo"
+  ]
+}

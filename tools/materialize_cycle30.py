@@ -1615,8 +1615,18 @@ def main() -> int:
     wiki_candidate_rows = load_optional_jsonl(
         EXT / "WIKIMEDIA_CURRENT_STAFF_CANDIDATES.jsonl"
     )
+    wiki_hist_rows = load_optional_jsonl(
+        EXT / "WIKIMEDIA_HISTORICAL_STAFF_CANDIDATES.jsonl"
+    )
     wiki_people_by_program: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in wiki_candidate_rows:
+        pid = str(row.get("program_id") or "")
+        for episode in row.get("episodes") or []:
+            if isinstance(episode, dict):
+                wiki_people_by_program[pid].append(episode)
+    for row in wiki_hist_rows:
+        if int(row.get("season") or 0) != 2026:
+            continue
         pid = str(row.get("program_id") or "")
         for episode in row.get("episodes") or []:
             if isinstance(episode, dict):
@@ -1706,9 +1716,6 @@ def main() -> int:
                     "pit_admitted": False,
                 }
             )
-    wiki_hist_rows = load_optional_jsonl(
-        EXT / "WIKIMEDIA_HISTORICAL_STAFF_CANDIDATES.jsonl"
-    )
     for row in wiki_hist_rows:
         for episode in row.get("episodes") or []:
             lattice_episodes.append(
@@ -1721,6 +1728,46 @@ def main() -> int:
                     "pit_admitted": False,
                 }
             )
+    career_idx: dict[str, str] = {}
+    for row in (*current_programs, *hist_membership, *hist_1963):
+        display = str(row.get("display_name") or "").strip()
+        if display and row.get("program_id"):
+            career_idx[display.casefold()] = str(row["program_id"])
+    for row in wiki_candidate_rows:
+        pid = str(row.get("program_id") or "")
+        school = str(row.get("school") or "").strip()
+        if school:
+            career_idx.setdefault(school.casefold(), pid)
+        title = str(row.get("title") or "")
+        lowered = title.casefold()
+        base = title
+        if lowered.endswith(" football team"):
+            base = title[: -len(" football team")]
+        elif lowered.endswith(" football"):
+            base = title[: -len(" football")]
+        if base.strip():
+            career_idx.setdefault(base.strip().casefold(), pid)
+    career_season_rows = load_optional_jsonl(
+        EXT / "WIKIMEDIA_CAREER_SEASON_EPISODES.jsonl"
+    )
+    career_matched = 0
+    for row in career_season_rows:
+        raw = str(row.get("program_raw") or "").strip()
+        pid = career_idx.get(raw.casefold())
+        role = str(row.get("role") or "")
+        if not pid or role not in ROLE_FAMILIES:
+            continue
+        career_matched += 1
+        lattice_episodes.append(
+            {
+                "program_id": pid,
+                "season": row.get("season"),
+                "role": role,
+                "person": row.get("person"),
+                "source": "WIKIMEDIA_COACH_CAREER",
+                "pit_admitted": False,
+            }
+        )
     lattice = overlay_historical_lattice(lattice, lattice_episodes)
     hashes["HISTORICAL_ROLE_LATTICE_SUMMARY.json"] = write_json(
         ART / "HISTORICAL_ROLE_LATTICE_SUMMARY.json",
@@ -1736,6 +1783,8 @@ def main() -> int:
             "historical_wikimedia_episodes": sum(
                 len(row.get("episodes") or []) for row in wiki_hist_rows
             ),
+            "career_season_episodes": len(career_season_rows),
+            "career_lattice_matches": career_matched,
             "pit_admitted": False,
             "artifact_class": "REAL_EVIDENCE" if lattice else "BLOCKER_METADATA",
             "observed_titles_cannot_create_denominator": True,
@@ -2018,7 +2067,7 @@ def main() -> int:
             ),
             "pit_admitted": False,
             "official_html_still_not_attempted": not official_http_attempts,
-            "parser_family": "wikimedia_infobox_row_bound_HeadCoach",
+            "parser_family": "wikimedia_infobox_asst_coach_and_staff_table",
         },
     )
     hashes["WIKIMEDIA_HISTORICAL_STAFF_SUMMARY.json"] = write_json(
@@ -2049,9 +2098,18 @@ def main() -> int:
                     if row.get("season") is not None
                 }
             ],
+            "incomplete_years_1963_2026": [
+                year
+                for year in range(1963, 2027)
+                if sum(
+                    1 for row in wiki_hist_rows if int(row.get("season") or 0) == year
+                )
+                < len(program_ids)
+            ],
             "remaining_years_queued": True,
             "pit_admitted": False,
-            "parser_family": "wikimedia_infobox_row_bound_HC_OC_DC",
+            "parser_family": "wikimedia_infobox_asst_coach_and_staff_table",
+            "wikipedia_is_not_official_confirmation": True,
         },
     )
     reject_missing_release_bom(False, False)

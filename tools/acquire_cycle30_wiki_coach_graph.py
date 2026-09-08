@@ -1,8 +1,7 @@
-"""Revision-bound Wikimedia national team-season staff tranche.
+"""Program-category × coach-career reconstruction. Candidate history, not PIT.
 
-Cache-first. Live ceiling declared before requests. Completes 1963–2026
-season pages until the ceiling; remaining cells stay queued. Not PIT.
-Wikipedia is a candidate source, not official confirmation.
+Cache-first MediaWiki categorymembers + coach infobox pages. Live ceiling
+declared before requests. Does not infer HC from a missing parenthetical.
 """
 
 from __future__ import annotations
@@ -24,29 +23,30 @@ if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.cycle30.coaching import (  # noqa: E402
-    historical_season_page_title,
-    parse_wikimedia_infobox,
+    career_episode_seasons,
+    parse_infobox_college_coach,
+    program_coach_category_title,
     redact_personal_contact,
     reject_wikimedia_as_pit,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 6000,
+    "max_requests": 4000,
     "max_retries": 1,
     "concurrency": 1,
     "metered_scraper_credits": 0,
     "route": "mediawiki_api",
-    "years": list(range(1963, 2027)),
     "sleep_seconds": 0.35,
     "pit_admitted": False,
     "wikipedia_is_not_official_confirmation": True,
+    "category_is_discovery_not_proof": True,
 }
 API = "https://en.wikipedia.org/w/api.php"
 UA = (
     "BAS-Cycle30-Reconstruction/1.0 "
     "(https://github.com/KevinSGarrett/BatteredAggieSyndrome; "
-    "revision-bound historical coaching discovery)"
+    "revision-bound coaching career discovery)"
 )
 EXT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 OUT = EXT / "outputs"
@@ -65,6 +65,11 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
         if line.strip():
             rows.append(json.loads(line))
     return rows
+
+
+def write_row(path: Path, row: dict[str, Any]) -> None:
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(row, sort_keys=True) + "\n")
 
 
 def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -> Any:
@@ -86,7 +91,7 @@ def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -
         return json.loads(body.decode("utf-8"))
     live = sum(1 for item in ledger if not item.get("cached"))
     if live >= int(budget["max_requests"]):
-        raise RuntimeError("historical Wikimedia request ceiling reached")
+        raise RuntimeError("coach-graph Wikimedia request ceiling reached")
     request = urllib.request.Request(url, headers={"User-Agent": UA})
     start = utc_now()
     try:
@@ -109,7 +114,7 @@ def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -
             }
         )
         raise
-    time.sleep(0.35)
+    time.sleep(float(budget["sleep_seconds"]))
     end = utc_now()
     ledger.append(
         {
@@ -130,12 +135,39 @@ def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -
     return json.loads(body.decode("utf-8"))
 
 
-def fetch_title(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]:
+def category_members(title: str, ledger: list[dict[str, Any]]) -> list[str]:
+    members: list[str] = []
+    cont = ""
+    while True:
+        params = {
+            "action": "query",
+            "list": "categorymembers",
+            "cmtitle": title,
+            "cmnamespace": "0",
+            "cmlimit": "500",
+            "format": "json",
+        }
+        if cont:
+            params["cmcontinue"] = cont
+        payload = fetch_json(f"{API}?{urllib.parse.urlencode(params)}", ledger, BUDGET)
+        batch = (payload.get("query") or {}).get("categorymembers") or []
+        for item in batch:
+            name = str(item.get("title") or "")
+            if name and not name.startswith("Category:"):
+                members.append(name)
+        cont = str((payload.get("continue") or {}).get("cmcontinue") or "")
+        if not cont:
+            break
+    return members
+
+
+def fetch_coach_page(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]:
     params = {
         "action": "query",
-        "prop": "revisions",
+        "prop": "revisions|pageprops",
         "rvprop": "ids|timestamp|content",
         "rvslots": "main",
+        "ppprop": "wikibase_item",
         "titles": title,
         "redirects": "1",
         "format": "json",
@@ -164,14 +196,17 @@ def fetch_title(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]:
         str((revision.get("slots") or {}).get("main", {}).get("*") or "")
     )
     reject_wikimedia_as_pit(True, False)
-    episodes = parse_wikimedia_infobox(
+    episodes = parse_infobox_college_coach(
         wikitext,
         revision_id=revision_id,
         page_title=str(page_obj.get("title") or title),
     )
+    props = page_obj.get("pageprops") or {}
     return {
         "title": str(page_obj.get("title") or title),
         "requested_title": title,
+        "pageid": page_obj.get("pageid"),
+        "wikidata_qid": props.get("wikibase_item"),
         "status": "REVISION_BOUND",
         "wikimedia_revision": revision_id,
         "revision_timestamp": revision.get("timestamp"),
@@ -181,135 +216,113 @@ def fetch_title(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def write_row(path: Path, row: dict[str, Any]) -> None:
-    with path.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(row, sort_keys=True) + "\n")
-
-
-def coverage_gaps(rows: list[dict[str, Any]], expected_n: int) -> list[int]:
-    by_year: dict[int, int] = {}
-    for row in rows:
-        year = int(row.get("season") or 0)
-        if year:
-            by_year[year] = by_year.get(year, 0) + 1
-    return [year for year in range(1963, 2027) if by_year.get(year, 0) < expected_n]
-
-
-def reparse_existing(
-    jsonl_path: Path, ledger: list[dict[str, Any]]
-) -> list[dict[str, Any]]:
-    old_rows = load_jsonl(jsonl_path)
-    rewritten: list[dict[str, Any]] = []
-    for row in old_rows:
-        title = str(row.get("title") or row.get("requested_title") or "")
-        if row.get("status") in {"REVISION_BOUND", "NO_REVISION"} and title:
-            parsed = fetch_title(title, ledger)
-            row = {
-                **row,
-                **parsed,
-                "program_id": row.get("program_id"),
-                "school": row.get("school"),
-                "season": row.get("season"),
-                "current_title": row.get("current_title"),
-                "pit_admitted": False,
-            }
-        rewritten.append(row)
-    jsonl_path.write_text("", encoding="utf-8")
-    for row in rewritten:
-        write_row(jsonl_path, row)
-    return rewritten
+def expand_seasons(coach_row: dict[str, Any]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    person = str(coach_row.get("title") or "")
+    for episode in coach_row.get("episodes") or []:
+        if str(episode.get("role") or "") == "UNKNOWN":
+            continue
+        for year in career_episode_seasons(episode, through_year=2026):
+            if year < 1963 or year > 2026:
+                continue
+            out.append(
+                {
+                    "person": episode.get("person") or person,
+                    "program_raw": episode.get("program_raw"),
+                    "season": year,
+                    "role": episode.get("role"),
+                    "raw_title": episode.get("raw_title"),
+                    "source_year_text": episode.get("source_year_text"),
+                    "ongoing": episode.get("ongoing"),
+                    "wikimedia_revision": episode.get("wikimedia_revision"),
+                    "wikidata_qid": coach_row.get("wikidata_qid"),
+                    "pageid": coach_row.get("pageid"),
+                    "source": "WIKIMEDIA_COACH_CAREER",
+                    "pit_admitted": False,
+                    "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
+                }
+            )
+    return out
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0)
-    parser.add_argument("--replace", action="store_true")
-    parser.add_argument("--reparse", action="store_true")
-    parser.add_argument("--year-start", type=int, default=1963)
-    parser.add_argument("--year-end", type=int, default=2026)
     args = parser.parse_args()
-    years = [
-        year for year in BUDGET["years"] if args.year_start <= year <= args.year_end
-    ]
-    years = sorted(years, key=lambda year: (0 if year >= 2013 else 1, -year))
     RAW.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
-    (EXT / "CYCLE30_HISTORICAL_WIKIMEDIA_BUDGET.json").write_text(
-        json.dumps({**BUDGET, "years": years}, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
+    (EXT / "CYCLE30_WIKI_COACH_GRAPH_BUDGET.json").write_text(
+        json.dumps(BUDGET, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
     current = load_jsonl(OUT / "WIKIMEDIA_CURRENT_STAFF_CANDIDATES.jsonl")
     if args.limit:
         current = current[: args.limit]
+    cat_path = OUT / "WIKIMEDIA_PROGRAM_COACH_CATEGORIES.jsonl"
+    coach_path = OUT / "WIKIMEDIA_COACH_CAREER_PAGES.jsonl"
+    season_path = OUT / "WIKIMEDIA_CAREER_SEASON_EPISODES.jsonl"
+    cat_path.write_text("", encoding="utf-8")
+    coach_path.write_text("", encoding="utf-8")
+    season_path.write_text("", encoding="utf-8")
     ledger: list[dict[str, Any]] = []
-    jsonl_path = OUT / "WIKIMEDIA_HISTORICAL_STAFF_CANDIDATES.jsonl"
-    if args.replace or not jsonl_path.is_file():
-        jsonl_path.write_text("", encoding="utf-8")
-    if args.reparse and jsonl_path.is_file():
-        try:
-            reparse_existing(jsonl_path, ledger)
-        except RuntimeError as exc:
-            print("CEILING", exc)
-    existing = {
-        (str(row.get("program_id")), int(row.get("season") or 0))
-        for row in load_jsonl(jsonl_path)
-    }
-    new_rows = 0
+    seen_coaches: set[str] = set()
+    coach_count = 0
+    season_count = 0
     try:
-        for year in years:
-            for program in current:
-                current_title = str(program.get("title") or "")
-                if (str(program.get("program_id")), year) in existing:
-                    continue
-                season_title = historical_season_page_title(current_title, year)
-                if not season_title:
-                    row = {
-                        "program_id": program.get("program_id"),
-                        "school": program.get("school"),
-                        "season": year,
-                        "status": "NO_CURRENT_TITLE",
-                        "pit_admitted": False,
-                        "episodes": [],
-                    }
-                    write_row(jsonl_path, row)
-                    existing.add((str(program.get("program_id")), year))
-                    new_rows += 1
-                    continue
+        for program in current:
+            category = program_coach_category_title(str(program.get("title") or ""))
+            members: list[str] = []
+            status = "NO_CURRENT_TITLE"
+            if category:
                 try:
-                    parsed = fetch_title(season_title, ledger)
+                    members = category_members(category, ledger)
+                    status = "CATEGORY_ENUMERATED"
+                except RuntimeError:
+                    raise
+                except Exception as exc:  # noqa: BLE001
+                    status = f"ACQUISITION_FAILED:{type(exc).__name__}"
+            write_row(
+                cat_path,
+                {
+                    "program_id": program.get("program_id"),
+                    "school": program.get("school"),
+                    "category": category,
+                    "status": status,
+                    "member_count": len(members),
+                    "members": members,
+                    "pit_admitted": False,
+                    "evidence_class": "DISCOVERY_ONLY",
+                },
+            )
+            for title in members:
+                if title in seen_coaches:
+                    continue
+                seen_coaches.add(title)
+                try:
+                    parsed = fetch_coach_page(title, ledger)
                 except RuntimeError:
                     raise
                 except Exception as exc:  # noqa: BLE001
                     parsed = {
-                        "title": season_title,
+                        "title": title,
                         "status": f"ACQUISITION_FAILED:{type(exc).__name__}",
                         "pit_admitted": False,
                         "episodes": [],
                     }
-                row = {
-                    **parsed,
-                    "program_id": program.get("program_id"),
-                    "school": program.get("school"),
-                    "season": year,
-                    "current_title": current_title,
-                    "pit_admitted": False,
-                }
-                write_row(jsonl_path, row)
-                existing.add((str(program.get("program_id")), year))
-                new_rows += 1
+                parsed["source_program_id"] = program.get("program_id")
+                write_row(coach_path, parsed)
+                coach_count += 1
+                for season_row in expand_seasons(parsed):
+                    write_row(season_path, season_row)
+                    season_count += 1
     except RuntimeError as exc:
         print("CEILING", exc)
-    all_rows = load_jsonl(jsonl_path)
-    remaining = coverage_gaps(all_rows, len(current) or 266)
-    (OUT / "CYCLE30_HISTORICAL_WIKIMEDIA_LEDGER.json").write_text(
+    (OUT / "CYCLE30_WIKI_COACH_GRAPH_LEDGER.json").write_text(
         json.dumps(
             {
-                "budget": {**BUDGET, "years": years},
+                "budget": BUDGET,
                 "attempt_count": len(ledger),
-                "page_count": len(all_rows),
-                "new_rows_this_run": new_rows,
-                "remaining_years_incomplete": remaining,
-                "remaining_year_count": len(remaining),
+                "coach_pages": coach_count,
+                "season_episodes": season_count,
                 "artifact_class": "REAL_EVIDENCE",
                 "pit_admitted": False,
             },
@@ -320,19 +333,13 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "historical_wikimedia",
-        "pages",
-        len(all_rows),
-        "new",
-        new_rows,
+        "wiki_coach_graph",
+        "coaches",
+        coach_count,
+        "seasons",
+        season_count,
         "attempts",
         len(ledger),
-        "episodes",
-        sum(len(row.get("episodes") or []) for row in all_rows),
-        "bound",
-        sum(1 for row in all_rows if row.get("status") == "REVISION_BOUND"),
-        "incomplete_years",
-        len(remaining),
     )
     return 0
 

@@ -46,11 +46,17 @@ from aggie_analytics.cycle30.coaching import (
     match_wikidata_website,
     official_staff_candidate_urls,
     overlay_historical_lattice,
+    parse_infobox_college_coach,
     parse_official_staff_html,
     parse_official_staff_json,
     parse_sportradar_coaches,
+    parse_wikimedia_infobox,
+    expand_source_year_span,
     match_program_to_sportradar_team,
     reject_literal_attempted,
+    reject_play_caller_from_title,
+    reject_personal_contact,
+    reject_wikimedia_as_pit,
     select_college_football_wiki_title,
 )
 from aggie_analytics.cycle30.cost import attestation_check
@@ -863,12 +869,6 @@ class Cycle30AdversarialTests(unittest.TestCase):
             round_trip_staff_snapshot({**staff, "program_id": "DISPLAY:X"})
 
     def test_wikimedia_infobox_row_bound_and_not_pit(self) -> None:
-        from aggie_analytics.cycle30.coaching import (
-            parse_wikimedia_infobox,
-            reject_personal_contact,
-            reject_wikimedia_as_pit,
-        )
-
         text = "| HeadCoach = [[Jane Doe]]\n| off_coach = [[John Roe]]\n"
         rows = parse_wikimedia_infobox(text, revision_id="1", page_title="T")
         self.assertEqual(rows[0]["person"], "Jane Doe")
@@ -923,6 +923,90 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertEqual(oc["disposition"], "CANDIDATE_ONLY")
         self.assertEqual(oc["source"], "WIKIMEDIA")
         self.assertFalse(oc["pit_admitted"])
+        tamu = parse_wikimedia_infobox(
+            "| head_coach = [[Mike Elko]]\n"
+            "| hc_year = 1st\n"
+            "| off_coach = [[Collin Klein]]\n"
+            "| cooff_coach1 = [[Holmon Wiggins]]\n"
+            "| def_coach = [[Jay Bateman]]\n"
+            "| codef_coach1 = [[Jordan Peterson (American football)|Jordan Peterson]]\n"
+            "|asst_coach=\n"
+            "*[[Trooper Taylor]] – Associate head coach/running backs\n"
+            "*[[Jay Bateman]] – Defensive coordinator/linebackers\n"
+            "*[[Collin Klein]] – Offensive coordinator/quarterbacks\n"
+            "*[[Patrick Dougherty]] – Special teams coordinator\n",
+            revision_id="75715566",
+            page_title="2024 Texas A&M Aggies football team",
+        )
+        by_role = {(row["role"], row["person"]) for row in tamu}
+        self.assertIn(("head_coach", "Mike Elko"), by_role)
+        self.assertIn(("offensive_coordinator", "Collin Klein"), by_role)
+        self.assertIn(("offensive_coordinator", "Holmon Wiggins"), by_role)
+        self.assertIn(("defensive_coordinator", "Jay Bateman"), by_role)
+        self.assertIn(("defensive_coordinator", "Jordan Peterson"), by_role)
+        self.assertIn(("running_backs", "Trooper Taylor"), by_role)
+        self.assertIn(("quarterbacks", "Collin Klein"), by_role)
+        self.assertIn(("special_teams_coordinator", "Patrick Dougherty"), by_role)
+        self.assertTrue(
+            any(
+                row["co_role"] == "true" and row["person"] == "Holmon Wiggins"
+                for row in tamu
+            )
+        )
+        with self.assertRaises(CoachingError):
+            reject_play_caller_from_title(
+                "Offensive coordinator/quarterbacks", "offense_play_caller"
+            )
+        midseason = parse_wikimedia_infobox(
+            "| head_coach = [[Jimbo Fisher]]\n"
+            "| hc_games = first 10 games\n"
+            "| head_coach2 = [[Elijah Robinson]]\n"
+            "| hc_games2 = interim; remainder of season\n"
+            "| off_coach = [[Bobby Petrino]]\n"
+            "| cooff_coach1 = [[James Coley]]\n"
+            "| def_coach = [[D. J. Durkin]]\n"
+            "| codef_coach1 = [[Elijah Robinson]]\n",
+            revision_id="2",
+            page_title="2023 Texas A&M Aggies football team",
+        )
+        fisher = next(row for row in midseason if row["person"] == "Jimbo Fisher")
+        robinson_hc = next(
+            row
+            for row in midseason
+            if row["person"] == "Elijah Robinson" and row["role"] == "head_coach"
+        )
+        robinson_dc = next(
+            row
+            for row in midseason
+            if row["person"] == "Elijah Robinson"
+            and row["role"] == "defensive_coordinator"
+        )
+        self.assertEqual(fisher["interim"], "false")
+        self.assertEqual(robinson_hc["interim"], "true")
+        self.assertEqual(robinson_dc["co_role"], "true")
+        present = expand_source_year_span("2024–present")
+        self.assertTrue(present["ongoing"])
+        self.assertIsNone(present["end_year"])
+        self.assertEqual(present["start_year"], 2024)
+        career = parse_infobox_college_coach(
+            "| coach_years1 = 2018–2021\n"
+            "| coach_team1 = Texas A&M (DC/S)\n"
+            "| coach_years2 = 2022–2023\n"
+            "| coach_team2 = Duke\n"
+            "| coach_years3 = 2024–present\n"
+            "| coach_team3 = Texas A&M\n",
+            revision_id="9",
+            page_title="Mike Elko",
+        )
+        dc_s = [row for row in career if row["source_year_text"] == "2018–2021"]
+        self.assertEqual(
+            {row["role"] for row in dc_s}, {"defensive_coordinator", "safeties"}
+        )
+        duke = next(row for row in career if row["program_raw"] == "Duke")
+        self.assertEqual(duke["role"], "UNKNOWN")
+        ongoing = next(row for row in career if row["ongoing"] is True)
+        self.assertIsNone(ongoing["end_year"])
+        self.assertEqual(ongoing["role"], "UNKNOWN")
 
     def test_availability_inventory_unknown_not_healthy(self) -> None:
         from aggie_analytics.cycle30.availability import (

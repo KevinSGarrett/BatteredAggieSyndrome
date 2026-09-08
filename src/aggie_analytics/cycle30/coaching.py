@@ -708,6 +708,21 @@ def historical_season_page_title(current_title: str, year: int) -> str | None:
     return f"{year} {title} football team"
 
 
+def program_coach_category_title(current_title: str) -> str | None:
+    """Map a program football page onto its Wikipedia coaches category."""
+
+    title = (current_title or "").strip()
+    if not title or title.casefold().startswith("list of"):
+        return None
+    lowered = title.casefold()
+    if lowered.endswith(" football"):
+        return f"Category:{title} coaches"
+    if lowered.endswith(" football team"):
+        base = re.sub(r"\s+football team$", "", title, flags=re.I)
+        return f"Category:{base} football coaches"
+    return f"Category:{title} football coaches"
+
+
 def _nodes_from_generic_name_title_rows(
     html: str, *, page_url: str
 ) -> list[dict[str, str]]:
@@ -1652,15 +1667,26 @@ _PHONE = re.compile(
     r"(?:\+1[\s.-]?)?(?:\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4})",
     re.IGNORECASE,
 )
-_WIKI_LINK = re.compile(r"\[\[([^|\]]+)(?:\|[^\]]+)?\]\]")
+_WIKI_LINK = re.compile(r"\[\[([^|\]]+)(?:\|([^\]]+))?\]\]")
 _INFOBOX_ROW = re.compile(
     r"^\|\s*(?P<key>[A-Za-z0-9_ ]+?)\s*=\s*(?P<value>.+?)\s*$",
     re.MULTILINE,
 )
+_MULTILINE_COACH_FIELD = re.compile(
+    r"^\|\s*(?P<key>head_coach|asst_coach|off_coach|def_coach|cooff_coach\d*"
+    r"|codef_coach\d*|head_coach2|head_coach3)\s*=\s*\n"
+    r"(?P<body>(?:[^\S\n]*\*.+\n)+)",
+    re.IGNORECASE | re.MULTILINE,
+)
+_STAFF_BULLET = re.compile(r"^\*\s*(?P<body>\S.*)$", re.MULTILINE)
 COACH_INFOBOX_KEYS = {
     "head_coach": ROLE_HC,
     "head coach": ROLE_HC,
     "headcoach": ROLE_HC,
+    "head_coach2": ROLE_HC,
+    "headcoach2": ROLE_HC,
+    "head_coach3": ROLE_HC,
+    "headcoach3": ROLE_HC,
     "current_head_coach": ROLE_HC,
     "currentheadcoach": ROLE_HC,
     "offensive_coordinator": ROLE_OC,
@@ -1668,14 +1694,77 @@ COACH_INFOBOX_KEYS = {
     "offensivecoordinator": ROLE_OC,
     "off_coach": ROLE_OC,
     "offcoach": ROLE_OC,
+    "cooff_coach": ROLE_OC,
+    "cooffcoach": ROLE_OC,
+    "cooff_coach1": ROLE_OC,
+    "cooffcoach1": ROLE_OC,
+    "cooff_coach2": ROLE_OC,
+    "cooffcoach2": ROLE_OC,
     "defensive_coordinator": ROLE_DC,
     "defensive coordinator": ROLE_DC,
     "defensivecoordinator": ROLE_DC,
     "def_coach": ROLE_DC,
     "defcoach": ROLE_DC,
+    "codef_coach": ROLE_DC,
+    "codefcoach": ROLE_DC,
+    "codef_coach1": ROLE_DC,
+    "codefcoach1": ROLE_DC,
+    "codef_coach2": ROLE_DC,
     "oc": ROLE_OC,
     "dc": ROLE_DC,
 }
+_SKIP_INFOBOX_KEYS = {
+    "off_scheme",
+    "def_scheme",
+    "offscheme",
+    "defscheme",
+    "stadium",
+    "capacity",
+    "founded",
+}
+
+
+_SORTNAME = re.compile(r"\{\{\s*sortname\s*\|([^|}]+)\|([^|}]+)", re.I)
+_COACH_LIKE_TITLE = re.compile(
+    r"\b(?:coach|coordinator|analyst|graduate assistant|quality control|"
+    r"recruiting|play[\s-]?caller)\b",
+    re.I,
+)
+_NOT_STAFF_TITLE = re.compile(
+    r"^(?:\d|conference|record|association|division|season|position|name|"
+    r"previous|alma)\b",
+    re.I,
+)
+OBSERVED_STAFF_ROLE_PATTERNS = (
+    (r"\bspecial teams coordinator\b", "special_teams_coordinator"),
+    (r"\bquarterbacks?\b|(?:^|[/,(])\s*qb(?:\b|/)", "quarterbacks"),
+    (r"\brunning backs?\b|(?:^|[/,(])\s*rb(?:\b|/)", "running_backs"),
+    (r"\bwide receivers?\b|(?:^|[/,(])\s*wr(?:\b|/)", "wide_receivers"),
+    (r"\btight ends?\b|(?:^|[/,(])\s*te(?:\b|/)", "tight_ends"),
+    (r"\boffensive linem(?:an|en)\b|\boffensive line\b", "offensive_line"),
+    (r"\bdefensive linem(?:an|en)\b|\bdefensive line\b", "defensive_line"),
+    (r"\blinebackers?\b", "linebackers"),
+    (r"\bdefensive backs?\b", "defensive_backs"),
+    (r"\bsafeties\b|\bsafety\b", "safeties"),
+    (r"\bcornerbacks?\b", "cornerbacks"),
+    (r"\bnickels?\b", "nickels"),
+    (r"\b(?:kickers?|punters?)\b", "kickers_punters"),
+    (r"\bstrength\b|\bconditioning\b", "strength_conditioning"),
+    (r"\banalyst\b|\bquality control\b|\bgraduate assistant\b", "analyst_support"),
+)
+_COACH_YEARS_FIELD = re.compile(
+    r"^\|\s*coach_years(?P<n>\d+)\s*=\s*(?P<years>.+)$",
+    re.MULTILINE,
+)
+_COACH_TEAM_FIELD = re.compile(
+    r"^\|\s*coach_team(?P<n>\d+)\s*=\s*(?P<team>.+)$",
+    re.MULTILINE,
+)
+_YEAR_RANGE = re.compile(
+    r"(?P<start>18\d{2}|19\d{2}|20\d{2})\s*[–\-]\s*(?P<end>18\d{2}|19\d{2}|20\d{2}|present)",
+    re.I,
+)
+_SINGLE_YEAR = re.compile(r"^(?P<year>18\d{2}|19\d{2}|20\d{2})$")
 
 
 def redact_personal_contact(text: str) -> str:
@@ -1683,6 +1772,190 @@ def redact_personal_contact(text: str) -> str:
 
     redacted = _EMAIL.sub("[REDACTED_EMAIL]", text or "")
     return _PHONE.sub("[REDACTED_PHONE]", redacted)
+
+
+def wiki_display_name(value: str) -> str:
+    """Prefer piped display text, then page title, then plain wikitext."""
+
+    sort = _SORTNAME.search(value or "")
+    if sort:
+        return f"{sort.group(1).strip()} {sort.group(2).strip()}"
+    link = _WIKI_LINK.search(value or "")
+    if link:
+        return (link.group(2) or link.group(1)).strip()
+    person = re.sub(r"<[^>]+>", "", value or "")
+    person = re.sub(r"\{\{[^}]+\}\}", "", person)
+    person = re.split(r"\s+[–—]\s+|\s+-\s+", person, maxsplit=1)[0]
+    return person.strip(" []'*")
+
+
+def observed_staff_roles_from_title(title: str) -> tuple[str, ...]:
+    """Map a raw Wikipedia title onto lattice families without inventing cells."""
+
+    lowered = re.sub(r"\s+", " ", str(title or "")).strip()
+    if not lowered or _NOT_STAFF_TITLE.search(lowered):
+        return ()
+    families = list(role_families_from_title(title))
+    for pattern, family in OBSERVED_STAFF_ROLE_PATTERNS:
+        if re.search(pattern, lowered, re.I) and family not in families:
+            families.append(family)
+    if families:
+        return tuple(families)
+    if _COACH_LIKE_TITLE.search(lowered):
+        return ("OTHER_POSITION",)
+    return ()
+
+
+CAREER_PAREN_ABBREV = {
+    "hc": ROLE_HC,
+    "oc": ROLE_OC,
+    "dc": ROLE_DC,
+    "co-oc": ROLE_OC,
+    "cooc": ROLE_OC,
+    "co-dc": ROLE_DC,
+    "codc": ROLE_DC,
+    "st": "special_teams_coordinator",
+    "stc": "special_teams_coordinator",
+    "qb": "quarterbacks",
+    "rb": "running_backs",
+    "wr": "wide_receivers",
+    "te": "tight_ends",
+    "ol": "offensive_line",
+    "dl": "defensive_line",
+    "lb": "linebackers",
+    "db": "defensive_backs",
+    "s": "safeties",
+    "cb": "cornerbacks",
+    "ga": "analyst_support",
+    "qc": "analyst_support",
+}
+
+
+def roles_from_career_parenthetical(raw: str) -> tuple[str, ...]:
+    """Map coach-infobox parentheticals. Empty/missing stays UNKNOWN, not HC."""
+
+    text = re.sub(r"\s+", " ", str(raw or "")).strip()
+    if not text or text.casefold() == "unknown":
+        return ("UNKNOWN",)
+    families = list(observed_staff_roles_from_title(text))
+    for token in re.split(r"[/,]", text):
+        compact = token.strip().casefold().replace(" ", "")
+        mapped = CAREER_PAREN_ABBREV.get(compact)
+        if mapped and mapped not in families:
+            families.append(mapped)
+    if families:
+        return tuple(families)
+    return ("UNKNOWN",)
+
+
+def expand_source_year_span(text: str) -> dict[str, Any]:
+    """Expand 2009–2013; keep present open-ended. Never hardcode the retrieval year."""
+
+    raw = re.sub(r"\s+", " ", str(text or "")).strip()
+    span = _YEAR_RANGE.search(raw)
+    if span:
+        ongoing = span.group("end").casefold() == "present"
+        return {
+            "source_year_text": raw,
+            "start_year": int(span.group("start")),
+            "end_year": None if ongoing else int(span.group("end")),
+            "ongoing": ongoing,
+        }
+    single = _SINGLE_YEAR.match(raw)
+    if single:
+        year = int(single.group("year"))
+        return {
+            "source_year_text": raw,
+            "start_year": year,
+            "end_year": year,
+            "ongoing": False,
+        }
+    return {
+        "source_year_text": raw,
+        "start_year": None,
+        "end_year": None,
+        "ongoing": False,
+    }
+
+
+def career_episode_seasons(
+    episode: Mapping[str, Any], *, through_year: int = 2026
+) -> list[int]:
+    """Expand a career span into seasons. present stays open through_year."""
+
+    start = episode.get("start_year")
+    if start is None:
+        return []
+    if episode.get("ongoing"):
+        end = through_year
+    else:
+        end = episode.get("end_year")
+        if end is None:
+            end = start
+    start_i = int(start)
+    end_i = int(end)
+    if end_i < start_i:
+        return []
+    return list(range(start_i, end_i + 1))
+
+
+def _wiki_title_from_bullet(body: str) -> tuple[str, str]:
+    text = body.strip().lstrip("*").strip()
+    person = wiki_display_name(text)
+    remainder = text
+    link = _WIKI_LINK.search(text) or _SORTNAME.search(text)
+    if link:
+        remainder = text[link.end() :].strip()
+    remainder = remainder.lstrip(" –—-").strip()
+    title = remainder or "UNKNOWN"
+    return person, title
+
+
+def _co_role_from_key(key: str) -> bool:
+    compact = key.lower().replace(" ", "").replace("_", "")
+    return compact.startswith("cooff") or compact.startswith("codef")
+
+
+def _append_wiki_episode(
+    extracted: list[dict[str, str]],
+    seen: set[tuple[str, str]],
+    *,
+    person: str,
+    title: str,
+    role: str,
+    span_id: str,
+    revision_id: str,
+    co_role: bool = False,
+    interim: bool | None = None,
+) -> None:
+    person = person.strip()
+    if not person or person.casefold() in {"", "vacant", "tbd", "none"}:
+        return
+    if re.fullmatch(r"\d{4}", person) or "@" in person or "[REDACTED" in person:
+        return
+    if "{{" in person or person.startswith("{"):
+        return
+    if "[REDACTED_EMAIL]" in title or "[REDACTED_PHONE]" in title:
+        return
+    key = (person.casefold(), role)
+    if key in seen:
+        return
+    seen.add(key)
+    flagged_interim = interim if interim is not None else "interim" in title.casefold()
+    extracted.append(
+        {
+            "person": person,
+            "title": title,
+            "role": role,
+            "span_id": span_id,
+            "source_title": title,
+            "wikimedia_revision": revision_id,
+            "pit_admitted": "false",
+            "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
+            "interim": "true" if flagged_interim else "false",
+            "co_role": "true" if co_role or " co-" in title.casefold() else "false",
+        }
+    )
 
 
 def reject_personal_contact(text: str) -> None:
@@ -1766,17 +2039,24 @@ def stratified_predecessor_sample(
 def parse_wikimedia_infobox(
     wikitext: str, *, revision_id: str, page_title: str
 ) -> list[dict[str, str]]:
-    """Row-bound infobox keys. Wikimedia is revision-bound candidate history, not PIT."""
+    """Row-bound infobox, asst_coach lists, and staff tables. Not PIT."""
 
     wikitext = redact_personal_contact(wikitext)
     if not revision_id:
         raise CoachingError("Wikimedia evidence must be revision-bound")
     extracted: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
     for match in _INFOBOX_ROW.finditer(wikitext):
         raw_key = match.group("key").strip()
         key = raw_key.lower().replace(" ", "_")
         compact = raw_key.lower().replace(" ", "").replace("_", "")
-        if compact.endswith("year") or compact in {"headcoachyear", "ocyear", "dcyear"}:
+        if compact.endswith("year") or compact.endswith("games"):
+            continue
+        if compact in _SKIP_INFOBOX_KEYS or compact in {
+            "headcoachyear",
+            "ocyear",
+            "dcyear",
+        }:
             continue
         role = (
             COACH_INFOBOX_KEYS.get(key)
@@ -1786,62 +2066,129 @@ def parse_wikimedia_infobox(
         if not role:
             continue
         value = match.group("value").strip()
-        if "[REDACTED_EMAIL]" in value or "[REDACTED_PHONE]" in value:
+        if value.startswith("*"):
             continue
-        link = _WIKI_LINK.search(value)
-        person = link.group(1) if link else re.sub(r"<[^>]+>", "", value).strip()
-        person = person.split("{{")[0].strip(" []'")
-        if not person or person.lower() in {"", "vacant", "tbd", "none"}:
-            continue
-        if "@" in person or "[REDACTED" in person:
-            continue
-        extracted.append(
-            {
-                "person": person,
-                "title": match.group("key").strip(),
-                "role": role,
-                "span_id": f"wikimedia:{page_title}:{revision_id}:{key}",
-                "source_title": match.group("key").strip(),
-                "wikimedia_revision": revision_id,
-                "pit_admitted": "false",
-                "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
-            }
+        person = wiki_display_name(value)
+        games_note = ""
+        games_key = None
+        if compact in {"headcoach2", "head_coach2"}:
+            games_key = r"hc_games2"
+        elif compact in {"headcoach3", "head_coach3"}:
+            games_key = r"hc_games3"
+        elif compact in {"headcoach", "head_coach"}:
+            games_key = r"hc_games"
+        if games_key:
+            games_match = re.search(
+                rf"^\|\s*{games_key}\s*=\s*(.+)$", wikitext, re.I | re.M
+            )
+            games_note = str(games_match.group(1) if games_match else "")
+        _append_wiki_episode(
+            extracted,
+            seen,
+            person=person,
+            title=raw_key,
+            role=role,
+            span_id=f"wikimedia:{page_title}:{revision_id}:{key}",
+            revision_id=revision_id,
+            co_role=_co_role_from_key(key),
+            interim="interim" in games_note.casefold(),
         )
-    seen = {(row["person"].casefold(), row["role"]) for row in extracted}
+    for match in _MULTILINE_COACH_FIELD.finditer(wikitext):
+        raw_key = match.group("key").strip()
+        key = raw_key.lower().replace(" ", "_")
+        infobox_role = (
+            COACH_INFOBOX_KEYS.get(key)
+            or COACH_INFOBOX_KEYS.get(raw_key.lower())
+            or COACH_INFOBOX_KEYS.get(key.replace("_", ""))
+        )
+        for bullet in _STAFF_BULLET.finditer(match.group("body")):
+            person, title = _wiki_title_from_bullet(bullet.group("body"))
+            roles = observed_staff_roles_from_title(title)
+            if not roles and infobox_role:
+                roles = (infobox_role,)
+            for role in roles:
+                _append_wiki_episode(
+                    extracted,
+                    seen,
+                    person=person,
+                    title=title,
+                    role=role,
+                    span_id=(
+                        f"wikimedia:{page_title}:{revision_id}:list:{person}:{role}"
+                    ),
+                    revision_id=revision_id,
+                    co_role=_co_role_from_key(key) or " co-" in title.casefold(),
+                )
     for match in _WIKI_TWO_CELL.finditer(wikitext):
         left = match.group("left").strip()
         title = match.group("title").strip()
         if "||" in left:
             continue
-        families = role_families_from_title(title)
+        families = observed_staff_roles_from_title(title)
         if not families:
             continue
-        link = _WIKI_LINK.search(left)
-        person = link.group(1) if link else re.sub(r"<[^>]+>", "", left).strip()
-        person = person.split("{{")[0].strip(" []'")
-        if not person or person.lower() in {"", "vacant", "tbd", "none"}:
-            continue
-        if re.fullmatch(r"\d{4}", person) or "@" in person or "[REDACTED" in person:
-            continue
-        if "[REDACTED_EMAIL]" in title or "[REDACTED_PHONE]" in title:
-            continue
+        person = wiki_display_name(left)
         for role in families:
-            key = (person.casefold(), role)
-            if key in seen:
-                continue
-            seen.add(key)
-            extracted.append(
+            _append_wiki_episode(
+                extracted,
+                seen,
+                person=person,
+                title=title,
+                role=role,
+                span_id=(f"wikimedia:{page_title}:{revision_id}:table:{person}:{role}"),
+                revision_id=revision_id,
+                co_role=" co-" in title.casefold()
+                or title.casefold().startswith("co-"),
+            )
+    return extracted
+
+
+def parse_infobox_college_coach(
+    wikitext: str, *, revision_id: str, page_title: str
+) -> list[dict[str, Any]]:
+    """Career stops from Infobox college coach. Role UNKNOWN unless parenthetical."""
+
+    wikitext = redact_personal_contact(wikitext)
+    if not revision_id:
+        raise CoachingError("Wikimedia evidence must be revision-bound")
+    years = {
+        match.group("n"): match.group("years").strip()
+        for match in _COACH_YEARS_FIELD.finditer(wikitext)
+    }
+    teams = {
+        match.group("n"): match.group("team").strip()
+        for match in _COACH_TEAM_FIELD.finditer(wikitext)
+    }
+    episodes: list[dict[str, Any]] = []
+    for index, raw_years in years.items():
+        team_value = teams.get(index, "")
+        if not team_value:
+            continue
+        span = expand_source_year_span(raw_years)
+        team_text = re.sub(r"<[^>]+>", "", team_value)
+        team_text = re.sub(r"\{\{[^}]+\}\}", "", team_text).strip()
+        paren = re.search(r"\(([^)]+)\)\s*$", team_text)
+        raw_role = paren.group(1).strip() if paren else "UNKNOWN"
+        program = wiki_display_name(team_text[: paren.start()] if paren else team_text)
+        if not program:
+            continue
+        roles = roles_from_career_parenthetical(raw_role) if paren else ("UNKNOWN",)
+        for role in roles:
+            episodes.append(
                 {
-                    "person": person,
-                    "title": title,
+                    "person": wiki_display_name(page_title),
+                    "program_raw": program,
                     "role": role,
-                    "span_id": (
-                        f"wikimedia:{page_title}:{revision_id}:table:{person}:{role}"
-                    ),
-                    "source_title": title,
+                    "raw_title": raw_role,
+                    "source_title": raw_role,
+                    "source_year_text": span["source_year_text"],
+                    "start_year": span["start_year"],
+                    "end_year": span["end_year"],
+                    "ongoing": span["ongoing"],
+                    "span_id": f"wikimedia:{page_title}:{revision_id}:career:{index}:{role}",
                     "wikimedia_revision": revision_id,
                     "pit_admitted": "false",
                     "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
                 }
             )
-    return extracted
+    return episodes

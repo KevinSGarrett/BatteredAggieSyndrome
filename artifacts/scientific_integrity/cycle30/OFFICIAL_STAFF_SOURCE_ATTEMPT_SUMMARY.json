@@ -3,7 +3,7 @@
   "attempted_http": 266,
   "attempted_no_url": 0,
   "attempted_programs": 266,
-  "captured": 262,
+  "captured": 266,
   "cfbd_hc_only": true,
   "direct_get_no_scrapfly": true,
   "literal_attempted_true_forbidden": true,

@@ -23,7 +23,7 @@ if str(ROOT / "src") not in sys.path:
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 10,
+    "max_requests": 12,
     "max_retries": 0,
     "concurrency": 1,
     "metered_scraper_credits": 0,
@@ -37,6 +37,8 @@ NCAA_URLS = (
     "https://web3.ncaa.org/directory/api/sso/search?sportCode=MFB&division=1",
     "https://web3.ncaa.org/directory/api/sso/search?sportCode=MFB",
     "https://web3.ncaa.org/directory/api/directory/memberList?type=12&sportCode=MFB",
+    "https://web3.ncaa.org/directory/api/directory/memberList?type=12&sportCode=MFB&division=1",
+    "https://web3.ncaa.org/directory/api/directory/memberList?sportCode=MFB&status=2",
     "https://www.ncaa.com/schools-index",
 )
 WIKI_PAGES = (
@@ -47,6 +49,25 @@ WIKI_PAGES = (
 WORK = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 RAW = WORK / "raw" / "discontinued"
 OUT = WORK / "outputs"
+
+
+def ncaa_directory_item_is_discontinued(item: dict) -> bool:
+    """Current NCAA member rows are not a discontinued-program census."""
+
+    status = str(
+        item.get("status")
+        or item.get("orgStatus")
+        or item.get("sportStatus")
+        or item.get("membershipStatus")
+        or ""
+    ).casefold()
+    markers = ("defunct", "discontinued", "inactive", "former", "dropped")
+    if any(token in status for token in markers):
+        return True
+    for key in ("droppedYear", "formerSport", "discontinuedYear", "endYear"):
+        if item.get(key) not in {None, "", 0, "0"}:
+            return True
+    return False
 
 
 def utc_now() -> str:
@@ -129,31 +150,27 @@ def main() -> int:
         except json.JSONDecodeError:
             payload = None
         if isinstance(payload, list):
-            for item in payload:
-                if not isinstance(item, dict):
-                    continue
-                name = str(item.get("name") or item.get("orgName") or "")
-                if name:
-                    ncaa_rows.append(
-                        {
-                            "program_name": name,
-                            "source_id": "SRC-NCAA-DIRECTORY",
-                            "http_status": str(status),
-                        }
-                    )
+            items = payload
         elif isinstance(payload, dict):
-            for item in payload.get("results") or payload.get("orgs") or []:
-                if not isinstance(item, dict):
-                    continue
-                name = str(item.get("name") or item.get("orgName") or "")
-                if name:
-                    ncaa_rows.append(
-                        {
-                            "program_name": name,
-                            "source_id": "SRC-NCAA-DIRECTORY",
-                            "http_status": str(status),
-                        }
-                    )
+            items = payload.get("results") or payload.get("orgs") or []
+        else:
+            items = []
+        if not isinstance(items, list):
+            items = []
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            if not ncaa_directory_item_is_discontinued(item):
+                continue
+            name = str(item.get("name") or item.get("orgName") or "")
+            if name:
+                ncaa_rows.append(
+                    {
+                        "program_name": name,
+                        "source_id": "SRC-NCAA-DIRECTORY",
+                        "http_status": str(status),
+                    }
+                )
     wiki_rows: list[dict[str, str]] = []
     for title in WIKI_PAGES:
         params = {

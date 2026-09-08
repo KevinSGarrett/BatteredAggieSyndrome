@@ -2,7 +2,7 @@
   "age_is_not_deletion_authority": true,
   "artifact_class": "REAL_EVIDENCE",
   "artifact_type": "CYCLE30_WORKTREE_INVENTORY",
-  "cycle30_head": "74d6b7639ed2cb081b8bdc7ce2777f34e9ee84a3",
+  "cycle30_head": "4f7318ea4a18faf4afd4ddb66e4b320f39243ae4",
   "deleted": [],
   "hold_open_pr_and_preservation_branches_retained": true,
   "open_prs_untouched_dependabot": [
@@ -87,7 +87,7 @@
     },
     {
       "branch": "refs/heads/cursor/cycle30-neutral-national-kernel",
-      "head": "74d6b7639ed2cb081b8bdc7ce2777f34e9ee84a3",
+      "head": "4f7318ea4a18faf4afd4ddb66e4b320f39243ae4",
       "keep": "true",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle30-scr"
     },

@@ -369,9 +369,7 @@ def overlay_historical_venues(
     cfbd_hist: list[dict[str, Any]],
     venues_by_name: dict[str, Mapping[str, Any]],
 ) -> list[dict[str, Any]]:
-    by_id = {
-        str(row.get("id")): row for row in cfbd_hist if row.get("id") is not None
-    }
+    by_id = {str(row.get("id")): row for row in cfbd_hist if row.get("id") is not None}
     out: list[dict[str, Any]] = []
     for game in games:
         updated = dict(game)
@@ -1224,9 +1222,7 @@ def main() -> int:
             )
         except Exception:
             continue
-        kickoff = str(
-            freeze.get("kickoff_bound_utc") or mapped["start_date_utc_text"]
-        )
+        kickoff = str(freeze.get("kickoff_bound_utc") or mapped["start_date_utc_text"])
         kernel_games.append(mapped)
         kernel_outcomes.extend(outcomes)
         kernel_authorities[gid] = authority
@@ -1616,6 +1612,15 @@ def main() -> int:
     sr_attempts_by_program = {
         str(row.get("program_id")): row for row in sportradar_http_attempts
     }
+    wiki_candidate_rows = load_optional_jsonl(
+        EXT / "WIKIMEDIA_CURRENT_STAFF_CANDIDATES.jsonl"
+    )
+    wiki_people_by_program: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in wiki_candidate_rows:
+        pid = str(row.get("program_id") or "")
+        for episode in row.get("episodes") or []:
+            if isinstance(episode, dict):
+                wiki_people_by_program[pid].append(episode)
     filled = (
         fill_current_role_matrix(
             matrix,
@@ -1625,6 +1630,7 @@ def main() -> int:
             official_attempts_by_program=attempts_by_program,
             sportradar_people_by_program=sr_people_by_program,
             sportradar_attempts_by_program=sr_attempts_by_program,
+            wikimedia_people_by_program=wiki_people_by_program,
         )
         if matrix
         else []
@@ -1765,7 +1771,11 @@ def main() -> int:
     hashes["AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json"] = write_json(
         ART / "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
         {
-            **{key: value for key, value in joined_availability.items() if key != "rows"},
+            **{
+                key: value
+                for key, value in joined_availability.items()
+                if key != "rows"
+            },
             "artifact_class": "REAL_EVIDENCE"
             if availability_candidates
             else "BLOCKER_METADATA",
@@ -1908,9 +1918,7 @@ def main() -> int:
     ncaa_com_matches = remaining_finals.get("ncaa_com_remaining_matches") or {}
     ncaa_direct = remaining_finals.get("ncaa_direct_attempts") or []
     stats_statuses = [
-        int(row.get("http_status") or 0)
-        for row in ncaa_direct
-        if isinstance(row, dict)
+        int(row.get("http_status") or 0) for row in ncaa_direct if isinstance(row, dict)
     ]
     hashes["WEEK1_REMAINING_FINALS_ATTEMPTS.json"] = write_json(
         ART / "WEEK1_REMAINING_FINALS_ATTEMPTS.json",
@@ -2239,8 +2247,7 @@ def main() -> int:
         ncaa_rows=ncaa_directory_rows,
         wikipedia_rows=wikipedia_former_rows,
         current_ids=[str(row.get("program_id") or "") for row in current_programs],
-        cfbd_absent_ids=membership_delta.get("historical_absent_from_2026_ids")
-        or [],
+        cfbd_absent_ids=membership_delta.get("historical_absent_from_2026_ids") or [],
     )
     hashes["NCAA_DISCONTINUED_PROGRAM_CENSUS.json"] = write_json(
         ART / "NCAA_DISCONTINUED_PROGRAM_CENSUS.json", discontinued_census

@@ -26,7 +26,9 @@ if str(ROOT / "src") not in sys.path:
 from aggie_analytics.cycle30.coaching import (  # noqa: E402
     extract_athletics_website_from_wikitext,
     html_is_not_found_shell,
+    html_is_waf_challenge,
     match_wikidata_website,
+    official_staff_candidate_urls,
     parse_official_staff_html,
     parse_official_staff_json,
     redact_personal_contact,
@@ -40,32 +42,21 @@ BUDGET = {
     "concurrency": 1,
     "metered_scraper_credits": 0,
     "sleep_s": 0.2,
-    "timeout_s": 8,
+    "timeout_s": 15,
 }
 UA = (
     "BAS-Cycle30-Reconstruction/1.0 "
     "(https://github.com/KevinSGarrett/BatteredAggieSyndrome; "
     "official public football staff directories)"
 )
+UA_BROWSER = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+)
 WORK = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 RAW = WORK / "raw" / "official_staff"
 WIKI = WORK / "raw" / "wikimedia"
 OUT = WORK / "outputs"
-ORIGIN_PATHS = (
-    "/sports/football/coaches",
-    "/staff-directory/department/football",
-    "/sports/football/roster/coaches",
-    "/sports/football/roster/staff",
-    "/sports/football/staff",
-    "/sports/football/coaches/index",
-    "/staff.aspx?path=football",
-    "/staff-directory?path=football",
-    "/api/v2/Staff",
-    "/sports/football/coaches.aspx",
-    "/staff-directory/football",
-    "/athletics/football/coaches",
-    "/sports/m-footbl/coaches",
-)
 
 
 def utc_now() -> str:
@@ -118,26 +109,28 @@ def load_current_wikitext(titles: Sequence[str]) -> dict[str, str]:
     return indexed
 
 
-def candidate_staff_urls(website: str) -> list[str]:
-    parsed = urllib.parse.urlparse(website)
-    if not parsed.scheme or not parsed.netloc:
-        return []
-    origin = f"{parsed.scheme}://{parsed.netloc}"
-    base = website.rstrip("/")
-    urls: list[str] = []
-    if "/football" in parsed.path.casefold():
-        urls.append(base + "/coaches")
-    for suffix in ORIGIN_PATHS:
-        urls.append(origin + suffix)
-    deduped: list[str] = []
-    seen: set[str] = set()
-    for url in urls:
-        key = url.casefold()
-        if key in seen:
-            continue
-        seen.add(key)
-        deduped.append(url)
-    return deduped
+def _staff_request(url: str, user_agent: str, timeout_s: int) -> tuple[bytes, int, str]:
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": user_agent,
+            "Accept": "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8",
+        },
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=timeout_s) as response:
+            body = response.read()
+            status = int(response.status)
+            final_url = str(response.geturl() or url)
+    except urllib.error.HTTPError as exc:
+        body = exc.read() or b""
+        status = int(exc.code)
+        final_url = url
+    except (urllib.error.URLError, TimeoutError, socket.timeout, OSError):
+        body = b""
+        status = 0
+        final_url = url
+    return body, status, final_url
 
 
 def fetch_html(
@@ -148,20 +141,22 @@ def fetch_html(
     cache_only: bool = False,
 ) -> tuple[bytes, dict[str, Any]]:
     cache = RAW / f"{sha256_json({'url': url})}.html"
-    if cache.is_file():
-        body = cache.read_bytes()
-        receipt = {
-            "route": url,
-            "status": "CACHE_HIT",
-            "http_status": 200,
-            "request_identity_sha256": sha256_json({"url": url}),
-            "receipt_identity": sha256_bytes(body),
-            "raw_sha256": sha256_bytes(body),
-            "cached": True,
-            "retrieved_at_utc": utc_now(),
-        }
-        ledger.append(receipt)
-        return body, receipt
+    if cache.is_file() and cache.stat().st_size > 0:
+        cached_body = cache.read_bytes()
+        cached_html = cached_body.decode("utf-8", "replace")
+        if not html_is_waf_challenge(cached_html):
+            receipt = {
+                "route": url,
+                "status": "CACHE_HIT",
+                "http_status": 200,
+                "request_identity_sha256": sha256_json({"url": url}),
+                "receipt_identity": sha256_bytes(cached_body),
+                "raw_sha256": sha256_bytes(cached_body),
+                "cached": True,
+                "retrieved_at_utc": utc_now(),
+            }
+            ledger.append(receipt)
+            return cached_body, receipt
     if cache_only:
         receipt = {
             "route": url,
@@ -178,31 +173,38 @@ def fetch_html(
     live = sum(1 for row in ledger if row.get("status") in {"HTTP_OK", "HTTP_ERROR"})
     if live >= int(budget["max_requests"]):
         raise RuntimeError("official staff request ceiling reached")
-    request = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": UA,
-            "Accept": "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8",
-        },
-    )
     start = utc_now()
-    try:
-        with urllib.request.urlopen(
-            request, timeout=int(budget["timeout_s"])
-        ) as response:
-            body = response.read()
-            status = int(response.status)
-            final_url = str(response.geturl() or url)
-    except urllib.error.HTTPError as exc:
-        body = exc.read() or b""
-        status = int(exc.code)
-        final_url = url
-    except (urllib.error.URLError, TimeoutError, socket.timeout, OSError):
-        body = b""
-        status = 0
-        final_url = url
-    time.sleep(float(budget["sleep_s"]))
+    body, status, final_url = _staff_request(url, UA, int(budget["timeout_s"]))
+    html = body.decode("utf-8", "replace") if body else ""
+    if html_is_waf_challenge(html) or not body:
+        retry_body, retry_status, retry_final = _staff_request(
+            url, UA_BROWSER, int(budget["timeout_s"])
+        )
+        time.sleep(float(budget["sleep_s"]))
+        if retry_body and not html_is_waf_challenge(
+            retry_body.decode("utf-8", "replace")
+        ):
+            body, status, final_url = retry_body, retry_status, retry_final
+    else:
+        time.sleep(float(budget["sleep_s"]))
     end = utc_now()
+    html = body.decode("utf-8", "replace") if body else ""
+    if html_is_waf_challenge(html):
+        receipt = {
+            "route": url,
+            "final_url": final_url,
+            "status": "HTTP_WAF_CHALLENGE",
+            "http_status": status,
+            "request_identity_sha256": sha256_json({"url": url}),
+            "receipt_identity": sha256_json(
+                {"start": start, "end": end, "status": "waf"}
+            ),
+            "raw_sha256": "waf_challenge_not_cached",
+            "cached": False,
+            "retrieved_at_utc": end,
+        }
+        ledger.append(receipt)
+        return b"", receipt
     raw_hash = sha256_bytes(body) if body else "empty"
     receipt = {
         "route": url,
@@ -272,9 +274,12 @@ def main() -> int:
     try:
         for program in programs:
             pid = str(program.get("program_id") or "")
-            if args.uncaptured_only and str(
-                (prior_attempts.get(pid) or {}).get("status") or ""
-            ) == "CAPTURED":
+            if (
+                args.uncaptured_only
+                and str((prior_attempts.get(pid) or {}).get("status") or "")
+                == "CAPTURED"
+                and useful_people(prior_people_by_program.get(pid, []))
+            ):
                 attempts.append(prior_attempts[pid])
                 people_out.extend(prior_people_by_program.get(pid, []))
                 continue
@@ -324,7 +329,7 @@ def main() -> int:
             parsed_people: list[dict[str, str]] = []
             chosen: dict[str, Any] | None = None
             last_receipt: dict[str, Any] | None = None
-            for url in candidate_staff_urls(website):
+            for url in official_staff_candidate_urls(website):
                 body, receipt = fetch_html(
                     url, ledger, BUDGET, cache_only=args.cache_only
                 )
@@ -333,9 +338,16 @@ def main() -> int:
                         last_receipt = receipt
                     continue
                 html = redact_personal_contact(body.decode("utf-8", "replace"))
-                if html_is_not_found_shell(html):
-                    if last_receipt is None:
-                        last_receipt = {**receipt, "status": "HTTP_NOT_FOUND_SHELL"}
+                if html_is_waf_challenge(html) or html_is_not_found_shell(html):
+                    if last_receipt is None or html_is_waf_challenge(html):
+                        last_receipt = {
+                            **receipt,
+                            "status": (
+                                "HTTP_WAF_CHALLENGE"
+                                if html_is_waf_challenge(html)
+                                else "HTTP_NOT_FOUND_SHELL"
+                            ),
+                        }
                     continue
                 last_receipt = receipt
                 people: list[dict[str, str]] = []
@@ -356,7 +368,7 @@ def main() -> int:
                 if people and chosen is None:
                     parsed_people = people
                     chosen = receipt
-            if chosen and parsed_people:
+            if chosen and useful_people(parsed_people):
                 for person in parsed_people:
                     people_out.append(
                         {

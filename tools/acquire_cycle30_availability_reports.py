@@ -51,11 +51,17 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def fetch_url(uri: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -> bytes:
+def fetch_url(
+    uri: str,
+    ledger: list[dict[str, Any]],
+    budget: dict[str, Any],
+    *,
+    refresh: bool = False,
+) -> bytes:
     if len(ledger) >= int(budget["max_requests"]):
         raise RuntimeError("availability request ceiling reached")
     cache = RAW / f"{sha256_json({'url': uri})}.html"
-    if cache.is_file():
+    if cache.is_file() and not refresh:
         body = cache.read_bytes()
         ledger.append(
             {
@@ -113,6 +119,11 @@ def fetch_url(uri: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) ->
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="Bypass HTML cache for a fresh public-route attempt",
+    )
     args = parser.parse_args()
     RAW.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -133,7 +144,7 @@ def main() -> int:
     )
     for route in [*PUBLIC_AVAILABILITY_ROUTES, *extra_routes]:
         uri = route["uri"]
-        body = fetch_url(uri, ledger, BUDGET)
+        body = fetch_url(uri, ledger, BUDGET, refresh=args.refresh)
         receipt = ledger[-1]
         text = body.decode("utf-8", "replace").casefold()
         looks_like_report = any(
@@ -152,13 +163,12 @@ def main() -> int:
         )
         for pdf_uri in availability_pdf_hrefs(decoded, page_uri=uri):
             try:
-                pdf_body = fetch_url(pdf_uri, ledger, BUDGET)
+                pdf_body = fetch_url(pdf_uri, ledger, BUDGET, refresh=args.refresh)
             except RuntimeError:
                 break
             candidates.extend(
                 extract_candidate_player_rows(
-                    pdf_plaintext(pdf_body)
-                    or pdf_body.decode("utf-8", "replace"),
+                    pdf_plaintext(pdf_body) or pdf_body.decode("utf-8", "replace"),
                     source_id=route["source_id"],
                     uri=pdf_uri,
                 )

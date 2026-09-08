@@ -37,7 +37,7 @@ BUDGET = {
     "concurrency": 1,
     "metered_scraper_credits": 0,
     "route": "mediawiki_api",
-    "years": [2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022],
+    "years": [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
     "pit_admitted": False,
     "remaining_years_queued": list(range(1963, 2027)),
 }

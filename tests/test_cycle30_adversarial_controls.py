@@ -38,10 +38,13 @@ from aggie_analytics.cycle30.coaching import (
     extract_official_website_from_wikidata_entity,
     extract_athletics_website_from_wikitext,
     extract_row_bound_staff,
+    fill_current_role_matrix,
     hc_oc_dc_matrix,
     historical_season_page_title,
     html_is_not_found_shell,
+    html_is_waf_challenge,
     match_wikidata_website,
+    official_staff_candidate_urls,
     overlay_historical_lattice,
     parse_official_staff_html,
     parse_official_staff_json,
@@ -882,6 +885,44 @@ class Cycle30AdversarialTests(unittest.TestCase):
         )
         noisy_rows = parse_wikimedia_infobox(noisy, revision_id="1", page_title="T")
         self.assertEqual(noisy_rows[0]["person"], "Jane Doe")
+        table = parse_wikimedia_infobox(
+            "| [[Tom Matukewicz]] || Head coach\n"
+            "| Ricky Coon || Defensive coordinator\n"
+            "| Jeromy McDowell || Offensive coordinator/quarterbacks\n"
+            "| 1937 || Mid-America Intercollegiate Athletics Association || Abe Stuber || 9-0\n",
+            revision_id="9",
+            page_title="Southeast Missouri State Redhawks football",
+        )
+        roles = {row["role"]: row["person"] for row in table}
+        self.assertEqual(roles["head_coach"], "Tom Matukewicz")
+        self.assertEqual(roles["defensive_coordinator"], "Ricky Coon")
+        self.assertEqual(roles["offensive_coordinator"], "Jeromy McDowell")
+        colgate = official_staff_candidate_urls(
+            "https://gocolgateraiders.com/sports/football"
+        )
+        self.assertTrue(any("colgateathletics.com" in url for url in colgate))
+        ttu = official_staff_candidate_urls(
+            "https://www.ttusports.com/sports/fball/index"
+        )
+        self.assertTrue(any(url.endswith("/sports/fball/coaches") for url in ttu))
+        cells = hc_oc_dc_matrix(["SRC-002:TEAM:1"], "2026-09-08T00:00:00Z")
+        filled = fill_current_role_matrix(
+            cells,
+            programs=[{"program_id": "SRC-002:TEAM:1", "display_name": "SEMO"}],
+            cfbd_hc_by_school={},
+            official_people_by_program={},
+            official_attempts_by_program={
+                "SRC-002:TEAM:1": {
+                    "status": "ATTEMPTED_EMPTY_PARSE",
+                    "attempt_count": 1,
+                }
+            },
+            wikimedia_people_by_program={"SRC-002:TEAM:1": table},
+        )
+        oc = next(row for row in filled if row["role"] == "offensive_coordinator")
+        self.assertEqual(oc["disposition"], "CANDIDATE_ONLY")
+        self.assertEqual(oc["source"], "WIKIMEDIA")
+        self.assertFalse(oc["pit_admitted"])
 
     def test_availability_inventory_unknown_not_healthy(self) -> None:
         from aggie_analytics.cycle30.availability import (
@@ -969,6 +1010,44 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertIn("head_coach", roles)
         self.assertIn("offensive_coordinator", roles)
         self.assertIn("defensive_coordinator", roles)
+        presto = parse_official_staff_html(
+            """
+            <a href="/sports/fball/coaches/Drew_Belcher" class="card-title"
+               aria-label="Drew Belcher, Offensive Coordinator, Full Bio">Drew Belcher</a>
+            <p class="card-text">Offensive Coordinator</p>
+            <a href="/sports/fball/coaches/Bobby_Wilder" class="card-title"
+               aria-label="Bobby Wilder, Head Coach, Full Bio">Bobby Wilder</a>
+            <p class="card-text">Head Coach</p>
+            """,
+            page_url="https://www.ttusports.com/sports/fball/coaches",
+        )
+        self.assertTrue(any(row["person"] == "Bobby Wilder" for row in presto))
+        self.assertTrue(any(row["role"] == "head_coach" for row in presto))
+        self.assertTrue(any(row["role"] == "offensive_coordinator" for row in presto))
+        self.assertIsNone(role_family_from_title("Special Asst. to the Head Coach"))
+        umass = parse_official_staff_html(
+            """
+            <tr class="s-table-body__row s-table-body__row--index-0">
+              <td><a href="/sports/football/roster/coaches/joe-harasymiak/2553">
+                <span>Joe Harasymiak</span></a></td>
+              <td><span>Football Performance Center</span></td>
+              <td><span>Head Coach</span></td>
+            </tr>
+            <tr class="s-table-body__row s-table-body__row--index-1">
+              <td><a href="/sports/football/roster/coaches/oc/1">
+                <span>Max Warner</span></a></td>
+              <td><span>Football Performance Center</span></td>
+              <td><span>Offensive Coordinator</span></td>
+            </tr>
+            """,
+            page_url="https://umassathletics.com/sports/football/coaches",
+        )
+        self.assertTrue(any(row["person"] == "Joe Harasymiak" for row in umass))
+        self.assertTrue(any(row["role"] == "head_coach" for row in umass))
+        self.assertTrue(any(row["role"] == "offensive_coordinator" for row in umass))
+        self.assertFalse(
+            any(row["title"] == "Football Performance Center" for row in umass)
+        )
         vue = parse_official_staff_html(
             (
                 '<a href="/sports/football/roster/coaches/kalen-deboer/1813" class="">'
@@ -1002,6 +1081,15 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertTrue(any(row["role"] == "offensive_coordinator" for row in table))
         self.assertTrue(
             html_is_not_found_shell("<title>Page Not Found (404) - App State</title>")
+        )
+        self.assertTrue(
+            html_is_not_found_shell("<title>Not Found -  Central Connecticut</title>")
+        )
+        self.assertTrue(
+            html_is_waf_challenge(
+                "<title></title><script>window.gokuProps = {};"
+                "window.awsWafCookieDomainList = [];</script>"
+            )
         )
         self.assertFalse(
             html_is_not_found_shell("<title>Football Coaches - App State</title>")
@@ -1416,7 +1504,9 @@ class Cycle30AdversarialTests(unittest.TestCase):
             },
             page_url="https://example.com/api/v2/Staff",
         )
-        self.assertTrue(any(row["role"] == "offensive_coordinator" for row in json_rows))
+        self.assertTrue(
+            any(row["role"] == "offensive_coordinator" for row in json_rows)
+        )
         website = extract_official_website_from_wikidata_entity(
             {
                 "claims": {

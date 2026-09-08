@@ -126,8 +126,10 @@ def role_families_from_title(title: str) -> tuple[str, ...]:
     if not lowered:
         return ()
     families: list[str] = []
-    if re.search(r"\bhead(?:\s+football)?\s+coach\b", lowered) and not re.search(
-        r"\b(associate|assistant)\b", lowered
+    if (
+        re.search(r"\bhead(?:\s+football)?\s+coach\b", lowered)
+        and not re.search(r"\b(associate|assistant|asst\.?)\b", lowered)
+        and "to the head coach" not in lowered
     ):
         families.append(ROLE_HC)
     if re.search(r"\boffensive coordinator\b", lowered):
@@ -180,10 +182,45 @@ _COACH_HREF_NAME = re.compile(
 )
 _TD = re.compile(r"<td[^>]*>(.*?)</td>", re.I | re.S)
 _NOT_FOUND_TITLE = re.compile(
-    r"<title>[^<]*(?:page not found(?:\s*\(404\))?|404\s*[-–|: ])[^<]*</title>",
+    r"<title>[^<]*(?:page not found(?:\s*\(404\))?|404\s*[-–|: ]|"
+    r"not found\s*[-–])[^<]*</title>",
     re.I,
 )
+_WIKI_TWO_CELL = re.compile(
+    r"^\|\s*(?P<left>.+?)\s*\|\|\s*(?P<title>[^|\n]+)\s*$",
+    re.MULTILINE,
+)
+OFFICIAL_STAFF_ORIGIN_PATHS = (
+    "/sports/football/coaches",
+    "/staff-directory/department/football",
+    "/sports/football/roster/coaches",
+    "/sports/football/roster/staff",
+    "/sports/football/staff",
+    "/sports/football/coaches/index",
+    "/staff.aspx?path=football",
+    "/staff-directory?path=football",
+    "/api/v2/Staff",
+    "/sports/football/coaches.aspx",
+    "/staff-directory/football",
+    "/athletics/football/coaches",
+    "/sports/m-footbl/coaches",
+    "/sports/fball/coaches",
+    "/sports/fball/coaches/index",
+    "/coaches.aspx?path=football",
+)
+ATHLETICS_HOST_FALLBACKS = {
+    "gocolgateraiders.com": ("colgateathletics.com",),
+    "www.gocolgateraiders.com": ("colgateathletics.com",),
+    "gosoutheast.com": ("www.gosoutheast.com", "semoredhawks.com"),
+    "www.gosoutheast.com": ("gosoutheast.com", "semoredhawks.com"),
+    "ccsubluedevils.com": ("www.ccsubluedevils.com",),
+    "www.ccsubluedevils.com": ("ccsubluedevils.com",),
+}
 _TAG = re.compile(r"<[^>]+>")
+_PRESTO_ARIA_BIO = re.compile(
+    r'aria-label="(?P<name>[^"]{2,80}?),\s*(?P<title>[^"]{3,120}?),\s*Full Bio"',
+    re.I,
+)
 _ROSTER_STAFF_MARK = re.compile(r"roster-staff-members-card-item", re.I)
 _ROSTER_STAFF_NAME = re.compile(
     r'class="[^"]*roster-card__title-link[^"]*"[^>]*>(?P<name>.*?)</a>',
@@ -191,6 +228,10 @@ _ROSTER_STAFF_NAME = re.compile(
 )
 _ROSTER_STAFF_TITLE = re.compile(
     r'class="[^"]*roster-card__position[^"]*"[^>]*>(?P<title>.*?)</',
+    re.I | re.S,
+)
+_S_TABLE_BODY_ROW = re.compile(
+    r'<tr[^>]*class="[^"]*s-table-body__row[^"]*"[^>]*>(?P<row>.*?)</tr>',
     re.I | re.S,
 )
 _S_TABLE_TITLE_THEN_NAME = re.compile(
@@ -299,7 +340,10 @@ def parse_official_staff_json(payload: Any, *, page_url: str) -> list[dict[str, 
         if not name or not title:
             continue
         if cat_title and "football" not in cat_title.casefold():
-            if "coach" not in title.casefold() and "coordinator" not in title.casefold():
+            if (
+                "coach" not in title.casefold()
+                and "coordinator" not in title.casefold()
+            ):
                 continue
         try:
             reject_personal_contact(name)
@@ -335,7 +379,9 @@ def parse_official_staff_json(payload: Any, *, page_url: str) -> list[dict[str, 
     return out
 
 
-def extract_official_website_from_wikidata_entity(entity: Mapping[str, Any]) -> str | None:
+def extract_official_website_from_wikidata_entity(
+    entity: Mapping[str, Any],
+) -> str | None:
     """P856 official website. Not inferred from social or Wikipedia sitelinks."""
 
     claims = entity.get("claims") if isinstance(entity, Mapping) else None
@@ -367,9 +413,7 @@ def _wikidata_label_is_college_program(label: str) -> bool:
         )
     ):
         return False
-    return any(
-        token in lowered for token in ("football", "university", "college")
-    )
+    return any(token in lowered for token in ("football", "university", "college"))
 
 
 def select_college_football_wiki_title(
@@ -407,9 +451,7 @@ def select_college_football_wiki_title(
             score -= 8
         ranked.append((score, title))
     current = [
-        (score, title)
-        for score, title in ranked
-        if not re.match(r"^\d{4}\s", title)
+        (score, title) for score, title in ranked if not re.match(r"^\d{4}\s", title)
     ]
     if current:
         ranked = current
@@ -447,7 +489,12 @@ def match_wikidata_website(
             website = website.get("value")
         if any(
             token in label
-            for token in ("footballer", "soccer", "football club", "national football team")
+            for token in (
+                "footballer",
+                "soccer",
+                "football club",
+                "national football team",
+            )
         ):
             continue
         if not any(token in label for token in needles) or not website:
@@ -484,6 +531,60 @@ def html_is_not_found_shell(html: str) -> bool:
     """
 
     return bool(_NOT_FOUND_TITLE.search(html or ""))
+
+
+def html_is_waf_challenge(html: str) -> bool:
+    """AWS WAF interstitial pages are not staff directories."""
+
+    text = html or ""
+    return "gokuProps" in text or "awsWafCookieDomainList" in text
+
+
+def official_staff_candidate_urls(website: str) -> list[str]:
+    """Origin-relative staff paths plus documented athletics-host fallbacks."""
+
+    parsed = urllib.parse.urlparse(website)
+    if not parsed.scheme or not parsed.netloc:
+        return []
+    hosts: list[str] = []
+    folded = parsed.netloc.casefold()
+    for extra in ATHLETICS_HOST_FALLBACKS.get(folded, ()):
+        if extra not in hosts:
+            hosts.append(extra)
+    bare = folded.removeprefix("www.")
+    for extra in ATHLETICS_HOST_FALLBACKS.get(bare, ()):
+        if extra not in hosts:
+            hosts.append(extra)
+    if parsed.netloc not in hosts:
+        hosts.append(parsed.netloc)
+    schemes = [parsed.scheme]
+    if parsed.scheme.casefold() != "https":
+        schemes.insert(0, "https")
+    urls: list[str] = []
+    path = parsed.path.casefold()
+    for scheme in schemes:
+        for host in hosts:
+            origin = f"{scheme}://{host}"
+            if "/fball" in path:
+                urls.append(origin + "/sports/fball/coaches")
+                urls.append(origin + "/sports/fball/coaches/index")
+            if "/football" in path or "/fball" in path:
+                base = urllib.parse.urlunparse(
+                    (scheme, host, parsed.path, "", "", "")
+                ).rstrip("/")
+                if not base.casefold().endswith("/index"):
+                    urls.append(base + "/coaches")
+            for suffix in OFFICIAL_STAFF_ORIGIN_PATHS:
+                urls.append(origin + suffix)
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for url in urls:
+        key = url.casefold()
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(url)
+    return deduped
 
 
 def _nodes_from_roster_staff_cards(html: str, *, page_url: str) -> list[dict[str, str]]:
@@ -533,6 +634,30 @@ def _nodes_from_s_table_coaches(html: str, *, page_url: str) -> list[dict[str, s
                 "span_id": f"dom:{page_url}:{name}:{title}",
             }
         )
+    for match in _S_TABLE_BODY_ROW.finditer(html or ""):
+        row = match.group("row")
+        href = _COACH_HREF_NAME.search(row)
+        name = _plain(href.group("name") if href else "")
+        if not name:
+            continue
+        title = ""
+        for span in re.findall(r"<span[^>]*>([^<]{2,90})</span>", row, re.I):
+            cand = _plain(span)
+            lowered = cand.casefold()
+            if any(
+                token in lowered
+                for token in ("coach", "coordinator", "analyst", "assistant")
+            ):
+                title = cand
+                break
+        if name and title:
+            nodes.append(
+                {
+                    "person": name,
+                    "title": title,
+                    "span_id": f"dom:{page_url}:{name}:{title}",
+                }
+            )
     return nodes
 
 
@@ -682,7 +807,14 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
             nearby = (html or "")[match.end() : match.end() + 500]
             title_match = _NEAR_TITLE_SPAN.search(nearby)
             title = _plain(title_match.group("title") if title_match else "")
-            if name and title:
+            if (
+                name
+                and title
+                and any(
+                    token in title.casefold()
+                    for token in ("coach", "coordinator", "analyst", "assistant")
+                )
+            ):
                 nodes.append(
                     {
                         "person": name,
@@ -724,7 +856,10 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
                 )
     if "roster-staff-members-card-item" in (html or "").casefold():
         nodes.extend(_nodes_from_roster_staff_cards(html or "", page_url=page_url))
-    if "roster/coaches/" in (html or "") and "s-table-body_cell" in (html or ""):
+    if "roster/coaches/" in (html or "") and (
+        "s-table-body_cell" in (html or "")
+        or "s-table-body__row" in (html or "").casefold()
+    ):
         nodes.extend(_nodes_from_s_table_coaches(html or "", page_url=page_url))
     if "staff-directory-table-member-position" in (html or "").casefold():
         nodes.extend(_nodes_from_staff_directory_rows(html or "", page_url=page_url))
@@ -746,8 +881,21 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
                         "span_id": f"jsonobj:{page_url}:{name}:{title}",
                     }
                 )
+    if "full bio" in (html or "").casefold():
+        for match in _PRESTO_ARIA_BIO.finditer(html or ""):
+            name = _plain(match.group("name"))
+            title = _plain(match.group("title"))
+            if name and title:
+                nodes.append(
+                    {
+                        "person": name,
+                        "title": title,
+                        "span_id": f"dom:{page_url}:{name}:{title}",
+                    }
+                )
     if not nodes and (
-        "coordinator" in (html or "").casefold() or "head coach" in (html or "").casefold()
+        "coordinator" in (html or "").casefold()
+        or "head coach" in (html or "").casefold()
     ):
         nodes.extend(_nodes_from_generic_name_title_rows(html or "", page_url=page_url))
     if not nodes:
@@ -1116,6 +1264,32 @@ def _official_role_episodes(
                 "page_url": person.get("page_url"),
             }
         )
+        return episodes
+
+
+def _wikimedia_role_episodes(
+    people: Sequence[Mapping[str, Any]], role: str
+) -> list[dict[str, Any]]:
+    episodes = []
+    for person in people:
+        title = str(person.get("title") or person.get("source_title") or "")
+        families = role_families_from_title(title)
+        stored_role = person.get("role")
+        if role not in families and stored_role != role:
+            continue
+        episodes.append(
+            {
+                "person": person.get("person"),
+                "source": "WIKIMEDIA",
+                "relationship": "CANDIDATE_ONLY",
+                "season": 2026,
+                "source_title": title,
+                "span_id": person.get("span_id"),
+                "wikimedia_revision": person.get("wikimedia_revision"),
+                "pit_admitted": False,
+                "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
+            }
+        )
     return episodes
 
 
@@ -1129,12 +1303,15 @@ def fill_current_role_matrix(
     sportradar_people_by_program: Mapping[str, Sequence[Mapping[str, Any]]]
     | None = None,
     sportradar_attempts_by_program: Mapping[str, Mapping[str, Any]] | None = None,
+    wikimedia_people_by_program: Mapping[str, Sequence[Mapping[str, Any]]]
+    | None = None,
 ) -> list[dict[str, Any]]:
-    """Official HTML first. SportsRadar may fill remaining HC/OC/DC. CFBD HC only."""
+    """Official HTML first, then SportsRadar, CFBD HC, Wikimedia candidates."""
 
     program_by_id = {str(row["program_id"]): row for row in programs}
     sr_people = sportradar_people_by_program or {}
     sr_attempts = sportradar_attempts_by_program or {}
+    wiki_people = wikimedia_people_by_program or {}
     filled: list[dict[str, Any]] = []
     for cell in cells:
         program = program_by_id.get(str(cell["program_id"]), {})
@@ -1202,10 +1379,29 @@ def fill_current_role_matrix(
                     }
                 )
                 continue
+        wiki_episodes = _wikimedia_role_episodes(
+            wiki_people.get(str(cell["program_id"]), []), role
+        )
+        if wiki_episodes:
+            filled.append(
+                {
+                    **cell,
+                    "disposition": "CANDIDATE_ONLY",
+                    "episode_refs": wiki_episodes,
+                    "episode_cardinality": len(wiki_episodes),
+                    "attempt_count": int((attempt or {}).get("attempt_count") or 1),
+                    "source": "WIKIMEDIA",
+                    "pit_admitted": False,
+                }
+            )
+            continue
         if attempt_status in {NOT_ATTEMPTED, ""} and not sr_attempt:
             filled.append({**cell, "disposition": NOT_ATTEMPTED})
             continue
-        if attempt_status in {"ACQUISITION_FAILED", "ATTEMPTED_NO_URL"} and not sr_attempt:
+        if (
+            attempt_status in {"ACQUISITION_FAILED", "ATTEMPTED_NO_URL"}
+            and not sr_attempt
+        ):
             filled.append(
                 {
                     **cell,
@@ -1611,4 +1807,41 @@ def parse_wikimedia_infobox(
                 "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
             }
         )
+    seen = {(row["person"].casefold(), row["role"]) for row in extracted}
+    for match in _WIKI_TWO_CELL.finditer(wikitext):
+        left = match.group("left").strip()
+        title = match.group("title").strip()
+        if "||" in left:
+            continue
+        families = role_families_from_title(title)
+        if not families:
+            continue
+        link = _WIKI_LINK.search(left)
+        person = link.group(1) if link else re.sub(r"<[^>]+>", "", left).strip()
+        person = person.split("{{")[0].strip(" []'")
+        if not person or person.lower() in {"", "vacant", "tbd", "none"}:
+            continue
+        if re.fullmatch(r"\d{4}", person) or "@" in person or "[REDACTED" in person:
+            continue
+        if "[REDACTED_EMAIL]" in title or "[REDACTED_PHONE]" in title:
+            continue
+        for role in families:
+            key = (person.casefold(), role)
+            if key in seen:
+                continue
+            seen.add(key)
+            extracted.append(
+                {
+                    "person": person,
+                    "title": title,
+                    "role": role,
+                    "span_id": (
+                        f"wikimedia:{page_title}:{revision_id}:table:{person}:{role}"
+                    ),
+                    "source_title": title,
+                    "wikimedia_revision": revision_id,
+                    "pit_admitted": "false",
+                    "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
+                }
+            )
     return extracted

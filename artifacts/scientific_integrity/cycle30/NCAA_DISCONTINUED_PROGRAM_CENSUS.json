@@ -4,12 +4,12 @@
   "cfbd_absent_from_2026_n": 25,
   "cfbd_presence_delta_is_not_this_census": true,
   "current_n": 266,
-  "identity": "2e48816fcb067037dc7b8b7934f15a9113f20fe46d4f3fba783ae019ce5a21e6",
+  "identity": "a91973e35aba06c777a16766ee366a0fcad21c5149ef4e28dba031a4182002df",
   "ncaa_census_acquired": false,
   "ncaa_census_rows": 0,
   "ncaa_wikipedia_name_overlap": 0,
   "not_an_ncaa_discontinued_program_census": true,
   "source_id": "SRC-WIKIMEDIA",
-  "wikipedia_former_program_rows": 1729,
+  "wikipedia_former_program_rows": 2560,
   "wikipedia_is_not_ncaa_census": true
 }

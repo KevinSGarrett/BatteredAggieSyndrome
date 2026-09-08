@@ -10,7 +10,7 @@
 | Preserved predecessor | PR678 `4b6f823f` ← PR679 `c69a7db9` ← PR680 `2236ca41` ← PR681 `b37444e4` ← PR685 `0b957ea1` |
 | Cycle #30 branch | `cursor/cycle30-neutral-national-kernel` |
 | Worktree | `C:\BatteredAggieSyndrome.data\worktrees\cycle30-scr` |
-| Materialization bind SHA | `fd40bc4ae23c146e5b19e29cefdc1ee53f3f62de` recorded in `CYCLE30_PREFLIGHT_AND_PRESERVATION.json` `head_sha` |
+| Materialization bind SHA | `74d6b7639ed2cb081b8bdc7ce2777f34e9ee84a3` recorded in `CYCLE30_PREFLIGHT_AND_PRESERVATION.json` `head_sha` |
 | Review state | `READY_FOR_MANAGER_REVIEW` |
 
 Fort Knox/assistive pipeline was not used. No paid API review. No-API attestation is `PENDING_BLOCKED` (`CYCLE30_CODEX_CLOUD_REVIEW_ATTESTATION.json`) and is not scientific review.

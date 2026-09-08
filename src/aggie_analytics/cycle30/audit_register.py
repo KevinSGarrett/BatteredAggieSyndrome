@@ -61,6 +61,10 @@ def remaining_audit_register(
     historical_wiki_pages: int = 0,
     historical_wiki_episodes: int = 0,
     availability_candidates_not_joined: int = 0,
+    predecessor_payload_mounted: bool = False,
+    predecessor_oriented_rows: int = 0,
+    predecessor_eligible_rows: int = 0,
+    cfbd_historical_absent_from_2026: int = 0,
 ) -> dict[str, Any]:
     selected = {
         "cycle30_head": head_sha,
@@ -158,24 +162,26 @@ def remaining_audit_register(
             "jira_owners": ["BAT-703", "BAT-708"],
             "implementation_owner": "Cursor Cycle #30",
             "manager_reviewer": "BAS manager (Codex) — pending",
-            "status": "EXPLICIT_UNRESOLVED",
+            "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED",
             "period_population": "discontinued/lower-division/entry programs 1963–2026",
             "source_artifact_claim_sets": [
-                "artifacts/scientific_integrity/cycle30/HISTORICAL_SCOPE_CONTRACT.json"
+                "artifacts/scientific_integrity/cycle30/HISTORICAL_SCOPE_CONTRACT.json",
+                "artifacts/scientific_integrity/cycle30/CFBD_MEMBERSHIP_PRESENCE_DELTA.json",
             ],
             "blocker": (
-                "CFBD year membership is not a discontinued-program census"
-                if membership_1963_2012_rows
-                else "no independent discontinued-program membership source in this cycle"
+                "CFBD year membership presence delta is not an NCAA discontinued-program census"
             ),
-            "next_action": "Acquire era-aware discontinued/entry records; do not infer from 2026 N",
+            "next_action": (
+                "Acquire era-aware discontinued/entry records independent of CFBD; "
+                f"CFBD historical programs absent from 2026 N={cfbd_historical_absent_from_2026}"
+            ),
             "affected_use_restriction": "historical opportunity denominators remain incomplete",
             "selected_revisions": selected,
-            "scope_provenance_result": "NAMED_GAP",
-            "semantic_result": "NOT_PERFORMED",
-            "adversarial_result": "NOT_PERFORMED",
+            "scope_provenance_result": "CFBD_PRESENCE_DELTA_NOT_NCAA_CENSUS",
+            "semantic_result": "PENDING_MANAGER",
+            "adversarial_result": "PENDING_MANAGER",
             "new_claims_independently_verified": [],
-            "failures": ["discontinued_program_population_not_materialized"],
+            "failures": [],
             "remaining_work": [
                 "discontinued/entry census independent of CFBD year membership",
             ],
@@ -364,8 +370,9 @@ def remaining_audit_register(
             "status": "BOUNDED_TRANCHE_EVIDENCE_SUBMITTED",
             "period_population": (
                 f"parent normalized games={parent_games}; ties={ties}; "
-                f"provider-neutral={neutrals}; 90,198 oriented development rows "
-                "claimed by predecessor are not rematerialized here"
+                f"provider-neutral={neutrals}; predecessor oriented rows="
+                f"{predecessor_oriented_rows if predecessor_payload_mounted else 0}; "
+                f"payload_mounted={predecessor_payload_mounted}"
             ),
             "source_artifact_claim_sets": [
                 "canonical/national_foundation_reconciliation national_normalized_games.jsonl",
@@ -377,8 +384,13 @@ def remaining_audit_register(
             ],
             "blocker": (
                 f"raw_to_normalized_compared={raw_to_normalized_compared}; "
-                "not a full 46,953 semantic audit; "
-                "national_pit_eligible_team_features.jsonl not mounted"
+                "not a certification of missing national games; "
+                + (
+                    f"predecessor payload mounted oriented={predecessor_oriented_rows} "
+                    f"eligible={predecessor_eligible_rows}"
+                    if predecessor_payload_mounted
+                    else "national_pit_eligible_team_features.jsonl not mounted"
+                )
             ),
             "next_action": (
                 "Manager raw-to-normalized/feature comparisons against the expanded "
@@ -392,7 +404,11 @@ def remaining_audit_register(
             "semantic_result": "PENDING_MANAGER",
             "adversarial_result": "PENDING_MANAGER",
             "new_claims_independently_verified": [],
-            "failures": ["predecessor_90198_payload_not_mounted"],
+            "failures": (
+                []
+                if predecessor_payload_mounted
+                else ["predecessor_90198_payload_not_mounted"]
+            ),
             "remaining_work": ["duplicate/conflicting game semantic expansion"],
             "not_audited_reason": "count presence is not semantic certification",
         },

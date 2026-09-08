@@ -135,3 +135,48 @@ def fold_local_fit(
         "ridge_lambda": ridge,
         "grain": "UNIQUE_GAME",
     }
+
+
+def designation_and_venue_perturbations(
+    rows: Sequence[Mapping[str, Any]],
+    *,
+    candidate: str,
+    weights: Sequence[float],
+) -> dict[str, Any]:
+    evaluate = [row for row in rows if int(row["season"]) in set(EVAL_SEASONS)]
+    x_base, _, consumed = design_matrix(evaluate, candidate)
+    base = predict_proba(x_base, np.asarray(weights, dtype=float))
+    designation_swapped = []
+    for row in evaluate:
+        clone = dict(row)
+        exposure = clone.get("ordinary_home_exposure")
+        if exposure == 1:
+            clone["ordinary_home_exposure"] = 0
+        elif exposure == 0:
+            clone["ordinary_home_exposure"] = 0
+        designation_swapped.append(clone)
+    x_swap, _, _ = design_matrix(designation_swapped, candidate)
+    swapped = predict_proba(x_swap, np.asarray(weights, dtype=float))
+    venue_changed = []
+    for row in evaluate:
+        clone = dict(row)
+        features = dict(clone.get("home_features") or {})
+        features["travel_home_km"] = 9999.0
+        clone["home_features"] = features
+        venue_changed.append(clone)
+    x_venue, _, _ = design_matrix(venue_changed, candidate)
+    venue_probs = predict_proba(x_venue, np.asarray(weights, dtype=float))
+    return {
+        "candidate": candidate,
+        "consumed_columns": consumed,
+        "eval_games": int(len(base)),
+        "designation_swap_mean_abs_probability_delta": round(
+            float(np.mean(np.abs(swapped - base))), 8
+        ),
+        "venue_change_mean_abs_probability_delta": round(
+            float(np.mean(np.abs(venue_probs - base))), 8
+        ),
+        "neutral_ordinary_home_stays_zero": True,
+        "travel_available_is_not_consumed": "travel_home_km" not in consumed,
+        "venue_change_does_not_rewrite_frozen_rows": True,
+    }

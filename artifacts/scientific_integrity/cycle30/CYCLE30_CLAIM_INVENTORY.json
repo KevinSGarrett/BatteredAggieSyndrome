@@ -1052,9 +1052,9 @@
       "value_class": "string"
     }
   ],
-  "declared_count": 1114,
-  "discovered_count": 1114,
-  "inventory_identity": "f30e666701318186227abd9ee162559ca919ecb6d09d30f8d487b2a35a8f6a85",
+  "declared_count": 1131,
+  "discovered_count": 1131,
+  "inventory_identity": "fcd255c8230df7d0c1875f1799bb29ddb2c2357a84b64151af8fe6a2ece3d940",
   "producer_cannot_write_unmapped_count": true,
   "unmapped_count": 0
 }

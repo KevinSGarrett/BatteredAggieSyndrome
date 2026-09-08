@@ -1052,6 +1052,62 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertTrue(built["rows"][0]["source_classification_is_not_era_proof"])
         self.assertEqual(built["rows"][1]["classification"], "fbs")
 
+    def test_predecessor_payload_mount_is_not_integer_subtraction(self) -> None:
+        from aggie_analytics.cycle30.pit_kernel import (
+            mount_predecessor_oriented_payload,
+        )
+
+        result = mount_predecessor_oriented_payload(
+            Path(r"C:\BatteredAggieSyndrome.data")
+        )
+        if not result["mounted"]:
+            self.assertEqual(result["status"], "NOT_MOUNTED")
+            return
+        self.assertEqual(result["predecessor_oriented_development_rows"], 90198)
+        self.assertTrue(result["sha256_matches_declared_gate"])
+        self.assertTrue(result["identity_sets_not_invented_from_integer_subtraction"])
+
+    def test_designation_perturbation_travel_not_consumed(self) -> None:
+        from aggie_analytics.cycle30.kernel_model import (
+            designation_and_venue_perturbations,
+            fold_local_fit,
+        )
+
+        rows = []
+        for season in range(2013, 2024):
+            rows.append(
+                {
+                    "canonical_game_id": f"G{season}",
+                    "season": season,
+                    "tie": False,
+                    "home_win_label": season % 2 == 0,
+                    "ordinary_home_exposure": 1 if season % 2 else 0,
+                    "home_features": {"pit_prior_margin_mean": 3.0},
+                    "away_features": {"pit_prior_margin_mean": 1.0},
+                }
+            )
+        fit = fold_local_fit(rows, candidate="prior_margin_diff_ordinary_home")
+        perturbation = designation_and_venue_perturbations(
+            rows,
+            candidate="prior_margin_diff_ordinary_home",
+            weights=fit["weights"],
+        )
+        self.assertTrue(perturbation["travel_available_is_not_consumed"])
+        self.assertEqual(perturbation["venue_change_mean_abs_probability_delta"], 0.0)
+
+    def test_cfbd_presence_delta_is_not_ncaa_census(self) -> None:
+        from aggie_analytics.cycle30.populations import cfbd_membership_presence_delta
+
+        delta = cfbd_membership_presence_delta(
+            ["SRC-002:TEAM:1"],
+            [
+                {"program_id": "SRC-002:TEAM:1", "season": 2013},
+                {"program_id": "SRC-002:TEAM:9", "season": 2018},
+            ],
+        )
+        self.assertTrue(delta["not_an_ncaa_discontinued_program_census"])
+        self.assertEqual(delta["historical_absent_from_2026_n"], 1)
+
 
 if __name__ == "__main__":
     raise SystemExit(unittest.main())

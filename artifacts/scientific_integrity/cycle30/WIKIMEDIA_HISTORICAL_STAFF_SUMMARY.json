@@ -1,14 +1,23 @@
 {
   "artifact_class": "REAL_EVIDENCE",
-  "episode_count": 481,
-  "pages": 798,
+  "episode_count": 1034,
+  "missing_2013_2023_years": [],
+  "pages": 2926,
   "parser_family": "wikimedia_infobox_row_bound_HC_OC_DC",
   "pit_admitted": false,
   "remaining_years_queued": true,
-  "revision_bound": 187,
+  "revision_bound": 410,
   "years": [
     2013,
+    2014,
+    2015,
+    2016,
+    2017,
     2018,
+    2019,
+    2020,
+    2021,
+    2022,
     2023
   ]
 }

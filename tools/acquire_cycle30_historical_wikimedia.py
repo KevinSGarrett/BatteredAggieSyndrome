@@ -1,7 +1,8 @@
 """Revision-bound Wikimedia historical HC/OC/DC season-page tranche.
 
-Declared ceiling before any request. Not PIT. Completes a sample of 2013,
-2018, and 2023 for current DI programs. Remaining 1963–2026 years stay queued.
+Declared ceiling before any live request. Cache hits do not consume the
+ceiling. Completes remaining 2013–2023 years after the 2013/2018/2023 sample.
+Remaining 1963–2012 and 2024–2026 years stay queued. Not PIT.
 """
 
 from __future__ import annotations
@@ -31,12 +32,12 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 850,
+    "max_requests": 2500,
     "max_retries": 1,
     "concurrency": 1,
     "metered_scraper_credits": 0,
     "route": "mediawiki_api",
-    "years": [2013, 2018, 2023],
+    "years": [2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022],
     "pit_admitted": False,
     "remaining_years_queued": list(range(1963, 2027)),
 }
@@ -66,8 +67,6 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -> Any:
-    if len(ledger) >= int(budget["max_requests"]):
-        raise RuntimeError("historical Wikimedia request ceiling reached")
     cache = RAW / f"{sha256_json({'url': url})}.json"
     if cache.is_file():
         body = cache.read_bytes()
@@ -84,6 +83,9 @@ def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -
             }
         )
         return json.loads(body.decode("utf-8"))
+    live = sum(1 for item in ledger if not item.get("cached"))
+    if live >= int(budget["max_requests"]):
+        raise RuntimeError("historical Wikimedia request ceiling reached")
     request = urllib.request.Request(url, headers={"User-Agent": UA})
     start = utc_now()
     try:
@@ -181,6 +183,7 @@ def fetch_title(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--replace", action="store_true")
     args = parser.parse_args()
     RAW.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -193,7 +196,12 @@ def main() -> int:
     ledger: list[dict[str, Any]] = []
     rows: list[dict[str, Any]] = []
     jsonl_path = OUT / "WIKIMEDIA_HISTORICAL_STAFF_CANDIDATES.jsonl"
-    jsonl_path.write_text("", encoding="utf-8")
+    if args.replace or not jsonl_path.is_file():
+        jsonl_path.write_text("", encoding="utf-8")
+    existing = {
+        (str(row.get("program_id")), int(row.get("season") or 0))
+        for row in load_jsonl(jsonl_path)
+    }
     queued_remaining = [
         year for year in range(1963, 2027) if year not in set(BUDGET["years"])
     ]
@@ -201,6 +209,8 @@ def main() -> int:
         for program in current:
             current_title = str(program.get("title") or "")
             for year in BUDGET["years"]:
+                if (str(program.get("program_id")), year) in existing:
+                    continue
                 season_title = historical_season_page_title(current_title, year)
                 if not season_title:
                     row = {

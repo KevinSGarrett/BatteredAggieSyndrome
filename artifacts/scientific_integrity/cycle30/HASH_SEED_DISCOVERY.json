@@ -1,11 +1,18 @@
 {
+  "artifact_class": "BLOCKER_METADATA",
   "artifact_type": "CYCLE30_HASH_SEED_DISCOVERY",
-  "seeds": ["0", "1"],
-  "test_cycle30_exit": [0, 0],
-  "test_cycle30_count": 36,
-  "test_cycle29_count": 33,
+  "count_source": "source_def_test_methods",
   "discovery_difference": "none_on_cycle30_adversarial_suite",
-  "skips": [],
   "payload_available": true,
-  "artifact_class": "BLOCKER_METADATA"
+  "seeds": [
+    "0",
+    "1"
+  ],
+  "skips": [],
+  "test_cycle29_count": 33,
+  "test_cycle30_count": 44,
+  "test_cycle30_exit": [
+    0,
+    0
+  ]
 }

@@ -74,14 +74,20 @@ from aggie_analytics.cycle30.forecast import (  # noqa: E402
 )
 from aggie_analytics.cycle30.gridiron import snapshot  # noqa: E402
 from aggie_analytics.cycle30.hashing import sha256_file, sha256_json  # noqa: E402
-from aggie_analytics.cycle30.kernel_model import CANDIDATES, fold_local_fit  # noqa: E402
+from aggie_analytics.cycle30.kernel_model import (  # noqa: E402
+    CANDIDATES,
+    designation_and_venue_perturbations,
+    fold_local_fit,
+)
 from aggie_analytics.cycle30.pit_kernel import (  # noqa: E402
     build_game_grain_kernel,
     kernel_trust_gate,
+    mount_predecessor_oriented_payload,
     predecessor_reconciliation,
     rebuild_kernel_comparison,
 )
 from aggie_analytics.cycle30.populations import (  # noqa: E402
+    cfbd_membership_presence_delta,
     classify_pair_counts,
     current_membership_record,
     era_label,
@@ -195,7 +201,7 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> str:
 
 
 def load_json(path: Path) -> Any:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -749,7 +755,7 @@ def main() -> int:
         capture_rows=capture_rows,
         mounted_root=DATA,
         canonical_by_id=canonical_index,
-        per_season=16,
+        per_season=None,
     )
     hashes["HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json"] = write_json(
         ART / "HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json",
@@ -1034,6 +1040,9 @@ def main() -> int:
             "passing_fixture_cannot_establish_this_result": True,
         },
     )
+    recon_payload = mount_predecessor_oriented_payload(
+        DATA, kernel_game_ids=[row["canonical_game_id"] for row in comparison_rows]
+    )
     recon_pop = predecessor_reconciliation(
         pit_feature_eligible_ids=[],
         oriented_development_ids=[],
@@ -1044,11 +1053,44 @@ def main() -> int:
         ART / "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
         {
             **recon_pop,
+            "predecessor_pit_feature_eligible_rows": int(
+                recon_payload.get("predecessor_pit_feature_eligible_rows") or 0
+            ),
+            "predecessor_oriented_development_rows": int(
+                recon_payload.get("predecessor_oriented_development_rows") or 0
+            ),
+            "difference_eligible_minus_oriented": int(
+                recon_payload.get("predecessor_pit_feature_eligible_rows") or 0
+            )
+            - int(recon_payload.get("predecessor_oriented_development_rows") or 0),
+            "file_sha256": recon_payload.get("file_sha256"),
+            "sha256_matches_declared_gate": recon_payload.get(
+                "sha256_matches_declared_gate"
+            ),
+            "unique_games": recon_payload.get("unique_games"),
+            "verdict_counts": recon_payload.get("verdict_counts"),
+            "kernel_games_present_in_oriented": recon_payload.get(
+                "kernel_games_present_in_oriented"
+            ),
+            "kernel_games_absent_from_oriented": recon_payload.get(
+                "kernel_games_absent_from_oriented"
+            ),
+            "oriented_count_matches_claim": recon_payload.get(
+                "oriented_count_matches_claim"
+            ),
+            "eligible_count_matches_claim": recon_payload.get(
+                "eligible_count_matches_claim"
+            ),
             "predecessor_claimed_pit_feature_eligible_rows": 89855,
             "predecessor_claimed_oriented_development_rows": 90198,
-            "predecessor_payload_national_pit_eligible_team_features_jsonl": "NOT_MOUNTED",
+            "predecessor_payload_national_pit_eligible_team_features_jsonl": (
+                "MOUNTED" if recon_payload.get("mounted") else "NOT_MOUNTED"
+            ),
             "identity_sets_not_invented_from_integer_subtraction": True,
-            "artifact_class": "BLOCKER_METADATA",
+            "mounted": bool(recon_payload.get("mounted")),
+            "artifact_class": (
+                "REAL_EVIDENCE" if recon_payload.get("mounted") else "BLOCKER_METADATA"
+            ),
         },
     )
 
@@ -1125,12 +1167,24 @@ def main() -> int:
     hashes["KERNEL_DESIGN_MATRIX_SAMPLE.jsonl"] = write_jsonl(
         EXT / "KERNEL_DESIGN_MATRIX_SAMPLE.jsonl", design_rows[:2000]
     )
+    perturbations = []
+    for fit in fits:
+        if fit.get("status") != "FITTED_UNTRUSTED_SHADOW":
+            continue
+        perturbations.append(
+            designation_and_venue_perturbations(
+                comparison_rows,
+                candidate=str(fit["candidate"]),
+                weights=fit.get("weights") or [],
+            )
+        )
     hashes["KERNEL_PERTURBATIONS.json"] = write_json(
         ART / "KERNEL_PERTURBATIONS.json",
         {
             "designation_swap_neutral_ordinary_home_stays_zero": True,
             "venue_change_does_not_rewrite_frozen_rows": True,
             "travel_available_is_not_consumed": True,
+            "candidates": perturbations,
             "artifact_class": "REAL_EVIDENCE",
         },
     )
@@ -1607,7 +1661,23 @@ def main() -> int:
             "revision_bound": sum(
                 1 for row in wiki_hist_rows if row.get("status") == "REVISION_BOUND"
             ),
-            "years": [2013, 2018, 2023],
+            "years": sorted(
+                {
+                    int(row["season"])
+                    for row in wiki_hist_rows
+                    if row.get("season") is not None
+                }
+            ),
+            "missing_2013_2023_years": [
+                year
+                for year in range(2013, 2024)
+                if year
+                not in {
+                    int(row["season"])
+                    for row in wiki_hist_rows
+                    if row.get("season") is not None
+                }
+            ],
             "remaining_years_queued": True,
             "pit_admitted": False,
             "parser_family": "wikimedia_infobox_row_bound_HC_OC_DC",
@@ -1777,6 +1847,45 @@ def main() -> int:
             "literal_attempted_true_forbidden": True,
         },
     )
+    membership_delta = cfbd_membership_presence_delta(
+        [str(row.get("program_id") or "") for row in current_programs],
+        [*hist_membership, *hist_1963],
+    )
+    hashes["CFBD_MEMBERSHIP_PRESENCE_DELTA.json"] = write_json(
+        ART / "CFBD_MEMBERSHIP_PRESENCE_DELTA.json", membership_delta
+    )
+    cycle30_test_count = sum(
+        1
+        for line in (ROOT / "tests" / "test_cycle30_adversarial_controls.py")
+        .read_text(encoding="utf-8")
+        .splitlines()
+        if line.startswith("    def test_")
+    )
+    cycle29_test_count = sum(
+        1
+        for path in (ROOT / "tests").glob("test_cycle29*.py")
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.startswith("    def test_")
+    )
+    runtime_path = EXT.parent / "HASH_SEED_RUNTIME.json"
+    runtime = load_json(runtime_path) if runtime_path.is_file() else {}
+    hashes["HASH_SEED_DISCOVERY.json"] = write_json(
+        ART / "HASH_SEED_DISCOVERY.json",
+        {
+            "artifact_type": "CYCLE30_HASH_SEED_DISCOVERY",
+            "seeds": ["0", "1"],
+            "test_cycle30_count": cycle30_test_count,
+            "test_cycle29_count": cycle29_test_count,
+            "test_cycle30_exit": runtime.get("test_cycle30_exit"),
+            "count_source": "source_def_test_methods",
+            "discovery_difference": runtime.get(
+                "discovery_difference", "runtime_not_yet_recorded"
+            ),
+            "skips": runtime.get("skips") or [],
+            "payload_available": True,
+            "artifact_class": "BLOCKER_METADATA",
+        },
+    )
     hashes["C30_AUDIT_REGISTER.json"] = write_json(
         ART / "C30_AUDIT_REGISTER.json",
         remaining_audit_register(
@@ -1800,6 +1909,16 @@ def main() -> int:
                 len(row.get("episodes") or []) for row in wiki_hist_rows
             ),
             availability_candidates_not_joined=len(availability_candidates),
+            predecessor_payload_mounted=bool(recon_payload.get("mounted")),
+            predecessor_oriented_rows=int(
+                recon_payload.get("predecessor_oriented_development_rows") or 0
+            ),
+            predecessor_eligible_rows=int(
+                recon_payload.get("predecessor_pit_feature_eligible_rows") or 0
+            ),
+            cfbd_historical_absent_from_2026=int(
+                membership_delta.get("historical_absent_from_2026_n") or 0
+            ),
         ),
     )
 

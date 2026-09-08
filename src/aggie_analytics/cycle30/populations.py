@@ -436,3 +436,47 @@ def expected_game_universe(
         "observed_fbs_route_is_numerator_only": True,
         "identity": sha256_json(sorted(expected)),
     }
+
+
+def cfbd_membership_presence_delta(
+    current_ids: Sequence[str],
+    historical_rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    current = {str(item) for item in current_ids}
+    last_season: dict[str, int] = {}
+    first_season: dict[str, int] = {}
+    for row in historical_rows:
+        pid = str(row.get("program_id") or "")
+        season = row.get("season")
+        if not pid or season is None:
+            continue
+        year = int(season)
+        last_season[pid] = max(year, last_season.get(pid, year))
+        first_season[pid] = min(year, first_season.get(pid, year))
+    historical = set(last_season)
+    absent_from_current = sorted(historical - current)
+    current_without_historical = sorted(current - historical)
+    return {
+        "artifact_type": "CFBD_MEMBERSHIP_PRESENCE_DELTA",
+        "artifact_class": "REAL_EVIDENCE",
+        "not_an_ncaa_discontinued_program_census": True,
+        "current_n": len(current),
+        "historical_distinct_programs": len(historical),
+        "historical_absent_from_2026_n": len(absent_from_current),
+        "current_without_historical_row": len(current_without_historical),
+        "absent_from_2026_sample": [
+            {
+                "program_id": pid,
+                "first_season": first_season[pid],
+                "last_season": last_season[pid],
+            }
+            for pid in absent_from_current[:50]
+        ],
+        "source_id": "SRC-002",
+        "identity": sha256_json(
+            {
+                "absent": absent_from_current,
+                "current_only": current_without_historical,
+            }
+        ),
+    }

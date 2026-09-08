@@ -6,12 +6,14 @@ Historical ties use a predeclared estimand. Future-append rebuilds the kernel.
 
 from __future__ import annotations
 
+import json
 import math
 from collections import defaultdict
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from aggie_analytics.cycle30.hashing import sha256_json
+from aggie_analytics.cycle30.hashing import sha256_file, sha256_json
 from aggie_analytics.cycle30.temporal import (
     PRECISION_UNKNOWN,
     completion_bound,
@@ -21,6 +23,16 @@ from aggie_analytics.cycle30.temporal import (
 )
 
 EXPOSED_NON_BLIND_SEASONS = {2024, 2025}
+PREDECESSOR_PIT_PAYLOAD_RELATIVE = (
+    "canonical/national_pit_eligible_slice/sha256/"
+    "27d369100fc5dfb4b738e4c394b3c898004d50741e129c9d48df11c6df95059a/"
+    "national_pit_eligible_team_features.jsonl"
+)
+PREDECESSOR_PIT_PAYLOAD_DECLARED_SHA256 = (
+    "0b19735d74c59b5655e079a1660b64cfd3ad467e7f4115bff8a14bb344e91a25"
+)
+PREDECESSOR_CLAIMED_ORIENTED_ROWS = 90198
+PREDECESSOR_CLAIMED_ELIGIBLE_ROWS = 89855
 ADMITTED_DOMAINS = (
     "canonical_game_identity",
     "canonical_team_identity",
@@ -628,6 +640,67 @@ def reject_expected_from_observed_route(expected_from_observed: bool) -> None:
         raise PitKernelError(
             "expected kernel population cannot be derived solely from the observed CFBD fbs route"
         )
+
+
+def mount_predecessor_oriented_payload(
+    data_root: Path, *, kernel_game_ids: Sequence[str] | None = None
+) -> dict[str, Any]:
+    path = Path(data_root) / PREDECESSOR_PIT_PAYLOAD_RELATIVE
+    if not path.is_file():
+        return {
+            "mounted": False,
+            "status": "NOT_MOUNTED",
+            "path": str(path),
+            "predecessor_oriented_development_rows": 0,
+            "predecessor_pit_feature_eligible_rows": 0,
+            "unique_games": 0,
+            "identity_sets_not_invented_from_integer_subtraction": True,
+            "sha256_matches_declared_gate": False,
+        }
+    file_sha = sha256_file(path)
+    oriented_count = 0
+    eligible_count = 0
+    games: set[str] = set()
+    verdicts: dict[str, int] = defaultdict(int)
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            row = json.loads(line)
+            game_id = str(row.get("canonical_game_id") or "")
+            oriented_count += 1
+            games.add(game_id)
+            verdict = str(row.get("row_verdict") or "")
+            verdicts[verdict] += 1
+            if verdict == "PIT_FEATURE_ELIGIBLE":
+                eligible_count += 1
+    kernel = {str(item) for item in (kernel_game_ids or [])}
+    return {
+        "mounted": True,
+        "status": "MOUNTED",
+        "path": str(path),
+        "relative_path": PREDECESSOR_PIT_PAYLOAD_RELATIVE.replace("\\", "/"),
+        "file_sha256": file_sha,
+        "declared_gate_sha256": PREDECESSOR_PIT_PAYLOAD_DECLARED_SHA256,
+        "sha256_matches_declared_gate": file_sha
+        == PREDECESSOR_PIT_PAYLOAD_DECLARED_SHA256,
+        "predecessor_oriented_development_rows": oriented_count,
+        "predecessor_pit_feature_eligible_rows": eligible_count,
+        "claimed_oriented_rows": PREDECESSOR_CLAIMED_ORIENTED_ROWS,
+        "claimed_eligible_rows": PREDECESSOR_CLAIMED_ELIGIBLE_ROWS,
+        "oriented_count_matches_claim": oriented_count
+        == PREDECESSOR_CLAIMED_ORIENTED_ROWS,
+        "eligible_count_matches_claim": eligible_count
+        == PREDECESSOR_CLAIMED_ELIGIBLE_ROWS,
+        "unique_games": len(games),
+        "verdict_counts": dict(verdicts),
+        "kernel_games_present_in_oriented": len(kernel & games) if kernel else 0,
+        "kernel_games_absent_from_oriented": (len(kernel - games) if kernel else 0),
+        "identity_sets_not_invented_from_integer_subtraction": True,
+        "eligibility_is_not_admission": True,
+        "artifact_class": "REAL_EVIDENCE",
+    }
 
 
 def predecessor_reconciliation(

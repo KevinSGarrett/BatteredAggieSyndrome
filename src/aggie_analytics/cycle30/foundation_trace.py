@@ -11,7 +11,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json
+from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_file, sha256_json
 from aggie_analytics.cycle30.pit_kernel import winner_from_scores
 
 STRATA_SEASONS = (1963, 1968, 1972, 1978, 1985, 1993, 2000, 2006, 2013, 2019, 2023)
@@ -115,7 +115,7 @@ def stratified_raw_comparisons(
     capture_rows: Sequence[Mapping[str, Any]],
     mounted_root: Path,
     canonical_by_id: Mapping[str, Mapping[str, Any]],
-    per_season: int = 16,
+    per_season: int | None = None,
 ) -> dict[str, Any]:
     by_season: dict[int, list[Mapping[str, Any]]] = defaultdict(list)
     for row in capture_rows:
@@ -129,9 +129,17 @@ def stratified_raw_comparisons(
     failures: list[dict[str, Any]] = []
     missing_canonical: int = 0
     duplicate_raw_ids: int = 0
-    seasons_used = sorted(
-        set(STRATA_SEASONS + NEUTRAL_AND_TIE_SEASONS).intersection(by_season)
-    )
+    site_disagreements: int = 0
+    body_sha256_example: str | None = None
+    seasons_used = sorted(by_season)
+    required = set(STRATA_SEASONS + NEUTRAL_AND_TIE_SEASONS)
+    for required_season in sorted(required - set(seasons_used)):
+        failures.append(
+            {
+                "season": required_season,
+                "reason": "REQUIRED_STRATUM_CAPTURE_ABSENT",
+            }
+        )
     for season in seasons_used:
         captures = sorted(
             by_season[season], key=lambda item: str(item.get("relative_path") or "")
@@ -148,19 +156,24 @@ def stratified_raw_comparisons(
                     }
                 )
                 continue
+            if body_sha256_example is None:
+                body_sha256_example = sha256_file(path)
             raw_games = load_raw_games(path)
             seen_ids: set[int] = set()
-            selected = raw_games[:per_season]
-            ties = [
-                row
-                for row in raw_games
-                if row.get("homePoints") == row.get("awayPoints")
-                and row.get("homePoints") is not None
-            ]
-            neutrals = [row for row in raw_games if row.get("neutralSite") is True]
-            for extra in (*ties[:2], *neutrals[:2]):
-                if extra not in selected:
-                    selected.append(extra)
+            if per_season is None:
+                selected = list(raw_games)
+            else:
+                selected = raw_games[:per_season]
+                ties = [
+                    row
+                    for row in raw_games
+                    if row.get("homePoints") == row.get("awayPoints")
+                    and row.get("homePoints") is not None
+                ]
+                neutrals = [row for row in raw_games if row.get("neutralSite") is True]
+                for extra in (*ties[:2], *neutrals[:2]):
+                    if extra not in selected:
+                        selected.append(extra)
             for raw in selected:
                 rid = int(raw["id"])
                 if rid in seen_ids:
@@ -180,7 +193,10 @@ def stratified_raw_comparisons(
                     )
                     continue
                 try:
-                    compared.append(compare_raw_to_normalized(raw, canonical))
+                    joined = compare_raw_to_normalized(raw, canonical)
+                    if not joined.get("site_flag_agrees"):
+                        site_disagreements += 1
+                    compared.append(joined)
                 except FoundationTraceError as exc:
                     failures.append(
                         {
@@ -196,18 +212,21 @@ def stratified_raw_comparisons(
         "failure_count": len(failures),
         "missing_canonical_count": missing_canonical,
         "duplicate_raw_ids": duplicate_raw_ids,
+        "site_flag_disagreements": site_disagreements,
         "seasons": seasons_used,
         "not_a_count_scan": True,
         "does_not_certify_missing_national_games": True,
+        "compared_every_mounted_raw_game_in_open_files": per_season is None,
         "sample": compared[:40],
         "failures": failures[:40],
         "comparison_identity": sha256_json(
             {
                 "compared": len(compared),
                 "failures": len(failures),
+                "site_disagreements": site_disagreements,
                 "seasons": seasons_used,
             }
         ),
         "raw_bytes_hashed_on_open": True,
-        "body_sha256_example": sha256_bytes(b"opened"),
+        "body_sha256_example": body_sha256_example or sha256_bytes(b""),
     }

@@ -1,0 +1,21 @@
+{
+  "artifact_type": "CYCLE30_LIVE_JIRA_COMMENT_IDS",
+  "review_state": "READY_FOR_MANAGER_REVIEW",
+  "no_bat523_completion_comment": true,
+  "comments": {
+    "BAT-417": "14781",
+    "BAT-171": "14782",
+    "BAT-700": "14783",
+    "BAT-696": "14784",
+    "BAT-703": "14785",
+    "BAT-701": "14786",
+    "BAT-704": "14787",
+    "BAT-705": "14788",
+    "BAT-706": "14789",
+    "BAT-708": "14790",
+    "CFIP-18": "14791",
+    "CFIP-20": "14792",
+    "CFIP-22": "14793"
+  },
+  "operator_hold": "ACTIVE"
+}

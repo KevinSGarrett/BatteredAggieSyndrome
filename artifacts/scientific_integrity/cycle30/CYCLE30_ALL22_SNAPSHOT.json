@@ -1,0 +1,47 @@
+{
+  "artifact_type": "CYCLE30_ALL22_SNAPSHOT",
+  "c01_catalog_fixture_count": 8,
+  "c01_catalog_object_count": 105,
+  "c01_consumed": false,
+  "c01_manifest_catalog_reconciled": false,
+  "c01_manifest_fixture_count": 7,
+  "c01_manifest_object_count": 36,
+  "c01_state": "BLOCKED_NO_IMMUTABLE_RELEASE_BOM",
+  "dirty_programspecifications_not_overwritten": true,
+  "four_field_boolean_snapshot_insufficient": true,
+  "pr_count": 1,
+  "prs": [
+    {
+      "number": 685,
+      "role": "reviewed_predecessor"
+    }
+  ],
+  "repo_count": 4,
+  "repos": [
+    {
+      "branch": "cursor/cycle30-neutral-national-kernel",
+      "head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+      "path": "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle30-scr"
+    },
+    {
+      "note": "inspected_not_modified",
+      "path": "C:\\CFB\\repos\\CFBProgramSpecifications"
+    },
+    {
+      "note": "inspected_not_modified",
+      "path": "C:\\CFB\\repos\\CFBIntelligenceContracts"
+    },
+    {
+      "note": "distinct_dirty_not_overwritten",
+      "path": "C:\\All-22"
+    }
+  ],
+  "synthetic_fixtures_are_bounded_compatibility_only": true,
+  "worktree_count": 1,
+  "worktrees": [
+    {
+      "branch": "cursor/cycle30-neutral-national-kernel",
+      "path": "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle30-scr"
+    }
+  ]
+}

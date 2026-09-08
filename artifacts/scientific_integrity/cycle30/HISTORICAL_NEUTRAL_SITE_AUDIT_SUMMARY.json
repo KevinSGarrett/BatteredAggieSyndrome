@@ -1,0 +1,10 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "HISTORICAL_NEUTRAL_SITE_AUDIT",
+  "external_sha256": "e0ed90adeb0f855e854aa464e834f9f83a610652497e6aa6b70c1e4035a3fbf1",
+  "lambeau_is_not_national_proof": true,
+  "neutral_row_count": 1966,
+  "ordinary_hfa_masked_on_verified_neutral": true,
+  "parent_game_count": 46953,
+  "unknown_is_not_ordinary_home": true
+}

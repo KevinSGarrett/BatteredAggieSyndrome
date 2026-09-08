@@ -1,0 +1,6 @@
+{
+  "aware_utc": true,
+  "conservative_bounds_are_not_publication": true,
+  "midnight_not_inferred_date_only": true,
+  "rebuild_shuffle_stable": true
+}

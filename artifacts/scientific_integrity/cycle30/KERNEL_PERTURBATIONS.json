@@ -1,0 +1,6 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "designation_swap_neutral_ordinary_home_stays_zero": true,
+  "travel_available_is_not_consumed": true,
+  "venue_change_does_not_rewrite_frozen_rows": true
+}

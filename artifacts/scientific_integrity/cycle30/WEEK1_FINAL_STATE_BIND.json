@@ -1,0 +1,15 @@
+{
+  "contest_keys": [
+    "artifact_type",
+    "backfill",
+    "contest_count",
+    "forecast_mutation",
+    "issued_at_utc",
+    "rows",
+    "states",
+    "tuning_from_week1_outcomes"
+  ],
+  "predecessor_path": "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle30-scr\\artifacts\\scientific_integrity\\cycle28\\CYCLE28_WEEK1_CONTEST_FINAL_STATES.json",
+  "preserved": true,
+  "sha256": "6774cd8f95b4cdb33fe38113f1479ddd025d0d98892ccbda6e94a31790e6abf5"
+}

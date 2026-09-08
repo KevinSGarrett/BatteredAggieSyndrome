@@ -1,0 +1,53 @@
+{
+  "artifact_class": "SYNTHETIC_FIXTURE",
+  "base": {
+    "canonical_away_id": "SRC-002:TEAM:LAMBEAU-AWAY",
+    "canonical_game_id": "FIXTURE:LAMBEAU-PERMUTATION",
+    "canonical_home_id": "SRC-002:TEAM:LAMBEAU-HOME",
+    "designated_home_id": "SRC-002:TEAM:LAMBEAU-HOME",
+    "designated_source": "SYNTHETIC_FIXTURE",
+    "display_order_is_not_designated_home": true,
+    "missing_reason": null,
+    "ordinary_home_exposure_designated_away": 0.0,
+    "ordinary_home_exposure_designated_home": 0.0,
+    "permutation": {
+      "source_to_canonical_away": 1,
+      "source_to_canonical_home": 0
+    },
+    "site_class": "NEUTRAL",
+    "source_order": [
+      "SRC-002:TEAM:LAMBEAU-HOME",
+      "SRC-002:TEAM:LAMBEAU-AWAY"
+    ],
+    "venue_id": "LAMBEAU_FIELD",
+    "venue_latitude": 44.5013,
+    "venue_longitude": -88.0622,
+    "venue_name": "Lambeau Field"
+  },
+  "designation_swapped": {
+    "canonical_away_id": "SRC-002:TEAM:LAMBEAU-HOME",
+    "canonical_game_id": "FIXTURE:LAMBEAU-PERMUTATION",
+    "canonical_home_id": "SRC-002:TEAM:LAMBEAU-AWAY",
+    "designated_home_id": "SRC-002:TEAM:LAMBEAU-AWAY",
+    "designated_source": "SYNTHETIC_FIXTURE",
+    "display_order_is_not_designated_home": true,
+    "missing_reason": null,
+    "ordinary_home_exposure_designated_away": 0.0,
+    "ordinary_home_exposure_designated_home": 0.0,
+    "permutation": {
+      "source_to_canonical_away": 1,
+      "source_to_canonical_home": 0
+    },
+    "site_class": "NEUTRAL",
+    "source_order": [
+      "SRC-002:TEAM:LAMBEAU-AWAY",
+      "SRC-002:TEAM:LAMBEAU-HOME"
+    ],
+    "venue_id": "LAMBEAU_FIELD",
+    "venue_latitude": 44.5013,
+    "venue_longitude": -88.0622,
+    "venue_name": "Lambeau Field"
+  },
+  "ordinary_home_stays_zero": true,
+  "proximity_is_not_home_bonus": true
+}

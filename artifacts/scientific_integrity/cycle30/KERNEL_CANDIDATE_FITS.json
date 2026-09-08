@@ -1,0 +1,188 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "candidates": [
+    {
+      "candidate": "intercept_only",
+      "coaching_consumed": false,
+      "consumed_columns": [
+        "intercept"
+      ],
+      "eval_games": 2872,
+      "exposed_seasons_excluded": [
+        2024,
+        2025
+      ],
+      "grain": "UNIQUE_GAME",
+      "metrics": {
+        "brier": 0.2444602648485303,
+        "directional": {
+          "accuracy": 0.5745125348189415,
+          "decision_policy": "p>0.5 home; p<0.5 away; p==0.5 excluded",
+          "denominator": 2872,
+          "n_directional": 2872,
+          "n_excluded_base_rate": 0,
+          "numerator": 1650,
+          "reason": null
+        },
+        "home_choice_prevalence_is_not_skill": true,
+        "log_loss": 0.6820268388016997,
+        "unique_games": 2872
+      },
+      "predeclared": true,
+      "ridge_lambda": 0.0,
+      "status": "FITTED_UNTRUSTED_SHADOW",
+      "tie_policy": "EXCLUDE_TIES_FROM_BINARY_ESTIMAND",
+      "train_games": 5344,
+      "travel_consumed": false,
+      "weights": [
+        0.31469744
+      ]
+    },
+    {
+      "candidate": "prior_margin_diff",
+      "coaching_consumed": false,
+      "consumed_columns": [
+        "intercept",
+        "prior_margin_diff"
+      ],
+      "eval_games": 2872,
+      "exposed_seasons_excluded": [
+        2024,
+        2025
+      ],
+      "grain": "UNIQUE_GAME",
+      "metrics": {
+        "brier": 0.22213986745500727,
+        "directional": {
+          "accuracy": 0.6347493036211699,
+          "decision_policy": "p>0.5 home; p<0.5 away; p==0.5 excluded",
+          "denominator": 2872,
+          "n_directional": 2872,
+          "n_excluded_base_rate": 0,
+          "numerator": 1823,
+          "reason": null
+        },
+        "home_choice_prevalence_is_not_skill": true,
+        "log_loss": 0.6337476965234713,
+        "unique_games": 2872
+      },
+      "predeclared": true,
+      "ridge_lambda": 1.0,
+      "status": "FITTED_UNTRUSTED_SHADOW",
+      "tie_policy": "EXCLUDE_TIES_FROM_BINARY_ESTIMAND",
+      "train_games": 5344,
+      "travel_consumed": false,
+      "weights": [
+        0.05361624,
+        0.0803801
+      ]
+    },
+    {
+      "candidate": "prior_margin_diff_ordinary_home",
+      "coaching_consumed": false,
+      "consumed_columns": [
+        "intercept",
+        "prior_margin_diff",
+        "ordinary_home_exposure"
+      ],
+      "eval_games": 2872,
+      "exposed_seasons_excluded": [
+        2024,
+        2025
+      ],
+      "grain": "UNIQUE_GAME",
+      "metrics": {
+        "brier": 0.2213380306675337,
+        "directional": {
+          "accuracy": 0.6326601671309192,
+          "decision_policy": "p>0.5 home; p<0.5 away; p==0.5 excluded",
+          "denominator": 2872,
+          "n_directional": 2872,
+          "n_excluded_base_rate": 0,
+          "numerator": 1817,
+          "reason": null
+        },
+        "home_choice_prevalence_is_not_skill": true,
+        "log_loss": 0.631937008082329,
+        "unique_games": 2872
+      },
+      "predeclared": true,
+      "ridge_lambda": 1.0,
+      "status": "FITTED_UNTRUSTED_SHADOW",
+      "tie_policy": "EXCLUDE_TIES_FROM_BINARY_ESTIMAND",
+      "train_games": 5344,
+      "travel_consumed": false,
+      "weights": [
+        0.04633456,
+        0.08023932,
+        0.04472435
+      ]
+    },
+    {
+      "candidate": "prior_win_rate_diff_ordinary_home",
+      "coaching_consumed": false,
+      "consumed_columns": [
+        "intercept",
+        "prior_win_rate_diff",
+        "ordinary_home_exposure"
+      ],
+      "eval_games": 2872,
+      "exposed_seasons_excluded": [
+        2024,
+        2025
+      ],
+      "grain": "UNIQUE_GAME",
+      "metrics": {
+        "brier": 0.24622327448877993,
+        "directional": {
+          "accuracy": 0.5745125348189415,
+          "decision_policy": "p>0.5 home; p<0.5 away; p==0.5 excluded",
+          "denominator": 2872,
+          "n_directional": 2872,
+          "n_excluded_base_rate": 0,
+          "numerator": 1650,
+          "reason": null
+        },
+        "home_choice_prevalence_is_not_skill": true,
+        "log_loss": 0.6855854603241051,
+        "unique_games": 2872
+      },
+      "predeclared": true,
+      "ridge_lambda": 1.0,
+      "status": "FITTED_UNTRUSTED_SHADOW",
+      "tie_policy": "EXCLUDE_TIES_FROM_BINARY_ESTIMAND",
+      "train_games": 5344,
+      "travel_consumed": false,
+      "weights": [
+        0.052865,
+        0.03631664,
+        0.05137262
+      ]
+    }
+  ],
+  "coaching_consumed": false,
+  "eval_seasons": [
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "exposed_seasons_excluded": [
+    2024,
+    2025
+  ],
+  "no_model_recommendation": true,
+  "predeclared": true,
+  "tie_policy": "EXCLUDE_TIES_FROM_BINARY_ESTIMAND",
+  "train_seasons": [
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019
+  ],
+  "travel_consumed": false,
+  "trust_classification": "UNTRUSTED_SHADOW"
+}

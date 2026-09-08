@@ -1,0 +1,8 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "cfbd_fcs_fcs_acquired_rows": 7198,
+  "forward_reverse_reconciled": true,
+  "observed_fbs_route_is_numerator_only": true,
+  "parent_row_count": 46953,
+  "subset_row_count": 2267
+}

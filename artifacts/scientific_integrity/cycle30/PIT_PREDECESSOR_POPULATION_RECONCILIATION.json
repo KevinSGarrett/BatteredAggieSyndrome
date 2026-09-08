@@ -1,0 +1,18 @@
+{
+  "artifact_class": "BLOCKER_METADATA",
+  "controlling_gate": "CYCLE30_PIT_KERNEL_ADMISSION",
+  "cycle30_kernel_proven_pit_training_rows": 0,
+  "difference_eligible_minus_oriented": 0,
+  "eligibility_is_not_admission": true,
+  "eligible_minus_oriented": [],
+  "identity_reconciled": true,
+  "identity_sets_not_invented_from_integer_subtraction": true,
+  "oriented_minus_eligible": [],
+  "oriented_rows_are_not_independent_games": true,
+  "predecessor_active_path_proven_pit_rows": 0,
+  "predecessor_claimed_oriented_development_rows": 90198,
+  "predecessor_claimed_pit_feature_eligible_rows": 89855,
+  "predecessor_oriented_development_rows": 0,
+  "predecessor_payload_national_pit_eligible_team_features_jsonl": "NOT_MOUNTED",
+  "predecessor_pit_feature_eligible_rows": 0
+}

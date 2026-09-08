@@ -1,0 +1,55 @@
+{
+  "acquired_2013_2023_program_season_rows": 2785,
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT",
+  "declared_historical_tranche": {
+    "not_a_reduction_of_project_scope": true,
+    "plus_current": 2026,
+    "scope": "all_applicable_fbs_fcs_programs",
+    "seasons": [
+      2013,
+      2023
+    ]
+  },
+  "eras": [
+    {
+      "do_not_project_fbs_fcs": true,
+      "primary_population": "NCAA_UNIVERSITY_DIVISION_PRIMARY",
+      "seasons": [
+        1963,
+        1972
+      ],
+      "supplemental": "COLLEGE_DIVISION_TO_LATER_DI_ENTRY_HISTORY"
+    },
+    {
+      "do_not_project_fbs_fcs": true,
+      "primary_population": "UNSPLIT_DIVISION_I",
+      "seasons": [
+        1973,
+        1977
+      ]
+    },
+    {
+      "primary_population": "DIVISION_I_A_PLUS_DIVISION_I_AA",
+      "seasons": [
+        1978,
+        2005
+      ]
+    },
+    {
+      "primary_population": "FBS_PLUS_FCS",
+      "seasons": [
+        2006,
+        2026
+      ]
+    }
+  ],
+  "inclusion_rule_bound_before_inspecting_bas_rows": true,
+  "missing_eras_1963_2012": "BLOCKED_SOURCE_TASK",
+  "null_program_markers_not_used": true,
+  "pre_1963": "SUPPLEMENTAL_CANDIDATE_SEPARATELY_DENOMINATED",
+  "primary_period": [
+    1963,
+    2026
+  ]
+}

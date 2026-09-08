@@ -1,0 +1,23 @@
+{
+  "artifact_class": "BLOCKER_METADATA",
+  "attempted_official_report_routes": 0,
+  "conferences_with_known_public_policy": [
+    "SEC",
+    "Big Ten",
+    "ACC",
+    "Big 12",
+    "Pac-12",
+    "American",
+    "Mountain West",
+    "MAC",
+    "Sun Belt",
+    "CUSA",
+    "FCS_VARIES_BY_PROGRAM"
+  ],
+  "current_national_programs_in_denominator": 266,
+  "no_report_means_unknown_not_healthy": true,
+  "out_of_fitted_models": true,
+  "owner": "BAT-414",
+  "roster_or_participation_is_not_availability": true,
+  "status": "INVENTORIED_NOT_ACQUIRED"
+}

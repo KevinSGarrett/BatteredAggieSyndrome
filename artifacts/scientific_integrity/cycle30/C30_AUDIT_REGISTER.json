@@ -1,0 +1,50 @@
+{
+  "artifact_type": "C30_REMAINING_AUDIT_REGISTER",
+  "not_manager_verified": true,
+  "review_state": "READY_FOR_MANAGER_REVIEW",
+  "units": [
+    {
+      "affected_use": "whole_project_scientific_trust",
+      "blocker": "manager_independent_scope_challenge_pending",
+      "id": "C30-AUDIT-01",
+      "owners": [
+        "BAT-703",
+        "BAT-708",
+        "BAT-696"
+      ],
+      "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED"
+    },
+    {
+      "affected_use": "kernel_scientific_acceptance",
+      "blocker": "manager_active_path_audit_pending",
+      "id": "C30-AUDIT-02",
+      "owners": [
+        "BAT-700",
+        "BAT-696",
+        "BAT-417"
+      ],
+      "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED"
+    },
+    {
+      "affected_use": "historical_national_foundation",
+      "blocker": "raw_to_normalized_semantic_audit_pending",
+      "id": "C30-AUDIT-03",
+      "owners": [
+        "BAT-703",
+        "BAT-700",
+        "BAT-696"
+      ],
+      "status": "BOUNDED_TRANCHE_EVIDENCE_SUBMITTED"
+    },
+    {
+      "affected_use": "coaching_scientific_review",
+      "blocker": "staff_parser_family_expansion_pending",
+      "id": "C30-AUDIT-04",
+      "owners": [
+        "BAT-701",
+        "BAT-703"
+      ],
+      "status": "TRANCHE_EVIDENCE_SUBMITTED"
+    }
+  ]
+}

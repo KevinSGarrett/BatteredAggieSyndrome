@@ -10,6 +10,7 @@ import csv
 import html as html_lib
 import json
 import re
+import urllib.parse
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -371,6 +372,51 @@ def _wikidata_label_is_college_program(label: str) -> bool:
     )
 
 
+def select_college_football_wiki_title(
+    hits: Sequence[Mapping[str, Any]], school: str
+) -> str | None:
+    """Reject footballer/soccer/rivalry hits. Prefer program football pages."""
+
+    school_key = str(school or "").casefold().strip()
+    ranked: list[tuple[int, str]] = []
+    for hit in hits:
+        title = str(hit.get("title") or "").strip()
+        lowered = title.casefold()
+        if not title or not lowered:
+            continue
+        if any(
+            token in lowered
+            for token in (
+                "footballer",
+                "soccer",
+                "football club",
+                "f.c.",
+                " rivalry",
+                "list of",
+            )
+        ):
+            continue
+        if "football" not in lowered:
+            continue
+        score = 0
+        if lowered.endswith(" football") or "football team" in lowered:
+            score += 3
+        if school_key and school_key.split()[0] in lowered:
+            score += 1
+        if re.match(r"^\d{4}\s", title):
+            score -= 8
+        ranked.append((score, title))
+    current = [
+        (score, title)
+        for score, title in ranked
+        if not re.match(r"^\d{4}\s", title)
+    ]
+    if current:
+        ranked = current
+    ranked.sort(key=lambda item: item[0], reverse=True)
+    return ranked[0][1] if ranked else None
+
+
 def match_wikidata_website(
     display_name: str, bindings: Sequence[Mapping[str, Any]]
 ) -> str | None:
@@ -421,6 +467,8 @@ _INFOBOX_URL_FIELDS = (
     re.compile(r"\n\|\s*WebsiteURL\s*=\s*(?P<value>[^\n]+)", re.I),
     re.compile(r"\n\|\s*athletics(?:\s+website)?\s*=\s*(?P<value>[^\n]+)", re.I),
     re.compile(r"\n\|\s*WebsiteName\s*=\s*(?P<value>[^\n]+)", re.I),
+    re.compile(r"\n\|\s*website\s*=\s*(?P<value>[^\n]+)", re.I),
+    re.compile(r"\n\|\s*url\s*=\s*(?P<value>[^\n]+)", re.I),
 )
 
 
@@ -766,18 +814,48 @@ def _clean_website_candidate(raw: str) -> str | None:
     return url
 
 
+def _host_looks_like_athletics(url: str) -> bool:
+    host = urllib.parse.urlparse(url).netloc.casefold()
+    if not host:
+        return False
+    if any(token in host for token in _SKIP_WEBSITE_HOSTS):
+        return False
+    return any(
+        token in host
+        for token in (
+            "athletics",
+            "sports",
+            "flames",
+            "gopack",
+            "goredbirds",
+            "gocolgate",
+            "bluedevils",
+        )
+    )
+
+
 def extract_athletics_website_from_wikitext(wikitext: str) -> str | None:
     """Prefer infobox WebsiteURL; athletics/website fields are origin-only fallback."""
 
     prefixed = "\n" + (wikitext or "")
+    infobox: str | None = None
     for field in _INFOBOX_URL_FIELDS:
         match = field.search(prefixed)
         if not match:
             continue
         parsed = _clean_website_candidate(match.group("value"))
         if parsed:
+            infobox = parsed
+            if _host_looks_like_athletics(parsed) or not urllib.parse.urlparse(
+                parsed
+            ).netloc.casefold().endswith(".edu"):
+                return parsed
+            break
+    for match in _HTTP_URL.finditer(wikitext or ""):
+        parsed = _clean_website_candidate(match.group(0))
+        if parsed and _host_looks_like_athletics(parsed):
             return parsed
-    return None
+    return infobox
 
 
 def reject_wikimedia_as_pit(
@@ -870,6 +948,151 @@ def _cfbd_hc_episodes(items: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]
     return episodes
 
 
+SPORTSRADAR_MARKET_ALIASES = {
+    "nc state": ("north carolina state",),
+    "hawai'i": ("hawaii",),
+    "ualbany": ("university at albany",),
+    "st. thomas (mn)": ("st. thomas", "st. thomas (mn)"),
+    "long island university": ("long island", "liu"),
+    "connecticut": ("uconn", "connecticut"),
+    "massachusetts": ("umass", "massachusetts"),
+    "sam houston": ("sam houston state",),
+    "southern miss": ("southern mississippi",),
+    "app state": ("appalachian state",),
+    "central connecticut": ("central connecticut state",),
+    "grambling": ("grambling state",),
+    "miami": ("miami (fl)",),
+    "nicholls": ("nicholls state",),
+    "pennsylvania": ("penn",),
+    "san josé state": ("san jose state",),
+    "san jose state": ("san jose state",),
+    "se louisiana": ("southeastern louisiana",),
+    "southern": ("southern university",),
+    "ul monroe": ("louisiana-monroe",),
+    "ut martin": ("tennessee-martin",),
+}
+
+
+def _fold_market(value: str) -> str:
+    return (
+        str(value or "")
+        .casefold()
+        .strip()
+        .replace("é", "e")
+        .replace("á", "a")
+        .replace("ó", "o")
+        .replace("í", "i")
+        .replace("ú", "u")
+        .replace("’", "'")
+    )
+
+
+def match_program_to_sportradar_team(
+    display_name: str, teams: Sequence[Mapping[str, Any]]
+) -> Mapping[str, Any] | None:
+    """Exact market/alias match. Do not map Alabama onto Alabama A&M."""
+
+    needle = _fold_market(display_name)
+    if not needle:
+        return None
+    needles = {
+        needle,
+        *(_fold_market(item) for item in SPORTSRADAR_MARKET_ALIASES.get(needle, ())),
+    }
+    exact: Mapping[str, Any] | None = None
+    for team in teams:
+        market = _fold_market(str(team.get("market") or ""))
+        alias = _fold_market(str(team.get("alias") or ""))
+        name = _fold_market(str(team.get("name") or ""))
+        if market in needles or alias in needles:
+            if exact is not None and str(exact.get("id")) != str(team.get("id")):
+                return None
+            exact = team
+            continue
+        combined = f"{market} {name}".strip()
+        if needle == combined:
+            if exact is not None and str(exact.get("id")) != str(team.get("id")):
+                return None
+            exact = team
+    return exact
+
+
+def parse_sportradar_coaches(
+    payload: Mapping[str, Any], *, team_id: str, page_url: str
+) -> list[dict[str, str]]:
+    """Bind person and source position from the same SportsRadar coach object."""
+
+    coaches = payload.get("coaches")
+    if not isinstance(coaches, list):
+        team = payload.get("team")
+        coaches = team.get("coaches") if isinstance(team, Mapping) else []
+    if not isinstance(coaches, list):
+        return []
+    out: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for coach in coaches:
+        if not isinstance(coach, Mapping):
+            continue
+        title = str(coach.get("position") or "").strip()
+        name = str(coach.get("full_name") or "").strip()
+        if not name:
+            name = " ".join(
+                part
+                for part in (
+                    str(coach.get("first_name") or "").strip(),
+                    str(coach.get("last_name") or "").strip(),
+                    str(coach.get("name_suffix") or "").strip(),
+                )
+                if part
+            ).strip()
+        if not name or not title:
+            continue
+        key = (name.casefold(), title.casefold())
+        if key in seen:
+            continue
+        seen.add(key)
+        family = role_family_from_title(title) or "OTHER_POSITION"
+        out.append(
+            {
+                "person": name,
+                "title": title,
+                "role": family,
+                "source": "SPORTSRADAR_NCAAFB",
+                "source_coach_id": str(coach.get("id") or ""),
+                "span_id": f"sr:{team_id}:{coach.get('id')}:{title}",
+                "page_url": page_url,
+            }
+        )
+    return out
+
+
+def _sportradar_role_episodes(
+    people: Sequence[Mapping[str, Any]], role: str
+) -> list[dict[str, Any]]:
+    episodes = []
+    for person in people:
+        title = str(person.get("title") or "")
+        families = role_families_from_title(title)
+        stored_role = person.get("role")
+        if role not in families and stored_role != role:
+            continue
+        episodes.append(
+            {
+                "person": person.get("person"),
+                "source": "SPORTSRADAR_NCAAFB",
+                "relationship": CONCURRENT
+                if "co-" in title.casefold()
+                else "CONFIRMED_APPOINTMENT",
+                "season": 2026,
+                "source_title": title,
+                "span_id": person.get("span_id"),
+                "page_url": person.get("page_url"),
+                "source_coach_id": person.get("source_coach_id"),
+            }
+        )
+    return episodes
+
+
 def _official_role_episodes(
     people: Sequence[Mapping[str, Any]], role: str
 ) -> list[dict[str, Any]]:
@@ -903,10 +1126,15 @@ def fill_current_role_matrix(
     cfbd_hc_by_school: Mapping[str, Sequence[Mapping[str, Any]]],
     official_people_by_program: Mapping[str, Sequence[Mapping[str, Any]]],
     official_attempts_by_program: Mapping[str, Mapping[str, Any]],
+    sportradar_people_by_program: Mapping[str, Sequence[Mapping[str, Any]]]
+    | None = None,
+    sportradar_attempts_by_program: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
-    """Official HTML first. CFBD may fill HC only. Attempted blanks are not NOT_ATTEMPTED."""
+    """Official HTML first. SportsRadar may fill remaining HC/OC/DC. CFBD HC only."""
 
     program_by_id = {str(row["program_id"]): row for row in programs}
+    sr_people = sportradar_people_by_program or {}
+    sr_attempts = sportradar_attempts_by_program or {}
     filled: list[dict[str, Any]] = []
     for cell in cells:
         program = program_by_id.get(str(cell["program_id"]), {})
@@ -915,6 +1143,10 @@ def fill_current_role_matrix(
         people = official_people_by_program.get(str(cell["program_id"]), [])
         role = str(cell["role"])
         official_episodes = _official_role_episodes(people, role)
+        sr_episodes = _sportradar_role_episodes(
+            sr_people.get(str(cell["program_id"]), []), role
+        )
+        sr_attempt = sr_attempts.get(str(cell["program_id"]))
         attempt_status = str((attempt or {}).get("status") or NOT_ATTEMPTED)
         if official_episodes:
             disposition = (
@@ -935,6 +1167,24 @@ def fill_current_role_matrix(
                 }
             )
             continue
+        if sr_episodes:
+            disposition = (
+                "CONFIRMED_CO_SHARED_ROLE"
+                if len(sr_episodes) > 1
+                or any(item.get("relationship") == CONCURRENT for item in sr_episodes)
+                else "CONFIRMED_APPOINTMENT"
+            )
+            filled.append(
+                {
+                    **cell,
+                    "disposition": disposition,
+                    "episode_refs": sr_episodes,
+                    "episode_cardinality": len(sr_episodes),
+                    "attempt_count": int((sr_attempt or {}).get("attempt_count") or 1),
+                    "source": "SPORTSRADAR_NCAAFB",
+                }
+            )
+            continue
         if role == ROLE_HC and cfbd_hc_by_school.get(display):
             episodes = _cfbd_hc_episodes(cfbd_hc_by_school[display])
             if episodes:
@@ -952,10 +1202,10 @@ def fill_current_role_matrix(
                     }
                 )
                 continue
-        if attempt_status in {NOT_ATTEMPTED, ""}:
+        if attempt_status in {NOT_ATTEMPTED, ""} and not sr_attempt:
             filled.append({**cell, "disposition": NOT_ATTEMPTED})
             continue
-        if attempt_status in {"ACQUISITION_FAILED", "ATTEMPTED_NO_URL"}:
+        if attempt_status in {"ACQUISITION_FAILED", "ATTEMPTED_NO_URL"} and not sr_attempt:
             filled.append(
                 {
                     **cell,
@@ -970,7 +1220,9 @@ def fill_current_role_matrix(
             {
                 **cell,
                 "disposition": "UNKNOWN_NOT_LISTED",
-                "attempt_count": int((attempt or {}).get("attempt_count") or 1),
+                "attempt_count": int(
+                    (sr_attempt or attempt or {}).get("attempt_count") or 1
+                ),
             }
         )
     return filled

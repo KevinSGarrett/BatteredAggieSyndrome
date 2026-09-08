@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 import urllib.error
@@ -26,6 +27,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     parse_wikimedia_infobox,
     redact_personal_contact,
     reject_wikimedia_as_pit,
+    select_college_football_wiki_title,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
@@ -55,6 +57,16 @@ EXT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def load_jsonl(path: Path) -> list[dict[str, Any]]:
+    if not path.is_file():
+        return []
+    rows = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            rows.append(json.loads(line))
+    return rows
 
 
 def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -> Any:
@@ -120,25 +132,55 @@ def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -
 
 
 def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any]:
-    query = f"{school} football"
+    aliases = {
+        "St. Thomas (MN)": "St. Thomas Tommies",
+        "Hawai'i": "Hawaii Rainbow Warriors",
+        "UAlbany": "Albany Great Danes",
+        "NC State": "NC State Wolfpack",
+        "Long Island University": "LIU Sharks",
+    }
+    query_school = aliases.get(school, school)
+    current_titles = {
+        "Hawai'i": "Hawaii Rainbow Warriors football",
+        "NC State": "NC State Wolfpack football",
+    }
+    query = f'"{query_school}" football team'
     params = {
         "action": "query",
         "list": "search",
         "srsearch": query,
-        "srlimit": "1",
+        "srlimit": "8",
         "format": "json",
     }
     search_url = f"{API}?{urllib.parse.urlencode(params)}"
     payload = fetch_json(search_url, ledger, BUDGET)
     hits = (payload.get("query") or {}).get("search") or []
-    if not hits:
+    title = select_college_football_wiki_title(hits, query_school)
+    if not title:
+        fallback = {
+            "action": "query",
+            "list": "search",
+            "srsearch": f"{query_school} football",
+            "srlimit": "8",
+            "format": "json",
+        }
+        payload = fetch_json(
+            f"{API}?{urllib.parse.urlencode(fallback)}", ledger, BUDGET
+        )
+        hits = (payload.get("query") or {}).get("search") or []
+        title = select_college_football_wiki_title(hits, query_school)
+        if not title:
+            title = select_college_football_wiki_title(hits, school)
+    hinted = current_titles.get(school)
+    if hinted and (not title or re.match(r"^\d{4}\s", title)):
+        title = hinted
+    if not title:
         return {
             "school": school,
             "status": "NO_SEARCH_HIT",
             "pit_admitted": False,
             "episodes": [],
         }
-    title = str(hits[0].get("title") or "")
     page_params = {
         "action": "query",
         "prop": "revisions",
@@ -183,6 +225,11 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument(
+        "--repair-missing",
+        action="store_true",
+        help="Re-search only programs that still lack a captured official staff URL",
+    )
     args = parser.parse_args()
     budget_path = EXT / "CYCLE30_WIKIMEDIA_BUDGET.json"
     EXT.mkdir(parents=True, exist_ok=True)
@@ -190,14 +237,29 @@ def main() -> int:
         json.dumps(BUDGET, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
     programs = json.loads(ART_POP.read_text(encoding="utf-8")).get("programs") or []
-    if args.limit:
-        programs = programs[: args.limit]
-    ledger: list[dict[str, Any]] = []
-    rows: list[dict[str, Any]] = []
     out = EXT / "outputs"
     out.mkdir(parents=True, exist_ok=True)
     jsonl_path = out / "WIKIMEDIA_CURRENT_STAFF_CANDIDATES.jsonl"
-    jsonl_path.write_text("", encoding="utf-8")
+    existing = {
+        str(row.get("program_id") or ""): row for row in load_jsonl(jsonl_path)
+    }
+    if args.repair_missing:
+        missing_ids = {
+            str(row.get("program_id") or "")
+            for row in load_jsonl(out / "OFFICIAL_STAFF_HTTP_ATTEMPTS.jsonl")
+            if str(row.get("status") or "") != "CAPTURED"
+        }
+        programs = [
+            program
+            for program in programs
+            if str(program.get("program_id") or "") in missing_ids
+        ]
+    if args.limit:
+        programs = programs[: args.limit]
+    ledger: list[dict[str, Any]] = []
+    rows: list[dict[str, Any]] = list(existing.values()) if args.repair_missing else []
+    if not args.repair_missing:
+        jsonl_path.write_text("", encoding="utf-8")
     try:
         for program in programs:
             school = str(program.get("display_name") or "")
@@ -214,9 +276,18 @@ def main() -> int:
                     "artifact_class": "BLOCKER_METADATA",
                 }
             row["program_id"] = program.get("program_id")
-            rows.append(row)
-            with jsonl_path.open("a", encoding="utf-8") as handle:
-                handle.write(json.dumps(row, sort_keys=True) + "\n")
+            existing[str(row["program_id"] or "")] = row
+            if not args.repair_missing:
+                rows.append(row)
+                with jsonl_path.open("a", encoding="utf-8") as handle:
+                    handle.write(json.dumps(row, sort_keys=True) + "\n")
+        if args.repair_missing:
+            merged = list(existing.values())
+            jsonl_path.write_text(
+                "".join(json.dumps(row, sort_keys=True) + "\n" for row in merged),
+                encoding="utf-8",
+            )
+            rows = merged
     except RuntimeError as exc:
         print("CEILING", exc)
     (out / "CYCLE30_WIKIMEDIA_LEDGER.json").write_text(

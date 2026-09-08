@@ -24,13 +24,15 @@ if str(ROOT / "src") not in sys.path:
 
 from aggie_analytics.cycle30.availability import (  # noqa: E402
     PUBLIC_AVAILABILITY_ROUTES,
+    availability_pdf_hrefs,
     extract_candidate_player_rows,
     join_candidates_to_roster,
+    pdf_plaintext,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 20,
+    "max_requests": 40,
     "max_retries": 1,
     "concurrency": 1,
     "metered_scraper_credits": 0,
@@ -148,6 +150,19 @@ def main() -> int:
         candidates = extract_candidate_player_rows(
             decoded, source_id=route["source_id"], uri=uri
         )
+        for pdf_uri in availability_pdf_hrefs(decoded, page_uri=uri):
+            try:
+                pdf_body = fetch_url(pdf_uri, ledger, BUDGET)
+            except RuntimeError:
+                break
+            candidates.extend(
+                extract_candidate_player_rows(
+                    pdf_plaintext(pdf_body)
+                    or pdf_body.decode("utf-8", "replace"),
+                    source_id=route["source_id"],
+                    uri=pdf_uri,
+                )
+            )
         rows.append(
             {
                 "source_id": route["source_id"],

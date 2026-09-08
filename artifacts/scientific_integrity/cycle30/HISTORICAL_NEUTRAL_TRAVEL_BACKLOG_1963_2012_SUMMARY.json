@@ -3,12 +3,12 @@
   "artifact_type": "HISTORICAL_NEUTRAL_TRAVEL_BACKLOG_1963_2012_SUMMARY",
   "missing_coordinates": 5,
   "missing_origin": 0,
-  "missing_venue": 1667,
+  "missing_venue": 1647,
   "model_consumed": false,
   "not_a_completeness_claim": true,
   "period": "1963-2012",
   "proximity_is_not_home_bonus": true,
   "travel_rows": 2302,
-  "travel_with_coordinates": 630,
+  "travel_with_coordinates": 650,
   "verified_neutral_contests": 1151
 }

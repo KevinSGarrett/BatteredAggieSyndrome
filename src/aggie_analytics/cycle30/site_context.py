@@ -233,6 +233,32 @@ def venue_index_by_name(rows: Sequence[Mapping[str, Any]]) -> dict[str, Mapping[
     return out
 
 
+def venue_from_bowl_note(
+    notes: str, venues_by_name: Mapping[str, Mapping[str, Any]]
+) -> Mapping[str, Any] | None:
+    """Join CFBD bowl/site notes onto an exact venue-name index.
+
+    Short tokens are not used. This is not a home-stadium default.
+    """
+
+    text = str(notes or "").casefold().strip()
+    if len(text) < 8:
+        return None
+    exact = venues_by_name.get(text)
+    if exact:
+        return exact
+    best: Mapping[str, Any] | None = None
+    best_len = 0
+    for name, venue in venues_by_name.items():
+        if len(name) < 10:
+            continue
+        if name in text or text in name:
+            if len(name) > best_len:
+                best = venue
+                best_len = len(name)
+    return best
+
+
 def travel_gap_counts(rows: Sequence[Mapping[str, Any]]) -> dict[str, int]:
     return {
         "travel_with_coordinates": sum(

@@ -114,6 +114,7 @@ from aggie_analytics.cycle30.site_context import (  # noqa: E402
     travel_gap_counts,
     travel_row,
     venue_index_by_name,
+    venue_from_bowl_note,
 )
 from aggie_analytics.scientific_reference.cycle30.pit import (  # noqa: E402
     compare_producer_rows,
@@ -382,6 +383,15 @@ def overlay_historical_venues(
                     updated["venue_id"] = vid
             if not updated.get("venue_name"):
                 updated["venue_name"] = extra.get("venue") or extra.get("venue_name")
+            if updated.get("venue_id") in {None, ""}:
+                bowl = venue_from_bowl_note(
+                    str(extra.get("notes") or ""), venues_by_name
+                )
+                if bowl and bowl.get("id") is not None:
+                    updated["venue_id"] = bowl.get("id")
+                    updated["venue_name"] = bowl.get("name") or updated.get(
+                        "venue_name"
+                    )
         if updated.get("venue_id") in {None, ""} and updated.get("venue_name"):
             named = venues_by_name.get(str(updated["venue_name"]).casefold().strip())
             if named and named.get("id") is not None:
@@ -1589,11 +1599,22 @@ def main() -> int:
     official_http_attempts = load_optional_jsonl(
         EXT / "OFFICIAL_STAFF_HTTP_ATTEMPTS.jsonl"
     )
+    sportradar_people_rows = load_optional_jsonl(EXT / "SPORTSRADAR_STAFF_PARSED.jsonl")
+    sportradar_http_attempts = load_optional_jsonl(
+        EXT / "SPORTSRADAR_STAFF_HTTP_ATTEMPTS.jsonl"
+    )
     people_by_program: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in official_people_rows:
         people_by_program[str(row.get("program_id"))].append(row)
     attempts_by_program = {
         str(row.get("program_id")): row for row in official_http_attempts
+    }
+    sr_people_by_program: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in sportradar_people_rows:
+        people_by_program_sr = sr_people_by_program[str(row.get("program_id"))]
+        people_by_program_sr.append(row)
+    sr_attempts_by_program = {
+        str(row.get("program_id")): row for row in sportradar_http_attempts
     }
     filled = (
         fill_current_role_matrix(
@@ -1602,6 +1623,8 @@ def main() -> int:
             cfbd_hc_by_school=hc_by_school,
             official_people_by_program=people_by_program,
             official_attempts_by_program=attempts_by_program,
+            sportradar_people_by_program=sr_people_by_program,
+            sportradar_attempts_by_program=sr_attempts_by_program,
         )
         if matrix
         else []
@@ -1618,6 +1641,8 @@ def main() -> int:
             "attempt_ledger": attempt_summary,
             "cfbd_cannot_populate_assistants": True,
             "official_staff_programs": len(official_http_attempts),
+            "sportradar_staff_programs": len(sportradar_http_attempts),
+            "sportradar_people": len(sportradar_people_rows),
             "disposition_counts": {
                 str(key): sum(1 for row in filled if row.get("disposition") == key)
                 for key in sorted({str(row.get("disposition")) for row in filled})
@@ -2187,9 +2212,18 @@ def main() -> int:
             "metered_scraper_credits": 0,
             "direct_get_no_scrapfly": True,
             "cfbd_hc_only": True,
+            "sportradar_ncaafb_full_roster_coach_positions_as_returned": True,
             "literal_attempted_true_forbidden": True,
         },
     )
+    if (EXT / "SPORTSRADAR_STAFF_PARSED.jsonl").is_file():
+        hashes["SPORTSRADAR_STAFF_PARSED.jsonl"] = sha256_file(
+            EXT / "SPORTSRADAR_STAFF_PARSED.jsonl"
+        )
+    if (EXT / "SPORTSRADAR_STAFF_HTTP_ATTEMPTS.jsonl").is_file():
+        hashes["SPORTSRADAR_STAFF_HTTP_ATTEMPTS.jsonl"] = sha256_file(
+            EXT / "SPORTSRADAR_STAFF_HTTP_ATTEMPTS.jsonl"
+        )
     membership_delta = cfbd_membership_presence_delta(
         [str(row.get("program_id") or "") for row in current_programs],
         [*hist_membership, *hist_1963],

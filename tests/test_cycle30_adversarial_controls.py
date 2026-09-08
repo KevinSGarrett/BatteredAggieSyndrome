@@ -36,6 +36,7 @@ from aggie_analytics.cycle30.coaching import (
     CoachingError,
     attempt_ledger_count,
     extract_official_website_from_wikidata_entity,
+    extract_athletics_website_from_wikitext,
     extract_row_bound_staff,
     hc_oc_dc_matrix,
     historical_season_page_title,
@@ -44,7 +45,10 @@ from aggie_analytics.cycle30.coaching import (
     overlay_historical_lattice,
     parse_official_staff_html,
     parse_official_staff_json,
+    parse_sportradar_coaches,
+    match_program_to_sportradar_team,
     reject_literal_attempted,
+    select_college_football_wiki_title,
 )
 from aggie_analytics.cycle30.cost import attestation_check
 from aggie_analytics.cycle30.dependency import static_import_graph
@@ -82,6 +86,7 @@ from aggie_analytics.cycle30.site_context import (
     ordinary_home_exposure,
     persist_design_row,
     travel_row,
+    venue_from_bowl_note,
     vincenty_km,
 )
 from aggie_analytics.cycle30.temporal import (
@@ -1458,6 +1463,85 @@ class Cycle30AdversarialTests(unittest.TestCase):
             ],
         )
         self.assertIsNone(soccer_club)
+        title = select_college_football_wiki_title(
+            [
+                {"title": "Nathaniel Brown (footballer)"},
+                {"title": "Brown Bears football"},
+            ],
+            "Brown",
+        )
+        self.assertEqual(title, "Brown Bears football")
+        season_skipped = select_college_football_wiki_title(
+            [
+                {"title": "1965 NC State Wolfpack football team"},
+                {"title": "NC State Wolfpack football"},
+            ],
+            "NC State",
+        )
+        self.assertEqual(season_skipped, "NC State Wolfpack football")
+        flames = extract_athletics_website_from_wikitext(
+            "| website = https://www.liberty.edu/flames/index.cfm\n"
+            "Official site [https://www.libertyflames.com/sports/football Football]\n"
+        )
+        self.assertEqual(flames, "https://www.libertyflames.com/sports/football")
+        sr_people = parse_sportradar_coaches(
+            {
+                "coaches": [
+                    {
+                        "id": "9c34ca07-cd05-48dc-ba4e-45b9df6078eb",
+                        "full_name": "Kirby Smart",
+                        "first_name": "Kirby",
+                        "last_name": "Smart",
+                        "position": "Head Coach",
+                    },
+                    {
+                        "id": "oc-1",
+                        "full_name": "Mike Bobo",
+                        "position": "Offensive Coordinator",
+                    },
+                ]
+            },
+            team_id="uga",
+            page_url="https://api.sportradar.com/ncaafb/example",
+        )
+        self.assertEqual(sr_people[0]["person"], "Kirby Smart")
+        self.assertEqual(sr_people[0]["role"], "head_coach")
+        self.assertEqual(sr_people[1]["role"], "offensive_coordinator")
+        alabama = match_program_to_sportradar_team(
+            "Alabama",
+            [
+                {
+                    "id": "1",
+                    "market": "Alabama",
+                    "alias": "ALA",
+                    "name": "Crimson Tide",
+                },
+                {
+                    "id": "2",
+                    "market": "Alabama A&M",
+                    "alias": "AAMU",
+                    "name": "Bulldogs",
+                },
+            ],
+        )
+        self.assertEqual(alabama["id"], "1")
+        app_state = match_program_to_sportradar_team(
+            "App State",
+            [
+                {
+                    "id": "9",
+                    "market": "Appalachian State",
+                    "alias": "APP",
+                    "name": "Mountaineers",
+                }
+            ],
+        )
+        self.assertEqual(app_state["id"], "9")
+        stadium = venue_from_bowl_note(
+            "AT&T COTTON BOWL",
+            {"cotton bowl": {"id": 12, "name": "Cotton Bowl"}},
+        )
+        self.assertEqual(stadium["id"], 12)
 
     def test_availability_join_is_name_only_not_health(self) -> None:
         candidates = extract_candidate_player_rows(

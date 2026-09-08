@@ -8,7 +8,14 @@ Existing owner BAT-414 retains health evidence after duplicate audit.
 from __future__ import annotations
 
 import re
+import urllib.parse
+from io import BytesIO
 from typing import Any, Mapping, Sequence
+
+try:
+    from pypdf import PdfReader
+except ImportError:
+    PdfReader = None  # type: ignore[misc, assignment]
 
 CONFERENCE_POLICY_ROUTES: dict[str, dict[str, str]] = {
     "SEC": {
@@ -232,6 +239,51 @@ _JSON_PLAYER_NAME = re.compile(
     r'"(?:player(?:Name)?|athleteName|fullName|displayName)"\s*:\s*"([^"]{3,80})"',
     re.I,
 )
+_PDF_HREF = re.compile(r"""href=["']([^"'#]+\.pdf[^"']*)["']""", re.I)
+_PLAIN_COMMA_NAME = re.compile(
+    r"\b([A-Z][a-z]+,\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b"
+)
+
+
+def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[str]:
+    """Absolute PDF links from a public availability page. Not health status."""
+
+    out: list[str] = []
+    seen: set[str] = set()
+    for match in _PDF_HREF.finditer(html or ""):
+        href = match.group(1).strip()
+        if href.startswith("//"):
+            href = "https:" + href
+        elif href.startswith("/"):
+            parsed = urllib.parse.urlparse(page_uri)
+            href = f"{parsed.scheme}://{parsed.netloc}{href}"
+        elif not href.startswith("http"):
+            href = urllib.parse.urljoin(page_uri, href)
+        key = href.casefold()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(href)
+        if len(out) >= limit:
+            break
+    return out
+
+
+def pdf_plaintext(body: bytes, *, page_limit: int = 20) -> str:
+    """Extract name-bearing text from a public PDF. Not a health status."""
+
+    if not body.startswith(b"%PDF"):
+        return ""
+    if PdfReader is None:
+        return body.decode("latin-1", "replace")
+    try:
+        reader = PdfReader(BytesIO(body))
+        parts: list[str] = []
+        for page in list(reader.pages)[:page_limit]:
+            parts.append(page.extract_text() or "")
+        return "\n".join(parts)
+    except Exception:  # noqa: BLE001
+        return body.decode("latin-1", "replace")
 
 
 def extract_candidate_player_rows(
@@ -249,6 +301,10 @@ def extract_candidate_player_rows(
         names.append(f"{first} {last}")
     for match in _JSON_PLAYER_NAME.finditer(html or ""):
         names.append(match.group(1))
+    if "<t" not in (html or "").casefold():
+        for match in _PLAIN_COMMA_NAME.finditer(html or ""):
+            last, first = [part.strip() for part in match.group(1).split(",", 1)]
+            names.append(f"{first} {last}")
     for raw in names:
         name = " ".join((raw or "").split())
         key = name.casefold()
@@ -263,6 +319,10 @@ def extract_candidate_player_rows(
                 "report",
                 "student",
                 "athlete",
+                "discretion",
+                "handbook",
+                "sportsmanship",
+                "timeliness",
             )
         ):
             continue

@@ -896,12 +896,14 @@
   "cells": 798,
   "cfbd_cannot_populate_assistants": true,
   "disposition_counts": {
-    "CONFIRMED_APPOINTMENT": 575,
-    "CONFIRMED_CO_SHARED_ROLE": 132,
-    "UNKNOWN_NOT_LISTED": 91
+    "CONFIRMED_APPOINTMENT": 611,
+    "CONFIRMED_CO_SHARED_ROLE": 137,
+    "UNKNOWN_NOT_LISTED": 50
   },
   "expected_3n": 798,
   "oc_dc_not_attempted": 0,
   "official_staff_programs": 266,
+  "sportradar_people": 266,
+  "sportradar_staff_programs": 266,
   "week1_is_derived_subset_only": true
 }

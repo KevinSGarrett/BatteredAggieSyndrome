@@ -1,13 +1,14 @@
 {
   "artifact_class": "REAL_EVIDENCE",
-  "attempted_http": 253,
-  "attempted_no_url": 13,
+  "attempted_http": 266,
+  "attempted_no_url": 0,
   "attempted_programs": 266,
-  "captured": 249,
+  "captured": 262,
   "cfbd_hc_only": true,
   "direct_get_no_scrapfly": true,
   "literal_attempted_true_forbidden": true,
   "metered_scraper_credits": 0,
   "not_attempted": 0,
-  "program_count": 266
+  "program_count": 266,
+  "sportradar_ncaafb_full_roster_coach_positions_as_returned": true
 }

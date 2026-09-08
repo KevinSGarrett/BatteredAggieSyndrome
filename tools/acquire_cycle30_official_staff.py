@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import socket
 import sys
 import time
 import urllib.error
@@ -60,6 +61,10 @@ ORIGIN_PATHS = (
     "/staff.aspx?path=football",
     "/staff-directory?path=football",
     "/api/v2/Staff",
+    "/sports/football/coaches.aspx",
+    "/staff-directory/football",
+    "/athletics/football/coaches",
+    "/sports/m-footbl/coaches",
 )
 
 
@@ -192,7 +197,7 @@ def fetch_html(
         body = exc.read() or b""
         status = int(exc.code)
         final_url = url
-    except urllib.error.URLError:
+    except (urllib.error.URLError, TimeoutError, socket.timeout, OSError):
         body = b""
         status = 0
         final_url = url
@@ -232,6 +237,11 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--cache-only", action="store_true")
+    parser.add_argument(
+        "--uncaptured-only",
+        action="store_true",
+        help="Reuse prior CAPTURED rows and live-fetch only remaining programs",
+    )
     args = parser.parse_args()
     RAW.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -250,6 +260,9 @@ def main() -> int:
         str(row.get("program_id")): row
         for row in load_jsonl(OUT / "OFFICIAL_STAFF_HTTP_ATTEMPTS.jsonl")
     }
+    prior_people_by_program: dict[str, list[dict[str, Any]]] = {}
+    for row in load_jsonl(OUT / "OFFICIAL_STAFF_PARSED.jsonl"):
+        prior_people_by_program.setdefault(str(row.get("program_id")), []).append(row)
     titles = [str(row.get("title") or "") for row in wiki_rows]
     wikitext_by_title = load_current_wikitext(titles)
     wikidata_rows = load_jsonl(OUT / "WIKIDATA_P856_WEBSITES.jsonl")
@@ -259,6 +272,12 @@ def main() -> int:
     try:
         for program in programs:
             pid = str(program.get("program_id") or "")
+            if args.uncaptured_only and str(
+                (prior_attempts.get(pid) or {}).get("status") or ""
+            ) == "CAPTURED":
+                attempts.append(prior_attempts[pid])
+                people_out.extend(prior_people_by_program.get(pid, []))
+                continue
             wiki = wiki_by_program.get(pid) or {}
             title = str(wiki.get("title") or "")
             wikitext = wikitext_by_title.get(title, "")

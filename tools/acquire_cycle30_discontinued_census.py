@@ -23,7 +23,7 @@ if str(ROOT / "src") not in sys.path:
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 6,
+    "max_requests": 10,
     "max_retries": 0,
     "concurrency": 1,
     "metered_scraper_credits": 0,
@@ -42,6 +42,7 @@ NCAA_URLS = (
 WIKI_PAGES = (
     "List of defunct college football teams",
     "List of NCAA Division I FBS football programs",
+    "List of NCAA Division I FCS football programs",
 )
 WORK = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 RAW = WORK / "raw" / "discontinued"

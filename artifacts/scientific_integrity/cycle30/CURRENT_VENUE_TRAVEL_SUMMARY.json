@@ -3,7 +3,9 @@
   "current_contest_context_rows": 1737,
   "current_travel_rows": 3474,
   "full_schedule_remains_in_denominator": true,
-  "missing_origin_coordinates": 35,
+  "missing_coordinates": 0,
+  "missing_origin": 35,
+  "missing_venue": 0,
   "model_consumed": false,
   "travel_with_coordinates": 3439
 }

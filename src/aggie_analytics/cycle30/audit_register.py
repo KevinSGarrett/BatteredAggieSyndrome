@@ -381,6 +381,8 @@ def remaining_audit_register(
                 "artifacts/scientific_integrity/cycle30/CAPTURE_INVENTORY_EXACT_RECONCILE.json",
                 "artifacts/scientific_integrity/cycle30/PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
                 "artifacts/scientific_integrity/cycle30/HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json",
+                "artifacts/scientific_integrity/cycle30/PARENT_DUPLICATE_CONFLICT_AUDIT.json",
+                "artifacts/scientific_integrity/cycle30/PIT_KERNEL_PREDECESSOR_FEATURE_COMPARE.json",
             ],
             "blocker": (
                 f"raw_to_normalized_compared={raw_to_normalized_compared}; "
@@ -409,7 +411,10 @@ def remaining_audit_register(
                 if predecessor_payload_mounted
                 else ["predecessor_90198_payload_not_mounted"]
             ),
-            "remaining_work": ["duplicate/conflicting game semantic expansion"],
+            "remaining_work": [
+                "manager semantic review of pair-date site-class collisions",
+                "1963-2012 historical travel backlog",
+            ],
             "not_audited_reason": "count presence is not semantic certification",
         },
         {

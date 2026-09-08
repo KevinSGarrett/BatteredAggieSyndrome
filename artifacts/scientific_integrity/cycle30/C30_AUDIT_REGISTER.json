@@ -8,7 +8,7 @@
   "selected_revisions": {
     "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
     "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-    "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+    "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
     "not_manager_verified": true,
     "review_state": "READY_FOR_MANAGER_REVIEW"
   },
@@ -42,7 +42,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -79,7 +79,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -114,7 +114,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -147,7 +147,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -180,7 +180,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -217,7 +217,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -252,7 +252,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -290,7 +290,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -324,13 +324,14 @@
       "not_audited_reason": "count presence is not semantic certification",
       "period_population": "parent normalized games=46953; ties=490; provider-neutral=1966; predecessor oriented rows=90198; payload_mounted=True",
       "remaining_work": [
-        "duplicate/conflicting game semantic expansion"
+        "manager semantic review of pair-date site-class collisions",
+        "1963-2012 historical travel backlog"
       ],
       "scope_provenance_result": "CURSOR_BOUNDED_TRANCHE",
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -341,7 +342,9 @@
         "artifacts/scientific_integrity/cycle30/HISTORICAL_NEUTRAL_SITE_AUDIT_SUMMARY.json",
         "artifacts/scientific_integrity/cycle30/CAPTURE_INVENTORY_EXACT_RECONCILE.json",
         "artifacts/scientific_integrity/cycle30/PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
-        "artifacts/scientific_integrity/cycle30/HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json"
+        "artifacts/scientific_integrity/cycle30/HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json",
+        "artifacts/scientific_integrity/cycle30/PARENT_DUPLICATE_CONFLICT_AUDIT.json",
+        "artifacts/scientific_integrity/cycle30/PIT_KERNEL_PREDECESSOR_FEATURE_COMPARE.json"
       ],
       "status": "BOUNDED_TRANCHE_EVIDENCE_SUBMITTED"
     },
@@ -369,7 +372,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "ec009614b5cbe6692c2a7128d89ce596057d20f1",
+        "cycle30_head": "6cc37d70adb2aaeaab63b753bb29d5260fb142b8",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },

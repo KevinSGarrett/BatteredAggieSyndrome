@@ -1,0 +1,208 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "PIT_KERNEL_PREDECESSOR_FEATURE_COMPARE",
+  "compared_team_rows": 26488,
+  "disagreement_is_not_copied_from_predecessor": true,
+  "disagreement_samples": [
+    {
+      "canonical_game_id": "SRC-002:GAME:63843",
+      "canonical_team_id": "SRC-002:TEAM:62",
+      "kernel": {
+        "pit_prior_games_played": 1,
+        "pit_prior_margin_mean": -8.0,
+        "pit_prior_points_against_mean": 25.0,
+        "pit_prior_points_for_mean": 17.0,
+        "pit_prior_season_win_rate": null,
+        "pit_prior_win_rate": 0.0,
+        "pit_season_to_date_games": 1,
+        "pit_season_to_date_win_rate": 0.0
+      },
+      "predecessor": {
+        "pit_prior_games_played": 421,
+        "pit_prior_margin_mean": -0.570071258907,
+        "pit_prior_points_against_mean": 25.527315914489,
+        "pit_prior_points_for_mean": 24.957244655582,
+        "pit_prior_season_win_rate": 0.416666666667,
+        "pit_prior_win_rate": 0.498812351544,
+        "pit_season_to_date_games": 1,
+        "pit_season_to_date_win_rate": 0.0
+      }
+    },
+    {
+      "canonical_game_id": "SRC-002:GAME:63843",
+      "canonical_team_id": "SRC-002:TEAM:2439",
+      "kernel": {
+        "pit_prior_games_played": 1,
+        "pit_prior_margin_mean": -6.0,
+        "pit_prior_points_against_mean": 16.0,
+        "pit_prior_points_for_mean": 10.0,
+        "pit_prior_season_win_rate": null,
+        "pit_prior_win_rate": 0.0,
+        "pit_season_to_date_games": 1,
+        "pit_season_to_date_win_rate": 0.0
+      },
+      "predecessor": {
+        "pit_prior_games_played": 329,
+        "pit_prior_margin_mean": -5.246200607903,
+        "pit_prior_points_against_mean": 28.234042553191,
+        "pit_prior_points_for_mean": 22.987841945289,
+        "pit_prior_season_win_rate": 0.181818181818,
+        "pit_prior_win_rate": 0.419452887538,
+        "pit_season_to_date_games": 2,
+        "pit_season_to_date_win_rate": 0.5
+      }
+    },
+    {
+      "canonical_game_id": "SRC-002:GAME:63845",
+      "canonical_team_id": "SRC-002:TEAM:62",
+      "kernel": {
+        "pit_prior_games_played": 3,
+        "pit_prior_margin_mean": 4.666666666667,
+        "pit_prior_points_against_mean": 26.333333333333,
+        "pit_prior_points_for_mean": 31.0,
+        "pit_prior_season_win_rate": null,
+        "pit_prior_win_rate": 0.333333333333,
+        "pit_season_to_date_games": 3,
+        "pit_season_to_date_win_rate": 0.333333333333
+      },
+      "predecessor": {
+        "pit_prior_games_played": 424,
+        "pit_prior_margin_mean": -0.431603773585,
+        "pit_prior_points_against_mean": 25.495283018868,
+        "pit_prior_points_for_mean": 25.063679245283,
+        "pit_prior_season_win_rate": 0.416666666667,
+        "pit_prior_win_rate": 0.5,
+        "pit_season_to_date_games": 4,
+        "pit_season_to_date_win_rate": 0.5
+      }
+    },
+    {
+      "canonical_game_id": "SRC-002:GAME:63845",
+      "canonical_team_id": "SRC-002:TEAM:2440",
+      "kernel": {
+        "pit_prior_games_played": 5,
+        "pit_prior_margin_mean": 3.2,
+        "pit_prior_points_against_mean": 22.8,
+        "pit_prior_points_for_mean": 26.0,
+        "pit_prior_season_win_rate": null,
+        "pit_prior_win_rate": 0.6,
+        "pit_season_to_date_games": 5,
+        "pit_season_to_date_win_rate": 0.6
+      },
+      "predecessor": {
+        "pit_prior_games_played": 190,
+        "pit_prior_margin_mean": 1.268421052632,
+        "pit_prior_points_against_mean": 29.173684210526,
+        "pit_prior_points_for_mean": 30.442105263158,
+        "pit_prior_season_win_rate": 0.75,
+        "pit_prior_win_rate": 0.526315789474,
+        "pit_season_to_date_games": 5,
+        "pit_season_to_date_win_rate": 0.6
+      }
+    },
+    {
+      "canonical_game_id": "SRC-002:GAME:63846",
+      "canonical_team_id": "SRC-002:TEAM:62",
+      "kernel": {
+        "pit_prior_games_played": 6,
+        "pit_prior_margin_mean": 11.833333333333,
+        "pit_prior_points_against_mean": 30.0,
+        "pit_prior_points_for_mean": 41.833333333333,
+        "pit_prior_season_win_rate": null,
+        "pit_prior_win_rate": 0.666666666667,
+        "pit_season_to_date_games": 6,
+        "pit_season_to_date_win_rate": 0.666666666667
+      },
+      "predecessor": {
+        "pit_prior_games_played": 427,
+        "pit_prior_margin_mean": -0.295081967213,
+        "pit_prior_points_against_mean": 25.552693208431,
+        "pit_prior_points_for_mean": 25.257611241218,
+        "pit_prior_season_win_rate": 0.416666666667,
+        "pit_prior_win_rate": 0.503512880562,
+        "pit_season_to_date_games": 7,
+        "pit_season_to_date_win_rate": 0.714285714286
+      }
+    },
+    {
+      "canonical_game_id": "SRC-002:GAME:63846",
+      "canonical_team_id": "SRC-002:TEAM:70",
+      "kernel": {
+        "pit_prior_games_played": 7,
+        "pit_prior_margin_mean": -10.285714285714,
+        "pit_prior_points_against_mean": 31.142857142857,
+        "pit_prior_points_for_mean": 20.857142857143,
+        "pit_prior_season_win_rate": null,
+        "pit_prior_win_rate": 0.428571428571,
+        "pit_season_to_date_games": 7,
+        "pit_season_to_date_win_rate": 0.428571428571
+      },
+      "predecessor": {
+        "pit_prior_games_played": 239,
+        "pit_prior_margin_mean": -7.878661087866,
+        "pit_prior_points_against_mean": 29.594142259414,
+        "pit_prior_points_for_mean": 21.715481171548,
+        "pit_prior_season_win_rate": 0.181818181818,
+        "pit_prior_win_rate": 0.347280334728,
+        "pit_season_to_date_games": 8,
+        "pit_season_to_date_win_rate": 0.5
+      }
+    },
+    {
+      "canonical_game_id": "SRC-002:GAME:262430021",
+      "canonical_team_id": "SRC-002:TEAM:21",
+      "kernel": {
+        "pit_prior_games_played": 0,
+        "pit_prior_margin_mean": null,
+        "pit_prior_points_against_mean": null,
+        "pit_prior_points_for_mean": null,
+        "pit_prior_season_win_rate": null,
+        "pit_prior_win_rate": null,
+        "pit_season_to_date_games": 0,
+        "pit_season_to_date_win_rate": null
+      },
+      "predecessor": {
+        "pit_prior_games_played": 434,
+        "pit_prior_margin_mean": 2.748847926267,
+        "pit_prior_points_against_mean": 23.758064516129,
+        "pit_prior_points_for_mean": 26.506912442396,
+        "pit_prior_season_win_rate": 0.416666666667,
+        "pit_prior_win_rate": 0.546082949309,
+        "pit_season_to_date_games": 0,
+        "pit_season_to_date_win_rate": null
+      }
+    },
+    {
+      "canonical_game_id": "SRC-002:GAME:262430021",
+      "canonical_team_id": "SRC-002:TEAM:2638",
+      "kernel": {
+        "pit_prior_games_played": 0,
+        "pit_prior_margin_mean": null,
+        "pit_prior_points_against_mean": null,
+        "pit_prior_points_for_mean": null,
+        "pit_prior_season_win_rate": null,
+        "pit_prior_win_rate": null,
+        "pit_season_to_date_games": 0,
+        "pit_season_to_date_win_rate": null
+      },
+      "predecessor": {
+        "pit_prior_games_played": 484,
+        "pit_prior_margin_mean": -9.762396694215,
+        "pit_prior_points_against_mean": 29.871900826446,
+        "pit_prior_points_for_mean": 20.109504132231,
+        "pit_prior_season_win_rate": 0.666666666667,
+        "pit_prior_win_rate": 0.29958677686,
+        "pit_season_to_date_games": 0,
+        "pit_season_to_date_win_rate": null
+      }
+    }
+  ],
+  "eligibility_is_not_admission": true,
+  "feature_disagreements": 26486,
+  "feature_matches": 2,
+  "kernel_unique_games": 13244,
+  "missing_in_predecessor": 0,
+  "mounted": true,
+  "population_filter_may_differ": true,
+  "status": "COMPARED"
+}

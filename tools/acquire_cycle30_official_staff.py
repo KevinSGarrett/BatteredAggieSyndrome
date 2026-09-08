@@ -52,6 +52,7 @@ ORIGIN_PATHS = (
     "/sports/football/coaches",
     "/staff-directory/department/football",
     "/sports/football/roster/coaches",
+    "/sports/football/roster/staff",
 )
 
 
@@ -295,11 +296,13 @@ def main() -> int:
                     url, ledger, BUDGET, cache_only=args.cache_only
                 )
                 if int(receipt.get("http_status") or 0) >= 400 or not body:
-                    last_receipt = receipt
+                    if last_receipt is None:
+                        last_receipt = receipt
                     continue
                 html = redact_personal_contact(body.decode("utf-8", "replace"))
                 if html_is_not_found_shell(html):
-                    last_receipt = {**receipt, "status": "HTTP_NOT_FOUND_SHELL"}
+                    if last_receipt is None:
+                        last_receipt = {**receipt, "status": "HTTP_NOT_FOUND_SHELL"}
                     continue
                 last_receipt = receipt
                 people = parse_official_staff_html(html, page_url=url)
@@ -340,15 +343,24 @@ def main() -> int:
                 )
                 continue
             failed_status = int((last_receipt or {}).get("http_status") or 0)
+            shell = (
+                str((last_receipt or {}).get("status") or "") == "HTTP_NOT_FOUND_SHELL"
+            )
             attempts.append(
                 {
                     "program_id": pid,
                     "display_name": program.get("display_name"),
                     "classification": program.get("classification"),
                     "declared_route": "official_staff_directory_or_media_guide",
-                    "status": "ACQUISITION_FAILED"
-                    if failed_status >= 400 or failed_status == 0
-                    else "ATTEMPTED_EMPTY_PARSE",
+                    "status": (
+                        "ATTEMPTED_NOT_FOUND_SHELL"
+                        if shell
+                        else (
+                            "ACQUISITION_FAILED"
+                            if failed_status >= 400 or failed_status == 0
+                            else "ATTEMPTED_EMPTY_PARSE"
+                        )
+                    ),
                     "http_status": (last_receipt or {}).get("http_status"),
                     "receipt_identity": (last_receipt or {}).get("receipt_identity")
                     or discovery_receipt,

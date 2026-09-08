@@ -1,0 +1,12 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "HISTORICAL_C_TRANCHE_NEUTRAL_TRAVEL_SUMMARY",
+  "backlog_1963_2012_retained": true,
+  "missing_coordinates": 1342,
+  "model_consumed": false,
+  "period": "2013-2023",
+  "proximity_is_not_home_bonus": true,
+  "travel_rows": 1342,
+  "travel_with_coordinates": 0,
+  "verified_neutral_contests": 671
+}

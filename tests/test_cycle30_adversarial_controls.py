@@ -1108,6 +1108,89 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertTrue(delta["not_an_ncaa_discontinued_program_census"])
         self.assertEqual(delta["historical_absent_from_2026_n"], 1)
 
+    def test_roster_staff_and_s_table_parsers_and_parent_exclusions(self) -> None:
+        from aggie_analytics.cycle30.coaching import parse_official_staff_html
+        from aggie_analytics.cycle30.foundation_trace import (
+            KNOWN_PARENT_EXCLUSIONS,
+            parent_duplicate_conflict_audit,
+        )
+        from aggie_analytics.cycle30.pit_kernel import (
+            compare_kernel_to_predecessor_payload,
+        )
+
+        roster = parse_official_staff_html(
+            """
+            <div class="roster-card roster-staff-members-card-item">
+              <a href="/sports/football/roster/season/2026/staff/kenny-dillingham">x</a>
+              <a class="roster-card__title-link">Kenny Dillingham</a>
+              <span class="roster-card__position">Head Coach</span>
+            </div>
+            <div class="roster-card">
+              <a class="roster-card__title-link">AJ Ia</a>
+              <span class="roster-card__position">TE</span>
+            </div>
+            """,
+            page_url="https://thesundevils.com/sports/football/coaches",
+        )
+        roles = {row["role"] for row in roster}
+        self.assertIn("head_coach", roles)
+        self.assertFalse(any(row["person"] == "AJ Ia" for row in roster))
+        table = parse_official_staff_html(
+            """
+            <td class="s-table-body_cell"><span>Offensive Coordinator</span></td>
+            <td class="s-table-body_cell">
+              <a href="/sports/football/roster/coaches/marcus-arroyo/1">
+                <span>Marcus Arroyo</span>
+              </a>
+            </td>
+            """,
+            page_url="https://calbears.com/sports/football/coaches",
+        )
+        self.assertTrue(any(row["role"] == "offensive_coordinator" for row in table))
+        self.assertTrue(
+            html_is_not_found_shell(
+                "<title>Page not found | Arkansas Razorbacks</title>"
+            )
+        )
+        self.assertFalse(
+            html_is_not_found_shell(
+                "<title>Football Coaches</title> Page Not Found (404) @del @sitename"
+            )
+        )
+        known = KNOWN_PARENT_EXCLUSIONS[312472199]
+        self.assertEqual(known["reason"], "KNOWN_PARENT_EXCLUSION")
+        self.assertFalse(known["parent_present"])
+        audit = parent_duplicate_conflict_audit(
+            [
+                {
+                    "canonical_game_id": "SRC-002:GAME:1",
+                    "home_team_source_id": "50",
+                    "away_team_source_id": "2634",
+                    "start_date_utc_text": "2004-09-25T04:00:00.000Z",
+                    "home_points": 21,
+                    "away_points": 15,
+                    "neutral_site": False,
+                },
+                {
+                    "canonical_game_id": "SRC-002:GAME:2",
+                    "home_team_source_id": "50",
+                    "away_team_source_id": "2634",
+                    "start_date_utc_text": "2004-09-25T19:00:00.000Z",
+                    "home_points": 21,
+                    "away_points": 15,
+                    "neutral_site": True,
+                },
+            ]
+        )
+        self.assertEqual(audit["pair_calendar_date_collision_groups"], 1)
+        self.assertEqual(audit["site_class_conflict_groups"], 1)
+        self.assertEqual(audit["score_conflict_groups"], 0)
+        missing = compare_kernel_to_predecessor_payload(
+            [], Path("C:/no-such-data-root")
+        )
+        self.assertEqual(missing["status"], "NOT_MOUNTED")
+        self.assertTrue(missing["disagreement_is_not_copied_from_predecessor"])
+
 
 if __name__ == "__main__":
     raise SystemExit(unittest.main())

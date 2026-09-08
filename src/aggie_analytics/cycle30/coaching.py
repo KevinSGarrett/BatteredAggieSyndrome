@@ -179,10 +179,25 @@ _COACH_HREF_NAME = re.compile(
 )
 _TD = re.compile(r"<td[^>]*>(.*?)</td>", re.I | re.S)
 _NOT_FOUND_TITLE = re.compile(
-    r"<title>[^<]*(?:page not found \(404\)|page not found|404 - )[^<]*</title>",
+    r"<title>[^<]*(?:page not found(?:\s*\(404\))?|404\s*[-–|: ])[^<]*</title>",
     re.I,
 )
 _TAG = re.compile(r"<[^>]+>")
+_ROSTER_STAFF_MARK = re.compile(r"roster-staff-members-card-item", re.I)
+_ROSTER_STAFF_NAME = re.compile(
+    r'class="[^"]*roster-card__title-link[^"]*"[^>]*>(?P<name>.*?)</a>',
+    re.I | re.S,
+)
+_ROSTER_STAFF_TITLE = re.compile(
+    r'class="[^"]*roster-card__position[^"]*"[^>]*>(?P<title>.*?)</',
+    re.I | re.S,
+)
+_S_TABLE_TITLE_THEN_NAME = re.compile(
+    r"<span[^>]*>(?P<title>[^<]{3,90})</span>.{0,350}?"
+    r'href="/sports/[^"]*roster/coaches/[^"]+"[^>]*>\s*'
+    r"(?:<span[^>]*>)?(?P<name>[^<]{2,80})",
+    re.I | re.S,
+)
 
 
 def _plain(text: str) -> str:
@@ -191,9 +206,62 @@ def _plain(text: str) -> str:
 
 
 def html_is_not_found_shell(html: str) -> bool:
-    """HTTP 200 error shells are not staff directories."""
+    """HTTP 200 error shells are not staff directories.
+
+    Title-only. Body-wide 404 template strings appear on valid Sidearm pages.
+    """
 
     return bool(_NOT_FOUND_TITLE.search(html or ""))
+
+
+def _nodes_from_roster_staff_cards(html: str, *, page_url: str) -> list[dict[str, str]]:
+    """Sidearm 2 roster-staff-members cards. Player roster cards are excluded."""
+
+    nodes: list[dict[str, str]] = []
+    marks = list(_ROSTER_STAFF_MARK.finditer(html or ""))
+    for index, mark in enumerate(marks):
+        end = (
+            marks[index + 1].start() if index + 1 < len(marks) else mark.start() + 3000
+        )
+        window = (html or "")[mark.start() : end]
+        name_match = _ROSTER_STAFF_NAME.search(window)
+        title_match = _ROSTER_STAFF_TITLE.search(window)
+        name = _plain(name_match.group("name") if name_match else "")
+        title = _plain(title_match.group("title") if title_match else "")
+        if name and title:
+            nodes.append(
+                {
+                    "person": name,
+                    "title": title,
+                    "span_id": f"dom:{page_url}:{name}:{title}",
+                }
+            )
+    return nodes
+
+
+def _nodes_from_s_table_coaches(html: str, *, page_url: str) -> list[dict[str, str]]:
+    """Title cell then roster/coaches name link in the same bounded window."""
+
+    nodes: list[dict[str, str]] = []
+    for match in _S_TABLE_TITLE_THEN_NAME.finditer(html or ""):
+        name = _plain(match.group("name"))
+        title = _plain(match.group("title"))
+        if not name or not title:
+            continue
+        lowered = title.casefold()
+        if not any(
+            token in lowered
+            for token in ("coach", "coordinator", "analyst", "assistant")
+        ):
+            continue
+        nodes.append(
+            {
+                "person": name,
+                "title": title,
+                "span_id": f"dom:{page_url}:{name}:{title}",
+            }
+        )
+    return nodes
 
 
 def historical_season_page_title(current_title: str, year: int) -> str | None:
@@ -324,6 +392,10 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
                         "span_id": f"dom:{page_url}:{name}:{title}",
                     }
                 )
+    if "roster-staff-members-card-item" in (html or "").casefold():
+        nodes.extend(_nodes_from_roster_staff_cards(html or "", page_url=page_url))
+    if "roster/coaches/" in (html or "") and "s-table-body_cell" in (html or ""):
+        nodes.extend(_nodes_from_s_table_coaches(html or "", page_url=page_url))
     if not nodes:
         return []
     extracted = extract_row_bound_staff(nodes)

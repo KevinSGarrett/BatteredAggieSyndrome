@@ -10,12 +10,34 @@
   "failure_count": 1,
   "failures": [
     {
-      "reason": "CANONICAL_ROW_ABSENT",
+      "canonical_game_id": "SRC-002:GAME:312472199",
+      "finding_id": "C26-7A7-FALSE-QUARANTINE-312472199",
+      "note": "Predecessor 46,953-row foundation remains quarantined for this id. Cycle 26 structured-status successor restored the completed 2011 Eastern Michigan 41 Howard 9 game. Eligibility is not admission.",
+      "oriented_payload_present": false,
+      "parent_present": false,
+      "pit_feature_eligible": false,
+      "reason": "KNOWN_PARENT_EXCLUSION",
       "season": 2011,
-      "source_game_id": 312472199
+      "source_game_id": 312472199,
+      "successor_dataset_identity": "8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b",
+      "successor_disposition": "RESTORE_FALSE_SUBSTRING_QUARANTINE"
     }
   ],
-  "missing_canonical_count": 1,
+  "known_parent_exclusion_count": 1,
+  "known_parent_exclusions": [
+    {
+      "canonical_game_id": "SRC-002:GAME:312472199",
+      "finding_id": "C26-7A7-FALSE-QUARANTINE-312472199",
+      "note": "Predecessor 46,953-row foundation remains quarantined for this id. Cycle 26 structured-status successor restored the completed 2011 Eastern Michigan 41 Howard 9 game. Eligibility is not admission.",
+      "oriented_payload_present": false,
+      "parent_present": false,
+      "pit_feature_eligible": false,
+      "reason": "KNOWN_PARENT_EXCLUSION",
+      "successor_dataset_identity": "8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b",
+      "successor_disposition": "RESTORE_FALSE_SUBSTRING_QUARANTINE"
+    }
+  ],
+  "missing_canonical_count": 0,
   "not_a_count_scan": true,
   "raw_bytes_hashed_on_open": true,
   "seasons": [

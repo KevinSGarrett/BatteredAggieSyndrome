@@ -33,6 +33,16 @@ PREDECESSOR_PIT_PAYLOAD_DECLARED_SHA256 = (
 )
 PREDECESSOR_CLAIMED_ORIENTED_ROWS = 90198
 PREDECESSOR_CLAIMED_ELIGIBLE_ROWS = 89855
+PREDECESSOR_COMPARE_KEYS = (
+    "pit_prior_games_played",
+    "pit_prior_margin_mean",
+    "pit_prior_points_against_mean",
+    "pit_prior_points_for_mean",
+    "pit_prior_season_win_rate",
+    "pit_prior_win_rate",
+    "pit_season_to_date_games",
+    "pit_season_to_date_win_rate",
+)
 ADMITTED_DOMAINS = (
     "canonical_game_identity",
     "canonical_team_identity",
@@ -699,6 +709,91 @@ def mount_predecessor_oriented_payload(
         "kernel_games_absent_from_oriented": (len(kernel - games) if kernel else 0),
         "identity_sets_not_invented_from_integer_subtraction": True,
         "eligibility_is_not_admission": True,
+        "artifact_class": "REAL_EVIDENCE",
+    }
+
+
+def compare_kernel_to_predecessor_payload(
+    kernel_rows: Sequence[Mapping[str, Any]],
+    data_root: Path,
+) -> dict[str, Any]:
+    """Compare Cycle 30 kernel features to the mounted 90,198-row payload.
+
+    Disagreement is recorded. Predecessor eligibility is not copied into
+    the Cycle 30 kernel and is not PIT admission.
+    """
+
+    path = Path(data_root) / PREDECESSOR_PIT_PAYLOAD_RELATIVE
+    if not path.is_file():
+        return {
+            "mounted": False,
+            "status": "NOT_MOUNTED",
+            "compared_team_rows": 0,
+            "feature_matches": 0,
+            "feature_disagreements": 0,
+            "missing_in_predecessor": 0,
+            "eligibility_is_not_admission": True,
+            "disagreement_is_not_copied_from_predecessor": True,
+        }
+    wanted = {str(row.get("canonical_game_id")) for row in kernel_rows}
+    predecessor: dict[tuple[str, str], dict[str, Any]] = {}
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            gid = str(row.get("canonical_game_id") or "")
+            if gid not in wanted:
+                continue
+            team = str(row.get("canonical_team_id") or "")
+            predecessor[(gid, team)] = {
+                key: row.get(key) for key in PREDECESSOR_COMPARE_KEYS
+            }
+    matches = 0
+    disagreements = 0
+    missing = 0
+    samples: list[dict[str, Any]] = []
+    compared = 0
+    for row in kernel_rows:
+        gid = str(row.get("canonical_game_id"))
+        for team, feat in (
+            (str(row.get("home_canonical_team_id")), row.get("home_features") or {}),
+            (str(row.get("away_canonical_team_id")), row.get("away_features") or {}),
+        ):
+            compared += 1
+            parent = predecessor.get((gid, team))
+            if parent is None:
+                missing += 1
+                continue
+            if all(
+                parent.get(key) == feat.get(key) for key in PREDECESSOR_COMPARE_KEYS
+            ):
+                matches += 1
+                continue
+            disagreements += 1
+            if len(samples) < 8:
+                samples.append(
+                    {
+                        "canonical_game_id": gid,
+                        "canonical_team_id": team,
+                        "kernel": {
+                            key: feat.get(key) for key in PREDECESSOR_COMPARE_KEYS
+                        },
+                        "predecessor": parent,
+                    }
+                )
+    return {
+        "mounted": True,
+        "status": "COMPARED",
+        "kernel_unique_games": len(wanted),
+        "compared_team_rows": compared,
+        "feature_matches": matches,
+        "feature_disagreements": disagreements,
+        "missing_in_predecessor": missing,
+        "disagreement_samples": samples,
+        "population_filter_may_differ": True,
+        "eligibility_is_not_admission": True,
+        "disagreement_is_not_copied_from_predecessor": True,
         "artifact_class": "REAL_EVIDENCE",
     }
 

@@ -1,0 +1,189 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "PARENT_DUPLICATE_CONFLICT_AUDIT",
+  "duplicate_canonical_id_count": 0,
+  "groups": [
+    {
+      "away": "SRC-002:TEAM:2634",
+      "calendar_date": "2004-09-25",
+      "canonical_game_ids": [
+        "SRC-002:GAME:242690050",
+        "SRC-002:GAME:63827"
+      ],
+      "home": "SRC-002:TEAM:50",
+      "neutral_site_values": [
+        "False",
+        "True"
+      ],
+      "same_score_distinct_ids": true,
+      "score_conflict": false,
+      "scores": [
+        [
+          21,
+          15
+        ]
+      ],
+      "site_class_conflict": true
+    },
+    {
+      "away": "SRC-002:TEAM:2676",
+      "calendar_date": "2004-10-02",
+      "canonical_game_ids": [
+        "SRC-002:GAME:242760050",
+        "SRC-002:GAME:63828"
+      ],
+      "home": "SRC-002:TEAM:50",
+      "neutral_site_values": [
+        "False",
+        "True"
+      ],
+      "same_score_distinct_ids": true,
+      "score_conflict": false,
+      "scores": [
+        [
+          35,
+          10
+        ]
+      ],
+      "site_class_conflict": true
+    },
+    {
+      "away": "SRC-002:TEAM:2447",
+      "calendar_date": "2004-10-09",
+      "canonical_game_ids": [
+        "SRC-002:GAME:242830050",
+        "SRC-002:GAME:63831"
+      ],
+      "home": "SRC-002:TEAM:50",
+      "neutral_site_values": [
+        "False",
+        "True"
+      ],
+      "same_score_distinct_ids": true,
+      "score_conflict": false,
+      "scores": [
+        [
+          25,
+          42
+        ]
+      ],
+      "site_class_conflict": true
+    },
+    {
+      "away": "SRC-002:TEAM:2542",
+      "calendar_date": "2004-10-23",
+      "canonical_game_ids": [
+        "SRC-002:GAME:242970050",
+        "SRC-002:GAME:63833"
+      ],
+      "home": "SRC-002:TEAM:50",
+      "neutral_site_values": [
+        "False",
+        "True"
+      ],
+      "same_score_distinct_ids": true,
+      "score_conflict": false,
+      "scores": [
+        [
+          50,
+          14
+        ]
+      ],
+      "site_class_conflict": true
+    },
+    {
+      "away": "SRC-002:TEAM:2226",
+      "calendar_date": "2004-10-30",
+      "canonical_game_ids": [
+        "SRC-002:GAME:243040050",
+        "SRC-002:GAME:63835"
+      ],
+      "home": "SRC-002:TEAM:50",
+      "neutral_site_values": [
+        "False",
+        "True"
+      ],
+      "same_score_distinct_ids": true,
+      "score_conflict": false,
+      "scores": [
+        [
+          8,
+          38
+        ]
+      ],
+      "site_class_conflict": true
+    },
+    {
+      "away": "SRC-002:TEAM:50",
+      "calendar_date": "2004-11-20",
+      "canonical_game_ids": [
+        "SRC-002:GAME:243252065",
+        "SRC-002:GAME:63837"
+      ],
+      "home": "SRC-002:TEAM:2065",
+      "neutral_site_values": [
+        "False",
+        "True"
+      ],
+      "same_score_distinct_ids": true,
+      "score_conflict": false,
+      "scores": [
+        [
+          58,
+          52
+        ]
+      ],
+      "site_class_conflict": true
+    },
+    {
+      "away": "SRC-002:TEAM:50",
+      "calendar_date": "2004-11-27",
+      "canonical_game_ids": [
+        "SRC-002:GAME:243322229",
+        "SRC-002:GAME:63841"
+      ],
+      "home": "SRC-002:TEAM:2229",
+      "neutral_site_values": [
+        "False"
+      ],
+      "same_score_distinct_ids": true,
+      "score_conflict": false,
+      "scores": [
+        [
+          40,
+          23
+        ]
+      ],
+      "site_class_conflict": false
+    },
+    {
+      "away": "SRC-002:TEAM:2026",
+      "calendar_date": "2008-08-30",
+      "canonical_game_ids": [
+        "SRC-002:GAME:282430099",
+        "SRC-002:GAME:400361387"
+      ],
+      "home": "SRC-002:TEAM:99",
+      "neutral_site_values": [
+        "False"
+      ],
+      "same_score_distinct_ids": true,
+      "score_conflict": false,
+      "scores": [
+        [
+          41,
+          13
+        ]
+      ],
+      "site_class_conflict": false
+    }
+  ],
+  "not_a_count_scan": true,
+  "outcome_arithmetic_failures": 0,
+  "outcome_failures": [],
+  "pair_calendar_date_collision_groups": 8,
+  "parent_row_count": 46953,
+  "score_conflict_groups": 0,
+  "site_class_conflict_groups": 6,
+  "unique_canonical_game_ids": 46953
+}

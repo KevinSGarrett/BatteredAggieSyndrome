@@ -37,6 +37,7 @@ from aggie_analytics.cycle30.contracts_v2 import (  # noqa: E402
 )
 from aggie_analytics.cycle30.foundation_trace import (  # noqa: E402
     index_canonical,
+    parent_duplicate_conflict_audit,
     stratified_raw_comparisons,
 )
 from aggie_analytics.cycle30.claims import (  # noqa: E402
@@ -81,6 +82,7 @@ from aggie_analytics.cycle30.kernel_model import (  # noqa: E402
 )
 from aggie_analytics.cycle30.pit_kernel import (  # noqa: E402
     build_game_grain_kernel,
+    compare_kernel_to_predecessor_payload,
     kernel_trust_gate,
     mount_predecessor_oriented_payload,
     predecessor_reconciliation,
@@ -764,6 +766,10 @@ def main() -> int:
     hashes["HISTORICAL_RAW_TO_NORMALIZED_SAMPLE.jsonl"] = write_jsonl(
         EXT / "HISTORICAL_RAW_TO_NORMALIZED_SAMPLE.jsonl", raw_trace.get("sample") or []
     )
+    parent_dups = parent_duplicate_conflict_audit(games)
+    hashes["PARENT_DUPLICATE_CONFLICT_AUDIT.json"] = write_json(
+        ART / "PARENT_DUPLICATE_CONFLICT_AUDIT.json", parent_dups
+    )
 
     def _coords(payload: Mapping[str, Any] | None) -> tuple[float | None, float | None]:
         if not payload:
@@ -921,6 +927,90 @@ def main() -> int:
             ),
             "model_consumed": False,
             "full_schedule_remains_in_denominator": True,
+        },
+    )
+    historical_neutral_travel: list[dict[str, Any]] = []
+    historical_neutral_context: list[dict[str, Any]] = []
+    for game in games:
+        season = int(game.get("season") or 0)
+        if season < 2013 or season > 2023:
+            continue
+        if game.get("neutral_site") is not True:
+            continue
+        gid = str(game.get("canonical_game_id"))
+        home_src = str(game.get("home_team_source_id") or "")
+        away_src = str(game.get("away_team_source_id") or "")
+        home = team_id(home_src)
+        away = team_id(away_src)
+        venue = venues.get(str(game.get("venue_id") or ""))
+        vlat, vlon = _coords(venue)
+        ctx = contest_context(
+            canonical_game_id=gid,
+            source_order=[home, away],
+            canonical_home_id=home,
+            canonical_away_id=away,
+            designated_home_id=home,
+            designated_source="SRC-002",
+            site_class="NEUTRAL",
+            venue_id=None if not venue else str(venue.get("id")),
+            venue_name=(venue or {}).get("name") or game.get("venue_name"),
+            venue_lat=vlat,
+            venue_lon=vlon,
+        )
+        historical_neutral_context.append(ctx)
+        for src, team in ((home_src, home), (away_src, away)):
+            origin = team_geo.get(src)
+            try:
+                historical_neutral_travel.append(
+                    travel_row(
+                        canonical_game_id=gid,
+                        team_id=team,
+                        origin_lat=None if origin is None else origin[0],
+                        origin_lon=None if origin is None else origin[1],
+                        venue_lat=vlat,
+                        venue_lon=vlon,
+                        origin_class="TEAM_HOME_VENUE_PROXY"
+                        if origin
+                        else "UNKNOWN_TEAM_ORIGIN",
+                        origin_id=team if origin else None,
+                    )
+                )
+            except SiteContextError as exc:
+                historical_neutral_travel.append(
+                    {
+                        "canonical_game_id": gid,
+                        "team_id": team,
+                        "distance_km_haversine": None,
+                        "distance_km_vincenty": None,
+                        "missing_reason": str(exc),
+                        "model_consumed": False,
+                        "proximity_is_not_home_bonus": True,
+                    }
+                )
+    hashes["HISTORICAL_C_TRANCHE_NEUTRAL_TRAVEL.jsonl"] = write_jsonl(
+        EXT / "HISTORICAL_C_TRANCHE_NEUTRAL_TRAVEL.jsonl", historical_neutral_travel
+    )
+    hashes["HISTORICAL_C_TRANCHE_NEUTRAL_TRAVEL_SUMMARY.json"] = write_json(
+        ART / "HISTORICAL_C_TRANCHE_NEUTRAL_TRAVEL_SUMMARY.json",
+        {
+            "artifact_type": "HISTORICAL_C_TRANCHE_NEUTRAL_TRAVEL_SUMMARY",
+            "artifact_class": "REAL_EVIDENCE",
+            "period": "2013-2023",
+            "verified_neutral_contests": len(historical_neutral_context),
+            "travel_rows": len(historical_neutral_travel),
+            "travel_with_coordinates": sum(
+                1
+                for row in historical_neutral_travel
+                if row.get("distance_km_haversine") is not None
+            ),
+            "missing_coordinates": sum(
+                1
+                for row in historical_neutral_travel
+                if row.get("missing_reason") == "MISSING_COORDINATES"
+            ),
+            "model_consumed": False,
+            "backlog_1963_2012_retained": True,
+            "proximity_is_not_home_bonus": True,
         },
     )
 
@@ -1091,6 +1181,16 @@ def main() -> int:
             "artifact_class": (
                 "REAL_EVIDENCE" if recon_payload.get("mounted") else "BLOCKER_METADATA"
             ),
+        },
+    )
+    predecessor_feature_compare = compare_kernel_to_predecessor_payload(
+        comparison_rows, DATA
+    )
+    hashes["PIT_KERNEL_PREDECESSOR_FEATURE_COMPARE.json"] = write_json(
+        ART / "PIT_KERNEL_PREDECESSOR_FEATURE_COMPARE.json",
+        {
+            "artifact_type": "PIT_KERNEL_PREDECESSOR_FEATURE_COMPARE",
+            **predecessor_feature_compare,
         },
     )
 
@@ -1827,7 +1927,12 @@ def main() -> int:
                 1
                 for row in staff_attempts
                 if str(row.get("status"))
-                in {"CAPTURED", "ACQUISITION_FAILED", "ATTEMPTED_EMPTY_PARSE"}
+                in {
+                    "CAPTURED",
+                    "ACQUISITION_FAILED",
+                    "ATTEMPTED_EMPTY_PARSE",
+                    "ATTEMPTED_NOT_FOUND_SHELL",
+                }
             ),
             "attempted_programs": len(attempted_staff),
             "not_attempted": sum(

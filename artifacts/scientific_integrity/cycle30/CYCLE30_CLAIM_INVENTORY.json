@@ -24,6 +24,27 @@
     },
     {
       "artifact_path": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+      "claim_id": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json:/artifact_type::artifact_type",
+      "denominator": null,
+      "dependencies": [],
+      "field": "artifact_type",
+      "formula": "discovered_authority_field",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
+      "numerator": null,
+      "pointer": "/artifact_type",
+      "population": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+      "producer": "aggie_analytics.cycle30",
+      "row_identity": "",
+      "source_identities": [
+        "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json"
+      ],
+      "temporal_authority": "artifact_as_of_materialization",
+      "trust_class": "UNTRUSTED_SHADOW",
+      "validator": "tools/validate_cycle30_gates.py",
+      "value_class": "string"
+    },
+    {
+      "artifact_path": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
       "claim_id": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json:/candidate_count::candidate_count",
       "denominator": null,
       "dependencies": [],
@@ -32,6 +53,27 @@
       "independent_reference": "aggie_analytics.scientific_reference.cycle30",
       "numerator": 0,
       "pointer": "/candidate_count",
+      "population": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+      "producer": "aggie_analytics.cycle30",
+      "row_identity": "",
+      "source_identities": [
+        "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json"
+      ],
+      "temporal_authority": "artifact_as_of_materialization",
+      "trust_class": "UNTRUSTED_SHADOW",
+      "validator": "tools/validate_cycle30_gates.py",
+      "value_class": "integer"
+    },
+    {
+      "artifact_path": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+      "claim_id": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json:/candidate_rows::candidate_rows",
+      "denominator": null,
+      "dependencies": [],
+      "field": "candidate_rows",
+      "formula": "discovered_authority_field",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
+      "numerator": 0,
+      "pointer": "/candidate_rows",
       "population": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
       "producer": "aggie_analytics.cycle30",
       "row_identity": "",
@@ -1008,53 +1050,11 @@
       "trust_class": "UNTRUSTED_SHADOW",
       "validator": "tools/validate_cycle30_gates.py",
       "value_class": "string"
-    },
-    {
-      "artifact_path": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "claim_id": "BAS_DOMAIN_CATALOG_CROSSWALK.json:/mappings/35/state::state",
-      "denominator": null,
-      "dependencies": [],
-      "field": "state",
-      "formula": "discovered_authority_field",
-      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
-      "numerator": null,
-      "pointer": "/mappings/35/state",
-      "population": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "producer": "aggie_analytics.cycle30",
-      "row_identity": "",
-      "source_identities": [
-        "BAS_DOMAIN_CATALOG_CROSSWALK.json"
-      ],
-      "temporal_authority": "artifact_as_of_materialization",
-      "trust_class": "UNTRUSTED_SHADOW",
-      "validator": "tools/validate_cycle30_gates.py",
-      "value_class": "string"
-    },
-    {
-      "artifact_path": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "claim_id": "BAS_DOMAIN_CATALOG_CROSSWALK.json:/mappings/36/state::state",
-      "denominator": null,
-      "dependencies": [],
-      "field": "state",
-      "formula": "discovered_authority_field",
-      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
-      "numerator": null,
-      "pointer": "/mappings/36/state",
-      "population": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "producer": "aggie_analytics.cycle30",
-      "row_identity": "",
-      "source_identities": [
-        "BAS_DOMAIN_CATALOG_CROSSWALK.json"
-      ],
-      "temporal_authority": "artifact_as_of_materialization",
-      "trust_class": "UNTRUSTED_SHADOW",
-      "validator": "tools/validate_cycle30_gates.py",
-      "value_class": "string"
     }
   ],
-  "declared_count": 1180,
-  "discovered_count": 1180,
-  "inventory_identity": "60f1c9062d235580ce0eacadc6963dfe79469d18cbd5c2460e2f8706cbb50f9d",
+  "declared_count": 1197,
+  "discovered_count": 1197,
+  "inventory_identity": "546335b3458b996f45a54deab1a3607a25082b193b05b06597d16c6b0f2afad9",
   "producer_cannot_write_unmapped_count": true,
   "unmapped_count": 0
 }

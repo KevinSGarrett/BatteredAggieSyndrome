@@ -1,7 +1,7 @@
 {
   "artifact_class": "REAL_EVIDENCE",
   "artifact_type": "PIT_KERNEL_PREDECESSOR_FEATURE_COMPARE",
-  "compared_team_rows": 26488,
+  "compared_team_rows": 26560,
   "disagreement_is_not_copied_from_predecessor": true,
   "disagreement_samples": [
     {
@@ -200,8 +200,8 @@
   "eligibility_is_not_admission": true,
   "feature_disagreements": 26486,
   "feature_matches": 2,
-  "kernel_unique_games": 13244,
-  "missing_in_predecessor": 0,
+  "kernel_unique_games": 13280,
+  "missing_in_predecessor": 72,
   "mounted": true,
   "population_filter_may_differ": true,
   "status": "COMPARED"

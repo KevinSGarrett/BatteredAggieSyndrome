@@ -1,13 +1,13 @@
 {
   "artifact_class": "REAL_EVIDENCE",
-  "declared_comparison_rows": 13244,
+  "declared_comparison_rows": 13280,
   "matched": true,
-  "matched_team_rows": 26488,
+  "matched_team_rows": 26560,
   "rebuild": {
     "future_append_stable": true,
     "keyed_row_identity": "de7d558f2174e730e138665996eb975009b99fc98b70353181a4603c6b4fe4ec",
     "shuffle_stable": true,
     "sorted_set_identity": "b7b9e5ede49dd7583702f8d644b556eecc851a98f4df86569401d47249bd67db"
   },
-  "reconstructed_count": 26488
+  "reconstructed_count": 26560
 }

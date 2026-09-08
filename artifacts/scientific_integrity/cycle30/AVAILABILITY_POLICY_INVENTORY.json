@@ -1,7 +1,7 @@
 {
   "artifact_class": "REAL_EVIDENCE",
   "artifact_type": "AVAILABILITY_POLICY_INVENTORY",
-  "attempted_official_report_routes": 10,
+  "attempted_official_report_routes": 11,
   "conference_counts": {
     "ACC": 17,
     "American Athletic": 14,

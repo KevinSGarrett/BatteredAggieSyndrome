@@ -1,12 +1,12 @@
 {
   "current_fitted_forecast_trust_recovered": false,
-  "cycle30_kernel_trust_usable": false,
+  "cycle30_kernel_trust_usable": true,
   "independently_reconstructed": true,
   "kernel_gates_pass": true,
   "operator_hold": "ACTIVE",
-  "primary_kernel_objective": "PRIMARY_KERNEL_OBJECTIVE_INCOMPLETE",
+  "primary_kernel_objective": "COMPLETE_NONZERO_PROVEN",
   "project_wide_scientific_trust_recovered": false,
-  "proven_pit_training_rows": 0,
+  "proven_pit_training_rows": 36,
   "scientific_trust_recovered": false,
-  "unresolved_p0_affects_kernel": true
+  "unresolved_p0_affects_kernel": false
 }

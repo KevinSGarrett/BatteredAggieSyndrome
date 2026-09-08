@@ -25,6 +25,7 @@ from aggie_analytics.cycle30.admission import (  # noqa: E402
 )
 from aggie_analytics.cycle30.availability import (  # noqa: E402
     inventory_availability_policies,
+    join_candidates_to_roster,
 )
 from aggie_analytics.cycle30.audit_register import (  # noqa: E402
     official_staff_attempt_rows,
@@ -83,6 +84,7 @@ from aggie_analytics.cycle30.kernel_model import (  # noqa: E402
 from aggie_analytics.cycle30.pit_kernel import (  # noqa: E402
     build_game_grain_kernel,
     compare_kernel_to_predecessor_payload,
+    forecast_freeze_authority,
     kernel_trust_gate,
     mount_predecessor_oriented_payload,
     predecessor_reconciliation,
@@ -97,6 +99,7 @@ from aggie_analytics.cycle30.populations import (  # noqa: E402
     fcs_subset_from_parent,
     historical_scope_contract,
     membership_rows_1963_2012,
+    ncaa_discontinued_program_census,
     reject_synthetic_real_denominator,
     tamu_specialization_contract,
     week1_slice_from_contests,
@@ -110,6 +113,7 @@ from aggie_analytics.cycle30.site_context import (  # noqa: E402
     persist_design_row,
     travel_gap_counts,
     travel_row,
+    venue_index_by_name,
 )
 from aggie_analytics.scientific_reference.cycle30.pit import (  # noqa: E402
     compare_producer_rows,
@@ -325,6 +329,65 @@ def map_game(raw: Mapping[str, Any]) -> dict[str, Any]:
         "away_team_source_id": raw.get("away_team_source_id"),
         "artifact_class": "REAL_EVIDENCE",
     }
+
+
+def map_cfbd_game(raw: Mapping[str, Any]) -> dict[str, Any]:
+    home_src = raw.get("homeId") or raw.get("home_id")
+    away_src = raw.get("awayId") or raw.get("away_id")
+    start = str(raw.get("startDate") or raw.get("start_date") or "").replace(
+        ".000Z", "Z"
+    )
+    return {
+        "canonical_game_id": f"SRC-002:GAME:{raw.get('id')}",
+        "home_canonical_team_id": team_id(home_src),
+        "away_canonical_team_id": team_id(away_src),
+        "season": int(raw.get("season") or raw.get("year") or 0),
+        "start_date_utc_text": start,
+        "date_precision": "INSTANT",
+        "home_points": raw.get("homePoints") or raw.get("home_points"),
+        "away_points": raw.get("awayPoints") or raw.get("away_points"),
+        "source_id": "SRC-002",
+        "home_classification": raw.get("homeClassification")
+        or raw.get("home_classification"),
+        "away_classification": raw.get("awayClassification")
+        or raw.get("away_classification"),
+        "neutral_site": raw.get("neutralSite")
+        if "neutralSite" in raw
+        else raw.get("neutral_site"),
+        "venue_id": raw.get("venueId") or raw.get("venue_id"),
+        "venue_name": raw.get("venue") or raw.get("venue_name"),
+        "completed": raw.get("completed"),
+        "home_team_source_id": home_src,
+        "away_team_source_id": away_src,
+        "artifact_class": "REAL_EVIDENCE",
+    }
+
+
+def overlay_historical_venues(
+    games: list[dict[str, Any]],
+    cfbd_hist: list[dict[str, Any]],
+    venues_by_name: dict[str, Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    by_id = {
+        str(row.get("id")): row for row in cfbd_hist if row.get("id") is not None
+    }
+    out: list[dict[str, Any]] = []
+    for game in games:
+        updated = dict(game)
+        extra = by_id.get(str(game.get("canonical_game_id") or "").rsplit(":", 1)[-1])
+        if extra:
+            if updated.get("venue_id") in {None, ""}:
+                vid = extra.get("venueId") or extra.get("venue_id")
+                if vid is not None:
+                    updated["venue_id"] = vid
+            if not updated.get("venue_name"):
+                updated["venue_name"] = extra.get("venue") or extra.get("venue_name")
+        if updated.get("venue_id") in {None, ""} and updated.get("venue_name"):
+            named = venues_by_name.get(str(updated["venue_name"]).casefold().strip())
+            if named and named.get("id") is not None:
+                updated["venue_id"] = named.get("id")
+        out.append(updated)
+    return out
 
 
 def oriented_outcomes(game: Mapping[str, Any]) -> list[dict[str, Any]] | None:
@@ -594,6 +657,9 @@ def main() -> int:
 
     cfbd_venues = load_optional_jsonl(EXT / "CFBD_VENUES.jsonl")
     venues = venue_index(cfbd_venues)
+    venues_named = venue_index_by_name(cfbd_venues)
+    cfbd_hist_games = load_optional_jsonl(EXT / "CFBD_GAMES_1963_2012.jsonl")
+    games = overlay_historical_venues(games, cfbd_hist_games, venues_named)
 
     site_rows: dict[str, dict[str, Any]] = {}
     neutrals: list[dict[str, Any]] = []
@@ -1079,6 +1145,8 @@ def main() -> int:
 
     kernel_games = []
     kernel_outcomes = []
+    kernel_authorities: dict[str, dict[str, Any]] = {}
+    kernel_cutoffs: dict[str, str] = {}
     for game in games:
         season = int(game["season"])
         if season < 2006 or season > 2023:
@@ -1094,6 +1162,67 @@ def main() -> int:
             continue
         kernel_games.append(game)
         kernel_outcomes.extend(outcomes)
+        kernel_authorities[str(game["canonical_game_id"])] = {
+            "source_id": str(game.get("source_id") or "SRC-002"),
+            "effective_utc": str(game["start_date_utc_text"]),
+            "known_at_utc": str(game["start_date_utc_text"]),
+            "receipt_sha256": "UNPROVEN",
+            "classification": "UNPROVEN",
+            "evidence_class": "CONSERVATIVE_BOUND_NOT_PUBLICATION",
+            "allow_retrospective_prior": True,
+        }
+    freeze_rows = load_jsonl(FORECAST_ROWS) if FORECAST_ROWS.is_file() else []
+    freeze_by_pair: dict[tuple[str, str], dict[str, Any]] = {}
+    for row in freeze_rows:
+        home = str(row.get("home_canonical_team_id") or "")
+        away = str(row.get("away_canonical_team_id") or "")
+        if home and away:
+            freeze_by_pair.setdefault(tuple(sorted((home, away))), row)
+    seen_kernel = {str(game["canonical_game_id"]) for game in kernel_games}
+    freeze_bound_2026 = 0
+    for raw in cfbd_games:
+        if int(raw.get("season") or raw.get("year") or 0) != 2026:
+            continue
+        if not raw.get("completed"):
+            continue
+        mapped = map_cfbd_game(raw)
+        if str(mapped.get("home_classification") or "").lower() != "fbs":
+            continue
+        if str(mapped.get("away_classification") or "").lower() != "fbs":
+            continue
+        outcomes = oriented_outcomes(mapped)
+        if outcomes is None:
+            continue
+        freeze = freeze_by_pair.get(
+            tuple(
+                sorted(
+                    (
+                        str(mapped["home_canonical_team_id"]),
+                        str(mapped["away_canonical_team_id"]),
+                    )
+                )
+            )
+        )
+        if freeze is None:
+            continue
+        gid = str(mapped["canonical_game_id"])
+        if gid in seen_kernel:
+            continue
+        try:
+            authority = forecast_freeze_authority(
+                freeze, receipt_sha256=sha256_file(FORECAST_ROWS)
+            )
+        except Exception:
+            continue
+        kickoff = str(
+            freeze.get("kickoff_bound_utc") or mapped["start_date_utc_text"]
+        )
+        kernel_games.append(mapped)
+        kernel_outcomes.extend(outcomes)
+        kernel_authorities[gid] = authority
+        kernel_cutoffs[gid] = kickoff
+        seen_kernel.add(gid)
+        freeze_bound_2026 += 1
     extra_game = {
         "canonical_game_id": "FIXTURE:FUTURE-APPEND",
         "home_canonical_team_id": "SRC-002:TEAM:FUTURE-A",
@@ -1124,9 +1253,13 @@ def main() -> int:
         kernel_outcomes,
         expected_population_complete=False,
         site_rows=site_rows,
+        authorities=kernel_authorities,
+        target_cutoff_by_game=kernel_cutoffs,
     )
     comparison_rows = [*kernel["rows"], *kernel["retrospective_rows"]]
-    reconstructed = reconstruct_game_features(kernel_games, kernel_outcomes)
+    reconstructed = reconstruct_game_features(
+        kernel_games, kernel_outcomes, authorities=kernel_authorities
+    )
     reconstructed_declared = [
         row
         for row in reconstructed
@@ -1145,9 +1278,11 @@ def main() -> int:
         {
             "scope": kernel["scope"],
             "estimand": (
-                "2013-2023_FBS_FBS_BINARY_WIN_WITH_2006_2023_IN_WINDOW_PRIORS"
+                "2013-2023_FBS_FBS_BINARY_WIN_WITH_2006_2023_IN_WINDOW_PRIORS;"
+                "2026_WEEK1_FREEZE_BOUND_PROSPECTIVE_WHERE_RECEIPTED"
             ),
             "kernel_input_games": len(kernel_games),
+            "freeze_bound_2026_completed_week1_games": freeze_bound_2026,
             "proven_pit_training_rows": kernel["proven_pit_training_rows"],
             "retrospective_candidate_rows": kernel["retrospective_candidate_rows"],
             "game_grain_count": kernel["game_grain_count"],
@@ -1598,15 +1733,26 @@ def main() -> int:
     availability_candidates = load_optional_jsonl(
         EXT / "AVAILABILITY_CANDIDATE_PLAYER_ROWS.jsonl"
     )
+    roster_slice = load_optional_jsonl(EXT / "CFBD_ROSTER_JOIN_SLICE.jsonl")
+    joined_availability = join_candidates_to_roster(
+        availability_candidates, roster_slice
+    )
     hashes["AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json"] = write_json(
         ART / "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
         {
+            **{key: value for key, value in joined_availability.items() if key != "rows"},
             "artifact_class": "REAL_EVIDENCE"
             if availability_candidates
             else "BLOCKER_METADATA",
             "candidate_count": len(availability_candidates),
-            "joined_to_verified_roster": False,
-            "disposition": "CANDIDATE_NOT_JOINED",
+            "joined_to_verified_roster": int(
+                joined_availability.get("joined_to_verified_roster") or 0
+            ),
+            "disposition": (
+                "JOINED_NAME_ONLY_STATUS_UNKNOWN"
+                if joined_availability.get("joined_to_verified_roster")
+                else "CANDIDATE_NOT_JOINED"
+            ),
             "no_report_means": "UNKNOWN",
             "private_medical_detail_ingested": False,
             "owner": "BAT-414",
@@ -1734,6 +1880,13 @@ def main() -> int:
     remaining_finals = (
         load_json(remaining_finals_path) if remaining_finals_path.is_file() else {}
     )
+    ncaa_com_matches = remaining_finals.get("ncaa_com_remaining_matches") or {}
+    ncaa_direct = remaining_finals.get("ncaa_direct_attempts") or []
+    stats_statuses = [
+        int(row.get("http_status") or 0)
+        for row in ncaa_direct
+        if isinstance(row, dict)
+    ]
     hashes["WEEK1_REMAINING_FINALS_ATTEMPTS.json"] = write_json(
         ART / "WEEK1_REMAINING_FINALS_ATTEMPTS.json",
         {
@@ -1742,8 +1895,30 @@ def main() -> int:
             else "BLOCKER_METADATA",
             "t90_not_relabeled": True,
             "no_post_kickoff_forecast_created": True,
-            "smu_fsu_contest_id": "6594400",
+            "smu_fsu_stats_ncaa_contest_id": "6594400",
             "smu_t90_lease_expired_not_recaptured": True,
+            "stats_ncaa_org_http_statuses": stats_statuses,
+            "stats_ncaa_org_remaining_403": bool(stats_statuses)
+            and all(status == 403 for status in stats_statuses),
+            "ncaa_com_scoreboard_used": True,
+            "ncaa_com_ids_are_not_stats_ncaa_ids": True,
+            "ncaa_com_remaining_terminal": {
+                contest_id: (match or {}).get("terminal_state")
+                for contest_id, match in ncaa_com_matches.items()
+            },
+            "smu_fsu_ncaa_com_final": str(
+                (ncaa_com_matches.get("6594400") or {}).get("terminal_state") or ""
+            )
+            == "TERMINAL_STATUS_ESTABLISHED",
+            "nd_wisconsin_ncaa_com_final": str(
+                (ncaa_com_matches.get("6602874") or {}).get("terminal_state") or ""
+            )
+            == "TERMINAL_STATUS_ESTABLISHED",
+            "louisville_olemiss_ncaa_com_final": str(
+                (ncaa_com_matches.get("6620581") or {}).get("terminal_state") or ""
+            )
+            == "TERMINAL_STATUS_ESTABLISHED",
+            "cfbd_not_ncaa_official_final": True,
             "payload": remaining_finals,
         },
     )
@@ -2022,6 +2197,20 @@ def main() -> int:
     hashes["CFBD_MEMBERSHIP_PRESENCE_DELTA.json"] = write_json(
         ART / "CFBD_MEMBERSHIP_PRESENCE_DELTA.json", membership_delta
     )
+    ncaa_directory_rows = load_optional_jsonl(EXT / "NCAA_DIRECTORY_PROGRAM_ROWS.jsonl")
+    wikipedia_former_rows = load_optional_jsonl(
+        EXT / "WIKIPEDIA_FORMER_PROGRAM_ROWS.jsonl"
+    )
+    discontinued_census = ncaa_discontinued_program_census(
+        ncaa_rows=ncaa_directory_rows,
+        wikipedia_rows=wikipedia_former_rows,
+        current_ids=[str(row.get("program_id") or "") for row in current_programs],
+        cfbd_absent_ids=membership_delta.get("historical_absent_from_2026_ids")
+        or [],
+    )
+    hashes["NCAA_DISCONTINUED_PROGRAM_CENSUS.json"] = write_json(
+        ART / "NCAA_DISCONTINUED_PROGRAM_CENSUS.json", discontinued_census
+    )
     cycle30_test_count = sum(
         1
         for line in (ROOT / "tests" / "test_cycle30_adversarial_controls.py")
@@ -2076,7 +2265,14 @@ def main() -> int:
             historical_wiki_episodes=sum(
                 len(row.get("episodes") or []) for row in wiki_hist_rows
             ),
-            availability_candidates_not_joined=len(availability_candidates),
+            availability_candidates_not_joined=int(
+                joined_availability.get("unmatched_name_only")
+                or max(
+                    0,
+                    len(availability_candidates)
+                    - int(joined_availability.get("joined_to_verified_roster") or 0),
+                )
+            ),
             predecessor_payload_mounted=bool(recon_payload.get("mounted")),
             predecessor_oriented_rows=int(
                 recon_payload.get("predecessor_oriented_development_rows") or 0
@@ -2086,6 +2282,12 @@ def main() -> int:
             ),
             cfbd_historical_absent_from_2026=int(
                 membership_delta.get("historical_absent_from_2026_n") or 0
+            ),
+            ncaa_discontinued_rows=int(
+                discontinued_census.get("ncaa_census_rows") or 0
+            ),
+            availability_joined_to_roster=int(
+                joined_availability.get("joined_to_verified_roster") or 0
             ),
         ),
     )

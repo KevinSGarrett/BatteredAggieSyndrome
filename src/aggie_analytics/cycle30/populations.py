@@ -463,6 +463,7 @@ def cfbd_membership_presence_delta(
         "current_n": len(current),
         "historical_distinct_programs": len(historical),
         "historical_absent_from_2026_n": len(absent_from_current),
+        "historical_absent_from_2026_ids": absent_from_current,
         "current_without_historical_row": len(current_without_historical),
         "absent_from_2026_sample": [
             {
@@ -477,6 +478,50 @@ def cfbd_membership_presence_delta(
             {
                 "absent": absent_from_current,
                 "current_only": current_without_historical,
+            }
+        ),
+    }
+
+
+def ncaa_discontinued_program_census(
+    *,
+    ncaa_rows: Sequence[Mapping[str, Any]],
+    wikipedia_rows: Sequence[Mapping[str, Any]],
+    current_ids: Sequence[str],
+    cfbd_absent_ids: Sequence[str],
+) -> dict[str, Any]:
+    """Independent discontinued-program census. CFBD presence delta is not this."""
+
+    ncaa = [dict(row) for row in ncaa_rows]
+    wiki = [dict(row) for row in wikipedia_rows]
+    ncaa_names = {
+        str(row.get("program_name") or row.get("school") or "").casefold().strip()
+        for row in ncaa
+        if str(row.get("program_name") or row.get("school") or "").strip()
+    }
+    wiki_names = {
+        str(row.get("program_name") or row.get("school") or "").casefold().strip()
+        for row in wiki
+        if str(row.get("program_name") or row.get("school") or "").strip()
+    }
+    ncaa_source = bool(ncaa)
+    return {
+        "artifact_type": "NCAA_DISCONTINUED_PROGRAM_CENSUS",
+        "artifact_class": "REAL_EVIDENCE" if ncaa or wiki else "BLOCKER_METADATA",
+        "ncaa_census_rows": len(ncaa),
+        "wikipedia_former_program_rows": len(wiki),
+        "current_n": len({str(item) for item in current_ids if item}),
+        "cfbd_absent_from_2026_n": len(cfbd_absent_ids),
+        "cfbd_presence_delta_is_not_this_census": True,
+        "ncaa_census_acquired": ncaa_source,
+        "wikipedia_is_not_ncaa_census": True,
+        "not_an_ncaa_discontinued_program_census": not ncaa_source,
+        "ncaa_wikipedia_name_overlap": len(ncaa_names & wiki_names),
+        "source_id": "SRC-NCAA" if ncaa_source else "SRC-WIKIMEDIA",
+        "identity": sha256_json(
+            {
+                "ncaa": sorted(ncaa_names),
+                "wiki": sorted(wiki_names),
             }
         ),
     }

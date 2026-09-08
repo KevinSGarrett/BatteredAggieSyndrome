@@ -222,6 +222,28 @@ def validate_row_authority(authority: Mapping[str, Any], *, target_cutoff: str) 
     return RETROSPECTIVE
 
 
+def forecast_freeze_authority(
+    row: Mapping[str, Any], *, receipt_sha256: str
+) -> dict[str, Any]:
+    """Per-contest freeze receipt. Not historical outcome-publication proof."""
+
+    issued = row.get("snapshot_timestamp_utc") or row.get("issued_at_utc")
+    if not issued:
+        raise PitKernelError("forecast freeze missing snapshot_timestamp_utc")
+    if not receipt_sha256:
+        raise PitKernelError("forecast freeze missing receipt_sha256")
+    return {
+        "source_id": "WEEK1_2026_FORECAST_SUCCESSOR",
+        "effective_utc": str(issued),
+        "known_at_utc": str(issued),
+        "receipt_sha256": str(receipt_sha256),
+        "classification": "FEATURE_TIME_AUTHORITY",
+        "evidence_class": "FORECAST_FREEZE_RECEIPT",
+        "source_publication_utc": str(issued),
+        "allow_retrospective_prior": True,
+    }
+
+
 class PriorAccumulator:
     def __init__(self) -> None:
         self.games = 0

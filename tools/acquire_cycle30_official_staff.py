@@ -25,7 +25,9 @@ if str(ROOT / "src") not in sys.path:
 from aggie_analytics.cycle30.coaching import (  # noqa: E402
     extract_athletics_website_from_wikitext,
     html_is_not_found_shell,
+    match_wikidata_website,
     parse_official_staff_html,
+    parse_official_staff_json,
     redact_personal_contact,
     role_families_from_title,
 )
@@ -54,6 +56,10 @@ ORIGIN_PATHS = (
     "/sports/football/roster/coaches",
     "/sports/football/roster/staff",
     "/sports/football/staff",
+    "/sports/football/coaches/index",
+    "/staff.aspx?path=football",
+    "/staff-directory?path=football",
+    "/api/v2/Staff",
 )
 
 
@@ -171,7 +177,7 @@ def fetch_html(
         url,
         headers={
             "User-Agent": UA,
-            "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
+            "Accept": "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8",
         },
     )
     start = utc_now()
@@ -246,6 +252,7 @@ def main() -> int:
     }
     titles = [str(row.get("title") or "") for row in wiki_rows]
     wikitext_by_title = load_current_wikitext(titles)
+    wikidata_rows = load_jsonl(OUT / "WIKIDATA_P856_WEBSITES.jsonl")
     ledger: list[dict[str, Any]] = []
     attempts: list[dict[str, Any]] = []
     people_out: list[dict[str, Any]] = []
@@ -258,6 +265,10 @@ def main() -> int:
             website = (
                 extract_athletics_website_from_wikitext(wikitext) if wikitext else None
             )
+            if not website:
+                website = match_wikidata_website(
+                    str(program.get("display_name") or ""), wikidata_rows
+                )
             if not website:
                 prior = prior_attempts.get(pid) or {}
                 if str(prior.get("status") or "") == "CAPTURED":
@@ -308,7 +319,17 @@ def main() -> int:
                         last_receipt = {**receipt, "status": "HTTP_NOT_FOUND_SHELL"}
                     continue
                 last_receipt = receipt
-                people = parse_official_staff_html(html, page_url=url)
+                people: list[dict[str, str]] = []
+                stripped = body.lstrip()
+                if stripped.startswith(b"{") or stripped.startswith(b"["):
+                    try:
+                        payload = json.loads(html)
+                    except json.JSONDecodeError:
+                        payload = None
+                    if payload is not None:
+                        people = parse_official_staff_json(payload, page_url=url)
+                if not people:
+                    people = parse_official_staff_html(html, page_url=url)
                 if useful_people(people):
                     parsed_people = people
                     chosen = receipt

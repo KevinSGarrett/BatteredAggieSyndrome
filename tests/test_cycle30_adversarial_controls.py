@@ -17,6 +17,8 @@ from aggie_analytics.cycle30.acquisition import (
     classify_transport_and_upstream,
     contest_scoped_terminal,
     bind_actual_upstream,
+    match_ncaa_com_contest,
+    parse_ncaa_com_scoreboard_contests,
 )
 from aggie_analytics.cycle30.admission import prove_coaching_not_modeled
 from aggie_analytics.cycle30.claims import (
@@ -26,15 +28,22 @@ from aggie_analytics.cycle30.claims import (
     reject_empty_science_pass,
     reject_vacuous_row_count,
 )
-from aggie_analytics.cycle30.availability import extract_candidate_player_rows
+from aggie_analytics.cycle30.availability import (
+    extract_candidate_player_rows,
+    join_candidates_to_roster,
+)
 from aggie_analytics.cycle30.coaching import (
     CoachingError,
     attempt_ledger_count,
+    extract_official_website_from_wikidata_entity,
     extract_row_bound_staff,
     hc_oc_dc_matrix,
     historical_season_page_title,
     html_is_not_found_shell,
+    match_wikidata_website,
     overlay_historical_lattice,
+    parse_official_staff_html,
+    parse_official_staff_json,
     reject_literal_attempted,
 )
 from aggie_analytics.cycle30.cost import attestation_check
@@ -48,6 +57,7 @@ from aggie_analytics.cycle30.findings import (
 from aggie_analytics.cycle30.pit_kernel import (
     PitKernelError,
     build_game_grain_kernel,
+    forecast_freeze_authority,
     rebuild_kernel_comparison,
     validate_oriented_outcomes,
     validate_row_authority,
@@ -55,6 +65,7 @@ from aggie_analytics.cycle30.pit_kernel import (
 from aggie_analytics.cycle30.populations import (
     PopulationError,
     classify_pair_counts,
+    ncaa_discontinued_program_census,
     reject_synthetic_real_denominator,
 )
 from aggie_analytics.cycle30.scoring import (
@@ -1251,6 +1262,235 @@ class Cycle30AdversarialTests(unittest.TestCase):
         )
         self.assertEqual(missing["status"], "NOT_MOUNTED")
         self.assertTrue(missing["disagreement_is_not_copied_from_predecessor"])
+
+    def test_forecast_freeze_before_kickoff_is_proven(self) -> None:
+        prior = {
+            "canonical_game_id": "G2015",
+            "home_canonical_team_id": "H",
+            "away_canonical_team_id": "A",
+            "season": 2015,
+            "start_date_utc_text": "2015-09-05T19:00:00Z",
+            "date_precision": "INSTANT",
+            "home_points": 21,
+            "away_points": 14,
+            "source_id": "SRC-002",
+        }
+        target = {
+            "canonical_game_id": "G2026",
+            "home_canonical_team_id": "H",
+            "away_canonical_team_id": "A",
+            "season": 2026,
+            "start_date_utc_text": "2026-09-05T23:30:00Z",
+            "date_precision": "INSTANT",
+            "home_points": 24,
+            "away_points": 17,
+            "source_id": "SRC-002",
+        }
+
+        def outcomes(game: dict, home_points: int, away_points: int) -> list[dict]:
+            return [
+                {
+                    "canonical_game_id": game["canonical_game_id"],
+                    "canonical_team_id": game["home_canonical_team_id"],
+                    "label_win": home_points > away_points,
+                    "points_for": home_points,
+                    "points_against": away_points,
+                    "margin": home_points - away_points,
+                    "season": game["season"],
+                },
+                {
+                    "canonical_game_id": game["canonical_game_id"],
+                    "canonical_team_id": game["away_canonical_team_id"],
+                    "label_win": away_points > home_points,
+                    "points_for": away_points,
+                    "points_against": home_points,
+                    "margin": away_points - home_points,
+                    "season": game["season"],
+                },
+            ]
+
+        freeze = {
+            "snapshot_timestamp_utc": "2026-08-31T17:00:00Z",
+            "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+        }
+        authorities = {
+            "G2015": {
+                "source_id": "SRC-002",
+                "effective_utc": prior["start_date_utc_text"],
+                "known_at_utc": prior["start_date_utc_text"],
+                "receipt_sha256": "UNPROVEN",
+                "classification": "UNPROVEN",
+                "evidence_class": "CONSERVATIVE_BOUND_NOT_PUBLICATION",
+                "allow_retrospective_prior": True,
+            },
+            "G2026": forecast_freeze_authority(freeze, receipt_sha256="freeze-sha"),
+        }
+        kernel = build_game_grain_kernel(
+            [prior, target],
+            [*outcomes(prior, 21, 14), *outcomes(target, 24, 17)],
+            expected_population_complete=False,
+            authorities=authorities,
+            target_cutoff_by_game={
+                "G2015": prior["start_date_utc_text"],
+                "G2026": target["start_date_utc_text"],
+            },
+        )
+        self.assertGreater(kernel["proven_pit_training_rows"], 0)
+        self.assertEqual(kernel["primary_kernel_objective"], "COMPLETE_NONZERO_PROVEN")
+        late = forecast_freeze_authority(
+            {
+                "snapshot_timestamp_utc": "2026-09-06T00:00:00Z",
+                "kickoff_bound_utc": "2026-09-05T23:30:00Z",
+            },
+            receipt_sha256="freeze-sha",
+        )
+        blocked = build_game_grain_kernel(
+            [prior, target],
+            [*outcomes(prior, 21, 14), *outcomes(target, 24, 17)],
+            expected_population_complete=False,
+            authorities={"G2015": authorities["G2015"], "G2026": late},
+            target_cutoff_by_game={
+                "G2015": prior["start_date_utc_text"],
+                "G2026": target["start_date_utc_text"],
+            },
+        )
+        self.assertEqual(blocked["proven_pit_training_rows"], 0)
+
+    def test_ncaa_com_scoreboard_is_contest_scoped(self) -> None:
+        page = (
+            '{"contestId":6603962,"url":"\\/game\\/6603962",'
+            '"gameState":"F","statusCodeDisplay":"Final",'
+            '"teams":[{"isHome":false,"seoname":"smu","nameShort":"SMU","score":27},'
+            '{"isHome":true,"seoname":"florida-st","nameShort":"Florida St.","score":24}]}'
+        )
+        contests = parse_ncaa_com_scoreboard_contests(page)
+        self.assertEqual(len(contests), 1)
+        self.assertEqual(contests[0]["terminal_state"], TERMINAL_STATUS_ESTABLISHED)
+        matched = match_ncaa_com_contest(
+            contests,
+            home_names=("florida st", "florida st.", "florida state"),
+            away_names=("smu",),
+        )
+        self.assertIsNotNone(matched)
+        neighbor = parse_ncaa_com_scoreboard_contests(
+            "Final somewhere "
+            '{"contestId":1,"url":"\\/game\\/1","gameState":"I","statusCodeDisplay":"Live",'
+            '"teams":[{"isHome":true,"seoname":"a","nameShort":"A","score":0},'
+            '{"isHome":false,"seoname":"b","nameShort":"B","score":0}]}'
+        )
+        self.assertEqual(neighbor[0]["terminal_state"], NOT_TERMINAL)
+
+    def test_sidearm_football_staff_table_and_json_and_wikidata(self) -> None:
+        html = """
+        <tr class="sidearm-staff-category" data-category-id="10"><th>Football</th></tr>
+        <tr class="sidearm-staff-member" data-category-id="10">
+          <td headers="col-staff_title">Head Coach</td>
+          <a aria-label='Jeff Faris, Head Coach' href="/sports/football/coaches/jeff-faris">x</a>
+        </tr>
+        <tr class="sidearm-staff-category" data-category-id="3"><th>Basketball</th></tr>
+        <tr class="sidearm-staff-member" data-category-id="3">
+          <td headers="col-staff_title">Head Coach</td>
+          <a aria-label='Other Sport, Head Coach' href="/sports/mbball/coaches/other">x</a>
+        </tr>
+        """
+        parsed = parse_official_staff_html(
+            html, page_url="https://letsgopeay.com/staff.aspx"
+        )
+        self.assertTrue(any(row["person"] == "Jeff Faris" for row in parsed))
+        self.assertFalse(any(row["person"] == "Other Sport" for row in parsed))
+        json_rows = parse_official_staff_json(
+            {
+                "items": [
+                    {
+                        "firstName": "Jane",
+                        "lastName": "Offense",
+                        "title": "Offensive Coordinator",
+                        "category": {"title": "Football"},
+                    }
+                ]
+            },
+            page_url="https://example.com/api/v2/Staff",
+        )
+        self.assertTrue(any(row["role"] == "offensive_coordinator" for row in json_rows))
+        website = extract_official_website_from_wikidata_entity(
+            {
+                "claims": {
+                    "P856": [
+                        {
+                            "mainsnak": {
+                                "datavalue": {"value": "https://brownbears.com/"}
+                            }
+                        }
+                    ]
+                }
+            }
+        )
+        self.assertEqual(website, "https://brownbears.com/")
+        matched = match_wikidata_website(
+            "Brown",
+            [
+                {
+                    "itemLabel": "Nathaniel Brown (footballer)",
+                    "website": "https://example.net/person",
+                },
+                {
+                    "itemLabel": "Brown Bears football",
+                    "website": "https://brownbears.com/",
+                },
+            ],
+        )
+        self.assertEqual(matched, "https://brownbears.com/")
+        wordpress = parse_official_staff_html(
+            """<tr>
+            <td><a href="/coache/tim-cramsey/">Tim Cramsey</a></td>
+            <td>Offensive Coordinator</td>
+            </tr>""",
+            page_url="https://arkansasrazorbacks.com/staff-directory?path=football",
+        )
+        self.assertTrue(any(row["person"] == "Tim Cramsey" for row in wordpress))
+        soccer_club = match_wikidata_website(
+            "Richmond",
+            [
+                {
+                    "itemLabel": "Richmond Football Club",
+                    "website": "https://www.richmondfc.com.au/",
+                }
+            ],
+        )
+        self.assertIsNone(soccer_club)
+
+    def test_availability_join_is_name_only_not_health(self) -> None:
+        candidates = extract_candidate_player_rows(
+            "<td>John Smith</td>",
+            source_id="SRC-017",
+            uri="https://example.test/report",
+        )
+        self.assertTrue(candidates)
+        joined = join_candidates_to_roster(
+            candidates,
+            [{"full_name": "John Smith", "canonical_person_id": "PERSON:1"}],
+        )
+        self.assertGreaterEqual(joined["joined_to_verified_roster"], 1)
+        self.assertEqual(joined["no_report_means"], "UNKNOWN")
+        self.assertTrue(joined["roster_or_participation_is_not_availability"])
+
+    def test_ncaa_discontinued_census_is_not_cfbd_delta(self) -> None:
+        census = ncaa_discontinued_program_census(
+            ncaa_rows=[{"program_name": "Idaho"}],
+            wikipedia_rows=[{"program_name": "Idaho Vandals football"}],
+            current_ids=["SRC-002:TEAM:1"],
+            cfbd_absent_ids=["SRC-002:TEAM:9"],
+        )
+        self.assertFalse(census["not_an_ncaa_discontinued_program_census"])
+        self.assertEqual(census["ncaa_census_rows"], 1)
+        empty = ncaa_discontinued_program_census(
+            ncaa_rows=[],
+            wikipedia_rows=[{"program_name": "Pacific Tigers football"}],
+            current_ids=["SRC-002:TEAM:1"],
+            cfbd_absent_ids=["SRC-002:TEAM:9"],
+        )
+        self.assertTrue(empty["not_an_ncaa_discontinued_program_census"])
+        self.assertTrue(empty["cfbd_presence_delta_is_not_this_census"])
 
 
 if __name__ == "__main__":

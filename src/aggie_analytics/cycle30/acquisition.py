@@ -240,6 +240,104 @@ def contest_scoped_terminal(
     return NOT_TERMINAL
 
 
+_NCAA_COM_CONTEST = re.compile(
+    r'"contestId":(?P<contest_id>\d+),"url":"(?P<url>[^"]*)",'
+    r'"gameState":"(?P<game_state>[^"]*)","statusCodeDisplay":"(?P<status>[^"]*)"'
+    r".{0,4000}?"
+    r'"teams":\[(?P<t1>\{.*?\}),(?P<t2>\{.*?\})\]',
+    re.S,
+)
+_NCAA_COM_IS_HOME = re.compile(r'"isHome"\s*:\s*(true|false)')
+_NCAA_COM_SEO = re.compile(r'"seoname"\s*:\s*"([^"]+)"')
+_NCAA_COM_NAME = re.compile(r'"nameShort"\s*:\s*"([^"]+)"')
+_NCAA_COM_SCORE = re.compile(r'"score"\s*:\s*(\d+)')
+
+
+def _ncaa_com_team(blob: str) -> dict[str, Any] | None:
+    is_home = _NCAA_COM_IS_HOME.search(blob or "")
+    name = _NCAA_COM_NAME.search(blob or "")
+    score = _NCAA_COM_SCORE.search(blob or "")
+    seo = _NCAA_COM_SEO.search(blob or "")
+    if is_home is None or name is None or score is None:
+        return None
+    return {
+        "is_home": is_home.group(1) == "true",
+        "seoname": seo.group(1) if seo else "",
+        "name_short": name.group(1),
+        "score": int(score.group(1)),
+    }
+
+
+def parse_ncaa_com_scoreboard_contests(page_text: str) -> list[dict[str, Any]]:
+    """Contest-scoped NCAA.com scoreboard objects. Neighborhood Final is not used."""
+
+    contests: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for match in _NCAA_COM_CONTEST.finditer(page_text or ""):
+        contest_id = match.group("contest_id")
+        if contest_id in seen:
+            continue
+        seen.add(contest_id)
+        home = away = None
+        for blob in (match.group("t1"), match.group("t2")):
+            team = _ncaa_com_team(blob)
+            if team is None:
+                home = away = None
+                break
+            if team["is_home"]:
+                home = team
+            else:
+                away = team
+        if home is None or away is None:
+            continue
+        status = str(match.group("status") or "").strip().casefold()
+        state = str(match.group("game_state") or "").strip().upper()
+        terminal = (
+            TERMINAL_STATUS_ESTABLISHED
+            if state == "F" and status == "final"
+            else NOT_TERMINAL
+        )
+        contests.append(
+            {
+                "ncaa_com_contest_id": contest_id,
+                "url": match.group("url").replace("\\/", "/"),
+                "game_state": state,
+                "status_code_display": match.group("status"),
+                "home_name": home["name_short"],
+                "away_name": away["name_short"],
+                "home_seoname": home["seoname"],
+                "away_seoname": away["seoname"],
+                "home_points": home["score"],
+                "away_points": away["score"],
+                "terminal_state": terminal,
+                "source": "NCAA_COM_SCOREBOARD",
+                "not_stats_ncaa_org": True,
+                "artifact_class": "REAL_EVIDENCE",
+            }
+        )
+    return contests
+
+
+def match_ncaa_com_contest(
+    contests: Sequence[Mapping[str, Any]],
+    *,
+    home_names: Sequence[str],
+    away_names: Sequence[str],
+) -> dict[str, Any] | None:
+    home_keys = {str(item).casefold().rstrip(".") for item in home_names}
+    away_keys = {str(item).casefold().rstrip(".") for item in away_names}
+    for row in contests:
+        home = str(row.get("home_name") or "").casefold().rstrip(".")
+        away = str(row.get("away_name") or "").casefold().rstrip(".")
+        home_seo = str(row.get("home_seoname") or "").casefold()
+        away_seo = str(row.get("away_seoname") or "").casefold()
+        if (home in home_keys or home_seo in home_keys) and (
+            away in away_keys or away_seo in away_keys
+        ):
+            return dict(row)
+    return None
+
+
 def bind_participants(
     *,
     canonical_home_id: str,

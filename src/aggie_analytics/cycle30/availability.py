@@ -225,6 +225,13 @@ def inventory_availability_policies(
 _CANDIDATE_NAME = re.compile(
     r"<t[dh][^>]*>\s*([A-Z][a-z]+(?:[-\s][A-Z][a-z'.]+){1,3})\s*</t[dh]>",
 )
+_CANDIDATE_COMMA = re.compile(
+    r"<t[dh][^>]*>\s*([A-Z][a-z]+,\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\s*</t[dh]>",
+)
+_JSON_PLAYER_NAME = re.compile(
+    r'"(?:player(?:Name)?|athleteName|fullName|displayName)"\s*:\s*"([^"]{3,80})"',
+    re.I,
+)
 
 
 def extract_candidate_player_rows(
@@ -234,8 +241,16 @@ def extract_candidate_player_rows(
 
     rows: list[dict[str, Any]] = []
     seen: set[str] = set()
+    names: list[str] = []
     for match in _CANDIDATE_NAME.finditer(html or ""):
-        name = " ".join((match.group(1) or "").split())
+        names.append(match.group(1))
+    for match in _CANDIDATE_COMMA.finditer(html or ""):
+        last, first = [part.strip() for part in match.group(1).split(",", 1)]
+        names.append(f"{first} {last}")
+    for match in _JSON_PLAYER_NAME.finditer(html or ""):
+        names.append(match.group(1))
+    for raw in names:
+        name = " ".join((raw or "").split())
         key = name.casefold()
         if key in seen:
             continue
@@ -250,6 +265,8 @@ def extract_candidate_player_rows(
                 "athlete",
             )
         ):
+            continue
+        if len(name.split()) < 2:
             continue
         seen.add(key)
         rows.append(
@@ -270,6 +287,83 @@ def extract_candidate_player_rows(
         if len(rows) >= limit:
             break
     return rows
+
+
+def _normalize_person_name(value: str) -> str:
+    return re.sub(r"[^a-z ]", "", str(value or "").casefold())
+
+
+def join_candidates_to_roster(
+    candidates: Sequence[Mapping[str, Any]],
+    roster_rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Join public name-only candidates to verified roster identities.
+
+    No report still means UNKNOWN. Roster membership is not availability.
+    """
+
+    roster_index: dict[str, Mapping[str, Any]] = {}
+    for row in roster_rows:
+        name = _normalize_person_name(
+            str(
+                row.get("full_name")
+                or row.get("display_name")
+                or " ".join(
+                    str(part)
+                    for part in (
+                        row.get("first_name") or row.get("firstName"),
+                        row.get("last_name") or row.get("lastName"),
+                    )
+                    if part
+                )
+                or row.get("name")
+                or ""
+            )
+        )
+        if name:
+            roster_index.setdefault(name, row)
+    joined: list[dict[str, Any]] = []
+    unmatched = 0
+    for candidate in candidates:
+        key = _normalize_person_name(str(candidate.get("candidate_name") or ""))
+        roster = roster_index.get(key)
+        if roster is None:
+            unmatched += 1
+            joined.append({**dict(candidate), "joined_to_verified_roster": False})
+            continue
+        joined.append(
+            {
+                **dict(candidate),
+                "joined_to_verified_roster": True,
+                "roster_identity": str(
+                    roster.get("canonical_person_id")
+                    or roster.get("id")
+                    or roster.get("athlete_id")
+                    or ""
+                ),
+                "disposition": "JOINED_NAME_ONLY_STATUS_UNKNOWN",
+                "health_status_inferred": False,
+                "no_report_means": "UNKNOWN",
+                "roster_or_participation_is_not_availability": True,
+                "out_of_fitted_models": True,
+                "owner": "BAT-414",
+                "artifact_class": "REAL_EVIDENCE",
+            }
+        )
+    return {
+        "artifact_type": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY",
+        "candidate_rows": len(candidates),
+        "joined_to_verified_roster": sum(
+            1 for row in joined if row.get("joined_to_verified_roster")
+        ),
+        "unmatched_name_only": unmatched,
+        "no_report_means": "UNKNOWN",
+        "roster_or_participation_is_not_availability": True,
+        "out_of_fitted_models": True,
+        "rows": joined,
+        "artifact_class": "REAL_EVIDENCE" if candidates else "BLOCKER_METADATA",
+        "owner": "BAT-414",
+    }
 
 
 def _counts(rows: Sequence[Mapping[str, Any]], key: str) -> dict[str, int]:

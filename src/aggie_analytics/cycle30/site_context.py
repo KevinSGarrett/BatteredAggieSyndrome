@@ -221,6 +221,18 @@ def missing_coordinate_reason(
     return "MISSING_VENUE"
 
 
+def venue_index_by_name(rows: Sequence[Mapping[str, Any]]) -> dict[str, Mapping[str, Any]]:
+    """Exact casefold name index. Not a default and not fuzzy matching."""
+
+    out: dict[str, Mapping[str, Any]] = {}
+    for row in rows:
+        name = str(row.get("name") or "").casefold().strip()
+        if not name:
+            continue
+        out.setdefault(name, row)
+    return out
+
+
 def travel_gap_counts(rows: Sequence[Mapping[str, Any]]) -> dict[str, int]:
     return {
         "travel_with_coordinates": sum(

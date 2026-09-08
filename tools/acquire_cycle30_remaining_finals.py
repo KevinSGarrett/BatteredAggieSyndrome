@@ -22,6 +22,8 @@ from aggie_analytics.cycle30.acquisition import (  # noqa: E402
     classify_semantic_page,
     classify_transport_and_upstream,
     contest_scoped_terminal,
+    match_ncaa_com_contest,
+    parse_ncaa_com_scoreboard_contests,
     request_identity,
     receipt_identity,
 )
@@ -44,11 +46,26 @@ UA = (
 )
 EXT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 BUDGET = {
-    "max_requests": 6,
+    "max_requests": 12,
     "max_retries": 0,
     "concurrency": 1,
     "metered_scraper_credits": 0,
-    "route": "ncaa_stats_direct_http",
+    "route": "ncaa_stats_direct_http_plus_ncaa_com_scoreboard",
+}
+NCAA_COM_WEEKS = ("00", "01", "02", "03")
+REMAINING_NAME_KEYS = {
+    "6602874": {
+        "home_names": ("wisconsin", "wisconsin badgers"),
+        "away_names": ("notre dame", "notre-dame", "notre dame fighting irish"),
+    },
+    "6620581": {
+        "home_names": ("ole miss", "ole-miss", "mississippi"),
+        "away_names": ("louisville",),
+    },
+    "6594400": {
+        "home_names": ("florida st", "florida st.", "florida state", "florida-st"),
+        "away_names": ("smu",),
+    },
 }
 
 
@@ -188,6 +205,74 @@ def main() -> int:
                 break
     except Exception as exc:  # noqa: BLE001
         smu_cfbd = {"error": type(exc).__name__, "not_ncaa_official_final": True}
+    ncaa_com_contests: list[dict[str, object]] = []
+    ncaa_com_attempts: list[dict[str, object]] = []
+    cache_com = EXT / "raw" / "ncaa"
+    cache_com.mkdir(parents=True, exist_ok=True)
+    for week in NCAA_COM_WEEKS:
+        uri = f"https://www.ncaa.com/scoreboard/football/fbs/2026/{week}/all-conf"
+        start = utc_now()
+        cache = cache_com / f"scoreboard-2026-{week}.html"
+        http_status = None
+        body = b""
+        error = None
+        try:
+            request = urllib.request.Request(uri, headers={"User-Agent": UA})
+            with urllib.request.urlopen(request, timeout=30) as response:
+                http_status = int(response.status)
+                body = response.read()
+            cache.write_bytes(body)
+        except urllib.error.HTTPError as exc:
+            error = f"HTTPError:{exc.code}"
+            http_status = int(exc.code)
+            body = exc.read() or b""
+        except Exception as exc:  # noqa: BLE001
+            error = str(type(exc).__name__)
+            if cache.is_file():
+                body = cache.read_bytes()
+                http_status = 200
+        end = utc_now()
+        ncaa_com_attempts.append(
+            {
+                "uri": uri,
+                "http_status": http_status,
+                "error": error,
+                "retrieved_at_utc": end,
+                "raw_sha256": sha256_bytes(body) if body else None,
+                "receipt_identity": receipt_identity(
+                    request_identity_sha256=request_identity(
+                        method="GET",
+                        uri=uri,
+                        source_contract="NCAA_COM_SCOREBOARD",
+                    ),
+                    start_utc=start,
+                    end_utc=end,
+                    time_authority="local_clock",
+                    raw_sha256=sha256_bytes(body) if body else "empty",
+                ),
+                "artifact_class": "REAL_EVIDENCE",
+            }
+        )
+        if body:
+            ncaa_com_contests.extend(
+                parse_ncaa_com_scoreboard_contests(body.decode("utf-8", "replace"))
+            )
+    ncaa_com_matches = {}
+    for contest in REMAINING:
+        contest_id = contest["ncaa_contest_id"]
+        keys = REMAINING_NAME_KEYS[contest_id]
+        matched = match_ncaa_com_contest(
+            ncaa_com_contests,
+            home_names=keys["home_names"],
+            away_names=keys["away_names"],
+        )
+        if matched is None:
+            matched = match_ncaa_com_contest(
+                ncaa_com_contests,
+                home_names=keys["away_names"],
+                away_names=keys["home_names"],
+            )
+        ncaa_com_matches[contest_id] = matched
     out = EXT / "outputs" / "WEEK1_REMAINING_FINALS_ATTEMPTS.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(
@@ -204,6 +289,9 @@ def main() -> int:
                     for row in predecessor_rows
                 ],
                 "smu_fsu_cfbd_corroboration": smu_cfbd,
+                "ncaa_com_scoreboard_attempts": ncaa_com_attempts,
+                "ncaa_com_contests_parsed": len(ncaa_com_contests),
+                "ncaa_com_remaining_matches": ncaa_com_matches,
                 "smu_t90_lease_expired_not_recaptured": True,
                 "no_new_scheduler_job": True,
             },
@@ -213,7 +301,16 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print("remaining_finals", len(rows), [row.get("terminal_state") for row in rows])
+    print(
+        "remaining_finals",
+        len(rows),
+        [row.get("terminal_state") for row in rows],
+        "ncaa_com",
+        {
+            key: (value or {}).get("terminal_state")
+            for key, value in ncaa_com_matches.items()
+        },
+    )
     return 0
 
 

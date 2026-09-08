@@ -7,6 +7,7 @@ not joined to verified roster identities.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import sys
 import time
@@ -24,15 +25,16 @@ if str(ROOT / "src") not in sys.path:
 from aggie_analytics.cycle30.availability import (  # noqa: E402
     PUBLIC_AVAILABILITY_ROUTES,
     extract_candidate_player_rows,
+    join_candidates_to_roster,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 12,
+    "max_requests": 20,
     "max_retries": 1,
     "concurrency": 1,
     "metered_scraper_credits": 0,
-    "route_count": len(PUBLIC_AVAILABILITY_ROUTES),
+    "route_count": len(PUBLIC_AVAILABILITY_ROUTES) + 1,
 }
 UA = (
     "BAS-Cycle30-Reconstruction/1.0 "
@@ -120,7 +122,14 @@ def main() -> int:
         return 0
     ledger: list[dict[str, Any]] = []
     rows: list[dict[str, Any]] = []
-    for route in PUBLIC_AVAILABILITY_ROUTES:
+    extra_routes = (
+        {
+            "source_id": "SRC-017-LIVE",
+            "conference": "SEC",
+            "uri": "https://www.secsports.com/fbreports",
+        },
+    )
+    for route in [*PUBLIC_AVAILABILITY_ROUTES, *extra_routes]:
         uri = route["uri"]
         body = fetch_url(uri, ledger, BUDGET)
         receipt = ledger[-1]
@@ -195,8 +204,33 @@ def main() -> int:
     candidates = [
         item for row in rows for item in (row.get("candidate_player_rows") or [])
     ]
+    roster_rows: list[dict[str, Any]] = []
+    people_csv = Path(
+        r"C:\BatteredAggieSyndrome.data\canonical\BAT-388\sha256"
+        r"\0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d"
+        r"\canonical_people_registry.csv"
+    )
+    if people_csv.is_file():
+        with people_csv.open(encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                roster_rows.append(row)
+    cfbd_roster = OUT / "CFBD_ROSTER_JOIN_SLICE.jsonl"
+    if cfbd_roster.is_file():
+        for line in cfbd_roster.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                roster_rows.append(json.loads(line))
+    joined = join_candidates_to_roster(candidates, roster_rows)
     (OUT / "AVAILABILITY_CANDIDATE_PLAYER_ROWS.jsonl").write_text(
-        "".join(json.dumps(row, sort_keys=True) + "\n" for row in candidates),
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in joined["rows"]),
+        encoding="utf-8",
+    )
+    (OUT / "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json").write_text(
+        json.dumps(
+            {key: value for key, value in joined.items() if key != "rows"},
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
         encoding="utf-8",
     )
     print(
@@ -207,8 +241,10 @@ def main() -> int:
         len(ledger),
         "http_ok",
         sum(1 for row in rows if int(row["http_status"] or 0) == 200),
-        "candidates_not_joined",
+        "candidates",
         len(candidates),
+        "joined",
+        joined["joined_to_verified_roster"],
     )
     return 0
 

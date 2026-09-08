@@ -65,6 +65,8 @@ def remaining_audit_register(
     predecessor_oriented_rows: int = 0,
     predecessor_eligible_rows: int = 0,
     cfbd_historical_absent_from_2026: int = 0,
+    ncaa_discontinued_rows: int = 0,
+    availability_joined_to_roster: int = 0,
 ) -> dict[str, Any]:
     selected = {
         "cycle30_head": head_sha,
@@ -167,23 +169,39 @@ def remaining_audit_register(
             "source_artifact_claim_sets": [
                 "artifacts/scientific_integrity/cycle30/HISTORICAL_SCOPE_CONTRACT.json",
                 "artifacts/scientific_integrity/cycle30/CFBD_MEMBERSHIP_PRESENCE_DELTA.json",
+                "artifacts/scientific_integrity/cycle30/NCAA_DISCONTINUED_PROGRAM_CENSUS.json",
             ],
             "blocker": (
-                "CFBD year membership presence delta is not an NCAA discontinued-program census"
+                "NCAA discontinued-program census rows="
+                f"{ncaa_discontinued_rows}; CFBD presence delta remains a "
+                "separate non-census identity"
+                if ncaa_discontinued_rows
+                else (
+                    "CFBD year membership presence delta is not an NCAA "
+                    "discontinued-program census"
+                )
             ),
             "next_action": (
-                "Acquire era-aware discontinued/entry records independent of CFBD; "
-                f"CFBD historical programs absent from 2026 N={cfbd_historical_absent_from_2026}"
+                "Manager semantic review of NCAA discontinued census against CFBD delta"
+                if ncaa_discontinued_rows
+                else (
+                    "Acquire era-aware discontinued/entry records independent of CFBD; "
+                    f"CFBD historical programs absent from 2026 N={cfbd_historical_absent_from_2026}"
+                )
             ),
             "affected_use_restriction": "historical opportunity denominators remain incomplete",
             "selected_revisions": selected,
-            "scope_provenance_result": "CFBD_PRESENCE_DELTA_NOT_NCAA_CENSUS",
+            "scope_provenance_result": (
+                "NCAA_CENSUS_SUBMITTED_NOT_AUDITED"
+                if ncaa_discontinued_rows
+                else "CFBD_PRESENCE_DELTA_NOT_NCAA_CENSUS"
+            ),
             "semantic_result": "PENDING_MANAGER",
             "adversarial_result": "PENDING_MANAGER",
             "new_claims_independently_verified": [],
             "failures": [],
             "remaining_work": [
-                "discontinued/entry census independent of CFBD year membership",
+                "era-aware entry/lower-division labels on NCAA census rows",
             ],
             "not_audited_reason": "omission named rather than collapsed into one UNREVIEWED label",
         },
@@ -200,6 +218,7 @@ def remaining_audit_register(
             "blocker": (
                 f"attempted_official_report_routes={availability_routes_attempted}; "
                 f"candidate_player_rows_not_joined={availability_candidates_not_joined}; "
+                f"joined_to_verified_roster={availability_joined_to_roster}; "
                 "no_report=UNKNOWN not healthy"
                 if availability_routes_attempted
                 else "attempted_official_report_routes=0; no_report=UNKNOWN not healthy"
@@ -343,6 +362,11 @@ def remaining_audit_register(
             "blocker": (
                 "PRIMARY_KERNEL_OBJECTIVE_INCOMPLETE because proven PIT rows=0; "
                 "manager must verify entire consumed chain"
+                if proven_pit_rows <= 0
+                else (
+                    f"proven PIT rows={proven_pit_rows} from forecast-freeze receipts; "
+                    "manager must verify entire consumed chain; UNTRUSTED_SHADOW"
+                )
             ),
             "next_action": (
                 "Independent verify raw/source identities, filters, labels/ties, "
@@ -358,8 +382,16 @@ def remaining_audit_register(
             "semantic_result": "PENDING_MANAGER",
             "adversarial_result": "PENDING_MANAGER",
             "new_claims_independently_verified": [],
-            "failures": ["proven_pit_rows_zero", "publication_receipts_absent"],
-            "remaining_work": ["source publication evidence for PIT admission"],
+            "failures": (
+                ["proven_pit_rows_zero", "publication_receipts_absent"]
+                if proven_pit_rows <= 0
+                else []
+            ),
+            "remaining_work": (
+                ["source publication evidence for PIT admission"]
+                if proven_pit_rows <= 0
+                else ["manager verification of freeze-bound prospective rows"]
+            ),
             "not_audited_reason": "passing fixtures cannot establish this result",
         },
         {

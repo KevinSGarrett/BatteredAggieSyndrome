@@ -213,6 +213,210 @@ _STAFF_DIR_TITLE_CELL = re.compile(
     r"(?P<title>.*?)</td>",
     re.I | re.S,
 )
+_SIDEARM_CATEGORY = re.compile(
+    r'<tr[^>]*class="[^"]*sidearm-staff-category[^"]*"[^>]*data-category-id="'
+    r'(?P<cat>\d+)"[^>]*>\s*<th[^>]*>(?P<title>.*?)</th>',
+    re.I | re.S,
+)
+_SIDEARM_MEMBER = re.compile(
+    r'<tr[^>]*class="[^"]*sidearm-staff-member[^"]*"[^>]*data-category-id="'
+    r'(?P<cat>\d+)"[^>]*>(?P<row>.*?)</tr>',
+    re.I | re.S,
+)
+_SIDEARM_ARIA_NAME = re.compile(r"aria-label='([^']+)'", re.I)
+_SIDEARM_TITLE_CELL = re.compile(
+    r'<td[^>]*headers="[^"]*col-staff_title[^"]*"[^>]*>(?P<title>.*?)</td>',
+    re.I | re.S,
+)
+_EMBEDDED_STAFF_OBJECT = re.compile(
+    r'\{[^{}]{0,120}"firstName"\s*:\s*"(?P<first>[^"]+)"[^{}]{0,120}'
+    r'"lastName"\s*:\s*"(?P<last>[^"]+)"[^{}]{0,240}'
+    r'"(?:title|jobTitle)"\s*:\s*"(?P<title>[^"]{3,90})"',
+    re.I | re.S,
+)
+_GENERIC_TR = re.compile(r"<tr\b[^>]*>(?P<row>.*?)</tr>", re.I | re.S)
+_GENERIC_TD = re.compile(r"<td\b[^>]*>(?P<cell>.*?)</td>", re.I | re.S)
+_PERSON_NAME_HINT = re.compile(
+    r"^[A-Za-z][A-Za-z.'\-]+(?:\s+[A-Za-z][A-Za-z.'\-]+){1,3}$"
+)
+
+
+def _nodes_from_sidearm_staff_member_table(
+    html: str, *, page_url: str, sport: str = "football"
+) -> list[dict[str, str]]:
+    sport_key = sport.casefold()
+    football_cats: set[str] = set()
+    for match in _SIDEARM_CATEGORY.finditer(html or ""):
+        heading = _plain(match.group("title")).casefold()
+        if heading == sport_key or heading.startswith(f"{sport_key} "):
+            football_cats.add(match.group("cat"))
+    nodes: list[dict[str, str]] = []
+    for match in _SIDEARM_MEMBER.finditer(html or ""):
+        if football_cats and match.group("cat") not in football_cats:
+            continue
+        row = match.group("row")
+        aria = _SIDEARM_ARIA_NAME.search(row)
+        name = ""
+        if aria:
+            name = _plain(aria.group(1).split(",")[0])
+        if not name:
+            href = _COACH_HREF_NAME.search(row)
+            name = _plain(href.group("name") if href else "")
+        title_match = _SIDEARM_TITLE_CELL.search(row)
+        title = _plain(title_match.group("title") if title_match else "")
+        if name and title:
+            nodes.append(
+                {
+                    "person": name,
+                    "title": title,
+                    "span_id": f"dom:{page_url}:{name}:{title}",
+                }
+            )
+    return nodes
+
+
+def parse_official_staff_json(payload: Any, *, page_url: str) -> list[dict[str, str]]:
+    """Row-bound Sidearm/WMT JSON staff. Email/phone are redacted, not stored."""
+
+    items: list[Any] = []
+    if isinstance(payload, Mapping):
+        items = list(payload.get("items") or payload.get("staff") or [])
+    elif isinstance(payload, list):
+        items = payload
+    nodes: list[dict[str, str]] = []
+    for item in items:
+        if not isinstance(item, Mapping):
+            continue
+        category = item.get("category")
+        cat_title = ""
+        if isinstance(category, Mapping):
+            cat_title = str(category.get("title") or "")
+        first = str(item.get("firstName") or item.get("first_name") or "").strip()
+        last = str(item.get("lastName") or item.get("last_name") or "").strip()
+        name = _plain(f"{first} {last}".strip() or str(item.get("name") or ""))
+        title = _plain(str(item.get("title") or item.get("jobTitle") or ""))
+        if not name or not title:
+            continue
+        if cat_title and "football" not in cat_title.casefold():
+            if "coach" not in title.casefold() and "coordinator" not in title.casefold():
+                continue
+        try:
+            reject_personal_contact(name)
+            reject_personal_contact(title)
+        except CoachingError:
+            continue
+        nodes.append(
+            {
+                "person": name,
+                "title": title,
+                "span_id": f"json:{page_url}:{name}:{title}",
+            }
+        )
+    if not nodes:
+        return []
+    extracted = extract_row_bound_staff(nodes)
+    out: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for row in extracted:
+        try:
+            reject_personal_contact(row["person"])
+            reject_personal_contact(row["title"])
+        except CoachingError:
+            continue
+        key = (row["person"].casefold(), row["title"].casefold())
+        if key in seen:
+            continue
+        seen.add(key)
+        family = role_family_from_title(row["title"])
+        if "[REDACTED" in row["person"] or "[REDACTED" in row["title"]:
+            continue
+        out.append({**row, "role": family or "OTHER_POSITION", "page_url": page_url})
+    return out
+
+
+def extract_official_website_from_wikidata_entity(entity: Mapping[str, Any]) -> str | None:
+    """P856 official website. Not inferred from social or Wikipedia sitelinks."""
+
+    claims = entity.get("claims") if isinstance(entity, Mapping) else None
+    if not isinstance(claims, Mapping):
+        return None
+    for statement in claims.get("P856") or []:
+        if not isinstance(statement, Mapping):
+            continue
+        mainsnak = statement.get("mainsnak") or {}
+        datavalue = (mainsnak.get("datavalue") or {}).get("value")
+        parsed = _clean_website_candidate(str(datavalue or ""))
+        if parsed:
+            return parsed
+    return None
+
+
+def _wikidata_label_is_college_program(label: str) -> bool:
+    lowered = (label or "").casefold()
+    if not lowered:
+        return False
+    if any(
+        token in lowered
+        for token in (
+            "footballer",
+            "soccer",
+            "association football",
+            "national football team",
+            "football club",
+        )
+    ):
+        return False
+    return any(
+        token in lowered for token in ("football", "university", "college")
+    )
+
+
+def match_wikidata_website(
+    display_name: str, bindings: Sequence[Mapping[str, Any]]
+) -> str | None:
+    needle = str(display_name or "").casefold().strip()
+    if not needle:
+        return None
+    aliases = {
+        "nc state": ("north carolina state", "nc state wolfpack"),
+        "hawai'i": ("hawaii", "university of hawaii"),
+        "ualbany": ("albany", "albany great danes"),
+        "long island university": ("liu", "liu sharks"),
+        "st. thomas (mn)": ("st. thomas", "st thomas tommies"),
+        "utah tech": ("utah tech", "dixie state"),
+        "illinois state": ("illinois state redbirds",),
+        "tennessee tech": ("tennessee tech golden eagles",),
+    }
+    needles = (needle, *aliases.get(needle, ()))
+    preferred: str | None = None
+    fallback: str | None = None
+    for row in bindings:
+        label = str(
+            ((row.get("itemLabel") or {}).get("value"))
+            if isinstance(row.get("itemLabel"), Mapping)
+            else row.get("itemLabel") or row.get("label") or ""
+        ).casefold()
+        website = row.get("website")
+        if isinstance(website, Mapping):
+            website = website.get("value")
+        if any(
+            token in label
+            for token in ("footballer", "soccer", "football club", "national football team")
+        ):
+            continue
+        if not any(token in label for token in needles) or not website:
+            continue
+        parsed = _clean_website_candidate(str(website))
+        if not parsed:
+            continue
+        if _wikidata_label_is_college_program(label):
+            preferred = parsed
+            break
+        if fallback is None:
+            fallback = parsed
+    return preferred or fallback
+
+
 _INFOBOX_URL_FIELDS = (
     re.compile(r"\n\|\s*WebsiteURL\s*=\s*(?P<value>[^\n]+)", re.I),
     re.compile(r"\n\|\s*athletics(?:\s+website)?\s*=\s*(?P<value>[^\n]+)", re.I),
@@ -329,6 +533,34 @@ def historical_season_page_title(current_title: str, year: int) -> str | None:
     if "football team" in lowered:
         return f"{year} {title}"
     return f"{year} {title} football team"
+
+
+def _nodes_from_generic_name_title_rows(
+    html: str, *, page_url: str
+) -> list[dict[str, str]]:
+    """Adjacent td name/title rows used by some WordPress staff directories."""
+
+    nodes: list[dict[str, str]] = []
+    for match in _GENERIC_TR.finditer(html or ""):
+        cells = [_plain(cell) for cell in _GENERIC_TD.findall(match.group("row"))]
+        cells = [cell for cell in cells if cell and "[REDACTED" not in cell]
+        if len(cells) < 2:
+            continue
+        name = ""
+        title = ""
+        if _PERSON_NAME_HINT.match(cells[0]) and role_family_from_title(cells[1]):
+            name, title = cells[0], cells[1]
+        elif _PERSON_NAME_HINT.match(cells[1]) and role_family_from_title(cells[0]):
+            name, title = cells[1], cells[0]
+        if name and title:
+            nodes.append(
+                {
+                    "person": name,
+                    "title": title,
+                    "span_id": f"dom:{page_url}:{name}:{title}",
+                }
+            )
+    return nodes
 
 
 def _nodes_from_sidearm_coach_table(
@@ -448,6 +680,28 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
         nodes.extend(_nodes_from_s_table_coaches(html or "", page_url=page_url))
     if "staff-directory-table-member-position" in (html or "").casefold():
         nodes.extend(_nodes_from_staff_directory_rows(html or "", page_url=page_url))
+    if "sidearm-staff-member" in (html or "").casefold():
+        nodes.extend(
+            _nodes_from_sidearm_staff_member_table(
+                html or "", page_url=page_url, sport="football"
+            )
+        )
+    if '"firstName"' in (html or "") and '"lastName"' in (html or ""):
+        for match in _EMBEDDED_STAFF_OBJECT.finditer(html or ""):
+            name = _plain(f"{match.group('first')} {match.group('last')}")
+            title = _plain(match.group("title"))
+            if name and title:
+                nodes.append(
+                    {
+                        "person": name,
+                        "title": title,
+                        "span_id": f"jsonobj:{page_url}:{name}:{title}",
+                    }
+                )
+    if not nodes and (
+        "coordinator" in (html or "").casefold() or "head coach" in (html or "").casefold()
+    ):
+        nodes.extend(_nodes_from_generic_name_title_rows(html or "", page_url=page_url))
     if not nodes:
         return []
     extracted = extract_row_bound_staff(nodes)
@@ -485,6 +739,9 @@ _SKIP_WEBSITE_HOSTS = (
     "archive.org",
     "web.archive",
     "espn.com",
+    "richmondfc.com",
+    "sandiegofc.com",
+    "thefa.com",
 )
 
 

@@ -15,6 +15,7 @@
     "ctypes",
     "datetime",
     "hashlib",
+    "html",
     "json",
     "math",
     "numpy",

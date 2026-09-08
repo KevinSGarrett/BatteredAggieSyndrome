@@ -1,7 +1,7 @@
 {
   "artifact_class": "REAL_EVIDENCE",
   "episode_count": 251,
-  "official_html_still_not_attempted": true,
+  "official_html_still_not_attempted": false,
   "parser_family": "wikimedia_infobox_row_bound_HeadCoach",
   "pit_admitted": false,
   "program_pages": 266,

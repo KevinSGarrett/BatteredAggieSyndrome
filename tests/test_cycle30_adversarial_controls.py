@@ -868,6 +868,126 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertEqual(inv["rows"][1]["policy_status"], "FCS_VARIES_BY_PROGRAM")
         with self.assertRaises(AvailabilityError):
             inventory_availability_policies([])
+        attempted = inventory_availability_policies(
+            [
+                {
+                    "program_id": "SRC-002:TEAM:333",
+                    "display_name": "Alabama",
+                    "conference": "SEC",
+                    "classification": "fbs",
+                }
+            ],
+            route_attempts=[
+                {
+                    "source_id": "SRC-017",
+                    "attempt_count": 1,
+                    "receipt_identity": "abc",
+                    "disposition": "ATTEMPTED_WITH_EVIDENCE",
+                    "http_status": 200,
+                    "uri": "https://www.secsports.com/fbreports-archive",
+                }
+            ],
+        )
+        self.assertEqual(attempted["attempted_official_report_routes"], 1)
+        self.assertEqual(attempted["rows"][0]["disposition"], "ATTEMPTED_WITH_EVIDENCE")
+        self.assertFalse(attempted["rows"][0]["player_rows_joined_to_verified_roster"])
+
+    def test_official_staff_html_oc_dc_and_pre1978_membership(self) -> None:
+        from aggie_analytics.cycle30.coaching import (
+            extract_athletics_website_from_wikitext,
+            fill_current_role_matrix,
+            hc_oc_dc_matrix,
+            parse_official_staff_html,
+            role_family_from_title,
+        )
+        from aggie_analytics.cycle30.populations import (
+            PopulationError,
+            membership_rows_1963_2012,
+            reject_modern_label_pre_1978,
+        )
+
+        html = """
+        <tr class="staff-directory-table-member-position">
+          <td><a href="/staff/mike-elko" class="staff-directory-table-member-position__link--name">Mike Elko</a></td>
+          <td class="staff-directory-table-member-position__position">Head Coach</td>
+        </tr>
+        <tr class="staff-directory-table-member-position">
+          <td><a href="/staff/collin-klein" class="staff-directory-table-member-position__link--name">Collin Klein</a></td>
+          <td class="staff-directory-table-member-position__position">Offensive Coordinator</td>
+        </tr>
+        <tr class="staff-directory-table-member-position">
+          <td><a href="/staff/def" class="staff-directory-table-member-position__link--name">Jane Doe</a></td>
+          <td class="staff-directory-table-member-position__position">Defensive Coordinator</td>
+        </tr>
+        """
+        people = parse_official_staff_html(html, page_url="https://12thman.com/staff")
+        roles = {row["role"] for row in people}
+        self.assertIn("head_coach", roles)
+        self.assertIn("offensive_coordinator", roles)
+        self.assertIn("defensive_coordinator", roles)
+        vue = parse_official_staff_html(
+            (
+                '<a href="/sports/football/roster/coaches/kalen-deboer/1813" class="">'
+                '<span class="s-text-paragraph-small-bold">Kalen DeBoer</span></a>'
+                '<td><span data-v-a7dc635d>Head Coach</span></td>'
+                '<a href="/sports/football/roster/coaches/ryan-grubb/1814">'
+                "<span>Ryan Grubb</span></a>"
+                "<td><span>Offensive Coordinator</span></td>"
+            ),
+            page_url="https://rolltide.com/sports/football/coaches",
+        )
+        self.assertTrue(any(row["role"] == "head_coach" for row in vue))
+        self.assertTrue(any(row["role"] == "offensive_coordinator" for row in vue))
+        self.assertEqual(role_family_from_title("Assistant Head Coach"), None)
+        website = extract_athletics_website_from_wikitext(
+            "| WebsiteName = 12thman.com\n| WebsiteURL = https://12thman.com/sports/football\n"
+        )
+        self.assertEqual(website, "https://12thman.com/sports/football")
+        cells = hc_oc_dc_matrix(["SRC-002:TEAM:245"], "2026-09-07T16:00:00Z")
+        filled = fill_current_role_matrix(
+            cells,
+            programs=[
+                {
+                    "program_id": "SRC-002:TEAM:245",
+                    "display_name": "Texas A&M",
+                }
+            ],
+            cfbd_hc_by_school={},
+            official_people_by_program={"SRC-002:TEAM:245": people},
+            official_attempts_by_program={
+                "SRC-002:TEAM:245": {
+                    "status": "CAPTURED",
+                    "attempt_count": 1,
+                    "receipt_identity": "x",
+                }
+            },
+        )
+        dispositions = {row["role"]: row["disposition"] for row in filled}
+        self.assertEqual(dispositions["offensive_coordinator"], "CONFIRMED_APPOINTMENT")
+        self.assertNotEqual(dispositions["offensive_coordinator"], "NOT_ATTEMPTED")
+        with self.assertRaises(PopulationError):
+            reject_modern_label_pre_1978(1970, "FBS")
+        built = membership_rows_1963_2012(
+            [
+                {
+                    "id": 245,
+                    "school": "Texas A&M",
+                    "classification": "fbs",
+                    "source_year": 1970,
+                    "conference": None,
+                },
+                {
+                    "id": 245,
+                    "school": "Texas A&M",
+                    "classification": "fbs",
+                    "source_year": 2008,
+                    "conference": "Big 12",
+                },
+            ]
+        )
+        self.assertIsNone(built["rows"][0]["classification"])
+        self.assertTrue(built["rows"][0]["source_classification_is_not_era_proof"])
+        self.assertEqual(built["rows"][1]["classification"], "fbs")
 
 
 if __name__ == "__main__":

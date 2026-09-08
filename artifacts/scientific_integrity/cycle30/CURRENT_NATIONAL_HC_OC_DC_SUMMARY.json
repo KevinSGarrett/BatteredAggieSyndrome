@@ -895,6 +895,13 @@
   },
   "cells": 798,
   "cfbd_cannot_populate_assistants": true,
+  "disposition_counts": {
+    "CONFIRMED_APPOINTMENT": 300,
+    "CONFIRMED_CO_SHARED_ROLE": 75,
+    "UNKNOWN_NOT_LISTED": 423
+  },
   "expected_3n": 798,
+  "oc_dc_not_attempted": 0,
+  "official_staff_programs": 266,
   "week1_is_derived_subset_only": true
 }

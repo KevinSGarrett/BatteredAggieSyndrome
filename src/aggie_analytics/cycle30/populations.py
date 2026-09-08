@@ -82,6 +82,59 @@ def historical_scope_contract() -> dict[str, Any]:
     }
 
 
+def membership_rows_1963_2012(
+    teams: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """CFBD year membership. Source classification is not pre-1978 era proof."""
+
+    rows: list[dict[str, Any]] = []
+    seen: set[tuple[str, int]] = set()
+    years_present: set[int] = set()
+    for row in teams:
+        year = int(row.get("source_year") or row.get("year") or 0)
+        if year < 1963 or year > 2012:
+            continue
+        years_present.add(year)
+        source_class = _normalize_class(
+            row.get("classification") or row.get("source_classification")
+        )
+        if source_class not in {"fbs", "fcs"}:
+            continue
+        if row.get("id") is None:
+            continue
+        pid = f"SRC-002:TEAM:{row.get('id')}"
+        key = (pid, year)
+        if key in seen:
+            continue
+        seen.add(key)
+        classification = None if year < 1978 else source_class
+        if classification:
+            reject_modern_label_pre_1978(year, classification)
+        rows.append(
+            {
+                "program_id": pid,
+                "season": year,
+                "era": era_label(year),
+                "source_classification": source_class,
+                "source_classification_is_not_era_proof": year < 1978,
+                "classification": classification,
+                "conference": row.get("conference"),
+                "display_name": row.get("school") or row.get("team"),
+                "artifact_class": "REAL_EVIDENCE",
+                "source_id": "SRC-002",
+            }
+        )
+    return {
+        "rows": rows,
+        "row_count": len(rows),
+        "years_with_rows": sorted(years_present),
+        "year_span": [1963, 2012],
+        "source_classification_is_not_era_proof_pre_1978": True,
+        "modern_fbs_fcs_not_projected_as_era": True,
+        "artifact_class": "REAL_EVIDENCE" if rows else "BLOCKER_METADATA",
+    }
+
+
 def _normalize_class(value: Any) -> str:
     if value in {None, "", "null"}:
         return "null"

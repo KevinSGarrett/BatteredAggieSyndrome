@@ -54,6 +54,9 @@ def remaining_audit_register(
     neutrals: int,
     official_staff_attempts: int,
     official_staff_not_attempted: int,
+    availability_routes_attempted: int = 0,
+    membership_1963_2012_rows: int = 0,
+    membership_1963_2012_years_attempted: int = 0,
 ) -> dict[str, Any]:
     selected = {
         "cycle30_head": head_sha,
@@ -122,7 +125,11 @@ def remaining_audit_register(
                 "artifacts/scientific_integrity/cycle30/FCS_SUBSET_FROM_PARENT_SUMMARY.json",
                 "artifacts/scientific_integrity/cycle30/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
             ],
-            "blocker": "national_fcs_completeness_unclaimed; 1963–2012 membership blocked",
+            "blocker": (
+                "national_fcs_completeness_unclaimed"
+                if membership_1963_2012_years_attempted
+                else "national_fcs_completeness_unclaimed; 1963–2012 membership blocked"
+            ),
             "next_action": "Manager semantic join of CFBD FCS–FCS to parent identities",
             "affected_use_restriction": "cross-subdivision strength abstains; no national completeness",
             "selected_revisions": selected,
@@ -132,6 +139,11 @@ def remaining_audit_register(
             "new_claims_independently_verified": [],
             "failures": [],
             "remaining_work": [
+                "pre-2013 FCS schedule semantic join",
+                "canceled/forfeit semantic audit",
+            ]
+            if membership_1963_2012_years_attempted
+            else [
                 "pre-2013 FCS schedules",
                 "canceled/forfeit semantic audit",
             ],
@@ -147,7 +159,11 @@ def remaining_audit_register(
             "source_artifact_claim_sets": [
                 "artifacts/scientific_integrity/cycle30/HISTORICAL_SCOPE_CONTRACT.json"
             ],
-            "blocker": "no independent discontinued-program membership source in this cycle",
+            "blocker": (
+                "CFBD year membership is not a discontinued-program census"
+                if membership_1963_2012_rows
+                else "no independent discontinued-program membership source in this cycle"
+            ),
             "next_action": "Acquire era-aware discontinued/entry records; do not infer from 2026 N",
             "affected_use_restriction": "historical opportunity denominators remain incomplete",
             "selected_revisions": selected,
@@ -157,9 +173,7 @@ def remaining_audit_register(
             "new_claims_independently_verified": [],
             "failures": ["discontinued_program_population_not_materialized"],
             "remaining_work": [
-                "University Division 1963–72",
-                "unsplit DI 1973–77",
-                "I-A/I-AA 1978–2005",
+                "discontinued/entry census independent of CFBD year membership",
             ],
             "not_audited_reason": "omission named rather than collapsed into one UNREVIEWED label",
         },
@@ -173,15 +187,30 @@ def remaining_audit_register(
             "source_artifact_claim_sets": [
                 "artifacts/scientific_integrity/cycle30/AVAILABILITY_POLICY_INVENTORY.json"
             ],
-            "blocker": "attempted_official_report_routes=0; no_report=UNKNOWN not healthy",
-            "next_action": "Authorized public availability-report acquisition under BAT-414",
+            "blocker": (
+                f"attempted_official_report_routes={availability_routes_attempted}; "
+                "player rows not joined to verified roster; no_report=UNKNOWN not healthy"
+                if availability_routes_attempted
+                else "attempted_official_report_routes=0; no_report=UNKNOWN not healthy"
+            ),
+            "next_action": (
+                "Join captured public report pages to verified roster identities under BAT-414"
+                if availability_routes_attempted
+                else "Authorized public availability-report acquisition under BAT-414"
+            ),
             "affected_use_restriction": "injuries/availability out of fitted models; not scientifically reviewed",
             "selected_revisions": selected,
-            "scope_provenance_result": "INVENTORIED_NOT_ACQUIRED",
+            "scope_provenance_result": (
+                "ROUTES_ATTEMPTED_NOT_JOINED"
+                if availability_routes_attempted
+                else "INVENTORIED_NOT_ACQUIRED"
+            ),
             "semantic_result": "NOT_PERFORMED",
             "adversarial_result": "NOT_PERFORMED",
             "new_claims_independently_verified": [],
-            "failures": ["zero_official_availability_report_routes"],
+            "failures": []
+            if availability_routes_attempted
+            else ["zero_official_availability_report_routes"],
             "remaining_work": ["join player reports to verified roster identities"],
             "not_audited_reason": "staff parsing does not review health evidence",
         },
@@ -191,7 +220,10 @@ def remaining_audit_register(
             "implementation_owner": "Cursor Cycle #30",
             "manager_reviewer": "BAS manager (Codex) — pending",
             "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED",
-            "period_population": f"current 3x{current_n} HC/OC/DC cells; official HTML not attempted",
+            "period_population": (
+                f"current 3x{current_n} HC/OC/DC cells; official HTML attempts="
+                f"{official_staff_attempts}"
+            ),
             "source_artifact_claim_sets": [
                 "artifacts/scientific_integrity/cycle30/CURRENT_NATIONAL_HC_OC_DC_SUMMARY.json",
                 "ops/cycle30_work/outputs/CURRENT_NATIONAL_HC_OC_DC_MATRIX.jsonl",
@@ -200,19 +232,25 @@ def remaining_audit_register(
             "blocker": (
                 f"official_staff_html_attempts={official_staff_attempts}; "
                 f"not_attempted={official_staff_not_attempted}; "
-                "metered_scraper_credits=0; CFBD cannot populate OC/DC"
+                "CFBD cannot populate OC/DC; coaching not modeled"
             ),
-            "next_action": "Authorized official staff/media-guide GETs per program with receipts",
-            "affected_use_restriction": "OC/DC UNKNOWN_NOT_LISTED/NOT_ATTEMPTED; coaching not modeled",
+            "next_action": (
+                "Manager semantic review of official staff HTML OC/DC cells"
+                if official_staff_attempts
+                else "Authorized official staff/media-guide GETs per program with receipts"
+            ),
+            "affected_use_restriction": "OC/DC remaining UNKNOWN_NOT_LISTED/ACQUISITION_FAILED stay out of models",
             "selected_revisions": selected,
             "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
             "semantic_result": "PENDING_MANAGER",
             "adversarial_result": "PENDING_MANAGER",
             "new_claims_independently_verified": [],
-            "failures": ["official_staff_html_not_attempted_under_scraper_ceiling"],
+            "failures": []
+            if official_staff_attempts
+            else ["official_staff_html_not_attempted_under_scraper_ceiling"],
             "remaining_work": [
-                "row-bound OC/DC from official sources",
                 "title-versus-responsibility audit",
+                "row-bound OC/DC remaining UNKNOWN_NOT_LISTED",
             ],
             "not_audited_reason": "matrix presence is not official-source semantic review",
         },
@@ -355,7 +393,12 @@ def remaining_audit_register(
                 "ops/cycle30_work/outputs/CFBD_COACHES_HC_BACKBONE.jsonl",
                 "artifacts/scientific_integrity/cycle30/HISTORICAL_ROLE_LATTICE_SUMMARY.json",
             ],
-            "blocker": "staff_parser_family_expansion_pending; official HTML not attempted",
+            "blocker": (
+                "staff_parser_family_expansion_pending; official HTML remaining "
+                "UNKNOWN_NOT_LISTED/empty-parse cells"
+                if official_staff_attempts
+                else "staff_parser_family_expansion_pending; official HTML not attempted"
+            ),
             "next_action": (
                 "Independently trace a declared historical/current FBS/FCS source "
                 "sample and expand failed extraction families; keep injuries/rosters/"
@@ -367,7 +410,9 @@ def remaining_audit_register(
             "semantic_result": "PENDING_MANAGER",
             "adversarial_result": "PENDING_MANAGER",
             "new_claims_independently_verified": [],
-            "failures": [
+            "failures": []
+            if official_staff_attempts
+            else [
                 "equal_length_array_join_rejected_in_tests_only_until_official_html"
             ],
             "remaining_work": [
@@ -396,9 +441,43 @@ def official_staff_attempt_rows(
     programs: Sequence[Mapping[str, Any]],
     *,
     scraper_credits: int,
+    live_rows: Sequence[Mapping[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
+    live_by_id = {str(row.get("program_id")): row for row in (live_rows or [])}
     rows: list[dict[str, Any]] = []
     for program in programs:
+        live = live_by_id.get(str(program["program_id"]))
+        if live:
+            status = str(live.get("status") or "NOT_ATTEMPTED")
+            receipt = live.get("receipt_identity")
+            if status != "NOT_ATTEMPTED" and not receipt:
+                raise AuditRegisterError(
+                    "official staff attempt claimed without receipt identity"
+                )
+            rows.append(
+                {
+                    "program_id": program["program_id"],
+                    "display_name": program.get("display_name"),
+                    "classification": program.get("classification"),
+                    "declared_route": live.get(
+                        "declared_route", "official_staff_directory_or_media_guide"
+                    ),
+                    "status": status,
+                    "http_status": live.get("http_status"),
+                    "receipt_identity": receipt,
+                    "parser": live.get("parser"),
+                    "page_url": live.get("page_url"),
+                    "attempt_count": int(live.get("attempt_count") or 0),
+                    "reason": live.get("reason"),
+                    "artifact_class": live.get("artifact_class")
+                    or (
+                        "REAL_EVIDENCE"
+                        if status != "NOT_ATTEMPTED"
+                        else "BLOCKER_METADATA"
+                    ),
+                }
+            )
+            continue
         rows.append(
             {
                 "program_id": program["program_id"],

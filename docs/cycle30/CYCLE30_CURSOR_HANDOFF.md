@@ -21,17 +21,19 @@ Fort Knox/assistive pipeline was not used. No paid API review. No-API attestatio
 set PYTHONPATH=<worktree>\src
 python -m unittest discover -s tests -p "test_cycle30*.py"
 python -m unittest discover -s tests -p "test_cycle29*.py"
-python tools/acquire_cycle30_national.py
+python tools/acquire_cycle30_historical_membership.py
+python tools/acquire_cycle30_availability_reports.py
+python tools/acquire_cycle30_official_staff.py
 python tools/materialize_cycle30.py
 python tools/validate_cycle30_gates.py --mode BOTH
-python -m ruff check src/aggie_analytics/cycle30 src/aggie_analytics/scientific_reference/cycle30 tests/test_cycle30_adversarial_controls.py tools/materialize_cycle30.py tools/validate_cycle30_gates.py tools/acquire_cycle30_national.py
+python -m ruff check src/aggie_analytics/cycle30 src/aggie_analytics/scientific_reference/cycle30 tests/test_cycle30_adversarial_controls.py tools/materialize_cycle30.py tools/validate_cycle30_gates.py tools/acquire_cycle30_national.py tools/acquire_cycle30_historical_membership.py tools/acquire_cycle30_official_staff.py tools/acquire_cycle30_availability_reports.py
 ```
 
 Offline science validation uses this worktree `src` first on `PYTHONPATH` and does not write mounted authority. External bulk rows: `C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs`.
 
-PYTHONHASHSEED 0 and 1: Cycle #30 adversarial suite 40/40 pass; Cycle #29 33/33 pass; no discovery difference.
+PYTHONHASHSEED 0 and 1: Cycle #30 adversarial suite 41/41 pass; Cycle #29 33/33 pass; no discovery difference.
 
-New reconstruction artifacts in this bundle: raw-to-normalized semantic trace (73 compared, 0 join/score/tie failures across seasons 1963/1972/1978/2006/2013/2019/2023); expected-game universe identity `83fe56a3…` (9,924 contests; 895 outside-opponent games retained); remaining 2026 schedule cohort after 2026-09-08T00:00:00Z (1,480 contests, not A&M-only, no new scheduler job); Wikimedia revision-bound current staff pages (266 programs, 532 MediaWiki attempts, 251 candidate HeadCoach episodes, not PIT); official HTML staff directories remain NOT_ATTEMPTED (`metered_scraper_credits=0`).
+New reconstruction artifacts in this bundle: raw-to-normalized semantic trace (73 compared, 0 join/score/tie failures across seasons 1963/1972/1978/2006/2013/2019/2023); expected-game universe identity `83fe56a3…` (9,924 contests; 895 outside-opponent games retained); remaining 2026 schedule cohort after 2026-09-08T00:00:00Z (1,480 contests, not A&M-only, no new scheduler job); Wikimedia revision-bound current staff pages (266 programs, 532 MediaWiki attempts, 251 candidate HeadCoach episodes, not PIT); official HTML staff directories attempted for all 266 current programs via direct GET (no scrapfly): 131 captured, 119 empty-parse, 16 no athletics URL, 0 `NOT_ATTEMPTED`.
 
 ## A — Cycle29 defects
 
@@ -43,11 +45,11 @@ Mapped in `CYCLE30_FINDING_SUCCESSOR_LEDGER.json` with reproducers in `tests/tes
 
 ## C — National populations
 
-CFBD `/teams?classification=` does not filter; response `classification` in {fbs,fcs} yields **N=266** (138 FBS / 128 FCS) for 2026, not hardcoded 266 and not Week1's 182 appearances. 417 non-DI identities in the unfiltered payload are excluded and counted. Historical 2013–2023: 2,785 FBS/FCS program-seasons. CFBD FCS–FCS games acquired: 7,198. Parent FCS-involved subset: 2,267. Capture inventory: **990 declared / 990 mounted** (exact paths, not 990−980 subtraction). 1963–2012 membership remains `BLOCKED_SOURCE_TASK`. Synthetic P1–P6 are not in real denominators.
+CFBD `/teams?classification=` does not filter; response `classification` in {fbs,fcs} yields **N=266** (138 FBS / 128 FCS) for 2026, not hardcoded 266 and not Week1's 182 appearances. 417 non-DI identities in the unfiltered payload are excluded and counted. Historical 2013–2023: 2,785 FBS/FCS program-seasons. Historical 1963–2012: **9,409** CFBD year-membership rows across **50/50 years attempted** (`CFBD_TEAMS_YEAR_ATTEMPTED`; pre-1978 source classification is not era proof). CFBD FCS–FCS games acquired: 7,198. Parent FCS-involved subset: 2,267. Capture inventory: **990 declared / 990 mounted** (exact paths, not 990−980 subtraction). Synthetic P1–P6 are not in real denominators.
 
 ## D — Coaching
 
-Predecessor conservation: 2,251 accepted + 2,382 provisional = 4,633. Stratified sample: 3 parser families, 6 records, 0 expanded family failures (counts are not content validation). Current matrix **798 = 3×266**. CFBD 2026 coaches used for HC only; OC/DC remain `NOT_ATTEMPTED`/`UNKNOWN_NOT_LISTED`. Attempt ledger count = 50, all HTTP 200. Official staff/media-guide HTML: **266 programs NOT_ATTEMPTED** because `metered_scraper_credits=0`. Wikimedia: 266 revision-bound pages, 251 candidate episodes, `pit_admitted=false`. Coaching not modeled. Availability: 266 current programs inventoried, 0 official report routes attempted, no report = UNKNOWN, owner BAT-414.
+Predecessor conservation: 2,251 accepted + 2,382 provisional = 4,633. Stratified sample: 3 parser families, 6 records, 0 expanded family failures (counts are not content validation). Current matrix **798 = 3×266**. CFBD 2026 coaches used for HC only. Official staff HTML: **266/266 programs attempted** (direct GET, `metered_scraper_credits=0`); 131 captured with row-bound people, 119 empty-parse, 16 no WebsiteURL; **OC/DC `NOT_ATTEMPTED` = 0**. Remaining OC/DC cells are `UNKNOWN_NOT_LISTED` or confirmed from official HTML. Wikimedia: 266 revision-bound pages, 251 candidate episodes, `pit_admitted=false`. Coaching not modeled. Availability: 9 public conference/CFP policy routes attempted (all HTTP 200); 118 current programs covered by those routes; player rows not joined to verified roster; no report = UNKNOWN; owner BAT-414.
 
 ## E — Kernel
 

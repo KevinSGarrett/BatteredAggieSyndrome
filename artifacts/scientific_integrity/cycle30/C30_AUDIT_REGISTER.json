@@ -8,7 +8,7 @@
   "selected_revisions": {
     "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
     "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-    "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+    "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
     "not_manager_verified": true,
     "review_state": "READY_FOR_MANAGER_REVIEW"
   },
@@ -42,7 +42,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -59,7 +59,7 @@
     {
       "adversarial_result": "PENDING_MANAGER",
       "affected_use_restriction": "cross-subdivision strength abstains; no national completeness",
-      "blocker": "national_fcs_completeness_unclaimed; 1963–2012 membership blocked",
+      "blocker": "national_fcs_completeness_unclaimed",
       "failures": [],
       "id": "C30-AUDIT-01-FCS",
       "implementation_owner": "Cursor Cycle #30",
@@ -72,14 +72,14 @@
       "not_audited_reason": "bounded tranche is not national FCS certification",
       "period_population": "FCS–FCS and cross-subdivision games 2013–2023 CFBD tranche plus parent 46953 FBS-filtered games (FCS–FCS on that route=0)",
       "remaining_work": [
-        "pre-2013 FCS schedules",
+        "pre-2013 FCS schedule semantic join",
         "canceled/forfeit semantic audit"
       ],
       "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -94,7 +94,7 @@
     {
       "adversarial_result": "NOT_PERFORMED",
       "affected_use_restriction": "historical opportunity denominators remain incomplete",
-      "blocker": "no independent discontinued-program membership source in this cycle",
+      "blocker": "CFBD year membership is not a discontinued-program census",
       "failures": [
         "discontinued_program_population_not_materialized"
       ],
@@ -110,15 +110,13 @@
       "not_audited_reason": "omission named rather than collapsed into one UNREVIEWED label",
       "period_population": "discontinued/lower-division/entry programs 1963–2026",
       "remaining_work": [
-        "University Division 1963–72",
-        "unsplit DI 1973–77",
-        "I-A/I-AA 1978–2005"
+        "discontinued/entry census independent of CFBD year membership"
       ],
       "scope_provenance_result": "NAMED_GAP",
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -131,10 +129,8 @@
     {
       "adversarial_result": "NOT_PERFORMED",
       "affected_use_restriction": "injuries/availability out of fitted models; not scientifically reviewed",
-      "blocker": "attempted_official_report_routes=0; no_report=UNKNOWN not healthy",
-      "failures": [
-        "zero_official_availability_report_routes"
-      ],
+      "blocker": "attempted_official_report_routes=9; player rows not joined to verified roster; no_report=UNKNOWN not healthy",
+      "failures": [],
       "id": "C30-AUDIT-01-INJURIES",
       "implementation_owner": "Cursor Cycle #30",
       "jira_owners": [
@@ -142,17 +138,17 @@
       ],
       "manager_reviewer": "BAS manager (Codex) — pending",
       "new_claims_independently_verified": [],
-      "next_action": "Authorized public availability-report acquisition under BAT-414",
+      "next_action": "Join captured public report pages to verified roster identities under BAT-414",
       "not_audited_reason": "staff parsing does not review health evidence",
       "period_population": "current 266 DI programs; historical availability unpublished",
       "remaining_work": [
         "join player reports to verified roster identities"
       ],
-      "scope_provenance_result": "INVENTORIED_NOT_ACQUIRED",
+      "scope_provenance_result": "ROUTES_ATTEMPTED_NOT_JOINED",
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -164,11 +160,9 @@
     },
     {
       "adversarial_result": "PENDING_MANAGER",
-      "affected_use_restriction": "OC/DC UNKNOWN_NOT_LISTED/NOT_ATTEMPTED; coaching not modeled",
-      "blocker": "official_staff_html_attempts=0; not_attempted=266; metered_scraper_credits=0; CFBD cannot populate OC/DC",
-      "failures": [
-        "official_staff_html_not_attempted_under_scraper_ceiling"
-      ],
+      "affected_use_restriction": "OC/DC remaining UNKNOWN_NOT_LISTED/ACQUISITION_FAILED stay out of models",
+      "blocker": "official_staff_html_attempts=266; not_attempted=0; CFBD cannot populate OC/DC; coaching not modeled",
+      "failures": [],
       "id": "C30-AUDIT-01-STAFF-ROLES",
       "implementation_owner": "Cursor Cycle #30",
       "jira_owners": [
@@ -176,18 +170,18 @@
       ],
       "manager_reviewer": "BAS manager (Codex) — pending",
       "new_claims_independently_verified": [],
-      "next_action": "Authorized official staff/media-guide GETs per program with receipts",
+      "next_action": "Manager semantic review of official staff HTML OC/DC cells",
       "not_audited_reason": "matrix presence is not official-source semantic review",
-      "period_population": "current 3x266 HC/OC/DC cells; official HTML not attempted",
+      "period_population": "current 3x266 HC/OC/DC cells; official HTML attempts=266",
       "remaining_work": [
-        "row-bound OC/DC from official sources",
-        "title-versus-responsibility audit"
+        "title-versus-responsibility audit",
+        "row-bound OC/DC remaining UNKNOWN_NOT_LISTED"
       ],
       "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -224,7 +218,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -258,7 +252,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -296,7 +290,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -337,7 +331,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -354,10 +348,8 @@
     {
       "adversarial_result": "PENDING_MANAGER",
       "affected_use_restriction": "coaching not scientifically reviewed; not modeled",
-      "blocker": "staff_parser_family_expansion_pending; official HTML not attempted",
-      "failures": [
-        "equal_length_array_join_rejected_in_tests_only_until_official_html"
-      ],
+      "blocker": "staff_parser_family_expansion_pending; official HTML remaining UNKNOWN_NOT_LISTED/empty-parse cells",
+      "failures": [],
       "id": "C30-AUDIT-04",
       "implementation_owner": "Cursor Cycle #30",
       "jira_owners": [
@@ -377,7 +369,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "81f517bc4fdc3af2948450648000edb5516de16a",
+        "cycle30_head": "c921b72544c0a64335579e163d4f6fe5931e1683",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },

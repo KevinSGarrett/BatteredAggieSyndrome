@@ -47,6 +47,7 @@ from aggie_analytics.cycle30.claims import (  # noqa: E402
 from aggie_analytics.cycle30.coaching import (  # noqa: E402
     attempt_ledger_count,
     extract_registry_identities,
+    fill_current_role_matrix,
     hc_oc_dc_matrix,
     historical_lattice,
     model_admission_gate,
@@ -86,6 +87,7 @@ from aggie_analytics.cycle30.populations import (  # noqa: E402
     expected_game_universe,
     fcs_subset_from_parent,
     historical_scope_contract,
+    membership_rows_1963_2012,
     reject_synthetic_real_denominator,
     tamu_specialization_contract,
     week1_slice_from_contests,
@@ -626,15 +628,55 @@ def main() -> int:
     hashes["HISTORICAL_MEMBERSHIP_2013_2023.jsonl"] = write_jsonl(
         EXT / "HISTORICAL_MEMBERSHIP_2013_2023.jsonl", hist_membership
     )
+    cfbd_teams_1963 = load_optional_jsonl(EXT / "CFBD_TEAMS_1963_2012.jsonl")
+    membership_1963 = membership_rows_1963_2012(cfbd_teams_1963)
+    hist_1963 = membership_1963["rows"]
+    membership_ledger_path = EXT / "CYCLE30_MEMBERSHIP_1963_2012_LEDGER.json"
+    membership_ledger = (
+        load_json(membership_ledger_path) if membership_ledger_path.is_file() else {}
+    )
+    years_attempted_1963 = membership_ledger.get("years_attempted") or membership_1963[
+        "years_with_rows"
+    ]
+    hashes["HISTORICAL_MEMBERSHIP_1963_2012.jsonl"] = write_jsonl(
+        EXT / "HISTORICAL_MEMBERSHIP_1963_2012.jsonl", hist_1963
+    )
+    hashes["HISTORICAL_MEMBERSHIP_1963_2012_SUMMARY.json"] = write_json(
+        ART / "HISTORICAL_MEMBERSHIP_1963_2012_SUMMARY.json",
+        {
+            "artifact_type": "HISTORICAL_MEMBERSHIP_1963_2012_SUMMARY",
+            "artifact_class": membership_1963["artifact_class"],
+            "row_count": len(hist_1963),
+            "years_attempted": years_attempted_1963,
+            "years_with_rows": membership_1963["years_with_rows"],
+            "source_classification_is_not_era_proof_pre_1978": True,
+            "modern_fbs_fcs_not_projected_as_era": True,
+            "status": (
+                "CFBD_TEAMS_YEAR_ATTEMPTED"
+                if years_attempted_1963
+                else "BLOCKED_SOURCE_TASK"
+            ),
+        },
+    )
     hashes["HISTORICAL_SCOPE_CONTRACT.json"] = write_json(
         ART / "HISTORICAL_SCOPE_CONTRACT.json",
         {
             **historical_scope_contract(),
             "acquired_2013_2023_program_season_rows": len(hist_membership),
-            "missing_eras_1963_2012": "BLOCKED_SOURCE_TASK",
+            "acquired_1963_2012_program_season_rows": len(hist_1963),
+            "membership_1963_2012_years_attempted": len(years_attempted_1963),
+            "membership_1963_2012_status": (
+                "CFBD_TEAMS_YEAR_ATTEMPTED"
+                if years_attempted_1963
+                else "BLOCKED_SOURCE_TASK"
+            ),
+            "missing_eras_1963_2012": None
+            if years_attempted_1963
+            else "BLOCKED_SOURCE_TASK",
+            "source_classification_is_not_era_proof_pre_1978": True,
             "null_program_markers_not_used": True,
             "artifact_class": "REAL_EVIDENCE"
-            if hist_membership
+            if hist_membership or hist_1963
             else "BLOCKER_METADATA",
         },
     )
@@ -1166,50 +1208,27 @@ def main() -> int:
         school = str(row.get("school") or row.get("team") or "")
         hc_by_school[school].append(row)
         reject_cfbd_assistant("CFBD", "head_coach")
-    filled = []
-    for cell in matrix:
-        program = next(
-            (
-                row
-                for row in current_programs
-                if row["program_id"] == cell["program_id"]
-            ),
-            {},
+    official_people_rows = load_optional_jsonl(EXT / "OFFICIAL_STAFF_PARSED.jsonl")
+    official_http_attempts = load_optional_jsonl(
+        EXT / "OFFICIAL_STAFF_HTTP_ATTEMPTS.jsonl"
+    )
+    people_by_program: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in official_people_rows:
+        people_by_program[str(row.get("program_id"))].append(row)
+    attempts_by_program = {
+        str(row.get("program_id")): row for row in official_http_attempts
+    }
+    filled = (
+        fill_current_role_matrix(
+            matrix,
+            programs=current_programs,
+            cfbd_hc_by_school=hc_by_school,
+            official_people_by_program=people_by_program,
+            official_attempts_by_program=attempts_by_program,
         )
-        display = str(program.get("display_name") or "")
-        if cell["role"] == "head_coach" and hc_by_school.get(display):
-            episodes = [
-                {
-                    "person": item.get("firstName", "")
-                    + " "
-                    + item.get("lastName", ""),
-                    "source": "CFBD",
-                    "relationship": "CONFIRMED_APPOINTMENT",
-                    "season": 2026,
-                }
-                for item in hc_by_school[display]
-            ]
-            disposition = (
-                "CONFIRMED_APPOINTMENT"
-                if len(episodes) == 1
-                else "CONFIRMED_CO_SHARED_ROLE"
-                if len(episodes) > 1
-                else "UNKNOWN_NOT_LISTED"
-            )
-            filled.append(
-                {**cell, "disposition": disposition, "episode_refs": episodes}
-            )
-        else:
-            filled.append(
-                {
-                    **cell,
-                    "disposition": "NOT_ATTEMPTED"
-                    if cell["role"] != "head_coach"
-                    else (
-                        "UNKNOWN_NOT_LISTED" if current_programs else "NOT_ATTEMPTED"
-                    ),
-                }
-            )
+        if matrix
+        else []
+    )
     hashes["CURRENT_NATIONAL_HC_OC_DC_MATRIX.jsonl"] = write_jsonl(
         EXT / "CURRENT_NATIONAL_HC_OC_DC_MATRIX.jsonl", filled
     )
@@ -1221,6 +1240,17 @@ def main() -> int:
             "expected_3n": 3 * len(program_ids),
             "attempt_ledger": attempt_summary,
             "cfbd_cannot_populate_assistants": True,
+            "official_staff_programs": len(official_http_attempts),
+            "disposition_counts": {
+                str(key): sum(1 for row in filled if row.get("disposition") == key)
+                for key in sorted({str(row.get("disposition")) for row in filled})
+            },
+            "oc_dc_not_attempted": sum(
+                1
+                for row in filled
+                if row.get("role") in {"offensive_coordinator", "defensive_coordinator"}
+                and row.get("disposition") == "NOT_ATTEMPTED"
+            ),
             "week1_is_derived_subset_only": True,
             "artifact_class": "REAL_EVIDENCE" if filled else "BLOCKER_METADATA",
         },
@@ -1236,7 +1266,7 @@ def main() -> int:
     lattice = historical_lattice(
         [
             {"program_id": row["program_id"], "season": row["season"]}
-            for row in hist_membership
+            for row in (*hist_membership, *hist_1963)
         ],
         ROLE_FAMILIES,
     )
@@ -1256,7 +1286,12 @@ def main() -> int:
             for row in cfbd_coaches
         ],
     )
-    availability = inventory_availability_policies(current_programs, season=2026)
+    availability_attempts = load_optional_jsonl(
+        EXT / "AVAILABILITY_ROUTE_ATTEMPTS.jsonl"
+    )
+    availability = inventory_availability_policies(
+        current_programs, season=2026, route_attempts=availability_attempts
+    )
     hashes["AVAILABILITY_POLICY_INVENTORY.jsonl"] = write_jsonl(
         EXT / "AVAILABILITY_POLICY_INVENTORY.jsonl", availability["rows"]
     )
@@ -1460,7 +1495,7 @@ def main() -> int:
                 1 for row in wiki_rows if row.get("episodes")
             ),
             "pit_admitted": False,
-            "official_html_still_not_attempted": True,
+            "official_html_still_not_attempted": not official_http_attempts,
             "parser_family": "wikimedia_infobox_row_bound_HeadCoach",
         },
     )
@@ -1586,18 +1621,44 @@ def main() -> int:
         },
     )
 
-    staff_attempts = official_staff_attempt_rows(current_programs, scraper_credits=0)
+    staff_attempts = official_staff_attempt_rows(
+        current_programs,
+        scraper_credits=0,
+        live_rows=official_http_attempts,
+    )
+    attempted_staff = [
+        row for row in staff_attempts if str(row.get("status")) != "NOT_ATTEMPTED"
+    ]
     hashes["OFFICIAL_STAFF_SOURCE_ATTEMPT_LEDGER.jsonl"] = write_jsonl(
         EXT / "OFFICIAL_STAFF_SOURCE_ATTEMPT_LEDGER.jsonl", staff_attempts
     )
     hashes["OFFICIAL_STAFF_SOURCE_ATTEMPT_SUMMARY.json"] = write_json(
         ART / "OFFICIAL_STAFF_SOURCE_ATTEMPT_SUMMARY.json",
         {
-            "artifact_class": "BLOCKER_METADATA",
+            "artifact_class": "REAL_EVIDENCE"
+            if attempted_staff
+            else "BLOCKER_METADATA",
             "program_count": len(staff_attempts),
-            "attempted_http": 0,
-            "not_attempted": len(staff_attempts),
+            "attempted_http": sum(
+                1
+                for row in staff_attempts
+                if str(row.get("status"))
+                in {"CAPTURED", "ACQUISITION_FAILED", "ATTEMPTED_EMPTY_PARSE"}
+            ),
+            "attempted_programs": len(attempted_staff),
+            "not_attempted": sum(
+                1 for row in staff_attempts if str(row.get("status")) == "NOT_ATTEMPTED"
+            ),
+            "captured": sum(
+                1 for row in staff_attempts if str(row.get("status")) == "CAPTURED"
+            ),
+            "attempted_no_url": sum(
+                1
+                for row in staff_attempts
+                if str(row.get("status")) == "ATTEMPTED_NO_URL"
+            ),
             "metered_scraper_credits": 0,
+            "direct_get_no_scrapfly": True,
             "cfbd_hc_only": True,
             "literal_attempted_true_forbidden": True,
         },
@@ -1612,8 +1673,13 @@ def main() -> int:
             parent_games=len(games),
             ties=len(ties),
             neutrals=len(neutrals),
-            official_staff_attempts=0,
-            official_staff_not_attempted=len(staff_attempts),
+            official_staff_attempts=len(attempted_staff),
+            official_staff_not_attempted=sum(
+                1 for row in staff_attempts if str(row.get("status")) == "NOT_ATTEMPTED"
+            ),
+            availability_routes_attempted=len(availability_attempts),
+            membership_1963_2012_rows=len(hist_1963),
+            membership_1963_2012_years_attempted=len(years_attempted_1963),
         ),
     )
 

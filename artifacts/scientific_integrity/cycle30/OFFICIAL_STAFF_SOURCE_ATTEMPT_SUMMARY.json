@@ -1,9 +1,13 @@
 {
-  "artifact_class": "BLOCKER_METADATA",
-  "attempted_http": 0,
+  "artifact_class": "REAL_EVIDENCE",
+  "attempted_http": 250,
+  "attempted_no_url": 16,
+  "attempted_programs": 266,
+  "captured": 131,
   "cfbd_hc_only": true,
+  "direct_get_no_scrapfly": true,
   "literal_attempted_true_forbidden": true,
   "metered_scraper_credits": 0,
-  "not_attempted": 266,
+  "not_attempted": 0,
   "program_count": 266
 }

@@ -62,6 +62,54 @@ CONFERENCE_POLICY_ROUTES: dict[str, dict[str, str]] = {
     },
 }
 
+PUBLIC_AVAILABILITY_ROUTES: tuple[dict[str, str], ...] = (
+    {
+        "source_id": "SRC-017",
+        "conference": "SEC",
+        "uri": "https://www.secsports.com/fbreports-archive",
+    },
+    {
+        "source_id": "SRC-018",
+        "conference": "Big Ten",
+        "uri": "https://bigten.org/fb/article/blt2856785fb75ee868/",
+    },
+    {
+        "source_id": "SRC-019",
+        "conference": "ACC",
+        "uri": "https://theacc.com/sports/2025/8/28/availability-reporting.aspx",
+    },
+    {
+        "source_id": "SRC-020",
+        "conference": "Big 12",
+        "uri": "https://big12sports.com/news/2025/8/13/general-big-12-conference-to-begin-player-availability-reporting-for-football-womens-and-mens-basketball.aspx",
+    },
+    {
+        "source_id": "SRC-021",
+        "conference": "American Athletic",
+        "uri": "https://theamerican.org/sports/2025/8/5/fbavail.aspx",
+    },
+    {
+        "source_id": "SRC-022",
+        "conference": "Sun Belt",
+        "uri": "https://sunbeltsports.org/news/2025/8/20/sun-belt-to-institute-availability-reporting-for-2025-football-season.aspx",
+    },
+    {
+        "source_id": "SRC-023",
+        "conference": "Conference USA",
+        "uri": "https://conferenceusa.com/sports/2025/8/23/FB_0823254134.aspx",
+    },
+    {
+        "source_id": "SRC-024",
+        "conference": "Mid-American",
+        "uri": "https://getsomemaction.com/news/2024/8/22/mac-to-launch-gameday-student-athlete-availability-report-for-2024-football-season.aspx",
+    },
+    {
+        "source_id": "SRC-025",
+        "conference": "CFP",
+        "uri": "https://collegefootballplayoff.com/sports/2025/11/12/reports.aspx",
+    },
+)
+
 
 class AvailabilityError(ValueError):
     """Raised when availability inventory contracts fail."""
@@ -113,30 +161,55 @@ def program_availability_row(
 
 
 def inventory_availability_policies(
-    programs: Sequence[Mapping[str, Any]], *, season: int = 2026
+    programs: Sequence[Mapping[str, Any]],
+    *,
+    season: int = 2026,
+    route_attempts: Sequence[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if not programs:
         raise AvailabilityError(
             "availability inventory requires the current national parent"
         )
-    rows = [program_availability_row(program, season=season) for program in programs]
-    attempted = sum(int(row["attempt_count"]) for row in rows)
-    if attempted:
-        raise AvailabilityError(
-            "inventory cannot claim attempts without request evidence"
-        )
+    attempts_by_source = {
+        str(row.get("source_id")): row for row in (route_attempts or [])
+    }
+    rows = []
+    for program in programs:
+        row = program_availability_row(program, season=season)
+        attempt = attempts_by_source.get(str(row["source_id"]))
+        if attempt:
+            count = int(attempt.get("attempt_count") or 0)
+            if count < 1 or not attempt.get("receipt_identity"):
+                raise AvailabilityError(
+                    "availability attempt claimed without request evidence"
+                )
+            row["attempt_count"] = count
+            row["disposition"] = str(attempt.get("disposition") or "ATTEMPTED_WITH_EVIDENCE")
+            row["http_status"] = attempt.get("http_status")
+            row["receipt_identity"] = attempt.get("receipt_identity")
+            row["route_uri"] = attempt.get("uri")
+            row["player_rows_joined_to_verified_roster"] = False
+            row["artifact_class"] = "REAL_EVIDENCE"
+        rows.append(row)
+    attempted_programs = sum(1 for row in rows if int(row["attempt_count"]) > 0)
+    attempted_routes = len(attempts_by_source)
     return {
         "artifact_type": "AVAILABILITY_POLICY_INVENTORY",
-        "artifact_class": "BLOCKER_METADATA",
+        "artifact_class": "REAL_EVIDENCE"
+        if attempted_routes
+        else "BLOCKER_METADATA",
         "season": season,
         "current_national_programs_in_denominator": len(rows),
-        "attempted_official_report_routes": attempted,
-        "not_attempted": len(rows),
+        "attempted_official_report_routes": attempted_routes,
+        "programs_covered_by_attempted_routes": attempted_programs,
+        "not_attempted": sum(1 for row in rows if int(row["attempt_count"]) == 0),
         "no_report_means_unknown_not_healthy": True,
         "roster_or_participation_is_not_availability": True,
         "out_of_fitted_models": True,
         "owner": "BAT-414",
-        "status": "INVENTORIED_NOT_ACQUIRED",
+        "status": "ROUTES_ATTEMPTED"
+        if attempted_routes
+        else "INVENTORIED_NOT_ACQUIRED",
         "policy_status_counts": _counts(rows, "policy_status"),
         "conference_counts": _counts(rows, "conference"),
         "rows": rows,

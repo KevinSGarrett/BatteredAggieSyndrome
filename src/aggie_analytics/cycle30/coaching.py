@@ -7,6 +7,8 @@ Coaching remains out of fitted models this cycle.
 from __future__ import annotations
 
 import csv
+import html as html_lib
+import json
 import re
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -116,6 +118,189 @@ def reject_array_zip_mispair(parent_nodes: Sequence[Mapping[str, Any]]) -> None:
     extract_row_bound_staff(parent_nodes)
 
 
+def role_families_from_title(title: str) -> tuple[str, ...]:
+    """Map a source title onto HC/OC/DC. Other titles remain observed, not cells."""
+
+    lowered = re.sub(r"\s+", " ", str(title or "")).strip().casefold()
+    if not lowered:
+        return ()
+    families: list[str] = []
+    if re.search(r"\bhead(?:\s+football)?\s+coach\b", lowered) and not re.search(
+        r"\b(associate|assistant)\b", lowered
+    ):
+        families.append(ROLE_HC)
+    if re.search(r"\boffensive coordinator\b", lowered):
+        families.append(ROLE_OC)
+    if re.search(r"\bdefensive coordinator\b", lowered):
+        families.append(ROLE_DC)
+    return tuple(families)
+
+
+def role_family_from_title(title: str) -> str | None:
+    families = role_families_from_title(title)
+    return families[0] if families else None
+
+
+_JSON_LD = re.compile(
+    r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+    re.I | re.S,
+)
+_SIDEARM_PAIR = re.compile(
+    r'<a href="/staff/[^"]+" class="[^"]*staff-directory-table-member-position__link--name[^"]*"[^>]*>'
+    r"(?P<name>.*?)</a>.*?"
+    r'class="[^"]*staff-directory-table-member-position__position[^"]*"[^>]*>'
+    r"(?P<title>.*?)</",
+    re.I | re.S,
+)
+_COACH_CARD = re.compile(
+    r'class="[^"]*(?:sidearm-roster-coach-name|sidearm-coach-name|'
+    r's-person-card__name|c-coach-card__name)[^"]*"[^>]*>(?P<name>.*?)</'
+    r".{0,400}?"
+    r'class="[^"]*(?:sidearm-roster-coach-title|sidearm-coach-title|'
+    r's-person-card__title|c-coach-card__title)[^"]*"[^>]*>(?P<title>.*?)</',
+    re.I | re.S,
+)
+_SIDEARM_VUE_PAIR = re.compile(
+    r'href="/sports/[^"]*coaches/[^"]+"[^>]*>\s*'
+    r"(?:<span[^>]*>)?(?P<name>[^<]{2,80})(?:</span>)?\s*</a>"
+    r".{0,500}?"
+    r"<span[^>]*>(?P<title>[^<]{3,90})</span>",
+    re.I | re.S,
+)
+_TAG = re.compile(r"<[^>]+>")
+
+
+def _plain(text: str) -> str:
+    cleaned = html_lib.unescape(_TAG.sub(" ", text or ""))
+    return re.sub(r"\s+", " ", cleaned).strip()
+
+
+def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str]]:
+    """Row-bound official staff extraction. Not PIT. No email/phone stored."""
+
+    nodes: list[dict[str, str]] = []
+    for match in _JSON_LD.finditer(html or ""):
+        try:
+            payload = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        blocks = payload if isinstance(payload, list) else [payload]
+        for block in blocks:
+            if not isinstance(block, Mapping):
+                continue
+            graph = block.get("@graph")
+            entries = graph if isinstance(graph, list) else [block]
+            for node in entries:
+                if not isinstance(node, Mapping):
+                    continue
+                name = node.get("name")
+                title = node.get("jobTitle") or node.get("roleName")
+                if isinstance(title, list):
+                    title = " / ".join(str(item) for item in title if item)
+                if isinstance(name, str) and isinstance(title, str):
+                    nodes.append(
+                        {
+                            "person": _plain(name),
+                            "title": _plain(title),
+                            "span_id": f"jsonld:{page_url}:{_plain(name)}:{_plain(title)}",
+                        }
+                    )
+    for match in (
+        *_SIDEARM_PAIR.finditer(html or ""),
+        *_COACH_CARD.finditer(html or ""),
+        *_SIDEARM_VUE_PAIR.finditer(html or ""),
+    ):
+        name = _plain(match.group("name"))
+        title = _plain(match.group("title"))
+        if name and title:
+            nodes.append(
+                {
+                    "person": name,
+                    "title": title,
+                    "span_id": f"dom:{page_url}:{name}:{title}",
+                }
+            )
+    if not nodes:
+        return []
+    extracted = extract_row_bound_staff(nodes)
+    out: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for row in extracted:
+        try:
+            reject_personal_contact(row["person"])
+            reject_personal_contact(row["title"])
+        except CoachingError:
+            continue
+        key = (row["person"].casefold(), row["title"].casefold())
+        if key in seen:
+            continue
+        seen.add(key)
+        family = role_family_from_title(row["title"])
+        if "[REDACTED" in row["person"] or "[REDACTED" in row["title"]:
+            continue
+        out.append({**row, "role": family or "OTHER_POSITION", "page_url": page_url})
+    return out
+
+
+_WEBSITE_URL_FIELD = re.compile(
+    r"\n\|\s*WebsiteURL\s*=\s*(?P<value>[^\n]+)", re.I
+)
+_WEBSITE_NAME_FIELD = re.compile(
+    r"\n\|\s*WebsiteName\s*=\s*(?P<value>[^\n]+)", re.I
+)
+_HTTP_URL = re.compile(r"https?://[^\s\]\|<>\"]+", re.I)
+_BARE_HOST = re.compile(
+    r"^(?P<host>[A-Za-z0-9.-]+\.[A-Za-z]{2,})(?P<path>/[\w./-]*)?$"
+)
+_SKIP_WEBSITE_HOSTS = (
+    "wikipedia.org",
+    "wikimedia.org",
+    "ncaa.org",
+    "pro-football-reference",
+    "sports-reference",
+    "youtube.com",
+    "twitter.com",
+    "facebook.com",
+    "instagram.com",
+    "archive.org",
+    "web.archive",
+    "espn.com",
+)
+
+
+def _clean_website_candidate(raw: str) -> str | None:
+    text = _plain(raw).split("|")[0].strip().strip("'\"[]")
+    if not text:
+        return None
+    match = _HTTP_URL.search(text)
+    if match:
+        url = match.group(0).rstrip(".,);")
+    else:
+        bare = _BARE_HOST.match(text.split()[0] if text else "")
+        if not bare:
+            return None
+        url = "https://" + bare.group("host") + (bare.group("path") or "")
+    lowered = url.casefold()
+    if any(token in lowered for token in _SKIP_WEBSITE_HOSTS):
+        return None
+    return url
+
+
+def extract_athletics_website_from_wikitext(wikitext: str) -> str | None:
+    """Prefer infobox WebsiteURL; WebsiteName is origin-only fallback."""
+
+    prefixed = "\n" + (wikitext or "")
+    url_match = _WEBSITE_URL_FIELD.search(prefixed)
+    if url_match:
+        parsed = _clean_website_candidate(url_match.group("value"))
+        if parsed:
+            return parsed
+    name_match = _WEBSITE_NAME_FIELD.search(prefixed)
+    if name_match:
+        return _clean_website_candidate(name_match.group("value"))
+    return None
+
+
 def reject_wikimedia_as_pit(
     revision_bound: bool, admitted_as_historical_pit: bool
 ) -> None:
@@ -182,6 +367,135 @@ def hc_oc_dc_matrix(program_ids: Sequence[str], as_of_utc: str) -> list[dict[str
     if len(cells) != 3 * n:
         raise CoachingError("primary matrix must contain exactly 3N cells")
     return cells
+
+
+def _cfbd_hc_episodes(items: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    episodes = []
+    for item in items:
+        person = (
+            str(item.get("firstName") or "").strip()
+            + " "
+            + str(item.get("lastName") or "").strip()
+        ).strip()
+        if not person:
+            continue
+        reject_cfbd_assistant("CFBD", ROLE_HC)
+        episodes.append(
+            {
+                "person": person,
+                "source": "CFBD",
+                "relationship": "CONFIRMED_APPOINTMENT",
+                "season": 2026,
+            }
+        )
+    return episodes
+
+
+def _official_role_episodes(
+    people: Sequence[Mapping[str, Any]], role: str
+) -> list[dict[str, Any]]:
+    episodes = []
+    for person in people:
+        title = str(person.get("title") or "")
+        families = role_families_from_title(title)
+        stored_role = person.get("role")
+        if role not in families and stored_role != role:
+            continue
+        episodes.append(
+            {
+                "person": person.get("person"),
+                "source": "OFFICIAL_STAFF_HTML",
+                "relationship": CONCURRENT
+                if person.get("co_role") or "co-" in title.casefold()
+                else "CONFIRMED_APPOINTMENT",
+                "season": 2026,
+                "source_title": title,
+                "span_id": person.get("span_id"),
+                "page_url": person.get("page_url"),
+            }
+        )
+    return episodes
+
+
+def fill_current_role_matrix(
+    cells: Sequence[Mapping[str, Any]],
+    *,
+    programs: Sequence[Mapping[str, Any]],
+    cfbd_hc_by_school: Mapping[str, Sequence[Mapping[str, Any]]],
+    official_people_by_program: Mapping[str, Sequence[Mapping[str, Any]]],
+    official_attempts_by_program: Mapping[str, Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Official HTML first. CFBD may fill HC only. Attempted blanks are not NOT_ATTEMPTED."""
+
+    program_by_id = {str(row["program_id"]): row for row in programs}
+    filled: list[dict[str, Any]] = []
+    for cell in cells:
+        program = program_by_id.get(str(cell["program_id"]), {})
+        display = str(program.get("display_name") or "")
+        attempt = official_attempts_by_program.get(str(cell["program_id"]))
+        people = official_people_by_program.get(str(cell["program_id"]), [])
+        role = str(cell["role"])
+        official_episodes = _official_role_episodes(people, role)
+        attempt_status = str((attempt or {}).get("status") or NOT_ATTEMPTED)
+        if official_episodes:
+            disposition = (
+                "CONFIRMED_CO_SHARED_ROLE"
+                if len(official_episodes) > 1
+                or any(
+                    item.get("relationship") == CONCURRENT
+                    for item in official_episodes
+                )
+                else "CONFIRMED_APPOINTMENT"
+            )
+            filled.append(
+                {
+                    **cell,
+                    "disposition": disposition,
+                    "episode_refs": official_episodes,
+                    "episode_cardinality": len(official_episodes),
+                    "attempt_count": int((attempt or {}).get("attempt_count") or 1),
+                }
+            )
+            continue
+        if role == ROLE_HC and cfbd_hc_by_school.get(display):
+            episodes = _cfbd_hc_episodes(cfbd_hc_by_school[display])
+            if episodes:
+                disposition = (
+                    "CONFIRMED_APPOINTMENT"
+                    if len(episodes) == 1
+                    else "CONFIRMED_CO_SHARED_ROLE"
+                )
+                filled.append(
+                    {
+                        **cell,
+                        "disposition": disposition,
+                        "episode_refs": episodes,
+                        "episode_cardinality": len(episodes),
+                    }
+                )
+                continue
+        if attempt_status in {NOT_ATTEMPTED, ""}:
+            filled.append({**cell, "disposition": NOT_ATTEMPTED})
+            continue
+        if attempt_status in {"ACQUISITION_FAILED", "ATTEMPTED_NO_URL"}:
+            filled.append(
+                {
+                    **cell,
+                    "disposition": "ACQUISITION_FAILED"
+                    if attempt_status == "ACQUISITION_FAILED"
+                    else "UNKNOWN_NOT_LISTED",
+                    "attempt_count": int((attempt or {}).get("attempt_count") or 1),
+                }
+            )
+            continue
+        filled.append(
+            {
+                **cell,
+                "disposition": "UNKNOWN_NOT_LISTED",
+                "attempt_count": int((attempt or {}).get("attempt_count") or 1),
+            }
+        )
+    return filled
 
 
 def attempt_ledger_count(attempts: Sequence[Mapping[str, Any]]) -> dict[str, Any]:

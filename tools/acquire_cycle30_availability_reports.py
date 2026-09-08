@@ -1,0 +1,191 @@
+"""Direct GET of known public availability-report policy/archive pages.
+
+No scrapfly. No private medical detail ingested. Name-only player rows are
+not joined to verified roster identities.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import time
+import urllib.error
+import urllib.request
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+sys.dont_write_bytecode = True
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(ROOT / "src"))
+
+from aggie_analytics.cycle30.availability import (  # noqa: E402
+    PUBLIC_AVAILABILITY_ROUTES,
+)
+from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+
+BUDGET = {
+    "max_requests": 12,
+    "max_retries": 1,
+    "concurrency": 1,
+    "metered_scraper_credits": 0,
+    "route_count": len(PUBLIC_AVAILABILITY_ROUTES),
+}
+UA = (
+    "BAS-Cycle30-Reconstruction/1.0 "
+    "(https://github.com/KevinSGarrett/BatteredAggieSyndrome; "
+    "public availability-report policy pages)"
+)
+RAW = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\raw\availability")
+OUT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs")
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def fetch_url(uri: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -> bytes:
+    if len(ledger) >= int(budget["max_requests"]):
+        raise RuntimeError("availability request ceiling reached")
+    cache = RAW / f"{sha256_json({'url': uri})}.html"
+    if cache.is_file():
+        body = cache.read_bytes()
+        ledger.append(
+            {
+                "route": uri,
+                "status": "CACHE_HIT",
+                "http_status": 200,
+                "request_identity_sha256": sha256_json({"url": uri}),
+                "receipt_identity": sha256_bytes(body),
+                "raw_sha256": sha256_bytes(body),
+                "cached": True,
+                "retrieved_at_utc": utc_now(),
+            }
+        )
+        return body
+    request = urllib.request.Request(
+        uri,
+        headers={
+            "User-Agent": UA,
+            "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
+        },
+    )
+    start = utc_now()
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            body = response.read()
+            status = int(response.status)
+    except urllib.error.HTTPError as exc:
+        body = exc.read() or b""
+        status = int(exc.code)
+    except urllib.error.URLError as exc:
+        body = str(exc.reason).encode("utf-8")
+        status = 0
+    time.sleep(0.2)
+    end = utc_now()
+    raw_hash = sha256_bytes(body) if body else "empty"
+    ledger.append(
+        {
+            "route": uri,
+            "status": "HTTP_OK" if 200 <= status < 300 else "HTTP_ERROR",
+            "http_status": status,
+            "request_identity_sha256": sha256_json({"url": uri}),
+            "receipt_identity": sha256_json(
+                {"start": start, "end": end, "raw_sha256": raw_hash, "status": status}
+            ),
+            "raw_sha256": raw_hash,
+            "cached": False,
+            "retrieved_at_utc": end,
+        }
+    )
+    RAW.mkdir(parents=True, exist_ok=True)
+    cache.write_bytes(body)
+    return body
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dry-run", action="store_true")
+    args = parser.parse_args()
+    RAW.mkdir(parents=True, exist_ok=True)
+    OUT.mkdir(parents=True, exist_ok=True)
+    (RAW.parent.parent / "CYCLE30_AVAILABILITY_BUDGET.json").write_text(
+        json.dumps(BUDGET, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    if args.dry_run:
+        print("BUDGET_DECLARED", BUDGET["max_requests"])
+        return 0
+    ledger: list[dict[str, Any]] = []
+    rows: list[dict[str, Any]] = []
+    for route in PUBLIC_AVAILABILITY_ROUTES:
+        uri = route["uri"]
+        body = fetch_url(uri, ledger, BUDGET)
+        receipt = ledger[-1]
+        text = body.decode("utf-8", "replace").casefold()
+        looks_like_report = any(
+            token in text
+            for token in (
+                "availability report",
+                "player availability",
+                "gameday availability",
+                "fb reports",
+                "fbreports",
+            )
+        )
+        rows.append(
+            {
+                "source_id": route["source_id"],
+                "conference": route["conference"],
+                "uri": uri,
+                "attempt_count": 1,
+                "http_status": receipt["http_status"],
+                "receipt_identity": receipt["receipt_identity"],
+                "disposition": (
+                    "ATTEMPTED_WITH_EVIDENCE"
+                    if receipt["http_status"] and int(receipt["http_status"]) < 400
+                    else "ACQUISITION_FAILED"
+                ),
+                "page_kind": "POLICY_OR_ARCHIVE_PAGE",
+                "looks_like_availability_surface": looks_like_report,
+                "player_rows_extracted": 0,
+                "joined_to_verified_roster": False,
+                "private_medical_detail_ingested": False,
+                "no_report_means": "UNKNOWN",
+                "artifact_class": "REAL_EVIDENCE",
+                "owner": "BAT-414",
+            }
+        )
+    (OUT / "CYCLE30_AVAILABILITY_LEDGER.json").write_text(
+        json.dumps(
+            {
+                "budget": BUDGET,
+                "attempt_count": len(ledger),
+                "attempts": ledger,
+                "artifact_class": "REAL_EVIDENCE",
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (OUT / "AVAILABILITY_ROUTE_ATTEMPTS.jsonl").write_text(
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows),
+        encoding="utf-8",
+    )
+    print(
+        "availability",
+        "routes",
+        len(rows),
+        "attempts",
+        len(ledger),
+        "http_ok",
+        sum(1 for row in rows if int(row["http_status"] or 0) == 200),
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

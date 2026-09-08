@@ -1,4 +1,5 @@
 {
+  "acquired_1963_2012_program_season_rows": 9409,
   "acquired_2013_2023_program_season_rows": 2785,
   "artifact_class": "REAL_EVIDENCE",
   "artifact_type": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT",
@@ -45,11 +46,14 @@
     }
   ],
   "inclusion_rule_bound_before_inspecting_bas_rows": true,
-  "missing_eras_1963_2012": "BLOCKED_SOURCE_TASK",
+  "membership_1963_2012_status": "CFBD_TEAMS_YEAR_ATTEMPTED",
+  "membership_1963_2012_years_attempted": 50,
+  "missing_eras_1963_2012": null,
   "null_program_markers_not_used": true,
   "pre_1963": "SUPPLEMENTAL_CANDIDATE_SEPARATELY_DENOMINATED",
   "primary_period": [
     1963,
     2026
-  ]
+  ],
+  "source_classification_is_not_era_proof_pre_1978": true
 }

@@ -2,6 +2,8 @@
   "artifact_type": "CYCLE30_HASH_SEED_DISCOVERY",
   "seeds": ["0", "1"],
   "test_cycle30_exit": [0, 0],
+  "test_cycle30_count": 36,
+  "test_cycle29_count": 33,
   "discovery_difference": "none_on_cycle30_adversarial_suite",
   "skips": [],
   "payload_available": true,

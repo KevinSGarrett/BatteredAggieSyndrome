@@ -23,6 +23,10 @@ from aggie_analytics.cycle30.admission import (  # noqa: E402
     prove_coaching_not_modeled,
     prove_travel_isolation,
 )
+from aggie_analytics.cycle30.audit_register import (  # noqa: E402
+    official_staff_attempt_rows,
+    remaining_audit_register,
+)
 from aggie_analytics.cycle30.claims import (  # noqa: E402
     CLAIM_FIELDS,
     discover_authority_claims,
@@ -1350,6 +1354,37 @@ def main() -> int:
         },
     )
 
+    staff_attempts = official_staff_attempt_rows(current_programs, scraper_credits=0)
+    hashes["OFFICIAL_STAFF_SOURCE_ATTEMPT_LEDGER.jsonl"] = write_jsonl(
+        EXT / "OFFICIAL_STAFF_SOURCE_ATTEMPT_LEDGER.jsonl", staff_attempts
+    )
+    hashes["OFFICIAL_STAFF_SOURCE_ATTEMPT_SUMMARY.json"] = write_json(
+        ART / "OFFICIAL_STAFF_SOURCE_ATTEMPT_SUMMARY.json",
+        {
+            "artifact_class": "BLOCKER_METADATA",
+            "program_count": len(staff_attempts),
+            "attempted_http": 0,
+            "not_attempted": len(staff_attempts),
+            "metered_scraper_credits": 0,
+            "cfbd_hc_only": True,
+            "literal_attempted_true_forbidden": True,
+        },
+    )
+    hashes["C30_AUDIT_REGISTER.json"] = write_json(
+        ART / "C30_AUDIT_REGISTER.json",
+        remaining_audit_register(
+            head_sha=head,
+            kernel_rows=int(kernel.get("game_grain_count") or len(comparison_rows)),
+            proven_pit_rows=int(kernel["proven_pit_training_rows"]),
+            current_n=int(membership.get("N") or 0),
+            parent_games=len(games),
+            ties=len(ties),
+            neutrals=len(neutrals),
+            official_staff_attempts=0,
+            official_staff_not_attempted=len(staff_attempts),
+        ),
+    )
+
     discovered = discover_authority_claims(ART)
     declared = [mapped_claim(item) for item in discovered]
     for claim in declared:
@@ -1362,44 +1397,6 @@ def main() -> int:
         {**claim_inv, "declared": declared[:50], "declared_count": len(declared)},
     )
 
-    hashes["C30_AUDIT_REGISTER.json"] = write_json(
-        ART / "C30_AUDIT_REGISTER.json",
-        {
-            "artifact_type": "C30_REMAINING_AUDIT_REGISTER",
-            "review_state": "READY_FOR_MANAGER_REVIEW",
-            "not_manager_verified": True,
-            "units": [
-                {
-                    "id": "C30-AUDIT-01",
-                    "owners": ["BAT-703", "BAT-708", "BAT-696"],
-                    "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED",
-                    "blocker": "manager_independent_scope_challenge_pending",
-                    "affected_use": "whole_project_scientific_trust",
-                },
-                {
-                    "id": "C30-AUDIT-02",
-                    "owners": ["BAT-700", "BAT-696", "BAT-417"],
-                    "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED",
-                    "blocker": "manager_active_path_audit_pending",
-                    "affected_use": "kernel_scientific_acceptance",
-                },
-                {
-                    "id": "C30-AUDIT-03",
-                    "owners": ["BAT-703", "BAT-700", "BAT-696"],
-                    "status": "BOUNDED_TRANCHE_EVIDENCE_SUBMITTED",
-                    "blocker": "raw_to_normalized_semantic_audit_pending",
-                    "affected_use": "historical_national_foundation",
-                },
-                {
-                    "id": "C30-AUDIT-04",
-                    "owners": ["BAT-701", "BAT-703"],
-                    "status": "TRANCHE_EVIDENCE_SUBMITTED",
-                    "blocker": "staff_parser_family_expansion_pending",
-                    "affected_use": "coaching_scientific_review",
-                },
-            ],
-        },
-    )
     hashes["CYCLE30_MATERIALIZATION_MANIFEST.json"] = write_json(
         ART / "CYCLE30_MATERIALIZATION_MANIFEST.json",
         {

@@ -10,9 +10,10 @@
 | Preserved predecessor | PR678 `4b6f823f` ← PR679 `c69a7db9` ← PR680 `2236ca41` ← PR681 `b37444e4` ← PR685 `0b957ea1` |
 | Cycle #30 branch | `cursor/cycle30-neutral-national-kernel` |
 | Worktree | `C:\BatteredAggieSyndrome.data\worktrees\cycle30-scr` |
+| Materialization bind SHA | recorded in `CYCLE30_PREFLIGHT_AND_PRESERVATION.json` `head_sha` |
 | Review state | `READY_FOR_MANAGER_REVIEW` |
 
-Fort Knox/assistive pipeline was not used. No paid API review. No-API attestation is `PENDING_BLOCKED` and is not scientific review.
+Fort Knox/assistive pipeline was not used. No paid API review. No-API attestation is `PENDING_BLOCKED` (`CYCLE30_CODEX_CLOUD_REVIEW_ATTESTATION.json`) and is not scientific review.
 
 ## Commands
 
@@ -26,7 +27,9 @@ python tools/validate_cycle30_gates.py --mode BOTH
 python -m ruff check src/aggie_analytics/cycle30 src/aggie_analytics/scientific_reference/cycle30 tests/test_cycle30_adversarial_controls.py tools/materialize_cycle30.py tools/validate_cycle30_gates.py tools/acquire_cycle30_national.py
 ```
 
-Offline science validation uses this worktree `src` first on `PYTHONPATH` and does not write mounted authority.
+Offline science validation uses this worktree `src` first on `PYTHONPATH` and does not write mounted authority. External bulk rows: `C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs`.
+
+PYTHONHASHSEED 0 and 1: Cycle #30 adversarial suite exit 0 / 0; 36 tests; no discovery difference.
 
 ## A — Cycle29 defects
 
@@ -42,7 +45,7 @@ CFBD `/teams?classification=` does not filter; response `classification` in {fbs
 
 ## D — Coaching
 
-Predecessor conservation: 2,251 accepted + 2,382 provisional = 4,633. Current matrix **798 = 3×266**. CFBD 2026 coaches used for HC only; OC/DC remain `NOT_ATTEMPTED`/`UNKNOWN_NOT_LISTED`. Attempt ledger count = 50, all HTTP 200. Coaching not modeled. Availability: no report = UNKNOWN, owner BAT-414, 0 report routes acquired.
+Predecessor conservation: 2,251 accepted + 2,382 provisional = 4,633. Current matrix **798 = 3×266**. CFBD 2026 coaches used for HC only; OC/DC remain `NOT_ATTEMPTED`/`UNKNOWN_NOT_LISTED`. Attempt ledger count = 50, all HTTP 200. Official staff/media-guide HTML: **266 programs NOT_ATTEMPTED** because `metered_scraper_credits=0` (`OFFICIAL_STAFF_SOURCE_ATTEMPT_SUMMARY.json`). Coaching not modeled. Availability: no report = UNKNOWN, owner BAT-414, 0 report routes acquired.
 
 ## E — Kernel
 
@@ -62,7 +65,7 @@ PR685: 19 inline threads captured; latest five P1s independently retested agains
 
 ## Audit units (reconstruction evidence only)
 
-C30-AUDIT-01..04 are submitted as reconstruction/repair evidence. Manager owns independent interpretation and acceptance.
+`C30_AUDIT_REGISTER.json` names C30-AUDIT-01..04 plus explicit remaining units for FCS, discontinued programs, injuries/availability, official HC/OC/DC sources, career/position history, and plan-tail domains. Each unit has source/artifact/claim sets, period/population, manager reviewer, implementation owner, blocker, next action, and affected-use restriction. Three result slots (scope/provenance, semantic, adversarial) are filled as Cursor reconstruction vs `PENDING_MANAGER`. **Do not treat this as audited.**
 
 ## Explicit non-claims
 

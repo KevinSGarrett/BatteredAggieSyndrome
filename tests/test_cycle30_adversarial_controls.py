@@ -725,6 +725,33 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertTrue(result["shuffle_stable"])
         self.assertTrue(result["future_append_stable"])
 
+    def test_remaining_audit_register_requires_exact_sets(self) -> None:
+        from aggie_analytics.cycle30.audit_register import (
+            AuditRegisterError,
+            remaining_audit_register,
+            require_unit_fields,
+        )
+
+        register = remaining_audit_register(
+            head_sha="abc",
+            kernel_rows=1,
+            proven_pit_rows=0,
+            current_n=266,
+            parent_games=46953,
+            ties=490,
+            neutrals=1966,
+            official_staff_attempts=0,
+            official_staff_not_attempted=266,
+        )
+        self.assertGreaterEqual(len(register["units"]), 10)
+        for unit in register["units"]:
+            require_unit_fields(unit)
+            self.assertNotEqual(unit["status"], "AUDITED")
+        with self.assertRaises(AuditRegisterError):
+            require_unit_fields({"id": "x"})
+        with self.assertRaises(AuditRegisterError):
+            require_unit_fields({**register["units"][0], "status": "AUDITED"})
+
 
 if __name__ == "__main__":
     raise SystemExit(unittest.main())

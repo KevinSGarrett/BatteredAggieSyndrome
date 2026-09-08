@@ -26,7 +26,7 @@
     "uuid",
     "zoneinfo"
   ],
-  "producer_module_count": 21,
+  "producer_module_count": 22,
   "reference_imports": [
     "__future__",
     "aggie_analytics.scientific_reference.cycle30.metrics",

@@ -1,50 +1,394 @@
 {
+  "artifact_class": "BLOCKER_METADATA",
   "artifact_type": "C30_REMAINING_AUDIT_REGISTER",
   "not_manager_verified": true,
+  "one_unreviewed_label_forbidden": true,
+  "operator_hold": "ACTIVE",
   "review_state": "READY_FOR_MANAGER_REVIEW",
+  "selected_revisions": {
+    "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+    "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+    "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+    "not_manager_verified": true,
+    "review_state": "READY_FOR_MANAGER_REVIEW"
+  },
   "units": [
     {
-      "affected_use": "whole_project_scientific_trust",
+      "adversarial_result": "PENDING_MANAGER",
+      "affected_use_restriction": "whole_project_scientific_trust unrecovered; unknown scope cannot be declared complete",
       "blocker": "manager_independent_scope_challenge_pending",
+      "failures": [],
       "id": "C30-AUDIT-01",
-      "owners": [
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
         "BAT-703",
         "BAT-708",
         "BAT-696"
       ],
+      "manager_reviewer": "BAS manager (Codex) — pending independent review",
+      "new_claims_independently_verified": [],
+      "next_action": "Manager must independently challenge omissions of FCS, discontinued programs, injuries, HC/OC/DC, position/career history, and less-prominent plan requirements against this register",
+      "not_audited_reason": "Cursor reconstruction is not manager audit",
+      "period_population": "governing-plan requirement union; Cycles 1–29 plus pre-cycle/unattributed work; current 2026 DI FBS/FCS N=266; historical 1963–2026 backlog",
+      "remaining_work": [
+        "C30-AUDIT-01-FCS",
+        "C30-AUDIT-01-DISCONTINUED",
+        "C30-AUDIT-01-INJURIES",
+        "C30-AUDIT-01-STAFF-ROLES",
+        "C30-AUDIT-01-CAREER",
+        "C30-AUDIT-01-PLAN-TAIL"
+      ],
+      "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "PENDING_MANAGER",
+      "source_artifact_claim_sets": [
+        "artifacts/scientific_integrity/cycle30/BAS_CANONICAL_DOMAIN_CATALOG.json",
+        "artifacts/scientific_integrity/cycle30/BAS_DOMAIN_CATALOG_CROSSWALK.json",
+        "artifacts/scientific_integrity/cycle30/CURRENT_2026_DIVISION_I_PROGRAM_POPULATION.json",
+        "artifacts/scientific_integrity/cycle30/HISTORICAL_SCOPE_CONTRACT.json",
+        "docs/cycle30/CFIP_RFC_CYCLE30.md"
+      ],
       "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED"
     },
     {
-      "affected_use": "kernel_scientific_acceptance",
-      "blocker": "manager_active_path_audit_pending",
+      "adversarial_result": "PENDING_MANAGER",
+      "affected_use_restriction": "cross-subdivision strength abstains; no national completeness",
+      "blocker": "national_fcs_completeness_unclaimed; 1963–2012 membership blocked",
+      "failures": [],
+      "id": "C30-AUDIT-01-FCS",
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
+        "BAT-703"
+      ],
+      "manager_reviewer": "BAS manager (Codex) — pending",
+      "new_claims_independently_verified": [],
+      "next_action": "Manager semantic join of CFBD FCS–FCS to parent identities",
+      "not_audited_reason": "bounded tranche is not national FCS certification",
+      "period_population": "FCS–FCS and cross-subdivision games 2013–2023 CFBD tranche plus parent 46953 FBS-filtered games (FCS–FCS on that route=0)",
+      "remaining_work": [
+        "pre-2013 FCS schedules",
+        "canceled/forfeit semantic audit"
+      ],
+      "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "PENDING_MANAGER",
+      "source_artifact_claim_sets": [
+        "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_TRANCHE.jsonl",
+        "artifacts/scientific_integrity/cycle30/FCS_SUBSET_FROM_PARENT_SUMMARY.json",
+        "artifacts/scientific_integrity/cycle30/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json"
+      ],
+      "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED"
+    },
+    {
+      "adversarial_result": "NOT_PERFORMED",
+      "affected_use_restriction": "historical opportunity denominators remain incomplete",
+      "blocker": "no independent discontinued-program membership source in this cycle",
+      "failures": [
+        "discontinued_program_population_not_materialized"
+      ],
+      "id": "C30-AUDIT-01-DISCONTINUED",
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
+        "BAT-703",
+        "BAT-708"
+      ],
+      "manager_reviewer": "BAS manager (Codex) — pending",
+      "new_claims_independently_verified": [],
+      "next_action": "Acquire era-aware discontinued/entry records; do not infer from 2026 N",
+      "not_audited_reason": "omission named rather than collapsed into one UNREVIEWED label",
+      "period_population": "discontinued/lower-division/entry programs 1963–2026",
+      "remaining_work": [
+        "University Division 1963–72",
+        "unsplit DI 1973–77",
+        "I-A/I-AA 1978–2005"
+      ],
+      "scope_provenance_result": "NAMED_GAP",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "NOT_PERFORMED",
+      "source_artifact_claim_sets": [
+        "artifacts/scientific_integrity/cycle30/HISTORICAL_SCOPE_CONTRACT.json"
+      ],
+      "status": "EXPLICIT_UNRESOLVED"
+    },
+    {
+      "adversarial_result": "NOT_PERFORMED",
+      "affected_use_restriction": "injuries/availability out of fitted models; not scientifically reviewed",
+      "blocker": "attempted_official_report_routes=0; no_report=UNKNOWN not healthy",
+      "failures": [
+        "zero_official_availability_report_routes"
+      ],
+      "id": "C30-AUDIT-01-INJURIES",
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
+        "BAT-414"
+      ],
+      "manager_reviewer": "BAS manager (Codex) — pending",
+      "new_claims_independently_verified": [],
+      "next_action": "Authorized public availability-report acquisition under BAT-414",
+      "not_audited_reason": "staff parsing does not review health evidence",
+      "period_population": "current 266 DI programs; historical availability unpublished",
+      "remaining_work": [
+        "join player reports to verified roster identities"
+      ],
+      "scope_provenance_result": "INVENTORIED_NOT_ACQUIRED",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "NOT_PERFORMED",
+      "source_artifact_claim_sets": [
+        "artifacts/scientific_integrity/cycle30/AVAILABILITY_POLICY_INVENTORY.json"
+      ],
+      "status": "EXPLICIT_UNRESOLVED"
+    },
+    {
+      "adversarial_result": "PENDING_MANAGER",
+      "affected_use_restriction": "OC/DC UNKNOWN_NOT_LISTED/NOT_ATTEMPTED; coaching not modeled",
+      "blocker": "official_staff_html_attempts=0; not_attempted=266; metered_scraper_credits=0; CFBD cannot populate OC/DC",
+      "failures": [
+        "official_staff_html_not_attempted_under_scraper_ceiling"
+      ],
+      "id": "C30-AUDIT-01-STAFF-ROLES",
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
+        "BAT-701"
+      ],
+      "manager_reviewer": "BAS manager (Codex) — pending",
+      "new_claims_independently_verified": [],
+      "next_action": "Authorized official staff/media-guide GETs per program with receipts",
+      "not_audited_reason": "matrix presence is not official-source semantic review",
+      "period_population": "current 3x266 HC/OC/DC cells; official HTML not attempted",
+      "remaining_work": [
+        "row-bound OC/DC from official sources",
+        "title-versus-responsibility audit"
+      ],
+      "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "PENDING_MANAGER",
+      "source_artifact_claim_sets": [
+        "artifacts/scientific_integrity/cycle30/CURRENT_NATIONAL_HC_OC_DC_SUMMARY.json",
+        "ops/cycle30_work/outputs/CURRENT_NATIONAL_HC_OC_DC_MATRIX.jsonl",
+        "artifacts/scientific_integrity/cycle30/OFFICIAL_STAFF_SOURCE_ATTEMPT_SUMMARY.json"
+      ],
+      "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED"
+    },
+    {
+      "adversarial_result": "NOT_PERFORMED",
+      "affected_use_restriction": "career context is not PIT; not a fitted feature",
+      "blocker": "Wikimedia/official biography historical career not scaled; no guessed dates",
+      "failures": [
+        "position_career_history_not_nationally_acquired"
+      ],
+      "id": "C30-AUDIT-01-CAREER",
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
+        "BAT-701",
+        "BAT-388"
+      ],
+      "manager_reviewer": "BAS manager (Codex) — pending",
+      "new_claims_independently_verified": [],
+      "next_action": "Revision-bound Wikimedia plus official guides for remaining career episodes",
+      "not_audited_reason": "CFBD HC seasons are not complete career graphs",
+      "period_population": "pre-1963/professional/other-level career context plus 2013–2023 HC backbone",
+      "remaining_work": [
+        "stratified raw parser-family expansion"
+      ],
+      "scope_provenance_result": "PARTIAL_PREDECESSOR_PLUS_CFBD_HC",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "NOT_PERFORMED",
+      "source_artifact_claim_sets": [
+        "ops/cycle30_work/outputs/CFBD_COACHES_HC_BACKBONE.jsonl",
+        "ops/cycle30_work/outputs/COACHING_PREDECESSOR_ROWS.jsonl"
+      ],
+      "status": "EXPLICIT_UNRESOLVED"
+    },
+    {
+      "adversarial_result": "PENDING_MANAGER",
+      "affected_use_restriction": "unmapped domains cannot be treated as complete",
+      "blocker": "less-prominent plan requirements remain named gaps, not unmapped0",
+      "failures": [],
+      "id": "C30-AUDIT-01-PLAN-TAIL",
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
+        "BAT-708",
+        "BAT-696"
+      ],
+      "manager_reviewer": "BAS manager (Codex) — pending",
+      "new_claims_independently_verified": [],
+      "next_action": "Manager challenge of domain crosswalk omissions",
+      "not_audited_reason": "catalog existence is not requirement satisfaction",
+      "period_population": "standing 50-domain split plus later plan requirements; 52 original domains",
+      "remaining_work": [
+        "weather/rest/timezone/BAS inference separate evidence stages"
+      ],
+      "scope_provenance_result": "CROSSWALK_SUBMITTED",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "PENDING_MANAGER",
+      "source_artifact_claim_sets": [
+        "artifacts/scientific_integrity/cycle30/BAS_DOMAIN_POPULATION_AND_GRAIN_CONTRACT.json",
+        "artifacts/scientific_integrity/cycle30/NATIONAL_DATA_COMPLETENESS_SUCCESSOR_GATE.json"
+      ],
+      "status": "EXPLICIT_UNRESOLVED"
+    },
+    {
+      "adversarial_result": "PENDING_MANAGER",
+      "affected_use_restriction": "exact scientific kernel output blocked; UNTRUSTED_SHADOW only; no production/champion/A&M claim",
+      "blocker": "PRIMARY_KERNEL_OBJECTIVE_INCOMPLETE because proven PIT rows=0; manager must verify entire consumed chain",
+      "failures": [
+        "proven_pit_rows_zero",
+        "publication_receipts_absent"
+      ],
       "id": "C30-AUDIT-02",
-      "owners": [
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
         "BAT-700",
         "BAT-696",
         "BAT-417"
       ],
+      "manager_reviewer": "BAS manager (Codex) — pending independent review",
+      "new_claims_independently_verified": [],
+      "next_action": "Independent verify raw/source identities, filters, labels/ties, temporal authority, priors, neutral/site, design columns, partitions, fitted parameters, probability/distribution, metrics on all comparison rows",
+      "not_audited_reason": "passing fixtures cannot establish this result",
+      "period_population": "proposed active kernel: 2006–2023 observed FBS–FBS binary win, ties excluded, 2024/25 exposed excluded; rows=13244; proven_pit=0",
+      "remaining_work": [
+        "source publication evidence for PIT admission"
+      ],
+      "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "PENDING_MANAGER",
+      "source_artifact_claim_sets": [
+        "ops/cycle30_work/outputs/PIT_KERNEL_ROWS.jsonl",
+        "artifacts/scientific_integrity/cycle30/PIT_KERNEL_POPULATION_MANIFEST.json",
+        "artifacts/scientific_integrity/cycle30/PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+        "artifacts/scientific_integrity/cycle30/KERNEL_CANDIDATE_FITS.json",
+        "artifacts/scientific_integrity/cycle30/PIT_KERNEL_TRUST_GATE.json",
+        "artifacts/scientific_integrity/cycle30/CYCLE30_DEPENDENCY_GRAPH.json"
+      ],
       "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED"
     },
     {
-      "affected_use": "historical_national_foundation",
-      "blocker": "raw_to_normalized_semantic_audit_pending",
+      "adversarial_result": "PENDING_MANAGER",
+      "affected_use_restriction": "does not certify missing national games or every earlier cycle",
+      "blocker": "raw_to_normalized_semantic_audit_pending; national_pit_eligible_team_features.jsonl not mounted",
+      "failures": [
+        "predecessor_90198_payload_not_mounted"
+      ],
       "id": "C30-AUDIT-03",
-      "owners": [
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
         "BAT-703",
         "BAT-700",
         "BAT-696"
       ],
+      "manager_reviewer": "BAS manager (Codex) — pending independent review",
+      "new_claims_independently_verified": [],
+      "next_action": "Manager raw-to-normalized/feature comparisons; do not repeat count scan as new semantic work; carry ties and neutrals through lineage",
+      "not_audited_reason": "count presence is not semantic certification",
+      "period_population": "parent normalized games=46953; ties=490; provider-neutral=1966; 90,198 oriented development rows claimed by predecessor are not rematerialized here",
+      "remaining_work": [
+        "duplicate/conflicting game semantic expansion"
+      ],
+      "scope_provenance_result": "CURSOR_BOUNDED_TRANCHE",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "PENDING_MANAGER",
+      "source_artifact_claim_sets": [
+        "canonical/national_foundation_reconciliation national_normalized_games.jsonl",
+        "artifacts/scientific_integrity/cycle30/HISTORICAL_TIE_AUDIT.json",
+        "artifacts/scientific_integrity/cycle30/HISTORICAL_NEUTRAL_SITE_AUDIT_SUMMARY.json",
+        "artifacts/scientific_integrity/cycle30/CAPTURE_INVENTORY_EXACT_RECONCILE.json",
+        "artifacts/scientific_integrity/cycle30/PIT_PREDECESSOR_POPULATION_RECONCILIATION.json"
+      ],
       "status": "BOUNDED_TRANCHE_EVIDENCE_SUBMITTED"
     },
     {
-      "affected_use": "coaching_scientific_review",
-      "blocker": "staff_parser_family_expansion_pending",
+      "adversarial_result": "PENDING_MANAGER",
+      "affected_use_restriction": "coaching not scientifically reviewed; not modeled",
+      "blocker": "staff_parser_family_expansion_pending; official HTML not attempted",
+      "failures": [
+        "equal_length_array_join_rejected_in_tests_only_until_official_html"
+      ],
       "id": "C30-AUDIT-04",
-      "owners": [
+      "implementation_owner": "Cursor Cycle #30",
+      "jira_owners": [
         "BAT-701",
         "BAT-703"
       ],
+      "manager_reviewer": "BAS manager (Codex) — pending independent review",
+      "new_claims_independently_verified": [],
+      "next_action": "Independently trace a declared historical/current FBS/FCS source sample and expand failed extraction families; keep injuries/rosters/recruiting/transfers on separate evidence stages",
+      "not_audited_reason": "conservation counts are not content validation",
+      "period_population": "2,251 accepted + 2,382 provisional predecessor identities; CFBD 2013–2023/2026 HC backbone; current 3N matrix",
+      "remaining_work": [
+        "vacancy/unknown source dates",
+        "title-versus-responsibility"
+      ],
+      "scope_provenance_result": "CURSOR_TRANCHE_EVIDENCE",
+      "selected_revisions": {
+        "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+        "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+        "cycle30_head": "5008e90ab1e9e46c8ca6dd6d0621c1d9ff122824",
+        "not_manager_verified": true,
+        "review_state": "READY_FOR_MANAGER_REVIEW"
+      },
+      "semantic_result": "PENDING_MANAGER",
+      "source_artifact_claim_sets": [
+        "artifacts/scientific_integrity/cycle30/COACHING_PREDECESSOR_CONSERVATION.json",
+        "ops/cycle30_work/outputs/CFBD_COACHES_HC_BACKBONE.jsonl",
+        "artifacts/scientific_integrity/cycle30/HISTORICAL_ROLE_LATTICE_SUMMARY.json"
+      ],
       "status": "TRANCHE_EVIDENCE_SUBMITTED"
     }
-  ]
+  ],
+  "unknown_scope_cannot_be_declared_complete": true
 }

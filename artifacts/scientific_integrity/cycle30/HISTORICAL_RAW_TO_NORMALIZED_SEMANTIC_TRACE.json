@@ -1,0 +1,23 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE",
+  "body_sha256_example": "5023662705d96810758a40e018035f9a90b8df6e8250eb522e9ba9e188443ba7",
+  "compared_count": 73,
+  "comparison_identity": "0b2d61fdb937608f19cca0df566c578b3a2f137f9e0a4ad2d0a6bdb4ecc0cbce",
+  "does_not_certify_missing_national_games": true,
+  "duplicate_raw_ids": 0,
+  "failure_count": 0,
+  "failures": [],
+  "missing_canonical_count": 0,
+  "not_a_count_scan": true,
+  "raw_bytes_hashed_on_open": true,
+  "seasons": [
+    1963,
+    1972,
+    1978,
+    2006,
+    2013,
+    2019,
+    2023
+  ]
+}

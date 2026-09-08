@@ -6,6 +6,7 @@
     "aggie_analytics.cycle30.coaching",
     "aggie_analytics.cycle30.coverage_terms",
     "aggie_analytics.cycle30.hashing",
+    "aggie_analytics.cycle30.pit_kernel",
     "aggie_analytics.cycle30.temporal",
     "argparse",
     "ast",
@@ -26,7 +27,7 @@
     "uuid",
     "zoneinfo"
   ],
-  "producer_module_count": 22,
+  "producer_module_count": 25,
   "reference_imports": [
     "__future__",
     "aggie_analytics.scientific_reference.cycle30.metrics",

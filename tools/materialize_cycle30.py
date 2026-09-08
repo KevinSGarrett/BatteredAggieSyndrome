@@ -23,9 +23,21 @@ from aggie_analytics.cycle30.admission import (  # noqa: E402
     prove_coaching_not_modeled,
     prove_travel_isolation,
 )
+from aggie_analytics.cycle30.availability import (  # noqa: E402
+    inventory_availability_policies,
+)
 from aggie_analytics.cycle30.audit_register import (  # noqa: E402
     official_staff_attempt_rows,
     remaining_audit_register,
+)
+from aggie_analytics.cycle30.contracts_v2 import (  # noqa: E402
+    reject_missing_release_bom,
+    round_trip_game_context,
+    round_trip_staff_snapshot,
+)
+from aggie_analytics.cycle30.foundation_trace import (  # noqa: E402
+    index_canonical,
+    stratified_raw_comparisons,
 )
 from aggie_analytics.cycle30.claims import (  # noqa: E402
     CLAIM_FIELDS,
@@ -44,6 +56,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     reject_dropped_identity,
     reject_literal_attempted,
     reject_week1_as_national_coaching,
+    stratified_predecessor_sample,
 )
 from aggie_analytics.cycle30.cost import attestation_check, coverage_truth  # noqa: E402
 from aggie_analytics.cycle30.dependency import static_import_graph  # noqa: E402
@@ -70,6 +83,7 @@ from aggie_analytics.cycle30.populations import (  # noqa: E402
     classify_pair_counts,
     current_membership_record,
     era_label,
+    expected_game_universe,
     fcs_subset_from_parent,
     historical_scope_contract,
     reject_synthetic_real_denominator,
@@ -194,6 +208,78 @@ def git_head() -> str:
     return subprocess.check_output(
         ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
     ).strip()
+
+
+def inspect_smu_t90_lease() -> dict[str, Any]:
+    path = Path(
+        r"C:\BatteredAggieSyndrome.data\ops\cycle29_work\leases\6594400__T90M\LOCK\lease.json"
+    )
+    if not path.is_file():
+        return {
+            "contest_id": "6594400",
+            "checkpoint": "T90M",
+            "present": False,
+            "not_recaptured": True,
+            "no_cycle30_takeover": True,
+            "no_new_scheduler_job": True,
+            "t90_not_relabeled_on_time": True,
+            "artifact_class": "BLOCKER_METADATA",
+        }
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    expiry = str(payload.get("expiry_utc") or payload.get("expires_at_utc") or "")
+    return {
+        "contest_id": "6594400",
+        "checkpoint": "T90M",
+        "present": True,
+        "path": str(path),
+        "sha256": sha256_file(path),
+        "owner_id": payload.get("owner_id"),
+        "pid": payload.get("pid"),
+        "expiry_utc": expiry,
+        "expired_declared": True,
+        "not_recaptured": True,
+        "no_cycle30_takeover": True,
+        "no_new_scheduler_job": True,
+        "t90_not_relabeled_on_time": True,
+        "artifact_class": "REAL_EVIDENCE",
+    }
+
+
+def live_worktree_inventory(head: str) -> dict[str, Any]:
+    porcelain = subprocess.check_output(
+        ["git", "worktree", "list", "--porcelain"],
+        cwd=r"C:\BatteredAggieSyndrome",
+        text=True,
+    )
+    worktrees: list[dict[str, str]] = []
+    current: dict[str, str] = {}
+    for line in porcelain.splitlines():
+        if not line.strip():
+            if current:
+                worktrees.append(current)
+                current = {}
+            continue
+        if line.startswith("worktree "):
+            current = {"path": line.split(" ", 1)[1], "keep": "true"}
+        elif line.startswith("HEAD "):
+            current["head"] = line.split(" ", 1)[1]
+        elif line.startswith("branch "):
+            current["branch"] = line.split(" ", 1)[1]
+        elif line == "detached":
+            current["detached"] = "true"
+    if current:
+        worktrees.append(current)
+    return {
+        "artifact_type": "CYCLE30_WORKTREE_INVENTORY",
+        "cycle30_head": head,
+        "hold_open_pr_and_preservation_branches_retained": True,
+        "age_is_not_deletion_authority": True,
+        "deleted": [],
+        "worktrees": worktrees,
+        "open_prs_untouched_dependabot": [682, 683, 684],
+        "stack_prs": [678, 679, 680, 681, 685, 686],
+        "artifact_class": "REAL_EVIDENCE",
+    }
 
 
 def team_id(source_id: Any) -> str:
@@ -614,6 +700,20 @@ def main() -> int:
             "artifact_class": "REAL_EVIDENCE",
             "missing_sample": missing_captures[:25],
         },
+    )
+    canonical_index = index_canonical(games)
+    raw_trace = stratified_raw_comparisons(
+        capture_rows=capture_rows,
+        mounted_root=DATA,
+        canonical_by_id=canonical_index,
+        per_season=8,
+    )
+    hashes["HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json"] = write_json(
+        ART / "HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json",
+        {k: v for k, v in raw_trace.items() if k != "sample"},
+    )
+    hashes["HISTORICAL_RAW_TO_NORMALIZED_SAMPLE.jsonl"] = write_jsonl(
+        EXT / "HISTORICAL_RAW_TO_NORMALIZED_SAMPLE.jsonl", raw_trace.get("sample") or []
     )
 
     def _coords(payload: Mapping[str, Any] | None) -> tuple[float | None, float | None]:
@@ -1040,6 +1140,23 @@ def main() -> int:
     hashes["COACHING_PREDECESSOR_ROWS.jsonl"] = write_jsonl(
         EXT / "COACHING_PREDECESSOR_ROWS.jsonl", coaching_recon["rows"]
     )
+    if PEOPLE_CSV.is_file():
+        sample = stratified_predecessor_sample(PEOPLE_CSV, per_family=2)
+        hashes["COACHING_STRATIFIED_RAW_SAMPLE.json"] = write_json(
+            ART / "COACHING_STRATIFIED_RAW_SAMPLE.json",
+            {
+                "artifact_type": sample["artifact_type"],
+                "artifact_class": sample["artifact_class"],
+                "family_count": sample["family_count"],
+                "sample_count": sample["sample_count"],
+                "failure_count": sample["failure_count"],
+                "expanded_failed_families": sample["expanded_failed_families"],
+                "counts_are_not_content_validation": True,
+            },
+        )
+        hashes["COACHING_STRATIFIED_RAW_SAMPLE.jsonl"] = write_jsonl(
+            EXT / "COACHING_STRATIFIED_RAW_SAMPLE.jsonl", sample["sample"]
+        )
     program_ids = [row["program_id"] for row in current_programs]
     matrix = hc_oc_dc_matrix(program_ids, AS_OF) if program_ids else []
     hc_by_school: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -1139,31 +1256,13 @@ def main() -> int:
             for row in cfbd_coaches
         ],
     )
+    availability = inventory_availability_policies(current_programs, season=2026)
+    hashes["AVAILABILITY_POLICY_INVENTORY.jsonl"] = write_jsonl(
+        EXT / "AVAILABILITY_POLICY_INVENTORY.jsonl", availability["rows"]
+    )
     hashes["AVAILABILITY_POLICY_INVENTORY.json"] = write_json(
         ART / "AVAILABILITY_POLICY_INVENTORY.json",
-        {
-            "artifact_class": "BLOCKER_METADATA",
-            "no_report_means_unknown_not_healthy": True,
-            "roster_or_participation_is_not_availability": True,
-            "out_of_fitted_models": True,
-            "owner": "BAT-414",
-            "attempted_official_report_routes": 0,
-            "current_national_programs_in_denominator": len(program_ids),
-            "status": "INVENTORIED_NOT_ACQUIRED",
-            "conferences_with_known_public_policy": [
-                "SEC",
-                "Big Ten",
-                "ACC",
-                "Big 12",
-                "Pac-12",
-                "American",
-                "Mountain West",
-                "MAC",
-                "Sun Belt",
-                "CUSA",
-                "FCS_VARIES_BY_PROGRAM",
-            ],
-        },
+        {key: value for key, value in availability.items() if key != "rows"},
     )
 
     catalog = canonical_catalog()
@@ -1282,6 +1381,118 @@ def main() -> int:
             },
         )
 
+    remaining_finals_path = EXT / "WEEK1_REMAINING_FINALS_ATTEMPTS.json"
+    remaining_finals = (
+        load_json(remaining_finals_path) if remaining_finals_path.is_file() else {}
+    )
+    hashes["WEEK1_REMAINING_FINALS_ATTEMPTS.json"] = write_json(
+        ART / "WEEK1_REMAINING_FINALS_ATTEMPTS.json",
+        {
+            "artifact_class": "REAL_EVIDENCE"
+            if remaining_finals
+            else "BLOCKER_METADATA",
+            "t90_not_relabeled": True,
+            "no_post_kickoff_forecast_created": True,
+            "smu_fsu_contest_id": "6594400",
+            "smu_t90_lease_expired_not_recaptured": True,
+            "payload": remaining_finals,
+        },
+    )
+    hashes["WEEK1_SMU_T90_LEASE_INSPECT.json"] = write_json(
+        ART / "WEEK1_SMU_T90_LEASE_INSPECT.json", inspect_smu_t90_lease()
+    )
+    schedule_rows = []
+    for row in cfbd_games:
+        hid = row.get("homeId") or row.get("home_id")
+        aid = row.get("awayId") or row.get("away_id")
+        gid = row.get("id")
+        if hid is None or aid is None or gid is None:
+            continue
+        schedule_rows.append(
+            {
+                "canonical_game_id": f"SRC-002:GAME:{gid}",
+                "home_canonical_team_id": team_id(hid),
+                "away_canonical_team_id": team_id(aid),
+                "season": row.get("season") or row.get("year"),
+                "completed": row.get("completed"),
+                "status": row.get("status") or row.get("notes"),
+                "start_date": row.get("startDate") or row.get("start_date"),
+                "week": row.get("week"),
+            }
+        )
+    expected = expected_game_universe(program_ids, schedule_rows)
+    hashes["EXPECTED_GAME_UNIVERSE.json"] = write_json(
+        ART / "EXPECTED_GAME_UNIVERSE.json", expected
+    )
+    next_week = [
+        row
+        for row in schedule_rows
+        if str(row.get("start_date") or "") > "2026-09-08T00:00:00Z"
+        and int(row.get("season") or 0) == 2026
+    ]
+    hashes["NEXT_NATIONAL_SCHEDULE_COHORT.jsonl"] = write_jsonl(
+        EXT / "NEXT_NATIONAL_SCHEDULE_COHORT.jsonl", next_week
+    )
+    hashes["NEXT_NATIONAL_SCHEDULE_COHORT.json"] = write_json(
+        ART / "NEXT_NATIONAL_SCHEDULE_COHORT.json",
+        {
+            "artifact_class": "REAL_EVIDENCE",
+            "as_of_utc": AS_OF,
+            "not_am_only": True,
+            "contest_count": len(next_week),
+            "contest_identity": sha256_json(
+                [row["canonical_game_id"] for row in next_week]
+            ),
+            "raw_context_separated_from_forecast": True,
+            "no_new_scheduler_job_created": True,
+            "scientific_hold_binding": True,
+        },
+    )
+    wiki_path = EXT / "WIKIMEDIA_CURRENT_STAFF_CANDIDATES.jsonl"
+    wiki_rows = load_optional_jsonl(wiki_path)
+    hashes["WIKIMEDIA_CURRENT_STAFF_SUMMARY.json"] = write_json(
+        ART / "WIKIMEDIA_CURRENT_STAFF_SUMMARY.json",
+        {
+            "artifact_class": "REAL_EVIDENCE" if wiki_rows else "BLOCKER_METADATA",
+            "program_pages": len(wiki_rows),
+            "episode_count": sum(len(row.get("episodes") or []) for row in wiki_rows),
+            "programs_with_episodes": sum(
+                1 for row in wiki_rows if row.get("episodes")
+            ),
+            "pit_admitted": False,
+            "official_html_still_not_attempted": True,
+            "parser_family": "wikimedia_infobox_row_bound_HeadCoach",
+        },
+    )
+    reject_missing_release_bom(False, False)
+    round_trip_game_context(
+        {
+            "canonical_game_id": "FIXTURE:V2",
+            "source_order": ["A", "B"],
+            "canonical_home_id": "A",
+            "canonical_away_id": "B",
+            "designated_home_id": "A",
+            "site_class": "NEUTRAL",
+            "ordinary_home_exposure_designated_home": 0,
+            "unknowns": [],
+            "consumed_columns": ["ordinary_home_exposure"],
+        }
+    )
+    round_trip_staff_snapshot(
+        {
+            "program_id": "SRC-002:TEAM:245",
+            "as_of_utc": AS_OF,
+            "role": "head_coach",
+            "formal_title": "Head Coach",
+            "responsibility": "UNKNOWN",
+            "episode_refs": [],
+            "episode_cardinality": 0,
+            "disposition": "NOT_ATTEMPTED",
+            "attempt_count": 0,
+            "pit_admitted": False,
+        }
+    )
+
     hashes["CYCLE30_FINDING_SUCCESSOR_LEDGER.json"] = write_json(
         ART / "CYCLE30_FINDING_SUCCESSOR_LEDGER.json", successor_ledger()
     )
@@ -1330,13 +1541,11 @@ def main() -> int:
                     },
                     {"path": r"C:\All-22", "note": "distinct_dirty_not_overwritten"},
                 ],
-                "worktrees": [
-                    {
-                        "path": str(ROOT),
-                        "branch": "cursor/cycle30-neutral-national-kernel",
-                    }
+                "worktrees": live_worktree_inventory(head)["worktrees"],
+                "prs": [
+                    {"number": 685, "role": "reviewed_predecessor"},
+                    {"number": 686, "role": "cycle30_proposed_unmerged"},
                 ],
-                "prs": [{"number": 685, "role": "reviewed_predecessor"}],
                 "c01_manifest_object_count": 36,
                 "c01_manifest_fixture_count": 7,
                 "c01_catalog_object_count": 105,
@@ -1344,6 +1553,29 @@ def main() -> int:
             }
         ),
     )
+    hashes["WORKTREE_INVENTORY.json"] = write_json(
+        ART / "WORKTREE_INVENTORY.json", live_worktree_inventory(head)
+    )
+    pr685_capture = EXT / "PR685_THREAD_CAPTURE.json"
+    if pr685_capture.is_file():
+        captured = load_json(pr685_capture)
+        hashes["PR685_THREAD_ADJUDICATION.json"] = write_json(
+            ART / "PR685_THREAD_ADJUDICATION.json",
+            {
+                "artifact_type": "PR685_THREAD_ADJUDICATION",
+                "head_reviewed": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+                "review_state": "READY_FOR_MANAGER_REVIEW",
+                "outdated_does_not_mean_fixed": True,
+                "paid_review_not_invoked": True,
+                "threads_captured": captured.get("threads_captured"),
+                "reviews_captured": captured.get("reviews_captured"),
+                "latest_five_p1": captured.get("latest_five_p1"),
+                "remaining_threads": captured.get("remaining_threads"),
+                "capture_sha256": sha256_file(pr685_capture),
+                "false_positives": "none authorized by Cursor",
+                "artifact_class": "BLOCKER_METADATA",
+            },
+        )
     hashes["WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json"] = write_json(
         ART / "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
         {

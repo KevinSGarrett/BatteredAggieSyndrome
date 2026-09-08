@@ -29,7 +29,9 @@ python -m ruff check src/aggie_analytics/cycle30 src/aggie_analytics/scientific_
 
 Offline science validation uses this worktree `src` first on `PYTHONPATH` and does not write mounted authority. External bulk rows: `C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs`.
 
-PYTHONHASHSEED 0 and 1: Cycle #30 adversarial suite exit 0 / 0; 36 tests; no discovery difference.
+PYTHONHASHSEED 0 and 1: Cycle #30 adversarial suite 40/40 pass; Cycle #29 33/33 pass; no discovery difference.
+
+New reconstruction artifacts in this bundle: raw-to-normalized semantic trace (73 compared, 0 join/score/tie failures across seasons 1963/1972/1978/2006/2013/2019/2023); expected-game universe identity `83fe56a3…` (9,924 contests; 895 outside-opponent games retained); remaining 2026 schedule cohort after 2026-09-08T00:00:00Z (1,480 contests, not A&M-only, no new scheduler job); Wikimedia revision-bound current staff pages (266 programs, 532 MediaWiki attempts, 251 candidate HeadCoach episodes, not PIT); official HTML staff directories remain NOT_ATTEMPTED (`metered_scraper_credits=0`).
 
 ## A — Cycle29 defects
 
@@ -45,7 +47,7 @@ CFBD `/teams?classification=` does not filter; response `classification` in {fbs
 
 ## D — Coaching
 
-Predecessor conservation: 2,251 accepted + 2,382 provisional = 4,633. Current matrix **798 = 3×266**. CFBD 2026 coaches used for HC only; OC/DC remain `NOT_ATTEMPTED`/`UNKNOWN_NOT_LISTED`. Attempt ledger count = 50, all HTTP 200. Official staff/media-guide HTML: **266 programs NOT_ATTEMPTED** because `metered_scraper_credits=0` (`OFFICIAL_STAFF_SOURCE_ATTEMPT_SUMMARY.json`). Coaching not modeled. Availability: no report = UNKNOWN, owner BAT-414, 0 report routes acquired.
+Predecessor conservation: 2,251 accepted + 2,382 provisional = 4,633. Stratified sample: 3 parser families, 6 records, 0 expanded family failures (counts are not content validation). Current matrix **798 = 3×266**. CFBD 2026 coaches used for HC only; OC/DC remain `NOT_ATTEMPTED`/`UNKNOWN_NOT_LISTED`. Attempt ledger count = 50, all HTTP 200. Official staff/media-guide HTML: **266 programs NOT_ATTEMPTED** because `metered_scraper_credits=0`. Wikimedia: 266 revision-bound pages, 251 candidate episodes, `pit_admitted=false`. Coaching not modeled. Availability: 266 current programs inventoried, 0 official report routes attempted, no report = UNKNOWN, owner BAT-414.
 
 ## E — Kernel
 
@@ -53,7 +55,7 @@ Estimand: 2006–2023 observed FBS–FBS binary win, in-window priors, ties excl
 
 ## F — Week1
 
-Forecast payload rehashed: 91 contests, 455 opportunities, 84 p=0.5 excluded from directional skill. Old forecasts immutable. No post-kickoff forecast created. SMU/FSU is not recaptured as an on-time T-90.
+Forecast payload rehashed: 91 contests, 455 opportunities, 84 p=0.5 excluded from directional skill. Old forecasts immutable. No post-kickoff forecast created. NCAA direct box-score GETs for remaining contests 6602874 / 6620581 / 6594400 returned HTTP 403 (`ACQUISITION_FAILED`); Cycle 29 successor still admits ND/Wisconsin and Louisville/Ole Miss official finals and leaves SMU/FSU `AWAITING_OFFICIAL_FINAL`. Fresh CFBD Florida State 2026 row for SMU remains `completed=false` and is **not** NCAA official Final. SMU T-90 lease `C28_SMU_T90M_PRIMARY_PID_56060` expired 2026-09-07T23:39:23Z; not recaptured as on-time; no Cycle 30 takeover; no new scheduler job.
 
 ## G — Contracts / plans
 

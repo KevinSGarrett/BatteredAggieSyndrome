@@ -23,6 +23,27 @@
       "value_class": "string"
     },
     {
+      "artifact_path": "AVAILABILITY_POLICY_INVENTORY.json",
+      "claim_id": "AVAILABILITY_POLICY_INVENTORY.json:/artifact_type::artifact_type",
+      "denominator": null,
+      "dependencies": [],
+      "field": "artifact_type",
+      "formula": "discovered_authority_field",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
+      "numerator": null,
+      "pointer": "/artifact_type",
+      "population": "AVAILABILITY_POLICY_INVENTORY.json",
+      "producer": "aggie_analytics.cycle30",
+      "row_identity": "",
+      "source_identities": [
+        "AVAILABILITY_POLICY_INVENTORY.json"
+      ],
+      "temporal_authority": "artifact_as_of_materialization",
+      "trust_class": "UNTRUSTED_SHADOW",
+      "validator": "tools/validate_cycle30_gates.py",
+      "value_class": "string"
+    },
+    {
       "artifact_path": "BAS_CANONICAL_DOMAIN_CATALOG.json",
       "claim_id": "BAS_CANONICAL_DOMAIN_CATALOG.json:/artifact_type::artifact_type",
       "denominator": null,
@@ -1029,32 +1050,11 @@
       "trust_class": "UNTRUSTED_SHADOW",
       "validator": "tools/validate_cycle30_gates.py",
       "value_class": "string"
-    },
-    {
-      "artifact_path": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "claim_id": "BAS_DOMAIN_CATALOG_CROSSWALK.json:/mappings/39/state::state",
-      "denominator": null,
-      "dependencies": [],
-      "field": "state",
-      "formula": "discovered_authority_field",
-      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
-      "numerator": null,
-      "pointer": "/mappings/39/state",
-      "population": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "producer": "aggie_analytics.cycle30",
-      "row_identity": "",
-      "source_identities": [
-        "BAS_DOMAIN_CATALOG_CROSSWALK.json"
-      ],
-      "temporal_authority": "artifact_as_of_materialization",
-      "trust_class": "UNTRUSTED_SHADOW",
-      "validator": "tools/validate_cycle30_gates.py",
-      "value_class": "string"
     }
   ],
-  "declared_count": 1073,
-  "discovered_count": 1073,
-  "inventory_identity": "42afa5e2464711a7b58657ca587ef91e5f66899a857ee7e122868e99fc1ccbc0",
+  "declared_count": 1100,
+  "discovered_count": 1100,
+  "inventory_identity": "f62ef3986faa241d5f2930043db6f4eacee9bd26bd5a0535184853c4c42a0018",
   "producer_cannot_write_unmapped_count": true,
   "unmapped_count": 0
 }

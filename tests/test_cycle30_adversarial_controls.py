@@ -752,6 +752,123 @@ class Cycle30AdversarialTests(unittest.TestCase):
         with self.assertRaises(AuditRegisterError):
             require_unit_fields({**register["units"][0], "status": "AUDITED"})
 
+    def test_raw_to_normalized_semantic_join(self) -> None:
+        from aggie_analytics.cycle30.foundation_trace import compare_raw_to_normalized
+
+        raw = {
+            "id": 1,
+            "homeId": 10,
+            "awayId": 20,
+            "homePoints": 21,
+            "awayPoints": 21,
+            "neutralSite": True,
+            "startDate": "2013-09-01T00:00:00.000Z",
+            "season": 2013,
+        }
+        canonical = {
+            "canonical_game_id": "SRC-002:GAME:1",
+            "home_canonical_team_id": "SRC-002:TEAM:10",
+            "away_canonical_team_id": "SRC-002:TEAM:20",
+            "home_points": 21,
+            "away_points": 21,
+            "neutral_site": True,
+            "start_date_utc_text": "2013-09-01T00:00:00Z",
+        }
+        result = compare_raw_to_normalized(raw, canonical)
+        self.assertTrue(result["tie"])
+        self.assertEqual(result["ordinary_home_exposure_if_verified_neutral"], 0)
+
+    def test_game_context_v2_round_trip_and_v1_squeeze(self) -> None:
+        from aggie_analytics.cycle30.contracts_v2 import (
+            ContractV2Error,
+            reject_v1_squeeze,
+            round_trip_game_context,
+            round_trip_staff_snapshot,
+        )
+
+        packet = {
+            "canonical_game_id": "G",
+            "source_order": ["H", "A"],
+            "canonical_home_id": "H",
+            "canonical_away_id": "A",
+            "designated_home_id": "H",
+            "site_class": "NEUTRAL",
+            "ordinary_home_exposure_designated_home": 0,
+            "unknowns": ["weather"],
+        }
+        self.assertEqual(round_trip_game_context(packet)["site_class"], "NEUTRAL")
+        with self.assertRaises(ContractV2Error):
+            reject_v1_squeeze({"canonical_game_id": "G"}, True)
+        staff = {
+            "program_id": "SRC-002:TEAM:1",
+            "as_of_utc": "2026-09-07T16:00:00Z",
+            "role": "head_coach",
+            "formal_title": "Head Coach",
+            "responsibility": "UNKNOWN",
+            "episode_refs": [],
+            "episode_cardinality": 0,
+            "disposition": "NOT_ATTEMPTED",
+            "attempt_count": 0,
+            "pit_admitted": False,
+        }
+        round_trip_staff_snapshot(staff)
+        with self.assertRaises(ContractV2Error):
+            round_trip_staff_snapshot({**staff, "program_id": "DISPLAY:X"})
+
+    def test_wikimedia_infobox_row_bound_and_not_pit(self) -> None:
+        from aggie_analytics.cycle30.coaching import (
+            parse_wikimedia_infobox,
+            reject_personal_contact,
+            reject_wikimedia_as_pit,
+        )
+
+        text = "| HeadCoach = [[Jane Doe]]\n| off_coach = [[John Roe]]\n"
+        rows = parse_wikimedia_infobox(text, revision_id="1", page_title="T")
+        self.assertEqual(rows[0]["person"], "Jane Doe")
+        self.assertIn("wikimedia:T:1:", rows[0]["span_id"])
+        self.assertEqual(rows[1]["role"], "offensive_coordinator")
+        reject_wikimedia_as_pit(True, False)
+        with self.assertRaises(CoachingError):
+            reject_personal_contact("coach@example.com")
+        with self.assertRaises(CoachingError):
+            parse_wikimedia_infobox(text, revision_id="", page_title="T")
+        noisy = (
+            "| head_coach = [[Jane Doe]]\n| capacity = 102733\n"
+            "| founded = 1894\ncontact 512-555-0100 coach@example.com\n"
+        )
+        noisy_rows = parse_wikimedia_infobox(noisy, revision_id="1", page_title="T")
+        self.assertEqual(noisy_rows[0]["person"], "Jane Doe")
+
+    def test_availability_inventory_unknown_not_healthy(self) -> None:
+        from aggie_analytics.cycle30.availability import (
+            AvailabilityError,
+            inventory_availability_policies,
+        )
+
+        inv = inventory_availability_policies(
+            [
+                {
+                    "program_id": "SRC-002:TEAM:333",
+                    "display_name": "Alabama",
+                    "conference": "SEC",
+                    "classification": "fbs",
+                },
+                {
+                    "program_id": "SRC-002:TEAM:2000",
+                    "display_name": "Abilene Christian",
+                    "conference": "UAC",
+                    "classification": "fcs",
+                },
+            ]
+        )
+        self.assertEqual(inv["attempted_official_report_routes"], 0)
+        self.assertEqual(inv["rows"][0]["no_report_means"], "UNKNOWN")
+        self.assertEqual(inv["rows"][0]["owner"], "BAT-414")
+        self.assertTrue(inv["rows"][0]["out_of_fitted_models"])
+        self.assertEqual(inv["rows"][1]["policy_status"], "FCS_VARIES_BY_PROGRAM")
+        with self.assertRaises(AvailabilityError):
+            inventory_availability_policies([])
+
 
 if __name__ == "__main__":
     raise SystemExit(unittest.main())

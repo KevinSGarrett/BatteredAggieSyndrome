@@ -1,0 +1,105 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "no_post_kickoff_forecast_created": true,
+  "payload": {
+    "ncaa_direct_attempts": [
+      {
+        "acquisition_disposition": "ACQUISITION_FAILED",
+        "artifact_class": "REAL_EVIDENCE",
+        "away": "Notre Dame",
+        "cached": false,
+        "error": "HTTPError:403",
+        "forecast_not_created": true,
+        "home": "Wisconsin",
+        "http_status": 403,
+        "ncaa_contest_id": "6602874",
+        "raw_sha256": "1d52eccd7ae4457ef1696731c7cffabd5e577c39ab805a51b9e59319f9b8248d",
+        "receipt_identity": "7fdfdcfbe248cba0ee4e3ed9ba3b30028449e276a26042dbf4d45b7815241ced",
+        "request_identity_sha256": "fc17ad2443e6ba03b4586bbcb784d2d5a70f8553e4d5047d56c387485b71ba8b",
+        "retrieved_at_utc": "2026-09-08T02:54:49Z",
+        "semantic_state": "GENERIC_ERROR_HTML",
+        "t90_not_relabeled_on_time": true,
+        "terminal_state": "ACQUISITION_FAILED",
+        "transport_state": "TRANSPORT_CAPTURED",
+        "upstream_state": "UPSTREAM_FAILED",
+        "uri": "https://stats.ncaa.org/contests/6602874/box_score"
+      },
+      {
+        "acquisition_disposition": "ACQUISITION_FAILED",
+        "artifact_class": "REAL_EVIDENCE",
+        "away": "Louisville",
+        "cached": false,
+        "error": "HTTPError:403",
+        "forecast_not_created": true,
+        "home": "Ole Miss",
+        "http_status": 403,
+        "ncaa_contest_id": "6620581",
+        "raw_sha256": "8dcc31eef43d1fb34549b8d41a9b5c07eb40da6504882b1b491fb54a06ace8bc",
+        "receipt_identity": "df6f67ace1bac6ad4b01b601d92364633cc251d14aa4dd8334943e5d6a6f4569",
+        "request_identity_sha256": "605d440ef88a3277275057bbf844abee7d49f98103331494a0f9e31066c4579d",
+        "retrieved_at_utc": "2026-09-08T02:54:49Z",
+        "semantic_state": "GENERIC_ERROR_HTML",
+        "t90_not_relabeled_on_time": true,
+        "terminal_state": "ACQUISITION_FAILED",
+        "transport_state": "TRANSPORT_CAPTURED",
+        "upstream_state": "UPSTREAM_FAILED",
+        "uri": "https://stats.ncaa.org/contests/6620581/box_score"
+      },
+      {
+        "acquisition_disposition": "ACQUISITION_FAILED",
+        "artifact_class": "REAL_EVIDENCE",
+        "away": "SMU",
+        "cached": false,
+        "error": "HTTPError:403",
+        "forecast_not_created": true,
+        "home": "Florida St.",
+        "http_status": 403,
+        "ncaa_contest_id": "6594400",
+        "raw_sha256": "2e9556327f4add78f9b0f0754959010ca89e5d911e9b1aca7aa209079b0995e5",
+        "receipt_identity": "ed639cfd733af1880baa202c7448b6f8c162ec410aef49e68c2a26620a1d3907",
+        "request_identity_sha256": "21257a049fc20a2c68517c45060d5a16ae4665825cc71b8247d71228ad33a47e",
+        "retrieved_at_utc": "2026-09-08T02:54:49Z",
+        "semantic_state": "GENERIC_ERROR_HTML",
+        "t90_not_relabeled_on_time": true,
+        "terminal_state": "ACQUISITION_FAILED",
+        "transport_state": "TRANSPORT_CAPTURED",
+        "upstream_state": "UPSTREAM_FAILED",
+        "uri": "https://stats.ncaa.org/contests/6594400/box_score"
+      }
+    ],
+    "no_new_scheduler_job": true,
+    "predecessor_cycle29_contests": [
+      {
+        "admitted": true,
+        "forecast_rewritten": false,
+        "ncaa_contest_id": "6602874",
+        "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
+      },
+      {
+        "admitted": true,
+        "forecast_rewritten": false,
+        "ncaa_contest_id": "6620581",
+        "state": "SCORED_OFFICIAL_FINAL_ATOMIC_RECEIPT"
+      },
+      {
+        "admitted": false,
+        "forecast_rewritten": false,
+        "ncaa_contest_id": "6594400",
+        "state": "AWAITING_OFFICIAL_FINAL"
+      }
+    ],
+    "smu_fsu_cfbd_corroboration": {
+      "away_points": null,
+      "cfbd_id": 401858212,
+      "completed": false,
+      "home_points": null,
+      "http_status": 200,
+      "not_ncaa_official_final": true,
+      "start_date": "2026-09-07T23:30:00.000Z"
+    },
+    "smu_t90_lease_expired_not_recaptured": true
+  },
+  "smu_fsu_contest_id": "6594400",
+  "smu_t90_lease_expired_not_recaptured": true,
+  "t90_not_relabeled": true
+}

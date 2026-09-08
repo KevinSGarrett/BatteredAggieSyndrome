@@ -7,9 +7,11 @@ Coaching remains out of fitted models this cycle.
 from __future__ import annotations
 
 import csv
+import re
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from aggie_analytics.cycle30.hashing import sha256_json
 from aggie_analytics.cycle30.temporal import parse_aware_utc
 
 ROLE_HC = "head_coach"
@@ -364,3 +366,164 @@ def availability_unknown_not_healthy(report_present: bool) -> str:
     if report_present:
         return "REPORTED"
     return "UNKNOWN"
+
+
+_EMAIL = re.compile(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}", re.IGNORECASE)
+_PHONE = re.compile(
+    r"(?:\+1[\s.-]?)?(?:\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4})",
+    re.IGNORECASE,
+)
+_WIKI_LINK = re.compile(r"\[\[([^|\]]+)(?:\|[^\]]+)?\]\]")
+_INFOBOX_ROW = re.compile(
+    r"^\|\s*(?P<key>[A-Za-z0-9_ ]+?)\s*=\s*(?P<value>.+?)\s*$",
+    re.MULTILINE,
+)
+COACH_INFOBOX_KEYS = {
+    "head_coach": ROLE_HC,
+    "head coach": ROLE_HC,
+    "headcoach": ROLE_HC,
+    "current_head_coach": ROLE_HC,
+    "currentheadcoach": ROLE_HC,
+    "offensive_coordinator": ROLE_OC,
+    "offensive coordinator": ROLE_OC,
+    "offensivecoordinator": ROLE_OC,
+    "off_coach": ROLE_OC,
+    "offcoach": ROLE_OC,
+    "defensive_coordinator": ROLE_DC,
+    "defensive coordinator": ROLE_DC,
+    "defensivecoordinator": ROLE_DC,
+    "def_coach": ROLE_DC,
+    "defcoach": ROLE_DC,
+}
+
+
+def redact_personal_contact(text: str) -> str:
+    """Strip ingestible contact before any coach field is stored."""
+
+    redacted = _EMAIL.sub("[REDACTED_EMAIL]", text or "")
+    return _PHONE.sub("[REDACTED_PHONE]", redacted)
+
+
+def reject_personal_contact(text: str) -> None:
+    if _EMAIL.search(text or "") or _PHONE.search(text or ""):
+        raise CoachingError("personal email/phone cannot be ingested")
+
+
+def parser_family(source_system_id: str, mapping_method: str) -> str:
+    source = str(source_system_id or "UNKNOWN_SOURCE")
+    method = str(mapping_method or "UNKNOWN_METHOD")
+    return f"{source}|{method}"
+
+
+def stratified_predecessor_sample(
+    csv_path: Path, *, per_family: int = 2
+) -> dict[str, Any]:
+    """Deterministic sample of predecessor coach/staff rows back to source fields."""
+
+    families: dict[str, list[dict[str, str]]] = {}
+    failures: list[dict[str, str]] = []
+    with Path(csv_path).open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            record_type = row.get("record_type")
+            if record_type not in {"COACH_ROLE_EPISODE", "STAFF_ROLE_OBSERVATION"}:
+                continue
+            family = parser_family(
+                str(row.get("source_system_id") or ""),
+                str(row.get("mapping_method") or ""),
+            )
+            record_id = str(row.get("record_id") or "")
+            payload_hash = str(row.get("source_payload_sha256s") or "")
+            capture_ids = str(row.get("source_capture_ids") or "")
+            if not record_id:
+                failures.append(
+                    {"family": family, "reason": "MISSING_RECORD_ID", "record_id": ""}
+                )
+                continue
+            if not payload_hash or not capture_ids:
+                failures.append(
+                    {
+                        "family": family,
+                        "reason": "MISSING_SOURCE_LINK",
+                        "record_id": record_id,
+                    }
+                )
+            families.setdefault(family, []).append(
+                {
+                    "record_id": record_id,
+                    "record_type": str(record_type),
+                    "parser_family": family,
+                    "source_system_id": str(row.get("source_system_id") or ""),
+                    "mapping_method": str(row.get("mapping_method") or ""),
+                    "display_name": str(row.get("display_name") or ""),
+                    "role": str(row.get("role") or ""),
+                    "team_label": str(row.get("team_label") or ""),
+                    "season": str(row.get("season") or ""),
+                    "source_capture_ids": capture_ids,
+                    "source_payload_sha256s": payload_hash,
+                    "resolution_state": str(row.get("resolution_state") or ""),
+                    "pit_admitted": "false",
+                }
+            )
+    sample: list[dict[str, str]] = []
+    for family, rows in sorted(families.items()):
+        ordered = sorted(rows, key=lambda item: sha256_json(item["record_id"]))
+        sample.extend(ordered[:per_family])
+    return {
+        "artifact_type": "COACHING_STRATIFIED_RAW_SAMPLE",
+        "artifact_class": "REAL_EVIDENCE",
+        "family_count": len(families),
+        "sample_count": len(sample),
+        "failure_count": len(failures),
+        "expanded_failed_families": sorted({row["family"] for row in failures}),
+        "sample": sample,
+        "failures": failures[:50],
+        "counts_are_not_content_validation": True,
+    }
+
+
+def parse_wikimedia_infobox(
+    wikitext: str, *, revision_id: str, page_title: str
+) -> list[dict[str, str]]:
+    """Row-bound infobox keys. Wikimedia is revision-bound candidate history, not PIT."""
+
+    wikitext = redact_personal_contact(wikitext)
+    if not revision_id:
+        raise CoachingError("Wikimedia evidence must be revision-bound")
+    extracted: list[dict[str, str]] = []
+    for match in _INFOBOX_ROW.finditer(wikitext):
+        raw_key = match.group("key").strip()
+        key = raw_key.lower().replace(" ", "_")
+        compact = raw_key.lower().replace(" ", "").replace("_", "")
+        if compact.endswith("year") or compact in {"headcoachyear", "ocyear", "dcyear"}:
+            continue
+        role = (
+            COACH_INFOBOX_KEYS.get(key)
+            or COACH_INFOBOX_KEYS.get(raw_key.lower())
+            or COACH_INFOBOX_KEYS.get(compact)
+        )
+        if not role:
+            continue
+        value = match.group("value").strip()
+        if "[REDACTED_EMAIL]" in value or "[REDACTED_PHONE]" in value:
+            continue
+        link = _WIKI_LINK.search(value)
+        person = link.group(1) if link else re.sub(r"<[^>]+>", "", value).strip()
+        person = person.split("{{")[0].strip(" []'")
+        if not person or person.lower() in {"", "vacant", "tbd", "none"}:
+            continue
+        if "@" in person or "[REDACTED" in person:
+            continue
+        extracted.append(
+            {
+                "person": person,
+                "title": match.group("key").strip(),
+                "role": role,
+                "span_id": f"wikimedia:{page_title}:{revision_id}:{key}",
+                "source_title": match.group("key").strip(),
+                "wikimedia_revision": revision_id,
+                "pit_admitted": "false",
+                "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
+            }
+        )
+    return extracted

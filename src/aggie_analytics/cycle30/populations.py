@@ -341,3 +341,45 @@ def tamu_specialization_contract(
         "observation_cannot_create_denominator": True,
         "study_period": [1963, 2026],
     }
+
+
+def expected_game_universe(
+    membership_ids: Sequence[str],
+    schedule_rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Expected contests from membership × independent schedule, not observed BAS rows."""
+
+    members = {str(item) for item in membership_ids}
+    expected: dict[str, dict[str, Any]] = {}
+    outside_opponents = 0
+    canceled = 0
+    for row in schedule_rows:
+        home = str(row.get("home_canonical_team_id") or "")
+        away = str(row.get("away_canonical_team_id") or "")
+        gid = str(row.get("canonical_game_id") or "")
+        if not gid or not home or not away:
+            continue
+        if home not in members and away not in members:
+            continue
+        if home not in members or away not in members:
+            outside_opponents += 1
+        status = str(row.get("status") or row.get("game_status") or "").lower()
+        if status in {"canceled", "cancelled", "postponed", "forfeit", "no contest"}:
+            canceled += 1
+        expected[gid] = {
+            "canonical_game_id": gid,
+            "home_canonical_team_id": home,
+            "away_canonical_team_id": away,
+            "season": row.get("season"),
+            "completed": row.get("completed"),
+            "status": row.get("status") or row.get("game_status"),
+        }
+    return {
+        "artifact_type": "EXPECTED_GAME_UNIVERSE",
+        "expected_count": len(expected),
+        "membership_n": len(members),
+        "outside_opponent_games_retained": outside_opponents,
+        "canceled_postponed_forfeit_or_no_contest": canceled,
+        "observed_fbs_route_is_numerator_only": True,
+        "identity": sha256_json(sorted(expected)),
+    }

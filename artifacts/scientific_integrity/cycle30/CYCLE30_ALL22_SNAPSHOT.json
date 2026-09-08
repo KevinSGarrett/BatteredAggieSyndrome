@@ -9,18 +9,22 @@
   "c01_state": "BLOCKED_NO_IMMUTABLE_RELEASE_BOM",
   "dirty_programspecifications_not_overwritten": true,
   "four_field_boolean_snapshot_insufficient": true,
-  "pr_count": 1,
+  "pr_count": 2,
   "prs": [
     {
       "number": 685,
       "role": "reviewed_predecessor"
+    },
+    {
+      "number": 686,
+      "role": "cycle30_proposed_unmerged"
     }
   ],
   "repo_count": 4,
   "repos": [
     {
       "branch": "cursor/cycle30-neutral-national-kernel",
-      "head": "d428f2c40b1e5bcc4afd59fdba9466a2d0405a91",
+      "head": "146f741453ea025f36eeddeb454c2cfdc84b2c89",
       "path": "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle30-scr"
     },
     {
@@ -37,11 +41,85 @@
     }
   ],
   "synthetic_fixtures_are_bounded_compatibility_only": true,
-  "worktree_count": 1,
+  "worktree_count": 13,
   "worktrees": [
     {
-      "branch": "cursor/cycle30-neutral-national-kernel",
-      "path": "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle30-scr"
+      "branch": "refs/heads/main",
+      "head": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome"
+    },
+    {
+      "branch": "refs/heads/codex/BAT-688-hold-inventory",
+      "head": "410e7bf6e893e103266665654f340b1dfe5c42bd",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-hold-inventory"
+    },
+    {
+      "branch": "refs/heads/codex/BAT-688-scientific-trust-hold",
+      "head": "49003eea32d2935ecf79a0ca68bda87bf4896e79",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-688-scientific-trust-hold"
+    },
+    {
+      "branch": "refs/heads/codex/BAT-690-c26-scr",
+      "head": "4b6f823fc2a3cb73716a2081f562500066f211a6",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c26-scr"
+    },
+    {
+      "detached": "true",
+      "head": "55cb0075c3315ddbee9fb94678af8365250455a8",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c27-head"
+    },
+    {
+      "branch": "refs/heads/codex/BAT-690-c27-scr",
+      "head": "c69a7db91c014f0dabe57dccfc3e479fa11b4ea3",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/BAT-690-c27-scr"
+    },
+    {
+      "detached": "true",
+      "head": "deaece17cd66d51510cf8ee29f615d35a3c11994",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate"
+    },
+    {
+      "detached": "true",
+      "head": "04d3c79b9f039c84d9cc5b4ce5f8ab97d3935fd1",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle25_5_validate_04d3c79b"
+    },
+    {
+      "branch": "refs/heads/codex/cycle28-control",
+      "head": "2236ca41dbfdfeb1db7284f6ae89d9dec96394a0",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle28-control"
+    },
+    {
+      "branch": "refs/heads/codex/cycle28-science",
+      "head": "b37444e498e4d6db699a5904b55ace55f7dcabff",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle28-scr"
+    },
+    {
+      "detached": "true",
+      "head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle29-scr"
+    },
+    {
+      "branch": "refs/heads/cursor/cycle30-neutral-national-kernel",
+      "head": "146f741453ea025f36eeddeb454c2cfdc84b2c89",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle30-scr"
+    },
+    {
+      "detached": "true",
+      "head": "7e3e9cc2bb81d6dafe2903bd1b3dc0b316e42f82",
+      "keep": "true",
+      "path": "C:/BatteredAggieSyndrome.data/worktrees/manager-cycle27-review"
     }
   ]
 }

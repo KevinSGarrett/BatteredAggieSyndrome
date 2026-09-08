@@ -14,7 +14,7 @@ from typing import Any, Mapping, Sequence
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json
 from aggie_analytics.cycle30.pit_kernel import winner_from_scores
 
-STRATA_SEASONS = (1963, 1972, 1978, 2006, 2013, 2023)
+STRATA_SEASONS = (1963, 1968, 1972, 1978, 1985, 1993, 2000, 2006, 2013, 2019, 2023)
 NEUTRAL_AND_TIE_SEASONS = (2013, 2019, 2023)
 
 
@@ -115,7 +115,7 @@ def stratified_raw_comparisons(
     capture_rows: Sequence[Mapping[str, Any]],
     mounted_root: Path,
     canonical_by_id: Mapping[str, Mapping[str, Any]],
-    per_season: int = 8,
+    per_season: int = 16,
 ) -> dict[str, Any]:
     by_season: dict[int, list[Mapping[str, Any]]] = defaultdict(list)
     for row in capture_rows:

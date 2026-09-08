@@ -2,6 +2,48 @@
   "all_cycle_project_wide_trust": false,
   "declared": [
     {
+      "artifact_path": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+      "claim_id": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json:/artifact_class::artifact_class",
+      "denominator": null,
+      "dependencies": [],
+      "field": "artifact_class",
+      "formula": "discovered_authority_field",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
+      "numerator": null,
+      "pointer": "/artifact_class",
+      "population": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+      "producer": "aggie_analytics.cycle30",
+      "row_identity": "",
+      "source_identities": [
+        "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json"
+      ],
+      "temporal_authority": "artifact_as_of_materialization",
+      "trust_class": "UNTRUSTED_SHADOW",
+      "validator": "tools/validate_cycle30_gates.py",
+      "value_class": "string"
+    },
+    {
+      "artifact_path": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+      "claim_id": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json:/candidate_count::candidate_count",
+      "denominator": null,
+      "dependencies": [],
+      "field": "candidate_count",
+      "formula": "discovered_authority_field",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
+      "numerator": 0,
+      "pointer": "/candidate_count",
+      "population": "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+      "producer": "aggie_analytics.cycle30",
+      "row_identity": "",
+      "source_identities": [
+        "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json"
+      ],
+      "temporal_authority": "artifact_as_of_materialization",
+      "trust_class": "UNTRUSTED_SHADOW",
+      "validator": "tools/validate_cycle30_gates.py",
+      "value_class": "integer"
+    },
+    {
       "artifact_path": "AVAILABILITY_POLICY_INVENTORY.json",
       "claim_id": "AVAILABILITY_POLICY_INVENTORY.json:/artifact_class::artifact_class",
       "denominator": null,
@@ -1008,53 +1050,11 @@
       "trust_class": "UNTRUSTED_SHADOW",
       "validator": "tools/validate_cycle30_gates.py",
       "value_class": "string"
-    },
-    {
-      "artifact_path": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "claim_id": "BAS_DOMAIN_CATALOG_CROSSWALK.json:/mappings/37/state::state",
-      "denominator": null,
-      "dependencies": [],
-      "field": "state",
-      "formula": "discovered_authority_field",
-      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
-      "numerator": null,
-      "pointer": "/mappings/37/state",
-      "population": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "producer": "aggie_analytics.cycle30",
-      "row_identity": "",
-      "source_identities": [
-        "BAS_DOMAIN_CATALOG_CROSSWALK.json"
-      ],
-      "temporal_authority": "artifact_as_of_materialization",
-      "trust_class": "UNTRUSTED_SHADOW",
-      "validator": "tools/validate_cycle30_gates.py",
-      "value_class": "string"
-    },
-    {
-      "artifact_path": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "claim_id": "BAS_DOMAIN_CATALOG_CROSSWALK.json:/mappings/38/state::state",
-      "denominator": null,
-      "dependencies": [],
-      "field": "state",
-      "formula": "discovered_authority_field",
-      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
-      "numerator": null,
-      "pointer": "/mappings/38/state",
-      "population": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "producer": "aggie_analytics.cycle30",
-      "row_identity": "",
-      "source_identities": [
-        "BAS_DOMAIN_CATALOG_CROSSWALK.json"
-      ],
-      "temporal_authority": "artifact_as_of_materialization",
-      "trust_class": "UNTRUSTED_SHADOW",
-      "validator": "tools/validate_cycle30_gates.py",
-      "value_class": "string"
     }
   ],
-  "declared_count": 1104,
-  "discovered_count": 1104,
-  "inventory_identity": "d6293693dd645701e4fadc8ab06b31b9ca05a2e3f6099bf35f45e08accd1b1bd",
+  "declared_count": 1114,
+  "discovered_count": 1114,
+  "inventory_identity": "f30e666701318186227abd9ee162559ca919ecb6d09d30f8d487b2a35a8f6a85",
   "producer_cannot_write_unmapped_count": true,
   "unmapped_count": 0
 }

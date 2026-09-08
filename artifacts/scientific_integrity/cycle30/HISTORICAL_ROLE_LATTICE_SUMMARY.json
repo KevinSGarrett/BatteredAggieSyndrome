@@ -1,7 +1,11 @@
 {
   "artifact_class": "REAL_EVIDENCE",
   "cell_count": 219492,
+  "historical_wikimedia_episodes": 481,
+  "historical_wikimedia_pages": 798,
   "observed_titles_cannot_create_denominator": true,
+  "pit_admitted": false,
+  "retrospective_candidate_cells": 1789,
   "role_families": [
     "head_coach",
     "offensive_coordinator",

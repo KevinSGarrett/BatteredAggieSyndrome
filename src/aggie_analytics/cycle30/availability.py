@@ -7,6 +7,7 @@ Existing owner BAT-414 retains health evidence after duplicate audit.
 
 from __future__ import annotations
 
+import re
 from typing import Any, Mapping, Sequence
 
 CONFERENCE_POLICY_ROUTES: dict[str, dict[str, str]] = {
@@ -184,7 +185,9 @@ def inventory_availability_policies(
                     "availability attempt claimed without request evidence"
                 )
             row["attempt_count"] = count
-            row["disposition"] = str(attempt.get("disposition") or "ATTEMPTED_WITH_EVIDENCE")
+            row["disposition"] = str(
+                attempt.get("disposition") or "ATTEMPTED_WITH_EVIDENCE"
+            )
             row["http_status"] = attempt.get("http_status")
             row["receipt_identity"] = attempt.get("receipt_identity")
             row["route_uri"] = attempt.get("uri")
@@ -195,9 +198,7 @@ def inventory_availability_policies(
     attempted_routes = len(attempts_by_source)
     return {
         "artifact_type": "AVAILABILITY_POLICY_INVENTORY",
-        "artifact_class": "REAL_EVIDENCE"
-        if attempted_routes
-        else "BLOCKER_METADATA",
+        "artifact_class": "REAL_EVIDENCE" if attempted_routes else "BLOCKER_METADATA",
         "season": season,
         "current_national_programs_in_denominator": len(rows),
         "attempted_official_report_routes": attempted_routes,
@@ -214,6 +215,56 @@ def inventory_availability_policies(
         "conference_counts": _counts(rows, "conference"),
         "rows": rows,
     }
+
+
+_CANDIDATE_NAME = re.compile(
+    r"<t[dh][^>]*>\s*([A-Z][a-z]+(?:[-\s][A-Z][a-z'.]+){1,3})\s*</t[dh]>",
+)
+
+
+def extract_candidate_player_rows(
+    html: str, *, source_id: str, uri: str, limit: int = 50
+) -> list[dict[str, Any]]:
+    """Name-only public-page candidates. Not roster-joined. Not health status."""
+
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for match in _CANDIDATE_NAME.finditer(html or ""):
+        name = " ".join((match.group(1) or "").split())
+        key = name.casefold()
+        if key in seen:
+            continue
+        if any(
+            token in key
+            for token in (
+                "availability",
+                "conference",
+                "football",
+                "report",
+                "student",
+                "athlete",
+            )
+        ):
+            continue
+        seen.add(key)
+        rows.append(
+            {
+                "source_id": source_id,
+                "uri": uri,
+                "candidate_name": name,
+                "disposition": "CANDIDATE_NOT_JOINED",
+                "joined_to_verified_roster": False,
+                "no_report_means": "UNKNOWN",
+                "private_medical_detail_ingested": False,
+                "health_status_inferred": False,
+                "out_of_fitted_models": True,
+                "owner": "BAT-414",
+                "artifact_class": "REAL_EVIDENCE",
+            }
+        )
+        if len(rows) >= limit:
+            break
+    return rows
 
 
 def _counts(rows: Sequence[Mapping[str, Any]], key: str) -> dict[str, int]:

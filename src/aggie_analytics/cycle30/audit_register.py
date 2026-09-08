@@ -57,6 +57,10 @@ def remaining_audit_register(
     availability_routes_attempted: int = 0,
     membership_1963_2012_rows: int = 0,
     membership_1963_2012_years_attempted: int = 0,
+    raw_to_normalized_compared: int = 0,
+    historical_wiki_pages: int = 0,
+    historical_wiki_episodes: int = 0,
+    availability_candidates_not_joined: int = 0,
 ) -> dict[str, Any]:
     selected = {
         "cycle30_head": head_sha,
@@ -189,7 +193,8 @@ def remaining_audit_register(
             ],
             "blocker": (
                 f"attempted_official_report_routes={availability_routes_attempted}; "
-                "player rows not joined to verified roster; no_report=UNKNOWN not healthy"
+                f"candidate_player_rows_not_joined={availability_candidates_not_joined}; "
+                "no_report=UNKNOWN not healthy"
                 if availability_routes_attempted
                 else "attempted_official_report_routes=0; no_report=UNKNOWN not healthy"
             ),
@@ -264,9 +269,16 @@ def remaining_audit_register(
             "source_artifact_claim_sets": [
                 "ops/cycle30_work/outputs/CFBD_COACHES_HC_BACKBONE.jsonl",
                 "ops/cycle30_work/outputs/COACHING_PREDECESSOR_ROWS.jsonl",
+                "ops/cycle30_work/outputs/WIKIMEDIA_HISTORICAL_STAFF_CANDIDATES.jsonl",
             ],
-            "blocker": "Wikimedia/official biography historical career not scaled; no guessed dates",
-            "next_action": "Revision-bound Wikimedia plus official guides for remaining career episodes",
+            "blocker": (
+                f"historical Wikimedia season pages={historical_wiki_pages}, "
+                f"episodes={historical_wiki_episodes}; remaining years queued; "
+                "no guessed dates"
+                if historical_wiki_pages
+                else "Wikimedia/official biography historical career not scaled; no guessed dates"
+            ),
+            "next_action": "Remaining 1963–2026 Wikimedia years plus official guides; no guessed dates",
             "affected_use_restriction": "career context is not PIT; not a fitted feature",
             "selected_revisions": selected,
             "scope_provenance_result": "PARTIAL_PREDECESSOR_PLUS_CFBD_HC",
@@ -317,6 +329,7 @@ def remaining_audit_register(
                 "ops/cycle30_work/outputs/PIT_KERNEL_ROWS.jsonl",
                 "artifacts/scientific_integrity/cycle30/PIT_KERNEL_POPULATION_MANIFEST.json",
                 "artifacts/scientific_integrity/cycle30/PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+                "artifacts/scientific_integrity/cycle30/PIT_KERNEL_FULL_CHAIN_RECONSTRUCTION.json",
                 "artifacts/scientific_integrity/cycle30/KERNEL_CANDIDATE_FITS.json",
                 "artifacts/scientific_integrity/cycle30/PIT_KERNEL_TRUST_GATE.json",
                 "artifacts/scientific_integrity/cycle30/CYCLE30_DEPENDENCY_GRAPH.json",
@@ -360,11 +373,16 @@ def remaining_audit_register(
                 "artifacts/scientific_integrity/cycle30/HISTORICAL_NEUTRAL_SITE_AUDIT_SUMMARY.json",
                 "artifacts/scientific_integrity/cycle30/CAPTURE_INVENTORY_EXACT_RECONCILE.json",
                 "artifacts/scientific_integrity/cycle30/PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+                "artifacts/scientific_integrity/cycle30/HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json",
             ],
-            "blocker": "raw_to_normalized_semantic_audit_pending; national_pit_eligible_team_features.jsonl not mounted",
+            "blocker": (
+                f"raw_to_normalized_compared={raw_to_normalized_compared}; "
+                "not a full 46,953 semantic audit; "
+                "national_pit_eligible_team_features.jsonl not mounted"
+            ),
             "next_action": (
-                "Manager raw-to-normalized/feature comparisons; do not repeat count "
-                "scan as new semantic work; carry ties and neutrals through lineage"
+                "Manager raw-to-normalized/feature comparisons against the expanded "
+                "stratified sample; do not repeat count scan as new semantic work"
             ),
             "affected_use_restriction": (
                 "does not certify missing national games or every earlier cycle"
@@ -412,9 +430,7 @@ def remaining_audit_register(
             "new_claims_independently_verified": [],
             "failures": []
             if official_staff_attempts
-            else [
-                "equal_length_array_join_rejected_in_tests_only_until_official_html"
-            ],
+            else ["equal_length_array_join_rejected_in_tests_only_until_official_html"],
             "remaining_work": [
                 "vacancy/unknown source dates",
                 "title-versus-responsibility",

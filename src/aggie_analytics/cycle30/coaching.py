@@ -161,11 +161,26 @@ _COACH_CARD = re.compile(
     re.I | re.S,
 )
 _SIDEARM_VUE_PAIR = re.compile(
-    r'href="/sports/[^"]*coaches/[^"]+"[^>]*>\s*'
-    r"(?:<span[^>]*>)?(?P<name>[^<]{2,80})(?:</span>)?\s*</a>"
-    r".{0,500}?"
+    r"""href=['"](/sports/[^'"]*coaches/[^'"]+)['"][^>]*>\s*"""
+    r"(?:<span[^>]*>)?(?P<name>[^<]{2,80})(?:</span>)?\s*</a>",
+    re.I,
+)
+_NEAR_TITLE_SPAN = re.compile(
     r"<span[^>]*>(?P<title>[^<]{3,90})</span>",
+    re.I,
+)
+_SIDEARM_COACH_ROW = re.compile(
+    r'<tr[^>]*class="[^"]*sidearm-coaches-coach[^"]*"[^>]*>(?P<row>.*?)</tr>',
     re.I | re.S,
+)
+_COACH_HREF_NAME = re.compile(
+    r"<a[^>]*href=['\"][^'\"]*coaches/[^'\"]+['\"][^>]*>(?P<name>.*?)</a>",
+    re.I | re.S,
+)
+_TD = re.compile(r"<td[^>]*>(.*?)</td>", re.I | re.S)
+_NOT_FOUND_TITLE = re.compile(
+    r"<title>[^<]*(?:page not found \(404\)|page not found|404 - )[^<]*</title>",
+    re.I,
 )
 _TAG = re.compile(r"<[^>]+>")
 
@@ -175,9 +190,65 @@ def _plain(text: str) -> str:
     return re.sub(r"\s+", " ", cleaned).strip()
 
 
+def html_is_not_found_shell(html: str) -> bool:
+    """HTTP 200 error shells are not staff directories."""
+
+    return bool(_NOT_FOUND_TITLE.search(html or ""))
+
+
+def historical_season_page_title(current_title: str, year: int) -> str | None:
+    """Map a current program football page onto a season-page title."""
+
+    title = (current_title or "").strip()
+    if not title or title.casefold().startswith("list of"):
+        return None
+    lowered = title.casefold()
+    if re.match(r"^\d{4}\s", title) and "football" in lowered:
+        rest = re.sub(r"^\d{4}\s+", "", title).strip()
+        return f"{year} {rest}"
+    if lowered.endswith(" football"):
+        return f"{year} {title} team"
+    if "football team" in lowered:
+        return f"{year} {title}"
+    return f"{year} {title} football team"
+
+
+def _nodes_from_sidearm_coach_table(
+    html: str, *, page_url: str
+) -> list[dict[str, str]]:
+    nodes: list[dict[str, str]] = []
+    for match in _SIDEARM_COACH_ROW.finditer(html or ""):
+        row = match.group("row")
+        href = _COACH_HREF_NAME.search(row)
+        name = _plain(href.group("name") if href else "")
+        if not name:
+            heading = re.search(r"<th[^>]*>(.*?)</th>", row, re.I | re.S)
+            name = _plain(heading.group(1) if heading else "")
+        title = ""
+        for cell in _TD.findall(row):
+            text = _plain(cell)
+            if not text or "[REDACTED" in text:
+                continue
+            if re.fullmatch(r"[\d\s.()+-]+", text):
+                continue
+            title = text
+            break
+        if name and title:
+            nodes.append(
+                {
+                    "person": name,
+                    "title": title,
+                    "span_id": f"dom:{page_url}:{name}:{title}",
+                }
+            )
+    return nodes
+
+
 def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str]]:
     """Row-bound official staff extraction. Not PIT. No email/phone stored."""
 
+    if html_is_not_found_shell(html or ""):
+        return []
     nodes: list[dict[str, str]] = []
     for match in _JSON_LD.finditer(html or ""):
         try:
@@ -205,21 +276,54 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
                             "span_id": f"jsonld:{page_url}:{_plain(name)}:{_plain(title)}",
                         }
                     )
-    for match in (
-        *_SIDEARM_PAIR.finditer(html or ""),
-        *_COACH_CARD.finditer(html or ""),
-        *_SIDEARM_VUE_PAIR.finditer(html or ""),
+    if "sidearm-coaches-coach" in (html or "").casefold():
+        nodes.extend(_nodes_from_sidearm_coach_table(html or "", page_url=page_url))
+    if "coaches/" in (html or "") and 'href="/sports/' in (html or ""):
+        for match in _SIDEARM_VUE_PAIR.finditer(html or ""):
+            name = _plain(match.group("name"))
+            nearby = (html or "")[match.end() : match.end() + 500]
+            title_match = _NEAR_TITLE_SPAN.search(nearby)
+            title = _plain(title_match.group("title") if title_match else "")
+            if name and title:
+                nodes.append(
+                    {
+                        "person": name,
+                        "title": title,
+                        "span_id": f"dom:{page_url}:{name}:{title}",
+                    }
+                )
+    if "staff-directory-table-member" in (html or ""):
+        for match in _SIDEARM_PAIR.finditer(html or ""):
+            name = _plain(match.group("name"))
+            title = _plain(match.group("title"))
+            if name and title:
+                nodes.append(
+                    {
+                        "person": name,
+                        "title": title,
+                        "span_id": f"dom:{page_url}:{name}:{title}",
+                    }
+                )
+    if any(
+        token in (html or "")
+        for token in (
+            "sidearm-roster-coach",
+            "sidearm-coach-name",
+            "s-person-card__name",
+            "c-coach-card__name",
+        )
     ):
-        name = _plain(match.group("name"))
-        title = _plain(match.group("title"))
-        if name and title:
-            nodes.append(
-                {
-                    "person": name,
-                    "title": title,
-                    "span_id": f"dom:{page_url}:{name}:{title}",
-                }
-            )
+        for match in _COACH_CARD.finditer(html or ""):
+            name = _plain(match.group("name"))
+            title = _plain(match.group("title"))
+            if name and title:
+                nodes.append(
+                    {
+                        "person": name,
+                        "title": title,
+                        "span_id": f"dom:{page_url}:{name}:{title}",
+                    }
+                )
     if not nodes:
         return []
     extracted = extract_row_bound_staff(nodes)
@@ -242,16 +346,10 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
     return out
 
 
-_WEBSITE_URL_FIELD = re.compile(
-    r"\n\|\s*WebsiteURL\s*=\s*(?P<value>[^\n]+)", re.I
-)
-_WEBSITE_NAME_FIELD = re.compile(
-    r"\n\|\s*WebsiteName\s*=\s*(?P<value>[^\n]+)", re.I
-)
+_WEBSITE_URL_FIELD = re.compile(r"\n\|\s*WebsiteURL\s*=\s*(?P<value>[^\n]+)", re.I)
+_WEBSITE_NAME_FIELD = re.compile(r"\n\|\s*WebsiteName\s*=\s*(?P<value>[^\n]+)", re.I)
 _HTTP_URL = re.compile(r"https?://[^\s\]\|<>\"]+", re.I)
-_BARE_HOST = re.compile(
-    r"^(?P<host>[A-Za-z0-9.-]+\.[A-Za-z]{2,})(?P<path>/[\w./-]*)?$"
-)
+_BARE_HOST = re.compile(r"^(?P<host>[A-Za-z0-9.-]+\.[A-Za-z]{2,})(?P<path>/[\w./-]*)?$")
 _SKIP_WEBSITE_HOSTS = (
     "wikipedia.org",
     "wikimedia.org",
@@ -442,8 +540,7 @@ def fill_current_role_matrix(
                 "CONFIRMED_CO_SHARED_ROLE"
                 if len(official_episodes) > 1
                 or any(
-                    item.get("relationship") == CONCURRENT
-                    for item in official_episodes
+                    item.get("relationship") == CONCURRENT for item in official_episodes
                 )
                 else "CONFIRMED_APPOINTMENT"
             )
@@ -568,6 +665,45 @@ def historical_lattice(
                 }
             )
     return cells
+
+
+def overlay_historical_lattice(
+    cells: Sequence[Mapping[str, Any]],
+    episodes: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Attach retrospective episodes without shrinking the opportunity denominator."""
+
+    by_key: dict[tuple[str, int, str], list[Mapping[str, Any]]] = {}
+    for episode in episodes:
+        season = episode.get("season")
+        if season is None:
+            continue
+        role = str(episode.get("role") or episode.get("role_family") or "")
+        key = (str(episode.get("program_id")), int(season), role)
+        by_key.setdefault(key, []).append(episode)
+    overlaid: list[dict[str, Any]] = []
+    for cell in cells:
+        key = (
+            str(cell["program_id"]),
+            int(cell["season"]),
+            str(cell["role_family"]),
+        )
+        found = by_key.get(key)
+        if not found:
+            overlaid.append(dict(cell))
+            continue
+        overlaid.append(
+            {
+                **cell,
+                "evidence_disposition": "RETROSPECTIVE_CANDIDATE_ONLY",
+                "episode_cardinality": len(found),
+                "attempt_count": max(int(cell.get("attempt_count") or 0), 1),
+                "pit_admitted": False,
+            }
+        )
+    if len(overlaid) != len(cells):
+        raise CoachingError("lattice overlay cannot change opportunity cardinality")
+    return overlaid
 
 
 def reject_omitted_role_family(
@@ -708,6 +844,8 @@ COACH_INFOBOX_KEYS = {
     "defensivecoordinator": ROLE_DC,
     "def_coach": ROLE_DC,
     "defcoach": ROLE_DC,
+    "oc": ROLE_OC,
+    "dc": ROLE_DC,
 }
 
 

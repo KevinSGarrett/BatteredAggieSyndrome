@@ -51,6 +51,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     hc_oc_dc_matrix,
     historical_lattice,
     model_admission_gate,
+    overlay_historical_lattice,
     position_role_contract,
     reconcile_predecessor_observations,
     reject_cfbd_assistant,
@@ -635,9 +636,9 @@ def main() -> int:
     membership_ledger = (
         load_json(membership_ledger_path) if membership_ledger_path.is_file() else {}
     )
-    years_attempted_1963 = membership_ledger.get("years_attempted") or membership_1963[
-        "years_with_rows"
-    ]
+    years_attempted_1963 = (
+        membership_ledger.get("years_attempted") or membership_1963["years_with_rows"]
+    )
     hashes["HISTORICAL_MEMBERSHIP_1963_2012.jsonl"] = write_jsonl(
         EXT / "HISTORICAL_MEMBERSHIP_1963_2012.jsonl", hist_1963
     )
@@ -748,7 +749,7 @@ def main() -> int:
         capture_rows=capture_rows,
         mounted_root=DATA,
         canonical_by_id=canonical_index,
-        per_season=8,
+        per_season=16,
     )
     hashes["HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json"] = write_json(
         ART / "HISTORICAL_RAW_TO_NORMALIZED_SEMANTIC_TRACE.json",
@@ -1007,6 +1008,30 @@ def main() -> int:
             "declared_comparison_rows": len(comparison_rows),
             "rebuild": rebuild,
             "artifact_class": "REAL_EVIDENCE",
+        },
+    )
+    chain_ids = [row["canonical_game_id"] for row in comparison_rows]
+    hashes["PIT_KERNEL_FULL_CHAIN_RECONSTRUCTION.json"] = write_json(
+        ART / "PIT_KERNEL_FULL_CHAIN_RECONSTRUCTION.json",
+        {
+            "artifact_type": "PIT_KERNEL_FULL_CHAIN_RECONSTRUCTION",
+            "artifact_class": "REAL_EVIDENCE",
+            "comparison_unique_games": len(set(chain_ids)),
+            "comparison_team_rows": len(comparison_rows),
+            "independent_reconstructed_team_rows": len(reconstructed_declared),
+            "independent_matched": bool(reconstruction.get("matched")),
+            "game_identity_sha256": sha256_json(sorted(set(chain_ids))),
+            "raw_source": "SRC-002",
+            "population_filter": "2006-2023 observed FBS-FBS binary win; 2024/25 exposed excluded",
+            "tie_policy": "EXCLUDE_TIES_FROM_BINARY_ESTIMAND",
+            "temporal_authority": "RETROSPECTIVE_BOUNDED_CANDIDATE",
+            "priors": "in-window completed games before earliest start bound",
+            "neutral_site_consumed_as_ordinary_home_mask": True,
+            "travel_consumed": False,
+            "coaching_consumed": False,
+            "proven_pit_rows": kernel["proven_pit_training_rows"],
+            "not_manager_verified": True,
+            "passing_fixture_cannot_establish_this_result": True,
         },
     )
     recon_pop = predecessor_reconciliation(
@@ -1270,11 +1295,65 @@ def main() -> int:
         ],
         ROLE_FAMILIES,
     )
+    school_to_pid = {
+        str(row.get("display_name")): str(row.get("program_id"))
+        for row in (*current_programs, *hist_membership, *hist_1963)
+        if row.get("display_name") and row.get("program_id")
+    }
+    lattice_episodes: list[dict[str, Any]] = []
+    for row in cfbd_coaches:
+        person = (
+            str(row.get("firstName") or "").strip()
+            + " "
+            + str(row.get("lastName") or "").strip()
+        ).strip()
+        for season in row.get("seasons") or []:
+            school = str(season.get("school") or row.get("school") or "")
+            pid = school_to_pid.get(school)
+            year = season.get("year") or row.get("source_year")
+            if not pid or year is None or not person:
+                continue
+            lattice_episodes.append(
+                {
+                    "program_id": pid,
+                    "season": int(year),
+                    "role": "head_coach",
+                    "person": person,
+                    "source": "CFBD",
+                    "pit_admitted": False,
+                }
+            )
+    wiki_hist_rows = load_optional_jsonl(
+        EXT / "WIKIMEDIA_HISTORICAL_STAFF_CANDIDATES.jsonl"
+    )
+    for row in wiki_hist_rows:
+        for episode in row.get("episodes") or []:
+            lattice_episodes.append(
+                {
+                    "program_id": row.get("program_id"),
+                    "season": row.get("season"),
+                    "role": episode.get("role"),
+                    "person": episode.get("person"),
+                    "source": "WIKIMEDIA",
+                    "pit_admitted": False,
+                }
+            )
+    lattice = overlay_historical_lattice(lattice, lattice_episodes)
     hashes["HISTORICAL_ROLE_LATTICE_SUMMARY.json"] = write_json(
         ART / "HISTORICAL_ROLE_LATTICE_SUMMARY.json",
         {
             "cell_count": len(lattice),
             "role_families": list(ROLE_FAMILIES),
+            "retrospective_candidate_cells": sum(
+                1
+                for row in lattice
+                if row.get("evidence_disposition") == "RETROSPECTIVE_CANDIDATE_ONLY"
+            ),
+            "historical_wikimedia_pages": len(wiki_hist_rows),
+            "historical_wikimedia_episodes": sum(
+                len(row.get("episodes") or []) for row in wiki_hist_rows
+            ),
+            "pit_admitted": False,
             "artifact_class": "REAL_EVIDENCE" if lattice else "BLOCKER_METADATA",
             "observed_titles_cannot_create_denominator": True,
         },
@@ -1298,6 +1377,24 @@ def main() -> int:
     hashes["AVAILABILITY_POLICY_INVENTORY.json"] = write_json(
         ART / "AVAILABILITY_POLICY_INVENTORY.json",
         {key: value for key, value in availability.items() if key != "rows"},
+    )
+    availability_candidates = load_optional_jsonl(
+        EXT / "AVAILABILITY_CANDIDATE_PLAYER_ROWS.jsonl"
+    )
+    hashes["AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json"] = write_json(
+        ART / "AVAILABILITY_CANDIDATE_PLAYER_SUMMARY.json",
+        {
+            "artifact_class": "REAL_EVIDENCE"
+            if availability_candidates
+            else "BLOCKER_METADATA",
+            "candidate_count": len(availability_candidates),
+            "joined_to_verified_roster": False,
+            "disposition": "CANDIDATE_NOT_JOINED",
+            "no_report_means": "UNKNOWN",
+            "private_medical_detail_ingested": False,
+            "owner": "BAT-414",
+            "out_of_fitted_models": True,
+        },
     )
 
     catalog = canonical_catalog()
@@ -1499,6 +1596,23 @@ def main() -> int:
             "parser_family": "wikimedia_infobox_row_bound_HeadCoach",
         },
     )
+    hashes["WIKIMEDIA_HISTORICAL_STAFF_SUMMARY.json"] = write_json(
+        ART / "WIKIMEDIA_HISTORICAL_STAFF_SUMMARY.json",
+        {
+            "artifact_class": "REAL_EVIDENCE" if wiki_hist_rows else "BLOCKER_METADATA",
+            "pages": len(wiki_hist_rows),
+            "episode_count": sum(
+                len(row.get("episodes") or []) for row in wiki_hist_rows
+            ),
+            "revision_bound": sum(
+                1 for row in wiki_hist_rows if row.get("status") == "REVISION_BOUND"
+            ),
+            "years": [2013, 2018, 2023],
+            "remaining_years_queued": True,
+            "pit_admitted": False,
+            "parser_family": "wikimedia_infobox_row_bound_HC_OC_DC",
+        },
+    )
     reject_missing_release_bom(False, False)
     round_trip_game_context(
         {
@@ -1680,6 +1794,12 @@ def main() -> int:
             availability_routes_attempted=len(availability_attempts),
             membership_1963_2012_rows=len(hist_1963),
             membership_1963_2012_years_attempted=len(years_attempted_1963),
+            raw_to_normalized_compared=int(raw_trace.get("compared_count") or 0),
+            historical_wiki_pages=len(wiki_hist_rows),
+            historical_wiki_episodes=sum(
+                len(row.get("episodes") or []) for row in wiki_hist_rows
+            ),
+            availability_candidates_not_joined=len(availability_candidates),
         ),
     )
 

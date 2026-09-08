@@ -15,7 +15,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +24,7 @@ if str(ROOT / "src") not in sys.path:
 
 from aggie_analytics.cycle30.coaching import (  # noqa: E402
     extract_athletics_website_from_wikitext,
+    html_is_not_found_shell,
     parse_official_staff_html,
     redact_personal_contact,
     role_families_from_title,
@@ -36,7 +37,7 @@ BUDGET = {
     "concurrency": 1,
     "metered_scraper_credits": 0,
     "sleep_s": 0.2,
-    "timeout_s": 20,
+    "timeout_s": 8,
 }
 UA = (
     "BAS-Cycle30-Reconstruction/1.0 "
@@ -68,25 +69,39 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def index_wikitext() -> dict[str, str]:
+API = "https://en.wikipedia.org/w/api.php"
+
+
+def load_current_wikitext(titles: Sequence[str]) -> dict[str, str]:
     indexed: dict[str, str] = {}
-    if not WIKI.is_dir():
-        return indexed
-    for path in WIKI.glob("*.json"):
+    for title in titles:
+        if not title:
+            continue
+        params = {
+            "action": "query",
+            "prop": "revisions",
+            "rvprop": "ids|timestamp|content",
+            "rvslots": "main",
+            "titles": title,
+            "format": "json",
+        }
+        url = f"{API}?{urllib.parse.urlencode(params)}"
+        cache = WIKI / f"{sha256_json({'url': url})}.json"
+        if not cache.is_file():
+            continue
         try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
+            payload = json.loads(cache.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             continue
         pages = (payload.get("query") or {}).get("pages") or {}
         for page in pages.values():
-            title = page.get("title")
             revisions = page.get("revisions") or []
-            if not title or not revisions:
+            if not revisions:
                 continue
-            text = (
-                ((revisions[0].get("slots") or {}).get("main") or {}).get("*") or ""
-            )
-            indexed[str(title)] = redact_personal_contact(str(text))
+            text = ((revisions[0].get("slots") or {}).get("main") or {}).get("*") or ""
+            text = redact_personal_contact(str(text))
+            indexed[title] = text
+            indexed[str(page.get("title") or title)] = text
     return indexed
 
 
@@ -113,10 +128,12 @@ def candidate_staff_urls(website: str) -> list[str]:
 
 
 def fetch_html(
-    url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]
+    url: str,
+    ledger: list[dict[str, Any]],
+    budget: dict[str, Any],
+    *,
+    cache_only: bool = False,
 ) -> tuple[bytes, dict[str, Any]]:
-    if len(ledger) >= int(budget["max_requests"]):
-        raise RuntimeError("official staff request ceiling reached")
     cache = RAW / f"{sha256_json({'url': url})}.html"
     if cache.is_file():
         body = cache.read_bytes()
@@ -132,6 +149,22 @@ def fetch_html(
         }
         ledger.append(receipt)
         return body, receipt
+    if cache_only:
+        receipt = {
+            "route": url,
+            "status": "CACHE_MISS_SKIPPED",
+            "http_status": 0,
+            "request_identity_sha256": sha256_json({"url": url}),
+            "receipt_identity": sha256_json({"url": url, "cache_only": True}),
+            "raw_sha256": "empty",
+            "cached": False,
+            "retrieved_at_utc": utc_now(),
+        }
+        ledger.append(receipt)
+        return b"", receipt
+    live = sum(1 for row in ledger if row.get("status") in {"HTTP_OK", "HTTP_ERROR"})
+    if live >= int(budget["max_requests"]):
+        raise RuntimeError("official staff request ceiling reached")
     request = urllib.request.Request(
         url,
         headers={
@@ -141,7 +174,9 @@ def fetch_html(
     )
     start = utc_now()
     try:
-        with urllib.request.urlopen(request, timeout=int(budget["timeout_s"])) as response:
+        with urllib.request.urlopen(
+            request, timeout=int(budget["timeout_s"])
+        ) as response:
             body = response.read()
             status = int(response.status)
             final_url = str(response.geturl() or url)
@@ -177,7 +212,8 @@ def fetch_html(
 
 def useful_people(people: list[dict[str, str]]) -> bool:
     return any(
-        person.get("role") in {"head_coach", "offensive_coordinator", "defensive_coordinator"}
+        person.get("role")
+        in {"head_coach", "offensive_coordinator", "defensive_coordinator"}
         or role_families_from_title(str(person.get("title") or ""))
         for person in people
     )
@@ -187,6 +223,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--cache-only", action="store_true")
     args = parser.parse_args()
     RAW.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -201,7 +238,12 @@ def main() -> int:
     if args.dry_run:
         print("BUDGET_DECLARED", BUDGET["max_requests"], "programs", len(programs))
         return 0
-    wikitext_by_title = index_wikitext()
+    prior_attempts = {
+        str(row.get("program_id")): row
+        for row in load_jsonl(OUT / "OFFICIAL_STAFF_HTTP_ATTEMPTS.jsonl")
+    }
+    titles = [str(row.get("title") or "") for row in wiki_rows]
+    wikitext_by_title = load_current_wikitext(titles)
     ledger: list[dict[str, Any]] = []
     attempts: list[dict[str, Any]] = []
     people_out: list[dict[str, Any]] = []
@@ -211,7 +253,14 @@ def main() -> int:
             wiki = wiki_by_program.get(pid) or {}
             title = str(wiki.get("title") or "")
             wikitext = wikitext_by_title.get(title, "")
-            website = extract_athletics_website_from_wikitext(wikitext) if wikitext else None
+            website = (
+                extract_athletics_website_from_wikitext(wikitext) if wikitext else None
+            )
+            if not website:
+                prior_url = str((prior_attempts.get(pid) or {}).get("page_url") or "")
+                if prior_url.startswith("http"):
+                    parsed_prior = urllib.parse.urlparse(prior_url)
+                    website = f"{parsed_prior.scheme}://{parsed_prior.netloc}"
             discovery_receipt = sha256_json(
                 {
                     "program_id": pid,
@@ -242,11 +291,17 @@ def main() -> int:
             chosen: dict[str, Any] | None = None
             last_receipt: dict[str, Any] | None = None
             for url in candidate_staff_urls(website):
-                body, receipt = fetch_html(url, ledger, BUDGET)
-                last_receipt = receipt
+                body, receipt = fetch_html(
+                    url, ledger, BUDGET, cache_only=args.cache_only
+                )
                 if int(receipt.get("http_status") or 0) >= 400 or not body:
+                    last_receipt = receipt
                     continue
                 html = redact_personal_contact(body.decode("utf-8", "replace"))
+                if html_is_not_found_shell(html):
+                    last_receipt = {**receipt, "status": "HTTP_NOT_FOUND_SHELL"}
+                    continue
+                last_receipt = receipt
                 people = parse_official_staff_html(html, page_url=url)
                 if useful_people(people):
                     parsed_people = people

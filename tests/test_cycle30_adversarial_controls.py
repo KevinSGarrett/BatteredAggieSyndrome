@@ -26,11 +26,15 @@ from aggie_analytics.cycle30.claims import (
     reject_empty_science_pass,
     reject_vacuous_row_count,
 )
+from aggie_analytics.cycle30.availability import extract_candidate_player_rows
 from aggie_analytics.cycle30.coaching import (
     CoachingError,
     attempt_ledger_count,
     extract_row_bound_staff,
     hc_oc_dc_matrix,
+    historical_season_page_title,
+    html_is_not_found_shell,
+    overlay_historical_lattice,
     reject_literal_attempted,
 )
 from aggie_analytics.cycle30.cost import attestation_check
@@ -929,7 +933,7 @@ class Cycle30AdversarialTests(unittest.TestCase):
             (
                 '<a href="/sports/football/roster/coaches/kalen-deboer/1813" class="">'
                 '<span class="s-text-paragraph-small-bold">Kalen DeBoer</span></a>'
-                '<td><span data-v-a7dc635d>Head Coach</span></td>'
+                "<td><span data-v-a7dc635d>Head Coach</span></td>"
                 '<a href="/sports/football/roster/coaches/ryan-grubb/1814">'
                 "<span>Ryan Grubb</span></a>"
                 "<td><span>Offensive Coordinator</span></td>"
@@ -938,6 +942,65 @@ class Cycle30AdversarialTests(unittest.TestCase):
         )
         self.assertTrue(any(row["role"] == "head_coach" for row in vue))
         self.assertTrue(any(row["role"] == "offensive_coordinator" for row in vue))
+        table = parse_official_staff_html(
+            """
+            <title>Football Coaches - Alabama A&amp;M Athletics</title>
+            <tr class="sidearm-coaches-coach">
+              <td><img alt="Dennis Alexander"></td>
+              <th><a href="/sports/football/roster/coaches/dennis-alexander/998">Dennis Alexander</a></th>
+              <td>Co-Offensive Coordinator / Offensive Line</td>
+              <td><a href="mailto:x@example.com">x@example.com</a></td>
+            </tr>
+            <tr class="sidearm-coaches-coach">
+              <th><a href="/sports/football/roster/coaches/head/1">Patrice Henry Bazile</a></th>
+              <td>Head Coach</td>
+            </tr>
+            """,
+            page_url="http://aamusports.com/sports/football/coaches",
+        )
+        self.assertTrue(any(row["role"] == "head_coach" for row in table))
+        self.assertTrue(any(row["role"] == "offensive_coordinator" for row in table))
+        self.assertTrue(
+            html_is_not_found_shell("<title>Page Not Found (404) - App State</title>")
+        )
+        self.assertFalse(
+            html_is_not_found_shell("<title>Football Coaches - App State</title>")
+        )
+        self.assertEqual(
+            historical_season_page_title("Alabama Crimson Tide football", 2013),
+            "2013 Alabama Crimson Tide football team",
+        )
+        overlaid = overlay_historical_lattice(
+            [
+                {
+                    "program_id": "SRC-002:TEAM:1",
+                    "season": 2013,
+                    "role_family": "head_coach",
+                    "evidence_disposition": "NOT_ATTEMPTED",
+                }
+            ],
+            [
+                {
+                    "program_id": "SRC-002:TEAM:1",
+                    "season": 2013,
+                    "role": "head_coach",
+                    "person": "Nick Saban",
+                }
+            ],
+        )
+        self.assertEqual(len(overlaid), 1)
+        self.assertEqual(
+            overlaid[0]["evidence_disposition"], "RETROSPECTIVE_CANDIDATE_ONLY"
+        )
+        self.assertFalse(overlaid[0]["pit_admitted"])
+        names = extract_candidate_player_rows(
+            "<table><tr><td>John Smith</td><td>Available</td></tr></table>",
+            source_id="SRC-017",
+            uri="https://example.test/reports",
+        )
+        self.assertEqual(names[0]["disposition"], "CANDIDATE_NOT_JOINED")
+        self.assertFalse(names[0]["joined_to_verified_roster"])
+        self.assertFalse(names[0]["health_status_inferred"])
         self.assertEqual(role_family_from_title("Assistant Head Coach"), None)
         website = extract_athletics_website_from_wikitext(
             "| WebsiteName = 12thman.com\n| WebsiteURL = https://12thman.com/sports/football\n"

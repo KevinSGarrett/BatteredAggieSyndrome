@@ -1,0 +1,10 @@
+{
+  "artifact_class": "BLOCKER_METADATA",
+  "candidate_count": 0,
+  "disposition": "CANDIDATE_NOT_JOINED",
+  "joined_to_verified_roster": false,
+  "no_report_means": "UNKNOWN",
+  "out_of_fitted_models": true,
+  "owner": "BAT-414",
+  "private_medical_detail_ingested": false
+}

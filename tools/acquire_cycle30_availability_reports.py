@@ -23,6 +23,7 @@ if str(ROOT / "src") not in sys.path:
 
 from aggie_analytics.cycle30.availability import (  # noqa: E402
     PUBLIC_AVAILABILITY_ROUTES,
+    extract_candidate_player_rows,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
@@ -134,6 +135,10 @@ def main() -> int:
                 "fbreports",
             )
         )
+        decoded = body.decode("utf-8", "replace")
+        candidates = extract_candidate_player_rows(
+            decoded, source_id=route["source_id"], uri=uri
+        )
         rows.append(
             {
                 "source_id": route["source_id"],
@@ -149,7 +154,8 @@ def main() -> int:
                 ),
                 "page_kind": "POLICY_OR_ARCHIVE_PAGE",
                 "looks_like_availability_surface": looks_like_report,
-                "player_rows_extracted": 0,
+                "player_rows_extracted": len(candidates),
+                "candidate_player_rows": candidates,
                 "joined_to_verified_roster": False,
                 "private_medical_detail_ingested": False,
                 "no_report_means": "UNKNOWN",
@@ -172,7 +178,25 @@ def main() -> int:
         encoding="utf-8",
     )
     (OUT / "AVAILABILITY_ROUTE_ATTEMPTS.jsonl").write_text(
-        "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows),
+        "".join(
+            json.dumps(
+                {
+                    key: value
+                    for key, value in row.items()
+                    if key != "candidate_player_rows"
+                },
+                sort_keys=True,
+            )
+            + "\n"
+            for row in rows
+        ),
+        encoding="utf-8",
+    )
+    candidates = [
+        item for row in rows for item in (row.get("candidate_player_rows") or [])
+    ]
+    (OUT / "AVAILABILITY_CANDIDATE_PLAYER_ROWS.jsonl").write_text(
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in candidates),
         encoding="utf-8",
     )
     print(
@@ -183,6 +207,8 @@ def main() -> int:
         len(ledger),
         "http_ok",
         sum(1 for row in rows if int(row["http_status"] or 0) == 200),
+        "candidates_not_joined",
+        len(candidates),
     )
     return 0
 

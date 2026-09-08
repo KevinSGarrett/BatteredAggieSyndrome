@@ -73,27 +73,25 @@ def main() -> int:
         body = b""
         cached = False
         error = None
-        if cache.is_file():
-            body = cache.read_bytes()
-            http_status = 200
-            cached = True
-        else:
-            request = urllib.request.Request(uri, headers={"User-Agent": UA})
-            try:
-                with urllib.request.urlopen(request, timeout=30) as response:
-                    http_status = int(response.status)
-                    body = response.read()
-                cache.write_bytes(body)
-            except urllib.error.HTTPError as exc:
-                error = f"HTTPError:{exc.code}"
-                http_status = int(exc.code)
-                body = exc.read() or b""
-                if body:
-                    (cache_root / f"{contest_id}.error-{exc.code}.html").write_bytes(
-                        body
-                    )
-            except Exception as exc:  # noqa: BLE001
-                error = str(type(exc).__name__)
+        request = urllib.request.Request(uri, headers={"User-Agent": UA})
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                http_status = int(response.status)
+                body = response.read()
+            cache.write_bytes(body)
+        except urllib.error.HTTPError as exc:
+            error = f"HTTPError:{exc.code}"
+            http_status = int(exc.code)
+            body = exc.read() or b""
+            if body:
+                (cache_root / f"{contest_id}.error-{exc.code}.html").write_bytes(body)
+        except Exception as exc:  # noqa: BLE001
+            error = str(type(exc).__name__)
+            if cache.is_file():
+                body = cache.read_bytes()
+                http_status = 200
+                cached = True
+                error = f"{error}:FALLBACK_CACHE"
         end = utc_now()
         text = body.decode("utf-8", errors="replace")
         transport = classify_transport_and_upstream(

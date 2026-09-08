@@ -53,6 +53,7 @@ ORIGIN_PATHS = (
     "/staff-directory/department/football",
     "/sports/football/roster/coaches",
     "/sports/football/roster/staff",
+    "/sports/football/staff",
 )
 
 
@@ -258,10 +259,12 @@ def main() -> int:
                 extract_athletics_website_from_wikitext(wikitext) if wikitext else None
             )
             if not website:
-                prior_url = str((prior_attempts.get(pid) or {}).get("page_url") or "")
-                if prior_url.startswith("http"):
-                    parsed_prior = urllib.parse.urlparse(prior_url)
-                    website = f"{parsed_prior.scheme}://{parsed_prior.netloc}"
+                prior = prior_attempts.get(pid) or {}
+                if str(prior.get("status") or "") == "CAPTURED":
+                    prior_url = str(prior.get("page_url") or "")
+                    if prior_url.startswith("http"):
+                        parsed_prior = urllib.parse.urlparse(prior_url)
+                        website = f"{parsed_prior.scheme}://{parsed_prior.netloc}"
             discovery_receipt = sha256_json(
                 {
                     "program_id": pid,

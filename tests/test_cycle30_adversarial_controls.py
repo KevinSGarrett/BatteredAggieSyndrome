@@ -559,7 +559,7 @@ class Cycle30AdversarialTests(unittest.TestCase):
         )
 
     def test_travel_missing_coordinates_are_null(self) -> None:
-        row = travel_row(
+        origin_only = travel_row(
             canonical_game_id="G",
             team_id="T",
             origin_lat=None,
@@ -569,8 +569,32 @@ class Cycle30AdversarialTests(unittest.TestCase):
             origin_class="CAMPUS_PROXY",
             origin_id="ND",
         )
-        self.assertIsNone(row["distance_km_haversine"])
-        self.assertEqual(row["missing_reason"], "MISSING_COORDINATES")
+        self.assertIsNone(origin_only["distance_km_haversine"])
+        self.assertEqual(origin_only["missing_reason"], "MISSING_ORIGIN")
+        self.assertEqual(origin_only["venue_latitude"], 44.5013)
+        venue_only = travel_row(
+            canonical_game_id="G",
+            team_id="T",
+            origin_lat=41.6984,
+            origin_lon=-86.2339,
+            venue_lat=None,
+            venue_lon=None,
+            origin_class="CAMPUS_PROXY",
+            origin_id="ND",
+        )
+        self.assertEqual(venue_only["missing_reason"], "MISSING_VENUE")
+        self.assertEqual(venue_only["origin_latitude"], 41.6984)
+        both = travel_row(
+            canonical_game_id="G",
+            team_id="T",
+            origin_lat=None,
+            origin_lon=None,
+            venue_lat=None,
+            venue_lon=None,
+            origin_class="UNKNOWN_TEAM_ORIGIN",
+            origin_id=None,
+        )
+        self.assertEqual(both["missing_reason"], "MISSING_COORDINATES")
 
     def test_lambeau_travel_both_teams(self) -> None:
         # Green Bay, South Bend, Madison campus proxies.
@@ -1006,6 +1030,15 @@ class Cycle30AdversarialTests(unittest.TestCase):
             "| WebsiteName = 12thman.com\n| WebsiteURL = https://12thman.com/sports/football\n"
         )
         self.assertEqual(website, "https://12thman.com/sports/football")
+        athletics = extract_athletics_website_from_wikitext(
+            "| athletics = {{URL|https://gopack.com}}\n"
+        )
+        self.assertEqual(athletics, "https://gopack.com")
+        self.assertIsNone(
+            extract_athletics_website_from_wikitext(
+                "| website = https://www.sandiegofc.com\n"
+            )
+        )
         cells = hc_oc_dc_matrix(["SRC-002:TEAM:245"], "2026-09-07T16:00:00Z")
         filled = fill_current_role_matrix(
             cells,
@@ -1147,6 +1180,34 @@ class Cycle30AdversarialTests(unittest.TestCase):
             page_url="https://calbears.com/sports/football/coaches",
         )
         self.assertTrue(any(row["role"] == "offensive_coordinator" for row in table))
+        directory = parse_official_staff_html(
+            """
+            <tr class="staff-directory-table-member-position staff-directory-table-department__row">
+              <td class="staff-directory-table-cell staff-directory-table-member-position__name">
+                <div class="staff-directory-table-member-position__name-text">
+                  <a href="/staff-directory/frank-reich">Frank Reich</a>
+                </div>
+              </td>
+              <td class="staff-directory-table-cell staff-directory-table-member-position__position">
+                Head Coach
+              </td>
+            </tr>
+            <tr class="staff-directory-table-member-position">
+              <td class="staff-directory-table-cell staff-directory-table-member-position__name">
+                <a href="/staff-directory/oc">Jane Offense</a>
+              </td>
+              <td class="staff-directory-table-cell staff-directory-table-member-position__position">
+                Offensive Coordinator
+              </td>
+            </tr>
+            """,
+            page_url="https://gostanford.com/staff-directory/department/football",
+        )
+        self.assertTrue(any(row["person"] == "Frank Reich" for row in directory))
+        self.assertTrue(any(row["role"] == "head_coach" for row in directory))
+        self.assertTrue(
+            any(row["role"] == "offensive_coordinator" for row in directory)
+        )
         self.assertTrue(
             html_is_not_found_shell(
                 "<title>Page not found | Arkansas Razorbacks</title>"

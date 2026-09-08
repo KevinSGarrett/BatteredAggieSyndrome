@@ -108,6 +108,7 @@ from aggie_analytics.cycle30.site_context import (  # noqa: E402
     designation_swap_invariant,
     ordinary_home_exposure,
     persist_design_row,
+    travel_gap_counts,
     travel_row,
 )
 from aggie_analytics.scientific_reference.cycle30.pit import (  # noqa: E402
@@ -320,6 +321,8 @@ def map_game(raw: Mapping[str, Any]) -> dict[str, Any]:
         "season_type": raw.get("season_type"),
         "home_team_name": raw.get("home_team_name"),
         "away_team_name": raw.get("away_team_name"),
+        "home_team_source_id": raw.get("home_team_source_id"),
+        "away_team_source_id": raw.get("away_team_source_id"),
         "artifact_class": "REAL_EVIDENCE",
     }
 
@@ -405,6 +408,126 @@ def venue_index(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return out
 
 
+def payload_coords(
+    payload: Mapping[str, Any] | None,
+) -> tuple[float | None, float | None]:
+    if not payload:
+        return None, None
+    loc = payload.get("location") if isinstance(payload.get("location"), dict) else {}
+    lat = payload.get("latitude") or loc.get("latitude")
+    lon = payload.get("longitude") or loc.get("longitude")
+    if lat is None or lon is None:
+        return None, None
+    return float(lat), float(lon)
+
+
+def mapped_team_source_id(game: Mapping[str, Any], side: str) -> str:
+    raw = game.get(f"{side}_team_source_id")
+    if raw is not None and str(raw) != "":
+        return str(raw)
+    canonical = str(game.get(f"{side}_canonical_team_id") or "")
+    if ":" in canonical:
+        return canonical.rsplit(":", 1)[-1]
+    return canonical
+
+
+def emit_pair_travel(
+    *,
+    gid: str,
+    home: str,
+    away: str,
+    home_src: str,
+    away_src: str,
+    vlat: float | None,
+    vlon: float | None,
+    team_geo: dict[str, tuple[float, float]],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for src, team in ((home_src, home), (away_src, away)):
+        origin = team_geo.get(src)
+        try:
+            rows.append(
+                travel_row(
+                    canonical_game_id=gid,
+                    team_id=team,
+                    origin_lat=None if origin is None else origin[0],
+                    origin_lon=None if origin is None else origin[1],
+                    venue_lat=vlat,
+                    venue_lon=vlon,
+                    origin_class="TEAM_HOME_VENUE_PROXY"
+                    if origin
+                    else "UNKNOWN_TEAM_ORIGIN",
+                    origin_id=team if origin else None,
+                )
+            )
+        except SiteContextError as exc:
+            rows.append(
+                {
+                    "canonical_game_id": gid,
+                    "team_id": team,
+                    "distance_km_haversine": None,
+                    "distance_km_vincenty": None,
+                    "missing_reason": str(exc),
+                    "model_consumed": False,
+                    "proximity_is_not_home_bonus": True,
+                }
+            )
+    return rows
+
+
+def historical_neutral_travel_slice(
+    games: list[dict[str, Any]],
+    *,
+    venues: dict[str, dict[str, Any]],
+    team_geo: dict[str, tuple[float, float]],
+    season_min: int,
+    season_max: int,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    context_rows: list[dict[str, Any]] = []
+    travel_rows: list[dict[str, Any]] = []
+    for game in games:
+        season = int(game.get("season") or 0)
+        if season < season_min or season > season_max:
+            continue
+        if game.get("neutral_site") is not True:
+            continue
+        gid = str(game.get("canonical_game_id"))
+        home = str(game["home_canonical_team_id"])
+        away = str(game["away_canonical_team_id"])
+        home_src = mapped_team_source_id(game, "home")
+        away_src = mapped_team_source_id(game, "away")
+        venue = venues.get(str(game.get("venue_id") or ""))
+        vlat, vlon = payload_coords(venue)
+        context_rows.append(
+            contest_context(
+                canonical_game_id=gid,
+                source_order=[home, away],
+                canonical_home_id=home,
+                canonical_away_id=away,
+                designated_home_id=home,
+                designated_source="SRC-002",
+                site_class="NEUTRAL",
+                venue_id=None if not venue else str(venue.get("id")),
+                venue_name=(venue or {}).get("name") or game.get("venue_name"),
+                venue_lat=vlat,
+                venue_lon=vlon,
+            )
+        )
+        travel_rows.extend(
+            emit_pair_travel(
+                gid=gid,
+                home=home,
+                away=away,
+                home_src=home_src,
+                away_src=away_src,
+                vlat=vlat,
+                vlon=vlon,
+                team_geo=team_geo,
+            )
+        )
+    return context_rows, travel_rows
+
+
 def main() -> int:
     ART.mkdir(parents=True, exist_ok=True)
     EXT.mkdir(parents=True, exist_ok=True)
@@ -469,6 +592,9 @@ def main() -> int:
         },
     )
 
+    cfbd_venues = load_optional_jsonl(EXT / "CFBD_VENUES.jsonl")
+    venues = venue_index(cfbd_venues)
+
     site_rows: dict[str, dict[str, Any]] = {}
     neutrals: list[dict[str, Any]] = []
     for game in games:
@@ -478,6 +604,13 @@ def main() -> int:
             provider_neutral=game.get("neutral_site") if not missing else None,
             missing_annotation=missing,
         )
+        venue = venues.get(str(game.get("venue_id") or ""))
+        vlat, vlon = payload_coords(venue)
+        venue_gap = None
+        if game.get("venue_id") is None:
+            venue_gap = "MISSING_VENUE_ID"
+        elif vlat is None or vlon is None:
+            venue_gap = "MISSING_VENUE_COORDINATES"
         context = contest_context(
             canonical_game_id=str(game["canonical_game_id"]),
             source_order=[
@@ -490,12 +623,10 @@ def main() -> int:
             designated_source="SRC-002",
             site_class=site_class,
             venue_id=None if game.get("venue_id") is None else str(game["venue_id"]),
-            venue_name=game.get("venue_name"),
-            venue_lat=None,
-            venue_lon=None,
-            missing_reason=None
-            if game.get("venue_id")
-            else "MISSING_VENUE_COORDINATES",
+            venue_name=(venue or {}).get("name") or game.get("venue_name"),
+            venue_lat=vlat,
+            venue_lon=vlon,
+            missing_reason=venue_gap,
         )
         site_rows[str(game["canonical_game_id"])] = {
             **context,
@@ -515,6 +646,12 @@ def main() -> int:
             "artifact_class": "REAL_EVIDENCE",
             "neutral_row_count": len(neutrals),
             "parent_game_count": len(games),
+            "venue_id_present": sum(
+                1 for row in neutrals if row.get("venue_id") is not None
+            ),
+            "venue_with_coordinates": sum(
+                1 for row in neutrals if row.get("venue_latitude") is not None
+            ),
             "unknown_is_not_ordinary_home": True,
             "ordinary_hfa_masked_on_verified_neutral": True,
             "lambeau_is_not_national_proof": True,
@@ -525,7 +662,6 @@ def main() -> int:
     cfbd_teams = load_optional_jsonl(EXT / "CFBD_TEAMS_TRANCHE.jsonl")
     cfbd_games = load_optional_jsonl(EXT / "CFBD_GAMES_TRANCHE.jsonl")
     cfbd_coaches = load_optional_jsonl(EXT / "CFBD_COACHES_TRANCHE.jsonl")
-    cfbd_venues = load_optional_jsonl(EXT / "CFBD_VENUES.jsonl")
     ledger_path = EXT / "CYCLE30_ACQUISITION_LEDGER.json"
     acquisition_ledger = (
         load_json(ledger_path)
@@ -771,19 +907,6 @@ def main() -> int:
         ART / "PARENT_DUPLICATE_CONFLICT_AUDIT.json", parent_dups
     )
 
-    def _coords(payload: Mapping[str, Any] | None) -> tuple[float | None, float | None]:
-        if not payload:
-            return None, None
-        loc = (
-            payload.get("location") if isinstance(payload.get("location"), dict) else {}
-        )
-        lat = payload.get("latitude") or loc.get("latitude")
-        lon = payload.get("longitude") or loc.get("longitude")
-        if lat is None or lon is None:
-            return None, None
-        return float(lat), float(lon)
-
-    venues = venue_index(cfbd_venues)
     current_travel: list[dict[str, Any]] = []
     current_context: list[dict[str, Any]] = []
     for row in cfbd_games:
@@ -796,7 +919,7 @@ def main() -> int:
         home = team_id(home_src)
         away = team_id(away_src)
         venue = venues.get(str(row.get("venueId") or row.get("venue_id") or ""))
-        vlat, vlon = _coords(venue)
+        vlat, vlon = payload_coords(venue)
         site_class = classify_site(
             official_neutral=row.get("neutralSite")
             if "neutralSite" in row
@@ -820,35 +943,18 @@ def main() -> int:
             venue_lon=vlon,
         )
         current_context.append(ctx)
-        for src, team in ((home_src, home), (away_src, away)):
-            origin = team_geo.get(src)
-            try:
-                current_travel.append(
-                    travel_row(
-                        canonical_game_id=gid,
-                        team_id=team,
-                        origin_lat=None if origin is None else origin[0],
-                        origin_lon=None if origin is None else origin[1],
-                        venue_lat=vlat,
-                        venue_lon=vlon,
-                        origin_class="TEAM_HOME_VENUE_PROXY"
-                        if origin
-                        else "UNKNOWN_TEAM_ORIGIN",
-                        origin_id=team if origin else None,
-                    )
-                )
-            except SiteContextError as exc:
-                current_travel.append(
-                    {
-                        "canonical_game_id": gid,
-                        "team_id": team,
-                        "distance_km_haversine": None,
-                        "distance_km_vincenty": None,
-                        "missing_reason": str(exc),
-                        "model_consumed": False,
-                        "proximity_is_not_home_bonus": True,
-                    }
-                )
+        current_travel.extend(
+            emit_pair_travel(
+                gid=gid,
+                home=home,
+                away=away,
+                home_src=home_src,
+                away_src=away_src,
+                vlat=vlat,
+                vlon=vlon,
+                team_geo=team_geo,
+            )
+        )
     hashes["CURRENT_2026_CONTEST_CONTEXT.jsonl"] = write_jsonl(
         EXT / "CURRENT_2026_CONTEST_CONTEXT.jsonl", current_context
     )
@@ -915,78 +1021,20 @@ def main() -> int:
             else "BLOCKER_METADATA",
             "current_contest_context_rows": len(current_context),
             "current_travel_rows": len(current_travel),
-            "travel_with_coordinates": sum(
-                1
-                for row in current_travel
-                if row.get("distance_km_haversine") is not None
-            ),
-            "missing_origin_coordinates": sum(
-                1
-                for row in current_travel
-                if row.get("missing_reason") == "MISSING_COORDINATES"
-            ),
+            **travel_gap_counts(current_travel),
             "model_consumed": False,
             "full_schedule_remains_in_denominator": True,
         },
     )
-    historical_neutral_travel: list[dict[str, Any]] = []
-    historical_neutral_context: list[dict[str, Any]] = []
-    for game in games:
-        season = int(game.get("season") or 0)
-        if season < 2013 or season > 2023:
-            continue
-        if game.get("neutral_site") is not True:
-            continue
-        gid = str(game.get("canonical_game_id"))
-        home_src = str(game.get("home_team_source_id") or "")
-        away_src = str(game.get("away_team_source_id") or "")
-        home = team_id(home_src)
-        away = team_id(away_src)
-        venue = venues.get(str(game.get("venue_id") or ""))
-        vlat, vlon = _coords(venue)
-        ctx = contest_context(
-            canonical_game_id=gid,
-            source_order=[home, away],
-            canonical_home_id=home,
-            canonical_away_id=away,
-            designated_home_id=home,
-            designated_source="SRC-002",
-            site_class="NEUTRAL",
-            venue_id=None if not venue else str(venue.get("id")),
-            venue_name=(venue or {}).get("name") or game.get("venue_name"),
-            venue_lat=vlat,
-            venue_lon=vlon,
+    historical_neutral_context, historical_neutral_travel = (
+        historical_neutral_travel_slice(
+            games,
+            venues=venues,
+            team_geo=team_geo,
+            season_min=2013,
+            season_max=2023,
         )
-        historical_neutral_context.append(ctx)
-        for src, team in ((home_src, home), (away_src, away)):
-            origin = team_geo.get(src)
-            try:
-                historical_neutral_travel.append(
-                    travel_row(
-                        canonical_game_id=gid,
-                        team_id=team,
-                        origin_lat=None if origin is None else origin[0],
-                        origin_lon=None if origin is None else origin[1],
-                        venue_lat=vlat,
-                        venue_lon=vlon,
-                        origin_class="TEAM_HOME_VENUE_PROXY"
-                        if origin
-                        else "UNKNOWN_TEAM_ORIGIN",
-                        origin_id=team if origin else None,
-                    )
-                )
-            except SiteContextError as exc:
-                historical_neutral_travel.append(
-                    {
-                        "canonical_game_id": gid,
-                        "team_id": team,
-                        "distance_km_haversine": None,
-                        "distance_km_vincenty": None,
-                        "missing_reason": str(exc),
-                        "model_consumed": False,
-                        "proximity_is_not_home_bonus": True,
-                    }
-                )
+    )
     hashes["HISTORICAL_C_TRANCHE_NEUTRAL_TRAVEL.jsonl"] = write_jsonl(
         EXT / "HISTORICAL_C_TRANCHE_NEUTRAL_TRAVEL.jsonl", historical_neutral_travel
     )
@@ -998,18 +1046,33 @@ def main() -> int:
             "period": "2013-2023",
             "verified_neutral_contests": len(historical_neutral_context),
             "travel_rows": len(historical_neutral_travel),
-            "travel_with_coordinates": sum(
-                1
-                for row in historical_neutral_travel
-                if row.get("distance_km_haversine") is not None
-            ),
-            "missing_coordinates": sum(
-                1
-                for row in historical_neutral_travel
-                if row.get("missing_reason") == "MISSING_COORDINATES"
-            ),
+            **travel_gap_counts(historical_neutral_travel),
             "model_consumed": False,
             "backlog_1963_2012_retained": True,
+            "proximity_is_not_home_bonus": True,
+        },
+    )
+    backlog_context, backlog_travel = historical_neutral_travel_slice(
+        games,
+        venues=venues,
+        team_geo=team_geo,
+        season_min=1963,
+        season_max=2012,
+    )
+    hashes["HISTORICAL_NEUTRAL_TRAVEL_BACKLOG_1963_2012.jsonl"] = write_jsonl(
+        EXT / "HISTORICAL_NEUTRAL_TRAVEL_BACKLOG_1963_2012.jsonl", backlog_travel
+    )
+    hashes["HISTORICAL_NEUTRAL_TRAVEL_BACKLOG_1963_2012_SUMMARY.json"] = write_json(
+        ART / "HISTORICAL_NEUTRAL_TRAVEL_BACKLOG_1963_2012_SUMMARY.json",
+        {
+            "artifact_type": "HISTORICAL_NEUTRAL_TRAVEL_BACKLOG_1963_2012_SUMMARY",
+            "artifact_class": "REAL_EVIDENCE",
+            "period": "1963-2012",
+            "verified_neutral_contests": len(backlog_context),
+            "travel_rows": len(backlog_travel),
+            **travel_gap_counts(backlog_travel),
+            "model_consumed": False,
+            "not_a_completeness_claim": True,
             "proximity_is_not_home_bonus": True,
         },
     )

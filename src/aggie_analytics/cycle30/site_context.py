@@ -203,6 +203,41 @@ def vincenty_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     return b * a * (sigma - delta_sigma)
 
 
+def missing_coordinate_reason(
+    *,
+    origin_lat: float | None,
+    origin_lon: float | None,
+    venue_lat: float | None,
+    venue_lon: float | None,
+) -> str | None:
+    origin_missing = origin_lat is None or origin_lon is None
+    venue_missing = venue_lat is None or venue_lon is None
+    if not origin_missing and not venue_missing:
+        return None
+    if origin_missing and venue_missing:
+        return "MISSING_COORDINATES"
+    if origin_missing:
+        return "MISSING_ORIGIN"
+    return "MISSING_VENUE"
+
+
+def travel_gap_counts(rows: Sequence[Mapping[str, Any]]) -> dict[str, int]:
+    return {
+        "travel_with_coordinates": sum(
+            1 for row in rows if row.get("distance_km_haversine") is not None
+        ),
+        "missing_origin": sum(
+            1 for row in rows if row.get("missing_reason") == "MISSING_ORIGIN"
+        ),
+        "missing_venue": sum(
+            1 for row in rows if row.get("missing_reason") == "MISSING_VENUE"
+        ),
+        "missing_coordinates": sum(
+            1 for row in rows if row.get("missing_reason") == "MISSING_COORDINATES"
+        ),
+    }
+
+
 def travel_row(
     *,
     canonical_game_id: str,
@@ -214,16 +249,26 @@ def travel_row(
     origin_class: str,
     origin_id: str | None,
 ) -> dict[str, Any]:
-    if None in {origin_lat, origin_lon, venue_lat, venue_lon}:
+    reason = missing_coordinate_reason(
+        origin_lat=origin_lat,
+        origin_lon=origin_lon,
+        venue_lat=venue_lat,
+        venue_lon=venue_lon,
+    )
+    if reason is not None:
         return {
             "canonical_game_id": canonical_game_id,
             "team_id": team_id,
             "origin_class": origin_class,
             "origin_id": origin_id,
+            "origin_latitude": origin_lat,
+            "origin_longitude": origin_lon,
+            "venue_latitude": venue_lat,
+            "venue_longitude": venue_lon,
             "distance_km_haversine": None,
             "distance_km_vincenty": None,
             "units": "km",
-            "missing_reason": "MISSING_COORDINATES",
+            "missing_reason": reason,
             "proximity_is_not_home_bonus": True,
             "model_consumed": False,
         }

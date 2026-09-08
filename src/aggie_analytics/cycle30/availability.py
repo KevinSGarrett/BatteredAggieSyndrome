@@ -77,6 +77,11 @@ PUBLIC_AVAILABILITY_ROUTES: tuple[dict[str, str], ...] = (
     {
         "source_id": "SRC-019",
         "conference": "ACC",
+        "uri": "https://theacc.com/sports/2025/8/28/availability-reporting-football.aspx",
+    },
+    {
+        "source_id": "SRC-019-POLICY",
+        "conference": "ACC",
         "uri": "https://theacc.com/sports/2025/8/28/availability-reporting.aspx",
     },
     {

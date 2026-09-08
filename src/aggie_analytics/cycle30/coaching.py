@@ -198,6 +198,26 @@ _S_TABLE_TITLE_THEN_NAME = re.compile(
     r"(?:<span[^>]*>)?(?P<name>[^<]{2,80})",
     re.I | re.S,
 )
+_STAFF_DIR_ROW = re.compile(
+    r"<tr[^>]*class=\"[^\"]*staff-directory-table-member-position[^\"]*\"[^>]*>"
+    r"(?P<row>.*?)</tr>",
+    re.I | re.S,
+)
+_STAFF_DIR_NAME_CELL = re.compile(
+    r'class="[^"]*staff-directory-table-member-position__name[^"]*"[^>]*>'
+    r"(?P<name>.*?)</td>",
+    re.I | re.S,
+)
+_STAFF_DIR_TITLE_CELL = re.compile(
+    r'class="[^"]*staff-directory-table-member-position__position[^"]*"[^>]*>'
+    r"(?P<title>.*?)</td>",
+    re.I | re.S,
+)
+_INFOBOX_URL_FIELDS = (
+    re.compile(r"\n\|\s*WebsiteURL\s*=\s*(?P<value>[^\n]+)", re.I),
+    re.compile(r"\n\|\s*athletics(?:\s+website)?\s*=\s*(?P<value>[^\n]+)", re.I),
+    re.compile(r"\n\|\s*WebsiteName\s*=\s*(?P<value>[^\n]+)", re.I),
+)
 
 
 def _plain(text: str) -> str:
@@ -246,6 +266,36 @@ def _nodes_from_s_table_coaches(html: str, *, page_url: str) -> list[dict[str, s
     for match in _S_TABLE_TITLE_THEN_NAME.finditer(html or ""):
         name = _plain(match.group("name"))
         title = _plain(match.group("title"))
+        if not name or not title:
+            continue
+        lowered = title.casefold()
+        if not any(
+            token in lowered
+            for token in ("coach", "coordinator", "analyst", "assistant")
+        ):
+            continue
+        nodes.append(
+            {
+                "person": name,
+                "title": title,
+                "span_id": f"dom:{page_url}:{name}:{title}",
+            }
+        )
+    return nodes
+
+
+def _nodes_from_staff_directory_rows(
+    html: str, *, page_url: str
+) -> list[dict[str, str]]:
+    """Next-gen staff-directory table rows. Name and title share one <tr>."""
+
+    nodes: list[dict[str, str]] = []
+    for match in _STAFF_DIR_ROW.finditer(html or ""):
+        row = match.group("row")
+        name_match = _STAFF_DIR_NAME_CELL.search(row)
+        title_match = _STAFF_DIR_TITLE_CELL.search(row)
+        name = _plain(name_match.group("name") if name_match else "")
+        title = _plain(title_match.group("title") if title_match else "")
         if not name or not title:
             continue
         lowered = title.casefold()
@@ -396,6 +446,8 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
         nodes.extend(_nodes_from_roster_staff_cards(html or "", page_url=page_url))
     if "roster/coaches/" in (html or "") and "s-table-body_cell" in (html or ""):
         nodes.extend(_nodes_from_s_table_coaches(html or "", page_url=page_url))
+    if "staff-directory-table-member-position" in (html or "").casefold():
+        nodes.extend(_nodes_from_staff_directory_rows(html or "", page_url=page_url))
     if not nodes:
         return []
     extracted = extract_row_bound_staff(nodes)
@@ -418,9 +470,7 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
     return out
 
 
-_WEBSITE_URL_FIELD = re.compile(r"\n\|\s*WebsiteURL\s*=\s*(?P<value>[^\n]+)", re.I)
-_WEBSITE_NAME_FIELD = re.compile(r"\n\|\s*WebsiteName\s*=\s*(?P<value>[^\n]+)", re.I)
-_HTTP_URL = re.compile(r"https?://[^\s\]\|<>\"]+", re.I)
+_HTTP_URL = re.compile(r"https?://[^\s\]\|<>\"}]+", re.I)
 _BARE_HOST = re.compile(r"^(?P<host>[A-Za-z0-9.-]+\.[A-Za-z]{2,})(?P<path>/[\w./-]*)?$")
 _SKIP_WEBSITE_HOSTS = (
     "wikipedia.org",
@@ -439,14 +489,17 @@ _SKIP_WEBSITE_HOSTS = (
 
 
 def _clean_website_candidate(raw: str) -> str | None:
-    text = _plain(raw).split("|")[0].strip().strip("'\"[]")
-    if not text:
-        return None
+    text = _plain(raw)
     match = _HTTP_URL.search(text)
     if match:
-        url = match.group(0).rstrip(".,);")
+        url = match.group(0).rstrip(".,);}{")
     else:
-        bare = _BARE_HOST.match(text.split()[0] if text else "")
+        stripped = re.sub(r"\{\{\s*url\s*\|\s*", "", text, flags=re.I)
+        stripped = stripped.replace("}}", " ")
+        token = stripped.split("|")[0].strip().strip("'\"[]")
+        if not token:
+            return None
+        bare = _BARE_HOST.match(token.split()[0] if token else "")
         if not bare:
             return None
         url = "https://" + bare.group("host") + (bare.group("path") or "")
@@ -457,17 +510,16 @@ def _clean_website_candidate(raw: str) -> str | None:
 
 
 def extract_athletics_website_from_wikitext(wikitext: str) -> str | None:
-    """Prefer infobox WebsiteURL; WebsiteName is origin-only fallback."""
+    """Prefer infobox WebsiteURL; athletics/website fields are origin-only fallback."""
 
     prefixed = "\n" + (wikitext or "")
-    url_match = _WEBSITE_URL_FIELD.search(prefixed)
-    if url_match:
-        parsed = _clean_website_candidate(url_match.group("value"))
+    for field in _INFOBOX_URL_FIELDS:
+        match = field.search(prefixed)
+        if not match:
+            continue
+        parsed = _clean_website_candidate(match.group("value"))
         if parsed:
             return parsed
-    name_match = _WEBSITE_NAME_FIELD.search(prefixed)
-    if name_match:
-        return _clean_website_candidate(name_match.group("value"))
     return None
 
 

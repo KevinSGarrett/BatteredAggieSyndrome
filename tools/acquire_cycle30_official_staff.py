@@ -238,6 +238,10 @@ def coordinator_complete(people: list[dict[str, str]]) -> bool:
     return ROLE_OC in coverage and ROLE_DC in coverage
 
 
+def staff_page_is_generic_directory(url: str) -> bool:
+    return "staff-directory" in str(url or "").casefold()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
@@ -379,6 +383,15 @@ def main() -> int:
                 if not people:
                     people = parse_official_staff_html(html, page_url=url)
                 roles = primary_role_coverage(people)
+                if people and staff_page_is_generic_directory(url) and chosen:
+                    chosen_url = str(chosen.get("route") or "")
+                    if (
+                        not staff_page_is_generic_directory(chosen_url)
+                        and len(roles) <= len(best_roles)
+                    ):
+                        if {ROLE_HC, ROLE_OC, ROLE_DC} <= roles:
+                            break
+                        continue
                 if people and (
                     len(roles) > len(best_roles)
                     or (

@@ -153,6 +153,18 @@ def role_families_from_title(title: str) -> tuple[str, ...]:
     return tuple(families)
 
 
+def primary_role_coverage(people: Sequence[Mapping[str, Any]]) -> frozenset[str]:
+    """HC/OC/DC families actually present in row-bound official people."""
+
+    found: set[str] = set()
+    for person in people:
+        found.update(role_families_from_title(str(person.get("title") or "")))
+        role = str(person.get("role") or "")
+        if role in PRIMARY_ROLES:
+            found.add(role)
+    return frozenset(found)
+
+
 def role_family_from_title(title: str) -> str | None:
     families = role_families_from_title(title)
     return families[0] if families else None

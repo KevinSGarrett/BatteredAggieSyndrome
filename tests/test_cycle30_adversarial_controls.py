@@ -57,6 +57,7 @@ from aggie_analytics.cycle30.coaching import (
     parse_wikimedia_infobox,
     expand_source_year_span,
     match_program_to_sportradar_team,
+    primary_role_coverage,
     role_families_from_title,
     role_family_from_title,
     reject_literal_attempted,
@@ -1808,6 +1809,16 @@ class Cycle30AdversarialTests(unittest.TestCase):
                 "Offensive Pass Game Coordinator/Quarterbacks Coach"
             ),
             (),
+        )
+        self.assertEqual(
+            primary_role_coverage(
+                [
+                    {"title": "Head Football Coach"},
+                    {"title": "Offensive Pass Game Coordinator/Quarterbacks Coach"},
+                    {"title": "Defensive Coordinator"},
+                ]
+            ),
+            frozenset({"head_coach", "defensive_coordinator"}),
         )
         cells = hc_oc_dc_matrix(["SRC-002:TEAM:2230"], "2026-09-07T16:00:00Z")
         filled = fill_current_role_matrix(

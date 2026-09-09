@@ -24,6 +24,10 @@ if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.cycle30.coaching import (  # noqa: E402
+    PRIMARY_ROLES,
+    ROLE_DC,
+    ROLE_HC,
+    ROLE_OC,
     extract_athletics_website_from_wikitext,
     html_is_not_found_shell,
     html_is_waf_challenge,
@@ -31,8 +35,8 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     official_staff_candidate_urls,
     parse_official_staff_html,
     parse_official_staff_json,
+    primary_role_coverage,
     redact_personal_contact,
-    role_families_from_title,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
@@ -226,12 +230,12 @@ def fetch_html(
 
 
 def useful_people(people: list[dict[str, str]]) -> bool:
-    return any(
-        person.get("role")
-        in {"head_coach", "offensive_coordinator", "defensive_coordinator"}
-        or role_families_from_title(str(person.get("title") or ""))
-        for person in people
-    )
+    return bool(primary_role_coverage(people) & set(PRIMARY_ROLES))
+
+
+def coordinator_complete(people: list[dict[str, str]]) -> bool:
+    coverage = primary_role_coverage(people)
+    return ROLE_OC in coverage and ROLE_DC in coverage
 
 
 def main() -> int:
@@ -243,6 +247,11 @@ def main() -> int:
         "--uncaptured-only",
         action="store_true",
         help="Reuse prior CAPTURED rows and live-fetch only remaining programs",
+    )
+    parser.add_argument(
+        "--retry-missing-coordinators",
+        action="store_true",
+        help="Re-fetch programs whose captured HTML still lacks OC or DC titles",
     )
     args = parser.parse_args()
     RAW.mkdir(parents=True, exist_ok=True)
@@ -283,6 +292,13 @@ def main() -> int:
                 attempts.append(prior_attempts[pid])
                 people_out.extend(prior_people_by_program.get(pid, []))
                 continue
+            if args.retry_missing_coordinators and coordinator_complete(
+                prior_people_by_program.get(pid, [])
+            ):
+                if str((prior_attempts.get(pid) or {}).get("status") or "") == "CAPTURED":
+                    attempts.append(prior_attempts[pid])
+                    people_out.extend(prior_people_by_program.get(pid, []))
+                    continue
             wiki = wiki_by_program.get(pid) or {}
             title = str(wiki.get("title") or "")
             wikitext = wikitext_by_title.get(title, "")
@@ -329,6 +345,7 @@ def main() -> int:
             parsed_people: list[dict[str, str]] = []
             chosen: dict[str, Any] | None = None
             last_receipt: dict[str, Any] | None = None
+            best_roles: frozenset[str] = frozenset()
             for url in official_staff_candidate_urls(website):
                 body, receipt = fetch_html(
                     url, ledger, BUDGET, cache_only=args.cache_only
@@ -361,13 +378,19 @@ def main() -> int:
                         people = parse_official_staff_json(payload, page_url=url)
                 if not people:
                     people = parse_official_staff_html(html, page_url=url)
-                if useful_people(people):
+                roles = primary_role_coverage(people)
+                if people and (
+                    len(roles) > len(best_roles)
+                    or (
+                        len(roles) == len(best_roles)
+                        and len(people) > len(parsed_people)
+                    )
+                ):
                     parsed_people = people
                     chosen = receipt
+                    best_roles = roles
+                if {ROLE_HC, ROLE_OC, ROLE_DC} <= roles:
                     break
-                if people and chosen is None:
-                    parsed_people = people
-                    chosen = receipt
             if chosen and useful_people(parsed_people):
                 for person in parsed_people:
                     people_out.append(

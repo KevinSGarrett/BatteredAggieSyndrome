@@ -8,7 +8,7 @@
   "selected_revisions": {
     "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
     "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-    "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+    "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
     "not_manager_verified": true,
     "review_state": "READY_FOR_MANAGER_REVIEW"
   },
@@ -42,7 +42,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -79,7 +79,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -114,7 +114,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -148,7 +148,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -181,7 +181,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -196,7 +196,7 @@
     {
       "adversarial_result": "NOT_PERFORMED",
       "affected_use_restriction": "career context is not PIT; not a fitted feature",
-      "blocker": "historical Wikimedia season pages=16373, episodes=34303; remaining years queued; no guessed dates",
+      "blocker": "historical Wikimedia season pages=17024, episodes=47990; remaining years queued; no guessed dates",
       "failures": [
         "position_career_history_not_nationally_acquired"
       ],
@@ -218,7 +218,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -253,7 +253,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -288,7 +288,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -329,7 +329,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -370,7 +370,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },

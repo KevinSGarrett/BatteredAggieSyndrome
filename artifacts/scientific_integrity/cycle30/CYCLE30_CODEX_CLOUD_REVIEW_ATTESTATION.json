@@ -1,6 +1,6 @@
 {
   "artifact_type": "CYCLE30_CODEX_CLOUD_REVIEW_ATTESTATION",
-  "head_sha": "8cc02139928cdb5d58fb17a7934ed0078452be77",
+  "head_sha": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
   "metered_api_on_routine_pull_request": false,
   "no_api_attestation_is_not_scientific_review": true,
   "openai_api_invocations": 0,

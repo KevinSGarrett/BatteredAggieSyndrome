@@ -1,0 +1,21 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "CFBD_PARENT_IDENTITY_JOIN",
+  "cfbd_fcs_fcs_absent_from_parent": 5494,
+  "cfbd_fcs_fcs_in_parent": 122,
+  "cfbd_fcs_fcs_rows": 5616,
+  "cfbd_row_count": 42038,
+  "identity_join_performed": true,
+  "joined_by_era_label": {
+    "DIVISION_I_A_PLUS_DIVISION_I_AA": 19442,
+    "FBS_PLUS_FCS": 5662,
+    "NCAA_UNIVERSITY_DIVISION_PRIMARY": 6633,
+    "UNSPLIT_DIVISION_I": 3994
+  },
+  "joined_by_source_id": 35731,
+  "parent_is_fbs_filtered_numerator_not_complete_fcs_graph": true,
+  "parent_row_count": 46953,
+  "period": "1963-2012",
+  "source_classification_is_not_era_proof": true,
+  "unjoined_cfbd_rows": 6307
+}

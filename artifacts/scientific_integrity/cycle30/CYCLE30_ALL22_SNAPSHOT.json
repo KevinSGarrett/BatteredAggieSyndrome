@@ -24,7 +24,7 @@
   "repos": [
     {
       "branch": "cursor/cycle30-neutral-national-kernel",
-      "head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+      "head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
       "path": "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle30-scr"
     },
     {
@@ -111,7 +111,7 @@
     },
     {
       "branch": "refs/heads/cursor/cycle30-neutral-national-kernel",
-      "head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+      "head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
       "keep": "true",
       "path": "C:/BatteredAggieSyndrome.data/worktrees/cycle30-scr"
     },

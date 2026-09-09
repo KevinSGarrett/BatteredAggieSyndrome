@@ -1,0 +1,18 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "CFBD_PARENT_IDENTITY_JOIN",
+  "cfbd_fcs_fcs_absent_from_parent": 7198,
+  "cfbd_fcs_fcs_in_parent": 0,
+  "cfbd_fcs_fcs_rows": 7198,
+  "cfbd_row_count": 10067,
+  "identity_join_performed": true,
+  "joined_by_era_label": {
+    "FBS_PLUS_FCS": 1152
+  },
+  "joined_by_source_id": 1152,
+  "parent_is_fbs_filtered_numerator_not_complete_fcs_graph": true,
+  "parent_row_count": 46953,
+  "period": "2013-2023_2026",
+  "source_classification_is_not_era_proof": true,
+  "unjoined_cfbd_rows": 8915
+}

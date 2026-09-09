@@ -68,36 +68,36 @@
         "artifact_class": "REAL_EVIDENCE",
         "error": null,
         "http_status": 200,
-        "raw_sha256": "e03373f3544dd9bb19f463dfe7c9f378158f3547a17e7eed561c1ccd0cf5c7eb",
-        "receipt_identity": "cfd07565c9e0e0bdf188d53d7012745d765170e1421c5b14e6a96dfe1c07aaf9",
-        "retrieved_at_utc": "2026-09-09T00:28:00Z",
+        "raw_sha256": "9731ae0fb5499b9753769642f2fc02279681338aa155a4cdc28e2512a0d2c9f6",
+        "receipt_identity": "8782db6a90d39649ba2980817edfc76d18950b92136c1735189bb7fe6a9a2236",
+        "retrieved_at_utc": "2026-09-09T04:08:06Z",
         "uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/00/all-conf"
       },
       {
         "artifact_class": "REAL_EVIDENCE",
         "error": null,
         "http_status": 200,
-        "raw_sha256": "b9ff00c2ee3fcc14c23119beac07667376c05d4f7871a949334cd10cd99605b0",
-        "receipt_identity": "88ef2bcd0b27fea8ddf9b1f3b70ab4305dc239367bc4919d6fae11d6f28f6331",
-        "retrieved_at_utc": "2026-09-09T00:28:00Z",
+        "raw_sha256": "779f8d5ee930d6f1309b455de75f53ce3bfa1d734aba4098853cde3ea67133a8",
+        "receipt_identity": "17060433b1bebfb41fa2fbdc269e84ff83b8afaf082e7eb690ed92a1f2830a4a",
+        "retrieved_at_utc": "2026-09-09T04:08:07Z",
         "uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/01/all-conf"
       },
       {
         "artifact_class": "REAL_EVIDENCE",
         "error": null,
         "http_status": 200,
-        "raw_sha256": "a429a49c4eb66a329092ee06f1e65f768426c9be06378e90486140a54976735a",
-        "receipt_identity": "b2e2e89a20003b1bb98d78920fa1113ebb0bfc82e623dfd5866b7e0519cbda80",
-        "retrieved_at_utc": "2026-09-09T00:28:01Z",
+        "raw_sha256": "3b3a72513a4a81e1ad0e29fc3c215adcba41ee6f4280e24cd2d24fcead83a277",
+        "receipt_identity": "faa4b870c8d082b0ad74136a04c4418643877c6c507a27cfa7bef84b5029cf87",
+        "retrieved_at_utc": "2026-09-09T04:08:07Z",
         "uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/02/all-conf"
       },
       {
         "artifact_class": "REAL_EVIDENCE",
         "error": null,
         "http_status": 200,
-        "raw_sha256": "41856bced96630c9325a2e8ac09567203b6759627ebb55f18226d0a91274e19f",
-        "receipt_identity": "c77a4d7f5dd488c2ba63320f0c1d432efc85b7dd1e002011178717f10dca6a98",
-        "retrieved_at_utc": "2026-09-09T00:28:01Z",
+        "raw_sha256": "9cb9d64a691a03ae5da712495507eee744f2be5bd2a408dcbde088ef2cf9de8c",
+        "receipt_identity": "fb723285ce87e259c11e8fbc8ea17cfe70c3e6f99e8c892ed71dc7b1aee64ef0",
+        "retrieved_at_utc": "2026-09-09T04:08:07Z",
         "uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/03/all-conf"
       }
     ],
@@ -107,63 +107,129 @@
         "artifact_class": "REAL_EVIDENCE",
         "away": "Notre Dame",
         "cached": false,
+        "cfbd_is_not_stats_final": true,
         "error": "HTTPError:403",
         "forecast_not_created": true,
         "home": "Wisconsin",
         "http_status": 403,
+        "ncaa_com_is_not_stats_final": true,
         "ncaa_contest_id": "6602874",
-        "raw_sha256": "8b703e9b6e20f99837fac147ef70b0fa62351f909a00bcb2db64ae72e18e539a",
-        "receipt_identity": "24ce741380acf489db88556c494cebf96d1f28ddbea7a61955cba4988f3285c3",
-        "request_identity_sha256": "fc17ad2443e6ba03b4586bbcb784d2d5a70f8553e4d5047d56c387485b71ba8b",
-        "retrieved_at_utc": "2026-09-09T00:27:59Z",
+        "raw_sha256": "7236fa70ecd74fed42d099712c99c5da8017644da17c4d20628218369a646813",
+        "receipt_identity": "04c46bb8b46a06c44a9b27a98286dd83bf57c7b3a6615c70f32b8b74d2178104",
+        "request_identity_sha256": "e2a43f8065fd784aa4d4d0698cae9891c6d023a5e1dc41f25327ae17e5532b4c",
+        "retrieved_at_utc": "2026-09-09T04:08:05Z",
+        "same_contest_id_paths": [
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6602874",
+            "uri": "https://stats.ncaa.org/contests/6602874/box_score"
+          },
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6602874",
+            "uri": "https://stats.ncaa.org/contests/6602874/play_by_play"
+          },
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6602874",
+            "uri": "https://stats.ncaa.org/contests/6602874"
+          }
+        ],
         "semantic_state": "GENERIC_ERROR_HTML",
         "t90_not_relabeled_on_time": true,
         "terminal_state": "ACQUISITION_FAILED",
         "transport_state": "TRANSPORT_CAPTURED",
         "upstream_state": "UPSTREAM_FAILED",
-        "uri": "https://stats.ncaa.org/contests/6602874/box_score"
+        "uri": "https://stats.ncaa.org/contests/6602874"
       },
       {
         "acquisition_disposition": "ACQUISITION_FAILED",
         "artifact_class": "REAL_EVIDENCE",
         "away": "Louisville",
         "cached": false,
+        "cfbd_is_not_stats_final": true,
         "error": "HTTPError:403",
         "forecast_not_created": true,
         "home": "Ole Miss",
         "http_status": 403,
+        "ncaa_com_is_not_stats_final": true,
         "ncaa_contest_id": "6620581",
-        "raw_sha256": "fbccb715be29dc4eed698b0612bc50c33ba50147a25da16cd7d30894dce6e05b",
-        "receipt_identity": "94444e80731fa1c4ab419af78a3b475e739dd555cc00505c512490d2a41959b8",
-        "request_identity_sha256": "605d440ef88a3277275057bbf844abee7d49f98103331494a0f9e31066c4579d",
-        "retrieved_at_utc": "2026-09-09T00:27:59Z",
+        "raw_sha256": "9b7012d2f41014723df2e71c578f7108106814f6fd8b46fbb4ba469a24fe32c0",
+        "receipt_identity": "27a0fe4b1634c0d5341e99296fec292e6bf70e7c987df9ae7c4c1a93e3af6f16",
+        "request_identity_sha256": "bf106cde75a720a5cce0961cbbc04f6bfa0d73fce056db8fb46e35a90fe2a899",
+        "retrieved_at_utc": "2026-09-09T04:08:05Z",
+        "same_contest_id_paths": [
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6620581",
+            "uri": "https://stats.ncaa.org/contests/6620581/box_score"
+          },
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6620581",
+            "uri": "https://stats.ncaa.org/contests/6620581/play_by_play"
+          },
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6620581",
+            "uri": "https://stats.ncaa.org/contests/6620581"
+          }
+        ],
         "semantic_state": "GENERIC_ERROR_HTML",
         "t90_not_relabeled_on_time": true,
         "terminal_state": "ACQUISITION_FAILED",
         "transport_state": "TRANSPORT_CAPTURED",
         "upstream_state": "UPSTREAM_FAILED",
-        "uri": "https://stats.ncaa.org/contests/6620581/box_score"
+        "uri": "https://stats.ncaa.org/contests/6620581"
       },
       {
         "acquisition_disposition": "ACQUISITION_FAILED",
         "artifact_class": "REAL_EVIDENCE",
         "away": "SMU",
         "cached": false,
+        "cfbd_is_not_stats_final": true,
         "error": "HTTPError:403",
         "forecast_not_created": true,
         "home": "Florida St.",
         "http_status": 403,
+        "ncaa_com_is_not_stats_final": true,
         "ncaa_contest_id": "6594400",
-        "raw_sha256": "4fc27d037b8b84c19ce37ddded327780c8b438f8b78f3c757161a55c6d5c0acc",
-        "receipt_identity": "cc77348f18b21c799389c2b98b259f9fbe14049fc11374f1ae4cb3436066f9db",
-        "request_identity_sha256": "21257a049fc20a2c68517c45060d5a16ae4665825cc71b8247d71228ad33a47e",
-        "retrieved_at_utc": "2026-09-09T00:27:59Z",
+        "raw_sha256": "cf945dd8ec00f565d4b9eefb39c7337fc549c2ac535123c5734111b8b85c8282",
+        "receipt_identity": "f52101475d2c5f274bec40917d09b8540cbb6ee5a4fc779636565ead311ed5d0",
+        "request_identity_sha256": "30d19aadfc7fe872f07bbb1b8b0997ec73c349bd6121522671e76b2d8d601f88",
+        "retrieved_at_utc": "2026-09-09T04:08:05Z",
+        "same_contest_id_paths": [
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6594400",
+            "uri": "https://stats.ncaa.org/contests/6594400/box_score"
+          },
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6594400",
+            "uri": "https://stats.ncaa.org/contests/6594400/play_by_play"
+          },
+          {
+            "error": "HTTPError:403",
+            "http_status": 403,
+            "same_contest_id": "6594400",
+            "uri": "https://stats.ncaa.org/contests/6594400"
+          }
+        ],
         "semantic_state": "GENERIC_ERROR_HTML",
         "t90_not_relabeled_on_time": true,
         "terminal_state": "ACQUISITION_FAILED",
         "transport_state": "TRANSPORT_CAPTURED",
         "upstream_state": "UPSTREAM_FAILED",
-        "uri": "https://stats.ncaa.org/contests/6594400/box_score"
+        "uri": "https://stats.ncaa.org/contests/6594400"
       }
     ],
     "no_new_scheduler_job": true,

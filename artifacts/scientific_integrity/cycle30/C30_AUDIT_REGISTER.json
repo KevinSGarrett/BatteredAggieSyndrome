@@ -8,7 +8,7 @@
   "selected_revisions": {
     "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
     "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-    "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+    "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
     "not_manager_verified": true,
     "review_state": "READY_FOR_MANAGER_REVIEW"
   },
@@ -42,7 +42,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -68,18 +68,18 @@
       ],
       "manager_reviewer": "BAS manager (Codex) — pending",
       "new_claims_independently_verified": [],
-      "next_action": "Manager semantic join of CFBD FCS–FCS to parent identities",
+      "next_action": "Manager semantic review of the CFBD-parent source-id join and source-note contest-status scan; parent remains FBS-filtered; do not claim national FCS completeness",
       "not_audited_reason": "bounded tranche is not national FCS certification",
-      "period_population": "FCS–FCS and cross-subdivision games 2013–2023 CFBD tranche plus 1963–2012 CFBD source-classified FCS–FCS rows plus parent 46953 FBS-filtered games (FCS–FCS on that route=0)",
+      "period_population": "FCS–FCS and cross-subdivision games 2013–2023 CFBD tranche plus 1963–2012 CFBD source-classified FCS–FCS rows plus parent 46953 FBS-filtered games; CFBD-parent source-id join 35731/42038 for 1963–2012; source-note forfeits=0 postponed=1",
       "remaining_work": [
-        "pre-2013 CFBD FCS-FCS rows exist as source classification; parent identity semantic join still pending",
-        "canceled/forfeit semantic audit"
+        "manager semantic review of Cursor source-id join; parent remains FBS-filtered numerator",
+        "source notes scanned; not official NCAA forfeit/canceled adjudication"
       ],
       "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -88,7 +88,11 @@
         "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_TRANCHE.jsonl",
         "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_1963_2012.jsonl",
         "artifacts/scientific_integrity/cycle30/FCS_SUBSET_FROM_PARENT_SUMMARY.json",
-        "artifacts/scientific_integrity/cycle30/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json"
+        "artifacts/scientific_integrity/cycle30/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+        "artifacts/scientific_integrity/cycle30/CFBD_PARENT_IDENTITY_JOIN_1963_2012.json",
+        "artifacts/scientific_integrity/cycle30/CFBD_PARENT_IDENTITY_JOIN_2013_2026.json",
+        "artifacts/scientific_integrity/cycle30/CFBD_CONTEST_STATUS_NOTE_AUDIT_1963_2012.json",
+        "artifacts/scientific_integrity/cycle30/CFBD_CONTEST_STATUS_NOTE_AUDIT_2013_2026.json"
       ],
       "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED"
     },
@@ -115,7 +119,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -149,7 +153,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -182,7 +186,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -219,7 +223,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -254,7 +258,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -289,7 +293,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -330,7 +334,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -371,7 +375,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
+        "cycle30_head": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },

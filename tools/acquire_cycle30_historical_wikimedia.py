@@ -298,7 +298,10 @@ def main() -> int:
             for row in load_jsonl(jsonl_path):
                 year = int(row.get("season") or 0)
                 if (
-                    row.get("status") == "PAGE_MISSING"
+                    (
+                        row.get("status") == "PAGE_MISSING"
+                        or str(row.get("status") or "").startswith("ACQUISITION_FAILED")
+                    )
                     and args.year_start <= year <= args.year_end
                 ):
                     parsed = fetch_season(

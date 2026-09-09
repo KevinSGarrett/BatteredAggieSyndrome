@@ -53,6 +53,8 @@ from aggie_analytics.cycle30.coaching import (
     parse_wikimedia_infobox,
     expand_source_year_span,
     match_program_to_sportradar_team,
+    role_families_from_title,
+    role_family_from_title,
     reject_literal_attempted,
     reject_play_caller_from_title,
     reject_personal_contact,
@@ -1724,6 +1726,82 @@ class Cycle30AdversarialTests(unittest.TestCase):
             {"cotton bowl": {"id": 12, "name": "Cotton Bowl"}},
         )
         self.assertEqual(stadium["id"], 12)
+
+    def test_official_title_abbreviations_map_oc_dc_not_pass_game(self) -> None:
+        self.assertEqual(
+            role_families_from_title(
+                "Associate Head Coach/Off. Coor./Quarterbacks"
+            ),
+            ("offensive_coordinator",),
+        )
+        self.assertEqual(
+            role_families_from_title("Assistant Coach - Def. Coor./Safeties"),
+            ("defensive_coordinator",),
+        )
+        self.assertEqual(
+            role_families_from_title("Assoc. Head Coach/Def. Coordinator/OLB"),
+            ("defensive_coordinator",),
+        )
+        self.assertEqual(role_families_from_title("Assoc. Head Coach"), ())
+        self.assertIsNone(role_family_from_title("Assoc. Head Coach"))
+        self.assertEqual(
+            role_families_from_title(
+                "Offensive Pass Game Coordinator/Quarterbacks Coach"
+            ),
+            (),
+        )
+        cells = hc_oc_dc_matrix(["SRC-002:TEAM:2230"], "2026-09-07T16:00:00Z")
+        filled = fill_current_role_matrix(
+            cells,
+            programs=[
+                {
+                    "program_id": "SRC-002:TEAM:2230",
+                    "display_name": "Fordham",
+                }
+            ],
+            cfbd_hc_by_school={},
+            official_people_by_program={
+                "SRC-002:TEAM:2230": [
+                    {
+                        "person": "Joe Conlin",
+                        "title": "Head Football Coach",
+                        "role": "head_coach",
+                    },
+                    {
+                        "person": "Art Asselta",
+                        "title": "Associate Head Coach/Off. Coor./Quarterbacks",
+                        "role": "OTHER_POSITION",
+                    },
+                    {
+                        "person": "James Lenahan",
+                        "title": "Assistant Coach - Def. Coor./Safeties",
+                        "role": "OTHER_POSITION",
+                    },
+                ]
+            },
+            official_attempts_by_program={
+                "SRC-002:TEAM:2230": {
+                    "status": "CAPTURED",
+                    "attempt_count": 1,
+                    "receipt_identity": "x",
+                }
+            },
+        )
+        by_role = {row["role"]: row for row in filled}
+        self.assertEqual(
+            by_role["offensive_coordinator"]["disposition"], "CONFIRMED_APPOINTMENT"
+        )
+        self.assertEqual(
+            by_role["defensive_coordinator"]["disposition"], "CONFIRMED_APPOINTMENT"
+        )
+        self.assertEqual(
+            by_role["offensive_coordinator"]["episode_refs"][0]["person"],
+            "Art Asselta",
+        )
+        self.assertEqual(
+            by_role["defensive_coordinator"]["episode_refs"][0]["person"],
+            "James Lenahan",
+        )
 
     def test_availability_join_is_name_only_not_health(self) -> None:
         candidates = extract_candidate_player_rows(

@@ -119,6 +119,20 @@ def reject_array_zip_mispair(parent_nodes: Sequence[Mapping[str, Any]]) -> None:
     extract_row_bound_staff(parent_nodes)
 
 
+_ASSOCIATE_OR_ASSISTANT_HEAD = re.compile(
+    r"\b(?:associate|assoc\.|assistant|asst\.?)(?:\s|/|$)",
+    re.I,
+)
+_OFFENSIVE_COORDINATOR_TITLE = re.compile(
+    r"\boffensive coordinator\b|\boff\.?\s*coor(?:dinator)?\.?",
+    re.I,
+)
+_DEFENSIVE_COORDINATOR_TITLE = re.compile(
+    r"\bdefensive coordinator\b|\bdef\.?\s*coor(?:dinator)?\.?",
+    re.I,
+)
+
+
 def role_families_from_title(title: str) -> tuple[str, ...]:
     """Map a source title onto HC/OC/DC. Other titles remain observed, not cells."""
 
@@ -128,13 +142,13 @@ def role_families_from_title(title: str) -> tuple[str, ...]:
     families: list[str] = []
     if (
         re.search(r"\bhead(?:\s+football)?\s+coach\b", lowered)
-        and not re.search(r"\b(associate|assistant|asst\.?)\b", lowered)
+        and not _ASSOCIATE_OR_ASSISTANT_HEAD.search(lowered)
         and "to the head coach" not in lowered
     ):
         families.append(ROLE_HC)
-    if re.search(r"\boffensive coordinator\b", lowered):
+    if _OFFENSIVE_COORDINATOR_TITLE.search(lowered):
         families.append(ROLE_OC)
-    if re.search(r"\bdefensive coordinator\b", lowered):
+    if _DEFENSIVE_COORDINATOR_TITLE.search(lowered):
         families.append(ROLE_DC)
     return tuple(families)
 
@@ -1285,7 +1299,7 @@ def _official_role_episodes(
                 "page_url": person.get("page_url"),
             }
         )
-        return episodes
+    return episodes
 
 
 def _wikimedia_role_episodes(

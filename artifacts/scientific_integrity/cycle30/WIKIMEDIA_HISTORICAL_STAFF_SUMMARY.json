@@ -1,13 +1,13 @@
 {
   "artifact_class": "REAL_EVIDENCE",
-  "episode_count": 47990,
+  "episode_count": 44220,
   "incomplete_years_1963_2026": [],
   "missing_2013_2023_years": [],
   "pages": 17024,
   "parser_family": "wikimedia_infobox_asst_coach_and_staff_table",
   "pit_admitted": false,
   "remaining_years_queued": false,
-  "revision_bound": 14984,
+  "revision_bound": 13541,
   "wikipedia_is_not_official_confirmation": true,
   "years": [
     1963,

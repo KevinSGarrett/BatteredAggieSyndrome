@@ -1,8 +1,12 @@
 {
   "artifact_class": "REAL_EVIDENCE",
+  "cfbd_1963_2012_game_rows": 42038,
+  "cfbd_fcs_fcs_1963_2012_acquired_rows": 5616,
   "cfbd_fcs_fcs_acquired_rows": 7198,
   "forward_reverse_reconciled": true,
   "observed_fbs_route_is_numerator_only": true,
+  "parent_identity_semantic_join_pending": true,
   "parent_row_count": 46953,
+  "pre_2013_fcs_class_is_source_provided_not_era_proof": true,
   "subset_row_count": 2267
 }

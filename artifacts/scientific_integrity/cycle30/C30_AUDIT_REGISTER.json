@@ -8,7 +8,7 @@
   "selected_revisions": {
     "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
     "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-    "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+    "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
     "not_manager_verified": true,
     "review_state": "READY_FOR_MANAGER_REVIEW"
   },
@@ -42,7 +42,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -70,22 +70,23 @@
       "new_claims_independently_verified": [],
       "next_action": "Manager semantic join of CFBD FCS–FCS to parent identities",
       "not_audited_reason": "bounded tranche is not national FCS certification",
-      "period_population": "FCS–FCS and cross-subdivision games 2013–2023 CFBD tranche plus parent 46953 FBS-filtered games (FCS–FCS on that route=0)",
+      "period_population": "FCS–FCS and cross-subdivision games 2013–2023 CFBD tranche plus 1963–2012 CFBD source-classified FCS–FCS rows plus parent 46953 FBS-filtered games (FCS–FCS on that route=0)",
       "remaining_work": [
-        "pre-2013 FCS schedule semantic join",
+        "pre-2013 CFBD FCS-FCS rows exist as source classification; parent identity semantic join still pending",
         "canceled/forfeit semantic audit"
       ],
       "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
       "semantic_result": "PENDING_MANAGER",
       "source_artifact_claim_sets": [
         "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_TRANCHE.jsonl",
+        "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_1963_2012.jsonl",
         "artifacts/scientific_integrity/cycle30/FCS_SUBSET_FROM_PARENT_SUMMARY.json",
         "artifacts/scientific_integrity/cycle30/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json"
       ],
@@ -114,7 +115,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -129,7 +130,7 @@
     {
       "adversarial_result": "NOT_PERFORMED",
       "affected_use_restriction": "injuries/availability out of fitted models; not scientifically reviewed",
-      "blocker": "attempted_official_report_routes=13; candidate_player_rows_not_joined=0; joined_to_verified_roster=0; no_report=UNKNOWN not healthy",
+      "blocker": "attempted_official_report_routes=14; candidate_player_rows_not_joined=0; joined_to_verified_roster=0; no_report=UNKNOWN not healthy",
       "failures": [],
       "id": "C30-AUDIT-01-INJURIES",
       "implementation_owner": "Cursor Cycle #30",
@@ -148,7 +149,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -181,7 +182,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -196,7 +197,7 @@
     {
       "adversarial_result": "NOT_PERFORMED",
       "affected_use_restriction": "career context is not PIT; not a fitted feature",
-      "blocker": "historical Wikimedia season pages=17024, episodes=47990; remaining years queued; no guessed dates",
+      "blocker": "historical Wikimedia season pages=17024, episodes=44220; incomplete_years=[]; PAGE_MISSING is a recorded gap, not a vacancy; no guessed dates",
       "failures": [
         "position_career_history_not_nationally_acquired"
       ],
@@ -208,7 +209,7 @@
       ],
       "manager_reviewer": "BAS manager (Codex) — pending",
       "new_claims_independently_verified": [],
-      "next_action": "Remaining 1963–2026 Wikimedia years plus official guides; no guessed dates",
+      "next_action": "Official guides plus school-matched PAGE_MISSING search; no guessed dates; no cross-program season-page binds",
       "not_audited_reason": "CFBD HC seasons are not complete career graphs",
       "period_population": "pre-1963/professional/other-level career context plus 2013–2023 HC backbone",
       "remaining_work": [
@@ -218,7 +219,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -253,7 +254,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -288,7 +289,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -329,7 +330,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },
@@ -370,7 +371,7 @@
       "selected_revisions": {
         "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
         "cycle29_reviewed_head": "0b957ea127ad6a5373901d8ddff47c43a496b100",
-        "cycle30_head": "f5f77729978d2fcf4fd88f9233ad5ae0ad1bcb2f",
+        "cycle30_head": "6c7e99f06d8b5b233bbd3cd2af7440131c3ae767",
         "not_manager_verified": true,
         "review_state": "READY_FOR_MANAGER_REVIEW"
       },

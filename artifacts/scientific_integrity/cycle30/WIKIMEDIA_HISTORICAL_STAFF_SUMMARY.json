@@ -1,9 +1,19 @@
 {
   "artifact_class": "REAL_EVIDENCE",
-  "episode_count": 22241,
+  "episode_count": 34303,
   "incomplete_years_1963_2026": [
     1963,
     1964,
+    1965
+  ],
+  "missing_2013_2023_years": [],
+  "pages": 16373,
+  "parser_family": "wikimedia_infobox_asst_coach_and_staff_table",
+  "pit_admitted": false,
+  "remaining_years_queued": true,
+  "revision_bound": 11909,
+  "wikipedia_is_not_official_confirmation": true,
+  "years": [
     1965,
     1966,
     1967,
@@ -31,16 +41,6 @@
     1989,
     1990,
     1991,
-    1992
-  ],
-  "missing_2013_2023_years": [],
-  "pages": 9298,
-  "parser_family": "wikimedia_infobox_asst_coach_and_staff_table",
-  "pit_admitted": false,
-  "remaining_years_queued": true,
-  "revision_bound": 5993,
-  "wikipedia_is_not_official_confirmation": true,
-  "years": [
     1992,
     1993,
     1994,

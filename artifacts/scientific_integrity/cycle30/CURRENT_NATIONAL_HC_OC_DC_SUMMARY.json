@@ -896,10 +896,10 @@
   "cells": 798,
   "cfbd_cannot_populate_assistants": true,
   "disposition_counts": {
-    "CANDIDATE_ONLY": 26,
+    "CANDIDATE_ONLY": 29,
     "CONFIRMED_APPOINTMENT": 726,
     "CONFIRMED_CO_SHARED_ROLE": 31,
-    "UNKNOWN_NOT_LISTED": 15
+    "UNKNOWN_NOT_LISTED": 12
   },
   "expected_3n": 798,
   "oc_dc_not_attempted": 0,

@@ -1,11 +1,11 @@
 {
   "artifact_class": "BLOCKER_METADATA",
   "artifact_type": "CYCLE30_PREFLIGHT_AND_PRESERVATION",
-  "as_of_utc": "2026-09-08T21:29:18Z",
+  "as_of_utc": "2026-09-09T00:29:06Z",
   "base_reviewed_cycle29": "0b957ea127ad6a5373901d8ddff47c43a496b100",
   "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
   "fort_knox_retired": true,
-  "head_sha": "b62ca88c627d930f5aa853b7caff6aca6c1f82cf",
+  "head_sha": "8cc02139928cdb5d58fb17a7934ed0078452be77",
   "no_bat523_completion_comment": true,
   "no_done": true,
   "no_merge": true,

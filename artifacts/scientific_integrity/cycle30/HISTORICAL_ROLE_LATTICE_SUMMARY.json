@@ -1,13 +1,13 @@
 {
   "artifact_class": "REAL_EVIDENCE",
-  "career_lattice_matches": 27185,
-  "career_season_episodes": 37140,
+  "career_lattice_matches": 37411,
+  "career_season_episodes": 54487,
   "cell_count": 219492,
-  "historical_wikimedia_episodes": 22241,
-  "historical_wikimedia_pages": 9298,
+  "historical_wikimedia_episodes": 34303,
+  "historical_wikimedia_pages": 16373,
   "observed_titles_cannot_create_denominator": true,
   "pit_admitted": false,
-  "retrospective_candidate_cells": 35575,
+  "retrospective_candidate_cells": 49701,
   "role_families": [
     "head_coach",
     "offensive_coordinator",

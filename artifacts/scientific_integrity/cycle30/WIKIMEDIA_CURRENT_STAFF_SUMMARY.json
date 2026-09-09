@@ -1,9 +1,9 @@
 {
   "artifact_class": "REAL_EVIDENCE",
-  "episode_count": 397,
+  "episode_count": 400,
   "official_html_still_not_attempted": false,
   "parser_family": "wikimedia_infobox_asst_coach_and_staff_table",
   "pit_admitted": false,
   "program_pages": 266,
-  "programs_with_episodes": 255
+  "programs_with_episodes": 258
 }

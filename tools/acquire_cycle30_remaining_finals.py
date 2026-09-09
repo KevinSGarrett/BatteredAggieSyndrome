@@ -46,12 +46,21 @@ UA = (
 )
 EXT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 BUDGET = {
-    "max_requests": 12,
+    "max_requests": 20,
     "max_retries": 0,
     "concurrency": 1,
     "metered_scraper_credits": 0,
     "route": "ncaa_stats_direct_http_plus_ncaa_com_scoreboard",
 }
+UA_BROWSER = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+)
+STATS_PATH_TEMPLATES = (
+    "https://stats.ncaa.org/contests/{id}/box_score",
+    "https://stats.ncaa.org/contests/{id}/play_by_play",
+    "https://stats.ncaa.org/contests/{id}",
+)
 NCAA_COM_WEEKS = ("00", "01", "02", "03")
 REMAINING_NAME_KEYS = {
     "6602874": {
@@ -73,6 +82,29 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def stats_headers(contest_id: str) -> dict[str, str]:
+    return {
+        "User-Agent": UA_BROWSER,
+        "Accept": (
+            "text/html,application/xhtml+xml,application/xml;q=0.9,"
+            "image/avif,image/webp,*/*;q=0.8"
+        ),
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": f"https://stats.ncaa.org/contests/{contest_id}/box_score",
+    }
+
+
+def fetch_stats_uri(uri: str, contest_id: str) -> tuple[int | None, bytes, str | None]:
+    request = urllib.request.Request(uri, headers=stats_headers(contest_id))
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            return int(response.status), response.read(), None
+    except urllib.error.HTTPError as exc:
+        return int(exc.code), exc.read() or b"", f"HTTPError:{exc.code}"
+    except Exception as exc:  # noqa: BLE001
+        return None, b"", str(type(exc).__name__)
+
+
 def main() -> int:
     EXT.mkdir(parents=True, exist_ok=True)
     (EXT / "CYCLE30_REMAINING_FINALS_BUDGET.json").write_text(
@@ -83,32 +115,34 @@ def main() -> int:
     rows = []
     for contest in REMAINING:
         contest_id = contest["ncaa_contest_id"]
-        uri = f"https://stats.ncaa.org/contests/{contest_id}/box_score"
-        cache = cache_root / f"{contest_id}.html"
+        chosen_uri = STATS_PATH_TEMPLATES[0].format(id=contest_id)
         start = utc_now()
         http_status = None
         body = b""
-        cached = False
         error = None
-        request = urllib.request.Request(uri, headers={"User-Agent": UA})
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                http_status = int(response.status)
-                body = response.read()
-            cache.write_bytes(body)
-        except urllib.error.HTTPError as exc:
-            error = f"HTTPError:{exc.code}"
-            http_status = int(exc.code)
-            body = exc.read() or b""
+        path_attempts: list[dict[str, object]] = []
+        for template in STATS_PATH_TEMPLATES:
+            uri = template.format(id=contest_id)
+            status, fetched, fetch_error = fetch_stats_uri(uri, contest_id)
+            path_attempts.append(
+                {
+                    "uri": uri,
+                    "http_status": status,
+                    "error": fetch_error,
+                    "same_contest_id": contest_id,
+                }
+            )
+            chosen_uri = uri
+            http_status = status
+            body = fetched
+            error = fetch_error
+            if status == 200 and contest_id.encode("ascii") in fetched:
+                cache_root.joinpath(f"{contest_id}.html").write_bytes(fetched)
+                break
             if body:
-                (cache_root / f"{contest_id}.error-{exc.code}.html").write_bytes(body)
-        except Exception as exc:  # noqa: BLE001
-            error = str(type(exc).__name__)
-            if cache.is_file():
-                body = cache.read_bytes()
-                http_status = 200
-                cached = True
-                error = f"{error}:FALLBACK_CACHE"
+                (
+                    cache_root / f"{contest_id}.error-{status or 0}.html"
+                ).write_bytes(body)
         end = utc_now()
         text = body.decode("utf-8", errors="replace")
         transport = classify_transport_and_upstream(
@@ -129,23 +163,24 @@ def main() -> int:
                     contest_hint=contest_id,
                     score_element_ids=[f"score-{contest_id}"],
                     ordered_participant_ids=["HOME", "AWAY"],
-                    page_url=uri,
+                    page_url=chosen_uri,
                     embedded_contest_id=contest_id,
                 )
             except Exception as exc:  # noqa: BLE001
                 terminal = f"CLASSIFY_FAILED:{type(exc).__name__}"
         req_id = request_identity(
             method="GET",
-            uri=uri,
+            uri=chosen_uri,
             source_contract="NCAA_STATS_BOX_SCORE",
         )
         rows.append(
             {
                 **contest,
-                "uri": uri,
+                "uri": chosen_uri,
                 "http_status": http_status,
-                "cached": cached,
+                "cached": False,
                 "error": error,
+                "same_contest_id_paths": path_attempts,
                 "transport_state": transport.get("transport_state"),
                 "upstream_state": transport.get("upstream_state"),
                 "semantic_state": semantic,
@@ -153,6 +188,8 @@ def main() -> int:
                 "acquisition_disposition": acquisition_disposition,
                 "t90_not_relabeled_on_time": True,
                 "forecast_not_created": True,
+                "ncaa_com_is_not_stats_final": True,
+                "cfbd_is_not_stats_final": True,
                 "raw_sha256": sha256_bytes(body) if body else None,
                 "request_identity_sha256": req_id,
                 "receipt_identity": receipt_identity(

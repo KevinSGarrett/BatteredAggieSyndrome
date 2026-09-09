@@ -256,6 +256,10 @@ _JSON_PLAYER_NAME = re.compile(
 )
 _PDF_HREF = re.compile(r"""href=["']([^"'#]+\.pdf[^"']*)["']""", re.I)
 _PLAIN_COMMA_NAME = re.compile(r"\b([A-Z][a-z]+,\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b")
+_LINE_STATUS_NAME = re.compile(
+    r"^\s*([A-Z][a-z]+(?:-[A-Z][a-z]+)?),\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s*[-–]",
+    re.MULTILINE,
+)
 
 
 def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[str]:
@@ -314,6 +318,8 @@ def extract_candidate_player_rows(
         names.append(f"{first} {last}")
     for match in _JSON_PLAYER_NAME.finditer(html or ""):
         names.append(match.group(1))
+    for match in _LINE_STATUS_NAME.finditer(html or ""):
+        names.append(f"{match.group(2).strip()} {match.group(1).strip()}")
     if "<t" not in (html or "").casefold():
         for match in _PLAIN_COMMA_NAME.finditer(html or ""):
             last, first = [part.strip() for part in match.group(1).split(",", 1)]

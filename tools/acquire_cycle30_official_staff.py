@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
+from aggie_analytics.cycle30.availability import pdf_plaintext  # noqa: E402
 from aggie_analytics.cycle30.coaching import (  # noqa: E402
     PRIMARY_ROLES,
     ROLE_DC,
@@ -35,8 +36,10 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     official_staff_candidate_urls,
     parse_official_staff_html,
     parse_official_staff_json,
+    parse_staff_plaintext,
     primary_role_coverage,
     redact_personal_contact,
+    staff_pdf_hrefs,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
@@ -209,6 +212,79 @@ def fetch_html(
         }
         ledger.append(receipt)
         return b"", receipt
+    raw_hash = sha256_bytes(body) if body else "empty"
+    receipt = {
+        "route": url,
+        "final_url": final_url,
+        "status": "HTTP_OK" if 200 <= status < 300 else "HTTP_ERROR",
+        "http_status": status,
+        "request_identity_sha256": sha256_json({"url": url}),
+        "receipt_identity": sha256_json(
+            {"start": start, "end": end, "raw_sha256": raw_hash, "status": status}
+        ),
+        "raw_sha256": raw_hash,
+        "cached": False,
+        "retrieved_at_utc": end,
+    }
+    ledger.append(receipt)
+    RAW.mkdir(parents=True, exist_ok=True)
+    cache.write_bytes(body)
+    return body, receipt
+
+
+def fetch_pdf(
+    url: str,
+    ledger: list[dict[str, Any]],
+    budget: dict[str, Any],
+    *,
+    cache_only: bool = False,
+) -> tuple[bytes, dict[str, Any]]:
+    cache = RAW / f"{sha256_json({'url': url})}.bin"
+    if cache.is_file() and cache.stat().st_size > 0:
+        cached_body = cache.read_bytes()
+        if cached_body.startswith(b"%PDF") or not html_is_waf_challenge(
+            cached_body.decode("utf-8", "replace")
+        ):
+            receipt = {
+                "route": url,
+                "status": "CACHE_HIT",
+                "http_status": 200,
+                "request_identity_sha256": sha256_json({"url": url}),
+                "receipt_identity": sha256_bytes(cached_body),
+                "raw_sha256": sha256_bytes(cached_body),
+                "cached": True,
+                "retrieved_at_utc": utc_now(),
+            }
+            ledger.append(receipt)
+            return cached_body, receipt
+    if cache_only:
+        receipt = {
+            "route": url,
+            "status": "CACHE_MISS_SKIPPED",
+            "http_status": 0,
+            "request_identity_sha256": sha256_json({"url": url}),
+            "receipt_identity": sha256_json({"url": url, "cache_only": True}),
+            "raw_sha256": "empty",
+            "cached": False,
+            "retrieved_at_utc": utc_now(),
+        }
+        ledger.append(receipt)
+        return b"", receipt
+    live = sum(1 for row in ledger if row.get("status") in {"HTTP_OK", "HTTP_ERROR"})
+    if live >= int(budget["max_requests"]):
+        raise RuntimeError("official staff request ceiling reached")
+    start = utc_now()
+    body, status, final_url = _staff_request(url, UA_BROWSER, int(budget["timeout_s"]))
+    if not body.startswith(b"%PDF"):
+        retry_body, retry_status, retry_final = _staff_request(
+            url, UA, int(budget["timeout_s"])
+        )
+        time.sleep(float(budget["sleep_s"]))
+        if retry_body.startswith(b"%PDF"):
+            body, status, final_url = retry_body, retry_status, retry_final
+    else:
+        time.sleep(float(budget["sleep_s"]))
+    end = utc_now()
     raw_hash = sha256_bytes(body) if body else "empty"
     receipt = {
         "route": url,
@@ -404,6 +480,56 @@ def main() -> int:
                     best_roles = roles
                 if {ROLE_HC, ROLE_OC, ROLE_DC} <= roles:
                     break
+            if not coordinator_complete(parsed_people):
+                pdf_seen: set[str] = set()
+                pdf_urls: list[str] = []
+                for html_url in official_staff_candidate_urls(website):
+                    html_cache = RAW / f"{sha256_json({'url': html_url})}.html"
+                    if not html_cache.is_file():
+                        continue
+                    cached_html = redact_personal_contact(
+                        html_cache.read_bytes().decode("utf-8", "replace")
+                    )
+                    for pdf_url in staff_pdf_hrefs(cached_html, page_url=html_url):
+                        key = pdf_url.casefold()
+                        if key in pdf_seen:
+                            continue
+                        pdf_seen.add(key)
+                        pdf_urls.append(pdf_url)
+                for pdf_url in pdf_urls:
+                    pdf_body, pdf_receipt = fetch_pdf(
+                        pdf_url, ledger, BUDGET, cache_only=args.cache_only
+                    )
+                    if int(pdf_receipt.get("http_status") or 0) >= 400 or not pdf_body:
+                        continue
+                    if pdf_body.startswith(b"%PDF"):
+                        people = parse_staff_plaintext(
+                            pdf_plaintext(pdf_body), page_url=pdf_url
+                        )
+                        parser_name = "parse_staff_plaintext"
+                    else:
+                        pdf_html = redact_personal_contact(
+                            pdf_body.decode("utf-8", "replace")
+                        )
+                        if html_is_waf_challenge(pdf_html) or html_is_not_found_shell(
+                            pdf_html
+                        ):
+                            continue
+                        people = parse_official_staff_html(pdf_html, page_url=pdf_url)
+                        parser_name = "parse_official_staff_html"
+                    if not people:
+                        continue
+                    merged = [*parsed_people, *people]
+                    roles = primary_role_coverage(merged)
+                    if len(roles) > len(best_roles) or (
+                        len(roles) == len(best_roles)
+                        and len(merged) > len(parsed_people)
+                    ):
+                        parsed_people = merged
+                        chosen = {**pdf_receipt, "parser": parser_name}
+                        best_roles = roles
+                    if coordinator_complete(parsed_people):
+                        break
             if chosen and useful_people(parsed_people):
                 for person in parsed_people:
                     people_out.append(
@@ -424,7 +550,7 @@ def main() -> int:
                         "status": "CAPTURED",
                         "http_status": chosen.get("http_status"),
                         "receipt_identity": chosen.get("receipt_identity"),
-                        "parser": "parse_official_staff_html",
+                        "parser": chosen.get("parser") or "parse_official_staff_html",
                         "page_url": chosen.get("route"),
                         "attempt_count": 1,
                         "people_count": len(parsed_people),

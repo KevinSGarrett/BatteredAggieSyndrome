@@ -21,6 +21,11 @@ if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle30.populations import (  # noqa: E402
+    ncaa_directory_item_is_discontinued,
+    ncaa_directory_item_name,
+)
+
 
 BUDGET = {
     "max_requests": 12,
@@ -34,11 +39,11 @@ UA = (
     "discontinued Division I football census)"
 )
 NCAA_URLS = (
-    "https://web3.ncaa.org/directory/api/sso/search?sportCode=MFB&division=1",
-    "https://web3.ncaa.org/directory/api/sso/search?sportCode=MFB",
     "https://web3.ncaa.org/directory/api/directory/memberList?type=12&sportCode=MFB",
     "https://web3.ncaa.org/directory/api/directory/memberList?type=12&sportCode=MFB&division=1",
+    "https://web3.ncaa.org/directory/api/directory/memberList?type=12&sportCode=MFB&deactive=Y",
     "https://web3.ncaa.org/directory/api/directory/memberList?sportCode=MFB&status=2",
+    "https://web3.ncaa.org/directory/api/directory/memberList?type=17&sportCode=MFB",
     "https://www.ncaa.com/schools-index",
 )
 WIKI_PAGES = (
@@ -48,28 +53,11 @@ WIKI_PAGES = (
     "List of NCAA Division I institutions",
     "List of colleges and universities that have dropped football",
 )
+
+
 WORK = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 RAW = WORK / "raw" / "discontinued"
 OUT = WORK / "outputs"
-
-
-def ncaa_directory_item_is_discontinued(item: dict) -> bool:
-    """Current NCAA member rows are not a discontinued-program census."""
-
-    status = str(
-        item.get("status")
-        or item.get("orgStatus")
-        or item.get("sportStatus")
-        or item.get("membershipStatus")
-        or ""
-    ).casefold()
-    markers = ("defunct", "discontinued", "inactive", "former", "dropped")
-    if any(token in status for token in markers):
-        return True
-    for key in ("droppedYear", "formerSport", "discontinuedYear", "endYear"):
-        if item.get(key) not in {None, "", 0, "0"}:
-            return True
-    return False
 
 
 def utc_now() -> str:
@@ -164,11 +152,13 @@ def main() -> int:
                 continue
             if not ncaa_directory_item_is_discontinued(item):
                 continue
-            name = str(item.get("name") or item.get("orgName") or "")
+            name = ncaa_directory_item_name(item)
             if name:
                 ncaa_rows.append(
                     {
                         "program_name": name,
+                        "deactive": str(item.get("deactive") or ""),
+                        "reclass_year": str(item.get("reclassYear") or ""),
                         "source_id": "SRC-NCAA-DIRECTORY",
                         "http_status": str(status),
                     }

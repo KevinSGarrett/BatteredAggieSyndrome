@@ -212,6 +212,25 @@ _NOT_FOUND_TITLE = re.compile(
     r"not found\s*[-–])[^<]*</title>",
     re.I,
 )
+_PDF_HREF = re.compile(r"""href=["']([^"'#]+\.pdf[^"']*)["']""", re.I)
+_STAFF_TEXT_PAIR = re.compile(
+    r"(?P<person>[A-Z][A-Za-z'.-]+(?:\s+[A-Z][A-Za-z'.-]+){0,3})\s+"
+    r"(?P<title>(?:[^.\n]{0,80}?)(?:Head Football Coach|Offensive Coordinator|"
+    r"Defensive Coordinator|Off\.?\s*Coor\.?|Def\.?\s*Coor\.?)[^.\n]{0,40})",
+    re.I,
+)
+_STAFF_TITLE_THEN_PERSON = re.compile(
+    r"(?:^|\n)\s*(?P<title>Offensive Coordinator|Defensive Coordinator|"
+    r"Head Football Coach|Off\.?\s*Coor\.?|Def\.?\s*Coor\.?)\s*\n+\s*"
+    r"(?P<person>[A-Z][A-Za-z'.-]+(?:\s+[A-Z][A-Za-z'.-]+){1,3})\s*(?:\n|$)",
+    re.I,
+)
+_STAFF_PERSON_THEN_TITLE = re.compile(
+    r"(?:^|\n)\s*(?P<person>[A-Z][A-Za-z'.-]+(?:\s+[A-Z][A-Za-z'.-]+){1,3})\s*\n+\s*"
+    r"(?P<title>Offensive Coordinator|Defensive Coordinator|"
+    r"Head Football Coach|Off\.?\s*Coor\.?|Def\.?\s*Coor\.?)\s*(?:\n|$)",
+    re.I,
+)
 _WIKI_TWO_CELL = re.compile(
     r"^\|\s*(?P<left>.+?)\s*\|\|\s*(?P<title>[^|\n]+)\s*$",
     re.MULTILINE,
@@ -620,6 +639,80 @@ def official_staff_candidate_urls(website: str) -> list[str]:
         seen.add(key)
         deduped.append(url)
     return deduped
+
+
+def staff_pdf_hrefs(html: str, *, page_url: str, limit: int = 6) -> list[str]:
+    """Football/staff/media-guide PDF links from an official page. Not PIT."""
+
+    parsed = urllib.parse.urlparse(page_url)
+    out: list[str] = []
+    seen: set[str] = set()
+    preferred: list[str] = []
+    for match in _PDF_HREF.finditer(html or ""):
+        href = match.group(1).strip()
+        if href.startswith("//"):
+            href = "https:" + href
+        elif href.startswith("/"):
+            href = f"{parsed.scheme}://{parsed.netloc}{href}"
+        elif not href.startswith("http"):
+            href = urllib.parse.urljoin(page_url, href)
+        key = href.casefold()
+        if key in seen:
+            continue
+        seen.add(key)
+        if any(
+            token in key
+            for token in ("football", "media", "coach", "staff", "guide")
+        ):
+            preferred.append(href)
+        else:
+            out.append(href)
+    chosen = preferred or out
+    return chosen[:limit]
+
+
+def parse_staff_plaintext(text: str, *, page_url: str) -> list[dict[str, str]]:
+    """Row-bound person/title pairs from media-guide plaintext. Not PIT."""
+
+    nodes: list[dict[str, str]] = []
+    seen: set[str] = set()
+
+    def _add(person: str, title: str) -> None:
+        person_n = " ".join(person.split())
+        title_n = " ".join(title.split())
+        if not person_n or not title_n:
+            return
+        if "," in title_n or ";" in title_n:
+            return
+        if title_n.casefold().count("coordinator") > 1:
+            return
+        if len(title_n) > 80 or not role_families_from_title(title_n):
+            return
+        if re.search(
+            r"\b(quarterbacks?|coordinator|coach|assistant|offensive|defensive)\b",
+            person_n,
+            flags=re.I,
+        ):
+            return
+        key = f"{person_n.casefold()}|{title_n.casefold()}"
+        if key in seen:
+            return
+        seen.add(key)
+        nodes.append(
+            {
+                "person": person_n,
+                "title": title_n,
+                "span_id": f"text:{page_url}:{person_n}:{title_n}",
+            }
+        )
+
+    for match in _STAFF_TEXT_PAIR.finditer(text or ""):
+        _add(match.group("person"), match.group("title"))
+    for match in _STAFF_TITLE_THEN_PERSON.finditer(text or ""):
+        _add(match.group("person"), match.group("title"))
+    for match in _STAFF_PERSON_THEN_TITLE.finditer(text or ""):
+        _add(match.group("person"), match.group("title"))
+    return nodes
 
 
 def _nodes_from_roster_staff_cards(html: str, *, page_url: str) -> list[dict[str, str]]:

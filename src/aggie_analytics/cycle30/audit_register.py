@@ -68,6 +68,10 @@ def remaining_audit_register(
     cfbd_historical_absent_from_2026: int = 0,
     ncaa_discontinued_rows: int = 0,
     availability_joined_to_roster: int = 0,
+    cfbd_parent_joined_1963_2012: int = 0,
+    cfbd_parent_cfbd_rows_1963_2012: int = 0,
+    cfbd_note_forfeit_count_1963_2012: int = 0,
+    cfbd_note_postponed_count_1963_2012: int = 0,
 ) -> dict[str, Any]:
     selected = {
         "cycle30_head": head_sha,
@@ -130,20 +134,32 @@ def remaining_audit_register(
             "period_population": (
                 "FCS–FCS and cross-subdivision games 2013–2023 CFBD tranche plus "
                 "1963–2012 CFBD source-classified FCS–FCS rows plus "
-                f"parent {parent_games} FBS-filtered games (FCS–FCS on that route=0)"
+                f"parent {parent_games} FBS-filtered games; "
+                f"CFBD-parent source-id join {cfbd_parent_joined_1963_2012}/"
+                f"{cfbd_parent_cfbd_rows_1963_2012} for 1963–2012; "
+                f"source-note forfeits={cfbd_note_forfeit_count_1963_2012} "
+                f"postponed={cfbd_note_postponed_count_1963_2012}"
             ),
             "source_artifact_claim_sets": [
                 "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_TRANCHE.jsonl",
                 "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_1963_2012.jsonl",
                 "artifacts/scientific_integrity/cycle30/FCS_SUBSET_FROM_PARENT_SUMMARY.json",
                 "artifacts/scientific_integrity/cycle30/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+                "artifacts/scientific_integrity/cycle30/CFBD_PARENT_IDENTITY_JOIN_1963_2012.json",
+                "artifacts/scientific_integrity/cycle30/CFBD_PARENT_IDENTITY_JOIN_2013_2026.json",
+                "artifacts/scientific_integrity/cycle30/CFBD_CONTEST_STATUS_NOTE_AUDIT_1963_2012.json",
+                "artifacts/scientific_integrity/cycle30/CFBD_CONTEST_STATUS_NOTE_AUDIT_2013_2026.json",
             ],
             "blocker": (
                 "national_fcs_completeness_unclaimed"
                 if membership_1963_2012_years_attempted
                 else "national_fcs_completeness_unclaimed; 1963–2012 membership blocked"
             ),
-            "next_action": "Manager semantic join of CFBD FCS–FCS to parent identities",
+            "next_action": (
+                "Manager semantic review of the CFBD-parent source-id join and "
+                "source-note contest-status scan; parent remains FBS-filtered; "
+                "do not claim national FCS completeness"
+            ),
             "affected_use_restriction": "cross-subdivision strength abstains; no national completeness",
             "selected_revisions": selected,
             "scope_provenance_result": "CURSOR_RECONSTRUCTION_ONLY",
@@ -152,13 +168,8 @@ def remaining_audit_register(
             "new_claims_independently_verified": [],
             "failures": [],
             "remaining_work": [
-                "pre-2013 CFBD FCS-FCS rows exist as source classification; parent identity semantic join still pending",
-                "canceled/forfeit semantic audit",
-            ]
-            if membership_1963_2012_years_attempted
-            else [
-                "pre-2013 CFBD FCS-FCS rows exist as source classification; parent identity semantic join still pending",
-                "canceled/forfeit semantic audit",
+                "manager semantic review of Cursor source-id join; parent remains FBS-filtered numerator",
+                "source notes scanned; not official NCAA forfeit/canceled adjudication",
             ],
             "not_audited_reason": "bounded tranche is not national FCS certification",
         },

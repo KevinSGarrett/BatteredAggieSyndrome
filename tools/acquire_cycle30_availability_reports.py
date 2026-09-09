@@ -32,7 +32,7 @@ from aggie_analytics.cycle30.availability import (  # noqa: E402
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 40,
+    "max_requests": 80,
     "max_retries": 1,
     "concurrency": 1,
     "metered_scraper_credits": 0,
@@ -43,12 +43,20 @@ UA = (
     "(https://github.com/KevinSGarrett/BatteredAggieSyndrome; "
     "public availability-report policy pages)"
 )
+UA_BROWSER = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+)
 RAW = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\raw\availability")
 OUT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs")
 
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _looks_like_pdf(body: bytes) -> bool:
+    return body.startswith(b"%PDF")
 
 
 def fetch_url(
@@ -61,40 +69,58 @@ def fetch_url(
     if len(ledger) >= int(budget["max_requests"]):
         raise RuntimeError("availability request ceiling reached")
     cache = RAW / f"{sha256_json({'url': uri})}.html"
+    wants_pdf = ".pdf" in uri.casefold()
     if cache.is_file() and not refresh:
         body = cache.read_bytes()
-        ledger.append(
-            {
-                "route": uri,
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "request_identity_sha256": sha256_json({"url": uri}),
-                "receipt_identity": sha256_bytes(body),
-                "raw_sha256": sha256_bytes(body),
-                "cached": True,
-                "retrieved_at_utc": utc_now(),
-            }
-        )
-        return body
-    request = urllib.request.Request(
-        uri,
-        headers={
-            "User-Agent": UA,
-            "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
-        },
+        stale_pdf = wants_pdf and not _looks_like_pdf(body)
+        if not stale_pdf:
+            ledger.append(
+                {
+                    "route": uri,
+                    "status": "CACHE_HIT",
+                    "http_status": 200,
+                    "request_identity_sha256": sha256_json({"url": uri}),
+                    "receipt_identity": sha256_bytes(body),
+                    "raw_sha256": sha256_bytes(body),
+                    "cached": True,
+                    "retrieved_at_utc": utc_now(),
+                }
+            )
+            return body
+    accept = (
+        "application/pdf,*/*;q=0.8"
+        if wants_pdf
+        else "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
     )
+    user_agents = [UA_BROWSER, UA] if wants_pdf else [UA, UA_BROWSER]
+    body = b""
+    status = 0
     start = utc_now()
-    try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            body = response.read()
-            status = int(response.status)
-    except urllib.error.HTTPError as exc:
-        body = exc.read() or b""
-        status = int(exc.code)
-    except urllib.error.URLError as exc:
-        body = str(exc.reason).encode("utf-8")
-        status = 0
-    time.sleep(0.2)
+    for user_agent in user_agents:
+        request = urllib.request.Request(
+            uri,
+            headers={
+                "User-Agent": user_agent,
+                "Accept": accept,
+            },
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                body = response.read()
+                status = int(response.status)
+        except urllib.error.HTTPError as exc:
+            body = exc.read() or b""
+            status = int(exc.code)
+        except urllib.error.URLError as exc:
+            body = str(exc.reason).encode("utf-8")
+            status = 0
+        time.sleep(0.2)
+        if wants_pdf:
+            if _looks_like_pdf(body):
+                break
+            continue
+        if body:
+            break
     end = utc_now()
     raw_hash = sha256_bytes(body) if body else "empty"
     ledger.append(
@@ -108,6 +134,7 @@ def fetch_url(
             ),
             "raw_sha256": raw_hash,
             "cached": False,
+            "pdf_magic": _looks_like_pdf(body),
             "retrieved_at_utc": end,
         }
     )
@@ -161,7 +188,7 @@ def main() -> int:
         candidates = extract_candidate_player_rows(
             decoded, source_id=route["source_id"], uri=uri
         )
-        for pdf_uri in availability_pdf_hrefs(decoded, page_uri=uri):
+        for pdf_uri in availability_pdf_hrefs(decoded, page_uri=uri, limit=8):
             try:
                 pdf_body = fetch_url(pdf_uri, ledger, BUDGET, refresh=args.refresh)
             except RuntimeError:

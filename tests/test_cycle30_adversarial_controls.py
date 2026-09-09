@@ -1906,6 +1906,141 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertTrue(empty["not_an_ncaa_discontinued_program_census"])
         self.assertTrue(empty["cfbd_presence_delta_is_not_this_census"])
 
+    def test_cfbd_parent_identity_join_and_note_audit(self) -> None:
+        from aggie_analytics.cycle30.populations import (
+            audit_cfbd_contest_notes,
+            join_cfbd_games_to_parent,
+        )
+
+        parent = [{"canonical_game_id": "SRC-002:GAME:10"}]
+        cfbd = [
+            {
+                "id": 10,
+                "season": 2005,
+                "homeClassification": "fcs",
+                "awayClassification": "fcs",
+                "completed": True,
+                "homePoints": 21,
+                "awayPoints": 14,
+                "notes": "",
+            },
+            {
+                "id": 11,
+                "season": 2005,
+                "homeClassification": "fcs",
+                "awayClassification": "fcs",
+                "completed": True,
+                "homePoints": 7,
+                "awayPoints": 0,
+                "notes": "Postponed then played",
+            },
+        ]
+        joined = join_cfbd_games_to_parent(parent, cfbd, period="1963-2012")
+        self.assertEqual(joined["joined_by_source_id"], 1)
+        self.assertEqual(joined["cfbd_fcs_fcs_in_parent"], 1)
+        self.assertEqual(joined["cfbd_fcs_fcs_absent_from_parent"], 1)
+        self.assertTrue(joined["source_classification_is_not_era_proof"])
+        self.assertTrue(joined["parent_is_fbs_filtered_numerator_not_complete_fcs_graph"])
+        notes = audit_cfbd_contest_notes(cfbd, period="1963-2012")
+        self.assertEqual(notes["postponed_count"], 1)
+        self.assertEqual(notes["forfeit_count"], 0)
+        self.assertTrue(
+            notes["source_notes_are_not_official_ncaa_forfeit_adjudication"]
+        )
+
+    def test_staff_pdf_and_plaintext_oc_not_pass_game(self) -> None:
+        from aggie_analytics.cycle30.coaching import (
+            parse_staff_plaintext,
+            staff_pdf_hrefs,
+        )
+
+        hrefs = staff_pdf_hrefs(
+            '<a href="/documents/2026/media-guide.pdf">guide</a>',
+            page_url="https://example.test/sports/football/staff",
+        )
+        self.assertTrue(any(item.endswith("media-guide.pdf") for item in hrefs))
+        people = parse_staff_plaintext(
+            "Jane Roe Offensive Coordinator\nSam Lee Pass Game Coordinator\n"
+            "JP Losman (quarterbacks), Ryan Walters (defensive coordinator)\n"
+            "Offensive Coordinator\nPat McCue",
+            page_url="https://example.test/guide.pdf",
+        )
+        self.assertTrue(
+            any(
+                row["person"] == "Jane Roe" and "Offensive Coordinator" in row["title"]
+                for row in people
+            )
+        )
+        self.assertTrue(
+            any(
+                row["person"] == "Pat McCue" and "Offensive Coordinator" in row["title"]
+                for row in people
+            )
+        )
+        self.assertFalse(any("Pass Game" in str(row.get("title") or "") for row in people))
+        self.assertFalse(any("," in str(row.get("title") or "") for row in people))
+        self.assertFalse(
+            any("Quarterbacks" in str(row.get("person") or "") for row in people)
+        )
+
+    def test_ncaa_directory_deactive_and_name_official(self) -> None:
+        from aggie_analytics.cycle30.populations import (
+            ncaa_directory_item_is_discontinued,
+            ncaa_directory_item_name,
+        )
+
+        self.assertTrue(
+            ncaa_directory_item_is_discontinued(
+                {"nameOfficial": "Pacific", "deactive": "Y"}
+            )
+        )
+        self.assertFalse(
+            ncaa_directory_item_is_discontinued(
+                {"nameOfficial": "Texas A&M", "deactive": "N"}
+            )
+        )
+        self.assertEqual(
+            ncaa_directory_item_name({"nameOfficial": "Pacific", "name": ""}),
+            "Pacific",
+        )
+
+    def test_availability_line_name_omits_status_token(self) -> None:
+        rows = extract_candidate_player_rows(
+            "Smith, John - Out\n",
+            source_id="SRC-017",
+            uri="https://example.test/report.pdf",
+        )
+        self.assertEqual(rows[0]["candidate_name"], "John Smith")
+        self.assertFalse(rows[0]["private_medical_detail_ingested"])
+        self.assertEqual(rows[0]["no_report_means"], "UNKNOWN")
+
+    def test_audit_register_records_cursor_join_not_manager_audit(self) -> None:
+        from aggie_analytics.cycle30.audit_register import remaining_audit_register
+
+        register = remaining_audit_register(
+            head_sha="abc",
+            kernel_rows=1,
+            proven_pit_rows=36,
+            current_n=266,
+            parent_games=46953,
+            ties=490,
+            neutrals=1966,
+            official_staff_attempts=266,
+            official_staff_not_attempted=0,
+            membership_1963_2012_years_attempted=50,
+            cfbd_parent_joined_1963_2012=35731,
+            cfbd_parent_cfbd_rows_1963_2012=42038,
+            cfbd_note_forfeit_count_1963_2012=0,
+            cfbd_note_postponed_count_1963_2012=1,
+        )
+        fcs = next(
+            unit for unit in register["units"] if unit["id"] == "C30-AUDIT-01-FCS"
+        )
+        self.assertEqual(fcs["semantic_result"], "PENDING_MANAGER")
+        self.assertNotEqual(fcs["status"], "AUDITED")
+        self.assertIn("35731/42038", fcs["period_population"])
+        self.assertTrue(any("source-id join" in item for item in fcs["remaining_work"]))
+
 
 if __name__ == "__main__":
     raise SystemExit(unittest.main())

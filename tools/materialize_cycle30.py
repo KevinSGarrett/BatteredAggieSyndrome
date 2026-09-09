@@ -91,6 +91,7 @@ from aggie_analytics.cycle30.pit_kernel import (  # noqa: E402
     rebuild_kernel_comparison,
 )
 from aggie_analytics.cycle30.populations import (  # noqa: E402
+    audit_cfbd_contest_notes,
     cfbd_membership_presence_delta,
     classify_pair_counts,
     current_membership_record,
@@ -98,6 +99,7 @@ from aggie_analytics.cycle30.populations import (  # noqa: E402
     expected_game_universe,
     fcs_subset_from_parent,
     historical_scope_contract,
+    join_cfbd_games_to_parent,
     membership_rows_1963_2012,
     ncaa_discontinued_program_census,
     reject_synthetic_real_denominator,
@@ -937,6 +939,30 @@ def main() -> int:
         parent_identity=sha256_file(GAMES_PATH),
         filter_contract_identity="cycle30-home-or-away-fcs-or-iaa",
     )
+    parent_join_2013 = join_cfbd_games_to_parent(
+        games, cfbd_games, period="2013-2023_2026"
+    )
+    parent_join_1963 = join_cfbd_games_to_parent(
+        games, cfbd_hist_games, period="1963-2012"
+    )
+    note_audit_2013 = audit_cfbd_contest_notes(
+        cfbd_games, period="2013-2023_2026"
+    )
+    note_audit_1963 = audit_cfbd_contest_notes(
+        cfbd_hist_games, period="1963-2012"
+    )
+    hashes["CFBD_PARENT_IDENTITY_JOIN_2013_2026.json"] = write_json(
+        ART / "CFBD_PARENT_IDENTITY_JOIN_2013_2026.json", parent_join_2013
+    )
+    hashes["CFBD_PARENT_IDENTITY_JOIN_1963_2012.json"] = write_json(
+        ART / "CFBD_PARENT_IDENTITY_JOIN_1963_2012.json", parent_join_1963
+    )
+    hashes["CFBD_CONTEST_STATUS_NOTE_AUDIT_2013_2026.json"] = write_json(
+        ART / "CFBD_CONTEST_STATUS_NOTE_AUDIT_2013_2026.json", note_audit_2013
+    )
+    hashes["CFBD_CONTEST_STATUS_NOTE_AUDIT_1963_2012.json"] = write_json(
+        ART / "CFBD_CONTEST_STATUS_NOTE_AUDIT_1963_2012.json", note_audit_1963
+    )
     hashes["FCS_SUBSET_FROM_PARENT_SUMMARY.json"] = write_json(
         ART / "FCS_SUBSET_FROM_PARENT_SUMMARY.json",
         {
@@ -948,7 +974,23 @@ def main() -> int:
             "cfbd_fcs_fcs_1963_2012_acquired_rows": len(fcs_cfbd_1963_2012),
             "cfbd_1963_2012_game_rows": len(cfbd_hist_games),
             "pre_2013_fcs_class_is_source_provided_not_era_proof": True,
+            "cursor_source_id_join_performed": True,
             "parent_identity_semantic_join_pending": True,
+            "manager_semantic_join_still_required": True,
+            "parent_is_fbs_filtered_numerator_not_complete_fcs_graph": True,
+            "cfbd_parent_joined_1963_2012": parent_join_1963["joined_by_source_id"],
+            "cfbd_parent_unjoined_1963_2012": parent_join_1963["unjoined_cfbd_rows"],
+            "cfbd_fcs_fcs_1963_2012_in_parent": parent_join_1963[
+                "cfbd_fcs_fcs_in_parent"
+            ],
+            "cfbd_fcs_fcs_1963_2012_absent_from_parent": parent_join_1963[
+                "cfbd_fcs_fcs_absent_from_parent"
+            ],
+            "cfbd_note_forfeit_count_1963_2012": note_audit_1963["forfeit_count"],
+            "cfbd_note_canceled_count_1963_2012": note_audit_1963["canceled_count"],
+            "cfbd_note_postponed_count_1963_2012": note_audit_1963["postponed_count"],
+            "source_notes_are_not_official_ncaa_forfeit_adjudication": True,
+            "national_fcs_completeness_unclaimed": True,
             "artifact_class": "REAL_EVIDENCE",
         },
     )
@@ -2417,6 +2459,18 @@ def main() -> int:
             ),
             availability_joined_to_roster=int(
                 joined_availability.get("joined_to_verified_roster") or 0
+            ),
+            cfbd_parent_joined_1963_2012=int(
+                parent_join_1963.get("joined_by_source_id") or 0
+            ),
+            cfbd_parent_cfbd_rows_1963_2012=int(
+                parent_join_1963.get("cfbd_row_count") or 0
+            ),
+            cfbd_note_forfeit_count_1963_2012=int(
+                note_audit_1963.get("forfeit_count") or 0
+            ),
+            cfbd_note_postponed_count_1963_2012=int(
+                note_audit_1963.get("postponed_count") or 0
             ),
         ),
     )

@@ -438,6 +438,132 @@ def expected_game_universe(
     }
 
 
+def _cfbd_numeric_id(row: Mapping[str, Any]) -> str:
+    return str(row.get("id") or row.get("source_game_id") or "").strip()
+
+
+def _parent_numeric_id(row: Mapping[str, Any]) -> str:
+    gid = str(row.get("canonical_game_id") or "")
+    return gid.rsplit(":", 1)[-1] if gid else ""
+
+
+def _both_source_fcs(row: Mapping[str, Any]) -> bool:
+    home = str(
+        row.get("homeClassification") or row.get("home_classification") or ""
+    ).lower()
+    away = str(
+        row.get("awayClassification") or row.get("away_classification") or ""
+    ).lower()
+    return home == "fcs" and away == "fcs"
+
+
+NOTE_STATUS_TOKENS = (
+    ("forfeit", "forfeit"),
+    ("no contest", "no_contest"),
+    ("no-contest", "no_contest"),
+    ("vacated", "vacated"),
+    ("cancelled", "canceled"),
+    ("canceled", "canceled"),
+    ("postponed", "postponed"),
+)
+
+
+def join_cfbd_games_to_parent(
+    parent_rows: Sequence[Mapping[str, Any]],
+    cfbd_rows: Sequence[Mapping[str, Any]],
+    *,
+    period: str,
+) -> dict[str, Any]:
+    """Join CFBD games onto parent SRC-002 identities by source numeric id."""
+
+    parent_ids = {
+        _parent_numeric_id(row) for row in parent_rows if _parent_numeric_id(row)
+    }
+    joined = 0
+    fcs_fcs = 0
+    fcs_fcs_in_parent = 0
+    unmatched_fcs_fcs = 0
+    by_era: Counter[str] = Counter()
+    for row in cfbd_rows:
+        cid = _cfbd_numeric_id(row)
+        both = _both_source_fcs(row)
+        if both:
+            fcs_fcs += 1
+        if cid and cid in parent_ids:
+            joined += 1
+            season = int(row.get("season") or 0)
+            if 1963 <= season <= 2026:
+                by_era[era_label(season)] += 1
+            if both:
+                fcs_fcs_in_parent += 1
+        elif both:
+            unmatched_fcs_fcs += 1
+    return {
+        "artifact_type": "CFBD_PARENT_IDENTITY_JOIN",
+        "period": period,
+        "parent_row_count": len(parent_rows),
+        "cfbd_row_count": len(cfbd_rows),
+        "joined_by_source_id": joined,
+        "unjoined_cfbd_rows": len(cfbd_rows) - joined,
+        "cfbd_fcs_fcs_rows": fcs_fcs,
+        "cfbd_fcs_fcs_in_parent": fcs_fcs_in_parent,
+        "cfbd_fcs_fcs_absent_from_parent": unmatched_fcs_fcs,
+        "joined_by_era_label": dict(by_era),
+        "parent_is_fbs_filtered_numerator_not_complete_fcs_graph": True,
+        "source_classification_is_not_era_proof": True,
+        "identity_join_performed": True,
+        "artifact_class": "REAL_EVIDENCE",
+    }
+
+
+def audit_cfbd_contest_notes(
+    cfbd_rows: Sequence[Mapping[str, Any]],
+    *,
+    period: str,
+) -> dict[str, Any]:
+    """Scan CFBD notes/completed flags. Not official NCAA forfeit adjudication."""
+
+    counts: Counter[str] = Counter()
+    samples: list[dict[str, Any]] = []
+    incomplete = 0
+    for row in cfbd_rows:
+        notes = str(row.get("notes") or "")
+        lowered = notes.casefold()
+        if (
+            row.get("completed") is False
+            or row.get("homePoints") is None
+            or row.get("awayPoints") is None
+        ):
+            incomplete += 1
+        for token, label in NOTE_STATUS_TOKENS:
+            if token in lowered:
+                counts[label] += 1
+                if len(samples) < 25:
+                    samples.append(
+                        {
+                            "id": row.get("id"),
+                            "season": row.get("season"),
+                            "notes": notes[:200],
+                            "label": label,
+                        }
+                    )
+                break
+    return {
+        "artifact_type": "CFBD_CONTEST_STATUS_NOTE_AUDIT",
+        "period": period,
+        "row_count": len(cfbd_rows),
+        "completed_false_or_missing_points": incomplete,
+        "note_status_counts": dict(counts),
+        "forfeit_count": int(counts.get("forfeit") or 0),
+        "canceled_count": int(counts.get("canceled") or 0),
+        "postponed_count": int(counts.get("postponed") or 0),
+        "no_contest_count": int(counts.get("no_contest") or 0),
+        "samples": samples,
+        "source_notes_are_not_official_ncaa_forfeit_adjudication": True,
+        "artifact_class": "REAL_EVIDENCE",
+    }
+
+
 def cfbd_membership_presence_delta(
     current_ids: Sequence[str],
     historical_rows: Sequence[Mapping[str, Any]],
@@ -481,6 +607,38 @@ def cfbd_membership_presence_delta(
             }
         ),
     }
+
+
+def ncaa_directory_item_is_discontinued(item: Mapping[str, Any]) -> bool:
+    """Current NCAA member rows are not a discontinued-program census."""
+
+    deactive = str(item.get("deactive") or item.get("deactivated") or "").strip().upper()
+    if deactive in {"Y", "YES", "TRUE", "1"}:
+        return True
+    status = str(
+        item.get("status")
+        or item.get("orgStatus")
+        or item.get("sportStatus")
+        or item.get("membershipStatus")
+        or ""
+    ).casefold()
+    markers = ("defunct", "discontinued", "inactive", "former", "dropped")
+    if any(token in status for token in markers):
+        return True
+    for key in ("droppedYear", "formerSport", "discontinuedYear", "endYear"):
+        if item.get(key) not in {None, "", 0, "0"}:
+            return True
+    return False
+
+
+def ncaa_directory_item_name(item: Mapping[str, Any]) -> str:
+    return str(
+        item.get("nameOfficial")
+        or item.get("name")
+        or item.get("orgName")
+        or item.get("nameNick")
+        or ""
+    ).strip()
 
 
 def ncaa_discontinued_program_census(

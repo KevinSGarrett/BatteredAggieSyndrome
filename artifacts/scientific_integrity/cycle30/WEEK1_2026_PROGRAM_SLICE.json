@@ -1,0 +1,14 @@
+{
+  "artifact_class": "BLOCKER_METADATA",
+  "artifact_type": "WEEK1_2026_PROGRAM_SLICE",
+  "contest_count": 91,
+  "distinct_canonical_program_count_W": 1,
+  "identity_class": "DISPLAY_NAME_NOT_CANONICAL",
+  "is_national_population": false,
+  "parent": "CURRENT_2026_DIVISION_I_PROGRAM_POPULATION",
+  "participant_appearance_count": 182,
+  "programs": [
+    "DISPLAY:None"
+  ],
+  "slice_identity": "0babeb854452f319438e96c9aedecfe6235825344663dc8d861a27cc2885ccd3"
+}

@@ -1,0 +1,9 @@
+{
+  "artifact_type": "CYCLE30_COVERAGE_TRUTH",
+  "global_100_not_claimed": true,
+  "green_badge_is_not_requested_threshold": true,
+  "informational": true,
+  "patch_percent": 66.98895,
+  "thresholds_restored": false,
+  "uncovered_changed_lines": null
+}

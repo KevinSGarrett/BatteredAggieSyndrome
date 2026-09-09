@@ -1,0 +1,19 @@
+{
+  "artifact_type": "BAS_DOMAIN_POPULATION_AND_GRAIN_CONTRACT",
+  "blocked_parent_emits_blocked_children": true,
+  "grains": {
+    "availability_injuries_depth": "player × program × target game × checkpoint × declared source lane",
+    "availability_reporting_surface": "program × target game × checkpoint × source lane",
+    "coaching_position_roles": "program-season × predeclared role family × as-of/cutoff",
+    "games_results": "canonical contest",
+    "markets": "eligible scheduled game × checkpoint × provider × normalized book/source lane × quote family",
+    "neutral_site": "canonical contest × schedule/venue version × cutoff",
+    "officials_penalties": "eligible game × assignment/penalty family × source lane",
+    "plays_drives_box_film": "eligible game × asset family × source lane",
+    "program_seasons": "canonical program × season × contemporaneous classification",
+    "transfers": "player × adjacent program-season boundary × declared source lane",
+    "travel": "canonical contest × participant × origin → actual venue"
+  },
+  "program_counts_cannot_reuse_for_game_grain": true,
+  "unknown_denominator_is_null_blocked_not_one": true
+}

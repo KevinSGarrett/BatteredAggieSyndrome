@@ -1,0 +1,15 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "NCAA_DISCONTINUED_PROGRAM_CENSUS",
+  "cfbd_absent_from_2026_n": 25,
+  "cfbd_presence_delta_is_not_this_census": true,
+  "current_n": 266,
+  "identity": "1fad60ffe2659d1cbb199e8ad1781e53ae5f615975f6d8efed09b2a6955d7c9e",
+  "ncaa_census_acquired": false,
+  "ncaa_census_rows": 0,
+  "ncaa_wikipedia_name_overlap": 0,
+  "not_an_ncaa_discontinued_program_census": true,
+  "source_id": "SRC-WIKIMEDIA",
+  "wikipedia_former_program_rows": 4359,
+  "wikipedia_is_not_ncaa_census": true
+}

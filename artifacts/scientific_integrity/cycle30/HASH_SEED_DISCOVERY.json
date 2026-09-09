@@ -1,0 +1,18 @@
+{
+  "artifact_class": "BLOCKER_METADATA",
+  "artifact_type": "CYCLE30_HASH_SEED_DISCOVERY",
+  "count_source": "source_def_test_methods",
+  "discovery_difference": "none_on_cycle30_adversarial_suite",
+  "payload_available": true,
+  "seeds": [
+    "0",
+    "1"
+  ],
+  "skips": [],
+  "test_cycle29_count": 33,
+  "test_cycle30_count": 56,
+  "test_cycle30_exit": [
+    0,
+    0
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "artifact_class": "BLOCKER_METADATA",
+  "artifact_type": "PR685_THREAD_ADJUDICATION",
+  "capture_sha256": "0199c0c742a21f958077be725e15a89aead1a6d2a2127e3bb7427846a33acb4c",
+  "false_positives": "none authorized by Cursor",
+  "head_reviewed": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+  "latest_five_p1": [
+    {
+      "cycle30_disposition": "CONFIRMED_FIXED",
+      "evidence": "cycle30 claims discovery walks status fields, *_count/*_rows suffixes, and additional numeric keys. Undeclared files still fail.",
+      "id": 3953219674,
+      "still_present_on_pr685": true,
+      "title": "Scan all authority-bearing numeric fields"
+    },
+    {
+      "cycle30_disposition": "CONFIRMED_FIXED",
+      "evidence": "validate_cycle30_gates.py containment reads CYCLE30_CLAIM_INVENTORY.json and fails on nonempty unmapped_count or empty declared_count.",
+      "id": 3953219676,
+      "still_present_on_pr685": true,
+      "title": "Validate the claim inventory before passing the gates"
+    },
+    {
+      "cycle30_disposition": "CONFIRMED_FIXED",
+      "evidence": "build_game_grain_kernel raises PitKernelError on duplicate canonical_game_id before emitting rows.",
+      "id": 3953219680,
+      "still_present_on_pr685": true,
+      "title": "Reject duplicate canonical game identities"
+    },
+    {
+      "cycle30_disposition": "CONFIRMED_FIXED",
+      "evidence": "validate_oriented_outcomes and independent challenge_game reject both-win and non-antisymmetric margins. Ties cannot be binary wins.",
+      "id": 3953219682,
+      "still_present_on_pr685": true,
+      "title": "Enforce paired outcome coherence before admission"
+    },
+    {
+      "cycle30_disposition": "CONFIRMED_FIXED",
+      "evidence": "cycle30 scoring.admit_official_final calls bind_actual_upstream; literal upstream_success=True is not used at final admission.",
+      "id": 3953219685,
+      "still_present_on_pr685": true,
+      "title": "Pass the actual upstream state into score admission"
+    }
+  ],
+  "outdated_does_not_mean_fixed": true,
+  "paid_review_not_invoked": true,
+  "remaining_threads": "All 19 PR685 inline comments captured; Cycle 29 producer paths may still contain the original defects. Cycle 30 successor is the repair surface. Outdated on 0b957ea1 does not auto-close those threads on PR685.",
+  "review_state": "READY_FOR_MANAGER_REVIEW",
+  "reviews_captured": 4,
+  "threads_captured": 19
+}

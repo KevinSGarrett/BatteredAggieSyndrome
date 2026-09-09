@@ -1,0 +1,23 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "CFBD_CONTEST_STATUS_NOTE_AUDIT",
+  "canceled_count": 0,
+  "completed_false_or_missing_points": 0,
+  "forfeit_count": 0,
+  "no_contest_count": 0,
+  "note_status_counts": {
+    "postponed": 1
+  },
+  "period": "1963-2012",
+  "postponed_count": 1,
+  "row_count": 42038,
+  "samples": [
+    {
+      "id": 312472199,
+      "label": "postponed",
+      "notes": "SEPT. 3rd GAME POSTPONED",
+      "season": 2011
+    }
+  ],
+  "source_notes_are_not_official_ncaa_forfeit_adjudication": true
+}

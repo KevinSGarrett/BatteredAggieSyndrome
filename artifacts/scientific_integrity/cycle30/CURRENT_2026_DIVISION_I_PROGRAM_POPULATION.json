@@ -1,0 +1,2678 @@
+{
+  "N": 266,
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "CURRENT_2026_DIVISION_I_PROGRAM_POPULATION",
+  "as_of_utc": "2026-09-07T16:00:00Z",
+  "excluded_non_di_program_ids": 417,
+  "hardcoded_266_forbidden": true,
+  "population_identity": "280a0138587a3108c84d758c0b90e74d554ae20004741e0a9ac3577180bee390",
+  "programs": [
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "UAC",
+      "display_name": "Abilene Christian",
+      "program_id": "SRC-002:TEAM:2000",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "Air Force",
+      "program_id": "SRC-002:TEAM:2005",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Akron",
+      "program_id": "SRC-002:TEAM:2006",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Alabama",
+      "program_id": "SRC-002:TEAM:333",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Alabama A&M",
+      "program_id": "SRC-002:TEAM:2010",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Alabama State",
+      "program_id": "SRC-002:TEAM:2011",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Alcorn State",
+      "program_id": "SRC-002:TEAM:2016",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "App State",
+      "program_id": "SRC-002:TEAM:2026",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Arizona",
+      "program_id": "SRC-002:TEAM:12",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Arizona State",
+      "program_id": "SRC-002:TEAM:9",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Arkansas",
+      "program_id": "SRC-002:TEAM:8",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Arkansas-Pine Bluff",
+      "program_id": "SRC-002:TEAM:2029",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Arkansas State",
+      "program_id": "SRC-002:TEAM:2032",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Army",
+      "program_id": "SRC-002:TEAM:349",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Auburn",
+      "program_id": "SRC-002:TEAM:2",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "UAC",
+      "display_name": "Austin Peay",
+      "program_id": "SRC-002:TEAM:2046",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Ball State",
+      "program_id": "SRC-002:TEAM:2050",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Baylor",
+      "program_id": "SRC-002:TEAM:239",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Bethune-Cookman",
+      "program_id": "SRC-002:TEAM:2065",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Pac-12",
+      "display_name": "Boise State",
+      "program_id": "SRC-002:TEAM:68",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Boston College",
+      "program_id": "SRC-002:TEAM:103",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Bowling Green",
+      "program_id": "SRC-002:TEAM:189",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Ivy",
+      "display_name": "Brown",
+      "program_id": "SRC-002:TEAM:225",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Bryant",
+      "program_id": "SRC-002:TEAM:2803",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Bucknell",
+      "program_id": "SRC-002:TEAM:2083",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Buffalo",
+      "program_id": "SRC-002:TEAM:2084",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Butler",
+      "program_id": "SRC-002:TEAM:2086",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "BYU",
+      "program_id": "SRC-002:TEAM:252",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "California",
+      "program_id": "SRC-002:TEAM:25",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Cal Poly",
+      "program_id": "SRC-002:TEAM:13",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Campbell",
+      "program_id": "SRC-002:TEAM:2097",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "UAC",
+      "display_name": "Central Arkansas",
+      "program_id": "SRC-002:TEAM:2110",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "NEC",
+      "display_name": "Central Connecticut",
+      "program_id": "SRC-002:TEAM:2115",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Central Michigan",
+      "program_id": "SRC-002:TEAM:2117",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "OVC",
+      "display_name": "Charleston Southern",
+      "program_id": "SRC-002:TEAM:2127",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Charlotte",
+      "program_id": "SRC-002:TEAM:2429",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "Chattanooga",
+      "program_id": "SRC-002:TEAM:236",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "FCS Independents",
+      "display_name": "Chicago State",
+      "program_id": "SRC-002:TEAM:2130",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Cincinnati",
+      "program_id": "SRC-002:TEAM:2132",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Clemson",
+      "program_id": "SRC-002:TEAM:228",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Coastal Carolina",
+      "program_id": "SRC-002:TEAM:324",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Colgate",
+      "program_id": "SRC-002:TEAM:2142",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Colorado",
+      "program_id": "SRC-002:TEAM:38",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Pac-12",
+      "display_name": "Colorado State",
+      "program_id": "SRC-002:TEAM:36",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Ivy",
+      "display_name": "Columbia",
+      "program_id": "SRC-002:TEAM:171",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Ivy",
+      "display_name": "Cornell",
+      "program_id": "SRC-002:TEAM:172",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Ivy",
+      "display_name": "Dartmouth",
+      "program_id": "SRC-002:TEAM:159",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Davidson",
+      "program_id": "SRC-002:TEAM:2166",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Dayton",
+      "program_id": "SRC-002:TEAM:2168",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Delaware",
+      "program_id": "SRC-002:TEAM:48",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MEAC",
+      "display_name": "Delaware State",
+      "program_id": "SRC-002:TEAM:2169",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Drake",
+      "program_id": "SRC-002:TEAM:2181",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Duke",
+      "program_id": "SRC-002:TEAM:150",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "NEC",
+      "display_name": "Duquesne",
+      "program_id": "SRC-002:TEAM:2184",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "East Carolina",
+      "program_id": "SRC-002:TEAM:151",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "OVC",
+      "display_name": "Eastern Illinois",
+      "program_id": "SRC-002:TEAM:2197",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "UAC",
+      "display_name": "Eastern Kentucky",
+      "program_id": "SRC-002:TEAM:2198",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Eastern Michigan",
+      "program_id": "SRC-002:TEAM:2199",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Eastern Washington",
+      "program_id": "SRC-002:TEAM:331",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "East Tennessee State",
+      "program_id": "SRC-002:TEAM:2193",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "East Texas A&M",
+      "program_id": "SRC-002:TEAM:2837",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Elon",
+      "program_id": "SRC-002:TEAM:2210",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Florida",
+      "program_id": "SRC-002:TEAM:57",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Florida A&M",
+      "program_id": "SRC-002:TEAM:50",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Florida Atlantic",
+      "program_id": "SRC-002:TEAM:2226",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Florida International",
+      "program_id": "SRC-002:TEAM:2229",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Florida State",
+      "program_id": "SRC-002:TEAM:52",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Fordham",
+      "program_id": "SRC-002:TEAM:2230",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Pac-12",
+      "display_name": "Fresno State",
+      "program_id": "SRC-002:TEAM:278",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "Furman",
+      "program_id": "SRC-002:TEAM:231",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "OVC",
+      "display_name": "Gardner-Webb",
+      "program_id": "SRC-002:TEAM:2241",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Georgetown",
+      "program_id": "SRC-002:TEAM:46",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Georgia",
+      "program_id": "SRC-002:TEAM:61",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Georgia Southern",
+      "program_id": "SRC-002:TEAM:290",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Georgia State",
+      "program_id": "SRC-002:TEAM:2247",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Georgia Tech",
+      "program_id": "SRC-002:TEAM:59",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Grambling",
+      "program_id": "SRC-002:TEAM:2755",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Hampton",
+      "program_id": "SRC-002:TEAM:2261",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Ivy",
+      "display_name": "Harvard",
+      "program_id": "SRC-002:TEAM:108",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "Hawai'i",
+      "program_id": "SRC-002:TEAM:62",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Holy Cross",
+      "program_id": "SRC-002:TEAM:107",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Houston",
+      "program_id": "SRC-002:TEAM:248",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "Houston Christian",
+      "program_id": "SRC-002:TEAM:2277",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MEAC",
+      "display_name": "Howard",
+      "program_id": "SRC-002:TEAM:47",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Idaho",
+      "program_id": "SRC-002:TEAM:70",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Idaho State",
+      "program_id": "SRC-002:TEAM:304",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Illinois",
+      "program_id": "SRC-002:TEAM:356",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "Illinois State",
+      "program_id": "SRC-002:TEAM:2287",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "Incarnate Word",
+      "program_id": "SRC-002:TEAM:2916",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Indiana",
+      "program_id": "SRC-002:TEAM:84",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "Indiana State",
+      "program_id": "SRC-002:TEAM:282",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Iowa",
+      "program_id": "SRC-002:TEAM:2294",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Iowa State",
+      "program_id": "SRC-002:TEAM:66",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Jackson State",
+      "program_id": "SRC-002:TEAM:2296",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Jacksonville State",
+      "program_id": "SRC-002:TEAM:55",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "James Madison",
+      "program_id": "SRC-002:TEAM:256",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Kansas",
+      "program_id": "SRC-002:TEAM:2305",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Kansas State",
+      "program_id": "SRC-002:TEAM:2306",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Kennesaw State",
+      "program_id": "SRC-002:TEAM:338",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Kent State",
+      "program_id": "SRC-002:TEAM:2309",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Kentucky",
+      "program_id": "SRC-002:TEAM:96",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Lafayette",
+      "program_id": "SRC-002:TEAM:322",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "Lamar",
+      "program_id": "SRC-002:TEAM:2320",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Lehigh",
+      "program_id": "SRC-002:TEAM:2329",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Liberty",
+      "program_id": "SRC-002:TEAM:2335",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "OVC",
+      "display_name": "Lindenwood",
+      "program_id": "SRC-002:TEAM:2815",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "NEC",
+      "display_name": "Long Island University",
+      "program_id": "SRC-002:TEAM:2341",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Louisiana",
+      "program_id": "SRC-002:TEAM:309",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Louisiana Tech",
+      "program_id": "SRC-002:TEAM:2348",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Louisville",
+      "program_id": "SRC-002:TEAM:97",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "LSU",
+      "program_id": "SRC-002:TEAM:99",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Maine",
+      "program_id": "SRC-002:TEAM:311",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Marist",
+      "program_id": "SRC-002:TEAM:2368",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Marshall",
+      "program_id": "SRC-002:TEAM:276",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Maryland",
+      "program_id": "SRC-002:TEAM:120",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Massachusetts",
+      "program_id": "SRC-002:TEAM:113",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "McNeese",
+      "program_id": "SRC-002:TEAM:2377",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Memphis",
+      "program_id": "SRC-002:TEAM:235",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "Mercer",
+      "program_id": "SRC-002:TEAM:2382",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "NEC",
+      "display_name": "Mercyhurst",
+      "program_id": "SRC-002:TEAM:2385",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "FCS Independents",
+      "display_name": "Merrimack",
+      "program_id": "SRC-002:TEAM:2771",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Miami",
+      "program_id": "SRC-002:TEAM:2390",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Miami (OH)",
+      "program_id": "SRC-002:TEAM:193",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Michigan",
+      "program_id": "SRC-002:TEAM:130",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Michigan State",
+      "program_id": "SRC-002:TEAM:127",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Middle Tennessee",
+      "program_id": "SRC-002:TEAM:2393",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Minnesota",
+      "program_id": "SRC-002:TEAM:135",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Mississippi State",
+      "program_id": "SRC-002:TEAM:344",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Mississippi Valley State",
+      "program_id": "SRC-002:TEAM:2400",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Missouri",
+      "program_id": "SRC-002:TEAM:142",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Missouri State",
+      "program_id": "SRC-002:TEAM:2623",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Monmouth",
+      "program_id": "SRC-002:TEAM:2405",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Montana",
+      "program_id": "SRC-002:TEAM:149",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Montana State",
+      "program_id": "SRC-002:TEAM:147",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Morehead State",
+      "program_id": "SRC-002:TEAM:2413",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MEAC",
+      "display_name": "Morgan State",
+      "program_id": "SRC-002:TEAM:2415",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "Murray State",
+      "program_id": "SRC-002:TEAM:93",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Navy",
+      "program_id": "SRC-002:TEAM:2426",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "NC State",
+      "program_id": "SRC-002:TEAM:152",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Nebraska",
+      "program_id": "SRC-002:TEAM:158",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "Nevada",
+      "program_id": "SRC-002:TEAM:2440",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "New Hampshire",
+      "program_id": "SRC-002:TEAM:160",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "NEC",
+      "display_name": "New Haven",
+      "program_id": "SRC-002:TEAM:2441",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "New Mexico",
+      "program_id": "SRC-002:TEAM:167",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "New Mexico State",
+      "program_id": "SRC-002:TEAM:166",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "Nicholls",
+      "program_id": "SRC-002:TEAM:2447",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MEAC",
+      "display_name": "Norfolk State",
+      "program_id": "SRC-002:TEAM:2450",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "UAC",
+      "display_name": "North Alabama",
+      "program_id": "SRC-002:TEAM:2453",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "North Carolina",
+      "program_id": "SRC-002:TEAM:153",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "North Carolina A&T",
+      "program_id": "SRC-002:TEAM:2448",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MEAC",
+      "display_name": "North Carolina Central",
+      "program_id": "SRC-002:TEAM:2428",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "North Dakota",
+      "program_id": "SRC-002:TEAM:155",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "North Dakota State",
+      "program_id": "SRC-002:TEAM:2449",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Northern Arizona",
+      "program_id": "SRC-002:TEAM:2464",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Northern Colorado",
+      "program_id": "SRC-002:TEAM:2458",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "Northern Illinois",
+      "program_id": "SRC-002:TEAM:2459",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "Northern Iowa",
+      "program_id": "SRC-002:TEAM:2460",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "North Texas",
+      "program_id": "SRC-002:TEAM:249",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Northwestern",
+      "program_id": "SRC-002:TEAM:77",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "Northwestern State",
+      "program_id": "SRC-002:TEAM:2466",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "FBS Independents",
+      "display_name": "Notre Dame",
+      "program_id": "SRC-002:TEAM:87",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Ohio",
+      "program_id": "SRC-002:TEAM:195",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Ohio State",
+      "program_id": "SRC-002:TEAM:194",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Oklahoma",
+      "program_id": "SRC-002:TEAM:201",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Oklahoma State",
+      "program_id": "SRC-002:TEAM:197",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Old Dominion",
+      "program_id": "SRC-002:TEAM:295",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Ole Miss",
+      "program_id": "SRC-002:TEAM:145",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Oregon",
+      "program_id": "SRC-002:TEAM:2483",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Pac-12",
+      "display_name": "Oregon State",
+      "program_id": "SRC-002:TEAM:204",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Penn State",
+      "program_id": "SRC-002:TEAM:213",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Ivy",
+      "display_name": "Pennsylvania",
+      "program_id": "SRC-002:TEAM:219",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Pittsburgh",
+      "program_id": "SRC-002:TEAM:221",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Portland State",
+      "program_id": "SRC-002:TEAM:2502",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Prairie View A&M",
+      "program_id": "SRC-002:TEAM:2504",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Presbyterian",
+      "program_id": "SRC-002:TEAM:2506",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Ivy",
+      "display_name": "Princeton",
+      "program_id": "SRC-002:TEAM:163",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Purdue",
+      "program_id": "SRC-002:TEAM:2509",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Rhode Island",
+      "program_id": "SRC-002:TEAM:227",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Rice",
+      "program_id": "SRC-002:TEAM:242",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Richmond",
+      "program_id": "SRC-002:TEAM:257",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "NEC",
+      "display_name": "Robert Morris",
+      "program_id": "SRC-002:TEAM:2523",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Rutgers",
+      "program_id": "SRC-002:TEAM:164",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Sacramento State",
+      "program_id": "SRC-002:TEAM:16",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Sacred Heart",
+      "program_id": "SRC-002:TEAM:2529",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "Samford",
+      "program_id": "SRC-002:TEAM:2535",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Sam Houston",
+      "program_id": "SRC-002:TEAM:2534",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "San Diego",
+      "program_id": "SRC-002:TEAM:301",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Pac-12",
+      "display_name": "San Diego State",
+      "program_id": "SRC-002:TEAM:21",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "San José State",
+      "program_id": "SRC-002:TEAM:23",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "SE Louisiana",
+      "program_id": "SRC-002:TEAM:2545",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "SMU",
+      "program_id": "SRC-002:TEAM:2567",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "South Alabama",
+      "program_id": "SRC-002:TEAM:6",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "South Carolina",
+      "program_id": "SRC-002:TEAM:2579",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MEAC",
+      "display_name": "South Carolina State",
+      "program_id": "SRC-002:TEAM:2569",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "South Dakota",
+      "program_id": "SRC-002:TEAM:233",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "South Dakota State",
+      "program_id": "SRC-002:TEAM:2571",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "OVC",
+      "display_name": "Southeast Missouri State",
+      "program_id": "SRC-002:TEAM:2546",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Southern",
+      "program_id": "SRC-002:TEAM:2582",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "Southern Illinois",
+      "program_id": "SRC-002:TEAM:79",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Southern Miss",
+      "program_id": "SRC-002:TEAM:2572",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Southern Utah",
+      "program_id": "SRC-002:TEAM:253",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "South Florida",
+      "program_id": "SRC-002:TEAM:58",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Stanford",
+      "program_id": "SRC-002:TEAM:24",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "Stephen F. Austin",
+      "program_id": "SRC-002:TEAM:2617",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Stetson",
+      "program_id": "SRC-002:TEAM:56",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "NEC",
+      "display_name": "Stonehill",
+      "program_id": "SRC-002:TEAM:284",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Stony Brook",
+      "program_id": "SRC-002:TEAM:2619",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "St. Thomas (MN)",
+      "program_id": "SRC-002:TEAM:2900",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Syracuse",
+      "program_id": "SRC-002:TEAM:183",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "UAC",
+      "display_name": "Tarleton State",
+      "program_id": "SRC-002:TEAM:2627",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "TCU",
+      "program_id": "SRC-002:TEAM:2628",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Temple",
+      "program_id": "SRC-002:TEAM:218",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Tennessee",
+      "program_id": "SRC-002:TEAM:2633",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "OVC",
+      "display_name": "Tennessee State",
+      "program_id": "SRC-002:TEAM:2634",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "Tennessee Tech",
+      "program_id": "SRC-002:TEAM:2635",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Texas",
+      "program_id": "SRC-002:TEAM:251",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Texas A&M",
+      "program_id": "SRC-002:TEAM:245",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "SWAC",
+      "display_name": "Texas Southern",
+      "program_id": "SRC-002:TEAM:2640",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Pac-12",
+      "display_name": "Texas State",
+      "program_id": "SRC-002:TEAM:326",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Texas Tech",
+      "program_id": "SRC-002:TEAM:2641",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "The Citadel",
+      "program_id": "SRC-002:TEAM:2643",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Toledo",
+      "program_id": "SRC-002:TEAM:2649",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "Towson",
+      "program_id": "SRC-002:TEAM:119",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "Troy",
+      "program_id": "SRC-002:TEAM:2653",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Tulane",
+      "program_id": "SRC-002:TEAM:2655",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "Tulsa",
+      "program_id": "SRC-002:TEAM:202",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "UAB",
+      "program_id": "SRC-002:TEAM:5",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Coastal Athletic",
+      "display_name": "UAlbany",
+      "program_id": "SRC-002:TEAM:399",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "UC Davis",
+      "program_id": "SRC-002:TEAM:302",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "UCF",
+      "program_id": "SRC-002:TEAM:2116",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "UCLA",
+      "program_id": "SRC-002:TEAM:26",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "FBS Independents",
+      "display_name": "UConn",
+      "program_id": "SRC-002:TEAM:41",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Sun Belt",
+      "display_name": "UL Monroe",
+      "program_id": "SRC-002:TEAM:2433",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "UNLV",
+      "program_id": "SRC-002:TEAM:2439",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "USC",
+      "program_id": "SRC-002:TEAM:30",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "Utah",
+      "program_id": "SRC-002:TEAM:254",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Pac-12",
+      "display_name": "Utah State",
+      "program_id": "SRC-002:TEAM:328",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Utah Tech",
+      "program_id": "SRC-002:TEAM:3101",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "UTEP",
+      "program_id": "SRC-002:TEAM:2638",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "OVC",
+      "display_name": "UT Martin",
+      "program_id": "SRC-002:TEAM:2630",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southland",
+      "display_name": "UT Rio Grande Valley",
+      "program_id": "SRC-002:TEAM:292",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "American Athletic",
+      "display_name": "UTSA",
+      "program_id": "SRC-002:TEAM:2636",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Pioneer",
+      "display_name": "Valparaiso",
+      "program_id": "SRC-002:TEAM:2674",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "SEC",
+      "display_name": "Vanderbilt",
+      "program_id": "SRC-002:TEAM:238",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "Villanova",
+      "program_id": "SRC-002:TEAM:222",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Virginia",
+      "program_id": "SRC-002:TEAM:258",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Virginia Tech",
+      "program_id": "SRC-002:TEAM:259",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "VMI",
+      "program_id": "SRC-002:TEAM:2678",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "NEC",
+      "display_name": "Wagner",
+      "program_id": "SRC-002:TEAM:2681",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "ACC",
+      "display_name": "Wake Forest",
+      "program_id": "SRC-002:TEAM:154",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Washington",
+      "program_id": "SRC-002:TEAM:264",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Pac-12",
+      "display_name": "Washington State",
+      "program_id": "SRC-002:TEAM:265",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Big Sky",
+      "display_name": "Weber State",
+      "program_id": "SRC-002:TEAM:2692",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "Western Carolina",
+      "program_id": "SRC-002:TEAM:2717",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "OVC",
+      "display_name": "Western Illinois",
+      "program_id": "SRC-002:TEAM:2710",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Conference USA",
+      "display_name": "Western Kentucky",
+      "program_id": "SRC-002:TEAM:98",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mid-American",
+      "display_name": "Western Michigan",
+      "program_id": "SRC-002:TEAM:2711",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "UAC",
+      "display_name": "West Florida",
+      "program_id": "SRC-002:TEAM:110242",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "UAC",
+      "display_name": "West Georgia",
+      "program_id": "SRC-002:TEAM:2698",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big 12",
+      "display_name": "West Virginia",
+      "program_id": "SRC-002:TEAM:277",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Patriot",
+      "display_name": "William & Mary",
+      "program_id": "SRC-002:TEAM:2729",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Big Ten",
+      "display_name": "Wisconsin",
+      "program_id": "SRC-002:TEAM:275",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Southern",
+      "display_name": "Wofford",
+      "program_id": "SRC-002:TEAM:2747",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fbs",
+      "conference": "Mountain West",
+      "display_name": "Wyoming",
+      "program_id": "SRC-002:TEAM:2751",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fbs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "Ivy",
+      "display_name": "Yale",
+      "program_id": "SRC-002:TEAM:43",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    },
+    {
+      "artifact_class": "REAL_EVIDENCE",
+      "classification": "fcs",
+      "conference": "MVFC",
+      "display_name": "Youngstown State",
+      "program_id": "SRC-002:TEAM:2754",
+      "query_parameter_classification_ignored": "fbs",
+      "source_field_classification": "fcs",
+      "source_id": "SRC-002"
+    }
+  ],
+  "query_parameter_did_not_filter_cfbd_teams": true,
+  "rights": "CFBD_TERMS_AUTHORIZED_ROUTE",
+  "source_id": "SRC-002",
+  "source_season": 2026,
+  "unknowns_exposed": true,
+  "used_response_classification_fbs_fcs": true,
+  "week1_appearances_are_not_N": true
+}

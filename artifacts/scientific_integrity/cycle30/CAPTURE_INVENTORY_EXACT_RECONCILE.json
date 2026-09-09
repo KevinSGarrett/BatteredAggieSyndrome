@@ -1,0 +1,10 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "CAPTURE_INVENTORY_EXACT_RECONCILE",
+  "declared_inventory_rows": 990,
+  "declared_missing_from_mounted_root": 0,
+  "missing_sample": [],
+  "mounted_existing_files": 990,
+  "not_a_subtraction_identity": true,
+  "unsupported_all_raw_audited": false
+}

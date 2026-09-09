@@ -1,0 +1,28 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "authority_class": "PROVEN_PIT_TRAINING_ROW",
+  "away_features": {
+    "pit_prior_games_played": 127,
+    "pit_prior_margin_mean": -18.503937007874,
+    "pit_prior_points_against_mean": 38.51968503937,
+    "pit_prior_points_for_mean": 20.015748031496,
+    "pit_prior_season_win_rate": null,
+    "pit_prior_win_rate": 0.149606299213,
+    "pit_season_to_date_games": 0,
+    "pit_season_to_date_win_rate": null
+  },
+  "home_features": {
+    "pit_prior_games_played": 207,
+    "pit_prior_margin_mean": -5.985507246377,
+    "pit_prior_points_against_mean": 27.347826086957,
+    "pit_prior_points_for_mean": 21.36231884058,
+    "pit_prior_season_win_rate": null,
+    "pit_prior_win_rate": 0.425120772947,
+    "pit_season_to_date_games": 0,
+    "pit_season_to_date_win_rate": null
+  },
+  "ordinary_home_exposure": null,
+  "row_verdict": "PROVEN_PIT_TRAINING_ROW",
+  "sample_game_id": "SRC-002:GAME:401858423",
+  "source_id": "SRC-002"
+}

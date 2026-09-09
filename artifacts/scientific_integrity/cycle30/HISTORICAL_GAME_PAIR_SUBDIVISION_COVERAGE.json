@@ -1,0 +1,379 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "classification": "FBS_CENTRIC_NOT_COMPLETE_FBS_FCS_COMPETITION_GRAPH",
+  "fcs_to_fcs_count": 0,
+  "normalized_game_count": 46953,
+  "orientation": "home→away",
+  "pair_counts_by_season": {
+    "1963": {
+      "fbs→fbs": 548,
+      "fbs→null": 50,
+      "null→fbs": 22
+    },
+    "1964": {
+      "fbs→fbs": 552,
+      "fbs→null": 56,
+      "null→fbs": 25
+    },
+    "1965": {
+      "fbs→fbs": 549,
+      "fbs→fcs": 4,
+      "fbs→null": 51,
+      "fcs→fbs": 2,
+      "null→fbs": 34
+    },
+    "1966": {
+      "fbs→fbs": 549,
+      "fbs→fcs": 3,
+      "fbs→null": 48,
+      "fcs→fbs": 3,
+      "null→fbs": 30
+    },
+    "1967": {
+      "fbs→fbs": 538,
+      "fbs→fcs": 4,
+      "fbs→null": 58,
+      "null→fbs": 29
+    },
+    "1968": {
+      "fbs→fbs": 550,
+      "fbs→fcs": 5,
+      "fbs→null": 48,
+      "fcs→fbs": 1,
+      "null→fbs": 35
+    },
+    "1969": {
+      "fbs→fbs": 560,
+      "fbs→fcs": 5,
+      "fbs→null": 51,
+      "fcs→fbs": 1,
+      "null→fbs": 40
+    },
+    "1970": {
+      "fbs→fbs": 597,
+      "fbs→fcs": 5,
+      "fbs→null": 60,
+      "fcs→fbs": 1,
+      "null→fbs": 37
+    },
+    "1971": {
+      "fbs→fbs": 639,
+      "fbs→fcs": 4,
+      "fbs→null": 56,
+      "fcs→fbs": 2,
+      "null→fbs": 42
+    },
+    "1972": {
+      "fbs→fbs": 634,
+      "fbs→fcs": 3,
+      "fbs→null": 65,
+      "fcs→fbs": 3,
+      "null→fbs": 34
+    },
+    "1973": {
+      "fbs→fbs": 641,
+      "fbs→fcs": 4,
+      "fbs→null": 65,
+      "fcs→fbs": 2,
+      "null→fbs": 45
+    },
+    "1974": {
+      "fbs→fbs": 651,
+      "fbs→fcs": 4,
+      "fbs→null": 66,
+      "fcs→fbs": 2,
+      "null→fbs": 37
+    },
+    "1975": {
+      "fbs→fbs": 702,
+      "fbs→fcs": 3,
+      "fbs→null": 60,
+      "fcs→fbs": 1,
+      "null→fbs": 40
+    },
+    "1976": {
+      "fbs→fbs": 710,
+      "fbs→fcs": 4,
+      "fbs→null": 60,
+      "fcs→fbs": 1,
+      "null→fbs": 29
+    },
+    "1977": {
+      "fbs→fbs": 741,
+      "fbs→fcs": 4,
+      "fbs→null": 68,
+      "fcs→fbs": 1,
+      "null→fbs": 53
+    },
+    "1978": {
+      "fbs→fbs": 722,
+      "fbs→fcs": 4,
+      "fbs→null": 53,
+      "fcs→fbs": 1,
+      "null→fbs": 36
+    },
+    "1979": {
+      "fbs→fbs": 731,
+      "fbs→fcs": 1,
+      "fbs→null": 60,
+      "fcs→fbs": 1,
+      "null→fbs": 32
+    },
+    "1980": {
+      "fbs→fbs": 728,
+      "fbs→fcs": 2,
+      "fbs→null": 57,
+      "null→fbs": 29
+    },
+    "1981": {
+      "fbs→fbs": 727,
+      "fbs→fcs": 1,
+      "fbs→null": 58,
+      "null→fbs": 18
+    },
+    "1982": {
+      "fbs→fbs": 592,
+      "fbs→fcs": 5,
+      "fbs→null": 67,
+      "fcs→fbs": 2,
+      "null→fbs": 21
+    },
+    "1983": {
+      "fbs→fbs": 582,
+      "fbs→fcs": 5,
+      "fbs→null": 74,
+      "fcs→fbs": 4,
+      "null→fbs": 31
+    },
+    "1984": {
+      "fbs→fbs": 581,
+      "fbs→fcs": 4,
+      "fbs→null": 69,
+      "fcs→fbs": 1,
+      "null→fbs": 21
+    },
+    "1985": {
+      "fbs→fbs": 581,
+      "fbs→fcs": 2,
+      "fbs→null": 67,
+      "fcs→fbs": 1,
+      "null→fbs": 22
+    },
+    "1986": {
+      "fbs→fbs": 563,
+      "fbs→fcs": 3,
+      "fbs→null": 61,
+      "fcs→fbs": 3,
+      "null→fbs": 7
+    },
+    "1987": {
+      "fbs→fbs": 558,
+      "fbs→fcs": 1,
+      "fbs→null": 65,
+      "fcs→fbs": 2,
+      "null→fbs": 7
+    },
+    "1988": {
+      "fbs→fbs": 564,
+      "fbs→fcs": 2,
+      "fbs→null": 60,
+      "fcs→fbs": 1,
+      "null→fbs": 9
+    },
+    "1989": {
+      "fbs→fbs": 582,
+      "fbs→fcs": 2,
+      "fbs→null": 40,
+      "null→fbs": 8
+    },
+    "1990": {
+      "fbs→fbs": 579,
+      "fbs→fcs": 1,
+      "fbs→null": 57,
+      "null→fbs": 9
+    },
+    "1991": {
+      "fbs→fbs": 586,
+      "fbs→fcs": 2,
+      "fbs→null": 47,
+      "null→fbs": 4
+    },
+    "1992": {
+      "fbs→fbs": 588,
+      "fbs→fcs": 1,
+      "fbs→null": 45,
+      "null→fbs": 3
+    },
+    "1993": {
+      "fbs→fbs": 585,
+      "fbs→fcs": 1,
+      "fbs→null": 46
+    },
+    "1994": {
+      "fbs→fbs": 593,
+      "fbs→fcs": 1,
+      "fbs→null": 39,
+      "null→fbs": 3
+    },
+    "1995": {
+      "fbs→fbs": 597,
+      "fbs→fcs": 1,
+      "fbs→null": 41,
+      "null→fbs": 1
+    },
+    "1996": {
+      "fbs→fbs": 614,
+      "fbs→fcs": 1,
+      "fbs→null": 46,
+      "null→fbs": 1
+    },
+    "1997": {
+      "fbs→fbs": 628,
+      "fbs→null": 35,
+      "null→fbs": 3
+    },
+    "1998": {
+      "fbs→fbs": 627,
+      "fbs→null": 47
+    },
+    "1999": {
+      "fbs→fbs": 633,
+      "fbs→null": 51,
+      "null→fbs": 2
+    },
+    "2000": {
+      "fbs→fbs": 646,
+      "fbs→null": 56
+    },
+    "2001": {
+      "fbs→fbs": 652,
+      "fbs→null": 56,
+      "null→fbs": 1
+    },
+    "2002": {
+      "fbs→fbs": 707,
+      "fbs→null": 65
+    },
+    "2003": {
+      "fbs→fbs": 699,
+      "fbs→fcs": 69,
+      "fbs→null": 2,
+      "fcs→fbs": 1
+    },
+    "2004": {
+      "fbs→fbs": 655,
+      "fbs→fcs": 57,
+      "fbs→null": 2,
+      "fcs→fbs": 7
+    },
+    "2005": {
+      "fbs→fbs": 664,
+      "fbs→fcs": 54
+    },
+    "2006": {
+      "fbs→fbs": 714,
+      "fbs→fcs": 78
+    },
+    "2007": {
+      "fbs→fbs": 718,
+      "fbs→fcs": 77,
+      "fbs→null": 1,
+      "fcs→fbs": 2
+    },
+    "2008": {
+      "fbs→fbs": 717,
+      "fbs→fcs": 87,
+      "fcs→fbs": 1
+    },
+    "2009": {
+      "fbs→fbs": 714,
+      "fbs→fcs": 94
+    },
+    "2010": {
+      "fbs→fbs": 718,
+      "fbs→fcs": 89,
+      "fcs→fbs": 1
+    },
+    "2011": {
+      "fbs→fbs": 715,
+      "fbs→fcs": 94,
+      "fbs→null": 2
+    },
+    "2012": {
+      "fbs→fbs": 732,
+      "fbs→fcs": 105,
+      "fbs→null": 2,
+      "fcs→fbs": 1
+    },
+    "2013": {
+      "fbs→fbs": 737,
+      "fbs→fcs": 106,
+      "fbs→null": 5
+    },
+    "2014": {
+      "fbs→fbs": 760,
+      "fbs→fcs": 107,
+      "fcs→fbs": 1
+    },
+    "2015": {
+      "fbs→fbs": 765,
+      "fbs→fcs": 105
+    },
+    "2016": {
+      "fbs→fbs": 760,
+      "fbs→fcs": 113
+    },
+    "2017": {
+      "fbs→fbs": 776,
+      "fbs→fcs": 98
+    },
+    "2018": {
+      "fbs→fbs": 772,
+      "fbs→fcs": 111,
+      "fcs→fbs": 1
+    },
+    "2019": {
+      "fbs→fbs": 774,
+      "fbs→fcs": 114
+    },
+    "2020": {
+      "fbs→fbs": 534,
+      "fbs→fcs": 36
+    },
+    "2021": {
+      "fbs→fbs": 770,
+      "fbs→fcs": 116,
+      "fcs→fbs": 1
+    },
+    "2022": {
+      "fbs→fbs": 776,
+      "fbs→fcs": 120
+    },
+    "2023": {
+      "fbs→fbs": 792,
+      "fbs→fcs": 118
+    },
+    "2024": {
+      "fbs→fbs": 799,
+      "fbs→fcs": 121
+    },
+    "2025": {
+      "fbs→fbs": 808,
+      "fbs→fcs": 126
+    }
+  },
+  "pair_counts_home_to_away": {
+    "fbs→fbs": 41576,
+    "fbs→fcs": 2287,
+    "fbs→null": 2238,
+    "fcs→fbs": 52,
+    "fcs→fcs": 0,
+    "null→fbs": 800,
+    "orientation": "home→away",
+    "other": {},
+    "row_count": 46953,
+    "source_provided_classes_not_era_proof": true
+  },
+  "source_path": "C:\\BatteredAggieSyndrome.data\\canonical\\national_foundation_reconciliation\\sha256\\d2af2bab981f8e7b33a6823e3e4b4b65eb2f96593a0eeafd56dedce1b84fd477\\national_normalized_games.jsonl",
+  "source_sha256": "8ac949ef3ecbdbc560bb8080e2f302cbd000ab96437dfafef9f1a14165d1c574"
+}

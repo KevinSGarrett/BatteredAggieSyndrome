@@ -1,0 +1,10 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "as_of_utc": "2026-09-07T16:00:00Z",
+  "contest_count": 1480,
+  "contest_identity": "b0a397b2dd165bc8ea480f4fff0e2565e6c1a708ba40553f0be39e9ae26128f5",
+  "no_new_scheduler_job_created": true,
+  "not_am_only": true,
+  "raw_context_separated_from_forecast": true,
+  "scientific_hold_binding": true
+}

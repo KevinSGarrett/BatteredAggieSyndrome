@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 import urllib.error
@@ -28,6 +29,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     parse_wikimedia_infobox,
     redact_personal_contact,
     reject_wikimedia_as_pit,
+    season_title_matches_school,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
@@ -181,25 +183,61 @@ def fetch_title(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+SEASON_SEARCH_ALIASES = {
+    "East Texas A&M": (
+        "East Texas A&M",
+        "Texas A&M-Commerce",
+        "Texas A&M–Commerce",
+    ),
+    "Utah Tech": ("Utah Tech", "Dixie State"),
+    "Mercyhurst": ("Mercyhurst Lakers", "Mercyhurst"),
+    "New Haven": ("New Haven Chargers", "New Haven"),
+    "St. Thomas (MN)": ("St. Thomas Tommies", "St. Thomas"),
+    "Chicago State": ("Chicago State Cougars", "Chicago State"),
+    "UT Rio Grande Valley": ("UT Rio Grande Valley", "UTRGV"),
+    "Arizona State": ("Arizona State Sun Devils", "Arizona State"),
+    "Arkansas State": ("Arkansas State Red Wolves", "Arkansas State"),
+    "Texas State": ("Texas State Bobcats", "Texas State"),
+    "Georgia State": ("Georgia State Panthers", "Georgia State"),
+    "Colorado State": ("Colorado State Rams", "Colorado State"),
+    "West Florida": ("West Florida Argonauts", "West Florida"),
+    "Florida International": ("FIU Panthers", "Florida International"),
+    "Miami (OH)": ("Miami RedHawks", "Miami (OH)"),
+    "Campbell": ("Campbell Fighting Camels", "Campbell"),
+    "South Florida": ("South Florida Bulls", "South Florida"),
+    "Lafayette": ("Lafayette Leopards", "Lafayette College"),
+    "Cal Poly": ("Cal Poly Mustangs", "Cal Poly"),
+    "Long Island University": ("LIU Sharks", "Long Island"),
+    "UAlbany": ("Albany Great Danes", "UAlbany"),
+    "UL Monroe": ("Louisiana–Monroe Warhawks", "UL Monroe"),
+}
+
+
 def search_season_title(
     school: str, year: int, ledger: list[dict[str, Any]]
 ) -> str | None:
     """Resolve a season page when the guessed title is missing. Not a vacancy."""
 
-    query = f"{year} {school} football team"
-    params = {
-        "action": "query",
-        "list": "search",
-        "srsearch": query,
-        "srlimit": "8",
-        "format": "json",
-    }
-    payload = fetch_json(f"{API}?{urllib.parse.urlencode(params)}", ledger, BUDGET)
-    for hit in (payload.get("query") or {}).get("search") or []:
-        title = str(hit.get("title") or "").strip()
-        lowered = title.casefold()
-        if title.startswith(str(year)) and "football" in lowered:
-            return title
+    names = SEASON_SEARCH_ALIASES.get(str(school or ""), (school,))
+    for name in names:
+        query = f"{year} {name} football team"
+        params = {
+            "action": "query",
+            "list": "search",
+            "srsearch": query,
+            "srlimit": "8",
+            "format": "json",
+        }
+        payload = fetch_json(f"{API}?{urllib.parse.urlencode(params)}", ledger, BUDGET)
+        for hit in (payload.get("query") or {}).get("search") or []:
+            title = str(hit.get("title") or "").strip()
+            lowered = title.casefold()
+            if title.startswith(str(year)) and "football" in lowered:
+                if re.search(r"\([^)]*american football\)\s*$", lowered):
+                    continue
+                if not season_title_matches_school(title, school):
+                    continue
+                return title
     return None
 
 
@@ -211,12 +249,27 @@ def fetch_season(
     ledger: list[dict[str, Any]],
 ) -> dict[str, Any]:
     parsed = fetch_title(guessed_title, ledger)
-    if parsed.get("status") != "PAGE_MISSING":
+    bound_title = str(parsed.get("title") or guessed_title or "")
+    if parsed.get("status") == "REVISION_BOUND" and season_title_matches_school(
+        bound_title, school
+    ):
         return parsed
+    if parsed.get("status") != "PAGE_MISSING":
+        parsed = {
+            **parsed,
+            "status": "PAGE_MISSING",
+            "episodes": [],
+            "rejected_cross_program_title": bound_title,
+        }
     alt = search_season_title(school, year, ledger)
     if not alt or alt == guessed_title:
         return parsed
-    return fetch_title(alt, ledger)
+    rebound = fetch_title(alt, ledger)
+    if rebound.get("status") == "REVISION_BOUND" and season_title_matches_school(
+        str(rebound.get("title") or alt), school
+    ):
+        return rebound
+    return parsed
 
 
 def write_row(path: Path, row: dict[str, Any]) -> None:
@@ -297,19 +350,28 @@ def main() -> int:
             rewritten = []
             for row in load_jsonl(jsonl_path):
                 year = int(row.get("season") or 0)
+                school = str(row.get("school") or "")
+                title = str(row.get("title") or row.get("requested_title") or "")
+                mismatched = row.get(
+                    "status"
+                ) == "REVISION_BOUND" and not season_title_matches_school(title, school)
                 if (
                     (
                         row.get("status") == "PAGE_MISSING"
                         or str(row.get("status") or "").startswith("ACQUISITION_FAILED")
+                        or mismatched
                     )
                     and args.year_start <= year <= args.year_end
                 ):
+                    guessed = historical_season_page_title(
+                        str(row.get("current_title") or ""),
+                        year,
+                        school=school,
+                    ) or title
                     parsed = fetch_season(
-                        school=str(row.get("school") or ""),
-                        year=int(row.get("season") or 0),
-                        guessed_title=str(
-                            row.get("title") or row.get("requested_title") or ""
-                        ),
+                        school=school,
+                        year=year,
+                        guessed_title=guessed,
                         ledger=ledger,
                     )
                     row = {
@@ -338,7 +400,9 @@ def main() -> int:
                 current_title = str(program.get("title") or "")
                 if (str(program.get("program_id")), year) in existing:
                     continue
-                season_title = historical_season_page_title(current_title, year)
+                season_title = historical_season_page_title(
+                    current_title, year, school=str(program.get("school") or "")
+                )
                 if not season_title:
                     row = {
                         "program_id": program.get("program_id"),

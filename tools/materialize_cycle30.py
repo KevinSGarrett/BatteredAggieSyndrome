@@ -912,9 +912,25 @@ def main() -> int:
         ).lower()
         == "fcs"
     ]
+    fcs_cfbd_1963_2012 = [
+        row
+        for row in cfbd_hist_games
+        if str(
+            row.get("homeClassification") or row.get("home_classification") or ""
+        ).lower()
+        == "fcs"
+        and str(
+            row.get("awayClassification") or row.get("away_classification") or ""
+        ).lower()
+        == "fcs"
+    ]
     hashes["CFBD_FCS_FCS_GAMES_TRANCHE.jsonl"] = write_jsonl(
         EXT / "CFBD_FCS_FCS_GAMES_TRANCHE.jsonl",
         [{**row, "artifact_class": "REAL_EVIDENCE"} for row in fcs_cfbd],
+    )
+    hashes["CFBD_FCS_FCS_GAMES_1963_2012.jsonl"] = write_jsonl(
+        EXT / "CFBD_FCS_FCS_GAMES_1963_2012.jsonl",
+        [{**row, "artifact_class": "REAL_EVIDENCE"} for row in fcs_cfbd_1963_2012],
     )
     fcs_subset = fcs_subset_from_parent(
         games,
@@ -929,6 +945,10 @@ def main() -> int:
             "forward_reverse_reconciled": True,
             "observed_fbs_route_is_numerator_only": True,
             "cfbd_fcs_fcs_acquired_rows": len(fcs_cfbd),
+            "cfbd_fcs_fcs_1963_2012_acquired_rows": len(fcs_cfbd_1963_2012),
+            "cfbd_1963_2012_game_rows": len(cfbd_hist_games),
+            "pre_2013_fcs_class_is_source_provided_not_era_proof": True,
+            "parent_identity_semantic_join_pending": True,
             "artifact_class": "REAL_EVIDENCE",
         },
     )
@@ -2368,6 +2388,12 @@ def main() -> int:
             historical_wiki_episodes=sum(
                 len(row.get("episodes") or []) for row in wiki_hist_rows
             ),
+            historical_wiki_incomplete_years=[
+                year
+                for year in range(1963, 2027)
+                if sum(1 for row in wiki_hist_rows if int(row.get("season") or 0) == year)
+                < len(program_ids)
+            ],
             availability_candidates_not_joined=int(
                 joined_availability.get("unmatched_name_only")
                 or max(

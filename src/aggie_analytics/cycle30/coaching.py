@@ -451,8 +451,11 @@ def select_college_football_wiki_title(
                 "f.c.",
                 " rivalry",
                 "list of",
+                "plane crash",
             )
         ):
+            continue
+        if not season_title_matches_school(title, school):
             continue
         if re.search(r"\([^)]*american football\)\s*$", lowered) and not (
             lowered.endswith(" football") or "football team" in lowered
@@ -711,14 +714,119 @@ def _nodes_from_staff_directory_rows(
     return nodes
 
 
-def historical_season_page_title(current_title: str, year: int) -> str | None:
+PROGRAM_SEASON_TITLE_ALIASES = {
+    "East Texas A&M": (
+        "east texas a&m",
+        "texas a&m-commerce",
+        "texas a&m–commerce",
+    ),
+    "Utah Tech": ("utah tech", "dixie state"),
+    "Mercyhurst": ("mercyhurst",),
+    "New Haven": ("new haven",),
+    "St. Thomas (MN)": ("st. thomas", "st thomas tommies"),
+    "Chicago State": ("chicago state",),
+    "UT Rio Grande Valley": ("rio grande", "utrgv"),
+    "Southern Illinois": ("southern illinois",),
+    "App State": ("appalachian state", "app state"),
+    "BYU": ("brigham young", "byu"),
+    "LSU": ("louisiana state", "lsu"),
+    "Massachusetts": ("massachusetts", "umass"),
+    "Miami (OH)": ("miami (oh)", "miami redhawks", "miami ohio"),
+    "Pennsylvania": ("pennsylvania", "penn quakers"),
+    "San José State": ("san jose state", "san josé state"),
+    "TCU": ("texas christian", "tcu"),
+    "USC": ("southern california", "usc trojans"),
+    "VMI": ("virginia military", "vmi"),
+    "SMU": ("southern methodist", "smu"),
+    "Hawai'i": ("hawaii", "hawai'i"),
+    "SE Louisiana": ("southeastern louisiana", "se louisiana"),
+    "UCF": ("ucf", "central florida"),
+    "UConn": ("uconn", "connecticut"),
+    "UAB": ("uab", "alabama-birmingham", "alabama birmingham"),
+    "FIU": ("fiu", "florida international"),
+    "Florida International": ("florida international", "fiu"),
+    "Arkansas State": ("arkansas state",),
+    "Bethune-Cookman": ("bethune-cookman", "bethune cookman"),
+    "West Florida": ("west florida",),
+    "Long Island University": ("liu sharks", "liu"),
+    "UAlbany": ("ualbany", "albany great danes"),
+    "UL Monroe": ("ul monroe", "louisiana-monroe", "louisiana monroe"),
+    "Cal Poly": ("cal poly", "cal poly mustangs"),
+    "Lafayette": ("lafayette leopards", "lafayette college"),
+    "Arizona State": ("arizona state", "sun devils"),
+    "Texas State": ("texas state",),
+    "Georgia State": ("georgia state",),
+    "Colorado State": ("colorado state",),
+    "Campbell": ("campbell fighting camels", "campbell camels"),
+}
+
+
+def season_title_matches_school(title: str, school: str) -> bool:
+    """Reject a season page that names a different program."""
+
+    title_l = (
+        str(title or "")
+        .casefold()
+        .replace("é", "e")
+        .replace("’", "'")
+        .replace("`", "'")
+        .replace("–", "-")
+        .replace("—", "-")
+    )
+    school_l = (
+        str(school or "")
+        .casefold()
+        .strip()
+        .replace("é", "e")
+        .replace("–", "-")
+        .replace("—", "-")
+    )
+    if not title_l or not school_l:
+        return False
+    if "plane crash" in title_l:
+        return False
+    needles = [school_l, *PROGRAM_SEASON_TITLE_ALIASES.get(str(school or ""), ())]
+    for token in needles:
+        token_l = (
+            str(token)
+            .casefold()
+            .strip()
+            .replace("é", "e")
+            .replace("–", "-")
+            .replace("—", "-")
+        )
+        if not token_l:
+            continue
+        if len(token_l) <= 3:
+            if re.search(rf"\b{re.escape(token_l)}\b", title_l):
+                return True
+            continue
+        if token_l in title_l:
+            return True
+    return False
+
+
+def historical_season_page_title(
+    current_title: str, year: int, school: str = ""
+) -> str | None:
     """Map a current program football page onto a season-page title."""
 
     title = (current_title or "").strip()
+    school_name = str(school or "").strip()
     if not title or title.casefold().startswith("list of"):
+        if school_name:
+            return f"{year} {school_name} football team"
         return None
     lowered = title.casefold()
+    if re.search(r"\([^)]*american football\)\s*$", lowered) and not (
+        lowered.endswith(" football") or "football team" in lowered
+    ):
+        if school_name:
+            return f"{year} {school_name} football team"
+        return None
     if re.match(r"^\d{4}\s", title) and "football" in lowered:
+        if school_name and school_name.casefold() not in lowered:
+            return f"{year} {school_name} football team"
         rest = re.sub(r"^\d{4}\s+", "", title).strip()
         return f"{year} {rest}"
     if lowered.endswith(" football"):

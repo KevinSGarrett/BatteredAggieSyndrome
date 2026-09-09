@@ -27,6 +27,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     parse_wikimedia_infobox,
     redact_personal_contact,
     reject_wikimedia_as_pit,
+    season_title_matches_school,
     select_college_football_wiki_title,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
@@ -141,6 +142,15 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
         "Southern Illinois": "Southern Illinois Salukis",
         "Mercyhurst": "Mercyhurst Lakers",
         "Houston Christian": "Houston Christian Huskies",
+        "New Haven": "New Haven Chargers",
+        "Arizona State": "Arizona State Sun Devils",
+        "Arkansas State": "Arkansas State Red Wolves",
+        "Texas State": "Texas State Bobcats",
+        "Colorado State": "Colorado State Rams",
+        "Lafayette": "Lafayette Leopards",
+        "Cal Poly": "Cal Poly Mustangs",
+        "Florida International": "FIU Panthers",
+        "UL Monroe": "Louisiana–Monroe Warhawks",
     }
     query_school = aliases.get(school, school)
     current_titles = {
@@ -149,6 +159,17 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
         "Southern Illinois": "Southern Illinois Salukis football",
         "Mercyhurst": "Mercyhurst Lakers football",
         "St. Thomas (MN)": "St. Thomas Tommies football",
+        "New Haven": "New Haven Chargers football",
+        "Arizona State": "Arizona State Sun Devils football",
+        "Arkansas State": "Arkansas State Red Wolves football",
+        "Texas State": "Texas State Bobcats football",
+        "Colorado State": "Colorado State Rams football",
+        "Lafayette": "Lafayette Leopards football",
+        "Cal Poly": "Cal Poly Mustangs football",
+        "Florida International": "FIU Panthers football",
+        "Long Island University": "LIU Sharks football",
+        "UAlbany": "Albany Great Danes football",
+        "UL Monroe": "Louisiana–Monroe Warhawks football",
     }
     query = f'"{query_school}" football team'
     params = {
@@ -182,6 +203,7 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
         not title
         or re.match(r"^\d{4}\s", title or "")
         or re.search(r"\([^)]*american football\)\s*$", title or "", re.I)
+        or not season_title_matches_school(title or "", school)
     ):
         title = hinted
     if not title:
@@ -276,6 +298,14 @@ def main() -> int:
                 r"\([^)]*american football\)\s*$",
                 str(row.get("title") or ""),
                 re.I,
+            )
+            or (
+                str(row.get("school") or "")
+                and str(row.get("title") or "")
+                and not season_title_matches_school(
+                    str(row.get("title") or ""),
+                    str(row.get("school") or ""),
+                )
             )
         }
         programs = [

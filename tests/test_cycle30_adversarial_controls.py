@@ -29,7 +29,10 @@ from aggie_analytics.cycle30.claims import (
     reject_vacuous_row_count,
 )
 from aggie_analytics.cycle30.availability import (
+    AvailabilityError,
+    conference_policy,
     extract_candidate_player_rows,
+    inventory_availability_policies,
     join_candidates_to_roster,
 )
 from aggie_analytics.cycle30.coaching import (
@@ -43,6 +46,7 @@ from aggie_analytics.cycle30.coaching import (
     historical_season_page_title,
     html_is_not_found_shell,
     html_is_waf_challenge,
+    season_title_matches_school,
     match_wikidata_website,
     official_staff_candidate_urls,
     overlay_historical_lattice,
@@ -1011,11 +1015,6 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertEqual(ongoing["role"], "UNKNOWN")
 
     def test_availability_inventory_unknown_not_healthy(self) -> None:
-        from aggie_analytics.cycle30.availability import (
-            AvailabilityError,
-            inventory_availability_policies,
-        )
-
         inv = inventory_availability_policies(
             [
                 {
@@ -1037,6 +1036,10 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertEqual(inv["rows"][0]["owner"], "BAT-414")
         self.assertTrue(inv["rows"][0]["out_of_fitted_models"])
         self.assertEqual(inv["rows"][1]["policy_status"], "FCS_VARIES_BY_PROGRAM")
+        self.assertEqual(
+            conference_policy("Pac-12", classification="fbs")["source_id"],
+            "SRC-C30-PAC12",
+        )
         with self.assertRaises(AvailabilityError):
             inventory_availability_policies([])
         attempted = inventory_availability_policies(
@@ -1183,6 +1186,62 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertEqual(
             historical_season_page_title("Alabama Crimson Tide football", 2013),
             "2013 Alabama Crimson Tide football team",
+        )
+        self.assertEqual(
+            historical_season_page_title(
+                "1960 Yale Bulldogs football team", 2023, school="New Haven"
+            ),
+            "2023 New Haven football team",
+        )
+        self.assertEqual(
+            historical_season_page_title(
+                "Jim Chapman (American football)", 2020, school="Mercyhurst"
+            ),
+            "2020 Mercyhurst football team",
+        )
+        self.assertFalse(
+            season_title_matches_school("2023 Yale Bulldogs football team", "New Haven")
+        )
+        self.assertTrue(
+            season_title_matches_school("2023 Yale Bulldogs football team", "Yale")
+        )
+        self.assertTrue(
+            season_title_matches_school(
+                "2020 Texas A&M–Commerce Lions football team", "East Texas A&M"
+            )
+        )
+        self.assertTrue(
+            season_title_matches_school("2014 BYU Cougars football team", "BYU")
+        )
+        self.assertTrue(
+            season_title_matches_school("2014 LSU Tigers football team", "LSU")
+        )
+        self.assertTrue(
+            season_title_matches_school(
+                "2014 Arkansas–Pine Bluff Golden Lions football team",
+                "Arkansas-Pine Bluff",
+            )
+        )
+        self.assertTrue(
+            season_title_matches_school(
+                "FIU Panthers football", "Florida International"
+            )
+        )
+        self.assertFalse(
+            season_title_matches_school(
+                "2014 Northern Arizona Lumberjacks football team", "Arizona State"
+            )
+        )
+        self.assertFalse(
+            season_title_matches_school(
+                "2014 North Texas Mean Green football team", "Texas State"
+            )
+        )
+        self.assertFalse(
+            season_title_matches_school(
+                "California Polytechnic State University football team plane crash",
+                "Cal Poly",
+            )
         )
         overlaid = overlay_historical_lattice(
             [

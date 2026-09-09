@@ -60,6 +60,7 @@ def remaining_audit_register(
     raw_to_normalized_compared: int = 0,
     historical_wiki_pages: int = 0,
     historical_wiki_episodes: int = 0,
+    historical_wiki_incomplete_years: Sequence[int] | None = None,
     availability_candidates_not_joined: int = 0,
     predecessor_payload_mounted: bool = False,
     predecessor_oriented_rows: int = 0,
@@ -128,10 +129,12 @@ def remaining_audit_register(
             "status": "RECONSTRUCTION_EVIDENCE_SUBMITTED",
             "period_population": (
                 "FCS–FCS and cross-subdivision games 2013–2023 CFBD tranche plus "
+                "1963–2012 CFBD source-classified FCS–FCS rows plus "
                 f"parent {parent_games} FBS-filtered games (FCS–FCS on that route=0)"
             ),
             "source_artifact_claim_sets": [
                 "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_TRANCHE.jsonl",
+                "ops/cycle30_work/outputs/CFBD_FCS_FCS_GAMES_1963_2012.jsonl",
                 "artifacts/scientific_integrity/cycle30/FCS_SUBSET_FROM_PARENT_SUMMARY.json",
                 "artifacts/scientific_integrity/cycle30/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
             ],
@@ -149,12 +152,12 @@ def remaining_audit_register(
             "new_claims_independently_verified": [],
             "failures": [],
             "remaining_work": [
-                "pre-2013 FCS schedule semantic join",
+                "pre-2013 CFBD FCS-FCS rows exist as source classification; parent identity semantic join still pending",
                 "canceled/forfeit semantic audit",
             ]
             if membership_1963_2012_years_attempted
             else [
-                "pre-2013 FCS schedules",
+                "pre-2013 CFBD FCS-FCS rows exist as source classification; parent identity semantic join still pending",
                 "canceled/forfeit semantic audit",
             ],
             "not_audited_reason": "bounded tranche is not national FCS certification",
@@ -298,12 +301,11 @@ def remaining_audit_register(
             ],
             "blocker": (
                 f"historical Wikimedia season pages={historical_wiki_pages}, "
-                f"episodes={historical_wiki_episodes}; remaining years queued; "
-                "no guessed dates"
-                if historical_wiki_pages
-                else "Wikimedia/official biography historical career not scaled; no guessed dates"
+                f"episodes={historical_wiki_episodes}; "
+                f"incomplete_years={list(historical_wiki_incomplete_years or [])}; "
+                "PAGE_MISSING is a recorded gap, not a vacancy; no guessed dates"
             ),
-            "next_action": "Remaining 1963–2026 Wikimedia years plus official guides; no guessed dates",
+            "next_action": "Official guides plus school-matched PAGE_MISSING search; no guessed dates; no cross-program season-page binds",
             "affected_use_restriction": "career context is not PIT; not a fitted feature",
             "selected_revisions": selected,
             "scope_provenance_result": "PARTIAL_PREDECESSOR_PLUS_CFBD_HC",

@@ -59,9 +59,9 @@ CONFERENCE_POLICY_ROUTES: dict[str, dict[str, str]] = {
         "route_label": "MAC football availability reports",
     },
     "Pac-12": {
-        "source_id": "SRC-UNASSIGNED-PAC12",
-        "policy_status": "POLICY_ROUTE_UNVERIFIED_THIS_CYCLE",
-        "route_label": "Pac-12 availability reporting (route not independently fetched)",
+        "source_id": "SRC-C30-PAC12",
+        "policy_status": "KNOWN_PUBLIC_POLICY",
+        "route_label": "Pac-12 football player availability reporting",
     },
     "Mountain West": {
         "source_id": "SRC-026",
@@ -130,6 +130,11 @@ PUBLIC_AVAILABILITY_ROUTES: tuple[dict[str, str], ...] = (
         "source_id": "SRC-026-HOME",
         "conference": "Mountain West",
         "uri": "https://themw.com/",
+    },
+    {
+        "source_id": "SRC-C30-PAC12",
+        "conference": "Pac-12",
+        "uri": "https://pac-12.com/news/2026/9/3/pac-12-announces-commercial-and-operational-updates-ahead-of-its-2026-football-season-kickoff.aspx",
     },
 )
 

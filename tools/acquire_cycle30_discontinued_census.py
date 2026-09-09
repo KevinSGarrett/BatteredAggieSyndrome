@@ -45,6 +45,8 @@ WIKI_PAGES = (
     "List of defunct college football teams",
     "List of NCAA Division I FBS football programs",
     "List of NCAA Division I FCS football programs",
+    "List of NCAA Division I institutions",
+    "List of colleges and universities that have dropped football",
 )
 WORK = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work")
 RAW = WORK / "raw" / "discontinued"

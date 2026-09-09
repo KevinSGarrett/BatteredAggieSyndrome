@@ -440,12 +440,18 @@ def select_college_football_wiki_title(
             )
         ):
             continue
+        if re.search(r"\([^)]*american football\)\s*$", lowered) and not (
+            lowered.endswith(" football") or "football team" in lowered
+        ):
+            continue
         if "football" not in lowered:
             continue
         score = 0
         if lowered.endswith(" football") or "football team" in lowered:
             score += 3
-        if school_key and school_key.split()[0] in lowered:
+        if school_key and school_key in lowered:
+            score += 4
+        elif school_key and school_key.split()[0] in lowered:
             score += 1
         if re.match(r"^\d{4}\s", title):
             score -= 8

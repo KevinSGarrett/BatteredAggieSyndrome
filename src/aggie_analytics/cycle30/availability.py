@@ -64,9 +64,9 @@ CONFERENCE_POLICY_ROUTES: dict[str, dict[str, str]] = {
         "route_label": "Pac-12 availability reporting (route not independently fetched)",
     },
     "Mountain West": {
-        "source_id": "SRC-UNASSIGNED-MW",
-        "policy_status": "POLICY_ROUTE_UNVERIFIED_THIS_CYCLE",
-        "route_label": "Mountain West availability reporting (route not independently fetched)",
+        "source_id": "SRC-026",
+        "policy_status": "KNOWN_PUBLIC_POLICY",
+        "route_label": "Mountain West football player availability reporting",
     },
 }
 
@@ -120,6 +120,16 @@ PUBLIC_AVAILABILITY_ROUTES: tuple[dict[str, str], ...] = (
         "source_id": "SRC-025",
         "conference": "CFP",
         "uri": "https://collegefootballplayoff.com/sports/2025/11/12/reports.aspx",
+    },
+    {
+        "source_id": "SRC-026",
+        "conference": "Mountain West",
+        "uri": "https://themw.com/news/2026/9/1/2026-mw-football-weekly-release-week-1.aspx",
+    },
+    {
+        "source_id": "SRC-026-HOME",
+        "conference": "Mountain West",
+        "uri": "https://themw.com/",
     },
 )
 
@@ -240,9 +250,7 @@ _JSON_PLAYER_NAME = re.compile(
     re.I,
 )
 _PDF_HREF = re.compile(r"""href=["']([^"'#]+\.pdf[^"']*)["']""", re.I)
-_PLAIN_COMMA_NAME = re.compile(
-    r"\b([A-Z][a-z]+,\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b"
-)
+_PLAIN_COMMA_NAME = re.compile(r"\b([A-Z][a-z]+,\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b")
 
 
 def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[str]:

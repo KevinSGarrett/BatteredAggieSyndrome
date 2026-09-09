@@ -1653,6 +1653,14 @@ class Cycle30AdversarialTests(unittest.TestCase):
             "NC State",
         )
         self.assertEqual(season_skipped, "NC State Wolfpack football")
+        person_rejected = select_college_football_wiki_title(
+            [
+                {"title": "Jim Chapman (American football)"},
+                {"title": "Mercyhurst Lakers football"},
+            ],
+            "Mercyhurst",
+        )
+        self.assertEqual(person_rejected, "Mercyhurst Lakers football")
         flames = extract_athletics_website_from_wikitext(
             "| website = https://www.liberty.edu/flames/index.cfm\n"
             "Official site [https://www.libertyflames.com/sports/football Football]\n"

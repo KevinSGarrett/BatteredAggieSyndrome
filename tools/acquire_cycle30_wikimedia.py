@@ -138,11 +138,17 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
         "UAlbany": "Albany Great Danes",
         "NC State": "NC State Wolfpack",
         "Long Island University": "LIU Sharks",
+        "Southern Illinois": "Southern Illinois Salukis",
+        "Mercyhurst": "Mercyhurst Lakers",
+        "Houston Christian": "Houston Christian Huskies",
     }
     query_school = aliases.get(school, school)
     current_titles = {
         "Hawai'i": "Hawaii Rainbow Warriors football",
         "NC State": "NC State Wolfpack football",
+        "Southern Illinois": "Southern Illinois Salukis football",
+        "Mercyhurst": "Mercyhurst Lakers football",
+        "St. Thomas (MN)": "St. Thomas Tommies football",
     }
     query = f'"{query_school}" football team'
     params = {
@@ -172,7 +178,11 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
         if not title:
             title = select_college_football_wiki_title(hits, school)
     hinted = current_titles.get(school)
-    if hinted and (not title or re.match(r"^\d{4}\s", title)):
+    if hinted and (
+        not title
+        or re.match(r"^\d{4}\s", title or "")
+        or re.search(r"\([^)]*american football\)\s*$", title or "", re.I)
+    ):
         title = hinted
     if not title:
         return {
@@ -230,6 +240,11 @@ def main() -> int:
         action="store_true",
         help="Re-search only programs that still lack a captured official staff URL",
     )
+    parser.add_argument(
+        "--repair-titles",
+        action="store_true",
+        help="Re-search programs whose Wikipedia title is a person or year-prefixed season page",
+    )
     args = parser.parse_args()
     budget_path = EXT / "CYCLE30_WIKIMEDIA_BUDGET.json"
     EXT.mkdir(parents=True, exist_ok=True)
@@ -240,9 +255,7 @@ def main() -> int:
     out = EXT / "outputs"
     out.mkdir(parents=True, exist_ok=True)
     jsonl_path = out / "WIKIMEDIA_CURRENT_STAFF_CANDIDATES.jsonl"
-    existing = {
-        str(row.get("program_id") or ""): row for row in load_jsonl(jsonl_path)
-    }
+    existing = {str(row.get("program_id") or ""): row for row in load_jsonl(jsonl_path)}
     if args.repair_missing:
         missing_ids = {
             str(row.get("program_id") or "")
@@ -254,11 +267,28 @@ def main() -> int:
             for program in programs
             if str(program.get("program_id") or "") in missing_ids
         ]
+    if args.repair_titles:
+        bad_ids = {
+            str(row.get("program_id") or "")
+            for row in existing.values()
+            if re.match(r"^\d{4}\s", str(row.get("title") or ""))
+            or re.search(
+                r"\([^)]*american football\)\s*$",
+                str(row.get("title") or ""),
+                re.I,
+            )
+        }
+        programs = [
+            program
+            for program in programs
+            if str(program.get("program_id") or "") in bad_ids
+        ]
     if args.limit:
         programs = programs[: args.limit]
     ledger: list[dict[str, Any]] = []
-    rows: list[dict[str, Any]] = list(existing.values()) if args.repair_missing else []
-    if not args.repair_missing:
+    patching = args.repair_missing or args.repair_titles
+    rows: list[dict[str, Any]] = list(existing.values()) if patching else []
+    if not patching:
         jsonl_path.write_text("", encoding="utf-8")
     try:
         for program in programs:
@@ -277,11 +307,11 @@ def main() -> int:
                 }
             row["program_id"] = program.get("program_id")
             existing[str(row["program_id"] or "")] = row
-            if not args.repair_missing:
+            if not patching:
                 rows.append(row)
                 with jsonl_path.open("a", encoding="utf-8") as handle:
                     handle.write(json.dumps(row, sort_keys=True) + "\n")
-        if args.repair_missing:
+        if patching:
             merged = list(existing.values())
             jsonl_path.write_text(
                 "".join(json.dumps(row, sort_keys=True) + "\n" for row in merged),

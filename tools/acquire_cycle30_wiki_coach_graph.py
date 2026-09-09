@@ -32,7 +32,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 4000,
+    "max_requests": 8000,
     "max_retries": 1,
     "concurrency": 1,
     "metered_scraper_credits": 0,
@@ -248,6 +248,7 @@ def expand_seasons(coach_row: dict[str, Any]) -> list[dict[str, Any]]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--replace", action="store_true")
     args = parser.parse_args()
     RAW.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -260,39 +261,56 @@ def main() -> int:
     cat_path = OUT / "WIKIMEDIA_PROGRAM_COACH_CATEGORIES.jsonl"
     coach_path = OUT / "WIKIMEDIA_COACH_CAREER_PAGES.jsonl"
     season_path = OUT / "WIKIMEDIA_CAREER_SEASON_EPISODES.jsonl"
-    cat_path.write_text("", encoding="utf-8")
-    coach_path.write_text("", encoding="utf-8")
-    season_path.write_text("", encoding="utf-8")
+    existing_cats = {
+        str(row.get("program_id") or ""): row for row in load_jsonl(cat_path)
+    }
+    existing_coaches = {
+        str(row.get("title") or row.get("requested_title") or "")
+        for row in load_jsonl(coach_path)
+        if row.get("title") or row.get("requested_title")
+    }
+    if args.replace or not cat_path.is_file():
+        cat_path.write_text("", encoding="utf-8")
+        existing_cats = {}
+    if args.replace or not coach_path.is_file():
+        coach_path.write_text("", encoding="utf-8")
+        season_path.write_text("", encoding="utf-8")
+        existing_coaches = set()
     ledger: list[dict[str, Any]] = []
-    seen_coaches: set[str] = set()
-    coach_count = 0
-    season_count = 0
+    seen_coaches: set[str] = set(existing_coaches)
+    coach_count = len(existing_coaches)
+    season_count = sum(1 for _ in load_jsonl(season_path))
     try:
         for program in current:
-            category = program_coach_category_title(str(program.get("title") or ""))
-            members: list[str] = []
-            status = "NO_CURRENT_TITLE"
-            if category:
-                try:
-                    members = category_members(category, ledger)
-                    status = "CATEGORY_ENUMERATED"
-                except RuntimeError:
-                    raise
-                except Exception as exc:  # noqa: BLE001
-                    status = f"ACQUISITION_FAILED:{type(exc).__name__}"
-            write_row(
-                cat_path,
-                {
-                    "program_id": program.get("program_id"),
-                    "school": program.get("school"),
-                    "category": category,
-                    "status": status,
-                    "member_count": len(members),
-                    "members": members,
-                    "pit_admitted": False,
-                    "evidence_class": "DISCOVERY_ONLY",
-                },
-            )
+            pid = str(program.get("program_id") or "")
+            prior = existing_cats.get(pid)
+            if prior and prior.get("status") == "CATEGORY_ENUMERATED":
+                members = list(prior.get("members") or [])
+            else:
+                category = program_coach_category_title(str(program.get("title") or ""))
+                members = []
+                status = "NO_CURRENT_TITLE"
+                if category:
+                    try:
+                        members = category_members(category, ledger)
+                        status = "CATEGORY_ENUMERATED"
+                    except RuntimeError:
+                        raise
+                    except Exception as exc:  # noqa: BLE001
+                        status = f"ACQUISITION_FAILED:{type(exc).__name__}"
+                write_row(
+                    cat_path,
+                    {
+                        "program_id": program.get("program_id"),
+                        "school": program.get("school"),
+                        "category": category,
+                        "status": status,
+                        "member_count": len(members),
+                        "members": members,
+                        "pit_admitted": False,
+                        "evidence_class": "DISCOVERY_ONLY",
+                    },
+                )
             for title in members:
                 if title in seen_coaches:
                     continue

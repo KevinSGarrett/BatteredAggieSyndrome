@@ -32,7 +32,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
 
 BUDGET = {
-    "max_requests": 6000,
+    "max_requests": 10000,
     "max_retries": 1,
     "concurrency": 1,
     "metered_scraper_credits": 0,
@@ -181,6 +181,44 @@ def fetch_title(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def search_season_title(
+    school: str, year: int, ledger: list[dict[str, Any]]
+) -> str | None:
+    """Resolve a season page when the guessed title is missing. Not a vacancy."""
+
+    query = f"{year} {school} football team"
+    params = {
+        "action": "query",
+        "list": "search",
+        "srsearch": query,
+        "srlimit": "8",
+        "format": "json",
+    }
+    payload = fetch_json(f"{API}?{urllib.parse.urlencode(params)}", ledger, BUDGET)
+    for hit in (payload.get("query") or {}).get("search") or []:
+        title = str(hit.get("title") or "").strip()
+        lowered = title.casefold()
+        if title.startswith(str(year)) and "football" in lowered:
+            return title
+    return None
+
+
+def fetch_season(
+    *,
+    school: str,
+    year: int,
+    guessed_title: str,
+    ledger: list[dict[str, Any]],
+) -> dict[str, Any]:
+    parsed = fetch_title(guessed_title, ledger)
+    if parsed.get("status") != "PAGE_MISSING":
+        return parsed
+    alt = search_season_title(school, year, ledger)
+    if not alt or alt == guessed_title:
+        return parsed
+    return fetch_title(alt, ledger)
+
+
 def write_row(path: Path, row: dict[str, Any]) -> None:
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(row, sort_keys=True) + "\n")
@@ -225,9 +263,13 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--replace", action="store_true")
     parser.add_argument("--reparse", action="store_true")
+    parser.add_argument("--retry-missing", action="store_true")
+    parser.add_argument("--max-requests", type=int, default=0)
     parser.add_argument("--year-start", type=int, default=1963)
     parser.add_argument("--year-end", type=int, default=2026)
     args = parser.parse_args()
+    if args.max_requests:
+        BUDGET["max_requests"] = args.max_requests
     years = [
         year for year in BUDGET["years"] if args.year_start <= year <= args.year_end
     ]
@@ -248,6 +290,38 @@ def main() -> int:
     if args.reparse and jsonl_path.is_file():
         try:
             reparse_existing(jsonl_path, ledger)
+        except RuntimeError as exc:
+            print("CEILING", exc)
+    if args.retry_missing and jsonl_path.is_file():
+        try:
+            rewritten = []
+            for row in load_jsonl(jsonl_path):
+                year = int(row.get("season") or 0)
+                if (
+                    row.get("status") == "PAGE_MISSING"
+                    and args.year_start <= year <= args.year_end
+                ):
+                    parsed = fetch_season(
+                        school=str(row.get("school") or ""),
+                        year=int(row.get("season") or 0),
+                        guessed_title=str(
+                            row.get("title") or row.get("requested_title") or ""
+                        ),
+                        ledger=ledger,
+                    )
+                    row = {
+                        **row,
+                        **parsed,
+                        "program_id": row.get("program_id"),
+                        "school": row.get("school"),
+                        "season": row.get("season"),
+                        "current_title": row.get("current_title"),
+                        "pit_admitted": False,
+                    }
+                rewritten.append(row)
+            jsonl_path.write_text("", encoding="utf-8")
+            for row in rewritten:
+                write_row(jsonl_path, row)
         except RuntimeError as exc:
             print("CEILING", exc)
     existing = {
@@ -276,7 +350,12 @@ def main() -> int:
                     new_rows += 1
                     continue
                 try:
-                    parsed = fetch_title(season_title, ledger)
+                    parsed = fetch_season(
+                        school=str(program.get("school") or ""),
+                        year=year,
+                        guessed_title=season_title,
+                        ledger=ledger,
+                    )
                 except RuntimeError:
                     raise
                 except Exception as exc:  # noqa: BLE001

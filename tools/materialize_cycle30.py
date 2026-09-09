@@ -2106,7 +2106,11 @@ def main() -> int:
                 )
                 < len(program_ids)
             ],
-            "remaining_years_queued": True,
+            "remaining_years_queued": any(
+                sum(1 for row in wiki_hist_rows if int(row.get("season") or 0) == year)
+                < len(program_ids)
+                for year in range(1963, 2027)
+            ),
             "pit_admitted": False,
             "parser_family": "wikimedia_infobox_asst_coach_and_staff_table",
             "wikipedia_is_not_official_confirmation": True,

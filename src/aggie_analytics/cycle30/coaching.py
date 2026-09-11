@@ -1254,10 +1254,10 @@ def program_identity_binds(*, requested: str, observed_text: str) -> bool:
     catalog: list[str] = []
     seen: set[str] = set()
     for name in (*PROGRAM_IDENTITY_CATALOG, requested, *aliases):
-        token = _normalize_school_token(name)
-        if token and token not in seen:
-            seen.add(token)
-            catalog.append(token)
+        school_norm = _normalize_school_token(name)
+        if school_norm and school_norm not in seen:
+            seen.add(school_norm)
+            catalog.append(school_norm)
     hits = [name for name in catalog if _word_boundary_present(name, text_l)]
     if not hits:
         return False

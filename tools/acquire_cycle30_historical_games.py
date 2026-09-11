@@ -94,7 +94,11 @@ def fetch(
         "status": "HTTP_OK" if 200 <= response.status_code < 300 else "HTTP_ERROR",
         "http_status": response.status_code,
         "request_identity_sha256": sha256_json(
-            {"path": path, "parameters": parameters, "run_id": "cycle30-historical-games"}
+            {
+                "path": path,
+                "parameters": parameters,
+                "run_id": "cycle30-historical-games",
+            }
         ),
         "receipt_identity": sha256_json(
             {
@@ -129,8 +133,8 @@ def main() -> int:
     if args.dry_run:
         print("BUDGET_DECLARED", BUDGET["max_requests"], "years", len(BUDGET["years"]))
         return 0
-    token = load_dotenv_value(ENV_FILE, "CFBD_API_KEY")
-    transport = CFBDTransport(access_token=token)
+    access_credential = load_dotenv_value(ENV_FILE, "CFBD_API_KEY")
+    transport = CFBDTransport(access_credential)
     ledger: list[dict[str, Any]] = []
     games: list[dict[str, Any]] = []
     try:

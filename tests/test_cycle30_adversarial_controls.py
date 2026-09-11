@@ -416,6 +416,37 @@ class Cycle30AdversarialTests(unittest.TestCase):
                 target_cutoff="2018-09-01T19:00:00Z",
             )
 
+    def test_publication_branch_cannot_bypass_suspension_or_future_known_at(
+        self,
+    ) -> None:
+        with self.assertRaises(PitKernelError):
+            validate_row_authority(
+                {
+                    "source_id": "SRC",
+                    "effective_utc": "2018-09-01T19:00:00Z",
+                    "known_at_utc": "2018-09-01T19:00:00Z",
+                    "receipt_sha256": "abc",
+                    "classification": "fbs",
+                    "evidence_class": "PUBLICATION",
+                    "source_publication_utc": "2018-08-31T19:00:00Z",
+                    "suspended": True,
+                },
+                target_cutoff="2018-09-01T19:00:00Z",
+            )
+        verdict = validate_row_authority(
+            {
+                "source_id": "SRC",
+                "effective_utc": "2018-09-01T19:00:00Z",
+                "known_at_utc": "2018-09-02T00:00:00Z",
+                "receipt_sha256": "abc",
+                "classification": "fbs",
+                "evidence_class": "PUBLICATION",
+                "source_publication_utc": "2018-08-31T19:00:00Z",
+            },
+            target_cutoff="2018-09-01T19:00:00Z",
+        )
+        self.assertEqual(verdict, "SOURCE_AUTHORITY_UNPROVEN")
+
     def test_future_append_rebuild_stable(self) -> None:
         games, outcomes = _games_outcomes()
         extra_game = {
@@ -458,6 +489,144 @@ class Cycle30AdversarialTests(unittest.TestCase):
         )
         self.assertTrue(result["shuffle_stable"])
         self.assertTrue(result["future_append_stable"])
+
+    def test_prior_cursor_reconsiders_later_available_authority(self) -> None:
+        games = [
+            {
+                "canonical_game_id": "P1",
+                "home_canonical_team_id": "TEAM:H",
+                "away_canonical_team_id": "TEAM:A",
+                "season": 2018,
+                "start_date_utc_text": "2018-09-01T19:00:00Z",
+                "date_precision": "INSTANT",
+                "home_points": 24,
+                "away_points": 17,
+                "source_id": "SRC-002",
+            },
+            {
+                "canonical_game_id": "T1",
+                "home_canonical_team_id": "TEAM:H",
+                "away_canonical_team_id": "TEAM:B",
+                "season": 2018,
+                "start_date_utc_text": "2018-09-08T19:00:00Z",
+                "date_precision": "INSTANT",
+                "home_points": 21,
+                "away_points": 14,
+                "source_id": "SRC-002",
+            },
+            {
+                "canonical_game_id": "T2",
+                "home_canonical_team_id": "TEAM:H",
+                "away_canonical_team_id": "TEAM:C",
+                "season": 2018,
+                "start_date_utc_text": "2018-09-15T19:00:00Z",
+                "date_precision": "INSTANT",
+                "home_points": 28,
+                "away_points": 10,
+                "source_id": "SRC-002",
+            },
+        ]
+        outcomes = [
+            {
+                "canonical_game_id": "P1",
+                "canonical_team_id": "TEAM:H",
+                "label_win": True,
+                "points_for": 24,
+                "points_against": 17,
+                "margin": 7,
+                "season": 2018,
+            },
+            {
+                "canonical_game_id": "P1",
+                "canonical_team_id": "TEAM:A",
+                "label_win": False,
+                "points_for": 17,
+                "points_against": 24,
+                "margin": -7,
+                "season": 2018,
+            },
+            {
+                "canonical_game_id": "T1",
+                "canonical_team_id": "TEAM:H",
+                "label_win": True,
+                "points_for": 21,
+                "points_against": 14,
+                "margin": 7,
+                "season": 2018,
+            },
+            {
+                "canonical_game_id": "T1",
+                "canonical_team_id": "TEAM:B",
+                "label_win": False,
+                "points_for": 14,
+                "points_against": 21,
+                "margin": -7,
+                "season": 2018,
+            },
+            {
+                "canonical_game_id": "T2",
+                "canonical_team_id": "TEAM:H",
+                "label_win": True,
+                "points_for": 28,
+                "points_against": 10,
+                "margin": 18,
+                "season": 2018,
+            },
+            {
+                "canonical_game_id": "T2",
+                "canonical_team_id": "TEAM:C",
+                "label_win": False,
+                "points_for": 10,
+                "points_against": 28,
+                "margin": -18,
+                "season": 2018,
+            },
+        ]
+        authorities = {
+            "P1": {
+                "source_id": "SRC-002",
+                "effective_utc": "2018-09-01T19:00:00Z",
+                "known_at_utc": "2018-09-12T00:00:00Z",
+                "receipt_sha256": "prior-receipt",
+                "classification": "FEATURE_TIME_AUTHORITY",
+                "evidence_class": "PUBLICATION",
+                "source_publication_utc": "2018-09-02T00:00:00Z",
+            },
+            "T1": {
+                "source_id": "SRC-002",
+                "effective_utc": "2018-09-08T19:00:00Z",
+                "known_at_utc": "2018-09-08T19:00:00Z",
+                "receipt_sha256": "t1",
+                "classification": "FEATURE_TIME_AUTHORITY",
+                "evidence_class": "PUBLICATION",
+                "source_publication_utc": "2018-09-08T19:00:00Z",
+            },
+            "T2": {
+                "source_id": "SRC-002",
+                "effective_utc": "2018-09-15T19:00:00Z",
+                "known_at_utc": "2018-09-15T19:00:00Z",
+                "receipt_sha256": "t2",
+                "classification": "FEATURE_TIME_AUTHORITY",
+                "evidence_class": "PUBLICATION",
+                "source_publication_utc": "2018-09-15T19:00:00Z",
+            },
+        }
+        kernel = build_game_grain_kernel(
+            games,
+            outcomes,
+            expected_population_complete=False,
+            authorities=authorities,
+            target_cutoff_by_game={
+                "T1": "2018-09-08T19:00:00Z",
+                "T2": "2018-09-15T19:00:00Z",
+            },
+        )
+        emitted = [*kernel["rows"], *kernel["retrospective_rows"]]
+        t1_row = next(row for row in emitted if row["canonical_game_id"] == "T1")
+        t2_row = next(row for row in emitted if row["canonical_game_id"] == "T2")
+        self.assertEqual(t1_row["home_features"]["pit_prior_games_played"], 0)
+        self.assertEqual(t2_row["home_features"]["pit_prior_games_played"], 2)
+        self.assertNotEqual(t1_row["row_verdict"], "PROVEN_PIT_TRAINING_ROW")
 
     def test_independent_reconstruction_agrees(self) -> None:
         games, outcomes = _games_outcomes()
@@ -600,10 +769,20 @@ class Cycle30AdversarialTests(unittest.TestCase):
             venue_lon=-88.0622,
             origin_class="CAMPUS_PROXY",
             origin_id="ND",
+            origin_coordinate_precision="UNKNOWN",
+            venue_coordinate_precision="SOURCE_DECIMAL_DEGREE",
+            origin_known_at_utc=None,
+            venue_known_at_utc="2026-08-01T00:00:00Z",
         )
         self.assertIsNone(origin_only["distance_km_haversine"])
         self.assertEqual(origin_only["missing_reason"], "MISSING_ORIGIN")
         self.assertEqual(origin_only["venue_latitude"], 44.5013)
+        self.assertEqual(
+            origin_only["geodesic_definition"],
+            "IUGG_MEAN_RADIUS_HAVERSINE_AND_WGS84_VINCENTY",
+        )
+        self.assertEqual(origin_only["venue_coordinate_precision"], "SOURCE_DECIMAL_DEGREE")
+        self.assertEqual(origin_only["venue_known_at_utc"], "2026-08-01T00:00:00Z")
         venue_only = travel_row(
             canonical_game_id="G",
             team_id="T",
@@ -627,6 +806,25 @@ class Cycle30AdversarialTests(unittest.TestCase):
             origin_id=None,
         )
         self.assertEqual(both["missing_reason"], "MISSING_COORDINATES")
+        complete = travel_row(
+            canonical_game_id="G",
+            team_id="T",
+            origin_lat=41.6984,
+            origin_lon=-86.2339,
+            venue_lat=44.5013,
+            venue_lon=-88.0622,
+            origin_class="CAMPUS_PROXY",
+            origin_id="ND",
+            origin_coordinate_precision="SOURCE_DECIMAL_DEGREE",
+            venue_coordinate_precision="SOURCE_DECIMAL_DEGREE",
+            origin_known_at_utc="2026-08-01T00:00:00Z",
+            venue_known_at_utc="2026-08-01T00:00:00Z",
+        )
+        self.assertEqual(complete["origin_coordinate_precision"], "SOURCE_DECIMAL_DEGREE")
+        self.assertEqual(complete["venue_coordinate_precision"], "SOURCE_DECIMAL_DEGREE")
+        self.assertEqual(complete["origin_known_at_utc"], "2026-08-01T00:00:00Z")
+        self.assertEqual(complete["venue_known_at_utc"], "2026-08-01T00:00:00Z")
+        self.assertIsNotNone(complete["distance_km_haversine"])
 
     def test_lambeau_travel_both_teams(self) -> None:
         # Green Bay, South Bend, Madison campus proxies.
@@ -679,7 +877,63 @@ class Cycle30AdversarialTests(unittest.TestCase):
                 retrieval_utc="2026-09-05T23:00:00Z",
                 http_status=200,
                 upstream_status=500,
-                body=b"<html>ok</html>",
+                body=b"Final",
+            )
+
+    def test_supplied_scores_must_match_contest_scoped_page(self) -> None:
+        page = (
+            "<span id='livestream_status_6603962'>Final</span>"
+            '{"contestId":6603962,"url":"\\/game\\/6603962",'
+            '"gameState":"F","statusCodeDisplay":"Final",'
+            '"teams":[{"isHome":false,"seoname":"smu","nameShort":"SMU","score":14},'
+            '{"isHome":true,"seoname":"florida-st","nameShort":"Florida St.","score":21}]}'
+        )
+        with self.assertRaises(ScoringError):
+            admit_official_final(
+                page_text=page,
+                contest_id="6603962",
+                contest_hint="6603962",
+                score_element_ids=["home-score", "away-score"],
+                ordered_participant_ids=["H", "A"],
+                page_url="https://example.test/game/6603962",
+                embedded_contest_id="6603962",
+                canonical_home_id="H",
+                canonical_away_id="A",
+                displayed_home_name="Florida State",
+                displayed_away_name="SMU",
+                name_only=False,
+                home_points=0,
+                away_points=99,
+                kickoff_utc="2026-09-05T16:00:00Z",
+                retrieval_utc="2026-09-06T01:00:00Z",
+                http_status=200,
+                upstream_status=200,
+                body=page.encode("utf-8"),
+            )
+
+    def test_negative_score_rejected(self) -> None:
+        page = "<span id='livestream_status_6603962'>Final</span>"
+        with self.assertRaises(ScoringError):
+            admit_official_final(
+                page_text=page,
+                contest_id="6603962",
+                contest_hint="6603962",
+                score_element_ids=["home-score", "away-score"],
+                ordered_participant_ids=["H", "A"],
+                page_url="https://example.test/game/6603962",
+                embedded_contest_id="6603962",
+                canonical_home_id="H",
+                canonical_away_id="A",
+                displayed_home_name="Florida State",
+                displayed_away_name="SMU",
+                name_only=False,
+                home_points=-1,
+                away_points=14,
+                kickoff_utc="2026-09-05T16:00:00Z",
+                retrieval_utc="2026-09-06T01:00:00Z",
+                http_status=200,
+                upstream_status=200,
+                body=page.encode("utf-8"),
             )
 
     def test_one_to_many_domains_not_collapsed(self) -> None:
@@ -694,7 +948,9 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertIn(("bas_residual", "CURRENT-BAS-INFERENCE"), terms)
         self.assertIn(("travel_rest_time_zone", "CURRENT-REST"), terms)
         self.assertIn(("travel_rest_time_zone", "CURRENT-TIMEZONE"), terms)
+        self.assertIn(("venues", "CURRENT-HFA"), terms)
         self.assertIsNone(payload["ambiguous_unresolved_mapping_count"])
+        self.assertEqual(payload["missing_current_requirement_ids"], [])
 
     def test_findings_preserve_ids(self) -> None:
         ledger = successor_ledger()
@@ -874,6 +1130,25 @@ class Cycle30AdversarialTests(unittest.TestCase):
         round_trip_staff_snapshot(staff)
         with self.assertRaises(ContractV2Error):
             round_trip_staff_snapshot({**staff, "program_id": "DISPLAY:X"})
+        with self.assertRaises(ContractV2Error):
+            round_trip_staff_snapshot({**staff, "as_of_utc": "2026-09-07"})
+        with self.assertRaises(ContractV2Error):
+            round_trip_staff_snapshot({**staff, "attempt_count": -1})
+        with self.assertRaises(ContractV2Error):
+            round_trip_staff_snapshot({**staff, "pit_admitted": True})
+        with self.assertRaises(ContractV2Error):
+            round_trip_staff_snapshot({**staff, "episode_cardinality": 1})
+        with self.assertRaises(ContractV2Error):
+            round_trip_staff_snapshot(
+                {
+                    **staff,
+                    "role": "offense_play_caller",
+                    "episode_refs": ["r1"],
+                    "episode_cardinality": 1,
+                }
+            )
+        with self.assertRaises(ContractV2Error):
+            round_trip_staff_snapshot({**staff, "play_caller_claim": "SUPPORTED"})
 
     def test_wikimedia_infobox_row_bound_and_not_pit(self) -> None:
         text = "| HeadCoach = [[Jane Doe]]\n| off_coach = [[John Roe]]\n"
@@ -956,7 +1231,7 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertIn(("special_teams_coordinator", "Patrick Dougherty"), by_role)
         self.assertTrue(
             any(
-                row["co_role"] == "true" and row["person"] == "Holmon Wiggins"
+                row["co_role"] is True and row["person"] == "Holmon Wiggins"
                 for row in tamu
             )
         )
@@ -988,9 +1263,9 @@ class Cycle30AdversarialTests(unittest.TestCase):
             if row["person"] == "Elijah Robinson"
             and row["role"] == "defensive_coordinator"
         )
-        self.assertEqual(fisher["interim"], "false")
-        self.assertEqual(robinson_hc["interim"], "true")
-        self.assertEqual(robinson_dc["co_role"], "true")
+        self.assertFalse(fisher["interim"])
+        self.assertTrue(robinson_hc["interim"])
+        self.assertTrue(robinson_dc["co_role"])
         present = expand_source_year_span("2024–present")
         self.assertTrue(present["ongoing"])
         self.assertIsNone(present["end_year"])
@@ -1034,7 +1309,8 @@ class Cycle30AdversarialTests(unittest.TestCase):
         )
         self.assertEqual(inv["attempted_official_report_routes"], 0)
         self.assertEqual(inv["rows"][0]["no_report_means"], "UNKNOWN")
-        self.assertEqual(inv["rows"][0]["owner"], "BAT-414")
+        self.assertEqual(inv["rows"][0]["owner"], "BAT-324")
+        self.assertEqual(inv["rows"][0]["co_owners"], ["BAT-328", "BAT-703", "CFIP-23"])
         self.assertTrue(inv["rows"][0]["out_of_fitted_models"])
         self.assertEqual(inv["rows"][1]["policy_status"], "FCS_VARIES_BY_PROGRAM")
         self.assertEqual(
@@ -1239,6 +1515,19 @@ class Cycle30AdversarialTests(unittest.TestCase):
             )
         )
         self.assertFalse(
+            season_title_matches_school("Virginia Tech Hokies football", "Virginia")
+        )
+        self.assertFalse(
+            season_title_matches_school(
+                "North Dakota State Bison football", "North Dakota"
+            )
+        )
+        self.assertFalse(
+            season_title_matches_school(
+                "South Dakota State Jackrabbits football", "South Dakota"
+            )
+        )
+        self.assertFalse(
             season_title_matches_school(
                 "California Polytechnic State University football team plane crash",
                 "Cal Poly",
@@ -1377,6 +1666,42 @@ class Cycle30AdversarialTests(unittest.TestCase):
         )
         self.assertTrue(perturbation["travel_available_is_not_consumed"])
         self.assertEqual(perturbation["venue_change_mean_abs_probability_delta"], 0.0)
+
+    def test_duplicate_person_views_do_not_create_co_shared_role(self) -> None:
+        cells = hc_oc_dc_matrix(["SRC-002:TEAM:245"], "2026-09-07T16:00:00Z")
+        filled = fill_current_role_matrix(
+            cells,
+            programs=[{"program_id": "SRC-002:TEAM:245", "display_name": "Texas A&M"}],
+            cfbd_hc_by_school={},
+            official_people_by_program={
+                "SRC-002:TEAM:245": [
+                    {
+                        "person": "Kirk Campbell",
+                        "title": "Offensive Coordinator",
+                        "role": "offensive_coordinator",
+                        "span_id": "dom:mobile",
+                        "page_url": "https://example.test/staff",
+                    },
+                    {
+                        "person": "Kirk Campbell",
+                        "title": "Offensive Coordinator",
+                        "role": "offensive_coordinator",
+                        "span_id": "dom:desktop",
+                        "page_url": "https://example.test/staff",
+                    },
+                ]
+            },
+            official_attempts_by_program={
+                "SRC-002:TEAM:245": {
+                    "status": "CAPTURED",
+                    "attempt_count": 1,
+                    "receipt_identity": "x",
+                }
+            },
+        )
+        oc = next(row for row in filled if row["role"] == "offensive_coordinator")
+        self.assertEqual(oc["disposition"], "CONFIRMED_APPOINTMENT")
+        self.assertEqual(oc["episode_cardinality"], 1)
 
     def test_cfbd_presence_delta_is_not_ncaa_census(self) -> None:
         from aggie_analytics.cycle30.populations import cfbd_membership_presence_delta
@@ -1574,8 +1899,10 @@ class Cycle30AdversarialTests(unittest.TestCase):
                 "G2026": target["start_date_utc_text"],
             },
         )
-        self.assertGreater(kernel["proven_pit_training_rows"], 0)
-        self.assertEqual(kernel["primary_kernel_objective"], "COMPLETE_NONZERO_PROVEN")
+        self.assertEqual(kernel["proven_pit_training_rows"], 0)
+        self.assertEqual(
+            kernel["primary_kernel_objective"], "PRIMARY_KERNEL_OBJECTIVE_INCOMPLETE"
+        )
         late = forecast_freeze_authority(
             {
                 "snapshot_timestamp_utc": "2026-09-06T00:00:00Z",
@@ -1789,9 +2116,7 @@ class Cycle30AdversarialTests(unittest.TestCase):
 
     def test_official_title_abbreviations_map_oc_dc_not_pass_game(self) -> None:
         self.assertEqual(
-            role_families_from_title(
-                "Associate Head Coach/Off. Coor./Quarterbacks"
-            ),
+            role_families_from_title("Associate Head Coach/Off. Coor./Quarterbacks"),
             ("offensive_coordinator",),
         )
         self.assertEqual(
@@ -1881,10 +2206,27 @@ class Cycle30AdversarialTests(unittest.TestCase):
         )
         self.assertTrue(candidates)
         joined = join_candidates_to_roster(
-            candidates,
-            [{"full_name": "John Smith", "canonical_person_id": "PERSON:1"}],
+            [{**candidates[0], "program_id": "PROGRAM_A", "candidate_name": "John Smith"}],
+            [
+                {
+                    "full_name": "John Smith",
+                    "canonical_person_id": "PERSON:1",
+                    "program_id": "PROGRAM_A",
+                }
+            ],
         )
         self.assertGreaterEqual(joined["joined_to_verified_roster"], 1)
+        cross = join_candidates_to_roster(
+            [{"candidate_name": "John Smith", "program_id": "PROGRAM_A"}],
+            [
+                {
+                    "full_name": "John Smith",
+                    "canonical_person_id": "PERSON:B",
+                    "program_id": "PROGRAM_B",
+                }
+            ],
+        )
+        self.assertEqual(cross["joined_to_verified_roster"], 0)
         self.assertEqual(joined["no_report_means"], "UNKNOWN")
         self.assertTrue(joined["roster_or_participation_is_not_availability"])
 
@@ -1940,7 +2282,9 @@ class Cycle30AdversarialTests(unittest.TestCase):
         self.assertEqual(joined["cfbd_fcs_fcs_in_parent"], 1)
         self.assertEqual(joined["cfbd_fcs_fcs_absent_from_parent"], 1)
         self.assertTrue(joined["source_classification_is_not_era_proof"])
-        self.assertTrue(joined["parent_is_fbs_filtered_numerator_not_complete_fcs_graph"])
+        self.assertTrue(
+            joined["parent_is_fbs_filtered_numerator_not_complete_fcs_graph"]
+        )
         notes = audit_cfbd_contest_notes(cfbd, period="1963-2012")
         self.assertEqual(notes["postponed_count"], 1)
         self.assertEqual(notes["forfeit_count"], 0)
@@ -1977,7 +2321,9 @@ class Cycle30AdversarialTests(unittest.TestCase):
                 for row in people
             )
         )
-        self.assertFalse(any("Pass Game" in str(row.get("title") or "") for row in people))
+        self.assertFalse(
+            any("Pass Game" in str(row.get("title") or "") for row in people)
+        )
         self.assertFalse(any("," in str(row.get("title") or "") for row in people))
         self.assertFalse(
             any("Quarterbacks" in str(row.get("person") or "") for row in people)

@@ -20,11 +20,11 @@
     "in_review_after_validation": "14524"
   },
   "current_identities": {
-    "gate_identity": "d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8",
+    "gate_identity": "03001feb170f42791b783af4415e1a6d96659e108745ae3cfee6443b65b257fe",
     "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
-    "prior_union_identity": "cd9bd79899bb4c4f0e8d3d7c79482d5146075e4bf51a1bd488597b28607fbe98",
+    "prior_union_identity": "efd41fd3412646fbfe89b39e1db6845bce195883087d1832a6b3e419afb7b227",
     "structured_row_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
-    "union_identity": "c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200"
+    "union_identity": "2d5964042d3a03f2eb1a405a45969ff7ad5934e637f38dc96f10d986b6bedc73"
   },
   "duplicate_audit": {
     "decision": "CREATE",

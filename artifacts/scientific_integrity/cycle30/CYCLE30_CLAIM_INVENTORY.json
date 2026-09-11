@@ -297,13 +297,34 @@
     },
     {
       "artifact_path": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+      "claim_id": "BAS_DOMAIN_CATALOG_CROSSWALK.json:/mapped_current_requirement_count::mapped_current_requirement_count",
+      "denominator": null,
+      "dependencies": [],
+      "field": "mapped_current_requirement_count",
+      "formula": "discovered_authority_field",
+      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
+      "numerator": 10,
+      "pointer": "/mapped_current_requirement_count",
+      "population": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+      "producer": "aggie_analytics.cycle30",
+      "row_identity": "",
+      "source_identities": [
+        "BAS_DOMAIN_CATALOG_CROSSWALK.json"
+      ],
+      "temporal_authority": "artifact_as_of_materialization",
+      "trust_class": "UNTRUSTED_SHADOW",
+      "validator": "tools/validate_cycle30_gates.py",
+      "value_class": "integer"
+    },
+    {
+      "artifact_path": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
       "claim_id": "BAS_DOMAIN_CATALOG_CROSSWALK.json:/mapping_count::mapping_count",
       "denominator": null,
       "dependencies": [],
       "field": "mapping_count",
       "formula": "discovered_authority_field",
       "independent_reference": "aggie_analytics.scientific_reference.cycle30",
-      "numerator": 129,
+      "numerator": 132,
       "pointer": "/mapping_count",
       "population": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
       "producer": "aggie_analytics.cycle30",
@@ -1029,32 +1050,11 @@
       "trust_class": "UNTRUSTED_SHADOW",
       "validator": "tools/validate_cycle30_gates.py",
       "value_class": "string"
-    },
-    {
-      "artifact_path": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "claim_id": "BAS_DOMAIN_CATALOG_CROSSWALK.json:/mappings/34/state::state",
-      "denominator": null,
-      "dependencies": [],
-      "field": "state",
-      "formula": "discovered_authority_field",
-      "independent_reference": "aggie_analytics.scientific_reference.cycle30",
-      "numerator": null,
-      "pointer": "/mappings/34/state",
-      "population": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
-      "producer": "aggie_analytics.cycle30",
-      "row_identity": "",
-      "source_identities": [
-        "BAS_DOMAIN_CATALOG_CROSSWALK.json"
-      ],
-      "temporal_authority": "artifact_as_of_materialization",
-      "trust_class": "UNTRUSTED_SHADOW",
-      "validator": "tools/validate_cycle30_gates.py",
-      "value_class": "string"
     }
   ],
-  "declared_count": 1228,
-  "discovered_count": 1228,
-  "inventory_identity": "8dc82760705282928e598c91aa94c3cd29bc0276b3f90ed8319fcf4a495c2866",
+  "declared_count": 1236,
+  "discovered_count": 1236,
+  "inventory_identity": "1423aae8010b4956156f4a33935c88757bb7ddfb3b9bf9284e58ed2e624d6fea",
   "producer_cannot_write_unmapped_count": true,
   "unmapped_count": 0
 }

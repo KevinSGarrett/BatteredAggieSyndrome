@@ -291,7 +291,7 @@ class StatCrewLakeTests(unittest.TestCase):
         self.assertEqual(result["parsed_games"], 38)
         self.assertEqual(
             result["payload_identity"],
-            "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+            "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
         )
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
         self.assertEqual(

@@ -151,6 +151,18 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
         "Cal Poly": "Cal Poly Mustangs",
         "Florida International": "FIU Panthers",
         "UL Monroe": "Louisiana–Monroe Warhawks",
+        "Arizona": "Arizona Wildcats",
+        "Illinois": "Illinois Fighting Illini",
+        "Kansas": "Kansas Jayhawks",
+        "Louisiana": "Louisiana Ragin' Cajuns",
+        "New Mexico": "New Mexico Lobos",
+        "Ohio": "Ohio Bobcats",
+        "Southern": "Southern Jaguars",
+        "Tennessee State": "Tennessee State Tigers",
+        "Utah": "Utah Utes",
+        "Georgia": "Georgia Bulldogs",
+        "Utah Tech": "Utah Tech Trailblazers",
+        "Wisconsin": "Wisconsin Badgers",
     }
     query_school = aliases.get(school, school)
     current_titles = {
@@ -170,6 +182,52 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
         "Long Island University": "LIU Sharks football",
         "UAlbany": "Albany Great Danes football",
         "UL Monroe": "Louisiana–Monroe Warhawks football",
+        "Virginia": "Virginia Cavaliers football",
+        "Virginia Tech": "Virginia Tech Hokies football",
+        "North Dakota": "North Dakota Fighting Hawks football",
+        "North Dakota State": "North Dakota State Bison football",
+        "South Dakota": "South Dakota Coyotes football",
+        "South Dakota State": "South Dakota State Jackrabbits football",
+        "Florida": "Florida Gators football",
+        "Pittsburgh": "Pittsburgh Panthers football",
+        "Pennsylvania": "Penn Quakers football",
+        "Arizona": "Arizona Wildcats football",
+        "Illinois": "Illinois Fighting Illini football",
+        "Kansas": "Kansas Jayhawks football",
+        "Louisiana": "Louisiana Ragin' Cajuns football",
+        "New Mexico": "New Mexico Lobos football",
+        "Ohio": "Ohio Bobcats football",
+        "Southern": "Southern Jaguars football",
+        "Tennessee State": "Tennessee State Tigers football",
+        "Utah": "Utah Utes football",
+        "Georgia": "Georgia Bulldogs football",
+        "Utah Tech": "Utah Tech Trailblazers football",
+        "Wisconsin": "Wisconsin Badgers football",
+    }
+    strict_title_bindings = {
+        "FIU",
+        "Florida International",
+        "Florida",
+        "Virginia",
+        "Virginia Tech",
+        "North Dakota",
+        "North Dakota State",
+        "South Dakota",
+        "South Dakota State",
+        "Pennsylvania",
+        "Pittsburgh",
+        "Arizona",
+        "Illinois",
+        "Kansas",
+        "Louisiana",
+        "New Mexico",
+        "Ohio",
+        "Southern",
+        "Tennessee State",
+        "Utah",
+        "Georgia",
+        "Utah Tech",
+        "Wisconsin",
     }
     query = f'"{query_school}" football team'
     params = {
@@ -199,7 +257,9 @@ def search_and_parse(school: str, ledger: list[dict[str, Any]]) -> dict[str, Any
         if not title:
             title = select_college_football_wiki_title(hits, school)
     hinted = current_titles.get(school)
-    if hinted and (
+    if hinted and school in strict_title_bindings:
+        title = hinted
+    elif hinted and (
         not title
         or re.match(r"^\d{4}\s", title or "")
         or re.search(r"\([^)]*american football\)\s*$", title or "", re.I)

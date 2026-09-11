@@ -12,6 +12,27 @@
     "max_consecutive_process_only_commits": 1,
     "historical_integration_corrections": [
       {
+        "commit_sha": "ff7859fa706c394fc848a60c9d1af029f4454604",
+        "pull_request": 687,
+        "head_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",
+        "classification": "[material]",
+        "reason": "Cycle #32 repair commit on PR #687 changed material source/staff/PIT/scoring paths, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "47d12fc179fe5dbc67774fbed13b568c648e0ee8",
+        "pull_request": 687,
+        "head_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",
+        "classification": "[material]",
+        "reason": "Cycle #32 requirement-ledger bind on PR #687 accompanied material Cycle #32 head updates, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",
+        "pull_request": 687,
+        "head_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",
+        "classification": "[material]",
+        "reason": "Cycle #32 submitted-not-accepted ledger/Jira follow-up on PR #687 accompanied material Cycle #32 head updates, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
         "commit_sha": "4a30bc1ae2a253315d273edff08f292ead3f9440",
         "pull_request": 418,
         "head_sha": "06fac19a602bab4eceb50b539f2e105ab99e4580",

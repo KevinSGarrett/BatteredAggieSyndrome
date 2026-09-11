@@ -221,7 +221,7 @@ def remaining_audit_register(
         },
         {
             "id": "C30-AUDIT-01-INJURIES",
-            "jira_owners": ["BAT-414"],
+            "jira_owners": ["BAT-324", "BAT-328", "BAT-703", "CFIP-23"],
             "implementation_owner": "Cursor Cycle #30",
             "manager_reviewer": "BAS manager (Codex) — pending",
             "status": "EXPLICIT_UNRESOLVED",
@@ -238,9 +238,9 @@ def remaining_audit_register(
                 else "attempted_official_report_routes=0; no_report=UNKNOWN not healthy"
             ),
             "next_action": (
-                "Join captured public report pages to verified roster identities under BAT-414"
+                "Join captured public report pages to verified roster identities under BAT-324/BAT-328"
                 if availability_routes_attempted
-                else "Authorized public availability-report acquisition under BAT-414"
+                else "Authorized public availability-report acquisition under BAT-324/BAT-328"
             ),
             "affected_use_restriction": "injuries/availability out of fitted models; not scientifically reviewed",
             "selected_revisions": selected,

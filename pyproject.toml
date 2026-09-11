@@ -50,9 +50,13 @@ experimentation = [
   "optuna==4.9.0",
 ]
 test = ["hypothesis==6.165.2"]
+kernel = ["numpy==2.2.6"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"aggie_analytics.cycle30" = ["schemas/*.json"]
 
 [tool.unittest]
 # Tests intentionally use the Python standard library during early waves.

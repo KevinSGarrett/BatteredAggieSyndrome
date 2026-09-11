@@ -41,14 +41,30 @@ SOURCE_ID = "SRC-014"
 PASS_CLASSIFICATION = "TAMU_OFFICIAL_GAMEBOOK_UNION_ENRICHED_CANDIDATE_ONLY"
 PASS_RESULT = "PASS_IMMUTABLE_PRIOR_UNIONS_PRESERVED_STATCREW_OVERLAY_APPLIED"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
-PRIOR_237_UNION_IDENTITY = "d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31"
-PRIOR_237_GATE_IDENTITY = "537de885b49e6e4574dfe5622b0d3f0db07a081f213e96b5ae14d5e1ee011297"
-PRIOR_226_UNION_IDENTITY = "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e"
-PRIOR_226_GATE_IDENTITY = "77043db845ea4089e7530509b29489c3b76455e6db7eaea299854f316b6febe9"
-CYCLE9_UNION_IDENTITY = "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
-CYCLE9_GATE_IDENTITY = "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106"
-STATCREW_PAYLOAD_IDENTITY = "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d"
-STATCREW_GATE_IDENTITY = "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16"
+PRIOR_237_UNION_IDENTITY = (
+    "d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31"
+)
+PRIOR_237_GATE_IDENTITY = (
+    "537de885b49e6e4574dfe5622b0d3f0db07a081f213e96b5ae14d5e1ee011297"
+)
+PRIOR_226_UNION_IDENTITY = (
+    "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e"
+)
+PRIOR_226_GATE_IDENTITY = (
+    "77043db845ea4089e7530509b29489c3b76455e6db7eaea299854f316b6febe9"
+)
+CYCLE9_UNION_IDENTITY = (
+    "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672"
+)
+CYCLE9_GATE_IDENTITY = (
+    "dd0d0f32c499b4863551a9ab6649cbef7638c3916228661262fbd5a71909c106"
+)
+STATCREW_PAYLOAD_IDENTITY = (
+    "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338"
+)
+STATCREW_GATE_IDENTITY = (
+    "ed2ce7b95bd046a282116cf50aff84fec1e585f8dee848cc4451bec63bdf668c"
+)
 INVENTORY_IDENTITY = "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
 PRIOR_237_CAPTURED_GAMES = 237
 PRIOR_237_RICH = 191
@@ -98,13 +114,17 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
 
 def compute_gate_identity(gate: Mapping[str, Any]) -> str:
     missing = [key for key in REQUIRED_GATE_FIELDS if key not in gate]
     if missing:
-        raise AuthorityViolation("gate is missing required identity fields: " + ", ".join(missing))
+        raise AuthorityViolation(
+            "gate is missing required identity fields: " + ", ".join(missing)
+        )
     return compute_identity(gate, "gate_identity")
 
 
@@ -178,7 +198,9 @@ def _statcrew_index(statcrew_gate: Mapping[str, Any]) -> dict[str, dict[str, Any
     return index
 
 
-def overlay_game(game: Mapping[str, Any], statcrew: Mapping[str, Any] | None) -> dict[str, Any]:
+def overlay_game(
+    game: Mapping[str, Any], statcrew: Mapping[str, Any] | None
+) -> dict[str, Any]:
     row = json.loads(json.dumps(game))
     coverage = dict(row.get("domain_coverage") or {})
     prior_rich = is_rich_structured(row)
@@ -236,7 +258,11 @@ def coverage_by_season(games: list[Mapping[str, Any]]) -> dict[str, Any]:
 def coverage_by_domain(games: list[Mapping[str, Any]]) -> dict[str, dict[str, int]]:
     totals: dict[str, dict[str, int]] = {}
     for domain in OVERLAY_DOMAINS:
-        present = sum(1 for game in games if (game.get("domain_coverage") or {}).get(domain) == "PRESENT")
+        present = sum(
+            1
+            for game in games
+            if (game.get("domain_coverage") or {}).get(domain) == "PRESENT"
+        )
         totals[domain] = {
             "official_pre2010_present": present,
             "official_pre2010_absent": len(games) - present,
@@ -276,9 +302,15 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         raise AuthorityViolation("BAT-590 237-game union identity was rewritten")
     if prior_237.get("gate_identity") != PRIOR_237_GATE_IDENTITY:
         raise AuthorityViolation("BAT-590 237-game union gate identity was rewritten")
-    if int(prior_237.get("counts", {}).get("union_captured_games") or 0) != PRIOR_237_CAPTURED_GAMES:
+    if (
+        int(prior_237.get("counts", {}).get("union_captured_games") or 0)
+        != PRIOR_237_CAPTURED_GAMES
+    ):
         raise AuthorityViolation("BAT-590 captured-game count drifted")
-    if prior_237.get("upstream_identities", {}).get("wmt_dataset_identity") != WMT_DATASET_IDENTITY:
+    if (
+        prior_237.get("upstream_identities", {}).get("wmt_dataset_identity")
+        != WMT_DATASET_IDENTITY
+    ):
         raise AuthorityViolation("WMT dataset identity was rewritten")
     prior_226 = load_json(repo_root / PRIOR_226_GATE_RELATIVE)
     if prior_226.get("union_identity") != PRIOR_226_UNION_IDENTITY:
@@ -308,25 +340,36 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     for game in admitted:
         url = str(game.get("url") or "")
         if url in rejected_urls:
-            raise AuthorityViolation(f"rejected game was presented for overlay admission: {url}")
+            raise AuthorityViolation(
+                f"rejected game was presented for overlay admission: {url}"
+            )
         if url in seen_urls:
-            raise AuthorityViolation(f"duplicate official game presented for overlay: {url}")
+            raise AuthorityViolation(
+                f"duplicate official game presented for overlay: {url}"
+            )
         seen_urls.add(url)
         overlays.append(overlay_game(game, statcrew_by_url.get(url)))
     for game in rejected:
         url = str(game.get("url") or "")
         if url in seen_urls:
-            raise AuthorityViolation(f"rejected game leaked into overlay membership: {url}")
+            raise AuthorityViolation(
+                f"rejected game leaked into overlay membership: {url}"
+            )
         if url in statcrew_by_url:
             conflicts.append(
                 {
                     "url": url,
                     "conflict_status": "STATCREW_PRESENT_BUT_PRIOR_REJECTION_PRESERVED",
-                    "match_status": game.get("canonical_game_match_status") or game.get("rejection_reason"),
+                    "match_status": game.get("canonical_game_match_status")
+                    or game.get("rejection_reason"),
                     "opponent_candidate": game.get("opponent_candidate"),
                 }
             )
-    became_rich = sum(1 for item in overlays if item["rich_structured"] and not item["prior_rich_structured"])
+    became_rich = sum(
+        1
+        for item in overlays
+        if item["rich_structured"] and not item["prior_rich_structured"]
+    )
     overlays_applied = sum(1 for item in overlays if item["overlay_applied"])
     counts = {
         "wmt_games_preserved": WMT_TARGET_GAMES,
@@ -346,14 +389,20 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "matched_strong_tuple": sum(
             1
             for item in overlays
-            if item.get("canonical_game_match_status") == "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE"
+            if item.get("canonical_game_match_status")
+            == "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE"
         ),
-        "date_conflicts": sum(1 for item in overlays if item.get("conflict_status") not in {None, "NONE"}),
+        "date_conflicts": sum(
+            1 for item in overlays if item.get("conflict_status") not in {None, "NONE"}
+        ),
         "ncaa_contest_ids_created": 0,
         "wmt_rich_structured_games": WMT_RICH_GAMES,
         "wmt_metadata_only_games": WMT_METADATA_ONLY,
     }
-    if counts["union_captured_games"] != counts["rich_structured_games"] + counts["metadata_only_games"]:
+    if (
+        counts["union_captured_games"]
+        != counts["rich_structured_games"] + counts["metadata_only_games"]
+    ):
         raise AuthorityViolation("enriched rich/metadata arithmetic drifted")
     if any(item.get("url") in seen_urls for item in rejected):
         raise AuthorityViolation("rejected games were admitted")
@@ -444,7 +493,11 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
 def materialize_union(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     objects = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     payload = objects["payload"]
-    root = data_root / objects["contract"]["payloads"]["union_root"] / payload["union_identity"]
+    root = (
+        data_root
+        / objects["contract"]["payloads"]["union_root"]
+        / payload["union_identity"]
+    )
     write_json(root / "union_manifest.json", payload)
     write_json(repo_root / GATE_RELATIVE, objects["gate"])
     return {
@@ -486,10 +539,19 @@ def validate_compact_gate(committed: Mapping[str, Any]) -> None:
         raise AuthorityViolation("gate identity does not recompute")
     if not committed.get("union_identity"):
         raise AuthorityViolation("union identity missing")
-    if int(committed.get("counts", {}).get("union_captured_games") or 0) != PRIOR_237_CAPTURED_GAMES:
+    if (
+        int(committed.get("counts", {}).get("union_captured_games") or 0)
+        != PRIOR_237_CAPTURED_GAMES
+    ):
         raise AuthorityViolation("union captured-game arithmetic drifted")
-    rejected_urls = {str(item.get("url") or "") for item in committed.get("preserved_rejections") or []}
-    admitted_urls = {str(item.get("url") or "") for item in committed.get("enriched_official_games") or []}
+    rejected_urls = {
+        str(item.get("url") or "")
+        for item in committed.get("preserved_rejections") or []
+    }
+    admitted_urls = {
+        str(item.get("url") or "")
+        for item in committed.get("enriched_official_games") or []
+    }
     if rejected_urls & admitted_urls:
         raise AuthorityViolation("rejected games were admitted")
 
@@ -505,7 +567,9 @@ def validate_artifact(
     validate_compact_gate(committed)
     ready = lake_is_ready(data_root)
     if require_rebuild and not ready:
-        raise AuthorityViolation("external enriched-union reconstruction was required but the data root is not mounted")
+        raise AuthorityViolation(
+            "external enriched-union reconstruction was required but the data root is not mounted"
+        )
     if not ready:
         return {
             "result": "PASS",
@@ -515,7 +579,9 @@ def validate_artifact(
         }
     expected = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     if committed != expected["gate"]:
-        raise AuthorityViolation("committed enriched-union gate does not match independent reconstruction")
+        raise AuthorityViolation(
+            "committed enriched-union gate does not match independent reconstruction"
+        )
     return {
         "result": "PASS",
         "gate_identity": expected["gate"]["gate_identity"],
@@ -526,7 +592,9 @@ def validate_artifact(
 
 
 def default_data_root() -> Path:
-    return Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+    return Path(
+        os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+    )
 
 
 def default_repo_root() -> Path:

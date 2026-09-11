@@ -221,7 +221,8 @@ def main() -> int:
                 "private_medical_detail_ingested": False,
                 "no_report_means": "UNKNOWN",
                 "artifact_class": "REAL_EVIDENCE",
-                "owner": "BAT-414",
+                "owner": "BAT-324",
+                "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
             }
         )
     (OUT / "CYCLE30_AVAILABILITY_LEDGER.json").write_text(

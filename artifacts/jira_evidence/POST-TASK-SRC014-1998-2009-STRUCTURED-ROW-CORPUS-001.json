@@ -28,9 +28,9 @@
     "team_statistics_rows": 4638
   },
   "current_identities": {
-    "dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
-    "gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
-    "union_identity": "e526499dab658992bb528799621833a0cb9dbaf538755ceb4b8b1df37053f069"
+    "dataset_identity": "ac36f30b3f190085a3146fbdb1d4956c0176f59a8d72ab2227b0ddd45fe40935",
+    "gate_identity": "ebaa82fb0fec95f170fa29a61891ced079206c1a627a3706abd863466fd3b04d",
+    "union_identity": "e045c91bf6245b722e834430fc80f2817a892d825078718f570427474d79caa0"
   },
   "duplicate_audit": {
     "decision": "CREATE"
@@ -43,7 +43,7 @@
   "known_at_state": "UNKNOWN_RETRIEVAL_TIME_ONLY",
   "local_issue_id": "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001",
   "material_pr": 593,
-  "observable_outcome": "Material PR #593 merged as 2a85490f1ab5852213020e8d58b08ec77d2cb309. This final evidence packet is regenerated from the canonical gate a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54 with result PASS_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS and the complete authoritative counts object. Historical known-at remains retrieval/capture-time-only, availability is not established, no NCAA contest IDs were created, and the protected lane remains blocked.",
+  "observable_outcome": "Material PR #593 merged as 2a85490f1ab5852213020e8d58b08ec77d2cb309. This final evidence packet is regenerated from the canonical gate ebaa82fb0fec95f170fa29a61891ced079206c1a627a3706abd863466fd3b04d with result PASS_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS and the complete authoritative counts object. Historical known-at remains retrieval/capture-time-only, availability is not established, no NCAA contest IDs were created, and the protected lane remains blocked.",
   "protected_nonclaims": {
     "availability_established": false,
     "champion_or_production_promotion": false,

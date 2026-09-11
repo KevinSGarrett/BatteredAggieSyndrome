@@ -945,12 +945,8 @@ def main() -> int:
     parent_join_1963 = join_cfbd_games_to_parent(
         games, cfbd_hist_games, period="1963-2012"
     )
-    note_audit_2013 = audit_cfbd_contest_notes(
-        cfbd_games, period="2013-2023_2026"
-    )
-    note_audit_1963 = audit_cfbd_contest_notes(
-        cfbd_hist_games, period="1963-2012"
-    )
+    note_audit_2013 = audit_cfbd_contest_notes(cfbd_games, period="2013-2023_2026")
+    note_audit_1963 = audit_cfbd_contest_notes(cfbd_hist_games, period="1963-2012")
     hashes["CFBD_PARENT_IDENTITY_JOIN_2013_2026.json"] = write_json(
         ART / "CFBD_PARENT_IDENTITY_JOIN_2013_2026.json", parent_join_2013
     )
@@ -1901,7 +1897,8 @@ def main() -> int:
             ),
             "no_report_means": "UNKNOWN",
             "private_medical_detail_ingested": False,
-            "owner": "BAT-414",
+            "owner": "BAT-324",
+            "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
             "out_of_fitted_models": True,
         },
     )
@@ -2433,7 +2430,9 @@ def main() -> int:
             historical_wiki_incomplete_years=[
                 year
                 for year in range(1963, 2027)
-                if sum(1 for row in wiki_hist_rows if int(row.get("season") or 0) == year)
+                if sum(
+                    1 for row in wiki_hist_rows if int(row.get("season") or 0) == year
+                )
                 < len(program_ids)
             ],
             availability_candidates_not_joined=int(

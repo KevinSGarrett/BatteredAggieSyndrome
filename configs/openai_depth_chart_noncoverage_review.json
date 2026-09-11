@@ -25,8 +25,8 @@
     "render_scale": 2.0
   },
   "deterministic_result": {
-    "dataset_identity": "e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027",
-    "manifest_sha256": "f5b0636be63afd20b731227849243681db384f319081dbf80d9102317d574c9c",
+    "dataset_identity": "2692b1ff8db82853419a1712dff7a020f47cd75cb8bfa70961e7c684371f8687",
+    "manifest_sha256": "e1b91de031605b34c698cacdc1ea8dc41fe929443948a696fc35ce616f70f8b3",
     "payload_sha256": "4792e792dc485119b128cd7e37f6b5e53c74f2da272e6d10d9383a5170e8bca7",
     "payload_rows": 25,
     "page_image_aggregate_identity": "55d3b3295a7eecb8dbd79a47f9b77e982fd4ec59e2b9cf8d1c3698b48843040a",

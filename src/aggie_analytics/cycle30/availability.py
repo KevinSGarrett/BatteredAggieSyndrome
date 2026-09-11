@@ -2,7 +2,7 @@
 
 No report means UNKNOWN, not healthy. Roster membership and game
 participation are not availability. These fields stay out of fitted models.
-Existing owner BAT-414 retains health evidence after duplicate audit.
+Current owners are BAT-324/BAT-328 with BAT-703 and CFIP-23 coordination.
 """
 
 from __future__ import annotations
@@ -183,7 +183,8 @@ def program_availability_row(
         "joined_to_verified_roster": False,
         "private_medical_detail_ingested": False,
         "out_of_fitted_models": True,
-        "owner": "BAT-414",
+        "owner": "BAT-324",
+        "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
         "artifact_class": "BLOCKER_METADATA",
     }
 
@@ -234,7 +235,8 @@ def inventory_availability_policies(
         "no_report_means_unknown_not_healthy": True,
         "roster_or_participation_is_not_availability": True,
         "out_of_fitted_models": True,
-        "owner": "BAT-414",
+        "owner": "BAT-324",
+        "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
         "status": "ROUTES_ATTEMPTED"
         if attempted_routes
         else "INVENTORIED_NOT_ACQUIRED",
@@ -255,28 +257,98 @@ _JSON_PLAYER_NAME = re.compile(
     re.I,
 )
 _PDF_HREF = re.compile(r"""href=["']([^"'#]+\.pdf[^"']*)["']""", re.I)
+_ANY_HREF = re.compile(r"""href=["']([^"'#]+)["']""", re.I)
+_ABSOLUTE_URL = re.compile(r"""https?://[^\s"'<>]+""", re.I)
 _PLAIN_COMMA_NAME = re.compile(r"\b([A-Z][a-z]+,\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b")
 _LINE_STATUS_NAME = re.compile(
     r"^\s*([A-Z][a-z]+(?:-[A-Z][a-z]+)?),\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s*[-–]",
     re.MULTILINE,
 )
+_REPORT_SUFFIXES = (".pdf", ".xlsx", ".xls", ".csv", ".json")
+_REPORT_HINTS = (
+    "availability",
+    "fbreport",
+    "fb-report",
+    "injury-report",
+    "gameday-report",
+    "player-status",
+    "student-athlete-availability",
+)
+_NOT_AVAILABILITY_ASSETS = (
+    "record-book",
+    "record_book",
+    "record%20book",
+    "recordbook",
+    "handbook",
+    "sportsmanship",
+    "media-guide",
+    "media_guide",
+    "mediaguide",
+    "manifest.json",
+    "og:image",
+    "twitter:",
+)
 
 
-def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[str]:
-    """Absolute PDF links from a public availability page. Not health status."""
+def classify_availability_source(*, source_id: str, uri: str) -> str:
+    """Classify a structured or conference surface. Not a health status."""
+
+    blob = f"{source_id} {uri}".casefold()
+    if "collegefootballdata.com" in blob or source_id == "SRC-002":
+        return "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT"
+    if "sportradar" in blob:
+        return "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT"
+    return "OFFICIAL_CONFERENCE_OR_POLICY_SURFACE"
+
+
+def _absolute_href(href: str, *, page_uri: str) -> str:
+    href = (href or "").strip()
+    href = href.replace("&quot;", '"').replace("&amp;", "&")
+    href = href.split('"', 1)[0].rstrip("\\").rstrip("),;")
+    if not href or href.startswith(("javascript:", "mailto:", "tel:", "#")):
+        return ""
+    if href.startswith("//"):
+        return "https:" + href
+    if href.startswith("/"):
+        parsed = urllib.parse.urlparse(page_uri)
+        return f"{parsed.scheme}://{parsed.netloc}{href}"
+    if not href.startswith("http"):
+        return urllib.parse.urljoin(page_uri, href)
+    return href
+
+
+def availability_report_hrefs(
+    html: str, *, page_uri: str, limit: int = 16
+) -> list[str]:
+    """Public report-like asset links. Policy pages are not player-status records."""
 
     out: list[str] = []
     seen: set[str] = set()
-    for match in _PDF_HREF.finditer(html or ""):
-        href = match.group(1).strip()
-        if href.startswith("//"):
-            href = "https:" + href
-        elif href.startswith("/"):
-            parsed = urllib.parse.urlparse(page_uri)
-            href = f"{parsed.scheme}://{parsed.netloc}{href}"
-        elif not href.startswith("http"):
-            href = urllib.parse.urljoin(page_uri, href)
-        key = href.casefold()
+    candidates: list[str] = []
+    for match in _ANY_HREF.finditer(html or ""):
+        candidates.append(match.group(1))
+    for match in _ABSOLUTE_URL.finditer(html or ""):
+        candidates.append(match.group(0).rstrip(").,;"))
+    for raw in candidates:
+        href = _absolute_href(raw, page_uri=page_uri)
+        if not href:
+            continue
+        try:
+            parsed = urllib.parse.urlparse(href)
+        except ValueError:
+            continue
+        if not parsed.scheme or not parsed.netloc:
+            continue
+        key = href.casefold().split("?", 1)[0]
+        path = parsed.path.casefold()
+        hinted = any(token in key for token in _REPORT_HINTS)
+        suffixed = any(path.endswith(suffix) for suffix in _REPORT_SUFFIXES)
+        if any(token in key for token in _NOT_AVAILABILITY_ASSETS) and not hinted:
+            continue
+        if not hinted:
+            continue
+        if not suffixed and "fbreport" not in key and "availability" not in key:
+            continue
         if key in seen:
             continue
         seen.add(key)
@@ -284,6 +356,16 @@ def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[
         if len(out) >= limit:
             break
     return out
+
+
+def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[str]:
+    """Absolute PDF links from a public availability page. Not health status."""
+
+    return [
+        href
+        for href in availability_report_hrefs(html, page_uri=page_uri, limit=max(limit, 16))
+        if urllib.parse.urlparse(href).path.casefold().endswith(".pdf")
+    ][:limit]
 
 
 def pdf_plaintext(body: bytes, *, page_limit: int = 20) -> str:
@@ -359,7 +441,8 @@ def extract_candidate_player_rows(
                 "private_medical_detail_ingested": False,
                 "health_status_inferred": False,
                 "out_of_fitted_models": True,
-                "owner": "BAT-414",
+                "owner": "BAT-324",
+                "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
                 "artifact_class": "REAL_EVIDENCE",
             }
         )
@@ -376,12 +459,12 @@ def join_candidates_to_roster(
     candidates: Sequence[Mapping[str, Any]],
     roster_rows: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
-    """Join public name-only candidates to verified roster identities.
+    """Join public candidates to roster identities.
 
-    No report still means UNKNOWN. Roster membership is not availability.
+    Name-only matching across programs cannot verify a player.
     """
 
-    roster_index: dict[str, Mapping[str, Any]] = {}
+    roster_index: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
     for row in roster_rows:
         name = _normalize_person_name(
             str(
@@ -399,14 +482,43 @@ def join_candidates_to_roster(
                 or ""
             )
         )
-        if name:
-            roster_index.setdefault(name, row)
+        program = str(
+            row.get("program_id")
+            or row.get("canonical_program_id")
+            or row.get("team_id")
+            or ""
+        ).strip()
+        if name and program:
+            roster_index.setdefault((program.casefold(), name), []).append(row)
     joined: list[dict[str, Any]] = []
     unmatched = 0
     for candidate in candidates:
-        key = _normalize_person_name(str(candidate.get("candidate_name") or ""))
-        roster = roster_index.get(key)
-        if roster is None:
+        key_name = _normalize_person_name(str(candidate.get("candidate_name") or ""))
+        program = str(
+            candidate.get("program_id")
+            or candidate.get("canonical_program_id")
+            or candidate.get("team_id")
+            or ""
+        ).strip()
+        season = candidate.get("season")
+        roster_hits = roster_index.get((program.casefold(), key_name), []) if program else []
+        if not program or not key_name or len(roster_hits) != 1:
+            unmatched += 1
+            joined.append(
+                {
+                    **dict(candidate),
+                    "joined_to_verified_roster": False,
+                    "disposition": "AMBIGUOUS_OR_UNJOINED_NAME",
+                    "health_status_inferred": False,
+                    "no_report_means": "UNKNOWN",
+                    "roster_or_participation_is_not_availability": True,
+                    "name_only_cross_program_join_rejected": True,
+                }
+            )
+            continue
+        roster = roster_hits[0]
+        roster_season = roster.get("season")
+        if season is not None and roster_season is not None and str(season) != str(roster_season):
             unmatched += 1
             joined.append({**dict(candidate), "joined_to_verified_roster": False})
             continue
@@ -420,12 +532,13 @@ def join_candidates_to_roster(
                     or roster.get("athlete_id")
                     or ""
                 ),
-                "disposition": "JOINED_NAME_ONLY_STATUS_UNKNOWN",
+                "disposition": "JOINED_PROGRAM_SEASON_ROSTER_STATUS_UNKNOWN",
                 "health_status_inferred": False,
                 "no_report_means": "UNKNOWN",
                 "roster_or_participation_is_not_availability": True,
                 "out_of_fitted_models": True,
-                "owner": "BAT-414",
+                "owner": "BAT-324",
+                "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
                 "artifact_class": "REAL_EVIDENCE",
             }
         )
@@ -441,7 +554,8 @@ def join_candidates_to_roster(
         "out_of_fitted_models": True,
         "rows": joined,
         "artifact_class": "REAL_EVIDENCE" if candidates else "BLOCKER_METADATA",
-        "owner": "BAT-414",
+        "owner": "BAT-324",
+        "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
     }
 
 

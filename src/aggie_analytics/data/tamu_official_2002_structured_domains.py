@@ -18,13 +18,18 @@ from aggie_analytics.data.tamu_official_2002_season_index import (
     lake_is_ready as official_2002_index_is_ready,
     reconstruct as reconstruct_official_2002_index,
 )
-from aggie_analytics.data.tamu_official_historical_archive import sha256_file, validate_official_url
+from aggie_analytics.data.tamu_official_historical_archive import (
+    sha256_file,
+    validate_official_url,
+)
 from aggie_analytics.data.tamu_official_historical_boxscores import (
     AuthorityViolation,
     expected_authority,
     expected_scientific_nonclaims,
 )
-from aggie_analytics.data.tamu_official_html_table_classifier import PARSER_IDENTITY as TABLE_PARSER_IDENTITY
+from aggie_analytics.data.tamu_official_html_table_classifier import (
+    PARSER_IDENTITY as TABLE_PARSER_IDENTITY,
+)
 from aggie_analytics.data.tamu_official_statcrew_preformatted import (
     DOMAINS,
     _assign_labeled_blocks,
@@ -47,33 +52,87 @@ PASS_RESULT = "PASS_OFFICIAL_2002_STRUCTURED_DOMAINS_PARSED"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 CAPTURE_INDEX_RELATIVE = "features/tamu_official_2002_boxscores/capture_index.json"
 INVENTORY_IDENTITY = "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37"
-INVENTORY_GATE_IDENTITY = "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851"
-INVENTORY_GATE_RELATIVE = "artifacts/data_lake/tamu_official_historical_coverage_inventory_gate.json"
-PINNED_BAT615_GATE_IDENTITY = "d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e"
-PINNED_BAT615_ACQUISITION_IDENTITY = "c62b407583647b88e884ef59e90c5644cf64a63d077e4d128f7f3405611eb4b3"
-PINNED_BAT615_DATASET_IDENTITY = "331c64a2855fb6936755e32e71c693985b37da708d526cc980d09192afac5c1a"
-PINNED_BAT615_GAMES_IDENTITY = "69d969340bfc88fe89e02949f18c9cdd046b066bc702cc3fac6587eb0745cd83"
-PINNED_BAT613_GATE_IDENTITY = "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a"
-PINNED_BAT613_CAPTURE_IDENTITY = "e9c3d170873a4b1d5cd26fa9e2a4a179d6346444cfba71cfaf40cdf48358222a"
-PINNED_BAT613_BOX_URL_IDENTITY = "15ed208e59794975b1e28fd0ce9b3c8cda731d5438aedca3fb49328586cd74ac"
-PINNED_BAT613_PAYLOAD_IDENTITY = "71e518cabe070defa9f5a4551f22d97434a4ff1a9ba13c00159f37cbb3f6d46a"
-PINNED_BAT613_RAW_SHA256 = "154540d4fc2c8178a44800b6fdb22b5147b3ff0b362111b40fbbd825c9f0933d"
-PINNED_BAT612_GATE_IDENTITY = "50e92663d6dbfd8c6770746c99c857cc9db2f1761714e5124a8334eff384f99f"
-PINNED_BAT612_UNION_IDENTITY = "22ab52efad425074ddab75593c882ca7d1fb0fab6e99df160af1681cfc26f5aa"
-PINNED_BAT611_GATE_IDENTITY = "758ca462a05f9d67ff5017417626eae666902f054037c76207231287cb3f20e9"
-PINNED_BAT611_PAYLOAD_IDENTITY = "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8"
-PINNED_BAT610_GATE_IDENTITY = "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13"
-PINNED_BAT609_GATE_IDENTITY = "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e"
-PINNED_BAT606_GATE_IDENTITY = "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6"
-PINNED_BAT606_PAYLOAD_IDENTITY = "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0"
-PINNED_BAT605_GATE_IDENTITY = "c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70"
-PINNED_BAT604_GATE_IDENTITY = "3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836"
-PINNED_BAT601_GATE_IDENTITY = "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d"
-PINNED_BAT601_PAYLOAD_IDENTITY = "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc"
-PINNED_BAT596_GATE_IDENTITY = "57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4"
-PINNED_BAT596_PAYLOAD_IDENTITY = "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea"
-PINNED_BAT591_GATE_IDENTITY = "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16"
-PINNED_BAT591_PAYLOAD_IDENTITY = "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d"
+INVENTORY_GATE_IDENTITY = (
+    "f1a5821ad081dce7058848ccc453344f0a2827030959049133b69db15689c851"
+)
+INVENTORY_GATE_RELATIVE = (
+    "artifacts/data_lake/tamu_official_historical_coverage_inventory_gate.json"
+)
+PINNED_BAT615_GATE_IDENTITY = (
+    "d57e7e50ae9f0d4ee03b83e18df9328f2586da1abac8f3596c00043bb449ad2e"
+)
+PINNED_BAT615_ACQUISITION_IDENTITY = (
+    "c62b407583647b88e884ef59e90c5644cf64a63d077e4d128f7f3405611eb4b3"
+)
+PINNED_BAT615_DATASET_IDENTITY = (
+    "331c64a2855fb6936755e32e71c693985b37da708d526cc980d09192afac5c1a"
+)
+PINNED_BAT615_GAMES_IDENTITY = (
+    "69d969340bfc88fe89e02949f18c9cdd046b066bc702cc3fac6587eb0745cd83"
+)
+PINNED_BAT613_GATE_IDENTITY = (
+    "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a"
+)
+PINNED_BAT613_CAPTURE_IDENTITY = (
+    "e9c3d170873a4b1d5cd26fa9e2a4a179d6346444cfba71cfaf40cdf48358222a"
+)
+PINNED_BAT613_BOX_URL_IDENTITY = (
+    "15ed208e59794975b1e28fd0ce9b3c8cda731d5438aedca3fb49328586cd74ac"
+)
+PINNED_BAT613_PAYLOAD_IDENTITY = (
+    "71e518cabe070defa9f5a4551f22d97434a4ff1a9ba13c00159f37cbb3f6d46a"
+)
+PINNED_BAT613_RAW_SHA256 = (
+    "154540d4fc2c8178a44800b6fdb22b5147b3ff0b362111b40fbbd825c9f0933d"
+)
+PINNED_BAT612_GATE_IDENTITY = (
+    "fe6938c2499721107521cff288d653cec33fa656fa3ddf75b81081b693eb0af3"
+)
+PINNED_BAT612_UNION_IDENTITY = (
+    "585446ca5cc72b6107df4023fdf9f124a63725c3456d8e174dc17dfe5e20c2af"
+)
+PINNED_BAT611_GATE_IDENTITY = (
+    "4d22bbb416115c10a490d703b90cf70d8cdb67c9163c23b0f8cfb69212250284"
+)
+PINNED_BAT611_PAYLOAD_IDENTITY = (
+    "ad3065275042edc8c8f8770e73b237d243811d29e528481d1f88d918d529a040"
+)
+PINNED_BAT610_GATE_IDENTITY = (
+    "45329843f7b4683e18c231bbc5c835c7d0e488734d849ea18286d9b098291a13"
+)
+PINNED_BAT609_GATE_IDENTITY = (
+    "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e"
+)
+PINNED_BAT606_GATE_IDENTITY = (
+    "1b3fb5536ff535b23a910a462857b0c7c1e29f66b3d937e0b1de90e85ac179b6"
+)
+PINNED_BAT606_PAYLOAD_IDENTITY = (
+    "80ba101dc4699c32eae44e963be627ac1edff00a09e2dd459780f11f6930122c"
+)
+PINNED_BAT605_GATE_IDENTITY = (
+    "c570a33661bf194475693f56b2d21baf9a38e67c5ae568f5a531e374356b5c70"
+)
+PINNED_BAT604_GATE_IDENTITY = (
+    "3169f6b14e9f2e78e5af2c3dfa33419d80b37c791968fa39e0ddcf91f3643836"
+)
+PINNED_BAT601_GATE_IDENTITY = (
+    "a466c5ae9c18cb49a2008c0fc403fe80c9f480b9ba0bb560568651d3cfb393ad"
+)
+PINNED_BAT601_PAYLOAD_IDENTITY = (
+    "35ccd6ff643dad9248c57d41873f74572c3ac040a642dd0c54197289f87c833d"
+)
+PINNED_BAT596_GATE_IDENTITY = (
+    "973769e93b22c6e5f30fd8abbaef16bf0abc904e7bc9a5582fc25d4ef06514ba"
+)
+PINNED_BAT596_PAYLOAD_IDENTITY = (
+    "f4fc2472e90e37adc3d0d4569d8b1225a45acd6ad4d41aa48a9b3dbb39473a9d"
+)
+PINNED_BAT591_GATE_IDENTITY = (
+    "ed2ce7b95bd046a282116cf50aff84fec1e585f8dee848cc4451bec63bdf668c"
+)
+PINNED_BAT591_PAYLOAD_IDENTITY = (
+    "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338"
+)
 PREFORMATTED_PARSER_IDENTITY = "tamu.official.statcrew.preformatted.v1"
 PINNED_TABLE_PARSER_IDENTITY = "tamu.official.html.table.classifier.v1"
 REQUIRED_GATE_FIELDS = (
@@ -104,19 +163,26 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
 
 def compute_gate_identity(gate: Mapping[str, Any]) -> str:
     missing = [key for key in REQUIRED_GATE_FIELDS if key not in gate]
     if missing:
-        raise AuthorityViolation("gate is missing required identity fields: " + ", ".join(missing))
+        raise AuthorityViolation(
+            "gate is missing required identity fields: " + ", ".join(missing)
+        )
     return compute_identity(gate, "gate_identity")
 
 
 def load_2002_captures(repo_root: Path, data_root: Path) -> list[dict[str, Any]]:
     inventory = load_json(repo_root / INVENTORY_GATE_RELATIVE)
-    if inventory.get("inventory_identity") != INVENTORY_IDENTITY or inventory.get("gate_identity") != INVENTORY_GATE_IDENTITY:
+    if (
+        inventory.get("inventory_identity") != INVENTORY_IDENTITY
+        or inventory.get("gate_identity") != INVENTORY_GATE_IDENTITY
+    ):
         raise AuthorityViolation("BAT-585 inventory identity rewritten")
     bat615 = load_json(repo_root / BAT615_GATE_RELATIVE)
     if bat615.get("gate_identity") != PINNED_BAT615_GATE_IDENTITY:
@@ -139,69 +205,110 @@ def load_2002_captures(repo_root: Path, data_root: Path) -> list[dict[str, Any]]
     if (bat613.get("capture") or {}).get("raw_sha256") != PINNED_BAT613_RAW_SHA256:
         raise AuthorityViolation("BAT-613 season-index raw hash drifted")
     if official_2002_index_is_ready(data_root, repo_root):
-        reconstructed_index = reconstruct_official_2002_index(repo_root=repo_root, data_root=data_root)
+        reconstructed_index = reconstruct_official_2002_index(
+            repo_root=repo_root, data_root=data_root
+        )
         if reconstructed_index["gate"] != bat613:
-            raise AuthorityViolation("BAT-613 committed gate does not match independent reconstruction")
+            raise AuthorityViolation(
+                "BAT-613 committed gate does not match independent reconstruction"
+            )
         bat613 = reconstructed_index["gate"]
     if official_2002_boxscores_are_ready(data_root):
-        reconstructed_box = reconstruct_official_2002_boxscores(repo_root=repo_root, data_root=data_root)
+        reconstructed_box = reconstruct_official_2002_boxscores(
+            repo_root=repo_root, data_root=data_root
+        )
         if reconstructed_box["gate"] != bat615:
-            raise AuthorityViolation("BAT-615 committed gate does not match independent reconstruction")
-    bat612 = load_json(repo_root / "artifacts/data_lake/tamu_official_gamebook_union_2003_expanded_gate.json")
+            raise AuthorityViolation(
+                "BAT-615 committed gate does not match independent reconstruction"
+            )
+    bat612 = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_gamebook_union_2003_expanded_gate.json"
+    )
     if bat612.get("gate_identity") != PINNED_BAT612_GATE_IDENTITY:
         raise AuthorityViolation("BAT-612 2003 union identity rewritten")
     if bat612.get("union_identity") != PINNED_BAT612_UNION_IDENTITY:
         raise AuthorityViolation("BAT-612 union identity rewritten")
-    bat611 = load_json(repo_root / "artifacts/data_lake/tamu_official_2003_structured_domains_gate.json")
+    bat611 = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_2003_structured_domains_gate.json"
+    )
     if bat611.get("gate_identity") != PINNED_BAT611_GATE_IDENTITY:
         raise AuthorityViolation("BAT-611 2003 structured-domain identity rewritten")
     if bat611.get("payload_identity") != PINNED_BAT611_PAYLOAD_IDENTITY:
         raise AuthorityViolation("BAT-611 payload identity rewritten")
-    bat610 = load_json(repo_root / "artifacts/data_lake/tamu_official_2003_boxscore_gate.json")
+    bat610 = load_json(
+        repo_root / "artifacts/data_lake/tamu_official_2003_boxscore_gate.json"
+    )
     if bat610.get("gate_identity") != PINNED_BAT610_GATE_IDENTITY:
         raise AuthorityViolation("BAT-610 2003 acquisition identity rewritten")
-    bat609 = load_json(repo_root / "artifacts/data_lake/tamu_official_2003_season_index_gate.json")
+    bat609 = load_json(
+        repo_root / "artifacts/data_lake/tamu_official_2003_season_index_gate.json"
+    )
     if bat609.get("gate_identity") != PINNED_BAT609_GATE_IDENTITY:
         raise AuthorityViolation("BAT-609 2003 index identity rewritten")
-    bat606 = load_json(repo_root / "artifacts/data_lake/tamu_official_2004_structured_domains_gate.json")
+    bat606 = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_2004_structured_domains_gate.json"
+    )
     if bat606.get("gate_identity") != PINNED_BAT606_GATE_IDENTITY:
         raise AuthorityViolation("BAT-606 2004 structured-domain identity rewritten")
     if bat606.get("payload_identity") != PINNED_BAT606_PAYLOAD_IDENTITY:
         raise AuthorityViolation("BAT-606 payload identity rewritten")
-    bat605 = load_json(repo_root / "artifacts/data_lake/tamu_official_2004_boxscore_gate.json")
+    bat605 = load_json(
+        repo_root / "artifacts/data_lake/tamu_official_2004_boxscore_gate.json"
+    )
     if bat605.get("gate_identity") != PINNED_BAT605_GATE_IDENTITY:
         raise AuthorityViolation("BAT-605 2004 acquisition identity rewritten")
-    bat604 = load_json(repo_root / "artifacts/data_lake/tamu_official_2004_season_index_gate.json")
+    bat604 = load_json(
+        repo_root / "artifacts/data_lake/tamu_official_2004_season_index_gate.json"
+    )
     if bat604.get("gate_identity") != PINNED_BAT604_GATE_IDENTITY:
         raise AuthorityViolation("BAT-604 2004 index identity rewritten")
-    bat601 = load_json(repo_root / "artifacts/data_lake/tamu_official_2005_structured_domains_gate.json")
+    bat601 = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_2005_structured_domains_gate.json"
+    )
     if bat601.get("gate_identity") != PINNED_BAT601_GATE_IDENTITY:
         raise AuthorityViolation("BAT-601 2005 structured-domain identity rewritten")
     if bat601.get("payload_identity") != PINNED_BAT601_PAYLOAD_IDENTITY:
         raise AuthorityViolation("BAT-601 payload identity rewritten")
-    bat596 = load_json(repo_root / "artifacts/data_lake/tamu_official_2006_structured_domains_gate.json")
+    bat596 = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_2006_structured_domains_gate.json"
+    )
     if bat596.get("gate_identity") != PINNED_BAT596_GATE_IDENTITY:
         raise AuthorityViolation("BAT-596 2006 structured-domain identity rewritten")
     if bat596.get("payload_identity") != PINNED_BAT596_PAYLOAD_IDENTITY:
         raise AuthorityViolation("BAT-596 payload identity rewritten")
-    bat591 = load_json(repo_root / "artifacts/data_lake/tamu_official_statcrew_preformatted_gate.json")
+    bat591 = load_json(
+        repo_root / "artifacts/data_lake/tamu_official_statcrew_preformatted_gate.json"
+    )
     if bat591.get("gate_identity") != PINNED_BAT591_GATE_IDENTITY:
         raise AuthorityViolation("BAT-591 StatCrew identity rewritten")
     if bat591.get("payload_identity") != PINNED_BAT591_PAYLOAD_IDENTITY:
         raise AuthorityViolation("BAT-591 payload identity rewritten")
     if TABLE_PARSER_IDENTITY != PINNED_TABLE_PARSER_IDENTITY:
         raise AuthorityViolation("Cycle #13 HTML-table classifier identity mutated")
-    allowlist = [validate_official_url(str(url)) for url in (bat613.get("box_score_urls") or [])]
+    allowlist = [
+        validate_official_url(str(url)) for url in (bat613.get("box_score_urls") or [])
+    ]
     if not allowlist:
-        raise AuthorityViolation("BAT-613 reconstruction emitted no official 2002 box URLs")
+        raise AuthorityViolation(
+            "BAT-613 reconstruction emitted no official 2002 box URLs"
+        )
     path = data_root / CAPTURE_INDEX_RELATIVE
     if not path.is_file():
         raise AuthorityViolation("BAT-615 capture index missing")
-    by_url = {item["url"]: dict(item) for item in (load_json(path).get("captures") or [])}
+    by_url = {
+        item["url"]: dict(item) for item in (load_json(path).get("captures") or [])
+    }
     captures = []
     for url in allowlist:
         if url not in by_url:
-            raise AuthorityViolation(f"BAT-615 capture missing official 2002 URL: {url}")
+            raise AuthorityViolation(
+                f"BAT-615 capture missing official 2002 URL: {url}"
+            )
         record = by_url[url]
         if record.get("url") != url:
             raise AuthorityViolation(f"capture URL substituted: {url}")
@@ -228,9 +335,13 @@ def bind_preformatted(parsed: dict[str, Any], body: bytes) -> dict[str, Any]:
         coverage = parsed["domain_coverage"].get(domain)
         rows = parsed[domain]
         if coverage == "PRESENT" and not rows:
-            raise AuthorityViolation(f"PRESENT claimed without serialized {domain} rows")
+            raise AuthorityViolation(
+                f"PRESENT claimed without serialized {domain} rows"
+            )
         if rows and coverage != "PRESENT":
-            raise AuthorityViolation(f"serialized {domain} rows present without PRESENT coverage")
+            raise AuthorityViolation(
+                f"serialized {domain} rows present without PRESENT coverage"
+            )
         for row in rows:
             row["parser_identity"] = PREFORMATTED_PARSER_IDENTITY
             row["block_index"] = block_index.get(domain)
@@ -268,7 +379,9 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     for capture in captures:
         raw_path = data_root / capture["raw_relative_path"]
         if not raw_path.is_file():
-            raise AuthorityViolation(f"captured raw page missing: {capture['raw_relative_path']}")
+            raise AuthorityViolation(
+                f"captured raw page missing: {capture['raw_relative_path']}"
+            )
         raw_sha256 = str(capture["raw_sha256"])
         if sha256_file(raw_path) != raw_sha256:
             raise AuthorityViolation("raw capture bytes do not match recorded SHA-256")
@@ -293,7 +406,9 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
             "source_sha256": game["source_sha256"],
             "source_season": game["source_season"],
             "parser_identity": game["parser_identity"],
-            "domain_coverage": {domain: game["domain_coverage"][domain] for domain in DOMAINS},
+            "domain_coverage": {
+                domain: game["domain_coverage"][domain] for domain in DOMAINS
+            },
             "row_counts": _recomputed_row_counts(game),
             "rich_structured": game["rich_structured"],
             "warnings": game["warnings"],
@@ -338,7 +453,13 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     }
     recomputed_identity = compute_identity(payload, "payload_identity")
     payload["payload_identity"] = recomputed_identity
-    if compute_identity({key: value for key, value in payload.items() if key != "payload_identity"}, "payload_identity") != recomputed_identity:
+    if (
+        compute_identity(
+            {key: value for key, value in payload.items() if key != "payload_identity"},
+            "payload_identity",
+        )
+        != recomputed_identity
+    ):
         raise AuthorityViolation("payload identity does not independently recompute")
     counts = {
         "target_games_total": len(captures),
@@ -416,13 +537,22 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     if payload["availability_claim"] or payload["availability"] != "NOT_ESTABLISHED":
         raise AuthorityViolation("availability promoted")
     gate["gate_identity"] = compute_gate_identity(gate)
-    return {"contract": contract, "gate": gate, "payload": payload, "captures": captures}
+    return {
+        "contract": contract,
+        "gate": gate,
+        "payload": payload,
+        "captures": captures,
+    }
 
 
 def materialize(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     objects = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     payload = objects["payload"]
-    root = data_root / objects["contract"]["payloads"]["enriched_root"] / payload["payload_identity"]
+    root = (
+        data_root
+        / objects["contract"]["payloads"]["enriched_root"]
+        / payload["payload_identity"]
+    )
     write_json(root / "payload.json", payload)
     write_json(repo_root / GATE_RELATIVE, objects["gate"])
     return {
@@ -454,7 +584,10 @@ def validate_compact_gate(committed: Mapping[str, Any]) -> None:
         raise AuthorityViolation("NCAA contest IDs fabricated")
     if committed.get("counts", {}).get("ncaa_contest_ids_created"):
         raise AuthorityViolation("NCAA contest IDs fabricated")
-    if committed.get("result") not in {PASS_RESULT, "PARTIAL_OFFICIAL_2002_STRUCTURED_DOMAINS"}:
+    if committed.get("result") not in {
+        PASS_RESULT,
+        "PARTIAL_OFFICIAL_2002_STRUCTURED_DOMAINS",
+    }:
         raise AuthorityViolation("completion or classification forged")
     if committed.get("classification") != PASS_CLASSIFICATION:
         raise AuthorityViolation("completion or classification forged")
@@ -472,39 +605,71 @@ def validate_compact_gate(committed: Mapping[str, Any]) -> None:
         raise AuthorityViolation("name-only player merge is forbidden")
     counts = committed.get("counts") or {}
     for domain in DOMAINS:
-        if int(counts.get(f"{domain}_present_games") or 0) and not int(counts.get(f"{domain}_serialized_rows") or 0):
-            raise AuthorityViolation(f"PRESENT claimed without serialized {domain} rows")
+        if int(counts.get(f"{domain}_present_games") or 0) and not int(
+            counts.get(f"{domain}_serialized_rows") or 0
+        ):
+            raise AuthorityViolation(
+                f"PRESENT claimed without serialized {domain} rows"
+            )
     for game in committed.get("games") or []:
         if game.get("parser_identity") != PREFORMATTED_PARSER_IDENTITY:
             raise AuthorityViolation("parser identity changed")
         coverage = game.get("domain_coverage") or {}
         row_counts = game.get("row_counts") or {}
         for domain in DOMAINS:
-            if coverage.get(domain) == "PRESENT" and not int(row_counts.get(domain) or 0):
-                raise AuthorityViolation(f"PRESENT claimed without serialized {domain} rows")
-    if (committed.get("upstream_identities") or {}).get("bat615_gate_identity") != PINNED_BAT615_GATE_IDENTITY:
+            if coverage.get(domain) == "PRESENT" and not int(
+                row_counts.get(domain) or 0
+            ):
+                raise AuthorityViolation(
+                    f"PRESENT claimed without serialized {domain} rows"
+                )
+    if (committed.get("upstream_identities") or {}).get(
+        "bat615_gate_identity"
+    ) != PINNED_BAT615_GATE_IDENTITY:
         raise AuthorityViolation("BAT-615 2002 acquisition identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat613_gate_identity") != PINNED_BAT613_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat613_gate_identity"
+    ) != PINNED_BAT613_GATE_IDENTITY:
         raise AuthorityViolation("BAT-613 2002 index identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat612_gate_identity") != PINNED_BAT612_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat612_gate_identity"
+    ) != PINNED_BAT612_GATE_IDENTITY:
         raise AuthorityViolation("BAT-612 2003 union identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat611_gate_identity") != PINNED_BAT611_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat611_gate_identity"
+    ) != PINNED_BAT611_GATE_IDENTITY:
         raise AuthorityViolation("BAT-611 2003 structured-domain identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat610_gate_identity") != PINNED_BAT610_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat610_gate_identity"
+    ) != PINNED_BAT610_GATE_IDENTITY:
         raise AuthorityViolation("BAT-610 2003 acquisition identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat609_gate_identity") != PINNED_BAT609_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat609_gate_identity"
+    ) != PINNED_BAT609_GATE_IDENTITY:
         raise AuthorityViolation("BAT-609 2003 index identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat606_gate_identity") != PINNED_BAT606_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat606_gate_identity"
+    ) != PINNED_BAT606_GATE_IDENTITY:
         raise AuthorityViolation("BAT-606 2004 structured-domain identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat605_gate_identity") != PINNED_BAT605_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat605_gate_identity"
+    ) != PINNED_BAT605_GATE_IDENTITY:
         raise AuthorityViolation("BAT-605 2004 acquisition identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat601_gate_identity") != PINNED_BAT601_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat601_gate_identity"
+    ) != PINNED_BAT601_GATE_IDENTITY:
         raise AuthorityViolation("BAT-601 2005 structured-domain identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat596_gate_identity") != PINNED_BAT596_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat596_gate_identity"
+    ) != PINNED_BAT596_GATE_IDENTITY:
         raise AuthorityViolation("BAT-596 2006 structured-domain identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("bat591_gate_identity") != PINNED_BAT591_GATE_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "bat591_gate_identity"
+    ) != PINNED_BAT591_GATE_IDENTITY:
         raise AuthorityViolation("BAT-591 StatCrew identity rewritten")
-    if (committed.get("upstream_identities") or {}).get("html_table_classifier_identity") != PINNED_TABLE_PARSER_IDENTITY:
+    if (committed.get("upstream_identities") or {}).get(
+        "html_table_classifier_identity"
+    ) != PINNED_TABLE_PARSER_IDENTITY:
         raise AuthorityViolation("Cycle #13 HTML-table classifier identity mutated")
 
 
@@ -519,7 +684,9 @@ def validate_artifact(
     validate_compact_gate(committed)
     ready = lake_is_ready(data_root)
     if require_rebuild and not ready:
-        raise AuthorityViolation("external 2002 structured-domain reconstruction was required but the data root is not mounted")
+        raise AuthorityViolation(
+            "external 2002 structured-domain reconstruction was required but the data root is not mounted"
+        )
     if not ready:
         return {
             "result": "PASS",
@@ -528,7 +695,9 @@ def validate_artifact(
         }
     expected = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     if committed != expected["gate"]:
-        raise AuthorityViolation("committed 2002 structured-domain gate does not match independent reconstruction")
+        raise AuthorityViolation(
+            "committed 2002 structured-domain gate does not match independent reconstruction"
+        )
     payload_path = (
         data_root
         / expected["contract"]["payloads"]["enriched_root"]
@@ -539,10 +708,18 @@ def validate_artifact(
         raise AuthorityViolation("external structured-domain payload missing")
     stored = load_json(payload_path)
     if stored != expected["payload"]:
-        raise AuthorityViolation("external structured-domain payload does not match reconstruction")
-    stored_without = {key: value for key, value in stored.items() if key != "payload_identity"}
-    if compute_identity(stored_without, "payload_identity") != stored.get("payload_identity"):
-        raise AuthorityViolation("external payload rows were altered while payload_identity was left unchanged")
+        raise AuthorityViolation(
+            "external structured-domain payload does not match reconstruction"
+        )
+    stored_without = {
+        key: value for key, value in stored.items() if key != "payload_identity"
+    }
+    if compute_identity(stored_without, "payload_identity") != stored.get(
+        "payload_identity"
+    ):
+        raise AuthorityViolation(
+            "external payload rows were altered while payload_identity was left unchanged"
+        )
     return {
         "result": "PASS",
         "gate_identity": expected["gate"]["gate_identity"],
@@ -554,7 +731,9 @@ def validate_artifact(
 
 
 def default_data_root() -> Path:
-    return Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+    return Path(
+        os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+    )
 
 
 def default_repo_root() -> Path:

@@ -68,36 +68,36 @@
         "artifact_class": "REAL_EVIDENCE",
         "error": null,
         "http_status": 200,
-        "raw_sha256": "9731ae0fb5499b9753769642f2fc02279681338aa155a4cdc28e2512a0d2c9f6",
-        "receipt_identity": "8782db6a90d39649ba2980817edfc76d18950b92136c1735189bb7fe6a9a2236",
-        "retrieved_at_utc": "2026-09-09T04:08:06Z",
+        "raw_sha256": "c6c05f610127e4bc6b40d3917356e547fd12728166767d174ce2801b3eedb786",
+        "receipt_identity": "83e75bb04c22efbc0be6776ef7bafd913e72d73affe872a334ae91ea55e151eb",
+        "retrieved_at_utc": "2026-09-09T18:08:48Z",
         "uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/00/all-conf"
       },
       {
         "artifact_class": "REAL_EVIDENCE",
         "error": null,
         "http_status": 200,
-        "raw_sha256": "779f8d5ee930d6f1309b455de75f53ce3bfa1d734aba4098853cde3ea67133a8",
-        "receipt_identity": "17060433b1bebfb41fa2fbdc269e84ff83b8afaf082e7eb690ed92a1f2830a4a",
-        "retrieved_at_utc": "2026-09-09T04:08:07Z",
+        "raw_sha256": "67981f0cbc86adc5182feaffd8121e190bed0bd86f57e54791a7326524b81b7c",
+        "receipt_identity": "a2f3f49ffb0d72ad8ca14c55271f236e05e2a7ea02c3806b941c305264d8676c",
+        "retrieved_at_utc": "2026-09-09T18:08:49Z",
         "uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/01/all-conf"
       },
       {
         "artifact_class": "REAL_EVIDENCE",
         "error": null,
         "http_status": 200,
-        "raw_sha256": "3b3a72513a4a81e1ad0e29fc3c215adcba41ee6f4280e24cd2d24fcead83a277",
-        "receipt_identity": "faa4b870c8d082b0ad74136a04c4418643877c6c507a27cfa7bef84b5029cf87",
-        "retrieved_at_utc": "2026-09-09T04:08:07Z",
+        "raw_sha256": "b981dbd4e7f4442eadd67ee0ff952b1c2df90f137c32e85c86b7bafc98cfcced",
+        "receipt_identity": "45dba10a680172112c18c65b072e1c8f25ce0e30d702c2f858cb9f69ad402a9f",
+        "retrieved_at_utc": "2026-09-09T18:08:49Z",
         "uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/02/all-conf"
       },
       {
         "artifact_class": "REAL_EVIDENCE",
         "error": null,
         "http_status": 200,
-        "raw_sha256": "9cb9d64a691a03ae5da712495507eee744f2be5bd2a408dcbde088ef2cf9de8c",
-        "receipt_identity": "fb723285ce87e259c11e8fbc8ea17cfe70c3e6f99e8c892ed71dc7b1aee64ef0",
-        "retrieved_at_utc": "2026-09-09T04:08:07Z",
+        "raw_sha256": "167910ab776fdad494da0d28f247b7f0873175dc4d0f8ea81b3903b45e51cc17",
+        "receipt_identity": "a48709ddb8eae7137853a9c5646dc5032756963c48f6bac701529b940b2d3564",
+        "retrieved_at_utc": "2026-09-09T18:08:49Z",
         "uri": "https://www.ncaa.com/scoreboard/football/fbs/2026/03/all-conf"
       }
     ],
@@ -114,10 +114,10 @@
         "http_status": 403,
         "ncaa_com_is_not_stats_final": true,
         "ncaa_contest_id": "6602874",
-        "raw_sha256": "7236fa70ecd74fed42d099712c99c5da8017644da17c4d20628218369a646813",
-        "receipt_identity": "04c46bb8b46a06c44a9b27a98286dd83bf57c7b3a6615c70f32b8b74d2178104",
+        "raw_sha256": "bbafb2b085071a80fee504414ebb8d365b239afca5276837a51b98a86ac887af",
+        "receipt_identity": "2f2c5efcb2dd74982d423fea770927af086ea8d0fed62e1b62be7eb737c7f3d4",
         "request_identity_sha256": "e2a43f8065fd784aa4d4d0698cae9891c6d023a5e1dc41f25327ae17e5532b4c",
-        "retrieved_at_utc": "2026-09-09T04:08:05Z",
+        "retrieved_at_utc": "2026-09-09T18:08:46Z",
         "same_contest_id_paths": [
           {
             "error": "HTTPError:403",
@@ -157,10 +157,10 @@
         "http_status": 403,
         "ncaa_com_is_not_stats_final": true,
         "ncaa_contest_id": "6620581",
-        "raw_sha256": "9b7012d2f41014723df2e71c578f7108106814f6fd8b46fbb4ba469a24fe32c0",
-        "receipt_identity": "27a0fe4b1634c0d5341e99296fec292e6bf70e7c987df9ae7c4c1a93e3af6f16",
+        "raw_sha256": "d86ab42fc3f2aa7c271a9b73f78a1fd1a3ae689c17bf63560fb1957939f23bb8",
+        "receipt_identity": "436f6a27ebb42b51c1571b034e4801cc83f1bd780fdf0fc7a02e756e3fafd5b2",
         "request_identity_sha256": "bf106cde75a720a5cce0961cbbc04f6bfa0d73fce056db8fb46e35a90fe2a899",
-        "retrieved_at_utc": "2026-09-09T04:08:05Z",
+        "retrieved_at_utc": "2026-09-09T18:08:46Z",
         "same_contest_id_paths": [
           {
             "error": "HTTPError:403",
@@ -200,10 +200,10 @@
         "http_status": 403,
         "ncaa_com_is_not_stats_final": true,
         "ncaa_contest_id": "6594400",
-        "raw_sha256": "cf945dd8ec00f565d4b9eefb39c7337fc549c2ac535123c5734111b8b85c8282",
-        "receipt_identity": "f52101475d2c5f274bec40917d09b8540cbb6ee5a4fc779636565ead311ed5d0",
+        "raw_sha256": "f63e2616d7dc64abc718404b669d75b9e9b42f39b99d083148aa2c3d40606dab",
+        "receipt_identity": "c5b7aa8d43b9dc0bc985e7df982e166f49daa76957ee3fed311d1c84c2740a31",
         "request_identity_sha256": "30d19aadfc7fe872f07bbb1b8b0997ec73c349bd6121522671e76b2d8d601f88",
-        "retrieved_at_utc": "2026-09-09T04:08:05Z",
+        "retrieved_at_utc": "2026-09-09T18:08:46Z",
         "same_contest_id_paths": [
           {
             "error": "HTTPError:403",

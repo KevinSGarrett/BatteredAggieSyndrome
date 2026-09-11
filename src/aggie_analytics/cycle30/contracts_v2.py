@@ -12,9 +12,8 @@ from typing import Any, Mapping
 
 from aggie_analytics.cycle30.temporal import TemporalError, parse_aware_utc
 
-ROOT = Path(__file__).resolve().parents[3]
 GAME_SCHEMA_PATH = (
-    ROOT / "docs" / "contracts" / "proposed" / "GameContextV2.schema.json"
+    Path(__file__).resolve().parent / "schemas" / "GameContextV2.schema.json"
 )
 
 GAME_REQUIRED = (

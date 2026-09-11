@@ -257,28 +257,98 @@ _JSON_PLAYER_NAME = re.compile(
     re.I,
 )
 _PDF_HREF = re.compile(r"""href=["']([^"'#]+\.pdf[^"']*)["']""", re.I)
+_ANY_HREF = re.compile(r"""href=["']([^"'#]+)["']""", re.I)
+_ABSOLUTE_URL = re.compile(r"""https?://[^\s"'<>]+""", re.I)
 _PLAIN_COMMA_NAME = re.compile(r"\b([A-Z][a-z]+,\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b")
 _LINE_STATUS_NAME = re.compile(
     r"^\s*([A-Z][a-z]+(?:-[A-Z][a-z]+)?),\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s*[-–]",
     re.MULTILINE,
 )
+_REPORT_SUFFIXES = (".pdf", ".xlsx", ".xls", ".csv", ".json")
+_REPORT_HINTS = (
+    "availability",
+    "fbreport",
+    "fb-report",
+    "injury-report",
+    "gameday-report",
+    "player-status",
+    "student-athlete-availability",
+)
+_NOT_AVAILABILITY_ASSETS = (
+    "record-book",
+    "record_book",
+    "record%20book",
+    "recordbook",
+    "handbook",
+    "sportsmanship",
+    "media-guide",
+    "media_guide",
+    "mediaguide",
+    "manifest.json",
+    "og:image",
+    "twitter:",
+)
 
 
-def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[str]:
-    """Absolute PDF links from a public availability page. Not health status."""
+def classify_availability_source(*, source_id: str, uri: str) -> str:
+    """Classify a structured or conference surface. Not a health status."""
+
+    blob = f"{source_id} {uri}".casefold()
+    if "collegefootballdata.com" in blob or source_id == "SRC-002":
+        return "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT"
+    if "sportradar" in blob:
+        return "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT"
+    return "OFFICIAL_CONFERENCE_OR_POLICY_SURFACE"
+
+
+def _absolute_href(href: str, *, page_uri: str) -> str:
+    href = (href or "").strip()
+    href = href.replace("&quot;", '"').replace("&amp;", "&")
+    href = href.split('"', 1)[0].rstrip("\\").rstrip("),;")
+    if not href or href.startswith(("javascript:", "mailto:", "tel:", "#")):
+        return ""
+    if href.startswith("//"):
+        return "https:" + href
+    if href.startswith("/"):
+        parsed = urllib.parse.urlparse(page_uri)
+        return f"{parsed.scheme}://{parsed.netloc}{href}"
+    if not href.startswith("http"):
+        return urllib.parse.urljoin(page_uri, href)
+    return href
+
+
+def availability_report_hrefs(
+    html: str, *, page_uri: str, limit: int = 16
+) -> list[str]:
+    """Public report-like asset links. Policy pages are not player-status records."""
 
     out: list[str] = []
     seen: set[str] = set()
-    for match in _PDF_HREF.finditer(html or ""):
-        href = match.group(1).strip()
-        if href.startswith("//"):
-            href = "https:" + href
-        elif href.startswith("/"):
-            parsed = urllib.parse.urlparse(page_uri)
-            href = f"{parsed.scheme}://{parsed.netloc}{href}"
-        elif not href.startswith("http"):
-            href = urllib.parse.urljoin(page_uri, href)
-        key = href.casefold()
+    candidates: list[str] = []
+    for match in _ANY_HREF.finditer(html or ""):
+        candidates.append(match.group(1))
+    for match in _ABSOLUTE_URL.finditer(html or ""):
+        candidates.append(match.group(0).rstrip(").,;"))
+    for raw in candidates:
+        href = _absolute_href(raw, page_uri=page_uri)
+        if not href:
+            continue
+        try:
+            parsed = urllib.parse.urlparse(href)
+        except ValueError:
+            continue
+        if not parsed.scheme or not parsed.netloc:
+            continue
+        key = href.casefold().split("?", 1)[0]
+        path = parsed.path.casefold()
+        hinted = any(token in key for token in _REPORT_HINTS)
+        suffixed = any(path.endswith(suffix) for suffix in _REPORT_SUFFIXES)
+        if any(token in key for token in _NOT_AVAILABILITY_ASSETS) and not hinted:
+            continue
+        if not hinted:
+            continue
+        if not suffixed and "fbreport" not in key and "availability" not in key:
+            continue
         if key in seen:
             continue
         seen.add(key)
@@ -286,6 +356,16 @@ def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[
         if len(out) >= limit:
             break
     return out
+
+
+def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[str]:
+    """Absolute PDF links from a public availability page. Not health status."""
+
+    return [
+        href
+        for href in availability_report_hrefs(html, page_uri=page_uri, limit=max(limit, 16))
+        if urllib.parse.urlparse(href).path.casefold().endswith(".pdf")
+    ][:limit]
 
 
 def pdf_plaintext(body: bytes, *, page_limit: int = 20) -> str:

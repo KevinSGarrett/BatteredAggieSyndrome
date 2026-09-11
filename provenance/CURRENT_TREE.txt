@@ -3837,6 +3837,7 @@ src/aggie_analytics/cycle30/kernel_model.py
 src/aggie_analytics/cycle30/lease.py
 src/aggie_analytics/cycle30/pit_kernel.py
 src/aggie_analytics/cycle30/populations.py
+src/aggie_analytics/cycle30/schemas/GameContextV2.schema.json
 src/aggie_analytics/cycle30/scoring.py
 src/aggie_analytics/cycle30/site_context.py
 src/aggie_analytics/cycle30/temporal.py
@@ -4515,6 +4516,7 @@ tools/acquire_cycle30_sportradar_staff.py
 tools/acquire_cycle30_wiki_coach_graph.py
 tools/acquire_cycle30_wikidata_websites.py
 tools/acquire_cycle30_wikimedia.py
+tools/acquire_cycle32_missing_career_pages.py
 tools/acquire_cycle32_recent_membership.py
 tools/acquire_historical_known_at_publication_routes.py
 tools/acquire_national_entity_official_identity.py
@@ -4533,6 +4535,7 @@ tools/adopt_unified_enforcement_package.py
 tools/apply_private_research_acquisition_policy.py
 tools/audit_control_plane.py
 tools/audit_cycle32_named_units.py
+tools/audit_cycle32_national_game_core.py
 tools/audit_cycle32_staff_kernel_adapters.py
 tools/audit_protected_split_exposure.py
 tools/audit_r26_22_admitted_prior_target_pairs.py
@@ -4714,6 +4717,7 @@ tools/capture_unified_live_service.py
 tools/check_advanced_challenger_admission.py
 tools/compare_cycle32_tamu_gates.py
 tools/compare_development_results.py
+tools/corroborate_cycle32_historical_staff_cells.py
 tools/corroborate_cycle32_wiki_cfbd_hc.py
 tools/corroborate_cycle32_wiki_official.py
 tools/cpu_worker_minimal_init.py
@@ -4732,6 +4736,7 @@ tools/enumerate_cycle32_ncaa_scoreboard_finals.py
 tools/evaluate_pit_replay_readiness.py
 tools/evaluate_retraining_admission.py
 tools/exhaust_cycle32_availability_pdfs.py
+tools/exhaust_cycle32_availability_structured.py
 tools/experiment_store_cli.py
 tools/fetch_cycle32_utah_tech_staff.py
 tools/freeze_experiment_spec.py
@@ -4814,6 +4819,7 @@ tools/run_restore_drill.py
 tools/run_tournament_reference.py
 tools/run_unified_assistive_controller.py
 tools/run_unified_assistive_watchdog.py
+tools/scan_cycle32_play_callers.py
 tools/schedule_research_queue.py
 tools/schema_discovery.py
 tools/score_prospective_2026_shadow_forecasts.py
@@ -5064,6 +5070,7 @@ tools/validate_week_zero_2026_live_shadow_execution.py
 tools/validate_week_zero_2026_official_final_scoring_successor.py
 tools/validate_wmt_provider_timestamp_pit.py
 tools/validate_wmt_tamu_specialization_feature_pit.py
+tools/verify_cycle32_isolated_package.py
 tools/verify_experiment_replay.py
 tools/verify_judging_seal.py
 tools/verify_prior_wave.py

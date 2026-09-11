@@ -35,15 +35,15 @@ STATES = {
     ),
     "R32-04": (
         "IMPLEMENTED_PENDING_VERIFICATION",
-        "Successor matrix 661 CONFIRMED / 112 CO_SHARED / 25 UNKNOWN. Unique people 6215. Excluded spans 2606 with reason codes. Minnesota DC is Danny Collins (Defensive Coordinator / Safeties) and Nick Monroe (Cornerbacks / Co-Defensive Coordinator) from same-row official titles, not Vue zip. Special-assistant-to-coordinator titles are not OC/DC. Play-calling unsourced. Model admission NOT_ADMITTED.",
+        "Successor matrix 661 CONFIRMED / 112 CO_SHARED / 25 UNKNOWN. Unique people 6215. Excluded spans 2606 with reason codes. Minnesota DC is Danny Collins (Defensive Coordinator / Safeties) and Nick Monroe (Cornerbacks / Co-Defensive Coordinator) from same-row official titles, not Vue zip. Special-assistant-to-coordinator titles are not OC/DC. One official play-caller title was sourced (Maurice Crum Jr., Co-Defensive Coordinator / Play Caller). National play-calling remains incomplete. Model admission NOT_ADMITTED.",
     ),
     "R32-07": (
         "IN_PROGRESS",
-        "Cache-only predecessor wiki reparse: 17024/17024 rows remain. WIKI32-01..05 plus nested-nowrap, unpaired-index, and citation-is-not-verification tests fail-closed through production parsers. Name-suspect readjudication classified 2456 unique non-plausible strings without blanket rejection. 2026 wiki-vs-official field claims: 230 name-agreement (not independent corroboration), 40 conflicts. Cached CFBD /coaches HC name agreement is not official HTML. Wikipedia is not factual verification. Independent primary corroboration of the 2013-2023 OC/DC tranche unfinished.",
+        "Cache-only predecessor wiki reparse: 17024/17024 rows remain. Every 2013-2023 expected HC/OC/DC cell has an explicit disposition (8355 cells). 4097 OC/DC cells are WIKI_ONLY_NO_INDEPENDENT_PRIMARY. CFBD /coaches is HC-only and not official HTML. Sportradar current roster is not historical official HTML. Wikipedia is not factual verification.",
     ),
     "R32-14": (
         "IN_PROGRESS",
-        "Eight material verticals manually traced to plan docs and code. 8111 heuristic rows remain HEURISTIC_MAPPED_OWNER_REVIEW_PENDING and are not R32-14 fulfillment. action_derived_play_summary_contract stays GOVERNING_CANDIDATE_ONLY.",
+        "Ten material verticals were manually traced, including national-game-core and 2013-2023 HC/OC/DC dispositions. 8111 heuristic plan mappings remain HEURISTIC_MAPPED_OWNER_REVIEW_PENDING. All 52 W06 domains remain listed as UNMET_NOT_LATER. action_derived_play_summary_contract, historical_known_at_recovery_contract, and artifact_binding_contract stay GOVERNING_CANDIDATE_ONLY.",
     ),
     "R32-16": (
         "IN_PROGRESS",
@@ -51,11 +51,11 @@ STATES = {
     ),
     "R32-17": (
         "IN_PROGRESS",
-        "Five named three-pass audits emitted from successor evidence. all_local_reconstruction_complete=false. Availability and historical wiki identity passes remain open/blocked.",
+        "Seven named three-pass audits emitted. Declared 46,953-row parent independently recounted (observed=46953, unique ids=46953, fitted 2013-2023=9368). Provider agreement is not event truth. all_local_reconstruction_complete=false.",
     ),
     "R32-05": (
         "IN_PROGRESS",
-        "Successor as_of is 2026-09-11 not predecessor 2026-09-07. Duplicate person-string cells are 0. Person IDs are program-scoped. Typed pit_admitted rejects string true/false. Minnesota Vue zip no longer assigns the next-row title. Current-occupant career roundtrip: 882 occupants, 406 cached wiki pages, 352 nonempty candidate careers, 0 PIT promotions. 476 occupants have no cached career page. Play-calling remains unsourced.",
+        "Successor as_of is 2026-09-11 not predecessor 2026-09-07. Duplicate person-string cells are 0. Current-occupant career roundtrip: 878 occupants, 565 matched wiki pages (predecessor plus 188 Cycle32 successor pages), 357 nonempty candidate careers, 313 still missing, 0 PIT promotions. Official title scan sourced one play-caller: Maurice Crum Jr. (SRC-002:TEAM:2567) Co-Defensive Coordinator / Play Caller. Wikipedia careers are not verification.",
     ),
     "R32-06": (
         "IMPLEMENTED_PENDING_VERIFICATION",
@@ -87,15 +87,15 @@ STATES = {
     ),
     "R32-13": (
         "BLOCKED_EXTERNAL",
-        "14 policy/archive pages plus 6 linked PDFs yielded 0 player-status records. Required nonempty acquisition remains BLOCKED, not locally complete.",
+        "14 policy/archive pages plus 22 report-hinted assets yielded 0 player-status records. Record-book/media-guide names were rejected as not availability. CFBD /injuries returned HTTP 404 for 2024-2026. Sportradar NCAAFB weekly injuries returned HTTP 404. Required nonempty official-report acquisition remains BLOCKED, not locally complete.",
     ),
     "R32-18": (
         "IMPLEMENTED_PENDING_VERIFICATION",
         "Read-only live Jira confirmed BAT-706/701/700 In Review and BAT-523 In Progress. Bounded Cycle32 evidence comments posted: 14924-14928. No Done. Not a BAT-523 completion comment.",
     ),
     "R32-19": (
-        "IN_PROGRESS",
-        "PR 687 is the Cycle32 stacked submission. Declared kernel extra pins numpy==2.2.6 so hosted unittest can import kernel_model without putting numpy in empty W23 base dependencies. Instruction hash ledger refreshed. Hosted exact-head checks on the forthcoming [material] commit remain required. Skipped paid review stays NOT_REVIEWED.",
+        "IMPLEMENTED_PENDING_VERIFICATION",
+        "Isolated non-editable package lane PASS_LOCAL: GameContextV2 schema now ships in-package; Cycle32 manager tests imported from site-packages with PYTHONPATH cleared. Hosted exact-head checks on this commit remain required. Skipped paid review stays NOT_REVIEWED.",
     ),
     "R32-20": (
         "IMPLEMENTED_PENDING_VERIFICATION",
@@ -172,6 +172,84 @@ def main() -> None:
     validate_ledger(payload)
     path = OUT / "CYCLE_REQUIREMENT_STATUS.json"
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    unfinished = {
+        "cycle": 32,
+        "headline": "IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED",
+        "hold": "ACTIVE",
+        "scientific_acceptance": "BLOCKED",
+        "git_head": git_head,
+        "items": [
+            {
+                "id": "U32-02",
+                "requirement_id": "R32-03",
+                "local_or_external": "EXTERNAL_PLUS_LOCAL",
+                "item": "266/266 current programs have verified official staff bindings. 25 remaining UNKNOWN OC/DC are pass/run-game or unlisted. Washington media-guide PDF remains cache-missing.",
+            },
+            {
+                "id": "U32-04",
+                "requirement_id": "R32-05",
+                "local_or_external": "LOCAL",
+                "item": "Career roundtrip: 878 occupants, 565 matched wiki pages, 313 still missing, 0 PIT promotions. One official play-caller title sourced. Wikipedia careers are not verification.",
+            },
+            {
+                "id": "U32-06",
+                "requirement_id": "R32-07",
+                "local_or_external": "LOCAL",
+                "item": "8355 expected 2013-2023 HC/OC/DC cells have dispositions. 4097 OC/DC cells remain WIKI_ONLY_NO_INDEPENDENT_PRIMARY. Independent official HTML corroboration unfinished.",
+            },
+            {
+                "id": "U32-07",
+                "requirement_id": "R32-08",
+                "local_or_external": "LOCAL",
+                "item": "independently_proven_cycle32=0. No positive PIT count was manufactured.",
+            },
+            {
+                "id": "U32-08",
+                "requirement_id": "R32-11",
+                "local_or_external": "EXTERNAL_PLUS_LOCAL",
+                "item": "Week1 2026 NCAA.com scoreboards bind 198 contests. Broader historical NCAA official-final reconstruction is blocked by absent raw captures. stats.ncaa.org 403.",
+            },
+            {
+                "id": "U32-09",
+                "requirement_id": "R32-13",
+                "local_or_external": "EXTERNAL",
+                "item": "0 player-status records after policy pages, report-hinted assets, CFBD /injuries 404, and Sportradar weekly injuries 404. Required nonempty official-report acquisition is BLOCKED_EXTERNAL.",
+            },
+            {
+                "id": "U32-10",
+                "requirement_id": "R32-14",
+                "local_or_external": "LOCAL",
+                "item": "Ten material verticals traced. 8111 heuristic mappings remain candidates. 52-domain union unmet.",
+            },
+            {
+                "id": "U32-11",
+                "requirement_id": "R32-16",
+                "local_or_external": "LOCAL",
+                "item": "All22/C01 adoption remains owner-controlled. All-22 checkouts were not mutated.",
+            },
+            {
+                "id": "U32-12",
+                "requirement_id": "R32-17",
+                "local_or_external": "LOCAL",
+                "item": "Seven named three-pass audits emitted; all_local_reconstruction_complete=false. 46953-row provider recount is not independent event truth.",
+            },
+            {
+                "id": "U32-14",
+                "requirement_id": "R32-19",
+                "local_or_external": "LOCAL",
+                "item": "Isolated package lane PASS_LOCAL. Hosted exact-head checks must bind this commit. Skipped paid review stays NOT_REVIEWED.",
+            },
+            {
+                "id": "U32-15",
+                "requirement_id": "R32-21",
+                "local_or_external": "HOLD",
+                "item": "Operator hold ACTIVE. No merge, release, protected-lane activation, or BAT-523 completion comment. Cycle complete is not authorized.",
+            },
+        ],
+    }
+    (OUT / "CYCLE32_UNFINISHED_ITEMS.json").write_text(
+        json.dumps(unfinished, indent=2) + "\n", encoding="utf-8"
+    )
     print(json.dumps({"headline": payload["headline"], "state_counts": counts}, indent=2))
 
 

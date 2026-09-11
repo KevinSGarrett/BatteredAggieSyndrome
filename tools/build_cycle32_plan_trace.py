@@ -176,6 +176,49 @@ VERTICALS = [
         ),
         "remaining": "Owner-controlled C01/CFIP adoption. CFIP-18/20/22/23 coordination.",
     },
+    {
+        "vertical_id": "MV-NATIONAL-GAME-CORE",
+        "requirement_ids": ["R32-17", "R32-11"],
+        "plan_docs": ["50_BAS_INTEGRATION/10_END_TO_END_FORECAST_FLOW.md"],
+        "code_entrypoints": [
+            "tools/audit_cycle32_national_game_core.py",
+            "tools/enumerate_cycle32_ncaa_scoreboard_finals.py",
+        ],
+        "evidence": [
+            "science/CYCLE32_NATIONAL_GAME_CORE_AUDIT.json",
+            "science/CYCLE32_NCAA_SCOREBOARD_FINALS_CENSUS.json",
+        ],
+        "adjudication": "MANUAL",
+        "status": "IN_PROGRESS",
+        "finding": (
+            "Cycle32 independently recounts the declared 46,953-row parent. "
+            "Provider field presence is not NCAA official-final event truth. "
+            "Week1 2026 NCAA.com scoreboards bind 198 contests; broader NCAA raw "
+            "captures remain absent."
+        ),
+        "remaining": "Historical NCAA official-final reconstruction blocked by absent raw captures.",
+    },
+    {
+        "vertical_id": "MV-HISTORICAL-OC-DC",
+        "requirement_ids": ["R32-07", "WG32-06", "WG32-08", "WG32-09"],
+        "plan_docs": ["50_BAS_INTEGRATION/07_COACH_TEAM_STATE.md"],
+        "code_entrypoints": [
+            "tools/corroborate_cycle32_historical_staff_cells.py",
+            "tools/corroborate_cycle32_wiki_cfbd_hc.py",
+        ],
+        "evidence": [
+            "science/CYCLE32_HISTORICAL_STAFF_CELL_DISPOSITIONS.json",
+            "science/CYCLE32_WIKI_CFBD_HC_FIELD_CLAIMS.json",
+        ],
+        "adjudication": "MANUAL",
+        "status": "IN_PROGRESS",
+        "finding": (
+            "Every 2013-2023 expected HC/OC/DC cell has an explicit disposition. "
+            "OC/DC Wikipedia names remain WIKI_ONLY_NO_INDEPENDENT_PRIMARY. "
+            "CFBD /coaches is HC-only. Sportradar current roster is not historical official HTML."
+        ),
+        "remaining": "Independent official historical OC/DC HTML/media-guide captures.",
+    },
 ]
 
 
@@ -203,7 +246,82 @@ def main() -> int:
                     "have no native-play, PIT, feature, protected, forecast, or canonical "
                     "admission. Relabeling it NON_GOVERNING would erase required exclusions."
                 ),
-            }
+            },
+            {
+                "path": "configs/historical_known_at_recovery_contract.json",
+                "classification": "GOVERNING_CANDIDATE_ONLY",
+                "not": "NON_GOVERNING",
+                "reason": (
+                    "Known-at recovery is an admission/schema constraint. Treating it as "
+                    "descriptive NON_GOVERNING would drop required PIT exclusion rules."
+                ),
+            },
+            {
+                "path": "configs/artifact_binding_contract.json",
+                "classification": "GOVERNING_CANDIDATE_ONLY",
+                "not": "NON_GOVERNING",
+                "reason": (
+                    "Artifact identity binding governs source/hash admission. It is not a "
+                    "narrative-only document."
+                ),
+            },
+        ],
+        "unmapped_52_domain_inventory": [
+            {"domain_id": domain_id, "label": label, "status": "UNMET_NOT_LATER"}
+            for domain_id, label in (
+                ("DOM-001", "games/schedules/scores"),
+                ("DOM-002", "play-by-play"),
+                ("DOM-003", "drives"),
+                ("DOM-004", "team statistics"),
+                ("DOM-005", "advanced team efficiency"),
+                ("DOM-006", "player statistics"),
+                ("DOM-007", "play participants"),
+                ("DOM-008", "snap counts/participation"),
+                ("DOM-009", "rosters"),
+                ("DOM-010", "starters/depth charts"),
+                ("DOM-011", "injuries/availability current"),
+                ("DOM-012", "injuries/availability historical"),
+                ("DOM-013", "recruiting"),
+                ("DOM-014", "transfers"),
+                ("DOM-015", "freshman/prospect priors"),
+                ("DOM-016", "NFL draft outcomes"),
+                ("DOM-017", "preseason honors/watch lists"),
+                ("DOM-018", "head coaches/coordinators"),
+                ("DOM-019", "assistant coaches/role histories"),
+                ("DOM-020", "scheme/style/tendencies"),
+                ("DOM-021", "program resources/finance"),
+                ("DOM-022", "NIL/revenue-sharing regulatory context"),
+                ("DOM-023", "historical issued weather forecasts"),
+                ("DOM-024", "observed weather"),
+                ("DOM-025", "venue coordinates/elevation"),
+                ("DOM-026", "timezone/body clock"),
+                ("DOM-027", "travel distance"),
+                ("DOM-028", "home-field/venue effect"),
+                ("DOM-029", "possession/tempo"),
+                ("DOM-030", "field position/hidden yards"),
+                ("DOM-031", "special teams"),
+                ("DOM-032", "fourth-down decisions"),
+                ("DOM-033", "clock management"),
+                ("DOM-034", "garbage time/score state"),
+                ("DOM-035", "opponent adjustment"),
+                ("DOM-036", "schedule stress/workload"),
+                ("DOM-037", "poll rankings"),
+                ("DOM-038", "external ratings"),
+                ("DOM-039", "markets"),
+                ("DOM-040", "officials/crew history"),
+                ("DOM-041", "officials upcoming assignments"),
+                ("DOM-042", "playing rule era"),
+                ("DOM-043", "eligibility/roster/transfer regulatory era"),
+                ("DOM-044", "game stakes/CFP state"),
+                ("DOM-045", "rivalry/homecoming/senior day"),
+                ("DOM-046", "FCS strength"),
+                ("DOM-047", "DII/DIII strength"),
+                ("DOM-048", "NAIA strength"),
+                ("DOM-049", "JUCO strength"),
+                ("DOM-050", "live/in-game"),
+                ("DOM-051", "advanced formation/personnel/tracking"),
+                ("DOM-052", "licensing/redistribution metadata"),
+            )
         ],
         "verticals": VERTICALS,
         "unmapped_requirement_union_domains": (

@@ -54,6 +54,12 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     )
 
 
+def load_json(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def _fold_name(value: str) -> str:
     return " ".join(str(value or "").split()).casefold()
 
@@ -61,6 +67,12 @@ def _fold_name(value: str) -> str:
 def main() -> int:
     matrix = load_jsonl(OUT / "science" / "CYCLE32_CURRENT_HC_OC_DC_MATRIX.jsonl")
     careers = load_jsonl(PRED / "WIKIMEDIA_COACH_CAREER_PAGES.jsonl")
+    successor_pages = [
+        page
+        for page in load_jsonl(OUT / "science" / "CYCLE32_WIKI_CAREER_PAGES_SUCCESSOR.jsonl")
+        if str(page.get("status") or "") == "REVISION_BOUND"
+    ]
+    careers = [*careers, *successor_pages]
     by_name: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for page in careers:
         keys = {_fold_name(str(page.get("title") or ""))}
@@ -138,9 +150,14 @@ def main() -> int:
         "predecessor_career_file_not_overwritten": str(
             PRED / "WIKIMEDIA_COACH_CAREER_PAGES.jsonl"
         ),
+        "successor_career_pages": len(successor_pages),
         "pit_admitted": False,
         "wikipedia_is_not_factual_verification": True,
-        "play_caller_sourced": False,
+        "play_caller_sourced": bool(
+            (load_json(OUT / "science" / "CYCLE32_PLAY_CALLER_TITLE_SCAN.json") or {}).get(
+                "play_caller_title_hits"
+            )
+        ),
     }
     science = OUT / "science"
     write_jsonl(science / "CYCLE32_CURRENT_STAFF_CAREER_ROUNDTRIP.jsonl", successors)

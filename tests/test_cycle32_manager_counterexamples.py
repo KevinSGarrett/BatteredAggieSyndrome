@@ -1926,5 +1926,66 @@ class Cycle32CompletionContract(unittest.TestCase):
             )
 
 
+class Cycle32RemainingLocalFixtures(unittest.TestCase):
+    def test_availability_report_hrefs_keep_xlsx_and_drop_javascript(self) -> None:
+        from aggie_analytics.cycle30.availability import (
+            availability_report_hrefs,
+            classify_availability_source,
+        )
+
+        html = (
+            '<a href="javascript:void(0)">x</a>'
+            '<a href="/documents/2026/sec-availability.xlsx">sheet</a>'
+            '<a href="https://example.com/handbook.pdf">pdf</a>'
+            '<a href="https://img.example.com/Record%20Book%20(2026).pdf">book</a>'
+        )
+        hrefs = availability_report_hrefs(
+            html, page_uri="https://www.secsports.com/fbreports", limit=8
+        )
+        self.assertTrue(any(item.endswith(".xlsx") for item in hrefs))
+        self.assertFalse(any(item.startswith("javascript:") for item in hrefs))
+        self.assertFalse(any("Record" in item for item in hrefs))
+        self.assertFalse(any(item.endswith("handbook.pdf") for item in hrefs))
+        broken = availability_report_hrefs(
+            '<a href="http://[]/availability.pdf">x</a>',
+            page_uri="https://www.secsports.com/fbreports",
+            limit=8,
+        )
+        self.assertEqual(broken, [])
+        self.assertEqual(
+            classify_availability_source(
+                source_id="SRC-002",
+                uri="https://api.collegefootballdata.com/injuries?year=2026",
+            ),
+            "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT",
+        )
+
+    def test_wiki_career_title_rejects_basketball_and_requires_name(self) -> None:
+        from aggie_analytics.cycle30.coaching import wiki_career_title_matches_person
+
+        self.assertTrue(
+            wiki_career_title_matches_person("Jedd Fisch", "Jedd Fisch")
+        )
+        self.assertTrue(
+            wiki_career_title_matches_person(
+                "Jedd Fisch (American football coach)", "Jedd Fisch"
+            )
+        )
+        self.assertFalse(
+            wiki_career_title_matches_person("Jedd Fisch (basketball)", "Jedd Fisch")
+        )
+        self.assertFalse(
+            wiki_career_title_matches_person("Someone Else", "Jedd Fisch")
+        )
+
+    def test_game_context_schema_ships_inside_the_package(self) -> None:
+        from aggie_analytics.cycle30.contracts_v2 import GAME_SCHEMA_PATH, load_game_schema
+
+        self.assertTrue(GAME_SCHEMA_PATH.is_file())
+        self.assertIn("cycle30", str(GAME_SCHEMA_PATH).replace("\\", "/"))
+        schema = load_game_schema()
+        self.assertEqual(schema.get("title"), "GameContextV2")
+
+
 if __name__ == "__main__":
     unittest.main()

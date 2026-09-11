@@ -27,6 +27,8 @@ def main() -> int:
     kernel = load_json(science / "CYCLE32_KERNEL_NEUTRAL_AUDIT.json")
     availability = load_json(science / "CYCLE32_AVAILABILITY_CACHE_PARSE.json")
     hist = load_json(science / "CYCLE32_HISTORICAL_WIKI_FRAME_COVERAGE.json")
+    core = load_json(science / "CYCLE32_NATIONAL_GAME_CORE_AUDIT.json")
+    hist_cells = load_json(science / "CYCLE32_HISTORICAL_STAFF_CELL_DISPOSITIONS.json")
     reparse = load_json(science / "CYCLE32_OFFICIAL_STAFF_REPARSE_SUMMARY.json")
     units = [
         {
@@ -129,6 +131,48 @@ def main() -> int:
                 "semantics": {
                     "result": "NOT_FACTUAL_VERIFICATION",
                     "note": "Wikipedia extraction is not event truth (WG32-06).",
+                },
+            },
+        },
+        {
+            "audit_id": "AU-NATIONAL-GAME-CORE",
+            "passes": {
+                "schema": {
+                    "result": "PASS_LOCAL" if core.get("count_matches_declared_parent") else "OPEN",
+                    "note": core
+                    or "National-core audit artifact not yet written this run.",
+                },
+                "identity": {
+                    "result": "PASS_LOCAL" if core.get("count_matches_declared_parent") else "OPEN",
+                    "note": (
+                        f"observed={core.get('observed_parent_rows')} "
+                        f"declared={core.get('declared_parent_rows')} "
+                        f"fitted_2013_2023={core.get('fitted_window_2013_2023_rows')}"
+                    ),
+                },
+                "semantics": {
+                    "result": "PROVIDER_AGREEMENT_NOT_EVENT_TRUTH",
+                    "note": "Provider field presence is not NCAA official-final reconstruction.",
+                },
+            },
+        },
+        {
+            "audit_id": "AU-HISTORICAL-STAFF-CELLS",
+            "passes": {
+                "schema": {
+                    "result": "PASS_LOCAL" if hist_cells else "OPEN",
+                    "note": hist_cells.get("counts") if hist_cells else "dispositions missing",
+                },
+                "identity": {
+                    "result": "IN_PROGRESS",
+                    "note": (
+                        "Expected 2013-2023 HC/OC/DC cells have dispositions. "
+                        "OC/DC remain without independent official HTML."
+                    ),
+                },
+                "semantics": {
+                    "result": "NOT_FACTUAL_VERIFICATION",
+                    "note": "Wikipedia/CFBD name agreement is not official corroboration.",
                 },
             },
         },

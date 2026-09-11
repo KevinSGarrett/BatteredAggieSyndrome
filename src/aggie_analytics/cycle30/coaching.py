@@ -3277,6 +3277,25 @@ def _iter_wikitext_templates(wikitext: str) -> list[tuple[str, str]]:
     return found
 
 
+def wiki_career_title_matches_person(title: str, person: str) -> bool:
+    """Bind a MediaWiki title to an occupant name. Basketball/baseball pages fail."""
+
+    title_n = re.sub(r"\s+", " ", str(title or "")).strip()
+    person_n = re.sub(r"\s+", " ", str(person or "")).strip()
+    if not title_n or not person_n:
+        return False
+    folded_title = title_n.casefold()
+    folded_person = person_n.casefold()
+    if any(
+        token in folded_title
+        for token in ("basketball", "baseball", "soccer", "hockey", "softball")
+    ) and "football" not in folded_title:
+        return False
+    if folded_title == folded_person:
+        return True
+    return folded_title.startswith(folded_person + " (")
+
+
 def parse_infobox_college_coach(
     wikitext: str, *, revision_id: str, page_title: str
 ) -> list[dict[str, Any]]:

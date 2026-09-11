@@ -1685,6 +1685,98 @@ class Wiki32ExactManagerFixtures(unittest.TestCase):
         self.assertEqual(by_person["Chris Perkins"]["title"], "Running Backs")
         self.assertFalse(any(row["role"] == "offensive_coordinator" for row in rows))
 
+    def test_s_table_same_row_title_is_not_zipped_to_next_row(self) -> None:
+        from aggie_analytics.cycle30.coaching import (
+            fill_current_role_matrix,
+            parse_official_staff_html,
+        )
+
+        html = """
+        <title>Football Coaches - University of Minnesota Athletics</title>
+        <tbody class="s-table-body">
+          <tr class="s-table-body__row s-table-body__row--index-0">
+            <td><span>Head Coach</span></td>
+            <td><a href="/sports/football/roster/coaches/pj-fleck/3707"><span>P.J. Fleck</span></a></td>
+          </tr>
+          <tr class="s-table-body__row s-table-body__row--index-1">
+            <td><span>Offensive Coordinator / Quarterbacks</span></td>
+            <td><a href="/sports/football/roster/coaches/greg-harbaugh-jr/3705"><span>Greg Harbaugh Jr.</span></a></td>
+          </tr>
+          <tr class="s-table-body__row s-table-body__row--index-2">
+            <td><span>Defensive Coordinator / Safeties</span></td>
+            <td><a href="/sports/football/roster/coaches/danny-collins/3709"><span>Danny Collins</span></a></td>
+          </tr>
+          <tr class="s-table-body__row s-table-body__row--index-3">
+            <td><span>Cornerbacks / Co-Defensive Coordinator</span></td>
+            <td><a href="/sports/football/roster/coaches/nick-monroe/3710"><span>Nick Monroe</span></a></td>
+          </tr>
+        </tbody>
+        """
+        page = "https://gophersports.com/sports/football/coaches"
+        people = parse_official_staff_html(html, page_url=page)
+        by_person = {}
+        for row in people:
+            by_person.setdefault(row["person"], []).append(row["title"])
+        self.assertEqual(by_person["P.J. Fleck"], ["Head Coach"])
+        self.assertEqual(
+            by_person["Greg Harbaugh Jr."], ["Offensive Coordinator / Quarterbacks"]
+        )
+        self.assertEqual(
+            by_person["Danny Collins"], ["Defensive Coordinator / Safeties"]
+        )
+        self.assertEqual(
+            by_person["Nick Monroe"], ["Cornerbacks / Co-Defensive Coordinator"]
+        )
+        pid = "SRC-002:TEAM:135"
+        filled = fill_current_role_matrix(
+            [
+                {"program_id": pid, "role": role, "as_of_utc": "2026-09-11T16:20:12Z"}
+                for role in ("head_coach", "offensive_coordinator", "defensive_coordinator")
+            ],
+            programs=[{"program_id": pid, "display_name": "Minnesota"}],
+            cfbd_hc_by_school={},
+            official_people_by_program={pid: people},
+            official_attempts_by_program={pid: {"status": "CAPTURED", "page_url": page}},
+        )
+        by_role = {row["role"]: row for row in filled}
+        self.assertEqual(
+            [item["person"] for item in by_role["head_coach"]["episode_refs"]],
+            ["P.J. Fleck"],
+        )
+        self.assertEqual(
+            [item["person"] for item in by_role["offensive_coordinator"]["episode_refs"]],
+            ["Greg Harbaugh Jr."],
+        )
+        dc_people = [item["person"] for item in by_role["defensive_coordinator"]["episode_refs"]]
+        self.assertEqual(dc_people, ["Danny Collins", "Nick Monroe"])
+        self.assertEqual(
+            by_role["defensive_coordinator"]["episode_refs"][0]["source_title"],
+            "Defensive Coordinator / Safeties",
+        )
+        self.assertEqual(
+            by_role["defensive_coordinator"]["episode_refs"][1]["source_title"],
+            "Cornerbacks / Co-Defensive Coordinator",
+        )
+
+    def test_s_table_name_then_title_does_not_use_coach_nickname_as_title(self) -> None:
+        from aggie_analytics.cycle30.coaching import parse_official_staff_html
+
+        html = """
+        <tr class="s-table-body__row s-table-body__row--index-0">
+          <td><a href="/sports/football/roster/coaches/deion-coach-prime-sanders/4683">
+            <span>Deion "Coach Prime" Sanders</span></a></td>
+          <td><span>Head Football Coach</span></td>
+        </tr>
+        """
+        people = parse_official_staff_html(
+            html, page_url="https://cubuffs.com/sports/football/coaches"
+        )
+        deion = [row for row in people if "Sanders" in row["person"]]
+        self.assertTrue(deion)
+        self.assertEqual(deion[0]["title"], "Head Football Coach")
+        self.assertEqual(deion[0]["role"], "head_coach")
+        self.assertFalse(any(row["title"] == row["person"] for row in deion))
+
     def test_vue_zip_opposite_coordinator_has_exclusion_reason(self) -> None:
         people = [
             {

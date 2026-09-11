@@ -35,8 +35,10 @@ def main() -> int:
     current = load_jsonl(PRED / "CURRENT_2026_PROGRAMS.jsonl")
     hist_1963 = load_jsonl(PRED / "HISTORICAL_MEMBERSHIP_1963_2012.jsonl")
     hist_2013 = load_jsonl(PRED / "HISTORICAL_MEMBERSHIP_2013_2023.jsonl")
+    recent_path = OUT / "science" / "CYCLE32_MEMBERSHIP_2024_2026.jsonl"
+    hist_recent = load_jsonl(recent_path) if recent_path.is_file() else []
     current_ids = {str(row["program_id"]) for row in current}
-    all_rows = [*hist_1963, *hist_2013]
+    all_rows = [*hist_1963, *hist_2013, *hist_recent]
     keys = historical_program_season_keys(all_rows)
     programs_by_id: dict[str, dict] = {}
     seasons_by_program: dict[str, set[int]] = defaultdict(set)
@@ -87,20 +89,24 @@ def main() -> int:
         "programs_outside_current_266": len(outside_current),
         "outside_current_programs": outside_current,
         "years_present": years_present,
-        "absent_years_including_exposed_2024_2025": absent_years,
+        "absent_years_including_exposed_2024_2025": [
+            year for year in absent_years if year in {2024, 2025}
+        ],
+        "absent_years_1963_2026": absent_years,
         "coverage": coverage_query(keys),
         "by_era_key_counts": dict(by_era),
         "discontinued_insert_probe": probe,
         "current_deletion_does_not_shrink_history": shrink,
         "identity": sha256_json(sorted(f"{pid}|{season}" for pid, season in keys)),
         "gaps": {
-            "2024_2025_membership_not_in_these_files": [2024, 2025],
+            "2024_2025_2026_membership_successor_rows": len(hist_recent),
             "complete_ncaa_census_not_claimed": True,
             "cfbd_presence_is_not_ncaa_sponsorship_truth": True,
         },
         "source_files": [
             str(PRED / "HISTORICAL_MEMBERSHIP_1963_2012.jsonl"),
             str(PRED / "HISTORICAL_MEMBERSHIP_2013_2023.jsonl"),
+            str(recent_path) if hist_recent else None,
             str(PRED / "CURRENT_2026_PROGRAMS.jsonl"),
         ],
     }

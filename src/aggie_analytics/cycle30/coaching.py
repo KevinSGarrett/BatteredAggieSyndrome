@@ -925,6 +925,8 @@ def _nodes_from_s_table_coaches(html: str, *, page_url: str) -> list[dict[str, s
         title = ""
         for span in re.findall(r"<span[^>]*>([^<]{2,90})</span>", row, re.I):
             cand = _plain(span)
+            if not cand or cand.casefold() == name.casefold():
+                continue
             if _title_looks_like_staff_row(cand):
                 title = cand
                 break
@@ -1504,10 +1506,23 @@ def parse_official_staff_html(
                     )
     if "sidearm-coaches-coach" in (html or "").casefold():
         nodes.extend(_nodes_from_sidearm_coach_table(html or "", page_url=page_url))
-    if "coaches/" in (html or "") and 'href="/sports/' in (html or ""):
+    s_table_nodes: list[dict[str, str]] = []
+    if "roster/coaches/" in (html or "") and (
+        "s-table-body_cell" in (html or "")
+        or "s-table-body__row" in (html or "").casefold()
+    ):
+        s_table_nodes = _nodes_from_s_table_coaches(html or "", page_url=page_url)
+        nodes.extend(s_table_nodes)
+    if (
+        "coaches/" in (html or "")
+        and 'href="/sports/' in (html or "")
+    ):
         for match in _SIDEARM_VUE_PAIR.finditer(html or ""):
             name = _plain(match.group("name"))
             nearby = (html or "")[match.end() : match.end() + 500]
+            row_end = nearby.casefold().find("</tr>")
+            if row_end >= 0:
+                nearby = nearby[:row_end]
             title_match = _NEAR_TITLE_SPAN.search(nearby)
             title = _plain(title_match.group("title") if title_match else "")
             if name and title:
@@ -1554,11 +1569,6 @@ def parse_official_staff_html(
                 )
     if "roster-staff-members-card-item" in (html or "").casefold():
         nodes.extend(_nodes_from_roster_staff_cards(html or "", page_url=page_url))
-    if "roster/coaches/" in (html or "") and (
-        "s-table-body_cell" in (html or "")
-        or "s-table-body__row" in (html or "").casefold()
-    ):
-        nodes.extend(_nodes_from_s_table_coaches(html or "", page_url=page_url))
     if "staff-directory-table-member-position" in (html or "").casefold():
         nodes.extend(_nodes_from_staff_directory_rows(html or "", page_url=page_url))
     if "sidearm-staff-member" in (html or "").casefold():

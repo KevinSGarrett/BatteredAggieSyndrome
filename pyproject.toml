@@ -50,6 +50,7 @@ experimentation = [
   "optuna==4.9.0",
 ]
 test = ["hypothesis==6.165.2"]
+kernel = ["numpy==2.2.6"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

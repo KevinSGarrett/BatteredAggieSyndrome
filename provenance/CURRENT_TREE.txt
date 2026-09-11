@@ -4515,6 +4515,7 @@ tools/acquire_cycle30_sportradar_staff.py
 tools/acquire_cycle30_wiki_coach_graph.py
 tools/acquire_cycle30_wikidata_websites.py
 tools/acquire_cycle30_wikimedia.py
+tools/acquire_cycle32_recent_membership.py
 tools/acquire_historical_known_at_publication_routes.py
 tools/acquire_national_entity_official_identity.py
 tools/acquire_ncaa_official_gamebooks.py
@@ -4713,6 +4714,7 @@ tools/capture_unified_live_service.py
 tools/check_advanced_challenger_admission.py
 tools/compare_cycle32_tamu_gates.py
 tools/compare_development_results.py
+tools/corroborate_cycle32_wiki_cfbd_hc.py
 tools/corroborate_cycle32_wiki_official.py
 tools/cpu_worker_minimal_init.py
 tools/cpu_worker_service.py
@@ -4724,6 +4726,7 @@ tools/cycle27_cluster_watchdog.ps1
 tools/cycle27_schedulers/run_friday_t90m_capture.ps1
 tools/cycle27_schedulers/run_friday_t90m_failover.ps1
 tools/cycle27_schedulers/run_t90m_cluster_capture.ps1
+tools/emit_cycle32_remaining_unknown.py
 tools/emit_cycle32_requirement_status.py
 tools/enumerate_cycle32_ncaa_scoreboard_finals.py
 tools/evaluate_pit_replay_readiness.py

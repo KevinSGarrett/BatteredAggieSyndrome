@@ -35,11 +35,11 @@ STATES = {
     ),
     "R32-04": (
         "IMPLEMENTED_PENDING_VERIFICATION",
-        "Successor matrix 661 CONFIRMED / 112 CO_SHARED / 25 UNKNOWN. Unique people 6215. Excluded spans 2608 with reason codes. Special-assistant-to-coordinator titles are not OC/DC (North Texas Josh Petersen is OTHER_POSITION). Play-calling unsourced. Model admission NOT_ADMITTED.",
+        "Successor matrix 661 CONFIRMED / 112 CO_SHARED / 25 UNKNOWN. Unique people 6215. Excluded spans 2606 with reason codes. Minnesota DC is Danny Collins (Defensive Coordinator / Safeties) and Nick Monroe (Cornerbacks / Co-Defensive Coordinator) from same-row official titles, not Vue zip. Special-assistant-to-coordinator titles are not OC/DC. Play-calling unsourced. Model admission NOT_ADMITTED.",
     ),
     "R32-07": (
         "IN_PROGRESS",
-        "Cache-only predecessor wiki reparse: 17024/17024 rows remain. WIKI32-01..05 plus nested-nowrap, unpaired-index, and citation-is-not-verification tests fail-closed through production parsers. Name-suspect readjudication classified 2456 unique non-plausible strings without blanket rejection. 2026 wiki-vs-official field claims: 230 name-agreement (not independent corroboration), 40 conflicts. Wikipedia is not factual verification. Independent primary corroboration of the 2013-2023 tranche unfinished.",
+        "Cache-only predecessor wiki reparse: 17024/17024 rows remain. WIKI32-01..05 plus nested-nowrap, unpaired-index, and citation-is-not-verification tests fail-closed through production parsers. Name-suspect readjudication classified 2456 unique non-plausible strings without blanket rejection. 2026 wiki-vs-official field claims: 230 name-agreement (not independent corroboration), 40 conflicts. Cached CFBD /coaches HC name agreement is not official HTML. Wikipedia is not factual verification. Independent primary corroboration of the 2013-2023 OC/DC tranche unfinished.",
     ),
     "R32-14": (
         "IN_PROGRESS",
@@ -55,11 +55,11 @@ STATES = {
     ),
     "R32-05": (
         "IN_PROGRESS",
-        "Successor as_of is 2026-09-11 not predecessor 2026-09-07. Duplicate person-string cells are 0. Person IDs are program-scoped. Typed pit_admitted rejects string true/false. Current-occupant career roundtrip: 882 occupants, 406 cached wiki pages, 352 nonempty candidate careers, 0 PIT promotions. 476 occupants have no cached career page. Play-calling remains unsourced.",
+        "Successor as_of is 2026-09-11 not predecessor 2026-09-07. Duplicate person-string cells are 0. Person IDs are program-scoped. Typed pit_admitted rejects string true/false. Minnesota Vue zip no longer assigns the next-row title. Current-occupant career roundtrip: 882 occupants, 406 cached wiki pages, 352 nonempty candidate careers, 0 PIT promotions. 476 occupants have no cached career page. Play-calling remains unsourced.",
     ),
     "R32-06": (
         "IMPLEMENTED_PENDING_VERIFICATION",
-        "CFBD membership keys 1963-2023: 12194 keys, 285 programs, 25 outside current-266 named. 2024/2025/2026 membership years absent. Not an NCAA sponsorship census.",
+        "CFBD membership keys 1963-2026: predecessor 1963-2023 plus Cycle32 /teams successor for 2024/2025/2026 (794 FBS/FCS rows). Not an NCAA sponsorship census.",
     ),
     "R32-08": (
         "IMPLEMENTED_PENDING_VERIFICATION",
@@ -95,7 +95,7 @@ STATES = {
     ),
     "R32-19": (
         "IN_PROGRESS",
-        "PR 687 is the Cycle32 stacked submission at 47d12fc1. PR 686 remains the Cycle30 reviewed head. Hosted exact-head checks on 47d12fc1 remain required. Skipped paid review stays NOT_REVIEWED.",
+        "PR 687 is the Cycle32 stacked submission. Declared kernel extra pins numpy==2.2.6 so hosted unittest can import kernel_model without putting numpy in empty W23 base dependencies. Instruction hash ledger refreshed. Hosted exact-head checks on the forthcoming [material] commit remain required. Skipped paid review stays NOT_REVIEWED.",
     ),
     "R32-20": (
         "IMPLEMENTED_PENDING_VERIFICATION",

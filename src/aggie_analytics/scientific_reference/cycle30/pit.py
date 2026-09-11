@@ -25,6 +25,7 @@ from aggie_analytics.scientific_reference.cycle30.temporal import (
 
 EXPOSED_NON_BLIND = {2024, 2025}
 TIE_POLICY = "EXCLUDE_TIES_FROM_BINARY_ESTIMAND"
+SOURCE_UNPROVEN = "SOURCE_AUTHORITY_UNPROVEN"
 
 
 class IndependentPitError(ValueError):
@@ -119,6 +120,49 @@ def _prefix_features(
     }
 
 
+def _prior_authority_class(
+    *,
+    prior_game_id: str,
+    prior_complete_utc: Any,
+    observation: Mapping[str, Any],
+    authorities: Mapping[str, Mapping[str, Any]] | None,
+) -> str:
+    prior_auth = (authorities or {}).get(prior_game_id, {})
+    cutoff = parse_aware_utc(
+        str(
+            observation.get("target_cutoff_utc")
+            or observation.get("start_date_utc_text")
+            or ""
+        )
+    )
+    known_at = parse_aware_utc(
+        str(
+            prior_auth.get("known_at_utc")
+            or prior_complete_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+        )
+    )
+    effective = parse_aware_utc(
+        str(
+            prior_auth.get("effective_utc")
+            or prior_complete_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+        )
+    )
+    if known_at > cutoff or effective > cutoff:
+        return SOURCE_UNPROVEN
+    publication = prior_auth.get("source_publication_utc")
+    if publication:
+        published = parse_aware_utc(str(publication))
+        if published > cutoff:
+            raise IndependentPitError("future publication cannot admit a prior")
+        if known_at < published:
+            raise IndependentPitError("known-at precedes declared source publication")
+    if prior_auth.get("suspended") or prior_auth.get("future_publication"):
+        raise IndependentPitError("suspended or future-publication counterexample")
+    return (
+        "PROVEN_PIT_TRAINING_ROW" if publication else "RETROSPECTIVE_BOUNDED_CANDIDATE"
+    )
+
+
 def reconstruct_game_features(
     games: Sequence[Mapping[str, Any]],
     outcomes: Sequence[Mapping[str, Any]],
@@ -207,11 +251,29 @@ def reconstruct_game_features(
         completed = by_team.get(team_id, [])
         played: list[Mapping[str, Any]] = []
         cursor = 0
+        pending: list[tuple[Any, Mapping[str, Any]]] = []
         for target_start, game, verdict in targets:
             gid = str(game["canonical_game_id"])
             while cursor < len(completed) and completed[cursor][0] <= target_start:
-                played.append(completed[cursor][1])
+                pending.append(completed[cursor])
                 cursor += 1
+            remaining: list[tuple[Any, Mapping[str, Any]]] = []
+            for prior_complete, prior in pending:
+                prior_gid = str(prior["canonical_game_id"])
+                prior_auth = (authorities or {}).get(prior_gid, {})
+                class_ = _prior_authority_class(
+                    prior_game_id=prior_gid,
+                    prior_complete_utc=prior_complete,
+                    observation=game,
+                    authorities=authorities,
+                )
+                if class_ == SOURCE_UNPROVEN and not prior_auth.get(
+                    "allow_retrospective_prior"
+                ):
+                    remaining.append((prior_complete, prior))
+                    continue
+                played.append(prior)
+            pending = remaining
             feat = _prefix_features(
                 [prior for prior in played if str(prior["canonical_game_id"]) != gid],
                 int(game["season"]),
@@ -244,6 +306,38 @@ COMPARE_KEYS = (
 )
 
 
+def challenge_kernel_rows(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Fail closed on flipped labels and impossible reconstructed priors."""
+
+    challenged = 0
+    for row in rows:
+        home_points = row.get("home_points")
+        away_points = row.get("away_points")
+        if home_points is not None and away_points is not None:
+            winner = winner_from_scores(int(home_points), int(away_points))
+            label = row.get("home_win_label")
+            if winner == "TIE":
+                if label is True:
+                    raise IndependentPitError("tie mapped to a binary home win")
+            elif label is not None and bool(label) != (winner == "HOME"):
+                raise IndependentPitError("label disagrees with scores")
+            challenged += 1
+        for feat in (row.get("home_features") or {}, row.get("away_features") or {}):
+            margin = feat.get("pit_prior_margin_mean")
+            if margin is None:
+                continue
+            try:
+                numeric = float(margin)
+            except (TypeError, ValueError) as exc:
+                raise IndependentPitError("prior margin is not numeric") from exc
+            if abs(numeric) > 80:
+                raise IndependentPitError(
+                    "prior margin is not independently reconstructable"
+                )
+            challenged += 1
+    return {"rows": len(rows), "checks": challenged, "matched": True}
+
+
 def compare_producer_rows(
     producer_rows: Sequence[Mapping[str, Any]],
     reconstructed: Sequence[Mapping[str, Any]],
@@ -251,8 +345,11 @@ def compare_producer_rows(
     if not reconstructed:
         raise IndependentPitError("independent reconstruction is empty")
     producer_features: dict[tuple[str, str], Mapping[str, Any]] = {}
+    producer_labels: dict[str, Any] = {}
     for prow in producer_rows:
         gid = str(prow.get("canonical_game_id"))
+        if "home_win_label" in prow:
+            producer_labels[gid] = prow.get("home_win_label")
         if "home_features" in prow:
             producer_features[(gid, str(prow.get("home_canonical_team_id")))] = prow[
                 "home_features"
@@ -275,7 +372,11 @@ def compare_producer_rows(
                 raise IndependentPitError(
                     f"independent reconstruction disagrees on {field}"
                 )
+        if "home_win_label" in row and str(row["canonical_game_id"]) in producer_labels:
+            if producer_labels[str(row["canonical_game_id"])] != row.get("home_win_label"):
+                raise IndependentPitError("independent reconstruction disagrees on label")
         matches += 1
+    challenge_kernel_rows(producer_rows)
     return {
         "matched_team_rows": matches,
         "reconstructed_count": len(reconstructed),

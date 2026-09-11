@@ -40,19 +40,19 @@
       "filename": "drives.jsonl",
       "row_count": 2457,
       "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1",
-      "sha256": "128d69aafbe0481961d03027f8379e00bcf1d146d4e679b7319605b88e4f5bca"
+      "sha256": "ba4fd714e1c426e3c8d405dafdba4e27d602e5fa7bff99f643069ee9899fcda9"
     },
     "individual_player_statistics": {
       "filename": "individual_player_statistics.jsonl",
       "row_count": 2638,
       "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1",
-      "sha256": "79b6b0558b69cc2dd6c765f616f4e6bf1493d8c9376a0f82c5f5c2231e20d0e5"
+      "sha256": "f0f76d196b052d74597094c37d2d59c6b929f2e39236a3fc6f59ae9acf94fdf4"
     },
     "play_by_play": {
       "filename": "play_by_play.jsonl",
       "row_count": 34328,
       "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1",
-      "sha256": "0e20b7dbe41412a32377ed57c93aaf52be69ae5eab3337ef8707ee4c7a679d77"
+      "sha256": "c20de1fd6642a82a2f26177808c817e872fab6bf6e743395f4ddf5db5066c51f"
     },
     "scoring_summary": {
       "filename": "scoring_summary.jsonl",
@@ -64,7 +64,7 @@
       "filename": "team_statistics.jsonl",
       "row_count": 3810,
       "schema": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1",
-      "sha256": "df1e89aebf81a28acfe8a77d79b260ea778bd326d9113e805f1d13609dde96e0"
+      "sha256": "165948acdec9fdf6cd45d4abea49354e4d9c316f98bcc18bc8732466ad1761b5"
     }
   },
   "classification": "TAMU_SRC014_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY",
@@ -145,14 +145,14 @@
       2009
     ]
   },
-  "dataset_identity": "15ab0d2588bcde97b6c6f31a5dbefe6da302d7ceaf2f3ed2f99814ac96ae1481",
+  "dataset_identity": "22d3137f411c97d13c0745029b4bf1dd03e81cae968575134b9afc538a55df22",
   "decision_unit": "POST-TASK-SRC014-ROW-CORPUS-INTEGRITY-SUCCESSOR-001",
   "disposition": "NEW_CONTENT_ADDRESSED_INTEGRITY_COMPLETE_ROW_CORPUS_SUCCESSOR",
-  "gate_identity": "c71a05330c37ba245ecc8327e1f127377161e66d6cf3260b1035ce8a78761ff4",
+  "gate_identity": "c175fb365cff78ef009f26e80f2479ff99114ea406ec9fc30e6f0aa76fd743c4",
   "jira_key": "BAT-620",
-  "predecessor_dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
-  "predecessor_gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af",
-  "predecessor_manifest_file_sha256": "e79bec11165482fa06dbb2dbc10d9ad4da630c0d84e8bcfc37c111c62cb4b620",
+  "predecessor_dataset_identity": "84db073cdec37e45f2a461bedf01f87c62419750eb90b49534879746cff4adfe",
+  "predecessor_gate_identity": "0795c1bdd226204173a15ed6ff3b5ea80369bc5fd4ec761c6ab047b7d26fb8f9",
+  "predecessor_manifest_file_sha256": "9bce10f376a20fdc0cb24cac0487c1d09c40ed312310250afe4b7b42914ce968",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "result": "PASS_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_COMPLETE",
   "schema_version": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1",
@@ -192,13 +192,13 @@
     2009
   ],
   "source_id": "SRC-014",
-  "union_gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
-  "union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
+  "union_gate_identity": "b45e0926d26f5ecb3c08192e46cb65cf35b48a92de9702a4bf85664d0ba188f0",
+  "union_identity": "b8aff3808742d26d4b1fbd9066dd7de412caee5dbc5ee7122879a798953f1be5",
   "upstream_identities": {
-    "bat591_payload_file_sha256": "cb7fc0b293f15ee8d98058daa38fa9abba02d9506b28dd6845dfb2682272ab3a",
-    "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
-    "bat596_payload_file_sha256": "38bfcaf9b89dcc82d68a3cb78767db19fe011294d0858993692ace3ec55eebb5",
-    "bat596_payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
+    "bat591_payload_file_sha256": "e4fa2f48acd0b89b11e4899b9f67c38e16b9737d34a72672f9efde57b6ed2950",
+    "bat591_payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
+    "bat596_payload_file_sha256": "bd7ee4af132ea228a3e0a89a67fd61c89849ee9fe3d16ef4ccd85d7cbafc9384",
+    "bat596_payload_identity": "f4fc2472e90e37adc3d0d4569d8b1225a45acd6ad4d41aa48a9b3dbb39473a9d",
     "bat601_payload_file_sha256": "752bd4631289fa35ae40bd11f481d520cb14c0dd7a082814055a80c2fec876c6",
     "bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
     "bat606_payload_file_sha256": "e56fadea242c9d06a4154415411ad9b1ed8c04ba2eef225fac44c6873e1c3aef",
@@ -207,12 +207,12 @@
     "bat611_payload_identity": "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8",
     "bat617_payload_file_sha256": "a411e25e81335ae8570f8452f65303f4533f47fb38bb1d7a615daebf99d22981",
     "bat617_payload_identity": "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2",
-    "bat618_gate_identity": "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7",
-    "bat618_union_identity": "a4656c9b4a97f45fd2f501b99114b049cdaa6f1a981f2b94de0f5f81ea8c13e1",
-    "bat618_union_manifest_file_sha256": "07ec65650bfbb1a213a6b633187d919be3a90b0c9538ed17754d6a49622a9cd1",
-    "bat619_dataset_identity": "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50",
-    "bat619_gate_identity": "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af",
-    "bat619_manifest_file_sha256": "e79bec11165482fa06dbb2dbc10d9ad4da630c0d84e8bcfc37c111c62cb4b620",
+    "bat618_gate_identity": "b45e0926d26f5ecb3c08192e46cb65cf35b48a92de9702a4bf85664d0ba188f0",
+    "bat618_union_identity": "b8aff3808742d26d4b1fbd9066dd7de412caee5dbc5ee7122879a798953f1be5",
+    "bat618_union_manifest_file_sha256": "3b6f78ba367413d9ccbd16a3ab76921bd9491cc4abf6517caa07a84702fc2dae",
+    "bat619_dataset_identity": "84db073cdec37e45f2a461bedf01f87c62419750eb90b49534879746cff4adfe",
+    "bat619_gate_identity": "0795c1bdd226204173a15ed6ff3b5ea80369bc5fd4ec761c6ab047b7d26fb8f9",
+    "bat619_manifest_file_sha256": "9bce10f376a20fdc0cb24cac0487c1d09c40ed312310250afe4b7b42914ce968",
     "validator_code_identity": "55ee726753ba80df3714ff2836f4223e30d8cd7a226767f393c9998af66abced"
   },
   "validation_contract_version": "aggie.data.tamu_official_2002_2009_structured_row_corpus_integrity.v1",

@@ -9,23 +9,33 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from aggie_analytics.data.ncaa_contest_reconciliation import sha256_file, stable_hash
-from aggie_analytics.data.tamu_official_2002_2009_structured_row_corpus import CHILD_FILENAMES
+from aggie_analytics.data.tamu_official_2002_2009_structured_row_corpus import (
+    CHILD_FILENAMES,
+)
 from aggie_analytics.data.tamu_official_historical_boxscores import AuthorityViolation
 from aggie_analytics.validation.artifact_binding import compute_identity
 
 SCHEMA_VERSION = "aggie.data.tamu_official_1998_2009_structured_row_corpus_integrity.v1"
 VALIDATION_CONTRACT_VERSION = SCHEMA_VERSION
-CONTRACT_RELATIVE = "configs/tamu_official_1998_2009_structured_row_corpus_integrity_contract.json"
+CONTRACT_RELATIVE = (
+    "configs/tamu_official_1998_2009_structured_row_corpus_integrity_contract.json"
+)
 GATE_RELATIVE = "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_integrity_gate.json"
 CONTRACT_ID = "BAT-649-TAMU-OFFICIAL-1998-2009-ROW-CORPUS-INTEGRITY-V1"
 DECISION_UNIT = "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001"
 JIRA_KEY = "BAT-649"
 SOURCE_ID = "SRC-014"
-PASS_CLASSIFICATION = "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY"
+PASS_CLASSIFICATION = (
+    "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY"
+)
 PASS_RESULT = "PASS_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
-PINNED_BAT638_GATE_IDENTITY = "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54"
-PINNED_BAT638_DATASET_IDENTITY = "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8"
+PINNED_BAT638_GATE_IDENTITY = (
+    "ebaa82fb0fec95f170fa29a61891ced079206c1a627a3706abd863466fd3b04d"
+)
+PINNED_BAT638_DATASET_IDENTITY = (
+    "ac36f30b3f190085a3146fbdb1d4956c0176f59a8d72ab2227b0ddd45fe40935"
+)
 MANIFEST_NAME = "corpus_manifest.json"
 SERIALIZED_DOMAINS = (
     "team_statistics",
@@ -42,11 +52,18 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
 
 def compute_code_identity(repo_root: Path) -> str:
-    path = repo_root / "src/aggie_analytics/data/tamu_official_1998_2009_structured_row_corpus_integrity.py"
+    path = (
+        repo_root
+        / "src/aggie_analytics/data/tamu_official_1998_2009_structured_row_corpus_integrity.py"
+    )
     if not path.is_file():
         raise AuthorityViolation("code bundle member missing")
     hasher = hashlib.sha256()
@@ -55,8 +72,14 @@ def compute_code_identity(repo_root: Path) -> str:
     return hasher.hexdigest()
 
 
-def _child_payload_hashes(data_root: Path, rejected_urls: set[str]) -> tuple[dict[str, dict[str, Any]], dict[str, int]]:
-    root = data_root / "features/tamu_official_1998_2009_structured_row_corpus/sha256" / PINNED_BAT638_DATASET_IDENTITY
+def _child_payload_hashes(
+    data_root: Path, rejected_urls: set[str]
+) -> tuple[dict[str, dict[str, Any]], dict[str, int]]:
+    root = (
+        data_root
+        / "features/tamu_official_1998_2009_structured_row_corpus/sha256"
+        / PINNED_BAT638_DATASET_IDENTITY
+    )
     child_payloads: dict[str, dict[str, Any]] = {}
     rejected_rows_by_domain: dict[str, int] = {}
     for domain in SERIALIZED_DOMAINS:
@@ -84,12 +107,18 @@ def _child_payload_hashes(data_root: Path, rejected_urls: set[str]) -> tuple[dic
 
 def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     contract = load_json(repo_root / CONTRACT_RELATIVE)
-    g638 = load_json(repo_root / "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json")
+    g638 = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json"
+    )
     if g638.get("gate_identity") != PINNED_BAT638_GATE_IDENTITY:
         raise AuthorityViolation("BAT-638 gate identity drifted")
     if g638.get("dataset_identity") != PINNED_BAT638_DATASET_IDENTITY:
         raise AuthorityViolation("BAT-638 dataset identity drifted")
-    rej_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_1998_2009_rejection_integrity_gate.json")
+    rej_gate = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_1998_2009_rejection_integrity_gate.json"
+    )
     rejection_gate_identity = str(rej_gate.get("gate_identity") or "")
     rejection_ledger_identity = str(rej_gate.get("ledger_identity") or "")
     if not rejection_gate_identity:
@@ -105,11 +134,18 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     if not ledger_path.is_file():
         raise AuthorityViolation("external rejection ledger missing")
     ledger = load_json(ledger_path)
-    complete_rejected_urls = {str(item.get("url") or "") for item in (ledger.get("complete_rejection_ledger") or [])}
-    active_rejected_urls = {str(item.get("url") or "") for item in (ledger.get("active_rejections") or [])}
+    complete_rejected_urls = {
+        str(item.get("url") or "")
+        for item in (ledger.get("complete_rejection_ledger") or [])
+    }
+    active_rejected_urls = {
+        str(item.get("url") or "") for item in (ledger.get("active_rejections") or [])
+    }
     if len(active_rejected_urls) != 17:
         raise AuthorityViolation("expected exactly 17 active rejected URLs")
-    child_payloads, rejected_rows = _child_payload_hashes(data_root, active_rejected_urls)
+    child_payloads, rejected_rows = _child_payload_hashes(
+        data_root, active_rejected_urls
+    )
     if any(rejected_rows.values()):
         raise AuthorityViolation("rejected URLs leaked into BAT-638 child payloads")
     code_identity = compute_code_identity(repo_root)
@@ -127,7 +163,9 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "counts": {
             "games": int((g638.get("counts") or {}).get("games") or 0),
             "seasons": int((g638.get("counts") or {}).get("seasons") or 0),
-            "serialized_rows_total": sum(meta["row_count"] for meta in child_payloads.values()),
+            "serialized_rows_total": sum(
+                meta["row_count"] for meta in child_payloads.values()
+            ),
             "complete_rejection_count": len(complete_rejected_urls),
             "active_rejection_count": len(active_rejected_urls),
             "ncaa_contest_ids_created": 0,
@@ -172,8 +210,15 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         },
     }
     gate["gate_identity"] = compute_identity(gate, "gate_identity")
-    root = data_root / contract["payloads"]["corpus_root"] / manifest["dataset_identity"]
-    return {"contract": contract, "manifest": manifest, "gate": gate, "manifest_path": root / MANIFEST_NAME}
+    root = (
+        data_root / contract["payloads"]["corpus_root"] / manifest["dataset_identity"]
+    )
+    return {
+        "contract": contract,
+        "manifest": manifest,
+        "gate": gate,
+        "manifest_path": root / MANIFEST_NAME,
+    }
 
 
 def materialize_corpus(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
@@ -187,19 +232,29 @@ def materialize_corpus(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     }
 
 
-def validate_artifact(*, repo_root: Path, data_root: Path, gate: Mapping[str, Any] | None = None) -> dict[str, Any]:
+def validate_artifact(
+    *, repo_root: Path, data_root: Path, gate: Mapping[str, Any] | None = None
+) -> dict[str, Any]:
     committed = dict(gate) if gate is not None else load_json(repo_root / GATE_RELATIVE)
     expected = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     if committed != expected["gate"]:
-        raise AuthorityViolation("committed corpus-integrity gate does not match independent reconstruction")
+        raise AuthorityViolation(
+            "committed corpus-integrity gate does not match independent reconstruction"
+        )
     if committed.get("gate_identity") != compute_identity(committed, "gate_identity"):
         raise AuthorityViolation("gate identity does not recompute")
     if not expected["manifest_path"].is_file():
         raise AuthorityViolation("external corpus-integrity manifest missing")
     if load_json(expected["manifest_path"]) != expected["manifest"]:
         raise AuthorityViolation("external corpus-integrity manifest mismatch")
-    return {"result": "PASS", "dataset_identity": committed["dataset_identity"], "gate_identity": committed["gate_identity"]}
+    return {
+        "result": "PASS",
+        "dataset_identity": committed["dataset_identity"],
+        "gate_identity": committed["gate_identity"],
+    }
 
 
 def default_data_root() -> Path:
-    return Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+    return Path(
+        os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+    )

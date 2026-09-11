@@ -19,8 +19,8 @@
     "in_review_after_validation": "14546"
   },
   "current_identities": {
-    "gate_identity": "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f",
-    "union_identity": "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd"
+    "gate_identity": "d2338c006cbef758af9ba5a484088f03dd0223649feee098aca44e9757c54625",
+    "union_identity": "2b1ba2dd0f7b6bd5204f84c3faf31188e630cb6103b359c5dafa9768aff34cb9"
   },
   "duplicate_audit": {
     "decision": "CREATE",

@@ -20,6 +20,8 @@ PASS = "PASS"
 FAIL = "FAIL"
 BLOCKED = "BLOCKED_INSUFFICIENT_EVIDENCE"
 NOT_AUDITED = "NOT_YET_AUDITED"
+CURRENT_VENUE_NEUTRAL_AND_HFA = ("CURRENT-NEUTRAL", "CURRENT-HFA")
+CURRENT_VENUE_HFA_ONLY = ("CURRENT-HFA",)
 
 
 class DomainError(ValueError):
@@ -114,7 +116,7 @@ def crosswalk() -> dict[str, Any]:
         "conferences": ("DOM-001", ()),
         "rankings": ("DOM-037", ()),
         "priors": ("DOM-035", ()),
-        "venues": ("DOM-025", ("CURRENT-NEUTRAL",)),
+        "venues": ("DOM-025", CURRENT_VENUE_NEUTRAL_AND_HFA),
         "weather": ("DOM-023", ()),
         "market": ("DOM-039", ()),
         "rosters": ("DOM-009", ()),
@@ -152,7 +154,7 @@ def crosswalk() -> dict[str, Any]:
     pit_map = {
         "team_outcome_priors": ("DOM-035", ()),
         "rankings": ("DOM-037", ()),
-        "venues": ("DOM-025", ("CURRENT-NEUTRAL",)),
+        "venues": ("DOM-025", CURRENT_VENUE_NEUTRAL_AND_HFA),
         "team_season_context": ("DOM-001", ()),
         "plays": ("DOM-002", ()),
         "drives": ("DOM-003", ()),
@@ -178,7 +180,7 @@ def crosswalk() -> dict[str, Any]:
         "conferences": ("DOM-001", ()),
         "rankings": ("DOM-037", ()),
         "priors": ("DOM-035", ()),
-        "venues": ("DOM-025", ()),
+        "venues": ("DOM-025", CURRENT_VENUE_HFA_ONLY),
         "weather": ("DOM-023", ()),
         "market": ("DOM-039", ()),
         "rosters": ("DOM-009", ()),
@@ -201,6 +203,17 @@ def crosswalk() -> dict[str, Any]:
     ]
     if unmapped:
         raise DomainError(f"unmapped predecessor terms: {unmapped}")
+    required_current = {domain_id for domain_id, _label in CURRENT_REQUIREMENTS}
+    mapped_current = {
+        row["canonical_domain_id"]
+        for row in mappings
+        if row["canonical_domain_id"] in required_current
+    }
+    missing_current = sorted(required_current - mapped_current)
+    if missing_current:
+        raise DomainError(
+            f"current requirements missing from governing crosswalk: {missing_current}"
+        )
     one_to_many = [row for row in mappings if row.get("mapping_arity") == "one_to_many"]
     return {
         "artifact_type": "BAS_DOMAIN_CATALOG_CROSSWALK",
@@ -214,6 +227,8 @@ def crosswalk() -> dict[str, Any]:
         "source_policy_term_count": len(SOURCE_POLICY_DOMAINS),
         "pit_term_count": len(PIT_DOMAINS),
         "current_requirement_count": len(CURRENT_REQUIREMENTS),
+        "mapped_current_requirement_count": len(mapped_current),
+        "missing_current_requirement_ids": missing_current,
         "mappings": mappings,
     }
 

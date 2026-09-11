@@ -18,6 +18,7 @@ SITE_CONFLICT = "CONFLICT"
 IUGG_MEAN_RADIUS_KM = 6371.0088
 WGS84_A_KM = 6378.137
 WGS84_F = 1 / 298.257223563
+GEODESIC_DEFINITION = "IUGG_MEAN_RADIUS_HAVERSINE_AND_WGS84_VINCENTY"
 
 
 class SiteContextError(ValueError):
@@ -286,6 +287,10 @@ def travel_row(
     venue_lon: float | None,
     origin_class: str,
     origin_id: str | None,
+    origin_coordinate_precision: str | None = None,
+    venue_coordinate_precision: str | None = None,
+    origin_known_at_utc: str | None = None,
+    venue_known_at_utc: str | None = None,
 ) -> dict[str, Any]:
     reason = missing_coordinate_reason(
         origin_lat=origin_lat,
@@ -293,6 +298,13 @@ def travel_row(
         venue_lat=venue_lat,
         venue_lon=venue_lon,
     )
+    geodesic_metadata = {
+        "geodesic_definition": GEODESIC_DEFINITION,
+        "origin_coordinate_precision": origin_coordinate_precision,
+        "venue_coordinate_precision": venue_coordinate_precision,
+        "origin_known_at_utc": origin_known_at_utc,
+        "venue_known_at_utc": venue_known_at_utc,
+    }
     if reason is not None:
         return {
             "canonical_game_id": canonical_game_id,
@@ -306,6 +318,7 @@ def travel_row(
             "distance_km_haversine": None,
             "distance_km_vincenty": None,
             "units": "km",
+            **geodesic_metadata,
             "missing_reason": reason,
             "proximity_is_not_home_bonus": True,
             "model_consumed": False,
@@ -329,6 +342,7 @@ def travel_row(
         "distance_km_vincenty": round(vincenty, 6),
         "radius_km": IUGG_MEAN_RADIUS_KM,
         "units": "km",
+        **geodesic_metadata,
         "methods_not_identical": True,
         "proximity_is_not_home_bonus": True,
         "model_consumed": False,

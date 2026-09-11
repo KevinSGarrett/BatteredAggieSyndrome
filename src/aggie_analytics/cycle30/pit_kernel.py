@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -67,6 +68,16 @@ EXCLUDED_DOMAINS = (
 
 PROVEN = "PROVEN_PIT_TRAINING_ROW"
 RETROSPECTIVE = "RETROSPECTIVE_BOUNDED_CANDIDATE"
+SHA256_HEX = re.compile(r"^[0-9a-fA-F]{64}$")
+UNPROVEN_AUTHORITY_TOKENS = frozenset(
+    {
+        "UNPROVEN",
+        "SOURCE_AUTHORITY_UNPROVEN",
+        "FLAG_ONLY",
+        "CONSERVATIVE_BOUND_NOT_PUBLICATION",
+    }
+)
+FREEZE_EVIDENCE_CLASSES = frozenset({"FORECAST_FREEZE_RECEIPT"})
 BLOCKED = "BLOCKED"
 SOURCE_UNPROVEN = "SOURCE_AUTHORITY_UNPROVEN"
 ABSTAIN_GRAPH = "ABSTAIN_HISTORICAL_COMPETITION_GRAPH_INCOMPLETE"
@@ -184,6 +195,14 @@ def validate_oriented_outcomes(
     }
 
 
+def _is_sha256_receipt(value: Any) -> bool:
+    return bool(SHA256_HEX.fullmatch(str(value or "").strip()))
+
+
+def _authority_token(value: Any) -> str:
+    return str(value or "").strip().upper()
+
+
 def validate_row_authority(authority: Mapping[str, Any], *, target_cutoff: str) -> str:
     """Per-row source/effective/known-at/receipt/classification evidence."""
 
@@ -206,26 +225,40 @@ def validate_row_authority(authority: Mapping[str, Any], *, target_cutoff: str) 
     known_at = parse_aware_utc(str(authority["known_at_utc"]))
     effective = parse_aware_utc(str(authority["effective_utc"]))
     publication = authority.get("source_publication_utc")
-    if publication:
-        published = parse_aware_utc(str(publication))
-        if published > cutoff:
-            raise PitKernelError("future publication cannot admit a historical prior")
-        if known_at < published:
-            raise PitKernelError("known-at precedes declared source publication")
-        return PROVEN
+    published = parse_aware_utc(str(publication)) if publication else None
     if authority.get("suspended") or authority.get("future_publication"):
         raise PitKernelError("suspended or future-publication counterexample")
+    if published is not None and published > cutoff:
+        raise PitKernelError("future publication cannot admit a historical prior")
     if known_at > cutoff:
         return SOURCE_UNPROVEN
     if effective > cutoff:
         return SOURCE_UNPROVEN
+    if published is not None:
+        if known_at < published:
+            raise PitKernelError("known-at precedes declared source publication")
+        if not _is_sha256_receipt(authority.get("receipt_sha256")):
+            return RETROSPECTIVE
+        classification = _authority_token(authority.get("classification"))
+        evidence_class = _authority_token(authority.get("evidence_class"))
+        if (
+            classification in UNPROVEN_AUTHORITY_TOKENS
+            or evidence_class in UNPROVEN_AUTHORITY_TOKENS
+        ):
+            return SOURCE_UNPROVEN
+        if (
+            evidence_class in FREEZE_EVIDENCE_CLASSES
+            or classification == "FEATURE_TIME_AUTHORITY"
+        ):
+            return RETROSPECTIVE
+        return PROVEN
     return RETROSPECTIVE
 
 
 def forecast_freeze_authority(
     row: Mapping[str, Any], *, receipt_sha256: str
 ) -> dict[str, Any]:
-    """Per-contest freeze receipt. Not historical outcome-publication proof."""
+    """Per-contest freeze receipt. Not historical feature-publication proof."""
 
     issued = row.get("snapshot_timestamp_utc") or row.get("issued_at_utc")
     if not issued:
@@ -239,8 +272,7 @@ def forecast_freeze_authority(
         "receipt_sha256": str(receipt_sha256),
         "classification": "FEATURE_TIME_AUTHORITY",
         "evidence_class": "FORECAST_FREEZE_RECEIPT",
-        "source_publication_utc": str(issued),
-        "allow_retrospective_prior": True,
+        "allow_retrospective_prior": False,
     }
 
 
@@ -395,9 +427,19 @@ def build_game_grain_kernel(
         )
         acc = PriorAccumulator()
         cursor = 0
+        pending_priors: list[tuple[datetime, Mapping[str, Any], bool, str]] = []
         for earliest, observation in team_targets:
+            unproven_prior = False
             while cursor < len(team_outcomes) and team_outcomes[cursor][0] <= earliest:
-                prior_game_id = team_outcomes[cursor][3]
+                pending_priors.append(team_outcomes[cursor])
+                cursor += 1
+            still_pending: list[tuple[datetime, Mapping[str, Any], bool, str]] = []
+            for (
+                prior_complete,
+                prior_outcome,
+                prior_tie,
+                prior_game_id,
+            ) in pending_priors:
                 prior_auth = (authorities or {}).get(prior_game_id, {})
                 cutoff = (target_cutoff_by_game or {}).get(
                     str(observation["canonical_game_id"]),
@@ -411,9 +453,9 @@ def build_game_grain_kernel(
                             or observation.get("source_id")
                             or "MISSING",
                             "effective_utc": prior_auth.get("effective_utc")
-                            or team_outcomes[cursor][0].strftime("%Y-%m-%dT%H:%M:%SZ"),
+                            or prior_complete.strftime("%Y-%m-%dT%H:%M:%SZ"),
                             "known_at_utc": prior_auth.get("known_at_utc")
-                            or team_outcomes[cursor][0].strftime("%Y-%m-%dT%H:%M:%SZ"),
+                            or prior_complete.strftime("%Y-%m-%dT%H:%M:%SZ"),
                             "receipt_sha256": prior_auth.get("receipt_sha256")
                             or "UNPROVEN",
                             "classification": prior_auth.get("classification")
@@ -433,14 +475,17 @@ def build_game_grain_kernel(
                     )
                 except PitKernelError:
                     class_ = SOURCE_UNPROVEN
-                if class_ == SOURCE_UNPROVEN and not prior_auth.get(
-                    "allow_retrospective_prior"
-                ):
-                    cursor += 1
+                if class_ == SOURCE_UNPROVEN:
+                    still_pending.append(
+                        (prior_complete, prior_outcome, prior_tie, prior_game_id)
+                    )
                     continue
-                acc.admit(team_outcomes[cursor][1], tie=bool(team_outcomes[cursor][2]))
-                cursor += 1
+                if class_ != PROVEN:
+                    unproven_prior = True
+                acc.admit(prior_outcome, tie=bool(prior_tie))
+            pending_priors = still_pending
             features = acc.emit(int(observation["season"]))
+            features["_unproven_prior_contribution"] = unproven_prior
             team_features[(str(observation["canonical_game_id"]), team_id)] = features
 
     for game in games:
@@ -489,6 +534,10 @@ def build_game_grain_kernel(
                 }
             )
             continue
+        home_unproven = bool(home_feat.get("_unproven_prior_contribution"))
+        away_unproven = bool(away_feat.get("_unproven_prior_contribution"))
+        home_feat = {key: value for key, value in home_feat.items() if not str(key).startswith("_")}
+        away_feat = {key: value for key, value in away_feat.items() if not str(key).startswith("_")}
         site = (site_rows or {}).get(game_id, {})
         ordinary_home = site.get("ordinary_home_exposure")
         if ordinary_home is None:
@@ -534,6 +583,8 @@ def build_game_grain_kernel(
                 }
             )
             continue
+        if verdict == PROVEN and (home_unproven or away_unproven):
+            verdict = RETROSPECTIVE
         row = {
             "canonical_game_id": game_id,
             "grain": "GAME",

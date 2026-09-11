@@ -4,7 +4,8 @@
   "artifact_type": "BAS_DOMAIN_CATALOG_CROSSWALK",
   "c28_term_count": 33,
   "current_requirement_count": 10,
-  "mapping_count": 129,
+  "mapped_current_requirement_count": 10,
+  "mapping_count": 132,
   "mappings": [
     {
       "canonical_domain_id": "DOM-001",
@@ -479,6 +480,14 @@
       "state": "MAPPED_ADDITIONAL"
     },
     {
+      "canonical_domain_id": "CURRENT-HFA",
+      "mapping_arity": "one_to_many",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "venues",
+      "predecessor_term": "venues",
+      "state": "MAPPED_ADDITIONAL"
+    },
+    {
       "canonical_domain_id": "DOM-023",
       "mapping_arity": "one_to_one",
       "predecessor_catalog": "C28_33",
@@ -775,6 +784,14 @@
       "state": "MAPPED_ADDITIONAL"
     },
     {
+      "canonical_domain_id": "CURRENT-HFA",
+      "mapping_arity": "one_to_many",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "venues",
+      "predecessor_term": "venues",
+      "state": "MAPPED_ADDITIONAL"
+    },
+    {
       "canonical_domain_id": "DOM-001",
       "mapping_arity": "one_to_one",
       "predecessor_catalog": "PIT_18",
@@ -944,11 +961,19 @@
     },
     {
       "canonical_domain_id": "DOM-025",
-      "mapping_arity": "one_to_one",
+      "mapping_arity": "one_to_many",
       "predecessor_catalog": "SOURCE_POLICY_16",
       "predecessor_label": "venues",
       "predecessor_term": "venues",
       "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "CURRENT-HFA",
+      "mapping_arity": "one_to_many",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "venues",
+      "predecessor_term": "venues",
+      "state": "MAPPED_ADDITIONAL"
     },
     {
       "canonical_domain_id": "DOM-023",
@@ -1039,7 +1064,8 @@
       "state": "MAPPED"
     }
   ],
-  "one_to_many_mapping_count": 16,
+  "missing_current_requirement_ids": [],
+  "one_to_many_mapping_count": 20,
   "pit_term_count": 18,
   "source_policy_term_count": 16,
   "unmapped_term_count": 0,

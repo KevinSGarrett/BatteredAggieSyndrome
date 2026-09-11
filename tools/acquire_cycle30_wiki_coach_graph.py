@@ -15,7 +15,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
@@ -216,13 +216,23 @@ def fetch_coach_page(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]
     }
 
 
+def _observation_year(coach_row: Mapping[str, Any]) -> int | None:
+    stamp = str(coach_row.get("revision_timestamp") or "")
+    if len(stamp) >= 4 and stamp[:4].isdigit():
+        return int(stamp[:4])
+    return None
+
+
 def expand_seasons(coach_row: dict[str, Any]) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     person = str(coach_row.get("title") or "")
+    observation_year = _observation_year(coach_row)
     for episode in coach_row.get("episodes") or []:
         if str(episode.get("role") or "") == "UNKNOWN":
             continue
-        for year in career_episode_seasons(episode, through_year=2026):
+        for year in career_episode_seasons(
+            episode, observation_year=observation_year
+        ):
             if year < 1963 or year > 2026:
                 continue
             out.append(
@@ -234,7 +244,10 @@ def expand_seasons(coach_row: dict[str, Any]) -> list[dict[str, Any]]:
                     "raw_title": episode.get("raw_title"),
                     "source_year_text": episode.get("source_year_text"),
                     "ongoing": episode.get("ongoing"),
+                    "observation_year": observation_year,
+                    "unverified_later_continuation": False,
                     "wikimedia_revision": episode.get("wikimedia_revision"),
+                    "revision_timestamp": coach_row.get("revision_timestamp"),
                     "wikidata_qid": coach_row.get("wikidata_qid"),
                     "pageid": coach_row.get("pageid"),
                     "source": "WIKIMEDIA_COACH_CAREER",

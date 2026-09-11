@@ -23,10 +23,10 @@
     "bat600_payload_file_sha256": "57e5cf78d7141698874e93985aa8eb13a78d7dade91808942ebe0478136acec9",
     "bat601_payload_file_sha256": "752bd4631289fa35ae40bd11f481d520cb14c0dd7a082814055a80c2fec876c6",
     "bat601_payload_identity": "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc",
-    "gate_identity": "ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580",
-    "predecessor_gate_identity": "d58074fd309da1a6fac386c63d08cd1f150d4ec40d23d5720fa057b18cb35fb8",
-    "predecessor_union_identity": "c15f5c33b14ac42322766c3c1be817be67d5b27f29c0cb77b164893980046200",
-    "union_identity": "51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459",
+    "gate_identity": "8ddf1d8014aed64e01a2401d8e452a3e7fe75149992aafcd44d32212ce46dd99",
+    "predecessor_gate_identity": "03001feb170f42791b783af4415e1a6d96659e108745ae3cfee6443b65b257fe",
+    "predecessor_union_identity": "2d5964042d3a03f2eb1a405a45969ff7ad5934e637f38dc96f10d986b6bedc73",
+    "union_identity": "95b64097ac74de0fa3fa3c5bdd11d6552249217e9637a4fb8e696496fb0525ec",
     "validation_contract_version": "aggie.data.tamu_official_gamebook_union_2005_integrity_bound.v1",
     "validator_code_identity": "83725d839c13d560563b55c8224da90b28f0e0bd7af3d5109f6b276884e38cc4"
   },
@@ -53,7 +53,7 @@
   "local_issue_id": "POST-TASK-SRC014-2005-INTEGRITY-BOUND-UNION-001",
   "material_pr": 520,
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Material PR #520 merged as b4b9b4c53cffdd3f68b4a128441fe0936f31e6b4. Created the integrity-bound successor to BAT-602 with union identity 51b668f1be25ac3768dee68f409fa93d58873e55d3e6c0d6930f061dd030f459 and gate identity ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580. Independently recomputed BAT-600 acquisition/games/dataset identities and BAT-601 payload identity from external payloads, rebound every 2005 game to the BAT-599 official index URL without the hardcoded parent_url fallback, and verified serialized BAT-601 rows before overlay. Preserved the 261-game union count, 58 official-school games, four unmatched rejections, and all recorded date/season-header conflicts. new_games_added=0. BAT-586 through BAT-602 identities were not rewritten. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Material PR #520 merged as b4b9b4c53cffdd3f68b4a128441fe0936f31e6b4. Created the integrity-bound successor to BAT-602 with union identity 95b64097ac74de0fa3fa3c5bdd11d6552249217e9637a4fb8e696496fb0525ec and gate identity 8ddf1d8014aed64e01a2401d8e452a3e7fe75149992aafcd44d32212ce46dd99. Independently recomputed BAT-600 acquisition/games/dataset identities and BAT-601 payload identity from external payloads, rebound every 2005 game to the BAT-599 official index URL without the hardcoded parent_url fallback, and verified serialized BAT-601 rows before overlay. Preserved the 261-game union count, 58 official-school games, four unmatched rejections, and all recorded date/season-header conflicts. new_games_added=0. BAT-586 through BAT-602 identities were not rewritten. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,

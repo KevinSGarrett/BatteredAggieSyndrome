@@ -11,6 +11,7 @@ import ast
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
@@ -151,7 +152,7 @@ def _containment(root: Path) -> int:
     return 0
 
 
-def _science(root: Path) -> int:
+def _science(root: Path, *, kernel_rows: Path | None = None) -> int:
     art = root / ART_REL
     producer = list((root / "src" / "aggie_analytics" / "cycle30").glob("*.py"))
     reference = list(
@@ -159,7 +160,14 @@ def _science(root: Path) -> int:
             "*.py"
         )
     )
-    rows_path = EXT / "PIT_KERNEL_ROWS.jsonl"
+    local_rows = root / ART_REL / "PIT_KERNEL_ROWS.jsonl"
+    ext_rows = EXT / "PIT_KERNEL_ROWS.jsonl"
+    if kernel_rows is not None:
+        rows_path = kernel_rows
+    elif local_rows.is_file():
+        rows_path = local_rows
+    else:
+        rows_path = ext_rows
     manifest = json.loads(
         (art / "PIT_KERNEL_POPULATION_MANIFEST.json").read_text(encoding="utf-8")
     )
@@ -184,15 +192,23 @@ def _science(root: Path) -> int:
             payload_available=rows_path.is_file(),
         )
         reject_pass_without_opening(True, int(rehash["rows_opened"]), claimed)
+        from aggie_analytics.scientific_reference.cycle30.pit import (
+            challenge_kernel_rows,
+        )
+
+        rows: list[dict[str, Any]] = []
+        with rows_path.open(encoding="utf-8") as handle:
+            for line in handle:
+                if line.strip():
+                    rows.append(json.loads(line))
+        challenge_kernel_rows(rows)
     except Exception as exc:
         print("FAIL science", exc)
         return 1
     reconstruction = json.loads(
         (art / "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json").read_text(encoding="utf-8")
     )
-    if reconstruction.get("matched") is not True:
-        print("FAIL independent reconstruction")
-        return 1
+    del reconstruction  # stored matched:true is not live reconstruction
     if claimed and opened == 0:
         print("FAIL empty scientific rows")
         return 1
@@ -217,14 +233,20 @@ def main() -> int:
         choices=(CONTAINMENT, SCIENCE, "BOTH"),
         default="BOTH",
     )
+    parser.add_argument(
+        "--kernel-rows",
+        default="",
+        help="Bound kernel JSONL to challenge; does not skip live reconstruction",
+    )
     args = parser.parse_args()
     root = Path(args.repo_root)
+    kernel_rows = Path(args.kernel_rows) if args.kernel_rows else None
     if args.mode in {CONTAINMENT, "BOTH"}:
         code = _containment(root)
         if code:
             return code
     if args.mode in {SCIENCE, "BOTH"}:
-        return _science(root)
+        return _science(root, kernel_rows=kernel_rows)
     return 0
 
 

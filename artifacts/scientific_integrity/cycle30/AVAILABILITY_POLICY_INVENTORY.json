@@ -2,6 +2,11 @@
   "artifact_class": "REAL_EVIDENCE",
   "artifact_type": "AVAILABILITY_POLICY_INVENTORY",
   "attempted_official_report_routes": 14,
+  "co_owners": [
+    "BAT-328",
+    "BAT-703",
+    "CFIP-23"
+  ],
   "conference_counts": {
     "ACC": 17,
     "American Athletic": 14,
@@ -33,7 +38,7 @@
   "no_report_means_unknown_not_healthy": true,
   "not_attempted": 130,
   "out_of_fitted_models": true,
-  "owner": "BAT-414",
+  "owner": "BAT-324",
   "policy_status_counts": {
     "FCS_VARIES_BY_PROGRAM": 128,
     "KNOWN_PUBLIC_POLICY": 136,

@@ -8,27 +8,27 @@
     "drives": {
       "filename": "drives.jsonl",
       "row_count": 3142,
-      "sha256": "098ec77c7f55b73a092ea331946e2a08e9db724052389b382ee1fced7a3db1dd"
+      "sha256": "dbecf839f060543ee6f5929b1c5987febd0f92be29672f34fa574d398ebfb60b"
     },
     "individual_player_statistics": {
       "filename": "individual_player_statistics.jsonl",
       "row_count": 3475,
-      "sha256": "73b0ff8e29065534384abe4391b1da5dd332d9746c111bb203b1390a043f02a4"
+      "sha256": "2ba4d574eaf5036733589a4843874b250215c33c922fb796bfaa6821f665f016"
     },
     "play_by_play": {
       "filename": "play_by_play.jsonl",
       "row_count": 45348,
-      "sha256": "291ff1d8a4313f11d6e7fea8e45be7587e747fa8f80ce65ab90efbe6562fa4b1"
+      "sha256": "56d1c8ed20022eea51534ee7437ccc3b0a7c088c72211f7ae43746b290ec4b43"
     },
     "scoring_summary": {
       "filename": "scoring_summary.jsonl",
       "row_count": 2150,
-      "sha256": "bfd9175590dbe5e8eece5e752352b07c8730bc56d53e46082639c70f8617783a"
+      "sha256": "cfe783cf746ef865e4b5c2df348ca980b1f061833441493279f750b48a09cf6c"
     },
     "team_statistics": {
       "filename": "team_statistics.jsonl",
       "row_count": 4638,
-      "sha256": "84c7aee65f3b7ccf1fde9839685f1eb068f03b8624fcfe7fcfe61bc40f84a9a8"
+      "sha256": "6e917813e784dfc88d08ead7de835e8c441e9a5fd70cb05d6366c64d2172a772"
     }
   },
   "classification": "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_INTEGRITY_CANDIDATE_ONLY",
@@ -41,13 +41,13 @@
     "seasons": 12,
     "serialized_rows_total": 58753
   },
-  "dataset_identity": "f9ca71cd4206cbe6597af0d3de2ec48fb47aaa7c1d1b89ba2668b700f97a9a98",
+  "dataset_identity": "b6caddbee7c9847273dbdbb641f77b79e922402c1bbf397a47568a39fa726bac",
   "decision_unit": "POST-TASK-SRC014-1998-2009-REJECTION-INTEGRITY-001",
   "disposition": "NEW_IMMUTABLE_CORPUS_INTEGRITY_SUCCESSOR",
-  "gate_identity": "c0365dfda58f961313e94cd5e99d63ad6f3a0a0b7cc26842eaf5f069008ce02d",
+  "gate_identity": "7f2fbc86eee298d61e261440782507a80e9556687440fd41aed96fefb499485a",
   "jira_key": "BAT-649",
-  "predecessor_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
-  "predecessor_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
+  "predecessor_dataset_identity": "ac36f30b3f190085a3146fbdb1d4956c0176f59a8d72ab2227b0ddd45fe40935",
+  "predecessor_gate_identity": "ebaa82fb0fec95f170fa29a61891ced079206c1a627a3706abd863466fd3b04d",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "rejected_rows_by_domain": {
     "drives": 0,
@@ -76,8 +76,8 @@
   ],
   "source_id": "SRC-014",
   "upstream_identities": {
-    "bat638_dataset_identity": "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8",
-    "bat638_gate_identity": "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54",
+    "bat638_dataset_identity": "ac36f30b3f190085a3146fbdb1d4956c0176f59a8d72ab2227b0ddd45fe40935",
+    "bat638_gate_identity": "ebaa82fb0fec95f170fa29a61891ced079206c1a627a3706abd863466fd3b04d",
     "rejection_integrity_gate_identity": "353f32339af8b686e9809bea5ed1ad7a6b5d2674461f42a1be073dde58cc88d0",
     "rejection_ledger_identity": "1b79f1bac9883e93fca9a6154493cf646059986fdc8bff4491ddbc8715631574"
   },

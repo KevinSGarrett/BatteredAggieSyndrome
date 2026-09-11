@@ -17,9 +17,9 @@
   "current_identities": {
     "bat586_dataset_identity": "1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59",
     "bat589_dataset_identity": "8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0",
-    "gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+    "gate_identity": "ed2ce7b95bd046a282116cf50aff84fec1e585f8dee848cc4451bec63bdf668c",
     "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
-    "payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d"
+    "payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338"
   },
   "duplicate_audit": {
     "decision": "CREATE",
@@ -34,7 +34,7 @@
   "jira_key": "BAT-591",
   "local_issue_id": "POST-TASK-SRC014-STATCREW-PREFORMATTED-001",
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Created a new immutable StatCrew preformatted enriched payload identity ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d from already-captured official 2007-2009 pages. Gate identity 9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16. Parsed 38 games. Per-domain present counts: team_statistics 38, individual_player_statistics 38, drives 37, play_by_play 37. The 2007-09-01 page keeps drives and play-by-play absent in this preformatted identity because those domains exist only as HTML tables on that page. BAT-586 dataset 1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59 and BAT-589 dataset 8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0 were not rewritten. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Created a new immutable StatCrew preformatted enriched payload identity c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338 from already-captured official 2007-2009 pages. Gate identity ed2ce7b95bd046a282116cf50aff84fec1e585f8dee848cc4451bec63bdf668c. Parsed 38 games. Per-domain present counts: team_statistics 38, individual_player_statistics 38, drives 37, play_by_play 37. The 2007-09-01 page keeps drives and play-by-play absent in this preformatted identity because those domains exist only as HTML tables on that page. BAT-586 dataset 1858893908f59afc8f6e88fea46764666869d7c809ddf2b3fedbdfcea02b6b59 and BAT-589 dataset 8681c15f48e1335e3e56bca7f146af4dc9c7ce731d077b2923d977e429a8b0c0 were not rewritten. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,

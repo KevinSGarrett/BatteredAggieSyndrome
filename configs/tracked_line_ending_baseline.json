@@ -2,7 +2,7 @@
   "artifact_type": "TRACKED_LINE_ENDING_BASELINE",
   "baseline_commit": "43a1cc5df4e6ed3986a08b33c7bf3036b44b30df",
   "jira_identity": "BAT-663",
-  "mixed_line_ending_count": 34,
+  "mixed_line_ending_count": 33,
   "mixed_line_ending_paths": [
     "configs/tamu_official_2007_season_index_contract.json",
     "governance/CRITICAL_PATH.csv",
@@ -19,7 +19,6 @@
     "jira/import/JIRA_HIERARCHY_STAGE_3.csv",
     "jira/import/JIRA_ISSUES_MASTER.csv",
     "src/aggie_analytics/data/tamu_official_2007_season_index.py",
-    "tests/test_artifact_bindings.py",
     "tests/test_tamu_official_1999_season_index.py",
     "tests/test_tamu_official_2000_boxscores.py",
     "tests/test_tamu_official_2000_season_index.py",

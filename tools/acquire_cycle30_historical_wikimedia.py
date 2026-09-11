@@ -29,6 +29,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     parse_wikimedia_infobox,
     redact_personal_contact,
     reject_wikimedia_as_pit,
+    season_page_supports_requested_year,
     season_title_matches_school,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
@@ -204,12 +205,27 @@ SEASON_SEARCH_ALIASES = {
     "Florida International": ("FIU Panthers", "Florida International"),
     "Miami (OH)": ("Miami RedHawks", "Miami (OH)"),
     "Campbell": ("Campbell Fighting Camels", "Campbell"),
+    "Jacksonville": (
+        "Jacksonville Dolphins",
+        "Jacksonville",
+    ),
+    "Saint Francis": (
+        "Saint Francis Red Flash",
+        "Saint Francis (PA)",
+        "Saint Francis",
+    ),
+    "Savannah State": (
+        "Savannah State Tigers",
+        "Savannah State",
+    ),
     "South Florida": ("South Florida Bulls", "South Florida"),
     "Lafayette": ("Lafayette Leopards", "Lafayette College"),
     "Cal Poly": ("Cal Poly Mustangs", "Cal Poly"),
     "Long Island University": ("LIU Sharks", "Long Island"),
     "UAlbany": ("Albany Great Danes", "UAlbany"),
-    "UL Monroe": ("Louisiana–Monroe Warhawks", "UL Monroe"),
+    "Ohio": ("Ohio Bobcats", "Ohio"),
+    "Southern": ("Southern Jaguars", "Southern University", "Southern"),
+    "Tennessee State": ("Tennessee State Tigers", "Tennessee State"),
 }
 
 
@@ -237,6 +253,10 @@ def search_season_title(
                     continue
                 if not season_title_matches_school(title, school):
                     continue
+                if not season_page_supports_requested_year(
+                    page_title=title, wikitext="", year=year
+                ):
+                    continue
                 return title
     return None
 
@@ -250,10 +270,25 @@ def fetch_season(
 ) -> dict[str, Any]:
     parsed = fetch_title(guessed_title, ledger)
     bound_title = str(parsed.get("title") or guessed_title or "")
-    if parsed.get("status") == "REVISION_BOUND" and season_title_matches_school(
-        bound_title, school
+    wikitext = str(parsed.get("wikitext") or "")
+    supports_year = season_page_supports_requested_year(
+        page_title=bound_title, wikitext=wikitext, year=year
+    )
+    if (
+        parsed.get("status") == "REVISION_BOUND"
+        and season_title_matches_school(bound_title, school)
+        and supports_year
     ):
         return parsed
+    if parsed.get("status") == "REVISION_BOUND" and not supports_year:
+        return {
+            **parsed,
+            "status": "SEASON_UNSUPPORTED",
+            "episodes": [],
+            "rejected_cross_program_title": bound_title,
+            "requested_season": year,
+            "requested_title": guessed_title,
+        }
     if parsed.get("status") != "PAGE_MISSING":
         parsed = {
             **parsed,
@@ -265,8 +300,14 @@ def fetch_season(
     if not alt or alt == guessed_title:
         return parsed
     rebound = fetch_title(alt, ledger)
-    if rebound.get("status") == "REVISION_BOUND" and season_title_matches_school(
-        str(rebound.get("title") or alt), school
+    if (
+        rebound.get("status") == "REVISION_BOUND"
+        and season_title_matches_school(str(rebound.get("title") or alt), school)
+        and season_page_supports_requested_year(
+            page_title=str(rebound.get("title") or alt),
+            wikitext=str(rebound.get("wikitext") or ""),
+            year=year,
+        )
     ):
         return rebound
     return parsed

@@ -140,8 +140,8 @@ def main() -> int:
     if args.dry_run:
         print("BUDGET_DECLARED", BUDGET["max_requests"], "years", len(BUDGET["years"]))
         return 0
-    token = load_dotenv_value(ENV_FILE, "CFBD_API_KEY")
-    transport = CFBDTransport(access_token=token)
+    access_credential = load_dotenv_value(ENV_FILE, "CFBD_API_KEY")
+    transport = CFBDTransport(access_credential)
     ledger: list[dict[str, Any]] = []
     teams: list[dict[str, Any]] = []
     try:

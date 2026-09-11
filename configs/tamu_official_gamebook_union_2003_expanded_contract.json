@@ -6,7 +6,7 @@
   "local_issue_id": "POST-TASK-SRC014-2003-EXPANDED-ENRICHED-UNION-001",
   "new_issue_decision": "CREATE",
   "purpose": "Create a new immutable official enriched union that starts from the BAT-608 integrity-complete successor and admits only independently validated official 2003 games. Do not rewrite BAT-608, BAT-607, or BAT-603. Opponent name alone is not admission. Fail closed if the BAT-608 union manifest is missing.",
-  "predecessor_union_identity": "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd",
+  "predecessor_union_identity": "2b1ba2dd0f7b6bd5204f84c3faf31188e630cb6103b359c5dafa9768aff34cb9",
   "predecessor_gate_identity": "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f",
   "pinned_bat608_union_manifest_file_sha256": "7853ae659d1a6c8954a99ac23abd65d8c484c8e61d3d455d0f8deafba9bb0401",
   "pinned_bat609_gate_identity": "1a2b16c74bcfc27ba0afc83611fd817d34aa6a2a71a326fd385721b779d9411e",

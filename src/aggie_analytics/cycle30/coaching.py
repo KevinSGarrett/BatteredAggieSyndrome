@@ -22,6 +22,18 @@ ROLE_OC = "offensive_coordinator"
 ROLE_DC = "defensive_coordinator"
 PRIMARY_ROLES = (ROLE_HC, ROLE_OC, ROLE_DC)
 
+# Operator-declared dual occupancy. Missing coordinator titles never imply this.
+HEAD_COACH_DUAL_OCCUPANCY: dict[tuple[str, int, str], dict[str, str]] = {
+    ("SRC-002:TEAM:264", 2026, ROLE_OC): {
+        "person": "Jedd Fisch",
+        "authority": "OPERATOR_CONTEMPORANEOUS_DECLARATION",
+        "statement": (
+            "Washington Huskies have no separate 2026 offensive coordinator; "
+            "Jedd Fisch is acting as head coach and offensive coordinator."
+        ),
+    }
+}
+
 CONCURRENT = "CONCURRENT_SHARED"
 SEQUENTIAL = "SEQUENTIAL_CHANGE"
 NOT_ATTEMPTED = "NOT_ATTEMPTED"
@@ -131,6 +143,83 @@ _DEFENSIVE_COORDINATOR_TITLE = re.compile(
     r"\bdefensive coordinator\b|\bdef\.?\s*coor(?:dinator)?\.?",
     re.I,
 )
+_DIRECTOR_OF_OFFENSE = re.compile(
+    r"\bdirector of offense\b(?!\s+(?:recruiting|personnel|operations|"
+    r"scouting|quality|player))",
+    re.I,
+)
+_DIRECTOR_OF_DEFENSE = re.compile(
+    r"\bdirector of defen[cs]e\b(?!\s+(?:recruiting|personnel|operations|"
+    r"scouting|quality|player))",
+    re.I,
+)
+_ASSISTANT_UNIT_DIRECTOR = re.compile(
+    r"\b(?:assistant|associate|assoc\.|asst\.?|deputy)\s+director of "
+    r"(?:offense|defen[cs]e)\b",
+    re.I,
+)
+_SLASH_OC_TOKEN = re.compile(r"(?:^|[\s/])oc(?:[\s/]|$)", re.I)
+_SLASH_DC_TOKEN = re.compile(r"(?:^|[\s/])dc(?:[\s/]|$)", re.I)
+_ASSISTANT_TO_OC = re.compile(
+    r"\b(?:special\s+)?(?:assistant|aide|analyst)\s+to(?:\s+the)?\s+"
+    r"offensive\s+coordinator\b",
+    re.I,
+)
+_ASSISTANT_TO_DC = re.compile(
+    r"\b(?:special\s+)?(?:assistant|aide|analyst)\s+to(?:\s+the)?\s+"
+    r"defensive\s+coordinator\b",
+    re.I,
+)
+_STAFF_ROW_KEEP_TOKENS = (
+    "coach",
+    "coordinator",
+    "analyst",
+    "assistant",
+    "chair in football",
+    "director of football",
+    "director of offense",
+    "director of defence",
+    "director of defense",
+)
+_PROGRAM_HEAD_COACH_TITLE = re.compile(
+    r"\bhead(?:\s+football)?\s+coach\b|\bendowed football coach\b|"
+    r"\bchair in football\s*$|\bdirector of football\s*$",
+    re.I,
+)
+_NOT_PROGRAM_HEAD_COACH = re.compile(
+    r"""
+    \b(?:deputy|associate|assoc\.|assistant|asst\.?).{0,24}
+        \bhead(?:\s+football)?\s+coach\b
+    |\bhead(?:\s+football)?\s+coach\s+(?:of|for)\s+
+        (?:the\s+)?(?:offense|defence|defense|special\s+teams)\b
+    |\b(?:director|coordinator|consultant|advisor|adviser|aide)\b.{0,48}
+        \bhead(?:\s+football)?\s+coach
+    |\b(?:to|for|of)(?:\s+the)?\s+head(?:\s+football)?\s+coach\b
+    |\bhead(?:\s+football)?\s+coach\s+(?:analyst|operations|assistant|support)\b
+    |\bdirector\s+of\s+football\s+(?:operations|events|recruiting|alumni|
+        communications|video|performance|administration)
+    |\bexecutive coordinator\b
+    |\b(?:sports\s+performance|strength(?:\s+and\s+conditioning)?|track\s+and\s+field)\b
+    """,
+    re.I | re.X,
+)
+_BARE_HEAD_COACH_TITLE = re.compile(
+    r"^head(?:\s+football)?\s+coach$",
+    re.I,
+)
+
+
+def _title_is_program_head_coach(title: str) -> bool:
+    """Program HC only. Deputy/director/unit 'head coach of X' stay observed."""
+
+    lowered = re.sub(r"\s+", " ", str(title or "")).strip().casefold()
+    if not lowered:
+        return False
+    if not _PROGRAM_HEAD_COACH_TITLE.search(lowered):
+        return False
+    if _NOT_PROGRAM_HEAD_COACH.search(lowered):
+        return False
+    return True
 
 
 def role_families_from_title(title: str) -> tuple[str, ...]:
@@ -140,17 +229,38 @@ def role_families_from_title(title: str) -> tuple[str, ...]:
     if not lowered:
         return ()
     families: list[str] = []
-    if (
-        re.search(r"\bhead(?:\s+football)?\s+coach\b", lowered)
-        and not _ASSOCIATE_OR_ASSISTANT_HEAD.search(lowered)
-        and "to the head coach" not in lowered
-    ):
+    if _title_is_program_head_coach(lowered):
         families.append(ROLE_HC)
-    if _OFFENSIVE_COORDINATOR_TITLE.search(lowered):
+    if not _ASSISTANT_TO_OC.search(lowered) and (
+        _OFFENSIVE_COORDINATOR_TITLE.search(lowered)
+        or (
+            _DIRECTOR_OF_OFFENSE.search(lowered)
+            and not _ASSISTANT_UNIT_DIRECTOR.search(lowered)
+        )
+        or _SLASH_OC_TOKEN.search(lowered)
+    ):
         families.append(ROLE_OC)
-    if _DEFENSIVE_COORDINATOR_TITLE.search(lowered):
+    if not _ASSISTANT_TO_DC.search(lowered) and (
+        _DEFENSIVE_COORDINATOR_TITLE.search(lowered)
+        or (
+            _DIRECTOR_OF_DEFENSE.search(lowered)
+            and not _ASSISTANT_UNIT_DIRECTOR.search(lowered)
+        )
+        or _SLASH_DC_TOKEN.search(lowered)
+    ):
         families.append(ROLE_DC)
     return tuple(families)
+
+
+def _title_looks_like_staff_row(title: str) -> bool:
+    lowered = str(title or "").casefold().strip()
+    if not lowered:
+        return False
+    if any(token in lowered for token in _STAFF_ROW_KEEP_TOKENS):
+        return True
+    return any(
+        re.search(pattern, lowered, re.I) for pattern, _ in OBSERVED_STAFF_ROLE_PATTERNS
+    )
 
 
 def primary_role_coverage(people: Sequence[Mapping[str, Any]]) -> frozenset[str]:
@@ -182,11 +292,11 @@ _SIDEARM_PAIR = re.compile(
     re.I | re.S,
 )
 _COACH_CARD = re.compile(
-    r'class="[^"]*(?:sidearm-roster-coach-name|sidearm-coach-name|'
-    r's-person-card__name|c-coach-card__name)[^"]*"[^>]*>(?P<name>.*?)</'
+    r"""class=['"][^'"]*(?:sidearm-roster-coach-name|sidearm-coach-name|"""
+    r"""s-person-card__name|c-coach-card__name)[^'"]*['"][^>]*>(?P<name>.*?)</"""
     r".{0,400}?"
-    r'class="[^"]*(?:sidearm-roster-coach-title|sidearm-coach-title|'
-    r's-person-card__title|c-coach-card__title)[^"]*"[^>]*>(?P<title>.*?)</',
+    r"""class=['"][^'"]*(?:sidearm-roster-coach-title|sidearm-coach-title|"""
+    r"""s-person-card__title|c-coach-card__title)[^'"]*['"][^>]*>(?P<title>.*?)</""",
     re.I | re.S,
 )
 _SIDEARM_VUE_PAIR = re.compile(
@@ -261,6 +371,10 @@ ATHLETICS_HOST_FALLBACKS = {
     "ccsubluedevils.com": ("www.ccsubluedevils.com",),
     "www.ccsubluedevils.com": ("ccsubluedevils.com",),
 }
+PROGRAM_ATHLETICS_ORIGINS = {
+    "SRC-002:TEAM:3101": "https://utahtechtrailblazers.com",
+    "SRC-002:TEAM:264": "https://gohuskies.com",
+}
 _TAG = re.compile(r"<[^>]+>")
 _PRESTO_ARIA_BIO = re.compile(
     r'aria-label="(?P<name>[^"]{2,80}?),\s*(?P<title>[^"]{3,120}?),\s*Full Bio"',
@@ -280,7 +394,7 @@ _S_TABLE_BODY_ROW = re.compile(
     re.I | re.S,
 )
 _S_TABLE_TITLE_THEN_NAME = re.compile(
-    r"<span[^>]*>(?P<title>[^<]{3,90})</span>.{0,350}?"
+    r"<span[^>]*>(?P<title>[^<]{3,90})</span>(?:(?!</tr>).){0,350}?"
     r'href="/sports/[^"]*roster/coaches/[^"]+"[^>]*>\s*'
     r"(?:<span[^>]*>)?(?P<name>[^<]{2,80})",
     re.I | re.S,
@@ -298,6 +412,32 @@ _STAFF_DIR_NAME_CELL = re.compile(
 _STAFF_DIR_TITLE_CELL = re.compile(
     r'class="[^"]*staff-directory-table-member-position__position[^"]*"[^>]*>'
     r"(?P<title>.*?)</td>",
+    re.I | re.S,
+)
+_STAFF_DIR_DEPT = re.compile(
+    r'<tbody[^>]*class="[^"]*staff-directory-table-department[^"]*"[^>]*>'
+    r"(?P<body>.*?)</tbody>",
+    re.I | re.S,
+)
+_STAFF_DIR_DEPT_TITLE = re.compile(
+    r"staff-directory-table-department__title[^>]*>"
+    r"(?:<!--\[-->)?\s*(?:<span[^>]*>)?(?P<title>[^<]+)",
+    re.I | re.S,
+)
+_FOOTBALL_TH_TABLE = re.compile(
+    r"<th[^>]*>\s*Football\s*</th>.*?<tbody[^>]*>(?P<body>.*?)</tbody>",
+    re.I | re.S,
+)
+_SIMPLE_STAFF_TR = re.compile(
+    r"<tr[^>]*>\s*<td[^>]*>\s*(?:<a[^>]*>)?\s*(?P<name>[^<]{2,80}?)\s*(?:</a>)?"
+    r"\s*</td>\s*<td[^>]*>\s*(?P<title>[^<]{2,90}?)\s*</td>",
+    re.I | re.S,
+)
+_PRESTO_STAFF_ROW = re.compile(
+    r'class="staff-directory_table_row_name"[^>]*>.{0,900}?'
+    r'<div class="name">(?P<name>[^<]{2,80})</div>'
+    r".{0,400}?"
+    r'class="staff-directory_table_row_title"[^>]*>\s*<p>(?P<title>[^<]{2,90})</p>',
     re.I | re.S,
 )
 _SIDEARM_CATEGORY = re.compile(
@@ -385,11 +525,7 @@ def parse_official_staff_json(payload: Any, *, page_url: str) -> list[dict[str, 
         if not name or not title:
             continue
         if cat_title and "football" not in cat_title.casefold():
-            if (
-                "coach" not in title.casefold()
-                and "coordinator" not in title.casefold()
-            ):
-                continue
+            continue
         try:
             reject_personal_contact(name)
             reject_personal_contact(title)
@@ -461,6 +597,24 @@ def _wikidata_label_is_college_program(label: str) -> bool:
     return any(token in lowered for token in ("football", "university", "college"))
 
 
+def stable_person_id(
+    *,
+    program_id: str,
+    person: str,
+    source_person_id: str | None = None,
+) -> str:
+    """Evidence-backed person key. Namesakes at different programs stay distinct."""
+
+    source = str(source_person_id or "").strip()
+    if source:
+        return source
+    name = re.sub(r"\s+", " ", str(person or "").strip())
+    if not name or not program_id:
+        raise CoachingError("person identity requires program_id and person")
+    digest = sha256_json({"program_id": str(program_id), "person": name.casefold()})
+    return f"BAS:PERSON:{digest[:16]}"
+
+
 def select_college_football_wiki_title(
     hits: Sequence[Mapping[str, Any]], school: str
 ) -> str | None:
@@ -479,6 +633,8 @@ def select_college_football_wiki_title(
                 "footballer",
                 "soccer",
                 "football club",
+                "national football team",
+                "association football",
                 "f.c.",
                 " rivalry",
                 "list of",
@@ -551,7 +707,10 @@ def match_wikidata_website(
             )
         ):
             continue
-        if not any(token in label for token in needles) or not website:
+        if not any(
+            program_identity_binds(requested=token, observed_text=label)
+            for token in needles
+        ) or not website:
             continue
         parsed = _clean_website_candidate(str(website))
         if not parsed:
@@ -661,8 +820,7 @@ def staff_pdf_hrefs(html: str, *, page_url: str, limit: int = 6) -> list[str]:
             continue
         seen.add(key)
         if any(
-            token in key
-            for token in ("football", "media", "coach", "staff", "guide")
+            token in key for token in ("football", "media", "coach", "staff", "guide")
         ):
             preferred.append(href)
         else:
@@ -749,11 +907,7 @@ def _nodes_from_s_table_coaches(html: str, *, page_url: str) -> list[dict[str, s
         title = _plain(match.group("title"))
         if not name or not title:
             continue
-        lowered = title.casefold()
-        if not any(
-            token in lowered
-            for token in ("coach", "coordinator", "analyst", "assistant")
-        ):
+        if not _title_looks_like_staff_row(title):
             continue
         nodes.append(
             {
@@ -771,11 +925,7 @@ def _nodes_from_s_table_coaches(html: str, *, page_url: str) -> list[dict[str, s
         title = ""
         for span in re.findall(r"<span[^>]*>([^<]{2,90})</span>", row, re.I):
             cand = _plain(span)
-            lowered = cand.casefold()
-            if any(
-                token in lowered
-                for token in ("coach", "coordinator", "analyst", "assistant")
-            ):
+            if _title_looks_like_staff_row(cand):
                 title = cand
                 break
         if name and title:
@@ -794,6 +944,27 @@ def _nodes_from_staff_directory_rows(
 ) -> list[dict[str, str]]:
     """Next-gen staff-directory table rows. Name and title share one <tr>."""
 
+    departments = list(_STAFF_DIR_DEPT.finditer(html or ""))
+    if departments:
+        nodes: list[dict[str, str]] = []
+        for dept in departments:
+            title_match = _STAFF_DIR_DEPT_TITLE.search(dept.group("body"))
+            dept_title = _plain(title_match.group("title") if title_match else "")
+            lowered = dept_title.casefold()
+            if not lowered.startswith("football"):
+                continue
+            if lowered.startswith("football sports performance"):
+                continue
+            nodes.extend(
+                _staff_directory_rows_from_html(dept.group("body"), page_url=page_url)
+            )
+        return nodes
+    if "staff-directory-table-department" in (html or ""):
+        return []
+    return _staff_directory_rows_from_html(html or "", page_url=page_url)
+
+
+def _staff_directory_rows_from_html(html: str, *, page_url: str) -> list[dict[str, str]]:
     nodes: list[dict[str, str]] = []
     for match in _STAFF_DIR_ROW.finditer(html or ""):
         row = match.group("row")
@@ -803,11 +974,7 @@ def _nodes_from_staff_directory_rows(
         title = _plain(title_match.group("title") if title_match else "")
         if not name or not title:
             continue
-        lowered = title.casefold()
-        if not any(
-            token in lowered
-            for token in ("coach", "coordinator", "analyst", "assistant")
-        ):
+        if not _title_looks_like_staff_row(title):
             continue
         nodes.append(
             {
@@ -819,13 +986,91 @@ def _nodes_from_staff_directory_rows(
     return nodes
 
 
+def _nodes_from_football_header_tables(html: str, *, page_url: str) -> list[dict[str, str]]:
+    """Tables whose first header cell is Football, not an all-sports dump."""
+
+    nodes: list[dict[str, str]] = []
+    for table in _FOOTBALL_TH_TABLE.finditer(html or ""):
+        for match in _SIMPLE_STAFF_TR.finditer(table.group("body")):
+            name = _plain(match.group("name"))
+            title = _plain(match.group("title"))
+            if not name or not title:
+                continue
+            nodes.append(
+                {
+                    "person": name,
+                    "title": title,
+                    "span_id": f"dom:{page_url}:{name}:{title}",
+                }
+            )
+    return nodes
+
+
+def _nodes_from_presto_staff_directory(html: str, *, page_url: str) -> list[dict[str, str]]:
+    """Presto staff-directory_table_row name/title pairs."""
+
+    nodes: list[dict[str, str]] = []
+    for match in _PRESTO_STAFF_ROW.finditer(html or ""):
+        name = _plain(match.group("name"))
+        title = _plain(html_lib.unescape(match.group("title")))
+        if not name or not title:
+            continue
+        nodes.append(
+            {
+                "person": name,
+                "title": title,
+                "span_id": f"dom:{page_url}:{name}:{title}",
+            }
+        )
+    return _restrict_presto_head_coaches_to_football_cluster(nodes)
+
+
+def _restrict_presto_head_coaches_to_football_cluster(
+    nodes: Sequence[Mapping[str, Any]],
+) -> list[dict[str, str]]:
+    """All-sports Presto directories: keep the Head Coach immediately before OC/DC."""
+
+    coord = [
+        index
+        for index, node in enumerate(nodes)
+        if ROLE_OC in role_families_from_title(str(node.get("title") or ""))
+        or ROLE_DC in role_families_from_title(str(node.get("title") or ""))
+    ]
+    hc = [
+        index
+        for index, node in enumerate(nodes)
+        if ROLE_HC in role_families_from_title(str(node.get("title") or ""))
+    ]
+    if len(hc) <= 1 or not coord:
+        return [dict(node) for node in nodes]
+    first_coord = min(coord)
+    last_coord = max(coord)
+    before = [index for index in hc if index < first_coord]
+    keep_hc = {max(before)} if before else set()
+    for index in hc:
+        if first_coord <= index <= last_coord:
+            keep_hc.add(index)
+    start = min(keep_hc) if keep_hc else first_coord
+    end = last_coord
+    out: list[dict[str, str]] = []
+    for index, node in enumerate(nodes):
+        families = role_families_from_title(str(node.get("title") or ""))
+        if ROLE_HC in families and index not in keep_hc:
+            continue
+        if index < start or index > end:
+            if ROLE_OC not in families and ROLE_DC not in families:
+                continue
+        out.append(dict(node))
+    return out
+
+
 PROGRAM_SEASON_TITLE_ALIASES = {
     "East Texas A&M": (
         "east texas a&m",
         "texas a&m-commerce",
         "texas a&m–commerce",
     ),
-    "Utah Tech": ("utah tech", "dixie state"),
+    "Utah Tech": ("utah tech", "dixie state", "trailblazers"),
     "Mercyhurst": ("mercyhurst",),
     "New Haven": ("new haven",),
     "St. Thomas (MN)": ("st. thomas", "st thomas tommies"),
@@ -858,12 +1103,177 @@ PROGRAM_SEASON_TITLE_ALIASES = {
     "UL Monroe": ("ul monroe", "louisiana-monroe", "louisiana monroe"),
     "Cal Poly": ("cal poly", "cal poly mustangs"),
     "Lafayette": ("lafayette leopards", "lafayette college"),
-    "Arizona State": ("arizona state", "sun devils"),
+    "Arizona State": ("arizona state", "sun devils", "thesundevils"),
+    "Kentucky": ("kentucky", "ukathletics"),
+    "Navy": ("navy", "navysports"),
+    "North Dakota State": ("north dakota state", "gobison"),
+    "Northern Illinois": ("northern illinois", "niuhuskies"),
+    "Northern Iowa": ("northern iowa", "unipanthers"),
+    "Pittsburgh": ("pittsburgh", "pittsburghpanthers"),
+    "South Florida": ("south florida", "gousfbulls"),
+    "UNLV": ("unlv", "unlvrebels"),
+    "UT Martin": ("ut martin", "utmsports"),
+    "Louisiana Tech": ("louisiana tech", "latechsports"),
+    "West Georgia": ("west georgia", "uwgathletics"),
+    "Arkansas-Pine Bluff": ("arkansas-pine bluff", "uapblionsroar"),
     "Texas State": ("texas state",),
     "Georgia State": ("georgia state",),
     "Colorado State": ("colorado state",),
     "Campbell": ("campbell fighting camels", "campbell camels"),
+    "Jacksonville": ("jacksonville", "jacksonville dolphins"),
+    "Savannah State": ("savannah state",),
+    "Saint Francis": ("saint francis", "saint francis red flash", "st. francis pa"),
 }
+
+PROGRAM_SEASON_TITLE_EXCLUSIONS = {
+    "virginia": ("virginia tech",),
+    "north dakota": ("north dakota state",),
+    "south dakota": ("south dakota state",),
+    "fiu": ("florida gators",),
+    "florida international": ("florida gators",),
+    "pennsylvania": ("pittsburgh panthers",),
+    "jacksonville": ("jacksonville state",),
+}
+
+PROGRAM_IDENTITY_CATALOG = (
+    "Alabama",
+    "Alabama A&M",
+    "Alabama State",
+    "Arizona",
+    "Arizona State",
+    "Northern Arizona",
+    "Arkansas",
+    "Arkansas State",
+    "Florida",
+    "Florida State",
+    "Florida Atlantic",
+    "Florida International",
+    "Georgia",
+    "Georgia State",
+    "Georgia Southern",
+    "Georgia Tech",
+    "Illinois",
+    "Illinois State",
+    "Eastern Illinois",
+    "Western Illinois",
+    "Kansas",
+    "Kansas State",
+    "Louisiana",
+    "Louisiana State",
+    "Southeastern Louisiana",
+    "Louisiana-Monroe",
+    "New Mexico",
+    "New Mexico State",
+    "Ohio",
+    "Ohio State",
+    "Oregon",
+    "Oregon State",
+    "Southern",
+    "Southern Utah",
+    "Southern Illinois",
+    "Southern Miss",
+    "Southern California",
+    "Tennessee",
+    "Tennessee State",
+    "East Tennessee State",
+    "Tennessee Tech",
+    "Middle Tennessee",
+    "Texas",
+    "Texas State",
+    "Texas Tech",
+    "Texas A&M",
+    "Utah",
+    "Utah State",
+    "Utah Tech",
+    "Virginia",
+    "Virginia Tech",
+    "Washington",
+    "Washington State",
+    "Miami",
+    "Miami (OH)",
+    "Mississippi",
+    "Mississippi State",
+    "North Dakota",
+    "North Dakota State",
+    "South Dakota",
+    "South Dakota State",
+    "Colorado",
+    "Colorado State",
+    "Jacksonville",
+    "Jacksonville State",
+    "Michigan",
+    "Michigan State",
+    "Penn State",
+    "Pennsylvania",
+    "Pittsburgh",
+)
+
+
+def _word_boundary_present(needle: str, text: str) -> bool:
+    if not needle:
+        return False
+    if re.search(rf"(?<![a-z0-9]){re.escape(needle)}(?![a-z-])", text):
+        return True
+    compact_name = re.sub(r"[^a-z0-9]+", "", needle)
+    compact_text = re.sub(r"[^a-z0-9]+", "", text)
+    if len(compact_name) >= 8:
+        start = 0
+        while True:
+            pos = compact_text.find(compact_name, start)
+            if pos < 0:
+                break
+            after = compact_text[pos + len(compact_name) : pos + len(compact_name) + 1]
+            if not after.isalpha():
+                return True
+            start = pos + 1
+        for match in re.finditer(r"https?://([^/\s]+)", text, re.I):
+            host = match.group(1).casefold().removeprefix("www.")
+            label = re.sub(r"[^a-z0-9]+", "", host.split(".")[0])
+            if compact_name == label or label.endswith(compact_name):
+                return True
+    return False
+
+
+def requested_program_names(school: str) -> set[str]:
+    school_l = _normalize_school_token(school)
+    names = {school_l}
+    for key, aliases in PROGRAM_SEASON_TITLE_ALIASES.items():
+        if _normalize_school_token(key) == school_l:
+            names.update(_normalize_school_token(alias) for alias in aliases)
+    return {name for name in names if name}
+
+
+def program_identity_binds(*, requested: str, observed_text: str) -> bool:
+    """Longest catalog match wins. Substring first-hits cannot bind a different school."""
+
+    requested_l = _normalize_school_token(requested)
+    text_l = _normalize_school_token(observed_text)
+    if not requested_l or not text_l:
+        return False
+    aliases = requested_program_names(requested)
+    catalog: list[str] = []
+    seen: set[str] = set()
+    for name in (*PROGRAM_IDENTITY_CATALOG, requested, *aliases):
+        token = _normalize_school_token(name)
+        if token and token not in seen:
+            seen.add(token)
+            catalog.append(token)
+    hits = [name for name in catalog if _word_boundary_present(name, text_l)]
+    if not hits:
+        return False
+    longest = max(hits, key=len)
+    return longest in aliases
+
+
+def _normalize_school_token(value: str) -> str:
+    return (
+        str(value)
+        .casefold()
+        .strip()
+        .replace("é", "e")
+        .replace("–", "-")
+        .replace("—", "-")
+    )
 
 
 def season_title_matches_school(title: str, school: str) -> bool:
@@ -878,37 +1288,18 @@ def season_title_matches_school(title: str, school: str) -> bool:
         .replace("–", "-")
         .replace("—", "-")
     )
-    school_l = (
-        str(school or "")
-        .casefold()
-        .strip()
-        .replace("é", "e")
-        .replace("–", "-")
-        .replace("—", "-")
-    )
+    school_l = _normalize_school_token(school or "")
     if not title_l or not school_l:
         return False
     if "plane crash" in title_l:
         return False
-    needles = [school_l, *PROGRAM_SEASON_TITLE_ALIASES.get(str(school or ""), ())]
-    for token in needles:
-        token_l = (
-            str(token)
-            .casefold()
-            .strip()
-            .replace("é", "e")
-            .replace("–", "-")
-            .replace("—", "-")
-        )
-        if not token_l:
-            continue
-        if len(token_l) <= 3:
-            if re.search(rf"\b{re.escape(token_l)}\b", title_l):
-                return True
-            continue
-        if token_l in title_l:
-            return True
-    return False
+    if "national football team" in title_l or "association football" in title_l:
+        return False
+    for token in PROGRAM_SEASON_TITLE_EXCLUSIONS.get(school_l, ()):
+        token_l = _normalize_school_token(token)
+        if token_l and token_l in title_l:
+            return False
+    return program_identity_binds(requested=school, observed_text=title)
 
 
 def historical_season_page_title(
@@ -930,7 +1321,7 @@ def historical_season_page_title(
             return f"{year} {school_name} football team"
         return None
     if re.match(r"^\d{4}\s", title) and "football" in lowered:
-        if school_name and school_name.casefold() not in lowered:
+        if school_name and not season_title_matches_school(title, school_name):
             return f"{year} {school_name} football team"
         rest = re.sub(r"^\d{4}\s+", "", title).strip()
         return f"{year} {rest}"
@@ -939,6 +1330,28 @@ def historical_season_page_title(
     if "football team" in lowered:
         return f"{year} {title}"
     return f"{year} {title} football team"
+
+
+def season_page_supports_requested_year(
+    *, page_title: str, wikitext: str, year: int
+) -> bool:
+    """Generic program pages and wrong-year titles cannot fulfill a season request."""
+
+    title = str(page_title or "").strip()
+    if not title:
+        return False
+    lowered = title.casefold()
+    if lowered in {"american football", "college football", "football"}:
+        return False
+    titled_year = re.match(r"^(\d{4})\b", title)
+    if titled_year and int(titled_year.group(1)) != int(year):
+        return False
+    if re.match(rf"^{int(year)}\s", title) and "football" in lowered:
+        return True
+    if re.search(rf"\b{int(year)}\b", title) and "football" in lowered:
+        return True
+    del wikitext
+    return False
 
 
 def program_coach_category_title(current_title: str) -> str | None:
@@ -1015,11 +1428,53 @@ def _nodes_from_sidearm_coach_table(
     return nodes
 
 
-def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str]]:
+_HTML_TITLE = re.compile(r"<title>(.*?)</title>", re.I | re.S)
+_NON_FOOTBALL_TITLE = re.compile(
+    r"\b(?:baseball|basketball|softball|soccer|volleyball|hockey|"
+    r"lacrosse|wrestling|gymnastics|tennis|golf|track and field|"
+    r"sports performance)\b",
+    re.I,
+)
+
+
+def extract_html_title(html: str) -> str:
+    match = _HTML_TITLE.search(html or "")
+    return _plain(match.group(1)) if match else ""
+
+
+def official_page_binds_program(*, program_name: str, page_title: str, page_url: str) -> bool:
+    return program_identity_binds(
+        requested=program_name, observed_text=f"{page_title} {page_url}"
+    )
+
+
+def _title_is_football_staff(title: str) -> bool:
+    lowered = str(title or "").casefold()
+    if not lowered:
+        return False
+    if _NON_FOOTBALL_TITLE.search(lowered) and "football" not in lowered:
+        return False
+    return True
+
+
+def parse_official_staff_html(
+    html: str,
+    *,
+    page_url: str,
+    program_name: str | None = None,
+    excluded_spans: list[dict[str, str]] | None = None,
+) -> list[dict[str, str]]:
     """Row-bound official staff extraction. Not PIT. No email/phone stored."""
 
     if html_is_not_found_shell(html or ""):
         return []
+    page_title = extract_html_title(html or "")
+    if program_name and not official_page_binds_program(
+        program_name=program_name, page_title=page_title, page_url=page_url
+    ):
+        raise CoachingError(
+            "official page binds a different institution than the requested program"
+        )
     nodes: list[dict[str, str]] = []
     for match in _JSON_LD.finditer(html or ""):
         try:
@@ -1055,21 +1510,16 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
             nearby = (html or "")[match.end() : match.end() + 500]
             title_match = _NEAR_TITLE_SPAN.search(nearby)
             title = _plain(title_match.group("title") if title_match else "")
-            if (
-                name
-                and title
-                and any(
-                    token in title.casefold()
-                    for token in ("coach", "coordinator", "analyst", "assistant")
-                )
-            ):
-                nodes.append(
-                    {
-                        "person": name,
-                        "title": title,
-                        "span_id": f"dom:{page_url}:{name}:{title}",
-                    }
-                )
+            if name and title:
+                span = {
+                    "person": name,
+                    "title": title,
+                    "span_id": f"dom:{page_url}:{name}:{title}",
+                }
+                if _title_looks_like_staff_row(title):
+                    nodes.append(span)
+                else:
+                    nodes.append({**span, "exclude_reason": "NOT_FOOTBALL_STAFF_TITLE"})
     if "staff-directory-table-member" in (html or ""):
         for match in _SIDEARM_PAIR.finditer(html or ""):
             name = _plain(match.group("name"))
@@ -1141,14 +1591,46 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
                         "span_id": f"dom:{page_url}:{name}:{title}",
                     }
                 )
+    if "staff-directory_table_row_title" in (html or ""):
+        nodes.extend(
+            _nodes_from_presto_staff_directory(html or "", page_url=page_url)
+        )
+    if re.search(r"<th[^>]*>\s*Football\s*</th>", html or "", re.I):
+        nodes.extend(
+            _nodes_from_football_header_tables(html or "", page_url=page_url)
+        )
     if not nodes and (
         "coordinator" in (html or "").casefold()
         or "head coach" in (html or "").casefold()
     ):
         nodes.extend(_nodes_from_generic_name_title_rows(html or "", page_url=page_url))
+    if "staff-directory-table-department" in (html or ""):
+        scoped = _nodes_from_staff_directory_rows(html or "", page_url=page_url)
+        if scoped:
+            nodes = scoped
+    elif "staff-directory" in (page_url or "").casefold():
+        scoped = _nodes_from_sidearm_staff_member_table(
+            html or "", page_url=page_url, sport="football"
+        )
+        if scoped:
+            nodes = scoped
     if not nodes:
         return []
-    extracted = extract_row_bound_staff(nodes)
+    extracted = extract_row_bound_staff(
+        [node for node in nodes if not node.get("exclude_reason")]
+    )
+    excluded: list[dict[str, str]] = []
+    for node in nodes:
+        if node.get("exclude_reason"):
+            excluded.append(
+                {
+                    "person": str(node.get("person") or ""),
+                    "title": str(node.get("title") or ""),
+                    "span_id": str(node.get("span_id") or ""),
+                    "page_url": page_url,
+                    "reason_code": str(node["exclude_reason"]),
+                }
+            )
     out: list[dict[str, str]] = []
     seen: set[tuple[str, str]] = set()
     for row in extracted:
@@ -1156,15 +1638,52 @@ def parse_official_staff_html(html: str, *, page_url: str) -> list[dict[str, str
             reject_personal_contact(row["person"])
             reject_personal_contact(row["title"])
         except CoachingError:
+            excluded.append(
+                {
+                    **row,
+                    "page_url": page_url,
+                    "reason_code": "PERSONAL_CONTACT_REDACTED",
+                }
+            )
             continue
         key = (row["person"].casefold(), row["title"].casefold())
         if key in seen:
+            excluded.append({**row, "page_url": page_url, "reason_code": "DUPLICATE_SPAN"})
             continue
         seen.add(key)
         family = role_family_from_title(row["title"])
         if "[REDACTED" in row["person"] or "[REDACTED" in row["title"]:
+            excluded.append(
+                {**row, "page_url": page_url, "reason_code": "PERSONAL_CONTACT_REDACTED"}
+            )
+            continue
+        if not _title_is_football_staff(row["title"]):
+            excluded.append(
+                {**row, "page_url": page_url, "reason_code": "NON_FOOTBALL_TITLE"}
+            )
             continue
         out.append({**row, "role": family or "OTHER_POSITION", "page_url": page_url})
+    if "staff-directory" in (page_url or "").casefold():
+        hc_rows = [row for row in out if row.get("role") == ROLE_HC]
+        if len(hc_rows) > 1:
+            kept: list[dict[str, str]] = []
+            for row in out:
+                if (
+                    row.get("role") != ROLE_HC
+                    or "football" in row["title"].casefold()
+                    or "endowed" in row["title"].casefold()
+                ):
+                    kept.append(row)
+                    continue
+                excluded.append(
+                    {
+                        **row,
+                        "reason_code": "NON_FOOTBALL_HEAD_COACH_ON_STAFF_DIRECTORY",
+                    }
+                )
+            out = kept
+    if excluded_spans is not None:
+        excluded_spans.extend(excluded)
     return out
 
 
@@ -1186,6 +1705,9 @@ _SKIP_WEBSITE_HOSTS = (
     "richmondfc.com",
     "sandiegofc.com",
     "thefa.com",
+    "wacsports.com",
+    "big12sports.com",
+    "secsports.com",
 )
 
 
@@ -1226,6 +1748,7 @@ def _host_looks_like_athletics(url: str) -> bool:
             "goredbirds",
             "gocolgate",
             "bluedevils",
+            "trailblazers",
         )
     )
 
@@ -1489,30 +2012,237 @@ def _sportradar_role_episodes(
     return episodes
 
 
+def _person_has_exclusive_coordinator_title(
+    people: Sequence[Mapping[str, Any]], person_key: str
+) -> bool:
+    """True when the same person has OC/DC without being program HC on that title."""
+
+    for person in people:
+        if str(person.get("person") or "").casefold().strip() != person_key:
+            continue
+        families = role_families_from_title(str(person.get("title") or ""))
+        if (ROLE_OC in families or ROLE_DC in families) and ROLE_HC not in families:
+            return True
+    return False
+
+
+def _person_has_program_head_coach_title(
+    people: Sequence[Mapping[str, Any]], person_key: str
+) -> bool:
+    for person in people:
+        if str(person.get("person") or "").casefold().strip() != person_key:
+            continue
+        if ROLE_HC in role_families_from_title(str(person.get("title") or "")):
+            return True
+    return False
+
+
+def _other_person_has_role_family(
+    people: Sequence[Mapping[str, Any]], person_key: str, role: str
+) -> bool:
+    for person in people:
+        if str(person.get("person") or "").casefold().strip() in {"", person_key}:
+            continue
+        if role in role_families_from_title(str(person.get("title") or "")):
+            return True
+    return False
+
+
+def _other_non_head_coach_has_role_family(
+    people: Sequence[Mapping[str, Any]], person_key: str, role: str
+) -> bool:
+    """True when another non-HC person has the role family on a title."""
+
+    for person in people:
+        other = str(person.get("person") or "").casefold().strip()
+        if other in {"", person_key}:
+            continue
+        if _person_has_program_head_coach_title(people, other):
+            continue
+        if role in role_families_from_title(str(person.get("title") or "")):
+            return True
+    return False
+
+
+def _person_has_opposite_exclusive_coordinator(
+    people: Sequence[Mapping[str, Any]], person_key: str, role: str
+) -> bool:
+    """True when another title for the same person is exclusively the other coordinator."""
+
+    if role not in {ROLE_OC, ROLE_DC}:
+        return False
+    opposite = ROLE_DC if role == ROLE_OC else ROLE_OC
+    for person in people:
+        if str(person.get("person") or "").casefold().strip() != person_key:
+            continue
+        families = role_families_from_title(str(person.get("title") or ""))
+        if opposite in families and role not in families and ROLE_HC not in families:
+            return True
+    return False
+
+
+def official_role_skip_reason(
+    people: Sequence[Mapping[str, Any]],
+    person_key: str,
+    title: str,
+    role: str,
+) -> str | None:
+    """Why a title matching a role family is not admitted to that cell."""
+
+    families = role_families_from_title(title)
+    if role not in families:
+        return None
+    if (
+        role == ROLE_HC
+        and _BARE_HEAD_COACH_TITLE.fullmatch(title.strip())
+        and _person_has_exclusive_coordinator_title(people, person_key)
+        and _other_person_has_role_family(people, person_key, ROLE_HC)
+    ):
+        return "BARE_HEAD_COACH_ON_EXCLUSIVE_COORDINATOR"
+    if (
+        role in {ROLE_OC, ROLE_DC}
+        and ROLE_HC not in families
+        and _person_has_program_head_coach_title(people, person_key)
+        and _other_person_has_role_family(people, person_key, role)
+    ):
+        return "HEAD_COACH_DUPLICATE_COORDINATOR_TITLE"
+    if (
+        role in {ROLE_OC, ROLE_DC}
+        and _person_has_opposite_exclusive_coordinator(people, person_key, role)
+        and _other_non_head_coach_has_role_family(people, person_key, role)
+    ):
+        return "VUE_ZIP_OPPOSITE_COORDINATOR"
+    return None
+
+
+def excluded_official_role_spans(
+    people: Sequence[Mapping[str, Any]], *, program_id: str = ""
+) -> list[dict[str, Any]]:
+    """Preserve titles that matched HC/OC/DC but were not admitted."""
+
+    excluded: list[dict[str, Any]] = []
+    for person in people:
+        title = str(person.get("title") or "")
+        person_key = str(person.get("person") or "").casefold().strip()
+        if not title.strip() or not person_key:
+            continue
+        for role in role_families_from_title(title):
+            reason = official_role_skip_reason(people, person_key, title, role)
+            if not reason:
+                continue
+            excluded.append(
+                {
+                    "program_id": program_id or person.get("program_id"),
+                    "person": person.get("person"),
+                    "title": title,
+                    "role": role,
+                    "span_id": person.get("span_id"),
+                    "page_url": person.get("page_url"),
+                    "reason_code": reason,
+                }
+            )
+    return excluded
+
+
 def _official_role_episodes(
-    people: Sequence[Mapping[str, Any]], role: str
+    people: Sequence[Mapping[str, Any]],
+    role: str,
+    *,
+    program_id: str = "",
 ) -> list[dict[str, Any]]:
     episodes = []
+    by_person_key: dict[str, dict[str, Any]] = {}
     for person in people:
         title = str(person.get("title") or "")
         families = role_families_from_title(title)
         stored_role = person.get("role")
-        if role not in families and stored_role != role:
+        if title.strip():
+            if role not in families:
+                continue
+        elif stored_role != role:
             continue
-        episodes.append(
-            {
-                "person": person.get("person"),
-                "source": "OFFICIAL_STAFF_HTML",
-                "relationship": CONCURRENT
-                if person.get("co_role") or "co-" in title.casefold()
-                else "CONFIRMED_APPOINTMENT",
-                "season": 2026,
-                "source_title": title,
-                "span_id": person.get("span_id"),
-                "page_url": person.get("page_url"),
-            }
+        person_key = str(person.get("person") or "").casefold().strip()
+        if not person_key:
+            continue
+        skip = official_role_skip_reason(people, person_key, title, role)
+        if skip:
+            continue
+        relationship = (
+            CONCURRENT
+            if person.get("co_role") or "co-" in title.casefold()
+            else "CONFIRMED_APPOINTMENT"
         )
+        existing = by_person_key.get(person_key)
+        if existing:
+            if relationship == CONCURRENT:
+                existing["relationship"] = CONCURRENT
+            continue
+        pid = str(person.get("program_id") or program_id or "")
+        episode = {
+            "person": person.get("person"),
+            "person_id": stable_person_id(
+                program_id=pid,
+                person=str(person.get("person") or ""),
+                source_person_id=person.get("source_person_id"),
+            )
+            if pid
+            else None,
+            "source": "OFFICIAL_STAFF_HTML",
+            "relationship": relationship,
+            "season": 2026,
+            "source_title": title,
+            "span_id": person.get("span_id"),
+            "page_url": person.get("page_url"),
+        }
+        by_person_key[person_key] = episode
+        episodes.append(episode)
     return episodes
+
+
+def _season_year_from_as_of(as_of_utc: str, default: int = 2026) -> int:
+    text = str(as_of_utc or "")
+    if len(text) >= 4 and text[:4].isdigit():
+        return int(text[:4])
+    return default
+
+
+def _head_coach_dual_occupancy_episodes(
+    *,
+    program_id: str,
+    role: str,
+    season: int,
+    hc_episodes: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Fill a coordinator cell only from an explicit HC dual-occupancy declaration.
+
+    A captured page that lists HC/DC but not OC is not sufficient.
+    Play-calling remains uninferred.
+    """
+
+    if role not in {ROLE_OC, ROLE_DC}:
+        return []
+    declared = HEAD_COACH_DUAL_OCCUPANCY.get((str(program_id), int(season), str(role)))
+    if not declared:
+        return []
+    if len(hc_episodes) != 1:
+        return []
+    hc = hc_episodes[0]
+    declared_person = str(declared.get("person") or "").casefold().strip()
+    hc_person = str(hc.get("person") or "").casefold().strip()
+    if not declared_person or declared_person != hc_person:
+        return []
+    episode = dict(hc)
+    listed_span = str(hc.get("span_id") or "").strip()
+    episode["dual_occupancy_with"] = ROLE_HC
+    episode["occupancy_authority"] = str(declared["authority"])
+    episode["occupancy_statement"] = str(declared["statement"])
+    episode["listed_title_span_id"] = listed_span or None
+    episode["source"] = "OPERATOR_CONTEMPORANEOUS_DECLARATION"
+    episode["relationship"] = "CONFIRMED_APPOINTMENT"
+    episode["pit_admitted"] = False
+    if listed_span:
+        episode["span_id"] = f"{listed_span}#dual:{role}"
+    return [episode]
 
 
 def _wikimedia_role_episodes(
@@ -1523,7 +2253,10 @@ def _wikimedia_role_episodes(
         title = str(person.get("title") or person.get("source_title") or "")
         families = role_families_from_title(title)
         stored_role = person.get("role")
-        if role not in families and stored_role != role:
+        if title.strip():
+            if role not in families:
+                continue
+        elif stored_role != role:
             continue
         episodes.append(
             {
@@ -1567,7 +2300,18 @@ def fill_current_role_matrix(
         attempt = official_attempts_by_program.get(str(cell["program_id"]))
         people = official_people_by_program.get(str(cell["program_id"]), [])
         role = str(cell["role"])
-        official_episodes = _official_role_episodes(people, role)
+        official_episodes = _official_role_episodes(
+            people, role, program_id=str(cell["program_id"])
+        )
+        if not official_episodes:
+            official_episodes = _head_coach_dual_occupancy_episodes(
+                program_id=str(cell["program_id"]),
+                role=role,
+                season=_season_year_from_as_of(str(cell.get("as_of_utc") or "")),
+                hc_episodes=_official_role_episodes(
+                    people, ROLE_HC, program_id=str(cell["program_id"])
+                ),
+            )
         sr_episodes = _sportradar_role_episodes(
             sr_people.get(str(cell["program_id"]), []), role
         )
@@ -2010,16 +2754,28 @@ def redact_personal_contact(text: str) -> str:
 def wiki_display_name(value: str) -> str:
     """Prefer piped display text, then page title, then plain wikitext."""
 
+    names = wiki_display_names(value)
+    return names[0] if names else ""
+
+
+def wiki_display_names(value: str) -> list[str]:
+    """Preserve every linked person. First-link truncation is not allowed."""
+
     sort = _SORTNAME.search(value or "")
     if sort:
-        return f"{sort.group(1).strip()} {sort.group(2).strip()}"
-    link = _WIKI_LINK.search(value or "")
-    if link:
-        return (link.group(2) or link.group(1)).strip()
+        return [f"{sort.group(1).strip()} {sort.group(2).strip()}"]
+    names: list[str] = []
+    for link in _WIKI_LINK.finditer(value or ""):
+        person = (link.group(2) or link.group(1)).strip()
+        if person:
+            names.append(person)
+    if names:
+        return names
     person = re.sub(r"<[^>]+>", "", value or "")
     person = re.sub(r"\{\{[^}]+\}\}", "", person)
     person = re.split(r"\s+[–—]\s+|\s+-\s+", person, maxsplit=1)[0]
-    return person.strip(" []'*")
+    cleaned = person.strip(" []'*")
+    return [cleaned] if cleaned else []
 
 
 def observed_staff_roles_from_title(title: str) -> tuple[str, ...]:
@@ -2112,15 +2868,18 @@ def expand_source_year_span(text: str) -> dict[str, Any]:
 
 
 def career_episode_seasons(
-    episode: Mapping[str, Any], *, through_year: int = 2026
+    episode: Mapping[str, Any], *, observation_year: int | None = None, through_year: int | None = None
 ) -> list[int]:
-    """Expand a career span into seasons. present stays open through_year."""
+    """Expand a career span into seasons. present stays open at observation year."""
 
+    del through_year  # later expansion is unverified continuation, not proven occupancy
     start = episode.get("start_year")
     if start is None:
         return []
     if episode.get("ongoing"):
-        end = through_year
+        if observation_year is None:
+            return [int(start)]
+        end = int(observation_year)
     else:
         end = episode.get("end_year")
         if end is None:
@@ -2130,6 +2889,67 @@ def career_episode_seasons(
     if end_i < start_i:
         return []
     return list(range(start_i, end_i + 1))
+
+
+def typed_pit_admitted(value: Any) -> bool:
+    """Only an actual True boolean is PIT. Strings including 'true'/'false' are not."""
+
+    return value is True
+
+
+def career_episode_roundtrip(
+    *,
+    program_id: str,
+    person: str,
+    career_episodes: Sequence[Mapping[str, Any]],
+    source_person_id: str | None = None,
+) -> dict[str, Any]:
+    """Bind career assertions to a stable person without merging namesakes.
+
+    Retrospective only. String pit_admitted values cannot become True.
+    """
+
+    target = re.sub(r"\s+", " ", str(person or "")).strip().casefold()
+    person_id = stable_person_id(
+        program_id=program_id, person=person, source_person_id=source_person_id
+    )
+    bound: list[dict[str, Any]] = []
+    namesake_rejected = 0
+    for episode in career_episodes:
+        observed = re.sub(
+            r"\s+", " ", str(episode.get("person") or "")
+        ).strip().casefold()
+        if not observed or observed != target:
+            if observed:
+                namesake_rejected += 1
+            continue
+        row = dict(episode)
+        row["person_id"] = person_id
+        row["pit_admitted"] = typed_pit_admitted(episode.get("pit_admitted"))
+        row["evidence_class"] = str(
+            episode.get("evidence_class") or "RETROSPECTIVE_CANDIDATE_ONLY"
+        )
+        bound.append(row)
+    overlapping = 0
+    for left_i, left in enumerate(bound):
+        left_years = set(career_episode_seasons(left))
+        left_program = str(left.get("program_raw") or "").casefold()
+        for right in bound[left_i + 1 :]:
+            if str(right.get("program_raw") or "").casefold() != left_program:
+                continue
+            if left_years & set(career_episode_seasons(right)):
+                overlapping += 1
+    return {
+        "person": person,
+        "person_id": person_id,
+        "program_id": program_id,
+        "episode_cardinality": len(bound),
+        "episodes": bound,
+        "overlapping_program_year_pairs": overlapping,
+        "namesake_rejected": namesake_rejected,
+        "pit_admitted": False,
+        "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
+    }
 
 
 def _wiki_title_from_bullet(body: str) -> tuple[str, str]:
@@ -2149,6 +2969,21 @@ def _co_role_from_key(key: str) -> bool:
     return compact.startswith("cooff") or compact.startswith("codef")
 
 
+def wiki_citation_spans(value: str) -> list[str]:
+    """Preserve nearby ref/cite markup. Presence is not field verification."""
+
+    spans: list[str] = []
+    for match in re.finditer(
+        r"<ref\b[^>]*>.*?</ref>|<ref\b[^>]*/>|\{\{[Cc]ite[^}]*\}\}",
+        value or "",
+        re.S,
+    ):
+        text = re.sub(r"\s+", " ", match.group(0)).strip()
+        if text:
+            spans.append(text[:500])
+    return spans
+
+
 def _append_wiki_episode(
     extracted: list[dict[str, str]],
     seen: set[tuple[str, str]],
@@ -2160,9 +2995,12 @@ def _append_wiki_episode(
     revision_id: str,
     co_role: bool = False,
     interim: bool | None = None,
+    source_citation_spans: Sequence[str] | None = None,
 ) -> None:
     person = person.strip()
     if not person or person.casefold() in {"", "vacant", "tbd", "none"}:
+        return
+    if person.startswith("|") or "=" in person:
         return
     if re.fullmatch(r"\d{4}", person) or "@" in person or "[REDACTED" in person:
         return
@@ -2183,10 +3021,13 @@ def _append_wiki_episode(
             "span_id": span_id,
             "source_title": title,
             "wikimedia_revision": revision_id,
-            "pit_admitted": "false",
+            "pit_admitted": False,
             "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
-            "interim": "true" if flagged_interim else "false",
-            "co_role": "true" if co_role or " co-" in title.casefold() else "false",
+            "interim": flagged_interim,
+            "co_role": bool(co_role or " co-" in title.casefold()),
+            "source_citation_spans": list(source_citation_spans or []),
+            "factual_support": "PARSED_ASSERTION",
+            "citation_present_is_not_verification": True,
         }
     )
 
@@ -2277,9 +3118,21 @@ def parse_wikimedia_infobox(
     wikitext = redact_personal_contact(wikitext)
     if not revision_id:
         raise CoachingError("Wikimedia evidence must be revision-bound")
+    templates = _iter_wikitext_templates(wikitext)
+    football_bodies = [
+        body
+        for kind, body in templates
+        if "basketball" not in kind and "baseball" not in kind
+    ]
+    if templates and not football_bodies:
+        scoped = ""
+    elif football_bodies:
+        scoped = "\n".join(football_bodies)
+    else:
+        scoped = wikitext
     extracted: list[dict[str, str]] = []
     seen: set[tuple[str, str]] = set()
-    for match in _INFOBOX_ROW.finditer(wikitext):
+    for match in _INFOBOX_ROW.finditer(scoped):
         raw_key = match.group("key").strip()
         key = raw_key.lower().replace(" ", "_")
         compact = raw_key.lower().replace(" ", "").replace("_", "")
@@ -2301,7 +3154,8 @@ def parse_wikimedia_infobox(
         value = match.group("value").strip()
         if value.startswith("*"):
             continue
-        person = wiki_display_name(value)
+        citations = wiki_citation_spans(value)
+        people = wiki_display_names(value)
         games_note = ""
         games_key = None
         if compact in {"headcoach2", "head_coach2"}:
@@ -2312,21 +3166,23 @@ def parse_wikimedia_infobox(
             games_key = r"hc_games"
         if games_key:
             games_match = re.search(
-                rf"^\|\s*{games_key}\s*=\s*(.+)$", wikitext, re.I | re.M
+                rf"^\|\s*{games_key}\s*=\s*(.+)$", scoped, re.I | re.M
             )
             games_note = str(games_match.group(1) if games_match else "")
-        _append_wiki_episode(
-            extracted,
-            seen,
-            person=person,
-            title=raw_key,
-            role=role,
-            span_id=f"wikimedia:{page_title}:{revision_id}:{key}",
-            revision_id=revision_id,
-            co_role=_co_role_from_key(key),
-            interim="interim" in games_note.casefold(),
-        )
-    for match in _MULTILINE_COACH_FIELD.finditer(wikitext):
+        for person in people:
+                _append_wiki_episode(
+                    extracted,
+                    seen,
+                    person=person,
+                    title=raw_key,
+                    role=role,
+                    span_id=f"wikimedia:{page_title}:{revision_id}:{key}:{person}",
+                    revision_id=revision_id,
+                    co_role=_co_role_from_key(key) or len(people) > 1,
+                    interim="interim" in games_note.casefold(),
+                    source_citation_spans=citations,
+                )
+    for match in _MULTILINE_COACH_FIELD.finditer(scoped):
         raw_key = match.group("key").strip()
         key = raw_key.lower().replace(" ", "_")
         infobox_role = (
@@ -2352,7 +3208,7 @@ def parse_wikimedia_infobox(
                     revision_id=revision_id,
                     co_role=_co_role_from_key(key) or " co-" in title.casefold(),
                 )
-    for match in _WIKI_TWO_CELL.finditer(wikitext):
+    for match in _WIKI_TWO_CELL.finditer(scoped):
         left = match.group("left").strip()
         title = match.group("title").strip()
         if "||" in left:
@@ -2361,19 +3217,54 @@ def parse_wikimedia_infobox(
         if not families:
             continue
         person = wiki_display_name(left)
-        for role in families:
-            _append_wiki_episode(
-                extracted,
-                seen,
-                person=person,
-                title=title,
-                role=role,
-                span_id=(f"wikimedia:{page_title}:{revision_id}:table:{person}:{role}"),
-                revision_id=revision_id,
-                co_role=" co-" in title.casefold()
-                or title.casefold().startswith("co-"),
-            )
+        people = wiki_display_names(left)
+        for person in people:
+            for role in families:
+                _append_wiki_episode(
+                    extracted,
+                    seen,
+                    person=person,
+                    title=title,
+                    role=role,
+                    span_id=f"wikimedia:{page_title}:{revision_id}:table:{person}:{role}",
+                    revision_id=revision_id,
+                    co_role=len(people) > 1
+                    or title.casefold().startswith("co-"),
+                )
     return extracted
+
+
+def _iter_wikitext_templates(wikitext: str) -> list[tuple[str, str]]:
+    text = wikitext or ""
+    found: list[tuple[str, str]] = []
+    index = 0
+    while True:
+        start = text.find("{{", index)
+        if start < 0:
+            break
+        depth = 0
+        cursor = start
+        closed = False
+        while cursor < len(text) - 1:
+            if text[cursor : cursor + 2] == "{{":
+                depth += 1
+                cursor += 2
+                continue
+            if text[cursor : cursor + 2] == "}}":
+                depth -= 1
+                cursor += 2
+                if depth == 0:
+                    body = text[start + 2 : cursor - 2]
+                    kind = body.split("|", 1)[0].strip().casefold()
+                    found.append((kind, body))
+                    index = cursor
+                    closed = True
+                    break
+                continue
+            cursor += 1
+        if not closed:
+            break
+    return found
 
 
 def parse_infobox_college_coach(
@@ -2384,44 +3275,55 @@ def parse_infobox_college_coach(
     wikitext = redact_personal_contact(wikitext)
     if not revision_id:
         raise CoachingError("Wikimedia evidence must be revision-bound")
-    years = {
-        match.group("n"): match.group("years").strip()
-        for match in _COACH_YEARS_FIELD.finditer(wikitext)
-    }
-    teams = {
-        match.group("n"): match.group("team").strip()
-        for match in _COACH_TEAM_FIELD.finditer(wikitext)
-    }
+    templates = list(_iter_wikitext_templates(wikitext))
+    bodies = [
+        body
+        for kind, body in templates
+        if "basketball" not in kind
+        and "baseball" not in kind
+        and "college coach" in kind
+    ]
+    if not templates:
+        bodies = [wikitext]
     episodes: list[dict[str, Any]] = []
-    for index, raw_years in years.items():
-        team_value = teams.get(index, "")
-        if not team_value:
-            continue
-        span = expand_source_year_span(raw_years)
-        team_text = re.sub(r"<[^>]+>", "", team_value)
-        team_text = re.sub(r"\{\{[^}]+\}\}", "", team_text).strip()
-        paren = re.search(r"\(([^)]+)\)\s*$", team_text)
-        raw_role = paren.group(1).strip() if paren else "UNKNOWN"
-        program = wiki_display_name(team_text[: paren.start()] if paren else team_text)
-        if not program:
-            continue
-        roles = roles_from_career_parenthetical(raw_role) if paren else ("UNKNOWN",)
-        for role in roles:
-            episodes.append(
-                {
-                    "person": wiki_display_name(page_title),
-                    "program_raw": program,
-                    "role": role,
-                    "raw_title": raw_role,
-                    "source_title": raw_role,
-                    "source_year_text": span["source_year_text"],
-                    "start_year": span["start_year"],
-                    "end_year": span["end_year"],
-                    "ongoing": span["ongoing"],
-                    "span_id": f"wikimedia:{page_title}:{revision_id}:career:{index}:{role}",
-                    "wikimedia_revision": revision_id,
-                    "pit_admitted": "false",
-                    "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
-                }
-            )
+    for body in bodies:
+        years = {
+            match.group("n"): match.group("years").strip()
+            for match in _COACH_YEARS_FIELD.finditer(body)
+        }
+        teams = {
+            match.group("n"): match.group("team").strip()
+            for match in _COACH_TEAM_FIELD.finditer(body)
+        }
+        for index, raw_years in years.items():
+            team_value = teams.get(index, "")
+            if not team_value:
+                continue
+            span = expand_source_year_span(raw_years)
+            team_text = re.sub(r"<[^>]+>", "", team_value)
+            team_text = re.sub(r"\{\{[^}]+\}\}", "", team_text).strip()
+            paren = re.search(r"\(([^)]+)\)\s*$", team_text)
+            raw_role = paren.group(1).strip() if paren else "UNKNOWN"
+            program = wiki_display_name(team_text[: paren.start()] if paren else team_text)
+            if not program:
+                continue
+            roles = roles_from_career_parenthetical(raw_role) if paren else ("UNKNOWN",)
+            for role in roles:
+                episodes.append(
+                    {
+                        "person": wiki_display_name(page_title),
+                        "program_raw": program,
+                        "role": role,
+                        "raw_title": raw_role,
+                        "source_title": raw_role,
+                        "source_year_text": span["source_year_text"],
+                        "start_year": span["start_year"],
+                        "end_year": span["end_year"],
+                        "ongoing": span["ongoing"],
+                        "span_id": f"wikimedia:{page_title}:{revision_id}:career:{index}:{role}",
+                        "wikimedia_revision": revision_id,
+                        "pit_admitted": False,
+                        "evidence_class": "RETROSPECTIVE_CANDIDATE_ONLY",
+                    }
+                )
     return episodes

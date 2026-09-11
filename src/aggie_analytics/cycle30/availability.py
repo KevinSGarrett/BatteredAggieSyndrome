@@ -2,7 +2,7 @@
 
 No report means UNKNOWN, not healthy. Roster membership and game
 participation are not availability. These fields stay out of fitted models.
-Existing owner BAT-414 retains health evidence after duplicate audit.
+Current owners are BAT-324/BAT-328 with BAT-703 and CFIP-23 coordination.
 """
 
 from __future__ import annotations
@@ -183,7 +183,8 @@ def program_availability_row(
         "joined_to_verified_roster": False,
         "private_medical_detail_ingested": False,
         "out_of_fitted_models": True,
-        "owner": "BAT-414",
+        "owner": "BAT-324",
+        "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
         "artifact_class": "BLOCKER_METADATA",
     }
 
@@ -234,7 +235,8 @@ def inventory_availability_policies(
         "no_report_means_unknown_not_healthy": True,
         "roster_or_participation_is_not_availability": True,
         "out_of_fitted_models": True,
-        "owner": "BAT-414",
+        "owner": "BAT-324",
+        "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
         "status": "ROUTES_ATTEMPTED"
         if attempted_routes
         else "INVENTORIED_NOT_ACQUIRED",
@@ -359,7 +361,8 @@ def extract_candidate_player_rows(
                 "private_medical_detail_ingested": False,
                 "health_status_inferred": False,
                 "out_of_fitted_models": True,
-                "owner": "BAT-414",
+                "owner": "BAT-324",
+                "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
                 "artifact_class": "REAL_EVIDENCE",
             }
         )
@@ -376,12 +379,12 @@ def join_candidates_to_roster(
     candidates: Sequence[Mapping[str, Any]],
     roster_rows: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
-    """Join public name-only candidates to verified roster identities.
+    """Join public candidates to roster identities.
 
-    No report still means UNKNOWN. Roster membership is not availability.
+    Name-only matching across programs cannot verify a player.
     """
 
-    roster_index: dict[str, Mapping[str, Any]] = {}
+    roster_index: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
     for row in roster_rows:
         name = _normalize_person_name(
             str(
@@ -399,14 +402,43 @@ def join_candidates_to_roster(
                 or ""
             )
         )
-        if name:
-            roster_index.setdefault(name, row)
+        program = str(
+            row.get("program_id")
+            or row.get("canonical_program_id")
+            or row.get("team_id")
+            or ""
+        ).strip()
+        if name and program:
+            roster_index.setdefault((program.casefold(), name), []).append(row)
     joined: list[dict[str, Any]] = []
     unmatched = 0
     for candidate in candidates:
-        key = _normalize_person_name(str(candidate.get("candidate_name") or ""))
-        roster = roster_index.get(key)
-        if roster is None:
+        key_name = _normalize_person_name(str(candidate.get("candidate_name") or ""))
+        program = str(
+            candidate.get("program_id")
+            or candidate.get("canonical_program_id")
+            or candidate.get("team_id")
+            or ""
+        ).strip()
+        season = candidate.get("season")
+        roster_hits = roster_index.get((program.casefold(), key_name), []) if program else []
+        if not program or not key_name or len(roster_hits) != 1:
+            unmatched += 1
+            joined.append(
+                {
+                    **dict(candidate),
+                    "joined_to_verified_roster": False,
+                    "disposition": "AMBIGUOUS_OR_UNJOINED_NAME",
+                    "health_status_inferred": False,
+                    "no_report_means": "UNKNOWN",
+                    "roster_or_participation_is_not_availability": True,
+                    "name_only_cross_program_join_rejected": True,
+                }
+            )
+            continue
+        roster = roster_hits[0]
+        roster_season = roster.get("season")
+        if season is not None and roster_season is not None and str(season) != str(roster_season):
             unmatched += 1
             joined.append({**dict(candidate), "joined_to_verified_roster": False})
             continue
@@ -420,12 +452,13 @@ def join_candidates_to_roster(
                     or roster.get("athlete_id")
                     or ""
                 ),
-                "disposition": "JOINED_NAME_ONLY_STATUS_UNKNOWN",
+                "disposition": "JOINED_PROGRAM_SEASON_ROSTER_STATUS_UNKNOWN",
                 "health_status_inferred": False,
                 "no_report_means": "UNKNOWN",
                 "roster_or_participation_is_not_availability": True,
                 "out_of_fitted_models": True,
-                "owner": "BAT-414",
+                "owner": "BAT-324",
+                "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
                 "artifact_class": "REAL_EVIDENCE",
             }
         )
@@ -441,7 +474,8 @@ def join_candidates_to_roster(
         "out_of_fitted_models": True,
         "rows": joined,
         "artifact_class": "REAL_EVIDENCE" if candidates else "BLOCKER_METADATA",
-        "owner": "BAT-414",
+        "owner": "BAT-324",
+        "co_owners": ["BAT-328", "BAT-703", "CFIP-23"],
     }
 
 

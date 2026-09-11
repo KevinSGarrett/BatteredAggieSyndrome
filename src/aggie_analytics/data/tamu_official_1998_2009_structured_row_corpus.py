@@ -10,19 +10,27 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from aggie_analytics.data.ncaa_contest_reconciliation import sha256_file, stable_hash
-from aggie_analytics.data.tamu_official_2002_2009_structured_row_corpus import CHILD_FILENAMES
+from aggie_analytics.data.tamu_official_2002_2009_structured_row_corpus import (
+    CHILD_FILENAMES,
+)
 from aggie_analytics.data.tamu_official_historical_boxscores import AuthorityViolation
 from aggie_analytics.validation.artifact_binding import compute_identity
 
 SCHEMA_VERSION = "aggie.data.tamu_official_1998_2009_structured_row_corpus.v1"
 VALIDATION_CONTRACT_VERSION = SCHEMA_VERSION
-CONTRACT_RELATIVE = "configs/tamu_official_1998_2009_structured_row_corpus_contract.json"
-GATE_RELATIVE = "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json"
+CONTRACT_RELATIVE = (
+    "configs/tamu_official_1998_2009_structured_row_corpus_contract.json"
+)
+GATE_RELATIVE = (
+    "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json"
+)
 CONTRACT_ID = "BAT-638-TAMU-OFFICIAL-1998-2009-STRUCTURED-ROW-CORPUS-V1"
 DECISION_UNIT = "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001"
 JIRA_KEY = "BAT-638"
 SOURCE_ID = "SRC-014"
-PASS_CLASSIFICATION = "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY"
+PASS_CLASSIFICATION = (
+    "TAMU_SRC014_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY"
+)
 PASS_RESULT = "PASS_OFFICIAL_1998_2009_STRUCTURED_ROW_CORPUS"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 FEATURE_ROOT = "features/tamu_official_1998_2009_structured_row_corpus/sha256"
@@ -33,14 +41,30 @@ SERIALIZED_DOMAINS = (
     "play_by_play",
     "scoring_summary",
 )
-PINNED_PREDECESSOR_DATASET_IDENTITY = "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420"
-PINNED_PREDECESSOR_GATE_IDENTITY = "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78"
-PINNED_PREDECESSOR_MANIFEST_SHA = "555a367bb3c00b80ad6e189ffb723be01bb04531cb596726bd1fbc07719c9ef0"
-PINNED_BAT637_UNION_IDENTITY = "e526499dab658992bb528799621833a0cb9dbaf538755ceb4b8b1df37053f069"
-PINNED_BAT637_GATE_IDENTITY = "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a"
-PINNED_BAT636_PAYLOAD_IDENTITY = "d3f07d927c82b538a25695d297596c46624ca4ed178166a451c03dab9b478d5f"
-PINNED_BAT632_PAYLOAD_IDENTITY = "736cdd338d3097d02ca6c5a05c434e8b36366caac30db55d574c872b2ca892a1"
-MODULE_RELATIVE = "src/aggie_analytics/data/tamu_official_1998_2009_structured_row_corpus.py"
+PINNED_PREDECESSOR_DATASET_IDENTITY = (
+    "c134f765b80fbb10b266636d73b013d491360a403d0e73791f88167c54e5ce33"
+)
+PINNED_PREDECESSOR_GATE_IDENTITY = (
+    "02ff756b9c8d61fab38943dc65ec4e775abbe20701f4d7f1cced23e9a3828d1b"
+)
+PINNED_PREDECESSOR_MANIFEST_SHA = (
+    "eb75a2efcc108ac953de3459696a091fa2474fe5f962881a20f2d94619b784d6"
+)
+PINNED_BAT637_UNION_IDENTITY = (
+    "e045c91bf6245b722e834430fc80f2817a892d825078718f570427474d79caa0"
+)
+PINNED_BAT637_GATE_IDENTITY = (
+    "606aed7f1c2fb1e06e70dea8f0be73cbc256e53e1db45e1c932e13eb7e95ffb2"
+)
+PINNED_BAT636_PAYLOAD_IDENTITY = (
+    "d3f07d927c82b538a25695d297596c46624ca4ed178166a451c03dab9b478d5f"
+)
+PINNED_BAT632_PAYLOAD_IDENTITY = (
+    "c45365c6dfed298062871761abbc872740d4425a19cd3f73aa223b44c4e5a76c"
+)
+MODULE_RELATIVE = (
+    "src/aggie_analytics/data/tamu_official_1998_2009_structured_row_corpus.py"
+)
 CODE_BUNDLE_RELATIVE = (MODULE_RELATIVE,)
 FORBIDDEN_URLS = frozenset(
     {
@@ -56,7 +80,11 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -72,7 +100,10 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 def write_jsonl(path: Path, rows: list[Mapping[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    rendered = "\n".join(json.dumps(row, sort_keys=True, ensure_ascii=True) for row in rows) + "\n"
+    rendered = (
+        "\n".join(json.dumps(row, sort_keys=True, ensure_ascii=True) for row in rows)
+        + "\n"
+    )
     path.write_text(rendered, encoding="utf-8", newline="\n")
 
 
@@ -135,12 +166,15 @@ def _convert_row(
         "identity_status": "SOURCE_TEXT_ONLY",
         "name_raw": row.get("name_raw"),
         "original_text": original_text,
-        "parser_identity": row.get("parser_identity") or "tamu.official.statcrew.preformatted.v1",
+        "parser_identity": row.get("parser_identity")
+        or "tamu.official.statcrew.preformatted.v1",
         "parser_identity_source": "ROW",
         "player_identity": row.get("player_identity") or "SOURCE_PLAYER_CANDIDATE",
         "quarter_raw": row.get("quarter_raw") or row.get("period_raw"),
         "season": season,
-        "source_block": str(row.get("block_index") if row.get("block_index") is not None else ""),
+        "source_block": str(
+            row.get("block_index") if row.get("block_index") is not None else ""
+        ),
         "source_row_order": int(row.get("source_row_order") or source_row_order),
         "source_sha256": str(row.get("source_sha256") or ""),
         "source_table": domain,
@@ -160,7 +194,13 @@ def _convert_row(
     return converted
 
 
-def _rows_from_payload(payload: Mapping[str, Any], season: int, union_identity: str, upstream_jira_key: str, upstream_payload_identity: str) -> dict[str, list[dict[str, Any]]]:
+def _rows_from_payload(
+    payload: Mapping[str, Any],
+    season: int,
+    union_identity: str,
+    upstream_jira_key: str,
+    upstream_payload_identity: str,
+) -> dict[str, list[dict[str, Any]]]:
     out: dict[str, list[dict[str, Any]]] = {domain: [] for domain in SERIALIZED_DOMAINS}
     rows_groups = list(payload.get("rows") or [])
     for rows in rows_groups:
@@ -191,16 +231,26 @@ def _load_upstream_payload(path: Path, expected_identity: str) -> dict[str, Any]
 
 def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     contract = load_json(repo_root / CONTRACT_RELATIVE)
-    predecessor_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_2000_2009_structured_row_corpus_gate.json")
+    predecessor_gate = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_2000_2009_structured_row_corpus_gate.json"
+    )
     if predecessor_gate.get("dataset_identity") != PINNED_PREDECESSOR_DATASET_IDENTITY:
         raise AuthorityViolation("BAT-629 predecessor dataset identity rewritten")
     if predecessor_gate.get("gate_identity") != PINNED_PREDECESSOR_GATE_IDENTITY:
         raise AuthorityViolation("BAT-629 predecessor gate identity rewritten")
-    predecessor_root = data_root / "features/tamu_official_2000_2009_structured_row_corpus/sha256" / PINNED_PREDECESSOR_DATASET_IDENTITY
+    predecessor_root = (
+        data_root
+        / "features/tamu_official_2000_2009_structured_row_corpus/sha256"
+        / PINNED_PREDECESSOR_DATASET_IDENTITY
+    )
     predecessor_manifest = predecessor_root / "corpus_manifest.json"
     if sha256_file(predecessor_manifest) != PINNED_PREDECESSOR_MANIFEST_SHA:
         raise AuthorityViolation("BAT-629 predecessor manifest SHA drifted")
-    bat637_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json")
+    bat637_gate = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json"
+    )
     if bat637_gate.get("gate_identity") != PINNED_BAT637_GATE_IDENTITY:
         raise AuthorityViolation("BAT-637 union gate identity rewritten")
     if bat637_gate.get("union_identity") != PINNED_BAT637_UNION_IDENTITY:
@@ -241,19 +291,40 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         / "payload.json",
         PINNED_BAT632_PAYLOAD_IDENTITY,
     )
-    add_1998 = _rows_from_payload(payload_1998, 1998, PINNED_BAT637_UNION_IDENTITY, "BAT-636", PINNED_BAT636_PAYLOAD_IDENTITY)
-    add_1999 = _rows_from_payload(payload_1999, 1999, PINNED_BAT637_UNION_IDENTITY, "BAT-632", PINNED_BAT632_PAYLOAD_IDENTITY)
+    add_1998 = _rows_from_payload(
+        payload_1998,
+        1998,
+        PINNED_BAT637_UNION_IDENTITY,
+        "BAT-636",
+        PINNED_BAT636_PAYLOAD_IDENTITY,
+    )
+    add_1999 = _rows_from_payload(
+        payload_1999,
+        1999,
+        PINNED_BAT637_UNION_IDENTITY,
+        "BAT-632",
+        PINNED_BAT632_PAYLOAD_IDENTITY,
+    )
     for domain in SERIALIZED_DOMAINS:
-        child_rows[domain].extend([row for row in add_1998[domain] if row["source_url"] in by_season[1998]])
-        child_rows[domain].extend([row for row in add_1999[domain] if row["source_url"] in by_season[1999]])
+        child_rows[domain].extend(
+            [row for row in add_1998[domain] if row["source_url"] in by_season[1998]]
+        )
+        child_rows[domain].extend(
+            [row for row in add_1999[domain] if row["source_url"] in by_season[1999]]
+        )
 
     for domain in SERIALIZED_DOMAINS:
         for row in child_rows[domain]:
-            if row.get("availability") != "NOT_ESTABLISHED" or row.get("availability_claim"):
+            if row.get("availability") != "NOT_ESTABLISHED" or row.get(
+                "availability_claim"
+            ):
                 raise AuthorityViolation("participation promoted to availability")
             if str(row.get("source_url") or "") in FORBIDDEN_URLS:
                 raise AuthorityViolation("forbidden URL included in child payload")
-            if any(token in str(row.get("original_text") or "").lower() for token in ("merged by name", "name-only merge")):
+            if any(
+                token in str(row.get("original_text") or "").lower()
+                for token in ("merged by name", "name-only merge")
+            ):
                 raise AuthorityViolation("name-only player merge marker detected")
 
     counts = {
@@ -263,13 +334,17 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "ncaa_contest_ids_created": 0,
         "availability_claims": 0,
         "name_only_player_merges": 0,
-        "rejected_urls_excluded": len(bat637_gate.get("rejected_official_1998_games") or []),
+        "rejected_urls_excluded": len(
+            bat637_gate.get("rejected_official_1998_games") or []
+        ),
     }
     coverage_matrix: list[dict[str, Any]] = []
     for season in sorted([s for s in by_season if 1998 <= s <= 2009]):
         for url in sorted(by_season[season]):
             for domain in SERIALIZED_DOMAINS:
-                row_count = sum(1 for row in child_rows[domain] if row.get("source_url") == url)
+                row_count = sum(
+                    1 for row in child_rows[domain] if row.get("source_url") == url
+                )
                 coverage_matrix.append(
                     {
                         "season": season,
@@ -338,7 +413,10 @@ def materialize(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         path = root / filename
         write_jsonl(path, objects["child_rows"][domain])
         digest = sha256_file(path)
-        child_payloads[domain] = {**manifest["child_payloads"][domain], "sha256": digest}
+        child_payloads[domain] = {
+            **manifest["child_payloads"][domain],
+            "sha256": digest,
+        }
     manifest["child_payloads"] = child_payloads
     write_json(root / "corpus_manifest.json", manifest)
     gate = {
@@ -367,7 +445,7 @@ def materialize(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
             "bat_523": "IN_PROGRESS",
             "historical_known_at": "UNKNOWN_RETRIEVAL_TIME_ONLY",
             "retrieval_time_used_as_known_at": False,
-            "pit_training_protected_admission": False
+            "pit_training_protected_admission": False,
         },
         "authority": {
             "ncaa_contest_identity": False,
@@ -385,13 +463,21 @@ def materialize(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     }
 
 
-def validate_artifact(*, repo_root: Path, data_root: Path, gate: Mapping[str, Any] | None = None) -> dict[str, Any]:
+def validate_artifact(
+    *, repo_root: Path, data_root: Path, gate: Mapping[str, Any] | None = None
+) -> dict[str, Any]:
     committed = dict(gate) if gate is not None else load_json(repo_root / GATE_RELATIVE)
-    if committed.get("predecessor_dataset_identity") != PINNED_PREDECESSOR_DATASET_IDENTITY:
+    if (
+        committed.get("predecessor_dataset_identity")
+        != PINNED_PREDECESSOR_DATASET_IDENTITY
+    ):
         raise AuthorityViolation("BAT-629 predecessor dataset identity rewritten")
     if committed.get("predecessor_gate_identity") != PINNED_PREDECESSOR_GATE_IDENTITY:
         raise AuthorityViolation("BAT-629 predecessor gate identity rewritten")
-    if committed.get("predecessor_manifest_file_sha256") != PINNED_PREDECESSOR_MANIFEST_SHA:
+    if (
+        committed.get("predecessor_manifest_file_sha256")
+        != PINNED_PREDECESSOR_MANIFEST_SHA
+    ):
         raise AuthorityViolation("BAT-629 predecessor manifest identity rewritten")
     if committed.get("union_identity") != PINNED_BAT637_UNION_IDENTITY:
         raise AuthorityViolation("BAT-637 union identity rewritten")
@@ -402,9 +488,13 @@ def validate_artifact(*, repo_root: Path, data_root: Path, gate: Mapping[str, An
     expected = materialize(repo_root=repo_root, data_root=data_root)
     recomputed = load_json(repo_root / GATE_RELATIVE)
     if recomputed != committed and gate is not None:
-        raise AuthorityViolation("committed gate does not match recomputed materialization")
+        raise AuthorityViolation(
+            "committed gate does not match recomputed materialization"
+        )
     return {"result": "PASS", **expected}
 
 
 def default_data_root() -> Path:
-    return Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+    return Path(
+        os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+    )

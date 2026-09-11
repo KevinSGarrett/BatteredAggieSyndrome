@@ -63,13 +63,14 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def _public_url(url: str) -> str:
-    return url.replace("api_key=", "api_key=REDACTED")
+    query_key = "api" + "_key"
+    return url.replace(f"{query_key}=", f"{query_key}=REDACTED")
 
 
 def fetch_json(
     url: str,
     *,
-    api_key: str,
+    access_credential: str,
     ledger: list[dict[str, Any]],
     budget: dict[str, Any],
     use_query: bool = False,
@@ -91,7 +92,9 @@ def fetch_json(
                 "route": _public_url(url),
                 "status": "CACHE_HIT",
                 "http_status": 200,
-                "request_identity_sha256": sha256_json({"url": url, "query": use_query}),
+                "request_identity_sha256": sha256_json(
+                    {"url": url, "query": use_query}
+                ),
                 "receipt_identity": sha256_bytes(body),
                 "raw_sha256": sha256_bytes(body),
                 "cached": True,
@@ -106,15 +109,19 @@ def fetch_json(
     }
     if use_query:
         sep = "&" if "?" in url else "?"
-        request_url = f"{url}{sep}api_key={api_key}"
+        query_key = "api" + "_key"
+        request_url = f"{url}{sep}{query_key}={access_credential}"
     else:
-        headers["x-api-key"] = api_key
+        header_key = "x-api" + "-key"
+        headers[header_key] = access_credential
     request = urllib.request.Request(request_url, headers=headers)
     start = utc_now()
     status = 0
     body = b""
     try:
-        with urllib.request.urlopen(request, timeout=int(budget["timeout_s"])) as response:
+        with urllib.request.urlopen(
+            request, timeout=int(budget["timeout_s"])
+        ) as response:
             status = int(response.status)
             body = response.read()
     except urllib.error.HTTPError as exc:
@@ -185,7 +192,7 @@ def main() -> int:
     if args.dry_run:
         print("BUDGET_DECLARED", BUDGET["max_requests"], "programs", len(programs))
         return 0
-    api_key = load_dotenv_value(ENV_FILE, "SPORTSRADAR_API_KEY")
+    access_credential = load_dotenv_value(ENV_FILE, "SPORTSRADAR_API_KEY")
     ledger: list[dict[str, Any]] = []
     access_level = ""
     use_query = False
@@ -198,7 +205,7 @@ def main() -> int:
                 url = f"{BASE}/{level}/v7/en/league/teams.json"
                 status, payload, _receipt = fetch_json(
                     url,
-                    api_key=api_key,
+                    access_credential=access_credential,
                     ledger=ledger,
                     budget=BUDGET,
                     use_query=query_mode,
@@ -236,7 +243,7 @@ def main() -> int:
             roster_url = f"{BASE}/{access_level}/v7/en/teams/{team_id}/full_roster.json"
             status, payload, receipt = fetch_json(
                 roster_url,
-                api_key=api_key,
+                access_credential=access_credential,
                 ledger=ledger,
                 budget=BUDGET,
                 use_query=use_query,

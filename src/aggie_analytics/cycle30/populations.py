@@ -224,14 +224,34 @@ def week1_slice_from_contests(
 ) -> dict[str, Any]:
     appearances = []
     programs: set[str] = set()
+    unresolved_contests: list[str] = []
+    contest_bindings = canonical_ids_by_contest or {}
     for contest in contests:
         cid = str(contest.get("ncaa_contest_id") or contest.get("contest_id"))
-        bound = (canonical_ids_by_contest or {}).get(cid)
+        bound = contest_bindings.get(cid)
         if bound:
             home_id, away_id = bound
         else:
-            home_id = f"DISPLAY:{contest.get('home')}"
-            away_id = f"DISPLAY:{contest.get('away')}"
+            home_id = str(
+                contest.get("home_canonical_team_id")
+                or contest.get("home_id")
+                or contest.get("home_team_id")
+                or contest.get("home_source_team_id")
+                or ""
+            ).strip()
+            away_id = str(
+                contest.get("away_canonical_team_id")
+                or contest.get("away_id")
+                or contest.get("away_team_id")
+                or contest.get("away_source_team_id")
+                or ""
+            ).strip()
+            if not home_id:
+                home_id = f"DISPLAY:{contest.get('home')}"
+            if not away_id:
+                away_id = f"DISPLAY:{contest.get('away')}"
+        if home_id.startswith("DISPLAY:") or away_id.startswith("DISPLAY:"):
+            unresolved_contests.append(cid)
         appearances.append(
             {"contest_id": cid, "canonical_program_id": home_id, "slot": "HOME"}
         )
@@ -245,6 +265,7 @@ def week1_slice_from_contests(
         identity_class = "DISPLAY_NAME_NOT_CANONICAL"
     else:
         identity_class = "CANONICAL_PROGRAM_ID"
+    unresolved_ids = sorted(set(unresolved_contests))
     return {
         "artifact_type": "WEEK1_2026_PROGRAM_SLICE",
         "contest_count": len(contests),
@@ -254,6 +275,8 @@ def week1_slice_from_contests(
         "parent": "CURRENT_2026_DIVISION_I_PROGRAM_POPULATION",
         "identity_class": identity_class,
         "programs": sorted(programs),
+        "unresolved_contest_count": len(unresolved_ids),
+        "unresolved_contest_ids": unresolved_ids,
         "slice_identity": sha256_json(sorted(programs)),
         "artifact_class": "REAL_EVIDENCE"
         if identity_class == "CANONICAL_PROGRAM_ID"
@@ -612,7 +635,9 @@ def cfbd_membership_presence_delta(
 def ncaa_directory_item_is_discontinued(item: Mapping[str, Any]) -> bool:
     """Current NCAA member rows are not a discontinued-program census."""
 
-    deactive = str(item.get("deactive") or item.get("deactivated") or "").strip().upper()
+    deactive = (
+        str(item.get("deactive") or item.get("deactivated") or "").strip().upper()
+    )
     if deactive in {"Y", "YES", "TRUE", "1"}:
         return True
     status = str(
@@ -682,4 +707,72 @@ def ncaa_discontinued_program_census(
                 "wiki": sorted(wiki_names),
             }
         ),
+    }
+
+
+def historical_program_season_keys(
+    membership_rows: Sequence[Mapping[str, Any]],
+) -> set[tuple[str, int]]:
+    """Exact program-season keys. Current-team deletion cannot rebuild this set."""
+
+    keys: set[tuple[str, int]] = set()
+    for row in membership_rows:
+        pid = str(row.get("program_id") or "").strip()
+        season = row.get("season")
+        if not pid or season is None:
+            continue
+        keys.add((pid, int(season)))
+    return keys
+
+
+def coverage_query(
+    keys: set[tuple[str, int]], *, season: int | None = None
+) -> dict[str, Any]:
+    selected = keys if season is None else {key for key in keys if key[1] == season}
+    return {
+        "n_keys": len(selected),
+        "n_programs": len({pid for pid, _ in selected}),
+        "identity": sha256_json(sorted(f"{pid}|{season}" for pid, season in selected)),
+    }
+
+
+def insert_discontinued_program_changes_coverage(
+    keys: set[tuple[str, int]],
+    *,
+    program_id: str,
+    season: int,
+) -> dict[str, Any]:
+    before = coverage_query(keys)
+    after = coverage_query(keys | {(program_id, int(season))})
+    if after["n_keys"] != before["n_keys"] + 1:
+        raise PopulationError("inserting a discontinued program must change coverage")
+    return {"before": before, "after": after}
+
+
+def current_deletion_does_not_shrink_history(
+    historical_keys: set[tuple[str, int]],
+    current_program_ids: Sequence[str],
+    *,
+    deleted_program_id: str,
+) -> dict[str, Any]:
+    """Current-parent edits cannot silently rewrite expected history."""
+
+    remaining_current = {
+        pid for pid in current_program_ids if pid != deleted_program_id
+    }
+    del remaining_current  # current set is not the historical denominator
+    before = coverage_query(historical_keys)
+    after_delete_current = coverage_query(historical_keys)
+    if after_delete_current != before:
+        raise PopulationError("current-team deletion changed historical coverage")
+    projected = {key for key in historical_keys if key[0] != deleted_program_id}
+    if projected == historical_keys:
+        return {"current_delete_changed_history": False, "coverage": before}
+    if coverage_query(projected)["n_keys"] >= before["n_keys"]:
+        raise PopulationError("history projection ignored a discontinued program")
+    return {
+        "current_delete_changed_history": False,
+        "projecting_current_ids_would_drop_keys": before["n_keys"]
+        - coverage_query(projected)["n_keys"],
+        "coverage": before,
     }

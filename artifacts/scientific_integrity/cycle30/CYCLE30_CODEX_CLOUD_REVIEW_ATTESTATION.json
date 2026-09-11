@@ -1,6 +1,49 @@
 {
   "artifact_type": "CYCLE30_CODEX_CLOUD_REVIEW_ATTESTATION",
-  "head_sha": "adf7c5e3c7c5e64bdca5636fb87ce81158e3c366",
+  "pr_number": 686,
+  "base_sha": "0b957ea127ad6a5373901d8ddff47c43a496b100",
+  "head_sha": "7d680d17b90a784ddf8abbb90230ea48b34fa482",
+  "reviewed_merge_sha": "7d680d17b90a784ddf8abbb90230ea48b34fa482",
+  "changed_file_inventory": [
+    "src/aggie_analytics/cycle30/contracts_v2.py",
+    "src/aggie_analytics/cycle30/domains.py",
+    "src/aggie_analytics/cycle30/site_context.py",
+    "src/aggie_analytics/cycle30/pit_kernel.py",
+    "src/aggie_analytics/cycle30/scoring.py",
+    "tests/test_cycle30_adversarial_controls.py"
+  ],
+  "changed_file_digest": "3c8056149a6b4809aa7d42e4f392efc05539ca4a86dd29a53e1263d62f880687",
+  "review_rule_identity": "CYCLE30_CODE_REVIEW_RULES_V1",
+  "model": "gpt-5.3-codex",
+  "reasoning_effort": "high",
+  "findings_p0": [],
+  "findings_p1": [
+    "Independent manager acceptance not yet granted",
+    "Cross-system external acceptance evidence remains pending",
+    "Per-candidate semantic requirement-union extraction across all manager-indexed candidates remains incomplete"
+  ],
+  "findings_p2": [
+    "Pass-three review-of-review remains partial in current all-cycle matrix"
+  ],
+  "scientific_invariants_checked": [
+    "pit_known_at",
+    "target_game_exclusion",
+    "current_opponent_binding",
+    "game_grain_pair_coherence",
+    "probability_margin_distribution_coherence",
+    "immutable_forecasts",
+    "protected_exposure",
+    "report_artifact_agreement",
+    "producer_validator_independence"
+  ],
+  "critical_files_not_reviewed": [
+    "No independently accepted external review receipt is bound for this attestation payload"
+  ],
+  "limitations": [
+    "Structured payload is schema-complete but does not represent accepted merge review authority",
+    "Verdict remains blocked pending external acceptance and unresolved P1 items"
+  ],
+  "verdict": "BLOCKED",
   "metered_api_on_routine_pull_request": false,
   "no_api_attestation_is_not_scientific_review": true,
   "openai_api_invocations": 0,

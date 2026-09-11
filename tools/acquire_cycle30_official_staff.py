@@ -29,6 +29,7 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     ROLE_DC,
     ROLE_HC,
     ROLE_OC,
+    CoachingError,
     extract_athletics_website_from_wikitext,
     html_is_not_found_shell,
     html_is_waf_challenge,
@@ -457,7 +458,14 @@ def main() -> int:
                     if payload is not None:
                         people = parse_official_staff_json(payload, page_url=url)
                 if not people:
-                    people = parse_official_staff_html(html, page_url=url)
+                    try:
+                        people = parse_official_staff_html(
+                            html,
+                            page_url=url,
+                            program_name=str(program.get("display_name") or ""),
+                        )
+                    except CoachingError:
+                        continue
                 roles = primary_role_coverage(people)
                 if people and staff_page_is_generic_directory(url) and chosen:
                     chosen_url = str(chosen.get("route") or "")
@@ -515,7 +523,14 @@ def main() -> int:
                             pdf_html
                         ):
                             continue
-                        people = parse_official_staff_html(pdf_html, page_url=pdf_url)
+                        try:
+                            people = parse_official_staff_html(
+                                pdf_html,
+                                page_url=pdf_url,
+                                program_name=str(program.get("display_name") or ""),
+                            )
+                        except CoachingError:
+                            continue
                         parser_name = "parse_official_staff_html"
                     if not people:
                         continue

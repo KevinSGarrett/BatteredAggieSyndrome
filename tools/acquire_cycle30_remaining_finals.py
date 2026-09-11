@@ -140,9 +140,9 @@ def main() -> int:
                 cache_root.joinpath(f"{contest_id}.html").write_bytes(fetched)
                 break
             if body:
-                (
-                    cache_root / f"{contest_id}.error-{status or 0}.html"
-                ).write_bytes(body)
+                (cache_root / f"{contest_id}.error-{status or 0}.html").write_bytes(
+                    body
+                )
         end = utc_now()
         text = body.decode("utf-8", errors="replace")
         transport = classify_transport_and_upstream(
@@ -213,10 +213,10 @@ def main() -> int:
         )
     smu_cfbd = None
     try:
-        token = load_dotenv_value(
+        access_credential = load_dotenv_value(
             Path(r"C:\BatteredAggieSyndrome\.env"), "CFBD_API_KEY"
         )
-        transport = CFBDTransport(access_token=token)
+        transport = CFBDTransport(access_credential)
         request = acquisition_request(
             endpoint_id="games",
             path="/games",

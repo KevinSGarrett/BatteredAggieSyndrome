@@ -17,7 +17,9 @@ from aggie_analytics.data.tamu_official_gamebook_union_2002_expanded import (
     PINNED_UNION_MANIFEST_FILE_SHA256 as PINNED_BAT618_UNION_MANIFEST_FILE_SHA256,
     union_manifest_path as bat618_union_manifest_path,
 )
-from aggie_analytics.data.tamu_official_gamebook_union_2005_expanded import PRESERVED_REJECTION_URLS
+from aggie_analytics.data.tamu_official_gamebook_union_2005_expanded import (
+    PRESERVED_REJECTION_URLS,
+)
 from aggie_analytics.data.tamu_official_historical_boxscores import (
     AuthorityViolation,
     availability_from_participation,
@@ -25,26 +27,42 @@ from aggie_analytics.data.tamu_official_historical_boxscores import (
     expected_scientific_nonclaims,
     refuse_name_only_player_merge,
 )
-from aggie_analytics.data.tamu_official_html_table_classifier import PARSER_IDENTITY as TABLE_PARSER_IDENTITY
+from aggie_analytics.data.tamu_official_html_table_classifier import (
+    PARSER_IDENTITY as TABLE_PARSER_IDENTITY,
+)
 from aggie_analytics.validation.artifact_binding import compute_identity
 
 
 SCHEMA_VERSION = "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1"
-VALIDATION_CONTRACT_VERSION = "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1"
-CONTRACT_RELATIVE = "configs/tamu_official_2002_2009_structured_row_corpus_contract.json"
-GATE_RELATIVE = "artifacts/data_lake/tamu_official_2002_2009_structured_row_corpus_gate.json"
-MODULE_RELATIVE = "src/aggie_analytics/data/tamu_official_2002_2009_structured_row_corpus.py"
+VALIDATION_CONTRACT_VERSION = (
+    "aggie.data.tamu_official_2002_2009_structured_row_corpus.v1"
+)
+CONTRACT_RELATIVE = (
+    "configs/tamu_official_2002_2009_structured_row_corpus_contract.json"
+)
+GATE_RELATIVE = (
+    "artifacts/data_lake/tamu_official_2002_2009_structured_row_corpus_gate.json"
+)
+MODULE_RELATIVE = (
+    "src/aggie_analytics/data/tamu_official_2002_2009_structured_row_corpus.py"
+)
 CONTRACT_ID = "BAT-619-TAMU-OFFICIAL-2002-2009-STRUCTURED-ROW-CORPUS-V1"
 DECISION_UNIT = "POST-TASK-SRC014-2002-2009-STRUCTURED-ROW-CORPUS-001"
 JIRA_KEY = "BAT-619"
 SOURCE_ID = "SRC-014"
-PASS_CLASSIFICATION = "TAMU_SRC014_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY"
+PASS_CLASSIFICATION = (
+    "TAMU_SRC014_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS_CANDIDATE_ONLY"
+)
 PASS_RESULT = "PASS_OFFICIAL_2002_2009_STRUCTURED_ROW_CORPUS"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 FEATURE_ROOT = "features/tamu_official_2002_2009_structured_row_corpus/sha256"
 MANIFEST_NAME = "corpus_manifest.json"
-PINNED_VALIDATOR_CODE_IDENTITY = "abaad66cbc05c9f98d8388e42e3195164458391b2458d9a79491f8ca0b2636c8"
-PINNED_BAT618_GATE_IDENTITY = "f0cfca8cd3dd2025be3e69efe377065750770f2bd0e4ae1c0b4a18d85abd44b7"
+PINNED_VALIDATOR_CODE_IDENTITY = (
+    "abaad66cbc05c9f98d8388e42e3195164458391b2458d9a79491f8ca0b2636c8"
+)
+PINNED_BAT618_GATE_IDENTITY = (
+    "b45e0926d26f5ecb3c08192e46cb65cf35b48a92de9702a4bf85664d0ba188f0"
+)
 PREFORMATTED_PARSER_IDENTITY = "tamu.official.statcrew.preformatted.v1"
 ALLOWED_PARSERS = frozenset({PREFORMATTED_PARSER_IDENTITY, TABLE_PARSER_IDENTITY})
 SERIALIZED_DOMAINS = (
@@ -57,22 +75,54 @@ CHILD_DOMAINS = SERIALIZED_DOMAINS + ("scoring_summary",)
 CHILD_FILENAMES = {domain: f"{domain}.jsonl" for domain in CHILD_DOMAINS}
 SELECTED_SEASONS = (2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009)
 FORBIDDEN_URLS = frozenset(PRESERVED_REJECTION_URLS | {OKLAHOMA_2002_UNMATCHED_URL})
-NAME_MERGE_MARKERS = frozenset({"NAME_ONLY_MERGED", "MERGED_BY_NAME", "NAME_ONLY_PLAYER_MERGE"})
-PINNED_BAT591_PAYLOAD_IDENTITY = "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d"
-PINNED_BAT591_FILE_SHA256 = "cb7fc0b293f15ee8d98058daa38fa9abba02d9506b28dd6845dfb2682272ab3a"
-PINNED_BAT596_PAYLOAD_IDENTITY = "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea"
-PINNED_BAT596_FILE_SHA256 = "38bfcaf9b89dcc82d68a3cb78767db19fe011294d0858993692ace3ec55eebb5"
-PINNED_BAT601_PAYLOAD_IDENTITY = "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc"
-PINNED_BAT601_FILE_SHA256 = "752bd4631289fa35ae40bd11f481d520cb14c0dd7a082814055a80c2fec876c6"
-PINNED_BAT606_PAYLOAD_IDENTITY = "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0"
-PINNED_BAT606_FILE_SHA256 = "e56fadea242c9d06a4154415411ad9b1ed8c04ba2eef225fac44c6873e1c3aef"
-PINNED_BAT611_PAYLOAD_IDENTITY = "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8"
-PINNED_BAT611_FILE_SHA256 = "6e21fabf1df2fb7f5b5066de55026d5841802092349192a19f6278b682ea5cf2"
-PINNED_BAT617_PAYLOAD_IDENTITY = "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2"
-PINNED_BAT617_FILE_SHA256 = "a411e25e81335ae8570f8452f65303f4533f47fb38bb1d7a615daebf99d22981"
-PINNED_DATASET_IDENTITY = "35aa3a8250ddf7312b6bbabd23ad7fc20b138031b3d8cd11bfa1aea6759cec50"
-PINNED_GATE_IDENTITY = "5d2e80c69aab74fd44082bdeb7ea6efc66ae9dba409ac7c0b4389910756ff9af"
-PINNED_MANIFEST_FILE_SHA256 = "e79bec11165482fa06dbb2dbc10d9ad4da630c0d84e8bcfc37c111c62cb4b620"
+NAME_MERGE_MARKERS = frozenset(
+    {"NAME_ONLY_MERGED", "MERGED_BY_NAME", "NAME_ONLY_PLAYER_MERGE"}
+)
+PINNED_BAT591_PAYLOAD_IDENTITY = (
+    "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338"
+)
+PINNED_BAT591_FILE_SHA256 = (
+    "e4fa2f48acd0b89b11e4899b9f67c38e16b9737d34a72672f9efde57b6ed2950"
+)
+PINNED_BAT596_PAYLOAD_IDENTITY = (
+    "f4fc2472e90e37adc3d0d4569d8b1225a45acd6ad4d41aa48a9b3dbb39473a9d"
+)
+PINNED_BAT596_FILE_SHA256 = (
+    "bd7ee4af132ea228a3e0a89a67fd61c89849ee9fe3d16ef4ccd85d7cbafc9384"
+)
+PINNED_BAT601_PAYLOAD_IDENTITY = (
+    "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc"
+)
+PINNED_BAT601_FILE_SHA256 = (
+    "752bd4631289fa35ae40bd11f481d520cb14c0dd7a082814055a80c2fec876c6"
+)
+PINNED_BAT606_PAYLOAD_IDENTITY = (
+    "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0"
+)
+PINNED_BAT606_FILE_SHA256 = (
+    "e56fadea242c9d06a4154415411ad9b1ed8c04ba2eef225fac44c6873e1c3aef"
+)
+PINNED_BAT611_PAYLOAD_IDENTITY = (
+    "8322e53f3ae4b14f7f85b57e30d32664a07b0d5051d4295af681e71083664bf8"
+)
+PINNED_BAT611_FILE_SHA256 = (
+    "6e21fabf1df2fb7f5b5066de55026d5841802092349192a19f6278b682ea5cf2"
+)
+PINNED_BAT617_PAYLOAD_IDENTITY = (
+    "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2"
+)
+PINNED_BAT617_FILE_SHA256 = (
+    "a411e25e81335ae8570f8452f65303f4533f47fb38bb1d7a615daebf99d22981"
+)
+PINNED_DATASET_IDENTITY = (
+    "84db073cdec37e45f2a461bedf01f87c62419750eb90b49534879746cff4adfe"
+)
+PINNED_GATE_IDENTITY = (
+    "0795c1bdd226204173a15ed6ff3b5ea80369bc5fd4ec761c6ab047b7d26fb8f9"
+)
+PINNED_MANIFEST_FILE_SHA256 = (
+    "9bce10f376a20fdc0cb24cac0487c1d09c40ed312310250afe4b7b42914ce968"
+)
 UPSTREAM_SOURCES = (
     {
         "jira_key": "BAT-591",
@@ -163,13 +213,17 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes((json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8"))
+    path.write_bytes(
+        (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
+    )
 
 
 def compute_gate_identity(gate: Mapping[str, Any]) -> str:
     missing = [key for key in REQUIRED_GATE_FIELDS if key not in gate]
     if missing:
-        raise AuthorityViolation("gate is missing required identity fields: " + ", ".join(missing))
+        raise AuthorityViolation(
+            "gate is missing required identity fields: " + ", ".join(missing)
+        )
     return compute_identity(gate, "gate_identity")
 
 
@@ -198,7 +252,11 @@ def _write_bytes_immutable(payload: bytes, path: Path, *, artifact: str) -> None
 def serialize_jsonl(rows: Iterable[Mapping[str, Any]]) -> bytes:
     chunks: list[bytes] = []
     for row in rows:
-        chunks.append(json.dumps(row, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8"))
+        chunks.append(
+            json.dumps(
+                row, sort_keys=True, separators=(",", ":"), ensure_ascii=True
+            ).encode("utf-8")
+        )
         chunks.append(b"\n")
     return b"".join(chunks)
 
@@ -221,7 +279,12 @@ def corpus_dir(data_root: Path, dataset_identity: str) -> Path:
 
 
 def payload_path(data_root: Path, source: Mapping[str, Any]) -> Path:
-    return data_root / source["relative_root"] / source["payload_identity"] / "payload.json"
+    return (
+        data_root
+        / source["relative_root"]
+        / source["payload_identity"]
+        / "payload.json"
+    )
 
 
 def lake_is_ready(data_root: Path, repo_root: Path | None = None) -> bool:
@@ -248,7 +311,9 @@ def _union_coverage(game: Mapping[str, Any], domain: str) -> str:
     return "UNKNOWN"
 
 
-def resolve_parser(row: Mapping[str, Any], game: Mapping[str, Any], source: Mapping[str, Any]) -> tuple[str, str]:
+def resolve_parser(
+    row: Mapping[str, Any], game: Mapping[str, Any], source: Mapping[str, Any]
+) -> tuple[str, str]:
     row_parser = str(row.get("parser_identity") or "").strip()
     if row_parser:
         return row_parser, "ROW"
@@ -313,7 +378,9 @@ def bind_corpus_row(
         "domain": domain,
         "domain_row_order": domain_row_order,
         "home_raw": raw.get("home_raw"),
-        "identity_status": identity_status if identity_status is not None else "SOURCE_TEXT_ONLY",
+        "identity_status": identity_status
+        if identity_status is not None
+        else "SOURCE_TEXT_ONLY",
         "name_raw": raw.get("name_raw"),
         "original_text": raw.get("original_text"),
         "parser_identity": parser,
@@ -323,7 +390,9 @@ def bind_corpus_row(
         "season": _season(union_game),
         "source_block": source_block,
         "source_row_order": raw["row_order"],
-        "source_sha256": str(raw.get("source_sha256") or union_game.get("source_sha256") or ""),
+        "source_sha256": str(
+            raw.get("source_sha256") or union_game.get("source_sha256") or ""
+        ),
         "source_table": str(raw.get("source_domain") or "UNKNOWN"),
         "source_url": str(raw.get("source_url") or union_game["url"]),
         "stat_group": raw.get("stat_group"),
@@ -336,8 +405,12 @@ def bind_corpus_row(
     }
     if row["source_url"] != union_game["url"]:
         raise AuthorityViolation(f"source URL substitution: {row['source_url']}")
-    if row["source_sha256"] != str(union_game.get("source_sha256") or row["source_sha256"]):
-        if str(union_game.get("source_sha256") or "") and row["source_sha256"] != str(union_game["source_sha256"]):
+    if row["source_sha256"] != str(
+        union_game.get("source_sha256") or row["source_sha256"]
+    ):
+        if str(union_game.get("source_sha256") or "") and row["source_sha256"] != str(
+            union_game["source_sha256"]
+        ):
             raise AuthorityViolation(f"source SHA substitution: {row['source_url']}")
     if not row["source_sha256"]:
         raise AuthorityViolation(f"missing source SHA: {row['source_url']}")
@@ -359,13 +432,20 @@ def load_upstream_payloads(data_root: Path) -> list[dict[str, Any]]:
     for source in UPSTREAM_SOURCES:
         path = payload_path(data_root, source)
         if not path.is_file():
-            raise FileNotFoundError(f"missing upstream payload {source['jira_key']}: {path}")
+            raise FileNotFoundError(
+                f"missing upstream payload {source['jira_key']}: {path}"
+            )
         file_sha = sha256_file(path)
         if file_sha != source["file_sha256"]:
-            raise AuthorityViolation(f"{source['jira_key']} payload file SHA-256 rewritten")
+            raise AuthorityViolation(
+                f"{source['jira_key']} payload file SHA-256 rewritten"
+            )
         payload = load_json(path)
         recomputed = compute_identity(payload, "payload_identity")
-        if recomputed != source["payload_identity"] or payload.get("payload_identity") != source["payload_identity"]:
+        if (
+            recomputed != source["payload_identity"]
+            or payload.get("payload_identity") != source["payload_identity"]
+        ):
             raise AuthorityViolation(f"{source['jira_key']} payload identity rewritten")
         games = payload.get("games") or []
         rows = payload.get("rows") or []
@@ -407,14 +487,27 @@ def admitted_union_games(union_gate: Mapping[str, Any]) -> list[dict[str, Any]]:
     games = [dict(item) for item in (union_gate.get("enriched_official_games") or [])]
     outside = [item for item in games if _season(item) not in SELECTED_SEASONS]
     if outside:
-        raise AuthorityViolation("BAT-618 enriched games include seasons outside 2002-2009")
+        raise AuthorityViolation(
+            "BAT-618 enriched games include seasons outside 2002-2009"
+        )
     forbidden = [item for item in games if str(item.get("url") or "") in FORBIDDEN_URLS]
     if forbidden:
-        raise AuthorityViolation("rejected or unmatched URL was admitted to the Phase 9 union")
-    rejected = {str(item.get("url") or "") for item in (union_gate.get("preserved_rejections") or [])}
+        raise AuthorityViolation(
+            "rejected or unmatched URL was admitted to the Phase 9 union"
+        )
+    rejected = {
+        str(item.get("url") or "")
+        for item in (union_gate.get("preserved_rejections") or [])
+    }
     if rejected != set(PRESERVED_REJECTION_URLS):
         raise AuthorityViolation("the four preserved rejected games drifted")
-    games.sort(key=lambda item: (_season(item), str(item.get("calendar_date") or ""), str(item.get("url") or "")))
+    games.sort(
+        key=lambda item: (
+            _season(item),
+            str(item.get("calendar_date") or ""),
+            str(item.get("url") or ""),
+        )
+    )
     return games
 
 
@@ -427,12 +520,19 @@ def build_corpus_rows(
     for union_game in union_games:
         url = str(union_game["url"])
         if url not in index:
-            raise AuthorityViolation(f"admitted union URL has no serialized structured rows: {url}")
+            raise AuthorityViolation(
+                f"admitted union URL has no serialized structured rows: {url}"
+            )
         found = index[url]
         domain_orders: Counter[str] = Counter()
         ordered = sorted(
             found["rows"],
-            key=lambda row: (str(row.get("domain") or ""), row.get("block_index") is None, row.get("block_index") or 0, row.get("row_order")),
+            key=lambda row: (
+                str(row.get("domain") or ""),
+                row.get("block_index") is None,
+                row.get("block_index") or 0,
+                row.get("row_order"),
+            ),
         )
         for raw in ordered:
             domain = str(raw.get("domain") or "")
@@ -511,10 +611,20 @@ def coverage_summary(matrix: list[Mapping[str, Any]]) -> dict[str, Any]:
         domain_rows = [item for item in matrix if item["domain"] == domain]
         by_domain[domain] = {
             "games": len(domain_rows),
-            "union_present": sum(1 for item in domain_rows if item["union_coverage"] == "PRESENT"),
-            "corpus_present": sum(1 for item in domain_rows if item["corpus_coverage"] == "PRESENT"),
-            "serialized_rows": sum(int(item["serialized_row_count"]) for item in domain_rows),
-            "union_present_without_serialized_rows": sum(1 for item in domain_rows if item["warning"] == "UNION_PRESENT_WITHOUT_SERIALIZED_ROWS"),
+            "union_present": sum(
+                1 for item in domain_rows if item["union_coverage"] == "PRESENT"
+            ),
+            "corpus_present": sum(
+                1 for item in domain_rows if item["corpus_coverage"] == "PRESENT"
+            ),
+            "serialized_rows": sum(
+                int(item["serialized_row_count"]) for item in domain_rows
+            ),
+            "union_present_without_serialized_rows": sum(
+                1
+                for item in domain_rows
+                if item["warning"] == "UNION_PRESENT_WITHOUT_SERIALIZED_ROWS"
+            ),
         }
     return {
         "all_present_claim": False,
@@ -535,15 +645,23 @@ def validate_bound_rows(
     for row in rows:
         missing = [key for key in REQUIRED_ROW_FIELDS if key not in row]
         if missing:
-            raise AuthorityViolation("corpus row missing required fields: " + ", ".join(missing))
+            raise AuthorityViolation(
+                "corpus row missing required fields: " + ", ".join(missing)
+            )
         if row.get("admitted_final_union_membership") is not True:
-            raise AuthorityViolation("corpus row is not bound to admitted final-union membership")
+            raise AuthorityViolation(
+                "corpus row is not bound to admitted final-union membership"
+            )
         url = str(row["source_url"])
         if url in FORBIDDEN_URLS:
             raise AuthorityViolation(f"rejected URL insertion: {url}")
         if url not in union_urls:
             raise AuthorityViolation(f"non-union game insertion: {url}")
-        if union_shas is not None and url in union_shas and str(row.get("source_sha256") or "") != union_shas[url]:
+        if (
+            union_shas is not None
+            and url in union_shas
+            and str(row.get("source_sha256") or "") != union_shas[url]
+        ):
             raise AuthorityViolation(f"source SHA substitution: {url}")
         if row.get("parser_identity") not in ALLOWED_PARSERS:
             raise AuthorityViolation(f"unknown parser: {row.get('parser_identity')}")
@@ -551,7 +669,9 @@ def validate_bound_rows(
             raise AuthorityViolation(f"unknown domain: {row.get('domain')}")
         if row.get("domain") == "scoring_summary":
             raise AuthorityViolation("scoring/summary rows were invented")
-        if row.get("availability") != "NOT_ESTABLISHED" or row.get("availability_claim"):
+        if row.get("availability") != "NOT_ESTABLISHED" or row.get(
+            "availability_claim"
+        ):
             availability_from_participation(row)
         if row.get("player_identity") in NAME_MERGE_MARKERS:
             refuse_name_only_player_merge([row])
@@ -591,12 +711,18 @@ def reconstruct_objects(
     union_manifest_sha = sha256_file(manifest_path)
     if union_manifest_sha != PINNED_BAT618_UNION_MANIFEST_FILE_SHA256:
         raise AuthorityViolation("BAT-618 union manifest file SHA-256 rewritten")
-    loaded = loaded_payloads if loaded_payloads is not None else load_upstream_payloads(data_root)
+    loaded = (
+        loaded_payloads
+        if loaded_payloads is not None
+        else load_upstream_payloads(data_root)
+    )
     index = index_upstream_rows(loaded)
     games = admitted_union_games(union)
     buckets = build_corpus_rows(games, index)
     union_urls = {str(item["url"]) for item in games}
-    union_shas = {str(item["url"]): str(item.get("source_sha256") or "") for item in games}
+    union_shas = {
+        str(item["url"]): str(item.get("source_sha256") or "") for item in games
+    }
     for domain in SERIALIZED_DOMAINS:
         validate_bound_rows(buckets[domain], union_urls, union_shas)
     if buckets["scoring_summary"]:
@@ -604,7 +730,10 @@ def reconstruct_objects(
     matrix = build_coverage_matrix(games, buckets)
     summary = coverage_summary(matrix)
     child_bytes = {domain: serialize_jsonl(buckets[domain]) for domain in CHILD_DOMAINS}
-    child_sha = {domain: hashlib.sha256(child_bytes[domain]).hexdigest() for domain in CHILD_DOMAINS}
+    child_sha = {
+        domain: hashlib.sha256(child_bytes[domain]).hexdigest()
+        for domain in CHILD_DOMAINS
+    }
     counts = {
         "games": len(games),
         "seasons": len({_season(item) for item in games}),
@@ -614,12 +743,18 @@ def reconstruct_objects(
         "ncaa_contest_ids_created": 0,
         "name_only_player_merges": 0,
         "availability_claims": 0,
-        "serialized_rows_total": sum(len(buckets[domain]) for domain in SERIALIZED_DOMAINS),
+        "serialized_rows_total": sum(
+            len(buckets[domain]) for domain in SERIALIZED_DOMAINS
+        ),
     }
     for domain in CHILD_DOMAINS:
         counts[f"{domain}_rows"] = len(buckets[domain])
-        counts[f"{domain}_games_present"] = summary["by_domain"][domain]["corpus_present"]
-    if counts["serialized_rows_total"] != sum(counts[f"{domain}_rows"] for domain in SERIALIZED_DOMAINS):
+        counts[f"{domain}_games_present"] = summary["by_domain"][domain][
+            "corpus_present"
+        ]
+    if counts["serialized_rows_total"] != sum(
+        counts[f"{domain}_rows"] for domain in SERIALIZED_DOMAINS
+    ):
         raise AuthorityViolation("serialized row arithmetic drifted")
     upstream_identities = {
         "bat591_payload_identity": PINNED_BAT591_PAYLOAD_IDENTITY,
@@ -661,7 +796,9 @@ def reconstruct_objects(
         }
     )
     if PINNED_DATASET_IDENTITY and dataset_identity != PINNED_DATASET_IDENTITY:
-        raise AuthorityViolation("dataset identity drifted from the pinned BAT-619 identity")
+        raise AuthorityViolation(
+            "dataset identity drifted from the pinned BAT-619 identity"
+        )
     scientific = expected_scientific_nonclaims()
     scientific.update(
         {
@@ -739,7 +876,9 @@ def reconstruct_objects(
     }
     gate["gate_identity"] = compute_gate_identity(gate)
     if PINNED_GATE_IDENTITY and gate["gate_identity"] != PINNED_GATE_IDENTITY:
-        raise AuthorityViolation("gate identity drifted from the pinned BAT-619 identity")
+        raise AuthorityViolation(
+            "gate identity drifted from the pinned BAT-619 identity"
+        )
     return {
         "buckets": buckets,
         "child_bytes": child_bytes,
@@ -760,8 +899,12 @@ def materialize_corpus(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
             root / CHILD_FILENAMES[domain],
             artifact=f"BAT-619 {domain} child",
         )
-    manifest_bytes = (json.dumps(objects["manifest"], indent=2, sort_keys=True) + "\n").encode("utf-8")
-    _write_bytes_immutable(manifest_bytes, root / MANIFEST_NAME, artifact="BAT-619 corpus manifest")
+    manifest_bytes = (
+        json.dumps(objects["manifest"], indent=2, sort_keys=True) + "\n"
+    ).encode("utf-8")
+    _write_bytes_immutable(
+        manifest_bytes, root / MANIFEST_NAME, artifact="BAT-619 corpus manifest"
+    )
     write_json(repo_root / GATE_RELATIVE, objects["gate"])
     validate_artifact(repo_root=repo_root, data_root=data_root, require_rebuild=True)
     return {
@@ -783,8 +926,14 @@ def consume_corpus(
 ) -> dict[str, list[dict[str, Any]]]:
     skipped = tuple(skip_children)
     if skipped:
-        raise AuthorityViolation("consumer skips a child payload: " + ", ".join(skipped))
-    root = corpus_root if corpus_root is not None else corpus_dir(data_root, dataset_identity)
+        raise AuthorityViolation(
+            "consumer skips a child payload: " + ", ".join(skipped)
+        )
+    root = (
+        corpus_root
+        if corpus_root is not None
+        else corpus_dir(data_root, dataset_identity)
+    )
     consumed: dict[str, list[dict[str, Any]]] = {}
     for domain in CHILD_DOMAINS:
         consumed[domain] = read_jsonl(root / CHILD_FILENAMES[domain])
@@ -814,7 +963,9 @@ def _validate_children_against_manifest(
         else:
             actual_sha = hashlib.sha256(serialize_jsonl(rows)).hexdigest()
         if actual_sha != meta.get("sha256"):
-            raise AuthorityViolation(f"changed child row with unchanged hash declaration: {domain}")
+            raise AuthorityViolation(
+                f"changed child row with unchanged hash declaration: {domain}"
+            )
 
 
 def validate_artifact(
@@ -830,7 +981,10 @@ def validate_artifact(
     committed = dict(gate) if gate is not None else load_json(repo_root / GATE_RELATIVE)
     if committed.get("protected_lane") != PROTECTED_LANE:
         raise AuthorityViolation("protected lane")
-    if committed.get("result") != PASS_RESULT or committed.get("classification") != PASS_CLASSIFICATION:
+    if (
+        committed.get("result") != PASS_RESULT
+        or committed.get("classification") != PASS_CLASSIFICATION
+    ):
         raise AuthorityViolation("forged DONE/VERIFIED completion")
     if committed.get("union_identity") != PINNED_BAT618_UNION_IDENTITY:
         raise AuthorityViolation("BAT-618 union identity rewritten")
@@ -839,14 +993,18 @@ def validate_artifact(
     if committed.get("validator_code_identity") != PINNED_VALIDATOR_CODE_IDENTITY:
         raise AuthorityViolation("validator code identity rewritten")
     scientific = committed.get("scientific_nonclaims") or {}
-    if scientific.get("completeness_claimed") or scientific.get("national_completeness"):
+    if scientific.get("completeness_claimed") or scientific.get(
+        "national_completeness"
+    ):
         raise AuthorityViolation("completeness claim inserted")
     if scientific.get("protected_lane_opened"):
         raise AuthorityViolation("protected claim inserted")
     if (committed.get("counts") or {}).get("ncaa_contest_ids_created"):
         raise AuthorityViolation("NCAA contest IDs created")
     authority = committed.get("authority") or {}
-    if authority.get("participation_as_availability") or authority.get("availability_claim"):
+    if authority.get("participation_as_availability") or authority.get(
+        "availability_claim"
+    ):
         raise AuthorityViolation("participation promoted to availability")
     if authority.get("name_only_player_merge"):
         raise AuthorityViolation("name-only player merge")
@@ -855,31 +1013,43 @@ def validate_artifact(
     dataset_identity = str(committed.get("dataset_identity") or "")
     ready = lake_is_ready(data_root, repo_root)
     if require_rebuild and not ready and corpus_root is None:
-        raise AuthorityViolation("external row-corpus reconstruction was required but the data root is not mounted")
+        raise AuthorityViolation(
+            "external row-corpus reconstruction was required but the data root is not mounted"
+        )
     if not ready and corpus_root is None:
         return {
             "dataset_identity": dataset_identity,
             "external_reconstruction": "NOT_MOUNTED",
             "gate": committed,
         }
-    root = corpus_root if corpus_root is not None else corpus_dir(data_root, dataset_identity)
+    root = (
+        corpus_root
+        if corpus_root is not None
+        else corpus_dir(data_root, dataset_identity)
+    )
     manifest_path = root / MANIFEST_NAME
     if not manifest_path.is_file():
         raise FileNotFoundError(f"missing corpus manifest: {manifest_path}")
     manifest = load_json(manifest_path)
     if coverage_matrix is not None:
         if coverage_matrix != manifest.get("coverage_matrix"):
-            raise AuthorityViolation("changed coverage matrix without corresponding row change")
+            raise AuthorityViolation(
+                "changed coverage matrix without corresponding row change"
+            )
     children = consume_corpus(
         data_root=data_root,
         dataset_identity=dataset_identity,
         skip_children=skip_children,
         corpus_root=root,
     )
-    _validate_children_against_manifest(children=children, manifest=manifest, corpus_root=root)
+    _validate_children_against_manifest(
+        children=children, manifest=manifest, corpus_root=root
+    )
     union_games = load_union_gate(repo_root).get("enriched_official_games") or []
     union_urls = {str(item["url"]) for item in union_games}
-    union_shas = {str(item["url"]): str(item.get("source_sha256") or "") for item in union_games}
+    union_shas = {
+        str(item["url"]): str(item.get("source_sha256") or "") for item in union_games
+    }
     for domain in SERIALIZED_DOMAINS:
         validate_bound_rows(children[domain], union_urls, union_shas)
     if children["scoring_summary"]:
@@ -890,23 +1060,53 @@ def validate_artifact(
             raise AuthorityViolation("corpus manifest file SHA-256 rewritten")
     if require_rebuild:
         reconstructed = reconstruct_objects(repo_root=repo_root, data_root=data_root)
-        actual_shas = {domain: sha256_file(root / CHILD_FILENAMES[domain]) for domain in CHILD_DOMAINS}
+        actual_shas = {
+            domain: sha256_file(root / CHILD_FILENAMES[domain])
+            for domain in CHILD_DOMAINS
+        }
         reconstructed_shas = {
-            domain: reconstructed["manifest"]["child_payloads"][domain]["sha256"] for domain in CHILD_DOMAINS
+            domain: reconstructed["manifest"]["child_payloads"][domain]["sha256"]
+            for domain in CHILD_DOMAINS
         }
         declared_shas = {
-            domain: str((manifest.get("child_payloads") or {}).get(domain, {}).get("sha256") or "")
+            domain: str(
+                (manifest.get("child_payloads") or {}).get(domain, {}).get("sha256")
+                or ""
+            )
             for domain in CHILD_DOMAINS
         }
         children_changed = actual_shas != reconstructed_shas
         declared_matches_actual = declared_shas == actual_shas
         reconstructed_dataset = reconstructed["manifest"]["dataset_identity"]
-        if children_changed and declared_matches_actual and dataset_identity == reconstructed_dataset:
-            raise AuthorityViolation("changed row plus recomputed child hash but stale dataset identity")
-        if children_changed and declared_matches_actual and dataset_identity != reconstructed_dataset:
+        if (
+            children_changed
+            and declared_matches_actual
+            and dataset_identity == reconstructed_dataset
+        ):
+            raise AuthorityViolation(
+                "changed row plus recomputed child hash but stale dataset identity"
+            )
+        if (
+            children_changed
+            and declared_matches_actual
+            and dataset_identity != reconstructed_dataset
+        ):
             raise AuthorityViolation("coordinated child and outer rehash")
-        if reconstructed["manifest"].get("coverage_matrix") != manifest.get("coverage_matrix"):
-            raise AuthorityViolation("changed coverage matrix without corresponding row change")
-        if reconstructed["gate"]["gate_identity"] != committed.get("gate_identity") or reconstructed["gate"] != committed:
-            raise AuthorityViolation("committed gate does not match independent reconstruction")
-    return {"dataset_identity": dataset_identity, "gate": committed, "manifest": manifest}
+        if reconstructed["manifest"].get("coverage_matrix") != manifest.get(
+            "coverage_matrix"
+        ):
+            raise AuthorityViolation(
+                "changed coverage matrix without corresponding row change"
+            )
+        if (
+            reconstructed["gate"]["gate_identity"] != committed.get("gate_identity")
+            or reconstructed["gate"] != committed
+        ):
+            raise AuthorityViolation(
+                "committed gate does not match independent reconstruction"
+            )
+    return {
+        "dataset_identity": dataset_identity,
+        "gate": committed,
+        "manifest": manifest,
+    }

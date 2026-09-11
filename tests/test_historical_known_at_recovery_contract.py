@@ -10,12 +10,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.contract = json.loads(
-            (ROOT / "configs" / "historical_known_at_recovery_contract.json").read_text(encoding="utf-8")
-        )
-        cls.registry = json.loads(
-            (ROOT / "jira" / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json").read_text(
+            (ROOT / "configs" / "historical_known_at_recovery_contract.json").read_text(
                 encoding="utf-8"
             )
+        )
+        cls.registry = json.loads(
+            (
+                ROOT / "jira" / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
+            ).read_text(encoding="utf-8")
         )
         cls.evidence = json.loads(
             (
@@ -26,34 +28,49 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
             ).read_text(encoding="utf-8")
         )
         cls.gate = json.loads(
-            (ROOT / "artifacts" / "pit" / "historical_known_at_replay_gate.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                ROOT / "artifacts" / "pit" / "historical_known_at_replay_gate.json"
+            ).read_text(encoding="utf-8")
         )
         cls.rankings_gate = json.loads(
-            (ROOT / "artifacts" / "pit" / "historical_rankings_reconciliation_gate.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_rankings_reconciliation_gate.json"
+            ).read_text(encoding="utf-8")
         )
         cls.team_box_gate = json.loads(
-            (ROOT / "artifacts" / "pit" / "historical_team_box_reconciliation_gate.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_team_box_reconciliation_gate.json"
+            ).read_text(encoding="utf-8")
         )
         cls.advanced_game_gate = json.loads(
-            (ROOT / "artifacts" / "pit" / "historical_advanced_game_reconciliation_gate.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_advanced_game_reconciliation_gate.json"
+            ).read_text(encoding="utf-8")
         )
         cls.venue_assignment_gate = json.loads(
-            (ROOT / "artifacts" / "pit" / "historical_venue_assignment_reconciliation_gate.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_venue_assignment_reconciliation_gate.json"
+            ).read_text(encoding="utf-8")
         )
         cls.player_box_gate = json.loads(
-            (ROOT / "artifacts" / "pit" / "historical_player_box_reconciliation_gate.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_player_box_reconciliation_gate.json"
+            ).read_text(encoding="utf-8")
         )
         cls.weather_gate = json.loads(
             (
@@ -129,12 +146,16 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
-        item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
+        item = next(
+            row for row in self.registry["issues"] if row["jira_key"] == "BAT-523"
+        )
         self.assertEqual(item["local_id"], "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001")
         self.assertEqual(item["status"], "In Progress")
         self.assertTrue(item["critical_path"])
         self.assertEqual(self.contract["dependency_contract"]["blocks"], ["BAT-399"])
-        self.assertEqual(self.contract["dependency_contract"]["relates_to"], ["BAT-398"])
+        self.assertEqual(
+            self.contract["dependency_contract"]["relates_to"], ["BAT-398"]
+        )
 
     def test_recovery_cannot_fabricate_historical_knowledge_time(self) -> None:
         prohibited = set(self.contract["prohibited_substitutions"])
@@ -147,7 +168,10 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("domain_and_data_grain", dimensions)
         self.assertIn("historical_known_at_and_point_in_time_eligibility", dimensions)
         self.assertGreaterEqual(len(self.contract["domain_tiers"]), 4)
-        self.assertIn("Partial or failed domains remain explicit", " ".join(self.contract["acceptance_criteria"]))
+        self.assertIn(
+            "Partial or failed domains remain explicit",
+            " ".join(self.contract["acceptance_criteria"]),
+        )
 
     def test_protected_gate_requires_nonempty_replayable_evidence(self) -> None:
         self.assertEqual(
@@ -157,16 +181,25 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         criteria = " ".join(self.contract["acceptance_criteria"])
         self.assertIn("At least one real game and prediction cutoff", criteria)
         self.assertIn("explicitly approves the new matrix", criteria)
-        self.assertFalse(self.contract["honesty_boundary"]["historical_population_ready"])
+        self.assertFalse(
+            self.contract["honesty_boundary"]["historical_population_ready"]
+        )
 
     def test_bulk_artifacts_remain_external_and_openai_has_no_authority(self) -> None:
         storage = self.contract["external_storage"]
         self.assertEqual(storage["data_root"], "<external-data-root>")
         self.assertFalse(storage["bulk_payloads_in_git"])
         self.assertTrue(storage["content_addressed_captures_required"])
-        self.assertEqual(storage["rankings_raw"], "raw/SRC-063/college_poll_archive/ap/sha256")
-        self.assertEqual(storage["rankings_candidate_payloads"], "quarantine/historical_rankings/sha256")
-        self.assertFalse(self.contract["openai_assistance"]["direct_canonical_or_pit_authority"])
+        self.assertEqual(
+            storage["rankings_raw"], "raw/SRC-063/college_poll_archive/ap/sha256"
+        )
+        self.assertEqual(
+            storage["rankings_candidate_payloads"],
+            "quarantine/historical_rankings/sha256",
+        )
+        self.assertFalse(
+            self.contract["openai_assistance"]["direct_canonical_or_pit_authority"]
+        )
 
     def test_expanded_scoped_replay_is_validated_and_not_full_history(self) -> None:
         replay = self.contract["latest_validated_replay"]
@@ -193,18 +226,29 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
             replay["preserved_prior_replay"]["dataset_identity"],
             "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
         )
-        self.assertFalse(self.evidence["completion_claim"]["full_historical_population_ready"])
-        self.assertFalse(self.evidence["completion_claim"]["protected_model_promotion_eligible"])
+        self.assertFalse(
+            self.evidence["completion_claim"]["full_historical_population_ready"]
+        )
+        self.assertFalse(
+            self.evidence["completion_claim"]["protected_model_promotion_eligible"]
+        )
 
     def test_reexecuted_gate_preserves_quarantine_and_scoped_authority(self) -> None:
         gate = self.gate
-        self.assertEqual(gate["gate_reexecution"]["BAT-395"]["accepted_game_rows"], 10593)
+        self.assertEqual(
+            gate["gate_reexecution"]["BAT-395"]["accepted_game_rows"], 10593
+        )
         self.assertEqual(gate["gate_reexecution"]["BAT-395"]["quarantined_rows"], 570)
         self.assertEqual(gate["gate_reexecution"]["BAT-397"]["rows_source_missing"], 14)
-        self.assertEqual(gate["chronological_replay"]["source_seasons"], list(range(2010, 2023)))
+        self.assertEqual(
+            gate["chronological_replay"]["source_seasons"], list(range(2010, 2023))
+        )
         self.assertFalse(gate["chronological_replay"]["target_labels_used"])
         self.assertIn("production_matrix_approval", gate["gate_reexecution"]["BAT-398"])
-        self.assertEqual(gate["gate_reexecution"]["BAT-398"]["production_matrix_approval"], "NOT_APPROVED")
+        self.assertEqual(
+            gate["gate_reexecution"]["BAT-398"]["production_matrix_approval"],
+            "NOT_APPROVED",
+        )
 
     def test_event_detail_play_history_is_validated_candidate_only(self) -> None:
         event = self.contract["latest_validated_event_detail_candidate"]
@@ -213,14 +257,37 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
             "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
         )
         self.assertEqual(event["repository_rows"], 2432416)
-        self.assertEqual(event["repository_seasons"], [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022])
+        self.assertEqual(
+            event["repository_seasons"],
+            [
+                2004,
+                2005,
+                2006,
+                2007,
+                2008,
+                2009,
+                2010,
+                2012,
+                2013,
+                2014,
+                2015,
+                2016,
+                2017,
+                2018,
+                2019,
+                2021,
+                2022,
+            ],
+        )
         self.assertEqual(event["absent_repository_seasons"], [2011, 2020])
         self.assertEqual(event["cross_route_exact_canonical_game_candidates"], 1606094)
         self.assertEqual(event["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertEqual(event["validation_checks_passed"], 29)
         self.assertEqual(event["mutation_controls_passed"], 9)
         self.assertEqual(event["deterministic_payloads_compared"], 17)
-        self.assertFalse(self.evidence["completion_claim"]["event_detail_canonical_or_pit_admission"])
+        self.assertFalse(
+            self.evidence["completion_claim"]["event_detail_canonical_or_pit_admission"]
+        )
         checkpoint = self.gate["parallel_event_detail_checkpoint"]
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
@@ -239,14 +306,18 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(drive["validation_checks_passed"], 30)
         self.assertEqual(drive["mutation_controls_passed"], 9)
         self.assertEqual(drive["deterministic_payloads_compared"], 17)
-        self.assertFalse(self.evidence["completion_claim"]["drive_detail_canonical_or_pit_admission"])
+        self.assertFalse(
+            self.evidence["completion_claim"]["drive_detail_canonical_or_pit_admission"]
+        )
         checkpoint = self.gate["parallel_drive_detail_checkpoint"]
         self.assertEqual(checkpoint["quarantined_rows"], 3815)
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
     def test_supplemental_play_drive_gap_is_dense_candidate_coverage_only(self) -> None:
-        supplemental = self.contract["latest_validated_supplemental_play_drive_candidate"]
+        supplemental = self.contract[
+            "latest_validated_supplemental_play_drive_candidate"
+        ]
         self.assertEqual(
             supplemental["dataset_identity"],
             "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
@@ -255,12 +326,18 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(supplemental["capture_count"], 88)
         self.assertEqual(supplemental["play_rows"], 737580)
         self.assertEqual(supplemental["drive_rows"], 100341)
-        self.assertEqual(supplemental["exact_canonical_game_drive_without_play_rows_candidates"], 26)
+        self.assertEqual(
+            supplemental["exact_canonical_game_drive_without_play_rows_candidates"], 26
+        )
         self.assertEqual(supplemental["quarantined_rows"], 0)
-        self.assertEqual(supplemental["dense_2010_2025_candidate_seasons"], list(range(2010, 2026)))
+        self.assertEqual(
+            supplemental["dense_2010_2025_candidate_seasons"], list(range(2010, 2026))
+        )
         self.assertEqual(supplemental["validation_checks_passed"], 74)
         self.assertEqual(supplemental["deterministic_payloads_compared"], 11)
-        self.assertIn("SOURCE_PUBLICATION_TIME_UNKNOWN", supplemental["historical_known_at_basis"])
+        self.assertIn(
+            "SOURCE_PUBLICATION_TIME_UNKNOWN", supplemental["historical_known_at_basis"]
+        )
         self.assertEqual(supplemental["admission_state"], "CANDIDATE_NOT_ADMITTED")
         checkpoint = self.gate["parallel_supplemental_play_drive_checkpoint"]
         self.assertTrue(checkpoint["exact_canonical_game_mapping"])
@@ -271,8 +348,12 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["protected_evaluation_admission"])
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
-    def test_action_derived_play_summaries_preserve_true_grain_and_nonauthority(self) -> None:
-        derived = self.contract["latest_validated_action_derived_play_summary_candidate"]
+    def test_action_derived_play_summaries_preserve_true_grain_and_nonauthority(
+        self,
+    ) -> None:
+        derived = self.contract[
+            "latest_validated_action_derived_play_summary_candidate"
+        ]
         self.assertEqual(
             derived["dataset_identity"],
             "9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451",
@@ -293,19 +374,35 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["target_game_state_allowed_in_pregame_features"])
         self.assertFalse(checkpoint["pit_state_admission"])
         self.assertFalse(checkpoint["forecast_or_publication_admission"])
-        self.assertEqual(self.action_play_summary_gate["candidate_layer"]["validation_checks_passed"], 87)
-        self.assertEqual(self.action_play_summary_gate["exclusion_findings"]["play_number_not_positive"], 50)
+        self.assertEqual(
+            self.action_play_summary_gate["candidate_layer"][
+                "validation_checks_passed"
+            ],
+            87,
+        )
+        self.assertEqual(
+            self.action_play_summary_gate["exclusion_findings"][
+                "play_number_not_positive"
+            ],
+            50,
+        )
         self.assertFalse(
-            self.action_play_summary_gate["historical_known_at_gate"]["feature_or_training_admission"]
+            self.action_play_summary_gate["historical_known_at_gate"][
+                "feature_or_training_admission"
+            ]
         )
         claim = self.evidence["completion_claim"]
         self.assertTrue(claim["action_derived_play_summary_candidate_layer_validated"])
         self.assertFalse(claim["action_derived_play_summary_native_play_equivalence"])
         self.assertFalse(
-            claim["action_derived_play_summary_canonical_pit_feature_training_protected_forecast_or_publication_admission"]
+            claim[
+                "action_derived_play_summary_canonical_pit_feature_training_protected_forecast_or_publication_admission"
+            ]
         )
 
-    def test_roster_history_is_validated_candidate_only_without_availability_inference(self) -> None:
+    def test_roster_history_is_validated_candidate_only_without_availability_inference(
+        self,
+    ) -> None:
         roster = self.contract["latest_validated_roster_candidate"]
         self.assertEqual(
             roster["dataset_identity"],
@@ -314,15 +411,24 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(roster["grain"], "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP")
         self.assertEqual(roster["repository_seasons"], list(range(2004, 2023)))
         self.assertEqual(roster["repository_rows"], 206773)
-        self.assertEqual(roster["cross_route_exact_canonical_membership_candidates"], 154387)
+        self.assertEqual(
+            roster["cross_route_exact_canonical_membership_candidates"], 154387
+        )
         self.assertEqual(roster["historical_attribute_drift_rows"], 29313)
         self.assertEqual(roster["validation_checks_passed"], 34)
         self.assertEqual(roster["mutation_controls_passed"], 9)
         self.assertEqual(roster["deterministic_payloads_compared"], 19)
         self.assertIn("NO_NAME_ONLY_MERGE", roster["identity_contract"])
-        self.assertEqual(roster["availability_inference"], "NOT_PERMITTED_FROM_ROSTER_MEMBERSHIP_ALONE")
+        self.assertEqual(
+            roster["availability_inference"],
+            "NOT_PERMITTED_FROM_ROSTER_MEMBERSHIP_ALONE",
+        )
         self.assertEqual(roster["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertFalse(self.evidence["completion_claim"]["roster_canonical_pit_or_availability_admission"])
+        self.assertFalse(
+            self.evidence["completion_claim"][
+                "roster_canonical_pit_or_availability_admission"
+            ]
+        )
         checkpoint = self.gate["parallel_roster_checkpoint"]
         self.assertEqual(checkpoint["quarantined_rows"], 7749)
         self.assertFalse(checkpoint["availability_inference"])
@@ -356,8 +462,12 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(admitted["deterministic_payloads_compared"], 3)
         self.assertTrue(admitted["byte_identical_rebuild"])
 
-    def test_wmt_tamu_specialization_features_are_exact_and_preliminary_only(self) -> None:
-        checkpoint = self.contract["latest_validated_wmt_tamu_specialization_feature_pit"]
+    def test_wmt_tamu_specialization_features_are_exact_and_preliminary_only(
+        self,
+    ) -> None:
+        checkpoint = self.contract[
+            "latest_validated_wmt_tamu_specialization_feature_pit"
+        ]
         self.assertEqual(
             checkpoint["dataset_identity"],
             "337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815",
@@ -370,7 +480,9 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("SCHOOL_ID_697", checkpoint["official_identity_rule"])
         self.assertTrue(checkpoint["pit_state_admission"])
         self.assertTrue(checkpoint["preliminary_unprotected_feature_candidate"])
-        self.assertTrue(checkpoint["preliminary_unprotected_training_requires_separate_replay_unit"])
+        self.assertTrue(
+            checkpoint["preliminary_unprotected_training_requires_separate_replay_unit"]
+        )
         self.assertFalse(checkpoint["canonical_player_identity_admission"])
         self.assertFalse(checkpoint["protected_training_admission"])
         self.assertFalse(checkpoint["protected_evaluation_admission"])
@@ -382,7 +494,9 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(admitted["target_game_or_future_record_rows"], 0)
         self.assertTrue(admitted["byte_identical_rebuild"])
 
-    def test_player_event_metrics_are_bounded_validated_candidates_not_official_box_scores(self) -> None:
+    def test_player_event_metrics_are_bounded_validated_candidates_not_official_box_scores(
+        self,
+    ) -> None:
         metrics = self.contract["latest_validated_player_event_metric_candidate"]
         self.assertEqual(
             metrics["dataset_identity"],
@@ -391,7 +505,9 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(metrics["repository_seasons"], list(range(2014, 2023)))
         self.assertEqual(metrics["repository_source_rows"], 921136)
         self.assertEqual(metrics["derived_metric_rows"], 354082)
-        self.assertEqual(metrics["cross_route_exact_canonical_game_player_team_candidates"], 289897)
+        self.assertEqual(
+            metrics["cross_route_exact_canonical_game_player_team_candidates"], 289897
+        )
         self.assertEqual(metrics["signed_yardage_rows_preserved"], 5595)
         self.assertEqual(metrics["current_reconciliation_captures"], 146)
         self.assertEqual(metrics["validation_checks_passed"], 44)
@@ -400,8 +516,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(len(metrics["metric_scope"]), 6)
         self.assertIn("NOT_CLAIMED", metrics["official_box_score_status"])
         self.assertEqual(metrics["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertFalse(self.evidence["completion_claim"]["player_event_metric_canonical_or_pit_admission"])
-        self.assertFalse(self.evidence["completion_claim"]["official_player_box_scores_materialized"])
+        self.assertFalse(
+            self.evidence["completion_claim"][
+                "player_event_metric_canonical_or_pit_admission"
+            ]
+        )
+        self.assertFalse(
+            self.evidence["completion_claim"]["official_player_box_scores_materialized"]
+        )
         checkpoint = self.gate["parallel_player_event_metric_checkpoint"]
         self.assertEqual(checkpoint["quarantined_rows"], 43305)
         self.assertFalse(checkpoint["official_box_score_materialization"])
@@ -428,7 +550,9 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["official_box_score_materialization"])
         self.assertEqual(checkpoint["admission_state"], "DEVELOPMENT_ONLY_PIT_ADMITTED")
 
-    def test_play_enrichment_is_validated_candidate_only_without_player_or_feature_promotion(self) -> None:
+    def test_play_enrichment_is_validated_candidate_only_without_player_or_feature_promotion(
+        self,
+    ) -> None:
         enrichment = self.contract["latest_validated_play_enrichment_candidate"]
         self.assertEqual(
             enrichment["dataset_identity"],
@@ -439,8 +563,12 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(enrichment["rows_with_any_position"], 915021)
         self.assertEqual(enrichment["rows_with_any_source_player_id"], 921613)
         self.assertEqual(enrichment["exact_validated_play_link_candidates"], 1176564)
-        self.assertEqual(enrichment["canonical_game_play_unreconciled_candidates"], 139932)
-        self.assertEqual(enrichment["versioned_repository_source_level_only_candidates"], 83654)
+        self.assertEqual(
+            enrichment["canonical_game_play_unreconciled_candidates"], 139932
+        )
+        self.assertEqual(
+            enrichment["versioned_repository_source_level_only_candidates"], 83654
+        )
         self.assertEqual(enrichment["quarantined_rows"], 26337)
         self.assertEqual(enrichment["unknown_position_cells"], 19924)
         self.assertEqual(enrichment["validation_checks_passed"], 23)
@@ -449,7 +577,11 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("NOT_OFFICIAL_BOX_SCORE", enrichment["metric_authority"])
         self.assertIn("NO_NAME_ONLY", enrichment["player_identity_contract"])
         self.assertEqual(enrichment["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertTrue(self.evidence["completion_claim"]["play_enrichment_candidate_layer_validated"])
+        self.assertTrue(
+            self.evidence["completion_claim"][
+                "play_enrichment_candidate_layer_validated"
+            ]
+        )
         self.assertFalse(
             self.evidence["completion_claim"][
                 "play_enrichment_canonical_pit_feature_or_player_identity_admission"
@@ -462,7 +594,9 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
-    def test_play_enrichment_has_separate_exact_linked_development_pit_admission(self) -> None:
+    def test_play_enrichment_has_separate_exact_linked_development_pit_admission(
+        self,
+    ) -> None:
         admitted = self.contract["latest_validated_play_enrichment_pit_admission"]
         self.assertEqual(
             admitted["source_candidate_identity"],
@@ -473,7 +607,10 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
             "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
         )
         self.assertEqual(admitted["candidate_source_seasons"], list(range(2014, 2023)))
-        self.assertEqual(admitted["exact_link_source_seasons"], [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022])
+        self.assertEqual(
+            admitted["exact_link_source_seasons"],
+            [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+        )
         self.assertEqual(admitted["partial_source_seasons"], [2020])
         self.assertEqual(admitted["exact_link_rows"], 1176564)
         self.assertEqual(admitted["admitted_rows"], 1176311)
@@ -499,7 +636,9 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         )
         self.assertEqual(roster["source_seasons"], [2023, 2024, 2025])
         self.assertEqual(roster["source_rows"], 79832)
-        self.assertEqual(roster["exact_source_id_name_and_canonical_membership_candidates"], 46586)
+        self.assertEqual(
+            roster["exact_source_id_name_and_canonical_membership_candidates"], 46586
+        )
         self.assertEqual(roster["canonical_person_membership_pending_candidates"], 5214)
         self.assertEqual(roster["source_level_only_candidates"], 27283)
         self.assertEqual(roster["quarantined_source_id_name_conflicts"], 749)
@@ -520,9 +659,13 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         evidence = self.evidence["validated_post2022_roster_candidate"]
         self.assertEqual(evidence["population"]["source_rows"], 79832)
         self.assertEqual(evidence["independent_validation"]["checks_failed"], 0)
-        self.assertTrue(evidence["deterministic_rebuild"]["manifest_and_4_payloads_byte_identical"])
+        self.assertTrue(
+            evidence["deterministic_rebuild"]["manifest_and_4_payloads_byte_identical"]
+        )
 
-    def test_team_membership_history_is_validated_candidate_only_without_venue_or_pit_promotion(self) -> None:
+    def test_team_membership_history_is_validated_candidate_only_without_venue_or_pit_promotion(
+        self,
+    ) -> None:
         membership = self.contract["latest_validated_team_membership_candidate"]
         self.assertEqual(
             membership["dataset_identity"],
@@ -539,9 +682,19 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(membership["deterministic_payloads_compared"], 20)
         self.assertIn("NOT_CLAIMED", membership["venue_history_status"])
         self.assertEqual(membership["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertTrue(self.evidence["completion_claim"]["team_membership_candidate_layer_validated"])
-        self.assertFalse(self.evidence["completion_claim"]["team_membership_canonical_or_pit_admission"])
-        self.assertFalse(self.evidence["completion_claim"]["historical_venue_materialized"])
+        self.assertTrue(
+            self.evidence["completion_claim"][
+                "team_membership_candidate_layer_validated"
+            ]
+        )
+        self.assertFalse(
+            self.evidence["completion_claim"][
+                "team_membership_canonical_or_pit_admission"
+            ]
+        )
+        self.assertFalse(
+            self.evidence["completion_claim"]["historical_venue_materialized"]
+        )
         checkpoint = self.gate["parallel_team_membership_checkpoint"]
         self.assertEqual(checkpoint["repository_rows"], 2462)
         self.assertEqual(checkpoint["conference_or_division_transitions"], 158)
@@ -576,35 +729,70 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(rankings["validation_checks_passed"], 28)
         self.assertEqual(rankings["mutation_controls_passed"], 14)
         self.assertEqual(rankings["deterministic_payloads_compared"], 92)
-        self.assertEqual(rankings["admission_state"], "EXACT_DATED_WEEKLY_PIT_ADMITTED_DEVELOPMENT_ONLY")
-        self.assertTrue(self.evidence["completion_claim"]["rankings_candidate_layer_validated"])
-        self.assertFalse(self.evidence["completion_claim"]["rankings_canonical_or_pit_admission"])
-        self.assertTrue(self.evidence["completion_claim"]["rankings_exact_dated_weekly_pit_admission"])
+        self.assertEqual(
+            rankings["admission_state"],
+            "EXACT_DATED_WEEKLY_PIT_ADMITTED_DEVELOPMENT_ONLY",
+        )
+        self.assertTrue(
+            self.evidence["completion_claim"]["rankings_candidate_layer_validated"]
+        )
+        self.assertFalse(
+            self.evidence["completion_claim"]["rankings_canonical_or_pit_admission"]
+        )
+        self.assertTrue(
+            self.evidence["completion_claim"][
+                "rankings_exact_dated_weekly_pit_admission"
+            ]
+        )
         checkpoint = self.gate["parallel_rankings_checkpoint"]
         self.assertTrue(checkpoint["canonical_team_admission"])
         self.assertTrue(checkpoint["pit_state_admission"])
-        self.assertEqual(checkpoint["training_feature_admission"], "DEVELOPMENT_AND_PRELIMINARY_ONLY")
+        self.assertEqual(
+            checkpoint["training_feature_admission"], "DEVELOPMENT_AND_PRELIMINARY_ONLY"
+        )
         self.assertIn("PROTECTED_USE_PENDING", checkpoint["gate_disposition"])
-        self.assertTrue(self.rankings_gate["historical_known_at_gate"]["pit_state_admission"])
-        self.assertFalse(self.rankings_gate["historical_known_at_gate"]["protected_evaluation_admission"])
+        self.assertTrue(
+            self.rankings_gate["historical_known_at_gate"]["pit_state_admission"]
+        )
+        self.assertFalse(
+            self.rankings_gate["historical_known_at_gate"][
+                "protected_evaluation_admission"
+            ]
+        )
         self.assertFalse(self.rankings_gate["scientific_nonclaims"]["gap_002_resolved"])
 
-    def test_college_poll_archive_is_registered_under_private_research_policy(self) -> None:
+    def test_college_poll_archive_is_registered_under_private_research_policy(
+        self,
+    ) -> None:
         acquisition = json.loads(
-            (ROOT / "configs" / "source_acquisition_registry.json").read_text(encoding="utf-8")
+            (ROOT / "configs" / "source_acquisition_registry.json").read_text(
+                encoding="utf-8"
+            )
         )
-        rights = json.loads((ROOT / "configs" / "source_rights_registry.json").read_text(encoding="utf-8"))
-        source = next(item for item in acquisition["sources"] if item["source_id"] == "SRC-063")
-        decision = next(item for item in rights["sources"] if item["source_id"] == "SRC-063")
+        rights = json.loads(
+            (ROOT / "configs" / "source_rights_registry.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        source = next(
+            item for item in acquisition["sources"] if item["source_id"] == "SRC-063"
+        )
+        decision = next(
+            item for item in rights["sources"] if item["source_id"] == "SRC-063"
+        )
         self.assertEqual(acquisition["source_count"], len(acquisition["sources"]))
         self.assertEqual(rights["source_count"], len(rights["sources"]))
-        self.assertEqual(source["readiness_required"], "READY_PUBLIC_DIRECT_CAPTURE_VALIDATED")
+        self.assertEqual(
+            source["readiness_required"], "READY_PUBLIC_DIRECT_CAPTURE_VALIDATED"
+        )
         self.assertEqual(len(source["endpoints"]), 2)
         self.assertEqual(decision["lane_disposition"], "PRIVATE_RESEARCH_ALLOWED")
         self.assertTrue(decision["required_data_outcome_nonblocking"])
         self.assertFalse(decision["raw_export_allowed"])
 
-    def test_team_box_history_is_validated_candidate_only_with_partial_and_side_drift_preserved(self) -> None:
+    def test_team_box_history_is_validated_candidate_only_with_partial_and_side_drift_preserved(
+        self,
+    ) -> None:
         team_box = self.contract["latest_validated_team_box_candidate"]
         self.assertEqual(
             team_box["dataset_identity"],
@@ -627,22 +815,41 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("UNKNOWN", team_box["historical_known_at_basis"])
         self.assertIn("2020", team_box["partial_season_finding"])
         self.assertEqual(team_box["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertTrue(self.evidence["completion_claim"]["team_box_candidate_layer_validated"])
-        self.assertTrue(self.evidence["completion_claim"]["structured_team_box_candidate_materialized"])
-        self.assertFalse(
-            self.evidence["completion_claim"]["team_box_canonical_pit_feature_or_official_source_admission"]
+        self.assertTrue(
+            self.evidence["completion_claim"]["team_box_candidate_layer_validated"]
         )
-        self.assertFalse(self.evidence["completion_claim"]["official_team_box_scores_materialized"])
+        self.assertTrue(
+            self.evidence["completion_claim"][
+                "structured_team_box_candidate_materialized"
+            ]
+        )
+        self.assertFalse(
+            self.evidence["completion_claim"][
+                "team_box_canonical_pit_feature_or_official_source_admission"
+            ]
+        )
+        self.assertFalse(
+            self.evidence["completion_claim"]["official_team_box_scores_materialized"]
+        )
         checkpoint = self.gate["parallel_team_box_checkpoint"]
         self.assertFalse(checkpoint["canonical_team_box_admission"])
         self.assertFalse(checkpoint["pit_state_admission"])
         self.assertFalse(checkpoint["training_feature_admission"])
         self.assertIn("PENDING", checkpoint["gate_disposition"])
-        self.assertEqual(self.team_box_gate["reconciliation"]["historical_side_swap_reconciled_games"], 9)
-        self.assertFalse(self.team_box_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertEqual(
+            self.team_box_gate["reconciliation"][
+                "historical_side_swap_reconciled_games"
+            ],
+            9,
+        )
+        self.assertFalse(
+            self.team_box_gate["historical_known_at_gate"]["pit_state_admission"]
+        )
         self.assertFalse(self.team_box_gate["scientific_nonclaims"]["gap_002_resolved"])
 
-    def test_advanced_game_history_is_reciprocal_validated_and_candidate_only(self) -> None:
+    def test_advanced_game_history_is_reciprocal_validated_and_candidate_only(
+        self,
+    ) -> None:
         advanced = self.contract["latest_validated_advanced_game_candidate"]
         self.assertEqual(
             advanced["dataset_identity"],
@@ -667,8 +874,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("UNKNOWN", advanced["historical_known_at_basis"])
         self.assertIn("2002", advanced["partial_season_finding"])
         self.assertEqual(advanced["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertTrue(self.evidence["completion_claim"]["advanced_game_candidate_layer_validated"])
-        self.assertTrue(self.evidence["completion_claim"]["structured_advanced_game_candidate_materialized"])
+        self.assertTrue(
+            self.evidence["completion_claim"]["advanced_game_candidate_layer_validated"]
+        )
+        self.assertTrue(
+            self.evidence["completion_claim"][
+                "structured_advanced_game_candidate_materialized"
+            ]
+        )
         self.assertFalse(
             self.evidence["completion_claim"][
                 "advanced_game_canonical_pit_feature_or_protected_use_admission"
@@ -680,11 +893,22 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["training_feature_admission"])
         self.assertFalse(checkpoint["protected_evaluation_admission"])
         self.assertIn("PENDING", checkpoint["gate_disposition"])
-        self.assertEqual(self.advanced_game_gate["candidate_layer"]["offense_defense_reciprocal_games"], 21095)
-        self.assertFalse(self.advanced_game_gate["historical_known_at_gate"]["pit_state_admission"])
-        self.assertFalse(self.advanced_game_gate["scientific_nonclaims"]["gap_002_resolved"])
+        self.assertEqual(
+            self.advanced_game_gate["candidate_layer"][
+                "offense_defense_reciprocal_games"
+            ],
+            21095,
+        )
+        self.assertFalse(
+            self.advanced_game_gate["historical_known_at_gate"]["pit_state_admission"]
+        )
+        self.assertFalse(
+            self.advanced_game_gate["scientific_nonclaims"]["gap_002_resolved"]
+        )
 
-    def test_venue_assignment_history_preserves_early_absence_and_current_catalog_boundary(self) -> None:
+    def test_venue_assignment_history_preserves_early_absence_and_current_catalog_boundary(
+        self,
+    ) -> None:
         venue = self.contract["latest_validated_venue_assignment_candidate"]
         self.assertEqual(
             venue["dataset_identity"],
@@ -707,11 +931,19 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("NOT_HISTORICALLY_BACKFILLED", venue["catalog_effective_time"])
         self.assertIn("27285", venue["pre_2001_finding"])
         self.assertEqual(venue["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertTrue(self.evidence["completion_claim"]["venue_assignment_candidate_layer_validated"])
-        self.assertFalse(
-            self.evidence["completion_claim"]["venue_assignment_canonical_pit_feature_or_relocation_admission"]
+        self.assertTrue(
+            self.evidence["completion_claim"][
+                "venue_assignment_candidate_layer_validated"
+            ]
         )
-        self.assertFalse(self.evidence["completion_claim"]["historical_venue_materialized"])
+        self.assertFalse(
+            self.evidence["completion_claim"][
+                "venue_assignment_canonical_pit_feature_or_relocation_admission"
+            ]
+        )
+        self.assertFalse(
+            self.evidence["completion_claim"]["historical_venue_materialized"]
+        )
         checkpoint = self.gate["parallel_venue_assignment_checkpoint"]
         self.assertFalse(checkpoint["historical_catalog_effective_time_established"])
         self.assertFalse(checkpoint["canonical_venue_assignment_admission"])
@@ -719,13 +951,24 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["training_feature_admission"])
         self.assertFalse(checkpoint["relocation_history_admission"])
         self.assertIn("PENDING", checkpoint["gate_disposition"])
-        self.assertEqual(self.venue_assignment_gate["coverage"]["season_1963_2000_games_with_venue_evidence"], 0)
-        self.assertFalse(
-            self.venue_assignment_gate["historical_known_at_gate"]["current_catalog_historical_backfill_allowed"]
+        self.assertEqual(
+            self.venue_assignment_gate["coverage"][
+                "season_1963_2000_games_with_venue_evidence"
+            ],
+            0,
         )
-        self.assertFalse(self.venue_assignment_gate["scientific_nonclaims"]["gap_002_resolved"])
+        self.assertFalse(
+            self.venue_assignment_gate["historical_known_at_gate"][
+                "current_catalog_historical_backfill_allowed"
+            ]
+        )
+        self.assertFalse(
+            self.venue_assignment_gate["scientific_nonclaims"]["gap_002_resolved"]
+        )
 
-    def test_player_box_history_is_validated_at_cell_grain_without_identity_or_pit_promotion(self) -> None:
+    def test_player_box_history_is_validated_at_cell_grain_without_identity_or_pit_promotion(
+        self,
+    ) -> None:
         player_box = self.contract["latest_validated_player_box_candidate"]
         self.assertEqual(
             player_box["dataset_identity"],
@@ -750,14 +993,22 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("NO_NAME_ONLY", player_box["player_identity_basis"])
         self.assertIn("THREE_ONE_TEAM_GAMES", player_box["partial_and_drift_findings"])
         self.assertEqual(player_box["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertTrue(self.evidence["completion_claim"]["player_box_candidate_layer_validated"])
-        self.assertTrue(self.evidence["completion_claim"]["structured_player_box_candidate_materialized"])
+        self.assertTrue(
+            self.evidence["completion_claim"]["player_box_candidate_layer_validated"]
+        )
+        self.assertTrue(
+            self.evidence["completion_claim"][
+                "structured_player_box_candidate_materialized"
+            ]
+        )
         self.assertFalse(
             self.evidence["completion_claim"][
                 "player_box_canonical_pit_feature_identity_official_source_or_protected_use_admission"
             ]
         )
-        self.assertFalse(self.evidence["completion_claim"]["official_player_box_scores_materialized"])
+        self.assertFalse(
+            self.evidence["completion_claim"]["official_player_box_scores_materialized"]
+        )
         checkpoint = self.gate["parallel_player_box_checkpoint"]
         self.assertFalse(checkpoint["canonical_player_identity_established"])
         self.assertFalse(checkpoint["official_primary_gamebook_status_established"])
@@ -766,12 +1017,27 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["training_feature_admission"])
         self.assertFalse(checkpoint["protected_evaluation_admission"])
         self.assertIn("PENDING", checkpoint["gate_disposition"])
-        self.assertEqual(self.player_box_gate["coverage"]["games_without_exactly_two_team_rows"], 3)
-        self.assertEqual(self.player_box_gate["reconciliation"]["player_event_metric_conflict_cells"], 34006)
-        self.assertFalse(self.player_box_gate["historical_known_at_gate"]["name_only_player_identity_merge_allowed"])
-        self.assertFalse(self.player_box_gate["scientific_nonclaims"]["gap_002_resolved"])
+        self.assertEqual(
+            self.player_box_gate["coverage"]["games_without_exactly_two_team_rows"], 3
+        )
+        self.assertEqual(
+            self.player_box_gate["reconciliation"][
+                "player_event_metric_conflict_cells"
+            ],
+            34006,
+        )
+        self.assertFalse(
+            self.player_box_gate["historical_known_at_gate"][
+                "name_only_player_identity_merge_allowed"
+            ]
+        )
+        self.assertFalse(
+            self.player_box_gate["scientific_nonclaims"]["gap_002_resolved"]
+        )
 
-    def test_weather_previous_runs_complete_technical_route_and_preserve_unknown_pit_boundaries(self) -> None:
+    def test_weather_previous_runs_complete_technical_route_and_preserve_unknown_pit_boundaries(
+        self,
+    ) -> None:
         weather = self.contract["latest_validated_weather_previous_runs_candidate"]
         self.assertEqual(
             weather["dataset_identity"],
@@ -796,18 +1062,32 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("UNKNOWN", weather["historical_known_at_basis"])
         self.assertIn("ZERO_TECHNICAL_ROUTE_GAPS", weather["route_recovery_finding"])
         self.assertEqual(weather["observed_weather_substitution"], "PROHIBITED")
-        self.assertEqual(weather["admission_state"], "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED")
+        self.assertEqual(
+            weather["admission_state"], "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED"
+        )
         claim = self.evidence["completion_claim"]
-        self.assertTrue(claim["weather_previous_runs_partial_candidate_layer_validated"])
-        self.assertTrue(claim["weather_previous_runs_complete_technical_candidate_layer_validated"])
+        self.assertTrue(
+            claim["weather_previous_runs_partial_candidate_layer_validated"]
+        )
+        self.assertTrue(
+            claim["weather_previous_runs_complete_technical_candidate_layer_validated"]
+        )
         self.assertTrue(claim["weather_acquisition_complete"])
-        self.assertFalse(claim["weather_canonical_pit_feature_or_protected_use_admission"])
+        self.assertFalse(
+            claim["weather_canonical_pit_feature_or_protected_use_admission"]
+        )
         self.assertFalse(claim["observed_weather_substitution_used"])
         checkpoint = self.gate["parallel_weather_previous_runs_checkpoint"]
-        self.assertFalse(checkpoint["exact_historical_model_run_initialization_established"])
+        self.assertFalse(
+            checkpoint["exact_historical_model_run_initialization_established"]
+        )
         self.assertFalse(checkpoint["exact_historical_api_availability_established"])
-        self.assertFalse(checkpoint["historical_venue_coordinate_effective_time_established"])
-        self.assertFalse(checkpoint["observed_or_reanalysis_weather_substitution_allowed"])
+        self.assertFalse(
+            checkpoint["historical_venue_coordinate_effective_time_established"]
+        )
+        self.assertFalse(
+            checkpoint["observed_or_reanalysis_weather_substitution_allowed"]
+        )
         self.assertFalse(checkpoint["canonical_weather_admission"])
         self.assertFalse(checkpoint["pit_state_admission"])
         self.assertFalse(checkpoint["training_feature_admission"])
@@ -815,10 +1095,18 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertTrue(checkpoint["technical_route_complete"])
         self.assertIn("TECHNICAL_ROUTE_COMPLETE", checkpoint["gate_disposition"])
         self.assertEqual(self.weather_gate["candidate_layer"]["captured_games"], 4545)
-        self.assertEqual(self.weather_gate["candidate_layer"]["technical_route_gap_games"], 0)
-        self.assertTrue(self.weather_gate["candidate_layer"]["technical_route_complete"])
-        self.assertFalse(self.weather_gate["historical_known_at_gate"]["pit_state_admission"])
-        self.assertFalse(self.weather_gate["scientific_nonclaims"]["historical_weather_complete"])
+        self.assertEqual(
+            self.weather_gate["candidate_layer"]["technical_route_gap_games"], 0
+        )
+        self.assertTrue(
+            self.weather_gate["candidate_layer"]["technical_route_complete"]
+        )
+        self.assertFalse(
+            self.weather_gate["historical_known_at_gate"]["pit_state_admission"]
+        )
+        self.assertFalse(
+            self.weather_gate["scientific_nonclaims"]["historical_weather_complete"]
+        )
         self.assertFalse(self.weather_gate["scientific_nonclaims"]["gap_002_resolved"])
 
     def test_tamu_official_gamebook_candidate_is_tiered_and_not_admitted(self) -> None:
@@ -848,11 +1136,15 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(gamebook["mutation_controls_passed"], 14)
         self.assertEqual(gamebook["deterministic_rebuild_checks_passed"], 9)
         self.assertIn("UNKNOWN", gamebook["historical_known_at_basis"])
-        self.assertEqual(gamebook["admission_state"], "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED")
+        self.assertEqual(
+            gamebook["admission_state"], "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED"
+        )
 
         checkpoint = self.gate["parallel_tamu_official_gamebook_checkpoint"]
         self.assertFalse(checkpoint["exact_historical_publication_time_established"])
-        self.assertFalse(checkpoint["target_game_outcome_exclusion_validated_for_training_use"])
+        self.assertFalse(
+            checkpoint["target_game_outcome_exclusion_validated_for_training_use"]
+        )
         self.assertFalse(checkpoint["canonical_gamebook_admission"])
         self.assertFalse(checkpoint["canonical_player_identity_admission"])
         self.assertFalse(checkpoint["pit_state_admission"])
@@ -865,21 +1157,45 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(coverage["actions"]["games_with_rows"], 159)
         self.assertEqual(coverage["plays"]["games_with_rows"], 109)
         self.assertEqual(coverage["drives"]["games_with_rows"], 159)
-        self.assertEqual(coverage["penalties"]["eligibility"], "NOT_PRESENT_AT_TOP_LEVEL")
-        self.assertEqual(coverage["availability"]["eligibility"], "NOT_PROVIDED_BY_ROUTE")
-        self.assertFalse(self.tamu_gamebook_gate["historical_known_at_gate"]["pit_state_admission"])
-        self.assertFalse(self.tamu_gamebook_gate["scientific_nonclaims"]["tamu_gamebook_history_complete"])
-        self.assertFalse(self.tamu_gamebook_gate["scientific_nonclaims"]["national_gamebook_population_complete"])
+        self.assertEqual(
+            coverage["penalties"]["eligibility"], "NOT_PRESENT_AT_TOP_LEVEL"
+        )
+        self.assertEqual(
+            coverage["availability"]["eligibility"], "NOT_PROVIDED_BY_ROUTE"
+        )
+        self.assertFalse(
+            self.tamu_gamebook_gate["historical_known_at_gate"]["pit_state_admission"]
+        )
+        self.assertFalse(
+            self.tamu_gamebook_gate["scientific_nonclaims"][
+                "tamu_gamebook_history_complete"
+            ]
+        )
+        self.assertFalse(
+            self.tamu_gamebook_gate["scientific_nonclaims"][
+                "national_gamebook_population_complete"
+            ]
+        )
 
         claim = self.evidence["completion_claim"]
         self.assertTrue(claim["tamu_official_gamebook_candidate_layer_validated"])
-        self.assertTrue(claim["tamu_official_gamebook_technical_route_complete_for_exposed_targets"])
-        self.assertFalse(claim["tamu_official_gamebook_canonical_pit_feature_or_protected_use_admission"])
+        self.assertTrue(
+            claim["tamu_official_gamebook_technical_route_complete_for_exposed_targets"]
+        )
+        self.assertFalse(
+            claim[
+                "tamu_official_gamebook_canonical_pit_feature_or_protected_use_admission"
+            ]
+        )
         self.assertFalse(claim["tamu_official_gamebook_history_complete"])
         self.assertFalse(claim["national_gamebook_population_complete"])
 
-    def test_tamu_official_depth_chart_document_candidate_is_validated_without_availability_or_pit_promotion(self) -> None:
-        depth = self.contract["latest_validated_tamu_official_depth_chart_evidence_candidate"]
+    def test_tamu_official_depth_chart_document_candidate_is_validated_without_availability_or_pit_promotion(
+        self,
+    ) -> None:
+        depth = self.contract[
+            "latest_validated_tamu_official_depth_chart_evidence_candidate"
+        ]
         self.assertEqual(
             depth["dataset_identity"],
             "ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4",
@@ -919,19 +1235,34 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("REMAIN_INELIGIBLE", checkpoint["gate_disposition"])
         self.assertEqual(self.tamu_depth_chart_gate["candidate"]["checks_passed"], 21)
-        self.assertEqual(self.tamu_depth_chart_gate["candidate"]["mutation_controls_passed"], 12)
-        self.assertEqual(self.tamu_depth_chart_gate["openai_shadow_extension"]["planned_requests"], 28)
-        self.assertEqual(self.tamu_depth_chart_gate["openai_shadow_extension"]["live_api_calls"], 56)
+        self.assertEqual(
+            self.tamu_depth_chart_gate["candidate"]["mutation_controls_passed"], 12
+        )
+        self.assertEqual(
+            self.tamu_depth_chart_gate["openai_shadow_extension"]["planned_requests"],
+            28,
+        )
+        self.assertEqual(
+            self.tamu_depth_chart_gate["openai_shadow_extension"]["live_api_calls"], 56
+        )
         self.assertEqual(
             self.tamu_depth_chart_gate["openai_shadow_extension"]["luna_gate"],
             "PASS_CHEAPEST_PASSING_SHADOW_ROUTE",
         )
         self.assertFalse(
-            self.tamu_depth_chart_gate["historical_known_at_gate"]["chart_appearance_promoted_to_availability"]
+            self.tamu_depth_chart_gate["historical_known_at_gate"][
+                "chart_appearance_promoted_to_availability"
+            ]
         )
-        self.assertFalse(self.tamu_depth_chart_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertFalse(
+            self.tamu_depth_chart_gate["historical_known_at_gate"][
+                "pit_state_admission"
+            ]
+        )
 
-    def test_wmt_tamu_shadow_replay_preserves_negative_result_and_protected_closure(self) -> None:
+    def test_wmt_tamu_shadow_replay_preserves_negative_result_and_protected_closure(
+        self,
+    ) -> None:
         replay = self.contract["latest_validated_preliminary_wmt_tamu_shadow_replay"]
         self.assertEqual(
             replay["run_identity"],
@@ -943,21 +1274,29 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(replay["target_or_future_outcomes_in_fit"], 0)
         self.assertEqual(replay["post_cutoff_feature_rows"], 0)
         self.assertTrue(replay["byte_identical_rebuild_summary"])
-        self.assertIn("BOTH_WMT_SHADOW_CANDIDATES_NEGATIVE", replay["empirical_disposition"])
+        self.assertIn(
+            "BOTH_WMT_SHADOW_CANDIDATES_NEGATIVE", replay["empirical_disposition"]
+        )
         self.assertFalse(replay["protected_training_admission"])
         self.assertFalse(replay["protected_evaluation_admission"])
         self.assertFalse(replay["champion_or_production_promotion"])
         self.assertFalse(replay["tamu_specialization_lift_claimed"])
 
-    def test_tamu_depth_chart_noncoverage_is_a_validated_negative_finding_not_fabricated_coverage(self) -> None:
-        review = self.contract["latest_validated_tamu_official_depth_chart_noncoverage_review"]
+    def test_tamu_depth_chart_noncoverage_is_a_validated_negative_finding_not_fabricated_coverage(
+        self,
+    ) -> None:
+        review = self.contract[
+            "latest_validated_tamu_official_depth_chart_noncoverage_review"
+        ]
         self.assertEqual(
             review["dataset_identity"],
             "e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027",
         )
         self.assertEqual(review["documents_reviewed"], 25)
         self.assertEqual(review["documents_by_season"], {"2022": 12, "2023": 13})
-        self.assertEqual(review["classification"], "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART")
+        self.assertEqual(
+            review["classification"], "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART"
+        )
         self.assertEqual(review["explicit_depth_chart_heading_documents"], 0)
         self.assertEqual(review["historical_publication_time_state"], "UNKNOWN")
         self.assertFalse(review["starting_lineup_history_promoted_to_depth_chart"])
@@ -965,20 +1304,28 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(review["pit_state_admission"])
         self.assertFalse(review["training_feature_admission"])
         self.assertFalse(review["protected_evaluation_admission"])
-        checkpoint = self.gate["parallel_tamu_official_depth_chart_noncoverage_checkpoint"]
+        checkpoint = self.gate[
+            "parallel_tamu_official_depth_chart_noncoverage_checkpoint"
+        ]
         self.assertTrue(checkpoint["openai_initial_schema_failure_preserved"])
         self.assertEqual(checkpoint["openai_corrected_exact_candidates"], 2)
-        self.assertEqual(checkpoint["admission_state"], "VALIDATED_NEGATIVE_FINDING_NOT_ADMITTED")
+        self.assertEqual(
+            checkpoint["admission_state"], "VALIDATED_NEGATIVE_FINDING_NOT_ADMITTED"
+        )
         self.assertFalse(
             self.tamu_depth_chart_noncoverage_gate["historical_known_at_gate"][
                 "starting_lineup_history_promoted_to_depth_chart"
             ]
         )
         self.assertFalse(
-            self.tamu_depth_chart_noncoverage_gate["scientific_nonclaims"]["gap_002_resolved"]
+            self.tamu_depth_chart_noncoverage_gate["scientific_nonclaims"][
+                "gap_002_resolved"
+            ]
         )
 
-    def test_sec_tamu_availability_is_timestamped_candidate_evidence_not_admitted_truth(self) -> None:
+    def test_sec_tamu_availability_is_timestamped_candidate_evidence_not_admitted_truth(
+        self,
+    ) -> None:
         candidate = self.contract["latest_validated_sec_tamu_availability_candidate"]
         self.assertEqual(
             candidate["dataset_identity"],
@@ -999,24 +1346,40 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(candidate["training_feature_admission"])
         self.assertFalse(candidate["protected_evaluation_admission"])
         checkpoint = self.gate["parallel_sec_tamu_availability_checkpoint"]
-        self.assertEqual(checkpoint["official_archive_disposition"], "CAPTURED_EMPTY_ARCHIVE_PROVIDER_LIMITATION")
-        self.assertEqual(checkpoint["admission_state"], "VALIDATED_TIMESTAMPED_CANDIDATE_NOT_ADMITTED")
-        self.assertFalse(self.sec_tamu_availability_gate["historical_known_at_gate"]["pit_state_admission"])
-        self.assertFalse(self.sec_tamu_availability_gate["scientific_nonclaims"]["gap_008_resolved"])
+        self.assertEqual(
+            checkpoint["official_archive_disposition"],
+            "CAPTURED_EMPTY_ARCHIVE_PROVIDER_LIMITATION",
+        )
+        self.assertEqual(
+            checkpoint["admission_state"],
+            "VALIDATED_TIMESTAMPED_CANDIDATE_NOT_ADMITTED",
+        )
+        self.assertFalse(
+            self.sec_tamu_availability_gate["historical_known_at_gate"][
+                "pit_state_admission"
+            ]
+        )
+        self.assertFalse(
+            self.sec_tamu_availability_gate["scientific_nonclaims"]["gap_008_resolved"]
+        )
 
-    def test_tamu_official_2000_2009_row_corpus_is_not_historical_known_at(self) -> None:
-        corpus = self.contract["latest_validated_tamu_official_2000_2009_structured_row_corpus"]
+    def test_tamu_official_2000_2009_row_corpus_is_not_historical_known_at(
+        self,
+    ) -> None:
+        corpus = self.contract[
+            "latest_validated_tamu_official_2000_2009_structured_row_corpus"
+        ]
         self.assertEqual(
             corpus["dataset_identity"],
-            "35193653a1ddeee1b1a2a70a313b486f5e0bd50dd9c37e840718604c23495420",
+            "c134f765b80fbb10b266636d73b013d491360a403d0e73791f88167c54e5ce33",
         )
         self.assertEqual(
             corpus["gate_identity"],
-            "7473e04e53539a0d316d21766f48dfcb9d4fdca3a43ec944da02e586e4819d78",
+            "02ff756b9c8d61fab38943dc65ec4e775abbe20701f4d7f1cced23e9a3828d1b",
         )
         self.assertEqual(
             corpus["membership_union_identity"],
-            "de887925b47100d9130873cc2878d3931a88f5d5a2ecf2a6b28c22b12a1d9b35",
+            "a5ffcf9dbc835871ce3929ae480f90c379a93ab0b950281338e75d5a4534140a",
         )
         self.assertEqual(corpus["source_season_min"], 2000)
         self.assertEqual(corpus["source_season_max"], 2009)
@@ -1030,14 +1393,20 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(corpus["drives_games_present"], 111)
         self.assertEqual(corpus["play_by_play_games_present"], 112)
         self.assertEqual(corpus["scoring_summary_games_present"], 114)
-        self.assertEqual(corpus["union_present_without_serialized_drive_or_pbp_pages"], 2)
+        self.assertEqual(
+            corpus["union_present_without_serialized_drive_or_pbp_pages"], 2
+        )
         self.assertEqual(len(corpus["gap_inspections"]), 2)
         self.assertEqual(corpus["gap_inspections"][0]["corpus_drive_rows"], 0)
         self.assertEqual(corpus["gap_inspections"][0]["corpus_play_by_play_rows"], 0)
         self.assertEqual(corpus["gap_inspections"][1]["corpus_drive_rows"], 0)
         self.assertEqual(corpus["gap_inspections"][1]["corpus_play_by_play_rows"], 0)
-        self.assertFalse(corpus["gap_inspections"][0]["independently_reconstructible_drives"])
-        self.assertFalse(corpus["gap_inspections"][0]["independently_reconstructible_play_by_play"])
+        self.assertFalse(
+            corpus["gap_inspections"][0]["independently_reconstructible_drives"]
+        )
+        self.assertFalse(
+            corpus["gap_inspections"][0]["independently_reconstructible_play_by_play"]
+        )
         self.assertIn("RETRIEVAL", corpus["historical_known_at_basis"])
         self.assertIn("NOT_HISTORICAL_KNOWN_AT", corpus["historical_known_at_basis"])
         self.assertEqual(corpus["pregame_availability"], "NOT_ESTABLISHED")
@@ -1054,22 +1423,37 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
             self.src014_2000_2009_gate["dataset_identity"],
             corpus["dataset_identity"],
         )
-        self.assertEqual(self.src014_2000_2009_gate["gate_identity"], corpus["gate_identity"])
+        self.assertEqual(
+            self.src014_2000_2009_gate["gate_identity"], corpus["gate_identity"]
+        )
         self.assertEqual(
             self.src014_2000_2009_gate["admissions"]["historical_known_at"],
             "UNKNOWN_RETRIEVAL_TIME_ONLY",
         )
         self.assertFalse(
-            self.src014_2000_2009_gate["authority"]["historical_known_at_from_capture_time"]
+            self.src014_2000_2009_gate["authority"][
+                "historical_known_at_from_capture_time"
+            ]
         )
         self.assertFalse(
-            self.src014_2000_2009_gate["scientific_nonclaims"]["historical_known_at_established"]
+            self.src014_2000_2009_gate["scientific_nonclaims"][
+                "historical_known_at_established"
+            ]
         )
         claim = self.evidence["completion_claim"]
-        self.assertTrue(claim["tamu_official_2000_2009_structured_row_corpus_materialized"])
-        self.assertFalse(claim["tamu_official_2000_2009_historical_known_at_from_retrieval_time"])
-        self.assertFalse(claim["tamu_official_2000_2009_pit_feature_or_protected_admission"])
-        self.assertIn("retrieval_time_as_historical_known_at", self.contract["prohibited_substitutions"])
+        self.assertTrue(
+            claim["tamu_official_2000_2009_structured_row_corpus_materialized"]
+        )
+        self.assertFalse(
+            claim["tamu_official_2000_2009_historical_known_at_from_retrieval_time"]
+        )
+        self.assertFalse(
+            claim["tamu_official_2000_2009_pit_feature_or_protected_admission"]
+        )
+        self.assertIn(
+            "retrieval_time_as_historical_known_at",
+            self.contract["prohibited_substitutions"],
+        )
 
 
 if __name__ == "__main__":

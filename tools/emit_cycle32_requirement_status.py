@@ -90,12 +90,12 @@ STATES = {
         "14 policy/archive pages plus 6 linked PDFs yielded 0 player-status records. Required nonempty acquisition remains BLOCKED, not locally complete.",
     ),
     "R32-18": (
-        "IN_PROGRESS",
-        "Manager JIRA_UPDATE_RECEIPTS.json inspected; no duplicate comments posted. No Done/BAT-523 completion. Live selected-comment updates still required after committed submission.",
+        "IMPLEMENTED_PENDING_VERIFICATION",
+        "Read-only live Jira confirmed BAT-706/701/700 In Review and BAT-523 In Progress. Bounded Cycle32 evidence comments posted: 14924-14928. No Done. Not a BAT-523 completion comment.",
     ),
     "R32-19": (
         "IN_PROGRESS",
-        "PR 686 remains the Cycle30 reviewed head. Cycle32 is committed on codex/BAT-706-cycle32; hosted exact-head checks on this commit remain required. Skipped paid review stays NOT_REVIEWED.",
+        "PR 687 is the Cycle32 stacked submission at 47d12fc1. PR 686 remains the Cycle30 reviewed head. Hosted exact-head checks on 47d12fc1 remain required. Skipped paid review stays NOT_REVIEWED.",
     ),
     "R32-20": (
         "IMPLEMENTED_PENDING_VERIFICATION",
@@ -151,7 +151,7 @@ def main() -> None:
         counts[state] = counts.get(state, 0) + 1
     payload = {
         "cycle": 32,
-        "headline": "IMPLEMENTATION_IN_PROGRESS_NOT_ACCEPTED",
+        "headline": "IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED",
         "hold": "ACTIVE",
         "scientific_acceptance": "BLOCKED",
         "utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -160,7 +160,7 @@ def main() -> None:
         "git_head": git_head,
         "actual_git_head": git_head,
         "expected_ids": register.get("expected_ids") or [],
-        "committed_submission": False,
+        "committed_submission": True,
         "state_counts": counts,
         "requirements": rows,
         "notes": [

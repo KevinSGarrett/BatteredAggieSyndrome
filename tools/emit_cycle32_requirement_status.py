@@ -22,8 +22,8 @@ OUT = Path(
 
 STATES = {
     "R32-01": (
-        "IN_PROGRESS",
-        "Dirty Cycle31 tree preserved on codex/BAT-706-cycle32 at HEAD 7d680d17; not yet a committed submission. Tests bind a dirty worktree, not exact HEAD.",
+        "IMPLEMENTED_PENDING_VERIFICATION",
+        "Dirty Cycle31+32 tree committed on codex/BAT-706-cycle32. Tests bind this commit; hosted exact-head checks remain R32-19.",
     ),
     "R32-02": (
         "IMPLEMENTED_PENDING_VERIFICATION",
@@ -95,7 +95,7 @@ STATES = {
     ),
     "R32-19": (
         "IN_PROGRESS",
-        "PR 686 is still the old Cycle30 head. Dirty-tree tests are not exact-head hosted PASS. Uncommitted.",
+        "PR 686 remains the Cycle30 reviewed head. Cycle32 is committed on codex/BAT-706-cycle32; hosted exact-head checks on this commit remain required. Skipped paid review stays NOT_REVIEWED.",
     ),
     "R32-20": (
         "IMPLEMENTED_PENDING_VERIFICATION",

@@ -49,7 +49,7 @@ class StaffQueryError(ValueError):
     """Raised when a research query cannot be answered from bound evidence."""
 
 
-def connect(database: Path) -> sqlite3.Connection:
+def connect_for_import(database: Path) -> sqlite3.Connection:
     path = Path(database)
     if not path.parent.exists():
         raise StaffQueryError("query database parent directory does not exist")
@@ -57,6 +57,23 @@ def connect(database: Path) -> sqlite3.Connection:
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA_SQL)
     return conn
+
+
+def connect_readonly(database: Path) -> sqlite3.Connection:
+    path = Path(database)
+    if not path.is_file():
+        raise StaffQueryError("query database does not exist; import is separate")
+    conn = sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def connect(database: Path, *, readonly: bool = True) -> sqlite3.Connection:
+    """Read-only by default. Schema creation is explicit import-only."""
+
+    if readonly:
+        return connect_readonly(database)
+    return connect_for_import(database)
 
 
 def load_import(conn: sqlite3.Connection, imported: Mapping[str, Any]) -> int:
@@ -88,14 +105,9 @@ def load_import(conn: sqlite3.Connection, imported: Mapping[str, Any]) -> int:
                 cell.get("source_class") or "USER_COMPILED_RESEARCH_OBSERVATION",
                 1 if cell.get("pit_admitted") is True else 0,
                 cell.get("cell_text"),
-                cell.get("filename_subdivision")
-                or (
-                    "COMBINED_FBS_FCS"
-                    if "FBS_FCS" in str(cell.get("source_file") or "")
-                    else "FCS"
-                    if "FCS" in str(cell.get("source_file") or "")
-                    else "FBS"
-                ),
+                cell.get("source_subdivision")
+                or cell.get("filename_subdivision")
+                or "SUBDIVISION_UNRESOLVED",
                 1 if cell.get("verified") is True else 0,
             ),
         )
@@ -194,7 +206,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--person")
     parser.add_argument("--unresolved", action="store_true")
     args = parser.parse_args(list(argv) if argv is not None else None)
-    conn = connect(Path(args.database))
+    conn = connect_readonly(Path(args.database))
     if args.unresolved:
         payload = unresolved_roles(conn)
     elif args.person:

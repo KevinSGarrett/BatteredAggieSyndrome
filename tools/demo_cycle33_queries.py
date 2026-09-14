@@ -5,7 +5,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from aggie_analytics.cycle33.query import coach_career, connect, team_staff, unresolved_roles
+from aggie_analytics.cycle33.query import (
+    coach_career,
+    connect_readonly,
+    team_staff,
+    unresolved_roles,
+)
 
 DB = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle33\runs\20260914T130736Z"
@@ -36,7 +41,7 @@ def slim(rows: list[dict], limit: int = 12) -> list[dict]:
 
 
 def main() -> int:
-    conn = connect(DB)
+    conn = connect_readonly(DB)
     try:
         air_force = team_staff(conn, team="Air Force", season="2018")
         lehigh = team_staff(conn, team="Lehigh", season="2026")
@@ -50,14 +55,18 @@ def main() -> int:
                 "team": "Air Force",
                 "season": "2018",
                 "row_count": len(air_force),
-                "people": sorted({row.get("person") for row in air_force if row.get("person")}),
+                "people": sorted(
+                    {row.get("person") for row in air_force if row.get("person")}
+                ),
                 "sample": slim(air_force),
             },
             "current_fcs": {
                 "team": "Lehigh",
                 "season": "2026",
                 "row_count": len(lehigh),
-                "people": sorted({row.get("person") for row in lehigh if row.get("person")}),
+                "people": sorted(
+                    {row.get("person") for row in lehigh if row.get("person")}
+                ),
                 "sample": slim(lehigh),
             },
             "multi_school_or_multi_season_career": {
@@ -81,7 +90,9 @@ def main() -> int:
             {
                 "air_force_2018": payload["historical_fbs"]["row_count"],
                 "lehigh_2026": payload["current_fcs"]["row_count"],
-                "troy_calhoun": payload["multi_school_or_multi_season_career"]["row_count"],
+                "troy_calhoun": payload["multi_school_or_multi_season_career"][
+                    "row_count"
+                ],
                 "unresolved": payload["unresolved_not_omitted"]["row_count"],
             },
             indent=2,

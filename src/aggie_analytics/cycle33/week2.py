@@ -27,14 +27,35 @@ def deadline_disposition(
     evidence_present: bool,
     freeze_present: bool,
     captured_after_deadline: bool,
+    freeze_receipt: Mapping[str, Any] | None = None,
 ) -> str:
+    """Booleans cannot override contradictory timing evidence."""
+
     deadline = datetime.fromisoformat(deadline_utc.replace("Z", "+00:00"))
     if now < deadline:
         return (
             "FUTURE_NOT_YET_ELIGIBLE" if not evidence_present else "EVIDENCE_CAPTURED"
         )
-    if freeze_present:
+    receipt = freeze_receipt or {}
+    freeze_at = receipt.get("frozen_at_utc") or receipt.get("known_at_utc")
+    freeze_id = receipt.get("receipt_id") or receipt.get("forecast_row_id")
+    proven_on_time = False
+    if freeze_present and freeze_id and freeze_at:
+        try:
+            frozen_at = datetime.fromisoformat(str(freeze_at).replace("Z", "+00:00"))
+        except ValueError:
+            frozen_at = None
+        proven_on_time = frozen_at is not None and frozen_at <= deadline
+    if captured_after_deadline and not proven_on_time:
+        if evidence_present:
+            return "EVIDENCE_CAPTURED_LATE_TRUE_TIMESTAMP"
+        return "MISSED_CUTOFF_NO_BACKFILL"
+    if freeze_present and proven_on_time:
         return "FORECAST_FROZEN"
+    if freeze_present and not proven_on_time:
+        if evidence_present:
+            return "EVIDENCE_CAPTURED_LATE_TRUE_TIMESTAMP"
+        return "MISSED_CUTOFF_NO_BACKFILL"
     if evidence_present and captured_after_deadline:
         return "EVIDENCE_CAPTURED_LATE_TRUE_TIMESTAMP"
     if evidence_present:
@@ -60,6 +81,13 @@ def closeout_row(
             evidence_present=bool(evidence.get("t24h")),
             freeze_present=bool(freeze.get("t24h")),
             captured_after_deadline=bool(evidence.get("t24h_late")),
+            freeze_receipt=(
+                freeze.get("t24h_receipt")
+                if isinstance(freeze.get("t24h_receipt"), Mapping)
+                else freeze.get("t24h")
+                if isinstance(freeze.get("t24h"), Mapping)
+                else None
+            ),
         )
         if t24h
         else "CUTOFF_UNKNOWN"
@@ -71,6 +99,13 @@ def closeout_row(
             evidence_present=bool(evidence.get("t90m")),
             freeze_present=bool(freeze.get("t90m")),
             captured_after_deadline=bool(evidence.get("t90m_late")),
+            freeze_receipt=(
+                freeze.get("t90m_receipt")
+                if isinstance(freeze.get("t90m_receipt"), Mapping)
+                else freeze.get("t90m")
+                if isinstance(freeze.get("t90m"), Mapping)
+                else None
+            ),
         )
         if t90m
         else "CUTOFF_UNKNOWN"

@@ -20,7 +20,7 @@ from aggie_analytics.cycle33.findings import (
 )
 from aggie_analytics.cycle33.official_finals import competing_observations
 from aggie_analytics.cycle33.query import (
-    connect,
+    connect_for_import,
     load_import,
     team_schemes,
     team_staff,
@@ -384,7 +384,7 @@ def historical_backlog() -> dict[str, Any]:
 def query_demos() -> dict[str, Any]:
     db = OUT / "cycle33_user_coaches.sqlite"
     imported = import_snapshot()
-    conn = connect(db)
+    conn = connect_for_import(db)
     try:
         load_import(conn, imported)
         air = team_staff(conn, team="Air Force", season="2018")
@@ -516,7 +516,7 @@ def scoring_successor() -> dict[str, Any]:
     payload["last_win_forbidden"] = True
     payload["requested_week_is_not_source_week"] = True
     payload["scored_unique_frozen_games_zero_reason"] = (
-        "NO_FROZEN_FORECASTS_BOUND_TO_THESE_OBSERVATIONS"
+        "NO_PROVEN_FREEZE_RECEIPTS_SUPPLIED; forecasts=[] is not a historical inventory"
     )
     write_json(OUT / "CYCLE33_OFFICIAL_FINALS_SUCCESSOR.json", payload)
     return payload

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import io
 import json
 import re
 from datetime import datetime, timezone
@@ -24,6 +25,10 @@ DEFAULT_SNAPSHOT = Path(
 )
 DEFAULT_INDEX = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle33\USER_COACHES_SOURCE_INDEX.json"
+)
+DEFAULT_MANIFEST = Path(
+    r"C:\BatteredAggieSyndrome.data\ops\manager_reviews\cycle33_user_coaches"
+    r"\20260914T051702Z\SOURCE_MANIFEST.json"
 )
 DEFAULT_COLUMN_MAP = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle33\USER_COACHES_COLUMN_MAP.csv"
@@ -148,6 +153,33 @@ def _year_from_filename(name: str) -> int | None:
     return int(match.group(0)) if match else None
 
 
+def _row_source_subdivision(row: Mapping[str, str], filename_subdivision: str) -> str:
+    for key in ("Subdivision", "Division", "FBS/FCS", "Level"):
+        value = str(row.get(key) or "").strip()
+        if not value:
+            continue
+        folded = value.casefold()
+        if "fcs" in folded or "i-aa" in folded:
+            return "FCS"
+        if "fbs" in folded or "i-a" in folded:
+            return "FBS"
+    if filename_subdivision == "COMBINED_FBS_FCS":
+        return "SUBDIVISION_UNRESOLVED_COMBINED_FILENAME"
+    return filename_subdivision or "SUBDIVISION_UNRESOLVED"
+
+
+def load_source_manifest(path: Path | None = None) -> dict[str, str]:
+    target = path or DEFAULT_MANIFEST
+    if not target.is_file():
+        return {}
+    payload = json.loads(target.read_text(encoding="utf-8"))
+    return {
+        str(row.get("relative_path") or ""): str(row.get("sha256") or "")
+        for row in payload.get("files") or []
+        if row.get("relative_path")
+    }
+
+
 def _subdivision_from_filename(name: str) -> str:
     lowered = name.casefold()
     has_fbs = bool(re.search(r"\bfbs\b|division i-a\b|(?<![a-z])i-a(?!-a)", lowered))
@@ -201,13 +233,95 @@ def canonical_claim_id(
     return f"UCS:CLAIM:{digest}"
 
 
-def parse_csv_records(path: Path) -> tuple[list[str], list[dict[str, str]], bytes]:
+def parse_csv_records(
+    path: Path,
+) -> tuple[list[str], list[dict[str, str]], bytes, dict[str, Any]]:
+    """Strict newline-preserving reader. Duplicate headers and width errors quarantine."""
+
     payload = path.read_bytes()
     text = payload.decode("utf-8-sig")
-    reader = csv.DictReader(text.splitlines())
-    headers = list(reader.fieldnames or [])
-    rows = [dict(row) for row in reader]
-    return headers, rows, payload
+    meta: dict[str, Any] = {
+        "status": "OK",
+        "reasons": [],
+        "retained_bytes": len(payload),
+        "newline_preserving": True,
+        "dictreader_splitlines_forbidden": True,
+    }
+    reader = csv.reader(io.StringIO(text), strict=True)
+    try:
+        headers = next(reader)
+    except StopIteration:
+        return (
+            [],
+            [],
+            payload,
+            {**meta, "status": "QUARANTINED", "reasons": ["EMPTY_CSV"]},
+        )
+    except csv.Error as exc:
+        return (
+            [],
+            [],
+            payload,
+            {
+                **meta,
+                "status": "QUARANTINED",
+                "reasons": [f"CSV_PARSE_ERROR:{exc}"],
+            },
+        )
+    if len(headers) != len(set(headers)):
+        return (
+            headers,
+            [],
+            payload,
+            {
+                **meta,
+                "status": "QUARANTINED",
+                "reasons": ["DUPLICATE_HEADER"],
+                "headers": headers,
+            },
+        )
+    rows: list[dict[str, str]] = []
+    try:
+        for ordinal, raw_row in enumerate(reader):
+            if len(raw_row) != len(headers):
+                return (
+                    headers,
+                    [],
+                    payload,
+                    {
+                        **meta,
+                        "status": "QUARANTINED",
+                        "reasons": ["ROW_WIDTH_MISMATCH"],
+                        "record_ordinal": ordinal,
+                        "header_count": len(headers),
+                        "row_width": len(raw_row),
+                        "retained_row": raw_row,
+                    },
+                )
+            rows.append(
+                dict(
+                    zip(
+                        headers,
+                        [
+                            value.replace("\r\n", "\n").replace("\r", "\n")
+                            for value in raw_row
+                        ],
+                        strict=True,
+                    )
+                )
+            )
+    except csv.Error as exc:
+        return (
+            headers,
+            [],
+            payload,
+            {
+                **meta,
+                "status": "QUARANTINED",
+                "reasons": [f"CSV_PARSE_ERROR:{exc}"],
+            },
+        )
+    return headers, rows, payload, meta
 
 
 def import_snapshot(
@@ -227,12 +341,27 @@ def import_snapshot(
     queue_rows: list[dict[str, Any]] = []
     quarantined: list[dict[str, Any]] = []
     csv_files = sorted(p for p in root.glob("*.csv") if p.is_file())
-    if len(csv_files) != 54:
-        raise UserCoachesError(f"expected 54 CSV files, found {len(csv_files)}")
+    manifest_hashes = load_source_manifest()
+    expected_names = set(manifest_hashes)
+    found_names = {path.name for path in csv_files}
+    extra_files = sorted(found_names - expected_names) if expected_names else []
+    missing_files = sorted(expected_names - found_names) if expected_names else []
+    physically_present_role_cells = 0
+    parsed_person_segments = 0
     for path in csv_files:
-        headers, rows, payload = parse_csv_records(path)
+        headers, rows, payload, parse_meta = parse_csv_records(path)
         file_sha = sha256_bytes(payload)
+        if path.name in manifest_hashes and manifest_hashes[path.name] != file_sha:
+            raise UserCoachesError(
+                f"manifest hash mismatch for {path.name}: "
+                f"expected {manifest_hashes[path.name]} got {file_sha}"
+            )
         kind = _file_kind(path.name)
+        unclassified_headers = [
+            header
+            for header in headers
+            if header not in column_map and header not in {"", None}
+        ]
         file_row = {
             "relative_path": path.name,
             "sha256": file_sha,
@@ -245,6 +374,10 @@ def import_snapshot(
             "filename_subdivision": _subdivision_from_filename(path.name),
             "source_class": USER_SOURCE_CLASS,
             "importer_version": USER_IMPORTER_VERSION,
+            "parse_status": parse_meta.get("status"),
+            "unclassified_headers": unclassified_headers,
+            "unclassified_preserved": True,
+            "versioned_delta": bool(expected_names) and path.name not in expected_names,
         }
         files.append(file_row)
         if kind == "REVIEW_QUEUE":
@@ -260,10 +393,23 @@ def import_snapshot(
                     }
                 )
             continue
+        if parse_meta.get("status") != "OK":
+            quarantined.append(
+                {
+                    "source_file": path.name,
+                    "file_sha256": file_sha,
+                    "parse": parse_meta,
+                    "source_class": USER_SOURCE_CLASS,
+                }
+            )
+            continue
         for ordinal, row in enumerate(rows):
             season = str(row.get("Season") or file_row["filename_year"] or "")
             team = str(row.get("Team") or "")
             team_id = str(row.get("Team ID") or "")
+            source_subdivision = _row_source_subdivision(
+                row, str(file_row["filename_subdivision"] or "")
+            )
             observations.append(
                 {
                     "source_file": path.name,
@@ -274,6 +420,7 @@ def import_snapshot(
                     "season_cell": season,
                     "filename_year": file_row["filename_year"],
                     "filename_subdivision": file_row["filename_subdivision"],
+                    "source_subdivision": source_subdivision,
                     "as_of_date": str(row.get("As Of Date") or ""),
                     "source_urls": str(row.get("Source URLs") or ""),
                     "data_notes": str(row.get("Data Notes") or ""),
@@ -301,7 +448,9 @@ def import_snapshot(
                 missing = classify_missingness(cell_text)
                 if kind_col != "ROLE_OBSERVATION":
                     continue
+                physically_present_role_cells += 1
                 segments = parse_person_segments(cell_text)
+                parsed_person_segments += len(segments)
                 support_column = "assistants / support" in header.casefold()
                 if missing is not None:
                     role_cells.append(
@@ -313,6 +462,7 @@ def import_snapshot(
                             "team_id_source": team_id,
                             "season": season,
                             "filename_subdivision": file_row["filename_subdivision"],
+                            "source_subdivision": source_subdivision,
                             "role_column": header,
                             "cell_text": cell_text,
                             "disposition": missing,
@@ -335,6 +485,7 @@ def import_snapshot(
                             "team_id_source": team_id,
                             "season": season,
                             "filename_subdivision": file_row["filename_subdivision"],
+                            "source_subdivision": source_subdivision,
                             "role_column": header,
                             "cell_text": cell_text,
                             "disposition": "UNPARSED_NONEMPTY_CELL",
@@ -373,6 +524,7 @@ def import_snapshot(
                             "team_id_source": team_id,
                             "season": season,
                             "filename_subdivision": file_row["filename_subdivision"],
+                            "source_subdivision": source_subdivision,
                             "role_column": header,
                             "cell_text": cell_text,
                             "segment_text": segment["segment_text"],
@@ -405,9 +557,22 @@ def import_snapshot(
         "staff_file_count": len(staff_files),
         "queue_file_count": len(queue_files),
         "staff_observation_count": len(observations),
-        "role_cell_count": len(role_cells),
+        "staff_row_count": len(observations),
         "queue_row_count": len(queue_rows),
+        "physically_present_role_cells": physically_present_role_cells,
+        "parsed_person_segment_count": parsed_person_segments,
+        "emitted_role_assignment_records": len(role_cells),
+        "role_cell_count": len(role_cells),
+        "role_cell_count_is_expanded_assignments": True,
+        "distinct_source_role_cell_ids": len(
+            {str(row.get("observation_id") or "") for row in role_cells}
+        ),
+        "records_with_person": sum(1 for row in role_cells if row.get("person")),
         "quarantined_count": len(quarantined),
+        "manifest_file_count": len(expected_names),
+        "extra_versioned_files": extra_files,
+        "missing_manifest_files": missing_files,
+        "grains_are_not_unique_people": True,
         "pit_admitted": False,
         "official_confirmation": False,
         "files": files,

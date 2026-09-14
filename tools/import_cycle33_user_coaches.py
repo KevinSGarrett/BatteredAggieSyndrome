@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-from aggie_analytics.cycle33.query import connect, load_import
+from aggie_analytics.cycle33.query import connect_for_import, load_import
 from aggie_analytics.cycle33.user_coaches import coverage_by_year, import_snapshot
 
 DEFAULT_SNAPSHOT = Path(
@@ -22,7 +22,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--json-out")
     args = parser.parse_args(argv)
     imported = import_snapshot(Path(args.snapshot))
-    conn = connect(Path(args.database))
+    conn = connect_for_import(Path(args.database))
     n = load_import(conn, imported)
     summary = {
         "staff_observation_count": imported["staff_observation_count"],

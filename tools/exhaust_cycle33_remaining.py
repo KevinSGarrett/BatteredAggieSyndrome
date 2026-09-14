@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
@@ -19,8 +20,13 @@ from aggie_analytics.cycle30.kernel_model import (
     KernelModelError,
     fold_local_fit,
 )
+from aggie_analytics.cycle33.career_identity import join_occupant_to_pages
 from aggie_analytics.cycle33.official_finals import competing_observations
-from aggie_analytics.cycle33.query import connect, load_scheme_claims, team_schemes
+from aggie_analytics.cycle33.query import (
+    connect_for_import,
+    load_scheme_claims,
+    team_schemes,
+)
 from aggie_analytics.cycle33.role_taxonomy import assignments_from_title
 from aggie_analytics.cycle33.span_locate import locate_person_title
 from aggie_analytics.cycle33.week2 import (
@@ -144,6 +150,20 @@ def starting_stack() -> dict[str, Any]:
         pr_rows = json.loads(prs)
     except (OSError, subprocess.CalledProcessError, json.JSONDecodeError):
         pr_rows = []
+    existing = OUT / "CYCLE33_STARTING_STACK.json"
+    if existing.is_file():
+        payload = json.loads(existing.read_text(encoding="utf-8"))
+        current = {
+            "artifact_type": "CYCLE33_CURRENT_STACK",
+            "as_of_utc": utc_now(),
+            "cycle33_head": git(WORKTREE, "rev-parse", "HEAD"),
+            "cycle33_branch": git(WORKTREE, "branch", "--show-current"),
+            "starting_stack_preserved": True,
+            "starting_stack_path": str(existing),
+            "hold": "SCIENTIFIC_OPERATOR_HOLD_ACTIVE",
+        }
+        write_json(OUT / "CYCLE33_CURRENT_STACK.json", current)
+        return payload
     payload = {
         "artifact_type": "CYCLE33_STARTING_STACK",
         "as_of_utc": utc_now(),
@@ -235,6 +255,9 @@ def week2() -> dict[str, Any]:
                 "away_points": row.get("away_points"),
                 "home_name": row.get("home_name"),
                 "away_name": row.get("away_name"),
+                "game_state": row.get("game_state"),
+                "status_code_display": row.get("status_code_display"),
+                "terminal_state": row.get("terminal_state"),
             }
             for row in contests
             if row.get("ncaa_com_contest_id")
@@ -277,6 +300,7 @@ def week2() -> dict[str, Any]:
             "unique_contest_count": finals["unique_contest_count"],
             "admitted_unique_games": len(finals["admitted_unique_games"]),
             "quarantined_conflicts": finals["quarantined_conflicts"],
+            "nonfinal_contests": len(finals.get("nonfinal_contests") or []),
             "first_win_forbidden": True,
             "last_win_forbidden": True,
             "requested_week_is_not_source_week": True,
@@ -445,34 +469,10 @@ def career_joins() -> dict[str, Any]:
             if not person:
                 continue
             candidates = by_title.get(_fold_name(person)) or []
-            football = [page for page in candidates if _page_is_football_career(page)]
-            unique_ids = {
-                str(page.get("wikimedia_revision") or page.get("title") or "")
-                for page in football
-            }
-            page = football[0] if football else None
-            same_name_only = True
-            if not candidates:
-                state = "CAREER_PAGE_MISSING"
-            elif not football:
-                state = "NAME_ONLY_CANDIDATE_NOT_ACCEPTED"
-            elif len(unique_ids) > 1:
-                state = "AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES"
-                page = None
-            else:
-                employer = False
-                if display:
-                    folded = display.casefold()
-                    employer = any(
-                        folded in str(row.get("program_raw") or "").casefold()
-                        or str(row.get("program_raw") or "").casefold() in folded
-                        for row in (page.get("episodes") or [])
-                    )
-                if employer:
-                    state = "EVIDENCE_BOUND_CAREER_JOIN"
-                    same_name_only = False
-                else:
-                    state = "FOOTBALL_PAGE_EMPLOYER_UNVERIFIED"
+            joined = join_occupant_to_pages(
+                person=person, employer=display, pages=candidates
+            )
+            state = str(joined["career_join_state"])
             counts[state] += 1
             occupants.append(
                 {
@@ -480,13 +480,20 @@ def career_joins() -> dict[str, Any]:
                     "display_name": display,
                     "role": cell.get("role"),
                     "person": person,
-                    "career_join_state": state,
-                    "wikimedia_revision": (page or {}).get("wikimedia_revision"),
-                    "same_name_only": same_name_only,
-                    "cached_football_pages": len(football),
+                    **joined,
+                    "predecessor_evidence_bound_rechecked": True,
                     "pit_admitted": False,
                 }
             )
+    pred_career = OUT / "CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS.json"
+    frozen_career = OUT / "CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS_PREDECESSOR.json"
+    if pred_career.is_file() and not frozen_career.is_file():
+        shutil.copyfile(pred_career, frozen_career)
+    predecessor_bound = 0
+    if frozen_career.is_file():
+        predecessor_bound = int(
+            json.loads(frozen_career.read_text(encoding="utf-8")).get("matched") or 0
+        )
     payload = {
         "artifact_type": "CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS",
         "occupant_count": len(occupants),
@@ -497,6 +504,11 @@ def career_joins() -> dict[str, Any]:
         "name_only_not_accepted": counts.get("NAME_ONLY_CANDIDATE_NOT_ACCEPTED", 0),
         "employer_unverified": counts.get("FOOTBALL_PAGE_EMPLOYER_UNVERIFIED", 0),
         "same_name_only_not_accepted_as_join": True,
+        "predecessor_evidence_bound_count": predecessor_bound,
+        "occupants_rechecked": len(occupants),
+        "empty_employer_rejected": True,
+        "substring_join_forbidden": True,
+        "revision_ids_are_not_people": True,
         "pit_admitted": False,
     }
     write_jsonl(OUT / "CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS.jsonl", occupants)
@@ -511,7 +523,7 @@ def scheme_sqlite() -> dict[str, Any]:
         return {"loaded": 0, "missing": str(claims_path)}
     claims = load_jsonl(claims_path)
     nonempty = [row for row in claims if row.get("source_text")]
-    conn = connect(db)
+    conn = connect_for_import(db)
     try:
         loaded = load_scheme_claims(conn, nonempty)
         air = team_schemes(conn, program="Air Force", season="2018")
@@ -896,8 +908,10 @@ def locatable_spans() -> dict[str, Any]:
             if not html:
                 cache_missing += 1
                 string_only += 1
-            elif found["locatable"]:
+            elif found.get("role_claim_supported"):
                 locatable += 1
+            elif found.get("string_located"):
+                string_only += 1
             else:
                 string_only += 1
             loc_map[
@@ -926,7 +940,7 @@ def locatable_spans() -> dict[str, Any]:
                 )
             ) or {"locatable": False}
             new_eps.append({**ep, **found})
-        kept = [ep for ep in new_eps if ep.get("locatable")]
+        kept = [ep for ep in new_eps if ep.get("role_claim_supported")]
         if kept and len(kept) == len(new_eps):
             successor.append(
                 {**cell, "episode_refs": new_eps, "span_adjudicated": True}
@@ -937,7 +951,7 @@ def locatable_spans() -> dict[str, Any]:
                     **cell,
                     "episode_refs": kept,
                     "quarantined_unlocatable_episodes": [
-                        ep for ep in new_eps if not ep.get("locatable")
+                        ep for ep in new_eps if not ep.get("role_claim_supported")
                     ],
                     "disposition": "CONFIRMED_PARTIAL_SPAN_LOCATABLE",
                     "span_adjudicated": True,
@@ -956,11 +970,17 @@ def locatable_spans() -> dict[str, Any]:
                 }
             )
             quarantined_cells += 1
+    pred_audit = OUT / "CYCLE33_CONFIRMED_SPAN_AUDIT.json"
+    frozen = OUT / "CYCLE33_CONFIRMED_SPAN_AUDIT_PREDECESSOR.json"
+    if pred_audit.is_file() and not frozen.is_file():
+        shutil.copyfile(pred_audit, frozen)
     write_jsonl(OUT / "CYCLE33_CONFIRMED_SPAN_AUDIT.jsonl", audits)
     write_jsonl(OUT / "CYCLE33_CURRENT_HC_OC_DC_MATRIX_SPAN_SUCCESSOR.jsonl", successor)
     payload = {
         "artifact_type": "CYCLE33_CONFIRMED_SPAN_AUDIT",
         "confirmed_episode_count": confirmed,
+        "role_claim_supported_episodes": locatable,
+        "string_located_without_same_record_role": string_only,
         "body_offset_present": locatable,
         "string_built_without_body_offset": string_only,
         "cache_html_missing": cache_missing,
@@ -972,7 +992,7 @@ def locatable_spans() -> dict[str, Any]:
         "successor_matrix": str(
             OUT / "CYCLE33_CURRENT_HC_OC_DC_MATRIX_SPAN_SUCCESSOR.jsonl"
         ),
-        "note": "locatable requires person and title offsets in cached official HTML",
+        "note": "CONFIRMED requires same-record ROLE_CLAIM_SUPPORTED, not page-wide locatable",
         "unsupported_confirmed_if_not_locatable": True,
         "pit_admitted": False,
     }

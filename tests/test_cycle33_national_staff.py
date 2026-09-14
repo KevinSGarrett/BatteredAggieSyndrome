@@ -61,6 +61,7 @@ from aggie_analytics.cycle33.user_coaches import (
     _subdivision_from_filename,
     classify_missingness,
     import_snapshot,
+    parse_csv_records,
     parse_person_segments,
 )
 from aggie_analytics.cycle33.week2 import (
@@ -367,19 +368,37 @@ class FitAndFinalsTests(unittest.TestCase):
                         "ncaa_contest_id": "1",
                         "home_points": 10,
                         "away_points": 7,
+                        "game_state": "F",
+                        "status_code_display": "final",
+                        "terminal_state": "TERMINAL_STATUS_ESTABLISHED",
                     },
                     {
                         "ncaa_contest_id": "1",
                         "home_points": 17,
                         "away_points": 7,
+                        "game_state": "F",
+                        "status_code_display": "final",
+                        "terminal_state": "TERMINAL_STATUS_ESTABLISHED",
                     },
                 ]
             )
         self.assertEqual(
             competing_finals(
                 [
-                    {"ncaa_contest_id": "1", "home_points": 10, "away_points": 7},
-                    {"ncaa_contest_id": "1", "home_points": 17, "away_points": 7},
+                    {
+                        "ncaa_contest_id": "1",
+                        "home_points": 10,
+                        "away_points": 7,
+                        "game_state": "F",
+                        "status_code_display": "final",
+                    },
+                    {
+                        "ncaa_contest_id": "1",
+                        "home_points": 17,
+                        "away_points": 7,
+                        "game_state": "F",
+                        "status_code_display": "final",
+                    },
                 ]
             ),
             ["1"],
@@ -482,6 +501,9 @@ class ScoringSuccessorTests(unittest.TestCase):
                 "away_points": 14,
                 "home_name": "A",
                 "away_name": "B",
+                "game_state": "F",
+                "status_code_display": "final",
+                "terminal_state": "TERMINAL_STATUS_ESTABLISHED",
             },
             {
                 "ncaa_com_contest_id": "1",
@@ -489,6 +511,9 @@ class ScoringSuccessorTests(unittest.TestCase):
                 "away_points": 14,
                 "home_name": "A",
                 "away_name": "B",
+                "game_state": "F",
+                "status_code_display": "final",
+                "terminal_state": "TERMINAL_STATUS_ESTABLISHED",
             },
             {
                 "ncaa_com_contest_id": "2",
@@ -496,6 +521,9 @@ class ScoringSuccessorTests(unittest.TestCase):
                 "away_points": 7,
                 "home_name": "C",
                 "away_name": "D",
+                "game_state": "F",
+                "status_code_display": "final",
+                "terminal_state": "TERMINAL_STATUS_ESTABLISHED",
             },
         ]
         result = score_unique_frozen_games(
@@ -503,7 +531,11 @@ class ScoringSuccessorTests(unittest.TestCase):
             forecasts=[
                 {
                     "ncaa_contest_id": "2",
+                    "candidate_id": "shadow",
                     "frozen": True,
+                    "freeze_receipt_id": "FRZ-2",
+                    "frozen_at_utc": "2026-09-10T00:00:00Z",
+                    "forecast_row_id": "FROW-2",
                     "probability_home": 0.7,
                 }
             ],
@@ -611,13 +643,13 @@ class UserCoachesTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             db = Path(tmp) / "staff.sqlite"
             from aggie_analytics.cycle33.query import (
-                connect,
+                connect_for_import,
                 load_import,
                 team_staff,
                 coach_career,
             )
 
-            conn = connect(db)
+            conn = connect_for_import(db)
             try:
                 load_import(conn, imported)
                 fbs = team_staff(conn, team="Air Force", season="2018")

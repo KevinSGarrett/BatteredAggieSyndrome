@@ -28,6 +28,10 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     wiki_career_title_matches_person,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+    sanitize_url,
+)
 
 PRED = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs")
 OUT = Path(
@@ -70,10 +74,10 @@ def fetch_json(url: str, ledger: list[dict[str, Any]]) -> Any:
         sidecar = cache.with_suffix(cache.suffix + ".receipt.json")
         if sidecar.is_file():
             original_receipt = json.loads(sidecar.read_text(encoding="utf-8"))
-        from aggie_analytics.cycle33.acquisition_receipts import cache_hit_receipt, sanitize_url
-
         ledger.append(
-            cache_hit_receipt(
+            cache_hit_from_path(
+                cache,
+                url=sanitize_url(url),
                 original=original_receipt
                 or {
                     "retrieved_at_utc": None,
@@ -82,7 +86,6 @@ def fetch_json(url: str, ledger: list[dict[str, Any]]) -> Any:
                     "raw_sha256": sha256_bytes(body),
                     "request_id": None,
                 },
-                route=sanitize_url(url),
             )
         )
         return json.loads(body.decode("utf-8"))
@@ -201,7 +204,9 @@ def fetch_coach_page(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]
 
 
 def main() -> int:
-    occupants = load_jsonl(OUT / "science" / "CYCLE32_CURRENT_STAFF_CAREER_ROUNDTRIP.jsonl")
+    occupants = load_jsonl(
+        OUT / "science" / "CYCLE32_CURRENT_STAFF_CAREER_ROUNDTRIP.jsonl"
+    )
     missing = [
         row
         for row in occupants

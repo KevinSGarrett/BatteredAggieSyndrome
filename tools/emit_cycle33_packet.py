@@ -26,7 +26,11 @@ def utc_now() -> str:
 
 def git_head() -> str:
     return subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=WORKTREE, text=True
+        ["git", "rev-parse", "HEAD"],
+        cwd=WORKTREE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
     ).strip()
 
 
@@ -79,6 +83,11 @@ def main() -> int:
     spans = load("CYCLE33_CONFIRMED_SPAN_AUDIT.json")
     scheme_q = load("CYCLE33_SCHEME_QUERY_LOAD.json")
     remaining = load("CYCLE33_PLAN_REMAINING_UNION.json")
+    avail = load("CYCLE33_AVAILABILITY_NATIONAL.json")
+    finals = load("CYCLE33_OFFICIAL_FINALS_SUCCESSOR.json")
+    fcs = load("CYCLE33_FCS_SCOREBOARD.json")
+    ucs_disp = load("CYCLE33_UCS_CLAUSE_DISPOSITIONS.json")
+    inherited = load("CYCLE33_INHERITED_OBLIGATION_TRACES.json")
     unmapped = tax.get("unmapped_distinct_titles")
     occupancy = tax.get("occupancy_counts") or {}
     requirements = [
@@ -98,9 +107,9 @@ def main() -> int:
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
             [str(SCI / "CYCLE33_WEEK2_NATIONAL_CENSUS.json")],
-            "FCS separate scoreboard remains absent from this cache set; do not re-arm TAMU-ASU or invent finals.",
+            "Keep FCS scoreboard cache-first and do not re-arm TAMU-ASU or invent finals.",
             "BAT-705",
-            f"NCAA caches: {week2.get('observation_count')} observations / {week2.get('unique_contest_ids')} unique IDs; week-02 contests {week2.get('week2_contest_count')}. Kickoff-epoch cutoffs applied except TAMU-ASU pack historical deadlines. FCS scoreboard not in this cache. T-24H counts {week2.get('t24h_disposition_counts')}.",
+            f"NCAA FBS caches: {week2.get('observation_count')} observations / {week2.get('unique_contest_ids')} unique IDs; week-02 contests {week2.get('week2_contest_count')}. Kickoff-epoch cutoffs applied except TAMU-ASU pack historical deadlines. FCS scoreboard {week2.get('fcs_separate_scoreboard') if not isinstance(week2.get('fcs_separate_scoreboard'), dict) else fcs.get('observation_count')} FCS observations / {fcs.get('unique_contest_ids')} unique. T-24H counts {week2.get('t24h_disposition_counts')}.",
         ),
         req(
             "R33-03",
@@ -197,7 +206,7 @@ def main() -> int:
             ["src/aggie_analytics/cycle33/acquisition_receipts.py"],
             "Patch remaining acquire helpers; evidence-backed Sportradar NCAAFB route matrix; no guessed /injuries 404 as national absence.",
             "BAT-703",
-            "Query-parse sanitization is wired into request_identity and Sportradar public URLs. Cache-hit receipts preserve file mtime as retrieved_at_utc and add cache_read_at_utc. Injuries are not inferred from guessed /injuries 404.",
+            "Query-parse sanitization is wired into request_identity and Sportradar public URLs. Cache-hit receipts preserve file mtime as retrieved_at_utc and add cache_read_at_utc across CFBD national/roster/historical, Wikimedia, discontinued, Wikidata, remaining-finals, and career helpers. Injuries are not inferred from guessed /injuries 404.",
         ),
         req(
             "R33-12",
@@ -217,20 +226,28 @@ def main() -> int:
             "Repair official-final observation identity and conflicts",
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            ["src/aggie_analytics/cycle30/acquisition.py"],
+            [
+                "src/aggie_analytics/cycle33/official_finals.py",
+                "src/aggie_analytics/cycle33/scoring_successor.py",
+                str(SCI / "CYCLE33_OFFICIAL_FINALS_SUCCESSOR.json"),
+            ],
             "Emit immutable successor with observation vs unique-game denominators; recompute metrics on unique frozen games.",
             "BAT-705",
-            "Competing scores quarantine before first-win. Predecessor census: 198 observations, 99 contest IDs. Successor scoring unfinished.",
+            f"Observation vs unique reported separately: obs={finals.get('observation_count')} unique={finals.get('unique_contest_count')} admitted={finals.get('admitted_unique_games')} quarantined={finals.get('quarantined_conflicts')}. Scored unique frozen games {finals.get('scored_unique_frozen_games')} because {finals.get('scored_unique_frozen_games_zero_reason')}. Unfrozen excluded. First/last-win forbidden.",
         ),
         req(
             "R33-14",
             "Availability, neutral venues and Week 2 context",
-            "INCOMPLETE",
+            "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            [str(SCI / "CYCLE33_AVAILABILITY_NATIONAL.json")],
+            [
+                str(SCI / "CYCLE33_AVAILABILITY_NATIONAL.json"),
+                "src/aggie_analytics/cycle30/availability.py",
+                "src/aggie_analytics/cycle33/neutral.py",
+            ],
             "JS landing shells are not reports. No report does not mean healthy. No new source may enter frozen pregame inputs.",
             "BAT-324",
-            "Cycle32 structured exhaustion inherited. Week2 expected contest keys emitted. National player-status documents remain incomplete where caches are JS shells or missing.",
+            f"Inherited asset rows {avail.get('inherited_asset_row_count')}; page kinds {avail.get('inherited_page_kind_counts')}; JS-shell classifier {avail.get('js_shell_classifier')}; week2 expected keys {avail.get('week2_expected_contest_keys')}. Neutral ordinary home advantage is 0 when venue_confirmed. Player-status documents remain incomplete.",
         ),
         req(
             "R33-15",
@@ -276,7 +293,8 @@ def main() -> int:
             ["src/aggie_analytics/cycle33/findings.py"],
             "Attach claim-level evidence per requirement instead of generic bundles.",
             "BAT-706",
-            "Cycle32 MR31-09 onward label shift restored to original meanings. Predecessor report preserved.",
+            "Cycle32 MR31-09 onward label shift restored to original meanings. Predecessor report preserved. Inherited R32/WG32/R31 traces "
+            f"{inherited.get('count')}. Generic three-file bundles forbidden.",
         ),
         req(
             "R33-19",
@@ -286,7 +304,7 @@ def main() -> int:
             ["src/aggie_analytics/scientific_reference/cycle33.py"],
             "Distinct structural/scientific/adversarial passes on exact source/data; no producer scientific helpers.",
             "BAT-696",
-            "Independent fold/finals guards exist. Full-scope audit gaps persist. Self-tests do not confer scientific acceptance.",
+            "Independent fold/finals/hash-tamper/report-count/consumed-field guards exist. Self-tests do not confer scientific acceptance. Full-scope audit gaps persist.",
         ),
         req(
             "R33-20",
@@ -395,6 +413,8 @@ def main() -> int:
             "notes": "This packet. Local work remains. CYCLE_COMPLETE prohibited.",
         },
     ]
+    if ucs_disp.get("clauses"):
+        ucs = ucs_disp["clauses"]
     (OUT / "CYCLE_REQUIREMENT_STATUS.json").write_text(
         json.dumps(
             {

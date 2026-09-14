@@ -52,6 +52,42 @@ def competing_finals(rows: Sequence[Mapping[str, Any]]) -> list[str]:
     return [cid for cid, values in scores.items() if len(values) > 1]
 
 
+def reject_outer_hash_only_admission(
+    original: Mapping[str, Any],
+    mutated: Mapping[str, Any],
+    *,
+    original_outer_hash: str,
+    mutated_outer_hash: str,
+) -> None:
+    """A recomputed outer hash cannot admit a mutated semantic payload."""
+
+    if dict(original) != dict(mutated):
+        raise IndependentCycle33Error(
+            "semantic mutation cannot be admitted from a recomputed outer hash"
+        )
+    if original_outer_hash != mutated_outer_hash:
+        raise IndependentCycle33Error("outer hash mismatch on unchanged payload")
+
+
+def consumed_fields(
+    row: Mapping[str, Any], *, design_matrix_fields: Sequence[str]
+) -> list[str]:
+    """A feature absent from the design matrix cannot count as consumed."""
+
+    present = []
+    for field in design_matrix_fields:
+        if field in row and row.get(field) is not None:
+            present.append(str(field))
+    return present
+
+
+def reject_report_count_mismatch(*, declared: int, actual: int) -> None:
+    if int(declared) != int(actual):
+        raise IndependentCycle33Error(
+            f"report count mismatch: declared {declared} actual {actual}"
+        )
+
+
 def unique_game_population(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     """Independent unique-game census. Does not import producer fit helpers."""
 

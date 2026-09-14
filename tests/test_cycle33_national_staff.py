@@ -38,6 +38,9 @@ from aggie_analytics.cycle33.official_finals import (
 )
 from aggie_analytics.cycle33.role_taxonomy import assignments_from_title
 from aggie_analytics.cycle33.span_locate import locate_person_title
+from aggie_analytics.cycle30.availability import classify_captured_document
+from aggie_analytics.cycle33.neutral import NeutralVenueError, travel_context
+from aggie_analytics.cycle33.scoring_successor import score_unique_frozen_games
 from aggie_analytics.cycle33.scheme_tenure import extract_scheme_tenure_claims
 from aggie_analytics.cycle33.findings import (
     CYCLE32_DISPOSITION_LABEL_TO_ORIGINAL_MR31,
@@ -59,7 +62,10 @@ from aggie_analytics.cycle33.wiki_parameters import football_season_template_bod
 from aggie_analytics.scientific_reference.cycle33 import (
     IndependentCycle33Error,
     competing_finals,
+    consumed_fields,
     reject_fold,
+    reject_outer_hash_only_admission,
+    reject_report_count_mismatch,
     unique_game_population,
 )
 
@@ -426,6 +432,113 @@ class IndependentReferenceTests(unittest.TestCase):
         self.assertEqual(summary["missing_identity_rows"], 1)
         self.assertEqual(summary["proven_pit"], 0)
         self.assertFalse(summary["producer_helpers_imported"])
+        with self.assertRaises(IndependentCycle33Error):
+            reject_fold([2018, 2019], [2019, 2020])
+        with self.assertRaises(IndependentCycle33Error):
+            reject_outer_hash_only_admission(
+                {"winner": "HOME"},
+                {"winner": "AWAY"},
+                original_outer_hash="abc",
+                mutated_outer_hash="def",
+            )
+        reject_report_count_mismatch(declared=2, actual=2)
+        with self.assertRaises(IndependentCycle33Error):
+            reject_report_count_mismatch(declared=198, actual=99)
+        self.assertEqual(
+            consumed_fields(
+                {"margin": 3, "scheme": "air raid"},
+                design_matrix_fields=("margin",),
+            ),
+            ["margin"],
+        )
+
+
+class ScoringSuccessorTests(unittest.TestCase):
+    def test_unfrozen_and_conflicts_are_excluded(self) -> None:
+        observations = [
+            {
+                "ncaa_com_contest_id": "1",
+                "home_points": 21,
+                "away_points": 14,
+                "home_name": "A",
+                "away_name": "B",
+            },
+            {
+                "ncaa_com_contest_id": "1",
+                "home_points": 24,
+                "away_points": 14,
+                "home_name": "A",
+                "away_name": "B",
+            },
+            {
+                "ncaa_com_contest_id": "2",
+                "home_points": 10,
+                "away_points": 7,
+                "home_name": "C",
+                "away_name": "D",
+            },
+        ]
+        result = score_unique_frozen_games(
+            observations,
+            forecasts=[
+                {
+                    "ncaa_contest_id": "2",
+                    "frozen": True,
+                    "probability_home": 0.7,
+                }
+            ],
+        )
+        self.assertEqual(result["observation_count"], 3)
+        self.assertEqual(result["unique_contest_count"], 2)
+        self.assertEqual(result["quarantined_conflicts"], 1)
+        self.assertEqual(result["scored_unique_frozen_games"], 1)
+        self.assertAlmostEqual(result["brier_mean"], (0.7 - 1.0) ** 2)
+
+
+class AvailabilityDocumentTests(unittest.TestCase):
+    def test_js_shell_is_not_a_report(self) -> None:
+        html = '<div id="root"></div>' + ("<script></script>" * 10)
+        self.assertEqual(
+            classify_captured_document(html),
+            "JS_LANDING_SHELL_NOT_REPORT",
+        )
+        self.assertEqual(
+            classify_captured_document(
+                "<html></html>",
+                uri="https://example.test/record-book",
+            ),
+            "NOT_AVAILABILITY_MEMBERSHIP_OR_RECORD_BOOK",
+        )
+
+
+class NeutralVenueTests(unittest.TestCase):
+    def test_inferred_stadium_distance_is_rejected(self) -> None:
+        with self.assertRaises(NeutralVenueError):
+            travel_context(
+                {
+                    "canonical_contest_id": "N1",
+                    "administrative_home_id": "HOME",
+                    "administrative_away_id": "AWAY",
+                    "venue_id": "V1",
+                },
+                home_distance=10.0,
+                away_distance=20.0,
+                venue_confirmed=False,
+            )
+        row = travel_context(
+            {
+                "canonical_contest_id": "N1",
+                "administrative_home_id": "HOME",
+                "administrative_away_id": "AWAY",
+                "venue_id": "V1",
+                "venue_timezone": "America/New_York",
+            },
+            home_distance=10.0,
+            away_distance=20.0,
+            venue_confirmed=True,
+        )
+        self.assertEqual(row["ordinary_home_advantage"], 0.0)
+        self.assertTrue(row["neutral_site"])
 
 
 class UserCoachesTests(unittest.TestCase):
@@ -552,6 +665,17 @@ class SpanLocateTests(unittest.TestCase):
             html, person="Nobody", title="Head Football Coach"
         )
         self.assertFalse(missing["locatable"])
+
+    def test_html_entities_and_jr_variants_are_locatable(self) -> None:
+        html = "Eddie Robinson Jr. — Offensive Coordinator &amp; Quarterbacks"
+        found = locate_person_title(
+            html,
+            person="Eddie Robinson, Jr.",
+            title="Offensive Coordinator & Quarterbacks",
+        )
+        self.assertTrue(found["locatable"])
+        self.assertIsNotNone(found["body_offset"])
+        self.assertIsNotNone(found["title_offset"])
 
     def test_official_html_parser_records_body_offset(self) -> None:
         html = (

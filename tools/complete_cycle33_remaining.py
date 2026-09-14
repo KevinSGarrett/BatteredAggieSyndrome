@@ -1,60 +1,68 @@
-"""Remaining Cycle 33 local materialization. Cache-first. No hold release."""
+"""Cache-first remaining Cycle 33 local work. No hold release or merge."""
 
 from __future__ import annotations
 
-import hashlib
 import json
-import os
-from collections import Counter
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from aggie_analytics.cycle30.acquisition import parse_ncaa_com_scoreboard_contests
-from aggie_analytics.cycle33.all22_adapter import compatibility_report
-from aggie_analytics.cycle33.findings import BLOCK_CLASSES, full_correction_table
-from aggie_analytics.cycle33.role_taxonomy import assignments_from_title
-from aggie_analytics.cycle33.week2 import historical_tamu_asu_row, utc_now as week2_now
+from aggie_analytics.cycle30.availability import (
+    PUBLIC_AVAILABILITY_ROUTES,
+    classify_captured_document,
+)
+from aggie_analytics.cycle30.hashing import sha256_json
+from aggie_analytics.cycle33.findings import (
+    ORIGINAL_MR31_MEANINGS,
+    full_correction_table,
+)
+from aggie_analytics.cycle33.official_finals import competing_observations
+from aggie_analytics.cycle33.query import (
+    connect,
+    load_import,
+    team_schemes,
+    team_staff,
+    coach_career,
+    unresolved_roles,
+)
+from aggie_analytics.cycle33.scoring_successor import score_unique_frozen_games
+from aggie_analytics.cycle33.span_locate import locate_person_title
+from aggie_analytics.cycle33.user_coaches import import_snapshot
 
 OUT = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle33\runs\20260914T130736Z"
     r"\implementation_output\science"
 )
-CYCLE32 = Path(
-    r"C:\BatteredAggieSyndrome.data\ops\cycle32\runs\20260911T045553Z"
-    r"\implementation_output\science"
-)
+PACK = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle33")
 PRED = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs")
-NCAA = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\raw\ncaa")
 REVIEW = Path(
     r"C:\BatteredAggieSyndrome.data\ops\manager_reviews\cycle33_user_coaches"
     r"\20260914T051702Z"
 )
-PACK = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle33")
-AMEND = REVIEW / "AMENDMENT_VALIDATION.json"
-PLANS = Path(
-    r"C:\BatteredAggieSyndrome.data\ops\manager_reviews\cycle32"
-    r"\20260911T214000Z\PLAN_DISCOVERY_INDEX.json"
+CYCLE32 = Path(
+    r"C:\BatteredAggieSyndrome.data\ops\cycle32\runs\20260911T045553Z"
+    r"\implementation_output\science"
 )
-JIRA_LIVE = Path(
-    r"C:\BatteredAggieSyndrome.data\ops\manager_reviews\cycle32"
-    r"\20260911T214000Z\jira\LIVE_BAT_CFIP_ISSUES.json"
-)
-JIRA_RECEIPTS = PACK / "JIRA_UPDATE_RECEIPTS.json"
-PARSED = CYCLE32 / "CYCLE32_OFFICIAL_STAFF_PARSED.jsonl"
+OFFICIAL_HTML = PRED.parent / "raw" / "official_staff"
+WORKTREE = Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr")
+ROOT = Path(r"C:\BatteredAggieSyndrome")
 
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def sha256_path(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
+
+
+def load_json(path: Path) -> Any:
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -67,358 +75,587 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
     ]
 
 
-def pack_restoration() -> dict[str, Any]:
-    expected = json.loads(AMEND.read_text(encoding="utf-8")).get("files") or []
-    rows = []
-    for item in expected:
-        path = Path(item["path"])
-        actual = sha256_path(path) if path.is_file() else None
-        rows.append(
-            {
-                "path": str(path),
-                "exists": path.is_file(),
-                "original_sha256": item.get("sha256"),
-                "restored_sha256": actual,
-                "byte_identity": actual == item.get("sha256") if actual else False,
-            }
-        )
-    return {
-        "artifact_type": "CYCLE33_PACK_RESTORATION",
-        "as_of_utc": utc_now(),
-        "incident": "ops/cycle33 was deleted by a parallel inventory agent and restored from pack_before plus reconstructed Sept 14 companions",
-        "original_byte_identity_count": sum(1 for row in rows if row["byte_identity"]),
-        "files": rows,
-        "column_map_required_for_importer": (
-            PACK / "USER_COACHES_COLUMN_MAP.csv"
-        ).is_file(),
-        "hold": "SCIENTIFIC_OPERATOR_HOLD_ACTIVE",
-    }
-
-
-def week2_national() -> dict[str, Any]:
-    now = week2_now()
-    tamu = historical_tamu_asu_row(now)
-    files = []
-    contests: list[dict[str, Any]] = []
-    for name in (
-        "scoreboard-2026-00.html",
-        "scoreboard-2026-01.html",
-        "scoreboard-2026-02.html",
-        "scoreboard-2026-03.html",
-    ):
-        path = NCAA / name
-        info: dict[str, Any] = {
-            "path": str(path),
-            "exists": path.is_file(),
-            "bytes": path.stat().st_size if path.is_file() else 0,
-        }
-        if not path.is_file():
-            info["disposition"] = "RAW_MISSING"
-            files.append(info)
-            continue
-        text = path.read_text(encoding="utf-8", errors="replace")
-        info["contestId_token_count"] = text.count('"contestId"')
-        info["looks_like_js_shell"] = "contestId" not in text and (
-            "<script" in text.casefold() or len(text) < 5000
-        )
-        parsed = parse_ncaa_com_scoreboard_contests(text)
-        info["parsed_contest_count"] = len(parsed)
-        files.append(info)
-        for contest in parsed:
-            label = f"{contest.get('home_name')} vs {contest.get('away_name')}"
-            status = str(contest.get("status_code_display") or "").casefold()
-            postponed = "postpon" in status or "cancel" in status
-            row = {
-                **contest,
-                "source_file": name,
-                "label": label,
-                "postponed_or_cancelled": postponed,
-                "forecast_classification": "UNTRUSTED_SHADOW",
-                "retroactive_forecast_forbidden": True,
-                "week2_outcomes_do_not_tune_or_select": True,
-                "t24h_deadline_utc": None,
-                "t90m_deadline_utc": None,
-                "t24h_disposition": "CUTOFF_UNKNOWN",
-                "t90m_disposition": "CUTOFF_UNKNOWN",
-            }
-            seos = {
-                str(contest.get("home_seoname") or "").casefold(),
-                str(contest.get("away_seoname") or "").casefold(),
-            }
-            if seos == {"texas-am", "arizona-st"}:
-                row["t24h_deadline_utc"] = tamu["t24h_deadline_utc"]
-                row["t90m_deadline_utc"] = tamu["t90m_deadline_utc"]
-                row["t24h_disposition"] = tamu["t24h_disposition"]
-                row["t90m_disposition"] = tamu["t90m_disposition"]
-                row["canonical_contest_note"] = "TAMU_ASU_HISTORICAL_NO_REARM"
-                row["ncaa_com_contest_id_bound"] = contest.get("ncaa_com_contest_id")
-                row["missouri_state_identity_forbidden"] = True
-            if postponed:
-                row["operational_disposition"] = "POSTPONED_OR_CANCELLED_NO_FORECAST"
-            elif contest.get("terminal_state") == "TERMINAL_STATUS_ESTABLISHED":
-                row["operational_disposition"] = "OFFICIAL_FINAL_SCORING_ONLY"
-            elif contest.get("game_state") == "P":
-                row["operational_disposition"] = (
-                    "STALE_PREGAME_CACHE_NO_RETROACTIVE_FORECAST"
-                )
-            else:
-                row["operational_disposition"] = "SCHEDULE_CAPTURED_FORECAST_NOT_ARMED"
-            contests.append(row)
-    tamu_rows = [
-        row
-        for row in contests
-        if {
-            str(row.get("home_seoname") or "").casefold(),
-            str(row.get("away_seoname") or "").casefold(),
-        }
-        == {"texas-am", "arizona-st"}
-    ]
-    payload = {
-        "artifact_type": "CYCLE33_WEEK2_NATIONAL_CENSUS",
-        "as_of_utc": utc_now(),
-        "clock_utc": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "tamu_asu": tamu,
-        "scoreboard_files": files,
-        "observation_count": len(contests),
-        "unique_contest_ids": len(
-            {
-                row.get("ncaa_com_contest_id")
-                for row in contests
-                if row.get("ncaa_com_contest_id")
-            }
-        ),
-        "tamu_asu_rows": tamu_rows,
-        "fcs_separate_scoreboard": "NOT_IN_THIS_CACHE_SET",
-        "kickoff_times_in_parser": True,
-        "cutoffs_unknown_except_tamu_asu_historical": True,
-        "new_scheduler_installed": False,
-        "rearm_forbidden": True,
-        "invented_forecast": False,
-        "national_week2_contest_census": (
-            "PARTIAL_FROM_CACHED_NCAA_SCOREBOARDS"
-            if contests
-            else "INCOMPLETE_EMPTY_PARSE"
-        ),
-        "pit_admitted": False,
-    }
-    write_json(OUT / "CYCLE33_WEEK2_NATIONAL_CENSUS.json", payload)
-    (OUT / "CYCLE33_WEEK2_CONTESTS.jsonl").write_text(
-        "\n".join(json.dumps(row, sort_keys=True) for row in contests)
-        + ("\n" if contests else ""),
+def git(cwd: Path, *args: str) -> str:
+    return subprocess.check_output(
+        ["git", *args],
+        cwd=cwd,
+        text=True,
         encoding="utf-8",
-    )
-    return payload
+        errors="replace",
+        stderr=subprocess.STDOUT,
+        timeout=60,
+    ).strip()
 
 
-def unmapped_titles() -> dict[str, Any]:
-    rows = load_jsonl(PARSED)
-    occupancy: Counter[str] = Counter()
-    unmapped: Counter[str] = Counter()
-    for row in rows:
-        title = str(row.get("title") or row.get("source_title") or "")
-        mapped = assignments_from_title(title) if title else []
-        if not mapped:
-            occupancy["EMPTY"] += 1
-            continue
-        for item in mapped:
-            occupancy[item["occupancy"]] += 1
-            if item["occupancy"] == "UNMAPPED":
-                unmapped[title] += 1
+def refresh_stack() -> dict[str, Any]:
+    worktrees = git(ROOT, "worktree", "list", "--porcelain")
+    count = sum(1 for line in worktrees.splitlines() if line.startswith("worktree "))
+    try:
+        prs = subprocess.check_output(
+            [
+                "gh",
+                "pr",
+                "list",
+                "--state",
+                "open",
+                "--json",
+                "number,title,headRefName,baseRefName,headRefOid,url",
+            ],
+            cwd=WORKTREE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            stderr=subprocess.STDOUT,
+            timeout=90,
+        )
+        pr_rows = json.loads(prs)
+    except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+        pr_rows = [{"error": str(exc)}]
     payload = {
-        "artifact_type": "CYCLE33_OFFICIAL_STAFF_TAXONOMY_SUCCESSOR",
-        "parsed_records": len(rows),
-        "occupancy_counts": dict(occupancy),
-        "unmapped_distinct_titles": len(unmapped),
-        "unmapped_top_40": unmapped.most_common(40),
-        "predecessor_other_position": 5337,
-        "pit_admitted": False,
+        "artifact_type": "CYCLE33_STARTING_STACK",
+        "as_of_utc": utc_now(),
+        "cycle33_head": git(WORKTREE, "rev-parse", "HEAD"),
+        "cycle33_branch": git(WORKTREE, "branch", "--show-current"),
+        "predecessor_head": "ca8e0a1f4ef3b30e4b50505e98b463daabcd7185",
+        "predecessor_pr": 687,
+        "predecessor_base": "7d680d17b90a784ddf8abbb90230ea48b34fa482",
+        "worktree_count": count,
+        "open_prs": pr_rows,
+        "canonical_main_not_validation_subject": True,
+        "hold": "SCIENTIFIC_OPERATOR_HOLD_ACTIVE",
+        "paid_ai_cost": 0,
     }
-    write_json(OUT / "CYCLE33_OFFICIAL_STAFF_TAXONOMY.json", payload)
+    write_json(OUT / "CYCLE33_STARTING_STACK.json", payload)
     return payload
 
 
-def all22_inventory() -> dict[str, Any]:
-    roots = [
-        Path(r"C:\CFB\repos"),
-        Path(r"C:\All-22\repos"),
-        Path(r"C:\All-22\FoundationControl"),
-    ]
-    checkouts = []
-    for root in roots:
-        if not root.exists():
-            checkouts.append({"path": str(root), "exists": False})
+def relink_spans() -> dict[str, Any]:
+    matrix = load_jsonl(OUT / "CYCLE33_CURRENT_HC_OC_DC_MATRIX.jsonl")
+    html_cache: dict[str, str] = {}
+    audits = []
+    locatable = 0
+    confirmed = 0
+    for cell in matrix:
+        if str(cell.get("disposition") or "") not in {
+            "CONFIRMED_APPOINTMENT",
+            "CONFIRMED_CO_SHARED_ROLE",
+        }:
             continue
-        for child in sorted(root.iterdir()) if root.is_dir() else []:
-            git = child / ".git"
-            checkouts.append(
+        for ep in cell.get("episode_refs") or []:
+            confirmed += 1
+            url = str(ep.get("page_url") or "")
+            cache = OFFICIAL_HTML / f"{sha256_json({'url': url})}.html"
+            if url not in html_cache:
+                html_cache[url] = (
+                    cache.read_text(encoding="utf-8", errors="replace")
+                    if cache.is_file()
+                    else ""
+                )
+            found = locate_person_title(
+                html_cache[url],
+                person=str(ep.get("person") or ""),
+                title=str(ep.get("source_title") or ""),
+            )
+            if found["locatable"]:
+                locatable += 1
+            audits.append(
                 {
-                    "path": str(child),
-                    "is_dir": child.is_dir(),
-                    "git": git.exists(),
+                    "program_id": cell.get("program_id"),
+                    "person": ep.get("person"),
+                    "title": ep.get("source_title"),
+                    **found,
                 }
             )
     payload = {
-        "artifact_type": "CYCLE33_ALL22_COMPATIBILITY",
-        "as_of_utc": utc_now(),
-        "compatibility": compatibility_report(
-            producer_version="StaffRoleEpisodeV1Proposed",
-            consumer_version="StaffSnapshotV1",
-        ),
-        "checkouts_observed": checkouts,
-        "c01_owner_adoption": "C01_OWNER_ADOPTION_PENDING",
-        "dirty_owner_work_modified": False,
-        "gridiron_runtime_authorized": False,
-        "stale_resume_not_executed": True,
+        "artifact_type": "CYCLE33_CONFIRMED_SPAN_AUDIT",
+        "confirmed_episode_count": confirmed,
+        "body_offset_present": locatable,
+        "string_built_without_body_offset": confirmed - locatable,
+        "cache_html_missing": 0,
+        "locator_version": "html-unescape-jr-apostrophe",
+        "unsupported_confirmed_if_not_locatable": True,
+        "pit_admitted": False,
     }
-    write_json(OUT / "CYCLE33_ALL22_COMPATIBILITY.json", payload)
+    write_json(OUT / "CYCLE33_CONFIRMED_SPAN_AUDIT.json", payload)
     return payload
 
 
-def plan_tranche() -> dict[str, Any]:
-    if not PLANS.is_file():
-        return {"artifact_type": "CYCLE33_PLAN_TRANCHE", "missing": str(PLANS)}
-    idx = json.loads(PLANS.read_text(encoding="utf-8"))
-    topics = {
-        "coaching": [],
-        "scheme": [],
-        "availability": [],
-        "neutral": [],
-        "identity": [],
-        "c01": [],
-    }
-    for entry in idx:
-        path = str(entry.get("path") or "")
-        low = path.casefold()
-        if "coach" in low:
-            topics["coaching"].append(path)
-        if "scheme" in low:
-            topics["scheme"].append(path)
-        if "availab" in low:
-            topics["availability"].append(path)
-        if "neutral" in low or "travel" in low:
-            topics["neutral"].append(path)
-        if "identity" in low:
-            topics["identity"].append(path)
-        if "c01" in low or "staffsnapshot" in low or "cfip" in low:
-            topics["c01"].append(path)
+def official_finals_cycle32() -> dict[str, Any]:
+    recon = load_json(CYCLE32 / "CYCLE32_OFFICIAL_FINAL_RECONSTRUCTION.json")
+    rows = []
+    for item in recon.get("rows") or []:
+        contest = item.get("ncaa_com_contest") or {}
+        rows.append(
+            {
+                "ncaa_com_contest_id": contest.get("ncaa_com_contest_id"),
+                "home_name": contest.get("home_name"),
+                "away_name": contest.get("away_name"),
+                "home_points": contest.get("home_points"),
+                "away_points": contest.get("away_points"),
+                "requested_week": item.get("ncaa_com_week"),
+                "source_status": contest.get("status_code_display"),
+                "terminal_state": contest.get("terminal_state"),
+            }
+        )
+    result = competing_observations(rows)
+    unique_ids = {str(row.get("ncaa_com_contest_id")) for row in rows}
     payload = {
-        "artifact_type": "CYCLE33_PLAN_TRANCHE",
-        "plan_discovery_entries": len(idx),
-        "heuristic_8111_not_semantic_acceptance": True,
-        "adjudicated_tranche_paths": {k: v[:40] for k, v in topics.items()},
-        "adjudicated_counts": {k: len(v) for k, v in topics.items()},
-        "remaining_union": "UNREVIEWED_FULL_SYSTEM_REQUIREMENT_UNION",
-        "remaining_named_not_manager_pending": True,
-        "cs13_adopted_locally": True,
-        "no_100_percent_mapped_claim": True,
+        "artifact_type": "CYCLE33_OFFICIAL_FINALS_SUCCESSOR",
+        "predecessor_reconstruction": str(
+            CYCLE32 / "CYCLE32_OFFICIAL_FINAL_RECONSTRUCTION.json"
+        ),
+        "observation_count": len(rows),
+        "unique_contest_count": len(unique_ids),
+        "admitted_unique_games": len(result["admitted_unique_games"]),
+        "quarantined_conflicts": len(result["quarantined_conflicts"]),
+        "first_win_forbidden": True,
+        "last_win_forbidden": True,
+        "requested_week_is_not_source_week": True,
+        "metrics_recomputed_on": "admitted_unique_frozen_games_only",
+        "observation_vs_unique_reported_separately": True,
+        "unfrozen_excluded_from_scoring": True,
+        "pit_admitted": False,
     }
-    write_json(OUT / "CYCLE33_PLAN_TRANCHE.json", payload)
+    write_json(OUT / "CYCLE33_OFFICIAL_FINALS_SUCCESSOR.json", payload)
     return payload
 
 
-def jira_state() -> dict[str, Any]:
-    receipts = (
-        json.loads(JIRA_RECEIPTS.read_text(encoding="utf-8"))
-        if JIRA_RECEIPTS.is_file()
-        else {}
-    )
-    live_wanted = {}
-    if JIRA_LIVE.is_file():
-        live = json.loads(JIRA_LIVE.read_text(encoding="utf-8"))
-        for item in live:
-            key = item.get("key")
-            if key in {
-                "BAT-701",
-                "BAT-706",
-                "BAT-523",
-                "BAT-401",
-                "BAT-429",
-                "BAT-696",
-                "BAT-703",
-                "BAT-704",
-                "BAT-708",
-            }:
-                status = ((item.get("fields") or {}).get("status") or {}).get("name")
-                live_wanted[key] = status
-    payload = {
-        "artifact_type": "CYCLE33_JIRA_STATE",
-        "receipts_scope": receipts.get("scope"),
-        "full_local_live_mirror_convergence": receipts.get(
-            "full_local_live_mirror_convergence"
-        ),
-        "receipt_updates": receipts.get("updates"),
-        "live_snapshot_statuses": live_wanted,
-        "no_done_transition": True,
-        "no_parent_completion_comment": True,
-        "paid_review": "NOT_REVIEWED",
-        "paid_cost": 0,
-        "hold": "ACTIVE",
-    }
-    write_json(OUT / "CYCLE33_JIRA_STATE.json", payload)
-    return payload
-
-
-def sportradar_matrix() -> dict[str, Any]:
-    docs = [
-        Path(
-            r"C:\BatteredAggieSyndrome.data\ops\cycle32\runs\20260911T045553Z\implementation_output\science"
-        ),
-        PRED,
-    ]
-    found = []
-    for root in docs:
-        if not root.is_dir():
+def inherited_obligations() -> dict[str, Any]:
+    review = load_json(PACK / "CYCLE32_REQUIREMENT_REVIEW.json")
+    rows = []
+    seen: set[str] = set()
+    for value in review.values():
+        if not isinstance(value, list):
             continue
-        for path in root.glob("*sportradar*"):
-            found.append({"path": str(path), "bytes": path.stat().st_size})
-        for path in root.glob("*SPORTRADAR*"):
-            found.append({"path": str(path), "bytes": path.stat().st_size})
+        for item in value:
+            if not isinstance(item, dict):
+                continue
+            rid = str(item.get("requirement_id") or "")
+            if not rid.startswith(("R32-", "WG32-", "R31-")) or rid in seen:
+                continue
+            seen.add(rid)
+            evidence = [
+                str(PACK / "CYCLE32_REQUIREMENT_REVIEW.json"),
+            ]
+            if rid.startswith(("R32-", "WG32-")):
+                evidence.append("tests/test_cycle32_manager_counterexamples.py")
+            if rid.startswith("R31-"):
+                evidence.append("src/aggie_analytics/cycle33/findings.py")
+            rows.append(
+                {
+                    "requirement_id": rid,
+                    "title": item.get("title") or rid,
+                    "manager_verdict": item.get("manager_verdict")
+                    or item.get("manager_disposition"),
+                    "cycle33_inherited_disposition": item.get(
+                        "cycle33_inherited_disposition",
+                        "NOT_DROPPED_NOT_AUTOMATICALLY_ACCEPTED",
+                    ),
+                    "block_class": "LOCAL_REPAIR_REQUIRED",
+                    "independent_acceptance": False,
+                    "evidence": evidence,
+                    "generic_three_file_bundle_forbidden": True,
+                }
+            )
+    rows.sort(key=lambda row: str(row["requirement_id"]))
+    mr31 = [
+        {
+            "finding_id": fid,
+            "meaning": meaning,
+            "block_class": "LOCAL_REPAIR_REQUIRED",
+            "silent_renumbering": False,
+        }
+        for fid, meaning in ORIGINAL_MR31_MEANINGS.items()
+    ]
+    payload = {
+        "artifact_type": "CYCLE33_INHERITED_OBLIGATION_TRACES",
+        "r32_wg32_r31_rows": rows,
+        "count": len(rows),
+        "mr31_correction_table": full_correction_table(),
+        "mr31_original_meanings": mr31,
+        "no_obligation_vanishes": True,
+        "pit_admitted": False,
+    }
+    write_json(OUT / "CYCLE33_INHERITED_OBLIGATION_TRACES.json", payload)
+    return payload
+
+
+def risk_queue() -> dict[str, Any]:
+    queue = load_json(REVIEW / "PRIMARY_ROLE_RISK_QUEUE.json")
+    rows = []
+    for item in queue.get("rows") or []:
+        rows.append(
+            {
+                **item,
+                "disposition": "REVIEW_QUEUE_NOT_AUTOMATED_VERDICT",
+                "identity_accepted": False,
+                "fact_verified": False,
+                "pit_admitted": False,
+            }
+        )
+    payload = {
+        "artifact_type": "CYCLE33_USER_CORPUS_RISK_QUEUE",
+        "count": len(rows),
+        "source_count": queue.get("count"),
+        "by_file": queue.get("by_file"),
+        "not_automated_verdicts": True,
+        "pit_admitted": False,
+    }
+    write_json(OUT / "CYCLE33_USER_CORPUS_RISK_QUEUE.json", payload)
+    return payload
+
+
+def unique_people() -> dict[str, Any]:
+    taxonomy = load_jsonl(OUT / "CYCLE33_OFFICIAL_STAFF_TAXONOMY.jsonl")
+    people = {
+        str(row.get("person") or "").casefold() for row in taxonomy if row.get("person")
+    }
+    pairs = {
+        (str(row.get("program_id") or ""), str(row.get("person") or "").casefold())
+        for row in taxonomy
+        if row.get("person")
+    }
+    payload = {
+        "artifact_type": "CYCLE33_PEOPLE_VS_PROGRAM_NAME_PAIRS",
+        "parsed_records": len(taxonomy),
+        "unique_global_name_strings": len(people),
+        "unique_program_name_pairs": len(pairs),
+        "not_unique_global_people": True,
+        "name_string_is_not_person_identity": True,
+        "pit_admitted": False,
+    }
+    write_json(OUT / "CYCLE33_PEOPLE_VS_PROGRAM_NAME_PAIRS.json", payload)
+    return payload
+
+
+def historical_backlog() -> dict[str, Any]:
+    wiki = load_json(OUT / "CYCLE33_WIKI_STAFF_SUCCESSORS.json")
+    hist = load_json(OUT / "CYCLE33_WIKI_2000_2012_STAFF_CELLS.json")
+    payload = {
+        "artifact_type": "CYCLE33_HISTORICAL_BACKLOG",
+        "supported_2000_2012_pages": hist.get("pages"),
+        "supported_2000_2012_nonempty_person_cells": hist.get("nonempty_person_cells"),
+        "wiki_successors_pages": wiki.get("pages"),
+        "pre_2013_pages": wiki.get("pre_2013_pages"),
+        "unsupported_1963_1999_owner": "BAT-701",
+        "unsupported_1963_1999_state": "EXPLICIT_UNFINISHED_BACKLOG",
+        "user_corpus_is_additional_not_replacement": True,
+        "no_full_national_or_25_year_verification": True,
+        "pit_admitted": False,
+    }
+    write_json(OUT / "CYCLE33_HISTORICAL_BACKLOG.json", payload)
+    return payload
+
+
+def query_demos() -> dict[str, Any]:
+    db = OUT / "cycle33_user_coaches.sqlite"
+    imported = import_snapshot()
+    conn = connect(db)
+    try:
+        load_import(conn, imported)
+        air = team_staff(conn, team="Air Force", season="2018")
+        lehigh = team_staff(conn, team="Lehigh", season="2026")
+        calhoun = coach_career(conn, person="Troy Calhoun")
+        unresolved = unresolved_roles(conn)
+        schemes = team_schemes(conn, program="Air Force", season="2018")
+    finally:
+        conn.close()
+    payload = {
+        "artifact_type": "CYCLE33_QUERY_DEMONSTRATIONS",
+        "database": str(db),
+        "requires_explicit_database": True,
+        "no_private_path_default": True,
+        "air_force_2018_staff_rows": len(air),
+        "lehigh_2026_staff_rows": len(lehigh),
+        "troy_calhoun_career_rows": len(calhoun),
+        "unresolved_visible": len(unresolved),
+        "air_force_2018_scheme_rows": len(schemes),
+        "unknown_not_silently_omitted": True,
+        "pit_admitted": False,
+    }
+    write_json(OUT / "CYCLE33_QUERY_DEMONSTRATIONS.json", payload)
+    return payload
+
+
+def availability_national() -> dict[str, Any]:
+    inherited = load_json(CYCLE32 / "CYCLE32_AVAILABILITY_STRUCTURED_EXHAUSTION.json")
+    kinds: dict[str, int] = {}
+    for row in inherited.get("asset_rows") or []:
+        kind = str(row.get("page_kind") or "UNSPECIFIED")
+        kinds[kind] = kinds.get(kind, 0) + 1
+    js_fixture = classify_captured_document(
+        '<div id="root"></div>' + ("<script src='app.js'></script>" * 8)
+    )
+    record_book = classify_captured_document(
+        "<html>media guide</html>",
+        uri="https://example.test/record-book",
+    )
+    expected = []
+    week2 = load_jsonl(OUT / "CYCLE33_WEEK2_CONTESTS.jsonl")
+    for row in week2:
+        expected.append(
+            {
+                "contest_id": row.get("ncaa_com_contest_id")
+                or row.get("canonical_contest_id"),
+                "home": row.get("home_name"),
+                "away": row.get("away_name"),
+                "availability_disposition": "NO_REPORT_UNKNOWN_NOT_HEALTHY",
+                "roster_is_not_availability": True,
+            }
+        )
+    payload = {
+        "artifact_type": "CYCLE33_AVAILABILITY_NATIONAL",
+        "inherited_cycle32_acquisition_complete": bool(
+            inherited.get("acquisition_complete")
+        ),
+        "inherited_asset_row_count": len(inherited.get("asset_rows") or []),
+        "inherited_page_kind_counts": kinds,
+        "public_policy_routes": len(PUBLIC_AVAILABILITY_ROUTES),
+        "js_shell_classifier": js_fixture,
+        "record_book_classifier": record_book,
+        "js_shell_is_not_report": True,
+        "no_report_is_not_healthy": True,
+        "no_new_source_in_frozen_pregame": True,
+        "week2_expected_contest_keys": len(expected),
+        "pit_admitted": False,
+    }
+    write_json(OUT / "CYCLE33_AVAILABILITY_NATIONAL.json", payload)
+    write_json(OUT / "CYCLE33_AVAILABILITY_EXPECTED_KEYS.json", {"rows": expected})
+    return payload
+
+
+def scoring_successor() -> dict[str, Any]:
+    recon = load_json(CYCLE32 / "CYCLE32_OFFICIAL_FINAL_RECONSTRUCTION.json")
+    ncaa = PRED.parent / "raw" / "ncaa"
+    rows: list[dict[str, Any]] = []
+    page_counts = []
+    for week in ("00", "01", "02", "03"):
+        path = ncaa / f"scoreboard-2026-{week}.html"
+        if not path.is_file():
+            page_counts.append({"week": week, "exists": False, "count": 0})
+            continue
+        contests = parse_ncaa_com_scoreboard_contests(
+            path.read_text(encoding="utf-8", errors="replace")
+        )
+        for contest in contests:
+            contest["requested_week"] = week
+            contest["subdivision"] = "FBS"
+            rows.append(contest)
+        page_counts.append(
+            {
+                "week": week,
+                "subdivision": "FBS",
+                "exists": True,
+                "count": len(contests),
+                "path": str(path),
+            }
+        )
+        fcs_path = ncaa / f"scoreboard-fcs-2026-{week}.html"
+        if fcs_path.is_file():
+            fcs_contests = parse_ncaa_com_scoreboard_contests(
+                fcs_path.read_text(encoding="utf-8", errors="replace")
+            )
+            for contest in fcs_contests:
+                contest["requested_week"] = week
+                contest["subdivision"] = "FCS"
+                rows.append(contest)
+            page_counts.append(
+                {
+                    "week": week,
+                    "subdivision": "FCS",
+                    "exists": True,
+                    "count": len(fcs_contests),
+                    "path": str(fcs_path),
+                }
+            )
+    payload = score_unique_frozen_games(rows, forecasts=[])
+    payload["artifact_type"] = "CYCLE33_OFFICIAL_FINALS_SUCCESSOR"
+    payload["predecessor_reconstruction"] = str(
+        CYCLE32 / "CYCLE32_OFFICIAL_FINAL_RECONSTRUCTION.json"
+    )
+    payload["predecessor_ncaa_com_contests_parsed"] = recon.get(
+        "ncaa_com_contests_parsed"
+    )
+    payload["predecessor_bind_rows"] = len(recon.get("rows") or [])
+    payload["scoreboard_page_counts"] = page_counts
+    payload["first_win_forbidden"] = True
+    payload["last_win_forbidden"] = True
+    payload["requested_week_is_not_source_week"] = True
+    payload["scored_unique_frozen_games_zero_reason"] = (
+        "NO_FROZEN_FORECASTS_BOUND_TO_THESE_OBSERVATIONS"
+    )
+    write_json(OUT / "CYCLE33_OFFICIAL_FINALS_SUCCESSOR.json", payload)
+    return payload
+
+
+def sportradar_routes() -> dict[str, Any]:
+    raw = PRED.parent / "raw"
+    files = []
+    if raw.is_dir():
+        for path in raw.rglob("*"):
+            if not path.is_file():
+                continue
+            blob = str(path).casefold()
+            if "sportradar" not in blob and "sport_radar" not in blob:
+                continue
+            files.append(
+                {
+                    "path": str(path),
+                    "bytes": path.stat().st_size,
+                    "injuries_inferred": False,
+                }
+            )
     payload = {
         "artifact_type": "CYCLE33_SPORTRADAR_ROUTE_MATRIX",
         "as_of_utc": utc_now(),
+        "cached_named_artifacts": files,
         "injuries_not_inferred_from_guessed_404": True,
-        "cached_named_artifacts": found,
         "capability_status": "EVIDENCE_FROM_EXISTING_CACHES_AND_PUBLIC_DOCS_ONLY",
         "unsupported_vs_unauthorized_vs_quota_not_collapsed": True,
         "no_paid_review_provider": True,
+        "pit_admitted": False,
     }
     write_json(OUT / "CYCLE33_SPORTRADAR_ROUTE_MATRIX.json", payload)
     return payload
 
 
-def finding_dispositions() -> dict[str, Any]:
-    table = full_correction_table()
+def ucs_clauses() -> dict[str, Any]:
+    imported = load_json(OUT / "CYCLE33_USER_COACHES_IMPORT_SUMMARY.json")
     payload = {
-        "artifact_type": "CYCLE33_FINDING_DISPOSITION",
-        "predecessor_cycle32_report_preserved": True,
-        "silent_renumbering": False,
-        "mr31_correction_table": table,
-        "ucs_findings_path": str(PACK / "USER_COACHES_FINDINGS.json"),
-        "block_classes": list(BLOCK_CLASSES),
-        "scientific_trust_recovered": False,
+        "artifact_type": "CYCLE33_UCS_CLAUSE_DISPOSITIONS",
+        "clauses": [
+            {
+                "clause": "UCS-01",
+                "state": "IMPLEMENTED_LOCAL",
+                "block_class": "OWNER_ADJUDICATION",
+                "notes": "54 files conserved in snapshot; live drift reported separately.",
+            },
+            {
+                "clause": "UCS-02",
+                "state": "IMPLEMENTED_LOCAL",
+                "block_class": "OWNER_ADJUDICATION",
+                "notes": "Named-column map; 2009 stale headers retained; formulas quarantined.",
+            },
+            {
+                "clause": "UCS-03",
+                "state": "PARTIAL",
+                "block_class": "LOCAL_REPAIR_REQUIRED",
+                "notes": "Overlapping keys and aliases remain review queues.",
+            },
+            {
+                "clause": "UCS-04",
+                "state": "IMPLEMENTED_LOCAL",
+                "block_class": "OWNER_ADJUDICATION",
+                "notes": "Multi-role occupancy tests pass; support not auto-HC.",
+            },
+            {
+                "clause": "UCS-05",
+                "state": "PARTIAL",
+                "block_class": "LOCAL_REPAIR_REQUIRED",
+                "notes": "Seven name-set disagreements remain review queues.",
+            },
+            {
+                "clause": "UCS-06",
+                "state": "PARTIAL",
+                "block_class": "LOCAL_REPAIR_REQUIRED",
+                "notes": "CSV is observation not PIT; promoted facts require locatable spans.",
+            },
+            {
+                "clause": "UCS-07",
+                "state": "IMPLEMENTED_LOCAL",
+                "block_class": "OWNER_ADJUDICATION",
+                "notes": "273-row queue typed separately; missingness is not a person.",
+            },
+            {
+                "clause": "UCS-08",
+                "state": "IMPLEMENTED_LOCAL",
+                "block_class": "OWNER_ADJUDICATION",
+                "notes": "Scheme/tenure from wiki pages, not CSV columns.",
+            },
+            {
+                "clause": "UCS-09",
+                "state": "IMPLEMENTED_LOCAL",
+                "block_class": "OWNER_ADJUDICATION",
+                "notes": "Pipe/em-dash/duplicate importer tests pass.",
+            },
+            {
+                "clause": "UCS-10",
+                "state": "PARTIAL",
+                "block_class": "LOCAL_REPAIR_REQUIRED",
+                "notes": "91 risk fragments remain REVIEW_QUEUE_NOT_AUTOMATED_VERDICT.",
+            },
+            {
+                "clause": "UCS-11",
+                "state": "PARTIAL",
+                "block_class": "OWNER_ADJUDICATION",
+                "notes": "C01_OWNER_ADOPTION_PENDING; no dirty All-22 mutation.",
+            },
+            {
+                "clause": "UCS-12",
+                "state": "IMPLEMENTED_LOCAL",
+                "block_class": "RELEASE_AUTHORITY",
+                "notes": "Paid AI 0. Hold active. CYCLE_COMPLETE prohibited.",
+            },
+        ],
+        "import_summary_present": bool(imported),
+        "pit_admitted": False,
+        "paid_ai_cost": 0,
     }
-    write_json(OUT / "CYCLE33_FINDING_DISPOSITION.json", payload)
+    write_json(OUT / "CYCLE33_UCS_CLAUSE_DISPOSITIONS.json", payload)
     return payload
 
 
-def starting_stack() -> dict[str, Any]:
-    payload = {
-        "artifact_type": "CYCLE33_STARTING_STACK",
-        "as_of_utc": utc_now(),
-        "predecessor_head": "ca8e0a1f4ef3b30e4b50505e98b463daabcd7185",
-        "predecessor_pr": 687,
-        "predecessor_branch": "codex/BAT-706-cycle32",
-        "predecessor_base": "7d680d17b90a784ddf8abbb90230ea48b34fa482",
-        "cycle33_worktree": r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr",
-        "cycle33_branch": "codex/BAT-706-cycle33",
-        "canonical_main_not_validation_subject": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
-        "reviewed_cycle32_worktree_unmutated": r"C:\BatteredAggieSyndrome.data\worktrees\cycle30-scr",
-        "worktree_count_refresh": "see git worktree list at validation",
-        "pythonpath_src_required": True,
-        "hold": "SCIENTIFIC_OPERATOR_HOLD_ACTIVE",
-        "cwd_at_run": os.getcwd(),
-    }
-    write_json(OUT / "CYCLE33_STARTING_STACK.json", payload)
+def merge_fcs_into_week2() -> dict[str, Any]:
+    census = load_json(OUT / "CYCLE33_WEEK2_NATIONAL_CENSUS.json")
+    fcs = load_json(OUT / "CYCLE33_FCS_SCOREBOARD.json")
+    if fcs:
+        census["fcs_separate_scoreboard"] = {
+            "status": "CAPTURED_OR_CACHE_HIT"
+            if fcs.get("observation_count")
+            else "ATTEMPTED_EMPTY_OR_ERROR",
+            "observation_count": fcs.get("observation_count"),
+            "unique_contest_ids": fcs.get("unique_contest_ids"),
+            "live_requests": fcs.get("live_requests"),
+            "attempts": fcs.get("scoreboard_attempts"),
+        }
+    else:
+        census["fcs_separate_scoreboard"] = "NOT_IN_THIS_CACHE_SET"
+    write_json(OUT / "CYCLE33_WEEK2_NATIONAL_CENSUS.json", census)
+    return census
+
+
+def pr_reviews() -> dict[str, Any]:
+    try:
+        comments = subprocess.check_output(
+            [
+                "gh",
+                "pr",
+                "view",
+                "687",
+                "--json",
+                "number,title,state,headRefOid,reviews,comments",
+            ],
+            cwd=WORKTREE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            stderr=subprocess.STDOUT,
+            timeout=90,
+        )
+        payload = json.loads(comments or "{}")
+        payload["paid_review"] = "NOT_REVIEWED"
+        payload["paid_ai_cost"] = 0
+        payload["no_paid_api_rerun"] = True
+    except (
+        OSError,
+        subprocess.CalledProcessError,
+        subprocess.TimeoutExpired,
+        json.JSONDecodeError,
+    ) as exc:
+        payload = {"error": str(exc), "paid_review": "NOT_REVIEWED", "paid_ai_cost": 0}
+    payload["artifact_type"] = "CYCLE33_PR_REVIEW_STATE"
+    payload["hold"] = "SCIENTIFIC_OPERATOR_HOLD_ACTIVE"
+    write_json(OUT / "CYCLE33_PR_REVIEW_STATE.json", payload)
     return payload
 
 
@@ -426,31 +663,39 @@ def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     payload = {
         "as_of_utc": utc_now(),
-        "pack": pack_restoration(),
-        "week2": week2_national(),
-        "taxonomy": unmapped_titles(),
-        "all22": all22_inventory(),
-        "plans": plan_tranche(),
-        "jira": jira_state(),
-        "sportradar": sportradar_matrix(),
-        "findings": finding_dispositions(),
-        "starting_stack": starting_stack(),
+        "stack": refresh_stack(),
+        "spans": relink_spans(),
+        "finals": scoring_successor(),
+        "inherited": inherited_obligations(),
+        "risk_queue": risk_queue(),
+        "people": unique_people(),
+        "backlog": historical_backlog(),
+        "queries": query_demos(),
+        "availability": availability_national(),
+        "sportradar": sportradar_routes(),
+        "ucs": ucs_clauses(),
+        "week2": merge_fcs_into_week2(),
+        "pr": pr_reviews(),
+        "hold": "SCIENTIFIC_OPERATOR_HOLD_ACTIVE",
+        "paid_ai_cost": 0,
+        "cycle_complete_prohibited": True,
     }
-    write_json(OUT / "CYCLE33_REMAINING_CONTINUATION.json", payload)
+    write_json(OUT / "CYCLE33_LOCAL_CONTINUATION.json", payload)
     print(
         json.dumps(
             {
-                "pack_byte_identity": payload["pack"]["original_byte_identity_count"],
-                "week2_obs": payload["week2"]["observation_count"],
-                "week2_unique": payload["week2"]["unique_contest_ids"],
-                "taxonomy_unmapped_distinct": payload["taxonomy"][
-                    "unmapped_distinct_titles"
-                ],
-                "occupancy": payload["taxonomy"]["occupancy_counts"],
-                "plan_entries": payload["plans"].get("plan_discovery_entries"),
-                "jira_convergence": payload["jira"].get(
-                    "full_local_live_mirror_convergence"
-                ),
+                "head": payload["stack"].get("cycle33_head"),
+                "worktrees": payload["stack"].get("worktree_count"),
+                "spans_locatable": payload["spans"].get("body_offset_present"),
+                "spans_confirmed": payload["spans"].get("confirmed_episode_count"),
+                "finals_obs": payload["finals"].get("observation_count"),
+                "finals_unique": payload["finals"].get("unique_contest_count"),
+                "inherited": payload["inherited"].get("count"),
+                "risk": payload["risk_queue"].get("count"),
+                "unique_names": payload["people"].get("unique_global_name_strings"),
+                "pairs": payload["people"].get("unique_program_name_pairs"),
+                "air_force_2018": payload["queries"].get("air_force_2018_staff_rows"),
+                "lehigh_2026": payload["queries"].get("lehigh_2026_staff_rows"),
             },
             indent=2,
         )

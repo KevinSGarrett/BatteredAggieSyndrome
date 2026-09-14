@@ -2,25 +2,65 @@
 
 from __future__ import annotations
 
+import html as html_lib
+import re
 from typing import Any
+
+_APOSTROPHE = dict.fromkeys("’‘‛`", "'")
+_JR = re.compile(r",?\s*jr\.?\s*$", re.I)
+
+
+def _variants(text: str) -> tuple[str, ...]:
+    raw = str(text or "").strip()
+    if not raw:
+        return ()
+    unesc = html_lib.unescape(raw).replace("\xa0", " ")
+    folded = unesc.translate(str.maketrans(_APOSTROPHE))
+    collapsed = re.sub(r"\s+", " ", folded)
+    values = [raw, unesc, folded, collapsed, _JR.sub("", collapsed).strip()]
+    return tuple(dict.fromkeys(item for item in values if item))
+
+
+def _find(body: str, needle: str) -> int:
+    if not needle:
+        return -1
+    idx = body.find(needle)
+    if idx >= 0:
+        return idx
+    return body.casefold().find(needle.casefold())
 
 
 def locate_person_title(html: str, *, person: str, title: str = "") -> dict[str, Any]:
     """Return body/title offsets when both strings are present in the raw body."""
 
     body = html or ""
-    person_n = str(person or "").strip()
-    title_n = str(title or "").strip()
-    body_offset = body.find(person_n) if person_n else -1
-    if body_offset < 0 and person_n:
-        body_offset = body.casefold().find(person_n.casefold())
-    title_offset = body.find(title_n) if title_n else -1
-    if title_offset < 0 and title_n:
-        title_offset = body.casefold().find(title_n.casefold())
-    locatable = body_offset >= 0 and (not title_n or title_offset >= 0)
+    unescaped_body = html_lib.unescape(body).replace("\xa0", " ")
+    haystacks = (body, unescaped_body)
+    body_offset = None
+    for variant in _variants(person):
+        for haystack in haystacks:
+            idx = _find(haystack, variant)
+            if idx >= 0:
+                body_offset = idx
+                break
+        if body_offset is not None:
+            break
+    title_offset = None
+    if str(title or "").strip():
+        for variant in _variants(title):
+            for haystack in haystacks:
+                idx = _find(haystack, variant)
+                if idx >= 0:
+                    title_offset = idx
+                    break
+            if title_offset is not None:
+                break
+    locatable = body_offset is not None and (
+        not str(title or "").strip() or title_offset is not None
+    )
     return {
-        "body_offset": body_offset if body_offset >= 0 else None,
-        "title_offset": title_offset if title_offset >= 0 else None,
+        "body_offset": body_offset,
+        "title_offset": title_offset,
         "locatable": locatable,
         "span_id_string_built_insufficient": True,
     }

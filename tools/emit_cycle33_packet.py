@@ -330,9 +330,9 @@ def main() -> int:
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
             [str(SCI / "CYCLE33_CLAIM_LEVEL_EVIDENCE.json")],
-            "Bind exact-head receipts after commit. Isolated wheel, full unittest, Werror, seeds 0/1 remain if not yet recorded.",
+            "Bind exact-head receipts after commit. Hosted deterministic checks and unmounted full unittest remain if not yet recorded.",
             "BAT-706",
-            "Focused Cycle33 tests pass on PYTHONPATH=src. Exact-head detached validation recorded in CYCLE33_VALIDATION_RESULTS.json when run.",
+            f"Committed HEAD {HEAD}. Focused Cycle33 36 OK, Cycle32 75 OK, Cycle30 glob 63 OK, execution-focus 10 OK. Isolated non-editable wheel loaded cycle33.query and sportradar_routes from the install target. git diff --check PASS. Hold/decommission/checkout-pin/Jira strict+live validators PASS. Paid review NOT_REVIEWED. Full unittest re-run after SHA-scoped classification corrections is recorded when that command finishes.",
         ),
         req(
             "R33-22",
@@ -354,7 +354,7 @@ def main() -> int:
                 str(SCI / "CYCLE33_USER_COACHES_LIVE_DELTA.json"),
                 str(SCI / "CYCLE33_QUERY_DEMONSTRATIONS.json"),
             ],
-            "Inspect 91 risk fragments, 7 current name-set disagreements, 12 aliases; primary-source verify samples; keep unverified visible.",
+            "91 risk fragments have row-level REVIEW_QUEUE_NOT_AUTOMATED_VERDICT dispositions; keep unverified visible. Seven name-set disagreements remain diagnostic, not facts.",
             "BAT-701",
             "54/54 files, 6749 staff observations, 273 queue rows imported as USER_COMPILED_RESEARCH_OBSERVATION. Live OneDrive CSVs byte-identical to snapshot. 2026 classified COMBINED_FBS_FCS. 2009 FBS 120 blank Team IDs retained. Not official, not PIT.",
         ),
@@ -403,7 +403,7 @@ def main() -> int:
         {
             "clause": "UCS-09",
             "state": "PARTIAL",
-            "notes": "Reusable importer, sqlite, CLI, query demonstrations exist. Package-installed consumer test unfinished.",
+            "notes": "Reusable importer, sqlite, CLI, query demonstrations exist. Isolated non-editable wheel loaded cycle33.query without checkout src on PYTHONPATH.",
         },
         {
             "clause": "UCS-10",

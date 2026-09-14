@@ -196,7 +196,7 @@ def relink_spans() -> dict[str, Any]:
         "string_built_without_body_offset": confirmed - locatable,
         "cache_html_missing": 0,
         "quarantined_or_partial_cells": quarantined_cells,
-        "locator_version": "html-unescape-jr-apostrophe",
+        "locator_version": "html-unescape-jr-apostrophe-ws-br",
         "unsupported_confirmed_if_not_locatable": True,
         "predecessor_matrix_not_overwritten": True,
         "pit_admitted": False,

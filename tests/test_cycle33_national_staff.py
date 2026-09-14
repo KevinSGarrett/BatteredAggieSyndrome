@@ -696,6 +696,28 @@ class SpanLocateTests(unittest.TestCase):
         self.assertTrue(found["locatable"])
         self.assertIsNotNone(found["body_offset"])
         self.assertIsNotNone(found["title_offset"])
+        spaced = locate_person_title(
+            "alt='Chris  Shelling'>Assistant Head Coach / Defensive Coordinator",
+            person="Chris Shelling",
+            title="Assistant Head Coach / Defensive Coordinator",
+        )
+        self.assertTrue(spaced["locatable"])
+        self.assertIsNotNone(spaced["body_offset"])
+        recruits = locate_person_title(
+            "Curt Fitzpatrick — Fred '50 and Marilyn Dunlap Head Football Coach",
+            person="Curt Fitzpatrick",
+            title=(
+                "Fred '50 and Marilyn Dunlap Head Football Coach "
+                "Recruits: New York Sec 3/4/10, Alaska and Hawaii"
+            ),
+        )
+        self.assertTrue(recruits["locatable"])
+        coordinator = locate_person_title(
+            "Greg Jones, Football, Defensive Coordinator<br>Linebackers Coach",
+            person="Greg Jones",
+            title="Defensive Coordinator Linebackers Coach",
+        )
+        self.assertTrue(coordinator["locatable"])
         with self.assertRaises(ConfirmedSpanError):
             require_locatable_confirmed(html, person="Nobody", title="Head Coach")
         quarantined = quarantine_unlocatable_cell(

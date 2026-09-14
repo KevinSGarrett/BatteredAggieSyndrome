@@ -131,7 +131,7 @@ def main() -> int:
                 "src/aggie_analytics/cycle33/confirmed_spans.py",
                 str(SCI / "CYCLE33_CONFIRMED_SPAN_AUDIT.json"),
             ],
-            "Keep predecessor matrix immutable; successor quarantines unlocatable CONFIRMED cells.",
+            "Keep predecessor matrix immutable; successor now binds locatable person/title offsets for all 880 confirmed episodes.",
             "BAT-701",
             "HEAD_COACH_DUAL_OCCUPANCY is empty. Successor matrix rematerialized: 798 cells, Washington OC UNKNOWN_NOT_LISTED, operator_oc_present false. Cycle32 predecessor matrix artifact is preserved, not overwritten. Cached official HTML body/title offsets: "
             f"{spans.get('body_offset_present')} locatable / {spans.get('confirmed_episode_count')} confirmed; cache missing {spans.get('cache_html_missing')}; quarantined_or_partial_cells {spans.get('quarantined_or_partial_cells')}. Seven name-set disagreements remain review queues, not automated verdicts.",
@@ -566,9 +566,9 @@ def main() -> int:
                 "official_finals_successor_observations": 770,
                 "official_finals_successor_unique": 468,
                 "official_finals_quarantined_conflicts": 37,
-                "confirmed_spans_locatable": 847,
+                "confirmed_spans_locatable": 880,
                 "confirmed_spans_total": 880,
-                "confirmed_spans_quarantined_or_partial_cells": 32,
+                "confirmed_spans_quarantined_or_partial_cells": 0,
                 "tamu_asu_ncaa_contest_id": "6604259",
                 "user_csv_is_not_official": True,
                 "proven_pit": 0,
@@ -611,9 +611,9 @@ def main() -> int:
         "1. Implementation: local code/data/query work advanced; incomplete units remain.\n"
         "2. Data/evidence completeness: INCOMPLETE. Missingness labels are not completeness.\n"
         "3. Software validation: focused tests pass on committed HEAD PYTHONPATH=src "
-        "(35 Cycle33 / 75 Cycle32 / 63 Cycle30 glob). Isolated non-editable target install loaded "
-        "cycle33.query without worktree src. Hold, retired-pipeline, Jira strict/live, and checkout-authority validators PASS. "
-        "Hash seeds 0/1 PASS on focused Cycle33 tests. "
+        "(36 Cycle33 / 75 Cycle32 / 63 Cycle30 glob / 10 execution-focus). Isolated non-editable target install loaded "
+        "cycle33.query and sportradar_routes without worktree src. Hold, retired-pipeline, Jira strict/live, and checkout-authority validators PASS. "
+        "Warnings-as-errors PASS on focused Cycle33 tests. Hash seeds 0/1 remain to be rebound after the locator commit. "
         "Full unittest and hosted deterministic checks remain NOT_RUN or NOT_REVIEWED.\n"
         "4. Independent scientific acceptance: not conferred by self-tests.\n"
         "5. Integration/release: UNAUTHORIZED under hold.\n"
@@ -634,6 +634,7 @@ def main() -> int:
         "TAMU-ASU 6604259 historical not re-armed; MISSED_CUTOFF_NO_BACKFILL; Missouri State not reused.\n"
         "- Official-final successor: 770 observations / 468 unique / 37 quarantined conflicts; "
         "0 scored because no frozen forecasts are bound. Predecessor Cycle32 parsed 198.\n"
+        f"- Confirmed official spans: {spans.get('body_offset_present')} locatable / {spans.get('confirmed_episode_count')} episodes; quarantined_or_partial_cells {spans.get('quarantined_or_partial_cells')}. Predecessor matrix not overwritten.\n"
         "- Jira mirror not fully converged; paid review NOT_REVIEWED.\n"
     )
     (OUT / "CYCLE33_FINAL_REPORT.md").write_text(report, encoding="utf-8")

@@ -486,10 +486,10 @@ def main() -> int:
                 "tests": {
                     "test_cycle33_national_staff": {"tests": 31, "exit": 0},
                     "test_cycle32_manager_counterexamples": {"tests": 75, "exit": 0},
-                    "test_cycle30_adversarial_controls": {"tests": 61, "exit": "PENDING_THIS_EMISSION"},
+                    "test_cycle30_adversarial_controls": {"tests": 61, "exit": 0},
                 },
                 "uncommitted_source": False,
-                "isolated_wheel": "NOT_RUN",
+                "isolated_wheel": "PASS_NON_EDITABLE_TARGET_INSTALL",
                 "full_unittest": "NOT_RUN",
                 "warnings_as_errors": "NOT_RUN",
                 "hash_seeds": "NOT_RUN",
@@ -563,14 +563,16 @@ def main() -> int:
         "## Six dimensions\n\n"
         "1. Implementation: local code/data/query work advanced; incomplete units remain.\n"
         "2. Data/evidence completeness: INCOMPLETE. Missingness labels are not completeness.\n"
-        "3. Software validation: focused tests pass on dirty worktree PYTHONPATH=src "
-        "(31 Cycle33 / 75 Cycle32). Exact-head clean-room and isolated wheel not completed "
-        "as a detached submitted head before this emission.\n"
+        "3. Software validation: focused tests pass on committed HEAD PYTHONPATH=src "
+        "(31 Cycle33 / 75 Cycle32 / 61 Cycle30). Isolated non-editable target install loaded "
+        "cycle33.query without worktree src. Full unittest, Werror, seeds 0/1, Jira live "
+        "readback, and hosted deterministic checks remain NOT_RUN or NOT_REVIEWED.\n"
         "4. Independent scientific acceptance: not conferred by self-tests.\n"
         "5. Integration/release: UNAUTHORIZED under hold.\n"
         "6. Overall cycle: IN_PROGRESS_LOCAL_WORK_REMAINS.\n\n"
         "## Identities\n\n"
-        f"- Predecessor submitted head: `{HEAD}` (PR #687).\n"
+        f"- Cycle33 HEAD: `{HEAD}` on `codex/BAT-706-cycle33`.\n"
+        "- Cycle32 submitted predecessor: `ca8e0a1f4ef3b30e4b50505e98b463daabcd7185` (PR #687), base `7d680d17b90a784ddf8abbb90230ea48b34fa482`.\n"
         "- Canonical main is not the validation subject.\n"
         "- Pack restoration after accidental ops/cycle33 deletion: 9/15 Sept 14 files "
         "byte-identical; reconstructed companions are labeled in CYCLE33_PACK_RESTORATION.json.\n\n"

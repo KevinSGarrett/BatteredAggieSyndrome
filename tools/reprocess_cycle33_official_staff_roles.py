@@ -34,6 +34,8 @@ def main() -> int:
     unique_people: set[str] = set()
     program_name_pairs: set[tuple[str, str]] = set()
     unmapped = 0
+    unmapped_titles: set[str] = set()
+    unmapped_roles: Counter[str] = Counter()
     for line in PARSED.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
@@ -53,6 +55,9 @@ def main() -> int:
             occupancy[item["occupancy"]] += 1
         if unmapped_rows and not (primary or observed or qualified):
             unmapped += 1
+            unmapped_titles.add(title)
+            for item in unmapped_rows:
+                unmapped_roles[item["role"]] += 1
         person = str(row.get("person") or "")
         program = str(row.get("program_id") or row.get("display_name") or "")
         unique_people.add(person.casefold())
@@ -89,6 +94,8 @@ def main() -> int:
         "taxonomy_role_counts": dict(role_counts),
         "occupancy_counts": dict(occupancy),
         "unmapped_title_count": unmapped,
+        "unmapped_distinct_titles": sorted(unmapped_titles),
+        "unmapped_role_counts": dict(unmapped_roles),
         "pit_admitted": False,
         "not_principal_hc_oc_dc_promotion": True,
     }
@@ -99,7 +106,13 @@ def main() -> int:
         json.dumps(
             {
                 k: summary[k]
-                for k in ("record_count", "occupancy_counts", "unmapped_title_count")
+                for k in (
+                    "record_count",
+                    "occupancy_counts",
+                    "unmapped_title_count",
+                    "unmapped_distinct_titles",
+                    "unmapped_role_counts",
+                )
             },
             indent=2,
         )

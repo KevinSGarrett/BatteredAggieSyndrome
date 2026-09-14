@@ -197,8 +197,11 @@ _NOT_PROGRAM_HEAD_COACH = re.compile(
     |\bhead(?:\s+football)?\s+coach\s+(?:analyst|operations|assistant|support)\b
     |\bdirector\s+of\s+football\s+(?:operations|events|recruiting|alumni|
         communications|video|performance|administration)
+    |\bexecutive director of football\b
+    |\bassociate\s+(?:athletic\s+director|ad)\b
+    |\bexecutive director\b
     |\bexecutive coordinator\b
-    |\b(?:sports\s+performance|strength(?:\s+and\s+conditioning)?|track\s+and\s+field)\b
+    |\b(?:sports\s+performance|athletic\s+performance|strength(?:\s+and\s+conditioning)?|track\s+and\s+field)\b
     """,
     re.I | re.X,
 )

@@ -16,7 +16,7 @@ from typing import Any, Mapping
 from aggie_analytics.cycle30.coaching import parse_official_staff_html
 from aggie_analytics.cycle33.role_taxonomy import principal_role_families
 
-PARSER_VERSION = "BAS-STAFF-SPAN-SAME-RECORD-v33.2"
+PARSER_VERSION = "BAS-STAFF-SPAN-SAME-RECORD-v33.3"
 COORD_RAW = "raw_html"
 COORD_UNESCAPED = "html_unescaped"
 COORD_BR_NORMALIZED = "html_br_normalized"
@@ -214,8 +214,13 @@ def role_claim_supported_on_title(record_title: str, claimed_title: str) -> bool
         return True
     claimed_families = set(principal_role_families(claimed))
     record_families = set(principal_role_families(record))
-    if claimed_families and claimed_families <= record_families:
-        return True
+    if claimed_families:
+        return bool(claimed_families <= record_families)
+    record_fold = _fold(record)
+    for variant in _variants(claimed):
+        folded = _fold(variant)
+        if folded and folded in record_fold:
+            return True
     return False
 
 
@@ -239,6 +244,8 @@ def _table_records(html: str) -> list[dict[str, Any]]:
             continue
         person_cell = next((cell for cell in cells if cell["text"]), None)
         if person_cell is None:
+            continue
+        if not _name_like(person_cell["text"]):
             continue
         title_cell = next(
             (
@@ -309,6 +316,10 @@ def _name_like(text: str) -> bool:
     folded = _fold(text)
     if not folded or _looks_like_title(text):
         return False
+    if re.fullmatch(r"\d{4}", folded):
+        return False
+    if not re.search(r"[a-z]", folded):
+        return False
     parts = [part for part in re.split(r"[^\w.]+", folded) if part]
     return 1 <= len(parts) <= 6
 
@@ -374,9 +385,91 @@ def iter_staff_records(html: str) -> list[dict[str, Any]]:
     return list(_iter_staff_records_cached(html))
 
 
+_BIO_H1 = re.compile(
+    r'<h1\b[^>]*class="[^"]*roster-bio-main-info__title[^"]*"[^>]*>(.*?)</h1>',
+    re.I | re.S,
+)
+_BIO_POS = re.compile(
+    r'<strong\b[^>]*class="[^"]*roster-bio-main-info__position[^"]*"[^>]*>(.*?)</strong>',
+    re.I | re.S,
+)
+_BIO_TITLE_FIELD = re.compile(
+    r'roster-bio-meta__profile-field-label">\s*Title\s*</small>\s*'
+    r'<span\b[^>]*class="[^"]*roster-bio-meta__profile-field-value[^"]*"[^>]*>'
+    r"(.*?)</span>",
+    re.I | re.S,
+)
+
+
+def _staff_bio_records(html: str) -> list[dict[str, Any]]:
+    """Sidearm roster-bio subject card: H1 plus current Title/position only."""
+
+    body = html or ""
+    if "roster-bio" not in body.casefold():
+        return []
+    records: list[dict[str, Any]] = []
+    title_field = _BIO_TITLE_FIELD.search(body)
+    field_title = _plain(title_field.group(1)) if title_field else ""
+    for match in _BIO_H1.finditer(body):
+        person = _plain(match.group(1))
+        if not person:
+            continue
+        window = body[match.end() : match.end() + 1500]
+        pos = _BIO_POS.search(window)
+        title = _plain(pos.group(1) if pos else "") or field_title
+        if not title:
+            continue
+        title_start = (
+            match.end() + pos.start(1)
+            if pos is not None
+            else (title_field.start(1) if title_field else match.start(1))
+        )
+        title_end = (
+            match.end() + pos.end(1)
+            if pos is not None
+            else (title_field.end(1) if title_field else match.end(1))
+        )
+        records.append(
+            {
+                "kind": "staff_bio_card",
+                "selector": "h1.roster-bio-main-info__title+position",
+                "person": person,
+                "title": title,
+                "person_start": match.start(1),
+                "person_end": match.end(1),
+                "title_start": title_start,
+                "title_end": title_end,
+                "record_html": body[match.start() : title_end],
+            }
+        )
+    if records:
+        return records
+    if field_title:
+        title_tag = re.search(r"<title>(.*?)</title>", body, re.I | re.S)
+        person = _plain(title_tag.group(1)).split("-", 1)[0].strip() if title_tag else ""
+        if person and field_title:
+            records.append(
+                {
+                    "kind": "staff_bio_card",
+                    "selector": "title+roster-bio-meta__profile-field-value",
+                    "person": person,
+                    "title": field_title,
+                    "person_start": title_tag.start(1) if title_tag else 0,
+                    "person_end": title_tag.end(1) if title_tag else 0,
+                    "title_start": title_field.start(1) if title_field else 0,
+                    "title_end": title_field.end(1) if title_field else 0,
+                    "record_html": f"{person} {field_title}",
+                }
+            )
+    return records
+
+
 @lru_cache(maxsize=256)
 def _iter_staff_records_cached(html: str) -> tuple[dict[str, Any], ...]:
+    bio = _staff_bio_records(html)
     structured = _table_records(html)
+    if bio:
+        return tuple(bio + structured)
     if structured:
         return tuple(structured)
     official = _official_parser_records(html)

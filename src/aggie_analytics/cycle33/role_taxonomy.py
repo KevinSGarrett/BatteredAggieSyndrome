@@ -38,18 +38,31 @@ _ASSISTANT_TO = re.compile(
     r"to(?:\s+the)?\s+",
     re.I,
 )
+_COORDINATOR = r"coord(?:inator|iantor|inatior|intor)?"
 _ASSISTANT_OC = re.compile(
-    r"\b(?:assistant|associate|assoc\.|asst\.?)\s+(?:offensive\s+coordinator|\boc\b)",
+    rf"\b(?:assistant|associate|assoc\.|asst\.?)\s+(?:offensive\s+{_COORDINATOR}|\boc\b)",
     re.I,
 )
 _ASSISTANT_DC = re.compile(
-    r"\b(?:assistant|associate|assoc\.|asst\.?)\s+(?:defensive\s+coordinator|\bdc\b)",
+    rf"\b(?:assistant|associate|assoc\.|asst\.?)\s+(?:defensive\s+{_COORDINATOR}|\bdc\b)",
     re.I,
 )
-_CO_OC = re.compile(r"\bco[\s-]*offensive\s+coordinator\b|\bco[\s-]*oc\b", re.I)
-_CO_DC = re.compile(r"\bco[\s-]*defensive\s+coordinator\b|\bco[\s-]*dc\b", re.I)
-_OC = re.compile(r"\boffensive coordinator\b|\boff\.?\s*coor(?:dinator)?\.?", re.I)
-_DC = re.compile(r"\bdefensive coordinator\b|\bdef\.?\s*coor(?:dinator)?\.?", re.I)
+_CO_OC = re.compile(
+    rf"\bco[\s-]*offensive\s+{_COORDINATOR}\b|\bco[\s-]*oc\b",
+    re.I,
+)
+_CO_DC = re.compile(
+    rf"\bco[\s-]*defensive\s+{_COORDINATOR}\b|\bco[\s-]*dc\b",
+    re.I,
+)
+_OC = re.compile(
+    rf"\boffensive\s+{_COORDINATOR}\b|\boff\.?\s*coor(?:dinator)?\.?",
+    re.I,
+)
+_DC = re.compile(
+    rf"\bdefensive\s+{_COORDINATOR}\b|\bdef\.?\s*coor(?:dinator)?\.?",
+    re.I,
+)
 _SLASH_OC = re.compile(r"(?:^|[\s/])oc(?:[\s/]|$)", re.I)
 _SLASH_DC = re.compile(r"(?:^|[\s/])dc(?:[\s/]|$)", re.I)
 _HC = re.compile(
@@ -67,7 +80,11 @@ _NOT_HC = re.compile(
         \bhead(?:\s+football)?\s+coach
     |\b(?:to|for|of)(?:\s+the)?\s+head(?:\s+football)?\s+coach\b
     |\bhead(?:\s+football)?\s+coach\s+(?:analyst|operations|assistant|support)\b
-    |\b(?:sports\s+performance|strength(?:\s+and\s+conditioning)?|track\s+and\s+field)\b
+    |\bexecutive director of football\b
+    |\bassociate\s+(?:athletic\s+director|ad)\b
+    |\bexecutive director\b
+    |\b(?:sports\s+performance|athletic\s+performance|strength(?:\s+and\s+conditioning)?|track\s+and\s+field)\b
+    |\bhead(?:\s+football)?\s+coach\s+of\s+(?:athletic|sports)\s+performance
     |\bhead\s+strength\b
     |\bhead-coach\s+analyst\b
     """,
@@ -87,6 +104,12 @@ _ASSISTANT_DIRECTOR = re.compile(
 )
 _PRONOUN_TITLE = re.compile(
     r"^(?:she|he|they)(?:\s*/\s*(?:her|him|them|hers|his|theirs))+$",
+    re.I,
+)
+_WRONG_SPORT = re.compile(
+    r"\b(?:infield|outfield|pitching|softball|basketball|soccer|hockey|"
+    r"volleyball|equestrian|baseball|lacrosse|wrestling|swimming|"
+    r"water polo|tennis|golf)\b",
     re.I,
 )
 _BARE_ASSISTANT = re.compile(r"^assistant(?:\s+coach)?\.?$", re.I)
@@ -354,8 +377,19 @@ def extract_qualifiers(title: str) -> tuple[str, ...]:
     return tuple(dict.fromkeys(found))
 
 
+def football_title_scope(title: str) -> str:
+    """Reject non-football sport tokens from principal football occupancy."""
+
+    lowered = _norm(title)
+    if _WRONG_SPORT.search(lowered) and "football" not in lowered:
+        return "OTHER_SPORT_NOT_FOOTBALL"
+    return "FOOTBALL_OR_UNSPECIFIED"
+
+
 def _principal_oc(title: str) -> bool:
     lowered = _norm(title)
+    if football_title_scope(title) == "OTHER_SPORT_NOT_FOOTBALL":
+        return False
     if _ASSISTANT_TO.search(lowered):
         return False
     if _ASSISTANT_OC.search(lowered) and not _CO_OC.search(lowered):
@@ -372,6 +406,8 @@ def _principal_oc(title: str) -> bool:
 
 def _principal_dc(title: str) -> bool:
     lowered = _norm(title)
+    if football_title_scope(title) == "OTHER_SPORT_NOT_FOOTBALL":
+        return False
     if _ASSISTANT_TO.search(lowered):
         return False
     if _ASSISTANT_DC.search(lowered) and not _CO_DC.search(lowered):

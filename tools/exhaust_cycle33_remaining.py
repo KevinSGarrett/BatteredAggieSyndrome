@@ -616,6 +616,8 @@ def cs05() -> dict[str, Any]:
         "recall": recall,
         "unsampled_population": "ALL_OTHER_STAFF_AND_HISTORICAL_ROWS",
         "does_not_prove_unsampled_correct": True,
+        "name_hit_diagnostic_only": True,
+        "not_national_staff_role_precision_recall": True,
         "unknown_oc_dc_not_forced": True,
         "pit_admitted": False,
     }

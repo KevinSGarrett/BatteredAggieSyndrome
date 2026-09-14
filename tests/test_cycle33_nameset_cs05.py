@@ -1,0 +1,154 @@
+"""Nameset, taxonomy, bio-card, and independent CS-05 continuation tests."""
+
+from __future__ import annotations
+
+import unittest
+
+from aggie_analytics.cycle33.nameset_adjudication import (
+    adjudicate_person,
+    principal_occupants,
+)
+from aggie_analytics.cycle33.role_taxonomy import principal_role_families
+from aggie_analytics.cycle33.span_locate import bind_person_role, iter_staff_records
+from aggie_analytics.scientific_reference.cycle33_cs05 import (
+    FROZEN_CURRENT_LABELS,
+    independent_wiki_coach_lines,
+    score_sets,
+)
+
+
+class TaxonomyRepairTests(unittest.TestCase):
+    def test_athletic_performance_head_coach_is_not_program_hc(self) -> None:
+        title = "Head Coach of Athletic Performance - Football"
+        self.assertEqual(principal_role_families(title), ())
+        html = (
+            "<table><tr><td>Ken Niumatalolo</td><td>Head Coach</td></tr>"
+            f"<tr><td>Nu'u Tafisi</td><td>{title}</td></tr></table>"
+        )
+        found = bind_person_role(html, person="Nu'u Tafisi", title="Head Coach")
+        self.assertTrue(found["person_record_bound"])
+        self.assertFalse(found["role_claim_supported"])
+        occupants = principal_occupants(html, role="head_coach")
+        self.assertEqual([row["person"] for row in occupants], ["Ken Niumatalolo"])
+
+    def test_executive_director_of_football_is_not_head_coach(self) -> None:
+        title = "Associate AD, Executive Director of Football"
+        self.assertEqual(principal_role_families(title), ())
+        html = (
+            "<table><tr><td>James Franklin</td><td>Head Coach</td></tr>"
+            f"<tr><td>Michael Hazel</td><td>{title}</td></tr></table>"
+        )
+        found = bind_person_role(html, person="Michael Hazel", title="Head Coach")
+        self.assertTrue(found["person_record_bound"])
+        self.assertFalse(found["role_claim_supported"])
+        frank = bind_person_role(html, person="James Franklin", title="Head Coach")
+        self.assertTrue(frank["role_claim_supported"])
+
+    def test_coordinator_typo_and_infield_sport(self) -> None:
+        self.assertEqual(
+            principal_role_families("Defensive Coordiantor"),
+            ("defensive_coordinator",),
+        )
+        self.assertEqual(
+            principal_role_families("Defensive Coordinator/Infield Coach"),
+            (),
+        )
+
+    def test_assistant_oc_phrase_is_not_principal_oc(self) -> None:
+        html = (
+            "<table><tr><td>Dan Hunt</td>"
+            "<td>Associate Head Coach/Offensive Coordinator/Quarterbacks Coach"
+            "</td></tr>"
+            "<tr><td>Mike Morita</td>"
+            "<td>Assistant Offensive Coordinator/Offensive Line Coach</td></tr>"
+            "</table>"
+        )
+        hunt = bind_person_role(html, person="Dan Hunt", title="Offensive Coordinator")
+        self.assertTrue(hunt["role_claim_supported"])
+        morita_oc = bind_person_role(
+            html, person="Mike Morita", title="Offensive Coordinator"
+        )
+        self.assertTrue(morita_oc["person_record_bound"])
+        self.assertFalse(morita_oc["role_claim_supported"])
+        morita_asst = bind_person_role(
+            html, person="Mike Morita", title="Assistant Offensive Coordinator"
+        )
+        self.assertTrue(morita_asst["role_claim_supported"])
+
+
+class BioCardTests(unittest.TestCase):
+    def test_staff_bio_card_binds_subject_not_career_table(self) -> None:
+        html = (
+            "<title>Ken Niumatalolo - SJSU Athletics</title>"
+            '<h1 class="roster-bio-main-info__title">Ken Niumatalolo</h1>'
+            '<strong class="roster-bio-main-info__position">Head Coach</strong>'
+            "<table><tr><td>Year</td><td>School</td></tr>"
+            "<tr><td>2011</td><td>Navy</td></tr></table>"
+        )
+        found = bind_person_role(html, person="Ken Niumatalolo", title="Head Coach")
+        self.assertTrue(found["person_record_bound"])
+        self.assertTrue(found["role_claim_supported"])
+        self.assertEqual(found["record_kind"], "staff_bio_card")
+        tafisi = bind_person_role(html, person="Nu'u Tafisi", title="Head Coach")
+        self.assertFalse(tafisi["person_record_bound"])
+        people = [row["person"] for row in iter_staff_records(html)]
+        self.assertNotIn("2011", people)
+
+
+class OccupantTests(unittest.TestCase):
+    def test_principal_occupants_keep_co_dc_and_reject_analyst(self) -> None:
+        html = (
+            "<table>"
+            "<tr><td>Clayton White</td><td>Defensive Coordinator/LBs</td></tr>"
+            "<tr><td>Torrian Gray</td>"
+            "<td>Co-Defensive Coordinator/Defensive Backs Coach</td></tr>"
+            "<tr><td>Kyle Lindquist</td>"
+            "<td>Defensive Coordinator/Infield Coach</td></tr>"
+            "</table>"
+        )
+        occupants = principal_occupants(html, role="defensive_coordinator")
+        names = {row["person"] for row in occupants}
+        self.assertEqual(names, {"Clayton White", "Torrian Gray"})
+        lindquist = adjudicate_person(
+            html, person="Kyle Lindquist", role="defensive_coordinator"
+        )
+        self.assertNotEqual(
+            lindquist["verdict"], "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
+        )
+
+
+class IndependentCs05Tests(unittest.TestCase):
+    def test_independent_wiki_lines_do_not_use_producer(self) -> None:
+        text = (
+            "{{Infobox college football team\n"
+            "| head_coach = [[Darrell Dickey]]\n"
+            "| off_coach = Ramon Flanigan\n"
+            "| def_coach = Kenny Evans\n"
+            "}}\n"
+        )
+        labels = independent_wiki_coach_lines(text)
+        self.assertEqual(
+            {(row["person"], row["role"]) for row in labels},
+            {
+                ("Darrell Dickey", "head_coach"),
+                ("Ramon Flanigan", "offensive_coordinator"),
+                ("Kenny Evans", "defensive_coordinator"),
+            },
+        )
+
+    def test_score_sets_counts_extra_and_missed_inside_boundary(self) -> None:
+        expected = [
+            {"person": "Dan Hunt", "role": "offensive_coordinator"},
+        ]
+        extracted = [
+            {"person": "Dan Hunt", "role": "offensive_coordinator"},
+            {"person": "Mike Morita", "role": "offensive_coordinator"},
+        ]
+        metrics = score_sets(expected, extracted)
+        self.assertEqual(metrics["false_positive"], 1)
+        self.assertEqual(metrics["false_negative"], 0)
+        self.assertGreaterEqual(len(FROZEN_CURRENT_LABELS), 16)
+
+
+if __name__ == "__main__":
+    unittest.main()

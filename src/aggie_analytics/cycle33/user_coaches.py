@@ -529,6 +529,11 @@ def import_snapshot(
                             "cell_text": cell_text,
                             "segment_text": segment["segment_text"],
                             "person": segment["person_raw"],
+                            "person_identity_key": re.sub(
+                                r"\s+", " ", segment["person_raw"]
+                            )
+                            .casefold()
+                            .strip(),
                             "source_title": title,
                             "assignments": mapped,
                             "disposition": (
@@ -568,6 +573,13 @@ def import_snapshot(
             {str(row.get("observation_id") or "") for row in role_cells}
         ),
         "records_with_person": sum(1 for row in role_cells if row.get("person")),
+        "canonical_people_count": len(
+            {
+                str(row.get("person_identity_key") or "")
+                for row in role_cells
+                if row.get("person_identity_key")
+            }
+        ),
         "quarantined_count": len(quarantined),
         "manifest_file_count": len(expected_names),
         "extra_versioned_files": extra_files,

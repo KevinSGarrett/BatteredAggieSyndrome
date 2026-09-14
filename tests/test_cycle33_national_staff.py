@@ -37,11 +37,21 @@ from aggie_analytics.cycle33.official_finals import (
     require_no_conflicts,
 )
 from aggie_analytics.cycle33.role_taxonomy import assignments_from_title
+from aggie_analytics.cycle33.confirmed_spans import (
+    ConfirmedSpanError,
+    quarantine_unlocatable_cell,
+    require_locatable_confirmed,
+)
 from aggie_analytics.cycle33.span_locate import locate_person_title
 from aggie_analytics.cycle30.availability import classify_captured_document
 from aggie_analytics.cycle33.neutral import NeutralVenueError, travel_context
 from aggie_analytics.cycle33.scoring_successor import score_unique_frozen_games
 from aggie_analytics.cycle33.scheme_tenure import extract_scheme_tenure_claims
+from aggie_analytics.cycle33.sportradar_routes import (
+    ROUTE_INJURIES,
+    classify_ncaafb_path,
+    matrix_from_attempts,
+)
 from aggie_analytics.cycle33.findings import (
     CYCLE32_DISPOSITION_LABEL_TO_ORIGINAL_MR31,
     ORIGINAL_MR31_MEANINGS,
@@ -148,16 +158,16 @@ class RoleTaxonomyTests(unittest.TestCase):
         )
         pronouns = assignments_from_title("she/her/hers")
         self.assertEqual(pronouns[0]["occupancy"], "UNMAPPED")
+        self.assertEqual(pronouns[0]["role"], "pronoun_not_coaching_title")
         self.assertEqual(
             assignments_from_title("Bare Unknown Title")[0]["occupancy"], "UNMAPPED"
         )
-        self.assertEqual(
-            assignments_from_title("Assistant")[0]["occupancy"], "UNMAPPED"
-        )
-        self.assertEqual(
-            assignments_from_title("Assistant Western Coach")[0]["occupancy"],
-            "UNMAPPED",
-        )
+        bare_assistant = assignments_from_title("Assistant")
+        self.assertEqual(bare_assistant[0]["occupancy"], "UNMAPPED")
+        self.assertEqual(bare_assistant[0]["role"], "assistant_unspecified")
+        western = assignments_from_title("Assistant Western Coach")
+        self.assertEqual(western[0]["occupancy"], "UNMAPPED")
+        self.assertEqual(western[0]["role"], "unmapped_title_review_required")
 
     def test_broad_db_does_not_become_cb_and_s(self) -> None:
         roles = {row["role"] for row in assignments_from_title("Defensive Backs")}
@@ -406,15 +416,25 @@ class AcquisitionReceiptTests(unittest.TestCase):
             path = Path(tmp) / "cache.json"
             path.write_text("{}", encoding="utf-8")
             os.utime(path, (1_700_000_000, 1_700_000_000))
-            receipt = cache_hit_from_path(
+            unknown = cache_hit_from_path(
                 path, url="https://example/x?api_key=secret-value-123"
             )
-            self.assertEqual(receipt["status"], "CACHE_HIT")
-            self.assertEqual(receipt["retrieved_at_utc"], "2023-11-14T22:13:20Z")
+            self.assertEqual(unknown["status"], "CACHE_HIT_STATUS_UNKNOWN")
+            self.assertIsNone(unknown["http_status"])
+            self.assertFalse(unknown["ok"])
+            self.assertEqual(unknown["retrieved_at_utc"], "2023-11-14T22:13:20Z")
             self.assertNotEqual(
-                receipt["retrieved_at_utc"], receipt["cache_read_at_utc"]
+                unknown["retrieved_at_utc"], unknown["cache_read_at_utc"]
             )
-            self.assertNotIn("secret-value-123", receipt["route"])
+            self.assertNotIn("secret-value-123", unknown["route"])
+            receipt = cache_hit_from_path(
+                path,
+                url="https://example/x?api_key=secret-value-123",
+                original={"http_status": 200, "ok": True, "raw_sha256": "x"},
+            )
+            self.assertEqual(receipt["status"], "CACHE_HIT")
+            self.assertEqual(receipt["http_status"], 200)
+            self.assertEqual(receipt["retrieved_at_utc"], "2023-11-14T22:13:20Z")
 
 
 class IndependentReferenceTests(unittest.TestCase):
@@ -676,6 +696,15 @@ class SpanLocateTests(unittest.TestCase):
         self.assertTrue(found["locatable"])
         self.assertIsNotNone(found["body_offset"])
         self.assertIsNotNone(found["title_offset"])
+        with self.assertRaises(ConfirmedSpanError):
+            require_locatable_confirmed(html, person="Nobody", title="Head Coach")
+        quarantined = quarantine_unlocatable_cell(
+            {
+                "disposition": "CONFIRMED_APPOINTMENT",
+                "episode_refs": [{"person": "X", "locatable": False}],
+            }
+        )
+        self.assertEqual(quarantined["disposition"], "SPAN_NOT_LOCATABLE_QUARANTINE")
 
     def test_official_html_parser_records_body_offset(self) -> None:
         html = (
@@ -718,6 +747,41 @@ class FindingIdentityTests(unittest.TestCase):
         )
         self.assertIn("Missing numerical predictors", ORIGINAL_MR31_MEANINGS["MR31-10"])
         self.assertIn("Target freeze receipt", ORIGINAL_MR31_MEANINGS["MR31-09"])
+
+
+class SportradarRouteMatrixTests(unittest.TestCase):
+    def test_injuries_remain_not_attempted_without_guessed_404(self) -> None:
+        self.assertEqual(
+            classify_ncaafb_path("/ncaafb/production/v7/en/injuries.json"),
+            ROUTE_INJURIES,
+        )
+        matrix = matrix_from_attempts(
+            [
+                {
+                    "route": "https://api.sportradar.com/ncaafb/production/v7/en/league/teams.json",
+                    "http_status": 200,
+                    "status": "CACHE_HIT",
+                    "cached": True,
+                },
+                {
+                    "route": "https://api.sportradar.com/ncaafb/trial/v7/en/league/teams.json",
+                    "http_status": 403,
+                    "status": "HTTP_ERROR",
+                    "cached": False,
+                },
+            ]
+        )
+        injuries = next(
+            row for row in matrix["routes"] if row["route_kind"] == ROUTE_INJURIES
+        )
+        self.assertEqual(injuries["status"], "NOT_ATTEMPTED")
+        self.assertEqual(injuries["attempted"], 0)
+        teams = next(
+            row for row in matrix["routes"] if row["route_kind"] == "LEAGUE_TEAMS"
+        )
+        self.assertEqual(teams["capability_counts"]["UNAUTHORIZED"], 1)
+        self.assertEqual(teams["capability_counts"]["EVIDENCE_SUPPORTED"], 1)
+        self.assertTrue(matrix["injuries_not_inferred_from_guessed_404"])
 
 
 if __name__ == "__main__":

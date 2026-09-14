@@ -109,10 +109,26 @@ def cache_hit_from_path(
     )
     orig = dict(original or {})
     orig.setdefault("retrieved_at_utc", mtime)
-    orig.setdefault("http_status", orig.get("http_status") or 200)
-    orig.setdefault("ok", orig.get("ok", int(orig.get("http_status") or 200) < 400))
     orig.setdefault("route", url)
     orig.setdefault(
         "request_id", orig.get("request_identity") or orig.get("request_id")
     )
+    if orig.get("http_status") is None:
+        return {
+            "route": sanitize_url(str(url)),
+            "status": "CACHE_HIT_STATUS_UNKNOWN",
+            "http_status": None,
+            "ok": False,
+            "cached": True,
+            "retrieved_at_utc": orig.get("retrieved_at_utc"),
+            "cache_read_at_utc": utc_now(),
+            "original_request_id": orig.get("request_id")
+            or orig.get("original_request_id"),
+            "raw_sha256": orig.get("raw_sha256"),
+            "publication_or_revision": orig.get("publication_or_revision"),
+            "retrieval_clock_is_not_publication_clock": True,
+            "error_body_not_success": True,
+            "file_existence_is_not_http_200": True,
+        }
+    orig.setdefault("ok", orig.get("ok", int(orig.get("http_status") or 0) < 400))
     return cache_hit_receipt(original=orig, route=url)

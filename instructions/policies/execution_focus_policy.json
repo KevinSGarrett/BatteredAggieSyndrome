@@ -304,6 +304,48 @@
         "head_sha": "609c9d64bdb2c817ef4d51a031b10e9686fb75e2",
         "classification": "[material]",
         "reason": "Cycle #28 scoring/acquisition formatting on PR #681 touched material tools, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "4344810293607173058ccc5fa969064d154ac64f",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 locatable-span and career-join repairs on unpublished stacked successor of PR #687 changed material src/tests paths, but the commit subject omitted [material]. SHA-scoped only. No separate Cycle 33 GitHub PR exists yet."
+      },
+      {
+        "commit_sha": "c0b88b37feff8c078669d87bf892c071f502e0bc",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 packet/isolated-wheel bind on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "dc7504376c67d2142f4711ccbfcf264f5e5bb569",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 packet identity correction on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "534ca53e824daaac17d69436700841bfe015439e",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 cache-hit receipts, FCS scoreboards, unique-game scoring, JS-shell/neutral guards on unpublished stacked successor of PR #687 changed material src/tools/tests paths, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "41ff528ae48e897fe8414356fce7433a685b7120",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 packet emitter refresh for FCS/scoring denominators on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 validation-receipt emitter update on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

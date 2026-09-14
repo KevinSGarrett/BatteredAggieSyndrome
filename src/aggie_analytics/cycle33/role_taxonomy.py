@@ -13,7 +13,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Sequence
 
-TAXONOMY_VERSION = "BAS-COACH-ROLE-TAXONOMY-2026-09-14-v1"
+TAXONOMY_VERSION = "BAS-COACH-ROLE-TAXONOMY-2026-09-14-v1.1"
 PACK_TAXONOMY = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle33\COACH_ROLE_TAXONOMY.csv"
 )
@@ -85,6 +85,11 @@ _ASSISTANT_DIRECTOR = re.compile(
     r"\b(?:assistant|associate|assoc\.|asst\.?|deputy)\s+director of (?:offense|defen[cs]e)\b",
     re.I,
 )
+_PRONOUN_TITLE = re.compile(
+    r"^(?:she|he|they)(?:\s*/\s*(?:her|him|them|hers|his|theirs))+$",
+    re.I,
+)
+_BARE_ASSISTANT = re.compile(r"^assistant(?:\s+coach)?\.?$", re.I)
 
 POSITION_PATTERNS: tuple[tuple[str, str, str], ...] = (
     (r"\bspecial teams coordinator\b", "special_teams_coordinator", "SPECIAL_TEAMS"),
@@ -397,6 +402,10 @@ def assignments_from_title(title: str) -> list[dict[str, Any]]:
     if not raw:
         return []
     lowered = raw.casefold()
+    if _PRONOUN_TITLE.match(lowered):
+        return [
+            _assignment("pronoun_not_coaching_title", "UNKNOWN", [], raw, "UNMAPPED")
+        ]
     assignments: list[dict[str, Any]] = []
     qualifiers = extract_qualifiers(raw)
     if _principal_hc(raw):
@@ -469,9 +478,13 @@ def assignments_from_title(title: str) -> list[dict[str, Any]]:
                 continue
             assignments.append(_assignment(code, unit, qualifiers, raw, "OBSERVED"))
     if not assignments:
+        if _BARE_ASSISTANT.match(lowered):
+            code = "assistant_unspecified"
+        else:
+            code = "unmapped_title_review_required"
         assignments.append(
             _assignment(
-                "unmapped_title_review_required",
+                code,
                 "UNKNOWN",
                 qualifiers,
                 raw,

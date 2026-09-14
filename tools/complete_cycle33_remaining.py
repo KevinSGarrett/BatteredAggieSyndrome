@@ -28,8 +28,10 @@ from aggie_analytics.cycle33.query import (
     unresolved_roles,
 )
 from aggie_analytics.cycle33.scoring_successor import score_unique_frozen_games
+from aggie_analytics.cycle33.confirmed_spans import quarantine_unlocatable_cell
 from aggie_analytics.cycle33.span_locate import locate_person_title
 from aggie_analytics.cycle33.user_coaches import import_snapshot
+from aggie_analytics.cycle33.sportradar_routes import matrix_from_attempts
 
 OUT = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle33\runs\20260914T130736Z"
@@ -57,6 +59,15 @@ def utc_now() -> str:
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
+
+
+def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows)
+        + ("\n" if rows else ""),
+        encoding="utf-8",
+    )
 
 
 def load_json(path: Path) -> Any:
@@ -135,12 +146,16 @@ def relink_spans() -> dict[str, Any]:
     audits = []
     locatable = 0
     confirmed = 0
+    successor = []
+    quarantined_cells = 0
     for cell in matrix:
         if str(cell.get("disposition") or "") not in {
             "CONFIRMED_APPOINTMENT",
             "CONFIRMED_CO_SHARED_ROLE",
         }:
+            successor.append({**cell, "span_adjudicated": False})
             continue
+        new_eps = []
         for ep in cell.get("episode_refs") or []:
             confirmed += 1
             url = str(ep.get("page_url") or "")
@@ -158,6 +173,8 @@ def relink_spans() -> dict[str, Any]:
             )
             if found["locatable"]:
                 locatable += 1
+            merged = {**ep, **found}
+            new_eps.append(merged)
             audits.append(
                 {
                     "program_id": cell.get("program_id"),
@@ -166,14 +183,22 @@ def relink_spans() -> dict[str, Any]:
                     **found,
                 }
             )
+        updated = quarantine_unlocatable_cell({**cell, "episode_refs": new_eps})
+        if updated.get("disposition") != cell.get("disposition"):
+            quarantined_cells += 1
+        successor.append(updated)
+    write_jsonl(OUT / "CYCLE33_CONFIRMED_SPAN_AUDIT.jsonl", audits)
+    write_jsonl(OUT / "CYCLE33_CURRENT_HC_OC_DC_MATRIX_SPAN_SUCCESSOR.jsonl", successor)
     payload = {
         "artifact_type": "CYCLE33_CONFIRMED_SPAN_AUDIT",
         "confirmed_episode_count": confirmed,
         "body_offset_present": locatable,
         "string_built_without_body_offset": confirmed - locatable,
         "cache_html_missing": 0,
+        "quarantined_or_partial_cells": quarantined_cells,
         "locator_version": "html-unescape-jr-apostrophe",
         "unsupported_confirmed_if_not_locatable": True,
+        "predecessor_matrix_not_overwritten": True,
         "pit_admitted": False,
     }
     write_json(OUT / "CYCLE33_CONFIRMED_SPAN_AUDIT.json", payload)
@@ -293,12 +318,21 @@ def risk_queue() -> dict[str, Any]:
                 "pit_admitted": False,
             }
         )
+    by_reason: dict[str, int] = {}
+    for row in rows:
+        reason = str(row.get("reason") or "UNSPECIFIED")
+        by_reason[reason] = by_reason.get(reason, 0) + 1
+    write_jsonl(OUT / "CYCLE33_USER_CORPUS_RISK_QUEUE.jsonl", rows)
     payload = {
         "artifact_type": "CYCLE33_USER_CORPUS_RISK_QUEUE",
         "count": len(rows),
         "source_count": queue.get("count"),
         "by_file": queue.get("by_file"),
+        "by_reason": by_reason,
+        "row_level_jsonl": str(OUT / "CYCLE33_USER_CORPUS_RISK_QUEUE.jsonl"),
         "not_automated_verdicts": True,
+        "identity_accepted": False,
+        "fact_verified": False,
         "pit_admitted": False,
     }
     write_json(OUT / "CYCLE33_USER_CORPUS_RISK_QUEUE.json", payload)
@@ -489,32 +523,14 @@ def scoring_successor() -> dict[str, Any]:
 
 
 def sportradar_routes() -> dict[str, Any]:
-    raw = PRED.parent / "raw"
-    files = []
-    if raw.is_dir():
-        for path in raw.rglob("*"):
-            if not path.is_file():
-                continue
-            blob = str(path).casefold()
-            if "sportradar" not in blob and "sport_radar" not in blob:
-                continue
-            files.append(
-                {
-                    "path": str(path),
-                    "bytes": path.stat().st_size,
-                    "injuries_inferred": False,
-                }
-            )
-    payload = {
-        "artifact_type": "CYCLE33_SPORTRADAR_ROUTE_MATRIX",
-        "as_of_utc": utc_now(),
-        "cached_named_artifacts": files,
-        "injuries_not_inferred_from_guessed_404": True,
-        "capability_status": "EVIDENCE_FROM_EXISTING_CACHES_AND_PUBLIC_DOCS_ONLY",
-        "unsupported_vs_unauthorized_vs_quota_not_collapsed": True,
-        "no_paid_review_provider": True,
-        "pit_admitted": False,
-    }
+    ledger = load_json(PRED / "CYCLE30_SPORTSRADAR_STAFF_LEDGER.json")
+    attempts = list(ledger.get("attempts") or [])
+    payload = matrix_from_attempts(attempts)
+    payload["as_of_utc"] = utc_now()
+    payload["ledger_path"] = str(PRED / "CYCLE30_SPORTSRADAR_STAFF_LEDGER.json")
+    payload["access_level_declared"] = ledger.get("access_level")
+    payload["cached_named_artifact_count"] = len(attempts)
+    payload["capability_status"] = "EVIDENCE_FROM_EXISTING_LEDGER_AND_CACHES_ONLY"
     write_json(OUT / "CYCLE33_SPORTRADAR_ROUTE_MATRIX.json", payload)
     return payload
 

@@ -512,8 +512,9 @@ def main() -> int:
                 "isolated_wheel": "PASS_NON_EDITABLE_TARGET_INSTALL",
                 "full_unittest": "NOT_RUN",
                 "warnings_as_errors": "FOCUSED_CYCLE33_PASS",
-                "hash_seeds": "NOT_RUN",
-                "jira_strict_live_readback": "NOT_RUN",
+                "hash_seeds": {"0": "PASS", "1": "PASS"},
+                "jira_strict_live_readback": "PASS",
+                "checkout_authority_pins": "PASS",
                 "scientific_trust_hold_validator": "PASS",
                 "retired_assistive_pipeline_decommission": "PASS",
                 "paid_review": "NOT_REVIEWED",
@@ -594,8 +595,9 @@ def main() -> int:
         "2. Data/evidence completeness: INCOMPLETE. Missingness labels are not completeness.\n"
         "3. Software validation: focused tests pass on committed HEAD PYTHONPATH=src "
         "(35 Cycle33 / 75 Cycle32 / 63 Cycle30 glob). Isolated non-editable target install loaded "
-        "cycle33.query without worktree src. Hold and retired-pipeline validators PASS. "
-        "Full unittest, hash seeds 0/1, Jira live readback, and hosted deterministic checks remain NOT_RUN or NOT_REVIEWED.\n"
+        "cycle33.query without worktree src. Hold, retired-pipeline, Jira strict/live, and checkout-authority validators PASS. "
+        "Hash seeds 0/1 PASS on focused Cycle33 tests. "
+        "Full unittest and hosted deterministic checks remain NOT_RUN or NOT_REVIEWED.\n"
         "4. Independent scientific acceptance: not conferred by self-tests.\n"
         "5. Integration/release: UNAUTHORIZED under hold.\n"
         "6. Overall cycle: IN_PROGRESS_LOCAL_WORK_REMAINS.\n\n"

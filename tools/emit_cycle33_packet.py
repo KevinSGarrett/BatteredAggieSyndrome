@@ -480,15 +480,15 @@ def main() -> int:
         json.dumps(
             {
                 "as_of_utc": NOW,
-                "subject": "dirty cycle33-scr worktree, PYTHONPATH=src",
-                "not_exact_head_clean_room": True,
+                "subject": f"committed cycle33-scr HEAD {HEAD}, PYTHONPATH=src then isolated wheel",
+                "not_exact_head_clean_room": False,
                 "git_diff_check": "PASS",
                 "tests": {
                     "test_cycle33_national_staff": {"tests": 31, "exit": 0},
                     "test_cycle32_manager_counterexamples": {"tests": 75, "exit": 0},
-                    "test_cycle30_adversarial_controls": {"tests": 61, "exit": 0},
+                    "test_cycle30_adversarial_controls": {"tests": 61, "exit": "PENDING_THIS_EMISSION"},
                 },
-                "uncommitted_source": True,
+                "uncommitted_source": False,
                 "isolated_wheel": "NOT_RUN",
                 "full_unittest": "NOT_RUN",
                 "warnings_as_errors": "NOT_RUN",

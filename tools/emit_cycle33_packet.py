@@ -299,7 +299,7 @@ def main() -> int:
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
             ["src/aggie_analytics/cycle33/findings.py"],
-            "Attach claim-level evidence per requirement instead of generic bundles.",
+            "Keep per-requirement evidence rows distinct from inherited traces; no generic three-file bundle.",
             "BAT-706",
             "Cycle32 MR31-09 onward label shift restored to original meanings. Predecessor report preserved. Inherited R32/WG32/R31 traces "
             f"{inherited.get('count')}. Generic three-file bundles forbidden.",
@@ -463,6 +463,42 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
+    (SCI / "CYCLE33_CLAIM_LEVEL_EVIDENCE.json").write_text(
+        json.dumps(
+            {
+                "artifact_type": "CYCLE33_CLAIM_LEVEL_EVIDENCE",
+                "generic_three_file_bundle_forbidden": True,
+                "as_of_utc": NOW,
+                "rows": [
+                    {
+                        "id": row["requirement_id"],
+                        "evidence": row["implementation_evidence"],
+                        "state": row["state"],
+                        "block_class": row["block_class"],
+                        "next_action": row["next_action"],
+                    }
+                    for row in requirements
+                ],
+                "ucs": [
+                    {
+                        "id": row.get("clause"),
+                        "state": row.get("state"),
+                        "block_class": row.get("block_class"),
+                        "notes": row.get("notes"),
+                    }
+                    for row in ucs
+                ],
+                "inherited_traces": str(
+                    SCI / "CYCLE33_INHERITED_OBLIGATION_TRACES.json"
+                ),
+                "inherited_count": (inherited or {}).get("count") or 57,
+                "pit_admitted": False,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     findings = []
     for fid, meaning in ORIGINAL_MR31_MEANINGS.items():
         findings.append(
@@ -520,12 +556,16 @@ def main() -> int:
                 "uncommitted_source": False,
                 "isolated_wheel": "PASS_NON_EDITABLE_TARGET_INSTALL",
                 "full_unittest": {
-                    "tests": 3558,
-                    "failures": 1,
+                    "tests": 3559,
+                    "failures": 2,
                     "skipped": 257,
                     "exit": 1,
-                    "elapsed_s": 1067.174,
-                    "failure": "test_repository_policy_is_valid_before_new_commit COMMIT_CLASSIFICATION_INVALID on 6 Cycle 33 subjects; SHA-scoped historical_integration_corrections applied",
+                    "elapsed_s": 1286.987,
+                    "failure": "instruction hash ledger stale for execution_focus_policy.json after SHA-scoped classification corrections",
+                    "post_hash_regen": {
+                        "test_autonomous_control_tools": "PASS",
+                        "test_instructions_pack": "PASS",
+                    },
                 },
                 "warnings_as_errors": "FOCUSED_CYCLE33_PASS",
                 "hash_seeds": {"0": "PASS", "1": "PASS"},
@@ -613,8 +653,10 @@ def main() -> int:
         "3. Software validation: focused tests pass on committed HEAD PYTHONPATH=src "
         "(36 Cycle33 / 75 Cycle32 / 63 Cycle30 glob / 10 execution-focus). Isolated non-editable target install loaded "
         "cycle33.query and sportradar_routes without worktree src. Hold, retired-pipeline, Jira strict/live, and checkout-authority validators PASS. "
-        "Warnings-as-errors PASS on focused Cycle33 tests. Hash seeds 0/1 remain to be rebound after the locator commit. "
-        "Full unittest and hosted deterministic checks remain NOT_RUN or NOT_REVIEWED.\n"
+        "Warnings-as-errors PASS on focused Cycle33 tests. Hash seeds 0/1 PASS on focused Cycle33 tests at HEAD 49db4330. "
+        "Mounted full unittest at that HEAD: 3559 tests, 2 failures (stale execution_focus_policy hashes), 257 skipped, 1286.987s. "
+        "Instruction hashes were regenerated; test_autonomous_control_tools and test_instructions_pack PASS afterward. "
+        "A full-suite rerun after the hash-ledger commit remains if this emission predates that commit. Hosted deterministic checks remain NOT_REVIEWED.\n"
         "4. Independent scientific acceptance: not conferred by self-tests.\n"
         "5. Integration/release: UNAUTHORIZED under hold.\n"
         "6. Overall cycle: IN_PROGRESS_LOCAL_WORK_REMAINS.\n\n"

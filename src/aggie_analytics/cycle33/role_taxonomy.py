@@ -87,6 +87,9 @@ _NOT_HC = re.compile(
     |\bhead(?:\s+football)?\s+coach\s+of\s+(?:athletic|sports)\s+performance
     |\bhead\s+strength\b
     |\bhead-coach\s+analyst\b
+    |\bassoc(?:iate|\.)?\s+hc\b
+    |\bassistant\s+hc\b
+    |\bdeputy\s+hc\b
     """,
     re.I | re.X,
 )
@@ -100,6 +103,10 @@ _DIRECTOR_DEFENSE = re.compile(
 )
 _ASSISTANT_DIRECTOR = re.compile(
     r"\b(?:assistant|associate|assoc\.|asst\.?|deputy)\s+director of (?:offense|defen[cs]e)\b",
+    re.I,
+)
+_FORMAL_TITLE_UNESTABLISHED = re.compile(
+    r"formal title not established|responsibility; formal title",
     re.I,
 )
 _PRONOUN_TITLE = re.compile(
@@ -390,6 +397,8 @@ def _principal_oc(title: str) -> bool:
     lowered = _norm(title)
     if football_title_scope(title) == "OTHER_SPORT_NOT_FOOTBALL":
         return False
+    if _FORMAL_TITLE_UNESTABLISHED.search(lowered):
+        return False
     if _ASSISTANT_TO.search(lowered):
         return False
     if _ASSISTANT_OC.search(lowered) and not _CO_OC.search(lowered):
@@ -407,6 +416,8 @@ def _principal_oc(title: str) -> bool:
 def _principal_dc(title: str) -> bool:
     lowered = _norm(title)
     if football_title_scope(title) == "OTHER_SPORT_NOT_FOOTBALL":
+        return False
+    if _FORMAL_TITLE_UNESTABLISHED.search(lowered):
         return False
     if _ASSISTANT_TO.search(lowered):
         return False

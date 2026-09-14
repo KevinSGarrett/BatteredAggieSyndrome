@@ -77,43 +77,44 @@ def connect(database: Path, *, readonly: bool = True) -> sqlite3.Connection:
 
 
 def load_import(conn: sqlite3.Connection, imported: Mapping[str, Any]) -> int:
-    rows = 0
     conn.execute("DELETE FROM staff_role_cells")
-    for cell in imported.get("role_cells") or []:
-        conn.execute(
-            """
-            INSERT INTO staff_role_cells (
-                observation_id, canonical_claim_id, source_file, team,
-                team_id_source, season, role_column, person, source_title,
-                disposition, support_column, principal_role_blocked,
-                source_class, pit_admitted, cell_text, subdivision, verified
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-            """,
-            (
-                cell.get("observation_id"),
-                cell.get("canonical_claim_id"),
-                cell.get("source_file"),
-                cell.get("team"),
-                cell.get("team_id_source"),
-                str(cell.get("season") or ""),
-                cell.get("role_column"),
-                cell.get("person"),
-                cell.get("source_title"),
-                cell.get("disposition"),
-                1 if cell.get("support_column") else 0,
-                1 if cell.get("principal_role_blocked") else 0,
-                cell.get("source_class") or "USER_COMPILED_RESEARCH_OBSERVATION",
-                1 if cell.get("pit_admitted") is True else 0,
-                cell.get("cell_text"),
-                cell.get("source_subdivision")
-                or cell.get("filename_subdivision")
-                or "SUBDIVISION_UNRESOLVED",
-                1 if cell.get("verified") is True else 0,
-            ),
+    payload = [
+        (
+            cell.get("observation_id"),
+            cell.get("canonical_claim_id"),
+            cell.get("source_file"),
+            cell.get("team"),
+            cell.get("team_id_source"),
+            str(cell.get("season") or ""),
+            cell.get("role_column"),
+            cell.get("person"),
+            cell.get("source_title"),
+            cell.get("disposition"),
+            1 if cell.get("support_column") else 0,
+            1 if cell.get("principal_role_blocked") else 0,
+            cell.get("source_class") or "USER_COMPILED_RESEARCH_OBSERVATION",
+            1 if cell.get("pit_admitted") is True else 0,
+            cell.get("cell_text"),
+            cell.get("source_subdivision")
+            or cell.get("filename_subdivision")
+            or "SUBDIVISION_UNRESOLVED",
+            1 if cell.get("verified") is True else 0,
         )
-        rows += 1
+        for cell in imported.get("role_cells") or []
+    ]
+    conn.executemany(
+        """
+        INSERT INTO staff_role_cells (
+            observation_id, canonical_claim_id, source_file, team,
+            team_id_source, season, role_column, person, source_title,
+            disposition, support_column, principal_role_blocked,
+            source_class, pit_admitted, cell_text, subdivision, verified
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        """,
+        payload,
+    )
     conn.commit()
-    return rows
+    return len(payload)
 
 
 def team_staff(
@@ -196,6 +197,69 @@ def unresolved_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:
         """
     )
     return [dict(row) for row in cur.fetchall()]
+
+
+def run_query_demonstrations(
+    *,
+    database: Path,
+    imported: Mapping[str, Any],
+    scheme_claims: Sequence[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Explicit import then read-only queries. Missing DB is not created."""
+
+    path = Path(database)
+    if path.exists():
+        raise StaffQueryError("demonstration database must not already exist")
+    writer = connect_for_import(path)
+    try:
+        load_import(writer, imported)
+        if scheme_claims:
+            load_scheme_claims(writer, scheme_claims)
+        writer.commit()
+    finally:
+        writer.close()
+    reader = connect_readonly(path)
+    try:
+        historical_fbs = team_staff(reader, team="Air Force", season="2018")
+        historical_fcs = team_staff(reader, team="Lehigh", season="2000")
+        if not historical_fcs:
+            historical_fcs = team_staff(reader, team="Lehigh", season="2026")
+        current_staff = team_staff(reader, team="Texas A&M", season="2026")
+        career = coach_career(reader, person="Troy Calhoun")
+        unresolved = unresolved_roles(reader)
+        schemes = team_schemes(reader, program="Air Force", season="2018")
+        evidence = [
+            {
+                "observation_id": row.get("observation_id"),
+                "person": row.get("person"),
+                "role_column": row.get("role_column"),
+                "source_title": row.get("source_title"),
+                "disposition": row.get("disposition"),
+                "source_subdivision": row.get("subdivision"),
+            }
+            for row in historical_fbs
+            if row.get("person")
+        ][:5]
+    finally:
+        reader.close()
+    return {
+        "artifact_type": "CYCLE33_QUERY_DEMONSTRATIONS",
+        "database": str(path),
+        "explicit_import_separate_from_readonly": True,
+        "requires_explicit_database": True,
+        "no_private_path_default": True,
+        "historical_fbs_rows": len(historical_fbs),
+        "historical_fcs_or_current_fcs_rows": len(historical_fcs),
+        "current_staff_rows": len(current_staff),
+        "multi_school_career_rows": len(career),
+        "unresolved_visible": len(unresolved),
+        "scheme_rows": len(schemes),
+        "per_row_evidence_sample": evidence,
+        "unknown_not_silently_omitted": True,
+        "role_column_list_is_not_qualified_assignment": True,
+        "market_margin_is_not_bas_score": True,
+        "pit_admitted": False,
+    }
 
 
 def main(argv: Sequence[str] | None = None) -> int:

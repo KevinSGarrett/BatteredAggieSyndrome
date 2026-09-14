@@ -17,7 +17,11 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from aggie_analytics.cycle33 import USER_IMPORTER_VERSION, USER_SOURCE_CLASS
-from aggie_analytics.cycle33.role_taxonomy import assignments_from_title
+from aggie_analytics.cycle33.role_taxonomy import (
+    QUALIFIER_ACTING,
+    QUALIFIER_INTERIM,
+    assignments_from_title,
+)
 
 DEFAULT_SNAPSHOT = Path(
     r"C:\BatteredAggieSyndrome.data\ops\manager_reviews\cycle33_user_coaches"
@@ -623,6 +627,245 @@ def _header_season_conflict(
             and str(filename_year) != str(season_cell).strip()
         )
         or any(year != filename_year for year in year_in_headers if filename_year),
+    }
+
+
+NAMED_OVERLAP_KEYS: tuple[dict[str, Any], ...] = (
+    {
+        "label": "FIU_2004",
+        "season": "2004",
+        "team_keys": ("fiu", "florida international"),
+    },
+    {
+        "label": "FAU_2004",
+        "season": "2004",
+        "team_keys": ("florida_atlantic", "florida atlantic", "fau"),
+    },
+    {
+        "label": "WKU_2007",
+        "season": "2007",
+        "team_keys": ("western_kentucky", "western kentucky", "wku"),
+    },
+)
+
+
+def conservation_checks(imported: Mapping[str, Any]) -> dict[str, Any]:
+    """Reconstruct summary grains from row-level records. None is unique people."""
+
+    observations = list(imported.get("observations") or [])
+    role_cells = list(imported.get("role_cells") or [])
+    queue_rows = list(imported.get("queue_rows") or [])
+    files = list(imported.get("files") or [])
+    reconstructed = {
+        "source_files": len(files),
+        "staff_rows": len(observations),
+        "queue_rows": len(queue_rows),
+        "physically_present_role_cells": len(
+            {str(row.get("observation_id") or "") for row in role_cells}
+        ),
+        "parsed_person_segments": sum(
+            1 for row in role_cells if row.get("person")
+        ),
+        "emitted_role_assignment_records": len(role_cells),
+        "distinct_source_role_cell_ids": len(
+            {str(row.get("observation_id") or "") for row in role_cells}
+        ),
+        "canonical_people_keys": len(
+            {
+                str(row.get("person_identity_key") or "")
+                for row in role_cells
+                if row.get("person_identity_key")
+            }
+        ),
+    }
+    declared = {
+        "source_files": imported.get("file_count"),
+        "staff_rows": imported.get("staff_row_count")
+        or imported.get("staff_observation_count"),
+        "queue_rows": imported.get("queue_row_count"),
+        "physically_present_role_cells": imported.get(
+            "physically_present_role_cells"
+        ),
+        "parsed_person_segments": imported.get("parsed_person_segment_count"),
+        "emitted_role_assignment_records": imported.get(
+            "emitted_role_assignment_records"
+        )
+        or imported.get("role_cell_count"),
+        "distinct_source_role_cell_ids": imported.get(
+            "distinct_source_role_cell_ids"
+        ),
+        "canonical_people_keys": imported.get("canonical_people_count"),
+    }
+    mismatches = {
+        key: {"declared": declared[key], "reconstructed": reconstructed[key]}
+        for key in reconstructed
+        if declared.get(key) not in {None, reconstructed[key]}
+    }
+    return {
+        "reconstructed": reconstructed,
+        "declared": declared,
+        "mismatches": mismatches,
+        "conserved": not mismatches,
+        "grains_are_not_unique_people": True,
+        "hardcoded_counters_forbidden": True,
+    }
+
+
+def _team_key(row: Mapping[str, Any]) -> str:
+    team_id = str(row.get("team_id_source") or "").strip().casefold()
+    if team_id:
+        return team_id
+    return re.sub(r"\s+", " ", str(row.get("team") or "")).strip().casefold()
+
+
+def overlap_program_seasons(
+    imported: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Same program-season listed under both FBS and FCS source files."""
+
+    buckets: dict[tuple[str, str], dict[str, list[dict[str, Any]]]] = {}
+    for row in imported.get("observations") or []:
+        season = str(row.get("season_cell") or row.get("filename_year") or "")
+        key = (season, _team_key(row))
+        sub = str(row.get("filename_subdivision") or row.get("source_subdivision") or "")
+        bucket = buckets.setdefault(key, {"FBS": [], "FCS": [], "OTHER": []})
+        if "FCS" in sub.upper() or "I-AA" in sub.upper() or "IAA" in sub.upper():
+            bucket["FCS"].append(row)
+        elif "FBS" in sub.upper() and "FCS" not in sub.upper():
+            bucket["FBS"].append(row)
+        else:
+            bucket["OTHER"].append(row)
+    overlaps = []
+    for (season, team_key), bucket in sorted(buckets.items()):
+        if bucket["FBS"] and bucket["FCS"]:
+            overlaps.append(
+                {
+                    "season": season,
+                    "team_key": team_key,
+                    "team": (bucket["FBS"][0].get("team") or bucket["FCS"][0].get("team")),
+                    "fbs_files": sorted(
+                        {str(row.get("source_file")) for row in bucket["FBS"]}
+                    ),
+                    "fcs_files": sorted(
+                        {str(row.get("source_file")) for row in bucket["FCS"]}
+                    ),
+                    "disposition": "TRANSITION_OVERLAP_BOTH_SOURCE_ROWS_RETAINED",
+                    "silent_fbs_promotion_forbidden": True,
+                    "review_queue_is_not_repair": True,
+                    "pit_admitted": False,
+                }
+            )
+    named = []
+    for spec in NAMED_OVERLAP_KEYS:
+        match = [
+            row
+            for row in overlaps
+            if row["season"] == spec["season"]
+            and any(token == row["team_key"] or token in row["team_key"] for token in spec["team_keys"])
+        ]
+        named.append(
+            {
+                **spec,
+                "found": bool(match),
+                "matches": match,
+                "adjudication": (
+                    "BOTH_SOURCE_SUBDIVISION_ROWS_RETAINED_NO_AUTO_FBS"
+                    if match
+                    else "NAMED_OVERLAP_KEY_NOT_FOUND"
+                ),
+            }
+        )
+    return {
+        "overlap_count": len(overlaps),
+        "overlaps": overlaps,
+        "named_keys": named,
+        "all_named_found": all(row["found"] for row in named),
+        "filename_subdivision_is_not_historical_membership": True,
+        "pit_admitted": False,
+    }
+
+
+def adjudicate_risk_fragment(
+    fragment: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Title-taxonomy adjudication. Not official confirmation or PIT."""
+
+    text = str(fragment.get("fragment") or "")
+    column = str(fragment.get("column") or "")
+    segments = parse_person_segments(text)
+    title = segments[0]["title_raw"] if segments else text
+    person = segments[0]["person_raw"] if segments else None
+    mapped = assignments_from_title(title or text)
+    qualifiers = tuple(
+        item
+        for assignment in mapped
+        for item in assignment.get("qualifiers") or []
+    )
+    occupancies = {str(item.get("occupancy")) for item in mapped}
+    roles = {str(item.get("role")) for item in mapped}
+    interim = any(
+        token in {QUALIFIER_INTERIM, QUALIFIER_ACTING}
+        for token in qualifiers
+    ) or bool(re.search(r"\b(interim|acting)\b", text, re.I))
+    column_folded = column.casefold()
+    if interim and (
+        "head_coach" in roles
+        or re.search(r"\b(interim|acting)\s+head(?:\s+football)?\s+coach\b", text, re.I)
+    ):
+        disposition = "POSITIVE_CONTROL_INTERIM_OR_ACTING"
+    elif re.search(r"\bassoc(?:iate|\.)?\s+hc\b", text, re.I) and "head coach" in column_folded:
+        disposition = "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN"
+    elif "head coach" in column_folded and occupancies & {
+        "QUALIFIED_NOT_PRINCIPAL"
+    } and "PRINCIPAL" not in occupancies:
+        disposition = "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN"
+    elif "head coach" in column_folded and "head_coach" in roles and "PRINCIPAL" in {
+        str(item.get("occupancy"))
+        for item in mapped
+        if item.get("role") == "head_coach"
+    }:
+        disposition = "PRINCIPAL_HC_FROM_USER_TITLE_NOT_OFFICIAL"
+    elif "head coach" in column_folded:
+        disposition = "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN"
+    elif "formal title not established" in text.casefold():
+        disposition = "FORMAL_TITLE_NOT_ESTABLISHED_NOT_PRINCIPAL"
+    elif any(token in column_folded for token in ("coordinator",)) and not any(
+        item.get("occupancy") == "PRINCIPAL"
+        and item.get("role") in {"offensive_coordinator", "defensive_coordinator"}
+        for item in mapped
+    ):
+        disposition = "QUALIFIED_NOT_PRINCIPAL_COORDINATOR"
+    else:
+        disposition = "OWNER_EPISODE_REVIEW_RETAINED"
+    return {
+        **dict(fragment),
+        "person": person,
+        "parsed_title": title,
+        "taxonomy_assignments": mapped,
+        "adjudication": disposition,
+        "review_queue_is_not_repair": disposition
+        == "OWNER_EPISODE_REVIEW_RETAINED",
+        "fact_verified": False,
+        "identity_accepted": False,
+        "official_confirmation": False,
+        "pit_admitted": False,
+    }
+
+
+def adjudicate_risk_fragments(
+    fragments: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    rows = [adjudicate_risk_fragment(item) for item in fragments]
+    counts: dict[str, int] = {}
+    for row in rows:
+        key = str(row.get("adjudication") or "")
+        counts[key] = counts.get(key, 0) + 1
+    return {
+        "count": len(rows),
+        "by_adjudication": counts,
+        "rows": rows,
+        "fact_verified": False,
+        "pit_admitted": False,
     }
 
 

@@ -52,7 +52,7 @@ def capability_status(*, http_status: Any, status: str, cached: bool) -> str:
 
 
 def matrix_from_attempts(attempts: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
-    """Summarize actual attempted NCAAFB routes. Injuries stay NOT_ATTEMPTED."""
+    "Injuries stay NOT_ATTEMPTED only when that route was not attempted."
 
     by_kind: dict[str, Counter[str]] = {
         ROUTE_LEAGUE_TEAMS: Counter(),

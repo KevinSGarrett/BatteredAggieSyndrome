@@ -16,23 +16,22 @@ from typing import Any, Mapping, Sequence
 
 from aggie_analytics.cycle30.hashing import sha256_json
 from aggie_analytics.cycle30.temporal import parse_aware_utc
+from aggie_analytics.cycle33.role_taxonomy import principal_role_families
+from aggie_analytics.cycle33.wiki_parameters import (
+    football_season_template_bodies,
+    occupancy_is_sequential,
+    parse_top_level_parameters,
+)
 
 ROLE_HC = "head_coach"
 ROLE_OC = "offensive_coordinator"
 ROLE_DC = "defensive_coordinator"
 PRIMARY_ROLES = (ROLE_HC, ROLE_OC, ROLE_DC)
 
-# Operator-declared dual occupancy. Missing coordinator titles never imply this.
-HEAD_COACH_DUAL_OCCUPANCY: dict[tuple[str, int, str], dict[str, str]] = {
-    ("SRC-002:TEAM:264", 2026, ROLE_OC): {
-        "person": "Jedd Fisch",
-        "authority": "OPERATOR_CONTEMPORANEOUS_DECLARATION",
-        "statement": (
-            "Washington Huskies have no separate 2026 offensive coordinator; "
-            "Jedd Fisch is acting as head coach and offensive coordinator."
-        ),
-    }
-}
+# Operator instruction is not an appointment source. Dual occupancy requires
+# a locatable contemporaneous staff/source span, not a user declaration.
+HEAD_COACH_DUAL_OCCUPANCY: dict[tuple[str, int, str], dict[str, str]] = {}
+OPERATOR_DECLARATION_IS_NOT_APPOINTMENT_SOURCE = True
 
 CONCURRENT = "CONCURRENT_SHARED"
 SEQUENTIAL = "SEQUENTIAL_CHANGE"
@@ -223,33 +222,9 @@ def _title_is_program_head_coach(title: str) -> bool:
 
 
 def role_families_from_title(title: str) -> tuple[str, ...]:
-    """Map a source title onto HC/OC/DC. Other titles remain observed, not cells."""
+    """Map a source title onto principal HC/OC/DC. Assistant OC is not principal."""
 
-    lowered = re.sub(r"\s+", " ", str(title or "")).strip().casefold()
-    if not lowered:
-        return ()
-    families: list[str] = []
-    if _title_is_program_head_coach(lowered):
-        families.append(ROLE_HC)
-    if not _ASSISTANT_TO_OC.search(lowered) and (
-        _OFFENSIVE_COORDINATOR_TITLE.search(lowered)
-        or (
-            _DIRECTOR_OF_OFFENSE.search(lowered)
-            and not _ASSISTANT_UNIT_DIRECTOR.search(lowered)
-        )
-        or _SLASH_OC_TOKEN.search(lowered)
-    ):
-        families.append(ROLE_OC)
-    if not _ASSISTANT_TO_DC.search(lowered) and (
-        _DEFENSIVE_COORDINATOR_TITLE.search(lowered)
-        or (
-            _DIRECTOR_OF_DEFENSE.search(lowered)
-            and not _ASSISTANT_UNIT_DIRECTOR.search(lowered)
-        )
-        or _SLASH_DC_TOKEN.search(lowered)
-    ):
-        families.append(ROLE_DC)
-    return tuple(families)
+    return principal_role_families(title)
 
 
 def _title_looks_like_staff_row(title: str) -> bool:
@@ -2091,6 +2066,22 @@ def _person_has_opposite_exclusive_coordinator(
     return False
 
 
+def _other_person_has_identical_title(
+    people: Sequence[Mapping[str, Any]], person_key: str, title: str
+) -> bool:
+    needle = re.sub(r"\s+", " ", str(title or "")).strip().casefold()
+    if not needle:
+        return False
+    for person in people:
+        other = str(person.get("person") or "").casefold().strip()
+        if other in {"", person_key}:
+            continue
+        other_title = re.sub(r"\s+", " ", str(person.get("title") or "")).strip().casefold()
+        if other_title == needle:
+            return True
+    return False
+
+
 def official_role_skip_reason(
     people: Sequence[Mapping[str, Any]],
     person_key: str,
@@ -2113,9 +2104,9 @@ def official_role_skip_reason(
         role in {ROLE_OC, ROLE_DC}
         and ROLE_HC not in families
         and _person_has_program_head_coach_title(people, person_key)
-        and _other_person_has_role_family(people, person_key, role)
+        and _other_person_has_identical_title(people, person_key, title)
     ):
-        return "HEAD_COACH_DUPLICATE_COORDINATOR_TITLE"
+        return "VUE_ZIP_COPIED_COORDINATOR_TITLE"
     if (
         role in {ROLE_OC, ROLE_DC}
         and _person_has_opposite_exclusive_coordinator(people, person_key, role)
@@ -2313,15 +2304,6 @@ def fill_current_role_matrix(
         official_episodes = _official_role_episodes(
             people, role, program_id=str(cell["program_id"])
         )
-        if not official_episodes:
-            official_episodes = _head_coach_dual_occupancy_episodes(
-                program_id=str(cell["program_id"]),
-                role=role,
-                season=_season_year_from_as_of(str(cell.get("as_of_utc") or "")),
-                hc_episodes=_official_role_episodes(
-                    people, ROLE_HC, program_id=str(cell["program_id"])
-                ),
-            )
         sr_episodes = _sportradar_role_episodes(
             sr_people.get(str(cell["program_id"]), []), role
         )
@@ -2730,6 +2712,11 @@ OBSERVED_STAFF_ROLE_PATTERNS = (
     (r"\btight ends?\b|(?:^|[/,(])\s*te(?:\b|/)", "tight_ends"),
     (r"\boffensive linem(?:an|en)\b|\boffensive line\b", "offensive_line"),
     (r"\bdefensive linem(?:an|en)\b|\bdefensive line\b", "defensive_line"),
+    (r"\bdefensive ends?\b|(?:^|[/,(])\s*de(?:\b|/)", "defensive_ends"),
+    (r"\bdefensive tackles?\b|(?:^|[/,(])\s*dt(?:\b|/)", "defensive_tackles"),
+    (r"\bedge\b", "edge"),
+    (r"\binside linebackers?\b|\bilb\b", "inside_linebackers"),
+    (r"\boutside linebackers?\b|\bolb\b", "outside_linebackers"),
     (r"\blinebackers?\b", "linebackers"),
     (r"\bdefensive backs?\b", "defensive_backs"),
     (r"\bsafeties\b|\bsafety\b", "safeties"),
@@ -2737,6 +2724,7 @@ OBSERVED_STAFF_ROLE_PATTERNS = (
     (r"\bnickels?\b", "nickels"),
     (r"\b(?:kickers?|punters?)\b", "kickers_punters"),
     (r"\bstrength\b|\bconditioning\b", "strength_conditioning"),
+    (r"\bgeneral manager\b", "general_manager"),
     (r"\banalyst\b|\bquality control\b|\bgraduate assistant\b", "analyst_support"),
 )
 _COACH_YEARS_FIELD = re.compile(
@@ -2833,7 +2821,9 @@ CAREER_PAREN_ABBREV = {
 def roles_from_career_parenthetical(raw: str) -> tuple[str, ...]:
     """Map coach-infobox parentheticals. Empty/missing stays UNKNOWN, not HC."""
 
-    text = re.sub(r"\s+", " ", str(raw or "")).strip()
+    text = re.sub(r"<ref\b[^>]*>.*?</ref>|<ref\b[^>]*/>", "", str(raw or ""), flags=re.S)
+    text = re.sub(r"\{\{[^}]+\}\}", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
     if not text or text.casefold() == "unknown":
         return ("UNKNOWN",)
     families = list(observed_staff_roles_from_title(text))
@@ -2933,8 +2923,15 @@ def career_episode_roundtrip(
             if observed:
                 namesake_rejected += 1
             continue
+        episode_source = str(episode.get("source_person_id") or "").strip()
+        if source_person_id and episode_source and episode_source != str(source_person_id):
+            namesake_rejected += 1
+            continue
         row = dict(episode)
-        row["person_id"] = person_id
+        row["person_id"] = episode_source or person_id
+        if episode_source and source_person_id and episode_source != str(source_person_id):
+            row["identity_conflict"] = True
+        row["legacy_person_id"] = person_id
         row["pit_admitted"] = typed_pit_admitted(episode.get("pit_admitted"))
         row["evidence_class"] = str(
             episode.get("evidence_class") or "RETROSPECTIVE_CANDIDATE_ONLY"
@@ -3126,60 +3123,58 @@ def parse_wikimedia_infobox(
     """Row-bound infobox, asst_coach lists, and staff tables. Not PIT."""
 
     wikitext = redact_personal_contact(wikitext)
+    wikitext = re.sub(r"<!--.*?-->", "", wikitext, flags=re.S)
     if not revision_id:
         raise CoachingError("Wikimedia evidence must be revision-bound")
     templates = _iter_wikitext_templates(wikitext)
-    football_bodies = [
-        body
-        for kind, body in templates
-        if "basketball" not in kind and "baseball" not in kind
-    ]
-    if templates and not football_bodies:
-        scoped = ""
-    elif football_bodies:
+    football_bodies = football_season_template_bodies(wikitext)
+    if football_bodies:
         scoped = "\n".join(football_bodies)
+        param_bodies = football_bodies
+    elif templates:
+        scoped = ""
+        param_bodies = []
     else:
         scoped = wikitext
+        param_bodies = [wikitext]
     extracted: list[dict[str, str]] = []
     seen: set[tuple[str, str]] = set()
-    for match in _INFOBOX_ROW.finditer(scoped):
-        raw_key = match.group("key").strip()
-        key = raw_key.lower().replace(" ", "_")
-        compact = raw_key.lower().replace(" ", "").replace("_", "")
-        if compact.endswith("year") or compact.endswith("games"):
-            continue
-        if compact in _SKIP_INFOBOX_KEYS or compact in {
-            "headcoachyear",
-            "ocyear",
-            "dcyear",
-        }:
-            continue
-        role = (
-            COACH_INFOBOX_KEYS.get(key)
-            or COACH_INFOBOX_KEYS.get(raw_key.lower())
-            or COACH_INFOBOX_KEYS.get(compact)
-        )
-        if not role:
-            continue
-        value = match.group("value").strip()
-        if value.startswith("*"):
-            continue
-        citations = wiki_citation_spans(value)
-        people = wiki_display_names(value)
-        games_note = ""
-        games_key = None
-        if compact in {"headcoach2", "head_coach2"}:
-            games_key = r"hc_games2"
-        elif compact in {"headcoach3", "head_coach3"}:
-            games_key = r"hc_games3"
-        elif compact in {"headcoach", "head_coach"}:
-            games_key = r"hc_games"
-        if games_key:
-            games_match = re.search(
-                rf"^\|\s*{games_key}\s*=\s*(.+)$", scoped, re.I | re.M
+    for body in param_bodies:
+        params = parse_top_level_parameters(body)
+        by_compact = {str(item.get("compact_key") or ""): item for item in params}
+        for param in params:
+            raw_key = str(param.get("raw_key") or "")
+            key = str(param.get("key") or "")
+            compact = str(param.get("compact_key") or "")
+            if compact.endswith("year") or compact.endswith("games"):
+                continue
+            if compact in _SKIP_INFOBOX_KEYS or compact in {
+                "headcoachyear",
+                "ocyear",
+                "dcyear",
+            }:
+                continue
+            role = (
+                COACH_INFOBOX_KEYS.get(key)
+                or COACH_INFOBOX_KEYS.get(raw_key.lower())
+                or COACH_INFOBOX_KEYS.get(compact)
             )
-            games_note = str(games_match.group(1) if games_match else "")
-        for person in people:
+            if not role:
+                continue
+            value = str(param.get("value") or "").strip()
+            if value.startswith("*"):
+                continue
+            citations = wiki_citation_spans(value)
+            people = wiki_display_names(value)
+            sequential = occupancy_is_sequential(value)
+            games_note = ""
+            if compact in {"headcoach2", "head_coach2"}:
+                games_note = str((by_compact.get("hcgames2") or {}).get("value") or "")
+            elif compact in {"headcoach3", "head_coach3"}:
+                games_note = str((by_compact.get("hcgames3") or {}).get("value") or "")
+            elif compact in {"headcoach", "head_coach"}:
+                games_note = str((by_compact.get("hcgames") or {}).get("value") or "")
+            for person in people:
                 _append_wiki_episode(
                     extracted,
                     seen,
@@ -3188,8 +3183,8 @@ def parse_wikimedia_infobox(
                     role=role,
                     span_id=f"wikimedia:{page_title}:{revision_id}:{key}:{person}",
                     revision_id=revision_id,
-                    co_role=_co_role_from_key(key) or len(people) > 1,
-                    interim="interim" in games_note.casefold(),
+                    co_role=_co_role_from_key(key) and not sequential,
+                    interim="interim" in value.casefold() or "interim" in games_note.casefold(),
                     source_citation_spans=citations,
                 )
     for match in _MULTILINE_COACH_FIELD.finditer(scoped):
@@ -3288,12 +3283,25 @@ def wiki_career_title_matches_person(title: str, person: str) -> bool:
     folded_person = person_n.casefold()
     if any(
         token in folded_title
-        for token in ("basketball", "baseball", "soccer", "hockey", "softball")
+        for token in (
+            "basketball",
+            "baseball",
+            "soccer",
+            "hockey",
+            "softball",
+            "disambiguation",
+            "politician",
+            "mayor",
+            "senator",
+            "representative",
+        )
     ) and "football" not in folded_title:
         return False
     if folded_title == folded_person:
         return True
-    return folded_title.startswith(folded_person + " (")
+    if folded_title.startswith(folded_person + " (") and "football" in folded_title:
+        return True
+    return False
 
 
 def parse_infobox_college_coach(
@@ -3305,13 +3313,41 @@ def parse_infobox_college_coach(
     if not revision_id:
         raise CoachingError("Wikimedia evidence must be revision-bound")
     templates = list(_iter_wikitext_templates(wikitext))
+    if any("disambiguation" in kind for kind, _body in templates):
+        return []
+    if any(
+        token in kind
+        for kind, _body in templates
+        for token in ("officeholder", "politician", "infobox officeholder")
+    ):
+        return []
     bodies = [
         body
         for kind, body in templates
         if "basketball" not in kind
         and "baseball" not in kind
-        and "college coach" in kind
+        and "soccer" not in kind
+        and (
+            "college coach" in kind
+            or "american football coach" in kind
+            or "nfl biography" in kind
+        )
     ]
+    football_context = (
+        "football" in page_title.casefold()
+        or any(
+            re.search(r"\|\s*sport\s*=\s*[^\n|]*football", body, re.I) for body in bodies
+        )
+        or any("coach_team" in body.casefold() for body in bodies)
+    )
+    if bodies and not football_context:
+        sport_rows = [
+            re.search(r"\|\s*sport\s*=\s*([^\n]+)", body, re.I) for body in bodies
+        ]
+        if any(
+            match and "football" not in match.group(1).casefold() for match in sport_rows if match
+        ):
+            return []
     if not templates:
         bodies = [wikitext]
     episodes: list[dict[str, Any]] = []

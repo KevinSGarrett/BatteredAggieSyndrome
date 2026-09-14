@@ -66,15 +66,24 @@ def fetch_json(url: str, ledger: list[dict[str, Any]]) -> Any:
     cache = RAW / f"{sha256_json({'url': url})}.json"
     if cache.is_file():
         body = cache.read_bytes()
+        original_receipt = {}
+        sidecar = cache.with_suffix(cache.suffix + ".receipt.json")
+        if sidecar.is_file():
+            original_receipt = json.loads(sidecar.read_text(encoding="utf-8"))
+        from aggie_analytics.cycle33.acquisition_receipts import cache_hit_receipt, sanitize_url
+
         ledger.append(
-            {
-                "route": url.split("?", 1)[0],
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "cached": True,
-                "raw_sha256": sha256_bytes(body),
-                "retrieved_at_utc": utc_now(),
-            }
+            cache_hit_receipt(
+                original=original_receipt
+                or {
+                    "retrieved_at_utc": None,
+                    "http_status": None,
+                    "ok": False,
+                    "raw_sha256": sha256_bytes(body),
+                    "request_id": None,
+                },
+                route=sanitize_url(url),
+            )
         )
         return json.loads(body.decode("utf-8"))
     live = sum(1 for item in ledger if not item.get("cached"))
@@ -114,6 +123,8 @@ def fetch_json(url: str, ledger: list[dict[str, Any]]) -> Any:
     )
     cache.parent.mkdir(parents=True, exist_ok=True)
     cache.write_bytes(body)
+    sidecar = cache.with_suffix(cache.suffix + ".receipt.json")
+    sidecar.write_text(json.dumps(ledger[-1], indent=2), encoding="utf-8")
     return json.loads(body.decode("utf-8"))
 
 

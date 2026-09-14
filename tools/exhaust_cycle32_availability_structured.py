@@ -149,7 +149,9 @@ def _cfbd_cache(parameters: dict[str, Any]) -> Path:
 
 
 def _public_sr(url: str) -> str:
-    return url.replace("api_key=", "api_key=REDACTED")
+    from aggie_analytics.cycle33.acquisition_receipts import sanitize_url
+
+    return sanitize_url(url)
 
 
 def fetch_cfbd_injuries(

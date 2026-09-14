@@ -504,16 +504,18 @@ def main() -> int:
                 "not_exact_head_clean_room": False,
                 "git_diff_check": "PASS",
                 "tests": {
-                    "test_cycle33_national_staff": {"tests": 31, "exit": 0},
+                    "test_cycle33_national_staff": {"tests": 35, "exit": 0},
                     "test_cycle32_manager_counterexamples": {"tests": 75, "exit": 0},
-                    "test_cycle30_adversarial_controls": {"tests": 61, "exit": 0},
+                    "test_cycle30_adversarial_controls": {"tests": 63, "exit": 0},
                 },
                 "uncommitted_source": False,
                 "isolated_wheel": "PASS_NON_EDITABLE_TARGET_INSTALL",
                 "full_unittest": "NOT_RUN",
-                "warnings_as_errors": "NOT_RUN",
+                "warnings_as_errors": "FOCUSED_CYCLE33_PASS",
                 "hash_seeds": "NOT_RUN",
                 "jira_strict_live_readback": "NOT_RUN",
+                "scientific_trust_hold_validator": "PASS",
+                "retired_assistive_pipeline_decommission": "PASS",
                 "paid_review": "NOT_REVIEWED",
                 "paid_ai_cost": 0,
             },
@@ -542,6 +544,13 @@ def main() -> int:
                 "user_corpus_role_cells": 502946,
                 "week2_cached_observations": 360,
                 "week2_unique_contest_ids": 260,
+                "fcs_scoreboard_observations": 410,
+                "fcs_scoreboard_unique_contest_ids": 311,
+                "official_finals_successor_observations": 770,
+                "official_finals_successor_unique": 468,
+                "official_finals_quarantined_conflicts": 37,
+                "confirmed_spans_locatable": 847,
+                "confirmed_spans_total": 880,
                 "tamu_asu_ncaa_contest_id": "6604259",
                 "user_csv_is_not_official": True,
                 "proven_pit": 0,
@@ -584,9 +593,9 @@ def main() -> int:
         "1. Implementation: local code/data/query work advanced; incomplete units remain.\n"
         "2. Data/evidence completeness: INCOMPLETE. Missingness labels are not completeness.\n"
         "3. Software validation: focused tests pass on committed HEAD PYTHONPATH=src "
-        "(31 Cycle33 / 75 Cycle32 / 61 Cycle30). Isolated non-editable target install loaded "
-        "cycle33.query without worktree src. Full unittest, Werror, seeds 0/1, Jira live "
-        "readback, and hosted deterministic checks remain NOT_RUN or NOT_REVIEWED.\n"
+        "(35 Cycle33 / 75 Cycle32 / 63 Cycle30 glob). Isolated non-editable target install loaded "
+        "cycle33.query without worktree src. Hold and retired-pipeline validators PASS. "
+        "Full unittest, hash seeds 0/1, Jira live readback, and hosted deterministic checks remain NOT_RUN or NOT_REVIEWED.\n"
         "4. Independent scientific acceptance: not conferred by self-tests.\n"
         "5. Integration/release: UNAUTHORIZED under hold.\n"
         "6. Overall cycle: IN_PROGRESS_LOCAL_WORK_REMAINS.\n\n"
@@ -602,8 +611,10 @@ def main() -> int:
         "- Historical 2013-2023 role cells 8355.\n"
         "- Wikimedia scheme/tenure: 13218 pages; 4651 nonempty scheme pages; 9111 nonempty scheme claims.\n"
         "- User corpus: 54 files, 6749 staff observations, 273 queue rows; live=snapshot identical.\n"
-        "- Week2 NCAA caches: 360 observations / 260 unique IDs; TAMU-ASU 6604259 stale pregame; "
-        "MISSED_CUTOFF_NO_BACKFILL; Missouri State not reused.\n"
+        "- Week2 NCAA FBS caches: 360 observations / 260 unique IDs; FCS scoreboard 410 / 311 unique; "
+        "TAMU-ASU 6604259 historical not re-armed; MISSED_CUTOFF_NO_BACKFILL; Missouri State not reused.\n"
+        "- Official-final successor: 770 observations / 468 unique / 37 quarantined conflicts; "
+        "0 scored because no frozen forecasts are bound. Predecessor Cycle32 parsed 198.\n"
         "- Jira mirror not fully converged; paid review NOT_REVIEWED.\n"
     )
     (OUT / "CYCLE33_FINAL_REPORT.md").write_text(report, encoding="utf-8")

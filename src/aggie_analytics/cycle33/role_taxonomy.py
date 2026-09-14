@@ -167,6 +167,150 @@ POSITION_PATTERNS: tuple[tuple[str, str, str], ...] = (
         "football_operations",
         "TEAM",
     ),
+    (r"\bassistant football coach\b", "assistant_unspecified", "UNKNOWN"),
+    (
+        r"\bposition assistant\b|\bcoaching assistant\b",
+        "assistant_unspecified",
+        "UNKNOWN",
+    ),
+    (r"\bprogram assistant\b", "football_operations", "TEAM"),
+    (
+        r"\bfootball technology\b|\bdirector of (?:football )?technology\b",
+        "video_technology_staff",
+        "TEAM",
+    ),
+    (r"\bphysician\b|\bsports medicine\b|\bmedical staff\b", "medical_staff", "TEAM"),
+    (r"\bnickelbacks?\b", "nickels", "DEFENSE"),
+    (r"\bspecialists?\b", "specialists", "SPECIAL_TEAMS"),
+    (r"\bcorners?\b", "cornerbacks", "DEFENSE"),
+    (r"\bpsycholog", "sports_psychology", "TEAM"),
+    (r"\bfootball relations\b|\bhigh school relations\b", "recruiting_staff", "TEAM"),
+    (r"\brehabilitation\b|\brehab\b", "training_staff", "TEAM"),
+    (r"\bdietitian\b|\bdietician\b", "nutrition_staff", "TEAM"),
+    (r"\bstudent coach\b|\bstudent team manager\b", "student_assistant", "UNKNOWN"),
+    (r"\bfaculty mentor\b|\bfaculty liaison\b", "administrative_staff", "TEAM"),
+    (r"\bacademic\b", "academic_staff", "TEAM"),
+    (
+        r"\bcoordinator of operations\b|\boperations assistant\b",
+        "football_operations",
+        "TEAM",
+    ),
+    (r"\brush ends?\b", "edge", "DEFENSE"),
+    (r"\bedges?\b", "edge", "DEFENSE"),
+    (r"\breceivers?\b", "receivers", "OFFENSE"),
+    (r"\brevenue sharing\b", "football_operations", "TEAM"),
+    (r"\bsecretary\b|\bexecutive secretary\b", "administrative_staff", "TEAM"),
+    (r"(?:^|[\s|/])te(?:\b|/)", "tight_ends", "OFFENSE"),
+    (r"\bgradute assistant\b|\bgraduate assistant\b", "graduate_assistant", "UNKNOWN"),
+    (
+        r"\bdirector of development\b|\bfootball director of development\b",
+        "development_staff",
+        "TEAM",
+    ),
+    (
+        r"\badministration coordinator\b|\bfootball administration\b",
+        "administrative_staff",
+        "TEAM",
+    ),
+    (r"\bchaplain\b", "chaplain", "TEAM"),
+    (r"\bfootball research\b", "analyst", "UNKNOWN"),
+    (r"\bsport performance\b|\bsports performance\b", "sports_performance", "TEAM"),
+    (r"\bsport science\b|\bsports science\b", "sports_science", "TEAM"),
+    (r"\bathletic training\b", "training_staff", "TEAM"),
+    (r"\bpersonnel assistant\b", "player_personnel", "TEAM"),
+    (r"\banalytic", "analyst", "UNKNOWN"),
+    (r"\bsnipers?\b", "nickels", "DEFENSE"),
+    (r"\bcompliance\b", "administrative_staff", "TEAM"),
+    (r"\bnil\b", "football_operations", "TEAM"),
+    (r"\bqc\b|\bquality control\b", "quality_control", "UNKNOWN"),
+    (r"\blife coach\b|\bminister of culture\b", "player_development", "TEAM"),
+    (r"\bfaculty fellow\b", "administrative_staff", "TEAM"),
+    (
+        r"\bdefenisve assistant\b|\bassistant-\s*defense\b",
+        "assistant_unspecified",
+        "DEFENSE",
+    ),
+    (r"\bpeak performance\b|\bmental performance\b", "sports_performance", "TEAM"),
+    (r"\bdigital strategy\b|\bmedia services\b", "communications_staff", "TEAM"),
+    (r"\bexecutive assistant\b", "administrative_staff", "TEAM"),
+    (r"\bstudent-athlete\b|\bstudent athlete\b", "player_development", "TEAM"),
+    (r"\bnicklebacks?\b", "nickels", "DEFENSE"),
+    (r"\bdbs?\b", "defensive_backs", "DEFENSE"),
+    (
+        r"\bpass(?:ing)?\s+game coordinator\b|\bpassing game coordinator\b",
+        "pass_game_coordinator",
+        "OFFENSE",
+    ),
+    (r"\b(?:offensive|defensive)\s+ga\b|\bga\b", "graduate_assistant", "UNKNOWN"),
+    (r"\bspecial teams? coordinator\b", "special_teams_coordinator", "SPECIAL_TEAMS"),
+    (r"\bwide recievers?\b", "wide_receivers", "OFFENSE"),
+    (r"\bgeneral manger\b|\bassistant general manger\b", "general_manager", "TEAM"),
+    (r"\bplayer personal\b", "player_personnel", "TEAM"),
+    (r"\bslot backs?\b", "slot_backs", "OFFENSE"),
+    (r"\bstars?\b", "stars", "DEFENSE"),
+    (r"\bbandits?\b", "bandits", "DEFENSE"),
+    (r"\bsnipes\b", "nickels", "DEFENSE"),
+    (r"\bspears\b", "spears", "UNKNOWN"),
+    (r"\bassistant backfield\b|\bbackfield\b", "running_backs", "OFFENSE"),
+    (r"\bvolunteer coach\b", "volunteer_coach", "UNKNOWN"),
+    (r"\bchief medical officer\b|\bsport medicine\b", "medical_staff", "TEAM"),
+    (
+        r"\bgraphic design\b|\bphotography\b|\bfootball design\b|\bcoordinator of design\b",
+        "communications_staff",
+        "TEAM",
+    ),
+    (
+        r"\bdigital media\b|\bsocial media\b|\bsports information\b|\bmarketing\b|\bfan engagement\b",
+        "communications_staff",
+        "TEAM",
+    ),
+    (
+        r"\balumni relations\b|\balumni coordinator\b|\bcommunity relations\b|\bcommunity engagement\b|\bfamily relations\b",
+        "player_development",
+        "TEAM",
+    ),
+    (
+        r"\bfootball office\b|\bfootball ops\b|\bplayer operations\b|\bgame management\b|\broster and game\b|\bexecutive operations\b",
+        "football_operations",
+        "TEAM",
+    ),
+    (
+        r"\bfootball strategy\b|\bstrategic initiatives\b|\bstrategic intelligence\b|\bassistant ad for football\b|\bsport administrator\b|\bprimary sport administrator\b",
+        "football_operations",
+        "TEAM",
+    ),
+    (
+        r"\bfootball development\b|\bprogram development\b|\bplayer administration\b|\boffice administration\b|\boffice associate\b|\badministrative support\b",
+        "administrative_staff",
+        "TEAM",
+    ),
+    (
+        r"\bspeed development\b|\bhuman performance\b|\bperformance science\b|\bperformance assistant\b|\bsport scientist\b",
+        "sports_performance",
+        "TEAM",
+    ),
+    (
+        r"\bmental health\b|\bathlete support\b|\bstudent success\b|\bfootball engagement\b|\bfootball academics\b|\bfreshman transition\b",
+        "academic_staff",
+        "TEAM",
+    ),
+    (
+        r"\bproduction assistant\b|\bmedia\b|\bfinance and administration\b|\bstrategy and finance\b|\bspecial assistant to the ad\b",
+        "administrative_staff",
+        "TEAM",
+    ),
+    (
+        r"\bpitching\b|\bequestrian\b|\bbarn manager\b|\bjumping seat\b",
+        "other_sport_not_football",
+        "UNKNOWN",
+    ),
+    (r"\bacademics?\b", "academic_staff", "TEAM"),
+    (
+        r"\binternal operations\b|\bfootball administrator\b",
+        "football_operations",
+        "TEAM",
+    ),
+    (r"\bassistant director,\s*operations\b", "football_operations", "TEAM"),
 )
 
 
@@ -278,6 +422,12 @@ def assignments_from_title(title: str) -> list[dict[str, Any]]:
                 "CO_SHARED" if QUALIFIER_CO in qualifiers else "PRINCIPAL",
             )
         )
+    elif _ASSISTANT_TO.search(lowered) and (
+        _OC.search(lowered) or _SLASH_OC.search(lowered)
+    ):
+        assignments.append(
+            _assignment(ROLE_OC, "OFFENSE", qualifiers, raw, "QUALIFIED_NOT_PRINCIPAL")
+        )
     elif _ASSISTANT_OC.search(lowered) or (
         _OC.search(lowered)
         and QUALIFIER_ASSISTANT in qualifiers
@@ -295,6 +445,12 @@ def assignments_from_title(title: str) -> list[dict[str, Any]]:
                 raw,
                 "CO_SHARED" if QUALIFIER_CO in qualifiers else "PRINCIPAL",
             )
+        )
+    elif _ASSISTANT_TO.search(lowered) and (
+        _DC.search(lowered) or _SLASH_DC.search(lowered)
+    ):
+        assignments.append(
+            _assignment(ROLE_DC, "DEFENSE", qualifiers, raw, "QUALIFIED_NOT_PRINCIPAL")
         )
     elif _ASSISTANT_DC.search(lowered):
         assignments.append(

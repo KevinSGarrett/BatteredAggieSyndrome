@@ -33,6 +33,9 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     season_title_matches_school,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 
 BUDGET = {
     "max_requests": 10000,
@@ -74,18 +77,19 @@ def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -
     cache = RAW / f"{sha256_json({'url': url})}.json"
     if cache.is_file():
         body = cache.read_bytes()
-        ledger.append(
-            {
-                "route": url.split("?", 1)[0],
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "request_identity_sha256": sha256_json({"url": url}),
-                "receipt_identity": sha256_bytes(body),
+        receipt = cache_hit_from_path(
+            cache,
+            url=url.split("?", 1)[0],
+            original={
+                "request_id": sha256_json({"url": url}),
                 "raw_sha256": sha256_bytes(body),
-                "cached": True,
-                "retrieved_at_utc": utc_now(),
-            }
+                "http_status": 200,
+                "ok": True,
+            },
         )
+        receipt["request_identity_sha256"] = sha256_json({"url": url})
+        receipt["receipt_identity"] = sha256_bytes(body)
+        ledger.append(receipt)
         return json.loads(body.decode("utf-8"))
     live = sum(1 for item in ledger if not item.get("cached"))
     if live >= int(budget["max_requests"]):
@@ -397,18 +401,18 @@ def main() -> int:
                     "status"
                 ) == "REVISION_BOUND" and not season_title_matches_school(title, school)
                 if (
-                    (
-                        row.get("status") == "PAGE_MISSING"
-                        or str(row.get("status") or "").startswith("ACQUISITION_FAILED")
-                        or mismatched
+                    row.get("status") == "PAGE_MISSING"
+                    or str(row.get("status") or "").startswith("ACQUISITION_FAILED")
+                    or mismatched
+                ) and args.year_start <= year <= args.year_end:
+                    guessed = (
+                        historical_season_page_title(
+                            str(row.get("current_title") or ""),
+                            year,
+                            school=school,
+                        )
+                        or title
                     )
-                    and args.year_start <= year <= args.year_end
-                ):
-                    guessed = historical_season_page_title(
-                        str(row.get("current_title") or ""),
-                        year,
-                        school=school,
-                    ) or title
                     parsed = fetch_season(
                         school=school,
                         year=year,

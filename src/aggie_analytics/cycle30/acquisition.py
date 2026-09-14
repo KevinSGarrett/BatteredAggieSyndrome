@@ -11,6 +11,7 @@ from typing import Any, Mapping, Sequence
 
 from aggie_analytics.cycle30.hashing import sha256_json
 from aggie_analytics.cycle30.temporal import TemporalError, parse_aware_utc
+from aggie_analytics.cycle33.acquisition_receipts import sanitize_url
 
 TRANSPORT_CAPTURED = "TRANSPORT_CAPTURED"
 UPSTREAM_SUCCESS = "UPSTREAM_SUCCESS"
@@ -68,7 +69,7 @@ def request_identity(
         "method": str(method).upper(),
         "parameters": dict(parameters or {}),
         "source_contract": str(source_contract),
-        "uri": str(uri),
+        "uri": sanitize_url(str(uri)),
     }
     return sha256_json(payload)
 

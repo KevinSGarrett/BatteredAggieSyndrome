@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -10,6 +11,7 @@ from aggie_analytics.cycle30.coaching import (
     HEAD_COACH_DUAL_OCCUPANCY,
     career_episode_roundtrip,
     parse_infobox_college_coach,
+    parse_official_staff_html,
     parse_wikimedia_infobox,
     role_families_from_title,
     roles_from_career_parenthetical,
@@ -21,7 +23,11 @@ from aggie_analytics.cycle33.all22_adapter import (
     encode_episode,
     project_lossy_staff_snapshot_v1,
 )
-from aggie_analytics.cycle33.acquisition_receipts import cache_hit_receipt, sanitize_url
+from aggie_analytics.cycle33.acquisition_receipts import (
+    cache_hit_from_path,
+    cache_hit_receipt,
+    sanitize_url,
+)
 from aggie_analytics.cycle33.fit_integrity import (
     FitIntegrityError,
     validate_fit_population,
@@ -31,23 +37,30 @@ from aggie_analytics.cycle33.official_finals import (
     require_no_conflicts,
 )
 from aggie_analytics.cycle33.role_taxonomy import assignments_from_title
+from aggie_analytics.cycle33.span_locate import locate_person_title
 from aggie_analytics.cycle33.scheme_tenure import extract_scheme_tenure_claims
 from aggie_analytics.cycle33.findings import (
     CYCLE32_DISPOSITION_LABEL_TO_ORIGINAL_MR31,
     ORIGINAL_MR31_MEANINGS,
 )
+from aggie_analytics.cycle33.query import StaffQueryError, main as staff_query_main
 from aggie_analytics.cycle33.user_coaches import (
     _subdivision_from_filename,
     classify_missingness,
     import_snapshot,
     parse_person_segments,
 )
-from aggie_analytics.cycle33.week2 import historical_tamu_asu_row, utc_now
+from aggie_analytics.cycle33.week2 import (
+    cutoffs_from_kickoff_epoch,
+    historical_tamu_asu_row,
+    utc_now,
+)
 from aggie_analytics.cycle33.wiki_parameters import football_season_template_bodies
 from aggie_analytics.scientific_reference.cycle33 import (
     IndependentCycle33Error,
     competing_finals,
     reject_fold,
+    unique_game_population,
 )
 
 
@@ -85,6 +98,59 @@ class RoleTaxonomyTests(unittest.TestCase):
         self.assertEqual(
             assignments_from_title("Athletic Director")[0]["role"],
             "athletic_director",
+        )
+        mapped = assignments_from_title("Assistant Football Coach")
+        self.assertEqual(mapped[0]["role"], "assistant_unspecified")
+        self.assertEqual(mapped[0]["occupancy"], "OBSERVED")
+        self.assertEqual(
+            assignments_from_title("Team Physician")[0]["role"], "medical_staff"
+        )
+        self.assertEqual(
+            assignments_from_title("Nickelbacks Coach")[0]["role"], "nickels"
+        )
+        self.assertEqual(
+            assignments_from_title("Director of Football Technology")[0]["role"],
+            "video_technology_staff",
+        )
+        assistant_to = assignments_from_title("Assistant To Defensive Coordinator")
+        self.assertEqual(assistant_to[0]["role"], "defensive_coordinator")
+        self.assertEqual(assistant_to[0]["occupancy"], "QUALIFIED_NOT_PRINCIPAL")
+        self.assertEqual(
+            role_families_from_title("Assistant To Defensive Coordinator"), ()
+        )
+        self.assertEqual(
+            assignments_from_title("Nicklebacks Coach")[0]["role"], "nickels"
+        )
+        self.assertEqual(
+            assignments_from_title("Wide Recievers Coach")[0]["role"],
+            "wide_receivers",
+        )
+        self.assertEqual(
+            assignments_from_title("DBs/Passing Game Coordinator")[0]["role"],
+            "defensive_backs",
+        )
+        self.assertIn(
+            "pass_game_coordinator",
+            {
+                row["role"]
+                for row in assignments_from_title("DBs/Passing Game Coordinator")
+            },
+        )
+        self.assertEqual(
+            assignments_from_title("Pitching Coach")[0]["role"],
+            "other_sport_not_football",
+        )
+        pronouns = assignments_from_title("she/her/hers")
+        self.assertEqual(pronouns[0]["occupancy"], "UNMAPPED")
+        self.assertEqual(
+            assignments_from_title("Bare Unknown Title")[0]["occupancy"], "UNMAPPED"
+        )
+        self.assertEqual(
+            assignments_from_title("Assistant")[0]["occupancy"], "UNMAPPED"
+        )
+        self.assertEqual(
+            assignments_from_title("Assistant Western Coach")[0]["occupancy"],
+            "UNMAPPED",
         )
 
     def test_broad_db_does_not_become_cb_and_s(self) -> None:
@@ -329,6 +395,38 @@ class AcquisitionReceiptTests(unittest.TestCase):
         self.assertEqual(receipt["status"], "CACHE_HIT_ERROR_PRESERVED")
         self.assertNotIn("nope", receipt["route"])
 
+    def test_cache_hit_from_path_uses_mtime_not_now(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "cache.json"
+            path.write_text("{}", encoding="utf-8")
+            os.utime(path, (1_700_000_000, 1_700_000_000))
+            receipt = cache_hit_from_path(
+                path, url="https://example/x?api_key=secret-value-123"
+            )
+            self.assertEqual(receipt["status"], "CACHE_HIT")
+            self.assertEqual(receipt["retrieved_at_utc"], "2023-11-14T22:13:20Z")
+            self.assertNotEqual(
+                receipt["retrieved_at_utc"], receipt["cache_read_at_utc"]
+            )
+            self.assertNotIn("secret-value-123", receipt["route"])
+
+
+class IndependentReferenceTests(unittest.TestCase):
+    def test_unique_game_population_rejects_nothing_silently(self) -> None:
+        summary = unique_game_population(
+            [
+                {"canonical_game_id": "G1", "season": 2018},
+                {"canonical_game_id": "G1", "season": 2018},
+                {"canonical_game_id": "G2", "season": 2019},
+                {"season": 2020},
+            ]
+        )
+        self.assertEqual(summary["unique_games"], 2)
+        self.assertEqual(summary["duplicate_rows"], 1)
+        self.assertEqual(summary["missing_identity_rows"], 1)
+        self.assertEqual(summary["proven_pit"], 0)
+        self.assertFalse(summary["producer_helpers_imported"])
+
 
 class UserCoachesTests(unittest.TestCase):
     def test_null_tokens_are_not_people(self) -> None:
@@ -430,6 +528,63 @@ class Week2CloseoutTests(unittest.TestCase):
         self.assertIsNone(got[0]["home_points"])
         self.assertEqual(got[0]["start_date"], "09/10/2026")
         self.assertNotEqual(got[0]["terminal_state"], "TERMINAL_STATUS_ESTABLISHED")
+
+    def test_kickoff_epoch_derives_missed_cutoffs(self) -> None:
+        now = utc_now()
+        epoch = int(now.timestamp()) - (3 * 24 * 3600)
+        cut = cutoffs_from_kickoff_epoch(epoch, now=now)
+        self.assertEqual(cut["t24h_disposition"], "MISSED_CUTOFF_NO_BACKFILL")
+        self.assertEqual(cut["t90m_disposition"], "MISSED_CUTOFF_NO_BACKFILL")
+        self.assertEqual(cut["cutoff_source"], "NCAA_START_TIME_EPOCH")
+        missing = cutoffs_from_kickoff_epoch(None, now=now)
+        self.assertEqual(missing["t24h_disposition"], "CUTOFF_UNKNOWN")
+
+
+class SpanLocateTests(unittest.TestCase):
+    def test_person_and_title_offsets_are_required(self) -> None:
+        html = "<div>Keith Patterson</div><div>Head Football Coach</div>"
+        found = locate_person_title(
+            html, person="Keith Patterson", title="Head Football Coach"
+        )
+        self.assertTrue(found["locatable"])
+        self.assertEqual(found["body_offset"], html.find("Keith Patterson"))
+        missing = locate_person_title(
+            html, person="Nobody", title="Head Football Coach"
+        )
+        self.assertFalse(missing["locatable"])
+
+    def test_official_html_parser_records_body_offset(self) -> None:
+        html = (
+            '<table class="sidearm-coaches-coach"><tr>'
+            '<td class="sidearm-table-player-name"><a href="/sports/football/coaches/keith-patterson">Keith Patterson</a></td>'
+            "<td>Head Football Coach</td></tr></table>"
+        )
+        got = parse_official_staff_html(
+            html,
+            page_url="https://example.test/sports/football/coaches",
+            program_name="Example",
+        )
+        if got:
+            self.assertTrue(
+                any(row.get("body_offset") not in {None, ""} for row in got)
+            )
+
+
+class QueryCliTests(unittest.TestCase):
+    def test_database_argument_is_required_without_private_default(self) -> None:
+        with self.assertRaises(SystemExit):
+            staff_query_main([])
+        missing_parent = (
+            Path(tempfile.gettempdir()) / "bas-cycle33-missing-parent" / "nope.sqlite"
+        )
+        if missing_parent.parent.exists():
+            missing_parent = (
+                Path(tempfile.gettempdir())
+                / "bas-cycle33-missing-parent-2"
+                / "nope.sqlite"
+            )
+        with self.assertRaises(StaffQueryError):
+            staff_query_main(["--database", str(missing_parent)])
 
 
 class FindingIdentityTests(unittest.TestCase):

@@ -8,6 +8,7 @@ removed by parsing, not by prefix rewriting that leaves the value.
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Mapping
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
@@ -90,3 +91,28 @@ def cache_hit_receipt(
         "retrieval_clock_is_not_publication_clock": True,
         "error_body_not_success": not ok,
     }
+
+
+def cache_hit_from_path(
+    path: Path,
+    *,
+    url: str,
+    original: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Cache hit from a local file. File mtime is original retrieval, not now."""
+
+    target = Path(path)
+    if not target.is_file():
+        raise AcquisitionReceiptError("cache hit requires an existing cache file")
+    mtime = datetime.fromtimestamp(target.stat().st_mtime, timezone.utc).strftime(
+        "%Y-%m-%dT%H:%M:%SZ"
+    )
+    orig = dict(original or {})
+    orig.setdefault("retrieved_at_utc", mtime)
+    orig.setdefault("http_status", orig.get("http_status") or 200)
+    orig.setdefault("ok", orig.get("ok", int(orig.get("http_status") or 200) < 400))
+    orig.setdefault("route", url)
+    orig.setdefault(
+        "request_id", orig.get("request_identity") or orig.get("request_id")
+    )
+    return cache_hit_receipt(original=orig, route=url)

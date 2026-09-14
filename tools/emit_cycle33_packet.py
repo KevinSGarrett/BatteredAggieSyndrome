@@ -3,18 +3,38 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
-from aggie_analytics.cycle33.findings import ORIGINAL_MR31_MEANINGS, full_correction_table
+from aggie_analytics.cycle33.findings import (
+    ORIGINAL_MR31_MEANINGS,
+    full_correction_table,
+)
 
 OUT = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle33\runs\20260914T130736Z\implementation_output"
 )
 SCI = OUT / "science"
-NOW = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-HEAD = "ca8e0a1f4ef3b30e4b50505e98b463daabcd7185"
 HOLD = "SCIENTIFIC_OPERATOR_HOLD_ACTIVE"
+WORKTREE = Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr")
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def git_head() -> str:
+    return subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=WORKTREE, text=True
+    ).strip()
+
+
+def load(name: str) -> dict:
+    path = SCI / name
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def req(
@@ -26,6 +46,7 @@ def req(
     next_action: str,
     owner: str,
     notes: str,
+    now: str | None = None,
 ) -> dict:
     return {
         "requirement_id": rid,
@@ -38,12 +59,28 @@ def req(
         "scientific_trust_recovered": False,
         "next_action": next_action,
         "notes": notes,
-        "as_of_utc": NOW,
+        "as_of_utc": now or utc_now(),
     }
 
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
+    NOW = utc_now()
+    HEAD = git_head()
+    week2 = load("CYCLE33_WEEK2_NATIONAL_CENSUS.json")
+    tax = load("CYCLE33_OFFICIAL_STAFF_TAXONOMY.json")
+    wiki = load("CYCLE33_WIKI_STAFF_SUCCESSORS.json")
+    career = load("CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS.json")
+    kernel = load("CYCLE33_KERNEL_REPLAY.json")
+    hist = load("CYCLE33_WIKI_2000_2012_STAFF_CELLS.json")
+    corr = load("CYCLE33_WIKI_OFFICIAL_FIELD_CLAIMS.json")
+    cs05 = load("CYCLE33_CS05_REFERENCE_SET.json")
+    stack = load("CYCLE33_STARTING_STACK.json")
+    spans = load("CYCLE33_CONFIRMED_SPAN_AUDIT.json")
+    scheme_q = load("CYCLE33_SCHEME_QUERY_LOAD.json")
+    remaining = load("CYCLE33_PLAN_REMAINING_UNION.json")
+    unmapped = tax.get("unmapped_distinct_titles")
+    occupancy = tax.get("occupancy_counts") or {}
     requirements = [
         req(
             "R33-01",
@@ -51,29 +88,29 @@ def main() -> int:
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
             [str(SCI / "CYCLE33_STARTING_STACK.json")],
-            "Complete payload/protected-hash inventory, change-owner matrix, and dirty-tree source digest for tests.",
+            "Keep dirty-tree digest bound to tests; do not substitute canonical main.",
             "BAT-706",
-            "14 worktrees. Predecessor ca8e0a1f bound. Canonical main 55e12a5a is not the validation subject. Cycle32 worktree left unmutated.",
+            f"Worktrees={stack.get('worktree_count')}. Cycle33 HEAD {stack.get('cycle33_head')}. Predecessor {stack.get('predecessor_head')}. Canonical main is not the validation subject.",
         ),
         req(
             "R33-02",
             "Actual-clock national continuity and truthful Week 2 closeout",
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            [str(SCI / "CYCLE33_WEEK2_CLOSEOUT.json")],
-            "Census every Week2 FBS/FCS contest from official authority; do not re-arm TAMU-ASU.",
+            [str(SCI / "CYCLE33_WEEK2_NATIONAL_CENSUS.json")],
+            "FCS separate scoreboard remains absent from this cache set; do not re-arm TAMU-ASU or invent finals.",
             "BAT-705",
-            "TAMU-ASU contest 6604259 on cached week-02 scoreboard is STALE_PREGAME (no invented final). T-24H/T-90M MISSED_CUTOFF_NO_BACKFILL. NCAA caches parse 360 observations / 260 unique IDs across weeks 00-03. FCS separate scoreboard not in this cache set. Kickoff dates captured; most cutoffs remain CUTOFF_UNKNOWN. Missouri State week-1 identity not reused.",
+            f"NCAA caches: {week2.get('observation_count')} observations / {week2.get('unique_contest_ids')} unique IDs; week-02 contests {week2.get('week2_contest_count')}. Kickoff-epoch cutoffs applied except TAMU-ASU pack historical deadlines. FCS scoreboard not in this cache. T-24H counts {week2.get('t24h_disposition_counts')}.",
         ),
         req(
             "R33-03",
             "Implement lossless national role/qualification semantics",
-            "PARTIAL",
-            "LOCAL_REPAIR_REQUIRED",
+            "PARTIAL" if unmapped else "IMPLEMENTED_LOCAL",
+            "LOCAL_REPAIR_REQUIRED" if unmapped else "OWNER_ADJUDICATION",
             [str(SCI / "CYCLE33_OFFICIAL_STAFF_TAXONOMY.json")],
-            "Map remaining 272 unmapped occupancy rows / 227 distinct titles; reprocess 2606 excluded spans; do not promote qualified OC.",
+            "Do not promote qualified OC; remaining unmapped titles stay a review queue.",
             "BAT-701",
-            "6215 parsed records reprocessed. Occupancy PRINCIPAL 744 / CO_SHARED 136 / QUALIFIED 311 / OBSERVED 7514 / UNMAPPED 272. Unique name strings 6170 vs 6215 program-name pairs.",
+            f"6215 parsed records. Occupancy {occupancy}. Unmapped distinct titles {unmapped}.",
         ),
         req(
             "R33-04",
@@ -83,27 +120,31 @@ def main() -> int:
             ["src/aggie_analytics/cycle30/coaching.py"],
             "Rematerialize current matrix without operator OC; re-adjudicate all CONFIRMED cells against locatable spans; investigate SJSU/VT/Lehigh/Princeton.",
             "BAT-701",
-            "HEAD_COACH_DUAL_OCCUPANCY is empty. Successor matrix rematerialized: 798 cells, Washington OC UNKNOWN_NOT_LISTED, operator_oc_present false. Cycle32 predecessor matrix artifact is preserved, not overwritten. Span IDs remain string-built pending locatable body/offset validation. Seven name-set disagreements remain review queues.",
+            "HEAD_COACH_DUAL_OCCUPANCY is empty. Successor matrix rematerialized: 798 cells, Washington OC UNKNOWN_NOT_LISTED, operator_oc_present false. Cycle32 predecessor matrix artifact is preserved, not overwritten. Cached official HTML body/title offsets: "
+            f"{spans.get('body_offset_present')} locatable / {spans.get('confirmed_episode_count')} confirmed; cache missing {spans.get('cache_html_missing')}. Seven name-set disagreements remain review queues, not automated verdicts.",
         ),
         req(
             "R33-05",
             "Repair team-season Wikipedia parsing at structural depth",
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            ["src/aggie_analytics/cycle33/wiki_parameters.py"],
-            "Reparse all affected caches into parser-versioned staff successors.",
+            [
+                str(SCI / "CYCLE33_WIKI_STAFF_SUCCESSORS.json"),
+                "src/aggie_analytics/cycle33/wiki_parameters.py",
+            ],
+            "Keep soccer/basketball rejected; no reference-set weakening.",
             "BAT-701",
-            "Football-only top-level parameters; soccer/basketball rejected; Infobox college sports team season accepted only when sport=football. Original six counterexamples remain passing.",
+            f"Parser-versioned staff successors: {wiki.get('pages')} pages, {wiki.get('episode_count')} episodes, {wiki.get('pre_2013_pages')} pre-2013 pages, errors {wiki.get('page_errors')}.",
         ),
         req(
             "R33-06",
             "Repair career identity, intervals and cross-school continuity",
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            ["src/aggie_analytics/cycle30/coaching.py"],
-            "Reparse all inherited career pages, not only 188 new pages.",
+            [str(SCI / "CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS.json")],
+            "Missing/ambiguous career joins remain explicit; no same-name-only accepted joins.",
             "BAT-701",
-            "Politician/disambiguation rejected; conflicting source_person_id not overwritten; OC/QB+ref retained. 8399 inherited career pages remapped; evidence-bound join for every current occupant is not complete.",
+            f"Current occupants {career.get('occupant_count')}: evidence-bound {career.get('matched')}, missing {career.get('missing')}, ambiguous {career.get('ambiguous')}, name-only-not-accepted {career.get('name_only_not_accepted')}, employer-unverified {career.get('employer_unverified')}. Same-name-only is not an accepted join.",
         ),
         req(
             "R33-07",
@@ -118,32 +159,35 @@ def main() -> int:
         req(
             "R33-08",
             "Complete current national staff adjudication and ground-truth reference",
-            "INCOMPLETE",
+            "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            [str(SCI / "CYCLE33_OFFICIAL_STAFF_TAXONOMY.json")],
-            "Independently establish CS-05 stratified reference set; quantify precision/recall; leave UNKNOWN OC/DC unknown unless sourced.",
+            [str(SCI / "CYCLE33_CS05_REFERENCE_SET.json")],
+            "Leave UNKNOWN OC/DC unknown unless sourced. Unsampled population is not proven.",
             "BAT-701",
-            "Successor matrix rematerialized (798). CS-05 manual slice is 10 manager primary receipts independent of the parser; unsampled population is not proven. 26 UNKNOWN_NOT_LISTED cells remain unknown.",
+            f"Manual slice {cs05.get('manual_slice_count')}. Named-identity precision {cs05.get('precision')} recall {cs05.get('recall')}. Unsampled population remains unproven.",
         ),
         req(
             "R33-09",
             "Historical national acquisition with row-level dispositions",
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            [str(SCI / "CYCLE33_HISTORICAL_STAFF_CELL_ROWS.json")],
-            "Extend 2000-2012 staff-cell dispositions beyond scheme/tenure caches; keep discontinued programs.",
+            [
+                str(SCI / "CYCLE33_WIKI_2000_2012_STAFF_CELLS.json"),
+                str(SCI / "CYCLE33_HISTORICAL_STAFF_CELL_ROWS.json"),
+            ],
+            "1963-1999 backlog remains with owner BAT-701; user corpus is additional observations not a replacement.",
             "BAT-701",
-            "8355 2013-2023 role-cell rows persisted. User corpus is additional observations, not replacement. Pre-2013 scheme pages exist; full pre-2013 staff cells remain backlog.",
+            f"8355 2013-2023 role-cell rows persisted. Wiki 2000-2012 nonempty person cells {hist.get('nonempty_person_cells')} across {hist.get('pages')} pages.",
         ),
         req(
             "R33-10",
             "Make corroboration and coverage reconstructible",
-            "INCOMPLETE",
+            "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            [str(SCI / "CYCLE33_HISTORICAL_STAFF_CELL_ROWS.jsonl")],
-            "Replace stale predecessor Wikipedia file in corroboration; emit every field comparison; label 6240 vs 6215 snapshots.",
+            [str(SCI / "CYCLE33_WIKI_OFFICIAL_FIELD_CLAIMS.json")],
+            "Name agreement is not independent confirmation. 6240 vs 6215 snapshots labeled.",
             "BAT-701",
-            "Row-level historical cells exist. Full current corroboration rebuild unfinished.",
+            f"Every field comparison emitted for {corr.get('cells')} cells. Support counts {corr.get('support_counts')}. Wikipedia source {corr.get('wikipedia_source')}.",
         ),
         req(
             "R33-11",
@@ -153,17 +197,20 @@ def main() -> int:
             ["src/aggie_analytics/cycle33/acquisition_receipts.py"],
             "Patch remaining acquire helpers; evidence-backed Sportradar NCAAFB route matrix; no guessed /injuries 404 as national absence.",
             "BAT-703",
-            "Query-parse sanitization and cache-hit identity preservation implemented for the named helpers. Capability matrix not independently expanded.",
+            "Query-parse sanitization is wired into request_identity and Sportradar public URLs. Cache-hit receipts preserve file mtime as retrieved_at_utc and add cache_read_at_utc. Injuries are not inferred from guessed /injuries 404.",
         ),
         req(
             "R33-12",
             "Enforce model population and fold integrity",
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            ["src/aggie_analytics/cycle33/fit_integrity.py"],
-            "Recompute independent 8216-row kernel on exact head; keep proven PIT = 0.",
+            [
+                str(SCI / "CYCLE33_KERNEL_REPLAY.json"),
+                "src/aggie_analytics/cycle33/fit_integrity.py",
+            ],
+            "Keep proven PIT = 0. No Week1/2 tuning.",
             "BAT-700",
-            "Duplicate/overlap/chronology/exposed-season guards reject at fold_local_fit. Independent numerical replay not repeated this cycle. proven_pit=0.",
+            f"Independent unique-game census {kernel.get('independent')}. Fit unique rows {kernel.get('unique_rows_fit')}. Fit error {kernel.get('fit_error')}. proven_pit=0.",
         ),
         req(
             "R33-13",
@@ -180,10 +227,10 @@ def main() -> int:
             "Availability, neutral venues and Week 2 context",
             "INCOMPLETE",
             "LOCAL_REPAIR_REQUIRED",
-            [],
-            "Capture actual player-status documents; retain national expected keys including non-conference games.",
+            [str(SCI / "CYCLE33_AVAILABILITY_NATIONAL.json")],
+            "JS landing shells are not reports. No report does not mean healthy. No new source may enter frozen pregame inputs.",
             "BAT-324",
-            "Not materially advanced this cycle beyond inherited Cycle32 exhaustion evidence.",
+            "Cycle32 structured exhaustion inherited. Week2 expected contest keys emitted. National player-status documents remain incomplete where caches are JS shells or missing.",
         ),
         req(
             "R33-15",
@@ -191,29 +238,35 @@ def main() -> int:
             "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
             [str(SCI / "CYCLE33_QUERY_DEMONSTRATIONS.json")],
-            "Package-installed wheel test; load scheme/tenure claims into the consumer; FCS/FBS conflict/unknown remain visible.",
+            "Package-installed wheel test; FCS/FBS conflict/unknown remain visible.",
             "BAT-704",
-            "sqlite CLI requires --database. Air Force 2018, Lehigh 2026, Troy Calhoun, unresolved rows demonstrated. Unresolved count includes blank cells.",
+            f"sqlite CLI requires --database; bas-staff-query entry point declared. Scheme claims nonempty loaded {scheme_q.get('nonempty_loaded')}; Air Force 2018 {scheme_q.get('air_force_2018_scheme_rows')}; Lehigh 2026 {scheme_q.get('lehigh_2026_scheme_rows')}.",
         ),
         req(
             "R33-16",
             "All-22/C01 alignment with actual current authority",
             "PARTIAL",
             "OWNER_ADJUDICATION",
-            ["src/aggie_analytics/cycle33/all22_adapter.py"],
-            "Refresh 11 All-22 checkout identities; submit proposal through owner workflow; do not mutate dirty All-22 work.",
+            [
+                str(SCI / "CYCLE33_ALL22_COMPATIBILITY.json"),
+                "src/aggie_analytics/cycle33/all22_adapter.py",
+            ],
+            "Submit proposal through owner workflow; do not mutate dirty All-22 work.",
             "BAT-704",
-            "StaffSnapshotV1 is lossy. C01_OWNER_ADOPTION_PENDING. Gridiron runtime unauthorized.",
+            "StaffSnapshotV1 is lossy. C01_OWNER_ADOPTION_PENDING. Gridiron runtime unauthorized. Checkout identities refreshed in CYCLE33_ALL22_COMPATIBILITY.json.",
         ),
         req(
             "R33-17",
             "Technical-plan union and full-system backlog",
             "INCOMPLETE",
             "LOCAL_REPAIR_REQUIRED",
-            [],
-            "Adjudicate coaching/scheme/availability/neutral/identity/C01 sections against the 902-plan inventory.",
+            [
+                str(SCI / "CYCLE33_PLAN_TRANCHE.json"),
+                str(SCI / "CYCLE33_PLAN_REMAINING_UNION.json"),
+            ],
+            "Named remaining domains stay unfinished; no 100%-mapped claim from heuristics.",
             "BAT-708",
-            "902 candidates / 8111 heuristics remain unreviewed as a semantic union. No 100%-mapped claim.",
+            f"Coaching/scheme/availability/neutral/identity/C01 tranche adjudicated. Unreviewed named domains: {remaining.get('unreviewed_named_domains')}. Heuristic 8111 is not semantic acceptance.",
         ),
         req(
             "R33-18",
@@ -248,12 +301,12 @@ def main() -> int:
         req(
             "R33-21",
             "Exact-head clean-room validation and safe hygiene",
-            "INCOMPLETE",
+            "PARTIAL",
             "LOCAL_REPAIR_REQUIRED",
-            [],
-            "Commit intended source then validate detached submitted head, isolated wheel, warnings-as-errors, hash seeds 0/1, mounted twice.",
+            [str(SCI / "CYCLE33_CLAIM_LEVEL_EVIDENCE.json")],
+            "Bind exact-head receipts after commit. Isolated wheel, full unittest, Werror, seeds 0/1 remain if not yet recorded.",
             "BAT-706",
-            "Focused tests pass on dirty worktree. Exact-head clean-room, full unittest, package install not run. git diff --check clean for current edits.",
+            "Focused Cycle33 tests pass on PYTHONPATH=src. Exact-head detached validation recorded in CYCLE33_VALIDATION_RESULTS.json when run.",
         ),
         req(
             "R33-22",
@@ -281,18 +334,66 @@ def main() -> int:
         ),
     ]
     ucs = [
-        {"clause": "UCS-01", "state": "PARTIAL", "notes": "Snapshot 54 CSVs preserved; live OneDrive 54 CSVs byte-identical. Runtime uses snapshot, not OneDrive."},
-        {"clause": "UCS-02", "state": "PARTIAL", "notes": "Named-column importer; 2009 stale-header conflict retained; formulas quarantined; 6749+273 round-trip counts."},
-        {"clause": "UCS-03", "state": "INCOMPLETE", "notes": "Year/subdivision coverage emitted. FIU/FAU 2004 and WKU 2007 overlaps remain review queues. Independent membership crosswalk unfinished."},
-        {"clause": "UCS-04", "state": "PARTIAL", "notes": "Column is not role authority. Assistant OC not principal. 91 risk fragments remain a review queue."},
-        {"clause": "UCS-05", "state": "INCOMPLETE", "notes": "Importer does not overwrite BAS. Seven current name-set disagreements not fully adjudicated."},
-        {"clause": "UCS-06", "state": "INCOMPLETE", "notes": "Registered as USER_COMPILED_RESEARCH_OBSERVATION. Primary-supported historical samples exist from manager receipts, not full corpus verification."},
-        {"clause": "UCS-07", "state": "PARTIAL", "notes": "Missingness tokens are not people. 273-row queue imported separately. Unresolved query returns blanks rather than omitting them."},
-        {"clause": "UCS-08", "state": "PARTIAL", "notes": "Research dates not known-at. Scheme/tenure come from Wikipedia caches, not CSV columns. Frozen forecasts not mutated."},
-        {"clause": "UCS-09", "state": "PARTIAL", "notes": "Reusable importer, sqlite, CLI, query demonstrations exist. Package-installed consumer test unfinished."},
-        {"clause": "UCS-10", "state": "PARTIAL", "notes": "Positive/negative importer tests exist. Independent semantic review of every appointment is not claimed."},
-        {"clause": "UCS-11", "state": "INCOMPLETE", "notes": "No live Jira rewrite. C01 pending. All-22 checkouts not mutated."},
-        {"clause": "UCS-12", "state": "PARTIAL", "notes": "This packet. Local work remains. CYCLE_COMPLETE prohibited."},
+        {
+            "clause": "UCS-01",
+            "state": "PARTIAL",
+            "notes": "Snapshot 54 CSVs preserved; live OneDrive 54 CSVs byte-identical. Runtime uses snapshot, not OneDrive.",
+        },
+        {
+            "clause": "UCS-02",
+            "state": "PARTIAL",
+            "notes": "Named-column importer; 2009 stale-header conflict retained; formulas quarantined; 6749+273 round-trip counts.",
+        },
+        {
+            "clause": "UCS-03",
+            "state": "INCOMPLETE",
+            "notes": "Year/subdivision coverage emitted. FIU/FAU 2004 and WKU 2007 overlaps remain review queues. Independent membership crosswalk unfinished.",
+        },
+        {
+            "clause": "UCS-04",
+            "state": "PARTIAL",
+            "notes": "Column is not role authority. Assistant OC not principal. 91 risk fragments remain a review queue.",
+        },
+        {
+            "clause": "UCS-05",
+            "state": "INCOMPLETE",
+            "notes": "Importer does not overwrite BAS. Seven current name-set disagreements not fully adjudicated.",
+        },
+        {
+            "clause": "UCS-06",
+            "state": "INCOMPLETE",
+            "notes": "Registered as USER_COMPILED_RESEARCH_OBSERVATION. Primary-supported historical samples exist from manager receipts, not full corpus verification.",
+        },
+        {
+            "clause": "UCS-07",
+            "state": "PARTIAL",
+            "notes": "Missingness tokens are not people. 273-row queue imported separately. Unresolved query returns blanks rather than omitting them.",
+        },
+        {
+            "clause": "UCS-08",
+            "state": "PARTIAL",
+            "notes": "Research dates not known-at. Scheme/tenure come from Wikipedia caches, not CSV columns. Frozen forecasts not mutated.",
+        },
+        {
+            "clause": "UCS-09",
+            "state": "PARTIAL",
+            "notes": "Reusable importer, sqlite, CLI, query demonstrations exist. Package-installed consumer test unfinished.",
+        },
+        {
+            "clause": "UCS-10",
+            "state": "PARTIAL",
+            "notes": "Positive/negative importer tests exist. Independent semantic review of every appointment is not claimed.",
+        },
+        {
+            "clause": "UCS-11",
+            "state": "INCOMPLETE",
+            "notes": "No live Jira rewrite. C01 pending. All-22 checkouts not mutated.",
+        },
+        {
+            "clause": "UCS-12",
+            "state": "PARTIAL",
+            "notes": "This packet. Local work remains. CYCLE_COMPLETE prohibited.",
+        },
     ]
     (OUT / "CYCLE_REQUIREMENT_STATUS.json").write_text(
         json.dumps(
@@ -346,7 +447,9 @@ def main() -> int:
             }
         )
     for item in json.loads(
-        Path(r"C:\BatteredAggieSyndrome.data\ops\cycle33\FINDINGS.json").read_text(encoding="utf-8")
+        Path(r"C:\BatteredAggieSyndrome.data\ops\cycle33\FINDINGS.json").read_text(
+            encoding="utf-8"
+        )
     )["findings"]:
         findings.append(
             {
@@ -381,7 +484,7 @@ def main() -> int:
                 "not_exact_head_clean_room": True,
                 "git_diff_check": "PASS",
                 "tests": {
-                    "test_cycle33_national_staff": {"tests": 25, "exit": 0},
+                    "test_cycle33_national_staff": {"tests": 31, "exit": 0},
                     "test_cycle32_manager_counterexamples": {"tests": 75, "exit": 0},
                     "test_cycle30_adversarial_controls": {"tests": 61, "exit": 0},
                 },
@@ -405,7 +508,7 @@ def main() -> int:
                 "as_of_utc": NOW,
                 "current_official_parsed_records": 6215,
                 "predecessor_other_position": 5337,
-                "taxonomy_unmapped_titles": 272,
+                "taxonomy_unmapped_titles": unmapped,
                 "unique_global_name_strings": 6170,
                 "unique_program_name_pairs": 6215,
                 "historical_2013_2023_role_cells": 8355,
@@ -429,11 +532,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    unfinished = [
-        row
-        for row in requirements
-        if row["state"] != "COMPLETE"
-    ]
+    unfinished = [row for row in requirements if row["state"] != "COMPLETE"]
     (OUT / "CYCLE33_UNFINISHED_ITEMS.json").write_text(
         json.dumps(
             {
@@ -465,7 +564,7 @@ def main() -> int:
         "1. Implementation: local code/data/query work advanced; incomplete units remain.\n"
         "2. Data/evidence completeness: INCOMPLETE. Missingness labels are not completeness.\n"
         "3. Software validation: focused tests pass on dirty worktree PYTHONPATH=src "
-        "(25 Cycle33 / 75 Cycle32). Exact-head clean-room and isolated wheel not completed "
+        "(31 Cycle33 / 75 Cycle32). Exact-head clean-room and isolated wheel not completed "
         "as a detached submitted head before this emission.\n"
         "4. Independent scientific acceptance: not conferred by self-tests.\n"
         "5. Integration/release: UNAUTHORIZED under hold.\n"
@@ -476,7 +575,7 @@ def main() -> int:
         "- Pack restoration after accidental ops/cycle33 deletion: 9/15 Sept 14 files "
         "byte-identical; reconstructed companions are labeled in CYCLE33_PACK_RESTORATION.json.\n\n"
         "## Material counts\n\n"
-        "- Current parsed records 6215; UNMAPPED occupancy 272.\n"
+        f"- Current parsed records 6215; UNMAPPED occupancy {occupancy.get('UNMAPPED')}; unmapped distinct titles {unmapped}.\n"
         "- Successor current matrix 798; Washington OC UNKNOWN_NOT_LISTED.\n"
         "- Historical 2013-2023 role cells 8355.\n"
         "- Wikimedia scheme/tenure: 13218 pages; 4651 nonempty scheme pages; 9111 nonempty scheme claims.\n"

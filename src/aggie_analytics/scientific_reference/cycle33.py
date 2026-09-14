@@ -50,3 +50,30 @@ def competing_finals(rows: Sequence[Mapping[str, Any]]) -> list[str]:
             (row.get("home_points"), row.get("away_points"))
         )
     return [cid for cid, values in scores.items() if len(values) > 1]
+
+
+def unique_game_population(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Independent unique-game census. Does not import producer fit helpers."""
+
+    ids: list[str] = []
+    seasons: set[int] = set()
+    missing_id = 0
+    for row in rows:
+        gid = str(row.get("canonical_game_id") or "")
+        if not gid:
+            missing_id += 1
+            continue
+        ids.append(gid)
+        if row.get("season") is not None:
+            seasons.add(int(row["season"]))
+    unique = set(ids)
+    return {
+        "row_count": len(rows),
+        "unique_games": len(unique),
+        "duplicate_rows": len(ids) - len(unique),
+        "missing_identity_rows": missing_id,
+        "seasons": sorted(seasons),
+        "proven_pit": 0,
+        "classification": "UNTRUSTED_SHADOW",
+        "producer_helpers_imported": False,
+    }

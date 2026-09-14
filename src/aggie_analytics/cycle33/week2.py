@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Mapping
 
 TAMU_ASU_HISTORICAL = {
@@ -94,6 +94,42 @@ def closeout_row(
         "retroactive_forecast_forbidden": True,
         "week2_outcomes_do_not_tune_or_select": True,
         "official_finals_score_only": True,
+    }
+
+
+def cutoffs_from_kickoff_epoch(epoch: int | None, *, now: datetime) -> dict[str, Any]:
+    """Derive T-24H / T-90M from official kickoff. Do not copy calendar prose."""
+
+    if epoch is None:
+        return {
+            "t24h_deadline_utc": None,
+            "t90m_deadline_utc": None,
+            "t24h_disposition": "CUTOFF_UNKNOWN",
+            "t90m_disposition": "CUTOFF_UNKNOWN",
+            "kickoff_utc": None,
+            "cutoff_source": "KICKOFF_EPOCH_MISSING",
+        }
+    kickoff = datetime.fromtimestamp(int(epoch), tz=timezone.utc)
+    t24h = kickoff - timedelta(hours=24)
+    t90m = kickoff - timedelta(minutes=90)
+    dummy = {"canonical_contest_id": "epoch", "label": "epoch"}
+    row = closeout_row(
+        dummy,
+        now=now,
+        t24h=t24h.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        t90m=t90m.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        evidence=None,
+        freeze=None,
+    )
+    return {
+        "t24h_deadline_utc": row["t24h_deadline_utc"],
+        "t90m_deadline_utc": row["t90m_deadline_utc"],
+        "t24h_disposition": row["t24h_disposition"],
+        "t90m_disposition": row["t90m_disposition"],
+        "kickoff_utc": kickoff.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "cutoff_source": "NCAA_START_TIME_EPOCH",
+        "forecast_classification": "UNTRUSTED_SHADOW",
+        "retroactive_forecast_forbidden": True,
     }
 
 

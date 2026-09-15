@@ -80,7 +80,10 @@ def main() -> int:
     out = Path(os.environ.get("CYCLE33_MOUNTED_OUT", str(DEFAULT_OUT)))
     out.mkdir(parents=True, exist_ok=True)
     head = git("rev-parse", "HEAD")
+    branch = git("rev-parse", "--abbrev-ref", "HEAD")
     dirty = git("status", "--porcelain")
+    detached = branch == "HEAD"
+    isolated_detached_used = detached and not bool(dirty)
     digest = source_digest(REPO)
     imports = import_locations()
     gate_before = sha256_file(GATE)
@@ -117,6 +120,8 @@ def main() -> int:
         "artifact_type": "CYCLE33_MOUNTED_FULL_UNITTEST",
         "binding": {
             "git_head": head,
+            "abbrev_ref": branch,
+            "detached_head": detached,
             "dirty": bool(dirty),
             "dirty_paths": [line for line in dirty.splitlines() if line][:40],
             "source_tree_digest_sha256": digest,
@@ -149,12 +154,16 @@ def main() -> int:
         "da8a2e86_is_historical_only": True,
         "suite": "mounted_full_unittest",
         "isolated_detached_preferred": True,
-        "isolated_detached_used": False,
+        "isolated_detached_used": isolated_detached_used,
         "isolated_reason": (
-            "Runner binds the active worktree HEAD, dirty state, imported module "
-            "paths, source digest, and DATA_ROOT. An isolated detached checkout of "
-            "a clean submitted HEAD is preferred after those bytes are committed; "
-            "a restored tracked file is mutation, not purity."
+            "isolated_detached_used is true only for a clean detached HEAD checkout. "
+            "A dirty branch worktree is not an isolated submitted-head suite. "
+            "A restored tracked file is mutation, not purity."
+            if isolated_detached_used
+            else (
+                "This run is not a clean detached submitted-head checkout "
+                f"(abbrev_ref={branch!r}, dirty={bool(dirty)})."
+            )
         ),
         "unmounted_package_and_reference_are_distinct_suites": True,
     }

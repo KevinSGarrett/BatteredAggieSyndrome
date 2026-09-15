@@ -46,7 +46,10 @@ from aggie_analytics.cycle33.span_locate import locate_person_title
 from aggie_analytics.cycle30.availability import classify_captured_document
 from aggie_analytics.cycle33.neutral import NeutralVenueError, travel_context
 from aggie_analytics.cycle33.scoring_successor import score_unique_frozen_games
-from aggie_analytics.cycle33.scheme_tenure import extract_scheme_tenure_claims
+from aggie_analytics.cycle33.scheme_tenure import (
+    extract_scheme_tenure_claims,
+    family_tags_from_source,
+)
 from aggie_analytics.cycle33.sportradar_routes import (
     ROUTE_INJURIES,
     classify_ncaafb_path,
@@ -294,6 +297,16 @@ class WikiParserTests(unittest.TestCase):
             text, revision_id="1", page_title="2005 Example basketball team"
         )
         self.assertEqual(people, [])
+
+    def test_wiki_link_target_can_warrant_family_tag_without_forcing_nicknames(self) -> None:
+        spread = family_tags_from_source(
+            "[[Spread offense|Fun and gun]]", "offensive_scheme"
+        )
+        self.assertEqual([row["code"] for row in spread], ["SPREAD"])
+        nickname_only = family_tags_from_source("Fun and gun", "offensive_scheme")
+        self.assertEqual(nickname_only, [])
+        i_form = family_tags_from_source("[[I formation]]", "offensive_scheme")
+        self.assertEqual(i_form, [])
 
     def test_unrecognized_scheme_stays_unnormalized_and_visible(self) -> None:
         text = (

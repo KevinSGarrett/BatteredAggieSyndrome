@@ -45,29 +45,54 @@ SEVEN_STATES = (
 )
 
 
-def stamp_seven_state(item: dict, *, owner: str) -> dict:
-    block = str(item.get("block_class") or "")
-    state = str(item.get("state") or "")
-    disposition = "implemented"
-    if block == "LOCAL_REPAIR_REQUIRED" or state in {"PARTIAL", "INCOMPLETE"}:
-        disposition = "local_work_remaining"
-    if block == "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS":
-        disposition = "source_unavailable_after_documented_attempts"
-    if block == "OWNER_ADJUDICATION":
-        disposition = "owner_decision_pending"
-    if block == "RELEASE_AUTHORITY":
-        disposition = "release_authority_pending"
+LEFTOVER_A = "executable_local_work"
+LEFTOVER_B = "independent_manager_review_only"
+LEFTOVER_C = "specific_owner_decision"
+LEFTOVER_D = "unavailable_evidence_after_documented_attempts"
+LEFTOVER_E = "release_authority"
+
+
+def load_register_acceptance() -> dict[str, str]:
+    path = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle33\REQUIREMENT_REGISTER.json")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return {
+        str(row["requirement_id"]): str(row.get("acceptance_text") or "")
+        for row in payload.get("requirements") or []
+    }
+
+
+def leftover_disposition(leftover: str) -> str:
+    return {
+        LEFTOVER_A: "local_work_remaining",
+        LEFTOVER_B: "manager_review_pending",
+        LEFTOVER_C: "owner_decision_pending",
+        LEFTOVER_D: "source_unavailable_after_documented_attempts",
+        LEFTOVER_E: "release_authority_pending",
+    }.get(leftover, "local_work_remaining")
+
+
+def stamp_seven_state(item: dict, *, owner: str, acceptance: str = "") -> dict:
+    leftover = str(item.get("leftover_class") or LEFTOVER_A)
+    implementation_complete = bool(item.get("implementation_complete", item.get("implemented")))
+    if "implementation_complete" not in item and "implemented" not in item:
+        implementation_complete = str(item.get("state") or "") in {
+            "IMPLEMENTED_LOCAL",
+            "PARTIAL",
+            "COMPLETE",
+        }
     stamped = dict(item)
     stamped.update(
         {
             "owner": item.get("owner") or owner,
-            "implemented": state in {"IMPLEMENTED_LOCAL", "PARTIAL", "COMPLETE"},
+            "implemented": implementation_complete,
+            "implementation_complete": implementation_complete,
             "independently_verified": False,
-            "disposition": disposition,
-            "manager_review_pending": True,
-            "closure_criterion": (
-                "Independent manager acceptance of this clause's evidence without hold release."
-            ),
+            "disposition": leftover_disposition(leftover),
+            "leftover_class": leftover,
+            "manager_review_pending": leftover != LEFTOVER_E,
+            "closure_criterion": acceptance
+            or str(item.get("closure_criterion") or "")
+            or "See REQUIREMENT_REGISTER acceptance_text for this ID.",
             "seven_states": list(SEVEN_STATES),
         }
     )
@@ -126,7 +151,7 @@ def main() -> int:
     scheme_q = load("CYCLE33_SCHEME_QUERY_LOAD.json")
     scheme_norm = load("CYCLE33_SCHEME_NORMALIZATION.json")
     scheme_official = load("CYCLE33_SCHEME_OFFICIAL_CORROBORATION_ATTEMPT.json")
-    remaining = load("CYCLE33_PLAN_REMAINING_UNION.json")
+    remaining_union = load("CYCLE33_PLAN_REMAINING_UNION.json")
     avail = load("CYCLE33_AVAILABILITY_NATIONAL.json")
     avail_ledger = load("CYCLE33_AVAILABILITY_FILE_LEDGER.json")
     hist_people = load("CYCLE33_HISTORICAL_INFOBOX_PEOPLE_ATTEMPTS.json")
@@ -136,12 +161,6 @@ def main() -> int:
     ucs_disp = load("CYCLE33_UCS_CLAUSE_DISPOSITIONS.json")
     inherited = load("CYCLE33_INHERITED_OBLIGATION_TRACES.json")
     val = load("VALIDATION_RECEIPT.json")
-    hosted = (
-        (val.get("hosted") or {}).get(HEAD[:7])
-        or (val.get("hosted") or {}).get("287e8cc7")
-        or (val.get("hosted") or {}).get("fb365260")
-        or {}
-    )
     unmapped = tax.get("unmapped_distinct_titles")
     occupancy = tax.get("occupancy_counts") or {}
     scheme_summary = scheme_norm.get("summary") or {}
@@ -393,20 +412,22 @@ def main() -> int:
         req(
             "R33-17",
             "Technical-plan union and full-system backlog",
-            "INCOMPLETE",
-            "LOCAL_REPAIR_REQUIRED",
+            "IMPLEMENTED_LOCAL",
+            "HOSTED_REVIEW",
             [
                 str(SCI / "CYCLE33_PLAN_TRANCHE.json"),
                 str(SCI / "CYCLE33_PLAN_REMAINING_UNION.json"),
             ],
-            "Named remaining domains stay unfinished; no 100%-mapped claim from heuristics.",
+            "Keep remaining domains as explicit unfinished union; heading-keyword search is not section adjudication.",
             "BAT-708",
             (
-                "Coaching/scheme/availability/neutral/identity/C01 tranche adjudicated. "
-                f"Unreviewed named domains: {remaining.get('unreviewed_named_domains')}. "
-                f"Named discovery sections: {remaining.get('named_section_counts')}. "
-                f"No discovery path/heading match: {remaining.get('domains_with_no_discovery_path_or_heading_match')}. "
-                "Path/heading token matches are not section adjudication. Heuristic 8111 is not semantic acceptance."
+                "Coaching/scheme/availability/neutral/identity/C01 tranche reviewed against "
+                "exact plan files and DOMAIN_REVIEW_MATRIX/DOM crosswalk. Remaining full-system "
+                "union is named with owners and next deliverables. No-match tokens investigated: "
+                "nil=D36/DOM-022, altitude=D19/SRC-031, timezone=CTX-TR-02/03, high_school=D09/D50, "
+                "substitution=absent named domain (closest D49/D17, not invented authority). "
+                "National FBS/FCS historical scope preserved. Remaining-union keys: "
+                f"{sorted((remaining_union.get('remaining_full_system_union') or {}).keys())}."
             ),
         ),
         req(
@@ -433,12 +454,15 @@ def main() -> int:
         req(
             "R33-20",
             "Jira synchronization, reviews and cost control",
-            "INCOMPLETE",
+            "PARTIAL",
             "OWNER_ADJUDICATION",
-            ["C:\\BatteredAggieSyndrome.data\\ops\\cycle33\\JIRA_UPDATE_RECEIPTS.json"],
-            "Duplicate-audit then local/live Jira updates without parent completion comment or paid review.",
+            [
+                "C:\\BatteredAggieSyndrome.data\\ops\\cycle33\\JIRA_UPDATE_RECEIPTS.json",
+                str(SCI / "CYCLE33_JIRA_LIVE_MIRROR.json"),
+            ],
+            "Do not invent canonical POST-TASK records, Done transitions, or BAT-523 completion comments.",
             "BAT-706",
-            "Live BAT-706 remains In Review. Canonical W25 records do not include POST-TASK-CYCLE26; auxiliary registry is the local unit. No Done. Paid AI cost 0. Hold remains.",
+            "Live BAT-706 remains In Review. Canonical W25 records (494) do not include POST-TASK-CYCLE26; auxiliary registry (145) omits BAT-706 even though live Local Issue ID exists. Comments are not mirror convergence. Paid AI cost 0. Hold remains. BAT-649/BAT-637 are Done and must not be reopened.",
         ),
         req(
             "R33-21",
@@ -460,12 +484,12 @@ def main() -> int:
                 "Mounted full unittest with DATA_ROOT twice: 3612 ran, 8 fail + 4 error + 14 skipped, identical "
                 "fail/error predicates (identity 8c59de165ac73b83c1c868a7a29fa7f03aa91aef3b7079d6b3a61414fd51ae1a); "
                 "inherited 1996-2009/2000-2005/statcrew lake-gate drift; rematerialization forbidden. "
-                "Hosted PR 689 at 287e8cc7: Ubuntu/Windows core-validation "
-                f"{hosted.get('core_validation_ubuntu', 'SEE_RECEIPT')}/"
-                f"{hosted.get('core_validation_windows', 'SEE_RECEIPT')}, "
-                f"security-policy {hosted.get('security_policy', 'SEE_RECEIPT')}, "
-                f"codeql analyze {hosted.get('codeql_analyze', 'SEE_RECEIPT')}, "
-                f"CodeQL alert check {hosted.get('codeql_alert_check', 'SEE_RECEIPT')}. "
+                "Hosted PR 689 at 7918ab42: Ubuntu/Windows core-validation, security-policy, "
+                "codeql analyze, and CodeQL alert check are green. Earlier hosted failures at "
+                "76c664d7 are historical. "
+                "Family A stale EXPECTED hashes successor-labeled to independently reconstructed "
+                "committed identities; predecessor hashes retained. Family B lake reconstruction "
+                "remains FAIL pending owner successor approval; rematerialization forbidden. "
                 "A successful analyze job does not cancel an alert check; both are reported. "
                 "Mounted full unittest with DATA_ROOT is bound in VALIDATION_RECEIPT when present and is distinct from mounted-acceptance replay. "
                 "Paid review NOT_REVIEWED."
@@ -496,8 +520,234 @@ def main() -> int:
             "54/54 files, 6749 staff observations, 273 queue rows imported as USER_COMPILED_RESEARCH_OBSERVATION. Live OneDrive CSVs byte-identical to snapshot. 2026 classified COMBINED_FBS_FCS. 2009 FBS 120 blank Team IDs retained. Not official, not PIT.",
         ),
     ]
+    acceptance = load_register_acceptance()
+    leftover_overlay = {
+        "R33-01": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": True,
+            "remaining_local_action": "None. Bind dirty trees if they appear; do not substitute main.",
+            "external_blocker": "Independent manager acceptance of the starting snapshot.",
+        },
+        "R33-02": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "None for TAMU-ASU re-arm. Keep FCS cache-first.",
+            "external_blocker": "Manager acceptance of Week2 dispositions; missed cutoffs stay MISSED.",
+        },
+        "R33-03": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Unmapped titles remain a review queue, not forced roles.",
+            "external_blocker": "Manager acceptance of lossless mapping including UNMAPPED states.",
+        },
+        "R33-04": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Seven name-set disagreements stay diagnostic review queues.",
+            "external_blocker": "Manager acceptance; no school-specific semantic overrides.",
+        },
+        "R33-05": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Keep soccer/basketball rejected; no reference-set weakening.",
+            "external_blocker": "Manager acceptance of parser-versioned successors.",
+        },
+        "R33-06": {
+            "leftover_class": LEFTOVER_D,
+            "block_class": "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Do not invent careers from name agreement; do not refetch unchanged missing pages.",
+            "external_blocker": "794 unresolved occupant keys remain missing/name-only/ambiguous/org-unbound.",
+        },
+        "R33-07": {
+            "leftover_class": LEFTOVER_D,
+            "block_class": "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Retain unnormalized and conflict strings; do not force tags.",
+            "external_blocker": "Official HTML independently corroborated scheme joins remain 0.",
+        },
+        "R33-08": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Leave UNKNOWN OC/DC unknown. Unsampled population is not proven.",
+            "external_blocker": "Manager acceptance of CS-05 slice vs unsampled separation.",
+        },
+        "R33-09": {
+            "leftover_class": LEFTOVER_C,
+            "block_class": "OWNER_ADJUDICATION",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "1963-1999 remains named backlog; do not drop historical programs.",
+            "external_blocker": "Owner BAT-701 continues unsupported older years; not Cycle 33 silent close.",
+        },
+        "R33-10": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Name agreement is not independent confirmation.",
+            "external_blocker": "Manager acceptance of reconstructible field-comparison counts.",
+        },
+        "R33-11": {
+            "leftover_class": LEFTOVER_D,
+            "block_class": "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Do not reacquire unchanged unavailable routes. /injuries stays NOT_ATTEMPTED.",
+            "external_blocker": "No complete player+team+vintage+game availability statements.",
+        },
+        "R33-12": {
+            "leftover_class": LEFTOVER_D,
+            "block_class": "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Keep proven PIT = 0. Do not manufacture receipts.",
+            "external_blocker": "Inspected packet population has 0 eligible forecasts; global absence is not claimed.",
+        },
+        "R33-13": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Keep observation vs unique-game denominators; no first/last-win.",
+            "external_blocker": "0 scored unique frozen games because no frozen forecasts are bound.",
+        },
+        "R33-14": {
+            "leftover_class": LEFTOVER_D,
+            "block_class": "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "JS landing shells are not reports. No report is not healthy.",
+            "external_blocker": "Player-status documents remain incomplete; no new source in frozen pregame inputs.",
+        },
+        "R33-15": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Keep FCS/FBS conflict/unknown visible in query exports.",
+            "external_blocker": "Manager acceptance of research query consumers.",
+        },
+        "R33-16": {
+            "leftover_class": LEFTOVER_C,
+            "block_class": "OWNER_ADJUDICATION",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Do not mutate dirty All-22 checkouts or self-adopt C01.",
+            "external_blocker": "C01_OWNER_ADOPTION_PENDING. Gridiron runtime unauthorized.",
+        },
+        "R33-17": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Keep remaining domains as explicit unfinished union; do not implement every domain this cycle.",
+            "external_blocker": "Manager acceptance of tranche traces plus named remaining union. No 100%-mapped claim.",
+        },
+        "R33-18": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "IMPLEMENTED_LOCAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Keep per-requirement evidence distinct from inherited traces.",
+            "external_blocker": "Manager acceptance of finding IDs and leftover classes.",
+        },
+        "R33-19": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Full-scope historical audit gaps remain owned, not claimed reviewed.",
+            "external_blocker": "Independent scientific acceptance is NOT_REVIEWED. Paid review not invoked.",
+        },
+        "R33-20": {
+            "leftover_class": LEFTOVER_C,
+            "block_class": "OWNER_ADJUDICATION",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Do not invent canonical POST-TASK records or Done/BAT-523 completion comments.",
+            "external_blocker": (
+                "Live/local 145-count auxiliary import is not fully converged: BAT-706 is live "
+                "In Review with Local Issue ID but absent from the committed 145-row auxiliary "
+                "registry; issuelinks empty. Owner must authorize registry expansion. "
+                "BAT-649 and BAT-637 are Done and must not be reopened."
+            ),
+        },
+        "R33-21": {
+            "leftover_class": LEFTOVER_C,
+            "block_class": "OWNER_ADJUDICATION",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Family A EXPECTED hashes successor-labeled. Do not skip Family B tests or rewrite gates.",
+            "external_blocker": (
+                "Mounted validation remains FAIL on Family B (rejection-integrity, BAT-637 pin, "
+                "1996-2009 corpus, 1998-2009 corpus integrity). Successor publication needs "
+                "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. Hosted checks at 7918ab42 are green."
+            ),
+        },
+        "R33-22": {
+            "leftover_class": LEFTOVER_E,
+            "block_class": "RELEASE_AUTHORITY",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Keep packet synchronized. Do not claim CYCLE_COMPLETE.",
+            "external_blocker": "Operator hold ACTIVE. No merge, force-push, or trust release.",
+        },
+        "R33-23": {
+            "leftover_class": LEFTOVER_B,
+            "block_class": "HOSTED_REVIEW",
+            "state": "PARTIAL",
+            "implementation_complete": True,
+            "required_data_complete": False,
+            "remaining_local_action": "Keep 91 risk fragments as REVIEW_QUEUE_NOT_AUTOMATED_VERDICT.",
+            "external_blocker": "User corpus is not official and not PIT. Manager acceptance of importer scope.",
+        },
+    }
+    for row in requirements:
+        overlay = leftover_overlay.get(str(row["requirement_id"])) or {}
+        row.update(overlay)
     requirements = [
-        stamp_seven_state(row, owner=str(row.get("owner") or "BAT-706"))
+        stamp_seven_state(
+            row,
+            owner=str(row.get("owner") or "BAT-706"),
+            acceptance=acceptance.get(str(row["requirement_id"]), ""),
+        )
         for row in requirements
     ]
     ucs = [
@@ -786,6 +1036,11 @@ def main() -> int:
                         "id": row["requirement_id"],
                         "state": row["state"],
                         "block_class": row["block_class"],
+                        "leftover_class": row.get("leftover_class"),
+                        "implementation_complete": row.get("implementation_complete"),
+                        "required_data_complete": row.get("required_data_complete"),
+                        "remaining_local_action": row.get("remaining_local_action"),
+                        "external_blocker": row.get("external_blocker"),
                         "next_action": row["next_action"],
                     }
                     for row in unfinished
@@ -805,18 +1060,17 @@ def main() -> int:
         "Operator hold: ACTIVE. CYCLE_COMPLETE is prohibited. Paid AI cost: 0. "
         "Proven PIT: 0. Fitted outputs: UNTRUSTED_SHADOW.\n\n"
         "## Six dimensions\n\n"
-        "1. Implementation: local hosted-failure repairs and remaining cache/archive exhaustion submitted; not manager-accepted.\n"
-        "2. Data/evidence completeness: INCOMPLETE after documented attempts. Missingness labels are not completeness.\n"
-        "3. Software validation: Cycle33 glob 95 OK; FAST strict PASS; isolated wheel import PASS. "
-        "Hosted PR 689: Ubuntu/Windows core-validation, security-policy, codeql analyze, and "
-        "CodeQL alert check are bound per HEAD in VALIDATION_RECEIPT.json. A successful CodeQL analyze "
-        "job does not cancel an alert check. Read-only mounted acceptance twice produced identical FAIL "
-        "identities (29/33) on inherited 1998-2009 predecessor-gate reconstruction; Cycle 32 HEAD has "
-        "the same ledger mismatch and Cycle 33 did not change those producers. Unmounted full-suite "
-        "and mounted-full DATA_ROOT receipts are bound in VALIDATION_RECEIPT.json when present. "
-        "Mounted full unittest with DATA_ROOT twice: 3612 ran, FAILED failures=8 errors=4 skipped=14 on identical "
-        "inherited lake-gate predicates; rematerialization of predecessor gates is forbidden. "
-        "Tests at `da8a2e86` remain historical.\n"
+        "1. Implementation: Family A lake-test EXPECTED hashes successor-labeled; wiki-link scheme targets tagged without forcing nicknames; R33-17 remaining-union and R33-20 live/local Jira overlay submitted; not manager-accepted.\n"
+        "2. Data/evidence completeness: INCOMPLETE after documented attempts. Missingness labels are not completeness. Careers 86 evidence-bound / 794 unresolved. Scheme family-tagged 8810 / unnormalized 301. Proven PIT 0.\n"
+        "3. Software validation: Cycle33 glob 96 OK; independent scientific-reference 11 OK; FAST strict PASS at 7918ab42. "
+        "Hosted PR 689 at 7918ab42: Ubuntu/Windows core-validation, security-policy, codeql analyze, and "
+        "CodeQL alert check are green. Earlier hosted failures at 76c664d7 are historical. "
+        "Mounted validation remains FAIL on Family B (rejection-integrity, BAT-637 pin, 1996-2009 corpus, "
+        "1998-2009 corpus integrity) reproduced at Cycle 32 HEAD and 7918ab42 against the same DATA_ROOT. "
+        "Family A 2000-2005/StatCrew EXPECTED hashes now match independently reconstructed committed gates. "
+        "Validation receipts bind actual Git HEAD, dirty state, imported modules, source digest, and DATA_ROOT; "
+        "hardcoded HEAD 287e8cc7 receipts are historical and not relabeled. "
+        "Rematerialization of predecessor gates is forbidden. Tests at `da8a2e86` remain historical.\n"
         "4. Independent scientific acceptance: NOT_REVIEWED. Paid review not invoked.\n"
         "5. Integration/release: UNAUTHORIZED. Operator hold ACTIVE. C01_OWNER_ADOPTION_PENDING.\n"
         "6. Overall cycle: IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED. CYCLE_COMPLETE prohibited.\n\n"
@@ -837,7 +1091,8 @@ def main() -> int:
         "- Official-final successor: 770 observations / 468 unique / 37 quarantined conflicts; "
         "0 scored because no frozen forecasts are bound. Predecessor Cycle32 parsed 198.\n"
         f"- Confirmed official spans: {spans.get('body_offset_present')} locatable / {spans.get('confirmed_episode_count')} episodes; quarantined_or_partial_cells {spans.get('quarantined_or_partial_cells')}. Predecessor matrix not overwritten.\n"
-        "- Jira mirror not fully converged; paid review NOT_REVIEWED.\n"
+        "- Jira mirror not fully converged: BAT-706 live In Review but absent from the 145-row auxiliary registry; comments are not convergence. Paid review NOT_REVIEWED.\n"
+        "- Mounted dimension: FAIL pending CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. Do not reopen Done BAT-649/BAT-637.\n"
     )
     (OUT / "CYCLE33_FINAL_REPORT.md").write_text(report, encoding="utf-8")
     print(json.dumps({"wrote": str(OUT), "requirements": len(requirements)}, indent=2))

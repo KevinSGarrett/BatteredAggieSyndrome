@@ -294,10 +294,14 @@ class StatCrewLakeTests(unittest.TestCase):
             "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
         )
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
-        self.assertEqual(
-            gate["gate_identity"],
-            "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
+        predecessor_expected_gate_identity = (
+            "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16"
         )
+        expected_gate_identity = (
+            "ed2ce7b95bd046a282116cf50aff84fec1e585f8dee848cc4451bec63bdf668c"
+        )
+        self.assertNotEqual(predecessor_expected_gate_identity, expected_gate_identity)
+        self.assertEqual(gate["gate_identity"], expected_gate_identity)
         self.assertEqual(gate["counts"]["team_statistics_present_games"], 38)
         self.assertEqual(
             gate["counts"]["individual_player_statistics_present_games"], 38

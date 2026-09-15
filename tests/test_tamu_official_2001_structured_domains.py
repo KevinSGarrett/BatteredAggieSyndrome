@@ -55,14 +55,26 @@ DATA_ROOT = Path(
 )
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 PIT_URL = "https://files.12thman.com/history/football/stats/2001-2002/mfb_415_msu.html"
-EXPECTED_GATE_IDENTITY = (
+# Stale test constants. Independent reconstruction equals the committed
+# gate; these hashes are retained as predecessor evidence, not current
+# EXPECTED identities. Do not rewrite the committed gate to match them.
+PREDECESSOR_EXPECTED_GATE_IDENTITY = (
     "efbd7b1e0d52b99d49066878cd45e9b7768a9288f8ed2fe94891cb402b02a666"
 )
-EXPECTED_PAYLOAD_IDENTITY = (
+PREDECESSOR_EXPECTED_PAYLOAD_IDENTITY = (
     "b26370bb6e369a9f0106407461fd647bae7d5a39ef9a5229b6d1283977b857c6"
 )
-EXPECTED_CODE_IDENTITY = (
+PREDECESSOR_EXPECTED_CODE_IDENTITY = (
     "a1711813cbf891d333678f089f5b9f516674a753af1805b93ff9e1f87a5d6aa3"
+)
+EXPECTED_GATE_IDENTITY = (
+    "d3d3c8ea20e69ea938e6eeb2fabb471c3a79f8f5e9105d5b6276288a64b3601d"
+)
+EXPECTED_PAYLOAD_IDENTITY = (
+    "957b631fa7c5d18b3ecd4bcaf48666df6625172f1d1b485255c6204d50cd1aa4"
+)
+EXPECTED_CODE_IDENTITY = (
+    "3c4d00cc20ec13eb5ba90c82a58993db955994f236cef631c7bd132598eacb71"
 )
 
 TEAM_HTML = """
@@ -373,6 +385,9 @@ class Official2001StructuredDomainReconstructionTests(unittest.TestCase):
         if result is None:
             return
         self.assertEqual(result["result"], "PASS")
+        self.assertNotEqual(PREDECESSOR_EXPECTED_GATE_IDENTITY, EXPECTED_GATE_IDENTITY)
+        self.assertNotEqual(PREDECESSOR_EXPECTED_PAYLOAD_IDENTITY, EXPECTED_PAYLOAD_IDENTITY)
+        self.assertNotEqual(PREDECESSOR_EXPECTED_CODE_IDENTITY, EXPECTED_CODE_IDENTITY)
         self.assertEqual(result["gate_identity"], EXPECTED_GATE_IDENTITY)
         self.assertEqual(result["payload_identity"], EXPECTED_PAYLOAD_IDENTITY)
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))

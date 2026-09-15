@@ -13,8 +13,9 @@ from aggie_analytics.cycle33.wiki_parameters import (
 )
 
 PARSER_VERSION = "BAS-SCHEME-TENURE-v33.2"
-NORMALIZATION_VERSION = "BAS-SCHEME-FAMILY-TAGS-v33.2"
+NORMALIZATION_VERSION = "BAS-SCHEME-FAMILY-TAGS-v33.3"
 WIKI_LINK = re.compile(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]")
+WIKI_TARGET = re.compile(r"\[\[([^|\]]+)(?:\|[^\]]+)?\]\]")
 REF_OR_HTML = re.compile(r"<ref\b[^>]*>.*?</ref>|<[^>]+>", re.I | re.S)
 DASHES = str.maketrans({"–": "-", "—": "-", "−": "-"})
 
@@ -68,15 +69,23 @@ def display_scheme_text(source_text: str) -> str:
     return " ".join(text.translate(DASHES).split())
 
 
+def family_search_text(source_text: str) -> str:
+    display = display_scheme_text(source_text)
+    targets = [
+        match.group(1) for match in WIKI_TARGET.finditer(str(source_text or ""))
+    ]
+    return " ".join(part for part in [display, *targets] if part)
+
+
 def family_tags_from_source(source_text: str, field: str) -> list[dict[str, str]]:
     spec = _FAMILY_SPEC.get(field)
     if spec is None:
         return []
-    display = display_scheme_text(source_text)
-    if not display:
+    searchable = family_search_text(source_text)
+    if not searchable:
         return []
     patterns, dimension = spec
-    folded = display.casefold()
+    folded = searchable.casefold()
     tags: list[dict[str, str]] = []
     seen: set[str] = set()
     for pattern, code in patterns:

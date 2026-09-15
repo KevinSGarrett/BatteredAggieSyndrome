@@ -449,7 +449,7 @@ def main() -> int:
             "Keep inherited Cycle 18/19 lake-gate mismatches explicit; do not rematerialize predecessor gates.",
             "BAT-706",
             (
-                f"Committed HEAD {HEAD}. Cycle33 glob 91 OK; Cycle32 75 OK; Cycle30 adversarial 61 OK; "
+                f"Committed HEAD {HEAD}. Cycle33 glob 95 OK; Cycle32 75 OK; Cycle30 adversarial 61 OK; "
                 "execution-focus 10 OK; independent scientific-reference 11 OK. "
                 "FAST strict PASS. git diff --check PASS. Ruff check of Cycle 33 changed Python PASS after format. "
                 "Isolated wheel loaded cycle33.query and sportradar_routes from site-packages with checkout src absent. "
@@ -690,7 +690,7 @@ def main() -> int:
         "tests": val.get(
             "tests",
             {
-                "test_cycle33_glob": {"tests": 91, "exit": 0},
+                "test_cycle33_glob": {"tests": 95, "exit": 0},
                 "test_cycle32_manager_counterexamples": {"tests": 75, "exit": 0},
                 "test_cycle30_adversarial_controls": {"tests": 61, "exit": 0},
                 "test_execution_focus": {"tests": 10, "exit": 0},
@@ -807,7 +807,7 @@ def main() -> int:
         "## Six dimensions\n\n"
         "1. Implementation: local hosted-failure repairs and remaining cache/archive exhaustion submitted; not manager-accepted.\n"
         "2. Data/evidence completeness: INCOMPLETE after documented attempts. Missingness labels are not completeness.\n"
-        "3. Software validation: Cycle33 glob 91 OK; FAST strict PASS; isolated wheel import PASS. "
+        "3. Software validation: Cycle33 glob 95 OK; FAST strict PASS; isolated wheel import PASS. "
         "Hosted PR 689: Ubuntu/Windows core-validation, security-policy, codeql analyze, and "
         "CodeQL alert check are bound per HEAD in VALIDATION_RECEIPT.json. A successful CodeQL analyze "
         "job does not cancel an alert check. Read-only mounted acceptance twice produced identical FAIL "

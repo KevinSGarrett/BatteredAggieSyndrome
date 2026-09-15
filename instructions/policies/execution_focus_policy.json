@@ -12,6 +12,20 @@
     "max_consecutive_process_only_commits": 1,
     "historical_integration_corrections": [
       {
+        "commit_sha": "415b11611f431eedd9bb2366b99695e1f3919a16",
+        "pull_request": 689,
+        "head_sha": "da8a2e86e79557c00ce32437107b44c05f9a1668",
+        "classification": "[material]",
+        "reason": "Cycle #33 packet-emitter exact-head notes on draft PR #689 changed tools/emit_cycle33_packet.py, a material path. The [process] subject was incorrect; SHA-scoped only."
+      },
+      {
+        "commit_sha": "1b502c7be0e0193b6d305ee0d4e759dad65e12bd",
+        "pull_request": 689,
+        "head_sha": "da8a2e86e79557c00ce32437107b44c05f9a1668",
+        "classification": "[material]",
+        "reason": "Cycle #33 instruction-hash refresh on draft PR #689 also changed tools/emit_cycle33_packet.py, a material path. The [process] subject was incorrect; SHA-scoped only."
+      },
+      {
         "commit_sha": "ff7859fa706c394fc848a60c9d1af029f4454604",
         "pull_request": 687,
         "head_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",

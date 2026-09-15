@@ -473,7 +473,7 @@ def main() -> int:
             "Keep inherited Cycle 18/19 lake-gate mismatches explicit; do not rematerialize predecessor gates.",
             "BAT-706",
             (
-                f"Committed HEAD {HEAD}. Cycle33 glob 95 OK; Cycle32 75 OK; Cycle30 adversarial 61 OK; "
+                f"Committed HEAD {HEAD}. Cycle33 glob 96 OK; Cycle32 75 OK; Cycle30 adversarial 61 OK; "
                 "execution-focus 10 OK; independent scientific-reference 11 OK. "
                 "FAST strict PASS. git diff --check PASS. Ruff check of Cycle 33 changed Python PASS after format. "
                 "Isolated wheel loaded cycle33.query and sportradar_routes from site-packages with checkout src absent. "
@@ -481,12 +481,13 @@ def main() -> int:
                 "Read-only mounted critical suite twice: identical identities, 29/33 passed, 1 fail + 4 errors on "
                 "predecessor 1998-2009 gate reconstruction (same ledger mismatch on Cycle 32 HEAD; Cycle 33 did not "
                 "change those producers). Tracked mounted_acceptance_gate.json was restored, not rewritten. "
-                "Mounted full unittest with DATA_ROOT twice: 3612 ran, 8 fail + 4 error + 14 skipped, identical "
-                "fail/error predicates (identity 8c59de165ac73b83c1c868a7a29fa7f03aa91aef3b7079d6b3a61414fd51ae1a); "
-                "inherited 1996-2009/2000-2005/statcrew lake-gate drift; rematerialization forbidden. "
-                "Hosted PR 689 at 7918ab42: Ubuntu/Windows core-validation, security-policy, "
-                "codeql analyze, and CodeQL alert check are green. Earlier hosted failures at "
-                "76c664d7 are historical. "
+                "Mounted full unittest with DATA_ROOT after Family A successor-labels: 3617 ran, 1 fail + 4 error + 14 skipped, "
+                "identical Family B predicates on two passes. "
+                "Hosted PR 689 at 7918ab42 was green. Submitted 66cd9406 then failed validate_repository --strict "
+                "(24 findings: changed-file hash/size drift plus four new tools not represented in provenance). "
+                "This successor binds provenance/PROJECT_FILE_MANIFEST.csv after those source edits. "
+                "Do not treat 7918ab42 green as validation of 66cd9406 or this HEAD. "
+                "Earlier hosted failures at 76c664d7 remain historical. "
                 "Family A stale EXPECTED hashes successor-labeled to independently reconstructed "
                 "committed identities; predecessor hashes retained. Family B lake reconstruction "
                 "remains FAIL pending owner successor approval; rematerialization forbidden. "
@@ -713,11 +714,12 @@ def main() -> int:
             "state": "PARTIAL",
             "implementation_complete": True,
             "required_data_complete": False,
-            "remaining_local_action": "Family A EXPECTED hashes successor-labeled. Do not skip Family B tests or rewrite gates.",
+            "remaining_local_action": "Do not skip Family B tests or rewrite gates. Isolated submitted-head mounted receipts live under VALIDATION_RUNTIME.",
             "external_blocker": (
                 "Mounted validation remains FAIL on Family B (rejection-integrity, BAT-637 pin, "
                 "1996-2009 corpus, 1998-2009 corpus integrity). Successor publication needs "
-                "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. Hosted checks at 7918ab42 are green."
+                "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. Hosted 66cd9406 failed integrity-manifest; "
+                "this successor binds provenance. 7918ab42 green is historical, not this HEAD."
             ),
         },
         "R33-22": {
@@ -814,6 +816,25 @@ def main() -> int:
     ]
     if ucs_disp.get("clauses"):
         ucs = ucs_disp["clauses"]
+    ucs_leftover = {
+        "UCS-01": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-02": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-03": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-04": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-05": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-06": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-07": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-08": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-09": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-10": (LEFTOVER_B, "HOSTED_REVIEW"),
+        "UCS-11": (LEFTOVER_C, "OWNER_ADJUDICATION"),
+        "UCS-12": (LEFTOVER_E, "RELEASE_AUTHORITY"),
+    }
+    for row in ucs:
+        leftover, block = ucs_leftover.get(str(row.get("clause")), (LEFTOVER_B, "HOSTED_REVIEW"))
+        row["leftover_class"] = leftover
+        if str(row.get("block_class") or "") == "LOCAL_REPAIR_REQUIRED":
+            row["block_class"] = block
     ucs = [stamp_seven_state(row, owner="BAT-701") for row in ucs]
     (OUT / "CYCLE_REQUIREMENT_STATUS.json").write_text(
         json.dumps(
@@ -940,7 +961,7 @@ def main() -> int:
         "tests": val.get(
             "tests",
             {
-                "test_cycle33_glob": {"tests": 95, "exit": 0},
+                "test_cycle33_glob": {"tests": 96, "exit": 0},
                 "test_cycle32_manager_counterexamples": {"tests": 75, "exit": 0},
                 "test_cycle30_adversarial_controls": {"tests": 61, "exit": 0},
                 "test_execution_focus": {"tests": 10, "exit": 0},
@@ -1062,9 +1083,10 @@ def main() -> int:
         "## Six dimensions\n\n"
         "1. Implementation: Family A lake-test EXPECTED hashes successor-labeled; wiki-link scheme targets tagged without forcing nicknames; R33-17 remaining-union and R33-20 live/local Jira overlay submitted; not manager-accepted.\n"
         "2. Data/evidence completeness: INCOMPLETE after documented attempts. Missingness labels are not completeness. Careers 86 evidence-bound / 794 unresolved. Scheme family-tagged 8810 / unnormalized 301. Proven PIT 0.\n"
-        "3. Software validation: Cycle33 glob 96 OK; independent scientific-reference 11 OK; FAST strict PASS at 7918ab42. "
-        "Hosted PR 689 at 7918ab42: Ubuntu/Windows core-validation, security-policy, codeql analyze, and "
-        "CodeQL alert check are green. Earlier hosted failures at 76c664d7 are historical. "
+        "3. Software validation: Cycle33 glob 96 OK; independent scientific-reference 11 OK; FAST strict PASS. "
+        "Hosted PR 689 at 7918ab42 was green. Submitted 66cd9406 failed validate_repository --strict "
+        "(changed-file hash/size plus four new tools missing from provenance); this successor binds the manifest. "
+        "Do not treat 7918ab42 green as validation of a later HEAD. Earlier hosted failures at 76c664d7 are historical. "
         "Mounted validation remains FAIL on Family B (rejection-integrity, BAT-637 pin, 1996-2009 corpus, "
         "1998-2009 corpus integrity) reproduced at Cycle 32 HEAD and 7918ab42 against the same DATA_ROOT. "
         "Family A 2000-2005/StatCrew EXPECTED hashes now match independently reconstructed committed gates. "

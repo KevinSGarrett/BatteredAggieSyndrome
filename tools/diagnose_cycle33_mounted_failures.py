@@ -5,7 +5,6 @@ Does not rematerialize predecessor gates or rewrite expected hashes.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import subprocess
@@ -22,9 +21,6 @@ from aggie_analytics.data import tamu_official_1998_2009_rejection_integrity as 
 from aggie_analytics.data import tamu_official_gamebook_union_1998_rejection_complete as union1998  # noqa: E402
 from aggie_analytics.data.tamu_official_1998_2009_rejection_integrity import (  # noqa: E402
     GATE_RELATIVE as REJ_GATE,
-)
-from aggie_analytics.data.tamu_official_historical_boxscores import (  # noqa: E402
-    AuthorityViolation,
 )
 
 SCI = Path(

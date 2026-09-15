@@ -4748,6 +4748,7 @@ tools/capture_unified_live_baseline.py
 tools/capture_unified_live_service.py
 tools/census_cycle33_career_universe.py
 tools/check_advanced_challenger_admission.py
+tools/closeout_cycle33_targeted.py
 tools/closeout_cycle33_week2.py
 tools/compare_cycle32_tamu_gates.py
 tools/compare_cycle33_user_coaches_live.py
@@ -4771,6 +4772,7 @@ tools/cycle27_schedulers/run_friday_t90m_capture.ps1
 tools/cycle27_schedulers/run_friday_t90m_failover.ps1
 tools/cycle27_schedulers/run_t90m_cluster_capture.ps1
 tools/demo_cycle33_queries.py
+tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py
 tools/emit_cycle32_requirement_status.py
 tools/emit_cycle33_packet.py
@@ -4839,6 +4841,8 @@ tools/reparse_cycle32_official_staff.py
 tools/repo_integrity.py
 tools/reprocess_cycle33_official_staff_roles.py
 tools/restore_state.py
+tools/review_cycle33_scheme_titles.py
+tools/run_cycle33_mounted_validation.py
 tools/run_development_rankings_walk_forward_2023.py
 tools/run_drift_incident_game_day.py
 tools/run_expanded_event_chronology_preliminary.py

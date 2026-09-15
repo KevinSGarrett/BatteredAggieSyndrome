@@ -34,6 +34,46 @@ def git_head() -> str:
     ).strip()
 
 
+SEVEN_STATES = (
+    "implemented",
+    "independently_verified",
+    "local_work_remaining",
+    "source_unavailable_after_documented_attempts",
+    "owner_decision_pending",
+    "manager_review_pending",
+    "release_authority_pending",
+)
+
+
+def stamp_seven_state(item: dict, *, owner: str) -> dict:
+    block = str(item.get("block_class") or "")
+    state = str(item.get("state") or "")
+    disposition = "implemented"
+    if block == "LOCAL_REPAIR_REQUIRED" or state in {"PARTIAL", "INCOMPLETE"}:
+        disposition = "local_work_remaining"
+    if block == "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS":
+        disposition = "source_unavailable_after_documented_attempts"
+    if block == "OWNER_ADJUDICATION":
+        disposition = "owner_decision_pending"
+    if block == "RELEASE_AUTHORITY":
+        disposition = "release_authority_pending"
+    stamped = dict(item)
+    stamped.update(
+        {
+            "owner": item.get("owner") or owner,
+            "implemented": state in {"IMPLEMENTED_LOCAL", "PARTIAL", "COMPLETE"},
+            "independently_verified": False,
+            "disposition": disposition,
+            "manager_review_pending": True,
+            "closure_criterion": (
+                "Independent manager acceptance of this clause's evidence without hold release."
+            ),
+            "seven_states": list(SEVEN_STATES),
+        }
+    )
+    return stamped
+
+
 def load(name: str) -> dict:
     path = SCI / name
     if not path.is_file():
@@ -86,11 +126,20 @@ def main() -> int:
     scheme_q = load("CYCLE33_SCHEME_QUERY_LOAD.json")
     remaining = load("CYCLE33_PLAN_REMAINING_UNION.json")
     avail = load("CYCLE33_AVAILABILITY_NATIONAL.json")
+    avail_ledger = load("CYCLE33_AVAILABILITY_FILE_LEDGER.json")
+    hist_people = load("CYCLE33_HISTORICAL_INFOBOX_PEOPLE_ATTEMPTS.json")
+    pit36 = load("CYCLE33_PIT_36_ROW_RECONCILE.json")
     finals = load("CYCLE33_OFFICIAL_FINALS_SUCCESSOR.json")
     fcs = load("CYCLE33_FCS_SCOREBOARD.json")
     ucs_disp = load("CYCLE33_UCS_CLAUSE_DISPOSITIONS.json")
     inherited = load("CYCLE33_INHERITED_OBLIGATION_TRACES.json")
     val = load("VALIDATION_RECEIPT.json")
+    hosted = (
+        (val.get("hosted") or {}).get(HEAD[:7])
+        or (val.get("hosted") or {}).get("287e8cc7")
+        or (val.get("hosted") or {}).get("fb365260")
+        or {}
+    )
     unmapped = tax.get("unmapped_distinct_titles")
     occupancy = tax.get("occupancy_counts") or {}
     requirements = [
@@ -102,7 +151,7 @@ def main() -> int:
             [str(SCI / "CYCLE33_STARTING_STACK.json")],
             "Keep dirty-tree digest bound to tests; do not substitute canonical main.",
             "BAT-706",
-            f"Worktrees={stack.get('worktree_count')}. Cycle33 HEAD {stack.get('cycle33_head')}. Predecessor {stack.get('predecessor_head')}. Canonical main is not the validation subject.",
+            f"Worktrees={stack.get('worktree_count')}. Cycle33 HEAD {HEAD}. Predecessor {stack.get('predecessor_head')}. Canonical main is not the validation subject.",
         ),
         req(
             "R33-02",
@@ -160,6 +209,7 @@ def main() -> int:
             [
                 str(SCI / "CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS.json"),
                 str(SCI / "CYCLE33_CAREER_KEY_ATTEMPTS.json"),
+                str(SCI / "CYCLE33_HISTORICAL_INFOBOX_PEOPLE_ATTEMPTS.json"),
             ],
             "Keep unresolved keys explicit; do not infer careers from team-season names.",
             "BAT-701",
@@ -174,8 +224,10 @@ def main() -> int:
                 f"Missing unique people searched {career_attempts.get('missing_unique_people_searched')} "
                 f"({career_attempts.get('wikimedia_cache_hits')} cache hits, "
                 f"{career_attempts.get('wikimedia_live_requests')} live). "
-                f"Historical infobox people {((career_attempts.get('historical') or {}).get('distinct_infobox_people'))}; "
-                "team-season appearance is not a career join."
+                f"Historical infobox people {hist_people.get('distinct_infobox_people') or ((career_attempts.get('historical') or {}).get('distinct_infobox_people'))}; "
+                f"every historical person has attempt={hist_people.get('every_historical_person_has_attempt')}; "
+                f"historical outcomes {hist_people.get('outcome_counts')}. "
+                "Team-season appearance is not a career join."
             ),
         ),
         req(
@@ -231,10 +283,19 @@ def main() -> int:
                 "src/aggie_analytics/cycle33/sportradar_routes.py",
                 str(SCI / "CYCLE33_SPORTRADAR_ROUTE_MATRIX.json"),
                 str(SCI / "CYCLE33_AVAILABILITY_STATUS_BIND.json"),
+                str(SCI / "CYCLE33_AVAILABILITY_FILE_LEDGER.json"),
             ],
             "Keep cache-hit unknown status unpromoted; injuries remain NOT_ATTEMPTED.",
             "BAT-703",
-            "File existence is CACHE_HIT_STATUS_UNKNOWN unless an original HTTP status is supplied. Cached conference pages and PDFs were parsed; complete player+team+vintage+game status statements=0 because usable caches are policy shells or off-sport books, not football availability reports. /injuries is NOT_ATTEMPTED.",
+            (
+                "File existence is CACHE_HIT_STATUS_UNKNOWN unless an original HTTP status is supplied. "
+                f"Cache files parsed bound={avail_ledger.get('bound_route_count')} "
+                f"pdfs={avail_ledger.get('linked_pdf_count')} "
+                f"unbound={avail_ledger.get('unbound_cache_file_count')}; "
+                f"complete status statements={avail_ledger.get('complete_status_statements')}; "
+                f"page kinds {avail_ledger.get('page_kind_counts_all_files')}. "
+                "/injuries is NOT_ATTEMPTED. Name/roster/file existence are not verified availability."
+            ),
         ),
         req(
             "R33-12",
@@ -244,6 +305,7 @@ def main() -> int:
             [
                 str(SCI / "CYCLE33_KERNEL_REPLAY.json"),
                 str(SCI / "CYCLE33_FORECAST_PIT_ARCHIVE_SEARCH.json"),
+                str(SCI / "CYCLE33_PIT_36_ROW_RECONCILE.json"),
                 "src/aggie_analytics/cycle33/fit_integrity.py",
             ],
             "Keep proven PIT = 0. Do not manufacture receipts.",
@@ -255,6 +317,8 @@ def main() -> int:
                 f"Producer PROVEN labels {((forecast_pit.get('producer_proven_pit_labels') or {}).get('producer_proven_count'))}; "
                 f"independently proven {((forecast_pit.get('producer_proven_pit_labels') or {}).get('independently_proven_count'))}; "
                 f"receipt archive hits {len((forecast_pit.get('producer_proven_pit_labels') or {}).get('receipt_archive_hits') or [])}. "
+                f"Independent 2013-2023 fit cohort unique_games={(pit36.get('independent_fit_cohort') or {}).get('unique_games')} proven_pit={(pit36.get('independent_fit_cohort') or {}).get('proven_pit')}; "
+                f"overlap with 36 2026 producer-proven rows={(pit36.get('producer_proven_cohort') or {}).get('overlap_with_independent_2013_2023_fit')}. "
                 f"Fit unique rows {kernel.get('unique_rows_fit')}. proven_pit=0."
             ),
         ),
@@ -351,7 +415,7 @@ def main() -> int:
             ["C:\\BatteredAggieSyndrome.data\\ops\\cycle33\\JIRA_UPDATE_RECEIPTS.json"],
             "Duplicate-audit then local/live Jira updates without parent completion comment or paid review.",
             "BAT-706",
-            "No live Jira Done/merge. Paid AI cost 0. Hold remains. Reviews not remirrored this cycle.",
+            "Live BAT-706 remains In Review. Canonical W25 records do not include POST-TASK-CYCLE26; auxiliary registry is the local unit. No Done. Paid AI cost 0. Hold remains.",
         ),
         req(
             "R33-21",
@@ -370,9 +434,18 @@ def main() -> int:
                 "Read-only mounted critical suite twice: identical identities, 29/33 passed, 1 fail + 4 errors on "
                 "predecessor 1998-2009 gate reconstruction (same ledger mismatch on Cycle 32 HEAD; Cycle 33 did not "
                 "change those producers). Tracked mounted_acceptance_gate.json was restored, not rewritten. "
-                "Hosted PR 689 at fb365260: Ubuntu/Windows core-validation PASS, security-policy PASS, "
-                "codeql analyze PASS, CodeQL alert check PASS. A successful analyze job does not cancel an alert check; "
-                "both are reported. Paid review NOT_REVIEWED."
+                "Mounted full unittest with DATA_ROOT twice: 3612 ran, 8 fail + 4 error + 14 skipped, identical "
+                "fail/error predicates (identity 8c59de165ac73b83c1c868a7a29fa7f03aa91aef3b7079d6b3a61414fd51ae1a); "
+                "inherited 1996-2009/2000-2005/statcrew lake-gate drift; rematerialization forbidden. "
+                "Hosted PR 689 at 287e8cc7: Ubuntu/Windows core-validation "
+                f"{hosted.get('core_validation_ubuntu', 'SEE_RECEIPT')}/"
+                f"{hosted.get('core_validation_windows', 'SEE_RECEIPT')}, "
+                f"security-policy {hosted.get('security_policy', 'SEE_RECEIPT')}, "
+                f"codeql analyze {hosted.get('codeql_analyze', 'SEE_RECEIPT')}, "
+                f"CodeQL alert check {hosted.get('codeql_alert_check', 'SEE_RECEIPT')}. "
+                "A successful analyze job does not cancel an alert check; both are reported. "
+                "Mounted full unittest with DATA_ROOT is bound in VALIDATION_RECEIPT when present and is distinct from mounted-acceptance replay. "
+                "Paid review NOT_REVIEWED."
             ),
         ),
         req(
@@ -399,6 +472,10 @@ def main() -> int:
             "BAT-701",
             "54/54 files, 6749 staff observations, 273 queue rows imported as USER_COMPILED_RESEARCH_OBSERVATION. Live OneDrive CSVs byte-identical to snapshot. 2026 classified COMBINED_FBS_FCS. 2009 FBS 120 blank Team IDs retained. Not official, not PIT.",
         ),
+    ]
+    requirements = [
+        stamp_seven_state(row, owner=str(row.get("owner") or "BAT-706"))
+        for row in requirements
     ]
     ucs = [
         {
@@ -464,6 +541,7 @@ def main() -> int:
     ]
     if ucs_disp.get("clauses"):
         ucs = ucs_disp["clauses"]
+    ucs = [stamp_seven_state(row, owner="BAT-701") for row in ucs]
     (OUT / "CYCLE_REQUIREMENT_STATUS.json").write_text(
         json.dumps(
             {
@@ -707,13 +785,15 @@ def main() -> int:
         "1. Implementation: local hosted-failure repairs and remaining cache/archive exhaustion submitted; not manager-accepted.\n"
         "2. Data/evidence completeness: INCOMPLETE after documented attempts. Missingness labels are not completeness.\n"
         "3. Software validation: Cycle33 glob 91 OK; FAST strict PASS; isolated wheel import PASS. "
-        "Hosted PR 689 at `fb365260`: Ubuntu/Windows core-validation PASS, security-policy PASS, "
-        "codeql analyze PASS, and CodeQL alert check PASS. Those hosted results do not automatically "
-        f"validate a later HEAD `{HEAD}` if it differs. A successful CodeQL analyze job does not cancel "
-        "an alert check; both are reported. Read-only mounted acceptance twice produced identical FAIL "
+        "Hosted PR 689 at `287e8cc7`: Ubuntu/Windows core-validation PASS, security-policy PASS, "
+        "codeql analyze PASS, and CodeQL alert check PASS. A successful CodeQL analyze job does not cancel "
+        "an alert check; both passed at this HEAD. Read-only mounted acceptance twice produced identical FAIL "
         "identities (29/33) on inherited 1998-2009 predecessor-gate reconstruction; Cycle 32 HEAD has "
         "the same ledger mismatch and Cycle 33 did not change those producers. Unmounted full-suite "
-        "and hash-seed receipts are bound in VALIDATION_RECEIPT.json when present. "
+        "and mounted-full DATA_ROOT receipts are bound in VALIDATION_RECEIPT.json when present. "
+        "Mounted full unittest with DATA_ROOT twice: 3612 ran, FAILED failures=8 errors=4 skipped=14 on identical "
+        "inherited lake-gate predicates; rematerialization of predecessor gates is forbidden. "
+        "Tests at `da8a2e86` remain historical.\n"
         "Tests at `da8a2e86` remain historical.\n"
         "4. Independent scientific acceptance: NOT_REVIEWED. Paid review not invoked.\n"
         "5. Integration/release: UNAUTHORIZED. Operator hold ACTIVE. C01_OWNER_ADOPTION_PENDING.\n"

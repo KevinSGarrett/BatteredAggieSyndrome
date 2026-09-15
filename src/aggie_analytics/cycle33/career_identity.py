@@ -233,7 +233,7 @@ def football_career_context(page: Mapping[str, Any]) -> dict[str, Any]:
 def join_occupant_to_pages(
     *,
     person: str,
-    employer: str,
+    program_display: str,
     pages: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
     """Evidence-bound career join or an exact unresolved state."""
@@ -253,22 +253,24 @@ def join_occupant_to_pages(
         page = None
     else:
         page = football_pages[0]
-        employer_hit = False
-        if str(employer or "").strip():
-            employer_hit = any(
-                employer_evidence_matches(employer, str(row.get("program_raw") or ""))
+        org_hit = False
+        if str(program_display or "").strip():
+            org_hit = any(
+                employer_evidence_matches(
+                    program_display, str(row.get("program_raw") or "")
+                )
                 for row in (page.get("episodes") or [])
             )
         else:
-            employer_hit = False
+            org_hit = False
         state = (
             "EVIDENCE_BOUND_CAREER_JOIN"
-            if employer_hit
-            else "FOOTBALL_PAGE_EMPLOYER_UNVERIFIED"
+            if org_hit
+            else "FOOTBALL_PAGE_ORG_IDENTITY_UNBOUND"
         )
     return {
         "person": person,
-        "employer": employer,
+        "program_display": program_display,
         "career_join_state": state,
         "same_name_only": state != "EVIDENCE_BOUND_CAREER_JOIN",
         "page_identity": None if page is None else page_identity_key(page),

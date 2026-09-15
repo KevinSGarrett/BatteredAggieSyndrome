@@ -74,7 +74,7 @@ def main() -> int:
         unresolved.append(
             {
                 "person": row.get("person"),
-                "employer": row.get("employer"),
+                "program_display": row.get("program_display") or row.get("employer"),
                 "program_id": row.get("program_id"),
                 "role": row.get("role"),
                 "career_join_state": row.get("career_join_state"),

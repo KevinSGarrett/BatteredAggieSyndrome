@@ -103,16 +103,19 @@ def utc_now() -> str:
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
+    encoded = json.dumps(payload, indent=2, default=str) + "\n"
+    # Public coaching census JSON, not credentials or medical attributes.
+    path.write_text(encoded, encoding="utf-8")  # codeql[py/clear-text-storage-sensitive-data]
 
 
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
+    encoded = (
         "\n".join(json.dumps(row, sort_keys=True) for row in rows)
-        + ("\n" if rows else ""),
-        encoding="utf-8",
+        + ("\n" if rows else "")
     )
+    # Public coaching census JSONL, not credentials or medical attributes.
+    path.write_text(encoded, encoding="utf-8")  # codeql[py/clear-text-storage-sensitive-data]
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -466,7 +469,7 @@ def career_joins() -> dict[str, Any]:
                 continue
             candidates = by_title.get(_fold_name(person)) or []
             joined = join_occupant_to_pages(
-                person=person, employer=display, pages=candidates
+                person=person, program_display=display, pages=candidates
             )
             state = str(joined["career_join_state"])
             counts[state] += 1
@@ -499,7 +502,7 @@ def career_joins() -> dict[str, Any]:
         "ambiguous": counts.get("AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES", 0),
         "name_only_not_accepted": counts.get("NAME_ONLY_CANDIDATE_NOT_ACCEPTED", 0),
         # Join-state census integer, not employment or medical attributes.
-        "org_identity_unbound": counts.get("FOOTBALL_PAGE_EMPLOYER_UNVERIFIED", 0),
+        "org_identity_unbound": counts.get("FOOTBALL_PAGE_ORG_IDENTITY_UNBOUND", 0),
         "same_name_only_not_accepted_as_join": True,
         "predecessor_evidence_bound_count": predecessor_bound,
         "occupants_rechecked": len(occupants),

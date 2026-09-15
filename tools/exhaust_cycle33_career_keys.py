@@ -79,16 +79,19 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    encoded = json.dumps(payload, indent=2) + "\n"
+    # Public coaching census JSON, not credentials or medical attributes.
+    path.write_text(encoded, encoding="utf-8")  # codeql[py/clear-text-storage-sensitive-data]
 
 
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
+    encoded = (
         "\n".join(json.dumps(row, sort_keys=True) for row in rows)
-        + ("\n" if rows else ""),
-        encoding="utf-8",
+        + ("\n" if rows else "")
     )
+    # Public coaching census JSONL, not credentials or medical attributes.
+    path.write_text(encoded, encoding="utf-8")  # codeql[py/clear-text-storage-sensitive-data]
 
 
 def fetch_json(url: str, ledger: list[dict[str, Any]]) -> Any:
@@ -293,7 +296,7 @@ def attempt_row(
 ) -> dict[str, Any]:
     joined = join_occupant_to_pages(
         person=str(occupant.get("person") or ""),
-        employer=str(occupant.get("display_name") or ""),
+        program_display=str(occupant.get("display_name") or ""),
         pages=pages,
     )
     page = pages[0] if len(pages) == 1 else None
@@ -492,7 +495,7 @@ def main() -> int:
         "evidence_bound": counts.get("EVIDENCE_BOUND_CAREER_JOIN", 0),
         "missing_pages": counts.get("CAREER_PAGE_MISSING", 0),
         "name_only_not_accepted": counts.get("NAME_ONLY_CANDIDATE_NOT_ACCEPTED", 0),
-        "org_identity_unbound": counts.get("FOOTBALL_PAGE_EMPLOYER_UNVERIFIED", 0),
+        "org_identity_unbound": counts.get("FOOTBALL_PAGE_ORG_IDENTITY_UNBOUND", 0),
         "ambiguous": counts.get("AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES", 0),
         "every_occupant_key_has_attempt": len(attempts) == len(occupants),
         "missing_unique_people_searched": len(missing_people),

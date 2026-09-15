@@ -794,7 +794,6 @@ def main() -> int:
         "Mounted full unittest with DATA_ROOT twice: 3612 ran, FAILED failures=8 errors=4 skipped=14 on identical "
         "inherited lake-gate predicates; rematerialization of predecessor gates is forbidden. "
         "Tests at `da8a2e86` remain historical.\n"
-        "Tests at `da8a2e86` remain historical.\n"
         "4. Independent scientific acceptance: NOT_REVIEWED. Paid review not invoked.\n"
         "5. Integration/release: UNAUTHORIZED. Operator hold ACTIVE. C01_OWNER_ADOPTION_PENDING.\n"
         "6. Overall cycle: IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED. CYCLE_COMPLETE prohibited.\n\n"

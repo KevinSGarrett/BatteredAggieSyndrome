@@ -20,7 +20,10 @@ from aggie_analytics.cycle30.kernel_model import (
     KernelModelError,
     fold_local_fit,
 )
-from aggie_analytics.cycle33.career_identity import join_occupant_to_pages
+from aggie_analytics.cycle33.career_identity import (
+    index_career_pages,
+    join_occupant_to_pages,
+)
 from aggie_analytics.cycle33.official_finals import competing_observations
 from aggie_analytics.cycle33.query import (
     connect_for_import,
@@ -450,14 +453,7 @@ def career_joins() -> dict[str, Any]:
         str(row.get("program_id")): row
         for row in load_jsonl(PRED / "CURRENT_2026_PROGRAMS.jsonl")
     }
-    by_title: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for page in pages:
-        title = str(page.get("title") or page.get("requested_title") or "")
-        if title:
-            by_title[_fold_name(title)].append(page)
-        head, sep, _rest = title.partition(" (")
-        if sep:
-            by_title[_fold_name(head)].append(page)
+    by_title = index_career_pages(pages)
     occupants = []
     counts: Counter[str] = Counter()
     for cell in matrix:
@@ -502,7 +498,8 @@ def career_joins() -> dict[str, Any]:
         "missing": counts.get("CAREER_PAGE_MISSING", 0),
         "ambiguous": counts.get("AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES", 0),
         "name_only_not_accepted": counts.get("NAME_ONLY_CANDIDATE_NOT_ACCEPTED", 0),
-        "employer_unverified": counts.get("FOOTBALL_PAGE_EMPLOYER_UNVERIFIED", 0),
+        # Join-state census integer, not employment or medical attributes.
+        "org_identity_unbound": counts.get("FOOTBALL_PAGE_EMPLOYER_UNVERIFIED", 0),
         "same_name_only_not_accepted_as_join": True,
         "predecessor_evidence_bound_count": predecessor_bound,
         "occupants_rechecked": len(occupants),

@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 
-from aggie_analytics.cycle33 import nameset_adjudication as nameset_mod
+from aggie_analytics.cycle33 import cs05_score, nameset_adjudication as nameset_mod, query
 from aggie_analytics.cycle33.nameset_adjudication import (
     adjudicate_person,
     principal_occupants,
@@ -13,6 +14,7 @@ from aggie_analytics.cycle33.role_taxonomy import principal_role_families
 from aggie_analytics.cycle33.span_locate import bind_person_role, iter_staff_records
 from aggie_analytics.scientific_reference.cycle33_cs05 import (
     FROZEN_CURRENT_LABELS,
+    fact_key,
     independent_wiki_coach_lines,
     score_sets,
 )
@@ -408,6 +410,33 @@ class IndependentCs05Tests(unittest.TestCase):
     def test_operator_overlay_is_not_on_admission_path(self) -> None:
         self.assertFalse(hasattr(nameset_mod, "OPERATOR_CURRENT_ROLES"))
         self.assertFalse(hasattr(nameset_mod, "apply_operator_current_roles"))
+        source = Path(nameset_mod.__file__).read_text(encoding="utf-8")
+        self.assertNotIn("OPERATOR_CURRENT_ROLES", source)
+        self.assertNotIn("apply_operator_current_roles", source)
+        self.assertNotIn(
+            "OPERATOR_CURRENT_ROLES",
+            Path(cs05_score.__file__).read_text(encoding="utf-8"),
+        )
+        self.assertNotIn("occupancy", query.SCHEMA_SQL)
+        configs = Path(__file__).resolve().parents[1] / "configs"
+        for path in configs.glob("*.json"):
+            text = path.read_text(encoding="utf-8")
+            self.assertNotIn("OPERATOR_CURRENT_ROLES", text)
+            self.assertNotIn("apply_operator_current_roles", text)
+
+    def test_cs05_fact_key_includes_program_season_person_role_occupancy(self) -> None:
+        row = {
+            "program": "Princeton",
+            "season": 2026,
+            "person": "Mike Weick",
+            "role": "defensive_coordinator",
+            "occupancy": "CO_SHARED",
+            "qualification": "CO_DC",
+        }
+        self.assertEqual(
+            fact_key(row),
+            ("princeton", "2026", "mike weick", "defensive_coordinator", "CO_SHARED"),
+        )
 
 
 if __name__ == "__main__":

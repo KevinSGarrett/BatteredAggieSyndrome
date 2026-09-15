@@ -75,6 +75,8 @@ def main() -> int:
     tax = load("CYCLE33_OFFICIAL_STAFF_TAXONOMY.json")
     wiki = load("CYCLE33_WIKI_STAFF_SUCCESSORS.json")
     career = load("CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS.json")
+    career_attempts = load("CYCLE33_CAREER_KEY_ATTEMPTS.json")
+    forecast_pit = load("CYCLE33_FORECAST_PIT_ARCHIVE_SEARCH.json")
     kernel = load("CYCLE33_KERNEL_REPLAY.json")
     hist = load("CYCLE33_WIKI_2000_2012_STAFF_CELLS.json")
     corr = load("CYCLE33_WIKI_OFFICIAL_FIELD_CLAIMS.json")
@@ -153,11 +155,27 @@ def main() -> int:
             "R33-06",
             "Repair career identity, intervals and cross-school continuity",
             "PARTIAL",
-            "LOCAL_REPAIR_REQUIRED",
-            [str(SCI / "CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS.json")],
-            "Missing/ambiguous career joins remain explicit; no same-name-only accepted joins.",
+            "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
+            [
+                str(SCI / "CYCLE33_CURRENT_OCCUPANT_CAREER_JOINS.json"),
+                str(SCI / "CYCLE33_CAREER_KEY_ATTEMPTS.json"),
+            ],
+            "Keep unresolved keys explicit; do not infer careers from team-season names.",
             "BAT-701",
-            f"Current occupants {career.get('occupant_count')}: evidence-bound {career.get('matched')}, missing {career.get('missing')}, ambiguous {career.get('ambiguous')}, name-only-not-accepted {career.get('name_only_not_accepted')}, employer-unverified {career.get('employer_unverified')}. Same-name-only is not an accepted join.",
+            (
+                f"Occupant keys {career_attempts.get('occupant_keys') or career.get('occupant_count')}: "
+                f"evidence-bound {career_attempts.get('evidence_bound') or career.get('matched')}, "
+                f"missing {career_attempts.get('missing_pages')}, "
+                f"name-only-not-accepted {career_attempts.get('name_only_not_accepted')}, "
+                f"org-identity-unbound {career_attempts.get('org_identity_unbound')}, "
+                f"ambiguous {career_attempts.get('ambiguous')}. "
+                f"Every occupant key has attempt={career_attempts.get('every_occupant_key_has_attempt')}. "
+                f"Missing unique people searched {career_attempts.get('missing_unique_people_searched')} "
+                f"({career_attempts.get('wikimedia_cache_hits')} cache hits, "
+                f"{career_attempts.get('wikimedia_live_requests')} live). "
+                f"Historical infobox people {((career_attempts.get('historical') or {}).get('distinct_infobox_people'))}; "
+                "team-season appearance is not a career join."
+            ),
         ),
         req(
             "R33-07",
@@ -206,28 +224,38 @@ def main() -> int:
             "R33-11",
             "Preserve real acquisition receipts and verify provider capabilities",
             "PARTIAL",
-            "LOCAL_REPAIR_REQUIRED",
+            "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
             [
                 "src/aggie_analytics/cycle33/acquisition_receipts.py",
                 "src/aggie_analytics/cycle33/sportradar_routes.py",
                 str(SCI / "CYCLE33_SPORTRADAR_ROUTE_MATRIX.json"),
+                str(SCI / "CYCLE33_AVAILABILITY_STATUS_BIND.json"),
             ],
             "Keep cache-hit unknown status unpromoted; injuries remain NOT_ATTEMPTED.",
             "BAT-703",
-            "File existence is CACHE_HIT_STATUS_UNKNOWN unless an original HTTP status is supplied. Sportradar matrix is rebuilt from the Cycle30 staff ledger (league/teams and full_roster). /injuries is NOT_ATTEMPTED; national absence is not inferred from guessed 404s. Unauthorized vs unsupported vs quota are not collapsed.",
+            "File existence is CACHE_HIT_STATUS_UNKNOWN unless an original HTTP status is supplied. Cached conference pages and PDFs were parsed; complete player+team+vintage+game status statements=0 because usable caches are policy shells or off-sport books, not football availability reports. /injuries is NOT_ATTEMPTED.",
         ),
         req(
             "R33-12",
             "Enforce model population and fold integrity",
             "PARTIAL",
-            "LOCAL_REPAIR_REQUIRED",
+            "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
             [
                 str(SCI / "CYCLE33_KERNEL_REPLAY.json"),
+                str(SCI / "CYCLE33_FORECAST_PIT_ARCHIVE_SEARCH.json"),
                 "src/aggie_analytics/cycle33/fit_integrity.py",
             ],
-            "Keep proven PIT = 0. No Week1/2 tuning.",
+            "Keep proven PIT = 0. Do not manufacture receipts.",
             "BAT-700",
-            f"Independent unique-game census {kernel.get('independent')}. Fit unique rows {kernel.get('unique_rows_fit')}. Fit error {kernel.get('fit_error')}. proven_pit=0.",
+            (
+                f"Inspected forecast packets {(forecast_pit.get('forecast') or {}).get('file_count')}: "
+                f"eligible in inspected set {(forecast_pit.get('forecast') or {}).get('eligible_in_inspected_set')}. "
+                "Global absence is not claimed. "
+                f"Producer PROVEN labels {((forecast_pit.get('producer_proven_pit_labels') or {}).get('producer_proven_count'))}; "
+                f"independently proven {((forecast_pit.get('producer_proven_pit_labels') or {}).get('independently_proven_count'))}; "
+                f"receipt archive hits {len((forecast_pit.get('producer_proven_pit_labels') or {}).get('receipt_archive_hits') or [])}. "
+                f"Fit unique rows {kernel.get('unique_rows_fit')}. proven_pit=0."
+            ),
         ),
         req(
             "R33-13",
@@ -427,7 +455,7 @@ def main() -> int:
         json.dumps(
             {
                 "cycle": 33,
-                "headline": "IN_PROGRESS_LOCAL_WORK_REMAINS",
+                "headline": "IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED",
                 "as_of_utc": NOW,
                 "subject_head": HEAD,
                 "operator_hold": HOLD,
@@ -624,7 +652,7 @@ def main() -> int:
         json.dumps(
             {
                 "as_of_utc": NOW,
-                "headline": "IN_PROGRESS_LOCAL_WORK_REMAINS",
+                "headline": "IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED",
                 "count": len(unfinished),
                 "items": [
                     {
@@ -636,6 +664,8 @@ def main() -> int:
                     for row in unfinished
                 ],
                 "nothing_left_is_false": True,
+                "cycle_complete_prohibited": True,
+                "authoritative_packet": True,
             },
             indent=2,
         )
@@ -644,22 +674,20 @@ def main() -> int:
     )
     report = (
         "# Cycle 33 packet — not scientific acceptance\n\n"
-        "Headline: **IN_PROGRESS_LOCAL_WORK_REMAINS**\n\n"
+        "Headline: **IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED**\n\n"
         "Operator hold: ACTIVE. CYCLE_COMPLETE is prohibited. Paid AI cost: 0. "
         "Proven PIT: 0. Fitted outputs: UNTRUSTED_SHADOW.\n\n"
         "## Six dimensions\n\n"
-        "1. Implementation: local code/data/query work advanced; incomplete units remain.\n"
-        "2. Data/evidence completeness: INCOMPLETE. Missingness labels are not completeness.\n"
-        "3. Software validation: focused tests pass on committed HEAD PYTHONPATH=src "
-        "(36 Cycle33 / 75 Cycle32 / 63 Cycle30 glob / 10 execution-focus). Isolated non-editable target install loaded "
-        "cycle33.query and sportradar_routes without worktree src. Hold, retired-pipeline, Jira strict/live, and checkout-authority validators PASS. "
-        "Warnings-as-errors PASS on focused Cycle33 tests. Hash seeds 0/1 PASS on focused Cycle33 tests at HEAD 49db4330. "
-        "Mounted full unittest at that HEAD: 3559 tests, 2 failures (stale execution_focus_policy hashes), 257 skipped, 1286.987s. "
-        "Instruction hashes were regenerated; test_autonomous_control_tools and test_instructions_pack PASS afterward. "
-        "A full-suite rerun after the hash-ledger commit remains if this emission predates that commit. Hosted deterministic checks remain NOT_REVIEWED.\n"
-        "4. Independent scientific acceptance: not conferred by self-tests.\n"
-        "5. Integration/release: UNAUTHORIZED under hold.\n"
-        "6. Overall cycle: IN_PROGRESS_LOCAL_WORK_REMAINS.\n\n"
+        "1. Implementation: local hosted-failure repairs and remaining cache/archive exhaustion submitted; not manager-accepted.\n"
+        "2. Data/evidence completeness: INCOMPLETE after documented attempts. Missingness labels are not completeness.\n"
+        "3. Software validation: Cycle33 glob tests 91 OK at this emission's pre-commit tree. "
+        "Local `validate_repository.py --strict` with AGGIE_ANALYTICS_VALIDATE_REPOSITORY_FAST=1 PASS after provenance regeneration. "
+        f"Hosted Ubuntu/Windows core-validation, security-policy, and CodeQL alert check failed at predecessor `76c664d7`; "
+        f"this packet binds HEAD `{HEAD}` after those repairs. A successful CodeQL analyze job does not cancel a failing alert check. "
+        "Mounted full-suite replay of 76c664d7 is not validation of this HEAD.\n"
+        "4. Independent scientific acceptance: NOT_REVIEWED. Paid review not invoked.\n"
+        "5. Integration/release: UNAUTHORIZED. Operator hold ACTIVE. C01_OWNER_ADOPTION_PENDING.\n"
+        "6. Overall cycle: IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED. CYCLE_COMPLETE prohibited.\n\n"
         "## Identities\n\n"
         f"- Cycle33 HEAD: `{HEAD}` on `codex/BAT-706-cycle33`.\n"
         "- Cycle32 submitted predecessor: `ca8e0a1f4ef3b30e4b50505e98b463daabcd7185` (PR #687), base `7d680d17b90a784ddf8abbb90230ea48b34fa482`.\n"

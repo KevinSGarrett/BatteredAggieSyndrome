@@ -407,9 +407,9 @@ class FitAndFinalsTests(unittest.TestCase):
 
 class AcquisitionReceiptTests(unittest.TestCase):
     def test_sanitize_removes_value_not_just_prefix(self) -> None:
-        url = "https://api.example/test?api_key=secret-value-123&season=2026"
+        url = "https://api.example/test?api_key=PLACEHOLDER_VALUE_123&season=2026"
         cleaned = sanitize_url(url)
-        self.assertNotIn("secret-value-123", cleaned)
+        self.assertNotIn("PLACEHOLDER_VALUE_123", cleaned)
         self.assertIn("season=2026", cleaned)
 
     def test_cache_hit_preserves_error(self) -> None:
@@ -436,7 +436,7 @@ class AcquisitionReceiptTests(unittest.TestCase):
             path.write_text("{}", encoding="utf-8")
             os.utime(path, (1_700_000_000, 1_700_000_000))
             unknown = cache_hit_from_path(
-                path, url="https://example/x?api_key=secret-value-123"
+                path, url="https://example/x?api_key=PLACEHOLDER_VALUE_123"
             )
             self.assertEqual(unknown["status"], "CACHE_HIT_STATUS_UNKNOWN")
             self.assertIsNone(unknown["http_status"])
@@ -445,10 +445,10 @@ class AcquisitionReceiptTests(unittest.TestCase):
             self.assertNotEqual(
                 unknown["retrieved_at_utc"], unknown["cache_read_at_utc"]
             )
-            self.assertNotIn("secret-value-123", unknown["route"])
+            self.assertNotIn("PLACEHOLDER_VALUE_123", unknown["route"])
             receipt = cache_hit_from_path(
                 path,
-                url="https://example/x?api_key=secret-value-123",
+                url="https://example/x?api_key=PLACEHOLDER_VALUE_123",
                 original={"http_status": 200, "ok": True, "raw_sha256": "x"},
             )
             self.assertEqual(receipt["status"], "CACHE_HIT")

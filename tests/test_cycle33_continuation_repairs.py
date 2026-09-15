@@ -8,7 +8,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from aggie_analytics.cycle33.career_identity import (
+    career_page_title_matches_person,
     employer_evidence_matches,
+    index_career_pages,
     join_occupant_to_pages,
     page_identity_key,
 )
@@ -264,6 +266,32 @@ class ContinuationDeadlineCareerQueryTests(unittest.TestCase):
             joined["career_join_state"], "FOOTBALL_PAGE_EMPLOYER_UNVERIFIED"
         )
         self.assertEqual(joined["distinct_page_identities"], 1)
+
+    def test_coach_parenthetical_title_indexes_and_rejects_team_season(self) -> None:
+        self.assertTrue(
+            career_page_title_matches_person("Ron Roberts (coach)", "Ron Roberts")
+        )
+        self.assertFalse(
+            career_page_title_matches_person(
+                "2024 Texas A&M Aggies football team", "Mike Elko"
+            )
+        )
+        pages = [
+            {
+                "title": "Ron Roberts (coach)",
+                "occupant_person": "Ron Roberts",
+                "pageid": 1,
+                "episodes": [
+                    {"program_raw": "Louisiana", "sport": "football", "person": "Ron Roberts"}
+                ],
+            }
+        ]
+        index = index_career_pages(pages)
+        self.assertIn("ron roberts", index)
+        joined = join_occupant_to_pages(
+            person="Ron Roberts", employer="Louisiana", pages=index["ron roberts"]
+        )
+        self.assertEqual(joined["career_join_state"], "EVIDENCE_BOUND_CAREER_JOIN")
 
     def test_query_connect_does_not_create_missing_database(self) -> None:
         missing = Path(tempfile.gettempdir()) / "bas-c33-no-such-query.sqlite"

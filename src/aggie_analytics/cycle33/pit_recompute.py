@@ -135,3 +135,40 @@ def recompute_pit_population(
         "proven_rows": proven[:20],
         "failed_sample": failed[:20],
     }
+
+
+def producer_proven_without_receipt(
+    rows: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Exact identities for producer PROVEN labels that fail independent proof."""
+
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        producer = str(row.get("authority_class") or row.get("row_verdict") or "")
+        if producer != PROVEN:
+            continue
+        admitted = independently_admit_row(row)
+        out.append(
+            {
+                "canonical_game_id": row.get("canonical_game_id"),
+                "season": row.get("season"),
+                "home": row.get("home") or row.get("home_team"),
+                "away": row.get("away") or row.get("away_team"),
+                "start_date_utc_text": row.get("start_date_utc_text"),
+                "producer_authority_class": producer,
+                "independent_class": admitted.get("independent_class"),
+                "independently_proven": admitted.get("independently_proven"),
+                "failed_predicates": admitted.get("failed_predicates"),
+                "authority_present": {
+                    field: bool(authority_from_row(row).get(field))
+                    for field in REQUIRED_AUTHORITY
+                },
+                "source_publication_utc_present": bool(
+                    authority_from_row(row).get("source_publication_utc")
+                ),
+                "receipt_sha256": authority_from_row(row).get("receipt_sha256"),
+                "known_at_utc": authority_from_row(row).get("known_at_utc"),
+                "pit_admitted": False,
+            }
+        )
+    return out

@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import re
+from collections import defaultdict
 from typing import Any, Mapping, Sequence
+
+from aggie_analytics.cycle30.coaching import wiki_career_title_matches_person
 
 GENERIC_TOKENS = frozenset(
     {
@@ -92,6 +95,78 @@ def employer_evidence_matches(employer: str, program_raw: str) -> bool:
             return left == right or left_alias == right_alias
         return True
     return False
+
+
+def career_page_title_matches_person(title: str, person: str) -> bool:
+    """Bind a biography title to a person. Team-season pages are not careers."""
+
+    if wiki_career_title_matches_person(title, person):
+        return True
+    title_n = re.sub(r"\s+", " ", str(title or "")).strip()
+    person_n = re.sub(r"\s+", " ", str(person or "")).strip()
+    if not title_n or not person_n:
+        return False
+    folded_title = title_n.casefold()
+    folded_person = person_n.casefold()
+    if (
+        any(
+            token in folded_title
+            for token in (
+                "basketball",
+                "baseball",
+                "soccer",
+                "hockey",
+                "softball",
+                "disambiguation",
+                "politician",
+                "mayor",
+                "senator",
+                "representative",
+            )
+        )
+        and "football" not in folded_title
+    ):
+        return False
+    if folded_title.startswith(folded_person + " (") and any(
+        token in folded_title for token in ("coach", "football")
+    ):
+        return True
+    return False
+
+
+def index_career_pages(
+    pages: Sequence[Mapping[str, Any]],
+) -> dict[str, list[Mapping[str, Any]]]:
+    """Index biography pages by person. Team-season infobox hits stay out."""
+
+    by_name: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+    seen: dict[str, set[str]] = defaultdict(set)
+    for page in pages:
+        title = str(page.get("title") or page.get("requested_title") or "")
+        candidates = {
+            str(page.get("occupant_person") or "").strip(),
+            title.partition(" (")[0].strip(),
+        }
+        for episode in page.get("episodes") or []:
+            candidates.add(str(episode.get("person") or "").strip())
+        identity = page_identity_key(page)
+        occupant = str(page.get("occupant_person") or "").strip()
+        for person in candidates:
+            if not person:
+                continue
+            title_hit = career_page_title_matches_person(title, person)
+            occupant_hit = _fold(person) == _fold(occupant) and (
+                career_page_title_matches_person(title, occupant)
+                or _fold(title) == _fold(occupant)
+            )
+            if not title_hit and not occupant_hit:
+                continue
+            key = _fold(person)
+            if identity in seen[key]:
+                continue
+            seen[key].add(identity)
+            by_name[key].append(page)
+    return by_name
 
 
 def page_identity_key(page: Mapping[str, Any]) -> str:

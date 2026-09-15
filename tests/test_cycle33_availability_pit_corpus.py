@@ -9,10 +9,17 @@ from pathlib import Path
 
 from aggie_analytics.cycle33.availability_cache import (
     cache_path_for_uri,
+    extract_status_statements,
     parse_cached_document,
 )
-from aggie_analytics.cycle33.forecast_inventory import inspect_forecast_eligibility
-from aggie_analytics.cycle33.pit_recompute import recompute_pit_population
+from aggie_analytics.cycle33.forecast_inventory import (
+    _looks_relevant,
+    inspect_forecast_eligibility,
+)
+from aggie_analytics.cycle33.pit_recompute import (
+    producer_proven_without_receipt,
+    recompute_pit_population,
+)
 from aggie_analytics.cycle33.query import StaffQueryError, connect, connect_readonly
 from aggie_analytics.cycle33.user_coaches import (
     adjudicate_risk_fragment,
@@ -41,6 +48,27 @@ class AvailabilityCacheTests(unittest.TestCase):
             self.assertTrue(parsed["file_existence_is_not_http_200"])
             self.assertEqual(parsed["no_report_means"], "UNKNOWN")
             self.assertFalse(parsed["joined_to_verified_roster"])
+
+    def test_status_statement_requires_player_team_vintage_and_game(self) -> None:
+        incomplete = extract_status_statements(
+            "Jane Smith - questionable",
+            source_id="SRC-TEST",
+            uri="https://example.test/report",
+        )
+        self.assertEqual(incomplete[0]["disposition"], "STATUS_STATEMENT_INCOMPLETE")
+        self.assertFalse(incomplete[0]["verified_availability"])
+        complete = extract_status_statements(
+            "Texas A&M Football Availability Report\n"
+            "September 10, 2026 vs Notre Dame\n"
+            "Jane Smith - questionable",
+            source_id="SRC-TEST",
+            uri="https://example.test/report",
+        )
+        self.assertTrue(complete[0]["bound_complete"])
+        self.assertEqual(complete[0]["player"], "Jane Smith")
+        self.assertEqual(complete[0]["status_statement"], "questionable")
+        self.assertFalse(complete[0]["verified_availability"])
+        self.assertFalse(complete[0]["joined_to_verified_roster"])
 
     def test_js_shell_is_not_a_report(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -91,6 +119,10 @@ class PitRecomputeTests(unittest.TestCase):
             "PRODUCER_PROVEN_LABEL_WITHOUT_RECEIPT",
             independent["failed_predicate_reason_counts"],
         )
+        labels = producer_proven_without_receipt(rows)
+        self.assertEqual(len(labels), 1)
+        self.assertEqual(labels[0]["canonical_game_id"], "G1")
+        self.assertFalse(labels[0]["independently_proven"])
 
     def test_count_is_recomputed_not_hardcoded(self) -> None:
         rows = [
@@ -302,6 +334,11 @@ class CorpusGrainTests(unittest.TestCase):
             self.assertEqual(inspected["eligibility_verdict"], "INELIGIBLE")
             self.assertIn("FROZEN_BOOLEAN_WITHOUT_RECEIPT_SHA256", inspected["failed_predicates"])
             self.assertTrue(inspected["freeze_token_present"])
+
+    def test_inventory_filename_is_not_a_forecast_packet(self) -> None:
+        self.assertFalse(
+            _looks_relevant(Path("CYCLE33_FORECAST_FILE_INVENTORY.json"))
+        )
 
 
 if __name__ == "__main__":

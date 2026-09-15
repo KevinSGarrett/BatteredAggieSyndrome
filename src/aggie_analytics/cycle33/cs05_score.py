@@ -15,11 +15,24 @@ from aggie_analytics.scientific_reference.cycle33_cs05 import (
     stratified_counts,
 )
 
+
 def extracted_principal_rows(
-    html: str, *, role: str, page_url: str = ""
-) -> list[dict[str, str]]:
+    html: str,
+    *,
+    role: str,
+    program: str,
+    season: int | str,
+    page_url: str = "",
+) -> list[dict[str, Any]]:
     return [
-        {"person": row["person"], "role": role}
+        {
+            "program": program,
+            "season": season,
+            "person": row["person"],
+            "role": role,
+            "occupancy": row.get("occupancy"),
+            "qualification": row.get("occupancy"),
+        }
         for row in principal_occupants(html, role=role, page_url=page_url)
     ]
 
@@ -35,7 +48,7 @@ def score_frozen_current(
     expected_positive = [
         row for row in FROZEN_CURRENT_LABELS if row.get("expected_principal")
     ]
-    extracted: list[dict[str, str]] = []
+    extracted: list[dict[str, Any]] = []
     negatives: list[dict[str, Any]] = []
     for label in FROZEN_CURRENT_LABELS:
         program = str(label["program"])
@@ -52,21 +65,35 @@ def score_frozen_current(
         principal = found["verdict"] == "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
         if label.get("expected_principal"):
             if principal:
-                extracted.append({"person": str(label["person"]), "role": role})
+                extracted.append(
+                    {
+                        "program": program,
+                        "season": label.get("season"),
+                        "person": str(label["person"]),
+                        "role": role,
+                        "occupancy": found.get("occupancy"),
+                        "qualification": found.get("occupancy"),
+                    }
+                )
         else:
             negatives.append(
                 {
+                    "program": program,
+                    "season": label.get("season"),
                     "person": label["person"],
                     "role": role,
                     "expected_principal": False,
                     "extracted_principal": principal,
+                    "occupancy": found.get("occupancy"),
                     "record_title": found.get("record_title"),
                     "true_negative": not principal,
                 }
             )
     by_program: dict[str, set[str]] = {}
+    season_by_program: dict[str, Any] = {}
     for label in expected_positive:
         by_program.setdefault(str(label["program"]), set()).add(str(label["role"]))
+        season_by_program[str(label["program"])] = label.get("season")
     for program, roles in by_program.items():
         html = html_by_program.get(program) or ""
         if not html:
@@ -74,13 +101,23 @@ def score_frozen_current(
         for role in roles:
             extracted.extend(
                 extracted_principal_rows(
-                    html, role=role, page_url=urls.get(program, "")
+                    html,
+                    role=role,
+                    program=program,
+                    season=season_by_program.get(program, 2026),
+                    page_url=urls.get(program, ""),
                 )
             )
-    # Deduplicate extracted after union of occupant scan (includes extras = FP)
-    uniq: dict[tuple[str, str], dict[str, str]] = {}
+    uniq: dict[tuple[str, ...], dict[str, Any]] = {}
     for row in extracted:
-        uniq[(row["person"].casefold(), row["role"])] = row
+        key = (
+            str(row.get("program") or ""),
+            str(row.get("season") or ""),
+            str(row.get("person") or "").casefold(),
+            str(row.get("role") or ""),
+            str(row.get("occupancy") or ""),
+        )
+        uniq[key] = row
     metrics = score_sets(expected_positive, list(uniq.values()))
     tn = sum(1 for row in negatives if row["true_negative"])
     fp_neg = sum(1 for row in negatives if not row["true_negative"])
@@ -94,6 +131,7 @@ def score_frozen_current(
         "negative_true_negatives": tn,
         "negative_false_positives": fp_neg,
         "negatives": negatives,
+        "person_role_only_is_not_staff_fact_validation": True,
         "unsampled_population_not_certified": True,
         "pit_admitted": False,
     }

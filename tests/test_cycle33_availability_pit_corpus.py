@@ -299,6 +299,8 @@ class CorpusGrainTests(unittest.TestCase):
             path.write_text(json.dumps({"frozen": True, "p": 0.6}), encoding="utf-8")
             inspected = inspect_forecast_eligibility(path)
             self.assertFalse(inspected["eligibility_proof_present"])
+            self.assertEqual(inspected["eligibility_verdict"], "INELIGIBLE")
+            self.assertIn("FROZEN_BOOLEAN_WITHOUT_RECEIPT_SHA256", inspected["failed_predicates"])
             self.assertTrue(inspected["freeze_token_present"])
 
 

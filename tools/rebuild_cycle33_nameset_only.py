@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import sys
 from collections import Counter
 from pathlib import Path
@@ -51,7 +52,23 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
+def _preserve_superseded(name: str) -> None:
+    src = OUT / name
+    dest = OUT / name.replace(".json", "_OPERATOR_OVERLAY_SUPERSEDED.json")
+    dest_l = OUT / name.replace(".jsonl", "_OPERATOR_OVERLAY_SUPERSEDED.jsonl")
+    if src.suffix == ".jsonl":
+        dest = dest_l
+    if src.is_file() and not dest.is_file():
+        shutil.copyfile(src, dest)
+
+
 def main() -> int:
+    for name in (
+        "CYCLE33_CURRENT_HC_OC_DC_MATRIX_HTML_SUCCESSOR.json",
+        "CYCLE33_CURRENT_HC_OC_DC_MATRIX_HTML_SUCCESSOR.jsonl",
+        "CYCLE33_NAMESET_DISPUTE_ADJUDICATION.json",
+    ):
+        _preserve_superseded(name)
     predecessor = load_jsonl(OUT / "CYCLE33_CURRENT_HC_OC_DC_MATRIX.jsonl")
     programs = {
         str(row["program_id"]): row
@@ -87,7 +104,8 @@ def main() -> int:
         "supported_fcs_role_cells": fcs,
         "nonempty_fbs_and_fcs": fbs > 0 and fcs > 0,
         "predecessor_not_overwritten": True,
-        "operator_current_roles_applied": True,
+        "operator_overlay_not_applied": True,
+        "superseded_operator_overlay_preserved": True,
         "pit_admitted": False,
     }
     write_json(OUT / "CYCLE33_CURRENT_HC_OC_DC_MATRIX_HTML_SUCCESSOR.json", summary)
@@ -100,7 +118,7 @@ def main() -> int:
             "season": 2026,
             "rows": disputes,
             "name_presence_is_not_concurrency": True,
-            "operator_current_roles_applied": True,
+            "operator_overlay_not_applied": True,
             "pit_admitted": False,
         },
     )

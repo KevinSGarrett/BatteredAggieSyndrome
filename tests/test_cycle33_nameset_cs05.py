@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import unittest
 
+from aggie_analytics.cycle33 import nameset_adjudication as nameset_mod
 from aggie_analytics.cycle33.nameset_adjudication import (
     adjudicate_person,
-    apply_operator_current_roles,
     principal_occupants,
 )
 from aggie_analytics.cycle33.role_taxonomy import principal_role_families
@@ -173,13 +173,8 @@ class OccupantTests(unittest.TestCase):
         )
         names = {row["person"] for row in occupants}
         self.assertNotIn("Steve Verbit", names)
-        resolved = apply_operator_current_roles(
-            occupants,
-            program_id="SRC-002:TEAM:163",
-            role="defensive_coordinator",
-        )
-        by_name = {row["person"]: row["occupancy"] for row in resolved}
-        self.assertEqual(by_name["Mike Weick"], "PRINCIPAL")
+        by_name = {row["person"]: row["occupancy"] for row in occupants}
+        self.assertEqual(by_name["Mike Weick"], "CO_SHARED")
         self.assertEqual(by_name["E.J. Henderson"], "CO_SHARED")
 
     def test_south_carolina_gray_is_co_dc_lindquist_infield_rejected(self) -> None:
@@ -193,17 +188,25 @@ class OccupantTests(unittest.TestCase):
             "<td>Defensive Coordinator/Infield Coach</td></tr>"
             "</table>"
         )
-        occupants = apply_operator_current_roles(
-            principal_occupants(html, role="defensive_coordinator"),
-            program_id="SRC-002:TEAM:2579",
-            role="defensive_coordinator",
-        )
+        occupants = principal_occupants(html, role="defensive_coordinator")
         by_name = {row["person"]: row["occupancy"] for row in occupants}
         self.assertEqual(by_name["Clayton White"], "PRINCIPAL")
         self.assertEqual(by_name["Torrian Gray"], "CO_SHARED")
         self.assertNotIn("Kyle Lindquist", by_name)
 
-    def test_tamu_hemphill_principal_robinson_co_dc(self) -> None:
+    def test_source_supported_dc_is_not_dropped_by_name_map(self) -> None:
+        html = (
+            "<table>"
+            "<tr><td>Mike Weick</td><td>Co-Defensive Coordinator</td></tr>"
+            "<tr><td>Seth Wallace</td><td>Defensive Coordinator</td></tr>"
+            "</table>"
+        )
+        occupants = principal_occupants(html, role="defensive_coordinator")
+        by_name = {row["person"]: row["occupancy"] for row in occupants}
+        self.assertEqual(by_name["Mike Weick"], "CO_SHARED")
+        self.assertEqual(by_name["Seth Wallace"], "PRINCIPAL")
+
+    def test_tamu_hemphill_principal_robinson_co_dc_from_titles(self) -> None:
         html = (
             "<table>"
             "<tr><td>Lyle Hemphill</td><td>Defensive Coordinator</td></tr>"
@@ -211,11 +214,7 @@ class OccupantTests(unittest.TestCase):
             "<td>Co-Defensive Coordinator/Defensive Line</td></tr>"
             "</table>"
         )
-        occupants = apply_operator_current_roles(
-            principal_occupants(html, role="defensive_coordinator"),
-            program_id="SRC-002:TEAM:245",
-            role="defensive_coordinator",
-        )
+        occupants = principal_occupants(html, role="defensive_coordinator")
         by_name = {row["person"]: row["occupancy"] for row in occupants}
         self.assertEqual(by_name["Lyle Hemphill"], "PRINCIPAL")
         self.assertEqual(by_name["Elijah Robinson"], "CO_SHARED")
@@ -229,11 +228,7 @@ class OccupantTests(unittest.TestCase):
             "</td></tr>"
             "</table>"
         )
-        occupants = apply_operator_current_roles(
-            principal_occupants(html, role="head_coach"),
-            program_id="SRC-002:TEAM:259",
-            role="head_coach",
-        )
+        occupants = principal_occupants(html, role="head_coach")
         names = {row["person"] for row in occupants}
         self.assertEqual(names, {"James Franklin"})
 
@@ -282,6 +277,137 @@ class IndependentCs05Tests(unittest.TestCase):
         self.assertEqual(metrics["false_positive"], 1)
         self.assertEqual(metrics["false_negative"], 0)
         self.assertGreaterEqual(len(FROZEN_CURRENT_LABELS), 16)
+
+    def test_score_sets_wrong_school_is_not_true_positive(self) -> None:
+        expected = [
+            {
+                "program": "Lehigh",
+                "season": 2026,
+                "person": "Dan Hunt",
+                "role": "offensive_coordinator",
+                "occupancy": "PRINCIPAL",
+            }
+        ]
+        extracted = [
+            {
+                "program": "Princeton",
+                "season": 2026,
+                "person": "Dan Hunt",
+                "role": "offensive_coordinator",
+                "occupancy": "PRINCIPAL",
+            }
+        ]
+        metrics = score_sets(expected, extracted)
+        self.assertEqual(metrics["true_positive"], 0)
+        self.assertEqual(metrics["false_positive"], 1)
+        self.assertEqual(metrics["false_negative"], 1)
+        self.assertEqual(metrics["precision"], 0)
+        self.assertEqual(metrics["recall"], 0)
+
+    def test_score_sets_wrong_season_is_not_true_positive(self) -> None:
+        expected = [
+            {
+                "program": "Lehigh",
+                "season": 2026,
+                "person": "Dan Hunt",
+                "role": "offensive_coordinator",
+            }
+        ]
+        extracted = [
+            {
+                "program": "Lehigh",
+                "season": 2018,
+                "person": "Dan Hunt",
+                "role": "offensive_coordinator",
+            }
+        ]
+        metrics = score_sets(expected, extracted)
+        self.assertEqual(metrics["true_positive"], 0)
+        self.assertEqual(metrics["identity_metrics"]["true_positive"], 0)
+
+    def test_score_sets_principal_vs_co_is_qualifier_error(self) -> None:
+        shared = {
+            "program": "Princeton",
+            "season": 2026,
+            "person": "Mike Weick",
+            "role": "defensive_coordinator",
+        }
+        metrics = score_sets(
+            [{**shared, "occupancy": "PRINCIPAL"}],
+            [{**shared, "occupancy": "CO_SHARED"}],
+        )
+        self.assertEqual(metrics["role_metrics"]["true_positive"], 1)
+        self.assertEqual(metrics["true_positive"], 0)
+
+    def test_score_sets_assistant_vs_principal_is_false_positive(self) -> None:
+        expected = [
+            {
+                "program": "Lehigh",
+                "season": 2026,
+                "person": "Dan Hunt",
+                "role": "offensive_coordinator",
+                "occupancy": "PRINCIPAL",
+            }
+        ]
+        extracted = [
+            {
+                "program": "Lehigh",
+                "season": 2026,
+                "person": "Mike Morita",
+                "role": "offensive_coordinator",
+                "occupancy": "PRINCIPAL",
+            }
+        ]
+        metrics = score_sets(expected, extracted)
+        self.assertEqual(metrics["false_positive"], 1)
+        self.assertEqual(metrics["false_negative"], 1)
+
+    def test_score_sets_sequential_occupants_are_not_concurrent(self) -> None:
+        expected = [
+            {
+                "program": "Iowa",
+                "season": 2024,
+                "person": "Phil Parker",
+                "role": "defensive_coordinator",
+                "occupancy": "PRINCIPAL",
+            }
+        ]
+        extracted = [
+            {
+                "program": "Iowa",
+                "season": 2024,
+                "person": "Phil Parker",
+                "role": "defensive_coordinator",
+                "occupancy": "PRINCIPAL",
+            },
+            {
+                "program": "Iowa",
+                "season": 2024,
+                "person": "Seth Wallace",
+                "role": "defensive_coordinator",
+                "occupancy": "PRINCIPAL",
+            },
+        ]
+        metrics = score_sets(expected, extracted)
+        self.assertEqual(metrics["false_positive"], 1)
+
+    def test_score_sets_duplicate_revisions_do_not_inflate(self) -> None:
+        row = {
+            "program": "Lehigh",
+            "season": 2026,
+            "person": "Dan Hunt",
+            "role": "offensive_coordinator",
+            "occupancy": "PRINCIPAL",
+            "revision_id": "1",
+        }
+        dup = {**row, "revision_id": "2"}
+        metrics = score_sets([row], [row, dup])
+        self.assertEqual(metrics["extracted_count"], 1)
+        self.assertEqual(metrics["true_positive"], 1)
+
+    def test_operator_overlay_is_not_on_admission_path(self) -> None:
+        self.assertFalse(hasattr(nameset_mod, "OPERATOR_CURRENT_ROLES"))
+        self.assertFalse(hasattr(nameset_mod, "apply_operator_current_roles"))
 
 
 if __name__ == "__main__":

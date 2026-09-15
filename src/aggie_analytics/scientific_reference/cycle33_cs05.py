@@ -11,7 +11,7 @@ import re
 from collections import Counter
 from typing import Any, Mapping, Sequence
 
-PROTOCOL_ID = "BAS-CS05-INDEPENDENT-LABEL-v33.1"
+PROTOCOL_ID = "BAS-CS05-INDEPENDENT-LABEL-v33.2"
 WIKI_LABEL_CLASS = "WIKI_ATTRIBUTED_RETROSPECTIVE_NOT_OFFICIAL"
 
 _COACH_LINE = re.compile(
@@ -64,9 +64,10 @@ FROZEN_CURRENT_LABELS: tuple[dict[str, Any], ...] = (
         "person": "E.J. Henderson",
         "role": "defensive_coordinator",
         "qualification": "CO_DC",
+        "occupancy": "CO_SHARED",
         "temporal_precision": "current_staff_directory",
         "source_kind": "official_staff_html",
-        "rationale": "Co-defensive coordinator and defensive backs coach; not the sole principal DC",
+        "rationale": "Co-defensive coordinator and defensive backs coach on the same staff record",
         "expected_principal": True,
         "era": "current",
     },
@@ -76,10 +77,11 @@ FROZEN_CURRENT_LABELS: tuple[dict[str, Any], ...] = (
         "subdivision": "FCS",
         "person": "Mike Weick",
         "role": "defensive_coordinator",
-        "qualification": "PRINCIPAL_DC",
+        "qualification": "CO_DC",
+        "occupancy": "CO_SHARED",
         "temporal_precision": "current_staff_directory",
         "source_kind": "official_staff_html",
-        "rationale": "Defensive coordinator on the current staff record; Henderson is co-DC",
+        "rationale": "Same-record title is Co-Defensive Coordinator; not relabeled principal from discussion wording",
         "expected_principal": True,
         "era": "current",
     },
@@ -297,6 +299,56 @@ def era_bucket(season: int | None) -> str:
     return "earlier"
 
 
+def _fold_token(value: Any) -> str:
+    return " ".join(str(value or "").split()).casefold()
+
+
+def _qualifier(row: Mapping[str, Any]) -> str:
+    occupancy = str(row.get("occupancy") or "").strip()
+    if occupancy:
+        return occupancy
+    qualification = str(row.get("qualification") or "").strip()
+    if qualification in {"CO_DC", "CO_OC"}:
+        return "CO_SHARED"
+    if qualification.startswith("PRINCIPAL") or qualification in {
+        "ASSOCIATE_HC_OC_QB"
+    }:
+        return "PRINCIPAL"
+    return qualification
+
+
+def fact_key(
+    row: Mapping[str, Any], *, include_role: bool = True, include_qualifier: bool = True
+) -> tuple[str, ...]:
+    parts = [
+        _fold_token(row.get("program") or row.get("program_id")),
+        str(row.get("season") or row.get("effective_interval") or ""),
+        _fold_token(row.get("person")),
+    ]
+    if include_role:
+        parts.append(str(row.get("role") or ""))
+    if include_qualifier:
+        parts.append(_qualifier(row))
+    return tuple(parts)
+
+
+def _set_metrics(expected: set[tuple[str, ...]], got: set[tuple[str, ...]]) -> dict[str, Any]:
+    tp = len(expected & got)
+    fp = len(got - expected)
+    fn = len(expected - got)
+    precision = tp / (tp + fp) if tp + fp else None
+    recall = tp / (tp + fn) if tp + fn else None
+    return {
+        "expected_count": len(expected),
+        "extracted_count": len(got),
+        "true_positive": tp,
+        "false_positive": fp,
+        "false_negative": fn,
+        "precision": precision,
+        "recall": recall,
+    }
+
+
 def score_sets(
     expected: Sequence[Mapping[str, Any]],
     extracted: Sequence[Mapping[str, Any]],
@@ -304,35 +356,43 @@ def score_sets(
     person_key: str = "person",
     role_key: str = "role",
 ) -> dict[str, Any]:
-    exp = {
-        (
-            str(row.get(person_key) or "").casefold(),
-            str(row.get(role_key) or ""),
-        )
-        for row in expected
-        if row.get(person_key)
-    }
-    got = {
-        (
-            str(row.get(person_key) or "").casefold(),
-            str(row.get(role_key) or ""),
-        )
-        for row in extracted
-        if row.get(person_key)
-    }
-    tp = len(exp & got)
-    fp = len(got - exp)
-    fn = len(exp - got)
-    precision = tp / (tp + fp) if tp + fp else None
-    recall = tp / (tp + fn) if tp + fn else None
+    expected_rows = []
+    for row in expected:
+        item = dict(row)
+        if person_key != "person":
+            item["person"] = item.get(person_key)
+        if role_key != "role":
+            item["role"] = item.get(role_key)
+        if item.get("person"):
+            expected_rows.append(item)
+    extracted_rows = []
+    for row in extracted:
+        item = dict(row)
+        if person_key != "person":
+            item["person"] = item.get(person_key)
+        if role_key != "role":
+            item["role"] = item.get(role_key)
+        if item.get("person"):
+            extracted_rows.append(item)
+    identity = _set_metrics(
+        {fact_key(row, include_role=False, include_qualifier=False) for row in expected_rows},
+        {fact_key(row, include_role=False, include_qualifier=False) for row in extracted_rows},
+    )
+    role = _set_metrics(
+        {fact_key(row, include_qualifier=False) for row in expected_rows},
+        {fact_key(row, include_qualifier=False) for row in extracted_rows},
+    )
+    fact = _set_metrics(
+        {fact_key(row) for row in expected_rows},
+        {fact_key(row) for row in extracted_rows},
+    )
     return {
-        "expected_count": len(exp),
-        "extracted_count": len(got),
-        "true_positive": tp,
-        "false_positive": fp,
-        "false_negative": fn,
-        "precision": precision,
-        "recall": recall,
+        **fact,
+        "identity_metrics": identity,
+        "role_metrics": role,
+        "qualifier_metrics": fact,
+        "person_role_only_is_not_staff_fact_validation": True,
+        "wrong_program_or_season_is_not_true_positive": True,
         "unlabeled_pages_excluded": True,
         "protocol_id": PROTOCOL_ID,
     }

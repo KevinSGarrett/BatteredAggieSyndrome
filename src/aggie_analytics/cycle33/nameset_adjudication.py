@@ -161,45 +161,6 @@ def occupancy_for_role(title: str, role: str) -> str | None:
     return None
 
 
-OPERATOR_CURRENT_ROLES: dict[tuple[str, str], dict[str, tuple[str, ...]]] = {
-    ("SRC-002:TEAM:2294", ROLE_DC): {
-        "principal": ("Phil Parker",),
-        "co": (),
-        "rejected": ("Seth Wallace",),
-    },
-    ("SRC-002:TEAM:23", ROLE_HC): {
-        "principal": ("Ken Niumatalolo",),
-        "co": (),
-        "rejected": ("Nu'u Tafisi",),
-    },
-    ("SRC-002:TEAM:2579", ROLE_DC): {
-        "principal": ("Clayton White",),
-        "co": ("Torrian Gray",),
-        "rejected": ("Kyle Lindquist",),
-    },
-    ("SRC-002:TEAM:245", ROLE_DC): {
-        "principal": ("Lyle Hemphill",),
-        "co": ("Elijah Robinson",),
-        "rejected": (),
-    },
-    ("SRC-002:TEAM:259", ROLE_HC): {
-        "principal": ("James Franklin",),
-        "co": (),
-        "rejected": ("Michael Hazel",),
-    },
-    ("SRC-002:TEAM:163", ROLE_DC): {
-        "principal": ("Mike Weick",),
-        "co": ("E.J. Henderson",),
-        "rejected": ("Steve Verbit",),
-    },
-    ("SRC-002:TEAM:2329", ROLE_OC): {
-        "principal": ("Dan Hunt",),
-        "co": (),
-        "rejected": ("Mike Morita",),
-    },
-}
-
-
 def adjudicate_person(
     html: str,
     *,
@@ -333,47 +294,6 @@ def principal_occupants(
     return occupants
 
 
-def apply_operator_current_roles(
-    occupants: Sequence[Mapping[str, Any]],
-    *,
-    program_id: str,
-    role: str,
-) -> list[dict[str, Any]]:
-    spec = OPERATOR_CURRENT_ROLES.get((program_id, role))
-    if not spec:
-        return [dict(row) for row in occupants]
-    principal = {_fold(name) for name in spec.get("principal") or ()}
-    co = {_fold(name) for name in spec.get("co") or ()}
-    rejected = {_fold(name) for name in spec.get("rejected") or ()}
-    resolved: list[dict[str, Any]] = []
-    seen: set[str] = set()
-    by_name = {_fold(str(row.get("person") or "")): dict(row) for row in occupants}
-    for name in spec.get("principal") or ():
-        row = by_name.get(_fold(name))
-        if not row:
-            continue
-        row["occupancy"] = "PRINCIPAL"
-        row["relationship"] = "CONFIRMED_APPOINTMENT"
-        row["operator_current_role"] = True
-        resolved.append(row)
-        seen.add(_fold(name))
-    for name in spec.get("co") or ():
-        row = by_name.get(_fold(name))
-        if not row:
-            continue
-        row["occupancy"] = "CO_SHARED"
-        row["relationship"] = "CONCURRENT_SHARED"
-        row["operator_current_role"] = True
-        resolved.append(row)
-        seen.add(_fold(name))
-    for row in occupants:
-        key = _fold(str(row.get("person") or ""))
-        if key in seen or key in rejected:
-            continue
-        resolved.append(dict(row))
-    return resolved
-
-
 def page_url_from_matrix(
     cells: Sequence[Mapping[str, Any]], program_id: str
 ) -> str:
@@ -428,9 +348,6 @@ def rebuild_matrix_from_html(
             continue
         occupants = principal_occupants(
             html, role=role, page_url=url, staff_html=staff_html
-        )
-        occupants = apply_operator_current_roles(
-            occupants, program_id=program_id, role=role
         )
         if occupants:
             disposition = (
@@ -619,7 +536,8 @@ def adjudicate_disputes(
                     if row["verdict"] != "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
                     or current_title_blocks_role(str(row.get("record_title") or ""), role)
                 ],
-                "operator_current_roles": OPERATOR_CURRENT_ROLES.get((pid, role)),
+                "operator_overlay_not_applied": True,
+                "source_title_occupancy_not_relabeled": True,
                 "automated_verdict_forbidden": False,
                 "csv_does_not_automatically_win": True,
                 "bas_matrix_does_not_automatically_win": True,

@@ -35,20 +35,42 @@ def inspect_forecast_eligibility(path: Path) -> dict[str, Any]:
         except (OSError, json.JSONDecodeError):
             payload = None
     keys = payload.keys() if isinstance(payload, dict) else ()
+    failed: list[str] = []
     freeze_present = False
+    if path.suffix.lower() != ".json":
+        failed.append("NOT_JSON_FORECAST_PACKET")
+    if payload is None and path.suffix.lower() == ".json":
+        failed.append("JSON_UNREADABLE")
     if isinstance(payload, dict):
         blob = json.dumps(payload).casefold()
         freeze_present = "frozen" in blob or "freeze" in blob
-    proof = bool(
-        isinstance(payload, dict)
-        and payload.get("receipt_sha256")
-        and (payload.get("issued_at_utc") or payload.get("snapshot_timestamp_utc"))
-        and (payload.get("known_at_utc") or payload.get("known_at"))
-    )
+        if payload.get("frozen") is True or payload.get("freeze_present") is True:
+            if not payload.get("receipt_sha256"):
+                failed.append("FROZEN_BOOLEAN_WITHOUT_RECEIPT_SHA256")
+        if not payload.get("receipt_sha256"):
+            failed.append("MISSING_RECEIPT_SHA256")
+        if not (payload.get("issued_at_utc") or payload.get("snapshot_timestamp_utc")):
+            failed.append("MISSING_ISSUED_OR_SNAPSHOT_UTC")
+        if not (payload.get("known_at_utc") or payload.get("known_at")):
+            failed.append("MISSING_KNOWN_AT_UTC")
+        if not payload.get("contest_id") and not payload.get("canonical_contest_id"):
+            failed.append("MISSING_CANONICAL_CONTEST_ID")
+        if freeze_present and not (
+            payload.get("receipt_sha256")
+            and (payload.get("issued_at_utc") or payload.get("snapshot_timestamp_utc"))
+            and (payload.get("known_at_utc") or payload.get("known_at"))
+        ):
+            failed.append("FREEZE_TOKEN_WITHOUT_ELIGIBILITY_PROOF")
+    else:
+        failed.append("PAYLOAD_NOT_OBJECT")
+    unique_failed = list(dict.fromkeys(failed))
+    proof = not unique_failed and bool(payload)
     return {
         "path": str(path),
         "bytes": path.stat().st_size,
         "suffix": path.suffix,
+        "eligibility_verdict": "ELIGIBLE" if proof else "INELIGIBLE",
+        "failed_predicates": unique_failed,
         "eligibility_proof_present": proof,
         "frozen_boolean_alone_insufficient": True,
         "freeze_token_present": freeze_present,

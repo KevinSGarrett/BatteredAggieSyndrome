@@ -40,7 +40,10 @@ CREATE TABLE IF NOT EXISTS scheme_tenure_claims (
     source_text TEXT,
     disposition TEXT NOT NULL,
     inferred INTEGER NOT NULL,
-    source_class TEXT NOT NULL
+    source_class TEXT NOT NULL,
+    family_tags TEXT,
+    conflict INTEGER NOT NULL,
+    official_corroboration TEXT
 );
 """
 
@@ -147,28 +150,33 @@ def load_scheme_claims(
     conn: sqlite3.Connection, claims: Sequence[Mapping[str, Any]]
 ) -> int:
     conn.execute("DELETE FROM scheme_tenure_claims")
-    rows = 0
-    for claim in claims:
-        conn.execute(
-            """
-            INSERT INTO scheme_tenure_claims (
-                program_raw, season, field, source_text, disposition,
-                inferred, source_class
-            ) VALUES (?,?,?,?,?,?,?)
-            """,
-            (
-                claim.get("program_raw") or claim.get("title"),
-                str(claim.get("season") or ""),
-                claim.get("field") or claim.get("normalized_field") or "",
-                claim.get("source_text") or claim.get("raw_value"),
-                claim.get("disposition") or "WIKI_REPORTED_NOT_OFFICIAL",
-                1 if claim.get("inferred") else 0,
-                claim.get("source_class") or "WIKIPEDIA_ATTRIBUTED_RETROSPECTIVE",
-            ),
+    payload = [
+        (
+            claim.get("program_raw") or claim.get("title"),
+            str(claim.get("season") or ""),
+            claim.get("field") or claim.get("normalized_field") or "",
+            claim.get("source_text") or claim.get("raw_value"),
+            claim.get("disposition") or "WIKI_REPORTED_NOT_OFFICIAL",
+            1 if claim.get("inferred") else 0,
+            claim.get("source_class") or "WIKIPEDIA_ATTRIBUTED_RETROSPECTIVE",
+            json.dumps(claim.get("family_tags") or [], sort_keys=True),
+            1 if claim.get("conflict_distinct_source_text") else 0,
+            claim.get("official_corroboration") or "WIKIPEDIA_ONLY_NOT_OFFICIAL",
         )
-        rows += 1
+        for claim in claims
+    ]
+    conn.executemany(
+        """
+        INSERT INTO scheme_tenure_claims (
+            program_raw, season, field, source_text, disposition,
+            inferred, source_class, family_tags, conflict,
+            official_corroboration
+        ) VALUES (?,?,?,?,?,?,?,?,?,?)
+        """,
+        payload,
+    )
     conn.commit()
-    return rows
+    return len(payload)
 
 
 def team_schemes(

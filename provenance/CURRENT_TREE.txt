@@ -4756,6 +4756,7 @@ tools/complete_cycle33_remaining.py
 tools/continue_cycle33_availability_pit.py
 tools/continue_cycle33_c33c_remaining.py
 tools/continue_cycle33_national.py
+tools/continue_cycle33_scheme_union.py
 tools/corroborate_cycle32_historical_staff_cells.py
 tools/corroborate_cycle32_wiki_cfbd_hc.py
 tools/corroborate_cycle32_wiki_official.py

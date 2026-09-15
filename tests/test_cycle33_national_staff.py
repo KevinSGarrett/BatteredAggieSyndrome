@@ -249,6 +249,14 @@ class WikiParserTests(unittest.TestCase):
         self.assertEqual(fields["defensive_scheme"], "4–3")
         self.assertEqual(fields["hc_tenure_stated"], "3rd")
         self.assertTrue(all(row["inferred"] is False for row in claims))
+        offense = next(row for row in claims if row["field"] == "offensive_scheme")
+        defense = next(row for row in claims if row["field"] == "defensive_scheme")
+        self.assertEqual(offense["normalized"], ["AIR_RAID"])
+        self.assertEqual(defense["normalized"], ["FRONT_4_3"])
+        self.assertEqual(offense["disposition"], "SOURCE_REPORTED_FAMILY_TAGGED")
+        self.assertEqual(
+            offense["official_corroboration"], "WIKIPEDIA_ONLY_NOT_OFFICIAL"
+        )
 
     def test_sports_team_season_football_is_accepted(self) -> None:
         text = (
@@ -286,6 +294,60 @@ class WikiParserTests(unittest.TestCase):
             text, revision_id="1", page_title="2005 Example basketball team"
         )
         self.assertEqual(people, [])
+
+    def test_unrecognized_scheme_stays_unnormalized_and_visible(self) -> None:
+        text = (
+            "{{Infobox college football season\n|head_coach=[[A]]\n"
+            "|off_scheme=Whatever unique local name\n}}"
+        )
+        claims = extract_scheme_tenure_claims(
+            text, page_title="2020 Example football team", revision_id="1", season=2020
+        )
+        offense = next(row for row in claims if row["field"] == "offensive_scheme")
+        self.assertEqual(offense["source_text"], "Whatever unique local name")
+        self.assertIsNone(offense["normalized"])
+        self.assertEqual(offense["disposition"], "SOURCE_REPORTED_UNNORMALIZED")
+        self.assertTrue(offense["unsupported_normalization_visible"])
+        self.assertFalse(offense["inferred"])
+
+    def test_multiple_is_a_meaningful_scheme_tag_not_missing(self) -> None:
+        text = (
+            "{{Infobox college football season\n|def_scheme=Multiple\n"
+            "|base_defense=4–2–5\n}}"
+        )
+        claims = extract_scheme_tenure_claims(
+            text, page_title="2018 Example football team", revision_id="2"
+        )
+        defense = next(row for row in claims if row["field"] == "defensive_scheme")
+        base = next(row for row in claims if row["field"] == "base_defense")
+        self.assertEqual(defense["normalized"], ["MULTIPLE"])
+        self.assertEqual(base["normalized"], ["FRONT_4_2_5"])
+
+    def test_duplicate_scheme_parameters_conflict_without_last_win(self) -> None:
+        text = (
+            "{{Infobox college football season\n|off_scheme=Air raid\n"
+            "|off_scheme=Pro-style\n}}"
+        )
+        claims = extract_scheme_tenure_claims(
+            text, page_title="2015 Example football team", revision_id="3"
+        )
+        schemes = [row for row in claims if row["field"] == "offensive_scheme"]
+        self.assertEqual(len(schemes), 2)
+        self.assertTrue(all(row["conflict_distinct_source_text"] for row in schemes))
+        self.assertEqual(
+            {row["source_text"] for row in schemes}, {"Air raid", "Pro-style"}
+        )
+        self.assertTrue(
+            all(row["disposition"] == "SCHEME_SOURCE_TEXT_CONFLICT" for row in schemes)
+        )
+        self.assertFalse(any(row["inferred"] for row in schemes))
+
+    def test_missing_scheme_is_not_inferred(self) -> None:
+        text = "{{Infobox college football season\n|head_coach=[[A]]\n}}"
+        claims = extract_scheme_tenure_claims(
+            text, page_title="2012 Example football team", revision_id="4"
+        )
+        self.assertFalse(any(row.get("claim_kind") == "SCHEME" for row in claims))
 
 
 class CareerIdentityTests(unittest.TestCase):

@@ -124,6 +124,8 @@ def main() -> int:
     stack = load("CYCLE33_STARTING_STACK.json")
     spans = load("CYCLE33_CONFIRMED_SPAN_AUDIT.json")
     scheme_q = load("CYCLE33_SCHEME_QUERY_LOAD.json")
+    scheme_norm = load("CYCLE33_SCHEME_NORMALIZATION.json")
+    scheme_official = load("CYCLE33_SCHEME_OFFICIAL_CORROBORATION_ATTEMPT.json")
     remaining = load("CYCLE33_PLAN_REMAINING_UNION.json")
     avail = load("CYCLE33_AVAILABILITY_NATIONAL.json")
     avail_ledger = load("CYCLE33_AVAILABILITY_FILE_LEDGER.json")
@@ -142,6 +144,7 @@ def main() -> int:
     )
     unmapped = tax.get("unmapped_distinct_titles")
     occupancy = tax.get("occupancy_counts") or {}
+    scheme_summary = scheme_norm.get("summary") or {}
     requirements = [
         req(
             "R33-01",
@@ -234,11 +237,25 @@ def main() -> int:
             "R33-07",
             "Materialize scheme and tenure evidence nationally",
             "PARTIAL",
-            "LOCAL_REPAIR_REQUIRED",
-            [str(SCI / "CYCLE33_SCHEME_TENURE_CLAIMS.json")],
-            "Normalize conflicting scheme strings; attach official corroboration; keep film/causal separate.",
+            "SOURCE_UNAVAILABLE_AFTER_DOCUMENTED_ATTEMPTS",
+            [
+                str(SCI / "CYCLE33_SCHEME_TENURE_CLAIMS.json"),
+                str(SCI / "CYCLE33_SCHEME_NORMALIZATION.json"),
+                str(SCI / "CYCLE33_SCHEME_OFFICIAL_CORROBORATION_ATTEMPT.json"),
+            ],
+            "Keep unsupported and conflicting source strings visible; family tags are not official, film, or PIT.",
             "BAT-164",
-            "13218 cached pages, 0 page errors, 4651 nonempty scheme pages (2416 pre-2013), 9111 nonempty scheme claims, 27691 nonempty tenure claims, inferred_count=0. Wikipedia is not official verification.",
+            (
+                "13218 cached pages, 0 page errors, 4651 nonempty scheme pages (2416 pre-2013), "
+                "9111 nonempty scheme claims, 27691 nonempty tenure claims, inferred_count=0. "
+                f"Family-tagged {scheme_summary.get('family_tagged_scheme_count')}; "
+                f"unnormalized-visible {scheme_summary.get('unnormalized_visible_scheme_count')}; "
+                f"conflict claims {scheme_norm.get('conflict_claim_count')}. "
+                f"Official HTML scheme-join independently corroborated="
+                f"{scheme_official.get('independently_corroborated_scheme_claims')}; "
+                f"hint hits {scheme_official.get('hint_hits')} are not program-season joins. "
+                "Wikipedia is not official verification."
+            ),
         ),
         req(
             "R33-08",
@@ -384,7 +401,13 @@ def main() -> int:
             ],
             "Named remaining domains stay unfinished; no 100%-mapped claim from heuristics.",
             "BAT-708",
-            f"Coaching/scheme/availability/neutral/identity/C01 tranche adjudicated. Unreviewed named domains: {remaining.get('unreviewed_named_domains')}. Heuristic 8111 is not semantic acceptance.",
+            (
+                "Coaching/scheme/availability/neutral/identity/C01 tranche adjudicated. "
+                f"Unreviewed named domains: {remaining.get('unreviewed_named_domains')}. "
+                f"Named discovery sections: {remaining.get('named_section_counts')}. "
+                f"No discovery path/heading match: {remaining.get('domains_with_no_discovery_path_or_heading_match')}. "
+                "Path/heading token matches are not section adjudication. Heuristic 8111 is not semantic acceptance."
+            ),
         ),
         req(
             "R33-18",
@@ -785,9 +808,9 @@ def main() -> int:
         "1. Implementation: local hosted-failure repairs and remaining cache/archive exhaustion submitted; not manager-accepted.\n"
         "2. Data/evidence completeness: INCOMPLETE after documented attempts. Missingness labels are not completeness.\n"
         "3. Software validation: Cycle33 glob 91 OK; FAST strict PASS; isolated wheel import PASS. "
-        "Hosted PR 689 at `287e8cc7`: Ubuntu/Windows core-validation PASS, security-policy PASS, "
-        "codeql analyze PASS, and CodeQL alert check PASS. A successful CodeQL analyze job does not cancel "
-        "an alert check; both passed at this HEAD. Read-only mounted acceptance twice produced identical FAIL "
+        "Hosted PR 689: Ubuntu/Windows core-validation, security-policy, codeql analyze, and "
+        "CodeQL alert check are bound per HEAD in VALIDATION_RECEIPT.json. A successful CodeQL analyze "
+        "job does not cancel an alert check. Read-only mounted acceptance twice produced identical FAIL "
         "identities (29/33) on inherited 1998-2009 predecessor-gate reconstruction; Cycle 32 HEAD has "
         "the same ledger mismatch and Cycle 33 did not change those producers. Unmounted full-suite "
         "and mounted-full DATA_ROOT receipts are bound in VALIDATION_RECEIPT.json when present. "

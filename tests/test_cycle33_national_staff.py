@@ -584,6 +584,7 @@ class NeutralVenueTests(unittest.TestCase):
                 "administrative_away_id": "AWAY",
                 "venue_id": "V1",
                 "venue_timezone": "America/New_York",
+                "neutral_site": True,
             },
             home_distance=10.0,
             away_distance=20.0,
@@ -591,6 +592,22 @@ class NeutralVenueTests(unittest.TestCase):
         )
         self.assertEqual(row["ordinary_home_advantage"], 0.0)
         self.assertTrue(row["neutral_site"])
+        self.assertEqual(row["home_travel_distance"], 10.0)
+        self.assertEqual(row["away_travel_distance"], 20.0)
+        home_game = travel_context(
+            {
+                "canonical_contest_id": "H1",
+                "administrative_home_id": "HOME",
+                "administrative_away_id": "AWAY",
+                "venue_id": "V2",
+                "neutral_site": False,
+            },
+            home_distance=0.0,
+            away_distance=250.0,
+            venue_confirmed=True,
+        )
+        self.assertFalse(home_game["neutral_site"])
+        self.assertIsNone(home_game["ordinary_home_advantage"])
 
 
 class UserCoachesTests(unittest.TestCase):

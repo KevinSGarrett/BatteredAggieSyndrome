@@ -105,17 +105,20 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     encoded = json.dumps(payload, indent=2, default=str) + "\n"
     # Public coaching census JSON, not credentials or medical attributes.
-    path.write_text(encoded, encoding="utf-8")  # codeql[py/clear-text-storage-sensitive-data]
+    path.write_text(
+        encoded, encoding="utf-8"
+    )  # codeql[py/clear-text-storage-sensitive-data]
 
 
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    encoded = (
-        "\n".join(json.dumps(row, sort_keys=True) for row in rows)
-        + ("\n" if rows else "")
+    encoded = "\n".join(json.dumps(row, sort_keys=True) for row in rows) + (
+        "\n" if rows else ""
     )
     # Public coaching census JSONL, not credentials or medical attributes.
-    path.write_text(encoded, encoding="utf-8")  # codeql[py/clear-text-storage-sensitive-data]
+    path.write_text(
+        encoded, encoding="utf-8"
+    )  # codeql[py/clear-text-storage-sensitive-data]
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:

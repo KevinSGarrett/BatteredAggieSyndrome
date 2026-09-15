@@ -31,9 +31,7 @@ def travel_context(
             "distance from an inferred stadium is not confirmed historical travel"
         )
     if "neutral_site" not in contest:
-        raise NeutralVenueError(
-            "neutral_site must come from venue/contest authority"
-        )
+        raise NeutralVenueError("neutral_site must come from venue/contest authority")
     neutral = bool(contest.get("neutral_site"))
     return {
         "canonical_contest_id": contest.get("canonical_contest_id"),

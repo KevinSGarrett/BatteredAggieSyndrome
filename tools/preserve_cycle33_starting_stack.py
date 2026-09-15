@@ -67,14 +67,25 @@ def main() -> int:
         == EXPECTED_HEAD
         or git(REVIEWED, "rev-parse", "HEAD") == EXPECTED_HEAD,
         "worktree_list": worktrees,
-        "worktree_count": sum(1 for line in worktrees.splitlines() if line.startswith("worktree ")),
+        "worktree_count": sum(
+            1 for line in worktrees.splitlines() if line.startswith("worktree ")
+        ),
         "python": sys.version,
         "operator_hold": "ACTIVE",
         "paid_ai_calls": 0,
     }
     out = dest / "CYCLE33_STARTING_STACK.json"
     out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"path": str(out), "worktree_count": payload["worktree_count"], "cycle33_head": payload["cycle33_worktree"]["head"]}, indent=2))
+    print(
+        json.dumps(
+            {
+                "path": str(out),
+                "worktree_count": payload["worktree_count"],
+                "cycle33_head": payload["cycle33_worktree"]["head"],
+            },
+            indent=2,
+        )
+    )
     print(str(dest.parent))
     return 0
 

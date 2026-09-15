@@ -88,15 +88,14 @@ def independently_admit_row(
         admitted = SOURCE_UNPROVEN
     if admitted == PROVEN and reasons:
         admitted = SOURCE_UNPROVEN
-    if admitted == PROVEN and not authority_from_row(row).get(
-        "source_publication_utc"
-    ):
+    if admitted == PROVEN and not authority_from_row(row).get("source_publication_utc"):
         admitted = RETROSPECTIVE
         reasons.append("NO_SOURCE_PUBLICATION_UTC")
     return {
         "canonical_game_id": row.get("canonical_game_id"),
         "season": row.get("season"),
-        "producer_authority_class": row.get("authority_class") or row.get("row_verdict"),
+        "producer_authority_class": row.get("authority_class")
+        or row.get("row_verdict"),
         "independent_class": admitted,
         "failed_predicates": reasons,
         "independently_proven": admitted == PROVEN and not reasons,

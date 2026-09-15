@@ -282,14 +282,20 @@ class ContinuationDeadlineCareerQueryTests(unittest.TestCase):
                 "occupant_person": "Ron Roberts",
                 "pageid": 1,
                 "episodes": [
-                    {"program_raw": "Louisiana", "sport": "football", "person": "Ron Roberts"}
+                    {
+                        "program_raw": "Louisiana",
+                        "sport": "football",
+                        "person": "Ron Roberts",
+                    }
                 ],
             }
         ]
         index = index_career_pages(pages)
         self.assertIn("ron roberts", index)
         joined = join_occupant_to_pages(
-            person="Ron Roberts", program_display="Louisiana", pages=index["ron roberts"]
+            person="Ron Roberts",
+            program_display="Louisiana",
+            pages=index["ron roberts"],
         )
         self.assertEqual(joined["career_join_state"], "EVIDENCE_BOUND_CAREER_JOIN")
 

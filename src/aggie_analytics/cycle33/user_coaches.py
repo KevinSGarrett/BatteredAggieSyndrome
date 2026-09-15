@@ -663,9 +663,7 @@ def conservation_checks(imported: Mapping[str, Any]) -> dict[str, Any]:
         "physically_present_role_cells": len(
             {str(row.get("observation_id") or "") for row in role_cells}
         ),
-        "parsed_person_segments": sum(
-            1 for row in role_cells if row.get("person")
-        ),
+        "parsed_person_segments": sum(1 for row in role_cells if row.get("person")),
         "emitted_role_assignment_records": len(role_cells),
         "distinct_source_role_cell_ids": len(
             {str(row.get("observation_id") or "") for row in role_cells}
@@ -683,17 +681,13 @@ def conservation_checks(imported: Mapping[str, Any]) -> dict[str, Any]:
         "staff_rows": imported.get("staff_row_count")
         or imported.get("staff_observation_count"),
         "queue_rows": imported.get("queue_row_count"),
-        "physically_present_role_cells": imported.get(
-            "physically_present_role_cells"
-        ),
+        "physically_present_role_cells": imported.get("physically_present_role_cells"),
         "parsed_person_segments": imported.get("parsed_person_segment_count"),
         "emitted_role_assignment_records": imported.get(
             "emitted_role_assignment_records"
         )
         or imported.get("role_cell_count"),
-        "distinct_source_role_cell_ids": imported.get(
-            "distinct_source_role_cell_ids"
-        ),
+        "distinct_source_role_cell_ids": imported.get("distinct_source_role_cell_ids"),
         "canonical_people_keys": imported.get("canonical_people_count"),
     }
     mismatches = {
@@ -727,7 +721,9 @@ def overlap_program_seasons(
     for row in imported.get("observations") or []:
         season = str(row.get("season_cell") or row.get("filename_year") or "")
         key = (season, _team_key(row))
-        sub = str(row.get("filename_subdivision") or row.get("source_subdivision") or "")
+        sub = str(
+            row.get("filename_subdivision") or row.get("source_subdivision") or ""
+        )
         bucket = buckets.setdefault(key, {"FBS": [], "FCS": [], "OTHER": []})
         if "FCS" in sub.upper() or "I-AA" in sub.upper() or "IAA" in sub.upper():
             bucket["FCS"].append(row)
@@ -742,7 +738,9 @@ def overlap_program_seasons(
                 {
                     "season": season,
                     "team_key": team_key,
-                    "team": (bucket["FBS"][0].get("team") or bucket["FCS"][0].get("team")),
+                    "team": (
+                        bucket["FBS"][0].get("team") or bucket["FCS"][0].get("team")
+                    ),
                     "fbs_files": sorted(
                         {str(row.get("source_file")) for row in bucket["FBS"]}
                     ),
@@ -761,7 +759,10 @@ def overlap_program_seasons(
             row
             for row in overlaps
             if row["season"] == spec["season"]
-            and any(token == row["team_key"] or token in row["team_key"] for token in spec["team_keys"])
+            and any(
+                token == row["team_key"] or token in row["team_key"]
+                for token in spec["team_keys"]
+            )
         ]
         named.append(
             {
@@ -797,15 +798,12 @@ def adjudicate_risk_fragment(
     person = segments[0]["person_raw"] if segments else None
     mapped = assignments_from_title(title or text)
     qualifiers = tuple(
-        item
-        for assignment in mapped
-        for item in assignment.get("qualifiers") or []
+        item for assignment in mapped for item in assignment.get("qualifiers") or []
     )
     occupancies = {str(item.get("occupancy")) for item in mapped}
     roles = {str(item.get("role")) for item in mapped}
     interim = any(
-        token in {QUALIFIER_INTERIM, QUALIFIER_ACTING}
-        for token in qualifiers
+        token in {QUALIFIER_INTERIM, QUALIFIER_ACTING} for token in qualifiers
     ) or bool(re.search(r"\b(interim|acting)\b", text, re.I))
     column_folded = column.casefold()
     if interim and (
@@ -813,17 +811,27 @@ def adjudicate_risk_fragment(
         or re.search(r"\b(interim|acting)\s+head(?:\s+football)?\s+coach\b", text, re.I)
     ):
         disposition = "POSITIVE_CONTROL_INTERIM_OR_ACTING"
-    elif re.search(r"\bassoc(?:iate|\.)?\s+hc\b", text, re.I) and "head coach" in column_folded:
+    elif (
+        re.search(r"\bassoc(?:iate|\.)?\s+hc\b", text, re.I)
+        and "head coach" in column_folded
+    ):
         disposition = "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN"
-    elif "head coach" in column_folded and occupancies & {
-        "QUALIFIED_NOT_PRINCIPAL"
-    } and "PRINCIPAL" not in occupancies:
+    elif (
+        "head coach" in column_folded
+        and occupancies & {"QUALIFIED_NOT_PRINCIPAL"}
+        and "PRINCIPAL" not in occupancies
+    ):
         disposition = "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN"
-    elif "head coach" in column_folded and "head_coach" in roles and "PRINCIPAL" in {
-        str(item.get("occupancy"))
-        for item in mapped
-        if item.get("role") == "head_coach"
-    }:
+    elif (
+        "head coach" in column_folded
+        and "head_coach" in roles
+        and "PRINCIPAL"
+        in {
+            str(item.get("occupancy"))
+            for item in mapped
+            if item.get("role") == "head_coach"
+        }
+    ):
         disposition = "PRINCIPAL_HC_FROM_USER_TITLE_NOT_OFFICIAL"
     elif "head coach" in column_folded:
         disposition = "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN"
@@ -843,8 +851,7 @@ def adjudicate_risk_fragment(
         "parsed_title": title,
         "taxonomy_assignments": mapped,
         "adjudication": disposition,
-        "review_queue_is_not_repair": disposition
-        == "OWNER_EPISODE_REVIEW_RETAINED",
+        "review_queue_is_not_repair": disposition == "OWNER_EPISODE_REVIEW_RETAINED",
         "fact_verified": False,
         "identity_accepted": False,
         "official_confirmation": False,

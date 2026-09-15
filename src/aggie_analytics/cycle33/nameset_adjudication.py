@@ -294,9 +294,7 @@ def principal_occupants(
     return occupants
 
 
-def page_url_from_matrix(
-    cells: Sequence[Mapping[str, Any]], program_id: str
-) -> str:
+def page_url_from_matrix(cells: Sequence[Mapping[str, Any]], program_id: str) -> str:
     for cell in cells:
         if str(cell.get("program_id")) != program_id:
             continue
@@ -534,7 +532,9 @@ def adjudicate_disputes(
                     }
                     for row in inspections + primary_inspections
                     if row["verdict"] != "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
-                    or current_title_blocks_role(str(row.get("record_title") or ""), role)
+                    or current_title_blocks_role(
+                        str(row.get("record_title") or ""), role
+                    )
                 ],
                 "operator_overlay_not_applied": True,
                 "source_title_occupancy_not_relabeled": True,

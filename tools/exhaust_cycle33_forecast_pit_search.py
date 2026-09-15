@@ -136,14 +136,17 @@ def main() -> int:
         "artifact_type": "CYCLE33_FORECAST_PIT_ARCHIVE_SEARCH",
         "as_of_utc": utc_now(),
         "forecast": {
-            **{k: inventory.get(k) for k in (
-                "file_count",
-                "eligibility_proof_count",
-                "missing_roots",
-                "roots_searched",
-                "inspected_set_scope",
-                "none_eligible_in_inspected_set_is_not_global_absence",
-            )},
+            **{
+                k: inventory.get(k)
+                for k in (
+                    "file_count",
+                    "eligibility_proof_count",
+                    "missing_roots",
+                    "roots_searched",
+                    "inspected_set_scope",
+                    "none_eligible_in_inspected_set_is_not_global_absence",
+                )
+            },
             "packets": packets,
             "eligible_in_inspected_set": int(
                 inventory.get("eligibility_proof_count") or 0
@@ -154,9 +157,7 @@ def main() -> int:
             "kernel_path": str(KERNEL),
             "kernel_row_count": len(kernel_rows),
             "producer_proven_count": len(proven_labels),
-            "independently_proven_count": recompute.get(
-                "independently_proven_count"
-            ),
+            "independently_proven_count": recompute.get("independently_proven_count"),
             "rows": proven_labels,
             "receipt_archive_hits": receipt_hits,
             "receipts_found_with_required_predicates": False,
@@ -181,9 +182,7 @@ def main() -> int:
                 "forecast_packets": len(packets),
                 "eligible": payload["forecast"]["eligible_in_inspected_set"],
                 "producer_proven_labels": len(proven_labels),
-                "independently_proven": recompute.get(
-                    "independently_proven_count"
-                ),
+                "independently_proven": recompute.get("independently_proven_count"),
                 "receipt_hits": len(receipt_hits),
                 "roots_searched": inventory.get("roots_searched"),
                 "missing_roots": inventory.get("missing_roots"),

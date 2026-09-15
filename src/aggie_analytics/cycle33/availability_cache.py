@@ -22,9 +22,7 @@ from aggie_analytics.cycle30.availability import (
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json
 from aggie_analytics.cycle33.acquisition_receipts import cache_hit_from_path, utc_now
 
-DEFAULT_CACHE = Path(
-    r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\raw\availability"
-)
+DEFAULT_CACHE = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\raw\availability")
 EXTRA_ROUTES: tuple[dict[str, str], ...] = (
     {
         "source_id": "SRC-017-LIVE",
@@ -177,12 +175,8 @@ def parse_cached_document(
     candidates: list[dict[str, Any]] = []
     statements: list[dict[str, Any]] = []
     if page_kind != "JS_LANDING_SHELL_NOT_REPORT":
-        candidates = extract_candidate_player_rows(
-            text, source_id=source_id, uri=uri
-        )
-        statements = extract_status_statements(
-            text, source_id=source_id, uri=uri
-        )
+        candidates = extract_candidate_player_rows(text, source_id=source_id, uri=uri)
+        statements = extract_status_statements(text, source_id=source_id, uri=uri)
     return {
         "uri": uri,
         "source_id": source_id,

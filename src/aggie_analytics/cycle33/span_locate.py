@@ -446,7 +446,9 @@ def _staff_bio_records(html: str) -> list[dict[str, Any]]:
         return records
     if field_title:
         title_tag = re.search(r"<title>(.*?)</title>", body, re.I | re.S)
-        person = _plain(title_tag.group(1)).split("-", 1)[0].strip() if title_tag else ""
+        person = (
+            _plain(title_tag.group(1)).split("-", 1)[0].strip() if title_tag else ""
+        )
         if person and field_title:
             records.append(
                 {

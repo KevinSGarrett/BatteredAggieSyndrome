@@ -40,9 +40,7 @@ class AvailabilityCacheTests(unittest.TestCase):
                 "<td>Jane Smith</td></tr></table></body></html>",
                 encoding="utf-8",
             )
-            parsed = parse_cached_document(
-                path, uri=uri, source_id="SRC-TEST"
-            )
+            parsed = parse_cached_document(path, uri=uri, source_id="SRC-TEST")
             self.assertEqual(parsed["disposition"], "CACHE_HIT_PARSED")
             self.assertIsNone(parsed["http_status"])
             self.assertTrue(parsed["file_existence_is_not_http_200"])
@@ -204,12 +202,8 @@ class CorpusGrainTests(unittest.TestCase):
         }
         check = conservation_checks(imported)
         self.assertTrue(check["conserved"])
-        self.assertEqual(
-            check["reconstructed"]["physically_present_role_cells"], 1
-        )
-        self.assertEqual(
-            check["reconstructed"]["emitted_role_assignment_records"], 2
-        )
+        self.assertEqual(check["reconstructed"]["physically_present_role_cells"], 1)
+        self.assertEqual(check["reconstructed"]["emitted_role_assignment_records"], 2)
 
     def test_fiu_fau_wku_overlap_keys(self) -> None:
         imported = {
@@ -285,9 +279,7 @@ class CorpusGrainTests(unittest.TestCase):
                 "team": "Alabama",
             }
         )
-        self.assertEqual(
-            row["adjudication"], "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN"
-        )
+        self.assertEqual(row["adjudication"], "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN")
 
     def test_associate_hc_abbreviation_is_not_principal(self) -> None:
         row = adjudicate_risk_fragment(
@@ -297,9 +289,7 @@ class CorpusGrainTests(unittest.TestCase):
                 "team": "North Texas",
             }
         )
-        self.assertEqual(
-            row["adjudication"], "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN"
-        )
+        self.assertEqual(row["adjudication"], "REJECTED_NOT_PRINCIPAL_FOR_HC_COLUMN")
 
     def test_formal_title_not_established_is_not_principal_dc(self) -> None:
         row = adjudicate_risk_fragment(
@@ -332,13 +322,13 @@ class CorpusGrainTests(unittest.TestCase):
             inspected = inspect_forecast_eligibility(path)
             self.assertFalse(inspected["eligibility_proof_present"])
             self.assertEqual(inspected["eligibility_verdict"], "INELIGIBLE")
-            self.assertIn("FROZEN_BOOLEAN_WITHOUT_RECEIPT_SHA256", inspected["failed_predicates"])
+            self.assertIn(
+                "FROZEN_BOOLEAN_WITHOUT_RECEIPT_SHA256", inspected["failed_predicates"]
+            )
             self.assertTrue(inspected["freeze_token_present"])
 
     def test_inventory_filename_is_not_a_forecast_packet(self) -> None:
-        self.assertFalse(
-            _looks_relevant(Path("CYCLE33_FORECAST_FILE_INVENTORY.json"))
-        )
+        self.assertFalse(_looks_relevant(Path("CYCLE33_FORECAST_FILE_INVENTORY.json")))
 
 
 if __name__ == "__main__":

@@ -41,12 +41,19 @@ def utc_now() -> str:
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
     if not path.is_file():
         return []
-    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    return [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
 
 
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n", encoding="utf-8")
+    path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n",
+        encoding="utf-8",
+    )
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -167,7 +174,9 @@ def week2_census() -> dict[str, Any]:
         if not path.is_file():
             missing.append(str(path))
             continue
-        parsed = parse_ncaa_com_scoreboard_contests(path.read_text(encoding="utf-8", errors="replace"))
+        parsed = parse_ncaa_com_scoreboard_contests(
+            path.read_text(encoding="utf-8", errors="replace")
+        )
         for contest in parsed:
             row = {
                 **contest,
@@ -218,7 +227,9 @@ def week2_census() -> dict[str, Any]:
         "unique_contest_count": finals["unique_contest_count"],
         "quarantined_conflicts": len(finals["quarantined_conflicts"]),
         "week2_cache_present": (NCAA / "scoreboard-2026-02.html").is_file(),
-        "week2_contest_count": sum(1 for row in contests if row.get("requested_week_label") == "2026/02"),
+        "week2_contest_count": sum(
+            1 for row in contests if row.get("requested_week_label") == "2026/02"
+        ),
         "missing_raw": missing,
         "fcs_separate_scoreboard": "NOT_IN_THIS_CACHE_SET",
         "new_scheduler_installed": False,
@@ -287,12 +298,18 @@ def user_historical_cells() -> dict[str, Any]:
 
 
 def risk_and_comparison() -> dict[str, Any]:
-    risk = json.loads((REVIEW / "PRIMARY_ROLE_RISK_QUEUE.json").read_text(encoding="utf-8"))
-    comparison = json.loads((REVIEW / "BAS_CURRENT_COMPARISON.json").read_text(encoding="utf-8"))
+    risk = json.loads(
+        (REVIEW / "PRIMARY_ROLE_RISK_QUEUE.json").read_text(encoding="utf-8")
+    )
+    comparison = json.loads(
+        (REVIEW / "BAS_CURRENT_COMPARISON.json").read_text(encoding="utf-8")
+    )
     risk_disp = []
     for row in risk.get("rows") or []:
         mapped = assignments_from_title(str(row.get("fragment") or ""))
-        principal = [item for item in mapped if item["occupancy"] in {"PRINCIPAL", "CO_SHARED"}]
+        principal = [
+            item for item in mapped if item["occupancy"] in {"PRINCIPAL", "CO_SHARED"}
+        ]
         risk_disp.append(
             {
                 **row,
@@ -328,7 +345,11 @@ def risk_and_comparison() -> dict[str, Any]:
             "identity_accepted_false_for_all": True,
         },
     )
-    return {"risk_count": len(risk_disp), "difference_count": len(diffs), "comparison_rows": len(comparison.get("rows") or [])}
+    return {
+        "risk_count": len(risk_disp),
+        "difference_count": len(diffs),
+        "comparison_rows": len(comparison.get("rows") or []),
+    }
 
 
 def career_remap() -> dict[str, Any]:
@@ -388,7 +409,9 @@ def career_remap() -> dict[str, Any]:
 
 
 def reference_set() -> dict[str, Any]:
-    receipts = json.loads((REVIEW / "PRIMARY_SOURCE_RECEIPTS.json").read_text(encoding="utf-8"))
+    receipts = json.loads(
+        (REVIEW / "PRIMARY_SOURCE_RECEIPTS.json").read_text(encoding="utf-8")
+    )
     labeled = []
     for receipt in receipts:
         labeled.append(
@@ -432,7 +455,38 @@ def main() -> int:
         "reference": reference_set(),
     }
     write_json(OUT / "CYCLE33_MATERIAL_CONTINUATION.json", payload)
-    print(json.dumps({k: (v if not isinstance(v, dict) else {ik: iv for ik, iv in v.items() if ik in {"cell_count", "disposition_counts", "row_count", "pages", "week2_contest_count", "observation_count", "unique_contest_count", "record_count", "risk_count", "difference_count", "operator_oc_present", "washington_cells"}}) for k, v in payload.items()}, indent=2, default=str))
+    print(
+        json.dumps(
+            {
+                k: (
+                    v
+                    if not isinstance(v, dict)
+                    else {
+                        ik: iv
+                        for ik, iv in v.items()
+                        if ik
+                        in {
+                            "cell_count",
+                            "disposition_counts",
+                            "row_count",
+                            "pages",
+                            "week2_contest_count",
+                            "observation_count",
+                            "unique_contest_count",
+                            "record_count",
+                            "risk_count",
+                            "difference_count",
+                            "operator_oc_present",
+                            "washington_cells",
+                        }
+                    }
+                )
+                for k, v in payload.items()
+            },
+            indent=2,
+            default=str,
+        )
+    )
     return 0
 
 

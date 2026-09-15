@@ -12,6 +12,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+# Tool scripts must import the local package after PATH setup.
+# ruff: noqa: E402
 from aggie_analytics.cycle33.nameset_adjudication import (
     adjudicate_disputes,
     load_html,
@@ -88,7 +90,8 @@ def main() -> int:
         if not cell.get("episode_refs"):
             continue
         klass = str(
-            (programs.get(str(cell.get("program_id"))) or {}).get("classification") or ""
+            (programs.get(str(cell.get("program_id"))) or {}).get("classification")
+            or ""
         )
         if klass == "fbs":
             fbs += 1
@@ -126,8 +129,7 @@ def main() -> int:
         (REVIEW / "BAS_CURRENT_COMPARISON.json").read_text(encoding="utf-8")
     )
     suc_by = {
-        (str(cell.get("program_id")), str(cell.get("role"))): cell
-        for cell in successor
+        (str(cell.get("program_id")), str(cell.get("role"))): cell for cell in successor
     }
     html_by_program: dict[str, str] = {}
     url_by_program: dict[str, str] = {}

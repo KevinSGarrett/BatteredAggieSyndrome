@@ -18,7 +18,9 @@ OUT = Path(
 
 
 def hashes(root: Path) -> dict[str, str]:
-    return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in root.glob("*.csv")}
+    return {
+        p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in root.glob("*.csv")
+    }
 
 
 def main() -> int:
@@ -26,7 +28,9 @@ def main() -> int:
     snap_files = hashes(SNAP)
     only_live = sorted(set(live_files) - set(snap_files))
     only_snap = sorted(set(snap_files) - set(live_files))
-    changed = sorted(n for n in live_files if n in snap_files and live_files[n] != snap_files[n])
+    changed = sorted(
+        n for n in live_files if n in snap_files and live_files[n] != snap_files[n]
+    )
     payload = {
         "artifact_type": "CYCLE33_USER_COACHES_LIVE_DELTA",
         "live_root": str(LIVE),

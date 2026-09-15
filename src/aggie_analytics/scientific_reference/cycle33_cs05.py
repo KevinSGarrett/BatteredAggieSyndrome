@@ -310,9 +310,7 @@ def _qualifier(row: Mapping[str, Any]) -> str:
     qualification = str(row.get("qualification") or "").strip()
     if qualification in {"CO_DC", "CO_OC"}:
         return "CO_SHARED"
-    if qualification.startswith("PRINCIPAL") or qualification in {
-        "ASSOCIATE_HC_OC_QB"
-    }:
+    if qualification.startswith("PRINCIPAL") or qualification in {"ASSOCIATE_HC_OC_QB"}:
         return "PRINCIPAL"
     return qualification
 
@@ -332,7 +330,9 @@ def fact_key(
     return tuple(parts)
 
 
-def _set_metrics(expected: set[tuple[str, ...]], got: set[tuple[str, ...]]) -> dict[str, Any]:
+def _set_metrics(
+    expected: set[tuple[str, ...]], got: set[tuple[str, ...]]
+) -> dict[str, Any]:
     tp = len(expected & got)
     fp = len(got - expected)
     fn = len(expected - got)
@@ -375,8 +375,14 @@ def score_sets(
         if item.get("person"):
             extracted_rows.append(item)
     identity = _set_metrics(
-        {fact_key(row, include_role=False, include_qualifier=False) for row in expected_rows},
-        {fact_key(row, include_role=False, include_qualifier=False) for row in extracted_rows},
+        {
+            fact_key(row, include_role=False, include_qualifier=False)
+            for row in expected_rows
+        },
+        {
+            fact_key(row, include_role=False, include_qualifier=False)
+            for row in extracted_rows
+        },
     )
     role = _set_metrics(
         {fact_key(row, include_qualifier=False) for row in expected_rows},

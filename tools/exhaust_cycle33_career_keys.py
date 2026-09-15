@@ -81,17 +81,20 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     encoded = json.dumps(payload, indent=2) + "\n"
     # Public coaching census JSON, not credentials or medical attributes.
-    path.write_text(encoded, encoding="utf-8")  # codeql[py/clear-text-storage-sensitive-data]
+    path.write_text(
+        encoded, encoding="utf-8"
+    )  # codeql[py/clear-text-storage-sensitive-data]
 
 
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    encoded = (
-        "\n".join(json.dumps(row, sort_keys=True) for row in rows)
-        + ("\n" if rows else "")
+    encoded = "\n".join(json.dumps(row, sort_keys=True) for row in rows) + (
+        "\n" if rows else ""
     )
     # Public coaching census JSONL, not credentials or medical attributes.
-    path.write_text(encoded, encoding="utf-8")  # codeql[py/clear-text-storage-sensitive-data]
+    path.write_text(
+        encoded, encoding="utf-8"
+    )  # codeql[py/clear-text-storage-sensitive-data]
 
 
 def fetch_json(url: str, ledger: list[dict[str, Any]]) -> Any:
@@ -393,7 +396,9 @@ def acquire_missing(
     return acquired, by_person, halt
 
 
-def historical_team_season_census(index: dict[str, list[Mapping[str, Any]]]) -> dict[str, Any]:
+def historical_team_season_census(
+    index: dict[str, list[Mapping[str, Any]]],
+) -> dict[str, Any]:
     wiki = load_jsonl(OUT / "CYCLE33_WIKI_STAFF_SUCCESSORS.jsonl")
     people: dict[str, dict[str, Any]] = {}
     for page in wiki:
@@ -479,9 +484,7 @@ def main() -> int:
                     "live_or_cache": "CACHE_THEN_BOUNDED_WIKIMEDIA",
                 }
             rebuilt.append(
-                attempt_row(
-                    occupant, list(index.get(key) or []), acquisition=acq
-                )
+                attempt_row(occupant, list(index.get(key) or []), acquisition=acq)
             )
         attempts = rebuilt
     counts = Counter(str(row.get("career_join_state")) for row in attempts)
@@ -501,9 +504,7 @@ def main() -> int:
         "missing_unique_people_searched": len(missing_people),
         "wikimedia_ledger_rows": len(ledger),
         "wikimedia_cache_hits": sum(1 for row in ledger if row.get("cached")),
-        "wikimedia_live_requests": sum(
-            1 for row in ledger if not row.get("cached")
-        ),
+        "wikimedia_live_requests": sum(1 for row in ledger if not row.get("cached")),
         "acquisition_halt": halt,
         "denominators": {
             "occupant_keys": len(attempts),

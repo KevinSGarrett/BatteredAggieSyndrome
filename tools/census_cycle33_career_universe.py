@@ -13,6 +13,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+# Tool scripts must import the local package after PATH setup.
+# ruff: noqa: E402
 from aggie_analytics.cycle33.career_identity import _fold as fold_name
 
 OUT = Path(

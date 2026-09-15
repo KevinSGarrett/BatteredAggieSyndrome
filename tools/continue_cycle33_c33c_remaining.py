@@ -13,6 +13,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+# Tool scripts must import the local package after PATH setup.
+# ruff: noqa: E402
 from aggie_analytics.cycle30.coaching import parse_wikimedia_infobox
 from aggie_analytics.cycle33.cs05_score import score_frozen_current
 from aggie_analytics.cycle33.forecast_inventory import inventory_forecast_files
@@ -24,7 +26,10 @@ from aggie_analytics.cycle33.nameset_adjudication import (
     rebuild_matrix_from_html,
     reconstruct_comparison_row,
 )
-from aggie_analytics.cycle33.scheme_tenure import extract_scheme_tenure_claims, summarize_claims
+from aggie_analytics.cycle33.scheme_tenure import (
+    extract_scheme_tenure_claims,
+    summarize_claims,
+)
 from aggie_analytics.cycle33.wikimedia_raw import WikimediaRawError, wikitext_from_path
 from aggie_analytics.scientific_reference.cycle33_cs05 import (
     FROZEN_CURRENT_LABELS,
@@ -104,7 +109,8 @@ def nameset_and_matrix() -> dict[str, Any]:
         if not cell.get("episode_refs"):
             continue
         klass = str(
-            (programs.get(str(cell.get("program_id"))) or {}).get("classification") or ""
+            (programs.get(str(cell.get("program_id"))) or {}).get("classification")
+            or ""
         )
         if klass == "fbs":
             fbs += 1
@@ -138,8 +144,7 @@ def nameset_and_matrix() -> dict[str, Any]:
         (REVIEW / "BAS_CURRENT_COMPARISON.json").read_text(encoding="utf-8")
     )
     suc_by = {
-        (str(cell.get("program_id")), str(cell.get("role"))): cell
-        for cell in successor
+        (str(cell.get("program_id")), str(cell.get("role"))): cell for cell in successor
     }
     html_by_program: dict[str, str] = {}
     url_by_program: dict[str, str] = {}
@@ -152,9 +157,7 @@ def nameset_and_matrix() -> dict[str, Any]:
         html_by_program[pid] = html
         url_by_program[pid] = url
     reconstructed = [
-        reconstruct_comparison_row(
-            row, suc_by, html_by_program, url_by_program
-        )
+        reconstruct_comparison_row(row, suc_by, html_by_program, url_by_program)
         for row in comparison.get("rows") or []
     ]
     recon_counts = Counter(
@@ -354,7 +357,13 @@ def scheme_and_era() -> dict[str, Any]:
             "pit_admitted": False,
         },
     )
-    print("scheme claims", summary.get("claim_count"), "1963-1999", cache_1963_1999, flush=True)
+    print(
+        "scheme claims",
+        summary.get("claim_count"),
+        "1963-1999",
+        cache_1963_1999,
+        flush=True,
+    )
     return payload
 
 
@@ -378,9 +387,9 @@ def main() -> int:
             "not_starting_stack": True,
             "generated_at_utc": utc_now(),
             "nameset": nameset,
-            "cs05_program_seasons": (cs05.get("wiki_program_seasons_reviewed") or {}).get(
-                "program_season_count"
-            ),
+            "cs05_program_seasons": (
+                cs05.get("wiki_program_seasons_reviewed") or {}
+            ).get("program_season_count"),
             "scheme_claim_count": scheme.get("claim_count"),
             "forecast_file_count": forecast.get("file_count"),
             "operator_hold": "ACTIVE",

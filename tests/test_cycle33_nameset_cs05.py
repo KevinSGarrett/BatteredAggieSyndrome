@@ -5,7 +5,11 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
-from aggie_analytics.cycle33 import cs05_score, nameset_adjudication as nameset_mod, query
+from aggie_analytics.cycle33 import (
+    cs05_score,
+    nameset_adjudication as nameset_mod,
+    query,
+)
 from aggie_analytics.cycle33.nameset_adjudication import (
     adjudicate_person,
     principal_occupants,
@@ -118,9 +122,7 @@ class OccupantTests(unittest.TestCase):
         lindquist = adjudicate_person(
             html, person="Kyle Lindquist", role="defensive_coordinator"
         )
-        self.assertNotEqual(
-            lindquist["verdict"], "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
-        )
+        self.assertNotEqual(lindquist["verdict"], "PRINCIPAL_OR_CO_ROLE_SUPPORTED")
 
     def test_iowa_wallace_is_not_principal_dc(self) -> None:
         html = (

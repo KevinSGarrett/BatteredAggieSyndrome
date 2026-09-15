@@ -13,6 +13,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+# Tool scripts must import the local package after PATH setup.
+# ruff: noqa: E402
 from aggie_analytics.cycle33.availability_cache import parse_cached_routes
 from aggie_analytics.cycle33.forecast_inventory import inventory_forecast_files
 from aggie_analytics.cycle33.pit_recompute import recompute_pit_population
@@ -33,10 +35,10 @@ OUT = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle33\runs\20260914T130736Z"
     r"\implementation_output\science"
 )
-SNAP = Path(
-    r"C:\BatteredAggieSyndrome.data\ops\cycle33\runs\20260914T215526Z"
+SNAP = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle33\runs\20260914T215526Z")
+KERNEL = Path(
+    r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs\PIT_KERNEL_ROWS.jsonl"
 )
-KERNEL = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs\PIT_KERNEL_ROWS.jsonl")
 RISK = OUT / "CYCLE33_USER_CORPUS_RISK_QUEUE.jsonl"
 FORECAST_ROOTS = (
     Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr\artifacts\forecast"),
@@ -131,9 +133,7 @@ def corpus(imported: dict[str, Any] | None = None) -> dict[str, Any]:
             "physically_present_role_cells": imported.get(
                 "physically_present_role_cells"
             ),
-            "parsed_person_segment_count": imported.get(
-                "parsed_person_segment_count"
-            ),
+            "parsed_person_segment_count": imported.get("parsed_person_segment_count"),
             "emitted_role_assignment_records": imported.get(
                 "emitted_role_assignment_records"
             ),
@@ -290,20 +290,26 @@ def main() -> int:
     }
     write_json(SNAP / "CYCLE33_AVAILABILITY_PIT_CORPUS_POINTER.json", payload)
     write_json(OUT / "CYCLE33_AVAILABILITY_PIT_CORPUS_SUMMARY.json", payload)
-    print(json.dumps(
-        {
-            "availability_routes": payload["availability"].get("route_count"),
-            "player_candidates": payload["availability"].get("player_candidate_count"),
-            "pit_proven": payload["pit"]["independent"]["independently_proven_count"],
-            "conservation": payload["corpus"]["conservation"]["conserved"],
-            "named_overlaps": payload["corpus"]["overlaps"]["all_named_found"],
-            "risk_count": payload["corpus"]["risk_fragments"]["count"],
-            "query_fbs": payload["queries"]["historical_fbs_rows"],
-            "forecast_files": payload["forecasts"]["file_count"],
-            "all22_checkouts": len(payload["all22"]["checkouts"]),
-        },
-        indent=2,
-    ))
+    print(
+        json.dumps(
+            {
+                "availability_routes": payload["availability"].get("route_count"),
+                "player_candidates": payload["availability"].get(
+                    "player_candidate_count"
+                ),
+                "pit_proven": payload["pit"]["independent"][
+                    "independently_proven_count"
+                ],
+                "conservation": payload["corpus"]["conservation"]["conserved"],
+                "named_overlaps": payload["corpus"]["overlaps"]["all_named_found"],
+                "risk_count": payload["corpus"]["risk_fragments"]["count"],
+                "query_fbs": payload["queries"]["historical_fbs_rows"],
+                "forecast_files": payload["forecasts"]["file_count"],
+                "all22_checkouts": len(payload["all22"]["checkouts"]),
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

@@ -61,7 +61,6 @@ from aggie_analytics.cycle33.user_coaches import (
     _subdivision_from_filename,
     classify_missingness,
     import_snapshot,
-    parse_csv_records,
     parse_person_segments,
 )
 from aggie_analytics.cycle33.week2 import (

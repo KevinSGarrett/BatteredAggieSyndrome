@@ -19,9 +19,7 @@ SEARCH_ROOTS: tuple[Path, ...] = (
     Path(r"C:\BatteredAggieSyndrome.data\ops\manager_reviews"),
     Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr\artifacts\forecast"),
     Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr\artifacts\pit"),
-    Path(
-        r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr\artifacts\predictions"
-    ),
+    Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr\artifacts\predictions"),
     Path(
         r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr"
         r"\artifacts\scientific_integrity"

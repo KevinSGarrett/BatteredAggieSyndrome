@@ -28,6 +28,9 @@ from aggie_analytics.cycle30.acquisition import (  # noqa: E402
     receipt_identity,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 from aggie_analytics.data.cfbd import (  # noqa: E402
     CFBDTransport,
     acquisition_request,
@@ -253,6 +256,40 @@ def main() -> int:
         http_status = None
         body = b""
         error = None
+        if cache.is_file():
+            body = cache.read_bytes()
+            receipt = cache_hit_from_path(
+                cache,
+                url=uri,
+                original={
+                    "request_id": request_identity(
+                        method="GET",
+                        uri=uri,
+                        source_contract="NCAA_COM_SCOREBOARD",
+                    ),
+                    "raw_sha256": sha256_bytes(body),
+                    "http_status": 200,
+                    "ok": True,
+                },
+            )
+            ncaa_com_attempts.append(
+                {
+                    "uri": uri,
+                    "http_status": receipt["http_status"],
+                    "error": None,
+                    "retrieved_at_utc": receipt["retrieved_at_utc"],
+                    "cache_read_at_utc": receipt["cache_read_at_utc"],
+                    "raw_sha256": sha256_bytes(body) if body else None,
+                    "receipt_identity": receipt.get("original_request_id"),
+                    "artifact_class": "REAL_EVIDENCE",
+                    "cached": True,
+                    "error_body_not_success": False,
+                }
+            )
+            ncaa_com_contests.extend(
+                parse_ncaa_com_scoreboard_contests(body.decode("utf-8", "replace"))
+            )
+            continue
         try:
             request = urllib.request.Request(uri, headers={"User-Agent": UA})
             with urllib.request.urlopen(request, timeout=30) as response:
@@ -267,7 +304,8 @@ def main() -> int:
             error = str(type(exc).__name__)
             if cache.is_file():
                 body = cache.read_bytes()
-                http_status = 200
+                http_status = None
+                error = f"{error}:CACHE_PRESENT_STATUS_UNKNOWN"
         end = utc_now()
         ncaa_com_attempts.append(
             {

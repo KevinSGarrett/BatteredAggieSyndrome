@@ -32,6 +32,9 @@ from aggie_analytics.cycle30.availability import (  # noqa: E402
     pdf_plaintext,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 from aggie_analytics.data.cfbd import (  # noqa: E402
     load_dotenv_value,
     public_uri,
@@ -76,20 +79,19 @@ def cache_html(uri: str) -> Path:
 ASSET_BUDGET = {"max_requests": 48}
 
 
-def fetch_asset(
-    uri: str, ledger: list[dict[str, Any]]
-) -> tuple[bytes, dict[str, Any]]:
+def fetch_asset(uri: str, ledger: list[dict[str, Any]]) -> tuple[bytes, dict[str, Any]]:
     cache = cache_html(uri)
     if cache.is_file() and cache.stat().st_size > 0:
         body = cache.read_bytes()
-        receipt = {
-            "route": uri,
-            "status": "CACHE_HIT",
-            "http_status": 200,
-            "cached": True,
-            "raw_sha256": sha256_bytes(body),
-            "retrieved_at_utc": utc_now(),
-        }
+        receipt = cache_hit_from_path(
+            cache,
+            url=uri,
+            original={
+                "raw_sha256": sha256_bytes(body),
+                "http_status": 200,
+                "ok": True,
+            },
+        )
         ledger.append(receipt)
         return body, receipt
     live = sum(1 for row in ledger if not row.get("cached"))
@@ -149,7 +151,9 @@ def _cfbd_cache(parameters: dict[str, Any]) -> Path:
 
 
 def _public_sr(url: str) -> str:
-    return url.replace("api_key=", "api_key=REDACTED")
+    from aggie_analytics.cycle33.acquisition_receipts import sanitize_url
+
+    return sanitize_url(url)
 
 
 def fetch_cfbd_injuries(
@@ -158,7 +162,9 @@ def fetch_cfbd_injuries(
     parameters: dict[str, Any],
     ledger: list[dict[str, Any]],
 ) -> tuple[Any, dict[str, Any]]:
-    if sum(1 for row in ledger if not row.get("cached")) >= int(CFBD_BUDGET["max_requests"]):
+    if sum(1 for row in ledger if not row.get("cached")) >= int(
+        CFBD_BUDGET["max_requests"]
+    ):
         raise RuntimeError("CFBD injuries request ceiling reached")
     cached = _cfbd_cache(parameters)
     if cached.is_file():
@@ -235,7 +241,9 @@ def fetch_sr_injuries(
     week: int,
     ledger: list[dict[str, Any]],
 ) -> tuple[Any, dict[str, Any]]:
-    if sum(1 for row in ledger if not row.get("cached")) >= int(SR_BUDGET["max_requests"]):
+    if sum(1 for row in ledger if not row.get("cached")) >= int(
+        SR_BUDGET["max_requests"]
+    ):
         raise RuntimeError("Sportradar injuries request ceiling reached")
     url = (
         "https://api.sportradar.com/ncaafb/production/v7/en/seasons/"
@@ -312,7 +320,9 @@ def fetch_sr_injuries(
         return None, receipt
 
 
-def cfbd_candidates(payload: Any, *, parameters: dict[str, Any]) -> list[dict[str, Any]]:
+def cfbd_candidates(
+    payload: Any, *, parameters: dict[str, Any]
+) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     if not isinstance(payload, list):
         return rows
@@ -323,16 +333,17 @@ def cfbd_candidates(payload: Any, *, parameters: dict[str, Any]) -> list[dict[st
             item.get("player")
             or item.get("playerName")
             or " ".join(
-                part
-                for part in (item.get("firstName"), item.get("lastName"))
-                if part
+                part for part in (item.get("firstName"), item.get("lastName")) if part
             )
             or ""
         ).strip()
         if not name:
             continue
         status = str(
-            item.get("status") or item.get("injuryStatus") or item.get("availability") or ""
+            item.get("status")
+            or item.get("injuryStatus")
+            or item.get("availability")
+            or ""
         )
         rows.append(
             {

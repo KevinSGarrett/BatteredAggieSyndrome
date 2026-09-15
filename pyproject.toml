@@ -52,6 +52,9 @@ experimentation = [
 test = ["hypothesis==6.165.2"]
 kernel = ["numpy==2.2.6"]
 
+[project.scripts]
+bas-staff-query = "aggie_analytics.cycle33.query:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

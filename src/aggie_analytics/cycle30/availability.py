@@ -301,6 +301,51 @@ def classify_availability_source(*, source_id: str, uri: str) -> str:
     return "OFFICIAL_CONFERENCE_OR_POLICY_SURFACE"
 
 
+def classify_captured_document(
+    body: bytes | str,
+    *,
+    content_type: str = "",
+    uri: str = "",
+) -> str:
+    """JS landing shells and record books are not player-status reports.
+
+    No report does not mean healthy. Membership is not availability.
+    """
+
+    raw = body if isinstance(body, bytes) else str(body or "").encode("utf-8")
+    text = (
+        raw.decode("utf-8", errors="replace")
+        if isinstance(body, bytes)
+        else str(body or "")
+    )
+    lowered = text.casefold()
+    uri_l = str(uri or "").casefold()
+    ctype = str(content_type or "").casefold()
+    if any(token in uri_l for token in _NOT_AVAILABILITY_ASSETS):
+        return "NOT_AVAILABILITY_MEMBERSHIP_OR_RECORD_BOOK"
+    if raw.startswith(b"%PDF") or "application/pdf" in ctype:
+        return "PLAYER_STATUS_CANDIDATE_DOCUMENT"
+    script_count = lowered.count("<script")
+    table_count = lowered.count("<table")
+    spa_markers = (
+        'id="root"',
+        "id='root'",
+        'id="__next"',
+        "id='__next'",
+        "ng-app",
+        "data-reactroot",
+    )
+    if any(marker in lowered for marker in spa_markers) and table_count == 0:
+        return "JS_LANDING_SHELL_NOT_REPORT"
+    if script_count >= 8 and table_count == 0 and len(text) < 12000:
+        return "JS_LANDING_SHELL_NOT_REPORT"
+    if any(token in lowered for token in _REPORT_HINTS) and (
+        table_count > 0 or "injured" in lowered or "out" in lowered
+    ):
+        return "PLAYER_STATUS_CANDIDATE_DOCUMENT"
+    return "POLICY_OR_SHELL_NOT_PLAYER_STATUS"
+
+
 def _absolute_href(href: str, *, page_uri: str) -> str:
     href = (href or "").strip()
     href = href.replace("&quot;", '"').replace("&amp;", "&")
@@ -363,7 +408,9 @@ def availability_pdf_hrefs(html: str, *, page_uri: str, limit: int = 4) -> list[
 
     return [
         href
-        for href in availability_report_hrefs(html, page_uri=page_uri, limit=max(limit, 16))
+        for href in availability_report_hrefs(
+            html, page_uri=page_uri, limit=max(limit, 16)
+        )
         if urllib.parse.urlparse(href).path.casefold().endswith(".pdf")
     ][:limit]
 
@@ -501,7 +548,9 @@ def join_candidates_to_roster(
             or ""
         ).strip()
         season = candidate.get("season")
-        roster_hits = roster_index.get((program.casefold(), key_name), []) if program else []
+        roster_hits = (
+            roster_index.get((program.casefold(), key_name), []) if program else []
+        )
         if not program or not key_name or len(roster_hits) != 1:
             unmatched += 1
             joined.append(
@@ -518,7 +567,11 @@ def join_candidates_to_roster(
             continue
         roster = roster_hits[0]
         roster_season = roster.get("season")
-        if season is not None and roster_season is not None and str(season) != str(roster_season):
+        if (
+            season is not None
+            and roster_season is not None
+            and str(season) != str(roster_season)
+        ):
             unmatched += 1
             joined.append({**dict(candidate), "joined_to_verified_roster": False})
             continue

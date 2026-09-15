@@ -28,6 +28,10 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     redact_personal_contact,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+    sanitize_url,
+)
 from aggie_analytics.data.cfbd import load_dotenv_value  # noqa: E402
 
 BUDGET = {
@@ -63,8 +67,7 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def _public_url(url: str) -> str:
-    query_key = "api" + "_key"
-    return url.replace(f"{query_key}=", f"{query_key}=REDACTED")
+    return sanitize_url(url)
 
 
 def fetch_json(
@@ -88,18 +91,20 @@ def fetch_json(
             "coaches" in payload or "teams" in payload or "divisions" in payload
         )
         if usable:
-            receipt = {
-                "route": _public_url(url),
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "request_identity_sha256": sha256_json(
-                    {"url": url, "query": use_query}
-                ),
-                "receipt_identity": sha256_bytes(body),
-                "raw_sha256": sha256_bytes(body),
-                "cached": True,
-                "retrieved_at_utc": utc_now(),
-            }
+            receipt = cache_hit_from_path(
+                cache,
+                url=_public_url(url),
+                original={
+                    "request_id": sha256_json({"url": url, "query": use_query}),
+                    "raw_sha256": sha256_bytes(body),
+                    "http_status": 200,
+                    "ok": True,
+                },
+            )
+            receipt["request_identity_sha256"] = sha256_json(
+                {"url": url, "query": use_query}
+            )
+            receipt["receipt_identity"] = sha256_bytes(body)
             ledger.append(receipt)
             return 200, payload, receipt
     request_url = url

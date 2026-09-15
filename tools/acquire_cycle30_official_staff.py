@@ -43,6 +43,9 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     staff_pdf_hrefs,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 
 BUDGET = {
     "max_requests": 900,
@@ -153,16 +156,18 @@ def fetch_html(
         cached_body = cache.read_bytes()
         cached_html = cached_body.decode("utf-8", "replace")
         if not html_is_waf_challenge(cached_html):
-            receipt = {
-                "route": url,
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "request_identity_sha256": sha256_json({"url": url}),
-                "receipt_identity": sha256_bytes(cached_body),
-                "raw_sha256": sha256_bytes(cached_body),
-                "cached": True,
-                "retrieved_at_utc": utc_now(),
-            }
+            receipt = cache_hit_from_path(
+                cache,
+                url=url,
+                original={
+                    "request_id": sha256_json({"url": url}),
+                    "raw_sha256": sha256_bytes(cached_body),
+                    "http_status": 200,
+                    "ok": True,
+                },
+            )
+            receipt["request_identity_sha256"] = sha256_json({"url": url})
+            receipt["receipt_identity"] = sha256_bytes(cached_body)
             ledger.append(receipt)
             return cached_body, receipt
     if cache_only:
@@ -246,16 +251,18 @@ def fetch_pdf(
         if cached_body.startswith(b"%PDF") or not html_is_waf_challenge(
             cached_body.decode("utf-8", "replace")
         ):
-            receipt = {
-                "route": url,
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "request_identity_sha256": sha256_json({"url": url}),
-                "receipt_identity": sha256_bytes(cached_body),
-                "raw_sha256": sha256_bytes(cached_body),
-                "cached": True,
-                "retrieved_at_utc": utc_now(),
-            }
+            receipt = cache_hit_from_path(
+                cache,
+                url=url,
+                original={
+                    "request_id": sha256_json({"url": url}),
+                    "raw_sha256": sha256_bytes(cached_body),
+                    "http_status": 200,
+                    "ok": True,
+                },
+            )
+            receipt["request_identity_sha256"] = sha256_json({"url": url})
+            receipt["receipt_identity"] = sha256_bytes(cached_body)
             ledger.append(receipt)
             return cached_body, receipt
     if cache_only:
@@ -376,7 +383,10 @@ def main() -> int:
             if args.retry_missing_coordinators and coordinator_complete(
                 prior_people_by_program.get(pid, [])
             ):
-                if str((prior_attempts.get(pid) or {}).get("status") or "") == "CAPTURED":
+                if (
+                    str((prior_attempts.get(pid) or {}).get("status") or "")
+                    == "CAPTURED"
+                ):
                     attempts.append(prior_attempts[pid])
                     people_out.extend(prior_people_by_program.get(pid, []))
                     continue
@@ -469,10 +479,9 @@ def main() -> int:
                 roles = primary_role_coverage(people)
                 if people and staff_page_is_generic_directory(url) and chosen:
                     chosen_url = str(chosen.get("route") or "")
-                    if (
-                        not staff_page_is_generic_directory(chosen_url)
-                        and len(roles) <= len(best_roles)
-                    ):
+                    if not staff_page_is_generic_directory(chosen_url) and len(
+                        roles
+                    ) <= len(best_roles):
                         if {ROLE_HC, ROLE_OC, ROLE_DC} <= roles:
                             break
                         continue

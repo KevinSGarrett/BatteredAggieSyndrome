@@ -30,6 +30,9 @@ from aggie_analytics.cycle30.availability import (  # noqa: E402
     pdf_plaintext,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 
 BUDGET = {
     "max_requests": 80,
@@ -74,18 +77,19 @@ def fetch_url(
         body = cache.read_bytes()
         stale_pdf = wants_pdf and not _looks_like_pdf(body)
         if not stale_pdf:
-            ledger.append(
-                {
-                    "route": uri,
-                    "status": "CACHE_HIT",
-                    "http_status": 200,
-                    "request_identity_sha256": sha256_json({"url": uri}),
-                    "receipt_identity": sha256_bytes(body),
+            receipt = cache_hit_from_path(
+                cache,
+                url=uri,
+                original={
+                    "request_id": sha256_json({"url": uri}),
                     "raw_sha256": sha256_bytes(body),
-                    "cached": True,
-                    "retrieved_at_utc": utc_now(),
-                }
+                    "http_status": 200,
+                    "ok": True,
+                },
             )
+            receipt["request_identity_sha256"] = sha256_json({"url": uri})
+            receipt["receipt_identity"] = sha256_bytes(body)
+            ledger.append(receipt)
             return body
     accept = (
         "application/pdf,*/*;q=0.8"

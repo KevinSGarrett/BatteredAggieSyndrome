@@ -13,6 +13,11 @@ from typing import Any, Mapping, Sequence
 
 import numpy as np
 
+from aggie_analytics.cycle33.fit_integrity import (
+    FitIntegrityError,
+    validate_fit_population,
+)
+
 CANDIDATES = (
     "intercept_only",
     "prior_margin_diff",
@@ -215,6 +220,12 @@ def fold_local_fit(
     train_seasons: Sequence[int] = TRAIN_SEASONS,
     eval_seasons: Sequence[int] = EVAL_SEASONS,
 ) -> dict[str, Any]:
+    try:
+        validate_fit_population(
+            rows, train_seasons=train_seasons, eval_seasons=eval_seasons
+        )
+    except FitIntegrityError as exc:
+        raise KernelModelError(str(exc)) from exc
     train = [row for row in rows if int(row["season"]) in set(train_seasons)]
     evaluate = [row for row in rows if int(row["season"]) in set(eval_seasons)]
     ridge = 0.0 if candidate == "intercept_only" else RIDGE_LAMBDA

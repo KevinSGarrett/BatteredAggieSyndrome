@@ -11,6 +11,7 @@ from typing import Any, Mapping, Sequence
 
 from aggie_analytics.cycle30.hashing import sha256_json
 from aggie_analytics.cycle30.temporal import TemporalError, parse_aware_utc
+from aggie_analytics.cycle33.acquisition_receipts import sanitize_url
 
 TRANSPORT_CAPTURED = "TRANSPORT_CAPTURED"
 UPSTREAM_SUCCESS = "UPSTREAM_SUCCESS"
@@ -68,7 +69,7 @@ def request_identity(
         "method": str(method).upper(),
         "parameters": dict(parameters or {}),
         "source_contract": str(source_contract),
-        "uri": str(uri),
+        "uri": sanitize_url(str(uri)),
     }
     return sha256_json(payload)
 
@@ -250,7 +251,9 @@ _NCAA_COM_CONTEST = re.compile(
 _NCAA_COM_IS_HOME = re.compile(r'"isHome"\s*:\s*(true|false)')
 _NCAA_COM_SEO = re.compile(r'"seoname"\s*:\s*"([^"]+)"')
 _NCAA_COM_NAME = re.compile(r'"nameShort"\s*:\s*"([^"]+)"')
-_NCAA_COM_SCORE = re.compile(r'"score"\s*:\s*(\d+)')
+_NCAA_COM_SCORE = re.compile(r'"score"\s*:\s*(null|\d+)')
+_NCAA_COM_START_DATE = re.compile(r'"startDate"\s*:\s*"([^"]*)"')
+_NCAA_COM_START_EPOCH = re.compile(r'"startTimeEpoch"\s*:\s*(null|\d+)')
 
 
 def _ncaa_com_team(blob: str) -> dict[str, Any] | None:
@@ -258,13 +261,16 @@ def _ncaa_com_team(blob: str) -> dict[str, Any] | None:
     name = _NCAA_COM_NAME.search(blob or "")
     score = _NCAA_COM_SCORE.search(blob or "")
     seo = _NCAA_COM_SEO.search(blob or "")
-    if is_home is None or name is None or score is None:
+    if is_home is None or name is None:
         return None
+    points = None
+    if score is not None and score.group(1) != "null":
+        points = int(score.group(1))
     return {
         "is_home": is_home.group(1) == "true",
         "seoname": seo.group(1) if seo else "",
         "name_short": name.group(1),
-        "score": int(score.group(1)),
+        "score": points,
     }
 
 
@@ -272,12 +278,9 @@ def parse_ncaa_com_scoreboard_contests(page_text: str) -> list[dict[str, Any]]:
     """Contest-scoped NCAA.com scoreboard objects. Neighborhood Final is not used."""
 
     contests: list[dict[str, Any]] = []
-    seen: set[str] = set()
+    seen_scores: dict[str, list[tuple[Any, Any]]] = {}
     for match in _NCAA_COM_CONTEST.finditer(page_text or ""):
         contest_id = match.group("contest_id")
-        if contest_id in seen:
-            continue
-        seen.add(contest_id)
         home = away = None
         for blob in (match.group("t1"), match.group("t2")):
             team = _ncaa_com_team(blob)
@@ -297,24 +300,43 @@ def parse_ncaa_com_scoreboard_contests(page_text: str) -> list[dict[str, Any]]:
             if state == "F" and status == "final"
             else NOT_TERMINAL
         )
-        contests.append(
-            {
-                "ncaa_com_contest_id": contest_id,
-                "url": match.group("url").replace("\\/", "/"),
-                "game_state": state,
-                "status_code_display": match.group("status"),
-                "home_name": home["name_short"],
-                "away_name": away["name_short"],
-                "home_seoname": home["seoname"],
-                "away_seoname": away["seoname"],
-                "home_points": home["score"],
-                "away_points": away["score"],
-                "terminal_state": terminal,
-                "source": "NCAA_COM_SCOREBOARD",
-                "not_stats_ncaa_org": True,
-                "artifact_class": "REAL_EVIDENCE",
-            }
-        )
+        blob = match.group(0)
+        start_date = _NCAA_COM_START_DATE.search(blob)
+        start_epoch = _NCAA_COM_START_EPOCH.search(blob)
+        epoch = None
+        if start_epoch is not None and start_epoch.group(1) != "null":
+            epoch = int(start_epoch.group(1))
+        row = {
+            "ncaa_com_contest_id": contest_id,
+            "url": match.group("url").replace("\\/", "/"),
+            "game_state": state,
+            "status_code_display": match.group("status"),
+            "home_name": home["name_short"],
+            "away_name": away["name_short"],
+            "home_seoname": home["seoname"],
+            "away_seoname": away["seoname"],
+            "home_points": home["score"],
+            "away_points": away["score"],
+            "start_date": start_date.group(1).replace("\\/", "/")
+            if start_date
+            else None,
+            "start_time_epoch": epoch,
+            "terminal_state": terminal,
+            "source": "NCAA_COM_SCOREBOARD",
+            "not_stats_ncaa_org": True,
+            "artifact_class": "REAL_EVIDENCE",
+        }
+        prior = seen_scores.setdefault(contest_id, [])
+        score = (row["home_points"], row["away_points"])
+        if prior and score not in prior:
+            raise AcquisitionError(
+                f"competing official finals for contest {contest_id} before deduplication"
+            )
+        if contest_id in {item.get("ncaa_com_contest_id") for item in contests}:
+            prior.append(score)
+            continue
+        prior.append(score)
+        contests.append(row)
     return contests
 
 

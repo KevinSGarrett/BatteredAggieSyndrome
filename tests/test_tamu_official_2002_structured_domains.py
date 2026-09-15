@@ -48,8 +48,11 @@ from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 PIT_URL = "https://files.12thman.com/history/football/stats/2002-2003/mfb_412_pit.html"
-EXPECTED_GATE_IDENTITY = "d6eca244760bba8963130e070d9ac707cb36af7e715b53e2c3bc60a5bbbed014"
-EXPECTED_PAYLOAD_IDENTITY = "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2"
+# Stale test constants. Reconstruction equals the committed gate.
+PREDECESSOR_EXPECTED_GATE_IDENTITY = "d6eca244760bba8963130e070d9ac707cb36af7e715b53e2c3bc60a5bbbed014"
+PREDECESSOR_EXPECTED_PAYLOAD_IDENTITY = "80cda96dc2c38920323806fbc630e9a5eec40996c05acaaf3b3259f17efffbe2"
+EXPECTED_GATE_IDENTITY = "5973e76f95d1dd36c9a9449bddc1ffe99928e7e768112e6b19caabb5f881a26b"
+EXPECTED_PAYLOAD_IDENTITY = "0a2e8e6c510f4d935e8cd6e04f7741491856f46f608e47d62c42f73fab6d4697"
 
 TEAM_HTML = """
 <pre>
@@ -227,6 +230,8 @@ class Official2002StructuredDomainReconstructionTests(unittest.TestCase):
         if result is None:
             return
         self.assertEqual(result["result"], "PASS")
+        self.assertNotEqual(PREDECESSOR_EXPECTED_GATE_IDENTITY, EXPECTED_GATE_IDENTITY)
+        self.assertNotEqual(PREDECESSOR_EXPECTED_PAYLOAD_IDENTITY, EXPECTED_PAYLOAD_IDENTITY)
         self.assertEqual(result["gate_identity"], EXPECTED_GATE_IDENTITY)
         self.assertEqual(result["payload_identity"], EXPECTED_PAYLOAD_IDENTITY)
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))

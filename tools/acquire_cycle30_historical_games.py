@@ -18,6 +18,9 @@ if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 from aggie_analytics.data.cfbd import (  # noqa: E402
     CFBDTransport,
     acquisition_request,
@@ -62,20 +65,21 @@ def fetch(
     if cached.is_file():
         body = cached.read_bytes()
         payload = json.loads(body.decode("utf-8"))
-        receipt = {
-            "route": path,
-            "parameters": parameters,
-            "status": "CACHE_HIT",
-            "http_status": 200,
-            "request_identity_sha256": sha256_json(
-                {"path": path, "parameters": parameters}
-            ),
-            "receipt_identity": sha256_bytes(body),
-            "raw_sha256": sha256_bytes(body),
-            "cached": True,
-            "retrieved_at_utc": utc_now(),
-            "row_count": len(payload) if isinstance(payload, list) else None,
-        }
+        request_id = sha256_json({"path": path, "parameters": parameters})
+        receipt = cache_hit_from_path(
+            cached,
+            url=path,
+            original={
+                "request_id": request_id,
+                "raw_sha256": sha256_bytes(body),
+                "http_status": 200,
+                "ok": True,
+            },
+        )
+        receipt["parameters"] = parameters
+        receipt["request_identity_sha256"] = request_id
+        receipt["receipt_identity"] = sha256_bytes(body)
+        receipt["row_count"] = len(payload) if isinstance(payload, list) else None
         ledger.append(receipt)
         return payload, receipt
     request = acquisition_request(

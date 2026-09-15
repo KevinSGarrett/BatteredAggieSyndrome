@@ -6,6 +6,7 @@ import unittest
 
 from aggie_analytics.cycle33.nameset_adjudication import (
     adjudicate_person,
+    apply_operator_current_roles,
     principal_occupants,
 )
 from aggie_analytics.cycle33.role_taxonomy import principal_role_families
@@ -109,12 +110,145 @@ class OccupantTests(unittest.TestCase):
         occupants = principal_occupants(html, role="defensive_coordinator")
         names = {row["person"] for row in occupants}
         self.assertEqual(names, {"Clayton White", "Torrian Gray"})
+        by_name = {row["person"]: row["occupancy"] for row in occupants}
+        self.assertEqual(by_name["Clayton White"], "PRINCIPAL")
+        self.assertEqual(by_name["Torrian Gray"], "CO_SHARED")
         lindquist = adjudicate_person(
             html, person="Kyle Lindquist", role="defensive_coordinator"
         )
         self.assertNotEqual(
             lindquist["verdict"], "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
         )
+
+    def test_iowa_wallace_is_not_principal_dc(self) -> None:
+        html = (
+            "<table>"
+            "<tr><td>Phil Parker</td><td>Defensive Coordinator/Secondary</td></tr>"
+            "<tr><td>Seth Wallace</td>"
+            "<td>Asst. Head Coach/Asst. Defensive Coordinator/Linebackers</td></tr>"
+            "</table>"
+        )
+        occupants = principal_occupants(html, role="defensive_coordinator")
+        self.assertEqual([row["person"] for row in occupants], ["Phil Parker"])
+
+    def test_tamu_hemphill_principal_robinson_co_dc(self) -> None:
+        html = (
+            "<table>"
+            "<tr><td>Lyle Hemphill</td><td>Defensive Coordiantor</td></tr>"
+            "<tr><td>Elijah Robinson</td>"
+            "<td>Co-Defensive Coordinator/Defensive Line</td></tr>"
+            "</table>"
+        )
+        occupants = principal_occupants(html, role="defensive_coordinator")
+        by_name = {row["person"]: row["occupancy"] for row in occupants}
+        self.assertEqual(by_name["Lyle Hemphill"], "PRINCIPAL")
+        self.assertEqual(by_name["Elijah Robinson"], "CO_SHARED")
+
+    def test_princeton_staff_cos_is_not_current_dc(self) -> None:
+        coaches = (
+            "<table>"
+            "<tr><td>Steve Verbit</td>"
+            "<td>Senior Associate Head Coach & Defensive Coordinator</td></tr>"
+            "<tr><td>Mike Weick</td>"
+            "<td>Assistant Head Coach/Inside Linebackers Coach/"
+            "Co-Defensive Coordinator</td></tr>"
+            "<tr><td>E.J. Henderson</td>"
+            "<td>Defensive Backs Coach/Co-Defensive Coordinator</td></tr>"
+            "</table>"
+        )
+        staff = (
+            "<table>"
+            "<tr><td>Steve Verbit</td><td>Chief of Staff</td></tr>"
+            "<tr><td>Mike Weick</td>"
+            "<td>Assistant Head Coach/Inside Linebackers Coach/"
+            "Co-Defensive Coordinator</td></tr>"
+            "<tr><td>E.J. Henderson</td>"
+            "<td>Defensive Backs Coach/Co-Defensive Coordinator</td></tr>"
+            "</table>"
+        )
+        occupants = principal_occupants(
+            coaches,
+            role="defensive_coordinator",
+            staff_html=staff,
+        )
+        names = {row["person"] for row in occupants}
+        self.assertNotIn("Steve Verbit", names)
+        resolved = apply_operator_current_roles(
+            occupants,
+            program_id="SRC-002:TEAM:163",
+            role="defensive_coordinator",
+        )
+        by_name = {row["person"]: row["occupancy"] for row in resolved}
+        self.assertEqual(by_name["Mike Weick"], "PRINCIPAL")
+        self.assertEqual(by_name["E.J. Henderson"], "CO_SHARED")
+
+    def test_south_carolina_gray_is_co_dc_lindquist_infield_rejected(self) -> None:
+        html = (
+            "<table>"
+            "<tr><td>Clayton White</td><td>Defensive Coordinator</td></tr>"
+            "<tr><td>Torrian Gray</td>"
+            "<td>Co-Defensive Coordinator/Defensive Pass Game Coordinator/"
+            "Defensive Backs</td></tr>"
+            "<tr><td>Kyle Lindquist</td>"
+            "<td>Defensive Coordinator/Infield Coach</td></tr>"
+            "</table>"
+        )
+        occupants = apply_operator_current_roles(
+            principal_occupants(html, role="defensive_coordinator"),
+            program_id="SRC-002:TEAM:2579",
+            role="defensive_coordinator",
+        )
+        by_name = {row["person"]: row["occupancy"] for row in occupants}
+        self.assertEqual(by_name["Clayton White"], "PRINCIPAL")
+        self.assertEqual(by_name["Torrian Gray"], "CO_SHARED")
+        self.assertNotIn("Kyle Lindquist", by_name)
+
+    def test_tamu_hemphill_principal_robinson_co_dc(self) -> None:
+        html = (
+            "<table>"
+            "<tr><td>Lyle Hemphill</td><td>Defensive Coordinator</td></tr>"
+            "<tr><td>Elijah Robinson</td>"
+            "<td>Co-Defensive Coordinator/Defensive Line</td></tr>"
+            "</table>"
+        )
+        occupants = apply_operator_current_roles(
+            principal_occupants(html, role="defensive_coordinator"),
+            program_id="SRC-002:TEAM:245",
+            role="defensive_coordinator",
+        )
+        by_name = {row["person"]: row["occupancy"] for row in occupants}
+        self.assertEqual(by_name["Lyle Hemphill"], "PRINCIPAL")
+        self.assertEqual(by_name["Elijah Robinson"], "CO_SHARED")
+
+    def test_virginia_tech_hazel_ad_is_not_head_coach(self) -> None:
+        html = (
+            "<table>"
+            "<tr><td>James Franklin</td><td>Head Coach</td></tr>"
+            "<tr><td>Michael Hazel</td>"
+            "<td>Associate Athletic Director and Executive Director of Football"
+            "</td></tr>"
+            "</table>"
+        )
+        occupants = apply_operator_current_roles(
+            principal_occupants(html, role="head_coach"),
+            program_id="SRC-002:TEAM:259",
+            role="head_coach",
+        )
+        names = {row["person"] for row in occupants}
+        self.assertEqual(names, {"James Franklin"})
+
+    def test_lehigh_morita_assistant_oc_is_not_principal(self) -> None:
+        html = (
+            "<table><tr><td>Dan Hunt</td>"
+            "<td>Associate Head Coach/Offensive Coordinator/Quarterbacks Coach"
+            "</td></tr>"
+            "<tr><td>Mike Morita</td>"
+            "<td>Assistant Offensive Coordinator/Run Game Coordinator/"
+            "Offensive Line Coach</td></tr>"
+            "</table>"
+        )
+        occupants = principal_occupants(html, role="offensive_coordinator")
+        self.assertEqual([row["person"] for row in occupants], ["Dan Hunt"])
 
 
 class IndependentCs05Tests(unittest.TestCase):

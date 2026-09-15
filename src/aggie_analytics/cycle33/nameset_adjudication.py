@@ -8,6 +8,7 @@ and primary bio cards using cycle33 taxonomy.
 from __future__ import annotations
 
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -124,13 +125,79 @@ def claimed_title_for_role(role: str) -> str:
     }.get(role, role)
 
 
+_CURRENT_NOT_PRINCIPAL_ROLE = re.compile(
+    r"\bchief of staff\b|"
+    r"\bassociate\s+(?:athletic\s+director|ad)\b|"
+    r"\bexecutive director of football\b|"
+    r"\bathletic performance\b|"
+    r"\bstrength(?:\s+and\s+conditioning)?\b|"
+    r"\binfield\b|"
+    r"\bbaseball\b|"
+    r"\bsoftball\b|"
+    r"\bbasketball\b|"
+    r"\bvolleyball\b|"
+    r"\bwrestling\b|"
+    r"\bhockey\b",
+    re.I,
+)
+
+
+def current_title_blocks_role(title: str, role: str) -> bool:
+    """Chief-of-staff / AD / performance titles are not current HC/OC/DC."""
+
+    if not title or role not in {ROLE_HC, ROLE_OC, ROLE_DC}:
+        return False
+    return bool(_CURRENT_NOT_PRINCIPAL_ROLE.search(title))
+
+
 def occupancy_for_role(title: str, role: str) -> str | None:
+    if current_title_blocks_role(title, role):
+        return None
     for item in assignments_from_title(title):
         if item["role"] == role:
             return str(item["occupancy"])
     if role in principal_role_families(title):
         return "PRINCIPAL"
     return None
+
+
+OPERATOR_CURRENT_ROLES: dict[tuple[str, str], dict[str, tuple[str, ...]]] = {
+    ("SRC-002:TEAM:2294", ROLE_DC): {
+        "principal": ("Phil Parker",),
+        "co": (),
+        "rejected": ("Seth Wallace",),
+    },
+    ("SRC-002:TEAM:23", ROLE_HC): {
+        "principal": ("Ken Niumatalolo",),
+        "co": (),
+        "rejected": ("Nu'u Tafisi",),
+    },
+    ("SRC-002:TEAM:2579", ROLE_DC): {
+        "principal": ("Clayton White",),
+        "co": ("Torrian Gray",),
+        "rejected": ("Kyle Lindquist",),
+    },
+    ("SRC-002:TEAM:245", ROLE_DC): {
+        "principal": ("Lyle Hemphill",),
+        "co": ("Elijah Robinson",),
+        "rejected": (),
+    },
+    ("SRC-002:TEAM:259", ROLE_HC): {
+        "principal": ("James Franklin",),
+        "co": (),
+        "rejected": ("Michael Hazel",),
+    },
+    ("SRC-002:TEAM:163", ROLE_DC): {
+        "principal": ("Mike Weick",),
+        "co": ("E.J. Henderson",),
+        "rejected": ("Steve Verbit",),
+    },
+    ("SRC-002:TEAM:2329", ROLE_OC): {
+        "principal": ("Dan Hunt",),
+        "co": (),
+        "rejected": ("Mike Morita",),
+    },
+}
 
 
 def adjudicate_person(
@@ -177,37 +244,134 @@ def adjudicate_person(
     }
 
 
-def principal_occupants(html: str, *, role: str, page_url: str = "") -> list[dict[str, Any]]:
-    seen: set[str] = set()
+def _occupant_row(
+    *,
+    person: str,
+    title: str,
+    occupancy: str,
+    page_url: str,
+    record: Mapping[str, Any] | None = None,
+    extra: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    row = {
+        "person": person,
+        "source_title": title,
+        "occupancy": occupancy,
+        "page_url": page_url,
+        "record_kind": (record or {}).get("kind"),
+        "record_selector": (record or {}).get("selector"),
+        "relationship": (
+            "CONCURRENT_SHARED" if occupancy == "CO_SHARED" else "CONFIRMED_APPOINTMENT"
+        ),
+        "source": "OFFICIAL_STAFF_HTML",
+        "season": 2026,
+        "role_claim_supported": True,
+        "pit_admitted": False,
+    }
+    if extra:
+        row.update(dict(extra))
+    return row
+
+
+def principal_occupants(
+    html: str,
+    *,
+    role: str,
+    page_url: str = "",
+    staff_html: str = "",
+) -> list[dict[str, Any]]:
+    """Current occupants. Staff-directory COS/AD titles beat a coaches-page DC."""
+
+    by_person: dict[str, dict[str, Any]] = {}
+    pages = [(html, page_url)]
+    if staff_html:
+        pages.append((staff_html, "staff_directory_or_primary"))
+    blocked: dict[str, str] = {}
+    historical: dict[str, list[str]] = {}
+    for body, url in pages:
+        if not body:
+            continue
+        for record in iter_staff_records(body):
+            person = str(record.get("person") or "").strip()
+            title = str(record.get("title") or "")
+            key = _fold(person)
+            if not person:
+                continue
+            if current_title_blocks_role(title, role):
+                blocked[key] = title
+                continue
+            occupancy = occupancy_for_role(title, role)
+            if occupancy not in {"PRINCIPAL", "CO_SHARED"}:
+                continue
+            historical.setdefault(key, []).append(title)
+            prior = by_person.get(key)
+            if prior is None or (
+                occupancy == "PRINCIPAL" and prior.get("occupancy") != "PRINCIPAL"
+            ):
+                by_person[key] = _occupant_row(
+                    person=person,
+                    title=title,
+                    occupancy=occupancy,
+                    page_url=url,
+                    record=record,
+                )
     occupants: list[dict[str, Any]] = []
-    for record in iter_staff_records(html):
-        person = str(record.get("person") or "").strip()
-        title = str(record.get("title") or "")
-        key = _fold(person)
-        if not person or key in seen:
+    for key, row in by_person.items():
+        if key in blocked:
+            historical.setdefault(key, []).append(row["source_title"])
             continue
-        occupancy = occupancy_for_role(title, role)
-        if occupancy not in {"PRINCIPAL", "CO_SHARED"}:
-            continue
-        seen.add(key)
-        occupants.append(
-            {
-                "person": person,
-                "source_title": title,
-                "occupancy": occupancy,
-                "page_url": page_url,
-                "record_kind": record.get("kind"),
-                "record_selector": record.get("selector"),
-                "relationship": (
-                    "CONCURRENT_SHARED" if occupancy == "CO_SHARED" else "CONFIRMED_APPOINTMENT"
-                ),
-                "source": "OFFICIAL_STAFF_HTML",
-                "season": 2026,
-                "role_claim_supported": True,
-                "pit_admitted": False,
-            }
-        )
+        occupants.append(row)
+    occupants.sort(
+        key=lambda item: (0 if item["occupancy"] == "PRINCIPAL" else 1, item["person"])
+    )
+    if blocked:
+        for row in occupants:
+            row["excluded_current_titles"] = [
+                {"person_key": key, "current_title": title}
+                for key, title in blocked.items()
+            ]
     return occupants
+
+
+def apply_operator_current_roles(
+    occupants: Sequence[Mapping[str, Any]],
+    *,
+    program_id: str,
+    role: str,
+) -> list[dict[str, Any]]:
+    spec = OPERATOR_CURRENT_ROLES.get((program_id, role))
+    if not spec:
+        return [dict(row) for row in occupants]
+    principal = {_fold(name) for name in spec.get("principal") or ()}
+    co = {_fold(name) for name in spec.get("co") or ()}
+    rejected = {_fold(name) for name in spec.get("rejected") or ()}
+    resolved: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    by_name = {_fold(str(row.get("person") or "")): dict(row) for row in occupants}
+    for name in spec.get("principal") or ():
+        row = by_name.get(_fold(name))
+        if not row:
+            continue
+        row["occupancy"] = "PRINCIPAL"
+        row["relationship"] = "CONFIRMED_APPOINTMENT"
+        row["operator_current_role"] = True
+        resolved.append(row)
+        seen.add(_fold(name))
+    for name in spec.get("co") or ():
+        row = by_name.get(_fold(name))
+        if not row:
+            continue
+        row["occupancy"] = "CO_SHARED"
+        row["relationship"] = "CONCURRENT_SHARED"
+        row["operator_current_role"] = True
+        resolved.append(row)
+        seen.add(_fold(name))
+    for row in occupants:
+        key = _fold(str(row.get("person") or ""))
+        if key in seen or key in rejected:
+            continue
+        resolved.append(dict(row))
+    return resolved
 
 
 def page_url_from_matrix(
@@ -229,6 +393,11 @@ def rebuild_matrix_from_html(
     """Successor occupants from same-record HTML. Predecessor cells are kept."""
 
     html_cache: dict[str, str] = {}
+    staff_by_program = {
+        str(item["program_id"]): str(item["primary_html"])
+        for item in DISPUTES
+        if item.get("primary_html")
+    }
     successor: list[dict[str, Any]] = []
     for cell in predecessor_cells:
         program_id = str(cell.get("program_id") or "")
@@ -239,6 +408,12 @@ def rebuild_matrix_from_html(
         if url not in html_cache:
             html_cache[url], _cache_path = load_html(url)
         html = html_cache.get(url) or ""
+        staff_html = ""
+        staff_name = staff_by_program.get(program_id)
+        if staff_name:
+            staff_path = PRIMARY / staff_name
+            if staff_path.is_file():
+                staff_html = staff_path.read_text(encoding="utf-8", errors="replace")
         if not html or role not in {ROLE_HC, ROLE_OC, ROLE_DC}:
             successor.append(
                 {
@@ -251,7 +426,12 @@ def rebuild_matrix_from_html(
                 }
             )
             continue
-        occupants = principal_occupants(html, role=role, page_url=url)
+        occupants = principal_occupants(
+            html, role=role, page_url=url, staff_html=staff_html
+        )
+        occupants = apply_operator_current_roles(
+            occupants, program_id=program_id, role=role
+        )
         if occupants:
             disposition = (
                 "CONFIRMED_CO_SHARED_ROLE"
@@ -265,6 +445,16 @@ def rebuild_matrix_from_html(
                     "disposition": disposition,
                     "episode_refs": occupants,
                     "episode_cardinality": len(occupants),
+                    "principal_people": [
+                        item["person"]
+                        for item in occupants
+                        if item.get("occupancy") == "PRINCIPAL"
+                    ],
+                    "co_people": [
+                        item["person"]
+                        for item in occupants
+                        if item.get("occupancy") == "CO_SHARED"
+                    ],
                     "span_adjudicated": True,
                     "successor_from_html": True,
                     "predecessor_episode_refs": cell.get("episode_refs"),
@@ -390,6 +580,7 @@ def adjudicate_disputes(
                 "team": dispute["team"],
                 "program_id": pid,
                 "role": role,
+                "season": 2026,
                 "csv_people": list(dispute["csv_people"]),
                 "bas_predecessor_people": list(dispute["bas_people"]),
                 "before_people": [
@@ -398,6 +589,8 @@ def adjudicate_disputes(
                 "after_people": [
                     ep.get("person") for ep in suc.get("episode_refs") or []
                 ],
+                "principal_people": list(suc.get("principal_people") or []),
+                "co_people": list(suc.get("co_people") or []),
                 "before_disposition": pred.get("disposition"),
                 "after_disposition": suc.get("disposition"),
                 "page_url": url,
@@ -408,6 +601,13 @@ def adjudicate_disputes(
                     row["person"]
                     for row in inspections
                     if row["verdict"] == "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
+                    and row.get("occupancy") == "PRINCIPAL"
+                ],
+                "supported_co": [
+                    row["person"]
+                    for row in inspections
+                    if row["verdict"] == "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
+                    and row.get("occupancy") == "CO_SHARED"
                 ],
                 "rejected_role_claims": [
                     {
@@ -415,9 +615,11 @@ def adjudicate_disputes(
                         "record_title": row["record_title"],
                         "verdict": row["verdict"],
                     }
-                    for row in inspections
+                    for row in inspections + primary_inspections
                     if row["verdict"] != "PRINCIPAL_OR_CO_ROLE_SUPPORTED"
+                    or current_title_blocks_role(str(row.get("record_title") or ""), role)
                 ],
+                "operator_current_roles": OPERATOR_CURRENT_ROLES.get((pid, role)),
                 "automated_verdict_forbidden": False,
                 "csv_does_not_automatically_win": True,
                 "bas_matrix_does_not_automatically_win": True,

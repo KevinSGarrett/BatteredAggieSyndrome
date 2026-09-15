@@ -16,7 +16,11 @@ sys.path.insert(0, str(ROOT / "src"))
 from aggie_analytics.cycle33.availability_cache import parse_cached_routes
 from aggie_analytics.cycle33.forecast_inventory import inventory_forecast_files
 from aggie_analytics.cycle33.pit_recompute import recompute_pit_population
-from aggie_analytics.cycle33.query import connect_readonly, run_query_demonstrations
+from aggie_analytics.cycle33.query import (
+    connect_readonly,
+    run_query_demonstrations,
+    team_schemes,
+)
 from aggie_analytics.cycle33.user_coaches import (
     adjudicate_risk_fragments,
     conservation_checks,
@@ -159,11 +163,28 @@ def corpus(imported: dict[str, Any] | None = None) -> dict[str, Any]:
     return summary
 
 
+def _scheme_demo_claims() -> list[dict[str, Any]]:
+    keep: list[dict[str, Any]] = []
+    for row in load_jsonl(OUT / "CYCLE33_SCHEME_TENURE_CLAIMS.jsonl"):
+        if not (row.get("source_text") or row.get("raw_value")):
+            continue
+        title = str(row.get("title") or row.get("program_raw") or "")
+        season = str(row.get("season") or "")
+        if season == "2018" and "Air Force" in title:
+            keep.append(row)
+        elif season == "2026" and "Lehigh" in title:
+            keep.append(row)
+    return keep
+
+
 def queries(imported: dict[str, Any] | None = None) -> dict[str, Any]:
     imported = imported or import_snapshot()
+    scheme_claims = _scheme_demo_claims()
     with tempfile.TemporaryDirectory() as tmp:
         db = Path(tmp) / "cycle33_query_demo.sqlite"
-        demo = run_query_demonstrations(database=db, imported=imported)
+        demo = run_query_demonstrations(
+            database=db, imported=imported, scheme_claims=scheme_claims
+        )
         missing = Path(tmp) / "does_not_exist.sqlite"
         readonly_missing = False
         try:
@@ -171,6 +192,18 @@ def queries(imported: dict[str, Any] | None = None) -> dict[str, Any]:
         except Exception:
             readonly_missing = not missing.exists()
         demo["readonly_missing_does_not_create"] = readonly_missing
+        existing = OUT / "cycle33_user_coaches.sqlite"
+        if existing.is_file():
+            conn = connect_readonly(existing)
+            try:
+                demo["existing_db_air_force_2018_scheme_rows"] = len(
+                    team_schemes(conn, program="Air Force", season="2018")
+                )
+                demo["existing_db_lehigh_2026_scheme_rows"] = len(
+                    team_schemes(conn, program="Lehigh", season="2026")
+                )
+            finally:
+                conn.close()
         write_json(OUT / "CYCLE33_QUERY_DEMONSTRATIONS.json", demo)
         return demo
 

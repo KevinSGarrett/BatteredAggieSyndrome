@@ -721,21 +721,27 @@ class Cycle32ManagerCounterexamples(unittest.TestCase):
         )
 
     def test_fold_local_fit_missing_numeric_is_excluded(self) -> None:
+        # Cycle34 R34-09 repair (MR33-09): validate_fit_population now rejects
+        # rows with no canonical game id, so every row needs one even when the
+        # scenario under test is unrelated missing-numeric-feature exclusion.
         rows = [
             {
                 "season": 2015,
+                "canonical_game_id": "G-2015-1",
                 "home_win_label": True,
                 "home_features": {},
                 "away_features": {},
             },
             {
                 "season": 2015,
+                "canonical_game_id": "G-2015-2",
                 "home_win_label": False,
                 "home_features": {"pit_prior_margin_mean": 3.0},
                 "away_features": {"pit_prior_margin_mean": 1.0},
             },
             {
                 "season": 2021,
+                "canonical_game_id": "G-2021-1",
                 "home_win_label": True,
                 "home_features": {"pit_prior_margin_mean": 2.0},
                 "away_features": {"pit_prior_margin_mean": 1.0},

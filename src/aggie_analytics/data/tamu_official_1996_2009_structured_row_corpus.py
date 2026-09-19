@@ -73,6 +73,58 @@ def _sha256_jsonl(rows: list[Mapping[str, Any]]) -> str:
     return hashlib.sha256(_jsonl_text(rows).encode("utf-8")).hexdigest()
 
 
+def _sha256_file_bytes(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def verify_output_children(
+    *, out_root: Path, child_payloads: Mapping[str, Mapping[str, Any]]
+) -> dict[str, Any]:
+    """MR33-16 repair: actually read back and hash the on-disk output child
+    files, instead of only comparing in-memory reconstructed hashes to the
+    committed gate/manifest. Catches deletion, byte-level tamper and
+    undeclared extra children. Read-only -- never writes to `out_root`.
+    """
+
+    checked: dict[str, dict[str, Any]] = {}
+    missing: list[str] = []
+    tampered: list[str] = []
+    for domain, payload in child_payloads.items():
+        filename = payload["filename"]
+        path = out_root / filename
+        expected_hash = payload["sha256"]
+        if not path.is_file():
+            missing.append(filename)
+            checked[domain] = {"filename": filename, "present": False}
+            continue
+        actual_hash = _sha256_file_bytes(path)
+        matched = actual_hash == expected_hash
+        if not matched:
+            tampered.append(filename)
+        checked[domain] = {
+            "filename": filename,
+            "present": True,
+            "expected_sha256": expected_hash,
+            "actual_sha256": actual_hash,
+            "matched": matched,
+        }
+    declared_names = {payload["filename"] for payload in child_payloads.values()}
+    on_disk_names = (
+        {p.name for p in out_root.iterdir() if p.is_file()} if out_root.is_dir() else set()
+    )
+    extra = sorted(on_disk_names - declared_names - {MANIFEST_NAME})
+    if missing or tampered or extra:
+        raise AuthorityViolation(
+            "output child byte verification failed: "
+            f"missing={missing} tampered={tampered} undeclared_extra={extra}"
+        )
+    return {
+        "result": "ALL_OUTPUT_CHILDREN_BYTE_VERIFIED",
+        "children": checked,
+        "extra_files_checked": True,
+    }
+
+
 def _payload_manifest(manifest: Mapping[str, Any]) -> dict[str, Any]:
     """Compare lake payload fields that participate in dataset identity.
 
@@ -373,6 +425,13 @@ def validate_artifact(*, repo_root: Path, data_root: Path, gate: Mapping[str, An
     on_disk = load_json(expected["manifest_path"])
     if _payload_manifest(on_disk) != _payload_manifest(expected["manifest"]):
         raise AuthorityViolation("external 1996-2009 corpus manifest mismatch")
+    # MR33-16 repair: the checks above only ever compared reconstructed
+    # in-memory hashes against committed JSON -- they never read the actual
+    # on-disk output child files back and hashed those bytes, so deletion or
+    # byte-level tamper of a mounted child was not caught here. Do that now.
+    child_verification = verify_output_children(
+        out_root=expected["out_root"], child_payloads=expected["manifest"]["child_payloads"]
+    )
     return {
         "result": "PASS",
         "dataset_identity": committed["dataset_identity"],
@@ -380,6 +439,7 @@ def validate_artifact(*, repo_root: Path, data_root: Path, gate: Mapping[str, An
         "validator_code_identity": expected["manifest"].get("validator_code_identity"),
         "lake_validator_code_identity": on_disk.get("validator_code_identity"),
         "validator_code_identity_is_not_payload_authority": True,
+        "output_child_byte_verification": child_verification,
     }
 
 

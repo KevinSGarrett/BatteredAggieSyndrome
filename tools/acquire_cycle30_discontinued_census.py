@@ -25,6 +25,9 @@ from aggie_analytics.cycle30.populations import (  # noqa: E402
     ncaa_directory_item_is_discontinued,
     ncaa_directory_item_name,
 )
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 
 
 BUDGET = {
@@ -67,16 +70,18 @@ def utc_now() -> str:
 def fetch(url: str, ledger: list[dict[str, object]], dest: Path) -> tuple[int, bytes]:
     if dest.is_file():
         body = dest.read_bytes()
-        ledger.append(
-            {
-                "route": url,
+        receipt = cache_hit_from_path(
+            dest,
+            url=url,
+            original={
+                "request_id": sha256_json({"url": url}),
+                "raw_sha256": sha256_bytes(body),
                 "http_status": 200,
-                "cached": True,
-                "receipt_identity": sha256_bytes(body),
-                "retrieved_at_utc": utc_now(),
-            }
+                "ok": True,
+            },
         )
-        return 200, body
+        ledger.append(receipt)
+        return int(receipt["http_status"] or 200), body
     request = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
     start = utc_now()
     try:
@@ -90,7 +95,10 @@ def fetch(url: str, ledger: list[dict[str, object]], dest: Path) -> tuple[int, b
         status = 0
         body = str(exc).encode("utf-8")
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_bytes(body)
+    if 200 <= int(status) < 300:
+        dest.write_bytes(body)
+    elif body:
+        dest.with_suffix(dest.suffix + f".error-{status}").write_bytes(body)
     ledger.append(
         {
             "route": url,
@@ -99,6 +107,8 @@ def fetch(url: str, ledger: list[dict[str, object]], dest: Path) -> tuple[int, b
             "receipt_identity": sha256_bytes(body),
             "retrieved_at_utc": utc_now(),
             "start": start,
+            "ok": 200 <= int(status) < 300,
+            "error_body_not_success": int(status) >= 400,
         }
     )
     return status, body

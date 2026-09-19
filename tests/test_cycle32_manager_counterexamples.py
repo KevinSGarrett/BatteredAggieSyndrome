@@ -853,11 +853,15 @@ class Cycle32ManagerCounterexamples(unittest.TestCase):
         self.assertEqual(favorite_direction(0.51), "HOME")
         self.assertEqual(favorite_direction(0.49), "AWAY")
 
-    def test_washington_2026_head_coach_occupies_oc_when_operator_declares_dual_hat(
+    def test_washington_2026_oc_is_not_operator_declared(
         self,
     ) -> None:
-        from aggie_analytics.cycle30.coaching import fill_current_role_matrix
+        from aggie_analytics.cycle30.coaching import (
+            HEAD_COACH_DUAL_OCCUPANCY,
+            fill_current_role_matrix,
+        )
 
+        self.assertEqual(HEAD_COACH_DUAL_OCCUPANCY, {})
         programs = [
             {"program_id": "SRC-002:TEAM:264", "display_name": "Washington"}
         ]
@@ -916,40 +920,11 @@ class Cycle32ManagerCounterexamples(unittest.TestCase):
         )
         by_role = {row["role"]: row for row in filled}
         oc = by_role["offensive_coordinator"]
-        self.assertEqual(oc["disposition"], "CONFIRMED_APPOINTMENT")
+        self.assertEqual(oc["disposition"], "UNKNOWN_NOT_LISTED")
+        self.assertFalse(oc.get("episode_refs"))
         self.assertEqual(
-            [item["person"] for item in oc["episode_refs"]],
+            [item["person"] for item in by_role["head_coach"]["episode_refs"]],
             ["Jedd Fisch"],
-        )
-        self.assertEqual(
-            by_role["head_coach"]["episode_refs"][0]["person_id"],
-            oc["episode_refs"][0]["person_id"],
-        )
-        self.assertNotEqual(
-            by_role["head_coach"]["episode_refs"][0]["span_id"],
-            oc["episode_refs"][0]["span_id"],
-        )
-        self.assertEqual(
-            oc["episode_refs"][0]["dual_occupancy_with"],
-            "head_coach",
-        )
-        self.assertEqual(
-            oc["episode_refs"][0]["occupancy_authority"],
-            "OPERATOR_CONTEMPORANEOUS_DECLARATION",
-        )
-        self.assertFalse(oc["episode_refs"][0].get("pit_admitted"))
-        self.assertNotEqual(
-            oc["episode_refs"][0].get("source"),
-            "OFFICIAL_STAFF_HTML",
-        )
-        self.assertNotIn(
-            oc["episode_refs"][0].get("responsibility"),
-            {"offense_play_caller", "play_caller"},
-        )
-        self.assertNotEqual(oc["episode_refs"][0].get("play_caller"), True)
-        self.assertEqual(
-            role_families_from_title(oc["episode_refs"][0]["source_title"]),
-            ("head_coach",),
         )
         self.assertEqual(
             [item["person"] for item in by_role["defensive_coordinator"]["episode_refs"]],
@@ -958,6 +933,10 @@ class Cycle32ManagerCounterexamples(unittest.TestCase):
         self.assertEqual(
             role_families_from_title("Head Football Coach"),
             ("head_coach",),
+        )
+        self.assertEqual(
+            role_families_from_title("Pass Game Coordinator/Wide Receivers Coach"),
+            (),
         )
 
     def test_missing_oc_title_is_not_head_coach_oc_without_declaration(self) -> None:

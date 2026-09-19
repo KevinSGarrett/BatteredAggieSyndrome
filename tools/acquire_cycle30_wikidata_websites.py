@@ -23,6 +23,9 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     extract_official_website_from_wikidata_entity,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 
 BUDGET = {
     "max_requests": 50,
@@ -57,24 +60,25 @@ def fetch(url: str, ledger: list[dict[str, Any]], accept: str) -> tuple[int, byt
     cache = RAW / f"{sha256_json({'url': url})}.json"
     if cache.is_file():
         body = cache.read_bytes()
-        ledger.append(
-            {
-                "route": url.split("?", 1)[0],
+        receipt = cache_hit_from_path(
+            cache,
+            url=url.split("?", 1)[0],
+            original={
+                "request_id": sha256_json({"url": url}),
+                "raw_sha256": sha256_bytes(body),
                 "http_status": 200,
-                "cached": True,
-                "receipt_identity": sha256_bytes(body),
-                "request_identity_sha256": sha256_json({"url": url}),
-                "retrieved_at_utc": utc_now(),
-            }
+                "ok": True,
+            },
         )
-        return 200, body
+        receipt["request_identity_sha256"] = sha256_json({"url": url})
+        receipt["receipt_identity"] = sha256_bytes(body)
+        ledger.append(receipt)
+        return int(receipt["http_status"] or 200), body
     if len([row for row in ledger if not row.get("cached")]) >= int(
         BUDGET["max_requests"]
     ):
         raise RuntimeError("Wikidata request ceiling reached")
-    request = urllib.request.Request(
-        url, headers={"User-Agent": UA, "Accept": accept}
-    )
+    request = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": accept})
     start = utc_now()
     with urllib.request.urlopen(request, timeout=60) as response:
         status = int(response.status)
@@ -125,9 +129,7 @@ def main() -> int:
         for query in QUERIES:
             params = {"query": query, "format": "json"}
             url = "https://query.wikidata.org/sparql?" + urllib.parse.urlencode(params)
-            status, body = fetch(
-                url, ledger, "application/sparql-results+json"
-            )
+            status, body = fetch(url, ledger, "application/sparql-results+json")
             payload = json.loads(body.decode("utf-8"))
             for row in ((payload.get("results") or {}).get("bindings")) or []:
                 label = ((row.get("itemLabel") or {}).get("value")) or ""
@@ -190,20 +192,25 @@ def main() -> int:
                         continue
                     if "soccer" in description:
                         continue
-                    if name.casefold() in hit_label or "football" in hit_label or "athletics" in hit_label:
+                    if (
+                        name.casefold() in hit_label
+                        or "football" in hit_label
+                        or "athletics" in hit_label
+                    ):
                         qid = hit.get("id")
                         break
                 if not qid:
                     continue
                 entity_url = (
-                    "https://www.wikidata.org/wiki/Special:EntityData/"
-                    f"{qid}.json"
+                    "https://www.wikidata.org/wiki/Special:EntityData/" f"{qid}.json"
                 )
                 status, body = fetch(entity_url, ledger, "application/json")
-                entities = (json.loads(body.decode("utf-8")).get("entities") or {})
+                entities = json.loads(body.decode("utf-8")).get("entities") or {}
                 entity = entities.get(qid) or {}
                 website = extract_official_website_from_wikidata_entity(entity)
-                label = ((entity.get("labels") or {}).get("en") or {}).get("value") or name
+                label = ((entity.get("labels") or {}).get("en") or {}).get(
+                    "value"
+                ) or name
                 if website:
                     break
             if not website:

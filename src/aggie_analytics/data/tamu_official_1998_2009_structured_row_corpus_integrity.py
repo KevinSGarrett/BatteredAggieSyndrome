@@ -72,6 +72,20 @@ def compute_code_identity(repo_root: Path) -> str:
     return hasher.hexdigest()
 
 
+def _payload_manifest(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """Compare lake payload fields that participate in dataset identity.
+
+    validator_code_identity tracks the reconstructing producer and is not part of
+    dataset_identity or the committed gate. Treating it as payload authority would
+    fail reconstruction after any later producer edit while predecessor corpus
+    bytes remain unchanged.
+    """
+
+    payload = dict(manifest)
+    payload.pop("validator_code_identity", None)
+    return payload
+
+
 def _child_payload_hashes(
     data_root: Path, rejected_urls: set[str]
 ) -> tuple[dict[str, dict[str, Any]], dict[str, int]]:
@@ -245,12 +259,16 @@ def validate_artifact(
         raise AuthorityViolation("gate identity does not recompute")
     if not expected["manifest_path"].is_file():
         raise AuthorityViolation("external corpus-integrity manifest missing")
-    if load_json(expected["manifest_path"]) != expected["manifest"]:
+    on_disk = load_json(expected["manifest_path"])
+    if _payload_manifest(on_disk) != _payload_manifest(expected["manifest"]):
         raise AuthorityViolation("external corpus-integrity manifest mismatch")
     return {
         "result": "PASS",
         "dataset_identity": committed["dataset_identity"],
         "gate_identity": committed["gate_identity"],
+        "validator_code_identity": expected["manifest"].get("validator_code_identity"),
+        "lake_validator_code_identity": on_disk.get("validator_code_identity"),
+        "validator_code_identity_is_not_payload_authority": True,
     }
 
 

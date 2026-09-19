@@ -28,6 +28,10 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     wiki_career_title_matches_person,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+    sanitize_url,
+)
 
 PRED = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs")
 OUT = Path(
@@ -66,15 +70,23 @@ def fetch_json(url: str, ledger: list[dict[str, Any]]) -> Any:
     cache = RAW / f"{sha256_json({'url': url})}.json"
     if cache.is_file():
         body = cache.read_bytes()
+        original_receipt = {}
+        sidecar = cache.with_suffix(cache.suffix + ".receipt.json")
+        if sidecar.is_file():
+            original_receipt = json.loads(sidecar.read_text(encoding="utf-8"))
         ledger.append(
-            {
-                "route": url.split("?", 1)[0],
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "cached": True,
-                "raw_sha256": sha256_bytes(body),
-                "retrieved_at_utc": utc_now(),
-            }
+            cache_hit_from_path(
+                cache,
+                url=sanitize_url(url),
+                original=original_receipt
+                or {
+                    "retrieved_at_utc": None,
+                    "http_status": None,
+                    "ok": False,
+                    "raw_sha256": sha256_bytes(body),
+                    "request_id": None,
+                },
+            )
         )
         return json.loads(body.decode("utf-8"))
     live = sum(1 for item in ledger if not item.get("cached"))
@@ -114,6 +126,8 @@ def fetch_json(url: str, ledger: list[dict[str, Any]]) -> Any:
     )
     cache.parent.mkdir(parents=True, exist_ok=True)
     cache.write_bytes(body)
+    sidecar = cache.with_suffix(cache.suffix + ".receipt.json")
+    sidecar.write_text(json.dumps(ledger[-1], indent=2), encoding="utf-8")
     return json.loads(body.decode("utf-8"))
 
 
@@ -190,7 +204,9 @@ def fetch_coach_page(title: str, ledger: list[dict[str, Any]]) -> dict[str, Any]
 
 
 def main() -> int:
-    occupants = load_jsonl(OUT / "science" / "CYCLE32_CURRENT_STAFF_CAREER_ROUNDTRIP.jsonl")
+    occupants = load_jsonl(
+        OUT / "science" / "CYCLE32_CURRENT_STAFF_CAREER_ROUNDTRIP.jsonl"
+    )
     missing = [
         row
         for row in occupants

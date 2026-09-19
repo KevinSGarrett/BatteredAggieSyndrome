@@ -30,6 +30,9 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     reject_wikimedia_as_pit,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 
 BUDGET = {
     "max_requests": 8000,
@@ -76,18 +79,19 @@ def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -
     cache = RAW / f"{sha256_json({'url': url})}.json"
     if cache.is_file():
         body = cache.read_bytes()
-        ledger.append(
-            {
-                "route": url.split("?", 1)[0],
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "request_identity_sha256": sha256_json({"url": url}),
-                "receipt_identity": sha256_bytes(body),
+        receipt = cache_hit_from_path(
+            cache,
+            url=url.split("?", 1)[0],
+            original={
+                "request_id": sha256_json({"url": url}),
                 "raw_sha256": sha256_bytes(body),
-                "cached": True,
-                "retrieved_at_utc": utc_now(),
-            }
+                "http_status": 200,
+                "ok": True,
+            },
         )
+        receipt["request_identity_sha256"] = sha256_json({"url": url})
+        receipt["receipt_identity"] = sha256_bytes(body)
+        ledger.append(receipt)
         return json.loads(body.decode("utf-8"))
     live = sum(1 for item in ledger if not item.get("cached"))
     if live >= int(budget["max_requests"]):
@@ -230,9 +234,7 @@ def expand_seasons(coach_row: dict[str, Any]) -> list[dict[str, Any]]:
     for episode in coach_row.get("episodes") or []:
         if str(episode.get("role") or "") == "UNKNOWN":
             continue
-        for year in career_episode_seasons(
-            episode, observation_year=observation_year
-        ):
+        for year in career_episode_seasons(episode, observation_year=observation_year):
             if year < 1963 or year > 2026:
                 continue
             out.append(

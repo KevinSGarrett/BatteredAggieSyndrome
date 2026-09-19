@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 from typing import Any, Mapping
 
-from aggie_analytics.data.ncaa_contest_reconciliation import sha256_file, stable_hash
+from aggie_analytics.data.ncaa_contest_reconciliation import stable_hash
 from aggie_analytics.data.tamu_official_2002_2009_structured_row_corpus import CHILD_FILENAMES
 from aggie_analytics.data.tamu_official_historical_boxscores import AuthorityViolation
 from aggie_analytics.validation.artifact_binding import compute_identity
@@ -26,6 +26,9 @@ PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
 MANIFEST_NAME = "corpus_manifest.json"
 SERIALIZED_DOMAINS = ("team_statistics", "individual_player_statistics", "drives", "play_by_play", "scoring_summary")
 PREDECESSOR_1998_2009_DATASET_IDENTITY = "0ff650b1b691299d2b14fd252b8b938a9afe1d02cfd1eefdcd4d53bde2947ca8"
+PINNED_PREDECESSOR_GATE_IDENTITY = (
+    "a251b95714bed59de8aa593fe1466fce603858b30108c447c53fe6f3b8ee4e54"
+)
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -55,10 +58,33 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _jsonl_text(rows: list[Mapping[str, Any]]) -> str:
+    return "".join(
+        json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n" for row in rows
+    )
+
+
 def _write_jsonl(path: Path, rows: list[Mapping[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    payload = "".join(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n" for row in rows)
-    path.write_text(payload, encoding="utf-8", newline="\n")
+    path.write_text(_jsonl_text(rows), encoding="utf-8", newline="\n")
+
+
+def _sha256_jsonl(rows: list[Mapping[str, Any]]) -> str:
+    return hashlib.sha256(_jsonl_text(rows).encode("utf-8")).hexdigest()
+
+
+def _payload_manifest(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """Compare lake payload fields that participate in dataset identity.
+
+    validator_code_identity tracks the reconstructing producer and is not part of
+    dataset_identity or the committed gate. Treating it as payload authority would
+    fail reconstruction after any later producer edit while predecessor corpus
+    bytes remain unchanged.
+    """
+
+    payload = dict(manifest)
+    payload.pop("validator_code_identity", None)
+    return payload
 
 
 def _season_set(admitted_games: list[Mapping[str, Any]]) -> list[int]:
@@ -126,13 +152,18 @@ def _append_structured_rows(
             out_rows[domain].append(normalized)
 
 
-def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
+def reconstruct_objects(
+    *,
+    repo_root: Path,
+    data_root: Path,
+    persist_payloads: bool = False,
+) -> dict[str, Any]:
     contract = load_json(repo_root / CONTRACT_RELATIVE)
-    g638 = load_json(repo_root / "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json")
-    predecessor_gate_identity = str(g638.get("gate_identity") or "")
-    predecessor_dataset_identity = str(g638.get("dataset_identity") or "")
-    if not predecessor_gate_identity or not predecessor_dataset_identity:
-        raise AuthorityViolation("predecessor corpus identities missing")
+    # Bind the 1996-2009 successor to the frozen 1998-2009 predecessor, not the
+    # live BAT-638 in-repo gate. Following the live gate is erroneous input
+    # resolution and would reconstruct a different dataset identity.
+    predecessor_gate_identity = PINNED_PREDECESSOR_GATE_IDENTITY
+    predecessor_dataset_identity = PREDECESSOR_1998_2009_DATASET_IDENTITY
     rej_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_1998_2009_rejection_integrity_gate.json")
     rejection_gate_identity = str(rej_gate.get("gate_identity") or "")
     rejection_ledger_identity = str(rej_gate.get("ledger_identity") or "")
@@ -278,8 +309,11 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     )
     out_root = data_root / contract["payloads"]["corpus_root"] / manifest["dataset_identity"]
     for domain in SERIALIZED_DOMAINS:
-        _write_jsonl(out_root / CHILD_FILENAMES[domain], output_rows_by_domain[domain])
-        child_payloads[domain]["sha256"] = sha256_file(out_root / CHILD_FILENAMES[domain])
+        child_payloads[domain]["sha256"] = _sha256_jsonl(output_rows_by_domain[domain])
+        if persist_payloads:
+            _write_jsonl(
+                out_root / CHILD_FILENAMES[domain], output_rows_by_domain[domain]
+            )
     gate = {
         "schema_version": SCHEMA_VERSION,
         "artifact_type": "TAMU_OFFICIAL_1996_2009_STRUCTURED_ROW_CORPUS_GATE",
@@ -315,7 +349,9 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
 
 
 def materialize_corpus(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
-    objects = reconstruct_objects(repo_root=repo_root, data_root=data_root)
+    objects = reconstruct_objects(
+        repo_root=repo_root, data_root=data_root, persist_payloads=True
+    )
     write_json(objects["manifest_path"], objects["manifest"])
     write_json(repo_root / GATE_RELATIVE, objects["gate"])
     return {
@@ -334,9 +370,17 @@ def validate_artifact(*, repo_root: Path, data_root: Path, gate: Mapping[str, An
         raise AuthorityViolation("gate identity does not recompute")
     if not expected["manifest_path"].is_file():
         raise AuthorityViolation("external 1996-2009 corpus manifest missing")
-    if load_json(expected["manifest_path"]) != expected["manifest"]:
+    on_disk = load_json(expected["manifest_path"])
+    if _payload_manifest(on_disk) != _payload_manifest(expected["manifest"]):
         raise AuthorityViolation("external 1996-2009 corpus manifest mismatch")
-    return {"result": "PASS", "dataset_identity": committed["dataset_identity"], "gate_identity": committed["gate_identity"]}
+    return {
+        "result": "PASS",
+        "dataset_identity": committed["dataset_identity"],
+        "gate_identity": committed["gate_identity"],
+        "validator_code_identity": expected["manifest"].get("validator_code_identity"),
+        "lake_validator_code_identity": on_disk.get("validator_code_identity"),
+        "validator_code_identity_is_not_payload_authority": True,
+    }
 
 
 def default_data_root() -> Path:

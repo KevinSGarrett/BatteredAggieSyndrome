@@ -31,6 +31,9 @@ from aggie_analytics.cycle30.coaching import (  # noqa: E402
     select_college_football_wiki_title,
 )
 from aggie_analytics.cycle30.hashing import sha256_bytes, sha256_json  # noqa: E402
+from aggie_analytics.cycle33.acquisition_receipts import (  # noqa: E402
+    cache_hit_from_path,
+)
 
 BUDGET = {
     "max_requests": 600,
@@ -76,18 +79,19 @@ def fetch_json(url: str, ledger: list[dict[str, Any]], budget: dict[str, Any]) -
     cache = EXT / "raw" / "wikimedia" / f"{sha256_json({'url': url})}.json"
     if cache.is_file():
         body = cache.read_bytes()
-        ledger.append(
-            {
-                "route": url.split("?", 1)[0],
-                "status": "CACHE_HIT",
-                "http_status": 200,
-                "request_identity_sha256": sha256_json({"url": url}),
-                "receipt_identity": sha256_bytes(body),
+        receipt = cache_hit_from_path(
+            cache,
+            url=url.split("?", 1)[0],
+            original={
+                "request_id": sha256_json({"url": url}),
                 "raw_sha256": sha256_bytes(body),
-                "cached": True,
-                "retrieved_at_utc": utc_now(),
-            }
+                "http_status": 200,
+                "ok": True,
+            },
         )
+        receipt["request_identity_sha256"] = sha256_json({"url": url})
+        receipt["receipt_identity"] = sha256_bytes(body)
+        ledger.append(receipt)
         return json.loads(body.decode("utf-8"))
     request = urllib.request.Request(url, headers={"User-Agent": UA})
     start = utc_now()

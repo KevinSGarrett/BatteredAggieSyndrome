@@ -17,6 +17,8 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from aggie_analytics.data.tamu_official_1996_2009_structured_row_corpus import (  # noqa: E402  # pylint: disable=import-error
     AuthorityViolation,
     GATE_RELATIVE,
+    PINNED_PREDECESSOR_GATE_IDENTITY,
+    PREDECESSOR_1998_2009_DATASET_IDENTITY,
     compute_identity,
     reconstruct_objects,
     validate_artifact,
@@ -41,6 +43,34 @@ class Corpus19962009Tests(unittest.TestCase):
         # so a test run can never rewrite the tracked gate it is checking.
         reconstruct_objects(repo_root=REPO_ROOT, data_root=DATA_ROOT)
         cls.gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
+        cls.committed_predecessor_dataset = cls.gate["predecessor_dataset_identity"]
+        cls.committed_predecessor_gate = cls.gate["predecessor_gate_identity"]
+
+    def test_reconstruction_pins_predecessor_not_live_1998_2009_gate(self) -> None:
+        self.assertEqual(
+            PREDECESSOR_1998_2009_DATASET_IDENTITY, self.committed_predecessor_dataset
+        )
+        self.assertEqual(
+            PINNED_PREDECESSOR_GATE_IDENTITY, self.committed_predecessor_gate
+        )
+        reconstructed = reconstruct_objects(repo_root=REPO_ROOT, data_root=DATA_ROOT)
+        self.assertEqual(
+            reconstructed["gate"]["predecessor_dataset_identity"],
+            PREDECESSOR_1998_2009_DATASET_IDENTITY,
+        )
+        self.assertEqual(
+            reconstructed["gate"]["predecessor_gate_identity"],
+            PINNED_PREDECESSOR_GATE_IDENTITY,
+        )
+        live_1998 = json.loads(
+            (
+                REPO_ROOT
+                / "artifacts/data_lake/tamu_official_1998_2009_structured_row_corpus_gate.json"
+            ).read_text(encoding="utf-8-sig")
+        )
+        self.assertNotEqual(
+            live_1998.get("dataset_identity"), PREDECESSOR_1998_2009_DATASET_IDENTITY
+        )
 
     def test_gate_reconstructs(self) -> None:
         result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT)

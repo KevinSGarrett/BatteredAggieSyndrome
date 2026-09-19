@@ -42,9 +42,7 @@ def quarantine_unlocatable_cell(cell: Mapping[str, Any]) -> dict[str, Any]:
     if disposition not in {"CONFIRMED_APPOINTMENT", "CONFIRMED_CO_SHARED_ROLE"}:
         return dict(cell)
     episodes = list(cell.get("episode_refs") or [])
-    supported = [
-        ep for ep in episodes if ep.get("role_claim_supported") or ep.get("locatable")
-    ]
+    supported = [ep for ep in episodes if ep.get("role_claim_supported")]
     if supported and len(supported) == len(episodes):
         return {**dict(cell), "span_adjudicated": True}
     if supported:

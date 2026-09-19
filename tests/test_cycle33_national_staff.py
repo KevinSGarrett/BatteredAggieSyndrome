@@ -850,6 +850,17 @@ class SpanLocateTests(unittest.TestCase):
             }
         )
         self.assertEqual(quarantined["disposition"], "SPAN_NOT_LOCATABLE_QUARANTINE")
+        locatable_only = quarantine_unlocatable_cell(
+            {
+                "disposition": "CONFIRMED_APPOINTMENT",
+                "episode_refs": [
+                    {"person": "X", "locatable": True, "role_claim_supported": False}
+                ],
+            }
+        )
+        self.assertEqual(
+            locatable_only["disposition"], "SPAN_NOT_LOCATABLE_QUARANTINE"
+        )
 
     def test_official_html_parser_records_body_offset(self) -> None:
         html = (

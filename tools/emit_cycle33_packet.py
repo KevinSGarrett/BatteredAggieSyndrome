@@ -478,19 +478,17 @@ def main() -> int:
                 "FAST strict PASS. git diff --check PASS. Ruff check of Cycle 33 changed Python PASS after format. "
                 "Isolated wheel loaded cycle33.query and sportradar_routes from site-packages with checkout src absent. "
                 "Hold/decommission/checkout-pin/input-pin/Jira strict+live validators PASS. "
-                "Read-only mounted critical suite twice: identical identities, 29/33 passed, 1 fail + 4 errors on "
-                "predecessor 1998-2009 gate reconstruction (same ledger mismatch on Cycle 32 HEAD; Cycle 33 did not "
-                "change those producers). Tracked mounted_acceptance_gate.json was restored, not rewritten. "
-                "Mounted full unittest with DATA_ROOT after Family A successor-labels: 3617 ran, 1 fail + 4 error + 14 skipped, "
-                "identical Family B predicates on two passes. "
-                "Hosted PR 689 at 7918ab42 was green. Submitted 66cd9406 then failed validate_repository --strict "
-                "(24 findings: changed-file hash/size drift plus four new tools not represented in provenance). "
-                "This successor binds provenance/PROJECT_FILE_MANIFEST.csv after those source edits. "
-                "Do not treat 7918ab42 green as validation of 66cd9406 or this HEAD. "
+                "Read-only mounted critical suite at 2bdc65d0 twice: identical identities, 29/33 passed, 1 fail + 4 errors. "
+                "This HEAD locally pins 1996-2009 reconstruction to predecessor 0ff650b1/a251b957 "
+                "and treats lake validator_code_identity as diagnostic. Focused tests at this tree: "
+                "1996-2009 3 OK; 1998-2009 corpus integrity 2 OK; rejection-integrity 7 ran 1 fail + 1 error "
+                "(ledger d48698ab vs committed 1b79f1ba); BAT-637 rejection-complete setUpClass AuthorityViolation "
+                "(pin c1d22209 vs committed expanded 606aed7f). Full 3617 mounted unittest is not claimed for this HEAD. "
+                "Hosted PR 689 at 7918ab42 was green. Do not treat that green as validation of this HEAD. "
                 "Earlier hosted failures at 76c664d7 remain historical. "
                 "Family A stale EXPECTED hashes successor-labeled to independently reconstructed "
-                "committed identities; predecessor hashes retained. Family B lake reconstruction "
-                "remains FAIL pending owner successor approval; rematerialization forbidden. "
+                "committed identities; predecessor hashes retained. Remaining Family B lake reconstruction "
+                "is rejection-integrity plus BAT-637 pin, pending CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. "
                 "A successful analyze job does not cancel an alert check; both are reported. "
                 "Mounted full unittest with DATA_ROOT is bound in VALIDATION_RECEIPT when present and is distinct from mounted-acceptance replay. "
                 "Paid review NOT_REVIEWED."
@@ -714,12 +712,19 @@ def main() -> int:
             "state": "PARTIAL",
             "implementation_complete": True,
             "required_data_complete": False,
-            "remaining_local_action": "Do not skip Family B tests or rewrite gates. Isolated submitted-head mounted receipts live under VALIDATION_RUNTIME.",
+            "remaining_local_action": (
+                "Do not skip remaining Family B tests or rewrite predecessor gates. "
+                "1996-2009 now pins predecessor 0ff650b1/a251b957 and does not persist lake "
+                "payloads during reconstruct. Corpus-integrity gate already matched; lake "
+                "validator_code_identity is diagnostic, not payload authority. Isolated "
+                "submitted-head receipts live under VALIDATION_RUNTIME."
+            ),
             "external_blocker": (
-                "Mounted validation remains FAIL on Family B (rejection-integrity, BAT-637 pin, "
-                "1996-2009 corpus, 1998-2009 corpus integrity). Successor publication needs "
-                "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. Hosted 66cd9406 failed integrity-manifest; "
-                "this successor binds provenance. 7918ab42 green is historical, not this HEAD."
+                "Mounted validation remains FAIL on remaining Family B: rejection-integrity "
+                "ledger d48698ab vs committed 1b79f1ba, and BAT-637 pin c1d22209 vs committed "
+                "expanded gate 606aed7f. Successor publication needs "
+                "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. Living owners BAT-706/BAT-708; do not "
+                "reopen Done BAT-649/BAT-637. 7918ab42 green is historical, not this HEAD."
             ),
         },
         "R33-22": {
@@ -1087,8 +1092,11 @@ def main() -> int:
         "Hosted PR 689 at 7918ab42 was green. Submitted 66cd9406 failed validate_repository --strict "
         "(changed-file hash/size plus four new tools missing from provenance); this successor binds the manifest. "
         "Do not treat 7918ab42 green as validation of a later HEAD. Earlier hosted failures at 76c664d7 are historical. "
-        "Mounted validation remains FAIL on Family B (rejection-integrity, BAT-637 pin, 1996-2009 corpus, "
-        "1998-2009 corpus integrity) reproduced at Cycle 32 HEAD and 7918ab42 against the same DATA_ROOT. "
+        "Mounted validation remains FAIL on remaining Family B (rejection-integrity ledger d48698ab vs "
+        "committed 1b79f1ba; BAT-637 pin c1d22209 vs committed expanded 606aed7f). 1996-2009 now reconstructs "
+        "to committed gate 6e08cafb after pinning predecessor 0ff650b1 instead of live BAT-638 ac36f30b. "
+        "1998-2009 corpus-integrity gate already matched 7f2fbc86; lake validator_code_identity is not payload authority. "
+        "Do not describe the full mounted dimension as PASS while rejection-integrity and BAT-637 remain FAIL. "
         "Family A 2000-2005/StatCrew EXPECTED hashes now match independently reconstructed committed gates. "
         "Validation receipts bind actual Git HEAD, dirty state, imported modules, source digest, and DATA_ROOT; "
         "hardcoded HEAD 287e8cc7 receipts are historical and not relabeled. "

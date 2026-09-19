@@ -46,14 +46,16 @@ def quarantine_unlocatable_cell(cell: Mapping[str, Any]) -> dict[str, Any]:
     if supported and len(supported) == len(episodes):
         return {**dict(cell), "span_adjudicated": True}
     if supported:
+        # MR33-05 repair: every non-supported episode is quarantined, whether
+        # or not it happens to be "locatable" on the page -- locatable-but-
+        # unsupported observations must not silently vanish from both arrays.
+        # len(episode_refs) + len(quarantined_unlocatable_episodes) == the
+        # original episode count is an invariant, not a side effect.
+        unsupported = [ep for ep in episodes if not ep.get("role_claim_supported")]
         return {
             **dict(cell),
             "episode_refs": supported,
-            "quarantined_unlocatable_episodes": [
-                ep
-                for ep in episodes
-                if not (ep.get("role_claim_supported") or ep.get("locatable"))
-            ],
+            "quarantined_unlocatable_episodes": unsupported,
             "disposition": "CONFIRMED_PARTIAL_SPAN_LOCATABLE",
             "span_adjudicated": True,
             "pit_admitted": False,

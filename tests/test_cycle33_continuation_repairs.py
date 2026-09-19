@@ -157,20 +157,41 @@ class ContinuationFinalsScoringTests(unittest.TestCase):
         f1 = dict(
             ncaa_contest_id="synthetic-game",
             candidate_id="A",
+            cohort="MAIN",
+            checkpoint="T24H",
             frozen=True,
-            freeze_receipt_id="FR-A",
-            frozen_at_utc="2026-09-10T00:00:00Z",
             forecast_row_id="A1",
             probability_home=0.2,
+            # Cycle34 R34-03 repair: freeze proof now requires a genuine
+            # nested receipt binding the exact contest/candidate/cohort/
+            # checkpoint key, not a bare id/timestamp pair (MR33-01).
+            freeze_receipt={
+                "receipt_id": "FR-A",
+                "receipt_sha256": "a" * 64,
+                "frozen_at_utc": "2026-09-10T00:00:00Z",
+                "ncaa_contest_id": "synthetic-game",
+                "candidate_id": "A",
+                "cohort": "MAIN",
+                "checkpoint": "T24H",
+            },
         )
         f2 = dict(
             ncaa_contest_id="synthetic-game",
             candidate_id="B",
+            cohort="MAIN",
+            checkpoint="T24H",
             frozen=True,
-            freeze_receipt_id="FR-B",
-            frozen_at_utc="2026-09-10T00:00:00Z",
             forecast_row_id="B1",
             probability_home=0.8,
+            freeze_receipt={
+                "receipt_id": "FR-B",
+                "receipt_sha256": "b" * 64,
+                "frozen_at_utc": "2026-09-10T00:00:00Z",
+                "ncaa_contest_id": "synthetic-game",
+                "candidate_id": "B",
+                "cohort": "MAIN",
+                "checkpoint": "T24H",
+            },
         )
         forward = score_unique_frozen_games([game], forecasts=[f1, f2])
         reverse = score_unique_frozen_games([game], forecasts=[f2, f1])

@@ -23,30 +23,86 @@ REQUIRED_EPISODE_FIELDS = (
     "schema_version",
 )
 
+# MR33-06 repair: identity, temporal and provenance fields the round-trip was
+# silently dropping while `compatibility_report` still reported LOSSLESS.
+# `valid_to` is intentionally excluded here (an open-ended interval is legal
+# and represented by `None`), but every other field below is mandatory.
+REQUIRED_IDENTITY_FIELDS = (
+    "program_id",
+    "person_id",
+    "season",
+    "valid_from",
+    "receipt_sha256",
+    "source_span",
+)
+OPTIONAL_PRESERVED_FIELDS = ("valid_to",)
+
 
 def compatibility_report(
     *, producer_version: str, consumer_version: str
 ) -> dict[str, Any]:
-    lossless = (
+    """Version-string agreement alone. MR33-06 repair: this is now explicitly
+    labeled as necessary but NOT sufficient to claim LOSSLESS -- callers must
+    also pass an executable fixture through `verify_lossless_round_trip` to
+    certify an actual transport, not just matching version identifiers."""
+
+    lossless_versions = (
         producer_version == LOSSLESS_ENVELOPE and consumer_version == LOSSLESS_ENVELOPE
     )
     return {
         "producer_version": producer_version,
         "consumer_version": consumer_version,
         "staff_snapshot_v1_is_not_lossless": STAFF_SNAPSHOT_V1 != producer_version,
-        "transport": "LOSSLESS" if lossless else "REJECT_OR_LOSSY_PROJECTION",
+        "transport": "LOSSLESS_VERSIONS_MATCH" if lossless_versions else "REJECT_OR_LOSSY_PROJECTION",
+        "matching_version_strings_do_not_prove_compatibility": True,
+        "requires_executable_round_trip_fixture": "verify_lossless_round_trip",
         "c01_owner_adoption": "C01_OWNER_ADOPTION_PENDING",
         "gridiron_runtime_authorized": False,
     }
 
 
+def verify_lossless_round_trip(row: Mapping[str, Any]) -> dict[str, Any]:
+    """Actually encode `row` and confirm every mandatory identity/temporal/
+    provenance field survives with an equal value -- the executable check
+    `compatibility_report` cannot perform from version strings alone."""
+
+    mandatory = tuple(REQUIRED_EPISODE_FIELDS) + tuple(REQUIRED_IDENTITY_FIELDS)
+    try:
+        encoded = encode_episode(row)
+    except All22AdapterError as exc:
+        return {
+            "lossless": False,
+            "reason": f"encode_rejected: {exc}",
+            "missing_fields": [f for f in mandatory if not row.get(f)],
+            "mismatched_fields": [],
+        }
+    missing_fields = [field for field in mandatory if field not in encoded]
+    mismatched_fields = [
+        field
+        for field in mandatory
+        if field in encoded and encoded.get(field) != row.get(field)
+    ]
+    optional_dropped = [
+        field for field in OPTIONAL_PRESERVED_FIELDS if field not in encoded
+    ]
+    lossless = not missing_fields and not mismatched_fields and not optional_dropped
+    return {
+        "lossless": lossless,
+        "missing_fields": missing_fields,
+        "mismatched_fields": mismatched_fields,
+        "optional_fields_dropped": optional_dropped,
+        "envelope": LOSSLESS_ENVELOPE,
+    }
+
+
 def encode_episode(row: Mapping[str, Any]) -> dict[str, Any]:
     missing = [field for field in REQUIRED_EPISODE_FIELDS if not row.get(field)]
+    missing += [field for field in REQUIRED_IDENTITY_FIELDS if not row.get(field)]
     if missing:
         raise All22AdapterError(f"missing provenance/role/temporal fields: {missing}")
     if row.get("source_class") == "OPERATOR_CONTEMPORANEOUS_DECLARATION":
         raise All22AdapterError("operator declaration is not an appointment source")
-    return {
+    encoded = {
         "envelope": LOSSLESS_ENVELOPE,
         "adapter_version": ADAPTER_VERSION,
         "person": row["person"],
@@ -57,9 +113,18 @@ def encode_episode(row: Mapping[str, Any]) -> dict[str, Any]:
         "valid_time_precision": row["valid_time_precision"],
         "recorded_at_utc": row["recorded_at_utc"],
         "schema_version": row["schema_version"],
+        "program_id": row["program_id"],
+        "person_id": row["person_id"],
+        "season": row["season"],
+        "valid_from": row["valid_from"],
+        "receipt_sha256": row["receipt_sha256"],
+        "source_span": row["source_span"],
         "scheme_is_not_film_inferred": True,
         "pit_admitted": False,
     }
+    for field in OPTIONAL_PRESERVED_FIELDS:
+        encoded[field] = row.get(field)
+    return encoded
 
 
 def project_lossy_staff_snapshot_v1(

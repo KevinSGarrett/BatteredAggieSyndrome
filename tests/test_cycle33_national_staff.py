@@ -606,11 +606,22 @@ class ScoringSuccessorTests(unittest.TestCase):
                 {
                     "ncaa_contest_id": "2",
                     "candidate_id": "shadow",
+                    "cohort": "MAIN",
+                    "checkpoint": "T24H",
                     "frozen": True,
-                    "freeze_receipt_id": "FRZ-2",
-                    "frozen_at_utc": "2026-09-10T00:00:00Z",
                     "forecast_row_id": "FROW-2",
                     "probability_home": 0.7,
+                    # Cycle34 R34-03 repair (MR33-01): freeze proof requires a
+                    # genuine nested receipt bound to this exact key.
+                    "freeze_receipt": {
+                        "receipt_id": "FRZ-2",
+                        "receipt_sha256": "c" * 64,
+                        "frozen_at_utc": "2026-09-10T00:00:00Z",
+                        "ncaa_contest_id": "2",
+                        "candidate_id": "shadow",
+                        "cohort": "MAIN",
+                        "checkpoint": "T24H",
+                    },
                 }
             ],
         )

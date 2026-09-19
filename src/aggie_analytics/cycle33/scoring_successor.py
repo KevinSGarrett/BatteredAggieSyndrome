@@ -8,6 +8,8 @@ UNTRUSTED_SHADOW. A 50% control is NO_DIRECTION.
 from __future__ import annotations
 
 import math
+import re
+from datetime import datetime, timezone
 from typing import Any, Mapping, Sequence
 
 from aggie_analytics.cycle33.official_finals import (
@@ -17,6 +19,25 @@ from aggie_analytics.cycle33.official_finals import (
 
 SHADOW = "UNTRUSTED_SHADOW"
 HOLD = "SCIENTIFIC_OPERATOR_HOLD_ACTIVE"
+
+_ISO8601_RE = re.compile(
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$"
+)
+
+
+def _parsed_utc_timestamp(value: Any) -> datetime | None:
+    """A genuine timezone-aware ISO8601 timestamp, not merely a nonempty string."""
+
+    if not isinstance(value, str) or not _ISO8601_RE.match(value.strip()):
+        return None
+    text = value.strip().replace("Z", "+00:00")
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    return parsed.astimezone(timezone.utc)
 
 
 def _brier(probability_home: float, home_won: bool) -> float:
@@ -44,27 +65,47 @@ def forecast_key(row: Mapping[str, Any]) -> tuple[str, str, str, str]:
 
 
 def freeze_is_proven(forecast: Mapping[str, Any]) -> bool:
-    """`frozen=true` alone is insufficient."""
+    """A genuine, verifiable freeze receipt -- not a truthy flag, a mutable row id
+    reused as a receipt id, or a nonempty-but-unparseable timestamp string.
+
+    MR33-01 repair: `frozen=true` plus *any* nonempty identity/timestamp used to
+    score. This now requires an actual `freeze_receipt` mapping carrying its own
+    receipt id (never the mutable `forecast_row_id`), a well-formed sha256 hash,
+    a timezone-aware non-future ISO8601 `frozen_at_utc`, and a receipt-bound
+    contest/candidate/cohort/checkpoint key that matches the forecast's own key
+    exactly -- an unrelated hash or mismatched binding is rejected, not accepted.
+    """
 
     flagged = forecast.get("frozen") is True or forecast.get("forecast_frozen") is True
     if not flagged:
         return False
     receipt = forecast.get("freeze_receipt")
     if not isinstance(receipt, Mapping):
-        receipt = {}
-    identity = (
-        forecast.get("freeze_receipt_id")
-        or receipt.get("receipt_id")
-        or forecast.get("forecast_row_id")
-        or receipt.get("forecast_row_id")
+        return False
+    receipt_id = receipt.get("receipt_id")
+    if not isinstance(receipt_id, str) or not receipt_id.strip():
+        return False
+    row_id = forecast.get("forecast_row_id")
+    if row_id and str(row_id) == receipt_id:
+        # A forecast row id is a mutable pointer, not a receipt identity.
+        return False
+    receipt_hash = receipt.get("receipt_sha256")
+    if not isinstance(receipt_hash, str) or not re.fullmatch(
+        r"[0-9a-f]{64}", receipt_hash.strip().casefold()
+    ):
+        return False
+    frozen_at = _parsed_utc_timestamp(receipt.get("frozen_at_utc"))
+    if frozen_at is None or frozen_at > datetime.now(timezone.utc):
+        return False
+    bound_key = (
+        str(receipt.get("ncaa_contest_id") or receipt.get("ncaa_com_contest_id") or ""),
+        str(receipt.get("candidate_id") or ""),
+        str(receipt.get("cohort") or ""),
+        str(receipt.get("checkpoint") or ""),
     )
-    frozen_at = (
-        forecast.get("frozen_at_utc")
-        or forecast.get("known_at_utc")
-        or receipt.get("frozen_at_utc")
-        or receipt.get("known_at_utc")
-    )
-    return bool(identity) and bool(frozen_at)
+    if bound_key != forecast_key(forecast) or any(part == "" for part in bound_key):
+        return False
+    return True
 
 
 def score_unique_frozen_games(
@@ -91,38 +132,61 @@ def score_unique_frozen_games(
     excluded_unproven_freeze = 0
     excluded_invalid_probability = 0
     rejected_duplicate_forecasts = 0
-    seen_keys: set[tuple[str, str, str, str]] = set()
-    seen_row_ids: set[str] = set()
+    quarantined_conflicting_forecast_keys = 0
+
+    # MR33-02 repair: group by (contest, candidate, cohort, checkpoint) key
+    # value, not arrival position, so scoring is provably order-invariant.
+    # Conflicting proven probabilities for the identical key quarantine the
+    # whole group -- neither the first nor the last row silently wins.
+    by_key: dict[tuple[str, str, str, str], list[Mapping[str, Any]]] = {}
+    key_order: list[tuple[str, str, str, str]] = []
     for forecast in forecasts or []:
-        cid = str(
-            forecast.get("ncaa_contest_id") or forecast.get("ncaa_com_contest_id") or ""
-        )
         key = forecast_key(forecast)
-        row_id = str(forecast.get("forecast_row_id") or "")
-        if key in seen_keys or (row_id and row_id in seen_row_ids):
-            rejected_duplicate_forecasts += 1
-            continue
-        seen_keys.add(key)
-        if row_id:
-            seen_row_ids.add(row_id)
+        if key not in by_key:
+            by_key[key] = []
+            key_order.append(key)
+        by_key[key].append(forecast)
+
+    for key in key_order:
+        cid = key[0]
         game = by_contest.get(cid)
-        if game is None:
+        eligible_rows: list[Mapping[str, Any]] = []
+        for forecast in by_key[key]:
+            if game is None:
+                continue
+            if forecast.get("abstained") or forecast.get("classification") == "ABSTAINED":
+                excluded_abstained += 1
+                continue
+            if not freeze_is_proven(forecast):
+                if forecast.get("frozen") or forecast.get("forecast_frozen"):
+                    excluded_unproven_freeze += 1
+                else:
+                    excluded_unfrozen += 1
+                    if not forecast:
+                        excluded_no_forecast += 1
+                continue
+            probability = forecast.get("probability_home")
+            if not _finite_probability(probability):
+                excluded_invalid_probability += 1
+                continue
+            eligible_rows.append(forecast)
+        if game is None or not eligible_rows:
             continue
-        if forecast.get("abstained") or forecast.get("classification") == "ABSTAINED":
-            excluded_abstained += 1
+        distinct_probabilities = {
+            round(float(row["probability_home"]), 12) for row in eligible_rows
+        }
+        if len(distinct_probabilities) > 1:
+            quarantined_conflicting_forecast_keys += 1
             continue
-        if not freeze_is_proven(forecast):
-            if forecast.get("frozen") or forecast.get("forecast_frozen"):
-                excluded_unproven_freeze += 1
-            else:
-                excluded_unfrozen += 1
-                if not forecast:
-                    excluded_no_forecast += 1
-            continue
-        probability = forecast.get("probability_home")
-        if not _finite_probability(probability):
-            excluded_invalid_probability += 1
-            continue
+        # Identical proven duplicates collapse to one scored row, chosen by a
+        # content-sorted (not arrival-order) tiebreak so forward/reverse input
+        # order cannot change which row is kept.
+        eligible_rows = sorted(
+            eligible_rows, key=lambda row: str(row.get("forecast_row_id") or "")
+        )
+        representative = eligible_rows[0]
+        rejected_duplicate_forecasts += len(eligible_rows) - 1
+        row_id = str(representative.get("forecast_row_id") or "")
         home_points = int(game["home_points"])
         away_points = int(game["away_points"])
         if home_points > away_points:
@@ -134,7 +198,7 @@ def score_unique_frozen_games(
         else:
             winner = "TIE"
             home_won = False
-        probability_f = float(probability)
+        probability_f = float(representative["probability_home"])
         if probability_f > 0.5:
             favorite = "HOME"
         elif probability_f < 0.5:
@@ -161,6 +225,7 @@ def score_unique_frozen_games(
         "unique_contest_count": grouped["unique_contest_count"],
         "admitted_unique_games": len(admitted),
         "quarantined_conflicts": len(grouped["quarantined_conflicts"]),
+        "quarantined_conflicting_forecast_keys": quarantined_conflicting_forecast_keys,
         "nonfinal_contests": len(grouped.get("nonfinal_contests") or []),
         "scored_unique_frozen_games": len({row["ncaa_contest_id"] for row in scored}),
         "scored_candidate_checkpoint_rows": len(scored),

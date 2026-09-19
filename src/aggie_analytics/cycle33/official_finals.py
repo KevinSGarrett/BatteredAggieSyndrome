@@ -102,14 +102,31 @@ def competing_observations(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             )
             continue
         scores = {_score_tuple(item) for item in finals}
-        teams = {
+        # MR33-03 repair: canonical program IDs are checked on their own, never
+        # only as a fallback behind display names. A name match must not hide
+        # a conflicting canonical ID -- and a canonical-ID match cannot be
+        # undermined by a name spelling difference either; both are tracked.
+        names = {
             (
-                str(item.get("home_name") or item.get("home_canonical_team_id") or ""),
-                str(item.get("away_name") or item.get("away_canonical_team_id") or ""),
+                str(item.get("home_name") or ""),
+                str(item.get("away_name") or ""),
             )
             for item in finals
         }
-        if len(scores) > 1 or len(teams) > 1:
+        canonical_ids = {
+            (
+                str(item.get("home_canonical_team_id"))
+                if item.get("home_canonical_team_id") not in (None, "")
+                else None,
+                str(item.get("away_canonical_team_id"))
+                if item.get("away_canonical_team_id") not in (None, "")
+                else None,
+            )
+            for item in finals
+            if item.get("home_canonical_team_id") not in (None, "")
+            or item.get("away_canonical_team_id") not in (None, "")
+        }
+        if len(scores) > 1 or len(names) > 1 or len(canonical_ids) > 1:
             quarantined.append(
                 {
                     "ncaa_contest_id": cid,

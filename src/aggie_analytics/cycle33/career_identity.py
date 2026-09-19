@@ -230,6 +230,30 @@ def football_career_context(page: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _person_identity_matches_page(person: str, page: Mapping[str, Any]) -> bool:
+    """MR33-04 repair: the join's own person-identity check. A caller-side
+    title prefilter (e.g. `index_career_pages`) is not sufficient on its own
+    -- `join_occupant_to_pages` must independently reject an unrelated
+    person's page even when the page is otherwise a same-employer football
+    page. Matches on the page title, the recorded occupant, or an episode's
+    own `person` field; a bare substring/employer match is not identity.
+    """
+
+    person_key = _fold(person)
+    if not person_key:
+        return False
+    title = str(page.get("title") or page.get("requested_title") or "")
+    if career_page_title_matches_person(title, person):
+        return True
+    occupant = _fold(str(page.get("occupant_person") or ""))
+    if occupant and occupant == person_key:
+        return True
+    episode_persons = {
+        _fold(str(episode.get("person") or "")) for episode in page.get("episodes") or []
+    }
+    return person_key in episode_persons
+
+
 def join_occupant_to_pages(
     *,
     person: str,
@@ -241,18 +265,26 @@ def join_occupant_to_pages(
     football_pages = [
         page for page in pages if football_career_context(page)["accepted"]
     ]
-    identities = {page_identity_key(page) for page in football_pages}
+    person_matched_pages = [
+        page for page in football_pages if _person_identity_matches_page(person, page)
+    ]
+    identities = {page_identity_key(page) for page in person_matched_pages}
     if not pages:
         state = "CAREER_PAGE_MISSING"
         page = None
     elif not football_pages:
         state = "NAME_ONLY_CANDIDATE_NOT_ACCEPTED"
         page = None
+    elif not person_matched_pages:
+        # A same-employer football page exists, but not for this person --
+        # this must never fall through to an EVIDENCE_BOUND_CAREER_JOIN.
+        state = "FOOTBALL_PAGE_PERSON_IDENTITY_UNMATCHED"
+        page = None
     elif len(identities) > 1:
         state = "AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES"
         page = None
     else:
-        page = football_pages[0]
+        page = person_matched_pages[0]
         org_hit = False
         if str(program_display or "").strip():
             org_hit = any(

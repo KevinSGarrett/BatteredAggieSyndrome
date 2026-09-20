@@ -3,6 +3,21 @@
 Unknown and conflicting values are returned, never silently omitted.
 Package-installed use must pass explicit data roots; there is no private
 absolute-path default that loads production secrets.
+
+MF35-06 repair: `team_staff`, `coach_career`, `unresolved_roles` and
+`team_schemes` below now detect which schema the given database actually
+has (`aggie_analytics.cycle35.query.schema_kind`) and delegate to that
+module's equivalents when it is a cycle35 coaching release. The installed
+`bas-staff-query` CLI (`main`, below) is this module's `main`, so this is
+what makes the ONE installed entry point work against either a legacy
+cycle33 delivery or a cycle35 release without raising
+`OperationalError: no such table: staff_role_cells` -- exactly the failure
+the Cycle #35 manager follow-up reproduced against the delivered r7
+release. Every function's return-row SHAPE stays whatever its owning schema
+actually produces; this is a dispatch fix, not a shape-unifying translation
+layer, because pretending the two schemas are the same would hide the real
+difference between a flat disposition-tagged cell and an evidence-layered
+assertion.
 """
 
 from __future__ import annotations
@@ -12,6 +27,8 @@ import json
 import sqlite3
 from pathlib import Path
 from typing import Any, Mapping, Sequence
+
+from aggie_analytics.cycle35 import query as cycle35_query
 
 SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS staff_role_cells (
@@ -126,6 +143,8 @@ def load_import(conn: sqlite3.Connection, imported: Mapping[str, Any]) -> int:
 def team_staff(
     conn: sqlite3.Connection, *, team: str, season: str
 ) -> list[dict[str, Any]]:
+    if cycle35_query.schema_kind(conn) == cycle35_query.SCHEMA_KIND_CYCLE35:
+        return cycle35_query.team_staff(conn, team=team, season=season)
     cur = conn.execute(
         """
         SELECT * FROM staff_role_cells
@@ -138,6 +157,8 @@ def team_staff(
 
 
 def coach_career(conn: sqlite3.Connection, *, person: str) -> list[dict[str, Any]]:
+    if cycle35_query.schema_kind(conn) == cycle35_query.SCHEMA_KIND_CYCLE35:
+        return cycle35_query.coach_career(conn, person=person)
     cur = conn.execute(
         """
         SELECT * FROM staff_role_cells
@@ -199,6 +220,8 @@ def team_schemes(
     multi-program result, never a merged fact answer.
     """
 
+    if cycle35_query.schema_kind(conn) == cycle35_query.SCHEMA_KIND_CYCLE35:
+        return cycle35_query.team_schemes(conn, program=program, season=season)
     cur = conn.execute(
         """
         SELECT * FROM scheme_tenure_claims
@@ -323,6 +346,8 @@ def unresolved_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:
     A row with no `person` is unresolved whatever its disposition label says.
     """
 
+    if cycle35_query.schema_kind(conn) == cycle35_query.SCHEMA_KIND_CYCLE35:
+        return cycle35_query.unresolved_roles(conn)
     return [
         row
         for row in _all_role_rows(conn)

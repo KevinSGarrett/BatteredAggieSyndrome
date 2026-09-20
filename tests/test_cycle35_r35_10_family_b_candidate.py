@@ -1,0 +1,188 @@
+"""R35-10 tests for MR34-11: a candidate release, not a candidate hash.
+
+These exercise the pure logic of the candidate builder in isolation -- child
+byte validation, negative controls and the BAT-637 pin diagnosis -- without
+requiring the mounted lake, so they run in every lane. The mounted-lane
+result is recorded separately in the run artifacts and remains FAIL.
+"""
+
+from __future__ import annotations
+
+import json
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
+
+from r35_10_family_b_candidate_successor import (  # noqa: E402
+    APPROVAL_ID,
+    CANDIDATE_KIND,
+    canonical_bytes,
+    negative_controls,
+    sha256_bytes,
+    snapshot_predecessors,
+    validate_child_bytes,
+    write_candidate,
+)
+
+PAYLOAD = {
+    "schema_version": 1,
+    "ledger_identity": "l" * 64,
+    "complete_rejection_ledger": [{"url": "u1", "superseded": True}],
+    "historical_rejection_records": [{"url": "u1", "superseded": True}],
+    "active_rejections": [{"url": "u2"}],
+    "active_rejection_count": 1,
+    "complete_rejection_count": 2,
+    "supersessions": [{"url": "u1", "material_merge_sha": "a" * 40}],
+    "predecessor_union_identity": "u" * 64,
+    "predecessor_corpus_dataset_identity": "c" * 64,
+}
+
+
+def _candidate():
+    return {
+        "payload": PAYLOAD,
+        "children": {
+            "rejection_ledger_payload.json": {
+                "ledger_identity": PAYLOAD["ledger_identity"],
+                "complete_rejection_ledger": PAYLOAD["complete_rejection_ledger"],
+                "historical_rejection_records": PAYLOAD["historical_rejection_records"],
+                "schema_version": 1,
+            },
+            "active_rejections.json": {
+                "ledger_identity": PAYLOAD["ledger_identity"],
+                "active_rejections": PAYLOAD["active_rejections"],
+                "active_rejection_count": 1,
+            },
+            "supersessions.json": {
+                "ledger_identity": PAYLOAD["ledger_identity"],
+                "supersessions": PAYLOAD["supersessions"],
+                "supersession_count": 1,
+            },
+        },
+        "contract": {},
+        "committed_gate": {},
+    }
+
+
+class CandidateCompletenessTests(unittest.TestCase):
+    def test_a_candidate_is_children_manifest_and_gate_not_one_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = write_candidate(Path(tmp), _candidate())
+            self.assertEqual(len(out["children"]), 3)
+            self.assertTrue(out["manifest_path"].is_file())
+            self.assertTrue(out["gate_path"].is_file())
+            self.assertEqual(out["gate"]["kind"], CANDIDATE_KIND)
+            for child in out["children"]:
+                self.assertTrue((Path(tmp) / child["relative_path"]).is_file())
+
+    def test_the_gate_declares_it_is_not_activated(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            gate = write_candidate(Path(tmp), _candidate())["gate"]
+            self.assertEqual(gate["result"], "CANDIDATE_PREPARED_NOT_ACTIVATED")
+            self.assertEqual(gate["canonical_activation_requires"], APPROVAL_ID)
+            self.assertEqual(gate["protected_lane"], "CLOSED")
+            self.assertTrue(gate["predecessor_gate_untouched"])
+
+    def test_gate_identity_covers_the_gate_content(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            gate = write_candidate(Path(tmp), _candidate())["gate"]
+            self.assertNotIn("gate_identity", [k for k in gate if k == "nonexistent"])
+            self.assertEqual(len(gate["gate_identity"]), 64)
+
+    def test_replay_writes_an_identical_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            first = write_candidate(Path(tmp) / "a", _candidate())
+            second = write_candidate(Path(tmp) / "b", _candidate())
+            self.assertEqual(first["manifest_sha256"], second["manifest_sha256"])
+            self.assertEqual(
+                first["gate"]["gate_identity"], second["gate"]["gate_identity"]
+            )
+            self.assertEqual(
+                [c["sha256"] for c in first["children"]],
+                [c["sha256"] for c in second["children"]],
+            )
+
+
+class ChildByteValidationTests(unittest.TestCase):
+    def test_actual_disk_bytes_are_validated_not_in_memory_hashes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = write_candidate(Path(tmp), _candidate())
+            report = validate_child_bytes(Path(tmp), out["manifest"])
+            self.assertTrue(report["all_children_match_on_disk"])
+            self.assertEqual(report["children_checked"], 3)
+            for row in report["results"]:
+                self.assertEqual(row["state"], "PRESENT")
+                self.assertEqual(row["declared_sha256"], row["actual_sha256"])
+
+    def test_every_negative_control_behaves(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = write_candidate(Path(tmp), _candidate())
+            controls = negative_controls(Path(tmp), out["manifest"])
+            names = {row["control"] for row in controls}
+            self.assertEqual(
+                names,
+                {
+                    "TAMPERED_CHILD",
+                    "MISSING_CHILD",
+                    "RESTORED_CHILD_PASSES_AGAIN",
+                    "MIXED_PREDECESSOR_SUCCESSOR_CHILD",
+                },
+            )
+            for row in controls:
+                self.assertTrue(row["detected"], row["control"])
+
+    def test_a_missing_child_is_reported_not_skipped(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = write_candidate(Path(tmp), _candidate())
+            (Path(tmp) / out["children"][0]["relative_path"]).unlink()
+            report = validate_child_bytes(Path(tmp), out["manifest"])
+            self.assertFalse(report["all_children_match_on_disk"])
+            self.assertEqual(report["results"][0]["state"], "MISSING_CHILD")
+
+
+class PredecessorImmutabilityTests(unittest.TestCase):
+    def test_snapshot_records_absent_files_as_none(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            present = Path(tmp) / "a.json"
+            present.write_bytes(b"x")
+            absent = Path(tmp) / "missing.json"
+            snap = snapshot_predecessors([present, absent])
+            self.assertEqual(snap[str(present)], sha256_bytes(b"x"))
+            self.assertIsNone(snap[str(absent)])
+
+    def test_building_a_candidate_does_not_touch_predecessors(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            predecessor = Path(tmp) / "committed_gate.json"
+            predecessor.write_bytes(canonical_bytes({"gate_identity": "old"}))
+            before = snapshot_predecessors([predecessor])
+            write_candidate(Path(tmp) / "isolated", _candidate())
+            after = snapshot_predecessors([predecessor])
+            self.assertEqual(before, after)
+
+
+class ApprovalRequestTests(unittest.TestCase):
+    def test_the_run_artifact_records_a_failing_canonical_dimension(self) -> None:
+        """The prepared candidate must not be mistaken for activation."""
+        artifact = (
+            Path(r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs")
+            / "20260920T172801Z"
+            / "implementation_output"
+            / "R35_10_FAMILY_B_CANDIDATE.json"
+        )
+        if not artifact.is_file():
+            self.skipTest("run artifact not present in this lane")
+        payload = json.loads(artifact.read_text(encoding="utf-8"))
+        self.assertEqual(payload["canonical_mounted_validation"], "FAIL")
+        self.assertTrue(payload["no_done_gate_edited"])
+        self.assertTrue(payload["no_live_hash_copied_into_an_old_pin"])
+        self.assertTrue(payload["predecessor_bytes_unchanged"])
+        self.assertEqual(payload["approval_request"]["approval_id"], APPROVAL_ID)
+
+
+if __name__ == "__main__":
+    unittest.main()

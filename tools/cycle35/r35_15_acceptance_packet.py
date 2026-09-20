@@ -480,6 +480,31 @@ NEW_FINDINGS: tuple[dict[str, Any], ...] = (
         "owner": "BAT-706",
     },
     {
+        "id": "C35-N5",
+        "severity": "P2",
+        "title": "Lake readiness predicate cannot tell 'absent' from 'could not stat'",
+        "detail": "tamu_official_gamebook_union_2001_expanded.upstream_is_ready "
+        "decides whether the data root is mounted with four Path.is_file() "
+        "calls. pathlib's is_file() catches OSError and returns False for "
+        "ignorable errors, which on Windows includes sharing violations and "
+        "access denials. Under heavy concurrent I/O on the same volume a "
+        "transient stat failure is therefore indistinguishable from a missing "
+        "file, and the caller raises 'the data root is not mounted' about a "
+        "lake that is mounted. This is the SAME conflation as MR34-12 -- "
+        "inability to determine read as absence -- in a different module. "
+        "Observed once: the test was red in a full mounted suite that ran "
+        "concurrently with a job recursively reading 34,701 files under the "
+        "same root, and green in two independent isolated runs at the same "
+        "head. The mechanism is demonstrated; its causation of that specific "
+        "red is consistent but not proven.",
+        "status": "OPEN_NOT_REPAIRED_THIS_CYCLE",
+        "owner": "BAT-706",
+        "note": "Not repaired here because the module is outside this "
+        "cycle's changed surface and the Family B family is already blocked "
+        "on CYCLE33-APPROVAL-LAKE-SUCCESSOR-001; changing its readiness "
+        "semantics mid-block would confuse two separate questions.",
+    },
+    {
         "id": "C35-N4",
         "severity": "P2",
         "title": "Publisher unicode escapes reach canonical binding undecoded",

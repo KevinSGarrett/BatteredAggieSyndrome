@@ -151,6 +151,17 @@ DIRECT_LANES: tuple[dict[str, Any], ...] = (
         "paid-scientific-review-ready label was applied.",
     },
     {
+        "lane": "FULL_SUITE_MOUNTED_CLEAN",
+        "command": "AGGIE_ANALYTICS_DATA_ROOT=<lake> python -m unittest "
+        "discover -s tests   (no concurrent jobs)",
+        "result": "FAIL",
+        "tests_run": 3842,
+        "detail": "3 red, IDENTICAL set to the predecessor baseline's 3. "
+        "Zero regressions and zero fixes by exact set membership. All three "
+        "are the Family B family blocked on "
+        "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001.",
+    },
+    {
         "lane": "FULL_SUITE_MOUNTED_RED_TESTS",
         "command": "grep '^(FAIL|ERROR): ' mounted_full_run.txt",
         "result": "FAIL",
@@ -312,6 +323,82 @@ def main() -> int:
             "which the hosted runner cannot execute, so Family B remains FAIL "
             "regardless of the green hosted result.",
         ],
+        "mounted_lane_new_red_test": {
+            "test": "test_tamu_official_gamebook_union_2000_expanded."
+            "Expanded2000ReconstructionAndTamperTests."
+            "test_bat623_row_and_coverage_tampers_fail",
+            "state": "NOT_CLAIMED_INHERITED",
+            "why_not_claimed": (
+                "It is red in this branch's mounted full run and NOT red in "
+                "the predecessor's mounted full run, so it fails the "
+                "baseline-equivalence test and may not be called inherited."
+            ),
+            "observed_error": (
+                "AuthorityViolation: external 2001-expanded reconstruction "
+                "was required but the data root is not mounted"
+            ),
+            "code_change_ruled_out": (
+                "git diff 517ff324..HEAD touches ZERO files under "
+                "src/aggie_analytics/data/, so no module in this failure's "
+                "call path was modified by this cycle."
+            ),
+            "predicate_recheck": (
+                "upstream_is_ready(data_root, repo_root) returns True when "
+                "evaluated directly at this head against the same mounted "
+                "lake, so the condition that raised is not reproducible on "
+                "demand."
+            ),
+            "environmental_difference_observed": (
+                "The mounted full run finished at 14:50:22 while a "
+                "concurrent job recursively reading 34,701 files under the "
+                "same data root ran until 14:42:27. The predecessor baseline "
+                "ran later, without that concurrency. This is a difference "
+                "in run conditions, not in code -- recorded as an "
+                "observation, not accepted as the explanation."
+            ),
+            "isolated_rerun_result": (
+                "Two independent isolated runs of the module at this head "
+                "against the same mounted lake: 12 passed each time, "
+                "including this test (291s and 286s). It does not reproduce."
+            ),
+            "clean_full_run_result": (
+                "A full mounted suite re-run at this head with NO concurrent "
+                "jobs produced 3 red tests whose identities are IDENTICAL to "
+                "the predecessor baseline's 3. This test is green in it. "
+                "Zero regressions and zero fixes against baseline, by exact "
+                "set membership."
+            ),
+            "evidence_chain": [
+                "Full mounted run concurrent with a 34,701-file traversal of "
+                "the same root: RED",
+                "Isolated module run #1 (nothing else running): 12 passed",
+                "Isolated module run #2 (nothing else running): 12 passed",
+                "Full mounted run with no concurrent jobs: GREEN, red set "
+                "identical to predecessor baseline",
+            ],
+            "mechanism_demonstrated": (
+                "upstream_is_ready decides mounted-ness with four "
+                "Path.is_file() calls, and pathlib's is_file() catches "
+                "OSError and returns False for ignorable errors -- which on "
+                "Windows includes sharing violations. Under heavy concurrent "
+                "I/O a transient stat failure is therefore indistinguishable "
+                "from a missing file. Recorded as finding C35-N5."
+            ),
+            "disposition": "NOT_A_REGRESSION_CONCURRENCY_SENSITIVE_PREDICATE",
+            "honest_summary": (
+                "Red exactly once, in a full mounted suite that ran "
+                "concurrently with a heavy lake-reading job. Green in two "
+                "isolated runs and in a clean full mounted run whose red set "
+                "is identical to the predecessor baseline. No file in its "
+                "call path was changed by this cycle, and the mechanism that "
+                "makes the readiness predicate concurrency-sensitive is "
+                "demonstrated. It is not a regression from these changes. It "
+                "is also not 'inherited' in the strict sense -- it was green "
+                "at the predecessor and is green here; the correct label is "
+                "a latent environment-sensitive defect in a module this "
+                "cycle did not touch."
+            ),
+        },
         "inherited_failure_baseline": {
             "family_b": "Reproduced at the Cycle #34 predecessor head with "
             "identical failure reasons before any Cycle #35 change, so it is "

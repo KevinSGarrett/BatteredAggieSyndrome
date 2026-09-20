@@ -3870,6 +3870,7 @@ src/aggie_analytics/cycle35/availability.py
 src/aggie_analytics/cycle35/coaching_release.py
 src/aggie_analytics/cycle35/forecast_admission.py
 src/aggie_analytics/cycle35/program_aliases.py
+src/aggie_analytics/cycle35/query.py
 src/aggie_analytics/cycle35/request_ledger.py
 src/aggie_analytics/cycle35/scoring_successor.py
 src/aggie_analytics/data/.cursor/BUGBOT.md
@@ -4285,10 +4286,17 @@ tests/test_cycle34_r34_10_bat637_candidate_recompute.py
 tests/test_cycle34_r34_10_child_byte_verification.py
 tests/test_cycle35_r35_02_04_07_08_admission.py
 tests/test_cycle35_r35_03_coaching_release.py
+tests/test_cycle35_r35_03_entailment_independent.py
+tests/test_cycle35_r35_05_career_tranche_contract.py
+tests/test_cycle35_r35_05_role_semantics.py
 tests/test_cycle35_r35_06_forecast_admission.py
 tests/test_cycle35_r35_06_legacy_path_hardening.py
+tests/test_cycle35_r35_06_query_adapter.py
+tests/test_cycle35_r35_07_status_staleness.py
+tests/test_cycle35_r35_08_career_tranche_era.py
 tests/test_cycle35_r35_09_kernel_reference.py
 tests/test_cycle35_r35_10_family_b_candidate.py
+tests/test_cycle35_r35_10_validation_integrity.py
 tests/test_cycle35_r35_11_availability.py
 tests/test_cycle35_r35_14_private_data_availability.py
 tests/test_data_research.py

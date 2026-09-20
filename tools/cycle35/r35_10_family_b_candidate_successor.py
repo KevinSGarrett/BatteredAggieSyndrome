@@ -387,10 +387,27 @@ def main() -> int:
 
     approval_request = {
         "approval_id": APPROVAL_ID,
+        # MF35-12 repair: the prior wording ("replacing the committed
+        # gate's ledger identity") described this as an in-place mutation
+        # of the existing committed gate. That is not what this candidate
+        # does or what this request asks for -- the candidate is written
+        # under an isolated root, the committed gate's bytes are proven
+        # unchanged (predecessor_bytes_unchanged, below), and this module's
+        # own release discipline is append-only, never overwrite-in-place.
+        # What activation actually means is installing a NEW, immutable,
+        # independently-versioned successor artifact and ROUTING canonical
+        # consumers to it -- the committed gate remains on disk, unedited,
+        # as the predecessor of that successor.
         "requested_action": (
-            "Activate canonical routing for the Cycle #35 Family B "
-            "rejection-integrity successor, replacing the committed gate's "
-            "ledger identity with the independently reconstructed one."
+            "Install the Cycle #35 Family B rejection-integrity successor "
+            "as a new, immutable, independently-versioned artifact, and "
+            "route canonical consumers to it. This does NOT edit, delete, "
+            "or overwrite the currently committed gate's bytes or ledger "
+            "identity in place -- the committed gate remains on disk "
+            "unchanged as the successor's predecessor (see "
+            "predecessor_bytes_unchanged below); activation changes which "
+            "artifact canonical consumers are routed to read, not the "
+            "committed gate itself."
         ),
         "candidate_byte_hashes": {
             "manifest_sha256": first["manifest_sha256"],

@@ -166,6 +166,25 @@ class PredecessorImmutabilityTests(unittest.TestCase):
 
 
 class ApprovalRequestTests(unittest.TestCase):
+    def test_requested_action_does_not_describe_an_in_place_replacement(self) -> None:
+        """MF35-12: the approval wording previously described activation as
+        'replacing the committed gate's ledger identity with the
+        independently reconstructed one' -- in-place mutation language that
+        does not match what this module actually does (write an isolated,
+        immutable candidate; prove the committed gate's bytes are
+        untouched). The source text itself, not just runtime behavior, must
+        say installation-and-routing, not replacement. Source module
+        (`build_candidate`/`main`) requires a mounted data root to actually
+        execute, so this reads the module's own text directly rather than
+        running main()."""
+        source = (ROOT / "tools" / "cycle35" / "r35_10_family_b_candidate_successor.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertNotIn("replacing the committed gate", source)
+        self.assertIn("route canonical consumers", source)
+        self.assertIn("does NOT edit, delete,", source)
+        self.assertIn("overwrite the currently committed gate", source)
+
     def test_the_run_artifact_records_a_failing_canonical_dimension(self) -> None:
         """The prepared candidate must not be mistaken for activation."""
         artifact = (

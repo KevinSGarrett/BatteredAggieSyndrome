@@ -174,5 +174,112 @@ class PredeclareKeysTests(unittest.TestCase):
         self.assertEqual(len(keys), 2 * tranche.TARGET_PER_DIVISION)
 
 
+class SampleReconciliationTests(unittest.TestCase):
+    """Cycle #35 follow-up item 5: the corrected era-fixed 48-key sample
+    changes 40 of 48 semantic keys relative to the original predeclaration
+    (only 8 overlap). Reconciling by mutable key_id (K01, K02, ...) would
+    compare the wrong rows at a shared id and miss matching rows that
+    happen to land at different ids after a cascading reindex; these tests
+    exercise reconciliation by the stable (program_id, season, role)
+    semantic key instead.
+    """
+
+    def _key(self, **overrides) -> dict:
+        row = {
+            "key_id": "K01", "program_id": "P:A", "season": 2020, "role": "head_coach",
+            "classification": "fbs", "disposition": "ACCEPTED_SINGLE_SOURCE",
+        }
+        row.update(overrides)
+        return row
+
+    def test_semantic_key_ignores_key_id(self) -> None:
+        a = self._key(key_id="K01")
+        b = self._key(key_id="K47")
+        self.assertEqual(tranche.semantic_key(a), tranche.semantic_key(b))
+
+    def test_semantic_key_differs_on_program_season_or_role(self) -> None:
+        base = tranche.semantic_key(self._key())
+        self.assertNotEqual(base, tranche.semantic_key(self._key(program_id="P:B")))
+        self.assertNotEqual(base, tranche.semantic_key(self._key(season=2021)))
+        self.assertNotEqual(
+            base, tranche.semantic_key(self._key(role="defensive_coordinator"))
+        )
+
+    def test_identical_key_at_different_ids_is_retained(self) -> None:
+        old = [self._key(key_id="K02")]
+        new = [self._key(key_id="K28")]
+        result = tranche.reconcile_tranche_samples(old, new)
+        self.assertEqual(result["status_counts"], {"RETAINED": 1})
+        self.assertEqual(result["entries"][0]["old_key_id"], "K02")
+        self.assertEqual(result["entries"][0]["new_key_id"], "K28")
+
+    def test_key_present_only_in_old_is_superseded(self) -> None:
+        old = [self._key(program_id="P:GONE")]
+        new: list[dict] = []
+        result = tranche.reconcile_tranche_samples(old, new)
+        self.assertEqual(result["status_counts"], {"SUPERSEDED": 1})
+
+    def test_key_present_only_in_new_is_added(self) -> None:
+        old: list[dict] = []
+        new = [self._key(program_id="P:NEW")]
+        result = tranche.reconcile_tranche_samples(old, new)
+        self.assertEqual(result["status_counts"], {"ADDED": 1})
+
+    def test_changed_classification_is_reclassified_not_superseded_plus_added(
+        self,
+    ) -> None:
+        """The exact Massachusetts/Sacramento State pattern: same program,
+        season and role, but the classification correction changed which
+        division it belongs to. This must be ONE reclassified entry, never
+        two separate supersede/add entries that hide the connection."""
+        old = [self._key(classification="fbs")]
+        new = [self._key(classification="fcs")]
+        result = tranche.reconcile_tranche_samples(old, new)
+        self.assertEqual(result["status_counts"], {"RECLASSIFIED": 1})
+        entry = result["entries"][0]
+        self.assertEqual(entry["old_classification"], "fbs")
+        self.assertEqual(entry["new_classification"], "fcs")
+
+    def test_changed_disposition_same_classification_is_disposition_changed(self) -> None:
+        old = [self._key(disposition="MISSING_NO_EVIDENCE")]
+        new = [self._key(disposition="ACCEPTED_SINGLE_SOURCE")]
+        result = tranche.reconcile_tranche_samples(old, new)
+        self.assertEqual(result["status_counts"], {"DISPOSITION_CHANGED": 1})
+
+    def test_union_count_matches_status_counts(self) -> None:
+        old = [self._key(program_id="P:SHARED"), self._key(program_id="P:OLD_ONLY")]
+        new = [self._key(program_id="P:SHARED"), self._key(program_id="P:NEW_ONLY")]
+        result = tranche.reconcile_tranche_samples(old, new)
+        self.assertEqual(result["union_distinct_semantic_key_count"], 3)
+        self.assertEqual(sum(result["status_counts"].values()), 3)
+
+    def test_never_claims_either_sample_is_fully_verified(self) -> None:
+        result = tranche.reconcile_tranche_samples([self._key()], [self._key()])
+        self.assertTrue(result["neither_sample_is_all_48_verified"])
+        self.assertTrue(result["no_acquisition_performed_no_budget_requested"])
+
+    def test_real_old_and_new_samples_reconcile_to_manager_reported_counts(self) -> None:
+        """Direct reproduction of the manager's own independently-computed
+        numbers: 8 retained, union of 88 distinct semantic keys."""
+        old_path = Path(
+            r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs\20260920T172801Z"
+            r"\implementation_output\R35_05_CAREER_TRANCHE_FINAL.json"
+        )
+        new_path = Path(
+            r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs"
+            r"\20260920T215454Z_mf35_08_era_fix\implementation_output"
+            r"\R35_05_CAREER_TRANCHE_FINAL.json"
+        )
+        if not old_path.is_file() or not new_path.is_file():
+            self.skipTest("real resolved tranche artifacts not present in this environment")
+        old_payload = json.loads(old_path.read_text(encoding="utf-8"))
+        new_payload = json.loads(new_path.read_text(encoding="utf-8"))
+        result = tranche.reconcile_tranche_samples(
+            old_payload["final_keys"], new_payload["final_keys"]
+        )
+        self.assertEqual(result["union_distinct_semantic_key_count"], 88)
+        self.assertEqual(result["status_counts"].get("RETAINED"), 8)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -27,6 +27,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from aggie_analytics.cycle35.request_ledger import (  # noqa: E402
     BUDGET_COACHING,
@@ -34,6 +35,7 @@ from aggie_analytics.cycle35.request_ledger import (  # noqa: E402
     BudgetExhausted,
     RequestLedger,
 )
+from r35_05_career_tranche import reconcile_tranche_samples  # noqa: E402
 
 TITLE_INDEX = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs\wikimedia_title_index.json"
@@ -216,6 +218,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--tranche", required=True)
+    ap.add_argument(
+        "--reconcile-with", default="",
+        help="Path to a predecessor R35_05_CAREER_TRANCHE_FINAL.json (a "
+        "resolved second-pass artifact) to reconcile this run's resolved "
+        "sample against, by stable (program_id, season, role) semantic "
+        "key rather than mutable key_id. Optional; performs no acquisition.",
+    )
     args = ap.parse_args()
     out_dir = Path(args.out_dir)
     cache_dir = Path(
@@ -361,6 +370,24 @@ def main() -> int:
         json.dumps(result, indent=2, sort_keys=True), encoding="utf-8"
     )
     ledger.write(out_dir / "CYCLE35_REQUEST_LEDGER_CAREER.json")
+
+    reconciliation_summary: dict[str, Any] | None = None
+    if args.reconcile_with:
+        predecessor = read_json(Path(args.reconcile_with)) or {}
+        reconciliation = reconcile_tranche_samples(
+            predecessor.get("final_keys") or [], final_keys
+        )
+        (out_dir / "R35_05_SAMPLE_RECONCILIATION.json").write_text(
+            json.dumps(reconciliation, indent=2, sort_keys=True), encoding="utf-8"
+        )
+        reconciliation_summary = {
+            "old_sample_path": args.reconcile_with,
+            "status_counts": reconciliation["status_counts"],
+            "union_distinct_semantic_key_count": reconciliation[
+                "union_distinct_semantic_key_count"
+            ],
+        }
+
     print(json.dumps(
         {
             "attempted": len(missing),
@@ -369,6 +396,7 @@ def main() -> int:
             "coaching_requests_spent": ledger.spent[BUDGET_COACHING],
             "coaching_remaining": ledger.remaining(BUDGET_COACHING),
             "outcome_counts": ledger.as_dict()["outcome_counts"],
+            "sample_reconciliation": reconciliation_summary,
         },
         indent=1,
     ))

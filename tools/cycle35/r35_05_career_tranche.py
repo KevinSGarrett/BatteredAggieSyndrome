@@ -223,6 +223,107 @@ def index_cached_episodes() -> tuple[dict[str, list[dict[str, Any]]], dict[str, 
     }
 
 
+def semantic_key(row: dict[str, Any]) -> tuple[str, str, str]:
+    """(program_id, season, role) -- the STABLE identity of a career-tranche
+    key. `key_id` (K01, K02, ...) is a mutable ordinal position in a
+    deterministic walk; MF35-08 proved that correctly fixing one early
+    eligibility check reassigns every downstream key_id even though most
+    underlying program/season/role facts did not change. Reconciling two
+    tranche samples by key_id alone would compare the WRONG things at the
+    SAME id and miss the SAME thing at two different ids; this is the key
+    that must be used instead.
+    """
+
+    return (
+        str(row.get("program_id") or ""),
+        str(row.get("season") or ""),
+        str(row.get("role") or ""),
+    )
+
+
+def reconcile_tranche_samples(
+    old_keys: list[dict[str, Any]], new_keys: list[dict[str, Any]]
+) -> dict[str, Any]:
+    """Cycle #35 manager follow-up (20260920T224700Z): "Preserve and
+    account for both sample versions. Explain why each old key was
+    retained, reclassified, supplemented, or superseded... The two sets'
+    union has 88 distinct program/season/role keys; this is reconciliation
+    accounting, not permission to substitute a new sample for unfinished
+    original obligations."
+
+    Every semantic key in EITHER sample is classified exactly once:
+
+    * RETAINED -- present in both, same classification, same disposition.
+    * RECLASSIFIED -- present in both, but fbs/fcs classification differs
+      (the era-correctness fix changing which division a key belongs to).
+    * DISPOSITION_CHANGED -- present in both, same classification, but the
+      resolution disposition differs (e.g. resolved by the second pass on
+      one side but not the other).
+    * SUPERSEDED -- present only in the OLD sample. The corrected
+      selection algorithm no longer reaches this exact program/season/role
+      combination (usually a downstream reindex cascade from an earlier
+      eligibility correction, not that the fact itself was wrong).
+    * ADDED -- present only in the NEW sample, for the same reason in
+      reverse.
+
+    This performs no acquisition and requests no budget; it is pure
+    accounting over two already-produced artifacts.
+    """
+
+    old_by_key = {semantic_key(row): row for row in old_keys}
+    new_by_key = {semantic_key(row): row for row in new_keys}
+    all_semantic_keys = sorted(set(old_by_key) | set(new_by_key))
+
+    entries: list[dict[str, Any]] = []
+    status_counts: Counter = Counter()
+    for key in all_semantic_keys:
+        old_row = old_by_key.get(key)
+        new_row = new_by_key.get(key)
+        if old_row is not None and new_row is not None:
+            if old_row.get("classification") != new_row.get("classification"):
+                status = "RECLASSIFIED"
+            elif old_row.get("disposition") != new_row.get("disposition"):
+                status = "DISPOSITION_CHANGED"
+            else:
+                status = "RETAINED"
+        elif old_row is not None:
+            status = "SUPERSEDED"
+        else:
+            status = "ADDED"
+        status_counts[status] += 1
+        entries.append(
+            {
+                "program_id": key[0],
+                "season": key[1],
+                "role": key[2],
+                "status": status,
+                "old_key_id": old_row.get("key_id") if old_row else None,
+                "new_key_id": new_row.get("key_id") if new_row else None,
+                "old_classification": old_row.get("classification") if old_row else None,
+                "new_classification": new_row.get("classification") if new_row else None,
+                "old_disposition": old_row.get("disposition") if old_row else None,
+                "new_disposition": new_row.get("disposition") if new_row else None,
+            }
+        )
+
+    return {
+        "artifact_type": "CYCLE35_R35_05_SAMPLE_RECONCILIATION",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "reconciliation_method": "stable_semantic_key_program_season_role_"
+        "never_mutable_key_id",
+        "old_sample_key_count": len(old_keys),
+        "new_sample_key_count": len(new_keys),
+        "union_distinct_semantic_key_count": len(all_semantic_keys),
+        "status_counts": dict(status_counts),
+        "entries": entries,
+        "neither_sample_is_all_48_verified": True,
+        "this_is_accounting_not_a_sample_substitution": True,
+        "no_acquisition_performed_no_budget_requested": True,
+        "national_fbs_fcs_population_and_program_season_tranche_remain_"
+        "separately_required_and_are_not_satisfied_by_either_48_key_sample": True,
+    }
+
+
 def resolve_key(
     key: dict[str, Any], by_season: dict[int, list[dict[str, Any]]]
 ) -> dict[str, Any]:

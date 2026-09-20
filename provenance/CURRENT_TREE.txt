@@ -4809,6 +4809,9 @@ tools/cycle35/r35_10_family_b_candidate_successor.py
 tools/cycle35/r35_11_availability_release.py
 tools/cycle35/r35_12_all22_alignment.py
 tools/cycle35/r35_13_plan_jira_trace.py
+tools/cycle35/r35_14_validation_results.py
+tools/cycle35/r35_15_acceptance_packet.py
+tools/cycle35/r35_15_final_report.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

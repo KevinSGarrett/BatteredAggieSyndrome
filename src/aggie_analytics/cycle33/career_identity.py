@@ -60,7 +60,11 @@ MASCOT_TOKENS = frozenset(
         "knights", "knight", "hawkeyes", "hawkeye", "cornhuskers",
         "cornhusker", "bearkats", "jackrabbits", "jackrabbit",
         "vandals", "vandal", "falcons", "falcon", "penguins", "penguin",
-        "minutemen", "flames", "flame",
+        "minutemen", "flames", "flame", "utes", "ute", "buffaloes",
+        "buffalo", "sooners", "aztecs", "aztec", "rams", "ram", "owls",
+        "owl", "eagles", "eagle", "bearcats", "bearcat", "panthers",
+        "panther", "demon", "deacons", "deacon", "orange", "pirates",
+        "pirate",
     }
 )
 
@@ -70,6 +74,12 @@ ALIAS_GROUPS: tuple[frozenset[str], ...] = (
     frozenset({"texas a&m", "texas am", "tamu", "texas a and m"}),
     frozenset({"miami (fl)", "miami florida", "miami fl"}),
     frozenset({"miami (oh)", "miami ohio", "miami oh"}),
+    # A real deliberate institutional rebrand (athletics dropped "State" from
+    # public branding in 2021 while the legal/academic name kept it) -- an
+    # alias, not a mascot-suffix case, since "State" is otherwise a genuine
+    # distinguishing qualifier (Washington vs Washington State) that must
+    # not be stripped generically.
+    frozenset({"sam houston", "sam houston state", "sam houston state university"}),
 )
 
 

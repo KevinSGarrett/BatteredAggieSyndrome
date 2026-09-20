@@ -46,17 +46,42 @@ class Bat637CandidateRecomputeTests(unittest.TestCase):
         self.assertFalse(result["pin_matches_live"])
 
     def test_guarded_source_module_is_never_imported(self) -> None:
-        # The recompute module's own source (read above, imports only
-        # ncaa_contest_reconciliation and artifact_binding) never imports the
-        # guarded tamu_official_gamebook_union_1998_rejection_complete module
-        # at all -- checked here by asserting it is absent from sys.modules
-        # after running, without shelling out to git (kept minimal).
+        # Bug found by this round's full MOUNTED suite run (not visible when
+        # this test file was run in isolation): a bare "is the guarded module
+        # present in sys.modules" check is unreliable in a full pytest
+        # process, because *other* test files (which legitimately test the
+        # guarded module itself, e.g. test_tamu_official_gamebook_union_1998_
+        # rejection_complete.py) import it first for their own reasons,
+        # making this check fail even though THIS script never imports it.
+        # Fixed two ways, neither shelling out to a subprocess:
+        #
+        # 1. Static check (primary, process-independent): read this recompute
+        #    script's own source text and confirm the guarded module's dotted
+        #    name never appears in an import statement at all.
+        guarded_name = "aggie_analytics.data.tamu_official_gamebook_union_1998_rejection_complete"
+        source_text = _MODULE_PATH.read_text(encoding="utf-8")
+        for line in source_text.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("import ") or stripped.startswith("from "):
+                self.assertNotIn(
+                    guarded_name,
+                    stripped,
+                    "the guarded module must never appear in this recompute script's own imports",
+                )
+
+        # 2. Dynamic check (secondary): the guarded module must not be newly
+        #    added to sys.modules as a RESULT of calling run() -- comparing
+        #    before/after membership, not absolute presence, so a prior
+        #    test's legitimate import of the guarded module elsewhere in the
+        #    same pytest process cannot cause a false failure here.
+        was_present_before = guarded_name in sys.modules
         _module.run()
-        self.assertNotIn(
-            "aggie_analytics.data.tamu_official_gamebook_union_1998_rejection_complete",
-            sys.modules,
-            "the guarded module must never be imported by this recompute script",
-        )
+        is_present_after = guarded_name in sys.modules
+        if not was_present_before:
+            self.assertFalse(
+                is_present_after,
+                "run() must not cause the guarded module to be imported",
+            )
 
 
 if __name__ == "__main__":

@@ -13,11 +13,10 @@ This module replaces that with an explicit, typed admission contract:
 
 1.  **Trusted issuance, not discovery.** A receipt is authority only when it
     appears in a declared `TrustedReceiptStore` -- an allowlist naming the
-    issuer and the commitment time. Scanning archive roots for any JSON file
-    whose bytes happen to hash correctly is *discovery*, and discovery lets
-    anything writable become evidence (that is precisely how a file written
-    into a manager-review directory became forecast authority). Bytes found
-    on disk are corroboration of content; the allowlist is the authority.
+    issuer, the commitment time, AND the specific committed payload bytes.
+    Scanning archive roots for any JSON file whose bytes happen to hash
+    correctly is *discovery*; the allowlist plus its bound payload is the
+    authority.
 
 2.  **Commitment before cutoff, established independently of the claimant.**
     The commitment time comes from the trusted store, never from the packet
@@ -26,12 +25,35 @@ This module replaces that with an explicit, typed admission contract:
     and it must not be in the future relative to an explicitly injected
     `as_of_utc`.
 
-3.  **Ordered participants are part of the key.** `(home, away)` is ordered;
-    a reversed pair is a different claim about the world, not the same one.
+3.  **Ordered participants are part of the key**, and so is the CONTEST'S OWN
+    declared identity -- `(home, away)` is ordered, and a reversed pair is a
+    different claim about the world, not the same one. The `contest` mapping
+    handed to `admit()` must itself declare the same canonical id the
+    forecast claims; nothing about matching participants or schedule version
+    alone is treated as proof it is the same game (MF35-01).
 
-4.  **Strict types.** `True` is not a probability. `1` is not a probability
+4.  **The admitted content is the verified payload's content, not the
+    caller's claim.** A receipt binds to a specific payload file at
+    authoring time (`payload_path` in the allowlist row). `admit()` resolves
+    that path, verifies its bytes hash to `receipt_sha256`, parses it, and
+    uses ITS OWN declared probability/contest/participants as the ground
+    truth. A forecast row that disagrees with the verified payload is
+    rejected outright, and a forecast with no verifiable payload behind its
+    receipt is never admitted merely because its metadata matches (MF35-01).
+
+5.  **Strict types.** `True` is not a probability. `1` is not a probability
     either when it arrives as a Boolean. Timestamps must be timezone-aware
     ISO-8601.
+
+6.  **An empty trusted-issuer allowlist trusts nothing.** `trusted_issuers=()`
+    is a store with no authority, not a store with unrestricted authority --
+    every row is rejected with `NO_TRUSTED_ISSUERS_CONFIGURED` (MF35-02).
+
+7.  **A receipt ID that has ever conflicted stays poisoned for the entire
+    load.** Sequence A / conflicting-B / A must not resurrect A: once an ID
+    is flagged as carrying inconsistent content, it is permanently excluded
+    from that store, regardless of what a later row with the same ID and
+    even the same content claims (MF35-02).
 
 Every rejection returns an exact predicate name. `admit()` never raises for
 ordinary bad input -- an unprovable forecast is a normal, expected, *recorded*
@@ -54,7 +76,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
-CONTRACT_VERSION = "BAS-FORECAST-ADMISSION-CONTRACT-v35.1"
+CONTRACT_VERSION = "BAS-FORECAST-ADMISSION-CONTRACT-v35.2"
 SHADOW = "UNTRUSTED_SHADOW"
 HOLD = "SCIENTIFIC_OPERATOR_HOLD_ACTIVE"
 
@@ -147,9 +169,36 @@ def forecast_key(row: Mapping[str, Any]) -> tuple[str, str, str, str]:
     )
 
 
+def contest_own_id(row: Mapping[str, Any]) -> str:
+    """The identity a CONTEST mapping declares about itself.
+
+    MF35-01 repair: `admit()` previously never read this. A caller could pass
+    a `contest` mapping for an entirely different game -- sharing participants
+    and schedule_version by coincidence or construction -- and admission would
+    not notice, because nothing compared the contest's own declared id to what
+    the forecast/receipt claim. Deliberately the SAME field set `forecast_key`
+    reads, so a contest and a forecast describing the same game agree by the
+    same rule.
+    """
+
+    return str(
+        row.get("ncaa_contest_id")
+        or row.get("canonical_contest_id")
+        or row.get("contest_id")
+        or ""
+    )
+
+
 @dataclass(frozen=True)
 class TrustedReceipt:
-    """One allowlisted commitment. The store is the authority, not the file."""
+    """One allowlisted commitment. The store is the authority, not the file.
+
+    `payload_path` is REQUIRED and is resolved against the store's
+    `evidence_root`. A receipt with no bound payload cannot be confirmed and
+    therefore cannot admit anything -- "trusted issuance" means the issuer
+    committed specific bytes at authoring time, not merely a row of metadata
+    that happens to match whatever is later presented for scoring.
+    """
 
     receipt_id: str
     issuer: str
@@ -163,6 +212,7 @@ class TrustedReceipt:
     schedule_version: str
     model_code_identity: str
     model_data_identity: str
+    payload_path: str
 
     def key(self) -> tuple[str, str, str, str]:
         return (self.contest_id, self.candidate_id, self.cohort, self.checkpoint)
@@ -203,12 +253,25 @@ class AdmissionVerdict:
 
 
 class TrustedReceiptStore:
-    """An explicit allowlist of commitments, with issuer and commitment time.
+    """An explicit allowlist of commitments, with issuer, commitment time and
+    a bound payload for each receipt.
 
     Construct from a declared allowlist artifact (`from_file`) or from rows.
     Absence is a first-class answer: an unknown receipt id resolves to None,
     which the contract reports as `RECEIPT_NOT_IN_TRUSTED_STORE` rather than
     falling back to a filesystem search.
+
+    MF35-02 repair, two structural changes versus the prior version:
+
+    * An empty `trusted_issuers` sequence trusts NO issuer. The prior
+      condition (`if self.trusted_issuers and issuer not in ...`) short-
+      circuited to "accept" when the allowlist was empty, which is the
+      precise inversion of what an empty allowlist should mean.
+    * Once a receipt ID is found carrying conflicting content, that ID is
+      permanently poisoned for the life of this store. The prior version
+      deleted the conflicting entry from `_by_id` but did not remember the
+      ID was poisoned, so a THIRD row repeating the original content simply
+      re-inserted it -- sequence A / conflicting-B / A resurrected A.
     """
 
     def __init__(
@@ -217,21 +280,39 @@ class TrustedReceiptStore:
         *,
         trusted_issuers: Sequence[str] = (),
         source_identity: str = "INLINE",
+        evidence_root: Path | None = None,
     ) -> None:
         self.trusted_issuers = tuple(trusted_issuers)
         self.source_identity = source_identity
+        self.evidence_root = evidence_root
         self._by_id: dict[str, TrustedReceipt] = {}
+        self._poisoned_ids: set[str] = set()
         self.rejected_rows: list[dict[str, Any]] = []
         for row in receipts:
             parsed = self._parse(row)
             if parsed is None:
                 continue
+            if parsed.receipt_id in self._poisoned_ids:
+                # MF35-02: a poisoned ID stays poisoned. A row that happens to
+                # repeat the ORIGINAL content is not evidence the conflict
+                # never happened -- it is evidence this ID is not reliably
+                # single-sourced, which is disqualifying on its own.
+                self.rejected_rows.append(
+                    {
+                        "receipt_id": parsed.receipt_id,
+                        "reason": "RECEIPT_ID_PERMANENTLY_QUARANTINED_"
+                        "CONFLICTING_CONTENT_SEEN_EARLIER_IN_LOAD",
+                    }
+                )
+                continue
             if parsed.receipt_id in self._by_id:
                 # A duplicate receipt id with differing content is a store
-                # defect, not a tiebreak: drop both rather than pick one.
+                # defect, not a tiebreak: drop both and poison the ID rather
+                # than pick one.
                 existing = self._by_id[parsed.receipt_id]
                 if existing != parsed:
                     del self._by_id[parsed.receipt_id]
+                    self._poisoned_ids.add(parsed.receipt_id)
                     self.rejected_rows.append(
                         {
                             "receipt_id": parsed.receipt_id,
@@ -247,12 +328,18 @@ class TrustedReceiptStore:
         digest = str(row.get("receipt_sha256") or "").strip().casefold()
         commitment = parse_utc(row.get("commitment_time_utc"))
         participants = ordered_participants(row)
+        payload_path = str(row.get("payload_path") or "").strip()
         reasons: list[str] = []
         if not receipt_id:
             reasons.append("MISSING_RECEIPT_ID")
         if not issuer:
             reasons.append("MISSING_ISSUER")
-        elif self.trusted_issuers and issuer not in self.trusted_issuers:
+        # MF35-02: fail closed on an empty allowlist rather than skipping the
+        # issuer check entirely. This fires regardless of whether `issuer`
+        # itself looks plausible -- an empty allowlist trusts nobody.
+        if not self.trusted_issuers:
+            reasons.append("NO_TRUSTED_ISSUERS_CONFIGURED")
+        elif issuer and issuer not in self.trusted_issuers:
             reasons.append("ISSUER_NOT_TRUSTED")
         if not _SHA256_RE.match(digest):
             reasons.append("RECEIPT_SHA256_NOT_WELL_FORMED")
@@ -260,6 +347,10 @@ class TrustedReceiptStore:
             reasons.append("COMMITMENT_TIME_NOT_PARSEABLE")
         if participants is None:
             reasons.append("MISSING_OR_DEGENERATE_ORDERED_PARTICIPANTS")
+        if not payload_path:
+            # MF35-01: a receipt with no bound payload cannot be confirmed,
+            # so it must never enter the store as if it could be trusted.
+            reasons.append("MISSING_PAYLOAD_PATH")
         for required in ("contest_id", "candidate_id", "cohort", "checkpoint",
                          "schedule_version", "model_code_identity",
                          "model_data_identity"):
@@ -284,17 +375,20 @@ class TrustedReceiptStore:
             schedule_version=str(row["schedule_version"]).strip(),
             model_code_identity=str(row["model_code_identity"]).strip(),
             model_data_identity=str(row["model_data_identity"]).strip(),
+            payload_path=payload_path,
         )
 
     @classmethod
     def from_file(cls, path: Path) -> "TrustedReceiptStore":
-        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        path = Path(path)
+        payload = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict):
             raise ForecastAdmissionError("trusted receipt allowlist must be an object")
         return cls(
             payload.get("receipts") or [],
             trusted_issuers=tuple(payload.get("trusted_issuers") or ()),
             source_identity=str(path),
+            evidence_root=path.parent,
         )
 
     def get(self, receipt_id: str) -> TrustedReceipt | None:
@@ -303,12 +397,21 @@ class TrustedReceiptStore:
     def __len__(self) -> int:
         return len(self._by_id)
 
+    def resolve_payload_path(self, receipt: TrustedReceipt) -> Path:
+        candidate = Path(receipt.payload_path)
+        if candidate.is_absolute():
+            return candidate
+        if self.evidence_root is not None:
+            return self.evidence_root / candidate
+        return candidate
+
     def identities(self) -> dict[str, Any]:
         return {
             "source_identity": self.source_identity,
             "trusted_issuers": list(self.trusted_issuers),
             "receipt_count": len(self._by_id),
             "rejected_store_rows": len(self.rejected_rows),
+            "poisoned_receipt_ids": sorted(self._poisoned_ids),
         }
 
 
@@ -336,14 +439,40 @@ def contest_cutoff(
     return kickoff - lead, None
 
 
-def confirm_receipt_bytes(receipt: TrustedReceipt, payload_path: Path | None) -> bool:
-    """Corroborate the allowlisted digest against actual bytes, when present.
+def verify_and_load_payload(
+    receipt: TrustedReceipt, resolved_path: Path
+) -> tuple[dict[str, Any] | None, list[str]]:
+    """Read the receipt's bound bytes, verify the hash, parse the content.
 
-    This is deliberately *not* how authority is established -- it only
-    confirms that a file the caller already identified matches what the store
-    says. A False result means the bytes disagree with the allowlist; a
-    missing file means unconfirmed, which the caller records rather than
-    treating as proof either way.
+    Returns `(payload, [])` only when the bytes exist, hash-match the
+    receipt's pinned `receipt_sha256`, and parse as a JSON object. Any other
+    outcome returns `(None, [exact_reason, ...])` -- never a guess, never a
+    partial read treated as confirmation.
+    """
+
+    if not resolved_path.is_file():
+        return None, ["EVIDENCE_PAYLOAD_FILE_NOT_FOUND"]
+    try:
+        raw = resolved_path.read_bytes()
+    except OSError:
+        return None, ["EVIDENCE_PAYLOAD_FILE_UNREADABLE"]
+    if hashlib.sha256(raw).hexdigest() != receipt.receipt_sha256:
+        return None, ["EVIDENCE_BYTES_DO_NOT_MATCH_RECEIPT_SHA256"]
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return None, ["EVIDENCE_PAYLOAD_NOT_VALID_JSON"]
+    if not isinstance(payload, dict):
+        return None, ["EVIDENCE_PAYLOAD_NOT_A_JSON_OBJECT"]
+    return payload, []
+
+
+def confirm_receipt_bytes(receipt: TrustedReceipt, payload_path: Path | None) -> bool:
+    """Byte-only confirmation, retained for callers that just want a bool.
+
+    `admit()` itself does not use this narrow form -- it uses
+    `verify_and_load_payload`, which also validates and cross-checks the
+    parsed content. This wrapper exists for direct diagnostic use only.
     """
 
     if payload_path is None or not Path(payload_path).is_file():
@@ -361,9 +490,17 @@ def admit(
     *,
     store: TrustedReceiptStore,
     as_of_utc: datetime,
-    payload_path: Path | None = None,
 ) -> AdmissionVerdict:
-    """The single admission decision used by both inventory and scoring."""
+    """The single admission decision used by both inventory and scoring.
+
+    MF35-01 repair: admission now requires (a) the `contest` mapping to
+    declare its OWN canonical id and for that id to equal the forecast's
+    claimed contest identity, and (b) the receipt's bound payload to be
+    read from disk, hash-verified against `receipt_sha256`, and its own
+    declared probability/contest/participants to agree with what is being
+    scored. `evidence_bytes_confirmed` is no longer informational -- a
+    forecast cannot be admitted while it is false.
+    """
 
     if not isinstance(store, TrustedReceiptStore):
         raise ForecastAdmissionError("store must be a TrustedReceiptStore")
@@ -374,6 +511,17 @@ def admit(
     failed: list[str] = []
     if any(part == "" for part in key):
         failed.append("INCOMPLETE_FORECAST_KEY")
+
+    # MF35-01: the contest passed in must declare itself as the SAME contest
+    # the forecast claims. Matching participants/schedule_version alone is
+    # not proof of identity -- those can coincide across different contests
+    # (or be supplied for the wrong one by a calling error) while the
+    # contest's own id silently differs.
+    declared_contest_id = contest_own_id(contest)
+    if not declared_contest_id:
+        failed.append("CONTEST_MISSING_CANONICAL_ID")
+    elif key[0] and declared_contest_id != key[0]:
+        failed.append("CONTEST_IDENTITY_DOES_NOT_MATCH_FORECAST_KEY")
 
     # The caller may not supply the commitment time. Only the store may.
     declared_receipt = forecast.get("freeze_receipt")
@@ -389,8 +537,10 @@ def admit(
     if receipt_id and receipt is None:
         failed.append("RECEIPT_NOT_IN_TRUSTED_STORE")
 
-    probability = strict_probability(forecast.get("probability_home"))
-    if probability is None:
+    forecast_declared_probability = strict_probability(
+        forecast.get("probability_home")
+    )
+    if forecast_declared_probability is None:
         failed.append("PROBABILITY_NOT_STRICT_FINITE_UNIT_INTERVAL")
 
     forecast_participants = ordered_participants(forecast)
@@ -401,6 +551,8 @@ def admit(
         failed.append("CONTEST_MISSING_ORDERED_PARTICIPANTS")
 
     cutoff: datetime | None = None
+    bytes_confirmed = False
+    verified_probability: float | None = None
     if receipt is not None:
         if receipt.key() != key:
             failed.append("RECEIPT_KEY_DOES_NOT_MATCH_FORECAST")
@@ -428,6 +580,55 @@ def admit(
         if receipt.commitment_time_utc > as_of_utc:
             failed.append("COMMITMENT_IN_THE_FUTURE")
 
+        # MF35-01: read the actual committed bytes. This is the predicate
+        # that closes "admit without payload", "change probability under the
+        # same receipt" and (together with the contest-identity check above)
+        # "wrong contest, same participants" -- none of those can succeed
+        # against bytes pinned to a fixed sha256 at allowlist-authoring time.
+        resolved_path = store.resolve_payload_path(receipt)
+        payload, payload_reasons = verify_and_load_payload(receipt, resolved_path)
+        if payload_reasons:
+            failed.extend(payload_reasons)
+        else:
+            bytes_confirmed = True
+            payload_key = (
+                str(
+                    payload.get("contest_id")
+                    or payload.get("ncaa_contest_id")
+                    or payload.get("canonical_contest_id")
+                    or ""
+                ),
+                str(payload.get("candidate_id") or ""),
+                str(payload.get("cohort") or ""),
+                str(payload.get("checkpoint") or ""),
+            )
+            if payload_key != key:
+                failed.append("PAYLOAD_KEY_DOES_NOT_MATCH_RECEIPT")
+            payload_participants = ordered_participants(payload)
+            if payload_participants is None:
+                failed.append("PAYLOAD_MISSING_ORDERED_PARTICIPANTS")
+            elif payload_participants != receipt.participants:
+                failed.append("PAYLOAD_PARTICIPANTS_DO_NOT_MATCH_RECEIPT")
+            verified_probability = strict_probability(
+                payload.get("probability_home")
+            )
+            if verified_probability is None:
+                failed.append(
+                    "PAYLOAD_PROBABILITY_NOT_STRICT_FINITE_UNIT_INTERVAL"
+                )
+            elif (
+                forecast_declared_probability is not None
+                and round(forecast_declared_probability, 12)
+                != round(verified_probability, 12)
+            ):
+                # The forecast row being scored claims a probability that
+                # disagrees with what the verified, hash-pinned payload
+                # actually committed. Neither the caller nor the forecast
+                # row itself may override committed content.
+                failed.append(
+                    "FORECAST_PROBABILITY_DISAGREES_WITH_VERIFIED_PAYLOAD"
+                )
+
     if (
         forecast_participants is not None
         and contest_participants is not None
@@ -436,11 +637,9 @@ def admit(
         failed.append("FORECAST_PARTICIPANTS_DO_NOT_MATCH_CONTEST")
 
     unique_failed = tuple(dict.fromkeys(failed))
-    bytes_confirmed = (
-        confirm_receipt_bytes(receipt, payload_path) if receipt is not None else False
-    )
+    admitted = not unique_failed and receipt is not None and bytes_confirmed
     return AdmissionVerdict(
-        admitted=not unique_failed and receipt is not None,
+        admitted=admitted,
         key=key,
         failed_predicates=unique_failed,
         receipt_id=receipt.receipt_id if receipt else (receipt_id or None),
@@ -450,7 +649,11 @@ def admit(
         ),
         cutoff_utc=cutoff.isoformat() if cutoff else None,
         participants=receipt.participants if receipt else forecast_participants,
-        probability_home=probability,
+        # The ADMITTED probability is always the verified payload's own
+        # committed value when bytes are confirmed -- never the caller's
+        # claim. When bytes are not confirmed, nothing is admitted, so there
+        # is no trustworthy probability to report.
+        probability_home=verified_probability if bytes_confirmed else None,
         evidence_bytes_confirmed=bytes_confirmed,
     )
 

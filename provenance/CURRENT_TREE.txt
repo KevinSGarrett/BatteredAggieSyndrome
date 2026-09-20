@@ -3870,6 +3870,7 @@ src/aggie_analytics/cycle35/availability.py
 src/aggie_analytics/cycle35/coaching_release.py
 src/aggie_analytics/cycle35/forecast_admission.py
 src/aggie_analytics/cycle35/program_aliases.py
+src/aggie_analytics/cycle35/request_ledger.py
 src/aggie_analytics/cycle35/scoring_successor.py
 src/aggie_analytics/data/.cursor/BUGBOT.md
 src/aggie_analytics/data/__init__.py
@@ -4801,6 +4802,7 @@ tools/cycle34_r34_10_bat637_candidate_recompute.py
 tools/cycle35/r35_01_reproduce_manager_findings.py
 tools/cycle35/r35_02_rebuild_staff_admission.py
 tools/cycle35/r35_03_build_coaching_release.py
+tools/cycle35/r35_05_career_tranche.py
 tools/cycle35/r35_05_national_coverage_census.py
 tools/cycle35/r35_07_canonical_finals_replay.py
 tools/cycle35/r35_09_independent_kernel_reference.py

@@ -59,12 +59,54 @@ def observation_lifecycle(row: Mapping[str, Any]) -> str:
     return "STATUS_UNKNOWN"
 
 
+def winner_from_scores(row: Mapping[str, Any]) -> str | None:
+    """Direction recomputed from the scores themselves, never read off a label."""
+
+    if not (
+        _finite_nonneg_int(row.get("home_points"))
+        and _finite_nonneg_int(row.get("away_points"))
+    ):
+        return None
+    home = int(row["home_points"])
+    away = int(row["away_points"])
+    if home > away:
+        return "HOME"
+    if away > home:
+        return "AWAY"
+    return "TIE"
+
+
+def supplied_winner_disagrees_with_scores(row: Mapping[str, Any]) -> bool:
+    """True when a row carries a `winner` label its own scores contradict.
+
+    MR34-09 repair: a 30-10 home victory labelled `winner: "AWAY"` passed the
+    final-admission helper untouched, because admission only checked the
+    lifecycle and that the two score fields were nonnegative integers. A row
+    that contradicts itself is not a trustworthy observation of anything --
+    one of its fields is wrong and nothing on the row says which. So it is
+    quarantined for adjudication, not silently admitted, and not silently
+    "corrected" by preferring the scores, which would invent a fact about
+    which field the source got wrong.
+    """
+
+    supplied = row.get("winner") or row.get("winning_side")
+    if supplied in (None, ""):
+        return False
+    computed = winner_from_scores(row)
+    if computed is None:
+        return False
+    return str(supplied).strip().upper() != computed
+
+
 def is_eligible_official_final(row: Mapping[str, Any]) -> bool:
     if observation_lifecycle(row) != "FINAL":
         return False
-    return _finite_nonneg_int(row.get("home_points")) and _finite_nonneg_int(
-        row.get("away_points")
-    )
+    if not (
+        _finite_nonneg_int(row.get("home_points"))
+        and _finite_nonneg_int(row.get("away_points"))
+    ):
+        return False
+    return not supplied_winner_disagrees_with_scores(row)
 
 
 def competing_observations(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
@@ -86,8 +128,29 @@ def competing_observations(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     unique: list[dict[str, Any]] = []
     quarantined: list[dict[str, Any]] = []
     nonfinal_only: list[dict[str, Any]] = []
+    inconsistent: list[dict[str, Any]] = []
     for cid in order:
         group = by_id[cid]
+        # MR34-09: a self-contradicting row is retained with its own exact
+        # reason rather than collapsing into a generic "no eligible final".
+        contradictions = [
+            item for item in group if supplied_winner_disagrees_with_scores(item)
+        ]
+        if contradictions:
+            inconsistent.append(
+                {
+                    "ncaa_contest_id": cid,
+                    "reason": "SUPPLIED_WINNER_CONTRADICTS_SCORES",
+                    "observations": contradictions,
+                    "recomputed_winner": [
+                        winner_from_scores(item) for item in contradictions
+                    ],
+                    "supplied_winner": [
+                        item.get("winner") or item.get("winning_side")
+                        for item in contradictions
+                    ],
+                }
+            )
         finals = [item for item in group if is_eligible_official_final(item)]
         if not finals:
             nonfinal_only.append(
@@ -97,7 +160,11 @@ def competing_observations(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
                     "lifecycles": sorted(
                         {observation_lifecycle(item) for item in group}
                     ),
-                    "reason": "NO_ELIGIBLE_OFFICIAL_FINAL",
+                    "reason": (
+                        "ALL_FINALS_INTERNALLY_INCONSISTENT"
+                        if contradictions
+                        else "NO_ELIGIBLE_OFFICIAL_FINAL"
+                    ),
                 }
             )
             continue
@@ -147,7 +214,9 @@ def competing_observations(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         "admitted_unique_games": unique,
         "admitted_official_finals": unique,
         "quarantined_conflicts": quarantined,
+        "internally_inconsistent_observations": inconsistent,
         "nonfinal_contests": nonfinal_only,
+        "winner_recomputed_from_scores_not_supplied_label": True,
         "first_win_forbidden": True,
         "last_win_forbidden": True,
         "pregame_live_not_admitted_as_final": True,

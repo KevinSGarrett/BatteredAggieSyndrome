@@ -40,6 +40,15 @@ from aggie_analytics.cycle33.scoring_successor import (
     score_unique_frozen_games,
 )
 
+BOUND_VENUE = {
+    "canonical_contest_id": "TEST:CONTEST:1",
+    "administrative_home_id": "TEAM:HOME",
+    "administrative_away_id": "TEAM:AWAY",
+    "venue_id": "VENUE:1",
+    "venue_version": "v1",
+    "venue_timezone": "America/Chicago",
+}
+
 FINAL = {
     "game_state": "F",
     "status_code_display": "final",
@@ -712,7 +721,11 @@ class NeutralTravelSemanticsTests(unittest.TestCase):
 
     def test_none_neutral_site_stays_unknown_not_false(self) -> None:
         result = travel_context(
-            {"neutral_site": None}, home_distance=50.0, away_distance=60.0, venue_confirmed=True
+            {**BOUND_VENUE, "neutral_site": None},
+            home_distance=50.0,
+            away_distance=60.0,
+            venue_confirmed=True,
+            distance_method="GREAT_CIRCLE_WGS84",
         )
         self.assertIsNone(result["neutral_site"])
         self.assertEqual(result["neutral_state"], "UNKNOWN")
@@ -720,14 +733,22 @@ class NeutralTravelSemanticsTests(unittest.TestCase):
 
     def test_string_false_is_not_coerced_true(self) -> None:
         result = travel_context(
-            {"neutral_site": "false"}, home_distance=50.0, away_distance=60.0, venue_confirmed=True
+            {**BOUND_VENUE, "neutral_site": "false"},
+            home_distance=50.0,
+            away_distance=60.0,
+            venue_confirmed=True,
+            distance_method="GREAT_CIRCLE_WGS84",
         )
         self.assertIs(result["neutral_site"], False)
         self.assertEqual(result["neutral_state"], "FALSE")
 
     def test_confirmed_neutral_has_zero_ordinary_home_exposure(self) -> None:
         result = travel_context(
-            {"neutral_site": True}, home_distance=10.0, away_distance=10.0, venue_confirmed=True
+            {**BOUND_VENUE, "neutral_site": True},
+            home_distance=10.0,
+            away_distance=10.0,
+            venue_confirmed=True,
+            distance_method="GREAT_CIRCLE_WGS84",
         )
         self.assertEqual(result["ordinary_home_advantage"], 0.0)
 

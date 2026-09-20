@@ -692,12 +692,14 @@ class NeutralVenueTests(unittest.TestCase):
                 "administrative_home_id": "HOME",
                 "administrative_away_id": "AWAY",
                 "venue_id": "V1",
+                "venue_version": "v1",
                 "venue_timezone": "America/New_York",
                 "neutral_site": True,
             },
             home_distance=10.0,
             away_distance=20.0,
             venue_confirmed=True,
+            distance_method="GREAT_CIRCLE_WGS84",
         )
         self.assertEqual(row["ordinary_home_advantage"], 0.0)
         self.assertTrue(row["neutral_site"])
@@ -709,11 +711,14 @@ class NeutralVenueTests(unittest.TestCase):
                 "administrative_home_id": "HOME",
                 "administrative_away_id": "AWAY",
                 "venue_id": "V2",
+                "venue_version": "v1",
+                "venue_timezone": "America/New_York",
                 "neutral_site": False,
             },
             home_distance=0.0,
             away_distance=250.0,
             venue_confirmed=True,
+            distance_method="GREAT_CIRCLE_WGS84",
         )
         self.assertFalse(home_game["neutral_site"])
         self.assertIsNone(home_game["ordinary_home_advantage"])

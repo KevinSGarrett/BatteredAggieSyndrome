@@ -31,6 +31,10 @@ _BLOCK = re.compile(
 )
 _TAG = re.compile(r"<[^>]+>")
 _BR = re.compile(r"<br\s*/?>", re.I)
+# Double quotes only. Apostrophes are part of names far more often than they
+# delimit nicknames -- `Ka'imi O'Brien` contains two of them, and treating
+# them as delimiters would strip the middle of a real person's name.
+_QUOTED_NICKNAME = re.compile("[\"“”]{1}[^\"“”]{1,40}[\"“”]{1}")
 _TITLE_HINT = re.compile(
     r"\b(?:coach|coordinator|analyst|director|manager|assistant|"
     r"associate|special teams|quality control|recruiting|"
@@ -47,6 +51,14 @@ def _variants(text: str) -> tuple[str, ...]:
     folded = unesc.translate(str.maketrans(_APOSTROPHE))
     collapsed = re.sub(r"\s+", " ", folded)
     values = [raw, unesc, folded, collapsed, _JR.sub("", collapsed).strip()]
+    # A sourced quoted nickname is a legitimate alias form: the same person
+    # may be published as `Deion "Coach Prime" Sanders` on one page and
+    # `Deion Sanders` on another. Both spellings are offered so the pair can
+    # match, without the substring fallback this repair removed.
+    nickname_free = _QUOTED_NICKNAME.sub(" ", collapsed)
+    nickname_free = re.sub(r"\s+", " ", nickname_free).strip()
+    if nickname_free and nickname_free != collapsed:
+        values.append(nickname_free)
     recruits = re.split(r"\brecruits\s*:", collapsed, maxsplit=1, flags=re.I)
     if len(recruits) == 2:
         values.append(recruits[0].strip().rstrip("/,-"))
@@ -188,13 +200,70 @@ def _looks_like_title(text: str) -> bool:
     return bool(_TITLE_HINT.search(text or ""))
 
 
+_NAME_TOKEN = re.compile(r"[0-9a-z]+", re.I)
+
+
+def _name_tokens(text: str) -> tuple[str, ...]:
+    """Lowercase word tokens, punctuation-stripped. `J.R. Smith` -> (jr, smith)."""
+
+    return tuple(match.group(0).casefold() for match in _NAME_TOKEN.finditer(text or ""))
+
+
+def _token_subsequence_at_boundary(needle: tuple[str, ...], hay: tuple[str, ...]) -> bool:
+    """True when `needle` appears in `hay` as CONSECUTIVE WHOLE tokens.
+
+    This is the difference between identity and coincidence. Substring
+    containment says "john smith" is inside "john smithson"; whole-token
+    matching says the second token is `smithson`, which is not `smith`, so
+    they are different people. Word boundaries are the entire point.
+    """
+
+    if not needle or len(needle) > len(hay):
+        return False
+    first = needle[0]
+    for start in range(len(hay) - len(needle) + 1):
+        if hay[start] != first:
+            continue
+        if hay[start : start + len(needle)] == needle:
+            return True
+    return False
+
+
 def _name_match(person: str, candidate: str) -> bool:
+    """Same-person identity between a claimed name and a candidate string.
+
+    MR34-03 repair. The previous final clause was
+    `any(item in _fold(candidate) for item in left)` -- raw substring
+    containment, which confirmed `John Smith` from a record reading
+    `John Smithson Head Coach`. Surname prefixes are extremely common
+    (Smith/Smithson, Brown/Browne, Will/Williams, Stew/Stewart), so this was
+    not a rare collision.
+
+    The variant-equality path is kept unchanged: it is what legitimately
+    resolves sourced aliases and orderings (`Smith, John` -> `John Smith`,
+    `Jr.` suffixes, curly apostrophes, `&nbsp;`). What replaces the substring
+    fallback is whole-token sequence matching, so a longer record name still
+    matches a shorter claimed name only when every claimed token is present
+    as a complete token, in order -- `John Smith` matches
+    `John Smith Head Coach` and `John Smith Jr.`, but never `John Smithson`.
+    """
+
     left = {_fold(item) for item in _variants(person) if item}
     right = {_fold(item) for item in _variants(candidate) if item}
     if left and right and (left & right):
         return True
-    cand = _fold(candidate)
-    return any(item in cand for item in left if item)
+    hay = _name_tokens(candidate)
+    if not hay:
+        return False
+    for variant in _variants(person):
+        needle = _name_tokens(variant)
+        # A single token is a given name or a surname alone; it is not an
+        # identity, and matching on it is how unrelated staff collide.
+        if len(needle) < 2:
+            continue
+        if _token_subsequence_at_boundary(needle, hay):
+            return True
+    return False
 
 
 def _variant_equal(left: str, right: str) -> bool:
@@ -312,9 +381,30 @@ def _block_pair_records(html: str) -> list[dict[str, Any]]:
     return records
 
 
+def strip_quoted_nickname(text: str) -> str:
+    """Remove a quoted nickname segment from a sourced personal name.
+
+    R35-02, defect found by the 880-row reparse: `Deion "Coach Prime"
+    Sanders` was not treated as a name at all, because `_looks_like_title`
+    matched the word `Coach` INSIDE the nickname and classified the whole
+    cell as a title. The staff row was therefore never extracted, and a real,
+    correctly sourced head-coach appointment silently disappeared from the
+    record set.
+
+    Only quote-delimited segments are removed. Parentheses are left alone --
+    they carry disambiguating information (`Miami (OH)`) rather than
+    nicknames, and stripping them would trade one identity bug for another.
+    """
+
+    stripped = _QUOTED_NICKNAME.sub(" ", str(text or ""))
+    return re.sub(r"\s+", " ", stripped).strip()
+
+
 def _name_like(text: str) -> bool:
     folded = _fold(text)
-    if not folded or _looks_like_title(text):
+    # A title word inside a quoted nickname is part of the person's name, not
+    # a job title, so the title test runs against the nickname-stripped form.
+    if not folded or _looks_like_title(strip_quoted_nickname(text)):
         return False
     if re.fullmatch(r"\d{4}", folded):
         return False

@@ -521,6 +521,58 @@ class CareerJoinIdentityTests(unittest.TestCase):
         )
         self.assertEqual(result["career_join_state"], "EVIDENCE_BOUND_CAREER_JOIN")
 
+    def test_namesake_collision_is_ambiguous_not_silently_merged(self) -> None:
+        """R34-06 stratification: an explicit SYNTHETIC namesake fixture, per
+        the coordinator's instruction to use one where a real-world namesake
+        collision was not found this session (not to invent fake real-world
+        namesake evidence). Two DIFFERENT people share the exact name "John
+        Smith" -- different birth years in their page titles, different
+        programs, non-overlapping years. Querying by name alone must not
+        silently bind to either one; the join must return
+        AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES, not a false EVIDENCE_BOUND_CAREER_
+        JOIN to the wrong "John Smith"."""
+
+        page_a = {
+            "title": "John Smith (American football, born 1965)",
+            "page_id": 2001,
+            "episodes": [
+                {
+                    "person": "John Smith",
+                    "program_raw": "Program X",
+                    "sport": "American football",
+                    "role": "HC",
+                    "start_year": 2010,
+                    "end_year": 2012,
+                }
+            ],
+        }
+        page_b = {
+            "title": "John Smith (American football, born 1980)",
+            "page_id": 2002,
+            "episodes": [
+                {
+                    "person": "John Smith",
+                    "program_raw": "Program Y",
+                    "sport": "American football",
+                    "role": "HC",
+                    "start_year": 2018,
+                    "end_year": 2020,
+                }
+            ],
+        }
+        result = join_occupant_to_pages(
+            person="John Smith", program_display="Program Y", pages=[page_a, page_b]
+        )
+        self.assertEqual(result["career_join_state"], "AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES")
+        self.assertEqual(result["distinct_page_identities"], 2)
+        # Same check the other direction (querying toward Program X) must
+        # also refuse to guess, not flip to a confident match by luck of
+        # which page happened to be listed first.
+        reverse = join_occupant_to_pages(
+            person="John Smith", program_display="Program X", pages=[page_b, page_a]
+        )
+        self.assertEqual(reverse["career_join_state"], "AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES")
+
 
 class PartialCellConservationTests(unittest.TestCase):
     """MR33-05: a supported + an unsupported-but-locatable episode both survive."""

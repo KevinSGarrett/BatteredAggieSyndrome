@@ -127,6 +127,21 @@ JOIN_ATTEMPTS: list[dict[str, Any]] = [
     {"person": "Walt Bell", "employer": "UMass", "team": "UMass", "season": "2021", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
     {"person": "Paul Petrino", "employer": "Idaho", "team": "Idaho", "season": "2019", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
     {"person": "R. C. Slocum", "employer": "Texas A&M", "team": "Texas A&M", "season": "2001", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    # Round 8 (this round, rigor-correction continuation): 8 more real
+    # person-biography joins, all against a program-season already on
+    # record in PROGRAM_SEASONS above, all correctly bound (no new bugs
+    # found this round -- prior mascot-suffix/alias fixes held up).
+    {"person": "Kliff Kingsbury", "employer": "Texas A&M", "team": "Texas A&M", "season": "2012", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    {"person": "Dino Babers", "employer": "Texas A&M", "team": "Texas A&M", "season": "2001", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    {"person": "Bret Bielema", "employer": "Kansas State", "team": "Kansas State", "season": "2003", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    {"person": "Gary Andersen", "employer": "Utah", "team": "Utah", "season": "2008", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    {"person": "Matt Entz", "employer": "North Dakota State", "team": "North Dakota State", "season": "2015", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    {"person": "Kirk Ciarrocca", "employer": "Western Michigan", "team": "Western Michigan", "season": "2016", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    {"person": "Andy Ludwig", "employer": "Utah", "team": "Utah", "season": "2008", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    {"person": "Mike Houston", "employer": "James Madison", "team": "James Madison", "season": "2017", "verified": True, "outcome": "EVIDENCE_BOUND_CAREER_JOIN"},
+    # Round 8's deliberate negative control (Kirk Ciarrocca never worked at
+    # Texas A&M): correctly rejected, no team/season binding recorded.
+    {"person": "Kirk Ciarrocca", "employer": "Texas A&M", "team": None, "season": None, "verified": False, "outcome": "FOOTBALL_PAGE_ORG_IDENTITY_UNBOUND_TRUE_NEGATIVE"},
 ]
 
 
@@ -197,6 +212,28 @@ def build_role_cells() -> list[dict[str, Any]]:
             "source_class": SOURCE_CLASS,
             "pit_admitted": False,
             "cell_text": "Troy Calhoun queried against Texas A&M (employer he never had) -- FOOTBALL_PAGE_ORG_IDENTITY_UNBOUND, correct rejection",
+            "source_subdivision": None,
+            "verified": False,
+        }
+    )
+    # Round 8's second deliberate negative control, same pattern.
+    cells.append(
+        {
+            "observation_id": "R34_07_CONTROL_kirk_ciarrocca_texas_am_rejected",
+            "canonical_claim_id": None,
+            "source_file": "https://en.wikipedia.org/wiki/Kirk_Ciarrocca",
+            "team": None,
+            "team_id_source": None,
+            "season": None,
+            "role_column": None,
+            "person": "Kirk Ciarrocca",
+            "source_title": "Kirk Ciarrocca (Wikipedia biography) -- deliberate negative control",
+            "disposition": "CORRECTLY_REJECTED_NO_EMPLOYER_MATCH",
+            "support_column": True,
+            "principal_role_blocked": False,
+            "source_class": SOURCE_CLASS,
+            "pit_admitted": False,
+            "cell_text": "Kirk Ciarrocca queried against Texas A&M (employer he never had) -- FOOTBALL_PAGE_ORG_IDENTITY_UNBOUND, correct rejection",
             "source_subdivision": None,
             "verified": False,
         }

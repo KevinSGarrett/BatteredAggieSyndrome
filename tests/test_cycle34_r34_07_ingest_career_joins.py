@@ -24,9 +24,9 @@ _spec.loader.exec_module(_module)  # type: ignore[union-attr]
 class R3407CareerIngestTests(unittest.TestCase):
     def test_all_source_receipts_convert_to_role_cells(self) -> None:
         cells = _module.build_role_cells()
-        # 28 program-seasons' roles, plus one explicit negative-control row.
+        # 28 program-seasons' roles, plus two explicit negative-control rows.
         role_count = sum(len(row["roles"]) for row in _module.PROGRAM_SEASONS)
-        self.assertEqual(len(cells), role_count + 1)
+        self.assertEqual(len(cells), role_count + 2)
         # Every cell must carry a real source URL -- never a placeholder.
         for cell in cells:
             self.assertTrue(cell["source_file"])
@@ -53,12 +53,13 @@ class R3407CareerIngestTests(unittest.TestCase):
         finally:
             conn.close()
 
-    def test_negative_control_is_present_and_unresolved(self) -> None:
+    def test_negative_controls_are_present_and_unresolved(self) -> None:
         cells = _module.build_role_cells()
         control = [c for c in cells if c["observation_id"].startswith("R34_07_CONTROL_")]
-        self.assertEqual(len(control), 1)
-        self.assertFalse(control[0]["verified"])
-        self.assertIsNone(control[0]["team"])
+        self.assertEqual(len(control), 2)
+        for row in control:
+            self.assertFalse(row["verified"])
+            self.assertIsNone(row["team"])
 
 
 if __name__ == "__main__":

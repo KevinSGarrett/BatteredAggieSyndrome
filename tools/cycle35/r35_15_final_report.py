@@ -15,7 +15,15 @@ from pathlib import Path
 from typing import Any
 
 HOLD_STATE = "SCIENTIFIC_OPERATOR_HOLD_ACTIVE"
-COMPLETION_STATE = "IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED"
+#: The pack defines three states. IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED is
+#: reserved for a "genuinely exhausted, documented submission", and this
+#: cycle is not exhausted: the unfinished-items ledger carries local tasks
+#: that need no external authority and no network budget (cell-ingesting the
+#: 6,749-row user corpus, scheme and responsibility assertions, the national
+#: neutral-site rebuild, the stratified manual semantic review). Claiming
+#: the stronger state while that work is available and safe would overstate
+#: the position, so the weaker and accurate one is used.
+COMPLETION_STATE = "IN_PROGRESS_LOCAL_WORK_REMAINS"
 
 
 def load(path: Path) -> Any:
@@ -94,11 +102,22 @@ def main() -> int:
     a("")
     a(f"**{COMPLETION_STATE}**. Operator hold remains **{HOLD_STATE}**.")
     a("")
-    a("This is a submission, not an acceptance. Independent scientific "
-      "acceptance is NOT_REVIEWED for every unit, integration/release is "
-      "NOT_AUTHORIZED for every unit, and one dimension is actively FAIL. No "
-      "merge, Done transition, hold release, production or champion claim, "
-      "protected-lane activation or repository transfer was performed.")
+    a("This is a submission, not an acceptance, and it is not exhausted. "
+      "Independent scientific acceptance is NOT_REVIEWED for every unit, "
+      "integration/release is NOT_AUTHORIZED for every unit, one dimension "
+      "is actively FAIL, and safe local work remains that needs neither "
+      "external authority nor network budget. No merge, Done transition, "
+      "hold release, production or champion claim, protected-lane "
+      "activation or repository transfer was performed.")
+    a("")
+    local_remaining = [
+        item for item in (unfinished.get("items") or [])
+        if item.get("kind") == "LOCAL_WORK_REMAINING"
+    ]
+    a(f"{len(local_remaining)} of {unfinished.get('item_count')} unfinished "
+      "items are local work requiring no external authority, which is why "
+      "the stronger IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED state is not "
+      "claimed.")
     a("")
 
     a("## Exact state")

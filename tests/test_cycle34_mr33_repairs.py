@@ -110,6 +110,11 @@ def _evidence_bound_forecast(
         "forecast_row_id": row_id,
         "frozen": True,
         "probability_home": probability,
+        # MR34-01: a forecast names the ordered participants it is about.
+        # These match the games these tests score against, so the fixture
+        # exercises freeze proof rather than failing participant binding.
+        "home_canonical_team_id": "H",
+        "away_canonical_team_id": "A",
         "freeze_receipt": {
             "receipt_id": receipt_id,
             "receipt_sha256": digest,

@@ -119,6 +119,7 @@ def freeze_is_proven(
     as_of_utc: datetime | None = None,
     search_roots: Sequence[Path] | None = None,
     evidence_resolver: EvidenceResolver = resolve_receipt_evidence,
+    contest: Mapping[str, Any] | None = None,
 ) -> bool:
     """A genuine, verifiable, evidence-resolved freeze receipt.
 
@@ -206,11 +207,36 @@ def freeze_is_proven(
         return False
     reference_now = as_of_utc if as_of_utc is not None else datetime.now(timezone.utc)
     if frozen_at > reference_now:
-        # POST_CUTOFF/FUTURE: evaluated against the injected reference time,
-        # not a fresh clock read, so this comparison is itself deterministic
-        # for any fixed as_of_utc.
+        # FUTURE: evaluated against the injected reference time, not a fresh
+        # clock read, so this comparison is itself deterministic for any
+        # fixed as_of_utc.
         return False
+
+    # MR34-01 repair: "not in the future" is NOT "before kickoff". A receipt
+    # written moments ago, declaring a freeze two hours AFTER a contest that
+    # has already finished, satisfies `frozen_at <= now` trivially -- and
+    # that is exactly the counterexample the manager scored. When the contest
+    # carries kickoff/cutoff authority the commitment must precede it. When
+    # it does not, this predicate cannot establish timeliness at all, which
+    # is why `score_unique_frozen_games` now passes the matched game in and
+    # why a bound decision belongs to `cycle35.forecast_admission.admit`.
+    if contest is not None:
+        cutoff = _parsed_utc_timestamp(
+            contest.get("cutoff_utc")
+        ) or _parsed_utc_timestamp(contest.get("kickoff_utc"))
+        if cutoff is not None and frozen_at > cutoff:
+            return False
     return True
+
+
+def _ordered_participants(row: Mapping[str, Any]) -> tuple[str, str] | None:
+    """Canonical ordered `(home, away)` ids, or None when not fully bound."""
+
+    home = str(row.get("home_canonical_team_id") or "").strip()
+    away = str(row.get("away_canonical_team_id") or "").strip()
+    if not home or not away or home == away:
+        return None
+    return (home, away)
 
 
 def score_unique_frozen_games(
@@ -220,6 +246,7 @@ def score_unique_frozen_games(
     as_of_utc: datetime | None = None,
     search_roots: Sequence[Path] | None = None,
     evidence_resolver: EvidenceResolver = resolve_receipt_evidence,
+    require_participant_binding: bool = True,
 ) -> dict[str, Any]:
     """Score each proven frozen candidate/checkpoint against admitted finals.
 
@@ -228,6 +255,15 @@ def score_unique_frozen_games(
     time -- required for the replay-determinism guarantee described on
     `freeze_is_proven`. Pass a fixed `as_of_utc` in tests/replay to get
     byte-identical results regardless of real wall-clock time.
+
+    MR34-01 repair: `require_participant_binding` (default True) makes the
+    ordered canonical `(home, away)` pair part of what is scored. Without it
+    a forecast about entirely different teams was scored against whatever
+    game shared its contest id -- a contest id is a label, the participants
+    are the claim. Both sides must carry the pair and the pairs must be
+    equal, in order: a reversed pair is a different prediction, not the same
+    one. The matched game is also handed to `freeze_is_proven` so the
+    commitment can be checked against kickoff rather than merely against now.
     """
 
     reference_now = as_of_utc if as_of_utc is not None else datetime.now(timezone.utc)
@@ -249,6 +285,8 @@ def score_unique_frozen_games(
     excluded_invalid_probability = 0
     rejected_duplicate_forecasts = 0
     quarantined_conflicting_forecast_keys = 0
+    excluded_unbound_participants = 0
+    excluded_participant_mismatch = 0
 
     # MR33-02 repair: group by (contest, candidate, cohort, checkpoint) key
     # value, not arrival position, so scoring is provably order-invariant.
@@ -273,11 +311,21 @@ def score_unique_frozen_games(
             if forecast.get("abstained") or forecast.get("classification") == "ABSTAINED":
                 excluded_abstained += 1
                 continue
+            if require_participant_binding:
+                game_pair = _ordered_participants(game)
+                forecast_pair = _ordered_participants(forecast)
+                if game_pair is None or forecast_pair is None:
+                    excluded_unbound_participants += 1
+                    continue
+                if game_pair != forecast_pair:
+                    excluded_participant_mismatch += 1
+                    continue
             if not freeze_is_proven(
                 forecast,
                 as_of_utc=reference_now,
                 search_roots=search_roots,
                 evidence_resolver=evidence_resolver,
+                contest=game,
             ):
                 if forecast.get("frozen") or forecast.get("forecast_frozen"):
                     excluded_unproven_freeze += 1
@@ -355,6 +403,10 @@ def score_unique_frozen_games(
         "excluded_no_forecast": excluded_no_forecast,
         "excluded_unproven_freeze": excluded_unproven_freeze,
         "excluded_invalid_probability": excluded_invalid_probability,
+        "excluded_unbound_participants": excluded_unbound_participants,
+        "excluded_participant_mismatch": excluded_participant_mismatch,
+        "participant_binding_required": require_participant_binding,
+        "commitment_checked_against_kickoff_when_available": True,
         "rejected_duplicate_forecasts": rejected_duplicate_forecasts,
         "brier_mean": brier_mean,
         "metrics_recomputed_on": "admitted_unique_frozen_candidate_checkpoint_rows",

@@ -6,7 +6,7 @@ import hashlib
 import json
 import math
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -44,10 +44,19 @@ def _has_actual_forecast_content(payload: Mapping[str, Any]) -> bool:
     """A receipt/time/contest-id shell with no forecast value at all (e.g. no
     `probability_home`/`probabilities`/`forecast` field) is metadata, not a
     forecast packet -- it must never read ELIGIBLE regardless of how many
-    envelope fields are present."""
+    envelope fields are present.
+
+    MR34-02 repair: the Boolean rejection must come FIRST. `isinstance(True,
+    int)` is True in Python, so `float(True) == 1.0` satisfies both the
+    finiteness and the [0, 1] range test -- which is exactly how a packet
+    whose `probability_home` was the Boolean `true` read ELIGIBLE. `True` is
+    not a forecast of certainty; in a scientific payload it is a type error.
+    """
 
     if "probability_home" in payload:
         value = payload.get("probability_home")
+        if isinstance(value, bool) or not isinstance(value, (int, float, str)):
+            return False
         try:
             number = float(value)
         except (TypeError, ValueError):
@@ -69,7 +78,6 @@ SEARCH_ROOTS: tuple[Path, ...] = (
     Path(r"C:\BatteredAggieSyndrome.data\ops\cycle28"),
     Path(r"C:\BatteredAggieSyndrome.data\ops\cycle27"),
     Path(r"C:\BatteredAggieSyndrome.data\ops\cycle26"),
-    Path(r"C:\BatteredAggieSyndrome.data\ops\manager_reviews"),
     Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr\artifacts\forecast"),
     Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr\artifacts\pit"),
     Path(r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr\artifacts\predictions"),
@@ -77,6 +85,16 @@ SEARCH_ROOTS: tuple[Path, ...] = (
         r"C:\BatteredAggieSyndrome.data\worktrees\cycle33-scr"
         r"\artifacts\scientific_integrity"
     ),
+)
+
+# MR34-02 repair: manager-review directories are review workspaces, not
+# forecast stores. Leaving them in SEARCH_ROOTS meant any JSON written there
+# during a review became discoverable "forecast authority" -- which is how a
+# synthetic probe packet entered the inventory in the first place. They stay
+# named here so their exclusion is an explicit, auditable decision rather
+# than a silently dropped line.
+EXCLUDED_NON_AUTHORITY_ROOTS: tuple[Path, ...] = (
+    Path(r"C:\BatteredAggieSyndrome.data\ops\manager_reviews"),
 )
 
 NAME_HINTS = ("frozen", "forecast", "checkpoint", "t24h", "t90m", "shadow")
@@ -95,7 +113,41 @@ def _looks_relevant(path: Path) -> bool:
     }
 
 
-def inspect_forecast_eligibility(path: Path) -> dict[str, Any]:
+def _future_utc(value: Any, reference: datetime) -> bool:
+    """True when a parseable timestamp is later than the reference instant."""
+
+    if not isinstance(value, str) or not _ISO8601_RE.match(value.strip()):
+        return False
+    try:
+        parsed = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    if parsed.tzinfo is None:
+        return False
+    return parsed.astimezone(timezone.utc) > reference
+
+
+def inspect_forecast_eligibility(
+    path: Path, *, as_of_utc: datetime | None = None
+) -> dict[str, Any]:
+    """Describe one candidate forecast artifact's STRUCTURAL well-formedness.
+
+    MR34-02 repair, scope correction: an ELIGIBLE verdict here means the file
+    is a structurally well-formed forecast packet whose declared timestamps
+    are parseable and not in the future, and whose self-declared receipt hash
+    actually matches its own canonical bytes. It does NOT mean the forecast
+    was committed before any cutoff, by any trusted issuer, about any
+    particular participants. A payload can hash itself; self-consistency is
+    integrity, not authority. Scoring admission is decided exclusively by
+    `aggie_analytics.cycle35.forecast_admission.admit`, which requires an
+    allowlisted issuer and a commitment time at or before the contest cutoff.
+
+    `as_of_utc` is injected (defaulting to the real clock) so a future-dated
+    packet is rejected deterministically rather than depending on when the
+    inventory happens to run.
+    """
+
+    reference = as_of_utc or datetime.now(timezone.utc)
     payload: dict[str, Any] | None = None
     if path.suffix.lower() == ".json":
         try:
@@ -138,10 +190,17 @@ def inspect_forecast_eligibility(path: Path) -> dict[str, Any]:
             failed.append("MISSING_ISSUED_OR_SNAPSHOT_UTC")
         elif not _looks_like_real_utc_timestamp(issued_at):
             failed.append("ISSUED_OR_SNAPSHOT_UTC_NOT_PARSEABLE")
+        elif _future_utc(issued_at, reference):
+            # MR34-02 repair: a 2099 issue date is not a forecast, it is a
+            # timestamp defect or a fabrication. Either way it cannot be an
+            # eligible packet.
+            failed.append("ISSUED_OR_SNAPSHOT_UTC_IN_THE_FUTURE")
         if not known_at:
             failed.append("MISSING_KNOWN_AT_UTC")
         elif not _looks_like_real_utc_timestamp(known_at):
             failed.append("KNOWN_AT_UTC_NOT_PARSEABLE")
+        elif _future_utc(known_at, reference):
+            failed.append("KNOWN_AT_UTC_IN_THE_FUTURE")
         if not payload.get("contest_id") and not payload.get("canonical_contest_id"):
             failed.append("MISSING_CANONICAL_CONTEST_ID")
         if freeze_present and not (
@@ -168,6 +227,11 @@ def inspect_forecast_eligibility(path: Path) -> dict[str, Any]:
         "eligibility_verdict": "ELIGIBLE" if proof else "INELIGIBLE",
         "failed_predicates": unique_failed,
         "eligibility_proof_present": proof,
+        "eligibility_scope": "STRUCTURAL_WELL_FORMEDNESS_ONLY",
+        "self_hash_is_not_issuer_authority": True,
+        "self_hash_is_not_commitment_evidence": True,
+        "admission_authority": "aggie_analytics.cycle35.forecast_admission.admit",
+        "as_of_utc": reference.isoformat(),
         "frozen_boolean_alone_insufficient": True,
         "freeze_token_present": freeze_present,
         "top_level_keys": sorted(str(key) for key in keys)[:40],
@@ -197,6 +261,9 @@ def inventory_forecast_files(roots: Sequence[Path] | None = None) -> dict[str, A
         "missing_roots": missing_roots,
         "roots_searched": existing_roots,
         "inspected_set_scope": "AUTHORIZED_EXISTING_ARCHIVES_AND_PREDECESSOR_OUTPUTS",
+        "excluded_non_authority_roots": [str(r) for r in EXCLUDED_NON_AUTHORITY_ROOTS],
+        "eligibility_scope": "STRUCTURAL_WELL_FORMEDNESS_ONLY",
+        "admission_authority": "aggie_analytics.cycle35.forecast_admission.admit",
         "none_eligible_in_inspected_set_is_not_global_absence": True,
         "empty_forecasts_arg_is_not_repository_absence": True,
         "no_retrospective_forecast_created": True,

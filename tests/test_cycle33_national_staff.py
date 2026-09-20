@@ -600,6 +600,8 @@ class ScoringSuccessorTests(unittest.TestCase):
                 "away_points": 7,
                 "home_name": "C",
                 "away_name": "D",
+                "home_canonical_team_id": "HOME2",
+                "away_canonical_team_id": "AWAY2",
                 "game_state": "F",
                 "status_code_display": "final",
                 "terminal_state": "TERMINAL_STATUS_ESTABLISHED",
@@ -632,6 +634,8 @@ class ScoringSuccessorTests(unittest.TestCase):
                         "frozen": True,
                         "forecast_row_id": "FROW-2",
                         "probability_home": 0.7,
+                        "home_canonical_team_id": "HOME2",
+                        "away_canonical_team_id": "AWAY2",
                         "freeze_receipt": {
                             "receipt_id": "FRZ-2",
                             "receipt_sha256": digest,

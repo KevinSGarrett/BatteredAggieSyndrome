@@ -7,15 +7,19 @@ UNTRUSTED_SHADOW. A 50% control is NO_DIRECTION.
 
 from __future__ import annotations
 
+import hashlib
+import json
 import math
 import re
 from datetime import datetime, timezone
-from typing import Any, Mapping, Sequence
+from pathlib import Path
+from typing import Any, Callable, Mapping, Sequence
 
 from aggie_analytics.cycle33.official_finals import (
     competing_observations,
     is_eligible_official_final,
 )
+from aggie_analytics.cycle33.forecast_inventory import SEARCH_ROOTS as _ARCHIVE_SEARCH_ROOTS
 
 SHADOW = "UNTRUSTED_SHADOW"
 HOLD = "SCIENTIFIC_OPERATOR_HOLD_ACTIVE"
@@ -64,16 +68,82 @@ def forecast_key(row: Mapping[str, Any]) -> tuple[str, str, str, str]:
     )
 
 
-def freeze_is_proven(forecast: Mapping[str, Any]) -> bool:
-    """A genuine, verifiable freeze receipt -- not a truthy flag, a mutable row id
-    reused as a receipt id, or a nonempty-but-unparseable timestamp string.
+class ResolvedEvidence(dict):
+    """Result of actually locating and rehashing a claimed receipt's bytes."""
 
-    MR33-01 repair: `frozen=true` plus *any* nonempty identity/timestamp used to
-    score. This now requires an actual `freeze_receipt` mapping carrying its own
-    receipt id (never the mutable `forecast_row_id`), a well-formed sha256 hash,
-    a timezone-aware non-future ISO8601 `frozen_at_utc`, and a receipt-bound
-    contest/candidate/cohort/checkpoint key that matches the forecast's own key
-    exactly -- an unrelated hash or mismatched binding is rejected, not accepted.
+
+def resolve_receipt_evidence(
+    receipt_sha256: str, *, search_roots: Sequence[Path] | None = None
+) -> ResolvedEvidence | None:
+    """Resolve a claimed `receipt_sha256` against real on-disk archive bytes.
+
+    A hex-formatted hash string proves nothing about what it claims to name --
+    this function is what actually looks. It scans the declared archive roots
+    (the same roots `forecast_inventory.inventory_forecast_files` uses) for a
+    JSON file whose ACTUAL byte content hashes to `receipt_sha256`, computed
+    here independently (never trusting a caller-supplied hash). Returns
+    `None` -- not a guess, not a partial match -- when no such file exists;
+    an invented hash with no backing artifact anywhere resolves to `None`.
+    """
+
+    roots = search_roots if search_roots is not None else _ARCHIVE_SEARCH_ROOTS
+    target = receipt_sha256.strip().casefold()
+    for root in roots:
+        if not root.exists():
+            continue
+        for path in root.rglob("*"):
+            if not path.is_file() or path.suffix.lower() != ".json":
+                continue
+            try:
+                raw = path.read_bytes()
+            except OSError:
+                continue
+            if hashlib.sha256(raw).hexdigest() != target:
+                continue
+            try:
+                payload = json.loads(raw.decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError):
+                return None
+            if not isinstance(payload, dict):
+                return None
+            return ResolvedEvidence(path=path, raw_sha256=target, payload=payload)
+    return None
+
+
+EvidenceResolver = Callable[..., ResolvedEvidence | None]
+
+
+def freeze_is_proven(
+    forecast: Mapping[str, Any],
+    *,
+    as_of_utc: datetime | None = None,
+    search_roots: Sequence[Path] | None = None,
+    evidence_resolver: EvidenceResolver = resolve_receipt_evidence,
+) -> bool:
+    """A genuine, verifiable, evidence-resolved freeze receipt.
+
+    MR33-01 re-repair: the prior version only validated the *shape* of a
+    self-declared `freeze_receipt` mapping (nonempty id, hex64-looking hash,
+    parseable timestamp, self-consistent contest/candidate/cohort/checkpoint
+    fields) -- an INVENTED receipt with a plausible fake hash (e.g. `"a"*64`)
+    and matching self-declared fields passed every one of those checks with
+    no backing evidence anywhere. That is exactly the counterexample this
+    repair closes.
+
+    This version additionally: (1) resolves `receipt_sha256` against real
+    on-disk archive bytes via `evidence_resolver` (default
+    `resolve_receipt_evidence`, which rehashes the candidate file itself --
+    it never trusts the claimed value); (2) rejects outright when nothing
+    resolves (`MISSING_EVIDENCE`); (3) verifies the RESOLVED payload's own
+    declared contest/candidate/cohort/checkpoint identity and probability --
+    not the receipt's self-declared fields, which are exactly as untrusted
+    as before -- match what is being scored (`UNRELATED_OR_ALTERED_EVIDENCE`
+    is rejected); (4) compares the resolved payload's own `frozen_at_utc`
+    against an explicit, injectable `as_of_utc` reference instead of reading
+    the system clock inline, so two calls with the same `as_of_utc` (the
+    normal case: `score_unique_frozen_games` computes it once per batch) are
+    byte-for-byte deterministic regardless of real wall-clock time -- this is
+    what makes replay deterministic, not merely "usually monotonic."
     """
 
     flagged = forecast.get("frozen") is True or forecast.get("forecast_frozen") is True
@@ -94,16 +164,51 @@ def freeze_is_proven(forecast: Mapping[str, Any]) -> bool:
         r"[0-9a-f]{64}", receipt_hash.strip().casefold()
     ):
         return False
-    frozen_at = _parsed_utc_timestamp(receipt.get("frozen_at_utc"))
-    if frozen_at is None or frozen_at > datetime.now(timezone.utc):
+
+    resolved = evidence_resolver(receipt_hash.strip().casefold(), search_roots=search_roots)
+    if resolved is None:
+        # MISSING_EVIDENCE: a well-formed hash with nothing behind it.
         return False
-    bound_key = (
-        str(receipt.get("ncaa_contest_id") or receipt.get("ncaa_com_contest_id") or ""),
-        str(receipt.get("candidate_id") or ""),
-        str(receipt.get("cohort") or ""),
-        str(receipt.get("checkpoint") or ""),
+    payload = resolved["payload"]
+
+    payload_key = (
+        str(
+            payload.get("ncaa_contest_id")
+            or payload.get("contest_id")
+            or payload.get("canonical_contest_id")
+            or ""
+        ),
+        str(payload.get("candidate_id") or ""),
+        str(payload.get("cohort") or ""),
+        str(payload.get("checkpoint") or ""),
     )
-    if bound_key != forecast_key(forecast) or any(part == "" for part in bound_key):
+    if payload_key != forecast_key(forecast) or any(part == "" for part in payload_key):
+        # UNRELATED_EVIDENCE: the resolved artifact is not about this
+        # contest/candidate/cohort/checkpoint, whatever the receipt claimed.
+        return False
+
+    payload_probability = payload.get("probability_home")
+    try:
+        forecast_probability = forecast.get("probability_home")
+        if payload_probability is None or forecast_probability is None:
+            return False
+        if float(payload_probability) != float(forecast_probability):
+            # ALTERED_EVIDENCE: the resolved payload disagrees with the row
+            # being scored -- the receipt cannot vouch for a different number.
+            return False
+    except (TypeError, ValueError):
+        return False
+
+    frozen_at = _parsed_utc_timestamp(
+        payload.get("frozen_at_utc") or receipt.get("frozen_at_utc")
+    )
+    if frozen_at is None:
+        return False
+    reference_now = as_of_utc if as_of_utc is not None else datetime.now(timezone.utc)
+    if frozen_at > reference_now:
+        # POST_CUTOFF/FUTURE: evaluated against the injected reference time,
+        # not a fresh clock read, so this comparison is itself deterministic
+        # for any fixed as_of_utc.
         return False
     return True
 
@@ -112,9 +217,20 @@ def score_unique_frozen_games(
     observations: Sequence[Mapping[str, Any]],
     *,
     forecasts: Sequence[Mapping[str, Any]] | None = None,
+    as_of_utc: datetime | None = None,
+    search_roots: Sequence[Path] | None = None,
+    evidence_resolver: EvidenceResolver = resolve_receipt_evidence,
 ) -> dict[str, Any]:
-    """Score each proven frozen candidate/checkpoint against admitted finals."""
+    """Score each proven frozen candidate/checkpoint against admitted finals.
 
+    `as_of_utc` is resolved ONCE here (not per-row inside `freeze_is_proven`)
+    so every row in a single call is judged against the identical reference
+    time -- required for the replay-determinism guarantee described on
+    `freeze_is_proven`. Pass a fixed `as_of_utc` in tests/replay to get
+    byte-identical results regardless of real wall-clock time.
+    """
+
+    reference_now = as_of_utc if as_of_utc is not None else datetime.now(timezone.utc)
     grouped = competing_observations(observations)
     admitted = [
         game
@@ -157,7 +273,12 @@ def score_unique_frozen_games(
             if forecast.get("abstained") or forecast.get("classification") == "ABSTAINED":
                 excluded_abstained += 1
                 continue
-            if not freeze_is_proven(forecast):
+            if not freeze_is_proven(
+                forecast,
+                as_of_utc=reference_now,
+                search_roots=search_roots,
+                evidence_resolver=evidence_resolver,
+            ):
                 if forecast.get("frozen") or forecast.get("forecast_frozen"):
                     excluded_unproven_freeze += 1
                 else:
@@ -245,4 +366,6 @@ def score_unique_frozen_games(
         "pit_admitted": False,
         "week2_outcomes_do_not_tune": True,
         "scored_rows": scored,
+        "as_of_utc": reference_now.isoformat(),
+        "evidence_resolved_not_self_declared": True,
     }

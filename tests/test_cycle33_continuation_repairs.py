@@ -146,6 +146,11 @@ class ContinuationFinalsScoringTests(unittest.TestCase):
         self.assertEqual(len(grouped["nonfinal_contests"]), 1)
 
     def test_c33c08_two_candidates_are_order_invariant(self) -> None:
+        import hashlib
+        import json
+        import tempfile
+        from pathlib import Path
+
         game = dict(
             ncaa_contest_id="synthetic-game",
             home_name="Home",
@@ -154,47 +159,70 @@ class ContinuationFinalsScoringTests(unittest.TestCase):
             away_points=0,
             **FINAL,
         )
-        f1 = dict(
-            ncaa_contest_id="synthetic-game",
-            candidate_id="A",
-            cohort="MAIN",
-            checkpoint="T24H",
-            frozen=True,
-            forecast_row_id="A1",
-            probability_home=0.2,
-            # Cycle34 R34-03 repair: freeze proof now requires a genuine
-            # nested receipt binding the exact contest/candidate/cohort/
-            # checkpoint key, not a bare id/timestamp pair (MR33-01).
-            freeze_receipt={
-                "receipt_id": "FR-A",
-                "receipt_sha256": "a" * 64,
-                "frozen_at_utc": "2026-09-10T00:00:00Z",
-                "ncaa_contest_id": "synthetic-game",
-                "candidate_id": "A",
-                "cohort": "MAIN",
-                "checkpoint": "T24H",
-            },
-        )
-        f2 = dict(
-            ncaa_contest_id="synthetic-game",
-            candidate_id="B",
-            cohort="MAIN",
-            checkpoint="T24H",
-            frozen=True,
-            forecast_row_id="B1",
-            probability_home=0.8,
-            freeze_receipt={
-                "receipt_id": "FR-B",
-                "receipt_sha256": "b" * 64,
-                "frozen_at_utc": "2026-09-10T00:00:00Z",
-                "ncaa_contest_id": "synthetic-game",
-                "candidate_id": "B",
-                "cohort": "MAIN",
-                "checkpoint": "T24H",
-            },
-        )
-        forward = score_unique_frozen_games([game], forecasts=[f1, f2])
-        reverse = score_unique_frozen_games([game], forecasts=[f2, f1])
+        with tempfile.TemporaryDirectory() as tmp_str:
+            tmp = Path(tmp_str)
+
+            def _write(candidate: str, probability: float) -> str:
+                # Cycle34 R34-03 re-repair (MR33-01): freeze proof now
+                # resolves receipt_sha256 against REAL on-disk archive bytes
+                # (rehashed independently), not merely a self-declared
+                # hex-looking string -- a receipt with no backing artifact
+                # is rejected regardless of how plausible its fields look.
+                payload = {
+                    "ncaa_contest_id": "synthetic-game",
+                    "candidate_id": candidate,
+                    "cohort": "MAIN",
+                    "checkpoint": "T24H",
+                    "probability_home": probability,
+                    "frozen_at_utc": "2026-09-10T00:00:00Z",
+                }
+                raw = json.dumps(payload, sort_keys=True).encode("utf-8")
+                digest = hashlib.sha256(raw).hexdigest()
+                (tmp / f"forecast_{digest}.json").write_bytes(raw)
+                return digest
+
+            f1 = dict(
+                ncaa_contest_id="synthetic-game",
+                candidate_id="A",
+                cohort="MAIN",
+                checkpoint="T24H",
+                frozen=True,
+                forecast_row_id="A1",
+                probability_home=0.2,
+                freeze_receipt={
+                    "receipt_id": "FR-A",
+                    "receipt_sha256": _write("A", 0.2),
+                    "frozen_at_utc": "2026-09-10T00:00:00Z",
+                    "ncaa_contest_id": "synthetic-game",
+                    "candidate_id": "A",
+                    "cohort": "MAIN",
+                    "checkpoint": "T24H",
+                },
+            )
+            f2 = dict(
+                ncaa_contest_id="synthetic-game",
+                candidate_id="B",
+                cohort="MAIN",
+                checkpoint="T24H",
+                frozen=True,
+                forecast_row_id="B1",
+                probability_home=0.8,
+                freeze_receipt={
+                    "receipt_id": "FR-B",
+                    "receipt_sha256": _write("B", 0.8),
+                    "frozen_at_utc": "2026-09-10T00:00:00Z",
+                    "ncaa_contest_id": "synthetic-game",
+                    "candidate_id": "B",
+                    "cohort": "MAIN",
+                    "checkpoint": "T24H",
+                },
+            )
+            forward = score_unique_frozen_games(
+                [game], forecasts=[f1, f2], search_roots=(tmp,)
+            )
+            reverse = score_unique_frozen_games(
+                [game], forecasts=[f2, f1], search_roots=(tmp,)
+            )
         self.assertEqual(forward["scored_candidate_checkpoint_rows"], 2)
         self.assertEqual(reverse["scored_candidate_checkpoint_rows"], 2)
         self.assertEqual(forward["scored_unique_frozen_games"], 1)

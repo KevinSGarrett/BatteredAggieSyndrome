@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import re
@@ -27,6 +28,16 @@ def _looks_like_real_utc_timestamp(value: Any) -> bool:
     except ValueError:
         return False
     return True
+
+
+def _canonical_payload_digest(payload: Mapping[str, Any]) -> str:
+    """The actual sha256 of this payload's own canonical bytes, EXCLUDING the
+    `receipt_sha256` field itself (a hash cannot include itself). This is
+    computed independently here every time -- never trusted from the file."""
+
+    canonical = {key: value for key, value in payload.items() if key != "receipt_sha256"}
+    raw = json.dumps(canonical, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
 
 
 def _has_actual_forecast_content(payload: Mapping[str, Any]) -> bool:
@@ -113,6 +124,16 @@ def inspect_forecast_eligibility(path: Path) -> dict[str, Any]:
             # MR33-10 repair: a forged/placeholder value (e.g. "fake") must not
             # satisfy "receipt present" just because the field is nonempty.
             failed.append("RECEIPT_SHA256_NOT_WELL_FORMED")
+        elif receipt_hash.strip().casefold() != _canonical_payload_digest(payload):
+            # MR33-10 re-repair: a hex64-shaped string is not evidence on its
+            # own -- an INVENTED hash (e.g. "a"*64) satisfying only the format
+            # check, with no genuine relationship to the payload it claims to
+            # describe, must not read ELIGIBLE. The receipt must equal the
+            # ACTUAL, independently recomputed hash of this payload's own
+            # canonical bytes -- self-referential integrity, not a copied or
+            # fabricated string. A copied hash from an unrelated packet, or an
+            # altered payload whose hash was never updated, is rejected here.
+            failed.append("RECEIPT_SHA256_DOES_NOT_MATCH_PAYLOAD_BYTES")
         if not issued_at:
             failed.append("MISSING_ISSUED_OR_SNAPSHOT_UTC")
         elif not _looks_like_real_utc_timestamp(issued_at):

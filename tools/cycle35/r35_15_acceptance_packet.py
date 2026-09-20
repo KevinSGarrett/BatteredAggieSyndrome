@@ -482,27 +482,37 @@ NEW_FINDINGS: tuple[dict[str, Any], ...] = (
     {
         "id": "C35-N5",
         "severity": "P2",
-        "title": "Lake readiness predicate cannot tell 'absent' from 'could not stat'",
+        "title": "Lake readiness predicate: cause of one false-negative red "
+        "run is unproven; an earlier claimed mechanism is withdrawn",
         "detail": "tamu_official_gamebook_union_2001_expanded.upstream_is_ready "
         "decides whether the data root is mounted with four Path.is_file() "
-        "calls. pathlib's is_file() catches OSError and returns False for "
-        "ignorable errors, which on Windows includes sharing violations and "
-        "access denials. Under heavy concurrent I/O on the same volume a "
-        "transient stat failure is therefore indistinguishable from a missing "
-        "file, and the caller raises 'the data root is not mounted' about a "
-        "lake that is mounted. This is the SAME conflation as MR34-12 -- "
-        "inability to determine read as absence -- in a different module. "
-        "Observed once: the test was red in a full mounted suite that ran "
-        "concurrently with a job recursively reading 34,701 files under the "
-        "same root, and green in two independent isolated runs at the same "
-        "head. The mechanism is demonstrated; its causation of that specific "
-        "red is consistent but not proven.",
-        "status": "OPEN_NOT_REPAIRED_THIS_CYCLE",
+        "calls. Observed once: the test was red in a full mounted suite that "
+        "ran concurrently with a job recursively reading 34,701 files under "
+        "the same root, and green in two independent isolated runs at the "
+        "same head, and in a clean full mounted run whose red set matched the "
+        "predecessor baseline exactly. That empirical finding (not a "
+        "regression) stands on its own. MF35-10 (Cycle #35 manager "
+        "follow-up, 20260920T205200Z): a prior version of this entry claimed "
+        "pathlib's is_file() 'catches OSError and returns False for ignorable "
+        "errors, which on Windows includes sharing violations' as the "
+        "demonstrated mechanism. An independent diagnostic ran the actual "
+        "CPython 3.11.9 is_file()/_ignore_error source under this project's "
+        "Python and found that claim FALSE: only winerrors 21, 123 and 1921 "
+        "are ignored; an injected winerror 32 (ERROR_SHARING_VIOLATION, 'file "
+        "in use by another process') raises PermissionError instead of being "
+        "swallowed. The claimed mechanism is WITHDRAWN as disproven, not "
+        "merely unproven. The actual cause of the single red observation is "
+        "CAUSE_UNPROVEN: correlation with concurrent I/O is not proof of the "
+        "specific syscall/error involved, and a deterministic injected-error "
+        "reproduction against the real call sites has not yet been run.",
+        "status": "OPEN_NOT_REPAIRED_THIS_CYCLE_CAUSE_UNPROVEN",
         "owner": "BAT-706",
         "note": "Not repaired here because the module is outside this "
         "cycle's changed surface and the Family B family is already blocked "
         "on CYCLE33-APPROVAL-LAKE-SUCCESSOR-001; changing its readiness "
-        "semantics mid-block would confuse two separate questions.",
+        "semantics mid-block would confuse two separate questions. The "
+        "withdrawn-mechanism correction above applies regardless of when "
+        "the underlying predicate itself is eventually repaired.",
     },
     {
         "id": "C35-N4",

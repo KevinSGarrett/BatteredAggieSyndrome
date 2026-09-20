@@ -59,6 +59,8 @@ def _seed(conn, tmp: Path, *, support: bool = True) -> dict[str, str]:
         parser_identity="TEST",
         observed_person="A Coach",
         observed_title="Head Coach",
+        observed_program="P:1",
+        observed_season="2026",
     )
     upsert_program(conn, "P:1", display_name="Example State", season=2026)
     person_id = upsert_person(conn, "A Coach", identity_basis="TEST")
@@ -248,6 +250,8 @@ class SemanticEntailmentTests(unittest.TestCase):
                 parser_identity="TEST",
                 observed_person="B Coach",
                 observed_title="Strength Coach",
+                observed_program="P:1",
+                observed_season="2026",
             )
             upsert_program(conn, "P:1", display_name="Example State", season=2026)
             person_id = upsert_person(conn, "B Coach", identity_basis="TEST")
@@ -292,7 +296,7 @@ class SemanticEntailmentTests(unittest.TestCase):
             observation_id = add_observation(
                 conn, source_file_id=source_file_id, locator="tr[0]",
                 parser_identity="TEST", observed_person="Mike Weick",
-                observed_title=title,
+                observed_title=title, observed_program="P:1", observed_season="2026",
             )
             upsert_program(conn, "P:1", display_name="Example State", season=2026)
             person_id = upsert_person(conn, "Mike Weick", identity_basis="TEST")

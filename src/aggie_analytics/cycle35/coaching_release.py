@@ -41,13 +41,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator, Mapping, Sequence
-
-from aggie_analytics.cycle33.role_taxonomy import principal_role_families
 
 SCHEMA_VERSION = 4
 RELEASE_KIND = "BAS-CYCLE35-COACHING-RELEASE"
@@ -872,38 +871,182 @@ def assertions_missing_evidence_link(conn: sqlite3.Connection) -> list[dict[str,
     return [dict(row) for row in rows]
 
 
-#: role_family values `principal_role_families` has an opinion about.
-#: MF35-05: ingestion now emits one `formal_role_assertion` per assignment
-#: `assignments_from_title` finds in a title, including position-specific
-#: role families (e.g. "inside_linebackers") the HC/OC/DC classifier was
-#: never meant to judge -- the derivability check below must not flag those
-#: as unentailed just because the classifier is silent about them.
-_PRINCIPAL_ROLE_FAMILIES = frozenset(
-    {"head_coach", "offensive_coordinator", "defensive_coordinator"}
+def _normalize_name(value: Any) -> str:
+    return " ".join(str(value or "").split()).casefold()
+
+
+#: Independent role-family keyword reference. Deliberately NOT derived from
+#: or calling into `aggie_analytics.cycle33.role_taxonomy` (the module the
+#: ingest pipeline's own classifier -- `assignments_from_title` -- uses): a
+#: shared bug between producer and checker would otherwise agree with
+#: itself and never surface. This is hand-curated from the role families
+#: actually observed in a real national release, using plain domain
+#: knowledge, not by reading role_taxonomy.py's pattern library. It is
+#: deliberately simpler and more conservative than that library -- it does
+#: not need to reproduce every abbreviation or synonym, only to answer,
+#: independently, whether the literal title text contains unambiguous
+#: language consistent with the specific role being claimed.
+#: Hint phrases below 4 characters are matched as whole words (`\bqb\b`),
+#: not bare substrings -- see `_hint_matches`. Longer phrases are matched as
+#: plain substrings.
+_HEAD_COACH_HINTS = (
+    "head coach",
+    "head football coach",
+    "director of football",
+    "chair in football",
+    "endowed football coach",
 )
+_INDEPENDENT_ROLE_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "head_coach": _HEAD_COACH_HINTS,
+    "assistant_head_coach": _HEAD_COACH_HINTS,
+    "offensive_coordinator": (
+        "offensive coordinator", "off. coor", "off. coordinator",
+        "director of offense", "oc",
+    ),
+    "defensive_coordinator": (
+        "defensive coordinator", "def. coor", "def. coordinator",
+        "director of defense", "dc",
+    ),
+    "special_teams_coordinator": ("special teams",),
+    "run_game_coordinator": ("run game", "running game"),
+    "pass_game_coordinator": ("pass game", "passing game"),
+    "quarterbacks": ("quarterback", "qb"),
+    "running_backs": ("running back",),
+    "fullbacks": ("fullback",),
+    "wide_receivers": ("wide receiver", "wide reciever", "wr"),
+    "receivers": ("receiver", "reciever"),
+    "tight_ends": ("tight end",),
+    "offensive_line": ("offensive line",),
+    "linebackers": ("linebacker",),
+    "inside_linebackers": ("inside linebacker", "ilb"),
+    "outside_linebackers": ("outside linebacker", "olb"),
+    "defensive_line": ("defensive line",),
+    "defensive_tackles": ("defensive tackle",),
+    "defensive_ends": ("defensive end",),
+    "defensive_backs": ("defensive back",),
+    "cornerbacks": ("cornerback",),
+    "safeties": ("safet",),  # stem: matches both "safety" and "safeties"
+    "nickels": ("nickel",),
+    "secondary": ("secondary",),
+    "special_teams_staff": ("special teams",),
+    "player_personnel": ("player personnel", "personnel", "recruiting"),
+    "recruiting_staff": ("recruiting",),
+    "sports_performance": (
+        "sports performance", "athletic performance", "strength", "conditioning",
+    ),
+    "chief_of_staff": ("chief of staff",),
+    "athletic_director": ("athletic director",),
+}
+
+
+def _hint_matches(hint: str, text: str) -> bool:
+    """Short hints (<=3 chars, e.g. "qb", "oc", "dc", "olb") are matched as
+    whole words so they cannot accidentally fire inside an unrelated longer
+    word; longer phrase hints are matched as plain substrings."""
+
+    if len(hint) <= 3:
+        return re.search(r"\b" + re.escape(hint) + r"\b", text) is not None
+    return hint in text
+
+#: role_family values that are themselves honest "could not classify"
+#: placeholders (assigned when a title genuinely matched nothing), never a
+#: substantive claim that needs its own textual support.
+_UNCLASSIFIED_ROLE_PLACEHOLDERS = frozenset(
+    {"UNSPECIFIED_ASSISTANT", "unmapped_title_review_required", "assistant_unspecified"}
+)
+
+
+def _independent_role_plausible(role_family: str, title_lowered: str) -> bool:
+    if role_family in _UNCLASSIFIED_ROLE_PLACEHOLDERS:
+        return True
+    # Some evidence sources (e.g. an infobox reporting a structured
+    # "head_coach: <name>" field rather than a prose title) record the
+    # observed "title" as the role code itself, underscores and all. A
+    # role trivially equal to its own label is not a claim that needs
+    # separate textual corroboration; normalize both sides the same way
+    # before comparing or keyword-matching.
+    normalized_title = title_lowered.replace("_", " ")
+    normalized_role = str(role_family).replace("_", " ").casefold()
+    if normalized_title.strip() == normalized_role.strip():
+        return True
+    hints = _INDEPENDENT_ROLE_KEYWORDS.get(role_family, (normalized_role,))
+    return any(_hint_matches(hint, normalized_title) for hint in hints)
+
+
+#: Independent qualifier keyword reference. Same independence rationale as
+#: `_INDEPENDENT_ROLE_KEYWORDS`: implemented as plain substring checks
+#: rather than role_taxonomy.py's compiled regex patterns, so the two
+#: implementations can disagree instead of failing the same way together.
+_INDEPENDENT_QUALIFIER_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "CO": ("co-", "co defensive", "co offensive", "co head", "co-defensive", "co-offensive"),
+    "INTERIM": ("interim",),
+    "ACTING": ("acting",),
+    "ASSISTANT": ("assistant", "asst.", "asst "),
+    "ASSOCIATE": ("associate", "assoc.", "assoc "),
+    "DEPUTY": ("deputy",),
+    "SENIOR": ("senior", "sr.", "sr "),
+    "VOLUNTEER": ("volunteer",),
+    "GRADUATE": ("graduate",),
+    "STUDENT": ("student",),
+}
+
+
+def _independent_qualifier_plausible(qualifier: str, title_lowered: str) -> bool:
+    hints = _INDEPENDENT_QUALIFIER_KEYWORDS.get(qualifier)
+    if hints is None:
+        # An unrecognized qualifier code has no keyword to check against --
+        # that is itself suspicious, not something to wave through silently.
+        return False
+    return any(hint in title_lowered for hint in hints)
+
+
+#: source_class values capable of supporting an OFFICIAL_PRIMARY_CONFIRMED
+#: assertion. A retrospective, user-compiled, or predecessor-transcription
+#: source can be a real CANDIDATE or CORROBORATED contribution, but it is
+#: not a primary source confirming the fact, and an assertion may not claim
+#: stronger evidence than what actually backs it.
+_OFFICIAL_CAPABLE_SOURCE_CLASSES = frozenset({"OFFICIAL_STAFF_HTML"})
 
 
 def assertions_not_entailed_by_linked_observations(
     conn: sqlite3.Connection,
 ) -> list[dict[str, Any]]:
     """Linked assertions whose content is NOT actually entailed by any of
-    their linked observations.
+    their linked observations, checked against an independently
+    implemented reference -- not the ingest pipeline's own classifier.
 
-    MF35-03: a row in `assertion_support` proves a relationship LINK exists;
-    it does not prove the linked observation's own recorded text supports
-    the specific fact the assertion claims. This checks two things a
-    changed `exact_title_text` or `role_family` can no longer hide behind an
-    untouched link:
+    MF35-03 / Cycle #35 manager follow-up (20260920T224700Z): a row in
+    `assertion_support` proves a relationship LINK exists; it does not
+    prove the linked observation's own recorded text supports the specific
+    fact the assertion claims, and reusing the ingest-time classifier
+    cannot independently catch a producer bug both would share. This now
+    checks the complete fact the finding named:
 
     * literal title entailment -- `exact_title_text` must equal, once
       whitespace-normalized, at least one linked observation's own
-      `observed_title`. The column is literally named "exact" text; if
-      nothing linked to it actually says that text, the link is decorative.
-    * role-family derivability -- when `principal_role_families` (the same
-      HC/OC/DC classifier used at ingest time) returns a non-empty
-      classification for the entailed title text, the stored `role_family`
-      must be a member of it. A classifier that returns nothing makes no
-      claim either way and is not treated as a mismatch.
+      `observed_title`.
+    * subject/program/season binding -- among the title-matching
+      observations, at least one must ALSO name the SAME person (by
+      canonical name or a recorded alias), the same program_id and the
+      same season as the assertion's own episode. A linked observation
+      about a different person, program or season proves nothing about
+      THIS assertion, however similar its title text reads.
+    * role-family plausibility -- the claimed `role_family` must be
+      independently plausible from the title text (see
+      `_independent_role_plausible`), covering position roles as well as
+      HC/OC/DC, and explicitly rejecting a specific role claim when the
+      title carries no recognizable coaching-role language at all. An
+      honest "could not classify" placeholder role is never itself
+      flagged.
+    * qualifier plausibility -- every claimed qualifier (e.g. "CO") must
+      be independently detectable in the title text; a qualifier with no
+      textual support is a claim the release cannot back.
+    * evidence-layer authority -- an assertion recorded at
+      OFFICIAL_PRIMARY_CONFIRMED must be supported by at least one
+      subject-matching observation whose OWN source file is of a class
+      capable of primary confirmation (see
+      `_OFFICIAL_CAPABLE_SOURCE_CLASSES`); a retrospective or user-compiled
+      source cannot promote itself to official authority by being linked.
 
     An assertion with NO linked observation at all is out of scope here --
     that is `assertions_missing_evidence_link`'s claim, not this one's.
@@ -912,44 +1055,106 @@ def assertions_not_entailed_by_linked_observations(
     rows = conn.execute(
         """
         SELECT a.assertion_id, a.role_family, a.exact_title_text,
-               a.evidence_layer, o.observed_title
+               a.qualifiers, a.evidence_layer AS assertion_evidence_layer,
+               e.episode_id, e.person_id, e.program_id, e.season,
+               o.observation_id, o.observed_title, o.observed_person,
+               o.observed_program, o.observed_season,
+               sf.source_class
         FROM formal_role_assertion a
+        JOIN employment_episode e ON e.episode_id = a.episode_id
         JOIN assertion_support s
           ON s.assertion_id = a.assertion_id
          AND s.assertion_table = 'formal_role_assertion'
         JOIN source_observation o ON o.observation_id = s.observation_id
+        LEFT JOIN source_file sf ON sf.source_file_id = o.source_file_id
         """
     ).fetchall()
 
+    names_by_person: dict[str, set[str]] = {}
+    for row in conn.execute("SELECT person_id, canonical_name FROM canonical_person"):
+        names_by_person.setdefault(str(row["person_id"]), set()).add(
+            _normalize_name(row["canonical_name"])
+        )
+    for row in conn.execute("SELECT person_id, alias FROM person_alias"):
+        names_by_person.setdefault(str(row["person_id"]), set()).add(
+            _normalize_name(row["alias"])
+        )
+
     by_assertion: dict[str, dict[str, Any]] = {}
-    observed_titles: dict[str, set[str]] = {}
+    links: dict[str, list[sqlite3.Row]] = {}
     for row in rows:
         assertion_id = str(row["assertion_id"])
         by_assertion[assertion_id] = {
             "assertion_id": assertion_id,
             "role_family": row["role_family"],
             "exact_title_text": row["exact_title_text"],
-            "evidence_layer": row["evidence_layer"],
+            "qualifiers": row["qualifiers"],
+            "evidence_layer": row["assertion_evidence_layer"],
+            "person_id": row["person_id"],
+            "program_id": row["program_id"],
+            "season": row["season"],
         }
-        titles = observed_titles.setdefault(assertion_id, set())
-        if row["observed_title"] is not None:
-            titles.add(str(row["observed_title"]).strip())
+        links.setdefault(assertion_id, []).append(row)
 
     findings: list[dict[str, Any]] = []
     for assertion_id, assertion in by_assertion.items():
         exact_title_text = str(assertion["exact_title_text"] or "").strip()
-        titles = observed_titles.get(assertion_id, set())
+        observations = links.get(assertion_id, [])
         reasons: list[str] = []
-        if exact_title_text not in titles:
+
+        title_matching = [
+            o for o in observations
+            if str(o["observed_title"] or "").strip() == exact_title_text
+        ]
+        if not title_matching:
             reasons.append("EXACT_TITLE_TEXT_NOT_OBSERVED_IN_ANY_LINKED_OBSERVATION")
-        elif assertion["role_family"] in _PRINCIPAL_ROLE_FAMILIES:
-            # principal_role_families only classifies the HC/OC/DC bucket --
-            # it has no opinion about position-specific role_family values
-            # (e.g. "inside_linebackers"), so this check applies only when
-            # the stored role_family itself claims to be one of those three.
-            derivable = principal_role_families(exact_title_text)
-            if derivable and assertion["role_family"] not in derivable:
-                reasons.append("ROLE_FAMILY_NOT_DERIVABLE_FROM_EXACT_TITLE_TEXT")
+            findings.append({**assertion, "reasons": reasons})
+            continue
+
+        person_names = names_by_person.get(str(assertion["person_id"]), set())
+        subject_matching = [
+            o for o in title_matching
+            if _normalize_name(o["observed_person"]) in person_names
+            and str(o["observed_program"] or "") == str(assertion["program_id"] or "")
+            and str(o["observed_season"] or "") == str(assertion["season"] or "")
+        ]
+        if not subject_matching:
+            reasons.append(
+                "SUBJECT_PROGRAM_SEASON_NOT_ENTAILED_BY_ANY_LINKED_OBSERVATION"
+            )
+            # A title match with the wrong subject says nothing reliable
+            # about role/qualifier plausibility for THIS assertion either,
+            # so those checks fall back to whatever title-matching evidence
+            # exists rather than evidence already proven to be about
+            # someone/something else.
+            evidence_for_role_checks = title_matching
+        else:
+            evidence_for_role_checks = subject_matching
+
+        title_lowered = exact_title_text.casefold()
+        role_family = str(assertion["role_family"] or "")
+        if not _independent_role_plausible(role_family, title_lowered):
+            reasons.append("ROLE_FAMILY_NOT_DERIVABLE_FROM_EXACT_TITLE_TEXT")
+
+        try:
+            claimed_qualifiers = json.loads(assertion.get("qualifiers") or "[]")
+        except (TypeError, ValueError):
+            claimed_qualifiers = []
+        unsupported_qualifiers = [
+            q for q in claimed_qualifiers
+            if not _independent_qualifier_plausible(str(q), title_lowered)
+        ]
+        if unsupported_qualifiers:
+            reasons.append("QUALIFIERS_NOT_DERIVABLE_FROM_EXACT_TITLE_TEXT")
+
+        if assertion["evidence_layer"] == LAYER_OFFICIAL:
+            official_capable = any(
+                o["source_class"] in _OFFICIAL_CAPABLE_SOURCE_CLASSES
+                for o in evidence_for_role_checks
+            )
+            if not official_capable:
+                reasons.append("EVIDENCE_LAYER_EXCEEDS_SOURCE_AUTHORITY")
+
         if reasons:
             findings.append({**assertion, "reasons": reasons})
     return findings

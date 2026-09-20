@@ -200,6 +200,7 @@ def ingest_reparsed_staff(
         person = str(row.get("person") or "")
         title = str(row.get("source_title") or "")
         program_id = str(row.get("program_id") or "")
+        season = str(row.get("strata", {}).get("era") or "")
         observation_id = add_observation(
             conn,
             source_file_id=source_file_id,
@@ -208,6 +209,14 @@ def ingest_reparsed_staff(
             observed_person=person,
             observed_title=title,
             observed_program=program_id,
+            # MF35 follow-up (20260920T224700Z): the independent entailment
+            # checker verifies subject/program/SEASON binding against what
+            # the observation itself recorded, not just against the
+            # episode's own claim. This previously never recorded a season
+            # at all, so no observation could ever attest to the episode's
+            # season -- fixed by recording the same season value used below
+            # for the episode, since both come from the same source row.
+            observed_season=season,
             observed_text=str(row.get("rebuilt_record_title") or ""),
             evidence_layer=LAYER_OBSERVED,
         )
@@ -230,7 +239,7 @@ def ingest_reparsed_staff(
             conn,
             person_id=person_id,
             program_id=program_id,
-            season=str(row.get("strata", {}).get("era") or ""),
+            season=season,
             date_precision="SEASON_UNSPECIFIED",
             evidence_layer=LAYER_OFFICIAL,
         )
@@ -378,17 +387,177 @@ def ingest_user_corpus(conn: sqlite3.Connection) -> dict[str, Any]:
 
 
 
+#: The ONLY artifact_type ingest_career_tranche() may consume. A career
+#: tranche moves through two distinct, differently-shaped stages:
+#: r35_05_career_tranche.py's first pass (artifact_type
+#: CYCLE35_R35_05_CAREER_TRANCHE, field "keys", resolved cache-first only)
+#: and r35_05_resolve_missing_keys.py's second pass (artifact_type
+#: CYCLE35_R35_05_CAREER_TRANCHE_SECOND_PASS, field "final_keys", the
+#: MISSING keys re-attempted from an independent evidence surface). This
+#: ingester is documented -- and was always intended -- to consume only the
+#: resolved second-pass artifact.
+CAREER_TRANCHE_SECOND_PASS_ARTIFACT_TYPE = "CYCLE35_R35_05_CAREER_TRANCHE_SECOND_PASS"
+
+#: Dispositions the second-pass tranche is allowed to declare per key. An
+#: unrecognized disposition is a contract violation, not a value to pass
+#: through uninterpreted.
+_CAREER_KEY_KNOWN_DISPOSITIONS = frozenset(
+    {
+        "ACCEPTED_SINGLE_SOURCE",
+        "ACCEPTED_CORROBORATED",
+        "CONFLICT",
+        "MISSING_NO_EVIDENCE",
+        "AMBIGUOUS",
+        "NOT_ATTEMPTED_BUDGET_EXHAUSTED",
+    }
+)
+
+_CAREER_KEY_REQUIRED_FIELDS = (
+    "key_id",
+    "program_id",
+    "season",
+    "role",
+    "disposition",
+    "display_name",
+)
+
+
+def validate_career_tranche_contract(payload: Any) -> list[str]:
+    """Every reason this payload may not be trusted as a resolved
+    second-pass career tranche. An empty list means the contract holds.
+
+    Cycle #35 manager follow-up (20260920T224700Z): ingest_career_tranche
+    previously read `payload.get("final_keys") or []` with no check that
+    the payload was actually the artifact this ingester is documented to
+    consume. Feeding it the FIRST-PASS artifact (which has "keys", not
+    "final_keys") silently ingested zero rows while still returning
+    "INGESTED_AS_REVISION_BOUND_CANDIDATES" -- a success-shaped state for a
+    payload that was never usable. This function is what makes that
+    silence impossible: a missing or wrong-stage required list is a named,
+    returned violation, never a default to [].
+    """
+
+    reasons: list[str] = []
+    if not isinstance(payload, dict):
+        return [f"PAYLOAD_NOT_AN_OBJECT: got {type(payload).__name__}"]
+
+    artifact_type = payload.get("artifact_type")
+    if artifact_type != CAREER_TRANCHE_SECOND_PASS_ARTIFACT_TYPE:
+        reasons.append(
+            "WRONG_STAGE_ARTIFACT_TYPE: expected "
+            f"{CAREER_TRANCHE_SECOND_PASS_ARTIFACT_TYPE!r}, got {artifact_type!r}. "
+            "This ingester consumes the RESOLVED second-pass tranche only; "
+            "run r35_05_resolve_missing_keys.py on the first-pass output "
+            "before feeding it here."
+        )
+
+    has_keys = "keys" in payload
+    has_final_keys = "final_keys" in payload
+    if has_keys and has_final_keys:
+        reasons.append(
+            "AMBIGUOUS_DUAL_FIELD_PAYLOAD: payload declares both 'keys' "
+            "and 'final_keys'. The real producer schema never emits both "
+            "in one artifact; refusing to guess which one is authoritative."
+        )
+    elif has_keys and not has_final_keys:
+        reasons.append(
+            "FIRST_PASS_FIELD_PRESENT_NOT_SECOND_PASS: payload has 'keys' "
+            "but no 'final_keys' -- this is the shape of the first-pass "
+            "predeclaration/resolution artifact, not the resolved "
+            "second-pass tranche."
+        )
+    elif not has_final_keys:
+        reasons.append(
+            "MISSING_REQUIRED_FIELD_FINAL_KEYS: payload has no 'final_keys' "
+            "field. A missing required list must never silently default to "
+            "an empty ingest."
+        )
+
+    if reasons:
+        # The top-level field shape is already broken; per-key schema
+        # checks below would just add noise about a field that may not
+        # even be present or list-shaped.
+        return reasons
+
+    final_keys = payload.get("final_keys")
+    if not isinstance(final_keys, list):
+        return [f"FINAL_KEYS_NOT_A_LIST: got {type(final_keys).__name__}"]
+
+    declared_count = payload.get("key_count")
+    if declared_count is not None and declared_count != len(final_keys):
+        reasons.append(
+            f"DECLARED_COUNT_MISMATCH: key_count={declared_count!r} but "
+            f"final_keys has {len(final_keys)} entries."
+        )
+
+    seen: dict[str, Any] = {}
+    for index, key in enumerate(final_keys):
+        if not isinstance(key, dict):
+            reasons.append(f"KEY_NOT_AN_OBJECT: index {index} is {type(key).__name__}")
+            continue
+        missing = [
+            field
+            for field in _CAREER_KEY_REQUIRED_FIELDS
+            if key.get(field) in (None, "")
+        ]
+        if missing:
+            reasons.append(
+                f"KEY_MISSING_REQUIRED_FIELDS: index {index} "
+                f"(key_id={key.get('key_id')!r}) missing {missing}"
+            )
+            continue
+        disposition = str(key.get("disposition"))
+        if disposition not in _CAREER_KEY_KNOWN_DISPOSITIONS:
+            reasons.append(
+                f"KEY_UNKNOWN_DISPOSITION: key_id={key.get('key_id')!r} "
+                f"disposition={disposition!r}"
+            )
+        key_id = str(key.get("key_id"))
+        if key_id in seen:
+            if seen[key_id] != key:
+                reasons.append(
+                    f"DUPLICATE_KEY_ID_CONFLICTING_CONTENT: key_id={key_id!r}"
+                )
+            # An identical replayed row under the same key_id is not itself
+            # a contract violation -- see the idempotent-replay tests.
+        else:
+            seen[key_id] = key
+    return reasons
+
+
 def ingest_career_tranche(conn: sqlite3.Connection, tranche_path: Path) -> dict[str, Any]:
-    """The resolved 48-key career tranche, as revision-bound candidates.
+    """The resolved career tranche, as revision-bound candidates.
 
     These are retrospective Wikimedia assertions, so they enter at
     CANDIDATE_SINGLE_SOURCE and never at an official layer. A CONFLICT key
     produces a conflict row with BOTH occupants preserved; neither wins.
+
+    A wrong-stage or malformed tranche file does NOT raise: it is one
+    optional input among several independent sources in the same build
+    transaction (membership, staff, the Cycle #34 transcription, the user
+    corpus), and this ingester already treats "no career tranche supplied"
+    as a valid, non-corrupting state (`CAREER_TRANCHE_NOT_PRESENT`) rather
+    than aborting the release. "supplied but invalid" gets the same
+    treatment -- ingest nothing from it, but never abort the other
+    sources' already-valid data over one bad optional file. What MUST
+    change is that the rejection is unmissable: `state` is explicitly
+    `REJECTED_INVALID_CONTRACT` with every violation named, never the
+    same success-shaped state a real ingest gets.
     """
 
     if not tranche_path.is_file():
         return {"state": "CAREER_TRANCHE_NOT_PRESENT"}
     payload = json.loads(tranche_path.read_text(encoding="utf-8"))
+    contract_violations = validate_career_tranche_contract(payload)
+    if contract_violations:
+        return {
+            "state": "REJECTED_INVALID_CONTRACT",
+            "contract_violations": contract_violations,
+            "artifact_type_found": (
+                payload.get("artifact_type") if isinstance(payload, dict) else None
+            ),
+            "tranche_sha256": hashlib.sha256(tranche_path.read_bytes()).hexdigest(),
+        }
     source_file_id = register_source_file(
         conn,
         tranche_path,
@@ -397,7 +566,17 @@ def ingest_career_tranche(conn: sqlite3.Connection, tranche_path: Path) -> dict[
         acquisition_receipt="CYCLE35_R35_05_CAREER_TRANCHE",
     )
     stats: Counter = Counter()
-    for key in payload.get("final_keys") or []:
+    seen_key_ids: set[str] = set()
+    for key in payload["final_keys"]:
+        key_id = str(key.get("key_id"))
+        if key_id in seen_key_ids:
+            # A duplicate/replayed key within one payload: content-identity
+            # already proven by validate_career_tranche_contract (a
+            # conflicting duplicate would have been rejected above), so
+            # this is a harmless replay -- count it, do not double-ingest.
+            stats["DUPLICATE_KEY_ID_IN_PAYLOAD_SKIPPED"] += 1
+            continue
+        seen_key_ids.add(key_id)
         disposition = str(key.get("disposition"))
         people = list(key.get("resolved_people") or [])
         stats["KEY_" + disposition] += 1
@@ -461,14 +640,31 @@ def ingest_career_tranche(conn: sqlite3.Connection, tranche_path: Path) -> dict[
             conn,
             episode_id=episode_id,
             role_family=role,
-            exact_title_text=str(key.get("second_pass_parameter") or role),
+            # exact_title_text must equal the linked observation's own
+            # observed_title (set to `role` below) for the entailment check
+            # to hold -- `second_pass_parameter` is provenance (which
+            # infobox parameter matched, e.g. "hc"), not the asserted title
+            # text, and using it here previously created a mismatch the
+            # entailment checker would have flagged as unentailed.
+            exact_title_text=role,
             qualifiers=[],
             evidence_layer=LAYER_CANDIDATE,
             supporting_observations=observation_ids,
         )
         stats["PROMOTED_CANDIDATE"] += 1
     out = dict(stats)
-    out["state"] = "INGESTED_AS_REVISION_BOUND_CANDIDATES"
+    # A contract-valid payload with genuinely zero resolvable keys (every
+    # key MISSING_NO_EVIDENCE, or a payload with an empty final_keys list)
+    # must report that plainly -- never the same success-shaped state a
+    # real multi-row ingest gets, which is exactly what let a wrong-stage
+    # payload masquerade as a successful ingest before this repair.
+    out["state"] = (
+        "INGESTED_AS_REVISION_BOUND_CANDIDATES"
+        if stats["OBSERVATIONS"] > 0
+        else "CONTRACT_VALID_BUT_ZERO_KEYS_RESOLVED"
+    )
+    out["contract_validated"] = True
+    out["final_keys_count"] = len(payload["final_keys"])
     out["tranche_sha256"] = hashlib.sha256(tranche_path.read_bytes()).hexdigest()
     return out
 

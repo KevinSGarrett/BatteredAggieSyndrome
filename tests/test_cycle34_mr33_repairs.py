@@ -574,6 +574,66 @@ class CareerJoinIdentityTests(unittest.TestCase):
         self.assertEqual(reverse["career_join_state"], "AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES")
 
 
+class MascotSuffixEmployerMatchTests(unittest.TestCase):
+    """R34-06 re-repair: a real false negative found this session (P. J. Fleck
+    vs "Western Michigan" -- his own page lists "Western Michigan Broncos" as
+    the episode's program_raw, and the prior employer_evidence_matches logic
+    rejected the match because "broncos" was an extra, non-generic token).
+    A mascot/nickname suffix is never used to distinguish between two
+    different real institutions the way "Tech"/"State"/"A&M" genuinely are,
+    so it must not cause a real match to be rejected -- but a genuine
+    distinguishing qualifier must still correctly reject (Virginia Tech
+    remains a different school from the University of Virginia)."""
+
+    def test_mascot_suffix_on_one_side_still_matches(self) -> None:
+        from aggie_analytics.cycle33.career_identity import employer_evidence_matches
+
+        self.assertTrue(
+            employer_evidence_matches("Western Michigan", "Western Michigan Broncos")
+        )
+        self.assertTrue(
+            employer_evidence_matches("Minnesota", "Minnesota Golden Gophers")
+        )
+        self.assertTrue(employer_evidence_matches("Ohio State", "Ohio State Buckeyes"))
+        # Symmetric: mascot side first, bare side second.
+        self.assertTrue(
+            employer_evidence_matches("Western Michigan Broncos", "Western Michigan")
+        )
+
+    def test_genuine_distinguishing_qualifier_still_rejects(self) -> None:
+        from aggie_analytics.cycle33.career_identity import employer_evidence_matches
+
+        self.assertFalse(employer_evidence_matches("Virginia", "Virginia Tech"))
+        self.assertFalse(employer_evidence_matches("Virginia", "Virginia Tech Hokies"))
+        self.assertFalse(employer_evidence_matches("Texas", "Texas A&M"))
+        self.assertFalse(employer_evidence_matches("Texas", "Texas State"))
+
+    def test_full_career_join_with_mascot_suffix_now_binds(self) -> None:
+        """The exact real-world case found this session: P. J. Fleck's own
+        Wikipedia page lists "Western Michigan Broncos" as the program_raw
+        for his 2013-2016 episode; querying with the bare "Western Michigan"
+        employer name must now correctly bind."""
+
+        page = {
+            "title": "P. J. Fleck (American football)",
+            "page_id": 5004,
+            "episodes": [
+                {
+                    "person": "P. J. Fleck",
+                    "program_raw": "Western Michigan Broncos",
+                    "sport": "American football",
+                    "role": "Head Coach",
+                    "start_year": 2013,
+                    "end_year": 2016,
+                },
+            ],
+        }
+        result = join_occupant_to_pages(
+            person="P. J. Fleck", program_display="Western Michigan", pages=[page]
+        )
+        self.assertEqual(result["career_join_state"], "EVIDENCE_BOUND_CAREER_JOIN")
+
+
 class PartialCellConservationTests(unittest.TestCase):
     """MR33-05: a supported + an unsupported-but-locatable episode both survive."""
 

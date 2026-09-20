@@ -30,6 +30,40 @@ PROTECTED_PHRASES = (
     "miami florida",
 )
 
+# MR33-04 re-repair (R34-06): sports mascot/nickname tokens are NEVER used to
+# distinguish between two different real institutions the way "tech"/"state"/
+# "a&m" genuinely are (Virginia Tech is a real, different school from the
+# University of Virginia; there is no real school called "Western Michigan
+# Broncos" distinct from "Western Michigan"). A mascot suffix is therefore
+# safe to strip when one side's name is exactly the other side's name plus a
+# trailing mascot token -- unlike a generic word, this is intentionally
+# checked only as a SUFFIX match (see employer_evidence_matches), never a
+# substring/subset match anywhere in the name, so it cannot be used to widen
+# an unrelated pair into a false match. Deliberately excludes any token that
+# is also a real distinguishing qualifier (e.g. no "tech", "state", "a&m").
+MASCOT_TOKENS = frozenset(
+    {
+        "aggies", "aggie", "broncos", "bronco", "buckeyes", "buckeye",
+        "bulldogs", "bulldog", "cardinal", "cardinals", "cougars", "cougar",
+        "ducks", "duck", "beavers", "beaver", "huskies", "husky", "bruins",
+        "bruin", "trojans", "trojan", "wolverines", "wolverine",
+        "golden", "gophers", "gopher", "longhorns", "longhorn", "tigers",
+        "tiger", "wildcats", "wildcat", "hokies", "hokie", "gators", "gator",
+        "seminoles", "seminole", "hurricanes", "hurricane", "sooners",
+        "sooner", "crimson", "tide", "volunteers", "razorbacks",
+        "razorback", "rebels", "rebel", "commodores", "gamecocks",
+        "gamecock", "jayhawks", "jayhawk", "cyclones", "cyclone",
+        "cowboys", "cowboy", "horned", "frogs", "frog", "mountaineers",
+        "mountaineer", "hoosiers", "hoosier", "boilermakers",
+        "boilermaker", "badgers", "badger", "spartans", "spartan",
+        "nittany", "lions", "lion", "terrapins", "terrapin", "scarlet",
+        "knights", "knight", "hawkeyes", "hawkeye", "cornhuskers",
+        "cornhusker", "bearkats", "jackrabbits", "jackrabbit",
+        "vandals", "vandal", "falcons", "falcon", "penguins", "penguin",
+        "minutemen", "flames", "flame",
+    }
+)
+
 ALIAS_GROUPS: tuple[frozenset[str], ...] = (
     frozenset({"virginia", "university of virginia", "uva"}),
     frozenset({"virginia tech", "virginia polytechnic", "vpi", "hokies"}),
@@ -94,6 +128,27 @@ def employer_evidence_matches(employer: str, program_raw: str) -> bool:
         if protected_left or protected_right:
             return left == right or left_alias == right_alias
         return True
+    # MR33-04 re-repair: a trailing mascot/nickname suffix on ONE side only
+    # (e.g. "Western Michigan" vs "Western Michigan Broncos") must not read
+    # as a non-match the way an actual distinguishing qualifier would
+    # ("Virginia" vs "Virginia Tech" still correctly falls through to False
+    # below, since "tech" is not in MASCOT_TOKENS). Checked as an exact
+    # leading-prefix relationship, not a substring/subset test, so this
+    # cannot widen an unrelated pair -- the shorter side's full core token
+    # sequence must appear, in order, at the START of the longer side's core
+    # tokens, with every remaining token a known mascot word.
+    if left_core and right_core and left_core != right_core:
+        if len(left_core) < len(right_core):
+            shorter, longer = left_core, right_core
+        else:
+            shorter, longer = right_core, left_core
+        if longer[: len(shorter)] == shorter:
+            extra = longer[len(shorter):]
+            if extra and all(tok in MASCOT_TOKENS for tok in extra):
+                protected_left = any(phrase in left for phrase in PROTECTED_PHRASES)
+                protected_right = any(phrase in right for phrase in PROTECTED_PHRASES)
+                if not (protected_left or protected_right):
+                    return True
     return False
 
 

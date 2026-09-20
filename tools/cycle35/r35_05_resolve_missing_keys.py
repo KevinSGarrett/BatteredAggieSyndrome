@@ -31,8 +31,6 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from aggie_analytics.cycle35.request_ledger import (  # noqa: E402
     BUDGET_COACHING,
     OUTCOME_CACHE_HIT,
-    OUTCOME_FAILED,
-    OUTCOME_OK,
     BudgetExhausted,
     RequestLedger,
 )

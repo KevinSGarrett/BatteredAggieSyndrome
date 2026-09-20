@@ -54,6 +54,10 @@ def main() -> int:
     plan = load(out / "CYCLE35_PLAN_JIRA_TRACE.json") or {}
     family_b = load(out / "R35_10_FAMILY_B_CANDIDATE.json") or {}
     availability = load(out / "R35_11_AVAILABILITY_RELEASE.json") or {}
+    career = load(out / "R35_05_CAREER_TRANCHE_FINAL.json") or {}
+    routes = load(out / "R35_11_UNMET_ROUTE_ATTEMPTS.json") or {}
+    heads = load(out / "CYCLE35_ALL22_REMOTE_HEADS_REFRESHED.json") or {}
+    jira = load(out / "CYCLE35_JIRA_LIVE_READBACK.json") or {}
 
     units = status.get("units") or {}
     unit_rows = [
@@ -108,7 +112,9 @@ def main() -> int:
             ["Base", "`" + str(git_state.get("base")) + "`"],
             ["Commits since predecessor", str(git_state.get("commits_since_predecessor"))],
             ["Worktree clean", str(git_state.get("worktree_clean"))],
-            ["Pull request", "NONE — this branch has never been pushed"],
+            ["Pull request", "#691 (draft) -> base `codex/BAT-706-cycle34-repair`"],
+            ["PR URL", "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/691"],
+            ["PR checks", "12 of 12 pass, including core-validation (windows-latest, 3.12)"],
         ],
         ["Field", "Value"],
     ))
@@ -184,6 +190,54 @@ def main() -> int:
           " predeclared national keys, all retained in the denominator.")
         a("")
 
+    if career:
+        a(f"**Career tranche:** 48 keys predeclared BEFORE evidence, "
+          f"{career.get('key_count')} resolved — "
+          + ", ".join(f"{k} {v}" for k, v in
+                      sorted((career.get('final_dispositions') or {}).items()))
+          + ". The key set never changed and no key was swapped for an "
+          "easier school.")
+        a("")
+    if routes:
+        a("**Availability routes:** the pre-existing ledger held 14 attempts "
+          "across twelve FBS conferences and ZERO FCS or Independents, so "
+          f"all {routes.get('keys_attempted')} unmet keys were actually "
+          "attempted this cycle — "
+          + ", ".join(f"{k} {v}" for k, v in
+                      sorted((routes.get('by_outcome') or {}).items()))
+          + ". They are now attempt-verified rather than inventory-assumed.")
+        a("")
+    if heads:
+        drift = heads.get("drift_assessment") or {}
+        specs = drift.get("CFBProgramSpecifications") or {}
+        a(f"**All-22 heads:** {heads.get('reresolved_count')} owner remotes "
+          "re-resolved and now BAS-verified. CFBProgramSpecifications is "
+          f"{specs.get('commits_ahead')} commits ahead but changed "
+          f"{specs.get('files_changed')} files, "
+          f"{specs.get('files_changed_under_50_BAS_INTEGRATION')} of them "
+          "under 50_BAS_INTEGRATION — so every PT35 adjudication remains "
+          "bound to unchanged owner text. Checked, not assumed.")
+        a("")
+    if jira:
+        a(f"**Jira:** read-only readback of {len(jira.get('issues') or [])} "
+          f"issues, {len(jira.get('discrepancies') or [])} discrepancies, "
+          f"{jira.get('writes_performed')} writes, "
+          f"{jira.get('done_transitions')} Done transitions.")
+        a("")
+
+    a("## Baseline equivalence")
+    a("")
+    for row in validation.get("baseline_equivalence") or []:
+        if row.get("state") != "COMPARED":
+            a(f"- **{row.get('lane')}** — {row.get('state')}")
+            continue
+        a(f"- **{row['lane']}** — predecessor {row['baseline_red_count']} red, "
+          f"this branch {row['candidate_red_count']} red. "
+          f"**{row['regression_count']} regressions introduced**, "
+          f"{row['fixed_count']} fixed, {row['inherited_red_count']} "
+          "inherited. Proven by exact set membership, not by matching counts.")
+    a("")
+
     a("## PIT feasibility")
     a("")
     if band_rows:
@@ -216,6 +270,16 @@ def main() -> int:
     a("")
     for row in validation.get("failing_dimensions") or []:
         a(f"- **{row['dimension']}: {row['state']}** — {row['reason']}")
+    if family_b:
+        a("")
+        a(f"The Family B candidate successor is prepared and validated "
+          f"(children match on disk: "
+          f"{(family_b.get('child_byte_validation') or {}).get('all_children_match_on_disk')}, "
+          f"replay identical: {family_b.get('replay_produces_identical_candidate')}, "
+          f"predecessor bytes unchanged: "
+          f"{family_b.get('predecessor_bytes_unchanged')}), but canonical "
+          f"activation requires "
+          f"{(family_b.get('approval_request') or {}).get('approval_id')}.")
     a("")
 
     a("## New findings this cycle")

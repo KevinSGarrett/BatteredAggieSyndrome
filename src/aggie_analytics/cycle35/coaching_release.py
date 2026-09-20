@@ -45,7 +45,7 @@ import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable, Iterator, Mapping, Sequence
+from typing import Any, Iterator, Mapping, Sequence
 
 SCHEMA_VERSION = 3
 RELEASE_KIND = "BAS-CYCLE35-COACHING-RELEASE"

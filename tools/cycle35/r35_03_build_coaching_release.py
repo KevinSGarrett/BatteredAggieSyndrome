@@ -43,7 +43,6 @@ from aggie_analytics.cycle35.coaching_release import (  # noqa: E402
     LAYER_CANDIDATE,
     LAYER_OBSERVED,
     LAYER_OFFICIAL,
-    LAYER_QUARANTINED,
     LAYER_REJECTED,
     LAYER_UNRESOLVED,
     add_episode,

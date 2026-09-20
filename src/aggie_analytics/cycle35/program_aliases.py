@@ -101,6 +101,43 @@ WHOLE_SLUG_ALIASES: dict[str, str] = {
     "ulm": "ul-monroe",
     "uni": "northern-iowa",
     "utrgv": "ut-rio-grande-valley",
+    # Historical naming variants and documented renames found by ingesting
+    # the 2000-2012 user research corpus, where 500 cells across 22 names
+    # failed to bind. Each is a rename or a spelling the canonical
+    # population carries differently, confirmed against that population
+    # before being listed. Ambiguous cases are deliberately absent: "Albany"
+    # could be UAlbany or Albany State (GA), so it stays unresolved.
+    "appalachian-state": "app-state",
+    "sam-houston-state": "sam-houston",
+    "southwest-missouri-state": "missouri-state",   # renamed 2005
+    "southwest-texas-state": "texas-state",         # renamed 2003
+    "saint-francis-pa": "saint-francis",
+    "st-francis-pa": "saint-francis",
+    "central-connecticut-state": "central-connecticut",
+    "nicholls-state": "nicholls",
+    "mcneese-state": "mcneese",
+    "southeastern-louisiana": "se-louisiana",
+    "grambling-state": "grambling",
+    "saint-peter-s": "st-peter-s",
+    "saint-mary-s-ca": "st-mary-s-ca",
+    "connecticut": "uconn",
+    "louisiana-lafayette": "louisiana",
+    "louisiana-monroe": "ul-monroe",
+    "troy-state": "troy",                           # renamed 2005
+}
+
+#: Names that remain deliberately unresolved, with the reason. Listing them
+#: is the point: a reader can tell "we could not bind this" apart from "we
+#: never saw this", and neither is hidden behind a silent drop.
+DELIBERATELY_UNRESOLVED: dict[str, str] = {
+    "albany": "Ambiguous between UAlbany and Albany State (GA). Failing "
+    "closed is correct; a guess here would be an identity error.",
+    "cal-state-northridge": "Discontinued football program, outside the "
+    "canonical FBS/FCS population.",
+    "canisius": "Discontinued football program.",
+    "fairfield": "Discontinued football program.",
+    "morris-brown": "Discontinued football program (dropped football 2002).",
+    "st-john-s-ny": "Discontinued football program.",
 }
 
 #: Characters a publisher may emit where the canonical name carries a

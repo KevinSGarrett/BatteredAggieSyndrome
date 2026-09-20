@@ -81,13 +81,19 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         "Source-driven release with 12 tables, migrations, transactions, "
         "content-addressed identities and an append-only manifest. Zero "
         "assertions without a supporting observation; replay reproduces "
-        "identical row identities. Cell-level ingestion of the full "
-        "6,749-row user corpus is not performed.",
+        "identical row identities. The 2000-2012 user research corpus is now "
+        "ingested at CELL grain: 23,992 observations, 23,870 program-resolved "
+        "(99.5%), 122 retained unresolved across 6 documented names. Nothing "
+        "from that corpus is promoted -- every row carries verified=false "
+        "from its own producer.",
         ["R35_03_COACHING_RELEASE_SUMMARY.json"],
         [
-            "User corpus registered at file level only; 6,749 rows are not "
+            "responsibility_assertion and scheme_assertion have zero rows; "
+            "no source explicitly evidenced either this cycle.",
+            "The corpus covers 2000-2012 only; 2013-2026 user rows are not "
             "cell-ingested.",
-            "responsibility_assertion and scheme_assertion have zero rows.",
+            "122 cells remain program-unresolved (1 ambiguous name, 5 "
+            "discontinued programs outside the canonical population).",
         ],
     ),
     "R35-04": _d(

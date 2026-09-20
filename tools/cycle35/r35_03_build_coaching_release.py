@@ -39,6 +39,10 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from aggie_analytics.cycle33.role_taxonomy import principal_role_families  # noqa: E402
+from aggie_analytics.cycle35.program_aliases import (  # noqa: E402
+    build_crosswalk,
+    resolve_program,
+)
 from aggie_analytics.cycle35.coaching_release import (  # noqa: E402
     LAYER_CANDIDATE,
     LAYER_OBSERVED,
@@ -429,6 +433,81 @@ def ingest_career_tranche(conn: sqlite3.Connection, tranche_path: Path) -> dict[
     return out
 
 
+
+USER_CORPUS_CELLS = Path(
+    r"C:\BatteredAggieSyndrome.data\ops\cycle33\runs\20260914T130736Z"
+    r"\implementation_output\science"
+    r"\CYCLE33_USER_CORPUS_2000_2012_STAFF_CELLS.jsonl"
+)
+
+
+def ingest_user_corpus_cells(conn: sqlite3.Connection) -> dict[str, Any]:
+    """The 2000-2012 user research corpus at CELL grain.
+
+    Registering 54 files proved the population exists; it did not make a
+    single row queryable. These 23,992 parsed cells enter as
+    USER_COMPILED_RESEARCH_OBSERVATION at CANDIDATE layer -- every one
+    carries `verified: false` from its own producer, so nothing here is
+    promoted, and a cell whose program cannot be resolved against the
+    canonical population is retained UNRESOLVED rather than dropped.
+    """
+
+    if not USER_CORPUS_CELLS.is_file():
+        return {"state": "USER_CORPUS_CELLS_NOT_PRESENT"}
+    source_file_id = register_source_file(
+        conn,
+        USER_CORPUS_CELLS,
+        source_class="USER_COMPILED_RESEARCH_OBSERVATION",
+        rights_state="PRIVATE_USER_RESEARCH_NOT_REDISTRIBUTABLE",
+        acquisition_receipt="CYCLE33_USER_CORPUS_2000_2012_STAFF_CELLS",
+    )
+    crosswalk = build_crosswalk(
+        read_jsonl(OUTPUTS / "HISTORICAL_MEMBERSHIP_1963_2012.jsonl")
+        + read_jsonl(OUTPUTS / "HISTORICAL_MEMBERSHIP_2013_2023.jsonl")
+        + read_jsonl(OUTPUTS / "CURRENT_2026_PROGRAMS.jsonl")
+    )
+    stats: Counter = Counter()
+    unresolved_names: Counter = Counter()
+    for row in read_jsonl(USER_CORPUS_CELLS):
+        person = str(row.get("person") or "").strip()
+        team = str(row.get("team") or "").strip()
+        season = str(row.get("season") or "").strip()
+        role_column = str(row.get("role_column") or "").strip()
+        if not person:
+            stats["SKIPPED_NO_PERSON"] += 1
+            continue
+        resolution = resolve_program(team, crosswalk)
+        program_id = resolution.get("program_id")
+        if program_id:
+            upsert_program(conn, program_id, display_name=team)
+            stats["PROGRAM_RESOLVED"] += 1
+        else:
+            unresolved_names[team] += 1
+            stats["PROGRAM_UNRESOLVED_RETAINED"] += 1
+        add_observation(
+            conn,
+            source_file_id=source_file_id,
+            locator=team + ":" + season + ":" + role_column + ":" + person,
+            parser_identity=PARSER_IDENTITY,
+            observed_person=person,
+            observed_title=row.get("source_title") or role_column,
+            observed_program=program_id or team,
+            observed_season=season,
+            evidence_layer=LAYER_CANDIDATE,
+        )
+        stats["OBSERVATIONS"] += 1
+        if row.get("verified") is True:
+            stats["PRODUCER_CLAIMED_VERIFIED"] += 1
+    out = dict(stats)
+    out["state"] = "INGESTED_AT_CELL_GRAIN_AS_CANDIDATES"
+    out["distinct_unresolved_program_names"] = len(unresolved_names)
+    out["top_unresolved_program_names"] = dict(unresolved_names.most_common(15))
+    out["nothing_promoted_all_producer_verified_false"] = (
+        stats.get("PRODUCER_CLAIMED_VERIFIED", 0) == 0
+    )
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", required=True)
@@ -449,6 +528,7 @@ def main() -> int:
             staff = ingest_reparsed_staff(conn, Path(args.rebuild_rows))
             cycle34 = ingest_cycle34_transcription(conn)
             user_corpus = ingest_user_corpus(conn)
+            user_cells = ingest_user_corpus_cells(conn)
             career = (
                 ingest_career_tranche(conn, Path(args.career_tranche))
                 if args.career_tranche
@@ -479,6 +559,7 @@ def main() -> int:
                 if key != "synthetic_control_observation_ids"
             },
             "user_corpus": user_corpus,
+            "user_corpus_cells": user_cells,
             "career_tranche": career,
         },
     }
@@ -517,6 +598,7 @@ def main() -> int:
                 if k != "synthetic_control_observation_ids"
             },
             "user_corpus_files": user_corpus.get("files"),
+            "user_corpus_cells": {k: v for k, v in user_cells.items() if k != "top_unresolved_program_names"},
             "career_tranche": career,
         },
         indent=1,

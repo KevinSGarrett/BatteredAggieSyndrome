@@ -478,6 +478,50 @@ class ProgramAliasTests(unittest.TestCase):
             out["resolution_state"], "UNRESOLVED_NOT_IN_DECLARED_POPULATION"
         )
 
+    def test_historical_renames_resolve_to_their_canonical_program(self) -> None:
+        """Documented renames found by ingesting the 2000-2012 corpus."""
+        crosswalk = build_crosswalk(
+            [
+                {"program_id": "P:1", "display_name": "App State"},
+                {"program_id": "P:2", "display_name": "Missouri State"},
+                {"program_id": "P:3", "display_name": "Texas State"},
+                {"program_id": "P:4", "display_name": "Troy"},
+                {"program_id": "P:5", "display_name": "SE Louisiana"},
+            ]
+        )
+        for published, expected in (
+            ("Appalachian State", "P:1"),
+            ("Southwest Missouri State", "P:2"),
+            ("Southwest Texas State", "P:3"),
+            ("Troy State", "P:4"),
+            ("Southeastern Louisiana", "P:5"),
+        ):
+            out = resolve_program(published, crosswalk)
+            self.assertEqual(out["resolution_state"], "RESOLVED", published)
+            self.assertEqual(out["program_id"], expected, published)
+
+    def test_deliberately_unresolved_names_stay_unresolved(self) -> None:
+        """The invariant that matters most: an ambiguous or discontinued
+        program must NOT be bound to something that merely looks close."""
+        from aggie_analytics.cycle35.program_aliases import DELIBERATELY_UNRESOLVED
+
+        crosswalk = build_crosswalk(
+            [
+                {"program_id": "P:1", "display_name": "UAlbany"},
+                {"program_id": "P:2", "display_name": "Albany State"},
+                {"program_id": "P:3", "display_name": "Robert Morris"},
+                {"program_id": "P:4", "display_name": "St. John's"},
+            ]
+        )
+        for published in ("Albany", "Morris Brown", "St. John's (NY)", "Canisius"):
+            out = resolve_program(published, crosswalk)
+            self.assertNotEqual(out["resolution_state"], "RESOLVED", published)
+        # Each is documented with a reason rather than silently dropped.
+        self.assertIn("albany", DELIBERATELY_UNRESOLVED)
+        self.assertIn("morris-brown", DELIBERATELY_UNRESOLVED)
+        for reason in DELIBERATELY_UNRESOLVED.values():
+            self.assertTrue(reason.strip())
+
     def test_ambiguous_population_slug_is_excluded_not_guessed(self) -> None:
         crosswalk = build_crosswalk(
             [

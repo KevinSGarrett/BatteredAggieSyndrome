@@ -55,9 +55,19 @@ HISTORICAL_EARLY = OUTPUTS / "HISTORICAL_MEMBERSHIP_1963_2012.jsonl"
 CAREER_EPISODES = OUTPUTS / "WIKIMEDIA_CAREER_SEASON_EPISODES.jsonl"
 CAREER_PAGES = OUTPUTS / "WIKIMEDIA_COACH_CAREER_PAGES.jsonl"
 
-#: The season ladder. Four historical bands the pack names, plus the current
-#: season, so the tranche spans era rules rather than clustering in one.
-SEASON_LADDER = (2002, 2004, 2009, 2011, 2015, 2017, 2020, 2022, 2026)
+#: The season ladder. R35-05 requires at least FOUR distinct seasons in each
+#: of the four declared historical bands, so each band contributes four
+#: seasons here plus the current season. An earlier two-per-band ladder
+#: satisfied the band COUNT but not the distinct-season requirement, which is
+#: a different clause -- caught by checking the delivered tranche against the
+#: requirement text rather than against the band tally.
+SEASON_LADDER = (
+    2001, 2002, 2004, 2005,   # 2000-2005
+    2007, 2009, 2011, 2012,   # 2006-2012
+    2014, 2015, 2017, 2018,   # 2013-2018
+    2019, 2020, 2022, 2023,   # 2019-2023
+    2026,                     # current slice
+)
 
 #: Roles, including two that carry title modifiers so qualifier handling is
 #: exercised rather than assumed.

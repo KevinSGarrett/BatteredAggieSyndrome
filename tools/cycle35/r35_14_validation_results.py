@@ -141,6 +141,27 @@ DIRECT_LANES: tuple[dict[str, Any], ...] = (
         "from the installed wheel alone",
     },
     {
+        "lane": "HOSTED_CI_PR_691",
+        "command": "gh pr checks 691",
+        "result": "PASS",
+        "detail": "12 of 12 checks pass, including core-validation "
+        "(windows-latest, 3.12) -- the exact check that failed at PR #690's "
+        "head. codex-review and no-api-attestation both pass in ~8s, "
+        "confirming no paid review API was invoked; no "
+        "paid-scientific-review-ready label was applied.",
+    },
+    {
+        "lane": "FULL_SUITE_MOUNTED_RED_TESTS",
+        "command": "grep '^(FAIL|ERROR): ' mounted_full_run.txt",
+        "result": "FAIL",
+        "detail": "All 4 red tests in the mounted lane belong to the Family B "
+        "family: rejection-integrity test_gate_reconstructs (ERROR) and "
+        "test_reconstruction_does_not_read_the_working_checkout_commit (FAIL), "
+        "gamebook_union_1998_rejection_complete setUpClass (ERROR), and "
+        "gamebook_union_2000_expanded test_bat623_row_and_coverage_tampers_fail "
+        "(ERROR).",
+    },
+    {
         "lane": "FAMILY_B_MOUNTED",
         "command": "AGGIE_ANALYTICS_DATA_ROOT=<lake> python -m pytest "
         "tests/test_tamu_official_1998_2009_rejection_integrity.py "
@@ -286,8 +307,10 @@ def main() -> int:
             "purpose.",
             "Green results in one lane do not cancel a red result in another; "
             "the Family B mounted failure stands on its own.",
-            "Hosted CI was not re-run this cycle. The Windows fix is verified "
-            "locally across mounted, empty and partial lanes.",
+            "Hosted CI green on PR #691 covers the repository suite on the "
+            "hosted runners. It does NOT cover the mounted private-data lane, "
+            "which the hosted runner cannot execute, so Family B remains FAIL "
+            "regardless of the green hosted result.",
         ],
         "inherited_failure_baseline": {
             "family_b": "Reproduced at the Cycle #34 predecessor head with "

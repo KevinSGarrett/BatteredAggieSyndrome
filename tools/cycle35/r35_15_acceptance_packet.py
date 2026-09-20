@@ -105,23 +105,26 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         "program-season cells, 291 programs, 1963-2026, with 2024/2025 "
         "retained as explicit gaps and current-vs-historical transitions "
         "reconciled. The 48-key career tranche is PREDECLARED before evidence "
-        "and completed: exactly 24 FBS / 24 FCS, all four era bands plus the "
-        "current season, roles balanced 16/16/16. 40 ACCEPTED_SINGLE_SOURCE, "
-        "1 CONFLICT with both occupants retained, 7 MISSING after real "
-        "attempts. All 41 resolved rows are ingested into the queryable "
-        "release at CANDIDATE layer with per-row provenance.",
+        "and completed: exactly 24 FBS / 24 FCS, roles balanced 16/16/16, and "
+        "38 distinct evidence-backed program-seasons covering FOUR distinct "
+        "seasons in each of the four historical bands plus a separate 2026 "
+        "slice. 36 ACCEPTED_SINGLE_SOURCE, 2 CONFLICT with both occupants "
+        "retained, 10 MISSING after real attempted routes. All resolved rows "
+        "are ingested into the queryable release at CANDIDATE layer with "
+        "per-row provenance.",
         [
             "CYCLE35_NATIONAL_COVERAGE.json",
             "R35_05_PREDECLARED_48_KEYS.json",
             "R35_05_CAREER_TRANCHE_FINAL.json",
         ],
         [
-            "7 of 48 keys remain MISSING_NO_EVIDENCE after attempted routes.",
-            "Balanced 24 program-season primary tranche (a separate clause) "
-            "was not acquired.",
+            "10 of 48 keys remain MISSING_NO_EVIDENCE after attempted routes.",
             "2024 and 2025 membership have no acquired source.",
             "Evidence is revision-bound Wikimedia retrospective; no official "
-            "corroboration was acquired, so nothing is PIT.",
+            "corroboration was acquired, so nothing here is PIT.",
+            "Reconciliation of the larger accepted/provisional populations "
+            "named by the national plan is reported separately and is not "
+            "complete.",
         ],
     ),
     "R35-06": _d(
@@ -247,12 +250,15 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         "The live hosted Windows failure is fixed at its real cause in the "
         "validator, not the test: availability is decided by the payloads "
         "rather than by directory presence. Mounted, empty and partial lanes "
-        "all behave, and the mounted requirement is preserved.",
+        "all behave locally, and hosted CI on PR #691 now passes "
+        "core-validation (windows-latest, 3.12) -- the exact check that "
+        "failed at PR #690. Baseline equivalence is proven by exact set: 0 "
+        "regressions, 1 fixed.",
         ["CYCLE35_VALIDATION_RESULTS.json"],
         [
             "Family B mounted failures remain FAIL (R35-10 approval).",
-            "Hosted CI not re-run; the fix is verified locally in three "
-            "simulated lanes.",
+            "Hosted CI cannot exercise the mounted private-data lane, so "
+            "the mounted requirement is verified only locally.",
         ],
     ),
     "R35-15": _d(

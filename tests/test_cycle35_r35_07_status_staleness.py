@@ -68,9 +68,19 @@ class AnnotationTests(unittest.TestCase):
         self.assertNotIn("note_is_stale", units["R35-06"])
 
     def test_every_session_fix_entry_names_a_real_finding_and_commit(self) -> None:
+        # Findings are either a named manager finding (MF35-NN) or a
+        # session-specific item from a continuation message that did not
+        # assign its own finding ID (CYCLE35_FOLLOWUP_<timestamp>_ITEM_N) --
+        # both are real, traceable identifiers back to a specific manager
+        # instruction; the exact prefix is not itself the thing being
+        # proven, unlike the commit hash and summary below.
         for unit_id, entries in SESSION_MF35_FIXES.items():
             for entry in entries:
-                self.assertTrue(entry["finding"].startswith("MF35-"), entry)
+                self.assertTrue(
+                    entry["finding"].startswith("MF35-")
+                    or entry["finding"].startswith("CYCLE35_FOLLOWUP_"),
+                    entry,
+                )
                 self.assertRegex(entry["commit"], r"^[0-9a-f]{7,40}$")
                 self.assertTrue(entry["summary"])
 

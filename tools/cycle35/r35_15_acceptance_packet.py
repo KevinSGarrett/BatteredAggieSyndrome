@@ -313,6 +313,51 @@ SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
             "longer assumes season=2026 for a row with no stated season.",
             "commit": "244d1471",
         },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_2",
+            "summary": "ingest_career_tranche() now enforces an explicit "
+            "stage/schema contract (validate_career_tranche_contract): "
+            "rejects a wrong-stage, ambiguous, or malformed tranche payload "
+            "with a named reason instead of silently ingesting zero rows "
+            "under a success-shaped state. The corrected era-fixed tranche "
+            "was finished via the actual second-pass resolver (39 accepted / "
+            "8 missing / 1 conflict), within already-authorized budget.",
+            "commit": "58732e76",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_3",
+            "summary": "assertions_not_entailed_by_linked_observations() "
+            "rebuilt as an independent checker (no import from "
+            "role_taxonomy.py): verifies subject/program/season binding "
+            "against the assertion's own episode, role and qualifier "
+            "plausibility via a separately-implemented keyword reference "
+            "covering all real role families (not just HC/OC/DC), and "
+            "evidence-layer authority (an OFFICIAL claim needs an official-"
+            "class source). Closes all 4 manager counterexamples plus the "
+            "candidate-to-official promotion gap. 0 false positives against "
+            "a full national rebuild (1,437 real assertions).",
+            "commit": "58732e76",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_4",
+            "summary": "upsert_person() gains source_program_id: two "
+            "DIFFERENT real people sharing a name AND identity_basis (not "
+            "just cross-basis) can now be represented as distinct "
+            "canonical_person rows and surface as a real merge-candidate "
+            "pair. Verified end-to-end through the actual builder against a "
+            "full national rebuild -- 9 real candidate pairs surfaced, "
+            "including a genuine same-basis 'Tim Beck' conflict.",
+            "commit": "90eaad44",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_MF35_11",
+            "summary": "The 2013-2026 user research corpus (86,052 named "
+            "cells) is now ingested at cell grain -- it was already parsed "
+            "by the same import_snapshot() the 2000-2012 file uses, only "
+            "ever post-filtered away downstream. Total source_observation "
+            "rows in a real rebuild went from 24,995 to 111,045.",
+            "commit": "9bdf373b",
+        },
     ],
     "R35-05": [
         {
@@ -325,6 +370,19 @@ SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
             "and an explicit supersession delta were written to a separate "
             "ops run, not yet reconciled into this unit's evidence files.",
             "commit": "af407a0f",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_5",
+            "summary": "New reconcile_tranche_samples(): the original and "
+            "era-corrected 48-key tranches are now reconciled by stable "
+            "(program_id, season, role) semantic key, never mutable key_id "
+            "-- classifying every key as RETAINED/RECLASSIFIED/DISPOSITION_"
+            "CHANGED/SUPERSEDED/ADDED. Reproduced the manager's own "
+            "independently-computed numbers exactly: 8 retained, union of "
+            "88 distinct semantic keys. The corrected tranche's supersession "
+            "delta previously not reconciled (see MF35-08 above) is now "
+            "addressed by this reconciliation.",
+            "commit": "9a082ac8",
         },
     ],
     "R35-06": [
@@ -350,6 +408,22 @@ SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
             "against both the legacy cycle33 schema and the real cycle35 "
             "release (verified against the actual delivered r7 database).",
             "commit": "f0b5fe2f",
+        },
+    ],
+    "R35-09": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_MF35_09",
+            "summary": "Fixed two absent-comparisons-counted-as-successful "
+            "bugs in the independent kernel reference's own row accounting "
+            "(rows_compared previously included the 796 GAME_NOT_IN_"
+            "DECLARED_RAW_SOURCES rows; now correctly reports 12,484). "
+            "Replaced a tautological target-exclusion check (tested a "
+            "self-filtered list for the thing just filtered from it, so it "
+            "could never fail) with a genuine duplicate-game_id integrity "
+            "check, with an explicit scope disclosure of what it does and "
+            "does not establish about the producer. This is a fix to the "
+            "CHECKING TOOL, not the PIT kernel producer.",
+            "commit": "97c60665",
         },
     ],
     "R35-14": [

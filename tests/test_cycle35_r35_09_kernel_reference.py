@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
 from r35_09_independent_kernel_reference import (  # noqa: E402
     _delta_summary,
     _ratio,
+    compare,
     parse_start,
     reference_features,
     values_agree,
@@ -109,6 +110,144 @@ class ComparisonSemanticsTests(unittest.TestCase):
         self.assertIsNone(parse_start("2020-09-01T00:00:00"))
         self.assertIsNone(parse_start("not-a-date"))
         self.assertIsNone(parse_start(""))
+
+
+def _kernel_row(game_id, season, home_team, away_team, home_features=None, away_features=None):
+    return {
+        "canonical_game_id": game_id,
+        "season": season,
+        "home_canonical_team_id": home_team,
+        "away_canonical_team_id": away_team,
+        "home_features": home_features if home_features is not None else {},
+        "away_features": away_features if away_features is not None else {},
+        "home_win_label": None,
+    }
+
+
+def _by_game_entry(game_id, start, season, home_team, away_team):
+    return {
+        "game_id": game_id, "start": start, "season": season,
+        "home_team": home_team, "away_team": away_team,
+    }
+
+
+class CompareRowAccountingTests(unittest.TestCase):
+    """MF35-09 (Cycle #35 manager follow-up, 20260920T224700Z): rows_compared
+    previously included rows whose game was absent from the declared raw
+    sources -- an absent comparison counted as a successful one. These
+    exercise compare() directly to prove the fix without needing the real
+    13,280-row kernel artifact."""
+
+    def test_missing_source_row_is_excluded_from_rows_compared(self) -> None:
+        kernel = [
+            _kernel_row("g1", 2020, "T:A", "T:B",
+                        {"pit_prior_games_played": 0}, {"pit_prior_games_played": 0}),
+            _kernel_row("g_missing", 2020, "T:A", "T:B"),
+        ]
+        history = {"T:A": [], "T:B": []}
+        by_game = {"g1": _by_game_entry("g1", BASE, 2020, "T:A", "T:B")}
+        result = compare(kernel, history, by_game)
+        self.assertEqual(result["rows_compared"], 1)
+        self.assertEqual(result["rows_not_comparable"], 1)
+        self.assertEqual(result["row_states"]["GAME_NOT_IN_DECLARED_RAW_SOURCES"], 1)
+
+    def test_row_with_both_sides_missing_features_is_not_counted_as_compared(self) -> None:
+        """A row whose game IS found but BOTH sides carry no stored
+        features previously fell through to the unchanged "COMPARED"
+        default despite zero actual comparisons happening."""
+        kernel = [_kernel_row("g1", 2020, "T:A", "T:B", home_features={}, away_features={})]
+        history = {"T:A": [], "T:B": []}
+        by_game = {"g1": _by_game_entry("g1", BASE, 2020, "T:A", "T:B")}
+        result = compare(kernel, history, by_game)
+        self.assertEqual(result["rows_compared"], 0)
+        self.assertEqual(result["row_states"].get("NO_SIDE_HAD_STORED_FEATURES"), 1)
+        self.assertNotIn("COMPARED", result["row_states"])
+
+    def test_one_side_present_one_missing_still_counts_the_row_as_compared(self) -> None:
+        """A row where only ONE side lacks stored features is still a real
+        comparison for the other side -- it must not be silently dropped
+        from rows_compared, only the missing side's own tally changes."""
+        kernel = [
+            _kernel_row("g1", 2020, "T:A", "T:B",
+                        home_features={"pit_prior_games_played": 0}, away_features={})
+        ]
+        history = {"T:A": [], "T:B": []}
+        by_game = {"g1": _by_game_entry("g1", BASE, 2020, "T:A", "T:B")}
+        result = compare(kernel, history, by_game)
+        self.assertEqual(result["rows_compared"], 1)
+        self.assertEqual(result["row_states"]["MISSING_SIDE_FEATURES"], 1)
+
+    def test_real_comparisons_still_populate_disagreement_examples(self) -> None:
+        kernel = [
+            _kernel_row("g1", 2020, "T:A", "T:B",
+                        home_features={"pit_prior_games_played": 99}, away_features={})
+        ]
+        history = {"T:A": [], "T:B": []}
+        by_game = {"g1": _by_game_entry("g1", BASE, 2020, "T:A", "T:B")}
+        result = compare(kernel, history, by_game)
+        self.assertEqual(result["row_states"]["DISAGREES"], 1)
+        self.assertEqual(result["rows_compared"], 1)
+
+
+class TargetExclusionCheckTests(unittest.TestCase):
+    """MF35-09: target exclusion was previously tested against `priors`, a
+    list that had already had the target filtered out of its own
+    construction -- checking a self-filtered list for the thing just
+    filtered from it can never fail. It is now a duplicate-game_id
+    integrity check on the team's raw history instead."""
+
+    def test_no_violation_for_a_normal_single_entry_history(self) -> None:
+        target_start = BASE + timedelta(days=5)
+        kernel = [
+            _kernel_row("g_target", 2020, "T:A", "T:B",
+                        home_features={"pit_prior_games_played": 0}, away_features={})
+        ]
+        history = {
+            "T:A": [
+                {"game_id": "g_target", "start": target_start, "season": 2020,
+                 "points_for": 10, "points_against": 3, "margin": 7,
+                 "tie": False, "won": True},
+            ],
+            "T:B": [],
+        }
+        by_game = {"g_target": _by_game_entry("g_target", target_start, 2020, "T:A", "T:B")}
+        result = compare(kernel, history, by_game)
+        self.assertEqual(result["target_exclusion_violation_count"], 0)
+
+    def test_duplicate_game_id_in_team_history_is_flagged(self) -> None:
+        """The one genuinely testable failure mode: the same game_id
+        appearing twice in a team's raw history (an upstream dedup
+        regression), which this check must catch."""
+        target_start = BASE + timedelta(days=5)
+        kernel = [
+            _kernel_row("g_target", 2020, "T:A", "T:B",
+                        home_features={"pit_prior_games_played": 0}, away_features={})
+        ]
+        history = {
+            "T:A": [
+                {"game_id": "g_target", "start": target_start, "season": 2020,
+                 "points_for": 10, "points_against": 3, "margin": 7,
+                 "tie": False, "won": True},
+                # A duplicate record for the identical game_id.
+                {"game_id": "g_target", "start": target_start - timedelta(days=1),
+                 "season": 2020, "points_for": 10, "points_against": 3,
+                 "margin": 7, "tie": False, "won": True},
+            ],
+            "T:B": [],
+        }
+        by_game = {"g_target": _by_game_entry("g_target", target_start, 2020, "T:A", "T:B")}
+        result = compare(kernel, history, by_game)
+        self.assertEqual(result["target_exclusion_violation_count"], 1)
+        self.assertEqual(
+            result["target_exclusion_violations"][0]["reason"],
+            "DUPLICATE_GAME_ID_IN_TEAM_HISTORY",
+        )
+
+    def test_scope_disclosure_is_present_and_honest(self) -> None:
+        result = compare([], {}, {})
+        self.assertIn(
+            "not an independent audit of", result["target_exclusion_check_scope"]
+        )
 
 
 class DeltaSummaryTests(unittest.TestCase):

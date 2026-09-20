@@ -414,24 +414,61 @@ def compare(
 
         cutoff = game["start"]
         row_state = "COMPARED"
+        any_side_compared = False
         for side in ("home", "away"):
             team_id = str(row.get(side + "_canonical_team_id") or "")
             stored = row.get(side + "_features") or {}
             if not team_id or not stored:
                 row_states["MISSING_SIDE_FEATURES"] += 1
                 continue
+            any_side_compared = True
+            # MF35-09 (Cycle #35 manager follow-up, 20260920T224700Z): target
+            # exclusion was previously tested against `priors`, a list that
+            # had ALREADY had `item["game_id"] != game_id` applied in its own
+            # construction -- checking whether that same filtered list still
+            # contains the target is tautological, since the filter step
+            # immediately above it made that structurally impossible. That is
+            # "testing target exclusion only on an independently filtered
+            # reference," exactly as named: a check that can never fail
+            # proves nothing.
+            #
+            # It cannot be fixed into a genuine per-row producer audit: the
+            # target game's own entry in this team's history necessarily has
+            # start == cutoff (both are read from the identical raw row), so
+            # `start < cutoff` is false for it by construction regardless of
+            # which list it is tested against -- there is no independently
+            # derived signal in this artifact's schema (no per-row producer-
+            # declared prior list) that could show the PRODUCER leaked the
+            # target; testing the reference's own re-derived history can only
+            # ever validate the reference's own arithmetic, not the producer.
+            #
+            # What CAN be tested meaningfully here is a real invariant of the
+            # UPSTREAM loaders (build_team_history's by_game dedup and the
+            # private-observation merge's game_id dedup in main()): the
+            # target's game_id must appear in this team's raw history EXACTLY
+            # ONCE. A second entry would be a genuine data-integrity defect
+            # (e.g. a regression removing one of those dedup guards) and is
+            # the one way a leak could actually occur underneath this check.
+            raw_team_history = history.get(team_id, [])
+            target_entries = [
+                item for item in raw_team_history if item["game_id"] == game_id
+            ]
+            if len(target_entries) > 1:
+                target_leaks.append(
+                    {
+                        "canonical_game_id": game_id,
+                        "team_id": team_id,
+                        "duplicate_entry_count": len(target_entries),
+                        "reason": "DUPLICATE_GAME_ID_IN_TEAM_HISTORY",
+                    }
+                )
             priors = [
                 item
-                for item in history.get(team_id, [])
+                for item in raw_team_history
                 if item["start"] < cutoff
                 and item["game_id"] != game_id
                 and item["season"] >= PRIOR_WINDOW_FIRST_SEASON
             ]
-            # Target exclusion asserted from observed sets, not from a flag.
-            if any(item["game_id"] == game_id for item in priors):
-                target_leaks.append(
-                    {"canonical_game_id": game_id, "team_id": team_id}
-                )
             expected = reference_features(priors, season)
             row_disagreements: list[dict[str, Any]] = []
             for field in FEATURE_FIELDS:
@@ -496,11 +533,32 @@ def compare(
                         "stored_features": stored,
                     }
                 )
-        row_states[row_state] += 1
+        # MF35-09: `row_state` was initialized to "COMPARED" and only ever
+        # changed to "DISAGREES"; a row whose BOTH sides were missing
+        # features never touched either branch and fell through to the
+        # unchanged default, so it was counted as "COMPARED" despite zero
+        # actual comparisons -- the same absent-comparisons-counted-as-
+        # successful pattern as rows_compared's own bug, one level deeper.
+        if any_side_compared:
+            row_states[row_state] += 1
+        else:
+            row_states["NO_SIDE_HAD_STORED_FEATURES"] += 1
 
+    # MF35-09 (Cycle #35 manager follow-up, 20260920T224700Z): this
+    # previously summed every row_states bucket except MISSING_SIDE_
+    # FEATURES, which still counted GAME_NOT_IN_DECLARED_RAW_SOURCES rows
+    # as "compared" -- an absent comparison is not a successful one. Only
+    # COMPARED and DISAGREES represent a row that actually went through
+    # per-side feature reconstruction; every other state is a reason a row
+    # was NOT comparable, not a variant of being compared.
+    _ACTUALLY_COMPARED_STATES = ("COMPARED", "DISAGREES")
     return {
         "rows_compared": sum(
-            count for state, count in row_states.items() if state != "MISSING_SIDE_FEATURES"
+            row_states.get(state, 0) for state in _ACTUALLY_COMPARED_STATES
+        ),
+        "rows_not_comparable": sum(
+            count for state, count in row_states.items()
+            if state not in _ACTUALLY_COMPARED_STATES
         ),
         "row_states": dict(row_states),
         "field_agreement": dict(field_agreement),
@@ -509,6 +567,16 @@ def compare(
         "prior_count_delta_distribution": _delta_summary(prior_deltas),
         "target_exclusion_violations": target_leaks,
         "target_exclusion_violation_count": len(target_leaks),
+        "target_exclusion_check_scope": (
+            "This detects a DUPLICATE game_id in a team's own raw history "
+            "(an upstream loader regression), not an independent audit of "
+            "whether the PRODUCER's stored features leaked the target game. "
+            "The kernel artifact carries no per-row producer-declared prior "
+            "list, so that stronger claim is not testable from this schema; "
+            "the target's own single legitimate history entry necessarily "
+            "has start == cutoff by construction and can never itself "
+            "trigger this check."
+        ),
         "game_pair_incoherence": pair_incoherence,
         "game_pair_incoherence_count": len(pair_incoherence),
         "disagreement_examples": disagreement_examples,

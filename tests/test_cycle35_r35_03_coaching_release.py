@@ -31,8 +31,11 @@ from aggie_analytics.cycle35.coaching_release import (
     compare_releases,
     layer_counts,
     open_release,
+    person_identity_adjudications,
+    person_identity_merge_candidates,
     record_adjudication,
     record_conflict,
+    record_person_identity_adjudication,
     register_source_file,
     release_row_identities,
     stable_id,
@@ -92,7 +95,7 @@ class SchemaTests(unittest.TestCase):
         self.assertEqual(first, [version for version, _ in _versions()])
         self.assertEqual(second, [])
         rows = conn.execute("SELECT version FROM schema_migration ORDER BY 1").fetchall()
-        self.assertEqual([int(r[0]) for r in rows], [1, 2, 3])
+        self.assertEqual([int(r[0]) for r in rows], [1, 2, 3, 4])
         self.assertEqual(max(int(r[0]) for r in rows), SCHEMA_VERSION)
 
     def test_open_release_refuses_to_overwrite_a_predecessor(self) -> None:
@@ -267,6 +270,207 @@ class SemanticEntailmentTests(unittest.TestCase):
             )
             conn.commit()
             self.assertEqual(assertions_not_entailed_by_linked_observations(conn), [])
+            conn.close()
+
+
+class PersonIdentityAdjudicationTests(unittest.TestCase):
+    """MF35-04: `upsert_person` keys identity on (name, identity_basis), so
+    the same real person recorded from two source classes splits into two
+    `canonical_person` rows -- and a genuinely different person who shares a
+    name is indistinguishable from that split by `person_id` alone. These
+    tests exercise the adjudication mechanism this repair adds: detecting
+    candidates with real evidence signals, and recording (never inferring)
+    a decision.
+    """
+
+    def _split_person(
+        self, conn, tmp: Path, name: str, *, program_a: str, season_a: str,
+        program_b: str, season_b: str, role_family: str = "defensive_coordinator",
+    ) -> tuple[str, str]:
+        """Two `canonical_person` rows for the same name, one per identity
+        basis, each with one episode -- reproducing the exact
+        OFFICIAL_STAFF_SAME_RECORD_BINDING / WIKIMEDIA_TEAM_SEASON_INFOBOX
+        split the manager found in the real r7 release for Erik Chinander,
+        Kirk Ciarrocca and Ted Roof."""
+
+        upsert_program(conn, program_a, display_name=program_a, season=2026)
+        upsert_program(conn, program_b, display_name=program_b, season=2026)
+        official_id = upsert_person(
+            conn, name, identity_basis="OFFICIAL_STAFF_SAME_RECORD_BINDING"
+        )
+        wiki_id = upsert_person(
+            conn, name, identity_basis="WIKIMEDIA_TEAM_SEASON_INFOBOX"
+        )
+        ep_a = add_episode(
+            conn, person_id=official_id, program_id=program_a, season=season_a,
+            date_precision="SEASON", evidence_layer=LAYER_OFFICIAL,
+        )
+        add_role(
+            conn, episode_id=ep_a, role_family=role_family,
+            exact_title_text="Defensive Coordinator", qualifiers=[],
+            evidence_layer=LAYER_OFFICIAL,
+        )
+        ep_b = add_episode(
+            conn, person_id=wiki_id, program_id=program_b, season=season_b,
+            date_precision="SEASON", evidence_layer=LAYER_CANDIDATE,
+        )
+        add_role(
+            conn, episode_id=ep_b, role_family=role_family,
+            exact_title_text="defensive_coordinator", qualifiers=[],
+            evidence_layer=LAYER_CANDIDATE,
+        )
+        return official_id, wiki_id
+
+    def test_true_alias_continuity_is_surfaced_without_being_merged(self) -> None:
+        """The exact real-world pattern the manager found for Erik
+        Chinander: OFFICIAL basis has him at Boise State (season CURRENT),
+        WIKIMEDIA basis has him at Nebraska (season 2022) -- same role
+        family, different programs, non-overlapping seasons. This is
+        consistent with one person's career, but the function must still
+        report it as a CANDIDATE with evidence, never as an automatic
+        merge."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            official_id, wiki_id = self._split_person(
+                conn, Path(tmp), "Erik Chinander",
+                program_a="P:BOISE_STATE", season_a="CURRENT",
+                program_b="P:NEBRASKA", season_b="2022",
+            )
+            conn.commit()
+            candidates = person_identity_merge_candidates(conn)
+            self.assertEqual(len(candidates), 1)
+            candidate = candidates[0]
+            self.assertEqual(candidate["canonical_name"], "Erik Chinander")
+            self.assertEqual({candidate["left_person_id"], candidate["right_person_id"]},
+                              {official_id, wiki_id})
+            self.assertTrue(candidate["role_families_overlap"])
+            self.assertFalse(candidate["overlapping_season_different_program"])
+            self.assertEqual(candidate["shared_program_ids"], [])
+            # No decision has been made -- the pair does not appear as
+            # MERGED or DISTINCT anywhere just because it was detected.
+            self.assertEqual(person_identity_adjudications(conn), [])
+            conn.close()
+
+    def test_false_namesake_is_distinguished_by_overlapping_conflicting_seasons(self) -> None:
+        """Two same-named people who are NOT the same person: both have an
+        episode in the exact same season at different programs, which a
+        single real person cannot do. This must be flagged distinctly from
+        the true-continuity case above."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            self._split_person(
+                conn, Path(tmp), "John Namesake",
+                program_a="P:SCHOOL_A", season_a="2020",
+                program_b="P:SCHOOL_B", season_b="2020",
+            )
+            conn.commit()
+            candidates = person_identity_merge_candidates(conn)
+            self.assertEqual(len(candidates), 1)
+            self.assertTrue(candidates[0]["overlapping_season_different_program"])
+            conn.close()
+
+    def test_shared_program_is_reported_as_the_strongest_signal(self) -> None:
+        """The exact real-world pattern the manager found for Kirk
+        Ciarrocca: both identities describe the SAME program (Rutgers)."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            self._split_person(
+                conn, Path(tmp), "Kirk Ciarrocca",
+                program_a="P:RUTGERS", season_a="CURRENT",
+                program_b="P:RUTGERS", season_b="2026",
+                role_family="offensive_coordinator",
+            )
+            conn.commit()
+            candidates = person_identity_merge_candidates(conn)
+            self.assertEqual(len(candidates), 1)
+            self.assertEqual(candidates[0]["shared_program_ids"], ["P:RUTGERS"])
+            conn.close()
+
+    def test_same_name_same_basis_is_not_a_candidate(self) -> None:
+        """upsert_person already collapses this case to one person_id -- it
+        must not appear as a split candidate at all."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            upsert_person(conn, "Same Basis Coach", identity_basis="OFFICIAL_STAFF_SAME_RECORD_BINDING")
+            upsert_person(conn, "Same Basis Coach", identity_basis="OFFICIAL_STAFF_SAME_RECORD_BINDING")
+            conn.commit()
+            self.assertEqual(person_identity_merge_candidates(conn), [])
+            conn.close()
+
+    def test_recording_a_decision_removes_the_pair_from_future_candidates(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            official_id, wiki_id = self._split_person(
+                conn, Path(tmp), "Ted Roof",
+                program_a="P:BOSTON_COLLEGE", season_a="CURRENT",
+                program_b="P:NC_STATE", season_b="2018",
+            )
+            conn.commit()
+            self.assertEqual(len(person_identity_merge_candidates(conn)), 1)
+
+            record_person_identity_adjudication(
+                conn,
+                left_person_id=official_id,
+                right_person_id=wiki_id,
+                decision="UNRESOLVED_IDENTITY",
+                decided_by="TEST",
+                basis="same name and non-contradictory career timeline; no "
+                "independent source-bound identifier available to confirm",
+            )
+            conn.commit()
+            self.assertEqual(person_identity_merge_candidates(conn), [])
+            recorded = person_identity_adjudications(conn)
+            self.assertEqual(len(recorded), 1)
+            self.assertEqual(recorded[0]["decision"], "UNRESOLVED_IDENTITY")
+            conn.close()
+
+    def test_merged_same_person_decision_is_recorded_verbatim(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            official_id, wiki_id = self._split_person(
+                conn, Path(tmp), "A Coach",
+                program_a="P:X", season_a="CURRENT", program_b="P:X", season_b="2026",
+            )
+            conn.commit()
+            record_person_identity_adjudication(
+                conn, left_person_id=official_id, right_person_id=wiki_id,
+                decision="MERGED_SAME_PERSON", decided_by="TEST",
+                basis="same program, coincident season, independently corroborated",
+            )
+            conn.commit()
+            recorded = person_identity_adjudications(conn)
+            self.assertEqual(recorded[0]["decision"], "MERGED_SAME_PERSON")
+            conn.close()
+
+    def test_unknown_decision_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            with self.assertRaises(CoachingReleaseError):
+                record_person_identity_adjudication(
+                    conn, left_person_id="a", right_person_id="b",
+                    decision="PROBABLY_THE_SAME_GUY", decided_by="TEST",
+                    basis="vibes",
+                )
+            conn.close()
+
+    def test_empty_basis_is_rejected(self) -> None:
+        """A decision without a stated basis is exactly the "same name alone"
+        reasoning the manager's finding warned against."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            with self.assertRaises(CoachingReleaseError):
+                record_person_identity_adjudication(
+                    conn, left_person_id="a", right_person_id="b",
+                    decision="MERGED_SAME_PERSON", decided_by="TEST", basis="   ",
+                )
+            conn.close()
+
+    def test_no_split_no_candidates(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            _seed(conn, Path(tmp))
+            conn.commit()
+            self.assertEqual(person_identity_merge_candidates(conn), [])
             conn.close()
 
 

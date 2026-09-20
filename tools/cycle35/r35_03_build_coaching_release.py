@@ -58,6 +58,7 @@ from aggie_analytics.cycle35.coaching_release import (  # noqa: E402
     assertions_not_entailed_by_linked_observations,
     layer_counts,
     open_release,
+    person_identity_merge_candidates,
     record_adjudication,
     record_conflict,
     register_source_file,
@@ -539,6 +540,7 @@ def main() -> int:
         layers = layer_counts(conn)
         missing_link = assertions_missing_evidence_link(conn)
         not_entailed = assertions_not_entailed_by_linked_observations(conn)
+        identity_candidates = person_identity_merge_candidates(conn)
     finally:
         conn.commit()
         conn.close()
@@ -580,6 +582,9 @@ def main() -> int:
         "assertions_missing_evidence_link_count": len(missing_link),
         "assertions_not_entailed_by_linked_observations": not_entailed,
         "assertions_not_entailed_count": len(not_entailed),
+        "person_identity_merge_candidates": identity_candidates,
+        "person_identity_merge_candidate_count": len(identity_candidates),
+        "person_identity_candidates_require_explicit_adjudication_not_auto_merge": True,
         "no_hardcoded_program_seasons": True,
         "no_hardcoded_verified_tuples": True,
         "predecessor_not_unlinked": True,
@@ -597,6 +602,7 @@ def main() -> int:
             "layers": layers,
             "assertions_missing_evidence_link": len(missing_link),
             "assertions_not_entailed_by_linked_observations": len(not_entailed),
+            "person_identity_merge_candidates": len(identity_candidates),
             "staff": staff,
             "cycle34": {
                 k: v for k, v in cycle34.items()

@@ -49,7 +49,7 @@ from typing import Any, Iterator, Mapping, Sequence
 
 from aggie_analytics.cycle33.role_taxonomy import principal_role_families
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 RELEASE_KIND = "BAS-CYCLE35-COACHING-RELEASE"
 
 #: Evidence layers, weakest first. A layer is a claim about corroboration,
@@ -216,6 +216,22 @@ MIGRATIONS: tuple[tuple[int, str], ...] = (
         CREATE INDEX idx_episode_program ON employment_episode(program_id, season);
         CREATE INDEX idx_role_episode ON formal_role_assertion(episode_id);
         CREATE INDEX idx_support ON assertion_support(observation_id);
+        """,
+    ),
+    (
+        4,
+        """
+        CREATE TABLE person_identity_adjudication (
+            adjudication_id  TEXT PRIMARY KEY,
+            left_person_id   TEXT NOT NULL REFERENCES canonical_person(person_id),
+            right_person_id  TEXT NOT NULL REFERENCES canonical_person(person_id),
+            decision         TEXT NOT NULL,
+            decided_by       TEXT NOT NULL,
+            basis            TEXT NOT NULL,
+            decided_at_utc   TEXT NOT NULL
+        );
+        CREATE INDEX idx_person_ident_left ON person_identity_adjudication(left_person_id);
+        CREATE INDEX idx_person_ident_right ON person_identity_adjudication(right_person_id);
         """,
     ),
 )
@@ -577,6 +593,161 @@ def add_expected_cell(
     return cell_id
 
 
+#: Decisions `record_person_identity_adjudication` accepts. UNRESOLVED_IDENTITY
+#: is a first-class outcome, not a placeholder for a decision not yet made --
+#: it is what an adjudicator records when the available evidence genuinely
+#: does not settle the question either way.
+PERSON_IDENTITY_DECISIONS = frozenset(
+    {"MERGED_SAME_PERSON", "DISTINCT_NAMESAKES", "UNRESOLVED_IDENTITY"}
+)
+
+
+def person_identity_merge_candidates(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    """Pairs of `canonical_person` rows that share a name but were split by
+    `upsert_person`'s (name, identity_basis) keying -- with the evidence an
+    adjudicator needs, never a verdict.
+
+    MF35-04: `upsert_person` is content-addressed on `(canonical_name.casefold(),
+    identity_basis)`, so the SAME real person recorded once from an official
+    staff page and once from a wiki infobox gets two different `person_id`s,
+    and a genuinely different person who happens to share a name is
+    indistinguishable from that split by `person_id` alone. Neither case may
+    be resolved by this function -- same name is not proof of either answer.
+    What it CAN compute from the data already on hand:
+
+    * `shared_program_ids` -- programs where both identities have an
+      episode. A single person coaching the same program under two source
+      classes in the same or adjacent seasons is strong same-person
+      evidence; this function reports the fact and lets the caller judge it.
+    * `overlapping_season_different_program` -- both identities have an
+      episode in the EXACT SAME season string at DIFFERENT programs. Real
+      people cannot hold two simultaneous on-field coordinator jobs, so this
+      is evidence pointing toward DISTINCT_NAMESAKES (or a data error in one
+      side), not toward a merge.
+    * `role_families_overlap` -- whether the two identities share any
+      `role_family` value across their episodes, which is at least
+      consistent with (not proof of) one coordinator's career.
+
+    Pairs already recorded in `person_identity_adjudication` (in either
+    left/right order) are excluded -- an adjudicator's decision is not
+    re-litigated by simply re-running this query.
+    """
+
+    people = conn.execute(
+        "SELECT person_id, canonical_name, identity_basis FROM canonical_person"
+    ).fetchall()
+    by_name: dict[str, list[sqlite3.Row]] = {}
+    for row in people:
+        key = " ".join(str(row["canonical_name"] or "").split()).casefold()
+        by_name.setdefault(key, []).append(row)
+
+    decided_pairs: set[frozenset[str]] = set()
+    for row in conn.execute(
+        "SELECT left_person_id, right_person_id FROM person_identity_adjudication"
+    ):
+        decided_pairs.add(frozenset((row["left_person_id"], row["right_person_id"])))
+
+    def episodes_for(person_id: str) -> list[sqlite3.Row]:
+        return conn.execute(
+            "SELECT program_id, season, role_family "
+            "FROM employment_episode e "
+            "LEFT JOIN formal_role_assertion a ON a.episode_id = e.episode_id "
+            "WHERE e.person_id = ?",
+            (person_id,),
+        ).fetchall()
+
+    candidates: list[dict[str, Any]] = []
+    for rows in by_name.values():
+        if len(rows) < 2:
+            continue
+        distinct_bases = {r["identity_basis"] for r in rows}
+        if len(distinct_bases) < 2:
+            continue
+        for i in range(len(rows)):
+            for j in range(i + 1, len(rows)):
+                left, right = rows[i], rows[j]
+                pair_key = frozenset((left["person_id"], right["person_id"]))
+                if pair_key in decided_pairs:
+                    continue
+                left_episodes = episodes_for(left["person_id"])
+                right_episodes = episodes_for(right["person_id"])
+                left_programs = {e["program_id"] for e in left_episodes if e["program_id"]}
+                right_programs = {e["program_id"] for e in right_episodes if e["program_id"]}
+                left_families = {e["role_family"] for e in left_episodes if e["role_family"]}
+                right_families = {e["role_family"] for e in right_episodes if e["role_family"]}
+                overlapping_season_conflict = any(
+                    le["season"] == re["season"] and le["program_id"] != re["program_id"]
+                    for le in left_episodes
+                    for re in right_episodes
+                    if le["season"] and re["season"]
+                )
+                candidates.append(
+                    {
+                        "left_person_id": left["person_id"],
+                        "right_person_id": right["person_id"],
+                        "canonical_name": left["canonical_name"],
+                        "left_identity_basis": left["identity_basis"],
+                        "right_identity_basis": right["identity_basis"],
+                        "shared_program_ids": sorted(left_programs & right_programs),
+                        "role_families_overlap": bool(left_families & right_families),
+                        "overlapping_season_different_program": overlapping_season_conflict,
+                    }
+                )
+    return candidates
+
+
+def record_person_identity_adjudication(
+    conn: sqlite3.Connection,
+    *,
+    left_person_id: str,
+    right_person_id: str,
+    decision: str,
+    decided_by: str,
+    basis: str,
+    decided_at_utc: str | None = None,
+) -> str:
+    """Record a human/operator decision about a candidate pair.
+
+    MF35-04: this is the only way a merge or a namesake determination enters
+    the release -- nothing in this module infers or applies either decision
+    on its own. `left_person_id`/`right_person_id` are recorded in the order
+    given; a decision is order-independent for lookup (see
+    `person_identity_merge_candidates`'s use of `frozenset`).
+    """
+
+    if decision not in PERSON_IDENTITY_DECISIONS:
+        raise CoachingReleaseError("unknown person identity decision: " + str(decision))
+    if not basis or not basis.strip():
+        raise CoachingReleaseError("a person identity decision requires a stated basis")
+    adjudication_id = stable_id(
+        "pident", left_person_id, right_person_id, decision, decided_by, basis
+    )
+    conn.execute(
+        "INSERT OR IGNORE INTO person_identity_adjudication (adjudication_id, "
+        "left_person_id, right_person_id, decision, decided_by, basis, "
+        "decided_at_utc) VALUES (?,?,?,?,?,?,?)",
+        (
+            adjudication_id,
+            left_person_id,
+            right_person_id,
+            decision,
+            decided_by,
+            basis,
+            decided_at_utc or datetime.now(timezone.utc).isoformat(),
+        ),
+    )
+    return adjudication_id
+
+
+def person_identity_adjudications(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    """Every recorded person-identity decision, for audit and reporting."""
+
+    rows = conn.execute(
+        "SELECT * FROM person_identity_adjudication ORDER BY decided_at_utc"
+    ).fetchall()
+    return [dict(row) for row in rows]
+
+
 #: Columns excluded from `release_row_identities`'s content hash, per table,
 #: because they are proven to be non-scientific SQLite/runtime artifacts
 #: rather than believed facts. Empty for every table in this schema: no
@@ -608,6 +779,7 @@ _CONTENT_TABLES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("adjudication", ("adjudication_id",)),
     ("expected_cell", ("expected_cell_id",)),
     ("lineage", ("lineage_id",)),
+    ("person_identity_adjudication", ("adjudication_id",)),
 )
 
 

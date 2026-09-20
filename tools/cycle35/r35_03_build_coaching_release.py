@@ -677,27 +677,45 @@ USER_CORPUS_CELLS = Path(
     r"\implementation_output\science"
     r"\CYCLE33_USER_CORPUS_2000_2012_STAFF_CELLS.jsonl"
 )
+#: MF35-11 (Cycle #35 manager follow-up, 20260920T224700Z): the 2013-2026
+#: rows were always parsed by the same import_snapshot() the 2000-2012 file
+#: came from; they were only ever filtered out downstream, not
+#: unavailable. See tools/cycle35/r35_11_user_corpus_2013_2026_cells.py.
+USER_CORPUS_CELLS_2013_2026 = Path(
+    r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs"
+    r"\20260920T224700Z_mf35_11_user_cells"
+    r"\CYCLE35_USER_CORPUS_2013_2026_STAFF_CELLS.jsonl"
+)
 
 
-def ingest_user_corpus_cells(conn: sqlite3.Connection) -> dict[str, Any]:
-    """The 2000-2012 user research corpus at CELL grain.
+def ingest_user_corpus_cells(
+    conn: sqlite3.Connection,
+    *,
+    cells_path: Path = USER_CORPUS_CELLS,
+    acquisition_receipt: str = "CYCLE33_USER_CORPUS_2000_2012_STAFF_CELLS",
+) -> dict[str, Any]:
+    """The user research corpus at CELL grain, for whichever year range
+    `cells_path` names.
 
-    Registering 54 files proved the population exists; it did not make a
-    single row queryable. These 23,992 parsed cells enter as
+    MF35-11 (Cycle #35 manager follow-up, 20260920T224700Z): registering 54
+    files proved the population exists; it did not make a single row
+    queryable, and this function originally only ever read the 2000-2012
+    file -- ingesting all years requires calling it once per available
+    cell file, not registering more source files. Every cell enters as
     USER_COMPILED_RESEARCH_OBSERVATION at CANDIDATE layer -- every one
     carries `verified: false` from its own producer, so nothing here is
     promoted, and a cell whose program cannot be resolved against the
     canonical population is retained UNRESOLVED rather than dropped.
     """
 
-    if not USER_CORPUS_CELLS.is_file():
-        return {"state": "USER_CORPUS_CELLS_NOT_PRESENT"}
+    if not cells_path.is_file():
+        return {"state": "USER_CORPUS_CELLS_NOT_PRESENT", "cells_path": str(cells_path)}
     source_file_id = register_source_file(
         conn,
-        USER_CORPUS_CELLS,
+        cells_path,
         source_class="USER_COMPILED_RESEARCH_OBSERVATION",
         rights_state="PRIVATE_USER_RESEARCH_NOT_REDISTRIBUTABLE",
-        acquisition_receipt="CYCLE33_USER_CORPUS_2000_2012_STAFF_CELLS",
+        acquisition_receipt=acquisition_receipt,
     )
     crosswalk = build_crosswalk(
         read_jsonl(OUTPUTS / "HISTORICAL_MEMBERSHIP_1963_2012.jsonl")
@@ -706,7 +724,7 @@ def ingest_user_corpus_cells(conn: sqlite3.Connection) -> dict[str, Any]:
     )
     stats: Counter = Counter()
     unresolved_names: Counter = Counter()
-    for row in read_jsonl(USER_CORPUS_CELLS):
+    for row in read_jsonl(cells_path):
         person = str(row.get("person") or "").strip()
         team = str(row.get("team") or "").strip()
         season = str(row.get("season") or "").strip()
@@ -766,7 +784,24 @@ def main() -> int:
             staff = ingest_reparsed_staff(conn, Path(args.rebuild_rows))
             cycle34 = ingest_cycle34_transcription(conn)
             user_corpus = ingest_user_corpus(conn)
-            user_cells = ingest_user_corpus_cells(conn)
+            user_cells_2000_2012 = ingest_user_corpus_cells(conn)
+            user_cells_2013_2026 = ingest_user_corpus_cells(
+                conn,
+                cells_path=USER_CORPUS_CELLS_2013_2026,
+                acquisition_receipt="CYCLE35_USER_CORPUS_2013_2026_STAFF_CELLS",
+            )
+            user_cells = {
+                "2000_2012": user_cells_2000_2012,
+                "2013_2026": user_cells_2013_2026,
+                "combined_observations": (
+                    user_cells_2000_2012.get("OBSERVATIONS", 0)
+                    + user_cells_2013_2026.get("OBSERVATIONS", 0)
+                ),
+                "years_covered": "2000-2026" if (
+                    user_cells_2000_2012.get("state") == "INGESTED_AT_CELL_GRAIN_AS_CANDIDATES"
+                    and user_cells_2013_2026.get("state") == "INGESTED_AT_CELL_GRAIN_AS_CANDIDATES"
+                ) else "PARTIAL_SEE_PER_RANGE_STATE",
+            }
             career = (
                 ingest_career_tranche(conn, Path(args.career_tranche))
                 if args.career_tranche
@@ -845,7 +880,18 @@ def main() -> int:
                 if k != "synthetic_control_observation_ids"
             },
             "user_corpus_files": user_corpus.get("files"),
-            "user_corpus_cells": {k: v for k, v in user_cells.items() if k != "top_unresolved_program_names"},
+            "user_corpus_cells": {
+                "2000_2012": {
+                    k: v for k, v in user_cells["2000_2012"].items()
+                    if k != "top_unresolved_program_names"
+                },
+                "2013_2026": {
+                    k: v for k, v in user_cells["2013_2026"].items()
+                    if k != "top_unresolved_program_names"
+                },
+                "combined_observations": user_cells["combined_observations"],
+                "years_covered": user_cells["years_covered"],
+            },
             "career_tranche": career,
         },
         indent=1,

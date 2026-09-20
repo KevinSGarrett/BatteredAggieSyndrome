@@ -276,6 +276,118 @@ R35_UNITS: dict[str, dict[str, Any]] = {
 }
 
 
+#: MF35-07 (Cycle #35 manager follow-up, 20260920T205200Z): R35_UNITS above
+#: is a hand-typed table, not derived from live evidence -- the finding's
+#: exact complaint is that a unit's COMPLETE claim can silently go stale as
+#: soon as the code underneath it changes again. The full repair (deriving
+#: every unit's six dimensions from clause-level evidence at packet-
+#: generation time) remains open. This is the bounded, honest interim step:
+#: every MF35 finding fixed in the continuation pass that followed that
+#: review, mapped to the R35 unit whose files it touched, so a reader can
+#: never mistake a unit's hand-typed note for a description of current code
+#: without also seeing exactly what changed underneath it.
+SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
+    "R35-03": [
+        {
+            "finding": "MF35-03",
+            "summary": "release_row_identities now hashes full row content, "
+            "not just primary keys, and covers assertion_support/"
+            "person_alias; unsupported_assertions renamed to "
+            "assertions_missing_evidence_link and a real semantic "
+            "entailment check was added.",
+            "commit": "44c7abc8",
+        },
+        {
+            "finding": "MF35-04",
+            "summary": "person_identity_merge_candidates/"
+            "record_person_identity_adjudication added. Erik Chinander, "
+            "Kirk Ciarrocca and Ted Roof are surfaced as evidenced "
+            "candidates -- none has been merged or declared a namesake.",
+            "commit": "1912ee32",
+        },
+        {
+            "finding": "MF35-05",
+            "summary": "Multi-role titles now decompose via "
+            "assignments_from_title instead of collapsing to families[0] "
+            "with the rest misused as qualifiers; ingest_membership no "
+            "longer assumes season=2026 for a row with no stated season.",
+            "commit": "244d1471",
+        },
+    ],
+    "R35-05": [
+        {
+            "finding": "MF35-08",
+            "summary": "Career-tranche keys are now classified by their "
+            "OWN season's same-season source, not a collapsed/most-recent "
+            "program classification -- closes the Massachusetts (2002) and "
+            "Sacramento State (2023) mismatches the manager found. The "
+            "original 48-key artifact is preserved; a corrected 48-key set "
+            "and an explicit supersession delta were written to a separate "
+            "ops run, not yet reconciled into this unit's evidence files.",
+            "commit": "af407a0f",
+        },
+    ],
+    "R35-06": [
+        {
+            "finding": "MF35-01",
+            "summary": "admit() now requires hash-verified receipt bytes to "
+            "gate admission; the contest's own declared identity and the "
+            "forecast's claimed probability must both agree with the "
+            "verified payload, not just row metadata.",
+            "commit": "853e8500",
+        },
+        {
+            "finding": "MF35-02",
+            "summary": "TrustedReceiptStore fails closed on an empty "
+            "trusted-issuer allowlist and permanently quarantines a "
+            "receipt ID that ever carried conflicting content.",
+            "commit": "853e8500",
+        },
+        {
+            "finding": "MF35-06",
+            "summary": "bas-staff-query is now schema-version-aware: "
+            "team_staff/coach_career/unresolved_roles/team_schemes work "
+            "against both the legacy cycle33 schema and the real cycle35 "
+            "release (verified against the actual delivered r7 database).",
+            "commit": "f0b5fe2f",
+        },
+    ],
+    "R35-14": [
+        {
+            "finding": "MF35-10",
+            "summary": "Baseline comparison no longer collapses "
+            "parameterized subtests into one identity; validation receipts "
+            "now bind each lane's output to its own declared head instead "
+            "of the report-generation-time head; the C35-N5 pathlib "
+            "sharing-violation mechanism claim was WITHDRAWN as disproven "
+            "and replaced with CAUSE_UNPROVEN.",
+            "commit": "319a0884",
+        },
+    ],
+}
+
+
+def annotate_units_with_session_fixes(
+    units: dict[str, dict[str, Any]], fixes: dict[str, list[dict[str, str]]]
+) -> dict[str, dict[str, Any]]:
+    """Mark which units have MF35 fixes landed underneath their hand-typed
+    note, without touching the note or any of its six dimensions.
+
+    This does not re-verify anything: a unit annotated here is not thereby
+    re-tested, re-reviewed, or promoted to a fresher COMPLETE. It only makes
+    the note's staleness impossible to miss.
+    """
+
+    annotated: dict[str, dict[str, Any]] = {}
+    for unit_id, unit in units.items():
+        copy = dict(unit)
+        session_fixes = fixes.get(unit_id)
+        copy["note_predates_session_fixes"] = list(session_fixes or [])
+        copy["note_is_stale"] = bool(session_fixes)
+        annotated[unit_id] = copy
+    return annotated
+
+
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
 
@@ -553,8 +665,9 @@ def main() -> int:
             DIM_RELEASE,
             DIM_OVERALL,
         ],
-        "units": R35_UNITS,
+        "units": annotate_units_with_session_fixes(R35_UNITS, SESSION_MF35_FIXES),
         "unit_count": len(R35_UNITS),
+        "units_with_stale_notes": sorted(SESSION_MF35_FIXES),
         "inherited_r34_requirement_count": inherited["r34_requirement_count"],
         "inherited_mr33_finding_count": inherited["mr33_finding_count"],
         "inherited_mr34_finding_count": inherited["mr34_finding_count"],

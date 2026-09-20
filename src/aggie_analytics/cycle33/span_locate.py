@@ -530,6 +530,23 @@ def bind_person_role(html: str, *, person: str, title: str = "") -> dict[str, An
         "coordinate_system": COORD_RAW,
         "parser_version": PARSER_VERSION,
         "source_hash_sha256": source_hash,
+        # MR33-15 repair: `source_hash_sha256` is NOT a hash of the original
+        # file's raw bytes -- `html` arrives here as an already-decoded
+        # Python str (the caller read it in text mode, which applies
+        # universal-newline translation \r\n/\r -> \n by default), and this
+        # hash is sha256(html.encode("utf-8")) of THAT decoded/normalized
+        # string. Calling it "raw" without qualification is exactly the
+        # ambiguity the finding flagged (880 source-text hashes matched
+        # under this normalized representation; only 495 equal the original
+        # file bytes). Made explicit and unambiguous here rather than
+        # inferred by a consumer.
+        "source_hash_sha256_representation": "SHA256_OF_UTF8_ENCODED_UNIVERSAL_NEWLINE_DECODED_TEXT",
+        "source_hash_sha256_equals_original_file_bytes": False,
+        # Named distinctly from the pre-existing `transformations` key (which
+        # describes person/title record-text transformations, e.g.
+        # html_unescape) so this addition cannot silently clobber that
+        # unrelated field when both are merged into the same result dict.
+        "source_hash_transformations": ["universal_newline_decode", "utf8_encode_for_hash"],
         "transformations_declared": True,
     }
     person_interval = person_hit or {}

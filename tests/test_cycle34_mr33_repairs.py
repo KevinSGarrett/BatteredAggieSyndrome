@@ -843,5 +843,54 @@ class ForecastInventoryInventedHashTests(unittest.TestCase):
             )
 
 
+class SourceHashRepresentationTests(unittest.TestCase):
+    """MR33-15: `source_hash_sha256` must carry an unambiguous representation
+    contract, not be labeled "raw" while actually hashing decoded/newline-
+    normalized text. `bind_person_role` receives `html` as an already-decoded
+    Python str (the caller already applied universal-newline translation via
+    a text-mode read), so this hash can never legitimately claim to equal the
+    original file's raw bytes -- that must be stated explicitly, not left for
+    a consumer to assume from the "raw_html" coordinate-system label alone."""
+
+    def test_source_hash_representation_is_explicit(self) -> None:
+        from aggie_analytics.cycle33.span_locate import bind_person_role
+
+        html = "<table><tr><td>Alice Smith</td><td>Head Coach</td></tr></table>"
+        result = bind_person_role(html, person="Alice Smith", title="Head Coach")
+        self.assertEqual(
+            result["source_hash_sha256_representation"],
+            "SHA256_OF_UTF8_ENCODED_UNIVERSAL_NEWLINE_DECODED_TEXT",
+        )
+        self.assertFalse(result["source_hash_sha256_equals_original_file_bytes"])
+        self.assertIn("universal_newline_decode", result["source_hash_transformations"])
+
+    def test_source_hash_transformations_do_not_clobber_record_transformations(self) -> None:
+        """The new source_hash_transformations field must coexist with the
+        pre-existing `transformations` field (about person/title record-text
+        transforms like html_unescape) -- not silently overwrite it when
+        both are merged into the same result dict."""
+
+        from aggie_analytics.cycle33.span_locate import bind_person_role
+
+        html = "<table><tr><td>Alice Smith</td><td>Head Coach</td></tr></table>"
+        result = bind_person_role(html, person="Alice Smith", title="Head Coach")
+        self.assertIn("transformations", result)
+        self.assertIn("source_hash_transformations", result)
+        self.assertNotEqual(result["transformations"], result["source_hash_transformations"])
+
+    def test_hash_is_actually_reproducible_from_the_declared_representation(self) -> None:
+        """The representation claim must be independently verifiable: sha256
+        of the UTF-8-encoded input string must equal source_hash_sha256."""
+
+        import hashlib
+
+        from aggie_analytics.cycle33.span_locate import bind_person_role
+
+        html = "<table><tr><td>Bob Jones</td><td>Offensive Coordinator</td></tr></table>"
+        result = bind_person_role(html, person="Bob Jones", title="Offensive Coordinator")
+        expected = hashlib.sha256(html.encode("utf-8")).hexdigest()
+        self.assertEqual(result["source_hash_sha256"], expected)
+
+
 if __name__ == "__main__":
     unittest.main()

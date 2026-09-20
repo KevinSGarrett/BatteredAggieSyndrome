@@ -4801,6 +4801,7 @@ tools/cycle34_r34_09_population_reconciliation.py
 tools/cycle34_r34_10_bat637_candidate_recompute.py
 tools/cycle35/r35_01_reproduce_manager_findings.py
 tools/cycle35/r35_02_rebuild_staff_admission.py
+tools/cycle35/r35_02_stratified_review_sample.py
 tools/cycle35/r35_03_build_coaching_release.py
 tools/cycle35/r35_05_career_tranche.py
 tools/cycle35/r35_05_national_coverage_census.py

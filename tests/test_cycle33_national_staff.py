@@ -568,6 +568,11 @@ class IndependentReferenceTests(unittest.TestCase):
 
 class ScoringSuccessorTests(unittest.TestCase):
     def test_unfrozen_and_conflicts_are_excluded(self) -> None:
+        import hashlib
+        import json
+        import tempfile
+        from pathlib import Path
+
         observations = [
             {
                 "ncaa_com_contest_id": "1",
@@ -600,20 +605,46 @@ class ScoringSuccessorTests(unittest.TestCase):
                 "terminal_state": "TERMINAL_STATUS_ESTABLISHED",
             },
         ]
-        result = score_unique_frozen_games(
-            observations,
-            forecasts=[
-                {
-                    "ncaa_contest_id": "2",
-                    "candidate_id": "shadow",
-                    "frozen": True,
-                    "freeze_receipt_id": "FRZ-2",
-                    "frozen_at_utc": "2026-09-10T00:00:00Z",
-                    "forecast_row_id": "FROW-2",
-                    "probability_home": 0.7,
-                }
-            ],
-        )
+        with tempfile.TemporaryDirectory() as tmp_str:
+            tmp = Path(tmp_str)
+            # Cycle34 R34-03 re-repair (MR33-01): freeze proof resolves
+            # receipt_sha256 against REAL on-disk bytes (rehashed here, not
+            # invented), so this fixture writes real backing evidence.
+            payload = {
+                "ncaa_contest_id": "2",
+                "candidate_id": "shadow",
+                "cohort": "MAIN",
+                "checkpoint": "T24H",
+                "probability_home": 0.7,
+                "frozen_at_utc": "2026-09-10T00:00:00Z",
+            }
+            raw = json.dumps(payload, sort_keys=True).encode("utf-8")
+            digest = hashlib.sha256(raw).hexdigest()
+            (tmp / f"forecast_{digest}.json").write_bytes(raw)
+            result = score_unique_frozen_games(
+                observations,
+                forecasts=[
+                    {
+                        "ncaa_contest_id": "2",
+                        "candidate_id": "shadow",
+                        "cohort": "MAIN",
+                        "checkpoint": "T24H",
+                        "frozen": True,
+                        "forecast_row_id": "FROW-2",
+                        "probability_home": 0.7,
+                        "freeze_receipt": {
+                            "receipt_id": "FRZ-2",
+                            "receipt_sha256": digest,
+                            "frozen_at_utc": "2026-09-10T00:00:00Z",
+                            "ncaa_contest_id": "2",
+                            "candidate_id": "shadow",
+                            "cohort": "MAIN",
+                            "checkpoint": "T24H",
+                        },
+                    }
+                ],
+                search_roots=(tmp,),
+            )
         self.assertEqual(result["observation_count"], 3)
         self.assertEqual(result["unique_contest_count"], 2)
         self.assertEqual(result["quarantined_conflicts"], 1)

@@ -30,12 +30,56 @@ PROTECTED_PHRASES = (
     "miami florida",
 )
 
+# MR33-04 re-repair (R34-06): sports mascot/nickname tokens are NEVER used to
+# distinguish between two different real institutions the way "tech"/"state"/
+# "a&m" genuinely are (Virginia Tech is a real, different school from the
+# University of Virginia; there is no real school called "Western Michigan
+# Broncos" distinct from "Western Michigan"). A mascot suffix is therefore
+# safe to strip when one side's name is exactly the other side's name plus a
+# trailing mascot token -- unlike a generic word, this is intentionally
+# checked only as a SUFFIX match (see employer_evidence_matches), never a
+# substring/subset match anywhere in the name, so it cannot be used to widen
+# an unrelated pair into a false match. Deliberately excludes any token that
+# is also a real distinguishing qualifier (e.g. no "tech", "state", "a&m").
+MASCOT_TOKENS = frozenset(
+    {
+        "aggies", "aggie", "broncos", "bronco", "buckeyes", "buckeye",
+        "bulldogs", "bulldog", "cardinal", "cardinals", "cougars", "cougar",
+        "ducks", "duck", "beavers", "beaver", "huskies", "husky", "bruins",
+        "bruin", "trojans", "trojan", "wolverines", "wolverine",
+        "golden", "gophers", "gopher", "longhorns", "longhorn", "tigers",
+        "tiger", "wildcats", "wildcat", "hokies", "hokie", "gators", "gator",
+        "seminoles", "seminole", "hurricanes", "hurricane", "sooners",
+        "sooner", "crimson", "tide", "volunteers", "razorbacks",
+        "razorback", "rebels", "rebel", "commodores", "gamecocks",
+        "gamecock", "jayhawks", "jayhawk", "cyclones", "cyclone",
+        "cowboys", "cowboy", "horned", "frogs", "frog", "mountaineers",
+        "mountaineer", "hoosiers", "hoosier", "boilermakers",
+        "boilermaker", "badgers", "badger", "spartans", "spartan",
+        "nittany", "lions", "lion", "terrapins", "terrapin", "scarlet",
+        "knights", "knight", "hawkeyes", "hawkeye", "cornhuskers",
+        "cornhusker", "bearkats", "jackrabbits", "jackrabbit",
+        "vandals", "vandal", "falcons", "falcon", "penguins", "penguin",
+        "minutemen", "flames", "flame", "utes", "ute", "buffaloes",
+        "buffalo", "sooners", "aztecs", "aztec", "rams", "ram", "owls",
+        "owl", "eagles", "eagle", "bearcats", "bearcat", "panthers",
+        "panther", "demon", "deacons", "deacon", "orange", "pirates",
+        "pirate",
+    }
+)
+
 ALIAS_GROUPS: tuple[frozenset[str], ...] = (
     frozenset({"virginia", "university of virginia", "uva"}),
     frozenset({"virginia tech", "virginia polytechnic", "vpi", "hokies"}),
     frozenset({"texas a&m", "texas am", "tamu", "texas a and m"}),
     frozenset({"miami (fl)", "miami florida", "miami fl"}),
     frozenset({"miami (oh)", "miami ohio", "miami oh"}),
+    # A real deliberate institutional rebrand (athletics dropped "State" from
+    # public branding in 2021 while the legal/academic name kept it) -- an
+    # alias, not a mascot-suffix case, since "State" is otherwise a genuine
+    # distinguishing qualifier (Washington vs Washington State) that must
+    # not be stripped generically.
+    frozenset({"sam houston", "sam houston state", "sam houston state university"}),
 )
 
 
@@ -94,6 +138,27 @@ def employer_evidence_matches(employer: str, program_raw: str) -> bool:
         if protected_left or protected_right:
             return left == right or left_alias == right_alias
         return True
+    # MR33-04 re-repair: a trailing mascot/nickname suffix on ONE side only
+    # (e.g. "Western Michigan" vs "Western Michigan Broncos") must not read
+    # as a non-match the way an actual distinguishing qualifier would
+    # ("Virginia" vs "Virginia Tech" still correctly falls through to False
+    # below, since "tech" is not in MASCOT_TOKENS). Checked as an exact
+    # leading-prefix relationship, not a substring/subset test, so this
+    # cannot widen an unrelated pair -- the shorter side's full core token
+    # sequence must appear, in order, at the START of the longer side's core
+    # tokens, with every remaining token a known mascot word.
+    if left_core and right_core and left_core != right_core:
+        if len(left_core) < len(right_core):
+            shorter, longer = left_core, right_core
+        else:
+            shorter, longer = right_core, left_core
+        if longer[: len(shorter)] == shorter:
+            extra = longer[len(shorter):]
+            if extra and all(tok in MASCOT_TOKENS for tok in extra):
+                protected_left = any(phrase in left for phrase in PROTECTED_PHRASES)
+                protected_right = any(phrase in right for phrase in PROTECTED_PHRASES)
+                if not (protected_left or protected_right):
+                    return True
     return False
 
 
@@ -230,6 +295,30 @@ def football_career_context(page: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _person_identity_matches_page(person: str, page: Mapping[str, Any]) -> bool:
+    """MR33-04 repair: the join's own person-identity check. A caller-side
+    title prefilter (e.g. `index_career_pages`) is not sufficient on its own
+    -- `join_occupant_to_pages` must independently reject an unrelated
+    person's page even when the page is otherwise a same-employer football
+    page. Matches on the page title, the recorded occupant, or an episode's
+    own `person` field; a bare substring/employer match is not identity.
+    """
+
+    person_key = _fold(person)
+    if not person_key:
+        return False
+    title = str(page.get("title") or page.get("requested_title") or "")
+    if career_page_title_matches_person(title, person):
+        return True
+    occupant = _fold(str(page.get("occupant_person") or ""))
+    if occupant and occupant == person_key:
+        return True
+    episode_persons = {
+        _fold(str(episode.get("person") or "")) for episode in page.get("episodes") or []
+    }
+    return person_key in episode_persons
+
+
 def join_occupant_to_pages(
     *,
     person: str,
@@ -241,18 +330,26 @@ def join_occupant_to_pages(
     football_pages = [
         page for page in pages if football_career_context(page)["accepted"]
     ]
-    identities = {page_identity_key(page) for page in football_pages}
+    person_matched_pages = [
+        page for page in football_pages if _person_identity_matches_page(person, page)
+    ]
+    identities = {page_identity_key(page) for page in person_matched_pages}
     if not pages:
         state = "CAREER_PAGE_MISSING"
         page = None
     elif not football_pages:
         state = "NAME_ONLY_CANDIDATE_NOT_ACCEPTED"
         page = None
+    elif not person_matched_pages:
+        # A same-employer football page exists, but not for this person --
+        # this must never fall through to an EVIDENCE_BOUND_CAREER_JOIN.
+        state = "FOOTBALL_PAGE_PERSON_IDENTITY_UNMATCHED"
+        page = None
     elif len(identities) > 1:
         state = "AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES"
         page = None
     else:
-        page = football_pages[0]
+        page = person_matched_pages[0]
         org_hit = False
         if str(program_display or "").strip():
             org_hit = any(

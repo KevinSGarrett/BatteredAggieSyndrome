@@ -20,6 +20,19 @@ def game_id(row: Mapping[str, Any]) -> str:
     )
 
 
+def reject_unidentified_games(rows: Sequence[Mapping[str, Any]]) -> None:
+    """MR33-09 repair: an empty/missing canonical game id must not be
+    silently admitted -- previously only *duplicate* ids were rejected, so a
+    population of entirely unidentified rows passed with no error at all."""
+
+    missing = sum(1 for row in rows if not game_id(row))
+    if missing:
+        raise FitIntegrityError(
+            f"{missing} row(s) have no canonical game id (checked "
+            "canonical_game_id/ncaa_contest_id/game_id)"
+        )
+
+
 def reject_duplicate_games(rows: Sequence[Mapping[str, Any]]) -> None:
     seen: set[str] = set()
     for row in rows:
@@ -67,6 +80,7 @@ def validate_fit_population(
     train_seasons: Sequence[int],
     eval_seasons: Sequence[int],
 ) -> dict[str, Any]:
+    reject_unidentified_games(rows)
     reject_duplicate_games(rows)
     reject_season_overlap(train_seasons, eval_seasons)
     reject_invalid_chronological_bounds(train_seasons, eval_seasons)

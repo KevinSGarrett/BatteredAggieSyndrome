@@ -43,7 +43,10 @@ CREATE TABLE IF NOT EXISTS scheme_tenure_claims (
     source_class TEXT NOT NULL,
     family_tags TEXT,
     conflict INTEGER NOT NULL,
-    official_corroboration TEXT
+    official_corroboration TEXT,
+    source_receipt_sha256 TEXT,
+    source_span TEXT,
+    source_revision TEXT
 );
 """
 
@@ -162,6 +165,9 @@ def load_scheme_claims(
             json.dumps(claim.get("family_tags") or [], sort_keys=True),
             1 if claim.get("conflict_distinct_source_text") else 0,
             claim.get("official_corroboration") or "WIKIPEDIA_ONLY_NOT_OFFICIAL",
+            claim.get("source_receipt_sha256") or claim.get("receipt_sha256"),
+            claim.get("source_span"),
+            claim.get("source_revision") or claim.get("wikimedia_revision"),
         )
         for claim in claims
     ]
@@ -170,8 +176,9 @@ def load_scheme_claims(
         INSERT INTO scheme_tenure_claims (
             program_raw, season, field, source_text, disposition,
             inferred, source_class, family_tags, conflict,
-            official_corroboration
-        ) VALUES (?,?,?,?,?,?,?,?,?,?)
+            official_corroboration, source_receipt_sha256, source_span,
+            source_revision
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
         """,
         payload,
     )
@@ -182,15 +189,59 @@ def load_scheme_claims(
 def team_schemes(
     conn: sqlite3.Connection, *, program: str, season: str
 ) -> list[dict[str, Any]]:
+    """Exact (case/whitespace-insensitive) canonical-program fact lookup.
+
+    MR33-08 repair: this previously used a `LIKE '%program%'` substring match,
+    so a "Virginia" fact query silently also returned "Virginia Tech" and
+    "West Virginia" rows. A fact query must resolve to the named program only;
+    callers who want candidates for an ambiguous/partial name must use
+    `search_team_schemes_by_name` below and get back an explicitly labeled
+    multi-program result, never a merged fact answer.
+    """
+
     cur = conn.execute(
         """
         SELECT * FROM scheme_tenure_claims
-        WHERE season = ? AND (program_raw LIKE ?)
+        WHERE season = ? AND TRIM(program_raw) = TRIM(?) COLLATE NOCASE
         ORDER BY field
         """,
-        (str(season), f"%{program}%"),
+        (str(season), program),
     )
     return [dict(row) for row in cur.fetchall()]
+
+
+def search_team_schemes_by_name(
+    conn: sqlite3.Connection, *, name_fragment: str, season: str | None = None
+) -> dict[str, Any]:
+    """Explicit disambiguation search -- returns labeled search *candidates*,
+    never a silently merged single-program fact answer. Distinct from
+    `team_schemes`, which is name-exact and used for actual fact retrieval."""
+
+    if season is not None:
+        cur = conn.execute(
+            """
+            SELECT DISTINCT program_raw, season FROM scheme_tenure_claims
+            WHERE season = ? AND program_raw LIKE ?
+            ORDER BY program_raw
+            """,
+            (str(season), f"%{name_fragment}%"),
+        )
+    else:
+        cur = conn.execute(
+            """
+            SELECT DISTINCT program_raw, season FROM scheme_tenure_claims
+            WHERE program_raw LIKE ?
+            ORDER BY program_raw, season
+            """,
+            (f"%{name_fragment}%",),
+        )
+    candidates = [dict(row) for row in cur.fetchall()]
+    return {
+        "result_kind": "SEARCH_RESULTS_NOT_A_FACT_QUERY",
+        "name_fragment": name_fragment,
+        "distinct_program_count": len({row["program_raw"] for row in candidates}),
+        "candidates": candidates,
+    }
 
 
 def unresolved_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:

@@ -2,9 +2,62 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+import math
+import re
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_ISO8601_RE = re.compile(
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$"
+)
+
+
+def _looks_like_real_sha256(value: Any) -> bool:
+    return isinstance(value, str) and bool(_SHA256_RE.match(value.strip().casefold()))
+
+
+def _looks_like_real_utc_timestamp(value: Any) -> bool:
+    if not isinstance(value, str) or not _ISO8601_RE.match(value.strip()):
+        return False
+    try:
+        datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return True
+
+
+def _canonical_payload_digest(payload: Mapping[str, Any]) -> str:
+    """The actual sha256 of this payload's own canonical bytes, EXCLUDING the
+    `receipt_sha256` field itself (a hash cannot include itself). This is
+    computed independently here every time -- never trusted from the file."""
+
+    canonical = {key: value for key, value in payload.items() if key != "receipt_sha256"}
+    raw = json.dumps(canonical, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
+
+
+def _has_actual_forecast_content(payload: Mapping[str, Any]) -> bool:
+    """A receipt/time/contest-id shell with no forecast value at all (e.g. no
+    `probability_home`/`probabilities`/`forecast` field) is metadata, not a
+    forecast packet -- it must never read ELIGIBLE regardless of how many
+    envelope fields are present."""
+
+    if "probability_home" in payload:
+        value = payload.get("probability_home")
+        try:
+            number = float(value)
+        except (TypeError, ValueError):
+            return False
+        return math.isfinite(number) and 0.0 <= number <= 1.0
+    for key in ("probabilities", "forecast", "forecast_rows"):
+        value = payload.get(key)
+        if isinstance(value, (list, dict)) and value:
+            return True
+    return False
 
 SEARCH_ROOTS: tuple[Path, ...] = (
     Path(r"C:\BatteredAggieSyndrome.data\ops\cycle33"),
@@ -59,23 +112,51 @@ def inspect_forecast_eligibility(path: Path) -> dict[str, Any]:
     if isinstance(payload, dict):
         blob = json.dumps(payload).casefold()
         freeze_present = "frozen" in blob or "freeze" in blob
+        receipt_hash = payload.get("receipt_sha256")
+        issued_at = payload.get("issued_at_utc") or payload.get("snapshot_timestamp_utc")
+        known_at = payload.get("known_at_utc") or payload.get("known_at")
         if payload.get("frozen") is True or payload.get("freeze_present") is True:
-            if not payload.get("receipt_sha256"):
+            if not receipt_hash:
                 failed.append("FROZEN_BOOLEAN_WITHOUT_RECEIPT_SHA256")
-        if not payload.get("receipt_sha256"):
+        if not receipt_hash:
             failed.append("MISSING_RECEIPT_SHA256")
-        if not (payload.get("issued_at_utc") or payload.get("snapshot_timestamp_utc")):
+        elif not _looks_like_real_sha256(receipt_hash):
+            # MR33-10 repair: a forged/placeholder value (e.g. "fake") must not
+            # satisfy "receipt present" just because the field is nonempty.
+            failed.append("RECEIPT_SHA256_NOT_WELL_FORMED")
+        elif receipt_hash.strip().casefold() != _canonical_payload_digest(payload):
+            # MR33-10 re-repair: a hex64-shaped string is not evidence on its
+            # own -- an INVENTED hash (e.g. "a"*64) satisfying only the format
+            # check, with no genuine relationship to the payload it claims to
+            # describe, must not read ELIGIBLE. The receipt must equal the
+            # ACTUAL, independently recomputed hash of this payload's own
+            # canonical bytes -- self-referential integrity, not a copied or
+            # fabricated string. A copied hash from an unrelated packet, or an
+            # altered payload whose hash was never updated, is rejected here.
+            failed.append("RECEIPT_SHA256_DOES_NOT_MATCH_PAYLOAD_BYTES")
+        if not issued_at:
             failed.append("MISSING_ISSUED_OR_SNAPSHOT_UTC")
-        if not (payload.get("known_at_utc") or payload.get("known_at")):
+        elif not _looks_like_real_utc_timestamp(issued_at):
+            failed.append("ISSUED_OR_SNAPSHOT_UTC_NOT_PARSEABLE")
+        if not known_at:
             failed.append("MISSING_KNOWN_AT_UTC")
+        elif not _looks_like_real_utc_timestamp(known_at):
+            failed.append("KNOWN_AT_UTC_NOT_PARSEABLE")
         if not payload.get("contest_id") and not payload.get("canonical_contest_id"):
             failed.append("MISSING_CANONICAL_CONTEST_ID")
         if freeze_present and not (
-            payload.get("receipt_sha256")
-            and (payload.get("issued_at_utc") or payload.get("snapshot_timestamp_utc"))
-            and (payload.get("known_at_utc") or payload.get("known_at"))
+            receipt_hash
+            and _looks_like_real_sha256(receipt_hash)
+            and issued_at
+            and _looks_like_real_utc_timestamp(issued_at)
+            and known_at
+            and _looks_like_real_utc_timestamp(known_at)
         ):
             failed.append("FREEZE_TOKEN_WITHOUT_ELIGIBILITY_PROOF")
+        if not _has_actual_forecast_content(payload):
+            # MR33-10 repair: an envelope with only receipt/time/contest-id
+            # metadata and no actual forecast value is not a forecast packet.
+            failed.append("MISSING_ACTUAL_FORECAST_CONTENT")
     else:
         failed.append("PAYLOAD_NOT_OBJECT")
     unique_failed = list(dict.fromkeys(failed))

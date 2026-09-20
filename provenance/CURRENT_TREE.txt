@@ -4271,6 +4271,8 @@ tests/test_cycle33_national_staff.py
 tests/test_cycle34_mr33_repairs.py
 tests/test_cycle34_r34_04_official_finals_recount.py
 tests/test_cycle34_r34_05_span_conservation_rebuild.py
+tests/test_cycle34_r34_06_namesake_collision.py
+tests/test_cycle34_r34_07_ingest_career_joins.py
 tests/test_cycle34_r34_09_population_reconciliation.py
 tests/test_cycle34_r34_10_bat637_candidate_recompute.py
 tests/test_cycle34_r34_10_child_byte_verification.py
@@ -4779,6 +4781,7 @@ tools/cycle27_schedulers/run_friday_t90m_failover.ps1
 tools/cycle27_schedulers/run_t90m_cluster_capture.ps1
 tools/cycle34_r34_04_official_finals_recount.py
 tools/cycle34_r34_05_span_conservation_rebuild.py
+tools/cycle34_r34_07_ingest_career_joins.py
 tools/cycle34_r34_09_population_reconciliation.py
 tools/cycle34_r34_10_bat637_candidate_recompute.py
 tools/demo_cycle33_queries.py

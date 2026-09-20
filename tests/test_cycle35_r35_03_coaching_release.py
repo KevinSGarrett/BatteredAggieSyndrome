@@ -519,6 +519,211 @@ class PersonIdentityAdjudicationTests(unittest.TestCase):
             self.assertEqual(person_identity_merge_candidates(conn), [])
             conn.close()
 
+    def test_same_name_same_basis_no_program_context_still_collapses(self) -> None:
+        """The default (no source_program_id given) is unchanged: this is
+        the safe backward-compatible behavior when a caller has no
+        distinguishing context to offer."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            first = upsert_person(conn, "Test Namesake", identity_basis="TEST")
+            second = upsert_person(conn, "Test Namesake", identity_basis="TEST")
+            conn.commit()
+            self.assertEqual(first, second)
+            self.assertEqual(
+                conn.execute("SELECT COUNT(*) FROM canonical_person").fetchone()[0], 1
+            )
+            conn.close()
+
+    def test_same_name_same_basis_different_program_produces_two_people(self) -> None:
+        """MF35-04 follow-up (20260920T224700Z): the manager's exact
+        reproduction -- upsert_person keyed only on (name, identity_basis)
+        made two DIFFERENT real people sharing a name under the same basis
+        structurally impossible to represent separately. This is the fix:
+        two calls with the SAME name and basis, but a DIFFERENT
+        source_program_id, must now produce two distinct person_ids."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            first = upsert_person(
+                conn, "Test Namesake", identity_basis="TEST",
+                source_program_id="P:SCHOOL_A",
+            )
+            second = upsert_person(
+                conn, "Test Namesake", identity_basis="TEST",
+                source_program_id="P:SCHOOL_B",
+            )
+            conn.commit()
+            self.assertNotEqual(first, second)
+            self.assertEqual(
+                conn.execute("SELECT COUNT(*) FROM canonical_person").fetchone()[0], 2
+            )
+            conn.close()
+
+    def test_same_name_same_program_still_collapses(self) -> None:
+        """The SAME real person re-observed at the SAME program (e.g. a
+        second scrape of the same roster) must still collapse to one id --
+        program-scoping must not fragment ordinary re-observation."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            first = upsert_person(
+                conn, "A Coach", identity_basis="TEST", source_program_id="P:1"
+            )
+            second = upsert_person(
+                conn, "A Coach", identity_basis="TEST", source_program_id="P:1"
+            )
+            conn.commit()
+            self.assertEqual(first, second)
+            conn.close()
+
+    def test_same_basis_different_program_namesake_is_a_merge_candidate(self) -> None:
+        """A genuinely represented namesake pair must now surface through
+        the SAME candidate-detection path already used for cross-basis
+        pairs -- MF35-04's mechanism, extended, not replaced."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            upsert_program(conn, "P:SCHOOL_A", display_name="School A")
+            upsert_program(conn, "P:SCHOOL_B", display_name="School B")
+            a = upsert_person(
+                conn, "Test Namesake", identity_basis="TEST",
+                source_program_id="P:SCHOOL_A",
+            )
+            b = upsert_person(
+                conn, "Test Namesake", identity_basis="TEST",
+                source_program_id="P:SCHOOL_B",
+            )
+            add_episode(
+                conn, person_id=a, program_id="P:SCHOOL_A", season="2020",
+                date_precision="SEASON", evidence_layer=LAYER_OFFICIAL,
+            )
+            add_episode(
+                conn, person_id=b, program_id="P:SCHOOL_B", season="2021",
+                date_precision="SEASON", evidence_layer=LAYER_OFFICIAL,
+            )
+            conn.commit()
+            candidates = person_identity_merge_candidates(conn)
+            self.assertEqual(len(candidates), 1)
+            self.assertEqual(
+                {candidates[0]["left_person_id"], candidates[0]["right_person_id"]},
+                {a, b},
+            )
+            self.assertEqual(
+                candidates[0]["left_identity_basis"], candidates[0]["right_identity_basis"]
+            )
+            conn.close()
+
+    def test_same_basis_overlapping_season_different_program_is_flagged_conflicting(
+        self,
+    ) -> None:
+        """The real 'Tim Beck' pattern found in a full national rebuild:
+        two same-basis identities with an episode in the EXACT SAME season
+        at DIFFERENT programs -- real people cannot hold two simultaneous
+        jobs, so this must be flagged as a genuine conflict signal, not
+        silently treated the same as an ordinary career move."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            upsert_program(conn, "P:A", display_name="A")
+            upsert_program(conn, "P:B", display_name="B")
+            a = upsert_person(
+                conn, "Tim Beck", identity_basis="TEST", source_program_id="P:A"
+            )
+            b = upsert_person(
+                conn, "Tim Beck", identity_basis="TEST", source_program_id="P:B"
+            )
+            add_episode(
+                conn, person_id=a, program_id="P:A", season="2020",
+                date_precision="SEASON", evidence_layer=LAYER_OFFICIAL,
+            )
+            add_episode(
+                conn, person_id=b, program_id="P:B", season="2020",
+                date_precision="SEASON", evidence_layer=LAYER_OFFICIAL,
+            )
+            conn.commit()
+            candidates = person_identity_merge_candidates(conn)
+            self.assertEqual(len(candidates), 1)
+            self.assertTrue(candidates[0]["overlapping_season_different_program"])
+            conn.close()
+
+    def test_same_basis_candidate_adjudication_removes_it_from_future_candidates(
+        self,
+    ) -> None:
+        """The SAME adjudication mechanism already proven for cross-basis
+        pairs works identically for same-basis pairs -- confirming this is
+        an extension, not a parallel, disconnected mechanism."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            a = upsert_person(
+                conn, "Test Namesake", identity_basis="TEST",
+                source_program_id="P:SCHOOL_A",
+            )
+            b = upsert_person(
+                conn, "Test Namesake", identity_basis="TEST",
+                source_program_id="P:SCHOOL_B",
+            )
+            conn.commit()
+            self.assertEqual(len(person_identity_merge_candidates(conn)), 1)
+            record_person_identity_adjudication(
+                conn, left_person_id=a, right_person_id=b,
+                decision="DISTINCT_NAMESAKES", decided_by="TEST",
+                basis="Two different real coaches confirmed by an independent "
+                "biographical source; not the same person.",
+            )
+            conn.commit()
+            self.assertEqual(person_identity_merge_candidates(conn), [])
+            conn.close()
+
+    def test_builder_end_to_end_produces_distinct_namesakes_at_different_programs(
+        self,
+    ) -> None:
+        """MF35-04 explicitly requires exercising this through the builder
+        and consumer, not only helper-unit tests: two rows in a real
+        rebuild-rows JSONL file naming the same person at different
+        programs must now resolve to two distinct canonical_person rows
+        via the actual ingest_reparsed_staff production code path."""
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            raw_html = tmp / "staff.html"
+            raw_html.write_text("<table></table>", encoding="utf-8")
+            rows = [
+                {
+                    "raw_path": str(raw_html), "person": "Test Namesake",
+                    "program_id": "P:SCHOOL_A", "source_title": "Head Coach",
+                    "rebuilt_record_selector": "tr[0]",
+                    "rebuilt_record_title": "Head Coach",
+                    "episode_key": "k1", "strata": {"era": "CURRENT"},
+                    "rebuilt_role_claim_supported": True,
+                    "rebuilt_person_record_bound": True,
+                    "disposition": "RETAINED_SUPPORTED",
+                },
+                {
+                    "raw_path": str(raw_html), "person": "Test Namesake",
+                    "program_id": "P:SCHOOL_B", "source_title": "Head Coach",
+                    "rebuilt_record_selector": "tr[1]",
+                    "rebuilt_record_title": "Head Coach",
+                    "episode_key": "k2", "strata": {"era": "CURRENT"},
+                    "rebuilt_role_claim_supported": True,
+                    "rebuilt_person_record_bound": True,
+                    "disposition": "RETAINED_SUPPORTED",
+                },
+            ]
+            rebuild_rows = tmp / "rebuild_rows.jsonl"
+            rebuild_rows.write_text(
+                "\n".join(json.dumps(r) for r in rows), encoding="utf-8"
+            )
+            import sys
+            sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+            from tools.cycle35.r35_03_build_coaching_release import ingest_reparsed_staff
+
+            conn = open_release(tmp / "release.sqlite")
+            ingest_reparsed_staff(conn, rebuild_rows)
+            conn.commit()
+            people = conn.execute(
+                "SELECT person_id FROM canonical_person WHERE canonical_name = ?",
+                ("Test Namesake",),
+            ).fetchall()
+            self.assertEqual(len(people), 2)
+            candidates = person_identity_merge_candidates(conn)
+            self.assertEqual(len(candidates), 1)
+            conn.close()
+
 
 class VerificationLayerTests(unittest.TestCase):
     def test_a_predecessor_claim_is_held_not_inherited(self) -> None:

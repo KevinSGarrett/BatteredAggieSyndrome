@@ -425,8 +425,34 @@ def upsert_person(
     *,
     identity_basis: str,
     aliases: Sequence[tuple[str, str]] = (),
+    source_program_id: str | None = None,
 ) -> str:
-    person_id = stable_id("person", canonical_name.casefold(), identity_basis)
+    """Resolve or create the canonical_person this call's evidence refers to.
+
+    Cycle #35 manager follow-up (20260920T224700Z): identity was previously
+    keyed on (name, identity_basis) alone, so two DIFFERENT real people
+    sharing a name under the SAME basis were structurally incapable of
+    being represented as distinct rows -- every call collapsed to one
+    person_id, and no merge-candidate could ever surface because nothing
+    ever produced two rows to compare in the first place.
+
+    `source_program_id` -- the program THIS call's evidence associates the
+    person with -- is now part of the identity. A genuine namesake at a
+    DIFFERENT program now gets a genuinely different person_id, which
+    `person_identity_merge_candidates` can surface as a real candidate pair
+    needing adjudication, the same mechanism already used across basis
+    values now also applied within one. This does not fragment a real
+    person's multi-program career by design: each ingestion pass generally
+    observes a given person once per run (a snapshot at their current
+    position, or one retrospective key), so the common case -- one person,
+    one call -- is unaffected; a person's OWN later career move is exactly
+    the kind of fact `record_person_identity_adjudication` is for, not
+    something this function may silently assume either way.
+    """
+
+    person_id = stable_id(
+        "person", canonical_name.casefold(), identity_basis, source_program_id or ""
+    )
     conn.execute(
         "INSERT OR IGNORE INTO canonical_person (person_id, canonical_name, "
         "identity_basis) VALUES (?,?,?)",
@@ -607,12 +633,14 @@ def person_identity_merge_candidates(conn: sqlite3.Connection) -> list[dict[str,
     adjudicator needs, never a verdict.
 
     MF35-04: `upsert_person` is content-addressed on `(canonical_name.casefold(),
-    identity_basis)`, so the SAME real person recorded once from an official
-    staff page and once from a wiki infobox gets two different `person_id`s,
-    and a genuinely different person who happens to share a name is
-    indistinguishable from that split by `person_id` alone. Neither case may
-    be resolved by this function -- same name is not proof of either answer.
-    What it CAN compute from the data already on hand:
+    identity_basis, source_program_id)`, so the SAME real person recorded
+    once from an official staff page and once from a wiki infobox -- or
+    twice under the SAME basis at two different programs -- gets two
+    different `person_id`s, and a genuinely different person who happens to
+    share a name is indistinguishable from either split by `person_id`
+    alone. Neither case may be resolved by this function -- same name is
+    not proof of either answer. What it CAN compute from the data already
+    on hand:
 
     * `shared_program_ids` -- programs where both identities have an
       episode. A single person coaching the same program under two source
@@ -659,9 +687,14 @@ def person_identity_merge_candidates(conn: sqlite3.Connection) -> list[dict[str,
     for rows in by_name.values():
         if len(rows) < 2:
             continue
-        distinct_bases = {r["identity_basis"] for r in rows}
-        if len(distinct_bases) < 2:
-            continue
+        # Any 2+ distinct person_id rows sharing a normalized name are a
+        # candidate pair -- whether they differ by identity_basis, by
+        # source_program_id within one basis, or both. Before
+        # source_program_id was part of the identity, two same-basis rows
+        # could never coexist (upsert_person always collapsed them), so
+        # this used to only fire across bases; that is no longer true, and
+        # restricting it to cross-basis pairs would silently exclude the
+        # exact case this repair exists to catch.
         for i in range(len(rows)):
             for j in range(i + 1, len(rows)):
                 left, right = rows[i], rows[j]

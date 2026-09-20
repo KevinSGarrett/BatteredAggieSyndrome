@@ -234,6 +234,7 @@ def ingest_reparsed_staff(
             person,
             identity_basis="OFFICIAL_STAFF_SAME_RECORD_BINDING",
             aliases=[(person, "SOURCE_PUBLISHED_NAME")],
+            source_program_id=program_id,
         )
         episode_id = add_episode(
             conn,
@@ -627,6 +628,7 @@ def ingest_career_tranche(conn: sqlite3.Connection, tranche_path: Path) -> dict[
             people[0],
             identity_basis="WIKIMEDIA_TEAM_SEASON_INFOBOX",
             aliases=[(people[0], "SOURCE_PUBLISHED_NAME")],
+            source_program_id=program_id,
         )
         episode_id = add_episode(
             conn,

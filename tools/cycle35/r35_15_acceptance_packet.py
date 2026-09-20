@@ -100,17 +100,28 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         ["R35_03_COACHING_RELEASE_SUMMARY.json", "CYCLE35_ALL22_ALIGNMENT.json"],
     ),
     "R35-05": _d(
-        PARTIAL, INCOMPLETE, PASS, NOT_REVIEWED, NOT_AUTHORIZED, INCOMPLETE,
+        COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
         "The era-correct national denominator is delivered: 12,460 expected "
         "program-season cells, 291 programs, 1963-2026, with 2024/2025 "
         "retained as explicit gaps and current-vs-historical transitions "
-        "reconciled. The bounded 48-key career tranche and the balanced "
-        "12-FBS/12-FCS program-season tranche were NOT acquired this cycle.",
-        ["CYCLE35_NATIONAL_COVERAGE.json"],
+        "reconciled. The 48-key career tranche is PREDECLARED before evidence "
+        "and completed: exactly 24 FBS / 24 FCS, all four era bands plus the "
+        "current season, roles balanced 16/16/16. 40 ACCEPTED_SINGLE_SOURCE, "
+        "1 CONFLICT with both occupants retained, 7 MISSING after real "
+        "attempts. All 41 resolved rows are ingested into the queryable "
+        "release at CANDIDATE layer with per-row provenance.",
         [
-            "48 predeclared person-program-role-time keys not completed.",
-            "Balanced 24 program-season primary tranche not acquired.",
+            "CYCLE35_NATIONAL_COVERAGE.json",
+            "R35_05_PREDECLARED_48_KEYS.json",
+            "R35_05_CAREER_TRANCHE_FINAL.json",
+        ],
+        [
+            "7 of 48 keys remain MISSING_NO_EVIDENCE after attempted routes.",
+            "Balanced 24 program-season primary tranche (a separate clause) "
+            "was not acquired.",
             "2024 and 2025 membership have no acquired source.",
+            "Evidence is revision-bound Wikimedia retrospective; no official "
+            "corroboration was acquired, so nothing is PIT.",
         ],
     ),
     "R35-06": _d(
@@ -185,19 +196,26 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         ],
     ),
     "R35-11": _d(
-        PARTIAL, INCOMPLETE, PASS, NOT_REVIEWED, NOT_AUTHORIZED, INCOMPLETE,
+        PARTIAL, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, INCOMPLETE,
         "All 63 SEC rows x 4 stages reparsed to 252 assertions with exact "
         "conservation; 50 dash stages retained as PUBLISHED_EMPTY/UNKNOWN. "
         "Twelve predeclared national keys across 10 conferences, 3 policies, "
-        "5 FCS / 7 FBS, all retained in the denominator. Canonical player "
-        "identity and durable official evidence are NOT delivered.",
-        ["R35_11_AVAILABILITY_RELEASE.json"],
+        "5 FCS / 7 FBS, all retained in the denominator. The prior route "
+        "ledger covered twelve FBS conferences and ZERO FCS or Independents, "
+        "so all 7 unmet keys were actually attempted this cycle and are now "
+        "attempt-verified rather than inventory-assumed. Canonical player "
+        "identity and durable official evidence remain NOT delivered.",
+        [
+            "R35_11_AVAILABILITY_RELEASE.json",
+            "R35_11_UNMET_ROUTE_ATTEMPTS.json",
+        ],
         [
             "Canonical player-program-game resolution not performed "
             "(resolved_player_ids = 0).",
             "No durable official raw/rendered evidence bound; no per-report "
             "publication time exists.",
-            "7 of 12 opportunity keys carry no acquired evidence.",
+            "6 keys returned pages with no availability-reporting language "
+            "and 1 route failed; none yields per-game reports.",
         ],
     ),
     "R35-12": _d(
@@ -548,24 +566,52 @@ def main() -> int:
         json.dumps(unfinished, indent=2, sort_keys=True), encoding="utf-8"
     )
 
+    # Consolidate every per-domain request ledger this cycle produced rather
+    # than restating a remembered total.
+    spent = {"coaching_history": 0, "availability_context": 0,
+             "infrastructure_readback": 0}
+    outcomes: dict[str, int] = {}
+    ledger_files = sorted(out_dir.glob("CYCLE35_REQUEST_LEDGER_*.json"))
+    for path in ledger_files:
+        payload = load_json(path) or {}
+        for budget, value in (payload.get("spent") or {}).items():
+            spent[budget] = spent.get(budget, 0) + int(value)
+        for name, value in (payload.get("outcome_counts") or {}).items():
+            outcomes[name] = outcomes.get(name, 0) + int(value)
+
     ledger = {
         "artifact_type": "CYCLE35_COST_AND_REQUEST_LEDGER",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "paid_model_calls": 0,
         "paid_reviewer_calls": 0,
         "paid_provider_calls": 0,
+        "paid_ai_review_labels_applied": 0,
         "external_workers_spawned": 0,
-        "network_requests_made": 0,
-        "coaching_history_budget": {"ceiling": 50, "used": 0, "remaining": 50},
-        "availability_context_budget": {"ceiling": 50, "used": 0, "remaining": 50},
-        "shared_ledger_note": (
-            "This cycle was executed entirely cache-first. No network request "
-            "was made, so neither budget was drawn down and no retry, "
-            "pagination or backoff was required. Work that would have needed "
-            "the network is recorded as an explicit blocker rather than being "
-            "spent without confirmation."
+        "component_ledgers": [str(path.name) for path in ledger_files],
+        "coaching_history_budget": {
+            "ceiling": 50,
+            "used": spent["coaching_history"],
+            "remaining": 50 - spent["coaching_history"],
+        },
+        "availability_context_budget": {
+            "ceiling": 50,
+            "used": spent["availability_context"],
+            "remaining": 50 - spent["availability_context"],
+        },
+        "infrastructure_readback_requests": spent["infrastructure_readback"],
+        "outcome_counts": outcomes,
+        "total_scientific_requests": (
+            spent["coaching_history"] + spent["availability_context"]
         ),
+        "retries_and_pagination_counted": True,
+        "cache_hits_recorded_separately_and_do_not_spend": True,
         "budget_exhaustion_relabelled_as_verified_data": False,
+        "note": (
+            "Cache-first throughout. Retries count as spend, which is why "
+            "the availability budget shows more spend than distinct URLs. "
+            "Infrastructure readback (GitHub, Jira) is counted separately so "
+            "it cannot consume a scientific budget."
+        ),
     }
     (out_dir / "CYCLE35_COST_AND_REQUEST_LEDGER.json").write_text(
         json.dumps(ledger, indent=2, sort_keys=True), encoding="utf-8"

@@ -333,11 +333,108 @@ def ingest_user_corpus(conn: sqlite3.Connection) -> dict[str, Any]:
     }
 
 
+
+def ingest_career_tranche(conn: sqlite3.Connection, tranche_path: Path) -> dict[str, Any]:
+    """The resolved 48-key career tranche, as revision-bound candidates.
+
+    These are retrospective Wikimedia assertions, so they enter at
+    CANDIDATE_SINGLE_SOURCE and never at an official layer. A CONFLICT key
+    produces a conflict row with BOTH occupants preserved; neither wins.
+    """
+
+    if not tranche_path.is_file():
+        return {"state": "CAREER_TRANCHE_NOT_PRESENT"}
+    payload = json.loads(tranche_path.read_text(encoding="utf-8"))
+    source_file_id = register_source_file(
+        conn,
+        tranche_path,
+        source_class="WIKIMEDIA_REVISION_BOUND_RETROSPECTIVE",
+        rights_state="PUBLIC_WIKIMEDIA_CC_BY_SA_ATTRIBUTION_REQUIRED",
+        acquisition_receipt="CYCLE35_R35_05_CAREER_TRANCHE",
+    )
+    stats: Counter = Counter()
+    for key in payload.get("final_keys") or []:
+        disposition = str(key.get("disposition"))
+        people = list(key.get("resolved_people") or [])
+        stats["KEY_" + disposition] += 1
+        if not people:
+            continue
+        program_id = str(key.get("program_id") or "")
+        season = str(key.get("season") or "")
+        role = str(key.get("role") or "")
+        upsert_program(conn, program_id, display_name=key.get("display_name"))
+        observation_ids = []
+        for person in people:
+            observation_ids.append(
+                add_observation(
+                    conn,
+                    source_file_id=source_file_id,
+                    locator=str(key.get("key_id")) + ":" + role + ":" + season,
+                    parser_identity=PARSER_IDENTITY,
+                    observed_person=person,
+                    observed_title=role,
+                    observed_program=program_id,
+                    observed_season=season,
+                    evidence_layer=LAYER_CANDIDATE,
+                )
+            )
+            stats["OBSERVATIONS"] += 1
+        if disposition == "CONFLICT":
+            conflict_id = record_conflict(
+                conn,
+                subject_kind="career_key",
+                subject_key=str(key.get("key_id")),
+                reason="MULTIPLE_DISTINCT_PEOPLE_ASSERTED_FOR_ONE_ROLE_SEASON",
+            )
+            record_adjudication(
+                conn,
+                conflict_id=conflict_id,
+                decision="BOTH_RETAINED_NEITHER_PROMOTED",
+                decided_by="CYCLE35_R35_05",
+                basis=(
+                    "Co/shared occupancy and a genuine contradiction are not "
+                    "distinguishable from this evidence alone, so neither "
+                    "occupant is promoted and both stay readable."
+                ),
+            )
+            stats["CONFLICTS"] += 1
+            continue
+        person_id = upsert_person(
+            conn,
+            people[0],
+            identity_basis="WIKIMEDIA_TEAM_SEASON_INFOBOX",
+            aliases=[(people[0], "SOURCE_PUBLISHED_NAME")],
+        )
+        episode_id = add_episode(
+            conn,
+            person_id=person_id,
+            program_id=program_id,
+            season=season,
+            date_precision="SEASON",
+            evidence_layer=LAYER_CANDIDATE,
+        )
+        add_role(
+            conn,
+            episode_id=episode_id,
+            role_family=role,
+            exact_title_text=str(key.get("second_pass_parameter") or role),
+            qualifiers=[],
+            evidence_layer=LAYER_CANDIDATE,
+            supporting_observations=observation_ids,
+        )
+        stats["PROMOTED_CANDIDATE"] += 1
+    out = dict(stats)
+    out["state"] = "INGESTED_AS_REVISION_BOUND_CANDIDATES"
+    out["tranche_sha256"] = hashlib.sha256(tranche_path.read_bytes()).hexdigest()
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--rebuild-rows", required=True)
     ap.add_argument("--release-name", default="")
+    ap.add_argument("--career-tranche", default="")
     args = ap.parse_args()
 
     out_dir = Path(args.out_dir)
@@ -352,6 +449,11 @@ def main() -> int:
             staff = ingest_reparsed_staff(conn, Path(args.rebuild_rows))
             cycle34 = ingest_cycle34_transcription(conn)
             user_corpus = ingest_user_corpus(conn)
+            career = (
+                ingest_career_tranche(conn, Path(args.career_tranche))
+                if args.career_tranche
+                else {"state": "NOT_SUPPLIED"}
+            )
         identities = release_row_identities(conn)
         layers = layer_counts(conn)
         unsupported = unsupported_assertions(conn)
@@ -377,6 +479,7 @@ def main() -> int:
                 if key != "synthetic_control_observation_ids"
             },
             "user_corpus": user_corpus,
+            "career_tranche": career,
         },
     }
     manifest_path = out_dir / "CYCLE35_COACHING_RELEASE_MANIFEST.json"
@@ -414,6 +517,7 @@ def main() -> int:
                 if k != "synthetic_control_observation_ids"
             },
             "user_corpus_files": user_corpus.get("files"),
+            "career_tranche": career,
         },
         indent=1,
     ))

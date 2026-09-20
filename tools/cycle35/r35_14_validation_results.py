@@ -173,11 +173,58 @@ PREEXISTING_OBSERVATIONS: tuple[dict[str, Any], ...] = (
 )
 
 
+
+_RED = re.compile(r"^(FAIL|ERROR): (\S+) \(([^)]+)\)", re.M)
+
+
+def red_ids(path: Path) -> set[str]:
+    """Exact identities of every failing/erroring test in a captured log."""
+
+    if not path or not Path(path).is_file():
+        return set()
+    text = Path(path).read_text(encoding="utf-8", errors="replace")
+    return {m.group(3) + "." + m.group(2) for m in _RED.finditer(text)}
+
+
+def baseline_comparison(
+    candidate: str, baseline: str, lane: str
+) -> dict[str, Any]:
+    """Prove inheritance by exact SET, never by matching counts.
+
+    Equal counts with different members would be a regression plus a fix
+    cancelling out, which a count comparison cannot see.
+    """
+
+    if not candidate or not baseline:
+        return {"lane": lane, "state": "NOT_COMPARED"}
+    mine = red_ids(Path(candidate))
+    theirs = red_ids(Path(baseline))
+    if not theirs:
+        return {"lane": lane, "state": "BASELINE_NOT_CAPTURED"}
+    new = sorted(mine - theirs)
+    fixed = sorted(theirs - mine)
+    return {
+        "lane": lane,
+        "state": "COMPARED",
+        "candidate_red_count": len(mine),
+        "baseline_red_count": len(theirs),
+        "regressions_introduced": new,
+        "regression_count": len(new),
+        "red_at_baseline_green_now": fixed,
+        "fixed_count": len(fixed),
+        "inherited_red_count": len(mine & theirs),
+        "identical_red_set": mine == theirs,
+        "inheritance_proven_by_set_not_count": True,
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--mounted-output", default="")
     ap.add_argument("--unmounted-output", default="")
+    ap.add_argument("--unmounted-baseline", default="")
+    ap.add_argument("--mounted-baseline", default="")
     args = ap.parse_args()
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -206,6 +253,14 @@ def main() -> int:
         "direct_lane_count": len(DIRECT_LANES),
         "full_suite_lanes": full_lanes,
         "pre_existing_observations": list(PREEXISTING_OBSERVATIONS),
+        "baseline_equivalence": [
+            baseline_comparison(
+                args.unmounted_output, args.unmounted_baseline, "UNMOUNTED"
+            ),
+            baseline_comparison(
+                args.mounted_output, args.mounted_baseline, "MOUNTED"
+            ),
+        ],
         "failing_dimensions": [
             {
                 "dimension": "FAMILY_B_CANONICAL_MOUNTED",
@@ -253,6 +308,13 @@ def main() -> int:
             },
             "failing_dimensions": [
                 d["dimension"] for d in result["failing_dimensions"]
+            ],
+            "baseline_equivalence": [
+                {k: v for k, v in row.items()
+                 if k in ("lane","state","regression_count","fixed_count",
+                          "inherited_red_count","candidate_red_count",
+                          "baseline_red_count")}
+                for row in result["baseline_equivalence"]
             ],
             "head": result["exact_head"][:12],
             "clean": result["worktree_clean"],

@@ -4804,10 +4804,12 @@ tools/cycle35/r35_02_rebuild_staff_admission.py
 tools/cycle35/r35_03_build_coaching_release.py
 tools/cycle35/r35_05_career_tranche.py
 tools/cycle35/r35_05_national_coverage_census.py
+tools/cycle35/r35_05_resolve_missing_keys.py
 tools/cycle35/r35_07_canonical_finals_replay.py
 tools/cycle35/r35_09_independent_kernel_reference.py
 tools/cycle35/r35_09_pit_feasibility.py
 tools/cycle35/r35_10_family_b_candidate_successor.py
+tools/cycle35/r35_11_attempt_unmet_routes.py
 tools/cycle35/r35_11_availability_release.py
 tools/cycle35/r35_12_all22_alignment.py
 tools/cycle35/r35_13_plan_jira_trace.py

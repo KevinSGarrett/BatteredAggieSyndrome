@@ -38,7 +38,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from aggie_analytics.cycle33.role_taxonomy import principal_role_families  # noqa: E402
+from aggie_analytics.cycle33.role_taxonomy import assignments_from_title  # noqa: E402
 from aggie_analytics.cycle35.program_aliases import (  # noqa: E402
     build_crosswalk,
     resolve_program,
@@ -121,7 +121,7 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def ingest_membership(conn: sqlite3.Connection) -> dict[str, Any]:
-    stats = {"files": [], "programs": 0, "expected_cells": 0}
+    stats = {"files": [], "programs": 0, "expected_cells": 0, "rows_missing_season": 0}
     seen_programs: set[str] = set()
     for path in MEMBERSHIP:
         rows = read_jsonl(path)
@@ -138,7 +138,17 @@ def ingest_membership(conn: sqlite3.Connection) -> dict[str, Any]:
             program_id = str(row.get("program_id") or "")
             if not program_id:
                 continue
-            season = int(row.get("season") or 2026)
+            raw_season = row.get("season")
+            # MF35-05 repair: a row's season must be PROVED by the row
+            # itself. This previously assumed 2026 for any row whose season
+            # was missing or falsy -- exactly the "filled in by assumption"
+            # fabrication this finding named. A row with no stated season
+            # contributes no program/expected-cell binding and is counted,
+            # not silently dated.
+            if raw_season in (None, "", 0):
+                stats["rows_missing_season"] += 1
+                continue
+            season = int(raw_season)
             upsert_program(
                 conn,
                 program_id,
@@ -224,18 +234,46 @@ def ingest_reparsed_staff(
             date_precision="SEASON_UNSPECIFIED",
             evidence_layer=LAYER_OFFICIAL,
         )
-        families = sorted(principal_role_families(title))
-        add_role(
-            conn,
-            episode_id=episode_id,
-            role_family=families[0] if families else "UNSPECIFIED_ASSISTANT",
-            exact_title_text=title,
-            qualifiers=families[1:],
-            evidence_layer=LAYER_OFFICIAL,
-            principal_role_blocked=not families,
-            supporting_observations=[observation_id],
-        )
+        # MF35-05 repair: `principal_role_families(title)` only names the
+        # HC/OC/DC bucket a title falls into, with no qualifiers and no
+        # position-specific detail. Taking `families[0]` and stuffing the
+        # REST of that bucket list into `qualifiers` lost real, already-
+        # parsed structure -- a title reading "Assistant Head Coach/Co-
+        # Defensive Coordinator/Inside Linebackers" has three real
+        # assignments (assistant head coach, a CO-shared DC seat, and an
+        # inside linebackers position role) and a real CO qualifier on the
+        # DC seat, none of which `families[1:]` (itself just OTHER FAMILY
+        # NAMES, not qualifiers) could represent.
+        # `assignments_from_title` is the module's own lossless parser:
+        # one `formal_role_assertion` row per assignment it finds, each
+        # with its own qualifiers and occupancy-derived principal_role_blocked.
+        assignments = assignments_from_title(title)
+        if not assignments:
+            add_role(
+                conn,
+                episode_id=episode_id,
+                role_family="UNSPECIFIED_ASSISTANT",
+                exact_title_text=title,
+                qualifiers=[],
+                evidence_layer=LAYER_OFFICIAL,
+                principal_role_blocked=True,
+                supporting_observations=[observation_id],
+            )
+        else:
+            for assignment in assignments:
+                add_role(
+                    conn,
+                    episode_id=episode_id,
+                    role_family=assignment["role"],
+                    exact_title_text=title,
+                    qualifiers=assignment["qualifiers"],
+                    evidence_layer=LAYER_OFFICIAL,
+                    principal_role_blocked=assignment["occupancy"]
+                    not in ("PRINCIPAL", "CO_SHARED"),
+                    supporting_observations=[observation_id],
+                )
         stats["PROMOTED_OFFICIAL"] += 1
+        stats["ROLE_ASSIGNMENTS_EMITTED"] += len(assignments) or 1
     return dict(stats)
 
 

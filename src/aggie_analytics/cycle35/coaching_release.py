@@ -872,6 +872,17 @@ def assertions_missing_evidence_link(conn: sqlite3.Connection) -> list[dict[str,
     return [dict(row) for row in rows]
 
 
+#: role_family values `principal_role_families` has an opinion about.
+#: MF35-05: ingestion now emits one `formal_role_assertion` per assignment
+#: `assignments_from_title` finds in a title, including position-specific
+#: role families (e.g. "inside_linebackers") the HC/OC/DC classifier was
+#: never meant to judge -- the derivability check below must not flag those
+#: as unentailed just because the classifier is silent about them.
+_PRINCIPAL_ROLE_FAMILIES = frozenset(
+    {"head_coach", "offensive_coordinator", "defensive_coordinator"}
+)
+
+
 def assertions_not_entailed_by_linked_observations(
     conn: sqlite3.Connection,
 ) -> list[dict[str, Any]]:
@@ -931,7 +942,11 @@ def assertions_not_entailed_by_linked_observations(
         reasons: list[str] = []
         if exact_title_text not in titles:
             reasons.append("EXACT_TITLE_TEXT_NOT_OBSERVED_IN_ANY_LINKED_OBSERVATION")
-        else:
+        elif assertion["role_family"] in _PRINCIPAL_ROLE_FAMILIES:
+            # principal_role_families only classifies the HC/OC/DC bucket --
+            # it has no opinion about position-specific role_family values
+            # (e.g. "inside_linebackers"), so this check applies only when
+            # the stored role_family itself claims to be one of those three.
             derivable = principal_role_families(exact_title_text)
             if derivable and assertion["role_family"] not in derivable:
                 reasons.append("ROLE_FAMILY_NOT_DERIVABLE_FROM_EXACT_TITLE_TEXT")

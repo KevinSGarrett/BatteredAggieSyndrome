@@ -272,6 +272,48 @@ class SemanticEntailmentTests(unittest.TestCase):
             self.assertEqual(assertions_not_entailed_by_linked_observations(conn), [])
             conn.close()
 
+    def test_position_specific_role_family_is_not_judged_by_the_hc_oc_dc_classifier(self) -> None:
+        """MF35-05: a title can classify as principal DC by
+        `principal_role_families` AND separately name a position-specific
+        assignment (e.g. inside linebackers) that classifier has no opinion
+        about. A `formal_role_assertion` row for THAT position-specific
+        role_family, linked to the same observation, must not be flagged --
+        the classifier's silence on "inside_linebackers" is not evidence of
+        a mismatch."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            title = "Assistant Head Coach/Inside Linebackers Coach/Co-Defensive Coordinator"
+            source = Path(tmp) / "staff3.html"
+            source.write_text(f"<table><tr><td>Mike Weick</td><td>{title}</td></tr></table>",
+                              encoding="utf-8")
+            source_file_id = register_source_file(
+                conn, source, source_class="OFFICIAL_STAFF_HTML", rights_state="PRIVATE"
+            )
+            observation_id = add_observation(
+                conn, source_file_id=source_file_id, locator="tr[0]",
+                parser_identity="TEST", observed_person="Mike Weick",
+                observed_title=title,
+            )
+            upsert_program(conn, "P:1", display_name="Example State", season=2026)
+            person_id = upsert_person(conn, "Mike Weick", identity_basis="TEST")
+            episode_id = add_episode(
+                conn, person_id=person_id, program_id="P:1", season="2026",
+                date_precision="SEASON", evidence_layer=LAYER_OFFICIAL,
+            )
+            add_role(
+                conn, episode_id=episode_id, role_family="inside_linebackers",
+                exact_title_text=title, qualifiers=["CO"],
+                evidence_layer=LAYER_OFFICIAL, supporting_observations=[observation_id],
+            )
+            add_role(
+                conn, episode_id=episode_id, role_family="defensive_coordinator",
+                exact_title_text=title, qualifiers=["CO"],
+                evidence_layer=LAYER_OFFICIAL, supporting_observations=[observation_id],
+            )
+            conn.commit()
+            self.assertEqual(assertions_not_entailed_by_linked_observations(conn), [])
+            conn.close()
+
 
 class PersonIdentityAdjudicationTests(unittest.TestCase):
     """MF35-04: `upsert_person` keys identity on (name, identity_basis), so

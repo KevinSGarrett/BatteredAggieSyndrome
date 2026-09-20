@@ -94,7 +94,22 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def load_population() -> dict[str, dict[str, Any]]:
-    """program_id -> {display_name, classification, seasons}."""
+    """program_id -> {display_name, classification_by_season, seasons}.
+
+    MF35-08 repair: this previously kept one collapsed `classification`
+    string per program, overwritten by whichever membership file's row for
+    that program was read LAST (HISTORICAL_EARLY, then HISTORICAL_LATE, then
+    CURRENT_PROGRAMS) -- so a program's CURRENT (2026) subdivision silently
+    became its classification for every season it ever played, including
+    seasons decades earlier under a different subdivision. An independent
+    manager check against the same-season source found two of the 48
+    predeclared keys wrong under this rule: Massachusetts is FBS in 2026 but
+    the source says FCS for 2002; Sacramento State is FBS in 2026 but the
+    source says FCS for 2023. `classification_by_season` now keeps each
+    season's OWN classification as stated by the membership row that named
+    that season, so a caller can select same-season subdivision instead of
+    the program's most recent one.
+    """
 
     programs: dict[str, dict[str, Any]] = {}
     for path in (HISTORICAL_EARLY, HISTORICAL_LATE, CURRENT_PROGRAMS):
@@ -107,46 +122,63 @@ def load_population() -> dict[str, dict[str, Any]]:
                 {
                     "program_id": pid,
                     "display_name": row.get("display_name"),
-                    "classification": row.get("classification"),
+                    "classification_by_season": {},
                     "seasons": set(),
                 },
             )
             season = row.get("season")
-            entry["seasons"].add(int(season) if season else 2026)
-            if row.get("classification"):
-                entry["classification"] = row.get("classification")
+            season_int = int(season) if season else 2026
+            entry["seasons"].add(season_int)
+            classification = row.get("classification")
+            if classification:
+                # A season's classification is proved by the row that names
+                # THAT season; a later file's row for a DIFFERENT season
+                # must never overwrite it.
+                entry["classification_by_season"][season_int] = classification
             if row.get("display_name"):
                 entry["display_name"] = row.get("display_name")
     return programs
 
 
-def predeclare_keys(programs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
-    """48 keys chosen before any evidence is looked at."""
+def same_season_classification(entry: dict[str, Any], season: int) -> str | None:
+    """The subdivision the source states FOR THIS SEASON, or None if the
+    source never stated a classification for it. Never falls back to the
+    program's most recent or any other season's classification."""
 
-    by_division: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for entry in programs.values():
-        division = str(entry.get("classification") or "unknown").lower()
-        if division in {"fbs", "fcs"}:
-            by_division[division].append(entry)
-    for division in by_division:
-        by_division[division].sort(key=lambda item: str(item["program_id"]))
+    return entry.get("classification_by_season", {}).get(season)
+
+
+def predeclare_keys(programs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    """48 keys chosen before any evidence is looked at.
+
+    MF35-08 repair: a candidate is no longer bucketed into fbs/fcs by one
+    collapsed per-program classification computed before any season is
+    chosen. A program's division membership can itself change across
+    seasons (Massachusetts: FCS in 2002, FBS by 2026; Sacramento State: FBS
+    in 2026, FCS in 2023) -- the tranche's OWN classification for a key must
+    be the classification the source states for THAT key's season, checked
+    after the season is already known, never a program-level default.
+    """
+
+    all_programs = sorted(programs.values(), key=lambda item: str(item["program_id"]))
 
     keys: list[dict[str, Any]] = []
     for division in ("fbs", "fcs"):
-        pool = by_division.get(division) or []
         picked = 0
         index = 0
-        while picked < TARGET_PER_DIVISION and index < len(pool) * 4:
-            entry = pool[index % len(pool)] if pool else None
+        limit = max(len(all_programs) * len(SEASON_LADDER), 1)
+        while picked < TARGET_PER_DIVISION and index < limit:
+            entry = all_programs[index % len(all_programs)] if all_programs else None
             if entry is None:
                 break
             season = SEASON_LADDER[picked % len(SEASON_LADDER)]
             role = ROLE_LADDER[picked % len(ROLE_LADDER)]
             index += 1
-            if season not in entry["seasons"]:
-                # The program did not exist in that season under the bound
-                # era rule; step to the next program rather than fabricate a
-                # program-season that never existed.
+            if same_season_classification(entry, season) != division:
+                # Either the program did not exist in that season, its
+                # SAME-SEASON classification is the other division, or the
+                # source never stated one for that season -- none of these
+                # fabricate a program-season-division that was never proved.
                 continue
             keys.append(
                 {
@@ -164,6 +196,7 @@ def predeclare_keys(programs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]
                         else "CURRENT_2026"
                     ),
                     "predeclared_before_evidence": True,
+                    "classification_authority": "SAME_SEASON_MEMBERSHIP_ROW",
                 }
             )
             picked += 1

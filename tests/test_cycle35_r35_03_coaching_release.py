@@ -26,6 +26,8 @@ from aggie_analytics.cycle35.coaching_release import (
     add_role,
     append_release_manifest,
     apply_migrations,
+    assertions_missing_evidence_link,
+    assertions_not_entailed_by_linked_observations,
     compare_releases,
     layer_counts,
     open_release,
@@ -35,7 +37,6 @@ from aggie_analytics.cycle35.coaching_release import (
     release_row_identities,
     stable_id,
     transaction,
-    unsupported_assertions,
     upsert_person,
     upsert_program,
 )
@@ -118,7 +119,7 @@ class SourceDrivenTests(unittest.TestCase):
             conn = open_release(Path(tmp) / "r.sqlite")
             _seed(conn, Path(tmp), support=True)
             conn.commit()
-            self.assertEqual(unsupported_assertions(conn), [])
+            self.assertEqual(assertions_missing_evidence_link(conn), [])
             conn.close()
 
     def test_an_unsupported_assertion_is_detected_not_hidden(self) -> None:
@@ -127,7 +128,7 @@ class SourceDrivenTests(unittest.TestCase):
             conn = open_release(Path(tmp) / "r.sqlite")
             _seed(conn, Path(tmp), support=False)
             conn.commit()
-            found = unsupported_assertions(conn)
+            found = assertions_missing_evidence_link(conn)
             self.assertEqual(len(found), 1)
             self.assertEqual(found[0]["role_family"], "head_coach")
             conn.close()
@@ -159,6 +160,113 @@ class SourceDrivenTests(unittest.TestCase):
             row = conn.execute("SELECT raw_sha256, bytes FROM source_file").fetchone()
             self.assertEqual(row["raw_sha256"], hashlib.sha256(b"hello").hexdigest())
             self.assertEqual(row["bytes"], 5)
+            conn.close()
+
+
+class SemanticEntailmentTests(unittest.TestCase):
+    """MF35-03: a link existing (`assertions_missing_evidence_link`) is a
+    different, weaker claim than the linked observation actually entailing
+    the asserted fact (`assertions_not_entailed_by_linked_observations`).
+    These tests exercise the second check directly and prove it is
+    independent of the first."""
+
+    def test_entailed_assertion_passes_both_checks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            _seed(conn, Path(tmp), support=True)
+            conn.commit()
+            self.assertEqual(assertions_missing_evidence_link(conn), [])
+            self.assertEqual(assertions_not_entailed_by_linked_observations(conn), [])
+            conn.close()
+
+    def test_title_text_diverged_from_every_linked_observation_is_detected(self) -> None:
+        """The manager's exact MF35-03 reproduction shape: the assertion's
+        `exact_title_text` was changed in place while its `assertion_support`
+        link was left untouched. The link still exists -- only the stronger
+        entailment check may catch this."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            ids = _seed(conn, Path(tmp), support=True)
+            conn.execute(
+                "UPDATE formal_role_assertion SET exact_title_text = ? "
+                "WHERE assertion_id = ?",
+                ("Special Teams Coordinator", ids["assertion_id"]),
+            )
+            conn.commit()
+            # The link itself is untouched -- the weaker check sees nothing
+            # wrong, exactly reproducing the manager's finding.
+            self.assertEqual(assertions_missing_evidence_link(conn), [])
+            found = assertions_not_entailed_by_linked_observations(conn)
+            self.assertEqual(len(found), 1)
+            self.assertIn(
+                "EXACT_TITLE_TEXT_NOT_OBSERVED_IN_ANY_LINKED_OBSERVATION",
+                found[0]["reasons"],
+            )
+            conn.close()
+
+    def test_role_family_not_derivable_from_title_is_detected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            ids = _seed(conn, Path(tmp), support=True)
+            # The title text still matches its observation, but the stored
+            # classification no longer matches what that title derives to.
+            conn.execute(
+                "UPDATE formal_role_assertion SET role_family = ? "
+                "WHERE assertion_id = ?",
+                ("offensive_coordinator", ids["assertion_id"]),
+            )
+            conn.commit()
+            found = assertions_not_entailed_by_linked_observations(conn)
+            self.assertEqual(len(found), 1)
+            self.assertIn(
+                "ROLE_FAMILY_NOT_DERIVABLE_FROM_EXACT_TITLE_TEXT",
+                found[0]["reasons"],
+            )
+            conn.close()
+
+    def test_title_with_no_classifiable_family_is_not_flagged_by_absence(self) -> None:
+        """A title the HC/OC/DC classifier has no opinion about must not be
+        treated as a role_family mismatch -- the classifier returning
+        nothing is not evidence the stored family is wrong."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            source = Path(tmp) / "staff2.html"
+            source.write_text(
+                "<table><tr><td>B Coach</td><td>Strength Coach</td></tr></table>",
+                encoding="utf-8",
+            )
+            source_file_id = register_source_file(
+                conn, source, source_class="OFFICIAL_STAFF_HTML", rights_state="PRIVATE"
+            )
+            observation_id = add_observation(
+                conn,
+                source_file_id=source_file_id,
+                locator="tr[0]",
+                parser_identity="TEST",
+                observed_person="B Coach",
+                observed_title="Strength Coach",
+            )
+            upsert_program(conn, "P:1", display_name="Example State", season=2026)
+            person_id = upsert_person(conn, "B Coach", identity_basis="TEST")
+            episode_id = add_episode(
+                conn,
+                person_id=person_id,
+                program_id="P:1",
+                season="2026",
+                date_precision="SEASON",
+                evidence_layer=LAYER_OFFICIAL,
+            )
+            add_role(
+                conn,
+                episode_id=episode_id,
+                role_family="UNSPECIFIED_ASSISTANT",
+                exact_title_text="Strength Coach",
+                qualifiers=[],
+                evidence_layer=LAYER_OFFICIAL,
+                supporting_observations=[observation_id],
+            )
+            conn.commit()
+            self.assertEqual(assertions_not_entailed_by_linked_observations(conn), [])
             conn.close()
 
 
@@ -284,6 +392,108 @@ class DeterminismTests(unittest.TestCase):
             comparison = compare_releases(left, right)
             self.assertFalse(comparison["identical"])
             self.assertEqual(comparison["differences"][0]["table"], "canonical_program")
+
+    def test_a_non_key_field_mutation_is_detected_not_just_the_primary_key(self) -> None:
+        """MF35-03: the manager cloned a real release and changed one role's
+        `exact_title_text`, `role_family` and `evidence_layer` in place --
+        same `assertion_id`, different scientific content. The prior
+        `release_row_identities` hashed only the primary-key column and
+        reported the two releases identical. It must not anymore."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            ids = _seed(conn, Path(tmp))
+            conn.commit()
+            left = release_row_identities(conn)
+
+            conn.execute(
+                "UPDATE formal_role_assertion SET exact_title_text = ?, "
+                "role_family = ?, evidence_layer = ? WHERE assertion_id = ?",
+                (
+                    "Defensive Coordinator",
+                    "defensive_coordinator",
+                    LAYER_CANDIDATE,
+                    ids["assertion_id"],
+                ),
+            )
+            conn.commit()
+            right = release_row_identities(conn)
+            conn.close()
+
+            comparison = compare_releases(left, right)
+            self.assertFalse(comparison["identical"])
+            tables_changed = {d["table"] for d in comparison["differences"]}
+            self.assertIn("formal_role_assertion", tables_changed)
+            # The count did not change -- only content did. A PK-only
+            # comparison would have reported this pair as identical.
+            changed = next(
+                d for d in comparison["differences"]
+                if d["table"] == "formal_role_assertion"
+            )
+            self.assertEqual(changed["left_count"], changed["right_count"])
+
+    def test_assertion_support_table_is_covered_by_identities(self) -> None:
+        """A mutation confined entirely to the link table (no assertion row
+        touched at all) must still be detectable -- this table was
+        previously omitted from `release_row_identities` altogether."""
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            ids = _seed(conn, Path(tmp))
+            conn.commit()
+            self.assertIn("assertion_support", release_row_identities(conn))
+            left = release_row_identities(conn)
+
+            other_source = Path(tmp) / "other.html"
+            other_source.write_text("<p>other</p>", encoding="utf-8")
+            other_file_id = register_source_file(
+                conn, other_source, source_class="TEST", rights_state="TEST"
+            )
+            other_observation_id = add_observation(
+                conn,
+                source_file_id=other_file_id,
+                locator="tr[9]",
+                parser_identity="TEST",
+                observed_person="A Coach",
+                observed_title="Different Title",
+            )
+            conn.execute(
+                "INSERT INTO assertion_support (assertion_id, assertion_table, "
+                "observation_id) VALUES (?,?,?)",
+                (ids["assertion_id"], "formal_role_assertion", other_observation_id),
+            )
+            conn.commit()
+            right = release_row_identities(conn)
+            conn.close()
+
+            comparison = compare_releases(left, right)
+            self.assertFalse(comparison["identical"])
+            self.assertIn(
+                "assertion_support",
+                {d["table"] for d in comparison["differences"]},
+            )
+
+    def test_person_alias_table_is_covered_by_identities(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = open_release(Path(tmp) / "r.sqlite")
+            _seed(conn, Path(tmp))
+            conn.commit()
+            self.assertIn("person_alias", release_row_identities(conn))
+            left = release_row_identities(conn)
+
+            upsert_person(
+                conn,
+                "A Coach",
+                identity_basis="TEST",
+                aliases=[("A. Coach", "ABBREVIATED")],
+            )
+            conn.commit()
+            right = release_row_identities(conn)
+            conn.close()
+
+            comparison = compare_releases(left, right)
+            self.assertFalse(comparison["identical"])
+            self.assertIn(
+                "person_alias", {d["table"] for d in comparison["differences"]}
+            )
 
 
 class ManifestTests(unittest.TestCase):

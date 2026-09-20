@@ -54,6 +54,8 @@ from aggie_analytics.cycle35.coaching_release import (  # noqa: E402
     add_observation,
     add_role,
     append_release_manifest,
+    assertions_missing_evidence_link,
+    assertions_not_entailed_by_linked_observations,
     layer_counts,
     open_release,
     record_adjudication,
@@ -61,7 +63,6 @@ from aggie_analytics.cycle35.coaching_release import (  # noqa: E402
     register_source_file,
     release_row_identities,
     transaction,
-    unsupported_assertions,
     upsert_person,
     upsert_program,
 )
@@ -536,7 +537,8 @@ def main() -> int:
             )
         identities = release_row_identities(conn)
         layers = layer_counts(conn)
-        unsupported = unsupported_assertions(conn)
+        missing_link = assertions_missing_evidence_link(conn)
+        not_entailed = assertions_not_entailed_by_linked_observations(conn)
     finally:
         conn.commit()
         conn.close()
@@ -574,8 +576,10 @@ def main() -> int:
         "manifest_release_count": manifest["release_count"],
         "row_identities": identities,
         "evidence_layer_counts": layers,
-        "assertions_without_any_supporting_observation": unsupported,
-        "unsupported_assertion_count": len(unsupported),
+        "assertions_missing_evidence_link": missing_link,
+        "assertions_missing_evidence_link_count": len(missing_link),
+        "assertions_not_entailed_by_linked_observations": not_entailed,
+        "assertions_not_entailed_count": len(not_entailed),
         "no_hardcoded_program_seasons": True,
         "no_hardcoded_verified_tuples": True,
         "predecessor_not_unlinked": True,
@@ -591,7 +595,8 @@ def main() -> int:
             "release_id": release_id[:16],
             "tables": {k: v["count"] for k, v in identities.items()},
             "layers": layers,
-            "unsupported_assertions": len(unsupported),
+            "assertions_missing_evidence_link": len(missing_link),
+            "assertions_not_entailed_by_linked_observations": len(not_entailed),
             "staff": staff,
             "cycle34": {
                 k: v for k, v in cycle34.items()

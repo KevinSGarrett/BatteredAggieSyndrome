@@ -47,6 +47,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator, Mapping, Sequence
 
+from aggie_analytics.cycle33.role_taxonomy import principal_role_families
+
 SCHEMA_VERSION = 3
 RELEASE_KIND = "BAS-CYCLE35-COACHING-RELEASE"
 
@@ -575,35 +577,73 @@ def add_expected_cell(
     return cell_id
 
 
-def release_row_identities(conn: sqlite3.Connection) -> dict[str, Any]:
-    """The scientific row identities of this release, for replay comparison.
+#: Columns excluded from `release_row_identities`'s content hash, per table,
+#: because they are proven to be non-scientific SQLite/runtime artifacts
+#: rather than believed facts. Empty for every table in this schema: no
+#: table below has an autoincrement rowid or a column this module writes
+#: from wall-clock time on every build. `adjudication.decided_at_utc` looks
+#: like a candidate but is NOT excluded -- who decided what, and when, is
+#: part of the adjudication record itself, not incidental noise. A column
+#: may be added here only when it is independently shown to be incidental;
+#: this set must never be used to make a real disagreement disappear.
+INCIDENTAL_EXCLUDED_COLUMNS: dict[str, frozenset[str]] = {}
 
-    Two builds of the same inputs must produce the same identities. Comparing
-    a whole-file hash would fail on incidental byte differences and tell us
-    nothing; comparing identities is what actually matters.
+#: Every table `release_row_identities` compares, with the column(s) that
+#: uniquely and deterministically order its rows. MF35-03: this now also
+#: covers `assertion_support` and `person_alias`, the two link/alias tables
+#: the prior version omitted entirely -- a mutation confined to either of
+#: those tables previously produced no detectable difference at all.
+_CONTENT_TABLES: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("source_file", ("source_file_id",)),
+    ("source_observation", ("observation_id",)),
+    ("canonical_program", ("program_id",)),
+    ("canonical_person", ("person_id",)),
+    ("person_alias", ("person_id", "alias")),
+    ("employment_episode", ("episode_id",)),
+    ("formal_role_assertion", ("assertion_id",)),
+    ("responsibility_assertion", ("responsibility_id",)),
+    ("scheme_assertion", ("scheme_id",)),
+    ("assertion_support", ("assertion_id", "assertion_table", "observation_id")),
+    ("conflict", ("conflict_id",)),
+    ("adjudication", ("adjudication_id",)),
+    ("expected_cell", ("expected_cell_id",)),
+    ("lineage", ("lineage_id",)),
+)
+
+
+def release_row_identities(conn: sqlite3.Connection) -> dict[str, Any]:
+    """The scientific CONTENT identities of this release, for replay comparison.
+
+    MF35-03 repair: this previously hashed only each table's primary-key
+    column, sorted -- so a row whose non-key scientific fields changed (an
+    `exact_title_text`, a `role_family`, an `evidence_layer`) kept the exact
+    same identity, and a manager RAM-clone-and-mutate test proved
+    `compare_releases` reported the two releases identical when they were
+    not. Every column of every row is now part of the hash (see
+    `INCIDENTAL_EXCLUDED_COLUMNS`, currently empty, for the only mechanism
+    that may exclude a column, and only when it is proven incidental), and
+    `assertion_support`/`person_alias` are now covered.
+
+    Two builds of the same inputs must still produce the same identities,
+    which is why every row is serialized in a fixed column order and sorted
+    by its own natural key -- SQLite's row iteration order is not a promise.
     """
 
     identities: dict[str, Any] = {}
-    for table, column in (
-        ("source_file", "source_file_id"),
-        ("source_observation", "observation_id"),
-        ("canonical_program", "program_id"),
-        ("canonical_person", "person_id"),
-        ("employment_episode", "episode_id"),
-        ("formal_role_assertion", "assertion_id"),
-        ("responsibility_assertion", "responsibility_id"),
-        ("scheme_assertion", "scheme_id"),
-        ("conflict", "conflict_id"),
-        ("adjudication", "adjudication_id"),
-        ("expected_cell", "expected_cell_id"),
-        ("lineage", "lineage_id"),
-    ):
-        rows = sorted(
-            str(row[0])
-            for row in conn.execute(f"SELECT {column} FROM {table}")  # noqa: S608
-        )
+    cursor = conn.cursor()
+    for table, sort_columns in _CONTENT_TABLES:
+        cursor.execute(f"PRAGMA table_info({table})")  # noqa: S608
+        all_columns = [str(row[1]) for row in cursor.fetchall()]
+        excluded = INCIDENTAL_EXCLUDED_COLUMNS.get(table, frozenset())
+        columns = [c for c in all_columns if c not in excluded]
+        column_list = ", ".join(columns)
+        cursor.execute(f"SELECT {column_list} FROM {table}")  # noqa: S608
+        rows = [list(row) for row in cursor.fetchall()]
+        sort_index = [columns.index(c) for c in sort_columns]
+        rows.sort(key=lambda r: ["" if r[i] is None else str(r[i]) for i in sort_index])
         identities[table] = {
             "count": len(rows),
+            "columns": columns,
             "identity_sha256": hashlib.sha256(
                 json.dumps(rows).encode("utf-8")
             ).hexdigest(),
@@ -629,12 +669,22 @@ def layer_counts(conn: sqlite3.Connection) -> dict[str, dict[str, int]]:
     return out
 
 
-def unsupported_assertions(conn: sqlite3.Connection) -> list[dict[str, Any]]:
-    """Promoted assertions with no supporting observation.
+def assertions_missing_evidence_link(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    """Promoted assertions with no supporting observation LINK at all.
 
     This is the query that makes "source-driven" checkable rather than
     aspirational: if any row appears here, something was asserted that no
-    source backs, and the release is not what it claims to be.
+    source is even linked to, and the release is not what it claims to be.
+
+    MF35-03 (naming correction): this function was previously named
+    `unsupported_assertions`, which overstated what it proves. It proves a
+    LINK exists in `assertion_support` -- nothing about whether the linked
+    observation's own content actually entails the asserted fact. A manager
+    counterexample mutated an assertion's `exact_title_text`/`role_family`
+    while leaving its `assertion_support` row untouched; this check
+    correctly found nothing wrong, because by ITS definition nothing was.
+    Use `assertions_not_entailed_by_linked_observations` for the stronger,
+    independent claim.
     """
 
     rows = conn.execute(
@@ -648,6 +698,74 @@ def unsupported_assertions(conn: sqlite3.Connection) -> list[dict[str, Any]]:
         """
     ).fetchall()
     return [dict(row) for row in rows]
+
+
+def assertions_not_entailed_by_linked_observations(
+    conn: sqlite3.Connection,
+) -> list[dict[str, Any]]:
+    """Linked assertions whose content is NOT actually entailed by any of
+    their linked observations.
+
+    MF35-03: a row in `assertion_support` proves a relationship LINK exists;
+    it does not prove the linked observation's own recorded text supports
+    the specific fact the assertion claims. This checks two things a
+    changed `exact_title_text` or `role_family` can no longer hide behind an
+    untouched link:
+
+    * literal title entailment -- `exact_title_text` must equal, once
+      whitespace-normalized, at least one linked observation's own
+      `observed_title`. The column is literally named "exact" text; if
+      nothing linked to it actually says that text, the link is decorative.
+    * role-family derivability -- when `principal_role_families` (the same
+      HC/OC/DC classifier used at ingest time) returns a non-empty
+      classification for the entailed title text, the stored `role_family`
+      must be a member of it. A classifier that returns nothing makes no
+      claim either way and is not treated as a mismatch.
+
+    An assertion with NO linked observation at all is out of scope here --
+    that is `assertions_missing_evidence_link`'s claim, not this one's.
+    """
+
+    rows = conn.execute(
+        """
+        SELECT a.assertion_id, a.role_family, a.exact_title_text,
+               a.evidence_layer, o.observed_title
+        FROM formal_role_assertion a
+        JOIN assertion_support s
+          ON s.assertion_id = a.assertion_id
+         AND s.assertion_table = 'formal_role_assertion'
+        JOIN source_observation o ON o.observation_id = s.observation_id
+        """
+    ).fetchall()
+
+    by_assertion: dict[str, dict[str, Any]] = {}
+    observed_titles: dict[str, set[str]] = {}
+    for row in rows:
+        assertion_id = str(row["assertion_id"])
+        by_assertion[assertion_id] = {
+            "assertion_id": assertion_id,
+            "role_family": row["role_family"],
+            "exact_title_text": row["exact_title_text"],
+            "evidence_layer": row["evidence_layer"],
+        }
+        titles = observed_titles.setdefault(assertion_id, set())
+        if row["observed_title"] is not None:
+            titles.add(str(row["observed_title"]).strip())
+
+    findings: list[dict[str, Any]] = []
+    for assertion_id, assertion in by_assertion.items():
+        exact_title_text = str(assertion["exact_title_text"] or "").strip()
+        titles = observed_titles.get(assertion_id, set())
+        reasons: list[str] = []
+        if exact_title_text not in titles:
+            reasons.append("EXACT_TITLE_TEXT_NOT_OBSERVED_IN_ANY_LINKED_OBSERVATION")
+        else:
+            derivable = principal_role_families(exact_title_text)
+            if derivable and assertion["role_family"] not in derivable:
+                reasons.append("ROLE_FAMILY_NOT_DERIVABLE_FROM_EXACT_TITLE_TEXT")
+        if reasons:
+            findings.append({**assertion, "reasons": reasons})
+    return findings
 
 
 def append_release_manifest(

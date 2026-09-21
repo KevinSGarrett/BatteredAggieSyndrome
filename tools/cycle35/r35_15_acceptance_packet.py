@@ -162,13 +162,24 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         "id, venue version and timezone are required; a distance requires a "
         "declared unit and method. Both travel legs, neutral/unknown states "
         "and nonfinite/negative distances are tested. The national "
-        "neutral/unknown-site row rebuild across the current cohort was not "
-        "performed.",
-        ["R35_07_CANONICAL_FINALS_REPLAY.json"],
+        "neutral/unknown-site cohort has now been rebuilt through "
+        "ordinary_home_advantage(), not travel_context() (see Cycle #35 "
+        "follow-up item 6 fix below): 51,978 distinct games 1963-2026, "
+        "2,849 confirmed-neutral / 49,129 confirmed-ordinary / 0 unknown. "
+        "No local stadium coordinates exist, so travel distance is not "
+        "computed at all, honestly, rather than inferred from an "
+        "unconfirmed venue.",
         [
-            "National neutral/unknown-site cohort rebuild not performed.",
+            "R35_07_CANONICAL_FINALS_REPLAY.json",
+            "R35_08_NATIONAL_NEUTRAL_SITE_COHORT.json",
+        ],
+        [
             "Notre Dame/Wisconsin example not bound to source evidence, so "
             "it is deliberately absent.",
+            "Travel distance is never computed (no local stadium "
+            "coordinates); every row's home/away travel distance is None.",
+            "The 2010-2022 venue enrichment layer is DEVELOPMENT_ONLY, not "
+            "PIT-admitted, and covers a fraction of the declared range.",
         ],
     ),
     "R35-09": _d(
@@ -408,6 +419,29 @@ SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
             "against both the legacy cycle33 schema and the real cycle35 "
             "release (verified against the actual delivered r7 database).",
             "commit": "f0b5fe2f",
+        },
+    ],
+    "R35-08": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_R35_08",
+            "summary": "r35_08_national_neutral_site_cohort.py builds the "
+            "national neutral/unknown-site cohort. First written calling "
+            "travel_context(..., venue_confirmed=False, ...), which was "
+            "proven by direct testing to always raise NeutralVenueError "
+            "regardless of every other parameter -- zero rows would have "
+            "classified. Rewritten around the precondition-free "
+            "ordinary_home_advantage(neutral_site=...). Missing/non-bool "
+            "neutral-site evidence is kept as an explicit UNKNOWN row, "
+            "never defaulted. Verified against the real 4 declared raw "
+            "sources: 51,978 distinct games, 1963-2026, 2,849 confirmed-"
+            "neutral / 49,129 confirmed-ordinary / 0 unknown; the 12,941 "
+            "excluded rows independently confirmed as the two FCS-FCS "
+            "sources' full overlay of games already in the two main game "
+            "files. Travel distance is always None (no local coordinates); "
+            "a 2010-2022 venue enrichment layer is joined and labeled "
+            "DEVELOPMENT_ONLY_NOT_PIT_ADMITTED, never used to compute the "
+            "advantage value or confirm a venue.",
+            "commit": "b84e1ca0",
         },
     ],
     "R35-09": [

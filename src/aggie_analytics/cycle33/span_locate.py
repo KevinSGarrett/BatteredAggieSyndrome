@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import html as html_lib
+import bisect
 import re
 from functools import lru_cache
 from typing import Any, Mapping
@@ -293,8 +294,142 @@ def role_claim_supported_on_title(record_title: str, claimed_title: str) -> bool
     return False
 
 
+_CONTACT_VALUE = re.compile(r"[^\s@]+@[^\s@]+\.[^\s@]+|^\+?[\d().\-\s]{7,}$")
+#: "@CoachLocks" -- a social handle, which the email pattern misses because
+#: it has nothing before the @ and no dot after it.
+_SOCIAL_HANDLE = re.compile(r"^@[A-Za-z0-9_]{2,}$")
+
+
+def _is_contact_value(text: str) -> bool:
+    """Contact detail in a contact column is not a person.
+
+    Staff tables commonly read title / name / phone / email / handle, and
+    _name_like accepts "rhuesman@richmond.edu" and "@CoachLocks" as names.
+    Counting either as a second candidate made the unambiguous-name guard
+    refuse rows that contain exactly one real person.
+    """
+
+    value = str(text or "").strip()
+    return bool(_CONTACT_VALUE.search(value) or _SOCIAL_HANDLE.match(value))
+
+
+_TABLE_BOUNDARY = re.compile(r"<table\b[^>]*>|</table\s*>", re.I)
+
+#: Header vocabulary, matched against the WHOLE header cell so a data cell
+#: that merely contains "coach" is not mistaken for a header.
+_HEADER_NAME = re.compile(r"^(name|full\s*name|coach|person|staff\s*member)$", re.I)
+_HEADER_TITLE = re.compile(r"^(title|position|role|job\s*title)$", re.I)
+
+#: Larger than any table id _table_scopes can assign, so bisect_right below
+#: orders purely on the offset.
+_MAX_TABLE_ID = 1 << 62
+
+
+def _table_scopes(html: str) -> list[tuple[int, int]]:
+    """(offset, table_id) marks, so each row is tied to its own table.
+
+    Without this, a table carrying no header of its own would inherit the
+    header of the table before it on the page.
+    """
+
+    marks: list[tuple[int, int]] = [(0, 0)]
+    stack: list[int] = []
+    opened = 0
+    for match in _TABLE_BOUNDARY.finditer(html or ""):
+        if match.group(0)[:6].lower() == "<table":
+            opened += 1
+            stack.append(opened)
+        elif stack:
+            stack.pop()
+        marks.append((match.end(), stack[-1] if stack else 0))
+    return marks
+
+
+def _scope_at(marks: list[tuple[int, int]], offset: int) -> int:
+    index = bisect.bisect_right(marks, (offset, _MAX_TABLE_ID)) - 1
+    return marks[index][1] if index >= 0 else 0
+
+
+def _header_columns(cells: list[dict[str, Any]]) -> tuple[int, int] | None:
+    """(name_column, title_column) when this row is an unambiguous header.
+
+    Exactly one of each is required. A table heading two name columns has
+    not told us which one holds the person, and guessing there would be the
+    very thing this replaces.
+    """
+
+    names = [i for i, cell in enumerate(cells) if _HEADER_NAME.match(cell["text"] or "")]
+    titles = [i for i, cell in enumerate(cells) if _HEADER_TITLE.match(cell["text"] or "")]
+    if len(names) != 1 or len(titles) != 1:
+        return None
+    return names[0], titles[0]
+
+
+def _row_cells(match: "re.Match[str]") -> list[dict[str, Any]]:
+    inner_origin = match.start(1)
+    return [
+        {
+            "text": _plain(cell.group(1)),
+            "start": inner_origin + cell.start(1),
+            "end": inner_origin + cell.end(1),
+            "raw": cell.group(1),
+        }
+        for cell in _CELL.finditer(match.group(1))
+    ]
+
+
+def _collect_headers(
+    html: str, scope_marks: list[tuple[int, int]]
+) -> dict[int, dict[str, Any]]:
+    """The FIRST unambiguous header row in each table, and its geometry.
+
+    First only: a table that repeats its header mid-way does not get to
+    change the meaning of the columns below it.
+    """
+
+    headers: dict[int, dict[str, Any]] = {}
+    for ordinal, match in enumerate(_TR.finditer(html or "")):
+        scope = _scope_at(scope_marks, match.start())
+        if scope in headers:
+            continue
+        cells = _row_cells(match)
+        if len(cells) < 2:
+            continue
+        columns = _header_columns(cells)
+        if columns is None:
+            continue
+        headers[scope] = {
+            "ordinal": ordinal,
+            "width": len(cells),
+            "name_column": columns[0],
+            "title_column": columns[1],
+        }
+    return headers
+
+
+def _table_record(
+    ordinal: int,
+    person_cell: dict[str, Any],
+    title_cell: dict[str, Any],
+    match: "re.Match[str]",
+) -> dict[str, Any]:
+    return {
+        "kind": "table_row",
+        "selector": f"tr[{ordinal}]",
+        "person": person_cell["text"],
+        "title": title_cell["text"],
+        "person_start": person_cell["start"],
+        "person_end": person_cell["end"],
+        "title_start": title_cell["start"],
+        "title_end": title_cell["end"],
+        "record_html": match.group(0),
+    }
+
+
 def _table_records(html: str) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
+    scope_marks = _table_scopes(html)
+    headers = _collect_headers(html, scope_marks)
     for ordinal, match in enumerate(_TR.finditer(html or "")):
         inner = match.group(1)
         inner_origin = match.start(1)
@@ -311,11 +446,47 @@ def _table_records(html: str) -> list[dict[str, Any]]:
             )
         if len(cells) < 2:
             continue
+        # The table said what its columns are. Prefer that over cell shape.
+        header = headers.get(_scope_at(scope_marks, match.start()))
+        if header is not None and header["ordinal"] == ordinal:
+            continue  # the header row itself describes no person
+        if header is not None and len(cells) == header["width"]:
+            by_header = cells[header["name_column"]]
+            title_by_header = cells[header["title_column"]]
+            if by_header["text"] and title_by_header["text"]:
+                records.append(
+                    _table_record(ordinal, by_header, title_by_header, match)
+                )
+                continue
         person_cell = next((cell for cell in cells if cell["text"]), None)
         if person_cell is None:
             continue
         if not _name_like(person_cell["text"]):
-            continue
+            # The first non-empty cell is not a name. That is not proof the
+            # row has none: staff tables exist whose TITLE column comes
+            # first, and discarding the row lost real staff whose name and
+            # title are both plainly in the capture.
+            #
+            # This path is only reached when the original one declined, so
+            # no row that already binds can change. It binds only when the
+            # row carries exactly one name-like cell and a title-like cell
+            # -- requiring both is what stops a stray name-shaped cell, a
+            # city or a school, from being read as a person.
+            named = [
+                cell
+                for cell in cells
+                if cell["text"]
+                and _name_like(cell["text"])
+                and not _is_contact_value(cell["text"])
+            ]
+            titled = [
+                cell
+                for cell in cells
+                if cell["text"] and _looks_like_title(cell["text"])
+            ]
+            if len(named) != 1 or not titled:
+                continue
+            person_cell = named[0]
         title_cell = next(
             (
                 cell
@@ -331,19 +502,7 @@ def _table_records(html: str) -> list[dict[str, Any]]:
             )
         if title_cell is None:
             continue
-        records.append(
-            {
-                "kind": "table_row",
-                "selector": f"tr[{ordinal}]",
-                "person": person_cell["text"],
-                "title": title_cell["text"],
-                "person_start": person_cell["start"],
-                "person_end": person_cell["end"],
-                "title_start": title_cell["start"],
-                "title_end": title_cell["end"],
-                "record_html": match.group(0),
-            }
-        )
+        records.append(_table_record(ordinal, person_cell, title_cell, match))
     return records
 
 

@@ -85,6 +85,82 @@ def summarize_pytest_tail(path: Path) -> str:
     return ""
 
 
+#: Where the replay tool writes its result. Named so the lane below can
+#: READ what the replay found instead of restating it from memory.
+REPLAY_ARTIFACT = Path(
+    r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs"
+    r"\20260921T055921Z_implementation\replay"
+    r"\CYCLE35_DETERMINISTIC_RELEASE_REPLAY.json"
+)
+
+#: True in every branch below, so it is stated once. A divergence confined
+#: to a clock column is characterised by name and row count rather than
+#: removed from the hash: coaching_release argues that
+#: INCIDENTAL_EXCLUDED_COLUMNS "must never be used to make a real
+#: disagreement disappear", and it stays empty.
+_EXCLUSION_NOTE = (
+    "adjudication.decided_at_utc is deliberately NOT removed from the "
+    "content hash -- INCIDENTAL_EXCLUDED_COLUMNS stays empty -- so a "
+    "divergence would be characterised by name and row count rather than "
+    "hidden. Database file bytes differ either way, as expected: SQLite "
+    "page layout is not a scientific fact, and schema_migration.applied_at_utc "
+    "records when the build ran, which is a fact about the build."
+)
+
+
+def replay_detail(artifact: Path = REPLAY_ARTIFACT) -> str:
+    """What the replay actually found, read from its artifact.
+
+    This used to be a hardcoded sentence ending "(26 of 26 rows)". After
+    the decision-time repair the replay finds zero differences, and r35_14
+    already names the failure this is: a lane that states a result no
+    longer checks it. An absent artifact reports its own absence.
+    """
+
+    if not artifact.is_file():
+        return (
+            "NOT RUN AT THIS HEAD. No replay artifact at "
+            f"{artifact}, so this lane reports nothing about determinism. "
+            + _EXCLUSION_NOTE
+        )
+    try:
+        payload = json.loads(artifact.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        return f"Replay artifact unreadable ({error}), so it establishes nothing."
+
+    comparison = payload.get("comparison") or {}
+    tables = len(payload.get("tables_compared") or [])
+    differences = int(comparison.get("difference_count") or 0)
+    column_diffs = comparison.get("column_level_diffs") or []
+
+    head = (
+        f"EXECUTED. Two real builds into separate isolated output directories, "
+        f"compared on full per-row content across all {tables} content tables "
+        "plus source links, conflict dispositions and expected populations. "
+    )
+    if differences == 0 and not column_diffs:
+        body = (
+            "Result: scientific content IDENTICAL -- zero differing rows in "
+            "every table and every column. The 26-row "
+            "adjudication.decided_at_utc divergence previously reported here "
+            "is gone because those rows stopped recording a build clock "
+            "reading as a decision time, not because the comparison stopped "
+            "looking at the column. "
+        )
+    else:
+        named = ", ".join(
+            f"{diff.get('table')}.{column} differs on {rows} rows"
+            for diff in column_diffs
+            for column, rows in (diff.get("columns_differing") or {}).items()
+        )
+        body = (
+            f"Result: {differences} difference(s)"
+            + (f" -- {named}" if named else "")
+            + ". "
+        )
+    return head + body + _EXCLUSION_NOTE + " Results: " + artifact.name + "."
+
+
 def lane(
     lane_id: str,
     *,
@@ -239,18 +315,7 @@ def build() -> dict[str, Any]:
             command="python tools/cycle35/r35_20_deterministic_release_replay.py "
             "--out-dir <closeout>/replay",
             log_name="DETERMINISTIC_RELEASE_REPLAY.log",
-            detail="EXECUTED. Two real builds into separate isolated output "
-            "directories, compared on full per-row content across all 15 "
-            "content tables plus source links, conflict dispositions and "
-            "expected populations. Result: scientific content identical "
-            "apart from adjudication.decided_at_utc, a wall-clock column "
-            "the builder writes at build time (26 of 26 rows). That column "
-            "is deliberately NOT removed from the content hash -- "
-            "INCIDENTAL_EXCLUDED_COLUMNS stays empty -- so the divergence "
-            "is characterised by name and row count rather than hidden. "
-            "Database file bytes differ, as expected: SQLite page layout is "
-            "not a scientific fact. Results: "
-            "CYCLE35_DETERMINISTIC_RELEASE_REPLAY.json.",
+            detail=replay_detail(),
             result_override="EXECUTED_SEE_DETERMINISTIC_RELEASE_REPLAY",
         ),
     ]

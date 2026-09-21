@@ -210,15 +210,31 @@ def adjudication_time(conn: sqlite3.Connection) -> dict[str, Any]:
         str(row[0])
         for row in conn.execute("SELECT DISTINCT decided_at_utc FROM adjudication")
     ]
+    stamped = [value for value in distinct if value.strip()]
+    if len(stamped) == 1 and len(distinct) == 1:
+        note = (
+            "One timestamp across every row is the signature of a build-clock "
+            "reading, not of decisions made at one moment."
+        )
+    elif not stamped:
+        note = (
+            "No row states a decision time. That is the repaired state, not a "
+            "missing value: a standing rule applied by the build was settled "
+            "when the rule was written, so there is no event time to record."
+        )
+    else:
+        note = (
+            f"{len(stamped)} distinct timestamps across {_count(conn, 'adjudication')} "
+            "rows. Few distinct values across many rows indicates build-clock "
+            "readings rather than decisions made at those moments."
+        )
     return {
         "rows": _count(conn, "adjudication"),
         "has_decision_time_basis_column": "decision_time_basis" in columns,
         "distinct_decided_at_utc_values": len(distinct),
+        "rows_stating_a_decision_time": len(stamped),
         "sample_value": distinct[0] if distinct else None,
-        "note": (
-            "One distinct value across every row is the signature of a "
-            "build-clock reading, not of decisions made at one moment."
-        ),
+        "note": note,
     }
 
 

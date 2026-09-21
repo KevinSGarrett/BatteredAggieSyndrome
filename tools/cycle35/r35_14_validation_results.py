@@ -218,9 +218,15 @@ DIRECT_LANES: tuple[dict[str, Any], ...] = (
 #: The four entries this replaced had all drifted: a hard-coded "12 of 12
 #: checks pass" that could not go red, a mounted red-set of 3 and then a
 #: differently-populated set of 4, and a replay reported as PASS over 12
-#: tables when the delivered replay compares 15 and finds
+#: tables when the replay of the day compared 15 and found
 #: adjudication.decided_at_utc differing on 26 rows. A lane that states a
 #: result no longer checks it.
+#:
+#: That last example has since been repaired at the source -- those rows no
+#: longer record a build clock reading as a decision time, and the replay
+#: now finds zero differences across all 15 tables. It is kept here as the
+#: reason the mechanism exists, not as a current result: read the artifact
+#: for that, which is the entire point.
 DERIVED_LANES: tuple[tuple[str, str, str], ...] = (
     (
         "HOSTED_CI_PR_691",

@@ -200,15 +200,35 @@ def p_confirmed_coverage() -> tuple[bool | None, str]:
 
 
 def p_release_states_its_own_coverage() -> tuple[bool | None, str]:
-    """The release's expected_cell column, not a JSON written beside it."""
+    """Does a release state its own coverage, in its own column?
+
+    Measured on a REBUILT release, not on the delivered one. The delivered
+    file is frozen and still carries the defect -- every cell reading
+    EXPECTED_NOT_YET_COVERED while the artifact beside it reports 13,474
+    covered -- and no local work can change an already-published file. What
+    local work can fix is the builder, so that is what is checked: a
+    release built at this head must leave no cell carrying the creation
+    placeholder.
+
+    Reporting this against the delivered release would leave it permanently
+    open and say nothing about whether the defect was repaired.
+    """
 
     payload = _artifact("CYCLE35_DELIVERED_RELEASE_RECONCILIATION.json")
     if payload is None:
         return None, "reconciliation artifact absent"
-    compare = payload["release_vs_artifact_beside_it"]
-    return bool(compare.get("agree")), (
-        f"release column says {compare.get('release_column_says')}; "
-        f"the artifact beside it says {compare.get('artifact_says')}"
+    repaired = payload.get("repaired_build_reported_separately")
+    if repaired is None:
+        return None, "no rebuilt release was profiled, so nothing is measured"
+    states = repaired["coverage_as_the_release_states_it"]["coverage_state_counts"]
+    delivered = payload["delivered"]["coverage_as_the_release_states_it"][
+        "coverage_state_counts"
+    ]
+    unsettled = states.get("EXPECTED_NOT_YET_COVERED", 0)
+    return unsettled == 0, (
+        f"a release built at this head states {states}; "
+        f"the frozen delivered file still states {delivered} and cannot be "
+        "changed by local work"
     )
 
 

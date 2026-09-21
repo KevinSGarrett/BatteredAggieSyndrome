@@ -80,12 +80,18 @@ PT35_MAPPINGS: tuple[dict[str, Any], ...] = (
         "manager_claim": "SEC name/jersey transcription is insufficient",
         "requirements": ["R35-11"],
         "evidence": ["R35_11_AVAILABILITY_RELEASE.json"],
-        "adjudication": "CONFIRMED_AND_HONOURED_AS_UNMET",
+        "adjudication": "CONFIRMED_PARTIALLY_ADDRESSED",
         "basis": (
-            "Every one of the 252 assertions is retained at "
-            "UNRESOLVED_NAME_AND_JERSEY_ONLY with resolved_player_ids = 0. "
-            "The obligation is not met; it is recorded as unmet rather than "
-            "satisfied by a name join."
+            "Name/jersey is now joined against a real local roster snapshot "
+            "for the 4 SEC programs it covers: 28 of 92 assertions there "
+            "resolve a canonical_player_id on jersey+name agreement, and 64 "
+            "are genuinely quarantined as ambiguous (real roster jersey-"
+            "number collisions, never guessed). The other 7 SEC programs in "
+            "the capture, and every assertion outside the covered 4, remain "
+            "ROSTER_NOT_LOCALLY_AVAILABLE. The manager's underlying claim "
+            "stands for the uncovered majority; it no longer holds "
+            "universally, so 'resolved_player_ids = 0' is stale and is "
+            "corrected here rather than left standing."
         ),
     },
     {

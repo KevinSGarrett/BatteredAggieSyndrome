@@ -26,7 +26,6 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from pathlib import Path
 from typing import Any
 
 #: Table names that, if present, positively identify a cycle35 coaching

@@ -75,6 +75,24 @@ SECTIONS: tuple[tuple[str, str, bool], ...] = (
     ("private_data_lanes", "CYCLE35_PRIVATE_DATA_LANE_RESULTS.json", True),
     ("pit_feasibility", "R35_09_PIT_FEASIBILITY.json", True),
     ("all22_alignment", "CYCLE35_ALL22_ALIGNMENT.json", True),
+    # Added by the 20260921T055921Z continuation. Each is required: a
+    # packet that silently omits one of these would read as complete while
+    # leaving out the reconciliation that says what the delivered release
+    # actually contains.
+    (
+        "delivered_release_reconciliation",
+        "CYCLE35_DELIVERED_RELEASE_RECONCILIATION.json",
+        True,
+    ),
+    (
+        "family_b_successor_qualification",
+        "CYCLE35_FAMILY_B_SUCCESSOR_QUALIFICATION.json",
+        True,
+    ),
+    ("obligation_execution_view", "CYCLE35_OBLIGATION_EXECUTION_VIEW.json", True),
+    ("national_population_authority", "CYCLE35_NATIONAL_POPULATION_AUTHORITY.json", True),
+    ("staff_season_evidence", "CYCLE35_STAFF_SEASON_EVIDENCE.json", True),
+    ("scheme_ingest_reconciliation", "CYCLE35_SCHEME_INGEST.json", True),
 )
 
 SKIP_DIRECTORY_NAMES = frozenset(

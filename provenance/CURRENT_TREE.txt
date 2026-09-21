@@ -846,6 +846,7 @@ configs/historical_weather_previous_runs_snapshot_contract.json
 configs/hpo_registry.json
 configs/hydration_manifest.json
 configs/implementation_plan.json
+configs/irrelevant_unrelated_scan_noise.json
 configs/judging_rule_seal.json
 configs/known_at_registry.json
 configs/local_coder_shadow_qualification.json

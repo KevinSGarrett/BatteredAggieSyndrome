@@ -137,6 +137,11 @@ def report_grains(
     SEC capture publishes four stage columns per player row, so every
     player is counted four times. Reporting "28 resolved" without saying
     28 WHAT is how an assertion tally reads as a player tally.
+
+    Four grains are reported, and none is derivable from another by
+    division: 252 assertions, 63 published player rows of which 61 are
+    distinct on (program, name, jersey), 63 unique player-program-contest
+    records, and 23 distinct resolved people.
     """
 
     def distinct(selector) -> set:
@@ -154,9 +159,11 @@ def report_grains(
     # Per-player identity state, taken once per source player row rather
     # than once per stage assertion.
     per_row_state: dict[tuple, str] = {}
+    contests_per_row: dict[tuple, set] = {}
     for item in assertions:
         key = (item.get("program"), item.get("published_player_name"), item.get("jersey"))
         per_row_state.setdefault(key, item.get("identity_state"))
+        contests_per_row.setdefault(key, set()).add(item.get("canonical_contest_id"))
     return {
         "assertion_grain": {
             "assertions": len(assertions),
@@ -169,6 +176,27 @@ def report_grains(
             "reported_player_rows": parsed.get("player_rows"),
             "stage_columns": parsed.get("stage_columns"),
             "by_identity_state": dict(Counter(per_row_state.values())),
+            # The capture publishes 63 rows but only 61 are distinct on
+            # (program, name, jersey): two players appear twice, once per
+            # contest. Stating the difference and where it comes from stops
+            # "61" reading as a row that went missing.
+            "published_rows_not_distinct_on_program_name_jersey": (
+                None
+                if parsed.get("player_rows") is None
+                else int(parsed["player_rows"]) - len(source_player_rows)
+            ),
+            "duplicate_published_rows": [
+                {
+                    "program": program,
+                    "published_player_name": name,
+                    "jersey": jersey,
+                    "distinct_contests": sorted(contests),
+                }
+                for (program, name, jersey), contests in sorted(
+                    contests_per_row.items()
+                )
+                if len(contests) > 1
+            ],
         },
         "player_program_contest_grain": {
             "unique_records": len(player_program_contest),

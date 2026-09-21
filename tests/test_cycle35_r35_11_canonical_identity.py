@@ -26,6 +26,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
+
+from r35_11_availability_release import report_grains  # noqa: E402
 
 from aggie_analytics.cycle35.availability import (  # noqa: E402
     QUARANTINE_AMBIGUOUS_CONTEST_MATCH,
@@ -510,6 +513,78 @@ class EnrichAssertionIdentitiesTests(unittest.TestCase):
         # The availability statement itself must be untouched by enrichment.
         self.assertEqual(out["status"], "QUESTIONABLE")
         self.assertEqual(out["presence"], "PUBLISHED_VALUE")
+
+
+class GrainReportTests(unittest.TestCase):
+    """The closeout review: "Report 63 source player rows, four stages,
+    unique player-program-contest records and assertions separately."
+
+    Four grains, none derivable from another by division.
+    """
+
+    ASSERTIONS = [
+        {
+            "program": "Kentucky",
+            "published_player_name": "Andre Clarke Jr.",
+            "jersey": "#1",
+            "canonical_contest_id": contest,
+            "player_program_contest_key": f"Kentucky|Andre Clarke Jr.|#1|{contest}",
+            "identity_state": "ROSTER_NOT_LOCALLY_AVAILABLE",
+            "canonical_player_id": None,
+        }
+        for contest in ("GAME:1", "GAME:2")
+    ] + [
+        {
+            "program": "Texas A&M",
+            "published_player_name": "Someone Else",
+            "jersey": "#7",
+            "canonical_contest_id": "GAME:3",
+            "player_program_contest_key": "Texas A&M|Someone Else|#7|GAME:3",
+            "identity_state": "RESOLVED_JERSEY_AND_NAME_MATCH",
+            "canonical_player_id": "SRC-002:PLAYER:9",
+        }
+    ]
+
+    def grains(self) -> dict:
+        return report_grains(
+            self.ASSERTIONS,
+            {"player_rows": 3, "stage_columns": 4, "expected_assertion_count": 3,
+             "conservation_holds": True},
+        )
+
+    def test_the_four_grains_are_reported_separately(self) -> None:
+        grains = self.grains()
+        self.assertEqual(grains["assertion_grain"]["assertions"], 3)
+        self.assertEqual(grains["source_player_row_grain"]["reported_player_rows"], 3)
+        self.assertEqual(grains["source_player_row_grain"]["stage_columns"], 4)
+        self.assertEqual(grains["player_program_contest_grain"]["unique_records"], 3)
+        self.assertEqual(grains["distinct_resolved_people"], 1)
+
+    def test_a_player_appearing_in_two_contests_is_one_source_row(self) -> None:
+        grains = self.grains()
+        self.assertEqual(grains["source_player_row_grain"]["source_player_rows"], 2)
+
+    def test_the_difference_between_published_and_distinct_rows_is_explained(
+        self,
+    ) -> None:
+        """Otherwise 61 against 63 reads as two rows that went missing."""
+        grains = self.grains()["source_player_row_grain"]
+        self.assertEqual(
+            grains["published_rows_not_distinct_on_program_name_jersey"], 1
+        )
+        duplicates = grains["duplicate_published_rows"]
+        self.assertEqual(len(duplicates), 1)
+        self.assertEqual(duplicates[0]["published_player_name"], "Andre Clarke Jr.")
+        self.assertEqual(duplicates[0]["distinct_contests"], ["GAME:1", "GAME:2"])
+
+    def test_a_missing_published_row_count_does_not_fabricate_a_difference(self) -> None:
+        grains = report_grains(self.ASSERTIONS, {})
+        self.assertIsNone(
+            grains["source_player_row_grain"][
+                "published_rows_not_distinct_on_program_name_jersey"
+            ]
+        )
+
 
 
 if __name__ == "__main__":

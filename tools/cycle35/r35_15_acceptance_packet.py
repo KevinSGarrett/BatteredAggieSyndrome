@@ -604,6 +604,104 @@ def git(args: list[str]) -> str:
     return out.stdout.strip()
 
 
+def hosted_ci_status(*, pr_number: int, head_sha: str) -> dict[str, Any]:
+    """The real, current hosted CI status at the exact candidate head, via
+    `gh`. Never assumed from a prior run's memory -- CI is re-triggered on
+    every push, and a checks list is only meaningful bound to the exact
+    commit it ran against."""
+
+    out = subprocess.run(
+        ["gh", "pr", "checks", str(pr_number), "--json",
+         "name,state,bucket,link,workflow"],
+        cwd=str(REPO_ROOT), capture_output=True, text=True, check=False,
+    )
+    if out.returncode != 0:
+        return {
+            "head_sha": head_sha,
+            "queried": False,
+            "reason": (out.stderr or out.stdout or "gh pr checks failed").strip(),
+        }
+    try:
+        checks = json.loads(out.stdout)
+    except json.JSONDecodeError:
+        return {"head_sha": head_sha, "queried": False, "reason": "unparseable gh output"}
+    by_bucket: dict[str, int] = {}
+    for row in checks:
+        bucket = str(row.get("bucket") or row.get("state") or "unknown")
+        by_bucket[bucket] = by_bucket.get(bucket, 0) + 1
+    return {
+        "head_sha": head_sha,
+        "queried": True,
+        "check_count": len(checks),
+        "by_bucket": by_bucket,
+        "all_pass": bool(checks) and all(
+            str(row.get("bucket")) == "pass" for row in checks
+        ),
+        "checks": checks,
+    }
+
+
+def minimal_decisions_required() -> list[dict[str, Any]]:
+    """Every decision this cycle's own evidence shows is genuinely stuck on
+    an authority BAS does not have -- not a wishlist, only what is actually
+    blocking a unit above."""
+
+    return [
+        {
+            "decision": "Authorize CYCLE33-APPROVAL-LAKE-SUCCESSOR-001 (or "
+            "decline it) for the isolated Family B candidate successor.",
+            "owner": "Kevin or another canonical-lake owner",
+            "blocks": ["R35-10"],
+            "why_bas_cannot_decide": "Canonical lake activation is a release "
+            "action explicitly outside this hold's authority; the isolated "
+            "candidate is complete and independently re-verified, waiting "
+            "only on this authorization.",
+        },
+        {
+            "decision": "Confirm a network-request budget (or decline) for "
+            "re-resolving the five private All-22 owner remote heads and "
+            "for downloading/qualifying the C01 v0.1.2 wheel in a private "
+            "lane.",
+            "owner": "Kevin",
+            "blocks": ["R35-12"],
+            "why_bas_cannot_decide": "This cycle is cache-first by "
+            "instruction and does not spend network budget without "
+            "specific confirmation.",
+        },
+        {
+            "decision": "Decide whether the owner (CFIP) should be asked "
+            "again for a StaffSnapshotV1 schema decision, given 4 existing "
+            "CFIP comments already carry the same field-compatibility "
+            "submission.",
+            "owner": "Kevin or the CFIP owner",
+            "blocks": ["R35-12"],
+            "why_bas_cannot_decide": "Owner adoption of a schema extension "
+            "is the owner's decision, not BAS's to make or simulate.",
+        },
+        {
+            "decision": "Confirm a network-request budget for live Jira "
+            "readback, or accept the current offline duplicate-audit-only "
+            "result as sufficient for this cycle.",
+            "owner": "Kevin",
+            "blocks": ["R35-13"],
+            "why_bas_cannot_decide": "Same cache-first constraint as above; "
+            "no live issue-tracker call is made without confirmation.",
+        },
+        {
+            "decision": "Decide whether 2024/2025 season membership "
+            "acquisition, and the remaining 10 of 48 predeclared career-"
+            "tranche keys, are worth a further acquisition budget given "
+            "diminishing evidence availability, or should stay recorded as "
+            "a permanent, disclosed gap.",
+            "owner": "Kevin",
+            "blocks": ["R35-05"],
+            "why_bas_cannot_decide": "A further acquisition spend beyond "
+            "what this cycle already authorized needs explicit sign-off, "
+            "not an assumed continuation.",
+        },
+    ]
+
+
 def build_inherited_ledger() -> dict[str, Any]:
     r34 = load_json(PACK_ROOT / "R34_REQUIREMENT_REVIEW.json") or {}
     mr33 = load_json(PACK_ROOT / "MR33_DISPOSITION_REVIEW.json") or {}
@@ -844,9 +942,30 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--validation", default="")
+    ap.add_argument("--pr", type=int, default=691)
     args = ap.parse_args()
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    head_sha = git(["rev-parse", "HEAD"])
+    ci_status = hosted_ci_status(pr_number=args.pr, head_sha=head_sha)
+    (out_dir / "CYCLE35_EXACT_HEAD_CI_STATUS.json").write_text(
+        json.dumps(ci_status, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    decisions = minimal_decisions_required()
+    (out_dir / "CYCLE35_MINIMAL_DECISIONS_REQUIRED.json").write_text(
+        json.dumps(
+            {
+                "artifact_type": "CYCLE35_MINIMAL_DECISIONS_REQUIRED",
+                "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+                "decisions": decisions,
+                "decision_count": len(decisions),
+            },
+            indent=2, sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
 
     reproduction = load_json(out_dir / "R35_01_REPRODUCTION.json") or {}
 
@@ -1048,6 +1167,13 @@ def main() -> int:
             "new_findings": len(NEW_FINDINGS),
             "unfinished_items": unfinished["item_count"],
             "git": git_state,
+            "exact_head_ci": {
+                "head_sha": ci_status["head_sha"],
+                "queried": ci_status["queried"],
+                "all_pass": ci_status.get("all_pass"),
+                "by_bucket": ci_status.get("by_bucket"),
+            },
+            "minimal_decisions_required": len(decisions),
         },
         indent=1,
     ))

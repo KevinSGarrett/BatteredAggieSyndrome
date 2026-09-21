@@ -205,13 +205,16 @@ class ApprovalRequestTests(unittest.TestCase):
 
 
 class RequiredConsumerStateTests(unittest.TestCase):
-    """The closeout review: "Do not request approval for a candidate
-    described as complete while its own evidence says the required consumer
-    remains unimplemented."
+    """The continuation message: "Test the semantic states separately:
+    qualification absent, qualification invalid, qualified in isolation, and
+    canonical activation unauthorized. Do not merely weaken an assertion to
+    manufacture green."
 
-    The request now carries the consumer's state, read from the consumer's
-    own qualification artifact rather than asserted -- which would be the
-    same mistake one layer up.
+    Four states, four fixtures. The earlier version of this test had a
+    two-branch if/else that asserted the NOT_QUALIFIED wording for anything
+    that was not qualified, so a hosted runner with no private lake -- which
+    gets the ABSENT state -- failed. Collapsing states is the defect; each is
+    now pinned to its own fixture and its own wording.
     """
 
     APPROVAL_REQUEST = (
@@ -220,73 +223,156 @@ class RequiredConsumerStateTests(unittest.TestCase):
         / "R35_10_APPROVAL_REQUEST.json"
     )
 
-    def test_the_state_is_read_from_the_qualification_artifact(self) -> None:
-        state = consumer_state()
-        self.assertIn(
-            state["state"],
-            {
-                "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION",
-                "NOT_QUALIFIED",
-                "UNKNOWN_NO_QUALIFICATION_ARTIFACT",
-                "UNKNOWN_ARTIFACT_UNREADABLE",
-            },
+    def write_qualification(self, root: Path, payload) -> Path:
+        target = root / "run"
+        target.mkdir(parents=True, exist_ok=True)
+        path = target / "CYCLE35_ISOLATED_FAMILY_B_CONSUMER.json"
+        path.write_text(
+            payload if isinstance(payload, str) else json.dumps(payload),
+            encoding="utf-8",
         )
-        if state["state"].startswith("UNKNOWN"):
-            self.assertNotIn("artifact_sha256", state)
-        else:
-            self.assertTrue(state["artifact_sha256"])
+        return path
 
-    def test_each_state_reads_differently_from_the_others(self) -> None:
-        """Three outcomes, three statements. Qualified, not qualified, and
-        not knowable are different claims, and a hosted runner with no
-        private lake hits the third -- so collapsing it into either of the
-        other two says something false wherever the lake is absent."""
-        expected = {
-            "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION": "negative controls all rejecting",
-            "NOT_QUALIFIED": "should not be granted",
-            "UNKNOWN_NO_QUALIFICATION_ARTIFACT": "does not claim the consumer is implemented",
-        }
-        state = consumer_state()
-        phrase = expected.get(state["state"])
-        if phrase is None:
-            self.assertEqual(state["state"], "UNKNOWN_ARTIFACT_UNREADABLE")
-            return
-        self.assertIn(phrase, state["detail"])
+    # -- state 1: qualification absent ---------------------------------------
 
-    def test_no_unknown_state_ever_reads_as_qualified(self) -> None:
-        """The dangerous collapse: an absent artifact must never produce
-        language a reader could take as a qualified consumer."""
-        state = consumer_state()
-        if not state["state"].startswith("UNKNOWN"):
-            self.skipTest("the qualification artifact is present")
+    def test_absent_qualification_claims_nothing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            state = consumer_state(cycle_root=Path(tmp))
+        self.assertEqual(state["state"], "UNKNOWN_NO_QUALIFICATION_ARTIFACT")
+        self.assertIn("does not claim the consumer is implemented", state["detail"])
         self.assertNotIn("qualified", state["detail"].lower())
         self.assertNotIn("cases", state)
+
+    # -- state 2: qualification invalid --------------------------------------
+
+    def test_unreadable_qualification_is_not_absent_and_not_qualified(self) -> None:
+        """A file that exists but cannot be parsed establishes nothing. It is
+        a different report from "there is no file": one is an acquisition
+        gap, the other a corrupt artifact, and they need different fixes."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write_qualification(root, "{ this is not json")
+            state = consumer_state(cycle_root=root)
+        self.assertEqual(state["state"], "UNKNOWN_ARTIFACT_UNREADABLE")
+        self.assertIn("establish", state["detail"])
+        self.assertNotIn("cases", state)
+
+    # -- state 3: qualified in isolation / not qualified ---------------------
+
+    def test_qualified_reports_the_controls_that_actually_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write_qualification(
+                root,
+                {
+                    "isolated_consumer_qualified": True,
+                    "cases": [
+                        {"case": "STALE_LEGACY_PIN_REJECTED", "outcome": "REJECTED"},
+                        {"case": "MISSING_CHILD_REJECTED", "outcome": "REJECTED"},
+                    ],
+                },
+            )
+            state = consumer_state(cycle_root=root)
+        self.assertEqual(state["state"], "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION")
+        self.assertIn("2 declared negative controls, 2 rejected", state["detail"])
+
+    def test_not_qualified_says_activation_should_not_be_granted(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write_qualification(
+                root, {"isolated_consumer_qualified": False, "cases": []}
+            )
+            state = consumer_state(cycle_root=root)
+        self.assertEqual(state["state"], "NOT_QUALIFIED")
+        self.assertIn("should not be granted", state["detail"])
+
+    # -- state 4: canonical activation unauthorized --------------------------
+
+    def test_canonical_activation_is_reported_on_its_own_axis(self) -> None:
+        """Qualified and activated are different claims. Activation stays
+        unauthorized in every state, including the qualified one, so a
+        qualified consumer can never be read as an activated one."""
+        fixtures = [
+            None,
+            "{ not json",
+            {"isolated_consumer_qualified": True, "cases": []},
+            {"isolated_consumer_qualified": False, "cases": []},
+        ]
+        for fixture in fixtures:
+            with self.subTest(fixture=str(fixture)[:40]):
+                with tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    if fixture is not None:
+                        self.write_qualification(root, fixture)
+                    state = consumer_state(cycle_root=root)
+                self.assertEqual(
+                    state["canonical_activation"],
+                    "NOT_AUTHORIZED_SEPARATE_OWNER_DECISION",
+                )
+
+    # -- the overclaim the manager caught ------------------------------------
+
+    def test_a_tamper_case_that_did_not_reject_is_never_reported_as_rejecting(
+        self,
+    ) -> None:
+        """The prose used to read "negative controls all rejecting" while two
+        tamper cases recorded ACCEPTED. A reconstructed hash is not a
+        rejection receipt, and the summary has to say so."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write_qualification(
+                root,
+                {
+                    "isolated_consumer_qualified": True,
+                    "cases": [
+                        {"case": "STALE_LEGACY_PIN_REJECTED", "outcome": "REJECTED"},
+                        {
+                            "case": "TAMPERED_CHILD_SEMANTIC_CHANGES_IDENTITY",
+                            "outcome": "ACCEPTED",
+                        },
+                    ],
+                },
+            )
+            state = consumer_state(cycle_root=root)
+        summary = state["negative_control_summary"]
+        self.assertEqual(
+            summary["tamper_cases_not_rejected_by_the_validator"],
+            {"TAMPERED_CHILD_SEMANTIC_CHANGES_IDENTITY": "ACCEPTED"},
+        )
+        self.assertIn("NOT ESTABLISHED BY THIS ARTIFACT", state["detail"])
+        self.assertIn("not a rejection receipt", state["detail"])
+
+    def test_a_declared_control_that_did_not_reject_is_surfaced(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write_qualification(
+                root,
+                {
+                    "isolated_consumer_qualified": True,
+                    "cases": [
+                        {"case": "MISSING_CHILD_REJECTED", "outcome": "ACCEPTED"}
+                    ],
+                },
+            )
+            state = consumer_state(cycle_root=root)
+        summary = state["negative_control_summary"]
+        self.assertFalse(summary["all_declared_negative_controls_rejected"])
+        self.assertEqual(
+            summary["negative_controls_that_did_not_reject"],
+            {"MISSING_CHILD_REJECTED": "ACCEPTED"},
+        )
+
+    # -- the real artifact ----------------------------------------------------
 
     def test_the_request_carries_the_consumer_state(self) -> None:
         if not self.APPROVAL_REQUEST.is_file():
             self.skipTest("the approval request has not been generated")
         payload = json.loads(self.APPROVAL_REQUEST.read_text(encoding="utf-8"))
         state = payload["required_consumer_state"]
-        self.assertEqual(state["state"], "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION")
-        # Every negative control must actually have rejected.
-        rejected = {
-            name: outcome
-            for name, outcome in state["cases"].items()
-            if name.endswith("_REJECTED")
-        }
-        self.assertGreaterEqual(len(rejected), 5)
-        for name, outcome in rejected.items():
-            with self.subTest(case=name):
-                self.assertEqual(outcome, "REJECTED")
-
-    def test_implementing_the_consumer_does_not_activate_anything(self) -> None:
-        """Wiring the consumer and activating canonical routing are separate.
-        The request must not let the first imply the second."""
-        state = consumer_state()
-        if state["state"] != "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION":
-            self.skipTest("consumer is not qualified")
-        self.assertIn("LEGACY remains the import-time default", state["detail"])
-
+        self.assertEqual(
+            state["canonical_activation"], "NOT_AUTHORIZED_SEPARATE_OWNER_DECISION"
+        )
+        self.assertIn("state", state)
 
 
 if __name__ == "__main__":

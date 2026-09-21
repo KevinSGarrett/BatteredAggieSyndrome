@@ -60,7 +60,40 @@ APPROVAL_ID = "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001"
 CANDIDATE_KIND = "BAS-CYCLE35-FAMILY-B-CANDIDATE-SUCCESSOR"
 
 
-def consumer_state() -> dict[str, Any]:
+#: Canonical activation is not a property of the candidate. It is an owner
+#: decision, and it is reported as its own axis so that a qualified consumer
+#: can never be read as an activated one.
+CANONICAL_ACTIVATION_STATE = "NOT_AUTHORIZED_SEPARATE_OWNER_DECISION"
+
+
+def _negative_control_summary(cases: dict[str, str]) -> dict[str, Any]:
+    """What the recorded cases actually show, not what the prose claimed.
+
+    A case whose NAME says it is a negative control but whose OUTCOME is
+    ACCEPTED did not reject anything. The earlier narrative here read "all
+    negative controls rejecting" while two tamper cases recorded ACCEPTED,
+    which is the kind of claim this summary exists to make impossible.
+    """
+
+    expected_reject = {
+        name: outcome for name, outcome in cases.items() if name.endswith("_REJECTED")
+    }
+    rejected = {n: o for n, o in expected_reject.items() if o == "REJECTED"}
+    did_not_reject = {n: o for n, o in expected_reject.items() if o != "REJECTED"}
+    # Tamper cases are named for what they tamper with, not for an outcome.
+    tamper = {name: outcome for name, outcome in cases.items() if "TAMPER" in name}
+    tamper_not_rejected = {n: o for n, o in tamper.items() if o != "REJECTED"}
+    return {
+        "negative_controls_declared": len(expected_reject),
+        "negative_controls_that_rejected": len(rejected),
+        "negative_controls_that_did_not_reject": did_not_reject,
+        "tamper_cases": tamper,
+        "tamper_cases_not_rejected_by_the_validator": tamper_not_rejected,
+        "all_declared_negative_controls_rejected": not did_not_reject,
+    }
+
+
+def consumer_state(cycle_root: Path | None = None) -> dict[str, Any]:
     """Whether the successor's required consumer is actually wired.
 
     The closeout review: "Do not request approval for a candidate described
@@ -69,10 +102,20 @@ def consumer_state() -> dict[str, Any]:
     It is answered by reading the isolated consumer's own qualification
     artifact -- asserting it from memory would be the same mistake one layer
     up.
+
+    Four states are kept apart, because an owner reading this needs to tell
+    them apart: the qualification artifact is ABSENT, it is UNREADABLE, the
+    consumer is NOT_QUALIFIED, or it is QUALIFIED IN ISOLATION. Canonical
+    activation is reported on its own axis and is never implied by any of
+    them.
+
+    `cycle_root` is explicit so every state can be exercised against a
+    fixture. Without it the search always reaches the real lake, and the
+    absent and unreadable branches are unreachable in a test.
     """
 
+    runs = (MOUNTED_LAKE / "ops" / "cycle35" / "runs") if cycle_root is None else cycle_root
     newest: tuple[float, Path] | None = None
-    runs = MOUNTED_LAKE / "ops" / "cycle35" / "runs"
     for path in runs.rglob("CYCLE35_ISOLATED_FAMILY_B_CONSUMER.json"):
         if {"site-packages", "__pycache__", ".git"}.intersection(path.parts):
             continue
@@ -82,8 +125,11 @@ def consumer_state() -> dict[str, Any]:
             continue
         if newest is None or stamp > newest[0]:
             newest = (stamp, path)
+
+    base = {"canonical_activation": CANONICAL_ACTIVATION_STATE}
     if newest is None:
         return {
+            **base,
             "state": "UNKNOWN_NO_QUALIFICATION_ARTIFACT",
             "detail": "No isolated-consumer qualification artifact was found, "
             "so this request does not claim the consumer is implemented.",
@@ -91,27 +137,55 @@ def consumer_state() -> dict[str, Any]:
     try:
         payload = json.loads(newest[1].read_text(encoding="utf-8"))
     except (OSError, ValueError) as error:
-        return {"state": "UNKNOWN_ARTIFACT_UNREADABLE", "detail": str(error)}
+        return {
+            **base,
+            "state": "UNKNOWN_ARTIFACT_UNREADABLE",
+            "artifact": str(newest[1]),
+            "detail": "The qualification artifact exists but could not be read, "
+            f"so its contents establish nothing: {error}",
+        }
 
-    cases = payload.get("cases") or []
+    cases = {
+        str(case.get("case")): str(case.get("outcome"))
+        for case in (payload.get("cases") or [])
+    }
+    controls = _negative_control_summary(cases)
     qualified = bool(payload.get("isolated_consumer_qualified"))
+
+    if qualified:
+        detail = (
+            "The successor's BAT-637 dependency is resolved through a versioned "
+            "authority derived from the declaring contract. Of "
+            f"{controls['negative_controls_declared']} declared negative "
+            f"controls, {controls['negative_controls_that_rejected']} rejected. "
+            "LEGACY remains the import-time default, so nothing is activated by "
+            "this being implemented."
+        )
+        if controls["tamper_cases_not_rejected_by_the_validator"]:
+            detail += (
+                " NOT ESTABLISHED BY THIS ARTIFACT: "
+                + ", ".join(sorted(controls["tamper_cases_not_rejected_by_the_validator"]))
+                + " recorded an outcome other than REJECTED, so this artifact "
+                "does not show the actual validator refusing a tampered "
+                "candidate. A reconstructed hash is not a rejection receipt."
+            )
+    else:
+        detail = (
+            "The consumer is not qualified; activation should not be granted "
+            "on the strength of this request."
+        )
+
     return {
+        **base,
         "state": "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION"
         if qualified
         else "NOT_QUALIFIED",
         "artifact": str(newest[1]),
         "artifact_sha256": hashlib.sha256(newest[1].read_bytes()).hexdigest(),
-        "cases": {str(case.get("case")): str(case.get("outcome")) for case in cases},
-        "detail": (
-            "The successor's BAT-637 dependency is resolved through a "
-            "versioned authority derived from the declaring contract, with "
-            "stale, unknown, mixed, malformed, missing and tampered negative "
-            "controls all rejecting. LEGACY remains the import-time default, "
-            "so nothing is activated by this being implemented."
-            if qualified
-            else "The consumer is not qualified; activation should not be "
-            "granted on the strength of this request."
-        ),
+        "cases": cases,
+        "negative_control_summary": controls,
+        "ledger_identity_exercised": payload.get("ledger_identity_exercised"),
+        "detail": detail,
     }
 
 

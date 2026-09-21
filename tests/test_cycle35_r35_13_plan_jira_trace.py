@@ -148,8 +148,14 @@ class EvidencePresenceCheckTests(unittest.TestCase):
     def test_real_run_output_evidence_is_all_present(self) -> None:
         """Real-data reproduction: the default run-output directory this
         tool actually reads names files that genuinely exist there right
-        now."""
+        now. Skipped where the mounted private run-output directory is not
+        present at all (e.g. hosted CI, which has no private data mount) --
+        an absent mount is a real, different, and already-disclosed state,
+        not the same as evidence being missing from a present mount."""
         from r35_13_plan_jira_trace import RUN_OUTPUT_DEFAULT
+
+        if not RUN_OUTPUT_DEFAULT.is_dir():
+            self.skipTest("mounted run-output directory not present")
 
         adjudications = self._adjudicate(RUN_OUTPUT_DEFAULT)
         missing = [

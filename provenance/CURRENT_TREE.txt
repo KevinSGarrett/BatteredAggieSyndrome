@@ -4832,6 +4832,7 @@ tools/cycle35/r35_13_plan_jira_trace.py
 tools/cycle35/r35_14_validation_results.py
 tools/cycle35/r35_15_acceptance_packet.py
 tools/cycle35/r35_15_final_report.py
+tools/cycle35/r35_16_validation_packet_successor.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -80,8 +81,10 @@ def discover_clones(root: Path) -> list[dict[str, Any]]:
         key = str(work).casefold()
         if key in seen:
             continue
-        # Skip nested checkouts inside an already-recorded one.
-        if any(key.startswith(prev + "\\") for prev in seen):
+        # Skip nested checkouts inside an already-recorded one. A hardcoded
+        # "\\" here only matches on Windows; os.sep keeps this correct on
+        # the Linux hosted-CI runner too.
+        if any(key.startswith(prev + os.sep) for prev in seen):
             continue
         seen.add(key)
         head = git(["rev-parse", "HEAD"], work)

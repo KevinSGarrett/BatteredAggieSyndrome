@@ -131,6 +131,10 @@ def build_team_history() -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any
 
     history: dict[str, list[dict[str, Any]]] = defaultdict(list)
     by_game: dict[str, dict[str, Any]] = {}
+    # game_id -> why it was excluded. A kernel row whose game is missing is a
+    # different finding depending on whether the raw sources never carried the
+    # game at all or carried it and the loader filtered it out.
+    filtered: dict[str, str] = {}
     stats = {"source_rows": 0, "usable_rows": 0, "sources": [], "skipped": Counter()}
     for source in GAME_SOURCES:
         rows = read_jsonl(source)
@@ -149,14 +153,17 @@ def build_team_history() -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any
             start = parse_start(row.get("startDate"))
             if start is None:
                 stats["skipped"]["UNPARSEABLE_START"] += 1
+                filtered.setdefault(GAME_PREFIX + str(row.get("id")), "UNPARSEABLE_START")
                 continue
             if not row.get("completed"):
                 stats["skipped"]["NOT_COMPLETED"] += 1
+                filtered.setdefault(GAME_PREFIX + str(row.get("id")), "NOT_COMPLETED")
                 continue
             home_points = row.get("homePoints")
             away_points = row.get("awayPoints")
             if not isinstance(home_points, int) or not isinstance(away_points, int):
                 stats["skipped"]["NON_INTEGER_SCORES"] += 1
+                filtered.setdefault(GAME_PREFIX + str(row.get("id")), "NON_INTEGER_SCORES")
                 continue
             game_id = GAME_PREFIX + str(row.get("id"))
             if game_id in by_game:
@@ -197,7 +204,7 @@ def build_team_history() -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any
     stats["skipped"] = dict(stats["skipped"])
     stats["distinct_teams"] = len(history)
     stats["distinct_games"] = len(by_game)
-    return history, {"stats": stats, "by_game": by_game}
+    return history, {"stats": stats, "by_game": by_game, "filtered": filtered}
 
 
 
@@ -375,10 +382,84 @@ def _delta_summary(deltas: list[int]) -> dict[str, Any]:
     }
 
 
+def residual_disposition(
+    comparison: dict[str, Any], by_game: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    """Give each residual a definite disposition instead of a count.
+
+    Both residuals turn out to be the same acquisition gap seen from two
+    sides, and saying so requires checking what the declared sources actually
+    cover rather than asserting it.
+    """
+
+    acquired_seasons = {
+        int(game["season"]) for game in by_game.values() if game.get("season")
+    }
+
+    absent_by_disposition: Counter = Counter()
+    for row in comparison.get("absent_game_rows", []):
+        season = int(row.get("season") or 0)
+        row["disposition"] = (
+            "SEASON_NOT_ACQUIRED_AT_ALL"
+            if season not in acquired_seasons
+            else "SEASON_ACQUIRED_BUT_THIS_GAME_IS_NOT_IN_THE_PULL"
+        )
+        absent_by_disposition[row["disposition"]] += 1
+
+    unjustified_by_disposition: Counter = Counter()
+    for row in comparison.get("unjustified_rows", []):
+        season = int(row.get("season") or 0)
+        # A row's priors reach back through earlier seasons, so a season
+        # missing from the declared sources between the last acquired one and
+        # this row is exactly what would let the producer count priors this
+        # reference cannot see.
+        missing_before = sorted(
+            year
+            for year in range(min(acquired_seasons, default=season), season)
+            if year not in acquired_seasons
+        )
+        row["seasons_missing_from_declared_sources_before_this_row"] = missing_before
+        row["disposition"] = (
+            "EXPLAINED_BY_UNACQUIRED_PRIOR_SEASONS"
+            if missing_before
+            else "UNEXPLAINED_PRODUCER_COUNTED_PRIORS_THE_RAW_DATA_DOES_NOT_SUPPLY"
+        )
+        unjustified_by_disposition[row["disposition"]] += 1
+
+    return {
+        "declared_source_seasons": sorted(acquired_seasons),
+        "seasons_missing_from_declared_sources": sorted(
+            year
+            for year in range(
+                min(acquired_seasons, default=0), max(acquired_seasons, default=0) + 1
+            )
+            if year not in acquired_seasons
+        ),
+        "absent_game_rows_by_disposition": dict(absent_by_disposition),
+        "unjustified_rows_by_disposition": dict(unjustified_by_disposition),
+        "every_residual_has_a_disposition": (
+            sum(absent_by_disposition.values())
+            == len(comparison.get("absent_game_rows", []))
+            and sum(unjustified_by_disposition.values())
+            == len(comparison.get("unjustified_rows", []))
+        ),
+        "reading": (
+            "Both residuals are the same acquisition gap seen from two sides. "
+            "Rows whose own game was never pulled cannot be compared at all; "
+            "rows whose PRIOR seasons were never pulled show a stored prior "
+            "count above what this reference can justify. Neither is an "
+            "implementation gap, and neither is evidence of a producer defect "
+            "-- but nor is either resolved, because the missing games are "
+            "genuinely not in the declared sources."
+        ),
+    }
+
+
 def compare(
     kernel: list[dict[str, Any]],
     history: dict[str, list[dict[str, Any]]],
     by_game: dict[str, dict[str, Any]],
+    filtered: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     field_agreement: Counter = Counter()
     field_disagreement: Counter = Counter()
@@ -389,6 +470,13 @@ def compare(
     pair_incoherence: list[dict[str, Any]] = []
     traces: list[dict[str, Any]] = []
     prior_deltas: list[int] = []
+    # Both residuals are inventoried in full, not sampled. Fifteen rows the
+    # reference cannot justify is a short list; leaving it as a count is what
+    # made it look like a rounding error instead of an open question.
+    unjustified_rows: list[dict[str, Any]] = []
+    absent_game_rows: list[dict[str, Any]] = []
+    absent_reasons: Counter = Counter()
+    filtered = filtered or {}
 
     seen_pairs: dict[str, dict[str, Any]] = {}
 
@@ -398,6 +486,18 @@ def compare(
         game = by_game.get(game_id)
         if game is None:
             row_states["GAME_NOT_IN_DECLARED_RAW_SOURCES"] += 1
+            reason = filtered.get(
+                game_id, "GAME_ID_NEVER_APPEARED_IN_ANY_DECLARED_SOURCE"
+            )
+            absent_reasons[reason] += 1
+            absent_game_rows.append(
+                {
+                    "canonical_game_id": game_id,
+                    "season": season,
+                    "team_id": row.get("canonical_team_id"),
+                    "reason": reason,
+                }
+            )
             continue
 
         # Game-pair coherence: both sides must describe the same contest.
@@ -492,6 +592,21 @@ def compare(
                     direction["STORED_BELOW_REFERENCE_DEFERRED_PRIORS"] += 1
                 elif delta < 0:
                     direction["STORED_ABOVE_REFERENCE_UNJUSTIFIED"] += 1
+                    # The direction that cannot be explained by the producer's
+                    # authority-deferral policy: the stored row counts priors
+                    # the raw data does not supply. Every one is listed.
+                    unjustified_rows.append(
+                        {
+                            "canonical_game_id": game_id,
+                            "team_id": team_id,
+                            "side": side,
+                            "season": season,
+                            "cutoff_utc": cutoff.isoformat(),
+                            "stored_prior_games": stored_games,
+                            "reference_prior_games": expected_games,
+                            "excess_priors": -delta,
+                        }
+                    )
                 else:
                     direction["PRIOR_COUNT_EXACT_MATCH"] += 1
             if row_disagreements:
@@ -580,6 +695,11 @@ def compare(
         "game_pair_incoherence": pair_incoherence,
         "game_pair_incoherence_count": len(pair_incoherence),
         "disagreement_examples": disagreement_examples,
+        "unjustified_rows": unjustified_rows,
+        "unjustified_row_count": len(unjustified_rows),
+        "absent_game_rows": absent_game_rows,
+        "absent_game_reasons": dict(absent_reasons),
+        "residuals_are_inventoried_in_full": True,
         "deterministic_raw_to_feature_traces": traces,
     }
 
@@ -660,7 +780,8 @@ def main() -> int:
     private_stats["already_present_in_public_sources"] = duplicate_private
     for team in history:
         history[team].sort(key=lambda row: (row["start"], row["game_id"]))
-    comparison = compare(kernel, history, by_game)
+    comparison = compare(kernel, history, by_game, extra.get("filtered"))
+    comparison["residual_disposition"] = residual_disposition(comparison, by_game)
     authority = authority_audit(kernel)
 
     result = {

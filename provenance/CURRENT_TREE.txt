@@ -4285,6 +4285,7 @@ tests/test_cycle34_r34_09_population_reconciliation.py
 tests/test_cycle34_r34_10_bat637_candidate_recompute.py
 tests/test_cycle34_r34_10_child_byte_verification.py
 tests/test_cycle35_closeout_validation_lanes.py
+tests/test_cycle35_family_b_versioned_consumer.py
 tests/test_cycle35_r35_02_04_07_08_admission.py
 tests/test_cycle35_r35_03_coaching_release.py
 tests/test_cycle35_r35_03_entailment_independent.py
@@ -4842,6 +4843,7 @@ tools/cycle35/r35_17_cycle_request_ledger.py
 tools/cycle35/r35_18_mounted_lane_receipt.py
 tools/cycle35/r35_19_private_data_lanes.py
 tools/cycle35/r35_20_deterministic_release_replay.py
+tools/cycle35/r35_21_isolated_family_b_consumer.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

@@ -22,6 +22,10 @@ from typing import Any
 
 PACK_ROOT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle35")
 REPO_ROOT = Path(__file__).resolve().parents[2]
+CYCLE_RUNS = PACK_ROOT / "runs"
+SKIP_DIRECTORY_NAMES = frozenset(
+    {"wheel_venv", "Lib", "site-packages", "Scripts", "__pycache__", ".git"}
+)
 
 DIM_IMPLEMENTATION = "implementation_local"
 DIM_DATA = "data_evidence"
@@ -641,6 +645,33 @@ def hosted_ci_status(*, pr_number: int, head_sha: str) -> dict[str, Any]:
     }
 
 
+def load_evidence_graph_reconciliation() -> dict[tuple[str, str], dict[str, Any]]:
+    """The reconciled category for each unfinished item, keyed by (unit,
+    blocker). Empty when the graph has not been generated, which is reported
+    on every item rather than silently leaving them uncategorised."""
+
+    newest: tuple[float, Path] | None = None
+    for path in CYCLE_RUNS.rglob("CYCLE35_EVIDENCE_GRAPH.json"):
+        if SKIP_DIRECTORY_NAMES.intersection(path.parts):
+            continue
+        try:
+            stamp = path.stat().st_mtime
+        except OSError:
+            continue
+        if newest is None or stamp > newest[0]:
+            newest = (stamp, path)
+    if newest is None:
+        return {}
+    try:
+        payload = json.loads(newest[1].read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return {
+        (str(item.get("requirement")), str(item.get("blocker"))): item
+        for item in payload.get("unfinished_reconciliation", {}).get("items", [])
+    }
+
+
 def minimal_decisions_required() -> list[dict[str, Any]]:
     """Every decision this cycle's own evidence shows is genuinely stuck on
     an authority BAS does not have -- not a wishlist, only what is actually
@@ -1024,11 +1055,16 @@ def main() -> int:
         json.dumps(evidence_map, indent=2, sort_keys=True), encoding="utf-8"
     )
 
-    unfinished = {
-        "artifact_type": "CYCLE35_UNFINISHED_ITEMS",
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "items": [
-            {
+    # The blocker list is a fixed dictionary written by hand, so it is not
+    # the authority on whether a blocker is still real. Each item carries the
+    # evidence graph's reconciliation -- the category it was placed in after
+    # being checked against a delivered artifact -- alongside its ORIGINAL
+    # text, which is never edited or dropped.
+    reconciliation = load_evidence_graph_reconciliation()
+    items = []
+    for unit_id, unit in R35_UNITS.items():
+        for blocker in unit["blockers"]:
+            item = {
                 "requirement": unit_id,
                 "blocker": blocker,
                 "kind": "EXTERNAL_AUTHORITY"
@@ -1037,9 +1073,31 @@ def main() -> int:
                 if "network" in blocker.lower()
                 else "LOCAL_WORK_REMAINING",
             }
-            for unit_id, unit in R35_UNITS.items()
-            for blocker in unit["blockers"]
-        ],
+            reconciled = reconciliation.get((unit_id, blocker))
+            if reconciled:
+                item["reconciled_category"] = reconciled.get("category")
+                item["reconciled_finding"] = reconciled.get("finding")
+                item["checked_against"] = reconciled.get("checked_against")
+            else:
+                item["reconciled_category"] = "NOT_RECONCILED_NO_EVIDENCE_GRAPH_ENTRY"
+            items.append(item)
+
+    by_category: dict[str, int] = {}
+    for item in items:
+        key = str(item["reconciled_category"])
+        by_category[key] = by_category.get(key, 0) + 1
+
+    unfinished = {
+        "artifact_type": "CYCLE35_UNFINISHED_ITEMS",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "items": items,
+        "by_reconciled_category": by_category,
+        "the_blocker_list_is_not_its_own_authority": (
+            "Every blocker below is reproduced verbatim from the declared "
+            "unit list and none was deleted or reworded. Whether it is still "
+            "real is answered by the evidence graph, which checks each one "
+            "against a delivered artifact."
+        ),
     }
     unfinished["item_count"] = len(unfinished["items"])
     (out_dir / "CYCLE35_UNFINISHED_ITEMS.json").write_text(

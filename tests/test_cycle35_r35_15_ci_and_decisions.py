@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT))
 from tools.cycle35.r35_15_acceptance_packet import (  # noqa: E402
     R35_UNITS,
     hosted_ci_status,
+    load_evidence_graph_reconciliation,
     minimal_decisions_required,
 )
 
@@ -102,6 +103,63 @@ class MinimalDecisionsRequiredTests(unittest.TestCase):
                 ),
                 row,
             )
+
+
+
+
+class UnfinishedItemReconciliationTests(unittest.TestCase):
+    """The closeout review: "Do not use fixed narrative status dictionaries
+    as authority... Reconcile each entry with delivered evidence; do not
+    simply delete the list or relabel its contents."
+
+    R35_UNITS is exactly such a fixed dictionary. It stays the source of the
+    blocker TEXT -- nothing is deleted or reworded -- but the evidence graph,
+    which checks each blocker against a delivered artifact, is what says
+    whether it is still real.
+    """
+
+    def test_every_declared_blocker_is_reconciled_against_evidence(self) -> None:
+        reconciliation = load_evidence_graph_reconciliation()
+        if not reconciliation:
+            self.skipTest("the evidence graph has not been generated")
+        missing = [
+            (unit_id, blocker)
+            for unit_id, unit in R35_UNITS.items()
+            for blocker in unit["blockers"]
+            if (unit_id, blocker) not in reconciliation
+        ]
+        self.assertEqual(missing, [], f"unreconciled blockers: {missing}")
+
+    def test_the_reconciliation_carries_a_category_for_each_entry(self) -> None:
+        reconciliation = load_evidence_graph_reconciliation()
+        if not reconciliation:
+            self.skipTest("the evidence graph has not been generated")
+        for key, item in reconciliation.items():
+            with self.subTest(key=key):
+                self.assertTrue(item.get("category"))
+
+    def test_a_missing_graph_yields_no_silent_categorisation(self) -> None:
+        """With no graph the items must come back uncategorised rather than
+        defaulting to a category nothing checked."""
+        import tools.cycle35.r35_15_acceptance_packet as packet
+
+        original = packet.CYCLE_RUNS
+        try:
+            packet.CYCLE_RUNS = Path(__file__).resolve().parent / "no_such_directory"
+            self.assertEqual(packet.load_evidence_graph_reconciliation(), {})
+        finally:
+            packet.CYCLE_RUNS = original
+
+    def test_no_blocker_text_was_edited_to_make_it_resolvable(self) -> None:
+        """A blocker that was reworded to match a repair would make the
+        reconciliation trivially true."""
+        reconciliation = load_evidence_graph_reconciliation()
+        if not reconciliation:
+            self.skipTest("the evidence graph has not been generated")
+        for (unit_id, blocker), item in reconciliation.items():
+            with self.subTest(unit=unit_id):
+                self.assertIn(blocker, R35_UNITS[unit_id]["blockers"])
+                self.assertEqual(item["blocker"], blocker)
 
 
 if __name__ == "__main__":

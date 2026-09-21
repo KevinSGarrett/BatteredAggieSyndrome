@@ -4294,6 +4294,7 @@ tests/test_cycle35_r35_06_legacy_path_hardening.py
 tests/test_cycle35_r35_06_query_adapter.py
 tests/test_cycle35_r35_07_status_staleness.py
 tests/test_cycle35_r35_08_career_tranche_era.py
+tests/test_cycle35_r35_08_national_neutral_site.py
 tests/test_cycle35_r35_09_kernel_reference.py
 tests/test_cycle35_r35_10_family_b_candidate.py
 tests/test_cycle35_r35_10_validation_integrity.py
@@ -4816,6 +4817,7 @@ tools/cycle35/r35_05_career_tranche.py
 tools/cycle35/r35_05_national_coverage_census.py
 tools/cycle35/r35_05_resolve_missing_keys.py
 tools/cycle35/r35_07_canonical_finals_replay.py
+tools/cycle35/r35_08_national_neutral_site_cohort.py
 tools/cycle35/r35_09_independent_kernel_reference.py
 tools/cycle35/r35_09_pit_feasibility.py
 tools/cycle35/r35_10_family_b_candidate_successor.py

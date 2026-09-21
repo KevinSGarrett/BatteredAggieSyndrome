@@ -689,15 +689,21 @@ def minimal_decisions_required() -> list[dict[str, Any]]:
             "only on this authorization.",
         },
         {
+            # Narrowed: the five remote heads were re-resolved on 2026-09-20
+            # at 14:35 with zero failures, so asking for budget to do it
+            # again would be asking for a decision already carried out.
             "decision": "Confirm a network-request budget (or decline) for "
-            "re-resolving the five private All-22 owner remote heads and "
-            "for downloading/qualifying the C01 v0.1.2 wheel in a private "
+            "downloading and qualifying the C01 v0.1.2 wheel in a private "
             "lane.",
             "owner": "Kevin",
             "blocks": ["R35-12"],
             "why_bas_cannot_decide": "This cycle is cache-first by "
             "instruction and does not spend network budget without "
             "specific confirmation.",
+            "already_done_not_part_of_this_decision": "Re-resolving the five "
+            "private All-22 owner remote heads. All five were re-resolved "
+            "with 0 failures and are recorded as BAS-verified in "
+            "CYCLE35_ALL22_REMOTE_HEADS_REFRESHED.json.",
         },
         {
             "decision": "Decide whether the owner (CFIP) should be asked "
@@ -710,13 +716,20 @@ def minimal_decisions_required() -> list[dict[str, Any]]:
             "is the owner's decision, not BAS's to make or simulate.",
         },
         {
-            "decision": "Confirm a network-request budget for live Jira "
-            "readback, or accept the current offline duplicate-audit-only "
-            "result as sufficient for this cycle.",
+            # Narrowed: a live readback of 11 issues exists at
+            # 2026-09-20T19:40:12Z. The open question is freshness, not
+            # absence -- describing it as "offline duplicate-audit-only"
+            # would understate what is already bound.
+            "decision": "Accept the existing live Jira readback (11 issues, "
+            "2026-09-20T19:40:12Z) as current for this cycle, or confirm a "
+            "network-request budget for a fresh one.",
             "owner": "Kevin",
             "blocks": ["R35-13"],
-            "why_bas_cannot_decide": "Same cache-first constraint as above; "
+            "why_bas_cannot_decide": "Whether a readback is still current "
+            "enough is a judgement about the tracker's rate of change, and "
             "no live issue-tracker call is made without confirmation.",
+            "already_done_not_part_of_this_decision": "The readback itself. "
+            "CYCLE35_JIRA_LIVE_READBACK.json binds 11 issues.",
         },
         {
             "decision": "Decide whether 2024/2025 season membership "

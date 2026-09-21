@@ -11,6 +11,7 @@ existing packet assembly did not produce. These are their first tests.
 
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -160,6 +161,67 @@ class UnfinishedItemReconciliationTests(unittest.TestCase):
             with self.subTest(unit=unit_id):
                 self.assertIn(blocker, R35_UNITS[unit_id]["blockers"])
                 self.assertEqual(item["blocker"], blocker)
+
+
+class DecisionsAreNotAlreadyDoneTests(unittest.TestCase):
+    """The closeout review asks for "only the genuine remaining external
+    decisions". Asking an owner to fund work that already happened is not
+    one, and it makes the list look longer than the obligation is.
+    """
+
+    CYCLE_RUNS = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs")
+
+    def newest(self, name: str) -> Path | None:
+        found = [
+            path
+            for path in self.CYCLE_RUNS.rglob(name)
+            if "site-packages" not in str(path)
+        ]
+        return max(found, key=lambda p: p.stat().st_mtime) if found else None
+
+    def test_no_decision_asks_to_re_resolve_the_remote_heads(self) -> None:
+        artifact = self.newest("CYCLE35_ALL22_REMOTE_HEADS_REFRESHED.json")
+        if artifact is None:
+            self.skipTest("remote-head refresh artifact is not mounted")
+        payload = json.loads(artifact.read_text(encoding="utf-8"))
+        if not payload.get("reresolved_count"):
+            self.skipTest("no re-resolution was recorded")
+        for decision in minimal_decisions_required():
+            with self.subTest(decision=decision["decision"][:40]):
+                self.assertNotIn("re-resolving the five", decision["decision"])
+
+    def test_no_decision_describes_the_jira_result_as_offline_only(self) -> None:
+        artifact = self.newest("CYCLE35_JIRA_LIVE_READBACK.json")
+        if artifact is None:
+            self.skipTest("jira readback artifact is not mounted")
+        if not json.loads(artifact.read_text(encoding="utf-8")).get("issues"):
+            self.skipTest("no readback issues were recorded")
+        for decision in minimal_decisions_required():
+            with self.subTest(decision=decision["decision"][:40]):
+                self.assertNotIn("offline duplicate-audit-only", decision["decision"])
+
+    def test_a_narrowed_decision_records_what_was_already_done(self) -> None:
+        """Narrowing without saying what was removed would look like the
+        obligation was quietly dropped."""
+        narrowed = [
+            decision
+            for decision in minimal_decisions_required()
+            if "already_done_not_part_of_this_decision" in decision
+        ]
+        self.assertGreaterEqual(len(narrowed), 2)
+        for decision in narrowed:
+            with self.subTest(decision=decision["decision"][:40]):
+                self.assertTrue(
+                    decision["already_done_not_part_of_this_decision"].strip()
+                )
+
+    def test_every_decision_still_names_an_owner_and_what_it_blocks(self) -> None:
+        for decision in minimal_decisions_required():
+            with self.subTest(decision=decision["decision"][:40]):
+                self.assertTrue(decision["owner"].strip())
+                self.assertTrue(decision["blocks"])
+                self.assertTrue(decision["why_bas_cannot_decide"].strip())
+
 
 
 if __name__ == "__main__":

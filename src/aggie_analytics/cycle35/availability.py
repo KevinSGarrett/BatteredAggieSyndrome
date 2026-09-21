@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from typing import Any, Iterable, Mapping, Sequence
 
 CONTRACT_VERSION = "BAS-AVAILABILITY-EVIDENCE-v35.1"
@@ -290,6 +290,17 @@ class ReportOpportunity:
     outcome: str
     detail: str = ""
     evidence_paths: tuple[str, ...] = field(default_factory=tuple)
+    #: The grain this key is actually defined at. A program-season policy
+    #: record is NOT a per-game report opportunity, and conflating the two
+    #: is how a program policy became a claimed report.
+    declared_period: str = "UNDECLARED"
+    grain: str = "PROGRAM_DECLARED_PERIOD_POLICY"
+    #: POLICY_RECORD, GAME_REPORT or NONE -- policy evidence and
+    #: game-specific report evidence are different things.
+    evidence_kind: str = "NONE"
+    #: Every declared path was resolved on disk when this key was built.
+    evidence_verified: bool = False
+    vintage: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -301,6 +312,11 @@ class ReportOpportunity:
             "outcome": self.outcome,
             "detail": self.detail,
             "evidence_paths": list(self.evidence_paths),
+            "declared_period": self.declared_period,
+            "grain": self.grain,
+            "evidence_kind": self.evidence_kind,
+            "evidence_verified": self.evidence_verified,
+            "vintage": self.vintage,
             "retained_in_denominator": True,
             "no_report_means": "UNKNOWN",
         }
@@ -310,6 +326,18 @@ OUTCOME_EVIDENCE = "REPORT_EVIDENCE_PRESENT"
 OUTCOME_POLICY_NO_REPORT = "POLICY_PUBLISHES_NO_REPORT"
 OUTCOME_BLOCKED = "ROUTE_BLOCKED_OR_UNATTEMPTED"
 OUTCOME_UNKNOWN_POLICY = "POLICY_UNKNOWN"
+#: A documented policy exists and was attempted, but no locatable
+#: game-specific report evidence backs it. Previously these were labelled
+#: REPORT_EVIDENCE_PRESENT on the strength of an inventory label alone.
+OUTCOME_POLICY_EVIDENCE_ONLY = "POLICY_EVIDENCE_ONLY_NO_LOCATABLE_REPORT"
+#: The route was never attempted. Distinct from an attempted-and-blocked
+#: route: "not attempted" is not evidence about what the source publishes.
+OUTCOME_NOT_ATTEMPTED = "ROUTE_NOT_ATTEMPTED"
+#: Per-program policy variation. It does NOT establish that no report is
+#: published -- only that a conference-wide one is not established.
+OUTCOME_POLICY_VARIES_UNKNOWN = "POLICY_VARIES_PER_PROGRAM_REPORT_UNKNOWN"
+#: A declared evidence path that does not resolve on disk.
+OUTCOME_EVIDENCE_DECLARED_BUT_UNLOCATABLE = "EVIDENCE_DECLARED_BUT_UNLOCATABLE"
 
 
 def stage_vintage_ordinal(stage: str) -> int | None:
@@ -348,10 +376,95 @@ def _normalize_jersey(value: Any) -> int | None:
 
 ROSTER_NOT_LOCALLY_AVAILABLE = "ROSTER_NOT_LOCALLY_AVAILABLE"
 RESOLVED_JERSEY_AND_NAME_MATCH = "RESOLVED_JERSEY_AND_NAME_MATCH"
-RESOLVED_NAME_ONLY_MATCH = "RESOLVED_NAME_ONLY_MATCH"
+#: A jersey number shared by several roster rows, broken by name evidence.
+RESOLVED_JERSEY_COLLISION_BROKEN_BY_NAME = "RESOLVED_JERSEY_COLLISION_BROKEN_BY_NAME"
+#: A surname-only agreement with no corroborating jersey. This is NOT a
+#: resolution: it never yields a canonical_player_id, because a surname
+#: alone does not identify a person on a football roster.
+UNRESOLVED_NAME_ONLY_NOT_CORROBORATED = "UNRESOLVED_NAME_ONLY_NOT_CORROBORATED"
 UNRESOLVED_NO_ROSTER_MATCH = "UNRESOLVED_NO_ROSTER_MATCH"
 QUARANTINE_JERSEY_NAME_CONFLICT = "QUARANTINE_JERSEY_NAME_CONFLICT"
+QUARANTINE_GIVEN_NAME_CONTRADICTS = "QUARANTINE_GIVEN_NAME_CONTRADICTS"
 QUARANTINE_AMBIGUOUS_ROSTER_MATCH = "QUARANTINE_AMBIGUOUS_ROSTER_MATCH"
+QUARANTINE_ROSTER_ROW_HAS_NO_IDENTIFIER = "QUARANTINE_ROSTER_ROW_HAS_NO_IDENTIFIER"
+
+#: Given-name evidence is three-valued plus an explicit "absent" state.
+#: Collapsing it to a boolean is what let a report for "Bob Smith" resolve
+#: to roster person "Alice Smith" purely because the surnames matched.
+GIVEN_NAME_AGREES = "AGREES"
+GIVEN_NAME_COMPATIBLE_INITIAL = "COMPATIBLE_INITIAL"
+GIVEN_NAME_UNCORROBORATED = "UNCORROBORATED"
+GIVEN_NAME_CONTRADICTS = "CONTRADICTS"
+
+#: Tokens a source emits for "no value" that must never become an id.
+_NON_IDENTIFIER_TOKENS = frozenset({"", "none", "null", "nan", "n/a", "na", "-", "0000"})
+
+#: Generational suffixes are name decoration, not given-name evidence.
+_NAME_SUFFIXES = frozenset({"jr", "sr", "ii", "iii", "iv", "v"})
+
+
+def valid_source_identifier(value: Any) -> str | None:
+    """A usable source identifier, or None.
+
+    `str(row.get("id"))` turns a missing id into the literal string
+    "None", which then travels downstream as if it were a real canonical
+    player id. Every candidate id passes through here instead.
+    """
+
+    if value is None or isinstance(value, bool):
+        return None
+    text = str(value).strip()
+    if text.casefold() in _NON_IDENTIFIER_TOKENS:
+        return None
+    return text or None
+
+
+def qualify_player_id(source_id: Any, raw_id: Any) -> str | None:
+    """Source-qualify a roster identifier, matching this codebase's
+    existing `SRC-002:TEAM:` / `SRC-002:GAME:` convention. A bare integer
+    from one provider is not a canonical identity on its own."""
+
+    identifier = valid_source_identifier(raw_id)
+    if identifier is None:
+        return None
+    source = valid_source_identifier(source_id) or "SRC-UNDECLARED"
+    return f"{source}:PLAYER:{identifier}"
+
+
+def _name_tokens(value: Any) -> list[str]:
+    return [
+        token
+        for token in normalize_join_name(value).split()
+        if token and token not in _NAME_SUFFIXES
+    ]
+
+
+def given_name_evidence(published_name: Any, roster_row: Mapping[str, Any]) -> str:
+    """Compare the published given name against the roster's own.
+
+    Returns one of AGREES / COMPATIBLE_INITIAL / UNCORROBORATED /
+    CONTRADICTS. An initial ("A. Smith") is compatible with a matching
+    full given name; two different full given names contradict.
+    """
+
+    roster_given = _name_tokens(roster_row.get("first_name"))
+    if not roster_given:
+        return GIVEN_NAME_UNCORROBORATED
+
+    published_tokens = _name_tokens(published_name)
+    roster_surname = set(_name_tokens(roster_row.get("last_name")))
+    published_given = [t for t in published_tokens if t not in roster_surname]
+    if not published_given:
+        return GIVEN_NAME_UNCORROBORATED
+
+    roster_first, published_first = roster_given[0], published_given[0]
+    if roster_first == published_first:
+        return GIVEN_NAME_AGREES
+    if len(published_first) == 1 and roster_first.startswith(published_first):
+        return GIVEN_NAME_COMPATIBLE_INITIAL
+    if len(roster_first) == 1 and published_first.startswith(roster_first):
+        return GIVEN_NAME_COMPATIBLE_INITIAL
+    return GIVEN_NAME_CONTRADICTS
 
 
 def resolve_canonical_player(
@@ -377,13 +490,13 @@ def resolve_canonical_player(
             "canonical_player_id": None,
             "identity_state": ROSTER_NOT_LOCALLY_AVAILABLE,
             "identity_detail": "No local roster snapshot covers this program.",
+            "identity_evidence": {"considered": []},
         }
 
     jersey_number = _normalize_jersey(jersey)
-    normalized_name = normalize_join_name(player_name)
-    name_tokens = set(normalized_name.split())
+    name_tokens = set(_name_tokens(player_name))
 
-    def name_agrees(row: Mapping[str, Any]) -> bool:
+    def surname_agrees(row: Mapping[str, Any]) -> bool:
         """`last in name_tokens` would fail whenever the roster's own
         last_name field is itself multi-word (CFBD returns generational
         suffixes folded into last_name, e.g. "Kinsler IV", "Lincoln Jr.")
@@ -391,59 +504,143 @@ def resolve_canonical_player(
         single-word tokens. Every word of the roster's last name must
         appear among the assertion's name tokens instead."""
 
-        last = normalize_join_name(row.get("last_name"))
-        last_tokens = set(last.split())
+        last_tokens = set(_name_tokens(row.get("last_name")))
         return bool(last_tokens) and last_tokens.issubset(name_tokens)
+
+    def evidence_of(row: Mapping[str, Any]) -> dict[str, Any]:
+        return {
+            "roster_full_name": " ".join(
+                part
+                for part in (str(row.get("first_name") or ""), str(row.get("last_name") or ""))
+                if part
+            ).strip(),
+            "roster_jersey": _normalize_jersey(row.get("jersey")),
+            "roster_season": row.get("roster_season"),
+            "roster_source_id": row.get("source_id"),
+            "roster_source_path": row.get("source_path"),
+            "surname_evidence": "AGREES" if surname_agrees(row) else "DISAGREES",
+            "given_name_evidence": given_name_evidence(player_name, row),
+            "jersey_evidence": (
+                "AGREES"
+                if jersey_number is not None
+                and _normalize_jersey(row.get("jersey")) == jersey_number
+                else "UNCORROBORATED"
+            ),
+        }
+
+    def resolved(row: Mapping[str, Any], state: str, detail: str) -> dict[str, Any]:
+        """A matched roster row still only yields an id if it HAS one."""
+
+        player_id = qualify_player_id(row.get("source_id"), row.get("id"))
+        evidence = evidence_of(row)
+        if player_id is None:
+            return {
+                "canonical_player_id": None,
+                "identity_state": QUARANTINE_ROSTER_ROW_HAS_NO_IDENTIFIER,
+                "identity_detail": "The matching roster row carries no usable "
+                "source identifier, so no canonical player id exists to assign.",
+                "identity_evidence": evidence,
+            }
+        return {
+            "canonical_player_id": player_id,
+            "identity_state": state,
+            "identity_detail": detail,
+            "identity_evidence": evidence,
+        }
+
+    def unresolved(state: str, detail: str, rows: Sequence[Mapping[str, Any]] = ()) -> dict[str, Any]:
+        return {
+            "canonical_player_id": None,
+            "identity_state": state,
+            "identity_detail": detail,
+            "identity_evidence": {"considered": [evidence_of(row) for row in rows]},
+        }
 
     jersey_candidates = (
         [row for row in candidates if _normalize_jersey(row.get("jersey")) == jersey_number]
         if jersey_number is not None
         else []
     )
-    if len(jersey_candidates) == 1:
-        row = jersey_candidates[0]
-        if name_agrees(row):
-            return {
-                "canonical_player_id": str(row.get("id")),
-                "identity_state": RESOLVED_JERSEY_AND_NAME_MATCH,
-                "identity_detail": "Jersey number and last name both agree with "
-                "exactly one local roster row.",
-            }
-        return {
-            "canonical_player_id": None,
-            "identity_state": QUARANTINE_JERSEY_NAME_CONFLICT,
-            "identity_detail": "Jersey number matches exactly one roster row, but "
-            "the published name does not agree with it; not resolved.",
-        }
-    if len(jersey_candidates) > 1:
-        return {
-            "canonical_player_id": None,
-            "identity_state": QUARANTINE_AMBIGUOUS_ROSTER_MATCH,
-            "identity_detail": "More than one local roster row shares this jersey "
-            "number for this program.",
-        }
 
-    name_candidates = [row for row in candidates if name_agrees(row)]
-    if len(name_candidates) == 1:
-        return {
-            "canonical_player_id": str(name_candidates[0].get("id")),
-            "identity_state": RESOLVED_NAME_ONLY_MATCH,
-            "identity_detail": "Exactly one local roster row's last name agrees; "
-            "jersey number did not corroborate it.",
-        }
-    if len(name_candidates) > 1:
+    if jersey_candidates:
+        # Name evidence disambiguates a shared jersey number BEFORE any
+        # quarantine decision. Two real players wearing one number is
+        # ordinary in college football; it is not by itself irresolvable
+        # when the published name agrees with exactly one of them.
+        surname_ok = [row for row in jersey_candidates if surname_agrees(row)]
+        supported = [
+            row
+            for row in surname_ok
+            if given_name_evidence(player_name, row) != GIVEN_NAME_CONTRADICTS
+        ]
+        contradicted = [
+            row
+            for row in surname_ok
+            if given_name_evidence(player_name, row) == GIVEN_NAME_CONTRADICTS
+        ]
+        if len(supported) == 1:
+            row = supported[0]
+            state = (
+                RESOLVED_JERSEY_AND_NAME_MATCH
+                if len(jersey_candidates) == 1
+                else RESOLVED_JERSEY_COLLISION_BROKEN_BY_NAME
+            )
+            detail = (
+                "Jersey number and name evidence agree with exactly one local "
+                "roster row."
+                if len(jersey_candidates) == 1
+                else f"{len(jersey_candidates)} roster rows share this jersey "
+                "number; name evidence supports exactly one of them."
+            )
+            return resolved(row, state, detail)
+        if len(supported) > 1:
+            return unresolved(
+                QUARANTINE_AMBIGUOUS_ROSTER_MATCH,
+                f"{len(supported)} roster rows share this jersey number and are "
+                "each consistent with the published name; the available identity "
+                "evidence does not separate them.",
+                supported,
+            )
+        if contradicted:
+            return unresolved(
+                QUARANTINE_GIVEN_NAME_CONTRADICTS,
+                "The jersey number and surname agree, but the published given "
+                "name contradicts the roster's given name for every candidate.",
+                contradicted,
+            )
+        return unresolved(
+            QUARANTINE_JERSEY_NAME_CONFLICT,
+            "The jersey number matches a roster row, but the published surname "
+            "does not agree with any candidate; not resolved.",
+            jersey_candidates,
+        )
+
+    name_candidates = [row for row in candidates if surname_agrees(row)]
+    if name_candidates:
+        # A surname-only agreement is NOT promoted to a canonical id: the
+        # manager's rule is that a name-only match must not silently become
+        # a canonical identity. The candidate is retained for audit.
         return {
             "canonical_player_id": None,
-            "identity_state": QUARANTINE_AMBIGUOUS_ROSTER_MATCH,
-            "identity_detail": "More than one local roster row shares this last "
-            "name for this program.",
+            "identity_state": UNRESOLVED_NAME_ONLY_NOT_CORROBORATED,
+            "identity_detail": (
+                f"{len(name_candidates)} roster row(s) share this surname, but no "
+                "jersey number corroborates the match; a surname alone does not "
+                "identify a person."
+            ),
+            "identity_evidence": {
+                "considered": [evidence_of(row) for row in name_candidates],
+                "name_only_candidate_ids": [
+                    qualify_player_id(row.get("source_id"), row.get("id"))
+                    for row in name_candidates
+                ],
+            },
         }
-    return {
-        "canonical_player_id": None,
-        "identity_state": UNRESOLVED_NO_ROSTER_MATCH,
-        "identity_detail": "A local roster snapshot covers this program, but no "
-        "row matches this jersey number or name.",
-    }
+    return unresolved(
+        UNRESOLVED_NO_ROSTER_MATCH,
+        "A local roster snapshot covers this program, but no row matches this "
+        "jersey number or name.",
+    )
 
 
 _CONTEST_LABEL_RE = re.compile(
@@ -455,17 +652,58 @@ _CONTEST_LABEL_RE = re.compile(
 CONTEST_NOT_LOCALLY_AVAILABLE = "CONTEST_NOT_LOCALLY_AVAILABLE"
 RESOLVED_CONTEST_MATCH = "RESOLVED_CONTEST_MATCH"
 UNRESOLVED_CONTEST_LABEL_UNPARSEABLE = "UNRESOLVED_CONTEST_LABEL_UNPARSEABLE"
+UNRESOLVED_CONTEST_LABEL_DATE_INVALID = "UNRESOLVED_CONTEST_LABEL_DATE_INVALID"
+#: The published date's own season disagrees with the season the caller
+#: declared. A caller-supplied season must not silently override an
+#: explicit, contradictory source date.
+QUARANTINE_CONTEST_SEASON_CONTRADICTS_LABEL = "QUARANTINE_CONTEST_SEASON_CONTRADICTS_LABEL"
 UNRESOLVED_NO_CONTEST_MATCH = "UNRESOLVED_NO_CONTEST_MATCH"
 QUARANTINE_AMBIGUOUS_CONTEST_MATCH = "QUARANTINE_AMBIGUOUS_CONTEST_MATCH"
+
+
+def season_of_calendar_date(year: int, month: int) -> int:
+    """The football season a calendar date belongs to.
+
+    A season runs within its own calendar year from March onward and
+    continues into January/February of the NEXT calendar year for
+    postseason play, so 1/10/2027 belongs to season 2026.
+    """
+
+    return year if month >= 3 else year - 1
+
+
+def _expand_two_digit_year(raw: str) -> int:
+    """'26' -> 2026. Four-digit years are taken verbatim."""
+
+    value = int(raw)
+    return value if len(raw) == 4 else 2000 + value
 
 
 def parse_contest_label(contest_label: str) -> dict[str, Any] | None:
     match = _CONTEST_LABEL_RE.match(str(contest_label or "").strip())
     if not match:
         return None
+    year = _expand_two_digit_year(match.group("year"))
+    month, day = int(match.group("month")), int(match.group("day"))
+    try:
+        # Rejects 2/30, 13/1 and similar malformed published dates instead
+        # of matching them against an index keyed only on month/day.
+        date(year, month, day)
+    except ValueError:
+        return {
+            "year": year,
+            "month": month,
+            "day": day,
+            "date_valid": False,
+            "qualifier": match.group("qualifier").rstrip(".").lower(),
+            "opponent_raw": match.group("opponent").strip(),
+        }
     return {
-        "month": int(match.group("month")),
-        "day": int(match.group("day")),
+        "year": year,
+        "month": month,
+        "day": day,
+        "date_valid": True,
+        "label_season": season_of_calendar_date(year, month),
         "qualifier": match.group("qualifier").rstrip(".").lower(),
         "opponent_raw": match.group("opponent").strip(),
     }
@@ -494,10 +732,43 @@ def resolve_canonical_contest(
             "contest_resolution_state": UNRESOLVED_CONTEST_LABEL_UNPARSEABLE,
             "contest_detail": "contest_label did not match the expected "
             "'M/D/YY at|vs Opponent' shape.",
+            "contest_evidence": {"contest_label": contest_label},
+        }
+    evidence = {
+        "contest_label": contest_label,
+        "label_year": parsed["year"],
+        "label_month": parsed["month"],
+        "label_day": parsed["day"],
+        "label_season": parsed.get("label_season"),
+        "caller_declared_season": season,
+    }
+    if not parsed["date_valid"]:
+        return {
+            "canonical_contest_id": None,
+            "contest_resolution_state": UNRESOLVED_CONTEST_LABEL_DATE_INVALID,
+            "contest_detail": "The published date is not a real calendar date, "
+            "so it cannot identify a contest.",
+            "contest_evidence": evidence,
+        }
+    if parsed["label_season"] != season:
+        # The published year was previously parsed and then discarded: the
+        # lookup keyed only on program/opponent/month/day, so 9/20/25
+        # resolved to a 2026 contest whenever the caller declared 2026.
+        return {
+            "canonical_contest_id": None,
+            "contest_resolution_state": QUARANTINE_CONTEST_SEASON_CONTRADICTS_LABEL,
+            "contest_detail": (
+                f"The published date {parsed['month']}/{parsed['day']}/"
+                f"{parsed['year']} belongs to season {parsed['label_season']}, "
+                f"but the caller declared season {season}. A declared season "
+                "does not override an explicit contradictory source date."
+            ),
+            "contest_evidence": evidence,
         }
     key = (
         normalize_join_name(program),
         normalize_join_name(parsed["opponent_raw"]),
+        parsed["year"],
         parsed["month"],
         parsed["day"],
     )
@@ -508,19 +779,23 @@ def resolve_canonical_contest(
             "contest_resolution_state": UNRESOLVED_NO_CONTEST_MATCH,
             "contest_detail": "No local game for this program/opponent/date "
             f"in season {season}.",
+            "contest_evidence": evidence,
         }
-    if len(matches) > 1:
+    distinct = {str(row.get("canonical_game_id")) for row in matches}
+    if len(distinct) > 1:
         return {
             "canonical_contest_id": None,
             "contest_resolution_state": QUARANTINE_AMBIGUOUS_CONTEST_MATCH,
-            "contest_detail": "More than one local game matches this "
+            "contest_detail": "More than one distinct local game matches this "
             "program/opponent/date.",
+            "contest_evidence": dict(evidence, candidate_ids=sorted(distinct)),
         }
     return {
         "canonical_contest_id": matches[0]["canonical_game_id"],
         "contest_resolution_state": RESOLVED_CONTEST_MATCH,
         "contest_detail": "Exactly one local game matches program, opponent "
-        "and declared date.",
+        "and the full published date.",
+        "contest_evidence": evidence,
     }
 
 
@@ -552,6 +827,10 @@ def enrich_assertion_identities(
     out["canonical_player_id"] = player["canonical_player_id"]
     out["identity_state"] = player["identity_state"]
     out["identity_detail"] = player["identity_detail"]
+    out["identity_evidence"] = player.get("identity_evidence")
+    # The published name is the source's own text and is never overwritten
+    # by whatever roster row was (or was not) matched to it.
+    out["published_player_name"] = str(assertion.get("player_name") or "")
 
     contest = resolve_canonical_contest(
         program=program,
@@ -562,9 +841,26 @@ def enrich_assertion_identities(
     out["canonical_contest_id"] = contest["canonical_contest_id"]
     out["contest_resolution_state"] = contest["contest_resolution_state"]
     out["contest_detail"] = contest["contest_detail"]
+    out["contest_evidence"] = contest.get("contest_evidence")
 
     out["stage_vintage_ordinal"] = stage_vintage_ordinal(str(assertion.get("stage") or ""))
     out["stage_vintage_is_ordinal_not_temporal"] = True
+    #: The player-program-contest grain the manager requires reported
+    #: separately from the assertion (stage) grain.
+    out["player_program_contest_key"] = "|".join(
+        [
+            str(out.get("canonical_program_id") or f"UNRESOLVED_PROGRAM:{program}"),
+            str(
+                out.get("canonical_player_id")
+                or f"UNRESOLVED_PLAYER:{out['published_player_name']}"
+                f"#{assertion.get('jersey')}"
+            ),
+            str(
+                out.get("canonical_contest_id")
+                or f"UNRESOLVED_CONTEST:{assertion.get('contest_label')}"
+            ),
+        ]
+    )
     return out
 
 

@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import tempfile
 import unittest
+from pathlib import Path
 
 from aggie_analytics.cycle35.availability import (
     OUTCOME_BLOCKED,
@@ -164,3 +166,86 @@ class OpportunityTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CloseoutCoverageLabelTests(unittest.TestCase):
+    """Cycle #35 closeout review (20260921T025300Z), section 3: the
+    national opportunity output contained five REPORT_EVIDENCE_PRESENT
+    entries with empty evidence_paths, and converted FCS_VARIES_BY_PROGRAM
+    directly to POLICY_PUBLISHES_NO_REPORT. Neither implication is valid.
+    """
+
+    def _classify(self, **row):
+        import sys as _sys
+        from pathlib import Path as _Path
+
+        root = _Path(__file__).resolve().parents[1]
+        if str(root / "tools" / "cycle35") not in _sys.path:
+            _sys.path.insert(0, str(root / "tools" / "cycle35"))
+        from r35_11_availability_release import classify_opportunity
+
+        base = {
+            "program_id": "P1",
+            "display_name": "Synthetic",
+            "classification": "fbs",
+            "conference": "Example",
+            "policy_status": "KNOWN_PUBLIC_POLICY",
+            "disposition": "ATTEMPTED_WITH_EVIDENCE",
+            "evidence_paths": [],
+        }
+        base.update(row)
+        return classify_opportunity(base).as_dict()
+
+    def test_attempted_label_alone_does_not_prove_a_report_exists(self) -> None:
+        out = self._classify()
+        self.assertNotEqual(out["outcome"], "REPORT_EVIDENCE_PRESENT")
+        self.assertEqual(out["outcome"], "POLICY_EVIDENCE_ONLY_NO_LOCATABLE_REPORT")
+        self.assertFalse(out["evidence_verified"])
+
+    def test_a_declared_but_unlocatable_path_is_not_evidence(self) -> None:
+        out = self._classify(evidence_paths=["Z:/does/not/exist/report.txt"])
+        self.assertEqual(out["outcome"], "EVIDENCE_DECLARED_BUT_UNLOCATABLE")
+        self.assertEqual(out["evidence_paths"], [])
+
+    def test_a_located_game_report_does_support_the_claim(self) -> None:
+        """Positive control: the repair must not make a real report
+        unclaimable."""
+        with tempfile.TemporaryDirectory() as tmp:
+            report = Path(tmp) / "game_report.txt"
+            report.write_text("report", encoding="utf-8")
+            out = self._classify(
+                evidence_paths=[str(report)], evidence_kind="GAME_REPORT"
+            )
+        self.assertEqual(out["outcome"], "REPORT_EVIDENCE_PRESENT")
+        self.assertTrue(out["evidence_verified"])
+        self.assertEqual(out["evidence_kind"], "GAME_REPORT")
+
+    def test_located_policy_evidence_is_not_a_game_report(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            policy = Path(tmp) / "policy.txt"
+            policy.write_text("policy", encoding="utf-8")
+            out = self._classify(
+                evidence_paths=[str(policy)], evidence_kind="POLICY_RECORD"
+            )
+        self.assertEqual(out["outcome"], "POLICY_EVIDENCE_ONLY_NO_LOCATABLE_REPORT")
+
+    def test_varying_program_policies_do_not_establish_no_report(self) -> None:
+        out = self._classify(policy_status="FCS_VARIES_BY_PROGRAM", disposition="NOT_ATTEMPTED")
+        self.assertNotEqual(out["outcome"], "POLICY_PUBLISHES_NO_REPORT")
+        self.assertEqual(out["outcome"], "POLICY_VARIES_PER_PROGRAM_REPORT_UNKNOWN")
+        self.assertEqual(out["no_report_means"], "UNKNOWN")
+
+    def test_not_attempted_is_distinct_from_blocked(self) -> None:
+        self.assertEqual(
+            self._classify(disposition="NOT_ATTEMPTED")["outcome"], "ROUTE_NOT_ATTEMPTED"
+        )
+        self.assertEqual(
+            self._classify(disposition="ATTEMPTED_AND_FAILED")["outcome"],
+            "ROUTE_BLOCKED_OR_UNATTEMPTED",
+        )
+
+    def test_every_key_declares_its_grain_and_period(self) -> None:
+        out = self._classify(season=2026)
+        self.assertEqual(out["grain"], "PROGRAM_DECLARED_PERIOD_POLICY")
+        self.assertEqual(out["declared_period"], "2026")
+        self.assertTrue(out["retained_in_denominator"])

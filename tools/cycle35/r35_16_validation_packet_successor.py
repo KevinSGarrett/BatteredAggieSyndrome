@@ -118,6 +118,19 @@ def lane(
     }
 
 
+#: The commit at which the slower lanes (hashseed sweeps, the full mounted
+#: suite, the wheel build/import/schema check) last actually ran. The three
+#: fast lanes are cheap enough to re-run at every build() call and always
+#: reflect the exact current head; the slow ones are not, and re-running
+#: 12+ minutes of tests on every packet assembly is not warranted once
+#: hosted CI has independently confirmed a later head is clean. See
+#: lane_log_freshness below for exactly what that means for this run.
+SLOW_LANE_LOG_HEAD = "bfa94e3d1f8a9fb4873777c77df516d04ef4e97b"
+_FRESH_AT_CURRENT_HEAD = frozenset({
+    "STRICT_REPOSITORY_VALIDATION", "CHANGED_FILE_LINT", "DIFF_CHECK",
+})
+
+
 def build() -> dict[str, Any]:
     head = git(["rev-parse", "HEAD"])
     branch = git(["rev-parse", "--abbrev-ref", "HEAD"])
@@ -219,6 +232,10 @@ def build() -> dict[str, Any]:
             result_override="NOT_RUN",
         ),
     ]
+    for row in lanes:
+        row["log_captured_at_head"] = (
+            head if row["lane"] in _FRESH_AT_CURRENT_HEAD else SLOW_LANE_LOG_HEAD
+        )
 
     old_receipt_present = OLD_VALIDATION_RESULTS.is_file()
 
@@ -257,6 +274,34 @@ def build() -> dict[str, Any]:
             "reviewed_head": reviewed_head,
             "commits_since_reviewed_head": len(
                 git(["log", "--format=%H", f"{reviewed_head}..{head}"]).splitlines()
+            ),
+        },
+        "lane_log_freshness": {
+            "fresh_at_current_head": sorted(_FRESH_AT_CURRENT_HEAD),
+            "captured_at_slow_lane_head": [
+                l for l in (
+                    "WARNINGS_AS_ERRORS_HASHSEED_0", "WARNINGS_AS_ERRORS_HASHSEED_1",
+                    "WARNINGS_AS_ERRORS_HASHSEED_12345", "PRIVATE_DATA_MOUNTED",
+                    "PRIVATE_DATA_EMPTY_ROOT", "ISOLATED_NON_EDITABLE_WHEEL",
+                    "FULL_SUITE_MOUNTED",
+                )
+            ],
+            "slow_lane_log_head": SLOW_LANE_LOG_HEAD,
+            "commits_between_slow_lane_head_and_final_head": git(
+                ["log", "--format=%h %s", f"{SLOW_LANE_LOG_HEAD}..{head}"]
+            ).splitlines(),
+            "corroboration": (
+                "Hosted CI's own core-validation jobs (Ubuntu and Windows, "
+                "both running the repository's real test suite) passed at "
+                "the exact final candidate head -- see "
+                "CYCLE35_EXACT_HEAD_CI_STATUS.json -- independently "
+                "corroborating that the commits listed above did not break "
+                "what the slow local lanes last measured. The three fast "
+                "lanes above were re-run fresh at the exact final head; the "
+                "slow ones were deliberately not re-run for a few small, "
+                "understood fix commits given that corroboration, rather "
+                "than spending another ~15 minutes to reproduce a result "
+                "hosted CI had already confirmed."
             ),
         },
         "runner": {

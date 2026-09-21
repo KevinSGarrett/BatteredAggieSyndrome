@@ -164,6 +164,22 @@ class BuildRealDataTests(unittest.TestCase):
         result = build()
         self.assertEqual(result["runner"]["interpreter"], sys.executable)
 
+    def test_fast_lanes_are_bound_to_the_current_head_not_a_stale_one(self) -> None:
+        result = build()
+        head = result["final_candidate_head"]["commit"]
+        by_lane = {row["lane"]: row for row in result["lanes"]}
+        for lane_id in result["lane_log_freshness"]["fresh_at_current_head"]:
+            self.assertEqual(by_lane[lane_id]["log_captured_at_head"], head)
+
+    def test_slow_lanes_disclose_the_head_their_log_actually_reflects(self) -> None:
+        """A slow lane's log must never silently claim the current head if
+        it was actually captured at an earlier commit."""
+        result = build()
+        slow_head = result["lane_log_freshness"]["slow_lane_log_head"]
+        by_lane = {row["lane"]: row for row in result["lanes"]}
+        for lane_id in result["lane_log_freshness"]["captured_at_slow_lane_head"]:
+            self.assertEqual(by_lane[lane_id]["log_captured_at_head"], slow_head)
+
 
 if __name__ == "__main__":
     unittest.main()

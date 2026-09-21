@@ -207,8 +207,21 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         "gate and BAT-637 dependency pair. Child bytes validated from disk, "
         "replay identical, 4 negative controls behave, predecessor bytes "
         "proven unchanged. Canonical mounted validation remains FAIL pending "
-        "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001.",
-        ["R35_10_FAMILY_B_CANDIDATE.json", "R35_10_APPROVAL_REQUEST.json"],
+        "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. The manager's follow-up warned "
+        "that correcting approval prose (49fb52a8) is not isolated "
+        "qualification; this unit's real basis is the candidate builder "
+        "(3fbdabe0), independently re-run fresh this session against the "
+        "live mounted lake -- same conclusions reproduced (all_children_"
+        "match_on_disk, replay_identical, negative_controls_ok, predecessor_"
+        "bytes_unchanged all true; bat637_contract_pin_matches_live true; "
+        "bat637_code_sidecar_matches_live false, still an open finding, "
+        "still deliberately not patched).",
+        [
+            "R35_10_FAMILY_B_CANDIDATE.json",
+            "R35_10_APPROVAL_REQUEST.json",
+            "ops/cycle35/runs/20260920T224700Z_r35_10_verify/"
+            "R35_10_FAMILY_B_CANDIDATE.json (fresh independent re-run)",
+        ],
         [
             "Canonical activation requires CYCLE33-APPROVAL-LAKE-SUCCESSOR-001.",
             "Stale BAT-637 code sidecar pin is a separate open defect, "
@@ -223,17 +236,28 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         "5 FCS / 7 FBS, all retained in the denominator. The prior route "
         "ledger covered twelve FBS conferences and ZERO FCS or Independents, "
         "so all 7 unmet keys were actually attempted this cycle and are now "
-        "attempt-verified rather than inventory-assumed. Canonical player "
-        "identity and durable official evidence remain NOT delivered.",
+        "attempt-verified rather than inventory-assumed. Canonical player, "
+        "contest and vintage joins are now performed against real local "
+        "evidence (see Cycle #35 follow-up item 6 fix below): all 252 "
+        "assertions resolve a canonical_contest_id; 28 of 92 assertions "
+        "across the 4 locally-rostered programs resolve a "
+        "canonical_player_id, 64 are genuinely quarantined as ambiguous "
+        "roster matches (real jersey-number collisions), and the remaining "
+        "160 across 7 SEC programs stay ROSTER_NOT_LOCALLY_AVAILABLE. "
+        "Durable official raw/rendered evidence remains NOT delivered.",
         [
             "R35_11_AVAILABILITY_RELEASE.json",
             "R35_11_UNMET_ROUTE_ATTEMPTS.json",
+            "R35_11_AVAILABILITY_ASSERTIONS.jsonl",
         ],
         [
-            "Canonical player-program-game resolution not performed "
-            "(resolved_player_ids = 0).",
+            "Canonical player identity is resolved only for the 4 SEC "
+            "programs with a local roster snapshot (Alabama, Georgia, Ole "
+            "Miss, Texas A&M); the other 7 SEC programs in this capture "
+            "have no local roster data.",
             "No durable official raw/rendered evidence bound; no per-report "
-            "publication time exists.",
+            "publication time exists. Stage vintage is exposed only as an "
+            "ordinal position, never an absolute timestamp.",
             "6 keys returned pages with no availability-reporting language "
             "and 1 route failed; none yields per-game reports.",
         ],
@@ -442,6 +466,28 @@ SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
             "DEVELOPMENT_ONLY_NOT_PIT_ADMITTED, never used to compute the "
             "advantage value or confirm a venue.",
             "commit": "b84e1ca0",
+        },
+    ],
+    "R35-11": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_R35_11",
+            "summary": "resolve_canonical_player/resolve_canonical_contest/"
+            "stage_vintage_ordinal added to aggie_analytics.cycle35."
+            "availability and wired into r35_11_availability_release.py, "
+            "joining the 252 real SEC assertions to a real 2026 CFBD roster "
+            "slice and the same national game sources R35-08/R35-09 use. "
+            "Two real bugs found calibrating against production data: "
+            "_normalize_jersey used 'value or \"\"', silently discarding the "
+            "real jersey number 0 as falsy; name_agrees checked a roster "
+            "row's full (CFBD folds generational suffixes into last_name, "
+            "e.g. 'Kinsler IV') last-name string for set membership against "
+            "single-word tokens, which can never match. Both fixed and "
+            "regression-tested. Identity resolution never mutates an "
+            "assertion's own status/presence field. All 252 assertions "
+            "resolve a contest; 28/92 resolve a player identity on the 4 "
+            "locally-rostered programs, 64 are genuinely quarantined "
+            "(real jersey-number collisions, not guessed around).",
+            "commit": "0cc9b90a",
         },
     ],
     "R35-09": [

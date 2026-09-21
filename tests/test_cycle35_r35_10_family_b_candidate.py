@@ -189,7 +189,7 @@ class ApprovalRequestTests(unittest.TestCase):
     def test_the_run_artifact_records_a_failing_canonical_dimension(self) -> None:
         """The prepared candidate must not be mistaken for activation."""
         artifact = (
-        Path("C:/BatteredAggieSyndrome.data/ops/cycle35/runs")
+            Path("C:/BatteredAggieSyndrome.data/ops/cycle35/runs")
             / "20260920T172801Z"
             / "implementation_output"
             / "R35_10_FAMILY_B_CANDIDATE.json"
@@ -236,16 +236,31 @@ class RequiredConsumerStateTests(unittest.TestCase):
         else:
             self.assertTrue(state["artifact_sha256"])
 
-    def test_an_unqualified_consumer_says_activation_should_not_be_granted(
-        self,
-    ) -> None:
-        """The two directions must read differently. A request that phrases
-        NOT_QUALIFIED the same way as qualified is the defect."""
+    def test_each_state_reads_differently_from_the_others(self) -> None:
+        """Three outcomes, three statements. Qualified, not qualified, and
+        not knowable are different claims, and a hosted runner with no
+        private lake hits the third -- so collapsing it into either of the
+        other two says something false wherever the lake is absent."""
+        expected = {
+            "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION": "negative controls all rejecting",
+            "NOT_QUALIFIED": "should not be granted",
+            "UNKNOWN_NO_QUALIFICATION_ARTIFACT": "does not claim the consumer is implemented",
+        }
         state = consumer_state()
-        if state["state"] != "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION":
-            self.assertIn("should not be granted", state["detail"])
-        else:
-            self.assertIn("negative controls all rejecting", state["detail"])
+        phrase = expected.get(state["state"])
+        if phrase is None:
+            self.assertEqual(state["state"], "UNKNOWN_ARTIFACT_UNREADABLE")
+            return
+        self.assertIn(phrase, state["detail"])
+
+    def test_no_unknown_state_ever_reads_as_qualified(self) -> None:
+        """The dangerous collapse: an absent artifact must never produce
+        language a reader could take as a qualified consumer."""
+        state = consumer_state()
+        if not state["state"].startswith("UNKNOWN"):
+            self.skipTest("the qualification artifact is present")
+        self.assertNotIn("qualified", state["detail"].lower())
+        self.assertNotIn("cases", state)
 
     def test_the_request_carries_the_consumer_state(self) -> None:
         if not self.APPROVAL_REQUEST.is_file():

@@ -36,12 +36,32 @@ from pathlib import Path
 from typing import Any
 
 CYCLE_RUNS = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs")
+#: Named explicitly so "what does the delivered release contain?" has a fixed
+#: answer. r35_23 publishes the first; the closing packet shipped the second.
+PUBLISHED_RELEASE = (
+    CYCLE_RUNS
+    / "20260921T025300Z_closeout_release"
+    / "published_release"
+    / "CYCLE35_COACHING_RELEASE_PUBLISHED.sqlite"
+)
+PRIOR_DELIVERED_RELEASE = (
+    CYCLE_RUNS
+    / "20260920T172801Z"
+    / "implementation_output"
+    / "CYCLE35_COACHING_RELEASE_r7.sqlite"
+)
 SKIP_DIRECTORY_NAMES = frozenset(
     {"wheel_venv", "Lib", "site-packages", "Scripts", "__pycache__", ".git"}
 )
 
-#: The five categories the review requires be kept apart.
+#: The categories the review requires be kept apart. STALE and
+#: RESOLVED_BY_THIS_REVIEW are deliberately distinct: the first says the entry
+#: was already contradicted by evidence that predates this review, the second
+#: says the entry was ACCURATE when written and the work that settles it was
+#: done here. Collapsing them would quietly take credit for pre-existing
+#: evidence, or else brand an accurate entry as a mistake.
 CATEGORY_STALE = "STALE_CONTRADICTED_BY_DELIVERED_EVIDENCE"
+CATEGORY_RESOLVED_HERE = "RESOLVED_BY_WORK_COMPLETED_IN_THIS_REVIEW"
 CATEGORY_LOCAL = "REAL_LOCAL_WORK_REMAINING"
 CATEGORY_DATA_GAP = "REAL_DATA_GAP_NOT_AN_IMPLEMENTATION_GAP"
 CATEGORY_FAILED_VALIDATION = "REAL_FAILED_VALIDATION"
@@ -220,22 +240,30 @@ def reconcile_items(
 
         if "2013-2026 user rows are not cell-ingested" in blocker:
             if release.get("queried") and release["observations_2013_2026"] > 0:
+                prior = release.get("prior_delivered_observations_2013_2026")
                 record.update(
-                    category=CATEGORY_STALE,
+                    category=CATEGORY_RESOLVED_HERE,
                     checked_against=release["database"],
                     finding=(
-                        f"The delivered release carries "
+                        f"The published release carries "
                         f"{release['observations_2013_2026']:,} observations in "
                         "2013-2026 under acquisition receipt "
-                        "CYCLE35_USER_CORPUS_2013_2026_STAFF_CELLS. The entry is "
-                        "contradicted by the delivered release, not merely by code."
+                        "CYCLE35_USER_CORPUS_2013_2026_STAFF_CELLS."
+                        + (
+                            f" The release the packet delivered carried only "
+                            f"{prior:,}, so the entry was ACCURATE when written "
+                            "and is resolved by publishing the rebuild -- not by "
+                            "the entry having been wrong."
+                            if prior is not None
+                            else ""
+                        )
                     ),
                 )
         elif "Travel distance is never computed" in blocker:
             if cohort and cohort.get("travel_coverage", {}).get("rows_with_both_legs", 0) > 0:
                 coverage = cohort["travel_coverage"]
                 record.update(
-                    category=CATEGORY_STALE,
+                    category=CATEGORY_RESOLVED_HERE,
                     checked_against="R35_08_NATIONAL_NEUTRAL_SITE_COHORT.json",
                     finding=(
                         f"{coverage['rows_with_both_legs']:,} of "
@@ -269,7 +297,7 @@ def reconcile_items(
         elif "Stale BAT-637 code sidecar pin" in blocker:
             if family_b and family_b.get("isolated_consumer_qualified"):
                 record.update(
-                    category=CATEGORY_STALE,
+                    category=CATEGORY_RESOLVED_HERE,
                     checked_against="CYCLE35_ISOLATED_FAMILY_B_CONSUMER.json",
                     finding=(
                         "The versioned consumer is wired: the successor pin is "
@@ -378,14 +406,20 @@ def main() -> int:
 
     index = index_artifacts(root)
 
-    release_db = Path(args.release_db) if args.release_db else None
-    if release_db is None:
-        candidates = sorted(
-            (p for p in root.rglob("*.sqlite") if not SKIP_DIRECTORY_NAMES.intersection(p.parts)),
-            key=lambda p: p.stat().st_mtime,
-        )
-        release_db = candidates[-1] if candidates else Path("none")
+    release_db = Path(args.release_db) if args.release_db else PUBLISHED_RELEASE
     release = query_release(release_db)
+    # What the closing packet actually shipped, so an entry about it can be
+    # judged against it instead of against a later rebuild.
+    prior = query_release(PRIOR_DELIVERED_RELEASE)
+    release["prior_delivered_release"] = PRIOR_DELIVERED_RELEASE.as_posix()
+    release["prior_delivered_observations_2013_2026"] = (
+        prior.get("observations_2013_2026") if prior.get("queried") else None
+    )
+    release["selection_basis"] = (
+        "The published release is named explicitly. It is not the newest "
+        "*.sqlite on disk, because that is whichever rebuild ran last and says "
+        "nothing about what was delivered."
+    )
 
     status_path = out_dir / "CYCLE35_REQUIREMENT_STATUS.json"
     unfinished_path = out_dir / "CYCLE35_UNFINISHED_ITEMS.json"
@@ -419,6 +453,7 @@ def main() -> int:
         },
         "categories_are_kept_distinct": [
             CATEGORY_STALE,
+            CATEGORY_RESOLVED_HERE,
             CATEGORY_LOCAL,
             CATEGORY_DATA_GAP,
             CATEGORY_FAILED_VALIDATION,

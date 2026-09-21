@@ -9,6 +9,7 @@ delete the list or relabel its contents."
 
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -20,6 +21,7 @@ sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
 
 from r35_22_evidence_graph import (  # noqa: E402
     CATEGORY_DATA_GAP,
+    CATEGORY_RESOLVED_HERE,
     CATEGORY_RELEASE_AUTHORITY,
     CATEGORY_STALE,
     CYCLE_RUNS,
@@ -90,24 +92,73 @@ class EvidenceResolutionTests(unittest.TestCase):
 class ReconciliationTests(unittest.TestCase):
     EMPTY_INDEX = {"by_name": {}, "directories": {}, "artifact_count": 0}
 
-    def test_an_entry_is_only_called_stale_when_evidence_contradicts_it(self) -> None:
-        item = {
-            "requirement": "R35-03",
-            "kind": "LOCAL_WORK_REMAINING",
-            "blocker": "The corpus covers 2000-2012 only; 2013-2026 user rows are not cell-ingested.",
-        }
-        # With no delivered release to check, it must NOT be called stale.
-        unchecked = reconcile_items([dict(item)], self.EMPTY_INDEX, {"queried": False})
-        self.assertNotEqual(unchecked[0]["category"], CATEGORY_STALE)
+    CELLS_ITEM = {
+        "requirement": "R35-03",
+        "kind": "LOCAL_WORK_REMAINING",
+        "blocker": "The corpus covers 2000-2012 only; 2013-2026 user rows are not cell-ingested.",
+    }
 
-        # With a release that actually carries the rows, it is stale.
-        checked = reconcile_items(
-            [dict(item)],
-            self.EMPTY_INDEX,
-            {"queried": True, "database": "x.sqlite", "observations_2013_2026": 86105},
+    def test_an_entry_is_not_judged_when_there_is_nothing_to_judge_it_against(
+        self,
+    ) -> None:
+        unchecked = reconcile_items(
+            [dict(self.CELLS_ITEM)], self.EMPTY_INDEX, {"queried": False}
         )
-        self.assertEqual(checked[0]["category"], CATEGORY_STALE)
+        self.assertEqual(unchecked[0]["category"], "REAL_LOCAL_WORK_REMAINING")
+
+    def test_an_entry_accurate_when_written_is_resolved_here_not_called_stale(
+        self,
+    ) -> None:
+        """The packet's release carried 73 rows in 2013-2026, so the entry was
+        right. Labelling it stale would brand an accurate entry a mistake and
+        take credit for evidence that did not exist when it was written."""
+        checked = reconcile_items(
+            [dict(self.CELLS_ITEM)],
+            self.EMPTY_INDEX,
+            {
+                "queried": True,
+                "database": "published.sqlite",
+                "observations_2013_2026": 86105,
+                "prior_delivered_observations_2013_2026": 73,
+            },
+        )
+        self.assertEqual(checked[0]["category"], CATEGORY_RESOLVED_HERE)
         self.assertIn("86,105", checked[0]["finding"])
+        self.assertIn("ACCURATE", checked[0]["finding"])
+
+    def test_an_entry_contradicted_by_pre_existing_evidence_is_called_stale(
+        self,
+    ) -> None:
+        """The Jira readback predates this review, so nothing done here
+        settles that entry -- it was already wrong."""
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "run").mkdir()
+            (root / "run" / "CYCLE35_JIRA_LIVE_READBACK.json").write_text(
+                json.dumps(
+                    {
+                        "issues": [{"key": "BAT-1"}, {"key": "BAT-2"}],
+                        "generated_at_utc": "2026-09-20T19:40:12Z",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            index = index_artifacts(root)
+            # Inside the temporary root: reconciliation re-reads each artifact
+            # rather than trusting the index, so the files must still be there.
+            out = reconcile_items(
+                [
+                    {
+                        "requirement": "R35-13",
+                        "kind": "LOCAL_WORK_REMAINING",
+                        "blocker": "No live Jira readback performed this cycle.",
+                    }
+                ],
+                index,
+                {"queried": False},
+            )
+        self.assertEqual(out[0]["category"], CATEGORY_STALE)
+        self.assertIn("2 issues", out[0]["finding"])
 
     def test_a_release_authority_item_is_not_called_local_work(self) -> None:
         items = [

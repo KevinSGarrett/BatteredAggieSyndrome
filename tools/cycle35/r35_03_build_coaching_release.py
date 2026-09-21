@@ -46,6 +46,10 @@ from r35_27_national_population_authority import (  # noqa: E402
     AUTHORITY_RECEIPT,
     build as build_population_authority,
 )
+from r35_28_staff_season_evidence import (  # noqa: E402
+    BOUND as SEASON_BOUND,
+    season_evidence,
+)
 from aggie_analytics.cycle35.program_aliases import (  # noqa: E402
     build_crosswalk,
     resolve_program,
@@ -223,6 +227,8 @@ def ingest_reparsed_staff(
     ]
     stats: Counter = Counter()
     registered: dict[str, str] = {}
+    # One evidence read per capture, not per row: 880 rows share 266 pages.
+    season_by_capture: dict[str, dict[str, Any]] = {}
     for row in rows:
         raw_path = row.get("raw_path")
         if not raw_path or not Path(raw_path).is_file():
@@ -240,7 +246,22 @@ def ingest_reparsed_staff(
         person = str(row.get("person") or "")
         title = str(row.get("source_title") or "")
         program_id = str(row.get("program_id") or "")
-        season = str(row.get("strata", {}).get("era") or "")
+        # The season used to come from `strata.era`, which is the literal
+        # string "CURRENT" for every official-staff row -- so no confirmed
+        # assertion could be placed in a program-season-role cell. It now
+        # comes from what the capture says about itself, and stays
+        # unspecified when the capture says nothing.
+        if raw_path not in season_by_capture:
+            season_by_capture[raw_path] = season_evidence(Path(raw_path))
+        evidence = season_by_capture[raw_path]
+        if evidence.get("state") == SEASON_BOUND and evidence.get("bound_season"):
+            season = str(evidence["bound_season"])
+            date_precision = "SEASON_FROM_CAPTURE_STAFF_LABEL"
+            stats["EPISODE_SEASON_BOUND_BY_STAFF_LABEL"] += 1
+        else:
+            season = str(row.get("strata", {}).get("era") or "")
+            date_precision = "SEASON_UNSPECIFIED"
+            stats["EPISODE_SEASON_UNSPECIFIED_" + str(evidence.get("state"))] += 1
         observation_id = add_observation(
             conn,
             source_file_id=source_file_id,
@@ -281,7 +302,7 @@ def ingest_reparsed_staff(
             person_id=person_id,
             program_id=program_id,
             season=season,
-            date_precision="SEASON_UNSPECIFIED",
+            date_precision=date_precision,
             evidence_layer=LAYER_OFFICIAL,
         )
         # MF35-05 repair: `principal_role_families(title)` only names the

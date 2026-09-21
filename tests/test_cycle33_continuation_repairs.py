@@ -155,6 +155,8 @@ class ContinuationFinalsScoringTests(unittest.TestCase):
             ncaa_contest_id="synthetic-game",
             home_name="Home",
             away_name="Away",
+            home_canonical_team_id="SYN_HOME",
+            away_canonical_team_id="SYN_AWAY",
             home_points=7,
             away_points=0,
             **FINAL,
@@ -189,6 +191,8 @@ class ContinuationFinalsScoringTests(unittest.TestCase):
                 frozen=True,
                 forecast_row_id="A1",
                 probability_home=0.2,
+                home_canonical_team_id="SYN_HOME",
+                away_canonical_team_id="SYN_AWAY",
                 freeze_receipt={
                     "receipt_id": "FR-A",
                     "receipt_sha256": _write("A", 0.2),
@@ -207,6 +211,8 @@ class ContinuationFinalsScoringTests(unittest.TestCase):
                 frozen=True,
                 forecast_row_id="B1",
                 probability_home=0.8,
+                home_canonical_team_id="SYN_HOME",
+                away_canonical_team_id="SYN_AWAY",
                 freeze_receipt={
                     "receipt_id": "FR-B",
                     "receipt_sha256": _write("B", 0.8),
@@ -235,6 +241,8 @@ class ContinuationFinalsScoringTests(unittest.TestCase):
             ncaa_contest_id="synthetic-game",
             home_name="Home",
             away_name="Away",
+            home_canonical_team_id="SYN_HOME",
+            away_canonical_team_id="SYN_AWAY",
             home_points=7,
             away_points=0,
             **FINAL,
@@ -247,6 +255,8 @@ class ContinuationFinalsScoringTests(unittest.TestCase):
                     "candidate_id": "A",
                     "frozen": True,
                     "probability_home": 2,
+                    "home_canonical_team_id": "SYN_HOME",
+                    "away_canonical_team_id": "SYN_AWAY",
                 }
             ],
         )

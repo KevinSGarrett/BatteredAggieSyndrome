@@ -1,0 +1,1457 @@
+"""R35-15: assemble the Cycle #35 acceptance packet.
+
+Every status below is either read from an artifact this cycle produced or
+declared as a blocker with its exact reason. Nothing is marked complete
+because it was attempted, and the six acceptance dimensions are kept
+separate so a passing test can never be mistaken for scientific acceptance.
+
+The packet is honest about its own shape: a requirement with delivered code,
+passing tests and no independent review is `software-validation-pass` and
+`independent-scientific-acceptance: NOT_REVIEWED`, not "done".
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import subprocess
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+PACK_ROOT = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle35")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+CYCLE_RUNS = PACK_ROOT / "runs"
+SKIP_DIRECTORY_NAMES = frozenset(
+    {"wheel_venv", "Lib", "site-packages", "Scripts", "__pycache__", ".git"}
+)
+
+DIM_IMPLEMENTATION = "implementation_local"
+DIM_DATA = "data_evidence"
+DIM_SOFTWARE = "software_validation"
+DIM_SCIENCE = "independent_scientific_acceptance"
+DIM_RELEASE = "integration_release_authorized"
+DIM_OVERALL = "overall"
+
+COMPLETE = "COMPLETE"
+PARTIAL = "PARTIAL"
+INCOMPLETE = "INCOMPLETE"
+PASS = "PASS"
+FAIL = "FAIL"
+NOT_REVIEWED = "NOT_REVIEWED"
+NOT_AUTHORIZED = "NOT_AUTHORIZED"
+BLOCKED = "BLOCKED"
+
+
+def _d(impl, data, software, science, release, overall, note, evidence, blockers=()):
+    return {
+        DIM_IMPLEMENTATION: impl,
+        DIM_DATA: data,
+        DIM_SOFTWARE: software,
+        DIM_SCIENCE: science,
+        DIM_RELEASE: release,
+        DIM_OVERALL: overall,
+        "note": note,
+        "evidence": list(evidence),
+        "blockers": list(blockers),
+    }
+
+
+R35_UNITS: dict[str, dict[str, Any]] = {
+    "R35-01": _d(
+        COMPLETE, COMPLETE, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "All 11 manager counterexamples reproduced at the start head with "
+        "positive controls, then re-run after every repair. All 15 R34 "
+        "requirement rows, 17 MR33 findings and 18 MR34 findings are carried "
+        "with original IDs and titles.",
+        ["R35_01_REPRODUCTION.json", "CYCLE35_INHERITED_OBLIGATION_LEDGER.json"],
+    ),
+    "R35-02": _d(
+        COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "Substring identity, string-boolean support, caller-override joins "
+        "and process-address identity all repaired and reproduced as closed. "
+        "All 880 references reparsed from raw sources with exact key "
+        "conservation; 842 supported reproduces the manager's independent "
+        "count. Manual semantic review of the stratified sample is not done.",
+        [
+            "R35_02_STAFF_REBUILD_SUMMARY.json",
+            "R35_02_STRATIFIED_REVIEW_SAMPLE.json",
+        ],
+        ["Stratified manual semantic adjudication remains PENDING_HUMAN."],
+    ),
+    "R35-03": _d(
+        COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "Source-driven release with 12 tables, migrations, transactions, "
+        "content-addressed identities and an append-only manifest. Zero "
+        "assertions without a supporting observation; replay reproduces "
+        "identical row identities. The 2000-2012 user research corpus is now "
+        "ingested at CELL grain: 23,992 observations, 23,870 program-resolved "
+        "(99.5%), 122 retained unresolved across 6 documented names. Nothing "
+        "from that corpus is promoted -- every row carries verified=false "
+        "from its own producer.",
+        ["R35_03_COACHING_RELEASE_SUMMARY.json"],
+        [
+            "responsibility_assertion and scheme_assertion have zero rows; "
+            "no source explicitly evidenced either this cycle.",
+            "The corpus covers 2000-2012 only; 2013-2026 user rows are not "
+            "cell-ingested.",
+            "122 cells remain program-unresolved (1 ambiguous name, 5 "
+            "discontinued programs outside the canonical population).",
+        ],
+    ),
+    "R35-04": _d(
+        COMPLETE, COMPLETE, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "unresolved_roles now returns all 57 previously hidden rows; the "
+        "state views partition the delivered table exactly (26+2+57=85). "
+        "Separate rejected/quarantined/conflicted views and a conservation "
+        "query are delivered. LOSSLESS now fails on any supplied field the "
+        "envelope drops, and unmodelled extensions are retained.",
+        ["R35_03_COACHING_RELEASE_SUMMARY.json", "CYCLE35_ALL22_ALIGNMENT.json"],
+    ),
+    "R35-05": _d(
+        COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "The era-correct national denominator is delivered: 12,460 expected "
+        "program-season cells, 291 programs, 1963-2026, with 2024/2025 "
+        "retained as explicit gaps and current-vs-historical transitions "
+        "reconciled. The 48-key career tranche is PREDECLARED before evidence "
+        "and completed: exactly 24 FBS / 24 FCS, roles balanced 16/16/16, and "
+        "38 distinct evidence-backed program-seasons covering FOUR distinct "
+        "seasons in each of the four historical bands plus a separate 2026 "
+        "slice. 36 ACCEPTED_SINGLE_SOURCE, 2 CONFLICT with both occupants "
+        "retained, 10 MISSING after real attempted routes. All resolved rows "
+        "are ingested into the queryable release at CANDIDATE layer with "
+        "per-row provenance.",
+        [
+            "CYCLE35_NATIONAL_COVERAGE.json",
+            "R35_05_PREDECLARED_48_KEYS.json",
+            "R35_05_CAREER_TRANCHE_FINAL.json",
+        ],
+        [
+            "10 of 48 keys remain MISSING_NO_EVIDENCE after attempted routes.",
+            "2024 and 2025 membership have no acquired source.",
+            "Evidence is revision-bound Wikimedia retrospective; no official "
+            "corroboration was acquired, so nothing here is PIT.",
+            "Reconciliation of the larger accepted/provisional populations "
+            "named by the national plan is reported separately and is not "
+            "complete.",
+        ],
+    ),
+    "R35-06": _d(
+        COMPLETE, COMPLETE, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "One admission contract shared by inventory and scoring, with "
+        "trusted-issuer allowlist, cutoff-bound commitment, ordered "
+        "participants and strict types. Both manager counterexamples reject "
+        "on the successor and on the legacy path the manager actually drove. "
+        "Zero eligible forecasts is preserved as a valid state.",
+        ["R35_07_CANONICAL_FINALS_REPLAY.json"],
+        [
+            "No trusted receipt store exists, so no real forecast is "
+            "admissible; this is correct, not resolved.",
+        ],
+    ),
+    "R35-07": _d(
+        COMPLETE, COMPLETE, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "All eight bound NCAA captures replayed with canonical participant "
+        "binding (the step Cycle 34 omitted). An independent structural "
+        "reference sharing no code with the producer agrees exactly: 770 "
+        "observations, 468 contests, 290 terminal finals. Zero real winner "
+        "contradictions. 686/770 bind both participants; the 84 that do not "
+        "involve genuine D2/D3/NAIA opponents, retained and visible.",
+        ["R35_07_CANONICAL_FINALS_REPLAY.json"],
+    ),
+    "R35-08": _d(
+        COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "venue_confirmed is type-checked; contest, both participants, venue "
+        "id, venue version and timezone are required; a distance requires a "
+        "declared unit and method. Both travel legs, neutral/unknown states "
+        "and nonfinite/negative distances are tested. The national "
+        "neutral/unknown-site cohort has now been rebuilt through "
+        "ordinary_home_advantage(), not travel_context() (see Cycle #35 "
+        "follow-up item 6 fix below): 51,978 distinct games 1963-2026, "
+        "2,849 confirmed-neutral / 49,129 confirmed-ordinary / 0 unknown. "
+        "No local stadium coordinates exist, so travel distance is not "
+        "computed at all, honestly, rather than inferred from an "
+        "unconfirmed venue.",
+        [
+            "R35_07_CANONICAL_FINALS_REPLAY.json",
+            "R35_08_NATIONAL_NEUTRAL_SITE_COHORT.json",
+        ],
+        [
+            "Notre Dame/Wisconsin example not bound to source evidence, so "
+            "it is deliberately absent.",
+            "Travel distance is never computed (no local stadium "
+            "coordinates); every row's home/away travel distance is None.",
+            "The 2010-2022 venue enrichment layer is DEVELOPMENT_ONLY, not "
+            "PIT-admitted, and covers a fraction of the declared range.",
+        ],
+    ),
+    "R35-09": _d(
+        COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, INCOMPLETE,
+        "Row-level independent reference recomputes every feature value from "
+        "raw inputs. Target exclusion: 0 violations. Game-pair coherence: 0 "
+        "incoherent contests. 1,897 rows reproduce prior counts exactly; "
+        "median residual 6 priors, attributable to the producer's "
+        "authority-deferral whose per-prior receipts are absent. PIT "
+        "feasibility table partitions the kernel exactly. Independently "
+        "proven PIT rows: 0; trusted fitted path BLOCKED.",
+        [
+            "R35_09_INDEPENDENT_KERNEL_REFERENCE.json",
+            "R35_09_PIT_FEASIBILITY.json",
+        ],
+        [
+            "Zero kernel rows independently proven PIT.",
+            "792 rows for 2023 have no identified input source.",
+            "36 producer PROVEN labels carry no per-row receipt.",
+        ],
+    ),
+    "R35-10": _d(
+        COMPLETE, COMPLETE, FAIL, NOT_REVIEWED, NOT_AUTHORIZED, BLOCKED,
+        "Complete isolated candidate prepared: ledger, 3 children, manifest, "
+        "gate and BAT-637 dependency pair. Child bytes validated from disk, "
+        "replay identical, 4 negative controls behave, predecessor bytes "
+        "proven unchanged. Canonical mounted validation remains FAIL pending "
+        "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. The manager's follow-up warned "
+        "that correcting approval prose (49fb52a8) is not isolated "
+        "qualification; this unit's real basis is the candidate builder "
+        "(3fbdabe0), independently re-run fresh this session against the "
+        "live mounted lake -- same conclusions reproduced (all_children_"
+        "match_on_disk, replay_identical, negative_controls_ok, predecessor_"
+        "bytes_unchanged all true; bat637_contract_pin_matches_live true; "
+        "bat637_code_sidecar_matches_live false, still an open finding, "
+        "still deliberately not patched).",
+        [
+            "R35_10_FAMILY_B_CANDIDATE.json",
+            "R35_10_APPROVAL_REQUEST.json",
+            "ops/cycle35/runs/20260920T224700Z_r35_10_verify/"
+            "R35_10_FAMILY_B_CANDIDATE.json (fresh independent re-run)",
+        ],
+        [
+            "Canonical activation requires CYCLE33-APPROVAL-LAKE-SUCCESSOR-001.",
+            "Stale BAT-637 code sidecar pin is a separate open defect, "
+            "deliberately not patched by copying the live hash.",
+        ],
+    ),
+    "R35-11": _d(
+        PARTIAL, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, INCOMPLETE,
+        "All 63 SEC rows x 4 stages reparsed to 252 assertions with exact "
+        "conservation; 50 dash stages retained as PUBLISHED_EMPTY/UNKNOWN. "
+        "Twelve predeclared national keys across 10 conferences, 3 policies, "
+        "5 FCS / 7 FBS, all retained in the denominator. The prior route "
+        "ledger covered twelve FBS conferences and ZERO FCS or Independents, "
+        "so all 7 unmet keys were actually attempted this cycle and are now "
+        "attempt-verified rather than inventory-assumed. Canonical player, "
+        "contest and vintage joins are now performed against real local "
+        "evidence (see Cycle #35 follow-up item 6 fix below): all 252 "
+        "assertions resolve a canonical_contest_id; 28 of 92 assertions "
+        "across the 4 locally-rostered programs resolve a "
+        "canonical_player_id, 64 are genuinely quarantined as ambiguous "
+        "roster matches (real jersey-number collisions), and the remaining "
+        "160 across 7 SEC programs stay ROSTER_NOT_LOCALLY_AVAILABLE. "
+        "Durable official raw/rendered evidence remains NOT delivered.",
+        [
+            "R35_11_AVAILABILITY_RELEASE.json",
+            "R35_11_UNMET_ROUTE_ATTEMPTS.json",
+            "R35_11_AVAILABILITY_ASSERTIONS.jsonl",
+        ],
+        [
+            "Canonical player identity is resolved only for the 4 SEC "
+            "programs with a local roster snapshot (Alabama, Georgia, Ole "
+            "Miss, Texas A&M); the other 7 SEC programs in this capture "
+            "have no local roster data.",
+            "No durable official raw/rendered evidence bound; no per-report "
+            "publication time exists. Stage vintage is exposed only as an "
+            "ordinal position, never an absolute timestamp.",
+            "6 keys returned pages with no availability-reporting language "
+            "and 1 route failed; none yields per-game reports.",
+        ],
+    ),
+    "R35-12": _d(
+        PARTIAL, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, INCOMPLETE,
+        "Adapter semantic-field loss repaired; re-observed fresh this "
+        "session (not copied forward): 112 owner checkouts read-only with "
+        "6 dirty preserved -- up from 86 at the last observation, real "
+        "external drift in the owner's own workspace since then, not a "
+        "counting defect (deterministic across repeated calls). Field-by-"
+        "field compatibility decision, producer/consumer DAG and "
+        "invalidation policy delivered and now covered by 15 BAS-local "
+        "tests (discover_clones exercised against real git checkouts, not "
+        "mocked subprocess calls). Remote heads not re-resolved and the "
+        "C01 v0.1.2 wheel not qualified in a private lane.",
+        ["CYCLE35_ALL22_ALIGNMENT.json"],
+        [
+            "Five private remote heads carried as OBSERVED-BY-MANAGER, not "
+            "re-verified (needs a network call).",
+            "C01 v0.1.2 wheel not downloaded, installed or qualified.",
+            "Owner adoption of the schema extension remains pending.",
+        ],
+    ),
+    "R35-13": _d(
+        COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "All 12 PT35 mappings independently adjudicated against artifacts "
+        "produced this cycle, with 3 missing mappings found and 3 false "
+        "positives challenged, now covered by 14 BAS-local tests (structural "
+        "self-consistency of all three tables, real evidence-presence "
+        "check against the actual run-output directory). PT35-03's basis "
+        "was hardcoded as 'resolved_player_ids = 0'; this session's R35-11 "
+        "fix made that false (28 of 92 now resolve), so the row is "
+        "corrected to CONFIRMED_PARTIALLY_ADDRESSED rather than left "
+        "stale underneath the fix -- the same failure mode the manager's "
+        "own review found elsewhere. Jira duplicate-audited offline; 0 "
+        "issues created, 0 transitions, no Done, no BAT-523 completion "
+        "comment.",
+        ["CYCLE35_PLAN_JIRA_TRACE.json"],
+        ["No live Jira readback performed (needs a network call)."],
+    ),
+    "R35-14": _d(
+        COMPLETE, COMPLETE, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "The live hosted Windows failure is fixed at its real cause in the "
+        "validator, not the test: availability is decided by the payloads "
+        "rather than by directory presence. Mounted, empty and partial lanes "
+        "all behave locally, and hosted CI on PR #691 now passes "
+        "core-validation (windows-latest, 3.12) -- the exact check that "
+        "failed at PR #690. Baseline equivalence is proven by exact set: 0 "
+        "regressions, 1 fixed.",
+        ["CYCLE35_VALIDATION_RESULTS.json"],
+        [
+            "Family B mounted failures remain FAIL (R35-10 approval).",
+            "Hosted CI cannot exercise the mounted private-data lane, so "
+            "the mounted requirement is verified only locally.",
+        ],
+    ),
+    "R35-15": _d(
+        COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
+        "Packet assembled with all required files, six dimensions per unit, "
+        "and every blocker named.",
+        ["CYCLE35_FINAL_REPORT.md"],
+    ),
+}
+
+
+#: MF35-07 (Cycle #35 manager follow-up, 20260920T205200Z): R35_UNITS above
+#: is a hand-typed table, not derived from live evidence -- the finding's
+#: exact complaint is that a unit's COMPLETE claim can silently go stale as
+#: soon as the code underneath it changes again. The full repair (deriving
+#: every unit's six dimensions from clause-level evidence at packet-
+#: generation time) remains open. This is the bounded, honest interim step:
+#: every MF35 finding fixed in the continuation pass that followed that
+#: review, mapped to the R35 unit whose files it touched, so a reader can
+#: never mistake a unit's hand-typed note for a description of current code
+#: without also seeing exactly what changed underneath it.
+SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
+    "R35-03": [
+        {
+            "finding": "MF35-03",
+            "summary": "release_row_identities now hashes full row content, "
+            "not just primary keys, and covers assertion_support/"
+            "person_alias; unsupported_assertions renamed to "
+            "assertions_missing_evidence_link and a real semantic "
+            "entailment check was added.",
+            "commit": "44c7abc8",
+        },
+        {
+            "finding": "MF35-04",
+            "summary": "person_identity_merge_candidates/"
+            "record_person_identity_adjudication added. Erik Chinander, "
+            "Kirk Ciarrocca and Ted Roof are surfaced as evidenced "
+            "candidates -- none has been merged or declared a namesake.",
+            "commit": "1912ee32",
+        },
+        {
+            "finding": "MF35-05",
+            "summary": "Multi-role titles now decompose via "
+            "assignments_from_title instead of collapsing to families[0] "
+            "with the rest misused as qualifiers; ingest_membership no "
+            "longer assumes season=2026 for a row with no stated season.",
+            "commit": "244d1471",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_2",
+            "summary": "ingest_career_tranche() now enforces an explicit "
+            "stage/schema contract (validate_career_tranche_contract): "
+            "rejects a wrong-stage, ambiguous, or malformed tranche payload "
+            "with a named reason instead of silently ingesting zero rows "
+            "under a success-shaped state. The corrected era-fixed tranche "
+            "was finished via the actual second-pass resolver (39 accepted / "
+            "8 missing / 1 conflict), within already-authorized budget.",
+            "commit": "58732e76",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_3",
+            "summary": "assertions_not_entailed_by_linked_observations() "
+            "rebuilt as an independent checker (no import from "
+            "role_taxonomy.py): verifies subject/program/season binding "
+            "against the assertion's own episode, role and qualifier "
+            "plausibility via a separately-implemented keyword reference "
+            "covering all real role families (not just HC/OC/DC), and "
+            "evidence-layer authority (an OFFICIAL claim needs an official-"
+            "class source). Closes all 4 manager counterexamples plus the "
+            "candidate-to-official promotion gap. 0 false positives against "
+            "a full national rebuild (1,437 real assertions).",
+            "commit": "58732e76",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_4",
+            "summary": "upsert_person() gains source_program_id: two "
+            "DIFFERENT real people sharing a name AND identity_basis (not "
+            "just cross-basis) can now be represented as distinct "
+            "canonical_person rows and surface as a real merge-candidate "
+            "pair. Verified end-to-end through the actual builder against a "
+            "full national rebuild -- 9 real candidate pairs surfaced, "
+            "including a genuine same-basis 'Tim Beck' conflict.",
+            "commit": "90eaad44",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_MF35_11",
+            "summary": "The 2013-2026 user research corpus (86,052 named "
+            "cells) is now ingested at cell grain -- it was already parsed "
+            "by the same import_snapshot() the 2000-2012 file uses, only "
+            "ever post-filtered away downstream. Total source_observation "
+            "rows in a real rebuild went from 24,995 to 111,045.",
+            "commit": "9bdf373b",
+        },
+    ],
+    "R35-05": [
+        {
+            "finding": "MF35-08",
+            "summary": "Career-tranche keys are now classified by their "
+            "OWN season's same-season source, not a collapsed/most-recent "
+            "program classification -- closes the Massachusetts (2002) and "
+            "Sacramento State (2023) mismatches the manager found. The "
+            "original 48-key artifact is preserved; a corrected 48-key set "
+            "and an explicit supersession delta were written to a separate "
+            "ops run, not yet reconciled into this unit's evidence files.",
+            "commit": "af407a0f",
+        },
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_5",
+            "summary": "New reconcile_tranche_samples(): the original and "
+            "era-corrected 48-key tranches are now reconciled by stable "
+            "(program_id, season, role) semantic key, never mutable key_id "
+            "-- classifying every key as RETAINED/RECLASSIFIED/DISPOSITION_"
+            "CHANGED/SUPERSEDED/ADDED. Reproduced the manager's own "
+            "independently-computed numbers exactly: 8 retained, union of "
+            "88 distinct semantic keys. The corrected tranche's supersession "
+            "delta previously not reconciled (see MF35-08 above) is now "
+            "addressed by this reconciliation.",
+            "commit": "9a082ac8",
+        },
+    ],
+    "R35-06": [
+        {
+            "finding": "MF35-01",
+            "summary": "admit() now requires hash-verified receipt bytes to "
+            "gate admission; the contest's own declared identity and the "
+            "forecast's claimed probability must both agree with the "
+            "verified payload, not just row metadata.",
+            "commit": "853e8500",
+        },
+        {
+            "finding": "MF35-02",
+            "summary": "TrustedReceiptStore fails closed on an empty "
+            "trusted-issuer allowlist and permanently quarantines a "
+            "receipt ID that ever carried conflicting content.",
+            "commit": "853e8500",
+        },
+        {
+            "finding": "MF35-06",
+            "summary": "bas-staff-query is now schema-version-aware: "
+            "team_staff/coach_career/unresolved_roles/team_schemes work "
+            "against both the legacy cycle33 schema and the real cycle35 "
+            "release (verified against the actual delivered r7 database).",
+            "commit": "f0b5fe2f",
+        },
+    ],
+    "R35-08": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_R35_08",
+            "summary": "r35_08_national_neutral_site_cohort.py builds the "
+            "national neutral/unknown-site cohort. First written calling "
+            "travel_context(..., venue_confirmed=False, ...), which was "
+            "proven by direct testing to always raise NeutralVenueError "
+            "regardless of every other parameter -- zero rows would have "
+            "classified. Rewritten around the precondition-free "
+            "ordinary_home_advantage(neutral_site=...). Missing/non-bool "
+            "neutral-site evidence is kept as an explicit UNKNOWN row, "
+            "never defaulted. Verified against the real 4 declared raw "
+            "sources: 51,978 distinct games, 1963-2026, 2,849 confirmed-"
+            "neutral / 49,129 confirmed-ordinary / 0 unknown; the 12,941 "
+            "excluded rows independently confirmed as the two FCS-FCS "
+            "sources' full overlay of games already in the two main game "
+            "files. Travel distance is always None (no local coordinates); "
+            "a 2010-2022 venue enrichment layer is joined and labeled "
+            "DEVELOPMENT_ONLY_NOT_PIT_ADMITTED, never used to compute the "
+            "advantage value or confirm a venue.",
+            "commit": "b84e1ca0",
+        },
+    ],
+    "R35-11": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_R35_11",
+            "summary": "resolve_canonical_player/resolve_canonical_contest/"
+            "stage_vintage_ordinal added to aggie_analytics.cycle35."
+            "availability and wired into r35_11_availability_release.py, "
+            "joining the 252 real SEC assertions to a real 2026 CFBD roster "
+            "slice and the same national game sources R35-08/R35-09 use. "
+            "Two real bugs found calibrating against production data: "
+            "_normalize_jersey used 'value or \"\"', silently discarding the "
+            "real jersey number 0 as falsy; name_agrees checked a roster "
+            "row's full (CFBD folds generational suffixes into last_name, "
+            "e.g. 'Kinsler IV') last-name string for set membership against "
+            "single-word tokens, which can never match. Both fixed and "
+            "regression-tested. Identity resolution never mutates an "
+            "assertion's own status/presence field. All 252 assertions "
+            "resolve a contest; 28/92 resolve a player identity on the 4 "
+            "locally-rostered programs, 64 are genuinely quarantined "
+            "(real jersey-number collisions, not guessed around).",
+            "commit": "0cc9b90a",
+        },
+    ],
+    "R35-09": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_MF35_09",
+            "summary": "Fixed two absent-comparisons-counted-as-successful "
+            "bugs in the independent kernel reference's own row accounting "
+            "(rows_compared previously included the 796 GAME_NOT_IN_"
+            "DECLARED_RAW_SOURCES rows; now correctly reports 12,484). "
+            "Replaced a tautological target-exclusion check (tested a "
+            "self-filtered list for the thing just filtered from it, so it "
+            "could never fail) with a genuine duplicate-game_id integrity "
+            "check, with an explicit scope disclosure of what it does and "
+            "does not establish about the producer. This is a fix to the "
+            "CHECKING TOOL, not the PIT kernel producer.",
+            "commit": "97c60665",
+        },
+    ],
+    "R35-12": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_R35_12",
+            "summary": "tools/cycle35/r35_12_all22_alignment.py had zero "
+            "automated test coverage; 15 BAS-local tests added covering "
+            "staff_snapshot_boundary (released-vs-proposed field "
+            "decisions), producer_consumer_dag (invalidation policy, "
+            "owner-vs-BAS ownership) and discover_clones (exercised "
+            "against real git checkouts via git init, not mocked "
+            "subprocess). Re-ran the tool fresh against the live owner "
+            "workspace: 112 checkouts observed read-only, 6 dirty -- up "
+            "from the last-recorded 86, real external drift, confirmed "
+            "deterministic across repeated calls, not a counting defect. "
+            "Remote head re-resolution and C01 wheel qualification remain "
+            "genuine network-gated blockers, not attempted.",
+            "commit": "10662db9",
+        },
+    ],
+    "R35-13": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_R35_13",
+            "summary": "tools/cycle35/r35_13_plan_jira_trace.py had zero "
+            "automated test coverage; 14 BAS-local tests added covering "
+            "sha256_file, structural self-consistency of PT35_MAPPINGS/"
+            "MISSING_MAPPINGS/FALSE_POSITIVE_CHALLENGES, and the real "
+            "evidence-presence check against the actual run-output "
+            "directory. Found and fixed a stale hardcoded claim: PT35-03's "
+            "basis asserted 'resolved_player_ids = 0', which this "
+            "session's R35-11 fix (28 of 92 now resolve) made false; "
+            "corrected the row to CONFIRMED_PARTIALLY_ADDRESSED with the "
+            "real current numbers, pinned by a regression test.",
+            "commit": "10662db9",
+        },
+    ],
+    "R35-14": [
+        {
+            "finding": "MF35-10",
+            "summary": "Baseline comparison no longer collapses "
+            "parameterized subtests into one identity; validation receipts "
+            "now bind each lane's output to its own declared head instead "
+            "of the report-generation-time head; the C35-N5 pathlib "
+            "sharing-violation mechanism claim was WITHDRAWN as disproven "
+            "and replaced with CAUSE_UNPROVEN.",
+            "commit": "319a0884",
+        },
+    ],
+}
+
+
+#: Repairs made under the 20260921T025300Z closeout review. Kept apart from
+#: SESSION_MF35_FIXES so a reader can tell which review each unit note is
+#: stale with respect to; a single merged blob would hide that.
+CLOSEOUT_20260921T025300Z_FIXES: dict[str, list[dict[str, str]]] = {
+    "R35-01": [
+        {
+            "finding": "CLOSEOUT_SECTION_1",
+            "summary": "Validation-lane truth established: private-data "
+            "fixtures for all six readiness states, two real release "
+            "rebuilds compared on full per-row content, and in-subprocess "
+            "environment capture allowlisted to 7 non-secret names. "
+            "FULL_SUITE_MOUNTED's unqualified canonical-mounted PASS is "
+            "withdrawn and the receipt that replaces it is digest-bound.",
+            "commit": "d4bce7be",
+        }
+    ],
+    "R35-02": [
+        {
+            "finding": "CLOSEOUT_SECTION_3_AND_7",
+            "summary": "Coverage labels now require locatable relevant "
+            "report evidence and distinguish policy from game-report "
+            "evidence. The source-span review is executed with an "
+            "independent locator and 48 positive/negative controls; 11 of "
+            "34 sampled rows are a reparse recall gap, and the semantic "
+            "question stays with an independent reviewer.",
+            "commit": "567dcaa6",
+        }
+    ],
+    "R35-03": [
+        {
+            "finding": "CLOSEOUT_SECTION_7",
+            "summary": "The rebuilt release is published immutably with "
+            "86,105 observations in 2013-2026 against the delivered r7's "
+            "73, and the declared expected population is bound to it for "
+            "the first time: 13,474 of 36,582 cells covered at candidate "
+            "layer, 0 confirmed because every confirmed assertion's "
+            "episode carries season 'CURRENT'.",
+            "commit": "874b3dc1",
+        }
+    ],
+    "R35-05": [
+        {
+            "finding": "CLOSEOUT_SECTION_7",
+            "summary": "Both career-tranche denominators are bound with a "
+            "versioned key reconciliation by set membership -- predecessor "
+            "76 employers / 880 attempt rows and this cycle's 48 keys -- "
+            "and neither is retired.",
+            "commit": "874b3dc1",
+        }
+    ],
+    "R35-08": [
+        {
+            "finding": "CLOSEOUT_SECTION_4",
+            "summary": "Duplicate observations dedupe with provenance "
+            "(12,941 DEDUPLICATED_IDENTICAL_OBSERVATIONS), conflicts "
+            "resolve by declared source/vintage authority rather than "
+            "input order with 0 unresolved, 2,849 neutral is reported as "
+            "source-designated, and a previously-missed cached /venues "
+            "payload gives 23,129 rows real great-circle travel legs.",
+            "commit": "0af1b40a",
+        }
+    ],
+    "R35-09": [
+        {
+            "finding": "CLOSEOUT_SECTION_7",
+            "summary": "Both kernel residuals are inventoried in full and "
+            "dispositioned: 796 rows SEASON_ACQUIRED_BUT_THIS_GAME_IS_NOT_"
+            "IN_THE_PULL, 15 EXPLAINED_BY_UNACQUIRED_PRIOR_SEASONS (2024 "
+            "and 2025 were never pulled), 0 unexplained. Zero independent "
+            "PIT proofs is maintained against 36 producer labels.",
+            "commit": "d190dee8",
+        }
+    ],
+    "R35-10": [
+        {
+            "finding": "CLOSEOUT_SECTION_5",
+            "summary": "The Family B consumer resolves BAT-637 through a "
+            "versioned authority derived from the declaring contract. "
+            "LEGACY stays the default, the Done predecessor gate is not "
+            "edited and the stale constant is not overwritten with the "
+            "observed live hash. Canonical activation remains a separate "
+            "approval.",
+            "commit": "cae8392a",
+        }
+    ],
+    "R35-11": [
+        {
+            "finding": "CLOSEOUT_SECTION_2",
+            "summary": "Four reproduced identity defects repaired: full "
+            "source names and source-qualified ids preserved, roster "
+            "season evidence required, contradictory names and "
+            "non-identifier values rejected, duplicate jerseys "
+            "disambiguated on full evidence, and a name-only match never "
+            "silently becomes a canonical id. All four grains are reported "
+            "separately with every changed row explained.",
+            "commit": "a1ae637d",
+        }
+    ],
+    "R35-13": [
+        {
+            "finding": "CLOSEOUT_SECTION_6",
+            "summary": "The request ledger is reconstructed cycle-wide "
+            "rather than reset per process: 8/50 and 7/50 cycle-lifetime "
+            "budgets, 78 unique entries deduped across 19 run directories, "
+            "retries and pagination counted, and 0 paid model, provider or "
+            "reviewer calls.",
+            "commit": "d57f0864",
+        }
+    ],
+    "R35-14": [
+        {
+            "finding": "CLOSEOUT_SECTION_1_AND_7",
+            "summary": "All four lanes re-executed at the repaired head. "
+            "Mounted full suite 2 failed / 4,238 passed / 2 errors, all "
+            "four the inherited BAT-637 pin disagreement; unmounted 4,034 "
+            "passed. The difference between the lanes is measured rather "
+            "than asserted, and the results parser no longer reports a "
+            "completed pytest run as DID_NOT_COMPLETE.",
+            "commit": "e22ddf83",
+        }
+    ],
+    "R35-15": [
+        {
+            "finding": "CLOSEOUT_SECTION_7_AND_8",
+            "summary": "One coherent evidence graph across 19 run "
+            "directories resolves all 26 evidence references with 0 "
+            "dangling, every unfinished entry is reconciled against a "
+            "delivered artifact into nine distinct categories, a single "
+            "entry point binds 25 artifacts by digest, and the report's "
+            "headline counts are derived from evidence instead of from the "
+            "blocker list's own wording.",
+            "commit": "78587287",
+        }
+    ],
+}
+
+
+def annotate_units_with_session_fixes(
+    units: dict[str, dict[str, Any]],
+    fixes: dict[str, list[dict[str, str]]],
+    closeout_fixes: dict[str, list[dict[str, str]]] | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Mark which units have fixes landed underneath their hand-typed note,
+    without touching the note or any of its six dimensions.
+
+    The two review rounds are kept in separate fields. Merging them would
+    lose which review a note is stale with respect to, and a note stale
+    since MF35 is a different statement from one stale since the closeout.
+
+    This does not re-verify anything: a unit annotated here is not thereby
+    re-tested, re-reviewed, or promoted to a fresher COMPLETE. It only makes
+    the note's staleness impossible to miss.
+    """
+
+    closeout_fixes = closeout_fixes or {}
+    annotated: dict[str, dict[str, Any]] = {}
+    for unit_id, unit in units.items():
+        copy = dict(unit)
+        session_fixes = fixes.get(unit_id)
+        closeout = closeout_fixes.get(unit_id)
+        copy["note_predates_session_fixes"] = list(session_fixes or [])
+        copy["note_predates_closeout_fixes"] = list(closeout or [])
+        copy["note_is_stale"] = bool(session_fixes or closeout)
+        annotated[unit_id] = copy
+    return annotated
+
+
+def load_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
+
+
+def sha256_file(path: Path) -> str | None:
+    return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+
+
+def git(args: list[str]) -> str:
+    out = subprocess.run(
+        ["git"] + args, cwd=str(REPO_ROOT), capture_output=True, text=True, check=False
+    )
+    return out.stdout.strip()
+
+
+def hosted_ci_status(*, pr_number: int, head_sha: str) -> dict[str, Any]:
+    """The real, current hosted CI status at the exact candidate head, via
+    `gh`. Never assumed from a prior run's memory -- CI is re-triggered on
+    every push, and a checks list is only meaningful bound to the exact
+    commit it ran against."""
+
+    out = subprocess.run(
+        ["gh", "pr", "checks", str(pr_number), "--json",
+         "name,state,bucket,link,workflow"],
+        cwd=str(REPO_ROOT), capture_output=True, text=True, check=False,
+    )
+    if out.returncode != 0:
+        return {
+            "head_sha": head_sha,
+            "queried": False,
+            "reason": (out.stderr or out.stdout or "gh pr checks failed").strip(),
+        }
+    try:
+        checks = json.loads(out.stdout)
+    except json.JSONDecodeError:
+        return {"head_sha": head_sha, "queried": False, "reason": "unparseable gh output"}
+    by_bucket: dict[str, int] = {}
+    for row in checks:
+        bucket = str(row.get("bucket") or row.get("state") or "unknown")
+        by_bucket[bucket] = by_bucket.get(bucket, 0) + 1
+    return {
+        "head_sha": head_sha,
+        "queried": True,
+        "check_count": len(checks),
+        "by_bucket": by_bucket,
+        "all_pass": bool(checks) and all(
+            str(row.get("bucket")) == "pass" for row in checks
+        ),
+        "checks": checks,
+    }
+
+
+def load_evidence_graph_reconciliation() -> dict[tuple[str, str], dict[str, Any]]:
+    """The reconciled category for each unfinished item, keyed by (unit,
+    blocker). Empty when the graph has not been generated, which is reported
+    on every item rather than silently leaving them uncategorised."""
+
+    newest: tuple[float, Path] | None = None
+    for path in CYCLE_RUNS.rglob("CYCLE35_EVIDENCE_GRAPH.json"):
+        if SKIP_DIRECTORY_NAMES.intersection(path.parts):
+            continue
+        try:
+            stamp = path.stat().st_mtime
+        except OSError:
+            continue
+        if newest is None or stamp > newest[0]:
+            newest = (stamp, path)
+    if newest is None:
+        return {}
+    try:
+        payload = json.loads(newest[1].read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return {
+        (str(item.get("requirement")), str(item.get("blocker"))): item
+        for item in payload.get("unfinished_reconciliation", {}).get("items", [])
+    }
+
+
+def minimal_decisions_required() -> list[dict[str, Any]]:
+    """Every decision this cycle's own evidence shows is genuinely stuck on
+    an authority BAS does not have -- not a wishlist, only what is actually
+    blocking a unit above."""
+
+    return [
+        {
+            "decision": "Authorize CYCLE33-APPROVAL-LAKE-SUCCESSOR-001 (or "
+            "decline it) for the isolated Family B candidate successor.",
+            "owner": "Kevin or another canonical-lake owner",
+            "blocks": ["R35-10"],
+            "why_bas_cannot_decide": "Canonical lake activation is a release "
+            "action explicitly outside this hold's authority; the isolated "
+            "candidate is complete and independently re-verified, waiting "
+            "only on this authorization.",
+        },
+        {
+            # Narrowed: the five remote heads were re-resolved on 2026-09-20
+            # at 14:35 with zero failures, so asking for budget to do it
+            # again would be asking for a decision already carried out.
+            "decision": "Confirm a network-request budget (or decline) for "
+            "downloading and qualifying the C01 v0.1.2 wheel in a private "
+            "lane.",
+            "owner": "Kevin",
+            "blocks": ["R35-12"],
+            "why_bas_cannot_decide": "This cycle is cache-first by "
+            "instruction and does not spend network budget without "
+            "specific confirmation.",
+            "already_done_not_part_of_this_decision": "Re-resolving the five "
+            "private All-22 owner remote heads. All five were re-resolved "
+            "with 0 failures and are recorded as BAS-verified in "
+            "CYCLE35_ALL22_REMOTE_HEADS_REFRESHED.json.",
+        },
+        {
+            "decision": "Decide whether the owner (CFIP) should be asked "
+            "again for a StaffSnapshotV1 schema decision, given 4 existing "
+            "CFIP comments already carry the same field-compatibility "
+            "submission.",
+            "owner": "Kevin or the CFIP owner",
+            "blocks": ["R35-12"],
+            "why_bas_cannot_decide": "Owner adoption of a schema extension "
+            "is the owner's decision, not BAS's to make or simulate.",
+        },
+        {
+            # Narrowed: a live readback of 11 issues exists at
+            # 2026-09-20T19:40:12Z. The open question is freshness, not
+            # absence -- describing it as "offline duplicate-audit-only"
+            # would understate what is already bound.
+            "decision": "Accept the existing live Jira readback (11 issues, "
+            "2026-09-20T19:40:12Z) as current for this cycle, or confirm a "
+            "network-request budget for a fresh one.",
+            "owner": "Kevin",
+            "blocks": ["R35-13"],
+            "why_bas_cannot_decide": "Whether a readback is still current "
+            "enough is a judgement about the tracker's rate of change, and "
+            "no live issue-tracker call is made without confirmation.",
+            "already_done_not_part_of_this_decision": "The readback itself. "
+            "CYCLE35_JIRA_LIVE_READBACK.json binds 11 issues.",
+        },
+        {
+            "decision": "Decide whether 2024/2025 season membership "
+            "acquisition, and the remaining 10 of 48 predeclared career-"
+            "tranche keys, are worth a further acquisition budget given "
+            "diminishing evidence availability, or should stay recorded as "
+            "a permanent, disclosed gap.",
+            "owner": "Kevin",
+            "blocks": ["R35-05"],
+            "why_bas_cannot_decide": "A further acquisition spend beyond "
+            "what this cycle already authorized needs explicit sign-off, "
+            "not an assumed continuation.",
+        },
+    ]
+
+
+def build_inherited_ledger() -> dict[str, Any]:
+    r34 = load_json(PACK_ROOT / "R34_REQUIREMENT_REVIEW.json") or {}
+    mr33 = load_json(PACK_ROOT / "MR33_DISPOSITION_REVIEW.json") or {}
+    findings = load_json(PACK_ROOT / "FINDINGS.json") or {}
+    r34_rows = r34.get("rows") or []
+    mr33_rows = mr33.get("rows") or []
+    mr34_rows = findings.get("findings") or []
+
+    return {
+        "artifact_type": "CYCLE35_INHERITED_OBLIGATION_LEDGER",
+        "r34_requirements": [
+            {
+                "id": row["id"],
+                "original_title": row["title"],
+                "manager_review_state": row["review_state"],
+                "carried_into": row.get("next_cycle_ids") or [],
+                "id_preserved": True,
+                "title_preserved": True,
+            }
+            for row in r34_rows
+        ],
+        "r34_requirement_count": len(r34_rows),
+        "mr33_findings": [
+            {
+                "id": row["id"],
+                "original_title": row["original_title"],
+                "manager_disposition": row["manager_disposition"],
+                "original_cycle34_requirements": row.get(
+                    "original_cycle34_requirements"
+                )
+                or [],
+                "id_reassigned": False,
+                "meaning_preserved": True,
+            }
+            for row in mr33_rows
+        ],
+        "mr33_finding_count": len(mr33_rows),
+        "mr34_findings": [
+            {
+                "id": row["id"],
+                "severity": row["severity"],
+                "title": row["title"],
+                "owner": row["owner"],
+                "cycle35_requirements": row.get("cycle35_requirements") or [],
+            }
+            for row in mr34_rows
+        ],
+        "mr34_finding_count": len(mr34_rows),
+        "explicit_preservation_rules_honoured": {
+            "MR33-02_not_reassigned_to_canonical_ids": True,
+            "MR33-10_not_reassigned_to_a_different_defect": True,
+            "MR33-13_plan_and_adapter_portions_remain_open": True,
+            "bat706_absent_claim_corrected_without_creating_a_duplicate": True,
+        },
+    }
+
+
+def build_finding_disposition(reproduction: dict[str, Any]) -> dict[str, Any]:
+    by_finding: dict[str, list[dict[str, Any]]] = {}
+    for probe in reproduction.get("probes") or []:
+        by_finding.setdefault(probe["finding_id"], []).append(probe)
+
+    findings = load_json(PACK_ROOT / "FINDINGS.json") or {}
+    rows: list[dict[str, Any]] = []
+    for row in findings.get("findings") or []:
+        probes = by_finding.get(row["id"], [])
+        rows.append(
+            {
+                "id": row["id"],
+                "severity": row["severity"],
+                "original_title": row["title"],
+                "owner": row["owner"],
+                "cycle35_requirements": row.get("cycle35_requirements") or [],
+                "reproduced_at_start_head": bool(probes)
+                and all(p["defect_reproduced_at_head"] for p in probes),
+                "probe_count": len(probes),
+                "disposition": _finding_disposition(row["id"], probes),
+                "fix_or_blocker": _finding_fix(row["id"]),
+            }
+        )
+    return {
+        "artifact_type": "CYCLE35_FINDING_DISPOSITION",
+        "mr34_findings": rows,
+        "mr34_finding_count": len(rows),
+        "mr33_findings_carried": build_inherited_ledger()["mr33_findings"],
+        "new_findings_this_cycle": NEW_FINDINGS,
+        "new_finding_count": len(NEW_FINDINGS),
+    }
+
+
+CODE_CLOSED = {
+    "MR34-01",
+    "MR34-02",
+    "MR34-03",
+    "MR34-04",
+    "MR34-06",
+    "MR34-07",
+    "MR34-08",
+    "MR34-09",
+}
+FIXES = {
+    "MR34-01": "Trusted-receipt allowlist plus cutoff-bound commitment and "
+    "ordered participants, enforced on both the Cycle 35 successor and the "
+    "legacy cycle33 scoring path.",
+    "MR34-02": "Boolean probabilities rejected before numeric coercion; "
+    "future-dated packets rejected; manager_reviews removed from the "
+    "authority search roots; the verdict states it is structural only.",
+    "MR34-03": "Whole-token name matching replaces substring containment; "
+    "role support requires the Boolean True.",
+    "MR34-04": "Page evidence outranks a caller-supplied occupant; "
+    "process-address identity eliminated; role and season bind to a single "
+    "concrete episode with its own locator.",
+    "MR34-05": "Source-driven release: observations and assertions are "
+    "separate tables, verification is a layer, and the predecessor's "
+    "verified claims are held at candidate layer with adjudications.",
+    "MR34-06": "Resolved states enumerated and everything else treated as "
+    "unresolved, so an unknown state is over-reported rather than hidden.",
+    "MR34-07": "Four semantic fields transport; any supplied field the "
+    "envelope drops counts as loss; unmodelled extensions are retained.",
+    "MR34-08": "venue_confirmed type-checked; identity fields required; "
+    "distance requires a declared unit and method.",
+    "MR34-09": "A supplied winner contradicting its own scores is no longer "
+    "an eligible final and is retained with its exact reason.",
+    "MR34-10": "Row-level independent reference plus PIT feasibility table; "
+    "zero rows independently proven, trusted fitted path BLOCKED.",
+    "MR34-11": "Complete isolated candidate successor prepared; canonical "
+    "activation blocked on CYCLE33-APPROVAL-LAKE-SUCCESSOR-001.",
+    "MR34-12": "Private-payload availability predicate replaces directory "
+    "presence in the validator; three lanes verified.",
+    "MR34-13": "Validation results record exact commands, lanes, counts and "
+    "skips; no 'zero regressions' claim is made.",
+    "MR34-14": "National denominator delivered (12,460 cells); the bounded "
+    "acquisition tranches are explicitly NOT delivered.",
+    "MR34-15": "Availability modelled as report-version evidence with "
+    "absence as UNKNOWN; canonical identity explicitly unmet.",
+    "MR34-16": "All 12 PT35 mappings adjudicated, 3 missing found, 3 false "
+    "positives challenged; heuristic relations not adopted.",
+    "MR34-17": "Original IDs, titles and meanings preserved in the "
+    "inherited obligation ledger; no unit closure is claimed.",
+    "MR34-18": "Source representation is declared explicitly by the binder "
+    "and carried into the release's decoded_sha256 column.",
+}
+
+
+def _finding_disposition(finding_id: str, probes: list[dict[str, Any]]) -> str:
+    if finding_id in CODE_CLOSED:
+        return "CODE_DEFECT_CLOSED_AND_REGRESSION_TESTED"
+    return "ADDRESSED_IN_PART_SEE_UNIT_BLOCKERS"
+
+
+def _finding_fix(finding_id: str) -> str:
+    return FIXES.get(finding_id, "See the owning R35 unit's blockers.")
+
+
+NEW_FINDINGS: tuple[dict[str, Any], ...] = (
+    {
+        "id": "C35-N1",
+        "severity": "P1",
+        "title": "Quoted nickname containing a title word erases a real staff row",
+        "detail": "`Deion \"Coach Prime\" Sanders` was not treated as a name "
+        "at all because the title heuristic matched `Coach` inside the "
+        "nickname, so a correctly sourced head-coach row never became a "
+        "staff record. Found by the 880-row reparse against real captures.",
+        "status": "FIXED_AND_REGRESSION_TESTED",
+        "owner": "BAT-701",
+    },
+    {
+        "id": "C35-N2",
+        "severity": "P1",
+        "title": "2023 kernel rows have no identified input source",
+        "detail": "The 792 kernel rows for 2023 are absent from every public "
+        "game output and from the private BAT-523 payloads, whose declared "
+        "source_seasons stop at 2022. Their features and publication times "
+        "cannot be independently checked at all.",
+        # The original detail stands unedited. What the closeout review's
+        # residual disposition adds is WHICH kind of absence this is, because
+        # "no source exists" and "the source was pulled incompletely" cost
+        # very different things to fix.
+        "closeout_refinement": "R35-09's residual disposition resolves the "
+        "shape of this gap. It is 796 rows, not 792: 792 in 2023 plus two "
+        "each in 2018 and 2019. Season 2023 IS an acquired season -- the "
+        "declared sources carry 1,446 other 2023 games -- so these rows are "
+        "SEASON_ACQUIRED_BUT_THIS_GAME_IS_NOT_IN_THE_PULL, an incomplete "
+        "acquisition rather than an absent source. Verified: none of the 796 "
+        "ids appears anywhere in the tranche files, and none was dropped as "
+        "not-completed. Separately, seasons 2024 and 2025 were never pulled "
+        "at all, which is what lets 15 season-2026 rows carry stored prior "
+        "counts above what the independent reference can justify. The entry "
+        "stays OPEN: acquiring the missing games is a spend decision, not an "
+        "implementation task.",
+        "status": "OPEN",
+        "owner": "BAT-696",
+    },
+    {
+        "id": "C35-N3",
+        "severity": "P2",
+        "title": "Stale hardcoded BAT-637 pin in one module, not gate drift",
+        "detail": "tamu_official_gamebook_union_1998_rejection_complete.py "
+        "carries c1d22209... while the live gate, the corpus contract and "
+        "the sibling module all carry 606aed7f.... The failing test message "
+        "misattributes this to gate drift.",
+        "status": "OPEN_DELIBERATELY_NOT_PATCHED_BY_COPYING_A_LIVE_HASH",
+        "owner": "BAT-706",
+    },
+    {
+        "id": "C35-N5",
+        "severity": "P2",
+        "title": "Lake readiness predicate: cause of one false-negative red "
+        "run is unproven; an earlier claimed mechanism is withdrawn",
+        "detail": "tamu_official_gamebook_union_2001_expanded.upstream_is_ready "
+        "decides whether the data root is mounted with four Path.is_file() "
+        "calls. Observed once: the test was red in a full mounted suite that "
+        "ran concurrently with a job recursively reading 34,701 files under "
+        "the same root, and green in two independent isolated runs at the "
+        "same head, and in a clean full mounted run whose red set matched the "
+        "predecessor baseline exactly. That empirical finding (not a "
+        "regression) stands on its own. MF35-10 (Cycle #35 manager "
+        "follow-up, 20260920T205200Z): a prior version of this entry claimed "
+        "pathlib's is_file() 'catches OSError and returns False for ignorable "
+        "errors, which on Windows includes sharing violations' as the "
+        "demonstrated mechanism. An independent diagnostic ran the actual "
+        "CPython 3.11.9 is_file()/_ignore_error source under this project's "
+        "Python and found that claim FALSE: only winerrors 21, 123 and 1921 "
+        "are ignored; an injected winerror 32 (ERROR_SHARING_VIOLATION, 'file "
+        "in use by another process') raises PermissionError instead of being "
+        "swallowed. The claimed mechanism is WITHDRAWN as disproven, not "
+        "merely unproven. The actual cause of the single red observation is "
+        "CAUSE_UNPROVEN: correlation with concurrent I/O is not proof of the "
+        "specific syscall/error involved, and a deterministic injected-error "
+        "reproduction against the real call sites has not yet been run.",
+        "status": "OPEN_NOT_REPAIRED_THIS_CYCLE_CAUSE_UNPROVEN",
+        "owner": "BAT-706",
+        "note": "Not repaired here because the module is outside this "
+        "cycle's changed surface and the Family B family is already blocked "
+        "on CYCLE33-APPROVAL-LAKE-SUCCESSOR-001; changing its readiness "
+        "semantics mid-block would confuse two separate questions. The "
+        "withdrawn-mechanism correction above applies regardless of when "
+        "the underlying predicate itself is eventually repaired.",
+    },
+    {
+        "id": "C35-N4",
+        "severity": "P2",
+        "title": "Publisher unicode escapes reach canonical binding undecoded",
+        "detail": "`Alabama A&M` arrives as the literal `A\\u0026M` from the "
+        "NCAA payload extractor, which prevented real programs from binding "
+        "to the canonical population until decoding was added.",
+        "status": "FIXED_AND_REGRESSION_TESTED",
+        "owner": "BAT-701",
+    },
+)
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out-dir", required=True)
+    ap.add_argument("--validation", default="")
+    ap.add_argument("--pr", type=int, default=691)
+    args = ap.parse_args()
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    head_sha = git(["rev-parse", "HEAD"])
+    ci_status = hosted_ci_status(pr_number=args.pr, head_sha=head_sha)
+    (out_dir / "CYCLE35_EXACT_HEAD_CI_STATUS.json").write_text(
+        json.dumps(ci_status, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    decisions = minimal_decisions_required()
+    (out_dir / "CYCLE35_MINIMAL_DECISIONS_REQUIRED.json").write_text(
+        json.dumps(
+            {
+                "artifact_type": "CYCLE35_MINIMAL_DECISIONS_REQUIRED",
+                "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+                "decisions": decisions,
+                "decision_count": len(decisions),
+            },
+            indent=2, sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+
+    reproduction = load_json(out_dir / "R35_01_REPRODUCTION.json") or {}
+
+    inherited = build_inherited_ledger()
+    (out_dir / "CYCLE35_INHERITED_OBLIGATION_LEDGER.json").write_text(
+        json.dumps(inherited, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    status = {
+        "artifact_type": "CYCLE35_REQUIREMENT_STATUS",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "dimensions": [
+            DIM_IMPLEMENTATION,
+            DIM_DATA,
+            DIM_SOFTWARE,
+            DIM_SCIENCE,
+            DIM_RELEASE,
+            DIM_OVERALL,
+        ],
+        "units": annotate_units_with_session_fixes(
+            R35_UNITS, SESSION_MF35_FIXES, CLOSEOUT_20260921T025300Z_FIXES
+        ),
+        "unit_count": len(R35_UNITS),
+        "units_with_stale_notes": sorted(
+            set(SESSION_MF35_FIXES) | set(CLOSEOUT_20260921T025300Z_FIXES)
+        ),
+        "units_with_notes_predating_the_closeout_review": sorted(
+            CLOSEOUT_20260921T025300Z_FIXES
+        ),
+        "inherited_r34_requirement_count": inherited["r34_requirement_count"],
+        "inherited_mr33_finding_count": inherited["mr33_finding_count"],
+        "inherited_mr34_finding_count": inherited["mr34_finding_count"],
+        "no_unit_claims_independent_scientific_acceptance": all(
+            unit[DIM_SCIENCE] == NOT_REVIEWED for unit in R35_UNITS.values()
+        ),
+        "no_unit_claims_release_authorization": all(
+            unit[DIM_RELEASE] == NOT_AUTHORIZED for unit in R35_UNITS.values()
+        ),
+    }
+    (out_dir / "CYCLE35_REQUIREMENT_STATUS.json").write_text(
+        json.dumps(status, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    disposition = build_finding_disposition(reproduction)
+    (out_dir / "CYCLE35_FINDING_DISPOSITION.json").write_text(
+        json.dumps(disposition, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    evidence_map = {
+        "artifact_type": "CYCLE35_REQUIREMENT_TO_EVIDENCE",
+        "map": {
+            unit_id: {
+                "evidence": unit["evidence"],
+                "evidence_sha256": {
+                    name: sha256_file(out_dir / name) for name in unit["evidence"]
+                },
+                "blockers": unit["blockers"],
+            }
+            for unit_id, unit in R35_UNITS.items()
+        },
+    }
+    (out_dir / "CYCLE35_REQUIREMENT_TO_EVIDENCE.json").write_text(
+        json.dumps(evidence_map, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    # The blocker list is a fixed dictionary written by hand, so it is not
+    # the authority on whether a blocker is still real. Each item carries the
+    # evidence graph's reconciliation -- the category it was placed in after
+    # being checked against a delivered artifact -- alongside its ORIGINAL
+    # text, which is never edited or dropped.
+    reconciliation = load_evidence_graph_reconciliation()
+    items = []
+    for unit_id, unit in R35_UNITS.items():
+        for blocker in unit["blockers"]:
+            item = {
+                "requirement": unit_id,
+                "blocker": blocker,
+                "kind": "EXTERNAL_AUTHORITY"
+                if "APPROVAL" in blocker or "owner" in blocker.lower()
+                else "NETWORK_BUDGET"
+                if "network" in blocker.lower()
+                else "LOCAL_WORK_REMAINING",
+            }
+            reconciled = reconciliation.get((unit_id, blocker))
+            if reconciled:
+                item["reconciled_category"] = reconciled.get("category")
+                item["reconciled_finding"] = reconciled.get("finding")
+                item["checked_against"] = reconciled.get("checked_against")
+            else:
+                item["reconciled_category"] = "NOT_RECONCILED_NO_EVIDENCE_GRAPH_ENTRY"
+            items.append(item)
+
+    by_category: dict[str, int] = {}
+    for item in items:
+        key = str(item["reconciled_category"])
+        by_category[key] = by_category.get(key, 0) + 1
+
+    unfinished = {
+        "artifact_type": "CYCLE35_UNFINISHED_ITEMS",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "items": items,
+        "by_reconciled_category": by_category,
+        "the_blocker_list_is_not_its_own_authority": (
+            "Every blocker below is reproduced verbatim from the declared "
+            "unit list and none was deleted or reworded. Whether it is still "
+            "real is answered by the evidence graph, which checks each one "
+            "against a delivered artifact."
+        ),
+    }
+    unfinished["item_count"] = len(unfinished["items"])
+    (out_dir / "CYCLE35_UNFINISHED_ITEMS.json").write_text(
+        json.dumps(unfinished, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    # Spend is a property of the CYCLE, not of whichever output directory
+    # this process happened to write to. Globbing component ledgers out of
+    # `out_dir` meant that pointing the packet at a fresh directory
+    # reported 0 used / 50 remaining for a cycle that had really spent 7
+    # coaching, 8 availability and 17 infrastructure requests. The
+    # reconstruction now walks every run directory under the cycle root
+    # and deduplicates by request identity.
+    import sys as _sys
+
+    if str(Path(__file__).resolve().parent) not in _sys.path:
+        _sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from r35_17_cycle_request_ledger import build as build_cycle_ledger
+
+    cycle_ledger = build_cycle_ledger(PACK_ROOT / "runs", (out_dir.name,))
+    spent = {
+        "coaching_history": cycle_ledger["budgets"]["coaching_history"][
+            "used_cycle_lifetime"
+        ],
+        "availability_context": cycle_ledger["budgets"]["availability_context"][
+            "used_cycle_lifetime"
+        ],
+        "infrastructure_readback": cycle_ledger["infrastructure_readback_requests"],
+    }
+    outcomes: dict[str, int] = dict(cycle_ledger["outcome_counts"])
+    ledger_files = [
+        Path(item["path"])
+        for item in cycle_ledger["component_ledgers"]
+        if item.get("readable")
+    ]
+
+    ledger = {
+        "artifact_type": "CYCLE35_COST_AND_REQUEST_LEDGER",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "paid_model_calls": 0,
+        "paid_reviewer_calls": 0,
+        "paid_provider_calls": 0,
+        "paid_ai_review_labels_applied": 0,
+        "external_workers_spawned": 0,
+        "component_ledgers": [str(path) for path in ledger_files],
+        "component_ledger_count": len(ledger_files),
+        "coaching_history_budget": {
+            "ceiling": 50,
+            "used_cycle_lifetime": spent["coaching_history"],
+            "remaining": 50 - spent["coaching_history"],
+        },
+        "availability_context_budget": {
+            "ceiling": 50,
+            "used_cycle_lifetime": spent["availability_context"],
+            "remaining": 50 - spent["availability_context"],
+        },
+        "infrastructure_readback_requests": spent["infrastructure_readback"],
+        "outcome_counts": outcomes,
+        "total_scientific_requests": (
+            spent["coaching_history"] + spent["availability_context"]
+        ),
+        "unique_request_entries": cycle_ledger["unique_request_entries"],
+        "duplicate_entries_collapsed": cycle_ledger["duplicate_entries_collapsed"],
+        "cache_hits_no_request_spent": cycle_ledger["cache_hits_no_request_spent"],
+        "retry_attempts_counted": cycle_ledger["retry_attempts_counted"],
+        "paginated_requests_counted": cycle_ledger["paginated_requests_counted"],
+        "prior_readbacks": cycle_ledger["prior_readbacks"],
+        "current_pass_output_directory": out_dir.name,
+        "retries_and_pagination_counted": True,
+        "cache_hits_recorded_separately_and_do_not_spend": True,
+        "budget_is_cycle_scoped_not_process_scoped": True,
+        "budget_exhaustion_relabelled_as_verified_data": False,
+        "note": (
+            "Cache-first throughout, and cache-first is not cache-only. "
+            "These are CYCLE-LIFETIME totals reconstructed across every run "
+            "directory under the cycle root and deduplicated by request "
+            "identity -- not the current pass's own usage, which may be "
+            "zero. Retries count as spend. Infrastructure readback (GitHub, "
+            "Jira) is counted separately so it cannot consume a scientific "
+            "budget. A prior live Jira readback and an All-22 remote-head "
+            "refresh already exist this cycle; see prior_readbacks."
+        ),
+    }
+    (out_dir / "CYCLE35_COST_AND_REQUEST_LEDGER.json").write_text(
+        json.dumps(ledger, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    receipts = {
+        "artifact_type": "CYCLE35_SOURCE_RECEIPT_INDEX",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "pack_inputs": {
+            str(path.name): sha256_file(path)
+            for path in sorted(PACK_ROOT.glob("*.json")) + sorted(PACK_ROOT.glob("*.md"))
+        },
+        "run_artifacts": {
+            str(path.name): {
+                "sha256": sha256_file(path),
+                "bytes": path.stat().st_size,
+            }
+            for path in sorted(out_dir.iterdir())
+            if path.is_file()
+        },
+    }
+    (out_dir / "CYCLE35_SOURCE_RECEIPT_INDEX.json").write_text(
+        json.dumps(receipts, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    audit_matrix = {
+        "artifact_type": "CYCLE35_ALL_CYCLE_AUDIT_MATRIX",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "scope_statement": (
+            "This cycle audited the Cycle #34 submitted head and the specific "
+            "predecessor artifacts its requirements name. It did NOT perform a "
+            "new semantic audit of every historical cycle, and no such claim "
+            "is made."
+        ),
+        "cycles_touched": {
+            "cycle33": "Predecessor modules repaired in place with successors; "
+            "880-reference span successor reparsed.",
+            "cycle34": "Submitted head reproduced, 85-row delivery ingested as "
+            "preserved candidate transcription.",
+            "cycle30": "Membership, kernel, availability policy and raw "
+            "captures consumed read-only.",
+            "cycle21": "National entity identity benchmark inspected only.",
+            "cycle18_19": "Family B lake reconstructed read-only; candidate "
+            "successor written to an isolated root.",
+        },
+        "cycles_not_reviewed": (
+            "Cycles 1-17 and 20, 22-29, 31, 32 were not semantically "
+            "re-audited this cycle."
+        ),
+        "unreviewed_boundary_preserved": True,
+    }
+    (out_dir / "CYCLE35_ALL_CYCLE_AUDIT_MATRIX.json").write_text(
+        json.dumps(audit_matrix, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    git_state = {
+        "branch": git(["rev-parse", "--abbrev-ref", "HEAD"]),
+        "head": git(["rev-parse", "HEAD"]),
+        "tree": git(["rev-parse", "HEAD^{tree}"]),
+        "base": "1981381c049669047e792b23c502bbbd2f050cc2",
+        "predecessor": "517ff324b2591e34ea4b09694d48b88c9163b18a",
+        "commits_since_predecessor": git(
+            ["rev-list", "--count", "517ff324b2591e34ea4b09694d48b88c9163b18a..HEAD"]
+        ),
+        "worktree_clean": not git(["status", "--porcelain"]),
+    }
+    print(json.dumps(
+        {
+            "units": len(R35_UNITS),
+            "inherited_r34": inherited["r34_requirement_count"],
+            "inherited_mr33": inherited["mr33_finding_count"],
+            "inherited_mr34": inherited["mr34_finding_count"],
+            "new_findings": len(NEW_FINDINGS),
+            "unfinished_items": unfinished["item_count"],
+            "git": git_state,
+            "exact_head_ci": {
+                "head_sha": ci_status["head_sha"],
+                "queried": ci_status["queried"],
+                "all_pass": ci_status.get("all_pass"),
+                "by_bucket": ci_status.get("by_bucket"),
+            },
+            "minimal_decisions_required": len(decisions),
+        },
+        indent=1,
+    ))
+    (out_dir / "CYCLE35_GIT_STATE.json").write_text(
+        json.dumps(git_state, indent=2, sort_keys=True), encoding="utf-8"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -8,6 +8,11 @@ from typing import Any, Mapping, Sequence
 
 from aggie_analytics.cycle30.coaching import wiki_career_title_matches_person
 
+#: A page carrying no identifying field is genuinely unidentified. This is
+#: a STATE, never a join key: two pages that are both unidentified are not
+#: thereby the same page.
+UNRESOLVED_PAGE_IDENTITY = "UNRESOLVED_PAGE_IDENTITY"
+
 GENERIC_TOKENS = frozenset(
     {
         "university",
@@ -248,7 +253,14 @@ def page_identity_key(page: Mapping[str, Any]) -> str:
         value = page.get(field)
         if value not in {None, ""}:
             return f"{field}:{value}"
-    return f"opaque:{id(page)}"
+    # MR34-04 repair: the previous fallback was `f"opaque:{id(page)}"` -- a
+    # CPython process memory address. That is not an identity. It is unstable
+    # across runs and reused once an object is freed, so two unrelated
+    # observations could be merged into "one person", or one observation
+    # split into two, depending on allocator behaviour. A page carrying no
+    # identifying field is genuinely unidentified, and the only honest answer
+    # is to say so.
+    return UNRESOLVED_PAGE_IDENTITY
 
 
 def football_career_context(page: Mapping[str, Any]) -> dict[str, Any]:
@@ -295,28 +307,104 @@ def football_career_context(page: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def page_own_person_evidence(page: Mapping[str, Any]) -> tuple[str, ...]:
+    """Who the PAGE ITSELF says it is about, ignoring any caller assertion.
+
+    `occupant_person` is deliberately excluded: it is a field a caller writes
+    onto the page dict, not evidence the source published.
+    """
+
+    names: list[str] = []
+    title = str(page.get("title") or page.get("requested_title") or "").strip()
+    if title:
+        names.append(title)
+    for episode in page.get("episodes") or []:
+        value = str(episode.get("person") or "").strip()
+        if value:
+            names.append(value)
+    return tuple(dict.fromkeys(names))
+
+
 def _person_identity_matches_page(person: str, page: Mapping[str, Any]) -> bool:
-    """MR33-04 repair: the join's own person-identity check. A caller-side
-    title prefilter (e.g. `index_career_pages`) is not sufficient on its own
-    -- `join_occupant_to_pages` must independently reject an unrelated
-    person's page even when the page is otherwise a same-employer football
-    page. Matches on the page title, the recorded occupant, or an episode's
-    own `person` field; a bare substring/employer match is not identity.
+    """MR33-04/MR34-04: the join's own person-identity check.
+
+    MR33-04 established that a caller-side title prefilter is not sufficient.
+    MR34-04 showed the remaining hole: `occupant_person` was consulted as an
+    independent identity source, so a caller could assert "Bob Example" onto
+    a page whose own title and episodes both say "Alice Example" and receive
+    an EVIDENCE_BOUND_CAREER_JOIN. A caller-provided name is a *claim being
+    tested*, never evidence for itself.
+
+    The rule is therefore ordered: when the page publishes its own person
+    evidence (title or episode `person`), that evidence decides, and a
+    contrary caller occupant cannot rescue it. `occupant_person` is consulted
+    only when the page carries no own-person evidence at all, and even then
+    it merely fails to contradict -- `join_occupant_to_pages` still reports
+    the weaker state.
     """
 
     person_key = _fold(person)
     if not person_key:
         return False
-    title = str(page.get("title") or page.get("requested_title") or "")
-    if career_page_title_matches_person(title, person):
-        return True
+    own_evidence = page_own_person_evidence(page)
+    if own_evidence:
+        title = str(page.get("title") or page.get("requested_title") or "")
+        if title and career_page_title_matches_person(title, person):
+            return True
+        episode_persons = {
+            _fold(str(episode.get("person") or ""))
+            for episode in page.get("episodes") or []
+        }
+        if person_key in episode_persons:
+            return True
+        # The page names someone, and it is not this person. A caller-side
+        # `occupant_person` claiming otherwise is exactly the override this
+        # repair closes.
+        return False
     occupant = _fold(str(page.get("occupant_person") or ""))
-    if occupant and occupant == person_key:
-        return True
-    episode_persons = {
-        _fold(str(episode.get("person") or "")) for episode in page.get("episodes") or []
+    return bool(occupant) and occupant == person_key
+
+
+def _episode_locator(page: Mapping[str, Any], episode: Mapping[str, Any]) -> dict[str, Any]:
+    """The exact assertion a join matched, with its own provenance."""
+
+    return {
+        "program_raw": episode.get("program_raw"),
+        "role_raw": episode.get("role") or episode.get("title"),
+        "season": episode.get("season"),
+        "valid_from": episode.get("valid_from") or episode.get("start"),
+        "valid_to": episode.get("valid_to") or episode.get("end"),
+        "source_title": page.get("title") or page.get("requested_title"),
+        "source_revision": page.get("wikimedia_revision") or page.get("revision"),
+        "source_locator": episode.get("source_locator") or episode.get("locator"),
+        "source_class": episode.get("source_class"),
     }
-    return person_key in episode_persons
+
+
+def _episode_matches_role(episode: Mapping[str, Any], role: str) -> bool:
+    claimed = _fold(role)
+    if not claimed:
+        return False
+    for field in ("role", "title", "role_raw"):
+        if _fold(str(episode.get(field) or "")) == claimed:
+            return True
+    return False
+
+
+def _episode_covers_season(episode: Mapping[str, Any], season: str) -> bool:
+    wanted = str(season or "").strip()
+    if not wanted:
+        return False
+    if str(episode.get("season") or "").strip() == wanted:
+        return True
+    start = str(episode.get("valid_from") or episode.get("start") or "")[:4]
+    end = str(episode.get("valid_to") or episode.get("end") or "")[:4]
+    if not start.isdigit():
+        return False
+    if not end.isdigit():
+        # An open interval covers any season at or after its start.
+        return int(wanted) >= int(start)
+    return int(start) <= int(wanted) <= int(end)
 
 
 def join_occupant_to_pages(
@@ -324,8 +412,26 @@ def join_occupant_to_pages(
     person: str,
     program_display: str,
     pages: Sequence[Mapping[str, Any]],
+    role: str = "",
+    season: str = "",
 ) -> dict[str, Any]:
-    """Evidence-bound career join or an exact unresolved state."""
+    """Evidence-bound career join or an exact unresolved state.
+
+    MR34-04 repair, second half: resolving a PERSON to a PAGE is not the same
+    question as verifying that the person held a particular ROLE in a
+    particular SEASON at that employer. The previous signature could not even
+    express the second question -- it took no role and no time -- yet its
+    EVIDENCE_BOUND_CAREER_JOIN verdict was consumed as appointment
+    verification.
+
+    `role` and `season` are therefore accepted and, when supplied, must be
+    satisfied by a single concrete episode on the resolved page; the matched
+    episode and its own source/revision/locator are returned so a consumer
+    can see exactly which assertion carried the join rather than trusting an
+    employer-level match. When they are omitted the result is explicitly
+    labelled a person/employer resolution only, and `role_time_bound` is
+    False -- an honest "we did not ask" rather than an implied yes.
+    """
 
     football_pages = [
         page for page in pages if football_career_context(page)["accepted"]
@@ -334,6 +440,10 @@ def join_occupant_to_pages(
         page for page in football_pages if _person_identity_matches_page(person, page)
     ]
     identities = {page_identity_key(page) for page in person_matched_pages}
+    resolvable_identities = identities - {UNRESOLVED_PAGE_IDENTITY}
+    matched_episode: Mapping[str, Any] | None = None
+    role_time_requested = bool(str(role or "").strip() or str(season or "").strip())
+    role_time_bound = False
     if not pages:
         state = "CAREER_PAGE_MISSING"
         page = None
@@ -348,31 +458,69 @@ def join_occupant_to_pages(
     elif len(identities) > 1:
         state = "AMBIGUOUS_MULTIPLE_FOOTBALL_PAGES"
         page = None
+    elif not resolvable_identities:
+        # Every candidate page is unidentified; there is no key to join on.
+        state = "PAGE_IDENTITY_UNRESOLVED"
+        page = None
     else:
         page = person_matched_pages[0]
-        org_hit = False
+        org_episodes = []
         if str(program_display or "").strip():
-            org_hit = any(
-                employer_evidence_matches(
+            org_episodes = [
+                row
+                for row in (page.get("episodes") or [])
+                if employer_evidence_matches(
                     program_display, str(row.get("program_raw") or "")
                 )
-                for row in (page.get("episodes") or [])
-            )
+            ]
+        if not org_episodes:
+            state = "FOOTBALL_PAGE_ORG_IDENTITY_UNBOUND"
+        elif not role_time_requested:
+            state = "EVIDENCE_BOUND_CAREER_JOIN"
         else:
-            org_hit = False
-        state = (
-            "EVIDENCE_BOUND_CAREER_JOIN"
-            if org_hit
-            else "FOOTBALL_PAGE_ORG_IDENTITY_UNBOUND"
-        )
+            candidates = org_episodes
+            if str(role or "").strip():
+                candidates = [
+                    row for row in candidates if _episode_matches_role(row, role)
+                ]
+            if str(season or "").strip():
+                candidates = [
+                    row for row in candidates if _episode_covers_season(row, season)
+                ]
+            if len(candidates) == 1:
+                matched_episode = candidates[0]
+                role_time_bound = True
+                state = "EVIDENCE_BOUND_ROLE_TIME_JOIN"
+            elif not candidates:
+                state = "ROLE_TIME_NOT_SUPPORTED_BY_ANY_EPISODE"
+            else:
+                # Co/shared occupancy and sequential replacement are real;
+                # picking one silently would invent a fact.
+                state = "AMBIGUOUS_MULTIPLE_MATCHING_EPISODES"
+    bound_states = {"EVIDENCE_BOUND_CAREER_JOIN", "EVIDENCE_BOUND_ROLE_TIME_JOIN"}
     return {
         "person": person,
         "program_display": program_display,
+        "role": role or None,
+        "season": season or None,
         "career_join_state": state,
-        "same_name_only": state != "EVIDENCE_BOUND_CAREER_JOIN",
+        "same_name_only": state not in bound_states,
         "page_identity": None if page is None else page_identity_key(page),
         "cached_football_pages": len(football_pages),
         "distinct_page_identities": len(identities),
+        "page_own_person_evidence": (
+            list(page_own_person_evidence(page)) if page is not None else []
+        ),
+        "caller_occupant_cannot_override_page_evidence": True,
+        # Person/page resolution and appointment verification are different
+        # questions; the answer says which one it actually answered.
+        "role_time_requested": role_time_requested,
+        "role_time_bound": role_time_bound,
+        "matched_episode": (
+            _episode_locator(page, matched_episode)
+            if page is not None and matched_episode is not None
+            else None
+        ),
         "revision_ids_are_not_people": True,
         "pit_admitted": False,
     }

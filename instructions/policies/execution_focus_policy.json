@@ -360,6 +360,27 @@
         "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
         "classification": "[material]",
         "reason": "Cycle #33 validation-receipt emitter update on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "cb823bbcfa0a9e495b664b55726413f51dbe7616",
+        "pull_request": 691,
+        "head_sha": "cb823bbcfa0a9e495b664b55726413f51dbe7616",
+        "classification": "[material]",
+        "reason": "Cycle #35 follow-up R35-08 ledger-binding commit on PR #691 changed tools/cycle35/r35_15_acceptance_packet.py, a material path (MATERIAL_PATH_PREFIXES includes tools/), even though its content was descriptive ledger text. The [process] subject was incorrect: any commit touching a material-prefixed path is material regardless of what the diff says. SHA-scoped only."
+      },
+      {
+        "commit_sha": "188a73b01a17d901947e740240351166b2fc0075",
+        "pull_request": 691,
+        "head_sha": "188a73b01a17d901947e740240351166b2fc0075",
+        "classification": "[material]",
+        "reason": "Cycle #35 follow-up R35-11/R35-10 ledger-binding commit on PR #691 changed tools/cycle35/r35_15_acceptance_packet.py, a material path, for the same reason as the cb823bbc correction above. SHA-scoped only."
+      },
+      {
+        "commit_sha": "e4a669a2d00e262a0d7a67dc6210cdacccd53066",
+        "pull_request": 691,
+        "head_sha": "e4a669a2d00e262a0d7a67dc6210cdacccd53066",
+        "classification": "[material]",
+        "reason": "Cycle #35 follow-up R35-12/13 ledger-binding commit on PR #691 changed tools/cycle35/r35_15_acceptance_packet.py, a material path, for the same reason as the cb823bbc correction above. SHA-scoped only."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

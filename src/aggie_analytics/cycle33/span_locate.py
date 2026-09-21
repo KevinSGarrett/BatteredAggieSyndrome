@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import html as html_lib
+import bisect
 import re
 from functools import lru_cache
 from typing import Any, Mapping
@@ -31,6 +32,10 @@ _BLOCK = re.compile(
 )
 _TAG = re.compile(r"<[^>]+>")
 _BR = re.compile(r"<br\s*/?>", re.I)
+# Double quotes only. Apostrophes are part of names far more often than they
+# delimit nicknames -- `Ka'imi O'Brien` contains two of them, and treating
+# them as delimiters would strip the middle of a real person's name.
+_QUOTED_NICKNAME = re.compile("[\"“”]{1}[^\"“”]{1,40}[\"“”]{1}")
 _TITLE_HINT = re.compile(
     r"\b(?:coach|coordinator|analyst|director|manager|assistant|"
     r"associate|special teams|quality control|recruiting|"
@@ -47,6 +52,14 @@ def _variants(text: str) -> tuple[str, ...]:
     folded = unesc.translate(str.maketrans(_APOSTROPHE))
     collapsed = re.sub(r"\s+", " ", folded)
     values = [raw, unesc, folded, collapsed, _JR.sub("", collapsed).strip()]
+    # A sourced quoted nickname is a legitimate alias form: the same person
+    # may be published as `Deion "Coach Prime" Sanders` on one page and
+    # `Deion Sanders` on another. Both spellings are offered so the pair can
+    # match, without the substring fallback this repair removed.
+    nickname_free = _QUOTED_NICKNAME.sub(" ", collapsed)
+    nickname_free = re.sub(r"\s+", " ", nickname_free).strip()
+    if nickname_free and nickname_free != collapsed:
+        values.append(nickname_free)
     recruits = re.split(r"\brecruits\s*:", collapsed, maxsplit=1, flags=re.I)
     if len(recruits) == 2:
         values.append(recruits[0].strip().rstrip("/,-"))
@@ -188,13 +201,70 @@ def _looks_like_title(text: str) -> bool:
     return bool(_TITLE_HINT.search(text or ""))
 
 
+_NAME_TOKEN = re.compile(r"[0-9a-z]+", re.I)
+
+
+def _name_tokens(text: str) -> tuple[str, ...]:
+    """Lowercase word tokens, punctuation-stripped. `J.R. Smith` -> (jr, smith)."""
+
+    return tuple(match.group(0).casefold() for match in _NAME_TOKEN.finditer(text or ""))
+
+
+def _token_subsequence_at_boundary(needle: tuple[str, ...], hay: tuple[str, ...]) -> bool:
+    """True when `needle` appears in `hay` as CONSECUTIVE WHOLE tokens.
+
+    This is the difference between identity and coincidence. Substring
+    containment says "john smith" is inside "john smithson"; whole-token
+    matching says the second token is `smithson`, which is not `smith`, so
+    they are different people. Word boundaries are the entire point.
+    """
+
+    if not needle or len(needle) > len(hay):
+        return False
+    first = needle[0]
+    for start in range(len(hay) - len(needle) + 1):
+        if hay[start] != first:
+            continue
+        if hay[start : start + len(needle)] == needle:
+            return True
+    return False
+
+
 def _name_match(person: str, candidate: str) -> bool:
+    """Same-person identity between a claimed name and a candidate string.
+
+    MR34-03 repair. The previous final clause was
+    `any(item in _fold(candidate) for item in left)` -- raw substring
+    containment, which confirmed `John Smith` from a record reading
+    `John Smithson Head Coach`. Surname prefixes are extremely common
+    (Smith/Smithson, Brown/Browne, Will/Williams, Stew/Stewart), so this was
+    not a rare collision.
+
+    The variant-equality path is kept unchanged: it is what legitimately
+    resolves sourced aliases and orderings (`Smith, John` -> `John Smith`,
+    `Jr.` suffixes, curly apostrophes, `&nbsp;`). What replaces the substring
+    fallback is whole-token sequence matching, so a longer record name still
+    matches a shorter claimed name only when every claimed token is present
+    as a complete token, in order -- `John Smith` matches
+    `John Smith Head Coach` and `John Smith Jr.`, but never `John Smithson`.
+    """
+
     left = {_fold(item) for item in _variants(person) if item}
     right = {_fold(item) for item in _variants(candidate) if item}
     if left and right and (left & right):
         return True
-    cand = _fold(candidate)
-    return any(item in cand for item in left if item)
+    hay = _name_tokens(candidate)
+    if not hay:
+        return False
+    for variant in _variants(person):
+        needle = _name_tokens(variant)
+        # A single token is a given name or a surname alone; it is not an
+        # identity, and matching on it is how unrelated staff collide.
+        if len(needle) < 2:
+            continue
+        if _token_subsequence_at_boundary(needle, hay):
+            return True
+    return False
 
 
 def _variant_equal(left: str, right: str) -> bool:
@@ -224,8 +294,142 @@ def role_claim_supported_on_title(record_title: str, claimed_title: str) -> bool
     return False
 
 
+_CONTACT_VALUE = re.compile(r"[^\s@]+@[^\s@]+\.[^\s@]+|^\+?[\d().\-\s]{7,}$")
+#: "@CoachLocks" -- a social handle, which the email pattern misses because
+#: it has nothing before the @ and no dot after it.
+_SOCIAL_HANDLE = re.compile(r"^@[A-Za-z0-9_]{2,}$")
+
+
+def _is_contact_value(text: str) -> bool:
+    """Contact detail in a contact column is not a person.
+
+    Staff tables commonly read title / name / phone / email / handle, and
+    _name_like accepts "rhuesman@richmond.edu" and "@CoachLocks" as names.
+    Counting either as a second candidate made the unambiguous-name guard
+    refuse rows that contain exactly one real person.
+    """
+
+    value = str(text or "").strip()
+    return bool(_CONTACT_VALUE.search(value) or _SOCIAL_HANDLE.match(value))
+
+
+_TABLE_BOUNDARY = re.compile(r"<table\b[^>]*>|</table\s*>", re.I)
+
+#: Header vocabulary, matched against the WHOLE header cell so a data cell
+#: that merely contains "coach" is not mistaken for a header.
+_HEADER_NAME = re.compile(r"^(name|full\s*name|coach|person|staff\s*member)$", re.I)
+_HEADER_TITLE = re.compile(r"^(title|position|role|job\s*title)$", re.I)
+
+#: Larger than any table id _table_scopes can assign, so bisect_right below
+#: orders purely on the offset.
+_MAX_TABLE_ID = 1 << 62
+
+
+def _table_scopes(html: str) -> list[tuple[int, int]]:
+    """(offset, table_id) marks, so each row is tied to its own table.
+
+    Without this, a table carrying no header of its own would inherit the
+    header of the table before it on the page.
+    """
+
+    marks: list[tuple[int, int]] = [(0, 0)]
+    stack: list[int] = []
+    opened = 0
+    for match in _TABLE_BOUNDARY.finditer(html or ""):
+        if match.group(0)[:6].lower() == "<table":
+            opened += 1
+            stack.append(opened)
+        elif stack:
+            stack.pop()
+        marks.append((match.end(), stack[-1] if stack else 0))
+    return marks
+
+
+def _scope_at(marks: list[tuple[int, int]], offset: int) -> int:
+    index = bisect.bisect_right(marks, (offset, _MAX_TABLE_ID)) - 1
+    return marks[index][1] if index >= 0 else 0
+
+
+def _header_columns(cells: list[dict[str, Any]]) -> tuple[int, int] | None:
+    """(name_column, title_column) when this row is an unambiguous header.
+
+    Exactly one of each is required. A table heading two name columns has
+    not told us which one holds the person, and guessing there would be the
+    very thing this replaces.
+    """
+
+    names = [i for i, cell in enumerate(cells) if _HEADER_NAME.match(cell["text"] or "")]
+    titles = [i for i, cell in enumerate(cells) if _HEADER_TITLE.match(cell["text"] or "")]
+    if len(names) != 1 or len(titles) != 1:
+        return None
+    return names[0], titles[0]
+
+
+def _row_cells(match: "re.Match[str]") -> list[dict[str, Any]]:
+    inner_origin = match.start(1)
+    return [
+        {
+            "text": _plain(cell.group(1)),
+            "start": inner_origin + cell.start(1),
+            "end": inner_origin + cell.end(1),
+            "raw": cell.group(1),
+        }
+        for cell in _CELL.finditer(match.group(1))
+    ]
+
+
+def _collect_headers(
+    html: str, scope_marks: list[tuple[int, int]]
+) -> dict[int, dict[str, Any]]:
+    """The FIRST unambiguous header row in each table, and its geometry.
+
+    First only: a table that repeats its header mid-way does not get to
+    change the meaning of the columns below it.
+    """
+
+    headers: dict[int, dict[str, Any]] = {}
+    for ordinal, match in enumerate(_TR.finditer(html or "")):
+        scope = _scope_at(scope_marks, match.start())
+        if scope in headers:
+            continue
+        cells = _row_cells(match)
+        if len(cells) < 2:
+            continue
+        columns = _header_columns(cells)
+        if columns is None:
+            continue
+        headers[scope] = {
+            "ordinal": ordinal,
+            "width": len(cells),
+            "name_column": columns[0],
+            "title_column": columns[1],
+        }
+    return headers
+
+
+def _table_record(
+    ordinal: int,
+    person_cell: dict[str, Any],
+    title_cell: dict[str, Any],
+    match: "re.Match[str]",
+) -> dict[str, Any]:
+    return {
+        "kind": "table_row",
+        "selector": f"tr[{ordinal}]",
+        "person": person_cell["text"],
+        "title": title_cell["text"],
+        "person_start": person_cell["start"],
+        "person_end": person_cell["end"],
+        "title_start": title_cell["start"],
+        "title_end": title_cell["end"],
+        "record_html": match.group(0),
+    }
+
+
 def _table_records(html: str) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
+    scope_marks = _table_scopes(html)
+    headers = _collect_headers(html, scope_marks)
     for ordinal, match in enumerate(_TR.finditer(html or "")):
         inner = match.group(1)
         inner_origin = match.start(1)
@@ -242,11 +446,47 @@ def _table_records(html: str) -> list[dict[str, Any]]:
             )
         if len(cells) < 2:
             continue
+        # The table said what its columns are. Prefer that over cell shape.
+        header = headers.get(_scope_at(scope_marks, match.start()))
+        if header is not None and header["ordinal"] == ordinal:
+            continue  # the header row itself describes no person
+        if header is not None and len(cells) == header["width"]:
+            by_header = cells[header["name_column"]]
+            title_by_header = cells[header["title_column"]]
+            if by_header["text"] and title_by_header["text"]:
+                records.append(
+                    _table_record(ordinal, by_header, title_by_header, match)
+                )
+                continue
         person_cell = next((cell for cell in cells if cell["text"]), None)
         if person_cell is None:
             continue
         if not _name_like(person_cell["text"]):
-            continue
+            # The first non-empty cell is not a name. That is not proof the
+            # row has none: staff tables exist whose TITLE column comes
+            # first, and discarding the row lost real staff whose name and
+            # title are both plainly in the capture.
+            #
+            # This path is only reached when the original one declined, so
+            # no row that already binds can change. It binds only when the
+            # row carries exactly one name-like cell and a title-like cell
+            # -- requiring both is what stops a stray name-shaped cell, a
+            # city or a school, from being read as a person.
+            named = [
+                cell
+                for cell in cells
+                if cell["text"]
+                and _name_like(cell["text"])
+                and not _is_contact_value(cell["text"])
+            ]
+            titled = [
+                cell
+                for cell in cells
+                if cell["text"] and _looks_like_title(cell["text"])
+            ]
+            if len(named) != 1 or not titled:
+                continue
+            person_cell = named[0]
         title_cell = next(
             (
                 cell
@@ -262,19 +502,7 @@ def _table_records(html: str) -> list[dict[str, Any]]:
             )
         if title_cell is None:
             continue
-        records.append(
-            {
-                "kind": "table_row",
-                "selector": f"tr[{ordinal}]",
-                "person": person_cell["text"],
-                "title": title_cell["text"],
-                "person_start": person_cell["start"],
-                "person_end": person_cell["end"],
-                "title_start": title_cell["start"],
-                "title_end": title_cell["end"],
-                "record_html": match.group(0),
-            }
-        )
+        records.append(_table_record(ordinal, person_cell, title_cell, match))
     return records
 
 
@@ -312,9 +540,30 @@ def _block_pair_records(html: str) -> list[dict[str, Any]]:
     return records
 
 
+def strip_quoted_nickname(text: str) -> str:
+    """Remove a quoted nickname segment from a sourced personal name.
+
+    R35-02, defect found by the 880-row reparse: `Deion "Coach Prime"
+    Sanders` was not treated as a name at all, because `_looks_like_title`
+    matched the word `Coach` INSIDE the nickname and classified the whole
+    cell as a title. The staff row was therefore never extracted, and a real,
+    correctly sourced head-coach appointment silently disappeared from the
+    record set.
+
+    Only quote-delimited segments are removed. Parentheses are left alone --
+    they carry disambiguating information (`Miami (OH)`) rather than
+    nicknames, and stripping them would trade one identity bug for another.
+    """
+
+    stripped = _QUOTED_NICKNAME.sub(" ", str(text or ""))
+    return re.sub(r"\s+", " ", stripped).strip()
+
+
 def _name_like(text: str) -> bool:
     folded = _fold(text)
-    if not folded or _looks_like_title(text):
+    # A title word inside a quoted nickname is part of the person's name, not
+    # a job title, so the title test runs against the nickname-stripped form.
+    if not folded or _looks_like_title(strip_quoted_nickname(text)):
         return False
     if re.fullmatch(r"\d{4}", folded):
         return False

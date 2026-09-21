@@ -252,10 +252,121 @@ def resolve_data_root(explicit: Path | None, repo_root: Path) -> Path:
 
 
 def try_resolve_data_root(explicit: Path | None, repo_root: Path) -> Path | None:
+    """The configured external data root, if a directory exists there.
+
+    Note the exact meaning: this answers "is there a directory at the
+    configured location", NOT "is the private dataset mounted". Those are
+    different questions, and conflating them is MR34-12. Callers deciding
+    whether a real-data rebuild is possible must use `private_payload_state`
+    or `private_data_is_mounted` below.
+    """
+
     try:
         return resolve_data_root(explicit, repo_root)
     except ValueError:
         return None
+
+
+#: Payload availability states. Each is a distinct fact about the world and
+#: none may be inferred from any other.
+PAYLOAD_STATE_NO_ROOT = "NO_DATA_ROOT"
+PAYLOAD_STATE_EMPTY = "DATA_ROOT_PRESENT_BUT_EMPTY"
+PAYLOAD_STATE_MANIFEST_MISSING = "MANIFEST_MISSING"
+PAYLOAD_STATE_CORRUPT = "MANIFEST_UNREADABLE"
+PAYLOAD_STATE_PARTIAL = "PAYLOADS_PARTIALLY_PRESENT"
+PAYLOAD_STATE_MOUNTED = "PRIVATE_PAYLOADS_MOUNTED"
+
+
+def private_payload_state(explicit: Path | None, repo_root: Path) -> dict[str, Any]:
+    r"""Report what is ACTUALLY available at the configured data root.
+
+    MR34-12 repair. `bool(try_resolve_data_root(None, ROOT))` was the
+    condition for requiring a real-data rebuild. On the hosted Windows runner
+    a directory exists at the configured path -- `C:\BatteredAggieSyndrome.data`
+    -- while none of the private payloads do, so the condition read True, the
+    rebuild was demanded, and the run died on a FileNotFoundError for a
+    manifest that was never going to be there.
+
+    Directory presence is not data availability. This distinguishes: no
+    configured root; a root that exists but holds no manifest; a manifest
+    that cannot be parsed; a manifest with only some payloads; and every
+    declared payload actually present.
+
+    The invariant is not weakened. When the payloads ARE mounted the state is
+    PRIVATE_PAYLOADS_MOUNTED and the rebuild stays mandatory. What changes is
+    that an absent dataset is reported as absent instead of misread as
+    present.
+    """
+
+    root = try_resolve_data_root(explicit, repo_root)
+    absent = {
+        "data_root": None if root is None else str(root),
+        "manifest_path": None,
+        "present_payloads": [],
+        "missing_payloads": sorted(REQUIRED_PAYLOADS),
+        "rebuild_possible": False,
+    }
+    if root is None:
+        return {**absent, "state": PAYLOAD_STATE_NO_ROOT}
+
+    manifest_path = root / MANIFEST_RELATIVE
+    absent["manifest_path"] = str(manifest_path)
+    if not manifest_path.is_file():
+        try:
+            empty = not any(root.iterdir())
+        except OSError:
+            empty = False
+        return {
+            **absent,
+            "state": PAYLOAD_STATE_EMPTY if empty else PAYLOAD_STATE_MANIFEST_MISSING,
+        }
+    try:
+        manifest = _load_json(manifest_path)
+    except (OSError, ValueError):
+        return {**absent, "state": PAYLOAD_STATE_CORRUPT}
+
+    # Payloads live at the manifest's own declared external paths, not beside
+    # the manifest, so availability is decided by resolving each declared
+    # path exactly the way the loader will.
+    listed = {
+        str(row.get("name")): str(row.get("path") or "")
+        for row in (manifest.get("payloads") or [])
+        if isinstance(row, Mapping)
+    }
+    present: list[str] = []
+    for name in REQUIRED_PAYLOADS:
+        raw_path = listed.get(name)
+        if not raw_path:
+            continue
+        try:
+            resolved = resolve_external_path(root, raw_path)
+        except ValueError:
+            continue
+        if resolved.is_file():
+            present.append(name)
+    present = sorted(present)
+    missing = sorted(set(REQUIRED_PAYLOADS) - set(present))
+    if missing:
+        return {
+            **absent,
+            "state": PAYLOAD_STATE_PARTIAL,
+            "present_payloads": present,
+            "missing_payloads": missing,
+        }
+    return {
+        "state": PAYLOAD_STATE_MOUNTED,
+        "data_root": str(root),
+        "manifest_path": str(manifest_path),
+        "present_payloads": present,
+        "missing_payloads": [],
+        "rebuild_possible": True,
+    }
+
+
+def private_data_is_mounted(explicit: Path | None, repo_root: Path) -> bool:
+    """True only when every declared private payload is actually readable."""
+
+    return private_payload_state(explicit, repo_root)["rebuild_possible"]
 
 
 def resolve_external_path(data_root: Path, raw_path: str) -> Path:
@@ -1106,12 +1217,33 @@ def validate_walk_forward_artifact(
     freeze_split_boundaries(repo_root)
     rebuilt = expected_folds
     if rebuilt is None:
-        data_root = try_resolve_data_root(None, repo_root)
-        if data_root is None:
-            if require_payload_rebuild:
-                raise ValueError("independent payload reconstruction requires an external BAT-523 data root")
-        else:
-            rebuilt = rebuild_expected_fold_authority(repo_root, data_root=data_root)
+        # MR34-12 repair. This previously attempted the rebuild whenever a
+        # DIRECTORY existed at the configured data root, independently of
+        # `require_payload_rebuild`. On the hosted Windows runner such a
+        # directory exists while the private payloads do not, so validation
+        # died on a FileNotFoundError for a manifest that could never be
+        # there -- an environment fact reported as an artifact defect.
+        #
+        # Availability is now decided by the payloads themselves. The
+        # invariant is untouched in the direction that matters: when the
+        # payloads are mounted the rebuild runs and must agree, and when a
+        # caller demands the rebuild it still fails loudly (now naming the
+        # exact observed state) rather than passing quietly.
+        state = private_payload_state(None, repo_root)
+        if state["rebuild_possible"]:
+            rebuilt = rebuild_expected_fold_authority(
+                repo_root, data_root=Path(state["data_root"])
+            )
+        elif require_payload_rebuild:
+            raise ValueError(
+                "independent payload reconstruction was required but the "
+                "private BAT-523 payloads are not available: state="
+                + str(state["state"])
+                + " data_root="
+                + str(state["data_root"])
+                + " missing="
+                + ",".join(state["missing_payloads"])
+            )
     if rebuilt is not None:
         if len(rebuilt) != len(folds):
             raise ValueError("independently rebuilt fold count does not match the artifact")

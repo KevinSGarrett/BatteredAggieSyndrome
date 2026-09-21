@@ -22,7 +22,33 @@ SOURCE_ID = "SRC-014"
 PASS_CLASSIFICATION = "TAMU_OFFICIAL_GAMEBOOK_UNION_1998_REJECTION_COMPLETE_CANDIDATE_ONLY"
 PASS_RESULT = "PASS_IMMUTABLE_REJECTION_COMPLETE_UNION_SUCCESSOR"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
+#: The BAT-637 gate identity this consumer was originally pinned to. It
+#: predates BAT-649 and no longer equals the live gate. It keeps its
+#: historical name and value: a Done predecessor's recorded pin is not
+#: edited, and it is not "corrected" by pasting the observed live hash
+#: over it, which would destroy the evidence that the two ever differed.
 PINNED_BAT637_GATE_IDENTITY = "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a"
+LEGACY_BAT637_GATE_IDENTITY = PINNED_BAT637_GATE_IDENTITY
+
+#: The contract that DECLARES the successor's BAT-637 dependency. The
+#: successor pin is derived from this declared authority at run time
+#: rather than restated as another hardcoded constant -- restating it is
+#: what let the predecessor's copy go stale unnoticed.
+SUCCESSOR_CONTRACT_RELATIVE = (
+    "configs/tamu_official_1998_2009_structured_row_corpus_contract.json"
+)
+SUCCESSOR_CONTRACT_PIN_FIELD = "pinned_bat637_gate_identity"
+SUCCESSOR_CONTRACT_UNION_FIELD = "pinned_bat637_union_identity"
+
+#: Which dependency version a caller is asking for. LEGACY reproduces the
+#: canonical predecessor exactly, including its disagreement with the live
+#: gate; SUCCESSOR derives the pin from declared contract authority. The
+#: default stays LEGACY so importing this module can never silently
+#: activate the successor: activation is a separate explicit approval, not
+#: a side effect of a code change.
+PIN_AUTHORITY_LEGACY = "LEGACY_MODULE_CONSTANT"
+PIN_AUTHORITY_SUCCESSOR = "DECLARED_CONTRACT_AUTHORITY"
+
 UNION_MANIFEST_NAME = "union_manifest.json"
 
 
@@ -46,11 +72,76 @@ def _counts(gate637: Mapping[str, Any], ledger: Mapping[str, Any]) -> dict[str, 
     return out
 
 
-def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
+def resolve_bat637_pin(
+    *, repo_root: Path, pin_authority: str = PIN_AUTHORITY_LEGACY
+) -> dict[str, Any]:
+    """The BAT-637 gate identity this run requires, and where it came from.
+
+    LEGACY returns the module's own historical constant. SUCCESSOR reads
+    the contract that declares the dependency. A contract declaring no pin,
+    or a malformed one, is an authority violation rather than a silent
+    fallback to the stale value.
+    """
+
+    if pin_authority == PIN_AUTHORITY_LEGACY:
+        return {
+            "gate_identity": LEGACY_BAT637_GATE_IDENTITY,
+            "pin_authority": PIN_AUTHORITY_LEGACY,
+            "declared_by": "module constant PINNED_BAT637_GATE_IDENTITY",
+            "union_identity": None,
+        }
+    if pin_authority != PIN_AUTHORITY_SUCCESSOR:
+        raise AuthorityViolation(f"unknown BAT-637 pin authority: {pin_authority}")
+
+    contract_path = repo_root / SUCCESSOR_CONTRACT_RELATIVE
+    if not contract_path.is_file():
+        raise AuthorityViolation(
+            f"declared BAT-637 authority contract is absent: {contract_path}"
+        )
+    declared_contract = load_json(contract_path)
+    declared = str(declared_contract.get(SUCCESSOR_CONTRACT_PIN_FIELD) or "")
+    if len(declared) != 64 or any(ch not in "0123456789abcdef" for ch in declared):
+        raise AuthorityViolation(
+            "declared BAT-637 gate identity missing or malformed in "
+            f"{SUCCESSOR_CONTRACT_RELATIVE}"
+        )
+    return {
+        "gate_identity": declared,
+        "pin_authority": PIN_AUTHORITY_SUCCESSOR,
+        "declared_by": f"{SUCCESSOR_CONTRACT_RELATIVE}:{SUCCESSOR_CONTRACT_PIN_FIELD}",
+        "union_identity": str(
+            declared_contract.get(SUCCESSOR_CONTRACT_UNION_FIELD) or ""
+        )
+        or None,
+    }
+
+
+def reconstruct_objects(
+    *,
+    repo_root: Path,
+    data_root: Path,
+    pin_authority: str = PIN_AUTHORITY_LEGACY,
+) -> dict[str, Any]:
     contract = load_json(repo_root / CONTRACT_RELATIVE)
     gate637 = load_json(repo_root / "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json")
-    if gate637.get("gate_identity") != PINNED_BAT637_GATE_IDENTITY:
-        raise AuthorityViolation("BAT-637 gate identity drifted")
+    resolved_pin = resolve_bat637_pin(repo_root=repo_root, pin_authority=pin_authority)
+    required_pin = resolved_pin["gate_identity"]
+    observed_pin = str(gate637.get("gate_identity") or "")
+    if observed_pin != required_pin:
+        raise AuthorityViolation(
+            "BAT-637 gate identity drifted: the live gate is "
+            f"{observed_pin or '<absent>'} but the {resolved_pin['pin_authority']} "
+            f"pin requires {required_pin} (declared by {resolved_pin['declared_by']})"
+        )
+    # A successor run must also agree with the declared union identity when
+    # the contract states one, so a gate matching on one field while
+    # disagreeing on the other cannot pass as a consistent dependency.
+    declared_union = resolved_pin.get("union_identity")
+    if declared_union and str(gate637.get("union_identity") or "") != declared_union:
+        raise AuthorityViolation(
+            "BAT-637 union identity does not match the declared successor "
+            f"dependency {declared_union}"
+        )
     rejection_gate = load_json(repo_root / "artifacts/data_lake/tamu_official_1998_2009_rejection_integrity_gate.json")
     rejection_gate_identity = str(rejection_gate.get("gate_identity") or "")
     rejection_ledger_identity = str(rejection_gate.get("ledger_identity") or "")
@@ -74,7 +165,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     payload = {
         "schema_version": SCHEMA_VERSION,
         "predecessor_union_identity": str(gate637.get("union_identity") or ""),
-        "predecessor_gate_identity": PINNED_BAT637_GATE_IDENTITY,
+        "predecessor_gate_identity": required_pin,
         "rejection_integrity_gate_identity": rejection_gate_identity,
         "rejection_ledger_identity": rejection_ledger_identity,
         "rejection_ledger_sha256": sha256_file(ledger_path),
@@ -111,7 +202,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "disposition": "NEW_IMMUTABLE_REJECTION_COMPLETE_UNION_SUCCESSOR",
         "validation_contract_version": VALIDATION_CONTRACT_VERSION,
         "predecessor_union_identity": payload["predecessor_union_identity"],
-        "predecessor_gate_identity": PINNED_BAT637_GATE_IDENTITY,
+        "predecessor_gate_identity": required_pin,
         "rejection_integrity_gate_identity": rejection_gate_identity,
         "rejection_ledger_identity": rejection_ledger_identity,
         "union_identity": payload["union_identity"],
@@ -119,7 +210,7 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "admitted_row_gap_urls": payload["admitted_row_gap_urls"],
         "protected_lane": PROTECTED_LANE,
         "upstream_identities": {
-            "bat637_gate_identity": PINNED_BAT637_GATE_IDENTITY,
+            "bat637_gate_identity": required_pin,
             "rejection_integrity_gate_identity": rejection_gate_identity,
             "rejection_ledger_identity": rejection_ledger_identity,
         },
@@ -130,8 +221,15 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     return {"contract": contract, "payload": payload, "gate": gate, "manifest_path": root / UNION_MANIFEST_NAME}
 
 
-def materialize_union(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
-    objects = reconstruct_objects(repo_root=repo_root, data_root=data_root)
+def materialize_union(
+    *,
+    repo_root: Path,
+    data_root: Path,
+    pin_authority: str = PIN_AUTHORITY_LEGACY,
+) -> dict[str, Any]:
+    objects = reconstruct_objects(
+        repo_root=repo_root, data_root=data_root, pin_authority=pin_authority
+    )
     write_json(objects["manifest_path"], objects["payload"])
     write_json(repo_root / GATE_RELATIVE, objects["gate"])
     return {
@@ -141,9 +239,17 @@ def materialize_union(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     }
 
 
-def validate_artifact(*, repo_root: Path, data_root: Path, gate: Mapping[str, Any] | None = None) -> dict[str, Any]:
+def validate_artifact(
+    *,
+    repo_root: Path,
+    data_root: Path,
+    gate: Mapping[str, Any] | None = None,
+    pin_authority: str = PIN_AUTHORITY_LEGACY,
+) -> dict[str, Any]:
     committed = dict(gate) if gate is not None else load_json(repo_root / GATE_RELATIVE)
-    expected = reconstruct_objects(repo_root=repo_root, data_root=data_root)
+    expected = reconstruct_objects(
+        repo_root=repo_root, data_root=data_root, pin_authority=pin_authority
+    )
     if committed != expected["gate"]:
         raise AuthorityViolation("committed rejection-complete union gate does not match independent reconstruction")
     if committed.get("gate_identity") != compute_identity(committed, "gate_identity"):

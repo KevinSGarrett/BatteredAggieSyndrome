@@ -37,6 +37,20 @@ REQUIRED_IDENTITY_FIELDS = (
 )
 OPTIONAL_PRESERVED_FIELDS = ("valid_to",)
 
+# MR34-07 repair: these four semantic fields were supplied by callers and
+# silently dropped while `verify_lossless_round_trip` still reported
+# `lossless: true`. They are not decoration. `rights_state` governs whether a
+# row may be shared at all, `conflict_state` says whether the assertion is
+# disputed, `responsibility` distinguishes a title from what the person
+# actually did, and `source_revision` is what makes the claim re-checkable.
+# Losing any of them changes what the payload means to its consumer.
+SEMANTIC_PRESERVED_FIELDS = (
+    "conflict_state",
+    "responsibility",
+    "rights_state",
+    "source_revision",
+)
+
 
 def compatibility_report(
     *, producer_version: str, consumer_version: str
@@ -85,12 +99,28 @@ def verify_lossless_round_trip(row: Mapping[str, Any]) -> dict[str, Any]:
     optional_dropped = [
         field for field in OPTIONAL_PRESERVED_FIELDS if field not in encoded
     ]
-    lossless = not missing_fields and not mismatched_fields and not optional_dropped
+    # MR34-07: a field the caller SUPPLIED and the envelope did not carry is
+    # a loss, whether or not the envelope considers it mandatory.
+    semantic_dropped = [
+        field
+        for field in SEMANTIC_PRESERVED_FIELDS
+        if field in row and encoded.get(field) != row.get(field)
+    ]
+    retained_extensions = sorted(encoded.get("unmodelled_extension_fields") or {})
+    lossless = (
+        not missing_fields
+        and not mismatched_fields
+        and not optional_dropped
+        and not semantic_dropped
+    )
     return {
         "lossless": lossless,
         "missing_fields": missing_fields,
         "mismatched_fields": mismatched_fields,
         "optional_fields_dropped": optional_dropped,
+        "semantic_fields_dropped": semantic_dropped,
+        "retained_unmodelled_extension_fields": retained_extensions,
+        "unknown_fields_are_retained_not_discarded": True,
         "envelope": LOSSLESS_ENVELOPE,
     }
 
@@ -124,6 +154,17 @@ def encode_episode(row: Mapping[str, Any]) -> dict[str, Any]:
     }
     for field in OPTIONAL_PRESERVED_FIELDS:
         encoded[field] = row.get(field)
+    for field in SEMANTIC_PRESERVED_FIELDS:
+        encoded[field] = row.get(field)
+    # Any field the caller supplied that this envelope does not model is
+    # reported rather than discarded. Declaring LOSSLESS while quietly
+    # dropping an unknown extension is the defect, not the unknown field.
+    known = set(encoded) | set(REQUIRED_EPISODE_FIELDS) | set(REQUIRED_IDENTITY_FIELDS)
+    unmodelled = sorted(key for key in row if key not in known)
+    if unmodelled:
+        encoded["unmodelled_extension_fields"] = {
+            key: row[key] for key in unmodelled
+        }
     return encoded
 
 

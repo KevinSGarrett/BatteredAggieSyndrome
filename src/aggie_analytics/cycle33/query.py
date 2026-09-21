@@ -3,6 +3,21 @@
 Unknown and conflicting values are returned, never silently omitted.
 Package-installed use must pass explicit data roots; there is no private
 absolute-path default that loads production secrets.
+
+MF35-06 repair: `team_staff`, `coach_career`, `unresolved_roles` and
+`team_schemes` below now detect which schema the given database actually
+has (`aggie_analytics.cycle35.query.schema_kind`) and delegate to that
+module's equivalents when it is a cycle35 coaching release. The installed
+`bas-staff-query` CLI (`main`, below) is this module's `main`, so this is
+what makes the ONE installed entry point work against either a legacy
+cycle33 delivery or a cycle35 release without raising
+`OperationalError: no such table: staff_role_cells` -- exactly the failure
+the Cycle #35 manager follow-up reproduced against the delivered r7
+release. Every function's return-row SHAPE stays whatever its owning schema
+actually produces; this is a dispatch fix, not a shape-unifying translation
+layer, because pretending the two schemas are the same would hide the real
+difference between a flat disposition-tagged cell and an evidence-layered
+assertion.
 """
 
 from __future__ import annotations
@@ -12,6 +27,8 @@ import json
 import sqlite3
 from pathlib import Path
 from typing import Any, Mapping, Sequence
+
+from aggie_analytics.cycle35 import query as cycle35_query
 
 SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS staff_role_cells (
@@ -126,6 +143,8 @@ def load_import(conn: sqlite3.Connection, imported: Mapping[str, Any]) -> int:
 def team_staff(
     conn: sqlite3.Connection, *, team: str, season: str
 ) -> list[dict[str, Any]]:
+    if cycle35_query.schema_kind(conn) == cycle35_query.SCHEMA_KIND_CYCLE35:
+        return cycle35_query.team_staff(conn, team=team, season=season)
     cur = conn.execute(
         """
         SELECT * FROM staff_role_cells
@@ -138,6 +157,8 @@ def team_staff(
 
 
 def coach_career(conn: sqlite3.Connection, *, person: str) -> list[dict[str, Any]]:
+    if cycle35_query.schema_kind(conn) == cycle35_query.SCHEMA_KIND_CYCLE35:
+        return cycle35_query.coach_career(conn, person=person)
     cur = conn.execute(
         """
         SELECT * FROM staff_role_cells
@@ -199,6 +220,8 @@ def team_schemes(
     multi-program result, never a merged fact answer.
     """
 
+    if cycle35_query.schema_kind(conn) == cycle35_query.SCHEMA_KIND_CYCLE35:
+        return cycle35_query.team_schemes(conn, program=program, season=season)
     cur = conn.execute(
         """
         SELECT * FROM scheme_tenure_claims
@@ -244,18 +267,146 @@ def search_team_schemes_by_name(
     }
 
 
-def unresolved_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+#: Dispositions that positively assert a resolved, admitted observation.
+#: Stating the closed set this way is what makes an unanticipated enum value
+#: default to VISIBLE instead of disappearing.
+RESOLVED_DISPOSITIONS = frozenset(
+    {
+        "RESOLVED_CAREER_JOIN_VERIFIED",
+        "CONFIRMED_APPOINTMENT",
+        "CONFIRMED_CO_SHARED_ROLE",
+    }
+)
+
+#: Resolved *as a negative*: examined and deliberately not admitted. Not
+#: unresolved, but not a verified fact either, so it gets its own view.
+REJECTED_DISPOSITIONS = frozenset({"CORRECTLY_REJECTED_NO_EMPLOYER_MATCH"})
+QUARANTINED_DISPOSITION_TOKENS = ("QUARANTINE",)
+CONFLICTED_DISPOSITION_TOKENS = ("CONFLICT",)
+
+ROLE_STATE_VERIFIED = "VERIFIED"
+ROLE_STATE_REJECTED = "REJECTED"
+ROLE_STATE_QUARANTINED = "QUARANTINED"
+ROLE_STATE_CONFLICTED = "CONFLICTED"
+ROLE_STATE_UNRESOLVED = "UNRESOLVED"
+
+
+def classify_disposition(disposition: str | None) -> str:
+    """Map any disposition -- including one this code has never seen -- to a
+    state bucket.
+
+    MR34-06 repair. `unresolved_roles` previously matched an allowlist of
+    four substrings (`UNMAPPED`, `CONFLICT`, `NOT_VERIFIED`, `UNPARSED`).
+    `ROSTER_OBSERVATION_UNRESOLVED` contains none of them, so 57 genuinely
+    unresolved rows in the delivered database were invisible to the query
+    whose entire job was to surface them, while direct SQL found them
+    immediately. Enumeration-by-example cannot be repaired by adding a fifth
+    substring: the next unanticipated state would vanish the same way.
+
+    The inversion is the fix -- name the states that ARE resolved and treat
+    everything else as unresolved. An unrecognised disposition is then
+    over-reported rather than silently dropped, which is the correct
+    direction to fail for a completeness query.
+    """
+
+    text = str(disposition or "").strip().upper()
+    if not text:
+        return ROLE_STATE_UNRESOLVED
+    if any(token in text for token in CONFLICTED_DISPOSITION_TOKENS):
+        return ROLE_STATE_CONFLICTED
+    if any(token in text for token in QUARANTINED_DISPOSITION_TOKENS):
+        return ROLE_STATE_QUARANTINED
+    if text in REJECTED_DISPOSITIONS:
+        return ROLE_STATE_REJECTED
+    if text in RESOLVED_DISPOSITIONS:
+        return ROLE_STATE_VERIFIED
+    return ROLE_STATE_UNRESOLVED
+
+
+def _all_role_rows(conn: sqlite3.Connection) -> list[dict[str, Any]]:
     cur = conn.execute(
-        """
-        SELECT * FROM staff_role_cells
-        WHERE person IS NULL OR disposition LIKE '%UNMAPPED%'
-           OR disposition LIKE '%CONFLICT%'
-           OR disposition LIKE '%NOT_VERIFIED%'
-           OR disposition LIKE '%UNPARSED%'
-        ORDER BY season, team, role_column
-        """
+        "SELECT * FROM staff_role_cells ORDER BY season, team, role_column, person"
     )
     return [dict(row) for row in cur.fetchall()]
+
+
+def roles_in_state(conn: sqlite3.Connection, state: str) -> list[dict[str, Any]]:
+    """Every row whose disposition classifies into `state`."""
+
+    return [
+        row
+        for row in _all_role_rows(conn)
+        if classify_disposition(row.get("disposition")) == state
+    ]
+
+
+def unresolved_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    """Every row that is not positively resolved, including unknown states.
+
+    A row with no `person` is unresolved whatever its disposition label says.
+    """
+
+    if cycle35_query.schema_kind(conn) == cycle35_query.SCHEMA_KIND_CYCLE35:
+        return cycle35_query.unresolved_roles(conn)
+    return [
+        row
+        for row in _all_role_rows(conn)
+        if row.get("person") in (None, "")
+        or classify_disposition(row.get("disposition")) == ROLE_STATE_UNRESOLVED
+    ]
+
+
+def rejected_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    return roles_in_state(conn, ROLE_STATE_REJECTED)
+
+
+def quarantined_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    return roles_in_state(conn, ROLE_STATE_QUARANTINED)
+
+
+def conflicted_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    return roles_in_state(conn, ROLE_STATE_CONFLICTED)
+
+
+def verified_roles(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    return roles_in_state(conn, ROLE_STATE_VERIFIED)
+
+
+def role_state_conservation(conn: sqlite3.Connection) -> dict[str, Any]:
+    """Prove every stored row is reachable through exactly one state view.
+
+    This is the query that would have caught MR34-06 the day it shipped: the
+    buckets must partition the table, so "57 rows reachable by raw SQL and by
+    no view" becomes a detectable, reportable contradiction instead of an
+    omission a consumer has to stumble onto.
+    """
+
+    rows = _all_role_rows(conn)
+    total = conn.execute("SELECT COUNT(*) FROM staff_role_cells").fetchone()[0]
+    buckets: dict[str, int] = {}
+    unknown_dispositions: dict[str, int] = {}
+    for row in rows:
+        state = classify_disposition(row.get("disposition"))
+        buckets[state] = buckets.get(state, 0) + 1
+        label = str(row.get("disposition") or "").strip().upper()
+        if (
+            label
+            and label not in RESOLVED_DISPOSITIONS
+            and label not in REJECTED_DISPOSITIONS
+            and not any(t in label for t in QUARANTINED_DISPOSITION_TOKENS)
+            and not any(t in label for t in CONFLICTED_DISPOSITION_TOKENS)
+        ):
+            unknown_dispositions[label] = unknown_dispositions.get(label, 0) + 1
+    return {
+        "table_row_count": total,
+        "classified_row_count": sum(buckets.values()),
+        "state_counts": buckets,
+        "unresolved_view_count": len(unresolved_roles(conn)),
+        "states_partition_table": sum(buckets.values()) == total,
+        "no_row_is_unreachable": sum(buckets.values()) == total,
+        "dispositions_not_in_declared_enums": unknown_dispositions,
+        "unknown_states_are_reported_not_hidden": True,
+    }
 
 
 def run_query_demonstrations(

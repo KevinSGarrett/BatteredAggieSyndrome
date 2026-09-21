@@ -4307,6 +4307,7 @@ tests/test_cycle35_r35_13_plan_jira_trace.py
 tests/test_cycle35_r35_14_private_data_availability.py
 tests/test_cycle35_r35_15_ci_and_decisions.py
 tests/test_cycle35_r35_16_validation_packet_successor.py
+tests/test_cycle35_r35_17_cycle_request_ledger.py
 tests/test_data_research.py
 tests/test_development_2023_labeled_replay.py
 tests/test_development_2023_outcomes.py
@@ -4836,6 +4837,7 @@ tools/cycle35/r35_14_validation_results.py
 tools/cycle35/r35_15_acceptance_packet.py
 tools/cycle35/r35_15_final_report.py
 tools/cycle35/r35_16_validation_packet_successor.py
+tools/cycle35/r35_17_cycle_request_ledger.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

@@ -1046,18 +1046,35 @@ def main() -> int:
         json.dumps(unfinished, indent=2, sort_keys=True), encoding="utf-8"
     )
 
-    # Consolidate every per-domain request ledger this cycle produced rather
-    # than restating a remembered total.
-    spent = {"coaching_history": 0, "availability_context": 0,
-             "infrastructure_readback": 0}
-    outcomes: dict[str, int] = {}
-    ledger_files = sorted(out_dir.glob("CYCLE35_REQUEST_LEDGER_*.json"))
-    for path in ledger_files:
-        payload = load_json(path) or {}
-        for budget, value in (payload.get("spent") or {}).items():
-            spent[budget] = spent.get(budget, 0) + int(value)
-        for name, value in (payload.get("outcome_counts") or {}).items():
-            outcomes[name] = outcomes.get(name, 0) + int(value)
+    # Spend is a property of the CYCLE, not of whichever output directory
+    # this process happened to write to. Globbing component ledgers out of
+    # `out_dir` meant that pointing the packet at a fresh directory
+    # reported 0 used / 50 remaining for a cycle that had really spent 7
+    # coaching, 8 availability and 17 infrastructure requests. The
+    # reconstruction now walks every run directory under the cycle root
+    # and deduplicates by request identity.
+    import sys as _sys
+
+    if str(Path(__file__).resolve().parent) not in _sys.path:
+        _sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from r35_17_cycle_request_ledger import build as build_cycle_ledger
+
+    cycle_ledger = build_cycle_ledger(PACK_ROOT / "runs", (out_dir.name,))
+    spent = {
+        "coaching_history": cycle_ledger["budgets"]["coaching_history"][
+            "used_cycle_lifetime"
+        ],
+        "availability_context": cycle_ledger["budgets"]["availability_context"][
+            "used_cycle_lifetime"
+        ],
+        "infrastructure_readback": cycle_ledger["infrastructure_readback_requests"],
+    }
+    outcomes: dict[str, int] = dict(cycle_ledger["outcome_counts"])
+    ledger_files = [
+        Path(item["path"])
+        for item in cycle_ledger["component_ledgers"]
+        if item.get("readable")
+    ]
 
     ledger = {
         "artifact_type": "CYCLE35_COST_AND_REQUEST_LEDGER",
@@ -1067,15 +1084,16 @@ def main() -> int:
         "paid_provider_calls": 0,
         "paid_ai_review_labels_applied": 0,
         "external_workers_spawned": 0,
-        "component_ledgers": [str(path.name) for path in ledger_files],
+        "component_ledgers": [str(path) for path in ledger_files],
+        "component_ledger_count": len(ledger_files),
         "coaching_history_budget": {
             "ceiling": 50,
-            "used": spent["coaching_history"],
+            "used_cycle_lifetime": spent["coaching_history"],
             "remaining": 50 - spent["coaching_history"],
         },
         "availability_context_budget": {
             "ceiling": 50,
-            "used": spent["availability_context"],
+            "used_cycle_lifetime": spent["availability_context"],
             "remaining": 50 - spent["availability_context"],
         },
         "infrastructure_readback_requests": spent["infrastructure_readback"],
@@ -1083,14 +1101,26 @@ def main() -> int:
         "total_scientific_requests": (
             spent["coaching_history"] + spent["availability_context"]
         ),
+        "unique_request_entries": cycle_ledger["unique_request_entries"],
+        "duplicate_entries_collapsed": cycle_ledger["duplicate_entries_collapsed"],
+        "cache_hits_no_request_spent": cycle_ledger["cache_hits_no_request_spent"],
+        "retry_attempts_counted": cycle_ledger["retry_attempts_counted"],
+        "paginated_requests_counted": cycle_ledger["paginated_requests_counted"],
+        "prior_readbacks": cycle_ledger["prior_readbacks"],
+        "current_pass_output_directory": out_dir.name,
         "retries_and_pagination_counted": True,
         "cache_hits_recorded_separately_and_do_not_spend": True,
+        "budget_is_cycle_scoped_not_process_scoped": True,
         "budget_exhaustion_relabelled_as_verified_data": False,
         "note": (
-            "Cache-first throughout. Retries count as spend, which is why "
-            "the availability budget shows more spend than distinct URLs. "
-            "Infrastructure readback (GitHub, Jira) is counted separately so "
-            "it cannot consume a scientific budget."
+            "Cache-first throughout, and cache-first is not cache-only. "
+            "These are CYCLE-LIFETIME totals reconstructed across every run "
+            "directory under the cycle root and deduplicated by request "
+            "identity -- not the current pass's own usage, which may be "
+            "zero. Retries count as spend. Infrastructure readback (GitHub, "
+            "Jira) is counted separately so it cannot consume a scientific "
+            "budget. A prior live Jira readback and an All-22 remote-head "
+            "refresh already exist this cycle; see prior_readbacks."
         ),
     }
     (out_dir / "CYCLE35_COST_AND_REQUEST_LEDGER.json").write_text(

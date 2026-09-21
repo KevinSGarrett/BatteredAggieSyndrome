@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
 from r35_15_final_report import (  # noqa: E402
     network_budget_paragraph,
     pr_check_summary,
+    spend,
 )
 
 REAL_REPORT = (
@@ -202,6 +203,38 @@ class BlockerTableTests(unittest.TestCase):
             "the branch has never been pushed",
             REAL_REPORT.read_text(encoding="utf-8"),
         )
+
+
+class SpendRenderingTests(unittest.TestCase):
+    def test_a_recorded_zero_is_shown_as_zero(self) -> None:
+        self.assertEqual(spend({"paid_model_calls": 0}, "paid_model_calls"), "0")
+
+    def test_a_missing_key_is_not_shown_as_zero(self) -> None:
+        """A spend figure is the one number that must never be confused with
+        zero when it is simply absent."""
+        self.assertEqual(spend({}, "paid_model_calls"), "NOT_RECORDED")
+
+    def test_a_real_count_is_passed_through(self) -> None:
+        self.assertEqual(spend({"cache_hits_no_request_spent": 46},
+                               "cache_hits_no_request_spent"), "46")
+
+
+class CostLedgerSectionTests(unittest.TestCase):
+    def setUp(self) -> None:
+        if not REAL_REPORT.is_file():
+            self.skipTest("the final report has not been generated")
+        self.text = REAL_REPORT.read_text(encoding="utf-8")
+
+    def test_the_budget_lines_do_not_render_none_as_none_used(self) -> None:
+        """"None of 50 used" reads as none used. The ledger reports spend
+        under used_cycle_lifetime, which the old key never looked at."""
+        self.assertNotIn("None of 50 used", self.text)
+
+    def test_the_budget_is_labelled_cycle_lifetime(self) -> None:
+        self.assertIn("used this CYCLE", self.text)
+
+    def test_paid_calls_are_reported(self) -> None:
+        self.assertIn("Paid model/reviewer/provider calls: 0/0/0", self.text)
 
 
 

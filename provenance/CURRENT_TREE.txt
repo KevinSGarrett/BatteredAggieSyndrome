@@ -4307,6 +4307,7 @@ tests/test_cycle35_r35_11_canonical_identity.py
 tests/test_cycle35_r35_11_user_corpus_2013_2026.py
 tests/test_cycle35_r35_12_all22_alignment.py
 tests/test_cycle35_r35_13_plan_jira_trace.py
+tests/test_cycle35_r35_14_derived_lanes.py
 tests/test_cycle35_r35_14_private_data_availability.py
 tests/test_cycle35_r35_15_ci_and_decisions.py
 tests/test_cycle35_r35_15_final_report.py

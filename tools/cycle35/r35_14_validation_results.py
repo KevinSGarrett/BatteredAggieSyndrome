@@ -12,6 +12,7 @@ lane that did not finish cannot silently become a pass.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -20,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+CYCLE_RUNS = Path(r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs")
 
 _RAN = re.compile(r"^Ran (\d+) tests? in ([0-9.]+)s", re.M)
 _RESULT = re.compile(r"^(OK|FAILED)(?:\s*\((.*)\))?\s*$", re.M)
@@ -201,38 +203,6 @@ DIRECT_LANES: tuple[dict[str, Any], ...] = (
         "from the installed wheel alone",
     },
     {
-        "lane": "HOSTED_CI_PR_691",
-        "command": "gh pr checks 691",
-        "result": "PASS",
-        "detail": "12 of 12 checks pass, including core-validation "
-        "(windows-latest, 3.12) -- the exact check that failed at PR #690's "
-        "head. codex-review and no-api-attestation both pass in ~8s, "
-        "confirming no paid review API was invoked; no "
-        "paid-scientific-review-ready label was applied.",
-    },
-    {
-        "lane": "FULL_SUITE_MOUNTED_CLEAN",
-        "command": "AGGIE_ANALYTICS_DATA_ROOT=<lake> python -m unittest "
-        "discover -s tests   (no concurrent jobs)",
-        "result": "FAIL",
-        "tests_run": 3842,
-        "detail": "3 red, IDENTICAL set to the predecessor baseline's 3. "
-        "Zero regressions and zero fixes by exact set membership. All three "
-        "are the Family B family blocked on "
-        "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001.",
-    },
-    {
-        "lane": "FULL_SUITE_MOUNTED_RED_TESTS",
-        "command": "grep '^(FAIL|ERROR): ' mounted_full_run.txt",
-        "result": "FAIL",
-        "detail": "All 4 red tests in the mounted lane belong to the Family B "
-        "family: rejection-integrity test_gate_reconstructs (ERROR) and "
-        "test_reconstruction_does_not_read_the_working_checkout_commit (FAIL), "
-        "gamebook_union_1998_rejection_complete setUpClass (ERROR), and "
-        "gamebook_union_2000_expanded test_bat623_row_and_coverage_tampers_fail "
-        "(ERROR).",
-    },
-    {
         "lane": "FAMILY_B_MOUNTED",
         "command": "AGGIE_ANALYTICS_DATA_ROOT=<lake> python -m pytest "
         "tests/test_tamu_official_1998_2009_rejection_integrity.py "
@@ -242,15 +212,31 @@ DIRECT_LANES: tuple[dict[str, Any], ...] = (
         "unchanged by this cycle, and blocked on "
         "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001. NOT green-by-exception.",
     },
-    {
-        "lane": "DETERMINISTIC_RELEASE_REPLAY",
-        "command": "r35_03_build_coaching_release.py run twice into separate "
-        "release paths",
-        "result": "PASS",
-        "detail": "12 tables, all row identities identical across independent "
-        "builds; database file bytes differ (sqlite page layout), which is "
-        "why row identity rather than file hash is the scientific test",
-    },
+)
+
+#: Lanes whose result is read out of an artifact rather than typed here.
+#: The four entries this replaced had all drifted: a hard-coded "12 of 12
+#: checks pass" that could not go red, a mounted red-set of 3 and then a
+#: differently-populated set of 4, and a replay reported as PASS over 12
+#: tables when the delivered replay compares 15 and finds
+#: adjudication.decided_at_utc differing on 26 rows. A lane that states a
+#: result no longer checks it.
+DERIVED_LANES: tuple[tuple[str, str, str], ...] = (
+    (
+        "HOSTED_CI_PR_691",
+        "gh pr checks 691",
+        "CYCLE35_EXACT_HEAD_CI_STATUS.json",
+    ),
+    (
+        "DETERMINISTIC_RELEASE_REPLAY",
+        "r35_20_deterministic_release_replay.py",
+        "CYCLE35_DETERMINISTIC_RELEASE_REPLAY.json",
+    ),
+    (
+        "FULL_SUITE_MOUNTED_RED_SET",
+        "r35_18_mounted_lane_receipt.py",
+        "CYCLE35_MOUNTED_LANE_RECEIPT.json",
+    ),
 )
 
 PREEXISTING_OBSERVATIONS: tuple[dict[str, Any], ...] = (
@@ -407,6 +393,129 @@ def lane_staleness(
     }
 
 
+def find_artifact(
+    out_dir: Path, name: str, cycle_root: Path | None = None
+) -> Path | None:
+    """The newest copy of an artifact, local or elsewhere in the cycle.
+
+    Preferring the local copy unconditionally picked a stale receipt out of
+    this output directory over the fresh one written by the lane run, and a
+    stale receipt that never ran a lane reports zero failures for it.
+
+    `cycle_root` is explicit because the fallback otherwise always reaches
+    the real cycle tree: a caller passing an empty directory would be served
+    another run's artifact, and the "absent" branch could never be reached.
+    """
+
+    cycle_root = CYCLE_RUNS if cycle_root is None else cycle_root
+    newest: tuple[float, Path] | None = None
+    local = out_dir / name
+    if local.is_file():
+        newest = (local.stat().st_mtime, local)
+    for path in cycle_root.rglob(name):
+        if {"site-packages", "__pycache__", ".git"}.intersection(path.parts):
+            continue
+        try:
+            stamp = path.stat().st_mtime
+        except OSError:
+            continue
+        if newest is None or stamp > newest[0]:
+            newest = (stamp, path)
+    return newest[1] if newest else None
+
+
+def derived_lanes(
+    out_dir: Path, cycle_root: Path | None = None
+) -> list[dict[str, Any]]:
+    """Read each derived lane's result out of its artifact."""
+
+    rows: list[dict[str, Any]] = []
+    for lane, command, artifact_name in DERIVED_LANES:
+        path = find_artifact(out_dir, artifact_name, cycle_root)
+        if path is None:
+            rows.append({
+                "lane": lane,
+                "command": command,
+                "result": "ARTIFACT_ABSENT",
+                "detail": f"{artifact_name} was not found; no result is claimed.",
+            })
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as error:
+            rows.append({
+                "lane": lane,
+                "command": command,
+                "result": "ARTIFACT_UNREADABLE",
+                "detail": str(error),
+            })
+            continue
+
+        row: dict[str, Any] = {
+            "lane": lane,
+            "command": command,
+            "artifact": str(path),
+            "artifact_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        }
+        if lane == "HOSTED_CI_PR_691":
+            buckets = payload.get("by_bucket") or {}
+            total = sum(int(value) for value in buckets.values())
+            passing = int(buckets.get("pass", 0))
+            row["result"] = "PASS" if payload.get("all_pass") else "NOT_ALL_PASS"
+            row["detail"] = (
+                f"{passing} of {total} checks at "
+                f"{str(payload.get('head_sha') or '')[:12]}: "
+                + ", ".join(f"{count} {name}" for name, count in sorted(buckets.items()))
+                + ". Hosted checks cannot execute the mounted private-data lane."
+            )
+        elif lane == "DETERMINISTIC_RELEASE_REPLAY":
+            comparison = payload.get("comparison") or {}
+            identical = payload.get("scientific_content_identical")
+            row["result"] = "PASS" if identical else "DIFFERS_SEE_DETAIL"
+            row["detail"] = (
+                f"{len(payload.get('tables_compared') or [])} tables compared on "
+                "full per-row content. scientific_content_identical="
+                f"{identical}; apart from build-clock columns="
+                f"{payload.get('scientific_content_identical_apart_from_build_clock')}. "
+                + "; ".join(
+                    f"{entry['table']}.{column} differs on {count} rows"
+                    for entry in (comparison.get("column_level_diffs") or [])
+                    for column, count in (entry.get("columns_differing") or {}).items()
+                )
+            )
+        else:
+            lanes = {row_["lane"]: row_ for row_ in payload.get("lanes") or []}
+            mounted = lanes.get("FULL_SUITE_MOUNTED_EXPLICIT_ENV")
+            if mounted is None:
+                # A receipt that never ran this lane reports no failures for
+                # it. That is not a pass, and must not be rendered as one.
+                row["result"] = "LANE_NOT_IN_RECEIPT"
+                row["detail"] = (
+                    "This receipt does not contain FULL_SUITE_MOUNTED_EXPLICIT_ENV, "
+                    f"only {sorted(lanes) or 'no lanes'}. Absence of a failure "
+                    "count is not a zero failure count."
+                )
+            else:
+                counts = mounted.get("counts") or {}
+                # pytest says "2 errors" but "1 error", and the receipt keeps
+                # whichever word the run printed. Reading only one spelling
+                # silently halved the red count.
+                red = (
+                    counts.get("failed", 0)
+                    + counts.get("error", 0)
+                    + counts.get("errors", 0)
+                )
+                row["result"] = "FAIL" if red else "PASS"
+                row["detail"] = (
+                    f"{red} red in the genuinely mounted lane at "
+                    f"{str(payload.get('head') or '')[:12]}: "
+                    f"{mounted.get('summary_line')}. Red tests are named in "
+                    f"{mounted.get('log_path')} (sha256 {mounted.get('log_sha256')})."
+                )
+        rows.append(row)
+    return rows
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", required=True)
@@ -465,6 +574,12 @@ def main() -> int:
         "data_root": r"C:\BatteredAggieSyndrome.data",
         "direct_lanes": list(DIRECT_LANES),
         "direct_lane_count": len(DIRECT_LANES),
+        "derived_lanes": derived_lanes(out_dir),
+        "why_some_lanes_are_derived": (
+            "A lane whose result is typed into this file states a result "
+            "instead of checking one, and four such entries had drifted from "
+            "what the artifacts show. These read the artifact every run."
+        ),
         "full_suite_lanes": full_lanes,
         "pre_existing_observations": list(PREEXISTING_OBSERVATIONS),
         "baseline_equivalence": [

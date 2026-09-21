@@ -90,6 +90,17 @@ def table(rows: list[list[str]], header: list[str]) -> str:
     return "\n".join(out)
 
 
+def spend(ledger: dict[str, Any], key: str) -> str:
+    """A count the ledger records, or an explicit statement that it does not.
+
+    Rendering a missing key as its `None` reads as zero, which is the one
+    thing a spend figure must never be mistaken for.
+    """
+
+    value = ledger.get(key)
+    return "NOT_RECORDED" if value is None else str(value)
+
+
 def network_budget_paragraph(out_dir: Path, cycle_root: Path | None = None) -> str:
     """Read the ledger rather than restate a remembered spend.
 
@@ -156,24 +167,32 @@ def main() -> int:
     args = ap.parse_args()
     out = Path(args.out_dir)
 
-    status = load(out / "CYCLE35_REQUIREMENT_STATUS.json") or {}
-    findings = load(out / "CYCLE35_FINDING_DISPOSITION.json") or {}
-    coverage = load(out / "CYCLE35_NATIONAL_COVERAGE.json") or {}
-    validation = load(out / "CYCLE35_VALIDATION_RESULTS.json") or {}
-    unfinished = load(out / "CYCLE35_UNFINISHED_ITEMS.json") or {}
-    ledger = load(out / "CYCLE35_COST_AND_REQUEST_LEDGER.json") or {}
-    git_state = load(out / "CYCLE35_GIT_STATE.json") or {}
-    feasibility = load(out / "R35_09_PIT_FEASIBILITY.json") or {}
-    finals = load(out / "R35_07_CANONICAL_FINALS_REPLAY.json") or {}
-    release = load(out / "R35_03_COACHING_RELEASE_SUMMARY.json") or {}
-    rebuild = load(out / "R35_02_STAFF_REBUILD_SUMMARY.json") or {}
-    plan = load(out / "CYCLE35_PLAN_JIRA_TRACE.json") or {}
-    family_b = load(out / "R35_10_FAMILY_B_CANDIDATE.json") or {}
-    availability = load(out / "R35_11_AVAILABILITY_RELEASE.json") or {}
-    career = load(out / "R35_05_CAREER_TRANCHE_FINAL.json") or {}
-    routes = load(out / "R35_11_UNMET_ROUTE_ATTEMPTS.json") or {}
-    heads = load(out / "CYCLE35_ALL22_REMOTE_HEADS_REFRESHED.json") or {}
-    jira = load(out / "CYCLE35_JIRA_LIVE_READBACK.json") or {}
+    # Every input is resolved across the cycle, not only inside the directory
+    # being written to. Ten of these are produced by tools that write into
+    # their own run directory, so a local-only load rendered whole sections
+    # of the report empty -- the PIT feasibility table, the career tranche,
+    # the availability release -- with nothing saying they were missing.
+    def artifact(name: str) -> dict:
+        return load_anywhere(out, name) or {}
+
+    status = artifact("CYCLE35_REQUIREMENT_STATUS.json")
+    findings = artifact("CYCLE35_FINDING_DISPOSITION.json")
+    coverage = artifact("CYCLE35_NATIONAL_COVERAGE.json")
+    validation = artifact("CYCLE35_VALIDATION_RESULTS.json")
+    unfinished = artifact("CYCLE35_UNFINISHED_ITEMS.json")
+    ledger = artifact("CYCLE35_COST_AND_REQUEST_LEDGER.json")
+    git_state = artifact("CYCLE35_GIT_STATE.json")
+    feasibility = artifact("R35_09_PIT_FEASIBILITY.json")
+    finals = artifact("R35_07_CANONICAL_FINALS_REPLAY.json")
+    release = artifact("R35_03_COACHING_RELEASE_SUMMARY.json")
+    rebuild = artifact("R35_02_STAFF_REBUILD_SUMMARY.json")
+    plan = artifact("CYCLE35_PLAN_JIRA_TRACE.json")
+    family_b = artifact("R35_10_FAMILY_B_CANDIDATE.json")
+    availability = artifact("R35_11_AVAILABILITY_RELEASE.json")
+    career = artifact("R35_05_CAREER_TRANCHE_FINAL.json")
+    routes = artifact("R35_11_UNMET_ROUTE_ATTEMPTS.json")
+    heads = artifact("CYCLE35_ALL22_REMOTE_HEADS_REFRESHED.json")
+    jira = artifact("CYCLE35_JIRA_LIVE_READBACK.json")
 
     units = status.get("units") or {}
     unit_rows = [
@@ -303,8 +322,17 @@ def main() -> int:
         ids = release.get("row_identities") or {}
         a("**Coaching release:** "
           + ", ".join(f"{k} {v['count']}" for k, v in sorted(ids.items()))
-          + f". Assertions without a supporting observation: "
-          f"{release.get('unsupported_assertion_count')}.")
+          + ". Assertions without a supporting observation: "
+          + (
+              spend(release, "unsupported_assertion_count")
+              + (
+                  " (this build's summary does not compute it; the field is "
+                  "absent, which is not the same as zero)"
+                  if release.get("unsupported_assertion_count") is None
+                  else ""
+              )
+          )
+          + ".")
         a("")
     if finals:
         p = finals.get("producer_path_counts") or {}
@@ -499,6 +527,14 @@ def main() -> int:
           + (f" ({lane.get('tests_run')} tests, {lane.get('counts')})"
              if lane.get("tests_run") else ""))
     a("")
+    derived = validation.get("derived_lanes") or []
+    if derived:
+        a("Read from artifacts rather than stated here, so they cannot drift:")
+        a("")
+        for lane in derived:
+            a(f"- **{lane['lane']}** — {lane['result']}"
+              + (f". {lane['detail']}" if lane.get("detail") else ""))
+        a("")
     a("Explicitly not claimed:")
     for claim in validation.get("claims_not_made") or []:
         a(f"- {claim}")
@@ -554,13 +590,24 @@ def main() -> int:
       f"{ledger.get('paid_model_calls')}/{ledger.get('paid_reviewer_calls')}/"
       f"{ledger.get('paid_provider_calls')}")
     a(f"- External workers spawned: {ledger.get('external_workers_spawned')}")
-    a(f"- Network requests: {ledger.get('network_requests_made')}")
-    a(f"- Coaching/history budget: "
-      f"{(ledger.get('coaching_history_budget') or {}).get('used')} of "
-      f"{(ledger.get('coaching_history_budget') or {}).get('ceiling')} used")
-    a(f"- Availability/context budget: "
-      f"{(ledger.get('availability_context_budget') or {}).get('used')} of "
-      f"{(ledger.get('availability_context_budget') or {}).get('ceiling')} used")
+    a(f"- Scientific requests: {spend(ledger, 'total_scientific_requests')}")
+    a(f"- Infrastructure readbacks: "
+      f"{spend(ledger, 'infrastructure_readback_requests')}")
+    a(f"- Cache hits (spent nothing): "
+      f"{spend(ledger, 'cache_hits_no_request_spent')}")
+    for label, key in (
+        ("Coaching/history", "coaching_history_budget"),
+        ("Availability/context", "availability_context_budget"),
+    ):
+        budget = ledger.get(key) or {}
+        # The ledger reports cycle-lifetime spend under
+        # `used_cycle_lifetime`. Reading a `used` key that is not there
+        # rendered "None of 50 used", which reads as none used.
+        used = budget.get("used_cycle_lifetime", budget.get("used"))
+        a(f"- {label} budget: "
+          + (f"{used} of {budget.get('ceiling')} used this CYCLE"
+             if used is not None
+             else "NOT_RECORDED in the ledger; no spend figure is claimed"))
     a("")
 
     a("## Every remaining blocker")

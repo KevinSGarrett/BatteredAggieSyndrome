@@ -206,12 +206,32 @@ class LayerBindingTests(unittest.TestCase):
                 layers = bind_layers(conn)
             finally:
                 conn.close()
+        gaps = layers["retained_evidence_gaps"]
         for domain in ("responsibility_assertion", "scheme_assertion"):
             with self.subTest(domain=domain):
-                gap = layers["retained_evidence_gaps"][domain]
-                self.assertEqual(gap["rows"], 0)
-                self.assertEqual(gap["disposition"], "RETAINED_AS_EVIDENCE_GAP")
-                self.assertTrue(gap["basis"].strip())
+                self.assertEqual(gaps[domain]["rows"], 0)
+                self.assertTrue(gaps[domain]["basis"].strip())
+
+        # Responsibility is a genuine evidence gap: the cycle33 extractor
+        # emits tenure and scheme fields only and sets not_play_calling
+        # explicitly, so no acquired source states unit responsibility.
+        self.assertEqual(
+            gaps["responsibility_assertion"]["disposition"],
+            "RETAINED_AS_EVIDENCE_GAP",
+        )
+
+        # Scheme is NOT. 9,111 stated scheme claims sit in the cycle33
+        # cache; what is missing is a crosswalk from their Wikipedia page
+        # titles to canonical program ids. Two empty tables with different
+        # causes were sharing one disposition, which is how the false basis
+        # went unnoticed.
+        scheme = gaps["scheme_assertion"]
+        self.assertEqual(
+            scheme["disposition"], "BLOCKED_ON_A_MISSING_PROGRAM_CROSSWALK"
+        )
+        self.assertNotIn("No acquired source states", scheme["basis"])
+        self.assertIn("Sources DO state schemes", scheme["basis"])
+        self.assertEqual(scheme["reconciliation"], "CYCLE35_SCHEME_INGEST.json")
 
     def test_both_year_ranges_are_bound_separately(self) -> None:
         with TemporaryDirectory() as tmp:

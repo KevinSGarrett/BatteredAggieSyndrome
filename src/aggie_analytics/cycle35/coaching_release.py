@@ -499,6 +499,58 @@ def add_episode(
     return episode_id
 
 
+def add_scheme_assertion(
+    conn: sqlite3.Connection,
+    *,
+    program_id: str | None,
+    season: str | None,
+    side: str,
+    exact_source_text: str,
+    normalized_family: str | None,
+    normalization_version: str,
+    valid_from: str | None = None,
+    valid_to: str | None = None,
+    evidence_layer: str = LAYER_CANDIDATE,
+) -> str:
+    """Record a scheme a source STATED, at the layer that source warrants.
+
+    The exact source text is kept verbatim -- "[[Spread offense|Pro spread]]"
+    is what the page said, and the normalised family is a reading of it, not
+    a replacement for it. A scheme is never inferred from a coach's
+    reputation and never promoted above the layer its source supports.
+    """
+
+    if evidence_layer not in EVIDENCE_LAYERS:
+        raise CoachingReleaseError("unknown evidence layer: " + str(evidence_layer))
+    if not str(exact_source_text or "").strip():
+        raise CoachingReleaseError(
+            "a scheme assertion needs the exact text its source stated"
+        )
+    if side not in {"OFFENSE", "DEFENSE"}:
+        raise CoachingReleaseError("scheme side must be OFFENSE or DEFENSE")
+    scheme_id = stable_id(
+        "scheme", program_id, season, side, exact_source_text, normalization_version
+    )
+    conn.execute(
+        "INSERT OR IGNORE INTO scheme_assertion (scheme_id, program_id, season, "
+        "side, exact_source_text, normalized_family, normalization_version, "
+        "valid_from, valid_to, evidence_layer) VALUES (?,?,?,?,?,?,?,?,?,?)",
+        (
+            scheme_id,
+            program_id,
+            season,
+            side,
+            exact_source_text,
+            normalized_family,
+            normalization_version,
+            valid_from,
+            valid_to,
+            evidence_layer,
+        ),
+    )
+    return scheme_id
+
+
 def add_role(
     conn: sqlite3.Connection,
     *,

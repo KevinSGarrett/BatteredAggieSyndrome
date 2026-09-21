@@ -323,12 +323,24 @@ def bind_layers(conn: sqlite3.Connection) -> dict[str, Any]:
             },
             "scheme_assertion": {
                 "rows": scalar("SELECT COUNT(*) FROM scheme_assertion"),
-                "disposition": "RETAINED_AS_EVIDENCE_GAP",
+                # Corrected by R35-29. This previously read "No acquired
+                # source states offensive or defensive scheme", which is
+                # false: the cycle33 cache holds 9,111 stated scheme claims.
+                # The row count is still zero, but for a different reason,
+                # and the reason is what tells someone where to look.
+                "disposition": "BLOCKED_ON_A_MISSING_PROGRAM_CROSSWALK",
                 "basis": (
-                    "No acquired source states offensive or defensive scheme. "
-                    "Scheme is not derivable from a coordinator's title and is "
-                    "not inferred here."
+                    "Sources DO state schemes: CYCLE33_SCHEME_TENURE_CLAIMS "
+                    "holds 19,271 scheme claims of which 9,111 carry stated "
+                    "text, across seasons 1963-2026. What is missing is a "
+                    "crosswalk from their Wikipedia page titles to canonical "
+                    "program ids. The obvious string rule binds 'Texas "
+                    "A&M-Commerce Lions' to 'Texas' and both Miami schools to "
+                    "one program, and most of its failures are invisible, so "
+                    "nothing is ingested on it. Scheme remains not derivable "
+                    "from a coordinator's title and is not inferred here."
                 ),
+                "reconciliation": "CYCLE35_SCHEME_INGEST.json",
             },
         },
     }

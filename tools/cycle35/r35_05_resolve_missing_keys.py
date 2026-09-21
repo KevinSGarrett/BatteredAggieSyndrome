@@ -148,8 +148,17 @@ def parse_role(wikitext: str, role: str) -> dict[str, Any]:
         # football)` as the person's name. Found by spot-checking this tool's
         # own output rather than by a test, which is why the spot check
         # happened before the rows were ingested anywhere.
+        #
+        # The whitespace around `=` is deliberately `[ \t]`, not `\s` --
+        # `\s` also matches `\n`, so an empty field (e.g. "| oc =\n") let
+        # that trailing `\s*` swallow the newline and the capture group
+        # then greedily matched the ENTIRE next infobox line as this
+        # parameter's own value: an empty "oc" immediately followed by an
+        # empty "oc_year" line resolved_person'd to the literal text
+        # "| oc_year =". Reproduced against a minimal fixture in
+        # tests/test_cycle35_r35_05_parse_role.py before this fix.
         match = re.search(
-            r"\|\s*" + re.escape(param) + r"\s*=\s*([^\n]+)", wikitext, re.I
+            r"\|[ \t]*" + re.escape(param) + r"[ \t]*=[ \t]*([^\n]+)", wikitext, re.I
         )
         if not match:
             continue

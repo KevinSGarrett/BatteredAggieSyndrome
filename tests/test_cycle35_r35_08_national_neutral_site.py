@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
 
 from r35_08_national_neutral_site_cohort import (  # noqa: E402
+    GAME_SOURCES,
     build_national_cohort,
     load_venue_enrichment,
     resolve_neutral_state,
@@ -192,6 +193,8 @@ class RealDataSmokeTests(unittest.TestCase):
     least once."""
 
     def test_real_national_cohort_classifies_a_large_fraction_of_games(self) -> None:
+        if not any(path.is_file() for path in GAME_SOURCES):
+            self.skipTest("mounted national game sources not present")
         result = build_national_cohort()
         self.assertGreater(result["row_count"], 40000)
         self.assertEqual(min(result["seasons_covered"]), 1963)

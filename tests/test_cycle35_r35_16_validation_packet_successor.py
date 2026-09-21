@@ -113,7 +113,14 @@ class LaneTests(unittest.TestCase):
 class BuildRealDataTests(unittest.TestCase):
     """build() reads real logs from a fixed ops directory this session's
     validation run produced; skipped where that directory is absent
-    (e.g. a fresh checkout that never ran the validation-packet lanes)."""
+    (e.g. hosted CI, which has no private data mount at all, or a fresh
+    checkout that never ran the validation-packet lanes)."""
+
+    def setUp(self) -> None:
+        from r35_16_validation_packet_successor import LOG_DIR
+
+        if not LOG_DIR.is_dir():
+            self.skipTest("this cycle's validation-packet run directory is not present")
 
     def test_successor_binds_to_the_actual_current_head(self) -> None:
         import subprocess

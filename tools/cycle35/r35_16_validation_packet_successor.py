@@ -68,9 +68,18 @@ def exit_code_of(path: Path) -> int | None:
 
 
 def summarize_pytest_tail(path: Path) -> str:
-    for line in reversed(log_tail(path, 8)):
+    """One human-readable summary line, whichever style the lane's own
+    tool actually printed -- pytest/unittest's "N passed"/"Ran N tests",
+    or validate_repository.py's own "PASS: ..."/"FAIL: N finding(s)"."""
+
+    tail = list(reversed(log_tail(path, 8)))
+    for line in tail:
         line = line.strip()
-        if re.search(r"passed|failed|error", line) and "%" not in line:
+        if re.search(r"passed|failed|error", line, re.I) and "%" not in line:
+            return line
+    for line in tail:
+        line = line.strip()
+        if line and not re.match(r"^EXIT:-?\d+$", line):
             return line
     return ""
 
@@ -84,19 +93,28 @@ def lane(
     result_override: str | None = None,
 ) -> dict[str, Any]:
     log_path = LOG_DIR / log_name
+    log_present = log_path.is_file()
     exit_code = exit_code_of(log_path)
     result = result_override
     if result is None:
         result = "PASS" if exit_code == 0 else ("NOT_RUN" if exit_code is None else "FAIL")
+    if not detail:
+        detail = summarize_pytest_tail(log_path)
+    if not detail:
+        detail = (
+            f"log not present at {log_path}"
+            if not log_present
+            else "no exit marker or summary line found in the log"
+        )
     return {
         "lane": lane_id,
         "command": command,
         "log_path": str(log_path),
         "log_sha256": sha256_file(log_path),
-        "log_present": log_path.is_file(),
+        "log_present": log_present,
         "exit_code": exit_code,
         "result": result,
-        "detail": detail or summarize_pytest_tail(log_path),
+        "detail": detail,
     }
 
 

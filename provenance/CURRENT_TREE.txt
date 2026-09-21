@@ -4288,6 +4288,7 @@ tests/test_cycle35_r35_02_04_07_08_admission.py
 tests/test_cycle35_r35_03_coaching_release.py
 tests/test_cycle35_r35_03_entailment_independent.py
 tests/test_cycle35_r35_05_career_tranche_contract.py
+tests/test_cycle35_r35_05_parse_role.py
 tests/test_cycle35_r35_05_role_semantics.py
 tests/test_cycle35_r35_06_forecast_admission.py
 tests/test_cycle35_r35_06_legacy_path_hardening.py

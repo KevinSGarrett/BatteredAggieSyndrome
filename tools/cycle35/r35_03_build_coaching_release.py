@@ -41,7 +41,10 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from aggie_analytics.cycle33.role_taxonomy import assignments_from_title  # noqa: E402
+from aggie_analytics.cycle33.role_taxonomy import (  # noqa: E402
+    assignments_from_title,
+    principal_role_families,
+)
 from r35_27_national_population_authority import (  # noqa: E402
     AUTHORITY_RECEIPT,
     build as build_population_authority,
@@ -62,6 +65,7 @@ from aggie_analytics.cycle35.coaching_release import (  # noqa: E402
     LAYER_UNRESOLVED,
     add_episode,
     add_expected_cell,
+    settle_expected_cell_coverage,
     add_observation,
     add_role,
     append_release_manifest,
@@ -919,6 +923,17 @@ def main() -> int:
                 if args.career_tranche
                 else {"state": "NOT_SUPPLIED"}
             )
+            # Last, because it reads the evidence every ingest above wrote.
+            # Without it the release ships every cell still reading
+            # EXPECTED_NOT_YET_COVERED -- the placeholder add_expected_cell
+            # writes at creation time -- while its real coverage lives only
+            # in a JSON beside it. The database is the thing that ships, so
+            # the database has to say what it covers.
+            coverage = settle_expected_cell_coverage(
+                conn,
+                role_families=principal_role_families,
+                core_roles=CORE_ROLES,
+            )
         identities = release_row_identities(conn)
         layers = layer_counts(conn)
         missing_link = assertions_missing_evidence_link(conn)
@@ -949,6 +964,7 @@ def main() -> int:
             "user_corpus_cells": user_cells,
             "career_tranche": career,
         },
+        "expected_cell_coverage_settled_in_the_release": coverage,
     }
     manifest_path = out_dir / "CYCLE35_COACHING_RELEASE_MANIFEST.json"
     manifest = append_release_manifest(manifest_path, entry)
@@ -956,6 +972,7 @@ def main() -> int:
     summary = {
         "artifact_type": "CYCLE35_R35_03_COACHING_RELEASE",
         "release_id": release_id,
+        "expected_cell_coverage_settled_in_the_release": coverage,
         "release_path": str(db_path),
         "manifest_path": str(manifest_path),
         "manifest_release_count": manifest["release_count"],

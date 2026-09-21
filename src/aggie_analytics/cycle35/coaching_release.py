@@ -46,7 +46,7 @@ import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterator, Mapping, Sequence
+from typing import Any, Callable, Iterable, Iterator, Mapping, Sequence
 
 SCHEMA_VERSION = 5
 RELEASE_KIND = "BAS-CYCLE35-COACHING-RELEASE"
@@ -720,6 +720,100 @@ def add_expected_cell(
         (cell_id, program_id, season, role_family, era_band, coverage_state),
     )
     return cell_id
+
+
+#: What an expected cell's coverage can be, once the release has its
+#: evidence. UNSETTLED is what `add_expected_cell` writes at creation time,
+#: before anything has been ingested; a release still carrying it has not
+#: had `settle_expected_cell_coverage` run over it, and that is a different
+#: statement from "nothing is covered".
+COVERAGE_UNSETTLED = "EXPECTED_NOT_YET_COVERED"
+COVERAGE_CONFIRMED = "COVERED_BY_CONFIRMED_ASSERTION"
+COVERAGE_CANDIDATE = "COVERED_BY_CANDIDATE_OBSERVATION_ONLY"
+COVERAGE_NONE = "NO_EVIDENCE_ACQUIRED_FOR_THIS_CELL"
+
+
+def stated_season(value: Any) -> int | None:
+    """A season a source actually states. "CURRENT" is not a season."""
+
+    text = str(value or "").strip()
+    return int(text) if len(text) == 4 and text.isdigit() else None
+
+
+def settle_expected_cell_coverage(
+    conn: sqlite3.Connection,
+    *,
+    role_families: Callable[[str], Iterable[str]],
+    core_roles: Iterable[str],
+) -> dict[str, int]:
+    """Write each expected cell's coverage into the release itself.
+
+    `add_expected_cell` writes COVERAGE_UNSETTLED when the cell is created,
+    because at that moment no evidence has been ingested yet. Without this
+    pass the release ships still saying so, while the coverage it really
+    has is computed later and written to a file beside it -- so the
+    database and its companion artifact answer the same question
+    differently, and the database is the one that gets shipped.
+
+    Three states, and the middle one has to keep existing. An unpromoted
+    candidate row is evidence that really was acquired: calling it "no
+    evidence" would erase acquisition work, and calling it "covered" would
+    promote a single unverified source to a confirmed fact.
+
+    `role_families` is injected so this module does not depend on a
+    particular title taxonomy. Callers pass the same mapping the builder
+    uses; nothing here maps a title by hand.
+    """
+
+    core = frozenset(core_roles)
+    cursor = conn.cursor()
+
+    confirmed: set[tuple[str, int, str]] = set()
+    for program_id, season, role_family in cursor.execute(
+        "SELECT e.program_id, e.season, a.role_family FROM employment_episode e "
+        "JOIN formal_role_assertion a ON a.episode_id = e.episode_id "
+        "WHERE a.evidence_layer = ?",
+        (LAYER_OFFICIAL,),
+    ):
+        year = stated_season(season)
+        if year is not None and role_family in core:
+            confirmed.add((str(program_id), year, str(role_family)))
+
+    candidate: set[tuple[str, int, str]] = set()
+    for program_id, season, title in cursor.execute(
+        "SELECT observed_program, observed_season, observed_title FROM source_observation"
+    ):
+        year = stated_season(season)
+        if year is None:
+            continue
+        for family in role_families(str(title or "")):
+            if family in core:
+                candidate.add((str(program_id or ""), year, str(family)))
+
+    settled: dict[str, int] = {
+        COVERAGE_CONFIRMED: 0,
+        COVERAGE_CANDIDATE: 0,
+        COVERAGE_NONE: 0,
+    }
+    updates: list[tuple[str, str]] = []
+    for cell_id, program_id, season, role_family in cursor.execute(
+        "SELECT expected_cell_id, program_id, season, role_family FROM expected_cell"
+    ).fetchall():
+        key = (str(program_id), int(season), str(role_family))
+        if key in confirmed:
+            state = COVERAGE_CONFIRMED
+        elif key in candidate:
+            state = COVERAGE_CANDIDATE
+        else:
+            state = COVERAGE_NONE
+        settled[state] += 1
+        updates.append((state, str(cell_id)))
+
+    conn.executemany(
+        "UPDATE expected_cell SET coverage_state = ? WHERE expected_cell_id = ?",
+        updates,
+    )
+    return settled
 
 
 #: Decisions `record_person_identity_adjudication` accepts. UNRESOLVED_IDENTITY

@@ -1066,6 +1066,22 @@ NEW_FINDINGS: tuple[dict[str, Any], ...] = (
         "game output and from the private BAT-523 payloads, whose declared "
         "source_seasons stop at 2022. Their features and publication times "
         "cannot be independently checked at all.",
+        # The original detail stands unedited. What the closeout review's
+        # residual disposition adds is WHICH kind of absence this is, because
+        # "no source exists" and "the source was pulled incompletely" cost
+        # very different things to fix.
+        "closeout_refinement": "R35-09's residual disposition resolves the "
+        "shape of this gap. It is 796 rows, not 792: 792 in 2023 plus two "
+        "each in 2018 and 2019. Season 2023 IS an acquired season -- the "
+        "declared sources carry 1,446 other 2023 games -- so these rows are "
+        "SEASON_ACQUIRED_BUT_THIS_GAME_IS_NOT_IN_THE_PULL, an incomplete "
+        "acquisition rather than an absent source. Verified: none of the 796 "
+        "ids appears anywhere in the tranche files, and none was dropped as "
+        "not-completed. Separately, seasons 2024 and 2025 were never pulled "
+        "at all, which is what lets 15 season-2026 rows carry stored prior "
+        "counts above what the independent reference can justify. The entry "
+        "stays OPEN: acquiring the missing games is a spend decision, not an "
+        "implementation task.",
         "status": "OPEN",
         "owner": "BAT-696",
     },

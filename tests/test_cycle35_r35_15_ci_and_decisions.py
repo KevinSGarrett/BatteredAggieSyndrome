@@ -298,6 +298,38 @@ class ClosecoutFixAnnotationTests(unittest.TestCase):
                     )
 
 
+class FindingRefinementTests(unittest.TestCase):
+    """A finding refined by later evidence keeps its original wording. The
+    review's rule for the unfinished list -- do not delete or relabel its
+    contents -- applies here for the same reason: the original text is what
+    makes the refinement checkable."""
+
+    def findings(self) -> list[dict]:
+        from tools.cycle35.r35_15_acceptance_packet import NEW_FINDINGS
+
+        return list(NEW_FINDINGS)
+
+    def test_the_refined_finding_keeps_its_original_detail(self) -> None:
+        entry = next(f for f in self.findings() if f["id"] == "C35-N2")
+        self.assertTrue(entry["detail"].startswith("The 792 kernel rows for 2023"))
+        self.assertIn("closeout_refinement", entry)
+
+    def test_a_refinement_does_not_close_the_finding(self) -> None:
+        """Knowing the shape of a gap is not the same as filling it."""
+        entry = next(f for f in self.findings() if f["id"] == "C35-N2")
+        self.assertEqual(entry["status"], "OPEN")
+        self.assertIn("spend decision", entry["closeout_refinement"])
+
+    def test_the_refinement_states_the_corrected_row_count(self) -> None:
+        entry = next(f for f in self.findings() if f["id"] == "C35-N2")
+        self.assertIn("796 rows, not 792", entry["closeout_refinement"])
+
+    def test_unrefined_findings_carry_no_refinement_field(self) -> None:
+        """Only the entry later evidence actually bears on is annotated."""
+        refined = [f["id"] for f in self.findings() if "closeout_refinement" in f]
+        self.assertEqual(refined, ["C35-N2"])
+
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -561,6 +561,10 @@ def main() -> int:
     for row in findings.get("new_findings_this_cycle") or []:
         a(f"- **{row['id']} [{row['severity']}] {row['title']}** "
           f"({row['status']}, owner {row['owner']}). {row['detail']}")
+        # A refinement that is recorded but not rendered is not a
+        # refinement a reader gets.
+        if row.get("closeout_refinement"):
+            a(f"  - *Closeout refinement:* {row['closeout_refinement']}")
     a("")
 
     a("## Plan and Jira")

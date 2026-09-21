@@ -27,6 +27,8 @@ from aggie_analytics.cycle35.availability import (  # noqa: E402
     OUTCOME_POLICY_NO_REPORT,
     OUTCOME_UNKNOWN_POLICY,
     ReportOpportunity,
+    enrich_assertion_identities,
+    normalize_join_name,
     opportunity_coverage,
     parse_tabular_report,
     summarize,
@@ -40,6 +42,23 @@ POLICY_INVENTORY = Path(
     r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs"
     r"\AVAILABILITY_POLICY_INVENTORY.jsonl"
 )
+#: Real cache-hit CFBD /roster receipts for 12 programs, 2026 season (see
+#: CYCLE30_ROSTER_JOIN_LEDGER.json alongside it) -- covers 4 of the 11 SEC
+#: programs in the capture (Alabama, Georgia, Ole Miss, Texas A&M). The
+#: other 7 SEC programs in this capture have no local roster snapshot and
+#: stay ROSTER_NOT_LOCALLY_AVAILABLE, honestly, rather than guessed.
+ROSTER_JOIN_SLICE = Path(
+    r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs"
+    r"\CFBD_ROSTER_JOIN_SLICE.jsonl"
+)
+#: Real national game sources (see r35_08/r35_09), used only to resolve
+#: contest identity by program/opponent/date -- never to compute or infer
+#: an availability status.
+GAME_SOURCES = (
+    Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs\CFBD_GAMES_1963_2012.jsonl"),
+    Path(r"C:\BatteredAggieSyndrome.data\ops\cycle30_work\outputs\CFBD_GAMES_TRANCHE.jsonl"),
+)
+REPORT_SEASON = 2026
 
 #: The pack requires twelve predeclared national keys spanning multiple
 #: reporting policies and conferences, including FCS. They are selected
@@ -122,6 +141,73 @@ def select_opportunity_keys(rows: list[dict[str, Any]]) -> list[ReportOpportunit
     return keys
 
 
+def build_program_id_crosswalk(policy_rows: list[dict[str, Any]]) -> dict[str, str]:
+    return {
+        str(row["display_name"]): str(row["program_id"])
+        for row in policy_rows
+        if row.get("display_name") and row.get("program_id")
+    }
+
+
+def build_roster_index(path: Path) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
+    if not path.is_file():
+        return {}, {"path": str(path), "mounted": False}
+    rows = read_jsonl(path)
+    index: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        index[str(row.get("team"))].append(
+            {
+                "id": row.get("id"),
+                "last_name": row.get("lastName"),
+                "jersey": row.get("jersey"),
+            }
+        )
+    return dict(index), {
+        "path": str(path),
+        "mounted": True,
+        "rows": len(rows),
+        "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        "programs_covered": sorted(index),
+    }
+
+
+def build_games_index(
+    sources: tuple[Path, ...], season: int
+) -> tuple[dict[tuple[str, str, int, int], list[dict[str, Any]]], dict[str, Any]]:
+    from datetime import datetime as _datetime
+
+    index: dict[tuple[str, str, int, int], list[dict[str, Any]]] = defaultdict(list)
+    stats = {"sources": [], "season_rows": 0}
+    for source in sources:
+        rows = read_jsonl(source)
+        stats["sources"].append({"path": str(source), "rows": len(rows)})
+        for row in rows:
+            if row.get("season") != season:
+                continue
+            start = row.get("startDate")
+            if not isinstance(start, str) or not start.strip():
+                continue
+            try:
+                when = _datetime.fromisoformat(start.replace("Z", "+00:00"))
+            except ValueError:
+                continue
+            game_id = row.get("id")
+            home, away = row.get("homeTeam"), row.get("awayTeam")
+            if game_id is None or not home or not away:
+                continue
+            stats["season_rows"] += 1
+            entry = {"canonical_game_id": "SRC-002:GAME:" + str(game_id)}
+            for team, opponent in ((home, away), (away, home)):
+                key = (
+                    normalize_join_name(team),
+                    normalize_join_name(opponent),
+                    when.month,
+                    when.day,
+                )
+                index[key].append(entry)
+    return dict(index), stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", required=True)
@@ -137,9 +223,34 @@ def main() -> int:
         source_sha256=hashlib.sha256(raw).hexdigest(),
         retrieval_utc="2026-09-20T05:43:26+00:00",
     )
-    stats = summarize(parsed["assertions"])
 
     policy_rows = read_jsonl(POLICY_INVENTORY)
+    program_id_by_name = build_program_id_crosswalk(policy_rows)
+    roster_index, roster_stats = build_roster_index(ROSTER_JOIN_SLICE)
+    games_index, games_stats = build_games_index(GAME_SOURCES, REPORT_SEASON)
+
+    enriched_assertions = [
+        enrich_assertion_identities(
+            assertion,
+            program_id_by_name=program_id_by_name,
+            roster_index=roster_index,
+            games_index=games_index,
+            season=REPORT_SEASON,
+        )
+        for assertion in parsed["assertions"]
+    ]
+    parsed["assertions"] = enriched_assertions
+    stats = summarize(enriched_assertions)
+
+    identity_state_counts = Counter(a["identity_state"] for a in enriched_assertions)
+    contest_state_counts = Counter(a["contest_resolution_state"] for a in enriched_assertions)
+    resolved_player_count = sum(
+        1 for a in enriched_assertions if a["canonical_player_id"] is not None
+    )
+    resolved_contest_count = sum(
+        1 for a in enriched_assertions if a["canonical_contest_id"] is not None
+    )
+
     keys = select_opportunity_keys(policy_rows)
     coverage = opportunity_coverage(keys)
 
@@ -173,21 +284,37 @@ def main() -> int:
             else None,
         },
         "canonical_identity_state": {
-            "resolved_player_ids": 0,
+            "resolved_player_ids": resolved_player_count,
+            "resolved_contest_ids": resolved_contest_count,
+            "assertion_count": len(enriched_assertions),
+            "by_identity_state": dict(identity_state_counts),
+            "by_contest_resolution_state": dict(contest_state_counts),
+            "roster_source": roster_stats,
+            "games_source": games_stats,
             "reason": (
-                "Canonical player identity requires official roster ids. Name "
-                "and jersey agreement alone is insufficient when ambiguous, "
-                "so every assertion is retained at "
-                "UNRESOLVED_NAME_AND_JERSEY_ONLY rather than being joined on "
-                "a name match."
+                "A player resolves only when a local roster snapshot covers "
+                "the program AND the published jersey number/name agree with "
+                "exactly one roster row; an ambiguous or conflicting match is "
+                "quarantined, never guessed. A resolved identity is never "
+                "itself an injury/health fact -- it does not change status "
+                "or presence. Roster coverage is real but partial: only "
+                + str(len(roster_stats.get("programs_covered", [])))
+                + " of the capture's programs have a local roster snapshot."
             ),
         },
         "unmet_requirements": [
             "Durable official raw/rendered evidence is not bound for the SEC "
             "capture: the file is a rendered table with no per-report "
             "publication timestamp and no archived original response.",
-            "Canonical player-program-game resolution against official roster "
-            "identities is not performed; identities stay unresolved.",
+            "Canonical player identity is resolved only for programs with a "
+            "local roster snapshot (" + ", ".join(roster_stats.get("programs_covered", [])) + "); "
+            "the remaining SEC programs in this capture stay "
+            "ROSTER_NOT_LOCALLY_AVAILABLE, a genuine local data gap, not a "
+            "code defect.",
+            "Stage vintage is exposed only as an ordinal position within the "
+            "report's own four-stage sequence, never as an absolute "
+            "publication timestamp, since no per-stage timestamp exists in "
+            "this capture.",
             "Of the 12 predeclared keys, only those marked "
             + OUTCOME_EVIDENCE
             + " carry acquired evidence; the rest are retained with their "
@@ -199,6 +326,8 @@ def main() -> int:
             "dash_stage_means": "PUBLISHED_EMPTY_NOT_AVAILABLE",
             "out_means_injured": False,
             "page_byline_dates_each_embedded_report": False,
+            "name_hit_or_roster_membership_is_not_an_injury_fact": True,
+            "no_report_is_not_an_injury_fact": True,
         },
         "pit_admitted": False,
     }
@@ -225,6 +354,11 @@ def main() -> int:
             "opportunity_classifications": coverage["by_classification"],
             "distinct_conferences": len(coverage["distinct_conferences"]),
             "distinct_policies": coverage["distinct_policies"],
+            "resolved_player_ids": resolved_player_count,
+            "resolved_contest_ids": resolved_contest_count,
+            "by_identity_state": dict(identity_state_counts),
+            "by_contest_resolution_state": dict(contest_state_counts),
+            "roster_programs_covered": roster_stats.get("programs_covered"),
         },
         indent=1,
     ))

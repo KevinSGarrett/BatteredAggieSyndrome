@@ -4309,6 +4309,7 @@ tests/test_cycle35_r35_12_all22_alignment.py
 tests/test_cycle35_r35_13_plan_jira_trace.py
 tests/test_cycle35_r35_14_private_data_availability.py
 tests/test_cycle35_r35_15_ci_and_decisions.py
+tests/test_cycle35_r35_15_final_report.py
 tests/test_cycle35_r35_16_validation_packet_successor.py
 tests/test_cycle35_r35_17_cycle_request_ledger.py
 tests/test_cycle35_r35_22_evidence_graph.py

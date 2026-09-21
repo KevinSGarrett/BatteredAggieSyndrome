@@ -52,6 +52,30 @@ def table(rows: list[list[str]], header: list[str]) -> str:
     return "\n".join(out)
 
 
+def pr_check_summary(out_dir: Path) -> str:
+    """What the exact-head CI query returned, never a remembered total.
+
+    This line used to be the literal string "12 of 12 pass". A headline that
+    cannot go red is not a status line.
+    """
+
+    packet = load(out_dir / "CYCLE35_ACCEPTANCE_PACKET.json") or {}
+    ci = packet.get("exact_head_ci") or load(out_dir / "CYCLE35_EXACT_HEAD_CI_STATUS.json")
+    if not ci or not ci.get("queried"):
+        return "NOT_QUERIED at report generation"
+    buckets = ci.get("by_bucket") or {}
+    total = sum(int(v) for v in buckets.values())
+    passing = int(buckets.get("pass", 0))
+    head = str(ci.get("head_sha") or "")[:12]
+    detail = ", ".join(
+        f"{count} {bucket}" for bucket, count in sorted(buckets.items()) if bucket != "pass"
+    )
+    return (
+        f"{passing} of {total} pass at `{head}`"
+        + (f" ({detail})" if detail else "")
+    )
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", required=True)
@@ -120,14 +144,31 @@ def main() -> int:
       "hold release, production or champion claim, protected-lane "
       "activation or repository transfer was performed.")
     a("")
-    local_remaining = [
-        item for item in (unfinished.get("items") or [])
-        if item.get("kind") == "LOCAL_WORK_REMAINING"
-    ]
-    a(f"{len(local_remaining)} of {unfinished.get('item_count')} unfinished "
-      "items are local work requiring no external authority, which is why "
-      "the stronger IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED state is not "
-      "claimed.")
+    items = unfinished.get("items") or []
+    # `kind` is keyword-matched from the blocker's own wording, so counting
+    # it would report what the list SAYS about itself. The reconciled
+    # category is what survived being checked against a delivered artifact.
+    reconciled = [str(item.get("reconciled_category") or "") for item in items]
+    local_remaining = [c for c in reconciled if c == "REAL_LOCAL_WORK_REMAINING"]
+    unreconciled = [c for c in reconciled if not c or c.startswith("NOT_RECONCILED")]
+    if unreconciled:
+        a(f"{len(unreconciled)} of {len(items)} unfinished items could not be "
+          "reconciled against a delivered artifact, so no claim is made about "
+          "how many remain local.")
+    else:
+        by_category: dict[str, int] = {}
+        for category in reconciled:
+            by_category[category] = by_category.get(category, 0) + 1
+        a(f"{len(local_remaining)} of {len(items)} unfinished items are real "
+          "local work requiring no external authority, which is why the "
+          "stronger IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED state is not "
+          "claimed. Each entry was checked against a delivered artifact "
+          "rather than read off its own wording:")
+        a("")
+        for category, count in sorted(
+            by_category.items(), key=lambda kv: (-kv[1], kv[0])
+        ):
+            a(f"- {count} {category}")
     a("")
 
     a("## Exact state")
@@ -143,7 +184,7 @@ def main() -> int:
             ["Worktree clean", str(git_state.get("worktree_clean"))],
             ["Pull request", "#691 (draft) -> base `codex/BAT-706-cycle34-repair`"],
             ["PR URL", "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/691"],
-            ["PR checks", "12 of 12 pass, including core-validation (windows-latest, 3.12)"],
+            ["PR checks", pr_check_summary(out)],
         ],
         ["Field", "Value"],
     ))

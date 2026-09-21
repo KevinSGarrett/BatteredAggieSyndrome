@@ -36,8 +36,46 @@ HOLD_STATE = "SCIENTIFIC_OPERATOR_HOLD_ACTIVE"
 COMPLETION_STATE = "IN_PROGRESS_LOCAL_WORK_REMAINS"
 
 
+CYCLE_RUNS = Path("C:/BatteredAggieSyndrome.data/ops/cycle35/runs")
+SKIP_DIRECTORY_NAMES = frozenset(
+    {"wheel_venv", "Lib", "site-packages", "Scripts", "__pycache__", ".git"}
+)
+
+
 def load(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
+
+
+def load_anywhere(out_dir: Path, name: str, cycle_root: Path | None = None) -> Any:
+    """Load an artifact from this run directory, or from wherever in the
+    cycle it actually lives.
+
+    Looking only inside the directory being written to is what made the
+    packet's own evidence map resolve almost nothing: a tool that writes
+    into a different run directory becomes invisible. The report reads the
+    newest copy by name instead.
+
+    `cycle_root` is explicit so the fallback can be pointed somewhere else.
+    Without it a caller passing an empty directory would silently be served
+    another run's artifact, and the "this artifact is absent" branch could
+    never be exercised.
+    """
+
+    local = load(out_dir / name)
+    if local is not None:
+        return local
+    cycle_root = CYCLE_RUNS if cycle_root is None else cycle_root
+    newest: tuple[float, Path] | None = None
+    for path in cycle_root.rglob(name):
+        if SKIP_DIRECTORY_NAMES.intersection(path.parts):
+            continue
+        try:
+            stamp = path.stat().st_mtime
+        except OSError:
+            continue
+        if newest is None or stamp > newest[0]:
+            newest = (stamp, path)
+    return load(newest[1]) if newest else None
 
 
 def sha256_file(path: Path) -> str | None:
@@ -50,6 +88,42 @@ def table(rows: list[list[str]], header: list[str]) -> str:
     for row in rows:
         out.append("| " + " | ".join(row) + " |")
     return "\n".join(out)
+
+
+def network_budget_paragraph(out_dir: Path, cycle_root: Path | None = None) -> str:
+    """Read the ledger rather than restate a remembered spend.
+
+    This paragraph used to say both 50-request ceilings were "fully
+    unspent" and list re-resolving the remote heads and the live Jira
+    readback among the things a budget would buy. All three had stopped
+    being true.
+    """
+
+    ledger = load_anywhere(
+        out_dir, "CYCLE35_CYCLE_WIDE_REQUEST_LEDGER.json", cycle_root
+    )
+    if not ledger:
+        return (
+            "**Network budget confirmation** — the cycle-wide request ledger "
+            "was not found, so no claim is made about what has been spent."
+        )
+    budgets = ledger.get("budgets") or {}
+    spent = ", ".join(
+        f"{name} {row.get('used_cycle_lifetime')}/{row.get('ceiling')}"
+        for name, row in sorted(budgets.items())
+    )
+    return (
+        "**Network budget confirmation** — cycle-lifetime spend is "
+        f"{spent or 'unrecorded'}, with "
+        f"{ledger.get('cache_hits_no_request_spent', 0)} cache hits that spent "
+        f"nothing and {ledger.get('paid_model_calls', 0)} paid model, "
+        f"{ledger.get('paid_provider_calls', 0)} paid provider and "
+        f"{ledger.get('paid_reviewer_calls', 0)} paid reviewer calls. What a "
+        "further budget would buy is the C01 v0.1.2 wheel, the remaining "
+        "career-tranche keys and the remaining availability routes. Re-"
+        "resolving the private owner remote heads and the live Jira readback "
+        "are NOT on that list: both were already carried out this cycle."
+    )
 
 
 def pr_check_summary(out_dir: Path) -> str:
@@ -121,7 +195,12 @@ def main() -> int:
     ]
 
     blocker_rows = [
-        [item["requirement"], item["kind"], item["blocker"]]
+        [
+            item["requirement"],
+            str(item.get("reconciled_category") or "NOT_RECONCILED"),
+            item["blocker"],
+            str(item.get("reconciled_finding") or "").replace("|", '\\|') or "—",
+        ]
         for item in (unfinished.get("items") or [])
     ]
 
@@ -295,6 +374,95 @@ def main() -> int:
           f"{jira.get('done_transitions')} Done transitions.")
         a("")
 
+    a("## Closeout review (20260921T025300Z)")
+    a("")
+    coverage = load_anywhere(out, "CYCLE35_RELEASE_COVERAGE_BINDING.json")
+    if coverage:
+        states = coverage.get("coverage_states") or {}
+        a(f"**Expected population bound to the delivered release.** "
+          f"{coverage.get('expected_cells'):,} program-season-role cells: "
+          + ", ".join(
+              f"{count:,} {state}" for state, count in sorted(states.items())
+          )
+          + ".")
+        if coverage.get("confirmed_layer_is_empty_because"):
+            a("")
+            a("No cell reaches the confirmed layer. "
+              + str(coverage["confirmed_layer_is_empty_because"]))
+        a("")
+
+    comparison = load_anywhere(out, "CYCLE35_DELIVERED_RELEASE_COMPARISON.json")
+    if comparison and comparison.get("finding"):
+        a("**Delivered vs rebuilt release.** " + str(comparison["finding"]))
+        a("")
+
+    span = load_anywhere(out, "CYCLE35_SOURCE_SPAN_SEMANTIC_REVIEW.json")
+    if span:
+        kinds = span.get("disagreements_by_kind") or {}
+        a(f"**Source-span review.** {span.get('rows_reviewed')} rows, "
+          f"instrument {span.get('instrument', {}).get('status')} across "
+          f"{span.get('instrument', {}).get('control_count')} positive and "
+          "negative controls. Independent span labels: "
+          + ", ".join(
+              f"{count} {label}"
+              for label, count in sorted(
+                  (span.get("independent_span_labels") or {}).items()
+              )
+          )
+          + ". Disagreements with the parser's own support flag: "
+          + (", ".join(f"{count} {kind}" for kind, count in sorted(kinds.items()))
+             or "none")
+          + f". Semantic adjudication pending for "
+          f"{span.get('semantic_review_queue', {}).get('pending')} rows.")
+        a("")
+
+    kernel = load_anywhere(out, "R35_09_INDEPENDENT_KERNEL_REFERENCE.json")
+    disposition = ((kernel or {}).get("comparison") or {}).get("residual_disposition")
+    if disposition:
+        missing = disposition.get("seasons_missing_from_declared_sources") or []
+        a("**Kernel residuals.** "
+          + ", ".join(
+              f"{count} {state}"
+              for state, count in sorted(
+                  {
+                      **(disposition.get("absent_game_rows_by_disposition") or {}),
+                      **(disposition.get("unjustified_rows_by_disposition") or {}),
+                  }.items()
+              )
+          )
+          + ". Declared sources omit season(s) "
+          + (", ".join(str(year) for year in missing) or "none")
+          + ".")
+        a("")
+
+    receipt = load_anywhere(out, "CYCLE35_VALIDATION_RESULTS_SUCCESSOR.json")
+    acceptance = (receipt or {}).get("canonical_mounted_acceptance") or {}
+    if acceptance.get("state") == "RECEIPT_BOUND":
+        a(f"**Canonical mounted acceptance: {acceptance.get('acceptance')}.** "
+          f"{acceptance.get('mounted_lanes_established')} lanes ran with the "
+          "private mount established; "
+          f"{acceptance.get('mounted_lanes_failing')} failing.")
+        a("")
+        for name, row in sorted((acceptance.get("lane_outcomes") or {}).items()):
+            a(f"- `{name}` mounted={row.get('mounted_lane_established')} "
+              f"exit={row.get('exit_code')} — {row.get('summary_line')}")
+        a("")
+
+    discovered = load_anywhere(out, "CYCLE35_NEWLY_DISCOVERED_OBLIGATIONS.json")
+    if discovered:
+        a("**Obligations surfaced by this review** (kept out of the declared "
+          "26 so that list stays auditable): "
+          + ", ".join(
+              f"{count} {state}"
+              for state, count in sorted((discovered.get("by_state") or {}).items())
+          )
+          + ".")
+        a("")
+        for entry in discovered.get("items") or []:
+            a(f"- **{entry['key']}** ({entry['requirement']}, {entry['state']}) — "
+              + str(entry.get("finding") or "no evidence available"))
+        a("")
+
     a("## Baseline equivalence")
     a("")
     for row in validation.get("baseline_equivalence") or []:
@@ -398,7 +566,14 @@ def main() -> int:
     a("## Every remaining blocker")
     a("")
     if blocker_rows:
-        a(table(blocker_rows, ["Requirement", "Kind", "Blocker"]))
+        a("Blocker text is reproduced verbatim from the declared unit list; "
+          "none was edited or removed. The category is what the entry was "
+          "placed in after being checked against a delivered artifact.")
+        a("")
+        a(table(
+            blocker_rows,
+            ["Requirement", "Reconciled category", "Blocker (as declared)", "Finding"],
+        ))
         a("")
 
     a("## Authority required to change this state")
@@ -408,16 +583,11 @@ def main() -> int:
       "its byte hashes, the affected pins and a recovery plan are in "
       "`R35_10_APPROVAL_REQUEST.json`. Until this is resolved the canonical "
       "mounted Family B dimension stays FAIL.")
-    a("2. **Narrow push/PR authority for `codex/BAT-706-cycle35`** — the "
-      "branch has never been pushed. Cycle #34's publication permission "
-      "covered a different branch and is not assumed to extend here. Before "
-      "any push, privacy/secret checks and workflow-trigger inspection would "
-      "run to confirm no paid review is invoked.")
-    a("3. **Network budget confirmation** — five items are blocked only on a "
-      "network call this cache-first cycle did not spend: re-resolving the "
-      "five private owner remote heads, qualifying the C01 v0.1.2 wheel, live "
-      "Jira readback, the 48-key career tranche and the remaining availability "
-      "routes. Both 50-request ceilings are fully unspent.")
+    a("2. **Merge authority for `codex/BAT-706-cycle35`** — the branch is "
+      "pushed and PR #691 is open as a draft against "
+      "`codex/BAT-706-cycle34-repair`. No merge, and no transition out of "
+      "draft, was performed or is authorized here.")
+    a("3. " + network_budget_paragraph(out))
     a("")
     a("4. **Independent scientific review** — cannot be self-granted. Nothing "
       "in this packet constitutes it.")

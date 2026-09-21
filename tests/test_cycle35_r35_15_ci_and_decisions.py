@@ -12,6 +12,7 @@ existing packet assembly did not produce. These are their first tests.
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -20,7 +21,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from tools.cycle35.r35_15_acceptance_packet import (  # noqa: E402
+    CLOSEOUT_20260921T025300Z_FIXES,
     R35_UNITS,
+    annotate_units_with_session_fixes,
     hosted_ci_status,
     load_evidence_graph_reconciliation,
     minimal_decisions_required,
@@ -221,6 +224,78 @@ class DecisionsAreNotAlreadyDoneTests(unittest.TestCase):
                 self.assertTrue(decision["owner"].strip())
                 self.assertTrue(decision["blocks"])
                 self.assertTrue(decision["why_bas_cannot_decide"].strip())
+
+
+class ClosecoutFixAnnotationTests(unittest.TestCase):
+    """The closeout review's repairs landed underneath notes written before
+    it. The annotation makes that visible without editing the note or any of
+    its six dimensions."""
+
+    def test_the_two_review_rounds_stay_in_separate_fields(self) -> None:
+        """Merged into one list, a note stale since MF35 and one stale since
+        the closeout become indistinguishable."""
+        annotated = annotate_units_with_session_fixes(
+            {"R35-08": {"note": "unchanged"}},
+            {"R35-08": [{"finding": "MF35-X", "summary": "s", "commit": "a"}]},
+            {"R35-08": [{"finding": "CLOSEOUT_Y", "summary": "s", "commit": "b"}]},
+        )
+        unit = annotated["R35-08"]
+        self.assertEqual(
+            [f["finding"] for f in unit["note_predates_session_fixes"]], ["MF35-X"]
+        )
+        self.assertEqual(
+            [f["finding"] for f in unit["note_predates_closeout_fixes"]], ["CLOSEOUT_Y"]
+        )
+        self.assertTrue(unit["note_is_stale"])
+
+    def test_a_closeout_fix_alone_marks_the_note_stale(self) -> None:
+        annotated = annotate_units_with_session_fixes(
+            {"R35-01": {"note": "unchanged"}},
+            {},
+            {"R35-01": [{"finding": "CLOSEOUT_SECTION_1", "summary": "s", "commit": "c"}]},
+        )
+        self.assertTrue(annotated["R35-01"]["note_is_stale"])
+
+    def test_a_unit_with_no_fixes_is_not_marked_stale(self) -> None:
+        annotated = annotate_units_with_session_fixes(
+            {"R35-04": {"note": "unchanged"}}, {}, {}
+        )
+        self.assertFalse(annotated["R35-04"]["note_is_stale"])
+        self.assertEqual(annotated["R35-04"]["note_predates_closeout_fixes"], [])
+
+    def test_annotation_never_edits_the_note_or_a_dimension(self) -> None:
+        """Annotating is not re-verifying. A unit marked here must not be
+        promoted to a fresher COMPLETE by the marking."""
+        original = {
+            "note": "original text",
+            "overall": "PARTIAL",
+            "independent_scientific_acceptance": "NOT_REVIEWED",
+        }
+        annotated = annotate_units_with_session_fixes(
+            {"R35-09": dict(original)},
+            {},
+            {"R35-09": [{"finding": "CLOSEOUT", "summary": "s", "commit": "d"}]},
+        )["R35-09"]
+        for key, value in original.items():
+            with self.subTest(key=key):
+                self.assertEqual(annotated[key], value)
+
+    def test_every_closeout_fix_names_a_commit_that_exists(self) -> None:
+        """A summary pointing at a commit that is not in history is an
+        unverifiable claim."""
+        for unit_id, entries in CLOSEOUT_20260921T025300Z_FIXES.items():
+            for entry in entries:
+                with self.subTest(unit=unit_id, finding=entry["finding"]):
+                    self.assertTrue(entry["summary"].strip())
+                    resolved = subprocess.run(
+                        ["git", "cat-file", "-t", entry["commit"]],
+                        cwd=str(ROOT),
+                        capture_output=True,
+                        text=True,
+                    )
+                    self.assertEqual(
+                        resolved.stdout.strip(), "commit", entry["commit"]
+                    )
 
 
 

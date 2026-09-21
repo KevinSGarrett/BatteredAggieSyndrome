@@ -572,23 +572,169 @@ SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
 }
 
 
+#: Repairs made under the 20260921T025300Z closeout review. Kept apart from
+#: SESSION_MF35_FIXES so a reader can tell which review each unit note is
+#: stale with respect to; a single merged blob would hide that.
+CLOSEOUT_20260921T025300Z_FIXES: dict[str, list[dict[str, str]]] = {
+    "R35-01": [
+        {
+            "finding": "CLOSEOUT_SECTION_1",
+            "summary": "Validation-lane truth established: private-data "
+            "fixtures for all six readiness states, two real release "
+            "rebuilds compared on full per-row content, and in-subprocess "
+            "environment capture allowlisted to 7 non-secret names. "
+            "FULL_SUITE_MOUNTED's unqualified canonical-mounted PASS is "
+            "withdrawn and the receipt that replaces it is digest-bound.",
+            "commit": "d4bce7be",
+        }
+    ],
+    "R35-02": [
+        {
+            "finding": "CLOSEOUT_SECTION_3_AND_7",
+            "summary": "Coverage labels now require locatable relevant "
+            "report evidence and distinguish policy from game-report "
+            "evidence. The source-span review is executed with an "
+            "independent locator and 48 positive/negative controls; 11 of "
+            "34 sampled rows are a reparse recall gap, and the semantic "
+            "question stays with an independent reviewer.",
+            "commit": "567dcaa6",
+        }
+    ],
+    "R35-03": [
+        {
+            "finding": "CLOSEOUT_SECTION_7",
+            "summary": "The rebuilt release is published immutably with "
+            "86,105 observations in 2013-2026 against the delivered r7's "
+            "73, and the declared expected population is bound to it for "
+            "the first time: 13,474 of 36,582 cells covered at candidate "
+            "layer, 0 confirmed because every confirmed assertion's "
+            "episode carries season 'CURRENT'.",
+            "commit": "874b3dc1",
+        }
+    ],
+    "R35-05": [
+        {
+            "finding": "CLOSEOUT_SECTION_7",
+            "summary": "Both career-tranche denominators are bound with a "
+            "versioned key reconciliation by set membership -- predecessor "
+            "76 employers / 880 attempt rows and this cycle's 48 keys -- "
+            "and neither is retired.",
+            "commit": "874b3dc1",
+        }
+    ],
+    "R35-08": [
+        {
+            "finding": "CLOSEOUT_SECTION_4",
+            "summary": "Duplicate observations dedupe with provenance "
+            "(12,941 DEDUPLICATED_IDENTICAL_OBSERVATIONS), conflicts "
+            "resolve by declared source/vintage authority rather than "
+            "input order with 0 unresolved, 2,849 neutral is reported as "
+            "source-designated, and a previously-missed cached /venues "
+            "payload gives 23,129 rows real great-circle travel legs.",
+            "commit": "0af1b40a",
+        }
+    ],
+    "R35-09": [
+        {
+            "finding": "CLOSEOUT_SECTION_7",
+            "summary": "Both kernel residuals are inventoried in full and "
+            "dispositioned: 796 rows SEASON_ACQUIRED_BUT_THIS_GAME_IS_NOT_"
+            "IN_THE_PULL, 15 EXPLAINED_BY_UNACQUIRED_PRIOR_SEASONS (2024 "
+            "and 2025 were never pulled), 0 unexplained. Zero independent "
+            "PIT proofs is maintained against 36 producer labels.",
+            "commit": "d190dee8",
+        }
+    ],
+    "R35-10": [
+        {
+            "finding": "CLOSEOUT_SECTION_5",
+            "summary": "The Family B consumer resolves BAT-637 through a "
+            "versioned authority derived from the declaring contract. "
+            "LEGACY stays the default, the Done predecessor gate is not "
+            "edited and the stale constant is not overwritten with the "
+            "observed live hash. Canonical activation remains a separate "
+            "approval.",
+            "commit": "cae8392a",
+        }
+    ],
+    "R35-11": [
+        {
+            "finding": "CLOSEOUT_SECTION_2",
+            "summary": "Four reproduced identity defects repaired: full "
+            "source names and source-qualified ids preserved, roster "
+            "season evidence required, contradictory names and "
+            "non-identifier values rejected, duplicate jerseys "
+            "disambiguated on full evidence, and a name-only match never "
+            "silently becomes a canonical id. All four grains are reported "
+            "separately with every changed row explained.",
+            "commit": "a1ae637d",
+        }
+    ],
+    "R35-13": [
+        {
+            "finding": "CLOSEOUT_SECTION_6",
+            "summary": "The request ledger is reconstructed cycle-wide "
+            "rather than reset per process: 8/50 and 7/50 cycle-lifetime "
+            "budgets, 78 unique entries deduped across 19 run directories, "
+            "retries and pagination counted, and 0 paid model, provider or "
+            "reviewer calls.",
+            "commit": "d57f0864",
+        }
+    ],
+    "R35-14": [
+        {
+            "finding": "CLOSEOUT_SECTION_1_AND_7",
+            "summary": "All four lanes re-executed at the repaired head. "
+            "Mounted full suite 2 failed / 4,238 passed / 2 errors, all "
+            "four the inherited BAT-637 pin disagreement; unmounted 4,034 "
+            "passed. The difference between the lanes is measured rather "
+            "than asserted, and the results parser no longer reports a "
+            "completed pytest run as DID_NOT_COMPLETE.",
+            "commit": "e22ddf83",
+        }
+    ],
+    "R35-15": [
+        {
+            "finding": "CLOSEOUT_SECTION_7_AND_8",
+            "summary": "One coherent evidence graph across 19 run "
+            "directories resolves all 26 evidence references with 0 "
+            "dangling, every unfinished entry is reconciled against a "
+            "delivered artifact into nine distinct categories, a single "
+            "entry point binds 25 artifacts by digest, and the report's "
+            "headline counts are derived from evidence instead of from the "
+            "blocker list's own wording.",
+            "commit": "78587287",
+        }
+    ],
+}
+
+
 def annotate_units_with_session_fixes(
-    units: dict[str, dict[str, Any]], fixes: dict[str, list[dict[str, str]]]
+    units: dict[str, dict[str, Any]],
+    fixes: dict[str, list[dict[str, str]]],
+    closeout_fixes: dict[str, list[dict[str, str]]] | None = None,
 ) -> dict[str, dict[str, Any]]:
-    """Mark which units have MF35 fixes landed underneath their hand-typed
-    note, without touching the note or any of its six dimensions.
+    """Mark which units have fixes landed underneath their hand-typed note,
+    without touching the note or any of its six dimensions.
+
+    The two review rounds are kept in separate fields. Merging them would
+    lose which review a note is stale with respect to, and a note stale
+    since MF35 is a different statement from one stale since the closeout.
 
     This does not re-verify anything: a unit annotated here is not thereby
     re-tested, re-reviewed, or promoted to a fresher COMPLETE. It only makes
     the note's staleness impossible to miss.
     """
 
+    closeout_fixes = closeout_fixes or {}
     annotated: dict[str, dict[str, Any]] = {}
     for unit_id, unit in units.items():
         copy = dict(unit)
         session_fixes = fixes.get(unit_id)
+        closeout = closeout_fixes.get(unit_id)
         copy["note_predates_session_fixes"] = list(session_fixes or [])
-        copy["note_is_stale"] = bool(session_fixes)
+        copy["note_predates_closeout_fixes"] = list(closeout or [])
+        copy["note_is_stale"] = bool(session_fixes or closeout)
         annotated[unit_id] = copy
     return annotated
 
@@ -1029,9 +1175,16 @@ def main() -> int:
             DIM_RELEASE,
             DIM_OVERALL,
         ],
-        "units": annotate_units_with_session_fixes(R35_UNITS, SESSION_MF35_FIXES),
+        "units": annotate_units_with_session_fixes(
+            R35_UNITS, SESSION_MF35_FIXES, CLOSEOUT_20260921T025300Z_FIXES
+        ),
         "unit_count": len(R35_UNITS),
-        "units_with_stale_notes": sorted(SESSION_MF35_FIXES),
+        "units_with_stale_notes": sorted(
+            set(SESSION_MF35_FIXES) | set(CLOSEOUT_20260921T025300Z_FIXES)
+        ),
+        "units_with_notes_predating_the_closeout_review": sorted(
+            CLOSEOUT_20260921T025300Z_FIXES
+        ),
         "inherited_r34_requirement_count": inherited["r34_requirement_count"],
         "inherited_mr33_finding_count": inherited["mr33_finding_count"],
         "inherited_mr34_finding_count": inherited["mr34_finding_count"],

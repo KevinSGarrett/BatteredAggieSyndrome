@@ -21,7 +21,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
 
-from r35_15_final_report import pr_check_summary  # noqa: E402
+from r35_15_final_report import (  # noqa: E402
+    network_budget_paragraph,
+    pr_check_summary,
+)
 
 REAL_REPORT = (
     Path(r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs")
@@ -116,6 +119,90 @@ class RealReportTests(unittest.TestCase):
     def test_the_report_still_carries_the_hold(self) -> None:
         self.assertIn("IN_PROGRESS_LOCAL_WORK_REMAINS", self.text)
         self.assertIn("SCIENTIFIC_OPERATOR_HOLD_ACTIVE", self.text)
+
+
+class NetworkBudgetParagraphTests(unittest.TestCase):
+    """This paragraph used to assert both ceilings were "fully unspent" and
+    list two items a budget would buy that had already been bought."""
+
+    def test_the_spend_is_read_from_the_ledger(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "CYCLE35_CYCLE_WIDE_REQUEST_LEDGER.json").write_text(
+                json.dumps(
+                    {
+                        "budgets": {
+                            "availability_context": {
+                                "ceiling": 50,
+                                "used_cycle_lifetime": 8,
+                            },
+                            "coaching_history": {
+                                "ceiling": 50,
+                                "used_cycle_lifetime": 7,
+                            },
+                        },
+                        "cache_hits_no_request_spent": 46,
+                        "paid_model_calls": 0,
+                        "paid_provider_calls": 0,
+                        "paid_reviewer_calls": 0,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            paragraph = network_budget_paragraph(root, cycle_root=root)
+        self.assertIn("availability_context 8/50", paragraph)
+        self.assertIn("coaching_history 7/50", paragraph)
+        self.assertNotIn("fully unspent", paragraph)
+
+    def test_already_done_work_is_excluded_from_what_a_budget_would_buy(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "CYCLE35_CYCLE_WIDE_REQUEST_LEDGER.json").write_text(
+                json.dumps({"budgets": {}}), encoding="utf-8"
+            )
+            paragraph = network_budget_paragraph(root, cycle_root=root)
+        self.assertIn("already carried out this cycle", paragraph)
+        self.assertIn("NOT on that list", paragraph)
+
+    def test_a_missing_ledger_makes_no_spend_claim(self) -> None:
+        """Silence about spend must not read as zero spend.
+
+        The search root is pinned to the empty directory: left unpinned the
+        fallback reaches the real cycle tree and serves another run's
+        ledger, which is the failure mode this test exists to rule out.
+        """
+        with TemporaryDirectory() as tmp:
+            paragraph = network_budget_paragraph(Path(tmp), cycle_root=Path(tmp))
+        self.assertIn("no claim is made about what has been spent", paragraph)
+        self.assertNotIn("unspent", paragraph)
+
+    def test_an_empty_out_dir_does_not_silently_serve_another_runs_ledger(
+        self,
+    ) -> None:
+        with TemporaryDirectory() as tmp:
+            pinned = network_budget_paragraph(Path(tmp), cycle_root=Path(tmp))
+        self.assertIn("was not found", pinned)
+
+
+class BlockerTableTests(unittest.TestCase):
+    def test_the_table_shows_the_reconciled_category_not_the_declared_kind(
+        self,
+    ) -> None:
+        if not REAL_REPORT.is_file():
+            self.skipTest("the final report has not been generated")
+        text = REAL_REPORT.read_text(encoding="utf-8")
+        self.assertIn("| Requirement | Reconciled category |", text)
+        self.assertIn("RESOLVED_BY_WORK_COMPLETED_IN_THIS_REVIEW", text)
+        self.assertIn("reproduced verbatim from the declared unit list", text)
+
+    def test_the_report_no_longer_says_the_branch_was_never_pushed(self) -> None:
+        if not REAL_REPORT.is_file():
+            self.skipTest("the final report has not been generated")
+        self.assertNotIn(
+            "the branch has never been pushed",
+            REAL_REPORT.read_text(encoding="utf-8"),
+        )
+
 
 
 if __name__ == "__main__":

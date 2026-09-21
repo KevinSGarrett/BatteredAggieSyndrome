@@ -279,7 +279,7 @@ def build() -> dict[str, Any]:
         "lane_log_freshness": {
             "fresh_at_current_head": sorted(_FRESH_AT_CURRENT_HEAD),
             "captured_at_slow_lane_head": [
-                l for l in (
+                row for row in (
                     "WARNINGS_AS_ERRORS_HASHSEED_0", "WARNINGS_AS_ERRORS_HASHSEED_1",
                     "WARNINGS_AS_ERRORS_HASHSEED_12345", "PRIVATE_DATA_MOUNTED",
                     "PRIVATE_DATA_EMPTY_ROOT", "ISOLATED_NON_EDITABLE_WHEEL",
@@ -321,8 +321,8 @@ def build() -> dict[str, Any]:
         },
         "lanes": lanes,
         "lane_count": len(lanes),
-        "lanes_not_run": [l["lane"] for l in lanes if l["result"] == "NOT_RUN"],
-        "lanes_failed": [l["lane"] for l in lanes if l["result"] == "FAIL"],
+        "lanes_not_run": [row["lane"] for row in lanes if row["result"] == "NOT_RUN"],
+        "lanes_failed": [row["lane"] for row in lanes if row["result"] == "FAIL"],
         "canonical_vs_isolated_successor": (
             "FULL_SUITE_MOUNTED reports the canonical mounted lane's real "
             "current red set, if any, separately from any isolated-successor "
@@ -356,7 +356,7 @@ def main() -> int:
             "lane_count": result["lane_count"],
             "lanes_not_run": result["lanes_not_run"],
             "lanes_failed": result["lanes_failed"],
-            "lane_results": {l["lane"]: l["result"] for l in result["lanes"]},
+            "lane_results": {row["lane"]: row["result"] for row in result["lanes"]},
         },
         indent=1,
     ))

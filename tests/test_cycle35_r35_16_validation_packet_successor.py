@@ -44,6 +44,25 @@ class Sha256FileTests(unittest.TestCase):
             self.assertEqual(sha256_file(path), hashlib.sha256(b"abc").hexdigest())
 
 
+class LogTailTests(unittest.TestCase):
+    def test_missing_log_returns_an_empty_list(self) -> None:
+        self.assertEqual(log_tail(Path("Z:/does/not/exist.log")), [])
+
+    def test_returns_only_the_last_n_lines(self) -> None:
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "x.log"
+            path.write_text("\n".join(f"line{i}" for i in range(20)), encoding="utf-8")
+            tail = log_tail(path, lines=3)
+        self.assertEqual(tail, ["line17", "line18", "line19"])
+
+    def test_a_short_log_returns_every_line(self) -> None:
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "x.log"
+            path.write_text("a\nb\n", encoding="utf-8")
+            tail = log_tail(path, lines=12)
+        self.assertEqual(tail, ["a", "b"])
+
+
 class ExitCodeOfTests(unittest.TestCase):
     def test_missing_log_has_no_exit_code(self) -> None:
         self.assertIsNone(exit_code_of(Path("Z:/does/not/exist.log")))

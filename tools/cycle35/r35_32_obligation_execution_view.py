@@ -54,6 +54,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sqlite3
 from pathlib import Path
 from typing import Any, Callable
 
@@ -232,6 +233,87 @@ def p_release_states_its_own_coverage() -> tuple[bool | None, str]:
     )
 
 
+#: The delivered release, so these two are measured against what was
+#: actually shipped rather than against a rebuild's summary.
+DELIVERED_RELEASE = (
+    RUNS
+    / "20260921T025300Z_closeout_release"
+    / "published_release"
+    / "CYCLE35_COACHING_RELEASE_PUBLISHED.sqlite"
+)
+
+
+def _user_corpus_observations(lo: int, hi: int) -> int | None:
+    """Cell-grain user-corpus observations in a season range, as delivered."""
+
+    if not DELIVERED_RELEASE.is_file():
+        return None
+    conn = sqlite3.connect(f"file:{DELIVERED_RELEASE}?mode=ro", uri=True)
+    try:
+        return int(
+            conn.execute(
+                "SELECT COUNT(*) FROM source_observation o "
+                "JOIN source_file sf USING(source_file_id) "
+                "WHERE sf.source_class = 'USER_COMPILED_RESEARCH_OBSERVATION' "
+                "AND o.observed_season GLOB '[0-9][0-9][0-9][0-9]' "
+                "AND CAST(o.observed_season AS INTEGER) BETWEEN ? AND ?",
+                (lo, hi),
+            ).fetchone()[0]
+        )
+    finally:
+        conn.close()
+
+
+def p_user_corpus_2013_2026() -> tuple[bool | None, str]:
+    """Are the 2013-2026 user rows cell-ingested in the DELIVERED release?
+
+    The ledger entry says they are not. That was true of the ORIGINALLY
+    delivered release, which carried 73 of them. The published rebuild
+    carries 86,050, so the obligation was discharged before this
+    continuation began and nobody had gone back and said so.
+    """
+
+    later = _user_corpus_observations(2013, 2026)
+    if later is None:
+        return None, "delivered release not present"
+    earlier = _user_corpus_observations(2000, 2012)
+    return later > 0, (
+        f"the delivered release carries {earlier} user-corpus observations in "
+        f"2000-2012 and {later} in 2013-2026, all at cell grain and all at the "
+        "candidate layer with producer_verified false. The ledger entry was "
+        "accurate about the ORIGINALLY delivered release, which had 73."
+    )
+
+
+def p_program_unresolved_cells() -> tuple[bool | None, str]:
+    """How many cells still resolve to no canonical program.
+
+    The ledger says 122, which was the 2000-2012 figure alone. Ingesting
+    2013-2026 added 742 more. The obligation stays open either way; the
+    number should be the one that is true.
+    """
+
+    payload = _artifact(
+        "R35_03_COACHING_RELEASE_SUMMARY.json", IMPLEMENTATION / "release_r4"
+    )
+    if payload is None:
+        return None, "no build summary at this head"
+    cells = payload["inputs"]["user_corpus_cells"]
+    counts = {
+        key: int(cells[key].get("PROGRAM_UNRESOLVED_RETAINED") or 0)
+        for key in ("2000_2012", "2013_2026")
+        if key in cells
+    }
+    total = sum(counts.values())
+    return total == 0, (
+        f"{total} cells remain program-unresolved ({counts}), over "
+        f"{cells['2000_2012'].get('distinct_unresolved_program_names')} and "
+        f"{cells['2013_2026'].get('distinct_unresolved_program_names')} distinct "
+        "unresolved program names. The ledger's 122 was the 2000-2012 figure "
+        "before 2013-2026 was ingested. All are RETAINED, none discarded."
+    )
+
+
 def p_this_view() -> tuple[bool | None, str]:
     return True, "this artifact"
 
@@ -314,16 +396,17 @@ OBLIGATIONS: dict[str, dict[str, Any]] = {
     "OBL_USER_CORPUS_2013_2026_INGEST": {
         "title": "User corpus rows for 2013-2026 are not cell-ingested",
         "category": LOCAL_WORK,
-        "acceptance": "The 2013-2026 corpus rows are ingested as cells, or the reason "
-        "they cannot be is stated per row.",
-        "evaluator": None,
+        "acceptance": "The DELIVERED release carries cell-grain user-corpus "
+        "observations for seasons 2013-2026.",
+        "evaluator": p_user_corpus_2013_2026,
     },
     "OBL_PROGRAM_UNRESOLVED_CELLS": {
-        "title": "122 cells remain program-unresolved",
+        "title": "Cells that resolve to no canonical program",
         "category": LOCAL_WORK,
         "acceptance": "Each unresolved cell resolves to one canonical program, or is "
-        "recorded with the specific reason it cannot.",
-        "evaluator": None,
+        "recorded with the specific reason it cannot. The ledger's figure of 122 "
+        "predates the 2013-2026 ingest and is no longer the count.",
+        "evaluator": p_program_unresolved_cells,
     },
     "OBL_CAREER_TRANCHE_KEYS": {
         "title": "Career tranche keys with no evidence after attempted routes",

@@ -404,20 +404,62 @@ def main() -> int:
 
     a("## Closeout review (20260921T025300Z)")
     a("")
-    coverage = load_anywhere(out, "CYCLE35_RELEASE_COVERAGE_BINDING.json")
-    if coverage:
-        states = coverage.get("coverage_states") or {}
-        a(f"**Expected population bound to the delivered release.** "
-          f"{coverage.get('expected_cells'):,} program-season-role cells: "
+    # Read from the reconciliation, which opens each DATABASE and reports
+    # its own column. The older paragraph here was headed "bound to the
+    # delivered release" while quoting CYCLE35_RELEASE_COVERAGE_BINDING.json,
+    # a file computed beside the build -- and the delivered database's own
+    # column disagrees with it on every one of its 36,582 rows.
+    reconciliation = load_anywhere(
+        out, "CYCLE35_DELIVERED_RELEASE_RECONCILIATION.json"
+    )
+    if reconciliation:
+        delivered = reconciliation["delivered"]["coverage_as_the_release_states_it"]
+        a("**What the DELIVERED release states about its own coverage.** "
           + ", ".join(
-              f"{count:,} {state}" for state, count in sorted(states.items())
+              f"{count:,} {state}"
+              for state, count in sorted(
+                  delivered["coverage_state_counts"].items()
+              )
           )
-          + ".")
-        if coverage.get("confirmed_layer_is_empty_because"):
-            a("")
-            a("No cell reaches the confirmed layer. "
-              + str(coverage["confirmed_layer_is_empty_because"]))
+          + f", spanning {delivered['season_min']}-{delivered['season_max']} over "
+          + f"{delivered['distinct_programs']} programs.")
         a("")
+        compare = reconciliation["release_vs_artifact_beside_it"]
+        if compare.get("artifact_present") and not compare.get("agree"):
+            a("**The release and the artifact beside it disagree.** "
+              + str(compare["finding"]))
+            a("")
+        families = reconciliation["delivered"]["families"]
+        a("**Which source family carries the delivered assertions.** "
+          f"official staff HTML supplies {families['official_staff']['observations']:,} "
+          f"observations and supports {families['official_staff']['assertions_supported']:,} "
+          f"assertions; the user corpus supplies "
+          f"{families['user_corpus']['observations']:,} observations and supports "
+          f"{families['user_corpus']['assertions_supported']:,}; the career "
+          f"transcription supplies {families['career']['observations']:,} and supports "
+          f"{families['career']['assertions_supported']:,}. scheme_assertion and "
+          f"responsibility_assertion hold {families['scheme']['rows']} and "
+          f"{families['responsibility']['rows']} rows.")
+        a("")
+        repaired = reconciliation.get("repaired_build_reported_separately")
+        if repaired:
+            built = repaired["coverage_as_the_release_states_it"]
+            episodes = repaired["episode_seasons"]
+            a("**A release rebuilt at this head, reported separately and never "
+              "merged into the delivered figures.** "
+              + ", ".join(
+                  f"{count:,} {state}"
+                  for state, count in sorted(built["coverage_state_counts"].items())
+              )
+              + f", spanning {built['season_min']}-{built['season_max']} over "
+              + f"{built['distinct_programs']} programs, with "
+              + f"{episodes['with_a_numeric_season']:,} of {episodes['episodes']:,} "
+              + "episodes carrying a season a source states. The delivered "
+              + "release had none: all of its episodes carried the literal "
+              + "string \"CURRENT\", which is why no cell there reached the "
+              + "confirmed layer. A rebuild is not evidence about what was "
+              + "delivered, and is not offered as any.")
+            a("")
 
     comparison = load_anywhere(out, "CYCLE35_DELIVERED_RELEASE_COMPARISON.json")
     if comparison and comparison.get("finding"):

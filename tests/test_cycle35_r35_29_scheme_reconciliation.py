@@ -107,7 +107,9 @@ class RefusalTests(unittest.TestCase):
             "resolution_states": {},
             "candidate_rows": [],
             "unresolved_examples": [],
-            "source_text_conflicts": 0,
+            "source_text_conflicts_in_candidate_rows": 0,
+            "source_text_conflicts_in_stated_claims": 0,
+            "source_text_conflicts_without_a_stated_season": 0,
             "program_collisions": [],
         }
         result = summary(prepared)
@@ -125,13 +127,57 @@ class RefusalTests(unittest.TestCase):
                 "resolution_states": {},
                 "candidate_rows": [],
                 "unresolved_examples": [],
-                "source_text_conflicts": 0,
+                "source_text_conflicts_in_candidate_rows": 0,
+                "source_text_conflicts_in_stated_claims": 0,
+                "source_text_conflicts_without_a_stated_season": 0,
                 "program_collisions": [],
             }
         )
         predicate = result["remaining_work"]
         self.assertIn("at most one canonical program", predicate)
         self.assertIn("no two distinct page-title teams", predicate)
+
+
+class ConflictScopeTests(unittest.TestCase):
+    """A conflict count scoped to the resolved rows is not a total.
+
+    The docstring promised the three SCHEME_SOURCE_TEXT_CONFLICT claims were
+    not silenced while the artifact reported 0, because the count summed
+    over rows that RESOLVED and all three carry no season. A field called
+    "preserved" reading 0 is how a conflict gets silenced -- not by deleting
+    it, but by counting it somewhere it cannot appear.
+    """
+
+    def base(self, **over):
+        prepared = {
+            "claims_total": 3,
+            "scheme_claims": 3,
+            "scheme_claims_with_stated_text": 3,
+            "resolution_states": {},
+            "candidate_rows": [],
+            "unresolved_examples": [],
+            "source_text_conflicts_in_candidate_rows": 0,
+            "source_text_conflicts_in_stated_claims": 3,
+            "source_text_conflicts_without_a_stated_season": 3,
+            "program_collisions": [],
+        }
+        prepared.update(over)
+        return summary(prepared)
+
+    def test_both_scopes_are_reported(self) -> None:
+        result = self.base()
+        self.assertEqual(result["source_text_conflicts_in_stated_claims"], 3)
+        self.assertEqual(result["source_text_conflicts_in_candidate_rows"], 0)
+
+    def test_an_empty_resolved_scope_is_explained_not_left_bare(self) -> None:
+        result = self.base()
+        self.assertIn("unresolved, not absent", result["why_no_conflict_reaches_a_candidate_row"])
+        self.assertIn("3", result["why_no_conflict_reaches_a_candidate_row"])
+
+    def test_the_old_single_field_is_gone(self) -> None:
+        """It read 0 while three conflicts sat in the source."""
+
+        self.assertNotIn("source_text_conflicts_preserved", self.base())
 
 
 class RealReconciliationTests(unittest.TestCase):

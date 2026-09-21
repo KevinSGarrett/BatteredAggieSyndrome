@@ -83,6 +83,10 @@ NETWORK = "NETWORK_CALL_OUTSIDE_FREE_CEILING"
 #: acquisition, a network call, or an environment this machine is not.
 #: Calling that DONE would overclaim; calling it OPEN would imply someone
 #: here can still act on it.
+#: The confirmed coverage state, as the release writes it. Imported by
+#: name rather than retyped so a rename cannot silently zero the count.
+COVERAGE_CONFIRMED = "COVERED_BY_CONFIRMED_ASSERTION"
+
 DONE = "DONE_WITH_EVIDENCE"
 OPEN = "OPEN_LOCAL_WORK_REMAINS"
 BLOCKED = "BLOCKED_NOT_LOCAL_WORK"
@@ -171,33 +175,84 @@ def p_delivered_reconciliation() -> tuple[bool | None, str]:
 
 
 def p_scheme_blocked_on_crosswalk() -> tuple[bool | None, str]:
+    """Keys are INDEXED, not .get() with a default.
+
+    This read payload.get("collisions") when the artifact's key is
+    program_collisions, so a missing key became a confident "collides on 0
+    program-seasons" against R35-29's actual 35. A wrong number stated
+    without hedging is worse than a missing one, so a renamed key now
+    raises and R35-32 treats that as a hard error.
+    """
+
     payload = _artifact("CYCLE35_SCHEME_INGEST.json")
     if payload is None:
         return None, "scheme reconciliation absent"
-    refused = bool(payload.get("ingest_refused"))
-    return refused, (
-        f"ingest refused; {payload.get('candidate_rows_if_a_crosswalk_existed')} "
-        "rows would bind if a page-title-to-program crosswalk existed, and "
-        "the token-prefix rule collides on "
-        f"{len(payload.get('collisions') or [])} program-seasons"
+    return bool(payload["ingest_refused"]), (
+        f"ingest refused, {payload['rows_ingested']} rows written; "
+        f"{payload['candidate_rows_if_a_crosswalk_existed']} of "
+        f"{payload['scheme_claims_with_stated_text']} stated claims would bind "
+        "if a page-title-to-program crosswalk existed, and the token-prefix "
+        f"rule collides on {payload['program_collision_count']} program-seasons, "
+        f"collapsing onto {payload['distinct_programs']} canonical programs"
     )
 
 
-def p_coverage_horizon() -> tuple[bool | None, str]:
-    payload = _artifact("CYCLE35_NATIONAL_POPULATION_AUTHORITY.json")
+def _repaired_profile() -> dict[str, Any] | None:
+    payload = _artifact("CYCLE35_DELIVERED_RELEASE_RECONCILIATION.json")
     if payload is None:
+        return None
+    return payload.get("repaired_build_reported_separately")
+
+
+def p_coverage_horizon() -> tuple[bool | None, str]:
+    """Does the expected population actually reach the declared 2026?
+
+    This used to return True whenever the authority artifact existed, which
+    is not evidence of anything. The obligation is that the horizon reaches
+    the declared range, so that is what is measured -- on a rebuilt release,
+    since the delivered one stops at 2023.
+    """
+
+    if _artifact("CYCLE35_NATIONAL_POPULATION_AUTHORITY.json") is None:
         return None, "population authority artifact absent"
-    return True, (
-        "season authority resolved per membership file from a declared "
-        "request parameter proved by content, never from the wall clock"
+    repaired = _repaired_profile()
+    if repaired is None:
+        return None, "no rebuilt release was profiled, so nothing is measured"
+    span = repaired["coverage_as_the_release_states_it"]
+    reaches = int(span["season_min"]) == 1963 and int(span["season_max"]) == 2026
+    return reaches, (
+        f"a release built at this head spans {span['season_min']}-"
+        f"{span['season_max']} over {span['distinct_programs']} programs "
+        f"({span['distinct_seasons']} seasons). Each membership file's season "
+        "comes from a declared request parameter proved by its content, never "
+        "from the wall clock"
     )
 
 
 def p_confirmed_coverage() -> tuple[bool | None, str]:
-    payload = _artifact("CYCLE35_STAFF_SEASON_EVIDENCE.json")
-    if payload is None:
+    """Does any cell reach the confirmed layer?
+
+    The obligation is "0 of 36,582 expected cells are covered at the
+    confirmed layer", because every episode's season was the literal string
+    "CURRENT" and an episode in no year covers no cell. Returning True
+    because a staff-season artifact exists measured none of that.
+    """
+
+    if _artifact("CYCLE35_STAFF_SEASON_EVIDENCE.json") is None:
         return None, "staff season evidence absent"
-    return True, "staff seasons bound from capture evidence rather than assumed"
+    repaired = _repaired_profile()
+    if repaired is None:
+        return None, "no rebuilt release was profiled, so nothing is measured"
+    states = repaired["coverage_as_the_release_states_it"]["coverage_state_counts"]
+    episodes = repaired["episode_seasons"]
+    confirmed = int(states.get(COVERAGE_CONFIRMED, 0))
+    return confirmed > 0, (
+        f"{confirmed} cells reach the confirmed layer in a release built at "
+        f"this head, from {episodes['with_a_numeric_season']} of "
+        f"{episodes['episodes']} episodes carrying a season a source states. "
+        "The delivered release had 0, because all 839 of its episodes carried "
+        'the literal string "CURRENT"'
+    )
 
 
 def p_release_states_its_own_coverage() -> tuple[bool | None, str]:

@@ -26,7 +26,11 @@ What this module will not do:
   one, is recorded unresolved with the reason -- never attached to the
   closest guess.
 * It does not silence the three SCHEME_SOURCE_TEXT_CONFLICT claims. A
-  conflict stays a conflict.
+  conflict stays a conflict. They are counted over every stated claim AND
+  over the resolved candidate rows, separately, because all three carry no
+  stated season and so reach no candidate row -- a single count scoped to
+  the resolved rows would report zero conflicts and read as though there
+  were none.
 
 AND YET NOTHING IS INGESTED HERE, because binding a claim to a canonical
 program turns out to be the missing piece, not the ingest itself.
@@ -256,7 +260,20 @@ def prepare(
         "resolution_states": dict(states),
         "candidate_rows": rows,
         "unresolved_examples": unresolved_examples,
-        "source_text_conflicts": sum(1 for r in rows if r["is_source_text_conflict"]),
+        # Scoped to the rows that RESOLVED. Reported beside the count over
+        # every stated claim, because on its own a 0 here reads as "there
+        # were no conflicts" when it means "none of them resolved".
+        "source_text_conflicts_in_candidate_rows": sum(
+            1 for r in rows if r["is_source_text_conflict"]
+        ),
+        "source_text_conflicts_in_stated_claims": sum(
+            1 for claim in claims if claim.get("disposition") == CONFLICT
+        ),
+        "source_text_conflicts_without_a_stated_season": sum(
+            1
+            for claim in claims
+            if claim.get("disposition") == CONFLICT and not claim.get("season")
+        ),
         "program_collisions": collisions,
     }
 
@@ -302,7 +319,21 @@ def summary(prepared: dict[str, Any]) -> dict[str, Any]:
             if rows
             else None
         ),
-        "source_text_conflicts_preserved": prepared["source_text_conflicts"],
+        "source_text_conflicts_in_stated_claims": prepared[
+            "source_text_conflicts_in_stated_claims"
+        ],
+        "source_text_conflicts_in_candidate_rows": prepared[
+            "source_text_conflicts_in_candidate_rows"
+        ],
+        "why_no_conflict_reaches_a_candidate_row": (
+            "All "
+            + str(prepared["source_text_conflicts_without_a_stated_season"])
+            + " of the SCHEME_SOURCE_TEXT_CONFLICT claims carry no stated "
+            "season, so they resolve to no program-season and cannot appear "
+            "among the candidate rows. They are unresolved, not absent, and "
+            "not silenced: a count scoped to the resolved rows alone would "
+            "have reported zero conflicts and read as though there were none."
+        ),
         "unresolved_examples": prepared["unresolved_examples"],
         "evidence_layer": "CANDIDATE_SINGLE_SOURCE",
         "why_candidate_only": (

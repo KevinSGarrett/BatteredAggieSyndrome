@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
 
 from r35_22_evidence_graph import (  # noqa: E402
     CATEGORY_DATA_GAP,
+    CATEGORY_STRUCTURAL,
     CATEGORY_RESOLVED_HERE,
     CATEGORY_RELEASE_AUTHORITY,
     CATEGORY_STALE,
@@ -170,6 +171,24 @@ class ReconciliationTests(unittest.TestCase):
         ]
         out = reconcile_items(items, self.EMPTY_INDEX, {"queried": False})
         self.assertEqual(out[0]["category"], CATEGORY_RELEASE_AUTHORITY)
+
+    def test_an_environment_limit_is_not_called_a_data_gap(self) -> None:
+        """The hosted runner having no private mount says nothing about the
+        delivered data. Filing it as a data gap would."""
+        out = reconcile_items(
+            [
+                {
+                    "requirement": "R35-14",
+                    "kind": "LOCAL_WORK_REMAINING",
+                    "blocker": "Hosted CI cannot exercise the mounted private-data "
+                    "lane, so the mounted requirement is verified only locally.",
+                }
+            ],
+            self.EMPTY_INDEX,
+            {"queried": False},
+        )
+        self.assertEqual(out[0]["category"], CATEGORY_STRUCTURAL)
+        self.assertIn("reviewer's call", out[0]["finding"])
 
     def test_a_data_gap_is_not_called_an_implementation_gap(self) -> None:
         items = [

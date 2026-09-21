@@ -68,6 +68,10 @@ CATEGORY_FAILED_VALIDATION = "REAL_FAILED_VALIDATION"
 CATEGORY_REVIEWER = "REQUIRES_INDEPENDENT_REVIEWER_DECISION"
 CATEGORY_RELEASE_AUTHORITY = "REQUIRES_RELEASE_AUTHORITY"
 CATEGORY_BUDGET = "REQUIRES_BUDGET_OR_ACCESS_DECISION"
+#: A limit of the validation environment, not of the data. The hosted runner
+#: has no private mount, so it cannot execute the mounted lane at all. Filing
+#: that as a data gap would say something false about the release.
+CATEGORY_STRUCTURAL = "STRUCTURAL_ENVIRONMENT_LIMIT_NOT_A_DATA_GAP"
 
 
 def sha256_file(path: Path) -> str | None:
@@ -384,10 +388,36 @@ def reconcile_items(
                 "state and no forecast may be invented to change it.",
             )
         elif "Hosted CI cannot exercise the mounted private-data lane" in blocker:
+            mounted_summary = None
+            unmounted_summary = None
+            if mounted:
+                lanes = {lane["lane"]: lane for lane in mounted.get("lanes", [])}
+                mounted_summary = lanes.get("FULL_SUITE_MOUNTED_EXPLICIT_ENV")
+                unmounted_summary = lanes.get("FULL_SUITE_GENUINELY_UNMOUNTED")
+            detail = ""
+            if mounted_summary and unmounted_summary:
+                difference = mounted_summary.get("counts", {}).get(
+                    "passed", 0
+                ) - unmounted_summary.get("counts", {}).get("passed", 0)
+                detail = (
+                    f" Measured: {difference} more tests execute mounted "
+                    f"(exit {mounted_summary.get('exit_code')}) than unmounted "
+                    f"(exit {unmounted_summary.get('exit_code')})."
+                )
             record.update(
-                category=CATEGORY_DATA_GAP,
-                finding="Structural: the hosted runner has no private mount. Green "
-                "hosted checks never supersede canonical private-data results.",
+                category=CATEGORY_STRUCTURAL,
+                checked_against="CYCLE35_MOUNTED_LANE_RECEIPT.json"
+                if mounted_summary
+                else None,
+                finding=(
+                    "The hosted runner has no private mount, so it cannot execute "
+                    "the mounted lane at all. That is a property of the validation "
+                    "environment, not of the delivered data, and green hosted "
+                    "checks never supersede canonical private-data results."
+                    + detail
+                    + " Whether local mounted verification is acceptable is a "
+                    "reviewer's call, not something this cycle can settle."
+                ),
             )
         out.append(record)
     return out
@@ -454,6 +484,7 @@ def main() -> int:
         "categories_are_kept_distinct": [
             CATEGORY_STALE,
             CATEGORY_RESOLVED_HERE,
+            CATEGORY_STRUCTURAL,
             CATEGORY_LOCAL,
             CATEGORY_DATA_GAP,
             CATEGORY_FAILED_VALIDATION,

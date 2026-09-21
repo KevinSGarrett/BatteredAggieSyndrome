@@ -40,6 +40,7 @@ OLD_VALIDATION_RESULTS = Path(
     r"\implementation_output\CYCLE35_VALIDATION_RESULTS.json"
 )
 DATA_ROOT = Path(r"C:\BatteredAggieSyndrome.data")
+CYCLE_RUNS = DATA_ROOT / "ops" / "cycle35" / "runs"
 
 
 def git(args: list[str]) -> str:
@@ -340,6 +341,7 @@ def build() -> dict[str, Any]:
             "is a fixture test_protected_split_exposure.py writes during a "
             "full-suite run and is not part of this cycle's own changes.",
         },
+        "canonical_mounted_acceptance": bind_mounted_receipt(),
         "lanes": lanes,
         "lane_count": len(lanes),
         "lanes_not_run": [row["lane"] for row in lanes if row["result"] == "NOT_RUN"],
@@ -356,6 +358,72 @@ def build() -> dict[str, Any]:
             "of every regression or scientific defect."
         ),
         "pit_admitted": False,
+    }
+
+
+def bind_mounted_receipt() -> dict[str, Any]:
+    """Bind the receipt that decides canonical mounted acceptance.
+
+    The packet used to name this artifact in prose only. A withdrawal that
+    points at an unbound file is the same shape of claim it withdrew, so the
+    receipt is resolved to a path, a digest and its actual lane outcomes.
+    """
+
+    newest: tuple[float, Path] | None = None
+    for path in CYCLE_RUNS.rglob("CYCLE35_MOUNTED_LANE_RECEIPT.json"):
+        if {"site-packages", "__pycache__", ".git"}.intersection(path.parts):
+            continue
+        try:
+            stamp = path.stat().st_mtime
+        except OSError:
+            continue
+        if newest is None or stamp > newest[0]:
+            newest = (stamp, path)
+    if newest is None:
+        return {
+            "state": "RECEIPT_ABSENT",
+            "detail": "No mounted-lane receipt was found, so canonical mounted "
+            "acceptance has no evidence behind it at all.",
+        }
+    path = newest[1]
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        return {"state": "RECEIPT_UNREADABLE", "path": str(path), "error": str(error)}
+
+    lanes = payload.get("lanes", [])
+    established = [row for row in lanes if row.get("mounted_lane_established")]
+    failing = [row for row in established if row.get("exit_code")]
+    return {
+        "state": "RECEIPT_BOUND",
+        "path": str(path),
+        "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        "head": payload.get("head"),
+        "lane_outcomes": {
+            str(row.get("lane")): {
+                "mounted_lane_established": row.get("mounted_lane_established"),
+                "exit_code": row.get("exit_code"),
+                "summary_line": row.get("summary_line"),
+                "log_sha256": row.get("log_sha256"),
+            }
+            for row in lanes
+        },
+        "mounted_lanes_established": len(established),
+        "mounted_lanes_failing": len(failing),
+        "acceptance": (
+            "MOUNTED_LANE_RED"
+            if failing
+            else "MOUNTED_LANE_GREEN"
+            if established
+            else "MOUNTED_LANE_NOT_ESTABLISHED"
+        ),
+        "why_this_decides_it": (
+            "A lane counts as mounted only when the receipt shows "
+            "AGGIE_ANALYTICS_DATA_ROOT was set for that subprocess and the "
+            "root existed. With the variable unset the Family B modules skip "
+            "and the command still exits 0, so a green unmounted run is not "
+            "evidence about the mounted lane."
+        ),
     }
 
 

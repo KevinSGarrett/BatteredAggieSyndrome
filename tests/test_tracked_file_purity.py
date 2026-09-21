@@ -234,6 +234,33 @@ class RepositoryContractTests(unittest.TestCase):
     def test_the_repository_reports_a_nonempty_tracked_set(self) -> None:
         self.assertGreater(len(tracked_paths(REPO_ROOT)), 1000)
 
+    def test_the_manifest_lists_only_paths_git_knows_about(self) -> None:
+        """The provenance manifest is a snapshot of the working tree, so a
+        file that exists only while a test is running can be captured into
+        it and then vanish -- leaving a row that names nothing. It is
+        invisible locally, because the file is still there when the manifest
+        is written, and only fails once the tree is checked out somewhere
+        else.
+
+        Every manifest row must therefore be a path git tracks. That is true
+        of a file staged for this commit and false of a temporary one that
+        was never staged, which is exactly the distinction that catches it.
+        """
+        import csv
+
+        manifest = REPO_ROOT / "provenance" / "PROJECT_FILE_MANIFEST.csv"
+        if not manifest.is_file():
+            self.skipTest("provenance manifest is absent")
+        with manifest.open(newline="", encoding="utf-8") as handle:
+            listed = {row["path"] for row in csv.DictReader(handle)}
+        known = set(tracked_paths(REPO_ROOT))
+        untracked = sorted(listed - known)
+        self.assertEqual(
+            untracked,
+            [],
+            f"manifest rows that git does not track: {untracked}",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -23,12 +23,71 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 _RAN = re.compile(r"^Ran (\d+) tests? in ([0-9.]+)s", re.M)
 _RESULT = re.compile(r"^(OK|FAILED)(?:\s*\((.*)\))?\s*$", re.M)
+#: pytest's terminal summary, e.g.
+#: "2 failed, 4238 passed, 25 skipped, 2 errors, 554 subtests passed in 1308.37s"
+_PYTEST_SUMMARY = re.compile(
+    r"^((?:\d+ [a-z ]+(?:, )?)+) in ([0-9.]+)s(?: \([^)]*\))?\s*$", re.M
+)
+_PYTEST_PART = re.compile(r"(\d+) ([a-z][a-z ]*?)(?=,|$)")
+
+#: A log the parser cannot read is not a run that failed to finish. Keeping
+#: them apart matters: DID_NOT_COMPLETE says something about the test run,
+#: UNRECOGNISED_OUTPUT_FORMAT says something about this parser.
+DID_NOT_COMPLETE = "DID_NOT_COMPLETE"
+UNRECOGNISED = "UNRECOGNISED_OUTPUT_FORMAT"
+
+
+def _parse_pytest_summary(text: str) -> dict[str, Any] | None:
+    """pytest's own summary line, for lanes not run through unittest."""
+
+    match = None
+    for match in _PYTEST_SUMMARY.finditer(text or ""):
+        pass  # the last summary line is the run's own
+    if match is None:
+        return None
+    counts = {
+        label.strip().replace(" ", "_"): int(number)
+        for number, label in _PYTEST_PART.findall(match.group(1))
+    }
+    outcomes = {"passed", "failed", "error", "errors", "skipped", "xfailed", "xpassed"}
+    if not outcomes.intersection(counts):
+        return None
+    tests_run = sum(
+        value
+        for key, value in counts.items()
+        if key in {"passed", "failed", "error", "errors", "skipped", "xfailed", "xpassed"}
+    )
+    bad = counts.get("failed", 0) + counts.get("error", 0) + counts.get("errors", 0)
+    return {
+        "tests_run": tests_run,
+        "runtime_seconds": float(match.group(2)),
+        "result": "FAILED" if bad else "OK",
+        "detail": match.group(0).strip(),
+        "counts": counts,
+        "completed": True,
+        "parser": "pytest_summary",
+    }
 
 
 def parse_unittest_output(text: str) -> dict[str, Any]:
     ran = _RAN.search(text or "")
     result = _RESULT.search(text or "")
-    detail = (result.group(2) or "") if result else ""
+    if not result:
+        # Not unittest output. Try pytest before declaring anything, so a
+        # completed run is never reported as one that did not finish.
+        parsed = _parse_pytest_summary(text)
+        if parsed is not None:
+            return parsed
+        return {
+            "tests_run": int(ran.group(1)) if ran else None,
+            "runtime_seconds": float(ran.group(2)) if ran else None,
+            "result": DID_NOT_COMPLETE if (text or "").strip() == "" else UNRECOGNISED,
+            "detail": "",
+            "counts": {},
+            "completed": False,
+            "parser": "none",
+        }
+    detail = result.group(2) or ""
     counts: dict[str, int] = {}
     for key in ("failures", "errors", "skipped", "expected failures"):
         found = re.search(key.replace(" ", r"\s") + r"=(\d+)", detail)
@@ -37,10 +96,11 @@ def parse_unittest_output(text: str) -> dict[str, Any]:
     return {
         "tests_run": int(ran.group(1)) if ran else None,
         "runtime_seconds": float(ran.group(2)) if ran else None,
-        "result": result.group(1) if result else "DID_NOT_COMPLETE",
+        "result": result.group(1),
         "detail": detail,
         "counts": counts,
-        "completed": bool(result),
+        "completed": True,
+        "parser": "unittest",
     }
 
 

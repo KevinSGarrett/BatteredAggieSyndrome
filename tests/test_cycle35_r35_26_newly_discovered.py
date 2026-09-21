@@ -133,8 +133,11 @@ class EvidenceDerivationTests(unittest.TestCase):
             write(root, "CYCLE35_MOUNTED_LANE_RECEIPT.json", {"lanes": []})
             result = build(root)
         closed = [e for e in result["items"] if e["state"] == CLOSED_HERE]
-        self.assertEqual(len(closed), 1)
-        self.assertIn("4913ea1c", closed[0]["finding"])
+        self.assertEqual(len(closed), 2)
+        findings = " ".join(entry["finding"] for entry in closed)
+        # The line-ending fix and the manifest row that named nothing.
+        self.assertIn("4913ea1c", findings)
+        self.assertIn("irrelevant_unrelated_scan_noise.json", findings)
 
     def test_the_newest_copy_of_an_artifact_is_used(self) -> None:
         import os

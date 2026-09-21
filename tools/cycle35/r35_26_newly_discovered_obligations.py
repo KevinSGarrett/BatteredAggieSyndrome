@@ -243,6 +243,39 @@ def line_ending_item(root: Path) -> dict[str, Any]:
     )
 
 
+def manifest_capture_item(root: Path) -> dict[str, Any]:
+    """A manifest row naming a file that was only ever a test's scratch."""
+
+    path = find(root, "CYCLE35_MOUNTED_LANE_RECEIPT.json")
+    if path is None:
+        return item(
+            "PROVENANCE_MANIFEST_CAPTURED_A_TRANSIENT_TEST_FILE",
+            "R35-14",
+            CLOSED_HERE,
+            None,
+            None,
+        )
+    return item(
+        "PROVENANCE_MANIFEST_CAPTURED_A_TRANSIENT_TEST_FILE",
+        "R35-14",
+        CLOSED_HERE,
+        path,
+        "Hosted CI failed at dc74b2fc with manifest_missing_file and "
+        "manifest_extra on configs/irrelevant_unrelated_scan_noise.json. The "
+        "provenance manifest is a snapshot of the working tree, and it was "
+        "regenerated while the full mounted suite was running against the "
+        "same checkout: test_protected_split_exposure writes that file into "
+        "configs/ and deletes it in a finally block, so the snapshot caught "
+        "it mid-test. It was never staged and never committed, so the row "
+        "named nothing once the tree was checked out elsewhere. Invisible "
+        "locally, because the file was still on disk when the manifest was "
+        "written and when the validator ran. Already absent from the next "
+        "commit; the invariant that every manifest row must be a path git "
+        "tracks is now asserted in test_tracked_file_purity, and it does "
+        "catch dc74b2fc.",
+    )
+
+
 BUILDERS = (
     coverage_item,
     recall_gap_item,
@@ -250,6 +283,7 @@ BUILDERS = (
     kernel_source_item,
     mounted_lane_item,
     line_ending_item,
+    manifest_capture_item,
 )
 
 

@@ -48,7 +48,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator, Mapping, Sequence
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 RELEASE_KIND = "BAS-CYCLE35-COACHING-RELEASE"
 
 #: Evidence layers, weakest first. A layer is a claim about corroboration,
@@ -231,6 +231,20 @@ MIGRATIONS: tuple[tuple[int, str], ...] = (
         );
         CREATE INDEX idx_person_ident_left ON person_identity_adjudication(left_person_id);
         CREATE INDEX idx_person_ident_right ON person_identity_adjudication(right_person_id);
+        """,
+    ),
+    (
+        5,
+        # An adjudication now says what KIND of time it carries. Rows that
+        # already exist keep their value and are labelled as the build-clock
+        # readings they are -- erasing them would destroy the evidence that
+        # the fault was there, and relabelling them as event times would
+        # assert something nobody decided.
+        """
+        ALTER TABLE adjudication ADD COLUMN decision_time_basis TEXT NOT NULL
+            DEFAULT 'LEGACY_BUILD_CLOCK_NOT_AN_EVENT_TIME';
+        ALTER TABLE person_identity_adjudication ADD COLUMN decision_time_basis
+            TEXT NOT NULL DEFAULT 'LEGACY_BUILD_CLOCK_NOT_AN_EVENT_TIME';
         """,
     ),
 )
@@ -627,6 +641,42 @@ def record_conflict(
     return conflict_id
 
 
+#: What kind of time an adjudication row carries. The distinction exists
+#: because an adjudication is not always a decision made at a moment: a
+#: standing rule applied by the build was settled when the rule was written,
+#: so there is no event time for the run to record. Reading the clock there
+#: does not find one, it invents one -- and an invented time is exactly what
+#: made two builds of the same sources disagree.
+OPERATOR_STATED_EVENT_TIME = "OPERATOR_STATED_EVENT_TIME"
+STANDING_RULE_NO_EVENT_TIME = "STANDING_RULE_NO_EVENT_TIME"
+#: Written only by migration 5, onto rows a previous build already stamped.
+#: New code never produces it.
+LEGACY_BUILD_CLOCK_NOT_AN_EVENT_TIME = "LEGACY_BUILD_CLOCK_NOT_AN_EVENT_TIME"
+
+DECISION_TIME_BASES = frozenset(
+    {
+        OPERATOR_STATED_EVENT_TIME,
+        STANDING_RULE_NO_EVENT_TIME,
+        LEGACY_BUILD_CLOCK_NOT_AN_EVENT_TIME,
+    }
+)
+
+
+def _decision_time(decided_at_utc: str | None) -> tuple[str, str]:
+    """(decided_at_utc, decision_time_basis) for a decision being recorded.
+
+    A caller that states a time is stating an event time. A caller that
+    states none is applying a standing rule, and no time is manufactured on
+    its behalf -- which is the whole repair. The build clock is deliberately
+    unreachable from here.
+    """
+
+    stated = (decided_at_utc or "").strip()
+    if stated:
+        return stated, OPERATOR_STATED_EVENT_TIME
+    return "", STANDING_RULE_NO_EVENT_TIME
+
+
 def record_adjudication(
     conn: sqlite3.Connection,
     *,
@@ -637,16 +687,18 @@ def record_adjudication(
     decided_at_utc: str | None = None,
 ) -> str:
     adjudication_id = stable_id("adj", conflict_id, decision, decided_by, basis)
+    decided_at, time_basis = _decision_time(decided_at_utc)
     conn.execute(
         "INSERT OR IGNORE INTO adjudication (adjudication_id, conflict_id, decision, "
-        "decided_by, basis, decided_at_utc) VALUES (?,?,?,?,?,?)",
+        "decided_by, basis, decided_at_utc, decision_time_basis) VALUES (?,?,?,?,?,?,?)",
         (
             adjudication_id,
             conflict_id,
             decision,
             decided_by,
             basis,
-            decided_at_utc or datetime.now(timezone.utc).isoformat(),
+            decided_at,
+            time_basis,
         ),
     )
     return adjudication_id
@@ -806,10 +858,11 @@ def record_person_identity_adjudication(
     adjudication_id = stable_id(
         "pident", left_person_id, right_person_id, decision, decided_by, basis
     )
+    decided_at, time_basis = _decision_time(decided_at_utc)
     conn.execute(
         "INSERT OR IGNORE INTO person_identity_adjudication (adjudication_id, "
         "left_person_id, right_person_id, decision, decided_by, basis, "
-        "decided_at_utc) VALUES (?,?,?,?,?,?,?)",
+        "decided_at_utc, decision_time_basis) VALUES (?,?,?,?,?,?,?,?)",
         (
             adjudication_id,
             left_person_id,
@@ -817,7 +870,8 @@ def record_person_identity_adjudication(
             decision,
             decided_by,
             basis,
-            decided_at_utc or datetime.now(timezone.utc).isoformat(),
+            decided_at,
+            time_basis,
         ),
     )
     return adjudication_id
@@ -826,8 +880,10 @@ def record_person_identity_adjudication(
 def person_identity_adjudications(conn: sqlite3.Connection) -> list[dict[str, Any]]:
     """Every recorded person-identity decision, for audit and reporting."""
 
+    # Ordered by identity, not by time: a standing-rule decision has no
+    # event time, so decided_at_utc no longer orders these rows at all.
     rows = conn.execute(
-        "SELECT * FROM person_identity_adjudication ORDER BY decided_at_utc"
+        "SELECT * FROM person_identity_adjudication ORDER BY adjudication_id"
     ).fetchall()
     return [dict(row) for row in rows]
 
@@ -841,6 +897,13 @@ def person_identity_adjudications(conn: sqlite3.Connection) -> list[dict[str, An
 #: part of the adjudication record itself, not incidental noise. A column
 #: may be added here only when it is independently shown to be incidental;
 #: this set must never be used to make a real disagreement disappear.
+#:
+#: That column used to differ on 26 rows between builds, and this is where
+#: the fix did NOT go. The rows differed because they recorded a build clock
+#: reading as though it were a decision time; they were repaired by not
+#: recording a time nobody had (see `_decision_time`), so the comparison
+#: still looks at the column and now finds it equal. Excluding it would have
+#: silenced the report while leaving the fabricated value in the release.
 INCIDENTAL_EXCLUDED_COLUMNS: dict[str, frozenset[str]] = {}
 
 #: Every table `release_row_identities` compares, with the column(s) that

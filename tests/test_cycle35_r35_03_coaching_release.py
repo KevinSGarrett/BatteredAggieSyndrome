@@ -97,7 +97,7 @@ class SchemaTests(unittest.TestCase):
         self.assertEqual(first, [version for version, _ in _versions()])
         self.assertEqual(second, [])
         rows = conn.execute("SELECT version FROM schema_migration ORDER BY 1").fetchall()
-        self.assertEqual([int(r[0]) for r in rows], [1, 2, 3, 4])
+        self.assertEqual([int(r[0]) for r in rows], [1, 2, 3, 4, 5])
         self.assertEqual(max(int(r[0]) for r in rows), SCHEMA_VERSION)
 
     def test_open_release_refuses_to_overwrite_a_predecessor(self) -> None:

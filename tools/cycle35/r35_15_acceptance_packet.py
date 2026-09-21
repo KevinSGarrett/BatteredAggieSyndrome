@@ -264,11 +264,16 @@ R35_UNITS: dict[str, dict[str, Any]] = {
     ),
     "R35-12": _d(
         PARTIAL, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, INCOMPLETE,
-        "Adapter semantic-field loss repaired; 86 owner checkouts observed "
-        "read-only with 6 dirty preserved; field-by-field compatibility "
-        "decision, producer/consumer DAG and invalidation policy delivered. "
-        "Remote heads not re-resolved and the C01 v0.1.2 wheel not qualified "
-        "in a private lane.",
+        "Adapter semantic-field loss repaired; re-observed fresh this "
+        "session (not copied forward): 112 owner checkouts read-only with "
+        "6 dirty preserved -- up from 86 at the last observation, real "
+        "external drift in the owner's own workspace since then, not a "
+        "counting defect (deterministic across repeated calls). Field-by-"
+        "field compatibility decision, producer/consumer DAG and "
+        "invalidation policy delivered and now covered by 15 BAS-local "
+        "tests (discover_clones exercised against real git checkouts, not "
+        "mocked subprocess calls). Remote heads not re-resolved and the "
+        "C01 v0.1.2 wheel not qualified in a private lane.",
         ["CYCLE35_ALL22_ALIGNMENT.json"],
         [
             "Five private remote heads carried as OBSERVED-BY-MANAGER, not "
@@ -281,8 +286,16 @@ R35_UNITS: dict[str, dict[str, Any]] = {
         COMPLETE, PARTIAL, PASS, NOT_REVIEWED, NOT_AUTHORIZED, PARTIAL,
         "All 12 PT35 mappings independently adjudicated against artifacts "
         "produced this cycle, with 3 missing mappings found and 3 false "
-        "positives challenged. Jira duplicate-audited offline; 0 issues "
-        "created, 0 transitions, no Done, no BAT-523 completion comment.",
+        "positives challenged, now covered by 14 BAS-local tests (structural "
+        "self-consistency of all three tables, real evidence-presence "
+        "check against the actual run-output directory). PT35-03's basis "
+        "was hardcoded as 'resolved_player_ids = 0'; this session's R35-11 "
+        "fix made that false (28 of 92 now resolve), so the row is "
+        "corrected to CONFIRMED_PARTIALLY_ADDRESSED rather than left "
+        "stale underneath the fix -- the same failure mode the manager's "
+        "own review found elsewhere. Jira duplicate-audited offline; 0 "
+        "issues created, 0 transitions, no Done, no BAT-523 completion "
+        "comment.",
         ["CYCLE35_PLAN_JIRA_TRACE.json"],
         ["No live Jira readback performed (needs a network call)."],
     ),
@@ -504,6 +517,40 @@ SESSION_MF35_FIXES: dict[str, list[dict[str, str]]] = {
             "does not establish about the producer. This is a fix to the "
             "CHECKING TOOL, not the PIT kernel producer.",
             "commit": "97c60665",
+        },
+    ],
+    "R35-12": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_R35_12",
+            "summary": "tools/cycle35/r35_12_all22_alignment.py had zero "
+            "automated test coverage; 15 BAS-local tests added covering "
+            "staff_snapshot_boundary (released-vs-proposed field "
+            "decisions), producer_consumer_dag (invalidation policy, "
+            "owner-vs-BAS ownership) and discover_clones (exercised "
+            "against real git checkouts via git init, not mocked "
+            "subprocess). Re-ran the tool fresh against the live owner "
+            "workspace: 112 checkouts observed read-only, 6 dirty -- up "
+            "from the last-recorded 86, real external drift, confirmed "
+            "deterministic across repeated calls, not a counting defect. "
+            "Remote head re-resolution and C01 wheel qualification remain "
+            "genuine network-gated blockers, not attempted.",
+            "commit": "10662db9",
+        },
+    ],
+    "R35-13": [
+        {
+            "finding": "CYCLE35_FOLLOWUP_20260920T224700Z_ITEM_6_R35_13",
+            "summary": "tools/cycle35/r35_13_plan_jira_trace.py had zero "
+            "automated test coverage; 14 BAS-local tests added covering "
+            "sha256_file, structural self-consistency of PT35_MAPPINGS/"
+            "MISSING_MAPPINGS/FALSE_POSITIVE_CHALLENGES, and the real "
+            "evidence-presence check against the actual run-output "
+            "directory. Found and fixed a stale hardcoded claim: PT35-03's "
+            "basis asserted 'resolved_player_ids = 0', which this "
+            "session's R35-11 fix (28 of 92 now resolve) made false; "
+            "corrected the row to CONFIRMED_PARTIALLY_ADDRESSED with the "
+            "real current numbers, pinned by a regression test.",
+            "commit": "10662db9",
         },
     ],
     "R35-14": [

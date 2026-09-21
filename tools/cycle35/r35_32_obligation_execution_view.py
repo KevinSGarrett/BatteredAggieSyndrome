@@ -305,12 +305,23 @@ def p_program_unresolved_cells() -> tuple[bool | None, str]:
         if key in cells
     }
     total = sum(counts.values())
+    names = sorted(
+        set(cells["2000_2012"].get("top_unresolved_program_names") or {})
+        | set(cells["2013_2026"].get("top_unresolved_program_names") or {})
+    )
     return total == 0, (
         f"{total} cells remain program-unresolved ({counts}), over "
-        f"{cells['2000_2012'].get('distinct_unresolved_program_names')} and "
-        f"{cells['2013_2026'].get('distinct_unresolved_program_names')} distinct "
-        "unresolved program names. The ledger's 122 was the 2000-2012 figure "
-        "before 2013-2026 was ingested. All are RETAINED, none discarded."
+        f"{len(names)} distinct program names: {', '.join(names)}. The "
+        "ledger's 122 was the 2000-2012 figure before 2013-2026 was "
+        "ingested. All are RETAINED, none discarded. Two causes, neither "
+        "resolvable by inference: programs discontinued and outside the "
+        "canonical population, and programs RENAMED (Dixie State, Houston "
+        "Baptist, Texas A&M-Commerce). A rename needs a sourced alias "
+        "crosswalk -- the same missing artifact R35-29 refused to ingest "
+        "scheme claims without, in a different key space, and "
+        "Texas A&M-Commerce is literally the collision that refusal turned "
+        "on. Mapping these by hand would be the inference this cycle "
+        "declines everywhere else."
     )
 
 

@@ -193,12 +193,17 @@ def build() -> dict[str, Any]:
         ),
         lane(
             "PRIVATE_DATA_PARTIAL_ROOT",
-            command="",
+            command="python tools/cycle35/r35_19_private_data_lanes.py "
+            "--out-dir <closeout>",
             log_name="PRIVATE_DATA_PARTIAL_ROOT.log",
-            detail="Not reproduced this cycle: the original lane's exact "
-            "manifest-plus-one-payload fixture state was not reconstructed. "
-            "Genuine gap, not a claimed pass.",
-            result_override="NOT_RUN",
+            detail="EXECUTED. r35_19_private_data_lanes.py builds the "
+            "partial root from the REAL replay manifest (a genuine subset "
+            "of the declared required payloads, with no private payload "
+            "bytes copied) and observes PAYLOADS_PARTIALLY_PRESENT, "
+            "alongside the empty, manifest-missing, corrupt, no-root and "
+            "fully-mounted states. Results: "
+            "CYCLE35_PRIVATE_DATA_LANE_RESULTS.json.",
+            result_override="EXECUTED_SEE_PRIVATE_DATA_LANE_RESULTS",
         ),
         lane(
             "ISOLATED_NON_EDITABLE_WHEEL",
@@ -217,19 +222,35 @@ def build() -> dict[str, Any]:
             "FULL_SUITE_MOUNTED",
             command="python -m unittest discover -s tests -q",
             log_name="FULL_SUITE_MOUNTED.log",
-            detail="Real mounted data root, no override.",
+            detail="WITHDRAWN as canonical mounted acceptance. This log was "
+            "produced WITHOUT AGGIE_ANALYTICS_DATA_ROOT set. The Family B "
+            "modules gate on bool(os.environ.get('AGGIE_ANALYTICS_DATA_ROOT')) "
+            "and DATA_ROOT.exists(), so with the variable unset all nine of "
+            "them SKIP and the command still exits 0. Directory presence "
+            "does not establish test execution. The log is preserved as "
+            "historical evidence; canonical mounted acceptance is decided "
+            "by CYCLE35_MOUNTED_LANE_RECEIPT.json, which captures the "
+            "environment from inside the subprocess.",
+            result_override="WITHDRAWN_NOT_CANONICAL_MOUNTED_ACCEPTANCE",
         ),
         lane(
             "DETERMINISTIC_RELEASE_REPLAY",
-            command="",
+            command="python tools/cycle35/r35_20_deterministic_release_replay.py "
+            "--out-dir <closeout>/replay",
             log_name="DETERMINISTIC_RELEASE_REPLAY.log",
-            detail="Not independently re-executed at this exact lane's "
-            "invocation this cycle. coaching_release's builder was exercised "
-            "extensively via real-data runs and its own test suite "
-            "(test_cycle35_r35_03_coaching_release.py and others) this "
-            "session, but not via this specific twice-run identity-comparison "
-            "lane. Genuine gap, not a claimed pass.",
-            result_override="NOT_RUN",
+            detail="EXECUTED. Two real builds into separate isolated output "
+            "directories, compared on full per-row content across all 15 "
+            "content tables plus source links, conflict dispositions and "
+            "expected populations. Result: scientific content identical "
+            "apart from adjudication.decided_at_utc, a wall-clock column "
+            "the builder writes at build time (26 of 26 rows). That column "
+            "is deliberately NOT removed from the content hash -- "
+            "INCIDENTAL_EXCLUDED_COLUMNS stays empty -- so the divergence "
+            "is characterised by name and row count rather than hidden. "
+            "Database file bytes differ, as expected: SQLite page layout is "
+            "not a scientific fact. Results: "
+            "CYCLE35_DETERMINISTIC_RELEASE_REPLAY.json.",
+            result_override="EXECUTED_SEE_DETERMINISTIC_RELEASE_REPLAY",
         ),
     ]
     for row in lanes:

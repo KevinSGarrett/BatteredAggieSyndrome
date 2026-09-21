@@ -47,6 +47,11 @@ SECTIONS: tuple[tuple[str, str, bool], ...] = (
     ("finding_disposition", "CYCLE35_FINDING_DISPOSITION.json", True),
     ("unfinished_items", "CYCLE35_UNFINISHED_ITEMS.json", True),
     ("minimal_decisions_required", "CYCLE35_MINIMAL_DECISIONS_REQUIRED.json", True),
+    (
+        "newly_discovered_obligations",
+        "CYCLE35_NEWLY_DISCOVERED_OBLIGATIONS.json",
+        True,
+    ),
     ("evidence_graph", "CYCLE35_EVIDENCE_GRAPH.json", True),
     ("national_coverage", "CYCLE35_NATIONAL_COVERAGE.json", True),
     ("source_receipt_index", "CYCLE35_SOURCE_RECEIPT_INDEX.json", True),

@@ -846,7 +846,6 @@ configs/historical_weather_previous_runs_snapshot_contract.json
 configs/hpo_registry.json
 configs/hydration_manifest.json
 configs/implementation_plan.json
-configs/irrelevant_unrelated_scan_noise.json
 configs/judging_rule_seal.json
 configs/known_at_registry.json
 configs/local_coder_shadow_qualification.json
@@ -4316,6 +4315,7 @@ tests/test_cycle35_r35_22_evidence_graph.py
 tests/test_cycle35_r35_23_publish_release.py
 tests/test_cycle35_r35_24_source_span_review.py
 tests/test_cycle35_r35_25_single_entry_point.py
+tests/test_cycle35_r35_26_newly_discovered.py
 tests/test_data_research.py
 tests/test_development_2023_labeled_replay.py
 tests/test_development_2023_outcomes.py
@@ -4854,6 +4854,7 @@ tools/cycle35/r35_22_evidence_graph.py
 tools/cycle35/r35_23_publish_release.py
 tools/cycle35/r35_24_source_span_review.py
 tools/cycle35/r35_25_single_entry_point.py
+tools/cycle35/r35_26_newly_discovered_obligations.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

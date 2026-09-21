@@ -17,12 +17,22 @@ from typing import Any
 HOLD_STATE = "SCIENTIFIC_OPERATOR_HOLD_ACTIVE"
 #: The pack defines three states. IMPLEMENTATION_SUBMITTED_NOT_ACCEPTED is
 #: reserved for a "genuinely exhausted, documented submission", and this
-#: cycle is not exhausted: the unfinished-items ledger carries local tasks
-#: that need no external authority and no network budget (cell-ingesting the
-#: 6,749-row user corpus, scheme and responsibility assertions, the national
-#: neutral-site rebuild, the stratified manual semantic review). Claiming
-#: the stronger state while that work is available and safe would overstate
-#: the position, so the weaker and accurate one is used.
+#: cycle is not exhausted. The closeout review closed several of the tasks
+#: this comment used to list -- the 2013-2026 corpus is cell-ingested in the
+#: published rebuild (86,105 observations), the national neutral-site
+#: rebuild is done, and the stratified review now carries independent span
+#: labels -- but local work that needs no external authority and no network
+#: budget remains:
+#:
+#:   * the release's expected population has 0 of 36,582 cells at the
+#:     confirmed layer, because every confirmed assertion's episode carries
+#:     season 'CURRENT';
+#:   * 11 sampled rows sit at QUARANTINED_REPARSE_WITHDRAWS_SUPPORT although
+#:     both spans are verbatim in the raw source -- a reparse recall gap;
+#:   * 122 cells remain program-unresolved.
+#:
+#: Claiming the stronger state while that work is available and safe would
+#: overstate the position, so the weaker and accurate one is used.
 COMPLETION_STATE = "IN_PROGRESS_LOCAL_WORK_REMAINS"
 
 

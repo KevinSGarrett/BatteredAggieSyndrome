@@ -60,6 +60,61 @@ APPROVAL_ID = "CYCLE33-APPROVAL-LAKE-SUCCESSOR-001"
 CANDIDATE_KIND = "BAS-CYCLE35-FAMILY-B-CANDIDATE-SUCCESSOR"
 
 
+def consumer_state() -> dict[str, Any]:
+    """Whether the successor's required consumer is actually wired.
+
+    The closeout review: "Do not request approval for a candidate described
+    as complete while its own evidence says the required consumer remains
+    unimplemented." That objection held when this request was first written.
+    It is answered by reading the isolated consumer's own qualification
+    artifact -- asserting it from memory would be the same mistake one layer
+    up.
+    """
+
+    newest: tuple[float, Path] | None = None
+    runs = MOUNTED_LAKE / "ops" / "cycle35" / "runs"
+    for path in runs.rglob("CYCLE35_ISOLATED_FAMILY_B_CONSUMER.json"):
+        if {"site-packages", "__pycache__", ".git"}.intersection(path.parts):
+            continue
+        try:
+            stamp = path.stat().st_mtime
+        except OSError:
+            continue
+        if newest is None or stamp > newest[0]:
+            newest = (stamp, path)
+    if newest is None:
+        return {
+            "state": "UNKNOWN_NO_QUALIFICATION_ARTIFACT",
+            "detail": "No isolated-consumer qualification artifact was found, "
+            "so this request does not claim the consumer is implemented.",
+        }
+    try:
+        payload = json.loads(newest[1].read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        return {"state": "UNKNOWN_ARTIFACT_UNREADABLE", "detail": str(error)}
+
+    cases = payload.get("cases") or []
+    qualified = bool(payload.get("isolated_consumer_qualified"))
+    return {
+        "state": "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION"
+        if qualified
+        else "NOT_QUALIFIED",
+        "artifact": str(newest[1]),
+        "artifact_sha256": hashlib.sha256(newest[1].read_bytes()).hexdigest(),
+        "cases": {str(case.get("case")): str(case.get("outcome")) for case in cases},
+        "detail": (
+            "The successor's BAT-637 dependency is resolved through a "
+            "versioned authority derived from the declaring contract, with "
+            "stale, unknown, mixed, malformed, missing and tampered negative "
+            "controls all rejecting. LEGACY remains the import-time default, "
+            "so nothing is activated by this being implemented."
+            if qualified
+            else "The consumer is not qualified; activation should not be "
+            "granted on the strength of this request."
+        ),
+    }
+
+
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -430,6 +485,7 @@ def main() -> int:
                 == len(candidate["payload"]["supersessions"]),
             },
         },
+        "required_consumer_state": consumer_state(),
         "affected_pins_and_consumers": [
             {"path": GATE_RELATIVE, "role": "canonical rejection-integrity gate"},
             {"path": CONTRACT_RELATIVE, "role": "validation contract"},

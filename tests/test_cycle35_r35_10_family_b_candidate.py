@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
 
 from r35_10_family_b_candidate_successor import (  # noqa: E402
     APPROVAL_ID,
+    consumer_state,
     CANDIDATE_KIND,
     canonical_bytes,
     negative_controls,
@@ -188,7 +189,7 @@ class ApprovalRequestTests(unittest.TestCase):
     def test_the_run_artifact_records_a_failing_canonical_dimension(self) -> None:
         """The prepared candidate must not be mistaken for activation."""
         artifact = (
-            Path(r"C:\BatteredAggieSyndrome.data\ops\cycle35\runs")
+        Path("C:/BatteredAggieSyndrome.data/ops/cycle35/runs")
             / "20260920T172801Z"
             / "implementation_output"
             / "R35_10_FAMILY_B_CANDIDATE.json"
@@ -201,6 +202,76 @@ class ApprovalRequestTests(unittest.TestCase):
         self.assertTrue(payload["no_live_hash_copied_into_an_old_pin"])
         self.assertTrue(payload["predecessor_bytes_unchanged"])
         self.assertEqual(payload["approval_request"]["approval_id"], APPROVAL_ID)
+
+
+class RequiredConsumerStateTests(unittest.TestCase):
+    """The closeout review: "Do not request approval for a candidate
+    described as complete while its own evidence says the required consumer
+    remains unimplemented."
+
+    The request now carries the consumer's state, read from the consumer's
+    own qualification artifact rather than asserted -- which would be the
+    same mistake one layer up.
+    """
+
+    APPROVAL_REQUEST = (
+        Path("C:/BatteredAggieSyndrome.data/ops/cycle35/runs")
+        / "20260921T025300Z_closeout"
+        / "R35_10_APPROVAL_REQUEST.json"
+    )
+
+    def test_the_state_is_read_from_the_qualification_artifact(self) -> None:
+        state = consumer_state()
+        self.assertIn(
+            state["state"],
+            {
+                "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION",
+                "NOT_QUALIFIED",
+                "UNKNOWN_NO_QUALIFICATION_ARTIFACT",
+                "UNKNOWN_ARTIFACT_UNREADABLE",
+            },
+        )
+        if state["state"].startswith("UNKNOWN"):
+            self.assertNotIn("artifact_sha256", state)
+        else:
+            self.assertTrue(state["artifact_sha256"])
+
+    def test_an_unqualified_consumer_says_activation_should_not_be_granted(
+        self,
+    ) -> None:
+        """The two directions must read differently. A request that phrases
+        NOT_QUALIFIED the same way as qualified is the defect."""
+        state = consumer_state()
+        if state["state"] != "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION":
+            self.assertIn("should not be granted", state["detail"])
+        else:
+            self.assertIn("negative controls all rejecting", state["detail"])
+
+    def test_the_request_carries_the_consumer_state(self) -> None:
+        if not self.APPROVAL_REQUEST.is_file():
+            self.skipTest("the approval request has not been generated")
+        payload = json.loads(self.APPROVAL_REQUEST.read_text(encoding="utf-8"))
+        state = payload["required_consumer_state"]
+        self.assertEqual(state["state"], "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION")
+        # Every negative control must actually have rejected.
+        rejected = {
+            name: outcome
+            for name, outcome in state["cases"].items()
+            if name.endswith("_REJECTED")
+        }
+        self.assertGreaterEqual(len(rejected), 5)
+        for name, outcome in rejected.items():
+            with self.subTest(case=name):
+                self.assertEqual(outcome, "REJECTED")
+
+    def test_implementing_the_consumer_does_not_activate_anything(self) -> None:
+        """Wiring the consumer and activating canonical routing are separate.
+        The request must not let the first imply the second."""
+        state = consumer_state()
+        if state["state"] != "IMPLEMENTED_AND_QUALIFIED_IN_ISOLATION":
+            self.skipTest("consumer is not qualified")
+        self.assertIn("LEGACY remains the import-time default", state["detail"])
+
 
 
 if __name__ == "__main__":

@@ -4287,6 +4287,7 @@ tests/test_cycle34_r34_10_child_byte_verification.py
 tests/test_cycle35_closeout_validation_lanes.py
 tests/test_cycle35_family_b_versioned_consumer.py
 tests/test_cycle35_r35_02_04_07_08_admission.py
+tests/test_cycle35_r35_03_career_name_guard.py
 tests/test_cycle35_r35_03_coaching_release.py
 tests/test_cycle35_r35_03_entailment_independent.py
 tests/test_cycle35_r35_05_career_tranche_contract.py
@@ -4318,6 +4319,7 @@ tests/test_cycle35_r35_23_publish_release.py
 tests/test_cycle35_r35_24_source_span_review.py
 tests/test_cycle35_r35_25_single_entry_point.py
 tests/test_cycle35_r35_26_newly_discovered.py
+tests/test_cycle35_r35_27_population_authority.py
 tests/test_data_research.py
 tests/test_development_2023_labeled_replay.py
 tests/test_development_2023_outcomes.py
@@ -4857,6 +4859,7 @@ tools/cycle35/r35_23_publish_release.py
 tools/cycle35/r35_24_source_span_review.py
 tools/cycle35/r35_25_single_entry_point.py
 tools/cycle35/r35_26_newly_discovered_obligations.py
+tools/cycle35/r35_27_national_population_authority.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py
 tools/emit_cycle32_remaining_unknown.py

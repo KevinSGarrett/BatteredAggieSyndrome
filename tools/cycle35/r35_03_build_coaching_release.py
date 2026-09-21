@@ -28,6 +28,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sqlite3
 import sys
 from collections import Counter
@@ -38,7 +39,13 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 from aggie_analytics.cycle33.role_taxonomy import assignments_from_title  # noqa: E402
+from r35_27_national_population_authority import (  # noqa: E402
+    AUTHORITY_RECEIPT,
+    build as build_population_authority,
+)
 from aggie_analytics.cycle35.program_aliases import (  # noqa: E402
     build_crosswalk,
     resolve_program,
@@ -121,8 +128,18 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def ingest_membership(conn: sqlite3.Connection) -> dict[str, Any]:
-    stats = {"files": [], "programs": 0, "expected_cells": 0, "rows_missing_season": 0}
+    stats = {
+        "files": [],
+        "programs": 0,
+        "expected_cells": 0,
+        "rows_missing_season": 0,
+        "rows_dated_by_declared_receipt_authority": 0,
+    }
     seen_programs: set[str] = set()
+    population_authority = {
+        record["path"]: record
+        for record in (build_population_authority().get("membership_files") or [])
+    }
     for path in MEMBERSHIP:
         rows = read_jsonl(path)
         stats["files"].append(
@@ -134,21 +151,44 @@ def ingest_membership(conn: sqlite3.Connection) -> dict[str, Any]:
                 else None,
             }
         )
+        # MF35-05 repair: a row's season must be PROVED, never assumed. The
+        # builder previously dated any seasonless row to the CURRENT year,
+        # which is the fabrication that finding named, and the repair was to
+        # skip such rows entirely.
+        #
+        # Skipping them entirely also dropped the whole 2026 membership file,
+        # because it carries no per-row season -- so the national denominator
+        # silently stopped at 2023 while the same release held 10,510
+        # observations labelled 2026. R35-27 resolves the missing half: a
+        # file with no per-row season is bound to a season only when exactly
+        # one declared /teams request's cached payload accounts for every
+        # program in it. That is the request's declared authority, proved by
+        # content. It is not the wall clock, and an unproved file still binds
+        # nothing.
+        file_authority = population_authority.get(str(path))
+        fallback_season = None
+        if file_authority and file_authority.get("authority") == AUTHORITY_RECEIPT:
+            seasons = file_authority.get("seasons") or []
+            fallback_season = int(seasons[0]) if seasons else None
+            stats["files"][-1]["season_authority"] = file_authority["authority"]
+            stats["files"][-1]["bound_season"] = fallback_season
+            stats["files"][-1]["bound_receipt_sha256"] = (
+                file_authority.get("receipt_linkage") or {}
+            ).get("bound_receipt_sha256")
+
         for row in rows:
             program_id = str(row.get("program_id") or "")
             if not program_id:
                 continue
             raw_season = row.get("season")
-            # MF35-05 repair: a row's season must be PROVED by the row
-            # itself. This previously assumed 2026 for any row whose season
-            # was missing or falsy -- exactly the "filled in by assumption"
-            # fabrication this finding named. A row with no stated season
-            # contributes no program/expected-cell binding and is counted,
-            # not silently dated.
             if raw_season in (None, "", 0):
-                stats["rows_missing_season"] += 1
-                continue
-            season = int(raw_season)
+                if fallback_season is None:
+                    stats["rows_missing_season"] += 1
+                    continue
+                season = fallback_season
+                stats["rows_dated_by_declared_receipt_authority"] += 1
+            else:
+                season = int(raw_season)
             upsert_program(
                 conn,
                 program_id,
@@ -526,6 +566,37 @@ def validate_career_tranche_contract(payload: Any) -> list[str]:
     return reasons
 
 
+#: A wikitext infobox parameter label, e.g. "| oc_year =". The career
+#: tranche extractor reads the value of a named infobox field; when that
+#: field is EMPTY it can run on and capture the next parameter's label
+#: instead. Two keys reached canonical_person that way -- K29 (Towson 2007)
+#: and K47 (Butler 2009), both dispositioned ACCEPTED_SINGLE_SOURCE with
+#: resolved_people = ["| oc_year ="], while off_coach is empty in both
+#: cached sources. An empty field is MISSING evidence, not a person.
+_INFOBOX_PARAMETER_LABEL = re.compile(r"^\|?\s*[A-Za-z_][A-Za-z0-9_]*\s*=\s*$")
+_WIKITEXT_MARKUP = ("{{", "}}", "[[", "]]", "|")
+
+
+def person_name_is_bindable(value: Any) -> bool:
+    """Whether a resolved value can be bound as a person at all.
+
+    Deliberately narrow: it rejects what is demonstrably extractor residue,
+    not what merely looks unusual. A real name never starts with a pipe and
+    never consists of a bare `parameter =` label. Anything rejected here is
+    reported with its raw value rather than dropped, because an empty source
+    field and a name we failed to parse need different fixes.
+    """
+
+    if value is None:
+        return False
+    text = str(value).strip()
+    if not text:
+        return False
+    if _INFOBOX_PARAMETER_LABEL.match(text):
+        return False
+    return not any(token in text for token in _WIKITEXT_MARKUP)
+
+
 def ingest_career_tranche(conn: sqlite3.Connection, tranche_path: Path) -> dict[str, Any]:
     """The resolved career tranche, as revision-bound candidates.
 
@@ -579,7 +650,27 @@ def ingest_career_tranche(conn: sqlite3.Connection, tranche_path: Path) -> dict[
             continue
         seen_key_ids.add(key_id)
         disposition = str(key.get("disposition"))
-        people = list(key.get("resolved_people") or [])
+        declared_people = list(key.get("resolved_people") or [])
+        people = [p for p in declared_people if person_name_is_bindable(p)]
+        rejected = [p for p in declared_people if not person_name_is_bindable(p)]
+        if rejected:
+            # The key's own source carried no usable name. Record the
+            # correction against the declared disposition rather than
+            # letting an extractor artifact stand as an accepted person.
+            stats["KEY_VALUES_REJECTED_AS_NOT_A_NAME"] += 1
+            stats.setdefault("rejected_values", []).append(
+                {
+                    "key_id": key_id,
+                    "declared_disposition": disposition,
+                    "corrected_disposition": "MISSING_NO_EVIDENCE"
+                    if not people
+                    else disposition,
+                    "rejected_values": rejected,
+                    "reason": "SOURCE_VALUE_IS_A_WIKITEXT_PARAMETER_LABEL_NOT_A_NAME",
+                }
+            )
+            if not people:
+                disposition = "MISSING_NO_EVIDENCE"
         stats["KEY_" + disposition] += 1
         if not people:
             continue

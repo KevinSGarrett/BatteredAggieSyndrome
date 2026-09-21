@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT / "tools" / "cycle35"))
 from r35_22_evidence_graph import (  # noqa: E402
     CATEGORY_DATA_GAP,
     CATEGORY_STRUCTURAL,
+    PUBLISHED_RELEASE,
     CATEGORY_RESOLVED_HERE,
     CATEGORY_RELEASE_AUTHORITY,
     CATEGORY_STALE,
@@ -236,32 +237,60 @@ class RealCycleEvidenceTests(unittest.TestCase):
         if not CYCLE_RUNS.is_dir():
             self.skipTest("cycle run root is not mounted")
 
+    def releases(self) -> list[Path]:
+        return sorted(
+            p
+            for p in CYCLE_RUNS.rglob("*.sqlite")
+            if "site-packages" not in str(p)
+        )
+
     def test_the_real_cycle_has_artifacts_in_many_run_directories(self) -> None:
         index = index_artifacts(CYCLE_RUNS)
         self.assertGreater(index["artifact_count"], 50)
         self.assertGreater(len(index["directories"]), 5)
 
-    def test_the_delivered_release_carries_both_year_ranges(self) -> None:
-        candidates = sorted(
-            (p for p in CYCLE_RUNS.rglob("*.sqlite") if "site-packages" not in str(p)),
-            key=lambda p: p.stat().st_mtime,
-        )
-        if not candidates:
-            self.skipTest("no delivered release database is present")
-        release = query_release(candidates[-1])
-        self.assertTrue(release["queried"])
+    def test_the_published_release_carries_both_year_ranges(self) -> None:
+        release = query_release(PUBLISHED_RELEASE)
+        if not release.get("queried"):
+            self.skipTest("the published release is not present")
         self.assertGreater(release["observations_2000_2012"], 0)
         self.assertGreater(release["observations_2013_2026"], 0)
 
-    def test_the_delivered_release_has_no_garbled_wikitext_names(self) -> None:
-        candidates = sorted(
-            (p for p in CYCLE_RUNS.rglob("*.sqlite") if "site-packages" not in str(p)),
-            key=lambda p: p.stat().st_mtime,
+    #: Builds that already carried the defect when it was found, pinned by
+    #: name and count. They are immutable records of what the pipeline
+    #: produced at the time and are not rewritten. Pinning the COUNT is what
+    #: keeps this from becoming a silent exclusion: if a pinned build's
+    #: count changes, or any other build acquires the defect, the test fails.
+    KNOWN_HISTORICAL_GARBLED = {
+        "CYCLE35_COACHING_RELEASE_r3.sqlite": 1,
+    }
+
+    def test_no_release_in_the_cycle_carries_garbled_wikitext_names(self) -> None:
+        """Checked across EVERY release, not just the newest by modification
+        time.
+
+        The narrower form caught the career-tranche residue only because the
+        offending build happened to be written last. Widened, it immediately
+        found the same "| oc_year =" value in r3 from the previous day --
+        evidence that the defect predates this cycle's rebuild and that a
+        regression landing in any older build would have gone unseen.
+        """
+        releases = self.releases()
+        if not releases:
+            self.skipTest("no release database is present")
+        observed = {}
+        for path in releases:
+            release = query_release(path)
+            if not release.get("queried"):
+                continue
+            if release["garbled_wikitext_names"]:
+                observed[path.name] = release["garbled_wikitext_names"]
+        self.assertEqual(
+            observed,
+            self.KNOWN_HISTORICAL_GARBLED,
+            "garbled wikitext names changed: a build outside the pinned "
+            "historical set now carries them, or a pinned count moved",
         )
-        if not candidates:
-            self.skipTest("no delivered release database is present")
-        release = query_release(candidates[-1])
-        self.assertEqual(release["garbled_wikitext_names"], 0)
 
 
 if __name__ == "__main__":

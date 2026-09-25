@@ -363,13 +363,16 @@ class A05SuccessorContractTests(unittest.TestCase):
         self._tmp = tempfile.TemporaryDirectory()
         self.root = Path(self._tmp.name)
         self.raw = self.root / "raw.json"
-        self.raw.write_bytes(json.dumps({"query": {"pages": {"1": {"pageid": 1, "revisions": [
-            {"revid": 1, "slots": {"main": {"*": REVISION_TEXT}}}]}}}}).encode("utf-8"))
+        self.raw.write_bytes(json.dumps({"query": {"pages": {"1": {
+            "pageid": 1, "title": "Fixture Person (American football)", "pageprops": {"wikibase_item": "Q1"},
+            "revisions": [{"revid": 1, "slots": {"main": {"*": REVISION_TEXT}}}]}}}}).encode("utf-8"))
         self.raw_sha = hashlib.sha256(self.raw.read_bytes()).hexdigest()
         self.text_sha = hashlib.sha256(REVISION_TEXT.encode("utf-8")).hexdigest()
         base = {"pageid": 1, "revision": "1", "family": "COACHING", "interval_index": 0, "ongoing": 0,
                 "evidence_class": cs.EVIDENCE_CLASS, "pit_admitted": 0, "raw_file": str(self.raw),
-                "raw_file_sha256": self.raw_sha, "assignments": "[]"}
+                "raw_file_sha256": self.raw_sha, "wikitext_sha256": self.text_sha, "assignments": "[]",
+                "page_title": "Fixture Person (American football)", "person_display": "Fixture Person",
+                "wikidata_qid": "Q1"}
         self.old = [{**base, "episode_id": _pid(n), "row_index": n, "start": 2009, "end": 2009} for n in IDS]
         self.predecessor = self.root / "predecessor.sqlite"
         _table(self.predecessor, cs.PREDECESSOR_TABLE, cs.PREDECESSOR_COLUMNS, self.old)
@@ -468,7 +471,9 @@ class A05SuccessorContractTests(unittest.TestCase):
             conn.close()
         verified = cs.RawBytesVerifier().verify(rows[0])
         self.assertEqual(verified, {"raw_file_sha256": True, "wikitext_sha256": True, "team_char_span": True,
-                                    "years_char_span": True})
+                                    "years_char_span": True, "raw_page_revision_and_title": True,
+                                    "display_name_derived_from_capture_title": True,
+                                    "wikidata_item": "AGREES_WITH_CAPTURE"})
         self.assertEqual(cs.RawBytesVerifier().verify(rows[1])["years_char_span"], "NOT_RECORDED")
 
     def test_an_added_row_is_accepted_only_as_added(self) -> None:

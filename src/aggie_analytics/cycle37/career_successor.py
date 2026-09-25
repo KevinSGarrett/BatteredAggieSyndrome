@@ -36,6 +36,28 @@ left dangling. A digest pin establishes *bytes*, not lineage. So, independently 
 Each failure has its own refusal code. At serve time :class:`RawBytesVerifier` re-reads every served row's raw
 file: an absent file, changed bytes, a revision text that no longer hashes to the recorded digest, or a recorded
 span whose text differs is refused; a row whose raw evidence is absent is refused, never labelled verified.
+
+Cycle #37 -- Attempt #6 (MF37A05-01). Reciprocal edges and re-hashed ledgers are not lineage: the Attempt 5
+manager swapped the predecessor edges of two different people's rows, both ways, re-hashed the ledgers and was
+served; and replaced one row's raw capture, digests, text and spans with another person's genuine capture, under
+the row's own page and revision, and was served. An edge is now a *typed semantic binding*, proved at attach for
+every row and never from a self-declared hash alone:
+
+* a predecessor identity names its own page, revision and family; a child row must carry the same page, revision
+  and family, and the predecessor row's own raw locator (its capture's SHA-256 and its revision text's SHA-256)
+  must equal the child's -- so a row that names another person's row, or carries another capture's evidence, is
+  refused for that cause;
+* every disposition's recorded predecessor-row digest is recomputed from the open predecessor's actual row;
+* (Attempt 5 format) every Attempt 4 identity a row names carries the same page, revision and family, and, where
+  the declared Attempt 4 file is present with its declared digest, that file's row carries the same raw locator and
+  hashes to the mapping's recorded digest;
+* at serve time the raw capture itself is opened and its own page id and revision id must be the row's; a valid
+  capture of another page is refused whatever its digests say.
+
+A display name is never an identity: two rows of the same person on different pages, or of different people who
+share a name, are bound only through page, revision and family. Legitimately added rows (no predecessor), split
+rows (one predecessor, several successors), rows without a team span, and typed other-sport or unknown employers
+carry no binding these checks would refuse.
 """
 
 from __future__ import annotations
@@ -141,9 +163,43 @@ REFUSED_RAW_EVIDENCE_ABSENT = "REFUSED_CAREER_SUCCESSOR_RAW_EVIDENCE_ABSENT"
 REFUSED_RAW_FILE_ABSENT = "REFUSED_CAREER_SUCCESSOR_RAW_FILE_ABSENT"
 REFUSED_RAW_TEXT = "REFUSED_CAREER_SUCCESSOR_RAW_REVISION_TEXT_CHANGED"
 REFUSED_RAW_SPAN = "REFUSED_CAREER_SUCCESSOR_RAW_SPAN_MISMATCH"
+# v37.6 (MF37A05-01): every lineage edge and every raw capture is a typed semantic binding.
+REFUSED_PREDECESSOR_IDENTITY = "REFUSED_CAREER_SUCCESSOR_PREDECESSOR_IDENTITY_MISMATCH"
+REFUSED_SOURCE_LOCATOR = "REFUSED_CAREER_SUCCESSOR_SOURCE_LOCATOR_MISMATCH"
+REFUSED_A04_IDENTITY = "REFUSED_CAREER_SUCCESSOR_A04_IDENTITY_MISMATCH"
+REFUSED_RAW_PAGE = "REFUSED_CAREER_SUCCESSOR_RAW_PAGE_OR_REVISION_MISMATCH"
+REFUSED_PAGE_IDENTITY = "REFUSED_CAREER_SUCCESSOR_PAGE_IDENTITY_MISMATCH"
+VERIFIER_VERSION = "BAS-C37A06-CAREER-SUCCESSOR-VERIFIER-v2"
+#: What every row of one revision page states identically: the capture, its text, its title, the display name the
+#: page is served under and its Wikidata item. A person is identified by the page, never by the display name.
+PAGE_IDENTITY_NAMES = ("page_title", "person_display", "wikidata_qid")
+PAGE_IDENTITY_FIELDS = ("revision", "raw_file_sha256", "wikitext_sha256") + PAGE_IDENTITY_NAMES
 
 _HEX64 = re.compile(r"[0-9a-f]{64}")
 _FAMILIES = ("COACHING", "PLAYING", "ADMINISTRATIVE")
+#: Any versioned episode identity: ``<prefix>:<pageid>:<revision>:<family>:<row>:<interval>``.
+_IDENTITY = re.compile(rf"^([A-Za-z0-9-]+):(\d+):(\d+):({'|'.join(_FAMILIES)}):(\d+):(\d+)$")
+
+
+def parse_identity(identity: Any) -> tuple[str, str, str, str, str, str] | None:
+    """(prefix, pageid, revision, family, row, interval) of a versioned identity, or None when it is not one."""
+
+    match = _IDENTITY.match(str(identity))
+    return tuple(match.group(i) for i in range(1, 7)) if match else None  # type: ignore[return-value]
+
+
+def _locator_of(row: Mapping[str, Any]) -> tuple[str, str, str]:
+    return str(row.get("pageid")), str(row.get("revision")), str(row.get("family"))
+
+
+def _page_identity(row: Mapping[str, Any]) -> tuple[str, ...]:
+    return tuple(str(row.get(field)) for field in PAGE_IDENTITY_FIELDS)
+
+
+def display_name_of_title(title: Any) -> str:
+    """The display name a page is served under: its title without the trailing disambiguation parenthetical."""
+
+    return re.sub(r"\s*\(.*\)$", "", str(title or ""))
 
 
 @dataclass(frozen=True)
@@ -247,15 +303,17 @@ def _check_lineage(conn: sqlite3.Connection, fmt: Format, declared: dict[str, st
     extra = ", a04_episode_ids, a04_lineage_state, a04_disposition" if a05 else ""
     episodes = [dict(zip(("episode_id", "pageid", "revision", "family", "row_index", "interval_index",
                           "predecessor_episode_ids", "lineage_state", "disposition", "raw_file", "raw_file_sha256",
-                          "wikitext_sha256", *(("a04_episode_ids", "a04_lineage_state", "a04_disposition") if a05 else ())),
+                          "wikitext_sha256", *PAGE_IDENTITY_NAMES,
+                          *(("a04_episode_ids", "a04_lineage_state", "a04_disposition") if a05 else ())),
                          row))
                 for row in conn.execute(
                     "SELECT episode_id, pageid, revision, family, row_index, interval_index, predecessor_episode_ids, "
-                    f"lineage_state, disposition, raw_file, raw_file_sha256, wikitext_sha256{extra} "
-                    f"FROM {schema}.{fmt.episode_table}")]
-    dispositions = [dict(zip(("predecessor_episode_id", "disposition", "successor_episode_ids"), row)) for row in
-                    conn.execute(f"SELECT predecessor_episode_id, disposition, successor_episode_ids "
-                                 f"FROM {schema}.{fmt.disposition_table}")]
+                    f"lineage_state, disposition, raw_file, raw_file_sha256, wikitext_sha256, "
+                    f"{', '.join(PAGE_IDENTITY_NAMES)}{extra} FROM {schema}.{fmt.episode_table}")]
+    dispositions = [dict(zip(("predecessor_episode_id", "disposition", "successor_episode_ids",
+                              "predecessor_row_sha256"), row)) for row in
+                    conn.execute(f"SELECT predecessor_episode_id, disposition, successor_episode_ids, "
+                                 f"predecessor_row_sha256 FROM {schema}.{fmt.disposition_table}")]
     identities = [str(row["episode_id"]) for row in episodes]
     identity_set = set(identities)
     # Identities: unique, versioned, and equal to the row's own locator.
@@ -293,6 +351,7 @@ def _check_lineage(conn: sqlite3.Connection, fmt: Format, declared: dict[str, st
     for row in episodes:
         owner = str(row["episode_id"])
         parents = _id_list(row["predecessor_episode_ids"], "predecessor_episode_ids", owner)
+        row["_parents"] = parents
         for parent in parents:
             if parent not in predecessors:
                 dangling.add(f"{owner} <- {parent}")
@@ -314,15 +373,8 @@ def _check_lineage(conn: sqlite3.Connection, fmt: Format, declared: dict[str, st
     if incompatible:
         raise CareerSuccessorError(REFUSED_INCOMPATIBLE, (
             f"{len(incompatible)} disposition/lineage state(s) contradict their edges: {_examples(incompatible)}"))
-    proved: dict[str, Any] = {"episodes": len(identities), "dispositions": len(dispositions),
-                              "predecessor_rows": len(predecessors), "edges": len(forward),
-                              "episodes_added_without_predecessor": sum(1 for r in episodes
-                                                                        if r["lineage_state"] == added_state),
-                              "predecessor_rows_not_produced": sum(1 for r in dispositions
-                                                                   if r["disposition"] == NOT_PRODUCED)}
-    if a05:
-        proved.update(_check_a04_mapping(conn, episodes, identity_set, declared))
-    # Raw provenance present for every row (it is verified against the bytes when a row is served).
+    # Raw provenance present for every row (it is verified against the bytes when a row is served); absent evidence
+    # is refused as absent before any binding compares it.
     absent = [row["episode_id"] for row in episodes
               if not row["raw_file"] or not _HEX64.fullmatch(str(row["raw_file_sha256"] or ""))
               or not _HEX64.fullmatch(str(row["wikitext_sha256"] or ""))]
@@ -330,14 +382,90 @@ def _check_lineage(conn: sqlite3.Connection, fmt: Format, declared: dict[str, st
         raise CareerSuccessorError(REFUSED_RAW_EVIDENCE_ABSENT, (
             f"{len(absent)} row(s) name no raw revision file, or no well-formed SHA-256 of it or of its revision "
             f"text: {_examples(absent)}"))
-    proved["rows_with_raw_provenance"] = len(episodes)
+    bound = _check_predecessor_bindings(conn, episodes, dispositions)
+    proved: dict[str, Any] = {"episodes": len(identities), "dispositions": len(dispositions),
+                              "predecessor_rows": len(predecessors), "edges": len(forward),
+                              "episodes_added_without_predecessor": sum(1 for r in episodes
+                                                                        if r["lineage_state"] == added_state),
+                              "predecessor_rows_not_produced": sum(1 for r in dispositions
+                                                                   if r["disposition"] == NOT_PRODUCED),
+                              "rows_with_raw_provenance": len(episodes), **bound,
+                              "verifier_version": VERIFIER_VERSION}
+    if a05:
+        proved.update(_check_a04_mapping(conn, episodes, identity_set, declared))
     return proved
+
+
+def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
+                                dispositions: list[dict[str, Any]]) -> dict[str, Any]:
+    """v37.6 (MF37A05-01): every parent edge is a typed binding to the predecessor's own page, revision, family and
+    raw locator, and every disposition's predecessor digest is recomputed from the open predecessor's actual row."""
+
+    columns = ", ".join(f'"{column}"' for column in PREDECESSOR_COLUMNS)
+    locators: dict[str, tuple[Any, ...]] = {}
+    digests: dict[str, str] = {}
+    predecessor_pages: dict[str, set[tuple[str, ...]]] = {}
+    for values in conn.execute(f"SELECT {columns} FROM main.{PREDECESSOR_TABLE}"):
+        row = dict(zip(PREDECESSOR_COLUMNS, values))
+        identity = str(row["episode_id"])
+        locators[identity] = (_locator_of(row), str(row.get("raw_file_sha256")), str(row.get("wikitext_sha256")))
+        digests[identity] = row_digest(values)
+        predecessor_pages.setdefault(str(row.get("pageid")), set()).add(_page_identity(row))
+    identity_mismatch, locator_mismatch = [], []
+    for row in episodes:
+        owner = str(row["episode_id"])
+        own = _locator_of(row)
+        for parent in row.get("_parents") or ():
+            parsed = parse_identity(parent)
+            locator, raw_sha256, text_sha256 = locators[parent]
+            if parsed is None or tuple(parsed[1:4]) != own or locator != own:
+                identity_mismatch.append(f"{owner} <- {parent}")
+            elif raw_sha256 != str(row["raw_file_sha256"]) or text_sha256 != str(row["wikitext_sha256"]):
+                locator_mismatch.append(f"{owner} <- {parent}")
+    if identity_mismatch:
+        raise CareerSuccessorError(REFUSED_PREDECESSOR_IDENTITY, (
+            f"{len(identity_mismatch)} edge(s) name a predecessor row of another page, revision or family than the "
+            f"row that claims it (a display name is not an identity): {_examples(identity_mismatch)}"))
+    if locator_mismatch:
+        raise CareerSuccessorError(REFUSED_SOURCE_LOCATOR, (
+            f"{len(locator_mismatch)} row(s) carry raw evidence (capture or revision-text digest) that is not their "
+            f"predecessor row's own: {_examples(locator_mismatch)}"))
+    # A page is one person's revision: every row of it states the same capture, text, title, display name and
+    # Wikidata item, and a page the predecessor also carries states exactly the predecessor's (MF37A05-01; this also
+    # binds rows added without a predecessor row, through their page).
+    successor_pages: dict[str, set[tuple[str, ...]]] = {}
+    for row in episodes:
+        successor_pages.setdefault(str(row["pageid"]), set()).add(_page_identity(row))
+    split = sorted(page for page, states in successor_pages.items() if len(states) > 1)
+    if split:
+        raise CareerSuccessorError(REFUSED_PAGE_IDENTITY, (
+            f"{len(split)} page(s) whose rows disagree on the page's revision, capture, title, display name or "
+            f"Wikidata item: {_examples(split)}"))
+    moved = sorted(page for page, states in successor_pages.items()
+                   if page in predecessor_pages and not states <= predecessor_pages[page])
+    if moved:
+        raise CareerSuccessorError(REFUSED_PAGE_IDENTITY, (
+            f"{len(moved)} page(s) state an identity the predecessor's rows of the same page do not: "
+            f"{_examples(moved)}"))
+    changed = [str(row["predecessor_episode_id"]) for row in dispositions
+               if digests.get(str(row["predecessor_episode_id"])) != str(row.get("predecessor_row_sha256"))]
+    if changed:
+        raise CareerSuccessorError(REFUSED_ROW_BINDING, (
+            f"{len(changed)} disposition(s) record a predecessor-row digest the open predecessor's row does not "
+            f"hash to: {_examples(changed)}"))
+    edges = sum(len(r.get("_parents") or ()) for r in episodes)
+    return {"parent_edges_bound_to_page_revision_family": edges, "parent_edges_bound_to_raw_locator": edges,
+            "dispositions_bound_to_predecessor_row_digest": len(dispositions),
+            "pages_uniform": len(successor_pages),
+            "pages_bound_to_predecessor_page_identity": sum(1 for page in successor_pages if page in predecessor_pages),
+            "pages_without_predecessor_rows": sum(1 for page in successor_pages if page not in predecessor_pages)}
 
 
 def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]], identity_set: set[str],
                        declared: dict[str, str]) -> dict[str, Any]:
-    rows = [dict(zip(("a04_episode_id", "disposition", "a05_episode_ids"), row)) for row in
-            conn.execute(f"SELECT a04_episode_id, disposition, a05_episode_ids FROM {ATTACHED_SCHEMA}.{A05_FROM_A04_TABLE}")]
+    rows = [dict(zip(("a04_episode_id", "disposition", "a05_episode_ids", "a04_row_sha256"), row)) for row in
+            conn.execute(f"SELECT a04_episode_id, disposition, a05_episode_ids, a04_row_sha256 "
+                         f"FROM {ATTACHED_SCHEMA}.{A05_FROM_A04_TABLE}")]
     ids = [str(row["a04_episode_id"]) for row in rows]
     problems = []
     if len(ids) != len(set(ids)):
@@ -361,13 +489,18 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
             produced_by.setdefault(target, set()).add(str(row["disposition"]))
     backward = set()
     id_set = set(ids)
+    typed_mismatch = []
     for row in episodes:
         owner = str(row["episode_id"])
         parents = _id_list(row["a04_episode_ids"], "a04_episode_ids", owner)
+        row["_a04_parents"] = parents
         for parent in parents:
             if parent not in id_set:
                 dangling.add(f"{owner} <- {parent}")
             backward.add((parent, owner))
+            parsed = parse_identity(parent)
+            if parsed is None or tuple(parsed[1:4]) != _locator_of(row):
+                typed_mismatch.append(f"{owner} <- {parent}")
         if row["a04_lineage_state"] != (A04_DERIVED if parents else A04_ADDED):
             problems.append(f"{owner}: a04_lineage_state {row['a04_lineage_state']!r} with {len(parents)} parent(s)")
         if row["a04_disposition"] != (",".join(sorted(produced_by.get(owner, ()))) or "ADDED_IN_A05"):
@@ -376,7 +509,12 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
         problems.append(f"{len(dangling)} dangling Attempt 4 reference(s): {_examples(dangling)}")
     if forward != backward:
         problems.append(f"{len(forward ^ backward)} nonreciprocal Attempt 4 edge(s): {_examples(forward ^ backward)}")
+    if typed_mismatch:
+        raise CareerSuccessorError(REFUSED_A04_IDENTITY, (
+            f"{len(typed_mismatch)} Attempt 4 edge(s) name a row of another page, revision or family than the row "
+            f"that claims it: {_examples(typed_mismatch)}"))
     file_check = "A04_FILE_NOT_DECLARED"
+    locators_bound = 0
     path = declared.get("a04_successor_path")
     if path:
         a04 = Path(path)
@@ -386,17 +524,44 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
             problems.append(f"the declared Attempt 4 file {a04} no longer has its declared SHA-256")
         else:
             other = sqlite3.connect(f"file:{a04.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
+            columns = ", ".join(f'"{column}"' for column in EPISODE_COLUMNS)
+            a04_locators: dict[str, tuple[str, str]] = {}
+            a04_digests: dict[str, str] = {}
             try:
-                actual = {str(r[0]) for r in other.execute(f"SELECT episode_id FROM {EPISODE_TABLE}")}
+                for values in other.execute(f"SELECT {columns} FROM {EPISODE_TABLE}"):
+                    a04_row = dict(zip(EPISODE_COLUMNS, values))
+                    a04_locators[str(a04_row["episode_id"])] = (str(a04_row.get("raw_file_sha256")),
+                                                                str(a04_row.get("wikitext_sha256")))
+                    a04_digests[str(a04_row["episode_id"])] = row_digest(values)
             finally:
                 other.close()
+            actual = set(a04_locators)
             if actual != id_set:
                 problems.append(f"the Attempt 4 mapping is not the Attempt 4 file's identity set: "
                                 f"{len(actual - id_set)} missing, {len(id_set - actual)} extra")
+            # v37.6: the mapping binds to the Attempt 4 file's actual rows -- their raw locator equals the Attempt 5
+            # row's, and each mapping row's recorded digest is what the file's row hashes to.
+            locator_mismatch = [f"{row['episode_id']} <- {parent}" for row in episodes
+                                for parent in row.get("_a04_parents") or ()
+                                if parent in a04_locators and a04_locators[parent] != (str(row["raw_file_sha256"]),
+                                                                                       str(row["wikitext_sha256"]))]
+            if locator_mismatch:
+                raise CareerSuccessorError(REFUSED_A04_IDENTITY, (
+                    f"{len(locator_mismatch)} row(s) carry raw evidence that is not their Attempt 4 row's own: "
+                    f"{_examples(locator_mismatch)}"))
+            digest_mismatch = [str(row["a04_episode_id"]) for row in rows
+                               if a04_digests.get(str(row["a04_episode_id"])) != str(row.get("a04_row_sha256"))]
+            if digest_mismatch:
+                problems.append(f"{len(digest_mismatch)} mapping row(s) record a digest the Attempt 4 file's row does "
+                                f"not hash to: {_examples(digest_mismatch)}")
+            locators_bound = sum(len(row.get("_a04_parents") or ()) for row in episodes)
             file_check = "A04_FILE_IDENTITY_SET_EQUAL"
     if problems:
         raise CareerSuccessorError(REFUSED_A04_MAPPING, f"the Attempt 4 mapping is broken: {problems[:5]}")
     return {"a04_rows_mapped": len(ids), "a04_edges": len(forward), "a04_file_check": file_check,
+            "a04_edges_bound_to_page_revision_family": len(backward),
+            "a04_edges_bound_to_a04_file_raw_locator": locators_bound,
+            "a04_mapping_digests_bound_to_a04_file_rows": file_check == "A04_FILE_IDENTITY_SET_EQUAL",
             "a04_rows_not_produced": sum(1 for r in rows if r["disposition"] == NOT_PRODUCED),
             "episodes_added_without_a04_row": sum(1 for r in episodes if r["a04_lineage_state"] == A04_ADDED)}
 
@@ -517,6 +682,7 @@ def attach_successor(conn: sqlite3.Connection, successor: Path | str, *, databas
         "ledger": {table: declared.get(f"ledger::{table}::sha256") for table, _, _ in ledgers},
         "coverage_checks": counts,
         "lineage_proved_independently_of_the_ledgers": lineage,
+        "verifier_version": VERIFIER_VERSION,
         "attached_schema": ATTACHED_SCHEMA,
         "episode_table": fmt.episode_table,
         "disposition_table": fmt.disposition_table,
@@ -532,14 +698,38 @@ def attach_successor(conn: sqlite3.Connection, successor: Path | str, *, databas
     }
 
 
-def _revision_text(data: bytes) -> str | None:
-    """The revision wikitext a cached Wikimedia API payload carries, or None when the bytes are not one."""
+def _payload_page(data: bytes) -> dict[str, Any] | None:
+    """The single page a cached Wikimedia API payload carries, or None when the bytes are not such a payload."""
 
     try:
         payload = json.loads(data)
-        page = next(iter(((payload.get("query") or {}).get("pages") or {}).values()))
-        return page["revisions"][0]["slots"]["main"]["*"]
-    except (ValueError, AttributeError, KeyError, IndexError, StopIteration, TypeError):
+        pages = (payload.get("query") or {}).get("pages") or {}
+        if len(pages) != 1:
+            return None
+        page = next(iter(pages.values()))
+        return page if isinstance(page, dict) else None
+    except (ValueError, AttributeError, TypeError):
+        return None
+
+
+def _revision_text(data: bytes) -> str | None:
+    """The revision wikitext a cached Wikimedia API payload carries, or None when the bytes are not one."""
+
+    page = _payload_page(data)
+    try:
+        return page["revisions"][0]["slots"]["main"]["*"]  # type: ignore[index]
+    except (KeyError, IndexError, TypeError):
+        return None
+
+
+def _revision_locator(data: bytes) -> tuple[str, str, Any, Any] | None:
+    """(page id, revision id, title, Wikidata item or None) the payload itself states, or None when it states none."""
+
+    page = _payload_page(data)
+    try:
+        return (str(page["pageid"]), str(page["revisions"][0]["revid"]), page.get("title"),  # type: ignore[index]
+                (page.get("pageprops") or {}).get("wikibase_item"))  # type: ignore[union-attr]
+    except (KeyError, IndexError, TypeError, AttributeError):
         return None
 
 
@@ -555,11 +745,13 @@ def _span(value: Any) -> tuple[int, int] | None:
 
 class RawBytesVerifier:
     """Re-read each distinct raw revision file a served row names, once per consumer run, and prove the row's raw
-    evidence: the file exists, its bytes have the recorded SHA-256, its revision text has the recorded SHA-256, and
-    every recorded character span holds the row's recorded text. An absent value is refused, never passed."""
+    evidence: the file exists, its bytes have the recorded SHA-256, the capture itself names the row's own page id
+    and revision id (v37.6, MF37A05-01: a genuine capture of another page is refused whatever its digests say), its
+    revision text has the recorded SHA-256, and every recorded character span holds the row's recorded text. An
+    absent value is refused, never passed."""
 
     def __init__(self) -> None:
-        self.seen: dict[str, tuple[str, str | None] | None] = {}
+        self.seen: dict[str, tuple[str, str | None, tuple[str, str, Any] | None] | None] = {}
 
     def verify(self, row: Mapping[str, Any]) -> dict[str, Any]:
         episode = row.get("episode_id")
@@ -575,14 +767,31 @@ class RawBytesVerifier:
                 self.seen[path] = None
             else:
                 data = source.read_bytes()
-                self.seen[path] = (hashlib.sha256(data).hexdigest(), _revision_text(data))
+                self.seen[path] = (hashlib.sha256(data).hexdigest(), _revision_text(data), _revision_locator(data))
         entry = self.seen[path]
         if entry is None:
             raise CareerSuccessorError(REFUSED_RAW_FILE_ABSENT, f"row {episode} names raw file {path}, which is absent")
         if entry[0] != declared:
             raise CareerSuccessorError(REFUSED_RAW, (
                 f"row {episode} names raw file {path} with SHA-256 {declared}, which now hashes to {entry[0]}"))
-        result: dict[str, Any] = {"raw_file_sha256": True}
+        locator = entry[2]
+        own = (str(row.get("pageid")), str(row.get("revision")), row.get("page_title"))
+        if locator is None or (locator[0], locator[1], locator[2]) != own:
+            raise CareerSuccessorError(REFUSED_RAW_PAGE, (
+                f"row {episode} states page {own[0]} revision {own[1]} titled {own[2]!r}, but its raw capture {path} "
+                "is " + ("not a single-page revision capture" if locator is None else
+                         f"the capture of page {locator[0]} revision {locator[1]} titled {locator[2]!r}")))
+        if row.get("person_display") != display_name_of_title(locator[2]):
+            raise CareerSuccessorError(REFUSED_PAGE_IDENTITY, (
+                f"row {episode} is served as {row.get('person_display')!r}, but its capture's title {locator[2]!r} "
+                f"names {display_name_of_title(locator[2])!r} (a display name is derived from the page, never trusted)"))
+        if locator[3] is not None and locator[3] != row.get("wikidata_qid"):
+            raise CareerSuccessorError(REFUSED_PAGE_IDENTITY, (
+                f"row {episode} states Wikidata item {row.get('wikidata_qid')!r}; its capture states {locator[3]!r}"))
+        result: dict[str, Any] = {"raw_file_sha256": True, "raw_page_revision_and_title": True,
+                                  "display_name_derived_from_capture_title": True,
+                                  "wikidata_item": "AGREES_WITH_CAPTURE" if locator[3] is not None
+                                  else "NOT_STATED_BY_CAPTURE"}
         wikitext_digest = row.get("wikitext_sha256")
         if wikitext_digest:
             text = entry[1]

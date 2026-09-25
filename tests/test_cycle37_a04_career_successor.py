@@ -303,20 +303,25 @@ class SuccessorContractTests(unittest.TestCase):
         self._tmp = tempfile.TemporaryDirectory()
         self.root = Path(self._tmp.name)
         self.raw = self.root / "raw.json"
-        self.raw.write_bytes(json.dumps({"query": {"pages": {"1": {"pageid": 1, "revisions": [
-            {"revid": 1, "slots": {"main": {"*": "revision text"}}}]}}}}).encode("utf-8"))
+        self.raw.write_bytes(json.dumps({"query": {"pages": {"1": {
+            "pageid": 1, "title": "Fixture Person (American football)", "pageprops": {"wikibase_item": "Q1"},
+            "revisions": [{"revid": 1, "slots": {"main": {"*": "revision text"}}}]}}}}).encode("utf-8"))
         raw_sha = hashlib.sha256(self.raw.read_bytes()).hexdigest()
         text_sha = hashlib.sha256("revision text".encode("utf-8")).hexdigest()
         self.old = [{"episode_id": f"R37-05:1:1:COACHING:{n}:0", "pageid": 1, "revision": "1", "family": "COACHING",
                      "row_index": n, "interval_index": 0, "start": 2009, "end": 2009, "ongoing": 0,
                      "evidence_class": cs.EVIDENCE_CLASS, "pit_admitted": 0, "raw_file": str(self.raw),
-                     "raw_file_sha256": raw_sha, "assignments": "[]"} for n in (1, 2)]
+                     "raw_file_sha256": raw_sha, "wikitext_sha256": text_sha, "assignments": "[]",
+                     "page_title": "Fixture Person (American football)", "person_display": "Fixture Person",
+                     "wikidata_qid": "Q1"} for n in (1, 2)]
         self.predecessor = _predecessor(self.root / "predecessor.sqlite", self.old)
         self.episodes = [{"episode_id": f"C37A04:1:1:COACHING:{n}:0", "pageid": 1, "revision": "1",
                           "family": "COACHING", "row_index": n, "interval_index": 0, "start": 2009, "end": None,
                           "ongoing": 0, "evidence_class": cs.EVIDENCE_CLASS, "pit_admitted": 0,
                           "raw_file": str(self.raw), "raw_file_sha256": raw_sha, "assignments": "[]",
                           "wikitext_sha256": text_sha, "lineage_state": cs.DERIVED,
+                          "page_title": "Fixture Person (American football)", "person_display": "Fixture Person",
+                          "wikidata_qid": "Q1",
                           "disposition": cs.UNRESOLVED_EXPLICIT,
                           "predecessor_episode_ids": json.dumps([f"R37-05:1:1:COACHING:{n}:0"]),
                           "definite_first_season": 2009, "definite_last_season": 2009,

@@ -18,7 +18,6 @@
 .github/workflows/ci.yml
 .github/workflows/codex-scientific-review.yml
 .github/workflows/cycle29-no-api-review-attestation.yml
-.github/workflows/paid-scientific-review.yml
 .github/workflows/security.yml
 .gitignore
 .python-version
@@ -4389,6 +4388,9 @@ tests/test_cycle37_a04_scoring_pit_admission.py
 tests/test_cycle37_a05_career_successor.py
 tests/test_cycle37_a05_git_grammar_guard.py
 tests/test_cycle37_a05_storage_admission.py
+tests/test_cycle37_a06_candidate_provenance.py
+tests/test_cycle37_a06_storage_snapshot.py
+tests/test_cycle37_a06_successor_identity.py
 tests/test_cycle37_admission_domains.py
 tests/test_cycle37_alias_team_season.py
 tests/test_cycle37_atomic_io.py
@@ -5012,6 +5014,13 @@ tools/cycle37/attempt05_outputs.py
 tools/cycle37/attempt05_platform.py
 tools/cycle37/attempt05_report.py
 tools/cycle37/attempt05_stream_stdout.py
+tools/cycle37/attempt06_before.py
+tools/cycle37/attempt06_candidate.py
+tools/cycle37/attempt06_inventory.py
+tools/cycle37/attempt06_lanes.py
+tools/cycle37/attempt06_outputs.py
+tools/cycle37/attempt06_platform.py
+tools/cycle37/attempt06_report.py
 tools/cycle37/build_corrected_release.py
 tools/cycle37/build_worker_packet.py
 tools/cycle37/c29_claim_successor.py
@@ -5082,6 +5091,7 @@ tools/cycle37/r37_s_atomic_write_sweep.py
 tools/cycle37/rework_lanes.py
 tools/cycle37/source_identity_crosswalk.py
 tools/cycle37/storage_admission.py
+tools/cycle37/storage_snapshot.py
 tools/cycle37/v37_01_cli_probe.py
 tools/demo_cycle33_queries.py
 tools/diagnose_cycle33_mounted_failures.py

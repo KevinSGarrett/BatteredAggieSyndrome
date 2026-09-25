@@ -10,6 +10,7 @@ from typing import Any, Mapping
 from aggie_analytics.data.ncaa_contest_reconciliation import stable_hash
 from aggie_analytics.data.tamu_official_historical_boxscores import AuthorityViolation
 from aggie_analytics.validation.artifact_binding import compute_identity
+from aggie_analytics import atomic_io as _bas_atomic
 
 SCHEMA_VERSION = "aggie.data.tamu_official_gamebook_union_1997_expanded.v1"
 CONTRACT_RELATIVE = "configs/tamu_official_gamebook_union_1997_expanded_contract.json"
@@ -30,7 +31,7 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    _bas_atomic.write_text(path, json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 
 
 def _build_enriched_from_recovered(game: Mapping[str, Any], structured: Mapping[str, Any]) -> dict[str, Any]:

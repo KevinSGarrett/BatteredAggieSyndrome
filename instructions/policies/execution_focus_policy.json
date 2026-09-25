@@ -12,6 +12,41 @@
     "max_consecutive_process_only_commits": 1,
     "historical_integration_corrections": [
       {
+        "commit_sha": "415b11611f431eedd9bb2366b99695e1f3919a16",
+        "pull_request": 689,
+        "head_sha": "da8a2e86e79557c00ce32437107b44c05f9a1668",
+        "classification": "[material]",
+        "reason": "Cycle #33 packet-emitter exact-head notes on draft PR #689 changed tools/emit_cycle33_packet.py, a material path. The [process] subject was incorrect; SHA-scoped only."
+      },
+      {
+        "commit_sha": "1b502c7be0e0193b6d305ee0d4e759dad65e12bd",
+        "pull_request": 689,
+        "head_sha": "da8a2e86e79557c00ce32437107b44c05f9a1668",
+        "classification": "[material]",
+        "reason": "Cycle #33 instruction-hash refresh on draft PR #689 also changed tools/emit_cycle33_packet.py, a material path. The [process] subject was incorrect; SHA-scoped only."
+      },
+      {
+        "commit_sha": "ff7859fa706c394fc848a60c9d1af029f4454604",
+        "pull_request": 687,
+        "head_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",
+        "classification": "[material]",
+        "reason": "Cycle #32 repair commit on PR #687 changed material source/staff/PIT/scoring paths, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "47d12fc179fe5dbc67774fbed13b568c648e0ee8",
+        "pull_request": 687,
+        "head_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",
+        "classification": "[material]",
+        "reason": "Cycle #32 requirement-ledger bind on PR #687 accompanied material Cycle #32 head updates, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",
+        "pull_request": 687,
+        "head_sha": "c103544ad11bfe8394ecb5f26500cb31b7c2f584",
+        "classification": "[material]",
+        "reason": "Cycle #32 submitted-not-accepted ledger/Jira follow-up on PR #687 accompanied material Cycle #32 head updates, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
         "commit_sha": "4a30bc1ae2a253315d273edff08f292ead3f9440",
         "pull_request": 418,
         "head_sha": "06fac19a602bab4eceb50b539f2e105ab99e4580",
@@ -101,6 +136,328 @@
         "head_sha": "4069c521556e405b6b9684c6975cf38f4e012c1c",
         "classification": "[material]",
         "reason": "The Cycle 25.5 Jira reconciliation recorded an immutable BAT-523 snapshot and updated routing/provenance configs. Those are material governance paths; the [process] subject was incorrect. The correction is scoped to this exact commit."
+      },
+      {
+        "commit_sha": "0bccbd13000e0e96f3641de4df90fcb0dc10f5ef",
+        "pull_request": 678,
+        "head_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "classification": "[material]",
+        "reason": "Cycle #26 scientific-control checkpoint commit changed material src/tools/governance paths but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "pull_request": 678,
+        "head_sha": "f317fe7b3dfa362a6652f8410294776881301967",
+        "classification": "[material]",
+        "reason": "Cycle #26 review/hold/distribution repairs changed material validators and scientific helpers but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "9d770cef0336152e78b01f6cba5cd77fc1dd85cb",
+        "pull_request": 678,
+        "head_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "classification": "[material]",
+        "reason": "Cycle #26 national forecast successor and reconciliation changed material science/governance paths but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "pull_request": 678,
+        "head_sha": "3b20c37ab6cb44185051afbafd288aecf38bea5e",
+        "classification": "[material]",
+        "reason": "Cycle #26 live Jira verification receipt refresh accompanied material Cycle #26 head updates but omitted the required [material] marker. Correction scoped to this exact commit on PR #678."
+      },
+      {
+        "commit_sha": "0a63c57da05349f25af44af7f7e5a50189758223",
+        "pull_request": 678,
+        "head_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "classification": "[material]",
+        "reason": "Git revert of incomplete BAT-591 rematerialization restored material gate/binding integrity on PR #678, but default revert subject omitted [material]. Correction scoped to this exact revert commit."
+      },
+      {
+        "commit_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "pull_request": 678,
+        "head_sha": "7723bd3774ac6a54c53c47d9ab19dea43832452b",
+        "classification": "[material]",
+        "reason": "Git revert of incomplete BAT-591 rematerialization restored material StatCrew/domain/corpus pins on PR #678, but default revert subject omitted [material]. Correction scoped to this exact revert commit."
+      },
+      {
+        "commit_sha": "bac5dcb91f13b984f278e24cdd205a0b97f9b513",
+        "pull_request": 678,
+        "head_sha": "bac5dcb91f13b984f278e24cdd205a0b97f9b513",
+        "classification": "[material]",
+        "reason": "Cycle #26 predictive-skill evidence bind created a downstream-consumable DEVELOPMENT_EVIDENCE_ONLY acceptance artifact on PR #678, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "0df91cd691b613e6985e472faf5b294ce4a13de0",
+        "pull_request": 678,
+        "head_sha": "0df91cd691b613e6985e472faf5b294ce4a13de0",
+        "classification": "[material]",
+        "reason": "Cycle #26 remaining all-cycle audit backlog and Sep4 T-24H capture prep are material scientific/governance handoff artifacts on PR #678, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "afa0475fe3cff3a70b9ef90c5be679ed5e8260c3",
+        "pull_request": 678,
+        "head_sha": "afa0475fe3cff3a70b9ef90c5be679ed5e8260c3",
+        "classification": "[material]",
+        "reason": "Cycle #26 active-path acceptance and final report rebind at CI-green tip are material handoff artifacts on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
+        "pull_request": 678,
+        "head_sha": "625dc903c54f9cd095fb6749fabdbc4a2a586c1e",
+        "classification": "[material]",
+        "reason": "Cycle #26 Jira verify-live stamp and watchdog convergence evidence on PR #678 are material operational artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "1127601f39c22a7219089a449226c2c2d283ce56",
+        "pull_request": 678,
+        "head_sha": "1127601f39c22a7219089a449226c2c2d283ce56",
+        "classification": "[material]",
+        "reason": "Cycle #26 T-90M executor arming and Jira verify refresh are material calendar-evidence operations on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
+        "pull_request": 678,
+        "head_sha": "c407b0f073335169092e2b6c5313d8b1ccd82a9e",
+        "classification": "[material]",
+        "reason": "Cycle #26 live Jira verification rebound after scheduled T-90M freeze is material board/local convergence evidence on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "4e2dee0775b9dc163e5fef060b571c93c229fa64",
+        "pull_request": 678,
+        "head_sha": "4e2dee0775b9dc163e5fef060b571c93c229fa64",
+        "classification": "[material]",
+        "reason": "Cycle #26 branch/worktree hygiene inventory refresh after T-90M freeze is material operational handoff evidence on PR #678, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
+        "pull_request": 678,
+        "head_sha": "2681f6b0bcd3f5f42e307bd178efe57b0edadc95",
+        "classification": "[material]",
+        "reason": "Cycle #26 Sep4-window T-24H freeze handoff rebind and acceptance/watchdog evidence on PR #678 are material operational artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "cd73f288ab7c40f856556bb178a3f71cae79f9e2",
+        "pull_request": 678,
+        "head_sha": "cd73f288ab7c40f856556bb178a3f71cae79f9e2",
+        "classification": "[material]",
+        "reason": "Cycle #26 finding-disposition evidence-ops stamp after Sep4 T-24H and A&M failover arming on PR #678 are material scientific/governance handoff artifacts, but the commit subject used [process]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "2f85ca98004879601dbb1d3dd61c5cd5f4523beb",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 stacked repairs on PR #679 changed material validators, leases, scoring successors, and honesty packets, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "2c087767ca0c9e4cf04226aa3e12236b8bde2072",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 numbered handoff identity bind on PR #679 is a downstream-consumable artifact, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "0db9a12ed299ade4de07f53739de389049e71866",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 coaching title-role parser correction on PR #679 changed material reporting source, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "59e6fa53c09d6fbb56a9d40bee9d5cd905b70c10",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 associate-head-coach title coverage test on PR #679 is material scientific reporting, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "pull_request": 679,
+        "head_sha": "8f16ca9dee02349f0f828f35831b5580fa5909c8",
+        "classification": "[material]",
+        "reason": "Cycle #27 coaching/pregame packet identity refresh on PR #679 is a downstream-consumable honesty artifact, but the commit subject omitted [material]. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "b44c013a54087bf4325c7e93a408c7c6ae26b935",
+        "pull_request": 679,
+        "head_sha": "b44c013a54087bf4325c7e93a408c7c6ae26b935",
+        "classification": "[material]",
+        "reason": "This merge of live PR 678 capture head 0d099bd9 into stacked PR #679 brought CYCLE26_AM_6607349_T24H_FREEZE_RECEIPT.json and the Cycle 26 eligibility ledger onto the review branch. The [process] subject was incorrect; the correction is scoped to this exact merge commit."
+      },
+      {
+        "commit_sha": "e49ca7e144771dcaab466a4f53c4cf38225ac055",
+        "pull_request": 679,
+        "head_sha": "e49ca7e144771dcaab466a4f53c4cf38225ac055",
+        "classification": "[material]",
+        "reason": "This Cycle #27 numbered-report calendar bind on PR #679 changed tools/write_cycle27_report_packet.py, a material writer. The [process] subject was incorrect; the correction is scoped to this exact commit."
+      },
+      {
+        "commit_sha": "b03eb83768993778f21114640b0643ba5e6c31f5",
+        "pull_request": 680,
+        "head_sha": "b03eb83768993778f21114640b0643ba5e6c31f5",
+        "classification": "[material]",
+        "reason": "Cycle #28 Fort Knox/assistive decommission and paid-review cost gate on PR #680 changed material control-plane paths, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "4e2b689027efcfd38f24c1bfa634de1e9a257955",
+        "pull_request": 681,
+        "head_sha": "4e2b689027efcfd38f24c1bfa634de1e9a257955",
+        "classification": "[material]",
+        "reason": "Cycle #28 scientific successors on PR #681 changed material src/tools/tests/artifacts paths, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "52fa284a8e808ea49e7be5e112a98a095bb9e11b",
+        "pull_request": 681,
+        "head_sha": "52fa284a8e808ea49e7be5e112a98a095bb9e11b",
+        "classification": "[material]",
+        "reason": "Cycle #28 official-final atomic receipt and scoring successor on PR #681 changed material science paths, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "609c9d64bdb2c817ef4d51a031b10e9686fb75e2",
+        "pull_request": 681,
+        "head_sha": "609c9d64bdb2c817ef4d51a031b10e9686fb75e2",
+        "classification": "[material]",
+        "reason": "Cycle #28 scoring/acquisition formatting on PR #681 touched material tools, but the commit subject omitted the required [material] marker. Correction scoped to this exact commit."
+      },
+      {
+        "commit_sha": "4344810293607173058ccc5fa969064d154ac64f",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 locatable-span and career-join repairs on unpublished stacked successor of PR #687 changed material src/tests paths, but the commit subject omitted [material]. SHA-scoped only. No separate Cycle 33 GitHub PR exists yet."
+      },
+      {
+        "commit_sha": "c0b88b37feff8c078669d87bf892c071f502e0bc",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 packet/isolated-wheel bind on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "dc7504376c67d2142f4711ccbfcf264f5e5bb569",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 packet identity correction on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "534ca53e824daaac17d69436700841bfe015439e",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 cache-hit receipts, FCS scoreboards, unique-game scoring, JS-shell/neutral guards on unpublished stacked successor of PR #687 changed material src/tools/tests paths, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "41ff528ae48e897fe8414356fce7433a685b7120",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 packet emitter refresh for FCS/scoring denominators on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "pull_request": 687,
+        "head_sha": "1dbb939c2e2757d87e06dcdda38cd0a6a49e342f",
+        "classification": "[material]",
+        "reason": "Cycle #33 validation-receipt emitter update on unpublished stacked successor of PR #687 accompanied material Cycle 33 head updates, but the commit subject omitted [material]. SHA-scoped only."
+      },
+      {
+        "commit_sha": "cb823bbcfa0a9e495b664b55726413f51dbe7616",
+        "pull_request": 691,
+        "head_sha": "cb823bbcfa0a9e495b664b55726413f51dbe7616",
+        "classification": "[material]",
+        "reason": "Cycle #35 follow-up R35-08 ledger-binding commit on PR #691 changed tools/cycle35/r35_15_acceptance_packet.py, a material path (MATERIAL_PATH_PREFIXES includes tools/), even though its content was descriptive ledger text. The [process] subject was incorrect: any commit touching a material-prefixed path is material regardless of what the diff says. SHA-scoped only."
+      },
+      {
+        "commit_sha": "188a73b01a17d901947e740240351166b2fc0075",
+        "pull_request": 691,
+        "head_sha": "188a73b01a17d901947e740240351166b2fc0075",
+        "classification": "[material]",
+        "reason": "Cycle #35 follow-up R35-11/R35-10 ledger-binding commit on PR #691 changed tools/cycle35/r35_15_acceptance_packet.py, a material path, for the same reason as the cb823bbc correction above. SHA-scoped only."
+      },
+      {
+        "commit_sha": "e4a669a2d00e262a0d7a67dc6210cdacccd53066",
+        "pull_request": 691,
+        "head_sha": "e4a669a2d00e262a0d7a67dc6210cdacccd53066",
+        "classification": "[material]",
+        "reason": "Cycle #35 follow-up R35-12/13 ledger-binding commit on PR #691 changed tools/cycle35/r35_15_acceptance_packet.py, a material path, for the same reason as the cb823bbc correction above. SHA-scoped only."
+      },
+      {
+        "commit_sha": "7156a6f73aca80ee6c6101fb47d23d0cf4c92f87",
+        "pull_request": 691,
+        "head_sha": "acedc690dad28d9befd7ef00db8413d79292a780",
+        "classification": "[material]",
+        "reason": "Cycle #35 obligation-view repair on draft PR #691 changed tools/cycle35/r35_32_obligation_execution_view.py, a material path: it replaced a stale ledger figure with a measured count and named the unresolved programs. The [process] subject was incorrect. Correction scoped to this exact commit only; no history is rewritten and no other commit's classification changes."
+      },
+      {
+        "commit_sha": "b070f1f4aa3affdaf8b3913490a183c6e86cd288",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (tools/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "dfc74bc372ade4097bf7278d1a27e9166966c11b",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (src, tests, tools/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "18ad333f31d3fa9ee4b676cf1bada7c855002fbf",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (src, tests, tools/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "992cf2f5653e0aede26e18ca54a3ade7337e4ef4",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (src, tests, tools/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "37e8ee41044699117cc03259f1764cb4e35b83f5",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (tools/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "9f25e491db4567e6b348b358a26e78f4c00e1175",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (tools/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "5f4d09cffc5e105e0fea9d9765c5939f84fea13c",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (tests, tools/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "020c743372b9091a0b20b897fc21ca0bbd4258e6",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (tools/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "e768d8bda33210a29b9027cdc345b37f9d5ece33",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed material paths (configs, tests/) but its subject used [cycle37-rework] instead of an execution-focus marker (W37R-23). SHA-scoped only; the subject is not rewritten because lane receipts bind this exact commit."
+      },
+      {
+        "commit_sha": "2bdcc6bf3696787e88fd06020976a534d73a5427",
+        "pull_request": 691,
+        "head_sha": "74fb01c2964d9949ef891d9f99a63746bfec16c3",
+        "classification": "[material]",
+        "reason": "Cycle #37 Attempt #2 commit on the unpublished branch codex/BAT-706-cycle37-rework, a stacked successor of PR #691 through codex/BAT-706-cycle36; no pull request exists for this branch and none is authorized in this attempt, so pull_request names the published PR it stacks on, as the Cycle #33 corrections for the unpublished successor of PR #687 did. It changed tools/cycle37/build_worker_packet.py, a material path, so its [process] subject was incorrect, and it followed the [process] commit 89820440, exceeding the one-process-commit limit (W37R-27). SHA-scoped only."
       }
     ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",

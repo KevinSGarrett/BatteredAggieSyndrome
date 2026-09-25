@@ -29,6 +29,7 @@ from aggie_analytics.data.tamu_official_pre2010_boxscores import (
 from aggie_analytics.data.tamu_official_rich_structure import (
     is_rich_structured,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 SCHEMA_VERSION = "aggie.data.tamu_official_gamebook_union_expanded.v1"
@@ -112,7 +113,7 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    _bas_atomic.write_text(path, json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def compute_gate_identity(gate: Mapping[str, Any]) -> str:

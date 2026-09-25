@@ -1,0 +1,61 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "candidates": [
+    {
+      "candidate": "intercept_only",
+      "consumed_columns": [
+        "intercept"
+      ],
+      "designation_swap_mean_abs_probability_delta": 0.0,
+      "eval_games": 2872,
+      "neutral_ordinary_home_stays_zero": true,
+      "travel_available_is_not_consumed": true,
+      "venue_change_does_not_rewrite_frozen_rows": true,
+      "venue_change_mean_abs_probability_delta": 0.0
+    },
+    {
+      "candidate": "prior_margin_diff",
+      "consumed_columns": [
+        "intercept",
+        "prior_margin_diff"
+      ],
+      "designation_swap_mean_abs_probability_delta": 0.0,
+      "eval_games": 2872,
+      "neutral_ordinary_home_stays_zero": true,
+      "travel_available_is_not_consumed": true,
+      "venue_change_does_not_rewrite_frozen_rows": true,
+      "venue_change_mean_abs_probability_delta": 0.0
+    },
+    {
+      "candidate": "prior_margin_diff_ordinary_home",
+      "consumed_columns": [
+        "intercept",
+        "prior_margin_diff",
+        "ordinary_home_exposure"
+      ],
+      "designation_swap_mean_abs_probability_delta": 0.00908771,
+      "eval_games": 2872,
+      "neutral_ordinary_home_stays_zero": true,
+      "travel_available_is_not_consumed": true,
+      "venue_change_does_not_rewrite_frozen_rows": true,
+      "venue_change_mean_abs_probability_delta": 0.0
+    },
+    {
+      "candidate": "prior_win_rate_diff_ordinary_home",
+      "consumed_columns": [
+        "intercept",
+        "prior_win_rate_diff",
+        "ordinary_home_exposure"
+      ],
+      "designation_swap_mean_abs_probability_delta": 0.01185791,
+      "eval_games": 2872,
+      "neutral_ordinary_home_stays_zero": true,
+      "travel_available_is_not_consumed": true,
+      "venue_change_does_not_rewrite_frozen_rows": true,
+      "venue_change_mean_abs_probability_delta": 0.0
+    }
+  ],
+  "designation_swap_neutral_ordinary_home_stays_zero": true,
+  "travel_available_is_not_consumed": true,
+  "venue_change_does_not_rewrite_frozen_rows": true
+}

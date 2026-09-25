@@ -1,0 +1,136 @@
+{
+  "artifact_type": "WEEK1_2026_GAME_GRAIN_NATIONAL_FORECAST_SUCCESSOR_GATE",
+  "bound_predecessors": {
+    "deprecated_predecessors": [
+      "week1_2026_early_forecast_adequacy",
+      "week1_2026_ridge_distribution_coherence",
+      "week1_2026_forecast_input_binding_successor"
+    ],
+    "early_forecast_gate_identity": "bb4ee03c46839b9c728dba250c48cc5818ece0586f27171502fd993edcb3bbfb",
+    "historical_c20_c21_c25_payloads_preserved": true,
+    "national_forecast_suite_gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366",
+    "predecessor_artifacts_rewritten_in_place": false
+  },
+  "checkpoint_id": "EARLY_WEEK1",
+  "classification": "WEEK1_2026_GAME_GRAIN_NATIONAL_FORECAST_SUCCESSOR",
+  "contract_id": "CYCLE26-WEEK1-2026-GAME-GRAIN-NATIONAL-FORECAST-SUCCESSOR-V1",
+  "coverage": {
+    "by_candidate": [
+      {
+        "abstained": 8,
+        "candidate_id": "national_base_rate",
+        "control_only": 91,
+        "frozen_with_probability": 83,
+        "opportunity": 91
+      },
+      {
+        "abstained": 12,
+        "candidate_id": "national_elo",
+        "control_only": 0,
+        "frozen_with_probability": 79,
+        "opportunity": 91
+      },
+      {
+        "abstained": 12,
+        "candidate_id": "national_logistic_l2",
+        "control_only": 0,
+        "frozen_with_probability": 79,
+        "opportunity": 91
+      },
+      {
+        "abstained": 12,
+        "candidate_id": "national_margin_ridge",
+        "control_only": 0,
+        "frozen_with_probability": 79,
+        "opportunity": 91
+      },
+      {
+        "abstained": 12,
+        "candidate_id": "prior_only",
+        "control_only": 0,
+        "frozen_with_probability": 79,
+        "opportunity": 91
+      }
+    ]
+  },
+  "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+  "decision_unit": "POST-TASK-ACTIVE-NATIONAL-FORECAST-SCIENTIFIC-CORRECTNESS-RECOVERY-001",
+  "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "issued_at_utc": "2026-09-03T06:47:23Z",
+  "jira_key": "BAT-693",
+  "joint_distribution": {
+    "interval_from_same_distribution": true,
+    "interval_probability": 0.8,
+    "margin_capable_candidate": "national_margin_ridge",
+    "probability_link": "NORMAL_CDF_FROM_SAME_DISTRIBUTION"
+  },
+  "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
+  "local_issue_id": "POST-TASK-ACTIVE-NATIONAL-FORECAST-SCIENTIFIC-CORRECTNESS-RECOVERY-001",
+  "pair_coherence": {
+    "failing_pairs": 0,
+    "holds": true
+  },
+  "parent_jira_key": "BAT-523",
+  "payloads": {
+    "coverage_rows": {
+      "bytes": 571,
+      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_coverage_table.jsonl",
+      "row_count": 5,
+      "sha256": "bc6b9d09ae51984b5180a46bcd5bbd7fd393300658b4aeaae699c4d711beae0e"
+    },
+    "focus_packet": {
+      "bytes": 13474,
+      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_focus_contest_packet.jsonl",
+      "row_count": 5,
+      "sha256": "489e3f2562ba79705c0b5d7547381834f5bfc9c392a846bf4233cdb1cb357a8a"
+    },
+    "forecast_rows": {
+      "bytes": 1228668,
+      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_forecast_rows.jsonl",
+      "row_count": 455,
+      "sha256": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16"
+    },
+    "oriented_rows": {
+      "bytes": 95198,
+      "relative_path": "canonical/week1_2026_game_grain_national_forecast_successor/sha256/770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939/week1_2026_game_grain_oriented_rows.jsonl",
+      "row_count": 158,
+      "sha256": "a46aee71b79689d2ad74a6fcceb293bcb291273386b7bd8b72f7e55d4bad08cc"
+    }
+  },
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "record_hashes": {
+    "core_module": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
+    "coverage_rows": "bc6b9d09ae51984b5180a46bcd5bbd7fd393300658b4aeaae699c4d711beae0e",
+    "focus_packet": "489e3f2562ba79705c0b5d7547381834f5bfc9c392a846bf4233cdb1cb357a8a",
+    "forecast_rows": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
+    "oriented_rows": "a46aee71b79689d2ad74a6fcceb293bcb291273386b7bd8b72f7e55d4bad08cc"
+  },
+  "result": "PASS_WEEK1_2026_GAME_GRAIN_NATIONAL_FORECAST_SUCCESSOR",
+  "schema_version": "aggie.shadow.week1_2026_game_grain_national_forecast_successor.v1",
+  "scientific_nonclaims": [
+    "Does not release the operator hold or all-cycle trust gate.",
+    "Does not certify predictive skill or BAS/Aggie Excess conclusions.",
+    "Does not rewrite historical C20/C21/C25 saved payloads.",
+    "UNTRUSTED_SHADOW only; not production-ready."
+  ],
+  "season": 2026,
+  "summary": {
+    "failing_pairs": 0,
+    "focus_row_count": 5,
+    "national_row_count": 455,
+    "oriented_row_count": 158,
+    "residual_stdev": 17.7396030753,
+    "ridge_emitted": 79,
+    "ridge_frozen_with_probability": 79
+  },
+  "trust": {
+    "ACTIVE_PATH_CORRECTNESS_CLAIM": false,
+    "control_only_candidates": [
+      "national_base_rate"
+    ],
+    "publication_label": "UNTRUSTED_SHADOW",
+    "recommended": false,
+    "scientific_trust_gate_open": false
+  },
+  "week_label": "WEEK_1"
+}

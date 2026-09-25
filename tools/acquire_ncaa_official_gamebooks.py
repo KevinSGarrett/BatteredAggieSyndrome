@@ -35,6 +35,7 @@ from aggie_analytics.data.adapters import (  # noqa: E402
     AcquisitionRequest,
     FetchResponse,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 from aggie_analytics.data.snapshots import RawSnapshotStore  # noqa: E402
 
 
@@ -81,7 +82,7 @@ def write_immutable_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + f".tmp-{os.getpid()}")
     try:
-        temporary.write_bytes(payload)
+        _bas_atomic.write_bytes(temporary, payload)
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)
@@ -92,7 +93,7 @@ def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + f".tmp-{os.getpid()}")
     try:
-        temporary.write_bytes(payload)
+        _bas_atomic.write_bytes(temporary, payload)
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)

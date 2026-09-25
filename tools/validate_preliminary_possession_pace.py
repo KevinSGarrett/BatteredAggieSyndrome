@@ -12,7 +12,8 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from aggie_analytics.features.possession_pace import materialize  # noqa: E402
+from aggie_analytics.features.possession_pace import materialize
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 from aggie_analytics.temporal.play_drive_pit import canonical_json_bytes, parse_utc, sha256_file  # noqa: E402
 
 
@@ -98,7 +99,7 @@ def main() -> int:
     }
     validation_root.mkdir(parents=True, exist_ok=True)
     report_path = validation_root / "possession_pace_candidate_validation.json"
-    report_path.write_bytes(canonical_json_bytes(report) + b"\n")
+    _bas_atomic.write_bytes(report_path, canonical_json_bytes(report) + b"\n")
     print(json.dumps({"report_path": str(report_path), "report_sha256": sha256_file(report_path), "summary": report["summary"], "disposition": report["disposition"]}, indent=2))
     return 0 if report["summary"]["failed"] == 0 else 1
 

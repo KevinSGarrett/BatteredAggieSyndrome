@@ -1,0 +1,14 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "CFBD_CONTEST_STATUS_NOTE_AUDIT",
+  "canceled_count": 0,
+  "completed_false_or_missing_points": 1481,
+  "forfeit_count": 0,
+  "no_contest_count": 0,
+  "note_status_counts": {},
+  "period": "2013-2023_2026",
+  "postponed_count": 0,
+  "row_count": 10067,
+  "samples": [],
+  "source_notes_are_not_official_ncaa_forfeit_adjudication": true
+}

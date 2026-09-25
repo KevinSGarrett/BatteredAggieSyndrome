@@ -33,7 +33,10 @@ def replacement_protocol(*, user_approved_activation: bool = False) -> dict[str,
         "evaluation_authority",
         "report_release",
     ]
-    active = bool(user_approved_activation)
+    if user_approved_activation is not True:
+        active = False
+    else:
+        active = True
     return {
         "protocol_status": "ACTIVE" if active else PROTOCOL_STATUS,
         "lane_decision": "OPEN" if active else LANE_DECISION,
@@ -41,6 +44,8 @@ def replacement_protocol(*, user_approved_activation: bool = False) -> dict[str,
         "results_inaccessible_to_implementation_until_freeze": True,
         "activation_requires_explicit_user_approval": True,
         "user_approved_activation": active,
+        "result_access_boundary": "results_inaccessible_to_implementation_until_freeze",
+        "approval_identity_required": True,
         "exposed_seasons": exposure_record(),
         "jira_keep_bat_401_done": True,
         "gap_005_remains_open": True,

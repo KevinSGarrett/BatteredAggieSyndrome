@@ -1,0 +1,275 @@
+{
+  "artifact_type": "HISTORICAL_SAVED_PAIR_GAME_GRAIN_SUCCESSOR_GATE",
+  "classification": "HISTORICAL_SAVED_PAIR_GAME_GRAIN_SUCCESSOR",
+  "contract_id": "CYCLE26-HISTORICAL-SAVED-PAIR-GAME-GRAIN-SUCCESSOR-V1",
+  "cycles": {
+    "20": {
+      "coverage": {
+        "national_base_rate": {
+          "abstained": 0,
+          "coherent": 910,
+          "control_only": 910,
+          "opportunity": 910
+        },
+        "national_elo": {
+          "abstained": 0,
+          "coherent": 910,
+          "control_only": 0,
+          "opportunity": 910
+        },
+        "national_logistic_l2": {
+          "abstained": 0,
+          "coherent": 910,
+          "control_only": 0,
+          "opportunity": 910
+        },
+        "national_margin_ridge": {
+          "abstained": 0,
+          "coherent": 910,
+          "control_only": 0,
+          "opportunity": 910
+        },
+        "prior_only": {
+          "abstained": 0,
+          "coherent": 910,
+          "control_only": 0,
+          "opportunity": 910
+        }
+      },
+      "failing_pairs": 0,
+      "game_row_count": 4550,
+      "malformed_groups": 0,
+      "metrics": {
+        "by_candidate": [
+          {
+            "accuracy": 0.5076923076923077,
+            "brier": 0.25,
+            "candidate_id": "national_base_rate",
+            "log_loss": 0.6931471805599363,
+            "mean_predicted": 0.5,
+            "observed_rate": 0.5076923076923077,
+            "unique_games": 910
+          },
+          {
+            "accuracy": 0.7032967032967034,
+            "brier": 0.2007801078725406,
+            "candidate_id": "national_elo",
+            "log_loss": 0.5891515859297802,
+            "mean_predicted": 0.4960476597142856,
+            "observed_rate": 0.5076923076923077,
+            "unique_games": 910
+          },
+          {
+            "accuracy": 0.734065934065934,
+            "brier": 0.17563908031985484,
+            "candidate_id": "national_logistic_l2",
+            "log_loss": 0.519046346824001,
+            "mean_predicted": 0.5033714792015392,
+            "observed_rate": 0.5076923076923077,
+            "unique_games": 910
+          },
+          {
+            "accuracy": 0.734065934065934,
+            "brier": 0.17587702396094335,
+            "candidate_id": "national_margin_ridge",
+            "log_loss": 0.5203898143527699,
+            "mean_predicted": 0.5034975412619782,
+            "observed_rate": 0.5076923076923077,
+            "unique_games": 910
+          },
+          {
+            "accuracy": 0.7285714285714285,
+            "brier": 0.1825703320757728,
+            "candidate_id": "prior_only",
+            "log_loss": 0.5393306283936685,
+            "mean_predicted": 0.5051598877154941,
+            "observed_rate": 0.5076923076923077,
+            "unique_games": 910
+          }
+        ],
+        "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW",
+        "skipped_missing_or_abstained_games": 0,
+        "skipped_tie_games": 0
+      },
+      "oriented_row_count": 9100,
+      "payloads": {
+        "game_rows": {
+          "bytes": 3104840,
+          "relative_path": "canonical/historical_saved_pair_game_grain_successor/sha256/f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9/cycle_20_game_rows.jsonl",
+          "row_count": 4550,
+          "sha256": "f454b78348f9e7cc5e787d1cbfac80eb024a10fa8df39ab7a3cf206ba688c506"
+        },
+        "oriented_rows": {
+          "bytes": 7632264,
+          "relative_path": "canonical/historical_saved_pair_game_grain_successor/sha256/f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9/cycle_20_oriented_rows.jsonl",
+          "row_count": 9100,
+          "sha256": "39f048c1b121dc178177da53363ffb81522fbeb238c050ad384775379b16897b"
+        }
+      },
+      "predecessor": {
+        "relative_path": "canonical/national_expectation_baselines_and_peers/sha256/773cf850bb8351497643506dd2ddcb4efbad26e3cd95a4dc78039b6e8ef3a1b0/national_baseline_predictions.jsonl",
+        "rewritten": false,
+        "rows": 9100,
+        "sha256": "a4671745e7c89a65ed87f2c2c5bd0a90a6adb38fedd162240cace1f30ee0088e"
+      },
+      "tamu_ridge_oriented_row_count": 13
+    },
+    "21": {
+      "coverage": {
+        "national_base_rate": {
+          "abstained": 0,
+          "coherent": 5035,
+          "control_only": 5035,
+          "opportunity": 5035
+        },
+        "national_elo": {
+          "abstained": 0,
+          "coherent": 5035,
+          "control_only": 0,
+          "opportunity": 5035
+        },
+        "national_logistic_l2": {
+          "abstained": 0,
+          "coherent": 5035,
+          "control_only": 0,
+          "opportunity": 5035
+        },
+        "national_margin_ridge": {
+          "abstained": 0,
+          "coherent": 5035,
+          "control_only": 0,
+          "opportunity": 5035
+        },
+        "prior_only": {
+          "abstained": 0,
+          "coherent": 5035,
+          "control_only": 0,
+          "opportunity": 5035
+        }
+      },
+      "failing_pairs": 0,
+      "game_row_count": 25175,
+      "malformed_groups": 0,
+      "metrics": {
+        "by_candidate": [
+          {
+            "accuracy": 0.49215491559086394,
+            "brier": 0.25,
+            "candidate_id": "national_base_rate",
+            "log_loss": 0.6931471805599926,
+            "mean_predicted": 0.5,
+            "observed_rate": 0.49215491559086394,
+            "unique_games": 5035
+          },
+          {
+            "accuracy": 0.6792452830188679,
+            "brier": 0.20551684224566494,
+            "candidate_id": "national_elo",
+            "log_loss": 0.5981910456136449,
+            "mean_predicted": 0.49152276438728904,
+            "observed_rate": 0.49215491559086394,
+            "unique_games": 5035
+          },
+          {
+            "accuracy": 0.7183714001986097,
+            "brier": 0.18223829516433523,
+            "candidate_id": "national_logistic_l2",
+            "log_loss": 0.536802993738588,
+            "mean_predicted": 0.49867884543318813,
+            "observed_rate": 0.49215491559086394,
+            "unique_games": 5035
+          },
+          {
+            "accuracy": 0.7171797418073486,
+            "brier": 0.18217728467989425,
+            "candidate_id": "national_margin_ridge",
+            "log_loss": 0.5366007968948998,
+            "mean_predicted": 0.49877901711501654,
+            "observed_rate": 0.49215491559086394,
+            "unique_games": 5035
+          },
+          {
+            "accuracy": 0.70506454816286,
+            "brier": 0.18748988898532934,
+            "candidate_id": "prior_only",
+            "log_loss": 0.5502345887205825,
+            "mean_predicted": 0.5003852700713615,
+            "observed_rate": 0.49215491559086394,
+            "unique_games": 5035
+          }
+        ],
+        "denominator": "UNIQUE_GAME_NOT_ORIENTED_ROW",
+        "skipped_missing_or_abstained_games": 0,
+        "skipped_tie_games": 0
+      },
+      "oriented_row_count": 50350,
+      "payloads": {
+        "game_rows": {
+          "bytes": 17043202,
+          "relative_path": "canonical/historical_saved_pair_game_grain_successor/sha256/f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9/cycle_21_game_rows.jsonl",
+          "row_count": 25175,
+          "sha256": "69b178ffe4096ce7f962082e360dc041521f5c4a3a1fa20f7b72a8b3a273f843"
+        },
+        "oriented_rows": {
+          "bytes": 41503170,
+          "relative_path": "canonical/historical_saved_pair_game_grain_successor/sha256/f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9/cycle_21_oriented_rows.jsonl",
+          "row_count": 50350,
+          "sha256": "9db9517db105423c6cd95defca12ee4ad22683113cb6f2c7bd096a200a668070"
+        }
+      },
+      "predecessor": {
+        "relative_path": "canonical/national_multi_year_walk_forward/sha256/1112becc65f78a25b0843588fd5eba5ddcec6009b0ec58f0cb299c343188bcda/national_multi_year_walk_forward_predictions.jsonl",
+        "rewritten": false,
+        "rows": 50350,
+        "sha256": "c380eb08ee42c7b4eeed32436ccfc4f035f88e43048f327ea9c0d5d28fb4e6d6"
+      },
+      "tamu_ridge_oriented_row_count": 73
+    }
+  },
+  "dataset_identity": "f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9",
+  "gate_identity": "1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0",
+  "issued_at_utc": "2026-09-03T12:05:18Z",
+  "jira_key": "BAT-693",
+  "joint_path_note": "Saved C20/C21 files do not carry fold-local Normal residual scale; joint Week 1 successor remains the margin/interval path.",
+  "joint_probability_margin_interval": false,
+  "lane": "DEVELOPMENT_SUCCESSOR_UNTRUSTED_SHADOW",
+  "local_issue_id": "POST-TASK-ACTIVE-NATIONAL-FORECAST-SCIENTIFIC-CORRECTNESS-RECOVERY-001",
+  "payloads": {
+    "cycle_20_game_rows": {
+      "bytes": 3104840,
+      "relative_path": "canonical/historical_saved_pair_game_grain_successor/sha256/f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9/cycle_20_game_rows.jsonl",
+      "row_count": 4550,
+      "sha256": "f454b78348f9e7cc5e787d1cbfac80eb024a10fa8df39ab7a3cf206ba688c506"
+    },
+    "cycle_20_oriented_rows": {
+      "bytes": 7632264,
+      "relative_path": "canonical/historical_saved_pair_game_grain_successor/sha256/f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9/cycle_20_oriented_rows.jsonl",
+      "row_count": 9100,
+      "sha256": "39f048c1b121dc178177da53363ffb81522fbeb238c050ad384775379b16897b"
+    },
+    "cycle_21_game_rows": {
+      "bytes": 17043202,
+      "relative_path": "canonical/historical_saved_pair_game_grain_successor/sha256/f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9/cycle_21_game_rows.jsonl",
+      "row_count": 25175,
+      "sha256": "69b178ffe4096ce7f962082e360dc041521f5c4a3a1fa20f7b72a8b3a273f843"
+    },
+    "cycle_21_oriented_rows": {
+      "bytes": 41503170,
+      "relative_path": "canonical/historical_saved_pair_game_grain_successor/sha256/f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9/cycle_21_oriented_rows.jsonl",
+      "row_count": 50350,
+      "sha256": "9db9517db105423c6cd95defca12ee4ad22683113cb6f2c7bd096a200a668070"
+    }
+  },
+  "predecessor_payloads_rewritten": false,
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "result": "PASS_HISTORICAL_SAVED_PAIR_GAME_GRAIN_SUCCESSOR",
+  "schema_version": "aggie.models.historical_saved_pair_game_grain_successor.v1",
+  "scientific_nonclaims": [
+    "Does not rewrite historical C20/C21 saved payloads.",
+    "Does not restore original team-grain metrics as authoritative.",
+    "Does not certify Week 1 prospective skill or production credibility.",
+    "Does not open the all-cycle trust gate or operator hold.",
+    "Does not claim a joint Normal probability/margin/interval path for C20/C21."
+  ]
+}

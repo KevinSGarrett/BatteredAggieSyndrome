@@ -38,6 +38,38 @@ def _live_comment(comment_id: str, body: str) -> dict[str, object]:
     return {"id": comment_id, "body": body}
 
 
+class _OwnedRepository:
+    """A minimal Git repository of the test's own, under the system temporary root (W37A04-12).
+
+    The static validator reads snapshot files relative to ``repo_root`` and asks Git whether a merge SHA is an
+    ancestor of ``HEAD``. The tests used to create their temporary directory inside the checkout, so a lane that
+    watched the working tree saw it change; they now pass this repository explicitly as ``repo_root``. Two commits
+    give it both ``HEAD`` and ``HEAD~1``. Every Git command runs inside the repository itself, so none starts in the
+    caller's working directory (a guarded lane may run these tests from a protected checkout).
+    """
+
+    def __enter__(self) -> "_OwnedRepository":
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self._tmp.name)
+        self._git("init", "-q", str(self.root))
+        for key, value in (("user.name", "bas-test"), ("user.email", "bas-test@example.invalid")):
+            self._git("-C", str(self.root), "config", key, value)
+        for number in (1, 2):
+            (self.root / "fixture.txt").write_text(f"fixture {number}\n", encoding="utf-8")
+            self._git("-C", str(self.root), "add", "fixture.txt")
+            self._git("-C", str(self.root), "commit", "-q", "-m", f"fixture {number}")
+        return self
+
+    def _git(self, *args: str) -> str:
+        return subprocess.run(["git", *args], cwd=self.root, check=True, capture_output=True, text=True).stdout
+
+    def sha(self, revision: str) -> str:
+        return self._git("-C", str(self.root), "rev-parse", revision).strip()
+
+    def __exit__(self, *exc: object) -> None:
+        self._tmp.cleanup()
+
+
 class AuthorityProgressCommentLedgerTests(unittest.TestCase):
     def test_matching_live_comment_passes(self) -> None:
         entry = _ledger_entry()
@@ -100,10 +132,11 @@ class AuthorityProgressCommentLedgerTests(unittest.TestCase):
         self.assertEqual(import_bat_live.comment_body_sha256(text), import_bat_live.comment_body_sha256(adf))
 
     def test_static_validator_rejects_mutable_snapshot_path(self) -> None:
-        repo_root = Path(__file__).resolve().parents[1]
-        head_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
-        with tempfile.TemporaryDirectory(dir=repo_root) as tmp:
-            tmp_path = Path(tmp)
+        with _OwnedRepository() as repo:
+            repo_root = repo.root
+            head_sha = repo.sha("HEAD")
+            tmp_path = repo_root / "evidence"
+            tmp_path.mkdir()
             payload = {
                 "jira_key": "BAT-523",
                 "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
@@ -124,10 +157,11 @@ class AuthorityProgressCommentLedgerTests(unittest.TestCase):
             self.assertTrue(any("historical entry points at mutable evidence path" in item for item in findings))
 
     def test_static_validator_rejects_snapshot_sha_drift(self) -> None:
-        repo_root = Path(__file__).resolve().parents[1]
-        head_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
-        with tempfile.TemporaryDirectory(dir=repo_root) as tmp:
-            tmp_path = Path(tmp)
+        with _OwnedRepository() as repo:
+            repo_root = repo.root
+            head_sha = repo.sha("HEAD")
+            tmp_path = repo_root / "evidence"
+            tmp_path.mkdir()
             payload = {
                 "jira_key": "BAT-523",
                 "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
@@ -148,10 +182,11 @@ class AuthorityProgressCommentLedgerTests(unittest.TestCase):
             self.assertTrue(any("immutable snapshot SHA drift" in item for item in findings))
 
     def test_static_validator_rejects_duplicate_immutable_snapshot(self) -> None:
-        repo_root = Path(__file__).resolve().parents[1]
-        head_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
-        with tempfile.TemporaryDirectory(dir=repo_root) as tmp:
-            tmp_path = Path(tmp)
+        with _OwnedRepository() as repo:
+            repo_root = repo.root
+            head_sha = repo.sha("HEAD")
+            tmp_path = repo_root / "evidence"
+            tmp_path.mkdir()
             payload = {
                 "jira_key": "BAT-523",
                 "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
@@ -181,10 +216,11 @@ class AuthorityProgressCommentLedgerTests(unittest.TestCase):
             self.assertTrue(any("duplicate immutable snapshot" in item for item in findings))
 
     def test_static_validator_allows_evolving_evidence_to_change(self) -> None:
-        repo_root = Path(__file__).resolve().parents[1]
-        head_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
-        with tempfile.TemporaryDirectory(dir=repo_root) as tmp:
-            tmp_path = Path(tmp)
+        with _OwnedRepository() as repo:
+            repo_root = repo.root
+            head_sha = repo.sha("HEAD")
+            tmp_path = repo_root / "evidence"
+            tmp_path.mkdir()
             snapshot_contents = json.dumps(
                 {
                     "jira_key": "BAT-523",
@@ -223,11 +259,11 @@ class AuthorityProgressCommentLedgerTests(unittest.TestCase):
             )
 
     def test_supersession_record_for_historical_comment_passes(self) -> None:
-        repo_root = Path(__file__).resolve().parents[1]
-        head_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
-        parent_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD~1"], text=True).strip()
-        with tempfile.TemporaryDirectory(dir=repo_root) as tmp:
-            tmp_path = Path(tmp)
+        with _OwnedRepository() as repo:
+            repo_root = repo.root
+            head_sha, parent_sha = repo.sha("HEAD"), repo.sha("HEAD~1")
+            tmp_path = repo_root / "evidence"
+            tmp_path.mkdir()
             snapshot_payload = {
                 "jira_key": "BAT-523",
                 "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
@@ -275,11 +311,11 @@ class AuthorityProgressCommentLedgerTests(unittest.TestCase):
             )
 
     def test_supersession_sha_mismatch_fails(self) -> None:
-        repo_root = Path(__file__).resolve().parents[1]
-        head_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True).strip()
-        parent_sha = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD~1"], text=True).strip()
-        with tempfile.TemporaryDirectory(dir=repo_root) as tmp:
-            tmp_path = Path(tmp)
+        with _OwnedRepository() as repo:
+            repo_root = repo.root
+            head_sha, parent_sha = repo.sha("HEAD"), repo.sha("HEAD~1")
+            tmp_path = repo_root / "evidence"
+            tmp_path.mkdir()
             snapshot_payload = {
                 "jira_key": "BAT-523",
                 "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",

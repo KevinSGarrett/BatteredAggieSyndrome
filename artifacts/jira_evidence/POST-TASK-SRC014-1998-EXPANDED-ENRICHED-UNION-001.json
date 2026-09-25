@@ -86,8 +86,8 @@
     "wmt_rich_structured_games": 164
   },
   "current_identities": {
-    "gate_identity": "c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a",
-    "union_identity": "e526499dab658992bb528799621833a0cb9dbaf538755ceb4b8b1df37053f069"
+    "gate_identity": "606aed7f1c2fb1e06e70dea8f0be73cbc256e53e1db45e1c932e13eb7e95ffb2",
+    "union_identity": "e045c91bf6245b722e834430fc80f2817a892d825078718f570427474d79caa0"
   },
   "duplicate_audit": {
     "decision": "CREATE",
@@ -101,7 +101,7 @@
   "known_at_state": "UNKNOWN_RETRIEVAL_TIME_ONLY",
   "local_issue_id": "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001",
   "material_pr": 591,
-  "observable_outcome": "Material PR #591 merged as a2313981b51af699e78b99b524bd1ba11c7d1f32. This final evidence packet is regenerated from the canonical gate c1d2220943342e02bd55efdac6bf3a4992f5fcd4a00059e94cc21ea56581db4a with result PASS_IMMUTABLE_BAT633_PRESERVED_OFFICIAL_1998_ADDED and the complete authoritative counts object. Historical known-at remains retrieval/capture-time-only, availability is not established, no NCAA contest IDs were created, and the protected lane remains blocked.",
+  "observable_outcome": "Material PR #591 merged as a2313981b51af699e78b99b524bd1ba11c7d1f32. This final evidence packet is regenerated from the canonical gate 606aed7f1c2fb1e06e70dea8f0be73cbc256e53e1db45e1c932e13eb7e95ffb2 with result PASS_IMMUTABLE_BAT633_PRESERVED_OFFICIAL_1998_ADDED and the complete authoritative counts object. Historical known-at remains retrieval/capture-time-only, availability is not established, no NCAA contest IDs were created, and the protected lane remains blocked.",
   "protected_nonclaims": {
     "availability_established": false,
     "champion_or_production_promotion": false,

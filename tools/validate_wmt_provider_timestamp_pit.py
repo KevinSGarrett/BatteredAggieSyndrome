@@ -21,6 +21,7 @@ from aggie_analytics.temporal.wmt_provider_timestamp_pit import (  # noqa: E402
     remove_rebuild_root,
     sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 FORBIDDEN_COLUMNS = {"home_score", "away_score", "winner", "margin", "label", "target_value", "game_outcome"}
@@ -117,7 +118,7 @@ def main() -> int:
     }
     report_path = data_root / "validation" / "POST-SUBTASK-178" / "wmt_provider_timestamp_pit_validation.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_bytes(canonical_json_bytes(report) + b"\n")
+    _bas_atomic.write_bytes(report_path, canonical_json_bytes(report) + b"\n")
     print(json.dumps({"report": str(report_path), "report_sha256": sha256_file(report_path), **report}, indent=2))
     return 0
 

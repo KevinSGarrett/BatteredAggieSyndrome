@@ -1,0 +1,38 @@
+{
+  "artifact_type": "CYCLE26_R26_13_LIVE_PROTECTION_READBACK",
+  "issued_at_utc": "2026-09-03T23:29:29Z",
+  "repository": "KevinSGarrett/BatteredAggieSyndrome",
+  "branch": "main",
+  "disposition": "CONFIRMED_FIXED",
+  "before": {
+    "required_approving_review_count": 0,
+    "require_last_push_approval": false,
+    "codecov_patch_required": false
+  },
+  "live_readback": {
+    "required_approving_review_count": 1,
+    "dismiss_stale_reviews": true,
+    "require_code_owner_reviews": false,
+    "require_last_push_approval": true,
+    "enforce_admins": true,
+    "strict_required_status_checks": true,
+    "required_status_checks": [
+      "core-validation (ubuntu-latest, 3.12)",
+      "core-validation (windows-latest, 3.12)",
+      "product-adapter (ubuntu-latest)",
+      "product-adapter (windows-latest)",
+      "security-policy",
+      "codeql",
+      "dependency-review",
+      "codex-review",
+      "coverage-upload",
+      "codecov/patch"
+    ]
+  },
+  "existing_protections_preserved": true,
+  "not_configured_as_required": [
+    "normalized latest-head Bugbot gate"
+  ],
+  "note": "Live main protection updated without disabling existing required checks. required_approving_review_count=1; require_last_push_approval=true; codecov/patch added as required (distinct from coverage-upload). Bugbot is not currently emitted as a check on this repository and was not added as a required context.",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678"
+}

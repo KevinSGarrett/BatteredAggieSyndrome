@@ -16,7 +16,34 @@ sys.dont_write_bytecode = True
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import run_preliminary_elo_challengers as scalar  # noqa: E402
+import run_preliminary_elo_challengers as scalar
+class _bas_atomic:  # U37-11: atomic writes once this tool has imported the package itself
+    @staticmethod
+    def _module():
+        import sys as _bas_sys
+
+        if "aggie_analytics" not in _bas_sys.modules:
+            return None  # never bind the package from another tree before the tool does
+        try:
+            from aggie_analytics import atomic_io
+        except ImportError:
+            return None
+        return atomic_io
+
+    @classmethod
+    def write_text(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_text(path, *args, **kwargs) if module else path.write_text(*args, **kwargs)
+
+    @classmethod
+    def write_bytes(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_bytes(path, *args, **kwargs) if module else path.write_bytes(*args, **kwargs)
+
+    @classmethod
+    def open_write(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.open_write(path, *args, **kwargs) if module else path.open(*args, **kwargs)  # noqa: E402
 
 
 CLASSIFICATION = "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
@@ -542,7 +569,7 @@ def main() -> int:
         / "run_manifest.json"
     )
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_bytes(canonical_json(manifest) + b"\n")
+    _bas_atomic.write_bytes(manifest_path, canonical_json(manifest) + b"\n")
     print(
         json.dumps(
             {

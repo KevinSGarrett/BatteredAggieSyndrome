@@ -15,7 +15,8 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from aggie_analytics.features.weather_station_matching import materialize, sha256_file  # noqa: E402
+from aggie_analytics.features.weather_station_matching import materialize, sha256_file
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 
 
 def _rows(path: Path) -> list[dict[str, str]]:
@@ -104,7 +105,7 @@ def main() -> int:
         "cleanup": {"rebuild_removed": not rebuild_root.exists()},
     }
     args.report_path.parent.mkdir(parents=True, exist_ok=True)
-    args.report_path.write_text(json.dumps(report, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    _bas_atomic.write_text(args.report_path, json.dumps(report, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps({"result": report["result"], "checks_passed": report["checks_passed"], "checks_failed": report["checks_failed"], "report_sha256": sha256_file(args.report_path)}, sort_keys=True))
     return 0 if not failures else 1
 

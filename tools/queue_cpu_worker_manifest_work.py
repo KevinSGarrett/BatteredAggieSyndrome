@@ -17,6 +17,7 @@ from aggie_analytics.assistive_plane.inventory_runtime import (  # noqa: E402
     CPU_MANIFEST_TASK_FORMAT,
     MAX_DISCOVERED_MANIFEST_BYTES,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 from tools.queue_unified_assistive_work import DEFAULT_QUEUE, queue_packet  # noqa: E402
 
 
@@ -67,7 +68,7 @@ def main() -> int:
     )
     temporary_packet.parent.mkdir(parents=True, exist_ok=True)
     try:
-        temporary_packet.write_text(
+        _bas_atomic.write_text(temporary_packet, 
             json.dumps(packet, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n",
             encoding="utf-8",
         )

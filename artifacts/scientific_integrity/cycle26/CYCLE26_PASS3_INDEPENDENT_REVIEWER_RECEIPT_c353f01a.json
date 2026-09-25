@@ -1,0 +1,258 @@
+{
+  "artifact_type": "CYCLE26_PASS3_INDEPENDENT_REVIEWER_RECEIPT",
+  "pass": 3,
+  "name": "independent_review_of_implementation_and_review",
+  "issued_at_utc": "2026-09-04T01:19:24Z",
+  "reviewer_identity": {
+    "role": "independent_scientific_reviewer",
+    "subagent_type": "code-reviewer",
+    "is_implementing_author": false,
+    "author_self_approval": false,
+    "hosted_codex_or_bugbot_is_this_pass": false,
+    "note": "This receipt is produced by the code-reviewer subagent as Pass 3. It is not an implementing-author self-approval, not a hosted Codex/Bugbot check, and not merge authority."
+  },
+  "reviewed_head_sha": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+  "expected_review_sha": "f8e8540100a09e34aa66056f9a2e64fa9b8b3121",
+  "expected_review_sha_is_ancestor_of_live": true,
+  "descendant_delta_from_expected": "Live HEAD c353f01a is the immediate child of expected f8e85401. Diff is CYCLE26_FINDING_DISPOSITION_MATRIX.json placeholder-token wording plus provenance hash ledger only. Week 1 successor module, tests, and lake payloads are unchanged.",
+  "reviewed_branch": "codex/BAT-690-c26-scr",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "github_pr_head_sha": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "base_left_unchanged": true,
+  "worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-690-c26-scr",
+  "origin": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+  "migration": "DEFERRED_BY_USER_NOT_COMPLETE",
+  "fort_knox_pipeline": "NOT_OPERATIONAL",
+  "numbered_report_material_commit_cited_by_authors": "ecb4357185e6d6b731e047dd1135051f20d7d93c",
+  "prior_pass3_head": "e9f0adb5302c9fea030d398470b04acd1f7eee5e",
+  "result": "PASS_WITHIN_DECLARED_SCOPE",
+  "merge_authorization": false,
+  "hold_release": false,
+  "scientific_trust_gate_open": false,
+  "production_credibility": false,
+  "ACTIVE_PATH_CORRECTNESS_VERIFIED": false,
+  "ACTIVE_PATH_CORRECTNESS_VERIFIED_justified": false,
+  "ACTIVE_PATH_CORRECTNESS_NOTE": "Independent reconstruction of the declared Week 1 successor is consistent with UNTRUSTED_SHADOW publication. That does not justify ACTIVE_PATH_CORRECTNESS_VERIFIED. Fitted outputs remain development/shadow only.",
+  "PRIMARY_TRUST_RECOVERY_INCOMPLETE": true,
+  "PRIMARY_TRUST_RECOVERY_INCOMPLETE_remains_required": true,
+  "publication_label": "UNTRUSTED_SHADOW",
+  "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
+  "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+  "live_core_module_sha256": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
+  "gate_record_hashes_core_module": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
+  "pass1_payload_hashes_core_module": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
+  "week1_active_path_numeric_status": "INDEPENDENTLY_RECONSTRUCTED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
+  "prior_findings_disposition": {
+    "C26-P3-01": "FIXED",
+    "C26-P3-02": "STILL_OPEN_CONTAINED",
+    "C26-P3-03": "FIXED",
+    "C26-P3-04": "FIXED"
+  },
+  "adversarial_regressions": {
+    "module": "tests/test_cycle26_adversarial_regressions.py",
+    "count": 50,
+    "result": "OK",
+    "runtime_s": 0.633,
+    "note": "50 tests ran OK at live HEAD. test_33 hashes live week1_2026_game_grain_national_forecast_successor.py against CYCLE26_PASS1_PROVENANCE_RECEIPT.json payload_hashes.core_module and both equal 4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c. test_29/PASS+malformed digest remain fail-closed. Some section-11 tests still use local fixtures against production guards; that residual does not restore the live core_module hash gap."
+  },
+  "reproduction": {
+    "schema_valid_fail_is_not_merge_success": true,
+    "schema_valid_blocked_is_not_merge_success": true,
+    "pass_verdict_with_unrelated_malformed_digest_merge_success": false,
+    "pass_verdict_with_unrelated_malformed_digest_schema_valid": false,
+    "digest_mismatch_code": "CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH",
+    "out_of_range_probability_abstains": true,
+    "reversed_interval_abstains": true,
+    "producer_quantile_hijack_abstains": true,
+    "favorite_disagrees_with_margin_incoherent": true,
+    "zero_margin_nonzero_favorite_incoherent": true,
+    "toss_up_nonzero_margin_incoherent": true,
+    "nonpositive_scale_abstains": true,
+    "empty_ids_do_not_match": true,
+    "ambiguous_current_contest_abstains": true,
+    "name_date_only_not_strong_identity": true,
+    "invented_market_source_not_pre_market_proven": true,
+    "unrelated_malformed_digest_cannot_satisfy_scientific_regression": true
+  },
+  "week1_reconstruction": {
+    "contest_count": 91,
+    "opportunity_rows": 455,
+    "oriented_row_count": 158,
+    "ridge_emitted": 79,
+    "ridge_independent_joint_fail_count": 0,
+    "ridge_pair_fail_count": 0,
+    "neutral_contests": 3,
+    "neutral_ridge_rows_checked": 3,
+    "neutral_ridge_pair_and_joint": true,
+    "zero_crossing_intervals": 78,
+    "non_crossing_intervals": 1,
+    "non_crossing_interval_note": "NCAA 6620448 80% home interval [2.0110052692, 47.4794374558] is entirely positive. Independent joint reconstruction remains coherent; zero-crossing is not required for a strong favorite.",
+    "probability_only_joint_coherence": false,
+    "probability_only_margins_present": 0,
+    "elo_raw_incoherent_predecessors_in_this_universe": 0,
+    "trust_classification_all_untrusted_shadow": true,
+    "ACTIVE_PATH_CORRECTNESS_CLAIM_true_count": 0,
+    "extreme_probabilities": [],
+    "ood_rows": [],
+    "am_ncaa_6607349": {
+      "home_canonical_team_id": "SRC-002:TEAM:245",
+      "away_canonical_team_id": "SRC-002:TEAM:2623",
+      "probability_home": 0.8951316669,
+      "probability_away": 0.1048683331,
+      "probability_sum": 1.0,
+      "expected_margin_home": 22.2506043541,
+      "expected_margin_away": -22.2506043541,
+      "margin_sum": 0.0,
+      "interval_home": [-0.4836117392, 44.9848204474],
+      "oriented_rows": 2,
+      "oriented_home_probability": 0.8951316668861082,
+      "oriented_away_probability": 0.10486833311389177,
+      "oriented_away_not_labeled_home": true,
+      "independent_reference_match": true,
+      "producer_match": true,
+      "publication_label": "UNTRUSTED_SHADOW"
+    },
+    "ridge_abstentions": {
+      "count": 12,
+      "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY": 8,
+      "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR": 4
+    },
+    "market_adequacy_emitted_ridge": "LIMITED_STALE_INPUT_SHADOW_ONLY",
+    "payload_sha256_match_gate": true,
+    "payload_sha256_match_pass1": true,
+    "reference_module": "aggie_analytics.scientific_reference.coherence",
+    "residual_stdev": 17.7396030753,
+    "interval_mass": 0.8
+  },
+  "producer_vs_reference": {
+    "week1_producer_modules_do_not_import_scientific_reference": true,
+    "scientific_reference_does_not_import_listed_producers": true,
+    "pass2_declared_producers": [
+      "aggie_analytics.data.week1_2026_game_grain_distribution_successor",
+      "aggie_analytics.data.week1_2026_game_grain_national_forecast_successor",
+      "aggie_analytics.data.producer_distribution_math"
+    ],
+    "pass2_declared_reference": [
+      "aggie_analytics.scientific_reference.coherence"
+    ],
+    "independence_validator_findings_at_head": [],
+    "independence_validator_result": "PASS",
+    "independence_validator_omits_declared_week1_national_forecast_producer": false,
+    "independence_validator_omits_historical_saved_pair_producer": false,
+    "independence_validator_omits_producer_metric_math": false,
+    "historical_pair_producer_imports_scientific_reference_metrics": false,
+    "historical_pair_producer_imports_producer_metric_math": true,
+    "watched_producer_paths_include": [
+      "src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py",
+      "src/aggie_analytics/data/historical_saved_pair_game_grain_successor.py",
+      "src/aggie_analytics/data/producer_metric_math.py"
+    ]
+  },
+  "findings": [
+    {
+      "id": "C26-P3-02",
+      "severity": "Important",
+      "confidence": 95,
+      "disposition": "STILL_OPEN_CONTAINED",
+      "affects_week1_active_path_numbers": false,
+      "affects_declared_week1_active_path": "receipt_binding_only",
+      "files": [
+        "artifacts/scientific_integrity/cycle26/CYCLE26_PASS1_PROVENANCE_RECEIPT.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_PASS2_INDEPENDENT_RECONSTRUCTION_RECEIPT.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_ACTIVE_PATH_ACCEPTANCE.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEW_RECEIPT.json"
+      ],
+      "evidence": "Live and GitHub PR #678 head=c353f01a2ae6021fae17e752fcfac0c038ee1645. Pass 1 rebinding_code_head=8f65cc3684ef7aec8b00efbfa08e9440f78dd4cc with code_head_binding=LIVE_PR_678_TIP. Pass 2 rebinding_code_head and acceptance git_tip remain 1cd2205bc4eaf40cf49ca471dcda08b1397ee7e2. Author Pass 3 placeholder is PENDING_INDEPENDENT_REVIEWER. Numbered report cites material commit ecb4357185e6d6b731e047dd1135051f20d7d93c.",
+      "guideline": "Pass 3 must bind the exact PR head; later semantic change of the successor path invalidates prior receipts. These later commits are process/report rebinds, not a rematerialized Week 1 gate.",
+      "description": "Author three-pass receipts are not bound to the exact reviewed HEAD. Pass 1 uses LIVE_PR_678_TIP prose over 8f65cc36; Pass 2/acceptance remain on 1cd2205b. Author Pass 3 correctly stays PENDING. This reviewer bound live c353f01a independently and did not treat hosted checks as this pass."
+    }
+  ],
+  "closed_prior_findings": [
+    {
+      "id": "C26-P3-01",
+      "disposition": "FIXED",
+      "confidence": 100,
+      "evidence": "Pass 1 payload_hashes.core_module, gate record_hashes.core_module, and live sha256 of week1_2026_game_grain_national_forecast_successor.py all equal 4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c. test_33 asserts that equality against the live file."
+    },
+    {
+      "id": "C26-P3-03",
+      "disposition": "FIXED",
+      "confidence": 100,
+      "evidence": "tools/validate_independent_scientific_reference.py PRODUCER_PATHS and FORBIDDEN_PRODUCER_IMPORTS now include week1_2026_game_grain_national_forecast_successor.py, historical_saved_pair_game_grain_successor.py, and producer_metric_math.py. historical_saved_pair_game_grain_successor.py imports aggie_analytics.data.producer_metric_math, not scientific_reference.metrics. Validator result PASS with findings []. test_06 asserts []."
+    },
+    {
+      "id": "C26-P3-04",
+      "disposition": "FIXED",
+      "confidence": 90,
+      "evidence": "test_33 now hashes the live core module against Pass 1 payload_hashes.core_module. test_22/31b/35 call production guards in cycle26_acceptance_guards.py. Unrelated PASS+digest 0*64 remains schema_valid=false, merge_success=false, CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH. Residual: test_33 still also compares two hardcoded historical git SHAs and would not by itself fail on Pass 1 rebinding_code_head lag; that lag is tracked as C26-P3-02."
+    }
+  ],
+  "rejected_false_positives": [
+    {
+      "claim": "Neutral contests omitted from pair coherence",
+      "reason": "Three Week 1 contests are NEUTRAL/NEUTRAL. Sample ridge pair and joint reconstruct as coherent. Oriented away probability is not labeled HOME."
+    },
+    {
+      "claim": "A&M NCAA 6607349 orientations disagree",
+      "reason": "Lake ridge row and derived oriented rows match independent Normal reconstruction: P(home)=0.8951316669, P(away)=0.1048683331, margins +22.2506043541 / -22.2506043541. Oriented HOME is SRC-002:TEAM:245; AWAY is SRC-002:TEAM:2623 and is not labeled HOME."
+    },
+    {
+      "claim": "Non-crossing interval is distribution incoherence",
+      "reason": "NCAA 6620448 80% interval is entirely positive for a 0.9184791184 favorite. Independent joint_distribution_coherent(interval_mass=0.8) still returns coherent."
+    },
+    {
+      "claim": "Elo silently renormalizes incoherent Week 1 pairs",
+      "reason": "In this universe, elo_raw_incoherent_predecessors=0. Residual risk remains in the code path that sets away=1-home and ignores away."
+    },
+    {
+      "claim": "caller_claims_strong_identity can override name/date-only",
+      "reason": "classify_crosswalk has no such parameter; name_date_only always returns NAME_DATE_ONLY_NOT_STRONG_IDENTITY. test_13 falls back because the kwarg is absent."
+    },
+    {
+      "claim": "FORECAST_FROZEN probability-only rows reopen the trust gate",
+      "reason": "All 455 forecast rows have trust_classification=UNTRUSTED_SHADOW. Gate ACTIVE_PATH_CORRECTNESS_CLAIM is false. Ridge fitted rows use row_state=UNTRUSTED_SHADOW because trust_gate_open=False."
+    },
+    {
+      "claim": "Hosted Codex/Bugbot SUCCESS completes Pass 3",
+      "reason": "Rejected. Author placeholder correctly remains PENDING_INDEPENDENT_REVIEWER. Hosted checks are defense-layer only."
+    },
+    {
+      "claim": "Malformed digest can satisfy a scientific regression as success",
+      "reason": "validate_review_outcome on a PASS payload with digest 0*64 yields schema_valid=false, merge_success=false, CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH. An unrelated digest error is not a scientific PASS."
+    },
+    {
+      "claim": "C26-P3-01 still open because Pass 1 once claimed 4367c3e6",
+      "reason": "At this head Pass 1 payload_hashes.core_module equals the live module and gate record_hashes.core_module (4440a213…)."
+    },
+    {
+      "claim": "Independence validator still cannot see the Week 1 national-forecast or historical-pair producers",
+      "reason": "Both files and producer_metric_math.py are in PRODUCER_PATHS. Validator PASS with empty findings at live HEAD."
+    }
+  ],
+  "unreviewed_items": [
+    "Mounted full unittest discover at this exact HEAD; this pass ran only tests/test_cycle26_adversarial_regressions.py (50 OK).",
+    "Hosted GitHub required checks on c353f01a2ae6021fae17e752fcfac0c038ee1645; hosted Codex/Bugbot are defense-layer only and are not this pass.",
+    "Live Jira verify-live at this exact HEAD.",
+    "Byte-level independent reconstruction of C20/C21 historical pair successor payloads (declared not joint-Normal; DEVELOPMENT_EVIDENCE_ONLY).",
+    "All-cycle pass-two reconstruction for cycles 1-25 (R26-09 CONFIRMED_UNRESOLVED).",
+    "Official Week 1 finals scoring (AWAITING_FINAL); target-outcome training/tuning not in scope.",
+    "A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z future captures.",
+    "Odds API market quotes (declared ABSENT; no invented quotes reviewed).",
+    "Mounted validate_repository --strict predecessor StatCrew reconstruction mismatches (declared contained; Week 1 import edges=0).",
+    "R26-13 live branch-protection admin activation."
+  ],
+  "limitations": [
+    "This pass reviews implementation and review artifacts at the live HEAD. Filename suffix f8e85401 is the requested expected SHA; reviewed_head_sha is the live git rev-parse HEAD.",
+    "Independent reconstruction used scientific_reference.coherence against the mounted 770d25449a… lake payloads. It is not an empirical skill test.",
+    "Green hosted Codex/Bugbot checks are not this pass.",
+    "Finding C26-P3-02 does not falsify the declared Week 1 pair/joint numbers, but it prevents treating author receipts as exact-head complete.",
+    "No merge, hold release, trust-gate true, protected-lane activation, BAS/Aggie Excess, or production credibility is authorized."
+  ],
+  "independence_statement": "I am the code-reviewer subagent, not the Cycle #26 implementing author. I did not write the successor modules, adversarial tests, or author receipts under review. Live worktree and GitHub PR #678 head are c353f01a2ae6021fae17e752fcfac0c038ee1645 (expected f8e8540100a09e34aa66056f9a2e64fa9b8b3121 is the immediate parent). I reconstructed the Week 1 ridge path with scientific_reference.coherence (not producer helpers), ran tools/validate_independent_scientific_reference.py (PASS, findings []), ran tests/test_cycle26_adversarial_regressions.py read-only (50 OK), confirmed test_33 live core_module hash 4440a213…, and wrote only this ops receipt. I do not self-approve as author, do not treat hosted Codex/Bugbot as Pass 3, and do not authorize merge, hold release, ACTIVE_PATH_CORRECTNESS_VERIFIED, or opening the all-cycle trust gate. PRIMARY_TRUST_RECOVERY_INCOMPLETE remains required.",
+  "author_placeholder_pass3_status": "PENDING_INDEPENDENT_REVIEWER",
+  "this_receipt_supersedes_author_placeholder_for_pass3": true,
+  "this_receipt_does_not_mutate_successor_gates": true
+}

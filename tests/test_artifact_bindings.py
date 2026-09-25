@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from typing import Callable
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -13,7 +14,9 @@ sys.path.insert(0, str(ROOT / "src"))
 import importlib.util  # noqa: E402
 
 _MODULE_PATH = ROOT / "src" / "aggie_analytics" / "validation" / "artifact_binding.py"
-_SPEC = importlib.util.spec_from_file_location("artifact_binding_under_test", _MODULE_PATH)
+_SPEC = importlib.util.spec_from_file_location(
+    "artifact_binding_under_test", _MODULE_PATH
+)
 if _SPEC is None or _SPEC.loader is None:
     raise ImportError(f"unable to load {_MODULE_PATH}")
 _MODULE = importlib.util.module_from_spec(_SPEC)
@@ -25,56 +28,122 @@ validate_artifact_bindings = _MODULE.validate_artifact_bindings
 
 CANONICAL = Path("artifacts") / "pit" / "PIT_REPLAY_READINESS.json"
 EVIDENCE_401 = Path("artifacts") / "jira_evidence" / "POST-SUBTASK-051.json"
-EVIDENCE_569 = Path("artifacts") / "jira_evidence" / "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json"
-EVIDENCE_566 = Path("artifacts") / "jira_evidence" / "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json"
+EVIDENCE_569 = (
+    Path("artifacts")
+    / "jira_evidence"
+    / "POST-TASK-DEVELOPMENT-CANDIDATE-EVIDENCE-LEDGER-001.json"
+)
+EVIDENCE_566 = (
+    Path("artifacts")
+    / "jira_evidence"
+    / "POST-TASK-2023-LABELED-DEVELOPMENT-REPLAY-001.json"
+)
 CONTRACT = Path("configs") / "artifact_binding_contract.json"
-CURRENT = "c7e71afce0eeef24959b7a32387ea99ffe5a559f718cd621342d9ccd7dc844cc"
+CURRENT = "754d2eb2829bd3ba558fc7cb6e83d622fe5ba7696bc8a44482b6d3e694082ecf"
 STALE_NARRATIVE = "4d6c58e4dd31182f8fe2f53e3b53fae72c9df66178465112aae3693814a8395c"
 STALE_REBOUND = "3af86852302fcd3f1d2946c78edc77ba38466ad5ed332ac17621b942a2aac8e3"
 CYCLE17_BINDING_ID = "BAT-632-OFFICIAL-1999-STRUCTURED-DOMAINS"
-CYCLE17_GATE = Path("artifacts") / "data_lake" / "tamu_official_1999_structured_domains_gate.json"
-CYCLE17_EVIDENCE = Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001.json"
+CYCLE17_GATE = (
+    Path("artifacts") / "data_lake" / "tamu_official_1999_structured_domains_gate.json"
+)
+CYCLE17_EVIDENCE = (
+    Path("artifacts")
+    / "jira_evidence"
+    / "POST-TASK-SRC014-1999-STRUCTURED-DOMAINS-001.json"
+)
 CYCLE17_STALE_GATE = "a19c81e28ece6e7380e313c4fe8a5d8640689a917fd96590777d0749f32e3dd5"
 CYCLE17_P5_BINDING_ID = "BAT-633-OFFICIAL-1999-EXPANDED-UNION"
-CYCLE17_P5_GATE = Path("artifacts") / "data_lake" / "tamu_official_gamebook_union_1999_expanded_gate.json"
-CYCLE17_P5_EVIDENCE = Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001.json"
-CYCLE17_P5_STALE_GATE = "7a0542b74658ec0bb9687587cfdad308d85254bbb6cde29b651f0e2f5b16155c"
+CYCLE17_P5_GATE = (
+    Path("artifacts")
+    / "data_lake"
+    / "tamu_official_gamebook_union_1999_expanded_gate.json"
+)
+CYCLE17_P5_EVIDENCE = (
+    Path("artifacts")
+    / "jira_evidence"
+    / "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001.json"
+)
+CYCLE17_P5_STALE_GATE = (
+    "7a0542b74658ec0bb9687587cfdad308d85254bbb6cde29b651f0e2f5b16155c"
+)
 CYCLE17_P6_BINDING_ID = "BAT-634-OFFICIAL-1998-SEASON-INDEX"
-CYCLE17_P6_GATE = Path("artifacts") / "data_lake" / "tamu_official_1998_season_index_gate.json"
-CYCLE17_P6_EVIDENCE = Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-OFFICIAL-INDEX-001.json"
-CYCLE17_P6_STALE_GATE = "78ecc3b2793192cf1f850d5e8330c4333230fc65141683e746462444e42cb142"
+CYCLE17_P6_GATE = (
+    Path("artifacts") / "data_lake" / "tamu_official_1998_season_index_gate.json"
+)
+CYCLE17_P6_EVIDENCE = (
+    Path("artifacts")
+    / "jira_evidence"
+    / "POST-TASK-SRC014-1998-OFFICIAL-INDEX-001.json"
+)
+CYCLE17_P6_STALE_GATE = (
+    "78ecc3b2793192cf1f850d5e8330c4333230fc65141683e746462444e42cb142"
+)
 CYCLE17_P7_BINDING_ID = "BAT-635-OFFICIAL-1998-BOXSCORES-PARTIAL"
-CYCLE17_P7_GATE = Path("artifacts") / "data_lake" / "tamu_official_1998_boxscore_gate.json"
-CYCLE17_P7_EVIDENCE = Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json"
-CYCLE17_P7_STALE_GATE = "723ac49208afb8549bcc900b90b71eb353295bf664462308f04a7bab636f6f5b"
+CYCLE17_P7_GATE = (
+    Path("artifacts") / "data_lake" / "tamu_official_1998_boxscore_gate.json"
+)
+CYCLE17_P7_EVIDENCE = (
+    Path("artifacts")
+    / "jira_evidence"
+    / "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json"
+)
+CYCLE17_P7_STALE_GATE = (
+    "723ac49208afb8549bcc900b90b71eb353295bf664462308f04a7bab636f6f5b"
+)
 CYCLE17_P8_BINDING_ID = "BAT-636-OFFICIAL-1998-STRUCTURED-DOMAINS"
-CYCLE17_P8_GATE = Path("artifacts") / "data_lake" / "tamu_official_1998_structured_domains_gate.json"
-CYCLE17_P8_EVIDENCE = Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001.json"
-CYCLE17_P8_STALE_GATE = "8349103f87c7109af2833904618b7a1c965bf60a3e68dc67506c34b073b9b408"
+CYCLE17_P8_GATE = (
+    Path("artifacts") / "data_lake" / "tamu_official_1998_structured_domains_gate.json"
+)
+CYCLE17_P8_EVIDENCE = (
+    Path("artifacts")
+    / "jira_evidence"
+    / "POST-TASK-SRC014-1998-STRUCTURED-DOMAINS-001.json"
+)
+CYCLE17_P8_STALE_GATE = (
+    "8349103f87c7109af2833904618b7a1c965bf60a3e68dc67506c34b073b9b408"
+)
 CYCLE17_FINAL_CASES = {
     "BAT-630-OFFICIAL-1999-SEASON-INDEX": (
         Path("artifacts") / "data_lake" / "tamu_official_1999_season_index_gate.json",
-        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1999-OFFICIAL-INDEX-001.json",
+        Path("artifacts")
+        / "jira_evidence"
+        / "POST-TASK-SRC014-1999-OFFICIAL-INDEX-001.json",
     ),
     "BAT-631-OFFICIAL-1999-BOXSCORES": (
         Path("artifacts") / "data_lake" / "tamu_official_1999_boxscore_gate.json",
-        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001.json",
+        Path("artifacts")
+        / "jira_evidence"
+        / "POST-TASK-SRC014-1999-OFFICIAL-ACQUISITION-001.json",
     ),
     "BAT-633-OFFICIAL-1999-EXPANDED-UNION": (
-        Path("artifacts") / "data_lake" / "tamu_official_gamebook_union_1999_expanded_gate.json",
-        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001.json",
+        Path("artifacts")
+        / "data_lake"
+        / "tamu_official_gamebook_union_1999_expanded_gate.json",
+        Path("artifacts")
+        / "jira_evidence"
+        / "POST-TASK-SRC014-1999-EXPANDED-ENRICHED-UNION-001.json",
     ),
     "BAT-635-OFFICIAL-1998-BOXSCORES-PARTIAL": (
         Path("artifacts") / "data_lake" / "tamu_official_1998_boxscore_gate.json",
-        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json",
+        Path("artifacts")
+        / "jira_evidence"
+        / "POST-TASK-SRC014-1998-OFFICIAL-ACQUISITION-001.json",
     ),
     "BAT-637-OFFICIAL-1998-EXPANDED-UNION": (
-        Path("artifacts") / "data_lake" / "tamu_official_gamebook_union_1998_expanded_gate.json",
-        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001.json",
+        Path("artifacts")
+        / "data_lake"
+        / "tamu_official_gamebook_union_1998_expanded_gate.json",
+        Path("artifacts")
+        / "jira_evidence"
+        / "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001.json",
     ),
     "BAT-638-OFFICIAL-1998-2009-STRUCTURED-ROW-CORPUS": (
-        Path("artifacts") / "data_lake" / "tamu_official_1998_2009_structured_row_corpus_gate.json",
-        Path("artifacts") / "jira_evidence" / "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001.json",
+        Path("artifacts")
+        / "data_lake"
+        / "tamu_official_1998_2009_structured_row_corpus_gate.json",
+        Path("artifacts")
+        / "jira_evidence"
+        / "POST-TASK-SRC014-1998-2009-STRUCTURED-ROW-CORPUS-001.json",
     ),
 }
 
@@ -98,83 +167,81 @@ class ArtifactBindingTests(unittest.TestCase):
             destination = self.temp / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / relative, destination)
+        # Keep the default fixture scoped to BAT-401 so unrelated canonical bindings
+        # added to the global contract do not break targeted mutation tests.
+        contract = _load(self.temp / CONTRACT)
+        bat401_only = [
+            item
+            for item in contract["bindings"]
+            if item["binding_id"] == "BAT-401-PIT-REPLAY-READINESS"
+        ]
+        _write(
+            self.temp / CONTRACT,
+            {"schema_version": contract["schema_version"], "bindings": bat401_only},
+        )
 
     def tearDown(self) -> None:
         shutil.rmtree(self.temp, ignore_errors=True)
 
     def _prepare_cycle17_binding_fixture(self) -> None:
-        contract = _load(ROOT / CONTRACT)
-        binding = next(
-            item for item in contract["bindings"] if item["binding_id"] == CYCLE17_BINDING_ID
+        self._prepare_single_binding_fixture(
+            CYCLE17_BINDING_ID,
+            CYCLE17_GATE,
+            CYCLE17_EVIDENCE,
         )
-        _write(
-            self.temp / CONTRACT,
-            {"schema_version": contract["schema_version"], "bindings": [binding]},
-        )
-        for relative in (CYCLE17_GATE, CYCLE17_EVIDENCE):
-            destination = self.temp / relative
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(ROOT / relative, destination)
 
     def _prepare_cycle17_p5_binding_fixture(self) -> None:
-        contract = _load(ROOT / CONTRACT)
-        binding = next(
-            item for item in contract["bindings"] if item["binding_id"] == CYCLE17_P5_BINDING_ID
+        self._prepare_single_binding_fixture(
+            CYCLE17_P5_BINDING_ID,
+            CYCLE17_P5_GATE,
+            CYCLE17_P5_EVIDENCE,
         )
-        _write(
-            self.temp / CONTRACT,
-            {"schema_version": contract["schema_version"], "bindings": [binding]},
-        )
-        for relative in (CYCLE17_P5_GATE, CYCLE17_P5_EVIDENCE):
-            destination = self.temp / relative
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(ROOT / relative, destination)
 
     def _prepare_cycle17_p6_binding_fixture(self) -> None:
-        contract = _load(ROOT / CONTRACT)
-        binding = next(
-            item for item in contract["bindings"] if item["binding_id"] == CYCLE17_P6_BINDING_ID
+        self._prepare_single_binding_fixture(
+            CYCLE17_P6_BINDING_ID,
+            CYCLE17_P6_GATE,
+            CYCLE17_P6_EVIDENCE,
         )
-        _write(
-            self.temp / CONTRACT,
-            {"schema_version": contract["schema_version"], "bindings": [binding]},
-        )
-        for relative in (CYCLE17_P6_GATE, CYCLE17_P6_EVIDENCE):
-            destination = self.temp / relative
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(ROOT / relative, destination)
 
     def _prepare_cycle17_p7_binding_fixture(self) -> None:
-        contract = _load(ROOT / CONTRACT)
-        binding = next(
-            item for item in contract["bindings"] if item["binding_id"] == CYCLE17_P7_BINDING_ID
+        self._prepare_single_binding_fixture(
+            CYCLE17_P7_BINDING_ID,
+            CYCLE17_P7_GATE,
+            CYCLE17_P7_EVIDENCE,
         )
-        _write(
-            self.temp / CONTRACT,
-            {"schema_version": contract["schema_version"], "bindings": [binding]},
-        )
-        for relative in (CYCLE17_P7_GATE, CYCLE17_P7_EVIDENCE):
-            destination = self.temp / relative
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(ROOT / relative, destination)
 
     def _prepare_cycle17_p8_binding_fixture(self) -> None:
+        self._prepare_single_binding_fixture(
+            CYCLE17_P8_BINDING_ID,
+            CYCLE17_P8_GATE,
+            CYCLE17_P8_EVIDENCE,
+        )
+
+    def _prepare_single_binding_fixture(
+        self,
+        binding_id: str,
+        canonical_path: Path,
+        evidence_path: Path,
+    ) -> None:
         contract = _load(ROOT / CONTRACT)
         binding = next(
-            item for item in contract["bindings"] if item["binding_id"] == CYCLE17_P8_BINDING_ID
+            item for item in contract["bindings"] if item["binding_id"] == binding_id
         )
         _write(
             self.temp / CONTRACT,
             {"schema_version": contract["schema_version"], "bindings": [binding]},
         )
-        for relative in (CYCLE17_P8_GATE, CYCLE17_P8_EVIDENCE):
+        for relative in (canonical_path, evidence_path):
             destination = self.temp / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / relative, destination)
 
-    def _prepare_cycle17_final_binding_fixture(self, binding_id: str) -> tuple[Path, Path]:
+    def _prepare_cycle17_final_binding_fixture(self, binding_id: str) -> Path:
         contract = _load(ROOT / CONTRACT)
-        binding = next(item for item in contract["bindings"] if item["binding_id"] == binding_id)
+        binding = next(
+            item for item in contract["bindings"] if item["binding_id"] == binding_id
+        )
         _write(
             self.temp / CONTRACT,
             {"schema_version": contract["schema_version"], "bindings": [binding]},
@@ -184,15 +251,15 @@ class ArtifactBindingTests(unittest.TestCase):
             destination = self.temp / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / relative, destination)
-        return canonical, evidence
+        return evidence
 
     def _assert_cycle17_final_mutation_rejected(
         self,
         binding_id: str,
-        mutate,
+        mutate: Callable[[dict], None],
         expected: str,
     ) -> None:
-        _canonical, evidence_path = self._prepare_cycle17_final_binding_fixture(binding_id)
+        evidence_path = self._prepare_cycle17_final_binding_fixture(binding_id)
         evidence = _load(self.temp / evidence_path)
         mutate(evidence)
         _write(self.temp / evidence_path, evidence)
@@ -213,7 +280,10 @@ class ArtifactBindingTests(unittest.TestCase):
         _write(self.temp / EVIDENCE_401, evidence)
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
-        self.assertIn(str(EVIDENCE_401).replace("\\", "/"), str(raised.exception).replace("\\", "/"))
+        self.assertIn(
+            str(EVIDENCE_401).replace("\\", "/"),
+            str(raised.exception).replace("\\", "/"),
+        )
         self.assertIn("observable_outcome", str(raised.exception))
         self.assertIn("stale narrative identity", str(raised.exception))
 
@@ -261,7 +331,9 @@ class ArtifactBindingTests(unittest.TestCase):
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
         self.assertIn("missing canonical artifact", str(raised.exception))
-        self.assertIn(str(CANONICAL).replace("\\", "/"), str(raised.exception).replace("\\", "/"))
+        self.assertIn(
+            str(CANONICAL).replace("\\", "/"), str(raised.exception).replace("\\", "/")
+        )
 
     def test_altered_canonical_artifact_is_rejected(self) -> None:
         payload = _load(self.temp / CANONICAL)
@@ -292,7 +364,8 @@ class ArtifactBindingTests(unittest.TestCase):
             validate_artifact_bindings(self.temp)
         self.assertIn("OPEN_PROTECTED_LANE", str(raised.exception))
         self.assertTrue(
-            "lane decision" in str(raised.exception) or "required field lane_decision" in str(raised.exception)
+            "lane decision" in str(raised.exception)
+            or "required field lane_decision" in str(raised.exception)
         )
 
     def test_protected_or_production_claim_is_rejected(self) -> None:
@@ -303,7 +376,9 @@ class ArtifactBindingTests(unittest.TestCase):
         with self.assertRaises(ArtifactBindingError) as raised:
             validate_artifact_bindings(self.temp)
         self.assertIn("claims.production_readiness", str(raised.exception))
-        self.assertIn("forbidden production or protected authority claim", str(raised.exception))
+        self.assertIn(
+            "forbidden production or protected authority claim", str(raised.exception)
+        )
 
     def test_issue_local_id_mismatch_is_rejected(self) -> None:
         evidence = _load(self.temp / EVIDENCE_401)
@@ -377,28 +452,38 @@ class ArtifactBindingTests(unittest.TestCase):
             ),
             (
                 "BAT-633-OFFICIAL-1999-EXPANDED-UNION",
-                lambda evidence: evidence["current_identities"].__setitem__("union_identity", "0" * 64),
+                lambda evidence: evidence["current_identities"].__setitem__(
+                    "union_identity", "0" * 64
+                ),
                 "canonical field union_identity",
             ),
             (
                 "BAT-635-OFFICIAL-1998-BOXSCORES-PARTIAL",
-                lambda evidence: evidence["counts"].__setitem__("matched_strong_tuple", 10),
+                lambda evidence: evidence["counts"].__setitem__(
+                    "matched_strong_tuple", 10
+                ),
                 "canonical field counts",
             ),
             (
                 "BAT-637-OFFICIAL-1998-EXPANDED-UNION",
-                lambda evidence: evidence["current_identities"].__setitem__("gate_identity", "0" * 64),
+                lambda evidence: evidence["current_identities"].__setitem__(
+                    "gate_identity", "0" * 64
+                ),
                 "canonical field gate_identity",
             ),
             (
                 "BAT-638-OFFICIAL-1998-2009-STRUCTURED-ROW-CORPUS",
-                lambda evidence: evidence["current_identities"].__setitem__("dataset_identity", "0" * 64),
+                lambda evidence: evidence["current_identities"].__setitem__(
+                    "dataset_identity", "0" * 64
+                ),
                 "canonical field dataset_identity",
             ),
         )
         for binding_id, mutate, expected in cases:
             with self.subTest(binding_id=binding_id):
-                self._assert_cycle17_final_mutation_rejected(binding_id, mutate, expected)
+                self._assert_cycle17_final_mutation_rejected(
+                    binding_id, mutate, expected
+                )
 
 
 if __name__ == "__main__":

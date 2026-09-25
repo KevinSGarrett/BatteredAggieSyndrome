@@ -3,6 +3,7 @@ import argparse,json,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src"))
 from aggie_analytics.experimentation.lineage import assert_result_independent_identity,canonical_json,content_id
+from aggie_analytics import atomic_io as _bas_atomic
 
 def main():
     ap=argparse.ArgumentParser()
@@ -13,7 +14,7 @@ def main():
     eid=content_id("EXP",spec)
     out={"experiment_id":eid,"canonical_spec":spec}
     text=json.dumps(out,indent=2,sort_keys=True)+"\n"
-    if a.output:a.output.write_text(text,encoding="utf-8")
+    if a.output:_bas_atomic.write_text(a.output, text,encoding="utf-8")
     else:print(text,end="")
     return 0
 if __name__=="__main__":raise SystemExit(main())

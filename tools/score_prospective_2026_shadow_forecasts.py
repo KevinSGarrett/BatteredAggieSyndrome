@@ -24,6 +24,7 @@ from aggie_analytics.data.national_foundation_reconciliation import (  # noqa: E
     binding_identity,
     sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 from aggie_analytics.data.prospective_shadow_cohort import iso_utc, parse_utc  # noqa: E402
 from aggie_analytics.modeling.prospective_shadow_forecasts import (  # noqa: E402
     CONTRACT_RELATIVE,
@@ -41,7 +42,7 @@ def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + f".tmp-{os.getpid()}")
     try:
-        temporary.write_bytes(payload)
+        _bas_atomic.write_bytes(temporary, payload)
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)

@@ -1,0 +1,845 @@
+{
+  "ambiguous_unresolved_mapping_count": 0,
+  "artifact_type": "BAS_DOMAIN_CATALOG_CROSSWALK",
+  "c28_term_count": 33,
+  "mapping_count": 119,
+  "mappings": [
+    {
+      "canonical_domain_id": "DOM-001",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "games/schedules/scores",
+      "predecessor_term": "DOM-001",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-002",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "play-by-play",
+      "predecessor_term": "DOM-002",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-003",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "drives",
+      "predecessor_term": "DOM-003",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-004",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "team statistics",
+      "predecessor_term": "DOM-004",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-005",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "advanced team efficiency",
+      "predecessor_term": "DOM-005",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-006",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "player statistics",
+      "predecessor_term": "DOM-006",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-007",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "play participants",
+      "predecessor_term": "DOM-007",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-008",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "snap counts/participation",
+      "predecessor_term": "DOM-008",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-009",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "rosters",
+      "predecessor_term": "DOM-009",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-010",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "starters/depth charts",
+      "predecessor_term": "DOM-010",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-011",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "injuries/availability current",
+      "predecessor_term": "DOM-011",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-012",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "injuries/availability historical",
+      "predecessor_term": "DOM-012",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-013",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "recruiting",
+      "predecessor_term": "DOM-013",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-014",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "transfers",
+      "predecessor_term": "DOM-014",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-015",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "freshman/prospect priors",
+      "predecessor_term": "DOM-015",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-016",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "NFL draft outcomes",
+      "predecessor_term": "DOM-016",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-017",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "preseason honors/watch lists",
+      "predecessor_term": "DOM-017",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-018",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "head coaches/coordinators",
+      "predecessor_term": "DOM-018",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-019",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "assistant coaches/role histories",
+      "predecessor_term": "DOM-019",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-020",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "scheme/style/tendencies",
+      "predecessor_term": "DOM-020",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-021",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "program resources/finance",
+      "predecessor_term": "DOM-021",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-022",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "NIL/revenue-sharing regulatory context",
+      "predecessor_term": "DOM-022",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-023",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "historical issued weather forecasts",
+      "predecessor_term": "DOM-023",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-024",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "observed weather",
+      "predecessor_term": "DOM-024",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-025",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "venue coordinates/elevation",
+      "predecessor_term": "DOM-025",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-026",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "timezone/body clock",
+      "predecessor_term": "DOM-026",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-027",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "travel distance",
+      "predecessor_term": "DOM-027",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-028",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "home-field/venue effect",
+      "predecessor_term": "DOM-028",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-029",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "possession/tempo",
+      "predecessor_term": "DOM-029",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-030",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "field position/hidden yards",
+      "predecessor_term": "DOM-030",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-031",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "special teams",
+      "predecessor_term": "DOM-031",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-032",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "fourth-down decisions",
+      "predecessor_term": "DOM-032",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-033",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "clock management",
+      "predecessor_term": "DOM-033",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-034",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "garbage time/score state",
+      "predecessor_term": "DOM-034",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-035",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "opponent adjustment",
+      "predecessor_term": "DOM-035",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-036",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "schedule stress/workload",
+      "predecessor_term": "DOM-036",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-037",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "poll rankings",
+      "predecessor_term": "DOM-037",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-038",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "external ratings",
+      "predecessor_term": "DOM-038",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-039",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "markets",
+      "predecessor_term": "DOM-039",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-040",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "officials/crew history",
+      "predecessor_term": "DOM-040",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-041",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "officials upcoming assignments",
+      "predecessor_term": "DOM-041",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-042",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "playing rule era",
+      "predecessor_term": "DOM-042",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-043",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "eligibility/roster/transfer regulatory era",
+      "predecessor_term": "DOM-043",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-044",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "game stakes/CFP state",
+      "predecessor_term": "DOM-044",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-045",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "rivalry/homecoming/senior day",
+      "predecessor_term": "DOM-045",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-046",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "FCS strength",
+      "predecessor_term": "DOM-046",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-047",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "DII/DIII strength",
+      "predecessor_term": "DOM-047",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-048",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "NAIA strength",
+      "predecessor_term": "DOM-048",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-049",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "JUCO strength",
+      "predecessor_term": "DOM-049",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-050",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "live/in-game",
+      "predecessor_term": "DOM-050",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-051",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "advanced formation/personnel/tracking",
+      "predecessor_term": "DOM-051",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-052",
+      "predecessor_catalog": "W06_52",
+      "predecessor_label": "licensing/redistribution metadata",
+      "predecessor_term": "DOM-052",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-001",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "schedules_results",
+      "predecessor_term": "schedules_results",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-001",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "identities",
+      "predecessor_term": "identities",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-001",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "conferences",
+      "predecessor_term": "conferences",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-037",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "rankings",
+      "predecessor_term": "rankings",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-035",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "priors",
+      "predecessor_term": "priors",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-025",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "venues",
+      "predecessor_term": "venues",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-023",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "weather",
+      "predecessor_term": "weather",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-039",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "market",
+      "predecessor_term": "market",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-009",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "rosters",
+      "predecessor_term": "rosters",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-011",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "availability_injuries",
+      "predecessor_term": "availability_injuries",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-013",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "recruiting",
+      "predecessor_term": "recruiting",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-014",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "transfers",
+      "predecessor_term": "transfers",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-018",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "head_coaches",
+      "predecessor_term": "head_coaches",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-018",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "offensive_coordinator",
+      "predecessor_term": "offensive_coordinator",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-018",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "defensive_coordinator",
+      "predecessor_term": "defensive_coordinator",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-031",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "special_teams",
+      "predecessor_term": "special_teams",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-018",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "play_callers",
+      "predecessor_term": "play_callers",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-019",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "staff_regimes",
+      "predecessor_term": "staff_regimes",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-004",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "box_scores",
+      "predecessor_term": "box_scores",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-002",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "plays",
+      "predecessor_term": "plays",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-003",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "drives",
+      "predecessor_term": "drives",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-027",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "travel_rest_time_zone",
+      "predecessor_term": "travel_rest_time_zone",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-040",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "officials_penalties",
+      "predecessor_term": "officials_penalties",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-051",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "film",
+      "predecessor_term": "film",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-035",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "calibration_ood_uncertainty",
+      "predecessor_term": "calibration_ood_uncertainty",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-004",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "total_team_score",
+      "predecessor_term": "total_team_score",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-035",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "peer_cohorts",
+      "predecessor_term": "peer_cohorts",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-009",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "am_archive",
+      "predecessor_term": "am_archive",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-035",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "bas_residual",
+      "predecessor_term": "bas_residual",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "CTRL-RIGHTS",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "data_rights",
+      "predecessor_term": "data_rights",
+      "state": "NON_DATA_CONTROL"
+    },
+    {
+      "canonical_domain_id": "CTRL-SECURITY",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "security",
+      "predecessor_term": "security",
+      "state": "NON_DATA_CONTROL"
+    },
+    {
+      "canonical_domain_id": "CTRL-COSTS",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "costs",
+      "predecessor_term": "costs",
+      "state": "NON_DATA_CONTROL"
+    },
+    {
+      "canonical_domain_id": "CTRL-GOVERNANCE",
+      "predecessor_catalog": "C28_33",
+      "predecessor_label": "governance",
+      "predecessor_term": "governance",
+      "state": "NON_DATA_CONTROL"
+    },
+    {
+      "canonical_domain_id": "DOM-035",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "team_outcome_priors",
+      "predecessor_term": "team_outcome_priors",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-037",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "rankings",
+      "predecessor_term": "rankings",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-025",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "venues",
+      "predecessor_term": "venues",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-001",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "team_season_context",
+      "predecessor_term": "team_season_context",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-002",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "plays",
+      "predecessor_term": "plays",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-003",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "drives",
+      "predecessor_term": "drives",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-004",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "team_box_scores",
+      "predecessor_term": "team_box_scores",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-006",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "player_box_scores",
+      "predecessor_term": "player_box_scores",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-005",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "advanced_game_statistics",
+      "predecessor_term": "advanced_game_statistics",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-009",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "roster_membership",
+      "predecessor_term": "roster_membership",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-008",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "structured_gamebook_equivalent",
+      "predecessor_term": "structured_gamebook_equivalent",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-038",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "provider_pregame_elo",
+      "predecessor_term": "provider_pregame_elo",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-009",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "tamu_official_structured_archive",
+      "predecessor_term": "tamu_official_structured_archive",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-023",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "weather_forecast_vintages",
+      "predecessor_term": "weather_forecast_vintages",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-011",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "pregame_availability",
+      "predecessor_term": "pregame_availability",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-013",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "recruiting_talent",
+      "predecessor_term": "recruiting_talent",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-018",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "coaching_staff",
+      "predecessor_term": "coaching_staff",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-039",
+      "predecessor_catalog": "PIT_18",
+      "predecessor_label": "market_context",
+      "predecessor_term": "market_context",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-001",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "schedules_results",
+      "predecessor_term": "schedules_results",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-001",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "identities",
+      "predecessor_term": "identities",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-001",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "conferences",
+      "predecessor_term": "conferences",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-037",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "rankings",
+      "predecessor_term": "rankings",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-035",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "priors",
+      "predecessor_term": "priors",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-025",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "venues",
+      "predecessor_term": "venues",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-023",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "weather",
+      "predecessor_term": "weather",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-039",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "market",
+      "predecessor_term": "market",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-009",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "rosters",
+      "predecessor_term": "rosters",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-011",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "availability_injuries",
+      "predecessor_term": "availability_injuries",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-013",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "recruiting",
+      "predecessor_term": "recruiting",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-014",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "transfers",
+      "predecessor_term": "transfers",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-018",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "head_coaches",
+      "predecessor_term": "head_coaches",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-004",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "box_scores",
+      "predecessor_term": "box_scores",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-002",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "plays",
+      "predecessor_term": "plays",
+      "state": "MAPPED"
+    },
+    {
+      "canonical_domain_id": "DOM-003",
+      "predecessor_catalog": "SOURCE_POLICY_16",
+      "predecessor_label": "drives",
+      "predecessor_term": "drives",
+      "state": "MAPPED"
+    }
+  ],
+  "pit_term_count": 18,
+  "source_policy_term_count": 16,
+  "unmapped_term_count": 0,
+  "w06_term_count": 52
+}

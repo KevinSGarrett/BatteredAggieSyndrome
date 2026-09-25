@@ -1,0 +1,225 @@
+{
+  "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
+  "artifact_type": "CYCLE26_REMAINING_CLAIM_CENSUS",
+  "authority_document": "C:/BatteredAggieSyndrome.data/ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md",
+  "claim_count": 32,
+  "claims": [
+    {
+      "claim_id": "C01-CAPTURE-SEMANTIC-REPLAY-AND-OWNERSHIP",
+      "cycle_id": "CYCLE-1",
+      "remaining": "Capture semantic replay and every ownership/acceptance claim.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C02-INCIDENT-CHRONOLOGY-AND-RESTORE",
+      "cycle_id": "CYCLE-2",
+      "remaining": "Incident chronology and all restore evidence.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C03-MOUNTED-14-SCENARIO-AND-LEAKAGE",
+      "cycle_id": "CYCLE-3",
+      "remaining": "Full mounted 14-scenario battery and every early leakage claim.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C04-FEATURE-LABEL-FIT-EXPOSURE",
+      "cycle_id": "CYCLE-4",
+      "remaining": "All feature/label rows, fitted parameters and historical exposures.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C05-ORIGINAL-OUTPUTS-AND-CLAIMS",
+      "cycle_id": "CYCLE-5",
+      "remaining": "Original materialized outputs and every scientific claim.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C06-RANKING-METRIC-ROSTER-LINEAGE",
+      "cycle_id": "CYCLE-6",
+      "remaining": "All ranking/metric/roster populations and lineage.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C07-2010-11-CAPTURE-CENSUS",
+      "cycle_id": "CYCLE-7",
+      "remaining": "Full 2010-11 capture census and joins.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C08-ALIAS-PAGE-SOURCE-MATCH",
+      "cycle_id": "CYCLE-8",
+      "remaining": "Every alias, page and source match.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C09-ORIGINAL-UNION-GENERATION",
+      "cycle_id": "CYCLE-9",
+      "remaining": "Complete original union generation.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C10-METADATA-UNION-DOMAINS",
+      "cycle_id": "CYCLE-10",
+      "remaining": "Complete metadata/union and all domains.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C11-PLAYER-STAT-DOMAIN-UNION",
+      "cycle_id": "CYCLE-11",
+      "remaining": "Every player/stat/domain field and enriched union.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C12-2006-NON-PASSING-DOMAINS",
+      "cycle_id": "CYCLE-12",
+      "remaining": "Every other 2006 domain and admission claim.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C13-2005-HTML-DOMAIN-UNION",
+      "cycle_id": "CYCLE-13",
+      "remaining": "Complete HTML/domain/union correctness.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C14-2004-DOMAINS-AND-AUTHORITY",
+      "cycle_id": "CYCLE-14",
+      "remaining": "Other domains and all authority metadata.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C15-2002-03-CORPUS-UNION-REJECTION",
+      "cycle_id": "CYCLE-15",
+      "remaining": "Complete corpus/union/rejection reconstruction.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C16-2000-01-CORPUS-UNION-REJECTION",
+      "cycle_id": "CYCLE-16",
+      "remaining": "Complete corpus/union/rejection reconstruction.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C17-1998-99-REJECTION-UNION",
+      "cycle_id": "CYCLE-17",
+      "remaining": "Original full rejection/union chains.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C18-1996-97-CLAIMS-AND-MUTATION",
+      "cycle_id": "CYCLE-18",
+      "remaining": "All original 1996/97 claims, identities and mutation evidence.",
+      "status": "FAIL"
+    },
+    {
+      "claim_id": "C19-PRESERVATION-TO-C20-MAPPING",
+      "cycle_id": "CYCLE-19",
+      "remaining": "Preservation-to-C20 integration mapping and all dirty-work claims.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C20-NORMALIZED-JOIN-FIT-TRANSFORM",
+      "cycle_id": "CYCLE-20",
+      "remaining": "Every normalized/game/feature join, fold-fit/transform and peer inference.",
+      "status": "FAIL"
+    },
+    {
+      "claim_id": "C21-ROW-PUBLICATION-AND-KNOWN-AT",
+      "cycle_id": "CYCLE-21",
+      "remaining": "Row-specific completion/publication authority and every prior contribution.",
+      "status": "FAIL"
+    },
+    {
+      "claim_id": "C22-RAW-FINAL-FORECAST-METRIC-REPLAY",
+      "cycle_id": "CYCLE-22",
+      "remaining": "Full raw-final/forecast/metric replay in this recheck.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C23-ORIGINAL-91-SCHEDULE-CELLS",
+      "cycle_id": "CYCLE-23",
+      "remaining": "All 91 original schedule/authority receipts and every domain cell.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "C24-ORIGINAL-399-ROW-FEATURE-PARAMETER",
+      "cycle_id": "CYCLE-24",
+      "remaining": "Every original 399 frozen row's full raw-feature-parameter trace.",
+      "status": "FAIL"
+    },
+    {
+      "claim_id": "C25-ACQUISITION-MARKET-TRAINING-CLAIMS",
+      "cycle_id": "CYCLE-25",
+      "remaining": "Original acquisition time authenticity, every market raw join, all training/refit/parameter claims.",
+      "status": "FAIL"
+    },
+    {
+      "claim_id": "C25_5-COMPLETE-INVENTORY-AND-RECONSTRUCTION",
+      "cycle_id": "CYCLE-25.5",
+      "remaining": "Complete inventory, all independent reconstruction, external admin configuration, original authorization/live comment, materialized scientific recovery.",
+      "status": "NOT_AUDITED_YET"
+    },
+    {
+      "claim_id": "NAMED-NATIONAL-RAW-BYTES-990",
+      "cycle_id": "CYCLE-20",
+      "remaining": "990 manifest records independently rehashed; does not prove feature eligibility.",
+      "status": "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE"
+    },
+    {
+      "claim_id": "NAMED-C20-PREDICTION-PAIR-CENSUS",
+      "cycle_id": "CYCLE-20",
+      "remaining": "9100 saved prediction rows; logistic/ridge/prior-only fail complement on all pairs.",
+      "status": "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE"
+    },
+    {
+      "claim_id": "NAMED-C21-PREDICTION-PAIR-CENSUS",
+      "cycle_id": "CYCLE-21",
+      "remaining": "50350 saved prediction rows; same three models fail on every pair.",
+      "status": "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE"
+    },
+    {
+      "claim_id": "NAMED-C25-SCORE-ROW-PAIR-CENSUS",
+      "cycle_id": "CYCLE-25",
+      "remaining": "910 saved successor oriented rows; three models fail complement on scorable pairs.",
+      "status": "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE"
+    },
+    {
+      "claim_id": "NAMED-PASSING-SECTION-429",
+      "cycle_id": "CYCLE-11",
+      "remaining": "429 confirmed current-corpus errors on 125 raw pages; 45 screen candidates unresolved.",
+      "status": "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE"
+    },
+    {
+      "claim_id": "NAMED-C03-LEAKAGE-BATTERY-14",
+      "cycle_id": "CYCLE-3",
+      "remaining": "Mounted 14-scenario leakage battery independently re-executed 2026-09-04T05:14:41Z; artifact_identity 2be6b713722382b2c0ea5e86f89a6e6ed57533bab3adbb0bc3cf3a77b46df13a; dataset_identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7; status DONE. Does not reconstruct every early leakage claim or complete CYCLE-3.",
+      "status": "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE"
+    }
+  ],
+  "classification": "REMAINING_MATERIAL_CLAIM_CENSUS_NOT_SEMANTICALLY_AUDITED",
+  "contract_id": "CYCLE26-REMAINING-CLAIM-CENSUS-V1",
+  "failed_remaining_claim_count": 5,
+  "gate_identity": "264132ab68950160c436381c4634ba5f8e45d349440679205052f6f391eec854",
+  "issued_at_utc": "2026-09-04T05:22:00Z",
+  "jira_key": "BAT-691",
+  "local_issue_id": "POST-TASK-ALL-CYCLE-REMAINING-CLAIM-CENSUS-001",
+  "named_check_reconstructed_count": 6,
+  "parent_jira_key": "BAT-523",
+  "result": "PASS_REMAINING_CLAIM_CENSUS_ENUMERATED",
+  "schema_version": "aggie.data.cycle26_remaining_claim_census.v1",
+  "scientific_nonclaims": [
+    "Does not stamp SEMANTICALLY_AUDITED.",
+    "Does not convert NOT_AUDITED_YET into PASS.",
+    "Does not claim all 25 cycles audited because 25 JSON files exist.",
+    "Named complete-data checks do not complete their parent cycles."
+  ],
+  "semantically_audited": false,
+  "status_counts": {
+    "FAIL": 5,
+    "NOT_AUDITED_YET": 21,
+    "RECONSTRUCTED_NAMED_CHECK_NOT_WHOLE_CYCLE": 6
+  },
+  "three_pass_status": "INCOMPLETE",
+  "unreviewed_remaining_claim_count": 21
+}

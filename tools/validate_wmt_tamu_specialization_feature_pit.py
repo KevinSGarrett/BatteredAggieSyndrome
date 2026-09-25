@@ -21,6 +21,7 @@ from aggie_analytics.temporal.wmt_tamu_specialization_feature_pit import (  # no
     remove_rebuild_root,
     sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def check(condition: bool, name: str, checks: list[str]) -> None:
@@ -181,7 +182,7 @@ def main() -> int:
     }
     report_path = data_root / "validation" / "POST-SUBTASK-179" / "wmt_tamu_specialization_feature_pit_validation.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_bytes(canonical_json_bytes(report) + b"\n")
+    _bas_atomic.write_bytes(report_path, canonical_json_bytes(report) + b"\n")
     print(json.dumps({"report": str(report_path), "report_sha256": sha256_file(report_path), **report}, indent=2))
     return 0
 

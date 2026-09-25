@@ -1,0 +1,32 @@
+{
+  "artifact_type": "CYCLE26_AM_CHECKPOINT_FAILOVER_ARMING",
+  "issued_at_utc": "2026-09-03T22:25:41Z",
+  "git_tip_at_issuance": "cd73f288ab7c40f856556bb178a3f71cae79f9e2",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "a_and_m_contest": "6607349",
+  "primary_schedulers": {
+    "t24h": {
+      "script": "run_scheduled_am_t24h_capture.ps1",
+      "wake_utc": "2026-09-04T22:15:00Z",
+      "cutoff_utc": "2026-09-04T23:00:00Z"
+    },
+    "t90m": {
+      "script": "run_scheduled_am_t90m_capture.ps1",
+      "wake_utc": "2026-09-05T20:45:00Z",
+      "cutoff_utc": "2026-09-05T21:30:00Z"
+    }
+  },
+  "failover_scripts": [
+    "run_am_t24h_failover.ps1",
+    "run_am_t90m_failover.ps1"
+  ],
+  "overnight_heartbeat_log": "C:/BatteredAggieSyndrome.data/ops/cycle26/CYCLE26_AM_OVERNIGHT_HEARTBEAT.log",
+  "sep4_window_t24h_freeze_at_utc": "2026-09-03T22:12:29Z",
+  "sep3_t90m_freeze_at_utc": "2026-09-03T20:01:19Z",
+  "rules": [
+    "No missed-cutoff backfill",
+    "No merge/Done/BAT-523 parent-progress",
+    "PRIMARY_TRUST_RECOVERY_INCOMPLETE unchanged"
+  ],
+  "result": "FAILOVERS_ARMED"
+}

@@ -1,0 +1,28 @@
+{
+  "artifact_type": "CYCLE26_SEP3_T90M_FREEZE_RECEIPT",
+  "issued_at_utc": "2026-09-03T20:01:19Z",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "git_tip_at_issuance": "7e5001709595706f6a5232b7f39c61b3094b5eb9",
+  "checkpoint_label": "T-90M",
+  "earliest_eligible_cutoff_utc": "2026-09-03T20:30:00Z",
+  "freeze_at_utc": "2026-09-03T20:01:19Z",
+  "label_authority": "T90M_LABEL_PERMITTED",
+  "capture_log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260903T194601Z.log",
+  "capture_identities": {
+    "schedule": "ac08bf4c0f468205cbfd8a8da7fc6ec4cc992845fd93f46b80ab253e79fbc65e",
+    "kickoff-authority": "ee2184f38040e66bc1fbad1c60855d7c2a9961d508a0596e1d5d94274d7d1bc0",
+    "entity-authority": "da0237c6683732e5709c264004bbcc64b1f22f819d37fcf7a2c08cfd93b30321",
+    "venue-authority": "eca9d8b429930892cabb0b1aecc343ec64e29bb1d6740f5a4cdbb06daf3ad14e",
+    "rankings": "49f21c6a01bd7dbaed673b48cb4cd37f4c2878705f388f40d945ba4342d46f22",
+    "weather": "49d820b5ec79156ac6d922c36262a72932d12f64338195bbeec66493e5a35786"
+  },
+  "eligibility_ledger": {
+    "contest_count": 91,
+    "t24h_missed": 11,
+    "t90m_still_eligible": 91,
+    "as_of_utc": "2026-09-03T20:01:17Z"
+  },
+  "note": "T90M label requires every required record to freeze by per-contest cutoff; this receipt binds the freeze timestamp and capture identities only.",
+  "predecessor_freeze_artifact": "CYCLE26_SEP3_T90M_FREEZE_RECEIPT_20260903T190535Z.json",
+  "predecessor_freeze_at_utc": "2026-09-03T19:05:35Z"
+}

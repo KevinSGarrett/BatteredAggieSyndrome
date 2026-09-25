@@ -1800,7 +1800,7 @@
       "venue_state": "NEUTRAL"
     }
   ],
-  "gate_identity": "3b546b12b3d50098bec457a010b47168f472449e8475c397ee44cd26ff1edc6a",
+  "gate_identity": "68209c698b8a29d6d1759c18917cbbee99c0c6f79da8b4c0cc134e53a3c91517",
   "jira_key": "BAT-592",
   "missing_domains": [],
   "preserved_rejections": [
@@ -2018,14 +2018,14 @@
     2007
   ],
   "source_id": "SRC-014",
-  "union_identity": "00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31",
+  "union_identity": "ace88c512908ae52e03346534121a2052b5164de62518d1e4f89afa8eedcf90d",
   "upstream_identities": {
     "bat587_gate_identity": "77043db845ea4089e7530509b29489c3b76455e6db7eaea299854f316b6febe9",
     "bat587_union_identity": "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e",
     "bat590_gate_identity": "537de885b49e6e4574dfe5622b0d3f0db07a081f213e96b5ae14d5e1ee011297",
     "bat590_union_identity": "d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31",
-    "bat591_gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
-    "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+    "bat591_gate_identity": "ed2ce7b95bd046a282116cf50aff84fec1e585f8dee848cc4451bec63bdf668c",
+    "bat591_payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
     "cycle9_boxscore_dataset_identity": "46841fcd9e3c3d18be55a7e098b52e089bc1a307a9779783cf4192f1324ba2aa",
     "cycle9_boxscore_games_identity": "4b07b23cd0e4bef16d4a8eb7bf67d0f0d20f7d9f7ab94116fdee57239910d0e5",
     "cycle9_boxscore_gate_identity": "29e76b1e264387b2195e2fd4c1d04bbb375d448789b4ac64aec701a61eceb1e5",

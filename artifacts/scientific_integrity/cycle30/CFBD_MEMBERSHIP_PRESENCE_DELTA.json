@@ -1,0 +1,165 @@
+{
+  "absent_from_2026_sample": [
+    {
+      "first_season": 1969,
+      "last_season": 1991,
+      "program_id": "SRC-002:TEAM:1000006"
+    },
+    {
+      "first_season": 1969,
+      "last_season": 1971,
+      "program_id": "SRC-002:TEAM:1000007"
+    },
+    {
+      "first_season": 1963,
+      "last_season": 1964,
+      "program_id": "SRC-002:TEAM:1000010"
+    },
+    {
+      "first_season": 1975,
+      "last_season": 1992,
+      "program_id": "SRC-002:TEAM:1000012"
+    },
+    {
+      "first_season": 1969,
+      "last_season": 1971,
+      "program_id": "SRC-002:TEAM:1000013"
+    },
+    {
+      "first_season": 1963,
+      "last_season": 1964,
+      "program_id": "SRC-002:TEAM:1000019"
+    },
+    {
+      "first_season": 1963,
+      "last_season": 1966,
+      "program_id": "SRC-002:TEAM:1000025"
+    },
+    {
+      "first_season": 1963,
+      "last_season": 1995,
+      "program_id": "SRC-002:TEAM:1000044"
+    },
+    {
+      "first_season": 1965,
+      "last_season": 1965,
+      "program_id": "SRC-002:TEAM:1000047"
+    },
+    {
+      "first_season": 1966,
+      "last_season": 1974,
+      "program_id": "SRC-002:TEAM:1000056"
+    },
+    {
+      "first_season": 1971,
+      "last_season": 1981,
+      "program_id": "SRC-002:TEAM:1000058"
+    },
+    {
+      "first_season": 1963,
+      "last_season": 1986,
+      "program_id": "SRC-002:TEAM:1000063"
+    },
+    {
+      "first_season": 1963,
+      "last_season": 1973,
+      "program_id": "SRC-002:TEAM:1000064"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2009,
+      "program_id": "SRC-002:TEAM:111"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2009,
+      "program_id": "SRC-002:TEAM:2275"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2007,
+      "program_id": "SRC-002:TEAM:2325"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2018,
+      "program_id": "SRC-002:TEAM:2542"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2003,
+      "program_id": "SRC-002:TEAM:2561"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2023,
+      "program_id": "SRC-002:TEAM:2598"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2003,
+      "program_id": "SRC-002:TEAM:2608"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2006,
+      "program_id": "SRC-002:TEAM:2612"
+    },
+    {
+      "first_season": 1963,
+      "last_season": 1985,
+      "program_id": "SRC-002:TEAM:2704"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2009,
+      "program_id": "SRC-002:TEAM:2736"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2019,
+      "program_id": "SRC-002:TEAM:294"
+    },
+    {
+      "first_season": 2003,
+      "last_season": 2008,
+      "program_id": "SRC-002:TEAM:314"
+    }
+  ],
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "CFBD_MEMBERSHIP_PRESENCE_DELTA",
+  "current_n": 266,
+  "current_without_historical_row": 6,
+  "historical_absent_from_2026_ids": [
+    "SRC-002:TEAM:1000006",
+    "SRC-002:TEAM:1000007",
+    "SRC-002:TEAM:1000010",
+    "SRC-002:TEAM:1000012",
+    "SRC-002:TEAM:1000013",
+    "SRC-002:TEAM:1000019",
+    "SRC-002:TEAM:1000025",
+    "SRC-002:TEAM:1000044",
+    "SRC-002:TEAM:1000047",
+    "SRC-002:TEAM:1000056",
+    "SRC-002:TEAM:1000058",
+    "SRC-002:TEAM:1000063",
+    "SRC-002:TEAM:1000064",
+    "SRC-002:TEAM:111",
+    "SRC-002:TEAM:2275",
+    "SRC-002:TEAM:2325",
+    "SRC-002:TEAM:2542",
+    "SRC-002:TEAM:2561",
+    "SRC-002:TEAM:2598",
+    "SRC-002:TEAM:2608",
+    "SRC-002:TEAM:2612",
+    "SRC-002:TEAM:2704",
+    "SRC-002:TEAM:2736",
+    "SRC-002:TEAM:294",
+    "SRC-002:TEAM:314"
+  ],
+  "historical_absent_from_2026_n": 25,
+  "historical_distinct_programs": 285,
+  "identity": "4a8507637790054ea8626d625efd7a0480297e48905b751c30b7bbeb48621054",
+  "not_an_ncaa_discontinued_program_census": true,
+  "source_id": "SRC-002"
+}

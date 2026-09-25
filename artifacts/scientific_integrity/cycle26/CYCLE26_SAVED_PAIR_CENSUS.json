@@ -1,0 +1,177 @@
+{
+  "20": {
+    "bytes": 2491754,
+    "candidate_results": {
+      "national_base_rate": {
+        "all_game_pairs": 910,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.0,
+        "probability_sum_failures_tolerance_1e_8": 0,
+        "scorable_game_pairs": 910
+      },
+      "national_elo": {
+        "all_game_pairs": 910,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.0,
+        "probability_sum_failures_tolerance_1e_8": 0,
+        "scorable_game_pairs": 910
+      },
+      "national_logistic_l2": {
+        "all_game_pairs": 910,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.35473324000000006,
+        "probability_sum_failures_tolerance_1e_8": 910,
+        "scorable_game_pairs": 910
+      },
+      "national_margin_ridge": {
+        "all_game_pairs": 910,
+        "margin_antisymmetry_failures_tolerance_1e_8": 910,
+        "margin_pairs": 910,
+        "max_margin_sum_error": 16.426513710000002,
+        "max_probability_sum_error": 0.34438002999999995,
+        "probability_sum_failures_tolerance_1e_8": 910,
+        "scorable_game_pairs": 910
+      },
+      "prior_only": {
+        "all_game_pairs": 910,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.31022496999999993,
+        "probability_sum_failures_tolerance_1e_8": 910,
+        "scorable_game_pairs": 910
+      }
+    },
+    "path": "canonical/national_expectation_baselines_and_peers/sha256/773cf850bb8351497643506dd2ddcb4efbad26e3cd95a4dc78039b6e8ef3a1b0/national_baseline_predictions.jsonl",
+    "rows": 9100,
+    "sha256": "a4671745e7c89a65ed87f2c2c5bd0a90a6adb38fedd162240cace1f30ee0088e"
+  },
+  "21": {
+    "bytes": 10890643,
+    "candidate_results": {
+      "national_base_rate": {
+        "all_game_pairs": 5035,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.0,
+        "probability_sum_failures_tolerance_1e_8": 0,
+        "scorable_game_pairs": 5035
+      },
+      "national_elo": {
+        "all_game_pairs": 5035,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.0,
+        "probability_sum_failures_tolerance_1e_8": 0,
+        "scorable_game_pairs": 5035
+      },
+      "national_logistic_l2": {
+        "all_game_pairs": 5035,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.4052210999999999,
+        "probability_sum_failures_tolerance_1e_8": 5035,
+        "scorable_game_pairs": 5035
+      },
+      "national_margin_ridge": {
+        "all_game_pairs": 5035,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.39061688000000006,
+        "probability_sum_failures_tolerance_1e_8": 5035,
+        "scorable_game_pairs": 5035
+      },
+      "prior_only": {
+        "all_game_pairs": 5035,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.44877205,
+        "probability_sum_failures_tolerance_1e_8": 5035,
+        "scorable_game_pairs": 5035
+      }
+    },
+    "path": "canonical/national_multi_year_walk_forward/sha256/1112becc65f78a25b0843588fd5eba5ddcec6009b0ec58f0cb299c343188bcda/national_multi_year_walk_forward_predictions.jsonl",
+    "rows": 50350,
+    "sha256": "c380eb08ee42c7b4eeed32436ccfc4f035f88e43048f327ea9c0d5d28fb4e6d6"
+  },
+  "25": {
+    "am_focus_both_orientations": [
+      {
+        "candidate_id": "national_margin_ridge_c25_input_bound",
+        "canonical_team_id": "SRC-002:TEAM:2623",
+        "expected_margin": -25.9193335699,
+        "probability": 0.0768616725,
+        "row_state": null
+      },
+      {
+        "candidate_id": "national_margin_ridge_c25_input_bound",
+        "canonical_team_id": "SRC-002:TEAM:245",
+        "expected_margin": 3.1886461163,
+        "probability": 0.5758608354,
+        "row_state": null
+      }
+    ],
+    "bytes": 540773,
+    "candidate_results": {
+      "national_base_rate_c25_input_bound": {
+        "all_game_pairs": 91,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.0,
+        "probability_sum_failures_tolerance_1e_8": 0,
+        "scorable_game_pairs": 83
+      },
+      "national_elo_c25_input_bound": {
+        "all_game_pairs": 91,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.0,
+        "probability_sum_failures_tolerance_1e_8": 0,
+        "scorable_game_pairs": 79
+      },
+      "national_logistic_l2_c25_input_bound": {
+        "all_game_pairs": 91,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.8252004431,
+        "probability_sum_failures_tolerance_1e_8": 83,
+        "scorable_game_pairs": 83
+      },
+      "national_margin_ridge_c25_input_bound": {
+        "all_game_pairs": 91,
+        "margin_antisymmetry_failures_tolerance_1e_8": 83,
+        "margin_pairs": 83,
+        "max_margin_sum_error": 71.5367093036,
+        "max_probability_sum_error": 0.8102138865,
+        "probability_sum_failures_tolerance_1e_8": 83,
+        "scorable_game_pairs": 83
+      },
+      "prior_only_c25_input_bound": {
+        "all_game_pairs": 91,
+        "margin_antisymmetry_failures_tolerance_1e_8": 0,
+        "margin_pairs": 0,
+        "max_margin_sum_error": null,
+        "max_probability_sum_error": 0.8143657596,
+        "probability_sum_failures_tolerance_1e_8": 83,
+        "scorable_game_pairs": 83
+      }
+    },
+    "path": "canonical/week1_2026_forecast_input_binding_successor/sha256/91fa82144bb76d75bbfc67d98141cfdd8d5825a5c1b5e657639c9a2b4c693730/week1_2026_c25_successor_score_rows.jsonl",
+    "rows": 910,
+    "sha256": "d4d29f346242009d3675cd6d40d24a76fdfaa4f20b6689f4e3f5ccecab0ed108"
+  }
+}

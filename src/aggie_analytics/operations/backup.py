@@ -17,18 +17,30 @@ def _sha(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+WINDOWS_DEVICE_NAMES = {
+    "CON",
+    "PRN",
+    "AUX",
+    "NUL",
+    *(f"COM{i}" for i in range(1, 10)),
+    *(f"LPT{i}" for i in range(1, 10)),
+}
+
+
 def _normalize_relpath(name: str) -> str:
     if not isinstance(name, str):
         raise ValueError("path must be a string")
-    raw = name.strip()
-    if not raw:
+    if not name:
         raise ValueError("path cannot be empty")
+    if name != name.strip():
+        raise ValueError(f"leading or trailing whitespace path alias: {name!r}")
+    raw = name
     if "\\" in raw:
         raise ValueError(f"unsafe path separator alias: {name!r}")
     if raw.startswith("/"):
         raise ValueError(f"absolute path is not allowed: {name!r}")
-    if len(raw) > 1 and raw[1] == ":":
-        raise ValueError(f"drive-qualified path is not allowed: {name!r}")
+    if ":" in raw:
+        raise ValueError(f"ADS or drive-qualified path is not allowed: {name!r}")
     if raw.endswith("/"):
         raise ValueError(f"directory member is not allowed: {name!r}")
     if "//" in raw:
@@ -36,6 +48,12 @@ def _normalize_relpath(name: str) -> str:
     parts = raw.split("/")
     if any(part in {"", ".", ".."} for part in parts):
         raise ValueError(f"unsafe path component in {name!r}")
+    for part in parts:
+        if part.endswith(" ") or part.endswith("."):
+            raise ValueError(f"trailing-dot or trailing-space path alias: {name!r}")
+        stem = part.split(".", 1)[0]
+        if stem.upper() in WINDOWS_DEVICE_NAMES:
+            raise ValueError(f"windows device name is not allowed: {name!r}")
     normalized = PurePosixPath(*parts).as_posix()
     if normalized in {"", "."}:
         raise ValueError(f"invalid normalized path: {name!r}")

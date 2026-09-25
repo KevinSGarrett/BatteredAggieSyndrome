@@ -19,6 +19,7 @@ from aggie_analytics.temporal.advanced_game_snapshot import (  # noqa: E402
     materialize,
     sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def expect_rejection(name: str, operation: Callable[[], Any]) -> dict[str, Any]:
@@ -128,7 +129,7 @@ def main() -> int:
     report_root = data_root / "validation" / "POST-SUBTASK-192" / identity
     report_root.mkdir(parents=True, exist_ok=True)
     report_path = report_root / "historical_advanced_game_snapshot_validation.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    _bas_atomic.write_text(report_path, json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({"result": "PASS", "report_path": str(report_path), "report_sha256": sha256_file(report_path), "check_count": len(checks), "mutation_control_count": len(mutation_controls)}, sort_keys=True))
     return 0
 

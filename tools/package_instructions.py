@@ -17,6 +17,33 @@ if __package__ in {None, ""}:
 
 from tools.packaging import deterministic_zip_tree, safe_extract, safe_zip_names
 from tools.validate_autonomous_controls import validate
+class _bas_atomic:  # U37-11: atomic writes once this tool has imported the package itself
+    @staticmethod
+    def _module():
+        import sys as _bas_sys
+
+        if "aggie_analytics" not in _bas_sys.modules:
+            return None  # never bind the package from another tree before the tool does
+        try:
+            from aggie_analytics import atomic_io
+        except ImportError:
+            return None
+        return atomic_io
+
+    @classmethod
+    def write_text(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_text(path, *args, **kwargs) if module else path.write_text(*args, **kwargs)
+
+    @classmethod
+    def write_bytes(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_bytes(path, *args, **kwargs) if module else path.write_bytes(*args, **kwargs)
+
+    @classmethod
+    def open_write(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.open_write(path, *args, **kwargs) if module else path.open(*args, **kwargs)
 
 
 def _sha(path: Path) -> str:
@@ -67,7 +94,7 @@ def main() -> int:
     os.replace(temporary, output)
     digest = _sha(output)
     sidecar = output.with_suffix(output.suffix + ".sha256")
-    sidecar.write_text(f"{digest}  {output.name}\n", encoding="utf-8", newline="\n")
+    _bas_atomic.write_text(sidecar, f"{digest}  {output.name}\n", encoding="utf-8", newline="\n")
     print(json.dumps({"result": "PASS", "zip": str(output), "sha256": digest, "members": len(names), "sidecar": str(sidecar)}, indent=2))
     return 0
 

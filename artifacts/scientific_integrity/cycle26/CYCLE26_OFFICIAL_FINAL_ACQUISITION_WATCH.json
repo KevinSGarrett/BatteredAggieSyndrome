@@ -1,0 +1,33 @@
+{
+  "am_t24h_utc": "2026-09-04T23:00:00Z",
+  "am_t90m_utc": "2026-09-05T21:30:00Z",
+  "artifact_type": "CYCLE26_OFFICIAL_FINAL_ACQUISITION_WATCH",
+  "capture_identity": "33e697a75231a620acfa3bf86f0c8e2d036a6e12c2a18537fee5a3785a4cd752",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "issued_at_utc": "2026-09-04T03:40:00Z",
+  "newest_scoreboard_html": "02fbf4ab441ccae3f9172285ee9f3cb57e9e91a43ecc03967c3ebef50be03868",
+  "note": "Acquisition authorized separately from scoring eligibility. No Week 1 outcome training, selection, tuning, or promotion. This watch is not a checkpoint label and does not backfill missed T-24H or T-90M packets.",
+  "parser": "aggie_analytics.modeling.week_zero_official_final_scoring.parse_scoreboard_cards",
+  "reparse_at_utc": "2026-09-04T03:40:00Z",
+  "saturday_t24h_cutoff_utc": "2026-09-04T16:00:00Z",
+  "scoreboard_reparse": {
+    "any_terminal": true,
+    "directory": "C:\\BatteredAggieSyndrome.data\\raw\\SRC-NCAA-OFFICIAL-STATS\\ncaa_week1_2026_schedule_scoreboard",
+    "sep3_capture_sha256": "02fbf4ab441ccae3f9172285ee9f3cb57e9e91a43ecc03967c3ebef50be03868",
+    "sep3_cards": 11,
+    "sep3_terminal": 6,
+    "sep3_nonterminal": 5,
+    "terminal_contest_ids": [
+      "6582933",
+      "6584486",
+      "6591259",
+      "6601465",
+      "6603568",
+      "6618350"
+    ]
+  },
+  "scoring_gate_identity": "1960b623df9ab4e8d167a98cfe62f9a9b996b4605af4c4dbc024d21fb4708789",
+  "scoring_state": "PARTIAL_OFFICIAL_FINALS_SCORED_REMAINDER_AWAITING_FINAL",
+  "state": "PARTIAL_OFFICIAL_FINALS_SCORED_REMAINDER_AWAITING_FINAL",
+  "week1_outcome_training_forbidden": true
+}

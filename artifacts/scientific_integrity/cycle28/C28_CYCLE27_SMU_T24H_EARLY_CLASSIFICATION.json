@@ -1,0 +1,16 @@
+{
+  "artifact_type": "C28_CYCLE27_SMU_T24H_EARLY_CLASSIFICATION",
+  "ncaa_contest_id": "6594400",
+  "cycle27_checkpoint_id": "SUN_T24H_20260906T2330Z",
+  "cycle27_receipt_sha256": "4c8d9f4ac670ac3efe00fd2ec7c48d0a79fa0c126090c8758428d2739b8babfe",
+  "cycle27_completed_at_utc": "2026-09-06T22:51:57Z",
+  "cycle27_capture_run_started_utc": "2026-09-06T22:45:03Z",
+  "real_t24h_cutoff_utc": "2026-09-06T23:30:00Z",
+  "cycle27_label_in_receipt": "T-24H",
+  "cycle28_disposition": "EARLY_NON_CHECKPOINT_EVIDENCE",
+  "relabeled_as_real_t24h": false,
+  "predecessor_preserved": true,
+  "forecast_frozen": false,
+  "sunday_outcomes_in_fitted_path": false,
+  "note": "Cycle 27 woke at 22:45Z and completed capture at 22:51:57Z, 38 minutes before the official SMU T-24H cutoff. The Cycle 27 checkpoint_label is retained as predecessor text only and is not the Cycle 28 T-24H identity."
+}

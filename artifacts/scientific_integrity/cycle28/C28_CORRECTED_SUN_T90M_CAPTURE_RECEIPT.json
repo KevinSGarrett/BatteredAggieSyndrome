@@ -1,0 +1,25 @@
+{
+  "armed_at_utc": "2026-09-06T21:28:13Z",
+  "artifact_type": "C28_CORRECTED_SUN_T90M_CAPTURE_RECEIPT",
+  "capture_completed_at_utc": "2026-09-06T22:03:35Z",
+  "capture_started_at_utc": "2026-09-06T21:59:59Z",
+  "checkpoint_kind": "CORRECTED_CALENDAR_T90M",
+  "contests": [
+    "6602874",
+    "6620581"
+  ],
+  "cutoff_utc": "2026-09-06T22:00:00Z",
+  "disposition": "EVIDENCE_CAPTURED_NO_TRUSTED_FORECAST",
+  "forecast_frozen": false,
+  "log_path": "C:\\BatteredAggieSyndrome.data\\ops\\cycle28\\C28_CORRECTED_SUN_T90M_20260906T2200Z.log",
+  "ncaa_targets": [
+    "ncaa_scoreboard_2026_09_06",
+    "ncaa_contest_6602874",
+    "ncaa_contest_6620581"
+  ],
+  "predecessor_cycle27_capture_class": "EARLY_NON_CHECKPOINT_EVIDENCE",
+  "relabeled_early_as_t90m": false,
+  "schedule_capture_identity": "5b6f2993a839b64ef1e4ba02358e9511acb883c60995ddb69fc2b84701a785ff",
+  "sunday_outcomes_enter_monday_fitted_path": false,
+  "within_operational_window_minutes": 5
+}

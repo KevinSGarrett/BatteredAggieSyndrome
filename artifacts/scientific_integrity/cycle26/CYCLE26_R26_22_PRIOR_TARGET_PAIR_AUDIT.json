@@ -1,0 +1,174 @@
+{
+  "active_week1_path_imports_pit_bound": false,
+  "artifact_type": "CYCLE26_R26_22_PRIOR_TARGET_PAIR_AUDIT",
+  "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+  "census": {
+    "admitted_proxy_pairs": 27274659,
+    "clocked_12h_pairs": 4509816,
+    "date_only_plus_2d_pairs": 22764843,
+    "insufficient_start_pairs": 0,
+    "near_bound_examples": [
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:2065",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63837",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:243252065"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:2226",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63835",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:243040050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:2229",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63841",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:243322229"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:2447",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63831",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:242830050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:2542",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63833",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:242970050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:2634",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63827",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:242690050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:2676",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63828",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:242760050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:50",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63827",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:242690050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:50",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63828",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:242760050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:50",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63831",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:242830050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:50",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63833",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:242970050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:50",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63835",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:243040050"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:50",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63837",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:243252065"
+      },
+      {
+        "bound_epistemic_status": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+        "canonical_team_id": "SRC-002:TEAM:50",
+        "class": "PROXY_CLOCKED_12H",
+        "prior_game_id": "SRC-002:GAME:63841",
+        "proven_historical_known_at": false,
+        "target_game_id": "SRC-002:GAME:243322229"
+      }
+    ],
+    "near_bound_pairs": 14,
+    "not_admitted_pairs": 27274663,
+    "sealed_target_skips": 0,
+    "team_count": 343
+  },
+  "census_source": "NATIONAL_SPINE_MOUNTED",
+  "classification": "CONDITIONAL_CHRONOLOGY_PROXY_NOT_UNIVERSAL_GUARANTEE",
+  "consumers": [
+    {
+      "module": "src/aggie_analytics/data/national_pit_eligible_slice.py",
+      "owner": "BAT-667",
+      "proven_historical_known_at": false,
+      "role": "ADMITTED_PRIOR_FEATURE_SLICE",
+      "uses_bound_as": "COMPLETION_BOUND_FOR_PRIOR_ACCUMULATION"
+    },
+    {
+      "module": "src/aggie_analytics/data/historical_known_at_authority.py",
+      "owner": "BAT-666",
+      "proven_historical_known_at": false,
+      "role": "DOMAIN_AUTHORITY_CLASSIFICATION",
+      "uses_bound_as": "BOOLEAN_PROXY_NAMED_GUARANTEE_IN_PREDECESSOR_API"
+    },
+    {
+      "module": "src/aggie_analytics/data/week1_2026_game_grain_national_forecast_successor.py",
+      "owner": "BAT-690",
+      "proven_historical_known_at": false,
+      "role": "ACTIVE_WEEK1_PATH",
+      "uses_bound_as": "NONE_NO_IMPORT"
+    }
+  ],
+  "contract_id": "CYCLE26-R26-22-BOUND-AUTHORITY-PAIR-AUDIT-V1",
+  "gate_identity": "e77195d8d88eea55a4af86c7a32a40f857845a89b06a495b000ad7a6666d46c7",
+  "issued_at_utc": "2026-09-03T17:49:59Z",
+  "jira_key": "BAT-691",
+  "lane": "DEVELOPMENT_SUCCESSOR_UNTRUSTED_SHADOW",
+  "leakage_declared": false,
+  "leakage_note": "No row-level leakage is declared. Near-bound pairs are listed as conditional-proxy admissions, not as proven known-at or as leakage.",
+  "local_issue_id": "POST-TASK-R26-22-BOUND-AUTHORITY-PAIR-AUDIT-001",
+  "predecessor_contract_logical_guarantee_retained_for_hash": true,
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "result": "PASS_R26_22_PAIR_AUDIT_CONTAINED",
+  "schema_version": "aggie.data.cycle26_bound_authority_pair_audit.v1",
+  "scientific_nonclaims": [
+    "Does not rewrite BAT-666 or BAT-667 predecessor gates.",
+    "Does not upgrade +12h/+2d proxies to proven historical known-at.",
+    "Does not declare target-game leakage without a row trace.",
+    "Does not open the all-cycle trust gate or operator hold."
+  ],
+  "universal_finality_or_publication_guarantee": false
+}

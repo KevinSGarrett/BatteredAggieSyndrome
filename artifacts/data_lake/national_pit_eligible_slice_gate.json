@@ -7,7 +7,7 @@
   "authority": "EVERY_EMITTED_VALUE_IS_RECOMPUTED_FROM_BOUND_ADMISSIBLE_EVIDENCE_ONLY",
   "authority_predecessor_identity": "9bc7606a91ed985cd3f4ad3f0035ddd63962596d6fed22ebb9f1260d186dfd14",
   "bound_predecessor_identities": {
-    "national_pit_domain_admission_matrix_gate_identity": "9587189f975615f64b8c637019b9cd58d5bab59fe553cc2f6418e2bd8bb8657e",
+    "national_pit_domain_admission_matrix_gate_identity": "9e8a98b15949f27bb4f61d8c84c75c3635f9352a963897faef3ecf96f9ab463f",
     "national_tiered_game_spine_gate_identity": "675960bccf51a63a55e3155d1d3f6a02baa0d7c4e238f50987199397c7e1c50c"
   },
   "classification": "FIRST_NONZERO_NATIONAL_POINT_IN_TIME_ELIGIBLE_FEATURE_SLICE",
@@ -78,7 +78,7 @@
     "verdict": "FIRST_NONZERO_PIT_ELIGIBLE_SLICE_MATERIALIZED_WHILE_TWO_DOMAINS_STAY_BLOCKED",
     "why": "A nonzero slice now exists over the three audited domains, but rankings and the mutable venue attributes still lack any known-at authority, so the gap stays open and the protected lane stays closed."
   },
-  "gate_identity": "27d369100fc5dfb4b738e4c394b3c898004d50741e129c9d48df11c6df95059a",
+  "gate_identity": "dc163f2123608c5b4a7a56e906f5d587178798f1b5747f61cf024206781669b5",
   "jira_key": "BAT-667",
   "lane": "HISTORICAL_DEVELOPMENT_OBSERVATION_ONLY",
   "leakage_exposure": {

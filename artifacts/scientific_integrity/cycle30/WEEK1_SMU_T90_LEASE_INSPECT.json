@@ -1,0 +1,16 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "checkpoint": "T90M",
+  "contest_id": "6594400",
+  "expired_declared": true,
+  "expiry_utc": "2026-09-07T23:39:23Z",
+  "no_cycle30_takeover": true,
+  "no_new_scheduler_job": true,
+  "not_recaptured": true,
+  "owner_id": "C28_SMU_T90M_PRIMARY_PID_56060",
+  "path": "C:\\BatteredAggieSyndrome.data\\ops\\cycle29_work\\leases\\6594400__T90M\\LOCK\\lease.json",
+  "pid": 56060,
+  "present": true,
+  "sha256": "c88f5ad60662a387ea194375c8ca4ed2525a01f7279b9a43a3f71b5d76f5fa3a",
+  "t90_not_relabeled_on_time": true
+}

@@ -1,0 +1,7 @@
+{
+  "fitted_forecasts_remain_immutable_predecessor": true,
+  "successor_must_emit": [
+    "ABSTAIN_HISTORICAL_COMPETITION_GRAPH_INCOMPLETE",
+    "ABSTAIN_CROSS_SUBDIVISION_STRENGTH_NOT_ESTABLISHED"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "artifact_type": "CYCLE28_PREFLIGHT_AND_PRESERVATION",
+  "issued_at_utc": "2026-09-06T20:40:00Z",
+  "canonical_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "origin_main": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "cycle26_pr678_head": "4b6f823fc2a3cb73716a2081f562500066f211a6",
+  "cycle27_pr679_head": "c69a7db91c014f0dabe57dccfc3e479fa11b4ea3",
+  "cycle28_worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\cycle28-scr",
+  "cycle28_branch": "codex/cycle28-scr",
+  "restarted_from_main": false,
+  "git_reset_hard_used": false,
+  "pr654_untouched": true,
+  "operator_hold_active": true,
+  "fort_knox_operational_authority": false,
+  "integration_bundle_sha256": "93c3a7f54b10515698155129228c1c9aff48e81048187d42cf20ee2cba18cf69",
+  "integration_head": "cda5101f18dd9f7a9031993326a08f70fa76d820",
+  "physical_move_of_active_checkout": false,
+  "transfer_executed": false,
+  "week1_live_owners_killed": false
+}

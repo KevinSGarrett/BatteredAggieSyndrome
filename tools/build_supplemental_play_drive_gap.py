@@ -25,6 +25,7 @@ from aggie_analytics.data.play_drive import (  # noqa: E402
     normalize_play_candidate,
     stable_hash,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 EXPECTED_ACQUISITION_MANIFEST_SHA = "bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7"
@@ -64,7 +65,7 @@ def immutable_json(path: Path, value: object) -> None:
         if path.read_bytes() != payload:
             raise RuntimeError(f"immutable JSON collision: {path}")
         return
-    path.write_bytes(payload)
+    _bas_atomic.write_bytes(path, payload)
 
 
 def immutable_parquet(path: Path, rows: list[dict[str, Any]]) -> pa.Table:

@@ -1,0 +1,688 @@
+{
+  "artifact_type": "CYCLE27_LEASE_AND_RESTART_PLAN",
+  "issued_at_utc": "2026-09-06T00:25:52Z",
+  "as_of_utc": "2026-09-06T00:25:52Z",
+  "this_plan_does_not_kill_live_owners": true,
+  "saved_pid_alone_is_not_liveness": true,
+  "live_inventory_source": "CONFIRMED_PROCESS_COMMAND_LINE",
+  "do_not_kill_pids": [
+    21488,
+    24552,
+    26116,
+    32588,
+    33332,
+    49612
+  ],
+  "atomic_lease_module": {
+    "ops_runtime": "C:/BatteredAggieSyndrome.data/ops/cycle27/checkpoint_lease.py",
+    "versioned_source": "src/aggie_analytics/operations/checkpoint_lease.py",
+    "injectable_lease_root": true,
+    "stale_owner_requires_verified_recovery": true,
+    "age_delete_forbidden": true,
+    "start_is_not_completion": true
+  },
+  "failover_policy": "src/aggie_analytics/operations/checkpoint_failover_policy.py",
+  "current_owners": {
+    "sun_t90m_20260906t0630z": {
+      "checkpoint": "SUN_T90M_20260906T0630Z",
+      "contest_ids": [
+        "6618941"
+      ],
+      "primary_pid": 32588,
+      "wake_utc": "2026-09-06T05:45:00Z",
+      "cutoff_utc": "2026-09-06T06:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sun_t90m_20260906t2200z": {
+      "checkpoint": "SUN_T90M_20260906T2200Z",
+      "contest_ids": [
+        "6602874",
+        "6620581"
+      ],
+      "primary_pid": 24552,
+      "wake_utc": "2026-09-06T21:15:00Z",
+      "cutoff_utc": "2026-09-06T22:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "mon_t90m_20260907t2200z": {
+      "checkpoint": "MON_T90M_20260907T2200Z",
+      "contest_ids": [
+        "6594400"
+      ],
+      "primary_pid": 33332,
+      "wake_utc": "2026-09-07T21:15:00Z",
+      "cutoff_utc": "2026-09-07T22:00:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "sun_t24h_20260906t2330z": {
+      "checkpoint": "SUN_T24H_20260906T2330Z",
+      "contest_ids": [
+        "6594400"
+      ],
+      "primary_pid": 26116,
+      "wake_utc": "2026-09-06T22:45:00Z",
+      "cutoff_utc": "2026-09-06T23:30:00Z",
+      "no_git_commit_from_sleeper": true,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "ledger_refresh": {
+      "pid": 21488,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "cluster_watchdog": {
+      "pid": 49612,
+      "liveness": "CONFIRMED_PROCESS_COMMAND_LINE"
+    },
+    "git_publication_coordinator": "CYCLE27_CURSOR_AGENT"
+  },
+  "restart_policy": {
+    "stale_pid_not_deleted_unconditionally": true,
+    "collision_holds_live_owner": true,
+    "expiry_without_verified_recovery_is_not_acquire": true,
+    "reused_pid_different_run_id_is_not_renew": true,
+    "start_log_or_lease_acquire_is_not_completion": true,
+    "git_publication_is_separate_from_capture": true,
+    "verified_recovery_operator": "CYCLE27_CURSOR_AGENT"
+  },
+  "saturday_t90_clusters_starting_2026_09_05T14_30Z": [
+    {
+      "cutoff_utc": "2026-09-05T14:30:00Z",
+      "kind": "T90M",
+      "contest_count": 10,
+      "contest_ids": [
+        "6590890",
+        "6593811",
+        "6594325",
+        "6601384",
+        "6611692",
+        "6611873",
+        "6613128",
+        "6617023",
+        "6620636",
+        "6620944"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T16:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T13:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6590890",
+        "6593811",
+        "6594325",
+        "6601384",
+        "6611692",
+        "6611873",
+        "6613128",
+        "6617023",
+        "6620636",
+        "6620944"
+      ],
+      "national_contest_count": 10,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T15:00:00Z",
+      "kind": "T90M",
+      "contest_count": 2,
+      "contest_ids": [
+        "6618687",
+        "6620092"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T16:30:00Z"
+      ],
+      "wake_utc": "2026-09-05T14:15:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6618687",
+        "6620092"
+      ],
+      "national_contest_count": 2,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T15:15:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6593392"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T16:45:00Z"
+      ],
+      "wake_utc": "2026-09-05T14:30:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6593392"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T15:30:00Z",
+      "kind": "T90M",
+      "contest_count": 3,
+      "contest_ids": [
+        "6583220",
+        "6583331",
+        "6600846"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T17:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T14:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6583220",
+        "6583331",
+        "6600846"
+      ],
+      "national_contest_count": 3,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T16:30:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6598117"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T18:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T15:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6598117"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T17:00:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6612588"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T18:30:00Z"
+      ],
+      "wake_utc": "2026-09-05T16:15:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6612588"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T17:30:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6620448"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T19:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T16:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6620448"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T18:00:00Z",
+      "kind": "T90M",
+      "contest_count": 11,
+      "contest_ids": [
+        "6583392",
+        "6585877",
+        "6587707",
+        "6592568",
+        "6594109",
+        "6600254",
+        "6604408",
+        "6607271",
+        "6608932",
+        "6610894",
+        "6611505"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T19:30:00Z"
+      ],
+      "wake_utc": "2026-09-05T17:15:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6583392",
+        "6585877",
+        "6587707",
+        "6592568",
+        "6594109",
+        "6600254",
+        "6604408",
+        "6607271",
+        "6608932",
+        "6610894",
+        "6611505"
+      ],
+      "national_contest_count": 11,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T18:15:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6582887"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T19:45:00Z"
+      ],
+      "wake_utc": "2026-09-05T17:30:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6582887"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T18:45:00Z",
+      "kind": "T90M",
+      "contest_count": 2,
+      "contest_ids": [
+        "6582881",
+        "6587775"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T20:15:00Z"
+      ],
+      "wake_utc": "2026-09-05T18:00:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6582881",
+        "6587775"
+      ],
+      "national_contest_count": 2,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T19:30:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6593076"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T21:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T18:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6593076"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T20:30:00Z",
+      "kind": "T90M",
+      "contest_count": 2,
+      "contest_ids": [
+        "6590855",
+        "6607433"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T22:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T19:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6590855",
+        "6607433"
+      ],
+      "national_contest_count": 2,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T21:30:00Z",
+      "kind": "T90M",
+      "contest_count": 13,
+      "contest_ids": [
+        "6586106",
+        "6586326",
+        "6587284",
+        "6588730",
+        "6590807",
+        "6591589",
+        "6593153",
+        "6596114",
+        "6606172",
+        "6607349",
+        "6609172",
+        "6620458",
+        "6620478"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T23:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T20:45:00Z",
+      "am_contest_excluded_from_national_owner": true,
+      "national_contest_ids": [
+        "6586106",
+        "6586326",
+        "6587284",
+        "6588730",
+        "6590807",
+        "6591589",
+        "6593153",
+        "6596114",
+        "6606172",
+        "6609172",
+        "6620458",
+        "6620478"
+      ],
+      "national_contest_count": 12,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": "AM_T90M",
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T22:00:00Z",
+      "kind": "T90M",
+      "contest_count": 5,
+      "contest_ids": [
+        "6586022",
+        "6589809",
+        "6590386",
+        "6590505",
+        "6614741"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T23:30:00Z"
+      ],
+      "wake_utc": "2026-09-05T21:15:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6586022",
+        "6589809",
+        "6590386",
+        "6590505",
+        "6614741"
+      ],
+      "national_contest_count": 5,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T22:15:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6583172"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-05T23:45:00Z"
+      ],
+      "wake_utc": "2026-09-05T21:30:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6583172"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T22:30:00Z",
+      "kind": "T90M",
+      "contest_count": 5,
+      "contest_ids": [
+        "6583582",
+        "6587672",
+        "6589595",
+        "6589953",
+        "6596257"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-06T00:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T21:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6583582",
+        "6587672",
+        "6589595",
+        "6589953",
+        "6596257"
+      ],
+      "national_contest_count": 5,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-05T23:30:00Z",
+      "kind": "T90M",
+      "contest_count": 2,
+      "contest_ids": [
+        "6616987",
+        "6620513"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-06T01:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T22:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6616987",
+        "6620513"
+      ],
+      "national_contest_count": 2,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-06T00:00:00Z",
+      "kind": "T90M",
+      "contest_count": 2,
+      "contest_ids": [
+        "6605119",
+        "6618489"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-06T01:30:00Z"
+      ],
+      "wake_utc": "2026-09-05T23:15:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6605119",
+        "6618489"
+      ],
+      "national_contest_count": 2,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-06T00:30:00Z",
+      "kind": "T90M",
+      "contest_count": 2,
+      "contest_ids": [
+        "6592700",
+        "6607878"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-06T02:00:00Z"
+      ],
+      "wake_utc": "2026-09-05T23:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6592700",
+        "6607878"
+      ],
+      "national_contest_count": 2,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-06T01:00:00Z",
+      "kind": "T90M",
+      "contest_count": 2,
+      "contest_ids": [
+        "6603305",
+        "6605164"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-06T02:30:00Z"
+      ],
+      "wake_utc": "2026-09-06T00:15:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6603305",
+        "6605164"
+      ],
+      "national_contest_count": 2,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-06T06:30:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6618941"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-06T08:00:00Z"
+      ],
+      "wake_utc": "2026-09-06T05:45:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6618941"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-06T22:00:00Z",
+      "kind": "T90M",
+      "contest_count": 2,
+      "contest_ids": [
+        "6602874",
+        "6620581"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-06T23:30:00Z"
+      ],
+      "wake_utc": "2026-09-06T21:15:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6602874",
+        "6620581"
+      ],
+      "national_contest_count": 2,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    },
+    {
+      "cutoff_utc": "2026-09-07T22:00:00Z",
+      "kind": "T90M",
+      "contest_count": 1,
+      "contest_ids": [
+        "6594400"
+      ],
+      "kickoff_bound_utc": [
+        "2026-09-07T23:30:00Z"
+      ],
+      "wake_utc": "2026-09-07T21:15:00Z",
+      "am_contest_excluded_from_national_owner": false,
+      "national_contest_ids": [
+        "6594400"
+      ],
+      "national_contest_count": 1,
+      "planned_national_owner": "CYCLE27_SATURDAY_T90M_NATIONAL",
+      "am_owner_if_present": null,
+      "do_not_duplicate_am_pids": true
+    }
+  ],
+  "sunday_monday_ownership_plan": {
+    "git_publication_coordinator": "CYCLE27_CURSOR_AGENT",
+    "note": "Sunday 23:30Z and Monday 23:30Z contests remain NOT_OPEN at Friday T90. Arm dedicated owners before those windows. Do not reuse A&M T-90M owners for national clusters.",
+    "sunday": [
+      {
+        "ncaa_contest_id": "6602874",
+        "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+        "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+        "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+        "t24h_wake_utc": "2026-09-05T22:45:00Z",
+        "t90m_wake_utc": "2026-09-06T21:15:00Z",
+        "do_not_use_am_sleeper_pids": true,
+        "planned_owner": "CYCLE27_CURSOR_AGENT"
+      },
+      {
+        "ncaa_contest_id": "6620581",
+        "kickoff_bound_utc": "2026-09-06T23:30:00Z",
+        "t24h_cutoff_utc": "2026-09-05T23:30:00Z",
+        "t90m_cutoff_utc": "2026-09-06T22:00:00Z",
+        "t24h_wake_utc": "2026-09-05T22:45:00Z",
+        "t90m_wake_utc": "2026-09-06T21:15:00Z",
+        "do_not_use_am_sleeper_pids": true,
+        "planned_owner": "CYCLE27_CURSOR_AGENT"
+      }
+    ],
+    "monday": [
+      {
+        "ncaa_contest_id": "6594400",
+        "kickoff_bound_utc": "2026-09-07T23:30:00Z",
+        "t24h_cutoff_utc": "2026-09-06T23:30:00Z",
+        "t90m_cutoff_utc": "2026-09-07T22:00:00Z",
+        "t24h_wake_utc": "2026-09-06T22:45:00Z",
+        "t90m_wake_utc": "2026-09-07T21:15:00Z",
+        "do_not_use_am_sleeper_pids": true,
+        "planned_owner": "CYCLE27_CURSOR_AGENT"
+      }
+    ]
+  },
+  "note": "Remaining Saturday T90 national clusters start 2026-09-05T14:30Z. A&M contest 6607349 stays on confirmed live A&M T90 owners; do not duplicate the 21:30Z national cluster."
+}

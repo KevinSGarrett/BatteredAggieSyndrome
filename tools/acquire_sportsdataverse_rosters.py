@@ -16,6 +16,7 @@ from aggie_analytics.data.adapters import (
     ResilientAcquirer,
     RetryPolicy,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 from aggie_analytics.data.http import PublicHTTPTransport
 from aggie_analytics.data.snapshots import RawSnapshotStore
 
@@ -52,7 +53,7 @@ def write_immutable_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + f".tmp-{os.getpid()}")
     try:
-        temporary.write_bytes(payload)
+        _bas_atomic.write_bytes(temporary, payload)
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)

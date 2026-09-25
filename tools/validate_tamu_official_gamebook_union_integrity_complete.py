@@ -17,6 +17,7 @@ from aggie_analytics.data.tamu_official_gamebook_union_2004_expanded import (  #
     union_manifest_path as bat607_union_manifest_path,
     validate_artifact as validate_bat607,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 from aggie_analytics.data.tamu_official_gamebook_union_2005_integrity_bound import (  # noqa: E402
     PINNED_UNION_IDENTITY as PINNED_BAT603_UNION_IDENTITY,
     union_manifest_path as bat603_union_manifest_path,
@@ -79,13 +80,13 @@ def _temporarily_moved(path: Path) -> Iterator[Path]:
 def _temporarily_written(path: Path, payload: Any) -> Iterator[None]:
     original = path.read_bytes()
     if isinstance(payload, (bytes, bytearray)):
-        path.write_bytes(payload)
+        _bas_atomic.write_bytes(path, payload)
     else:
         write_json(path, payload)
     try:
         yield
     finally:
-        path.write_bytes(original)
+        _bas_atomic.write_bytes(path, original)
 
 
 def main() -> int:
@@ -171,7 +172,7 @@ def main() -> int:
             )
         )
         extra_path = bat607_path.with_name("extra_manifest.json")
-        extra_path.write_text("{}\n", encoding="utf-8")
+        _bas_atomic.write_text(extra_path, "{}\n", encoding="utf-8")
         try:
             mutations.append(
                 expect_rejection(

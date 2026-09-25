@@ -16,6 +16,16 @@ from typing import Any, Callable
 import fitz
 import pyarrow as pa
 import pyarrow.parquet as pq
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 
 EXPECTED_SIGNAL_POLICY_SHA256 = "df0771c8032cd9dc9eaaf1ffcadc03e21727d486991a75116d3aa250c6050c54"
@@ -434,7 +444,7 @@ def main() -> int:
     }
     report["validation_id"] = "val_" + stable_hash(report)[:24]
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(
+    _bas_atomic.write_text(args.output, 
         json.dumps(report, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
         newline="\n",

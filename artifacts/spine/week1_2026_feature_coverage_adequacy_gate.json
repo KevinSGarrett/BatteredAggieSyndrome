@@ -29,8 +29,8 @@
     "feature_spine_snapshot_issuance_utc": "2026-08-31T11:10:46.119883Z",
     "frozen_candidate_gate_identity": "38e166a50f0ce66f29cc5a233e6a2bb5e069fa42763bcb2b48eb6d480bc8ab24",
     "frozen_candidate_gate_sha256": "9142cf8a57b629c3b0b396411a01d8db5a8667610e0f179c379aa25ad9ff05d5",
-    "week1_schedule_identity_gate_identity": "c0270e716eaf467e6f4b370d48cfc32edfb008c1d5cce9c72e6d9fec0aab1c18",
-    "week1_schedule_identity_gate_sha256": "436a54e56cadc9528f6bf14adda06a9a62cf32824ea84a9341378f3d1390077d"
+    "week1_schedule_identity_gate_identity": "3682897882697fc939f23f79706ff37a46e8cf870f1f8432cdd51f55c13831cc",
+    "week1_schedule_identity_gate_sha256": "e252381520449cc786e6797a210e599d24609924f6a4e62f45165ac2aafbce21"
   },
   "candidate_feature_requirements": [
     {
@@ -123,7 +123,7 @@
     "NO_PROTECTED_SEASON_RESULT_IS_ADMITTED",
     "NO_CALIBRATION_OR_PERFORMANCE_CLAIM"
   ],
-  "execution_time_utc": "2026-08-31T11:24:51.882975Z",
+  "execution_time_utc": "2026-09-09T23:14:22.566428Z",
   "focus_contest_report": {
     "adequacy_state": "PARTIAL_MODEL_INPUT",
     "admitted_domain_count": 4,
@@ -181,15 +181,15 @@
     "national_percentile_position": 0.0,
     "ncaa_contest_id": "6607349"
   },
-  "gate_identity": "c411192f556c8d44fafff8843bc450634ad5111ecd26ded57e3fbd17fdd8e729",
+  "gate_identity": "a680b72732929f2ebdaa81632787508df2c4705f8f027571371cdb56d37d593c",
   "jira_key": "BAT-678",
   "lane": "PROSPECTIVE_SHADOW_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-2026-WEEK1-FEATURE-COVERAGE-ADEQUACY-001",
   "manifest": {
     "bulk_payloads_in_git": false,
-    "dataset_identity": "200b3cb594dfca5cd04331fa07a1e3d3005b4d40a33b3b1b457413cc78dc1624",
-    "relative_path": "manifests/week1_2026_feature_coverage_adequacy/sha256/200b3cb594dfca5cd04331fa07a1e3d3005b4d40a33b3b1b457413cc78dc1624/week1_2026_feature_coverage_adequacy_manifest.json",
-    "sha256": "25b7d96f5c95108145a34be6bd08e6c948ebe2b5bf2903d5f17a409f434b54e9"
+    "dataset_identity": "ed4793d97df7ba71674702ad2b96c6c91edf84ebcc50cd09b95bf76eb15e9a60",
+    "relative_path": "manifests/week1_2026_feature_coverage_adequacy/sha256/ed4793d97df7ba71674702ad2b96c6c91edf84ebcc50cd09b95bf76eb15e9a60/week1_2026_feature_coverage_adequacy_manifest.json",
+    "sha256": "3e74ae119a7ac381dce14d1ff40b5621a4fd8d014e7f75581a27bfaf852a9a95"
   },
   "parent_jira_key": "BAT-523",
   "payload_root_sha256": "f6cb86f2e29b6912e4e88ef1eecf6c2f464e73309ff3f5931314457f7c4b45e1",

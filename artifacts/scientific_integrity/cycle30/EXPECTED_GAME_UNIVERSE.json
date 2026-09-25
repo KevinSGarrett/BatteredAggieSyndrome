@@ -1,0 +1,9 @@
+{
+  "artifact_type": "EXPECTED_GAME_UNIVERSE",
+  "canceled_postponed_forfeit_or_no_contest": 0,
+  "expected_count": 9924,
+  "identity": "83fe56a336db9654ac9d0e508ca54ec66f0f8bdf605235802b59b07ecd405c71",
+  "membership_n": 266,
+  "observed_fbs_route_is_numerator_only": true,
+  "outside_opponent_games_retained": 895
+}

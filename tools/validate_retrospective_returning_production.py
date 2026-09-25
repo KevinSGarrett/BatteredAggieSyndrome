@@ -20,6 +20,7 @@ from aggie_analytics.features.returning_production import (  # noqa: E402
     materialize,
     sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def _polars() -> Any:
@@ -208,7 +209,7 @@ def main() -> int:
         "cleanup": {"rebuild_removed": not rebuild_root.exists()},
     }
     args.report_path.parent.mkdir(parents=True, exist_ok=True)
-    args.report_path.write_text(
+    _bas_atomic.write_text(args.report_path, 
         json.dumps(report, sort_keys=True, separators=(",", ":")) + "\n",
         encoding="utf-8",
     )

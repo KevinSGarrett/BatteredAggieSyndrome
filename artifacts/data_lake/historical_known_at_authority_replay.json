@@ -2,9 +2,9 @@
   "artifact_type": "HISTORICAL_KNOWN_AT_AUTHORITY_REPLAY",
   "capture_identity": "89fdc4c8be4405ef4dd73fa8d4ae0c26aff3353393babcc45685f0463336a94a",
   "contract_id": "BAT-666-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-V1",
-  "gate_identity": "9bc7606a91ed985cd3f4ad3f0035ddd63962596d6fed22ebb9f1260d186dfd14",
+  "gate_identity": "bebfc4e0669f3834e5dd4075a4a4e079130af0dc3b3f033a0ffd9805973f543b",
   "gate_relative_path": "artifacts/data_lake/historical_known_at_authority_gate.json",
-  "matrix_gate_identity": "9587189f975615f64b8c637019b9cd58d5bab59fe553cc2f6418e2bd8bb8657e",
+  "matrix_gate_identity": "9e8a98b15949f27bb4f61d8c84c75c3635f9352a963897faef3ecf96f9ab463f",
   "reproduction": [
     "python tools/acquire_historical_known_at_publication_routes.py --repo-root . --data-root <data-root> --env-file <env> --issued-at-utc <now>",
     "python tools/build_historical_known_at_authority_audit.py --repo-root . --data-root <data-root>",

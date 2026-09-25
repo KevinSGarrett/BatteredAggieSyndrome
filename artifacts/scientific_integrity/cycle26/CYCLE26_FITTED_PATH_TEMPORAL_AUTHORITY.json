@@ -1,0 +1,47 @@
+{
+  "artifact_type": "CYCLE26_FITTED_PATH_TEMPORAL_AUTHORITY",
+  "assessment": {
+    "ACTIVE_PATH_CORRECTNESS_CLAIM": false,
+    "conservative_bound_domains": 2,
+    "observed_effective_domains": 0,
+    "observed_publication_domains": 0,
+    "operational_pit_admission_allowed": false,
+    "predecessor_pit_boolean_ignored": true,
+    "primary_blocker": "OBSERVED_PUBLICATION_TIMESTAMP=0 and OBSERVED_EFFECTIVE_TIMESTAMP=0; deployment fit remains a chronology-proxy experiment",
+    "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+    "proven_pit_domains": 0,
+    "proven_pit_training_row_count": 0,
+    "publication_label": "UNTRUSTED_SHADOW",
+    "reduced_feature_refit_performed": false,
+    "refit_without_proxy_pairs_possible": false,
+    "training_row_count": 90198,
+    "week1_payloads_rewritten": false
+  },
+  "bound_predecessors": {
+    "authority_gate_identity": "9bc7606a91ed985cd3f4ad3f0035ddd63962596d6fed22ebb9f1260d186dfd14",
+    "pair_audit_gate_identity": "e77195d8d88eea55a4af86c7a32a40f857845a89b06a495b000ad7a6666d46c7",
+    "predecessor_payloads_rewritten_in_place": false,
+    "suite_gate_identity": "ad38d36f0e44f51702768223aac264842ef7676ce7b08645274e7acb6e160366",
+    "week1_successor_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43"
+  },
+  "classification": "FITTED_PATH_CHRONOLOGY_PROXY_NOT_PROVEN_PIT",
+  "contract_id": "CYCLE26-WEEK1-2026-FITTED-PATH-TEMPORAL-AUTHORITY-V1",
+  "gate_identity": "8abf30a34a7e59b27782d9d152461273120ee19695e0d8f2e324faf1dc039e8e",
+  "issued_at_utc": "2026-09-04T03:44:12Z",
+  "jira_key": "BAT-690",
+  "lane": "DEVELOPMENT_SUCCESSOR_UNTRUSTED_SHADOW",
+  "local_issue_id": "POST-TASK-ACTIVE-NATIONAL-FORECAST-SCIENTIFIC-CORRECTNESS-RECOVERY-001",
+  "parent_jira_key": "BAT-523",
+  "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "result": "PASS_FITTED_PATH_TEMPORAL_AUTHORITY_CONTAINED",
+  "schema_version": "aggie.data.week1_2026_fitted_path_temporal_authority.v1",
+  "scientific_nonclaims": [
+    "Does not rewrite BAT-666 or BAT-667 predecessor gates.",
+    "Does not upgrade +12h/+2d proxies to proven historical known-at.",
+    "Does not refit a reduced-feature candidate as the same ridge identity.",
+    "Does not rewrite Week 1 forecast payloads.",
+    "Does not open the all-cycle trust gate or operator hold.",
+    "Does not establish ACTIVE_PATH_CORRECTNESS_VERIFIED."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "COACHING_STRATIFIED_RAW_SAMPLE",
+  "counts_are_not_content_validation": true,
+  "expanded_failed_families": [],
+  "failure_count": 0,
+  "family_count": 3,
+  "sample_count": 6
+}

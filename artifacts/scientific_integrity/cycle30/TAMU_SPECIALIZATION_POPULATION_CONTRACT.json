@@ -1,0 +1,14 @@
+{
+  "artifact_type": "TAMU_SPECIALIZATION_POPULATION_CONTRACT",
+  "canonical_program_id": "SRC-NCAA-OFFICIAL-STATS:ORG:697",
+  "display_name": "Texas A&M",
+  "display_name_is_not_canonical": true,
+  "is_national_population": false,
+  "observation_cannot_create_denominator": true,
+  "parent_current_population_identity": "280a0138587a3108c84d758c0b90e74d554ae20004741e0a9ac3577180bee390",
+  "parent_historical_population_identity": "8ac949ef3ecbdbc560bb8080e2f302cbd000ab96437dfafef9f1a14165d1c574",
+  "study_period": [
+    1963,
+    2026
+  ]
+}

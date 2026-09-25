@@ -16,6 +16,7 @@ from aggie_analytics.assistive_plane.cpu_worker_backend import (  # noqa: E402
     MAX_RECORDS,
     MAX_TEXT_BYTES,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 from aggie_analytics.assistive_plane.inventory_runtime import (  # noqa: E402
     CPU_LINE_HASH_SCHEMA_SHA256,
     CPU_LINE_HASH_TASK_FORMAT,
@@ -118,7 +119,7 @@ def main() -> int:
     )
     temporary_packet.parent.mkdir(parents=True, exist_ok=True)
     try:
-        temporary_packet.write_text(
+        _bas_atomic.write_text(temporary_packet, 
             json.dumps(packet, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n",
             encoding="utf-8",
         )

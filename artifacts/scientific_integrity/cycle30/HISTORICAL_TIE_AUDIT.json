@@ -1,0 +1,13 @@
+{
+  "affected_consumers": [
+    "binary_win_estimand",
+    "kernel_model",
+    "week1_directional_skill"
+  ],
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "HISTORICAL_TIE_AUDIT",
+  "silent_home_loss_mapping_forbidden": true,
+  "tie_count": 490,
+  "tie_game_ids_sha256": "03e831ecaebb490d5a8ec266bc3fa1275069b5e80caae22d2da522584cec6548",
+  "tie_policy": "EXCLUDE_TIES_FROM_BINARY_ESTIMAND"
+}

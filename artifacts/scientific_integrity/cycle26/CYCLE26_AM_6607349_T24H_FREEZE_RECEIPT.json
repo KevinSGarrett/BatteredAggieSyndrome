@@ -1,0 +1,35 @@
+{
+  "artifact_type": "CYCLE26_AM_6607349_T24H_FREEZE_RECEIPT",
+  "issued_at_utc": "2026-09-04T22:19:40Z",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "git_tip_at_issuance": "3fcc710438a75f15abc23392c6136ac077f25e7b",
+  "ncaa_contest_id": "6607349",
+  "checkpoint_label": "T-24H",
+  "contest_cutoff_utc": "2026-09-04T23:00:00Z",
+  "earliest_cutoff_utc": "2026-09-04T23:00:00Z",
+  "capture_window_open_utc": "2026-09-04T22:00:00Z",
+  "coverage": "EXACT_EARLIEST_CLUSTER",
+  "freeze_at_utc": "2026-09-04T22:19:40Z",
+  "label_authority": "AM_T24H_LABEL_PERMITTED_FOR_BOUND_CONTEST_WINDOW",
+  "capture_log": "C:\\BatteredAggieSyndrome.data\\ops\\cycle26\\CYCLE26_CAPTURE_RUN_20260904T221500Z.log",
+  "capture_identities": {
+    "schedule": "1f696d58dd5ad6039882e263b9e5d4daae815499cf896f7936011e1e00b0d19a",
+    "kickoff-authority": "c1ef2ac54a5174027ee242c961306ef297d04f3008466e10386f0cb5c6d10b8d",
+    "entity-authority": "b0ee0970aa194c836a6432c1f55b0b75a5556388138e7bf79c90d094ea046175",
+    "venue-authority": "e7a287eb8d181703fe163d6acd217a08fdd1cb8318999f4b307908ba9b1de531",
+    "rankings": "444a5ac3b8c6f28b93bbd1b8a90168e6f6840f2760d1eea3ca0a0313449ca02f",
+    "weather": "e130dec5187b28387c869b3cb716214e49191421750251cba45b8b8a163c5102"
+  },
+  "eligibility_ledger_row": {
+    "ncaa_contest_id": "6607349",
+    "kickoff_bound_utc": "2026-09-05T23:00:00Z",
+    "t24h_cutoff_utc": "2026-09-04T23:00:00Z",
+    "t90m_cutoff_utc": "2026-09-05T21:30:00Z",
+    "t24h_state": "OPEN",
+    "t90m_state": "ELIGIBLE_FOR_LABEL_IF_CAPTURE_COMPLETE",
+    "abstention_reasons": []
+  },
+  "forecast_frozen": false,
+  "raw_collection_is_not_forecast_frozen": true,
+  "note": "A&M 6607349 T24H label requires freeze by contest cutoff; national window receipts remain separate artifacts. This is EVIDENCE_CAPTURED, not FORECAST_FROZEN."
+}

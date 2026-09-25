@@ -23,6 +23,7 @@ from aggie_analytics.data.action_play_summary import (  # noqa: E402
     stable_hash,
     summary_group_key,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def sha256_file(path: Path) -> str:
@@ -48,7 +49,7 @@ def immutable_json(path: Path, value: object) -> None:
         if path.read_bytes() != payload:
             raise RuntimeError(f"immutable JSON collision: {path}")
         return
-    path.write_bytes(payload)
+    _bas_atomic.write_bytes(path, payload)
 
 
 def immutable_parquet(path: Path, rows: list[dict[str, Any]]) -> pa.Table:

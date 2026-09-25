@@ -2564,11 +2564,65 @@ def _evolving_evidence_path(entry: Mapping[str, Any]) -> str:
 
 
 def _entry_cycle_int(entry: Mapping[str, Any]) -> int | None:
+    value = entry.get("cycle")
+    if isinstance(value, bool):
+        return None
     try:
-        cycle = int(entry.get("cycle"))
+        if isinstance(value, float) and not value.is_integer():
+            return None
+        cycle = int(value)
     except (TypeError, ValueError):
         return None
     return cycle if cycle > 0 else None
+
+
+CANONICAL_CYCLE_RE = re.compile(r"(?:CYCLE-)?([1-9][0-9]*)(?:\.([0-9]+))?")
+
+
+def _parse_canonical_cycle(value: Any) -> tuple[int, int] | None:
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, int):
+        return (value, 0) if value > 0 else None
+    match = CANONICAL_CYCLE_RE.fullmatch(str(value).strip().upper())
+    if not match:
+        return None
+    return int(match.group(1)), int(match.group(2) or 0)
+
+
+def _format_canonical_cycle(key: tuple[int, int]) -> str:
+    return f"CYCLE-{key[0]}" + (f".{key[1]}" if key[1] else "")
+
+
+def _cycle_attributions(ledger: Mapping[str, Any]) -> dict[tuple[str, str], tuple[int, int]]:
+    """Canonical cycle identity that a CYCLE_IDENTITY_ATTRIBUTION supersession assigns to a stored comment."""
+
+    attributions: dict[tuple[str, str], tuple[int, int]] = {}
+    for row in ledger.get("supersessions") or []:
+        if str(row.get("supersession_kind") or "").strip() != "CYCLE_IDENTITY_ATTRIBUTION":
+            continue
+        parsed = _parse_canonical_cycle(row.get("canonical_cycle_id"))
+        if parsed is not None:
+            key = (str(row.get("jira_key") or "").strip(), str(row.get("original_comment_id") or "").strip())
+            attributions[key] = parsed
+    return attributions
+
+
+def _entry_canonical_cycle(
+    entry: Mapping[str, Any], attributions: Mapping[tuple[str, str], tuple[int, int]]
+) -> tuple[int, int] | None:
+    key = (str(entry.get("jira_key") or "").strip(), str(entry.get("comment_id") or "").strip())
+    if key in attributions:
+        return attributions[key]
+    explicit = entry.get("canonical_cycle_id")
+    if explicit not in (None, ""):
+        return _parse_canonical_cycle(explicit)
+    value = entry.get("cycle")
+    if isinstance(value, float):
+        if not value.is_integer():
+            return None
+        value = int(value)
+    return _parse_canonical_cycle(value)
 
 
 def _merge_sha_reachable_from_head(repo_root: Path, merge_sha: str) -> bool:
@@ -2637,6 +2691,16 @@ def _validate_progress_supersessions(
             findings.append(f"supersession comment SHA mismatch {jira_key}/{comment_id}")
         if str(match.get("local_issue_id") or "").strip() != str(row.get("local_issue_id") or "").strip():
             findings.append(f"supersession local issue mismatch {jira_key}/{comment_id}")
+        kind = str(row.get("supersession_kind") or "").strip()
+        if kind == "CYCLE_IDENTITY_ATTRIBUTION":
+            canonical = str(row.get("canonical_cycle_id") or "").strip()
+            if canonical != "CYCLE-25.5":
+                findings.append(
+                    f"supersession canonical cycle invalid {jira_key}/{comment_id}"
+                )
+            if row.get("historical_comment_immutable") is not True:
+                findings.append(f"supersession must declare immutable historical comment {jira_key}/{comment_id}")
+            continue
         posted_sha = str(row.get("posted_cycle_end_sha") or "").strip().lower()
         final_sha = str(row.get("final_cycle_end_sha") or "").strip().lower()
         if not _is_hex(posted_sha, 40):
@@ -2651,7 +2715,10 @@ def _validate_progress_supersessions(
             findings.append(f"supersession requires distinct posted and final cycle SHAs {jira_key}/{comment_id}")
         if row.get("historical_comment_immutable") is not True:
             findings.append(f"supersession must declare immutable historical comment {jira_key}/{comment_id}")
-        if str(row.get("supersession_kind") or "").strip() != "HISTORICAL_COMMENT_END_SHA_CORRECTION":
+        if kind not in {
+            "HISTORICAL_COMMENT_END_SHA_CORRECTION",
+            "CYCLE_IDENTITY_ATTRIBUTION",
+        }:
             findings.append(f"supersession kind invalid {jira_key}/{comment_id}")
     return findings
 
@@ -2677,16 +2744,17 @@ def validate_authority_progress_comment_ledger_static(
     ):
         findings.append("authority progress ledger v2 evidence-authority rule is invalid")
     comments = list(working_ledger.get("comments") or [])
+    attributions = _cycle_attributions(working_ledger)
     seen_comment_ids: set[str] = set()
-    seen_cycles: set[tuple[str, str, int]] = set()
+    seen_cycles: set[tuple[str, str, tuple[int, int]]] = set()
     seen_snapshot_ids: set[tuple[str, str, str]] = set()
-    previous_cycle_by_parent: dict[tuple[str, str, str], int] = {}
+    previous_cycle_by_parent: dict[tuple[str, str, str], tuple[int, int]] = {}
     owner_cache: dict[Path, tuple[str, str]] = {}
     for entry in comments:
         jira_key = str(entry.get("jira_key") or "").strip()
         local_issue_id = str(entry.get("local_issue_id") or "").strip()
         comment_id = str(entry.get("comment_id") or "").strip()
-        cycle = _entry_cycle_int(entry)
+        cycle = _entry_canonical_cycle(entry, attributions)
         merge_sha = str(entry.get("material_merge_sha") or "").strip().lower()
         immutable_path = str(entry.get("immutable_evidence_snapshot_path") or "").strip()
         immutable_sha = str(entry.get("immutable_evidence_snapshot_sha256") or "").strip().lower()
@@ -2710,7 +2778,7 @@ def validate_authority_progress_comment_ledger_static(
         seen_comment_ids.add(comment_id)
         cycle_key = (jira_key, local_issue_id, cycle)
         if cycle_key in seen_cycles:
-            findings.append(f"duplicate cycle {cycle} for {jira_key}/{local_issue_id}")
+            findings.append(f"duplicate cycle {_format_canonical_cycle(cycle)} for {jira_key}/{local_issue_id}")
         seen_cycles.add(cycle_key)
         snapshot_key = (jira_key, local_issue_id, immutable_sha)
         if snapshot_key in seen_snapshot_ids:

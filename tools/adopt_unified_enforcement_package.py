@@ -7,6 +7,16 @@ import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -186,7 +196,7 @@ def main() -> int:
         "scientific_authority": False,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(
+    _bas_atomic.write_text(args.output, 
         json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
         encoding="utf-8",
         newline="\n",

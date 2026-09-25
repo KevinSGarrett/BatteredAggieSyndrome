@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from aggie_analytics.temporal.play_drive_pit import canonical_json_bytes, parse_utc, sha256_file, stable_hash
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def _polars() -> Any:
@@ -220,5 +221,5 @@ def materialize(*, input_data_root: Path, output_data_root: Path, repo_root: Pat
         "scientific_nonclaims": {"historical_population_ready": False, "production_model_ready": False, "champion_promoted": False, "protected_performance_claimed": False, "tamu_specialization_lift_claimed": False, "bas_or_aggie_excess_result_claimed": False, "coaching_or_causal_effect_claimed": False},
     }
     manifest_path = manifest_root / "run_manifest.json"
-    manifest_path.write_bytes(canonical_json_bytes(manifest) + b"\n")
+    _bas_atomic.write_bytes(manifest_path, canonical_json_bytes(manifest) + b"\n")
     return {"dataset_identity": dataset_identity, "manifest_path": str(manifest_path), "manifest_sha256": sha256_file(manifest_path), "manifest": manifest}

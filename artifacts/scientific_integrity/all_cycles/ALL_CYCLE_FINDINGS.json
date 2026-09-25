@@ -120,13 +120,15 @@
       "cycles": [
         25
       ],
-      "disposition": "BLOCKED_INSUFFICIENT_EVIDENCE",
+      "disposition": "REPRODUCIBLE_ONLY",
       "evidence": [
-        "calendar 2026-09-04 / 2026-09-05"
+        "artifacts/scientific_integrity/cycle26/CYCLE26_WEEK1_CAPTURE_RECEIPT.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_SEP3_T90M_FREEZE_RECEIPT.json",
+        "artifacts/scientific_integrity/cycle26/CYCLE26_SEP4_WINDOW_T24H_FREEZE_RECEIPT.json"
       ],
-      "finding_id": "P2-T24H-T90M-STILL-OPEN",
+      "finding_id": "P2-REMAINING-OPEN-CHECKPOINTS-PLANNED",
       "severity": "P2",
-      "summary": "T-24H and T-90M deadlines have not occurred; capture remains OPEN and must not be backfilled."
+      "summary": "Remaining A&M T-24H 2026-09-04T23:00:00Z and T-90M 2026-09-05T21:30:00Z are OPEN planned checkpoints, not an integrity defect. Sep 3 T-24H is MISSED_CUTOFF_NO_BACKFILL. Sep 3 T-90M and the Sep4-window T-24H were captured before their cutoffs. Do not backfill a missed checkpoint."
     },
     {
       "cycles": [
@@ -144,6 +146,6 @@
       "summary": "Declared national capture set is 990 (BAT-382 / POST-SUBTASK-044). Mounted raw/SRC-002 currently contains 980 files (63 under games/). The full 990-capture 2,550,148,419-byte archive was not rehashed because that exact capture set is not mounted as 990 files."
     }
   ],
-  "findings_identity": "1da4ffe26c6d37ac3a59ce066a0cae029466c80d115507b6d38f478dc4fae499",
+  "findings_identity": "d3c8d71e22c5d00e8abe5b98c8c866cd7f3c6cf0405abbd97858a3fcb2c0eecc",
   "schema_version": 1
 }

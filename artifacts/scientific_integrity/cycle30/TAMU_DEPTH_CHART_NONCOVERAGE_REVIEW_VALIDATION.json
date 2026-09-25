@@ -1,0 +1,46 @@
+{
+  "authority": {
+    "absence_not_fabricated_into_depth_chart": true,
+    "canonical_or_pit_admission": false,
+    "historical_publication_time_known": false,
+    "negative_findings_preserved": true,
+    "openai_visual_candidate_qa_eligible": true,
+    "source_derived_visual_review": true,
+    "training_or_protected_use_admission": false
+  },
+  "candidate_manifest_path": "C:\\BatteredAggieSyndrome.data\\manifests\\historical_known_at\\sha256\\2692b1ff8db82853419a1712dff7a020f47cd75cb8bfa70961e7c684371f8687\\tamu_depth_chart_noncoverage_review_manifest.json",
+  "candidate_manifest_sha256": "e1b91de031605b34c698cacdc1ea8dc41fe929443948a696fc35ce616f70f8b3",
+  "checks_failed": 0,
+  "classification_counts": {
+    "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART": 25
+  },
+  "dataset_identity": "2692b1ff8db82853419a1712dff7a020f47cd75cb8bfa70961e7c684371f8687",
+  "documents_reviewed": 25,
+  "errors": [],
+  "jira_unit": "POST-SUBTASK-181",
+  "mutation_controls": {
+    "classification": true,
+    "depth_heading": true,
+    "document_count": true,
+    "historical_timestamp": true,
+    "identity": true,
+    "image_hash": true,
+    "payload_hash": true,
+    "pit_admission": true
+  },
+  "mutation_controls_passed": 8,
+  "replay": {
+    "byte_identical_page_images": true,
+    "byte_identical_payload": true,
+    "dataset_identity": "2692b1ff8db82853419a1712dff7a020f47cd75cb8bfa70961e7c684371f8687",
+    "page_image_aggregate_identity": "55d3b3295a7eecb8dbd79a47f9b77e982fd4ec59e2b9cf8d1c3698b48843040a",
+    "payload_sha256": "4792e792dc485119b128cd7e37f6b5e53c74f2da272e6d10d9383a5170e8bca7"
+  },
+  "schema_version": "1.0.0",
+  "season_counts": {
+    "2022": 12,
+    "2023": 13
+  },
+  "status": "PASS",
+  "validation_id": "val_8ceedff7120878c253b6cb79"
+}

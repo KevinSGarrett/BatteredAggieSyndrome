@@ -4,6 +4,16 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 ROOT = Path(__file__).resolve().parents[1]
 NOW = "2026-09-01T18:30:00+00:00"
@@ -174,7 +184,7 @@ OWNERS = [
 
 
 def _dump(path: Path, payload: object) -> None:
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    _bas_atomic.write_text(path, json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> int:
@@ -238,7 +248,7 @@ def main() -> int:
         '"last_successful_sync": "2026-09-01T05:51:13.172233+00:00"',
         f'"last_successful_sync": "{NOW}"',
     )
-    profile_path.write_text(text, encoding="utf-8")
+    _bas_atomic.write_text(profile_path, text, encoding="utf-8")
     print(json.dumps({"auxiliary": len(registry["issues"]), "issues": 627}))
     return 0
 

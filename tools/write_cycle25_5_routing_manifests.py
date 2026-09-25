@@ -7,6 +7,16 @@ import hashlib
 import json
 import subprocess
 from pathlib import Path
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "24978a25035241285af93505febdc69dd5e51a92"
@@ -166,7 +176,7 @@ def main() -> int:
         "schema_version": 1,
         "work_unit_id": work_unit,
     }
-    (ROOT / "configs/cycle25_5_material_ownership_registry.json").write_bytes(
+    _bas_atomic.write_bytes(ROOT / "configs/cycle25_5_material_ownership_registry.json", 
         (json.dumps(registry, indent=2) + "\n").encode("utf-8")
     )
     waiver = {
@@ -199,7 +209,7 @@ def main() -> int:
         "work_unit_id": work_unit,
     }
     binding["decision_sha256"] = _sha(binding, "decision_sha256")
-    (ROOT / "configs/unified_assistive_change_routing_binding.json").write_bytes(
+    _bas_atomic.write_bytes(ROOT / "configs/unified_assistive_change_routing_binding.json", 
         (json.dumps(binding, indent=2, sort_keys=True) + "\n").encode("utf-8")
     )
     manifest = {
@@ -214,7 +224,7 @@ def main() -> int:
         "work_unit_id": work_unit,
     }
     manifest["manifest_identity"] = _sha(manifest, "manifest_identity")
-    (ROOT / "configs/codex_usage_interlock_change_manifest.json").write_bytes(
+    _bas_atomic.write_bytes(ROOT / "configs/codex_usage_interlock_change_manifest.json", 
         (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode("utf-8")
     )
     print(json.dumps({"path_count": len(paths), "jira": jira, "decision": binding["decision_sha256"]}))

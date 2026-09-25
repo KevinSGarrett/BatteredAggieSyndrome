@@ -1,0 +1,269 @@
+{
+  "artifact_type": "CYCLE30_FINDING_SUCCESSOR_LEDGER",
+  "c29_finding_ids": [
+    "S29-01",
+    "S29-02",
+    "S29-03",
+    "S29-04",
+    "S29-05",
+    "S29-06",
+    "S29-07",
+    "S29-08",
+    "N29-01",
+    "N29-02",
+    "N29-03",
+    "I29-01",
+    "I29-02",
+    "I29-03",
+    "I29-04",
+    "I29-05",
+    "I29-06",
+    "A29-01",
+    "A29-02",
+    "A29-03"
+  ],
+  "cursor_cannot_authorize_false_positive_or_accepted_risk": true,
+  "operator_hold": "ACTIVE",
+  "p0_count": 12,
+  "p0_ids_preserved": [
+    "C28-P0-01",
+    "C28-P0-02",
+    "C28-P0-03",
+    "C28-P0-04",
+    "C28-P0-05",
+    "C28-P0-06",
+    "C28-P0-07",
+    "C28-P0-08",
+    "C28-P0-09",
+    "C28-P0-10",
+    "C28-P0-11",
+    "C28-P0-12"
+  ],
+  "review_state": "READY_FOR_MANAGER_REVIEW",
+  "rows": [
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "claim completeness fails closed on unmapped exact pointers",
+      "finding_id": "C28-P0-01",
+      "regression_test_required": "true",
+      "retest": "tests/test_cycle30_adversarial_controls.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "cycle30 producer and reference trees are disjoint",
+      "finding_id": "C28-P0-02",
+      "regression_test_required": "true",
+      "retest": "tests/test_cycle30_adversarial_controls.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "official finals require canonical participant IDs",
+      "finding_id": "C28-P0-03",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/scoring.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "timestamps parse as aware UTC instants; midnight is not date-only",
+      "finding_id": "C28-P0-04",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/temporal.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "probability/interval coherence independently reconstructed",
+      "finding_id": "C28-P0-05",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/scientific_reference/cycle30/metrics.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "forecast immutability reconstructed from row bytes",
+      "finding_id": "C28-P0-06",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/forecast.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "atomic checkpoint lease retained; no new jobs created this cycle",
+      "finding_id": "C28-P0-07",
+      "regression_test_required": "false",
+      "retest": "src/aggie_analytics/cycle30/lease.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "CI opens/rehashes fixture rows or fail-closed blocked",
+      "finding_id": "C28-P0-08",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/ci_rows.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "eligible/oriented/proven identities reconciled; proven PIT may remain zero",
+      "finding_id": "C28-P0-09",
+      "regression_test_required": "false",
+      "retest": "src/aggie_analytics/cycle30/pit_kernel.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "All-22 C01 release/BOM not consumed until immutable",
+      "finding_id": "C28-P0-10",
+      "regression_test_required": "false",
+      "retest": "src/aggie_analytics/cycle30/gridiron.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "national coverage census exists; completeness not claimed",
+      "finding_id": "C28-P0-11",
+      "regression_test_required": "false",
+      "retest": "src/aggie_analytics/cycle30/populations.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "pair counts derived home→away from rows; FCS-v-FCS remains observed numerator",
+      "finding_id": "C28-P0-12",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/populations.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "synthetic placeholders quarantined; real membership/coaching attempts required",
+      "finding_id": "S29-01",
+      "regression_test_required": "false",
+      "retest": "tools/materialize_cycle30.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "claim discovery uses artifact+pointer+row+field; undeclared files fail",
+      "finding_id": "S29-02",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/claims.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "science vs containment split; empty files cannot PASS science",
+      "finding_id": "S29-03",
+      "regression_test_required": "true",
+      "retest": "tools/validate_cycle30_gates.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "independent score/tie/authority specification; global flags not proof",
+      "finding_id": "S29-04",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/pit_kernel.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "home→away pair counts derived from rows",
+      "finding_id": "S29-05",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/populations.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "contest-scoped terminal status; neighborhood Final is not terminal",
+      "finding_id": "S29-06",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/acquisition.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "row-bound person/title extraction; equal-length arrays rejected",
+      "finding_id": "S29-07",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/coaching.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "one-to-many requirement mappings preserve distinct current domains",
+      "finding_id": "S29-08",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/domains.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "ordinary_home_exposure zero at verified neutrals for every fitted path",
+      "finding_id": "N29-01",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/site_context.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "missing neutral annotation is UNKNOWN not ordinary home",
+      "finding_id": "N29-02",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/site_context.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "travel rows exist; consumed-column proof required per candidate",
+      "finding_id": "N29-03",
+      "regression_test_required": "false",
+      "retest": "src/aggie_analytics/cycle30/site_context.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "PR review threads independently adjudicated; not auto-fixed by outdated",
+      "finding_id": "I29-01",
+      "regression_test_required": "false",
+      "retest": "artifacts/scientific_integrity/cycle30"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "no-API attestation separated from scientific review gate",
+      "finding_id": "I29-02",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/cost.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "Codecov patch coverage reported as informational; thresholds not restored",
+      "finding_id": "I29-03",
+      "regression_test_required": "false",
+      "retest": "src/aggie_analytics/cycle30/cost.py"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "GameContextV2 proposal delivered; C01 adoption pending owner",
+      "finding_id": "I29-04",
+      "regression_test_required": "false",
+      "retest": "docs/contracts/proposed"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "StaffSnapshotV2/CoachStateV2 proposal delivered; adoption pending",
+      "finding_id": "I29-05",
+      "regression_test_required": "false",
+      "retest": "docs/contracts/proposed"
+    },
+    {
+      "disposition": "BLOCKED_WITH_CONTAINMENT",
+      "evidence": "integration inventory is exact counts not four-field booleans",
+      "finding_id": "I29-06",
+      "regression_test_required": "false",
+      "retest": "src/aggie_analytics/cycle30/gridiron.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "future publication rejected; conservative bounds labeled not proven",
+      "finding_id": "A29-01",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/pit_kernel.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "future-append rebuilds kernel; keyed semantics compared",
+      "finding_id": "A29-02",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/pit_kernel.py"
+    },
+    {
+      "disposition": "CONFIRMED_FIXED",
+      "evidence": "exact midnight UTC is not inferred date-only precision",
+      "finding_id": "A29-03",
+      "regression_test_required": "true",
+      "retest": "src/aggie_analytics/cycle30/temporal.py"
+    }
+  ]
+}

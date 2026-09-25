@@ -10,6 +10,33 @@ import sys
 import tempfile
 
 import polars as pl
+class _bas_atomic:  # U37-11: atomic writes once this tool has imported the package itself
+    @staticmethod
+    def _module():
+        import sys as _bas_sys
+
+        if "aggie_analytics" not in _bas_sys.modules:
+            return None  # never bind the package from another tree before the tool does
+        try:
+            from aggie_analytics import atomic_io
+        except ImportError:
+            return None
+        return atomic_io
+
+    @classmethod
+    def write_text(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_text(path, *args, **kwargs) if module else path.write_text(*args, **kwargs)
+
+    @classmethod
+    def write_bytes(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_bytes(path, *args, **kwargs) if module else path.write_bytes(*args, **kwargs)
+
+    @classmethod
+    def open_write(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.open_write(path, *args, **kwargs) if module else path.open(*args, **kwargs)
 
 
 def sha256_file(path: Path) -> str:
@@ -94,7 +121,7 @@ def main() -> int:
         serialized = canonical_json(manifest) + b"\n"
         if manifest_out.exists() and manifest_out.read_bytes() != serialized:
             raise ValueError("immutable manifest collision")
-        manifest_out.write_bytes(serialized)
+        _bas_atomic.write_bytes(manifest_out, serialized)
         print(json.dumps({"result": "PASS", "identity": identity, "manifest_sha256": sha256_file(manifest_out), "payload": payload_info, "diagnostics": diagnostics}, sort_keys=True))
     finally:
         if stage.exists():

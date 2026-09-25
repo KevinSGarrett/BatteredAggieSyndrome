@@ -17,3 +17,9 @@ Prohibited:
 - raw team win rate under referee as causal evidence.
 
 Crew tendencies remain experimental and require shrinkage plus team/opponent/style controls. When pregame assignment is unavailable, the crew-specific feature fails closed.
+
+## Cycle #30 neutral, relocated and per-team travel schedule context
+
+Neutral-site, international, relocated and shared-venue contests remain in the national schedule denominator. Site class is not inferred from a single famous venue. Ordinary home-field advantage is masked (`ordinary_home_exposure=0`) for verified neutrals in every actual fitted path, while orientation is retained for joins and reporting.
+
+Per-team travel and rest are contest × participant facts. Rest (DOM-026 / CURRENT-REST) and travel (DOM-027 / CURRENT-TRAVEL) stay distinct. A designation swap on a verified neutral must not change team-keyed strength, travel, or ordinary-home exposure. Venue-change successors may correct later context; they never create an earlier known-at or repair a missed checkpoint. Unsupported cross-subdivision strength continues to abstain.

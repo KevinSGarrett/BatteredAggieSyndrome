@@ -13,6 +13,16 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit, urlunsplit
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 sys.dont_write_bytecode = True
 
@@ -128,7 +138,7 @@ def main() -> int:
         output = args.output if args.output.is_absolute() else args.repo_root.resolve() / args.output
         output.parent.mkdir(parents=True, exist_ok=True)
         temporary = output.with_name(output.name + ".tmp")
-        temporary.write_text(encoded, encoding="utf-8", newline="\n")
+        _bas_atomic.write_text(temporary, encoded, encoding="utf-8", newline="\n")
         os.replace(temporary, output)
     print(encoded, end="")
     return 0

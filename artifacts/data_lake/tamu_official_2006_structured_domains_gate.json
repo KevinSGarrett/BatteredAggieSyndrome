@@ -310,7 +310,7 @@
       "warnings": []
     }
   ],
-  "gate_identity": "57eb2e0b9e449bef0b7935b89c573bfed79110e53d1de414984e0f781baa97a4",
+  "gate_identity": "973769e93b22c6e5f30fd8abbaef16bf0abc904e7bc9a5582fc25d4ef06514ba",
   "html_table_audit": {
     "calendar_date_label": "2007-09-01",
     "domain_coverage": {
@@ -324,7 +324,7 @@
   },
   "inventory_identity": "d39d35ff7cfacf2e39a524d0f1fdb97072158c50f84225ed8413771140efaa37",
   "jira_key": "BAT-596",
-  "payload_identity": "039c773f902cbea6d7c6e361ac10315dfec364e30ebb83003bf3717cd9d1dfea",
+  "payload_identity": "f4fc2472e90e37adc3d0d4569d8b1225a45acd6ad4d41aa48a9b3dbb39473a9d",
   "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
   "result": "PASS_OFFICIAL_2006_STRUCTURED_DOMAINS_PARSED",
   "schema_version": "aggie.data.tamu_official_2006_structured_domains.v1",
@@ -353,8 +353,8 @@
   "upstream_identities": {
     "bat586_gate_identity": "c62a09d2b3bcf7e69c6b6ea90993084d124a779d7ab779e8ebeab300b2a9c006",
     "bat589_gate_identity": "f2080b0ebb7815892732b2e600917e00da972edca0379888fa0010ff6bf17e51",
-    "bat591_gate_identity": "9c3da52dceebd8da0908aa478326196bef2338095a8b5d4c42decaa27df53e16",
-    "bat591_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
+    "bat591_gate_identity": "ed2ce7b95bd046a282116cf50aff84fec1e585f8dee848cc4451bec63bdf668c",
+    "bat591_payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
     "bat595_acquisition_identity": "1ed988f759f383b62625d582ac70ee306a36c84d92ccded9f70c9fd11bfed269",
     "bat595_dataset_identity": "05ac9ce54a107007b433e52d7a52f85d7e20726d9aaf7ca204332a75f88cd697",
     "bat595_gate_identity": "2a9c56a10b14cf5fec4dff1c3cd55d0b4440afdb9520fb308317a9ae59c47ed7",

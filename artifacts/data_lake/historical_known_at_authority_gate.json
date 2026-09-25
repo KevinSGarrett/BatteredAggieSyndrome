@@ -10,7 +10,7 @@
     "SOURCE_ABSENT": 0
   },
   "bound_predecessor_identities": {
-    "domain_admission_matrix_gate_identity": "9587189f975615f64b8c637019b9cd58d5bab59fe553cc2f6418e2bd8bb8657e"
+    "domain_admission_matrix_gate_identity": "9e8a98b15949f27bb4f61d8c84c75c3635f9352a963897faef3ecf96f9ab463f"
   },
   "capture_identity": "89fdc4c8be4405ef4dd73fa8d4ae0c26aff3353393babcc45685f0463336a94a",
   "classification": "HISTORICAL_KNOWN_AT_AUTHORITY_BOUNDARY_AUDIT_FOR_EVERY_ADMITTED_DOMAIN",
@@ -136,7 +136,7 @@
     "verdict": "PARTIAL_AUTHORITY_ESTABLISHED_A_NONZERO_POINT_IN_TIME_SLICE_IS_NOW_POSSIBLE",
     "why": "The precommitted completion bound is logically guaranteed by evidence the spine already carries, so the outcome-derived domains gain a real known-at basis. The rankings and venue-surface domains gain none, so the gap does not close."
   },
-  "gate_identity": "9bc7606a91ed985cd3f4ad3f0035ddd63962596d6fed22ebb9f1260d186dfd14",
+  "gate_identity": "bebfc4e0669f3834e5dd4075a4a4e079130af0dc3b3f033a0ffd9805973f543b",
   "jira_key": "BAT-666",
   "lane": "HISTORICAL_AUDIT_OBSERVATION_ONLY",
   "local_issue_id": "POST-TASK-HISTORICAL-KNOWN-AT-AUTHORITY-AUDIT-001",

@@ -1,0 +1,10 @@
+{
+  "artifact_type": "CURRENT_2026_DIVISION_I_PROGRAM_POPULATION",
+  "as_of_utc": "2026-09-07T16:00:00Z",
+  "enumeration_state": "BLOCKED_INDEPENDENT_MEMBERSHIP_EVIDENCE_UNAVAILABLE",
+  "identity": "5ec579dc7275affcb0b324c90a742ad3c7817924260df561648b3eb290cba8fd",
+  "is_week1_slice": false,
+  "program_count_N": null,
+  "programs": [],
+  "week1_cannot_replace_current": true
+}

@@ -1,0 +1,12 @@
+{
+  "accepted_count": 2251,
+  "artifact_class": "REAL_EVIDENCE",
+  "model_admitted": 0,
+  "provisional_category_counts": {
+    "CANDIDATE_GENERATED": 1685,
+    "REVIEW_REQUIRED": 7,
+    "UNRESOLVED": 690
+  },
+  "provisional_count": 2382,
+  "row_count": 4633
+}

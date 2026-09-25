@@ -20,6 +20,7 @@ from aggie_analytics.data.historical_game_outcome_spine import (  # noqa: E402
     dataframe_record_sha256,
     sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 from aggie_analytics.data.historical_game_outcome_spine_expansion import (  # noqa: E402
     materialize_expansion,
     resolve_expansion_contract,
@@ -279,7 +280,7 @@ def main() -> int:
     report_path.parent.mkdir(parents=True, exist_ok=True)
     if report_path.exists() and report_path.read_bytes() != report_bytes:
         raise ValueError("immutable validation report collision")
-    report_path.write_bytes(report_bytes)
+    _bas_atomic.write_bytes(report_path, report_bytes)
     print(
         json.dumps(
             {
@@ -301,7 +302,7 @@ def _mutated_overlay(path: Path, root: Path, *, base_sha256: str) -> Path:
     mutated["base_contract_sha256"] = base_sha256
     target = root / "mutations/base-contract-hash-drift.json"
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(mutated, sort_keys=True) + "\n", encoding="utf-8")
+    _bas_atomic.write_text(target, json.dumps(mutated, sort_keys=True) + "\n", encoding="utf-8")
     return target
 
 

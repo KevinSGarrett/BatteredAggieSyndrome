@@ -27,6 +27,8 @@ from aggie_analytics.experimentation.walk_forward import (  # noqa: E402
     execute_fold,
     fit_fold_local_transform,
     prove_stale_checkpoint_rejection,
+    private_data_is_mounted,
+    private_payload_state,
     prove_target_game_exclusion,
     try_resolve_data_root,
     validate_checkpoint,
@@ -188,11 +190,43 @@ class WalkForwardArtifactTests(unittest.TestCase):
         return payload
 
     def test_artifact_validates_and_is_consumable_by_bat401(self) -> None:
-        validate_walk_forward_artifact(self.payload, ROOT, require_payload_rebuild=bool(try_resolve_data_root(None, ROOT)))
+        """MR34-12: the rebuild is required when the private payloads are
+        actually mounted, not merely when a directory exists at the
+        configured path. On the hosted Windows runner that directory exists
+        and the payloads do not, which is why this test errored at the
+        submitted head. The mounted requirement itself is unchanged --
+        `test_mounted_rebuild_is_mandatory_when_payloads_are_present` below
+        fails loudly if a mounted run ever skips it."""
+
+        state = private_payload_state(None, ROOT)
+        validate_walk_forward_artifact(
+            self.payload, ROOT, require_payload_rebuild=state["rebuild_possible"]
+        )
         consumer = consume_for_bat401(self.payload)
         self.assertTrue(consumer["consumable"])
         self.assertTrue(consumer["protected_lane_still_closed"])
         self.assertEqual(self.payload["schema_version"], SCHEMA_VERSION)
+
+    def test_mounted_rebuild_is_mandatory_when_payloads_are_present(self) -> None:
+        """The invariant this repair must NOT erase.
+
+        When the private payloads are genuinely mounted, the artifact must
+        validate against a real rebuild. This test does not skip on a
+        mounted host; it skips only where the data provably is not there,
+        and it records the exact state it observed either way.
+        """
+
+        state = private_payload_state(None, ROOT)
+        if not state["rebuild_possible"]:
+            self.skipTest(
+                "private payloads not mounted; observed state="
+                + state["state"]
+                + " missing="
+                + ",".join(state["missing_payloads"])
+            )
+        validate_walk_forward_artifact(
+            self.payload, ROOT, require_payload_rebuild=True
+        )
 
     def test_chronological_real_2023_folds(self) -> None:
         folds = self.payload["folds"]

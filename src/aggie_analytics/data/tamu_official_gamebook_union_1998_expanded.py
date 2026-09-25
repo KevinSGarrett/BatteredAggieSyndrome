@@ -43,8 +43,12 @@ from aggie_analytics.validation.artifact_binding import compute_identity
 SCHEMA_VERSION = "aggie.data.tamu_official_gamebook_union_1998_expanded.v1"
 VALIDATION_CONTRACT_VERSION = "aggie.data.tamu_official_gamebook_union_1998_expanded.v1"
 CONTRACT_RELATIVE = "configs/tamu_official_gamebook_union_1998_expanded_contract.json"
-GATE_RELATIVE = "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json"
-MODULE_RELATIVE = "src/aggie_analytics/data/tamu_official_gamebook_union_1998_expanded.py"
+GATE_RELATIVE = (
+    "artifacts/data_lake/tamu_official_gamebook_union_1998_expanded_gate.json"
+)
+MODULE_RELATIVE = (
+    "src/aggie_analytics/data/tamu_official_gamebook_union_1998_expanded.py"
+)
 CODE_BUNDLE_RELATIVE = (MODULE_RELATIVE,)
 CONTRACT_ID = "BAT-637-TAMU-OFFICIAL-GAMEBOOK-UNION-1998-EXPANDED-V1"
 DECISION_UNIT = "POST-TASK-SRC014-1998-EXPANDED-ENRICHED-UNION-001"
@@ -62,23 +66,61 @@ PRIOR_UNION_RICH = 311
 PRIOR_UNION_METADATA = 13
 PRIOR_ENRICHED_OFFICIAL_GAMES = 121
 UNION_MANIFEST_NAME = "union_manifest.json"
-PINNED_BAT633_UNION_IDENTITY = "c213761531a3b8f8605e2cd3a00afdb7993c9cbedeb1c383cf1429167f0fc53c"
-PINNED_BAT633_GATE_IDENTITY = "a8d0a6594cfdf4557e2ef743983d64531474410fde6795fe4400441d11555403"
-PINNED_BAT634_GATE_IDENTITY = "f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306"
-PINNED_BAT635_GATE_IDENTITY = "ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260"
-PINNED_BAT635_DATASET_IDENTITY = "94d5fe1182a65c35b59f9b2a10d8de1ee561f92a4d6e6e06a53b0a2eded49c15"
-PINNED_BAT635_ACQUISITION_IDENTITY = "6dc742a6d359d3800f1474e436734ab523ea17d389e81bca9e9f8c01200f18f7"
-PINNED_BAT636_GATE_IDENTITY = "ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28"
-PINNED_BAT636_PAYLOAD_IDENTITY = "d3f07d927c82b538a25695d297596c46624ca4ed178166a451c03dab9b478d5f"
-NAME_ONLY_STATUSES = frozenset({"MATCHED_OPPONENT_NAME_ONLY", "NAME_ONLY", "OPPONENT_NAME_ONLY"})
+PINNED_BAT633_UNION_IDENTITY = (
+    "7f6cd5ed2aabf0b11a0a8c7e1013f944f81dc6b1ba534541e976d392014baf0e"
+)
+PINNED_BAT633_GATE_IDENTITY = (
+    "3cb83ee0f05c9a55fc1cc824932b8d0de158c76ce01a284fbeb2ee8d18e8b991"
+)
+PINNED_BAT634_GATE_IDENTITY = (
+    "f621b849f5692dd6697bd6396086d858966b8d807a6f4ef63d7b0b72d7232306"
+)
+PINNED_BAT635_GATE_IDENTITY = (
+    "ecc112db8ee339ec80651b7afc021ee5df80751cafdf43ce92d493312cacd260"
+)
+PINNED_BAT635_DATASET_IDENTITY = (
+    "94d5fe1182a65c35b59f9b2a10d8de1ee561f92a4d6e6e06a53b0a2eded49c15"
+)
+PINNED_BAT635_ACQUISITION_IDENTITY = (
+    "6dc742a6d359d3800f1474e436734ab523ea17d389e81bca9e9f8c01200f18f7"
+)
+PINNED_BAT636_GATE_IDENTITY = (
+    "ab0fce8d55c75889816487cf4197348d72187f4f122d0be2d1b87aa8805bdc28"
+)
+PINNED_BAT636_PAYLOAD_IDENTITY = (
+    "d3f07d927c82b538a25695d297596c46624ca4ed178166a451c03dab9b478d5f"
+)
+NAME_ONLY_STATUSES = frozenset(
+    {"MATCHED_OPPONENT_NAME_ONLY", "NAME_ONLY", "OPPONENT_NAME_ONLY"}
+)
 REQUIRED_GATE_FIELDS = (
-    "schema_version", "artifact_type", "result", "classification", "contract_id",
-    "decision_unit", "jira_key", "disposition", "source_id", "predecessor_union_identity",
-    "predecessor_gate_identity", "union_identity", "validation_contract_version",
-    "validator_code_identity", "selected_seasons", "counts", "coverage_by_season",
-    "coverage_by_domain", "enriched_official_games", "preserved_rejections", "conflicts",
-    "admissions", "authority", "scientific_nonclaims", "protected_lane",
-    "upstream_identities", "recomputed_upstream",
+    "schema_version",
+    "artifact_type",
+    "result",
+    "classification",
+    "contract_id",
+    "decision_unit",
+    "jira_key",
+    "disposition",
+    "source_id",
+    "predecessor_union_identity",
+    "predecessor_gate_identity",
+    "union_identity",
+    "validation_contract_version",
+    "validator_code_identity",
+    "selected_seasons",
+    "counts",
+    "coverage_by_season",
+    "coverage_by_domain",
+    "enriched_official_games",
+    "preserved_rejections",
+    "conflicts",
+    "admissions",
+    "authority",
+    "scientific_nonclaims",
+    "protected_lane",
+    "upstream_identities",
+    "recomputed_upstream",
 )
 
 
@@ -88,13 +130,19 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
 
 def compute_gate_identity(gate: Mapping[str, Any]) -> str:
     missing = [key for key in REQUIRED_GATE_FIELDS if key not in gate]
     if missing:
-        raise AuthorityViolation("gate is missing required identity fields: " + ", ".join(missing))
+        raise AuthorityViolation(
+            "gate is missing required identity fields: " + ", ".join(missing)
+        )
     return compute_identity(gate, "gate_identity")
 
 
@@ -113,7 +161,9 @@ def compute_code_identity(repo_root: Path) -> str:
     return hasher.hexdigest()
 
 
-def _index_by_url(games: list[Mapping[str, Any]], label: str) -> dict[str, dict[str, Any]]:
+def _index_by_url(
+    games: list[Mapping[str, Any]], label: str
+) -> dict[str, dict[str, Any]]:
     indexed: dict[str, dict[str, Any]] = {}
     for game in games:
         url = str(game.get("url") or "")
@@ -182,10 +232,16 @@ def expected_admissions() -> dict[str, str]:
     }
 
 
-def compact_1998_game(game: Mapping[str, Any], official_index_url: str) -> dict[str, Any]:
+def compact_1998_game(
+    game: Mapping[str, Any], official_index_url: str
+) -> dict[str, Any]:
     row = {key: game.get(key) for key in COMPACT_FIELDS}
-    row["source_season"] = int(game.get("source_season") or game.get("football_season") or 0)
-    row["football_season"] = int(game.get("football_season") or game.get("source_season") or 0)
+    row["source_season"] = int(
+        game.get("source_season") or game.get("football_season") or 0
+    )
+    row["football_season"] = int(
+        game.get("football_season") or game.get("source_season") or 0
+    )
     row["official_index_url"] = str(game.get("parent_url") or "")
     row["parent_url"] = str(game.get("parent_url") or "")
     row["availability_claim"] = False
@@ -200,13 +256,21 @@ def compact_1998_game(game: Mapping[str, Any], official_index_url: str) -> dict[
     return row
 
 
-def overlay_1998(game: Mapping[str, Any], domains: Mapping[str, Any], payload_identity: str, *, serialized_row_counts: Mapping[str, int]) -> dict[str, Any]:
+def overlay_1998(
+    game: Mapping[str, Any],
+    domains: Mapping[str, Any],
+    payload_identity: str,
+    *,
+    serialized_row_counts: Mapping[str, int],
+) -> dict[str, Any]:
     row = json.loads(json.dumps(game))
     coverage = dict(row.get("domain_coverage") or {})
     for domain in OVERLAY_DOMAINS:
         present = (domains.get("domain_coverage") or {}).get(domain) == "PRESENT"
         if present and int(serialized_row_counts.get(domain) or 0) <= 0:
-            raise AuthorityViolation(f"PRESENT coverage without serialized {domain} rows")
+            raise AuthorityViolation(
+                f"PRESENT coverage without serialized {domain} rows"
+            )
         if present:
             coverage[domain] = "PRESENT"
         elif domain not in coverage:
@@ -221,7 +285,12 @@ def overlay_1998(game: Mapping[str, Any], domains: Mapping[str, Any], payload_id
 
 
 def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
-    if hashlib.sha256((repo_root / "governance/PROTECTED_SPLIT_REGISTRY.csv").read_bytes()).hexdigest() != REGISTRY_SHA256:
+    if (
+        hashlib.sha256(
+            (repo_root / "governance/PROTECTED_SPLIT_REGISTRY.csv").read_bytes()
+        ).hexdigest()
+        != REGISTRY_SHA256
+    ):
         raise AuthorityViolation("protected-split registry identity drift")
     contract = load_json(repo_root / CONTRACT_RELATIVE)
     predecessor = load_json(repo_root / BAT633_GATE_RELATIVE)
@@ -255,9 +324,13 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     if bat636_payload.get("payload_identity") != PINNED_BAT636_PAYLOAD_IDENTITY:
         raise AuthorityViolation("BAT-636 payload identity rewritten")
     game_rows = list(bat635["payload"].get("games") or [])
-    compact_candidates = [compact_1998_game(item, OFFICIAL_1998_INDEX_URL) for item in game_rows]
+    compact_candidates = [
+        compact_1998_game(item, OFFICIAL_1998_INDEX_URL) for item in game_rows
+    ]
     domains_by_url: dict[str, dict[str, Any]] = {}
-    for game, rows in zip(bat636_payload.get("games") or [], bat636_payload.get("rows") or []):
+    for game, rows in zip(
+        bat636_payload.get("games") or [], bat636_payload.get("rows") or []
+    ):
         url = str(game.get("url") or "")
         domains_by_url[url] = {
             "domain_coverage": dict(game.get("domain_coverage") or {}),
@@ -307,9 +380,15 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         raise AuthorityViolation("official 1998 admission count drifted")
     if len(rejected_1998) != OFFICIAL_1998_REJECTED_EXPECTED:
         raise AuthorityViolation("official 1998 rejected count drifted")
-    prior_games = [json.loads(json.dumps(item)) for item in (predecessor.get("enriched_official_games") or [])]
+    prior_games = [
+        json.loads(json.dumps(item))
+        for item in (predecessor.get("enriched_official_games") or [])
+    ]
     official_games = prior_games + admitted_1998
-    if len(official_games) != PRIOR_ENRICHED_OFFICIAL_GAMES + OFFICIAL_1998_ADMITTED_EXPECTED:
+    if (
+        len(official_games)
+        != PRIOR_ENRICHED_OFFICIAL_GAMES + OFFICIAL_1998_ADMITTED_EXPECTED
+    ):
         raise AuthorityViolation("expanded official-school membership count drifted")
     rich_added = sum(1 for item in admitted_1998 if item.get("rich_structured"))
     counts = {
@@ -323,17 +402,37 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "union_target_games": PRIOR_UNION_CAPTURED_GAMES + len(admitted_1998),
         "rich_structured_games": PRIOR_UNION_RICH + rich_added,
         "metadata_only_games": PRIOR_UNION_METADATA + len(admitted_1998) - rich_added,
-        "scoring_summary_present_games": sum(1 for item in official_games if scoring_summary_present(item)),
-        "matched_strong_tuple": int((predecessor.get("counts") or {}).get("matched_strong_tuple") or 0)
-        + sum(1 for item in admitted_1998 if item.get("canonical_game_match_status") == "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE"),
-        "date_conflicts": int((predecessor.get("counts") or {}).get("date_conflicts") or 0)
-        + sum(1 for item in admitted_1998 if item.get("canonical_game_match_status") == "OFFICIAL_INDEX_DATE_CONFLICT"),
-        "unmatched_rejected": int((predecessor.get("counts") or {}).get("unmatched_rejected") or 0) + len(rejected_1998),
+        "scoring_summary_present_games": sum(
+            1 for item in official_games if scoring_summary_present(item)
+        ),
+        "matched_strong_tuple": int(
+            (predecessor.get("counts") or {}).get("matched_strong_tuple") or 0
+        )
+        + sum(
+            1
+            for item in admitted_1998
+            if item.get("canonical_game_match_status")
+            == "MATCHED_OFFICIAL_SEASON_INDEX_STRONG_TUPLE"
+        ),
+        "date_conflicts": int(
+            (predecessor.get("counts") or {}).get("date_conflicts") or 0
+        )
+        + sum(
+            1
+            for item in admitted_1998
+            if item.get("canonical_game_match_status") == "OFFICIAL_INDEX_DATE_CONFLICT"
+        ),
+        "unmatched_rejected": int(
+            (predecessor.get("counts") or {}).get("unmatched_rejected") or 0
+        )
+        + len(rejected_1998),
         "ncaa_contest_ids_created": 0,
         "name_only_player_merges": 0,
         "games_admitted_to_union": 0,
     }
-    conflicts = [json.loads(json.dumps(item)) for item in (predecessor.get("conflicts") or [])]
+    conflicts = [
+        json.loads(json.dumps(item)) for item in (predecessor.get("conflicts") or [])
+    ]
     conflicts.extend(
         {
             "url": item.get("url"),
@@ -351,7 +450,10 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "bat635_dataset_identity": PINNED_BAT635_DATASET_IDENTITY,
         "bat635_acquisition_identity": PINNED_BAT635_ACQUISITION_IDENTITY,
         "bat635_payload_file_sha256": sha256_file(
-            data_root / "features/tamu_official_1998_boxscores/sha256" / PINNED_BAT635_DATASET_IDENTITY / "payload.json"
+            data_root
+            / "features/tamu_official_1998_boxscores/sha256"
+            / PINNED_BAT635_DATASET_IDENTITY
+            / "payload.json"
         ),
         "bat636_gate_identity": PINNED_BAT636_GATE_IDENTITY,
         "bat636_payload_identity": PINNED_BAT636_PAYLOAD_IDENTITY,
@@ -366,7 +468,10 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "enriched_official_games": official_games,
         "admitted_official_1998_games": admitted_1998,
         "rejected_official_1998_games": rejected_1998,
-        "preserved_rejections": [json.loads(json.dumps(item)) for item in (predecessor.get("preserved_rejections") or [])],
+        "preserved_rejections": [
+            json.loads(json.dumps(item))
+            for item in (predecessor.get("preserved_rejections") or [])
+        ],
         "counts": counts,
         "conflicts": conflicts,
         "scientific_nonclaims": expected_scientific_nonclaims(),
@@ -397,7 +502,20 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
         "union_identity": payload["union_identity"],
         "validation_contract_version": VALIDATION_CONTRACT_VERSION,
         "validator_code_identity": code_identity,
-        "selected_seasons": [2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998],
+        "selected_seasons": [
+            2009,
+            2008,
+            2007,
+            2006,
+            2005,
+            2004,
+            2003,
+            2002,
+            2001,
+            2000,
+            1999,
+            1998,
+        ],
         "counts": counts,
         "coverage_by_season": coverage_by_season(official_games),
         "coverage_by_domain": coverage_by_domain(official_games),
@@ -431,7 +549,11 @@ def reconstruct_objects(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
 def materialize_union(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     objects = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     payload = objects["payload"]
-    root = data_root / objects["contract"]["payloads"]["union_root"] / payload["union_identity"]
+    root = (
+        data_root
+        / objects["contract"]["payloads"]["union_root"]
+        / payload["union_identity"]
+    )
     write_json(root / "union_manifest.json", payload)
     write_json(repo_root / GATE_RELATIVE, objects["gate"])
     return {
@@ -445,12 +567,21 @@ def materialize_union(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
 def upstream_is_ready(data_root: Path, repo_root: Path | None = None) -> bool:
     del repo_root
     return (
-        (data_root / "features/tamu_official_1998_boxscores/sha256" / PINNED_BAT635_DATASET_IDENTITY / "payload.json").is_file()
-        and (data_root / "features/tamu_official_1998_structured_domains/sha256" / PINNED_BAT636_PAYLOAD_IDENTITY / "payload.json").is_file()
-    )
+        data_root
+        / "features/tamu_official_1998_boxscores/sha256"
+        / PINNED_BAT635_DATASET_IDENTITY
+        / "payload.json"
+    ).is_file() and (
+        data_root
+        / "features/tamu_official_1998_structured_domains/sha256"
+        / PINNED_BAT636_PAYLOAD_IDENTITY
+        / "payload.json"
+    ).is_file()
 
 
-def validate_compact_gate(committed: Mapping[str, Any], repo_root: Path | None = None) -> None:
+def validate_compact_gate(
+    committed: Mapping[str, Any], repo_root: Path | None = None
+) -> None:
     if committed.get("protected_lane") != PROTECTED_LANE:
         raise AuthorityViolation("protected lane opened")
     if committed.get("predecessor_union_identity") != PINNED_BAT633_UNION_IDENTITY:
@@ -464,11 +595,19 @@ def validate_compact_gate(committed: Mapping[str, Any], repo_root: Path | None =
     if committed.get("gate_identity") != compute_gate_identity(committed):
         raise AuthorityViolation("gate identity does not recompute")
     counts = committed.get("counts") or {}
-    if int(counts.get("official_1998_admitted") or 0) != OFFICIAL_1998_ADMITTED_EXPECTED:
+    if (
+        int(counts.get("official_1998_admitted") or 0)
+        != OFFICIAL_1998_ADMITTED_EXPECTED
+    ):
         raise AuthorityViolation("official 1998 admission count drifted")
-    if int(counts.get("official_1998_rejected") or 0) != OFFICIAL_1998_REJECTED_EXPECTED:
+    if (
+        int(counts.get("official_1998_rejected") or 0)
+        != OFFICIAL_1998_REJECTED_EXPECTED
+    ):
         raise AuthorityViolation("official 1998 rejected count drifted")
-    if repo_root is not None and committed.get("validator_code_identity") != compute_code_identity(repo_root):
+    if repo_root is not None and committed.get(
+        "validator_code_identity"
+    ) != compute_code_identity(repo_root):
         raise AuthorityViolation("stale validator code identity")
 
 
@@ -483,7 +622,9 @@ def validate_artifact(
     validate_compact_gate(committed, repo_root)
     ready = upstream_is_ready(data_root, repo_root)
     if require_rebuild and not ready:
-        raise AuthorityViolation("external 1998-expanded reconstruction was required but data root is not mounted")
+        raise AuthorityViolation(
+            "external 1998-expanded reconstruction was required but data root is not mounted"
+        )
     if not ready:
         return {
             "result": "PASS",
@@ -493,7 +634,9 @@ def validate_artifact(
         }
     expected = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     if committed != expected["gate"]:
-        raise AuthorityViolation("committed 1998-expanded union gate does not match reconstruction")
+        raise AuthorityViolation(
+            "committed 1998-expanded union gate does not match reconstruction"
+        )
     manifest_path = (
         data_root
         / "features/tamu_official_gamebook_union_1998_expanded/sha256"
@@ -503,7 +646,9 @@ def validate_artifact(
     if not manifest_path.is_file():
         raise AuthorityViolation("authoritative external union manifest is missing")
     if load_json(manifest_path) != expected["payload"]:
-        raise AuthorityViolation("external 1998-expanded union payload does not match reconstruction")
+        raise AuthorityViolation(
+            "external 1998-expanded union payload does not match reconstruction"
+        )
     return {
         "result": "PASS",
         "gate_identity": expected["gate"]["gate_identity"],
@@ -515,4 +660,6 @@ def validate_artifact(
 
 
 def default_data_root() -> Path:
-    return Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+    return Path(
+        os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+    )

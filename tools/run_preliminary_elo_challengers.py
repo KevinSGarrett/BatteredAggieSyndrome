@@ -8,6 +8,16 @@ import json
 import math
 from pathlib import Path
 from typing import Any
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 
 CLASSIFICATION = "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
@@ -476,7 +486,7 @@ def main() -> int:
     manifest_root = data_root / "manifests/preliminary_elo_challengers/sha256" / run_identity
     manifest_root.mkdir(parents=True, exist_ok=True)
     manifest_path = manifest_root / "run_manifest.json"
-    manifest_path.write_bytes(canonical_json(manifest) + b"\n")
+    _bas_atomic.write_bytes(manifest_path, canonical_json(manifest) + b"\n")
     print(
         json.dumps(
             {

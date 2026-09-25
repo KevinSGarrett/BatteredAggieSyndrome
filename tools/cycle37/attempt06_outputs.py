@@ -42,8 +42,6 @@ import attempt06_candidate as candidate  # noqa: E402
 import storage_admission  # noqa: E402
 import storage_snapshot as snapshot  # noqa: E402
 from attempt03_outputs import (  # noqa: E402
-    CENSUS,
-    RAW,
     dumps,
     git_out,
     read_json,
@@ -92,6 +90,11 @@ SEGMENTS = (("STORAGE_RESERVATIONS.jsonl", STORAGE_DIR_NAME / "STORAGE_OPERATION
 FINAL_OUTPUT_LEDGER = STORAGE_DIR_NAME / "STORAGE_RESERVATIONS_FINAL_OUTPUT.jsonl"
 NEVER_EVIDENCE = ("lanes/RUNS.jsonl", FINAL_OUTPUT_LEDGER.as_posix())
 CANDIDATE_GRANT = "APPEND_PRESERVED_LOCAL_INTEGRATION_CANDIDATE"
+#: The evidence kinds the Attempt 6 contract's clauses name (R37A06-01..03 and R37A06-04..05). The Attempt 3 base's own
+#: kind labels belong to its contract; every Attempt 6 evidence row carries one of these two (or a command log), and
+#: ``check`` refuses a packet in which a worker clause's kind is carried by no evidence.
+RAW = "bound_raw_execution_and_actual_consumer"
+CENSUS = "complete_bound_population_and_receipts"
 
 
 def rebind() -> None:
@@ -132,6 +135,7 @@ class Context(a5o.Context):
         self.findings_path = out_root / "evidence" / "NEW_FINDINGS_ATTEMPT6.json"
         self.ledger_path = out_root / "STORAGE_RESERVATIONS.jsonl"
         records = sorted((out_root / "evidence" / "integration").glob("CANDIDATE_APPEND_*.json"))
+        self.candidate_record_paths = records
         self.candidate_record_path = records[-1] if records else None
         self.attempt5_lanes: list[dict[str, Any]] = []
 
@@ -214,10 +218,10 @@ def register_evidence(ctx: Context) -> None:
                     "file digests, measured totals, configuration and predecessor")
             ctx.add(f"E-STORAGE-SEGMENT-{number:02d}-LEDGER", ledger, CENSUS,
                     f"Operational storage segment {number}, frozen by its snapshot and never written again")
-    if ctx.candidate_record_path:
-        ctx.add("E-CANDIDATE-APPEND-RECORD", ctx.candidate_record_path, RAW,
-                "The append record of the local integration candidate: previous head, commit, tree, provenance "
-                "blobs, committed-blob proof, refs changed, worktree state")
+    for number, path in enumerate(ctx.candidate_record_paths, 1):
+        ctx.add("E-CANDIDATE-APPEND-RECORD" if path == ctx.candidate_record_path else f"E-CANDIDATE-APPEND-RECORD-{number}",
+                path, RAW, f"Append record {number} of the local integration candidate: previous head, commit, tree, "
+                "provenance blobs, committed-blob proof, refs changed, worktree state")
     for path in sorted((root / "evidence" / "final").glob("FINAL_PACKET_VALIDATION_*.json")):
         ctx.add(f"E-FINAL-{path.name}", path, RAW, "The FINAL_PACKET lane's create-only validation receipt")
     for path in sorted((root / "evidence" / "scope").glob("*.json")):
@@ -678,8 +682,8 @@ def finding_matrix(ctx: Context, label: str, criteria: dict[str, dict[str, Any]]
                           else ({"see_receipt_details_key": detail_key} if detail is not None else None)})
         commits = ctx.finding_commits(key)
         if key == "MF37A05-02":
-            record = read_json(ctx.candidate_record_path) if ctx.candidate_record_path else {}
-            if record.get("candidate_commit"):
+            for path in ctx.candidate_record_paths:
+                record = read_json(path)
                 commits = commits + [{"sha": record["candidate_commit"],
                                       "subject": git_out("log", "-1", "--format=%s", record["candidate_commit"]),
                                       "branch": candidate.CANDIDATE_BRANCH}]
@@ -736,8 +740,11 @@ def population_document(ctx: Context, label: str) -> dict[str, Any]:
 def candidate_document(ctx: Context, label: str) -> dict[str, Any]:
     details = _d(ctx, "LOCAL_INTEGRATION_CANDIDATE")
     record = read_json(ctx.candidate_record_path) if ctx.candidate_record_path else {}
+    appends = [{k: read_json(path).get(k) for k in ("created_at", "previous_candidate_head", "candidate_commit",
+                                                    "repair_head", "refs_changed")} | {"record": str(path)}
+               for path in ctx.candidate_record_paths]
     return {"label": label, "cycle_number": CYCLE_NUMBER, "attempt_number": ATTEMPT_NUMBER, "cycle_id": CYCLE_ID,
-            "attempt_id": ATTEMPT_ID, "requirement": "R37A06-02", "finding": "MF37A05-02",
+            "attempt_id": ATTEMPT_ID, "requirement": "R37A06-02", "finding": "MF37A05-02", "appends": appends,
             "repair_candidate": ctx.candidate,
             "grant": next((g for g in ctx.contract["authority"]["grants"] if g["action"] == CANDIDATE_GRANT), None),
             "integration_candidate": candidate.describe(),
@@ -825,15 +832,19 @@ def effects(ctx: Context) -> list[dict[str, Any]]:
         if row["id"] == "EFF-LOCAL-COMMITS":
             row["evidence_ids"] = [e for e in ("E-LANE-START_CONTEXT-RECEIPT",) if e in ctx.evidence] or ["E-ORIGINAL-OBLIGATIONS"]
     grant = next((g for g in ctx.contract["authority"]["grants"] if g["action"] == CANDIDATE_GRANT), None)
-    if grant and ctx.candidate_record_path and "E-CANDIDATE-APPEND-RECORD" in ctx.evidence:
-        record = read_json(ctx.candidate_record_path)
-        rows.append({"id": "EFF-APPEND-LOCAL-INTEGRATION-CANDIDATE", "actor": grant["actor"], "action": grant["action"],
-                     "target": grant["target"], "result": "SUCCEEDED",
+    for number, path in enumerate(ctx.candidate_record_paths, 1):
+        identity = "E-CANDIDATE-APPEND-RECORD" if path == ctx.candidate_record_path else f"E-CANDIDATE-APPEND-RECORD-{number}"
+        if not grant or identity not in ctx.evidence:
+            continue
+        record = read_json(path)
+        rows.append({"id": f"EFF-APPEND-LOCAL-INTEGRATION-CANDIDATE-{number}", "actor": grant["actor"],
+                     "action": grant["action"], "target": grant["target"], "result": "SUCCEEDED",
                      "detail": (f"One forward commit {record.get('candidate_commit')} on {candidate.CANDIDATE_BRANCH} "
-                                f"with parent {record.get('previous_candidate_head')}; refs changed "
-                                f"{record.get('refs_changed')}; shared objects, that worktree's index and the named "
-                                "ref only; no new branch or worktree, push, merge, deletion or rewrite."),
-                     "evidence_ids": ["E-CANDIDATE-APPEND-RECORD"]})
+                                f"with parent {record.get('previous_candidate_head')}, from repair head "
+                                f"{record.get('repair_head')}; refs changed {record.get('refs_changed')}; shared "
+                                "objects, that worktree's index and the named ref only; no new branch or worktree, "
+                                "push, merge, deletion or rewrite."),
+                     "evidence_ids": [identity]})
     return rows
 
 
@@ -845,10 +856,11 @@ def integration_packet(ctx: Context, label: str, lanes: list[dict[str, Any]]) ->
     github = ctx.latest_github or {}
     extra = ["### The preserved local integration candidate, appended (nothing published)", "",
              f"Branch `{description.get('candidate_branch')}` in `{description.get('candidate_worktree')}`: the preserved "
-             f"head `{candidate.ISSUED_CANDIDATE_HEAD}` stays as the parent of one appended `[material]` commit "
-             f"`{description.get('candidate_head')}` (tree `{description.get('candidate_tree')}`), built from repair head "
-             f"`{record.get('repair_head')}`. Main `{description.get('main')}` and the repair branch keep their commits; "
-             f"only the candidate ref moved ({record.get('refs_changed')}).", "",
+             f"head `{candidate.ISSUED_CANDIDATE_HEAD}` stays reachable below {len(ctx.candidate_record_paths)} appended "
+             f"`[material]` commit(s) ending at `{description.get('candidate_head')}` (tree "
+             f"`{description.get('candidate_tree')}`), the last built from repair head `{record.get('repair_head')}`. "
+             f"Main `{description.get('main')}` and the repair branch keep their commits; only the candidate ref moved "
+             f"({record.get('refs_changed')}).", "",
              f"Committed provenance, proved against the committed blobs: {proof.get('committed_paths')} paths, "
              f"{proof.get('manifest_rows')} manifest rows, {proof.get('current_tree_rows')} CURRENT_TREE rows, "
              f"consistent {proof.get('consistent')}; protected entries equal main {proof.get('protected_entries_equal_main')}.",
@@ -1037,6 +1049,11 @@ def check(ctx: Context, final_packet: bool) -> list[str]:
                 # Before the final packet an interim build may be superseded (the platform lane appends its request
                 # ledger); from the final packet on, sealed evidence must be stable.
                 problems.append(f"submission evidence {row['id']} changed after the seal")
+    if submission_path.is_file():
+        kinds = {row["kind"] for row in read_json(submission_path).get("evidence") or []}
+        wanted = {c["evidence_kind"] for c in ctx.criteria.values() if c["executor"] == "worker"}
+        if not wanted <= kinds:
+            problems.append(f"no evidence carries the contract's kind(s) {sorted(wanted - kinds)}")
     if final_packet:
         storage = ctx.storage()
         if not storage["all_segments_frozen_and_verified"]:

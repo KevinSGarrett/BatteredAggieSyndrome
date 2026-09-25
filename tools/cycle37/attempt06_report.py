@@ -84,8 +84,8 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
             "backed by lane receipts and command logs. Independently accepted: **NO** (PENDING_MANAGER_REVIEW; "
             f"{len(manager_criteria)} manager criteria and the MANAGER_REVIEW lane are the manager's). Integrated: "
             "**NO** (NOT_AUTHORIZED; "
-            + ("the preserved local candidate received one appended commit" if ctx.candidate_record_path
-               else "the preserved local candidate has not yet been appended")
+            + (f"the preserved local candidate received {len(ctx.candidate_record_paths)} appended commit(s)"
+               if ctx.candidate_record_paths else "the preserved local candidate has not yet been appended")
             + f"; nothing pushed, merged, published or activated). Headline: **{s['headline']}**. Predictive skill: "
             f"**{s['predictive_skill']}**.", ""]
     if red:
@@ -252,6 +252,10 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
             f"Candidate append: previous head `{record.get('previous_candidate_head')}`, commit "
             f"`{record.get('candidate_commit')}`, tree `{record.get('candidate_tree')}`, from repair head "
             f"`{record.get('repair_head')}`; refs changed {record.get('refs_changed')}.", "",
+            "Every append, in order (each continues the one before it; the first continues the preserved head): "
+            + "; ".join(f"`{str(row.get('previous_candidate_head'))[:10]}` -> `{str(row.get('candidate_commit'))[:10]}` "
+                        f"from repair head `{str(row.get('repair_head'))[:10]}`" for row in candidate.get("appends") or [])
+            + ".", "",
             f"Tree checks {_j(lane_c.get('tree_checks'), 900)}", "",
             f"Committed-blob proof {_j(lane_c.get('committed_tree_proof'), 700)}", "",
             f"Negatives {_j({k: v.get('refused_for_its_cause') for k, v in ((lane_c.get('negatives') or {}).get('cases') or {}).items()}, 400)}; "

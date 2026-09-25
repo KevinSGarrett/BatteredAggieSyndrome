@@ -91,14 +91,15 @@ LABEL = "Cycle #37 \u2014 Attempt #6 \u2014"
 LANES = a5.LANES
 GATED = a5.GATED
 MIB = 1024 * 1024
-#: Each lane's reservation (reserved before the lane, reconciled after it); the Attempt 5 final lanes used at most
-#: 323 MB (INSTALLED_CONSUMER_C01, reusing its lineage fixture) and 114 MB (the candidate lane).
+#: Each lane's reservation (reserved before the lane, reconciled after it): its measured Attempt 6 cost at the first
+#: final head with margin -- INSTALLED_CONSUMER_C01 365 MB (reusing its lineage fixtures), the candidate lane 116 MB,
+#: PLATFORM_CARRY about 85 MB, CAREER_SUCCESSOR 23 MB, FULL_FINAL_MOUNTED 4 MB, every other lane under 1 MB.
 LANE_ESTIMATES = {
-    "START_CONTEXT": 16 * MIB, "WRITE_PROTECTION": 64 * MIB, "STORAGE_ADMISSION": 64 * MIB,
-    "SOURCE_ADMISSION": 96 * MIB, "SOURCE_HARNESS": 64 * MIB, "SOURCE_REGRESSIONS": 128 * MIB,
-    "CAREER_SUCCESSOR": 160 * MIB, "INSTALLED_CONSUMER_C01": 512 * MIB, "LOCAL_INTEGRATION_CANDIDATE": 256 * MIB,
-    "TRUE_UNMOUNTED": 128 * MIB, "FULL_FINAL_MOUNTED": 256 * MIB, "STRICT_MOUNTED": 96 * MIB,
-    "PLATFORM_CARRY": 160 * MIB, "FINAL_PACKET": 32 * MIB,
+    "START_CONTEXT": 16 * MIB, "WRITE_PROTECTION": 32 * MIB, "STORAGE_ADMISSION": 32 * MIB,
+    "SOURCE_ADMISSION": 32 * MIB, "SOURCE_HARNESS": 32 * MIB, "SOURCE_REGRESSIONS": 32 * MIB,
+    "CAREER_SUCCESSOR": 64 * MIB, "INSTALLED_CONSUMER_C01": 448 * MIB, "LOCAL_INTEGRATION_CANDIDATE": 176 * MIB,
+    "TRUE_UNMOUNTED": 32 * MIB, "FULL_FINAL_MOUNTED": 64 * MIB, "STRICT_MOUNTED": 32 * MIB,
+    "PLATFORM_CARRY": 128 * MIB, "FINAL_PACKET": 32 * MIB,
 }
 #: The two owned lineage fixtures (full copies of the Attempt 5 and Attempt 4 successors) are made once and restored
 #: from the genuine file before every case, without a rollback journal; a missing one is reserved on top of the
@@ -1039,9 +1040,25 @@ def lane_installed_consumer_c01(run: LaneRun) -> None:
 # ------------------------------------------------------------- the local integration candidate (MF37A05-02)
 
 
+def _append_records() -> list[tuple[Path, dict[str, Any]]]:
+    return [(path, _json_file(path)) for path in sorted(CANDIDATE_RECORDS.glob("CANDIDATE_APPEND_*.json"))]
+
+
 def _append_record() -> tuple[Path | None, dict[str, Any]]:
-    records = sorted(CANDIDATE_RECORDS.glob("CANDIDATE_APPEND_*.json"))
-    return (records[-1], _json_file(records[-1])) if records else (None, {})
+    records = _append_records()
+    return records[-1] if records else (None, {})
+
+
+def _append_chain(head: str) -> dict[str, Any]:
+    """Every append continues the one before it: the first from the preserved head, the last ending at ``head``."""
+
+    records = _append_records()
+    chain = [{"record": str(path), "previous": record.get("previous_candidate_head"),
+              "commit": record.get("candidate_commit"), "repair_head": record.get("repair_head")}
+             for path, record in records]
+    expected = [candidate.ISSUED_CANDIDATE_HEAD] + [row["commit"] for row in chain[:-1]]
+    holds = bool(chain) and [row["previous"] for row in chain] == expected and chain[-1]["commit"] == head
+    return {"appends": chain, "holds": holds}
 
 
 def _negatives(run: LaneRun, head: str, repair: str) -> dict[str, Any]:
@@ -1108,6 +1125,7 @@ def lane_local_integration_candidate(run: LaneRun) -> None:
     run.extra["candidate"] = description
     head = description.get("candidate_head")
     record_path, record = _append_record()
+    run.extra["candidate_append_chain"] = _append_chain(head) if head else None
     run.extra["candidate_append_record"] = {
         "file": str(record_path) if record_path else None, "sha256": sha256_file(record_path) if record_path else None,
         **{k: record.get(k) for k in ("candidate_commit", "candidate_tree", "previous_candidate_head", "repair_head",
@@ -1129,7 +1147,8 @@ def lane_local_integration_candidate(run: LaneRun) -> None:
     status = base.porcelain(CANDIDATE_WORKTREE)
     skip = git_out("ls-files", "-v", "--", *candidate.PROTECTED_PATHS, repo=CANDIDATE_WORKTREE).splitlines()
     checks = {
-        "parent_is_the_preserved_candidate": description.get("candidate_parents") == [candidate.ISSUED_CANDIDATE_HEAD],
+        "parent_is_the_previous_candidate_head": description.get("candidate_parents") == [record.get("previous_candidate_head")],
+        "appends_chain_from_the_preserved_candidate": _append_chain(head)["holds"],
         "preserved_head_reachable": description.get("issued_head_is_ancestor") is True,
         "main_ref_unchanged": description.get("main_ref") == MAIN_SHA,
         "repair_branch_at_this_head": description.get("repair_head") == repair_head,

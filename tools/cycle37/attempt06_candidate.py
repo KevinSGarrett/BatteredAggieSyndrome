@@ -216,13 +216,20 @@ def generate_in_view(view: Path) -> dict[str, Any]:
             "tree_fingerprint": fingerprint, "git_enumeration": "none (the view is not a repository; files enumerated)"}
 
 
-def append(record_path: Path, view_root: Path, *, rehearsal_repair: str | None = None) -> dict[str, Any]:
-    """The one append. ``rehearsal_repair`` is set only by :func:`rehearse`, whose scratch repository holds the
-    repair ref itself; the granted append takes the repair worktree's clean committed head."""
+def append(record_path: Path, view_root: Path, *, rehearsal_repair: str | None = None,
+           previous_head: str | None = None) -> dict[str, Any]:
+    """One forward append. ``previous_head`` names the head the caller appends to (the issued head by default); a
+    later append must name the current head exactly and descend from the issued head, so no append is repeated or
+    skipped. ``rehearsal_repair`` is set only by :func:`rehearse`, whose scratch repository holds the repair ref
+    itself; the granted append takes the repair worktree's clean committed head."""
 
+    expected = previous_head or ISSUED_CANDIDATE_HEAD
     head = git("rev-parse", "--verify", "--quiet", f"refs/heads/{CANDIDATE_BRANCH}", check=False)
-    if head != ISSUED_CANDIDATE_HEAD:
-        raise SystemExit(f"{CANDIDATE_BRANCH} is at {head}, not the issued {ISSUED_CANDIDATE_HEAD}; the append is made once")
+    if head != expected:
+        raise SystemExit(f"{CANDIDATE_BRANCH} is at {head}, not the named previous head {expected}; refusing")
+    if subprocess.run(["git", "--no-optional-locks", "-C", str(REPO), "merge-base", "--is-ancestor",
+                       ISSUED_CANDIDATE_HEAD, head], capture_output=True, check=False).returncode != 0:
+        raise SystemExit(f"{head} does not descend from the preserved candidate {ISSUED_CANDIDATE_HEAD}; refusing")
     if rehearsal_repair is None and git("status", "--porcelain=v1", "-uall", repo=WORKTREE):
         raise SystemExit("the repair worktree is not clean; the candidate follows only a committed subject")
     if git("status", "--porcelain=v1", "-uall", repo=CANDIDATE_WORKTREE):
@@ -397,6 +404,8 @@ def main(argv: list[str] | None = None) -> int:
     made = sub.add_parser("append")
     made.add_argument("--record", type=Path, required=True)
     made.add_argument("--view-root", type=Path, required=True)
+    made.add_argument("--previous-head", default=None,
+                      help="the current candidate head a later append continues (default: the issued head)")
     sub.add_parser("describe")
     rehearsed = sub.add_parser("rehearse")
     rehearsed.add_argument("--scratch", type=Path, required=True)
@@ -405,7 +414,7 @@ def main(argv: list[str] | None = None) -> int:
     checked.add_argument("revision")
     args = parser.parse_args(argv)
     if args.mode == "append":
-        result = append(args.record, args.view_root)
+        result = append(args.record, args.view_root, previous_head=args.previous_head)
     elif args.mode == "rehearse":
         result = rehearse(args.scratch, args.repair)
     elif args.mode == "verify-tree":

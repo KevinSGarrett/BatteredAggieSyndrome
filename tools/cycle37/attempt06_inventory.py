@@ -32,6 +32,8 @@ PURPOSE = {
     (VALIDATION_ROOT, "cv"): ("The granted append's validation view: a byte-for-byte materialization of the appended "
                               "candidate tree in which the canonical generator wrote its provenance; the committed-blob "
                               "proof cites it", False),
+    (VALIDATION_ROOT, "cv2"): ("The second granted append's validation view (the outputs-tool repair carried onto "
+                               "the candidate); the committed-blob proof cites it", False),
     (VALIDATION_ROOT, "cn"): ("Scratch repositories of the candidate lane's committed-provenance negatives", True),
     (VALIDATION_ROOT, "lanes"): ("Lane work directories (manager-probe replay copies and fixtures)", True),
     (VALIDATION_ROOT, "rehearsal"): ("Rehearsal lane runs (labelled REHEARSAL, never evidence)", True),

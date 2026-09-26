@@ -4391,6 +4391,8 @@ tests/test_cycle37_a05_storage_admission.py
 tests/test_cycle37_a06_candidate_provenance.py
 tests/test_cycle37_a06_storage_snapshot.py
 tests/test_cycle37_a06_successor_identity.py
+tests/test_cycle37_a07_source_anchor.py
+tests/test_cycle37_a07_storage_continuation.py
 tests/test_cycle37_admission_domains.py
 tests/test_cycle37_alias_team_season.py
 tests/test_cycle37_atomic_io.py
@@ -5021,6 +5023,12 @@ tools/cycle37/attempt06_lanes.py
 tools/cycle37/attempt06_outputs.py
 tools/cycle37/attempt06_platform.py
 tools/cycle37/attempt06_report.py
+tools/cycle37/attempt07_candidate.py
+tools/cycle37/attempt07_control07.py
+tools/cycle37/attempt07_lanes.py
+tools/cycle37/attempt07_outputs.py
+tools/cycle37/attempt07_platform.py
+tools/cycle37/attempt07_report.py
 tools/cycle37/build_corrected_release.py
 tools/cycle37/build_worker_packet.py
 tools/cycle37/c29_claim_successor.py

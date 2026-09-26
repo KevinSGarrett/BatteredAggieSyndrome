@@ -14,6 +14,13 @@ owned fixtures before any expensive work:
   ledger and an operational record appended after the freeze are each refused for their own cause;
 * the final-output ledger refuses an allocation past the carried headroom, keeps counting across a restart, and
   nothing here deletes or rewrites a ledger or a snapshot.
+
+Cycle #37 -- Attempt #7 (MF37A06-02) corrected three assertions of this suite that stated the defect itself: a
+continuation's INIT carried a budget *equal to the snapshot's headroom* over a fresh baseline, which is what let a
+second continuation of one snapshot take the same headroom again. A continuation now carries the root's budget and
+baselines and opens with exactly the frozen headroom (``opened.headroom_bytes``); and a continued ledger refuses a
+later reservation (recording the refusal) instead of admitting it. The suite's other expectations are unchanged;
+``test_cycle37_a07_storage_continuation`` adds the replay, concurrency, restart and tamper cases.
 """
 
 from __future__ import annotations
@@ -94,7 +101,8 @@ class StorageSnapshotTests(unittest.TestCase):
         final_root.mkdir()
         final_ledger_path = self.base / "ops" / "final" / "STORAGE_FINAL_OUTPUT_LEDGER.jsonl"
         init = ss.open_final(self.snapshot, final_ledger_path, [str(final_root)])
-        self.assertEqual(init["budget_bytes"], 5_000)              # exactly the operational headroom
+        # A7 (MF37A06-02): the root's budget, opened with exactly the operational headroom (was: budget = headroom).
+        self.assertEqual((init["budget_bytes"], init["opened"]["headroom_bytes"]), (10_000, 5_000))
         self.assertEqual(json.loads(init["note"])["continues_snapshot"]["content_sha256"],
                          sealed["STORAGE_EVIDENCE_SNAPSHOT.json"])
         final = sa.Ledger(final_ledger_path)
@@ -202,7 +210,8 @@ class StorageSnapshotTests(unittest.TestCase):
         successor_path = self.base / "ops" / "STORAGE_RESERVATIONS_SEGMENT_02.jsonl"
         init = ss.open_successor(self.snapshot, successor_path, [str(self.owned)], kind="operational ledger segment 2",
                                  scope="continuation after the bounded stop")
-        self.assertEqual(init["budget_bytes"], 6_000)
+        # A7 (MF37A06-02): the root's budget, opened with exactly the remaining headroom (was: budget = headroom).
+        self.assertEqual((init["budget_bytes"], init["opened"]["headroom_bytes"]), (10_000, 6_000))
         reference = json.loads(init["note"])["continues_snapshot"]
         self.assertEqual((reference["content_sha256"], reference["bounded_stop"]["operation"]),
                          (document["content_sha256"], "LANE underestimated"))
@@ -229,7 +238,10 @@ class StorageSnapshotTests(unittest.TestCase):
         self.assertEqual(ss.main(["verify", "--ledger", str(self.ledger_path), "--snapshot", str(self.snapshot)]), 0)
         self.assertEqual(ss.main(["open-final", "--snapshot", str(self.snapshot), "--ledger",
                                   str(self.base / "ops" / "final.jsonl"), "--root", str(self.base / "f")]), 0)
-        self.work("late.bin", 10, 20)
+        # A7 (MF37A06-02): the continued ledger refuses the late reservation (was: admitted it); the refusal is still
+        # a record after the freeze, which the snapshot's verification reports.
+        with self.assertRaises(sa.AdmissionRefused):
+            self.work("late.bin", 10, 20)
         self.assertEqual(ss.main(["verify", "--ledger", str(self.ledger_path), "--snapshot", str(self.snapshot)]), 3)
 
 

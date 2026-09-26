@@ -58,6 +58,29 @@ A display name is never an identity: two rows of the same person on different pa
 share a name, are bound only through page, revision and family. Legitimately added rows (no predecessor), split
 rows (one predecessor, several successors), rows without a team span, and typed other-sport or unknown employers
 carry no binding these checks would refuse.
+
+Cycle #37 -- Attempt #7 (MF37A06-01). Every job of one biography shares its page, revision, family and capture, so
+the Attempt 6 manager could swap the reciprocal default and Attempt 4 edges of Fred Mariani's 1974 graduate-assistant
+row and his 2009 Rutgers row, re-seal and be served. An edge is now also bound to the **source field** it was read
+from, proved for every edge of both relations at attach (:func:`check_anchors`):
+
+* the ``team`` and ``years`` fields of child and parent are compared as source anchors -- recorded character spans
+  of the same revision text must agree (equal, overlapping, or an empty parameter's position inside the field); a
+  parent that records no span for a field is matched by its recorded source region (a role line inside its employer
+  line) or by its field text; a field absent on a side is not agreement. Another field of the page refuses as
+  ``EPISODE``, ``TEAM`` or ``YEARS`` for the anchor that differs; with no comparable field the infobox parameter row
+  is the only anchor left, and a different one refuses as ``UNANCHORED``;
+* inside a field that states several intervals, an unrestructured edge must also name its own interval: the two
+  interval texts contain one another (``PERIOD``); a ``RESTRUCTURED_INTERVALS`` claim must be what re-reading the
+  field did -- every interval of the entry mapped to every re-read interval, and a changed interval count
+  (``RESTRUCTURE_CLAIM``);
+* (Attempt 5 format) the declared Attempt 4 file must be present (``A04_FILE_ABSENT`` otherwise): every Attempt 4
+  edge is anchored the same way (``A04_ANCHOR``), and each row's predecessor rows equal the ones its Attempt 4 rows
+  derive from (``CROSS_VERSION_LINEAGE``).
+
+Nothing here equates positional indices or normalized titles: role lines, corrected dates, re-read intervals, added
+and removed rows and absent fields keep their legitimate lineage. The delivered 72,958-row successor and the Attempt 4
+file prove under every rule.
 """
 
 from __future__ import annotations
@@ -169,7 +192,22 @@ REFUSED_SOURCE_LOCATOR = "REFUSED_CAREER_SUCCESSOR_SOURCE_LOCATOR_MISMATCH"
 REFUSED_A04_IDENTITY = "REFUSED_CAREER_SUCCESSOR_A04_IDENTITY_MISMATCH"
 REFUSED_RAW_PAGE = "REFUSED_CAREER_SUCCESSOR_RAW_PAGE_OR_REVISION_MISMATCH"
 REFUSED_PAGE_IDENTITY = "REFUSED_CAREER_SUCCESSOR_PAGE_IDENTITY_MISMATCH"
-VERIFIER_VERSION = "BAS-C37A06-CAREER-SUCCESSOR-VERIFIER-v2"
+# v37.7 (MF37A06-01): every edge is bound to the source field it was read from -- and, inside a field that states
+# several intervals, to its own interval -- not only to its page.
+REFUSED_EPISODE_ANCHOR = "REFUSED_CAREER_SUCCESSOR_EPISODE_ANCHOR_MISMATCH"
+REFUSED_TEAM_ANCHOR = "REFUSED_CAREER_SUCCESSOR_TEAM_ANCHOR_MISMATCH"
+REFUSED_YEARS_ANCHOR = "REFUSED_CAREER_SUCCESSOR_YEARS_ANCHOR_MISMATCH"
+REFUSED_PERIOD_ANCHOR = "REFUSED_CAREER_SUCCESSOR_PERIOD_ANCHOR_MISMATCH"
+REFUSED_UNANCHORED = "REFUSED_CAREER_SUCCESSOR_UNANCHORED_LINEAGE"
+REFUSED_RESTRUCTURE = "REFUSED_CAREER_SUCCESSOR_RESTRUCTURE_CLAIM_MISMATCH"
+REFUSED_A04_ANCHOR = "REFUSED_CAREER_SUCCESSOR_A04_ANCHOR_MISMATCH"
+REFUSED_CROSS_VERSION = "REFUSED_CAREER_SUCCESSOR_CROSS_VERSION_LINEAGE_MISMATCH"
+REFUSED_A04_FILE_ABSENT = "REFUSED_CAREER_SUCCESSOR_A04_FILE_ABSENT"
+VERIFIER_VERSION = "BAS-C37A07-CAREER-SUCCESSOR-VERIFIER-v3"
+#: The columns an edge's source anchor is read from, in both the successor and the rows it derives from.
+ANCHOR_COLUMNS = ("team_char_span", "years_char_span", "team_raw", "years_raw", "years_as_written")
+ANCHOR_FIELDS = ("team", "years")
+_AGREES, _DISAGREES, _NOT_COMPARABLE = "AGREES", "DISAGREES", "NOT_COMPARABLE"
 #: What every row of one revision page states identically: the capture, its text, its title, the display name the
 #: page is served under and its Wikidata item. A person is identified by the page, never by the display name.
 PAGE_IDENTITY_NAMES = ("page_title", "person_display", "wikidata_qid")
@@ -200,6 +238,164 @@ def display_name_of_title(title: Any) -> str:
     """The display name a page is served under: its title without the trailing disambiguation parenthetical."""
 
     return re.sub(r"\s*\(.*\)$", "", str(title or ""))
+
+
+# ---- v37.7 source anchors (MF37A06-01) ----
+
+def _field_span(value: Any) -> tuple[int, int] | None:
+    """A recorded ``[start, end]`` character span (a zero-length one marks an empty parameter's position)."""
+
+    try:
+        decoded = json.loads(value) if isinstance(value, str) else value
+    except ValueError:
+        return None
+    if (isinstance(decoded, list) and len(decoded) == 2
+            and all(isinstance(v, int) and not isinstance(v, bool) for v in decoded) and 0 <= decoded[0] <= decoded[1]):
+        return decoded[0], decoded[1]
+    return None
+
+
+def _spans_agree(a: tuple[int, int], b: tuple[int, int]) -> bool:
+    """Two spans of one revision text name the same source field: equal, overlapping, or an empty parameter's
+    position inside the other field."""
+
+    if a == b or (a[0] < b[1] and b[0] < a[1]):
+        return True
+    return (a[0] == a[1] and b[0] <= a[0] <= b[1]) or (b[0] == b[1] and a[0] <= b[0] <= a[1])
+
+
+def _text_key(value: Any) -> str | None:
+    text = re.sub(r"\s+", "", str(value)).casefold() if value not in (None, "") else ""
+    return text or None
+
+
+def field_anchor(child: Mapping[str, Any], parent: Mapping[str, Any], field: str) -> str:
+    """Whether a child's ``team`` or ``years`` field is the parent's own source field.
+
+    Both spans recorded: they must agree. The parent records no span for it: the child's span must lie in the
+    parent's recorded source region (a role line inside its employer line), or else the two field texts must
+    contain one another. Otherwise the field cannot be compared (it is absent on a side), which is not agreement."""
+
+    own, theirs = _field_span(child.get(f"{field}_char_span")), _field_span(parent.get(f"{field}_char_span"))
+    if own and theirs:
+        return _AGREES if _spans_agree(own, theirs) else _DISAGREES
+    if own and not theirs:
+        region = [s for s in (_field_span(parent.get("team_char_span")), _field_span(parent.get("years_char_span")))
+                  if s]
+        if any(_spans_agree(own, span) for span in region):
+            return _AGREES
+    a, b = _text_key(child.get(f"{field}_raw")), _text_key(parent.get(f"{field}_raw"))
+    if a and b:
+        return _AGREES if (a in b or b in a) else _DISAGREES
+    return _NOT_COMPARABLE
+
+
+def edge_anchor(child: Mapping[str, Any], parent: Mapping[str, Any]) -> tuple[str | None, dict[str, str]]:
+    """``(cause, per-field verdicts)`` for one lineage edge: None when the edge is anchored to its source field;
+    ``EPISODE``, ``TEAM`` or ``YEARS`` when that anchor names another field of the page; ``UNANCHORED`` when no
+    field can be compared and the two rows are not the same infobox parameter (the last anchor, used only then)."""
+
+    verdicts = {field: field_anchor(child, parent, field) for field in ANCHOR_FIELDS}
+    disagree = [field for field in ANCHOR_FIELDS if verdicts[field] == _DISAGREES]
+    if len(disagree) == 2:
+        return "EPISODE", verdicts
+    if disagree:
+        return disagree[0].upper(), verdicts
+    if _AGREES not in verdicts.values():
+        verdicts["parameter"] = "SAME" if str(child.get("row_index")) == str(parent.get("row_index")) else "DIFFERENT"
+        return (None if verdicts["parameter"] == "SAME" else "UNANCHORED"), verdicts
+    return None, verdicts
+
+
+def entry_of(row: Mapping[str, Any]) -> tuple[str, str, str, str]:
+    """The infobox entry (page, revision, family, parameter row) whose intervals a row is one of."""
+
+    return str(row.get("pageid")), str(row.get("revision")), str(row.get("family")), str(row.get("row_index"))
+
+
+def same_entry(child: Mapping[str, Any], parent: Mapping[str, Any]) -> bool:
+    """Whether the child is read from the parent's whole field (not a role line within it)."""
+
+    own, theirs = _field_span(child.get("team_char_span")), _field_span(parent.get("team_char_span"))
+    if own is not None or theirs is not None:
+        return own == theirs
+    return _field_span(child.get("years_char_span")) == _field_span(parent.get("years_char_span"))
+
+
+def period_agrees(child: Mapping[str, Any], parent: Mapping[str, Any]) -> bool:
+    """Inside one field stating several intervals, the child's interval text and the parent's contain one another
+    (``1959`` read again as ``1959–1967`` agrees; ``1926`` and ``1928–1930`` are two intervals)."""
+
+    a, b = _text_key(child.get("years_as_written")), _text_key(parent.get("years_as_written"))
+    return not a or not b or a in b or b in a
+
+
+_CAUSE_CODES = {"EPISODE": REFUSED_EPISODE_ANCHOR, "TEAM": REFUSED_TEAM_ANCHOR, "YEARS": REFUSED_YEARS_ANCHOR,
+                "PERIOD": REFUSED_PERIOD_ANCHOR, "UNANCHORED": REFUSED_UNANCHORED, "RESTRUCTURE": REFUSED_RESTRUCTURE}
+
+
+def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, Mapping[str, Any]],
+                  dispositions: Mapping[str, tuple[str, list[str]]], parents_of: str, relation: str,
+                  a04_relation: bool = False) -> dict[str, Any]:
+    """Prove every edge of one lineage relation is anchored to its source field and interval, and every
+    restructured entry is what its disposition says (all-to-all, a changed interval count). ``parents_of`` names
+    the child's list of parent identities. Raises :class:`CareerSuccessorError` for the first failing cause."""
+
+    children = list(children)
+    parent_entries: dict[tuple[str, ...], list[str]] = {}
+    for identity, parent in parents.items():
+        parent_entries.setdefault(entry_of(parent), []).append(identity)
+    child_entries: dict[tuple[str, ...], int] = {}
+    for child in children:
+        child_entries[entry_of(child)] = child_entries.get(entry_of(child), 0) + 1
+    by_identity = {str(child["episode_id"]): child for child in children}
+    failures: dict[str, list[str]] = {}
+    counts = {"edges": 0, "anchored_by_source_field": 0, "anchored_by_parameter_only": 0, "interval_checked": 0}
+    # Restructure claims: an entry whose intervals were re-read maps every one of them to every re-read interval.
+    restructured = set()
+    for entry, identities in parent_entries.items():
+        states = [dispositions.get(identity) for identity in identities]
+        if not any(state and state[0] == RESTRUCTURED for state in states):
+            continue
+        targets = {tuple(sorted(state[1])) for state in states if state}
+        same = [t for t in (next(iter(targets)) if len(targets) == 1 else ())
+                if t in by_identity and same_entry(by_identity[t], parents[identities[0]])]
+        if (not all(state and state[0] == RESTRUCTURED for state in states) or len(targets) != 1
+                or len(same) == len(identities)):
+            failures.setdefault("RESTRUCTURE", []).append(":".join(entry))
+        restructured.add(entry)
+    for child in children:
+        for identity in child.get(parents_of) or ():
+            parent = parents.get(identity)
+            if parent is None:
+                continue
+            counts["edges"] += 1
+            cause, verdicts = edge_anchor(child, parent)
+            if cause:
+                failures.setdefault(cause, []).append(f"{child['episode_id']} <- {identity} {verdicts}")
+                continue
+            counts["anchored_by_parameter_only" if "parameter" in verdicts else "anchored_by_source_field"] += 1
+            entry = entry_of(parent)
+            multiple = len(parent_entries.get(entry, ())) > 1 or child_entries.get(entry_of(child), 0) > 1
+            if multiple and entry not in restructured and same_entry(child, parent):
+                counts["interval_checked"] += 1
+                if not period_agrees(child, parent):
+                    failures.setdefault("PERIOD", []).append(
+                        f"{child['episode_id']} ({child.get('years_as_written')!r}) <- {identity} "
+                        f"({parent.get('years_as_written')!r})")
+    for cause in ("EPISODE", "TEAM", "YEARS", "UNANCHORED", "RESTRUCTURE", "PERIOD"):
+        if cause in failures:
+            examples = _examples(failures[cause])
+            summary = {c: len(v) for c, v in failures.items()}
+            if a04_relation:
+                raise CareerSuccessorError(REFUSED_A04_ANCHOR, (
+                    f"{len(failures[cause])} {relation} edge(s) fail the {cause} anchor (all causes: {summary}); the "
+                    f"row a version maps to must be read from the same source field and interval: {examples}"))
+            raise CareerSuccessorError(_CAUSE_CODES[cause], (
+                f"{len(failures[cause])} {relation} edge(s) fail the {cause} anchor (all causes: {summary}): a parent "
+                f"row must be read from the child's own source field and interval, not another career episode of "
+                f"the same page: {examples}"))
+    return {**counts, "restructured_entries": len(restructured), "relation": relation}
 
 
 @dataclass(frozen=True)
@@ -303,13 +499,14 @@ def _check_lineage(conn: sqlite3.Connection, fmt: Format, declared: dict[str, st
     extra = ", a04_episode_ids, a04_lineage_state, a04_disposition" if a05 else ""
     episodes = [dict(zip(("episode_id", "pageid", "revision", "family", "row_index", "interval_index",
                           "predecessor_episode_ids", "lineage_state", "disposition", "raw_file", "raw_file_sha256",
-                          "wikitext_sha256", *PAGE_IDENTITY_NAMES,
+                          "wikitext_sha256", *PAGE_IDENTITY_NAMES, *ANCHOR_COLUMNS,
                           *(("a04_episode_ids", "a04_lineage_state", "a04_disposition") if a05 else ())),
                          row))
                 for row in conn.execute(
                     "SELECT episode_id, pageid, revision, family, row_index, interval_index, predecessor_episode_ids, "
                     f"lineage_state, disposition, raw_file, raw_file_sha256, wikitext_sha256, "
-                    f"{', '.join(PAGE_IDENTITY_NAMES)}{extra} FROM {schema}.{fmt.episode_table}")]
+                    f"{', '.join(PAGE_IDENTITY_NAMES)}, {', '.join(ANCHOR_COLUMNS)}{extra} "
+                    f"FROM {schema}.{fmt.episode_table}")]
     dispositions = [dict(zip(("predecessor_episode_id", "disposition", "successor_episode_ids",
                               "predecessor_row_sha256"), row)) for row in
                     conn.execute(f"SELECT predecessor_episode_id, disposition, successor_episode_ids, "
@@ -405,9 +602,12 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
     locators: dict[str, tuple[Any, ...]] = {}
     digests: dict[str, str] = {}
     predecessor_pages: dict[str, set[tuple[str, ...]]] = {}
+    anchors: dict[str, dict[str, Any]] = {}
     for values in conn.execute(f"SELECT {columns} FROM main.{PREDECESSOR_TABLE}"):
         row = dict(zip(PREDECESSOR_COLUMNS, values))
         identity = str(row["episode_id"])
+        anchors[identity] = {key: row.get(key) for key in ("pageid", "revision", "family", "row_index",
+                                                           *ANCHOR_COLUMNS)}
         locators[identity] = (_locator_of(row), str(row.get("raw_file_sha256")), str(row.get("wikitext_sha256")))
         digests[identity] = row_digest(values)
         predecessor_pages.setdefault(str(row.get("pageid")), set()).add(_page_identity(row))
@@ -453,12 +653,22 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
         raise CareerSuccessorError(REFUSED_ROW_BINDING, (
             f"{len(changed)} disposition(s) record a predecessor-row digest the open predecessor's row does not "
             f"hash to: {_examples(changed)}"))
+    # v37.7 (MF37A06-01): a page, a revision and a capture are shared by every job of one biography; the edge must
+    # also name the parent row read from the child's own source field (and interval).
+    anchored = check_anchors(
+        episodes, anchors,
+        {str(row["predecessor_episode_id"]): (str(row["disposition"]),
+                                              _id_list(row["successor_episode_ids"], "successor_episode_ids",
+                                                       str(row["predecessor_episode_id"])))
+         for row in dispositions},
+        "_parents", "predecessor")
     edges = sum(len(r.get("_parents") or ()) for r in episodes)
     return {"parent_edges_bound_to_page_revision_family": edges, "parent_edges_bound_to_raw_locator": edges,
             "dispositions_bound_to_predecessor_row_digest": len(dispositions),
             "pages_uniform": len(successor_pages),
             "pages_bound_to_predecessor_page_identity": sum(1 for page in successor_pages if page in predecessor_pages),
-            "pages_without_predecessor_rows": sum(1 for page in successor_pages if page not in predecessor_pages)}
+            "pages_without_predecessor_rows": sum(1 for page in successor_pages if page not in predecessor_pages),
+            "parent_edges_bound_to_source_field": anchored}
 
 
 def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]], identity_set: set[str],
@@ -515,12 +725,19 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
             f"that claims it: {_examples(typed_mismatch)}"))
     file_check = "A04_FILE_NOT_DECLARED"
     locators_bound = 0
+    a04_rows: dict[str, dict[str, Any]] = {}
     path = declared.get("a04_successor_path")
+    # v37.7 (MF37A06-01): the Attempt 4 relation is validated, never assumed -- a successor whose declared Attempt 4
+    # file is absent (or which declares none) cannot prove its cross-version anchors and is refused.
+    if not path:
+        raise CareerSuccessorError(REFUSED_A04_FILE_ABSENT, (
+            "the Attempt 5 successor declares no Attempt 4 file, so its Attempt 4 relation cannot be proved"))
+    if not Path(path).is_file():
+        raise CareerSuccessorError(REFUSED_A04_FILE_ABSENT, (
+            f"the declared Attempt 4 file {path} is absent, so the Attempt 4 relation cannot be proved"))
     if path:
         a04 = Path(path)
-        if not a04.is_file():
-            file_check = "A04_FILE_ABSENT_SET_EQUALITY_NOT_CHECKED"
-        elif sha256_file(a04) != declared.get("a04_successor_sha256"):
+        if sha256_file(a04) != declared.get("a04_successor_sha256"):
             problems.append(f"the declared Attempt 4 file {a04} no longer has its declared SHA-256")
         else:
             other = sqlite3.connect(f"file:{a04.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
@@ -530,6 +747,7 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
             try:
                 for values in other.execute(f"SELECT {columns} FROM {EPISODE_TABLE}"):
                     a04_row = dict(zip(EPISODE_COLUMNS, values))
+                    a04_rows[str(a04_row["episode_id"])] = a04_row
                     a04_locators[str(a04_row["episode_id"])] = (str(a04_row.get("raw_file_sha256")),
                                                                 str(a04_row.get("wikitext_sha256")))
                     a04_digests[str(a04_row["episode_id"])] = row_digest(values)
@@ -558,7 +776,29 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
             file_check = "A04_FILE_IDENTITY_SET_EQUAL"
     if problems:
         raise CareerSuccessorError(REFUSED_A04_MAPPING, f"the Attempt 4 mapping is broken: {problems[:5]}")
+    # v37.7 (MF37A06-01): every Attempt 4 edge names the Attempt 4 row read from the same source field and interval,
+    # and the versions agree: an Attempt 5 row's predecessor rows are exactly those its Attempt 4 rows derive from.
+    a04_anchored = check_anchors(
+        episodes, a04_rows,
+        {str(row["a04_episode_id"]): (str(row["disposition"]), _id_list(row["a05_episode_ids"], "a05_episode_ids",
+                                                                          str(row["a04_episode_id"]))) for row in rows},
+        "_a04_parents", "Attempt 4", a04_relation=True)
+    crossed = []
+    for row in episodes:
+        through_a04 = set()
+        for parent in row.get("_a04_parents") or ():
+            through_a04.update(_id_list(a04_rows[parent].get("predecessor_episode_ids") or "[]",
+                                        "predecessor_episode_ids", parent))
+        if through_a04 != set(row.get("_parents") or ()):
+            crossed.append(f"{row['episode_id']}: predecessor rows {sorted(row.get('_parents') or ())}, but its Attempt "
+                           f"4 rows derive from {sorted(through_a04)}")
+    if crossed:
+        raise CareerSuccessorError(REFUSED_CROSS_VERSION, (
+            f"{len(crossed)} row(s) whose predecessor rows are not the ones their Attempt 4 rows derive from: "
+            f"{_examples(crossed)}"))
     return {"a04_rows_mapped": len(ids), "a04_edges": len(forward), "a04_file_check": file_check,
+            "a04_edges_bound_to_source_field": a04_anchored,
+            "rows_whose_versions_agree_on_predecessor_rows": len(episodes),
             "a04_edges_bound_to_page_revision_family": len(backward),
             "a04_edges_bound_to_a04_file_raw_locator": locators_bound,
             "a04_mapping_digests_bound_to_a04_file_rows": file_check == "A04_FILE_IDENTITY_SET_EQUAL",

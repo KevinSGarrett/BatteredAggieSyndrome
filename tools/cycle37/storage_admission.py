@@ -32,6 +32,25 @@ module is the prevention. It is not a filesystem quota and does not claim to be 
   the command line outlives the command that made it, so it is held for an explicit ``reconcile`` instead.
 
 Nothing here deletes, moves or prunes a file. Cleanup is a separate owner decision.
+
+Cycle #37 -- Attempt #7 (MF37A06-02). A continuation opened from an unchanged, valid snapshot measured a *fresh*
+baseline and took the snapshot's headroom as its budget, so a second continuation of the same snapshot saw every
+byte the first had spent as baseline and admitted the same headroom again (1,100,000 projected against a
+1,000,000-byte budget). A ledger segment is now a file of one attempt-wide ledger, never a new baseline:
+
+* **Identity comes from the ledger.** A root ``init`` records the cycle and attempt it serves (``--cycle-number``,
+  ``--attempt-number``); every later record, in every segment, carries that identity from its root's INIT -- never
+  a module constant, which labelled Attempt 6's new segments "Attempt 5".
+* **A continuation inherits the root's state.** Its INIT (written by ``storage_snapshot.open_successor``) carries the
+  root ledger's budget and per-root baselines, every root of its parent, and its root and parent identities, so the
+  added total it measures is the attempt's cumulative total. A root it adds must be empty when it is added.
+* **One continuation per ledger.** Continuing a ledger claims it: a create-only claim file beside it
+  (``<ledger>.continuation.json``), created under the ledger's lock. A second or concurrent continuation, from the
+  same or any snapshot, is refused; the same continuation opened again resumes. A continued ledger refuses every
+  later reservation (the refusal is recorded), and a continuation whose parent's claim does not name it refuses too.
+* **A truncated ledger is refused.** After each append the ledger's head (record count and last record digest) is
+  appended to ``<ledger>.head.jsonl``; a ledger shorter than its last head, or whose head record changed, is
+  refused. (A procedural record, not an OS-level tamper seal: the head log could be cut consistently too.)
 """
 
 from __future__ import annotations
@@ -50,9 +69,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Iterator
 
-TOOL_VERSION = "BAS-C37A05-STORAGE-ADMISSION-v1"
+TOOL_VERSION = "BAS-C37A07-STORAGE-ADMISSION-v2"
+#: The identity a root ledger records only when its caller names none (``identity.source`` says so); every record
+#: after a ledger's INIT carries the INIT's identity, not these.
 CYCLE_NUMBER = 37
-ATTEMPT_NUMBER = 5
+ATTEMPT_NUMBER = 7
+#: Beside a ledger: the create-only claim of its one continuation, and the head written after every append.
+CLAIM_SUFFIX = ".continuation.json"
+HEAD_SUFFIX = ".head.jsonl"
 #: Measurement lag allowance for ``run``: an operation may exceed its reservation by this much before it is stopped.
 TOLERANCE_BYTES = 8 * 1024 * 1024
 LOCK_TIMEOUT_SECONDS = 120.0
@@ -79,6 +103,10 @@ def utc_now() -> str:
 
 def _digest(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _same_path(a: Any, b: Any) -> bool:
+    return bool(a) and bool(b) and os.path.normcase(os.path.abspath(str(a))) == os.path.normcase(os.path.abspath(str(b)))
 
 
 def tool_sha256() -> str:
@@ -154,16 +182,20 @@ class Ledger:
     def __init__(self, path: Path | str) -> None:
         self.path = Path(path)
         self.lock_path = self.path.with_suffix(self.path.suffix + ".lock")
+        self.claim_path = Path(str(self.path) + CLAIM_SUFFIX)
+        self.head_path = Path(str(self.path) + HEAD_SUFFIX)
 
     # ------------------------------------------------------------ file access
+    def lines(self) -> list[str]:
+        return [line for line in self.path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
     def records(self) -> list[dict[str, Any]]:
         if not self.path.is_file():
             raise LedgerError(f"no storage ledger at {self.path}; run init first")
         rows = []
         previous = None
-        for number, line in enumerate(self.path.read_text(encoding="utf-8").splitlines(), start=1):
-            if not line.strip():
-                continue
+        lines = self.lines()
+        for number, line in enumerate(lines, start=1):
             row = json.loads(line)
             if row.get("previous_record_sha256") != previous:
                 raise LedgerError(f"ledger chain broken at line {number}")
@@ -171,22 +203,62 @@ class Ledger:
             rows.append(row)
         if not rows or rows[0].get("kind") != "INIT":
             raise LedgerError("the ledger does not start with INIT")
+        # MF37A06-02: a chain cannot show that its own tail was cut off; the head written after every append can.
+        # A head that lags (a crash between an append and its head write) is tolerated; a ledger shorter than its
+        # head, or whose head record is no longer the one recorded, is not.
+        head = self.head()
+        if head is not None:
+            seq, digest = head
+            if seq > len(lines) or _digest(lines[seq - 1]) != digest:
+                raise LedgerError(f"the ledger is truncated or rewritten: its head records {seq} record(s) ending in "
+                                  f"{digest}, but the ledger now has {len(lines)}")
         return rows
+
+    def head(self) -> tuple[int, str] | None:
+        """(record count, last record digest) of the last complete line of the append-only head log; a torn final
+        line (a crash while it was written) is ignored, since the ledger line it follows was already written."""
+
+        if not self.head_path.is_file():
+            return None
+        last = None
+        for line in self.head_path.read_text(encoding="utf-8").splitlines():
+            try:
+                entry = json.loads(line)
+                last = (int(entry["seq"]), str(entry["record_sha256"]))
+            except (ValueError, KeyError, TypeError):
+                continue
+        return last
+
+    @staticmethod
+    def identity(rows: list[dict[str, Any]]) -> dict[str, Any]:
+        """The cycle and attempt a ledger serves: its INIT's, which a continuation inherits from its root."""
+
+        init = rows[0]
+        stated = init.get("identity") or {}
+        return {"cycle_number": stated.get("cycle_number", init.get("cycle_number")),
+                "attempt_number": stated.get("attempt_number", init.get("attempt_number")),
+                "source": stated.get("source", "INIT_STAMP_BEFORE_ATTEMPT_7")}
 
     def _append(self, rows: list[dict[str, Any]], record: dict[str, Any]) -> dict[str, Any]:
         previous = None
         if rows:
-            lines = [line for line in self.path.read_text(encoding="utf-8").splitlines() if line.strip()]
-            previous = _digest(lines[-1])
+            previous = _digest(self.lines()[-1])
+            identity = self.identity(rows)
+        else:  # the INIT states the identity itself
+            identity = record.get("identity") or {"cycle_number": CYCLE_NUMBER, "attempt_number": ATTEMPT_NUMBER}
         record = {"seq": len(rows) + 1, "previous_record_sha256": previous, "at": utc_now(),
-                  "cycle_number": CYCLE_NUMBER, "attempt_number": ATTEMPT_NUMBER, "tool_version": TOOL_VERSION,
-                  "tool_sha256": tool_sha256(), "pid": os.getpid(), **record}
+                  "cycle_number": identity["cycle_number"], "attempt_number": identity["attempt_number"],
+                  "tool_version": TOOL_VERSION, "tool_sha256": tool_sha256(), "pid": os.getpid(), **record}
         line = json.dumps(record, sort_keys=True, ensure_ascii=False)
         with self.path.open("a", encoding="utf-8", newline="\n") as handle:
             handle.write(line + "\n")
             handle.flush()
             os.fsync(handle.fileno())
         rows.append(record)
+        with self.head_path.open("a", encoding="utf-8", newline="\n") as handle:
+            handle.write(json.dumps({"seq": record["seq"], "record_sha256": _digest(line)}, sort_keys=True) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
         return record
 
     @contextmanager
@@ -269,12 +341,20 @@ class Ledger:
 
     # ------------------------------------------------------------ commands
     def init(self, *, budget_bytes: int, reserve_bytes: int, roots: Iterable[Path | str],
-             shared: Iterable[Path | str] = (), note: str = "") -> dict[str, Any]:
+             shared: Iterable[Path | str] = (), note: str = "", cycle_number: int | None = None,
+             attempt_number: int | None = None) -> dict[str, Any]:
+        """Start an attempt's root ledger: the one baseline every later segment of the attempt inherits."""
+
         if self.path.exists():
             raise LedgerError(f"{self.path} exists; a ledger is initialized once and never re-baselined")
         declared = [str(Path(root)) for root in roots] + [str(Path(root)) for root in shared]
         if not declared:
             raise LedgerError("at least one root is required")
+        if (cycle_number is None) != (attempt_number is None):
+            raise LedgerError("name both the cycle and the attempt a ledger serves, or neither")
+        identity = ({"cycle_number": int(cycle_number), "attempt_number": int(attempt_number), "source": "CALLER"}
+                    if cycle_number is not None else
+                    {"cycle_number": CYCLE_NUMBER, "attempt_number": ATTEMPT_NUMBER, "source": "TOOL_DEFAULT"})
         # Measure before this ledger (inside one of the roots) exists, so its own bytes are counted as added.
         baseline = {root: measure(root) for root in declared}
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -284,9 +364,94 @@ class Ledger:
                 "kind": "INIT", "budget_bytes": int(budget_bytes), "reserve_bytes": int(reserve_bytes),
                 "owned_roots": [str(Path(root)) for root in roots], "shared_roots": [str(Path(r)) for r in shared],
                 "baseline": baseline, "disk": disk, "free_bytes_at_init": shutil.disk_usage(disk).free,
-                "note": note,
+                "note": note, "identity": identity, "segment": 1, "root": None,
                 "rule": ("admit iff added_now + open_estimates + estimate <= budget and free - open_estimates - "
                          "estimate >= reserve; no re-baseline, no retroactive increase, no deletion")})
+
+    def init_continuation(self, *, parent: "Ledger", parent_rows: list[dict[str, Any]], new_roots: Iterable[str],
+                          new_shared: Iterable[str], reserve_bytes: int | None, continuation: dict[str, Any],
+                          note: str = "") -> dict[str, Any]:
+        """Write the INIT of the claimed continuation of ``parent`` (called by ``storage_snapshot.open_successor``
+        after it has verified the parent's snapshot and created the claim): the root's budget, every root with the
+        baseline its root measured, the root's identity, and the new, empty roots it adds."""
+
+        if self.path.exists():
+            raise LedgerError(f"{self.path} exists; a ledger is initialized once and never re-baselined")
+        init = self.config(parent_rows)
+        owned, shared = list(init.get("owned_roots") or []), list(init.get("shared_roots") or [])
+        baseline = {root: dict(value) for root, value in init["baseline"].items()}
+        added_roots = {}
+        for root, bucket in [(str(Path(r)), owned) for r in new_roots] + [(str(Path(r)), shared) for r in new_shared]:
+            if root in baseline:
+                continue
+            now = measure(root)
+            if now["bytes"]:
+                raise LedgerError(f"a root a continuation adds must be empty when it is added; {root} holds "
+                                  f"{now['bytes']} bytes that no ledger of this attempt measured")
+            baseline[root] = now
+            bucket.append(root)
+            added_roots[root] = now
+        parent_line = parent.lines()[0]
+        root = init.get("root") or {"ledger": str(parent.path), "init_record_sha256": _digest(parent_line)}
+        identity = {**self.identity(parent_rows), "source": "INHERITED_FROM_ROOT"}
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        disk = os.path.splitdrive(str(self.path.resolve()))[0] + os.sep
+        with self.locked():
+            return self._append([], {
+                "kind": "INIT", "budget_bytes": int(init["budget_bytes"]),
+                "reserve_bytes": int(init["reserve_bytes"] if reserve_bytes is None else reserve_bytes),
+                "owned_roots": owned, "shared_roots": shared, "baseline": baseline, "roots_added": added_roots,
+                "disk": disk, "free_bytes_at_init": shutil.disk_usage(disk).free, "note": note,
+                "identity": identity, "segment": int(init.get("segment") or 1) + 1, "root": root,
+                "continuation": continuation,
+                "rule": ("one attempt-wide ledger: the root's budget and baselines, every root of the parent; admit iff "
+                         "added_now + open_estimates + estimate <= budget and free - open_estimates - estimate >= "
+                         "reserve; no re-baseline, no retroactive increase, no deletion")})
+
+    # ------------------------------------------------------------ continuation claims
+    def claim(self) -> dict[str, Any] | None:
+        """The claim of this ledger's one continuation, or None when it has not been continued."""
+
+        if not self.claim_path.is_file():
+            return None
+        data = self.claim_path.read_bytes()
+        try:
+            document = json.loads(data.decode("utf-8"))
+        except ValueError as error:
+            raise LedgerError(f"the continuation claim {self.claim_path} is unreadable: {error}") from error
+        return {**document, "_sha256": hashlib.sha256(data).hexdigest()}
+
+    def continuation_problems(self, rows: list[dict[str, Any]]) -> list[str]:
+        """Why this ledger may not admit a reservation: it was continued, or it is a continuation its parent's
+        claim does not name (a forked, replayed or stale segment). Empty when it is the attempt's live segment."""
+
+        problems = []
+        claim = self.claim()
+        if claim is not None:
+            problems.append(f"this ledger was continued by {claim.get('child_ledger')} (claim {self.claim_path}); "
+                            "reservations belong on its continuation")
+        return problems + self.claim_problems(rows)
+
+    def claim_problems(self, rows: list[dict[str, Any]]) -> list[str]:
+        """For a continuation: why its parent's claim does not name it (empty for a root or a claimed segment)."""
+
+        problems: list[str] = []
+        continuation = self.config(rows).get("continuation")
+        if continuation:
+            recorded = continuation.get("claim") or {}
+            parent = Ledger(continuation.get("parent_ledger") or "")
+            try:
+                parent_claim = parent.claim()
+            except LedgerError as error:
+                parent_claim, problems = None, problems + [str(error)]
+            if parent_claim is None:
+                problems.append(f"its parent {parent.path} holds no continuation claim")
+            elif parent_claim["_sha256"] != recorded.get("sha256") or not _same_path(
+                    parent_claim.get("child_ledger"), self.path):
+                problems.append(f"its parent's claim {parent.claim_path} names {parent_claim.get('child_ledger')} "
+                                f"(SHA-256 {parent_claim['_sha256']}), not this ledger's recorded claim "
+                                f"{recorded.get('sha256')}")
+        return problems
 
     def reserve(self, operation: str, estimate_bytes: int, *, note: str = "",
                 explicit: bool = False) -> dict[str, Any]:
@@ -308,6 +473,8 @@ class Ledger:
             reasons = []
             if stop:
                 reasons.append(f"a bounded stop is recorded (seq {stop['seq']}); no further allocation is admitted")
+            # MF37A06-02: only the attempt's one live segment admits; a continued or unclaimed segment refuses.
+            reasons.extend(self.continuation_problems(rows))
             if projected > init["budget_bytes"]:
                 reasons.append(f"added {state['added_bytes']} + open reservations {pending_bytes} + estimate "
                                f"{estimate_bytes} = {projected} exceeds the budget {init['budget_bytes']}")
@@ -365,7 +532,12 @@ class Ledger:
         init = self.config(rows)
         state = self.measured(rows)
         pending = self.open_reservations(rows)
-        return {"ledger": str(self.path), "records": len(rows), "budget_bytes": init["budget_bytes"],
+        claim = self.claim()
+        return {"ledger": str(self.path), "records": len(rows), "identity": self.identity(rows),
+                "segment": init.get("segment") or 1, "root": init.get("root"),
+                "continuation": init.get("continuation"),
+                "continued_by": claim.get("child_ledger") if claim else None,
+                "continuation_problems": self.continuation_problems(rows), "budget_bytes": init["budget_bytes"],
                 "reserve_bytes": init["reserve_bytes"], "added_bytes": state["added_bytes"],
                 "headroom_bytes": init["budget_bytes"] - state["added_bytes"]
                 - sum(int(r["estimate_bytes"]) for r in pending.values()),
@@ -459,6 +631,8 @@ def main(argv: list[str] | None = None) -> int:
             command.add_argument("--root", action="append", required=True)
             command.add_argument("--shared", action="append", default=[])
             command.add_argument("--note", default="")
+            command.add_argument("--cycle-number", type=int, default=None)
+            command.add_argument("--attempt-number", type=int, default=None)
         if name in ("reserve", "run"):
             command.add_argument("--operation", required=True)
             command.add_argument("--estimate-bytes", type=int, required=True)
@@ -473,7 +647,8 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.mode == "init":
             result = ledger.init(budget_bytes=args.budget_bytes, reserve_bytes=args.reserve_bytes, roots=args.root,
-                                 shared=args.shared, note=args.note)
+                                 shared=args.shared, note=args.note, cycle_number=args.cycle_number,
+                                 attempt_number=args.attempt_number)
         elif args.mode == "reserve":
             result = ledger.reserve(args.operation, args.estimate_bytes, note=args.note, explicit=True)
         elif args.mode == "reconcile":

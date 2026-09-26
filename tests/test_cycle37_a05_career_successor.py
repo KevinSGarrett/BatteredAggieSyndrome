@@ -376,8 +376,12 @@ class A05SuccessorContractTests(unittest.TestCase):
         self.old = [{**base, "episode_id": _pid(n), "row_index": n, "start": 2009, "end": 2009} for n in IDS]
         self.predecessor = self.root / "predecessor.sqlite"
         _table(self.predecessor, cs.PREDECESSOR_TABLE, cs.PREDECESSOR_COLUMNS, self.old)
+        # A7 (MF37A06-01): the Attempt 4 rows carry their own predecessor lineage, as the real Attempt 4 file does;
+        # the cross-version check compares an Attempt 5 row's predecessor rows with the ones its Attempt 4 rows
+        # derive from, and a lineage-less Attempt 4 row is not a valid Attempt 4 row.
         self.a4_rows = [{**base, "episode_id": _a4(n), "row_index": n, "start": 2009, "end": 2009,
-                         "wikitext_sha256": self.text_sha} for n in IDS]
+                         "wikitext_sha256": self.text_sha, "predecessor_episode_ids": json.dumps([_pid(n)]),
+                         "lineage_state": cs.DERIVED} for n in IDS]
         self.a4 = self.root / "a04.sqlite"
         _table(self.a4, cs.EPISODE_TABLE, cs.EPISODE_COLUMNS, self.a4_rows)
         team = "[[Iowa]] "
@@ -588,12 +592,13 @@ class A05SuccessorContractTests(unittest.TestCase):
         conn.close()
         self.refused(cs.REFUSED_A04_MAPPING, sealed)
 
-    def test_an_absent_attempt4_file_is_named_not_assumed(self) -> None:
-        successor = self.successor("a4-absent.sqlite", a04_successor_path=str(self.root / "gone.sqlite"))
-        binding, conn = self.attach(successor)
-        conn.close()
-        self.assertEqual(binding["lineage_proved_independently_of_the_ledgers"]["a04_file_check"],
-                         "A04_FILE_ABSENT_SET_EQUALITY_NOT_CHECKED")
+    def test_an_absent_attempt4_file_is_named_and_refused_not_assumed(self) -> None:
+        # A7 (MF37A06-01): an absent Attempt 4 file was attached with "A04_FILE_ABSENT_SET_EQUALITY_NOT_CHECKED", so a
+        # forger could declare a missing file and escape every cross-version check. It is now named and refused.
+        message = self.refused(cs.REFUSED_A04_FILE_ABSENT,
+                               self.successor("a4-absent.sqlite", a04_successor_path=str(self.root / "gone.sqlite")))
+        self.assertIn("gone.sqlite", message)
+        self.refused(cs.REFUSED_A04_FILE_ABSENT, self.successor("a4-undeclared.sqlite", a04_successor_path=""))
 
     def test_tampered_tables_and_versions_are_refused(self) -> None:
         successor = self.successor("tampered.sqlite")

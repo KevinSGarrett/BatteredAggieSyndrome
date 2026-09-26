@@ -373,9 +373,12 @@ NEGATIVE_TESTS = {
         "test_an_interrupted_claim_is_completed_only_under_the_roots_it_claimed",
         "test_a_claim_recording_no_root_contract_cannot_be_completed",
         "test_an_interrupted_init_is_completed_only_under_its_own_roots",
-        "test_no_refused_call_resets_the_baseline_or_adds_headroom",
-        "test_twelve_processes_with_one_contract_in_different_spellings_leave_one_child"),
+        "test_no_refused_call_resets_the_baseline_or_adds_headroom"),
 }
+#: Positive cases: legitimate forms the repaired code must accept. The unfixed code may accept or refuse them; in
+#: particular it refuses a caller naming the parent's root in another spelling only when that caller wins the race to
+#: the child's INIT (REFUSED_CONTINUATION_ROOT_NOT_EMPTY_OR_NOT_INHERITED), so the twelve-spelling case's outcome there
+#: depends on timing (W37A09-01) and is recorded, never required.
 ACCEPTED, OTHER_CAUSE, NEW_API, BEHAVIOR, UNCLASSIFIED = (
     "ACCEPTED_BY_THE_UNFIXED_CODE", "REFUSED_BY_THE_UNFIXED_CODE_UNDER_ANOTHER_CAUSE",
     "NEW_API_OR_RECORD_ABSENT_IN_THE_UNFIXED_CODE", "OTHER_BEHAVIOR_OF_THE_UNFIXED_CODE", "UNCLASSIFIED")
@@ -450,7 +453,10 @@ def _suites_on_the_unfixed_base(run: LaneRun) -> dict[str, Any]:
                            "JSON null, [null, null]) and missingness with enlarged text are served, the saved extra-root "
                            "restart and every changed root contract are accepted; other forgeries are refused there only "
                            "under the earlier text or parameter anchors; the unit-level cases find the new API absent. "
-                           "Positive cases (the genuine fixture, own-text absence, same roots in any spelling) may pass.")}
+                           "Positive cases (the genuine fixture, own-text absence, the same roots in any spelling, twelve "
+                           "processes naming one root in different spellings) may pass or fail there; the twelve-spelling "
+                           "case fails there only when a caller with a differently spelled root wins the race to the "
+                           "child's INIT (W37A09-01).")}
     verdict["holds"] = (record.get("exit_code") not in (0, None) and not passing_negatives and not verdict["unclassified"]
                         and not verdict["negative_tests_missing"]
                         and verdict["saved_constructions"]["manager_null_span_sql_null"] == ACCEPTED

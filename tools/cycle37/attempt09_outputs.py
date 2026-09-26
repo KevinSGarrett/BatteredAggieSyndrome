@@ -177,6 +177,10 @@ def register_evidence(ctx: Context) -> None:
             ctx.add(identity, path, kind, scope)
     for path in sorted((root / "evidence" / "census").glob("*.py")):
         ctx.add(f"E-CENSUS-SCRIPT-{path.name}", path, RAW, f"The census script {path.name}, as run (stdlib only)")
+    for path in sorted((root / "evidence" / "findings").glob("*")):
+        if path.is_file():
+            ctx.add(f"E-FINDING-{path.name}", path, RAW,
+                    f"New-finding evidence {path.name} (a development probe or its result, copied unchanged)")
     for path in sorted((root / "evidence" / "git").glob("COMMIT_*.json")):
         ctx.add(f"E-GIT-{path.stem}", path, RAW,
                 f"Repair-branch commit receipt {path.stem}: command prefix -c gc.auto=0 -c maintenance.auto=false, the "
@@ -517,7 +521,6 @@ def _judge_r01(ctx: Context, key: str) -> tuple[str, str]:
     genuine = oracle["genuine"]
     edges = {r["relation"]: r["edges"] for r in genuine.get("relations") or []}
     classes = genuine.get("row_classes") or {}
-    unwitnessed = sum(int((c or {}).get("UNIT_BY_IDENTITY_NO_WITNESS") or 0) for c in classes.values())
     forged = installed["a9_forgeries"]["cases"]
     manager = installed["manager_a8_null_span_entrypoints"]
     null_oracle = oracle.get("manager_a8_null_span") or {}
@@ -542,8 +545,10 @@ def _judge_r01(ctx: Context, key: str) -> tuple[str, str]:
               "units (0 by parameter only, 0 unanchored). SQL NULL, JSON null, [null, null] and an empty string are one "
               f"absent state. The independent oracle (`{genuine.get('oracle_version')}`, sqlite3/json/re only) derives "
               f"each unit from identity: {genuine.get('crossed_edges')} crossed and {genuine.get('unresolved_edges')} "
-              f"unresolved of {_n(sum(edges.values()))} genuine edges; {_n(unwitnessed)} genuine rows with no witness "
-              "resolve by identity to their own unit."),
+              f"unresolved of {_n(sum(edges.values()))} genuine edges, with row classes {classes}. Every genuine row "
+              "is witnessed in at least one field; the fields left unwitnessed carry no text or, for a list line's "
+              f"years, text inside the line (successor {s5.get('unwitnessed_fields')}; named delivered rows "
+              f"{delivered.get('unwitnessed_fields')})."),
         "B": (f"The {_n(s5.get('rows'))}-row successor serves unchanged with complete pagination. Through the fresh "
               "installed console script, its installed module and the source module, the manager's saved NULL-span "
               f"fixture (as issued {manager.get('as_issued')}) is refused as {REFUSED_SOURCE_FIELD}, naming the "

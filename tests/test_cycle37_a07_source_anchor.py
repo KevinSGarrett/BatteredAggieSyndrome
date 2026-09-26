@@ -16,6 +16,18 @@ Attempt 4 file and an Attempt 5 successor, and prove through ``attach_successor`
   field swapped -- same role, different period (``PERIOD``), a false restructure claim (``RESTRUCTURE_CLAIM``), two
   fieldless rows of different parameters swapped (``UNANCHORED``), an Attempt 4 edge naming another job
   (``A04_ANCHOR``) and an Attempt 4 file whose own lineage disagrees (``CROSS_VERSION_LINEAGE``).
+
+Cycle #37 -- Attempt #8 (MF37A07-01). The verifier now proves, before comparing anchors, that every recorded span is
+exactly the source field its row's identity names in the cited revision -- the check the Attempt 7 manager's enlarged
+envelopes defeated. Two parts of this fixture were witnesses no parser writes, and are corrected to the parser's own
+forms (every one of the 218,110 genuine rows records its unit exactly): the Northern Illinois employer line with its
+role lines is a ``pastcoaching`` list line (rows 1001, 100101 and 100102, the parser's numbering) instead of role
+rows 501/502 inside a numbered ``coach_team5`` value; and an empty parameter's zero-length span sits where the parser
+puts it, after the value's whitespace. Rows with no recorded span stay absent fields. Two expectations change for the
+stricter reason: a year-only or team-only anchor moved onto another job's field is no longer the victim row's own
+source field, so it is refused as ``REFUSED_CAREER_SUCCESSOR_SOURCE_FIELD_WITNESS_MISMATCH`` before any anchor is
+compared; the ``YEARS`` and ``TEAM`` anchor causes remain proved on their own in ``test_the_anchor_rules_on_their_own``.
+``test_cycle37_a08_source_witness`` adds the enlarged-envelope, boundary and full-page substitutions.
 """
 
 from __future__ import annotations
@@ -40,20 +52,33 @@ FIELDS = [("coach_years1", "1974"), ("coach_team1", "[[Saint Joseph's Pumas foot
           ("coach_years2", "1926, 1928–1930"), ("coach_team2", "[[William & Mary Tribe football|William & Mary]]"),
           ("coach_years3", "2009–?"), ("coach_team3", "[[Rutgers Scarlet Knights football|Rutgers]] (DFO)"),
           ("coach_years4", ""), ("coach_team4", ""),
-          ("coach_team5", NIU),
           ("coach_years6", "1911&ndash;1916"), ("coach_team6", "[[YMCA (Columbus, Georgia)|Columbus YMCA]]")]
-TEXT = "{{Infobox college coach\n" + "".join(f"| {name} = {value}\n" for name, value in FIELDS) + "}}\n"
+#: A8: the employer line with its role lines is a career list line, as the parser reads one (row 1001 and its role
+#: lines 100101, 100102).
+TEXT = ("{{Infobox college coach\n" + "".join(f"| {name} = {value}\n" for name, value in FIELDS)
+        + "| pastcoaching =\n* " + NIU + "\n}}\n")
 
 
 def at(name: str) -> list[int]:
-    """The span of a parameter's value (zero-length for an empty one)."""
+    """The span of a parameter's value; an empty value's zero-length span sits after its whitespace, where the
+    parser's parameter split puts it."""
 
     start = TEXT.index(f"| {name} = ") + len(f"| {name} = ")
+    if not dict(FIELDS)[name]:
+        while TEXT[start] in " \t\n":
+            start += 1
     return [start, start + len(dict(FIELDS)[name])]
 
 
+def line(part: str) -> list[int]:
+    """The span of a list line or role line of the ``pastcoaching`` list (it occurs once in the revision)."""
+
+    start = TEXT.index(part)
+    return [start, start + len(part)]
+
+
 def inside(outer: str, part: str) -> list[int]:
-    start = at(outer)[0] + dict(FIELDS)[outer].index(part)
+    start = TEXT.index(outer) + outer.index(part)
     return [start, start + len(part)]
 
 
@@ -106,8 +131,9 @@ class SourceAnchorTests(unittest.TestCase):
              "years_as_written": "2009", "start": 2009, "end": 2009},
             {"episode_id": _id("R37-05", 4), "row_index": 4, "interval_index": 0, **team(4), **years_text(4),
              **years_span(4), "start": None, "end": None},
-            {"episode_id": _id("R37-05", 5), "row_index": 5, "interval_index": 0, **team(5),
-             "years_raw": "1980–1984", "years_as_written": "1980–1984", "start": 1980, "end": 1984},
+            {"episode_id": _id("R37-05", 1001), "row_index": 1001, "interval_index": 0, "team_raw": NIU,
+             "team_char_span": json.dumps(line(NIU)), "years_raw": "1980–1984", "years_as_written": "1980–1984",
+             "start": 1980, "end": 1984},
             {"episode_id": _id("R37-05", 6, 0), "row_index": 6, "interval_index": 0, **team(6), **years_text(6),
              "years_as_written": "1911", "start": 1911, "end": 1911},
             {"episode_id": _id("R37-05", 6, 1), "row_index": 6, "interval_index": 1, **team(6), **years_text(6),
@@ -136,21 +162,26 @@ class SourceAnchorTests(unittest.TestCase):
              cs.UNRESOLVED_EXPLICIT),
             ("C4", [_id("R37-05", 4)], {"row_index": 4, "interval_index": 0, **team(4), **years_text(4),
                                         **years_span(4), "start": None, "end": None}, cs.UNCHANGED),
-            ("C5", [_id("R37-05", 5)], {"row_index": 5, "interval_index": 0, **team(5), "years_raw": "1980–1984",
-                                        "years_char_span": json.dumps(inside("coach_team5", "1980–1984")),
-                                        "years_as_written": "1980–1984", "start": 1980, "end": 1984}, cs.CORRECTED),
-            ("C501", [_id("R37-05", 5)], {"row_index": 501, "interval_index": 0,
-                                          "team_raw": "Wide receivers (1980–1981)",
-                                          "team_char_span": json.dumps(inside("coach_team5", "Wide receivers (1980–1981)")),
-                                          "years_raw": "1980–1981",
-                                          "years_char_span": json.dumps(inside("coach_team5", "1980–1981")),
-                                          "years_as_written": "1980–1981", "start": 1980, "end": 1981}, cs.CORRECTED),
-            ("C502", [_id("R37-05", 5)], {"row_index": 502, "interval_index": 0,
-                                          "team_raw": "Defensive line (1982–1984)",
-                                          "team_char_span": json.dumps(inside("coach_team5", "Defensive line (1982–1984)")),
-                                          "years_raw": "1982–1984",
-                                          "years_char_span": json.dumps(inside("coach_team5", "1982–1984")),
-                                          "years_as_written": "1982–1984", "start": 1982, "end": 1984}, cs.CORRECTED),
+            ("C1001", [_id("R37-05", 1001)], {"row_index": 1001, "interval_index": 0, "team_raw": NIU,
+                                              "team_char_span": json.dumps(line(NIU)), "years_raw": "1980–1984",
+                                              "years_char_span": json.dumps(inside(NIU, "1980–1984")),
+                                              "years_as_written": "1980–1984", "start": 1980, "end": 1984}, cs.CORRECTED),
+            ("C100101", [_id("R37-05", 1001)], {"row_index": 100101, "interval_index": 0,
+                                                "team_raw": "Wide receivers (1980–1981)",
+                                                "team_char_span": json.dumps(line("Wide receivers (1980–1981)")),
+                                                "years_raw": "1980–1981",
+                                                "years_char_span": json.dumps(inside("Wide receivers (1980–1981)",
+                                                                                     "1980–1981")),
+                                                "years_as_written": "1980–1981", "start": 1980, "end": 1981},
+             cs.CORRECTED),
+            ("C100102", [_id("R37-05", 1001)], {"row_index": 100102, "interval_index": 0,
+                                                "team_raw": "Defensive line (1982–1984)",
+                                                "team_char_span": json.dumps(line("Defensive line (1982–1984)")),
+                                                "years_raw": "1982–1984",
+                                                "years_char_span": json.dumps(inside("Defensive line (1982–1984)",
+                                                                                     "1982–1984")),
+                                                "years_as_written": "1982–1984", "start": 1982, "end": 1984},
+             cs.CORRECTED),
             ("C6", [_id("R37-05", 6, 0), _id("R37-05", 6, 1)],
              {"row_index": 6, "interval_index": 0, **team(6), **years_text(6), **years_span(6),
               "years_as_written": "1911–1916", "start": 1911, "end": 1916}, cs.RESTRUCTURED),
@@ -159,8 +190,9 @@ class SourceAnchorTests(unittest.TestCase):
              cs.UNCHANGED),
         ]
         ids = {"C1": _id("C37A05", 1), "C2a": _id("C37A05", 2, 0), "C2b": _id("C37A05", 2, 1), "C3": _id("C37A05", 3),
-               "C4": _id("C37A05", 4), "C5": _id("C37A05", 5), "C501": _id("C37A05", 501),
-               "C502": _id("C37A05", 502), "C6": _id("C37A05", 6), "C9": _id("C37A05", 9), "C11": _id("C37A05", 11)}
+               "C4": _id("C37A05", 4), "C1001": _id("C37A05", 1001), "C100101": _id("C37A05", 100101),
+               "C100102": _id("C37A05", 100102), "C6": _id("C37A05", 6), "C9": _id("C37A05", 9),
+               "C11": _id("C37A05", 11)}
         self.ids = ids
         self.episodes = []
         for key, parents, fields, disposition in new:
@@ -294,7 +326,7 @@ class SourceAnchorTests(unittest.TestCase):
         self.assertEqual(lineage["rows_whose_versions_agree_on_predecessor_rows"], 12)
         self.assertEqual(len(binding["_rows"]), 12)
         served = {r["episode_id"]: r for r in binding["_rows"]}
-        self.assertEqual(served[self.ids["C501"]]["team_raw"], "Wide receivers (1980–1981)")   # a role line
+        self.assertEqual(served[self.ids["C100101"]]["team_raw"], "Wide receivers (1980–1981)")   # a role line
         self.assertEqual(json.loads(served[self.ids["C6"]]["predecessor_episode_ids"]),       # a re-read field
                          [_id("R37-05", 6, 0), _id("R37-05", 6, 1)])
 
@@ -308,6 +340,15 @@ class SourceAnchorTests(unittest.TestCase):
         self.assertEqual(cs.field_anchor({"years_char_span": "[5, 9]", "years_raw": "2009–?"},
                                          {"team_char_span": "[30, 80]", "years_raw": "1974"}, "years"), "DISAGREES")
         self.assertEqual(cs.field_anchor({"team_raw": None}, {"team_raw": "[[X]]"}, "team"), "NOT_COMPARABLE")
+        # A8: the anchor causes on their own -- one field of another job (the other agreeing) names that field; two
+        # proven units that merely overlap are two fields, never one.
+        one = {"team_char_span": "[10, 40]", "years_char_span": "[2, 6]"}
+        three = {"team_char_span": "[10, 40]", "years_char_span": "[50, 56]"}
+        self.assertEqual(cs.edge_anchor(one, three)[0], "YEARS")
+        self.assertEqual(cs.edge_anchor({"team_char_span": "[60, 90]", "years_char_span": "[50, 56]"}, three)[0],
+                         "TEAM")
+        self.assertEqual(cs.field_anchor({"team_char_span": "[10, 40]"}, {"team_char_span": "[30, 60]"}, "team"),
+                         "DISAGREES")
         self.assertTrue(cs.period_agrees({"years_as_written": "1959–1967"}, {"years_as_written": "1959"}))
         self.assertFalse(cs.period_agrees({"years_as_written": "1926"}, {"years_as_written": "1928–1930"}))
 
@@ -328,16 +369,21 @@ class SourceAnchorTests(unittest.TestCase):
                                                         [dict(r) for r in self.a4_rows.values()]))["_rows"]), 10)
 
     def test_a_year_only_anchor_substitution_is_refused_as_a_years_anchor(self) -> None:
+        # A8: the moved years span is another job's field, not the one row 1's identity names -- refused as a source
+        # field witness before any anchor is compared (the YEARS anchor cause itself: test_the_anchor_rules_on_their_own).
         episodes = self.copy()
         victim = self.row(episodes, "C1")
         victim["years_raw"], victim["years_char_span"] = "2009–?", json.dumps(at("coach_years3"))
-        self.refused(cs.REFUSED_YEARS_ANCHOR, self.successor("year-only.sqlite", episodes))
+        message = self.refused(cs.REFUSED_SOURCE_FIELD, self.successor("year-only.sqlite", episodes))
+        self.assertIn("YEARS_NOT_SOURCE_UNIT", message)
 
     def test_a_team_only_anchor_substitution_is_refused_as_a_team_anchor(self) -> None:
+        # A8: likewise for a team span moved onto another job's team field.
         episodes = self.copy()
         victim = self.row(episodes, "C1")
         victim["team_raw"], victim["team_char_span"] = dict(FIELDS)["coach_team3"], json.dumps(at("coach_team3"))
-        self.refused(cs.REFUSED_TEAM_ANCHOR, self.successor("team-only.sqlite", episodes))
+        message = self.refused(cs.REFUSED_SOURCE_FIELD, self.successor("team-only.sqlite", episodes))
+        self.assertIn("TEAM_NOT_SOURCE_UNIT", message)
 
     def test_same_role_different_period_intervals_swapped_are_refused_as_a_period_anchor(self) -> None:
         episodes = self.copy()

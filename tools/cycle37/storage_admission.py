@@ -51,6 +51,26 @@ byte the first had spent as baseline and admitted the same headroom again (1,100
 * **A truncated ledger is refused.** After each append the ledger's head (record count and last record digest) is
   appended to ``<ledger>.head.jsonl``; a ledger shorter than its last head, or whose head record changed, is
   refused. (A procedural record, not an OS-level tamper seal: the head log could be cut consistently too.)
+
+Cycle #37 -- Attempt #8 (MF37A07-02). Two callers opening the *same* continuation were each told the child did not
+exist -- the check ran outside the lock that wrote the INIT -- and both appended one; the child's chain broke at line
+3 and every later restart refused. And a continuation of a stopped ledger, or one opened with a lower reserve, simply
+admitted: the stop and the reserve were not carried into the state a continuation inherits.
+
+* **Initialization is atomic.** A continuation's INIT is written only while its parent's lock is held (by
+  ``storage_snapshot.open_successor``) *and* its own: the child's absence, and the absence of a head log that would
+  mean an interrupted earlier initialization, are checked under that lock, never before it.
+* **A torn record is an interrupted append, not a crash.** A line that is not a complete JSON record raises
+  :class:`LedgerError` naming it (``ledger line N is incomplete``), so a caller refuses it for that cause.
+* **A stop and a reserve are inherited.** A continuation's INIT records its parent's *effective* stop (its own
+  ``BOUNDED_STOP``, or one it inherited and never answered) and the reserve it runs under. A continuation opened from a
+  stopped parent, or with a reserve other than its parent's, must carry a **revised plan**: a named existing authority
+  document (path and SHA-256), the decision, the bytes it needs and the stop it answers, feasible under the unchanged
+  ceiling when it is opened. Without one, ``open_successor`` refuses. With one, the plan's ceiling -- the cumulative
+  total measured at the open plus the planned bytes, never more than the budget -- bounds every later reservation of
+  that continuation and of the continuations it inherits to; exceeding it at readback records a bounded stop. The tool
+  proves the plan names an existing, unchanged document and is feasible; whether that document *is* authority is the
+  owner's and the manager's decision, never this tool's. The budget itself is never a parameter of a continuation.
 """
 
 from __future__ import annotations
@@ -69,11 +89,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Iterator
 
-TOOL_VERSION = "BAS-C37A07-STORAGE-ADMISSION-v2"
+TOOL_VERSION = "BAS-C37A08-STORAGE-ADMISSION-v3"
 #: The identity a root ledger records only when its caller names none (``identity.source`` says so); every record
 #: after a ledger's INIT carries the INIT's identity, not these.
 CYCLE_NUMBER = 37
-ATTEMPT_NUMBER = 7
+ATTEMPT_NUMBER = 8
 #: Beside a ledger: the create-only claim of its one continuation, and the head written after every append.
 CLAIM_SUFFIX = ".continuation.json"
 HEAD_SUFFIX = ".head.jsonl"
@@ -196,7 +216,13 @@ class Ledger:
         previous = None
         lines = self.lines()
         for number, line in enumerate(lines, start=1):
-            row = json.loads(line)
+            try:
+                row = json.loads(line)
+            except ValueError as error:
+                # MF37A07-02: a torn line is an interrupted append; it is named, never a crash of the caller.
+                raise LedgerError(f"ledger line {number} is incomplete (an interrupted append): {error}") from error
+            if not isinstance(row, dict):
+                raise LedgerError(f"ledger line {number} is not a ledger record")
             if row.get("previous_record_sha256") != previous:
                 raise LedgerError(f"ledger chain broken at line {number}")
             previous = _digest(line)
@@ -288,10 +314,17 @@ class Ledger:
         try:
             yield
         finally:
-            try:
-                self.lock_path.unlink()
-            except OSError:
-                pass
+            # MF37A07-02 (found by the Attempt 8 many-caller test): on Windows a waiter reading the lock file at the
+            # moment of release makes the unlink fail, and a lock left behind by a live process was then never
+            # released -- every later caller in that process timed out. The release is retried until it succeeds.
+            for _ in range(250):
+                try:
+                    self.lock_path.unlink()
+                    break
+                except FileNotFoundError:
+                    break
+                except OSError:
+                    time.sleep(0.02)
 
     # ------------------------------------------------------------ state
     @staticmethod
@@ -324,6 +357,34 @@ class Ledger:
     @staticmethod
     def stopped(rows: list[dict[str, Any]]) -> dict[str, Any] | None:
         return next((row for row in rows if row["kind"] == "BOUNDED_STOP"), None)
+
+    def effective_stop(self, rows: list[dict[str, Any]]) -> dict[str, Any] | None:
+        """MF37A07-02: the stop this ledger is under -- its own ``BOUNDED_STOP``, or the stop its INIT inherited and
+        no revised plan answered. A continuation written before Attempt 8 recorded only its parent's own stop."""
+
+        own = self.stopped(rows)
+        if own:
+            return {**own, "ledger": str(self.path), "inherited": False}
+        init = self.config(rows)
+        inherited = (init["inherited_stop"] if "inherited_stop" in init
+                     else (init.get("continuation") or {}).get("parent_bounded_stop"))
+        if inherited and not init.get("revised_plan"):
+            return {**inherited, "inherited": True}
+        return None
+
+    @staticmethod
+    def plan_ceiling(rows: list[dict[str, Any]]) -> int | None:
+        """The cumulative added total a revised plan (this ledger's, or one inherited) allows, or None."""
+
+        value = rows[0].get("plan_ceiling_bytes")
+        return None if value is None else int(value)
+
+    def admission_limit(self, rows: list[dict[str, Any]]) -> int:
+        """What the measured cumulative total may reach: the root's budget, or less under a revised plan."""
+
+        budget = int(self.config(rows)["budget_bytes"])
+        ceiling = self.plan_ceiling(rows)
+        return budget if ceiling is None else min(budget, ceiling)
 
     def _close_orphans(self, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         closed = []
@@ -370,13 +431,17 @@ class Ledger:
 
     def init_continuation(self, *, parent: "Ledger", parent_rows: list[dict[str, Any]], new_roots: Iterable[str],
                           new_shared: Iterable[str], reserve_bytes: int | None, continuation: dict[str, Any],
-                          note: str = "") -> dict[str, Any]:
+                          note: str = "", inherited_stop: dict[str, Any] | None = None,
+                          revised_plan: dict[str, Any] | None = None,
+                          plan_ceiling_bytes: int | None = None) -> dict[str, Any]:
         """Write the INIT of the claimed continuation of ``parent`` (called by ``storage_snapshot.open_successor``
-        after it has verified the parent's snapshot and created the claim): the root's budget, every root with the
-        baseline its root measured, the root's identity, and the new, empty roots it adds."""
+        while it holds the parent's lock, after it has verified the parent's snapshot and created the claim): the
+        root's budget, every root with the baseline its root measured, the root's identity, the new, empty roots it
+        adds, the stop it inherits and the revised plan (if any) it continues under.
 
-        if self.path.exists():
-            raise LedgerError(f"{self.path} exists; a ledger is initialized once and never re-baselined")
+        MF37A07-02: the child's absence is checked under the child's own lock, in the same critical section as the
+        append -- never before it -- so two callers can never both write an INIT."""
+
         init = self.config(parent_rows)
         owned, shared = list(init.get("owned_roots") or []), list(init.get("shared_roots") or [])
         baseline = {root: dict(value) for root, value in init["baseline"].items()}
@@ -397,16 +462,23 @@ class Ledger:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         disk = os.path.splitdrive(str(self.path.resolve()))[0] + os.sep
         with self.locked():
+            if self.path.exists():
+                raise LedgerError(f"{self.path} exists; a ledger is initialized once and never re-baselined")
+            if self.head_path.exists():
+                raise LedgerError(f"{self.head_path} exists without its ledger: an earlier initialization was "
+                                  "interrupted or the ledger was removed; it is not initialized again")
             return self._append([], {
                 "kind": "INIT", "budget_bytes": int(init["budget_bytes"]),
                 "reserve_bytes": int(init["reserve_bytes"] if reserve_bytes is None else reserve_bytes),
                 "owned_roots": owned, "shared_roots": shared, "baseline": baseline, "roots_added": added_roots,
                 "disk": disk, "free_bytes_at_init": shutil.disk_usage(disk).free, "note": note,
                 "identity": identity, "segment": int(init.get("segment") or 1) + 1, "root": root,
-                "continuation": continuation,
+                "continuation": continuation, "inherited_stop": inherited_stop, "revised_plan": revised_plan,
+                "plan_ceiling_bytes": plan_ceiling_bytes,
                 "rule": ("one attempt-wide ledger: the root's budget and baselines, every root of the parent; admit iff "
-                         "added_now + open_estimates + estimate <= budget and free - open_estimates - estimate >= "
-                         "reserve; no re-baseline, no retroactive increase, no deletion")})
+                         "added_now + open_estimates + estimate <= min(budget, revised plan ceiling) and free - "
+                         "open_estimates - estimate >= reserve, and no unanswered stop; no re-baseline, no "
+                         "retroactive increase, no deletion")})
 
     # ------------------------------------------------------------ continuation claims
     def claim(self) -> dict[str, Any] | None:
@@ -469,15 +541,22 @@ class Ledger:
             pending_bytes = sum(int(row["estimate_bytes"]) for row in pending.values())
             projected = state["added_bytes"] + pending_bytes + int(estimate_bytes)
             free_after = state["free_bytes"] - pending_bytes - int(estimate_bytes)
-            stop = self.stopped(rows)
+            # MF37A07-02: a stop this segment inherited and no revised plan answered refuses exactly as its own does.
+            stop = self.effective_stop(rows)
+            ceiling = self.plan_ceiling(rows)
             reasons = []
             if stop:
-                reasons.append(f"a bounded stop is recorded (seq {stop['seq']}); no further allocation is admitted")
+                reasons.append(f"a bounded stop is recorded (seq {stop.get('seq')}"
+                               + (", inherited from the ledger this one continues" if stop.get("inherited") else "")
+                               + "); no further allocation is admitted without a revised plan")
             # MF37A06-02: only the attempt's one live segment admits; a continued or unclaimed segment refuses.
             reasons.extend(self.continuation_problems(rows))
             if projected > init["budget_bytes"]:
                 reasons.append(f"added {state['added_bytes']} + open reservations {pending_bytes} + estimate "
                                f"{estimate_bytes} = {projected} exceeds the budget {init['budget_bytes']}")
+            if ceiling is not None and projected > ceiling:
+                reasons.append(f"added {state['added_bytes']} + open reservations {pending_bytes} + estimate "
+                               f"{estimate_bytes} = {projected} exceeds the revised plan's ceiling {ceiling}")
             if free_after < init["reserve_bytes"]:
                 reasons.append(f"free {state['free_bytes']} - open {pending_bytes} - estimate {estimate_bytes} = "
                                f"{free_after} is below the reserve {init['reserve_bytes']}")
@@ -487,7 +566,8 @@ class Ledger:
                 "open_reservations_before": sorted(pending), "open_estimate_bytes_before": pending_bytes,
                 "projected_added_bytes": projected, "free_bytes": state["free_bytes"],
                 "free_bytes_after_reservations": free_after, "budget_bytes": init["budget_bytes"],
-                "reserve_bytes": init["reserve_bytes"], "decision": "REFUSED" if reasons else "ADMITTED",
+                "reserve_bytes": init["reserve_bytes"], "plan_ceiling_bytes": ceiling,
+                "decision": "REFUSED" if reasons else "ADMITTED",
                 "holder": EXPLICIT_HOLDER if explicit else f"pid:{os.getpid()}",
                 "reason": "; ".join(reasons) or None, "note": note})
         if reasons:
@@ -514,10 +594,14 @@ class Ledger:
                 "within_budget": state["added_bytes"] <= init["budget_bytes"], "note": note,
                 "attribution": ("the change in the measured total over the operation; a concurrent operation's "
                                 "writes in the same window are included, which is conservative")})
-            if state["added_bytes"] > init["budget_bytes"] and not self.stopped(rows):
+            limit = self.admission_limit(rows)
+            if state["added_bytes"] > limit and not self.stopped(rows):
                 self._append(rows, {"kind": "BOUNDED_STOP", "token": token, "operation": opened["operation"],
                                     "added_bytes": state["added_bytes"], "budget_bytes": init["budget_bytes"],
-                                    "reason": "the measured total passed the budget; every later reservation is refused"})
+                                    "plan_ceiling_bytes": self.plan_ceiling(rows),
+                                    "reason": ("the measured total passed the budget" if limit == init["budget_bytes"]
+                                               else "the measured total passed the revised plan's ceiling")
+                                    + "; every later reservation is refused"})
         return record
 
     def stop(self, token: str, operation: str, reason: str, added: int) -> dict[str, Any]:
@@ -539,13 +623,15 @@ class Ledger:
                 "continued_by": claim.get("child_ledger") if claim else None,
                 "continuation_problems": self.continuation_problems(rows), "budget_bytes": init["budget_bytes"],
                 "reserve_bytes": init["reserve_bytes"], "added_bytes": state["added_bytes"],
-                "headroom_bytes": init["budget_bytes"] - state["added_bytes"]
+                "headroom_bytes": self.admission_limit(rows) - state["added_bytes"]
                 - sum(int(r["estimate_bytes"]) for r in pending.values()),
                 "free_bytes": state["free_bytes"], "open_reservations": {k: {"operation": v["operation"],
                                                                                 "estimate_bytes": v["estimate_bytes"],
                                                                                 "pid": v["pid"]}
                                                                             for k, v in pending.items()},
-                "bounded_stop": self.stopped(rows), "roots": state["roots"],
+                "bounded_stop": self.stopped(rows), "effective_stop": self.effective_stop(rows),
+                "plan_ceiling_bytes": self.plan_ceiling(rows), "revised_plan": init.get("revised_plan"),
+                "roots": state["roots"],
                 "refused": sum(1 for r in rows if r["kind"] == "RESERVE" and r["decision"] == "REFUSED"),
                 "underestimated": sum(1 for r in rows if r["kind"] == "RECONCILE" and r.get("underestimated"))}
 

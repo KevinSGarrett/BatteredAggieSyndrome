@@ -19,6 +19,11 @@ successor over three revision pages -- two different people and a homonym who sh
 * the genuine fixture, a legitimate split, an added row, an alias, a homonym and a missing team span attach and serve.
 
 A display name is never the identity: the homonym is a different page and a different Wikidata item.
+
+Cycle #37 -- Attempt #8 (MF37A07-01): the verifier now proves every recorded span is the source field its row's
+identity names in the cited revision. This fixture's revision was a bare list whose span ``[2, 10]`` held a link inside
+a list line -- a witness no parser writes -- so the revision is now an infobox whose ``coach_team1``/``coach_years1``
+values are exactly row 1's recorded spans (and text). No assertion or row changes.
 """
 
 from __future__ import annotations
@@ -36,7 +41,8 @@ sys.path.insert(0, str(REPO / "src"))
 
 from aggie_analytics.cycle37 import career_successor as cs  # noqa: E402
 
-TEXT = "* [[Iowa]] (2009–2010)\n* [[Ohio]] (2011)\n"
+TEXT = ("{{Infobox college coach\n| coach_years1 = 2009–2010\n| coach_team1 = [[Iowa]]\n| coach_years2 = 2011\n"
+        "| coach_team2 = [[Ohio]]\n}}\n")
 #: (pageid, revision, title, display name, Wikidata item) -- the third page is a homonym of the first.
 PAGES = ((11, 101, "Alpha Person", "Alpha Person", "Q11"),
          (22, 202, "Beta Person (American football)", "Beta Person", "Q22"),
@@ -73,8 +79,9 @@ class SuccessorIdentityTests(unittest.TestCase):
                                  "raw_file_sha256": hashlib.sha256(raw.read_bytes()).hexdigest(),
                                  "wikitext_sha256": self.text_sha, "family": "COACHING", "ongoing": 0,
                                  "evidence_class": cs.EVIDENCE_CLASS, "pit_admitted": 0, "assignments": "[]"}
-        years_start = TEXT.index("2009–2010")
-        spans = {"team_raw": "[[Iowa]]", "team_char_span": json.dumps([2, 10]), "years_raw": "2009–2010",
+        years_start, team_start = TEXT.index("2009–2010"), TEXT.index("[[Iowa]]")
+        spans = {"team_raw": "[[Iowa]]", "team_char_span": json.dumps([team_start, team_start + len("[[Iowa]]")]),
+                 "years_raw": "2009–2010",
                  "years_char_span": json.dumps([years_start, years_start + len("2009–2010")])}
         # Predecessor and Attempt 4 rows: two per page.
         self.old = [{**self.page[p], "episode_id": _id("R37-05", p, self.page[p]["revision"], n), "row_index": n,

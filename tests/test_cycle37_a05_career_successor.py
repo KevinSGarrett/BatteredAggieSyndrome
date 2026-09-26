@@ -333,7 +333,11 @@ class RoleUnitTests(unittest.TestCase):
 
 # ------------------------------------------------------------------ successor contract
 
-REVISION_TEXT = "* [[Iowa]] (2009–2010)\n* [[Ohio]] (2011)\n"
+#: A8 (MF37A07-01): the verifier proves every recorded span is the source field its row's identity names, so the
+#: revision is an infobox whose ``coach_team1``/``coach_years1`` values are exactly row 1's recorded spans (it was a
+#: bare list whose span held a link inside a line -- a witness no parser writes). No assertion changes.
+REVISION_TEXT = ("{{Infobox college coach\n| coach_years1 = 2009–2010\n| coach_team1 = [[Iowa]]\n"
+                 "| coach_years2 = 2011\n| coach_team2 = [[Ohio]]\n}}\n")
 IDS = (1, 2)
 
 
@@ -385,14 +389,15 @@ class A05SuccessorContractTests(unittest.TestCase):
         self.a4 = self.root / "a04.sqlite"
         _table(self.a4, cs.EPISODE_TABLE, cs.EPISODE_COLUMNS, self.a4_rows)
         team = "[[Iowa]] "
-        years_start = REVISION_TEXT.index("2009–2010")
+        years_start, team_start = REVISION_TEXT.index("2009–2010"), REVISION_TEXT.index("[[Iowa]]")
         self.episodes = [{**base, "episode_id": _a5(n), "row_index": n, "start": 2009, "end": 2010 if n == 1 else 2011,
                           "wikitext_sha256": self.text_sha, "lineage_state": cs.DERIVED,
                           "disposition": cs.CORRECTED, "predecessor_episode_ids": json.dumps([_pid(n)]),
                           "a04_episode_ids": json.dumps([_a4(n)]), "a04_lineage_state": cs.A04_DERIVED,
                           "a04_disposition": cs.CORRECTED, "date_basis": "ITEM_DATE_IN_BALANCED_PARENTHESES",
                           "uncertainty_classes": "[]"} for n in IDS]
-        self.episodes[0].update({"team_raw": team.strip(), "team_char_span": json.dumps([2, 2 + len(team.strip())]),
+        self.episodes[0].update({"team_raw": team.strip(),
+                                 "team_char_span": json.dumps([team_start, team_start + len(team.strip())]),
                                  "years_raw": "2009–2010",
                                  "years_char_span": json.dumps([years_start, years_start + len("2009–2010")])})
         self.dispositions = [{"predecessor_episode_id": _pid(n), "disposition": cs.CORRECTED,

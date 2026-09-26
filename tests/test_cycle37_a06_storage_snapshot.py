@@ -21,10 +21,18 @@ second continuation of one snapshot take the same headroom again. A continuation
 baselines and opens with exactly the frozen headroom (``opened.headroom_bytes``); and a continued ledger refuses a
 later reservation (recording the refusal) instead of admitting it. The suite's other expectations are unchanged;
 ``test_cycle37_a07_storage_continuation`` adds the replay, concurrency, restart and tamper cases.
+
+Cycle #37 -- Attempt #8 (MF37A07-02) adds one requirement to the stopped-ledger case, never removing an assertion:
+the Attempt 7 manager showed a continuation of a stopped ledger admitted with no decision at all. Continuing after the
+stop is now refused without a recorded revised plan (``REFUSED_CONTINUATION_REVISED_PLAN_REQUIRED``); the same
+continuation, opened under a plan naming its authority and exactly the remaining headroom, keeps every original
+ceiling expectation (10,000 budget, 6,000 opened headroom, 6,001 refused, 5,600 after 400 written).
+``test_cycle37_a08_continuation_atomicity`` adds the same-path race, interrupted states and plan cases.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import tempfile
@@ -208,8 +216,21 @@ class StorageSnapshotTests(unittest.TestCase):
         self.assertEqual(document["measured"]["added_bytes"], 4_000)
         # The successor ledger's budget is exactly the remaining headroom; its INIT names the snapshot and the stop.
         successor_path = self.base / "ops" / "STORAGE_RESERVATIONS_SEGMENT_02.jsonl"
+        # A8 (MF37A07-02): no decision, no continuation -- refused before any claim or child is written.
+        self.refused(ss.REFUSED_PLAN_REQUIRED, ss.open_successor, self.snapshot, successor_path, [str(self.owned)],
+                     kind="operational ledger segment 2", scope="continuation after the bounded stop")
+        self.assertFalse(successor_path.exists() or sa.Ledger(self.ledger_path).claim_path.exists())
+        authority = self.base / "AUTHORITY.md"
+        authority.write_text("fixture authority: continue after the underestimate within the remaining headroom\n",
+                             encoding="utf-8")
+        stop = document["bounded_stop"]
+        plan = {"schema": ss.PLAN_SCHEMA, "authority": {"path": str(authority), "sha256": hashlib.sha256(
+                    authority.read_bytes()).hexdigest(), "grant": "fixture"},
+                "decision": "continue with the remaining headroom", "planned_bytes": 6_000, "reserve_bytes": 0,
+                "answers_stop": {"seq": stop["seq"], "at": stop["at"]}, "reason": "an underestimated operation"}
         init = ss.open_successor(self.snapshot, successor_path, [str(self.owned)], kind="operational ledger segment 2",
-                                 scope="continuation after the bounded stop")
+                                 scope="continuation after the bounded stop", revised_plan=plan)
+        self.assertEqual((init["revised_plan"]["ceiling_bytes"], init["inherited_stop"]["seq"]), (10_000, stop["seq"]))
         # A7 (MF37A06-02): the root's budget, opened with exactly the remaining headroom (was: budget = headroom).
         self.assertEqual((init["budget_bytes"], init["opened"]["headroom_bytes"]), (10_000, 6_000))
         reference = json.loads(init["note"])["continues_snapshot"]

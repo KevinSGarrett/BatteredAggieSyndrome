@@ -81,6 +81,29 @@ from, proved for every edge of both relations at attach (:func:`check_anchors`):
 Nothing here equates positional indices or normalized titles: role lines, corrected dates, re-read intervals, added
 and removed rows and absent fields keep their legitimate lineage. The delivered 72,958-row successor and the Attempt 4
 file prove under every rule.
+
+Cycle #37 -- Attempt #8 (MF37A07-01). An anchor is only as good as its witness. The Attempt 7 manager enlarged two of
+Fred Mariani's genuine spans to run from his first job's parameter to his sixth's, swapped the reciprocal default and
+Attempt 4 edges of those two jobs and re-sealed: each enlarged span was still an exact substring of the revision (so
+it served), it overlapped both jobs' fields (so every anchor agreed) and the worker's oracle shared the same overlap
+reasoning. A span that overlaps or contains a field is not that field. So, at attach and before any anchor is compared
+(:class:`SourceWitnesses`, :mod:`aggie_analytics.cycle37.career_witness`):
+
+* every span a row records -- in the successor, and in every delivered and Attempt 4 row an edge names -- must be
+  exactly the **source unit its own identity names** in the revision it cites: the ``*_team``/``*_years`` parameter
+  value of a numbered field, or the list line, nested line or role line of a career list (a list date inside that
+  line or its employer's line), under the splitting of the parser version that read it (v37.5 for Attempt 5 rows;
+  v37.4 for Attempt 4 rows; v37.2 for the delivered release). Otherwise the successor is refused as
+  ``REFUSED_CAREER_SUCCESSOR_SOURCE_FIELD_WITNESS_MISMATCH`` -- enlarged, shifted, shrunk and moved spans alike, and a
+  span moved onto another job's genuine field (same role, another period) too, since that field is not the one the
+  row's identity names;
+* to read the units, each cited capture is opened at attach: its bytes must have the row's recorded SHA-256 and its
+  revision text the recorded text SHA-256 (refused as the raw cause otherwise);
+* two anchors now agree only when one verified unit lies inside the other (equal, a role line inside its employer
+  line, an empty parameter's position); proven units never merely overlap.
+
+An unrecorded span is an absent field, never a witness: it is not checked and never anchors. All 218,110 genuine rows
+(72,958 Attempt 5, 73,082 Attempt 4, 72,070 delivered) record exactly the unit their identity names.
 """
 
 from __future__ import annotations
@@ -92,6 +115,8 @@ import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping
+
+from aggie_analytics.cycle37 import career_witness
 
 # ---- Attempt 4 format (retained; the Attempt 4 builder and file still use these names) ----
 FORMAT_VERSION = "BAS-C37A04-CAREER-SUCCESSOR-FORMAT-v1"
@@ -203,7 +228,14 @@ REFUSED_RESTRUCTURE = "REFUSED_CAREER_SUCCESSOR_RESTRUCTURE_CLAIM_MISMATCH"
 REFUSED_A04_ANCHOR = "REFUSED_CAREER_SUCCESSOR_A04_ANCHOR_MISMATCH"
 REFUSED_CROSS_VERSION = "REFUSED_CAREER_SUCCESSOR_CROSS_VERSION_LINEAGE_MISMATCH"
 REFUSED_A04_FILE_ABSENT = "REFUSED_CAREER_SUCCESSOR_A04_FILE_ABSENT"
-VERIFIER_VERSION = "BAS-C37A07-CAREER-SUCCESSOR-VERIFIER-v3"
+# v37.8 (MF37A07-01): a recorded span must be the source unit its row's identity names, not a span that reaches it.
+REFUSED_SOURCE_FIELD = "REFUSED_CAREER_SUCCESSOR_SOURCE_FIELD_WITNESS_MISMATCH"
+VERIFIER_VERSION = "BAS-C37A08-CAREER-SUCCESSOR-VERIFIER-v4"
+#: The parser whose splitting each relation's rows are checked under (never a version a row states about itself).
+DELIVERED_PARSER_VERSION = "BAS-CAREER-INFOBOX-v37.2"
+A04_PARSER_VERSION = "BAS-CAREER-INFOBOX-v37.4"
+A05_PARSER_VERSION = "BAS-CAREER-INFOBOX-v37.5"
+_PARSER_OF_FORMAT = {FORMAT_VERSION: A04_PARSER_VERSION, A05_FORMAT_VERSION: A05_PARSER_VERSION}
 #: The columns an edge's source anchor is read from, in both the successor and the rows it derives from.
 ANCHOR_COLUMNS = ("team_char_span", "years_char_span", "team_raw", "years_raw", "years_as_written")
 ANCHOR_FIELDS = ("team", "years")
@@ -256,12 +288,14 @@ def _field_span(value: Any) -> tuple[int, int] | None:
 
 
 def _spans_agree(a: tuple[int, int], b: tuple[int, int]) -> bool:
-    """Two spans of one revision text name the same source field: equal, overlapping, or an empty parameter's
-    position inside the other field."""
+    """Two spans of one revision text name the same source field: one lies inside the other -- equal, a role line
+    inside its employer line, a date inside its line, or an empty parameter's position inside the other field.
 
-    if a == b or (a[0] < b[1] and b[0] < a[1]):
-        return True
-    return (a[0] == a[1] and b[0] <= a[0] <= b[1]) or (b[0] == b[1] and a[0] <= b[0] <= a[1])
+    v37.8 (MF37A07-01): overlap alone no longer agrees. Every span compared here was first proved to be the source unit
+    its row's identity names, and two source units are nested or disjoint; an overlap that is not containment is two
+    fields, never one."""
+
+    return (a[0] <= b[0] and b[1] <= a[1]) or (b[0] <= a[0] and a[1] <= b[1])
 
 
 def _text_key(value: Any) -> str | None:
@@ -396,6 +430,89 @@ def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, M
                 f"row must be read from the child's own source field and interval, not another career episode of "
                 f"the same page: {examples}"))
     return {**counts, "restructured_entries": len(restructured), "relation": relation}
+
+
+class SourceWitnesses:
+    """v37.8 (MF37A07-01): prove, before any anchor is compared, that every span a row records is exactly the source
+    unit its identity names in the revision it cites (:func:`career_witness.witness_problems`).
+
+    Each capture a checked row cites is opened once: its bytes must hash to the row's ``raw_file_sha256`` and its
+    revision text to the row's ``wikitext_sha256`` -- units read from any other text would prove nothing about the
+    recorded spans. A row that records no span is an absent field and needs no capture."""
+
+    def __init__(self) -> None:
+        #: path -> (capture SHA-256, revision text, revision text SHA-256, whether literals change its structure)
+        self._captures: dict[str, tuple[str, str | None, str | None, bool] | None] = {}
+        self._units: dict[tuple[str, bool], dict[tuple[str, int], list[career_witness.Unit]]] = {}
+        self.captures_read = 0
+
+    def _capture(self, row: Mapping[str, Any], relation: str) -> tuple[str, str, bool]:
+        path = str(row.get("raw_file") or "")
+        if path not in self._captures:
+            source = Path(path)
+            if not path or not source.is_file():
+                self._captures[path] = None
+            else:
+                data = source.read_bytes()
+                self.captures_read += 1
+                text = _revision_text(data)
+                self._captures[path] = (
+                    hashlib.sha256(data).hexdigest(), text,
+                    None if text is None else hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest(),
+                    False if text is None else career_witness.literals_change_structure(text))
+        entry = self._captures[path]
+        episode = row.get("episode_id")
+        if entry is None:
+            raise CareerSuccessorError(REFUSED_RAW_FILE_ABSENT, (
+                f"{relation} row {episode} records a source span in raw file {path or None!r}, which is absent, so "
+                "its witness cannot be proved"))
+        if entry[0] != str(row.get("raw_file_sha256")):
+            raise CareerSuccessorError(REFUSED_RAW, (
+                f"{relation} row {episode} names raw file {path} with SHA-256 {row.get('raw_file_sha256')}, which "
+                f"now hashes to {entry[0]}"))
+        if entry[1] is None or entry[2] != str(row.get("wikitext_sha256")):
+            raise CareerSuccessorError(REFUSED_RAW_TEXT, (
+                f"{relation} row {episode}: the revision text in {path} does not hash to {row.get('wikitext_sha256')}"))
+        return path, entry[1], entry[3]
+
+    def units(self, row: Mapping[str, Any], parser_version: str, relation: str) -> dict[tuple[str, int], list[Any]]:
+        path, text, literals_matter = self._capture(row, relation)
+        # The two splittings differ only where comments or nowiki hold braces, brackets or bars; otherwise one reading
+        # serves both.
+        blanking = career_witness.LITERAL_BLANKING[parser_version] and literals_matter
+        key = (path, blanking)
+        if key not in self._units:
+            self._units[key] = career_witness.source_units(text, literal_blanking=blanking)
+        return self._units[key]
+
+    def check(self, rows: Iterable[Mapping[str, Any]], parser_version: str, relation: str) -> dict[str, Any]:
+        """Prove every recorded span of ``rows`` (read by ``parser_version``); raise :data:`REFUSED_SOURCE_FIELD`
+        naming every failing row's cause, or return the counts proved by unit form."""
+
+        counts: dict[str, int] = {}
+        failures: dict[str, list[str]] = {}
+        for row in rows:
+            if (career_witness.recorded_span(row.get("team_char_span")) is None
+                    and career_witness.recorded_span(row.get("years_char_span")) is None):
+                counts["NO_WITNESS_RECORDED"] = counts.get("NO_WITNESS_RECORDED", 0) + 1
+                continue
+            problems, form = career_witness.witness_problems(row, self.units(row, parser_version, relation))
+            if problems:
+                for problem in problems:
+                    failures.setdefault(problem, []).append(
+                        f"{row.get('episode_id')} team {row.get('team_char_span')} years {row.get('years_char_span')}")
+            else:
+                counts[form] = counts.get(form, 0) + 1
+        if failures:
+            summary = {cause: len(values) for cause, values in failures.items()}
+            first = next(iter(failures))
+            raise CareerSuccessorError(REFUSED_SOURCE_FIELD, (
+                f"{sum(summary.values())} {relation} witness(es) are not the source field their row's identity names "
+                f"({summary}; parser {parser_version}): a recorded span must be exactly that parameter's value, list "
+                f"line or role line -- a span that reaches, overlaps or contains it is not it: "
+                f"{_examples(failures[first])}"))
+        return {"relation": relation, "parser_version": parser_version, "proved_by_form": counts,
+                "rows_proved": sum(v for k, v in counts.items() if k != "NO_WITNESS_RECORDED")}
 
 
 @dataclass(frozen=True)
@@ -579,7 +696,8 @@ def _check_lineage(conn: sqlite3.Connection, fmt: Format, declared: dict[str, st
         raise CareerSuccessorError(REFUSED_RAW_EVIDENCE_ABSENT, (
             f"{len(absent)} row(s) name no raw revision file, or no well-formed SHA-256 of it or of its revision "
             f"text: {_examples(absent)}"))
-    bound = _check_predecessor_bindings(conn, episodes, dispositions)
+    witnesses = SourceWitnesses()
+    bound = _check_predecessor_bindings(conn, episodes, dispositions, witnesses, _PARSER_OF_FORMAT[fmt.version])
     proved: dict[str, Any] = {"episodes": len(identities), "dispositions": len(dispositions),
                               "predecessor_rows": len(predecessors), "edges": len(forward),
                               "episodes_added_without_predecessor": sum(1 for r in episodes
@@ -589,14 +707,17 @@ def _check_lineage(conn: sqlite3.Connection, fmt: Format, declared: dict[str, st
                               "rows_with_raw_provenance": len(episodes), **bound,
                               "verifier_version": VERIFIER_VERSION}
     if a05:
-        proved.update(_check_a04_mapping(conn, episodes, identity_set, declared))
+        proved.update(_check_a04_mapping(conn, episodes, identity_set, declared, witnesses))
+    proved["source_captures_read_at_attach"] = witnesses.captures_read
     return proved
 
 
 def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
-                                dispositions: list[dict[str, Any]]) -> dict[str, Any]:
+                                dispositions: list[dict[str, Any]], witnesses: SourceWitnesses,
+                                successor_parser: str) -> dict[str, Any]:
     """v37.6 (MF37A05-01): every parent edge is a typed binding to the predecessor's own page, revision, family and
-    raw locator, and every disposition's predecessor digest is recomputed from the open predecessor's actual row."""
+    raw locator, and every disposition's predecessor digest is recomputed from the open predecessor's actual row.
+    v37.8 (MF37A07-01): every span a successor row or a named predecessor row records is its identity's source unit."""
 
     columns = ", ".join(f'"{column}"' for column in PREDECESSOR_COLUMNS)
     locators: dict[str, tuple[Any, ...]] = {}
@@ -606,7 +727,8 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
     for values in conn.execute(f"SELECT {columns} FROM main.{PREDECESSOR_TABLE}"):
         row = dict(zip(PREDECESSOR_COLUMNS, values))
         identity = str(row["episode_id"])
-        anchors[identity] = {key: row.get(key) for key in ("pageid", "revision", "family", "row_index",
+        anchors[identity] = {key: row.get(key) for key in ("episode_id", "pageid", "revision", "family", "row_index",
+                                                           "raw_file", "raw_file_sha256", "wikitext_sha256",
                                                            *ANCHOR_COLUMNS)}
         locators[identity] = (_locator_of(row), str(row.get("raw_file_sha256")), str(row.get("wikitext_sha256")))
         digests[identity] = row_digest(values)
@@ -653,6 +775,12 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
         raise CareerSuccessorError(REFUSED_ROW_BINDING, (
             f"{len(changed)} disposition(s) record a predecessor-row digest the open predecessor's row does not "
             f"hash to: {_examples(changed)}"))
+    # v37.8 (MF37A07-01): before a span anchors anything it must be the source unit its row's identity names -- in the
+    # successor and in every delivered row an edge names -- in the revision the row cites.
+    named = sorted({parent for row in episodes for parent in row.get("_parents") or ()})
+    witnessed = {"successor": witnesses.check(episodes, successor_parser, "successor"),
+                 "delivered_predecessor": witnesses.check([anchors[p] for p in named], DELIVERED_PARSER_VERSION,
+                                                          "delivered predecessor")}
     # v37.7 (MF37A06-01): a page, a revision and a capture are shared by every job of one biography; the edge must
     # also name the parent row read from the child's own source field (and interval).
     anchored = check_anchors(
@@ -668,11 +796,12 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
             "pages_uniform": len(successor_pages),
             "pages_bound_to_predecessor_page_identity": sum(1 for page in successor_pages if page in predecessor_pages),
             "pages_without_predecessor_rows": sum(1 for page in successor_pages if page not in predecessor_pages),
+            "source_witnesses_proved": witnessed,
             "parent_edges_bound_to_source_field": anchored}
 
 
 def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]], identity_set: set[str],
-                       declared: dict[str, str]) -> dict[str, Any]:
+                       declared: dict[str, str], witnesses: SourceWitnesses) -> dict[str, Any]:
     rows = [dict(zip(("a04_episode_id", "disposition", "a05_episode_ids", "a04_row_sha256"), row)) for row in
             conn.execute(f"SELECT a04_episode_id, disposition, a05_episode_ids, a04_row_sha256 "
                          f"FROM {ATTACHED_SCHEMA}.{A05_FROM_A04_TABLE}")]
@@ -776,6 +905,10 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
             file_check = "A04_FILE_IDENTITY_SET_EQUAL"
     if problems:
         raise CareerSuccessorError(REFUSED_A04_MAPPING, f"the Attempt 4 mapping is broken: {problems[:5]}")
+    # v37.8 (MF37A07-01): the Attempt 4 rows an edge names are proved to record their own source units too -- the
+    # file's digest is the successor's own declaration, so its spans are witnesses to prove, not facts to trust.
+    a04_named = sorted({parent for row in episodes for parent in row.get("_a04_parents") or ()})
+    a04_witnessed = witnesses.check([a04_rows[p] for p in a04_named], A04_PARSER_VERSION, "Attempt 4 file")
     # v37.7 (MF37A06-01): every Attempt 4 edge names the Attempt 4 row read from the same source field and interval,
     # and the versions agree: an Attempt 5 row's predecessor rows are exactly those its Attempt 4 rows derive from.
     a04_anchored = check_anchors(
@@ -797,6 +930,7 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
             f"{len(crossed)} row(s) whose predecessor rows are not the ones their Attempt 4 rows derive from: "
             f"{_examples(crossed)}"))
     return {"a04_rows_mapped": len(ids), "a04_edges": len(forward), "a04_file_check": file_check,
+            "a04_source_witnesses_proved": a04_witnessed,
             "a04_edges_bound_to_source_field": a04_anchored,
             "rows_whose_versions_agree_on_predecessor_rows": len(episodes),
             "a04_edges_bound_to_page_revision_family": len(backward),

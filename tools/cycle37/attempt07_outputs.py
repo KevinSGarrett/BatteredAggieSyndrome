@@ -41,6 +41,7 @@ import storage_admission  # noqa: E402
 import storage_snapshot as snapshot  # noqa: E402
 from attempt03_outputs import (  # noqa: E402
     dumps,
+    git_out,
     read_json,
     sha256_file,
     utc_now,
@@ -482,10 +483,19 @@ def judge(ctx: Context, key: str, requirement: str) -> tuple[str, str]:
         if not ctx.candidate_record_path:
             failing.append("append record")
         control = _control(ctx)
+        subjects = control.get("subjects") or {}
+        appended = {read_json(p).get("candidate_commit"): read_json(p).get("repair_head")
+                    for p in ctx.candidate_record_paths}
+        requalified = details.get("control07_requalification") or {}
+        final_candidate = candidate.describe().get("candidate_head")
         if control.get("result") != "PASS":
             failing.append("CONTROL07_PROPOSAL_VALIDATION.json PASS")
-        elif (control.get("subjects") or {}).get("candidate") != candidate.describe().get("candidate_head"):
-            failing.append("the CONTROL-07 validation names another candidate head")
+        elif subjects.get("candidate") not in appended or appended[subjects["candidate"]] != subjects.get("repair"):
+            failing.append("the create-only CONTROL-07 validation is not bound to an Attempt 7 append and its repair head")
+        # The create-only receipt names the append it was produced at; the lane re-qualifies the same proposal at the
+        # final candidate, so a later forward append never leaves the proposal unqualified at the delivered head.
+        if (requalified.get("subjects") or {}).get("candidate") != final_candidate:
+            failing.append("CONTROL-07 re-qualified in the lane at the final candidate")
         errors = ((details.get("candidate_review_control_characterization") or {}).get("compatibility_errors"))
         if key.endswith("-C") and not errors:
             failing.append("the two control compatibility errors kept visible")
@@ -493,23 +503,28 @@ def judge(ctx: Context, key: str, requirement: str) -> tuple[str, str]:
             return "IN_PROGRESS", "not yet held: " + ", ".join(failing)
         proof = details.get("committed_tree_proof") or {}
         green = (control.get("characterization") or {}).get("current_checkers_green_on") or {}
+        cases = len(((control.get("checker_runs") or {}).get("proposed") or {}).get("cases") or {})
         text = {"A": ("A private, inert CONTROL-07 proposal (a checker that requires a PASS report carried by an "
                       "eligible independent reviewer's APPROVED review of the exact head, and a workflow with no paid "
                       "provider, secret or dispatch path that takes the checker from the protected base) is bound "
                       "byte-for-byte against main, the repair branch and the candidate and qualified offline: "
                       f"{sum(1 for v in (control.get('checks') or {}).values() if v)} of {len(control.get('checks') or {})} "
-                      "checks hold; FAIL, BLOCKED and SKIPPED reports, self-approval, a stale head, a dismissed or "
-                      "unapproved review, a changed control surface and a PASS under the unapproved protocol all fail "
-                      "closed, where the current checkers exit green on "
-                      f"{sum(len(v) for v in green.values()) if isinstance(green, dict) else green} of them. It was not "
-                      "adopted, applied or published."),
+                      f"checks hold over {cases} fixture cases; FAIL, BLOCKED and SKIPPED reports, self-approval, a "
+                      "stale head, a dismissed or unapproved review, a changed control surface and a PASS under the "
+                      "unapproved protocol all fail closed, where the current checkers exit green on "
+                      + ", ".join(f"{name} {len(rows)}" for name, rows in green.items())
+                      + f" of the {cases} cases. The create-only receipt was produced at repair "
+                      f"{str(subjects.get('repair'))[:8]} and candidate {str(subjects.get('candidate'))[:8]}; the "
+                      f"candidate lane re-qualified the same proposal offline at the final candidate "
+                      f"{str(final_candidate)[:8]}. It was not adopted, applied or published."),
                 "B": ("The candidate advanced forward only from bb5253b2: "
                       f"{len(ctx.candidate_record_paths)} [material] commit(s), each continuing the one before, the "
                       "preserved first candidate and bb5253b2 still ancestors, only the candidate ref moved; its "
                       f"committed provenance agrees with its committed blobs ({proof.get('committed_paths')} paths, "
                       f"{proof.get('manifest_rows')} manifest rows, 0 mismatches), the manager's Attempt 6 full-set "
-                      "committed-tree review finds 0 mismatches, main's six control blobs are kept, and the consumer "
-                      "built from the candidate tree serves and refuses."),
+                      "committed-tree review finds 0 mismatches, main's entries for the six protected control paths "
+                      "are kept (the paid workflow absent), and the consumer built from the candidate tree serves and "
+                      "refuses."),
                 "C": ("The ordinary repairs and regenerated provenance were appended to bb5253b2 with every ancestor and "
                       "main's protected bytes retained; committed blobs and manifest reconcile independently; the two "
                       f"control compatibility errors stay visible ({len(errors or [])} failing tests characterized for "
@@ -539,8 +554,9 @@ def judge(ctx: Context, key: str, requirement: str) -> tuple[str, str]:
                       "fact invented or activated."),
                 "B": ("One fresh offline noneditable BAS wheel, composed with the released C01 wheel, paginates the whole "
                       "successor and every filter exactly as the independent SQL oracle and raw census derive them, "
-                      "serves the same rows through its module entrypoint, and refuses every original and new "
-                      "within-page lineage forgery for its own cause; no row is hidden or dropped."),
+                      "serves the same rows for the named people through its module entrypoint as through its console "
+                      "script, and refuses every original and new within-page lineage forgery for its own cause; no "
+                      "row is hidden or dropped."),
                 "C": ("The guard, date, defensive-unit, unknown-role, Cory 2018/Danny/Steve, scoring/PIT, harness, "
                       "default/legacy and Cycle 29 behavior pass their suites and the manager replays at the candidate "
                       "head; the full mounted suite ran fresh and matches Attempt 6 identity for identity with no new "
@@ -845,10 +861,35 @@ def final_packet_document(ctx: Context, label: str) -> dict[str, Any]:
 def platform_reconciliation(ctx: Context, label: str) -> dict[str, Any]:
     document = a5o.platform_reconciliation(ctx, label)
     document["cycle_number"], document["attempt_number"] = CYCLE_NUMBER, ATTEMPT_NUMBER
-    document["label_note"] = ("Every Attempt 7 platform receipt carries the numeric label. The BEFORE reads bound the "
-                              "issued base head before any repair; the DURING reads follow the M1/M2 qualification and "
-                              "the AFTER reads bind the final head.")
+    subjects = phase_subjects(ctx)
+    bound = {phase: sorted({f"{row['head'][:8]} (clean {row['clean']})" for row in rows})
+             for phase, rows in subjects.items() if rows}
+    document["phase_subjects"] = subjects
+    document["label_note"] = ("Every Attempt 7 platform receipt carries the numeric label and binds the exact head it "
+                              "read at: " + "; ".join(f"{phase} at {', '.join(heads)}" for phase, heads in bound.items())
+                              + ".")
     return document
+
+
+_BOUND_RECEIPTS = ("GITHUB_READ_SUMMARY", "ALL22_READ_SUMMARY", "JIRA_READ_SUMMARY", "JIRA_PRIVATE_SUCCESSOR",
+                   "JIRA_COMMENT")
+
+
+def phase_subjects(ctx: Context) -> dict[str, list[dict[str, Any]]]:
+    """The head and tree state each platform receipt bound, phase by phase, as the receipts record them."""
+
+    root = ctx.out_root / "evidence" / "platform"
+    out: dict[str, list[dict[str, Any]]] = {}
+    for phase in ("BEFORE", "DURING", "AFTER"):
+        rows = []
+        for path in sorted((root / phase).rglob("*.json")):
+            if not path.name.startswith(_BOUND_RECEIPTS):
+                continue
+            subject = (read_json(path) or {}).get("subject")
+            if isinstance(subject, dict) and subject.get("head"):
+                rows.append({"receipt": path.name, "head": subject["head"], "clean": subject.get("clean")})
+        out[phase] = rows
+    return out
 
 
 def cost_ledger(ctx: Context, label: str) -> dict[str, Any]:
@@ -1023,6 +1064,8 @@ def build(ctx: Context, headline: str, writer_released: bool) -> dict[str, Any]:
     for name, text in outputs.items():
         write_output(root / name, text)
         ctx.add(f"E-OUTPUT-{name}", root / name, CENSUS, f"Declared worker output {name}")
+    ctx.commit_dates = dict(line.split(" ", 1) for line in git_out("log", "--format=%H %cI",
+                                                                   f"{BASE_SHA}..HEAD").splitlines() if line)
     executed = [lane for lane in WORKER_LANES if ctx.executed(lane)]
     ctx.all_runs_clean = bool(executed) and all(
         ctx.receipts[lane]["source_binding"].get("clean") and ctx.receipts[lane]["source_binding_after"].get("clean")

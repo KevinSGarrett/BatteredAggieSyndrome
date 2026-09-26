@@ -8,6 +8,7 @@ The sections follow ``templates/WORKER_REPORT.template.md`` of the v2.4.0 releas
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -50,6 +51,27 @@ def _details(ctx: Any, lane: str) -> dict[str, Any]:
 def _output(ctx: Any, name: str) -> dict[str, Any]:
     path = ctx.out_root / name
     return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+
+
+def _timing(ctx: Any) -> str:
+    """When the before-repair reproduction was recorded, which bytes it read, and how that relates to the first repair
+    commit -- read from the reproduction receipt and git, never typed."""
+
+    path = ctx.out_root / "evidence" / "before" / "BEFORE_REPRODUCTION.json"
+    if not path.is_file():
+        return "- Timing: no before-repair reproduction receipt exists."
+    receipt = json.loads(path.read_text(encoding="utf-8"))
+    subject = receipt.get("subject") or {}
+    first = next(iter(reversed(ctx.commits)), None)
+    dated = (getattr(ctx, "commit_dates", {}) or {}).get(first[0]) if first else None
+    text = (f"- Timing: the before-repair reproduction of both findings (`{path}`, reproduced {receipt.get('reproduced')}) "
+            f"was recorded at {receipt.get('observed_at')} against the bytes of `{str(subject.get('head'))[:10]}` "
+            f"({subject.get('meaning')})")
+    if first and dated:
+        after = datetime.fromisoformat(receipt["observed_at"]) > datetime.fromisoformat(dated)
+        text += (f"; the first repair commit `{first[0][:10]}` is dated {dated}, so the reproduction "
+                 + ("read the unfixed bytes but was recorded after that commit" if after else "preceded it"))
+    return text + ". Every platform receipt binds its own head (PLATFORM_RECONCILIATION.json `phase_subjects`)."
 
 
 def render(ctx: Any, s: dict[str, Any]) -> str:
@@ -106,7 +128,6 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
     interpreter = (ctx.receipts.get("START_CONTEXT") or {}).get("interpreter") or {}
     storage = ctx.storage()
     operational = storage["operational"]
-    reproduction = start.get("before_reproduction") or {}
     out += ["## Issued versus actual subject", "",
             f"- Issued: contract SHA-256 `{s['contract_sha256']}`, bound by the sealed issuance "
             f"`{ctx.contract_path.parent / 'issuance' / 'issuance.json'}`; every contract source reference re-hashed at "
@@ -133,9 +154,7 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
             + ("claimed" if storage["continuation_claim"]["exists"] else "not yet opened") + ".",
             "- Scope changes: none. The retired assistive interlock stays retired; its decommission validator runs in "
             "START_CONTEXT and the retired interlock validator is never invoked.",
-            f"- Timing: the before-repair reproduction of both findings ran first at the issued base "
-            f"(`{reproduction.get('file')}`, reproduced {reproduction.get('reproduced')}), before any repair was "
-            "written; every platform receipt records its own head and tree state.", ""]
+            _timing(ctx), ""]
 
     # ---- criteria
     out += ["## Every criterion, original finding and carryforward", "",
@@ -374,7 +393,8 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
         out += ["", f"GitHub at the latest read ({github.get('phase')}, {github.get('observed_at')}): main "
                 f"`{github.get('main_head')}`, {github.get('open_pr_count')} open pull requests, "
                 f"{github.get('unresolved_thread_total')} unresolved review threads. No PR, push, merge, retarget or "
-                "remote change was made; the only ref moved is the local candidate branch, forward only.", ""]
+                "remote change was made; the only refs moved are the local repair branch (its own commits) and the "
+                "local candidate branch, both forward only.", ""]
     revisions = platform.get("all22_owner_revisions") or []
     if revisions:
         out += ["All-22 owner repositories at the latest read (issued revision -> observed remote head):", ""]
@@ -450,6 +470,7 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
             "restructure and correction kept) before it was enforced, and an independent oracle grounds every span in "
             "its raw capture; the storage continuation was qualified on tiny fixtures (race, restart, replay, tamper) "
             "before any large allocation; every new forgery was proved against the source verifier before the "
-            "installed lane; the candidate append was rehearsed in a scratch repository before the one granted append.",
+            "installed lane; the candidate append was rehearsed in a scratch repository before the granted appends "
+            "(the new findings record the one append try that stopped before any commit).",
             ""]
     return "\n".join(out) + "\n"

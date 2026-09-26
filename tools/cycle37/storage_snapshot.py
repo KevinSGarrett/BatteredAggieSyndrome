@@ -68,6 +68,24 @@ the child's existence and identity, its INIT and its OPENED record -- with the c
   without one the open is refused before any claim (``REFUSED_CONTINUATION_REVISED_PLAN_REQUIRED``), and an
   infeasible, stale or malformed plan is refused too (``REFUSED_CONTINUATION_REVISED_PLAN_INVALID_OR_INFEASIBLE``).
   No budget is ever a parameter; :func:`chain` proves every link's inherited stop and plan.
+
+Cycle #37 -- Attempt #9 (MF37A08-02). A restart compared the reserve, plan and kind it was asked for with the child's,
+but never the roots: a same-child call naming an additional empty root returned ``resumed=True``, recorded nothing,
+and 10,000 bytes written there measured as zero added bytes. Every open now derives one **effective root contract**
+under the parent's lock (:func:`root_contract`) -- the parent's owned and shared roots plus the ones the call names --
+and a continuation is opened, resumed or recovered only under the contract it was opened with:
+
+* **normalization policy**: a root is compared by ``os.path.normcase(os.path.abspath(path))`` -- case, separators,
+  ``.``/``..`` segments, a trailing separator, order and duplicates never make two contracts differ; a link, junction
+  or short name is *not* resolved, so a root reached another way is another spelling and is refused, never silently
+  equated;
+* a root named both owned and shared, or an inherited root named in the other class, is refused
+  (``REFUSED_CONTINUATION_ROOT_CONTRACT_DIFFERS``) before any claim; so is a restart -- concurrent or later -- or the
+  completion of an interrupted initialization whose contract (added, omitted or reclassified roots, empty or not)
+  differs from the one the child was opened with, before any record is written. The claim records the contract, so a
+  recovered claim is compared too; a claim that records none (an earlier tool's) cannot prove it and is refused;
+* same effective roots in any spelling resume without a record, as before; nothing is re-baselined and no headroom is
+  added. An additive transition is not offered: a new root belongs to a new, separately planned continuation.
 """
 
 from __future__ import annotations
@@ -86,7 +104,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import storage_admission as sa  # noqa: E402
 
-TOOL_VERSION = "BAS-C37A08-STORAGE-SNAPSHOT-v3"
+TOOL_VERSION = "BAS-C37A09-STORAGE-SNAPSHOT-v4"
 SNAPSHOT_SCHEMA = "BAS-STORAGE-EVIDENCE-SNAPSHOT-1"
 CLAIM_SCHEMA = "BAS-STORAGE-CONTINUATION-CLAIM-1"
 PLAN_SCHEMA = "BAS-STORAGE-REVISED-PLAN-1"
@@ -110,6 +128,12 @@ REFUSED_PARAMETERS = "REFUSED_CONTINUATION_PARAMETERS_DIFFER"
 REFUSED_INIT_INTERRUPTED = "REFUSED_CONTINUATION_INITIALIZATION_INTERRUPTED"
 REFUSED_PLAN_REQUIRED = "REFUSED_CONTINUATION_REVISED_PLAN_REQUIRED"
 REFUSED_PLAN_INVALID = "REFUSED_CONTINUATION_REVISED_PLAN_INVALID_OR_INFEASIBLE"
+# v4 (MF37A08-02): the effective owned/shared roots a continuation is opened, resumed and recovered under.
+REFUSED_ROOTS = "REFUSED_CONTINUATION_ROOT_CONTRACT_DIFFERS"
+ROOT_POLICY = ("roots compare by os.path.normcase(os.path.abspath(path)): case, separators, '.'/'..', a trailing "
+               "separator, order and duplicates are one root; links, junctions and short names are not resolved (another "
+               "spelling of the same place is another root); a root is owned or shared, never both, and keeps its "
+               "parent's class")
 
 
 class SnapshotRefused(RuntimeError):
@@ -333,6 +357,57 @@ def check_revised_plan(plan: Any, *, stop: dict[str, Any] | None, reserve_bytes:
             "ceiling_bytes": min(budget, state["added_bytes"] + planned)}
 
 
+def normalized_root(path: Any) -> str:
+    """The one spelling a root is compared by (:data:`ROOT_POLICY`)."""
+
+    return os.path.normcase(os.path.abspath(str(path)))
+
+
+def root_contract(parent_init: dict[str, Any], roots: Any, shared: Any) -> dict[str, Any]:
+    """MF37A08-02: the effective owned and shared roots a continuation of ``parent_init``'s ledger has when a caller
+    names ``roots`` (owned) and ``shared`` -- its parent's roots of each class plus the ones named -- with the roots it
+    adds (in the spelling first named). A root named in both classes, or an inherited root named in the other class, is
+    refused. Returns ``owned``/``shared`` (normalized, sorted), ``new_owned``/``new_shared`` and the policy."""
+
+    parent_owned = {normalized_root(r) for r in parent_init.get("owned_roots") or []}
+    parent_shared = {normalized_root(r) for r in parent_init.get("shared_roots") or []}
+    requested: dict[str, dict[str, str]] = {"owned": {}, "shared": {}}
+    for kind, values in (("owned", roots), ("shared", shared)):
+        for value in values or ():
+            requested[kind].setdefault(normalized_root(value), str(Path(value)))
+    both = sorted(set(requested["owned"]) & set(requested["shared"]))
+    moved = sorted((set(requested["owned"]) & parent_shared) | (set(requested["shared"]) & parent_owned))
+    if both or moved:
+        raise SnapshotRefused(REFUSED_ROOTS, (
+            f"a root is owned or shared, never both, and keeps its parent's class: named in both {both}, named in the "
+            f"other class than its parent's {moved}"))
+    return {"owned": sorted(parent_owned | set(requested["owned"])),
+            "shared": sorted(parent_shared | set(requested["shared"])),
+            "new_owned": [spelling for key, spelling in requested["owned"].items() if key not in parent_owned],
+            "new_shared": [spelling for key, spelling in requested["shared"].items() if key not in parent_shared],
+            "policy": ROOT_POLICY}
+
+
+def _recorded_contract(init: dict[str, Any]) -> dict[str, list[str]]:
+    """The effective roots a ledger's INIT records, under the same normalization."""
+
+    return {"owned": sorted({normalized_root(r) for r in init.get("owned_roots") or []}),
+            "shared": sorted({normalized_root(r) for r in init.get("shared_roots") or []})}
+
+
+def _contract_difference(recorded: dict[str, Any], requested: dict[str, Any]) -> dict[str, Any]:
+    """What a requested contract adds, omits or reclassifies relative to a recorded one (empty when equal)."""
+
+    difference = {}
+    for kind in ("owned", "shared"):
+        have, want = set(recorded.get(kind) or []), set(requested.get(kind) or [])
+        if want - have:
+            difference[f"{kind}_added"] = sorted(want - have)
+        if have - want:
+            difference[f"{kind}_omitted"] = sorted(have - want)
+    return difference
+
+
 def _link_problems(child_rows: list[dict[str, Any]], child: sa.Ledger, parent_rows: list[dict[str, Any]],
                    parent: sa.Ledger) -> list[str]:
     """What a continuation must inherit from the parent it continues: identity, budget, baselines, root, parent INIT,
@@ -390,10 +465,14 @@ def _open_record(child: sa.Ledger, parent_rows: list[dict[str, Any]], kind: str,
 
 
 def _resume(child: sa.Ledger, parent: sa.Ledger, parent_rows: list[dict[str, Any]], document: dict[str, Any],
-            kind: str, reserve: int, revised_plan: Any) -> dict[str, Any]:
+            kind: str, reserve: int, revised_plan: Any, contract: dict[str, Any]) -> dict[str, Any]:
     """MF37A07-02: the continuation already exists (a restart, or a caller that waited for another): it is resumed
     only if it is the one valid child of this parent and snapshot, opened with these parameters. A child holding only
-    its INIT (interrupted before its OPENED record) is completed; an unreadable one is refused for its cause."""
+    its INIT (interrupted before its OPENED record) is completed; an unreadable one is refused for its cause.
+
+    MF37A08-02: the parameters include the effective root contract -- a restart naming another root set (added,
+    omitted, reclassified; empty or not) is refused before any record, including the completion of an interrupted
+    one."""
 
     if not child.path.exists():
         raise SnapshotRefused(REFUSED_INIT_INTERRUPTED, (
@@ -432,6 +511,12 @@ def _resume(child: sa.Ledger, parent: sa.Ledger, parent_rows: list[dict[str, Any
     if differs:
         raise SnapshotRefused(REFUSED_PARAMETERS, (
             f"{child.path} was opened with another {differs}; the one continuation is resumed only as it was opened"))
+    difference = _contract_difference(_recorded_contract(init), contract)
+    if difference:
+        raise SnapshotRefused(REFUSED_ROOTS, (
+            f"{child.path} was opened with the effective roots {_recorded_contract(init)}; this call names "
+            f"{ {k: contract[k] for k in ('owned', 'shared')} } ({difference}). A continuation is resumed only under "
+            "the roots it was opened with; a root it never measured is never silently ignored or added"))
     completed = None
     if len(child_rows) == 1:
         completed = _open_record(child, parent_rows, kind, completed_after_interruption=True)
@@ -475,11 +560,12 @@ def open_successor(snapshot_path: Path | str, ledger_path: Path | str, roots: li
         parent_init = parent.config(rows)
         reserve = int(parent_init["reserve_bytes"] if reserve_bytes is None else reserve_bytes)
         stop = parent.effective_stop(rows)
+        # MF37A08-02: the effective root contract of this call, under the parent's lock, before any branch.
+        contract = root_contract(parent_init, roots, shared)
         if child.path.exists() or child.head_path.exists():
-            return _resume(child, parent, rows, document, kind, reserve, revised_plan)
+            return _resume(child, parent, rows, document, kind, reserve, revised_plan, contract)
         # Every root of the parent is inherited with its root baseline; a root added now must be empty.
-        inherited = set(parent_init["baseline"])
-        new = [str(Path(r)) for r in [*roots, *shared] if str(Path(r)) not in inherited]
+        new = [*contract["new_owned"], *contract["new_shared"]]
         nonempty = {r: sa.measure(r)["bytes"] for r in new if sa.measure(r)["bytes"]}
         if nonempty:
             raise SnapshotRefused(REFUSED_ROOT, (
@@ -502,7 +588,9 @@ def open_successor(snapshot_path: Path | str, ledger_path: Path | str, roots: li
                           "parent_head_record_sha256": document["ledger"]["head_record_sha256"],
                           "snapshot": str(Path(snapshot_path)), "snapshot_content_sha256": document["content_sha256"],
                           "child_ledger": str(child.path), "kind": kind, "cycle_number": identity["cycle_number"],
-                          "attempt_number": identity["attempt_number"], "claimed_at": utc_now(), "pid": os.getpid()}
+                          "attempt_number": identity["attempt_number"], "claimed_at": utc_now(), "pid": os.getpid(),
+                          "root_contract": {"owned": contract["owned"], "shared": contract["shared"],
+                                            "policy": ROOT_POLICY}}
         recovered_claim = False
         try:
             with parent.claim_path.open("x", encoding="utf-8", newline="\n") as handle:
@@ -518,7 +606,15 @@ def open_successor(snapshot_path: Path | str, ledger_path: Path | str, roots: li
                     f"{parent.path} was already continued by {existing.get('child_ledger')} from snapshot "
                     f"{existing.get('snapshot_content_sha256')} (claim {parent.claim_path}); a second continuation "
                     "would take the same headroom again")) from None
-            # A claim naming this child with no child yet: the initialization that made it was interrupted.
+            # A claim naming this child with no child yet: the initialization that made it was interrupted. MF37A08-02:
+            # it is completed only under the root contract the claim recorded.
+            recorded = existing.get("root_contract")
+            difference = _contract_difference(recorded, contract) if isinstance(recorded, dict) else {"unrecorded": True}
+            if difference:
+                raise SnapshotRefused(REFUSED_ROOTS, (
+                    f"the interrupted claim {parent.claim_path} records the root contract {recorded}; this call names "
+                    f"{ {k: contract[k] for k in ('owned', 'shared')} } ({difference}); the interrupted "
+                    "initialization is completed only under the roots it claimed")) from None
             recovered_claim = True
         claim = parent.claim()
         continuation = {
@@ -530,6 +626,7 @@ def open_successor(snapshot_path: Path | str, ledger_path: Path | str, roots: li
             "claim": {"path": str(parent.claim_path), "sha256": claim["_sha256"]},
             "parent_bounded_stop": document.get("bounded_stop"), "snapshot_verified": proof["result"],
             "recovered_interrupted_claim": recovered_claim,
+            "root_contract": {"owned": contract["owned"], "shared": contract["shared"], "policy": ROOT_POLICY},
         }
         reference = json.dumps({
             "label": f"Cycle #{identity['cycle_number']} — Attempt #{identity['attempt_number']} — {kind}",
@@ -543,8 +640,8 @@ def open_successor(snapshot_path: Path | str, ledger_path: Path | str, roots: li
                             "the headroom opened with is exactly what the attempt has left"),
             "note": note}, ensure_ascii=False)
         try:
-            child.init_continuation(parent=parent, parent_rows=rows, new_roots=[str(Path(r)) for r in roots],
-                                    new_shared=[str(Path(r)) for r in shared], reserve_bytes=reserve,
+            child.init_continuation(parent=parent, parent_rows=rows, new_roots=contract["new_owned"],
+                                    new_shared=contract["new_shared"], reserve_bytes=reserve,
                                     continuation=continuation, note=reference, inherited_stop=stop,
                                     revised_plan=plan, plan_ceiling_bytes=ceiling)
         except sa.LedgerError as error:
@@ -619,6 +716,14 @@ def chain(ledger_path: Path | str) -> dict[str, Any]:
         segment["revised_plan"] = ({"plan_sha256": plan.get("plan_sha256"), "ceiling_bytes": plan.get("ceiling_bytes"),
                                     "authority": authority} if plan else None)
         segment["inherited_stop"] = (init.get("inherited_stop") or {}).get("seq") if init.get("inherited_stop") else None
+        # v4 (MF37A08-02): a recorded root contract is the INIT's effective roots, and every parent root is inherited.
+        recorded = continuation.get("root_contract")
+        if isinstance(recorded, dict) and _contract_difference(_recorded_contract(init), recorded):
+            mismatch.append("root_contract")
+        if not set(_recorded_contract(parent_init)["owned"]) <= set(_recorded_contract(init)["owned"]) or not set(
+                _recorded_contract(parent_init)["shared"]) <= set(_recorded_contract(init)["shared"]):
+            mismatch.append("root_classes")
+        segment["root_contract"] = _recorded_contract(init)
         if mismatch:
             raise SnapshotRefused(REFUSED_CLAIM_INVALID, f"{ledger.path} does not inherit its parent's {mismatch}")
         pending_refused = refused_after

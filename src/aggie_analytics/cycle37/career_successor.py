@@ -104,6 +104,31 @@ reasoning. A span that overlaps or contains a field is not that field. So, at at
 
 An unrecorded span is an absent field, never a witness: it is not checked and never anchors. All 218,110 genuine rows
 (72,958 Attempt 5, 73,082 Attempt 4, 72,070 delivered) record exactly the unit their identity names.
+
+Cycle #37 -- Attempt #9 (MF37A08-01). "Never anchors" was not true: with both spans absent, the anchor fell back to
+the rows' own text. The Attempt 8 manager swapped Fred Mariani's 1974 and 2009 rows' reciprocal default and Attempt 4
+edges, set their team, byte and years spans to NULL and enlarged their team and years text to run over all six jobs;
+the witness check skipped the absent spans, every text contained the other, and the installed console script, the
+installed module and the source module each served seven rows. A row's text is now never an anchor
+(:func:`career_witness.resolve_unit`, :class:`SourceWitnesses`):
+
+* every row an attach checks -- every successor row, and every delivered and Attempt 4 row an edge names -- is
+  resolved to the source unit its **identity** names in the revision it cites, read from its verified capture, whether
+  or not it records a witness; a parent row's episode identity must be the row's own page, revision, family, row and
+  interval (``PREDECESSOR_IDENTITY`` / ``A04_IDENTITY`` otherwise);
+* what a row records without a witness must agree with that unit: an absent witness is legitimate only where the
+  source states nothing for the field (a numbered field with no or an empty team or years parameter, or a line's
+  years, which live inside the line); a stated field left unwitnessed, text carried without a witness, a line's years
+  text that is not in its line, an identity naming no unit or several are refused as source-field witness mismatches;
+* each edge of both relations, in both formats, is anchored by the two **derived units** (:func:`career_witness.
+  anchor_of`) -- their regions, never the rows' spans or text -- with the Attempt 7/8 rules: nested or equal units
+  agree, a unit of another field is the ``EPISODE``, ``TEAM`` or ``YEARS`` cause, and with no comparable field only the
+  same parameter row anchors. An edge whose units cannot be derived is refused, never counted as proven.
+
+One absent state is defined for every representation: SQL NULL, JSON ``null``, ``[null, null]`` and an empty or blank
+string. The genuine 72,958-row successor, the Attempt 4 file and the delivered release resolve every row and anchor
+every edge exactly as before; interval text inside one multi-interval field (``years_as_written``) is normalized text,
+not a source substring, and stays checked by containment only (``interval_checked``), as disclosed since Attempt 7.
 """
 
 from __future__ import annotations
@@ -230,7 +255,7 @@ REFUSED_CROSS_VERSION = "REFUSED_CAREER_SUCCESSOR_CROSS_VERSION_LINEAGE_MISMATCH
 REFUSED_A04_FILE_ABSENT = "REFUSED_CAREER_SUCCESSOR_A04_FILE_ABSENT"
 # v37.8 (MF37A07-01): a recorded span must be the source unit its row's identity names, not a span that reaches it.
 REFUSED_SOURCE_FIELD = "REFUSED_CAREER_SUCCESSOR_SOURCE_FIELD_WITNESS_MISMATCH"
-VERIFIER_VERSION = "BAS-C37A08-CAREER-SUCCESSOR-VERIFIER-v4"
+VERIFIER_VERSION = "BAS-C37A09-CAREER-SUCCESSOR-VERIFIER-v5"
 #: The parser whose splitting each relation's rows are checked under (never a version a row states about itself).
 DELIVERED_PARSER_VERSION = "BAS-CAREER-INFOBOX-v37.2"
 A04_PARSER_VERSION = "BAS-CAREER-INFOBOX-v37.4"
@@ -370,12 +395,23 @@ _CAUSE_CODES = {"EPISODE": REFUSED_EPISODE_ANCHOR, "TEAM": REFUSED_TEAM_ANCHOR, 
 
 def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, Mapping[str, Any]],
                   dispositions: Mapping[str, tuple[str, list[str]]], parents_of: str, relation: str,
-                  a04_relation: bool = False) -> dict[str, Any]:
+                  a04_relation: bool = False, *, child_units: Mapping[str, Mapping[str, Any]] | None = None,
+                  parent_units: Mapping[str, Mapping[str, Any]] | None = None) -> dict[str, Any]:
     """Prove every edge of one lineage relation is anchored to its source field and interval, and every
     restructured entry is what its disposition says (all-to-all, a changed interval count). ``parents_of`` names
-    the child's list of parent identities. Raises :class:`CareerSuccessorError` for the first failing cause."""
+    the child's list of parent identities. Raises :class:`CareerSuccessorError` for the first failing cause.
+
+    v37.9 (MF37A08-01): ``child_units`` and ``parent_units`` map each identity to its derived unit anchor
+    (:func:`career_witness.anchor_of`); an attach always passes them, so fields are compared by the units the rows'
+    identities name in their revisions, never by the rows' own spans or text. An edge whose units are missing is
+    refused as ``UNANCHORED``. (Without them, the rows themselves are compared: the Attempt 7/8 rule, kept for its
+    own unit tests.)"""
 
     children = list(children)
+
+    def unit(units: Mapping[str, Mapping[str, Any]] | None, row: Mapping[str, Any]) -> Mapping[str, Any] | None:
+        return row if units is None else units.get(str(row.get("episode_id")))
+
     parent_entries: dict[tuple[str, ...], list[str]] = {}
     for identity, parent in parents.items():
         parent_entries.setdefault(entry_of(parent), []).append(identity)
@@ -392,8 +428,10 @@ def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, M
         if not any(state and state[0] == RESTRUCTURED for state in states):
             continue
         targets = {tuple(sorted(state[1])) for state in states if state}
+        first = unit(parent_units, parents[identities[0]])
         same = [t for t in (next(iter(targets)) if len(targets) == 1 else ())
-                if t in by_identity and same_entry(by_identity[t], parents[identities[0]])]
+                if t in by_identity and first is not None and (target := unit(child_units, by_identity[t])) is not None
+                and same_entry(target, first)]
         if (not all(state and state[0] == RESTRUCTURED for state in states) or len(targets) != 1
                 or len(same) == len(identities)):
             failures.setdefault("RESTRUCTURE", []).append(":".join(entry))
@@ -404,14 +442,20 @@ def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, M
             if parent is None:
                 continue
             counts["edges"] += 1
-            cause, verdicts = edge_anchor(child, parent)
+            own, theirs = unit(child_units, child), unit(parent_units, parent)
+            if own is None or theirs is None:
+                failures.setdefault("UNANCHORED", []).append(
+                    f"{child['episode_id']} <- {identity}: no source unit was derived for "
+                    + ("the child" if own is None else "the parent"))
+                continue
+            cause, verdicts = edge_anchor(own, theirs)
             if cause:
                 failures.setdefault(cause, []).append(f"{child['episode_id']} <- {identity} {verdicts}")
                 continue
             counts["anchored_by_parameter_only" if "parameter" in verdicts else "anchored_by_source_field"] += 1
             entry = entry_of(parent)
             multiple = len(parent_entries.get(entry, ())) > 1 or child_entries.get(entry_of(child), 0) > 1
-            if multiple and entry not in restructured and same_entry(child, parent):
+            if multiple and entry not in restructured and same_entry(own, theirs):
                 counts["interval_checked"] += 1
                 if not period_agrees(child, parent):
                     failures.setdefault("PERIOD", []).append(
@@ -429,7 +473,9 @@ def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, M
                 f"{len(failures[cause])} {relation} edge(s) fail the {cause} anchor (all causes: {summary}): a parent "
                 f"row must be read from the child's own source field and interval, not another career episode of "
                 f"the same page: {examples}"))
-    return {**counts, "restructured_entries": len(restructured), "relation": relation}
+    return {**counts, "restructured_entries": len(restructured), "relation": relation,
+            "anchored_on": ("DERIVED_SOURCE_UNITS" if child_units is not None and parent_units is not None
+                            else "ROW_SPANS")}
 
 
 class SourceWitnesses:
@@ -438,13 +484,19 @@ class SourceWitnesses:
 
     Each capture a checked row cites is opened once: its bytes must hash to the row's ``raw_file_sha256`` and its
     revision text to the row's ``wikitext_sha256`` -- units read from any other text would prove nothing about the
-    recorded spans. A row that records no span is an absent field and needs no capture."""
+    recorded spans.
+
+    v37.9 (MF37A08-01): every checked row -- witnessed or not -- is resolved to the unit its identity names
+    (:func:`career_witness.resolve_unit`), so a row without a witness needs its capture too; the derived unit's anchor
+    is kept for the relation (:attr:`anchors`) and is the only thing an edge is compared by."""
 
     def __init__(self) -> None:
         #: path -> (capture SHA-256, revision text, revision text SHA-256, whether literals change its structure)
         self._captures: dict[str, tuple[str, str | None, str | None, bool] | None] = {}
         self._units: dict[tuple[str, bool], dict[tuple[str, int], list[career_witness.Unit]]] = {}
         self.captures_read = 0
+        #: relation -> episode identity -> the anchor of the unit its identity names (v37.9).
+        self.anchors: dict[str, dict[str, dict[str, Any]]] = {}
 
     def _capture(self, row: Mapping[str, Any], relation: str) -> tuple[str, str, bool]:
         path = str(row.get("raw_file") or "")
@@ -464,8 +516,8 @@ class SourceWitnesses:
         episode = row.get("episode_id")
         if entry is None:
             raise CareerSuccessorError(REFUSED_RAW_FILE_ABSENT, (
-                f"{relation} row {episode} records a source span in raw file {path or None!r}, which is absent, so "
-                "its witness cannot be proved"))
+                f"{relation} row {episode} cites raw file {path or None!r}, which is absent, so the source unit its "
+                "identity names (and any witness it records) cannot be proved"))
         if entry[0] != str(row.get("raw_file_sha256")):
             raise CareerSuccessorError(REFUSED_RAW, (
                 f"{relation} row {episode} names raw file {path} with SHA-256 {row.get('raw_file_sha256')}, which "
@@ -485,34 +537,69 @@ class SourceWitnesses:
             self._units[key] = career_witness.source_units(text, literal_blanking=blanking)
         return self._units[key]
 
-    def check(self, rows: Iterable[Mapping[str, Any]], parser_version: str, relation: str) -> dict[str, Any]:
-        """Prove every recorded span of ``rows`` (read by ``parser_version``); raise :data:`REFUSED_SOURCE_FIELD`
-        naming every failing row's cause, or return the counts proved by unit form."""
+    def check(self, rows: Iterable[Mapping[str, Any]], parser_version: str, relation: str, *,
+              identity_code: str | None = None) -> dict[str, Any]:
+        """Resolve every row of ``rows`` (read by ``parser_version``) to the unit its identity names and prove what it
+        records against it; raise :data:`REFUSED_SOURCE_FIELD` naming every failing row's cause, or return the counts
+        by unit form and keep each row's derived anchor in ``anchors[relation]``.
+
+        ``identity_code`` (v37.9): a parent row's episode identity must be its own page, revision, family, row and
+        interval -- the unit is derived from the identity, so a row relabelled under another identity is refused
+        with that code before any unit is read."""
 
         counts: dict[str, int] = {}
+        derived: dict[str, int] = {}
+        unwitnessed: dict[str, int] = {}
         failures: dict[str, list[str]] = {}
+        relabelled: list[str] = []
+        without: list[str] = []
+        anchors = self.anchors.setdefault(relation, {})
         for row in rows:
-            if (career_witness.recorded_span(row.get("team_char_span")) is None
-                    and career_witness.recorded_span(row.get("years_char_span")) is None):
-                counts["NO_WITNESS_RECORDED"] = counts.get("NO_WITNESS_RECORDED", 0) + 1
-                continue
-            problems, form = career_witness.witness_problems(row, self.units(row, parser_version, relation))
+            episode = str(row.get("episode_id"))
+            if identity_code is not None:
+                parsed = parse_identity(episode)
+                own = tuple(str(row.get(k)) for k in ("pageid", "revision", "family", "row_index", "interval_index"))
+                if parsed is None or tuple(parsed[1:]) != own:
+                    relabelled.append(f"{episode} is the row of {':'.join(own)}")
+                    continue
+            _path, text, _literal = self._capture(row, relation)
+            problems, form, unit = career_witness.resolve_unit(row, self.units(row, parser_version, relation), text)
             if problems:
                 for problem in problems:
                     failures.setdefault(problem, []).append(
-                        f"{row.get('episode_id')} team {row.get('team_char_span')} years {row.get('years_char_span')}")
-            else:
-                counts[form] = counts.get(form, 0) + 1
+                        f"{episode} team {row.get('team_char_span')} years {row.get('years_char_span')}")
+                continue
+            if unit is None:
+                # No source assertion: it records nothing, and no edge can be anchored to it (check_anchors refuses
+                # any that names it as UNANCHORED).
+                without.append(episode)
+                continue
+            anchors[episode] = career_witness.anchor_of(row, unit)
+            spans = {field: career_witness.recorded_span(row.get(f"{field}_char_span")) for field in ANCHOR_FIELDS}
+            bucket = counts if any(value is not None for value in spans.values()) else derived
+            bucket[form] = bucket.get(form, 0) + 1
+            for field, value in spans.items():
+                if value is None:
+                    kind = f"{field}:{form}:{'TEXT_IN_ITS_LINE' if row.get(f'{field}_raw') else 'NOT_STATED'}"
+                    unwitnessed[kind] = unwitnessed.get(kind, 0) + 1
+        if relabelled:
+            raise CareerSuccessorError(identity_code, (
+                f"{len(relabelled)} {relation} row(s) carry an episode identity that is not their own page, revision, "
+                f"family, row and interval (the source unit is named by the identity): {_examples(relabelled)}"))
         if failures:
             summary = {cause: len(values) for cause, values in failures.items()}
             first = next(iter(failures))
             raise CareerSuccessorError(REFUSED_SOURCE_FIELD, (
                 f"{sum(summary.values())} {relation} witness(es) are not the source field their row's identity names "
                 f"({summary}; parser {parser_version}): a recorded span must be exactly that parameter's value, list "
-                f"line or role line -- a span that reaches, overlaps or contains it is not it: "
-                f"{_examples(failures[first])}"))
+                f"line or role line -- a span that reaches, overlaps or contains it is not it -- and a field left "
+                f"unwitnessed may carry only blank text or that unit's own text (a line's years: text inside the "
+                f"line): {_examples(failures[first])}"))
         return {"relation": relation, "parser_version": parser_version, "proved_by_form": counts,
-                "rows_proved": sum(v for k, v in counts.items() if k != "NO_WITNESS_RECORDED")}
+                "rows_proved": sum(counts.values()), "resolved_without_a_witness_by_form": derived,
+                "rows_resolved_to_their_source_unit": sum(counts.values()) + sum(derived.values()),
+                "rows_naming_no_source_unit": len(without), "rows_naming_no_source_unit_examples": _examples(without),
+                "unwitnessed_fields": unwitnessed}
 
 
 @dataclass(frozen=True)
@@ -728,8 +815,8 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
         row = dict(zip(PREDECESSOR_COLUMNS, values))
         identity = str(row["episode_id"])
         anchors[identity] = {key: row.get(key) for key in ("episode_id", "pageid", "revision", "family", "row_index",
-                                                           "raw_file", "raw_file_sha256", "wikitext_sha256",
-                                                           *ANCHOR_COLUMNS)}
+                                                           "interval_index", "raw_file", "raw_file_sha256",
+                                                           "wikitext_sha256", *ANCHOR_COLUMNS)}
         locators[identity] = (_locator_of(row), str(row.get("raw_file_sha256")), str(row.get("wikitext_sha256")))
         digests[identity] = row_digest(values)
         predecessor_pages.setdefault(str(row.get("pageid")), set()).add(_page_identity(row))
@@ -778,18 +865,23 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
     # v37.8 (MF37A07-01): before a span anchors anything it must be the source unit its row's identity names -- in the
     # successor and in every delivered row an edge names -- in the revision the row cites.
     named = sorted({parent for row in episodes for parent in row.get("_parents") or ()})
+    # v37.9 (MF37A08-01): every row -- witnessed or not -- is resolved to the unit its identity names, and a named
+    # delivered row must carry its own identity.
     witnessed = {"successor": witnesses.check(episodes, successor_parser, "successor"),
                  "delivered_predecessor": witnesses.check([anchors[p] for p in named], DELIVERED_PARSER_VERSION,
-                                                          "delivered predecessor")}
+                                                          "delivered predecessor",
+                                                          identity_code=REFUSED_PREDECESSOR_IDENTITY)}
     # v37.7 (MF37A06-01): a page, a revision and a capture are shared by every job of one biography; the edge must
-    # also name the parent row read from the child's own source field (and interval).
+    # also name the parent row read from the child's own source field (and interval) -- v37.9: compared by the units
+    # the two identities name, never by the rows' own spans or text.
     anchored = check_anchors(
         episodes, anchors,
         {str(row["predecessor_episode_id"]): (str(row["disposition"]),
                                               _id_list(row["successor_episode_ids"], "successor_episode_ids",
                                                        str(row["predecessor_episode_id"])))
          for row in dispositions},
-        "_parents", "predecessor")
+        "_parents", "predecessor", child_units=witnesses.anchors["successor"],
+        parent_units=witnesses.anchors["delivered predecessor"])
     edges = sum(len(r.get("_parents") or ()) for r in episodes)
     return {"parent_edges_bound_to_page_revision_family": edges, "parent_edges_bound_to_raw_locator": edges,
             "dispositions_bound_to_predecessor_row_digest": len(dispositions),
@@ -908,14 +1000,17 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
     # v37.8 (MF37A07-01): the Attempt 4 rows an edge names are proved to record their own source units too -- the
     # file's digest is the successor's own declaration, so its spans are witnesses to prove, not facts to trust.
     a04_named = sorted({parent for row in episodes for parent in row.get("_a04_parents") or ()})
-    a04_witnessed = witnesses.check([a04_rows[p] for p in a04_named], A04_PARSER_VERSION, "Attempt 4 file")
+    # v37.9 (MF37A08-01): a named Attempt 4 row carries its own identity and resolves to the unit it names.
+    a04_witnessed = witnesses.check([a04_rows[p] for p in a04_named], A04_PARSER_VERSION, "Attempt 4 file",
+                                    identity_code=REFUSED_A04_IDENTITY)
     # v37.7 (MF37A06-01): every Attempt 4 edge names the Attempt 4 row read from the same source field and interval,
     # and the versions agree: an Attempt 5 row's predecessor rows are exactly those its Attempt 4 rows derive from.
     a04_anchored = check_anchors(
         episodes, a04_rows,
         {str(row["a04_episode_id"]): (str(row["disposition"]), _id_list(row["a05_episode_ids"], "a05_episode_ids",
                                                                           str(row["a04_episode_id"]))) for row in rows},
-        "_a04_parents", "Attempt 4", a04_relation=True)
+        "_a04_parents", "Attempt 4", a04_relation=True, child_units=witnesses.anchors["successor"],
+        parent_units=witnesses.anchors["Attempt 4 file"])
     crossed = []
     for row in episodes:
         through_a04 = set()

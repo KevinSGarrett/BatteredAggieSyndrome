@@ -295,31 +295,57 @@ def _successor(path: Path, predecessor: Path, episodes: list[dict], dispositions
     return path
 
 
+#: Cycle #37 - Attempt #9 (MF37A08-01): the revision the two fixture rows cite states their two jobs.
+CONTRACT_REVISION = ("{{Infobox college coach\n| name = Fixture Person\n| coach_years1 = 2009\n"
+                     "| coach_team1 = [[Fixture State]] (OC)\n| coach_years2 = 2009\n"
+                     "| coach_team2 = [[Fixture Tech]] (DC)\n}}\n")
+
+
+def _witnessed(n: int) -> dict:
+    """Row ``n``'s genuine witnesses: the ``coach_team{n}`` and ``coach_years{n}`` values and their texts."""
+
+    fields = {}
+    for kind in ("team", "years"):
+        marker = f"| coach_{kind}{n} = "
+        start = CONTRACT_REVISION.index(marker) + len(marker)
+        end = CONTRACT_REVISION.index("\n", start)
+        fields[f"{kind}_char_span"], fields[f"{kind}_raw"] = json.dumps([start, end]), CONTRACT_REVISION[start:end]
+    return fields
+
+
 class SuccessorContractTests(unittest.TestCase):
     # Cycle #37 - Attempt #5 (MF37A04-02): the consumer now proves lineage and raw evidence from the rows, so this
     # fixture carries what every real successor row carries -- a Wikimedia-shaped raw payload, the revision text's
     # SHA-256, the lineage state and the disposition. Every assertion below is unchanged.
+    #
+    # Cycle #37 - Attempt #9 (MF37A08-01): an edge is now anchored by the source units its two rows' identities name in
+    # the revision they cite, never by their text, so a row whose identity names nothing there can carry no lineage.
+    # The revision was the bare string "revision text", naming no job; it is now an infobox stating the two jobs
+    # (coach_team1/2, coach_years1/2), and each row records its witnesses, as every genuine row does. The raw-byte
+    # test keeps its serve-time assertion by changing the capture after the attach (a capture is now read at attach
+    # for every row, so a change made before it is refused there, for the same cause -- asserted too). Every other
+    # assertion is unchanged.
     def setUp(self) -> None:
         self._tmp = tempfile.TemporaryDirectory()
         self.root = Path(self._tmp.name)
         self.raw = self.root / "raw.json"
         self.raw.write_bytes(json.dumps({"query": {"pages": {"1": {
             "pageid": 1, "title": "Fixture Person (American football)", "pageprops": {"wikibase_item": "Q1"},
-            "revisions": [{"revid": 1, "slots": {"main": {"*": "revision text"}}}]}}}}).encode("utf-8"))
+            "revisions": [{"revid": 1, "slots": {"main": {"*": CONTRACT_REVISION}}}]}}}}).encode("utf-8"))
         raw_sha = hashlib.sha256(self.raw.read_bytes()).hexdigest()
-        text_sha = hashlib.sha256("revision text".encode("utf-8")).hexdigest()
+        text_sha = hashlib.sha256(CONTRACT_REVISION.encode("utf-8")).hexdigest()
         self.old = [{"episode_id": f"R37-05:1:1:COACHING:{n}:0", "pageid": 1, "revision": "1", "family": "COACHING",
                      "row_index": n, "interval_index": 0, "start": 2009, "end": 2009, "ongoing": 0,
                      "evidence_class": cs.EVIDENCE_CLASS, "pit_admitted": 0, "raw_file": str(self.raw),
                      "raw_file_sha256": raw_sha, "wikitext_sha256": text_sha, "assignments": "[]",
                      "page_title": "Fixture Person (American football)", "person_display": "Fixture Person",
-                     "wikidata_qid": "Q1"} for n in (1, 2)]
+                     "wikidata_qid": "Q1", **_witnessed(n)} for n in (1, 2)]
         self.predecessor = _predecessor(self.root / "predecessor.sqlite", self.old)
         self.episodes = [{"episode_id": f"C37A04:1:1:COACHING:{n}:0", "pageid": 1, "revision": "1",
                           "family": "COACHING", "row_index": n, "interval_index": 0, "start": 2009, "end": None,
                           "ongoing": 0, "evidence_class": cs.EVIDENCE_CLASS, "pit_admitted": 0,
                           "raw_file": str(self.raw), "raw_file_sha256": raw_sha, "assignments": "[]",
-                          "wikitext_sha256": text_sha, "lineage_state": cs.DERIVED,
+                          "wikitext_sha256": text_sha, "lineage_state": cs.DERIVED, **_witnessed(n),
                           "page_title": "Fixture Person (American football)", "person_display": "Fixture Person",
                           "wikidata_qid": "Q1",
                           "disposition": cs.UNRESOLVED_EXPLICIT,
@@ -402,14 +428,15 @@ class SuccessorContractTests(unittest.TestCase):
 
     def test_changed_raw_bytes_are_refused_when_a_row_is_served(self) -> None:
         successor = _successor(self.root / "raw.sqlite", self.predecessor, self.episodes, self.dispositions)
-        self.raw.write_bytes(b'{"raw": "changed"}')
         binding, conn = self.attach(successor)
+        self.raw.write_bytes(b'{"raw": "changed"}')        # A9: changed after the attach, before the rows are served
         try:
             with self.assertRaises(cs.CareerSuccessorError) as caught:
                 cs.verify_raw_bytes([dict(r) for r in conn.execute(f"SELECT * FROM {cs.VIEW_NAME}").fetchall()])
             self.assertEqual(caught.exception.code, cs.REFUSED_RAW)
         finally:
             conn.close()
+        self.refused(cs.REFUSED_RAW, successor)             # A9: the same change seen by a later attach
 
 
 if __name__ == "__main__":

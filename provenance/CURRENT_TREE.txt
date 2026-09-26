@@ -4396,6 +4396,8 @@ tests/test_cycle37_a07_source_anchor.py
 tests/test_cycle37_a07_storage_continuation.py
 tests/test_cycle37_a08_continuation_atomicity.py
 tests/test_cycle37_a08_source_witness.py
+tests/test_cycle37_a09_continuation_roots.py
+tests/test_cycle37_a09_missing_witness.py
 tests/test_cycle37_admission_domains.py
 tests/test_cycle37_alias_team_season.py
 tests/test_cycle37_atomic_io.py
@@ -5004,6 +5006,7 @@ tools/cycle37/a04_career_successor.py
 tools/cycle37/a05_career_successor.py
 tools/cycle37/a05_career_template_census.py
 tools/cycle37/a08_source_field_oracle.py
+tools/cycle37/a09_source_unit_oracle.py
 tools/cycle37/attempt03_admission_probe.py
 tools/cycle37/attempt03_lanes.py
 tools/cycle37/attempt03_outputs.py
@@ -5039,6 +5042,13 @@ tools/cycle37/attempt08_lanes.py
 tools/cycle37/attempt08_outputs.py
 tools/cycle37/attempt08_platform.py
 tools/cycle37/attempt08_report.py
+tools/cycle37/attempt09_candidate.py
+tools/cycle37/attempt09_control07.py
+tools/cycle37/attempt09_git.py
+tools/cycle37/attempt09_lanes.py
+tools/cycle37/attempt09_outputs.py
+tools/cycle37/attempt09_platform.py
+tools/cycle37/attempt09_report.py
 tools/cycle37/build_corrected_release.py
 tools/cycle37/build_worker_packet.py
 tools/cycle37/c29_claim_successor.py

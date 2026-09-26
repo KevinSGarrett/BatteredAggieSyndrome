@@ -28,6 +28,16 @@ stricter reason: a year-only or team-only anchor moved onto another job's field 
 source field, so it is refused as ``REFUSED_CAREER_SUCCESSOR_SOURCE_FIELD_WITNESS_MISMATCH`` before any anchor is
 compared; the ``YEARS`` and ``TEAM`` anchor causes remain proved on their own in ``test_the_anchor_rules_on_their_own``.
 ``test_cycle37_a08_source_witness`` adds the enlarged-envelope, boundary and full-page substitutions.
+
+Cycle #37 -- Attempt #9 (MF37A08-01). An edge is now anchored by the source units its two rows' identities name in the
+cited revision -- never by the rows' own spans or text, which the Attempt 8 manager nulled and enlarged -- so a row
+whose identity names nothing in the revision can carry no lineage (no genuine row of the three populations is such a
+row). Rows 9 and 11 were such "fieldless" rows; they are now years-only numbered fields (``coach_years9``,
+``coach_years11``, no team parameter), the genuine form of 22 Attempt 5 rows. Their edges are anchored by their years
+fields (the parameter-only count falls from 2 to 0), and the swap of the two is refused as the ``YEARS`` anchor it is.
+The ``UNANCHORED`` cause -- no comparable field and another parameter, or a row naming no unit -- is proved by
+``test_cycle37_a09_missing_witness``. The added row 12 stays fieldless: it carries no lineage. The delivered rows'
+years text without a years span is exactly each field's value, which the Attempt 9 rule keeps.
 """
 
 from __future__ import annotations
@@ -52,7 +62,9 @@ FIELDS = [("coach_years1", "1974"), ("coach_team1", "[[Saint Joseph's Pumas foot
           ("coach_years2", "1926, 1928–1930"), ("coach_team2", "[[William & Mary Tribe football|William & Mary]]"),
           ("coach_years3", "2009–?"), ("coach_team3", "[[Rutgers Scarlet Knights football|Rutgers]] (DFO)"),
           ("coach_years4", ""), ("coach_team4", ""),
-          ("coach_years6", "1911&ndash;1916"), ("coach_team6", "[[YMCA (Columbus, Georgia)|Columbus YMCA]]")]
+          ("coach_years6", "1911&ndash;1916"), ("coach_team6", "[[YMCA (Columbus, Georgia)|Columbus YMCA]]"),
+          # A9: years-only numbered fields (no team parameter), formerly "fieldless" rows naming nothing.
+          ("coach_years9", "1950"), ("coach_years11", "1955")]
 #: A8: the employer line with its role lines is a career list line, as the parser reads one (row 1001 and its role
 #: lines 100101, 100102).
 TEXT = ("{{Infobox college coach\n" + "".join(f"| {name} = {value}\n" for name, value in FIELDS)
@@ -138,8 +150,10 @@ class SourceAnchorTests(unittest.TestCase):
              "years_as_written": "1911", "start": 1911, "end": 1911},
             {"episode_id": _id("R37-05", 6, 1), "row_index": 6, "interval_index": 1, **team(6), **years_text(6),
              "years_as_written": "1916", "start": 1916, "end": 1916},
-            {"episode_id": _id("R37-05", 9), "row_index": 9, "interval_index": 0, "start": None, "end": None},
-            {"episode_id": _id("R37-05", 11), "row_index": 11, "interval_index": 0, "start": None, "end": None},
+            {"episode_id": _id("R37-05", 9), "row_index": 9, "interval_index": 0, **years_text(9),
+             "years_as_written": "1950", "start": 1950, "end": 1950},
+            {"episode_id": _id("R37-05", 11), "row_index": 11, "interval_index": 0, **years_text(11),
+             "years_as_written": "1955", "start": 1955, "end": 1955},
         ]}
         # Attempt 4: the predecessor's rows one for one, with their own lineage (the Attempt 4 relation).
         self.a4_rows = {i.replace("R37-05", "C37A04"): {**r, "episode_id": i.replace("R37-05", "C37A04"),
@@ -185,9 +199,10 @@ class SourceAnchorTests(unittest.TestCase):
             ("C6", [_id("R37-05", 6, 0), _id("R37-05", 6, 1)],
              {"row_index": 6, "interval_index": 0, **team(6), **years_text(6), **years_span(6),
               "years_as_written": "1911–1916", "start": 1911, "end": 1916}, cs.RESTRUCTURED),
-            ("C9", [_id("R37-05", 9)], {"row_index": 9, "interval_index": 0, "start": None, "end": None}, cs.UNCHANGED),
-            ("C11", [_id("R37-05", 11)], {"row_index": 11, "interval_index": 0, "start": None, "end": None},
-             cs.UNCHANGED),
+            ("C9", [_id("R37-05", 9)], {"row_index": 9, "interval_index": 0, **years_text(9), **years_span(9),
+                                        "years_as_written": "1950", "start": 1950, "end": 1950}, cs.UNCHANGED),
+            ("C11", [_id("R37-05", 11)], {"row_index": 11, "interval_index": 0, **years_text(11), **years_span(11),
+                                          "years_as_written": "1955", "start": 1955, "end": 1955}, cs.UNCHANGED),
         ]
         ids = {"C1": _id("C37A05", 1), "C2a": _id("C37A05", 2, 0), "C2b": _id("C37A05", 2, 1), "C3": _id("C37A05", 3),
                "C4": _id("C37A05", 4), "C1001": _id("C37A05", 1001), "C100101": _id("C37A05", 100101),
@@ -320,9 +335,11 @@ class SourceAnchorTests(unittest.TestCase):
         binding = self.attach(self.successor("genuine.sqlite"))
         lineage = binding["lineage_proved_independently_of_the_ledgers"]
         default, a04 = lineage["parent_edges_bound_to_source_field"], lineage["a04_edges_bound_to_source_field"]
+        # A9: rows 9 and 11 are years-only fields now, anchored by their years fields (were 10 and 2 parameter-only).
         self.assertEqual((default["edges"], default["anchored_by_source_field"], default["anchored_by_parameter_only"],
-                          default["restructured_entries"], default["interval_checked"]), (12, 10, 2, 1, 2))
-        self.assertEqual((a04["edges"], a04["anchored_by_parameter_only"]), (12, 2))
+                          default["restructured_entries"], default["interval_checked"]), (12, 12, 0, 1, 2))
+        self.assertEqual((a04["edges"], a04["anchored_by_parameter_only"]), (12, 0))
+        self.assertEqual((default["anchored_on"], a04["anchored_on"]), ("DERIVED_SOURCE_UNITS", "DERIVED_SOURCE_UNITS"))
         self.assertEqual(lineage["rows_whose_versions_agree_on_predecessor_rows"], 12)
         self.assertEqual(len(binding["_rows"]), 12)
         served = {r["episode_id"]: r for r in binding["_rows"]}
@@ -399,10 +416,12 @@ class SourceAnchorTests(unittest.TestCase):
             row["predecessor_episode_ids"], row["disposition"] = both, cs.RESTRUCTURED
         self.refused(cs.REFUSED_RESTRUCTURE, self.successor("false-restructure.sqlite", episodes))
 
-    def test_fieldless_rows_of_different_parameters_swapped_are_unanchored(self) -> None:
+    def test_years_only_rows_of_different_parameters_swapped_are_refused_as_a_years_anchor(self) -> None:
+        # A9: formerly "fieldless rows ... are unanchored"; rows 9 and 11 are years-only fields now, so their swap names
+        # another years field (the UNANCHORED cause: test_cycle37_a09_missing_witness).
         episodes = self.copy()
         self.swap(episodes, "C9", "C11")
-        self.refused(cs.REFUSED_UNANCHORED, self.successor("unanchored.sqlite", episodes))
+        self.refused(cs.REFUSED_YEARS_ANCHOR, self.successor("unanchored.sqlite", episodes))
 
     def test_a_cross_version_anchor_substitution_is_refused(self) -> None:
         episodes = self.copy()

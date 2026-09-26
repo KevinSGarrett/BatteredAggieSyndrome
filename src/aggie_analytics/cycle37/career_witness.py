@@ -28,6 +28,26 @@ and the delivered release) do not. A row is checked under its own version's spli
 
 An unrecorded span is an absent field, not a witness: it is never checked here and never used as an anchor. Nothing
 here decides whether a revision's statement is true, or rewrites a parser.
+
+Cycle #37 -- Attempt #9 (MF37A08-01). An absent witness was skipped, and the anchor then trusted the row's own text:
+the Attempt 8 manager set Fred Mariani's two swapped rows' spans to NULL and enlarged their text over six jobs, and
+every entrypoint served them. A row's source unit is now **derived from its identity and its verified revision**,
+whether or not it records a witness (:func:`resolve_unit`), and what it records without a witness must agree with that
+unit:
+
+* one absent state -- SQL NULL, JSON ``null``, ``[null, null]`` and an empty or blank string (:func:`recorded_span`);
+  anything else that is not a well-formed ``[start, end]`` is malformed and no unit equals it;
+* an unwitnessed field keeps its meaning -- absent, or the source's own words -- only when its text is blank, or
+  exactly the unit's text for that field (a numbered field's parameter value), or, for the years of a list, nested
+  or role line (whose dates live inside the line), a substring of that line or of its employer's line; any other text
+  is unverified and refused (``*_TEXT_WITHOUT_A_WITNESS_IS_NOT_ITS_SOURCE_UNIT`` / ``..._IS_NOT_IN_ITS_LINE``);
+* a row with no witness whose identity names several units cannot be told apart (``AMBIGUOUS_SOURCE_UNIT``); one
+  whose identity names none is no source assertion: it may carry nothing (no witness, no text -- ``NO_SOURCE_UNIT``,
+  ``TEXT_WITHOUT_A_SOURCE_UNIT`` otherwise) and no lineage edge can ever be anchored to it.
+
+Every genuine row of the three populations resolves to its unit under these rules (the Attempt 9 census: every row's
+identity names a unit; the numbered fields with no team or no years parameter carry no text for them, the undated
+list lines none, and -- in the v37.2 and v37.4 rows -- the years text of every list and nested line lies in its line).
 """
 
 from __future__ import annotations
@@ -53,6 +73,13 @@ ROLE_LINE = "ROLE_LINE"
 NO_SOURCE_UNIT = "NO_SOURCE_UNIT"
 TEAM_NOT_SOURCE_UNIT = "TEAM_NOT_SOURCE_UNIT"
 YEARS_NOT_SOURCE_UNIT = "YEARS_NOT_SOURCE_UNIT"
+#: v37.9 (MF37A08-01): why what a row records *without* a witness disagrees with the unit its identity names.
+AMBIGUOUS_SOURCE_UNIT = "AMBIGUOUS_SOURCE_UNIT"
+TEXT_WITHOUT_A_SOURCE_UNIT = "TEXT_WITHOUT_A_SOURCE_UNIT"
+TEAM_TEXT_NOT_ITS_SOURCE_UNIT = "TEAM_TEXT_WITHOUT_A_WITNESS_IS_NOT_ITS_SOURCE_UNIT"
+YEARS_TEXT_NOT_ITS_SOURCE_UNIT = "YEARS_TEXT_WITHOUT_A_WITNESS_IS_NOT_ITS_SOURCE_UNIT"
+YEARS_TEXT_NOT_IN_ITS_LINE = "YEARS_TEXT_WITHOUT_A_WITNESS_IS_NOT_IN_ITS_LINE"
+LINE_FORMS = frozenset((LIST_LINE, NESTED_LINE, ROLE_LINE))
 
 
 @dataclass(frozen=True)
@@ -144,12 +171,15 @@ _SPAN_TEXT = re.compile(r"\[(0|[1-9][0-9]*), ?(0|[1-9][0-9]*)\]")
 
 
 def recorded_span(value: Any) -> tuple[int, int] | None:
-    """A recorded ``[start, end]`` span, or None when the row records none (``null`` or ``[null, null]``). A value
-    that is recorded but is not a well-formed span is returned as ``(-1, -1)``, which no unit equals."""
+    """A recorded ``[start, end]`` span, or None when the row records none -- SQL NULL, JSON ``null``,
+    ``[null, null]``, or (v37.9, one absent state for every representation) an empty or blank string. A value that is
+    recorded but is not a well-formed span is returned as ``(-1, -1)``, which no unit equals."""
 
     if value is None:
         return None
     if isinstance(value, str):
+        if not value.strip():
+            return None
         match = _SPAN_TEXT.fullmatch(value)   # the common case, read without a JSON decode
         if match:
             start, end = int(match.group(1)), int(match.group(2))
@@ -201,3 +231,78 @@ def witness_problems(row: Mapping[str, Any], units: Mapping[tuple[str, int], lis
         if best is None or len(problems) < len(best):
             best = problems
     return best or [NO_SOURCE_UNIT], candidates[0].form
+
+
+def _blank(value: Any) -> bool:
+    return value is None or (isinstance(value, str) and not value.strip())
+
+
+def absence_problems(row: Mapping[str, Any], unit: Unit, text: str | None) -> list[str]:
+    """v37.9 (MF37A08-01): what ``row`` carries without a witness, against the unit its identity names. An
+    unwitnessed field keeps its meaning -- it is absent, or its text is the source's own -- only when that text is
+    blank, or exactly the unit's text for that field (a numbered field's parameter value), or, for a line's years,
+    which live inside the line, a substring of the line or of its employer's line. Text the unit does not state is
+    unverified and is refused, whatever it contains. ``text`` is the verified revision text (None skips the
+    comparison, and then only blank text passes)."""
+
+    problems = []
+    if recorded_span(row.get("team_char_span")) is None and not _blank(row.get("team_raw")):
+        if text is None or unit.team is None or str(row.get("team_raw")) != text[unit.team[0]:unit.team[1]]:
+            problems.append(TEAM_TEXT_NOT_ITS_SOURCE_UNIT)
+    if recorded_span(row.get("years_char_span")) is None and not _blank(row.get("years_raw")):
+        years_text = str(row.get("years_raw"))
+        if unit.form == PARAMETER:
+            if text is None or unit.years is None or years_text != text[unit.years[0]:unit.years[1]]:
+                problems.append(YEARS_TEXT_NOT_ITS_SOURCE_UNIT)
+        elif text is None or not any(region is not None and years_text in text[region[0]:region[1]]
+                                     for region in (unit.team, unit.employer)):
+            problems.append(YEARS_TEXT_NOT_IN_ITS_LINE)
+    return problems
+
+
+def resolve_unit(row: Mapping[str, Any], units: Mapping[tuple[str, int], list[Unit]],
+                 text: str | None) -> tuple[list[str], str, Unit | None]:
+    """v37.9 (MF37A08-01): ``(problems, form, unit)`` -- the one source unit ``row``'s identity ``(family, row_index)``
+    names in its revision, derived whether or not the row records a witness, with every reason what the row records
+    (a witness, or text without one) disagrees with it. The unit, never the row's own text, is what an edge is
+    anchored to.
+
+    A row whose identity names no unit and that records nothing -- no witness, no text -- is no source assertion:
+    ``([], "NONE", None)``. It may be served (it states nothing to verify), but no edge can be anchored to it. One that
+    records a witness or text there is refused (``NO_SOURCE_UNIT`` / ``TEXT_WITHOUT_A_SOURCE_UNIT``)."""
+
+    try:
+        key = (str(row.get("family")), int(row.get("row_index")))  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return [NO_SOURCE_UNIT], "NONE", None
+    candidates = units.get(key) or []
+    witnessed = (recorded_span(row.get("team_char_span")) is not None
+                 or recorded_span(row.get("years_char_span")) is not None)
+    if not candidates:
+        if witnessed:
+            return [NO_SOURCE_UNIT], "NONE", None
+        if not (_blank(row.get("team_raw")) and _blank(row.get("years_raw"))):
+            return [TEXT_WITHOUT_A_SOURCE_UNIT], "NONE", None
+        return [], "NONE", None
+    if not witnessed and len(candidates) > 1:
+        return [AMBIGUOUS_SOURCE_UNIT], candidates[0].form, None
+    best: list[str] | None = None
+    for unit in candidates:
+        problems = []
+        if witnessed:
+            problems, _form = witness_problems(row, {key: [unit]})
+        problems = problems + absence_problems(row, unit, text)
+        if not problems:
+            return [], unit.form, unit
+        if best is None or len(problems) < len(best):
+            best = problems
+    return best or [NO_SOURCE_UNIT], candidates[0].form, None
+
+
+def anchor_of(row: Mapping[str, Any], unit: Unit) -> dict[str, Any]:
+    """The anchor an edge compares: the derived unit's regions and the identity's parameter row -- never text. A line's
+    years live inside the line, so a line is anchored by the line alone."""
+
+    return {"episode_id": row.get("episode_id"), "row_index": row.get("row_index"), "form": unit.form,
+            "team_char_span": list(unit.team) if unit.team is not None else None,
+            "years_char_span": list(unit.years) if (unit.form == PARAMETER and unit.years is not None) else None}

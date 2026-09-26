@@ -44,8 +44,10 @@ FINDING_TEXT = {
 
 
 def _j(value: Any, limit: int = 1200) -> str:
-    text = json.dumps(value, indent=1, ensure_ascii=False, default=str)
-    return text if len(text) <= limit else text[:limit] + "\n... (truncated here; full value in the named file)"
+    """A value inline, on one line (so it never breaks a list item or a table row), truncated with a pointer."""
+
+    text = json.dumps(value, ensure_ascii=False, default=str)
+    return text if len(text) <= limit else text[:limit] + " ... (truncated here; full value in the named file)"
 
 
 def _details(ctx: Any, lane: str) -> dict[str, Any]:
@@ -130,8 +132,9 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
     out += [f"Internal identity: `{s['cycle_id']}` / `{s['attempt_id']}`. Contract `{ctx.contract_path}` SHA-256 "
             f"`{s['contract_sha256']}` (equal to the sealed issuance record). Branch `{c['repo']['branch']}` from base "
             f"`{c['repo']['base_sha']}`.", "",
-            f"Candidate head `{cand['head']}`, tree `{cand['tree']}`, source digest `{cand['source_digest']}` "
-            "(SHA-256 of `git ls-tree -r --full-tree HEAD`).", ""]
+            f"Repair subject (the head every lane ran at): `{cand['head']}`, tree `{cand['tree']}`, source digest "
+            f"`{cand['source_digest']}` (SHA-256 of `git ls-tree -r --full-tree HEAD`). The local integration "
+            "candidate built from it is named under the storage and candidate section.", ""]
 
     # ---- direct answer
     dims = s["dimensions"]
@@ -322,7 +325,7 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
         refusals = row.get("refusals") or {}
         out.append(f"| {name} | {row.get('format')} | {refusals.get('script') or 'exit ' + str(row.get('script_exit'))} | "
                    f"{refusals.get('module') or 'exit ' + str(row.get('module_exit'))} | {row.get('holds')} |")
-    out += ["", "| Attempt 7 forgery (retained) | Expected | Console script | Module entrypoint | Holds |",
+    out += ["", "| Attempt 7 case (retained; SERVED rows are the genuine controls) | Expected | Console script | Module entrypoint | Holds |",
             "| --- | --- | --- | --- | --- |"]
     for name, row in a7.items():
         refusals = row.get("refusals") or {}
@@ -331,7 +334,8 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
     out += ["", f"The manager's Attempt 6 same-page challenge, replayed through this wheel with its fixture and venv "
             f"literals adapted: case exit {mgr6.get('case_exit')}, refusal {mgr6.get('refusal')} (expected "
             f"{mgr6.get('expected')}); holds {mgr6.get('holds')}.", "",
-            "| Attempt 6 forgery (installed CLI, kept) | Expected | Refusal | Holds |", "| --- | --- | --- | --- |"]
+            "| Attempt 6 case (installed CLI, kept; SERVED rows are the genuine controls) | Expected | Refusal | Holds |",
+            "| --- | --- | --- | --- |"]
     out += [f"| {name} | {row.get('expected')} | {row.get('refusal') or ('exit ' + str(row.get('exit')))} | {row.get('holds')} |"
             for name, row in a6.items()]
     out += ["", "| Manager Attempt 5 adversarial case (installed CLI) | Exit | Refusal | Expected | Holds |",
@@ -388,8 +392,9 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
             f"{_j(unfixed.get('saved_constructions'), 300)}; refused there only under another cause "
             f"{len(unfixed.get('refused_under_another_cause') or [])}; new API or record absent "
             f"{len(unfixed.get('new_api_or_record_absent') or [])}; other behavior {len(unfixed.get('other_behavior') or [])} "
-            f"({_j(unfixed.get('other_behavior'), 500)}); unclassified {len(unfixed.get('unclassified') or [])}; positive "
-            f"cases on the base {_j(unfixed.get('positive_cases_on_the_base'), 500)}; holds {unfixed.get('holds')}.",
+            f"({_j(unfixed.get('other_behavior'), 500)}); unclassified {len(unfixed.get('unclassified') or [])}. Positive "
+            f"cases there (recorded, never required; W37A09-01): {_j(unfixed.get('positive_cases_on_the_base'), 900)}; "
+            f"holds {unfixed.get('holds')}.",
             "", "Every append, in order (the first continues the granted head c52e7b52): "
             + "; ".join(f"`{str(row.get('previous_candidate_head'))[:10]}` -> `{str(row.get('candidate_commit'))[:10]}` "
                         f"from repair head `{str(row.get('repair_head'))[:10]}`" for row in candidate.get("appends") or [])

@@ -527,8 +527,12 @@ def _judge_r01(ctx: Context, key: str) -> tuple[str, str]:
     codes = collections.Counter(row.get("expected") for row in forged.values())
     unfixed = _unfixed(ctx)
     reproduction = _reproduction(ctx).get("MF37A08-01") or {}
-    served = {k: (v or {}).get("row_count") for k, v in (reproduction.get("results") or {}).items()
-              if k != "worker_oracle_a08"}
+    results = reproduction.get("results") or {}
+    served = {k: (v or {}).get("row_count") for k, v in results.items()
+              if k not in ("worker_oracle_a08", "genuine_positive_control")}
+    control_rows = (results.get("genuine_positive_control") or {}).get("row_count")
+    a7_forgeries = sum(1 for row in ((installed.get("a7_forgeries") or {}).get("cases") or {}).values()
+                       if row.get("expected") != "SERVED")
     text = {
         "A": ("Every row an attach checks -- all "
               f"{_n(s5.get('rows_resolved_to_their_source_unit'))} Attempt 5 successor rows, the "
@@ -549,7 +553,8 @@ def _judge_r01(ctx: Context, key: str) -> tuple[str, str]:
               "is witnessed in at least one field; the fields left unwitnessed carry no text or, for a list line's "
               f"years, text inside the line (successor {s5.get('unwitnessed_fields')}; named delivered rows "
               f"{delivered.get('unwitnessed_fields')})."),
-        "B": (f"The {_n(s5.get('rows'))}-row successor serves unchanged with complete pagination. Through the fresh "
+        "B": (f"The {_n((genuine.get('rows') or {}).get('A05'))}-row successor serves unchanged with complete "
+              "pagination. Through the fresh "
               "installed console script, its installed module and the source module, the manager's saved NULL-span "
               f"fixture (as issued {manager.get('as_issued')}) is refused as {REFUSED_SOURCE_FIELD}, naming the "
               f"unwitnessed text; the oracle finds its forged edges crossed ({null_oracle.get('crossed_by_relation')}). "
@@ -559,15 +564,18 @@ def _judge_r01(ctx: Context, key: str) -> tuple[str, str]:
               "a row naming no source unit and list-line years outside the line -- are each refused for their own cause "
               f"at both entrypoints after a fixture reset ({dict(codes)}); the "
               f"{len((installed.get('a8_forgeries') or {}).get('cases') or {})} Attempt 8 witness forgeries, the "
-              f"{len((installed.get('a7_forgeries') or {}).get('cases') or {})} Attempt 7 forgeries, the Attempt 6 "
-              "same-page challenge and every earlier negative stay refused."),
+              f"{a7_forgeries} Attempt 7 forgeries, the Attempt 6 same-page challenge and every earlier negative stay "
+              "refused."),
         "C": ("Before repair, on the clean issued base 91a83b19 with nothing drafted, every entrypoint served the saved "
-              f"fixture ({served}) and the Attempt 8 oracle reported its forged edges only as unresolved. Over the "
-              f"unfixed base's exact bytes the two new suites fail ({len(unfixed.get('accepted_by_the_unfixed_code') or [])} "
-              "cases accepted there, the saved SQL NULL construction among them; "
-              f"{len(unfixed.get('refused_under_another_cause') or [])} refused only under the earlier anchors; "
-              f"{len(unfixed.get('new_api_or_record_absent') or [])} find the new rule absent) and pass on the repaired "
-              "source. Independent alternate entrypoints are exercised; remaining limits are classified: source "
+              f"fixture (rows served: {served}; the genuine successor, the positive control, {control_rows}) and the "
+              "Attempt 8 oracle reported its forged edges only as unresolved. Over the unfixed base's exact bytes the "
+              f"two new suites fail: of {unfixed.get('negative_cases')} negative case outcomes, none passes there, "
+              f"{len(unfixed.get('accepted_by_the_unfixed_code') or [])} are accepted there (the saved SQL NULL "
+              "construction and the saved extra-root restart among them), "
+              f"{len(unfixed.get('refused_under_another_cause') or [])} are refused there only for an earlier cause (an "
+              f"Attempt 7 anchor or Attempt 8 witness rule), {len(unfixed.get('new_api_or_record_absent') or [])} find the "
+              f"new rule absent and {len(unfixed.get('other_behavior') or [])} behave otherwise; both pass on the "
+              "repaired source. Independent alternate entrypoints are exercised; remaining limits are classified: source "
               "biography truth, rows whose own normalized fields are rewritten, and interval grain inside one field stay "
               "owned or manager-verified."),
     }[key[-1]]

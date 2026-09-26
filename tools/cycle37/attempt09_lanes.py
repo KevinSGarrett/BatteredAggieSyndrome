@@ -437,16 +437,19 @@ def _suites_on_the_unfixed_base(run: LaneRun) -> dict[str, Any]:
     seen = {k.split("[")[0] for k in negative_keys}
     manager = "test_cycle37_a09_missing_witness::test_the_managers_null_span_enlarged_text_swap_is_refused_in_every_absent_spelling[absent='SQL NULL']"
     saved_root = "test_cycle37_a09_continuation_roots::test_the_saved_additional_empty_root_restart_is_refused_before_any_effect[]"
+    # The class lists count negative case outcomes only; a positive case's failure there is recorded beside it.
+    negatives = {k: v for k, v in classes.items() if k in negative_keys}
     verdict = {"base": BASE_SHA, "export": str(folder), "suites": copied, "exit": record.get("exit_code"),
                "outcomes": outcomes, "classes": classes,
                "negative_cases": len(negative_keys), "negative_tests_seen": sorted(seen),
                "negative_tests_missing": sorted(wanted - seen), "negative_cases_passing_on_the_base": passing_negatives,
-               "accepted_by_the_unfixed_code": sorted(k for k, v in classes.items() if v == ACCEPTED),
-               "refused_under_another_cause": sorted(k for k, v in classes.items() if v == OTHER_CAUSE),
-               "new_api_or_record_absent": sorted(k for k, v in classes.items() if v == NEW_API),
-               "other_behavior": sorted(k for k, v in classes.items() if v == BEHAVIOR),
-               "unclassified": sorted(k for k, v in classes.items() if v == UNCLASSIFIED),
-               "positive_cases_on_the_base": {k: v for k, v in outcomes.items() if k not in negative_keys},
+               "accepted_by_the_unfixed_code": sorted(k for k, v in negatives.items() if v == ACCEPTED),
+               "refused_under_another_cause": sorted(k for k, v in negatives.items() if v == OTHER_CAUSE),
+               "new_api_or_record_absent": sorted(k for k, v in negatives.items() if v == NEW_API),
+               "other_behavior": sorted(k for k, v in negatives.items() if v == BEHAVIOR),
+               "unclassified": sorted(k for k, v in negatives.items() if v == UNCLASSIFIED),
+               "positive_cases_on_the_base": {k: {"outcome": v, "class": classes.get(k)} for k, v in outcomes.items()
+                                              if k not in negative_keys},
                "saved_constructions": {"manager_null_span_sql_null": classes.get(manager),
                                        "saved_extra_empty_root_restart": classes.get(saved_root)},
                "meaning": ("Over the unfixed base every negative case fails: the saved NULL-span construction (SQL NULL, "

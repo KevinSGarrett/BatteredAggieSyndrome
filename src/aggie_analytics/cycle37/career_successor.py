@@ -127,8 +127,35 @@ installed module and the source module each served seven rows. A row's text is n
 
 One absent state is defined for every representation: SQL NULL, JSON ``null``, ``[null, null]`` and an empty or blank
 string. The genuine 72,958-row successor, the Attempt 4 file and the delivered release resolve every row and anchor
-every edge exactly as before; interval text inside one multi-interval field (``years_as_written``) is normalized text,
-not a source substring, and stays checked by containment only (``interval_checked``), as disclosed since Attempt 7.
+every edge exactly as before. (Until Attempt 10 the interval text inside one multi-interval field was checked by
+containment only -- the gap below.)
+
+Cycle #37 -- Attempt #10 (MF37A09-01). A source field can state several intervals -- Walter Camp's ``coachyears2 =
+1892, 1894–1895`` -- and every row of that field shares its page, revision, capture, source unit and spans, so a verified
+field says nothing about *which* interval a row is. The Attempt 9 manager swapped the reciprocal default and Attempt 4
+edges of the 1892 and 1894–1895 rows, set their ``years_as_written`` to NULL (or to the other row's text) and resealed:
+the v5 check compared that text by containment, took blank text as agreement, and the installed console script, the
+installed module and the source module served four rows. Text a row carries about its own interval proves nothing.
+An edge inside a field that states several intervals is now bound at interval grain (:func:`check_anchors`):
+
+* **the identities' ordinals decide the edge**: an unrestructured edge must join the same interval of the field -- the
+  child identity's interval ordinal equals the parent identity's (each parser numbers a field's intervals in its own
+  sorted order, and every genuine unrestructured edge, 827 across the three relations, joins equal ordinals) -- and the
+  field must hold as many intervals on both sides; another ordinal is refused as ``PERIOD``, a changed count without a
+  restructure claim as ``RESTRUCTURE``. No text and no normalized date is compared, so a corrected reading
+  (``1959`` read again as ``1959–1967``) keeps its lineage and a blank or copied text grants nothing;
+* **what a row states about its interval is read again from its source** (:mod:`career_interval`): the successor row's
+  own parser version (v37.5; v37.4 for an Attempt 4 file served as the successor) reads its field in the verified
+  capture, the identity's ordinal must be one of the intervals it states, the entry must hold exactly that many rows,
+  and every interval field the row states -- ``years_as_written`` unless blank, and ``start``, ``end``, ``ongoing``, the
+  endpoint states, bounds and qualifiers, the definite seasons and ``bounds_consistent`` unless NULL -- must be that
+  interval's. Otherwise ``REFUSED_CAREER_SUCCESSOR_PERIOD_WITNESS_MISMATCH``. An unstated field is absent: it neither
+  grants nor blocks lineage, and it asserts nothing a consumer could be misled by.
+
+A restructured field (a changed interval count, claimed all-to-all) keeps the Attempt 7 rule; legitimately unknown
+dates, corrected readings, splits into role lines (another unit) and rows added without a predecessor keep their
+lineage. Every genuine row of the three populations in a multi-interval field is read again exactly (292 Attempt 5,
+281 Attempt 4), and the saved manager fixture is refused as ``PERIOD``.
 """
 
 from __future__ import annotations
@@ -139,9 +166,9 @@ import re
 import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
-from aggie_analytics.cycle37 import career_witness
+from aggie_analytics.cycle37 import career_interval, career_witness
 
 # ---- Attempt 4 format (retained; the Attempt 4 builder and file still use these names) ----
 FORMAT_VERSION = "BAS-C37A04-CAREER-SUCCESSOR-FORMAT-v1"
@@ -255,7 +282,9 @@ REFUSED_CROSS_VERSION = "REFUSED_CAREER_SUCCESSOR_CROSS_VERSION_LINEAGE_MISMATCH
 REFUSED_A04_FILE_ABSENT = "REFUSED_CAREER_SUCCESSOR_A04_FILE_ABSENT"
 # v37.8 (MF37A07-01): a recorded span must be the source unit its row's identity names, not a span that reaches it.
 REFUSED_SOURCE_FIELD = "REFUSED_CAREER_SUCCESSOR_SOURCE_FIELD_WITNESS_MISMATCH"
-VERIFIER_VERSION = "BAS-C37A09-CAREER-SUCCESSOR-VERIFIER-v5"
+# v37.10 (MF37A09-01): what a row states about its interval must be the interval its identity names in its source.
+REFUSED_PERIOD_WITNESS = "REFUSED_CAREER_SUCCESSOR_PERIOD_WITNESS_MISMATCH"
+VERIFIER_VERSION = "BAS-C37A10-CAREER-SUCCESSOR-VERIFIER-v6"
 #: The parser whose splitting each relation's rows are checked under (never a version a row states about itself).
 DELIVERED_PARSER_VERSION = "BAS-CAREER-INFOBOX-v37.2"
 A04_PARSER_VERSION = "BAS-CAREER-INFOBOX-v37.4"
@@ -381,22 +410,25 @@ def same_entry(child: Mapping[str, Any], parent: Mapping[str, Any]) -> bool:
     return _field_span(child.get("years_char_span")) == _field_span(parent.get("years_char_span"))
 
 
-def period_agrees(child: Mapping[str, Any], parent: Mapping[str, Any]) -> bool:
-    """Inside one field stating several intervals, the child's interval text and the parent's contain one another
-    (``1959`` read again as ``1959–1967`` agrees; ``1926`` and ``1928–1930`` are two intervals)."""
+def interval_ordinal(identity: Any) -> int | None:
+    """v37.10 (MF37A09-01): the interval ordinal a versioned identity names inside its field, or None."""
 
-    a, b = _text_key(child.get("years_as_written")), _text_key(parent.get("years_as_written"))
-    return not a or not b or a in b or b in a
+    parsed = parse_identity(identity)
+    return int(parsed[5]) if parsed else None
 
 
 _CAUSE_CODES = {"EPISODE": REFUSED_EPISODE_ANCHOR, "TEAM": REFUSED_TEAM_ANCHOR, "YEARS": REFUSED_YEARS_ANCHOR,
-                "PERIOD": REFUSED_PERIOD_ANCHOR, "UNANCHORED": REFUSED_UNANCHORED, "RESTRUCTURE": REFUSED_RESTRUCTURE}
+                "PERIOD": REFUSED_PERIOD_ANCHOR, "UNANCHORED": REFUSED_UNANCHORED, "RESTRUCTURE": REFUSED_RESTRUCTURE,
+                "PERIOD_WITNESS": REFUSED_PERIOD_WITNESS}
+#: The order in which a relation's failing causes are reported: field-grain causes before interval-grain ones.
+_CAUSE_ORDER = ("EPISODE", "TEAM", "YEARS", "UNANCHORED", "RESTRUCTURE", "PERIOD", "PERIOD_WITNESS")
 
 
 def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, Mapping[str, Any]],
                   dispositions: Mapping[str, tuple[str, list[str]]], parents_of: str, relation: str,
                   a04_relation: bool = False, *, child_units: Mapping[str, Mapping[str, Any]] | None = None,
-                  parent_units: Mapping[str, Mapping[str, Any]] | None = None) -> dict[str, Any]:
+                  parent_units: Mapping[str, Mapping[str, Any]] | None = None,
+                  interval_check: Callable[[Mapping[str, Any], int], list[str]] | None = None) -> dict[str, Any]:
     """Prove every edge of one lineage relation is anchored to its source field and interval, and every
     restructured entry is what its disposition says (all-to-all, a changed interval count). ``parents_of`` names
     the child's list of parent identities. Raises :class:`CareerSuccessorError` for the first failing cause.
@@ -405,7 +437,14 @@ def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, M
     (:func:`career_witness.anchor_of`); an attach always passes them, so fields are compared by the units the rows'
     identities name in their revisions, never by the rows' own spans or text. An edge whose units are missing is
     refused as ``UNANCHORED``. (Without them, the rows themselves are compared: the Attempt 7/8 rule, kept for its
-    own unit tests.)"""
+    own unit tests.)
+
+    v37.10 (MF37A09-01): inside one field that states several intervals, an unrestructured edge is bound at interval
+    grain by its two identities: the child's interval ordinal must be the parent's (``PERIOD`` otherwise) and the field
+    must hold as many intervals on both sides (``RESTRUCTURE`` otherwise -- a changed count is a restructure, and must
+    be claimed as one). ``interval_check(child, rows in its entry)`` (an attach always passes it) reads the child's
+    interval again from its verified source (:mod:`career_interval`); a row stating an interval that is not its
+    identity's is refused as ``PERIOD_WITNESS``. Interval text is never compared between rows."""
 
     children = list(children)
 
@@ -420,7 +459,10 @@ def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, M
         child_entries[entry_of(child)] = child_entries.get(entry_of(child), 0) + 1
     by_identity = {str(child["episode_id"]): child for child in children}
     failures: dict[str, list[str]] = {}
-    counts = {"edges": 0, "anchored_by_source_field": 0, "anchored_by_parameter_only": 0, "interval_checked": 0}
+    counts = {"edges": 0, "anchored_by_source_field": 0, "anchored_by_parameter_only": 0, "interval_checked": 0,
+              "interval_edges_bound_by_identity_ordinal": 0, "interval_rows_read_again_from_source": 0,
+              "interval_rows_stating_no_interval_text": 0}
+    read_again: set[str] = set()
     # Restructure claims: an entry whose intervals were re-read maps every one of them to every re-read interval.
     restructured = set()
     for entry, identities in parent_entries.items():
@@ -457,14 +499,41 @@ def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, M
             multiple = len(parent_entries.get(entry, ())) > 1 or child_entries.get(entry_of(child), 0) > 1
             if multiple and entry not in restructured and same_entry(own, theirs):
                 counts["interval_checked"] += 1
-                if not period_agrees(child, parent):
+                mine, theirs_ordinal = interval_ordinal(child.get("episode_id")), interval_ordinal(identity)
+                held = (child_entries.get(entry_of(child), 0), len(parent_entries.get(entry, ())))
+                if mine is None or mine != theirs_ordinal:
+                    # The texts are quoted to help a reader; they decide nothing.
                     failures.setdefault("PERIOD", []).append(
-                        f"{child['episode_id']} ({child.get('years_as_written')!r}) <- {identity} "
-                        f"({parent.get('years_as_written')!r})")
-    for cause in ("EPISODE", "TEAM", "YEARS", "UNANCHORED", "RESTRUCTURE", "PERIOD"):
+                        f"{child['episode_id']} (interval {mine}, {child.get('years_as_written')!r}) <- {identity} "
+                        f"(interval {theirs_ordinal}, {parent.get('years_as_written')!r}): another interval of the same "
+                        f"source field")
+                elif held[0] != held[1]:
+                    failures.setdefault("RESTRUCTURE", []).append(
+                        f"{child['episode_id']} <- {identity}: the field holds {held[0]} interval(s) here and "
+                        f"{held[1]} in the parent, with no restructure claim")
+                else:
+                    counts["interval_edges_bound_by_identity_ordinal"] += 1
+                episode = str(child.get("episode_id"))
+                if interval_check is not None and episode not in read_again:
+                    read_again.add(episode)
+                    problems = interval_check(child, held[0])
+                    if problems:
+                        failures.setdefault("PERIOD_WITNESS", []).append(
+                            f"{episode} ({child.get('years_as_written')!r}): {problems}")
+                    else:
+                        counts["interval_rows_read_again_from_source"] += 1
+                        if career_interval._blank(child.get("years_as_written")):
+                            counts["interval_rows_stating_no_interval_text"] += 1
+    for cause in _CAUSE_ORDER:
         if cause in failures:
             examples = _examples(failures[cause])
             summary = {c: len(v) for c, v in failures.items()}
+            if cause == "PERIOD_WITNESS":
+                # A row's own statement, whichever relation reached it first: refused for itself, not as an edge.
+                raise CareerSuccessorError(REFUSED_PERIOD_WITNESS, (
+                    f"{len(failures[cause])} row(s) of the {relation} relation state an interval that is not the one "
+                    f"their identity names in their verified source (all causes: {summary}); interval text or dates "
+                    f"a row carries are never lineage: {examples}"))
             if a04_relation:
                 raise CareerSuccessorError(REFUSED_A04_ANCHOR, (
                     f"{len(failures[cause])} {relation} edge(s) fail the {cause} anchor (all causes: {summary}); the "
@@ -475,7 +544,9 @@ def check_anchors(children: Iterable[Mapping[str, Any]], parents: Mapping[str, M
                 f"the same page: {examples}"))
     return {**counts, "restructured_entries": len(restructured), "relation": relation,
             "anchored_on": ("DERIVED_SOURCE_UNITS" if child_units is not None and parent_units is not None
-                            else "ROW_SPANS")}
+                            else "ROW_SPANS"),
+            "interval_bound_on": ("IDENTITY_ORDINALS_AND_SOURCE_INTERVALS" if interval_check is not None
+                                  else "IDENTITY_ORDINALS")}
 
 
 class SourceWitnesses:
@@ -497,6 +568,27 @@ class SourceWitnesses:
         self.captures_read = 0
         #: relation -> episode identity -> the anchor of the unit its identity names (v37.9).
         self.anchors: dict[str, dict[str, dict[str, Any]]] = {}
+        #: (capture path, parser version) -> (family, row index) -> the intervals that version read there (v37.10).
+        self._intervals: dict[tuple[str, str], dict[tuple[str, int], list[dict[str, Any]] | None]] = {}
+
+    def interval_problems(self, row: Mapping[str, Any], parser_version: str, relation: str,
+                          entry_rows: int) -> list[str]:
+        """v37.10 (MF37A09-01): why what ``row`` states about its interval is not the interval its identity names,
+        read again by ``parser_version`` from the row's verified capture (:func:`career_interval.interval_problems`);
+        empty when it is."""
+
+        if parser_version not in career_interval.READERS:
+            return [career_interval.NO_READER]
+        path, text, _literals = self._capture(row, relation)
+        key = (path, parser_version)
+        if key not in self._intervals:
+            self._intervals[key] = career_interval.source_intervals(text, parser_version)
+        try:
+            own = (str(row.get("family")), int(row.get("row_index")))  # type: ignore[arg-type]
+        except (TypeError, ValueError):
+            return [career_interval.NO_SOURCE_ROW]
+        return career_interval.interval_problems(row, self._intervals[key].get(own, career_interval.NO_SOURCE_ROW),
+                                                 entry_rows)
 
     def _capture(self, row: Mapping[str, Any], relation: str) -> tuple[str, str, bool]:
         path = str(row.get("raw_file") or "")
@@ -701,15 +793,17 @@ def _check_lineage(conn: sqlite3.Connection, fmt: Format, declared: dict[str, st
     predecessors = {str(row[0]) for row in conn.execute(f"SELECT episode_id FROM main.{PREDECESSOR_TABLE}")}
     a05 = fmt.a04_table is not None
     extra = ", a04_episode_ids, a04_lineage_state, a04_disposition" if a05 else ""
+    # v37.10 (MF37A09-01): the interval fields a row states, read again against its source at interval grain.
+    interval_columns = ", ".join(f'"{column}"' for column in career_interval.INTERVAL_FIELDS)
     episodes = [dict(zip(("episode_id", "pageid", "revision", "family", "row_index", "interval_index",
                           "predecessor_episode_ids", "lineage_state", "disposition", "raw_file", "raw_file_sha256",
-                          "wikitext_sha256", *PAGE_IDENTITY_NAMES, *ANCHOR_COLUMNS,
+                          "wikitext_sha256", *PAGE_IDENTITY_NAMES, *ANCHOR_COLUMNS, *career_interval.INTERVAL_FIELDS,
                           *(("a04_episode_ids", "a04_lineage_state", "a04_disposition") if a05 else ())),
                          row))
                 for row in conn.execute(
                     "SELECT episode_id, pageid, revision, family, row_index, interval_index, predecessor_episode_ids, "
                     f"lineage_state, disposition, raw_file, raw_file_sha256, wikitext_sha256, "
-                    f"{', '.join(PAGE_IDENTITY_NAMES)}, {', '.join(ANCHOR_COLUMNS)}{extra} "
+                    f"{', '.join(PAGE_IDENTITY_NAMES)}, {', '.join(ANCHOR_COLUMNS)}, {interval_columns}{extra} "
                     f"FROM {schema}.{fmt.episode_table}")]
     dispositions = [dict(zip(("predecessor_episode_id", "disposition", "successor_episode_ids",
                               "predecessor_row_sha256"), row)) for row in
@@ -873,7 +967,8 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
                                                           identity_code=REFUSED_PREDECESSOR_IDENTITY)}
     # v37.7 (MF37A06-01): a page, a revision and a capture are shared by every job of one biography; the edge must
     # also name the parent row read from the child's own source field (and interval) -- v37.9: compared by the units
-    # the two identities name, never by the rows' own spans or text.
+    # the two identities name, never by the rows' own spans or text; v37.10: inside a multi-interval field, by the
+    # identities' interval ordinals, with each successor row's stated interval read again from its source.
     anchored = check_anchors(
         episodes, anchors,
         {str(row["predecessor_episode_id"]): (str(row["disposition"]),
@@ -881,7 +976,8 @@ def _check_predecessor_bindings(conn: sqlite3.Connection, episodes: list[dict[st
                                                        str(row["predecessor_episode_id"])))
          for row in dispositions},
         "_parents", "predecessor", child_units=witnesses.anchors["successor"],
-        parent_units=witnesses.anchors["delivered predecessor"])
+        parent_units=witnesses.anchors["delivered predecessor"],
+        interval_check=lambda row, held: witnesses.interval_problems(row, successor_parser, "successor", held))
     edges = sum(len(r.get("_parents") or ()) for r in episodes)
     return {"parent_edges_bound_to_page_revision_family": edges, "parent_edges_bound_to_raw_locator": edges,
             "dispositions_bound_to_predecessor_row_digest": len(dispositions),
@@ -1010,7 +1106,8 @@ def _check_a04_mapping(conn: sqlite3.Connection, episodes: list[dict[str, Any]],
         {str(row["a04_episode_id"]): (str(row["disposition"]), _id_list(row["a05_episode_ids"], "a05_episode_ids",
                                                                           str(row["a04_episode_id"]))) for row in rows},
         "_a04_parents", "Attempt 4", a04_relation=True, child_units=witnesses.anchors["successor"],
-        parent_units=witnesses.anchors["Attempt 4 file"])
+        parent_units=witnesses.anchors["Attempt 4 file"],
+        interval_check=lambda row, held: witnesses.interval_problems(row, A05_PARSER_VERSION, "successor", held))
     crossed = []
     for row in episodes:
         through_a04 = set()

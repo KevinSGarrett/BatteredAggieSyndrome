@@ -38,6 +38,18 @@ fields (the parameter-only count falls from 2 to 0), and the swap of the two is 
 The ``UNANCHORED`` cause -- no comparable field and another parameter, or a row naming no unit -- is proved by
 ``test_cycle37_a09_missing_witness``. The added row 12 stays fieldless: it carries no lineage. The delivered rows'
 years text without a years span is exactly each field's value, which the Attempt 9 rule keeps.
+
+Cycle #37 -- Attempt #10 (MF37A09-01). Interval text is never agreement: inside one multi-interval field an edge joins
+the interval its two identities name (equal ordinals), and a successor row's stated interval is read again from its
+source by its own parser version. The ``PERIOD`` swap below is refused for its crossed ordinals (its message still
+quotes the texts, which decide nothing); ``period_agrees`` -- the text-containment rule the Attempt 9 manager defeated
+with blank and copied text -- is gone, and ``test_the_anchor_rules_on_their_own`` asserts the ordinal rule instead.
+One part of this fixture was a form no parser writes, and is corrected: the Attempt 4 file held the delivered v37.2
+reading of ``coach_years6 = 1911&ndash;1916`` (two rows, ``1911`` and ``1916``), but the v37.4 parser reads it as one
+interval, ``1911–1916`` -- the genuine Attempt 4 file matches its parser on all 281 rows of its multi-interval fields.
+The Attempt 4 file now holds that one row, restructured from the two delivered rows, and the Attempt 5 row ``C6`` derives
+from it unchanged; so the Attempt 4 file has 9 rows (was 10) and the Attempt 4 relation 11 edges (was 12).
+``test_cycle37_a10_interval_lineage`` adds the interval-grain forgeries and legitimate forms.
 """
 
 from __future__ import annotations
@@ -160,6 +172,15 @@ class SourceAnchorTests(unittest.TestCase):
                                                         "predecessor_episode_ids": json.dumps([i]),
                                                         "lineage_state": cs.DERIVED, "disposition": cs.UNCHANGED}
                         for i, r in self.old.items()}
+        # A10: v37.4 reads "1911&ndash;1916" as one interval (the genuine Attempt 4 form), restructured from the two
+        # delivered rows -- not the delivered reading's two rows copied into the Attempt 4 file.
+        for interval in (0, 1):
+            del self.a4_rows[_id("C37A04", 6, interval)]
+        self.a4_rows[_id("C37A04", 6)] = {**self.old[_id("R37-05", 6, 0)], "episode_id": _id("C37A04", 6),
+                                          "years_as_written": "1911–1916", "start": 1911, "end": 1916,
+                                          "predecessor_episode_ids": json.dumps([_id("R37-05", 6, 0),
+                                                                                 _id("R37-05", 6, 1)]),
+                                          "lineage_state": cs.DERIVED, "disposition": cs.RESTRUCTURED}
         # Attempt 5: years spans recorded; the second job keeps two intervals; role lines of the employer line are their
         # own rows; the YMCA years are re-read as one interval (restructured); an added row.
         new = [
@@ -212,10 +233,14 @@ class SourceAnchorTests(unittest.TestCase):
         self.episodes = []
         for key, parents, fields, disposition in new:
             a4 = [p.replace("R37-05", "C37A04") for p in parents]
+            a4_disposition = disposition
+            if key == "C6":   # A10: the one Attempt 4 row "1911–1916", read again unchanged
+                a4, a4_disposition = [_id("C37A04", 6)], cs.UNCHANGED
             self.episodes.append({**page, **fields, "episode_id": ids[key], "predecessor_episode_ids": json.dumps(parents),
                                   "lineage_state": cs.DERIVED, "disposition": disposition,
                                   "a04_episode_ids": json.dumps(a4), "a04_lineage_state": cs.A04_DERIVED,
-                                  "a04_disposition": disposition, "date_basis": "FIXTURE", "uncertainty_classes": "[]"})
+                                  "a04_disposition": a4_disposition, "date_basis": "FIXTURE",
+                                  "uncertainty_classes": "[]"})
         self.episodes.append({**page, "episode_id": _id("C37A05", 12), "row_index": 12, "interval_index": 0,
                               "start": 2020, "end": 2020, "predecessor_episode_ids": "[]",
                               "lineage_state": cs.ADDED_STATES[cs.A05_FORMAT_VERSION], "disposition": "ADDED",
@@ -338,7 +363,8 @@ class SourceAnchorTests(unittest.TestCase):
         # A9: rows 9 and 11 are years-only fields now, anchored by their years fields (were 10 and 2 parameter-only).
         self.assertEqual((default["edges"], default["anchored_by_source_field"], default["anchored_by_parameter_only"],
                           default["restructured_entries"], default["interval_checked"]), (12, 12, 0, 1, 2))
-        self.assertEqual((a04["edges"], a04["anchored_by_parameter_only"]), (12, 0))
+        # A10: C6 derives from the one Attempt 4 row v37.4 wrote for the re-read field (was two copied rows).
+        self.assertEqual((a04["edges"], a04["anchored_by_parameter_only"]), (11, 0))
         self.assertEqual((default["anchored_on"], a04["anchored_on"]), ("DERIVED_SOURCE_UNITS", "DERIVED_SOURCE_UNITS"))
         self.assertEqual(lineage["rows_whose_versions_agree_on_predecessor_rows"], 12)
         self.assertEqual(len(binding["_rows"]), 12)
@@ -366,8 +392,11 @@ class SourceAnchorTests(unittest.TestCase):
                          "TEAM")
         self.assertEqual(cs.field_anchor({"team_char_span": "[10, 40]"}, {"team_char_span": "[30, 60]"}, "team"),
                          "DISAGREES")
-        self.assertTrue(cs.period_agrees({"years_as_written": "1959–1967"}, {"years_as_written": "1959"}))
-        self.assertFalse(cs.period_agrees({"years_as_written": "1926"}, {"years_as_written": "1928–1930"}))
+        # A10 (MF37A09-01): inside one field an edge joins the interval its identities name -- the ordinal, never the
+        # text ("1959" read again as "1959–1967" keeps ordinal 0; "1926" and "1928–1930" are ordinals 0 and 1).
+        self.assertEqual((cs.interval_ordinal(_id("C37A05", 2, 0)), cs.interval_ordinal(_id("R37-05", 2, 1))), (0, 1))
+        self.assertIsNone(cs.interval_ordinal("1926"))
+        self.assertFalse(hasattr(cs, "period_agrees"))
 
     # ------------------------------------------------------------------ refused, each built from the genuine fixture
     def test_the_saved_same_page_cross_episode_swap_is_refused_as_an_episode_anchor(self) -> None:
@@ -382,8 +411,9 @@ class SourceAnchorTests(unittest.TestCase):
         a["predecessor_episode_ids"], b["predecessor_episode_ids"] = (b["predecessor_episode_ids"],
                                                                      a["predecessor_episode_ids"])
         self.refused(cs.REFUSED_EPISODE_ANCHOR, self.a4_format("a4-swap.sqlite", rows))
+        # A10: 9 Attempt 4 rows -- the re-read field is the one row v37.4 wrote (was two copied delivered rows).
         self.assertEqual(len(self.attach(self.a4_format("a4-genuine.sqlite",
-                                                        [dict(r) for r in self.a4_rows.values()]))["_rows"]), 10)
+                                                        [dict(r) for r in self.a4_rows.values()]))["_rows"]), 9)
 
     def test_a_year_only_anchor_substitution_is_refused_as_a_years_anchor(self) -> None:
         # A8: the moved years span is another job's field, not the one row 1's identity names -- refused as a source

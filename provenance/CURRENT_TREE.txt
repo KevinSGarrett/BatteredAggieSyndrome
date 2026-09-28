@@ -3890,6 +3890,7 @@ src/aggie_analytics/cycle36/venue_vintage.py
 src/aggie_analytics/cycle37/__init__.py
 src/aggie_analytics/cycle37/admission_domains.py
 src/aggie_analytics/cycle37/career_infobox.py
+src/aggie_analytics/cycle37/career_interval.py
 src/aggie_analytics/cycle37/career_successor.py
 src/aggie_analytics/cycle37/career_witness.py
 src/aggie_analytics/cycle37/contest_site.py
@@ -4398,6 +4399,7 @@ tests/test_cycle37_a08_continuation_atomicity.py
 tests/test_cycle37_a08_source_witness.py
 tests/test_cycle37_a09_continuation_roots.py
 tests/test_cycle37_a09_missing_witness.py
+tests/test_cycle37_a10_interval_lineage.py
 tests/test_cycle37_admission_domains.py
 tests/test_cycle37_alias_team_season.py
 tests/test_cycle37_atomic_io.py
@@ -5007,6 +5009,7 @@ tools/cycle37/a05_career_successor.py
 tools/cycle37/a05_career_template_census.py
 tools/cycle37/a08_source_field_oracle.py
 tools/cycle37/a09_source_unit_oracle.py
+tools/cycle37/a10_interval_oracle.py
 tools/cycle37/attempt03_admission_probe.py
 tools/cycle37/attempt03_lanes.py
 tools/cycle37/attempt03_outputs.py
@@ -5049,6 +5052,12 @@ tools/cycle37/attempt09_lanes.py
 tools/cycle37/attempt09_outputs.py
 tools/cycle37/attempt09_platform.py
 tools/cycle37/attempt09_report.py
+tools/cycle37/attempt10_candidate.py
+tools/cycle37/attempt10_control07.py
+tools/cycle37/attempt10_lanes.py
+tools/cycle37/attempt10_outputs.py
+tools/cycle37/attempt10_platform.py
+tools/cycle37/attempt10_report.py
 tools/cycle37/build_corrected_release.py
 tools/cycle37/build_worker_packet.py
 tools/cycle37/c29_claim_successor.py

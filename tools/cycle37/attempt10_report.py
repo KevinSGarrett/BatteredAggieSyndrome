@@ -490,10 +490,13 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
                 f"{r['changed_since_issuance']}; local head `{r['local_head']}`, {r['local_dirty_entries']} dirty entries)"
                 for r in revisions]
         owner = (ctx.latest_all22 or {}).get("owner_plan_check") or {}
-        out += ["", f"Retained owner snapshots present unchanged at CFBProgramSpecifications `{owner.get('remote_head')}`: "
-                f"{owner.get('snapshots_present_unchanged')} of {owner.get('snapshots_compared')}. The accepted Phase 2 "
-                "plans remain NOT_IMPLEMENTED; the installed BAS wheel composes with the released C01 0.1.2 wheel; no "
-                "owner repository was changed and no CFIP proposal was posted or presented as adoption.", ""]
+        compared = (f"Retained owner snapshots present unchanged at CFBProgramSpecifications `{owner.get('remote_head')}`: "
+                    f"{owner.get('snapshots_present_unchanged')} of {owner.get('snapshots_compared')}. " if owner else
+                    "The latest All-22 read made no owner-snapshot comparison (only a read with the remote manifest, "
+                    "PLATFORM_CARRY's AFTER read, makes one). ")
+        out += ["", compared + "The accepted Phase 2 plans remain NOT_IMPLEMENTED; the installed BAS wheel composes with "
+                "the released C01 0.1.2 wheel; no owner repository was changed and no CFIP proposal was posted or "
+                "presented as adoption.", ""]
 
     # ---- cost
     ledger = _output(ctx, "COST_AND_AUTHORITY_LEDGER.json")

@@ -993,6 +993,37 @@ LANE_FUNCTIONS: dict[str, Callable[[LaneRun], None]] = {
 # ------------------------------------------------------------- the runner
 
 
+def _guard_events(path: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """The guard log's events, and every line of it that is not one JSON record.
+
+    The guard appends each event in text mode, and on Windows that append seeks to the end and then writes, so two
+    children appending at once can write at the same offset: a shorter record then overwrites the head of a longer
+    one and leaves its tail as a line of its own (FULL_FINAL_MOUNTED at 836980e7, twice; W37A10-05). Such a line is
+    kept as a fragment -- position, bytes, digest and text -- instead of aborting the receipt. Lines are split on the
+    newline byte only (a Unicode line separator inside a record is not a line end). The log is the guard's diagnostic
+    record; each refusal is enforced in the child that attempted it.
+    """
+
+    events: list[dict[str, Any]] = []
+    fragments: list[dict[str, Any]] = []
+    if not path.is_file():
+        return events, fragments
+    for number, line in enumerate(path.read_bytes().split(b"\n"), start=1):
+        if not line.strip():
+            continue
+        try:
+            event = json.loads(line.decode("utf-8"))
+        except (UnicodeDecodeError, ValueError):
+            event = None
+        if isinstance(event, dict):
+            events.append(event)
+        else:
+            fragments.append({"line": number, "bytes": len(line), "sha256": sha256_bytes(line),
+                              "text": line.decode("utf-8", errors="replace")[:600],
+                              "names_a_refusal": b"BLOCKED" in line})
+    return events, fragments
+
+
 def main(argv: list[str] | None = None) -> int:
     rebind()
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -1116,9 +1147,10 @@ def main(argv: list[str] | None = None) -> int:
     reconciled = ledger.reconcile(reservation["token"], note=f"lane {result}") if reservation else None
     if reconciled and reconciled.get("underestimated"):
         reason = f"{reason}; the lane used {reconciled['operation_added_bytes']} bytes, past its reservation"
-    guard_events = []
-    if run.guard_log.is_file():
-        guard_events = [json.loads(line) for line in run.guard_log.read_text(encoding="utf-8").splitlines() if line.strip()]
+    guard_events, guard_fragments = _guard_events(run.guard_log)
+    if guard_fragments:
+        reason = (f"{reason}; {len(guard_fragments)} guard-log line(s) left torn by concurrent appenders are kept as "
+                  "fragments, not events")
     receipt = {
         "label": f"{LABEL} lane {args.lane} {result}" + (" (REHEARSAL, NOT EVIDENCE)" if args.rehearsal else ""),
         "rehearsal": args.rehearsal,
@@ -1146,6 +1178,7 @@ def main(argv: list[str] | None = None) -> int:
             "temp_root": str(run.tmp), "temp_spelling_given_to_children": run.tmp_spelling,
             "exceptions": run.exceptions, "guard_events": len(guard_events),
             "guard_blocked_events": [row for row in guard_events if row.get("event") == "BLOCKED"][:100],
+            "guard_log_fragments": guard_fragments,
             "measurement": scope,
             "integration_candidate": {"before": candidate_before, "after": candidate_after,
                                       "unchanged": candidate_before == candidate_after},

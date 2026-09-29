@@ -42,6 +42,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import attempt10_outputs as a10o  # noqa: E402  (the preserved Attempt 10 accounting)
 import attempt11_candidate as candidate  # noqa: E402
+import attempt11_reuse as reuse  # noqa: E402  (the retained-lane dependency check, R37A11-05-A)
 
 a9o, a8o, a7o, a6o, a5o, a4o, base = a10o.a9o, a10o.a8o, a10o.a7o, a10o.a6o, a10o.a5o, a10o.a4o, a10o.base
 storage_admission = a10o.storage_admission
@@ -124,6 +125,76 @@ class Context(a10o.Context):
         self.attempt10_lanes: list[dict[str, Any]] = []
         self._predicates: dict[str, Any] | None = None
         self.criterion_meta: dict[str, dict[str, list[str]]] = {}
+        #: Lanes kept at their original execution under a current complete dependency check, and the ones a check was
+        #: recorded for whose recomputation now refuses (never adopted).
+        self.reuse: dict[str, dict[str, Any]] = {}
+        self.reuse_refused: dict[str, Any] = {}
+        self._adopt_retained_lanes(contract_path)
+
+    def _adopt_retained_lanes(self, contract_path: Path) -> None:
+        """A lane whose latest run is at another head is at this head only when a retained-lane check was recorded for
+        this head and still holds with every part of it recomputed now (``attempt11_reuse.verified_lanes``: a stored
+        record is never trusted). Its receipt, log and index row stay the original run's, untouched; only the head the
+        accounting binds the lane to moves, and the lane says so wherever it is reported."""
+
+        folder = reuse.proof_dir(self.out_root)
+        if not folder.is_dir() or not any(folder.glob("REUSE_*.json")):
+            return
+        candidates = [lane for lane in WORKER_LANES
+                      if lane in self.runs and self.runs[lane]["head"] != self.candidate["head"]]
+        if not candidates:
+            return
+        accepted, refused = reuse.verified_lanes(reuse.production_env(contract_path, self.out_root), candidates)
+        self.reuse_refused = refused
+        for lane, proof in accepted.items():
+            row = self.runs[lane]
+            self.runs[lane] = {**row, "head": self.candidate["head"], "source_digest": self.candidate["source_digest"],
+                               "execution": "RETAINED_ORIGINAL_EXECUTION", "original_head": row["head"],
+                               "original_source_digest": row["source_digest"], "original_run": row["run"],
+                               "reuse_proof": proof["proof"], "reuse_proof_sha256": proof["proof_sha256"]}
+        self.reuse = accepted
+
+
+def retained(ctx: Context, lane: str) -> bool:
+    return lane in ctx.reuse
+
+
+def execution_of(ctx: Context, lane: str) -> str:
+    if lane in ctx.reuse:
+        return "RETAINED_ORIGINAL_EXECUTION"
+    return "FRESH_AT_THE_CANDIDATE_HEAD" if ctx.at_head(lane) else "NOT_AT_HEAD"
+
+
+def fresh_lanes(ctx: Context) -> list[str]:
+    return [lane for lane in WORKER_LANES if ctx.at_head(lane) and lane not in ctx.reuse]
+
+
+def retained_names(ctx: Context) -> str:
+    return ", ".join(sorted(ctx.reuse))
+
+
+def retained_sentence(ctx: Context) -> str:
+    """One truthful sentence about the lanes kept at their original execution (empty when there are none)."""
+
+    if not ctx.reuse:
+        return ""
+    parts = []
+    for lane in sorted(ctx.reuse):
+        original = ctx.reuse[lane]["original"]
+        again = [r["name"] for r in ctx.reuse[lane]["reexecuted"]]
+        parts.append(f"{lane} (run {original['run']} at head {original['head'][:10]}, {original['result']}"
+                     + (f"; its command(s) {', '.join(again)} were executed again in the check at this head" if again else "")
+                     + ")")
+    return ("Kept at their original execution under a current complete dependency check and NOT executed again at the "
+            f"candidate head: {'; '.join(parts)}. Their original heads, receipts, logs, counts and results are unchanged.")
+
+
+def head_a_lane_ran_at(ctx: Context, lane: str) -> str:
+    """The head the lane's own execution ran at: the candidate head for a fresh lane, the original head for a retained one."""
+
+    if lane in ctx.reuse:
+        return ctx.reuse[lane]["original"]["head"]
+    return ctx.candidate["head"]
 
 
 # ------------------------------------------------------------------ process predicates (R37A11-05-C)
@@ -269,7 +340,8 @@ def process_predicates(ctx: Context) -> dict[str, Any]:
     here = Path(__file__).resolve().parent
     current = {"outputs_tool_sha256": sha256_file(here / "attempt11_outputs.py"),
                "lanes_tool_sha256": sha256_file(here / "attempt11_lanes.py"),
-               "report_tool_sha256": sha256_file(here / "attempt11_report.py")}
+               "report_tool_sha256": sha256_file(here / "attempt11_report.py"),
+               "reuse_tool_sha256": sha256_file(here / "attempt11_reuse.py")}
     bound = {k: preflight.get(k) == v for k, v in current.items()}
     predicates = {
         "storage_windows": windows,
@@ -321,12 +393,25 @@ def register_evidence(ctx: Context) -> None:
     root = ctx.out_root
     for lane, run in ctx.runs.items():
         receipt = Path(run["receipt"])
+        note = (f" [RETAINED original execution at head {run['original_head'][:10]}, not executed again at the candidate "
+                f"head; bound to it by the current dependency check E-REUSE-{lane}]") if lane in ctx.reuse else ""
         ctx.add(f"E-LANE-{lane}-LOG", receipt.parent / "lane.log", "command_log",
-                f"{lane} run {run['run']}: the runner's console -- every command, its exit and its verdict")
+                f"{lane} run {run['run']}: the runner's console -- every command, its exit and its verdict{note}")
         ctx.add(f"E-LANE-{lane}-RECEIPT", receipt, RAW,
                 f"{lane} run {run['run']}: contract, source, interpreter, raw log paths and digests, census "
                 "records, consumer outputs, the lane's and its receipt's storage windows, the shared Git store measured "
-                "around the lane and the write/network scope measurement")
+                f"around the lane and the write/network scope measurement{note}")
+    for lane, proof in sorted(ctx.reuse.items()):
+        ctx.add(f"E-REUSE-{lane}", Path(proof["proof"]), CENSUS,
+                f"The current complete dependency check of the retained lane {lane}: the original receipt, index row, logs "
+                "and sealed submission re-hashed, both heads, every changed tracked path, the runner delta proved on the "
+                "syntax tree, what each command executes, the bound tools, the interpreter, every recorded path and digest "
+                "pair, the lane's environment and data; create-only, bound to the candidate head, recomputed on every "
+                "build and check")
+        for rerun in proof["reexecuted"]:
+            ctx.add(f"E-REUSE-{lane}-{rerun['name']}-LOG", Path(rerun["log"]), "command_log",
+                    f"{lane}: the command {rerun['name']} executed again inside the check at the candidate head "
+                    f"(exit {rerun['exit']}), because it reads a tool this repair changed")
     career = ctx.runs.get("CAREER_SUCCESSOR")
     if career:
         for path in sorted(Path(career["receipt"]).parent.glob("ORACLE_*.json")):
@@ -485,11 +570,16 @@ def attempt10_lane_dispositions(ctx: Context) -> list[dict[str, Any]]:
                        justification="The Attempt 10 manager lane is the manager's; its review is retained in the "
                                      "issued closure.")
         else:
+            kept = [s for s in successors if s in ctx.reuse]
             row.update(disposition="CARRIED_BY_ATTEMPT11_LANE_AT_THE_CANDIDATE_HEAD", attempt11_lanes=list(successors),
                        attempt11_results={s: (ctx.receipts[s]["result"] if ctx.at_head(s) else "NOT_AT_HEAD")
                                           for s in successors if s in ctx.receipts},
-                       justification=("Re-executed fresh by the same-named Attempt 11 lane at the candidate head; the "
-                                      "Attempt 10 receipt stays unchanged as the before-record (its result is never "
+                       attempt11_execution={s: execution_of(ctx, s) for s in successors},
+                       justification=(("Carried by the same-named Attempt 11 lane, whose original execution "
+                                       f"({', '.join(kept)}) is retained under a current complete dependency check and "
+                                       "was not executed again at the candidate head; " if kept else
+                                       "Re-executed fresh by the same-named Attempt 11 lane at the candidate head; ")
+                                      + "the Attempt 10 receipt stays unchanged as the before-record (its result is never "
                                       "relabelled; a red Attempt 10 result stays red there)."))
         rows.append(row)
     return rows
@@ -498,11 +588,31 @@ def attempt10_lane_dispositions(ctx: Context) -> list[dict[str, Any]]:
 LANE_LISTS = a10o.LANE_LISTS + (("attempt10_lanes", "A10-LANE-"),)
 
 
+def _annotate_retained(ctx: Context) -> None:
+    """The older layers describe a carried lane as re-executed at the candidate head. Where a carrying lane is retained,
+    say so on the row, in the row's own justification."""
+
+    if not ctx.reuse:
+        return
+    for name, _ in LANE_LISTS:
+        for row in getattr(ctx, name):
+            carried = sorted({lane for key, value in row.items() if key.endswith("_lanes") and isinstance(value, list)
+                              for lane in value if lane in ctx.reuse})
+            if carried:
+                note = (f"Carrying lane(s) {', '.join(carried)} are retained at their original execution under a current "
+                        "complete dependency check and were NOT executed again at the candidate head (E-REUSE-<lane>).")
+                row["retained_lanes"] = carried
+                row["execution_note"] = note
+                if "justification" in row and note not in row["justification"]:
+                    row["justification"] = f"{row['justification']} {note}"
+
+
 def lane_dispositions(ctx: Context) -> None:
     a10o.lane_dispositions(ctx)
     for name, _ in a10o.LANE_LISTS:
         setattr(ctx, name, _relabel(getattr(ctx, name)))
     ctx.attempt10_lanes = attempt10_lane_dispositions(ctx)
+    _annotate_retained(ctx)
 
 
 def _lane_lists(ctx: Context) -> dict[str, list[dict[str, Any]]]:
@@ -627,21 +737,30 @@ def inherited_equivalence(ctx: Context, label: str) -> dict[str, Any]:
         rows.append({"lane": lane, "attempt11_run": (ctx.runs.get(lane) or {}).get("run"),
                      "attempt11_result": receipt.get("result"), "at_candidate_head": ctx.at_head(lane),
                      "counts": receipt.get("counts"),
-                     "execution": "FRESH_AT_THE_CANDIDATE_HEAD" if ctx.at_head(lane) else "NOT_AT_HEAD",
+                     "execution": execution_of(ctx, lane),
+                     "original_head": (ctx.runs.get(lane) or {}).get("original_head"),
                      "attempt10_run": final.get("run"), "attempt10_result": final.get("result"),
                      "attempt10_receipt": final.get("receipt"), "attempt10_receipt_sha256": final.get("receipt_sha256"),
                      "attempt10_comparison": details.get("attempt10_comparison"),
                      "failing_identities": base.failing_identities(receipt) if receipt.get("result") == "FAIL" else None})
+    used = [{"lane": lane, "original_run": proof["original"]["run"], "original_head": proof["original"]["head"],
+             "original_result": proof["original"]["result"], "original_receipt_sha256": proof["original"]["receipt_sha256"],
+             "check": proof["proof"], "check_sha256": proof["proof_sha256"], "checks": proof["checks"],
+             "commands_executed_again": [r["name"] for r in proof["reexecuted"]],
+             "changed_tracked_paths": (proof.get("delta") or {}).get("changed"),
+             "relabelled_fresh": False} for lane, proof in sorted(ctx.reuse.items())]
+    fresh = fresh_lanes(ctx)
+    statement = ("TP37-A11 permits a lane to carry an old execution by a complete current dependency comparison. "
+                 + (f"This packet uses it for {len(used)} lane(s): {retained_names(ctx)}. " + retained_sentence(ctx) + " "
+                    if used else "This packet used none for a lane. ")
+                 + f"The other {len(fresh)} worker lane(s) ({', '.join(fresh)}) executed fresh through the issued command "
+                 "at the candidate head. The storage tools and suites are proved to be the exact bytes the Attempt 10 final "
+                 "STORAGE_ADMISSION qualified. Each Attempt 10 final receipt is retained unchanged as the before-record and "
+                 "compared by identity; no old execution is relabelled fresh, and the Attempt 10 red lanes stay red there.")
     return {"label": label, "cycle_number": CYCLE_NUMBER, "attempt_number": ATTEMPT_NUMBER, "cycle_id": CYCLE_ID,
-            "attempt_id": ATTEMPT_ID, "candidate": ctx.candidate, "lanes": rows, "equivalence_used": [],
-            "equivalence_statement": ("TP37-A11 permits a lane to carry an old execution by a complete current "
-                                      "dependency comparison. This attempt used none for a lane: the consumer's "
-                                      "dependencies changed (career_successor.py, career_interval.py), so every one of "
-                                      "the 14 worker lanes executed fresh at the candidate head. The storage tools and "
-                                      "suites are proved to be the exact bytes the Attempt 10 final STORAGE_ADMISSION "
-                                      "qualified, and that lane re-ran them anyway. Each Attempt 10 final receipt is "
-                                      "retained unchanged as the before-record and compared by identity; no old "
-                                      "execution is relabelled, and the Attempt 10 red lanes stay red there."),
+            "attempt_id": ATTEMPT_ID, "candidate": ctx.candidate, "lanes": rows, "equivalence_used": used,
+            "equivalence_refused": ctx.reuse_refused,
+            "equivalence_statement": statement,
             "classification": ctx.classification, **_lane_lists(ctx),
             "rule": ("Inherited red lanes stay red until genuinely resolved. Equivalence is by exact identity and cause "
                      "against the Attempt 10 final receipts at the issued base; counts alone establish nothing.")}
@@ -958,8 +1077,11 @@ def _judge_r04(ctx: Context, key: str) -> tuple[str, str]:
                   "by the oracle; legitimate missingness, unknown dates, corrections, splits and restructures keep their "
                   "meanings (the seven known parser-anomaly fields stay owned future scope, Cedric Scott's two separately "
                   "stated periods a supported correction); no database was rebuilt and no fact invented or activated."),
-            "B": ("One fresh offline noneditable BAS wheel, built from the candidate head outside every checkout and "
-                  "composed with the released C01 wheel, paginates the whole successor and every filter exactly as the "
+            "B": ("One fresh offline noneditable BAS wheel, built from "
+                  + ("the candidate head" if "INSTALLED_CONSUMER_C01" not in ctx.reuse else
+                     f"a git archive of head `{head_a_lane_ran_at(ctx, 'INSTALLED_CONSUMER_C01')[:10]}` (retained: the "
+                     "candidate head's packaged product tree is proved byte-identical by the dependency check)")
+                  + " outside every checkout and composed with the released C01 wheel, paginates the whole successor and every filter exactly as the "
                   "independent SQL oracle and raw census derive them, serves the same rows through its module entrypoint "
                   "as through its console script (and the source module), and refuses every original and new lineage "
                   "forgery for its own cause, each negative after an independent fixture reset; no row is hidden or "
@@ -991,10 +1113,16 @@ def _judge_r05(ctx: Context, key: str) -> tuple[str, str]:
                                   "OPEN_OUT_OF_SCOPE and partially FIXED_LOCAL findings) before any costly lane; the "
                                   "finding was reproduced on the clean issued base before any source was drafted; every "
                                   "recorded Git mutator carried -c gc.auto=0 -c maintenance.auto=false "
-                                  f"({len(predicates['git_command_scope']['records'])} records); every one of the 14 "
-                                  "worker lanes executed fresh through the issued command at the candidate head with "
-                                  "exact binding, raw counts and the shared Git store measured around it; MANAGER_REVIEW "
-                                  "stays pending; inherited red stays red, compared with Attempt 10 by identity and cause.")
+                                  f"({len(predicates['git_command_scope']['records'])} records); "
+                                  f"{len(fresh_lanes(ctx))} of the 14 worker lanes executed fresh through the issued "
+                                  "command at the candidate head with exact binding, raw counts and the shared Git store "
+                                  "measured around it"
+                                  + (f", and {len(ctx.reuse)} ({retained_names(ctx)}) keep their original execution "
+                                     "under a current complete dependency check without being executed again "
+                                     "(R37A11-05-A: original head, receipt, log, counts and result unchanged; every "
+                                     "changed, missing or forged dependency would refuse it)" if ctx.reuse else "")
+                                  + "; MANAGER_REVIEW stays pending; inherited red stays red, compared with Attempt 10 "
+                                  "by identity and cause.")
     if key.endswith("-B"):
         phases = base.platform_phases(ctx)
         complete = all(all(row.values()) for row in phases.values())
@@ -1010,7 +1138,9 @@ def _judge_r05(ctx: Context, key: str) -> tuple[str, str]:
             return _refuse(failing, violated, "not held")
         totals = predicates["request_ceilings"]["totals"]
         return "VERIFIED_LOCAL", ("BEFORE, DURING and AFTER Jira, GitHub and All-22 reads exist, the AFTER ones bound to "
-                                  "the candidate head; the private Jira successor ran dry run, apply, strict and audit "
+                                  f"the head PLATFORM_CARRY ran at (`{head_a_lane_ran_at(ctx, 'PLATFORM_CARRY')[:10]}`"
+                                  + (", retained: not read again at the candidate head" if "PLATFORM_CARRY" in ctx.reuse else "")
+                                  + "); the private Jira successor ran dry run, apply, strict and audit "
                                   "validators and a second dry run in every phase; "
                                   f"{len(comments)} granted BAT-706/BAT-708 material comments were posted with "
                                   "deterministic markers, duplicate checks and readback; requests stayed within each "
@@ -1199,7 +1329,8 @@ def finding_matrix(ctx: Context, label: str, criteria: dict[str, dict[str, Any]]
             receipt = ctx.receipts.get(lane) or {}
             detail = (receipt.get("details") or {}).get(detail_key) if detail_key else None
             after.append({"lane": lane, "run": (ctx.runs.get(lane) or {}).get("run"), "result": receipt.get("result"),
-                          "at_candidate_head": ctx.at_head(lane), "receipt_evidence_id": f"E-LANE-{lane}-RECEIPT",
+                          "at_candidate_head": ctx.at_head(lane), "execution": execution_of(ctx, lane),
+                          "receipt_evidence_id": f"E-LANE-{lane}-RECEIPT",
                           "receipt_sha256": (ctx.runs.get(lane) or {}).get("receipt_sha256"),
                           "consumer_output": detail if detail is not None and len(json.dumps(detail, default=str)) < 8000
                           else ({"see_receipt_details_key": detail_key} if detail is not None else None)})
@@ -1337,10 +1468,38 @@ def integration_packet(ctx: Context, label: str, lanes: list[dict[str, Any]]) ->
 # ------------------------------------------------------------------ build
 
 
+def retained_lane_rows(ctx: Context, lanes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Every executed lane row says how it came to be at the candidate head. A retained lane's row keeps the original
+    run, head, receipt and result and says it was not executed again (the release's submission validation binds a lane
+    row to the submission's head, which for a retained lane is the head of its current dependency check)."""
+
+    for row in lanes:
+        if row.get("status") not in ("PASS", "FAIL"):
+            continue
+        proof = ctx.reuse.get(row["id"])
+        if proof is None:
+            row["execution"] = "FRESH_AT_THE_CANDIDATE_HEAD"
+            continue
+        original = proof["original"]
+        row.update({
+            "execution": "RETAINED_ORIGINAL_EXECUTION", "executed_again_at_this_head": False,
+            "original_run": original["run"], "original_head": original["head"],
+            "original_source_digest": original["source_digest"], "original_receipt_sha256": original["receipt_sha256"],
+            "original_result": original["result"], "original_counts": original.get("counts"),
+            "reuse_evidence_id": f"E-REUSE-{row['id']}",
+            "commands_executed_again_in_the_check": [r["name"] for r in proof["reexecuted"]],
+            "current_dependency_check": {"head": ctx.candidate["head"], "checks": proof["checks"]}})
+        row["reason"] = (f"RETAINED, not executed again: the original run {original['run']} at head "
+                         f"{original['head'][:10]} ({original['result']}) is kept unchanged (receipt, log, counts, result); "
+                         f"a current complete dependency check ({proof['checks']} checks, E-REUSE-{row['id']}) binds it to "
+                         f"head {ctx.candidate['head'][:10]}. Original reason: {row.get('reason')}")
+    return lanes
+
+
 def build(ctx: Context, headline: str, writer_released: bool) -> dict[str, Any]:
     register_evidence(ctx)
     root = ctx.out_root
-    lanes = base.lane_rows(ctx)
+    lanes = retained_lane_rows(ctx, base.lane_rows(ctx))
     lane_dispositions(ctx)
     obligations_path = root / "ORIGINAL_OBLIGATION_DISPOSITIONS.json"
     label = f"{LABEL_PREFIX} {headline}"
@@ -1493,6 +1652,9 @@ def check(ctx: Context, final_packet: bool) -> list[str]:
         for row in rows:
             if not row["commits"]:
                 problems.append(f"{row['finding']} names no commit")
+    for lane, refusal in sorted(ctx.reuse_refused.items()):
+        problems.append(f"{lane}: the retained-lane dependency check recorded for this head is refused by its "
+                        f"recomputation ({refusal.get('refused_by')}); the lane needs a fresh run")
     control = _control(ctx)
     if control and (control.get("cycle_number"), control.get("attempt_number")) != (CYCLE_NUMBER, ATTEMPT_NUMBER):
         problems.append("CONTROL07_PROPOSAL_VALIDATION.json does not carry Cycle 37 / Attempt 11")

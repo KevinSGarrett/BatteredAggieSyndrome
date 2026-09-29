@@ -39,6 +39,16 @@ guard and storage qualification of the costly lanes, and the shared Git store ar
 
 A lane decides what its commands did. It does not decide scientific acceptance, and it cannot turn an inherited red
 lane green.
+
+Same-assignment continuation of Attempt 11 (no Attempt 12; MF37A11-01 / W37A11-07):
+
+* The lane reservation is opened before the run folder, so it cannot carry the run's stamp. The runner keeps the
+  reservation it was admitted under (``run.storage_reservation``) and FINAL_PACKET's ledger check is bound to that token
+  and operation (``attempt07_lanes._owned_final_reservation``), not to a second clock reading. A rehearsal is charged to the
+  live ledger and mirrors its reservation into the tiny final-output ledger its packet check reads.
+* ``--continuation`` admits a lane after the operational ledger is frozen, on the attempt's one claimed final-output
+  continuation (same budget, roots and reserve; no segment or root is added). Without it a frozen attempt refuses
+  material lanes exactly as before.
 """
 
 from __future__ import annotations
@@ -1065,6 +1075,22 @@ LANE_FUNCTIONS: dict[str, Callable[[LaneRun], None]] = {
 _guard_events = a10._guard_events
 
 
+def _reservation_for_check(args: argparse.Namespace, final_lane: bool, reservation: dict[str, Any] | None,
+                           paths: dict[str, Path]) -> dict[str, Any] | None:
+    """The reservation the FINAL_PACKET lane's ledger check must find open (MF37A11-01, W37A11-07).
+
+    An issued run is admitted on the attempt's live ledger and that is the ledger the check reads, so the lane's own
+    admitted reservation is the one. A rehearsal is charged to the live ledger as well (its window covers the tiny ledgers
+    it makes) but its packet check reads those tiny ledgers (``a7.storage_paths``), so the tiny final-output ledger takes a
+    mirror of the lane's reservation -- the same operation, a tiny estimate -- and the rehearsal exercises the same
+    predicate on a real singleton reservation. The mirror lives only in the scratch ledger the rehearsal itself made."""
+
+    if not (args.rehearsal and final_lane and reservation and paths):
+        return reservation
+    return storage.Ledger(paths["final_output_ledger"]).reserve(
+        reservation["operation"], 1024, note="rehearsal mirror of the lane's reservation on the live ledger")
+
+
 def main(argv: list[str] | None = None) -> int:
     rebind()
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -1074,6 +1100,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--rehearsal", action="store_true",
                         help="Development only: write under the validation root, allow a dirty tree, spend no "
                              "request budget. A rehearsal receipt is labelled as such and is never evidence.")
+    parser.add_argument("--continuation", action="store_true",
+                        help="After the operational ledger is frozen, admit this lane on the attempt's one claimed "
+                             "final-output continuation (same budget, roots and reserve; no new segment). Without it a "
+                             "material lane is refused once the ledger is frozen.")
     args = parser.parse_args(argv)
     out_root = args.out_root.resolve()
     issued_root = out_root
@@ -1091,8 +1121,11 @@ def main(argv: list[str] | None = None) -> int:
         blocked.append(f"head {binding['head']} does not descend from the issued base {BASE_SHA}")
     if not binding["clean"] and not args.rehearsal:
         blocked.append("the worktree is dirty; lanes run only at a committed subject")
-    if FINAL_SNAPSHOT.is_file() and not final_lane:
-        blocked.append(f"the operational ledger is frozen by {FINAL_SNAPSHOT.name}; material lanes are refused")
+    if FINAL_SNAPSHOT.is_file() and not final_lane and not args.continuation:
+        blocked.append(f"the operational ledger is frozen by {FINAL_SNAPSHOT.name}; material lanes are refused "
+                       "(--continuation admits one on the final-output continuation)")
+    if args.continuation and not FINAL_SNAPSHOT.is_file():
+        blocked.append("--continuation applies only after the operational ledger is frozen")
     if final_lane and not args.rehearsal and not (FINAL_SNAPSHOT.is_file() and FINAL_OUTPUT_LEDGER.is_file()):
         blocked.append("FINAL_PACKET runs only after the operational snapshot and the final-output ledger exist")
     gate = None
@@ -1127,6 +1160,7 @@ def main(argv: list[str] | None = None) -> int:
     paths = a7.storage_paths(out_root, args.rehearsal and final_lane) if not blocked else {}
     run = LaneRun(args.lane, args.contract.resolve(), out_root)
     run.rehearsal = args.rehearsal
+    run.storage_reservation = _reservation_for_check(args, final_lane, reservation, paths)
     run.contract = contract
     run.binding = binding
     console = Tee(run.run_dir / "lane.log", sys.stdout)

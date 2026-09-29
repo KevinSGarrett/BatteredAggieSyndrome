@@ -4400,6 +4400,8 @@ tests/test_cycle37_a08_source_witness.py
 tests/test_cycle37_a09_continuation_roots.py
 tests/test_cycle37_a09_missing_witness.py
 tests/test_cycle37_a10_interval_lineage.py
+tests/test_cycle37_a11_final_reservation_identity.py
+tests/test_cycle37_a11_lane_reuse.py
 tests/test_cycle37_a11_restructure_lineage.py
 tests/test_cycle37_admission_domains.py
 tests/test_cycle37_alias_team_season.py
@@ -5067,6 +5069,7 @@ tools/cycle37/attempt11_outputs.py
 tools/cycle37/attempt11_platform.py
 tools/cycle37/attempt11_preflight.py
 tools/cycle37/attempt11_report.py
+tools/cycle37/attempt11_reuse.py
 tools/cycle37/build_corrected_release.py
 tools/cycle37/build_worker_packet.py
 tools/cycle37/c29_claim_successor.py

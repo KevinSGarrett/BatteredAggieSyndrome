@@ -12,6 +12,12 @@ Run before any costly lane, on owned tiny fixtures only; it writes nothing outsi
   continued by its one final-output ledger, the chain proved; the window audit holds on it and detects, on three more
   tiny ledgers, a byte written between windows, an overlapping reservation and an exceeded reservation, and treats a
   reservation refused inside an open window (the storage lane's live over-budget control) as neither.
+* **Repair (MF37A11-01, R37A11-05-A)**: the real ``lane_final_packet`` function against tiny frozen ledgers and their one
+  continuation -- the valid singleton reservation (named with a clock reading, not the run stamp) passes; a missing, extra,
+  wrong-token, changed-operation, wrong-lane, blocked-run and rehearsal-mismatched reservation each refuse; historical
+  callers keep the original contract -- the repair's own regression modules run in this process, and a lane retained under
+  a current dependency check builds into the declared outputs, passes the release's submission validation and is reported
+  as retained (never fresh), while a refused check leaves the lane not at the head.
 * **Outputs**: the accounting builds the declared outputs, the report, the submission and the checklist on a tiny out
   root holding the gapped ledger and two findings -- one OPEN_OUT_OF_SCOPE, one FIXED_LOCAL whose clause is unmet --
   and must: keep every worker clause short of VERIFIED_LOCAL (no lane ran), make the clauses bound to the violated
@@ -35,14 +41,17 @@ import io
 import json
 import shutil
 import sys
+import unittest
 from pathlib import Path
 from typing import Any
+from unittest import mock
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import attempt11_lanes as lanes  # noqa: E402
 import attempt11_outputs as outputs  # noqa: E402
+import attempt11_reuse as reuse  # noqa: E402
 import storage_admission  # noqa: E402
 import storage_snapshot  # noqa: E402
 
@@ -307,6 +316,174 @@ def outputs_expectations(gapped: dict[str, Any], clean: dict[str, Any]) -> dict[
     return {"checks": checks, "holds": all(checks.values())}
 
 
+# ------------------------------------------------------------------ the repair, on tiny fixtures
+
+CLOCK = "2026-09-29T05:17:54.451886+00:00"
+STAMP = "20260929T051755163011Z"
+
+
+class _FakeRun:
+    """The parts of a lane run ``lane_final_packet`` uses; the packet and accounting commands are recorded, not run."""
+
+    def __init__(self, paths: dict[str, Path], out_root: Path, *, rehearsal: bool = False, **attributes: Any) -> None:
+        self.extra = {"storage_paths": paths}
+        self.problems: list[str] = []
+        self.out_root = out_root
+        self.contract_path = out_root / "contract.json"
+        self.python = Path(sys.executable)
+        self.stamp, self.rehearsal = STAMP, rehearsal
+        for name, value in attributes.items():
+            setattr(self, name, value)
+
+    def env(self, **_: Any) -> dict[str, str | None]:
+        return {}
+
+    def run(self, *_a: Any, **_k: Any) -> dict[str, Any]:
+        return {}
+
+
+def final_packet_identity(folder: Path) -> dict[str, Any]:
+    """The real ``lane_final_packet`` on tiny ledgers: one case per reservation the check must accept or refuse."""
+
+    a7 = lanes.a7
+    folder.mkdir(parents=True)
+    counter = [0]
+
+    def scene() -> tuple[dict[str, Path], Path, storage_admission.Ledger]:
+        counter[0] += 1
+        root = folder / f"case-{counter[0]:02d}"
+        root.mkdir()
+        paths = a7.storage_paths(root, True)
+        return paths, root, storage_admission.Ledger(paths["final_output_ledger"])
+
+    def held(paths: dict[str, Path], root: Path, admitted: Any, *, rehearsal: bool = False, keep: bool = True) -> bool:
+        run = _FakeRun(paths, root, rehearsal=rehearsal, **({"storage_reservation": admitted} if keep else {}))
+        a7.lane_final_packet(run)
+        return bool(run.extra["storage_verification"]["final_output_ledger"]["only_this_lane_open"])
+
+    results: dict[str, bool] = {}
+    paths, root, ledger = scene()
+    admitted = ledger.reserve(f"LANE FINAL_PACKET {CLOCK}", 1024)
+    results["valid_singleton_named_with_a_clock"] = held(paths, root, admitted)
+    results["wrong_token_refuses"] = not held(paths, root, {**admitted, "token": "0" * 32})
+    results["changed_operation_refuses"] = not held(paths, root, {**admitted, "operation": admitted["operation"] + " x"})
+    results["refused_decision_refuses"] = not held(paths, root, {**admitted, "decision": "REFUSED"})
+    results["no_kept_reservation_refuses"] = not held(paths, root, None)
+    paths, root, ledger = scene()
+    admitted = ledger.reserve(f"LANE FINAL_PACKET {CLOCK} (rehearsal)", 1024)
+    results["valid_singleton_rehearsal"] = held(paths, root, admitted, rehearsal=True)
+    results["rehearsal_name_for_an_issued_run_refuses"] = not held(paths, root, admitted, rehearsal=False)
+    paths, root, ledger = scene()
+    admitted = ledger.reserve(f"LANE FINAL_PACKET {CLOCK}", 1024)
+    ledger.reserve("LANE STORAGE_ADMISSION extra", 1024)
+    results["extra_open_reservation_refuses"] = not held(paths, root, admitted)
+    paths, root, ledger = scene()
+    admitted = ledger.reserve(f"LANE FINAL_PACKET {CLOCK}", 1024)
+    ledger.reconcile(admitted["token"])
+    results["missing_reservation_refuses"] = not held(paths, root, admitted)
+    paths, root, ledger = scene()
+    results["wrong_lane_refuses"] = not held(paths, root, ledger.reserve(f"LANE STORAGE_ADMISSION {CLOCK}", 1024))
+    paths, root, ledger = scene()
+    results["blocked_run_reservation_refuses"] = not held(
+        paths, root, ledger.reserve(f"LANE FINAL_PACKET {CLOCK} (blocked before any effect)", 1024))
+    paths, root, ledger = scene()
+    ledger.reserve(f"LANE FINAL_PACKET {STAMP}", 1024)
+    results["historical_caller_named_with_the_stamp_passes"] = held(paths, root, None, keep=False)
+    paths, root, ledger = scene()
+    ledger.reserve(f"LANE FINAL_PACKET {CLOCK}", 1024)
+    results["historical_caller_refuses_a_clock_name"] = not held(paths, root, None, keep=False)
+    return {"checks": results, "holds": all(results.values()), "cases": len(results)}
+
+
+def repair_tests() -> dict[str, Any]:
+    """The repair's own regression modules, run in this process before any costly work."""
+
+    root = Path(lanes.base.WORKTREE)
+    sys.path.insert(0, str(root))
+    names = ["tests.test_cycle37_a11_final_reservation_identity", "tests.test_cycle37_a11_lane_reuse"]
+    stream = io.StringIO()
+    result = unittest.TextTestRunner(stream=stream, verbosity=0).run(unittest.defaultTestLoader.loadTestsFromNames(names))
+    return {"modules": names, "tests_run": result.testsRun, "failures": len(result.failures), "errors": len(result.errors),
+            "skipped": len(result.skipped), "holds": result.wasSuccessful() and result.testsRun > 0 and not result.skipped,
+            "output_tail": stream.getvalue()[-1200:]}
+
+
+def _fixture_lane(root: Path, lane: str, head: str) -> dict[str, Any]:
+    """An original execution of one lane at another head: a receipt, its log and its index row."""
+
+    run = "20260929T000000000000Z"
+    folder = root / "lanes" / lane / run
+    folder.mkdir(parents=True)
+    log = folder / "lane.log"
+    log.write_text(f"{lanes.LABEL} fixture lane {lane}\n", encoding="utf-8")
+    zero = {k: 0 for k in ("tests", "failures", "errors", "import_errors", "failed_subtests", "skipped")}
+    receipt = {"lane": lane, "run": run, "result": "PASS", "state_reason": "fixture original execution", "counts": zero,
+               "started_at": "2026-09-29T00:00:00+00:00", "finished_at": "2026-09-29T00:01:00+00:00",
+               "source_binding": {"clean": True, "head": head, "source_digest": "aa" * 32},
+               "source_binding_after": {"clean": True, "head": head},
+               "storage": {"receipt_window": {"decision": "ADMITTED"}}, "write_and_network_scope": {}, "details": {},
+               "commands": [], "lane_log": str(log)}
+    path = folder / "receipt.json"
+    path.write_text(json.dumps(receipt, indent=1), encoding="utf-8")
+    row = {"lane": lane, "run": run, "result": "PASS", "head": head, "source_digest": "aa" * 32, "receipt": str(path),
+           "receipt_sha256": _sha(path), "at": "2026-09-29T00:01:00+00:00"}
+    with (root / "lanes" / "RUNS.jsonl").open("a", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(row, sort_keys=True) + "\n")
+    return {"run": run, "head": head, "source_digest": "aa" * 32, "result": "PASS", "receipt": str(path),
+            "receipt_sha256": row["receipt_sha256"], "counts": zero}
+
+
+def retained_lane_case(contract_path: Path, folder: Path, ledger: Path) -> dict[str, Any]:
+    """A lane kept at its original execution: the accounting must adopt it only when the check holds, build every declared
+    output, pass the release's own submission validation, and say in the row, the report and the equivalence document that
+    the lane was retained and not executed again. A refused check must leave the lane not at the head."""
+
+    lane = "START_CONTEXT"
+    fake_head = "b" * 40
+    results: dict[str, Any] = {}
+    for variant in ("accepted", "refused"):
+        root = _tiny_root(folder / variant, ledger)
+        original = _fixture_lane(root, lane, fake_head)
+        proof = root / "evidence" / "reuse" / f"REUSE_{lane}_{fake_head[:12]}_FIXTURE.json"
+        proof.parent.mkdir(parents=True)
+        proof.write_text(json.dumps({"fixture": True}), encoding="utf-8")
+        candidate_head = outputs.git_out("rev-parse", "HEAD")
+        proof = proof.rename(proof.with_name(f"REUSE_{lane}_{candidate_head[:12]}_FIXTURE.json"))
+        accepted = {lane: {"proof": str(proof), "proof_sha256": _sha(proof), "original": original, "checks": 12,
+                           "reexecuted": [], "delta": {"changed": []}, "commands": [], "original_handoff": {}}}
+        answer = (accepted, {}) if variant == "accepted" else ({}, {lane: {"proof": str(proof), "refused_by": ["fixture"]}})
+        with mock.patch.object(reuse, "verified_lanes", lambda env, names, _a=answer: _a):
+            built = build_outputs(contract_path, root)
+            equivalence = json.loads((root / "INHERITED_LANE_EQUIVALENCE.json").read_text(encoding="utf-8"))
+        row = next(r for r in built["submission"]["lanes"] if r["id"] == lane)
+        report = built["report"]
+        if variant == "accepted":
+            results[variant] = {
+                "lane_row_is_pass_and_executed": row["status"] == "PASS" and row["executed"] is True,
+                "row_is_bound_to_the_candidate_head_the_release_requires": row["head"] == built["submission"]["candidate"]["head"],
+                "row_says_retained_and_names_the_original": row.get("execution") == "RETAINED_ORIGINAL_EXECUTION"
+                and row.get("original_head") == fake_head and row.get("executed_again_at_this_head") is False
+                and row["reason"].startswith("RETAINED, not executed again"),
+                "release_submission_validation_passes": built["validation"]["result"] == "VALID",
+                "evidence_registers_the_check": any(e["id"] == f"E-REUSE-{lane}" for e in built["submission"]["evidence"]),
+                "report_says_retained": "keep their original execution" in report
+                and f"| {lane} | CHECK | PASS | RETAINED_ORIGINAL_EXECUTION |" in report,
+                "report_never_claims_every_lane_ran_fresh": "Every lane executed fresh" not in report
+                and "the head every lane ran at" not in report,
+                "equivalence_document_lists_it_unrelabelled": [u["lane"] for u in equivalence["equivalence_used"]] == [lane]
+                and equivalence["equivalence_used"][0]["relabelled_fresh"] is False
+                and next(x for x in equivalence["lanes"] if x["lane"] == lane)["execution"] == "RETAINED_ORIGINAL_EXECUTION",
+                "check_reports_no_refusal": not [p for p in built["check_problems"] if "retained-lane" in p]}
+        else:
+            results[variant] = {
+                "refused_lane_is_not_at_the_head": row["status"] == "NOT_RUN" and row["executed"] is False,
+                "check_names_the_refusal": bool([p for p in built["check_problems"] if "retained-lane dependency check" in p]),
+                "equivalence_document_uses_none": equivalence["equivalence_used"] == []
+                and lane in equivalence["equivalence_refused"]}
+    flat = {f"{variant}.{name}": value for variant, group in results.items() for name, value in group.items()}
+    return {"checks": flat, "holds": all(flat.values())}
+
+
 def main(argv: list[str] | None = None) -> int:
     lanes.rebind()
     outputs.rebind()
@@ -329,16 +506,22 @@ def main(argv: list[str] | None = None) -> int:
     deviation = deviation_only_case(args.contract.resolve(), gapped_root)
     expectations["checks"].update(deviation["checks"])
     expectations["holds"] = expectations["holds"] and deviation["holds"]
-    result = "PASS" if ident["holds"] and store["holds"] and expectations["holds"] else "FAIL"
+    packet_identity = final_packet_identity(args.scratch / "final-packet-identity")
+    regression = repair_tests()
+    retained = retained_lane_case(args.contract.resolve(), args.scratch / "retained", Path(store["clean_ledger"]))
+    result = "PASS" if (ident["holds"] and store["holds"] and expectations["holds"] and packet_identity["holds"]
+                        and regression["holds"] and retained["holds"]) else "FAIL"
     receipt = {
         "label": f"{lanes.LABEL} IN_PROGRESS_LOCAL_WORK_REMAINS (tiny-fixture preflight {result})",
         "cycle_number": 37, "attempt_number": 11, "cycle_id": lanes.CYCLE_ID, "attempt_id": lanes.ATTEMPT_ID,
         "tool": str(Path(__file__).resolve()), "tool_sha256": _sha(Path(__file__)),
         "outputs_tool_sha256": _sha(Path(outputs.__file__)), "lanes_tool_sha256": _sha(Path(lanes.__file__)),
         "report_tool_sha256": _sha(Path(outputs.__file__).with_name("attempt11_report.py")),
+        "reuse_tool_sha256": _sha(Path(reuse.__file__)),
         "contract": str(args.contract), "contract_sha256": _sha(args.contract), "scratch": str(args.scratch),
         "started_at": started, "finished_at": outputs.utc_now(), "result": result,
-        "identity": ident, "storage_lifecycle": {k: v for k, v in store.items() if k != "audits"}
+        "identity": ident, "final_packet_reservation_identity": packet_identity,
+        "repair_regression_tests": regression, "retained_lane_outputs": retained, "storage_lifecycle": {k: v for k, v in store.items() if k != "audits"}
         | {"audits": {k: {kk: vv for kk, vv in v.items() if kk != "rule"} for k, v in store["audits"].items()}},
         "outputs": {"expectations": expectations,
                     "gapped": {"statuses": gapped["statuses"], "validation": gapped["validation"],
@@ -355,7 +538,9 @@ def main(argv: list[str] | None = None) -> int:
     with args.receipt.open("x", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(receipt, indent=2, ensure_ascii=False, default=str) + "\n")
     print(json.dumps({"result": result, "identity": ident["checks"], "storage": store["checks"],
-                      "outputs": expectations["checks"]}, indent=2))
+                      "outputs": expectations["checks"], "final_packet_reservation_identity": packet_identity["checks"],
+                      "repair_regression_tests": {k: regression[k] for k in ("tests_run", "failures", "errors", "skipped")},
+                      "retained_lane_outputs": retained["checks"]}, indent=2))
     return 0 if result == "PASS" else 1
 
 

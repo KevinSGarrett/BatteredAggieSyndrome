@@ -1172,6 +1172,35 @@ def lane_platform_carry(run: LaneRun) -> None:
     a4.lane_platform_carry(run)
 
 
+def _owned_final_reservation(run: LaneRun, open_now: dict[str, dict[str, Any]]) -> bool:
+    """Is the one reservation open in the final-output ledger the one this FINAL_PACKET run was admitted under?
+
+    Cycle #37 -- Attempt #11 (MF37A11-01, W37A11-07). The Attempt 11 runner reserves before it makes its run folder, so
+    it cannot name the reservation with the run's stamp; it named it with a second clock reading and the check below
+    compared the two names, refusing the run's own valid reservation. A runner that keeps the reservation it was admitted
+    under (``run.storage_reservation``) is judged by that reservation's token and operation, never by a name rebuilt from
+    a clock: exactly one reservation is open, it is the admitted token, the ledger's own record of it carries the
+    operation the runner was admitted under, and that operation is this lane's (not another lane's, not one made for a
+    run blocked before any effect, and a rehearsal's only for a rehearsal). A missing, extra, wrong-token, changed-operation
+    or wrong-lane reservation each refuse. A caller that keeps no reservation keeps the original contract (the run stamp
+    names the reservation)."""
+
+    if not hasattr(run, "storage_reservation"):
+        return [v.get("operation") for v in open_now.values()] == [
+            f"LANE FINAL_PACKET {run.stamp}" + (" (rehearsal)" if run.rehearsal else "")]
+    admitted = run.storage_reservation
+    if not isinstance(admitted, dict):
+        return False
+    token, operation = admitted.get("token"), admitted.get("operation")
+    if not (isinstance(token, str) and token and isinstance(operation, str)) or admitted.get("decision") != "ADMITTED":
+        return False
+    if set(open_now) != {token}:
+        return False
+    return (open_now[token].get("operation") == operation and operation.startswith("LANE FINAL_PACKET ")
+            and "(blocked before any effect)" not in operation
+            and operation.endswith("(rehearsal)") == bool(run.rehearsal))
+
+
 def lane_final_packet(run: LaneRun) -> None:
     """Verify the frozen operational ledger, the chain through the final-output continuation, and the packet."""
 
@@ -1198,8 +1227,7 @@ def lane_final_packet(run: LaneRun) -> None:
             "carries_the_root_budget": init["budget_bytes"] == storage.Ledger(paths["operational_ledger"]).config(
                 storage.Ledger(paths["operational_ledger"]).records())["budget_bytes"],
             "open_reservations": {k: v.get("operation") for k, v in open_now.items()},
-            "only_this_lane_open": [v.get("operation") for v in open_now.values()]
-            == [f"LANE FINAL_PACKET {run.stamp}" + (" (rehearsal)" if run.rehearsal else "")],
+            "only_this_lane_open": _owned_final_reservation(run, open_now),
             "never_hashed_as_evidence": True}
         held = verification["final_output_ledger"]
         if not (proof.get("result") == "PASS" and held["continues_the_final_snapshot"] and held["carries_the_root_budget"]

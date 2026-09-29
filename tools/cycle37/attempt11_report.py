@@ -100,9 +100,37 @@ def _git(ctx: Any) -> list[str]:
             stores.append(bool(store.get("packs_unchanged") and store.get("loose_objects_not_decreased")
                                and store.get("refs_unchanged")))
     if stores:
-        lines.append(f"- Shared Git store around every lane at the candidate head: unchanged in packs, loose objects "
-                     f"and refs in {sum(stores)} of {len(stores)} lane runs.")
+        lines.append(f"- Shared Git store around every lane run counted at the candidate head (a retained lane's own "
+                     f"original run included): unchanged in packs, loose objects and refs in {sum(stores)} of "
+                     f"{len(stores)} lane runs.")
     return lines
+
+
+def _kept(ctx: Any) -> dict[str, Any]:
+    """The lanes kept at their original execution under a current dependency check (empty when every lane ran fresh)."""
+
+    return dict(getattr(ctx, "reuse", None) or {})
+
+
+def _lane_head(ctx: Any, lane: str) -> str:
+    """The head a lane's own execution ran at: the original head for a retained lane, else the candidate head."""
+
+    kept = _kept(ctx)
+    return kept[lane]["original"]["head"] if lane in kept else ctx.candidate["head"]
+
+
+def _retained_note(ctx: Any) -> str:
+    kept = _kept(ctx)
+    if not kept:
+        return ""
+    parts = []
+    for lane in sorted(kept):
+        original = kept[lane]["original"]
+        again = [r["name"] for r in kept[lane]["reexecuted"]]
+        parts.append(f"`{lane}` (run {original['run']} at head `{original['head'][:10]}`, {original['result']}"
+                     + (f"; command(s) {', '.join(again)} executed again in the check" if again else "") + ")")
+    return ("Not every lane ran at this head: " + "; ".join(parts) + " keep(s) the original execution under a current "
+            "complete dependency check and were not executed again; every other worker lane ran fresh. ")
 
 
 def render(ctx: Any, s: dict[str, Any]) -> str:
@@ -121,9 +149,9 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
     out += [f"Internal identity: `{s['cycle_id']}` / `{s['attempt_id']}`. Contract `{ctx.contract_path}` SHA-256 "
             f"`{s['contract_sha256']}` (equal to the sealed issuance record). Branch `{c['repo']['branch']}` from base "
             f"`{c['repo']['base_sha']}`.", "",
-            f"Repair subject (the head every lane ran at): `{cand['head']}`, tree `{cand['tree']}`, source digest "
-            f"`{cand['source_digest']}` (SHA-256 of `git ls-tree -r --full-tree HEAD`). The local integration "
-            "candidate built from it is named under the storage and candidate section.", ""]
+            f"Repair subject (the candidate head): `{cand['head']}`, tree `{cand['tree']}`, source digest "
+            f"`{cand['source_digest']}` (SHA-256 of `git ls-tree -r --full-tree HEAD`). " + _retained_note(ctx)
+            + "The local integration candidate built from it is named under the storage and candidate section.", ""]
 
     # ---- direct answer
     dims = s["dimensions"]
@@ -183,9 +211,11 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
             f"`{ctx.pointer.get('successor_sha256')}`; the Attempt 4 successor `{ctx.pointer.get('a04_successor_sha256')}`; "
             "selected only by name, never a default.",
             f"- Released C01 wheel: SHA-256 `{(start.get('c01_wheel') or {}).get('expected')}`, composed, never rebuilt.",
-            f"- Fresh noneditable BAS wheel: SHA-256 `{installed.get('wheel_sha256')}`, built from a git archive of the "
-            "candidate head and installed offline into a new environment under the packaging root, run outside every "
-            "checkout.",
+            f"- Fresh noneditable BAS wheel: SHA-256 `{installed.get('wheel_sha256')}`, built from a git archive of "
+            + (f"head `{_lane_head(ctx, 'INSTALLED_CONSUMER_C01')[:10]}` (the head that lane ran at; the lane is retained, "
+               "not executed again, and its current dependency check proves the packaged product tree unchanged at the "
+               "candidate head)" if "INSTALLED_CONSUMER_C01" in _kept(ctx) else "the candidate head")
+            + " and installed offline into a new environment under the packaging root, run outside every checkout.",
             f"- Storage: one ledger chain, identity {_j(storage['chain'].get('identity'), 200)}; root ledger "
             + ("frozen, verified " + str((operational.get('verification') or {}).get('result')) if operational["frozen"]
                else "operational (not yet frozen)")
@@ -458,22 +488,30 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
     # ---- validation matrix
     workers = [lane_id for lane_id, lane in ctx.lanes.items() if lane["executor"] == "worker"]
     executed = [lane_id for lane_id in workers if lanes[lane_id]["executed"]]
+    kept = set(_kept(ctx))
     out += ["## Exact validation matrix", "",
-            f"{len(executed)} of {len(workers)} worker lanes ran through the issued command at the candidate head"
-            + ("" if len(executed) == len(workers) else " (the rest are NOT_RUN)") + ". Every lane executed fresh; no "
-            "lane was carried by dependency equivalence (INHERITED_LANE_EQUIVALENCE.json). Every child gets a credential-scrubbed "
+            f"{len([lane_id for lane_id in executed if lane_id not in kept])} of {len(workers)} worker lanes ran fresh "
+            "through the issued command at the candidate head"
+            + (f" and {len(kept)} ({', '.join(sorted(kept))}) keep their original execution under a current complete "
+               "dependency check, NOT executed again at this head" if kept else "")
+            + ("" if len(executed) == len(workers) else " (the rest are NOT_RUN)") + ". "
+            + ("Each retained lane's original run, head, receipt, log, counts and result are unchanged and named in its row "
+               "and in INHERITED_LANE_EQUIVALENCE.json; the check is recomputed on every build and check and would refuse "
+               "a changed, missing or forged dependency. " if kept else
+               "No lane was carried by dependency equivalence (INHERITED_LANE_EQUIVALENCE.json). ")
+            + "Every child gets a credential-scrubbed "
             "environment, the attempt packaging root as TEMP and declared Git scratch root, the write guard over the "
             "data root, main checkout, both integration worktrees, All-22 and the Attempt 3 to 10 roots, and the "
             "loopback-only network guard, except where a receipt names an exception. WRITE_PROTECTION and "
             "STORAGE_ADMISSION qualified the guard and the ledger before the costly and mounted lanes, every lane "
             "reserved its storage on the attempt's one ledger before it ran (and its receipt in a window of its own), and every lane measured the shared Git "
             "store around it.", "",
-            "| Lane | Kind | Status | Run | Tests | Fail | Err | Import err | Failed subtests | Skipped | Reason |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
+            "| Lane | Kind | Status | Execution | Run | Tests | Fail | Err | Import err | Failed subtests | Skipped | Reason |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
     for lane_id, lane in ctx.lanes.items():
         row = lanes[lane_id]
         reason = (row.get("reason") or "").replace("|", "/")[:300]
-        out.append(f"| {lane_id} | {lane['kind']} | {row['status']} | {row.get('run', '--')} | {row['tests']} | "
+        out.append(f"| {lane_id} | {lane['kind']} | {row['status']} | {row.get('execution', '--')} | {row.get('run', '--')} | {row['tests']} | "
                    f"{row['failures']} | {row['errors']} | {row['import_errors']} | {row['failed_subtests']} | "
                    f"{row['skipped']} | {reason} |")
     equivalence = _output(ctx, "INHERITED_LANE_EQUIVALENCE.json")

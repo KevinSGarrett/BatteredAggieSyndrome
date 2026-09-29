@@ -43,6 +43,24 @@ from aggie_analytics.cycle37 import career_successor as cs  # noqa: E402
 
 TEXT = ("{{Infobox college coach\n| coach_years1 = 2009–2010\n| coach_team1 = [[Iowa]]\n| coach_years2 = 2011\n"
         "| coach_team2 = [[Ohio]]\n}}\n")
+#: A11 (MF37A10-01): every successor row -- and every Attempt 4 row an edge names -- is now read again from its own
+#: revision, and no field of a cited revision may be dropped whole. The fixture's rows stated dates their revision never
+#: says (2009–2009 for ``2009–2010`` and ``2011``), its "legitimate split" divided a field that states one interval, and
+#: its added row named a field its revision does not have. Each page now has its own revision: page 11's second field
+#: states the two periods its split rows are (``2009, 2010``, read as one by the delivered parser -- a genuine re-read)
+#: and page 22 states the field its added row is (``coach_years9``); every Attempt 4 and Attempt 5 row states what v37.4
+#: and v37.5 read. The assertions are unchanged except the Attempt 4 format's row count (page 11's two Attempt 4 rows).
+TEXTS = {11: TEXT.replace("| coach_years2 = 2011\n", "| coach_years2 = 2009, 2010\n"),
+         22: TEXT.replace("}}\n", "| coach_years9 = 2011\n| coach_team9 = [[Rice]]\n}}\n"),
+         33: TEXT}
+
+
+def _read(page: int, row: int) -> list[tuple[int, int]]:
+    """(start, end) of every interval the parsers read in a page's field."""
+
+    if row == 1:
+        return [(2009, 2010)]
+    return [(2009, 2009), (2010, 2010)] if page == 11 else [(2011, 2011)]
 #: (pageid, revision, title, display name, Wikidata item) -- the third page is a homonym of the first.
 PAGES = ((11, 101, "Alpha Person", "Alpha Person", "Q11"),
          (22, 202, "Beta Person (American football)", "Beta Person", "Q22"),
@@ -67,17 +85,17 @@ class SuccessorIdentityTests(unittest.TestCase):
     def setUp(self) -> None:
         self._tmp = tempfile.TemporaryDirectory()
         self.root = Path(self._tmp.name)
-        self.text_sha = hashlib.sha256(TEXT.encode("utf-8")).hexdigest()
         self.page = {}
         for pageid, revision, title, display, qid in PAGES:
             raw = self.root / f"raw_{pageid}.json"
             raw.write_bytes(json.dumps({"query": {"pages": {str(pageid): {
                 "pageid": pageid, "title": title, "pageprops": {"wikibase_item": qid},
-                "revisions": [{"revid": revision, "slots": {"main": {"*": TEXT}}}]}}}}).encode("utf-8"))
+                "revisions": [{"revid": revision, "slots": {"main": {"*": TEXTS[pageid]}}}]}}}}).encode("utf-8"))
             self.page[pageid] = {"pageid": pageid, "revision": str(revision), "page_title": title,
                                  "person_display": display, "wikidata_qid": qid, "raw_file": str(raw),
                                  "raw_file_sha256": hashlib.sha256(raw.read_bytes()).hexdigest(),
-                                 "wikitext_sha256": self.text_sha, "family": "COACHING", "ongoing": 0,
+                                 "wikitext_sha256": hashlib.sha256(TEXTS[pageid].encode("utf-8")).hexdigest(),
+                                 "family": "COACHING", "ongoing": 0,
                                  "evidence_class": cs.EVIDENCE_CLASS, "pit_admitted": 0, "assignments": "[]"}
         years_start, team_start = TEXT.index("2009–2010"), TEXT.index("[[Iowa]]")
         spans = {"team_raw": "[[Iowa]]", "team_char_span": json.dumps([team_start, team_start + len("[[Iowa]]")]),
@@ -87,25 +105,34 @@ class SuccessorIdentityTests(unittest.TestCase):
         self.old = [{**self.page[p], "episode_id": _id("R37-05", p, self.page[p]["revision"], n), "row_index": n,
                      "interval_index": 0, "start": 2009, "end": 2009, **(spans if n == 1 else {})}
                     for p, *_ in PAGES for n in ROWS]
-        self.a4_rows = [{**row, "episode_id": row["episode_id"].replace("R37-05", "C37A04"),
-                         "predecessor_episode_ids": json.dumps([row["episode_id"]]), "lineage_state": cs.DERIVED,
-                         "disposition": cs.UNCHANGED} for row in self.old]
+        # A11: the Attempt 4 rows state what v37.4 reads -- page 11's second field is two rows, re-read from its one
+        # delivered row.
+        self.a4_rows = []
+        for row in self.old:
+            read = _read(row["pageid"], row["row_index"])
+            for interval, (start, end) in enumerate(read):
+                self.a4_rows.append({**row, "episode_id": _id("C37A04", row["pageid"], row["revision"], row["row_index"],
+                                                              interval),
+                                     "interval_index": interval, "start": start, "end": end,
+                                     "predecessor_episode_ids": json.dumps([row["episode_id"]]),
+                                     "lineage_state": cs.DERIVED,
+                                     "disposition": cs.RESTRUCTURED if len(read) > 1 else cs.UNCHANGED})
         # Attempt 5 rows: each predecessor row once, except page 11 row 2, which splits into two intervals
-        # (a legitimate restructuring), plus one row added on page 22 with no predecessor row.
+        # (a legitimate restructuring of its delivered row; A11: one to one with its two Attempt 4 rows), plus one row
+        # added on page 22 with no predecessor row.
         episodes = []
         for row in self.old:
-            a4 = row["episode_id"].replace("R37-05", "C37A04")
-            base = {**row, "predecessor_episode_ids": json.dumps([row["episode_id"]]), "lineage_state": cs.DERIVED,
-                    "a04_episode_ids": json.dumps([a4]), "a04_lineage_state": cs.A04_DERIVED,
-                    "date_basis": "ITEM_DATE_IN_BALANCED_PARENTHESES", "uncertainty_classes": "[]"}
-            if row["pageid"] == 11 and row["row_index"] == 2:
-                for interval in (0, 1):
-                    episodes.append({**base, "episode_id": _id("C37A05", 11, 101, 2, interval),
-                                     "interval_index": interval, "start": 2009 + interval, "end": 2009 + interval,
-                                     "disposition": cs.RESTRUCTURED, "a04_disposition": cs.RESTRUCTURED})
-            else:
-                episodes.append({**base, "episode_id": row["episode_id"].replace("R37-05", "C37A05"),
-                                 "disposition": cs.UNCHANGED, "a04_disposition": cs.UNCHANGED})
+            read = _read(row["pageid"], row["row_index"])
+            for interval, (start, end) in enumerate(read):
+                a4 = _id("C37A04", row["pageid"], row["revision"], row["row_index"], interval)
+                episodes.append({**row, "episode_id": _id("C37A05", row["pageid"], row["revision"], row["row_index"],
+                                                          interval),
+                                 "interval_index": interval, "start": start, "end": end,
+                                 "predecessor_episode_ids": json.dumps([row["episode_id"]]), "lineage_state": cs.DERIVED,
+                                 "a04_episode_ids": json.dumps([a4]), "a04_lineage_state": cs.A04_DERIVED,
+                                 "date_basis": "ITEM_DATE_IN_BALANCED_PARENTHESES", "uncertainty_classes": "[]",
+                                 "disposition": cs.RESTRUCTURED if len(read) > 1 else cs.UNCHANGED,
+                                 "a04_disposition": cs.UNCHANGED})
         episodes.append({**self.page[22], "episode_id": _id("C37A05", 22, 202, 9), "row_index": 9, "interval_index": 0,
                          "start": 2011, "end": 2011, "predecessor_episode_ids": "[]",
                          "lineage_state": cs.ADDED_STATES[cs.A05_FORMAT_VERSION], "disposition": "ADDED",
@@ -277,12 +304,13 @@ class SuccessorIdentityTests(unittest.TestCase):
 
     def test_the_same_swap_through_the_attempt4_format_is_refused(self) -> None:
         episodes = [dict(row) for row in self.a4_rows]
-        alpha, beta = episodes[0], episodes[2]          # page 11 row 1 and page 22 row 1
+        # page 11 row 1 and page 22 row 1 (A11: by identity; page 11's second field is now two Attempt 4 rows)
+        alpha, beta = self.row(episodes, _id("C37A04", 11, 101, 1)), self.row(episodes, _id("C37A04", 22, 202, 1))
         alpha["predecessor_episode_ids"], beta["predecessor_episode_ids"] = (beta["predecessor_episode_ids"],
                                                                              alpha["predecessor_episode_ids"])
         self.refused(cs.REFUSED_PREDECESSOR_IDENTITY, self.a4_successor("a4-swap.sqlite", episodes))
-        # The genuine Attempt 4 format still attaches.
-        self.assertEqual(len(self.served(self.a4_successor("a4-genuine.sqlite", [dict(r) for r in self.a4_rows]))), 6)
+        # The genuine Attempt 4 format still attaches (seven rows: A11, page 11's field read as its two periods).
+        self.assertEqual(len(self.served(self.a4_successor("a4-genuine.sqlite", [dict(r) for r in self.a4_rows]))), 7)
 
     def test_an_edge_to_an_identity_no_predecessor_row_has_is_dangling(self) -> None:
         episodes = self.copy()

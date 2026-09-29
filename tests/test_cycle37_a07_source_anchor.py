@@ -76,7 +76,10 @@ FIELDS = [("coach_years1", "1974"), ("coach_team1", "[[Saint Joseph's Pumas foot
           ("coach_years4", ""), ("coach_team4", ""),
           ("coach_years6", "1911&ndash;1916"), ("coach_team6", "[[YMCA (Columbus, Georgia)|Columbus YMCA]]"),
           # A9: years-only numbered fields (no team parameter), formerly "fieldless" rows naming nothing.
-          ("coach_years9", "1950"), ("coach_years11", "1955")]
+          ("coach_years9", "1950"), ("coach_years11", "1955"),
+          # A11 (MF37A10-01): the added row names a field its revision states (it named none), and every row is read
+          # again from the revision -- the Attempt 4 row of ``2009–?`` states v37.4's reading, not the delivered one.
+          ("coach_years12", "2020")]
 #: A8: the employer line with its role lines is a career list line, as the parser reads one (row 1001 and its role
 #: lines 100101, 100102).
 TEXT = ("{{Infobox college coach\n" + "".join(f"| {name} = {value}\n" for name, value in FIELDS)
@@ -174,6 +177,9 @@ class SourceAnchorTests(unittest.TestCase):
                         for i, r in self.old.items()}
         # A10: v37.4 reads "1911&ndash;1916" as one interval (the genuine Attempt 4 form), restructured from the two
         # delivered rows -- not the delivered reading's two rows copied into the Attempt 4 file.
+        # A11: v37.4 reads "2009–?" as an open end (the genuine Attempt 4 form), not the delivered bare year.
+        self.a4_rows[_id("C37A04", 3)].update({"years_as_written": "2009–?", "start": 2009, "end": None,
+                                               "disposition": cs.UNRESOLVED_EXPLICIT})
         for interval in (0, 1):
             del self.a4_rows[_id("C37A04", 6, interval)]
         self.a4_rows[_id("C37A04", 6)] = {**self.old[_id("R37-05", 6, 0)], "episode_id": _id("C37A04", 6),
@@ -242,6 +248,7 @@ class SourceAnchorTests(unittest.TestCase):
                                   "a04_disposition": a4_disposition, "date_basis": "FIXTURE",
                                   "uncertainty_classes": "[]"})
         self.episodes.append({**page, "episode_id": _id("C37A05", 12), "row_index": 12, "interval_index": 0,
+                              **years_text(12), **years_span(12), "years_as_written": "2020",
                               "start": 2020, "end": 2020, "predecessor_episode_ids": "[]",
                               "lineage_state": cs.ADDED_STATES[cs.A05_FORMAT_VERSION], "disposition": "ADDED",
                               "a04_episode_ids": "[]", "a04_lineage_state": cs.A04_ADDED,

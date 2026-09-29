@@ -28,6 +28,12 @@ blank ``years_as_written`` (SQL NULL, empty or whitespace, the one absent state)
 it proves nothing and asserts nothing, so it neither grants nor blocks lineage. Lineage between two rows of one field is
 decided by their identities' ordinals (``career_successor.check_anchors``), never by text or normalized dates.
 
+Cycle #37 -- Attempt #11 (MF37A10-01): the verifier now reads *every* successor row again (and every Attempt 4 row an
+edge names), not only rows an unrestructured edge inside a multi-interval field reaches, and it separates the reasons:
+an identity naming no source row, an ordinal the source does not state or a field held by another number of rows than
+the source states intervals is the field's cardinality (:data:`CARDINALITY`); text or fields that are not the interval
+are the row's period assertion.
+
 Nothing here rewrites a parser, fills a missing date or decides whether a revision's statement is true.
 """
 
@@ -62,6 +68,17 @@ ORDINAL_NOT_STATED = "IDENTITY_ORDINAL_NOT_AN_INTERVAL_OF_ITS_SOURCE_ROW"
 COUNT_NOT_STATED = "ENTRY_ROWS_ARE_NOT_ITS_SOURCE_INTERVALS"
 TEXT_NOT_ITS_INTERVAL = "INTERVAL_TEXT_IS_NOT_ITS_SOURCE_INTERVAL"
 FIELD_NOT_ITS_INTERVAL = "INTERVAL_FIELD_IS_NOT_ITS_SOURCE_INTERVAL"
+#: v37.11 (MF37A10-01): the reasons that say a row is not one of the intervals its source field states -- no source row
+#: (or several), an ordinal the source does not state, or an entry holding another number of rows than the source states
+#: intervals. They are the field's cardinality; the other two reasons are what a row asserts about its own period.
+CARDINALITY = frozenset({NO_SOURCE_ROW, AMBIGUOUS_SOURCE_ROW, NO_READER, ORDINAL_NOT_STATED, COUNT_NOT_STATED})
+
+
+def is_cardinality(problem: str) -> bool:
+    """Whether ``problem`` (an :func:`interval_problems` reason) concerns the field's membership, ordinal or
+    multiplicity rather than a row's stated period."""
+
+    return problem in CARDINALITY
 
 
 # ---------------------------------------------------------------------------------------------------------------------

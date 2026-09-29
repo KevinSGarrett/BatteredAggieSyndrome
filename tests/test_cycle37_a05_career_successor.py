@@ -336,9 +336,16 @@ class RoleUnitTests(unittest.TestCase):
 #: A8 (MF37A07-01): the verifier proves every recorded span is the source field its row's identity names, so the
 #: revision is an infobox whose ``coach_team1``/``coach_years1`` values are exactly row 1's recorded spans (it was a
 #: bare list whose span held a link inside a line -- a witness no parser writes). No assertion changes.
+#: A11 (MF37A10-01): every successor row -- and every Attempt 4 row an edge names -- is now read again from its revision,
+#: and no field of a cited revision may be dropped whole. The rows now state what the parsers read (row 1 2009–2010, row
+#: 2 2011: the Attempt 4 rows stated 2009–2009 and the second Attempt 5 row 2009–2011, which the revision never says),
+#: and the added row names a field the revision states (``coach_years3``, one the delivered parser did not read), held
+#: by the fixture itself.
 REVISION_TEXT = ("{{Infobox college coach\n| coach_years1 = 2009–2010\n| coach_team1 = [[Iowa]]\n"
-                 "| coach_years2 = 2011\n| coach_team2 = [[Ohio]]\n}}\n")
+                 "| coach_years2 = 2011\n| coach_team2 = [[Ohio]]\n| coach_years3 = 2012\n| coach_team3 = [[Rice]]\n}}\n")
 IDS = (1, 2)
+#: (start, end) that v37.4 and v37.5 read for each field.
+READ = {1: (2009, 2010), 2: (2011, 2011), 3: (2012, 2012)}
 
 
 def _pid(n: int) -> str:
@@ -383,19 +390,25 @@ class A05SuccessorContractTests(unittest.TestCase):
         # A7 (MF37A06-01): the Attempt 4 rows carry their own predecessor lineage, as the real Attempt 4 file does;
         # the cross-version check compares an Attempt 5 row's predecessor rows with the ones its Attempt 4 rows
         # derive from, and a lineage-less Attempt 4 row is not a valid Attempt 4 row.
-        self.a4_rows = [{**base, "episode_id": _a4(n), "row_index": n, "start": 2009, "end": 2009,
+        self.a4_rows = [{**base, "episode_id": _a4(n), "row_index": n, "start": READ[n][0], "end": READ[n][1],
                          "wikitext_sha256": self.text_sha, "predecessor_episode_ids": json.dumps([_pid(n)]),
                          "lineage_state": cs.DERIVED} for n in IDS]
         self.a4 = self.root / "a04.sqlite"
         _table(self.a4, cs.EPISODE_TABLE, cs.EPISODE_COLUMNS, self.a4_rows)
         team = "[[Iowa]] "
         years_start, team_start = REVISION_TEXT.index("2009–2010"), REVISION_TEXT.index("[[Iowa]]")
-        self.episodes = [{**base, "episode_id": _a5(n), "row_index": n, "start": 2009, "end": 2010 if n == 1 else 2011,
+        self.episodes = [{**base, "episode_id": _a5(n), "row_index": n, "start": READ[n][0], "end": READ[n][1],
                           "wikitext_sha256": self.text_sha, "lineage_state": cs.DERIVED,
                           "disposition": cs.CORRECTED, "predecessor_episode_ids": json.dumps([_pid(n)]),
                           "a04_episode_ids": json.dumps([_a4(n)]), "a04_lineage_state": cs.A04_DERIVED,
                           "a04_disposition": cs.CORRECTED, "date_basis": "ITEM_DATE_IN_BALANCED_PARENTHESES",
                           "uncertainty_classes": "[]"} for n in IDS]
+        # A11: the field the delivered parser did not read, added without a predecessor row or an Attempt 4 row.
+        self.episodes.append({**self.episodes[1], "episode_id": _a5(3), "row_index": 3, "start": READ[3][0],
+                              "end": READ[3][1], "predecessor_episode_ids": "[]",
+                              "lineage_state": cs.ADDED_STATES[cs.A05_FORMAT_VERSION], "disposition": "ADDED",
+                              "a04_episode_ids": "[]", "a04_lineage_state": cs.A04_ADDED,
+                              "a04_disposition": "ADDED_IN_A05"})
         self.episodes[0].update({"team_raw": team.strip(),
                                  "team_char_span": json.dumps([team_start, team_start + len(team.strip())]),
                                  "years_raw": "2009–2010",
@@ -486,14 +499,14 @@ class A05SuccessorContractTests(unittest.TestCase):
         self.assertEqual(cs.RawBytesVerifier().verify(rows[1])["years_char_span"], "NOT_RECORDED")
 
     def test_an_added_row_is_accepted_only_as_added(self) -> None:
-        added = {**self.episodes[1], "episode_id": _a5(3), "row_index": 3, "predecessor_episode_ids": "[]",
-                 "lineage_state": cs.ADDED_STATES[cs.A05_FORMAT_VERSION], "disposition": "ADDED",
-                 "a04_episode_ids": "[]", "a04_lineage_state": cs.A04_ADDED, "a04_disposition": "ADDED_IN_A05"}
-        binding, conn = self.attach(self.successor("added.sqlite", episodes=self.episodes + [added]))
+        # A11: the added row is the fixture's own -- a field the revision states that the delivered parser did not read.
+        added = self.episodes[2]
+        self.assertEqual((added["row_index"], added["predecessor_episode_ids"]), (3, "[]"))
+        binding, conn = self.attach(self.successor("added.sqlite"))
         conn.close()
         self.assertEqual(binding["lineage_proved_independently_of_the_ledgers"]["episodes_added_without_predecessor"], 1)
         claimed = {**added, "lineage_state": cs.DERIVED}
-        self.refused(cs.REFUSED_INCOMPATIBLE, self.successor("claimed.sqlite", episodes=self.episodes + [claimed]))
+        self.refused(cs.REFUSED_INCOMPATIBLE, self.successor("claimed.sqlite", episodes=self.episodes[:2] + [claimed]))
 
     def test_the_a4_format_still_attaches_and_is_named_superseded(self) -> None:
         path = self.root / "a4-format.sqlite"

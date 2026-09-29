@@ -37,6 +37,7 @@ import copy
 import hashlib
 import json
 import os
+import platform
 import re
 import subprocess
 import sys
@@ -494,9 +495,15 @@ def command_entries(env: Env, command: list[str], cwd: str) -> tuple[list[str], 
 
     scripts: list[str] = []
     tests = False
-    for token in command:
-        text = str(token)
-        if text in ("unittest", "pytest") or text.endswith("unittest_census") or text.endswith("pytest.exe"):
+    tokens = [str(t) for t in command]
+    if tokens and os.path.basename(tokens[0]).lower() in ("pytest", "pytest.exe", "py.test", "py.test.exe"):
+        tests = True
+    for index, text in enumerate(tokens):
+        # A command runs tests when it invokes a runner module (-m unittest, pytest or the project's census runner); a
+        # module NAME handed to some other program (an import probe printing where modules load from) is not a run.
+        if text == "-m" and index + 1 < len(tokens) and (tokens[index + 1] in ("unittest", "pytest")
+                                                          or tokens[index + 1].endswith(".unittest_census")
+                                                          or tokens[index + 1] == "unittest_census"):
             tests = True
         if text.lower().endswith(".py"):
             path = Path(text) if Path(text).is_absolute() else Path(cwd) / text
@@ -532,6 +539,68 @@ def recorded_pairs(node: Any, pointer: str = "") -> list[dict[str, str]]:
         for index, value in enumerate(node):
             rows += recorded_pairs(value, f"{pointer}[{index}]")
     return rows
+
+
+def normalized_name(name: str) -> str:
+    return re.sub(r"[-_.]+", "-", name).lower()
+
+
+def interpreter_identity(python: Path) -> dict[str, Any]:
+    """The interpreter's identity computed in this process, with no subprocess: its executable and digest, version,
+    implementation, base prefix and the installed distributions read from package metadata over ``sys.path`` minus every
+    entry ``PYTHONPATH`` named. ``pip freeze`` was the recorded form, but run inside a guarded child it is not reproducible:
+    a ``PYTHONPATH`` naming the worktree makes pip list the source tree's own distribution, and pip's VCS probing (``hg``) is
+    blocked by the write guard, changing its editable-install line (both found by running this check inside the
+    FINAL_PACKET lane's guard environment)."""
+
+    import importlib.metadata as metadata  # noqa: PLC0415
+
+    explicit = {norm(part) for part in os.environ.get("PYTHONPATH", "").split(os.pathsep) if part}
+    paths = [entry for entry in sys.path if entry and os.path.isdir(entry) and norm(entry) not in explicit]
+    seen: dict[str, str] = {}
+    for distribution in metadata.distributions(path=paths):
+        name = distribution.metadata["Name"]
+        if name and normalized_name(name) not in seen:
+            seen[normalized_name(name)] = distribution.version
+    return {"executable": str(python), "sha256": sha256_file(python), "version": sys.version,
+            "implementation": platform.python_implementation(), "base_prefix": sys.base_prefix,
+            "distributions": sorted(f"{name}=={version}" for name, version in seen.items())}
+
+
+def _distribution_sets(document: dict[str, Any]) -> tuple[set[str], set[str]]:
+    """(``name==version`` pairs, names of editable installs) from either form: ``pip freeze`` lines or metadata pairs."""
+
+    pairs: set[str] = set()
+    editable: set[str] = set()
+    for line in document.get("distributions") or []:
+        line = str(line)
+        if line.startswith("-e "):
+            found = re.search(r"#egg=([A-Za-z0-9_.\-]+)", line)
+            if found:
+                editable.add(normalized_name(found.group(1)))
+            continue
+        found = re.match(r"^([A-Za-z0-9_.\-]+)==(.+)$", line)
+        if found:
+            pairs.add(f"{normalized_name(found.group(1))}=={found.group(2)}")
+        else:
+            pairs.add(line)
+    return pairs, editable
+
+
+def interpreters_match(recorded: dict[str, Any] | None, current: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
+    """The same interpreter: the same executable, digest, version, implementation and base prefix, and the same installed
+    distributions (name and version). The recorded editable install is matched by its name, so the project's own
+    editable entry (whose version pip prints as a VCS URL) does not decide the identity."""
+
+    recorded = recorded or {}
+    differing = [key for key in ("executable", "sha256", "version", "implementation", "base_prefix")
+                 if recorded.get(key) != current.get(key)]
+    wanted, editable = _distribution_sets(recorded)
+    have, _ = _distribution_sets(current)
+    have = {pair for pair in have if pair.split("==")[0] not in editable}
+    detail = {"differing_facts": differing, "recorded_only": sorted(wanted - have)[:8], "current_only": sorted(have - wanted)[:8],
+              "recorded_editable_names": sorted(editable), "distributions": len(wanted)}
+    return not differing and wanted == have, detail
 
 
 def latest_execution(env: Env, lane: str) -> dict[str, Any] | None:
@@ -691,9 +760,8 @@ def check_lane(env: Env, lane: str, *, reexecute: bool, recorded: dict[str, Any]
         checks.append(_check("changed_runner_digests_are_the_committed_files", all(explained),
                              "each differing runner digest is the SHA-256 of that file's committed text at its own head"))
         checks.append(_check("current_subject_is_clean_and_committed", clean_now, {"clean": current.get("clean")}))
-    interpreter = env.bind_interpreter()
-    checks.append(_check("interpreter_is_the_recorded_one", interpreter == receipt.get("interpreter"),
-                         "the same executable, version, digest and installed distributions"))
+    same, why = interpreters_match(receipt.get("interpreter"), env.bind_interpreter())
+    checks.append(_check("interpreter_is_the_recorded_one", same, why))
     # ---- 7. every recorded (path, digest) pair of the receipt
     bad, verified, skipped = [], 0, 0
     for pair in recorded_pairs(receipt):
@@ -785,8 +853,8 @@ def installed_consumer_checks(env: Env, receipt: dict[str, Any], result: dict[st
         site = record.parent.parent
         for line in record.read_text(encoding="utf-8").splitlines():
             name = line.split(",", 1)[0]
-            if not name.startswith("aggie_analytics/") or not name.endswith(".py"):
-                continue
+            if not name.startswith("aggie_analytics/") or name.endswith(".pyc") or "/__pycache__/" in name:
+                continue  # every installed file of the package: the Python sources and the packaged schema files
             files += 1
             blob = env.blob_bytes(env.head, f"src/{name}")
             path = site / name
@@ -951,7 +1019,7 @@ def production_env(contract: Path, out_root: Path, *, head: str | None = None) -
 
     return Env(repo=repo, out_root=out_root, contract_sha256=sha256_file(contract), head=head or git("rev-parse", "HEAD"),
                git=git, git_bytes=git_bytes, bind_source=lanes.bind_source,
-               bind_interpreter=lambda: lanes.base.bind_interpreter(Path(sys.executable)), python=sys.executable,
+               bind_interpreter=lambda: interpreter_identity(Path(sys.executable)), python=sys.executable,
                immutable_roots=(out_root, Path(lanes.DATA_ROOT), repo), scratch_env=lambda: dict(environment),
                passthrough=passthrough, database=Path(lanes.DELIVERED_DB), lane_checks=dict(LANE_CHECKS))
 

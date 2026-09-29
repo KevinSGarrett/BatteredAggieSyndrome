@@ -197,6 +197,90 @@ class RunnerDeltaProofTests(unittest.TestCase):
         self.assertTrue(self.references(attempt07_lanes=A7_AFTER, attempt11_lanes=A11_BEFORE))
 
 
+class CommandEntryTests(unittest.TestCase):
+    """What a command runs: the repository scripts it names, and whether it invokes a test runner."""
+
+    def entries(self, *argv: str) -> tuple[list[str], bool]:
+        env = mock.Mock()
+        env.repo = Path(r"C:\repo")
+        return reuse.command_entries(env, list(argv), r"C:\repo")
+
+    def test_a_command_that_invokes_a_test_runner_is_a_test_run(self) -> None:
+        for argv in (("python", "-m", "unittest", "discover"), ("python", "-B", "-m", "pytest", "tests"),
+                     ("python", "-m", "aggie_analytics.validation.unittest_census", "--selected-root", "x"),
+                     (r"C:\venv\Scripts\pytest.exe", "tests"), ("pytest", "-q")):
+            with self.subTest(argv=argv):
+                self.assertTrue(self.entries(*argv)[1])
+
+    def test_a_module_name_handed_to_another_program_is_not_a_test_run(self) -> None:
+        argv = ("python", "-B", "-c", "import importlib", "aggie_analytics.validation.lane_harness",
+                "aggie_analytics.validation.unittest_census", "aggie_analytics.cycle33.query")
+        self.assertFalse(self.entries(*argv)[1])
+        self.assertFalse(self.entries("git", "log", "unittest")[1])
+
+    def test_scripts_under_the_repository_are_found_relative_to_the_cwd(self) -> None:
+        scripts, tests = self.entries("python", "-B", "tools/cycle37/attempt11_platform.py", "ledger")
+        self.assertEqual((scripts, tests), (["tools/cycle37/attempt11_platform.py"], False))
+        self.assertEqual(self.entries("python", r"C:\elsewhere\probe.py")[0], [])
+
+
+class InterpreterIdentityTests(unittest.TestCase):
+    """The recorded identity was ``pip freeze``; inside a guarded child pip is not reproducible (a PYTHONPATH naming the
+    worktree adds the source tree's own distribution, and pip's blocked ``hg`` probe changes the editable line), so the
+    identity is read from metadata in this process and compared by meaning."""
+
+    RECORDED = {"executable": "C:\\py\\python.exe", "sha256": "aa", "version": "3.12.10", "implementation": "CPython",
+                "base_prefix": "C:\\base",
+                "distributions": ["-e git+https://example/x.git@abc#egg=aggie_analytics_engine&subdirectory=..", "duckdb==1.5.5",
+                                  "mypy_extensions==1.1.0", "numpy==2.2.6", "pip==25.0.1"]}
+
+    def current(self, **changes: Any) -> dict[str, Any]:
+        document = {**self.RECORDED, "distributions": ["aggie-analytics-engine==0.25.0.dev25", "duckdb==1.5.5",
+                                                       "mypy-extensions==1.1.0", "numpy==2.2.6", "pip==25.0.1"]}
+        document.update(changes)
+        return document
+
+    def test_a_freeze_and_a_metadata_reading_of_the_same_interpreter_match(self) -> None:
+        same, detail = reuse.interpreters_match(self.RECORDED, self.current())
+        self.assertTrue(same, detail)
+        self.assertEqual(detail["recorded_editable_names"], ["aggie-analytics-engine"])
+
+    def test_each_difference_of_identity_is_refused(self) -> None:
+        for name, changes in (("version of a package", {"distributions": ["aggie-analytics-engine==1", "duckdb==1.5.6",
+                                                                          "mypy-extensions==1.1.0", "numpy==2.2.6", "pip==25.0.1"]}),
+                              ("an extra package", {"distributions": ["aggie-analytics-engine==1", "duckdb==1.5.5", "evil==1",
+                                                                      "mypy-extensions==1.1.0", "numpy==2.2.6", "pip==25.0.1"]}),
+                              ("a missing package", {"distributions": ["duckdb==1.5.5", "mypy-extensions==1.1.0", "pip==25.0.1"]}),
+                              ("another executable", {"executable": "C:\\other\\python.exe"}),
+                              ("another digest", {"sha256": "bb"}), ("another version", {"version": "3.13.0"}),
+                              ("another prefix", {"base_prefix": "C:\\elsewhere"})):
+            with self.subTest(name):
+                self.assertFalse(reuse.interpreters_match(self.RECORDED, self.current(**changes))[0])
+
+    def test_an_empty_recorded_identity_never_matches(self) -> None:
+        self.assertFalse(reuse.interpreters_match(None, self.current())[0])
+
+    def test_the_identity_read_here_ignores_a_source_path_named_by_pythonpath(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp) / "zzfake_package-9.9.dist-info"
+            folder.mkdir()
+            (folder / "METADATA").write_text("Metadata-Version: 2.1\nName: zzfake-package\nVersion: 9.9\n", encoding="utf-8")
+            with mock.patch.object(sys, "path", [tmp, *sys.path]):
+                with mock.patch.dict(os.environ, {"PYTHONPATH": tmp}):
+                    without = reuse.interpreter_identity(Path(sys.executable))
+                with mock.patch.dict(os.environ):
+                    os.environ.pop("PYTHONPATH", None)
+                    control = reuse.interpreter_identity(Path(sys.executable))
+        self.assertNotIn("zzfake-package==9.9", without["distributions"])
+        self.assertIn("zzfake-package==9.9", control["distributions"])  # the fixture is visible when PYTHONPATH does not hide it
+        self.assertEqual(without["executable"], sys.executable)
+
+    def test_the_identity_read_here_needs_no_subprocess(self) -> None:
+        with mock.patch.object(subprocess, "run", side_effect=AssertionError("a subprocess was started")):
+            identity = reuse.interpreter_identity(Path(sys.executable))
+        self.assertTrue(identity["distributions"])
+
+
 class RecordedPairTests(unittest.TestCase):
     def pairs(self, node: Any) -> list[tuple[str, str]]:
         return [(row["path"], row["sha256"]) for row in reuse.recorded_pairs(node)]
@@ -681,14 +765,22 @@ class InstalledConsumerChecksTests(CheckFixture):
         self.installed.parent.mkdir(parents=True)
         self.record.parent.mkdir(parents=True)
         self.installed.write_bytes(self.blob(self.h0, "src/aggie_analytics/__init__.py"))
-        self.record.write_text("aggie_analytics/__init__.py,sha256=x,1\naggie-0.dist-info/RECORD,,\n", encoding="utf-8")
+        self.put("src/aggie_analytics/cycle30/schemas/one.json", '{"schema": 1}\n')
+        self.h0 = self.commit("a packaged schema file")
+        self.schema = self.installed.parent / "cycle30" / "schemas" / "one.json"
+        self.schema.parent.mkdir(parents=True)
+        self.schema.write_bytes(self.blob(self.h0, "src/aggie_analytics/cycle30/schemas/one.json"))
+        (self.installed.parent / "__pycache__").mkdir()
+        (self.installed.parent / "__pycache__" / "x.cpython-312.pyc").write_bytes(b"compiled")
+        self.record.write_text("aggie_analytics/__init__.py,sha256=x,1\naggie_analytics/cycle30/schemas/one.json,sha256=y,1\n"
+                               "aggie_analytics/__pycache__/x.cpython-312.pyc,,\naggie-0.dist-info/RECORD,,\n", encoding="utf-8")
         self.database = self.base / "delivered.sqlite"
         self.database.write_bytes(b"database")
         self.successor = self.base / "successor.sqlite"
         self.successor.write_bytes(b"successor")
         details = {"installed": {"wheel": str(self.wheel)}, "wheel_sha256": sha(b"wheel bytes"),
-                   "installed_source_equivalence": {"record": str(self.record), "installed_files": 1,
-                                                    "installed_equal_to_committed_source": 1},
+                   "installed_source_equivalence": {"record": str(self.record), "installed_files": 2,
+                                                    "installed_equal_to_committed_source": 2},
                    "delivered_database_unchanged": {"before": sha(b"database"), "after": sha(b"database"),
                                                     "expected": sha(b"database")},
                    "installed_identity_census": {"census": {"successor": str(self.successor),
@@ -719,6 +811,16 @@ class InstalledConsumerChecksTests(CheckFixture):
         result = self.check(head=newer)
         self.assertIn("every_changed_tracked_path_is_declared", result["refused_by"])
         self.assertIn("installed_files_equal_the_current_committed_source", result["refused_by"])
+
+    def test_a_packaged_schema_file_is_held_to_the_committed_source_like_a_python_file(self) -> None:
+        self.schema.write_bytes(b'{"schema": 2}\n')
+        self.assertIn("installed_files_equal_the_current_committed_source", self.check()["refused_by"])
+
+    def test_the_count_of_installed_files_must_be_the_recorded_one(self) -> None:
+        (self.installed.parent / "extra.py").write_bytes(b"x = 1\n")
+        self.record.write_text(self.record.read_text(encoding="utf-8") + "aggie_analytics/extra.py,sha256=z,1\n",
+                               encoding="utf-8")
+        self.assertIn("installed_files_equal_the_current_committed_source", self.check()["refused_by"])
 
     def test_a_changed_delivered_database_or_successor_is_refused(self) -> None:
         self.database.write_bytes(b"other database")

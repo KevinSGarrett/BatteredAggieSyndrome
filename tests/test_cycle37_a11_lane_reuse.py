@@ -579,11 +579,13 @@ class RefusalTests(CheckFixture):
         self.refuses("original_execution_exists", self.check(lane="NEVER_RAN"))
 
     def test_a_head_that_is_not_a_descendant_is_refused(self) -> None:
-        self._git("checkout", "-q", "--orphan", "other")
-        self.put("only.txt", "unrelated\n")
-        orphan = self.commit("orphan with the same files and no shared history")
-        self.assertFalse(self.environment(orphan).is_ancestor(self.h0, orphan))
-        self.refuses("original_head_is_an_ancestor_of_the_current_head", self.check(head=orphan))
+        # A lane that ran at the newer commit, checked against the older one: the original head is no ancestor of the current
+        # head. Only Git commands the write guard admits are used, so the full-suite lane can run this case too.
+        older, newer = self.h0, self.h1
+        self.h0 = newer
+        self.record_lane("LANE_NEWER")
+        self.assertFalse(self.environment(older).is_ancestor(newer, older))
+        self.refuses("original_head_is_an_ancestor_of_the_current_head", self.check(lane="LANE_NEWER", head=older))
 
 
 class VariantRefusalTests(CheckFixture):

@@ -1202,12 +1202,18 @@ def _owned_final_reservation(run: LaneRun, open_now: dict[str, dict[str, Any]]) 
 
 
 def lane_final_packet(run: LaneRun) -> None:
-    """Verify the frozen operational ledger, the chain through the final-output continuation, and the packet."""
+    """Verify the frozen operational ledger, the chain through the final-output continuation, and the packet.
+
+    Refused reservations appended after the freeze are historical evidence and admitted no allocation. The frozen
+    prefix, the chain, the budget and the singleton final reservation still have to hold. An admitted write, a bounded
+    stop, a changed prefix, a wrong reservation token or an extra open reservation refuses.
+    """
 
     paths = run.extra["storage_paths"]
     verification: dict[str, Any] = {}
     try:
-        verification["operational_snapshot"] = snapshot.verify(paths["operational_ledger"], paths["final_snapshot"])
+        verification["operational_snapshot"] = snapshot.verify(paths["operational_ledger"], paths["final_snapshot"],
+                                                               allow_refused=True)
     except snapshot.SnapshotRefused as refusal:
         verification["operational_snapshot"] = {"result": "REFUSED", "code": refusal.code, "detail": str(refusal)}
         run.problems.append(f"the operational snapshot does not verify: {refusal.code}")

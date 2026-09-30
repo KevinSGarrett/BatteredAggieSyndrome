@@ -118,7 +118,11 @@ class Context(a6o.Context):
         self.attempt6_lanes: list[dict[str, Any]] = []
 
     def storage(self) -> dict[str, Any]:
-        """The attempt's ledger chain proved back to its root; the root verified against its snapshot once frozen."""
+        """The attempt's ledger chain proved back to its root; the root verified against its snapshot once frozen.
+
+        A refused reservation after the freeze holds nothing and does not fail this check. Any other record appended
+        after the freeze still refuses.
+        """
 
         root = self.out_root
         operational, frozen, final = root / OPERATIONAL_LEDGER, root / FINAL_SNAPSHOT, root / FINAL_OUTPUT_LEDGER
@@ -130,7 +134,7 @@ class Context(a6o.Context):
         row: dict[str, Any] = {"ledger": str(operational), "snapshot": str(frozen), "frozen": frozen.is_file()}
         if frozen.is_file():
             try:
-                row["verification"] = snapshot.verify(operational, frozen)
+                row["verification"] = snapshot.verify(operational, frozen, allow_refused=True)
                 document = snapshot.load_snapshot(frozen)
                 row.update(content_sha256=document["content_sha256"], measured=document["measured"],
                            bounded_stop=document.get("bounded_stop"),

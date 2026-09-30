@@ -66,6 +66,7 @@ RUNNER, OUTPUT_TOOL, NEW_TOOL, NEW_TEST, PROVENANCE = "RUNNER", "OUTPUT_TOOL", "
 #: dependency, and the lane needs a fresh run.
 DELTA_CLASSES: dict[str, tuple[str, str]] = {
     "tools/cycle37/attempt07_lanes.py": (RUNNER, "FINAL_PACKET's reservation-identity predicate and its one call"),
+    "tools/cycle37/attempt07_outputs.py": (OUTPUT_TOOL, "the output checker's frozen-snapshot call admits refused trailing records"),
     "tools/cycle37/attempt11_lanes.py": (RUNNER, "the runner keeps its admitted reservation; explicit --continuation admission"),
     "tools/cycle37/attempt11_outputs.py": (OUTPUT_TOOL, "the accounting derives lane execution from receipts and proofs"),
     "tools/cycle37/attempt11_report.py": (OUTPUT_TOOL, "the report derives lane execution from receipts and proofs"),
@@ -102,7 +103,16 @@ RUNNER_DELTA_SPEC: dict[str, dict[str, Any]] = {
                  '[v.get("operation") for v in open_now.values()] == [f"LANE FINAL_PACKET {run.stamp}" + '
                  '(" (rehearsal)" if run.rehearsal else "")]',
                  "_owned_final_reservation(run, open_now)"),
+                ("expr_replaced",
+                 'snapshot.verify(paths["operational_ledger"], paths["final_snapshot"])',
+                 'snapshot.verify(paths["operational_ledger"], paths["final_snapshot"], allow_refused=True)'),
             ]}},
+    "tools/cycle37/attempt07_outputs.py": {
+        "methods": {"Context.storage": [
+            ("expr_replaced",
+             "snapshot.verify(operational, frozen)",
+             "snapshot.verify(operational, frozen, allow_refused=True)"),
+        ]}},
     "tools/cycle37/attempt11_lanes.py": {
         "added": ("_reservation_for_check",),
         "modified": {
@@ -287,15 +297,30 @@ class _Undo(ast.NodeTransformer):
         return node
 
 
+def _present(tree: ast.AST, node: ast.AST) -> bool:
+    target = ast.dump(node)
+    return any(ast.dump(child) == target for child in ast.walk(tree))
+
+
+def _already_applied(earlier_tree: ast.AST, later: ast.AST, previous: ast.AST | None) -> bool:
+    """A declared change that the earlier head already contains, and whose old form is gone, is not a new difference."""
+
+    return _present(earlier_tree, later) and (previous is None or not _present(earlier_tree, previous))
+
+
 def function_delta(before: ast.FunctionDef, after: ast.FunctionDef, entries: list[tuple[str, ...]], name: str) -> list[str]:
     added: dict[str, ast.AST] = {}
     replaced: dict[str, ast.AST] = {}
+    problems: list[str] = []
     for entry in entries:
         kind, later, earlier = _parse_spec(entry)
+        if _already_applied(before, later, earlier):
+            if not _present(after, later):
+                problems.append(f"{name}: a declared change already in the earlier head is missing from the later head")
+            continue
         (added if kind == "stmt_added" else replaced)[ast.dump(later)] = later if kind == "stmt_added" else earlier
     undo = _Undo(added, replaced)
     restored = undo.visit(copy.deepcopy(after))
-    problems = []
     for dumped in added:
         if undo.seen_added[dumped] != 1:
             problems.append(f"{name}: a declared added statement is present {undo.seen_added[dumped]} times, not once")
@@ -307,10 +332,54 @@ def function_delta(before: ast.FunctionDef, after: ast.FunctionDef, entries: lis
     return problems
 
 
+def class_delta(before: ast.ClassDef, after: ast.ClassDef, methods: dict[str, list[tuple[str, ...]]],
+                class_name: str) -> list[str]:
+    """A class may differ only in declared methods, and those only by the declared statements.
+
+    The class shell (bases, decorators, non-method statements, and every method's signature) is compared with method
+    bodies blanked. An undeclared method whose body changed is refused on its own. A declared method that did not
+    change is refused too."""
+
+    problems: list[str] = []
+    declared = {key.split(".", 1)[1]: entries for key, entries in methods.items()
+                if key.startswith(class_name + ".")}
+    before_methods = {node.name: node for node in before.body if isinstance(node, ast.FunctionDef)}
+    after_methods = {node.name: node for node in after.body if isinstance(node, ast.FunctionDef)}
+    if set(before_methods) != set(after_methods):
+        problems.append(f"{class_name}: the method set changed")
+
+    def shell(node: ast.ClassDef) -> ast.ClassDef:
+        copied = copy.deepcopy(node)
+        for stmt in copied.body:
+            if isinstance(stmt, ast.FunctionDef):
+                stmt.body = [ast.Pass()]
+        return copied
+
+    if ast.dump(shell(before)) != ast.dump(shell(after)):
+        problems.append(f"{class_name}: the class differs outside its method bodies")
+    for method, entries in declared.items():
+        if method not in before_methods or method not in after_methods:
+            problems.append(f"{class_name}.{method} is not a method of both versions")
+            continue
+        if ast.dump(before_methods[method]) == ast.dump(after_methods[method]):
+            if all(_already_applied(before_methods[method], later, previous)
+                   for _, later, previous in (_parse_spec(entry) for entry in entries)):
+                continue
+            problems.append(f"{class_name}.{method} is declared modified but unchanged")
+            continue
+        problems += function_delta(before_methods[method], after_methods[method], entries, f"{class_name}.{method}")
+    for method, old in before_methods.items():
+        if method in declared or method not in after_methods:
+            continue
+        if ast.dump(old) != ast.dump(after_methods[method]):
+            problems.append(f"{class_name}.{method} changed and is not declared")
+    return problems
+
+
 def module_delta(before_src: str, after_src: str, spec: dict[str, Any]) -> dict[str, Any]:
-    """Every top-level definition of the two module texts is identical except the declared additions and the two
-    declared functions, and those differ only by the declared statements. Docstrings do not run; the module docstring's
-    first line does (the argument parser's description) and is compared."""
+    """Every top-level definition of the two module texts is identical except the declared additions, the declared
+    functions, and the declared class methods, and those differ only by the declared statements. Docstrings do not run;
+    the module docstring's first line does (the argument parser's description) and is compared."""
 
     before, after = ast.parse(before_src), ast.parse(after_src)
     problems: list[str] = []
@@ -320,19 +389,35 @@ def module_delta(before_src: str, after_src: str, spec: dict[str, Any]) -> dict[
     _strip_docstrings(after)
     added = set(spec.get("added", ()))
     modified = spec.get("modified", {})
-    present = {n.name for n in after.body if isinstance(n, ast.FunctionDef)}
+    methods = spec.get("methods") or {}
+    method_classes = {key.split(".", 1)[0] for key in methods}
+    before_funcs = {n.name: n for n in before.body if isinstance(n, ast.FunctionDef)}
+    after_funcs = {n.name: n for n in after.body if isinstance(n, ast.FunctionDef)}
+    already_added: set[str] = set()
     for name in sorted(added):
-        if name not in present:
+        if name in before_funcs and name in after_funcs and ast.dump(before_funcs[name]) == ast.dump(after_funcs[name]):
+            already_added.add(name)
+        elif name in before_funcs and name in after_funcs:
+            problems.append(f"the declared addition {name} differs from the earlier head and that difference is not declared")
+        elif name in before_funcs:
+            problems.append(f"the declared addition {name} was removed")
+        elif name not in after_funcs:
             problems.append(f"the declared addition {name} is missing")
+    added_now = added - already_added
     before_nodes = [(_key(n, i), n) for i, n in enumerate(before.body)]
-    kept_nodes = [n for n in after.body if not (isinstance(n, ast.FunctionDef) and n.name in added)]
+    kept_nodes = [n for n in after.body if not (isinstance(n, ast.FunctionDef) and n.name in added_now)]
     after_kept = [(_key(n, i), n) for i, n in enumerate(kept_nodes)]
     if [k for k, _ in before_nodes] != [k for k, _ in after_kept]:
         problems.append("the module's top-level structure differs beyond the declared additions")
         return {"holds": False, "problems": problems, "functions_compared": 0, "modified": []}
     changed: list[str] = []
+    changed_classes: list[str] = []
     for (key, old), (_, new) in zip(before_nodes, after_kept):
         if ast.dump(old) == ast.dump(new):
+            continue
+        if key[0] == "class" and key[1] in method_classes:
+            changed_classes.append(key[1])
+            problems += class_delta(old, new, methods, key[1])
             continue
         if key[0] != "def" or key[1] not in modified:
             problems.append(f"{key[0]} {key[1]} changed and is not declared")
@@ -341,9 +426,27 @@ def module_delta(before_src: str, after_src: str, spec: dict[str, Any]) -> dict[
         problems += function_delta(old, new, modified[key[1]], key[1])
     for name in modified:
         if name not in changed:
+            earlier = before_funcs.get(name)
+            if earlier is not None and all(_already_applied(earlier, later, previous)
+                                          for _, later, previous in (_parse_spec(entry) for entry in modified[name])):
+                continue
             problems.append(f"the declared modified function {name} is unchanged")
+    for name in sorted(method_classes):
+        if name not in changed_classes:
+            earlier = next((node for node in before.body if isinstance(node, ast.ClassDef) and node.name == name), None)
+            methods_for_class = {key: entries for key, entries in methods.items() if key.startswith(name + ".")}
+            if earlier is not None and all(
+                    method in {node.name for node in earlier.body if isinstance(node, ast.FunctionDef)}
+                    and all(_already_applied(next(node for node in earlier.body
+                                                  if isinstance(node, ast.FunctionDef) and node.name == method),
+                                             later, previous)
+                            for _, later, previous in (_parse_spec(entry) for entry in entries))
+                    for method, entries in ((key.split(".", 1)[1], entries)
+                                            for key, entries in methods_for_class.items())):
+                continue
+            problems.append(f"the declared modified class {name} is unchanged")
     return {"holds": not problems, "problems": problems, "functions_compared": len(before_nodes),
-            "modified": sorted(changed), "added": sorted(added)}
+            "modified": sorted(changed), "added": sorted(added), "classes": sorted(changed_classes)}
 
 
 def _references(tree: ast.AST, module: str) -> list[dict[str, Any]]:
@@ -447,7 +550,8 @@ def runner_delta(env: Env, before: str, after: str) -> dict[str, Any]:
     return {"holds": not problems, "problems": problems, "modules": documents,
             "runner_modules_read": sorted(after_sources), "reservation_helper_is_a_passthrough": behaviour,
             "meaning": ("the only runner statements that differ execute in FINAL_PACKET's own function, on a refusal path "
-                        "no unfrozen run reaches, or set an attribute nothing but FINAL_PACKET reads")}
+                        "no unfrozen run reaches, or set an attribute nothing but FINAL_PACKET reads; the output "
+                        "checker's one changed call is that same allow_refused snapshot verification")}
 
 
 # ------------------------------------------------------------------ dependency checks

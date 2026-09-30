@@ -18,6 +18,10 @@ Run before any costly lane, on owned tiny fixtures only; it writes nothing outsi
   callers keep the original contract -- the repair's own regression modules run in this process, and a lane retained under
   a current dependency check builds into the declared outputs, passes the release's submission validation and is reported
   as retained (never fresh), while a refused check leaves the lane not at the head.
+* **Repair (MF37A11-02, W37A11-15)**: the same modules run the real finalization sequence on tiny fixtures. A frozen root
+  with zero, one or two refused trailing reserves, one continuation and the singleton reservation passes ``lane_final_packet``
+  and the output checker's storage method. An altered prefix, a post-freeze stop, an admitted post-freeze write, a wrong
+  token and an extra live reservation each refuse.
 * **Outputs**: the accounting builds the declared outputs, the report, the submission and the checklist on a tiny out
   root holding the gapped ledger and two findings -- one OPEN_OUT_OF_SCOPE, one FIXED_LOCAL whose clause is unmet --
   and must: keep every worker clause short of VERIFIED_LOCAL (no lane ran), make the clauses bound to the violated
@@ -48,12 +52,16 @@ from unittest import mock
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 import attempt11_lanes as lanes  # noqa: E402
 import attempt11_outputs as outputs  # noqa: E402
 import attempt11_reuse as reuse  # noqa: E402
 import storage_admission  # noqa: E402
 import storage_snapshot  # noqa: E402
+from tests.test_cycle37_a11_final_reservation_identity import exercise_refused_snapshot_sequence  # noqa: E402
 
 #: The declared outputs the accounting does not write itself: the release writes the checklist and the seal the
 #: submission; the storage ledger and its snapshot are the ledger's own.
@@ -507,10 +515,12 @@ def main(argv: list[str] | None = None) -> int:
     expectations["checks"].update(deviation["checks"])
     expectations["holds"] = expectations["holds"] and deviation["holds"]
     packet_identity = final_packet_identity(args.scratch / "final-packet-identity")
+    refused_trailing = exercise_refused_snapshot_sequence(args.scratch / "refused-trailing")
+    refused_trailing = {"checks": refused_trailing["checks"], "holds": refused_trailing["holds"]}
     regression = repair_tests()
     retained = retained_lane_case(args.contract.resolve(), args.scratch / "retained", Path(store["clean_ledger"]))
     result = "PASS" if (ident["holds"] and store["holds"] and expectations["holds"] and packet_identity["holds"]
-                        and regression["holds"] and retained["holds"]) else "FAIL"
+                        and refused_trailing["holds"] and regression["holds"] and retained["holds"]) else "FAIL"
     receipt = {
         "label": f"{lanes.LABEL} IN_PROGRESS_LOCAL_WORK_REMAINS (tiny-fixture preflight {result})",
         "cycle_number": 37, "attempt_number": 11, "cycle_id": lanes.CYCLE_ID, "attempt_id": lanes.ATTEMPT_ID,
@@ -521,6 +531,7 @@ def main(argv: list[str] | None = None) -> int:
         "contract": str(args.contract), "contract_sha256": _sha(args.contract), "scratch": str(args.scratch),
         "started_at": started, "finished_at": outputs.utc_now(), "result": result,
         "identity": ident, "final_packet_reservation_identity": packet_identity,
+        "refused_trailing_snapshot": refused_trailing,
         "repair_regression_tests": regression, "retained_lane_outputs": retained, "storage_lifecycle": {k: v for k, v in store.items() if k != "audits"}
         | {"audits": {k: {kk: vv for kk, vv in v.items() if kk != "rule"} for k, v in store["audits"].items()}},
         "outputs": {"expectations": expectations,

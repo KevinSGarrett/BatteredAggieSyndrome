@@ -173,6 +173,48 @@ class RunnerDeltaProofTests(unittest.TestCase):
         proof = self.delta(A7_BEFORE, A7_AFTER.replace('"START_CONTEXT": other', '"START_CONTEXT": lane_final_packet'), A7_PATH)
         self.assertFalse(proof["holds"])
 
+    def test_a_declared_class_method_expression_is_the_only_difference(self) -> None:
+        before = '"""outputs"""\n\nclass Context:\n    def storage(self):\n        return snapshot.verify(operational, frozen)\n\n    def other(self):\n        return 1\n'
+        after = '"""outputs"""\n\nclass Context:\n    def storage(self):\n        return snapshot.verify(operational, frozen, allow_refused=True)\n\n    def other(self):\n        return 1\n'
+        spec = {"methods": {"Context.storage": [
+            ("expr_replaced", "snapshot.verify(operational, frozen)",
+             "snapshot.verify(operational, frozen, allow_refused=True)")]}}
+        proof = reuse.module_delta(before, after, spec)
+        self.assertTrue(proof["holds"], proof["problems"])
+        undeclared = after.replace("return 1\n", "return 2\n")
+        refused = reuse.module_delta(before, undeclared, spec)
+        self.assertFalse(refused["holds"])
+        self.assertTrue([p for p in refused["problems"] if "other" in p and "not declared" in p])
+
+    def test_a_declared_change_already_in_the_earlier_head_is_not_a_new_difference(self) -> None:
+        earlier = A7_AFTER
+        later = A7_AFTER.replace(
+            "    held = {\"only_this_lane_open\": _owned_final_reservation(run, open_now)}\n",
+            "    held = {\"only_this_lane_open\": _owned_final_reservation(run, open_now)}\n"
+            "    snapshot.verify(paths[\"operational_ledger\"], paths[\"final_snapshot\"], allow_refused=True)\n")
+        spec = {"added": SPEC[A7_PATH]["added"], "modified": {"lane_final_packet": [
+            *SPEC[A7_PATH]["modified"]["lane_final_packet"],
+            ("stmt_added", 'snapshot.verify(paths["operational_ledger"], paths["final_snapshot"], allow_refused=True)')]}}
+        proof = reuse.module_delta(earlier, later, spec)
+        self.assertTrue(proof["holds"], proof["problems"])
+        extra = later.replace("    return held\n", "    run.extra = 1\n    return held\n")
+        refused = reuse.module_delta(earlier, extra, spec)
+        self.assertFalse(refused["holds"])
+        removed = earlier
+        gone = reuse.module_delta(earlier, removed.replace("_owned_final_reservation(run, open_now)}", "True}"), spec)
+        self.assertFalse(gone["holds"])
+
+    def test_the_refused_snapshot_expression_is_declared_for_both_callers(self) -> None:
+        packet = reuse.RUNNER_DELTA_SPEC["tools/cycle37/attempt07_lanes.py"]["modified"]["lane_final_packet"]
+        self.assertIn(("expr_replaced",
+                       'snapshot.verify(paths["operational_ledger"], paths["final_snapshot"])',
+                       'snapshot.verify(paths["operational_ledger"], paths["final_snapshot"], allow_refused=True)'),
+                      packet)
+        storage = reuse.RUNNER_DELTA_SPEC["tools/cycle37/attempt07_outputs.py"]["methods"]["Context.storage"]
+        self.assertEqual(storage, [("expr_replaced", "snapshot.verify(operational, frozen)",
+                                    "snapshot.verify(operational, frozen, allow_refused=True)")])
+        self.assertEqual(reuse.DELTA_CLASSES["tools/cycle37/attempt07_outputs.py"][0], reuse.OUTPUT_TOOL)
+
     # ---- who can reach the changed code
     def references(self, **sources: str) -> list[str]:
         return reuse.reference_problems({f"tools/cycle37/{name}.py": text for name, text in sources.items()})

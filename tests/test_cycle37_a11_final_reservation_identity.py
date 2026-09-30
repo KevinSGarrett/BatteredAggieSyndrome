@@ -21,6 +21,7 @@ These cases run the real ledger, snapshot and continuation tools on byte-sized o
 from __future__ import annotations
 
 import ast
+import json
 import sys
 import tempfile
 import unittest
@@ -33,8 +34,10 @@ TOOLS = REPO / "tools" / "cycle37"
 sys.path.insert(0, str(TOOLS))
 
 import attempt07_lanes as a7  # noqa: E402
+import attempt07_outputs as a7o  # noqa: E402
 import attempt11_lanes as a11  # noqa: E402
 import storage_admission as sa  # noqa: E402
+import storage_snapshot as snapshot  # noqa: E402
 
 CLOCK = "2026-09-29T05:17:54.451886+00:00"  # a second clock reading, not the run stamp
 STAMP = "20260929T051755163011Z"
@@ -264,6 +267,110 @@ class RunnerKeepsTheAdmittedReservationTests(unittest.TestCase):
         self.assertIn('parser.add_argument("--continuation", action="store_true"', text)
         self.assertIn("if FINAL_SNAPSHOT.is_file() and not final_lane and not args.continuation:", text)
         self.assertIn("if args.continuation and not FINAL_SNAPSHOT.is_file():", text)
+
+
+def exercise_refused_snapshot_sequence(folder: Path) -> dict[str, Any]:
+    """Frozen root, refused live-control reserves, one continuation, singleton reservation, both real checkers.
+
+    The genuine root with zero, one and two refused trailing records passes. An altered prefix, a post-freeze stop,
+    an admitted post-freeze write, a wrong reservation token and an extra live reservation each refuse. Refused
+    records stay historical evidence and are not treated as admitted allocation.
+    """
+
+    folder.mkdir(parents=True, exist_ok=True)
+    budget = 8 * 1024 * 1024
+    details: dict[str, Any] = {}
+
+    def scene(name: str, refusals: int, mutate: str | None = None) -> tuple[FakeRun, dict[str, Any]]:
+        root = folder / name
+        data = root / "data"
+        data.mkdir(parents=True)
+        operational = root / "STORAGE_RESERVATIONS.jsonl"
+        frozen = root / "STORAGE_EVIDENCE_SNAPSHOT.json"
+        final = root / "evidence" / "storage" / "STORAGE_RESERVATIONS_FINAL_OUTPUT.jsonl"
+        ledger = sa.Ledger(operational)
+        ledger.init(budget_bytes=budget, reserve_bytes=0, roots=[data], note=name,
+                    cycle_number=37, attempt_number=11)
+        token = ledger.reserve("material work before the freeze", 4096)["token"]
+        (data / "work.bin").write_bytes(b"x")
+        ledger.reconcile(token)
+        snapshot.freeze(operational, frozen, label="Cycle #37 — Attempt #11 — fixture", scope="fixture only")
+        if mutate == "admitted":
+            ledger.reserve("post-freeze admitted write", 4096)
+            (data / "after.bin").write_bytes(b"y")
+        elif mutate == "stop":
+            ledger.stop("probe", "stop after freeze", "must remain visible", 1)
+        else:
+            for _ in range(refusals):
+                try:
+                    ledger.reserve("post-freeze live negative control", budget + 1)
+                except sa.AdmissionRefused:
+                    continue
+                raise RuntimeError("the post-freeze live control was admitted")
+        if mutate in ("admitted", "stop"):
+            try:
+                snapshot.open_final(frozen, final, [str(data)], reserve_bytes=0,
+                                    cycle_number=37, attempt_number=11)
+            except snapshot.SnapshotRefused:
+                pass
+        else:
+            snapshot.open_final(frozen, final, [str(data)], reserve_bytes=0,
+                                cycle_number=37, attempt_number=11)
+        if mutate == "prefix":
+            # Change the frozen prefix hash and reseal the snapshot document. The ledger chain stays readable, so
+            # both checkers reach the prefix rule and refuse it. Rewriting ledger bytes instead breaks the chain
+            # inside the parent walk before that rule runs.
+            document = json.loads(frozen.read_text(encoding="utf-8"))
+            document["ledger"]["prefix_sha256"] = "ab" * 32
+            document["content_sha256"] = snapshot._content_digest(document)
+            frozen.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+        admitted = None
+        if final.is_file():
+            final_ledger = sa.Ledger(final)
+            admitted = final_ledger.reserve(f"LANE FINAL_PACKET {CLOCK}", 1024)
+            if mutate == "wrong_token":
+                admitted = {**admitted, "token": "0" * 32}
+            elif mutate == "extra":
+                final_ledger.reserve("EXTRA live reservation", 1024)
+        (root / "submission.json").write_text("{}\n", encoding="utf-8", newline="\n")
+        paths = {"operational_ledger": operational, "final_snapshot": frozen, "final_output_ledger": final}
+        run = FakeRun(paths, root, storage_reservation=admitted)
+        a7.lane_final_packet(run)
+        storage_row = a7o.Context.storage(SimpleNamespace(out_root=root))
+        return run, storage_row
+
+    def refused_count(run: FakeRun) -> Any:
+        return ((run.extra.get("storage_verification") or {}).get("operational_snapshot") or {}).get(
+            "post_snapshot_refused_reservations")
+
+    checks: dict[str, bool] = {}
+    for count, name in ((0, "zero_refused"), (1, "one_refused"), (2, "two_refused")):
+        run, storage_row = scene(name, count)
+        checks[f"{name}_passes"] = (not run.problems and refused_count(run) == count
+                                    and storage_row.get("frozen_and_verified") is True
+                                    and storage_row["operational"]["verification"]["post_snapshot_refused_reservations"] == count)
+        details[name] = {"problems": run.problems, "refused": refused_count(run),
+                         "frozen_and_verified": storage_row.get("frozen_and_verified")}
+    for name, mutate in (("altered_prefix", "prefix"), ("post_freeze_stop", "stop"),
+                         ("post_freeze_admitted_write", "admitted")):
+        run, storage_row = scene(name, 0, mutate)
+        checks[f"{name}_refuses"] = bool(run.problems) and storage_row.get("frozen_and_verified") is not True
+        details[name] = {"problems": run.problems, "frozen_and_verified": storage_row.get("frozen_and_verified")}
+    for name, mutate in (("wrong_token", "wrong_token"), ("extra_live_reservation", "extra")):
+        run, storage_row = scene(name, 0, mutate)
+        checks[f"{name}_refuses"] = bool(run.problems) and storage_row.get("frozen_and_verified") is True
+        details[name] = {"problems": run.problems, "frozen_and_verified": storage_row.get("frozen_and_verified")}
+    return {"checks": checks, "holds": all(checks.values()), "details": details}
+
+
+class RefusedTrailingSnapshotTests(unittest.TestCase):
+    """MF37A11-02 / W37A11-15: both snapshot callers admit only valid refused trailing records."""
+
+    def test_the_actual_finalization_sequence_admits_only_refused_trailing_records(self) -> None:
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        result = exercise_refused_snapshot_sequence(Path(tmp.name))
+        self.assertTrue(result["holds"], result["details"])
 
 
 if __name__ == "__main__":

@@ -119,7 +119,7 @@ def _lane_head(ctx: Any, lane: str) -> str:
     return kept[lane]["original"]["head"] if lane in kept else ctx.candidate["head"]
 
 
-def _retained_note(ctx: Any) -> str:
+def _retained_note(ctx: Any, submission: dict[str, Any]) -> str:
     kept = _kept(ctx)
     if not kept:
         return ""
@@ -129,8 +129,19 @@ def _retained_note(ctx: Any) -> str:
         again = [r["name"] for r in kept[lane]["reexecuted"]]
         parts.append(f"`{lane}` (run {original['run']} at head `{original['head'][:10]}`, {original['result']}"
                      + (f"; command(s) {', '.join(again)} executed again in the check" if again else "") + ")")
+    others = [row for row in (submission.get("lanes") or [])
+              if row.get("id") not in kept and row.get("id") != "MANAGER_REVIEW"]
+    fresh = [row["id"] for row in others if row.get("execution") == "FRESH_AT_THE_CANDIDATE_HEAD"]
+    absent = [row["id"] for row in others if row.get("execution") != "FRESH_AT_THE_CANDIDATE_HEAD"]
+    if absent:
+        tail = (f" {len(absent)} other worker lane(s) are not at this head"
+                f" ({', '.join(absent)}). ")
+    elif fresh:
+        tail = " Every other worker lane ran fresh. "
+    else:
+        tail = " "
     return ("Not every lane ran at this head: " + "; ".join(parts) + " keep(s) the original execution under a current "
-            "complete dependency check and were not executed again; every other worker lane ran fresh. ")
+            "complete dependency check and were not executed again." + tail)
 
 
 def render(ctx: Any, s: dict[str, Any]) -> str:
@@ -149,8 +160,8 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
     out += [f"Internal identity: `{s['cycle_id']}` / `{s['attempt_id']}`. Contract `{ctx.contract_path}` SHA-256 "
             f"`{s['contract_sha256']}` (equal to the sealed issuance record). Branch `{c['repo']['branch']}` from base "
             f"`{c['repo']['base_sha']}`.", "",
-            f"Repair subject (the candidate head): `{cand['head']}`, tree `{cand['tree']}`, source digest "
-            f"`{cand['source_digest']}` (SHA-256 of `git ls-tree -r --full-tree HEAD`). " + _retained_note(ctx)
+            f"Repair subject: `{cand['head']}`, tree `{cand['tree']}`, source digest "
+            f"`{cand['source_digest']}` (SHA-256 of `git ls-tree -r --full-tree HEAD`). " + _retained_note(ctx, s)
             + "The local integration candidate built from it is named under the storage and candidate section.", ""]
 
     # ---- direct answer
@@ -203,8 +214,8 @@ def render(ctx: Any, s: dict[str, Any]) -> str:
             + (": " + ", ".join(f"`{sha[:10]}` {subject}" for sha, subject in reversed(ctx.commits)) if ctx.commits else "")
             + f". Worktree clean at the start and end of every executed lane run: {getattr(ctx, 'all_runs_clean', None)}.",
             f"- Interpreter (input only): `{interpreter.get('executable')}` CPython "
-            f"{(interpreter.get('version') or '').split()[0] if interpreter.get('version') else ''}. Application: Claude "
-            "Code (desktop app), model claude-opus-5-5; no sub-agents, workflows or paid providers.",
+            f"{(interpreter.get('version') or '').split()[0] if interpreter.get('version') else ''}. Application: Cursor, "
+            "model Grok 4.7; the user launched this continuation directly. No sub-agents, workflows or paid providers.",
             f"- Delivered database: SHA-256 `{(start.get('delivered_database') or {}).get('expected')}` at its default "
             f"path, unchanged before and after the installed lane ({(installed.get('delivered_database_unchanged') or {}).get('after')}).",
             f"- Served career successor (unchanged, delivered by Attempt 5): `{ctx.pointer.get('successor_file')}` SHA-256 "

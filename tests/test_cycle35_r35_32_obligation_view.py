@@ -80,6 +80,13 @@ class MappingSafetyTests(unittest.TestCase):
         self.assertEqual(targets - set(OBLIGATIONS), set())
 
 
+# These classes inspect the exact private historical ledgers and their bound
+# evidence. No mounted ledgers means no historical coverage; a partial mount
+# remains an error instead of silently hiding a missing dependency.
+PRIVATE_LEDGERS_ABSENT = not (DECLARED_UNFINISHED.exists() or NEWLY_DISCOVERED.exists())
+
+
+@unittest.skipIf(PRIVATE_LEDGERS_ABSENT, "exact Cycle 35 private ledgers are not mounted")
 class PreservationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -136,6 +143,7 @@ class PreservationTests(unittest.TestCase):
         )
 
 
+@unittest.skipIf(PRIVATE_LEDGERS_ABSENT, "exact Cycle 35 private ledgers are not mounted")
 class DeduplicationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -170,6 +178,7 @@ class DeduplicationTests(unittest.TestCase):
             self.assertTrue(row["sources"])
 
 
+@unittest.skipIf(PRIVATE_LEDGERS_ABSENT, "exact Cycle 35 private ledgers are not mounted")
 class StateDisciplineTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:

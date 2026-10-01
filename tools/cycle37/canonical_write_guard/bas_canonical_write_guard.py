@@ -204,6 +204,10 @@ def _text(path) -> str | None:
 def _drive_form(text: str) -> str:
     """Map the ``\\\\?\\``, ``\\\\.\\`` and loopback administrative-share spellings back to a drive path."""
 
+    # On POSIX, a backslash is a filename character, not a separator. Rewriting
+    # native absolute paths here makes protected descendants look unrelated.
+    if os.name != "nt":
+        return text
     value = text.replace("/", "\\")
     for prefix in ("\\\\?\\UNC\\", "\\??\\UNC\\"):
         if value.upper().startswith(prefix):

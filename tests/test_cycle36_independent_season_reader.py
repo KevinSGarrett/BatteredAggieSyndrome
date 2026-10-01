@@ -14,6 +14,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -287,7 +288,10 @@ class EveryLabelledRowIsCheckedTests(unittest.TestCase):
         )
 
     def test_the_manager_season_cases_are_carried(self) -> None:
-        cases = reader.manager_season_cases()
+        # Retained synthetic manager probes, not private historical captures.
+        # The production review still reads its original manager-owned path.
+        with mock.patch.object(reader, "MANAGER_SEASON_PROBES", ROOT / "tests" / "fixtures" / "cycle35_season_probes"):
+            cases = reader.manager_season_cases()
         self.assertEqual(cases["case_count"], 5)
         self.assertTrue(
             cases["independent_reader_agrees_with_every_manager_expectation"]

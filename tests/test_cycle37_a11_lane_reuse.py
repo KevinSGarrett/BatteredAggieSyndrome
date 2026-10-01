@@ -265,6 +265,29 @@ class CommandEntryTests(unittest.TestCase):
         self.assertEqual((scripts, tests), (["tools/cycle37/attempt11_platform.py"], False))
         self.assertEqual(self.entries("python", r"C:\elsewhere\probe.py")[0], [])
 
+    def test_recorded_windows_commands_keep_their_drive_and_directory_boundaries(self) -> None:
+        self.assertEqual(self.entries("python", r"C:\repo\tools\probe.py")[0], ["tools/probe.py"])
+        for path in (r"D:\repo\probe.py", r"C:\repository\probe.py", r"..\outside.py"):
+            with self.subTest(path=path):
+                self.assertEqual(self.entries("python", path)[0], [])
+
+    def test_native_commands_do_not_admit_a_foreign_absolute_script(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        env = mock.Mock(repo=root)
+        scripts, _ = reuse.command_entries(env, ["python", str(root / "tools" / "probe.py")], str(root))
+        self.assertEqual(scripts, ["tools/probe.py"])
+        scripts, _ = reuse.command_entries(env, ["python", r"Z:\elsewhere\probe.py"], str(root))
+        self.assertEqual(scripts, [])
+
+    def test_recorded_file_digests_include_both_absolute_path_dialects(self) -> None:
+        paths = ["/tmp/receipt.json", r"C:\evidence\receipt.json", r"\\server\share\receipt.json"]
+        digest = "a" * 64
+        for path in paths:
+            with self.subTest(path=path):
+                pairs = reuse.recorded_pairs({"path": path, "sha256": digest})
+                self.assertEqual([p["path"] for p in pairs], [path])
+        self.assertEqual(reuse.recorded_pairs({"path": "relative.json", "sha256": digest}), [])
+
 
 class InterpreterIdentityTests(unittest.TestCase):
     """The recorded identity was ``pip freeze``; inside a guarded child pip is not reproducible (a PYTHONPATH naming the

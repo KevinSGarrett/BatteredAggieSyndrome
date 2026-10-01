@@ -36,6 +36,7 @@ import collections
 import copy
 import hashlib
 import json
+import ntpath
 import os
 import platform
 import re
@@ -44,7 +45,7 @@ import sys
 import zipfile
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any, Callable
 
 sys.dont_write_bytecode = True
@@ -600,7 +601,7 @@ def command_entries(env: Env, command: list[str], cwd: str) -> tuple[list[str], 
     scripts: list[str] = []
     tests = False
     tokens = [str(t) for t in command]
-    if tokens and os.path.basename(tokens[0]).lower() in ("pytest", "pytest.exe", "py.test", "py.test.exe"):
+    if tokens and ntpath.basename(tokens[0]).lower() in ("pytest", "pytest.exe", "py.test", "py.test.exe"):
         tests = True
     for index, text in enumerate(tokens):
         # A command runs tests when it invokes a runner module (-m unittest, pytest or the project's census runner); a
@@ -610,9 +611,20 @@ def command_entries(env: Env, command: list[str], cwd: str) -> tuple[list[str], 
                                                           or tokens[index + 1] == "unittest_census"):
             tests = True
         if text.lower().endswith(".py"):
-            path = Path(text) if Path(text).is_absolute() else Path(cwd) / text
-            if under(path, env.repo):
-                scripts.append(Path(os.path.relpath(path, env.repo)).as_posix())
+            # Interpret a recorded command in its own path dialect. A Windows
+            # absolute path must not become a relative repository file on Linux.
+            windows = PureWindowsPath(str(env.repo)).is_absolute() and PureWindowsPath(cwd).is_absolute()
+            paths = ntpath if windows else os.path
+            if not windows and PureWindowsPath(text).drive:
+                continue
+            path = paths.normcase(paths.abspath(paths.join(cwd, text)))
+            root = paths.normcase(paths.abspath(str(env.repo)))
+            try:
+                inside = paths.commonpath((root, path)) == root
+            except ValueError:  # different drives
+                inside = False
+            if inside:
+                scripts.append(paths.relpath(path, root).replace("\\", "/"))
     return scripts, tests
 
 
@@ -634,7 +646,8 @@ def recorded_pairs(node: Any, pointer: str = "") -> list[dict[str, str]]:
                     names = (base, base + "_path", base + "_file")
                 for name in names:
                     target = node.get(name)
-                    if isinstance(target, str) and re.match(r"^[A-Za-z]:[\\/]", target):
+                    if isinstance(target, str) and (PureWindowsPath(target).is_absolute()
+                                                    or PurePosixPath(target).is_absolute()):
                         rows.append({"pointer": f"{pointer}/{key}", "path": target, "sha256": value})
                         break
         for key, value in node.items():

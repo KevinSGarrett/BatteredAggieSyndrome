@@ -134,6 +134,7 @@ def build_layout(root: Path) -> dict:
     return layout
 
 
+@unittest.skipUnless(os.name == "nt", "live vectors require Windows junctions and executable discovery")
 class LiveVectorControls(unittest.TestCase):
     """Each new vector changes bytes when nothing guards it (outside a guarded lane)."""
 

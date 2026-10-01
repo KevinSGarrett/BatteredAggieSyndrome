@@ -4258,6 +4258,12 @@ src/aggie_analytics/workspace/paths.py
 tests/cycle26_frozen_predecessor.py
 tests/fixtures/cycle28/synthetic_gridiron/bundle.json
 tests/fixtures/cycle29/ci_scoring_rows.jsonl
+tests/fixtures/cycle35_season_probes/README.md
+tests/fixtures/cycle35_season_probes/archive_navigation.html
+tests/fixtures/cycle35_season_probes/biography.html
+tests/fixtures/cycle35_season_probes/comment_only.html
+tests/fixtures/cycle35_season_probes/positive.html
+tests/fixtures/cycle35_season_probes/script_only.html
 tests/fixtures/protected_split_exposure_audit.v2.stale.json
 tests/fixtures/stale_placeholder_contract.json
 tests/test_acceptance_governance.py
@@ -4415,6 +4421,7 @@ tests/test_cycle37_cause_comparison.py
 tests/test_cycle37_cfip_proposals.py
 tests/test_cycle37_contest_site.py
 tests/test_cycle37_corrected_release.py
+tests/test_cycle37_corroboration_url_scope.py
 tests/test_cycle37_delivered_db_lineage.py
 tests/test_cycle37_deterministic_fit.py
 tests/test_cycle37_deterministic_stats.py

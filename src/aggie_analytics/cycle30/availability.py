@@ -294,7 +294,11 @@ def classify_availability_source(*, source_id: str, uri: str) -> str:
     """Classify a structured or conference surface. Not a health status."""
 
     blob = f"{source_id} {uri}".casefold()
-    if "collegefootballdata.com" in blob or source_id == "SRC-002":
+    try:
+        host = (urllib.parse.urlsplit(uri).hostname or "").casefold().rstrip(".")
+    except ValueError:
+        host = ""
+    if host == "collegefootballdata.com" or host.endswith(".collegefootballdata.com") or source_id == "SRC-002":
         return "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT"
     if "sportradar" in blob:
         return "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT"

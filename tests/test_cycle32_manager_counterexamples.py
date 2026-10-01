@@ -1944,6 +1944,15 @@ class Cycle32RemainingLocalFixtures(unittest.TestCase):
             ),
             "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT",
         )
+        for uri in ("https://collegefootballdata.com/injuries", "https://api.collegefootballdata.com/injuries"):
+            with self.subTest(uri=uri):
+                self.assertEqual(classify_availability_source(source_id="OTHER", uri=uri),
+                                 "STRUCTURED_PROVIDER_NOT_OFFICIAL_CONFERENCE_REPORT")
+        for uri in ("https://collegefootballdata.com.example.org/", "https://example.org/collegefootballdata.com",
+                    "https://collegefootballdata.com@example.org/", "http://[]/bad"):
+            with self.subTest(uri=uri):
+                self.assertEqual(classify_availability_source(source_id="OTHER", uri=uri),
+                                 "OFFICIAL_CONFERENCE_OR_POLICY_SURFACE")
 
     def test_wiki_career_title_rejects_basketball_and_requires_name(self) -> None:
         from aggie_analytics.cycle30.coaching import wiki_career_title_matches_person

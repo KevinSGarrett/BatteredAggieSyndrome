@@ -6,6 +6,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from aggie_analytics.cycle30.acquisition import (
     AcquisitionError,
@@ -1182,7 +1183,7 @@ class Cycle30AdversarialTests(unittest.TestCase):
         colgate = official_staff_candidate_urls(
             "https://gocolgateraiders.com/sports/football"
         )
-        self.assertTrue(any("colgateathletics.com" in url for url in colgate))
+        self.assertTrue(any(urlsplit(url).hostname == "colgateathletics.com" for url in colgate))
         ttu = official_staff_candidate_urls(
             "https://www.ttusports.com/sports/fball/index"
         )

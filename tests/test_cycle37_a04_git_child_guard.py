@@ -181,6 +181,7 @@ def _live_attempts(v: dict) -> dict:
     }
 
 
+@unittest.skipUnless(os.name == "nt", "live vectors require Windows executables and reparse points")
 class LiveVectorControls(unittest.TestCase):
     """Each vector writes its canary when nothing guards it (outside a guarded lane)."""
 

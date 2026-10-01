@@ -218,8 +218,8 @@ def cited_official_urls(raw_file: str, hosts: set[str]) -> list[str]:
     urls = []
     for url in _URL.findall(text):
         url = url.rstrip(".,;)")
-        host = urlparse(url).netloc.lower().removeprefix("www.")
-        if "archive.org" in host:
+        host = (urlparse(url).hostname or "").lower().rstrip(".").removeprefix("www.")
+        if host == "archive.org" or host.endswith(".archive.org"):
             continue  # an archive is a different provider; not used
         # Only an official athletics host or a university domain is official; a
         # staff-looking path on a news or statistics site is not.

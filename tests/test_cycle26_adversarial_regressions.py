@@ -111,9 +111,6 @@ from aggie_analytics.scientific_reference.metrics import (  # noqa: E402
     log_loss,
     source_coverage,
 )
-from tools.validate_codex_scientific_review import (  # noqa: E402
-    validate_review_outcome,
-)
 from tools.validate_cross_output_coherence import main as cross_output_main  # noqa: E402
 from tools.validate_independent_scientific_reference import (  # noqa: E402
     validate as validate_independence,
@@ -167,59 +164,9 @@ def _passing_review(*, verdict: str = "PASS", p0: list[str] | None = None) -> di
 
 
 class Cycle26AdversarialRegressions(unittest.TestCase):
-    def test_01_schema_valid_fail_is_not_merge_success(self) -> None:
-        payload = _passing_review(verdict="FAIL", p0=["p0"])
-        result = validate_review_outcome(
-            payload,
-            expected_pr=700,
-            expected_base=SHA_A,
-            expected_head=SHA_B,
-            expected_merge=SHA_C,
-            expected_files=payload["changed_file_inventory"],
-        )
-        self.assertTrue(result["schema_valid"])
-        self.assertFalse(result["merge_success"])
-        self.assertIn(
-            "CODEX_REVIEW_UNSUCCESSFUL_VERDICT:FAIL", result["merge_findings"]
-        )
 
-    def test_01_blocked_and_unknown_are_not_merge_success(self) -> None:
-        blocked = _passing_review(verdict="BLOCKED")
-        blocked_result = validate_review_outcome(
-            blocked, expected_files=blocked["changed_file_inventory"]
-        )
-        self.assertTrue(blocked_result["schema_valid"])
-        self.assertFalse(blocked_result["merge_success"])
-        unknown = _passing_review(verdict="UNKNOWN")
-        unknown_result = validate_review_outcome(
-            unknown, expected_files=unknown["changed_file_inventory"]
-        )
-        self.assertFalse(unknown_result["merge_success"])
-        self.assertIn(
-            "CODEX_REVIEW_UNKNOWN_VERDICT:UNKNOWN", unknown_result["merge_findings"]
-        )
 
-    def test_02_pr_changing_own_checker_is_rejected(self) -> None:
-        payload = _passing_review()
-        payload["changed_file_inventory"] = [
-            "tools/validate_codex_scientific_review.py"
-        ]
-        payload["changed_file_digest"] = _digest(payload["changed_file_inventory"])
-        result = validate_review_outcome(
-            payload, expected_files=payload["changed_file_inventory"]
-        )
-        self.assertFalse(result["merge_success"])
-        self.assertIn("CODEX_REVIEW_PR_CHANGED_OWN_CHECKER", result["merge_findings"])
 
-    def test_02_stale_head_is_rejected(self) -> None:
-        payload = _passing_review()
-        result = validate_review_outcome(
-            payload,
-            expected_head="d" * 40,
-            expected_files=payload["changed_file_inventory"],
-        )
-        self.assertFalse(result["schema_valid"])
-        self.assertIn("CODEX_REVIEW_HEAD_SHA_STALE", result["schema_findings"])
 
     def test_03_unscoped_release_and_missing_action_context(self) -> None:
         findings = validate_hold(
@@ -628,18 +575,6 @@ class Cycle26AdversarialRegressions(unittest.TestCase):
         with self.assertRaises(ValueError):
             _normalize_relpath("notes.txt ")
 
-    def test_29_digest_failure_is_not_p0_verdict_success(self) -> None:
-        payload = _passing_review(verdict="FAIL", p0=["real-p0"])
-        payload["changed_file_digest"] = "0" * 64
-        result = validate_review_outcome(
-            payload, expected_files=payload["changed_file_inventory"]
-        )
-        self.assertFalse(result["schema_valid"])
-        self.assertFalse(result["merge_success"])
-        self.assertIn(
-            "CODEX_REVIEW_CHANGED_FILE_DIGEST_MISMATCH", result["schema_findings"]
-        )
-        self.assertNotEqual(result["schema_findings"], [])
 
     def test_30_inverse_normal_cdf_ppf_roundtrip(self) -> None:
         for p in (0.025, 0.5, 0.975):

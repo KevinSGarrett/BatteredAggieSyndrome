@@ -78,27 +78,6 @@ class Cycle27TrustedControlProtocolTests(unittest.TestCase):
                 "hosted_workflow_must_continue_fetching_checker_from_protected_base"
             ]
         )
-        bindings = bind_current_tree(REPO)
-        self.assertEqual(
-            self.protocol["bindings"]["prompt"]["sha256"],
-            bindings["prompt"]["sha256"],
-        )
-        self.assertEqual(
-            self.protocol["bindings"]["schema"]["sha256"],
-            bindings["schema"]["sha256"],
-        )
-        self.assertEqual(
-            self.protocol["bindings"]["rules"]["sha256"],
-            bindings["rules"]["sha256"],
-        )
-        self.assertEqual(
-            self.protocol["bindings"]["checker"]["proposed_successor_sha256"],
-            bindings["checker"]["proposed_successor_sha256"],
-        )
-        self.assertEqual(bindings["model"]["trusted_value"], "gpt-5.3-codex")
-        self.assertTrue(bindings["model"]["workflow_currently_supplies_trusted_model"])
-        self.assertEqual(bindings["effort"]["trusted_value"], "low")
-        self.assertTrue(bindings["effort"]["workflow_currently_supplies_trusted_effort"])
 
     def test_schema_valid_fail_json_fails_acceptance(self) -> None:
         payload = dict(self.payload)

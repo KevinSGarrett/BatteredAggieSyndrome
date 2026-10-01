@@ -2142,8 +2142,8 @@
       "maturity": "IMPLEMENTED",
       "owner_wave": "CYCLE28",
       "phase": "PHASE-3",
-      "status": "In Review",
-      "summary": "[POST-TASK-CYCLE26-CYCLE27-STACKED-INTEGRATION-AND-REVIEW-ADJUDICATION-001] Cycle #26/#27 stacked integration and review adjudication"
+      "status": "In Progress",
+      "summary": "BAS Cycle #37 recovery: independent review and qualified integration"
     },
     {
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT",
@@ -2172,8 +2172,8 @@
       "maturity": "IMPLEMENTED",
       "owner_wave": "CYCLE28",
       "phase": "PHASE-3",
-      "status": "In Review",
-      "summary": "[POST-TASK-BAS-GRIDIRON-CORTEX-CROSS-SYSTEM-TECHNICAL-PLAN-AND-JIRA-SYNC-001] BAS-Gridiron Cortex cross-system technical plan and Jira sync"
+      "status": "In Progress",
+      "summary": "BAS / GridironCortex contracts: current owner authority and delivery reconciliation"
     }
   ],
   "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",

@@ -674,7 +674,6 @@ def build_database(path: Path, payloads: dict[str, bytes], meta: dict[str, str])
             "CREATE INDEX ix_exclusions_a ON exclusions (a_key, ord);"
             "CREATE INDEX ix_exclusions_b ON exclusions (b_key, ord);")
         conn.commit()
-        conn.execute("VACUUM")
         counts = {table: conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
                   for table in ("meta", "targets", "history", "exclusions", "target_labels")}
     finally:

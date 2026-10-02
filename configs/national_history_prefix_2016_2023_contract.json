@@ -361,7 +361,7 @@
       "exclusions": "one row per exclusions.jsonl record",
       "target_labels": "one row per labels.jsonl record; physically separate and never served by the history query grains"
     },
-    "determinism": "page_size 4096, journal_mode OFF, rows inserted in payload order, VACUUM after load"
+    "determinism": "page_size 4096, journal_mode OFF, rows and then indexes inserted in payload order into a fresh file with no deletes; no VACUUM (it ATTACHes a temporary database, which the canonical write guard refuses)"
   },
   "build": {
     "producer": "tools/build_national_history_prefix.py (standard library only)",

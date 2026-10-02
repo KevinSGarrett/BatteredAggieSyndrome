@@ -1,0 +1,440 @@
+{
+ "artifact_type": "HISTORICAL_NATIONAL_PROGRAM_SEASON_POPULATION_2016_2025",
+ "attempt_number": 1,
+ "cycle_number": 38,
+ "historical_audit_unit": "HT38-NATIONAL-DI-CONTEST-2016-2025",
+ "identities": {
+  "contest": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+  "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+  "first_output_issued_at_utc": "2026-10-02T04:25:07Z",
+  "program_season": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+  "query_db": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27"
+ },
+ "jira_key": "BAT-710",
+ "membership_evidence_state": "OFFICIAL_GRAPH_DECODED_2016_2025_WITH_EXPLICIT_UNRESOLVED_CELLS",
+ "new_pre_2016_units": 0,
+ "non_claims": [
+  "no PIT or known-at authority",
+  "predictive skill NOT_ESTABLISHED",
+  "no strength comparability or FCS translation",
+  "no pre-2016 or 2026 completeness",
+  "no scientific trust (UNTRUSTED_SHADOW and the closed trust gate remain)",
+  "no Jira acceptance",
+  "no champion, A&M lift or Aggie Excess effect",
+  "no reuse or citation of Cycle30 proven_pit_training_rows=36 or kernel_trust_usable=true (AGENTS rule 8 discrepancy retained for BAT-700)"
+ ],
+ "predecessor": {
+  "path": "artifacts/scientific_integrity/cycle29/HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+  "sha256": "c200815cb1369fe6d376056ba7226747249c9f3dcce9bdf738ae1de329234de1"
+ },
+ "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+ "scope": "HISTORICAL_NATIONAL 2016-2025 program-seasons; contests 2016-2025, reconciled 2016-2023 only",
+ "seasons": {
+  "2016": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 659
+   },
+   "by_disposition": {
+    "IDENTITY_UNRESOLVED": 3,
+    "NOT_APPLICABLE": 405,
+    "PAYLOAD_MISSING": 4,
+    "VERIFIED_PRESENT": 251
+   },
+   "by_expected_source": {
+    "E1": 663,
+    "E2": 56,
+    "E3": 253,
+    "E4": 0,
+    "E5": 216,
+    "E6": 0
+   },
+   "cells": 663,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 127,
+    "FCS|VERIFIED_PRESENT": 124
+   },
+   "division_i_cells": 251,
+   "division_i_unresolved_cells": 7,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 656,
+    "NO_CODE": 3
+   },
+   "graph_pages_by_code": {
+    "11": 127,
+    "12": 124,
+    "2": 171,
+    "3": 234,
+    "None": 3
+   },
+   "payload_missing": 4,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 0,
+   "transitions_observed": 0
+  },
+  "2017": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 658
+   },
+   "by_disposition": {
+    "IDENTITY_UNRESOLVED": 1,
+    "NOT_APPLICABLE": 405,
+    "PAYLOAD_MISSING": 4,
+    "VERIFIED_PRESENT": 252
+   },
+   "by_expected_source": {
+    "E1": 662,
+    "E2": 56,
+    "E3": 254,
+    "E4": 0,
+    "E5": 212,
+    "E6": 0
+   },
+   "cells": 662,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 129,
+    "FCS|VERIFIED_PRESENT": 123
+   },
+   "division_i_cells": 252,
+   "division_i_unresolved_cells": 5,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 657,
+    "NO_CODE": 1
+   },
+   "graph_pages_by_code": {
+    "11": 129,
+    "12": 123,
+    "2": 168,
+    "3": 237,
+    "None": 1
+   },
+   "payload_missing": 4,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 0,
+   "transitions_observed": 2
+  },
+  "2018": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 662
+   },
+   "by_disposition": {
+    "NOT_APPLICABLE": 407,
+    "SOURCE_ABSENT": 2,
+    "VERIFIED_PRESENT": 255
+   },
+   "by_expected_source": {
+    "E1": 662,
+    "E2": 56,
+    "E3": 255,
+    "E4": 2,
+    "E5": 219,
+    "E6": 0
+   },
+   "cells": 664,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 130,
+    "FCS|VERIFIED_PRESENT": 125
+   },
+   "division_i_cells": 255,
+   "division_i_unresolved_cells": 2,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 662
+   },
+   "graph_pages_by_code": {
+    "11": 130,
+    "12": 125,
+    "2": 167,
+    "3": 240
+   },
+   "payload_missing": 0,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 0,
+   "transitions_observed": 2
+  },
+  "2019": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 660
+   },
+   "by_disposition": {
+    "NOT_APPLICABLE": 404,
+    "SOURCE_ABSENT": 1,
+    "VERIFIED_PRESENT": 256
+   },
+   "by_expected_source": {
+    "E1": 660,
+    "E2": 57,
+    "E3": 256,
+    "E4": 1,
+    "E5": 217,
+    "E6": 0
+   },
+   "cells": 661,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 130,
+    "FCS|VERIFIED_PRESENT": 126
+   },
+   "division_i_cells": 256,
+   "division_i_unresolved_cells": 1,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 660
+   },
+   "graph_pages_by_code": {
+    "11": 130,
+    "12": 126,
+    "2": 167,
+    "3": 237
+   },
+   "payload_missing": 0,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 0,
+   "transitions_observed": 3
+  },
+  "2020": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 263
+   },
+   "by_disposition": {
+    "NOT_APPLICABLE": 36,
+    "SOURCE_ABSENT": 394,
+    "VERIFIED_PRESENT": 227
+   },
+   "by_expected_source": {
+    "E1": 263,
+    "E2": 57,
+    "E3": 230,
+    "E4": 394,
+    "E5": 144,
+    "E6": 0
+   },
+   "cells": 657,
+   "division_i_by_label_and_disposition": {
+    "FBS|SOURCE_ABSENT": 1,
+    "FBS|VERIFIED_PRESENT": 128,
+    "FCS|SOURCE_ABSENT": 3,
+    "FCS|VERIFIED_PRESENT": 99
+   },
+   "division_i_cells": 231,
+   "division_i_unresolved_cells": 388,
+   "e4_division_i_adjacent": 31,
+   "graph_decode_states": {
+    "DECODED": 263
+   },
+   "graph_pages_by_code": {
+    "11": 128,
+    "12": 99,
+    "2": 36
+   },
+   "payload_missing": 0,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 0,
+   "transitions_observed": 2
+  },
+  "2021": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 653
+   },
+   "by_disposition": {
+    "NOT_APPLICABLE": 395,
+    "SOURCE_ABSENT": 1,
+    "VERIFIED_PRESENT": 258
+   },
+   "by_expected_source": {
+    "E1": 653,
+    "E2": 57,
+    "E3": 258,
+    "E4": 1,
+    "E5": 227,
+    "E6": 0
+   },
+   "cells": 654,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 130,
+    "FCS|VERIFIED_PRESENT": 128
+   },
+   "division_i_cells": 258,
+   "division_i_unresolved_cells": 1,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 653
+   },
+   "graph_pages_by_code": {
+    "11": 130,
+    "12": 128,
+    "2": 166,
+    "3": 229
+   },
+   "payload_missing": 0,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 2,
+   "transitions_observed": 0
+  },
+  "2022": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 656
+   },
+   "by_disposition": {
+    "IDENTITY_UNRESOLVED": 1,
+    "NOT_APPLICABLE": 394,
+    "SOURCE_ABSENT": 2,
+    "VERIFIED_PRESENT": 261
+   },
+   "by_expected_source": {
+    "E1": 656,
+    "E2": 57,
+    "E3": 261,
+    "E4": 2,
+    "E5": 228,
+    "E6": 0
+   },
+   "cells": 658,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 131,
+    "FCS|VERIFIED_PRESENT": 130
+   },
+   "division_i_cells": 261,
+   "division_i_unresolved_cells": 3,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 655,
+    "NO_CODE": 1
+   },
+   "graph_pages_by_code": {
+    "11": 131,
+    "12": 130,
+    "2": 164,
+    "3": 230,
+    "None": 1
+   },
+   "payload_missing": 0,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 0,
+   "transitions_observed": 4
+  },
+  "2023": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 654
+   },
+   "by_disposition": {
+    "NOT_APPLICABLE": 393,
+    "SOURCE_ABSENT": 2,
+    "VERIFIED_PRESENT": 261
+   },
+   "by_expected_source": {
+    "E1": 654,
+    "E2": 57,
+    "E3": 261,
+    "E4": 2,
+    "E5": 229,
+    "E6": 0
+   },
+   "cells": 656,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 133,
+    "FCS|VERIFIED_PRESENT": 128
+   },
+   "division_i_cells": 261,
+   "division_i_unresolved_cells": 2,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 654
+   },
+   "graph_pages_by_code": {
+    "11": 133,
+    "12": 128,
+    "2": 164,
+    "3": 229
+   },
+   "payload_missing": 0,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 1,
+   "transitions_observed": 3
+  },
+  "2024": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 656
+   },
+   "by_disposition": {
+    "IDENTITY_UNRESOLVED": 1,
+    "NOT_APPLICABLE": 392,
+    "VERIFIED_PRESENT": 263
+   },
+   "by_expected_source": {
+    "E1": 656,
+    "E2": 57,
+    "E3": 0,
+    "E4": 0,
+    "E5": 230,
+    "E6": 260
+   },
+   "cells": 656,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 134,
+    "FCS|VERIFIED_PRESENT": 129
+   },
+   "division_i_cells": 263,
+   "division_i_unresolved_cells": 1,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 655,
+    "NO_CODE": 1
+   },
+   "graph_pages_by_code": {
+    "11": 134,
+    "12": 129,
+    "2": 162,
+    "3": 230,
+    "None": 1
+   },
+   "payload_missing": 0,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 0,
+   "transitions_observed": 3
+  },
+  "2025": {
+   "bat554_parser_crosscheck": {
+    "SUBSET": 657
+   },
+   "by_disposition": {
+    "NOT_APPLICABLE": 392,
+    "VERIFIED_PRESENT": 265
+   },
+   "by_expected_source": {
+    "E1": 657,
+    "E2": 58,
+    "E3": 0,
+    "E4": 0,
+    "E5": 230,
+    "E6": 260
+   },
+   "cells": 657,
+   "division_i_by_label_and_disposition": {
+    "FBS|VERIFIED_PRESENT": 136,
+    "FCS|VERIFIED_PRESENT": 129
+   },
+   "division_i_cells": 265,
+   "division_i_unresolved_cells": 0,
+   "e4_division_i_adjacent": 0,
+   "graph_decode_states": {
+    "DECODED": 657
+   },
+   "graph_pages_by_code": {
+    "11": 136,
+    "12": 129,
+    "2": 161,
+    "3": 231
+   },
+   "payload_missing": 0,
+   "ranking_link_identity_mismatched_pages": 0,
+   "transitions_across_unobserved_season": 0,
+   "transitions_observed": 4
+  }
+ },
+ "single_source_2024_2025": {
+  "exposure": "EXPOSED_NOT_PROTECTED",
+  "reconciliation_state": "SINGLE_SOURCE_UNRECONCILED"
+ },
+ "state": "PARTIAL_TRANCHE_RECONCILED_2016_2023_SINGLE_SOURCE_2024_2025"
+}

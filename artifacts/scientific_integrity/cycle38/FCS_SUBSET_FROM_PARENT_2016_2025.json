@@ -1,0 +1,64 @@
+{
+ "artifact_type": "FCS_AND_FBS_ESTIMAND_SUBSETS_FROM_PARENT_2016_2025",
+ "attempt_number": 1,
+ "cycle_number": 38,
+ "historical_audit_unit": "HT38-NATIONAL-DI-CONTEST-2016-2025",
+ "identities": {
+  "contest": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+  "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+  "first_output_issued_at_utc": "2026-10-02T04:25:07Z",
+  "program_season": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+  "query_db": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27"
+ },
+ "jira_key": "BAT-710",
+ "manager_semantic_join_still_required": true,
+ "new_pre_2016_units": 0,
+ "non_claims": [
+  "no PIT or known-at authority",
+  "predictive skill NOT_ESTABLISHED",
+  "no strength comparability or FCS translation",
+  "no pre-2016 or 2026 completeness",
+  "no scientific trust (UNTRUSTED_SHADOW and the closed trust gate remain)",
+  "no Jira acceptance",
+  "no champion, A&M lift or Aggie Excess effect",
+  "no reuse or citation of Cycle30 proven_pit_training_rows=36 or kernel_trust_usable=true (AGENTS rule 8 discrepancy retained for BAT-700)"
+ ],
+ "predecessors": [
+  {
+   "path": "artifacts/scientific_integrity/cycle30/FCS_SUBSET_FROM_PARENT_SUMMARY.json",
+   "sha256": "62e0b6a8acda077f1b27e962c7810efd2cac2cfded09f5f6cae01551fe8cd992"
+  },
+  {
+   "path": "artifacts/scientific_integrity/cycle29/PIT_KERNEL_POPULATION_SCOPE_AND_SUBDIVISION_GATE.json",
+   "sha256": "22dc21e0674063bd14e693efbf53f6efff3b8899cd29ea906627976694397088"
+  },
+  {
+   "path": "ops/cycle29_work/outputs/HISTORICAL_FCS_EXPECTED_GAME_POPULATION.jsonl",
+   "sha256": "aeb7cf251eae59b68c521f80d5afd3ba107fd22ff61c3fc6474b9ec594a657c7"
+  }
+ ],
+ "proof": {
+  "FBS_ESTIMAND_SUBSET": {
+   "distinct": 7608,
+   "rows": 7608,
+   "subset_of_parent": true
+  },
+  "FCS_SUBSET": {
+   "distinct": 7777,
+   "rows": 7777,
+   "subset_of_parent": true
+  }
+ },
+ "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+ "rules": {
+  "FBS_ESTIMAND_SUBSET": "both participants decoded code 11 in that season",
+  "FCS_SUBSET": "at least one participant decoded code 12 in that season"
+ },
+ "scope": "HISTORICAL_NATIONAL 2016-2025 program-seasons; contests 2016-2025, reconciled 2016-2023 only",
+ "single_source_2024_2025": {
+  "exposure": "EXPOSED_NOT_PROTECTED",
+  "reconciliation_state": "SINGLE_SOURCE_UNRECONCILED"
+ },
+ "state": "PARTIAL_TRANCHE_RECONCILED_2016_2023_SINGLE_SOURCE_2024_2025",
+ "subset_identity": "a6dec64eb279ce267e49043457a1239321dd7cc73dbd9b9b91b53ed6dcfcd758"
+}

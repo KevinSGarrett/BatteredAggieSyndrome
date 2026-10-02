@@ -1,0 +1,40 @@
+{
+ "artifact_type": "NATIONAL_DI_POPULATION_2016_2025_GATE",
+ "attempt_number": 1,
+ "cycle_number": 38,
+ "historical_audit_unit": "HT38-NATIONAL-DI-CONTEST-2016-2025",
+ "identities": {
+  "contest": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+  "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+  "first_output_issued_at_utc": "2026-10-02T04:25:07Z",
+  "program_season": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+  "query_db": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27"
+ },
+ "jira_key": "BAT-710",
+ "lake_roots": {
+  "canonical": "canonical/national_di_population_2016_2025/sha256/<identity>",
+  "manifests": "manifests/national_di_population_2016_2025/sha256/<identity>"
+ },
+ "new_pre_2016_units": 0,
+ "non_claims": [
+  "no PIT or known-at authority",
+  "predictive skill NOT_ESTABLISHED",
+  "no strength comparability or FCS translation",
+  "no pre-2016 or 2026 completeness",
+  "no scientific trust (UNTRUSTED_SHADOW and the closed trust gate remain)",
+  "no Jira acceptance",
+  "no champion, A&M lift or Aggie Excess effect",
+  "no reuse or citation of Cycle30 proven_pit_training_rows=36 or kernel_trust_usable=true (AGENTS rule 8 discrepancy retained for BAT-700)"
+ ],
+ "predecessor": {
+  "path": "artifacts/data_lake/national_tiered_game_spine_gate.json",
+  "sha256": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5"
+ },
+ "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+ "scope": "HISTORICAL_NATIONAL 2016-2025 program-seasons; contests 2016-2025, reconciled 2016-2023 only",
+ "single_source_2024_2025": {
+  "exposure": "EXPOSED_NOT_PROTECTED",
+  "reconciliation_state": "SINGLE_SOURCE_UNRECONCILED"
+ },
+ "state": "PARTIAL_TRANCHE_RECONCILED_2016_2023_SINGLE_SOURCE_2024_2025"
+}

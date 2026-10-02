@@ -6,7 +6,7 @@
   "attempt_number": 1,
   "governing_plan": "TP39-A01 revision 2026-10-02.1 sections 1-7 (Cycle #39 Attempt #1, BAT-711)",
   "classification": "RETROSPECTIVE_OBSERVATION_LAYER_NOT_PIT_NOT_TRAINING_MATRIX",
-  "population": "national_history_prefix_2016_2023",
+  "population_id": "national_history_prefix_2016_2023",
   "historical_audit_unit": "HT39-HISTORY-PREFIX-2016-2023",
   "parent_binding": {
     "contract_id": "BAT-710-NATIONAL-DI-POPULATION-2016-2025-V1.3",

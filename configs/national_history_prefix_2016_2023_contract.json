@@ -1,0 +1,472 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-711-NATIONAL-HISTORY-PREFIX-2016-2023-V1.0",
+  "jira_key": "BAT-711",
+  "cycle_number": 39,
+  "attempt_number": 1,
+  "governing_plan": "TP39-A01 revision 2026-10-02.1 sections 1-7 (Cycle #39 Attempt #1, BAT-711)",
+  "classification": "RETROSPECTIVE_OBSERVATION_LAYER_NOT_PIT_NOT_TRAINING_MATRIX",
+  "population_id": "national_history_prefix_2016_2023",
+  "historical_audit_unit": "HT39-HISTORY-PREFIX-2016-2023",
+  "parent_binding": {
+    "contract_id": "BAT-710-NATIONAL-DI-POPULATION-2016-2025-V1.3",
+    "contract_path": "configs/national_di_population_2016_2025_contract.json",
+    "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+    "query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+    "sqlite_file": "national_population.sqlite",
+    "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172",
+    "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+    "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+    "schema_version": "BAS-NATIONAL-DI-POPULATION-DB-1",
+    "parent_contest_rows": 15520,
+    "delivery_manifest_sha256": "ebb1ff1d93a26a017cbe120efc68a7f23c8748f2ee5b3bcc0849e493c76932e6",
+    "location": "<data>/canonical/national_di_population_2016_2025/sha256/<query_db_identity>/national_population.sqlite",
+    "manifest_location": "<data>/manifests/national_di_population_2016_2025/sha256/<query_db_identity>/run_manifest.json",
+    "verification": "Before any output the producer and validator rehash the parent SQLite file, recompute the parent manifest identity document hash and compare both, the contest/program-season identities and the parent contract hash with this binding; any difference refuses (PARENT_BINDING_MISMATCH). Parents are never inferred from the newest directory.",
+    "read_only": "the parent is opened through a file:...?mode=ro URI; nothing is written to the parent root"
+  },
+  "authority": {
+    "observation_authority": "RETROSPECTIVE_OBSERVATION_ONLY",
+    "pit_eligibility": "PIT_ELIGIBILITY_NOT_ESTABLISHED",
+    "temporal_basis": "CALENDAR_DATE_ORDER_ONLY_NOT_PUBLICATION_TIME",
+    "rule": "Every delivered row carries the three labels above. Calendar order is not historical publication or availability authority. No known-at instant, UTC cutoff, midnight instant, 12-hour or 3-day publication bound is invented or adopted (the BAT-666 conservative bound in configs/historical_known_at_authority_contract.json is not adopted by this contract).",
+    "require_pit": "REFUSED_PIT_ELIGIBILITY_NOT_ESTABLISHED",
+    "forbidden_consumption": "Not a PIT training matrix, model input, fit, performance experiment or replacement of BAT-654/BAT-691 artifacts; never labelled ADMITTED. A later source-time admission needs actual evidence and a separate reviewed contract.",
+    "forged_authority": "A contract or payload declaring any other observation_authority, pit_eligibility or temporal_basis value, or any known_at/cutoff/admission field, refuses (FORGED_PIT_AUTHORITY / UNKNOWN_FIELD).",
+    "holds": "No scientific-trust, protected-lane or other hold is released."
+  },
+  "scope": {
+    "target_seasons": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "protected_seasons": [
+      2024,
+      2025
+    ],
+    "prospective_seasons": [
+      2026
+    ],
+    "protected_rule": "2024/2025 (historically exposed, not sealed/blind/protected for model selection) and prospective 2026 never enter the target or prior populations. For parent rows outside 2016-2023 the producer reads only contest_key and season; outcome columns are never selected.",
+    "target_subset": "FBS_ESTIMAND_SUBSET",
+    "target_subset_definition": "parent subset_membership rows with subset FBS_ESTIMAND_SUBSET (parent rule: both participants decoded code 11 in that season)",
+    "subset_field_consistency": "For 2016-2023, subset membership must equal (a_division_label = 'FBS' AND b_division_label = 'FBS') in both directions; any disagreement refuses the build (SUBSET_FIELD_INCONSISTENT). Membership is never projected from another season.",
+    "a_and_m": "Texas A&M is an ordinary member of the national population; no special handling."
+  },
+  "predicates": {
+    "order": [
+      "DISPOSITION",
+      "RECONCILIATION",
+      "STATUS",
+      "COMPETITIVE",
+      "DATE",
+      "ORG_KEYS",
+      "SCORES"
+    ],
+    "DISPOSITION": {
+      "rule": "disposition = 'VERIFIED_PRESENT'",
+      "reason": "DISPOSITION_NOT_VERIFIED_PRESENT"
+    },
+    "RECONCILIATION": {
+      "rule": "reconciliation_state = 'RECONCILED_2016_2023'",
+      "reason": "RECONCILIATION_NOT_RECONCILED_2016_2023"
+    },
+    "STATUS": {
+      "rule": "contest_status = 'COMPLETED'",
+      "reason": "STATUS_NOT_COMPLETED"
+    },
+    "COMPETITIVE": {
+      "rule": "competitive is the integer 1",
+      "reason": "NOT_COMPETITIVE"
+    },
+    "DATE": {
+      "rule": "contest_date is a valid ISO calendar date YYYY-MM-DD that round-trips, and contest_dates_observed (when present) lists exactly that one distinct date",
+      "reasons": [
+        "DATE_INVALID",
+        "DATE_NOT_SINGLE"
+      ]
+    },
+    "ORG_KEYS": {
+      "rule": "a_key and b_key match ^org:[0-9]+$, equal 'org:' + a_org_id / b_org_id, and differ",
+      "reasons": [
+        "ORG_KEY_NOT_STABLE",
+        "ORG_KEYS_NOT_DISTINCT"
+      ]
+    },
+    "SCORES": {
+      "rule": "a_points and b_points are integers (not booleans) >= 0",
+      "reasons": [
+        "SCORE_MISSING",
+        "SCORE_NOT_NONNEGATIVE_INTEGER"
+      ]
+    },
+    "all_reasons_recorded": "every failing predicate contributes its reason; a missing or invalid prerequisite is an explicit exclusion, never a zero or a silent deletion"
+  },
+  "target_universe": {
+    "rule": "every 2016-2023 parent contest; a history target is emitted only for FBS_ESTIMAND_SUBSET members passing every predicate",
+    "not_in_subset_reason": "NOT_IN_FBS_ESTIMAND_SUBSET",
+    "expected_parent_subset_keys": "derived from the bound parent at build time and reported; no expected eligible count is fixed in this contract"
+  },
+  "history_pool": {
+    "rule": "every 2016-2023 parent contest passing every predicate, regardless of FBS/FCS/outside-division classification of either participant",
+    "identity": "participants are matched by organization key only, never by display name; aliases and renames are inherited from the parent's stable organization keys",
+    "division_labels": "each contributing contest reports the contemporaneous division labels of its own parent row; nothing is projected backward or forward"
+  },
+  "history_rules": {
+    "views": "each emitted target yields exactly two views, A (team = parent a side) and B (team = parent b side), from the same target key; the current opponent is the other participant of that target contest",
+    "eligible_prior": "same parent season label as the target and contest_date strictly less than the target contest_date",
+    "excluded_from_history": "both orientations of the target, every same-date contest and every later contest",
+    "season_to_date": "season labels must match; 2020 follows the parent 2020-21 academic-year rule (fall 2020 plus spring 2021 under season 2020), never Gregorian-year filtering",
+    "opponent_history": "reconstructed independently for the actual opposing organization at the same target date; never copied from the opponent's terminal or another target's row",
+    "excluded_inputs": "same-season contests of the team (matched by organization key) dated strictly before the target, dated on the target date (other than the target) or with an invalid date, that fail the pool predicates or are same-date, are listed with exact reasons and never counted",
+    "lineage_order": "contributing contests and excluded inputs are ordered by (contest_date, contest_key); invalid dates sort first as an empty string",
+    "lineage_fields": "each contributing contest names its parent contest_key, contest_date, the team's side (A/B), the opponent organization key and its contemporaneous division label from that same parent row, points_for, points_against and result; every other parent field is reachable through contest_key"
+  },
+  "aggregates": {
+    "fields": [
+      "games",
+      "wins",
+      "losses",
+      "ties",
+      "points_for_total",
+      "points_against_total",
+      "margin_total"
+    ],
+    "result_rule": "W when points_for > points_against, L when less, T when equal",
+    "margin_total": "points_for_total - points_against_total",
+    "rates": {
+      "win_rate": "numerator wins, denominator games",
+      "points_for_mean": "numerator points_for_total, denominator games",
+      "points_against_mean": "numerator points_against_total, denominator games",
+      "margin_mean": "numerator margin_total, denominator games"
+    },
+    "rational_serialization": "a rate is the JSON object {\"numerator\": <int>, \"denominator\": <int>} with denominator = games > 0, unreduced; no floating-point value is part of any payload or identity",
+    "cold_start": "games = 0 gives history_state COLD_START, rate_denominator 0 and every rate null; never 0% or a prior",
+    "history_state": [
+      "COLD_START",
+      "HAS_PRIOR_CONTESTS"
+    ]
+  },
+  "label_separation": {
+    "rule": "target scores/results live only in the separate labels payload and the target_labels table; target and history records never contain the target's points, margin or result",
+    "statement": "retrospective target separation, not proof of PIT availability"
+  },
+  "payloads": {
+    "schema_version": "BAS-NATIONAL-HISTORY-PREFIX-PAYLOAD-1",
+    "files": {
+      "targets.jsonl": {
+        "grain": "target contest",
+        "order": "season, contest_date, contest_key"
+      },
+      "history.jsonl": {
+        "grain": "target contest x view (A, B)",
+        "order": "season, target_date, target_contest_key, view"
+      },
+      "exclusions.jsonl": {
+        "grain": "2016-2023 parent contest not emitted as a target",
+        "order": "season, contest_date, contest_key"
+      },
+      "labels.jsonl": {
+        "grain": "target contest outcome label",
+        "order": "season, contest_date, contest_key"
+      },
+      "out_of_scope.jsonl": {
+        "grain": "parent contest outside 2016-2023 (key and season only)",
+        "order": "season, contest_key"
+      }
+    },
+    "census_rule": "targets + exclusions + out_of_scope partition every parent contest key exactly once (15,520 for the bound parent)",
+    "serialization": {
+      "encoding": "UTF-8 without BOM",
+      "record": "json.dumps(record, sort_keys=True, separators=(',', ':'), ensure_ascii=False)",
+      "newline": "one record per line, LF, a final LF after the last record, no blank lines",
+      "numbers": "integers only; booleans only for flags; null for absent values; any float refuses",
+      "closed_schema": "records carry exactly the fields of their record_type; any other field (for example rank, elo, venue, home_*, known_at, cutoff, admitted) refuses (UNKNOWN_FIELD)"
+    },
+    "row_labels": {
+      "observation_authority": "RETROSPECTIVE_OBSERVATION_ONLY",
+      "pit_eligibility": "PIT_ELIGIBILITY_NOT_ESTABLISHED",
+      "temporal_basis": "CALENDAR_DATE_ORDER_ONLY_NOT_PUBLICATION_TIME"
+    },
+    "record_fields": {
+      "target": [
+        "record_type",
+        "contest_key",
+        "ncaa_contest_id",
+        "season",
+        "term",
+        "contest_date",
+        "a_key",
+        "b_key",
+        "a_org_id",
+        "b_org_id",
+        "a_team_name",
+        "b_team_name",
+        "a_team_season_id",
+        "b_team_season_id",
+        "a_division_label",
+        "b_division_label",
+        "classification_pair",
+        "parent_site",
+        "neutral_site_text",
+        "source",
+        "cfbd_game_ids",
+        "parent_disposition",
+        "parent_reconciliation_state",
+        "views",
+        "observation_authority",
+        "pit_eligibility",
+        "temporal_basis"
+      ],
+      "history_view": [
+        "record_type",
+        "target_contest_key",
+        "view",
+        "season",
+        "term",
+        "target_date",
+        "prior_rule",
+        "team_key",
+        "team_org_id",
+        "team_name",
+        "team_division_label",
+        "opponent_key",
+        "opponent_org_id",
+        "opponent_name",
+        "opponent_division_label",
+        "team_history",
+        "opponent_history",
+        "observation_authority",
+        "pit_eligibility",
+        "temporal_basis"
+      ],
+      "history_block": [
+        "team_key",
+        "season",
+        "history_state",
+        "games",
+        "wins",
+        "losses",
+        "ties",
+        "points_for_total",
+        "points_against_total",
+        "margin_total",
+        "rate_denominator",
+        "win_rate",
+        "points_for_mean",
+        "points_against_mean",
+        "margin_mean",
+        "contributing_contest_keys",
+        "contributing",
+        "excluded_inputs"
+      ],
+      "contributing": [
+        "contest_key",
+        "contest_date",
+        "side",
+        "opponent_key",
+        "opponent_division_label",
+        "points_for",
+        "points_against",
+        "result"
+      ],
+      "excluded_input": [
+        "contest_key",
+        "contest_date",
+        "opponent_key",
+        "reasons"
+      ],
+      "rate": [
+        "numerator",
+        "denominator"
+      ],
+      "exclusion": [
+        "record_type",
+        "contest_key",
+        "ncaa_contest_id",
+        "season",
+        "term",
+        "contest_date",
+        "a_key",
+        "b_key",
+        "a_team_name",
+        "b_team_name",
+        "classification_pair",
+        "fbs_estimand_subset",
+        "target_exclusion_reasons",
+        "history_pool_member",
+        "history_pool_exclusion_reasons",
+        "parent_disposition",
+        "parent_reconciliation_state",
+        "parent_contest_status",
+        "parent_competitive",
+        "score_state",
+        "observation_authority",
+        "pit_eligibility",
+        "temporal_basis"
+      ],
+      "target_label": [
+        "record_type",
+        "contest_key",
+        "season",
+        "contest_date",
+        "a_key",
+        "b_key",
+        "a_points",
+        "b_points",
+        "a_margin",
+        "a_result",
+        "b_result",
+        "label_authority",
+        "observation_authority",
+        "pit_eligibility",
+        "temporal_basis"
+      ],
+      "out_of_scope": [
+        "record_type",
+        "contest_key",
+        "season",
+        "reason",
+        "observation_authority",
+        "pit_eligibility",
+        "temporal_basis"
+      ]
+    },
+    "record_fields_note": "exact field set per record_type and nested object; history_block/contributing/excluded_input/rate are nested in history_view records"
+  },
+  "identity_scheme": {
+    "canonical_root": "canonical/national_history_prefix_2016_2023/sha256/<id>/",
+    "manifest_root": "manifests/national_history_prefix_2016_2023/sha256/<id>/run_manifest.json",
+    "content_identity": "sha256 of the canonical JSON content identity document {schema, stage: history-content, population, contract_id, contract_sha256, parent binding, payload_schema, outputs: {payload file: sha256}, row_counts}",
+    "database_identity": "sha256 of the canonical JSON database identity document {schema, stage: history-database, population, contract_sha256, content_identity, db_schema_version, outputs: {national_history.sqlite: sha256}, table_counts}",
+    "canonical_json": "json.dumps(document, sort_keys=True, separators=(',', ':'), ensure_ascii=False) encoded UTF-8",
+    "nonsemantic_provenance": "issued_at_utc, argv, tool paths, runtime versions, build variant and timings live in the run manifest's provenance object outside every identity document",
+    "physical_sqlite": "the database identity binds the exact SQLite bytes; different SQLite bytes for the same content produce a different database identity in its own directory and are never called identical",
+    "create_only": "an existing identity directory whose files equal the new bytes is reported ALREADY_PRESENT_IDENTICAL and not rewritten; any difference refuses (REFUSED_IMMUTABLE_COLLISION); nothing is overwritten",
+    "contract_change": "a different contract sha256 yields new identities in new directories"
+  },
+  "database": {
+    "file": "national_history.sqlite",
+    "schema_version": "BAS-NATIONAL-HISTORY-PREFIX-DB-1",
+    "tables": {
+      "meta": "key/value: schema_version, contract_id, contract_sha256, content_identity, payload sha256s, parent binding, row labels",
+      "targets": "one row per targets.jsonl record; record column holds the exact payload line",
+      "history": "one row per history.jsonl record",
+      "exclusions": "one row per exclusions.jsonl record",
+      "target_labels": "one row per labels.jsonl record; physically separate and never served by the history query grains"
+    },
+    "determinism": "page_size 4096, journal_mode OFF, rows and then indexes inserted in payload order into a fresh file with no deletes; no VACUUM (it ATTACHes a temporary database, which the canonical write guard refuses)"
+  },
+  "build": {
+    "producer": "tools/build_national_history_prefix.py (standard library only)",
+    "canonical_command": "tools/build_national_history_prefix.py --contract configs/national_history_prefix_2016_2023_contract.json --parent-database <bound parent sqlite> --output-root <data>/canonical/national_history_prefix_2016_2023 --manifest-root <data>/manifests/national_history_prefix_2016_2023",
+    "variants": [
+      {
+        "id": "REVERSE_INPUT",
+        "args": [
+          "--input-order",
+          "reverse"
+        ]
+      },
+      {
+        "id": "SHUFFLE_INPUT_SEED_17",
+        "args": [
+          "--input-order",
+          "shuffle:17"
+        ]
+      },
+      {
+        "id": "CHUNK_1",
+        "args": [
+          "--chunk-size",
+          "1",
+          "--checkpoint-dir",
+          "<scratch>/ck_chunk_1"
+        ]
+      },
+      {
+        "id": "CHUNK_17",
+        "args": [
+          "--chunk-size",
+          "17",
+          "--checkpoint-dir",
+          "<scratch>/ck_chunk_17"
+        ]
+      },
+      {
+        "id": "CHUNK_257",
+        "args": [
+          "--chunk-size",
+          "257",
+          "--checkpoint-dir",
+          "<scratch>/ck_chunk_257"
+        ]
+      },
+      {
+        "id": "INTERRUPT_RESUME_17",
+        "args": [
+          "--chunk-size",
+          "17",
+          "--checkpoint-dir",
+          "<scratch>/ck_resume_17",
+          "--stop-after-chunks",
+          "100"
+        ],
+        "then": [
+          "--chunk-size",
+          "17",
+          "--checkpoint-dir",
+          "<scratch>/ck_resume_17",
+          "--resume"
+        ]
+      }
+    ],
+    "variant_outputs": "variants write to owned scratch output/manifest roots; every variant must reproduce the canonical content identity byte for byte; a different SQLite physical identity is reported, never merged",
+    "checkpoint": {
+      "header": "checkpoint.json binds schema, contract_sha256, parent query_db_identity and sqlite_sha256, payload schema, chunk size, target key list sha256 and count, census sha256 and producer sha256",
+      "ledger": "checkpoint.ledger.jsonl appends one line per completed chunk {index, count, first_key, last_key, keys_sha256, chunk_sha256, prefix_sha256 = sha256(previous prefix_sha256 + chunk_sha256)}",
+      "resume": "--resume verifies the header, every ledger line, every chunk file hash, the expected key slice and the chained prefix; any difference refuses (REFUSED_STALE_CHECKPOINT, REFUSED_ALTERED_PREFIX, REFUSED_FORKED_CHECKPOINT); an existing checkpoint directory without --resume refuses (CHECKPOINT_EXISTS)",
+      "interruption": "--stop-after-chunks K stops after K completed chunks with exit code 3 (INTERRUPTED_AT_CHECKPOINT) and writes no output root"
+    }
+  },
+  "validator": {
+    "tool": "tools/validate_national_history_prefix.py (standard library only; imports no producer, query or project helper)",
+    "method": "enumerates the parent subset and pool with its own SQL, recomputes every target, view, contributing contest, aggregate, rate and exclusion by brute force, compares every key and field with the delivered payloads and database, rehashes identities, compares the parent SQLite with the parent contest-stage payload, samples raw NCAA page bytes per season stratum plus 2020 spring, and runs coordinated semantic tamper and oracle self-challenge cases",
+    "report": "create-only JSON report"
+  },
+  "query_contract": {
+    "console_script": "bas-national-history-query = aggie_analytics.national_history.query:main",
+    "module": "aggie_analytics.national_history.query (standard library only)",
+    "database_open": "file:...?mode=ro URI; location, database identity document, SQLite bytes, meta/content identity, schema version and table counts verified at open",
+    "grains": [
+      "targets",
+      "history",
+      "exclusions"
+    ],
+    "filters": {
+      "season": "integer",
+      "team": "organization key org:<digits> or bare NCAA organization digits",
+      "contest": "contest key ncaa:<digits> or bare digits"
+    },
+    "paging": "--limit/--offset/--all with exact totals; negative values, unknown or abbreviated flags and malformed filters refuse with exit 2",
+    "out_of_scope_season": "a season outside 2016-2023 returns season_scope_state NOT_YET_AUDITED with zero rows",
+    "require_pit": "--require-pit always refuses with PIT_ELIGIBILITY_NOT_ESTABLISHED (exit 2)",
+    "stale_identity": "--expect-identity that differs from the verified database identity refuses (STALE_DATABASE_IDENTITY)",
+    "labels": "target outcome labels are not served by any grain"
+  },
+  "non_claims": [
+    "no PIT, known-at or publication-time authority; calendar order only",
+    "no model fit, training admission, feature adoption or predictive skill (NOT_ESTABLISHED)",
+    "no strength comparability or FCS translation",
+    "no pre-2016, 2024-2025 or 2026 history",
+    "no scientific trust; holds unchanged",
+    "no Jira acceptance",
+    "no champion, A&M lift or Aggie Excess effect"
+  ]
+}

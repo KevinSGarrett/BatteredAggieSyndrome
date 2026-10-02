@@ -19,10 +19,11 @@ import hashlib
 import html
 import io
 import json
+import os
 import re
 import sqlite3
 import unicodedata
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -42,12 +43,31 @@ PROGRAM_SEASON_DISPOSITIONS = ("VERIFIED_PRESENT", "CANDIDATE_ONLY", "IDENTITY_U
                                "SOURCE_ABSENT", "CONFLICT", "NOT_APPLICABLE", "NOT_YET_AUDITED")
 CONTEST_DISPOSITIONS = ("VERIFIED_PRESENT", "CANDIDATE_ONLY", "IDENTITY_UNRESOLVED", "SOURCE_ABSENT", "CONFLICT",
                         "NOT_YET_AUDITED")
-CONTEST_STATUSES = ("COMPLETED", "CANCELED", "NO_CONTEST", "FORFEIT", "UNSCORED")
+CONTEST_STATUSES = ("COMPLETED", "CANCELED", "NO_CONTEST", "FORFEIT", "UNSCORED", "MIRROR_DISAGREEMENT",
+                    "NOT_OFFICIALLY_OBSERVED")
 RECONCILED = "RECONCILED_2016_2023"
 SINGLE_SOURCE = "SINGLE_SOURCE_UNRECONCILED"
 EXPOSURE_2024_2025 = "EXPOSED_NOT_PROTECTED"
 DIVISION_I_CODES = ("11", "12")
 CODE_FORM_RE = re.compile(r"^(0|[1-9][0-9]*)(\.0)?$")
+FORWARD_MATCH_DAYS = 1
+CFBD_LOCAL_OFFSET_HOURS = (-4, -10)
+SAME_PAIR_WINDOW_DAYS = 7
+SPRING_2020_FROM = "2021-01-16"
+BINDING_THRESHOLDS = {"name_confirmed_min_games": 3, "name_confirmed_min_share": 0.5, "collision_other_max_share": 0.2,
+                      "fingerprint_only_min_games": 5, "fingerprint_only_min_share": 0.8,
+                      "fingerprint_only_runner_up_max_share": 0.2}
+E2_LABEL_MAP = {"FBS": "FBS", "FCS": "FCS", "D-II": "DII", "D-III": "DIII"}
+E2_LABEL_TO_CODE = {"FBS": "11", "FCS": "12", "D-II": "2"}
+RANKING_ACADEMIC_YEAR_OFFSET = 1
+#: Contract ``parameters``; the build refuses a contract whose block differs (the code never silently keeps old values).
+CONTRACT_PARAMETERS = {
+    "forward_match_days": FORWARD_MATCH_DAYS, "cfbd_local_offset_hours": list(CFBD_LOCAL_OFFSET_HOURS),
+    "same_pair_same_score_window_days": SAME_PAIR_WINDOW_DAYS, "spring_2020_from": SPRING_2020_FROM,
+    "binding_thresholds": BINDING_THRESHOLDS, "team_history_label_map": E2_LABEL_MAP,
+    "team_history_label_codes": E2_LABEL_TO_CODE, "ranking_link_academic_year_offset": RANKING_ACADEMIC_YEAR_OFFSET,
+    "contest_status_vocabulary": list(CONTEST_STATUSES), "single_source_exposure": EXPOSURE_2024_2025,
+}
 
 
 class PopulationRefused(ValueError):
@@ -139,6 +159,11 @@ def validate_contract(contract: dict[str, Any]) -> None:
         raise PopulationRefused("CONTRACT_SINGLE_SOURCE_INVALID", "2024-2025 must stay SINGLE_SOURCE_UNRECONCILED")
     if contract.get("historical_audit_unit") != "HT38-NATIONAL-DI-CONTEST-2016-2025":
         raise PopulationRefused("CONTRACT_AUDIT_UNIT_INVALID", "unexpected historical audit unit")
+    if contract.get("parameters") != CONTRACT_PARAMETERS:
+        raise PopulationRefused("CONTRACT_PARAMETERS_MISMATCH",
+                                "the contract parameter block differs from the values this producer implements")
+    if (contract.get("contest_grain") or {}).get("contest_status_vocabulary") != list(CONTEST_STATUSES):
+        raise PopulationRefused("CONTRACT_PARAMETERS_MISMATCH", "contest status vocabulary differs")
 
 
 # ---------------------------------------------------------------------------------------------- outputs
@@ -175,14 +200,24 @@ def identity_document(*, stage: str, contract_sha256: str, inputs: dict[str, Any
             "producer": PRODUCER_VERSION, "inputs": inputs, "upstream": upstream, "outputs": dict(sorted(outputs.items()))}
 
 
+def runtime_versions() -> dict[str, str]:
+    """Recorded in run manifests (outside the identity): output bytes are reproducible on this runtime."""
+    import platform
+    import sys
+    import zlib
+    return {"python": sys.version.split()[0], "implementation": platform.python_implementation(),
+            "zlib": zlib.ZLIB_RUNTIME_VERSION, "sqlite": sqlite3.sqlite_version}
+
+
 def materialize(*, canonical_root: Path, manifest_root: Path, stage: str, contract_sha256: str,
                 inputs: dict[str, Any], upstream: dict[str, Any], files: dict[str, bytes],
                 manifest_extra: dict[str, Any]) -> dict[str, Any]:
     """Write one content-addressed stage root, create-only.
 
-    The identity is the SHA-256 of the canonical identity document, which names every output file's SHA-256. An
-    existing identity whose files hold identical bytes is verified and left untouched (nothing is rewritten); any
-    difference is refused as an immutable collision.
+    The identity is the SHA-256 of the canonical identity document, which names every output file's SHA-256. Data
+    files are written into a temporary sibling and renamed into place, so a root never holds a partial file set. An
+    existing identity whose files hold exactly the same names and bytes is verified and left untouched; anything else
+    is refused as an immutable collision. A verified root without its run manifest gets the manifest written once.
     """
     outputs = {name: sha256_bytes(payload) for name, payload in sorted(files.items())}
     document = identity_document(stage=stage, contract_sha256=contract_sha256, inputs=inputs, upstream=upstream,
@@ -191,32 +226,40 @@ def materialize(*, canonical_root: Path, manifest_root: Path, stage: str, contra
     data_dir = Path(canonical_root) / "sha256" / identity
     manifest_dir = Path(manifest_root) / "sha256" / identity
     manifest_path = manifest_dir / "run_manifest.json"
-    if data_dir.exists() or manifest_dir.exists():
+    written = 0
+    if data_dir.exists():
+        present = sorted(p.name for p in data_dir.iterdir())
+        if present != sorted(files):
+            raise PopulationRefused("IMMUTABLE_COLLISION", f"{data_dir} holds {present}, expected {sorted(files)}")
         for name, payload in files.items():
-            target = data_dir / name
-            if not target.is_file() or target.read_bytes() != payload:
-                raise PopulationRefused("IMMUTABLE_COLLISION", f"{target} exists with different bytes")
-        if not manifest_path.is_file():
-            raise PopulationRefused("IMMUTABLE_COLLISION", f"{manifest_dir} exists without its run manifest")
+            if (data_dir / name).read_bytes() != payload:
+                raise PopulationRefused("IMMUTABLE_COLLISION", f"{data_dir / name} exists with different bytes")
+        state = "ALREADY_PRESENT_IDENTICAL"
+    elif manifest_dir.exists():
+        raise PopulationRefused("IMMUTABLE_COLLISION", f"{manifest_dir} exists without its data root")
+    else:
+        partial = data_dir.parent / f".partial-{identity}-{os.getpid()}"
+        partial.mkdir(parents=True, exist_ok=False)
+        for name, payload in sorted(files.items()):
+            with (partial / name).open("xb") as handle:
+                handle.write(payload)
+            written += len(payload)
+        os.rename(partial, data_dir)
+        state = "MATERIALIZED"
+    if manifest_path.is_file():
         existing = json.loads(manifest_path.read_text(encoding="utf-8"))
         if existing.get("identity_document") != document or existing.get("identity") != identity:
             raise PopulationRefused("IMMUTABLE_COLLISION", f"{manifest_path} binds a different identity document")
-        return {"identity": identity, "state": "ALREADY_PRESENT_IDENTICAL", "data_dir": str(data_dir),
-                "manifest": str(manifest_path), "identity_document": document, "written_bytes": 0}
-    data_dir.mkdir(parents=True, exist_ok=False)
-    written = 0
-    for name, payload in sorted(files.items()):
-        target = data_dir / name
-        with target.open("xb") as handle:
+    else:
+        manifest = {"identity": identity, "identity_document": document, **manifest_extra, "runtime": runtime_versions()}
+        manifest_dir.mkdir(parents=True, exist_ok=True)
+        payload = json_bytes(manifest)
+        with manifest_path.open("xb") as handle:
             handle.write(payload)
         written += len(payload)
-    manifest = {"identity": identity, "identity_document": document, **manifest_extra}
-    manifest_dir.mkdir(parents=True, exist_ok=False)
-    payload = json_bytes(manifest)
-    with manifest_path.open("xb") as handle:
-        handle.write(payload)
-    written += len(payload)
-    return {"identity": identity, "state": "MATERIALIZED", "data_dir": str(data_dir), "manifest": str(manifest_path),
+        if state == "ALREADY_PRESENT_IDENTICAL":
+            state = "MANIFEST_COMPLETED"
+    return {"identity": identity, "state": state, "data_dir": str(data_dir), "manifest": str(manifest_path),
             "identity_document": document, "written_bytes": written}
 
 
@@ -255,6 +298,8 @@ _OPTION_RE = re.compile(r"<option\b([^>]*)>([^<]*)</option>", re.DOTALL)
 _VALUE_RE = re.compile(r'\bvalue="(\d+)"')
 _RANKING_HREF_RE = re.compile(r'href="(/rankings/[^"]*)"')
 _DIVISION_PARAM_RE = re.compile(r"(?:\?|&)division=([^&#]*)")
+_ORG_PARAM_RE = re.compile(r"(?:\?|&)org_id=([^&#]*)")
+_YEAR_PARAM_RE = re.compile(r"(?:\?|&)academic_year=([^&#]*)")
 _SCHEDULE_CARD_RE = re.compile(r'<div class="card-header">\s*Schedule/Results\s*</div>(.*?)</table>', re.DOTALL)
 _SCHEDULE_ROW_RE = re.compile(r'<tr class="underline_rows">(.*?)</tr>', re.DOTALL)
 _TD_RE = re.compile(r"<td\b[^>]*>(.*?)</td>", re.DOTALL)
@@ -273,6 +318,26 @@ def _text(fragment: str) -> str:
 
 def season_label(season: int) -> str:
     return f"{season}-{(season + 1) % 100:02d}"
+
+
+def _canonical_number(value: str) -> str:
+    value = value.strip()
+    return value[:-2] if CODE_FORM_RE.match(value) and value.endswith(".0") else value
+
+
+def page_division_codes(page: dict[str, Any], season: int) -> tuple[list[str], int]:
+    """Codes from ranking links bound to the page's own organization and academic year (season + 1).
+
+    Returns the bound codes and the number of ranking links that name another organization or year (or neither)."""
+    year = str(season + RANKING_ACADEMIC_YEAR_OFFSET)
+    codes: list[str] = []
+    mismatched = 0
+    for link in page.get("ranking_links", []):
+        if link["org_id"] is not None and link["org_id"] == page.get("org_id") and link["academic_year"] == year:
+            codes.extend(link["codes"])
+        elif link["codes"]:
+            mismatched += 1
+    return codes, mismatched
 
 
 def decode_division(raw_codes: list[str], table: dict[str, Any]) -> dict[str, Any]:
@@ -341,16 +406,15 @@ def _parse_result(cell: str) -> dict[str, Any]:
         expected = "W" if mine > theirs else ("L" if mine < theirs else "T")
         if letter != expected:
             flags.append("RESULT_LETTER_CONTRADICTS_SCORE")
-    else:
-        lowered = text.lower()
-        if "cancel" in lowered:
-            result["status"] = "CANCELED"
-        elif "forfeit" in lowered:
-            result["status"] = "FORFEIT"
-        elif "no contest" in lowered:
-            result["status"] = "NO_CONTEST"
-        else:
-            result["status"] = "UNSCORED"
+    # Forfeit and no-contest text anywhere in the cell outranks a stated score: the score stays an observation and
+    # the row is never competitive (contract contest_grain.status_mapping).
+    whole = _text(cell).lower()
+    if "forfeit" in whole:
+        result["status"] = "FORFEIT"
+    elif "no contest" in whole:
+        result["status"] = "NO_CONTEST"
+    elif not score:
+        result["status"] = "CANCELED" if "cancel" in text.lower() else "UNSCORED"
     if contest_id is None:
         flags.append("NO_CONTEST_LINK")
     result["flags"] = flags
@@ -401,9 +465,17 @@ def parse_graph_page(payload: str) -> dict[str, Any]:
     page["season_options"] = options
     page["selected_season_label"], page["selected_team_season_id"] = selected if selected else (None, None)
     raw_codes: list[str] = []
+    links: list[dict[str, Any]] = []
     for href in _RANKING_HREF_RE.findall(payload):
-        raw_codes.extend(_DIVISION_PARAM_RE.findall(html.unescape(href)))
+        query = html.unescape(href)
+        codes = _DIVISION_PARAM_RE.findall(query)
+        raw_codes.extend(codes)
+        org_param = _ORG_PARAM_RE.search(query)
+        year_param = _YEAR_PARAM_RE.search(query)
+        links.append({"codes": codes, "org_id": _canonical_number(org_param.group(1)) if org_param else None,
+                      "academic_year": _canonical_number(year_param.group(1)) if year_param else None})
     page["raw_division_codes"] = raw_codes
+    page["ranking_links"] = links
     schedule = _SCHEDULE_CARD_RE.search(payload)
     rows: list[dict[str, Any]] = []
     if schedule is None:
@@ -549,6 +621,21 @@ def normalize_name(value: str, expansions: dict[str, str]) -> str:
     return " ".join(expansions.get(token, token) for token in re.sub(r"[^a-z0-9]+", " ", folded).split())
 
 
+def cfbd_local_dates(start: str | None) -> list[str]:
+    """Candidate US-local calendar dates of a CFBD UTC instant (contract reconciliation.cfbd_date_basis)."""
+    if not start:
+        return []
+    instant = parse_instant(start)
+    return sorted({(instant + timedelta(hours=hours)).date().isoformat() for hours in CFBD_LOCAL_OFFSET_HOURS})
+
+
+def cfbd_days(game: dict[str, Any], page_date: str | None) -> int | None:
+    """Smallest day distance between an NCAA page date and a CFBD row's candidate local dates."""
+    if not page_date or not game.get("local_dates"):
+        return None
+    return min(_days(local, page_date) for local in game["local_dates"])
+
+
 def load_cfbd_games(path: Path, *, expected_sha256: str, route: str) -> list[dict[str, Any]]:
     raw = Path(path).read_bytes()
     if sha256_bytes(raw) != expected_sha256:
@@ -557,8 +644,7 @@ def load_cfbd_games(path: Path, *, expected_sha256: str, route: str) -> list[dic
     for game in json.loads(raw.decode("utf-8")):
         start = game.get("startDate")
         rows.append({"cfbd_game_id": str(game["id"]), "season": game.get("season"), "season_type": game.get("seasonType"),
-                     "week": game.get("week"), "start_utc": start,
-                     "date": parse_instant(start).date().isoformat() if start else None,
+                     "week": game.get("week"), "start_utc": start, "local_dates": cfbd_local_dates(start),
                      "completed": game.get("completed"), "neutral_site": game.get("neutralSite"),
                      "home_id": str(game["homeId"]) if game.get("homeId") is not None else None,
                      "home_team": game.get("homeTeam"), "home_classification": game.get("homeClassification"),
@@ -617,15 +703,17 @@ def bind_organizations(org_games: dict[str, list[tuple[str, int, int]]], org_nam
     ``org_games`` holds each organization's completed, scored 2016-2023 games in the CFBD-covered scope as
     (date, own points, opponent points). Name-only bindings are never accepted.
     """
+    t = BINDING_THRESHOLDS
     index: dict[tuple[str, int, int], set[str]] = {}
     for game in cfbd_games:
-        if game["home_points"] is None or game["away_points"] is None or not game["date"]:
+        if game["home_points"] is None or game["away_points"] is None or not game["local_dates"]:
             continue
         for team, own, other in ((game["home_id"], game["home_points"], game["away_points"]),
                                  (game["away_id"], game["away_points"], game["home_points"])):
             if team is None:
                 continue
-            index.setdefault((game["date"], int(own), int(other)), set()).add(team)
+            for local in game["local_dates"]:
+                index.setdefault((local, int(own), int(other)), set()).add(team)
     name_index: dict[str, set[str]] = {}
     for team, names in cfbd_names.items():
         for name in names:
@@ -636,7 +724,7 @@ def bind_organizations(org_games: dict[str, list[tuple[str, int, int]]], org_nam
         for game_date, own, other in games:
             day = date.fromisoformat(game_date)
             teams: set[str] = set()
-            for delta in (-1, 0, 1):
+            for delta in range(-FORWARD_MATCH_DAYS, FORWARD_MATCH_DAYS + 1):
                 teams |= index.get((date.fromordinal(day.toordinal() + delta).isoformat(), own, other), set())
             for team in teams:
                 counts[team] = counts.get(team, 0) + 1
@@ -653,21 +741,25 @@ def bind_organizations(org_games: dict[str, list[tuple[str, int, int]]], org_nam
         elif len(candidates) == 1:
             c = candidates[0]
             fc = counts.get(c, 0)
-            if fc >= 3 and fc >= 0.5 * n and best_team == c and strict_max:
+            if (fc >= t["name_confirmed_min_games"] and fc >= t["name_confirmed_min_share"] * n and best_team == c
+                    and strict_max):
                 rule, team = "NAME_CONFIRMED_BY_SCHEDULE", c
                 reason = None
             else:
                 reason = "NAME_CANDIDATE_NOT_CONFIRMED_BY_SCHEDULE"
         elif len(candidates) > 1:
-            qualified = [c for c in candidates if counts.get(c, 0) >= 3 and counts.get(c, 0) >= 0.5 * n]
-            others_low = all(counts.get(c, 0) < 0.2 * n for c in candidates if c not in qualified)
+            qualified = [c for c in candidates if counts.get(c, 0) >= t["name_confirmed_min_games"]
+                         and counts.get(c, 0) >= t["name_confirmed_min_share"] * n]
+            others_low = all(counts.get(c, 0) < t["collision_other_max_share"] * n for c in candidates if c not in qualified)
             if len(qualified) == 1 and others_low and best_team == qualified[0] and strict_max:
                 rule, team = "NAME_COLLISION_DISAMBIGUATED_BY_SCHEDULE", qualified[0]
                 reason = None
             else:
                 reason = "NAME_COLLISION_NOT_DISAMBIGUATED"
         else:
-            if best_team is not None and best >= 5 and best >= 0.8 * n and runner_up <= 0.2 * n:
+            if (best_team is not None and best >= t["fingerprint_only_min_games"]
+                    and best >= t["fingerprint_only_min_share"] * n
+                    and runner_up <= t["fingerprint_only_runner_up_max_share"] * n):
                 rule, team = "SCHEDULE_FINGERPRINT_ONLY", best_team
                 reason = None
             else:
@@ -695,7 +787,6 @@ SRC015_REL = "raw/SRC-015/ncaa_team_season_discovery"
 TEAM_HISTORY_REL = "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_official_team_history"
 FCS_ROUTE_REL = "ops/cycle30_work/raw/games"
 SRC002_REL = "raw/SRC-002/games"
-E2_LABEL_TO_CODE = {"FBS": "11", "FCS": "12", "D-II": "2"}
 
 
 def season_manifests(data_root: Path, season: int) -> list[dict[str, Any]]:
@@ -753,8 +844,8 @@ def classify_absent_pairs(binding: dict[str, Any], manifests: list[dict[str, Any
                 entry.update(page_org_id=page.get("org_id"), page_team_name=page.get("team_name"),
                              page_season_label=page.get("selected_season_label"),
                              page_team_season_id=page.get("selected_team_season_id"))
-                in_season = (page.get("selected_season_label") == season_label(season)
-                             and page.get("selected_team_season_id") == ts)
+                in_season = page.get("selected_season_label") == season_label(season)
+                entry["page_team_season_id_matches_pair"] = page.get("selected_team_season_id") == ts
                 entry["classification"] = ("IN_SEASON_TEAM_SEASON_ABSENT_FROM_BOUND" if in_season
                                            else "OUT_OF_SEASON_PAGE_IN_SUPERSEDED_MANIFEST")
             else:
@@ -795,10 +886,18 @@ def load_graph(contract: dict[str, Any], data_root: Path) -> dict[str, Any]:
                                       capture["raw_relative_path"], "raw_sha256": capture["raw_sha256"],
                                       "rehash_ok": rehash_ok, "link_schema": capture.get("link_schema"),
                                       "manifest_season_options": capture.get("season_options") or {}}
+            if ts in pages:
+                raise PopulationRefused("DUPLICATE_CAPTURE_IN_BOUND_MANIFEST",
+                                        f"season {season} manifest captures team-season {ts} twice")
             if rehash_ok:
                 text = payload.decode("utf-8", errors="replace")
                 page = parse_graph_page(text)
-                page["decode"] = decode_division(page["raw_division_codes"], table)
+                bound_codes, mismatched_links = page_division_codes(page, season)
+                page["bound_division_codes"] = bound_codes
+                page["ranking_links_identity_mismatched"] = mismatched_links
+                if mismatched_links:
+                    page["flags"].append("RANKING_LINK_IDENTITY_MISMATCH")
+                page["decode"] = decode_division(bound_codes, table)
                 page["bat554_parser_crosscheck"] = bat554_crosscheck(text, ts, capture["raw_sha256"], page)
                 if page["bat554_parser_crosscheck"]["state"] != "SUBSET":
                     page["flags"].append("BAT554_PARSER_CROSSCHECK_DISAGREES")
@@ -808,6 +907,12 @@ def load_graph(contract: dict[str, Any], data_root: Path) -> dict[str, Any]:
                     page["flags"].append("PAGE_IDENTITY_MISMATCH")
                 record.update(page=page, identity_ok=identity_ok)
             pages[ts] = record
+        if season in DELIVERY_SEASONS:
+            accounted = set(pages) | {str(f["team_season_id"]) for f in bound["failures"]}
+            missing = sorted(set(bound["discovered_team_season_ids"]) - accounted)
+            if missing:
+                raise PopulationRefused("DISCOVERED_ID_NOT_ACCOUNTED",
+                                        f"season {season}: discovered ids neither captured nor failed: {missing[:10]}")
         classify_absent_pairs(binding, manifests, data_root, season)
         bound_paths = {Path(c["raw_relative_path"]).name for c in bound["captures"]}
         other_paths = {Path(c["raw_relative_path"]).name for m in manifests if m is not bound for c in m["captures"]}
@@ -969,7 +1074,9 @@ def build_program_season(contract: dict[str, Any], data_root: Path, repo_root: P
             org = next(iter(orgs)) if len(orgs) == 1 else None
             c = cell(_key(org, ts, season), season, org)
             add_source(c, "E1")
-            c["ncaa_team_season_id"] = ts
+            if c.get("graph") is not None:
+                c["flags"].append(f"FAILED_CAPTURE_FOR_ORGANIZATION_WITH_PAGE:{ts}")
+            c["ncaa_team_season_id"] = c["ncaa_team_season_id"] or ts
             c["capture_failure"] = {"condition": failure.get("condition"), "attempts": len(failure.get("attempts") or []),
                                     "org_source": ("SEASON_SELECTOR_ADJACENT" if selector_org.get((season, ts))
                                                    else ("OPPONENT_LOGO" if logo_org.get((season, ts)) else None))}
@@ -998,6 +1105,8 @@ def build_program_season(contract: dict[str, Any], data_root: Path, repo_root: P
         c = cell(_key(org, None, season), season, org)
         add_source(c, "E2")
         c["e2"] = row
+        if row.get("variant_conflict"):
+            c["flags"].append("OFFICIAL_HISTORY_VARIANT_CONFLICT")
 
     # identity binding NCAA organization <-> CFBD team (2016-2023 evidence only)
     cfbd_union_by_season = {}
@@ -1085,20 +1194,31 @@ def build_program_season(contract: dict[str, Any], data_root: Path, repo_root: P
     # dispositions, one per cell
     for c in cells.values():
         assign_program_season_disposition(c)
-    transitions = observe_transitions(cells)
+    transitions, across = observe_transitions(cells)
     for c in cells.values():
         tr = transitions.get((c["ncaa_org_id"], c["season"]))
         c["transition_observed"] = bool(tr)
         if tr:
             c["transition"] = tr
+        gap = across.get((c["ncaa_org_id"], c["season"]))
+        if gap:
+            c["transition_across_unobserved"] = gap
+            c["flags"].append("TRANSITION_ACROSS_UNOBSERVED_SEASON")
     return {"graph": graph, "history": history, "cfbd": cfbd, "e6": e6, "cells": cells, "bindings": bindings,
-            "transitions": transitions, "ts_org": ts_org, "code_of": code_of, "cfbd_union_by_season": cfbd_union_by_season}
+            "transitions": transitions, "transitions_across_unobserved": across, "ts_org": ts_org, "code_of": code_of,
+            "cfbd_union_by_season": cfbd_union_by_season}
+
+
+#: Flags that make a program-season cell CONFLICT; the reason is the first triggering flag (contract conflict_rules).
+CELL_CONFLICT_FLAGS = ("DUPLICATE_TEAM_SEASON_PAGES", "SUPERSEDED_PAIR_ABSENT_FROM_BOUND",
+                       "FAILED_CAPTURE_FOR_ORGANIZATION_WITH_PAGE", "OFFICIAL_HISTORY_VARIANT_CONFLICT")
 
 
 def assign_program_season_disposition(c: dict[str, Any]) -> None:
     """Exactly one disposition per expected key (contract program_season_dispositions)."""
     e2 = c.get("e2")
-    e2_label = e2.get("division_label") if e2 else None
+    e2_raw = e2.get("division_label") if e2 else None
+    e2_label = E2_LABEL_MAP.get(e2_raw) if e2_raw else None
     rec = c.get("graph")
     page = rec.get("page") if rec else None
     division_code = division_label = None
@@ -1118,9 +1238,13 @@ def assign_program_season_disposition(c: dict[str, Any]) -> None:
             division_code, division_label = page["decode"]["code"], page["decode"]["label"]
             authority = "GRAPH_PAGE"
             header = (page.get("header_record") or {}).get("text")
-            official_code = E2_LABEL_TO_CODE.get(e2_label) if e2_label else None
-            if e2_label and (official_code != division_code) and not (e2_label == "D-III" and division_code == "3"):
-                disposition, reason = "CONFLICT", f"OFFICIAL_DIVISION_DISAGREEMENT:graph={division_code}:history={e2_label}"
+            official_code = E2_LABEL_TO_CODE.get(e2_raw) if e2_raw else None
+            if e2_raw == "D-III" and division_code == "3":
+                # Consistent but non-proving: code 3 stays OUTSIDE_DI_CODE_3 / INFERRED_UNPROVEN.
+                c["flags"].append("OFFICIAL_D_III_OVER_CODE_3")
+                disposition, reason = "NOT_APPLICABLE", "OUTSIDE_DIVISION_I"
+            elif e2_raw and official_code != division_code:
+                disposition, reason = "CONFLICT", f"OFFICIAL_DIVISION_DISAGREEMENT:graph={division_code}:history={e2_raw}"
             elif division_code in DIVISION_I_CODES:
                 if page.get("header_record") is None:
                     disposition, reason = "CANDIDATE_ONLY", "HEADER_RECORD_UNPARSED"
@@ -1137,16 +1261,20 @@ def assign_program_season_disposition(c: dict[str, Any]) -> None:
         if e2_label:
             # The official label is the division authority; no page code was observed, so none is recorded.
             division_label, authority = e2_label, "OFFICIAL_TEAM_HISTORY_ROW"
-    if any(f.startswith("DUPLICATE_TEAM_SEASON_PAGES") or f.startswith("SUPERSEDED_PAIR_ABSENT_FROM_BOUND")
-           for f in c["flags"]):
-        disposition, reason = "CONFLICT", c["flags"][0]
+        elif e2_raw:
+            disposition, reason = "IDENTITY_UNRESOLVED", f"UNKNOWN_OFFICIAL_LABEL:{e2_raw}"
+    triggering = [f for f in c["flags"] if f.startswith(CELL_CONFLICT_FLAGS)]
+    if triggering:
+        disposition, reason = "CONFLICT", triggering[0]
+        if any(f.startswith("DUPLICATE_TEAM_SEASON_PAGES") for f in triggering):
+            division_code, division_label, authority = None, None, "NONE"
     if page:
         c["team_name"] = page.get("team_name")
     elif e2:
         c["team_name"] = e2.get("team_name")
     if division_label in ("FBS", "FCS"):
         in_di = True
-    elif division_label in ("DII", "D-II", "OUTSIDE_DI_CODE_3", "D-III"):
+    elif division_label in ("DII", "DIII", "OUTSIDE_DI_CODE_3"):
         in_di = False
     else:
         in_di = None
@@ -1158,35 +1286,60 @@ def assign_program_season_disposition(c: dict[str, Any]) -> None:
              observations={"cfbd_e3_classification": (c.get("e3") or {}).get("classification"),
                            "src002_e5_classification": (c.get("e5") or {}).get("classification"),
                            "e6_classification": (c.get("e6") or {}).get("classification"),
-                           "team_history_label": e2_label,
+                           "team_history_label": e2_raw,
                            "team_history_record_state": e2.get("record_state") if e2 else None})
-    if disposition == "SOURCE_ABSENT" and not e2_label:
-        c["division_label"] = "UNKNOWN_NOT_PROJECTED"
+    if disposition in ("SOURCE_ABSENT", "IDENTITY_UNRESOLVED") and authority == "NONE" and not division_code:
+        c["division_label"] = "UNKNOWN_NOT_PROJECTED" if disposition == "SOURCE_ABSENT" else None
         c["in_division_i_population"] = None
 
 
-def observe_transitions(cells: dict[str, dict[str, Any]]) -> dict[tuple[str, int], dict[str, Any]]:
+def observe_transitions(cells: dict[str, dict[str, Any]]
+                        ) -> tuple[dict[tuple[str, int], dict[str, Any]], dict[tuple[str, int], dict[str, Any]]]:
+    """Contemporaneous page-code changes: between consecutive seasons (TRANSITION_OBSERVED) and across seasons that
+    have no decoded page (TRANSITION_ACROSS_UNOBSERVED_SEASON, never projected into the unobserved seasons)."""
     codes: dict[str, dict[int, str]] = {}
     for c in cells.values():
         if c["ncaa_org_id"] and c.get("division_authority") == "GRAPH_PAGE" and c.get("division_code_observed"):
             codes.setdefault(c["ncaa_org_id"], {})[c["season"]] = c["division_code_observed"]
-    result = {}
+    consecutive, across = {}, {}
     for org, by_season in codes.items():
-        for season in DELIVERY_SEASONS[1:]:
-            if season in by_season and season - 1 in by_season and by_season[season] != by_season[season - 1]:
-                result[(org, season)] = {"from_code": by_season[season - 1], "to_code": by_season[season],
-                                         "rule": "contemporaneous codes on each season's own page"}
-    return result
+        observed = sorted(by_season)
+        for earlier, later in zip(observed, observed[1:]):
+            if by_season[later] == by_season[earlier]:
+                continue
+            entry = {"from_code": by_season[earlier], "to_code": by_season[later], "from_season": earlier,
+                     "rule": "contemporaneous codes on each season's own page"}
+            if later == earlier + 1:
+                consecutive[(org, later)] = entry
+            else:
+                across[(org, later)] = {**entry, "unobserved_seasons": list(range(earlier + 1, later))}
+    return consecutive, across
 
 
 # ---------------------------------------------------------------------------------------------- M2: contests
 
 PAIR_RANK = {"FBS": 0, "FCS": 1, "DII": 2, "OUTSIDE_DI_CODE_3": 3, "UNRESOLVED": 4, "NON_NCAA": 5}
-SPRING_2020_FROM = "2021-01-16"
+#: Game-grain inconsistencies that make a contest CONFLICT in every season (contract contest_grain.mirror_disagreement,
+#: duplicate_pair_date, participants).
+MIRROR_FLAG_PREFIXES = ("MIRROR_SCORE_DISAGREEMENT", "MIRROR_STATUS_DISAGREEMENT", "MIRROR_DATE_DISAGREEMENT",
+                        "MIRROR_SITE_DISAGREEMENT", "CONTEST_PARTICIPANTS_INCONSISTENT", "CONTEST_SEASON_INCONSISTENT",
+                        "DUPLICATE_PAIR_DATE")
 
 
 def contest_term(season: int, contest_date: str | None) -> str:
     return "SPRING" if season == 2020 and contest_date and contest_date >= SPRING_2020_FROM else "FALL"
+
+
+def contest_term_observed(season: int, dates: list[str]) -> str:
+    """Term from every observed date: 2020 without a date or straddling 2021-01-16 is UNRESOLVED (never projected)."""
+    if season != 2020:
+        return "FALL"
+    terms = {contest_term(season, d) for d in dates if d}
+    return terms.pop() if len(terms) == 1 else "UNRESOLVED"
+
+
+def mirror_flags(contest: dict[str, Any]) -> list[str]:
+    return [f for f in contest["flags"] if f.startswith(MIRROR_FLAG_PREFIXES)]
 
 
 def _pair_label(code: str | None, label: str | None, external: bool) -> str:
@@ -1257,7 +1410,10 @@ def build_contests(m1: dict[str, Any], cfbd_by_season: dict[int, list[dict[str, 
             flags.append(f"CONTEST_PARTICIPANTS_INCONSISTENT:{len(parts)}")
             parts = sorted(parts, key=lambda p: (p["external"], p["key"]))[:2]
             if len(parts) < 2:
-                continue
+                # Never deleted: the missing second participant is an explicit unresolved placeholder.
+                parts.append({"key": f"unresolved:{key}", "external": False, "org_id": None, "org_source": None,
+                              "team_season_id": None, "team_name": None, "division_code": None,
+                              "membership": "UNRESOLVED", "cell_disposition": None})
         a, b = sorted(parts, key=lambda p: (p["external"], p["key"]))
         division_i = any(p["division_code"] in DIVISION_I_CODES or p["membership"] == "DIVISION_I" for p in (a, b))
         unresolved = any(p["membership"] == "UNRESOLVED" and not p["external"] for p in (a, b))
@@ -1303,21 +1459,33 @@ def build_contests(m1: dict[str, Any], cfbd_by_season: dict[int, list[dict[str, 
             dates.add(o["date"])
             if o["team_points"] is not None:
                 scores.add((o["opponent_points"], o["team_points"]))
+        observed_dates = sorted({d for d in dates if d})
+        # Disagreeing mirrors: the game-grain value is null, every observed value is retained (never one chosen).
         if len(scores) > 1:
             flags.append("MIRROR_SCORE_DISAGREEMENT")
+            a_pts, b_pts = None, None
+        else:
+            a_pts, b_pts = next(iter(scores)) if scores else (None, None)
         if len(statuses) > 1:
             flags.append("MIRROR_STATUS_DISAGREEMENT")
-        if len(dates) > 1:
+            status = "MIRROR_DISAGREEMENT"
+        elif statuses:
+            status = next(iter(statuses))
+        else:  # only reachable with inconsistent participants (already flagged); no status is projected
+            status = "MIRROR_DISAGREEMENT"
+        if len(observed_dates) > 1:
             flags.append("MIRROR_DATE_DISAGREEMENT")
-        status = "COMPLETED" if "COMPLETED" in statuses else sorted(statuses)[0]
-        a_pts, b_pts = (sorted(scores)[0] if scores else (None, None))
-        contest_date = sorted(d for d in dates if d)[0] if any(dates) else None
+            contest_date = None
+        else:
+            contest_date = observed_dates[0] if observed_dates else None
         la = _pair_label(a["division_code"], None, a["external"])
         lb = _pair_label(b["division_code"], None, b["external"])
         contests.append({
             "contest_key": key, "ncaa_contest_id": key.split(":", 1)[1] if key.startswith("ncaa:") else None,
-            "season": g["season"], "term": contest_term(g["season"], contest_date), "contest_date": contest_date,
-            "contest_dates_observed": sorted(d for d in dates if d), "site": site, "neutral_site_text": neutral_site,
+            "season": g["season"], "term": contest_term_observed(g["season"], observed_dates), "contest_date": contest_date,
+            "contest_dates_observed": observed_dates, "site": site, "neutral_site_text": neutral_site,
+            "mirror_scores_observed": [list(s) for s in sorted(scores)] if len(scores) > 1 else None,
+            "contest_statuses_observed": sorted(statuses) if len(statuses) > 1 else None,
             "event_labels": events, "contest_status": status, "competitive": status == "COMPLETED",
             "a_key": a["key"], "a_org_id": a["org_id"], "a_team_season_id": a["team_season_id"],
             "a_team_name": a["team_name"], "a_division_code": a["division_code"], "a_division_label": la,
@@ -1327,6 +1495,17 @@ def build_contests(m1: dict[str, Any], cfbd_by_season: dict[int, list[dict[str, 
             "b_membership": b["membership"], "b_points": b_pts, "b_external": b["external"],
             "classification_pair": classification_pair(la, lb), "mirror_observation_count": len(g["observations"]),
             "source": "NCAA_GRAPH", "flags": sorted(set(flags))})
+
+    # Several contest keys for one season, unordered pair and date are each CONFLICT; none is dropped.
+    by_pair_date: dict[tuple[int, frozenset, str], list[dict[str, Any]]] = {}
+    for c in contests:
+        if c["contest_date"]:
+            by_pair_date.setdefault((c["season"], frozenset((c["a_key"], c["b_key"])), c["contest_date"]), []).append(c)
+    for group in by_pair_date.values():
+        if len(group) > 1:
+            for c in group:
+                c["flags"] = sorted(set(c["flags"]) | {"DUPLICATE_PAIR_DATE"})
+                c["duplicate_pair_date_keys"] = sorted(x["contest_key"] for x in group if x is not c)
 
     reconcile_contests(contests, cfbd_by_season, binding, cfbd_to_org, cells_by_org)
     orientations = [row for c in contests for row in orient(c)]
@@ -1338,19 +1517,49 @@ def _days(a: str, b: str) -> int:
     return abs((date.fromisoformat(a) - date.fromisoformat(b)).days)
 
 
+def _within(game: dict[str, Any], contest: dict[str, Any], days: int = FORWARD_MATCH_DAYS) -> bool:
+    """Any observed NCAA page date within ``days`` of a CFBD candidate local date (contract cfbd_date_basis)."""
+    for observed in contest["contest_dates_observed"]:
+        distance = cfbd_days(game, observed)
+        if distance is not None and distance <= days:
+            return True
+    return False
+
+
+def _oriented(game: dict[str, Any], team: str | None) -> tuple[Any, Any]:
+    """(own points, opponent points) of a CFBD row for one CFBD team id."""
+    if game["home_id"] == team:
+        return game["home_points"], game["away_points"]
+    return game["away_points"], game["home_points"]
+
+
+def _membership(cell: dict[str, Any] | None) -> str:
+    if cell and cell.get("in_division_i_population") is True:
+        return "DIVISION_I"
+    if cell and cell.get("in_division_i_population") is False:
+        return "OUTSIDE_DIVISION_I"
+    return "UNRESOLVED"
+
+
+def _conflict(c: dict[str, Any], reason: str) -> None:
+    c.update(reconciliation_state="CONFLICT", disposition="CONFLICT", disposition_reason=reason)
+
+
 def reconcile_contests(contests: list[dict[str, Any]], cfbd_by_season: dict[int, list[dict[str, Any]]],
                        binding: dict[str, str], cfbd_to_org: dict[str, str],
                        cells_by_org: dict[tuple[str, int], dict[str, Any]]) -> None:
-    """Forward (NCAA->CFBD) and reverse (CFBD->NCAA) joins for 2016-2023; 2024-2025 single source, never joined."""
+    """Forward (NCAA->CFBD) and reverse (CFBD->NCAA) joins for 2016-2023; 2024-2025 single source, never joined.
+
+    Mirror inconsistencies (contract mirror_disagreement, duplicate_pair_date, participants) make a contest CONFLICT in
+    every season after the joins, so its CFBD row is still claimed and never re-emitted as a second contest.
+    """
     for c in contests:
+        c["conflict_fields"] = []
         if c["season"] in SINGLE_SOURCE_SEASONS:
-            mirror = [f for f in c["flags"] if f.startswith("MIRROR_SCORE") or f.startswith("CONTEST_PARTICIPANTS")]
             c.update(reconciliation_state=SINGLE_SOURCE, exposure=EXPOSURE_2024_2025, cfbd_game_ids=[],
-                     disposition="CONFLICT" if mirror else "CANDIDATE_ONLY",
-                     disposition_reason=("MIRROR_INCONSISTENT:" + ",".join(mirror)) if mirror else "SINGLE_SOURCE_UNRECONCILED",
-                     conflict_fields=[])
+                     disposition="CANDIDATE_ONLY", disposition_reason="SINGLE_SOURCE_UNRECONCILED")
         else:
-            c.update(exposure="NOT_APPLICABLE_2016_2023_RECONCILIATION_TRANCHE", cfbd_game_ids=[], conflict_fields=[])
+            c.update(exposure="NOT_APPLICABLE_2016_2023_RECONCILIATION_TRANCHE", cfbd_game_ids=[])
     cfbd_rows_added = []
     for season in TWO_SOURCE_SEASONS:
         games = cfbd_by_season[season]
@@ -1369,24 +1578,17 @@ def reconcile_contests(contests: list[dict[str, Any]], cfbd_by_season: dict[int,
         for c in season_contests:
             ta, tb = binding.get(c["a_org_id"]) if c["a_org_id"] else None, binding.get(c["b_org_id"]) if c["b_org_id"] else None
             c["a_cfbd_team_id"], c["b_cfbd_team_id"] = ta, tb
-            if not c["contest_date"]:
+            if not c["contest_dates_observed"]:
                 continue
             if ta and tb:
-                cands = [g for g in by_pair.get(frozenset((ta, tb)), []) if g["date"] and _days(g["date"], c["contest_date"]) <= 1]
+                cands = [g for g in by_pair.get(frozenset((ta, tb)), []) if _within(g, c)]
                 edges[c["contest_key"]] = [g["cfbd_game_id"] for g in cands]
                 for g in cands:
                     reverse.setdefault(g["cfbd_game_id"], []).append(c["contest_key"])
             elif (ta or tb) and c["competitive"] and c["a_points"] is not None:
                 team, own, other = (ta, c["a_points"], c["b_points"]) if ta else (tb, c["b_points"], c["a_points"])
-                cands = []
-                for g in by_team.get(team, []):
-                    if not g["date"] or _days(g["date"], c["contest_date"]) > 1:
-                        continue
-                    g_own, g_other = ((g["home_points"], g["away_points"]) if g["home_id"] == team
-                                      else (g["away_points"], g["home_points"]))
-                    if g_own == own and g_other == other:
-                        cands.append(g["cfbd_game_id"])
-                single[c["contest_key"]] = cands
+                single[c["contest_key"]] = [g["cfbd_game_id"] for g in by_team.get(team, [])
+                                            if _within(g, c) and _oriented(g, team) == (own, other)]
         game_by_id = {g["cfbd_game_id"]: g for g in games}
         single_claims: dict[str, int] = {}
         for cand in single.values():
@@ -1395,10 +1597,11 @@ def reconcile_contests(contests: list[dict[str, Any]], cfbd_by_season: dict[int,
         matched_games: set[str] = set()
         for c in season_contests:
             key = c["contest_key"]
-            mirror = [f for f in c["flags"] if f.startswith(("MIRROR_SCORE", "MIRROR_STATUS", "CONTEST_PARTICIPANTS",
-                                                              "MIRROR_SITE_DISAGREEMENT"))]
             page_anomaly = [f for f in c["flags"] if f in ("RESULT_LETTER_CONTRADICTS_SCORE", "NEGATIVE_OVERTIME_MARKER")]
-            if key in edges:
+            if not c["contest_dates_observed"]:
+                c.update(reconciliation_state="NOT_RECONCILED_DATE_MISSING", disposition="CANDIDATE_ONLY",
+                         disposition_reason="CONTEST_DATE_MISSING")
+            elif key in edges:
                 cand = edges[key]
                 if len(cand) == 1 and len(reverse.get(cand[0], [])) == 1:
                     g = game_by_id[cand[0]]
@@ -1407,12 +1610,15 @@ def reconcile_contests(contests: list[dict[str, Any]], cfbd_by_season: dict[int,
                     c["cfbd_routes"] = g.get("routes")
                     conflicts = compare_with_cfbd(c, g)
                     c["conflict_fields"] = conflicts
-                    if conflicts or mirror:
-                        c.update(reconciliation_state="CONFLICT", disposition="CONFLICT",
-                                 disposition_reason="FIELD_DISAGREEMENT:" + ",".join([x["field"] for x in conflicts] + mirror))
+                    route = ["CFBD_ROUTE_CONFLICT"] if g.get("route_conflict") else []
+                    if conflicts or route:
+                        _conflict(c, "FIELD_DISAGREEMENT:" + ",".join([x["field"] for x in conflicts] + route))
                     elif not c["competitive"]:
-                        c.update(reconciliation_state="CONFLICT", disposition="CONFLICT",
-                                 disposition_reason="NON_COMPETITIVE_STATUS_BUT_CFBD_GAME")
+                        if g["completed"]:
+                            _conflict(c, "NON_COMPETITIVE_STATUS_BUT_CFBD_GAME")
+                        else:
+                            c.update(reconciliation_state=RECONCILED, disposition="CANDIDATE_ONLY",
+                                     disposition_reason="NON_COMPETITIVE_BOTH_SOURCES")
                     elif page_anomaly:
                         c.update(reconciliation_state=RECONCILED, disposition="CANDIDATE_ONLY",
                                  disposition_reason="PAGE_ANOMALY:" + ",".join(page_anomaly))
@@ -1423,13 +1629,11 @@ def reconcile_contests(contests: list[dict[str, Any]], cfbd_by_season: dict[int,
                         c.update(reconciliation_state="NOT_RECONCILED_NON_COMPETITIVE", disposition="CANDIDATE_ONLY",
                                  disposition_reason=f"NON_COMPETITIVE_STATUS:{c['contest_status']}")
                     else:
-                        c.update(reconciliation_state="SECOND_SOURCE_ABSENT",
-                                 disposition="CONFLICT" if mirror else "CANDIDATE_ONLY",
-                                 disposition_reason="SECOND_SOURCE_ABSENT" + (":" + ",".join(mirror) if mirror else ""))
+                        c.update(reconciliation_state="SECOND_SOURCE_ABSENT", disposition="CANDIDATE_ONLY",
+                                 disposition_reason="SECOND_SOURCE_ABSENT")
                 else:
                     c["cfbd_game_ids"] = sorted(cand)
-                    c.update(reconciliation_state="CONFLICT", disposition="CONFLICT",
-                             disposition_reason="NOT_ONE_TO_ONE")
+                    _conflict(c, "NOT_ONE_TO_ONE")
                     matched_games.update(cand)
             elif key in single:
                 cand = single[key]
@@ -1443,7 +1647,7 @@ def reconcile_contests(contests: list[dict[str, Any]], cfbd_by_season: dict[int,
                                      for s in ("a", "b"))
                     c["cfbd_game_ids"] = sorted(cand)
                     if len(cand) > 1 or (len(cand) == 1 and (reverse.get(cand[0]) or single_claims.get(cand[0], 0) > 1)):
-                        c.update(reconciliation_state="CONFLICT", disposition="CONFLICT", disposition_reason="NOT_ONE_TO_ONE")
+                        _conflict(c, "NOT_ONE_TO_ONE")
                         matched_games.update(cand)
                     elif unbound_di:
                         c.update(reconciliation_state="IDENTITY_UNRESOLVED", disposition="IDENTITY_UNRESOLVED",
@@ -1458,29 +1662,69 @@ def reconcile_contests(contests: list[dict[str, Any]], cfbd_by_season: dict[int,
                 else:
                     c.update(reconciliation_state="IDENTITY_UNRESOLVED", disposition="IDENTITY_UNRESOLVED",
                              disposition_reason="PARTICIPANT_BINDING_UNRESOLVED")
-        # reverse: every CFBD row with a Division I participant maps to exactly one contest or gets a cell
+        # Reverse: every in-scope CFBD row maps to exactly one contest or becomes an explicit cfbd: contest. Scope comes
+        # from NCAA membership; provider classification only flags participants whose membership is unresolved.
+        contest_by_key = {c["contest_key"]: c for c in season_contests}
+        open_contests = [c for c in season_contests if not c["cfbd_game_ids"] and c["competitive"]
+                         and c["a_points"] is not None and c["a_cfbd_team_id"] and c["b_cfbd_team_id"]]
+        pending = []
+        claims: dict[str, list[str]] = {}
         for g in games:
             gid = g["cfbd_game_id"]
             if gid in matched_games:
                 continue
             sides = []
             for team, cls in ((g["home_id"], g["home_classification"]), (g["away_id"], g["away_classification"])):
-                org = cfbd_to_org.get(team)
+                org = cfbd_to_org.get(team) if team else None
                 cell = cells_by_org.get((org, season)) if org else None
-                di = (cell and cell.get("in_division_i_population") is True) or cls in ("fbs", "fcs")
-                sides.append({"team": team, "org": org, "cell": cell, "di": bool(di), "cls": cls})
-            if not any(s["di"] for s in sides):
+                sides.append({"team": team, "org": org, "cell": cell, "membership": _membership(cell), "cls": cls})
+            division_i = any(s["membership"] == "DIVISION_I" for s in sides)
+            if not division_i and not any(s["membership"] == "UNRESOLVED" and s["cls"] in ("fbs", "fcs") for s in sides):
                 continue
-            unbound_di = any(s["di"] and not s["org"] for s in sides)
-            cfbd_rows_added.append(cfbd_only_contest(g, season, sides, "IDENTITY_UNRESOLVED" if unbound_di else "SOURCE_ABSENT"))
+            near = []
+            if all(s["org"] for s in sides) and g["home_points"] is not None and g["away_points"] is not None:
+                orgs = {sides[0]["org"], sides[1]["org"]}
+                for c in open_contests:
+                    if ({c["a_org_id"], c["b_org_id"]} == orgs
+                            and _oriented(g, c["a_cfbd_team_id"]) == (c["a_points"], c["b_points"])
+                            and _within(g, c, SAME_PAIR_WINDOW_DAYS)):
+                        near.append(c["contest_key"])
+            pending.append((g, sides, division_i, near))
+            for k in near:
+                claims.setdefault(k, []).append(gid)
+        for g, sides, division_i, near in pending:
+            gid = g["cfbd_game_id"]
+            if len(near) == 1 and len(claims[near[0]]) == 1:
+                # Same pair, same score, dates outside the forward window: one contest, CONFLICT on date.
+                c = contest_by_key[near[0]]
+                c["cfbd_game_ids"] = [gid]
+                c["cfbd_routes"] = g.get("routes")
+                conflicts = [{"field": "date", "ncaa": c["contest_dates_observed"], "cfbd_local_dates": g["local_dates"],
+                              "cfbd_start_utc": g["start_utc"]}]
+                conflicts += [x for x in compare_with_cfbd(c, g) if x["field"] != "score"]
+                c["conflict_fields"] = conflicts
+                _conflict(c, "FIELD_DISAGREEMENT:" + ",".join(x["field"] for x in conflicts))
+                continue
+            unbound = any(not s["org"] and (s["cls"] in ("fbs", "fcs") or not division_i) for s in sides)
+            row = cfbd_only_contest(g, season, sides, "IDENTITY_UNRESOLVED" if unbound else "SOURCE_ABSENT", division_i)
+            if near:
+                row["flags"] = sorted(set(row["flags"]) | {"POSSIBLE_DUPLICATE_OF:" + ",".join(sorted(near))})
+                _conflict(row, "POSSIBLE_DUPLICATE_OF_NCAA_CONTEST")
+            cfbd_rows_added.append(row)
     contests.extend(cfbd_rows_added)
+    for c in contests:
+        mirror = mirror_flags(c)
+        if mirror and c["disposition"] != "CONFLICT":
+            c.update(disposition="CONFLICT", disposition_reason="MIRROR_INCONSISTENT:" + ",".join(mirror))
+            if c["season"] in TWO_SOURCE_SEASONS:
+                c["reconciliation_state"] = "CONFLICT"
 
 
 def compare_with_cfbd(c: dict[str, Any], g: dict[str, Any]) -> list[dict[str, Any]]:
     conflicts = []
     home_is_a = g["home_id"] == c["a_cfbd_team_id"]
     g_a, g_b = (g["home_points"], g["away_points"]) if home_is_a else (g["away_points"], g["home_points"])
-    if c["competitive"] and (c["a_points"], c["b_points"]) != (g_a, g_b):
+    if c["competitive"] and c["a_points"] is not None and (c["a_points"], c["b_points"]) != (g_a, g_b):
         conflicts.append({"field": "score", "ncaa": [c["a_points"], c["b_points"]], "cfbd": [g_a, g_b]})
     if c["site"] in ("NEUTRAL", "HOME_A", "HOME_B"):
         ncaa_neutral = c["site"] == "NEUTRAL"
@@ -1491,41 +1735,65 @@ def compare_with_cfbd(c: dict[str, Any], g: dict[str, Any]) -> list[dict[str, An
             if ncaa_home_a != home_is_a:
                 conflicts.append({"field": "home_orientation", "ncaa": c["site"],
                                   "cfbd_home_team_id": g["home_id"]})
-    if c["contest_date"] and g["date"] and c["contest_date"] != g["date"]:
-        c["date_delta_days"] = _days(c["contest_date"], g["date"])
+    c["cfbd_local_dates"] = g["local_dates"]
+    deltas = [d for d in (cfbd_days(g, observed) for observed in c["contest_dates_observed"]) if d is not None]
+    if deltas and min(deltas) > 0:
+        c["date_delta_days"] = min(deltas)
     return conflicts
 
 
-def cfbd_only_contest(g: dict[str, Any], season: int, sides: list[dict[str, Any]], disposition: str) -> dict[str, Any]:
-    def view(s: dict[str, Any], name: str) -> dict[str, Any]:
+def cfbd_only_contest(g: dict[str, Any], season: int, sides: list[dict[str, Any]], disposition: str,
+                      division_i: bool) -> dict[str, Any]:
+    """A CFBD row with no NCAA contest (contract reconciliation.cfbd_only_row).
+
+    Nothing official observed this contest: site UNKNOWN, status NOT_OFFICIALLY_OBSERVED, never competitive, no points.
+    The provider's home/away ids, points, completion, neutral flag and classifications stay observation fields only.
+    """
+    people = []
+    for s, name in ((sides[0], g["home_team"]), (sides[1], g["away_team"])):
         cell = s["cell"] or {}
         code = cell.get("division_code_observed") if cell.get("division_authority") == "GRAPH_PAGE" else None
-        return {"org_id": s["org"], "team_name": cell.get("team_name") or name, "code": code,
-                "membership": ("DIVISION_I" if cell.get("in_division_i_population") is True else
-                               "OUTSIDE_DIVISION_I" if cell.get("in_division_i_population") is False else "UNRESOLVED"),
-                "team_season_id": cell.get("ncaa_team_season_id")}
-    home, away = view(sides[0], g["home_team"]), view(sides[1], g["away_team"])
-    la, lb = _pair_label(home["code"], None, False), _pair_label(away["code"], None, False)
+        people.append({"key": f"org:{s['org']}" if s["org"] else f"cfbdteam:{s['team']}", "org_id": s["org"],
+                       "team_name": cell.get("team_name") or name, "code": code, "membership": s["membership"],
+                       "team_season_id": cell.get("ncaa_team_season_id"), "cfbd_team_id": s["team"]})
+    a, b = sorted(people, key=lambda p: p["key"])
+    la, lb = _pair_label(a["code"], None, False), _pair_label(b["code"], None, False)
+    flags = ["CFBD_ONLY_NOT_OFFICIALLY_OBSERVED"]
+    if not division_i:
+        flags.append("INCLUDED_FOR_UNRESOLVED_DIVISION_I_MEMBERSHIP")
+    if g.get("route_conflict"):
+        flags.append("CFBD_ROUTE_CONFLICT")
+    local = g["local_dates"]
     return {"contest_key": f"cfbd:{g['cfbd_game_id']}", "ncaa_contest_id": None, "season": season,
-            "term": contest_term(season, g["date"]), "contest_date": g["date"], "contest_dates_observed": [g["date"]],
-            "site": "NEUTRAL" if g["neutral_site"] else "HOME_A", "neutral_site_text": None, "event_labels": [],
-            "contest_status": "COMPLETED" if g["completed"] else "UNSCORED", "competitive": bool(g["completed"]),
-            "a_key": f"cfbd:{g['home_id']}", "a_org_id": home["org_id"], "a_team_season_id": home["team_season_id"],
-            "a_team_name": home["team_name"], "a_division_code": home["code"], "a_division_label": la,
-            "a_membership": home["membership"], "a_points": g["home_points"],
-            "b_key": f"cfbd:{g['away_id']}", "b_org_id": away["org_id"], "b_team_season_id": away["team_season_id"],
-            "b_team_name": away["team_name"], "b_division_code": away["code"], "b_division_label": lb,
-            "b_membership": away["membership"], "b_points": g["away_points"], "b_external": False,
+            "term": contest_term_observed(season, local), "contest_date": local[0] if len(local) == 1 else None,
+            "contest_dates_observed": local, "site": "UNKNOWN", "neutral_site_text": None, "event_labels": [],
+            "mirror_scores_observed": None, "contest_statuses_observed": None,
+            "contest_status": "NOT_OFFICIALLY_OBSERVED", "competitive": False,
+            "a_key": a["key"], "a_org_id": a["org_id"], "a_team_season_id": a["team_season_id"],
+            "a_team_name": a["team_name"], "a_division_code": a["code"], "a_division_label": la,
+            "a_membership": a["membership"], "a_points": None,
+            "b_key": b["key"], "b_org_id": b["org_id"], "b_team_season_id": b["team_season_id"],
+            "b_team_name": b["team_name"], "b_division_code": b["code"], "b_division_label": lb,
+            "b_membership": b["membership"], "b_points": None, "b_external": False,
             "classification_pair": classification_pair(la, lb), "mirror_observation_count": 0, "source": "CFBD_ONLY",
-            "flags": ["SITE_FROM_PROVIDER_CFBD"], "cfbd_game_ids": [g["cfbd_game_id"]], "cfbd_routes": g.get("routes"),
+            "flags": sorted(flags), "cfbd_game_ids": [g["cfbd_game_id"]], "cfbd_routes": g.get("routes"),
             "reconciliation_state": disposition, "disposition": disposition,
             "disposition_reason": "CFBD_ONLY_NO_NCAA_CONTEST" if disposition == "SOURCE_ABSENT" else "CFBD_PARTICIPANT_NOT_BOUND",
             "exposure": "NOT_APPLICABLE_2016_2023_RECONCILIATION_TRANCHE", "conflict_fields": [],
-            "a_cfbd_team_id": g["home_id"], "b_cfbd_team_id": g["away_id"]}
+            "a_cfbd_team_id": a["cfbd_team_id"], "b_cfbd_team_id": b["cfbd_team_id"],
+            "cfbd_observation": {"home_id": g["home_id"], "away_id": g["away_id"], "home_team": g["home_team"],
+                                 "away_team": g["away_team"], "home_points": g["home_points"],
+                                 "away_points": g["away_points"], "completed": g["completed"],
+                                 "neutral_site": g["neutral_site"], "home_classification": g["home_classification"],
+                                 "away_classification": g["away_classification"], "start_utc": g["start_utc"],
+                                 "season_type": g["season_type"], "week": g["week"]}}
+
+
+EXTERNAL_MEMBERSHIPS = ("OUTSIDE_DIVISION_I", "NON_NCAA")
 
 
 def orient(c: dict[str, Any]) -> list[dict[str, Any]]:
-    """Exactly two orientation rows derived from one game row."""
+    """Exactly two orientation rows derived from one game row; a non-Division-I side gets the external view."""
     rows = []
     for side, me, other in ((0, "a", "b"), (1, "b", "a")):
         mine, theirs = c[f"{me}_points"], c[f"{other}_points"]
@@ -1538,9 +1806,11 @@ def orient(c: dict[str, Any]) -> list[dict[str, Any]]:
         result = None
         if c["competitive"] and mine is not None and theirs is not None:
             result = "W" if mine > theirs else ("L" if mine < theirs else "T")
+        membership = c.get(f"{me}_membership")
         rows.append({"contest_key": c["contest_key"], "ncaa_contest_id": c["ncaa_contest_id"], "season": c["season"],
                      "term": c["term"], "contest_date": c["contest_date"], "side": side,
-                     "view": "EXTERNAL_OPPONENT_VIEW" if (side == 1 and c.get("b_external")) else "PARTICIPANT_VIEW",
+                     "view": "EXTERNAL_OPPONENT_VIEW" if membership in EXTERNAL_MEMBERSHIPS else "PARTICIPANT_VIEW",
+                     "team_membership": membership,
                      "team_key": c[f"{me}_key"], "team_org_id": c[f"{me}_org_id"],
                      "team_season_id": c[f"{me}_team_season_id"], "team_name": c[f"{me}_team_name"],
                      "team_division_label": c[f"{me}_division_label"], "opponent_key": c[f"{other}_key"],
@@ -1673,6 +1943,8 @@ def program_season_summary(cells: list[dict[str, Any]], graph_pages: list[dict[s
             "e4_division_i_adjacent": sum(1 for c in sc if c.get("e4") and any(x in ("11", "12") for e in c["e4"] for x in e["adjacent_codes"])),
             "payload_missing": sum(1 for c in sc if c["disposition"] == "PAYLOAD_MISSING"),
             "transitions_observed": sum(1 for c in sc if c.get("transition_observed")),
+            "transitions_across_unobserved_season": sum(1 for c in sc if c.get("transition_across_unobserved")),
+            "ranking_link_identity_mismatched_pages": sum(1 for p in pages if p.get("ranking_links_identity_mismatched")),
         }
     return summary
 
@@ -1703,6 +1975,8 @@ def _strip_cell(c: dict[str, Any]) -> dict[str, Any]:
                              "rehash_ok": rec["rehash_ok"], "identity_ok": rec.get("identity_ok"),
                              "decode_state": (page.get("decode") or {}).get("decode_state"),
                              "raw_division_codes": (page.get("decode") or {}).get("raw_codes"),
+                             "all_ranking_link_codes": page.get("raw_division_codes"),
+                             "ranking_links_identity_mismatched": page.get("ranking_links_identity_mismatched"),
                              "header_note": page.get("header_note"), "page_flags": page.get("flags")}
     return out
 
@@ -1745,6 +2019,8 @@ def program_season_payload(*, contract: dict[str, Any], contract_sha256: str, da
                                 "link_schema": rec.get("link_schema"), "selected_season_label": page.get("selected_season_label"),
                                 "decode_state": decode.get("decode_state"), "code": decode.get("code"),
                                 "label": decode.get("label"), "raw_codes": decode.get("raw_codes"),
+                                "all_ranking_link_codes": page.get("raw_division_codes"),
+                                "ranking_links_identity_mismatched": page.get("ranking_links_identity_mismatched"),
                                 "header_record": hr, "header_note": page.get("header_note"),
                                 "header_games_vs_completed_rows": None if hr is None else
                                 ("MATCH" if hr["wins"] + hr["losses"] + (hr["ties"] or 0) == len(completed) else "MISMATCH"),
@@ -1777,8 +2053,11 @@ def program_season_payload(*, contract: dict[str, Any], contract_sha256: str, da
         "identity_bindings.jsonl.gz": gzip_jsonl_bytes(header, bindings),
         "program_season_cells.jsonl.gz": gzip_jsonl_bytes(header, cells),
         "external_program_seasons.jsonl.gz": gzip_jsonl_bytes(header, external),
-        "transitions.jsonl.gz": gzip_jsonl_bytes(header, [{"ncaa_org_id": org, "season": season, **tr}
-                                                          for (org, season), tr in sorted(built["transitions"].items())]),
+        "transitions.jsonl.gz": gzip_jsonl_bytes(header, [
+            {"ncaa_org_id": org, "season": season, "kind": kind, **tr}
+            for kind, source in (("TRANSITION_OBSERVED", built["transitions"]),
+                                 ("TRANSITION_ACROSS_UNOBSERVED_SEASON", built["transitions_across_unobserved"]))
+            for (org, season), tr in sorted(source.items())]),
         "observation_diffs.json": json_bytes({"_header": header, **diffs}),
         "season_summary.json": json_bytes({"_header": header, "seasons": program_season_summary(cells, delivered_pages)}),
     }
@@ -1805,10 +2084,19 @@ def observation_diffs(built: dict[str, Any], cells: list[dict[str, Any]]) -> dic
             else:
                 disagreements.append({"cell_key": c["cell_key"], "graph": c["division_code_observed"],
                                       "history": e2["division_label"]})
+    code3_pages = [c for c in cells if (c.get("graph_page") or {}).get("decode_state") == "DECODED"
+                   and c["division_code_observed"] == "3"]
+    d3_over_code3 = sorted(c["cell_key"] for c in code3_pages if (c.get("e2") or {}).get("division_label") == "D-III")
+    other_over_code3 = sorted(c["cell_key"] for c in code3_pages
+                              if (c.get("e2") or {}).get("division_label") not in (None, "D-III"))
     out["decoding_proof_against_team_history"] = {
         "overlap_by_label": {k: v[0] for k, v in overlap.items()}, "agreement_by_label": {k: v[1] for k, v in overlap.items()},
         "overlap_total": sum(v[0] for v in overlap.values()), "disagreements": disagreements,
-        "code_3": "no official history row carries a code-3 label in 2016-2025 overlaps; OUTSIDE_DI_CODE_3 stays unproven"}
+        "code_3": {"code_3_pages": len(code3_pages), "official_d_iii_over_code_3": d3_over_code3,
+                   "other_official_label_over_code_3": other_over_code3,
+                   "statement": (f"{len(code3_pages)} decoded code-3 pages; {len(d3_over_code3)} carry an official "
+                                 f"D-III row (consistent, not a proof) and {len(other_over_code3)} another official label; "
+                                 "OUTSIDE_DI_CODE_3 stays INFERRED_UNPROVEN")}}
     per_season = {}
     for season in DELIVERY_SEASONS:
         sc = [c for c in cells if c["season"] == season]
@@ -1824,7 +2112,9 @@ def observation_diffs(built: dict[str, Any], cells: list[dict[str, Any]]) -> dic
                 if value and not graph_label and c["ncaa_org_id"]:
                     rows[key].append({"cell_key": c["cell_key"], "provider": value, "graph": None,
                                       "disposition": c["disposition"]})
-            if obs.get("team_history_label") and graph_label and E2_LABEL_TO_CODE.get(obs["team_history_label"]) != c["division_code_observed"]:
+            history_label = obs.get("team_history_label")
+            if (history_label and graph_label and E2_LABEL_TO_CODE.get(history_label) != c["division_code_observed"]
+                    and not (history_label == "D-III" and c["division_code_observed"] == "3")):
                 rows["team_history_vs_graph"].append({"cell_key": c["cell_key"], "history": obs["team_history_label"],
                                                       "graph": graph_label})
             if c["provider_key"]:
@@ -1964,14 +2254,17 @@ DB_TABLES = {
     "program_season": ["cell_key", "season", "ncaa_org_id", "provider_key", "team_name", "ncaa_team_season_id",
                        "division_code_observed", "division_label", "division_authority", "header_record_wlt",
                        "disposition", "disposition_reason", "in_division_i_population", "transition_observed",
-                       "conference_official", "expected_sources", "observations", "flags", "raw_sha256"],
+                       "transition_across_unobserved", "conference_official", "expected_sources", "observations",
+                       "flags", "raw_sha256"],
     "contest": ["contest_key", "ncaa_contest_id", "season", "term", "contest_date", "site", "neutral_site_text",
                 "contest_status", "competitive", "a_org_id", "a_team_season_id", "a_team_name", "a_division_label",
                 "a_membership", "a_points", "b_org_id", "b_team_season_id", "b_team_name", "b_division_label",
                 "b_membership", "b_points", "classification_pair", "mirror_observation_count", "source",
                 "cfbd_game_ids", "reconciliation_state", "disposition", "disposition_reason", "exposure",
-                "conflict_fields", "flags", "event_labels"],
-    "orientation": ["contest_key", "ncaa_contest_id", "season", "term", "contest_date", "side", "view", "team_org_id",
+                "conflict_fields", "flags", "event_labels", "a_key", "b_key", "contest_dates_observed",
+                "mirror_scores_observed", "contest_statuses_observed", "cfbd_observation"],
+    "orientation": ["contest_key", "ncaa_contest_id", "season", "term", "contest_date", "side", "view", "team_membership",
+                    "team_key", "opponent_key", "team_org_id",
                     "team_season_id", "team_name", "team_division_label", "opponent_org_id", "opponent_name",
                     "opponent_division_label", "site_for_team", "team_points", "opponent_points", "margin", "result",
                     "contest_status", "classification_pair", "disposition", "reconciliation_state", "exposure"],

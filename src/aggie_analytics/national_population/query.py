@@ -163,6 +163,11 @@ class NationalPopulationDatabase:
         result: dict[str, Any] = {"database_identity": self.binding["database_identity"],
                                   "contract_sha256": self.binding["contract_sha256"], "grain": grain,
                                   "filters": filters, "offset": offset, "limit": None if all_rows else limit}
+        # Filters are validated for the grain before the season scope is evaluated (contract filter_validation).
+        clauses, params = [], []
+        for name in filters:
+            if FILTERS.get(name, {}).get(grain) is None:
+                raise NationalQueryError("FILTER_NOT_APPLICABLE", f"filter {name!r} does not apply to grain {grain!r}")
         season = filters.get("season")
         if season is not None:
             season = int(season)
@@ -171,11 +176,8 @@ class NationalPopulationDatabase:
                 result.update(season_scope_state=OUT_OF_SCOPE_STATE, total=0, returned=0, rows=[],
                               note="season outside the delivered 2016-2025 tranche; no rows are fabricated")
                 return result
-        clauses, params = [], []
         for name, value in filters.items():
-            predicate = FILTERS.get(name, {}).get(grain)
-            if predicate is None:
-                raise NationalQueryError("FILTER_NOT_APPLICABLE", f"filter {name!r} does not apply to grain {grain!r}")
+            predicate = FILTERS[name][grain]
             clauses.append(predicate)
             params.extend([value] * predicate.count("?"))
         table, order = GRAINS[grain]

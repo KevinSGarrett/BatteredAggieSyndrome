@@ -37,6 +37,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--program-season-manifest", type=Path, default=None)
     parser.add_argument("--contest-manifest", type=Path, default=None)
     args = parser.parse_args(argv)
+    if args.receipt.exists():
+        # Checked before any work so a stage root is never written behind a refused receipt.
+        print(json.dumps({"stage": args.stage, "result": "REFUSED", "refusal": "RECEIPT_EXISTS"}))
+        return 2
     started = time.time()
     receipt: dict = {"stage": args.stage, "contract": str(args.contract), "data_root": str(args.data_root),
                      "issued_at_utc": args.issued_at_utc, "argv": sys.argv[1:] if argv is None else list(argv)}
@@ -64,6 +68,9 @@ def main(argv: list[str] | None = None) -> int:
     except population.PopulationRefused as exc:
         receipt.update(result="REFUSED", refusal=exc.code, error=str(exc))
         code = 2
+    except Exception as exc:  # noqa: BLE001 - an unexpected failure still leaves a receipt
+        receipt.update(result="ERROR", refusal=None, error=f"{type(exc).__name__}: {exc}")
+        code = 1
     receipt["seconds"] = round(time.time() - started, 3)
     args.receipt.parent.mkdir(parents=True, exist_ok=True)
     with args.receipt.open("x", encoding="utf-8", newline="\n") as handle:

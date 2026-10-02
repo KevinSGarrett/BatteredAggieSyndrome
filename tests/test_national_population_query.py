@@ -121,9 +121,15 @@ class QueryTests(unittest.TestCase):
                         break
                     seen.extend(page["rows"])
                     offset += 4
+                everything = handle.query(grain, all_rows=True)
                 self.assertEqual(len(seen), total, grain)
-                self.assertEqual(handle.query(grain, all_rows=True)["returned"], total)
+                self.assertEqual(everything["returned"], total)
                 self.assertGreater(total, 0)
+                # the pages are exactly the --all rows, in the same stable order, with no duplicate
+                key = (lambda r: r["cell_key"]) if grain == "program-season" else (
+                    (lambda r: r["contest_key"]) if grain == "contest" else (lambda r: (r["contest_key"], r["side"])))
+                self.assertEqual([key(r) for r in seen], [key(r) for r in everything["rows"]])
+                self.assertEqual(len({key(r) for r in seen}), total)
 
     def test_single_source_rows_are_surfaced(self) -> None:
         with query.NationalPopulationDatabase(self.db) as handle:
@@ -182,6 +188,10 @@ class QueryTests(unittest.TestCase):
         self.assertEqual(self.run_main("--grain", "contest", "--unknown-flag", "1")[0], 2)
         self.assertEqual(self.run_main("--grain", "contest", "--seas", "2018")[0], 2)
         self.assertEqual(self.run_main("--grain", "program-season", "--classification-pair", "FCS-FCS")[0], 2)
+        # a filter that does not apply to the grain is refused even for an out-of-tranche season
+        code, _, err = self.run_main("--grain", "program-season", "--season", "2015", "--classification-pair", "FCS-FCS")
+        self.assertEqual(code, 2)
+        self.assertIn("FILTER_NOT_APPLICABLE", err)
 
     def test_console_entrypoint_is_declared(self) -> None:
         scripts = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]["scripts"]

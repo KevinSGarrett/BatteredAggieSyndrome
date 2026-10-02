@@ -6,8 +6,11 @@ and the committed successor gate present) read the delivered content-addressed o
 from __future__ import annotations
 
 import ast
+import contextlib
 import copy
 import gzip
+import importlib.util
+import io
 import json
 import os
 import sys
@@ -33,9 +36,10 @@ def contract() -> dict:
 
 def page_html(*, org: str = "669", ts: str = "100", label: str = "2018-19", name: str = "Missouri St.",
               record: str = "(4-7)", codes: tuple[str, ...] = ("12", "12.0"), rows: tuple[str, ...] = (),
-              navbar_record: str = "2026-27 Football (0-0)") -> str:
-    rankings = "".join(f'<a href="/rankings/ranking_summary?academic_year=2019&amp;division={c}&amp;org_id={org}">r</a>'
-                       for c in codes)
+              navbar_record: str = "2026-27 Football (0-0)", extra_links: str = "") -> str:
+    year = int(label[:4]) + 1
+    rankings = "".join(f'<a href="/rankings/ranking_summary?academic_year={year}&amp;division={c}&amp;org_id={org}">r</a>'
+                       for c in codes) + extra_links
     return (f'<ul><li><a href="/teams/999">{navbar_record}</a></li></ul>'
             f'<a href="/teams/history/MFB/{org}">History</a>'
             f'<div class="card"><div class="card-header"> <img class="logo_image" alt="{name}" '
@@ -82,10 +86,36 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(len(sha), 64)
 
     def test_builder_refuses_without_the_contract(self) -> None:
+        spec = importlib.util.spec_from_file_location("bas_population_builder", BUILDER)
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
         with tempfile.TemporaryDirectory() as tmp:
+            receipt = Path(tmp) / "r.json"
+            argv = ["--stage", "program-season", "--contract", str(Path(tmp) / "absent.json"), "--data-root", tmp,
+                    "--output-canonical-root", str(Path(tmp) / "c"), "--output-manifest-root", str(Path(tmp) / "m"),
+                    "--issued-at-utc", "2026-10-02T00:00:00Z", "--receipt", str(receipt)]
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(builder.main(argv), 2)
+            written = json.loads(receipt.read_text(encoding="utf-8"))
+            self.assertEqual((written["result"], written["refusal"]), ("REFUSED", "CONTRACT_MISSING"))
+            self.assertFalse((Path(tmp) / "c").exists())
+            before = receipt.read_bytes()
+            with contextlib.redirect_stdout(io.StringIO()) as out:
+                self.assertEqual(builder.main(argv), 2)
+            self.assertIn("RECEIPT_EXISTS", out.getvalue())
+            self.assertEqual(receipt.read_bytes(), before)
+
+    def test_contract_parameter_block_must_equal_the_implementation(self) -> None:
+        for path, value in ((("parameters", "forward_match_days"), 2), (("parameters", "spring_2020_from"), "2021-01-15"),
+                            (("parameters", "binding_thresholds", "name_confirmed_min_games"), 2)):
+            bad = contract()
+            target = bad
+            for key in path[:-1]:
+                target = target[key]
+            target[path[-1]] = value
             with self.assertRaises(pop.PopulationRefused) as ctx:
-                pop.load_contract(Path(tmp) / "absent.json")
-            self.assertEqual(ctx.exception.code, "CONTRACT_MISSING")
+                pop.validate_contract(bad)
+            self.assertEqual(ctx.exception.code, "CONTRACT_PARAMETERS_MISMATCH")
 
     def test_delivery_season_2015_or_2026_is_refused(self) -> None:
         for seasons in ([2015, *range(2016, 2026)], [*range(2016, 2026), 2026], list(range(2016, 2025))):
@@ -184,6 +214,21 @@ class BindingRuleTests(unittest.TestCase):
             pop.classify_absent_pairs(binding, manifests, data, 2022)
             entry = binding["census"][0]["pairs_absent_classified"][0]
             self.assertEqual((entry["classification"], entry["state"]), ("IN_SEASON_TEAM_SEASON_ABSENT_FROM_BOUND", "CONFLICT"))
+            self.assertTrue(entry["page_team_season_id_matches_pair"])
+            other_id = page_html(ts="10", label="2022-23").encode("utf-8")
+            sha3 = pop.sha256_bytes(other_id)
+            (raw / f"{sha3}.html").write_bytes(other_id)
+            binding = {"census": [{"identity": "x", "pairs_absent_from_bound": [["9", sha3]]}]}
+            pop.classify_absent_pairs(binding, [manifest("x", pairs=[("9", sha3)])], data, 2022)
+            entry = binding["census"][0]["pairs_absent_classified"][0]
+            self.assertEqual(entry["classification"], "IN_SEASON_TEAM_SEASON_ABSENT_FROM_BOUND")
+            self.assertFalse(entry["page_team_season_id_matches_pair"])
+            cell = {"cell_key": "org:669:2022", "season": 2022, "ncaa_org_id": "669", "provider_key": None,
+                    "flags": [f"SUPERSEDED_PAIR_ABSENT_FROM_BOUND:x:{sha3}"], "expected_sources": ["E1"], "e2": None,
+                    "graph": None}
+            pop.assign_program_season_disposition(cell)
+            self.assertEqual((cell["disposition"], cell["disposition_reason"]),
+                             ("CONFLICT", f"SUPERSEDED_PAIR_ABSENT_FROM_BOUND:x:{sha3}"))
             out_season = page_html(ts="9", label="2026-27").encode("utf-8")
             sha2 = pop.sha256_bytes(out_season)
             (raw / f"{sha2}.html").write_bytes(out_season)
@@ -193,12 +238,68 @@ class BindingRuleTests(unittest.TestCase):
             self.assertEqual(entry["classification"], "OUT_OF_SEASON_PAGE_IN_SUPERSEDED_MANIFEST")
             self.assertEqual(entry["state"], "CONFLICT")
 
-    def test_raw_byte_flip_is_payload_missing_without_parse(self) -> None:
+    def test_rehash_failure_cell_is_payload_missing_without_a_division(self) -> None:
         cell = {"cell_key": "org:1:2022", "season": 2022, "ncaa_org_id": "1", "provider_key": None, "flags": [],
                 "expected_sources": ["E1"], "e2": None, "graph": {"rehash_ok": False, "raw_sha256": "x"}}
         pop.assign_program_season_disposition(cell)
         self.assertEqual((cell["disposition"], cell["disposition_reason"]), ("PAYLOAD_MISSING", "RAW_REHASH_MISMATCH"))
         self.assertIsNone(cell["division_code_observed"])
+
+
+def season_label(season: int) -> str:
+    return f"{season}-{(season + 1) % 100:02d}"
+
+
+class GraphLoadTests(unittest.TestCase):
+    """load_graph over a tiny synthetic lake: rehash, discovered-id accounting and duplicate captures."""
+
+    def lake(self, tmp: str, *, flip: int | None = None, extra_discovered: int | None = None,
+             duplicate: int | None = None) -> tuple[Path, dict]:
+        data = Path(tmp) / "d"
+        raw = data / "raw" / "SRC-015" / "ncaa_team_season_discovery"
+        raw.mkdir(parents=True)
+        bindings = {}
+        for season in range(2015, 2026):
+            payload = page_html(ts=f"{season}1", label=season_label(season)).encode("utf-8")
+            sha = pop.sha256_bytes(payload)
+            (raw / f"{sha}.html").write_bytes(payload if season != flip else payload[:-1] + b"X")
+            capture = {"team_season_id": f"{season}1", "raw_sha256": sha,
+                       "raw_relative_path": f"raw/SRC-015/ncaa_team_season_discovery/{sha}.html", "link_schema": 1}
+            captures = [capture, capture] if season == duplicate else [capture]
+            discovered = [f"{season}1"] + ([f"{season}9"] if season == extra_discovered else [])
+            identity = f"m{season}"
+            doc = {"state": "COMPLETE_GRAPH_EXHAUSTED", "issued_at_utc": "2026-08-13T10:00:00Z",
+                   "discovery_identity": identity, "season": season, "captures": captures, "failures": [],
+                   "discovered_team_season_ids": discovered, "team_page_capture_count": len(captures)}
+            folder = data / pop.DISCOVERY_REL / str(season) / "sha256" / identity
+            folder.mkdir(parents=True)
+            text = json.dumps(doc).encode("utf-8")
+            (folder / "ncaa_team_graph_discovery_manifest.json").write_bytes(text)
+            bindings[str(season)] = {"identity": identity, "sha256": pop.sha256_bytes(text), "captures": len(captures)}
+        bound = copy.deepcopy(contract())
+        bound["input_bindings"]["bound_manifests"] = bindings
+        return data, bound
+
+    def test_rehash_failure_is_payload_missing_and_never_parsed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data, bound = self.lake(tmp, flip=2018)
+            graph = pop.load_graph(bound, data)
+            flipped = graph["seasons"][2018]["pages"]["20181"]
+            self.assertFalse(flipped["rehash_ok"])
+            self.assertNotIn("page", flipped)
+            good = graph["seasons"][2019]["pages"]["20191"]
+            self.assertTrue(good["rehash_ok"] and good["identity_ok"])
+            self.assertEqual(good["page"]["decode"]["code"], "12")
+            self.assertEqual(good["page"]["ranking_links_identity_mismatched"], 0)
+
+    def test_undiscovered_accounting_and_duplicate_capture_are_refused(self) -> None:
+        for kwargs, code in (({"extra_discovered": 2020}, "DISCOVERED_ID_NOT_ACCOUNTED"),
+                             ({"duplicate": 2021}, "DUPLICATE_CAPTURE_IN_BOUND_MANIFEST")):
+            with tempfile.TemporaryDirectory() as tmp:
+                data, bound = self.lake(tmp, **kwargs)
+                with self.assertRaises(pop.PopulationRefused) as ctx:
+                    pop.load_graph(bound, data)
+                self.assertEqual(ctx.exception.code, code)
 
 
 class DecoderTests(unittest.TestCase):
@@ -242,6 +343,17 @@ class DecoderTests(unittest.TestCase):
         self.assertEqual(page["header_record"], {"wins": 2, "losses": 9, "ties": 1, "text": "2-9-1"})
         self.assertTrue(page["header_note"].startswith("*COI"))
 
+    def test_ranking_links_count_only_for_the_page_organization_and_academic_year(self) -> None:
+        foreign = ('<a href="/rankings/ranking_summary?academic_year=2019&amp;division=11&amp;org_id=999">x</a>'
+                   '<a href="/rankings/ranking_summary?academic_year=2025&amp;division=11.0&amp;org_id=669">y</a>')
+        page = pop.parse_graph_page(page_html(codes=("12",), extra_links=foreign))
+        codes, mismatched = pop.page_division_codes(page, 2018)
+        self.assertEqual((codes, mismatched), (["12"], 2))
+        self.assertEqual(pop.decode_division(codes, self.TABLE)["code"], "12")
+        self.assertEqual(pop.decode_division(page["raw_division_codes"], self.TABLE)["decode_state"], "MULTIPLE_CODES")
+        only_foreign = pop.parse_graph_page(page_html(codes=(), extra_links=foreign))
+        self.assertEqual(pop.page_division_codes(only_foreign, 2018), ([], 2))
+
     def test_code_mapping_never_comes_from_team_name(self) -> None:
         page = pop.parse_graph_page(page_html(name="Missouri St. FCS", codes=()))
         self.assertEqual(pop.decode_division(page["raw_division_codes"], self.TABLE)["decode_state"], "NO_CODE")
@@ -280,6 +392,12 @@ class ScheduleRowTests(unittest.TestCase):
         self.assertIn("EXEMPTED_NOT_COUNTED", rows[3]["flags"])
         self.assertIn("NEGATIVE_OVERTIME_MARKER", rows[4]["flags"])
         self.assertIn("RESULT_LETTER_CONTRADICTS_SCORE", rows[5]["flags"])
+
+    def test_forfeit_text_outranks_a_stated_score(self) -> None:
+        rows = self.parse(row("10/03/2020", opp("5", "Alcorn", "17"), box("20", "W 2-0 ") + " (Forfeit)"),
+                          row("10/10/2020", opp("6", "Rice", "574"), "No Contest", ""))
+        self.assertEqual([r["status"] for r in rows], ["FORFEIT", "NO_CONTEST"])
+        self.assertEqual((rows[0]["team_points"], rows[0]["opponent_points"]), (2, 0))  # kept as an observation
 
     def test_contest_id_comes_from_the_document_link(self) -> None:
         rows = self.parse(row("09/01/2018", opp("1", "Rice", "574"), box("4242", "W 1-0 ")))
@@ -352,6 +470,26 @@ class DispositionTests(unittest.TestCase):
         self.assertEqual(self.assign(unknown), ("SOURCE_ABSENT", None))
         self.assertEqual(unknown["division_label"], "UNKNOWN_NOT_PROJECTED")
 
+    def test_official_labels_map_to_the_contract_vocabulary(self) -> None:
+        for raw, label, in_di in (("D-II", "DII", False), ("D-III", "DIII", False), ("FBS", "FBS", True)):
+            c = self.cell(graph=False, e2={"division_label": raw})
+            self.assertEqual(self.assign(c), ("SOURCE_ABSENT", in_di))
+            self.assertEqual((c["division_label"], c["observations"]["team_history_label"]), (label, raw))
+        odd = self.cell(graph=False, e2={"division_label": "I-AA"})
+        self.assertEqual(self.assign(odd), ("IDENTITY_UNRESOLVED", None))
+        d3 = self.cell(codes=("3",), e2={"division_label": "D-III"})
+        self.assertEqual(self.assign(d3), ("NOT_APPLICABLE", False))
+        self.assertIn("OFFICIAL_D_III_OVER_CODE_3", d3["flags"])
+
+    def test_conflict_rules_use_the_triggering_flag(self) -> None:
+        for flag in ("OFFICIAL_HISTORY_VARIANT_CONFLICT", "FAILED_CAPTURE_FOR_ORGANIZATION_WITH_PAGE:9",
+                     "DUPLICATE_TEAM_SEASON_PAGES:1,2"):
+            c = self.cell()
+            c["flags"] = ["TRANSITION_ACROSS_UNOBSERVED_SEASON", flag]
+            self.assertEqual(self.assign(c)[0], "CONFLICT")
+            self.assertEqual(c["disposition_reason"], flag)
+        self.assertIsNone(c["division_code_observed"])  # duplicate pages record no division code
+
     def test_cfbd_classification_never_overrides_the_official_code(self) -> None:
         c = self.cell(codes=("12",))
         c["e3"] = {"classification": "fbs"}
@@ -366,8 +504,20 @@ class DispositionTests(unittest.TestCase):
             c["season"], c["cell_key"] = season, f"org:669:{season}"
             pop.assign_program_season_disposition(c)
             cells[c["cell_key"]] = c
-        self.assertEqual(pop.observe_transitions(cells), {("669", 2018): {"from_code": "12", "to_code": "11",
-                                                                             "rule": "contemporaneous codes on each season's own page"}})
+        consecutive, across = pop.observe_transitions(cells)
+        self.assertEqual(consecutive, {("669", 2018): {"from_code": "12", "to_code": "11", "from_season": 2017,
+                                                       "rule": "contemporaneous codes on each season's own page"}})
+        self.assertEqual(across, {})
+        gap = {}
+        for season, code in ((2019, "3"), (2021, "12")):  # 2020 has no decoded page
+            c = self.cell(codes=(code,))
+            c["season"], c["cell_key"] = season, f"org:669:{season}"
+            pop.assign_program_season_disposition(c)
+            gap[c["cell_key"]] = c
+        consecutive, across = pop.observe_transitions(gap)
+        self.assertEqual(consecutive, {})
+        self.assertEqual(across[("669", 2021)]["unobserved_seasons"], [2020])
+        self.assertEqual((across[("669", 2021)]["from_code"], across[("669", 2021)]["to_code"]), ("3", "12"))
 
     def test_summary_is_recomputed_from_cells(self) -> None:
         a, b = self.cell(), self.cell(codes=("2",))
@@ -385,7 +535,7 @@ class BindingTests(unittest.TestCase):
     EXP = contract()["reconciliation"]["participant_resolution"]["token_expansions"]
 
     def games(self, team: str, results: list[tuple[str, int, int]]) -> list[dict]:
-        return [{"date": d, "home_id": team, "away_id": "x" + d, "home_points": p, "away_points": q}
+        return [{"local_dates": [d], "home_id": team, "away_id": "x" + d, "home_points": p, "away_points": q}
                 for d, p, q in results]
 
     def test_name_confirmed_collision_disambiguated_fingerprint_only_and_refusals(self) -> None:
@@ -447,6 +597,8 @@ def m1_fixture() -> dict:
         obs(2018, "a1", "669", "2018-08-30", "2", "a3", True, 17, 58), obs(2018, "a3", "521", "2018-08-30", "2", "a1", False, 58, 17),
         obs(2018, "a1", "669", "2018-09-06", "3", "a4", True, 52, 24), obs(2018, "a4", "380", "2018-09-06", "3", "a1", False, 24, 52),
         obs(2018, "a1", "669", "2018-10-06", None, "a2", True, None, None, status="CANCELED"),
+        dict(obs(2018, "a1", "669", "2018-09-22", "6", None, False, 66, 0), opponent_name="Edward Waters",
+             opponent_linked=False),
         obs(2020, "c1", "669", "2021-03-06", "5", "c2", False, 30, 24), obs(2020, "c2", "702", "2021-03-06", "5", "c1", True, 24, 30),
         obs(2024, "b1", "669", "2024-09-07", "4", "b2", False, 21, 14, neutral="Frisco, TX"),
         obs(2024, "b2", "702", "2024-09-07", "4", "b1", False, 14, 21, neutral="Frisco, TX"),
@@ -456,10 +608,13 @@ def m1_fixture() -> dict:
     return {"pages": pages, "cells": cells, "observations": observations, "bindings": bindings}
 
 
-def cfbd_game(gid, season, date, home, away, hp, ap, neutral=False):
-    return {"cfbd_game_id": gid, "season": season, "date": date, "home_id": home, "away_id": away, "home_points": hp,
-            "away_points": ap, "neutral_site": neutral, "completed": True, "home_team": home, "away_team": away,
-            "home_classification": "fcs", "away_classification": "fcs", "routes": ["CYCLE30_FCS"]}
+def cfbd_game(gid, season, date, home, away, hp, ap, neutral=False, completed=True, start=None,
+              home_cls="fcs", away_cls="fcs"):
+    local = pop.cfbd_local_dates(start) if start else [date]
+    return {"cfbd_game_id": gid, "season": season, "local_dates": local, "start_utc": start, "home_id": home,
+            "away_id": away, "home_points": hp, "away_points": ap, "neutral_site": neutral, "completed": completed,
+            "home_team": home, "away_team": away, "home_classification": home_cls, "away_classification": away_cls,
+            "season_type": "regular", "week": 1, "routes": ["CYCLE30_FCS"]}
 
 
 class ContestTests(unittest.TestCase):
@@ -483,13 +638,22 @@ class ContestTests(unittest.TestCase):
         self.assertEqual(contests["ncaa:1"]["classification_pair"], "FCS-FCS")
         self.assertEqual(contests["ncaa:1"]["mirror_observation_count"], 2)
         self.assertEqual(contests["ncaa:3"]["classification_pair"], "FCS-DII")
+        mirror_site = {"HOME": "AWAY", "AWAY": "HOME", "NEUTRAL": "NEUTRAL", "UNKNOWN": "UNKNOWN"}
         for c in contests.values():
-            pair = [o for o in orientations if o["contest_key"] == c["contest_key"]]
-            self.assertEqual(sorted(o["side"] for o in pair), [0, 1])
-            if c["competitive"]:
-                self.assertEqual(pair[0]["team_points"], pair[1]["opponent_points"])
+            pair = sorted((o for o in orientations if o["contest_key"] == c["contest_key"]), key=lambda o: o["side"])
+            self.assertEqual([o["side"] for o in pair], [0, 1])
+            for me, them in ((pair[0], pair[1]), (pair[1], pair[0])):
+                self.assertEqual(me["team_points"], them["opponent_points"])
+                self.assertEqual(me["team_key"], them["opponent_key"])
+                self.assertEqual(mirror_site[me["site_for_team"]], them["site_for_team"])
+            if c["competitive"] and c["a_points"] is not None:
                 self.assertEqual(pair[0]["margin"] + pair[1]["margin"], 0)
-                self.assertEqual({pair[0]["result"], pair[1]["result"]} in ({"W", "L"}, {"T"}), True)
+                self.assertIn({pair[0]["result"], pair[1]["result"]}, ({"W", "L"}, {"T"}))
+        views = {(o["contest_key"], o["team_key"]): o["view"] for o in orientations}
+        self.assertEqual(views[("ncaa:3", "org:380")], "EXTERNAL_OPPONENT_VIEW")  # D-II participant
+        self.assertEqual(views[("ncaa:3", "org:669")], "PARTICIPANT_VIEW")
+        self.assertEqual(views[("ncaa:6", "ext:edward waters")], "EXTERNAL_OPPONENT_VIEW")  # plain-text opponent
+        self.assertEqual(contests["ncaa:6"]["classification_pair"], "FCS-NON_NCAA")
 
     def test_canceled_contest_is_retained_and_never_competitive(self) -> None:
         contests, orientations = self.build()
@@ -520,12 +684,79 @@ class ContestTests(unittest.TestCase):
     def test_score_and_date_disagreements_keep_both_values(self) -> None:
         games = [cfbd_game("g1", 2018, "2018-09-15", "2623", "2460", 40, 9),
                  cfbd_game("g2", 2018, "2018-09-02", "197", "2623", 58, 17)]
-        contests, _ = self.build(games)
+        contests, orientations = self.build(games)
         self.assertEqual(contests["ncaa:1"]["disposition"], "CONFLICT")
         self.assertEqual(contests["ncaa:1"]["conflict_fields"], [{"field": "score", "ncaa": [40, 8], "cfbd": [40, 9]}])
-        self.assertEqual(contests["ncaa:2"]["reconciliation_state"], "SECOND_SOURCE_ABSENT")
-        self.assertIn("cfbd:g2", contests)
-        self.assertEqual(contests["cfbd:g2"]["disposition"], "SOURCE_ABSENT")
+        # g2 is three days from the page date with the same pair and score: CONFLICT on date, never a second contest
+        self.assertNotIn("cfbd:g2", contests)
+        self.assertEqual((contests["ncaa:2"]["disposition"], contests["ncaa:2"]["cfbd_game_ids"]), ("CONFLICT", ["g2"]))
+        self.assertEqual(contests["ncaa:2"]["conflict_fields"][0]["field"], "date")
+        self.assertEqual(sum(1 for o in orientations if o["contest_key"] == "ncaa:2"), 2)
+
+    def test_cfbd_utc_evening_kickoff_matches_the_local_page_date(self) -> None:
+        # NCAA page 2018-08-30; CFBD 2018-08-31T02:30Z is 2018-08-30 in every US zone (its UTC date is 08-31)
+        self.assertEqual(pop.cfbd_local_dates("2018-08-31T02:30:00.000Z"), ["2018-08-30"])
+        self.assertEqual(pop.cfbd_local_dates("2023-09-02T04:00:00.000Z"), ["2023-09-01", "2023-09-02"])
+        games = [cfbd_game("g1", 2018, None, "2623", "2460", 40, 8, start="2018-09-16T03:00:00.000Z"),
+                 cfbd_game("g2", 2018, None, "197", "2623", 58, 17, start="2018-08-31T02:30:00.000Z"),
+                 cfbd_game("g3", 2018, "2018-09-06", "999", "2623", 24, 52)]
+        contests, _ = self.build(games)
+        self.assertEqual(contests["ncaa:1"]["cfbd_game_ids"], ["g1"])
+        self.assertEqual(contests["ncaa:2"]["disposition"], "VERIFIED_PRESENT")
+        self.assertFalse([k for k in contests if k.startswith("cfbd:")])
+
+    def test_mirror_disagreements_null_the_value_and_conflict(self) -> None:
+        m1 = m1_fixture()
+        for o in m1["observations"]:
+            if o["ncaa_contest_id"] == "1" and o["page_org_id"] == "702":
+                o["opponent_points"] = 41  # 702's page says 8-41, 669's page says 40-8
+            if o["ncaa_contest_id"] == "5" and o["page_org_id"] == "702":
+                o["date"] = "2021-01-10"  # the mirrors straddle the 2021-01-16 term boundary
+        contests, orientations = self.build(m1=m1)
+        c1 = contests["ncaa:1"]
+        self.assertEqual((c1["a_points"], c1["b_points"], c1["disposition"]), (None, None, "CONFLICT"))
+        self.assertEqual(c1["mirror_scores_observed"], [[40, 8], [41, 8]])
+        self.assertTrue(all(o["result"] is None for o in orientations if o["contest_key"] == "ncaa:1"))
+        c5 = contests["ncaa:5"]
+        self.assertEqual((c5["contest_date"], c5["term"], c5["disposition"]), (None, "UNRESOLVED", "CONFLICT"))
+        self.assertEqual(c5["contest_dates_observed"], ["2021-01-10", "2021-03-06"])
+        self.assertEqual(c5["cfbd_game_ids"], ["g5"])  # still claimed: never re-emitted as a cfbd: contest
+        self.assertNotIn("cfbd:g5", contests)
+
+    def test_duplicate_pair_dates_and_lone_participants_are_kept_as_conflicts(self) -> None:
+        m1 = m1_fixture()
+        extra = [dict(o, ncaa_contest_id="8") for o in m1["observations"] if o["ncaa_contest_id"] == "4"]
+        lone = dict(m1["observations"][0], ncaa_contest_id="9", opponent_team_season_id="a1", date="2018-11-03")
+        m1["observations"] += extra + [lone]
+        contests, orientations = self.build(m1=m1)
+        for key in ("ncaa:4", "ncaa:8"):
+            self.assertEqual((contests[key]["disposition"], contests[key]["reconciliation_state"]),
+                             ("CONFLICT", "SINGLE_SOURCE_UNRECONCILED"))
+            self.assertIn("DUPLICATE_PAIR_DATE", contests[key]["flags"])
+        self.assertEqual(contests["ncaa:9"]["disposition"], "CONFLICT")
+        self.assertTrue(contests["ncaa:9"]["b_key"].startswith("unresolved:") or contests["ncaa:9"]["a_key"].startswith("unresolved:"))
+        self.assertEqual(sum(1 for o in orientations if o["contest_key"] == "ncaa:9"), 2)
+
+    def test_non_competitive_on_both_sources_is_reconciled_not_conflict(self) -> None:
+        canceled = {False: "NON_COMPETITIVE_BOTH_SOURCES", True: "NON_COMPETITIVE_STATUS_BUT_CFBD_GAME"}
+        for completed, reason in canceled.items():
+            games = [cfbd_game("g1", 2018, "2018-09-15", "2623", "2460", 40, 8),
+                     cfbd_game("g7", 2018, "2018-10-06", "2460", "2623", None, None, completed=completed)]
+            contests, _ = self.build(games)
+            nolink = [c for k, c in contests.items() if k.startswith("nolink:")][0]
+            self.assertEqual((nolink["disposition_reason"], nolink["cfbd_game_ids"]), (reason, ["g7"]))
+
+    def test_cfbd_only_scope_comes_from_ncaa_membership(self) -> None:
+        m1 = m1_fixture()
+        m1["bindings"] = [b if b["org_id"] != "380" else {"org_id": "380", "cfbd_team_id": "38"} for b in m1["bindings"]]
+        games = [cfbd_game("g1", 2018, "2018-09-15", "2623", "2460", 40, 8),
+                 cfbd_game("x1", 2018, "2018-11-10", "38", "77", 10, 7, home_cls="fcs", away_cls="ii"),
+                 cfbd_game("x2", 2018, "2018-11-17", "38", "78", 10, 7, home_cls="ii", away_cls="fcs")]
+        contests, _ = self.build(games, m1=m1)
+        self.assertNotIn("cfbd:x1", contests)  # D-II by NCAA page; the provider's fcs label never includes it
+        x2 = contests["cfbd:x2"]
+        self.assertEqual(x2["disposition"], "IDENTITY_UNRESOLVED")
+        self.assertIn("INCLUDED_FOR_UNRESOLVED_DIVISION_I_MEMBERSHIP", x2["flags"])
 
     def test_many_to_one_is_conflict(self) -> None:
         games = [cfbd_game("g1", 2018, "2018-09-15", "2623", "2460", 40, 8),
@@ -552,9 +783,17 @@ class ContestTests(unittest.TestCase):
         full, _ = self.build()
         m1 = m1_fixture()
         m1["observations"] = [o for o in m1["observations"] if o["ncaa_contest_id"] not in ("1", "3")]
-        reduced, _ = self.build(m1=m1)
+        reduced, orientations = self.build(m1=m1)
         self.assertEqual(set(full) - set(reduced), {"ncaa:1", "ncaa:3"})
-        self.assertIn("cfbd:g1", reduced)
+        g1 = reduced["cfbd:g1"]
+        self.assertEqual((g1["disposition"], g1["site"], g1["contest_status"], g1["competitive"]),
+                         ("SOURCE_ABSENT", "UNKNOWN", "NOT_OFFICIALLY_OBSERVED", False))
+        self.assertEqual((g1["a_key"], g1["b_key"], g1["a_points"], g1["b_points"]), ("org:669", "org:702", None, None))
+        self.assertEqual((g1["cfbd_observation"]["home_points"], g1["cfbd_observation"]["away_points"]), (40, 8))
+        self.assertTrue(all(o["result"] is None and o["site_for_team"] == "UNKNOWN"
+                            for o in orientations if o["contest_key"] == "cfbd:g1"))
+        g3 = reduced["cfbd:g3"]  # 999 is unbound with CFBD class fcs: in scope through the bound FCS side
+        self.assertEqual((g3["disposition"], g3["a_key"], g3["b_key"]), ("IDENTITY_UNRESOLVED", "cfbdteam:999", "org:669"))
 
     def test_duplicate_routes_merge_and_conflicting_routes_are_reported(self) -> None:
         a = {"cfbd_game_id": "1", "route": "SRC-002", "home_points": 3}
@@ -566,10 +805,10 @@ class ContestTests(unittest.TestCase):
     def test_schedule_cardinality_and_record(self) -> None:
         contests, orientations = self.build()
         rows = {r["cell_key"]: r for r in pop.schedule_reconciliation(m1_fixture(), list(contests.values()), orientations)}
-        self.assertEqual(rows["org:669:2018"]["page_rows"], 4)
-        self.assertEqual(rows["org:669:2018"]["contest_rows"], 4)
-        self.assertEqual(rows["org:669:2018"]["orientation_rows"], 4)
-        self.assertEqual(rows["org:669:2018"]["derived_record"], {"wins": 2, "losses": 1, "ties": 0})
+        self.assertEqual(rows["org:669:2018"]["page_rows"], 5)
+        self.assertEqual(rows["org:669:2018"]["contest_rows"], 5)
+        self.assertEqual(rows["org:669:2018"]["orientation_rows"], 5)
+        self.assertEqual(rows["org:669:2018"]["derived_record"], {"wins": 3, "losses": 1, "ties": 0})
         self.assertIn("HEADER_RECORD_MISMATCH", rows["org:669:2018"]["state"])
 
     def test_subsets_are_derived_from_the_parent_both_ways(self) -> None:
@@ -604,8 +843,23 @@ class ImmutabilityTests(unittest.TestCase):
                           inputs={}, upstream={}, manifest_extra={"issued_at_utc": "2026-10-02T00:00:00Z"})
             first = pop.materialize(files={"a.json": b"1\n"}, **kwargs)
             self.assertEqual(first["state"], "MATERIALIZED")
+            manifest_bytes = Path(first["manifest"]).read_bytes()
+            stamp = (Path(first["data_dir"]) / "a.json").stat().st_mtime_ns
             again = pop.materialize(files={"a.json": b"1\n"}, **dict(kwargs, manifest_extra={"issued_at_utc": "2026-10-03T00:00:00Z"}))
-            self.assertEqual((again["state"], again["identity"]), ("ALREADY_PRESENT_IDENTICAL", first["identity"]))
+            self.assertEqual((again["state"], again["identity"], again["written_bytes"]),
+                             ("ALREADY_PRESENT_IDENTICAL", first["identity"], 0))
+            self.assertEqual(Path(first["manifest"]).read_bytes(), manifest_bytes)  # issued_at of the first run kept
+            self.assertEqual((Path(first["data_dir"]) / "a.json").stat().st_mtime_ns, stamp)
+            self.assertIn("runtime", json.loads(manifest_bytes))
+            self.assertEqual([p.name for p in Path(first["data_dir"]).parent.iterdir() if p.name.startswith(".partial")], [])
+            Path(first["manifest"]).unlink()
+            completed = pop.materialize(files={"a.json": b"1\n"}, **kwargs)
+            self.assertEqual(completed["state"], "MANIFEST_COMPLETED")
+            (Path(first["data_dir"]) / "extra.json").write_bytes(b"x")
+            with self.assertRaises(pop.PopulationRefused) as ctx:
+                pop.materialize(files={"a.json": b"1\n"}, **kwargs)
+            self.assertEqual(ctx.exception.code, "IMMUTABLE_COLLISION")
+            (Path(first["data_dir"]) / "extra.json").unlink()
             target = Path(first["data_dir"]) / "a.json"
             target.write_bytes(b"2\n")
             with self.assertRaises(pop.PopulationRefused) as ctx:
@@ -698,11 +952,20 @@ class MountedDeliveredPopulationTests(unittest.TestCase):
         self.assertTrue(all(c["disposition"] in pop.PROGRAM_SEASON_DISPOSITIONS for c in seasons.values()))
 
     def test_named_transition_seasons_use_their_own_pages(self) -> None:
+        by_org = {}
+        for c in self.cells:
+            if c.get("division_authority") == "GRAPH_PAGE" and c["ncaa_org_id"]:
+                by_org.setdefault(c["ncaa_org_id"], {})[c["season"]] = c["division_code_observed"]
         for name, season in (("Liberty", 2018), ("James Madison", 2022), ("Kennesaw St.", 2024)):
             rows = [c for c in self.cells if c["season"] == season and c.get("team_name") == name]
             self.assertEqual(len(rows), 1, name)
             self.assertEqual(rows[0]["division_authority"], "GRAPH_PAGE")
-            self.assertTrue(rows[0]["transition_observed"], name)
+            self.assertEqual(rows[0]["graph_page"]["decode_state"], "DECODED")
+            self.assertIn(rows[0]["division_code_observed"], ("11", "12"))
+        # every consecutive-season code change is a TRANSITION_OBSERVED cell, and nothing else is
+        expected = {(org, s) for org, codes in by_org.items() for s in codes if s - 1 in codes and codes[s] != codes[s - 1]}
+        flagged = {(c["ncaa_org_id"], c["season"]) for c in self.cells if c.get("transition_observed")}
+        self.assertEqual(flagged, expected)
 
     def test_explicit_unresolved_and_missing_cells(self) -> None:
         missing = [c for c in self.cells if c["disposition"] == "PAYLOAD_MISSING"]

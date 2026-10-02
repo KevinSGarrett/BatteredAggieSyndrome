@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.2.0",
-  "contract_id": "BAT-710-NATIONAL-DI-POPULATION-2016-2025-V1.2",
+  "schema_version": "1.3.0",
+  "contract_id": "BAT-710-NATIONAL-DI-POPULATION-2016-2025-V1.3",
   "jira_key": "BAT-710",
   "cycle_number": 38,
   "attempt_number": 1,
@@ -318,8 +318,9 @@
     "cfbd_only_row": "an unmatched CFBD row is in scope only when a participant bound to an NCAA organization has Division I membership that season, or a participant whose NCAA membership is unresolved (unbound, or bound without a decoded or official division) carries CFBD classification fbs/fcs (flagged INCLUDED_FOR_UNRESOLVED_DIVISION_I_MEMBERSHIP); provider classification never overrides NCAA membership. The row is keyed cfbd:<game id>, its participants are keyed org:<org> when bound (else cfbdteam:<id>) and sorted by key, site UNKNOWN, status NOT_OFFICIALLY_OBSERVED, never competitive, points null; the provider's home/away ids, points, completion, neutral flag, classifications and start instant are kept as observation fields only",
     "same_pair_same_score_outside_window": "before an unmatched CFBD row becomes a cfbd: contest, an NCAA contest of the same season with the same two bound organizations, no CFBD match, a completed score equal to the CFBD oriented score and a date within 7 days of a candidate local date takes that CFBD id as CONFLICT on date (both dates retained) instead of a second contest; several such contests or CFBD rows leave the CFBD row as a cfbd: contest flagged POSSIBLE_DUPLICATE_OF and CONFLICT",
     "non_competitive_both_sources": "an NCAA non-competitive contest matched to a CFBD row that is not completed is reconciled CANDIDATE_ONLY (NON_COMPETITIVE_BOTH_SOURCES); against a completed CFBD row it is CONFLICT",
-    "cfbd_route_conflict": "a CFBD id whose two routes carry different rows makes its matched contest CONFLICT (CFBD_ROUTE_CONFLICT)",
-    "contest_date_missing": "a contest with no observed date is never matched; it is CANDIDATE_ONLY with reason CONTEST_DATE_MISSING"
+    "cfbd_route_conflict": "a CFBD id whose two routes disagree on any game-fact field (parameters.cfbd_game_fact_fields) makes its matched contest CONFLICT (CFBD_ROUTE_CONFLICT) and is flagged on a cfbd: contest; differences only in other provider fields (conference labels, venue, attendance, Elo, win probability, line scores, notes and similar) are reported per season as cfbd_route_metadata_differences with the differing field names and never make a conflict",
+    "contest_date_missing": "a contest with no observed date is never matched; it is CANDIDATE_ONLY with reason CONTEST_DATE_MISSING",
+    "cfbd_match_date_fields": "every contest matched one-to-one to a CFBD row (pair match, single bound participant or same pair outside the window) records that row's candidate local dates (cfbd_local_dates) and, when no candidate equals an observed page date, the smallest day distance (date_delta_days)"
   },
   "subset_rules": {
     "FBS_ESTIMAND_SUBSET": "parent contest rows whose both participants are code 11 in that season",
@@ -541,7 +542,7 @@
     },
     "e4_adjacent_2015_rule": "the 2015 manifest is bound by the same rule and read only for 2016 season_options adjacency"
   },
-  "revision_note": "V1.1 (before any materialization): the V1 participant-resolution sentence named SOURCE_MAPPING for CFBD ids, but the registry carries CFBD ids on team ENTITY identity keys (TEAM|SRC-002|<id>) and has no NCAA identities. V1.1 declares the identity binding (name candidates confirmed by each team's own schedule fingerprint, never name-only), the contest key for schedule rows without a contest link, the stated-site semantics and the 2020 term rule. Thresholds are fixed here before any binding or reconciliation result is computed. || V1.2 (still before any canonical materialization; written after development materializations under the validation scratch root and an independent read-only code review): corrects defects, not thresholds. The V1.1 forward match compared CFBD UTC calendar dates with NCAA local page dates, so evening kickoffs could split one game into an NCAA row and a cfbd: row; V1.2 declares the CFBD local-date basis and the same-pair same-score rule. V1.1 let CFBD-only rows take site, status, competitiveness and points from the provider and let the provider classification decide their inclusion; V1.2 keeps provider values as observations only. V1.2 also nulls disagreeing mirror values instead of choosing one, binds ranking-link codes to the page's own organization and academic year, maps official D-II to DII, gives external-opponent views by membership, reports transitions across unobserved seasons, keeps contests with inconsistent participants, and adds a parameter block both the producer and the validator must equal. Binding thresholds, the 2020 term date and the reconciliation scope are unchanged.",
+  "revision_note": "V1.1 (before any materialization): the V1 participant-resolution sentence named SOURCE_MAPPING for CFBD ids, but the registry carries CFBD ids on team ENTITY identity keys (TEAM|SRC-002|<id>) and has no NCAA identities. V1.1 declares the identity binding (name candidates confirmed by each team's own schedule fingerprint, never name-only), the contest key for schedule rows without a contest link, the stated-site semantics and the 2020 term rule. Thresholds are fixed here before any binding or reconciliation result is computed. || V1.2 (still before any canonical materialization; written after development materializations under the validation scratch root and an independent read-only code review): corrects defects, not thresholds. The V1.1 forward match compared CFBD UTC calendar dates with NCAA local page dates, so evening kickoffs could split one game into an NCAA row and a cfbd: row; V1.2 declares the CFBD local-date basis and the same-pair same-score rule. V1.1 let CFBD-only rows take site, status, competitiveness and points from the provider and let the provider classification decide their inclusion; V1.2 keeps provider values as observations only. V1.2 also nulls disagreeing mirror values instead of choosing one, binds ranking-link codes to the page's own organization and academic year, maps official D-II to DII, gives external-opponent views by membership, reports transitions across unobserved seasons, keeps contests with inconsistent participants, and adds a parameter block both the producer and the validator must equal. Binding thresholds, the 2020 term date and the reconciliation scope are unchanged. || V1.3 (still before any canonical materialization): the independent validator read the V1.2 'carry different rows' route-conflict rule as any raw field, while the producer compared game facts; 18 2016-2023 games appear in both routes with identical game facts and differ only in the awayConference label ('AWC' vs 'Western Athletic'). V1.3 names the compared game-fact fields and reports other provider-field differences without a conflict, and records CFBD match dates on every one-to-one match. No threshold, scope or other rule changes.",
   "parameters": {
     "forward_match_days": 1,
     "cfbd_local_offset_hours": [
@@ -579,6 +580,23 @@
       "MIRROR_DISAGREEMENT",
       "NOT_OFFICIALLY_OBSERVED"
     ],
-    "single_source_exposure": "EXPOSED_NOT_PROTECTED"
+    "single_source_exposure": "EXPOSED_NOT_PROTECTED",
+    "cfbd_game_fact_fields": [
+      "id",
+      "season",
+      "seasonType",
+      "week",
+      "startDate",
+      "completed",
+      "neutralSite",
+      "homeId",
+      "homeTeam",
+      "homeClassification",
+      "homePoints",
+      "awayId",
+      "awayTeam",
+      "awayClassification",
+      "awayPoints"
+    ]
   }
 }

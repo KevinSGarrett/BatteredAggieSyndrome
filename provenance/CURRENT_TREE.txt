@@ -55,6 +55,7 @@ artifacts/data_lake/national_lake_readiness.json
 artifacts/data_lake/national_pit_domain_admission_matrix_gate.json
 artifacts/data_lake/national_pit_eligible_slice_gate.json
 artifacts/data_lake/national_pit_eligible_slice_replay.json
+artifacts/data_lake/national_source_time_2016_2023_gate.json
 artifacts/data_lake/national_tiered_game_spine_gate.json
 artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
@@ -871,6 +872,7 @@ configs/national_multi_year_walk_forward_contract.json
 configs/national_pit_domain_admission_matrix_contract.json
 configs/national_pit_eligible_slice_contract.json
 configs/national_shadow_operations_contract.json
+configs/national_source_time_2016_2023_contract.json
 configs/national_tiered_game_spine_contract.json
 configs/ncaa_contest_outcome_reference_adapter_contract.json
 configs/ncaa_contest_reconciliation_contract.json
@@ -4152,6 +4154,8 @@ src/aggie_analytics/national_history/__init__.py
 src/aggie_analytics/national_history/query.py
 src/aggie_analytics/national_population/__init__.py
 src/aggie_analytics/national_population/query.py
+src/aggie_analytics/national_source_time/__init__.py
+src/aggie_analytics/national_source_time/query.py
 src/aggie_analytics/openai_assist/__init__.py
 src/aggie_analytics/openai_assist/budget.py
 src/aggie_analytics/openai_assist/contracts.py
@@ -4280,6 +4284,7 @@ tests/fixtures/cycle35_season_probes/script_only.html
 tests/fixtures/protected_split_exposure_audit.v2.stale.json
 tests/fixtures/stale_placeholder_contract.json
 tests/national_history_fixture.py
+tests/national_source_time_fixture.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
 tests/test_action_play_summary.py
@@ -4530,6 +4535,7 @@ tests/test_national_pit_domain_admission_matrix.py
 tests/test_national_pit_eligible_slice.py
 tests/test_national_population_query.py
 tests/test_national_shadow_state_machine.py
+tests/test_national_source_time.py
 tests/test_national_tiered_game_spine.py
 tests/test_ncaa_contest_outcome_reference_adapter.py
 tests/test_ncaa_contest_reconciliation.py
@@ -4595,6 +4601,7 @@ tests/test_scientific_trust_recovery_hold.py
 tests/test_sec_tamu_availability.py
 tests/test_second_pass_audit_modes.py
 tests/test_source_access_smoke_results.py
+tests/test_source_time_query.py
 tests/test_supplemental_play_drive.py
 tests/test_tamu_2010_2011_ncaa_contest_route_discovery.py
 tests/test_tamu_2010_2011_ncaa_official_acquisition.py
@@ -4821,6 +4828,7 @@ tools/build_national_multi_year_walk_forward.py
 tools/build_national_pit_domain_admission_matrix.py
 tools/build_national_pit_eligible_slice.py
 tools/build_national_shadow_operations.py
+tools/build_national_source_time.py
 tools/build_national_tiered_game_spine.py
 tools/build_ncaa_contest_outcome_reference_adapter.py
 tools/build_ncaa_contest_reconciliation.py
@@ -5356,6 +5364,7 @@ tools/validate_national_multi_year_walk_forward.py
 tools/validate_national_pit_domain_admission_matrix.py
 tools/validate_national_pit_eligible_slice.py
 tools/validate_national_shadow_operations.py
+tools/validate_national_source_time.py
 tools/validate_national_tiered_game_spine.py
 tools/validate_ncaa_contest_outcome_reference_adapter.py
 tools/validate_ncaa_contest_reconciliation.py

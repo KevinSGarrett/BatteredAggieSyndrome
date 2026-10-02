@@ -1,0 +1,602 @@
+{
+  "schema_version": "1.3.0",
+  "contract_id": "BAT-710-NATIONAL-DI-POPULATION-2016-2025-V1.3",
+  "jira_key": "BAT-710",
+  "cycle_number": 38,
+  "attempt_number": 1,
+  "governing_plan": {
+    "path": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle38\\attempt01\\preparation-20261002\\TECHNICAL_PLAN_TP38_A01.md",
+    "sha256": "2a82dc50a7d1eca46480267472e6c472485d63d1c30e50fb5fea7bcc0fb1b1a6",
+    "sections": "Revision 2026-10-02.1 §§1-14; TP38-A01-01..09"
+  },
+  "classification": "CANDIDATE_NATIONAL_POPULATION_EVIDENCE_NOT_PIT_NOT_MODEL_ADMITTED",
+  "delivery_seasons": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "season_label_semantics": {
+    "rule": "Season label Y is the NCAA academic year Y-(Y+1) named in each page's season selector (for example '2016-17').",
+    "projection_to_other_label": "REFUSED"
+  },
+  "out_of_scope_policy": {
+    "seasons_before": 2016,
+    "seasons_after": 2025,
+    "disposition": "NOT_YET_AUDITED",
+    "rows_returned": 0,
+    "new_historical_units_outside_scope": 0,
+    "adjacent_2015_use": "The bound 2015 discovery manifest may be read only as the E4 adjacent-season expectation source for 2016; it is never 2015 delivery."
+  },
+  "historical_audit_unit": "HT38-NATIONAL-DI-CONTEST-2016-2025",
+  "manifest_binding_rule": {
+    "root": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/<season>/sha256/<discovery_identity>/ncaa_team_graph_discovery_manifest.json",
+    "eligible_state": "COMPLETE_GRAPH_EXHAUSTED",
+    "select": "the eligible manifest with the most captures",
+    "tie_break": "the latest issued_at_utc, compared as parsed timezone-aware instants",
+    "unbreakable_tie": "REFUSED_UNBREAKABLE_TIE",
+    "identity_check": "discovery_identity in the manifest must equal its directory name; a mismatch is REFUSED_IDENTITY_MISMATCH",
+    "partial_manifests": "never eligible; listed as superseded with state PARTIAL",
+    "superseded_census": "every other manifest of the season is listed with identity, state, capture count and its (team_season_id, raw_sha256) set relation to the bound manifest: SUBSET, EQUAL, SUPERSET, OVERLAP or DISJOINT",
+    "superseded_pair_absent_from_bound": "every (team_season_id, raw_sha256) pair of a superseded manifest that is absent from the bound manifest is rehashed and its own page identity parsed: a page whose selected season label equals the manifest season is a CONFLICT program-season cell (whether or not its selected team-season id equals the pair's id, which is recorded); a page of another season or an unparseable page is an explicit CONFLICT row in the manifest census (with its page identity) and is never attributed to the manifest's season; nothing is dropped silently",
+    "raw_capture_rehash": "every bound capture is rehashed from the lake; a hash mismatch is PAYLOAD_MISSING with no parse",
+    "unreferenced_raw_files": "files under raw/SRC-015/ncaa_team_season_discovery referenced by no manifest are reported and never used as evidence",
+    "superseded_or_unbound_files_as_evidence": "REFUSED",
+    "discovered_ids_accounted": "every discovered team-season id of a bound delivery-season manifest is a capture or a failure; otherwise the build is REFUSED (DISCOVERED_ID_NOT_ACCOUNTED); a team-season captured twice in one bound manifest is REFUSED"
+  },
+  "division_decoding": {
+    "source_field": "the division query parameter of the target team-season page's own ranking links: only links whose org_id equals the page organization and whose academic_year equals season + 1 (N or N.0) count; any other ranking link is flagged RANKING_LINK_IDENTITY_MISMATCH and never decoded",
+    "accepted_forms_regex": "^(0|[1-9][0-9]*)(\\.0)?$",
+    "canonicalization": "drop one trailing '.0'",
+    "distinct_codes_required_per_page": 1,
+    "table": {
+      "11": {
+        "label": "FBS",
+        "proof_state": "TO_BE_PROVED_AGAINST_OFFICIAL_TEAM_HISTORY",
+        "division_i": true
+      },
+      "12": {
+        "label": "FCS",
+        "proof_state": "TO_BE_PROVED_AGAINST_OFFICIAL_TEAM_HISTORY",
+        "division_i": true
+      },
+      "2": {
+        "label": "DII",
+        "proof_state": "TO_BE_PROVED_AGAINST_OFFICIAL_TEAM_HISTORY",
+        "division_i": false
+      },
+      "3": {
+        "label": "OUTSIDE_DI_CODE_3",
+        "inferred_meaning": "D-III",
+        "proof_state": "INFERRED_UNPROVEN",
+        "division_i": false
+      }
+    },
+    "unknown_or_malformed_code": "IDENTITY_UNRESOLVED",
+    "page_without_code": "IDENTITY_UNRESOLVED",
+    "page_with_several_distinct_codes": "IDENTITY_UNRESOLVED",
+    "mapping_by_team_name_or_current_classification": "REFUSED",
+    "official_cross_check": {
+      "source_id": "E2",
+      "labels": {
+        "FBS": "11",
+        "FCS": "12",
+        "D-II": "2"
+      },
+      "agreement_required_for": "the decoding proof over every overlapping program-season",
+      "disagreement": "CONFLICT (both official observations retained; neither overrides the other)",
+      "code_3_overlap": "an official D-III row over a code-3 page is consistent but proves nothing; it is counted and listed, never used as proof of code 3"
+    }
+  },
+  "header_record_policy": {
+    "source": "the target team-season header record (W-L or W-L-T) only",
+    "season_selector_records": "REFUSED as a record source",
+    "reconciliation": "W+L(+T) must equal the completed contests derived from the page; a mismatch is an explicit cell, never silently fixed",
+    "blank_or_zero_game_rows": "retained as membership rows with record UNPLAYED_OR_BLANK; never dropped"
+  },
+  "transition_policy": {
+    "rule": "contemporaneous code observed on the team-season's own page; no projection from an adjacent season, CFBD or the current 2026 population",
+    "transition_flag": "TRANSITION_OBSERVED for every program whose decoded code changes between consecutive delivered seasons, enumerated mechanically",
+    "across_unobserved_season": "TRANSITION_ACROSS_UNOBSERVED_SEASON for every organization whose page codes differ between two observed delivered seasons separated only by seasons without a decoded page; reported with the unobserved seasons, never projected into them, and not counted as TRANSITION_OBSERVED"
+  },
+  "season_2020_semantics": {
+    "academic_year": "2020-21 (fall 2020 plus spring 2021)",
+    "spring_contests": "keep season_label 2020 with term SPRING; never relabelled 2021 or treated as missing",
+    "non_playing_members": "SOURCE_ABSENT graph cells; division from the official team-history row (E2) where present, else UNKNOWN_NOT_PROJECTED",
+    "completeness": "2020 Division I completeness stays explicitly open"
+  },
+  "expected_population_sources": [
+    {
+      "id": "E1",
+      "source": "bound graph discovered_team_season_ids including failures",
+      "authority": "OFFICIAL_NCAA_CRAWL_UNIVERSE",
+      "role": "expected keys"
+    },
+    {
+      "id": "E2",
+      "source": "official team-history rows under raw/SRC-NCAA-OFFICIAL-STATS/ncaa_official_team_history (rows with 7 or more cells; blank-record rows kept)",
+      "authority": "OFFICIAL_NCAA_INDEPENDENT_PAGE_FAMILY",
+      "role": "expected keys and official division labels"
+    },
+    {
+      "id": "E3",
+      "source": "ops/cycle30_work/outputs/HISTORICAL_MEMBERSHIP_2013_2023.jsonl",
+      "authority": "PROVIDER_OBSERVATION_ONLY",
+      "role": "expectation and observation, never authority"
+    },
+    {
+      "id": "E4",
+      "source": "season_options of bound captures in Y-1 and Y+1",
+      "authority": "OFFICIAL_NCAA_PAGE_FIELD",
+      "role": "graph-absent team-season detection; never projects a division"
+    },
+    {
+      "id": "E5",
+      "source": "raw/SRC-002/games participants by CFBD classification",
+      "authority": "PROVIDER_OBSERVATION_ONLY",
+      "role": "expectation and observation, never authority"
+    },
+    {
+      "id": "E6",
+      "source": "artifacts/scientific_integrity/cycle30/CURRENT_2026_DIVISION_I_PROGRAM_POPULATION.json (N=266)",
+      "authority": "PROVIDER_OBSERVATION_ONLY_CANDIDATE",
+      "role": "bracketing expectation for 2024-2025 keys present in 2023 and 2026; effective-dated, never projected"
+    }
+  ],
+  "observation_only_sources": [
+    "E3",
+    "E5",
+    "E6"
+  ],
+  "denominator_authority": {
+    "rule": "UNION_OF_EXPECTED_KEYS_E1_TO_E6",
+    "observed_rows_define_denominator": false,
+    "cfbd_rows_define_denominator": false,
+    "netting_disagreements_as_counts": false,
+    "aggregates": "every numerator and denominator is recomputed from cells"
+  },
+  "program_season_grain": {
+    "key": [
+      "ncaa_org_id",
+      "season_label"
+    ],
+    "division_authority_values": [
+      "GRAPH_PAGE",
+      "OFFICIAL_TEAM_HISTORY_ROW",
+      "NONE"
+    ],
+    "conference_official": "only from the official team-history row; otherwise NOT_YET_AUDITED; CFBD conference is an observation",
+    "external_program_season_table": "code 2/3 program-seasons are retained in EXTERNAL_PROGRAM_SEASON for opponents; their Division I cell is NOT_APPLICABLE",
+    "identity_resolution": "CFBD/registry-keyed expectations bind to an NCAA org only through a unique registry resolution; otherwise IDENTITY_UNRESOLVED keyed by the provider identity; never by name only",
+    "provider_key_binding": "E3/E5/E6 provider keys bind to an NCAA organization only through reconciliation.participant_resolution; an unbound provider key is an IDENTITY_UNRESOLVED cell keyed by the provider identity and never counted in a Division I numerator",
+    "payload_missing_org": "a failed capture's organization comes from a bound adjacent-season page whose season selector names that team-season id, else from the opponent logo organization on rows that link it; otherwise the cell stays keyed by team-season id with organization unresolved",
+    "division_label_vocabulary": "graph labels from the decoding table (FBS, FCS, DII, OUTSIDE_DI_CODE_3); official team-history labels are mapped FBS->FBS, FCS->FCS, D-II->DII, D-III->DIII (raw label kept in observations.team_history_label); any other official label is IDENTITY_UNRESOLVED",
+    "conflict_rules": "duplicate pages of one organization-season, an in-season superseded pair, a failed capture for an organization that also has a bound page, and official team-history variants that disagree are each CONFLICT with the triggering flag as the reason; a CONFLICT from duplicate pages records no division code"
+  },
+  "program_season_dispositions": [
+    "VERIFIED_PRESENT",
+    "CANDIDATE_ONLY",
+    "IDENTITY_UNRESOLVED",
+    "PAYLOAD_MISSING",
+    "SOURCE_ABSENT",
+    "CONFLICT",
+    "NOT_APPLICABLE",
+    "NOT_YET_AUDITED"
+  ],
+  "contest_grain": {
+    "key": "contest_key: 'ncaa:<contest_id>' from the schedule row's own /contests/<id>/box_score link in the document (a directory or caller hint never overrides it); a row without a contest link (Canceled, Ppd, scored-unlinked) is keyed 'nolink:<season>:<date>:<sorted participant keys>' and mirrored rows with the same key form one contest; a CFBD-only row is keyed 'cfbd:<game id>'",
+    "inclusion": "exactly one row per contest with at least one participant whose program-season is code 11 or 12 or whose Division I membership is unresolved (flagged)",
+    "site": "stated on the page's own schedule row: a leading '@' before the opponent means the page team is AWAY; a second line '@City, ST' (optionally followed by an event label) means NEUTRAL at that stated site; no marker means the page team is the listed HOME team; an event label without '@City' states no site. Game-grain site: NEUTRAL when any mirror states a neutral site; otherwise HOME/AWAY when the mirrors agree; otherwise UNKNOWN. Never from the caller or provider order.",
+    "contest_status_vocabulary": [
+      "COMPLETED",
+      "CANCELED",
+      "NO_CONTEST",
+      "FORFEIT",
+      "UNSCORED",
+      "MIRROR_DISAGREEMENT",
+      "NOT_OFFICIALLY_OBSERVED"
+    ],
+    "non_competitive_rows": "canceled, no-contest, forfeit, unscored, mirror-disagreement and not-officially-observed contests are retained with their status and are never competitive",
+    "duplicate_observations": "mirror observations live only in a separate observation table; orientations and duplicate routes never count as extra contests",
+    "orientations": "exactly two rows per contest derived from the game row; the row oriented to a participant whose membership is OUTSIDE_DIVISION_I or NON_NCAA is an EXTERNAL_OPPONENT_VIEW, every other row a PARTICIPANT_VIEW; a contest is never deleted",
+    "pair_coherence": "team and opponent scores mirror; margins sum to zero; results complement",
+    "external_opponents": "contests with a non-Division-I opponent or a plain-text (non-NCAA) opponent are retained; a plain-text opponent is an external identity keyed by its normalized display name",
+    "status_mapping": {
+      "W/L/T with score": "COMPLETED",
+      "Canceled": "CANCELED",
+      "Ppd": "UNSCORED",
+      "no contest text": "NO_CONTEST",
+      "forfeit text": "FORFEIT (checked on the whole result cell before any score; a stated score is kept as an observation, never competitive)",
+      "anomalies_retained_as_flags": [
+        "NEGATIVE_OVERTIME_MARKER",
+        "RESULT_LETTER_CONTRADICTS_SCORE",
+        "EXEMPTED_NOT_COUNTED",
+        "DATE_WITH_TIME"
+      ]
+    },
+    "term": "season 2020 rows dated on or after 2021-01-16 have term SPRING and earlier 2020 rows FALL; a 2020 row without a date, or whose observed dates fall on both sides of 2021-01-16, has term UNRESOLVED; every other season is FALL; the season label never changes",
+    "mirror_disagreement": "when mirror observations of one contest disagree on score, status or date, the disagreeing game-grain value is null (points null; status MIRROR_DISAGREEMENT; contest_date null), every observed value is retained, and the contest is CONFLICT in every season; site disagreement is UNKNOWN site and CONFLICT; candidate CFBD matching uses every observed date",
+    "duplicate_pair_date": "two or more contest keys with the same season, unordered participant pair and date are each flagged DUPLICATE_PAIR_DATE and CONFLICT; none is dropped",
+    "participants": "a contest whose mirrors resolve to fewer or more than two participants is retained as CONFLICT (CONTEST_PARTICIPANTS_INCONSISTENT); a missing second participant is an UNRESOLVED placeholder; a contest is never deleted"
+  },
+  "contest_dispositions": [
+    "VERIFIED_PRESENT",
+    "CANDIDATE_ONLY",
+    "IDENTITY_UNRESOLVED",
+    "SOURCE_ABSENT",
+    "CONFLICT",
+    "NOT_YET_AUDITED"
+  ],
+  "reconciliation": {
+    "two_source_seasons": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "single_source_seasons": [
+      2024,
+      2025
+    ],
+    "reconciled_state": "RECONCILED_2016_2023",
+    "single_source_state": "SINGLE_SOURCE_UNRECONCILED",
+    "single_source_exposure": "EXPOSED_NOT_PROTECTED",
+    "single_source_contest_disposition": "CANDIDATE_ONLY",
+    "single_source_pass_or_verified": "REFUSED",
+    "src002_2024_2025_join": "NOT_PERFORMED_RETAINED_FUTURE_SCOPE",
+    "cfbd_routes": {
+      "fbs_route": "raw/SRC-002/games (content sha256 = file name)",
+      "fcs_route": "ops/cycle30_work/raw/games bound by content sha256 recorded in ops/cycle30_work/outputs/CYCLE30_ACQUISITION_LEDGER.json (route /games, classification=fcs, year=Y)",
+      "union_dedup_key": "CFBD game id"
+    },
+    "forward_match": "season, an observed NCAA page date within 1 day of a CFBD candidate local date (cfbd_date_basis) and the unordered pair of bound CFBD team ids; the exact oriented score when both sides are completed; site/neutral and non-neutral home orientation compared when the NCAA site is stated",
+    "reverse_match": "every CFBD row with at least one Division I participant maps to exactly one NCAA contest or receives an explicit disposition",
+    "participant_resolution": {
+      "identity_space": "NCAA organization id <-> CFBD team id; the canonical registry ENTITY identity key TEAM|SRC-002|<id> supplies the canonical team id and its verified ALIAS rows",
+      "name_candidates": "the NCAA organization display name and the CFBD/registry names are normalized identically (BAT-554 normalization: unescape, NFKD-ASCII, lowercase, '&'->' and ', non-alphanumerics->space) with token expansions; a candidate is an exact normalized equality with a registry ALIAS (effective interval overlapping 2016-2025) or a CFBD game-row display name",
+      "token_expansions": {
+        "st": "state",
+        "so": "southern",
+        "mich": "michigan",
+        "tenn": "tennessee",
+        "ariz": "arizona",
+        "mo": "missouri",
+        "la": "louisiana",
+        "ga": "georgia",
+        "ala": "alabama",
+        "fla": "florida",
+        "ky": "kentucky",
+        "ill": "illinois",
+        "ind": "indiana",
+        "conn": "connecticut",
+        "miss": "mississippi",
+        "okla": "oklahoma",
+        "wash": "washington",
+        "colo": "colorado",
+        "caro": "carolina",
+        "va": "virginia",
+        "wis": "wisconsin",
+        "tex": "texas",
+        "ark": "arkansas",
+        "minn": "minnesota",
+        "neb": "nebraska",
+        "ore": "oregon",
+        "mass": "massachusetts",
+        "coll": "college"
+      },
+      "schedule_fingerprint": "F[c] = number of the organization's completed, scored 2016-2023 page games in the CFBD-covered scope (at least one participant decoded code 11 or 12 that season) with date d, own points p and opponent points q, for which CFBD team c has a 2016-2023 game (either route) with a candidate local date (cfbd_date_basis) within 1 day of d with exactly p for c and q for its opponent; N = the number of those organization games in the CFBD-covered scope",
+      "rules": {
+        "NAME_CONFIRMED_BY_SCHEDULE": "exactly one name candidate c, F[c] >= 3, F[c] >= 0.5*N, and F[c] strictly greater than every other team's F",
+        "NAME_COLLISION_DISAMBIGUATED_BY_SCHEDULE": "several name candidates; exactly one candidate c has F[c] >= 3 and F[c] >= 0.5*N, every other candidate has F < 0.2*N, and F[c] is the strict maximum",
+        "SCHEDULE_FINGERPRINT_ONLY": "no name candidate: the best c has F[c] >= 5 and F[c] >= 0.8*N, and the runner-up has F <= 0.2*N",
+        "otherwise": "IDENTITY_UNRESOLVED (name-only, schedule-only below thresholds, name/schedule disagreement, or N = 0)",
+        "one_to_one": "a CFBD team bound to more than one organization, or an organization bound to more than one CFBD team, leaves every involved binding IDENTITY_UNRESOLVED"
+      },
+      "evidence_years": "only 2016-2023 CFBD rows are used as binding evidence; SRC-002 2024-2025 rows are never joined",
+      "name_only_promotion": "REFUSED",
+      "fuzzy_matching": "REFUSED"
+    },
+    "one_to_one_required": true,
+    "many_to_one_or_one_to_many": "CONFLICT",
+    "disagreeing_field": "CONFLICT with both observations retained; neither side is overwritten",
+    "ncaa_only_2016_2023": "CANDIDATE_ONLY with reason SECOND_SOURCE_ABSENT",
+    "cfbd_only_with_division_i_participant": "SOURCE_ABSENT (official) or IDENTITY_UNRESOLVED (alias not unique)",
+    "schedule_cardinality": "page rows equal contest rows involving the team-season equal its orientations; header W-L-T equals derived results; mismatches are explicit cells",
+    "single_bound_participant": "a contest with exactly one bound participant (the other external or unbound) that matches exactly one CFBD game of that team within 1 day with the exact oriented score is CANDIDATE_ONLY with reason OPPONENT_IDENTITY_NOT_BOUND; never RECONCILED",
+    "unbound_division_i_participant": "IDENTITY_UNRESOLVED (participant binding unresolved)",
+    "cfbd_date_basis": "a CFBD startDate is a UTC instant; its candidate US-local calendar dates are the dates of the instant shifted by -4 h and by -10 h (EDT through HST), one or two dates; a CFBD row is within N days of an NCAA page date when any candidate date is; the UTC calendar date is never compared with a page date",
+    "cfbd_only_row": "an unmatched CFBD row is in scope only when a participant bound to an NCAA organization has Division I membership that season, or a participant whose NCAA membership is unresolved (unbound, or bound without a decoded or official division) carries CFBD classification fbs/fcs (flagged INCLUDED_FOR_UNRESOLVED_DIVISION_I_MEMBERSHIP); provider classification never overrides NCAA membership. The row is keyed cfbd:<game id>, its participants are keyed org:<org> when bound (else cfbdteam:<id>) and sorted by key, site UNKNOWN, status NOT_OFFICIALLY_OBSERVED, never competitive, points null; the provider's home/away ids, points, completion, neutral flag, classifications and start instant are kept as observation fields only",
+    "same_pair_same_score_outside_window": "before an unmatched CFBD row becomes a cfbd: contest, an NCAA contest of the same season with the same two bound organizations, no CFBD match, a completed score equal to the CFBD oriented score and a date within 7 days of a candidate local date takes that CFBD id as CONFLICT on date (both dates retained) instead of a second contest; several such contests or CFBD rows leave the CFBD row as a cfbd: contest flagged POSSIBLE_DUPLICATE_OF and CONFLICT",
+    "non_competitive_both_sources": "an NCAA non-competitive contest matched to a CFBD row that is not completed is reconciled CANDIDATE_ONLY (NON_COMPETITIVE_BOTH_SOURCES); against a completed CFBD row it is CONFLICT",
+    "cfbd_route_conflict": "a CFBD id whose two routes disagree on any game-fact field (parameters.cfbd_game_fact_fields) makes its matched contest CONFLICT (CFBD_ROUTE_CONFLICT) and is flagged on a cfbd: contest; differences only in other provider fields (conference labels, venue, attendance, Elo, win probability, line scores, notes and similar) are reported per season as cfbd_route_metadata_differences with the differing field names and never make a conflict",
+    "contest_date_missing": "a contest with no observed date is never matched; it is CANDIDATE_ONLY with reason CONTEST_DATE_MISSING",
+    "cfbd_match_date_fields": "every contest matched one-to-one to a CFBD row (pair match, single bound participant or same pair outside the window) records that row's candidate local dates (cfbd_local_dates) and, when no candidate equals an observed page date, the smallest day distance (date_delta_days)"
+  },
+  "subset_rules": {
+    "FBS_ESTIMAND_SUBSET": "parent contest rows whose both participants are code 11 in that season",
+    "FCS_SUBSET": "parent contest rows with at least one participant of code 12 in that season",
+    "proof": "bidirectional inclusion and no duplicates; a subset cannot add rows or define membership",
+    "cfbd_classification_subsets": "REFUSED",
+    "successor_of": [
+      "PIT_KERNEL_POPULATION_SCOPE_AND_SUBDIVISION_GATE",
+      "HISTORICAL_FCS_EXPECTED_GAME_POPULATION"
+    ]
+  },
+  "output_identity_scheme": {
+    "canonical_root": "canonical/national_di_population_2016_2025/sha256/<id>/",
+    "manifest_root": "manifests/national_di_population_2016_2025/sha256/<id>/run_manifest.json",
+    "stages": [
+      "program-season",
+      "contest",
+      "query-db"
+    ],
+    "id": "sha256 of the canonical JSON identity document {schema, population, stage, contract_sha256, producer, inputs, upstream, outputs: {relative path: sha256}}",
+    "issued_at_utc": "recorded in the run manifest; excluded from the identity document",
+    "contract_sha256_embedding": "every output file and run manifest embeds the contract sha256",
+    "create_only": "an existing id whose bytes equal the new content is verified and not rewritten; an existing id with different bytes is REFUSED_IMMUTABLE_COLLISION; nothing is rewritten in place",
+    "contract_change": "a different contract sha256 yields a new identity and a full rebuild into a new root",
+    "validator_contract_check": "the validator refuses a manifest whose embedded contract sha256 differs from the presented contract (CONTRACT_IDENTITY_MISMATCH)",
+    "bulk_rows": "remain in the lake; only small gate JSON is committed",
+    "runtime": "the run manifest records the Python, zlib and SQLite runtime versions outside the identity document; bytes are reproducible on the recorded runtime",
+    "atomic_write": "a stage root's data files are written into a temporary sibling and renamed into place; an existing root with extra or different files is IMMUTABLE_COLLISION; an existing root with identical files and no run manifest gets its manifest written once"
+  },
+  "successor_gates": {
+    "directory": [
+      "artifacts/scientific_integrity/cycle38/",
+      "artifacts/data_lake/"
+    ],
+    "predecessors_byte_unchanged": {
+      "artifacts/scientific_integrity/cycle29/HISTORICAL_FCS_GAME_ACQUISITION_AND_RECONCILIATION_GATE.json": "dd3c3434327fd745a951d7e45fb0d68c37a857c2eb1bde567fa549ec30f11a38",
+      "artifacts/scientific_integrity/cycle29/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1",
+      "artifacts/scientific_integrity/cycle29/HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json": "c200815cb1369fe6d376056ba7226747249c9f3dcce9bdf738ae1de329234de1",
+      "artifacts/scientific_integrity/cycle30/FCS_SUBSET_FROM_PARENT_SUMMARY.json": "62e0b6a8acda077f1b27e962c7810efd2cac2cfded09f5f6cae01551fe8cd992",
+      "artifacts/data_lake/national_tiered_game_spine_gate.json": "3132e0fd16a54e025aca5da972b56031d2b231da62e5860226af77e31a1559b5",
+      "artifacts/scientific_integrity/cycle29/PIT_KERNEL_POPULATION_SCOPE_AND_SUBDIVISION_GATE.json": "22dc21e0674063bd14e693efbf53f6efff3b8899cd29ea906627976694397088"
+    },
+    "gate_state_vocabulary": [
+      "PARTIAL_TRANCHE_RECONCILED_2016_2023_SINGLE_SOURCE_2024_2025",
+      "BLOCKED_INPUT_IDENTITY"
+    ],
+    "forbidden_claims": [
+      "national 1963-2026 completeness",
+      "a gate PASS for scope beyond 2016-2023 reconciliation",
+      "PIT or known-at authority",
+      "predictive skill",
+      "scientific trust"
+    ]
+  },
+  "query_contract": {
+    "console_script": "bas-national-population-query = aggie_analytics.national_population.query:main",
+    "module": "aggie_analytics.national_population.query (standard library only: argparse, json, sqlite3)",
+    "database_open": "file:...?mode=ro URI; database manifest identity verified at open",
+    "grains": [
+      "program-season",
+      "contest",
+      "orientation"
+    ],
+    "filters": [
+      "season",
+      "division",
+      "org",
+      "team",
+      "classification pair",
+      "disposition",
+      "reconciliation state"
+    ],
+    "paging": "--limit/--offset/--all with exact totals; a negative offset or unknown flag is refused",
+    "out_of_scope_season": "NOT_YET_AUDITED and no rows",
+    "filter_validation": "filters are validated for the grain before the season scope is evaluated"
+  },
+  "non_claims": [
+    "no PIT or known-at authority",
+    "predictive skill NOT_ESTABLISHED",
+    "no strength comparability or FCS translation",
+    "no pre-2016 or 2026 completeness",
+    "no scientific trust (UNTRUSTED_SHADOW and the closed trust gate remain)",
+    "no Jira acceptance",
+    "no champion, A&M lift or Aggie Excess effect",
+    "no reuse or citation of Cycle30 proven_pit_training_rows=36 or kernel_trust_usable=true (AGENTS rule 8 discrepancy retained for BAT-700)"
+  ],
+  "input_bindings": {
+    "source_ref": "C:\\BatteredAggieSyndrome.data\\ops\\manager_reviews\\cycle38\\attempt01\\preparation-20261002\\DATA_INPUT_BINDINGS.json",
+    "source_ref_sha256": "6638e6806748707dac10df738dc9f015ae9d21bf8c063f58932ba8e1b936bfe0",
+    "bound_manifests": {
+      "2016": {
+        "identity": "530e82d2ec17fd685434b11f407a9ab09361d6776681844553cfe568f6f73a69",
+        "sha256": "5e4671e0876501ddf432754bd8bb2e16fa38a8c04f8e2138f900520d5e9bec5c",
+        "captures": 659
+      },
+      "2017": {
+        "identity": "a8e5b4eb251d41f2ced586f6abb54d89a76a9db7c5854b89ddd97da4ea8fd244",
+        "sha256": "baf642cc55854da1194a8fde786755d303d38f190ebbafbf65852f73e257f547",
+        "captures": 658
+      },
+      "2018": {
+        "identity": "f294dc0cd538b9d1be1b4251d903e552e252c4ec4ba46add3c00e2ea09c3965a",
+        "sha256": "7fd0a59d4a41c5dade0ba60e9ef2b236109ae13a7f0b994e68e36df87ae39c64",
+        "captures": 662
+      },
+      "2019": {
+        "identity": "59acda5c9243dc087bfc6805ab2cbdcc0dd962b023475d80274bd56638798ee4",
+        "sha256": "11cd7ffab89cee283f9dc299580e27aa4858ad30ddb9d3021dc1099cc0ffa3fd",
+        "captures": 660
+      },
+      "2020": {
+        "identity": "583efe58279f83a8e5e73e124420452524992b9bcac03c36c6285a6faa78324f",
+        "sha256": "fba73ab4d2010ce6b2bd2d2f91b4811392e063c3ed066127cc99b398f4eace73",
+        "captures": 263
+      },
+      "2021": {
+        "identity": "42dbc002fdbcc354c49a18ab6d451ab399b7a3768b9a20652b773bfc8f312eca",
+        "sha256": "808bd23173765dc34fbcf05c90c0e381ce08bd6434e1759fbca1b39220b80d63",
+        "captures": 653
+      },
+      "2022": {
+        "identity": "0acc36a367879af7e7451164fdff2c8b21946479e6478d6283f1337992ad33f1",
+        "sha256": "701d100830cc2b38dbf9a718a5c51d605678cf51980abf94e648496c2a9a8444",
+        "captures": 656
+      },
+      "2023": {
+        "identity": "492f47b11c96fab1ce904689d4f0fcd06dc2d89dd33a238a963871fd7d2ff157",
+        "sha256": "8357a409467cb84738873a5c521874d3966a0e368635707f3e3dee5c0b3a8655",
+        "captures": 654
+      },
+      "2024": {
+        "identity": "4dbba4b7439b8901011755225460fb34896b49a0746af4895a6b486004d2789d",
+        "sha256": "bdc655b00c88d1911881309ddd9ccb3a6909dcac027b386e590591e3368a9bdd",
+        "captures": 656
+      },
+      "2025": {
+        "identity": "8fac579906a6ab1879e4b7440f7f8764556d08d0ae27c8c09651775cdb70ec60",
+        "sha256": "6e8844cb898d7caa2c87b1b5785c8695e6ec0c84b26525bda2a7ba0014ab253f",
+        "captures": 657
+      }
+    },
+    "total_bound_captures": 6178,
+    "bat554_contract_binding_2023": "8357a409467cb84738873a5c521874d3966a0e368635707f3e3dee5c0b3a8655",
+    "cfbd_fbs_route": {
+      "2016": "9bc85c6f9768a2469864cb844e6cc98cdfce06f23b02a8bfb8f03004cad12613",
+      "2017": "6ca1a9cc367b6c70eb4fb2bd2a71fb83b05dc536028857f60b94fdd57062eda2",
+      "2018": "c96dbf7384af57300d6a3eb927ddb8fdc29e4e5d4bccd15babc4c32366829837",
+      "2019": "b361354f331cd9a419ebec756833c65a480f2431fd6044fb9e96e06cf4b6f14f",
+      "2020": "6fde848c1b58a2a0c2ca831bbf6f93e7bb5a4398c9746682438e96095846a63f",
+      "2021": "09f2f4613dc4dc83d38e14757bb28695b4532463a0b788cb12c4d13347a2d19a",
+      "2022": "9c50d7465d2d74f6c0e9d9bf79c4b593a0b70db790207109d1c2f675e6e70fdf",
+      "2023": "ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03",
+      "2024": "6a49d6e19808cecf3743e0b3e85067ce7b717027c25ad571247a19c749d692f6",
+      "2025": "4bcce67d1d788b3af33124d35837ec2836fb0f064850c5ec8554cfaed0024b79"
+    },
+    "cfbd_fbs_route_2024_2025_scope": "observation only (E5 expectation); no contest join",
+    "cfbd_fcs_route": {
+      "2016": {
+        "file": "8ef542053fac1dee805a178ecdc2d6a28a411ec9396f6626d5693c0d9f210aca.json",
+        "content_sha256": "9c717e540eb518581b32ab50dd1cca4641807a51f815fd0347ea8ce731c60d33"
+      },
+      "2017": {
+        "file": "8d4fb7e5eb3c7bacf8e08c385de839faec7215bbf3ec6ddeabd315ea9516411c.json",
+        "content_sha256": "0e9b2218916de970ccea1af2bee7b91b811f92f2e01655559e2d973153b44c8d"
+      },
+      "2018": {
+        "file": "d38a2c356a6180b57cb4acb6ff45f28c372a4cb2f8e149d617a712a342b905bd.json",
+        "content_sha256": "8cf3947848ab6e5d46407a52186d49c1ad1d6411549b6438b63a21e72f74822f"
+      },
+      "2019": {
+        "file": "9af7759ca1e09f59ec2a6d196da07d94a6992b3e1357eeddb4ab6ab0e9c21652.json",
+        "content_sha256": "ec5b182e8ad4142d7c6e7d3fcf3002a769bab04641f1b3b2239e262c7743816a"
+      },
+      "2020": {
+        "file": "e959c89fe651414395de9f31037457db59069a841bc9f947534c2055ea3aad0d.json",
+        "content_sha256": "af1aa730df6709ad78d68960cc021d2f10043c0951a3ada5ff45f28c4ff0ea1d"
+      },
+      "2021": {
+        "file": "a146f8835f61b5f5e72f069657d6852e6a0587da7e95a642646eebdd1fa79542.json",
+        "content_sha256": "561aecb435ec3216447e258c2430a3592476a11d9f4af2e2bb9042781c62ed5d"
+      },
+      "2022": {
+        "file": "54631dcff2bb22629fe358102c668b0e58f6c4a096671b7fb23a5d15e45c7ae2.json",
+        "content_sha256": "990814cd10139c37003ca29e5c196001739b6227e91b25333585ac86ca0bdb15"
+      },
+      "2023": {
+        "file": "0b0a4af5aa30bc4b135a5f9d3e5816c3bb9a6939a51d8cc4f6200791c917e0f9.json",
+        "content_sha256": "8ef788876fcddf7aef47eb6957cdad1d4e9a8ec49fd9d95b17c591713cdcdb80"
+      }
+    },
+    "cycle30_ledger": {
+      "path": "ops/cycle30_work/outputs/CYCLE30_ACQUISITION_LEDGER.json",
+      "sha256": "dd29ab5a2fb1bb3169ef10b1ec6f02438e5c8b4fae5adbef88d6baaa082c9258"
+    },
+    "cycle30_membership": {
+      "path": "ops/cycle30_work/outputs/HISTORICAL_MEMBERSHIP_2013_2023.jsonl",
+      "sha256": "c44850862566bda847af72bb084def91a3abb9b561a8b1647411d389bc5bd5a0"
+    },
+    "canonical_registry": {
+      "path": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+      "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+    },
+    "team_history_root": {
+      "path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_official_team_history",
+      "file_count": 486
+    },
+    "current_2026_population": {
+      "repository_path": "artifacts/scientific_integrity/cycle30/CURRENT_2026_DIVISION_I_PROGRAM_POPULATION.json",
+      "sha256": "78ce99dc98939409a7dc5baf61d0c86387c011dce06a737e3bede64e5b8907aa"
+    },
+    "fcs_expected_game_population_predecessor": {
+      "path": "ops/cycle29_work/outputs/HISTORICAL_FCS_EXPECTED_GAME_POPULATION.jsonl",
+      "sha256": "aeb7cf251eae59b68c521f80d5afd3ba107fd22ff61c3fc6474b9ec594a657c7"
+    },
+    "bat652_spine_membership": {
+      "path": "canonical/national_tiered_game_spine/sha256/777dce822d5f02455ef2c47b1e482a45dbf5b3b84300885a608ac845946a03f8/national_game_membership.jsonl",
+      "sha256": "af5f84cfda608b32e3e0d44a242e6f01f19458a9b0be31aa58a2d6b6c0425c74",
+      "role": "R38A01-04-D identity-level comparison only (observation); never authority or denominator"
+    },
+    "e4_adjacent_2015_rule": "the 2015 manifest is bound by the same rule and read only for 2016 season_options adjacency"
+  },
+  "revision_note": "V1.1 (before any materialization): the V1 participant-resolution sentence named SOURCE_MAPPING for CFBD ids, but the registry carries CFBD ids on team ENTITY identity keys (TEAM|SRC-002|<id>) and has no NCAA identities. V1.1 declares the identity binding (name candidates confirmed by each team's own schedule fingerprint, never name-only), the contest key for schedule rows without a contest link, the stated-site semantics and the 2020 term rule. Thresholds are fixed here before any binding or reconciliation result is computed. || V1.2 (still before any canonical materialization; written after development materializations under the validation scratch root and an independent read-only code review): corrects defects, not thresholds. The V1.1 forward match compared CFBD UTC calendar dates with NCAA local page dates, so evening kickoffs could split one game into an NCAA row and a cfbd: row; V1.2 declares the CFBD local-date basis and the same-pair same-score rule. V1.1 let CFBD-only rows take site, status, competitiveness and points from the provider and let the provider classification decide their inclusion; V1.2 keeps provider values as observations only. V1.2 also nulls disagreeing mirror values instead of choosing one, binds ranking-link codes to the page's own organization and academic year, maps official D-II to DII, gives external-opponent views by membership, reports transitions across unobserved seasons, keeps contests with inconsistent participants, and adds a parameter block both the producer and the validator must equal. Binding thresholds, the 2020 term date and the reconciliation scope are unchanged. || V1.3 (still before any canonical materialization): the independent validator read the V1.2 'carry different rows' route-conflict rule as any raw field, while the producer compared game facts; 18 2016-2023 games appear in both routes with identical game facts and differ only in the awayConference label ('AWC' vs 'Western Athletic'). V1.3 names the compared game-fact fields and reports other provider-field differences without a conflict, and records CFBD match dates on every one-to-one match. No threshold, scope or other rule changes.",
+  "parameters": {
+    "forward_match_days": 1,
+    "cfbd_local_offset_hours": [
+      -4,
+      -10
+    ],
+    "same_pair_same_score_window_days": 7,
+    "spring_2020_from": "2021-01-16",
+    "binding_thresholds": {
+      "name_confirmed_min_games": 3,
+      "name_confirmed_min_share": 0.5,
+      "collision_other_max_share": 0.2,
+      "fingerprint_only_min_games": 5,
+      "fingerprint_only_min_share": 0.8,
+      "fingerprint_only_runner_up_max_share": 0.2
+    },
+    "team_history_label_map": {
+      "FBS": "FBS",
+      "FCS": "FCS",
+      "D-II": "DII",
+      "D-III": "DIII"
+    },
+    "team_history_label_codes": {
+      "FBS": "11",
+      "FCS": "12",
+      "D-II": "2"
+    },
+    "ranking_link_academic_year_offset": 1,
+    "contest_status_vocabulary": [
+      "COMPLETED",
+      "CANCELED",
+      "NO_CONTEST",
+      "FORFEIT",
+      "UNSCORED",
+      "MIRROR_DISAGREEMENT",
+      "NOT_OFFICIALLY_OBSERVED"
+    ],
+    "single_source_exposure": "EXPOSED_NOT_PROTECTED",
+    "cfbd_game_fact_fields": [
+      "id",
+      "season",
+      "seasonType",
+      "week",
+      "startDate",
+      "completed",
+      "neutralSite",
+      "homeId",
+      "homeTeam",
+      "homeClassification",
+      "homePoints",
+      "awayId",
+      "awayTeam",
+      "awayClassification",
+      "awayPoints"
+    ]
+  }
+}

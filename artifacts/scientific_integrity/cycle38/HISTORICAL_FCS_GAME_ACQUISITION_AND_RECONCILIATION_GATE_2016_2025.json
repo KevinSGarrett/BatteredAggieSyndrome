@@ -1,0 +1,410 @@
+{
+ "artifact_type": "HISTORICAL_FCS_GAME_ACQUISITION_AND_RECONCILIATION_GATE_2016_2025",
+ "attempt_number": 1,
+ "contests_by_season": {
+  "2016": {
+   "by_classification_pair": {
+    "DII-UNRESOLVED": 11,
+    "FBS-FBS": 736,
+    "FBS-FCS": 124,
+    "FBS-UNRESOLVED": 24,
+    "FCS-DII": 43,
+    "FCS-FCS": 608,
+    "FCS-NON_NCAA": 13,
+    "FCS-OUTSIDE_DI_CODE_3": 1,
+    "FCS-UNRESOLVED": 2,
+    "OUTSIDE_DI_CODE_3-UNRESOLVED": 35,
+    "UNRESOLVED-NON_NCAA": 1,
+    "UNRESOLVED-UNRESOLVED": 1
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 37,
+    "CONFLICT": 15,
+    "IDENTITY_UNRESOLVED": 45,
+    "SOURCE_ABSENT": 1,
+    "VERIFIED_PRESENT": 1501
+   },
+   "by_reconciliation_state": {
+    "CONFLICT": 15,
+    "IDENTITY_UNRESOLVED": 45,
+    "MATCHED_SINGLE_BOUND_PARTICIPANT": 30,
+    "RECONCILED_2016_2023": 1501,
+    "SECOND_SOURCE_ABSENT": 7,
+    "SOURCE_ABSENT": 1
+   },
+   "by_source": {
+    "CFBD_ONLY": 1,
+    "NCAA_GRAPH": 1598
+   },
+   "by_status": {
+    "COMPLETED": 1598,
+    "NOT_OFFICIALLY_OBSERVED": 1
+   },
+   "by_term": {
+    "FALL": 1599
+   },
+   "contests": 1599,
+   "fcs_fcs_contests": 608,
+   "neutral_site_contests": 79,
+   "orientations": 3198
+  },
+  "2017": {
+   "by_classification_pair": {
+    "DII-UNRESOLVED": 13,
+    "FBS-FBS": 754,
+    "FBS-FCS": 105,
+    "FBS-UNRESOLVED": 23,
+    "FCS-DII": 32,
+    "FCS-FCS": 619,
+    "FCS-NON_NCAA": 12,
+    "FCS-OUTSIDE_DI_CODE_3": 5,
+    "FCS-UNRESOLVED": 2,
+    "OUTSIDE_DI_CODE_3-UNRESOLVED": 20
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 39,
+    "CONFLICT": 16,
+    "IDENTITY_UNRESOLVED": 20,
+    "VERIFIED_PRESENT": 1510
+   },
+   "by_reconciliation_state": {
+    "CONFLICT": 16,
+    "IDENTITY_UNRESOLVED": 20,
+    "MATCHED_SINGLE_BOUND_PARTICIPANT": 22,
+    "RECONCILED_2016_2023": 1511,
+    "SECOND_SOURCE_ABSENT": 16
+   },
+   "by_source": {
+    "NCAA_GRAPH": 1585
+   },
+   "by_status": {
+    "COMPLETED": 1585
+   },
+   "by_term": {
+    "FALL": 1585
+   },
+   "contests": 1585,
+   "fcs_fcs_contests": 619,
+   "neutral_site_contests": 71,
+   "orientations": 3170
+  },
+  "2018": {
+   "by_classification_pair": {
+    "FBS-FBS": 772,
+    "FBS-FCS": 112,
+    "FCS-DII": 41,
+    "FCS-FCS": 611,
+    "FCS-NON_NCAA": 18,
+    "FCS-OUTSIDE_DI_CODE_3": 5
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 37,
+    "CONFLICT": 13,
+    "SOURCE_ABSENT": 1,
+    "VERIFIED_PRESENT": 1508
+   },
+   "by_reconciliation_state": {
+    "CONFLICT": 13,
+    "MATCHED_SINGLE_BOUND_PARTICIPANT": 31,
+    "RECONCILED_2016_2023": 1509,
+    "SECOND_SOURCE_ABSENT": 5,
+    "SOURCE_ABSENT": 1
+   },
+   "by_source": {
+    "CFBD_ONLY": 1,
+    "NCAA_GRAPH": 1558
+   },
+   "by_status": {
+    "COMPLETED": 1558,
+    "NOT_OFFICIALLY_OBSERVED": 1
+   },
+   "by_term": {
+    "FALL": 1559
+   },
+   "contests": 1559,
+   "fcs_fcs_contests": 611,
+   "neutral_site_contests": 78,
+   "orientations": 3118
+  },
+  "2019": {
+   "by_classification_pair": {
+    "FBS-FBS": 774,
+    "FBS-FCS": 114,
+    "FCS-DII": 37,
+    "FCS-FCS": 666,
+    "FCS-NON_NCAA": 27,
+    "FCS-OUTSIDE_DI_CODE_3": 4
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 38,
+    "CONFLICT": 18,
+    "VERIFIED_PRESENT": 1566
+   },
+   "by_reconciliation_state": {
+    "CONFLICT": 18,
+    "MATCHED_SINGLE_BOUND_PARTICIPANT": 37,
+    "RECONCILED_2016_2023": 1566,
+    "SECOND_SOURCE_ABSENT": 1
+   },
+   "by_source": {
+    "NCAA_GRAPH": 1622
+   },
+   "by_status": {
+    "COMPLETED": 1622
+   },
+   "by_term": {
+    "FALL": 1622
+   },
+   "contests": 1622,
+   "fcs_fcs_contests": 666,
+   "neutral_site_contests": 72,
+   "orientations": 3244
+  },
+  "2020": {
+   "by_classification_pair": {
+    "DII-UNRESOLVED": 3,
+    "FBS-FBS": 618,
+    "FBS-FCS": 40,
+    "FCS-DII": 14,
+    "FCS-FCS": 317,
+    "FCS-NON_NCAA": 2,
+    "FCS-UNRESOLVED": 16,
+    "UNRESOLVED-UNRESOLVED": 2
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 167,
+    "CONFLICT": 16,
+    "IDENTITY_UNRESOLVED": 1,
+    "SOURCE_ABSENT": 7,
+    "VERIFIED_PRESENT": 821
+   },
+   "by_reconciliation_state": {
+    "CONFLICT": 16,
+    "IDENTITY_UNRESOLVED": 1,
+    "MATCHED_SINGLE_BOUND_PARTICIPANT": 8,
+    "NOT_RECONCILED_NON_COMPETITIVE": 158,
+    "RECONCILED_2016_2023": 821,
+    "SECOND_SOURCE_ABSENT": 1,
+    "SOURCE_ABSENT": 7
+   },
+   "by_source": {
+    "CFBD_ONLY": 7,
+    "NCAA_GRAPH": 1005
+   },
+   "by_status": {
+    "CANCELED": 123,
+    "COMPLETED": 846,
+    "NOT_OFFICIALLY_OBSERVED": 7,
+    "UNSCORED": 36
+   },
+   "by_term": {
+    "FALL": 678,
+    "SPRING": 334
+   },
+   "contests": 1012,
+   "fcs_fcs_contests": 317,
+   "neutral_site_contests": 48,
+   "orientations": 2024
+  },
+  "2021": {
+   "by_classification_pair": {
+    "FBS-FBS": 776,
+    "FBS-FCS": 117,
+    "FCS-DII": 30,
+    "FCS-FCS": 637,
+    "FCS-NON_NCAA": 18,
+    "FCS-OUTSIDE_DI_CODE_3": 1
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 34,
+    "CONFLICT": 19,
+    "VERIFIED_PRESENT": 1526
+   },
+   "by_reconciliation_state": {
+    "CONFLICT": 19,
+    "MATCHED_SINGLE_BOUND_PARTICIPANT": 25,
+    "NOT_RECONCILED_NON_COMPETITIVE": 9,
+    "RECONCILED_2016_2023": 1526
+   },
+   "by_source": {
+    "NCAA_GRAPH": 1579
+   },
+   "by_status": {
+    "CANCELED": 10,
+    "COMPLETED": 1569
+   },
+   "by_term": {
+    "FALL": 1579
+   },
+   "contests": 1579,
+   "fcs_fcs_contests": 637,
+   "neutral_site_contests": 80,
+   "orientations": 3158
+  },
+  "2022": {
+   "by_classification_pair": {
+    "FBS-FBS": 779,
+    "FBS-FCS": 120,
+    "FCS-DII": 30,
+    "FCS-FCS": 645,
+    "FCS-NON_NCAA": 25,
+    "FCS-OUTSIDE_DI_CODE_3": 1,
+    "FCS-UNRESOLVED": 1
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 44,
+    "CONFLICT": 11,
+    "VERIFIED_PRESENT": 1546
+   },
+   "by_reconciliation_state": {
+    "CONFLICT": 11,
+    "MATCHED_SINGLE_BOUND_PARTICIPANT": 41,
+    "NOT_RECONCILED_NON_COMPETITIVE": 3,
+    "RECONCILED_2016_2023": 1546
+   },
+   "by_source": {
+    "NCAA_GRAPH": 1601
+   },
+   "by_status": {
+    "CANCELED": 3,
+    "COMPLETED": 1597,
+    "UNSCORED": 1
+   },
+   "by_term": {
+    "FALL": 1601
+   },
+   "contests": 1601,
+   "fcs_fcs_contests": 645,
+   "neutral_site_contests": 79,
+   "orientations": 3202
+  },
+  "2023": {
+   "by_classification_pair": {
+    "FBS-FBS": 792,
+    "FBS-FCS": 118,
+    "FCS-DII": 30,
+    "FCS-FCS": 635,
+    "FCS-NON_NCAA": 26,
+    "FCS-OUTSIDE_DI_CODE_3": 2
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 40,
+    "CONFLICT": 13,
+    "VERIFIED_PRESENT": 1550
+   },
+   "by_reconciliation_state": {
+    "CONFLICT": 13,
+    "MATCHED_SINGLE_BOUND_PARTICIPANT": 40,
+    "RECONCILED_2016_2023": 1550
+   },
+   "by_source": {
+    "NCAA_GRAPH": 1603
+   },
+   "by_status": {
+    "CANCELED": 6,
+    "COMPLETED": 1597
+   },
+   "by_term": {
+    "FALL": 1603
+   },
+   "contests": 1603,
+   "fcs_fcs_contests": 635,
+   "neutral_site_contests": 79,
+   "orientations": 3206
+  },
+  "2024": {
+   "by_classification_pair": {
+    "DII-UNRESOLVED": 2,
+    "FBS-FBS": 799,
+    "FBS-FCS": 121,
+    "FCS-DII": 37,
+    "FCS-FCS": 692,
+    "FCS-NON_NCAA": 19,
+    "FCS-OUTSIDE_DI_CODE_3": 2
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 1672
+   },
+   "by_reconciliation_state": {
+    "SINGLE_SOURCE_UNRECONCILED": 1672
+   },
+   "by_source": {
+    "NCAA_GRAPH": 1672
+   },
+   "by_status": {
+    "CANCELED": 3,
+    "COMPLETED": 1667,
+    "UNSCORED": 2
+   },
+   "by_term": {
+    "FALL": 1672
+   },
+   "contests": 1672,
+   "fcs_fcs_contests": 692,
+   "neutral_site_contests": 75,
+   "orientations": 3344
+  },
+  "2025": {
+   "by_classification_pair": {
+    "FBS-FBS": 808,
+    "FBS-FCS": 126,
+    "FCS-DII": 39,
+    "FCS-FCS": 692,
+    "FCS-NON_NCAA": 19,
+    "FCS-OUTSIDE_DI_CODE_3": 4
+   },
+   "by_disposition": {
+    "CANDIDATE_ONLY": 1688
+   },
+   "by_reconciliation_state": {
+    "SINGLE_SOURCE_UNRECONCILED": 1688
+   },
+   "by_source": {
+    "NCAA_GRAPH": 1688
+   },
+   "by_status": {
+    "CANCELED": 1,
+    "COMPLETED": 1687
+   },
+   "by_term": {
+    "FALL": 1688
+   },
+   "contests": 1688,
+   "fcs_fcs_contests": 692,
+   "neutral_site_contests": 71,
+   "orientations": 3376
+  }
+ },
+ "cycle_number": 38,
+ "historical_audit_unit": "HT38-NATIONAL-DI-CONTEST-2016-2025",
+ "identities": {
+  "contest": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+  "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+  "first_output_issued_at_utc": "2026-10-02T04:25:07Z",
+  "program_season": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+  "query_db": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27"
+ },
+ "jira_key": "BAT-710",
+ "new_pre_2016_units": 0,
+ "non_claims": [
+  "no PIT or known-at authority",
+  "predictive skill NOT_ESTABLISHED",
+  "no strength comparability or FCS translation",
+  "no pre-2016 or 2026 completeness",
+  "no scientific trust (UNTRUSTED_SHADOW and the closed trust gate remain)",
+  "no Jira acceptance",
+  "no champion, A&M lift or Aggie Excess effect",
+  "no reuse or citation of Cycle30 proven_pit_training_rows=36 or kernel_trust_usable=true (AGENTS rule 8 discrepancy retained for BAT-700)"
+ ],
+ "predecessor": {
+  "path": "artifacts/scientific_integrity/cycle29/HISTORICAL_FCS_GAME_ACQUISITION_AND_RECONCILIATION_GATE.json",
+  "sha256": "dd3c3434327fd745a951d7e45fb0d68c37a857c2eb1bde567fa549ec30f11a38"
+ },
+ "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+ "scope": "HISTORICAL_NATIONAL 2016-2025 program-seasons; contests 2016-2025, reconciled 2016-2023 only",
+ "single_source_2024_2025": {
+  "exposure": "EXPOSED_NOT_PROTECTED",
+  "reconciliation_state": "SINGLE_SOURCE_UNRECONCILED"
+ },
+ "state": "PARTIAL_TRANCHE_RECONCILED_2016_2023_SINGLE_SOURCE_2024_2025"
+}

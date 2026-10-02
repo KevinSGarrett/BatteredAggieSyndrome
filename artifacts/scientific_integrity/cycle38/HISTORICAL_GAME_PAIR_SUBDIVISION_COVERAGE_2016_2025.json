@@ -1,0 +1,132 @@
+{
+ "artifact_type": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE_2016_2025",
+ "attempt_number": 1,
+ "cycle_number": 38,
+ "historical_audit_unit": "HT38-NATIONAL-DI-CONTEST-2016-2025",
+ "identities": {
+  "contest": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+  "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+  "first_output_issued_at_utc": "2026-10-02T04:25:07Z",
+  "program_season": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+  "query_db": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27"
+ },
+ "jira_key": "BAT-710",
+ "new_pre_2016_units": 0,
+ "non_claims": [
+  "no PIT or known-at authority",
+  "predictive skill NOT_ESTABLISHED",
+  "no strength comparability or FCS translation",
+  "no pre-2016 or 2026 completeness",
+  "no scientific trust (UNTRUSTED_SHADOW and the closed trust gate remain)",
+  "no Jira acceptance",
+  "no champion, A&M lift or Aggie Excess effect",
+  "no reuse or citation of Cycle30 proven_pit_training_rows=36 or kernel_trust_usable=true (AGENTS rule 8 discrepancy retained for BAT-700)"
+ ],
+ "pair_counts_by_season": {
+  "2016": {
+   "DII-UNRESOLVED": 11,
+   "FBS-FBS": 736,
+   "FBS-FCS": 124,
+   "FBS-UNRESOLVED": 24,
+   "FCS-DII": 43,
+   "FCS-FCS": 608,
+   "FCS-NON_NCAA": 13,
+   "FCS-OUTSIDE_DI_CODE_3": 1,
+   "FCS-UNRESOLVED": 2,
+   "OUTSIDE_DI_CODE_3-UNRESOLVED": 35,
+   "UNRESOLVED-NON_NCAA": 1,
+   "UNRESOLVED-UNRESOLVED": 1
+  },
+  "2017": {
+   "DII-UNRESOLVED": 13,
+   "FBS-FBS": 754,
+   "FBS-FCS": 105,
+   "FBS-UNRESOLVED": 23,
+   "FCS-DII": 32,
+   "FCS-FCS": 619,
+   "FCS-NON_NCAA": 12,
+   "FCS-OUTSIDE_DI_CODE_3": 5,
+   "FCS-UNRESOLVED": 2,
+   "OUTSIDE_DI_CODE_3-UNRESOLVED": 20
+  },
+  "2018": {
+   "FBS-FBS": 772,
+   "FBS-FCS": 112,
+   "FCS-DII": 41,
+   "FCS-FCS": 611,
+   "FCS-NON_NCAA": 18,
+   "FCS-OUTSIDE_DI_CODE_3": 5
+  },
+  "2019": {
+   "FBS-FBS": 774,
+   "FBS-FCS": 114,
+   "FCS-DII": 37,
+   "FCS-FCS": 666,
+   "FCS-NON_NCAA": 27,
+   "FCS-OUTSIDE_DI_CODE_3": 4
+  },
+  "2020": {
+   "DII-UNRESOLVED": 3,
+   "FBS-FBS": 618,
+   "FBS-FCS": 40,
+   "FCS-DII": 14,
+   "FCS-FCS": 317,
+   "FCS-NON_NCAA": 2,
+   "FCS-UNRESOLVED": 16,
+   "UNRESOLVED-UNRESOLVED": 2
+  },
+  "2021": {
+   "FBS-FBS": 776,
+   "FBS-FCS": 117,
+   "FCS-DII": 30,
+   "FCS-FCS": 637,
+   "FCS-NON_NCAA": 18,
+   "FCS-OUTSIDE_DI_CODE_3": 1
+  },
+  "2022": {
+   "FBS-FBS": 779,
+   "FBS-FCS": 120,
+   "FCS-DII": 30,
+   "FCS-FCS": 645,
+   "FCS-NON_NCAA": 25,
+   "FCS-OUTSIDE_DI_CODE_3": 1,
+   "FCS-UNRESOLVED": 1
+  },
+  "2023": {
+   "FBS-FBS": 792,
+   "FBS-FCS": 118,
+   "FCS-DII": 30,
+   "FCS-FCS": 635,
+   "FCS-NON_NCAA": 26,
+   "FCS-OUTSIDE_DI_CODE_3": 2
+  },
+  "2024": {
+   "DII-UNRESOLVED": 2,
+   "FBS-FBS": 799,
+   "FBS-FCS": 121,
+   "FCS-DII": 37,
+   "FCS-FCS": 692,
+   "FCS-NON_NCAA": 19,
+   "FCS-OUTSIDE_DI_CODE_3": 2
+  },
+  "2025": {
+   "FBS-FBS": 808,
+   "FBS-FCS": 126,
+   "FCS-DII": 39,
+   "FCS-FCS": 692,
+   "FCS-NON_NCAA": 19,
+   "FCS-OUTSIDE_DI_CODE_3": 4
+  }
+ },
+ "predecessor": {
+  "path": "artifacts/scientific_integrity/cycle29/HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+  "sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1"
+ },
+ "protected_lane": "RETAIN_PROTECTED_LANE_BLOCKED",
+ "scope": "HISTORICAL_NATIONAL 2016-2025 program-seasons; contests 2016-2025, reconciled 2016-2023 only",
+ "single_source_2024_2025": {
+  "exposure": "EXPOSED_NOT_PROTECTED",
+  "reconciliation_state": "SINGLE_SOURCE_UNRECONCILED"
+ },
+ "state": "PARTIAL_TRANCHE_RECONCILED_2016_2023_SINGLE_SOURCE_2024_2025"
+}

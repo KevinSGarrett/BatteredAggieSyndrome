@@ -680,6 +680,10 @@ class ContestTests(unittest.TestCase):
         self.assertEqual(contests["ncaa:2"]["reconciliation_state"], "RECONCILED_2016_2023")
         self.assertEqual(contests["ncaa:3"]["disposition_reason"], "OPPONENT_IDENTITY_NOT_BOUND")
         self.assertEqual(contests["ncaa:3"]["disposition"], "CANDIDATE_ONLY")
+        # every one-to-one match records the CFBD candidate local dates (single bound participant included)
+        self.assertEqual(contests["ncaa:3"]["cfbd_local_dates"], ["2018-09-06"])
+        self.assertEqual(contests["ncaa:2"]["date_delta_days"], 1)  # page 2018-08-30, CFBD local 2018-08-31
+        self.assertNotIn("date_delta_days", contests["ncaa:1"])
 
     def test_score_and_date_disagreements_keep_both_values(self) -> None:
         games = [cfbd_game("g1", 2018, "2018-09-15", "2623", "2460", 40, 9),
@@ -801,6 +805,28 @@ class ContestTests(unittest.TestCase):
         self.assertEqual((len(merged), merged[0]["routes"], conflicts), (1, ["CYCLE30_FCS", "SRC-002"], []))
         merged, conflicts = pop.union_cfbd([[a], [dict(a, route="CYCLE30_FCS", home_points=4)]])
         self.assertEqual(len(conflicts), 1)
+        self.assertTrue(merged[0]["route_conflict"])
+        # a provider-field difference outside the game facts (a conference label) merges and is only reported
+        m1 = dict(a, provider_metadata={"awayConference": "AWC", "venue": "X"})
+        m2 = dict(a, route="CYCLE30_FCS", provider_metadata={"awayConference": "Western Athletic", "venue": "X"})
+        merged, conflicts = pop.union_cfbd([[m1], [m2]])
+        self.assertEqual((conflicts, merged[0]["routes"], merged[0]["route_metadata_differences"]),
+                         ([], ["CYCLE30_FCS", "SRC-002"], ["awayConference"]))
+        self.assertNotIn("route_conflict", merged[0])
+
+    def test_game_fact_fields_are_the_contract_list_and_metadata_is_kept_apart(self) -> None:
+        self.assertEqual(list(pop.CFBD_GAME_FACT_FIELDS), contract()["parameters"]["cfbd_game_fact_fields"])
+        with tempfile.TemporaryDirectory() as tmp:
+            raw = json.dumps([{"id": 7, "season": 2018, "seasonType": "regular", "week": 2,
+                               "startDate": "2018-09-08T23:00:00.000Z", "completed": True, "neutralSite": False,
+                               "homeId": 1, "homeTeam": "A", "homeClassification": "fcs", "homePoints": 3,
+                               "awayId": 2, "awayTeam": "B", "awayClassification": "fcs", "awayPoints": 0,
+                               "awayConference": "AWC", "venue": "V"}]).encode("utf-8")
+            path = Path(tmp) / "g.json"
+            path.write_bytes(raw)
+            row = pop.load_cfbd_games(path, expected_sha256=pop.sha256_bytes(raw), route="SRC-002")[0]
+        self.assertEqual(row["provider_metadata"], {"awayConference": "AWC", "venue": "V"})
+        self.assertEqual(row["local_dates"], ["2018-09-08"])
 
     def test_schedule_cardinality_and_record(self) -> None:
         contests, orientations = self.build()

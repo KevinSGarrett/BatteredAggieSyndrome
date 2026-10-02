@@ -60,6 +60,10 @@ BINDING_THRESHOLDS = {"name_confirmed_min_games": 3, "name_confirmed_min_share":
 E2_LABEL_MAP = {"FBS": "FBS", "FCS": "FCS", "D-II": "DII", "D-III": "DIII"}
 E2_LABEL_TO_CODE = {"FBS": "11", "FCS": "12", "D-II": "2"}
 RANKING_ACADEMIC_YEAR_OFFSET = 1
+#: Raw CFBD fields that are game facts; a route conflict is a disagreement on one of these (contract cfbd_route_conflict).
+CFBD_GAME_FACT_FIELDS = ("id", "season", "seasonType", "week", "startDate", "completed", "neutralSite", "homeId",
+                         "homeTeam", "homeClassification", "homePoints", "awayId", "awayTeam", "awayClassification",
+                         "awayPoints")
 #: Contract ``parameters``; the build refuses a contract whose block differs (the code never silently keeps old values).
 CONTRACT_PARAMETERS = {
     "forward_match_days": FORWARD_MATCH_DAYS, "cfbd_local_offset_hours": list(CFBD_LOCAL_OFFSET_HOURS),
@@ -67,6 +71,7 @@ CONTRACT_PARAMETERS = {
     "binding_thresholds": BINDING_THRESHOLDS, "team_history_label_map": E2_LABEL_MAP,
     "team_history_label_codes": E2_LABEL_TO_CODE, "ranking_link_academic_year_offset": RANKING_ACADEMIC_YEAR_OFFSET,
     "contest_status_vocabulary": list(CONTEST_STATUSES), "single_source_exposure": EXPOSURE_2024_2025,
+    "cfbd_game_fact_fields": list(CFBD_GAME_FACT_FIELDS),
 }
 
 
@@ -651,12 +656,14 @@ def load_cfbd_games(path: Path, *, expected_sha256: str, route: str) -> list[dic
                      "home_points": game.get("homePoints"),
                      "away_id": str(game["awayId"]) if game.get("awayId") is not None else None,
                      "away_team": game.get("awayTeam"), "away_classification": game.get("awayClassification"),
-                     "away_points": game.get("awayPoints"), "route": route})
+                     "away_points": game.get("awayPoints"), "route": route,
+                     "provider_metadata": {k: v for k, v in game.items() if k not in CFBD_GAME_FACT_FIELDS}})
     return rows
 
 
 def union_cfbd(routes: list[list[dict[str, Any]]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Deduplicate by CFBD game id; identical duplicate rows merge their routes, differing rows are conflicts."""
+    """Deduplicate by CFBD game id. Rows agreeing on every game fact merge their routes; a game-fact disagreement is a
+    route conflict; differences only in other provider fields are recorded on the row, never a conflict."""
     merged: dict[str, dict[str, Any]] = {}
     conflicts = []
     for rows in routes:
@@ -666,9 +673,14 @@ def union_cfbd(routes: list[list[dict[str, Any]]]) -> tuple[list[dict[str, Any]]
                 merged[key] = {**row, "routes": [row["route"]]}
                 continue
             current = merged[key]
-            same = all(current.get(k) == row.get(k) for k in row if k != "route")
+            same = all(current.get(k) == row.get(k) for k in row if k not in ("route", "provider_metadata"))
             if same:
                 current["routes"] = sorted(set(current["routes"]) | {row["route"]})
+                old, new = current.get("provider_metadata") or {}, row.get("provider_metadata") or {}
+                fields = sorted(f for f in set(old) | set(new) if old.get(f) != new.get(f))
+                if fields:
+                    current["route_metadata_differences"] = sorted(set(current.get("route_metadata_differences", []))
+                                                                   | set(fields))
             else:
                 conflicts.append({"cfbd_game_id": key, "routes": [current["routes"], row["route"]]})
                 current["route_conflict"] = True
@@ -1640,6 +1652,7 @@ def reconcile_contests(contests: list[dict[str, Any]], cfbd_by_season: dict[int,
                 if len(cand) == 1 and len(reverse.get(cand[0], [])) == 0 and single_claims.get(cand[0], 0) == 1:
                     matched_games.add(cand[0])
                     c["cfbd_game_ids"] = cand
+                    _record_match_dates(c, game_by_id[cand[0]])
                     c.update(reconciliation_state="MATCHED_SINGLE_BOUND_PARTICIPANT", disposition="CANDIDATE_ONLY",
                              disposition_reason="OPPONENT_IDENTITY_NOT_BOUND")
                 else:
@@ -1735,11 +1748,16 @@ def compare_with_cfbd(c: dict[str, Any], g: dict[str, Any]) -> list[dict[str, An
             if ncaa_home_a != home_is_a:
                 conflicts.append({"field": "home_orientation", "ncaa": c["site"],
                                   "cfbd_home_team_id": g["home_id"]})
+    _record_match_dates(c, g)
+    return conflicts
+
+
+def _record_match_dates(c: dict[str, Any], g: dict[str, Any]) -> None:
+    """Candidate local dates of the matched CFBD row and, when none equals an observed page date, the distance."""
     c["cfbd_local_dates"] = g["local_dates"]
     deltas = [d for d in (cfbd_days(g, observed) for observed in c["contest_dates_observed"]) if d is not None]
     if deltas and min(deltas) > 0:
         c["date_delta_days"] = min(deltas)
-    return conflicts
 
 
 def cfbd_only_contest(g: dict[str, Any], season: int, sides: list[dict[str, Any]], disposition: str,
@@ -2151,6 +2169,9 @@ def run_contest_stage(*, contract: dict[str, Any], contract_sha256: str, data_ro
     cfbd = load_cfbd_sources(contract, data_root)
     cfbd_by_season = {s: union_cfbd([cfbd["fbs"][s], cfbd["fcs"][s]])[0] for s in TWO_SOURCE_SEASONS}
     route_conflicts = {s: union_cfbd([cfbd["fbs"][s], cfbd["fcs"][s]])[1] for s in TWO_SOURCE_SEASONS}
+    route_metadata = {str(s): [{"cfbd_game_id": g["cfbd_game_id"], "fields": g["route_metadata_differences"]}
+                               for g in cfbd_by_season[s] if g.get("route_metadata_differences")]
+                      for s in TWO_SOURCE_SEASONS}
     expansions = contract["reconciliation"]["participant_resolution"]["token_expansions"]
     built = build_contests(m1, cfbd_by_season, expansions)
     contests, orientations = built["contests"], built["orientations"]
@@ -2179,6 +2200,7 @@ def run_contest_stage(*, contract: dict[str, Any], contract_sha256: str, data_ro
         "season_summary.json": json_bytes({"_header": header, "seasons": contest_summary(contests, orientations),
                                            "schedule_reconciliation_states": _count(schedule, "season", "state"),
                                            "cfbd_route_conflicts": {str(k): v for k, v in route_conflicts.items()},
+                                           "cfbd_route_metadata_differences": route_metadata,
                                            "bat652_spine_identity_diff": spine}),
     }
     inputs = {"cfbd_fbs_route": contract["input_bindings"]["cfbd_fbs_route"],

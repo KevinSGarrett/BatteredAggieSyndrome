@@ -57,6 +57,7 @@ kernel = ["numpy==2.2.6", "tzdata==2025.3"]
 bas-staff-query = "aggie_analytics.cycle33.query:main"
 bas-national-population-query = "aggie_analytics.national_population.query:main"
 bas-national-history-query = "aggie_analytics.national_history.query:main"
+bas-source-time-query = "aggie_analytics.national_source_time.query:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

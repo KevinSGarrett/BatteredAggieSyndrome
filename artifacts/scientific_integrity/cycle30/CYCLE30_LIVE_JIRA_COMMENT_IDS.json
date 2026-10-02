@@ -1,0 +1,28 @@
+{
+  "artifact_type": "CYCLE30_LIVE_JIRA_COMMENT_IDS",
+  "review_state": "READY_FOR_MANAGER_REVIEW",
+  "not_manager_verified": true,
+  "no_bat523_completion_comment": true,
+  "proposed_head": "2890579fea0ab6a4cea8a06feaf3d20ea8d4d5b0",
+  "reconstruction_commit": "23dac053",
+  "pr": 686,
+  "comments": {
+    "BAT-417": "14810",
+    "BAT-171": "14811",
+    "BAT-700": "14812",
+    "BAT-696": "14813",
+    "BAT-703": "14814",
+    "BAT-701": "14815",
+    "BAT-414": "14816",
+    "BAT-704": "14817",
+    "BAT-705": "14818",
+    "BAT-706": "14819",
+    "BAT-708": "14820",
+    "CFIP-18": "14821",
+    "CFIP-20": "14822",
+    "CFIP-22": "14823"
+  },
+  "skipped": ["BAT-523"],
+  "github_pr_comment": "5579634240",
+  "operator_hold": "ACTIVE"
+}

@@ -1,0 +1,339 @@
+{
+  "artifact_type": "BAS_CANONICAL_DOMAIN_CATALOG",
+  "canonical_domain_count": 66,
+  "current_requirement_count": 10,
+  "domains": [
+    {
+      "canonical_domain_id": "DOM-001",
+      "kind": "DATA_DOMAIN",
+      "label": "games/schedules/scores"
+    },
+    {
+      "canonical_domain_id": "DOM-002",
+      "kind": "DATA_DOMAIN",
+      "label": "play-by-play"
+    },
+    {
+      "canonical_domain_id": "DOM-003",
+      "kind": "DATA_DOMAIN",
+      "label": "drives"
+    },
+    {
+      "canonical_domain_id": "DOM-004",
+      "kind": "DATA_DOMAIN",
+      "label": "team statistics"
+    },
+    {
+      "canonical_domain_id": "DOM-005",
+      "kind": "DATA_DOMAIN",
+      "label": "advanced team efficiency"
+    },
+    {
+      "canonical_domain_id": "DOM-006",
+      "kind": "DATA_DOMAIN",
+      "label": "player statistics"
+    },
+    {
+      "canonical_domain_id": "DOM-007",
+      "kind": "DATA_DOMAIN",
+      "label": "play participants"
+    },
+    {
+      "canonical_domain_id": "DOM-008",
+      "kind": "DATA_DOMAIN",
+      "label": "snap counts/participation"
+    },
+    {
+      "canonical_domain_id": "DOM-009",
+      "kind": "DATA_DOMAIN",
+      "label": "rosters"
+    },
+    {
+      "canonical_domain_id": "DOM-010",
+      "kind": "DATA_DOMAIN",
+      "label": "starters/depth charts"
+    },
+    {
+      "canonical_domain_id": "DOM-011",
+      "kind": "DATA_DOMAIN",
+      "label": "injuries/availability current"
+    },
+    {
+      "canonical_domain_id": "DOM-012",
+      "kind": "DATA_DOMAIN",
+      "label": "injuries/availability historical"
+    },
+    {
+      "canonical_domain_id": "DOM-013",
+      "kind": "DATA_DOMAIN",
+      "label": "recruiting"
+    },
+    {
+      "canonical_domain_id": "DOM-014",
+      "kind": "DATA_DOMAIN",
+      "label": "transfers"
+    },
+    {
+      "canonical_domain_id": "DOM-015",
+      "kind": "DATA_DOMAIN",
+      "label": "freshman/prospect priors"
+    },
+    {
+      "canonical_domain_id": "DOM-016",
+      "kind": "DATA_DOMAIN",
+      "label": "NFL draft outcomes"
+    },
+    {
+      "canonical_domain_id": "DOM-017",
+      "kind": "DATA_DOMAIN",
+      "label": "preseason honors/watch lists"
+    },
+    {
+      "canonical_domain_id": "DOM-018",
+      "kind": "DATA_DOMAIN",
+      "label": "head coaches/coordinators"
+    },
+    {
+      "canonical_domain_id": "DOM-019",
+      "kind": "DATA_DOMAIN",
+      "label": "assistant coaches/role histories"
+    },
+    {
+      "canonical_domain_id": "DOM-020",
+      "kind": "DATA_DOMAIN",
+      "label": "scheme/style/tendencies"
+    },
+    {
+      "canonical_domain_id": "DOM-021",
+      "kind": "DATA_DOMAIN",
+      "label": "program resources/finance"
+    },
+    {
+      "canonical_domain_id": "DOM-022",
+      "kind": "DATA_DOMAIN",
+      "label": "NIL/revenue-sharing regulatory context"
+    },
+    {
+      "canonical_domain_id": "DOM-023",
+      "kind": "DATA_DOMAIN",
+      "label": "historical issued weather forecasts"
+    },
+    {
+      "canonical_domain_id": "DOM-024",
+      "kind": "DATA_DOMAIN",
+      "label": "observed weather"
+    },
+    {
+      "canonical_domain_id": "DOM-025",
+      "kind": "DATA_DOMAIN",
+      "label": "venue coordinates/elevation"
+    },
+    {
+      "canonical_domain_id": "DOM-026",
+      "kind": "DATA_DOMAIN",
+      "label": "timezone/body clock"
+    },
+    {
+      "canonical_domain_id": "DOM-027",
+      "kind": "DATA_DOMAIN",
+      "label": "travel distance"
+    },
+    {
+      "canonical_domain_id": "DOM-028",
+      "kind": "DATA_DOMAIN",
+      "label": "home-field/venue effect"
+    },
+    {
+      "canonical_domain_id": "DOM-029",
+      "kind": "DATA_DOMAIN",
+      "label": "possession/tempo"
+    },
+    {
+      "canonical_domain_id": "DOM-030",
+      "kind": "DATA_DOMAIN",
+      "label": "field position/hidden yards"
+    },
+    {
+      "canonical_domain_id": "DOM-031",
+      "kind": "DATA_DOMAIN",
+      "label": "special teams"
+    },
+    {
+      "canonical_domain_id": "DOM-032",
+      "kind": "DATA_DOMAIN",
+      "label": "fourth-down decisions"
+    },
+    {
+      "canonical_domain_id": "DOM-033",
+      "kind": "DATA_DOMAIN",
+      "label": "clock management"
+    },
+    {
+      "canonical_domain_id": "DOM-034",
+      "kind": "DATA_DOMAIN",
+      "label": "garbage time/score state"
+    },
+    {
+      "canonical_domain_id": "DOM-035",
+      "kind": "DATA_DOMAIN",
+      "label": "opponent adjustment"
+    },
+    {
+      "canonical_domain_id": "DOM-036",
+      "kind": "DATA_DOMAIN",
+      "label": "schedule stress/workload"
+    },
+    {
+      "canonical_domain_id": "DOM-037",
+      "kind": "DATA_DOMAIN",
+      "label": "poll rankings"
+    },
+    {
+      "canonical_domain_id": "DOM-038",
+      "kind": "DATA_DOMAIN",
+      "label": "external ratings"
+    },
+    {
+      "canonical_domain_id": "DOM-039",
+      "kind": "DATA_DOMAIN",
+      "label": "markets"
+    },
+    {
+      "canonical_domain_id": "DOM-040",
+      "kind": "DATA_DOMAIN",
+      "label": "officials/crew history"
+    },
+    {
+      "canonical_domain_id": "DOM-041",
+      "kind": "DATA_DOMAIN",
+      "label": "officials upcoming assignments"
+    },
+    {
+      "canonical_domain_id": "DOM-042",
+      "kind": "DATA_DOMAIN",
+      "label": "playing rule era"
+    },
+    {
+      "canonical_domain_id": "DOM-043",
+      "kind": "DATA_DOMAIN",
+      "label": "eligibility/roster/transfer regulatory era"
+    },
+    {
+      "canonical_domain_id": "DOM-044",
+      "kind": "DATA_DOMAIN",
+      "label": "game stakes/CFP state"
+    },
+    {
+      "canonical_domain_id": "DOM-045",
+      "kind": "DATA_DOMAIN",
+      "label": "rivalry/homecoming/senior day"
+    },
+    {
+      "canonical_domain_id": "DOM-046",
+      "kind": "DATA_DOMAIN",
+      "label": "FCS strength"
+    },
+    {
+      "canonical_domain_id": "DOM-047",
+      "kind": "DATA_DOMAIN",
+      "label": "DII/DIII strength"
+    },
+    {
+      "canonical_domain_id": "DOM-048",
+      "kind": "DATA_DOMAIN",
+      "label": "NAIA strength"
+    },
+    {
+      "canonical_domain_id": "DOM-049",
+      "kind": "DATA_DOMAIN",
+      "label": "JUCO strength"
+    },
+    {
+      "canonical_domain_id": "DOM-050",
+      "kind": "DATA_DOMAIN",
+      "label": "live/in-game"
+    },
+    {
+      "canonical_domain_id": "DOM-051",
+      "kind": "DATA_DOMAIN",
+      "label": "advanced formation/personnel/tracking"
+    },
+    {
+      "canonical_domain_id": "DOM-052",
+      "kind": "DATA_DOMAIN",
+      "label": "licensing/redistribution metadata"
+    },
+    {
+      "canonical_domain_id": "CURRENT-TOTAL-TEAM-SCORE",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "total and team-score distributions"
+    },
+    {
+      "canonical_domain_id": "CURRENT-CALIBRATION-OOD",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "calibration, tail, and OOD uncertainty"
+    },
+    {
+      "canonical_domain_id": "CURRENT-BAS-INFERENCE",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "BAS residual inference distinct from opponent adjustment"
+    },
+    {
+      "canonical_domain_id": "CURRENT-PEER-COHORTS",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "peer cohort construction"
+    },
+    {
+      "canonical_domain_id": "CURRENT-REST",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "rest and sequence"
+    },
+    {
+      "canonical_domain_id": "CURRENT-TIMEZONE",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "timezone and body clock"
+    },
+    {
+      "canonical_domain_id": "CURRENT-TRAVEL",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "per-team origin-to-venue travel"
+    },
+    {
+      "canonical_domain_id": "CURRENT-HFA",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "ordinary home-field exposure"
+    },
+    {
+      "canonical_domain_id": "CURRENT-NEUTRAL",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "neutral/site classification"
+    },
+    {
+      "canonical_domain_id": "CURRENT-AVAILABILITY",
+      "kind": "CURRENT_REQUIREMENT",
+      "label": "public availability reports"
+    },
+    {
+      "canonical_domain_id": "CTRL-RIGHTS",
+      "kind": "NON_DATA_CONTROL",
+      "label": "data rights"
+    },
+    {
+      "canonical_domain_id": "CTRL-SECURITY",
+      "kind": "NON_DATA_CONTROL",
+      "label": "security"
+    },
+    {
+      "canonical_domain_id": "CTRL-COSTS",
+      "kind": "NON_DATA_CONTROL",
+      "label": "costs"
+    },
+    {
+      "canonical_domain_id": "CTRL-GOVERNANCE",
+      "kind": "NON_DATA_CONTROL",
+      "label": "governance"
+    }
+  ],
+  "version": "cycle30-v1",
+  "w06_domain_count": 52
+}

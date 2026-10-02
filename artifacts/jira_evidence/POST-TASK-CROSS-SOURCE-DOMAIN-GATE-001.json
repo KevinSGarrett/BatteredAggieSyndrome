@@ -102,9 +102,9 @@
   },
   "outputs": [
     {
-      "bytes": 35654,
+      "bytes": 35661,
       "path": "artifacts/data_lake/tamu_cross_source_domain_gate.json",
-      "sha256": "6e2f2bdf4c38ea765bd860efdd1ccc34476454022d2ecdf004c1165cc2b7e90e"
+      "sha256": "dd5a2c61df4e2a9a47633542802fca7e1dcfbd6944ae14b13e7ec37b77bb9e26"
     },
     {
       "bytes": 9534,

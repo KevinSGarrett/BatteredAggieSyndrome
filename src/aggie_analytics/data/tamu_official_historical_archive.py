@@ -15,6 +15,7 @@ from typing import Any, Mapping
 from urllib.parse import urljoin, urlsplit
 
 from aggie_analytics.data.ncaa_contest_reconciliation import stable_hash
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 SCHEMA_VERSION = "aggie.data.tamu_official_historical_archive.v1"
@@ -121,7 +122,7 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    _bas_atomic.write_text(path, json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 
 
 def sha256_bytes(body: bytes) -> str:
@@ -544,7 +545,7 @@ def persist_capture(data_root: Path, record: Mapping[str, Any], body: bytes) -> 
         raise AuthorityViolation(f"duplicate URL/path with conflicting bytes: {relative}")
     target.parent.mkdir(parents=True, exist_ok=True)
     if not target.exists():
-        target.write_bytes(body)
+        _bas_atomic.write_bytes(target, body)
     stored["raw_relative_path"] = relative
     return stored
 

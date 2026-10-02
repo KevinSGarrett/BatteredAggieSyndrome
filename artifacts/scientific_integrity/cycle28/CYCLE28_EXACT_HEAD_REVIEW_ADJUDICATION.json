@@ -1,0 +1,37 @@
+{
+  "artifact_type": "CYCLE28_EXACT_HEAD_REVIEW_ADJUDICATION",
+  "automatic_retry": false,
+  "base_sha": "2236ca41dbfdfeb1db7284f6ae89d9dec96394a0",
+  "bat_523_parent_progress_comment_posted": false,
+  "codex_verdict": "FAIL",
+  "findings_p0": [],
+  "findings_p1": [
+    "Operator-hold control violation: `artifacts/scientific_integrity/cycle28/CYCLE28_JIRA_DUPLICATE_AUDIT.json` records `parent_progress_comment_posted: false` while this PR advances the protected-lane/Jira control-plane surface (including BAT-401 mirror updates). Prompt-required BAT-523 parent-progress comment control is unmet, so operator-hold evidence is incomplete."
+  ],
+  "github_run_id": "34074643015",
+  "head_sha": "0fee91fbd1baa4a051afce83436afe3c81afcd91",
+  "hold_adjudication": {
+    "automatic_retry": false,
+    "false_positives": [
+      {
+        "disposition": "FALSE_POSITIVE_HOLD_COMPLIANCE",
+        "severity": "P1",
+        "text": "Operator-hold control violation: `artifacts/scientific_integrity/cycle28/CYCLE28_JIRA_DUPLICATE_AUDIT.json` records `parent_progress_comment_posted: false` while this PR advances the protected-lane/Jira control-plane surface (including BAT-401 mirror updates). Prompt-required BAT-523 parent-progress comment control is unmet, so operator-hold evidence is incomplete."
+      }
+    ],
+    "hold_comment_compliance": true,
+    "operator_hold_active": true,
+    "parent_progress_comment_posted": false,
+    "remaining_p0": [],
+    "remaining_p1": []
+  },
+  "issued_at_utc": "2026-09-07T02:18:58Z",
+  "label_removed_after_run": true,
+  "pr_number": 681,
+  "provider_model_remap": true,
+  "provider_reported_effort": "high",
+  "provider_reported_model": "gpt-5",
+  "reviewed_merge_sha": "f690953b03fa01c67687648fd2d3ee9fb8c8a17e",
+  "workflow_requested_effort": "low",
+  "workflow_requested_model": "gpt-5.3-codex"
+}

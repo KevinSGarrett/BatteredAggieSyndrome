@@ -15,6 +15,7 @@ from aggie_analytics.temporal.team_membership_pit import (  # noqa: E402
     _admit, _load_candidates, _minimum_target_cutoff, canonical_json_bytes,
     dataframe_record_sha256, materialize, parse_utc, sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def expect_rejection(name: str, operation: Callable[[], Any]) -> dict[str, Any]:
@@ -54,7 +55,7 @@ def main() -> int:
         expect_rejection("target_hash_drift", lambda: _minimum_target_cutoff(data_root, {**contract, "source_contract": {**contract["source_contract"], "target_cutoff_sha256": "0" * 64}})),
     ]; checks.extend(mutations)
     report = {"schema_version": "1.0.0", "decision_unit": "POST-SUBTASK-190", "jira_key": "BAT-547", "validated_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"), "dataset_identity": identity, "manifest_path": str(manifest_path), "manifest_sha256": sha256_file(manifest_path), "rebuild_root": str(rebuild_root), "result": "PASS", "check_count": len(checks), "mutation_control_count": len(mutations), "checks": checks}
-    report_root = data_root / "validation" / "POST-SUBTASK-190"; report_root.mkdir(parents=True, exist_ok=True); report_path = report_root / "historical_team_membership_pit_validation.json"; report_path.write_bytes(canonical_json_bytes(report) + b"\n"); print(json.dumps({"result": "PASS", "checks": len(checks), "mutation_controls": len(mutations), "report_path": str(report_path), "report_sha256": sha256_file(report_path)}, indent=2)); return 0
+    report_root = data_root / "validation" / "POST-SUBTASK-190"; report_root.mkdir(parents=True, exist_ok=True); report_path = report_root / "historical_team_membership_pit_validation.json"; _bas_atomic.write_bytes(report_path, canonical_json_bytes(report) + b"\n"); print(json.dumps({"result": "PASS", "checks": len(checks), "mutation_controls": len(mutations), "report_path": str(report_path), "report_sha256": sha256_file(report_path)}, indent=2)); return 0
 
 
 if __name__ == "__main__": raise SystemExit(main())

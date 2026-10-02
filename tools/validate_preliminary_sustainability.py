@@ -12,7 +12,8 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from aggie_analytics.features.sustainability import materialize  # noqa: E402
+from aggie_analytics.features.sustainability import materialize
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 from aggie_analytics.temporal.play_drive_pit import (  # noqa: E402
     canonical_json_bytes,
     parse_utc,
@@ -327,7 +328,7 @@ def main() -> int:
     }
     validation_root.mkdir(parents=True, exist_ok=True)
     report_path = validation_root / "sustainability_candidate_validation.json"
-    report_path.write_bytes(canonical_json_bytes(report) + b"\n")
+    _bas_atomic.write_bytes(report_path, canonical_json_bytes(report) + b"\n")
     print(
         json.dumps(
             {

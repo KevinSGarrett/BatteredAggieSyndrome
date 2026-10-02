@@ -11,6 +11,16 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Any
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -201,7 +211,7 @@ def main() -> int:
     }
     output = args.output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    _bas_atomic.write_text(output, json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({**report, "output": str(output), "output_sha256": sha256_file(output)}, indent=2, sort_keys=True))
     return int(bool(errors))
 

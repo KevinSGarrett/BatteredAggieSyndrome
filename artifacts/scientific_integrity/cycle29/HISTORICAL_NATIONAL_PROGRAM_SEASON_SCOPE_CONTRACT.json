@@ -1,0 +1,43 @@
+{
+  "artifact_type": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT",
+  "eras": [
+    {
+      "do_not_project_fbs_fcs": true,
+      "primary_population": "NCAA_UNIVERSITY_DIVISION_PRIMARY",
+      "seasons": [
+        1963,
+        1972
+      ],
+      "supplemental": "COLLEGE_DIVISION_TO_LATER_DI_ENTRY_HISTORY"
+    },
+    {
+      "do_not_project_fbs_fcs": true,
+      "primary_population": "UNSPLIT_DIVISION_I",
+      "seasons": [
+        1973,
+        1977
+      ]
+    },
+    {
+      "primary_population": "DIVISION_I_A_PLUS_DIVISION_I_AA",
+      "seasons": [
+        1978,
+        2005
+      ]
+    },
+    {
+      "primary_population": "FBS_PLUS_FCS",
+      "seasons": [
+        2006,
+        2026
+      ]
+    }
+  ],
+  "inclusion_rule_bound_before_inspecting_bas_rows": true,
+  "membership_evidence_state": "BLOCKED_INDEPENDENT_ANNUAL_MEMBERSHIP_NOT_ENUMERATED",
+  "pre_1963": "SUPPLEMENTAL_CANDIDATE_SEPARATELY_DENOMINATED",
+  "primary_period": [
+    1963,
+    2026
+  ]
+}

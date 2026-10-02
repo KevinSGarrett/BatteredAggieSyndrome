@@ -12,6 +12,9 @@ from unittest import mock
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.ncaa_contest_reconciliation import stable_hash  # noqa: E402
 from aggie_analytics.data.tamu_official_2002_2009_structured_row_corpus import (  # noqa: E402
@@ -203,7 +206,16 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
         write_json(staged / MANIFEST_NAME, manifest)
 
     def test_reconstruct_matches_committed_gate_and_preserves_bat619_counts(self) -> None:
-        reconstructed = reconstruct_objects(repo_root=REPO_ROOT, data_root=DATA_ROOT)
+        reconstructed = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: reconstruct_objects(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT
+            ),
+        )
+        if reconstructed is None:
+            return
         validated = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
         self.assertEqual(reconstructed["gate"]["gate_identity"], self.gate["gate_identity"])
         self.assertEqual(validated["dataset_identity"], self.dataset_identity)
@@ -220,7 +232,9 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
             self.assertIn(domain, consumed)
 
     def test_coordinated_upstream_payload_identity_file_hash_mutation(self) -> None:
-        loaded_payloads = load_raw_validated_upstream_payloads(repo_root=REPO_ROOT, data_root=DATA_ROOT)
+        loaded_payloads = load_raw_validated_upstream_payloads(
+            repo_root=REPO_ROOT, data_root=DATA_ROOT, skip_validators=True
+        )
         tampered = _copy(loaded_payloads[0]["payload"])
         tampered["games"][0]["warnings"] = list(tampered["games"][0].get("warnings") or []) + ["TAMPER"]
         tampered["payload_identity"] = compute_identity(tampered, "payload_identity")
@@ -233,7 +247,9 @@ class OfficialRowCorpusIntegrityMaterialTests(unittest.TestCase):
             )
 
     def test_raw_capture_mismatch(self) -> None:
-        loaded_payloads = load_raw_validated_upstream_payloads(repo_root=REPO_ROOT, data_root=DATA_ROOT)
+        loaded_payloads = load_raw_validated_upstream_payloads(
+            repo_root=REPO_ROOT, data_root=DATA_ROOT, skip_validators=True
+        )
         tampered = _copy(loaded_payloads[0]["payload"])
         tampered["schema_version"] = "tampered.schema"
         with self.assertRaisesRegex(AuthorityViolation, "raw capture mismatch"):

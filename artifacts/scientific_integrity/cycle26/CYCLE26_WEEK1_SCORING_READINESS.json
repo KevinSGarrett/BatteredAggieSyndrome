@@ -1,0 +1,27 @@
+{
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "artifact_type": "CYCLE26_WEEK1_SCORING_READINESS",
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "held_fixture_branch": "BAT-674 week-zero official-final scoring successor available for reconstruction on frozen fixtures",
+  "held_fixture_validation": {
+    "command": "python tools/validate_week_zero_2026_official_final_scoring_successor.py --data-root C:\\BatteredAggieSyndrome.data",
+    "result": "PASS_INDEPENDENT_RECONSTRUCTION",
+    "validated_at_utc": "2026-09-04T02:01:30Z"
+  },
+  "issued_at_utc": "2026-09-04T03:40:00Z",
+  "national_successor_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "result": "SCORING_IMPLEMENTATION_READY_PARTIAL_TARGET_FINALS",
+  "rules": [
+    "Authorize outcomes only through declared official final evidence and canonical identity",
+    "No residual for abstained/unfrozen rows",
+    "Append states without changing probabilities/checkpoint/candidate membership",
+    "Week1 outcomes cannot select/tune/promote the same cohort",
+    "Do not backfill missed T-24H or T-90M checkpoints"
+  ],
+  "scoring_contract_module": "src/aggie_analytics/data/week1_2026_official_final_scoring_successor.py",
+  "week1_official_final_scoring_gate_identity": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
+  "week1_target_scoring_state": "PARTIAL_OFFICIAL_FINALS_SCORED_REMAINDER_AWAITING_FINAL",
+  "week1_outcome_training_forbidden": true
+}

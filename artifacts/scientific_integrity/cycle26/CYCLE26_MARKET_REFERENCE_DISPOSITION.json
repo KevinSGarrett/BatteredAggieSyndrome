@@ -1,0 +1,25 @@
+{
+  "artifact_type": "CYCLE26_MARKET_REFERENCE_DISPOSITION",
+  "issued_at_utc": "2026-09-03T09:23:42Z",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "git_tip_at_issuance": "5aa15f8b11fd3aaab2dd2fae297c038926dd24cc",
+  "validator": "tools/validate_week1_2026_market_source_acquisition.py",
+  "result": "PASS",
+  "cfbd_disposition": "STRUCTURED_ROWS_CAPTURED",
+  "odds_disposition": "CREDENTIAL_ABSENT_ROUTE_NOT_ATTEMPTED",
+  "web_fallback": "NOT_USED",
+  "credential_presence": {
+    "CFBD_API_KEY": "PRESENT",
+    "ODDS_API_KEY": "ABSENT",
+    "SCRAPERAPI_API_TOKEN": "PRESENT",
+    "SCRAPFLY_API_TOKEN": "PRESENT",
+    "secret_values_recorded": false
+  },
+  "policy": [
+    "Market references attach separately and never replace independent forecasts",
+    "Missing Odds API credentials are explicit; do not invent market values",
+    "Absence of usable quotes does not prevent no-market control rows",
+    "PRE_MARKET_FREEZE_NOT_PROVEN remains where acquisition source is not proven"
+  ],
+  "note": "Market evidence incomplete for Odds-API routes; CFBD structured market rows captured. Forecast outputs unchanged by this disposition."
+}

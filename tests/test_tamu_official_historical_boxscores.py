@@ -462,8 +462,16 @@ class ValidatorPurityTests(unittest.TestCase):
     def _assert_byte_identical(self, before: dict[str, str], after: dict[str, str]) -> None:
         self.assertEqual(before, after)
 
-    def test_passing_validation_does_not_mutate_files(self) -> None:
+    def _isolated_roots(self) -> tuple[Path, Path]:
+        """The isolated copies for one test, removed when that test ends (each data copy is about 30 MB)."""
+
         repo, data = _copy_isolated_roots()
+        self.addCleanup(shutil.rmtree, data, ignore_errors=True)
+        self.addCleanup(shutil.rmtree, repo, ignore_errors=True)
+        return repo, data
+
+    def test_passing_validation_does_not_mutate_files(self) -> None:
+        repo, data = self._isolated_roots()
         before = _snapshot_relevant(repo, data)
         result = validate_artifact(data_root=data, repo_root=repo, require_rebuild=True)
         self.assertEqual("PASS", result["result"])
@@ -471,7 +479,7 @@ class ValidatorPurityTests(unittest.TestCase):
         self._assert_byte_identical(before, _snapshot_relevant(repo, data))
 
     def test_tampered_score_failure_does_not_mutate_files(self) -> None:
-        repo, data = _copy_isolated_roots()
+        repo, data = self._isolated_roots()
         gate = load_json(repo / GATE_RELATIVE)
         games = json.loads(json.dumps(gate["games"]))
         games[0]["tamu_points"] = 999
@@ -482,7 +490,7 @@ class ValidatorPurityTests(unittest.TestCase):
         self._assert_byte_identical(before, _snapshot_relevant(repo, data))
 
     def test_missing_raw_file_failure_does_not_mutate_files(self) -> None:
-        repo, data = _copy_isolated_roots()
+        repo, data = self._isolated_roots()
         archive_gate = load_json(repo / "artifacts/data_lake/tamu_official_historical_archive_gate.json")
         victim = None
         for capture in archive_gate.get("captures") or []:
@@ -502,7 +510,7 @@ class ValidatorPurityTests(unittest.TestCase):
         self._assert_byte_identical(before, _snapshot_relevant(repo, data))
 
     def test_changed_domain_coverage_failure_does_not_mutate_files(self) -> None:
-        repo, data = _copy_isolated_roots()
+        repo, data = self._isolated_roots()
         gate = load_json(repo / GATE_RELATIVE)
         games = json.loads(json.dumps(gate["games"]))
         games[0]["domain_coverage"]["officials"] = "ABSENT"
@@ -513,7 +521,7 @@ class ValidatorPurityTests(unittest.TestCase):
         self._assert_byte_identical(before, _snapshot_relevant(repo, data))
 
     def test_forged_completion_failure_does_not_mutate_files(self) -> None:
-        repo, data = _copy_isolated_roots()
+        repo, data = self._isolated_roots()
         gate = load_json(repo / GATE_RELATIVE)
         (repo / GATE_RELATIVE).write_text(
             json.dumps(_mutated(gate, result="FORGED_DONE", classification="PRODUCTION_CHAMPION"), indent=2, sort_keys=True) + "\n",

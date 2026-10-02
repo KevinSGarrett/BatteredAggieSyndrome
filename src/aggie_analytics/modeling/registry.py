@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import json, os, tempfile
 from .runtime import ModelArtifact
+from aggie_analytics import atomic_io as _bas_atomic
 
 @dataclass(frozen=True)
 class RegistryRecord:
@@ -29,5 +30,5 @@ class LocalModelRegistry:
             if old['artifact_sha256']!=h: raise RuntimeError('registry identity collision')
         else:
             fd,tmp=tempfile.mkstemp(dir=d,prefix='.artifact.',suffix='.tmp'); os.close(fd)
-            Path(tmp).write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n',encoding='utf-8'); os.replace(tmp,meta)
+            _bas_atomic.write_text(Path(tmp), json.dumps(payload,indent=2,sort_keys=True)+'\n',encoding='utf-8'); os.replace(tmp,meta)
         return RegistryRecord(h,artifact.model_id,artifact.model_version,artifact.model_family,artifact.target,status,str(meta),payload['registered_at'])

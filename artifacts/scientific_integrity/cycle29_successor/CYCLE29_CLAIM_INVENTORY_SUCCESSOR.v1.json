@@ -1,0 +1,3115 @@
+{
+ "array_element_numbers": [
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/eras/0/seasons/0",
+   "value": 1963
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/eras/0/seasons/1",
+   "value": 1972
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/eras/1/seasons/0",
+   "value": 1973
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/eras/1/seasons/1",
+   "value": 1977
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/eras/2/seasons/0",
+   "value": 1978
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/eras/2/seasons/1",
+   "value": 2005
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/eras/3/seasons/0",
+   "value": 2006
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/eras/3/seasons/1",
+   "value": 2026
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/primary_period/0",
+   "value": 1963
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_SCOPE_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/primary_period/1",
+   "value": 2026
+  },
+  {
+   "artifact": "TAMU_SPECIALIZATION_POPULATION_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/study_period/0",
+   "value": 1963
+  },
+  {
+   "artifact": "TAMU_SPECIALIZATION_POPULATION_CONTRACT.json",
+   "disposition": "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD",
+   "line": null,
+   "pointer": "/study_period/1",
+   "value": 2026
+  }
+ ],
+ "artifact_type": "CYCLE29_CLAIM_INVENTORY_SUCCESSOR",
+ "attempt_number": 3,
+ "body_sha256": "5f3a785e751e75d27ee991a5682489526c4708c57c1365019574f4a58af561b0",
+ "carried_forward_original_claims": [
+  {
+   "artifact": "PIT_KERNEL_TRUST_GATE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-PIT-PROVEN-ROWS",
+   "denominator_as_recorded": "admitted",
+   "field": "proven_pit_training_rows",
+   "numerator_as_recorded": "proven",
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "WEEK1_2026_PROGRAM_SLICE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-WEEK1-APPEARANCES",
+   "denominator_as_recorded": 182,
+   "field": "participant_appearance_count",
+   "numerator_as_recorded": 182,
+   "numeric_values": [
+    182
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "WEEK1_2026_PROGRAM_SLICE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-WEEK1-CONTESTS",
+   "denominator_as_recorded": 91,
+   "field": "contest_count",
+   "numerator_as_recorded": 91,
+   "numeric_values": [
+    91
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "CYCLE29_FORECAST_IMMUTABILITY.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-FORECAST-ISSUED-BEFORE",
+   "denominator_as_recorded": 455,
+   "field": "issued_before_cutoff_count",
+   "numerator_as_recorded": "proven",
+   "numeric_values": [
+    455
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "CYCLE29_FORECAST_IMMUTABILITY.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-FORECAST-NOT-PROVEN",
+   "denominator_as_recorded": 455,
+   "field": "not_proven_count",
+   "numerator_as_recorded": "not_proven",
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "CYCLE29_FORECAST_IMMUTABILITY.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-FORECAST-ROW-COUNT",
+   "denominator_as_recorded": 455,
+   "field": "row_count",
+   "numerator_as_recorded": 455,
+   "numeric_values": [
+    455
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-ENTITY-RESOLVED-COUNT",
+   "denominator_as_recorded": "population",
+   "field": "resolved_authoritative_identity_count",
+   "numerator_as_recorded": "resolved",
+   "numeric_values": [
+    8
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-KERNEL-PROVEN-RECONCILED",
+   "denominator_as_recorded": 0,
+   "field": "cycle29_kernel_proven_pit_training_rows",
+   "numerator_as_recorded": 0,
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-PRODUCTION-PROVEN-ROWS",
+   "denominator_as_recorded": 0,
+   "field": "production_proven_rows",
+   "numerator_as_recorded": 0,
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "CYCLE29_FORECAST_IMMUTABILITY.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-FORECAST-455",
+   "denominator_as_recorded": 455,
+   "field": "forecast_opportunity_count",
+   "numerator_as_recorded": 455,
+   "numeric_values": [],
+   "resolution": "FIELD_ABSENT_FROM_THE_ARTIFACT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-GAMES-46953",
+   "denominator_as_recorded": 46953,
+   "field": "normalized_game_count",
+   "numerator_as_recorded": 46953,
+   "numeric_values": [
+    46953
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.jsonl",
+   "artifact_location": "CYCLE29_EXTERNAL_OUTPUT_DIRECTORY",
+   "claim_id": "C29-CLAIM-COACH-2251",
+   "denominator_as_recorded": 2251,
+   "field": "accepted_coach_role_episodes",
+   "numerator_as_recorded": 2251,
+   "numeric_values": [],
+   "resolution": "FIELD_ABSENT_FROM_THE_ARTIFACT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.jsonl",
+   "artifact_location": "CYCLE29_EXTERNAL_OUTPUT_DIRECTORY",
+   "claim_id": "C29-CLAIM-STAFF-2382",
+   "denominator_as_recorded": 2382,
+   "field": "provisional_staff_role_observations",
+   "numerator_as_recorded": 2382,
+   "numeric_values": [],
+   "resolution": "FIELD_ABSENT_FROM_THE_ARTIFACT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_KERNEL_TRUST_GATE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-TRUST-USABLE",
+   "denominator_as_recorded": 1,
+   "field": "cycle29_kernel_trust_usable",
+   "numerator_as_recorded": "boolean",
+   "numeric_values": [],
+   "resolution": "FIELD_PRESENT_BUT_NOT_NUMERIC",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": [
+    "boolean"
+   ]
+  },
+  {
+   "artifact": "PIT_KERNEL_TRUST_GATE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-FITTED-TRUST",
+   "denominator_as_recorded": 1,
+   "field": "current_fitted_forecast_trust_recovered",
+   "numerator_as_recorded": false,
+   "numeric_values": [],
+   "resolution": "FIELD_PRESENT_BUT_NOT_NUMERIC",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": [
+    "boolean"
+   ]
+  },
+  {
+   "artifact": "ALL_CYCLE_TRUST_RECOVERY_GATE.json",
+   "artifact_location": "REPOSITORY_OTHER_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-PROJECT-TRUST",
+   "denominator_as_recorded": 1,
+   "field": "project_wide_scientific_trust_recovered",
+   "numerator_as_recorded": false,
+   "numeric_values": [],
+   "resolution": "FIELD_ABSENT_FROM_THE_ARTIFACT",
+   "trust_class_as_originally_recorded": "PRIOR_ALL_CYCLE_CLASSIFICATION_RETAINED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_KERNEL_TRUST_GATE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-SCIENTIFIC-COMPAT",
+   "denominator_as_recorded": 1,
+   "field": "scientific_trust_recovered",
+   "numerator_as_recorded": false,
+   "numeric_values": [],
+   "resolution": "FIELD_PRESENT_BUT_NOT_NUMERIC",
+   "trust_class_as_originally_recorded": "PRIOR_ALL_CYCLE_CLASSIFICATION_RETAINED",
+   "value_types_held_under_the_field": [
+    "boolean"
+   ]
+  },
+  {
+   "artifact": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-PRED-UNRESOLVED-8",
+   "denominator_as_recorded": 8,
+   "field": "predecessor_unresolved_participant_row_count",
+   "numerator_as_recorded": 8,
+   "numeric_values": [
+    8
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-SUCC-UNRESOLVED-0",
+   "denominator_as_recorded": 0,
+   "field": "successor_unresolved_participant_row_count",
+   "numerator_as_recorded": 0,
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-FCS-TO-FCS-ZERO",
+   "denominator_as_recorded": 46953,
+   "field": "fcs_to_fcs_count",
+   "numerator_as_recorded": 0,
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-ENTITY-GAMES-46960",
+   "denominator_as_recorded": 46960,
+   "field": "canonical_game_entity_count",
+   "numerator_as_recorded": 46960,
+   "numeric_values": [
+    46960
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-PIT-ELIGIBLE-89855",
+   "denominator_as_recorded": 90198,
+   "field": "predecessor_pit_feature_eligible_rows",
+   "numerator_as_recorded": 89855,
+   "numeric_values": [
+    89855
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-ORIENTED-90198",
+   "denominator_as_recorded": 90198,
+   "field": "predecessor_oriented_development_rows",
+   "numerator_as_recorded": 90198,
+   "numeric_values": [
+    90198
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-ACTIVE-PROVEN-PRED-0",
+   "denominator_as_recorded": 0,
+   "field": "predecessor_active_path_proven_pit_rows",
+   "numerator_as_recorded": 0,
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "CYCLE29_CLAIM_INVENTORY.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-UNMAPPED",
+   "denominator_as_recorded": 0,
+   "field": "unmapped_count",
+   "numerator_as_recorded": 0,
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-COMPAT-FIXTURE-ROWS",
+   "denominator_as_recorded": "not_proven",
+   "field": "compatibility_fixture_row_count",
+   "numerator_as_recorded": "fixture",
+   "numeric_values": [
+    3
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-INDEPENDENT-MATCHED-ROWS",
+   "denominator_as_recorded": "producer",
+   "field": "matched_team_rows",
+   "numerator_as_recorded": "reconstructed",
+   "numeric_values": [
+    6
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-INDEPENDENT-RECONSTRUCTED-COUNT",
+   "denominator_as_recorded": "producer",
+   "field": "reconstructed_count",
+   "numerator_as_recorded": "reconstructed",
+   "numeric_values": [
+    6
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-PIT-GAME-GRAIN-COUNT",
+   "denominator_as_recorded": 0,
+   "field": "game_grain_count",
+   "numerator_as_recorded": 0,
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-PIT-ORIENTED-COUNT",
+   "denominator_as_recorded": 0,
+   "field": "oriented_row_count",
+   "numerator_as_recorded": 0,
+   "numeric_values": [
+    0
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  },
+  {
+   "artifact": "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "artifact_location": "REPOSITORY_ARTIFACT_DIRECTORY",
+   "claim_id": "C29-CLAIM-MISSOURI-PRIOR-52",
+   "denominator_as_recorded": 52,
+   "field": "admitted_prior_games",
+   "numerator_as_recorded": 52,
+   "numeric_values": [
+    52
+   ],
+   "resolution": "NUMERIC_FIELD_PRESENT",
+   "trust_class_as_originally_recorded": "CYCLE29_KERNEL_CLOSURE_INVENTORIED",
+   "value_types_held_under_the_field": []
+  }
+ ],
+ "census": {
+  "artifact_count": 77,
+  "census_body_sha256": "d3e56aa1d97aee9fc78cfadc6e52f7f3eabec4f71feb22a957bb8ec4a747b805",
+  "census_version": "BAS-C29-NUMERIC-CENSUS-v37.3",
+  "file_sha256": "b50c9a4caa49388335728ad3c289b229a49ebc9ea76f3b717262cffec139f8a6",
+  "numeric_value_count": 2272,
+  "path": "C:\\BatteredAggieSyndrome.data\\ops\\cycle37\\attempt03\\evidence\\c29\\CYCLE29_NUMERIC_CENSUS.json"
+ },
+ "census_pair_dispositions": [
+  {
+   "artifact": "ALL_CYCLE_TRUST_RECOVERY_GATE.json",
+   "disposition": "REFERENCED_ARTIFACT_OF_ANOTHER_SCOPE_OUTSIDE_THIS_TRANCHE",
+   "field": "schema_version",
+   "max": 1,
+   "min": 1,
+   "occurrences": 1
+  },
+  {
+   "artifact": "BAS_CANONICAL_DOMAIN_CATALOG.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "canonical_domain_count",
+   "max": 56,
+   "min": 56,
+   "occurrences": 1
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "ambiguous_unresolved_mapping_count",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "c28_term_count",
+   "max": 33,
+   "min": 33,
+   "occurrences": 1
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "mapping_count",
+   "max": 119,
+   "min": 119,
+   "occurrences": 1
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "pit_term_count",
+   "max": 18,
+   "min": 18,
+   "occurrences": 1
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "source_policy_term_count",
+   "max": 16,
+   "min": 16,
+   "occurrences": 1
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "unmapped_term_count",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "w06_term_count",
+   "max": 52,
+   "min": 52,
+   "occurrences": 1
+  },
+  {
+   "artifact": "COACHING_COVERAGE_AND_RIGHTS_GATE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "W",
+   "max": 182,
+   "min": 182,
+   "occurrences": 1
+  },
+  {
+   "artifact": "COACHING_COVERAGE_AND_RIGHTS_GATE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "week1_cells",
+   "max": 546,
+   "min": 546,
+   "occurrences": 1
+  },
+  {
+   "artifact": "CYCLE29_CLAIM_INVENTORY.json",
+   "disposition": "INVENTORY_SELF_DESCRIPTION_NOT_A_DOMAIN_CLAIM",
+   "field": "denominator",
+   "max": 90198,
+   "min": 0,
+   "occurrences": 26
+  },
+  {
+   "artifact": "CYCLE29_CLAIM_INVENTORY.json",
+   "disposition": "INVENTORY_SELF_DESCRIPTION_NOT_A_DOMAIN_CLAIM",
+   "field": "discovered_count",
+   "max": 27,
+   "min": 27,
+   "occurrences": 1
+  },
+  {
+   "artifact": "CYCLE29_CLAIM_INVENTORY.json",
+   "disposition": "INVENTORY_SELF_DESCRIPTION_NOT_A_DOMAIN_CLAIM",
+   "field": "numerator",
+   "max": 90198,
+   "min": 0,
+   "occurrences": 20
+  },
+  {
+   "artifact": "CYCLE29_CLAIM_INVENTORY.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "unmapped_count",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "CYCLE29_FINDING_SUCCESSOR_LEDGER.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "p0_count",
+   "max": 12,
+   "min": 12,
+   "occurrences": 1
+  },
+  {
+   "artifact": "CYCLE29_FORECAST_IMMUTABILITY.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "issued_before_cutoff_count",
+   "max": 455,
+   "min": 455,
+   "occurrences": 1
+  },
+  {
+   "artifact": "CYCLE29_FORECAST_IMMUTABILITY.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "not_proven_count",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "CYCLE29_FORECAST_IMMUTABILITY.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "row_count",
+   "max": 455,
+   "min": 455,
+   "occurrences": 1
+  },
+  {
+   "artifact": "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "away_points",
+   "max": 41,
+   "min": 0,
+   "occurrences": 7
+  },
+  {
+   "artifact": "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "bytes",
+   "max": 45160,
+   "min": 23,
+   "occurrences": 5
+  },
+  {
+   "artifact": "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "home_points",
+   "max": 41,
+   "min": 0,
+   "occurrences": 7
+  },
+  {
+   "artifact": "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "http_status",
+   "max": 200,
+   "min": 200,
+   "occurrences": 5
+  },
+  {
+   "artifact": "HISTORICAL_CLASSIFICATION_EPISODES.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "season",
+   "max": 2020,
+   "min": 1970,
+   "occurrences": 2
+  },
+  {
+   "artifact": "HISTORICAL_EXPECTED_GAME_POPULATION.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "season",
+   "max": 2020,
+   "min": 1970,
+   "occurrences": 4
+  },
+  {
+   "artifact": "HISTORICAL_FCS_EXPECTED_GAME_POPULATION.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "season",
+   "max": 2020,
+   "min": 2020,
+   "occurrences": 2
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "FBS_TO_FBS",
+   "max": 41576,
+   "min": 41576,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "FBS_TO_FCS",
+   "max": 52,
+   "min": 52,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "FBS_TO_NULL",
+   "max": 800,
+   "min": 800,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "FCS_TO_FBS",
+   "max": 2287,
+   "min": 2287,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "FCS_TO_FCS",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "NULL_TO_FBS",
+   "max": 2238,
+   "min": 2238,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "canonical_game_entity_count",
+   "max": 46960,
+   "min": 46960,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "fcs_to_fcs_count",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "normalized_game_count",
+   "max": 46953,
+   "min": 46953,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_POSITION_ROLE_OPPORTUNITY_LATTICE.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "season",
+   "max": 2026,
+   "min": 1963,
+   "occurrences": 1152
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "season",
+   "max": 2026,
+   "min": 1963,
+   "occurrences": 64
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.manifest.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "row_count",
+   "max": 64,
+   "min": 64,
+   "occurrences": 1
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_ROLE_LATTICE.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "season",
+   "max": 2026,
+   "min": 1963,
+   "occurrences": 192
+  },
+  {
+   "artifact": "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "admitted_prior_games",
+   "max": 52,
+   "min": 52,
+   "occurrences": 1
+  },
+  {
+   "artifact": "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "distinct_opponents",
+   "max": 32,
+   "min": 32,
+   "occurrences": 1
+  },
+  {
+   "artifact": "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "fcs_v_fcs",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "spine_edges_1963_2025",
+   "max": 66,
+   "min": 66,
+   "occurrences": 1
+  },
+  {
+   "artifact": "NATIONAL_DOMAIN_COVERAGE_CUBE.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "denominator",
+   "max": 1,
+   "min": 1,
+   "occurrences": 52
+  },
+  {
+   "artifact": "NATIONAL_DOMAIN_COVERAGE_CUBE.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "numerator",
+   "max": 0,
+   "min": 0,
+   "occurrences": 52
+  },
+  {
+   "artifact": "PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "fixture_game_count",
+   "max": 3,
+   "min": 3,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "reconstructed_fixture_rows",
+   "max": 3,
+   "min": 3,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "matched_team_rows",
+   "max": 6,
+   "min": 6,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "production_proven_rows",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_INDEPENDENT_RECONSTRUCTION.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "reconstructed_count",
+   "max": 6,
+   "min": 6,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "compatibility_fixture_row_count",
+   "max": 3,
+   "min": 3,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "game_grain_count",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "oriented_row_count",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "proven_pit_training_rows",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_KERNEL_TRUST_GATE.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "proven_pit_training_rows",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "cycle29_kernel_proven_pit_training_rows",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "difference_eligible_minus_oriented",
+   "max": -343,
+   "min": -343,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "predecessor_active_path_proven_pit_rows",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "predecessor_oriented_development_rows",
+   "max": 90198,
+   "min": 90198,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "predecessor_pit_feature_eligible_rows",
+   "max": 89855,
+   "min": 89855,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "CANDIDATE_GENERATED",
+   "max": 1685,
+   "min": 1685,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "REVIEW_REQUIRED",
+   "max": 7,
+   "min": 7,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "UNRESOLVED",
+   "max": 690,
+   "min": 690,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "accepted_count",
+   "max": 2251,
+   "min": 2251,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "model_admitted",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "provisional_count",
+   "max": 2382,
+   "min": 2382,
+   "occurrences": 1
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "row_count",
+   "max": 4633,
+   "min": 4633,
+   "occurrences": 1
+  },
+  {
+   "artifact": "TAMU_SPECIALIZATION_EXPECTED_OPPORTUNITY_CELLS.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "season",
+   "max": 2026,
+   "min": 1963,
+   "occurrences": 64
+  },
+  {
+   "artifact": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "predecessor_unresolved_participant_row_count",
+   "max": 8,
+   "min": 8,
+   "occurrences": 1
+  },
+  {
+   "artifact": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "resolved_authoritative_identity_count",
+   "max": 8,
+   "min": 8,
+   "occurrences": 1
+  },
+  {
+   "artifact": "WEEK1_2026_ENTITY_AUTHORITY_METADATA_SUCCESSOR.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "successor_unresolved_participant_row_count",
+   "max": 0,
+   "min": 0,
+   "occurrences": 1
+  },
+  {
+   "artifact": "WEEK1_2026_HC_OC_DC_ROLE_MATRIX.jsonl",
+   "disposition": "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE",
+   "field": "episode_cardinality",
+   "max": 0,
+   "min": 0,
+   "occurrences": 546
+  },
+  {
+   "artifact": "WEEK1_2026_PROGRAM_SLICE.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "contest_count",
+   "max": 91,
+   "min": 91,
+   "occurrences": 1
+  },
+  {
+   "artifact": "WEEK1_2026_PROGRAM_SLICE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "distinct_canonical_program_count_W",
+   "max": 182,
+   "min": 182,
+   "occurrences": 1
+  },
+  {
+   "artifact": "WEEK1_2026_PROGRAM_SLICE.json",
+   "disposition": "ORIGINAL_INVENTORY_PAIR",
+   "field": "participant_appearance_count",
+   "max": 182,
+   "min": 182,
+   "occurrences": 1
+  },
+  {
+   "artifact": "WEEK1_2026_PROGRAM_SLICE.json",
+   "disposition": "SUCCESSOR_CLAIM",
+   "field": "review_time_expectation_W",
+   "max": 182,
+   "min": 182,
+   "occurrences": 1
+  }
+ ],
+ "claim_count": 38,
+ "claims": [
+  {
+   "artifact": "BAS_CANONICAL_DOMAIN_CATALOG.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "99010b9f87d1fd3356c903a413aaef04eaaaf3762a9939b00c958a32bd9cb557",
+   "claim_id": "C29S-BAS_CANONICAL_DOMAIN_CATALOG-canonical_domain_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "COUNT_OF_THE_ARTIFACTS_OWN_DOMAIN_ROWS",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "by_kind": {
+     "DATA_DOMAIN": 52,
+     "NON_DATA_CONTROL": 4
+    },
+    "distinct_domain_ids": 56,
+    "domain_rows": 56
+   },
+   "field": "canonical_domain_count",
+   "meaning": "Number of canonical BAS domains the Cycle 29 catalog defines (52 data domains and 4 non-data control domains).",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/canonical_domain_count",
+     "recomputed_value": 56,
+     "value": 56,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 canonical BAS domain catalog",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "domains"
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c",
+   "claim_id": "C29S-BAS_DOMAIN_CATALOG_CROSSWALK-ambiguous_unresolved_mapping_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "CROSSWALK_ROWS_GROUPED_BY_PREDECESSOR_TERM",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "ambiguous_state_rows": 0,
+    "distinct_predecessor_terms": 119,
+    "terms_with_several_domains": 0
+   },
+   "field": "ambiguous_unresolved_mapping_count",
+   "meaning": "Predecessor terms mapped to more than one canonical domain, or left in an ambiguous/unresolved state.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/ambiguous_unresolved_mapping_count",
+     "recomputed_value": 0,
+     "value": 0,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 domain-catalog crosswalk rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "predecessor terms"
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c",
+   "claim_id": "C29S-BAS_DOMAIN_CATALOG_CROSSWALK-c28_term_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "COUNT_OF_THE_ARTIFACTS_OWN_MAPPING_ROWS",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "by_catalog": {
+     "C28_33": 33,
+     "PIT_18": 18,
+     "SOURCE_POLICY_16": 16,
+     "W06_52": 52
+    },
+    "mapping_rows": 119,
+    "predecessor_catalog": "C28_33"
+   },
+   "field": "c28_term_count",
+   "meaning": "Number of crosswalk rows mapping a term of the Cycle 28 33-term predecessor catalog to a canonical BAS domain.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/c28_term_count",
+     "recomputed_value": 33,
+     "value": 33,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 domain-catalog crosswalk rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "predecessor terms"
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c",
+   "claim_id": "C29S-BAS_DOMAIN_CATALOG_CROSSWALK-mapping_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "COUNT_OF_THE_ARTIFACTS_OWN_MAPPING_ROWS",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "mapping_rows": 119
+   },
+   "field": "mapping_count",
+   "meaning": "Total crosswalk rows, one per predecessor term across all four predecessor vocabularies.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/mapping_count",
+     "recomputed_value": 119,
+     "value": 119,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 domain-catalog crosswalk rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "mapping rows"
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c",
+   "claim_id": "C29S-BAS_DOMAIN_CATALOG_CROSSWALK-pit_term_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "COUNT_OF_THE_ARTIFACTS_OWN_MAPPING_ROWS",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "by_catalog": {
+     "C28_33": 33,
+     "PIT_18": 18,
+     "SOURCE_POLICY_16": 16,
+     "W06_52": 52
+    },
+    "mapping_rows": 119,
+    "predecessor_catalog": "PIT_18"
+   },
+   "field": "pit_term_count",
+   "meaning": "Number of crosswalk rows mapping a term of the 18-term PIT vocabulary to a canonical BAS domain.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/pit_term_count",
+     "recomputed_value": 18,
+     "value": 18,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 domain-catalog crosswalk rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "predecessor terms"
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c",
+   "claim_id": "C29S-BAS_DOMAIN_CATALOG_CROSSWALK-source_policy_term_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "COUNT_OF_THE_ARTIFACTS_OWN_MAPPING_ROWS",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "by_catalog": {
+     "C28_33": 33,
+     "PIT_18": 18,
+     "SOURCE_POLICY_16": 16,
+     "W06_52": 52
+    },
+    "mapping_rows": 119,
+    "predecessor_catalog": "SOURCE_POLICY_16"
+   },
+   "field": "source_policy_term_count",
+   "meaning": "Number of crosswalk rows mapping a term of the 16-term source-policy vocabulary to a canonical BAS domain.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/source_policy_term_count",
+     "recomputed_value": 16,
+     "value": 16,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 domain-catalog crosswalk rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "predecessor terms"
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c",
+   "claim_id": "C29S-BAS_DOMAIN_CATALOG_CROSSWALK-unmapped_term_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "CROSSWALK_ROWS_CHECKED_AGAINST_THE_DECLARED_CATALOG",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "rows_with_a_domain_absent_from_the_catalog": 0,
+    "states": {
+     "MAPPED": 115,
+     "NON_DATA_CONTROL": 4
+    }
+   },
+   "field": "unmapped_term_count",
+   "meaning": "Crosswalk rows whose predecessor term reaches no canonical domain of the catalog (state neither MAPPED nor NON_DATA_CONTROL, or a domain id the catalog lacks).",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/unmapped_term_count",
+     "recomputed_value": 0,
+     "value": 0,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 domain-catalog crosswalk rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "predecessor terms"
+  },
+  {
+   "artifact": "BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c",
+   "claim_id": "C29S-BAS_DOMAIN_CATALOG_CROSSWALK-w06_term_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "COUNT_OF_THE_ARTIFACTS_OWN_MAPPING_ROWS",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "by_catalog": {
+     "C28_33": 33,
+     "PIT_18": 18,
+     "SOURCE_POLICY_16": 16,
+     "W06_52": 52
+    },
+    "mapping_rows": 119,
+    "predecessor_catalog": "W06_52"
+   },
+   "field": "w06_term_count",
+   "meaning": "Number of crosswalk rows mapping a term of the W06 52-domain predecessor catalog to a canonical BAS domain.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/w06_term_count",
+     "recomputed_value": 52,
+     "value": 52,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 domain-catalog crosswalk rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "predecessor terms"
+  },
+  {
+   "artifact": "COACHING_COVERAGE_AND_RIGHTS_GATE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "fe61941336359076b0a476519e4d13cabf66be320b745f25709d557599f6d034",
+   "claim_id": "C29S-COACHING_COVERAGE_AND_RIGHTS_GATE-W",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "DISTINCT_PROGRAMS_OF_THE_DECLARED_ROLE_MATRIX_AND_SLICE",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "matrix_programs": 182,
+    "same_program_set": true,
+    "slice_programs": 182
+   },
+   "field": "W",
+   "meaning": "Number of distinct Week 1 2026 programs (display-name identities, not canonical program ids) the coaching gate's HC/OC/DC matrix covers.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/W",
+     "recomputed_value": 182,
+     "value": 182,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Week 1 2026 slice programs",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "programs"
+  },
+  {
+   "artifact": "COACHING_COVERAGE_AND_RIGHTS_GATE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "fe61941336359076b0a476519e4d13cabf66be320b745f25709d557599f6d034",
+   "claim_id": "C29S-COACHING_COVERAGE_AND_RIGHTS_GATE-week1_cells",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "ROW_COUNT_OF_THE_DECLARED_ROLE_MATRIX",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "by_role": {
+     "defensive_coordinator": 182,
+     "head_coach": 182,
+     "offensive_coordinator": 182
+    },
+    "confirmed_cells": 0,
+    "distinct_program_role_cells": 546,
+    "matrix_rows": 546
+   },
+   "field": "week1_cells",
+   "meaning": "Number of Week 1 2026 program-role cells in the HC/OC/DC matrix (one head coach, offensive coordinator and defensive coordinator cell per program); cells, not confirmed coaches.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/week1_cells",
+     "recomputed_value": 546,
+     "value": 546,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Week 1 2026 slice programs x {HC, OC, DC}",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "program-role cells"
+  },
+  {
+   "artifact": "CYCLE29_FINDING_SUCCESSOR_LEDGER.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "46563926a01fe752dee9b3a8a6f3e5658323231f66c0ebce96f9ce7923603962",
+   "claim_id": "C29S-CYCLE29_FINDING_SUCCESSOR_LEDGER-p0_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "COUNT_OF_THE_LEDGERS_OWN_TOP_LEVEL_P0_ROWS",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "all_p0_prefixed_rows": 15,
+    "p0_ids_preserved_equal": true,
+    "top_level_p0_rows": [
+     "C28-P0-01",
+     "C28-P0-02",
+     "C28-P0-03",
+     "C28-P0-04",
+     "C28-P0-05",
+     "C28-P0-06",
+     "C28-P0-07",
+     "C28-P0-08",
+     "C28-P0-09",
+     "C28-P0-10",
+     "C28-P0-11",
+     "C28-P0-12"
+    ]
+   },
+   "field": "p0_count",
+   "meaning": "Number of top-level Cycle 28 P0 findings (C28-P0-01 to C28-P0-12) the successor ledger carries; the 11a/11b/11c sub-rows are not counted separately.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/p0_count",
+     "recomputed_value": 12,
+     "value": 12,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 P0 finding identifiers",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "findings"
+  },
+  {
+   "artifact": "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "artifact_declared_in_manifest": false,
+   "artifact_sha256": "f2e6f03ebcb987c2b3e2aa153729006a7e5fdfb78bd8bb6b19568af592bc7670",
+   "claim_id": "C29S-CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR-away_points",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RE_READ_FROM_THE_RETAINED_RAW_HTML",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "other_side": "home",
+    "reads": [
+     {
+      "contest": "6602874",
+      "pointer": "/contests/0/admitted_score/away_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622206": 41,
+       "622260": 13
+      }
+     },
+     {
+      "contest": "6602874",
+      "pointer": "/contests/0/box_header/away_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622206": 41,
+       "622260": 13
+      }
+     },
+     {
+      "contest": "6602874",
+      "pointer": "/contests/0/scoreboard_card/away_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622206": 41,
+       "622260": 13
+      }
+     },
+     {
+      "contest": "6620581",
+      "pointer": "/contests/1/admitted_score/away_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622192": 41,
+       "622313": 38
+      }
+     },
+     {
+      "contest": "6620581",
+      "pointer": "/contests/1/box_header/away_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622192": 41,
+       "622313": 38
+      }
+     },
+     {
+      "contest": "6620581",
+      "pointer": "/contests/1/scoreboard_card/away_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622192": 41,
+       "622313": 38
+      }
+     },
+     {
+      "contest": "6594400",
+      "pointer": "/contests/2/scoreboard_card/away_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_07",
+      "scoreboard_scores_by_source_team": {
+       "622228": 0,
+       "622295": 0
+      }
+     }
+    ]
+   },
+   "field": "away_points",
+   "meaning": "Away team points for a remaining Week 1 contest, as read from the scoreboard card, the contest box header and the admitted (canonically oriented) score; a 0 on a non-terminal card is an in-progress display value, not a final.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/0/admitted_score/away_points",
+     "recomputed_value": 41,
+     "value": 41,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/0/box_header/away_points",
+     "recomputed_value": 13,
+     "value": 13,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/0/scoreboard_card/away_points",
+     "recomputed_value": 13,
+     "value": 13,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/1/admitted_score/away_points",
+     "recomputed_value": 38,
+     "value": 38,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/1/box_header/away_points",
+     "recomputed_value": 38,
+     "value": 38,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/1/scoreboard_card/away_points",
+     "recomputed_value": 38,
+     "value": 38,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/2/scoreboard_card/away_points",
+     "recomputed_value": 0,
+     "value": 0,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 remaining Week 1 contests",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "points"
+  },
+  {
+   "artifact": "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "artifact_declared_in_manifest": false,
+   "artifact_sha256": "f2e6f03ebcb987c2b3e2aa153729006a7e5fdfb78bd8bb6b19568af592bc7670",
+   "claim_id": "C29S-CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR-bytes",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "LENGTH_OF_THE_RETAINED_RAW_PAYLOAD_WITH_THE_RECORDED_DIGEST",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "payloads": [
+     {
+      "pointer": "/acquisitions/0/bytes",
+      "raw_bytes_verified": true,
+      "raw_sha256": "8c2c8b7aeca42027e50c0537eb8976e81ec0aa03420653d947ad2a73f7583df9",
+      "target_id": "ncaa_scoreboard_2026_09_06"
+     },
+     {
+      "pointer": "/acquisitions/1/bytes",
+      "raw_bytes_verified": true,
+      "raw_sha256": "9c87fb43eda6408809fa130ea2dd03334781de30abba69882669fb849ac32313",
+      "target_id": "ncaa_scoreboard_2026_09_07"
+     },
+     {
+      "pointer": "/acquisitions/2/bytes",
+      "raw_bytes_verified": true,
+      "raw_sha256": "12229204d5b8495c5cda3396bf0be500801a8642374b9a9ce2ae89ac4cfc2f9a",
+      "target_id": "ncaa_contest_6602874"
+     },
+     {
+      "pointer": "/acquisitions/3/bytes",
+      "raw_bytes_verified": true,
+      "raw_sha256": "f52651669880128c0f33e5bd329fc73f334d53f524a2fab831271f51e6195fc4",
+      "target_id": "ncaa_contest_6620581"
+     },
+     {
+      "pointer": "/acquisitions/4/bytes",
+      "raw_bytes_verified": true,
+      "raw_sha256": "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a",
+      "target_id": "ncaa_contest_6594400"
+     }
+    ]
+   },
+   "field": "bytes",
+   "meaning": "Size in bytes of each retained raw capture (scoreboard or contest page) the Week 1 official-final successor acquired.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/acquisitions/0/bytes",
+     "recomputed_value": 45160,
+     "value": 45160,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/acquisitions/1/bytes",
+     "recomputed_value": 36743,
+     "value": 36743,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/acquisitions/2/bytes",
+     "recomputed_value": 38029,
+     "value": 38029,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/acquisitions/3/bytes",
+     "recomputed_value": 40711,
+     "value": 40711,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/acquisitions/4/bytes",
+     "recomputed_value": 23,
+     "value": 23,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 remaining Week 1 acquisitions",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "bytes"
+  },
+  {
+   "artifact": "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "artifact_declared_in_manifest": false,
+   "artifact_sha256": "f2e6f03ebcb987c2b3e2aa153729006a7e5fdfb78bd8bb6b19568af592bc7670",
+   "claim_id": "C29S-CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR-home_points",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RE_READ_FROM_THE_RETAINED_RAW_HTML",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "other_side": "away",
+    "reads": [
+     {
+      "contest": "6602874",
+      "pointer": "/contests/0/admitted_score/home_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622206": 41,
+       "622260": 13
+      }
+     },
+     {
+      "contest": "6602874",
+      "pointer": "/contests/0/box_header/home_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622206": 41,
+       "622260": 13
+      }
+     },
+     {
+      "contest": "6602874",
+      "pointer": "/contests/0/scoreboard_card/home_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622206": 41,
+       "622260": 13
+      }
+     },
+     {
+      "contest": "6620581",
+      "pointer": "/contests/1/admitted_score/home_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622192": 41,
+       "622313": 38
+      }
+     },
+     {
+      "contest": "6620581",
+      "pointer": "/contests/1/box_header/home_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622192": 41,
+       "622313": 38
+      }
+     },
+     {
+      "contest": "6620581",
+      "pointer": "/contests/1/scoreboard_card/home_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_06",
+      "scoreboard_scores_by_source_team": {
+       "622192": 41,
+       "622313": 38
+      }
+     },
+     {
+      "contest": "6594400",
+      "pointer": "/contests/2/scoreboard_card/home_points",
+      "scoreboard": "ncaa_scoreboard_2026_09_07",
+      "scoreboard_scores_by_source_team": {
+       "622228": 0,
+       "622295": 0
+      }
+     }
+    ]
+   },
+   "field": "home_points",
+   "meaning": "Home team points for a remaining Week 1 contest, as read from the scoreboard card, the contest box header and the admitted (canonically oriented) score; a 0 on a non-terminal card is an in-progress display value, not a final.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/0/admitted_score/home_points",
+     "recomputed_value": 13,
+     "value": 13,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/0/box_header/home_points",
+     "recomputed_value": 41,
+     "value": 41,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/0/scoreboard_card/home_points",
+     "recomputed_value": 41,
+     "value": 41,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/1/admitted_score/home_points",
+     "recomputed_value": 41,
+     "value": 41,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/1/box_header/home_points",
+     "recomputed_value": 41,
+     "value": 41,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/1/scoreboard_card/home_points",
+     "recomputed_value": 41,
+     "value": 41,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/contests/2/scoreboard_card/home_points",
+     "recomputed_value": 0,
+     "value": 0,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 remaining Week 1 contests",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "points"
+  },
+  {
+   "artifact": "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "artifact_declared_in_manifest": false,
+   "artifact_sha256": "f2e6f03ebcb987c2b3e2aa153729006a7e5fdfb78bd8bb6b19568af592bc7670",
+   "claim_id": "C29S-CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR-http_status",
+   "classification": "UNSUPPORTED",
+   "classification_basis": "TRANSPORT_METADATA_NOT_RETAINED",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "reason": "Only the response bodies are retained, named by their digest. No transport receipt holding the status line was retained, and a status cannot be re-derived from a body.",
+    "searched": [
+     {
+      "pointer": "/acquisitions/0/http_status",
+      "retained_files": [
+       "3cf063144db3db08fa8d344eb2fbee3cdc3766697ec6c315d28a1889c6441261.html",
+       "8c2c8b7aeca42027e50c0537eb8976e81ec0aa03420653d947ad2a73f7583df9.html"
+      ],
+      "target_id": "ncaa_scoreboard_2026_09_06"
+     },
+     {
+      "pointer": "/acquisitions/1/http_status",
+      "retained_files": [
+       "7023ccd3a52841ceb80b129db3aa4a9a16a0aad2abdae7ecefd618546964bc40.html",
+       "988ec7967104dc3b4168ca4fc8b67e85b973eb945b03fbf32fa2f2482d2dd7c5.html",
+       "9c87fb43eda6408809fa130ea2dd03334781de30abba69882669fb849ac32313.html"
+      ],
+      "target_id": "ncaa_scoreboard_2026_09_07"
+     },
+     {
+      "pointer": "/acquisitions/2/http_status",
+      "retained_files": [
+       "12229204d5b8495c5cda3396bf0be500801a8642374b9a9ce2ae89ac4cfc2f9a.html",
+       "ff8f020de8dca9cb218f2a77149748adcc40e6165c61fa62104aedbeded1dc4a.html"
+      ],
+      "target_id": "ncaa_contest_6602874"
+     },
+     {
+      "pointer": "/acquisitions/3/http_status",
+      "retained_files": [
+       "6b3b3861ba49c1f2066062d4228c3f3385144bd3a5e7b555ea050e0d249dddd8.html",
+       "f52651669880128c0f33e5bd329fc73f334d53f524a2fab831271f51e6195fc4.html"
+      ],
+      "target_id": "ncaa_contest_6620581"
+     },
+     {
+      "pointer": "/acquisitions/4/http_status",
+      "retained_files": [
+       "83655f33dac4b17448c5a411c88920bb3233a41a5a2e3f7ac09bc9505f473d78.html",
+       "84877bc47dc946365aeb8ecb3ae0c678dd2331fadaecb56f6fad8e5338c5387d.html",
+       "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a.html"
+      ],
+      "target_id": "ncaa_contest_6594400"
+     }
+    ]
+   },
+   "field": "http_status",
+   "meaning": "HTTP status the acquisition route reported for each capture.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": null,
+     "pointer": "/acquisitions/0/http_status",
+     "recomputed_value": null,
+     "value": 200,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": null,
+     "pointer": "/acquisitions/1/http_status",
+     "recomputed_value": null,
+     "value": 200,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": null,
+     "pointer": "/acquisitions/2/http_status",
+     "recomputed_value": null,
+     "value": 200,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": null,
+     "pointer": "/acquisitions/3/http_status",
+     "recomputed_value": null,
+     "value": 200,
+     "value_type": "integer"
+    },
+    {
+     "line": null,
+     "matches": null,
+     "pointer": "/acquisitions/4/http_status",
+     "recomputed_value": null,
+     "value": 200,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 remaining Week 1 acquisitions",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "HTTP status code"
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1",
+   "claim_id": "C29S-HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE-FBS_TO_FBS",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "games": 46953,
+    "orientation": "AWAY_CLASSIFICATION_TO_HOME_CLASSIFICATION",
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 230,
+     "path": "src/aggie_analytics/cycle29/populations.py",
+     "pattern": "\"FBS_TO_FBS\":\\s*\\d+",
+     "sha256": "a17ce4b883c9105216337530668f9a5ace8ba30decd6644435e9427034f4923f"
+    }
+   },
+   "field": "FBS_TO_FBS",
+   "meaning": "Games in the 46,953-row predecessor normalized-game payload whose away participant is classified FBS and home participant FBS (NULL = no classification recorded). The payload came from an FBS-filtered route, so it is not a national FBS/FCS competition graph.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/pair_counts_predecessor/FBS_TO_FBS",
+     "recomputed_value": 41576,
+     "value": 41576,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor normalized games, 1963-2025",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games"
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1",
+   "claim_id": "C29S-HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE-FBS_TO_FCS",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "games": 46953,
+    "orientation": "AWAY_CLASSIFICATION_TO_HOME_CLASSIFICATION",
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 232,
+     "path": "src/aggie_analytics/cycle29/populations.py",
+     "pattern": "\"FBS_TO_FCS\":\\s*\\d+",
+     "sha256": "a17ce4b883c9105216337530668f9a5ace8ba30decd6644435e9427034f4923f"
+    }
+   },
+   "field": "FBS_TO_FCS",
+   "meaning": "Games in the 46,953-row predecessor normalized-game payload whose away participant is classified FBS and home participant FCS (NULL = no classification recorded). The payload came from an FBS-filtered route, so it is not a national FBS/FCS competition graph.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/pair_counts_predecessor/FBS_TO_FCS",
+     "recomputed_value": 52,
+     "value": 52,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor normalized games, 1963-2025",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games"
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1",
+   "claim_id": "C29S-HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE-FBS_TO_NULL",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "games": 46953,
+    "orientation": "AWAY_CLASSIFICATION_TO_HOME_CLASSIFICATION",
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 234,
+     "path": "src/aggie_analytics/cycle29/populations.py",
+     "pattern": "\"FBS_TO_NULL\":\\s*\\d+",
+     "sha256": "a17ce4b883c9105216337530668f9a5ace8ba30decd6644435e9427034f4923f"
+    }
+   },
+   "field": "FBS_TO_NULL",
+   "meaning": "Games in the 46,953-row predecessor normalized-game payload whose away participant is classified FBS and home participant NULL (NULL = no classification recorded). The payload came from an FBS-filtered route, so it is not a national FBS/FCS competition graph.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/pair_counts_predecessor/FBS_TO_NULL",
+     "recomputed_value": 800,
+     "value": 800,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor normalized games, 1963-2025",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games"
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1",
+   "claim_id": "C29S-HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE-FCS_TO_FBS",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "games": 46953,
+    "orientation": "AWAY_CLASSIFICATION_TO_HOME_CLASSIFICATION",
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 231,
+     "path": "src/aggie_analytics/cycle29/populations.py",
+     "pattern": "\"FCS_TO_FBS\":\\s*\\d+",
+     "sha256": "a17ce4b883c9105216337530668f9a5ace8ba30decd6644435e9427034f4923f"
+    }
+   },
+   "field": "FCS_TO_FBS",
+   "meaning": "Games in the 46,953-row predecessor normalized-game payload whose away participant is classified FCS and home participant FBS (NULL = no classification recorded). The payload came from an FBS-filtered route, so it is not a national FBS/FCS competition graph.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/pair_counts_predecessor/FCS_TO_FBS",
+     "recomputed_value": 2287,
+     "value": 2287,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor normalized games, 1963-2025",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games"
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1",
+   "claim_id": "C29S-HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE-FCS_TO_FCS",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "games": 46953,
+    "orientation": "AWAY_CLASSIFICATION_TO_HOME_CLASSIFICATION",
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 235,
+     "path": "src/aggie_analytics/cycle29/populations.py",
+     "pattern": "\"FCS_TO_FCS\":\\s*\\d+",
+     "sha256": "a17ce4b883c9105216337530668f9a5ace8ba30decd6644435e9427034f4923f"
+    }
+   },
+   "field": "FCS_TO_FCS",
+   "meaning": "Games in the 46,953-row predecessor normalized-game payload whose away participant is classified FCS and home participant FCS (NULL = no classification recorded). The payload came from an FBS-filtered route, so it is not a national FBS/FCS competition graph.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/pair_counts_predecessor/FCS_TO_FCS",
+     "recomputed_value": 0,
+     "value": 0,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor normalized games, 1963-2025",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games"
+  },
+  {
+   "artifact": "HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1",
+   "claim_id": "C29S-HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE-NULL_TO_FBS",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "games": 46953,
+    "orientation": "AWAY_CLASSIFICATION_TO_HOME_CLASSIFICATION",
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 233,
+     "path": "src/aggie_analytics/cycle29/populations.py",
+     "pattern": "\"NULL_TO_FBS\":\\s*\\d+",
+     "sha256": "a17ce4b883c9105216337530668f9a5ace8ba30decd6644435e9427034f4923f"
+    }
+   },
+   "field": "NULL_TO_FBS",
+   "meaning": "Games in the 46,953-row predecessor normalized-game payload whose away participant is classified NULL and home participant FBS (NULL = no classification recorded). The payload came from an FBS-filtered route, so it is not a national FBS/FCS competition graph.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/pair_counts_predecessor/NULL_TO_FBS",
+     "recomputed_value": 2238,
+     "value": 2238,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor normalized games, 1963-2025",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games"
+  },
+  {
+   "artifact": "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "cb8e11709525261460e35c8ac51509b92eb0e3135c15d8fd178292867ff9a7ad",
+   "claim_id": "C29S-MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE-distinct_opponents",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "contradicts_artifact_statement": "The artifact states focus_game_hardcode false and generator general_transition_program_logic, but the producer writes this value as a literal.",
+    "edges": 66,
+    "edges_through_2023": 52,
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 478,
+     "path": "tools/materialize_cycle29.py",
+     "pattern": "\"distinct_opponents\":\\s*\\d+",
+     "sha256": "d22b829d3d59ecf9215b2559bd2dd820619ecb36494ee44e3b8164828cd74664"
+    },
+    "seasons": [
+     1982,
+     2025
+    ],
+    "source_team_id": 2623
+   },
+   "field": "distinct_opponents",
+   "meaning": "Distinct opponents of Missouri State in the predecessor normalized-game payload.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/distinct_opponents",
+     "recomputed_value": 32,
+     "value": 32,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Missouri State (SRC-002:TEAM:2623) predecessor games",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games or opponents"
+  },
+  {
+   "artifact": "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "cb8e11709525261460e35c8ac51509b92eb0e3135c15d8fd178292867ff9a7ad",
+   "claim_id": "C29S-MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE-fcs_v_fcs",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "contradicts_artifact_statement": "The artifact states focus_game_hardcode false and generator general_transition_program_logic, but the producer writes this value as a literal.",
+    "edges": 66,
+    "edges_through_2023": 52,
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 479,
+     "path": "tools/materialize_cycle29.py",
+     "pattern": "\"fcs_v_fcs\":\\s*\\d+",
+     "sha256": "d22b829d3d59ecf9215b2559bd2dd820619ecb36494ee44e3b8164828cd74664"
+    },
+    "seasons": [
+     1982,
+     2025
+    ],
+    "source_team_id": 2623
+   },
+   "field": "fcs_v_fcs",
+   "meaning": "Missouri State games in that payload in which both participants are classified FCS.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/fcs_v_fcs",
+     "recomputed_value": 0,
+     "value": 0,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Missouri State (SRC-002:TEAM:2623) predecessor games",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games or opponents"
+  },
+  {
+   "artifact": "MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "cb8e11709525261460e35c8ac51509b92eb0e3135c15d8fd178292867ff9a7ad",
+   "claim_id": "C29S-MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE-spine_edges_1963_2025",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_RETAINED_PREDECESSOR_GAME_PAYLOAD",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "contradicts_artifact_statement": "The artifact states focus_game_hardcode false and generator general_transition_program_logic, but the producer writes this value as a literal.",
+    "edges": 66,
+    "edges_through_2023": 52,
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 477,
+     "path": "tools/materialize_cycle29.py",
+     "pattern": "\"spine_edges_1963_2025\":\\s*\\d+",
+     "sha256": "d22b829d3d59ecf9215b2559bd2dd820619ecb36494ee44e3b8164828cd74664"
+    },
+    "seasons": [
+     1982,
+     2025
+    ],
+    "source_team_id": 2623
+   },
+   "field": "spine_edges_1963_2025",
+   "meaning": "Every Missouri State game (edge) in the predecessor normalized-game payload; the observed games span 1982-2025 despite the field name.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/spine_edges_1963_2025",
+     "recomputed_value": 66,
+     "value": 66,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Missouri State (SRC-002:TEAM:2623) predecessor games",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "games or opponents"
+  },
+  {
+   "artifact": "PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "c577732614821b24f00e6377a523b5f418b36c439447b7524ea6fe8aa79ae7b3",
+   "claim_id": "C29S-PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE-fixture_game_count",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "COUNTED_FROM_THE_PRODUCER_FIXTURE_LITERAL",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "fixture": {
+     "function": "fixture_kernel_games",
+     "line": 135,
+     "path": "tools/materialize_cycle29.py",
+     "sha256": "d22b829d3d59ecf9215b2559bd2dd820619ecb36494ee44e3b8164828cd74664"
+    }
+   },
+   "field": "fixture_game_count",
+   "meaning": "Games in the synthetic three-game compatibility fixture the Cycle 29 PIT kernel was exercised on; synthetic, not real games.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/fixture_game_count",
+     "recomputed_value": 3,
+     "value": 3,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 bounded compatibility fixture",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "fixture games"
+  },
+  {
+   "artifact": "PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "c577732614821b24f00e6377a523b5f418b36c439447b7524ea6fe8aa79ae7b3",
+   "claim_id": "C29S-PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE-reconstructed_fixture_rows",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "COUNTED_FROM_THE_PRODUCER_FIXTURE_LITERAL",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "fixture": {
+     "function": "fixture_kernel_games",
+     "line": 135,
+     "path": "tools/materialize_cycle29.py",
+     "sha256": "d22b829d3d59ecf9215b2559bd2dd820619ecb36494ee44e3b8164828cd74664"
+    },
+    "games_with_two_opposed_outcomes": 3,
+    "team_outcome_rows": 6
+   },
+   "field": "reconstructed_fixture_rows",
+   "meaning": "Game-grain rows the kernel built from the synthetic fixture: one per fixture game with exactly two opposed team outcomes. Not proven PIT training rows.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/reconstructed_fixture_rows",
+     "recomputed_value": 3,
+     "value": 3,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 bounded compatibility fixture",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "fixture game-grain rows"
+  },
+  {
+   "artifact": "PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "4b751a5e26546c4124db99e12c5d231b619dfd208229c5da22c0f3072c241cda",
+   "claim_id": "C29S-PIT_PREDECESSOR_POPULATION_RECONCILIATION-difference_eligible_minus_oriented",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "DERIVED_EXACTLY_FROM_DECLARED_CLAIMS",
+   "dependencies": [
+    "C29 original claim PIT_PREDECESSOR_POPULATION_RECONCILIATION.json/predecessor_pit_feature_eligible_rows",
+    "C29 original claim PIT_PREDECESSOR_POPULATION_RECONCILIATION.json/predecessor_oriented_development_rows"
+   ],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "eligible": 89855,
+    "limitation": "The two inputs are original-inventory claims; this tranche did not re-derive them from predecessor rows.",
+    "oriented": 90198
+   },
+   "field": "difference_eligible_minus_oriented",
+   "meaning": "PIT-feature-eligible predecessor rows minus oriented development rows (89,855 - 90,198); negative because some oriented rows are not feature-eligible.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/difference_eligible_minus_oriented",
+     "recomputed_value": -343,
+     "value": -343,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor oriented development rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "rows"
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135",
+   "claim_id": "C29S-PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION-CANDIDATE_GENERATED",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_NAMED_EXTERNAL_JSONL",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "binding_limitation": "The artifact names this JSONL by path only and the Cycle 29 manifest does not declare or hash it, so the binding between the claim and these bytes is by path, not by digest.",
+    "by_category": {
+     "ACCEPTED_COACH_ROLE_EPISODE": 2251,
+     "CANDIDATE_GENERATED": 1685,
+     "REVIEW_REQUIRED": 7,
+     "UNRESOLVED": 690
+    },
+    "by_successor_disposition": {
+     "NONADMITTED_EXPLICIT": 2382,
+     "RETAINED_NONADMITTED_CONTEXT": 2251
+    },
+    "rows": 4633
+   },
+   "field": "CANDIDATE_GENERATED",
+   "meaning": "Provisional observations in the CANDIDATE_GENERATED category.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/provisional_category_counts/CANDIDATE_GENERATED",
+     "recomputed_value": 1685,
+     "value": 1685,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor coaching observations",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "observations"
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135",
+   "claim_id": "C29S-PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION-REVIEW_REQUIRED",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_NAMED_EXTERNAL_JSONL",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "binding_limitation": "The artifact names this JSONL by path only and the Cycle 29 manifest does not declare or hash it, so the binding between the claim and these bytes is by path, not by digest.",
+    "by_category": {
+     "ACCEPTED_COACH_ROLE_EPISODE": 2251,
+     "CANDIDATE_GENERATED": 1685,
+     "REVIEW_REQUIRED": 7,
+     "UNRESOLVED": 690
+    },
+    "by_successor_disposition": {
+     "NONADMITTED_EXPLICIT": 2382,
+     "RETAINED_NONADMITTED_CONTEXT": 2251
+    },
+    "rows": 4633
+   },
+   "field": "REVIEW_REQUIRED",
+   "meaning": "Provisional observations in the REVIEW_REQUIRED category.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/provisional_category_counts/REVIEW_REQUIRED",
+     "recomputed_value": 7,
+     "value": 7,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor coaching observations",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "observations"
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135",
+   "claim_id": "C29S-PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION-UNRESOLVED",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_NAMED_EXTERNAL_JSONL",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "binding_limitation": "The artifact names this JSONL by path only and the Cycle 29 manifest does not declare or hash it, so the binding between the claim and these bytes is by path, not by digest.",
+    "by_category": {
+     "ACCEPTED_COACH_ROLE_EPISODE": 2251,
+     "CANDIDATE_GENERATED": 1685,
+     "REVIEW_REQUIRED": 7,
+     "UNRESOLVED": 690
+    },
+    "by_successor_disposition": {
+     "NONADMITTED_EXPLICIT": 2382,
+     "RETAINED_NONADMITTED_CONTEXT": 2251
+    },
+    "rows": 4633
+   },
+   "field": "UNRESOLVED",
+   "meaning": "Provisional observations in the UNRESOLVED category.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/provisional_category_counts/UNRESOLVED",
+     "recomputed_value": 690,
+     "value": 690,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor coaching observations",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "observations"
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135",
+   "claim_id": "C29S-PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION-accepted_count",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_NAMED_EXTERNAL_JSONL",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "binding_limitation": "The artifact names this JSONL by path only and the Cycle 29 manifest does not declare or hash it, so the binding between the claim and these bytes is by path, not by digest.",
+    "by_category": {
+     "ACCEPTED_COACH_ROLE_EPISODE": 2251,
+     "CANDIDATE_GENERATED": 1685,
+     "REVIEW_REQUIRED": 7,
+     "UNRESOLVED": 690
+    },
+    "by_successor_disposition": {
+     "NONADMITTED_EXPLICIT": 2382,
+     "RETAINED_NONADMITTED_CONTEXT": 2251
+    },
+    "rows": 4633
+   },
+   "field": "accepted_count",
+   "meaning": "Predecessor coaching observations in the ACCEPTED_COACH_ROLE_EPISODE category; retained as non-admitted context.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/accepted_count",
+     "recomputed_value": 2251,
+     "value": 2251,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor coaching observations",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "observations"
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135",
+   "claim_id": "C29S-PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION-model_admitted",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_NAMED_EXTERNAL_JSONL",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "binding_limitation": "The artifact names this JSONL by path only and the Cycle 29 manifest does not declare or hash it, so the binding between the claim and these bytes is by path, not by digest.",
+    "by_category": {
+     "ACCEPTED_COACH_ROLE_EPISODE": 2251,
+     "CANDIDATE_GENERATED": 1685,
+     "REVIEW_REQUIRED": 7,
+     "UNRESOLVED": 690
+    },
+    "by_successor_disposition": {
+     "NONADMITTED_EXPLICIT": 2382,
+     "RETAINED_NONADMITTED_CONTEXT": 2251
+    },
+    "rows": 4633
+   },
+   "field": "model_admitted",
+   "meaning": "Reconciled coaching observations admitted to a model; zero by design.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/model_admitted",
+     "recomputed_value": 0,
+     "value": 0,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor coaching observations",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "observations"
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135",
+   "claim_id": "C29S-PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION-provisional_count",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_NAMED_EXTERNAL_JSONL",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "binding_limitation": "The artifact names this JSONL by path only and the Cycle 29 manifest does not declare or hash it, so the binding between the claim and these bytes is by path, not by digest.",
+    "by_category": {
+     "ACCEPTED_COACH_ROLE_EPISODE": 2251,
+     "CANDIDATE_GENERATED": 1685,
+     "REVIEW_REQUIRED": 7,
+     "UNRESOLVED": 690
+    },
+    "by_successor_disposition": {
+     "NONADMITTED_EXPLICIT": 2382,
+     "RETAINED_NONADMITTED_CONTEXT": 2251
+    },
+    "rows": 4633
+   },
+   "field": "provisional_count",
+   "meaning": "Predecessor coaching observations in any provisional category (CANDIDATE_GENERATED, REVIEW_REQUIRED, UNRESOLVED).",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/provisional_count",
+     "recomputed_value": 2382,
+     "value": 2382,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor coaching observations",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "observations"
+  },
+  {
+   "artifact": "WEEK1_2026_PROGRAM_SLICE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "fb68343c2e73b8a09c99128e97ae32f2eb9fd25d2af95a7ec560b92c5704f59e",
+   "claim_id": "C29S-WEEK1_2026_PROGRAM_SLICE-distinct_canonical_program_count_W",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "DISTINCT_ENTRIES_OF_THE_ARTIFACTS_OWN_PROGRAM_LIST",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "distinct": 182,
+    "identity_class": "DISPLAY_NAME_NOT_CANONICAL",
+    "program_entries": 182,
+    "slice_identity_recomputed": "aa7969dd8a83710f850c6399f4e4aa488e375b2fbb3aa0dc58ebbcbb0a86411c",
+    "slice_identity_recorded": "aa7969dd8a83710f850c6399f4e4aa488e375b2fbb3aa0dc58ebbcbb0a86411c"
+   },
+   "field": "distinct_canonical_program_count_W",
+   "meaning": "Distinct programs in the Week 1 2026 slice. Despite the field name these are display-name identities (identity_class DISPLAY_NAME_NOT_CANONICAL), not canonical program ids.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/distinct_canonical_program_count_W",
+     "recomputed_value": 182,
+     "value": 182,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Week 1 2026 contest participants",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "programs"
+  },
+  {
+   "artifact": "WEEK1_2026_PROGRAM_SLICE.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "fb68343c2e73b8a09c99128e97ae32f2eb9fd25d2af95a7ec560b92c5704f59e",
+   "claim_id": "C29S-WEEK1_2026_PROGRAM_SLICE-review_time_expectation_W",
+   "classification": "UNSUPPORTED",
+   "classification_basis": "DECLARED_EXPECTATION_CONSTANT_NOT_A_MEASUREMENT",
+   "dependencies": [],
+   "discovery": "VALIDATOR_OMISSION",
+   "evidence": {
+    "equals_the_measured_count": true,
+    "measured_distinct_programs": 182,
+    "producer_origin": {
+     "found": true,
+     "kind": "LITERAL_CONSTANT_IN_PRODUCER",
+     "line": 109,
+     "path": "src/aggie_analytics/cycle29/populations.py",
+     "pattern": "\"review_time_expectation_W\":\\s*182",
+     "sha256": "a17ce4b883c9105216337530668f9a5ace8ba30decd6644435e9427034f4923f"
+    }
+   },
+   "field": "review_time_expectation_W",
+   "meaning": "The Week 1 program count the reviewer expected; a declared expectation constant, not a measurement.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": null,
+     "pointer": "/review_time_expectation_W",
+     "recomputed_value": null,
+     "value": 182,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Week 1 2026 contest participants",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "programs"
+  },
+  {
+   "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.manifest.json",
+   "artifact_declared_in_manifest": false,
+   "artifact_sha256": "80c74f77c55496d3326cf47e246235f0fd89f738f37d9e689eea3ed7cdae545b",
+   "claim_id": "C29S-HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION-manifest-row_count",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "ROW_COUNT_OF_THE_DECLARED_EXTERNAL_JSONL",
+   "dependencies": [],
+   "discovery": "PAIR_LEVEL_OMISSION_HIDDEN_BY_FIELD_NAME_MATCHING",
+   "evidence": {
+    "artifact_records_its_sha256": "16670b51ca003a202148bdfd8fa3ae1c8c934cfc85e963623b2a2f1bd3d6eb78",
+    "digest_matches": true,
+    "rows": 64,
+    "rows_with_a_program": 0
+   },
+   "field": "row_count",
+   "meaning": "Rows in the external expected historical program-season population JSONL: one placeholder row per season 1963-2026, each BLOCKED (no program enumerated).",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/row_count",
+     "recomputed_value": 64,
+     "value": 64,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Historical national program-season expected population",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "rows"
+  },
+  {
+   "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "80d8768102686d4734c57311adaf2f5fab91e066fa0b9b48d55bb846b21e468b",
+   "claim_id": "C29S-PIT_KERNEL_POPULATION_MANIFEST-proven_pit_training_rows",
+   "classification": "EVIDENCE_BACKED",
+   "classification_basis": "ROW_COUNT_OF_THE_DECLARED_KERNEL_ROWS_JSONL",
+   "dependencies": [],
+   "discovery": "PAIR_LEVEL_OMISSION_HIDDEN_BY_FIELD_NAME_MATCHING",
+   "evidence": {
+    "kernel_rows": 0,
+    "note": "An empty declared row file supports a zero count; it proves absence of rows, not the absence of a defect in the kernel."
+   },
+   "field": "proven_pit_training_rows",
+   "meaning": "Proven PIT training rows in the Cycle 29 production kernel population; zero.",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/proven_pit_training_rows",
+     "recomputed_value": 0,
+     "value": 0,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 29 PIT kernel production rows",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "rows"
+  },
+  {
+   "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "artifact_declared_in_manifest": true,
+   "artifact_sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135",
+   "claim_id": "C29S-PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION-row_count",
+   "classification": "RECONSTRUCTED",
+   "classification_basis": "RECOUNTED_FROM_THE_NAMED_EXTERNAL_JSONL",
+   "dependencies": [],
+   "discovery": "PAIR_LEVEL_OMISSION_HIDDEN_BY_FIELD_NAME_MATCHING",
+   "evidence": {
+    "binding_limitation": "The artifact names this JSONL by path only and the Cycle 29 manifest does not declare or hash it, so the binding between the claim and these bytes is by path, not by digest.",
+    "by_category": {
+     "ACCEPTED_COACH_ROLE_EPISODE": 2251,
+     "CANDIDATE_GENERATED": 1685,
+     "REVIEW_REQUIRED": 7,
+     "UNRESOLVED": 690
+    },
+    "by_successor_disposition": {
+     "NONADMITTED_EXPLICIT": 2382,
+     "RETAINED_NONADMITTED_CONTEXT": 2251
+    },
+    "rows": 4633
+   },
+   "field": "row_count",
+   "meaning": "All predecessor coaching observations reconciled (accepted plus provisional).",
+   "pointers": [
+    {
+     "line": null,
+     "matches": true,
+     "pointer": "/row_count",
+     "recomputed_value": 4633,
+     "value": 4633,
+     "value_type": "integer"
+    }
+   ],
+   "population": "Cycle 28 predecessor coaching observations",
+   "trust": "INVENTORIED_NOT_SCIENTIFICALLY_ACCEPTED",
+   "unit": "observations"
+  }
+ ],
+ "classification_counts": {
+  "CONTRADICTED": 0,
+  "EVIDENCE_BACKED": 15,
+  "RECONSTRUCTED": 21,
+  "UNSUPPORTED": 2
+ },
+ "cycle_number": 37,
+ "declared_artifact_set": {
+  "declared": 72,
+  "declared_and_hash_verified": 71,
+  "declared_but_absent": [
+   "HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.jsonl.gitstub"
+  ],
+  "hash_mismatches": [],
+  "manifest_sha256": "ee8f446796b6675f4b6611ae719cd2c2a79b5ce41b186e33af862ca54ca9448a",
+  "present_in_the_artifact_directory_but_not_declared": [
+   "CYCLE29_MATERIALIZATION_MANIFEST.json",
+   "CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.manifest.json"
+  ],
+  "referenced_only": [
+   {
+    "artifact": "ALL_CYCLE_TRUST_RECOVERY_GATE.json",
+    "location": "REPOSITORY_OTHER_ARTIFACT_DIRECTORY",
+    "referenced_by": [
+     "CYCLE29_CLAIM_INVENTORY.json:artifact_path"
+    ],
+    "sha256": "9bb0548a3083023f8b3ad01f093b51effe90c97e481e14b07fc4fdcdaff6f835"
+   },
+   {
+    "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.jsonl",
+    "location": "CYCLE29_EXTERNAL_OUTPUT_DIRECTORY",
+    "referenced_by": [
+     "CYCLE29_CLAIM_INVENTORY.json:artifact_path",
+     "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json:external_path_reference"
+    ],
+    "sha256": "913ead0c862033dac8c3f35e7574d650f924a6bd036d86fd00806cf9e62a9dec"
+   }
+  ]
+ },
+ "finding": "W37R-71",
+ "inputs": {
+  "artifact:BAS_CANONICAL_DOMAIN_CATALOG.json": {
+   "bytes": 6894,
+   "expected_sha256": "99010b9f87d1fd3356c903a413aaef04eaaaf3762a9939b00c958a32bd9cb557",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\BAS_CANONICAL_DOMAIN_CATALOG.json",
+   "sha256": "99010b9f87d1fd3356c903a413aaef04eaaaf3762a9939b00c958a32bd9cb557"
+  },
+  "artifact:BAS_DOMAIN_CATALOG_CROSSWALK.json": {
+   "bytes": 24700,
+   "expected_sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\BAS_DOMAIN_CATALOG_CROSSWALK.json",
+   "sha256": "3f976bc3f7b5af3be593e55262ad6711945de665a2b49c24c36ab89a5c26821c"
+  },
+  "artifact:COACHING_COVERAGE_AND_RIGHTS_GATE.json": {
+   "bytes": 192,
+   "expected_sha256": "fe61941336359076b0a476519e4d13cabf66be320b745f25709d557599f6d034",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\COACHING_COVERAGE_AND_RIGHTS_GATE.json",
+   "sha256": "fe61941336359076b0a476519e4d13cabf66be320b745f25709d557599f6d034"
+  },
+  "artifact:CYCLE29_FINDING_SUCCESSOR_LEDGER.json": {
+   "bytes": 5762,
+   "expected_sha256": "46563926a01fe752dee9b3a8a6f3e5658323231f66c0ebce96f9ce7923603962",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\CYCLE29_FINDING_SUCCESSOR_LEDGER.json",
+   "sha256": "46563926a01fe752dee9b3a8a6f3e5658323231f66c0ebce96f9ce7923603962"
+  },
+  "artifact:CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json": {
+   "bytes": 8552,
+   "expected_sha256": null,
+   "matches_expected": null,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\CYCLE29_REMAINING_WEEK1_OFFICIAL_FINAL_SUCCESSOR.json",
+   "sha256": "f2e6f03ebcb987c2b3e2aa153729006a7e5fdfb78bd8bb6b19568af592bc7670"
+  },
+  "artifact:HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json": {
+   "bytes": 416,
+   "expected_sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\HISTORICAL_GAME_PAIR_SUBDIVISION_COVERAGE.json",
+   "sha256": "3b9480bdad5cf6c03eed0b569b7831953292b51c8bff9fc08ac4b92bcb0ae3c1"
+  },
+  "artifact:HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.manifest.json": {
+   "bytes": 289,
+   "expected_sha256": null,
+   "matches_expected": null,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.manifest.json",
+   "sha256": "80c74f77c55496d3326cf47e246235f0fd89f738f37d9e689eea3ed7cdae545b"
+  },
+  "artifact:MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json": {
+   "bytes": 319,
+   "expected_sha256": "cb8e11709525261460e35c8ac51509b92eb0e3135c15d8fd178292867ff9a7ad",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\MISSOURI_STATE_RAW_TO_PRIOR_LINEAGE_TRACE.json",
+   "sha256": "cb8e11709525261460e35c8ac51509b92eb0e3135c15d8fd178292867ff9a7ad"
+  },
+  "artifact:PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE.json": {
+   "bytes": 153,
+   "expected_sha256": "c577732614821b24f00e6377a523b5f418b36c439447b7524ea6fe8aa79ae7b3",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\PIT_KERNEL_BOUNDED_COMPATIBILITY_FIXTURE.json",
+   "sha256": "c577732614821b24f00e6377a523b5f418b36c439447b7524ea6fe8aa79ae7b3"
+  },
+  "artifact:PIT_KERNEL_POPULATION_MANIFEST.json": {
+   "bytes": 196,
+   "expected_sha256": "80d8768102686d4734c57311adaf2f5fab91e066fa0b9b48d55bb846b21e468b",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\PIT_KERNEL_POPULATION_MANIFEST.json",
+   "sha256": "80d8768102686d4734c57311adaf2f5fab91e066fa0b9b48d55bb846b21e468b"
+  },
+  "artifact:PIT_PREDECESSOR_POPULATION_RECONCILIATION.json": {
+   "bytes": 479,
+   "expected_sha256": "4b751a5e26546c4124db99e12c5d231b619dfd208229c5da22c0f3072c241cda",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\PIT_PREDECESSOR_POPULATION_RECONCILIATION.json",
+   "sha256": "4b751a5e26546c4124db99e12c5d231b619dfd208229c5da22c0f3072c241cda"
+  },
+  "artifact:PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json": {
+   "bytes": 325,
+   "expected_sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+   "sha256": "94cc4073aa41f48a36bb6b01f793a0ef958380a63e7fb1b264d8bb39b7290135"
+  },
+  "artifact:WEEK1_2026_PROGRAM_SLICE.json": {
+   "bytes": 5196,
+   "expected_sha256": "fb68343c2e73b8a09c99128e97ae32f2eb9fd25d2af95a7ec560b92c5704f59e",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\artifacts\\scientific_integrity\\cycle29\\WEEK1_2026_PROGRAM_SLICE.json",
+   "sha256": "fb68343c2e73b8a09c99128e97ae32f2eb9fd25d2af95a7ec560b92c5704f59e"
+  },
+  "external:HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.jsonl": {
+   "bytes": 9530,
+   "expected_sha256": "16670b51ca003a202148bdfd8fa3ae1c8c934cfc85e963623b2a2f1bd3d6eb78",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\ops\\cycle29_work\\outputs\\HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.jsonl",
+   "sha256": "16670b51ca003a202148bdfd8fa3ae1c8c934cfc85e963623b2a2f1bd3d6eb78"
+  },
+  "external:PIT_KERNEL_ROWS.jsonl": {
+   "bytes": 0,
+   "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\ops\\cycle29_work\\outputs\\PIT_KERNEL_ROWS.jsonl",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "external:WEEK1_2026_HC_OC_DC_ROLE_MATRIX.jsonl": {
+   "bytes": 102041,
+   "expected_sha256": "36f9245ae6c163218b3779d2dff9f1efae7971add9b74a0dbf84b747873bc5c9",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\ops\\cycle29_work\\outputs\\WEEK1_2026_HC_OC_DC_ROLE_MATRIX.jsonl",
+   "sha256": "36f9245ae6c163218b3779d2dff9f1efae7971add9b74a0dbf84b747873bc5c9"
+  },
+  "predecessor:national_normalized_games.jsonl": {
+   "bytes": 27776011,
+   "expected_sha256": "8ac949ef3ecbdbc560bb8080e2f302cbd000ab96437dfafef9f1a14165d1c574",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\canonical\\national_foundation_reconciliation\\sha256\\d2af2bab981f8e7b33a6823e3e4b4b65eb2f96593a0eeafd56dedce1b84fd477\\national_normalized_games.jsonl",
+   "sha256": "8ac949ef3ecbdbc560bb8080e2f302cbd000ab96437dfafef9f1a14165d1c574"
+  },
+  "producer:src/aggie_analytics/cycle29/populations.py": {
+   "bytes": 9749,
+   "expected_sha256": null,
+   "matches_expected": null,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\src\\aggie_analytics\\cycle29\\populations.py",
+   "sha256": "a17ce4b883c9105216337530668f9a5ace8ba30decd6644435e9427034f4923f"
+  },
+  "producer:tools/materialize_cycle29.py": {
+   "bytes": 32545,
+   "expected_sha256": null,
+   "matches_expected": null,
+   "path": "C:\\BatteredAggieSyndrome.worktrees\\cycle37-rework\\tools\\materialize_cycle29.py",
+   "sha256": "d22b829d3d59ecf9215b2559bd2dd820619ecb36494ee44e3b8164828cd74664"
+  },
+  "raw:ncaa_contest_6594400:a6d35de945bf": {
+   "bytes": 23,
+   "expected_sha256": "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\raw\\CYCLE29\\ncaa_contest_6594400\\a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a.html",
+   "sha256": "a6d35de945bf03ea59757fdbe406185b3300a4b7b4134b3773b8b60b2949175a"
+  },
+  "raw:ncaa_contest_6602874:12229204d5b8": {
+   "bytes": 38029,
+   "expected_sha256": "12229204d5b8495c5cda3396bf0be500801a8642374b9a9ce2ae89ac4cfc2f9a",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\raw\\CYCLE29\\ncaa_contest_6602874\\12229204d5b8495c5cda3396bf0be500801a8642374b9a9ce2ae89ac4cfc2f9a.html",
+   "sha256": "12229204d5b8495c5cda3396bf0be500801a8642374b9a9ce2ae89ac4cfc2f9a"
+  },
+  "raw:ncaa_contest_6620581:f52651669880": {
+   "bytes": 40711,
+   "expected_sha256": "f52651669880128c0f33e5bd329fc73f334d53f524a2fab831271f51e6195fc4",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\raw\\CYCLE29\\ncaa_contest_6620581\\f52651669880128c0f33e5bd329fc73f334d53f524a2fab831271f51e6195fc4.html",
+   "sha256": "f52651669880128c0f33e5bd329fc73f334d53f524a2fab831271f51e6195fc4"
+  },
+  "raw:ncaa_scoreboard_2026_09_06:8c2c8b7aeca4": {
+   "bytes": 45160,
+   "expected_sha256": "8c2c8b7aeca42027e50c0537eb8976e81ec0aa03420653d947ad2a73f7583df9",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\raw\\CYCLE29\\ncaa_scoreboard_2026_09_06\\8c2c8b7aeca42027e50c0537eb8976e81ec0aa03420653d947ad2a73f7583df9.html",
+   "sha256": "8c2c8b7aeca42027e50c0537eb8976e81ec0aa03420653d947ad2a73f7583df9"
+  },
+  "raw:ncaa_scoreboard_2026_09_07:9c87fb43eda6": {
+   "bytes": 36743,
+   "expected_sha256": "9c87fb43eda6408809fa130ea2dd03334781de30abba69882669fb849ac32313",
+   "matches_expected": true,
+   "path": "C:\\BatteredAggieSyndrome.data\\raw\\CYCLE29\\ncaa_scoreboard_2026_09_07\\9c87fb43eda6408809fa130ea2dd03334781de30abba69882669fb849ac32313.html",
+   "sha256": "9c87fb43eda6408809fa130ea2dd03334781de30abba69882669fb849ac32313"
+  },
+  "undeclared_external:PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.jsonl": {
+   "bytes": 780324,
+   "expected_sha256": null,
+   "matches_expected": null,
+   "path": "C:\\BatteredAggieSyndrome.data\\ops\\cycle29_work\\outputs\\PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.jsonl",
+   "sha256": "913ead0c862033dac8c3f35e7574d650f924a6bd036d86fd00806cf9e62a9dec"
+  }
+ },
+ "label": "Cycle #37 — Attempt #3 — IN_PROGRESS_LOCAL_WORK_REMAINS",
+ "limitations": [
+  "Row values of the declared external JSONL datasets (seasons, coverage-cube numerators and denominators, role-matrix episode cardinalities) are enumerated by the census and dispositioned, but not inventoried as claims in this tranche.",
+  "Original-inventory claims are carried forward with their recorded trust class; this tranche did not re-derive them.",
+  "The HTTP status of each Week 1 acquisition is unsupported: no transport receipt was retained."
+ ],
+ "not_claimed": [
+  "An inventory that covers every numeric field is not evidence that the numbers are scientifically true.",
+  "This is the bounded Cycle 29 tranche, not an audit of Cycles 1-36.",
+  "The committed CYCLE29_CLAIM_INVENTORY.json is unchanged and remains incomplete on its own; the default validator still reports it.",
+  "No PIT, forecast, model or trust state changes because of this successor."
+ ],
+ "numeric_value_accounting": {
+  "accounted": 2272,
+  "by_disposition": {
+   "CONTRACT_BOUND_VALUE_IN_AN_ARRAY_NOT_A_CLAIM_FIELD": 12,
+   "INVENTORY_SELF_DESCRIPTION_NOT_A_DOMAIN_CLAIM": 47,
+   "ORIGINAL_INVENTORY_PAIR": 24,
+   "REFERENCED_ARTIFACT_OF_ANOTHER_SCOPE_OUTSIDE_THIS_TRANCHE": 1,
+   "ROW_VALUES_OF_A_DECLARED_EXTERNAL_DATASET_OUTSIDE_THIS_TRANCHE": 2130,
+   "SUCCESSOR_CLAIM": 58
+  },
+  "census_numeric_values": 2272
+ },
+ "pointer_count": 58,
+ "predecessor_inventory": {
+  "claims": 31,
+  "discovered_count_as_stated": 27,
+  "left_unchanged": true,
+  "path": "artifacts/scientific_integrity/cycle29/CYCLE29_CLAIM_INVENTORY.json",
+  "sha256": "00d9b39df0f0f6222b48e4ecab8e2cc01270af3f6e2ae430e1ba126020677b67",
+  "unmapped_count_as_stated": 0
+ },
+ "requirement": "R37A03-06",
+ "scanner": {
+  "pair_level_omissions_hidden_by_field_name_matching": [
+   {
+    "artifact": "HISTORICAL_NATIONAL_PROGRAM_SEASON_EXPECTED_POPULATION.manifest.json",
+    "field": "row_count"
+   },
+   {
+    "artifact": "PIT_KERNEL_POPULATION_MANIFEST.json",
+    "field": "proven_pit_training_rows"
+   },
+   {
+    "artifact": "PREDECESSOR_COACHING_OBSERVATION_RECONCILIATION.json",
+    "field": "row_count"
+   }
+  ],
+  "scanner_limitation": "The repaired validator treats a field name declared for any artifact as declared for every artifact, scans only repository *.json files and records only numbers held under an object key.",
+  "validator": "tools/validate_cycle29_gates.py",
+  "validator_omissions": 35
+ },
+ "successor_version": "BAS-C29-CLAIM-INVENTORY-SUCCESSOR-v1",
+ "tool_version": "BAS-C29-CLAIM-SUCCESSOR-TOOL-v37.3"
+}

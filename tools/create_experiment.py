@@ -3,6 +3,7 @@ import argparse, json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from aggie_analytics.experimentation.contracts import ExperimentSpec
+from aggie_analytics import atomic_io as _bas_atomic
 
 def main() -> int:
     ap=argparse.ArgumentParser(description="Create/validate a canonical W18 experiment spec from JSON.")
@@ -15,7 +16,7 @@ def main() -> int:
     payload["experiment_id"]=spec.experiment_id
     text=json.dumps(payload,indent=2,sort_keys=True)+"\n"
     if args.output:
-        args.output.parent.mkdir(parents=True,exist_ok=True); args.output.write_text(text,encoding="utf-8")
+        args.output.parent.mkdir(parents=True,exist_ok=True); _bas_atomic.write_text(args.output, text,encoding="utf-8")
     else:
         print(text,end="")
     return 0

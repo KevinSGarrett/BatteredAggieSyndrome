@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 if str(SRC) not in sys.path: sys.path.insert(0, str(SRC))
 
-from aggie_analytics.data.snapshots import RawSnapshotStore, request_identity_sha256  # noqa: E402
+from aggie_analytics.data.snapshots import RawSnapshotStore, request_identity_sha256
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 from aggie_analytics.features.gfs_issued_run import load_population, materialize, parse_index, sha256_file, stable_hash  # noqa: E402
 
 
@@ -67,7 +68,7 @@ def main() -> int:
     capture_path = output_root / contract["artifact_roots"]["manifests"] / result["dataset_identity"] / "capture_manifest.json"
     payload = json.dumps(capture_manifest, sort_keys=True, indent=2).encode() + b"\n"
     if capture_path.exists() and capture_path.read_bytes() != payload: raise RuntimeError("GFS capture manifest collision")
-    if not capture_path.exists(): capture_path.write_bytes(payload)
+    if not capture_path.exists(): _bas_atomic.write_bytes(capture_path, payload)
     print(json.dumps({key: value for key, value in result.items() if key != "manifest"} | {"capture_manifest_path": str(capture_path), "capture_manifest_sha256": sha256_file(capture_path)}, indent=2, sort_keys=True))
     return 0
 

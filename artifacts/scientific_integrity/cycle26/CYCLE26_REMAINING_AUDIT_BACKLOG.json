@@ -1,0 +1,671 @@
+{
+  "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
+  "R26_09_disposition": "CONFIRMED_FIXED",
+  "R26_09_residual": "Uniform missing_raw_payloads stamp is repaired. Remaining pass-two reconstruction is NOT_AUDITED_YET and does not authorize SEMANTICALLY_AUDITED.",
+  "R26_17_disposition": "CONFIRMED_FIXED",
+  "artifact_type": "CYCLE26_REMAINING_AUDIT_BACKLOG",
+  "authority_document": "C:/BatteredAggieSyndrome.data/ops/cycle26/ALL_CYCLE_RECHECK_COVERAGE.md",
+  "code_head": "e1e92c0aae1c4ba7f4090cf43ba2a552678e00d7",
+  "code_head_binding": "LIVE_PR_678_TIP",
+  "cycles": [
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-1",
+      "cycle_number": 1,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Capture semantic replay and ownership/acceptance claims remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-2",
+      "cycle_number": 2,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Incident chronology and restore evidence remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-3",
+      "cycle_number": 3,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Mounted 14-scenario battery and early leakage claims remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-4",
+      "cycle_number": 4,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Feature/label rows, fitted parameters and historical exposures remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-5",
+      "cycle_number": 5,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original materialized outputs and scientific claims remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-6",
+      "cycle_number": 6,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Ranking/metric/roster populations and lineage remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-7",
+      "cycle_number": 7,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "2010-11 capture census and joins remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-8",
+      "cycle_number": 8,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Alias/page/source matches remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-9",
+      "cycle_number": 9,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original union generation remains unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-10",
+      "cycle_number": 10,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Metadata/union and domain claims remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-11",
+      "cycle_number": 11,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Player/stat/domain fields and enriched union remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-12",
+      "cycle_number": 12,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Non-2006 domains and admission claims remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-13",
+      "cycle_number": 13,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "HTML/domain/union correctness remains unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-14",
+      "cycle_number": 14,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Other domains and authority metadata remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-15",
+      "cycle_number": 15,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Corpus/union/rejection reconstruction remains unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-16",
+      "cycle_number": 16,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Corpus/union/rejection reconstruction remains unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "FAIL": 1,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "NOT_AUDITED_YET",
+      "cycle_id": "CYCLE-17",
+      "cycle_number": 17,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original rejection/union chains remain unreviewed; 2024/2025 exposure finding remains FAIL.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "BLOCKED_INSUFFICIENT_EVIDENCE": 1,
+        "FAIL": 1,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
+      "cycle_id": "CYCLE-18",
+      "cycle_number": 18,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original 1996/97 claims remain unreviewed; 990 directory-count assertion is a preserved false-positive.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
+      "cycle_id": "CYCLE-19",
+      "cycle_number": 19,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Preservation-to-C20 integration mapping remains unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "BLOCKED_INSUFFICIENT_EVIDENCE": 1,
+        "FAIL": 1,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
+      "cycle_id": "CYCLE-20",
+      "cycle_number": 20,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Normalized/game/feature joins and fold-fit remain unreviewed; pair successor is separate Cycle 26 work.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "BLOCKED_INSUFFICIENT_EVIDENCE": 1,
+        "FAIL": 1,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
+      "cycle_id": "CYCLE-21",
+      "cycle_number": 21,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Row-specific completion/publication authority remains unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
+      "cycle_id": "CYCLE-22",
+      "cycle_number": 22,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Full raw-final/forecast/metric replay remains unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
+      "cycle_id": "CYCLE-23",
+      "cycle_number": 23,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original schedule/authority receipts remain unreviewed.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "FAIL": 2,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 1
+      },
+      "cycle_disposition": "FAIL",
+      "cycle_id": "CYCLE-24",
+      "cycle_number": 24,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Frozen-row raw-feature-parameter traces remain unreviewed; ridge distribution finding remains FAIL.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "claim_classification_counts": {
+        "FAIL": 8,
+        "NOT_AUDITED_YET": 1,
+        "REPRODUCIBLE_ONLY": 2
+      },
+      "cycle_disposition": "FAIL",
+      "cycle_id": "CYCLE-25",
+      "cycle_number": 25,
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "pass_one": "COMPLETE",
+      "pass_three": "PARTIAL",
+      "pass_two": "NOT_AUDITED_YET",
+      "remaining": "Original acquisition/market/training claims remain unreviewed; several P0 findings remain FAIL.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    },
+    {
+      "cycle_id": "CYCLE-25.5",
+      "owner_candidates": [
+        "BAT-690",
+        "BAT-691",
+        "BAT-692",
+        "BAT-693",
+        "BAT-694",
+        "BAT-696"
+      ],
+      "remaining": "Independent reconstruction of remaining material claims, external admin residuals, and all-cycle trust recovery remain open. Cycle 26 removed the uniform missing_raw_payloads stamp; it does not complete Cycle 25.5.",
+      "semantically_audited": false,
+      "three_pass_status": "INCOMPLETE"
+    }
+  ],
+  "inventory_gate_relative_path": "artifacts/scientific_integrity/all_cycles/ALL_CYCLE_ARTIFACT_INVENTORY.json",
+  "issued_at_utc": "2026-09-04T03:03:50Z",
+  "method_requirement": "Maintain per-field/material-claim registry; resolve first origin and every material contribution; distinguish missing evidence, unreviewed scope, and failed semantics. Do not stamp every cycle missing_raw_payloads=true without checking that cycle's declared dependencies.",
+  "named_open_scientific_units": [
+    {
+      "id": "R26-09",
+      "note": "Uniform missing_raw_payloads stamp repaired; remaining reconstruction NOT_AUDITED_YET.",
+      "owner": "BAT-688",
+      "state": "CONFIRMED_FIXED"
+    },
+    {
+      "id": "R26-20",
+      "note": "Historical game-grain successor; predecessors immutable.",
+      "owner": "BAT-690",
+      "state": "CONFIRMED_FIXED"
+    },
+    {
+      "id": "R26-21",
+      "note": "Passing-section successor rematerialized 429/125; predecessor unrepaired in place.",
+      "owner": "BAT-692",
+      "state": "CONFIRMED_FIXED"
+    },
+    {
+      "id": "R26-22",
+      "note": "Operational PIT boolean rejects conservative-bound predecessor; historical fit still used proxies.",
+      "owner": "BAT-691",
+      "state": "CONFIRMED_CONTAINED_NOT_FIXED"
+    },
+    {
+      "id": "R26-13",
+      "note": "Live main protection required_approving_review_count=1; Bugbot still not a required context.",
+      "owner": "BAT-694",
+      "state": "CONFIRMED_FIXED"
+    }
+  ],
+  "nonclaims": {
+    "all_25_cycles_audited_because_json_files_exist": false,
+    "cycle26_completion_implies_all_cycle_recovery": false,
+    "delays_safe_pregame_capture": false,
+    "not_audited_yet_is_pass": false
+  },
+  "pass_two_status_counts": {
+    "NOT_AUDITED_YET": 25
+  },
+  "result": "BACKLOG_ENUMERATED_TRUST_GATE_REMAINS_CLOSED",
+  "scientific_trust_recovered": false,
+  "scoreboard_reparse": {
+    "any_terminal": false,
+    "files_parsed": 95,
+    "newest": {
+      "cards": 1,
+      "mtime": 1788487308.217944,
+      "sha256": "636535acc6234bce9bdf2edb679e07c31b539aa4b4c329976185219c9812bc71",
+      "statuses": {
+        "PARSED": 1
+      },
+      "terminal": 0
+    },
+    "reparse_terminal_total": 0
+  },
+  "week1_official_finals": "PARTIAL_OFFICIAL_FINALS_SCORED_REMAINDER_AWAITING_FINAL"
+}

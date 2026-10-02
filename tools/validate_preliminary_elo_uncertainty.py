@@ -12,7 +12,34 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import polars as pl  # noqa: E402
-import run_preliminary_elo_uncertainty as candidate  # noqa: E402
+import run_preliminary_elo_uncertainty as candidate
+class _bas_atomic:  # U37-11: atomic writes once this tool has imported the package itself
+    @staticmethod
+    def _module():
+        import sys as _bas_sys
+
+        if "aggie_analytics" not in _bas_sys.modules:
+            return None  # never bind the package from another tree before the tool does
+        try:
+            from aggie_analytics import atomic_io
+        except ImportError:
+            return None
+        return atomic_io
+
+    @classmethod
+    def write_text(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_text(path, *args, **kwargs) if module else path.write_text(*args, **kwargs)
+
+    @classmethod
+    def write_bytes(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_bytes(path, *args, **kwargs) if module else path.write_bytes(*args, **kwargs)
+
+    @classmethod
+    def open_write(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.open_write(path, *args, **kwargs) if module else path.open(*args, **kwargs)  # noqa: E402
 
 
 def main() -> int:
@@ -283,7 +310,7 @@ def main() -> int:
         "failures": failures,
     }
     args.report_path.parent.mkdir(parents=True, exist_ok=True)
-    args.report_path.write_bytes(candidate.canonical_json(report) + b"\n")
+    _bas_atomic.write_bytes(args.report_path, candidate.canonical_json(report) + b"\n")
     print(
         json.dumps(
             {

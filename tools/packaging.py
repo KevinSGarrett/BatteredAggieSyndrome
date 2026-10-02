@@ -19,6 +19,16 @@ from tools.repo_integrity import (
     validate_safe_archive_member,
     write_manifest,
 )
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 FIXED_ZIP_TIME = (1980, 1, 1, 0, 0, 0)
 
@@ -145,16 +155,16 @@ def build_hydration(
             target = stage / item["archive"]
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, target)
-        (stage / "PACK_BINDING.json").write_text(json.dumps(binding, indent=2) + "\n", encoding="utf-8", newline="\n")
+        _bas_atomic.write_text(stage / "PACK_BINDING.json", json.dumps(binding, indent=2) + "\n", encoding="utf-8", newline="\n")
         if current_wave == "W25":
             hydrate_first = f"""# HYDRATE FIRST — Aggie Analytics Engine {current_wave}\n\nThis is the terminal 25-wave recovery pack. It is bound to the exact final cumulative repository below.\n\n## Bound cumulative repository\n- File: `{cumulative_zip.name}`\n- SHA-256: `{cumulative_sha}`\n- Project ID: `AGGIE_ANALYTICS_ENGINE`\n- Final numbered wave: `{current_wave}`\n- Next state: `{next_wave}`\n\n## Mandatory implementation-handoff recovery order\n1. Read this file.\n2. Read and validate `PACK_BINDING.json`.\n3. Compute SHA-256 of the attached cumulative ZIP and require an exact match.\n4. Verify project identity and that the numbered wave program ended at W25.\n5. Safely extract the verified cumulative repository; never rebuild from memory.\n6. Read `AGENTS.md`, `governance/NEXT_WAVE.md`, `docs/final/CODEX_HANDOFF.md`, `docs/final/FINAL_IMPLEMENTATION_PRIORITY.md`, and `docs/final/FIRST_72_HOUR_IMPLEMENTATION_QUEUE.md`.\n7. Preserve all protected PIT/leakage/evaluation/promotion rules while implementing the final backlog.\n8. Do not create Wave 26. Future work is implementation/research backlog execution against this final canonical handoff.\n9. Keep AC-038 / THR-011 / THR-012 unresolved until representative target-hardware evidence exists.\n10. Do not invent model performance, A&M specialization lift, Aggie Excess, BAS effect, or production feature/model selection.\n\n## Critical state\n- National historical foundation + disproportionately deep Texas A&M specialization remains the protected objective.\n- PIT/known-at correctness, no leakage, provenance and empirical promotion remain protected.\n- Recon FINAL v1.2 remains starting evidence, not the full historical data lake.\n"""
         else:
             hydrate_first = f"""# HYDRATE FIRST — Aggie Analytics Engine {current_wave}\n\nThis pack is the compact recovery state for **{current_wave}** and is bound to the exact cumulative repository below.\n\n## Bound cumulative repository\n- File: `{cumulative_zip.name}`\n- SHA-256: `{cumulative_sha}`\n- Project ID: `AGGIE_ANALYTICS_ENGINE`\n- Current completed wave: `{current_wave}`\n- Next allowed wave: `{next_wave}`\n\n## Mandatory recovery order for {next_wave}\n1. Read this file.\n2. Read and validate `PACK_BINDING.json`.\n3. Compute SHA-256 of the attached cumulative ZIP and require an exact match.\n4. Verify project identity/current/next wave.\n5. Use `python tools/verify_prior_wave.py --hydration <HYDRATION.zip> --cumulative <CUMULATIVE.zip> --expected-next-wave {next_wave}` when available.\n6. Safely extract the verified cumulative repository; never rebuild from memory.\n7. Read repository `AGENTS.md`, `governance/NEXT_WAVE.md`, relevant requirements/ADRs, open issues, risks, assumptions and adaptive logs.\n8. Perform the required {next_wave} Adaptive Review before mutation.\n9. Modify the extracted canonical tree cumulatively; never create a disconnected wave tree.\n10. Complete {next_wave} only.\n\n## Critical state\n- National historical foundation + disproportionately deep Texas A&M specialization remains the protected objective.\n- PIT/known-at correctness, no leakage, provenance and empirical promotion remain protected.\n- Read the current architecture/governance artifacts from this hydration pack; do not infer state from an earlier wave's prose.\n- Recon FINAL v1.2 remains starting evidence, not the full historical data lake.\n"""
-        (stage / "HYDRATE_FIRST.md").write_text(hydrate_first, encoding="utf-8", newline="\n")
+        _bas_atomic.write_text(stage / "HYDRATE_FIRST.md", hydrate_first, encoding="utf-8", newline="\n")
         hash_lines = []
         for p in sorted((p for p in stage.rglob("*") if p.is_file() and p.name != "HYDRATION_FILE_HASHES.sha256"), key=lambda p: p.relative_to(stage).as_posix()):
             hash_lines.append(f"{sha256_file(p)}  {p.relative_to(stage).as_posix()}\n")
-        (stage / "HYDRATION_FILE_HASHES.sha256").write_text("".join(hash_lines), encoding="utf-8", newline="\n")
+        _bas_atomic.write_text(stage / "HYDRATION_FILE_HASHES.sha256", "".join(hash_lines), encoding="utf-8", newline="\n")
         deterministic_zip_flat(stage, hydration_zip)
     return binding
 

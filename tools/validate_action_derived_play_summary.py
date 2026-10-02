@@ -22,6 +22,7 @@ from aggie_analytics.data.action_play_summary import (  # noqa: E402
     action_record,
     stable_hash,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 EXPECTED_DATASET_ID = "9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451"
@@ -42,7 +43,7 @@ def immutable_json(path: Path, value: object) -> None:
     if path.exists() and path.read_bytes() != payload:
         raise RuntimeError(f"immutable validation report collision: {path}")
     if not path.exists():
-        path.write_bytes(payload)
+        _bas_atomic.write_bytes(path, payload)
 
 
 def main() -> int:

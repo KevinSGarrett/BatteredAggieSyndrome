@@ -9,6 +9,7 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Any, Iterable
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def _polars() -> Any:
@@ -240,7 +241,7 @@ def materialize(*, input_data_root: Path, output_data_root: Path, repo_root: Pat
             "scientific_nonclaims": {"historical_population_ready": False, "gap_002_resolved": False, "gap_003_resolved": False, "official_player_box_scores_materialized": False, "preliminary_model_training_eligible": False, "production_model_ready": False, "trained_production_champion": False, "protected_performance_claimed": False, "tamu_specialization_lift_claimed": False, "bas_or_aggie_excess_result_claimed": False},
         }
         manifest_path = manifest_root / "historical_player_box_snapshot_manifest.json"
-        manifest_path.write_bytes(canonical_json_bytes(manifest) + b"\n")
+        _bas_atomic.write_bytes(manifest_path, canonical_json_bytes(manifest) + b"\n")
         return {"dataset_identity": identity, "manifest_path": str(manifest_path), "manifest_sha256": sha256_file(manifest_path), "manifest": manifest, "snapshot_path": str(snapshot_path), "nonadmitted_path": str(nonadmitted_path)}
     finally:
         shutil.rmtree(staging_root, ignore_errors=True)

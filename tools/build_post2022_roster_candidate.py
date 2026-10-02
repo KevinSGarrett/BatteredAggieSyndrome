@@ -19,6 +19,7 @@ from aggie_analytics.data.roster_reconciliation import (
     normalize_identity_text,
     resolve_roster_identity,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 ACQUISITION_ID = "6e3fba9bff67318e6dc3d94b09700b16c92619fe7a14131ccf0a14757bacc2a8"
@@ -75,7 +76,7 @@ def write_immutable_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + f".tmp-{os.getpid()}")
     try:
-        temporary.write_bytes(payload)
+        _bas_atomic.write_bytes(temporary, payload)
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)

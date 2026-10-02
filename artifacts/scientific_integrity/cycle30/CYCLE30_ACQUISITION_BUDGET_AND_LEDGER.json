@@ -1,0 +1,1513 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "attempt_count": 50,
+  "attempt_summary": {
+    "attempt_count": 50,
+    "attempted": true,
+    "attempts": [
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {},
+        "raw_sha256": "dfc8daff311f5ffea668c613aef61bbd213ea0c08cd13e9c1e8f583a480fb9bf",
+        "receipt_identity": "dfc8daff311f5ffea668c613aef61bbd213ea0c08cd13e9c1e8f583a480fb9bf",
+        "request_identity_sha256": "5a4ee7d1859615f220665c8cada1c3636b01cc477f54a380188cab2e3164b406",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/venues",
+        "row_count": 852,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2013
+        },
+        "raw_sha256": "c7602253df1fe58555ed8adaf9cd17ea777dbc6eba17aaf1e6ea2b73da218ed0",
+        "receipt_identity": "c7602253df1fe58555ed8adaf9cd17ea777dbc6eba17aaf1e6ea2b73da218ed0",
+        "request_identity_sha256": "d12f55785ca8ea429c82dea0102c2bf82369883efb78b39f883bd099bee5dcd3",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 265,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2013
+        },
+        "raw_sha256": "c7602253df1fe58555ed8adaf9cd17ea777dbc6eba17aaf1e6ea2b73da218ed0",
+        "receipt_identity": "c7602253df1fe58555ed8adaf9cd17ea777dbc6eba17aaf1e6ea2b73da218ed0",
+        "request_identity_sha256": "f4fddf45078c90157876906739530ce8805a997e9a79eb99dc110faedb890a9a",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 265,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2013
+        },
+        "raw_sha256": "add7d82d1a97a1b375d2860dbbe0ddfc5c3a69116d087416dd01c0c0b85877f4",
+        "receipt_identity": "add7d82d1a97a1b375d2860dbbe0ddfc5c3a69116d087416dd01c0c0b85877f4",
+        "request_identity_sha256": "094609e6ccb875b42aa8e1adff6bd97b3c4273493d2c4de4901ccefaf799e494",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/games",
+        "row_count": 797,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2013
+        },
+        "raw_sha256": "cc340b512d847dc04de266805587bd477544366974d60500e742e90c82d48aa2",
+        "receipt_identity": "cc340b512d847dc04de266805587bd477544366974d60500e742e90c82d48aa2",
+        "request_identity_sha256": "4ecfb34451f64597d93ef019b19a449e0b6c39297f0db7e781f825a91f62818f",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/coaches",
+        "row_count": 131,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2014
+        },
+        "raw_sha256": "3eed91a4b7a55882e1a17228086f113833e8919aa4d2118d94f5a9b2904c50a7",
+        "receipt_identity": "3eed91a4b7a55882e1a17228086f113833e8919aa4d2118d94f5a9b2904c50a7",
+        "request_identity_sha256": "85ca4e7808fc25fa49c3a32a1c52fc728e3d2845eaf00117f3c4edfdb273359b",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 687,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2014
+        },
+        "raw_sha256": "3eed91a4b7a55882e1a17228086f113833e8919aa4d2118d94f5a9b2904c50a7",
+        "receipt_identity": "3eed91a4b7a55882e1a17228086f113833e8919aa4d2118d94f5a9b2904c50a7",
+        "request_identity_sha256": "cda0befc508fb9b729d45ccf8677cd0e63bd0ae69a324df9c9f5a4d5a19ffa55",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 687,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2014
+        },
+        "raw_sha256": "e37fc78e97cc97ad4fe251af085355c722deb1cea27a5317c5b9f964ac601b5a",
+        "receipt_identity": "e37fc78e97cc97ad4fe251af085355c722deb1cea27a5317c5b9f964ac601b5a",
+        "request_identity_sha256": "06a23c9e205dbcd39f941cf47c94be177e8392786023d4b6e77a79539e319546",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/games",
+        "row_count": 824,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2014
+        },
+        "raw_sha256": "716d9a975c2f86d5bd8329be01350e5f7e0f9237d3ce0595bf8ba43b039813c4",
+        "receipt_identity": "716d9a975c2f86d5bd8329be01350e5f7e0f9237d3ce0595bf8ba43b039813c4",
+        "request_identity_sha256": "91cf9fa175e56d700de1dc89cfdf6c6eed16e210a243bc2c49a979665d9820c5",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/coaches",
+        "row_count": 132,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2015
+        },
+        "raw_sha256": "467ce462a805fb6edc6954f6b855e33f3524f3fcaa424b69f9cd905fc5ea20ff",
+        "receipt_identity": "467ce462a805fb6edc6954f6b855e33f3524f3fcaa424b69f9cd905fc5ea20ff",
+        "request_identity_sha256": "e91c37ca36cf3c199afbdd8d48883f0bf691e739226c188b2d5763c3448fee5e",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 687,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2015
+        },
+        "raw_sha256": "467ce462a805fb6edc6954f6b855e33f3524f3fcaa424b69f9cd905fc5ea20ff",
+        "receipt_identity": "467ce462a805fb6edc6954f6b855e33f3524f3fcaa424b69f9cd905fc5ea20ff",
+        "request_identity_sha256": "1d00ad690a2ec03aa3592f6a0332226b345ea07b1243fb5a12db51b7d1b4ff2b",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 687,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2015
+        },
+        "raw_sha256": "8d0794b156e2d8eec8c17877a93222f709d595634bd854db9beea32f8c1cbed4",
+        "receipt_identity": "8d0794b156e2d8eec8c17877a93222f709d595634bd854db9beea32f8c1cbed4",
+        "request_identity_sha256": "39b146462908263a9b6a4c86cebe8bb1c1563a3c016d14e2b1ebd8cdd15693a1",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/games",
+        "row_count": 771,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2015
+        },
+        "raw_sha256": "6042c8bb29775a2bf773ee7ef15f80bec816f90baf224be94039758a3f79a066",
+        "receipt_identity": "6042c8bb29775a2bf773ee7ef15f80bec816f90baf224be94039758a3f79a066",
+        "request_identity_sha256": "33f2a47014f96873133910e5222b0e8bb8b2217212cbe79b88c9eb9a42c09d4a",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/coaches",
+        "row_count": 132,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2016
+        },
+        "raw_sha256": "55a97b853e8cf85f379d7f66a7bbe3c060bc881f6af2ff9e65808a5dce63a231",
+        "receipt_identity": "55a97b853e8cf85f379d7f66a7bbe3c060bc881f6af2ff9e65808a5dce63a231",
+        "request_identity_sha256": "994963831ebe47a7c31f849c0213d1d6e951be75b4ada6114fe383d11030ba59",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 687,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2016
+        },
+        "raw_sha256": "55a97b853e8cf85f379d7f66a7bbe3c060bc881f6af2ff9e65808a5dce63a231",
+        "receipt_identity": "55a97b853e8cf85f379d7f66a7bbe3c060bc881f6af2ff9e65808a5dce63a231",
+        "request_identity_sha256": "481479cf7b7c2407cd7228ad61eec4e6bd3629e2b2854088815d8a466812db27",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 687,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2016
+        },
+        "raw_sha256": "9c717e540eb518581b32ab50dd1cca4641807a51f815fd0347ea8ce731c60d33",
+        "receipt_identity": "9c717e540eb518581b32ab50dd1cca4641807a51f815fd0347ea8ce731c60d33",
+        "request_identity_sha256": "5c5bec7c910edcf04ef9557a05a401d2384917bc3a8956edfe7f7aa43b891b59",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/games",
+        "row_count": 787,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2016
+        },
+        "raw_sha256": "9453dddf20d33712f71937c534a1c0df4963793d727dca8e5e9378f1becd19ce",
+        "receipt_identity": "9453dddf20d33712f71937c534a1c0df4963793d727dca8e5e9378f1becd19ce",
+        "request_identity_sha256": "7c85369923689b71af5f131d93cd23e5d20cff147d2316499b59b016ecc3a454",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/coaches",
+        "row_count": 134,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2017
+        },
+        "raw_sha256": "0732d3c4d7f3198a9fe32e600038bd41aaa6721a1b0e50dec986d2cbf71b7940",
+        "receipt_identity": "0732d3c4d7f3198a9fe32e600038bd41aaa6721a1b0e50dec986d2cbf71b7940",
+        "request_identity_sha256": "b859fa83a830ede18d30070d5e033b80ca5a90184aaa588fe7405159c6daa81e",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 687,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2017
+        },
+        "raw_sha256": "0732d3c4d7f3198a9fe32e600038bd41aaa6721a1b0e50dec986d2cbf71b7940",
+        "receipt_identity": "0732d3c4d7f3198a9fe32e600038bd41aaa6721a1b0e50dec986d2cbf71b7940",
+        "request_identity_sha256": "effcaf5bb25775c8b48a47be145ffe5accf1aa8ba08dfe6a1eb10d8b1ac62949",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 687,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2017
+        },
+        "raw_sha256": "0e9b2218916de970ccea1af2bee7b91b811f92f2e01655559e2d973153b44c8d",
+        "receipt_identity": "0e9b2218916de970ccea1af2bee7b91b811f92f2e01655559e2d973153b44c8d",
+        "request_identity_sha256": "1586616224e122ed60c05da3fe5ab4963f60f2161bece39a58689da2c10422d6",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/games",
+        "row_count": 773,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2017
+        },
+        "raw_sha256": "e3b43187fa27381e327ab228d9c6980c6cb374bc68840a498645a65020361e15",
+        "receipt_identity": "e3b43187fa27381e327ab228d9c6980c6cb374bc68840a498645a65020361e15",
+        "request_identity_sha256": "f9194f521b79f930b3677dc9d3abb5f6f9b1426c1e402783713eeec5b4cd17f2",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/coaches",
+        "row_count": 139,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2018
+        },
+        "raw_sha256": "fee0eeb1ec6971ee894d3c19d573bfecf059c65d3cfb148ffae6f0a5fe0be7d0",
+        "receipt_identity": "fee0eeb1ec6971ee894d3c19d573bfecf059c65d3cfb148ffae6f0a5fe0be7d0",
+        "request_identity_sha256": "54dd08fa1b6746143607458bd5f95a4d071b4374f2d84e7369ac6a25207e9bc4",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 686,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2018
+        },
+        "raw_sha256": "fee0eeb1ec6971ee894d3c19d573bfecf059c65d3cfb148ffae6f0a5fe0be7d0",
+        "receipt_identity": "fee0eeb1ec6971ee894d3c19d573bfecf059c65d3cfb148ffae6f0a5fe0be7d0",
+        "request_identity_sha256": "127b54a2a0e9a333f06fbaa46e4c23c4ccc6cdc634fa61078157b79e55578037",
+        "retrieved_at_utc": "2026-09-09T18:08:43Z",
+        "route": "/teams",
+        "row_count": 686,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2018
+        },
+        "raw_sha256": "8cf3947848ab6e5d46407a52186d49c1ad1d6411549b6438b63a21e72f74822f",
+        "receipt_identity": "8cf3947848ab6e5d46407a52186d49c1ad1d6411549b6438b63a21e72f74822f",
+        "request_identity_sha256": "8a7ccd35eb8729760473f6c82bc1a2f2930ce1565fd484baeccbc36d3fda6b43",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/games",
+        "row_count": 782,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2018
+        },
+        "raw_sha256": "ac4ec767298f92a6b21d0b3675e2001d0c7ccb1d3727e47c4cb2986db3916159",
+        "receipt_identity": "ac4ec767298f92a6b21d0b3675e2001d0c7ccb1d3727e47c4cb2986db3916159",
+        "request_identity_sha256": "d267ca9e0a31118e9abc65b1fc6f915726fea369078dfddb478688cf89859962",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/coaches",
+        "row_count": 139,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2019
+        },
+        "raw_sha256": "881ff00ad171b90b7a75a459f265bc57965216e8b0d4e755769f98e3f2e2efa2",
+        "receipt_identity": "881ff00ad171b90b7a75a459f265bc57965216e8b0d4e755769f98e3f2e2efa2",
+        "request_identity_sha256": "b063cbc7e8db0030d465bd2dfd773f71a03e37d4f25a4a0fa397d9d5173eafbf",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 681,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2019
+        },
+        "raw_sha256": "881ff00ad171b90b7a75a459f265bc57965216e8b0d4e755769f98e3f2e2efa2",
+        "receipt_identity": "881ff00ad171b90b7a75a459f265bc57965216e8b0d4e755769f98e3f2e2efa2",
+        "request_identity_sha256": "becc7b1bd34ac6d83c03bfa2a07d74eef9ed575681d9af12bf270a585f205cfc",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 681,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2019
+        },
+        "raw_sha256": "ec5b182e8ad4142d7c6e7d3fcf3002a769bab04641f1b3b2239e262c7743816a",
+        "receipt_identity": "ec5b182e8ad4142d7c6e7d3fcf3002a769bab04641f1b3b2239e262c7743816a",
+        "request_identity_sha256": "547fce2f19a348b757b5f10e5ce56c4bb003a22f67fb13c49417e486e4693d89",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/games",
+        "row_count": 847,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2019
+        },
+        "raw_sha256": "687896b86626f7bead0a10fe72cacd32ad1887969bdd7012fd0ace8fed3b3021",
+        "receipt_identity": "687896b86626f7bead0a10fe72cacd32ad1887969bdd7012fd0ace8fed3b3021",
+        "request_identity_sha256": "a11c76c27077e1a1dd0859437d8064fdb1b2e8dfd39ca7b268083222d30581a3",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/coaches",
+        "row_count": 134,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2020
+        },
+        "raw_sha256": "056c00c843c62060f8966f188d9ea8406fd0585643cefde5ceaf6b6415aa6c21",
+        "receipt_identity": "056c00c843c62060f8966f188d9ea8406fd0585643cefde5ceaf6b6415aa6c21",
+        "request_identity_sha256": "5c9fb11247e4e37232ccd16c61934fa099ce5eef2e42243d9b457c740bda3e0c",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 636,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2020
+        },
+        "raw_sha256": "056c00c843c62060f8966f188d9ea8406fd0585643cefde5ceaf6b6415aa6c21",
+        "receipt_identity": "056c00c843c62060f8966f188d9ea8406fd0585643cefde5ceaf6b6415aa6c21",
+        "request_identity_sha256": "f0a7f88487ca3b57c9441fdc0a43cbe7779efd24c39e9e3abce363139c47b651",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 636,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2020
+        },
+        "raw_sha256": "af1aa730df6709ad78d68960cc021d2f10043c0951a3ada5ff45f28c4ff0ea1d",
+        "receipt_identity": "af1aa730df6709ad78d68960cc021d2f10043c0951a3ada5ff45f28c4ff0ea1d",
+        "request_identity_sha256": "6935427519313e12dd9ef6bbaff34878bd78fe20bf2d6bd718122c63d8727a02",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/games",
+        "row_count": 316,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2020
+        },
+        "raw_sha256": "59adcbdf1bfae4972ba4b3455e675eca3c1944ecb4b37acaa0ed66869726967a",
+        "receipt_identity": "59adcbdf1bfae4972ba4b3455e675eca3c1944ecb4b37acaa0ed66869726967a",
+        "request_identity_sha256": "28716dfa409b037135456ec10b473ce2adb92d1e16023f7bec5b2866db46d5c4",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/coaches",
+        "row_count": 137,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2021
+        },
+        "raw_sha256": "5f1f07770961bab4fca39c707ea5d30b1b7a8d01839a1f0f7213351ab0b93bf0",
+        "receipt_identity": "5f1f07770961bab4fca39c707ea5d30b1b7a8d01839a1f0f7213351ab0b93bf0",
+        "request_identity_sha256": "1c29ab4405051826a2b3ad3504f9126d8fd94ade802d759c8253d7a68e7bd6a6",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 669,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2021
+        },
+        "raw_sha256": "5f1f07770961bab4fca39c707ea5d30b1b7a8d01839a1f0f7213351ab0b93bf0",
+        "receipt_identity": "5f1f07770961bab4fca39c707ea5d30b1b7a8d01839a1f0f7213351ab0b93bf0",
+        "request_identity_sha256": "83059832980c8cc53fa0def56ce511ffdf9d25c479633cc47a12ccc4b577b98d",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 669,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2021
+        },
+        "raw_sha256": "561aecb435ec3216447e258c2430a3592476a11d9f4af2e2bb9042781c62ed5d",
+        "receipt_identity": "561aecb435ec3216447e258c2430a3592476a11d9f4af2e2bb9042781c62ed5d",
+        "request_identity_sha256": "267e07993593ac6762bd7ab8a0b18498817f207d7e317ca52e832b8c20c4c250",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/games",
+        "row_count": 800,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2021
+        },
+        "raw_sha256": "bc7835a128d249e7a5ac4572e1ab8b654c0be6b18128b9272c1f6910deac91ec",
+        "receipt_identity": "bc7835a128d249e7a5ac4572e1ab8b654c0be6b18128b9272c1f6910deac91ec",
+        "request_identity_sha256": "c021b887da7cdf0c3a9296e0e8e700e562ec98c0201d3a400d7ff4d540b536af",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/coaches",
+        "row_count": 152,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2022
+        },
+        "raw_sha256": "9325129161e2f807bacadb12492d221bc6a5a45fecb271c4144c8c9eb84ee1b4",
+        "receipt_identity": "9325129161e2f807bacadb12492d221bc6a5a45fecb271c4144c8c9eb84ee1b4",
+        "request_identity_sha256": "92274e698374bd954d51aa5afb9ac34bbfcdd72d9c01e2f3c3115982895417de",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 671,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2022
+        },
+        "raw_sha256": "9325129161e2f807bacadb12492d221bc6a5a45fecb271c4144c8c9eb84ee1b4",
+        "receipt_identity": "9325129161e2f807bacadb12492d221bc6a5a45fecb271c4144c8c9eb84ee1b4",
+        "request_identity_sha256": "d3aae9605612cda7e3724d65a26857b2d196226e07d201ed6a06313fc090a237",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 671,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2022
+        },
+        "raw_sha256": "990814cd10139c37003ca29e5c196001739b6227e91b25333585ac86ca0bdb15",
+        "receipt_identity": "990814cd10139c37003ca29e5c196001739b6227e91b25333585ac86ca0bdb15",
+        "request_identity_sha256": "4ab88fc201c4ea6caeb987bf27f3f8a3a639870f1148d81358fbc4581262d577",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/games",
+        "row_count": 822,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2022
+        },
+        "raw_sha256": "86475ed23b5f569141bbf37e647c2574894603cbf38ff2911c1113189e9618cb",
+        "receipt_identity": "86475ed23b5f569141bbf37e647c2574894603cbf38ff2911c1113189e9618cb",
+        "request_identity_sha256": "331124b32907b6dbf669593402bfdfdfb006a64a1aa81c0450d3bbaaaf3cfeb7",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/coaches",
+        "row_count": 146,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2023
+        },
+        "raw_sha256": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+        "receipt_identity": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+        "request_identity_sha256": "697d0533b45db7dc74ee0d078de8612f99387e676534ea6116c59ade0de09c7e",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 671,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2023
+        },
+        "raw_sha256": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+        "receipt_identity": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+        "request_identity_sha256": "3ec70aec37ac0f350c6c24c21e5fce23d5a1166cc376b5afed3ac6e22b18a124",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 671,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2023
+        },
+        "raw_sha256": "8ef788876fcddf7aef47eb6957cdad1d4e9a8ec49fd9d95b17c591713cdcdb80",
+        "receipt_identity": "8ef788876fcddf7aef47eb6957cdad1d4e9a8ec49fd9d95b17c591713cdcdb80",
+        "request_identity_sha256": "e8b7ee6775d1b5d6f627075ac3d46657551518413de0de4e8b6632611ef56251",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/games",
+        "row_count": 811,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2023
+        },
+        "raw_sha256": "6b32199d112a7370cb5948e8735abf27cf619c1c7bf6c721a4c2be37c285c5b9",
+        "receipt_identity": "6b32199d112a7370cb5948e8735abf27cf619c1c7bf6c721a4c2be37c285c5b9",
+        "request_identity_sha256": "979fb72a8fb3ffde2710fd691196384b436fe9ec29e17b5ad9356aa48600d482",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/coaches",
+        "row_count": 143,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2026
+        },
+        "raw_sha256": "a0af933cd5f2fb086621032ba9ca81c6a5f297ebd96e66ddbf29408c032f5567",
+        "receipt_identity": "a0af933cd5f2fb086621032ba9ca81c6a5f297ebd96e66ddbf29408c032f5567",
+        "request_identity_sha256": "787c97d30d9e57fed8bd8ba0825cead8f7779b8c41a6b3e8f06cf3c0d5b7a61b",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 683,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2026
+        },
+        "raw_sha256": "a0af933cd5f2fb086621032ba9ca81c6a5f297ebd96e66ddbf29408c032f5567",
+        "receipt_identity": "a0af933cd5f2fb086621032ba9ca81c6a5f297ebd96e66ddbf29408c032f5567",
+        "request_identity_sha256": "7ed9506d12715ecbf7cc5fb3991608bec953c303b5e4218144f2bb0a54e05db3",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/teams",
+        "row_count": 683,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fcs",
+          "year": 2026
+        },
+        "raw_sha256": "517689b22acb0da71276fd722faedb3403d43b1ef65a965a3eeac25933f67bab",
+        "receipt_identity": "517689b22acb0da71276fd722faedb3403d43b1ef65a965a3eeac25933f67bab",
+        "request_identity_sha256": "4af308504a6bb688b03cd1607588acce4be7219542426d28d898ac2da8f1be9d",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/games",
+        "row_count": 849,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "classification": "fbs",
+          "year": 2026
+        },
+        "raw_sha256": "c05279ddc86a571a46375678286929e6eb42831d2d8a00b2560ba7722e87d460",
+        "receipt_identity": "c05279ddc86a571a46375678286929e6eb42831d2d8a00b2560ba7722e87d460",
+        "request_identity_sha256": "16e610e72f5ecd5f59e6481bd5ae0a3dab661441c37867341f82488e49c03390",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/games",
+        "row_count": 888,
+        "status": "CACHE_HIT"
+      },
+      {
+        "cached": true,
+        "http_status": 200,
+        "parameters": {
+          "year": 2026
+        },
+        "raw_sha256": "f1b5db7242f503df395adbc266319b6eb76e464b65aee29f558f591fe403328c",
+        "receipt_identity": "f1b5db7242f503df395adbc266319b6eb76e464b65aee29f558f591fe403328c",
+        "request_identity_sha256": "12fe0c693e1290352ccdeec365ff32701b55be3b4e87e9a43e575c8b665f7975",
+        "retrieved_at_utc": "2026-09-09T18:08:44Z",
+        "route": "/coaches",
+        "row_count": 138,
+        "status": "CACHE_HIT"
+      }
+    ],
+    "disposition": "ATTEMPTED_WITH_EVIDENCE"
+  },
+  "attempts": [
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {},
+      "raw_sha256": "dfc8daff311f5ffea668c613aef61bbd213ea0c08cd13e9c1e8f583a480fb9bf",
+      "receipt_identity": "dfc8daff311f5ffea668c613aef61bbd213ea0c08cd13e9c1e8f583a480fb9bf",
+      "request_identity_sha256": "5a4ee7d1859615f220665c8cada1c3636b01cc477f54a380188cab2e3164b406",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/venues",
+      "row_count": 852,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2013
+      },
+      "raw_sha256": "c7602253df1fe58555ed8adaf9cd17ea777dbc6eba17aaf1e6ea2b73da218ed0",
+      "receipt_identity": "c7602253df1fe58555ed8adaf9cd17ea777dbc6eba17aaf1e6ea2b73da218ed0",
+      "request_identity_sha256": "d12f55785ca8ea429c82dea0102c2bf82369883efb78b39f883bd099bee5dcd3",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 265,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2013
+      },
+      "raw_sha256": "c7602253df1fe58555ed8adaf9cd17ea777dbc6eba17aaf1e6ea2b73da218ed0",
+      "receipt_identity": "c7602253df1fe58555ed8adaf9cd17ea777dbc6eba17aaf1e6ea2b73da218ed0",
+      "request_identity_sha256": "f4fddf45078c90157876906739530ce8805a997e9a79eb99dc110faedb890a9a",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 265,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2013
+      },
+      "raw_sha256": "add7d82d1a97a1b375d2860dbbe0ddfc5c3a69116d087416dd01c0c0b85877f4",
+      "receipt_identity": "add7d82d1a97a1b375d2860dbbe0ddfc5c3a69116d087416dd01c0c0b85877f4",
+      "request_identity_sha256": "094609e6ccb875b42aa8e1adff6bd97b3c4273493d2c4de4901ccefaf799e494",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/games",
+      "row_count": 797,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2013
+      },
+      "raw_sha256": "cc340b512d847dc04de266805587bd477544366974d60500e742e90c82d48aa2",
+      "receipt_identity": "cc340b512d847dc04de266805587bd477544366974d60500e742e90c82d48aa2",
+      "request_identity_sha256": "4ecfb34451f64597d93ef019b19a449e0b6c39297f0db7e781f825a91f62818f",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/coaches",
+      "row_count": 131,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2014
+      },
+      "raw_sha256": "3eed91a4b7a55882e1a17228086f113833e8919aa4d2118d94f5a9b2904c50a7",
+      "receipt_identity": "3eed91a4b7a55882e1a17228086f113833e8919aa4d2118d94f5a9b2904c50a7",
+      "request_identity_sha256": "85ca4e7808fc25fa49c3a32a1c52fc728e3d2845eaf00117f3c4edfdb273359b",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 687,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2014
+      },
+      "raw_sha256": "3eed91a4b7a55882e1a17228086f113833e8919aa4d2118d94f5a9b2904c50a7",
+      "receipt_identity": "3eed91a4b7a55882e1a17228086f113833e8919aa4d2118d94f5a9b2904c50a7",
+      "request_identity_sha256": "cda0befc508fb9b729d45ccf8677cd0e63bd0ae69a324df9c9f5a4d5a19ffa55",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 687,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2014
+      },
+      "raw_sha256": "e37fc78e97cc97ad4fe251af085355c722deb1cea27a5317c5b9f964ac601b5a",
+      "receipt_identity": "e37fc78e97cc97ad4fe251af085355c722deb1cea27a5317c5b9f964ac601b5a",
+      "request_identity_sha256": "06a23c9e205dbcd39f941cf47c94be177e8392786023d4b6e77a79539e319546",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/games",
+      "row_count": 824,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2014
+      },
+      "raw_sha256": "716d9a975c2f86d5bd8329be01350e5f7e0f9237d3ce0595bf8ba43b039813c4",
+      "receipt_identity": "716d9a975c2f86d5bd8329be01350e5f7e0f9237d3ce0595bf8ba43b039813c4",
+      "request_identity_sha256": "91cf9fa175e56d700de1dc89cfdf6c6eed16e210a243bc2c49a979665d9820c5",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/coaches",
+      "row_count": 132,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2015
+      },
+      "raw_sha256": "467ce462a805fb6edc6954f6b855e33f3524f3fcaa424b69f9cd905fc5ea20ff",
+      "receipt_identity": "467ce462a805fb6edc6954f6b855e33f3524f3fcaa424b69f9cd905fc5ea20ff",
+      "request_identity_sha256": "e91c37ca36cf3c199afbdd8d48883f0bf691e739226c188b2d5763c3448fee5e",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 687,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2015
+      },
+      "raw_sha256": "467ce462a805fb6edc6954f6b855e33f3524f3fcaa424b69f9cd905fc5ea20ff",
+      "receipt_identity": "467ce462a805fb6edc6954f6b855e33f3524f3fcaa424b69f9cd905fc5ea20ff",
+      "request_identity_sha256": "1d00ad690a2ec03aa3592f6a0332226b345ea07b1243fb5a12db51b7d1b4ff2b",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 687,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2015
+      },
+      "raw_sha256": "8d0794b156e2d8eec8c17877a93222f709d595634bd854db9beea32f8c1cbed4",
+      "receipt_identity": "8d0794b156e2d8eec8c17877a93222f709d595634bd854db9beea32f8c1cbed4",
+      "request_identity_sha256": "39b146462908263a9b6a4c86cebe8bb1c1563a3c016d14e2b1ebd8cdd15693a1",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/games",
+      "row_count": 771,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2015
+      },
+      "raw_sha256": "6042c8bb29775a2bf773ee7ef15f80bec816f90baf224be94039758a3f79a066",
+      "receipt_identity": "6042c8bb29775a2bf773ee7ef15f80bec816f90baf224be94039758a3f79a066",
+      "request_identity_sha256": "33f2a47014f96873133910e5222b0e8bb8b2217212cbe79b88c9eb9a42c09d4a",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/coaches",
+      "row_count": 132,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2016
+      },
+      "raw_sha256": "55a97b853e8cf85f379d7f66a7bbe3c060bc881f6af2ff9e65808a5dce63a231",
+      "receipt_identity": "55a97b853e8cf85f379d7f66a7bbe3c060bc881f6af2ff9e65808a5dce63a231",
+      "request_identity_sha256": "994963831ebe47a7c31f849c0213d1d6e951be75b4ada6114fe383d11030ba59",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 687,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2016
+      },
+      "raw_sha256": "55a97b853e8cf85f379d7f66a7bbe3c060bc881f6af2ff9e65808a5dce63a231",
+      "receipt_identity": "55a97b853e8cf85f379d7f66a7bbe3c060bc881f6af2ff9e65808a5dce63a231",
+      "request_identity_sha256": "481479cf7b7c2407cd7228ad61eec4e6bd3629e2b2854088815d8a466812db27",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 687,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2016
+      },
+      "raw_sha256": "9c717e540eb518581b32ab50dd1cca4641807a51f815fd0347ea8ce731c60d33",
+      "receipt_identity": "9c717e540eb518581b32ab50dd1cca4641807a51f815fd0347ea8ce731c60d33",
+      "request_identity_sha256": "5c5bec7c910edcf04ef9557a05a401d2384917bc3a8956edfe7f7aa43b891b59",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/games",
+      "row_count": 787,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2016
+      },
+      "raw_sha256": "9453dddf20d33712f71937c534a1c0df4963793d727dca8e5e9378f1becd19ce",
+      "receipt_identity": "9453dddf20d33712f71937c534a1c0df4963793d727dca8e5e9378f1becd19ce",
+      "request_identity_sha256": "7c85369923689b71af5f131d93cd23e5d20cff147d2316499b59b016ecc3a454",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/coaches",
+      "row_count": 134,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2017
+      },
+      "raw_sha256": "0732d3c4d7f3198a9fe32e600038bd41aaa6721a1b0e50dec986d2cbf71b7940",
+      "receipt_identity": "0732d3c4d7f3198a9fe32e600038bd41aaa6721a1b0e50dec986d2cbf71b7940",
+      "request_identity_sha256": "b859fa83a830ede18d30070d5e033b80ca5a90184aaa588fe7405159c6daa81e",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 687,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2017
+      },
+      "raw_sha256": "0732d3c4d7f3198a9fe32e600038bd41aaa6721a1b0e50dec986d2cbf71b7940",
+      "receipt_identity": "0732d3c4d7f3198a9fe32e600038bd41aaa6721a1b0e50dec986d2cbf71b7940",
+      "request_identity_sha256": "effcaf5bb25775c8b48a47be145ffe5accf1aa8ba08dfe6a1eb10d8b1ac62949",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 687,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2017
+      },
+      "raw_sha256": "0e9b2218916de970ccea1af2bee7b91b811f92f2e01655559e2d973153b44c8d",
+      "receipt_identity": "0e9b2218916de970ccea1af2bee7b91b811f92f2e01655559e2d973153b44c8d",
+      "request_identity_sha256": "1586616224e122ed60c05da3fe5ab4963f60f2161bece39a58689da2c10422d6",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/games",
+      "row_count": 773,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2017
+      },
+      "raw_sha256": "e3b43187fa27381e327ab228d9c6980c6cb374bc68840a498645a65020361e15",
+      "receipt_identity": "e3b43187fa27381e327ab228d9c6980c6cb374bc68840a498645a65020361e15",
+      "request_identity_sha256": "f9194f521b79f930b3677dc9d3abb5f6f9b1426c1e402783713eeec5b4cd17f2",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/coaches",
+      "row_count": 139,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2018
+      },
+      "raw_sha256": "fee0eeb1ec6971ee894d3c19d573bfecf059c65d3cfb148ffae6f0a5fe0be7d0",
+      "receipt_identity": "fee0eeb1ec6971ee894d3c19d573bfecf059c65d3cfb148ffae6f0a5fe0be7d0",
+      "request_identity_sha256": "54dd08fa1b6746143607458bd5f95a4d071b4374f2d84e7369ac6a25207e9bc4",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 686,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2018
+      },
+      "raw_sha256": "fee0eeb1ec6971ee894d3c19d573bfecf059c65d3cfb148ffae6f0a5fe0be7d0",
+      "receipt_identity": "fee0eeb1ec6971ee894d3c19d573bfecf059c65d3cfb148ffae6f0a5fe0be7d0",
+      "request_identity_sha256": "127b54a2a0e9a333f06fbaa46e4c23c4ccc6cdc634fa61078157b79e55578037",
+      "retrieved_at_utc": "2026-09-09T18:08:43Z",
+      "route": "/teams",
+      "row_count": 686,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2018
+      },
+      "raw_sha256": "8cf3947848ab6e5d46407a52186d49c1ad1d6411549b6438b63a21e72f74822f",
+      "receipt_identity": "8cf3947848ab6e5d46407a52186d49c1ad1d6411549b6438b63a21e72f74822f",
+      "request_identity_sha256": "8a7ccd35eb8729760473f6c82bc1a2f2930ce1565fd484baeccbc36d3fda6b43",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/games",
+      "row_count": 782,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2018
+      },
+      "raw_sha256": "ac4ec767298f92a6b21d0b3675e2001d0c7ccb1d3727e47c4cb2986db3916159",
+      "receipt_identity": "ac4ec767298f92a6b21d0b3675e2001d0c7ccb1d3727e47c4cb2986db3916159",
+      "request_identity_sha256": "d267ca9e0a31118e9abc65b1fc6f915726fea369078dfddb478688cf89859962",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/coaches",
+      "row_count": 139,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2019
+      },
+      "raw_sha256": "881ff00ad171b90b7a75a459f265bc57965216e8b0d4e755769f98e3f2e2efa2",
+      "receipt_identity": "881ff00ad171b90b7a75a459f265bc57965216e8b0d4e755769f98e3f2e2efa2",
+      "request_identity_sha256": "b063cbc7e8db0030d465bd2dfd773f71a03e37d4f25a4a0fa397d9d5173eafbf",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 681,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2019
+      },
+      "raw_sha256": "881ff00ad171b90b7a75a459f265bc57965216e8b0d4e755769f98e3f2e2efa2",
+      "receipt_identity": "881ff00ad171b90b7a75a459f265bc57965216e8b0d4e755769f98e3f2e2efa2",
+      "request_identity_sha256": "becc7b1bd34ac6d83c03bfa2a07d74eef9ed575681d9af12bf270a585f205cfc",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 681,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2019
+      },
+      "raw_sha256": "ec5b182e8ad4142d7c6e7d3fcf3002a769bab04641f1b3b2239e262c7743816a",
+      "receipt_identity": "ec5b182e8ad4142d7c6e7d3fcf3002a769bab04641f1b3b2239e262c7743816a",
+      "request_identity_sha256": "547fce2f19a348b757b5f10e5ce56c4bb003a22f67fb13c49417e486e4693d89",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/games",
+      "row_count": 847,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2019
+      },
+      "raw_sha256": "687896b86626f7bead0a10fe72cacd32ad1887969bdd7012fd0ace8fed3b3021",
+      "receipt_identity": "687896b86626f7bead0a10fe72cacd32ad1887969bdd7012fd0ace8fed3b3021",
+      "request_identity_sha256": "a11c76c27077e1a1dd0859437d8064fdb1b2e8dfd39ca7b268083222d30581a3",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/coaches",
+      "row_count": 134,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2020
+      },
+      "raw_sha256": "056c00c843c62060f8966f188d9ea8406fd0585643cefde5ceaf6b6415aa6c21",
+      "receipt_identity": "056c00c843c62060f8966f188d9ea8406fd0585643cefde5ceaf6b6415aa6c21",
+      "request_identity_sha256": "5c9fb11247e4e37232ccd16c61934fa099ce5eef2e42243d9b457c740bda3e0c",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 636,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2020
+      },
+      "raw_sha256": "056c00c843c62060f8966f188d9ea8406fd0585643cefde5ceaf6b6415aa6c21",
+      "receipt_identity": "056c00c843c62060f8966f188d9ea8406fd0585643cefde5ceaf6b6415aa6c21",
+      "request_identity_sha256": "f0a7f88487ca3b57c9441fdc0a43cbe7779efd24c39e9e3abce363139c47b651",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 636,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2020
+      },
+      "raw_sha256": "af1aa730df6709ad78d68960cc021d2f10043c0951a3ada5ff45f28c4ff0ea1d",
+      "receipt_identity": "af1aa730df6709ad78d68960cc021d2f10043c0951a3ada5ff45f28c4ff0ea1d",
+      "request_identity_sha256": "6935427519313e12dd9ef6bbaff34878bd78fe20bf2d6bd718122c63d8727a02",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/games",
+      "row_count": 316,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2020
+      },
+      "raw_sha256": "59adcbdf1bfae4972ba4b3455e675eca3c1944ecb4b37acaa0ed66869726967a",
+      "receipt_identity": "59adcbdf1bfae4972ba4b3455e675eca3c1944ecb4b37acaa0ed66869726967a",
+      "request_identity_sha256": "28716dfa409b037135456ec10b473ce2adb92d1e16023f7bec5b2866db46d5c4",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/coaches",
+      "row_count": 137,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2021
+      },
+      "raw_sha256": "5f1f07770961bab4fca39c707ea5d30b1b7a8d01839a1f0f7213351ab0b93bf0",
+      "receipt_identity": "5f1f07770961bab4fca39c707ea5d30b1b7a8d01839a1f0f7213351ab0b93bf0",
+      "request_identity_sha256": "1c29ab4405051826a2b3ad3504f9126d8fd94ade802d759c8253d7a68e7bd6a6",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 669,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2021
+      },
+      "raw_sha256": "5f1f07770961bab4fca39c707ea5d30b1b7a8d01839a1f0f7213351ab0b93bf0",
+      "receipt_identity": "5f1f07770961bab4fca39c707ea5d30b1b7a8d01839a1f0f7213351ab0b93bf0",
+      "request_identity_sha256": "83059832980c8cc53fa0def56ce511ffdf9d25c479633cc47a12ccc4b577b98d",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 669,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2021
+      },
+      "raw_sha256": "561aecb435ec3216447e258c2430a3592476a11d9f4af2e2bb9042781c62ed5d",
+      "receipt_identity": "561aecb435ec3216447e258c2430a3592476a11d9f4af2e2bb9042781c62ed5d",
+      "request_identity_sha256": "267e07993593ac6762bd7ab8a0b18498817f207d7e317ca52e832b8c20c4c250",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/games",
+      "row_count": 800,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2021
+      },
+      "raw_sha256": "bc7835a128d249e7a5ac4572e1ab8b654c0be6b18128b9272c1f6910deac91ec",
+      "receipt_identity": "bc7835a128d249e7a5ac4572e1ab8b654c0be6b18128b9272c1f6910deac91ec",
+      "request_identity_sha256": "c021b887da7cdf0c3a9296e0e8e700e562ec98c0201d3a400d7ff4d540b536af",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/coaches",
+      "row_count": 152,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2022
+      },
+      "raw_sha256": "9325129161e2f807bacadb12492d221bc6a5a45fecb271c4144c8c9eb84ee1b4",
+      "receipt_identity": "9325129161e2f807bacadb12492d221bc6a5a45fecb271c4144c8c9eb84ee1b4",
+      "request_identity_sha256": "92274e698374bd954d51aa5afb9ac34bbfcdd72d9c01e2f3c3115982895417de",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 671,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2022
+      },
+      "raw_sha256": "9325129161e2f807bacadb12492d221bc6a5a45fecb271c4144c8c9eb84ee1b4",
+      "receipt_identity": "9325129161e2f807bacadb12492d221bc6a5a45fecb271c4144c8c9eb84ee1b4",
+      "request_identity_sha256": "d3aae9605612cda7e3724d65a26857b2d196226e07d201ed6a06313fc090a237",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 671,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2022
+      },
+      "raw_sha256": "990814cd10139c37003ca29e5c196001739b6227e91b25333585ac86ca0bdb15",
+      "receipt_identity": "990814cd10139c37003ca29e5c196001739b6227e91b25333585ac86ca0bdb15",
+      "request_identity_sha256": "4ab88fc201c4ea6caeb987bf27f3f8a3a639870f1148d81358fbc4581262d577",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/games",
+      "row_count": 822,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2022
+      },
+      "raw_sha256": "86475ed23b5f569141bbf37e647c2574894603cbf38ff2911c1113189e9618cb",
+      "receipt_identity": "86475ed23b5f569141bbf37e647c2574894603cbf38ff2911c1113189e9618cb",
+      "request_identity_sha256": "331124b32907b6dbf669593402bfdfdfb006a64a1aa81c0450d3bbaaaf3cfeb7",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/coaches",
+      "row_count": 146,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2023
+      },
+      "raw_sha256": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+      "receipt_identity": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+      "request_identity_sha256": "697d0533b45db7dc74ee0d078de8612f99387e676534ea6116c59ade0de09c7e",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 671,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2023
+      },
+      "raw_sha256": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+      "receipt_identity": "5daa333ccc54b5890dd495744a959782af0fbb0cc6179217cb162cd904785281",
+      "request_identity_sha256": "3ec70aec37ac0f350c6c24c21e5fce23d5a1166cc376b5afed3ac6e22b18a124",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 671,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2023
+      },
+      "raw_sha256": "8ef788876fcddf7aef47eb6957cdad1d4e9a8ec49fd9d95b17c591713cdcdb80",
+      "receipt_identity": "8ef788876fcddf7aef47eb6957cdad1d4e9a8ec49fd9d95b17c591713cdcdb80",
+      "request_identity_sha256": "e8b7ee6775d1b5d6f627075ac3d46657551518413de0de4e8b6632611ef56251",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/games",
+      "row_count": 811,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2023
+      },
+      "raw_sha256": "6b32199d112a7370cb5948e8735abf27cf619c1c7bf6c721a4c2be37c285c5b9",
+      "receipt_identity": "6b32199d112a7370cb5948e8735abf27cf619c1c7bf6c721a4c2be37c285c5b9",
+      "request_identity_sha256": "979fb72a8fb3ffde2710fd691196384b436fe9ec29e17b5ad9356aa48600d482",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/coaches",
+      "row_count": 143,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2026
+      },
+      "raw_sha256": "a0af933cd5f2fb086621032ba9ca81c6a5f297ebd96e66ddbf29408c032f5567",
+      "receipt_identity": "a0af933cd5f2fb086621032ba9ca81c6a5f297ebd96e66ddbf29408c032f5567",
+      "request_identity_sha256": "787c97d30d9e57fed8bd8ba0825cead8f7779b8c41a6b3e8f06cf3c0d5b7a61b",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 683,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2026
+      },
+      "raw_sha256": "a0af933cd5f2fb086621032ba9ca81c6a5f297ebd96e66ddbf29408c032f5567",
+      "receipt_identity": "a0af933cd5f2fb086621032ba9ca81c6a5f297ebd96e66ddbf29408c032f5567",
+      "request_identity_sha256": "7ed9506d12715ecbf7cc5fb3991608bec953c303b5e4218144f2bb0a54e05db3",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/teams",
+      "row_count": 683,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fcs",
+        "year": 2026
+      },
+      "raw_sha256": "517689b22acb0da71276fd722faedb3403d43b1ef65a965a3eeac25933f67bab",
+      "receipt_identity": "517689b22acb0da71276fd722faedb3403d43b1ef65a965a3eeac25933f67bab",
+      "request_identity_sha256": "4af308504a6bb688b03cd1607588acce4be7219542426d28d898ac2da8f1be9d",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/games",
+      "row_count": 849,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "classification": "fbs",
+        "year": 2026
+      },
+      "raw_sha256": "c05279ddc86a571a46375678286929e6eb42831d2d8a00b2560ba7722e87d460",
+      "receipt_identity": "c05279ddc86a571a46375678286929e6eb42831d2d8a00b2560ba7722e87d460",
+      "request_identity_sha256": "16e610e72f5ecd5f59e6481bd5ae0a3dab661441c37867341f82488e49c03390",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/games",
+      "row_count": 888,
+      "status": "CACHE_HIT"
+    },
+    {
+      "cached": true,
+      "http_status": 200,
+      "parameters": {
+        "year": 2026
+      },
+      "raw_sha256": "f1b5db7242f503df395adbc266319b6eb76e464b65aee29f558f591fe403328c",
+      "receipt_identity": "f1b5db7242f503df395adbc266319b6eb76e464b65aee29f558f591fe403328c",
+      "request_identity_sha256": "12fe0c693e1290352ccdeec365ff32701b55be3b4e87e9a43e575c8b665f7975",
+      "retrieved_at_utc": "2026-09-09T18:08:44Z",
+      "route": "/coaches",
+      "row_count": 138,
+      "status": "CACHE_HIT"
+    }
+  ],
+  "budget": {
+    "classifications": [
+      "fbs",
+      "fcs"
+    ],
+    "concurrency": 1,
+    "endpoints": [
+      "/teams",
+      "/games",
+      "/coaches",
+      "/venues"
+    ],
+    "max_requests": 80,
+    "max_retries": 1,
+    "metered_scraper_credits": 0,
+    "years": [
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2026
+    ]
+  }
+}

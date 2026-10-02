@@ -1,0 +1,741 @@
+{
+  "ACTIVE_PATH_CORRECTNESS_GATE": "VERIFIED_WITHIN_DECLARED_SCOPE_UNTRUSTED_SHADOW",
+  "ALL_CYCLE_SCIENTIFIC_TRUST_GATE": false,
+  "BRANCH_WORKTREE_HYGIENE": "VERIFIED",
+  "EVIDENCE_OPERATIONS": "EVIDENCE_CAPTURE_VERIFIED",
+  "JIRA_BOARD_LOCAL_CONVERGENCE": "VERIFIED",
+  "MERGE_AUTHORIZATION_GATE": "USER_EXPLICIT_ONLY",
+  "OPERATIONAL_EVIDENCE_GATE": "EVIDENCE_CAPTURE_VERIFIED",
+  "PREDICTIVE_SKILL_EVIDENCE_STATE": "DEVELOPMENT_EVIDENCE_ONLY",
+  "PRIMARY_OBJECTIVE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+  "PRIMARY_OBJECTIVE_NOTE": "PRIMARY_TRUST_RECOVERY_INCOMPLETE: R26-09 CONFIRMED_FIXED for the uniform missing_raw stamp with remaining reconstruction NOT_AUDITED_YET; R26-13 CONFIRMED_FIXED with Bugbot residual; R26-22 CONFIRMED_CONTAINED_NOT_FIXED; joint Week 1 successor remains UNTRUSTED_SHADOW. Independent Pass 3 of the Week 1 successor at c353f01a is PASS_WITHIN_DECLARED_SCOPE and is not merge authority. Predictive skill is DEVELOPMENT_EVIDENCE_ONLY for the 2023 development partition; Week 1 partial official-final residuals are NOT_ESTABLISHED (n unique scored games below the predeclared floor of 30). Week 1 official-final scoring is PARTIAL_OFFICIAL_FINALS_SCORED_REMAINDER_AWAITING_FINAL (10 terminal contests, 9 unique scored games, contest 6588927 joined but abstained/missing probability; 81 awaiting final).",
+  "Pass3": "PASS_WITHIN_DECLARED_SCOPE",
+  "R26_21_ACTIVE_PATH_DEPENDENCY": "NONE_PROVEN",
+  "R26_21_NOTE": "R26-21 CONFIRMED_FIXED via passing-section successor; Week1 path still has zero StatCrew import edges.",
+  "ROW_SCIENTIFIC_ELIGIBILITY_GATE": "PARTIAL_SUCCESSOR_PATH",
+  "acceptance_rebound_at_utc": "2026-09-04T03:03:50Z",
+  "active_path_gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+  "all_cycle_pass_three_honesty": "PARTIAL_CATEGORY_SEARCH_NOT_COMPLETE",
+  "artifact_type": "CYCLE26_ACTIVE_PATH_ACCEPTANCE",
+  "asof": {
+    "artifact_type": "NATIONAL_WEEK1_ASOF_CHECKPOINT",
+    "checkpoint_id": "NATIONAL_WEEK1_ASOF",
+    "contest_count": 91,
+    "earliest_kickoff_utc_conservative_lower_bound": "2026-09-03T22:00:00Z",
+    "forecast_successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "issued_at_utc": "2026-09-03T06:04:11Z",
+    "pre_earliest_kickoff": true,
+    "schedule_capture_identity": [
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 90496,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb.html",
+        "raw_sha256": "e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb",
+        "request_identity_sha256": "418ef6856d3f1c573d643b8e301032c5b78c89fc0187e042fc20398439c5d6a3",
+        "requested_game_date": "2026-09-03",
+        "retrieved_at_utc": "2026-08-31T06:16:12Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F03%2F2026"
+      },
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 73997,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a.html",
+        "raw_sha256": "a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a",
+        "request_identity_sha256": "91bfec2ee14c500681f69105f8c9c557ed2fd4eff5fddc7762f48a47b8cd89cb",
+        "requested_game_date": "2026-09-04",
+        "retrieved_at_utc": "2026-08-31T06:16:50Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F04%2F2026"
+      },
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 395430,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977.html",
+        "raw_sha256": "522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977",
+        "request_identity_sha256": "6bcb9e0ff3c31bfd44c148ebd6c6213cd3b39e292ef08f252f968f42c1f96e19",
+        "requested_game_date": "2026-09-05",
+        "retrieved_at_utc": "2026-08-31T06:17:08Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F05%2F2026"
+      },
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 47656,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd.html",
+        "raw_sha256": "af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd",
+        "request_identity_sha256": "51bc1ac1675641f3cc49e1bc1a57aac74f2f36b52c423601211dc9dc7cfb980b",
+        "requested_game_date": "2026-09-06",
+        "retrieved_at_utc": "2026-08-31T06:17:19Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026"
+      },
+      {
+        "attempts": [
+          {
+            "attempt": 1,
+            "condition": "HTTP_403",
+            "route_id": "direct_http"
+          },
+          {
+            "attempt": 1,
+            "condition": "SUCCESS",
+            "route_id": "scrapfly_rendering",
+            "upstream_status": 200
+          }
+        ],
+        "raw_bytes": 36507,
+        "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e.html",
+        "raw_sha256": "ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e",
+        "request_identity_sha256": "9d5d600f9c0a118a5c2d11e2875a047ef708bd5db862ae3a5f9b4bbf0a86531f",
+        "requested_game_date": "2026-09-07",
+        "retrieved_at_utc": "2026-08-31T06:17:37Z",
+        "route_id": "scrapfly_rendering",
+        "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F07%2F2026"
+      }
+    ],
+    "schedule_gate_identity": "3682897882697fc939f23f79706ff37a46e8cf870f1f8432cdd51f55c13831cc",
+    "still_pre_kickoff_count": 91,
+    "t24h_disposition": "MISSED_CUTOFF_NO_BACKFILL for contests whose T-24H already passed; asof research checkpoint is not a T-24H label",
+    "t24h_missed_no_backfill_count": 11,
+    "t7d_backfill": false
+  },
+  "base_sha": "55e12a5aad3a7e843204fcba619c3cb3d3d6194d",
+  "calendar": {
+    "am_t24h_utc": "2026-09-04T23:00:00Z",
+    "am_t90m_utc": "2026-09-05T21:30:00Z",
+    "saturday_t24h_utc": "2026-09-04T16:00:00Z",
+    "scoring": "PARTIAL_OFFICIAL_FINALS_SCORED_REMAINDER_AWAITING_FINAL",
+    "sep3_t24h": "MISSED_CUTOFF_NO_BACKFILL",
+    "sep3_t90m": "T-90M_BOUND_20260903T200119Z",
+    "sep4_window_t24h": "T-24H_BOUND_20260903T221229Z"
+  },
+  "ci_head": "4209c413385d9b6d741e5dec120e70a3e094e8c1",
+  "ci_status": "GREEN",
+  "code_head_binding": "BOUND_REVIEWED_HEAD_c353f01a",
+  "core_module_sha256": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
+  "corpus_integrity_successor_gate": "8a2fbfb40a45625f5e94155fef1660f5df35035755fbaa04052cfc55be7b1f1e",
+  "gate": {
+    "coverage": {
+      "by_candidate": [
+        {
+          "abstained": 8,
+          "candidate_id": "national_base_rate",
+          "control_only": 91,
+          "frozen_with_probability": 83,
+          "opportunity": 91
+        },
+        {
+          "abstained": 12,
+          "candidate_id": "national_elo",
+          "control_only": 0,
+          "frozen_with_probability": 79,
+          "opportunity": 91
+        },
+        {
+          "abstained": 12,
+          "candidate_id": "national_logistic_l2",
+          "control_only": 0,
+          "frozen_with_probability": 79,
+          "opportunity": 91
+        },
+        {
+          "abstained": 12,
+          "candidate_id": "national_margin_ridge",
+          "control_only": 0,
+          "frozen_with_probability": 79,
+          "opportunity": 91
+        },
+        {
+          "abstained": 12,
+          "candidate_id": "prior_only",
+          "control_only": 0,
+          "frozen_with_probability": 79,
+          "opportunity": 91
+        }
+      ]
+    },
+    "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "result": "PASS_WEEK1_2026_GAME_GRAIN_NATIONAL_FORECAST_SUCCESSOR",
+    "summary": {
+      "failing_pairs": 0,
+      "focus_row_count": 5,
+      "national_row_count": 455,
+      "oriented_row_count": 158,
+      "residual_stdev": 17.7396030753,
+      "ridge_emitted": 79,
+      "ridge_frozen_with_probability": 79
+    },
+    "trust": {
+      "ACTIVE_PATH_CORRECTNESS_CLAIM": false,
+      "control_only_candidates": [
+        "national_base_rate"
+      ],
+      "publication_label": "UNTRUSTED_SHADOW",
+      "recommended": false,
+      "scientific_trust_gate_open": false
+    }
+  },
+  "git_tip": "e1e92c0aae1c4ba7f4090cf43ba2a552678e00d7",
+  "git_tip_at_issuance": "6318a7a5d86c50dd5f8e3f35aacc4c27a065b7aa",
+  "historical_pair_failures_preserved": {
+    "20": {
+      "bytes": 2491754,
+      "candidate_results": {
+        "national_base_rate": {
+          "all_game_pairs": 910,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.0,
+          "probability_sum_failures_tolerance_1e_8": 0,
+          "scorable_game_pairs": 910
+        },
+        "national_elo": {
+          "all_game_pairs": 910,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.0,
+          "probability_sum_failures_tolerance_1e_8": 0,
+          "scorable_game_pairs": 910
+        },
+        "national_logistic_l2": {
+          "all_game_pairs": 910,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.35473324000000006,
+          "probability_sum_failures_tolerance_1e_8": 910,
+          "scorable_game_pairs": 910
+        },
+        "national_margin_ridge": {
+          "all_game_pairs": 910,
+          "margin_antisymmetry_failures_tolerance_1e_8": 910,
+          "margin_pairs": 910,
+          "max_margin_sum_error": 16.426513710000002,
+          "max_probability_sum_error": 0.34438002999999995,
+          "probability_sum_failures_tolerance_1e_8": 910,
+          "scorable_game_pairs": 910
+        },
+        "prior_only": {
+          "all_game_pairs": 910,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.31022496999999993,
+          "probability_sum_failures_tolerance_1e_8": 910,
+          "scorable_game_pairs": 910
+        }
+      },
+      "path": "canonical/national_expectation_baselines_and_peers/sha256/773cf850bb8351497643506dd2ddcb4efbad26e3cd95a4dc78039b6e8ef3a1b0/national_baseline_predictions.jsonl",
+      "rows": 9100,
+      "sha256": "a4671745e7c89a65ed87f2c2c5bd0a90a6adb38fedd162240cace1f30ee0088e"
+    },
+    "21": {
+      "bytes": 10890643,
+      "candidate_results": {
+        "national_base_rate": {
+          "all_game_pairs": 5035,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.0,
+          "probability_sum_failures_tolerance_1e_8": 0,
+          "scorable_game_pairs": 5035
+        },
+        "national_elo": {
+          "all_game_pairs": 5035,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.0,
+          "probability_sum_failures_tolerance_1e_8": 0,
+          "scorable_game_pairs": 5035
+        },
+        "national_logistic_l2": {
+          "all_game_pairs": 5035,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.4052210999999999,
+          "probability_sum_failures_tolerance_1e_8": 5035,
+          "scorable_game_pairs": 5035
+        },
+        "national_margin_ridge": {
+          "all_game_pairs": 5035,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.39061688000000006,
+          "probability_sum_failures_tolerance_1e_8": 5035,
+          "scorable_game_pairs": 5035
+        },
+        "prior_only": {
+          "all_game_pairs": 5035,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.44877205,
+          "probability_sum_failures_tolerance_1e_8": 5035,
+          "scorable_game_pairs": 5035
+        }
+      },
+      "path": "canonical/national_multi_year_walk_forward/sha256/1112becc65f78a25b0843588fd5eba5ddcec6009b0ec58f0cb299c343188bcda/national_multi_year_walk_forward_predictions.jsonl",
+      "rows": 50350,
+      "sha256": "c380eb08ee42c7b4eeed32436ccfc4f035f88e43048f327ea9c0d5d28fb4e6d6"
+    },
+    "25": {
+      "am_focus_both_orientations": [],
+      "bytes": 540773,
+      "candidate_results": {
+        "national_base_rate_c25_input_bound": {
+          "all_game_pairs": 91,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.0,
+          "probability_sum_failures_tolerance_1e_8": 0,
+          "scorable_game_pairs": 83
+        },
+        "national_elo_c25_input_bound": {
+          "all_game_pairs": 91,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.0,
+          "probability_sum_failures_tolerance_1e_8": 0,
+          "scorable_game_pairs": 79
+        },
+        "national_logistic_l2_c25_input_bound": {
+          "all_game_pairs": 91,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.8252004431,
+          "probability_sum_failures_tolerance_1e_8": 83,
+          "scorable_game_pairs": 83
+        },
+        "national_margin_ridge_c25_input_bound": {
+          "all_game_pairs": 91,
+          "margin_antisymmetry_failures_tolerance_1e_8": 83,
+          "margin_pairs": 83,
+          "max_margin_sum_error": 71.5367093036,
+          "max_probability_sum_error": 0.8102138865,
+          "probability_sum_failures_tolerance_1e_8": 83,
+          "scorable_game_pairs": 83
+        },
+        "prior_only_c25_input_bound": {
+          "all_game_pairs": 91,
+          "margin_antisymmetry_failures_tolerance_1e_8": 0,
+          "margin_pairs": 0,
+          "max_margin_sum_error": null,
+          "max_probability_sum_error": 0.8143657596,
+          "probability_sum_failures_tolerance_1e_8": 83,
+          "scorable_game_pairs": 83
+        }
+      },
+      "path": "canonical/week1_2026_forecast_input_binding_successor/sha256/91fa82144bb76d75bbfc67d98141cfdd8d5825a5c1b5e657639c9a2b4c693730/week1_2026_c25_successor_score_rows.jsonl",
+      "rows": 910,
+      "sha256": "d4d29f346242009d3675cd6d40d24a76fdfaa4f20b6689f4e3f5ccecab0ed108"
+    }
+  },
+  "historical_pair_successor": {
+    "c20_failing_pairs": 0,
+    "c21_failing_pairs": 0,
+    "dataset_identity": "f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9",
+    "gate_identity": "1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0",
+    "joint_probability_margin_interval": false
+  },
+  "integration_authority": "REVIEW_READY_UNMERGED",
+  "issued_at_utc": "2026-09-03T22:18:44Z",
+  "jira_verify_live_at": "2026-09-03T23:01:40Z",
+  "joint_fitted_path": "VERIFIED_WITHIN_DECLARED_SCOPE",
+  "live_owners": {
+    "captured_at_utc": "2026-09-03T06:04:11Z",
+    "issues": {
+      "BAT-401": {
+        "resolution": null,
+        "status": "Done",
+        "summary": "[POST-SUBTASK-051] Open or retain-blocked the protected experimentation lane through the PIT/replay readiness gate",
+        "updated": "2026-09-01T12:52:14.240-0500"
+      },
+      "BAT-429": {
+        "resolution": null,
+        "status": "To Do",
+        "summary": "[POST-SUBTASK-079] Acquire quality-supported A&M schedules, rosters, depth, staff, media-guide, participation, availability, and official evidence",
+        "updated": "2026-08-31T04:46:00.603-0500"
+      },
+      "BAT-523": {
+        "resolution": null,
+        "status": "In Progress",
+        "summary": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
+        "updated": "2026-09-02T00:24:33.246-0500"
+      },
+      "BAT-688": {
+        "resolution": null,
+        "status": "Done",
+        "summary": "[POST-TASK-ALL-CYCLE-SCIENTIFIC-CLAIM-REGISTRY-001] Install the Cycle #25.5 operator hold and all-cycle scientific claim/artifact inventory skeleton",
+        "updated": "2026-09-02T00:22:05.316-0500"
+      },
+      "BAT-689": {
+        "resolution": null,
+        "status": "Done",
+        "summary": "[POST-TASK-PR-REVIEW-DEFENSE-INFRASTRUCTURE-001] Install Codex, Bugbot, Codecov, and branch-protection scientific review defenses",
+        "updated": "2026-09-02T00:22:09.930-0500"
+      },
+      "BAT-690": {
+        "resolution": null,
+        "status": "In Review",
+        "summary": "[POST-TASK-NATIONAL-FOUNDATION-SCIENTIFIC-SUCCESSOR-001] Build the national foundation scientific successor and correct the false 2011 quarantine",
+        "updated": "2026-09-02T00:22:16.408-0500"
+      },
+      "BAT-691": {
+        "resolution": null,
+        "status": "In Review",
+        "summary": "[POST-TASK-NATIONAL-MODEL-LINEAGE-CORRECTION-001] Rebuild authority-clean historical model lineage without unproven ranking or venue admission",
+        "updated": "2026-09-02T00:22:18.482-0500"
+      },
+      "BAT-692": {
+        "resolution": null,
+        "status": "In Review",
+        "summary": "[POST-TASK-TAMU-CORPUS-DERIVATIVE-INTEGRITY-001] Build A&M structured-corpus derivative integrity successors",
+        "updated": "2026-09-02T00:22:20.272-0500"
+      },
+      "BAT-693": {
+        "resolution": null,
+        "status": "In Review",
+        "summary": "[POST-TASK-WEEK1-FORECAST-BINDING-AND-COHERENCE-SUCCESSOR-001] Rebuild current-contest feature binding and coherent game-level forecast distributions",
+        "updated": "2026-09-02T00:22:22.415-0500"
+      },
+      "BAT-694": {
+        "resolution": null,
+        "status": "In Review",
+        "summary": "[POST-TASK-MARKET-BENCHMARK-INTEGRITY-SUCCESSOR-001] Rebuild market receipt, crosswalk, alias, median, and overround integrity",
+        "updated": "2026-09-02T00:22:23.705-0500"
+      },
+      "BAT-695": {
+        "resolution": null,
+        "status": "Done",
+        "summary": "[POST-TASK-PROTECTED-EVALUATION-REPLACEMENT-PROTOCOL-001] Design an inactive prospective protected-evaluation replacement while retaining the blocked lane",
+        "updated": "2026-09-02T00:22:13.459-0500"
+      },
+      "BAT-696": {
+        "resolution": null,
+        "status": "In Review",
+        "summary": "[POST-TASK-SCIENTIFIC-VALIDATION-INDEPENDENCE-GATE-001] Install independent scientific-reference validators and adversarial mutation coverage",
+        "updated": "2026-09-02T00:22:25.264-0500"
+      }
+    }
+  },
+  "manifest_integrity_note": "Regenerated provenance manifest to remove stale tools/_cycle26_patch_evidence.py entry that broke CI strict validate.",
+  "numbered_final_report": true,
+  "passing_section_successor": {
+    "active_path_import_edges": 0,
+    "confirmed_rows": 429,
+    "dataset_identity": "e98912fa5be82ecea999380040b1031e83e3c40ac07a76a615ceffd817439912",
+    "gate_identity": "1310cb93878785c28a5ef702e9e65c72c9574928d55a21a2e62b124ec928d787"
+  },
+  "pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/678",
+  "predictive_skill_evidence_relative_path": "artifacts/scientific_integrity/cycle26/CYCLE26_PREDICTIVE_SKILL_EVIDENCE.json",
+  "probability_component": "VERIFIED_WITHIN_DECLARED_SCOPE",
+  "r26_22_pair_audit_gate": "0070c1e33b5fdc2c23c6453cfa3c50e95cbc1c0adf9a8f6ce0e0e41141f6f548",
+  "ridge_abstention_census": {
+    "abstained": 12,
+    "abstention_reason_counts": {
+      "A_PARTICIPANT_HAS_AN_OFFICIAL_IDENTITY_BUT_NO_CANONICAL_MODELLING_HISTORY": 8,
+      "REQUIRED_DOMAIN_NOT_ADMITTED:TEAM_STRENGTH_PRIOR": 4
+    },
+    "artifact_type": "CYCLE26_RIDGE_ABSTENTION_CENSUS",
+    "candidate_id": "national_margin_ridge",
+    "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+    "emitted_with_probability": 79,
+    "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+    "issued_at_utc": "2026-09-03T09:50:03Z",
+    "note": "Abstentions are evidence-backed fail-closed rows, not silent drops. Do not force-fit missing modelling history or unadmitted domains.",
+    "opportunity": 91
+  },
+  "sep4_window_t24h_freeze_at_utc": "2026-09-03T22:12:29Z",
+  "status_successor": {
+    "dataset_identity": "8a6f63d20c7d8d3059929088ced4041baca8503ba3b8039badba31ea0e84c52b",
+    "gate_identity": "54f6ee0611923ab406daf2cc2d1bd400d859de96b8b549f8fdd1ca997b15a894",
+    "pit_feature_eligible": false,
+    "restored_game": "SRC-002:GAME:312472199"
+  },
+  "three_pass": {
+    "pass_1": {
+      "asof_checkpoint": {
+        "artifact_type": "NATIONAL_WEEK1_ASOF_CHECKPOINT",
+        "checkpoint_id": "NATIONAL_WEEK1_ASOF",
+        "contest_count": 91,
+        "earliest_kickoff_utc_conservative_lower_bound": "2026-09-03T22:00:00Z",
+        "forecast_successor_gate": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+        "issued_at_utc": "2026-09-03T06:04:11Z",
+        "pre_earliest_kickoff": true,
+        "schedule_capture_identity": [
+          {
+            "attempts": [
+              {
+                "attempt": 1,
+                "condition": "HTTP_403",
+                "route_id": "direct_http"
+              },
+              {
+                "attempt": 1,
+                "condition": "SUCCESS",
+                "route_id": "scrapfly_rendering",
+                "upstream_status": 200
+              }
+            ],
+            "raw_bytes": 90496,
+            "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb.html",
+            "raw_sha256": "e3cdcaa87f4fda2d48a6b2df413208bee2535ff2933358ee31bc0fa27d1d03fb",
+            "request_identity_sha256": "418ef6856d3f1c573d643b8e301032c5b78c89fc0187e042fc20398439c5d6a3",
+            "requested_game_date": "2026-09-03",
+            "retrieved_at_utc": "2026-08-31T06:16:12Z",
+            "route_id": "scrapfly_rendering",
+            "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F03%2F2026"
+          },
+          {
+            "attempts": [
+              {
+                "attempt": 1,
+                "condition": "HTTP_403",
+                "route_id": "direct_http"
+              },
+              {
+                "attempt": 1,
+                "condition": "SUCCESS",
+                "route_id": "scrapfly_rendering",
+                "upstream_status": 200
+              }
+            ],
+            "raw_bytes": 73997,
+            "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a.html",
+            "raw_sha256": "a539de1337c47e7baeed4c28c38e59393f8cc0ab5137ad778896aa1eda87520a",
+            "request_identity_sha256": "91bfec2ee14c500681f69105f8c9c557ed2fd4eff5fddc7762f48a47b8cd89cb",
+            "requested_game_date": "2026-09-04",
+            "retrieved_at_utc": "2026-08-31T06:16:50Z",
+            "route_id": "scrapfly_rendering",
+            "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F04%2F2026"
+          },
+          {
+            "attempts": [
+              {
+                "attempt": 1,
+                "condition": "HTTP_403",
+                "route_id": "direct_http"
+              },
+              {
+                "attempt": 1,
+                "condition": "SUCCESS",
+                "route_id": "scrapfly_rendering",
+                "upstream_status": 200
+              }
+            ],
+            "raw_bytes": 395430,
+            "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977.html",
+            "raw_sha256": "522b09c754c1c6dbee12650d632a7fd89ae476b080db12925060351242c21977",
+            "request_identity_sha256": "6bcb9e0ff3c31bfd44c148ebd6c6213cd3b39e292ef08f252f968f42c1f96e19",
+            "requested_game_date": "2026-09-05",
+            "retrieved_at_utc": "2026-08-31T06:17:08Z",
+            "route_id": "scrapfly_rendering",
+            "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F05%2F2026"
+          },
+          {
+            "attempts": [
+              {
+                "attempt": 1,
+                "condition": "HTTP_403",
+                "route_id": "direct_http"
+              },
+              {
+                "attempt": 1,
+                "condition": "SUCCESS",
+                "route_id": "scrapfly_rendering",
+                "upstream_status": 200
+              }
+            ],
+            "raw_bytes": 47656,
+            "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd.html",
+            "raw_sha256": "af7a8d38adae8a587f04c9a5cdd6c172b4fb0369d806c99b29d754784b873bfd",
+            "request_identity_sha256": "51bc1ac1675641f3cc49e1bc1a57aac74f2f36b52c423601211dc9dc7cfb980b",
+            "requested_game_date": "2026-09-06",
+            "retrieved_at_utc": "2026-08-31T06:17:19Z",
+            "route_id": "scrapfly_rendering",
+            "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F06%2F2026"
+          },
+          {
+            "attempts": [
+              {
+                "attempt": 1,
+                "condition": "HTTP_403",
+                "route_id": "direct_http"
+              },
+              {
+                "attempt": 1,
+                "condition": "SUCCESS",
+                "route_id": "scrapfly_rendering",
+                "upstream_status": 200
+              }
+            ],
+            "raw_bytes": 36507,
+            "raw_relative_path": "raw/SRC-NCAA-OFFICIAL-STATS/ncaa_week1_2026_schedule_scoreboard/ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e.html",
+            "raw_sha256": "ef55ed3840edd27782746507781cd97d394ff2f150d7e25e0203b1c89567187e",
+            "request_identity_sha256": "9d5d600f9c0a118a5c2d11e2875a047ef708bd5db862ae3a5f9b4bbf0a86531f",
+            "requested_game_date": "2026-09-07",
+            "retrieved_at_utc": "2026-08-31T06:17:37Z",
+            "route_id": "scrapfly_rendering",
+            "source_uri": "https://stats.ncaa.org/contests/livestream_scoreboards?utf8=%E2%9C%93&sport_code=MFB&academic_year=2027&division=1&game_date=09%2F07%2F2026"
+          }
+        ],
+        "schedule_gate_identity": "3682897882697fc939f23f79706ff37a46e8cf870f1f8432cdd51f55c13831cc",
+        "still_pre_kickoff_count": 91,
+        "t24h_disposition": "MISSED_CUTOFF_NO_BACKFILL for contests whose T-24H already passed; asof research checkpoint is not a T-24H label",
+        "t24h_missed_no_backfill_count": 11,
+        "t7d_backfill": false
+      },
+      "code_head": "f317fe7b3dfa362a6652f8410294776881301967",
+      "dataset_identity": "770d25449a89f55353749c8c1f920253a509adb42a336c9c0f9dfc7dd4143939",
+      "gate_identity": "aa4ff84b16e9f00b1e68965cef7ea8730adc456ad16bda6ed1ff564b5bcdcb43",
+      "issued_at_utc": "2026-09-03T06:17:01Z",
+      "limitations": [
+        "Historical C20/C21/C25 saved payloads remain immutable and unrepaired.",
+        "Publication label remains UNTRUSTED_SHADOW.",
+        "All-cycle three-pass audit remains unfinished."
+      ],
+      "name": "provenance_completeness_execution",
+      "national_rehash": {
+        "capture_records": 990,
+        "record_weighted_bytes": 2550148419,
+        "verified_records": 990
+      },
+      "pass": 1,
+      "payload_hashes": {
+        "core_module": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
+        "coverage_rows": "bc6b9d09ae51984b5180a46bcd5bbd7fd393300658b4aeaae699c4d711beae0e",
+        "focus_packet": "489e3f2562ba79705c0b5d7547381834f5bfc9c392a846bf4233cdb1cb357a8a",
+        "forecast_rows": "7015c32d0041ecb2d3938139c00e3742321d8bd527aa9c76a8508d630e611b16",
+        "oriented_rows": "a46aee71b79689d2ad74a6fcceb293bcb291273386b7bd8b72f7e55d4bad08cc"
+      },
+      "result": "PASS_WITHIN_DECLARED_SUCCESSOR_SCOPE",
+      "scope": {
+        "candidate_families": [
+          "national_base_rate",
+          "national_elo",
+          "national_logistic_l2",
+          "national_margin_ridge",
+          "prior_only"
+        ],
+        "contest_count": 91,
+        "failing_pairs": 0,
+        "opportunity_rows": 455,
+        "population": "2026 Week 1 official contests",
+        "ridge_emitted": 79
+      }
+    },
+    "pass_2": {
+      "code_head": "f317fe7b3dfa362a6652f8410294776881301967",
+      "independent_fail_count": 0,
+      "issued_at_utc": "2026-09-03T06:17:01Z",
+      "joint_probability_margin_interval": true,
+      "limitations": [
+        "Empirical skill not established.",
+        "Pass does not authorize merge or trust-gate release."
+      ],
+      "name": "independent_scientific_reconstruction",
+      "oriented_row_count": 158,
+      "pass": 2,
+      "producer_modules": [
+        "aggie_analytics.data.week1_2026_game_grain_distribution_successor",
+        "aggie_analytics.data.week1_2026_game_grain_national_forecast_successor",
+        "aggie_analytics.data.producer_distribution_math"
+      ],
+      "reference_modules": [
+        "aggie_analytics.scientific_reference.coherence"
+      ],
+      "result": "PASS_WITHIN_DECLARED_SUCCESSOR_SCOPE",
+      "ridge_rows_checked": 79
+    },
+    "pass_3": {
+      "author_placeholder_status": "PENDING_INDEPENDENT_REVIEWER",
+      "author_self_approval": false,
+      "code_head": "c353f01a2ae6021fae17e752fcfac0c038ee1645",
+      "hosted_reviewers_available": [
+        "Codex scientific review",
+        "Bugbot"
+      ],
+      "independent_reviewer_receipt": "artifacts/scientific_integrity/cycle26/CYCLE26_PASS3_INDEPENDENT_REVIEWER_RECEIPT_c353f01a.json",
+      "issued_at_utc": "2026-09-04T01:19:24Z",
+      "live_core_module_sha256": "4440a213f32a4fc2ec8d0be4205a11bade151ae2d714af53e0407fc74aec185c",
+      "name": "independent_review_of_implementation_and_review",
+      "note": "Independent code-reviewer receipt is PASS_WITHIN_DECLARED_SCOPE at c353f01a for the Week 1 successor core_module 4440a213. Author cannot self-approve. Later process/test commits and the R26-09 inventory-stamp repair do not change the successor file hash. Hosted checks are defense-layer only. Not merge authority.",
+      "pass": 3,
+      "result": "PASS_WITHIN_DECLARED_SCOPE",
+      "science_binding": "payload_hashes.core_module"
+    }
+  },
+  "week1_am_ridge_both_orientations": {
+    "away_canonical_team_id": "SRC-002:TEAM:2623",
+    "contest_identity": "0d28c02c699e878bd8a0526517d332c1a7218e878b2173a72973d19639f5fa02",
+    "expected_margin_away": -22.2506043541,
+    "expected_margin_home": 22.2506043541,
+    "home_canonical_team_id": "SRC-002:TEAM:245",
+    "joint_coherence": true,
+    "margin_sum": 0.0,
+    "ncaa_contest_id": "6607349",
+    "probability_away": 0.1048683331,
+    "probability_home": 0.8951316669,
+    "probability_sum": 1.0,
+    "publication_label": "UNTRUSTED_SHADOW"
+  }
+}

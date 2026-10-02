@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "purpose": "Hold-required auxiliary keys that live outside BAT_AUXILIARY_ISSUE_REGISTRY but are required by scientific_trust_recovery_hold",
+  "issues": [
+    {
+      "jira_key": "BAT-401",
+      "local_id": "POST-SUBTASK-051",
+      "status": "Done",
+      "summary": "[POST-SUBTASK-051] Open or retain-blocked the protected experimentation lane through the PIT/replay readiness gate",
+      "logical_state": "DONE",
+      "maturity": "PRODUCTION_READY",
+      "evidence_state": "VERIFIED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "critical_path": true,
+      "execution_lane": "PROTECTED_GATE",
+      "issue_type": "Sub-task",
+      "classification": "HOLD_REQUIRED_SNAPSHOT"
+    },
+    {
+      "jira_key": "BAT-429",
+      "local_id": "POST-SUBTASK-079",
+      "status": "To Do",
+      "summary": "[POST-SUBTASK-079] Acquire quality-supported A&M schedules, rosters, depth, staff, media-guide, participation, availability, and official evidence",
+      "logical_state": "BLOCKED",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "PLANNED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-3",
+      "critical_path": false,
+      "execution_lane": "DATA_MATERIALIZATION",
+      "issue_type": "Sub-task",
+      "classification": "HOLD_REQUIRED_SNAPSHOT"
+    }
+  ]
+}

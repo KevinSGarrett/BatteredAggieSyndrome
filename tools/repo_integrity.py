@@ -8,6 +8,16 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import Iterable
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 MANIFEST_NAME = "provenance/PROJECT_FILE_MANIFEST.csv"
 HASHES_NAME = "provenance/PROJECT_FILE_HASHES.sha256"
@@ -39,27 +49,37 @@ def load_policy(repo_root: Path) -> dict:
 def _git_visible_files(repo_root: Path) -> list[Path] | None:
     """Return tracked and non-ignored untracked files for a real Git worktree."""
 
-    completed = subprocess.run(
-        [
-            "git",
-            "-C",
-            str(repo_root),
-            "ls-files",
-            "--cached",
-            "--others",
-            "--exclude-standard",
-            "-z",
-        ],
-        check=False,
-        capture_output=True,
-    )
+    try:
+        completed = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo_root),
+                "ls-files",
+                "--cached",
+                "--others",
+                "--exclude-standard",
+                "-z",
+            ],
+            check=False,
+            capture_output=True,
+        )
+    except OSError:
+        # Cycle #37 - Attempt #4: git that cannot be started -- absent, or refused by the canonical write guard
+        # because the repository's configuration is not one it can read (MF37A03-01) -- gives no listing,
+        # exactly as a git that starts and fails does; the filesystem walk below answers instead.
+        return None
     if completed.returncode != 0:
         return None
     paths: list[Path] = []
+    seen: set[str] = set()
     for raw in completed.stdout.split(b"\0"):
         if not raw:
             continue
         relative = raw.decode("utf-8", "surrogateescape")
+        if relative in seen:
+            continue
+        seen.add(relative)
         path = repo_root / Path(*PurePosixPath(relative).parts)
         if path.is_file():
             paths.append(path)
@@ -226,7 +246,7 @@ def generate_current_tree(repo_root: Path) -> None:
         if posix_rel(repo_root, p) != TREE_NAME
     ]
     tree_path.parent.mkdir(parents=True, exist_ok=True)
-    tree_path.write_text("\n".join(rels) + "\n", encoding="utf-8", newline="\n")
+    _bas_atomic.write_text(tree_path, "\n".join(rels) + "\n", encoding="utf-8", newline="\n")
 
 
 def manifest_rows(
@@ -258,13 +278,13 @@ def write_manifest(repo_root: Path) -> tuple[list[dict[str, str | int]], str]:
     manifest_path = repo_root / MANIFEST_NAME
     hash_path = repo_root / HASHES_NAME
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    with manifest_path.open("w", newline="", encoding="utf-8") as fh:
+    with _bas_atomic.open_write(manifest_path, "w", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(
             fh, fieldnames=["path", "bytes", "sha256"], lineterminator="\n"
         )
         writer.writeheader()
         writer.writerows(rows)
-    hash_path.write_text(
+    _bas_atomic.write_text(hash_path, 
         "".join(
             f'{row["sha256"]}  {row["path"]}\n'
             for row in sorted(rows, key=lambda r: str(r["path"]))

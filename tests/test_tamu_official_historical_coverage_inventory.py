@@ -173,6 +173,29 @@ class OfficialCoverageInventoryTests(unittest.TestCase):
 
 @unittest.skipUnless(LAKE_READY, "external BAT-585 inventory payloads are not mounted")
 class InventoryPayloadMutationTests(unittest.TestCase):
+    """Mutate the canonical payload and require the validator to refuse.
+
+    Cycle #37 hardened how the mutation is carried out, without changing
+    what any test proves. The original form read the canonical bytes in
+    ``setUp``, wrote a mutated payload over the canonical file, and wrote
+    the bytes back in ``tearDown``. Two hazards followed.
+
+    * ``write_text`` truncates before it writes, so a run interrupted
+      between the truncate and the write leaves the canonical payload
+      **empty**. The delivered data root contains exactly that: a
+      zero-byte ``inventory.json`` whose content-addressed directory is
+      named for a 164 KB payload. This is a mechanism that produces that
+      state; it is not proof of which run produced it.
+    * Once the file is empty, ``setUp`` reads empty bytes, ``_tamper``
+      raises on them, and ``tearDown`` writes them back -- so every later
+      mounted run rewrites the corruption and refreshes its timestamp.
+
+    The restore is now atomic, nothing is written unless a mutation was
+    actually written, and a payload that cannot be read is a **failure**
+    naming the file rather than a skip. These tests still fail against a
+    corrupt payload, which is correct; they simply no longer write to it.
+    """
+
     def setUp(self) -> None:
         self.repo_root = REPO_ROOT
         self.data_root = DATA_ROOT
@@ -184,14 +207,51 @@ class InventoryPayloadMutationTests(unittest.TestCase):
             / "inventory.json"
         )
         self.original = self.payload_path.read_bytes()
+        self.mutated = False
+        try:
+            json.loads(self.original)
+            self.readable = True
+        except ValueError:
+            self.readable = False
+        self.addCleanup(self._restore)
 
-    def tearDown(self) -> None:
-        self.payload_path.write_bytes(self.original)
+    def _restore(self) -> None:
+        """Put the original bytes back atomically, and only if we wrote.
+
+        A test that never mutated the file has nothing to restore, and
+        rewriting it would touch a canonical byte for no reason.
+        """
+
+        if not self.mutated:
+            return
+        temporary = self.payload_path.with_name(self.payload_path.name + ".restore")
+        temporary.write_bytes(self.original)
+        os.replace(temporary, self.payload_path)
+        self.mutated = False
+
+    def _require_readable(self) -> None:
+        if not self.readable:
+            self.fail(
+                "the canonical inventory payload cannot be read as JSON "
+                f"({len(self.original)} bytes at {self.payload_path}), so "
+                "the validator cannot be exercised against a mutation of "
+                "it. Reported as a failure rather than a skip, because a "
+                "corrupt canonical payload is a real defect; nothing is "
+                "written to it here."
+            )
 
     def _tamper(self, mutator) -> None:
+        self._require_readable()
         payload = json.loads(self.original)
         mutator(payload)
-        self.payload_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        body = (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
+        # Written through a temporary file and swapped in, so an
+        # interrupted run leaves the canonical path holding either the
+        # original or the mutation, and never a truncated file.
+        temporary = self.payload_path.with_name(self.payload_path.name + ".mutation")
+        temporary.write_bytes(body)
+        os.replace(temporary, self.payload_path)
+        self.mutated = True
 
     def test_third_party_discovery_url_fails(self) -> None:
         def mutate(payload: dict) -> None:

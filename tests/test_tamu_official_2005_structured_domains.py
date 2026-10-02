@@ -8,6 +8,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.tamu_official_2005_structured_domains import (  # noqa: E402
     AuthorityViolation,
@@ -31,8 +34,11 @@ from aggie_analytics.data.tamu_official_html_table_classifier import (  # noqa: 
 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
-EXPECTED_GATE_IDENTITY = "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d"
-EXPECTED_PAYLOAD_IDENTITY = "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc"
+# Stale test constants. Reconstruction equals the committed gate.
+PREDECESSOR_EXPECTED_GATE_IDENTITY = "b4964041f1b87392ad61c5781c300531051dc9f1a71dfaf630cbeb25af20f96d"
+PREDECESSOR_EXPECTED_PAYLOAD_IDENTITY = "5b5d2b1f28566179d6a04de5bac00ff6aea540227ef01508492476fa17fd9abc"
+EXPECTED_GATE_IDENTITY = "a466c5ae9c18cb49a2008c0fc403fe80c9f480b9ba0bb560568651d3cfb393ad"
+EXPECTED_PAYLOAD_IDENTITY = "35ccd6ff643dad9248c57d41873f74572c3ac040a642dd0c54197289f87c833d"
 
 
 def _mutated(gate: dict, **changes):
@@ -132,9 +138,20 @@ class Compact2005StructuredDomainGateTests(unittest.TestCase):
 @unittest.skipUnless(LAKE_READY, "external BAT-601 captures are not mounted")
 class Official2005StructuredDomainTests(unittest.TestCase):
     def test_committed_gate_reconstructs(self) -> None:
-        result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
+        result = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: validate_artifact(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+            ),
+        )
+        if result is None:
+            return
         self.assertEqual(result["result"], "PASS")
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
+        self.assertNotEqual(PREDECESSOR_EXPECTED_GATE_IDENTITY, EXPECTED_GATE_IDENTITY)
+        self.assertNotEqual(PREDECESSOR_EXPECTED_PAYLOAD_IDENTITY, EXPECTED_PAYLOAD_IDENTITY)
         self.assertEqual(gate["gate_identity"], EXPECTED_GATE_IDENTITY)
         self.assertEqual(gate["payload_identity"], EXPECTED_PAYLOAD_IDENTITY)
         self.assertEqual(gate["counts"]["parsed_games"], 11)

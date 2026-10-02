@@ -14,7 +14,8 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from aggie_analytics.features.observed_weather_shadow import materialize, sha256_file, stable_hash  # noqa: E402
+from aggie_analytics.features.observed_weather_shadow import materialize, sha256_file, stable_hash
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 
 
 def main() -> int:
@@ -111,7 +112,7 @@ def main() -> int:
     encoded = json.dumps(report, sort_keys=True, separators=(",", ":")) + "\n"
     if report_path.exists() and report_path.read_text(encoding="utf-8") != encoded:
         raise RuntimeError("game observation validation collision")
-    report_path.write_text(encoded, encoding="utf-8")
+    _bas_atomic.write_text(report_path, encoded, encoding="utf-8")
     print(json.dumps({"result": report["result"], "checks_passed": report["checks_passed"], "checks_failed": report["checks_failed"], "report_path": str(report_path), "report_sha256": sha256_file(report_path), "coverage_diagnostics": report["coverage_diagnostics_not_acceptance_thresholds"]}, indent=2, sort_keys=True))
     return 0 if not failures else 1
 

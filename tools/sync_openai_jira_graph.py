@@ -9,6 +9,16 @@ import sys
 from datetime import date
 from pathlib import Path
 from typing import Any
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -370,7 +380,7 @@ def ensure_source_ref() -> None:
             raise RuntimeError(f"duplicate {SOURCE_REF} in {path}")
         rows = [item for item in rows if item.get("source_ref_id") != SOURCE_REF] + [row]
         rows.sort(key=lambda item: item["source_ref_id"])
-        with path.open("w", encoding="utf-8", newline="") as handle:
+        with _bas_atomic.open_write(path, "w", encoding="utf-8", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
@@ -393,7 +403,7 @@ def main() -> int:
     for record in new_records:
         path = ROOT / record["canonical_record"]
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(record, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+        _bas_atomic.write_text(path, json.dumps(record, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
     subprocess.run(
         [sys.executable, "-B", str(JIRA / "tools" / "rebuild_all_derivatives.py")],
         cwd=ROOT,

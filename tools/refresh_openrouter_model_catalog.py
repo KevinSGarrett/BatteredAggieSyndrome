@@ -12,7 +12,8 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.assistive_plane.storage import ContentAddressedStore  # noqa: E402
+from aggie_analytics.assistive_plane.storage import ContentAddressedStore
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 
 
 CATALOG_URL = "https://openrouter.ai/api/v1/models"
@@ -60,7 +61,7 @@ def main() -> int:
         directory.mkdir(parents=True, exist_ok=True)
         destination = directory / f"{name}.html"
         if not destination.exists():
-            destination.write_bytes(payload)
+            _bas_atomic.write_bytes(destination, payload)
         captures[name] = {"url": url, "path": str(destination), "sha256": digest, "bytes": len(payload)}
     models = json.loads(catalog).get("data", [])
     candidate = next((item for item in models if item.get("id") == "qwen/qwen3-coder-next"), None)

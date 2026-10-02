@@ -5,6 +5,7 @@ from importlib import metadata
 from pathlib import Path
 import hashlib, json, os, platform, subprocess, sys, tempfile
 from typing import Iterable
+from aggie_analytics import atomic_io as _bas_atomic
 
 SAFE_ENV_KEYS = ("AGGIE_ENV", "AGGIE_LOG_LEVEL", "PYTHONHASHSEED")
 DATA_ROOT_ENV = "AGGIE_ANALYTICS_DATA_ROOT"
@@ -198,5 +199,5 @@ def collect_runtime_manifest(*, repo_root: Path | None = None, packages: Iterabl
 def write_runtime_manifest(path: Path, **kwargs) -> dict:
     payload = collect_runtime_manifest(**kwargs)
     path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    _bas_atomic.write_text(path, json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     return payload

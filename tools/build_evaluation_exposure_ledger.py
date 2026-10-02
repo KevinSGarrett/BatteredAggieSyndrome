@@ -4,6 +4,33 @@ import argparse
 import json
 from pathlib import Path
 import sys
+class _bas_atomic:  # U37-11: atomic writes once this tool has imported the package itself
+    @staticmethod
+    def _module():
+        import sys as _bas_sys
+
+        if "aggie_analytics" not in _bas_sys.modules:
+            return None  # never bind the package from another tree before the tool does
+        try:
+            from aggie_analytics import atomic_io
+        except ImportError:
+            return None
+        return atomic_io
+
+    @classmethod
+    def write_text(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_text(path, *args, **kwargs) if module else path.write_text(*args, **kwargs)
+
+    @classmethod
+    def write_bytes(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.write_bytes(path, *args, **kwargs) if module else path.write_bytes(*args, **kwargs)
+
+    @classmethod
+    def open_write(cls, path, *args, **kwargs):
+        module = cls._module()
+        return module.open_write(path, *args, **kwargs) if module else path.open(*args, **kwargs)
 
 
 def main() -> int:
@@ -34,7 +61,7 @@ def main() -> int:
         / "evaluation_exposure_ledger.json"
     )
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_bytes(canonical_json(ledger) + b"\n")
+    _bas_atomic.write_bytes(output, canonical_json(ledger) + b"\n")
     result = {
         "result": "PASS" if not failures else "FAIL",
         "ledger_identity": ledger["ledger_identity"],

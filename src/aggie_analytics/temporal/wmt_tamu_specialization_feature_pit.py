@@ -7,6 +7,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def _polars() -> Any:
@@ -558,7 +559,7 @@ def materialize(
         },
     }
     manifest_path = manifest_root / "wmt_tamu_specialization_feature_pit_manifest.json"
-    manifest_path.write_bytes(canonical_json_bytes(manifest) + b"\n")
+    _bas_atomic.write_bytes(manifest_path, canonical_json_bytes(manifest) + b"\n")
     return {
         "dataset_identity": dataset_identity,
         "manifest_path": str(manifest_path),

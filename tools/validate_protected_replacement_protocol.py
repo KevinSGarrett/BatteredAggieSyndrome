@@ -35,8 +35,17 @@ def validate(repo_root: Path) -> list[str]:
         findings.append("EXPOSED_SEASONS_LABELED_BLIND")
     if payload.get("exposed_seasons", {}).get("sealed") is True:
         findings.append("EXPOSED_SEASONS_LABELED_SEALED")
-    if payload.get("user_approved_activation") is True:
-        findings.append("PROTECTED_REPLACEMENT_ACTIVATED_WITHOUT_USER_APPROVAL")
+    if payload.get("user_approved_activation") is not False:
+        if payload.get("user_approved_activation") is True:
+            findings.append("PROTECTED_REPLACEMENT_ACTIVATED_WITHOUT_USER_APPROVAL")
+        else:
+            findings.append("PROTECTED_ACTIVATION_NOT_BOOLEAN")
+    if not payload.get("stages"):
+        findings.append("PROTECTED_STAGES_MISSING")
+    if payload.get("results_inaccessible_to_implementation_until_freeze") is not True:
+        findings.append("PROTECTED_RESULT_ACCESS_BOUNDARY_MISSING")
+    if not payload.get("exposed_seasons"):
+        findings.append("PROTECTED_EXPOSURE_RECORD_MISSING")
     if payload.get("protocol_status") != expected["protocol_status"]:
         findings.append("PROTECTED_PROTOCOL_STATUS_DRIFT")
     return findings

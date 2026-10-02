@@ -21,6 +21,7 @@ from aggie_analytics.temporal.roster_membership_pit import (  # noqa: E402
     parse_utc,
     sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def expect_rejection(name: str, operation: Callable[[], Any]) -> dict[str, Any]:
@@ -144,7 +145,7 @@ def main() -> int:
     report_root = data_root / "validation" / "POST-SUBTASK-189"
     report_root.mkdir(parents=True, exist_ok=True)
     report_path = report_root / "historical_roster_membership_pit_validation.json"
-    report_path.write_bytes(canonical_json_bytes(report) + b"\n")
+    _bas_atomic.write_bytes(report_path, canonical_json_bytes(report) + b"\n")
     print(json.dumps({"result": "PASS", "checks": len(checks), "mutation_controls": len(mutation_controls), "report_path": str(report_path), "report_sha256": sha256_file(report_path)}, indent=2))
     return 0
 

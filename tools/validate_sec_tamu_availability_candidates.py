@@ -18,6 +18,7 @@ from aggie_analytics.data.sec_availability import (  # noqa: E402
     sha256_bytes,
     stable_hash,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def sha256_file(path: Path) -> str:
@@ -156,7 +157,7 @@ def main() -> int:
         report_path.parent.mkdir(parents=True, exist_ok=True)
         temporary = report_path.with_name(report_path.name + f".tmp-{os.getpid()}")
         try:
-            temporary.write_bytes(body)
+            _bas_atomic.write_bytes(temporary, body)
             os.replace(temporary, report_path)
         finally:
             if temporary.is_file():

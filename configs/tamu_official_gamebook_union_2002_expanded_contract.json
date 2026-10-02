@@ -6,7 +6,7 @@
   "local_issue_id": "POST-TASK-SRC014-2002-EXPANDED-ENRICHED-UNION-001",
   "new_issue_decision": "CREATE",
   "purpose": "Create a new immutable official enriched union that starts from the BAT-612 2003-expanded predecessor and admits only independently validated official 2002 games. Do not rewrite BAT-612, BAT-608, BAT-607, or BAT-603. Opponent name alone is not admission. Oklahoma unmatched strong-tuple is not admitted. Fail closed if the BAT-612 union manifest is missing.",
-  "predecessor_union_identity": "22ab52efad425074ddab75593c882ca7d1fb0fab6e99df160af1681cfc26f5aa",
+  "predecessor_union_identity": "585446ca5cc72b6107df4023fdf9f124a63725c3456d8e174dc17dfe5e20c2af",
   "predecessor_gate_identity": "50e92663d6dbfd8c6770746c99c857cc9db2f1761714e5124a8334eff384f99f",
   "pinned_bat612_union_manifest_file_sha256": "1bfcdb27d14f01a7e98a903d430af4a732740226eb7fb4d48fa7ea90041b7302",
   "pinned_bat613_gate_identity": "07cae0a9ce32422706907fa81b9aeb428781c3f76a0ac3c27d9964613793580a",

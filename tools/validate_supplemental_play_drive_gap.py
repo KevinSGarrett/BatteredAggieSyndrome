@@ -13,6 +13,16 @@ from pathlib import Path
 from typing import Any
 
 import pyarrow.parquet as pq
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 
 EXPECTED_DATASET_ID = "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f"
@@ -264,7 +274,7 @@ def main() -> int:
     if output.exists() and output.read_bytes() != payload:
         raise RuntimeError("immutable validation report collision")
     if not output.exists():
-        output.write_bytes(payload)
+        _bas_atomic.write_bytes(output, payload)
     print(json.dumps({
         **report,
         "validation_report": str(output),

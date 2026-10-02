@@ -12,6 +12,7 @@ from aggie_analytics.temporal.play_drive_pit import (
     sha256_file,
     stable_hash,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def _polars() -> Any:
@@ -438,7 +439,7 @@ def materialize(
         },
     }
     manifest_path = manifest_root / "run_manifest.json"
-    manifest_path.write_bytes(canonical_json_bytes(manifest) + b"\n")
+    _bas_atomic.write_bytes(manifest_path, canonical_json_bytes(manifest) + b"\n")
     return {
         "dataset_identity": dataset_identity,
         "manifest_path": str(manifest_path),

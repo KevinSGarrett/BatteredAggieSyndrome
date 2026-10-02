@@ -1,0 +1,53 @@
+{
+  "$id": "aggie.cycle30.game_context.v2",
+  "title": "GameContextV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "canonical_game_id",
+    "source_order",
+    "canonical_home_id",
+    "canonical_away_id",
+    "designated_home_id",
+    "site_class",
+    "ordinary_home_exposure_designated_home",
+    "unknowns"
+  ],
+  "properties": {
+    "canonical_game_id": { "type": "string" },
+    "source_order": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "string" }
+    },
+    "canonical_home_id": { "type": "string" },
+    "canonical_away_id": { "type": "string" },
+    "designated_home_id": { "type": ["string"] },
+    "designated_source": { "type": ["string", "null"] },
+    "site_class": {
+      "enum": ["NEUTRAL", "NON_NEUTRAL", "UNKNOWN", "CONFLICT"]
+    },
+    "venue_id": { "type": ["string", "null"] },
+    "venue_name": { "type": ["string", "null"] },
+    "venue_latitude": { "type": ["number", "null"] },
+    "venue_longitude": { "type": ["number", "null"] },
+    "ordinary_home_exposure_designated_home": {
+      "type": ["number", "null"]
+    },
+    "ordinary_home_exposure_designated_away": {
+      "type": ["number", "null"]
+    },
+    "travel_home_km": { "type": ["number", "null"] },
+    "travel_away_km": { "type": ["number", "null"] },
+    "weather": {},
+    "kickoff_utc": { "type": ["string", "null"] },
+    "date_precision": {
+      "enum": ["INSTANT", "DATE_ONLY", "UNKNOWN"]
+    },
+    "unknowns": { "type": "array", "items": { "type": "string" } },
+    "consumed_columns": { "type": "array", "items": { "type": "string" } },
+    "rights": { "type": "string" },
+    "known_at_utc": { "type": ["string", "null"] }
+  }
+}

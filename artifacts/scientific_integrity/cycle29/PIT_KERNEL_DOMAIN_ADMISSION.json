@@ -1,0 +1,22 @@
+{
+  "admitted": [
+    "canonical_game_identity",
+    "canonical_team_identity",
+    "scheduled_participants_and_orientation",
+    "kickoff_or_date_bound",
+    "prior_completed_game_results",
+    "site_home_neutral_when_authoritative"
+  ],
+  "excluded": [
+    "rankings",
+    "mutable_venues",
+    "weather",
+    "injuries",
+    "rosters",
+    "staff",
+    "recruiting",
+    "provider_ratings",
+    "fcs_internal_strength",
+    "cross_subdivision_translation"
+  ]
+}

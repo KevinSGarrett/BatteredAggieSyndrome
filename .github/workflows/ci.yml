@@ -22,18 +22,19 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - name: Repository integrity
         run: python tools/validate_repository.py --repo-root . --strict
-      - name: Assistive routing interlock
-        run: python tools/validate_unified_assistive_plane.py
+      - name: Retired assistive pipeline decommission
+        run: python tools/validate_retired_assistive_pipeline_decommission.py --repo-root .
       - name: Upgrade packaging tools
         run: python -m pip install --upgrade pip setuptools
-      - name: Install dependency-free core
-        run: python -m pip install -e .
+      - name: Install dependency-free core plus kernel numeric runtime
+        run: python -m pip install -e ".[kernel]"
       - name: Dependency policy
         run: python tools/validate_dependency_policy.py --repo-root .
       - name: Unit tests
@@ -61,7 +62,7 @@ jobs:
       - name: Install core and coverage
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e .
+          python -m pip install -e ".[kernel]"
           python -m pip install coverage==7.10.6
       - name: Core coverage
         run: |

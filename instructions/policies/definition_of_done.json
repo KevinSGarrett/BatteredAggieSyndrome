@@ -81,7 +81,7 @@
     },
     {
       "id": "DOD-016",
-      "requirement": "Every material unit has immutable pre-routing evidence; while the assistive plane is not independently proven operational, direct Codex PROJECT_WORK is absent and only bounded pipeline-bootstrap or retained-authority work occurred.",
+      "requirement": "Fort Knox and the retired assistive pipeline have no active required-reading, routing, CI, strict-validation, scheduler, runtime-import, or completion dependency; tools/validate_retired_assistive_pipeline_decommission.py passes.",
       "mandatory": true
     }
   ],

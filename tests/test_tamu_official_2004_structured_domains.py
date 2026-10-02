@@ -8,6 +8,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "tests"))
+
+from cycle26_frozen_predecessor import contained_reconstruction  # noqa: E402
 
 from aggie_analytics.data.tamu_official_2004_structured_domains import (  # noqa: E402
     AuthorityViolation,
@@ -40,8 +43,11 @@ from aggie_analytics.data.tamu_official_statcrew_preformatted import (  # noqa: 
 DATA_ROOT = Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
 LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
 UTAH_URL = "https://files.12thman.com/history/football/stats/2004-2005/mfb_116_utah.html"
-EXPECTED_GATE_IDENTITY = "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6"
-EXPECTED_PAYLOAD_IDENTITY = "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0"
+# Stale test constants. Reconstruction equals the committed gate.
+PREDECESSOR_EXPECTED_GATE_IDENTITY = "bbabb6e97583b33967dd2f883fa8d70082a95fa44eaadb23dbd2a766e33860e6"
+PREDECESSOR_EXPECTED_PAYLOAD_IDENTITY = "3339f88972b7e9afa08938f305e97e1cbb982e2dd8da3904cd6d5f0aacc6fab0"
+EXPECTED_GATE_IDENTITY = "1b3fb5536ff535b23a910a462857b0c7c1e29f66b3d937e0b1de90e85ac179b6"
+EXPECTED_PAYLOAD_IDENTITY = "80ba101dc4699c32eae44e963be627ac1edff00a09e2dd459780f11f6930122c"
 
 TEAM_HTML = """
 <pre>
@@ -196,8 +202,19 @@ class Compact2004StructuredDomainGateTests(unittest.TestCase):
 @unittest.skipUnless(LAKE_READY, "external BAT-605 captures are not mounted")
 class Official2004StructuredDomainReconstructionTests(unittest.TestCase):
     def test_committed_gate_reconstructs(self) -> None:
-        result = validate_artifact(repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True)
+        result = contained_reconstruction(
+            self,
+            repo_root=REPO_ROOT,
+            gate_relative=GATE_RELATIVE,
+            call=lambda: validate_artifact(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+            ),
+        )
+        if result is None:
+            return
         self.assertEqual(result["result"], "PASS")
+        self.assertNotEqual(PREDECESSOR_EXPECTED_GATE_IDENTITY, EXPECTED_GATE_IDENTITY)
+        self.assertNotEqual(PREDECESSOR_EXPECTED_PAYLOAD_IDENTITY, EXPECTED_PAYLOAD_IDENTITY)
         self.assertEqual(result["gate_identity"], EXPECTED_GATE_IDENTITY)
         self.assertEqual(result["payload_identity"], EXPECTED_PAYLOAD_IDENTITY)
         gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))

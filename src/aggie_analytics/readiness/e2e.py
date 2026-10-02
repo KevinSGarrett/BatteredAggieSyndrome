@@ -20,13 +20,14 @@ from aggie_analytics.product.service import ForecastProductService
 from aggie_analytics.temporal.contracts import ForecastCutoff, TemporalObservation
 from aggie_analytics.temporal.eligibility import evaluate_eligibility
 from aggie_analytics.temporal.state import build_pit_state
+from aggie_analytics import atomic_io as _bas_atomic
 
 UTC = timezone.utc
 
 
 def _write_input(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", newline="", encoding="utf-8") as fh:
+    with _bas_atomic.open_write(path, "w", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(fh, fieldnames=["team", "expected_team_points", "expected_opponent_points"])
         writer.writeheader()
         writer.writerow({"team": "Texas A&M", "expected_team_points": "28", "expected_opponent_points": "24"})

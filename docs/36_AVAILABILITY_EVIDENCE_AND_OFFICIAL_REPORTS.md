@@ -21,3 +21,9 @@ W12 defines the source lane and adapter/materialization plan. It does **not** cl
 
 ## Sparse evidence
 Weak/speculative reports may become probabilistic/uncertain evidence or remain unresolved. W12 assigns categorical authority tiers rather than fabricated numeric reliability weights.
+
+## Cycle #30 national availability inventory (normative addition)
+
+Under the current national program population, official public availability-report policies are inventoried by conference/program/season. Known published reports may be preserved within the authorized acquisition budget. Player reports join only verified roster identities.
+
+`no report` remains `UNKNOWN`, not healthy. Roster membership or game participation is not availability. Distinguish injury, eligibility and suspension categories. Do not ingest private medical detail. Historical gaps and publication time stay explicit. These fields stay out of fitted models until separate admission requirements pass. Existing availability owners (not coaching issues) retain health evidence after duplicate audit.

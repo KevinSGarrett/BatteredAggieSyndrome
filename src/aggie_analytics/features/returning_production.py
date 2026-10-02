@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 from typing import Any, Iterable, Mapping
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 PAIR_FIELDS = {
@@ -487,7 +488,7 @@ def materialize(
     }
     manifest_root.mkdir(parents=True, exist_ok=True)
     manifest_path = manifest_root / "run_manifest.json"
-    manifest_path.write_bytes(canonical_json(manifest) + b"\n")
+    _bas_atomic.write_bytes(manifest_path, canonical_json(manifest) + b"\n")
     return {
         "dataset_identity": dataset_identity,
         "manifest_path": str(manifest_path),

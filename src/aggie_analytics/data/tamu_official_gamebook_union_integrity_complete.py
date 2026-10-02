@@ -33,7 +33,9 @@ from aggie_analytics.data.tamu_official_gamebook_union_2004_expanded import (
     upstream_is_ready as bat607_upstream_is_ready,
     validate_artifact as validate_bat607,
 )
-from aggie_analytics.data.tamu_official_gamebook_union_2005_expanded import PRESERVED_REJECTION_URLS
+from aggie_analytics.data.tamu_official_gamebook_union_2005_expanded import (
+    PRESERVED_REJECTION_URLS,
+)
 from aggie_analytics.data.tamu_official_gamebook_union_2005_integrity_bound import (
     PINNED_BAT591_GATE_IDENTITY,
     PINNED_BAT591_PAYLOAD_IDENTITY,
@@ -54,10 +56,18 @@ from aggie_analytics.validation.artifact_binding import compute_identity
 
 
 SCHEMA_VERSION = "aggie.data.tamu_official_gamebook_union_integrity_complete.v1"
-VALIDATION_CONTRACT_VERSION = "aggie.data.tamu_official_gamebook_union_integrity_complete.v1"
-CONTRACT_RELATIVE = "configs/tamu_official_gamebook_union_integrity_complete_contract.json"
-GATE_RELATIVE = "artifacts/data_lake/tamu_official_gamebook_union_integrity_complete_gate.json"
-MODULE_RELATIVE = "src/aggie_analytics/data/tamu_official_gamebook_union_integrity_complete.py"
+VALIDATION_CONTRACT_VERSION = (
+    "aggie.data.tamu_official_gamebook_union_integrity_complete.v1"
+)
+CONTRACT_RELATIVE = (
+    "configs/tamu_official_gamebook_union_integrity_complete_contract.json"
+)
+GATE_RELATIVE = (
+    "artifacts/data_lake/tamu_official_gamebook_union_integrity_complete_gate.json"
+)
+MODULE_RELATIVE = (
+    "src/aggie_analytics/data/tamu_official_gamebook_union_integrity_complete.py"
+)
 CONTRACT_ID = "BAT-608-TAMU-OFFICIAL-GAMEBOOK-UNION-INTEGRITY-COMPLETE-V1"
 DECISION_UNIT = "POST-TASK-SRC014-UNION-CONSUMER-INTEGRITY-001"
 JIRA_KEY = "BAT-608"
@@ -65,11 +75,21 @@ SOURCE_ID = "SRC-014"
 PASS_CLASSIFICATION = "TAMU_OFFICIAL_GAMEBOOK_UNION_INTEGRITY_COMPLETE_CANDIDATE_ONLY"
 PASS_RESULT = "PASS_IMMUTABLE_BAT607_PRESERVED_INDEPENDENT_BAT606_RAW_BINDINGS"
 PROTECTED_LANE = "RETAIN_PROTECTED_LANE_BLOCKED"
-PINNED_BAT603_GATE_IDENTITY = "ad6d5a15a7b70350f109cd55f3f91e2e01e91a8b924451698b313031b65a5580"
-PINNED_BAT607_GATE_IDENTITY = "525706ab4273443ca36e4c65ee386e6e2d9870644de16565ca16820bffcc98a9"
-PINNED_UNION_IDENTITY = "5743e4d47a14fda8dab4e14796d89d704dd70807628a421a7dc6e6f7d271f2fd"
-PINNED_GATE_IDENTITY = "f8866261d2d6fbf971a85e5ef9cf393d7b4546332dd57153ed5a7e50e9946b9f"
-PINNED_VALIDATOR_CODE_IDENTITY = "4d70cdc2acbd8410189925a0acd2930d08ddeaeb9d10711ca3855edfcf08a7ce"
+PINNED_BAT603_GATE_IDENTITY = (
+    "8ddf1d8014aed64e01a2401d8e452a3e7fe75149992aafcd44d32212ce46dd99"
+)
+PINNED_BAT607_GATE_IDENTITY = (
+    "10f880eef2e3de92e46cc085807f6d93b674979b44c2a8b29ec0fb625f37916c"
+)
+PINNED_UNION_IDENTITY = (
+    "2b1ba2dd0f7b6bd5204f84c3faf31188e630cb6103b359c5dafa9768aff34cb9"
+)
+PINNED_GATE_IDENTITY = (
+    "d2338c006cbef758af9ba5a484088f03dd0223649feee098aca44e9757c54625"
+)
+PINNED_VALIDATOR_CODE_IDENTITY = (
+    "4d70cdc2acbd8410189925a0acd2930d08ddeaeb9d10711ca3855edfcf08a7ce"
+)
 PRIOR_UNION_CAPTURED_GAMES = 273
 PRIOR_UNION_RICH = 260
 PRIOR_UNION_METADATA = 13
@@ -115,13 +135,17 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
 
 def compute_gate_identity(gate: Mapping[str, Any]) -> str:
     missing = [key for key in REQUIRED_GATE_FIELDS if key not in gate]
     if missing:
-        raise AuthorityViolation("gate is missing required identity fields: " + ", ".join(missing))
+        raise AuthorityViolation(
+            "gate is missing required identity fields: " + ", ".join(missing)
+        )
     return compute_identity(gate, "gate_identity")
 
 
@@ -134,7 +158,9 @@ def recompute_bat606_payload_identity(payload: Mapping[str, Any]) -> str:
     return compute_identity(payload, "payload_identity")
 
 
-def _index_by_url(games: list[Mapping[str, Any]], label: str) -> dict[str, dict[str, Any]]:
+def _index_by_url(
+    games: list[Mapping[str, Any]], label: str
+) -> dict[str, dict[str, Any]]:
     index: dict[str, dict[str, Any]] = {}
     for game in games:
         url = str(game.get("url") or "")
@@ -209,7 +235,12 @@ def expected_admissions() -> dict[str, str]:
 
 def _bat606_payload_path(data_root: Path, repo_root: Path) -> Path:
     contract = load_json(repo_root / BAT606_CONTRACT_RELATIVE)
-    return data_root / contract["payloads"]["enriched_root"] / PINNED_BAT606_PAYLOAD_IDENTITY / "payload.json"
+    return (
+        data_root
+        / contract["payloads"]["enriched_root"]
+        / PINNED_BAT606_PAYLOAD_IDENTITY
+        / "payload.json"
+    )
 
 
 def _serialized_row_counts(game_rows: list[Mapping[str, Any]]) -> dict[str, int]:
@@ -229,17 +260,28 @@ def _validate_serialized_rows(
     reconstructed_rows: list[Mapping[str, Any]],
 ) -> dict[str, int]:
     if rows != reconstructed_rows:
-        raise AuthorityViolation(f"BAT-606 serialized rows do not match independent raw reconstruction for {url}")
+        raise AuthorityViolation(
+            f"BAT-606 serialized rows do not match independent raw reconstruction for {url}"
+        )
     serialized_counts = _serialized_row_counts(list(rows))
-    declared_counts = {domain: len(game.get(domain) or []) for domain in OVERLAY_DOMAINS}
+    declared_counts = {
+        domain: len(game.get(domain) or []) for domain in OVERLAY_DOMAINS
+    }
     if serialized_counts != declared_counts:
         raise AuthorityViolation(f"BAT-606 serialized row counts drifted for {url}")
-    coverage = {domain: (game.get("domain_coverage") or {}).get(domain) for domain in OVERLAY_DOMAINS}
+    coverage = {
+        domain: (game.get("domain_coverage") or {}).get(domain)
+        for domain in OVERLAY_DOMAINS
+    }
     for domain in OVERLAY_DOMAINS:
         if coverage.get(domain) == "PRESENT" and serialized_counts[domain] <= 0:
-            raise AuthorityViolation(f"PRESENT coverage with zero serialized {domain} rows")
+            raise AuthorityViolation(
+                f"PRESENT coverage with zero serialized {domain} rows"
+            )
         if serialized_counts[domain] and coverage.get(domain) != "PRESENT":
-            raise AuthorityViolation(f"serialized {domain} rows present without PRESENT coverage")
+            raise AuthorityViolation(
+                f"serialized {domain} rows present without PRESENT coverage"
+            )
     seen_source_orders: set[int] = set()
     domain_orders: dict[str, list[int]] = {domain: [] for domain in OVERLAY_DOMAINS}
     seen_row_keys: set[tuple[Any, ...]] = set()
@@ -262,15 +304,27 @@ def _validate_serialized_rows(
             raise AuthorityViolation(f"BAT-606 source domain drifted for {url}")
         if row.get("block_index") is None:
             raise AuthorityViolation(f"BAT-606 block/table identity missing for {url}")
-        if row.get("availability") != "NOT_ESTABLISHED" or row.get("availability_claim"):
-            raise AuthorityViolation("participation or membership promoted to availability")
+        if row.get("availability") != "NOT_ESTABLISHED" or row.get(
+            "availability_claim"
+        ):
+            raise AuthorityViolation(
+                "participation or membership promoted to availability"
+            )
         if row.get("player_identity") not in {None, "SOURCE_PLAYER_CANDIDATE"}:
             raise AuthorityViolation("name-only player merge is forbidden")
         row_order = row.get("row_order")
         if not isinstance(row_order, int) or row_order < 0:
-            raise AuthorityViolation(f"BAT-606 within-domain row order drifted for {url}")
+            raise AuthorityViolation(
+                f"BAT-606 within-domain row order drifted for {url}"
+            )
         domain_orders[domain].append(row_order)
-        row_key = (url, domain, row_order, row.get("block_index"), row.get("source_sha256"))
+        row_key = (
+            url,
+            domain,
+            row_order,
+            row.get("block_index"),
+            row.get("source_sha256"),
+        )
         if row_key in seen_row_keys:
             raise AuthorityViolation(f"duplicate BAT-606 row for {url}")
         seen_row_keys.add(row_key)
@@ -278,7 +332,9 @@ def _validate_serialized_rows(
         raise AuthorityViolation(f"BAT-606 source row-order gap for {url}")
     for domain, orders in domain_orders.items():
         if orders and sorted(orders) != list(range(len(orders))):
-            raise AuthorityViolation(f"BAT-606 {domain} row-order gap or reorder for {url}")
+            raise AuthorityViolation(
+                f"BAT-606 {domain} row-order gap or reorder for {url}"
+            )
     return serialized_counts
 
 
@@ -292,7 +348,9 @@ def validate_bat606_raw_reconstruction(
     raw_payload = reconstructed["payload"]
     raw_identity = str(raw_payload.get("payload_identity") or "")
     if raw_identity != PINNED_BAT606_PAYLOAD_IDENTITY:
-        raise AuthorityViolation("independent BAT-606 raw reconstruction identity drifted")
+        raise AuthorityViolation(
+            "independent BAT-606 raw reconstruction identity drifted"
+        )
     path = _bat606_payload_path(data_root, repo_root)
     stored = dict(payload) if payload is not None else None
     if stored is None:
@@ -301,31 +359,53 @@ def validate_bat606_raw_reconstruction(
         stored = load_json(path)
     stored_identity = recompute_bat606_payload_identity(stored)
     if stored_identity != str(stored.get("payload_identity") or ""):
-        raise AuthorityViolation("BAT-606 declared payload identity does not match recomputed payload content")
+        raise AuthorityViolation(
+            "BAT-606 declared payload identity does not match recomputed payload content"
+        )
     if stored != raw_payload:
-        raise AuthorityViolation("BAT-606 stored payload does not match independent raw reconstruction")
+        raise AuthorityViolation(
+            "BAT-606 stored payload does not match independent raw reconstruction"
+        )
     if stored_identity != raw_identity:
-        raise AuthorityViolation("recomputed BAT-606 payload identity does not match independent raw reconstruction")
+        raise AuthorityViolation(
+            "recomputed BAT-606 payload identity does not match independent raw reconstruction"
+        )
     committed = load_json(repo_root / BAT606_GATE_RELATIVE)
     if committed.get("gate_identity") != PINNED_BAT606_GATE_IDENTITY:
         raise AuthorityViolation("BAT-606 2004 structured-domain identity rewritten")
     if committed != reconstructed["gate"]:
-        raise AuthorityViolation("committed BAT-606 gate does not match independent raw reconstruction")
-    if stored.get("availability_claim") or stored.get("availability") not in {None, "NOT_ESTABLISHED"}:
+        raise AuthorityViolation(
+            "committed BAT-606 gate does not match independent raw reconstruction"
+        )
+    if stored.get("availability_claim") or stored.get("availability") not in {
+        None,
+        "NOT_ESTABLISHED",
+    }:
         raise AuthorityViolation("pregame availability claimed")
     external_games = list(stored.get("games") or [])
     row_groups = list(stored.get("rows") or [])
     raw_games = list(raw_payload.get("games") or [])
     raw_rows = list(raw_payload.get("rows") or [])
-    if len(external_games) != OFFICIAL_2004_EXPECTED or len(row_groups) != OFFICIAL_2004_EXPECTED:
+    if (
+        len(external_games) != OFFICIAL_2004_EXPECTED
+        or len(row_groups) != OFFICIAL_2004_EXPECTED
+    ):
         raise AuthorityViolation("BAT-606 external payload game/row membership drifted")
-    if [game.get("url") for game in external_games] != [game.get("url") for game in raw_games]:
-        raise AuthorityViolation("BAT-606 game URL order drifted from independent raw reconstruction")
+    if [game.get("url") for game in external_games] != [
+        game.get("url") for game in raw_games
+    ]:
+        raise AuthorityViolation(
+            "BAT-606 game URL order drifted from independent raw reconstruction"
+        )
     validated: dict[str, dict[str, Any]] = {}
-    for game, rows, raw_game, reconstructed_rows in zip(external_games, row_groups, raw_games, raw_rows):
+    for game, rows, raw_game, reconstructed_rows in zip(
+        external_games, row_groups, raw_games, raw_rows
+    ):
         url = str(game.get("url") or "")
         if game != raw_game:
-            raise AuthorityViolation(f"BAT-606 game object drifted from independent raw reconstruction for {url}")
+            raise AuthorityViolation(
+                f"BAT-606 game object drifted from independent raw reconstruction for {url}"
+            )
         if str(game.get("parser_identity") or "") != PREFORMATTED_PARSER_IDENTITY:
             raise AuthorityViolation(f"BAT-606 parser identity drifted for {url}")
         if int(game.get("source_season") or 0) != 2004:
@@ -352,7 +432,9 @@ def validate_bat606_raw_reconstruction(
             "rows": list(rows),
         }
     if set(validated) != {str(game.get("url") or "") for game in raw_games}:
-        raise AuthorityViolation("BAT-606 external payload URLs do not match independent raw reconstruction")
+        raise AuthorityViolation(
+            "BAT-606 external payload URLs do not match independent raw reconstruction"
+        )
     return {
         "payload": dict(stored),
         "payload_identity": stored_identity,
@@ -363,7 +445,9 @@ def validate_bat606_raw_reconstruction(
     }
 
 
-def union_manifest_path(data_root: Path, union_identity: str = PINNED_UNION_IDENTITY) -> Path:
+def union_manifest_path(
+    data_root: Path, union_identity: str = PINNED_UNION_IDENTITY
+) -> Path:
     return (
         data_root
         / "features/tamu_official_gamebook_union_integrity_complete/sha256"
@@ -382,18 +466,26 @@ def require_authoritative_union_manifest(
     identity_dir = path.parent
     if not path.is_file():
         raise AuthorityViolation("authoritative external union manifest is missing")
-    extras = sorted(item.name for item in identity_dir.iterdir() if item.name != UNION_MANIFEST_NAME)
+    extras = sorted(
+        item.name for item in identity_dir.iterdir() if item.name != UNION_MANIFEST_NAME
+    )
     if extras:
         raise AuthorityViolation("extra union manifests present: " + ", ".join(extras))
     try:
         stored = load_json(path)
     except json.JSONDecodeError as exc:
-        raise AuthorityViolation("authoritative external union manifest is truncated or malformed") from exc
+        raise AuthorityViolation(
+            "authoritative external union manifest is truncated or malformed"
+        ) from exc
     if stored != expected_payload:
-        raise AuthorityViolation("external integrity-complete union payload does not match reconstruction")
+        raise AuthorityViolation(
+            "external integrity-complete union payload does not match reconstruction"
+        )
     serialized = json.dumps(expected_payload, indent=2, sort_keys=True) + "\n"
     if path.read_text(encoding="utf-8-sig") != serialized:
-        raise AuthorityViolation("external integrity-complete union payload serialization does not match reconstruction")
+        raise AuthorityViolation(
+            "external integrity-complete union payload serialization does not match reconstruction"
+        )
     return sha256_file(path)
 
 
@@ -410,18 +502,31 @@ def reconstruct_objects(
     contract = load_json(repo_root / CONTRACT_RELATIVE)
     if contract.get("contract_id") != CONTRACT_ID:
         raise AuthorityViolation("integrity-complete union contract identity drift")
-    predecessor = load_json(repo_root / "artifacts/data_lake/tamu_official_gamebook_union_2004_expanded_gate.json")
+    predecessor = load_json(
+        repo_root
+        / "artifacts/data_lake/tamu_official_gamebook_union_2004_expanded_gate.json"
+    )
     if predecessor.get("union_identity") != PINNED_BAT607_UNION_IDENTITY:
         raise AuthorityViolation("BAT-607 2004-expanded union identity was rewritten")
     if predecessor.get("gate_identity") != PINNED_BAT607_GATE_IDENTITY:
-        raise AuthorityViolation("BAT-607 2004-expanded union gate identity was rewritten")
+        raise AuthorityViolation(
+            "BAT-607 2004-expanded union gate identity was rewritten"
+        )
     if predecessor.get("predecessor_union_identity") != PINNED_BAT603_UNION_IDENTITY:
         raise AuthorityViolation("BAT-603 integrity-bound union identity was rewritten")
     if predecessor.get("predecessor_gate_identity") != PINNED_BAT603_GATE_IDENTITY:
-        raise AuthorityViolation("BAT-603 integrity-bound union gate identity was rewritten")
-    if int(predecessor.get("counts", {}).get("union_captured_games") or 0) != PRIOR_UNION_CAPTURED_GAMES:
+        raise AuthorityViolation(
+            "BAT-603 integrity-bound union gate identity was rewritten"
+        )
+    if (
+        int(predecessor.get("counts", {}).get("union_captured_games") or 0)
+        != PRIOR_UNION_CAPTURED_GAMES
+    ):
         raise AuthorityViolation("BAT-607 captured-game count drifted")
-    if len(predecessor.get("enriched_official_games") or []) != PRIOR_ENRICHED_OFFICIAL_GAMES:
+    if (
+        len(predecessor.get("enriched_official_games") or [])
+        != PRIOR_ENRICHED_OFFICIAL_GAMES
+    ):
         raise AuthorityViolation("BAT-607 official-school membership drifted")
     validate_bat603(repo_root=repo_root, data_root=data_root, require_rebuild=True)
     validate_bat607(repo_root=repo_root, data_root=data_root, require_rebuild=True)
@@ -444,10 +549,21 @@ def reconstruct_objects(
         data_root=data_root,
         payload=bat606_payload,
     )
-    official_games = [json.loads(json.dumps(item)) for item in (predecessor.get("enriched_official_games") or [])]
-    rejected = [json.loads(json.dumps(item)) for item in (predecessor.get("preserved_rejections") or [])]
-    admitted_2004 = [json.loads(json.dumps(item)) for item in (predecessor.get("admitted_official_2004_games") or [])]
-    conflicts = [json.loads(json.dumps(item)) for item in (predecessor.get("conflicts") or [])]
+    official_games = [
+        json.loads(json.dumps(item))
+        for item in (predecessor.get("enriched_official_games") or [])
+    ]
+    rejected = [
+        json.loads(json.dumps(item))
+        for item in (predecessor.get("preserved_rejections") or [])
+    ]
+    admitted_2004 = [
+        json.loads(json.dumps(item))
+        for item in (predecessor.get("admitted_official_2004_games") or [])
+    ]
+    conflicts = [
+        json.loads(json.dumps(item)) for item in (predecessor.get("conflicts") or [])
+    ]
     rejected_urls = {str(item.get("url") or "") for item in rejected}
     if rejected_urls != PRESERVED_REJECTION_URLS:
         raise AuthorityViolation("the four preserved rejected games drifted")
@@ -455,22 +571,41 @@ def reconstruct_objects(
     if rejected_urls & admitted_urls:
         raise AuthorityViolation("rejected games were admitted")
     if len(official_games) != PRIOR_ENRICHED_OFFICIAL_GAMES:
-        raise AuthorityViolation("integrity-complete successor changed BAT-607 official-school membership")
+        raise AuthorityViolation(
+            "integrity-complete successor changed BAT-607 official-school membership"
+        )
     if len(admitted_2004) != OFFICIAL_2004_EXPECTED:
-        raise AuthorityViolation("integrity-complete successor changed BAT-607 official 2004 membership")
+        raise AuthorityViolation(
+            "integrity-complete successor changed BAT-607 official 2004 membership"
+        )
     raw_by_url = bat606["games"]
     for item in admitted_2004:
         url = str(item.get("url") or "")
         raw_game = raw_by_url.get(url)
         if raw_game is None:
-            raise AuthorityViolation(f"independent BAT-606 reconstruction omitted admitted 2004 URL {url}")
-        if str(item.get("structured_row_payload_identity") or "") != bat606["payload_identity"]:
-            raise AuthorityViolation("2004 overlay is not bound to the independently raw-reconstructed BAT-606 payload identity")
+            raise AuthorityViolation(
+                f"independent BAT-606 reconstruction omitted admitted 2004 URL {url}"
+            )
+        if (
+            str(item.get("structured_row_payload_identity") or "")
+            != bat606["payload_identity"]
+        ):
+            raise AuthorityViolation(
+                "2004 overlay is not bound to the independently raw-reconstructed BAT-606 payload identity"
+            )
         if dict(item.get("structured_row_counts") or {}) != raw_game["row_counts"]:
-            raise AuthorityViolation(f"2004 overlay row counts drifted from independent raw reconstruction for {url}")
-        if str(item.get("source_sha256") or "") != str(raw_game.get("source_sha256") or ""):
-            raise AuthorityViolation(f"2004 overlay source SHA drifted from independent raw reconstruction for {url}")
-        if item.get("availability") != "NOT_ESTABLISHED" or item.get("availability_claim"):
+            raise AuthorityViolation(
+                f"2004 overlay row counts drifted from independent raw reconstruction for {url}"
+            )
+        if str(item.get("source_sha256") or "") != str(
+            raw_game.get("source_sha256") or ""
+        ):
+            raise AuthorityViolation(
+                f"2004 overlay source SHA drifted from independent raw reconstruction for {url}"
+            )
+        if item.get("availability") != "NOT_ESTABLISHED" or item.get(
+            "availability_claim"
+        ):
             raise AuthorityViolation("pregame availability claimed")
         if item.get("ncaa_contest_id"):
             raise AuthorityViolation("NCAA contest IDs fabricated")
@@ -491,7 +626,10 @@ def reconstruct_objects(
         "ncaa_contest_ids_created": 0,
         "unmatched_rejected": 4,
     }
-    if counts["union_captured_games"] != counts["rich_structured_games"] + counts["metadata_only_games"]:
+    if (
+        counts["union_captured_games"]
+        != counts["rich_structured_games"] + counts["metadata_only_games"]
+    ):
         raise AuthorityViolation("integrity-complete rich/metadata arithmetic drifted")
     if scoring != int(predecessor_counts.get("scoring_summary_present_games") or 0):
         raise AuthorityViolation("integrity-complete scoring-summary count drifted")
@@ -588,11 +726,15 @@ def reconstruct_objects(
             "protected_split_registry_sha256": REGISTRY_SHA256,
         },
     }
-    if counts["ncaa_contest_ids_created"] or any(item.get("ncaa_contest_id") for item in official_games):
+    if counts["ncaa_contest_ids_created"] or any(
+        item.get("ncaa_contest_id") for item in official_games
+    ):
         raise AuthorityViolation("NCAA contest IDs fabricated")
     if any(item.get("availability_claim") for item in official_games):
         raise AuthorityViolation("pregame availability claimed")
-    if any(item.get("historical_publication_time") is not None for item in official_games):
+    if any(
+        item.get("historical_publication_time") is not None for item in official_games
+    ):
         raise AuthorityViolation("retrieval time promoted to historical known-at")
     gate["gate_identity"] = compute_gate_identity(gate)
     payload["gate_identity"] = gate["gate_identity"]
@@ -608,7 +750,11 @@ def reconstruct_objects(
 def materialize_union(*, repo_root: Path, data_root: Path) -> dict[str, Any]:
     objects = reconstruct_objects(repo_root=repo_root, data_root=data_root)
     payload = objects["payload"]
-    root = data_root / objects["contract"]["payloads"]["union_root"] / payload["union_identity"]
+    root = (
+        data_root
+        / objects["contract"]["payloads"]["union_root"]
+        / payload["union_identity"]
+    )
     write_json(root / UNION_MANIFEST_NAME, payload)
     write_json(repo_root / GATE_RELATIVE, objects["gate"])
     return {
@@ -643,7 +789,9 @@ def validate_compact_gate(committed: Mapping[str, Any]) -> None:
     if committed.get("predecessor_union_identity") != PINNED_BAT607_UNION_IDENTITY:
         raise AuthorityViolation("BAT-607 2004-expanded union identity was rewritten")
     if committed.get("predecessor_gate_identity") != PINNED_BAT607_GATE_IDENTITY:
-        raise AuthorityViolation("BAT-607 2004-expanded union gate identity was rewritten")
+        raise AuthorityViolation(
+            "BAT-607 2004-expanded union gate identity was rewritten"
+        )
     if committed.get("result") != PASS_RESULT:
         raise AuthorityViolation("completion forged")
     if committed.get("classification") != PASS_CLASSIFICATION:
@@ -655,33 +803,61 @@ def validate_compact_gate(committed: Mapping[str, Any]) -> None:
     if committed.get("counts", {}).get("ncaa_contest_ids_created"):
         raise AuthorityViolation("NCAA contest IDs fabricated")
     if int((committed.get("counts") or {}).get("new_games_added", -1)) != 0:
-        raise AuthorityViolation("integrity-complete successor invented or dropped a union admission")
+        raise AuthorityViolation(
+            "integrity-complete successor invented or dropped a union admission"
+        )
     if committed.get("admissions", {}).get("pregame_availability") != "BLOCKED":
         raise AuthorityViolation("pregame availability admitted")
-    if committed.get("admissions", {}).get("bat_429") != "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES":
-        raise AuthorityViolation("BAT-429 advanced without independently DONE/VERIFIED hard dependencies")
+    if (
+        committed.get("admissions", {}).get("bat_429")
+        != "BLOCKED_UNSATISFIED_HARD_DEPENDENCIES"
+    ):
+        raise AuthorityViolation(
+            "BAT-429 advanced without independently DONE/VERIFIED hard dependencies"
+        )
     if committed.get("gate_identity") != compute_gate_identity(committed):
         raise AuthorityViolation("gate identity does not recompute")
-    if int(committed.get("counts", {}).get("union_captured_games") or 0) != PRIOR_UNION_CAPTURED_GAMES:
+    if (
+        int(committed.get("counts", {}).get("union_captured_games") or 0)
+        != PRIOR_UNION_CAPTURED_GAMES
+    ):
         raise AuthorityViolation("union captured-game arithmetic drifted")
-    rejected_urls = {str(item.get("url") or "") for item in committed.get("preserved_rejections") or []}
-    admitted_urls = {str(item.get("url") or "") for item in committed.get("enriched_official_games") or []}
+    rejected_urls = {
+        str(item.get("url") or "")
+        for item in committed.get("preserved_rejections") or []
+    }
+    admitted_urls = {
+        str(item.get("url") or "")
+        for item in committed.get("enriched_official_games") or []
+    }
     if rejected_urls != PRESERVED_REJECTION_URLS:
         raise AuthorityViolation("the four preserved rejected games drifted")
     if rejected_urls & admitted_urls:
         raise AuthorityViolation("rejected games were admitted")
-    if any(item.get("availability_claim") for item in committed.get("enriched_official_games") or []):
+    if any(
+        item.get("availability_claim")
+        for item in committed.get("enriched_official_games") or []
+    ):
         raise AuthorityViolation("pregame availability claimed")
-    if any(item.get("ncaa_contest_id") for item in committed.get("enriched_official_games") or []):
+    if any(
+        item.get("ncaa_contest_id")
+        for item in committed.get("enriched_official_games") or []
+    ):
         raise AuthorityViolation("NCAA contest IDs fabricated")
     upstream = committed.get("upstream_identities") or {}
     if upstream.get("bat603_union_identity") != PINNED_BAT603_UNION_IDENTITY:
         raise AuthorityViolation("BAT-603 integrity-bound union identity was rewritten")
     if upstream.get("bat607_union_identity") != PINNED_BAT607_UNION_IDENTITY:
         raise AuthorityViolation("BAT-607 2004-expanded union identity was rewritten")
-    if upstream.get("bat603_union_manifest_file_sha256") != PINNED_BAT603_UNION_MANIFEST_FILE_SHA256:
+    if (
+        upstream.get("bat603_union_manifest_file_sha256")
+        != PINNED_BAT603_UNION_MANIFEST_FILE_SHA256
+    ):
         raise AuthorityViolation("BAT-603 union manifest file SHA-256 drifted")
-    if upstream.get("bat607_union_manifest_file_sha256") != PINNED_BAT607_UNION_MANIFEST_FILE_SHA256:
+    if (
+        upstream.get("bat607_union_manifest_file_sha256")
+        != PINNED_BAT607_UNION_MANIFEST_FILE_SHA256
+    ):
         raise AuthorityViolation("BAT-607 union manifest file SHA-256 drifted")
 
 
@@ -697,7 +873,9 @@ def validate_artifact(
     validate_compact_gate(committed)
     ready = upstream_is_ready(data_root)
     if require_rebuild and not ready:
-        raise AuthorityViolation("external integrity-complete reconstruction was required but the data root is not mounted")
+        raise AuthorityViolation(
+            "external integrity-complete reconstruction was required but the data root is not mounted"
+        )
     if not ready and bat606_payload is None:
         return {
             "result": "PASS",
@@ -711,7 +889,9 @@ def validate_artifact(
         bat606_payload=bat606_payload,
     )
     if committed != expected["gate"]:
-        raise AuthorityViolation("committed integrity-complete union gate does not match independent reconstruction")
+        raise AuthorityViolation(
+            "committed integrity-complete union gate does not match independent reconstruction"
+        )
     require_authoritative_union_manifest(
         data_root=data_root,
         expected_payload=expected["payload"],
@@ -728,4 +908,6 @@ def validate_artifact(
 
 
 def default_data_root() -> Path:
-    return Path(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data"))
+    return Path(
+        os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
+    )

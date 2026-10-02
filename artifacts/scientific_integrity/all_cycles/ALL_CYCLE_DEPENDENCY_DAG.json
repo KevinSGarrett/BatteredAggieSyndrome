@@ -1,7 +1,7 @@
 {
   "artifact_type": "ALL_CYCLE_DEPENDENCY_DAG",
   "circular_authority": false,
-  "dag_identity": "ac0a3acfb6773f15d0a34f03adb3cb46adfec7ad8964c20a6aca4a501ca1a977",
+  "dag_identity": "ca45efe794117bcf9cad8c6382a5f7a8d7c654be6f97f8e050a176d6cb09234c",
   "edges": [
     {
       "from": "CYCLE-01",
@@ -142,82 +142,82 @@
   "nodes": [
     {
       "cycle_number": 1,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-01"
     },
     {
       "cycle_number": 2,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-02"
     },
     {
       "cycle_number": 3,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-03"
     },
     {
       "cycle_number": 4,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-04"
     },
     {
       "cycle_number": 5,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-05"
     },
     {
       "cycle_number": 6,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-06"
     },
     {
       "cycle_number": 7,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-07"
     },
     {
       "cycle_number": 8,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-08"
     },
     {
       "cycle_number": 9,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-09"
     },
     {
       "cycle_number": 10,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-10"
     },
     {
       "cycle_number": 11,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-11"
     },
     {
       "cycle_number": 12,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-12"
     },
     {
       "cycle_number": 13,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-13"
     },
     {
       "cycle_number": 14,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-14"
     },
     {
       "cycle_number": 15,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-15"
     },
     {
       "cycle_number": 16,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-16"
     },
     {
@@ -232,7 +232,7 @@
     },
     {
       "cycle_number": 19,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-19"
     },
     {
@@ -247,12 +247,12 @@
     },
     {
       "cycle_number": 22,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-22"
     },
     {
       "cycle_number": 23,
-      "disposition": "FAIL",
+      "disposition": "REPRODUCIBLE_ONLY",
       "id": "CYCLE-23"
     },
     {

@@ -10,6 +10,16 @@ import sys
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -111,7 +121,7 @@ def build_release(output_root: Path, *, expected_commit: str | None = None) -> t
             destination = temporary / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             if relative in GENERATED_RELEASE_FILES:
-                destination.write_bytes(GENERATED_RELEASE_FILES[relative])
+                _bas_atomic.write_bytes(destination, GENERATED_RELEASE_FILES[relative])
                 source_kind = "GENERATED_MINIMAL_PACKAGE_INITIALIZER"
             else:
                 shutil.copy2(source, destination)
@@ -132,7 +142,7 @@ def build_release(output_root: Path, *, expected_commit: str | None = None) -> t
             "files": hashes,
             "operational_completion": "INCOMPLETE_UNTIL_DEPLOYED_AND_QUALIFIED",
         }
-        (temporary / "RELEASE_MANIFEST.json").write_bytes(canonical(manifest))
+        _bas_atomic.write_bytes(temporary / "RELEASE_MANIFEST.json", canonical(manifest))
         manifest["release_manifest_sha256"] = sha256_file(temporary / "RELEASE_MANIFEST.json")
         if release.exists():
             existing = json.loads((release / "RELEASE_MANIFEST.json").read_text(encoding="utf-8"))

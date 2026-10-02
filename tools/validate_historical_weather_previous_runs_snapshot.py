@@ -19,6 +19,7 @@ from aggie_analytics.temporal.weather_previous_runs_snapshot import (  # noqa: E
     materialize,
     sha256_file,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def expect_rejection(name: str, operation: Callable[[], Any]) -> dict[str, Any]:
@@ -211,7 +212,7 @@ def main() -> int:
     report_root = data_root / "validation" / "POST-SUBTASK-194" / identity
     report_root.mkdir(parents=True, exist_ok=True)
     report_path = report_root / f"historical_weather_previous_runs_snapshot_validation_{rebuild_root.name}.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    _bas_atomic.write_text(report_path, json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     shutil.rmtree(rebuild_root)
     print(
         json.dumps(

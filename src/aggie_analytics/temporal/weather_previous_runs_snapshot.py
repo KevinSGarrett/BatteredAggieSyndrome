@@ -10,6 +10,7 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def _polars() -> Any:
@@ -349,7 +350,7 @@ def materialize(*, input_data_root: Path, output_data_root: Path, repo_root: Pat
             },
         }
         manifest_path = manifest_root / "historical_weather_previous_runs_snapshot_manifest.json"
-        manifest_path.write_bytes(canonical_json_bytes(manifest) + b"\n")
+        _bas_atomic.write_bytes(manifest_path, canonical_json_bytes(manifest) + b"\n")
         return {
             "dataset_identity": identity,
             "manifest_path": str(manifest_path),

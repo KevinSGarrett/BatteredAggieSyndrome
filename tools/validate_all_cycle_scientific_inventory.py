@@ -8,6 +8,18 @@ import sys
 from pathlib import Path
 from typing import Any
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "src"))
+
+from aggie_analytics.governance.cycle26_acceptance_guards import (  # noqa: E402
+    semantically_audited_findings,
+)
+from aggie_analytics.governance.scientific_dependency_graph import (  # noqa: E402
+    circular_authority_from_edges,
+    directed_cycles,
+)
+
 REQUIRED_CYCLES = list(range(1, 26))
 ALLOWED_CLASSIFICATIONS = {
     "UNREVIEWED",
@@ -18,6 +30,7 @@ ALLOWED_CLASSIFICATIONS = {
     "EXTERNALLY_BENCHMARKED",
     "FAIL",
     "BLOCKED_INSUFFICIENT_EVIDENCE",
+    "NOT_AUDITED_YET",
 }
 HIGH_TRUST = {
     "SEMANTICALLY_AUDITED",
@@ -198,19 +211,81 @@ def validate(repo_root: Path) -> list[str]:
             )
     if not (dag.get("nodes") and dag.get("edges") is not None):
         findings.append("DAG_INCOMPLETE")
+    else:
+        computed_circular = circular_authority_from_edges(dag.get("edges") or [])
+        claimed_circular = dag.get("circular_authority") is True
+        if computed_circular and not claimed_circular:
+            findings.append("DAG_CIRCULAR_AUTHORITY_FALSE_WITH_CYCLE")
+        if not computed_circular and claimed_circular:
+            findings.append("DAG_CIRCULAR_AUTHORITY_TRUE_WITHOUT_CYCLE")
+        if directed_cycles([{"from": "A", "to": "B"}, {"from": "B", "to": "A"}]) == []:
+            findings.append("DAG_CYCLE_DETECTOR_FAILED_SELF_CHECK")
     matrix_cycles = {int(item["cycle_number"]) for item in matrix.get("cycles") or []}
     if matrix_cycles != set(REQUIRED_CYCLES):
         findings.append("THREE_PASS_MATRIX_INCOMPLETE")
+    allowed_pass_states = {
+        "COMPLETE",
+        "PARTIAL",
+        "BLOCKED_INSUFFICIENT_EVIDENCE",
+        "FAIL",
+        "NOT_AUDITED_YET",
+    }
     for item in matrix.get("cycles") or []:
         passes = item.get("passes") or {}
+        for name in ("pass_one", "pass_two", "pass_three"):
+            state = passes.get(name)
+            if state not in allowed_pass_states:
+                findings.append(
+                    f"THREE_PASS_STATE_INVALID:{item.get('cycle_number')}:{name}:{state}"
+                )
+        # Category-search-only pass three cannot be COMPLETE.
+        if passes.get("pass_three") == "COMPLETE":
+            findings.append(
+                f"PASS_THREE_CATEGORY_SEARCH_CANNOT_BE_COMPLETE:{item.get('cycle_number')}"
+            )
         complete = all(
-            passes.get(name) in {"COMPLETE", "BLOCKED_INSUFFICIENT_EVIDENCE", "FAIL"}
+            passes.get(name)
+            in {"COMPLETE", "PARTIAL", "BLOCKED_INSUFFICIENT_EVIDENCE", "FAIL"}
             for name in ("pass_one", "pass_two", "pass_three")
         )
         if item.get("cycle_disposition") == "SEMANTICALLY_AUDITED" and not complete:
             findings.append(
                 f"SEMANTIC_LABEL_BEFORE_THREE_PASSES:{item.get('cycle_number')}"
             )
+        findings.extend(
+            semantically_audited_findings(
+                item.get("cycle_number"),
+                claims=claims.get("claims") or [],
+                passes=passes,
+                disposition=str(item.get("cycle_disposition") or ""),
+            )
+        )
+    # Per-cycle audits must not claim COMPLETE pass-three under category-search limitation.
+    for cycle in REQUIRED_CYCLES:
+        audit_path = base / f"CYCLE_{cycle:02d}_SCIENTIFIC_AUDIT.json"
+        if not audit_path.is_file():
+            continue
+        audit = _load(audit_path)
+        p3 = audit.get("pass_three_adversarial") or {}
+        limitation = str(p3.get("limitation") or "").lower()
+        if p3.get("status") == "COMPLETE" and "category search" in limitation:
+            findings.append(f"AUDIT_PASS_THREE_FALSE_COMPLETE:{cycle:02d}")
+    missing_flags = []
+    for cycle in REQUIRED_CYCLES:
+        audit_path = base / f"CYCLE_{cycle:02d}_SCIENTIFIC_AUDIT.json"
+        if not audit_path.is_file():
+            continue
+        audit = _load(audit_path)
+        p2 = audit.get("pass_two_semantic") or {}
+        missing_flags.append(p2.get("missing_raw_payloads") is True)
+        if p2.get("missing_raw_payloads") is True and not p2.get(
+            "missing_declared_payloads"
+        ):
+            findings.append(f"MISSING_RAW_PAYLOADS_WITHOUT_DECLARED_GAPS:{cycle:02d}")
+    if missing_flags and all(missing_flags):
+        findings.append("UNIFORM_MISSING_RAW_PAYLOADS_STAMP")
+    if not (claims.get("claims") or []):
+        findings.append("CLAIM_REGISTRY_EMPTY")
     if gate.get("scientific_trust_recovered") is True:
         findings.append("TRUST_GATE_MUST_NOT_CLAIM_RECOVERY_WHILE_HOLD_ACTIVE")
     if gate.get("missing_evidence_is_blocked_not_pass") is not True:

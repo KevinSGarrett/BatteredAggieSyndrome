@@ -11,7 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 if str(SRC) not in sys.path: sys.path.insert(0, str(SRC))
 
-from aggie_analytics.features.gfs_issued_run import materialize, parse_utc, sha256_file, stable_hash  # noqa: E402
+from aggie_analytics.features.gfs_issued_run import materialize, parse_utc, sha256_file, stable_hash
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 
 
 def main() -> int:
@@ -52,7 +53,7 @@ def main() -> int:
     report_path = data_root / contract["artifact_roots"]["validation"] / "sha256" / args.dataset_identity / "validation.json"; report_path.parent.mkdir(parents=True, exist_ok=True)
     encoded = json.dumps(report, sort_keys=True, separators=(",", ":")) + "\n"
     if report_path.exists() and report_path.read_text() != encoded: raise RuntimeError("GFS validation report collision")
-    report_path.write_text(encoded)
+    _bas_atomic.write_text(report_path, encoded)
     print(json.dumps({"result": report["result"], "checks_passed": report["checks_passed"], "checks_failed": report["checks_failed"], "report_path": str(report_path), "report_sha256": sha256_file(report_path)}, indent=2, sort_keys=True))
     return 0 if not failures else 1
 

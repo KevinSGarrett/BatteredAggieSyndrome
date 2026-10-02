@@ -22,7 +22,8 @@ sys.dont_write_bytecode = True
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from aggie_analytics.data.adapters import AcquisitionFailure, AcquisitionRequest  # noqa: E402
+from aggie_analytics.data.adapters import AcquisitionFailure, AcquisitionRequest
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 from aggie_analytics.data.national_foundation_reconciliation import (  # noqa: E402
     sha256_file,
     stable_hash,
@@ -182,7 +183,7 @@ def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + f".tmp-{os.getpid()}")
     try:
-        temporary.write_bytes(payload)
+        _bas_atomic.write_bytes(temporary, payload)
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)

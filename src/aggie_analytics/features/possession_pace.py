@@ -14,6 +14,7 @@ from aggie_analytics.temporal.play_drive_pit import (
     sha256_file,
     stable_hash,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def regulation_elapsed_seconds(period: int | None, minutes: int | None, seconds: int | None) -> int | None:
@@ -277,5 +278,5 @@ def materialize(*, input_data_root: Path, output_data_root: Path, repo_root: Pat
         },
     }
     manifest_path = manifest_root / "run_manifest.json"
-    manifest_path.write_bytes(canonical_json_bytes(manifest) + b"\n")
+    _bas_atomic.write_bytes(manifest_path, canonical_json_bytes(manifest) + b"\n")
     return {"dataset_identity": dataset_identity, "manifest_path": str(manifest_path), "manifest_sha256": sha256_file(manifest_path), "manifest": manifest, "state_path": str(state_path), "feature_path": str(feature_path)}

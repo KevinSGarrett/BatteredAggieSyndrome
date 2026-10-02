@@ -14,11 +14,11 @@
   },
   "current_identities": {
     "cycle9_union_identity": "050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672",
-    "gate_identity": "3b546b12b3d50098bec457a010b47168f472449e8475c397ee44cd26ff1edc6a",
+    "gate_identity": "68209c698b8a29d6d1759c18917cbbee99c0c6f79da8b4c0cc134e53a3c91517",
     "prior_226_union_identity": "a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e",
     "prior_237_union_identity": "d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31",
-    "statcrew_payload_identity": "ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d",
-    "union_identity": "00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31"
+    "statcrew_payload_identity": "c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338",
+    "union_identity": "ace88c512908ae52e03346534121a2052b5164de62518d1e4f89afa8eedcf90d"
   },
   "duplicate_audit": {
     "decision": "CREATE",
@@ -33,7 +33,7 @@
   "jira_key": "BAT-592",
   "local_issue_id": "POST-TASK-SRC014-ENRICHED-UNION-001",
   "new_issue_decision": "CREATE",
-  "observable_outcome": "Created a new immutable enriched-union identity 00fdb5eac85c3a89464ed6466359380d1089cec1f3ce34d4f9eb56258929cf31. Gate identity 3b546b12b3d50098bec457a010b47168f472449e8475c397ee44cd26ff1edc6a. Overlayed BAT-591 StatCrew domains onto 34 already admitted official 2007-2009 games matched by URL and raw SHA-256. 33 games became rich. Full union remains 237 games / 224 rich / 13 metadata-only. Four previously rejected games stay rejected even though StatCrew parsed those pages. BAT-590 union d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31, BAT-587 union a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e, Cycle #9 union 050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672, and BAT-591 payload ba0820e45938714c144c4accee6637a67812e70dd89e4eb99b0373fc88a91d1d were not rewritten. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
+  "observable_outcome": "Created a new immutable enriched-union identity ace88c512908ae52e03346534121a2052b5164de62518d1e4f89afa8eedcf90d. Gate identity 68209c698b8a29d6d1759c18917cbbee99c0c6f79da8b4c0cc134e53a3c91517. Overlayed BAT-591 StatCrew domains onto 34 already admitted official 2007-2009 games matched by URL and raw SHA-256. 33 games became rich. Full union remains 237 games / 224 rich / 13 metadata-only. Four previously rejected games stay rejected even though StatCrew parsed those pages. BAT-590 union d7f9ece5a5a79e190dd845bcd04e0d648469486b9f702c943feeb101898c2e31, BAT-587 union a5444d7c80baeb25751c8cac2338e86c5ac8746398bd94e61e1c43cb83916f4e, Cycle #9 union 050fb22e733f3dc296a5bafed9f89a20281efb06860dc220264d074a7e9b7672, and BAT-591 payload c7e061fcafa480f260b8f614ae6481747502ba5d933a786f584da442039fc338 were not rewritten. Retrieval time only. BAT-523 stays In Progress. Protected lane stays blocked.",
   "protected_nonclaims": {
     "champion_or_production_promotion": false,
     "historical_known_at_established": false,

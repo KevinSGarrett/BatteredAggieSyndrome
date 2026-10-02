@@ -1,0 +1,12 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "artifact_type": "HISTORICAL_NEUTRAL_SITE_AUDIT",
+  "external_sha256": "b2f5cfaf65892237e6fd25db851c1c73d02ed822a12e8e9e6b97de3c5da27490",
+  "lambeau_is_not_national_proof": true,
+  "neutral_row_count": 1966,
+  "ordinary_hfa_masked_on_verified_neutral": true,
+  "parent_game_count": 46953,
+  "unknown_is_not_ordinary_home": true,
+  "venue_id_present": 1113,
+  "venue_with_coordinates": 1110
+}

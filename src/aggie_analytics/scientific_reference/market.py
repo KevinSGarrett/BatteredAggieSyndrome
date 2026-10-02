@@ -10,6 +10,7 @@ SPORTSBOOK_ALIASES = {
     "draftking": "draftkings",
     "fan duel": "fanduel",
     "fanduel": "fanduel",
+    "bovada": "bovada",
 }
 PARTICIPANT_ALIASES = {
     "missouri st.": "missouri state",
@@ -18,14 +19,24 @@ PARTICIPANT_ALIASES = {
 }
 OVERROUND_LOW = 1.01
 OVERROUND_HIGH = 1.12
+ALLOWED_ACQUISITION_SOURCES = {
+    "provider_retrieval_receipt",
+    "official_source_receipt",
+    "declared_api_route",
+}
 
 
 def normalize_sportsbook(name: str) -> str:
-    return SPORTSBOOK_ALIASES.get(name.strip().lower(), name.strip().lower())
+    text = name.strip().lower()
+    if not text:
+        raise ValueError("empty sportsbook identifier")
+    return SPORTSBOOK_ALIASES.get(text, text)
 
 
 def normalize_participant(name: str) -> str:
     key = " ".join(name.strip().lower().replace(".", " ").split())
+    if not key:
+        raise ValueError("empty participant identifier")
     return PARTICIPANT_ALIASES.get(key, key)
 
 
@@ -34,6 +45,8 @@ def even_odd_median(values: Sequence[float]) -> float:
     count = len(ordered)
     if count == 0:
         raise ValueError("empty median sample")
+    if any(not (item == item) or item in (float("inf"), float("-inf")) for item in ordered):
+        raise ValueError("median sample must be finite")
     midpoint = count // 2
     if count % 2 == 1:
         return ordered[midpoint]
@@ -65,13 +78,39 @@ def overround(home_odds: int, away_odds: int) -> dict[str, float | bool | str]:
 def reject_duplicate_quotes(
     quotes: Sequence[tuple[str, str, str, float]],
 ) -> list[tuple[str, str, str, float]]:
-    """Keep unique (event, book, snapshot, quote_identity) tuples; reject duplicates."""
-    seen: set[tuple[str, str, str]] = set()
+    """Keep unique (event, book, snapshot) tuples after alias normalization."""
+    seen: dict[tuple[str, str, str], float] = {}
     unique: list[tuple[str, str, str, float]] = []
     for event_id, book, snapshot_id, value in quotes:
+        if not str(book).strip():
+            raise ValueError("empty sportsbook identifier")
         key = (event_id, normalize_sportsbook(book), snapshot_id)
         if key in seen:
+            if seen[key] != float(value):
+                raise ValueError(f"conflicting duplicate quote for {key}")
             continue
-        seen.add(key)
-        unique.append((event_id, book, snapshot_id, value))
+        seen[key] = float(value)
+        unique.append((event_id, normalize_sportsbook(book), snapshot_id, float(value)))
     return unique
+
+
+def one_observation_per_book(
+    probabilities: Sequence[float], books: Sequence[str]
+) -> tuple[list[float], list[str]]:
+    if len(probabilities) != len(books):
+        raise ValueError("unpaired probability/book sequences")
+    by_book: dict[str, float] = {}
+    order: list[str] = []
+    for probability, book in zip(probabilities, books):
+        if not str(book).strip():
+            raise ValueError("empty sportsbook identifier")
+        if not (probability == probability) or not 0.0 <= float(probability) <= 1.0:
+            raise ValueError("market probability must be finite and in [0, 1]")
+        key = normalize_sportsbook(book)
+        if key in by_book:
+            if by_book[key] != float(probability):
+                raise ValueError(f"conflicting duplicate book observation {key}")
+            continue
+        by_book[key] = float(probability)
+        order.append(key)
+    return [by_book[key] for key in order], order

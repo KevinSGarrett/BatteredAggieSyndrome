@@ -1,0 +1,60 @@
+name: cycle29-no-api-review-attestation
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: cycle29-no-api-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  no-api-attestation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Attest exact-head review metadata without OpenAI API
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          pr = os.environ["PR_NUMBER"]
+          head = os.environ["HEAD_SHA"]
+          raw = subprocess.check_output(
+              ["gh", "api", f"repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{pr}/reviews"],
+              text=True,
+          )
+          reviews = json.loads(raw)
+          identities = [
+              {
+                  "id": row.get("id"),
+                  "user": (row.get("user") or {}).get("login"),
+                  "commit_id": row.get("commit_id"),
+                  "state": row.get("state"),
+              }
+              for row in reviews
+              if row.get("commit_id") == head
+          ]
+          payload = {
+              "artifact_type": "CYCLE29_NO_API_EXACT_HEAD_REVIEW_ATTESTATION",
+              "pr_number": int(pr),
+              "head_sha": head,
+              "openai_api_invocations": 0,
+              "metered_api_on_this_job": False,
+              "exact_head_reviews": identities,
+          }
+          Path("artifacts/scientific_integrity").mkdir(parents=True, exist_ok=True)
+          Path("artifacts/scientific_integrity/cycle29_no_api_review_attestation.json").write_text(
+              json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+          )
+          print(json.dumps(payload, indent=2))
+          PY

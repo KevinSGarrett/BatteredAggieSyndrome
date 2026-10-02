@@ -1,0 +1,49 @@
+{
+  "artifact_type": "CYCLE26_R26_20_OLD_NEW_IMPACT",
+  "candidates": [
+    {
+      "candidate_id": "national_base_rate",
+      "disagreement_attributable_to": "pair_normalization_and_unique_game_denominator_not_cosmetic_renorm",
+      "predecessor_team_grain_brier_deprecated": 0.25,
+      "successor_unique_game_brier": 0.25
+    },
+    {
+      "candidate_id": "national_elo",
+      "disagreement_attributable_to": "pair_normalization_and_unique_game_denominator_not_cosmetic_renorm",
+      "predecessor_team_grain_brier_deprecated": 0.20078011,
+      "successor_unique_game_brier": 0.2007801078725406
+    },
+    {
+      "candidate_id": "national_logistic_l2",
+      "disagreement_attributable_to": "pair_normalization_and_unique_game_denominator_not_cosmetic_renorm",
+      "predecessor_team_grain_brier_deprecated": 0.17773941,
+      "successor_unique_game_brier": 0.17563908031985484
+    },
+    {
+      "candidate_id": "national_margin_ridge",
+      "disagreement_attributable_to": "pair_normalization_and_unique_game_denominator_not_cosmetic_renorm",
+      "predecessor_team_grain_brier_deprecated": 0.17799208,
+      "successor_unique_game_brier": 0.17587702396094335
+    },
+    {
+      "candidate_id": "prior_only",
+      "disagreement_attributable_to": "pair_normalization_and_unique_game_denominator_not_cosmetic_renorm",
+      "predecessor_team_grain_brier_deprecated": 0.18402908,
+      "successor_unique_game_brier": 0.1825703320757728
+    }
+  ],
+  "denominator_new": "UNIQUE_GAME_NOT_ORIENTED_ROW",
+  "denominator_old": "TEAM_ORIENTED_ROWS_1820_NOT_AUTHORITATIVE",
+  "issued_at_utc": "2026-09-03T12:26:41Z",
+  "joint_probability_margin_interval": false,
+  "orientation_convention": "LEXICOGRAPHIC_FIRST_CANONICAL_TEAM_ID",
+  "predecessor_metrics_status": "DEPRECATED_INCOHERENT_TEAM_GRAIN_NOT_AUTHORITATIVE",
+  "predecessor_rewritten": false,
+  "scientific_nonclaims": [
+    "Numerical agreement with deprecated team-grain metrics is not required.",
+    "Does not restore original C20 metrics as authoritative.",
+    "Does not claim Week 1 prospective skill."
+  ],
+  "successor_dataset_identity": "f52d01aaa68543ead9067c1886ab5e6b40fdaeb6f009c9f8bdf5b61d7fecbfb9",
+  "successor_gate_identity": "1bb15df0bfc466dfaeaa730e7895d12db965b8a79542d6e750ba3871133d43b0"
+}

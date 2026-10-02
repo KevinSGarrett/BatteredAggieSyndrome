@@ -18,3 +18,13 @@ Fourth-down, clock-management and halftime-adjustment metrics are experimental c
 
 ## W12/W11 boundary
 Player value and availability remain owned by W12. Team prior/underlying/available/form semantics remain owned by W11. W13 coaching evidence feeds those interfaces without redefining them.
+
+## Cycle #30 national role and career acquisition (normative addition)
+
+- The HC/OC/DC opportunity denominator is `3×N` current programs, plus a historical program-season × predeclared role-family lattice. Discovered titles do not create that denominator.
+- Person and title must share one source span/table row/DOM node. Equal-length name/title arrays are not a join.
+- Preserve co-, interim, sequential, and exact source titles. Sequential occupants are not collapsed to co-coordinators. Play-caller is not inferred from coordinator title. CFBD coach endpoints populate only fields they actually return (typically head-coach backbone).
+- Canonical program IDs are never `DISPLAY:` strings. Week 1 coverage is a derived subset and cannot satisfy current-national completeness.
+- Attempt evidence is a request/receipt ledger. `attempted:true` without requests is forbidden. No attempt is `NOT_ATTEMPTED`.
+- Career episodes outside 1963–2026, professional jobs, and other-level jobs are separately scoped context. Wikimedia evidence is revision-bound and candidate-only; it is not earlier PIT.
+- Coaching does not enter fitted models this cycle. Later admission requires an explicit ablation plan. Injuries/availability remain a separate owner and evidence stage.

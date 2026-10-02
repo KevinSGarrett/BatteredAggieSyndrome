@@ -26,7 +26,7 @@
     "in_review_after_validation": "14598"
   },
   "current_identities": {
-    "gate_identity": "6a202220816144915474278d15e46a43b2ac5610b6a8d87fdfa7b180b1a41710",
+    "gate_identity": "3389e4831d565b83c702aea6e5ba22cc3f8f5c383c355a5f0ac3b1d6ccb38b68",
     "union_identity": "cb6ff59928119325851db92e7dd1dfc221923da8c86b895e234f459b6adf63a8",
     "union_manifest_file_sha256": "a8242ab742acf76f2f0805920b264d62e1beabefa10878aed4d590494e1b5d10",
     "validator_code_identity": "077d5d106e1927abbfa19c2ad4ab98a4646da23c76b375bdc43794e28a7fa63c"

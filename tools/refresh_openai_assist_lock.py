@@ -3,6 +3,16 @@ from __future__ import annotations
 import json
 import urllib.request
 from pathlib import Path
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,7 +61,7 @@ def main() -> int:
             suffix = " \\" if index + 1 < len(hashes) else ""
             lines.append(f"    --hash=sha256:{digest}{suffix}")
     destination = ROOT / "requirements" / "openai-assist.lock"
-    destination.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    _bas_atomic.write_text(destination, "\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     print(f"wrote {destination} packages={len(PINS)}")
     return 0
 

@@ -8,7 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.features.postgame_collapse_taxonomy import materialize  # noqa: E402
+from aggie_analytics.features.postgame_collapse_taxonomy import materialize
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 from aggie_analytics.temporal.play_drive_pit import canonical_json_bytes, sha256_file  # noqa: E402
 
 
@@ -81,7 +82,7 @@ def main() -> int:
     }
     report_path = args.data_root / "validation" / "TASK-107" / "postgame_collapse_taxonomy_validation.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_bytes(canonical_json_bytes(report) + b"\n")
+    _bas_atomic.write_bytes(report_path, canonical_json_bytes(report) + b"\n")
     print(json.dumps({"report_path": str(report_path), "report_sha256": sha256_file(report_path), "check_count": len(checks), "failure_count": len(failed)}, sort_keys=True))
     return 0 if not failed else 1
 

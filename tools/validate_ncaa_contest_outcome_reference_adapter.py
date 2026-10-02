@@ -11,7 +11,8 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.data.historical_game_outcome_spine import canonical_json_bytes, dataframe_record_sha256, sha256_file  # noqa: E402
+from aggie_analytics.data.historical_game_outcome_spine import canonical_json_bytes, dataframe_record_sha256, sha256_file
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 from aggie_analytics.data.ncaa_contest_outcome_reference_adapter import materialize_adapter  # noqa: E402
 
 
@@ -74,7 +75,7 @@ def main() -> int:
     mutated["source"]["completed_payload_sha256"] = "0" * 64
     mutation_path = rebuild_root / "mutations/hash-drift.json"
     mutation_path.parent.mkdir(parents=True, exist_ok=True)
-    mutation_path.write_text(json.dumps(mutated, sort_keys=True) + "\n", encoding="utf-8")
+    _bas_atomic.write_text(mutation_path, json.dumps(mutated, sort_keys=True) + "\n", encoding="utf-8")
     try:
         materialize_adapter(
             data_root=data_root,
@@ -106,7 +107,7 @@ def main() -> int:
     report_path.parent.mkdir(parents=True, exist_ok=True)
     if report_path.exists() and report_path.read_bytes() != report_bytes:
         raise ValueError("immutable adapter validation report collision")
-    report_path.write_bytes(report_bytes)
+    _bas_atomic.write_bytes(report_path, report_bytes)
     print(json.dumps({"result": "PASS", "checks": len(checks), "mutation_controls": 1, "report_path": str(report_path), "report_sha256": report_sha256}, indent=2, sort_keys=True))
     return 0
 

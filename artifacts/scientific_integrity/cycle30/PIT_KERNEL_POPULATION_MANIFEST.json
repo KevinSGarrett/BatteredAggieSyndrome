@@ -1,0 +1,16 @@
+{
+  "artifact_class": "REAL_EVIDENCE",
+  "blocker_count": 0,
+  "estimand": "2013-2023_FBS_FBS_BINARY_WIN_WITH_2006_2023_IN_WINDOW_PRIORS;2026_WEEK1_FREEZE_BOUND_PROSPECTIVE_WHERE_RECEIPTED",
+  "expected_population_complete": false,
+  "external_rows_sha256": "d5114ee665c2a48fa17bc36aa20146ccd007b7b4da7e5e6d38bbc74bc9d19177",
+  "freeze_bound_2026_completed_week1_games": 36,
+  "game_grain_count": 13280,
+  "kernel_input_games": 13280,
+  "oriented_row_count": 26560,
+  "primary_kernel_objective": "COMPLETE_NONZERO_PROVEN",
+  "proven_pit_training_rows": 36,
+  "retrospective_candidate_rows": 13244,
+  "scope": "FBS_ROUTE_OBSERVED_NOT_COMPLETE_EXPECTED_FBS_UNIVERSE",
+  "trust_classification": "UNTRUSTED_SHADOW"
+}

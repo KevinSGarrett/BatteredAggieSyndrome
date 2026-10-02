@@ -13,7 +13,8 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from aggie_analytics.data.adapters import AcquisitionRequest, AcquisitionRoute, ResilientAcquirer, RetryPolicy  # noqa: E402
+from aggie_analytics.data.adapters import AcquisitionRequest, AcquisitionRoute, ResilientAcquirer, RetryPolicy
+from aggie_analytics import atomic_io as _bas_atomic  # noqa: E402
 from aggie_analytics.data.http import PublicHTTPTransport  # noqa: E402
 from aggie_analytics.data.snapshots import RawSnapshotStore  # noqa: E402
 from aggie_analytics.features.observed_weather_shadow import (  # noqa: E402
@@ -142,7 +143,7 @@ def main() -> int:
     capture_path.parent.mkdir(parents=True, exist_ok=True)
     if not capture_path.exists():
         temporary = capture_path.with_name(capture_path.name + f".tmp-{os.getpid()}")
-        temporary.write_bytes(encoded)
+        _bas_atomic.write_bytes(temporary, encoded)
         os.replace(temporary, capture_path)
     print(json.dumps({key: value for key, value in result.items() if key != "manifest"} | {"capture_manifest_path": str(capture_path), "capture_manifest_sha256": sha256_file(capture_path)}, indent=2, sort_keys=True))
     return 0

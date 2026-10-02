@@ -22,6 +22,7 @@ from aggie_analytics.data.tamu_official_historical_coverage_inventory import (
     parse_box_score_urls,
     parse_season_stat_urls,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 SCHEMA_VERSION = "aggie.data.tamu_official_2007_season_index.v1"
 CONTRACT_RELATIVE = "configs/tamu_official_2007_season_index_contract.json"
@@ -79,7 +80,7 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    _bas_atomic.write_text(path, json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def expected_authority() -> dict[str, bool]:

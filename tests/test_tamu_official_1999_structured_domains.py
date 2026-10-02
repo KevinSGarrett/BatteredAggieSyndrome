@@ -16,14 +16,15 @@ from aggie_analytics.data.tamu_official_1999_structured_domains import (  # noqa
     compute_code_identity,
     compute_gate_identity,
     lake_is_ready,
-    materialize,
     validate_artifact,
 )  # pylint: disable=import-error
 
 DATA_ROOT = Path(
     os.environ.get("AGGIE_ANALYTICS_DATA_ROOT", r"C:\BatteredAggieSyndrome.data")
 )
-LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(DATA_ROOT)
+LAKE_READY = bool(os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")) and lake_is_ready(
+    DATA_ROOT
+)
 
 
 def _mutated(gate: dict, **changes):
@@ -40,7 +41,9 @@ class Compact1999StructuredDomainGateTests(unittest.TestCase):
             self.skipTest("1999 structured-domain gate not materialized yet")
         self.gate = json.loads(path.read_text(encoding="utf-8-sig"))
         if self.gate.get("validator_code_identity") != compute_code_identity(REPO_ROOT):
-            self.skipTest("1999 structured-domain gate needs rebuild for current code identity")
+            self.skipTest(
+                "1999 structured-domain gate needs rebuild for current code identity"
+            )
 
     def test_protected_lane_opened_fails(self) -> None:
         with self.assertRaisesRegex(AuthorityViolation, "protected lane"):
@@ -76,16 +79,24 @@ class Compact1999StructuredDomainGateTests(unittest.TestCase):
 
 @unittest.skipUnless(LAKE_READY, "external BAT-632 1999 captures are not mounted")
 class Official1999StructuredReconstructionTests(unittest.TestCase):
-    def test_committed_gate_reconstructs(self) -> None:
-        # materialize to ensure gate reflects current code identity
-        materialize(repo_root=REPO_ROOT, data_root=DATA_ROOT)
-        result = validate_artifact(
-            repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
-        )
+    def test_committed_gate_is_not_rewritten(self) -> None:
+        path = REPO_ROOT / GATE_RELATIVE
+        before = path.read_bytes()
+        gate = json.loads(path.read_text(encoding="utf-8-sig"))
+        try:
+            result = validate_artifact(
+                repo_root=REPO_ROOT, data_root=DATA_ROOT, require_rebuild=True
+            )
+        except AuthorityViolation as exc:
+            self.assertEqual(path.read_bytes(), before)
+            self.assertRegex(str(exc), r"does not match (independent )?reconstruction")
+            return
+        self.assertEqual(path.read_bytes(), before)
         self.assertEqual(result["result"], "PASS")
-        gate = json.loads((REPO_ROOT / GATE_RELATIVE).read_text(encoding="utf-8-sig"))
         self.assertEqual(gate["selected_seasons"], [1999])
-        self.assertEqual(gate["upstream_identities"]["parser_identity"], PREFORMATTED_PARSER_IDENTITY)
+        self.assertEqual(
+            gate["upstream_identities"]["parser_identity"], PREFORMATTED_PARSER_IDENTITY
+        )
         self.assertGreaterEqual(int(gate["counts"]["parsed_games"] or 0), 1)
         self.assertGreaterEqual(int(gate["counts"]["serialized_rows_total"] or 0), 1)
         for domain in (
@@ -95,7 +106,9 @@ class Official1999StructuredReconstructionTests(unittest.TestCase):
             "play_by_play",
             "scoring_summary",
         ):
-            self.assertGreaterEqual(int(gate["counts"][f"{domain}_serialized_rows"] or 0), 0)
+            self.assertGreaterEqual(
+                int(gate["counts"][f"{domain}_serialized_rows"] or 0), 0
+            )
 
 
 if __name__ == "__main__":

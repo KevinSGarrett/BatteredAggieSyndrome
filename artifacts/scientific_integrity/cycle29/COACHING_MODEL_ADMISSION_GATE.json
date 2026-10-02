@@ -1,0 +1,12 @@
+{
+  "artifact_type": "COACHING_MODEL_ADMISSION_GATE",
+  "candidate_is_not_admitted": true,
+  "coaching_enters_model": false,
+  "current_coverage_is_not_historical_pit": true,
+  "current_historical_semantics_not_assumed_equivalent": true,
+  "formal_title_is_not_functional_responsibility": true,
+  "missing_role_is_not_negative_healthy": true,
+  "no_all22_output_changes_bas_scientific_authority": true,
+  "no_prediction_changed_because_of_coaching": true,
+  "play_caller_unknown_unless_independently_evidenced": true
+}

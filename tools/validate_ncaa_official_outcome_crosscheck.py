@@ -18,6 +18,7 @@ from aggie_analytics.data.ncaa_official_outcome_crosscheck import (  # noqa: E40
     sha256_file,
     stable_hash,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def _read_jsonl(path: Path) -> list[dict[str, object]]:
@@ -126,7 +127,7 @@ def main() -> int:
         mutate(changed)
         mutation_path = rebuild_root / "mutations" / f"{name}.json"
         mutation_path.parent.mkdir(parents=True, exist_ok=True)
-        mutation_path.write_bytes(canonical_json_bytes(changed) + b"\n")
+        _bas_atomic.write_bytes(mutation_path, canonical_json_bytes(changed) + b"\n")
         try:
             build_crosscheck(
                 data_root=data_root,
@@ -158,7 +159,7 @@ def main() -> int:
     report_bytes = canonical_json_bytes(report) + b"\n"
     if report_path.exists() and report_path.read_bytes() != report_bytes:
         raise ValueError("immutable cross-check validation report collision")
-    report_path.write_bytes(report_bytes)
+    _bas_atomic.write_bytes(report_path, report_bytes)
     print(json.dumps({"result": "PASS", "checks": len(checks), "mutation_controls": len(mutations), "report_path": str(report_path), "report_sha256": sha256_file(report_path), "validation_identity": report["validation_identity"]}, indent=2, sort_keys=True))
     return 0
 

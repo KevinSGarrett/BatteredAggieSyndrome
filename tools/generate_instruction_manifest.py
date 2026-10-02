@@ -8,6 +8,16 @@ import json
 import os
 import sys
 from pathlib import Path
+try:  # U37-11: atomic writes when the package is importable; the plain calls otherwise
+    from aggie_analytics import atomic_io as _bas_atomic
+except ImportError:  # a standalone run without the package keeps its plain writes
+    import types as _bas_types
+
+    _bas_atomic = _bas_types.SimpleNamespace(
+        write_text=lambda path, *args, **kwargs: path.write_text(*args, **kwargs),
+        write_bytes=lambda path, *args, **kwargs: path.write_bytes(*args, **kwargs),
+        open_write=lambda path, *args, **kwargs: path.open(*args, **kwargs),
+    )
 
 sys.dont_write_bytecode = True
 
@@ -40,7 +50,7 @@ def generate(repo_root: Path, *, check: bool = False) -> list[str]:
     encoded = json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
     if not check:
         temporary = manifest_path.with_suffix(".json.tmp")
-        temporary.write_text(encoded, encoding="utf-8", newline="\n")
+        _bas_atomic.write_text(temporary, encoded, encoding="utf-8", newline="\n")
         os.replace(temporary, manifest_path)
     ledger_lines = []
     for path in sorted((p for p in root.rglob("*") if p.is_file() and p.name != "FILE_HASHES.sha256"), key=lambda p: p.relative_to(root).as_posix()):
@@ -51,7 +61,7 @@ def generate(repo_root: Path, *, check: bool = False) -> list[str]:
             errors.append("hash_ledger_stale")
     else:
         temporary = ledger_path.with_suffix(".sha256.tmp")
-        temporary.write_text(desired_ledger, encoding="utf-8", newline="\n")
+        _bas_atomic.write_text(temporary, desired_ledger, encoding="utf-8", newline="\n")
         os.replace(temporary, ledger_path)
     return errors
 

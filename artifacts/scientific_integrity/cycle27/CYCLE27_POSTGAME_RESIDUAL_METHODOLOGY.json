@@ -1,0 +1,34 @@
+{
+  "artifact_type": "CYCLE27_POSTGAME_RESIDUAL_METHODOLOGY",
+  "contract_id": "CYCLE27-POSTGAME-RESIDUAL-METHODOLOGY-V1",
+  "do_not_populate_actual_score_before_official_final": true,
+  "expected_margin_residual": "actual_margin_home - expected_margin_home",
+  "hold": "ACTIVE",
+  "independent_predicted_score": null,
+  "independent_predicted_score_blocker": "MARGIN_ALONE_CANNOT_IDENTIFY_BOTH_TEAM_SCORES",
+  "issued_at_utc": "2026-09-04T18:25:00Z",
+  "jira_key": "BAT-690",
+  "methodology_identity": "cb6ee39381bbf595eb39b9b0498171b57339258076de0cea2632b40a0f4e893e",
+  "national_peer_comparators_not_selected_from_this_game_outcome": true,
+  "one_game_residual_is_observation_not_bas": true,
+  "p_equals_half_is_no_direction": true,
+  "parent_jira_key": "BAT-523",
+  "prediction_error": "predicted - actual",
+  "preserved_scoring_gates": {
+    "cycle26_predecessor": "b5f20df45d939d71e0b72b31ee558d87e0b696608816b1e56806c1ac09d4c27c",
+    "cycle27_successor": "8d47971c1773ed88947ebe9ef5637fb992d4766a717122a087bc8e8ddde7afe5"
+  },
+  "primary_trust_recovery": "PRIMARY_TRUST_RECOVERY_INCOMPLETE",
+  "probability_residual": "observed_home_win - probability_home",
+  "publication_label": "UNTRUSTED_SHADOW",
+  "repeated_checkpoints_are_not_independent_games": true,
+  "result_residual": "actual - predicted",
+  "schema_version": "aggie.data.cycle27_postgame_residual_methodology.v1",
+  "scientific_done_unauthorized": true,
+  "score_each_legitimately_frozen_checkpoint_separately": true,
+  "tiny_sample_limitations": "n<30 cannot establish skill, calibrate tails, or select a champion",
+  "upset_severity": {
+    "reason": "NO_PREDECLARED_UPSET_SEVERITY_CANDIDATE_IN_ACTIVE_SUITE",
+    "supported": false
+  }
+}

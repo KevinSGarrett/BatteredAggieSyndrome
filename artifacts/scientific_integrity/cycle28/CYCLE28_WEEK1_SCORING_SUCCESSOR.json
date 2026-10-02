@@ -1,0 +1,48 @@
+{
+  "a_and_m_hardcoded": false,
+  "artifact_type": "CYCLE28_WEEK1_SCORING_SUCCESSOR",
+  "backfill": false,
+  "forecast_mutation": false,
+  "game_grain_only": true,
+  "independent_metrics": {
+    "national_base_rate": {
+      "accuracy": 0.8875,
+      "brier": 0.25,
+      "log_loss": 0.6931471805599456,
+      "unique_games": 80
+    },
+    "national_elo": {
+      "accuracy": 0.8157894736842105,
+      "brier": 0.16688924213936968,
+      "log_loss": 0.5145235640857705,
+      "unique_games": 76
+    },
+    "national_logistic_l2": {
+      "accuracy": 0.9078947368421053,
+      "brier": 0.10608933986369806,
+      "log_loss": 0.37389192457791126,
+      "unique_games": 76
+    },
+    "national_margin_ridge": {
+      "accuracy": 0.9078947368421053,
+      "brier": 0.11528023557476806,
+      "log_loss": 0.39900199960636784,
+      "unique_games": 76
+    },
+    "prior_only": {
+      "accuracy": 0.8947368421052632,
+      "brier": 0.12671224343093912,
+      "log_loss": 0.4275590926112922,
+      "unique_games": 76
+    }
+  },
+  "independent_predicted_score": null,
+  "issued_at_utc": "2026-09-07T02:18:58Z",
+  "oriented_rows_counted_as_games": false,
+  "predecessor_preserved": true,
+  "rows_path": "C:\\BatteredAggieSyndrome.data\\lake\\cycle28\\CYCLE28_WEEK1_SCORING_SUCCESSOR_ROWS.jsonl",
+  "rows_sha256": "e7cd5299abf02d69fd3a76b63a9d1b3c583bcd076161677750c24c86cba5e2e7",
+  "schema": "aggie.shadow.week1_2026_cycle28_official_final_scoring.v1",
+  "scored_row_count": 384,
+  "tuned_from_week1_outcomes": false
+}

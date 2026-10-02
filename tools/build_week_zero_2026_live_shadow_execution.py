@@ -22,11 +22,12 @@ from aggie_analytics.modeling.week_zero_live_shadow_execution import (  # noqa: 
     reconstruct_frozen_population,
     validate_artifact,
 )
+from aggie_analytics import atomic_io as _bas_atomic
 
 
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
+    _bas_atomic.write_text(path, 
         json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
         encoding="utf-8",
         newline="\n",

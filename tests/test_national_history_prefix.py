@@ -423,5 +423,73 @@ class MountedRealParentTests(unittest.TestCase):
                          {e["contest_key"] for e in dataset.exclusions if e["history_pool_member"]})
 
 
+GATE = fx.ROOT / "artifacts" / "data_lake" / "national_history_prefix_2016_2023_gate.json"
+
+
+def _canonical_hash(document: dict) -> str:
+    return hashlib.sha256(json.dumps(document, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+                          .encode("utf-8")).hexdigest()
+
+
+class DeliveredGateTests(unittest.TestCase):
+    """Unmounted: the committed delivery gate binds the current contract and recomputes its own identities."""
+
+    def test_gate_binds_the_current_contract_and_its_identities_recompute(self) -> None:
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        contract = json.loads(fx.CONTRACT_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(gate["contract_sha256"], hashlib.sha256(fx.CONTRACT_PATH.read_bytes()).hexdigest())
+        content, database = gate["content_identity_document"], gate["database_identity_document"]
+        self.assertEqual(_canonical_hash(content), gate["content_identity"])
+        self.assertEqual(_canonical_hash(database), gate["database_identity"])
+        self.assertEqual(database["content_identity"], gate["content_identity"])
+        self.assertEqual((content["contract_sha256"], database["contract_sha256"]),
+                         (gate["contract_sha256"], gate["contract_sha256"]))
+        binding = contract["parent_binding"]
+        self.assertEqual({k: content["parent"][k] for k in ("query_db_identity", "sqlite_sha256", "contract_sha256",
+                                                            "contest_identity", "program_season_identity")},
+                         {k: binding[k] for k in ("query_db_identity", "sqlite_sha256", "contract_sha256",
+                                                  "contest_identity", "program_season_identity")})
+        self.assertEqual(gate["row_labels"], LABELS)
+        counts = content["row_counts"]
+        self.assertEqual(counts["history.jsonl"], 2 * counts["targets.jsonl"])
+        self.assertEqual(counts["labels.jsonl"], counts["targets.jsonl"])
+        self.assertEqual(counts["targets.jsonl"] + counts["exclusions.jsonl"] + counts["out_of_scope.jsonl"],
+                         binding["parent_contest_rows"])
+        self.assertEqual(database["table_counts"]["history"], counts["history.jsonl"])
+
+
+def _delivered_root() -> Path | None:
+    root = os.environ.get("AGGIE_ANALYTICS_DATA_ROOT")
+    if not root or not GATE.is_file():
+        return None
+    gate = json.loads(GATE.read_text(encoding="utf-8"))
+    path = Path(root) / "canonical" / "national_history_prefix_2016_2023" / "sha256"
+    return path if (path / gate["database_identity"] / "national_history.sqlite").is_file() else None
+
+
+@unittest.skipUnless(_delivered_root(), "mounted: needs the delivered history prefix under AGGIE_ANALYTICS_DATA_ROOT")
+class MountedDeliveredGateTests(unittest.TestCase):
+    """Read-only: the lake bytes and manifests equal the committed gate; the query opens the delivered database."""
+
+    def test_lake_payloads_database_and_manifests_match_the_gate(self) -> None:
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        root = _delivered_root()
+        manifests = root.parent.parent.parent / "manifests" / "national_history_prefix_2016_2023" / "sha256"
+        for name, sha in gate["content_identity_document"]["outputs"].items():
+            self.assertEqual(hashlib.sha256((root / gate["content_identity"] / name).read_bytes()).hexdigest(), sha)
+        db = root / gate["database_identity"] / "national_history.sqlite"
+        self.assertEqual(hashlib.sha256(db.read_bytes()).hexdigest(),
+                         gate["database_identity_document"]["outputs"]["national_history.sqlite"])
+        for key, doc in (("content_identity", "content_identity_document"),
+                         ("database_identity", "database_identity_document")):
+            manifest = json.loads((manifests / gate[key] / "run_manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual((manifest["identity"], manifest["identity_document"]), (gate[key], gate[doc]))
+        sys.path.insert(0, str(fx.ROOT / "src"))
+        from aggie_analytics.national_history import query  # noqa: PLC0415
+        with query.NationalHistoryDatabase(db, expect_identity=gate["database_identity"]) as handle:
+            page = handle.query("targets", limit=1)
+        self.assertEqual(page["total"], gate["content_identity_document"]["row_counts"]["targets.jsonl"])
+
+
 if __name__ == "__main__":
     unittest.main()

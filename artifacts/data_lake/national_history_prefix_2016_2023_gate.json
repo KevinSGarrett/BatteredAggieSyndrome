@@ -1,0 +1,84 @@
+{
+  "schema_version": "BAS-NATIONAL-HISTORY-PREFIX-GATE-1",
+  "jira_key": "BAT-711",
+  "cycle_number": 39,
+  "attempt_number": 1,
+  "contract_id": "BAT-711-NATIONAL-HISTORY-PREFIX-2016-2023-V1.0",
+  "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+  "population_id": "national_history_prefix_2016_2023",
+  "historical_audit_unit": "HT39-HISTORY-PREFIX-2016-2023",
+  "state": "MATERIALIZED_RETROSPECTIVE_OBSERVATION_ONLY",
+  "row_labels": {
+    "observation_authority": "RETROSPECTIVE_OBSERVATION_ONLY",
+    "pit_eligibility": "PIT_ELIGIBILITY_NOT_ESTABLISHED",
+    "temporal_basis": "CALENDAR_DATE_ORDER_ONLY_NOT_PUBLICATION_TIME"
+  },
+  "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+  "content_identity_document": {
+    "contract_id": "BAT-711-NATIONAL-HISTORY-PREFIX-2016-2023-V1.0",
+    "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+    "outputs": {
+      "exclusions.jsonl": "dc910809d91eef8921b0bb0f6d7e33dfc8dbe18537d17498b0263577640e72c0",
+      "history.jsonl": "f95870a1c28b3aa3f3ac12516358ee11f5cceea4a4bd8499a010d4d38036d26c",
+      "labels.jsonl": "bdfdde7df657ceaeaf6188577091af061b1e49a735378ee45a98d0144dc8d808",
+      "out_of_scope.jsonl": "3dce4920fe878f696df99f923d082faa02a0c22f96aebf559b779488d807039e",
+      "targets.jsonl": "a90b2683e2e659f3b6a678aa1cf0a9c2b0c5457d7c324aaa19356b308977e711"
+    },
+    "parent": {
+      "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+      "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+      "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+      "query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+      "schema_version": "BAS-NATIONAL-DI-POPULATION-DB-1",
+      "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172"
+    },
+    "payload_schema": "BAS-NATIONAL-HISTORY-PREFIX-PAYLOAD-1",
+    "population": "national_history_prefix_2016_2023",
+    "row_counts": {
+      "exclusions.jsonl": 6285,
+      "history.jsonl": 11750,
+      "labels.jsonl": 5875,
+      "out_of_scope.jsonl": 3360,
+      "targets.jsonl": 5875
+    },
+    "schema": "BAS-NATIONAL-HISTORY-PREFIX-CONTENT-1",
+    "stage": "history-content"
+  },
+  "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+  "database_identity_document": {
+    "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+    "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+    "db_schema_version": "BAS-NATIONAL-HISTORY-PREFIX-DB-1",
+    "outputs": {
+      "national_history.sqlite": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060"
+    },
+    "population": "national_history_prefix_2016_2023",
+    "schema": "BAS-NATIONAL-HISTORY-PREFIX-DATABASE-1",
+    "stage": "history-database",
+    "table_counts": {
+      "exclusions": 6285,
+      "history": 11750,
+      "meta": 11,
+      "target_labels": 5875,
+      "targets": 5875
+    }
+  },
+  "canonical_root": "canonical/national_history_prefix_2016_2023/sha256/<identity>/",
+  "manifest_root": "manifests/national_history_prefix_2016_2023/sha256/<identity>/run_manifest.json",
+  "first_materialization": {
+    "lane": "BUILD_HISTORY",
+    "run": "20261002T184016425313Z",
+    "head": "3d9b9ab2f8a7fad6a58357c44933243b35ea7211",
+    "state": "MATERIALIZED"
+  },
+  "non_claims": [
+    "no PIT, known-at or publication-time authority; calendar order only",
+    "no model fit, training admission, feature adoption or predictive skill (NOT_ESTABLISHED)",
+    "no strength comparability or FCS translation",
+    "no pre-2016, 2024-2025 or 2026 history",
+    "no scientific trust; holds unchanged",
+    "no Jira acceptance",
+    "no champion, A&M lift or Aggie Excess effect"
+  ],
+  "consumer": "bas-national-history-query (aggie_analytics.national_history.query); require-PIT refused"
+}

@@ -1,0 +1,960 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-712-NATIONAL-SOURCE-TIME-2016-2023-V1.0",
+  "jira_key": "BAT-712",
+  "cycle_number": 40,
+  "attempt_number": 1,
+  "governing_plan": "TP40-A01 revision 2026-10-02.1 sections 1-6 (Cycle #40 Attempt #1, BAT-712)",
+  "classification": "SOURCE_TIME_EVIDENCE_LAYER_NOT_PIT_NOT_TRAINING_MATRIX",
+  "population_id": "national_source_time_2016_2023",
+  "historical_audit_unit": "HT40-SOURCE-TIME-2016-2023",
+  "question": "What do the retained bytes actually establish about when each national 2016-2023 history input was available?",
+  "authority": {
+    "evidence_authority": "SOURCE_TIME_EVIDENCE_ONLY",
+    "pit_admission": "NOT_ADMITTED_NO_SEPARATE_PIT_ADMISSION_AUTHORITY",
+    "publication_inference": "NONE_FROM_EVENT_DATE_GIT_DATE_RETRIEVAL_BACKDATING_PROVIDER_AGREEMENT_OR_GATE_LABEL",
+    "require_pit": "REFUSED_PIT_ADMISSION_AUTHORITY_ABSENT",
+    "qualified_publication_evidence_classes": [],
+    "rule": "This contract grants no PIT, forecast, training-matrix or model admission and releases no hold. A retained receipt can establish only that this system observed or held the exact bytes it names by its own 2026 receipt time; it is never backdated to a game season. A source-asserted Git author/committer time is displayed and compared as an assertion only. Historical publication is never inferred from an event date, the current page contents, a bare Git date, agreement between providers or an earlier gate's PASS label. No publication evidence class is qualified by this contract, so every supported_publication clock is ABSENT with a reason.",
+    "forged_authority": "A contract, payload or database that declares any other evidence_authority, pit_admission or require_pit value, a non-empty qualified_publication_evidence_classes list, an ADMITTED decision or a PRESENT supported_publication clock refuses (FORGED_PIT_AUTHORITY / PUBLICATION_CLAIM_UNQUALIFIED).",
+    "holds": "No scientific-trust, protected-lane or other hold is released."
+  },
+  "row_labels": {
+    "evidence_authority": "SOURCE_TIME_EVIDENCE_ONLY",
+    "pit_admission": "NOT_ADMITTED_NO_SEPARATE_PIT_ADMISSION_AUTHORITY",
+    "publication_inference": "NONE_FROM_EVENT_DATE_GIT_DATE_RETRIEVAL_BACKDATING_PROVIDER_AGREEMENT_OR_GATE_LABEL"
+  },
+  "scope": {
+    "target_seasons": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "protected_seasons": [
+      2024,
+      2025
+    ],
+    "prospective_seasons": [
+      2026
+    ],
+    "repository_version_seasons": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "repository_version_absent_seasons": [
+      2023
+    ],
+    "universe_rule": "The source-time contest universe is every BAT-711 target contest plus every unique contributing prior contest named by any of the 11,750 history views (team and current-opponent histories). It is derived from the accepted history relations, never from matched source rows. Every one of the 15,520 parent keys receives one partition record; 2024/2025 keys are key-only exclusions and are never read as source feature rows.",
+    "protected_rule": "2024/2025 (historically exposed, not sealed/blind/protected for model selection) and 2026 never enter the universe; their keys appear only in partition records (contest_key, season).",
+    "a_and_m": "Texas A&M is an ordinary member of the national universe; no special handling. National FCS and outside-division opponents remain in prior membership.",
+    "missing_2023_versions": "No repository version is bound for 2023; each 2023 contest records REPOSITORY_VERSION_ABSENT_FOR_SEASON as explicit missing evidence, not missing execution."
+  },
+  "parent_binding": {
+    "history": {
+      "contract_id": "BAT-711-NATIONAL-HISTORY-PREFIX-2016-2023-V1.0",
+      "contract_sha256": "2646a5cbe9a1daff7135671b85c98239b250d493c53c4bc066f57805e1e4f76c",
+      "content_identity": "58c2bf7d6e9c70c2ba2a9e4dd583a89ace10062cc49aafe00d2f9675c84afe63",
+      "database_identity": "aba0384f027776bac4bd0fded3e5ba15354f4005f786f7495b3660236914661b",
+      "sqlite_file": "national_history.sqlite",
+      "sqlite_sha256": "e137208cb3e9fec55c9b68e6af5c61e036ea7ea60a8973d9be9c35c358b17060",
+      "db_schema_version": "BAS-NATIONAL-HISTORY-PREFIX-DB-1",
+      "database_document_schema": "BAS-NATIONAL-HISTORY-PREFIX-DATABASE-1",
+      "row_counts": {
+        "targets": 5875,
+        "history": 11750,
+        "exclusions": 6285,
+        "out_of_scope": 3360
+      },
+      "location": "<data>/canonical/national_history_prefix_2016_2023/sha256/<database_identity>/national_history.sqlite",
+      "manifest_location": "<data>/manifests/national_history_prefix_2016_2023/sha256/<database_identity>/run_manifest.json"
+    },
+    "population": {
+      "contract_sha256": "3b27a454269127806b4930466dcb7c11de089a9479ccc41b7b2500dc606dc903",
+      "query_db_identity": "3baff07fac99831a2b0d06db408ea0ae513566757d763dfd58571d3c958b5f27",
+      "sqlite_file": "national_population.sqlite",
+      "sqlite_sha256": "9c517af94b9e0c7105627397b8a8cd9f9fc0ee806493c126c842c5018c5ba172",
+      "schema_version": "BAS-NATIONAL-DI-POPULATION-DB-1",
+      "contest_identity": "ab4cdf1b0c1c06f20c9b143b9e0452fa71081670decc13c931830f50d140c4d8",
+      "program_season_identity": "711e9dfcc35a181d51206099f41aa576424fc30ed61600811ab464074fb8f81e",
+      "contest_stage_files": {
+        "contests.jsonl.gz": "da3c79cd502e8ae0507808bf5bbd6039d207b7d2efdb86ac9b8248924f984c0e"
+      },
+      "program_season_stage_files": {
+        "page_observations.jsonl.gz": "35634e21a18bdac7db4e35331d2995ff77f76145041da7f071dfabdbbeb1df07"
+      },
+      "parent_contest_rows": 15520,
+      "location": "<data>/canonical/national_di_population_2016_2025/sha256/<id>/<file>",
+      "manifest_location": "<data>/manifests/national_di_population_2016_2025/sha256/<id>/run_manifest.json"
+    },
+    "delivery_manifest": {
+      "path": "ops/cycle39/attempt01/DATA_DELIVERY_MANIFEST.json",
+      "sha256": "569d14c1d014f2669b2a6c85300ed3a9e1845fdb176929b88bd42ab5dade318f"
+    },
+    "source_bindings": {
+      "input_bindings_schema_keys": [
+        "history_database",
+        "population_database",
+        "parent_delivery_manifest",
+        "source_preflight"
+      ],
+      "cache_preflight_sha256": "f29ae8b857a961e2bad76b75f3e54e80971f37be2c1e1f4a5147dfdc80461386",
+      "captures": 7,
+      "source_rows": 6024
+    },
+    "verification": "Before any output the producer and the validator rehash both parent SQLite files and every stage file named above, recompute each run-manifest identity document hash, check the history database's parent equals the population binding, check the --source-bindings document names the same database hashes and the cache preflight hash/counts, and compare every declared source file hash. Any difference refuses (PARENT_BINDING_MISMATCH / SOURCE_BINDING_MISMATCH). Parents are never inferred from the newest directory; nothing is written to any parent or source root."
+  },
+  "source_universe": {
+    "data_root_rule": "<data> is the population SQLite file's fifth ancestor (<data>/canonical/<population>/sha256/<id>/<file>); every source path below is relative to <data> with POSIX separators",
+    "acquisition": "NONE; cached bytes only (SOURCE_ACQUISITION ceiling 0)",
+    "repository_versions": [
+      {
+        "season": 2016,
+        "capture_id": "1dd7d26c701da610de202ef25e4390dd680572a46dc00bf76c2093ae2d25a6a6",
+        "manifest": "manifests/historical_known_at/captures/1dd7d26c701da610de202ef25e4390dd680572a46dc00bf76c2093ae2d25a6a6.json",
+        "manifest_sha256": "c0a6be727ddf522fbfbcafc788e1c34565f8822af266d9c928d1a8d1dfa7d797",
+        "repository": "sportsdataverse/cfbfastR-data",
+        "commit_sha": "31478e1ebb01528f57b7e6ebe07874daad727963",
+        "source_path": "cfb/schedules/parquet/cfb_schedule_2016.parquet",
+        "payload": "raw/historical_known_at/github/sha256/1b2acc3fef423c7feb6ff58553d1289f088c0677600ce602e663f5ff48d9b0c5/payload.parquet",
+        "payload_sha256": "1b2acc3fef423c7feb6ff58553d1289f088c0677600ce602e663f5ff48d9b0c5",
+        "commit_api": "raw/historical_known_at/github/sha256/b9d49ccb56b34c7ac4d9bc935501376d75452f99f5a6ead6f80e7e1523669197/commit.json",
+        "commit_api_sha256": "b9d49ccb56b34c7ac4d9bc935501376d75452f99f5a6ead6f80e7e1523669197",
+        "rows": 906
+      },
+      {
+        "season": 2017,
+        "capture_id": "d719a213831a996926d1d953e1fe62977c0ab7ff5fd22e95e02ed4553293f779",
+        "manifest": "manifests/historical_known_at/captures/d719a213831a996926d1d953e1fe62977c0ab7ff5fd22e95e02ed4553293f779.json",
+        "manifest_sha256": "cfde5d07da2789d9c1143a270a880551529ea2c462e268ddfe73f9f484355cd6",
+        "repository": "sportsdataverse/cfbfastR-data",
+        "commit_sha": "7a39c822c898dbdad93380cf88725f610e6ff1b0",
+        "source_path": "cfb/schedules/parquet/cfb_schedule_2017.parquet",
+        "payload": "raw/historical_known_at/github/sha256/af10eb1f73067462cb20dd7400972f1909e9829e2c645bc7c545f9d22c239da9/payload.parquet",
+        "payload_sha256": "af10eb1f73067462cb20dd7400972f1909e9829e2c645bc7c545f9d22c239da9",
+        "commit_api": "raw/historical_known_at/github/sha256/dd48d9127d67d708dcca78f2ab8f18073992894c563d7f9359c390b226d1a978/commit.json",
+        "commit_api_sha256": "dd48d9127d67d708dcca78f2ab8f18073992894c563d7f9359c390b226d1a978",
+        "rows": 897
+      },
+      {
+        "season": 2018,
+        "capture_id": "4d29c62374fbcff88fdfd0d47d1f392d321e61fce3376e50d635a8ceb6670573",
+        "manifest": "manifests/historical_known_at/captures/4d29c62374fbcff88fdfd0d47d1f392d321e61fce3376e50d635a8ceb6670573.json",
+        "manifest_sha256": "82a59017e1fd415eb2fabf250774dfa643c288f81a2bb5d56437894c9d0b20b8",
+        "repository": "sportsdataverse/cfbfastR-data",
+        "commit_sha": "bfd88b4ec4d7d84015bb1f910de3b23f4d71886f",
+        "source_path": "cfb/schedules/parquet/cfb_schedule_2018.parquet",
+        "payload": "raw/historical_known_at/github/sha256/b88610971762f94c27bc9f9c9ea7ac723e5741ed08f722dc46e642c89f738013/payload.parquet",
+        "payload_sha256": "b88610971762f94c27bc9f9c9ea7ac723e5741ed08f722dc46e642c89f738013",
+        "commit_api": "raw/historical_known_at/github/sha256/80fd0221f39f40eb1e03cf5d97f633cb5740952db7bf2811b637d60ef9574c7f/commit.json",
+        "commit_api_sha256": "80fd0221f39f40eb1e03cf5d97f633cb5740952db7bf2811b637d60ef9574c7f",
+        "rows": 896
+      },
+      {
+        "season": 2019,
+        "capture_id": "f1a94d6f32b0d5794f2f33d045f6df1fd1b65744763f3ead8e5cac04eb4cb2f2",
+        "manifest": "manifests/historical_known_at/captures/f1a94d6f32b0d5794f2f33d045f6df1fd1b65744763f3ead8e5cac04eb4cb2f2.json",
+        "manifest_sha256": "dfcadca0b5cb00d4f9c259db935c1d3d53b3fc27d562e55675e00a7a06cdfb5e",
+        "repository": "sportsdataverse/cfbfastR-data",
+        "commit_sha": "3ab6b273c97852f1efa96c17109ec26176385444",
+        "source_path": "cfb/schedules/parquet/cfb_schedule_2019.parquet",
+        "payload": "raw/historical_known_at/github/sha256/96e77f65512f62e5308a2fba7d838cac8250ae9eb92a3f9bbccd26f6fee5a132/payload.parquet",
+        "payload_sha256": "96e77f65512f62e5308a2fba7d838cac8250ae9eb92a3f9bbccd26f6fee5a132",
+        "commit_api": "raw/historical_known_at/github/sha256/d026f427bd507213b2e17977fe7ef91e92d5d001bd52cb5f56353a646980066e/commit.json",
+        "commit_api_sha256": "d026f427bd507213b2e17977fe7ef91e92d5d001bd52cb5f56353a646980066e",
+        "rows": 901
+      },
+      {
+        "season": 2020,
+        "capture_id": "829f0d710b6a9944100471731105639917477d8c4593c3120b8daa5523c6fb56",
+        "manifest": "manifests/historical_known_at/captures/829f0d710b6a9944100471731105639917477d8c4593c3120b8daa5523c6fb56.json",
+        "manifest_sha256": "78b3acb1457287ea5be7eef46cdca42007de7b0c8137916bcd1a331d0d509f65",
+        "repository": "sportsdataverse/cfbfastR-data",
+        "commit_sha": "848f421af5ff6f82053a3e5536e9ebd03676ed68",
+        "source_path": "cfb/schedules/parquet/cfb_schedule_2020.parquet",
+        "payload": "raw/historical_known_at/github/sha256/94da94c8381c61344243f02cdd152c6c37ee8c6354589f3a7e207337c101788b/payload.parquet",
+        "payload_sha256": "94da94c8381c61344243f02cdd152c6c37ee8c6354589f3a7e207337c101788b",
+        "commit_api": "raw/historical_known_at/github/sha256/e7cc33ee4b7b7cbea3aa7e95b9e66aff2941a05988981e5600b6369d2d5d77b6/commit.json",
+        "commit_api_sha256": "e7cc33ee4b7b7cbea3aa7e95b9e66aff2941a05988981e5600b6369d2d5d77b6",
+        "rows": 627
+      },
+      {
+        "season": 2021,
+        "capture_id": "3611a571ab85b24818a4db4d7d6abcbc3ee47d58649aa2c2f680e78f4d648f65",
+        "manifest": "manifests/historical_known_at/captures/3611a571ab85b24818a4db4d7d6abcbc3ee47d58649aa2c2f680e78f4d648f65.json",
+        "manifest_sha256": "9c23069ce31a1cc33640085ef17a64f48a2113936a9d7c4d34333fd9690f61d4",
+        "repository": "sportsdataverse/cfbfastR-data",
+        "commit_sha": "9bcd3021d2675051fac4356dac4c556e3d81e2e8",
+        "source_path": "cfb/schedules/parquet/cfb_schedule_2021.parquet",
+        "payload": "raw/historical_known_at/github/sha256/2b5f7d674c5856f13b63363ccd469d4e75471c2de8ae4429dcb49c87b139091b/payload.parquet",
+        "payload_sha256": "2b5f7d674c5856f13b63363ccd469d4e75471c2de8ae4429dcb49c87b139091b",
+        "commit_api": "raw/historical_known_at/github/sha256/f0148ddf9e587dc0213d191df6fd93e40b3f1dd967309b2ffdcded16a7990b07/commit.json",
+        "commit_api_sha256": "f0148ddf9e587dc0213d191df6fd93e40b3f1dd967309b2ffdcded16a7990b07",
+        "rows": 901
+      },
+      {
+        "season": 2022,
+        "capture_id": "3320a448333067ae5f27628ed1a1752080433713bc4f949b132caa80f05e6b41",
+        "manifest": "manifests/historical_known_at/captures/3320a448333067ae5f27628ed1a1752080433713bc4f949b132caa80f05e6b41.json",
+        "manifest_sha256": "a74b83de3f4912a9d77d49b6759a34808c4e6584052c14abe5eb21e43fa72a6d",
+        "repository": "sportsdataverse/cfbfastR-data",
+        "commit_sha": "2d6f06d35a23e93c33851a69c3d121c3e552975b",
+        "source_path": "cfb/schedules/parquet/cfb_schedule_2022.parquet",
+        "payload": "raw/historical_known_at/github/sha256/556e2e5b50a3a9e47b320ff7fa88bcaa19cde301b6f2d475f1c6e524236750b5/payload.parquet",
+        "payload_sha256": "556e2e5b50a3a9e47b320ff7fa88bcaa19cde301b6f2d475f1c6e524236750b5",
+        "commit_api": "raw/historical_known_at/github/sha256/dd4e138a677ea2bd57d645cf8ab847f44926d929c7163e2796e2b65069701df7/commit.json",
+        "commit_api_sha256": "dd4e138a677ea2bd57d645cf8ab847f44926d929c7163e2796e2b65069701df7",
+        "rows": 896
+      }
+    ],
+    "repository_byte_binding": "each payload's git blob SHA-1 (sha1('blob <len>\\0' + bytes)) must equal the files[].sha entry for source_path in the bound commit API response, and that response's sha must equal commit_sha; otherwise REPOSITORY_BYTE_BINDING_MISMATCH",
+    "cfbd_fbs_route": {
+      "2016": {
+        "raw": "raw/SRC-002/games/sha256_9bc85c6f9768a2469864cb844e6cc98cdfce06f23b02a8bfb8f03004cad12613.json",
+        "sha256": "9bc85c6f9768a2469864cb844e6cc98cdfce06f23b02a8bfb8f03004cad12613",
+        "receipt": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/requests/req_578f5795108ec07912efdb82.json",
+        "receipt_sha256": "1fdcfdbd704be01911a795607377d97cb9a407487691c5ff1d59d105d4a2c3ae"
+      },
+      "2017": {
+        "raw": "raw/SRC-002/games/sha256_6ca1a9cc367b6c70eb4fb2bd2a71fb83b05dc536028857f60b94fdd57062eda2.json",
+        "sha256": "6ca1a9cc367b6c70eb4fb2bd2a71fb83b05dc536028857f60b94fdd57062eda2",
+        "receipt": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/requests/req_3387feab47af1d70d1d9898c.json",
+        "receipt_sha256": "ade916cd58df441386aba943da313f977531dc7e63ec6805db6a07780c3c9ef5"
+      },
+      "2018": {
+        "raw": "raw/SRC-002/games/sha256_c96dbf7384af57300d6a3eb927ddb8fdc29e4e5d4bccd15babc4c32366829837.json",
+        "sha256": "c96dbf7384af57300d6a3eb927ddb8fdc29e4e5d4bccd15babc4c32366829837",
+        "receipt": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/requests/req_b623b92db68bc669dc31c48c.json",
+        "receipt_sha256": "cbd6af47026645be0af1302c3c089db056e5628f6897bfff9b6a685f65bdc443"
+      },
+      "2019": {
+        "raw": "raw/SRC-002/games/sha256_b361354f331cd9a419ebec756833c65a480f2431fd6044fb9e96e06cf4b6f14f.json",
+        "sha256": "b361354f331cd9a419ebec756833c65a480f2431fd6044fb9e96e06cf4b6f14f",
+        "receipt": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/requests/req_bf24f105e91c22500416c8db.json",
+        "receipt_sha256": "9b0ce0f089b00f5ea7246d92330b79e8ed186f0a3476661a0037682952772530"
+      },
+      "2020": {
+        "raw": "raw/SRC-002/games/sha256_6fde848c1b58a2a0c2ca831bbf6f93e7bb5a4398c9746682438e96095846a63f.json",
+        "sha256": "6fde848c1b58a2a0c2ca831bbf6f93e7bb5a4398c9746682438e96095846a63f",
+        "receipt": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/requests/req_2ff201b9ad70267955edc85f.json",
+        "receipt_sha256": "80271030aef077af68b54fa067774e3e184f01a81eb7edc635c89ee23988041f"
+      },
+      "2021": {
+        "raw": "raw/SRC-002/games/sha256_09f2f4613dc4dc83d38e14757bb28695b4532463a0b788cb12c4d13347a2d19a.json",
+        "sha256": "09f2f4613dc4dc83d38e14757bb28695b4532463a0b788cb12c4d13347a2d19a",
+        "receipt": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/requests/req_ffaa85d4ccff5e86b35e2ae3.json",
+        "receipt_sha256": "9cf7fc691912e43be2822578a20460cd89ec2c3359aa175e24a701bbd61d4be5"
+      },
+      "2022": {
+        "raw": "raw/SRC-002/games/sha256_9c50d7465d2d74f6c0e9d9bf79c4b593a0b70db790207109d1c2f675e6e70fdf.json",
+        "sha256": "9c50d7465d2d74f6c0e9d9bf79c4b593a0b70db790207109d1c2f675e6e70fdf",
+        "receipt": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/requests/req_47f958b7bd657a65df1e14f5.json",
+        "receipt_sha256": "afd891fda2ac3e8d7e78b6a45ac9682e700de77fec5a8c4043f6d3946b855405"
+      },
+      "2023": {
+        "raw": "raw/SRC-002/games/sha256_ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03.json",
+        "sha256": "ebf9ea175c3332102dd4555fd8cd126cbd2cbc6cef4aebe95c6c5ae7af1dea03",
+        "receipt": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/requests/req_93d6738739a9e0d462795deb.json",
+        "receipt_sha256": "6598b949b38fc707831002bc202bbf060ff7faeaceea178fb1748b8d8dbea4f3"
+      }
+    },
+    "cfbd_fcs_route": {
+      "2016": {
+        "raw": "ops/cycle30_work/raw/games/8ef542053fac1dee805a178ecdc2d6a28a411ec9396f6626d5693c0d9f210aca.json",
+        "sha256": "9c717e540eb518581b32ab50dd1cca4641807a51f815fd0347ea8ce731c60d33"
+      },
+      "2017": {
+        "raw": "ops/cycle30_work/raw/games/8d4fb7e5eb3c7bacf8e08c385de839faec7215bbf3ec6ddeabd315ea9516411c.json",
+        "sha256": "0e9b2218916de970ccea1af2bee7b91b811f92f2e01655559e2d973153b44c8d"
+      },
+      "2018": {
+        "raw": "ops/cycle30_work/raw/games/d38a2c356a6180b57cb4acb6ff45f28c372a4cb2f8e149d617a712a342b905bd.json",
+        "sha256": "8cf3947848ab6e5d46407a52186d49c1ad1d6411549b6438b63a21e72f74822f"
+      },
+      "2019": {
+        "raw": "ops/cycle30_work/raw/games/9af7759ca1e09f59ec2a6d196da07d94a6992b3e1357eeddb4ab6ab0e9c21652.json",
+        "sha256": "ec5b182e8ad4142d7c6e7d3fcf3002a769bab04641f1b3b2239e262c7743816a"
+      },
+      "2020": {
+        "raw": "ops/cycle30_work/raw/games/e959c89fe651414395de9f31037457db59069a841bc9f947534c2055ea3aad0d.json",
+        "sha256": "af1aa730df6709ad78d68960cc021d2f10043c0951a3ada5ff45f28c4ff0ea1d"
+      },
+      "2021": {
+        "raw": "ops/cycle30_work/raw/games/a146f8835f61b5f5e72f069657d6852e6a0587da7e95a642646eebdd1fa79542.json",
+        "sha256": "561aecb435ec3216447e258c2430a3592476a11d9f4af2e2bb9042781c62ed5d"
+      },
+      "2022": {
+        "raw": "ops/cycle30_work/raw/games/54631dcff2bb22629fe358102c668b0e58f6c4a096671b7fb23a5d15e45c7ae2.json",
+        "sha256": "990814cd10139c37003ca29e5c196001739b6227e91b25333585ac86ca0bdb15"
+      },
+      "2023": {
+        "raw": "ops/cycle30_work/raw/games/0b0a4af5aa30bc4b135a5f9d3e5816c3bb9a6939a51d8cc4f6200791c917e0f9.json",
+        "sha256": "8ef788876fcddf7aef47eb6957cdad1d4e9a8ec49fd9d95b17c591713cdcdb80"
+      }
+    },
+    "cycle30_ledger": {
+      "path": "ops/cycle30_work/outputs/CYCLE30_ACQUISITION_LEDGER.json",
+      "sha256": "dd29ab5a2fb1bb3169ef10b1ec6f02438e5c8b4fae5adbef88d6baaa082c9258"
+    },
+    "ncaa_bound_manifests": {
+      "2016": {
+        "manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2016/sha256/530e82d2ec17fd685434b11f407a9ab09361d6776681844553cfe568f6f73a69/ncaa_team_graph_discovery_manifest.json",
+        "identity": "530e82d2ec17fd685434b11f407a9ab09361d6776681844553cfe568f6f73a69",
+        "sha256": "5e4671e0876501ddf432754bd8bb2e16fa38a8c04f8e2138f900520d5e9bec5c",
+        "captures": 659
+      },
+      "2017": {
+        "manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2017/sha256/a8e5b4eb251d41f2ced586f6abb54d89a76a9db7c5854b89ddd97da4ea8fd244/ncaa_team_graph_discovery_manifest.json",
+        "identity": "a8e5b4eb251d41f2ced586f6abb54d89a76a9db7c5854b89ddd97da4ea8fd244",
+        "sha256": "baf642cc55854da1194a8fde786755d303d38f190ebbafbf65852f73e257f547",
+        "captures": 658
+      },
+      "2018": {
+        "manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2018/sha256/f294dc0cd538b9d1be1b4251d903e552e252c4ec4ba46add3c00e2ea09c3965a/ncaa_team_graph_discovery_manifest.json",
+        "identity": "f294dc0cd538b9d1be1b4251d903e552e252c4ec4ba46add3c00e2ea09c3965a",
+        "sha256": "7fd0a59d4a41c5dade0ba60e9ef2b236109ae13a7f0b994e68e36df87ae39c64",
+        "captures": 662
+      },
+      "2019": {
+        "manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2019/sha256/59acda5c9243dc087bfc6805ab2cbdcc0dd962b023475d80274bd56638798ee4/ncaa_team_graph_discovery_manifest.json",
+        "identity": "59acda5c9243dc087bfc6805ab2cbdcc0dd962b023475d80274bd56638798ee4",
+        "sha256": "11cd7ffab89cee283f9dc299580e27aa4858ad30ddb9d3021dc1099cc0ffa3fd",
+        "captures": 660
+      },
+      "2020": {
+        "manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2020/sha256/583efe58279f83a8e5e73e124420452524992b9bcac03c36c6285a6faa78324f/ncaa_team_graph_discovery_manifest.json",
+        "identity": "583efe58279f83a8e5e73e124420452524992b9bcac03c36c6285a6faa78324f",
+        "sha256": "fba73ab4d2010ce6b2bd2d2f91b4811392e063c3ed066127cc99b398f4eace73",
+        "captures": 263
+      },
+      "2021": {
+        "manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2021/sha256/42dbc002fdbcc354c49a18ab6d451ab399b7a3768b9a20652b773bfc8f312eca/ncaa_team_graph_discovery_manifest.json",
+        "identity": "42dbc002fdbcc354c49a18ab6d451ab399b7a3768b9a20652b773bfc8f312eca",
+        "sha256": "808bd23173765dc34fbcf05c90c0e381ce08bd6434e1759fbca1b39220b80d63",
+        "captures": 653
+      },
+      "2022": {
+        "manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2022/sha256/0acc36a367879af7e7451164fdff2c8b21946479e6478d6283f1337992ad33f1/ncaa_team_graph_discovery_manifest.json",
+        "identity": "0acc36a367879af7e7451164fdff2c8b21946479e6478d6283f1337992ad33f1",
+        "sha256": "701d100830cc2b38dbf9a718a5c51d605678cf51980abf94e648496c2a9a8444",
+        "captures": 656
+      },
+      "2023": {
+        "manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2023/sha256/492f47b11c96fab1ce904689d4f0fcd06dc2d89dd33a238a963871fd7d2ff157/ncaa_team_graph_discovery_manifest.json",
+        "identity": "492f47b11c96fab1ce904689d4f0fcd06dc2d89dd33a238a963871fd7d2ff157",
+        "sha256": "8357a409467cb84738873a5c521874d3966a0e368635707f3e3dee5c0b3a8655",
+        "captures": 654
+      }
+    },
+    "exclusions": "No lake-wide crawl, new download, new GitHub acquisition or unrelated publication route. Parent page and CFBD receipts are read only for the exact bytes they name. 2024/2025 route files are never opened."
+  },
+  "identifier_namespaces": {
+    "NCAA_CONTEST_ID": "parent ncaa_contest_id / contest_key ncaa:<id>",
+    "NCAA_ORG_ID": "parent a_org_id / b_org_id, page_org_id, opponent_logo_org_id",
+    "CFBD_GAME_ID": "parent cfbd_game_ids and CFBD route response id",
+    "CFBD_TEAM_ID": "parent contest-stage a_cfbd_team_id / b_cfbd_team_id (accepted BAT-710 participant bindings) and CFBD route homeId / awayId",
+    "ESPN_EVENT_ID": "repository version rows game_id (id when game_id is null)",
+    "ESPN_TEAM_ID": "repository version rows home_id / away_id",
+    "rule": "An identifier is always recorded with its namespace. Numeric equality across namespaces (ESPN_EVENT_ID vs CFBD_GAME_ID, ESPN_TEAM_ID vs CFBD_TEAM_ID) is a candidate link only; a join needs the corroboration rules below. No name-only, fuzzy or display-name merge; no blanket date tolerance."
+  },
+  "fields": {
+    "order": [
+      "season",
+      "contest_date",
+      "a_participant",
+      "b_participant",
+      "completion",
+      "a_points",
+      "b_points"
+    ],
+    "roles": {
+      "season": "IDENTITY",
+      "contest_date": "IDENTITY",
+      "a_participant": "IDENTITY",
+      "b_participant": "IDENTITY",
+      "completion": "OUTCOME",
+      "a_points": "OUTCOME",
+      "b_points": "OUTCOME"
+    },
+    "target_relation_fields": [
+      "season",
+      "contest_date",
+      "a_participant",
+      "b_participant"
+    ],
+    "contributor_relation_fields": [
+      "season",
+      "contest_date",
+      "a_participant",
+      "b_participant",
+      "completion",
+      "a_points",
+      "b_points"
+    ],
+    "orientation": "Field names are oriented to the parent contest's A/B sides. A source row's home/away or page/opponent columns are mapped to A/B only through participant identity (organization or bound team id), never by position.",
+    "value_rules": {
+      "season": "integer season label (2020 includes spring 2021 under 2020)",
+      "contest_date": "ISO calendar date YYYY-MM-DD in the declared interpretation of the source (NCAA page MM/DD/YYYY local date; CFBD/ESPN UTC instant mapped to its candidate US-local calendar dates by the parent's BAT-710 cfbd_date_basis: the instant shifted by -4 h and by -10 h)",
+      "a_participant/b_participant": "parent organization key org:<NCAA_ORG_ID> resolved from the source identifier: NCAA pages by organization id; CFBD and ESPN rows by equality with the parent's bound CFBD_TEAM_ID for that side",
+      "completion": "COMPLETED when the source states the contest completed (NCAA result letter W/L/T with score; CFBD completed=true; ESPN status_type_completed=true); otherwise the literal status is kept and the value is NOT_COMPLETED",
+      "a_points/b_points": "non-negative integer; integral Float64/decimal-string literals normalize to int; any other literal is MALFORMED and never coerced; null stays null (never 0)"
+    },
+    "corroboration": [
+      "AGREES_WITH_PARENT",
+      "CONFLICTS_WITH_PARENT",
+      "SOURCE_VALUE_NULL",
+      "SOURCE_VALUE_MALFORMED",
+      "NOT_ASSERTED_BY_SOURCE_ROW",
+      "NOT_CORROBORATED_BY_DECLARED_DATE_BASIS"
+    ]
+  },
+  "join": {
+    "parent_lineage": {
+      "NCAA_TEAM_SEASON_PAGE": "page_observations rows of the bound program-season stage whose ncaa_contest_id and season equal the parent contest; each row's page_raw_sha256 binds the page bytes and its capture entry in that season's bound NCAA manifest",
+      "CFBD_ROUTE_RESPONSE": "for every route named in the contest's cfbd_routes, the row of that season's declared route response whose id equals the parent cfbd_game_ids value (SRC-002 -> cfbd_fbs_route, CYCLE30_FCS -> cfbd_fcs_route)",
+      "state": "PARENT_LINEAGE (the accepted parent's own observation); field values are compared with the parent game-grain values but never change them"
+    },
+    "repository_candidate": {
+      "candidate": "ESPN_EVENT_ID numeric value equal to exactly one 2016-2023 parent cfbd_game_ids value (CFBD_GAME_ID)",
+      "corroboration_order": [
+        "SEASON",
+        "PARTICIPANTS",
+        "SITE_ORIENTATION",
+        "COMPLETION",
+        "SCORES",
+        "DATE"
+      ],
+      "SEASON": "integral source season equals the parent season",
+      "PARTICIPANTS": "the unordered pair {home_id, away_id} equals the parent's bound {a_cfbd_team_id, b_cfbd_team_id}, both bound; orientation maps home to the side whose bound id equals home_id",
+      "SITE_ORIENTATION": "when the parent site is HOME_A or HOME_B and the source neutral_site is false, the source home team must be that side; a source neutral_site=true with a stated parent home side is recorded as SITE_DESIGNATION_DIFFERS without conflict (field orientation comes from team identity)",
+      "COMPLETION": "source status_type_completed is true and the parent contest_status is COMPLETED",
+      "SCORES": "oriented integral source scores equal the parent a_points/b_points exactly",
+      "DATE": "the parent contest_date is one of the source start_date instant's candidate US-local dates (-4 h, -10 h); no other tolerance",
+      "states": {
+        "JOINED": "every corroboration holds and the parent key is in the source-time universe; field assertions are emitted",
+        "JOINED_OUTSIDE_UNIVERSE": "every corroboration holds but the parent key is not a target or contributor; recorded, no assertions (no scope expansion)",
+        "AMBIGUOUS_MULTIPLE_PARENT_CANDIDATES": "the event id equals the cfbd id of more than one parent contest",
+        "CONFLICTING": "a candidate exists but a corroboration fails; every failing check is a reason (CONFLICTING_SEASON, CONFLICTING_PARTICIPANT_IDENTITY, CONFLICTING_SITE_ORIENTATION, CONFLICTING_COMPLETION, CONFLICTING_SCORES, DATE_NOT_IN_DECLARED_US_LOCAL_CANDIDATES, PARENT_TEAM_ID_UNBOUND, SOURCE_VALUE_MALFORMED)",
+        "UNJOINED": "no parent candidate (UNJOINED_NO_PARENT_CANDIDATE) or the event id is malformed (UNJOINED_EVENT_ID_MALFORMED)"
+      },
+      "aliases": "only the accepted parent bindings are used; a source team id that differs from the bound id stays CONFLICTING_PARTICIPANT_IDENTITY (no invented current-to-historical alias)"
+    }
+  },
+  "clocks": {
+    "kinds": [
+      "event",
+      "retrieval",
+      "asserted_commit_author",
+      "asserted_commit_committer",
+      "supported_publication",
+      "correction"
+    ],
+    "clock_fields": [
+      "state",
+      "role",
+      "literal",
+      "start_literal",
+      "zone",
+      "precision",
+      "earliest_utc",
+      "latest_utc",
+      "evidence_document",
+      "evidence_pointer",
+      "reason"
+    ],
+    "states": [
+      "PRESENT",
+      "ABSENT",
+      "INVALID",
+      "CONTRADICTORY",
+      "NOT_APPLICABLE"
+    ],
+    "roles": {
+      "EXACT_REQUEST_INTERVAL": "per-request receipt with its own start and completion instants (CFBD FBS route request receipts): earliest=start, latest=completion",
+      "RECORDED_POSSESSION_UPPER_BOUND": "a single recorded retrieval/acquisition instant in the system's own receipt naming these exact bytes (NCAA bound manifest capture retrieved_at_utc, repository capture acquired_at_utc); the system held the bytes no later than it; possibly shared by a batch of captures (receipt_stamp_shared_by)",
+      "CACHE_HIT_POSSESSION_UPPER_BOUND": "a cache-hit record naming these exact bytes (cycle30 ledger CACHE_HIT); the original network retrieval time is not recorded",
+      "SOURCE_ASSERTED": "a time stated inside retrieved source bytes (commit author/committer date, event start)"
+    },
+    "event": "the source's own start/date field: repository start_date, CFBD startDate (startTimeTBD retained as a literal), NCAA page date_text; effective time of the contest, never availability",
+    "retrieval": {
+      "NCAA_TEAM_SEASON_PAGE": "bound manifest captures[].retrieved_at_utc for the capture whose raw_sha256 equals page_raw_sha256 (RECORDED_POSSESSION_UPPER_BOUND)",
+      "CFBD_ROUTE_RESPONSE/SRC-002": "receipt retrieval_started_at_utc .. retrieved_at_utc (EXACT_REQUEST_INTERVAL)",
+      "CFBD_ROUTE_RESPONSE/CYCLE30_FCS": "cycle30 ledger attempt whose raw_sha256 equals the route content hash, status CACHE_HIT, retrieved_at_utc (CACHE_HIT_POSSESSION_UPPER_BOUND)",
+      "REPOSITORY_VERSION": "capture manifest acquired_at_utc (RECORDED_POSSESSION_UPPER_BOUND)"
+    },
+    "asserted_commit": "repository versions only: commit.author.date and commit.committer.date inside the bound commit API response; NOT_APPLICABLE elsewhere; displayed and compared as SOURCE_ASSERTED only",
+    "supported_publication": "ABSENT with reason NO_QUALIFIED_INDEPENDENT_PUBLICATION_EVIDENCE for every capture (no qualified class in this contract)",
+    "correction": "ABSENT with reason SINGLE_RETAINED_REVISION_NO_CORRECTION_OBSERVED unless the same source row is retained in more than one revision; a later revision's clocks never certify an earlier revision and vice versa",
+    "processing": "nonsemantic; recorded only in run-manifest provenance (issued_at_utc), outside every identity",
+    "parsing": {
+      "instant": "YYYY-MM-DDTHH:MM:SS[.fraction](Z|+HH:MM|-HH:MM): precision second/millisecond/microsecond by fraction digits; earliest=latest=the instant",
+      "minute": "YYYY-MM-DDTHH:MM(Z|+HH:MM|-HH:MM): precision minute; interval [t, t+59.999999 s]",
+      "local_date": "MM/DD/YYYY or YYYY-MM-DD without zone (event clocks only): precision date; interval [D 00:00 at -04:00, D 23:59:59.999999 at -10:00] (US local basis)",
+      "naive": "a time-of-day without zone is INVALID (NAIVE_TIMESTAMP_REFUSED); nothing is guessed",
+      "normalized": "UTC 'YYYY-MM-DDTHH:MM:SS.ffffffZ'",
+      "contradictory": "two receipts for the same capture with different instants make the clock CONTRADICTORY; both literals are retained in the capture record and no decision is TRUE/FALSE"
+    }
+  },
+  "cutoff": {
+    "argument": "--cutoff is required for the assertion, contest and contribution grains: an ISO-8601 instant with seconds and an explicit zone (Z or +HH:MM/-HH:MM); a naive or date-only value refuses (CUTOFF_TIMEZONE_REQUIRED), any other malformed value refuses (CUTOFF_INVALID)",
+    "equality": "an observed instant equal to the cutoff is by the cutoff (<=); timezone-equivalent cutoffs give identical decisions",
+    "intervals": "TRUE when the latest instant of the evidence interval is <= cutoff; FALSE only where the rule allows and the earliest instant is > cutoff; otherwise UNKNOWN (precision interval crossing the cutoff)",
+    "scope": "a 2026 cutoff answers what this system held by 2026; it never makes information usable for a 2016-2023 forecast"
+  },
+  "decisions": {
+    "observed_by_cutoff": {
+      "EXACT_REQUEST_INTERVAL": "TRUE if latest <= cutoff (RECEIPT_COMPLETED_AT_OR_BEFORE_CUTOFF); FALSE if earliest > cutoff (REQUEST_STARTED_AFTER_CUTOFF); else UNKNOWN (CUTOFF_WITHIN_REQUEST_INTERVAL)",
+      "RECORDED_POSSESSION_UPPER_BOUND": "TRUE if latest <= cutoff (POSSESSION_RECORDED_AT_OR_BEFORE_CUTOFF); else UNKNOWN (RECORDED_AFTER_CUTOFF_EARLIER_POSSESSION_NOT_EXCLUDED)",
+      "CACHE_HIT_POSSESSION_UPPER_BOUND": "TRUE if latest <= cutoff (CACHE_HIT_RECORDED_AT_OR_BEFORE_CUTOFF); else UNKNOWN (CACHE_HIT_AFTER_CUTOFF_ORIGINAL_RETRIEVAL_UNRECORDED)",
+      "non_present": "ABSENT/INVALID/CONTRADICTORY receipt clock -> UNKNOWN (RECEIPT_ABSENT / RECEIPT_TIME_INVALID / RECEIPT_TIMES_CONTRADICTORY)"
+    },
+    "historically_published_by_cutoff": [
+      "a PRESENT supported_publication clock is never qualified here: the producer refuses one, the query refuses a database carrying one, and the decision function answers UNKNOWN (PUBLICATION_CLAIM_UNQUALIFIED) for any role except the unmistakably synthetic test-only role SYNTHETIC_FIXTURE_QUALIFIED_PUBLICATION_NOT_REAL_EVIDENCE, which exercises the interval mechanism (TRUE if latest <= cutoff, FALSE if earliest > cutoff, else UNKNOWN) in unit tests only and never appears in delivered data",
+      "TRUE when observed_by_cutoff is TRUE (OBSERVED_PUBLIC_SOURCE_BYTES_AT_OR_BEFORE_CUTOFF): bytes this system retrieved from a public route existed by then",
+      "FALSE for an OUTCOME field when the cutoff precedes the earliest instant of the parent contest date anywhere (D 00:00 at +14:00) (OUTCOME_CANNOT_EXIST_BEFORE_EVENT_DATE); identity fields are never FALSE by this rule",
+      "otherwise UNKNOWN (NO_INDEPENDENT_PUBLICATION_EVIDENCE_BEFORE_OWN_OBSERVATION)"
+    ],
+    "asserted_commit_time_by_cutoff": "repository versions: committer clock by the interval rule (TRUE/FALSE/UNKNOWN) labelled SOURCE_ASSERTED_ONLY_NOT_PUBLICATION_EVIDENCE; NOT_APPLICABLE otherwise",
+    "content": "corroboration from the assertion record and the source row's join state",
+    "pit_admission": "always NOT_ADMITTED with reasons [NO_SEPARATE_PIT_ADMISSION_AUTHORITY] plus PUBLICATION_NOT_ESTABLISHED_AT_CUTOFF / CONTENT_NOT_CORROBORATED where they also hold",
+    "contest_field_aggregate": "per field over AGREES_WITH_PARENT assertions: observed TRUE if any TRUE, FALSE if all FALSE, else UNKNOWN; published likewise; NO_CORROBORATING_ASSERTION when none",
+    "contribution_aggregate": "over the relation's required fields: TRUE if every field TRUE, FALSE if any field FALSE, else UNKNOWN; target relations never include outcome fields"
+  },
+  "natural_keys": {
+    "assertion": [
+      "contest_key",
+      "capture_id",
+      "native_row_key",
+      "field",
+      "source_revision"
+    ],
+    "relation": [
+      "relation_type",
+      "target_contest_key",
+      "view",
+      "side",
+      "contributor_contest_key"
+    ],
+    "capture": [
+      "capture_id"
+    ],
+    "lineage_row": [
+      "contest_key",
+      "capture_id",
+      "native_row_key"
+    ],
+    "repository_row": [
+      "capture_id",
+      "native_row_key"
+    ],
+    "partition": [
+      "contest_key"
+    ],
+    "contest": [
+      "contest_key"
+    ],
+    "capture_id_forms": {
+      "NCAA_TEAM_SEASON_PAGE": "ncaa_page:<raw_sha256>",
+      "CFBD_ROUTE_RESPONSE": "cfbd_route:<route>:<season>:<content_sha256>",
+      "REPOSITORY_VERSION": "repo_version:<capture_id>"
+    },
+    "native_row_key_forms": {
+      "NCAA_TEAM_SEASON_PAGE": "page_row:<row_index>",
+      "CFBD_ROUTE_RESPONSE": "cfbd_game_id:<id>",
+      "REPOSITORY_VERSION": "parquet_row:<0-based index>"
+    },
+    "deduplication": "an assertion key appears once; relations referencing the same contributor share its assertions and every relation is retained; duplicate natural keys refuse (DUPLICATE_NATURAL_KEY)"
+  },
+  "payloads": {
+    "schema_version": "BAS-NATIONAL-SOURCE-TIME-PAYLOAD-1",
+    "files": {
+      "partition.jsonl": {
+        "grain": "every parent contest key (15,520)",
+        "order": "season, contest_key"
+      },
+      "contests.jsonl": {
+        "grain": "source-time universe contest",
+        "order": "season, contest_date, contest_key"
+      },
+      "assertions.jsonl": {
+        "grain": "contest x capture x native row x field x revision",
+        "order": "contest order, source kind order, capture_id, native_row_key, field order"
+      },
+      "lineage_rows.jsonl": {
+        "grain": "parent-lineage NCAA page / CFBD route row of a universe contest",
+        "order": "contest order, source kind order, capture_id, native_row_key"
+      },
+      "repository_rows.jsonl": {
+        "grain": "every repository version row (6,024) with its join disposition",
+        "order": "season, parquet row index"
+      },
+      "captures.jsonl": {
+        "grain": "every capture referenced by a lineage or repository row",
+        "order": "source kind order, capture_id"
+      },
+      "relations.jsonl": {
+        "grain": "TARGET_CONTEST relation per view (11,750) and CONTRIBUTOR relation per view/side/contributor (140,792)",
+        "order": "target order (season, target_date, target_contest_key), view, TARGET_CONTEST first, then TEAM then OPPONENT contributors in lineage order"
+      }
+    },
+    "storage": "each payload file is stored as <name>.gz: gzip level 9 with mtime 0 and no file name over the exact canonical JSONL bytes; the content identity binds both the stored .gz bytes (outputs) and the uncompressed canonical bytes (semantic_outputs) with row counts",
+    "source_kind_order": [
+      "NCAA_TEAM_SEASON_PAGE",
+      "CFBD_ROUTE_RESPONSE",
+      "REPOSITORY_VERSION"
+    ],
+    "serialization": {
+      "encoding": "UTF-8 without BOM",
+      "record": "json.dumps(record, sort_keys=True, separators=(',', ':'), ensure_ascii=False)",
+      "newline": "one record per line, LF, final LF, no blank lines",
+      "numbers": "integers only; source literals are strings; any float refuses (FLOAT_IN_PAYLOAD)",
+      "closed_schema": "records carry exactly the fields of their record_type (UNKNOWN_FIELD otherwise)"
+    },
+    "record_fields": {
+      "partition": [
+        "record_type",
+        "contest_key",
+        "season",
+        "history_partition",
+        "source_time_scope",
+        "roles"
+      ],
+      "contest": [
+        "record_type",
+        "contest_key",
+        "ncaa_contest_id",
+        "season",
+        "term",
+        "contest_date",
+        "a_key",
+        "b_key",
+        "a_org_id",
+        "b_org_id",
+        "a_team_name",
+        "b_team_name",
+        "parent_site",
+        "roles",
+        "cfbd_game_id",
+        "a_cfbd_team_id",
+        "b_cfbd_team_id",
+        "source_coverage",
+        "missing_evidence",
+        "assertion_count",
+        "season_scope_state"
+      ],
+      "assertion": [
+        "record_type",
+        "contest_key",
+        "capture_id",
+        "native_row_key",
+        "field",
+        "source_revision",
+        "source_kind",
+        "field_role",
+        "source_column",
+        "literal",
+        "value",
+        "parent_value",
+        "corroboration"
+      ],
+      "lineage_row": [
+        "record_type",
+        "contest_key",
+        "capture_id",
+        "native_row_key",
+        "source_kind",
+        "route",
+        "source_revision",
+        "identifiers",
+        "literals",
+        "event_clock",
+        "join_state",
+        "orientation"
+      ],
+      "repository_row": [
+        "record_type",
+        "capture_id",
+        "native_row_key",
+        "season",
+        "source_revision",
+        "identifiers",
+        "literals",
+        "event_clock",
+        "join_state",
+        "join_reasons",
+        "national_contest_key",
+        "candidate_contest_keys",
+        "orientation",
+        "site_note"
+      ],
+      "capture": [
+        "record_type",
+        "capture_id",
+        "source_kind",
+        "route",
+        "season",
+        "source_uri",
+        "payload_path",
+        "payload_sha256",
+        "source_revision",
+        "byte_binding",
+        "receipt_document",
+        "receipt_document_sha256",
+        "receipt_pointer",
+        "receipt_stamp_shared_by",
+        "time_evidence_class",
+        "clocks"
+      ],
+      "relation": [
+        "record_type",
+        "relation_type",
+        "target_contest_key",
+        "view",
+        "side",
+        "history_team_key",
+        "contributor_contest_key",
+        "season",
+        "target_date",
+        "contributor_date",
+        "required_fields"
+      ],
+      "clock": [
+        "state",
+        "role",
+        "literal",
+        "start_literal",
+        "zone",
+        "precision",
+        "earliest_utc",
+        "latest_utc",
+        "evidence_document",
+        "evidence_pointer",
+        "reason"
+      ],
+      "identifier": [
+        "namespace",
+        "value"
+      ]
+    },
+    "partition_values": {
+      "history_partition": [
+        "TARGET",
+        "EXCLUSION",
+        "OUT_OF_SCOPE"
+      ],
+      "source_time_scope": [
+        "IN_SCOPE",
+        "NOT_REFERENCED_BY_HISTORY_RELATIONS",
+        "KEY_ONLY_PROTECTED_EXPOSED"
+      ]
+    },
+    "time_evidence_classes": [
+      "RECORDED_RETRIEVAL_STAMP_ONLY",
+      "EXACT_REQUEST_RECEIPT_ONLY",
+      "CACHE_HIT_RECEIPT_ONLY",
+      "RECORDED_RETRIEVAL_STAMP_WITH_ASSERTED_COMMIT_TIME",
+      "NO_RECEIPT"
+    ],
+    "missing_evidence_codes": [
+      "REPOSITORY_VERSION_ABSENT_FOR_SEASON",
+      "REPOSITORY_VERSION_ROW_NOT_JOINED",
+      "NCAA_PAGE_ROW_ABSENT",
+      "NCAA_SECOND_MIRROR_ABSENT",
+      "NCAA_CAPTURE_RECEIPT_ABSENT",
+      "CFBD_ROUTE_ROW_ABSENT"
+    ]
+  },
+  "identity_scheme": {
+    "canonical_root": "canonical/national_source_time_2016_2023/sha256/<id>/",
+    "manifest_root": "manifests/national_source_time_2016_2023/sha256/<id>/run_manifest.json",
+    "content_identity": "sha256 of the canonical JSON content identity document {schema, stage: source-time-content, population, contract_id, contract_sha256, parent binding, source_universe_sha256, payload_schema, payload_encoding, semantic_outputs: {payload: sha256 of canonical JSONL}, outputs: {payload.gz: sha256 of stored bytes}, row_counts}",
+    "database_identity": "sha256 of the canonical JSON database identity document {schema, stage: source-time-database, population, contract_sha256, content_identity, parent, db_schema_version, outputs: {national_source_time.sqlite: sha256}, table_counts, record_counts}",
+    "canonical_json": "json.dumps(document, sort_keys=True, separators=(',', ':'), ensure_ascii=False) encoded UTF-8",
+    "nonsemantic_provenance": "issued_at_utc (processing time), argv, tool paths, runtime versions, build variant, input order, chunk size and timings live only in the run manifest provenance",
+    "physical_sqlite": "the database identity binds the exact SQLite bytes; different bytes for the same content are a different database identity in their own directory, never called identical",
+    "create_only": "an existing identity directory with equal bytes is ALREADY_PRESENT_IDENTICAL and not rewritten; any difference refuses (REFUSED_IMMUTABLE_COLLISION)",
+    "contract_change": "a different contract sha256 yields new identities in new directories"
+  },
+  "database": {
+    "file": "national_source_time.sqlite",
+    "schema_version": "BAS-NATIONAL-SOURCE-TIME-DB-1",
+    "document_schema": "BAS-NATIONAL-SOURCE-TIME-DATABASE-1",
+    "tables": [
+      "meta",
+      "partition",
+      "contests",
+      "captures",
+      "repository_rows",
+      "relation_groups"
+    ],
+    "record_homes": {
+      "partition.jsonl": "partition.record",
+      "contests.jsonl": "contests.record",
+      "assertions.jsonl": "contests.assertions (zlib of the contest's exact canonical lines)",
+      "lineage_rows.jsonl": "contests.lineage (zlib of the contest's exact canonical lines)",
+      "repository_rows.jsonl": "repository_rows.record",
+      "captures.jsonl": "captures.record",
+      "relations.jsonl": "relation_groups.relations (zlib of the target's exact canonical lines)"
+    },
+    "rule": "every database record equals its payload line exactly; per-group counts and first ordinals give exact totals and paging; table counts and record counts are bound in the database identity document",
+    "determinism": "page_size 4096, journal_mode OFF, zlib level 9, rows then indexes inserted in payload order into a fresh file with no deletes and no VACUUM"
+  },
+  "build": {
+    "producer": "tools/build_national_source_time.py (standard library plus polars for Parquet reads)",
+    "canonical_command": "tools/build_national_source_time.py --contract configs/national_source_time_2016_2023_contract.json --history-database <bound history sqlite> --population-database <bound population sqlite> --source-bindings <INPUT_BINDINGS.json> --output-root <data>/canonical/national_source_time_2016_2023 --manifest-root <data>/manifests/national_source_time_2016_2023",
+    "variants": [
+      {
+        "id": "REVERSE_INPUT",
+        "args": [
+          "--input-order",
+          "reverse"
+        ]
+      },
+      {
+        "id": "SHUFFLE_INPUT_SEED_17",
+        "args": [
+          "--input-order",
+          "shuffle:17"
+        ]
+      },
+      {
+        "id": "CHUNK_1",
+        "args": [
+          "--chunk-size",
+          "1",
+          "--checkpoint-dir",
+          "<scratch>/ck1"
+        ]
+      },
+      {
+        "id": "CHUNK_17",
+        "args": [
+          "--chunk-size",
+          "17",
+          "--checkpoint-dir",
+          "<scratch>/ck17"
+        ]
+      },
+      {
+        "id": "CHUNK_257",
+        "args": [
+          "--chunk-size",
+          "257",
+          "--checkpoint-dir",
+          "<scratch>/ck257"
+        ]
+      },
+      {
+        "id": "INTERRUPT_RESUME_17",
+        "args": [
+          "--chunk-size",
+          "17",
+          "--checkpoint-dir",
+          "<scratch>/ckr17",
+          "--stop-after-chunks",
+          "100"
+        ],
+        "then": [
+          "--chunk-size",
+          "17",
+          "--checkpoint-dir",
+          "<scratch>/ckr17",
+          "--resume"
+        ]
+      }
+    ],
+    "variant_outputs": "variants write to owned scratch roots; every variant must reproduce the canonical content identity byte for byte; a different physical SQLite identity is reported, never merged",
+    "input_order": "natural, reverse or shuffle:<seed> permutes every parent and source row list before processing; outputs are sorted by natural keys so the order never changes bytes",
+    "checkpoint": {
+      "header": "checkpoint.json binds schema, contract_sha256, both parent identities and SQLite hashes, source universe sha256, payload schema, chunk size, unit key list sha256 and count, census sha256 and producer sha256",
+      "unit": "one source-time universe contest (its contest record, assertions and lineage rows) in contest order",
+      "chunks": "chunks/chunk_<index>.jsonl.gz written with gzip mtime 0; chunk_sha256 is over the uncompressed bytes",
+      "ledger": "checkpoint.ledger.jsonl appends {index, count, first_key, last_key, keys_sha256, chunk_sha256, prefix_sha256 = sha256(previous prefix_sha256 + chunk_sha256)}",
+      "resume": "--resume verifies the header, every ledger line, every chunk file, the expected key slice and the chained prefix; any difference refuses (REFUSED_STALE_CHECKPOINT / REFUSED_ALTERED_PREFIX / REFUSED_FORKED_CHECKPOINT); an existing checkpoint without --resume refuses (CHECKPOINT_EXISTS)",
+      "interruption": "--stop-after-chunks K stops after K completed chunks with exit code 3 (INTERRUPTED_AT_CHECKPOINT) and writes no output root"
+    }
+  },
+  "validator": {
+    "tool": "tools/validate_national_source_time.py (standard library plus duckdb for Parquet reads; imports no producer, query or project helper)",
+    "method": "independently re-verifies every binding, enumerates the target/contributor universe and all 152,542 relations from the history database with its own SQL, rereads every page observation, bound NCAA manifest capture, CFBD route row, cycle30 ledger entry, receipt, repository manifest, commit API response and Parquet row, reconstructs every partition, contest, capture, clock, lineage row, repository join disposition, assertion and relation, compares every key and field, recomputes identities and database tables, recomputes cutoff decisions at probe cutoffs against the installed or source query, samples raw NCAA page bytes per season and runs coordinated tamper and self-challenge cases",
+    "report": "create-only JSON report"
+  },
+  "query_contract": {
+    "console_script": "bas-source-time-query = aggie_analytics.national_source_time.query:main",
+    "module": "aggie_analytics.national_source_time.query (standard library only)",
+    "database_open": "file:...?mode=ro URI; location, database identity document, SQLite bytes, meta/content identity, contract, parent, schema version, table counts and row labels verified at open",
+    "grains": [
+      "assertion",
+      "contest",
+      "contribution",
+      "repository-row",
+      "lineage-row",
+      "capture",
+      "partition"
+    ],
+    "decision_grains": [
+      "assertion",
+      "contest",
+      "contribution"
+    ],
+    "filters": {
+      "season": "integer",
+      "team": "org:<digits> or bare digits",
+      "contest": "ncaa:<digits> or bare digits",
+      "field": "one of fields.order",
+      "evidence_class": "one of payloads.time_evidence_classes",
+      "source_kind": "one of payloads.source_kind_order",
+      "relation_type": "TARGET_CONTEST or CONTRIBUTOR",
+      "join_state": "repository join state"
+    },
+    "paging": "--limit/--offset/--all with exact totals in payload order; negative values, unknown or abbreviated flags and malformed filters refuse with exit 2",
+    "out_of_scope_season": "a season outside 2016-2023 returns season_scope_state NOT_YET_AUDITED with zero rows",
+    "require_pit": "--require-pit always refuses with PIT_ADMISSION_AUTHORITY_ABSENT (exit 2)",
+    "stale": "--expect-identity / --expect-contract that differ refuse (STALE_DATABASE_IDENTITY / STALE_CONTRACT)",
+    "refusals": [
+      "DATABASE_MISSING",
+      "DATABASE_LOCATION_INVALID",
+      "MANIFEST_MISSING",
+      "MANIFEST_MALFORMED",
+      "DATABASE_IDENTITY_MISMATCH",
+      "DATABASE_SCHEMA_UNSUPPORTED",
+      "DATABASE_TAMPERED",
+      "DATABASE_COUNT_MISMATCH",
+      "STALE_DATABASE_IDENTITY",
+      "STALE_CONTRACT",
+      "CUTOFF_REQUIRED",
+      "CUTOFF_TIMEZONE_REQUIRED",
+      "CUTOFF_INVALID",
+      "PIT_ADMISSION_AUTHORITY_ABSENT",
+      "TEAM_KEY_INVALID",
+      "CONTEST_KEY_INVALID",
+      "FIELD_INVALID",
+      "EVIDENCE_CLASS_INVALID",
+      "SOURCE_KIND_INVALID",
+      "RELATION_TYPE_INVALID",
+      "JOIN_STATE_INVALID",
+      "NEGATIVE_OFFSET",
+      "NEGATIVE_LIMIT",
+      "SEASON_INVALID",
+      "FILTER_NOT_APPLICABLE"
+    ]
+  },
+  "non_claims": [
+    "no historical publication or known-at authority; receipts establish only this system's 2026 observation or possession",
+    "no PIT admission, training matrix, model fit, feature adoption or predictive skill (NOT_ESTABLISHED)",
+    "no positive historical-PIT count is required or claimed; a complete negative historical-availability census is a valid result",
+    "no pre-2016, 2024-2025 or 2026 source evidence",
+    "no new acquisition; unreviewed publication routes (archives, provider changelogs, Wayback-style captures) remain future scope",
+    "no scientific trust; holds unchanged; no Jira acceptance",
+    "no champion, A&M lift or Aggie Excess effect"
+  ]
+}
